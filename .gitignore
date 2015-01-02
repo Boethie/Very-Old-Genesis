@@ -1,0 +1,15 @@
+### GRADLE ###
+.gradle/
+build/
+eclipse
+
+### ECLIPSE ###
+.settings/
+bin/
+.classpath
+.project
+
+### INTELLIJ IDEA ###
+*.iml
+*.ipr
+*.iws
