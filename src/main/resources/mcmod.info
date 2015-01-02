@@ -1,0 +1,17 @@
+[
+{
+  "modid": "genesis",
+  "name": "Project Genesis",
+  "description": "WIP! Project Genesis adds a prehistoric dimension, consisting of lush but hostile biomes inhabited by wild creatures and tribes.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://github.com/GenProject/GenProject",
+  "updateUrl": "",
+  "authorList": ["Anaghold"],
+  "credits": "The GenProject team: Anaghold, Zaggy1024, toxicwolf, WThieves, tdriling, kris91268, TheVoid, xLotto22, Sn0w, MrIbby, RafaMv0, rubensworks, SMEZ1234, Ghosrec35",
+  "logoFile": "assets/genesis/textures/gui/logo.png",
+  "screenshots": [],
+  "requiredMods": ["Forge"],
+  "dependencies": ["Forge"]
+}
+]
