@@ -13,3 +13,6 @@ bin/
 *.iml
 *.ipr
 *.iws
+
+### GENESIS ###
+src/api/
