@@ -1,0 +1,26 @@
+#Blocks
+
+#Items
+item.genesis.brownFlintPebble.name=Brownish Flint Pebble
+item.genesis.quartz.name=Quartz
+item.genesis.zircon.name=Zircon
+item.genesis.garnet.name=Garnet
+item.genesis.manganese.name=Manganese
+item.genesis.hematite.name=Hematite
+item.genesis.malachite.name=Malachite
+item.genesis.olivine.name=Olivine
+item.genesis.eryopsLegRaw.name=Raw Eryops Leg
+item.genesis.eryopsLegCooked.name=Cooked Eryops Leg
+
+#Containers
+
+#Entities
+
+#Creative Tabs
+itemGroup.genesis.buildingBlocks=Building Blocks
+itemGroup.genesis.decorations=Decoration Blocks
+itemGroup.genesis.misc=Miscellaneous
+itemGroup.genesis.food=Foodstuffs
+itemGroup.genesis.tools=Tools
+itemGroup.genesis.combat=Combat
+itemGroup.genesis.materials=Materials

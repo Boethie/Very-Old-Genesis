@@ -1,5 +1,5 @@
 package genesis.common;
 
-public class GenesisBiomes {
+public final class GenesisBiomes {
     protected static void loadBiomes() {}
 }

@@ -11,14 +11,18 @@ import org.apache.logging.log4j.Logger;
 @Mod(modid = Constants.MOD_ID, name = Constants.MOD_NAME, version = Constants.MOD_VERSION, dependencies = "required-after:Forge")
 public class Genesis {
     @Mod.Instance(Constants.MOD_ID)
-    public static Genesis instance;
+    private static Genesis instance;
     @SidedProxy(clientSide = Constants.CLIENT_LOCATION, serverSide = Constants.PROXY_LOCATION)
     private static GenesisProxy proxy;
 
     private Logger logger;
 
+    public static Genesis getInstance() {
+        return instance;
+    }
+
     public static Logger getLogger() {
-        return instance.logger;
+        return getInstance().logger;
     }
 
     public static GenesisProxy getProxy() {
@@ -30,6 +34,8 @@ public class Genesis {
         logger = event.getModLog();
 
         GenesisVersion.startVersionCheck();
+        logger.info("Version status: " + GenesisVersion.getStatus().toString());
+
         GenesisConfig.readConfigValues(event.getSuggestedConfigurationFile());
 
         GenesisBlocks.registerBlocks();
