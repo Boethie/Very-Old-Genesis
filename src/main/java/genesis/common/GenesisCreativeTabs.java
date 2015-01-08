@@ -8,7 +8,7 @@ public final class GenesisCreativeTabs {
     public static final CreativeTabs BLOCK = new CreativeTabs(Constants.MOD_ID + ".buildingBlocks") {
         @Override
         public Item getTabIconItem() {
-            return GenesisItems.pebble;//moss
+            return GenesisBlocks.limestone;
         }
     };
 

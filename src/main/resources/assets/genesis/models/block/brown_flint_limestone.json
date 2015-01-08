@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "genesis:blocks/brown_flint_limestone"
+    }
+}

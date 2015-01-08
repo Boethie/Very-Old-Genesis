@@ -1,4 +1,7 @@
 #Blocks
+tile.genesis.limestone.name=Limestone
+tile.genesis.limestoneBrownFlint.name=Brown Flint Limestone
+tile.genesis.oreMarcasite.name=Marcasite Ore
 
 #Items
 item.genesis.pebble.granite.name=Granite Pebble
