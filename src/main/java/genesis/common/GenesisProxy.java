@@ -10,6 +10,10 @@ public class GenesisProxy {
     }
 
     public void registerItem(Item item, String name) {
+        registerItem(item, name, new String[0]);
+    }
+
+    public void registerItem(Item item, String name, String... textureNames) {
         GameRegistry.registerItem(item, name);
     }
 

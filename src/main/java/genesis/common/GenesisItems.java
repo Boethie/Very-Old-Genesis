@@ -2,10 +2,11 @@ package genesis.common;
 
 import genesis.item.ItemGenesis;
 import genesis.item.ItemGenesisFood;
+import genesis.item.ItemGenesisMetadata;
 import net.minecraft.item.Item;
 
 public final class GenesisItems {
-    public static Item brown_flint_pebble;
+    public static Item pebble;
     public static Item quartz;
     public static Item zircon;
     public static Item garnet;
@@ -17,7 +18,7 @@ public final class GenesisItems {
     public static Item cooked_eryops_leg;
 
     protected static void registerItems() {
-        brown_flint_pebble = new ItemGenesis().setUnlocalizedName("brownFlintPebble").setCreativeTab(GenesisCreativeTabs.MATERIALS);
+        pebble = new ItemGenesisMetadata("granite", "rhyolite", "dolerite", "quartzite", "brownFlint").setUnlocalizedName("pebble").setCreativeTab(GenesisCreativeTabs.MATERIALS);
         quartz = new ItemGenesis().setUnlocalizedName("quartz").setCreativeTab(GenesisCreativeTabs.MATERIALS);
         zircon = new ItemGenesis().setUnlocalizedName("zircon").setCreativeTab(GenesisCreativeTabs.MATERIALS);
         garnet = new ItemGenesis().setUnlocalizedName("garnet").setCreativeTab(GenesisCreativeTabs.MATERIALS);
@@ -28,7 +29,7 @@ public final class GenesisItems {
         eryops_leg = new ItemGenesisFood(3, 1.8F).setUnlocalizedName("eryopsLegRaw");
         cooked_eryops_leg = new ItemGenesisFood(8, 12.8F).setUnlocalizedName("eryopsLegCooked");
 
-        Genesis.getProxy().registerItem(brown_flint_pebble, "brown_flint_pebble");
+        Genesis.getProxy().registerItem(pebble, "pebble", "pebble_granite", "pebble_rhyolite", "pebble_dolerite", "pebble_quartzite", "pebble_brown_flint");
         Genesis.getProxy().registerItem(quartz, "quartz");
         Genesis.getProxy().registerItem(zircon, "zircon");
         Genesis.getProxy().registerItem(garnet, "garnet");

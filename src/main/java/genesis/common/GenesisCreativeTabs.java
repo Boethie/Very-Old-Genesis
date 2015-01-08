@@ -8,21 +8,21 @@ public final class GenesisCreativeTabs {
     public static final CreativeTabs BLOCK = new CreativeTabs(Constants.MOD_ID + ".buildingBlocks") {
         @Override
         public Item getTabIconItem() {
-            return GenesisItems.brown_flint_pebble;//moss
+            return GenesisItems.pebble;//moss
         }
     };
 
     public static final CreativeTabs DECORATIONS = new CreativeTabs(Constants.MOD_ID + ".decorations") {
         @Override
         public Item getTabIconItem() {
-            return GenesisItems.brown_flint_pebble;//sigillaria sapling
+            return GenesisItems.pebble;//sigillaria sapling
         }
     };
 
     public static final CreativeTabs MISC = new CreativeTabs(Constants.MOD_ID + ".misc") {
         @Override
         public Item getTabIconItem() {
-            return GenesisItems.brown_flint_pebble;//komatiitic lava bucket
+            return GenesisItems.pebble;//komatiitic lava bucket
         }
     };
 
@@ -36,14 +36,14 @@ public final class GenesisCreativeTabs {
     public static final CreativeTabs TOOLS = new CreativeTabs(Constants.MOD_ID + ".tools") {
         @Override
         public Item getTabIconItem() {
-            return GenesisItems.brown_flint_pebble;//chipped granite axe
+            return GenesisItems.pebble;//chipped granite axe
         }
     };
 
     public static final CreativeTabs COMBAT = new CreativeTabs(Constants.MOD_ID + ".combat") {
         @Override
         public Item getTabIconItem() {
-            return GenesisItems.brown_flint_pebble;//chipped bone spear
+            return GenesisItems.pebble;//chipped bone spear
         }
     };
 

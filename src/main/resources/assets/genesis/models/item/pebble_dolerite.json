@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "genesis:items/brown_flint_pebble"
+        "layer0": "genesis:items/pebble_dolerite"
     },
     "display": {
         "thirdperson": {
