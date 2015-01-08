@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 
 public final class GenesisItems {
     public static Item pebble;
+    public static Item nodule;
     public static Item quartz;
     public static Item zircon;
     public static Item garnet;
@@ -19,6 +20,7 @@ public final class GenesisItems {
 
     protected static void registerItems() {
         pebble = new ItemGenesisMetadata("granite", "rhyolite", "dolerite", "quartzite", "brownFlint").setUnlocalizedName("pebble").setCreativeTab(GenesisCreativeTabs.MATERIALS);
+        nodule = new ItemGenesisMetadata("brownFlint", "marcasite").setUnlocalizedName("nodule").setCreativeTab(GenesisCreativeTabs.MATERIALS);
         quartz = new ItemGenesis().setUnlocalizedName("quartz").setCreativeTab(GenesisCreativeTabs.MATERIALS);
         zircon = new ItemGenesis().setUnlocalizedName("zircon").setCreativeTab(GenesisCreativeTabs.MATERIALS);
         garnet = new ItemGenesis().setUnlocalizedName("garnet").setCreativeTab(GenesisCreativeTabs.MATERIALS);
@@ -30,6 +32,7 @@ public final class GenesisItems {
         cooked_eryops_leg = new ItemGenesisFood(8, 12.8F).setUnlocalizedName("eryopsLegCooked");
 
         Genesis.getProxy().registerItem(pebble, "pebble", "pebble_granite", "pebble_rhyolite", "pebble_dolerite", "pebble_quartzite", "pebble_brown_flint");
+        Genesis.getProxy().registerItem(nodule, "nodule", "nodule_brown_flint", "nodule_marcasite");
         Genesis.getProxy().registerItem(quartz, "quartz");
         Genesis.getProxy().registerItem(zircon, "zircon");
         Genesis.getProxy().registerItem(garnet, "garnet");
