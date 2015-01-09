@@ -1,7 +1,5 @@
 package genesis.item;
 
-import genesis.common.IMetadata;
-
 public enum EnumNodule implements IMetadata {
     BROWN_FLINT("brown_flint", "brownFlint"),
     MARCASITE("marcasite", "marcasite");

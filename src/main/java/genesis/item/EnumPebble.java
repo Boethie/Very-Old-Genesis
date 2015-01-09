@@ -1,7 +1,5 @@
 package genesis.item;
 
-import genesis.common.IMetadata;
-
 public enum EnumPebble implements IMetadata {
     GRANITE("granite", "granite"),
     RHYOLITE("rhyolite", "rhyolite"),
