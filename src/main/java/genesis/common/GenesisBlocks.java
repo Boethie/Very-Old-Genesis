@@ -12,13 +12,9 @@ public final class GenesisBlocks {
     public static Block marcasite_ore;
 
     protected static void registerBlocks() {
-        ItemStack stack;
-
         limestone = new BlockGenesisRock().setUnlocalizedName("limestone").setHardness(0.75F).setResistance(8.5F);
-        stack = new ItemStack(GenesisItems.nodule, 1, EnumNodule.BROWN_FLINT.getMetadata());
-        brown_flint_limestone = new BlockGenesisOre(stack).setUnlocalizedName("limestoneBrownFlint").setHardness(1.5F).setResistance(4.25F);
-        stack = new ItemStack(GenesisItems.nodule, 1, EnumNodule.MARCASITE.getMetadata());
-        marcasite_ore = new BlockGenesisOre(stack).setUnlocalizedName("oreMarcasite").setHardness(1.5F).setResistance(4.25F);
+        brown_flint_limestone = new BlockGenesisOre(new ItemStack(GenesisItems.nodule, 1, EnumNodule.BROWN_FLINT.getMetadata())).setUnlocalizedName("limestoneBrownFlint").setHardness(1.5F).setResistance(4.25F);
+        marcasite_ore = new BlockGenesisOre(new ItemStack(GenesisItems.nodule, 1, EnumNodule.MARCASITE.getMetadata())).setUnlocalizedName("oreMarcasite").setHardness(1.5F).setResistance(4.25F);
 
         Genesis.getProxy().registerBlock(limestone, "limestone");
         Genesis.getProxy().registerBlock(brown_flint_limestone, "brown_flint_limestone");

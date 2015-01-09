@@ -1,0 +1,8 @@
+{
+  "fire.ignite": {
+    "category": "block",
+    "sounds": [
+      "fire/ignite"
+    ]
+  }
+}

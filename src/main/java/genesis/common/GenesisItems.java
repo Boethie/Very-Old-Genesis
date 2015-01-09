@@ -15,6 +15,7 @@ public final class GenesisItems {
     public static Item olivine;
     public static Item eryops_leg;
     public static Item cooked_eryops_leg;
+    public static Item flint_and_marcasite;
 
     protected static void registerItems() {
         pebble = new ItemGenesisMetadata(EnumPebble.values()).setUnlocalizedName("pebble").setCreativeTab(GenesisCreativeTabs.MATERIALS);
@@ -28,6 +29,7 @@ public final class GenesisItems {
         olivine = new ItemGenesis().setUnlocalizedName("olivine").setCreativeTab(GenesisCreativeTabs.MATERIALS);
         eryops_leg = new ItemGenesisFood(2, 0.8F).setUnlocalizedName("eryopsLegRaw");
         cooked_eryops_leg = new ItemGenesisFood(5, 6.0F).setUnlocalizedName("eryopsLegCooked");
+        flint_and_marcasite = new ItemFlintAndMarcasite().setUnlocalizedName("flintAndMarcasite");
 
         Genesis.getProxy().registerItem(pebble, "pebble");
         Genesis.getProxy().registerItem(nodule, "nodule");
@@ -40,5 +42,6 @@ public final class GenesisItems {
         Genesis.getProxy().registerItem(olivine, "olivine");
         Genesis.getProxy().registerItem(eryops_leg, "eryops_leg");
         Genesis.getProxy().registerItem(cooked_eryops_leg, "cooked_eryops_leg");
+        Genesis.getProxy().registerItem(flint_and_marcasite, "flint_and_marcasite");
     }
 }

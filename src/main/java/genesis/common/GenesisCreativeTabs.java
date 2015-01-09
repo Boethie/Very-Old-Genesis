@@ -8,7 +8,7 @@ public final class GenesisCreativeTabs {
     public static final CreativeTabs BLOCK = new CreativeTabs(Constants.MOD_ID + ".buildingBlocks") {
         @Override
         public Item getTabIconItem() {
-            return Item.getItemFromBlock(GenesisBlocks.limestone);
+            return Item.getItemFromBlock(GenesisBlocks.limestone);//moss?
         }
     };
 
@@ -36,7 +36,7 @@ public final class GenesisCreativeTabs {
     public static final CreativeTabs TOOLS = new CreativeTabs(Constants.MOD_ID + ".tools") {
         @Override
         public Item getTabIconItem() {
-            return GenesisItems.pebble;//chipped granite axe
+            return GenesisItems.flint_and_marcasite;//chipped granite axe
         }
     };
 
