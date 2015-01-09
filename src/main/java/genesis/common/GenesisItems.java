@@ -1,8 +1,6 @@
 package genesis.common;
 
-import genesis.item.ItemGenesis;
-import genesis.item.ItemGenesisFood;
-import genesis.item.ItemGenesisMetadata;
+import genesis.item.*;
 import net.minecraft.item.Item;
 
 public final class GenesisItems {
@@ -19,8 +17,8 @@ public final class GenesisItems {
     public static Item cooked_eryops_leg;
 
     protected static void registerItems() {
-        pebble = new ItemGenesisMetadata("granite", "rhyolite", "dolerite", "quartzite", "brownFlint").setUnlocalizedName("pebble").setCreativeTab(GenesisCreativeTabs.MATERIALS);
-        nodule = new ItemGenesisMetadata("brownFlint", "marcasite").setUnlocalizedName("nodule").setCreativeTab(GenesisCreativeTabs.MATERIALS);
+        pebble = new ItemGenesisMetadata(EnumPebble.values()).setUnlocalizedName("pebble").setCreativeTab(GenesisCreativeTabs.MATERIALS);
+        nodule = new ItemGenesisMetadata(EnumNodule.values()).setUnlocalizedName("nodule").setCreativeTab(GenesisCreativeTabs.MATERIALS);
         quartz = new ItemGenesis().setUnlocalizedName("quartz").setCreativeTab(GenesisCreativeTabs.MATERIALS);
         zircon = new ItemGenesis().setUnlocalizedName("zircon").setCreativeTab(GenesisCreativeTabs.MATERIALS);
         garnet = new ItemGenesis().setUnlocalizedName("garnet").setCreativeTab(GenesisCreativeTabs.MATERIALS);
@@ -28,11 +26,11 @@ public final class GenesisItems {
         hematite = new ItemGenesis().setUnlocalizedName("hematite").setCreativeTab(GenesisCreativeTabs.MATERIALS);
         malachite = new ItemGenesis().setUnlocalizedName("malachite").setCreativeTab(GenesisCreativeTabs.MATERIALS);
         olivine = new ItemGenesis().setUnlocalizedName("olivine").setCreativeTab(GenesisCreativeTabs.MATERIALS);
-        eryops_leg = new ItemGenesisFood(3, 1.8F).setUnlocalizedName("eryopsLegRaw");
-        cooked_eryops_leg = new ItemGenesisFood(8, 12.8F).setUnlocalizedName("eryopsLegCooked");
+        eryops_leg = new ItemGenesisFood(2, 0.8F).setUnlocalizedName("eryopsLegRaw");
+        cooked_eryops_leg = new ItemGenesisFood(5, 6.0F).setUnlocalizedName("eryopsLegCooked");
 
-        Genesis.getProxy().registerItem(pebble, "pebble", "pebble_granite", "pebble_rhyolite", "pebble_dolerite", "pebble_quartzite", "pebble_brown_flint");
-        Genesis.getProxy().registerItem(nodule, "nodule", "nodule_brown_flint", "nodule_marcasite");
+        Genesis.getProxy().registerItem(pebble, "pebble");
+        Genesis.getProxy().registerItem(nodule, "nodule");
         Genesis.getProxy().registerItem(quartz, "quartz");
         Genesis.getProxy().registerItem(zircon, "zircon");
         Genesis.getProxy().registerItem(garnet, "garnet");

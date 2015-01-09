@@ -1,6 +1,7 @@
 package genesis.client;
 
 import genesis.common.GenesisProxy;
+import genesis.item.ItemGenesisMetadata;
 import genesis.util.Constants;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -22,13 +23,17 @@ public class GenesisClient extends GenesisProxy {
     }
 
     @Override
-    public void registerItem(Item item, String name, String... textureNames) {
-        super.registerItem(item, name, textureNames);
+    public void registerItem(Item item, String name) {
+        super.registerItem(item, name);
 
-        if (textureNames.length > 0) {
+        if (item instanceof ItemGenesisMetadata) {
+            String[] textureNames = ((ItemGenesisMetadata) item).getNames();
+
             for (int metadata = 0; metadata < textureNames.length; metadata++) {
-                ModelBakery.addVariantName(item, Constants.MOD_ID + ":" + textureNames[metadata]);
-                registerModel(item, metadata, textureNames[metadata]);
+                String textureName = name + "_" + textureNames[metadata];
+
+                ModelBakery.addVariantName(item, Constants.MOD_ID + ":" + textureName);
+                registerModel(item, metadata, textureName);
             }
         } else {
             registerModel(item, 0, name);

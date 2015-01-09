@@ -34,8 +34,6 @@ public class Genesis {
         logger = event.getModLog();
 
         GenesisVersion.startVersionCheck();
-        logger.info("Version status: " + GenesisVersion.getStatus().toString());
-
         GenesisConfig.readConfigValues(event.getSuggestedConfigurationFile());
 
         GenesisBlocks.registerBlocks();
@@ -47,7 +45,7 @@ public class Genesis {
 
         registerEntities();
 
-        proxy.preInit();
+        getProxy().preInit();
     }
 
     @Mod.EventHandler
@@ -56,12 +54,14 @@ public class Genesis {
 
         registerHandlers();
 
-        proxy.init();
+        getProxy().init();
     }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        proxy.postInit();
+        getProxy().postInit();
+
+        getLogger().info("Version status: " + GenesisVersion.getStatus().toString());
     }
 
     private void registerTileEntities() {}
