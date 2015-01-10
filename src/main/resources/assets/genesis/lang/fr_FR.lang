@@ -1,0 +1,36 @@
+#Blocks
+tile.genesis.limestone.name=Calcaire
+tile.genesis.limestoneBrownFlint.name=Accident de silex brun
+tile.genesis.oreMarcasite.name=Minerai de marcassite
+
+#Items
+item.genesis.pebble.granite.name=Galet de granite
+item.genesis.pebble.rhyolite.name=Galet de rhyolite
+item.genesis.pebble.dolerite.name=Galet de dolérite
+item.genesis.pebble.quartzite.name=Galet de quartzite
+item.genesis.pebble.brownFlint.name=Galet de silex brun
+item.genesis.nodule.brownFlint.name=Rognon de silex brun
+item.genesis.nodule.marcasite.name=Rognon de marcassite
+item.genesis.quartz.name=Quartz
+item.genesis.zircon.name=Zircon
+item.genesis.garnet.name=Grenat
+item.genesis.manganese.name=Manganèse
+item.genesis.hematite.name=Hématite
+item.genesis.malachite.name=Malachite
+item.genesis.olivine.name=Olivine
+item.genesis.eryopsLegRaw.name=Cuisse d'Eryops crue
+item.genesis.eryopsLegCooked.name=Cuisse d'Eryops cuite
+item.genesis.flintAndMarcasite.name=Silex et marcassite
+
+#Containers
+
+#Entities
+
+#Creative Tabs
+itemGroup.genesis.buildingBlocks=Blocs de construction Genesis
+itemGroup.genesis.decorations=Blocs décoratifs Genesis
+itemGroup.genesis.misc=Divers Genesis
+itemGroup.genesis.food=Nourriture Genesis
+itemGroup.genesis.tools=Outils Genesis
+itemGroup.genesis.combat=Combat Genesis
+itemGroup.genesis.materials=Matières premières Genesis
