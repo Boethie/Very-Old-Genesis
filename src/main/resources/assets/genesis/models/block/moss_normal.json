@@ -1,0 +1,10 @@
+{
+    "parent": "genesis:block/moss",
+    "textures": {
+        "particle": "blocks/dirt",
+        "bottom": "blocks/dirt",
+        "top": "genesis:blocks/moss_top",
+        "side": "genesis:blocks/moss_side",
+        "overlay": "genesis:blocks/moss_side_overlay"
+    }
+}

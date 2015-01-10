@@ -1,0 +1,9 @@
+{
+    "parent": "block/cube_bottom_top",
+    "textures": {
+        "particle": "blocks/dirt",
+        "bottom": "blocks/dirt",
+        "top": "genesis:blocks/moss_top",
+        "side": "genesis:blocks/moss_side_snowed"
+    }
+}

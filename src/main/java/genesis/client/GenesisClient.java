@@ -1,5 +1,6 @@
 package genesis.client;
 
+import genesis.common.GenesisBlocks;
 import genesis.common.GenesisProxy;
 import genesis.item.ItemGenesisMetadata;
 import genesis.util.Constants;
@@ -50,6 +51,8 @@ public class GenesisClient extends GenesisProxy {
             registerModel(texture.item, texture.metadata, texture.name);
             iterator.remove();
         }
+
+        registerModel(Item.getItemFromBlock(GenesisBlocks.moss), 0, "moss");
     }
 
     private void registerModel(Block block, int metadata, String textureName) {

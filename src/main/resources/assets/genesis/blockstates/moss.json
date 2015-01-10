@@ -1,0 +1,11 @@
+{
+    "variants": {
+        "snowy=false": [
+            { "model": "genesis:moss_normal" },
+            { "model": "genesis:moss_normal", "y": 90 },
+            { "model": "genesis:moss_normal", "y": 180 },
+            { "model": "genesis:moss_normal", "y": 270 }
+        ],
+        "snowy=true":  { "model": "genesis:moss_snowed" }
+    }
+}
