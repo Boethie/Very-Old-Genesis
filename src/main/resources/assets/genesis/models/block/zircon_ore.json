@@ -1,6 +1,6 @@
 {
     "parent": "block/cube_all",
     "textures": {
-        "all": "genesis:blocks/malachite_granite_ore"
+        "all": "genesis:blocks/zircon_ore"
     }
 }

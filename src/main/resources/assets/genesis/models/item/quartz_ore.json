@@ -1,5 +1,5 @@
 {
-    "parent": "genesis:block/brown_flint_limestone",
+    "parent": "genesis:block/quartz_ore",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

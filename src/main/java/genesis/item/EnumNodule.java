@@ -1,5 +1,8 @@
 package genesis.item;
 
+import genesis.common.GenesisItems;
+import net.minecraft.item.ItemStack;
+
 public enum EnumNodule implements IMetadata {
     BROWN_FLINT("brown_flint", "brownFlint"),
     MARCASITE("marcasite", "marcasite");
@@ -25,5 +28,10 @@ public enum EnumNodule implements IMetadata {
     @Override
     public int getMetadata() {
         return ordinal();
+    }
+
+    @Override
+    public ItemStack createStack(int amount) {
+        return new ItemStack(GenesisItems.nodule, amount, getMetadata());
     }
 }

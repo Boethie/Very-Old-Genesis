@@ -30,10 +30,12 @@ public class BlockMoss extends BlockGrass {
     }
 
     @Override
-    public boolean canSustainPlant(IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable){
+    public boolean canSustainPlant(IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
         switch (plantable.getPlantType(world, pos.up())) {
-            case Plains: return true;
-            case Beach: return hasWater(world, pos.east()) || hasWater(world, pos.west()) || hasWater(world, pos.north()) || hasWater(world, pos.south());
+            case Plains:
+                return true;
+            case Beach:
+                return hasWater(world, pos.east()) || hasWater(world, pos.west()) || hasWater(world, pos.north()) || hasWater(world, pos.south());
         }
 
         return super.canSustainPlant(world, pos, direction, plantable);

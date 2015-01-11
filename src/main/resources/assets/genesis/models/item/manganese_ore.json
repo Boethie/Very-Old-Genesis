@@ -1,5 +1,5 @@
 {
-    "parent": "genesis:block/quartz_granite_ore",
+    "parent": "genesis:block/manganese_ore",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "normal": { "model": "genesis:malachite_ore" }
+    }
+}

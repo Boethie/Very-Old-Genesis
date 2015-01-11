@@ -69,9 +69,12 @@ public class Genesis {
         getLogger().info("Version status: " + GenesisVersion.getStatus().toString());
     }
 
-    private void registerTileEntities() {}
+    private void registerTileEntities() {
+    }
 
-    private void registerEntities() {}
+    private void registerEntities() {
+    }
 
-    private void registerHandlers() {}
+    private void registerHandlers() {
+    }
 }

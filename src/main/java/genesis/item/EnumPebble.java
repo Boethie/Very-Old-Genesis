@@ -1,5 +1,8 @@
 package genesis.item;
 
+import genesis.common.GenesisItems;
+import net.minecraft.item.ItemStack;
+
 public enum EnumPebble implements IMetadata {
     GRANITE("granite", "granite"),
     RHYOLITE("rhyolite", "rhyolite"),
@@ -28,5 +31,10 @@ public enum EnumPebble implements IMetadata {
     @Override
     public int getMetadata() {
         return ordinal();
+    }
+
+    @Override
+    public ItemStack createStack(int amount) {
+        return new ItemStack(GenesisItems.pebble, amount, getMetadata());
     }
 }

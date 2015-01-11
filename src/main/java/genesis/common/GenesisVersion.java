@@ -42,7 +42,7 @@ public final class GenesisVersion {
                     con.close();
 
                     Map<String, Object> json = new Gson().fromJson(data, Map.class);
-                    homepage = (String)json.get("homepage");
+                    homepage = (String) json.get("homepage");
                     Map<String, String> promos = (Map<String, String>) json.get("versions");
 
                     String lat = promos.get(MinecraftForge.MC_VERSION);

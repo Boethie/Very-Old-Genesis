@@ -1,5 +1,5 @@
 {
-    "parent": "genesis:block/malachite_granite_ore",
+    "parent": "genesis:block/brown_flint_ore",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

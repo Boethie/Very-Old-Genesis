@@ -13,9 +13,12 @@ public class GenesisProxy {
         GameRegistry.registerItem(item, name);
     }
 
-    protected void preInit() {}
+    protected void preInit() {
+    }
 
-    protected void init() {}
+    protected void init() {
+    }
 
-    protected void postInit() {}
+    protected void postInit() {
+    }
 }

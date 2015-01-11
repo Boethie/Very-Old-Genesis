@@ -1,5 +1,5 @@
 {
-    "parent": "genesis:block/zircon_granite_ore",
+    "parent": "genesis:block/garnet_ore",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

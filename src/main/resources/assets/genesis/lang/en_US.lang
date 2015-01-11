@@ -11,15 +11,15 @@ tile.genesis.gneiss.name=Gneiss
 tile.genesis.quartzite.name=Quartzite
 tile.genesis.limestone.name=Limestone
 tile.genesis.shale.name=Shale
-tile.genesis.limestoneBrownFlint.name=Brown Flint Inclusion
+tile.genesis.oreBrownFlint.name=Brown Flint Inclusion
 tile.genesis.oreMarcasite.name=Marcasite Ore
-tile.genesis.oreGraniteQuartz.name=Quartz Ore
-tile.genesis.oreGraniteZircon.name=Zircon Ore
-tile.genesis.oreGraniteGarnet.name=Garnet Ore
-tile.genesis.oreGraniteManganese.name=Manganese Ore
-tile.genesis.oreGraniteHematite.name=Hematite Ore
-tile.genesis.oreGraniteMalachite.name=Malachite Ore
-tile.genesis.oreGraniteOlivine.name=Olivine Ore
+tile.genesis.oreQuartz.name=Quartz Ore
+tile.genesis.oreZircon.name=Zircon Ore
+tile.genesis.oreGarnet.name=Garnet Ore
+tile.genesis.oreManganese.name=Manganese Ore
+tile.genesis.oreHematite.name=Hematite Ore
+tile.genesis.oreMalachite.name=Malachite Ore
+tile.genesis.oreOlivine.name=Olivine Ore
 
 #Items
 item.genesis.pebble.granite.name=Granite Pebble
