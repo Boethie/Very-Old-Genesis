@@ -1,5 +1,16 @@
 #Blocks
+tile.genesis.moss.name=Mousse
+tile.genesis.granite.name=Granite
+tile.genesis.mossyGranite.name=Granite moussu
+tile.genesis.rhyolite.name=Rhyolite
+tile.genesis.dolerite.name=Dolérite
+tile.genesis.komatiite.name=Komatiite
+tile.genesis.trondhjemite.name=Trondhjémite
+tile.genesis.fauxAmphibolite.name=Faux-amphibolite
+tile.genesis.gneiss.name=Gneiss
+tile.genesis.quartzite.name=Quartzite
 tile.genesis.limestone.name=Calcaire
+tile.genesis.shale.name=Schiste argileux
 tile.genesis.limestoneBrownFlint.name=Accident de silex brun
 tile.genesis.oreMarcasite.name=Minerai de marcassite
 

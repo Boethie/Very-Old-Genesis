@@ -1,5 +1,16 @@
 #Blocks
+tile.genesis.moss.name=Moss
+tile.genesis.granite.name=Granite
+tile.genesis.mossyGranite.name=Mossy Granite
+tile.genesis.rhyolite.name=Rhyolite
+tile.genesis.dolerite.name=Dolerite
+tile.genesis.komatiite.name=Komatiite
+tile.genesis.trondhjemite.name=Trondhjemite
+tile.genesis.fauxAmphibolite.name=Faux-Amphibolite
+tile.genesis.gneiss.name=Gneiss
+tile.genesis.quartzite.name=Quartzite
 tile.genesis.limestone.name=Limestone
+tile.genesis.shale.name=Shale
 tile.genesis.limestoneBrownFlint.name=Brown Flint Limestone
 tile.genesis.oreMarcasite.name=Marcasite Ore
 
