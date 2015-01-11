@@ -51,7 +51,7 @@ public final class GenesisBlocks {
             limestone = new BlockGenesisRock().setUnlocalizedName("limestone").setHardness(0.75F).setResistance(8.7F);
             shale = new BlockGenesisRock().setUnlocalizedName("shale").setHardness(0.75F).setResistance(8.7F);
 
-            marcasite_ore = new BlockGenesisOre(1).setUnlocalizedName("oreGraniteMarcasite").setHardness(1.5F).setResistance(4.25F);
+            marcasite_ore = new BlockGenesisOre(1).setUnlocalizedName("oreMarcasite").setHardness(1.5F).setResistance(4.25F);
             quartz_granite_ore = new BlockGenesisOre(1).setUnlocalizedName("oreGraniteQuartz").setHardness(1.5F).setResistance(4.25F);
             zircon_granite_ore = new BlockGenesisOre(2).setUnlocalizedName("oreGraniteZircon").setHardness(1.5F).setResistance(4.25F);
             garnet_granite_ore = new BlockGenesisOre(2).setUnlocalizedName("oreGraniteGarnet").setHardness(1.5F).setResistance(4.25F);
