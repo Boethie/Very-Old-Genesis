@@ -13,26 +13,31 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import java.util.Iterator;
 import java.util.Random;
 
 public class BlockGenesisOre extends BlockOre {
     private final int minExp;
     private final int maxExp;
+    private final int harvLevel;
     /* drop.stackSize is minQuantity */
     private ItemStack drop;
     private int maxQuantity = 0;
 
     public BlockGenesisOre() {
-        this(0);
+        this(0, 1);
     }
 
-    public BlockGenesisOre(int maxExp) {
-        this(0, maxExp);
+    public BlockGenesisOre(int maxExp, int harvLevel) {
+        this(0, maxExp, harvLevel);
     }
 
-    public BlockGenesisOre(int minExp, int maxExp) {
+    public BlockGenesisOre(int minExp, int maxExp, int harvLevel) {
         this.minExp = minExp;
         this.maxExp = maxExp;
+        /* Workaround for lack of fluent chaining with setHarvestLevel() */
+        this.harvLevel = harvLevel;
+        this.setHarvestLevel("pickaxe", harvLevel);
         setCreativeTab(GenesisCreativeTabs.BLOCK);
     }
 

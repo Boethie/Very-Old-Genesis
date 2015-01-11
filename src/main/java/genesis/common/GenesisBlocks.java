@@ -6,6 +6,7 @@ import genesis.block.BlockMoss;
 import genesis.item.EnumNodule;
 import genesis.item.ItemBlockMoss;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -25,7 +26,6 @@ public final class GenesisBlocks {
     public static Block gneiss;
     public static Block quartzite;
     public static Block shale;
-    public static Block marcasite_ore;
     public static Block quartz_granite_ore;
     public static Block zircon_granite_ore;
     public static Block garnet_granite_ore;
@@ -34,6 +34,7 @@ public final class GenesisBlocks {
     public static Block malachite_granite_ore;
     public static Block olivine_granite_ore;
     public static Block brown_flint_limestone;
+    public static Block marcasite_ore;
 
     protected static void registerBlocks() {
         if (!hasPreInit) {
@@ -51,15 +52,16 @@ public final class GenesisBlocks {
             limestone = new BlockGenesisRock().setUnlocalizedName("limestone").setHardness(0.75F).setResistance(8.7F);
             shale = new BlockGenesisRock().setUnlocalizedName("shale").setHardness(0.75F).setResistance(8.7F);
 
-            marcasite_ore = new BlockGenesisOre(1).setUnlocalizedName("oreMarcasite").setHardness(1.5F).setResistance(4.25F);
-            quartz_granite_ore = new BlockGenesisOre(1).setUnlocalizedName("oreGraniteQuartz").setHardness(1.5F).setResistance(4.25F);
-            zircon_granite_ore = new BlockGenesisOre(2).setUnlocalizedName("oreGraniteZircon").setHardness(1.5F).setResistance(4.25F);
-            garnet_granite_ore = new BlockGenesisOre(2).setUnlocalizedName("oreGraniteGarnet").setHardness(1.5F).setResistance(4.25F);
-            manganese_granite_ore = new BlockGenesisOre(1).setUnlocalizedName("oreGraniteManganese").setHardness(1.5F).setResistance(4.25F);
-            hematite_granite_ore = new BlockGenesisOre(1).setUnlocalizedName("oreGraniteHematite").setHardness(1.5F).setResistance(4.25F);
-            malachite_granite_ore = new BlockGenesisOre(2).setUnlocalizedName("oreGraniteMalachite").setHardness(1.5F).setResistance(4.25F);
-            olivine_granite_ore = new BlockGenesisOre(5).setUnlocalizedName("oreGraniteOlivine").setHardness(1.5F).setResistance(4.25F);
-            brown_flint_limestone = new BlockGenesisOre(1).setUnlocalizedName("limestoneBrownFlint").setHardness(1.5F).setResistance(4.25F);
+
+            quartz_granite_ore = new BlockGenesisOre(1, 1).setUnlocalizedName("oreGraniteQuartz").setHardness(1.5F).setResistance(4.25F);
+            zircon_granite_ore = new BlockGenesisOre(2, 1).setUnlocalizedName("oreGraniteZircon").setHardness(1.5F).setResistance(4.25F);
+            garnet_granite_ore = new BlockGenesisOre(2, 1).setUnlocalizedName("oreGraniteGarnet").setHardness(1.5F).setResistance(4.25F);
+            manganese_granite_ore = new BlockGenesisOre(1, 1).setUnlocalizedName("oreGraniteManganese").setHardness(1.5F).setResistance(4.25F);
+            hematite_granite_ore = new BlockGenesisOre(1, 1).setUnlocalizedName("oreGraniteHematite").setHardness(1.5F).setResistance(4.25F);
+            malachite_granite_ore = new BlockGenesisOre(2, 1).setUnlocalizedName("oreGraniteMalachite").setHardness(1.5F).setResistance(4.25F);
+            olivine_granite_ore = new BlockGenesisOre(5, 1).setUnlocalizedName("oreGraniteOlivine").setHardness(1.5F).setResistance(4.25F);
+            brown_flint_limestone = new BlockGenesisOre(1, 1).setUnlocalizedName("limestoneBrownFlint").setHardness(1.5F).setResistance(4.25F);
+            marcasite_ore = new BlockGenesisOre(1, 1).setUnlocalizedName("oreMarcasite").setHardness(1.5F).setResistance(4.25F);
 
             GameRegistry.registerBlock(moss, ItemBlockMoss.class, "moss");
 
@@ -75,7 +77,6 @@ public final class GenesisBlocks {
             Genesis.getProxy().registerBlock(limestone, "limestone");
             Genesis.getProxy().registerBlock(shale, "shale");
 
-            Genesis.getProxy().registerBlock(marcasite_ore, "marcasite_ore");
             Genesis.getProxy().registerBlock(quartz_granite_ore, "quartz_granite_ore");
             Genesis.getProxy().registerBlock(zircon_granite_ore, "zircon_granite_ore");
             Genesis.getProxy().registerBlock(garnet_granite_ore, "garnet_granite_ore");
@@ -84,11 +85,11 @@ public final class GenesisBlocks {
             Genesis.getProxy().registerBlock(malachite_granite_ore, "malachite_granite_ore");
             Genesis.getProxy().registerBlock(olivine_granite_ore, "olivine_granite_ore");
             Genesis.getProxy().registerBlock(brown_flint_limestone, "brown_flint_limestone");
+            Genesis.getProxy().registerBlock(marcasite_ore, "marcasite_ore");
 
             hasPreInit = true;
         } else {
             // This is done after items are initialized, which prevents null items
-            setDrop(marcasite_ore, new ItemStack(GenesisItems.nodule, 1, EnumNodule.MARCASITE.getMetadata()));
             setDrop(quartz_granite_ore, new ItemStack(GenesisItems.quartz, 1));
             setDrop(zircon_granite_ore, new ItemStack(GenesisItems.zircon, 1));
             setDrop(garnet_granite_ore, new ItemStack(GenesisItems.garnet, 1));
@@ -97,6 +98,7 @@ public final class GenesisBlocks {
             setDrop(malachite_granite_ore, new ItemStack(GenesisItems.malachite));
             setDrop(olivine_granite_ore, new ItemStack(GenesisItems.olivine));
             setDrop(brown_flint_limestone, new ItemStack(GenesisItems.nodule, 1, EnumNodule.BROWN_FLINT.getMetadata()));
+            setDrop(marcasite_ore, new ItemStack(GenesisItems.nodule, 1, EnumNodule.MARCASITE.getMetadata()));
         }
     }
 
