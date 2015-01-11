@@ -13,6 +13,13 @@ tile.genesis.limestone.name=Limestone
 tile.genesis.shale.name=Shale
 tile.genesis.limestoneBrownFlint.name=Brown Flint Inclusion
 tile.genesis.oreMarcasite.name=Marcasite Ore
+tile.genesis.oreGraniteQuartz.name=Quartz Ore
+tile.genesis.oreGraniteZircon.name=Zircon Ore
+tile.genesis.oreGraniteGarnet.name=Garnet Ore
+tile.genesis.oreGraniteManganese.name=Manganese Ore
+tile.genesis.oreGraniteHematite.name=Hematite Ore
+tile.genesis.oreGraniteMalachite.name=Malachite Ore
+tile.genesis.oreGraniteOlivine.name=Olivine Ore
 
 #Items
 item.genesis.pebble.granite.name=Granite Pebble

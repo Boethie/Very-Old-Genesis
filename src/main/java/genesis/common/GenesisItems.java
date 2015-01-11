@@ -19,6 +19,7 @@ public final class GenesisItems {
     public static Item eryops_leg;
     public static Item cooked_eryops_leg;
     public static Item flint_and_marcasite;
+    public static Item toolheads;
 
     protected static void registerItems() {
         pebble = new ItemGenesisMetadata(EnumPebble.values()).setUnlocalizedName("pebble");

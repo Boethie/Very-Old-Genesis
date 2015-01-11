@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "normal": { "model": "genesis:zircon_granite_ore" }
+    }
+}
