@@ -36,7 +36,7 @@ public final class GenesisBlocks {
 
     protected static void registerBlocks() {
         if (!hasPreInit) {
-            moss = new BlockMoss().setHardness(0.6F).setStepSound(Block.soundTypeGrass).setUnlocalizedName("moss");
+            moss = new BlockMoss().setHardness(0.6F).setStepSound(GenesisSounds.MOSS).setUnlocalizedName("moss");
 
             /* Rocks */
             granite = new BlockGenesisRock().setUnlocalizedName("granite").setHardness(2.1F).setResistance(10.0F);

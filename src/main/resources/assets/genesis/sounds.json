@@ -4,5 +4,23 @@
     "sounds": [
       "fire/ignite"
     ]
+  },
+  "dig.moss": {
+    "category": "block",
+    "sounds": [
+      "dig/moss1",
+      "dig/moss2",
+      "dig/moss3",
+      "dig/moss4"
+    ]
+  },
+  "step.moss": {
+    "category": "neutral",
+    "sounds": [
+      "step/moss1",
+      "step/moss2",
+      "step/moss3",
+      "step/moss4"
+    ]
   }
 }
