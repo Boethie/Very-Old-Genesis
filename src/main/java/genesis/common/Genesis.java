@@ -1,6 +1,7 @@
 package genesis.common;
 
 import genesis.util.Constants;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -15,23 +16,11 @@ public class Genesis {
     public static final Random random = new Random();
 
     @Mod.Instance(Constants.MOD_ID)
-    private static Genesis instance;
+    public static Genesis instance;
     @SidedProxy(clientSide = Constants.CLIENT_LOCATION, serverSide = Constants.PROXY_LOCATION)
-    private static GenesisProxy proxy;
+    public static GenesisProxy proxy;
 
-    private Logger logger;
-
-    public static Genesis getInstance() {
-        return instance;
-    }
-
-    public static Logger getLogger() {
-        return getInstance().logger;
-    }
-
-    public static GenesisProxy getProxy() {
-        return proxy;
-    }
+    public static Logger logger;
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -50,7 +39,7 @@ public class Genesis {
 
         registerEntities();
 
-        getProxy().preInit();
+        proxy.preInit();
     }
 
     @Mod.EventHandler
@@ -59,14 +48,14 @@ public class Genesis {
 
         registerHandlers();
 
-        getProxy().init();
+        proxy.init();
     }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        getProxy().postInit();
+        proxy.postInit();
 
-        getLogger().info("Version status: " + GenesisVersion.getStatus().toString());
+        logger.info("Version status: " + GenesisVersion.status.toString());
     }
 
     private void registerTileEntities() {
@@ -76,5 +65,6 @@ public class Genesis {
     }
 
     private void registerHandlers() {
+        MinecraftForge.EVENT_BUS.register(new GenesisEventHandler());
     }
 }

@@ -15,21 +15,9 @@ import java.util.Map;
 import static net.minecraftforge.common.ForgeVersion.Status.*;
 
 public final class GenesisVersion {
-    private static ForgeVersion.Status status = PENDING;
-    private static String target = null;
-    private static String homepage = null;
-
-    public static ForgeVersion.Status getStatus() {
-        return status;
-    }
-
-    public static String getTarget() {
-        return target;
-    }
-
-    public static String getHomepage() {
-        return homepage;
-    }
+    public static ForgeVersion.Status status = PENDING;
+    public static String target = null;
+    public static String homepage = null;
 
     protected static void startVersionCheck() {
         new Thread(Constants.MOD_NAME + " Version Check") {
