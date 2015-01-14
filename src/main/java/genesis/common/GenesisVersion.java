@@ -19,7 +19,7 @@ public final class GenesisVersion {
     public static String target = null;
     public static String homepage = null;
 
-    protected static void startVersionCheck() {
+    public static void startVersionCheck() {
         new Thread(Constants.MOD_NAME + " Version Check") {
             @Override
             public void run() {

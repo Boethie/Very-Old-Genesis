@@ -1,5 +1,6 @@
-package genesis.common;
+package genesis;
 
+import genesis.common.*;
 import genesis.util.Constants;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;

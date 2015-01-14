@@ -11,17 +11,17 @@ public class ItemGenesisMetadata extends ItemGenesis {
     private final String[] names;
     private final String[] unlocalizedNames;
 
-    public ItemGenesisMetadata(IMetadata[] metadatas) {
+    public ItemGenesisMetadata(IMetadataItem[] metadataItems) {
         super();
         setHasSubtypes(true);
         setMaxDamage(0);
 
-        names = new String[metadatas.length];
-        unlocalizedNames = new String[metadatas.length];
+        names = new String[metadataItems.length];
+        unlocalizedNames = new String[metadataItems.length];
 
-        for (int metadata = 0; metadata < metadatas.length; metadata++) {
-            names[metadata] = metadatas[metadata].getName();
-            unlocalizedNames[metadata] = metadatas[metadata].getUnlocalizedName();
+        for (int metadata = 0; metadata < metadataItems.length; metadata++) {
+            names[metadata] = metadataItems[metadata].getName();
+            unlocalizedNames[metadata] = metadataItems[metadata].getUnlocalizedName();
         }
     }
 

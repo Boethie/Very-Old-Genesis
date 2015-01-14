@@ -3,7 +3,7 @@ package genesis.item;
 import genesis.common.GenesisItems;
 import net.minecraft.item.ItemStack;
 
-public enum EnumNodule implements IMetadata {
+public enum EnumNodule implements IMetadataItem {
     BROWN_FLINT("brown_flint", "brownFlint"),
     MARCASITE("marcasite", "marcasite");
 

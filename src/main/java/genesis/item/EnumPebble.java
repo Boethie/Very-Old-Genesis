@@ -3,7 +3,7 @@ package genesis.item;
 import genesis.common.GenesisItems;
 import net.minecraft.item.ItemStack;
 
-public enum EnumPebble implements IMetadata {
+public enum EnumPebble implements IMetadataItem {
     GRANITE("granite", "granite"),
     RHYOLITE("rhyolite", "rhyolite"),
     DOLERITE("dolerite", "dolerite"),

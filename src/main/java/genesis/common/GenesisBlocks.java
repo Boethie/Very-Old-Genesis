@@ -1,5 +1,6 @@
 package genesis.common;
 
+import genesis.Genesis;
 import genesis.block.BlockGenesisOre;
 import genesis.block.BlockGenesisRock;
 import genesis.block.BlockMoss;
@@ -41,7 +42,7 @@ public final class GenesisBlocks {
     public static final Block brown_flint_ore = new BlockGenesisOre(0, 1, 0).setUnlocalizedName(Constants.MOD_ID + ".oreBrownFlint").setHardness(1.5F).setResistance(4.35F);
     public static final Block marcasite_ore = new BlockGenesisOre(0, 1, 0).setUnlocalizedName(Constants.MOD_ID + ".oreMarcasite").setHardness(1.5F).setResistance(4.35F);
 
-    protected static void registerBlocks() {
+    public static void registerBlocks() {
         if (!hasPreInit) {
             // Special registration, must manually register in GenesisClient
             GameRegistry.registerBlock(moss, ItemBlockMoss.class, "moss");
@@ -82,14 +83,29 @@ public final class GenesisBlocks {
         }
     }
 
+    /**
+     * Set the block's harvest drop
+     * @param block Harvested block
+     * @param blockDrop Block dropped
+     */
     public static void setDrop(Block block, Block blockDrop) {
         setDrop(block, new ItemStack(blockDrop));
     }
 
+    /**
+     * Set the block's harvest drop
+     * @param block Harvested block
+     * @param itemDrop Item dropped
+     */
     public static void setDrop(Block block, Item itemDrop) {
         setDrop(block, new ItemStack(itemDrop));
     }
 
+    /**
+     * Set the block's harvest drop
+     * @param block Harvested block
+     * @param stack ItemStack dropped
+     */
     private static void setDrop(Block block, ItemStack stack) {
         if (block instanceof BlockGenesisOre) {
             ((BlockGenesisOre) block).setDrop(stack);

@@ -8,7 +8,7 @@ public final class GenesisConfig {
     public static Configuration config;
     public static int flintAndMarcasiteMaxDamage = 33;
 
-    protected static void readConfigValues(File configFile) {
+    public static void readConfigValues(File configFile) {
         config = new Configuration(configFile);
         config.load();
         config.get("tool", "flintAndMarcasiteMaxDamage", flintAndMarcasiteMaxDamage).getInt();

@@ -1,8 +1,7 @@
 package genesis.block;
 
-import genesis.common.Genesis;
+import genesis.Genesis;
 import genesis.common.GenesisCreativeTabs;
-import genesis.util.Constants;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.state.IBlockState;

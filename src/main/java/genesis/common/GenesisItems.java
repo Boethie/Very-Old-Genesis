@@ -1,5 +1,6 @@
 package genesis.common;
 
+import genesis.Genesis;
 import genesis.item.*;
 import genesis.util.Constants;
 import net.minecraft.item.Item;
@@ -21,7 +22,7 @@ public final class GenesisItems {
     public static final Item cooked_eryops_leg = new ItemGenesisFood(5, 6.0F).setUnlocalizedName(Constants.MOD_ID + ".eryopsLegCooked");
     public static final Item flint_and_marcasite = new ItemFlintAndMarcasite().setUnlocalizedName(Constants.MOD_ID + ".flintAndMarcasite");
 
-    protected static void registerItems() {
+    public static void registerItems() {
         Genesis.proxy.registerItem(pebble, "pebble");
         Genesis.proxy.registerItem(nodule, "nodule");
         Genesis.proxy.registerItem(quartz, "quartz");

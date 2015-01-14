@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public final class GenesisRecipes {
-    protected static void addRecipes() {
+    public static void addRecipes() {
         GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite), EnumNodule.MARCASITE.createStack(1), EnumPebble.BROWN_FLINT.createStack(1));
         GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite), EnumNodule.MARCASITE.createStack(1), EnumNodule.BROWN_FLINT.createStack(1));
         GameRegistry.addSmelting(GenesisBlocks.quartz_ore, new ItemStack(GenesisItems.quartz), 0.05F);
