@@ -24,11 +24,6 @@ public class ItemGenesisFood extends ItemFood {
         setCreativeTab(GenesisCreativeTabs.FOOD);
     }
 
-    @Override
-    public Item setUnlocalizedName(String unlocalizedName) {
-        return super.setUnlocalizedName(Constants.setUnlocalizedName(unlocalizedName));
-    }
-
     /**
      * Adds a potion effect to the food. Can have multiple potion effects per food
      *

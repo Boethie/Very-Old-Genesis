@@ -37,11 +37,6 @@ public class BlockGenesisOre extends BlockOre {
     }
 
     @Override
-    public Block setUnlocalizedName(String unlocalizedName) {
-        return super.setUnlocalizedName(Constants.setUnlocalizedName(unlocalizedName));
-    }
-
-    @Override
     public int getExpDrop(IBlockAccess world, BlockPos pos, int fortune) {
         return MathHelper.getRandomIntegerInRange(world instanceof World ? ((World) world).rand : Genesis.random, getMinExp(), getMaxExp());
     }

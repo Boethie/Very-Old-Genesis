@@ -8,9 +8,4 @@ public class ItemGenesis extends Item {
     public ItemGenesis() {
         setCreativeTab(GenesisCreativeTabs.MATERIALS);
     }
-
-    @Override
-    public Item setUnlocalizedName(String unlocalizedName) {
-        return super.setUnlocalizedName(Constants.setUnlocalizedName(unlocalizedName));
-    }
 }

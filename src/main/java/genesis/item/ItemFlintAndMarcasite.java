@@ -20,11 +20,6 @@ public class ItemFlintAndMarcasite extends ItemFlintAndSteel {
     }
 
     @Override
-    public Item setUnlocalizedName(String unlocalizedName) {
-        return super.setUnlocalizedName(Constants.setUnlocalizedName(unlocalizedName));
-    }
-
-    @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
         pos = pos.offset(side);
 

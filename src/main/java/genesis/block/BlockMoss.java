@@ -25,11 +25,6 @@ public class BlockMoss extends BlockGrass {
     }
 
     @Override
-    public Block setUnlocalizedName(String unlocalizedName) {
-        return super.setUnlocalizedName(Constants.setUnlocalizedName(unlocalizedName));
-    }
-
-    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, SNOWY);
     }

@@ -10,9 +10,4 @@ public class BlockGenesis extends Block {
         super(material);
         setCreativeTab(GenesisCreativeTabs.BLOCK);
     }
-
-    @Override
-    public Block setUnlocalizedName(String unlocalizedName) {
-        return super.setUnlocalizedName(Constants.setUnlocalizedName(unlocalizedName));
-    }
 }
