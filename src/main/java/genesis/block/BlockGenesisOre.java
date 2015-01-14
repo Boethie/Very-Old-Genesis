@@ -20,12 +20,8 @@ public class BlockGenesisOre extends BlockOre {
     private ItemStack drop; // drop.stackSize is minQuantity
     private int maxQuantity = 0;
 
-    public BlockGenesisOre(int maxExp) {
-        this(0, maxExp);
-    }
-
-    public BlockGenesisOre(int minExp, int maxExp) {
-        this(minExp, maxExp, 1);
+    public BlockGenesisOre(int maxExp, int harvestLevel) {
+        this(0, maxExp, harvestLevel);
     }
 
     public BlockGenesisOre(int minExp, int maxExp, int harvestLevel) {

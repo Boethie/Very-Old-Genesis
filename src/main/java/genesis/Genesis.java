@@ -32,7 +32,6 @@ public class Genesis {
 
         GenesisBlocks.registerBlocks();
         GenesisItems.registerItems();
-        GenesisBlocks.registerBlocks();
 
         registerTileEntities();
 
