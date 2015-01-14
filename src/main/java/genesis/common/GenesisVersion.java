@@ -22,7 +22,7 @@ public final class GenesisVersion {
 
     /**
      * Check latest mod version for the current Minecraft version
-     * 
+     *
      * @see net.minecraftforge.common.ForgeVersion#startVersionCheck()
      */
     public static void startVersionCheck() {
@@ -47,10 +47,12 @@ public final class GenesisVersion {
                         if (currentVersion.compareTo(new DefaultArtifactVersion(lat)) < 0) {
                             status = OUTDATED;
                             target = lat;
-                        } else
+                        } else {
                             status = UP_TO_DATE;
-                    } else
+                        }
+                    } else {
                         status = BETA;
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                     status = FAILED;
