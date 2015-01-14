@@ -1,5 +1,6 @@
 package genesis.block;
 
+import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.util.Constants;
 import net.minecraft.block.Block;
@@ -25,11 +26,6 @@ public class BlockMoss extends BlockGrass {
     }
 
     @Override
-    protected BlockState createBlockState() {
-        return new BlockState(this, SNOWY);
-    }
-
-    @Override
     public boolean canSustainPlant(IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
         switch (plantable.getPlantType(world, pos.up())) {
             case Cave:
@@ -50,7 +46,7 @@ public class BlockMoss extends BlockGrass {
     @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (!worldIn.isRemote) {
-            if (worldIn.getLightFromNeighbors(pos.up()) > 0 || worldIn.getBlockState(pos.up()).getBlock().getLightOpacity(worldIn, pos.up()) > 2) {
+            if (worldIn.getLightFromNeighbors(pos.up()) < 4 && worldIn.getBlockState(pos.up()).getBlock().getLightOpacity(worldIn, pos.up()) > 2) {
                 worldIn.setBlockState(pos, Blocks.dirt.getDefaultState());
             } else if (worldIn.getLightFromNeighbors(pos.up()) < 13) {
                 for (int i = 0; i < 4; ++i) {
@@ -58,8 +54,8 @@ public class BlockMoss extends BlockGrass {
                     Block block = worldIn.getBlockState(pos1.up()).getBlock();
                     IBlockState state1 = worldIn.getBlockState(pos1);
 
-                    if (state1.getBlock() == Blocks.dirt && state1.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT && worldIn.getLightFromNeighbors(pos1.up()) < 18 && block.getLightOpacity(worldIn, pos1.up()) <= 2) {
-                        worldIn.setBlockState(pos1, Blocks.grass.getDefaultState());
+                    if (state1.getBlock() == Blocks.dirt && state1.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT && worldIn.getLightFromNeighbors(pos1.up()) < 8 && block.getLightOpacity(worldIn, pos1.up()) <= 2) {
+                        worldIn.setBlockState(pos1, GenesisBlocks.moss.getDefaultState());
                     }
                 }
             }
