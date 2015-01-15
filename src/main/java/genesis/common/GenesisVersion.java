@@ -2,6 +2,7 @@ package genesis.common;
 
 import com.google.common.io.ByteStreams;
 import com.google.gson.Gson;
+import genesis.Genesis;
 import genesis.util.Constants;
 import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.common.MinecraftForge;
@@ -56,6 +57,8 @@ public final class GenesisVersion extends ForgeVersion {
                     status = Status.FAILED;
                 } finally {
                     IOUtils.closeQuietly(con);
+
+                    Genesis.logger.info("Version status: " + status.toString());
                 }
             }
         }.start();

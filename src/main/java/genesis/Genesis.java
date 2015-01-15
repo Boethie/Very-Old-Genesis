@@ -54,8 +54,6 @@ public class Genesis {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         proxy.postInit();
-
-        logger.info("Version status: " + GenesisVersion.status.toString());
     }
 
     private void registerTileEntities() {
