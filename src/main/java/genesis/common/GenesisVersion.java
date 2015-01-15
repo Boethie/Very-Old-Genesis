@@ -13,17 +13,15 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Map;
 
-import static net.minecraftforge.common.ForgeVersion.Status.*;
-
-public final class GenesisVersion {
-    public static ForgeVersion.Status status = PENDING;
+public final class GenesisVersion extends ForgeVersion {
+    public static Status status = Status.PENDING;
     public static String target = null;
     public static String homepage = null;
 
     /**
      * Check latest mod version for the current Minecraft version
      *
-     * @see net.minecraftforge.common.ForgeVersion#startVersionCheck()
+     * @see ForgeVersion#startVersionCheck()
      */
     public static void startVersionCheck() {
         new Thread(Constants.MOD_NAME + " Version Check") {
@@ -45,17 +43,17 @@ public final class GenesisVersion {
 
                     if (lat != null) {
                         if (currentVersion.compareTo(new DefaultArtifactVersion(lat)) < 0) {
-                            status = OUTDATED;
+                            status = Status.OUTDATED;
                             target = lat;
                         } else {
-                            status = UP_TO_DATE;
+                            status = Status.UP_TO_DATE;
                         }
                     } else {
-                        status = BETA;
+                        status = Status.BETA;
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    status = FAILED;
+                    status = Status.FAILED;
                 } finally {
                     IOUtils.closeQuietly(con);
                 }
