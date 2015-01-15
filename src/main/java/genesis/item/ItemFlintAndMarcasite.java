@@ -5,7 +5,6 @@ import genesis.common.GenesisCreativeTabs;
 import genesis.util.Constants;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemFlintAndSteel;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;

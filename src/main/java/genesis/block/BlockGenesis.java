@@ -1,7 +1,6 @@
 package genesis.block;
 
 import genesis.common.GenesisCreativeTabs;
-import genesis.util.Constants;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 

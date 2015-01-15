@@ -8,8 +8,6 @@ import genesis.item.EnumNodule;
 import genesis.item.ItemBlockMoss;
 import genesis.util.Constants;
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public final class GenesisBlocks {
