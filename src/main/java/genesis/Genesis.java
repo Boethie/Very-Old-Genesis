@@ -2,7 +2,6 @@ package genesis;
 
 import genesis.common.*;
 import genesis.util.Constants;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -63,6 +62,5 @@ public class Genesis {
     }
 
     private void registerHandlers() {
-        MinecraftForge.EVENT_BUS.register(new GenesisEventHandler());
     }
 }
