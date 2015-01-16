@@ -33,7 +33,7 @@ public class GenesisClient extends GenesisProxy {
             for (int metadata = 0; metadata < textureNames.length; metadata++) {
                 String textureName = name + "_" + textureNames[metadata];
 
-                ModelBakery.addVariantName(item, Constants.MOD_ID + ":" + textureName);
+                ModelBakery.addVariantName(item, Constants.ASSETS + textureName);
                 registerModel(item, metadata, textureName);
             }
         } else {
@@ -63,7 +63,7 @@ public class GenesisClient extends GenesisProxy {
         if (!hasInit) {
             itemTextures.add(new ItemTexture(item, metadata, textureName));
         } else {
-            Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, metadata, new ModelResourceLocation(Constants.MOD_ID + ":" + textureName, "inventory"));
+            Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, metadata, new ModelResourceLocation(Constants.ASSETS + textureName, "inventory"));
         }
     }
 

@@ -13,12 +13,12 @@ public final class GenesisSounds {
 
         @Override
         public String getBreakSound() {
-            return Constants.MOD_ID + ":" + super.getBreakSound();
+            return Constants.ASSETS + super.getBreakSound();
         }
 
         @Override
         public String getStepSound() {
-            return Constants.MOD_ID + ":" + super.getStepSound();
+            return Constants.ASSETS + super.getStepSound();
         }
     }
 }
