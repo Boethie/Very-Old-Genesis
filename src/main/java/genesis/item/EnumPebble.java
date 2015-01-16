@@ -4,14 +4,18 @@ import genesis.common.GenesisItems;
 import net.minecraft.item.ItemStack;
 
 public enum EnumPebble implements IMetadata {
-    GRANITE("granite", "granite"),
-    RHYOLITE("rhyolite", "rhyolite"),
-    DOLERITE("dolerite", "dolerite"),
-    QUARTZITE("quartzite", "quartzite"),
+    GRANITE("granite"),
+    RHYOLITE("rhyolite"),
+    DOLERITE("dolerite"),
+    QUARTZITE("quartzite"),
     BROWN_FLINT("brown_flint", "brownFlint");
 
     private final String name;
     private final String unlocalizedName;
+
+    EnumPebble(String name) {
+        this(name, name);
+    }
 
     EnumPebble(String name, String unlocalizedName) {
         this.name = name;

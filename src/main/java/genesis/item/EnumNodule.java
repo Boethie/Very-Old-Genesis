@@ -5,10 +5,14 @@ import net.minecraft.item.ItemStack;
 
 public enum EnumNodule implements IMetadata {
     BROWN_FLINT("brown_flint", "brownFlint"),
-    MARCASITE("marcasite", "marcasite");
+    MARCASITE("marcasite");
 
     private final String name;
     private final String unlocalizedName;
+
+    EnumNodule(String name) {
+        this(name, name);
+    }
 
     EnumNodule(String name, String unlocalizedName) {
         this.name = name;
