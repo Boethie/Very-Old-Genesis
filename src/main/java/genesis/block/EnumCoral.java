@@ -1,16 +1,17 @@
-package genesis.item;
+package genesis.block;
 
-import genesis.common.GenesisItems;
+import genesis.item.IMetadata;
 import net.minecraft.item.ItemStack;
 
-public enum EnumNodule implements IMetadata {
-    BROWN_FLINT("brown_flint", "brownFlint"),
-    MARCASITE("marcasite", "marcasite");
+public enum EnumCoral implements IMetadata {
+    FAVOSITES("favosites", "favosites"),
+    HELIOLITES("heliolites", "heliolites"),
+    HALYSITES("halysites", "halysites");
 
     private final String name;
     private final String unlocalizedName;
 
-    EnumNodule(String name, String unlocalizedName) {
+    EnumCoral(String name, String unlocalizedName) {
         this.name = name;
         this.unlocalizedName = unlocalizedName;
     }
@@ -27,6 +28,6 @@ public enum EnumNodule implements IMetadata {
 
     @Override
     public ItemStack createStack(int amount) {
-        return new ItemStack(GenesisItems.nodule, amount, ordinal());
+        return null;//new ItemStack(GenesisBlocks.coral, amount, ordinal());
     }
 }
