@@ -6,7 +6,7 @@ import genesis.block.BlockGenesisRock;
 import genesis.block.BlockMoss;
 import genesis.block.BlockOctaedrite;
 import genesis.item.EnumNodule;
-import genesis.item.ItemBlockMoss;
+import genesis.item.ItemBlockColored;
 import genesis.util.Constants;
 import net.minecraft.block.Block;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -43,7 +43,7 @@ public final class GenesisBlocks {
 
     public static void registerBlocks() {
         // Special registration, must manually register in GenesisClient
-        GameRegistry.registerBlock(moss, ItemBlockMoss.class, "moss");
+        GameRegistry.registerBlock(moss, ItemBlockColored.class, "moss", false);
 
         Genesis.proxy.registerBlock(granite, "granite");
         Genesis.proxy.registerBlock(mossy_granite, "mossy_granite");

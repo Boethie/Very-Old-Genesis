@@ -45,8 +45,9 @@ public class ItemGenesisFood extends ItemFood {
         if (!world.isRemote) {
             for (Map.Entry<Float, PotionEffect> entry : effects.entrySet()) {
                 if (entry.getValue().getPotionID() > 0 && world.rand.nextFloat() < entry.getKey()) {
+                    // Defensive copying
                     PotionEffect effect = entry.getValue();
-                    player.addPotionEffect(new PotionEffect(effect.getPotionID(), effect.getDuration(), effect.getAmplifier())); // defensive copying
+                    player.addPotionEffect(new PotionEffect(effect.getPotionID(), effect.getDuration(), effect.getAmplifier()));
                 }
             }
         }
