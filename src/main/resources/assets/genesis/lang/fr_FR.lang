@@ -12,6 +12,7 @@ tile.genesis.quartzite.name=Quartzite
 tile.genesis.limestone.name=Calcaire
 tile.genesis.shale.name=Schiste argileux
 tile.genesis.octaedrite.name=Octaédrite
+tile.genesis.permafrost.name=Pergélisol
 tile.genesis.oreBrownFlint.name=Accident de silex brun
 tile.genesis.oreMarcasite.name=Minerai de marcassite
 tile.genesis.oreQuartz.name=Minerai de quartz
