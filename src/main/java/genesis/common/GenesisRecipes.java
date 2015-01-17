@@ -18,5 +18,7 @@ public final class GenesisRecipes {
         GameRegistry.addSmelting(GenesisBlocks.olivine_ore, new ItemStack(GenesisItems.olivine), 0.3F);
         GameRegistry.addSmelting(GenesisBlocks.brown_flint_ore, EnumNodule.BROWN_FLINT.createStack(1), 0.05F);
         GameRegistry.addSmelting(GenesisBlocks.marcasite_ore, EnumNodule.MARCASITE.createStack(1), 0.05F);
+        GameRegistry.addSmelting(GenesisItems.aphthoroblattina, new ItemStack(GenesisItems.cooked_aphthoroblattina), 0.35F);
+        GameRegistry.addSmelting(GenesisItems.eryops_leg, new ItemStack(GenesisItems.cooked_eryops_leg), 0.35F);
     }
 }
