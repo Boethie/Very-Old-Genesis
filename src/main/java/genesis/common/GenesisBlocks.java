@@ -15,18 +15,18 @@ public final class GenesisBlocks {
     public static final Block moss = new BlockMoss().setHardness(0.6F).setStepSound(GenesisSounds.MOSS).setUnlocalizedName(Constants.PREFIX + "moss");
 
     /* Rocks */
-    public static final Block granite = new BlockGenesisRock().setUnlocalizedName(Constants.PREFIX + "granite").setHardness(2.1F).setResistance(10.0F);
-    public static final Block mossy_granite = new BlockGenesisRock().setUnlocalizedName(Constants.PREFIX + "mossyGranite").setHardness(2.1F).setResistance(10.0F);
-    public static final Block rhyolite = new BlockGenesisRock().setUnlocalizedName(Constants.PREFIX + "rhyolite").setHardness(1.65F).setResistance(10.0F);
-    public static final Block dolerite = new BlockGenesisRock().setUnlocalizedName(Constants.PREFIX + "dolerite").setHardness(1.2F).setResistance(10.0F);
-    public static final Block komatiite = new BlockGenesisRock().setUnlocalizedName(Constants.PREFIX + "komatiite").setHardness(1.95F).setResistance(10.0F);
-    public static final Block trondhjemite = new BlockGenesisRock().setUnlocalizedName(Constants.PREFIX + "trondhjemite").setHardness(1.5F).setResistance(10.0F);
-    public static final Block faux_amphibolite = new BlockGenesisRock().setUnlocalizedName(Constants.PREFIX + "fauxAmphibolite").setHardness(1.5F).setResistance(10.0F);
-    public static final Block gneiss = new BlockGenesisRock().setUnlocalizedName(Constants.PREFIX + "gneiss").setHardness(1.65F).setResistance(10.0F);
-    public static final Block quartzite = new BlockGenesisRock().setUnlocalizedName(Constants.PREFIX + "quartzite").setHardness(1.95F).setResistance(10.0F);
-    public static final Block limestone = new BlockGenesisRock().setUnlocalizedName(Constants.PREFIX + "limestone").setHardness(0.75F).setResistance(8.7F);
-    public static final Block shale = new BlockGenesisRock().setUnlocalizedName(Constants.PREFIX + "shale").setHardness(0.75F).setResistance(8.7F);
-    public static final Block octaedrite = new BlockOctaedrite().setUnlocalizedName(Constants.PREFIX + "octaedrite").setHardness(1.0F).setResistance(10.0F);
+    public static final Block granite = new BlockGenesisRock().setUnlocalizedName("granite").setHardness(2.1F).setResistance(10.0F);
+    public static final Block mossy_granite = new BlockGenesisRock().setUnlocalizedName("mossyGranite").setHardness(2.1F).setResistance(10.0F);
+    public static final Block rhyolite = new BlockGenesisRock().setUnlocalizedName("rhyolite").setHardness(1.65F).setResistance(10.0F);
+    public static final Block dolerite = new BlockGenesisRock().setUnlocalizedName("dolerite").setHardness(1.2F).setResistance(10.0F);
+    public static final Block komatiite = new BlockGenesisRock().setUnlocalizedName("komatiite").setHardness(1.95F).setResistance(10.0F);
+    public static final Block trondhjemite = new BlockGenesisRock().setUnlocalizedName("trondhjemite").setHardness(1.5F).setResistance(10.0F);
+    public static final Block faux_amphibolite = new BlockGenesisRock().setUnlocalizedName("fauxAmphibolite").setHardness(1.5F).setResistance(10.0F);
+    public static final Block gneiss = new BlockGenesisRock().setUnlocalizedName("gneiss").setHardness(1.65F).setResistance(10.0F);
+    public static final Block quartzite = new BlockGenesisRock().setUnlocalizedName("quartzite").setHardness(1.95F).setResistance(10.0F);
+    public static final Block limestone = new BlockGenesisRock().setUnlocalizedName("limestone").setHardness(0.75F).setResistance(8.7F);
+    public static final Block shale = new BlockGenesisRock().setUnlocalizedName("shale").setHardness(0.75F).setResistance(8.7F);
+    public static final Block octaedrite = new BlockOctaedrite().setUnlocalizedName("octaedrite").setHardness(1.0F).setResistance(10.0F);
 
     /* Granite Ores */
     public static final Block quartz_ore = new BlockGenesisOre(1, 1).setDrop(GenesisItems.quartz).setUnlocalizedName(Constants.PREFIX + "oreQuartz").setHardness(4.2F).setResistance(5.0F);

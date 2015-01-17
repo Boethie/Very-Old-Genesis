@@ -7,17 +7,17 @@ import net.minecraft.item.Item;
 
 public final class GenesisItems {
     /* Materials */
-    public static final Item pebble = new ItemGenesisMetadata(EnumPebble.values()).setUnlocalizedName(Constants.PREFIX + "pebble");
-    public static final Item octaedrite_shard = new ItemGenesis().setUnlocalizedName(Constants.PREFIX + "octaedriteShard");
-    public static final Item nodule = new ItemGenesisMetadata(EnumNodule.values()).setUnlocalizedName(Constants.PREFIX + "nodule");
-    public static final Item quartz = new ItemGenesis().setUnlocalizedName(Constants.PREFIX + "quartz");
-    public static final Item zircon = new ItemGenesis().setUnlocalizedName(Constants.PREFIX + "zircon");
-    public static final Item garnet = new ItemGenesis().setUnlocalizedName(Constants.PREFIX + "garnet");
-    public static final Item manganese = new ItemGenesis().setUnlocalizedName(Constants.PREFIX + "manganese");
-    public static final Item hematite = new ItemGenesis().setUnlocalizedName(Constants.PREFIX + "hematite");
-    public static final Item malachite = new ItemGenesis().setUnlocalizedName(Constants.PREFIX + "malachite");
-    public static final Item olivine = new ItemGenesis().setUnlocalizedName(Constants.PREFIX + "olivine");
-    public static final Item resin = new ItemGenesis().setUnlocalizedName(Constants.PREFIX + "resin");
+    public static final Item pebble = new ItemGenesisMetadata(EnumPebble.values()).setUnlocalizedName("pebble");
+    public static final Item octaedrite_shard = new ItemGenesis().setUnlocalizedName("octaedriteShard");
+    public static final Item nodule = new ItemGenesisMetadata(EnumNodule.values()).setUnlocalizedName("nodule");
+    public static final Item quartz = new ItemGenesis().setUnlocalizedName("quartz");
+    public static final Item zircon = new ItemGenesis().setUnlocalizedName("zircon");
+    public static final Item garnet = new ItemGenesis().setUnlocalizedName("garnet");
+    public static final Item manganese = new ItemGenesis().setUnlocalizedName("manganese");
+    public static final Item hematite = new ItemGenesis().setUnlocalizedName("hematite");
+    public static final Item malachite = new ItemGenesis().setUnlocalizedName("malachite");
+    public static final Item olivine = new ItemGenesis().setUnlocalizedName("olivine");
+    public static final Item resin = new ItemGenesis().setUnlocalizedName("resin");
 
     /* Food */
     public static final Item aphthoroblattina = new ItemGenesisFood(1, 0.2F).setUnlocalizedName(Constants.PREFIX + "aphthoroblattinaRaw");
