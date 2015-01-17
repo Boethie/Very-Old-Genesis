@@ -30,7 +30,12 @@ public enum EnumNodule implements IMetadata {
     }
 
     @Override
+    public int getMetadata() {
+        return ordinal();
+    }
+
+    @Override
     public ItemStack createStack(int amount) {
-        return new ItemStack(GenesisItems.nodule, amount, ordinal());
+        return new ItemStack(GenesisItems.nodule, amount, getMetadata());
     }
 }

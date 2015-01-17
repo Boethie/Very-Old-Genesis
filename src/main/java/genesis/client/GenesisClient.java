@@ -1,5 +1,6 @@
 package genesis.client;
 
+import genesis.block.EnumCoral;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisProxy;
 import genesis.item.ItemGenesisMetadata;
@@ -20,7 +21,7 @@ public class GenesisClient extends GenesisProxy {
     @Override
     public void registerBlock(Block block, String name) {
         super.registerBlock(block, name);
-        registerModel(block, 0, name);
+        registerModel(block, name);
     }
 
     @Override
@@ -32,12 +33,21 @@ public class GenesisClient extends GenesisProxy {
 
             for (int metadata = 0; metadata < textureNames.length; metadata++) {
                 String textureName = name + "_" + textureNames[metadata];
-
-                ModelBakery.addVariantName(item, Constants.ASSETS + textureName);
                 registerModel(item, metadata, textureName);
+                addVariantName(item, textureName);
             }
         } else {
-            registerModel(item, 0, name);
+            registerModel(item, name);
+        }
+    }
+
+    @Override
+    public void preInit() {
+        // Variant names must be added during pre init
+        for (int metadata = 0; metadata < EnumCoral.values().length; metadata++) {
+            String textureName = EnumCoral.values()[metadata].getName();
+            registerModel(GenesisBlocks.coral, metadata, textureName);
+            addVariantName(GenesisBlocks.coral, textureName);
         }
     }
 
@@ -52,11 +62,19 @@ public class GenesisClient extends GenesisProxy {
             iterator.remove();
         }
 
-        registerModel(Item.getItemFromBlock(GenesisBlocks.moss), 0, "moss");
+        registerModel(GenesisBlocks.moss, "moss");
+    }
+
+    private void registerModel(Block block, String textureName) {
+        registerModel(block, 0, textureName);
     }
 
     private void registerModel(Block block, int metadata, String textureName) {
         registerModel(Item.getItemFromBlock(block), metadata, textureName);
+    }
+
+    private void registerModel(Item item, String textureName) {
+        registerModel(item, 0, textureName);
     }
 
     private void registerModel(Item item, int metadata, String textureName) {
@@ -65,6 +83,14 @@ public class GenesisClient extends GenesisProxy {
         } else {
             Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, metadata, new ModelResourceLocation(Constants.ASSETS + textureName, "inventory"));
         }
+    }
+
+    private void addVariantName(Block block, String name) {
+        addVariantName(Item.getItemFromBlock(block), name);
+    }
+
+    private void addVariantName(Item item, String name) {
+        ModelBakery.addVariantName(item, Constants.ASSETS + name);
     }
 
     private class ItemTexture {

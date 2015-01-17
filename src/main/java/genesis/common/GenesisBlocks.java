@@ -1,12 +1,10 @@
 package genesis.common;
 
 import genesis.Genesis;
-import genesis.block.BlockGenesisOre;
-import genesis.block.BlockGenesisRock;
-import genesis.block.BlockMoss;
-import genesis.block.BlockOctaedrite;
+import genesis.block.*;
 import genesis.item.EnumNodule;
 import genesis.item.ItemBlockColored;
+import genesis.item.ItemBlockMetadata;
 import genesis.util.Constants;
 import net.minecraft.block.Block;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -41,9 +39,13 @@ public final class GenesisBlocks {
     public static final Block brown_flint_ore = new BlockGenesisOre(1, 0).setDrop(EnumNodule.BROWN_FLINT.createStack(1)).setUnlocalizedName(Constants.PREFIX + "oreBrownFlint").setHardness(1.5F).setResistance(4.35F);
     public static final Block marcasite_ore = new BlockGenesisOre(1, 0).setDrop(EnumNodule.MARCASITE.createStack(1)).setUnlocalizedName(Constants.PREFIX + "oreMarcasite").setHardness(1.5F).setResistance(4.35F);
 
+    /* Misc */
+    public static final Block coral = new BlockCoral().setUnlocalizedName("coral").setHardness(0.75F).setResistance(8.5F);
+
     public static void registerBlocks() {
         // Special registration, must manually register in GenesisClient
         GameRegistry.registerBlock(moss, ItemBlockColored.class, "moss", false);
+        GameRegistry.registerBlock(coral, ItemBlockMetadata.class, "coral", EnumCoral.class);
 
         Genesis.proxy.registerBlock(granite, "granite");
         Genesis.proxy.registerBlock(mossy_granite, "mossy_granite");

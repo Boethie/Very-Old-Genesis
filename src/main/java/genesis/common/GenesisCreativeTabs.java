@@ -8,14 +8,14 @@ public final class GenesisCreativeTabs {
     public static final CreativeTabs BLOCK = new CreativeTabs(Constants.PREFIX + "buildingBlocks") {
         @Override
         public Item getTabIconItem() {
-            return Item.getItemFromBlock(GenesisBlocks.limestone);//moss?
+            return Item.getItemFromBlock(GenesisBlocks.moss);
         }
     };
 
     public static final CreativeTabs DECORATIONS = new CreativeTabs(Constants.PREFIX + "decorations") {
         @Override
         public Item getTabIconItem() {
-            return GenesisItems.pebble;//sigillaria sapling
+            return Item.getItemFromBlock(GenesisBlocks.coral);//sigillaria sapling
         }
     };
 

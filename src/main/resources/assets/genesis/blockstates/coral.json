@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "variant=favosites":  { "model": "genesis:favosites" },
+        "variant=heliolites":  { "model": "genesis:heliolites" },
+        "variant=halysites":  { "model": "genesis:halysites" }
+    }
+}

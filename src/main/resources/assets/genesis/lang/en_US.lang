@@ -21,6 +21,9 @@ tile.genesis.oreManganese.name=Manganese Ore
 tile.genesis.oreHematite.name=Hematite Ore
 tile.genesis.oreMalachite.name=Malachite Ore
 tile.genesis.oreOlivine.name=Olivine Ore
+tile.genesis.coral.favosites.name=Favosites
+tile.genesis.coral.heliolites.name=Heliolites
+tile.genesis.coral.halysites.name=Halysites
 
 #Items
 item.genesis.pebble.granite.name=Granite Pebble

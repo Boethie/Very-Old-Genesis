@@ -1,5 +1,6 @@
 package genesis.block;
 
+import genesis.common.GenesisBlocks;
 import genesis.item.IMetadata;
 import net.minecraft.item.ItemStack;
 
@@ -8,6 +9,7 @@ public enum EnumCoral implements IMetadata {
     HELIOLITES("heliolites"),
     HALYSITES("halysites");
 
+    private static EnumCoral[] META_LOOKUP = new EnumCoral[values().length];
     private final String name;
     private final String unlocalizedName;
 
@@ -31,7 +33,18 @@ public enum EnumCoral implements IMetadata {
     }
 
     @Override
+    public int getMetadata() {
+        return ordinal();
+    }
+
+    @Override
     public ItemStack createStack(int amount) {
-        return null;//new ItemStack(GenesisBlocks.coral, amount, ordinal());
+        return new ItemStack(GenesisBlocks.coral, amount, getMetadata());
+    }
+
+    static {
+        for (int metadata = 0; metadata < values().length; metadata++) {
+            META_LOOKUP[metadata] = values()[metadata];
+        }
     }
 }
