@@ -10,7 +10,7 @@ import net.minecraft.block.Block;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public final class GenesisBlocks {
-    public static final Block moss = new BlockMoss().setHardness(0.6F).setStepSound(GenesisSounds.MOSS).setUnlocalizedName(Constants.PREFIX + "moss");
+    public static final Block moss = new BlockMoss().setUnlocalizedName(Constants.PREFIX + "moss").setHardness(0.6F).setStepSound(GenesisSounds.MOSS);
 
     /* Rocks */
     public static final Block granite = new BlockGenesisRock().setUnlocalizedName("granite").setHardness(2.1F).setResistance(10.0F);
@@ -42,13 +42,12 @@ public final class GenesisBlocks {
     public static final Block marcasite_ore = new BlockGenesisOre(1, 0).setDrop(EnumNodule.MARCASITE.createStack(1)).setUnlocalizedName(Constants.PREFIX + "oreMarcasite").setHardness(1.5F).setResistance(4.35F);
 
     /* Misc */
+    public static final Block plant = new BlockGenesisPlant().setUnlocalizedName(Constants.PREFIX + "plant").setHardness(0.0F).setStepSound(Block.soundTypeGrass);
     public static final Block coral = new BlockCoral().setUnlocalizedName("coral").setHardness(0.75F).setResistance(8.5F);
 
     public static void registerBlocks() {
         // Special registration, must manually register in GenesisClient
         GameRegistry.registerBlock(moss, ItemBlockColored.class, "moss", false);
-        GameRegistry.registerBlock(coral, ItemBlockMetadata.class, "coral", EnumCoral.class);
-
         Genesis.proxy.registerBlock(granite, "granite");
         Genesis.proxy.registerBlock(mossy_granite, "mossy_granite");
         Genesis.proxy.registerBlock(rhyolite, "rhyolite");
@@ -71,5 +70,7 @@ public final class GenesisBlocks {
         Genesis.proxy.registerBlock(olivine_ore, "olivine_ore");
         Genesis.proxy.registerBlock(brown_flint_ore, "brown_flint_ore");
         Genesis.proxy.registerBlock(marcasite_ore, "marcasite_ore");
+        GameRegistry.registerBlock(plant, ItemBlockMetadata.class, "plant", EnumPlant.class);
+        GameRegistry.registerBlock(coral, ItemBlockMetadata.class, "coral", EnumCoral.class);
     }
 }

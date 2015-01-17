@@ -1,0 +1,12 @@
+{
+    "variants": {
+        "variant=cooksonia":  { "model": "genesis:cooksonia" },
+        "variant=baragwanathia":  { "model": "genesis:baragwanathia" },
+        "variant=sciadophyton":  { "model": "genesis:sciadophyton" },
+        "variant=psilophyton":  { "model": "genesis:psilophyton" },
+        "variant=nothia":  { "model": "genesis:nothia" },
+        "variant=rhynia":  { "model": "genesis:rhynia" },
+        "variant=archaeamphora":  { "model": "genesis:archaeamphora" },
+        "variant=mabelia":  { "model": "genesis:mabelia" }
+    }
+}

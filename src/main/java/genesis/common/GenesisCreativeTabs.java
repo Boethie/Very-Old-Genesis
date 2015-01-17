@@ -1,5 +1,6 @@
 package genesis.common;
 
+import genesis.block.EnumPlant;
 import genesis.util.Constants;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -15,7 +16,12 @@ public final class GenesisCreativeTabs {
     public static final CreativeTabs DECORATIONS = new CreativeTabs(Constants.PREFIX + "decorations") {
         @Override
         public Item getTabIconItem() {
-            return Item.getItemFromBlock(GenesisBlocks.coral);//sigillaria sapling
+            return Item.getItemFromBlock(GenesisBlocks.plant);//sigillaria sapling
+        }
+
+        @Override
+        public int getIconItemDamage() {
+            return EnumPlant.BARAGWANATHIA.getMetadata();
         }
     };
 

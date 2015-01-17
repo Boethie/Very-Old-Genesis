@@ -1,6 +1,7 @@
 package genesis.client;
 
 import genesis.block.EnumCoral;
+import genesis.block.EnumPlant;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisProxy;
 import genesis.item.ItemGenesisMetadata;
@@ -49,6 +50,15 @@ public class GenesisClient extends GenesisProxy {
             registerModel(GenesisBlocks.coral, metadata, textureName);
             addVariantName(GenesisBlocks.coral, textureName);
         }
+
+        for (int metadata = 0; metadata < EnumPlant.values().length; metadata++) {
+            String textureName = EnumPlant.values()[metadata].getName();
+            registerModel(GenesisBlocks.plant, metadata, textureName);
+            addVariantName(GenesisBlocks.plant, textureName);
+        }
+
+        // TODO: Cannot add prefix "genesis" when registering variants!
+        //Minecraft.getMinecraft().modelManager.getBlockModelShapes().registerBlockWithStateMapper(GenesisBlocks.coral, (new StateMap.Builder()).setProperty(BlockCoral.VARIANT).build());
     }
 
     @Override

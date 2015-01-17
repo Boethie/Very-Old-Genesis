@@ -4,20 +4,25 @@ import genesis.common.GenesisBlocks;
 import genesis.item.IMetadata;
 import net.minecraft.item.ItemStack;
 
-public enum EnumCoral implements IMetadata {
-    FAVOSITES("favosites"),
-    HELIOLITES("heliolites"),
-    HALYSITES("halysites");
+public enum EnumPlant implements IMetadata {
+    COOKSONIA("cooksonia"),
+    BARAGWANATHIA("baragwanathia"),
+    SCIADOPHYTON("sciadophyton"),
+    PSILOPHYTON("psilophyton"),
+    NOTHIA("nothia"),
+    RHYNIA("rhynia"),
+    ARCHAEAMPHORA("archaeamphora"),
+    MABELIA("mabelia");
 
-    private static final EnumCoral[] META_LOOKUP = new EnumCoral[values().length];
+    private static final EnumPlant[] META_LOOKUP = new EnumPlant[values().length];
     private final String name;
     private final String unlocalizedName;
 
-    EnumCoral(String name) {
+    EnumPlant(String name) {
         this(name, name);
     }
 
-    EnumCoral(String name, String unlocalizedName) {
+    EnumPlant(String name, String unlocalizedName) {
         this.name = name;
         this.unlocalizedName = unlocalizedName;
     }
@@ -39,7 +44,7 @@ public enum EnumCoral implements IMetadata {
 
     @Override
     public ItemStack createStack(int amount) {
-        return new ItemStack(GenesisBlocks.coral, amount, getMetadata());
+        return new ItemStack(GenesisBlocks.plant, amount, getMetadata());
     }
 
     static {
