@@ -21,7 +21,6 @@ import java.util.Random;
 
 public class BlockMoss extends BlockGrass {
     public BlockMoss() {
-        super();
         setCreativeTab(GenesisCreativeTabs.BLOCK);
         setHarvestLevel("shovel", 0);
     }

@@ -13,7 +13,6 @@ import net.minecraft.world.World;
 
 public class ItemFlintAndMarcasite extends ItemFlintAndSteel {
     public ItemFlintAndMarcasite() {
-        super();
         setMaxDamage(GenesisConfig.flintAndMarcasiteMaxDamage);
         setCreativeTab(GenesisCreativeTabs.TOOLS);
     }

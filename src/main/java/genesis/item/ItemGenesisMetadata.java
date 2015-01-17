@@ -12,7 +12,6 @@ public class ItemGenesisMetadata extends ItemGenesis {
     private final String[] unlocalizedNames;
 
     public ItemGenesisMetadata(IMetadata[] metadataItems) {
-        super();
         setHasSubtypes(true);
         setMaxDamage(0);
 
