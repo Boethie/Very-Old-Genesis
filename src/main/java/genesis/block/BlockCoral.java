@@ -21,7 +21,7 @@ public class BlockCoral extends BlockGenesis {
 
     @Override
     public int damageDropped(IBlockState state) {
-        return ((EnumCoral) state.getValue(Constants.CORAL_VARIANT)).getMetadata();
+        return MetadataUtils.getMeta((EnumCoral) state.getValue(Constants.CORAL_VARIANT));
     }
 
     @Override
@@ -38,7 +38,7 @@ public class BlockCoral extends BlockGenesis {
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return ((EnumCoral) state.getValue(Constants.CORAL_VARIANT)).getMetadata();
+        return MetadataUtils.getMeta((EnumCoral) state.getValue(Constants.CORAL_VARIANT));
     }
 
     @Override

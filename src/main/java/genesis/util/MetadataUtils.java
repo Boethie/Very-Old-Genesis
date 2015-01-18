@@ -2,6 +2,7 @@ package genesis.util;
 
 import com.google.common.collect.Maps;
 import genesis.item.IMetadata;
+import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,5 +40,17 @@ public class MetadataUtils {
         }
 
         return meta;
+    }
+
+    public static int getMeta(Enum<? extends IMetadata> meta) {
+        return meta.ordinal();
+    }
+
+    public static ItemStack createStack(Enum<? extends IMetadata> meta) {
+        return createStack(meta, 1);
+    }
+
+    public static ItemStack createStack(Enum<? extends IMetadata> meta, int amount) {
+        return new ItemStack(((IMetadata) meta).getItem(), amount, getMeta(meta));
     }
 }

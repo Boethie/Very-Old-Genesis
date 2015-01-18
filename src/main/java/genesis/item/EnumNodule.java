@@ -2,6 +2,7 @@ package genesis.item;
 
 import genesis.common.GenesisItems;
 import genesis.util.MetadataUtils;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public enum EnumNodule implements IMetadata {
@@ -32,12 +33,7 @@ public enum EnumNodule implements IMetadata {
     }
 
     @Override
-    public int getMetadata() {
-        return ordinal();
-    }
-
-    @Override
-    public ItemStack createStack(int amount) {
-        return new ItemStack(GenesisItems.nodule, amount, getMetadata());
+    public Item getItem() {
+        return GenesisItems.nodule;
     }
 }

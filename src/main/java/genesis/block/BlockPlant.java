@@ -31,7 +31,7 @@ public class BlockPlant extends BlockBush {
 
     @Override
     public int damageDropped(IBlockState state) {
-        return ((EnumPlant) state.getValue(Constants.PLANT_VARIANT)).getMetadata();
+        return MetadataUtils.getMeta((EnumPlant) state.getValue(Constants.PLANT_VARIANT));
     }
 
     @Override
@@ -48,7 +48,7 @@ public class BlockPlant extends BlockBush {
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return ((EnumPlant) state.getValue(Constants.PLANT_VARIANT)).getMetadata();
+        return MetadataUtils.getMeta((EnumPlant) state.getValue(Constants.PLANT_VARIANT));
     }
 
     @Override

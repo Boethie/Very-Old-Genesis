@@ -3,6 +3,7 @@ package genesis.block;
 import genesis.common.GenesisBlocks;
 import genesis.item.IMetadata;
 import genesis.util.MetadataUtils;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public enum EnumPlant implements IMetadata {
@@ -39,12 +40,7 @@ public enum EnumPlant implements IMetadata {
     }
 
     @Override
-    public int getMetadata() {
-        return ordinal();
-    }
-
-    @Override
-    public ItemStack createStack(int amount) {
-        return new ItemStack(GenesisBlocks.plant, amount, getMetadata());
+    public Item getItem() {
+        return Item.getItemFromBlock(GenesisBlocks.plant);
     }
 }

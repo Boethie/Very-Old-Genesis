@@ -2,13 +2,14 @@ package genesis.common;
 
 import genesis.item.EnumNodule;
 import genesis.item.EnumPebble;
+import genesis.util.MetadataUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public final class GenesisRecipes {
     public static void addRecipes() {
-        GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite), EnumNodule.MARCASITE.createStack(1), EnumPebble.BROWN_FLINT.createStack(1));
-        GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite), EnumNodule.MARCASITE.createStack(1), EnumNodule.BROWN_FLINT.createStack(1));
+        GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite), MetadataUtils.createStack(EnumNodule.MARCASITE), MetadataUtils.createStack(EnumPebble.BROWN_FLINT));
+        GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite), MetadataUtils.createStack(EnumNodule.MARCASITE), MetadataUtils.createStack(EnumNodule.BROWN_FLINT));
         GameRegistry.addSmelting(GenesisBlocks.quartz_ore, new ItemStack(GenesisItems.quartz), 0.05F);
         GameRegistry.addSmelting(GenesisBlocks.zircon_ore, new ItemStack(GenesisItems.zircon), 0.1F);
         GameRegistry.addSmelting(GenesisBlocks.garnet_ore, new ItemStack(GenesisItems.garnet), 0.1F);
@@ -16,8 +17,8 @@ public final class GenesisRecipes {
         GameRegistry.addSmelting(GenesisBlocks.hematite_ore, new ItemStack(GenesisItems.hematite), 0.05F);
         GameRegistry.addSmelting(GenesisBlocks.malachite_ore, new ItemStack(GenesisItems.malachite), 0.2F);
         GameRegistry.addSmelting(GenesisBlocks.olivine_ore, new ItemStack(GenesisItems.olivine), 0.3F);
-        GameRegistry.addSmelting(GenesisBlocks.brown_flint_ore, EnumNodule.BROWN_FLINT.createStack(1), 0.05F);
-        GameRegistry.addSmelting(GenesisBlocks.marcasite_ore, EnumNodule.MARCASITE.createStack(1), 0.05F);
+        GameRegistry.addSmelting(GenesisBlocks.brown_flint_ore, MetadataUtils.createStack(EnumNodule.BROWN_FLINT), 0.05F);
+        GameRegistry.addSmelting(GenesisBlocks.marcasite_ore, MetadataUtils.createStack(EnumNodule.MARCASITE), 0.05F);
         GameRegistry.addSmelting(GenesisItems.aphthoroblattina, new ItemStack(GenesisItems.cooked_aphthoroblattina), 0.35F);
         GameRegistry.addSmelting(GenesisItems.eryops_leg, new ItemStack(GenesisItems.cooked_eryops_leg), 0.35F);
     }
