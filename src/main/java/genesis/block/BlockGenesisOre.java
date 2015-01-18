@@ -1,7 +1,7 @@
 package genesis.block;
 
-import genesis.Genesis;
 import genesis.common.GenesisCreativeTabs;
+import genesis.util.Constants;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.state.IBlockState;
@@ -33,7 +33,7 @@ public class BlockGenesisOre extends BlockOre {
 
     @Override
     public int getExpDrop(IBlockAccess world, BlockPos pos, int fortune) {
-        return MathHelper.getRandomIntegerInRange(world instanceof World ? ((World) world).rand : Genesis.random, getMinExp(), getMaxExp());
+        return MathHelper.getRandomIntegerInRange(world instanceof World ? ((World) world).rand : Constants.RANDOM, getMinExp(), getMaxExp());
     }
 
     @Override

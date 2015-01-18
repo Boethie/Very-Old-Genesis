@@ -2,10 +2,10 @@ package genesis.block;
 
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
+import genesis.util.Constants;
 import genesis.util.MetadataUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
-import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -18,10 +18,8 @@ import net.minecraft.world.IBlockAccess;
 import java.util.List;
 
 public class BlockPlant extends BlockBush {
-    public static final PropertyEnum VARIANT = PropertyEnum.create("variant", EnumPlant.class);
-
     public BlockPlant() {
-        setDefaultState(getBlockState().getBaseState().withProperty(VARIANT, EnumPlant.COOKSONIA));
+        setDefaultState(getBlockState().getBaseState().withProperty(Constants.PLANT_VARIANT, EnumPlant.COOKSONIA));
         setCreativeTab(GenesisCreativeTabs.DECORATIONS);
         setBlockBounds(0.5F - 0.4F, 0.0F, 0.5F - 0.4F, 0.5F + 0.4F, 0.4F * 2, 0.5F + 0.4F);
     }
@@ -33,7 +31,7 @@ public class BlockPlant extends BlockBush {
 
     @Override
     public int damageDropped(IBlockState state) {
-        return ((EnumPlant) state.getValue(VARIANT)).getMetadata();
+        return ((EnumPlant) state.getValue(Constants.PLANT_VARIANT)).getMetadata();
     }
 
     @Override
@@ -45,17 +43,17 @@ public class BlockPlant extends BlockBush {
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(VARIANT, MetadataUtils.byMetadata(EnumPlant.class, meta));
+        return getDefaultState().withProperty(Constants.PLANT_VARIANT, MetadataUtils.byMetadata(EnumPlant.class, meta));
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return ((EnumPlant) state.getValue(VARIANT)).getMetadata();
+        return ((EnumPlant) state.getValue(Constants.PLANT_VARIANT)).getMetadata();
     }
 
     @Override
     protected BlockState createBlockState() {
-        return new BlockState(this, VARIANT);
+        return new BlockState(this, Constants.PLANT_VARIANT);
     }
 
     @Override
