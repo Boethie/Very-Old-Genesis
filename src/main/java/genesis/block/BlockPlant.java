@@ -11,18 +11,19 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.world.IBlockAccess;
 
 import java.util.List;
 
-public class BlockGenesisPlant extends BlockBush {
+public class BlockPlant extends BlockBush {
     public static final PropertyEnum VARIANT = PropertyEnum.create("variant", EnumPlant.class);
 
-    public BlockGenesisPlant() {
+    public BlockPlant() {
         setDefaultState(getBlockState().getBaseState().withProperty(VARIANT, EnumPlant.COOKSONIA));
         setCreativeTab(GenesisCreativeTabs.DECORATIONS);
-
-        float size = 0.4F;
-        setBlockBounds(0.5F - size, 0.0F, 0.5F - size, 0.5F + size, 0.8F, 0.5F + size);
+        setBlockBounds(0.5F - 0.4F, 0.0F, 0.5F - 0.4F, 0.5F + 0.4F, 0.4F * 2, 0.5F + 0.4F);
     }
 
     @Override
@@ -60,5 +61,15 @@ public class BlockGenesisPlant extends BlockBush {
     @Override
     public Block.EnumOffsetType getOffsetType() {
         return Block.EnumOffsetType.XYZ;
+    }
+
+    @Override
+    public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face) {
+        return 100;
+    }
+
+    @Override
+    public int getFireSpreadSpeed(IBlockAccess world, BlockPos pos, EnumFacing face) {
+        return 60;
     }
 }
