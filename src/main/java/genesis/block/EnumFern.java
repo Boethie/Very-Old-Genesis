@@ -1,24 +1,24 @@
-package genesis.item;
+package genesis.block;
 
-import genesis.common.GenesisItems;
+import genesis.common.GenesisBlocks;
+import genesis.item.IMetadata;
 import genesis.util.MetadataUtils;
 import net.minecraft.item.ItemStack;
 
-public enum EnumPebble implements IMetadata {
-    GRANITE("granite"),
-    RHYOLITE("rhyolite"),
-    DOLERITE("dolerite"),
-    QUARTZITE("quartzite"),
-    BROWN_FLINT("brown_flint", "brownFlint");
+public enum EnumFern implements IMetadata {
+    ZYGOPTERIS("zygopteris"),
+    RUFFORDIA("ruffordia"),
+    ASTRALOPTERIS("astralopteris"),
+    MATONIDIUM("matonidium");
 
     private final String name;
     private final String unlocalizedName;
 
-    EnumPebble(String name) {
+    EnumFern(String name) {
         this(name, name);
     }
 
-    EnumPebble(String name, String unlocalizedName) {
+    EnumFern(String name, String unlocalizedName) {
         this.name = name;
         this.unlocalizedName = unlocalizedName;
         MetadataUtils.addMeta(getClass(), this);
@@ -41,6 +41,6 @@ public enum EnumPebble implements IMetadata {
 
     @Override
     public ItemStack createStack(int amount) {
-        return new ItemStack(GenesisItems.pebble, amount, getMetadata());
+        return new ItemStack(GenesisBlocks.fern, amount, getMetadata());
     }
 }

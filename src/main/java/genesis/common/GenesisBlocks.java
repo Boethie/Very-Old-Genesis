@@ -43,6 +43,7 @@ public final class GenesisBlocks {
 
     /* Misc */
     public static final Block plant = new BlockPlant().setUnlocalizedName(Constants.PREFIX + "plant").setHardness(0.0F).setStepSound(Block.soundTypeGrass);
+    public static Block fern;//TODO
     public static final Block coral = new BlockCoral().setUnlocalizedName("coral").setHardness(0.75F).setResistance(8.5F);
 
     public static void registerBlocks() {

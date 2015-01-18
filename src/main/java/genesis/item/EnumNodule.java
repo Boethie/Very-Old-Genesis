@@ -1,6 +1,7 @@
 package genesis.item;
 
 import genesis.common.GenesisItems;
+import genesis.util.MetadataUtils;
 import net.minecraft.item.ItemStack;
 
 public enum EnumNodule implements IMetadata {
@@ -17,6 +18,7 @@ public enum EnumNodule implements IMetadata {
     EnumNodule(String name, String unlocalizedName) {
         this.name = name;
         this.unlocalizedName = unlocalizedName;
+        MetadataUtils.addMeta(getClass(), this);
     }
 
     @Override

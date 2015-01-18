@@ -2,6 +2,7 @@ package genesis.block;
 
 import genesis.common.GenesisBlocks;
 import genesis.item.IMetadata;
+import genesis.util.MetadataUtils;
 import net.minecraft.item.ItemStack;
 
 public enum EnumPlant implements IMetadata {
@@ -14,7 +15,6 @@ public enum EnumPlant implements IMetadata {
     ARCHAEAMPHORA("archaeamphora"),
     MABELIA("mabelia");
 
-    private static final EnumPlant[] META_LOOKUP = new EnumPlant[values().length];
     private final String name;
     private final String unlocalizedName;
 
@@ -25,6 +25,7 @@ public enum EnumPlant implements IMetadata {
     EnumPlant(String name, String unlocalizedName) {
         this.name = name;
         this.unlocalizedName = unlocalizedName;
+        MetadataUtils.addMeta(getClass(), this);
     }
 
     @Override
@@ -45,11 +46,5 @@ public enum EnumPlant implements IMetadata {
     @Override
     public ItemStack createStack(int amount) {
         return new ItemStack(GenesisBlocks.plant, amount, getMetadata());
-    }
-
-    static {
-        for (int metadata = 0; metadata < values().length; metadata++) {
-            META_LOOKUP[metadata] = values()[metadata];
-        }
     }
 }
