@@ -1,9 +1,8 @@
 package genesis.item;
 
 import genesis.common.GenesisItems;
-import genesis.util.MetadataUtils;
+import genesis.util.Metadata;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
 public enum EnumPebble implements IMetadata {
     GRANITE("granite"),
@@ -22,7 +21,7 @@ public enum EnumPebble implements IMetadata {
     EnumPebble(String name, String unlocalizedName) {
         this.name = name;
         this.unlocalizedName = unlocalizedName;
-        MetadataUtils.addMeta(getClass(), this);
+        Metadata.add(getClass(), this);
     }
 
     @Override

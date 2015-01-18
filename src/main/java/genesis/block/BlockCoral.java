@@ -2,7 +2,7 @@ package genesis.block;
 
 import genesis.common.GenesisCreativeTabs;
 import genesis.util.Constants;
-import genesis.util.MetadataUtils;
+import genesis.util.Metadata;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -21,7 +21,7 @@ public class BlockCoral extends BlockGenesis {
 
     @Override
     public int damageDropped(IBlockState state) {
-        return MetadataUtils.getMeta((EnumCoral) state.getValue(Constants.CORAL_VARIANT));
+        return Metadata.getMetadata((EnumCoral) state.getValue(Constants.CORAL_VARIANT));
     }
 
     @Override
@@ -33,12 +33,12 @@ public class BlockCoral extends BlockGenesis {
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(Constants.CORAL_VARIANT, MetadataUtils.byMetadata(EnumCoral.class, meta));
+        return getDefaultState().withProperty(Constants.CORAL_VARIANT, Metadata.get(EnumCoral.class, meta));
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return MetadataUtils.getMeta((EnumCoral) state.getValue(Constants.CORAL_VARIANT));
+        return Metadata.getMetadata((EnumCoral) state.getValue(Constants.CORAL_VARIANT));
     }
 
     @Override

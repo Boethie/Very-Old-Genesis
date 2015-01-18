@@ -2,9 +2,8 @@ package genesis.block;
 
 import genesis.common.GenesisBlocks;
 import genesis.item.IMetadata;
-import genesis.util.MetadataUtils;
+import genesis.util.Metadata;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
 public enum EnumPlant implements IMetadata {
     COOKSONIA("cooksonia"),
@@ -26,7 +25,7 @@ public enum EnumPlant implements IMetadata {
     EnumPlant(String name, String unlocalizedName) {
         this.name = name;
         this.unlocalizedName = unlocalizedName;
-        MetadataUtils.addMeta(getClass(), this);
+        Metadata.add(getClass(), this);
     }
 
     @Override

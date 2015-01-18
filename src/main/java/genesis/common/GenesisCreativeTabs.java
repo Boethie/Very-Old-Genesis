@@ -2,7 +2,7 @@ package genesis.common;
 
 import genesis.block.EnumPlant;
 import genesis.util.Constants;
-import genesis.util.MetadataUtils;
+import genesis.util.Metadata;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
@@ -22,7 +22,7 @@ public final class GenesisCreativeTabs {
 
         @Override
         public int getIconItemDamage() {
-            return MetadataUtils.getMeta(EnumPlant.BARAGWANATHIA);
+            return Metadata.getMetadata(EnumPlant.BARAGWANATHIA);
         }
     };
 

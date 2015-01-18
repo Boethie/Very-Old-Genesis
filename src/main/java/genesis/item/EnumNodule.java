@@ -1,9 +1,8 @@
 package genesis.item;
 
 import genesis.common.GenesisItems;
-import genesis.util.MetadataUtils;
+import genesis.util.Metadata;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
 public enum EnumNodule implements IMetadata {
     BROWN_FLINT("brown_flint", "brownFlint"),
@@ -19,7 +18,7 @@ public enum EnumNodule implements IMetadata {
     EnumNodule(String name, String unlocalizedName) {
         this.name = name;
         this.unlocalizedName = unlocalizedName;
-        MetadataUtils.addMeta(getClass(), this);
+        Metadata.add(getClass(), this);
     }
 
     @Override

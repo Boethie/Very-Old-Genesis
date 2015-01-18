@@ -3,7 +3,7 @@ package genesis.block;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.util.Constants;
-import genesis.util.MetadataUtils;
+import genesis.util.Metadata;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.state.BlockState;
@@ -31,7 +31,7 @@ public class BlockPlant extends BlockBush {
 
     @Override
     public int damageDropped(IBlockState state) {
-        return MetadataUtils.getMeta((EnumPlant) state.getValue(Constants.PLANT_VARIANT));
+        return Metadata.getMetadata((EnumPlant) state.getValue(Constants.PLANT_VARIANT));
     }
 
     @Override
@@ -43,12 +43,12 @@ public class BlockPlant extends BlockBush {
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(Constants.PLANT_VARIANT, MetadataUtils.byMetadata(EnumPlant.class, meta));
+        return getDefaultState().withProperty(Constants.PLANT_VARIANT, Metadata.get(EnumPlant.class, meta));
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return MetadataUtils.getMeta((EnumPlant) state.getValue(Constants.PLANT_VARIANT));
+        return Metadata.getMetadata((EnumPlant) state.getValue(Constants.PLANT_VARIANT));
     }
 
     @Override
