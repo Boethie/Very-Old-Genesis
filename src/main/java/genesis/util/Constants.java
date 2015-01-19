@@ -1,6 +1,7 @@
 package genesis.util;
 
 import genesis.block.EnumCoral;
+import genesis.block.EnumFern;
 import genesis.block.EnumPlant;
 import net.minecraft.block.properties.PropertyEnum;
 
@@ -22,5 +23,6 @@ public final class Constants {
     public static final String CLIENT_LOCATION = "genesis.client.GenesisClient";
 
     public static final PropertyEnum PLANT_VARIANT = PropertyEnum.create("variant", EnumPlant.class);
+    public static final PropertyEnum FERN_VARIANT = PropertyEnum.create("variant", EnumFern.class);
     public static final PropertyEnum CORAL_VARIANT = PropertyEnum.create("variant", EnumCoral.class);
 }

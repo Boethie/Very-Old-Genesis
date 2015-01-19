@@ -44,7 +44,7 @@ public final class GenesisBlocks {
 
     /* Misc */
     public static final Block plant = new BlockPlant().setUnlocalizedName(Constants.PREFIX + "plant").setHardness(0.0F).setStepSound(Block.soundTypeGrass);
-    public static Block fern;//TODO
+    public static final Block fern = new BlockFern().setUnlocalizedName(Constants.PREFIX + "fern").setHardness(0.0F).setStepSound(GenesisSounds.FERN);
     public static final Block coral = new BlockCoral().setUnlocalizedName("coral").setHardness(0.75F).setResistance(8.5F);
 
     public static void registerBlocks() {
@@ -54,7 +54,7 @@ public final class GenesisBlocks {
         EnumCoral.values();
 
         // Special registration, must manually register in GenesisClient
-        GameRegistry.registerBlock(moss, ItemBlockColored.class, "moss", false);
+        GameRegistry.registerBlock(moss, ItemBlockColored.class, "moss");
         Genesis.proxy.registerBlock(granite, "granite");
         Genesis.proxy.registerBlock(mossy_granite, "mossy_granite");
         Genesis.proxy.registerBlock(rhyolite, "rhyolite");
@@ -78,6 +78,7 @@ public final class GenesisBlocks {
         Genesis.proxy.registerBlock(brown_flint_ore, "brown_flint_ore");
         Genesis.proxy.registerBlock(marcasite_ore, "marcasite_ore");
         GameRegistry.registerBlock(plant, ItemBlockMetadata.class, "plant", EnumPlant.class);
+        GameRegistry.registerBlock(fern, ItemBlockColored.class, "fern", EnumFern.class);
         GameRegistry.registerBlock(coral, ItemBlockMetadata.class, "coral", EnumCoral.class);
     }
 }

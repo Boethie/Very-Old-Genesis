@@ -1,6 +1,7 @@
 package genesis.client;
 
 import genesis.block.EnumCoral;
+import genesis.block.EnumFern;
 import genesis.block.EnumPlant;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisProxy;
@@ -47,17 +48,9 @@ public class GenesisClient extends GenesisProxy {
     @Override
     public void preInit() {
         // Variant names must be added during pre init
-        for (int metadata = 0; metadata < EnumCoral.values().length; metadata++) {
-            String textureName = EnumCoral.values()[metadata].getName();
-            registerModel(GenesisBlocks.coral, metadata, textureName);
-            addVariantName(GenesisBlocks.coral, textureName);
-        }
-
-        for (int metadata = 0; metadata < EnumPlant.values().length; metadata++) {
-            String textureName = EnumPlant.values()[metadata].getName();
-            registerModel(GenesisBlocks.plant, metadata, textureName);
-            addVariantName(GenesisBlocks.plant, textureName);
-        }
+        registerMetaModels(GenesisBlocks.coral, EnumCoral.values());
+        registerMetaModels(GenesisBlocks.fern, EnumFern.values());
+        registerMetaModels(GenesisBlocks.plant, EnumPlant.values());
 
         // TODO: Cannot add prefix "genesis" when registering variants!
         //Minecraft.getMinecraft().modelManager.getBlockModelShapes().registerBlockWithStateMapper(GenesisBlocks.coral, (new StateMap.Builder()).setProperty(BlockCoral.VARIANT).build());
@@ -75,6 +68,14 @@ public class GenesisClient extends GenesisProxy {
         }
 
         registerModel(GenesisBlocks.moss, "moss");
+    }
+
+    private void registerMetaModels(Block block, IMetadata[] values) {
+        for (int metadata = 0; metadata < values.length; metadata++) {
+            String textureName = values[metadata].getName();
+            registerModel(block, metadata, textureName);
+            addVariantName(block, textureName);
+        }
     }
 
     private void registerModel(Block block, String textureName) {

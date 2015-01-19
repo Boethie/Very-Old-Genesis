@@ -6,6 +6,7 @@ import genesis.util.Constants;
 import genesis.util.Metadata;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class BlockPlant extends BlockBush {
     public BlockPlant() {
-        setDefaultState(getBlockState().getBaseState().withProperty(Constants.PLANT_VARIANT, EnumPlant.COOKSONIA));
+        setDefaultState(getBlockState().getBaseState().withProperty(getVariant(), (Enum) Metadata.getLookup(getMetaClass()).get(0)));
         setCreativeTab(GenesisCreativeTabs.DECORATIONS);
         setBlockBounds(0.5F - 0.4F, 0.0F, 0.5F - 0.4F, 0.5F + 0.4F, 0.4F * 2, 0.5F + 0.4F);
     }
@@ -30,27 +31,27 @@ public class BlockPlant extends BlockBush {
 
     @Override
     public int damageDropped(IBlockState state) {
-        return Metadata.getMetadata(state, Constants.PLANT_VARIANT);
+        return Metadata.getMetadata(state, getVariant());
     }
 
     @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List list) {
-        Metadata.getSubItems(EnumPlant.class, list);
+        Metadata.getSubItems(getMetaClass(), list);
     }
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return Metadata.getState(this, Constants.PLANT_VARIANT, EnumPlant.class, meta);
+        return Metadata.getState(this, getVariant(), getMetaClass(), meta);
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return Metadata.getMetadata(state, Constants.PLANT_VARIANT);
+        return Metadata.getMetadata(state, getVariant());
     }
 
     @Override
     protected BlockState createBlockState() {
-        return new BlockState(this, Constants.PLANT_VARIANT);
+        return new BlockState(this, getVariant());
     }
 
     @Override
@@ -66,5 +67,13 @@ public class BlockPlant extends BlockBush {
     @Override
     public int getFireSpreadSpeed(IBlockAccess world, BlockPos pos, EnumFacing face) {
         return 60;
+    }
+
+    protected IProperty getVariant() {
+        return Constants.PLANT_VARIANT;
+    }
+
+    protected Class getMetaClass() {
+        return EnumPlant.class;
     }
 }
