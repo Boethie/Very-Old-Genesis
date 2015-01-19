@@ -46,11 +46,11 @@ public class Metadata {
         return meta.ordinal();
     }
 
-    public static ItemStack createStack(Enum<? extends IMetadata> meta) {
-        return createStack(meta, 1);
+    public static ItemStack newStack(Enum<? extends IMetadata> meta) {
+        return newStack(meta, 1);
     }
 
-    public static ItemStack createStack(Enum<? extends IMetadata> meta, int amount) {
+    public static ItemStack newStack(Enum<? extends IMetadata> meta, int amount) {
         return new ItemStack(((IMetadata) meta).getItem(), amount, getMetadata(meta));
     }
 }
