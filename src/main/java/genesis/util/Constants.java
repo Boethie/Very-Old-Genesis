@@ -6,7 +6,7 @@ import net.minecraft.block.properties.PropertyEnum;
 
 import java.util.Random;
 
-public class Constants {
+public final class Constants {
     public static final Random RANDOM = new Random();
 
     public static final String MOD_ID = "genesis";

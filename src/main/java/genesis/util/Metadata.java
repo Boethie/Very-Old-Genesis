@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Metadata {
+public final class Metadata {
     private static final HashMap<Class, ArrayList> LOOKUP = new HashMap<Class, ArrayList>();
 
     public static <T extends IMetadata> ArrayList<T> getLookup(Class<? extends T> clazz) {
