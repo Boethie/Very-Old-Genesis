@@ -14,10 +14,6 @@ public final class Metadata {
     private static final HashMap<Class, ArrayList> LOOKUP = new HashMap<Class, ArrayList>();
 
     public static <T extends IMetadata> ArrayList<T> getLookup(Class<? extends T> clazz) {
-        if (!IMetadata.class.isAssignableFrom(clazz)) {
-            throw new IllegalArgumentException(clazz.getSimpleName() + " is not a subclass of IMetadata!");
-        }
-
         ArrayList<T> metaLookup = LOOKUP.get(clazz);
 
         if (metaLookup == null) {
