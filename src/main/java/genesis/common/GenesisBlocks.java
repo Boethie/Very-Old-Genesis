@@ -29,6 +29,7 @@ public final class GenesisBlocks {
     public static final Block octaedrite = new BlockOctaedrite().setUnlocalizedName("octaedrite").setHardness(1.0F).setResistance(10.0F);
 
     public static final Block permafrost = new BlockPermafrost().setHardness(0.5F).setUnlocalizedName("permafrost");
+    public static final Block new_permafrost = new BlockNewPermafrost().setHardness(0.5F).setUnlocalizedName("permafrost");
 
     /* Granite Ores */
     public static final Block quartz_ore = new BlockGenesisOre(1, 1).setDrop(GenesisItems.quartz).setUnlocalizedName(Constants.PREFIX + "oreQuartz").setHardness(4.2F).setResistance(5.0F);
@@ -70,6 +71,7 @@ public final class GenesisBlocks {
         Genesis.proxy.registerBlock(red_clay, "red_clay");
         Genesis.proxy.registerBlock(octaedrite, "octaedrite");
         Genesis.proxy.registerBlock(permafrost, "permafrost");
+        Genesis.proxy.registerBlock(new_permafrost, "new_permafrost");
         Genesis.proxy.registerBlock(quartz_ore, "quartz_ore");
         Genesis.proxy.registerBlock(zircon_ore, "zircon_ore");
         Genesis.proxy.registerBlock(garnet_ore, "garnet_ore");

@@ -8,8 +8,6 @@ import net.minecraft.block.properties.PropertyEnum;
 import java.util.Random;
 
 public final class Constants {
-    public static final Random RANDOM = new Random();
-
     public static final String MOD_ID = "genesis";
     public static final String MOD_NAME = "Project Genesis";
     public static final String MOD_VERSION = "@VERSION@";
