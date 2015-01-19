@@ -25,6 +25,7 @@ public final class GenesisBlocks {
     public static final Block quartzite = new BlockGenesisRock().setUnlocalizedName("quartzite").setHardness(1.95F).setResistance(10.0F);
     public static final Block limestone = new BlockGenesisRock().setUnlocalizedName("limestone").setHardness(0.75F).setResistance(8.7F);
     public static final Block shale = new BlockGenesisRock().setUnlocalizedName("shale").setHardness(0.75F).setResistance(8.7F);
+    public static final Block red_clay = new BlockRedClay().setUnlocalizedName(Constants.PREFIX + "redClay").setHardness(0.6F).setStepSound(Block.soundTypeGravel);
     public static final Block octaedrite = new BlockOctaedrite().setUnlocalizedName("octaedrite").setHardness(1.0F).setResistance(10.0F);
 
     public static final Block permafrost = new BlockPermafrost().setHardness(0.5F).setUnlocalizedName("permafrost");
@@ -66,6 +67,7 @@ public final class GenesisBlocks {
         Genesis.proxy.registerBlock(quartzite, "quartzite");
         Genesis.proxy.registerBlock(limestone, "limestone");
         Genesis.proxy.registerBlock(shale, "shale");
+        Genesis.proxy.registerBlock(red_clay, "red_clay");
         Genesis.proxy.registerBlock(octaedrite, "octaedrite");
         Genesis.proxy.registerBlock(permafrost, "permafrost");
         Genesis.proxy.registerBlock(quartz_ore, "quartz_ore");

@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 public final class GenesisItems {
     /* Materials */
     public static final Item pebble = new ItemGenesisMetadata(EnumPebble.class).setUnlocalizedName("pebble");
+    public static final Item red_clay_ball = new ItemGenesis().setUnlocalizedName("redClay");
     public static final Item octaedrite_shard = new ItemGenesis().setUnlocalizedName("octaedriteShard");
     public static final Item nodule = new ItemGenesisMetadata(EnumNodule.class).setUnlocalizedName("nodule");
     public static final Item quartz = new ItemGenesis().setUnlocalizedName("quartz");
@@ -34,6 +35,7 @@ public final class GenesisItems {
         EnumNodule.values();
 
         Genesis.proxy.registerItem(pebble, "pebble");
+        Genesis.proxy.registerItem(red_clay_ball, "red_clay_ball");
         Genesis.proxy.registerItem(octaedrite_shard, "octaedrite_shard");
         Genesis.proxy.registerItem(quartz, "quartz");
         Genesis.proxy.registerItem(zircon, "zircon");

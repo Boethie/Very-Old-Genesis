@@ -3,13 +3,17 @@ package genesis.common;
 import genesis.item.EnumNodule;
 import genesis.item.EnumPebble;
 import genesis.util.Metadata;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public final class GenesisRecipes {
     public static void addRecipes() {
+        GameRegistry.addRecipe(new ItemStack(GenesisBlocks.red_clay), "CC", "CC", 'C', GenesisItems.red_clay_ball);
         GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite), Metadata.newStack(EnumNodule.MARCASITE), Metadata.newStack(EnumPebble.BROWN_FLINT));
         GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite), Metadata.newStack(EnumNodule.MARCASITE), Metadata.newStack(EnumNodule.BROWN_FLINT));
+        GameRegistry.addSmelting(GenesisBlocks.red_clay, new ItemStack(Blocks.stained_hardened_clay, 1, EnumDyeColor.WHITE.getMetadata()), 0.3F);
         GameRegistry.addSmelting(GenesisBlocks.quartz_ore, new ItemStack(GenesisItems.quartz), 0.05F);
         GameRegistry.addSmelting(GenesisBlocks.zircon_ore, new ItemStack(GenesisItems.zircon), 0.1F);
         GameRegistry.addSmelting(GenesisBlocks.garnet_ore, new ItemStack(GenesisItems.garnet), 0.1F);
