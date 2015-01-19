@@ -48,6 +48,11 @@ public final class GenesisBlocks {
     public static final Block coral = new BlockCoral().setUnlocalizedName("coral").setHardness(0.75F).setResistance(8.5F);
 
     public static void registerBlocks() {
+        // Initializes values
+        EnumPlant.values();
+        EnumFern.values();
+        EnumCoral.values();
+
         // Special registration, must manually register in GenesisClient
         GameRegistry.registerBlock(moss, ItemBlockColored.class, "moss", false);
         Genesis.proxy.registerBlock(granite, "granite");

@@ -1,14 +1,17 @@
 package genesis.util;
 
-import com.google.common.collect.Maps;
 import genesis.item.IMetadata;
+import net.minecraft.block.Block;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Metadata {
-    private static final HashMap<Class, ArrayList> LOOKUP = Maps.newHashMap();
+    private static final HashMap<Class, ArrayList> LOOKUP = new HashMap<Class, ArrayList>();
 
     public static <T extends IMetadata> ArrayList<T> getLookup(Class<? extends T> clazz) {
         if (!IMetadata.class.isAssignableFrom(clazz)) {
@@ -24,7 +27,7 @@ public class Metadata {
         return metaLookup;
     }
 
-    public static void add(Class<? extends IMetadata> clazz, IMetadata meta) {
+    public static void add(Class clazz, IMetadata meta) {
         getLookup(clazz).add(meta);
     }
 
@@ -42,15 +45,33 @@ public class Metadata {
         return meta;
     }
 
-    public static int getMetadata(Enum<? extends IMetadata> meta) {
+    public static int getMetadata(Enum meta) {
         return meta.ordinal();
     }
 
-    public static ItemStack newStack(Enum<? extends IMetadata> meta) {
+    public static int getMetadata(IBlockState state, IProperty property) {
+        return getMetadata((Enum) state.getValue(property));
+    }
+
+    public static ItemStack newStack(Enum meta) {
         return newStack(meta, 1);
     }
 
-    public static ItemStack newStack(Enum<? extends IMetadata> meta, int amount) {
+    public static ItemStack newStack(Enum meta, int amount) {
         return new ItemStack(((IMetadata) meta).getItem(), amount, getMetadata(meta));
+    }
+
+    public static <T extends Enum & IMetadata> IBlockState getState(Block block, IProperty property, Class<T> clazz, int meta) {
+        return block.getDefaultState().withProperty(property, Metadata.get(clazz, meta));
+    }
+
+    public static <T extends Enum & IMetadata> void getSubItems(Class<T> clazz, List list) {
+        for (Enum<? extends IMetadata> meta : getLookup(clazz)) {
+            list.add(newStack(meta));
+        }
+    }
+
+    public static String getUnlocalizedName(String unlocalizedName, int metadata, Class metaClass) {
+        return unlocalizedName + "." + get(metaClass, metadata).getUnlocalizedName();
     }
 }

@@ -4,8 +4,10 @@ import genesis.block.EnumCoral;
 import genesis.block.EnumPlant;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisProxy;
+import genesis.item.IMetadata;
 import genesis.item.ItemGenesisMetadata;
 import genesis.util.Constants;
+import genesis.util.Metadata;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelBakery;
@@ -30,10 +32,10 @@ public class GenesisClient extends GenesisProxy {
         super.registerItem(item, name);
 
         if (item instanceof ItemGenesisMetadata) {
-            String[] textureNames = ((ItemGenesisMetadata) item).getNames();
+            ArrayList<IMetadata> lookup = Metadata.getLookup(((ItemGenesisMetadata) item).getMetaClass());
 
-            for (int metadata = 0; metadata < textureNames.length; metadata++) {
-                String textureName = name + "_" + textureNames[metadata];
+            for (int metadata = 0; metadata < lookup.size(); metadata++) {
+                String textureName = name + "_" + lookup.get(metadata).getName();
                 registerModel(item, metadata, textureName);
                 addVariantName(item, textureName);
             }

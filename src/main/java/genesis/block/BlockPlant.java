@@ -10,7 +10,6 @@ import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
@@ -31,24 +30,22 @@ public class BlockPlant extends BlockBush {
 
     @Override
     public int damageDropped(IBlockState state) {
-        return Metadata.getMetadata((EnumPlant) state.getValue(Constants.PLANT_VARIANT));
+        return Metadata.getMetadata(state, Constants.PLANT_VARIANT);
     }
 
     @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List list) {
-        for (int metadata = 0; metadata < EnumPlant.values().length; ++metadata) {
-            list.add(new ItemStack(itemIn, 1, metadata));
-        }
+        Metadata.getSubItems(EnumPlant.class, list);
     }
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(Constants.PLANT_VARIANT, Metadata.get(EnumPlant.class, meta));
+        return Metadata.getState(this, Constants.PLANT_VARIANT, EnumPlant.class, meta);
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return Metadata.getMetadata((EnumPlant) state.getValue(Constants.PLANT_VARIANT));
+        return Metadata.getMetadata(state, Constants.PLANT_VARIANT);
     }
 
     @Override

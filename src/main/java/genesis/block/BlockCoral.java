@@ -8,7 +8,6 @@ import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
@@ -21,24 +20,22 @@ public class BlockCoral extends BlockGenesis {
 
     @Override
     public int damageDropped(IBlockState state) {
-        return Metadata.getMetadata((EnumCoral) state.getValue(Constants.CORAL_VARIANT));
+        return Metadata.getMetadata(state, Constants.CORAL_VARIANT);
     }
 
     @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List list) {
-        for (int metadata = 0; metadata < EnumCoral.values().length; ++metadata) {
-            list.add(new ItemStack(itemIn, 1, metadata));
-        }
+        Metadata.getSubItems(EnumCoral.class, list);
     }
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(Constants.CORAL_VARIANT, Metadata.get(EnumCoral.class, meta));
+        return Metadata.getState(this, Constants.CORAL_VARIANT, EnumCoral.class, meta);
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return Metadata.getMetadata((EnumCoral) state.getValue(Constants.CORAL_VARIANT));
+        return Metadata.getMetadata(state, Constants.CORAL_VARIANT);
     }
 
     @Override
