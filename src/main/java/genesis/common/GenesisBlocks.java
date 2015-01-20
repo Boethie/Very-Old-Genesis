@@ -1,6 +1,5 @@
 package genesis.common;
 
-import genesis.Genesis;
 import genesis.block.*;
 import genesis.item.EnumNodule;
 import genesis.item.ItemBlockColored;

@@ -1,6 +1,5 @@
 package genesis.common;
 
-import genesis.Genesis;
 import genesis.item.*;
 import genesis.util.Constants;
 import net.minecraft.item.Item;

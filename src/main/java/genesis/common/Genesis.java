@@ -1,6 +1,5 @@
-package genesis;
+package genesis.common;
 
-import genesis.common.*;
 import genesis.util.Constants;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
