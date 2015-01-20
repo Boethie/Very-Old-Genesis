@@ -23,29 +23,6 @@ public class GenesisClient extends GenesisProxy {
     private boolean hasInit = false;
 
     @Override
-    public void registerBlock(Block block, String name) {
-        super.registerBlock(block, name);
-        registerModel(block, name);
-    }
-
-    @Override
-    public void registerItem(Item item, String name) {
-        super.registerItem(item, name);
-
-        if (item instanceof ItemGenesisMetadata) {
-            ArrayList<IMetadata> lookup = Metadata.getLookup(((ItemGenesisMetadata) item).getMetaClass());
-
-            for (int metadata = 0; metadata < lookup.size(); metadata++) {
-                String textureName = name + "_" + lookup.get(metadata).getName();
-                registerModel(item, metadata, textureName);
-                addVariantName(item, textureName);
-            }
-        } else {
-            registerModel(item, name);
-        }
-    }
-
-    @Override
     public void preInit() {
         // Variant names must be added during pre init
         registerMetaModels(GenesisBlocks.coral, EnumCoral.values());
@@ -68,6 +45,29 @@ public class GenesisClient extends GenesisProxy {
         }
 
         registerModel(GenesisBlocks.moss, "moss");
+    }
+
+    @Override
+    public void registerBlock(Block block, String name) {
+        super.registerBlock(block, name);
+        registerModel(block, name);
+    }
+
+    @Override
+    public void registerItem(Item item, String name) {
+        super.registerItem(item, name);
+
+        if (item instanceof ItemGenesisMetadata) {
+            ArrayList<IMetadata> lookup = Metadata.getLookup(((ItemGenesisMetadata) item).getMetaClass());
+
+            for (int metadata = 0; metadata < lookup.size(); metadata++) {
+                String textureName = name + "_" + lookup.get(metadata).getName();
+                registerModel(item, metadata, textureName);
+                addVariantName(item, textureName);
+            }
+        } else {
+            registerModel(item, name);
+        }
     }
 
     private void registerMetaModels(Block block, IMetadata[] values) {
