@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -48,9 +49,21 @@ public class GenesisClient extends GenesisProxy {
     }
 
     @Override
-    public void registerBlock(Block block, String name) {
-        super.registerBlock(block, name);
-        registerModel(block, name);
+    public void registerBlock(Block block, String name, Class<? extends ItemBlock> clazz, Object... args) {
+        super.registerBlock(block, name, clazz, args);
+
+        if (args != null && args.length > 0) {
+            for (Object arg : args) {
+                if (arg instanceof Class) {
+                    Class argClass = (Class) arg;
+                    if (Enum.class.isAssignableFrom(argClass) && IMetadata.class.isAssignableFrom(argClass)) {
+                        registerMetaModels(block, (IMetadata[]) argClass.getEnumConstants());
+                    }
+                }
+            }
+        } else {
+            registerModel(block, name);
+        }
     }
 
     @Override

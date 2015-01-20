@@ -54,8 +54,7 @@ public final class GenesisBlocks {
         EnumFern.values();
         EnumCoral.values();
 
-        // Special registration, must manually register in GenesisClient
-        GameRegistry.registerBlock(moss, ItemBlockColored.class, "moss");
+        Genesis.proxy.registerBlock(moss, "moss", ItemBlockColored.class);
         Genesis.proxy.registerBlock(granite, "granite");
         Genesis.proxy.registerBlock(mossy_granite, "mossy_granite");
         Genesis.proxy.registerBlock(rhyolite, "rhyolite");
@@ -80,8 +79,8 @@ public final class GenesisBlocks {
         Genesis.proxy.registerBlock(olivine_ore, "olivine_ore");
         Genesis.proxy.registerBlock(brown_flint_ore, "brown_flint_ore");
         Genesis.proxy.registerBlock(marcasite_ore, "marcasite_ore");
-        GameRegistry.registerBlock(plant, ItemBlockMetadata.class, "plant", EnumPlant.class);
-        GameRegistry.registerBlock(fern, ItemBlockColored.class, "fern", EnumFern.class);
-        GameRegistry.registerBlock(coral, ItemBlockMetadata.class, "coral", EnumCoral.class);
+        Genesis.proxy.registerBlock(plant, "plant", ItemBlockMetadata.class, EnumPlant.class);
+        Genesis.proxy.registerBlock(fern, "fern", ItemBlockColored.class, EnumFern.class);
+        Genesis.proxy.registerBlock(coral, "coral", ItemBlockMetadata.class, EnumCoral.class);
     }
 }
