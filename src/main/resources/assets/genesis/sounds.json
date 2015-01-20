@@ -22,5 +22,28 @@
       "step/moss3",
       "step/moss4"
     ]
+  },
+  "dig.coral": {
+    "category": "block",
+    "sounds": [
+      "dig/coral1",
+      "dig/coral2"
+    ]
+  },
+  "step.coral": {
+    "category": "neutral",
+    "sounds": [
+      "step/coral1",
+      "step/coral2",
+      "step/coral3",
+      "step/coral4"
+    ]
+  },
+  "place.coral": {
+    "category": "block",
+    "sounds": [
+      "place/coral1",
+      "place/coral2"
+    ]
   }
 }
