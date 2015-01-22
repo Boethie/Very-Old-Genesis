@@ -64,13 +64,14 @@ public class BlockMoss extends BlockGrass
 			{
 				for (int i = 0; i < 4; ++i)
 				{
-					BlockPos pos1 = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
-					Block block = worldIn.getBlockState(pos1.up()).getBlock();
-					IBlockState state1 = worldIn.getBlockState(pos1);
+					BlockPos randPos = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
+					IBlockState randBlock = worldIn.getBlockState(randPos);
+					
+					Block block = worldIn.getBlockState(randPos.up()).getBlock();
 
-					if ((state1.getBlock() == Blocks.dirt) && (state1.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT) && (worldIn.getLightFromNeighbors(pos1.up()) <= 14) && (block.getLightOpacity(worldIn, pos1.up()) <= 2))
+					if ((randBlock.getBlock() == Blocks.dirt) && (randBlock.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT) && (worldIn.getLightFromNeighbors(randPos.up()) <= 14) && (block.getLightOpacity(worldIn, randPos.up()) <= 2))
 					{
-						worldIn.setBlockState(pos1, GenesisBlocks.moss.getDefaultState());
+						worldIn.setBlockState(randPos, GenesisBlocks.moss.getDefaultState());
 					}
 				}
 			}
