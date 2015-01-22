@@ -20,8 +20,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.common.IPlantable;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockMoss extends BlockGrass
 {
@@ -120,13 +118,7 @@ public class BlockMoss extends BlockGrass
 		return false;
 	}
 
-	private boolean hasWater(IBlockAccess world, BlockPos pos)
-	{
-		return world.getBlockState(pos).getBlock().getMaterial() == Material.water;
-	}
-
 	@Override
-	@SideOnly(Side.CLIENT)
 	public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass)
 	{
 		if (renderPass == 1)
@@ -137,5 +129,10 @@ public class BlockMoss extends BlockGrass
 		{
 			return Blocks.dirt.colorMultiplier(worldIn, pos, renderPass);
 		}
+	}
+
+	private boolean hasWater(IBlockAccess world, BlockPos pos)
+	{
+		return world.getBlockState(pos).getBlock().getMaterial() == Material.water;
 	}
 }
