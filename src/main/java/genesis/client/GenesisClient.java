@@ -25,13 +25,8 @@ public class GenesisClient extends GenesisProxy {
 
     @Override
     public void preInit() {
-        // Variant names must be added during pre init
-        registerMetaModels(GenesisBlocks.coral, EnumCoral.values());
-        registerMetaModels(GenesisBlocks.fern, EnumFern.values());
-        registerMetaModels(GenesisBlocks.plant, EnumPlant.values());
-
         // TODO: Cannot add prefix "genesis" when registering variants!
-        //Minecraft.getMinecraft().modelManager.getBlockModelShapes().registerBlockWithStateMapper(GenesisBlocks.coral, (new StateMap.Builder()).setProperty(BlockCoral.VARIANT).build());
+        //Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().registerBlockWithStateMapper(GenesisBlocks.coral, (new StateMap.Builder()).setProperty(BlockCoral.VARIANT).build());
     }
 
     @Override
@@ -44,8 +39,6 @@ public class GenesisClient extends GenesisProxy {
             registerModel(texture.item, texture.metadata, texture.name);
             iterator.remove();
         }
-
-        registerModel(GenesisBlocks.moss, "moss");
     }
 
     @Override
