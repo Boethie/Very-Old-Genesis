@@ -1,9 +1,5 @@
 package genesis.client;
 
-import genesis.block.EnumCoral;
-import genesis.block.EnumFern;
-import genesis.block.EnumPlant;
-import genesis.common.GenesisBlocks;
 import genesis.common.GenesisProxy;
 import genesis.item.IMetadata;
 import genesis.item.ItemGenesisMetadata;
@@ -14,6 +10,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -23,9 +20,39 @@ public class GenesisClient extends GenesisProxy {
     private boolean hasInit = false;
 
     @Override
-    public void registerBlock(Block block, String name) {
-        super.registerBlock(block, name);
-        registerModel(block, name);
+    public void preInit() {
+        // TODO: Cannot add prefix "genesis" when registering variants!
+        //Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().registerBlockWithStateMapper(GenesisBlocks.coral, (new StateMap.Builder()).setProperty(BlockCoral.VARIANT).build());
+    }
+
+    @Override
+    public void init() {
+        hasInit = true;
+
+        Iterator<ItemTexture> iterator = itemTextures.iterator();
+        while (iterator.hasNext()) {
+            ItemTexture texture = iterator.next();
+            registerModel(texture.item, texture.metadata, texture.name);
+            iterator.remove();
+        }
+    }
+
+    @Override
+    public void registerBlock(Block block, String name, Class<? extends ItemBlock> clazz, Object... args) {
+        super.registerBlock(block, name, clazz, args);
+
+        if (args != null && args.length > 0) {
+            for (Object arg : args) {
+                if (arg instanceof Class) {
+                    Class argClass = (Class) arg;
+                    if (Enum.class.isAssignableFrom(argClass) && IMetadata.class.isAssignableFrom(argClass)) {
+                        registerMetaModels(block, (IMetadata[]) argClass.getEnumConstants());
+                    }
+                }
+            }
+        } else {
+            registerModel(block, name);
+        }
     }
 
     @Override
@@ -43,31 +70,6 @@ public class GenesisClient extends GenesisProxy {
         } else {
             registerModel(item, name);
         }
-    }
-
-    @Override
-    public void preInit() {
-        // Variant names must be added during pre init
-        registerMetaModels(GenesisBlocks.coral, EnumCoral.values());
-        registerMetaModels(GenesisBlocks.fern, EnumFern.values());
-        registerMetaModels(GenesisBlocks.plant, EnumPlant.values());
-
-        // TODO: Cannot add prefix "genesis" when registering variants!
-        //Minecraft.getMinecraft().modelManager.getBlockModelShapes().registerBlockWithStateMapper(GenesisBlocks.coral, (new StateMap.Builder()).setProperty(BlockCoral.VARIANT).build());
-    }
-
-    @Override
-    public void init() {
-        hasInit = true;
-
-        Iterator<ItemTexture> iterator = itemTextures.iterator();
-        while (iterator.hasNext()) {
-            ItemTexture texture = iterator.next();
-            registerModel(texture.item, texture.metadata, texture.name);
-            iterator.remove();
-        }
-
-        registerModel(GenesisBlocks.moss, "moss");
     }
 
     private void registerMetaModels(Block block, IMetadata[] values) {

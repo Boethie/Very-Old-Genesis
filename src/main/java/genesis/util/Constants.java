@@ -5,8 +5,6 @@ import genesis.block.EnumFern;
 import genesis.block.EnumPlant;
 import net.minecraft.block.properties.PropertyEnum;
 
-import java.util.Random;
-
 public final class Constants {
     public static final String MOD_ID = "genesis";
     public static final String MOD_NAME = "Project Genesis";

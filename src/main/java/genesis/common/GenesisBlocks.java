@@ -1,6 +1,5 @@
 package genesis.common;
 
-import genesis.Genesis;
 import genesis.block.*;
 import genesis.item.EnumNodule;
 import genesis.item.ItemBlockColored;
@@ -8,7 +7,6 @@ import genesis.item.ItemBlockMetadata;
 import genesis.util.Constants;
 import genesis.util.Metadata;
 import net.minecraft.block.Block;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public final class GenesisBlocks {
     public static final Block moss = new BlockMoss().setUnlocalizedName(Constants.PREFIX + "moss").setHardness(0.6F).setStepSound(GenesisSounds.MOSS);
@@ -47,7 +45,7 @@ public final class GenesisBlocks {
     /* Misc */
     public static final Block plant = new BlockPlant().setUnlocalizedName(Constants.PREFIX + "plant").setHardness(0.0F).setStepSound(Block.soundTypeGrass);
     public static final Block fern = new BlockFern().setUnlocalizedName(Constants.PREFIX + "fern").setHardness(0.0F).setStepSound(GenesisSounds.FERN);
-    public static final Block coral = new BlockCoral().setUnlocalizedName("coral").setHardness(0.75F).setResistance(8.5F);
+    public static final Block coral = new BlockCoral().setUnlocalizedName("coral").setHardness(0.75F).setResistance(8.5F).setStepSound(GenesisSounds.CORAL);
 
     public static void registerBlocks() {
         // Initializes values
@@ -55,8 +53,7 @@ public final class GenesisBlocks {
         EnumFern.values();
         EnumCoral.values();
 
-        // Special registration, must manually register in GenesisClient
-        GameRegistry.registerBlock(moss, ItemBlockColored.class, "moss");
+        Genesis.proxy.registerBlock(moss, "moss", ItemBlockColored.class);
         Genesis.proxy.registerBlock(granite, "granite");
         Genesis.proxy.registerBlock(mossy_granite, "mossy_granite");
         Genesis.proxy.registerBlock(rhyolite, "rhyolite");
@@ -81,8 +78,8 @@ public final class GenesisBlocks {
         Genesis.proxy.registerBlock(olivine_ore, "olivine_ore");
         Genesis.proxy.registerBlock(brown_flint_ore, "brown_flint_ore");
         Genesis.proxy.registerBlock(marcasite_ore, "marcasite_ore");
-        GameRegistry.registerBlock(plant, ItemBlockMetadata.class, "plant", EnumPlant.class);
-        GameRegistry.registerBlock(fern, ItemBlockColored.class, "fern", EnumFern.class);
-        GameRegistry.registerBlock(coral, ItemBlockMetadata.class, "coral", EnumCoral.class);
+        Genesis.proxy.registerBlock(plant, "plant", ItemBlockMetadata.class, EnumPlant.class);
+        Genesis.proxy.registerBlock(fern, "fern", ItemBlockColored.class, EnumFern.class);
+        Genesis.proxy.registerBlock(coral, "coral", ItemBlockMetadata.class, EnumCoral.class);
     }
 }
