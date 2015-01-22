@@ -8,13 +8,16 @@ import net.minecraft.item.Item;
 
 import java.util.Random;
 
-public class BlockRedClay extends BlockClay {
-    public BlockRedClay() {
-        setCreativeTab(GenesisCreativeTabs.BLOCK);
-    }
+public class BlockRedClay extends BlockClay
+{
+	public BlockRedClay()
+	{
+		setCreativeTab(GenesisCreativeTabs.BLOCK);
+	}
 
-    @Override
-    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return GenesisItems.red_clay_ball;
-    }
+	@Override
+	public Item getItemDropped(IBlockState state, Random rand, int fortune)
+	{
+		return GenesisItems.red_clay_ball;
+	}
 }

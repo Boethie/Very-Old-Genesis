@@ -9,53 +9,60 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
 
 @Mod(modid = Constants.MOD_ID, name = Constants.MOD_NAME, version = Constants.MOD_VERSION, dependencies = "required-after:Forge")
-public class Genesis {
-    @Mod.Instance(Constants.MOD_ID)
-    public static Genesis instance;
-    @SidedProxy(clientSide = Constants.CLIENT_LOCATION, serverSide = Constants.PROXY_LOCATION)
-    public static GenesisProxy proxy;
+public class Genesis
+{
+	@Mod.Instance(Constants.MOD_ID)
+	public static Genesis instance;
+	@SidedProxy(clientSide = Constants.CLIENT_LOCATION, serverSide = Constants.PROXY_LOCATION)
+	public static GenesisProxy proxy;
 
-    public static Logger logger;
+	public static Logger logger;
 
-    @Mod.EventHandler
-    public void preInit(FMLPreInitializationEvent event) {
-        logger = event.getModLog();
+	@Mod.EventHandler
+	public void preInit(FMLPreInitializationEvent event)
+	{
+		logger = event.getModLog();
 
-        GenesisVersion.startVersionCheck();
-        GenesisConfig.readConfigValues(event.getSuggestedConfigurationFile());
+		GenesisVersion.startVersionCheck();
+		GenesisConfig.readConfigValues(event.getSuggestedConfigurationFile());
 
-        GenesisBlocks.registerBlocks();
-        GenesisItems.registerItems();
+		GenesisBlocks.registerBlocks();
+		GenesisItems.registerItems();
 
-        registerTileEntities();
+		registerTileEntities();
 
-        GenesisBiomes.loadBiomes();
+		GenesisBiomes.loadBiomes();
 
-        registerEntities();
+		registerEntities();
 
-        proxy.preInit();
-    }
+		proxy.preInit();
+	}
 
-    @Mod.EventHandler
-    public void init(FMLInitializationEvent event) {
-        GenesisRecipes.addRecipes();
+	@Mod.EventHandler
+	public void init(FMLInitializationEvent event)
+	{
+		GenesisRecipes.addRecipes();
 
-        registerHandlers();
+		registerHandlers();
 
-        proxy.init();
-    }
+		proxy.init();
+	}
 
-    @Mod.EventHandler
-    public void postInit(FMLPostInitializationEvent event) {
-        proxy.postInit();
-    }
+	@Mod.EventHandler
+	public void postInit(FMLPostInitializationEvent event)
+	{
+		proxy.postInit();
+	}
 
-    private void registerTileEntities() {
-    }
+	private void registerTileEntities()
+	{
+	}
 
-    private void registerEntities() {
-    }
+	private void registerEntities()
+	{
+	}
 
-    private void registerHandlers() {
-    }
+	private void registerHandlers()
+	{
+	}
 }
