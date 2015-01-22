@@ -1,9 +1,5 @@
 package genesis.client;
 
-import genesis.block.EnumCoral;
-import genesis.block.EnumFern;
-import genesis.block.EnumPlant;
-import genesis.common.GenesisBlocks;
 import genesis.common.GenesisProxy;
 import genesis.item.IMetadata;
 import genesis.item.ItemGenesisMetadata;

@@ -7,7 +7,6 @@ import genesis.item.ItemBlockMetadata;
 import genesis.util.Constants;
 import genesis.util.Metadata;
 import net.minecraft.block.Block;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public final class GenesisBlocks {
     public static final Block moss = new BlockMoss().setUnlocalizedName(Constants.PREFIX + "moss").setHardness(0.6F).setStepSound(GenesisSounds.MOSS);

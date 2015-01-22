@@ -4,7 +4,6 @@ import genesis.util.Metadata;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MathHelper;
 
 import java.util.List;
 
