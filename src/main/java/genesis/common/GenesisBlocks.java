@@ -53,8 +53,8 @@ public final class GenesisBlocks
 	public static final Block olivine_ore = new BlockGenesisOre(4.2F, 5.0F, 3, 5, 1).setDrop(GenesisItems.olivine).setUnlocalizedName(Constants.PREFIX + "oreOlivine");
 
 	/* Limestone Ores */
-	public static final Block brown_flint_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(Metadata.newStack(EnumNodule.BROWN_FLINT)).setUnlocalizedName(Constants.PREFIX + "oreBrownFlint");
-	public static final Block marcasite_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(Metadata.newStack(EnumNodule.MARCASITE)).setUnlocalizedName(Constants.PREFIX + "oreMarcasite");
+	public static final Block brown_flint_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(EnumNodule.BROWN_FLINT).setUnlocalizedName(Constants.PREFIX + "oreBrownFlint");
+	public static final Block marcasite_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(EnumNodule.MARCASITE).setUnlocalizedName(Constants.PREFIX + "oreMarcasite");
 
 	/* Misc */
 	public static final Block plant = new BlockPlant().setUnlocalizedName(Constants.PREFIX + "plant");

@@ -1,6 +1,8 @@
 package genesis.block;
 
 import genesis.common.GenesisCreativeTabs;
+import genesis.item.IMetadata;
+import genesis.util.Metadata;
 
 import java.util.Random;
 
@@ -73,6 +75,11 @@ public class BlockGenesisOre extends BlockOre
 	public ItemStack getDrop()
 	{
 		return drop;
+	}
+
+	public BlockGenesisOre setDrop(IMetadata meta)
+	{
+		return setDrop(Metadata.newStack(meta));
 	}
 
 	public BlockGenesisOre setDrop(Block blockDrop)
