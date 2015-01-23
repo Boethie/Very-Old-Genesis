@@ -1,5 +1,6 @@
 package genesis.block;
 
+import genesis.client.GenesisSounds;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 
@@ -25,6 +26,8 @@ public class BlockMoss extends BlockGrass
 {
 	public BlockMoss()
 	{
+		setHardness(0.6F);
+		setStepSound(GenesisSounds.MOSS);
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 		setHarvestLevel("shovel", 0);
 	}

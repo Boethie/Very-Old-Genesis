@@ -1,5 +1,6 @@
 package genesis.block;
 
+import genesis.client.GenesisSounds;
 import genesis.common.GenesisCreativeTabs;
 import genesis.util.Constants;
 import genesis.util.Metadata;
@@ -17,6 +18,9 @@ public class BlockCoral extends BlockGenesis
 	public BlockCoral()
 	{
 		super(Material.coral);
+		setHardness(0.75F);
+		setResistance(8.5F);
+		setStepSound(GenesisSounds.CORAL);
 		setDefaultState(getBlockState().getBaseState().withProperty(Constants.CORAL_VARIANT, EnumCoral.FAVOSITES));
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	}

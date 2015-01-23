@@ -22,6 +22,8 @@ public class BlockPlant extends BlockBush
 {
 	public BlockPlant()
 	{
+		setHardness(0.0F);
+		setStepSound(soundTypeGrass);
 		setDefaultState(getBlockState().getBaseState().withProperty(getVariant(), (Enum) Metadata.getLookup(getMetaClass()).get(0)));
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		setBlockBounds(0.5F - 0.4F, 0.0F, 0.5F - 0.4F, 0.5F + 0.4F, 0.4F * 2, 0.5F + 0.4F);

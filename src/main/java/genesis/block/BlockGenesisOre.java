@@ -21,15 +21,17 @@ public class BlockGenesisOre extends BlockOre
 	private ItemStack drop; // drop.stackSize is minQuantity
 	private int maxQuantity = 0;
 
-	public BlockGenesisOre(int maxExp, int harvestLevel)
+	public BlockGenesisOre(float hardness, float resistance, int maxExp, int harvestLevel)
 	{
-		this(0, maxExp, harvestLevel);
+		this(hardness, resistance, 0, maxExp, harvestLevel);
 	}
 
-	public BlockGenesisOre(int minExp, int maxExp, int harvestLevel)
+	public BlockGenesisOre(float hardness, float resistance, int minExp, int maxExp, int harvestLevel)
 	{
 		this.minExp = minExp;
 		this.maxExp = maxExp;
+		setHardness(hardness);
+		setResistance(resistance);
 		setHarvestLevel("pickaxe", harvestLevel);
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 	}
