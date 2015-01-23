@@ -13,6 +13,8 @@ public class BlockRedClay extends BlockClay
 {
 	public BlockRedClay()
 	{
+		setHardness(0.6F);
+		setStepSound(soundTypeGravel);
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 	}
 

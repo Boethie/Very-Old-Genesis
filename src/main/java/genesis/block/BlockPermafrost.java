@@ -8,6 +8,7 @@ public class BlockPermafrost extends BlockGenesis
 	{
 		super(Material.rock);
 		slipperiness = 0.98F;
+		setHardness(0.5F);
 		setHarvestLevel("pickaxe", 0);
 	}
 }

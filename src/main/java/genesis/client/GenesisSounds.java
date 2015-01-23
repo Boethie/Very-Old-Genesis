@@ -1,4 +1,4 @@
-package genesis.common;
+package genesis.client;
 
 import genesis.util.Constants;
 import net.minecraft.block.Block;

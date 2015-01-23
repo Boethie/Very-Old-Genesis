@@ -1,5 +1,6 @@
 package genesis.block;
 
+import genesis.client.GenesisSounds;
 import genesis.util.Constants;
 import genesis.util.Metadata;
 
@@ -18,6 +19,11 @@ import net.minecraftforge.common.IShearable;
 
 public class BlockFern extends BlockPlant implements IShearable
 {
+	public BlockFern()
+	{
+		setStepSound(GenesisSounds.FERN);
+	}
+
 	@Override
 	public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos)
 	{

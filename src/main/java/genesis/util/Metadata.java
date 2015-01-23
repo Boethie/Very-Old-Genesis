@@ -50,34 +50,39 @@ public final class Metadata
 		return meta;
 	}
 
-	public static int getMetadata(Enum meta)
+	public static <T extends Enum & IMetadata> T getEnum(Class<? extends T> clazz, int metadata)
 	{
-		return meta.ordinal();
+		return get(clazz, metadata);
+	}
+
+	public static int getMetadata(IMetadata meta)
+	{
+		return ((Enum) meta).ordinal();
 	}
 
 	public static int getMetadata(IBlockState state, IProperty property)
 	{
-		return getMetadata((Enum) state.getValue(property));
+		return getMetadata((IMetadata) state.getValue(property));
 	}
 
-	public static ItemStack newStack(Enum meta)
+	public static ItemStack newStack(IMetadata meta)
 	{
 		return newStack(meta, 1);
 	}
 
-	public static ItemStack newStack(Enum meta, int amount)
+	public static ItemStack newStack(IMetadata meta, int amount)
 	{
-		return new ItemStack(((IMetadata) meta).getItem(), amount, getMetadata(meta));
+		return new ItemStack(meta.getItem(), amount, getMetadata(meta));
 	}
 
-	public static <T extends Enum & IMetadata> IBlockState getState(Block block, IProperty property, Class<T> clazz, int meta)
+	public static IBlockState getState(Block block, IProperty property, Class clazz, int meta)
 	{
-		return block.getDefaultState().withProperty(property, Metadata.get(clazz, meta));
+		return block.getDefaultState().withProperty(property, getEnum(clazz, meta));
 	}
 
-	public static <T extends Enum & IMetadata> void getSubItems(Class<T> clazz, List list)
+	public static void getSubItems(Class<? extends IMetadata> clazz, List list)
 	{
-		for (Enum<? extends IMetadata> meta : getLookup(clazz))
+		for (IMetadata meta : getLookup(clazz))
 		{
 			list.add(newStack(meta));
 		}

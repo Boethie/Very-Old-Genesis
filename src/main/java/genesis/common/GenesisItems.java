@@ -28,6 +28,8 @@ public final class GenesisItems
 	/* Food */
 	public static final Item aphthoroblattina = new ItemGenesisFood(1, 0.2F).setUnlocalizedName(Constants.PREFIX + "aphthoroblattinaRaw");
 	public static final Item cooked_aphthoroblattina = new ItemGenesisFood(2, 0.8F).setUnlocalizedName(Constants.PREFIX + "aphthoroblattinaCooked");
+	public static final Item climatius = new ItemGenesisFood(2, 0.4F).setUnlocalizedName(Constants.PREFIX + "climatiusRaw");
+	public static final Item cooked_climatius = new ItemGenesisFood(5, 6.0F).setUnlocalizedName(Constants.PREFIX + "climatiusCooked");
 	public static final Item eryops_leg = new ItemGenesisFood(2, 0.8F).setUnlocalizedName(Constants.PREFIX + "eryopsLegRaw");
 	public static final Item cooked_eryops_leg = new ItemGenesisFood(5, 6.0F).setUnlocalizedName(Constants.PREFIX + "eryopsLegCooked");
 
@@ -54,6 +56,8 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(resin, "resin");
 		Genesis.proxy.registerItem(aphthoroblattina, "aphthoroblattina");
 		Genesis.proxy.registerItem(cooked_aphthoroblattina, "cooked_aphthoroblattina");
+		Genesis.proxy.registerItem(climatius, "climatius");
+		Genesis.proxy.registerItem(cooked_climatius, "cooked_climatius");
 		Genesis.proxy.registerItem(eryops_leg, "eryops_leg");
 		Genesis.proxy.registerItem(cooked_eryops_leg, "cooked_eryops_leg");
 		Genesis.proxy.registerItem(flint_and_marcasite, "flint_and_marcasite");
