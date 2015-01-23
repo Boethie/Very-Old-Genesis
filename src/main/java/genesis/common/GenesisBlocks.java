@@ -13,6 +13,7 @@ import genesis.block.BlockRedClay;
 import genesis.block.EnumCoral;
 import genesis.block.EnumFern;
 import genesis.block.EnumPlant;
+import genesis.client.GenesisSounds;
 import genesis.item.EnumNodule;
 import genesis.item.ItemBlockColored;
 import genesis.item.ItemBlockMetadata;
