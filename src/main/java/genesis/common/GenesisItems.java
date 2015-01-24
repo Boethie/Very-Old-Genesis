@@ -15,6 +15,8 @@ public final class GenesisItems
 	public static final Item pebble = new ItemGenesisMetadata(EnumPebble.class).setUnlocalizedName("pebble");
 	public static final Item red_clay_ball = new ItemGenesis().setUnlocalizedName("redClay");
 	public static final Item octaedrite_shard = new ItemGenesis().setUnlocalizedName("octaedriteShard");
+	public static final Item red_clay_bowl = new ItemGenesis().setUnlocalizedName("bowlRedClay");
+	public static final Item ceramic_bowl = new ItemGenesis().setUnlocalizedName("bowlCeramic");
 	public static final Item nodule = new ItemGenesisMetadata(EnumNodule.class).setUnlocalizedName("nodule");
 	public static final Item quartz = new ItemGenesis().setUnlocalizedName("quartz");
 	public static final Item zircon = new ItemGenesis().setUnlocalizedName("zircon");
@@ -46,6 +48,8 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(pebble, "pebble");
 		Genesis.proxy.registerItem(red_clay_ball, "red_clay_ball");
 		Genesis.proxy.registerItem(octaedrite_shard, "octaedrite_shard");
+		Genesis.proxy.registerItem(red_clay_bowl, "red_clay_bowl");
+		Genesis.proxy.registerItem(ceramic_bowl, "ceramic_bowl");
 		Genesis.proxy.registerItem(quartz, "quartz");
 		Genesis.proxy.registerItem(zircon, "zircon");
 		Genesis.proxy.registerItem(garnet, "garnet");
