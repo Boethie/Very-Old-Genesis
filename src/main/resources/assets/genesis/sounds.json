@@ -1,10 +1,4 @@
 {
-  "fire.ignite": {
-    "category": "block",
-    "sounds": [
-      "fire/ignite"
-    ]
-  },
   "dig.moss": {
     "category": "block",
     "sounds": [
@@ -21,6 +15,24 @@
       "step/moss2",
       "step/moss3",
       "step/moss4"
+    ]
+  },
+  "dig.permafrost": {
+    "category": "block",
+    "sounds": [
+      "dig/permafrost1",
+      "dig/permafrost2",
+      "dig/permafrost3",
+      "dig/permafrost4"
+    ]
+  },
+  "step.permafrost": {
+    "category": "neutral",
+    "sounds": [
+      "step/permafrost1",
+      "step/permafrost2",
+      "step/permafrost3",
+      "step/permafrost4"
     ]
   },
   "dig.coral": {
@@ -44,6 +56,12 @@
     "sounds": [
       "place/coral1",
       "place/coral2"
+    ]
+  },
+  "fire.ignite": {
+    "category": "block",
+    "sounds": [
+      "fire/ignite"
     ]
   }
 }
