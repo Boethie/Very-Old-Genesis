@@ -57,7 +57,7 @@ public class BlockPrototaxites extends BlockGenesis
 					worldIn.setBlockState(pos, ageReset, 4);
 					onNeighborBlockChange(worldIn, topBlock, ageReset, this);
 				}
-				else
+				else if (rand.nextInt(4) > 0)
 				{
 					worldIn.setBlockState(pos, state.withProperty(BlockCactus.AGE, age + 1), 4);
 				}

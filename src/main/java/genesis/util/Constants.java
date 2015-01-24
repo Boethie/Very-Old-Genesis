@@ -7,6 +7,7 @@ import genesis.block.EnumPlant;
 import java.util.Random;
 
 import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.properties.PropertyInteger;
 
 public final class Constants
 {
@@ -26,5 +27,6 @@ public final class Constants
 
 	public static final PropertyEnum PLANT_VARIANT = PropertyEnum.create("variant", EnumPlant.class);
 	public static final PropertyEnum FERN_VARIANT = PropertyEnum.create("variant", EnumFern.class);
+    public static final PropertyInteger PROTOTAXITES_AGE = PropertyInteger.create("age", 0, 15);
 	public static final PropertyEnum CORAL_VARIANT = PropertyEnum.create("variant", EnumCoral.class);
 }

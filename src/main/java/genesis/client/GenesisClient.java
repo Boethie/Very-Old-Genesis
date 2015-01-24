@@ -1,5 +1,6 @@
 package genesis.client;
 
+import genesis.common.GenesisBlocks;
 import genesis.common.GenesisProxy;
 import genesis.item.IMetadata;
 import genesis.item.ItemGenesisMetadata;
@@ -10,27 +11,30 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockCactus;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BlockModelShapes;
+import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraftforge.fml.client.FMLClientHandler;
 
 public class GenesisClient extends GenesisProxy
 {
+	private static final Minecraft MC = FMLClientHandler.instance().getClient();
 	private final ArrayList<ItemTexture> itemTextures = new ArrayList<ItemTexture>();
 	private boolean hasInit = false;
 
 	@Override
-	public void preInit()
-	{
-		// TODO: Cannot add prefix "genesis" when registering variants!
-		// Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().registerBlockWithStateMapper(GenesisBlocks.coral, (new StateMap.Builder()).setProperty(BlockCoral.VARIANT).build());
-	}
-
-	@Override
 	public void init()
 	{
+		BlockModelShapes blockModelShapes = MC.getBlockRendererDispatcher().getBlockModelShapes();
+		blockModelShapes.registerBlockWithStateMapper(GenesisBlocks.prototaxites, new StateMap.Builder().addPropertiesToIgnore(BlockCactus.AGE).build());
+		// TODO: Cannot add prefix "genesis" when registering variants!
+		// blockModelShapes.registerBlockWithStateMapper(GenesisBlocks.coral, new StateMap.Builder().setProperty(BlockCoral.VARIANT).build());
+
 		hasInit = true;
 
 		Iterator<ItemTexture> iterator = itemTextures.iterator();
@@ -122,7 +126,7 @@ public class GenesisClient extends GenesisProxy
 		}
 		else
 		{
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, metadata, new ModelResourceLocation(Constants.ASSETS + textureName, "inventory"));
+			MC.getRenderItem().getItemModelMesher().register(item, metadata, new ModelResourceLocation(Constants.ASSETS + textureName, "inventory"));
 		}
 	}
 
