@@ -9,6 +9,7 @@ import genesis.block.BlockNewPermafrost;
 import genesis.block.BlockOctaedrite;
 import genesis.block.BlockPermafrost;
 import genesis.block.BlockPlant;
+import genesis.block.BlockPrototaxites;
 import genesis.block.BlockPrototaxitesMycelium;
 import genesis.block.BlockRedClay;
 import genesis.block.EnumCoral;
@@ -42,6 +43,7 @@ public final class GenesisBlocks
 	public static final Block permafrost = new BlockPermafrost().setUnlocalizedName("permafrost");
 	public static final Block new_permafrost = new BlockNewPermafrost().setUnlocalizedName("permafrost");
 	public static final Block prototaxites_mycelium = new BlockPrototaxitesMycelium().setUnlocalizedName(Constants.PREFIX + "prototaxitesMycelium");
+	public static final Block prototaxites = new BlockPrototaxites().setUnlocalizedName("prototaxites");
 
 	/* Granite Ores */
 	public static final Block quartz_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 1).setDrop(GenesisItems.quartz).setUnlocalizedName(Constants.PREFIX + "oreQuartz");
@@ -85,6 +87,7 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(permafrost, "permafrost");
 		Genesis.proxy.registerBlock(new_permafrost, "new_permafrost");
 		Genesis.proxy.registerBlock(prototaxites_mycelium, "prototaxites_mycelium");
+		Genesis.proxy.registerBlock(prototaxites, "prototaxites");
 		Genesis.proxy.registerBlock(quartz_ore, "quartz_ore");
 		Genesis.proxy.registerBlock(zircon_ore, "zircon_ore");
 		Genesis.proxy.registerBlock(garnet_ore, "garnet_ore");

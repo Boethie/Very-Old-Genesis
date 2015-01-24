@@ -24,6 +24,7 @@ public final class GenesisItems
 	public static final Item malachite = new ItemGenesis().setUnlocalizedName("malachite");
 	public static final Item olivine = new ItemGenesis().setUnlocalizedName("olivine");
 	public static final Item resin = new ItemGenesis().setUnlocalizedName("resin");
+	public static final Item prototaxites_flesh = new ItemGenesis().setUnlocalizedName("prototaxitesFlesh");
 
 	/* Food */
 	public static final Item aphthoroblattina = new ItemGenesisFood(1, 0.2F).setUnlocalizedName(Constants.PREFIX + "aphthoroblattinaRaw");
@@ -54,6 +55,7 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(olivine, "olivine");
 		Genesis.proxy.registerItem(nodule, "nodule");
 		Genesis.proxy.registerItem(resin, "resin");
+		Genesis.proxy.registerItem(prototaxites_flesh, "prototaxites_flesh");
 		Genesis.proxy.registerItem(aphthoroblattina, "aphthoroblattina");
 		Genesis.proxy.registerItem(cooked_aphthoroblattina, "cooked_aphthoroblattina");
 		Genesis.proxy.registerItem(climatius, "climatius");
