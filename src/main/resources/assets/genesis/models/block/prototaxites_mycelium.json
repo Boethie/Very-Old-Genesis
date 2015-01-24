@@ -1,0 +1,8 @@
+{
+    "parent": "block/cube_bottom_top",
+    "textures": {
+        "bottom": "blocks/dirt",
+        "top": "genesis:blocks/prototaxites_mycelium_top",
+        "side": "genesis:blocks/prototaxites_mycelium_side"
+    }
+}
