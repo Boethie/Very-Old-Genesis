@@ -1,0 +1,8 @@
+{
+    "parent": "block/cube_bottom_top",
+    "textures": {
+        "bottom": "genesis:blocks/prototaxites_bottom",
+        "top": "genesis:blocks/prototaxites_top",
+        "side": "genesis:blocks/prototaxites_side"
+    }
+}

@@ -3,6 +3,8 @@ package genesis.block;
 import genesis.client.GenesisSounds;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
+import genesis.util.Constants;
+import genesis.util.Metadata;
 
 import java.util.Random;
 
@@ -29,6 +31,59 @@ public class BlockMoss extends BlockGrass
 		setStepSound(GenesisSounds.MOSS);
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 		setHarvestLevel("shovel", 0);
+	}
+
+	@Override
+	public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)
+	{
+		BlockPos origTopBlock = pos.up();
+		int loops = 0;
+
+		while (loops < 128)
+		{
+			BlockPos topBlock = origTopBlock;
+			int i = 0;
+
+			while (true)
+			{
+				if (i < loops / 16)
+				{
+					topBlock = topBlock.add(rand.nextInt(3) - 1, (rand.nextInt(3) - 1) * rand.nextInt(3) / 2, rand.nextInt(3) - 1);
+
+					if (worldIn.getBlockState(topBlock.down()).getBlock() == GenesisBlocks.moss && !worldIn.getBlockState(topBlock).getBlock().isNormalCube())
+					{
+						++i;
+						continue;
+					}
+				}
+				else if (worldIn.isAirBlock(topBlock))
+				{
+					BlockPlant plant;
+					IBlockState randPlant;
+					
+					if (rand.nextInt(8) == 0)
+					{
+						// Plant Flower
+						plant = GenesisBlocks.plant;
+						randPlant = plant.getDefaultState().withProperty(Constants.PLANT_VARIANT, Metadata.getRandom(EnumPlant.class));
+					}
+					else
+					{
+						// Plant Grass
+						plant = GenesisBlocks.fern;
+						randPlant = plant.getDefaultState().withProperty(Constants.FERN_VARIANT, Metadata.getRandom(EnumFern.class));
+					}
+
+					if (plant.canBlockStay(worldIn, topBlock, randPlant))
+					{
+						worldIn.setBlockState(topBlock, randPlant, 3);
+					}
+				}
+
+				++loops;
+				break;
+			}
+		}
 	}
 
 	@Override

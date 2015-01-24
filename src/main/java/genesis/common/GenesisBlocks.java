@@ -9,16 +9,16 @@ import genesis.block.BlockNewPermafrost;
 import genesis.block.BlockOctaedrite;
 import genesis.block.BlockPermafrost;
 import genesis.block.BlockPlant;
+import genesis.block.BlockPrototaxites;
+import genesis.block.BlockPrototaxitesMycelium;
 import genesis.block.BlockRedClay;
 import genesis.block.EnumCoral;
 import genesis.block.EnumFern;
 import genesis.block.EnumPlant;
-import genesis.client.GenesisSounds;
 import genesis.item.EnumNodule;
 import genesis.item.ItemBlockColored;
 import genesis.item.ItemBlockMetadata;
 import genesis.util.Constants;
-import genesis.util.Metadata;
 import net.minecraft.block.Block;
 
 public final class GenesisBlocks
@@ -42,6 +42,7 @@ public final class GenesisBlocks
 
 	public static final Block permafrost = new BlockPermafrost().setUnlocalizedName("permafrost");
 	public static final Block new_permafrost = new BlockNewPermafrost().setUnlocalizedName("permafrost");
+	public static final Block prototaxites_mycelium = new BlockPrototaxitesMycelium().setUnlocalizedName(Constants.PREFIX + "prototaxitesMycelium");
 
 	/* Granite Ores */
 	public static final Block quartz_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 1).setDrop(GenesisItems.quartz).setUnlocalizedName(Constants.PREFIX + "oreQuartz");
@@ -57,8 +58,9 @@ public final class GenesisBlocks
 	public static final Block marcasite_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(EnumNodule.MARCASITE).setUnlocalizedName(Constants.PREFIX + "oreMarcasite");
 
 	/* Misc */
-	public static final Block plant = new BlockPlant().setUnlocalizedName(Constants.PREFIX + "plant");
-	public static final Block fern = new BlockFern().setUnlocalizedName(Constants.PREFIX + "fern");
+	public static final BlockPlant plant = (BlockPlant) new BlockPlant().setUnlocalizedName(Constants.PREFIX + "plant");
+	public static final BlockFern fern = (BlockFern) new BlockFern().setUnlocalizedName(Constants.PREFIX + "fern");
+	public static final Block prototaxites = new BlockPrototaxites().setUnlocalizedName("prototaxites");
 	public static final Block coral = new BlockCoral().setUnlocalizedName("coral");
 
 	public static void registerBlocks()
@@ -84,6 +86,7 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(octaedrite, "octaedrite");
 		Genesis.proxy.registerBlock(permafrost, "permafrost");
 		Genesis.proxy.registerBlock(new_permafrost, "new_permafrost");
+		Genesis.proxy.registerBlock(prototaxites_mycelium, "prototaxites_mycelium");
 		Genesis.proxy.registerBlock(quartz_ore, "quartz_ore");
 		Genesis.proxy.registerBlock(zircon_ore, "zircon_ore");
 		Genesis.proxy.registerBlock(garnet_ore, "garnet_ore");
@@ -95,6 +98,7 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(marcasite_ore, "marcasite_ore");
 		Genesis.proxy.registerBlock(plant, "plant", ItemBlockMetadata.class, EnumPlant.class);
 		Genesis.proxy.registerBlock(fern, "fern", ItemBlockColored.class, EnumFern.class);
+		Genesis.proxy.registerBlock(prototaxites, "prototaxites");
 		Genesis.proxy.registerBlock(coral, "coral", ItemBlockMetadata.class, EnumCoral.class);
 	}
 }

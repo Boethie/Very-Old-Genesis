@@ -3,10 +3,16 @@ package genesis.util;
 import genesis.block.EnumCoral;
 import genesis.block.EnumFern;
 import genesis.block.EnumPlant;
+
+import java.util.Random;
+
 import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.properties.PropertyInteger;
 
 public final class Constants
 {
+	public static final Random RANDOM = new Random();
+
 	public static final String MOD_ID = "genesis";
 	public static final String MOD_NAME = "Project Genesis";
 	public static final String MOD_VERSION = "@VERSION@";
@@ -21,5 +27,6 @@ public final class Constants
 
 	public static final PropertyEnum PLANT_VARIANT = PropertyEnum.create("variant", EnumPlant.class);
 	public static final PropertyEnum FERN_VARIANT = PropertyEnum.create("variant", EnumFern.class);
+    public static final PropertyInteger PROTOTAXITES_AGE = PropertyInteger.create("age", 0, 15);
 	public static final PropertyEnum CORAL_VARIANT = PropertyEnum.create("variant", EnumCoral.class);
 }
