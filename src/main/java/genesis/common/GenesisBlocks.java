@@ -57,8 +57,8 @@ public final class GenesisBlocks
 	public static final Block marcasite_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(EnumNodule.MARCASITE).setUnlocalizedName(Constants.PREFIX + "oreMarcasite");
 
 	/* Misc */
-	public static final Block plant = new BlockPlant().setUnlocalizedName(Constants.PREFIX + "plant");
-	public static final Block fern = new BlockFern().setUnlocalizedName(Constants.PREFIX + "fern");
+	public static final BlockPlant plant = (BlockPlant) new BlockPlant().setUnlocalizedName(Constants.PREFIX + "plant");
+	public static final BlockFern fern = (BlockFern) new BlockFern().setUnlocalizedName(Constants.PREFIX + "fern");
 	public static final Block coral = new BlockCoral().setUnlocalizedName("coral");
 
 	public static void registerBlocks()

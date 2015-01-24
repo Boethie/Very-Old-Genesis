@@ -50,6 +50,12 @@ public final class Metadata
 		return meta;
 	}
 
+	public static <T extends IMetadata> T getRandom(Class<? extends T> clazz)
+	{
+		ArrayList<T> metaLookup = getLookup(clazz);
+		return metaLookup.get(Constants.RANDOM.nextInt(metaLookup.size()));
+	}
+
 	public static <T extends Enum & IMetadata> T getEnum(Class<? extends T> clazz, int metadata)
 	{
 		return get(clazz, metadata);
