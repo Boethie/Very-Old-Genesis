@@ -19,7 +19,8 @@ public class BlockPrototaxites extends BlockGenesis
 {
 	public BlockPrototaxites()
 	{
-		super(Material.cactus);
+		super(Material.wood);
+		setHardness(2.0F);
 		setDefaultState(getBlockState().getBaseState().withProperty(BlockCactus.AGE, 0));
 		setTickRandomly(true);
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
