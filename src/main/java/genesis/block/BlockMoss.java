@@ -13,33 +13,16 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemColored;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.common.IPlantable;
 
 public class BlockMoss extends BlockGrass
 {
-	public static class ItemMoss extends ItemColored
-	{
-		public ItemMoss(Block block)
-		{
-			super(block, false);
-		}
-
-		@Override
-		public int getColorFromItemStack(ItemStack stack, int renderPass)
-		{
-			return ColorizerGrass.getGrassColor(0.5, 1.0);
-		}
-	}
-
 	public BlockMoss()
 	{
 		setHardness(0.6F);
@@ -143,11 +126,11 @@ public class BlockMoss extends BlockGrass
 	{
 		if (renderPass == 1)
 		{
-			return BiomeColorHelper.getGrassColorAtPos(worldIn, pos);
+			return super.colorMultiplier(worldIn, pos, renderPass);
 		}
 		else
 		{
-			return 16777215;
+			return getRenderColor(worldIn.getBlockState(pos));
 		}
 	}
 

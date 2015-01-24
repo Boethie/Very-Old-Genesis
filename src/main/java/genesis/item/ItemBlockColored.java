@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemColored;
+import net.minecraft.item.ItemStack;
 
 public class ItemBlockColored extends ItemColored
 {
@@ -24,4 +25,10 @@ public class ItemBlockColored extends ItemColored
 		}
 		setSubtypeNames(subtypeNames.toArray(new String[subtypeNames.size()]));
 	}
+
+	@Override
+	public int getColorFromItemStack(ItemStack stack, int renderPass)
+    {
+        return getBlock().getBlockColor();
+    }
 }

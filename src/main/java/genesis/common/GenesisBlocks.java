@@ -68,7 +68,7 @@ public final class GenesisBlocks
 		EnumFern.values();
 		EnumCoral.values();
 
-		Genesis.proxy.registerBlock(moss, "moss", BlockMoss.ItemMoss.class);
+		Genesis.proxy.registerBlock(moss, "moss", ItemBlockColored.class);
 		Genesis.proxy.registerBlock(granite, "granite");
 		Genesis.proxy.registerBlock(mossy_granite, "mossy_granite");
 		Genesis.proxy.registerBlock(rhyolite, "rhyolite");
