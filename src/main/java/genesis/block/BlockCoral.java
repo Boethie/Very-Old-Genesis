@@ -35,7 +35,7 @@ public class BlockCoral extends BlockGenesis
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
 	{
-		Metadata.getSubItems(EnumCoral.class, list);
+		Metadata.getSubBlocks(EnumCoral.class, list);
 	}
 
 	@Override

@@ -4,7 +4,7 @@ import genesis.common.GenesisBlocks;
 import genesis.util.Metadata;
 import net.minecraft.item.Item;
 
-public enum EnumFern implements IMetadata
+public enum EnumFern implements IMetaSingle
 {
 	ZYGOPTERIS("zygopteris"), RUFFORDIA("ruffordia"), ASTRALOPTERIS("astralopteris"), MATONIDIUM("matonidium");
 

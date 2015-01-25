@@ -4,7 +4,7 @@ import genesis.common.GenesisBlocks;
 import genesis.util.Metadata;
 import net.minecraft.item.Item;
 
-public enum EnumPlant implements IMetadata
+public enum EnumPlant implements IMetaSingle
 {
 	COOKSONIA("cooksonia"), BARAGWANATHIA("baragwanathia"), SCIADOPHYTON("sciadophyton"), PSILOPHYTON("psilophyton"), NOTHIA("nothia"), RHYNIA("rhynia"), ARCHAEAMPHORA("archaeamphora"), MABELIA("mabelia");
 

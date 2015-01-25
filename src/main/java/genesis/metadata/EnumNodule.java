@@ -4,7 +4,7 @@ import genesis.common.GenesisItems;
 import genesis.util.Metadata;
 import net.minecraft.item.Item;
 
-public enum EnumNodule implements IMetadata
+public enum EnumNodule implements IMetaSingle
 {
 	BROWN_FLINT("brown_flint", "brownFlint"), MARCASITE("marcasite");
 

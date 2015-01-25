@@ -1,10 +1,12 @@
 package genesis.metadata;
 
+import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
 import genesis.util.Metadata;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
-public enum EnumDung implements IMetadata
+public enum EnumDung implements IMetaMulti
 {
 	BRACHIOSAURUS("brachiosaurus"), TYRANNOSAURUS("tyrannosaurus");
 
@@ -33,6 +35,12 @@ public enum EnumDung implements IMetadata
 	public String getUnlocalizedName()
 	{
 		return unlocalizedName;
+	}
+
+	@Override
+	public Block getBlock()
+	{
+		return GenesisBlocks.dung_block;
 	}
 
 	@Override

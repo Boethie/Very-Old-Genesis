@@ -4,7 +4,7 @@ import genesis.common.GenesisBlocks;
 import genesis.util.Metadata;
 import net.minecraft.item.Item;
 
-public enum EnumCoral implements IMetadata
+public enum EnumCoral implements IMetaSingle
 {
 	FAVOSITES("favosites"), HELIOLITES("heliolites"), HALYSITES("halysites");
 

@@ -4,7 +4,7 @@ import genesis.common.GenesisItems;
 import genesis.util.Metadata;
 import net.minecraft.item.Item;
 
-public enum EnumPebble implements IMetadata
+public enum EnumPebble implements IMetaSingle
 {
 	GRANITE("granite"), RHYOLITE("rhyolite"), DOLERITE("dolerite"), QUARTZITE("quartzite"), BROWN_FLINT("brown_flint", "brownFlint");
 

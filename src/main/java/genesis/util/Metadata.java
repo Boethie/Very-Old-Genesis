@@ -1,5 +1,7 @@
 package genesis.util;
 
+import genesis.metadata.IMetaMulti;
+import genesis.metadata.IMetaSingle;
 import genesis.metadata.IMetadata;
 
 import java.util.ArrayList;
@@ -9,6 +11,7 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public final class Metadata
@@ -71,6 +74,16 @@ public final class Metadata
 		return getMetadata((IMetadata) state.getValue(property));
 	}
 
+	public static ItemStack newStack(IMetaMulti meta, boolean isBlock)
+	{
+		return newStack(meta, 1, isBlock);
+	}
+
+	public static ItemStack newStack(IMetaMulti meta, int amount, boolean isBlock)
+	{
+		return newStack(meta, isBlock ? Item.getItemFromBlock(meta.getBlock()) : meta.getItem(), amount);
+	}
+
 	public static ItemStack newStack(IMetadata meta)
 	{
 		return newStack(meta, 1);
@@ -78,12 +91,45 @@ public final class Metadata
 
 	public static ItemStack newStack(IMetadata meta, int amount)
 	{
-		return new ItemStack(meta.getItem(), amount, getMetadata(meta));
+		Item item;
+
+		if (meta instanceof IMetaMulti)
+		{
+			item = ((IMetaMulti) meta).getItem();
+		}
+		else
+		{
+			item = ((IMetaSingle) meta).getItem();
+		}
+
+		return newStack(meta, item, amount);
 	}
+	
+	public static ItemStack newStack(IMetadata meta, Item item, int amount)
+	{
+		return new ItemStack(item, amount, getMetadata(meta));
+	}
+
+	/* Item/Block Classes */
 
 	public static IBlockState getState(Block block, IProperty property, Class clazz, int meta)
 	{
 		return block.getDefaultState().withProperty(property, getEnum(clazz, meta));
+	}
+
+	public static void getSubBlocks(Class<? extends IMetadata> clazz, List list)
+	{
+		if (IMetaMulti.class.isAssignableFrom(clazz))
+		{
+			for (IMetadata meta : getLookup(clazz))
+			{
+				list.add(newStack((IMetaMulti) meta, true));
+			}
+		}
+		else
+		{
+			getSubItems(clazz, list);
+		}
 	}
 
 	public static void getSubItems(Class<? extends IMetadata> clazz, List list)

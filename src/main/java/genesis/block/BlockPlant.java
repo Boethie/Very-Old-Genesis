@@ -45,7 +45,7 @@ public class BlockPlant extends BlockBush
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
 	{
-		Metadata.getSubItems(getMetaClass(), list);
+		Metadata.getSubBlocks(getMetaClass(), list);
 	}
 
 	@Override
