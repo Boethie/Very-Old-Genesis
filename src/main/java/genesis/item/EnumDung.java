@@ -1,7 +1,6 @@
-package genesis.block;
+package genesis.item;
 
-import genesis.common.GenesisBlocks;
-import genesis.item.IMetadata;
+import genesis.common.GenesisItems;
 import genesis.util.Metadata;
 import net.minecraft.item.Item;
 
@@ -39,6 +38,6 @@ public enum EnumDung implements IMetadata
 	@Override
 	public Item getItem()
 	{
-		return null;//Item.getItemFromBlock(GenesisBlocks.dung);
+		return GenesisItems.dung;
 	}
 }

@@ -57,6 +57,7 @@ public final class GenesisBlocks
 	/* Limestone Ores */
 	public static final Block brown_flint_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(EnumNodule.BROWN_FLINT).setUnlocalizedName(Constants.PREFIX + "oreBrownFlint");
 	public static final Block marcasite_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(EnumNodule.MARCASITE).setUnlocalizedName(Constants.PREFIX + "oreMarcasite");
+
 	public static final Block dung_block = new BlockDung().setUnlocalizedName("dung");
 
 	/* Misc */
@@ -98,6 +99,7 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(olivine_ore, "olivine_ore");
 		Genesis.proxy.registerBlock(brown_flint_ore, "brown_flint_ore");
 		Genesis.proxy.registerBlock(marcasite_ore, "marcasite_ore");
+		Genesis.proxy.registerBlock(dung_block, "dung_block");
 		Genesis.proxy.registerBlock(plant, "plant", ItemBlockMetadata.class, EnumPlant.class);
 		Genesis.proxy.registerBlock(fern, "fern", ItemBlockColored.class, EnumFern.class);
 		Genesis.proxy.registerBlock(prototaxites, "prototaxites");

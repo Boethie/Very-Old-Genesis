@@ -2,10 +2,12 @@ package genesis.common;
 
 import genesis.item.EnumNodule;
 import genesis.item.EnumPebble;
+import genesis.util.FuelHandler;
 import genesis.util.Metadata;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public final class GenesisRecipes
@@ -13,6 +15,7 @@ public final class GenesisRecipes
 	public static void addRecipes()
 	{
 		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.red_clay), "CC", "CC", 'C', GenesisItems.red_clay_ball);
+		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.dung_block), "CC", "CC", 'C', GenesisItems.dung);
 		GameRegistry.addRecipe(new ItemStack(GenesisItems.red_clay_bowl), "C C", " C ", 'C', GenesisItems.red_clay_ball);
 		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite), Metadata.newStack(EnumNodule.MARCASITE), Metadata.newStack(EnumPebble.BROWN_FLINT));
 		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite), Metadata.newStack(EnumNodule.MARCASITE), Metadata.newStack(EnumNodule.BROWN_FLINT));
@@ -29,5 +32,9 @@ public final class GenesisRecipes
 		GameRegistry.addSmelting(GenesisItems.red_clay_bowl, new ItemStack(GenesisItems.ceramic_bowl), 0.3F);
 		GameRegistry.addSmelting(GenesisItems.aphthoroblattina, new ItemStack(GenesisItems.cooked_aphthoroblattina), 0.35F);
 		GameRegistry.addSmelting(GenesisItems.eryops_leg, new ItemStack(GenesisItems.cooked_eryops_leg), 0.35F);
+
+		int burnTime = TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.log));
+		FuelHandler.INSTANCE.setBurnTime(GenesisItems.dung, burnTime);
+		FuelHandler.INSTANCE.setBurnTime(GenesisBlocks.dung_block, burnTime * 4);
 	}
 }

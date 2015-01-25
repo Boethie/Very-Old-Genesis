@@ -1,5 +1,6 @@
 package genesis.common;
 
+import genesis.item.EnumDung;
 import genesis.item.EnumNodule;
 import genesis.item.EnumPebble;
 import genesis.item.ItemFlintAndMarcasite;
@@ -25,6 +26,7 @@ public final class GenesisItems
 	public static final Item hematite = new ItemGenesis().setUnlocalizedName("hematite");
 	public static final Item malachite = new ItemGenesis().setUnlocalizedName("malachite");
 	public static final Item olivine = new ItemGenesis().setUnlocalizedName("olivine");
+	public static final Item dung = new ItemGenesisMetadata(EnumDung.class).setUnlocalizedName("dung");
 	public static final Item resin = new ItemGenesis().setUnlocalizedName("resin");
 	public static final Item prototaxites_flesh = new ItemGenesis().setUnlocalizedName("prototaxitesFlesh");
 
@@ -58,6 +60,7 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(malachite, "malachite");
 		Genesis.proxy.registerItem(olivine, "olivine");
 		Genesis.proxy.registerItem(nodule, "nodule");
+		Genesis.proxy.registerItem(dung, "dung");
 		Genesis.proxy.registerItem(resin, "resin");
 		Genesis.proxy.registerItem(prototaxites_flesh, "prototaxites_flesh");
 		Genesis.proxy.registerItem(aphthoroblattina, "aphthoroblattina");
