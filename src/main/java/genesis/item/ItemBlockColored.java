@@ -29,7 +29,7 @@ public class ItemBlockColored extends ItemColored
 
 	@Override
 	public int getColorFromItemStack(ItemStack stack, int renderPass)
-    {
-        return getBlock().getBlockColor();
-    }
+	{
+		return getBlock().getBlockColor();
+	}
 }

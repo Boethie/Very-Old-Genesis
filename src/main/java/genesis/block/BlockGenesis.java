@@ -29,16 +29,16 @@ public class BlockGenesis extends Block
 	}
 
 	@Override
-    public int quantityDropped(Random random)
-    {
-        return getQuantityDropped() > -1 ? getQuantityDropped() : super.quantityDropped(random);
-    }
+	public int quantityDropped(Random random)
+	{
+		return getQuantityDropped() > -1 ? getQuantityDropped() : super.quantityDropped(random);
+	}
 
 	@Override
-    public Item getItemDropped(IBlockState state, Random rand, int fortune)
-    {
-        return getItemDropped() != Item.getItemFromBlock(Blocks.air) ? getItemDropped() : super.getItemDropped(state, rand, fortune);
-    }
+	public Item getItemDropped(IBlockState state, Random rand, int fortune)
+	{
+		return getItemDropped() != Item.getItemFromBlock(Blocks.air) ? getItemDropped() : super.getItemDropped(state, rand, fortune);
+	}
 
 	public Item getItemDropped()
 	{

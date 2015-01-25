@@ -48,11 +48,11 @@ public class BlockMoss extends BlockGrass
 
 			while (true)
 			{
-				if (i < loops / 16)
+				if (i < (loops / 16))
 				{
-					topBlock = topBlock.add(rand.nextInt(3) - 1, (rand.nextInt(3) - 1) * rand.nextInt(3) / 2, rand.nextInt(3) - 1);
+					topBlock = topBlock.add(rand.nextInt(3) - 1, ((rand.nextInt(3) - 1) * rand.nextInt(3)) / 2, rand.nextInt(3) - 1);
 
-					if (worldIn.getBlockState(topBlock.down()).getBlock() == GenesisBlocks.moss && !worldIn.getBlockState(topBlock).getBlock().isNormalCube())
+					if ((worldIn.getBlockState(topBlock.down()).getBlock() == GenesisBlocks.moss) && !worldIn.getBlockState(topBlock).getBlock().isNormalCube())
 					{
 						++i;
 						continue;
@@ -62,7 +62,7 @@ public class BlockMoss extends BlockGrass
 				{
 					BlockPlant plant;
 					IBlockState randPlant;
-					
+
 					if (rand.nextInt(8) == 0)
 					{
 						// Plant Flower

@@ -19,7 +19,7 @@ public class BlockPrototaxites extends BlockGenesis
 	public BlockPrototaxites()
 	{
 		super(Material.wood);
-		setHardness(2.0F);
+		setHardness(0.75F);
 		setDefaultState(getBlockState().getBaseState().withProperty(BlockCactus.AGE, 0));
 		setTickRandomly(true);
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
@@ -78,7 +78,7 @@ public class BlockPrototaxites extends BlockGenesis
 	public boolean canBlockStay(World worldIn, BlockPos pos)
 	{
 		Block block = worldIn.getBlockState(pos.down()).getBlock();
-		return block == GenesisBlocks.prototaxites || block == GenesisBlocks.prototaxites_mycelium;
+		return (block == GenesisBlocks.prototaxites) || (block == GenesisBlocks.prototaxites_mycelium);
 	}
 
 	@Override

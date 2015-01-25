@@ -16,6 +16,7 @@ import genesis.block.BlockRedClay;
 import genesis.item.ItemBlockColored;
 import genesis.item.ItemBlockMetadata;
 import genesis.metadata.EnumCoral;
+import genesis.metadata.EnumDung;
 import genesis.metadata.EnumFern;
 import genesis.metadata.EnumNodule;
 import genesis.metadata.EnumPlant;
@@ -99,7 +100,7 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(olivine_ore, "olivine_ore");
 		Genesis.proxy.registerBlock(brown_flint_ore, "brown_flint_ore");
 		Genesis.proxy.registerBlock(marcasite_ore, "marcasite_ore");
-		Genesis.proxy.registerBlock(dung_block, "dung_block");
+		Genesis.proxy.registerBlock(dung_block, "dung_block", ItemBlockMetadata.class, EnumDung.class);
 		Genesis.proxy.registerBlock(plant, "plant", ItemBlockMetadata.class, EnumPlant.class);
 		Genesis.proxy.registerBlock(fern, "fern", ItemBlockColored.class, EnumFern.class);
 		Genesis.proxy.registerBlock(prototaxites, "prototaxites");

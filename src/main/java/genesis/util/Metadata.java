@@ -104,13 +104,18 @@ public final class Metadata
 
 		return newStack(meta, item, amount);
 	}
-	
+
 	public static ItemStack newStack(IMetadata meta, Item item, int amount)
 	{
 		return new ItemStack(item, amount, getMetadata(meta));
 	}
 
 	/* Item/Block Classes */
+
+	public static IBlockState getDefaultState(Block block, IProperty property, Class clazz)
+	{
+		return block.getBlockState().getBaseState().withProperty(property, (Enum) Metadata.getLookup(clazz).get(0));
+	}
 
 	public static IBlockState getState(Block block, IProperty property, Class clazz, int meta)
 	{
