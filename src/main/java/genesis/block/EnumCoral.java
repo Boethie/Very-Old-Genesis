@@ -21,7 +21,7 @@ public enum EnumCoral implements IMetadata
 	{
 		this.name = name;
 		this.unlocalizedName = unlocalizedName;
-		Metadata.add(getClass(), this);
+		Metadata.add(this);
 	}
 
 	@Override

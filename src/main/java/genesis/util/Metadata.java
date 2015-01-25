@@ -27,9 +27,9 @@ public final class Metadata
 		return metaLookup;
 	}
 
-	public static void add(Class clazz, IMetadata meta)
+	public static void add(IMetadata meta)
 	{
-		getLookup(clazz).add(meta);
+		getLookup(meta.getClass()).add(meta);
 	}
 
 	public static <T extends IMetadata> T get(Class<? extends T> clazz, int metadata)

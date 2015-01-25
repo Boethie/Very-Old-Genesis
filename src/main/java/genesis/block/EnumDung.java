@@ -1,22 +1,23 @@
-package genesis.item;
+package genesis.block;
 
-import genesis.common.GenesisItems;
+import genesis.common.GenesisBlocks;
+import genesis.item.IMetadata;
 import genesis.util.Metadata;
 import net.minecraft.item.Item;
 
-public enum EnumNodule implements IMetadata
+public enum EnumDung implements IMetadata
 {
-	BROWN_FLINT("brown_flint", "brownFlint"), MARCASITE("marcasite");
+	BRACHIOSAURUS("brachiosaurus"), TYRANNOSAURUS("tyrannosaurus");
 
 	private final String name;
 	private final String unlocalizedName;
 
-	EnumNodule(String name)
+	EnumDung(String name)
 	{
 		this(name, name);
 	}
 
-	EnumNodule(String name, String unlocalizedName)
+	EnumDung(String name, String unlocalizedName)
 	{
 		this.name = name;
 		this.unlocalizedName = unlocalizedName;
@@ -38,6 +39,6 @@ public enum EnumNodule implements IMetadata
 	@Override
 	public Item getItem()
 	{
-		return GenesisItems.nodule;
+		return null;//Item.getItemFromBlock(GenesisBlocks.dung);
 	}
 }
