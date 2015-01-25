@@ -1,6 +1,6 @@
 package genesis.common;
 
-import genesis.block.EnumPlant;
+import genesis.metadata.EnumPlant;
 import genesis.util.Constants;
 import genesis.util.Metadata;
 import net.minecraft.creativetab.CreativeTabs;

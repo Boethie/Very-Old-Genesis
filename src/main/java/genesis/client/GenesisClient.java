@@ -2,8 +2,8 @@ package genesis.client;
 
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisProxy;
-import genesis.item.IMetadata;
 import genesis.item.ItemGenesisMetadata;
+import genesis.metadata.IMetadata;
 import genesis.util.Constants;
 import genesis.util.Metadata;
 

@@ -2,6 +2,7 @@ package genesis.block;
 
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
+import genesis.metadata.EnumPlant;
 import genesis.util.Constants;
 import genesis.util.Metadata;
 

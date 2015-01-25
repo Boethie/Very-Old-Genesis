@@ -1,6 +1,6 @@
 package genesis.util;
 
-import genesis.item.IMetadata;
+import genesis.metadata.IMetadata;
 
 import java.util.ArrayList;
 import java.util.HashMap;

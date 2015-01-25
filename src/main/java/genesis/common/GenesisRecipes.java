@@ -1,7 +1,7 @@
 package genesis.common;
 
-import genesis.item.EnumNodule;
-import genesis.item.EnumPebble;
+import genesis.metadata.EnumNodule;
+import genesis.metadata.EnumPebble;
 import genesis.util.FuelHandler;
 import genesis.util.Metadata;
 import net.minecraft.init.Blocks;

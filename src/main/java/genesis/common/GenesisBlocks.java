@@ -13,12 +13,12 @@ import genesis.block.BlockPlant;
 import genesis.block.BlockPrototaxites;
 import genesis.block.BlockPrototaxitesMycelium;
 import genesis.block.BlockRedClay;
-import genesis.block.EnumCoral;
-import genesis.block.EnumFern;
-import genesis.block.EnumPlant;
-import genesis.item.EnumNodule;
 import genesis.item.ItemBlockColored;
 import genesis.item.ItemBlockMetadata;
+import genesis.metadata.EnumCoral;
+import genesis.metadata.EnumFern;
+import genesis.metadata.EnumNodule;
+import genesis.metadata.EnumPlant;
 import genesis.util.Constants;
 import net.minecraft.block.Block;
 

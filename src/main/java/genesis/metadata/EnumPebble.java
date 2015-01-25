@@ -1,22 +1,22 @@
-package genesis.item;
+package genesis.metadata;
 
 import genesis.common.GenesisItems;
 import genesis.util.Metadata;
 import net.minecraft.item.Item;
 
-public enum EnumDung implements IMetadata
+public enum EnumPebble implements IMetadata
 {
-	BRACHIOSAURUS("brachiosaurus"), TYRANNOSAURUS("tyrannosaurus");
+	GRANITE("granite"), RHYOLITE("rhyolite"), DOLERITE("dolerite"), QUARTZITE("quartzite"), BROWN_FLINT("brown_flint", "brownFlint");
 
 	private final String name;
 	private final String unlocalizedName;
 
-	EnumDung(String name)
+	EnumPebble(String name)
 	{
 		this(name, name);
 	}
 
-	EnumDung(String name, String unlocalizedName)
+	EnumPebble(String name, String unlocalizedName)
 	{
 		this.name = name;
 		this.unlocalizedName = unlocalizedName;
@@ -38,6 +38,6 @@ public enum EnumDung implements IMetadata
 	@Override
 	public Item getItem()
 	{
-		return GenesisItems.dung;
+		return GenesisItems.pebble;
 	}
 }

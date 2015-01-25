@@ -1,7 +1,7 @@
 package genesis.block;
 
 import genesis.common.GenesisCreativeTabs;
-import genesis.item.IMetadata;
+import genesis.metadata.IMetadata;
 import genesis.util.Metadata;
 
 import java.util.Random;

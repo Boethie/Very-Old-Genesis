@@ -1,8 +1,8 @@
 package genesis.util;
 
-import genesis.block.EnumCoral;
-import genesis.block.EnumFern;
-import genesis.block.EnumPlant;
+import genesis.metadata.EnumCoral;
+import genesis.metadata.EnumFern;
+import genesis.metadata.EnumPlant;
 
 import java.util.Random;
 

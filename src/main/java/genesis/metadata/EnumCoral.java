@@ -1,23 +1,22 @@
-package genesis.block;
+package genesis.metadata;
 
 import genesis.common.GenesisBlocks;
-import genesis.item.IMetadata;
 import genesis.util.Metadata;
 import net.minecraft.item.Item;
 
-public enum EnumPlant implements IMetadata
+public enum EnumCoral implements IMetadata
 {
-	COOKSONIA("cooksonia"), BARAGWANATHIA("baragwanathia"), SCIADOPHYTON("sciadophyton"), PSILOPHYTON("psilophyton"), NOTHIA("nothia"), RHYNIA("rhynia"), ARCHAEAMPHORA("archaeamphora"), MABELIA("mabelia");
+	FAVOSITES("favosites"), HELIOLITES("heliolites"), HALYSITES("halysites");
 
 	private final String name;
 	private final String unlocalizedName;
 
-	EnumPlant(String name)
+	EnumCoral(String name)
 	{
 		this(name, name);
 	}
 
-	EnumPlant(String name, String unlocalizedName)
+	EnumCoral(String name, String unlocalizedName)
 	{
 		this.name = name;
 		this.unlocalizedName = unlocalizedName;
@@ -39,6 +38,6 @@ public enum EnumPlant implements IMetadata
 	@Override
 	public Item getItem()
 	{
-		return Item.getItemFromBlock(GenesisBlocks.plant);
+		return Item.getItemFromBlock(GenesisBlocks.coral);
 	}
 }

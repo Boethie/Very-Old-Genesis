@@ -3,6 +3,8 @@ package genesis.block;
 import genesis.client.GenesisSounds;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
+import genesis.metadata.EnumFern;
+import genesis.metadata.EnumPlant;
 import genesis.util.Constants;
 import genesis.util.Metadata;
 

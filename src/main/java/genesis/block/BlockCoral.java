@@ -2,6 +2,7 @@ package genesis.block;
 
 import genesis.client.GenesisSounds;
 import genesis.common.GenesisCreativeTabs;
+import genesis.metadata.EnumCoral;
 import genesis.util.Constants;
 import genesis.util.Metadata;
 

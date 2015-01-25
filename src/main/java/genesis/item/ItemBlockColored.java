@@ -1,5 +1,6 @@
 package genesis.item;
 
+import genesis.metadata.IMetadata;
 import genesis.util.Metadata;
 
 import java.util.ArrayList;

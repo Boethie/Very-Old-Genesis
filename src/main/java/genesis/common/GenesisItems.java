@@ -1,12 +1,12 @@
 package genesis.common;
 
-import genesis.item.EnumDung;
-import genesis.item.EnumNodule;
-import genesis.item.EnumPebble;
 import genesis.item.ItemFlintAndMarcasite;
 import genesis.item.ItemGenesis;
 import genesis.item.ItemGenesisFood;
 import genesis.item.ItemGenesisMetadata;
+import genesis.metadata.EnumDung;
+import genesis.metadata.EnumNodule;
+import genesis.metadata.EnumPebble;
 import genesis.util.Constants;
 import net.minecraft.item.Item;
 

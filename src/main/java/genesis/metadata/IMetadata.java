@@ -1,4 +1,4 @@
-package genesis.item;
+package genesis.metadata;
 
 import net.minecraft.item.Item;
 import net.minecraft.util.IStringSerializable;
