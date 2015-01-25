@@ -1,6 +1,7 @@
 package genesis.common;
 
 import genesis.block.BlockCoral;
+import genesis.block.BlockDung;
 import genesis.block.BlockFern;
 import genesis.block.BlockGenesisOre;
 import genesis.block.BlockGenesisRock;
@@ -56,6 +57,7 @@ public final class GenesisBlocks
 	/* Limestone Ores */
 	public static final Block brown_flint_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(EnumNodule.BROWN_FLINT).setUnlocalizedName(Constants.PREFIX + "oreBrownFlint");
 	public static final Block marcasite_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(EnumNodule.MARCASITE).setUnlocalizedName(Constants.PREFIX + "oreMarcasite");
+	public static final Block dung_block = new BlockDung().setUnlocalizedName("dung");
 
 	/* Misc */
 	public static final BlockPlant plant = (BlockPlant) new BlockPlant().setUnlocalizedName(Constants.PREFIX + "plant");

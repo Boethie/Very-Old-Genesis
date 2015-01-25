@@ -123,11 +123,4 @@ public class BlockGenesisOre extends BlockOre
 		this.maxQuantity = maxQuantity;
 		return this;
 	}
-
-	public BlockGenesisOre setQuantity(int minQuantity, int maxQuantity)
-	{
-		setMinQuantity(minQuantity);
-		setMaxQuantity(maxQuantity);
-		return this;
-	}
 }
