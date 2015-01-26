@@ -32,9 +32,16 @@ public enum EnumDung implements IMetaMulti
 	}
 
 	@Override
-	public String getBlockName()
+	public String getName(String type)
 	{
-		return "dung_block_" + name;
+		if ("block".equals(type))
+		{
+			return "dung_block_" + getName();
+		}
+		else
+		{
+			return getName();
+		}
 	}
 
 	@Override
@@ -44,14 +51,15 @@ public enum EnumDung implements IMetaMulti
 	}
 
 	@Override
-	public Block getBlock()
+	public Item getItem(String type)
 	{
-		return GenesisBlocks.dung_block;
-	}
-
-	@Override
-	public Item getItem()
-	{
-		return GenesisItems.dung;
+		if ("block".equals(type))
+		{
+			return Item.getItemFromBlock(GenesisBlocks.dung_block);
+		}
+		else
+		{
+			return GenesisItems.dung;
+		}
 	}
 }

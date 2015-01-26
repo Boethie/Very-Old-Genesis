@@ -46,7 +46,6 @@ public final class Metadata
 		}
 		catch (IndexOutOfBoundsException e)
 		{
-			e.printStackTrace();
 			meta = metaLookup.get(0);
 		}
 
@@ -74,14 +73,14 @@ public final class Metadata
 		return getMetadata((IMetadata) state.getValue(property));
 	}
 
-	public static ItemStack newStack(IMetaMulti meta, boolean isBlock)
+	public static ItemStack newStack(IMetaMulti meta, String type)
 	{
-		return newStack(meta, 1, isBlock);
+		return newStack(meta, type, 1);
 	}
 
-	public static ItemStack newStack(IMetaMulti meta, int amount, boolean isBlock)
+	public static ItemStack newStack(IMetaMulti meta, String type, int amount)
 	{
-		return newStack(meta, isBlock ? Item.getItemFromBlock(meta.getBlock()) : meta.getItem(), amount);
+		return newStack(meta, meta.getItem(type), amount);
 	}
 
 	public static ItemStack newStack(IMetadata meta)
@@ -95,7 +94,7 @@ public final class Metadata
 
 		if (meta instanceof IMetaMulti)
 		{
-			item = ((IMetaMulti) meta).getItem();
+			item = ((IMetaMulti) meta).getItem(null);
 		}
 		else
 		{
@@ -128,7 +127,7 @@ public final class Metadata
 		{
 			for (IMetadata meta : getLookup(clazz))
 			{
-				list.add(newStack((IMetaMulti) meta, true));
+				list.add(newStack((IMetaMulti) meta, "block"));
 			}
 		}
 		else

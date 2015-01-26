@@ -68,7 +68,7 @@ public class GenesisClient extends GenesisProxy
 							
 							if (IMetaMulti.class.isAssignableFrom(argClass))
 							{
-								textureName = ((IMetaMulti) values[metadata]).getBlockName();
+								textureName = ((IMetaMulti) values[metadata]).getName("block");
 							}
 							
 							registerModel(block, metadata, textureName);

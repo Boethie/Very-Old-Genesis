@@ -36,7 +36,7 @@ public final class GenesisRecipes
 
 		for (IMetaMulti meta : EnumDung.values())
 		{
-			GameRegistry.addRecipe(Metadata.newStack(meta, true), "CC", "CC", 'C', Metadata.newStack(meta));
+			GameRegistry.addRecipe(Metadata.newStack(meta, "block"), "CC", "CC", 'C', Metadata.newStack(meta));
 		}
 	}
 }

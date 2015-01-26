@@ -6,9 +6,7 @@ import net.minecraft.item.Item;
 /** Multi-Item Metadata */
 public interface IMetaMulti extends IMetadata
 {
-	public String getBlockName();
+	public String getName(String type);
 
-	public Block getBlock();
-
-	public Item getItem();
+	public Item getItem(String type);
 }
