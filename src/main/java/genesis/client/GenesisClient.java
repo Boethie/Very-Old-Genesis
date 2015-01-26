@@ -3,6 +3,7 @@ package genesis.client;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisProxy;
 import genesis.item.ItemGenesisMetadata;
+import genesis.metadata.IMetaMulti;
 import genesis.metadata.IMetadata;
 import genesis.util.Constants;
 import genesis.util.Metadata;
@@ -58,9 +59,21 @@ public class GenesisClient extends GenesisProxy
 				if (arg instanceof Class)
 				{
 					Class argClass = (Class) arg;
-					if (Enum.class.isAssignableFrom(argClass) && IMetadata.class.isAssignableFrom(argClass))
+					if (IMetadata.class.isAssignableFrom(argClass))
 					{
-						registerMetaModels(block, (IMetadata[]) argClass.getEnumConstants());
+						IMetadata[] values = (IMetadata[]) argClass.getEnumConstants();
+						for (int metadata = 0; metadata < values.length; metadata++)
+						{
+							String textureName = values[metadata].getName();
+							
+							if (IMetaMulti.class.isAssignableFrom(argClass))
+							{
+								textureName = ((IMetaMulti) values[metadata]).getBlockName();
+							}
+							
+							registerModel(block, metadata, textureName);
+							addVariantName(block, textureName);
+						}
 					}
 				}
 			}
@@ -95,12 +108,6 @@ public class GenesisClient extends GenesisProxy
 
 	private void registerMetaModels(Block block, IMetadata[] values)
 	{
-		for (int metadata = 0; metadata < values.length; metadata++)
-		{
-			String textureName = values[metadata].getName();
-			registerModel(block, metadata, textureName);
-			addVariantName(block, textureName);
-		}
 	}
 
 	private void registerModel(Block block, String textureName)

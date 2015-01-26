@@ -32,6 +32,12 @@ public enum EnumDung implements IMetaMulti
 	}
 
 	@Override
+	public String getBlockName()
+	{
+		return "dung_block_" + name;
+	}
+
+	@Override
 	public String getUnlocalizedName()
 	{
 		return unlocalizedName;

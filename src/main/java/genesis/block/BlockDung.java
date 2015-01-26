@@ -1,5 +1,6 @@
 package genesis.block;
 
+import genesis.client.GenesisSounds;
 import genesis.common.GenesisItems;
 import genesis.metadata.EnumDung;
 import genesis.util.Constants;
@@ -13,6 +14,7 @@ public class BlockDung extends BlockMetadata
 	{
 		super(Material.ground);
 		setHardness(0.5F);
+		setStepSound(GenesisSounds.DUNG);
 		setItemDropped(GenesisItems.dung);
 		setQuantityDropped(4);
 		Blocks.fire.setFireInfo(this, 5, 5);
