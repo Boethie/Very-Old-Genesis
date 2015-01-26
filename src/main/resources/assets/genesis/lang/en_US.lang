@@ -66,12 +66,16 @@ item.genesis.dung.brachiosaurus.name=Brachiosaurus Dung
 item.genesis.dung.tyrannosaurus.name=Tyrannosaurus Dung
 item.genesis.resin.name=Resin
 item.genesis.prototaxitesFlesh.name=Prototaxites Flesh
+item.genesis.tyrannosaurusSaliva.name=Tyrannosaurus Saliva
+item.genesis.tyrannosaurusTooth.name=Tyrannosaurus Tooth
 item.genesis.aphthoroblattinaRaw.name=Raw Aphthoroblattina
 item.genesis.aphthoroblattinaCooked.name=Cooked Aphthoroblattina
 item.genesis.climatiusRaw.name=Raw Climatius
 item.genesis.climatiusCooked.name=Cooked Climatius
 item.genesis.eryopsLegRaw.name=Raw Eryops Leg
 item.genesis.eryopsLegCooked.name=Cooked Eryops Leg
+item.genesis.tyrannosaurusRaw.name=Raw Tyrannosaurus
+item.genesis.tyrannosaurusCooked.name=Cooked Tyrannosaurus
 item.genesis.flintAndMarcasite.name=Flint and Marcasite
 
 #Containers
