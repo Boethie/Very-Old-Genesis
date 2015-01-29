@@ -3,7 +3,7 @@
     "textures": {
         "particle": "blocks/dirt",
         "dirt": "blocks/dirt",
-        "top": "genesis:blocks/moss_top",
+        "top": "genesis:blocks/moss_top_3",
         "side": "genesis:blocks/moss_side_snowed"
     }
 }
