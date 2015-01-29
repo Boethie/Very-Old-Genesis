@@ -54,15 +54,15 @@ public class BlockStateToMetadata
 		}
 	}
 
-	public static final HashBiMap<Comparable, Integer> valueToMetaRemap = HashBiMap.create();
+	public static final HashBiMap<Comparable, Comparable> valueToMetaRemap = HashBiMap.create();
 
 	static
 	{
-		valueToMetaRemap.put(false, 0);
-		valueToMetaRemap.put(true, 1);
+		valueToMetaRemap.put(false, true);
+		valueToMetaRemap.put(true, false);
 	}
 
-	public static int getMetaForBlockState(IBlockState state, IProperty[] properties)
+	public static int getMetaForBlockState(IBlockState state, IProperty... properties)
 	{
 		int metadata = 0;
 		int offset = 0;
@@ -72,18 +72,14 @@ public class BlockStateToMetadata
 			ImmutableSet values = (ImmutableSet) property.getAllowedValues();
 
 			Comparable value = state.getValue(property);
-
-			int index = 0;
-
+			
 			// Remap undesirable values to desired values (false = metadata 0, true = metadata 1)
 			if (valueToMetaRemap.containsKey(value))
 			{
-				index = valueToMetaRemap.get(value);
+				value = valueToMetaRemap.get(value);
 			}
-			else
-			{
-				index = values.asList().indexOf(value);
-			}
+
+			int index = values.asList().indexOf(value);
 
 			BitwiseMask mask = new BitwiseMask(values.size() - 1);
 			metadata |= (index & mask.getMask()) << offset;
@@ -104,7 +100,7 @@ public class BlockStateToMetadata
 		return getMetaForBlockState(state, (IProperty[]) state.getProperties().keySet().toArray(new IProperty[0]));
 	}
 
-	public static IBlockState getBlockStateFromMeta(IBlockState state, IProperty[] properties, int metadata)
+	public static IBlockState getBlockStateFromMeta(IBlockState state, int metadata, IProperty... properties)
 	{
 		int offset = 0;
 
@@ -115,16 +111,12 @@ public class BlockStateToMetadata
 			BitwiseMask mask = new BitwiseMask(values.size() - 1);
 			int metaValue = (metadata & (mask.getMask() << offset)) >> offset;
 
-			Comparable propValue;
+			Comparable propValue = (Comparable) values.asList().get(metaValue);
 
 			// Remap undesirable values to desired values (metadata 0 = false, metadata 1 = true)
-			if (valueToMetaRemap.containsValue(metaValue))
+			if (valueToMetaRemap.containsValue(propValue))
 			{
-				propValue = valueToMetaRemap.inverse().get(metaValue);
-			}
-			else
-			{
-				propValue = (Comparable) values.asList().get(metaValue);
+				propValue = valueToMetaRemap.inverse().get(propValue);
 			}
 
 			state = state.withProperty(property, propValue);
@@ -142,6 +134,6 @@ public class BlockStateToMetadata
 
 	public static IBlockState getBlockStateFromMeta(IBlockState state, int metadata)
 	{
-		return getBlockStateFromMeta(state, (IProperty[]) state.getProperties().keySet().toArray(new IProperty[0]), metadata);
+		return getBlockStateFromMeta(state, metadata, (IProperty[]) state.getProperties().keySet().toArray(new IProperty[0]));
 	}
 }
