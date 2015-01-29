@@ -4,6 +4,8 @@ import genesis.client.ColorizerDryMoss;
 import genesis.client.GenesisSounds;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
+import genesis.metadata.EnumFern;
+import genesis.metadata.EnumPlant;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants;
 import genesis.util.Metadata;
@@ -78,11 +80,11 @@ public class BlockMoss extends BlockGrass
 
 			while (true)
 			{
-				if (i < loops / 16)
+				if (i < (loops / 16))
 				{
-					topBlock = topBlock.add(rand.nextInt(3) - 1, (rand.nextInt(3) - 1) * rand.nextInt(3) / 2, rand.nextInt(3) - 1);
+					topBlock = topBlock.add(rand.nextInt(3) - 1, ((rand.nextInt(3) - 1) * rand.nextInt(3)) / 2, rand.nextInt(3) - 1);
 
-					if (worldIn.getBlockState(topBlock.down()).getBlock() == GenesisBlocks.moss && !worldIn.getBlockState(topBlock).getBlock().isNormalCube())
+					if ((worldIn.getBlockState(topBlock.down()).getBlock() == GenesisBlocks.moss) && !worldIn.getBlockState(topBlock).getBlock().isNormalCube())
 					{
 						++i;
 						continue;
@@ -92,7 +94,7 @@ public class BlockMoss extends BlockGrass
 				{
 					BlockPlant plant;
 					IBlockState randPlant;
-					
+
 					if (rand.nextInt(8) == 0)
 					{
 						// Plant Flower

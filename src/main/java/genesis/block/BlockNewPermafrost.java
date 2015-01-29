@@ -13,11 +13,8 @@ public class BlockNewPermafrost extends BlockPermafrost
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune)
 	{
-		return getDrop(rand.nextInt(100));
-	}
+		int chance = rand.nextInt(100);
 
-	private Item getDrop(int chance)
-	{
 		// if (chance < 3) return GenesisItems.necklace;
 		if (chance < 5)
 		{
@@ -36,9 +33,10 @@ public class BlockNewPermafrost extends BlockPermafrost
 			return Items.bone;
 		}
 		else if (chance < 40)
-		 {
+		{
 			return GenesisItems.eryops_leg;// meat
 		}
+
 		return null;
 	}
 }

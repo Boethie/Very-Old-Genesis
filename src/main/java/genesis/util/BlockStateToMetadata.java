@@ -1,9 +1,10 @@
 package genesis.util;
 
-import com.google.common.collect.HashBiMap;
-import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
+
+import com.google.common.collect.HashBiMap;
+import com.google.common.collect.ImmutableSet;
 
 public class BlockStateToMetadata
 {

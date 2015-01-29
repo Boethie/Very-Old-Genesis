@@ -1,11 +1,10 @@
-package genesis.block;
+package genesis.metadata;
 
 import genesis.common.GenesisBlocks;
-import genesis.item.IMetadata;
 import genesis.util.Metadata;
 import net.minecraft.item.Item;
 
-public enum EnumCoral implements IMetadata
+public enum EnumCoral implements IMetaSingle
 {
 	FAVOSITES("favosites"), HELIOLITES("heliolites"), HALYSITES("halysites");
 
@@ -21,7 +20,7 @@ public enum EnumCoral implements IMetadata
 	{
 		this.name = name;
 		this.unlocalizedName = unlocalizedName;
-		Metadata.add(getClass(), this);
+		Metadata.add(this);
 	}
 
 	@Override

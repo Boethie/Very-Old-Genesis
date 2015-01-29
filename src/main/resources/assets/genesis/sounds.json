@@ -35,6 +35,30 @@
       "step/permafrost4"
     ]
   },
+  "dig.dung": {
+    "category": "block",
+    "sounds": [
+      "dig/dung1",
+      "dig/dung2",
+      "dig/dung3",
+      "dig/dung4"
+    ]
+  },
+  "step.dung": {
+    "category": "neutral",
+    "sounds": [
+      "step/dung1",
+      "step/dung2",
+      "step/dung3",
+      "step/dung4"
+    ]
+  },
+  "place.dung": {
+    "category": "block",
+    "sounds": [
+      "place/dung"
+    ]
+  },
   "dig.coral": {
     "category": "block",
     "sounds": [

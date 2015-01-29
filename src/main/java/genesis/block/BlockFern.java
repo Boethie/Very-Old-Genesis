@@ -1,6 +1,7 @@
 package genesis.block;
 
 import genesis.client.GenesisSounds;
+import genesis.metadata.EnumFern;
 import genesis.util.Constants;
 import genesis.util.Metadata;
 

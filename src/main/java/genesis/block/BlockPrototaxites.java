@@ -11,7 +11,6 @@ import net.minecraft.block.BlockCactus;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.Item;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
@@ -20,17 +19,12 @@ public class BlockPrototaxites extends BlockGenesis
 	public BlockPrototaxites()
 	{
 		super(Material.wood);
-		setHardness(2.0F);
+		setHardness(0.75F);
 		setDefaultState(getBlockState().getBaseState().withProperty(BlockCactus.AGE, 0));
 		setTickRandomly(true);
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		setHarvestLevel("axe", 0);
-	}
-
-	@Override
-	public Item getItemDropped(IBlockState state, Random rand, int fortune)
-	{
-		return GenesisItems.prototaxites_flesh;
+		setItemDropped(GenesisItems.prototaxites_flesh);
 	}
 
 	@Override
@@ -84,7 +78,7 @@ public class BlockPrototaxites extends BlockGenesis
 	public boolean canBlockStay(World worldIn, BlockPos pos)
 	{
 		Block block = worldIn.getBlockState(pos.down()).getBlock();
-		return block == GenesisBlocks.prototaxites || block == GenesisBlocks.prototaxites_mycelium;
+		return (block == GenesisBlocks.prototaxites) || (block == GenesisBlocks.prototaxites_mycelium);
 	}
 
 	@Override

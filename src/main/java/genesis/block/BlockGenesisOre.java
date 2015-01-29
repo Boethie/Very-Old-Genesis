@@ -1,7 +1,7 @@
 package genesis.block;
 
 import genesis.common.GenesisCreativeTabs;
-import genesis.item.IMetadata;
+import genesis.metadata.IMetadata;
 import genesis.util.Metadata;
 
 import java.util.Random;
@@ -121,13 +121,6 @@ public class BlockGenesisOre extends BlockOre
 	public BlockGenesisOre setMaxQuantity(int maxQuantity)
 	{
 		this.maxQuantity = maxQuantity;
-		return this;
-	}
-
-	public BlockGenesisOre setQuantity(int minQuantity, int maxQuantity)
-	{
-		setMinQuantity(minQuantity);
-		setMaxQuantity(maxQuantity);
 		return this;
 	}
 }

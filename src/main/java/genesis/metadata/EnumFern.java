@@ -1,26 +1,26 @@
-package genesis.item;
+package genesis.metadata;
 
-import genesis.common.GenesisItems;
+import genesis.common.GenesisBlocks;
 import genesis.util.Metadata;
 import net.minecraft.item.Item;
 
-public enum EnumNodule implements IMetadata
+public enum EnumFern implements IMetaSingle
 {
-	BROWN_FLINT("brown_flint", "brownFlint"), MARCASITE("marcasite");
+	ZYGOPTERIS("zygopteris"), RUFFORDIA("ruffordia"), ASTRALOPTERIS("astralopteris"), MATONIDIUM("matonidium");
 
 	private final String name;
 	private final String unlocalizedName;
 
-	EnumNodule(String name)
+	EnumFern(String name)
 	{
 		this(name, name);
 	}
 
-	EnumNodule(String name, String unlocalizedName)
+	EnumFern(String name, String unlocalizedName)
 	{
 		this.name = name;
 		this.unlocalizedName = unlocalizedName;
-		Metadata.add(getClass(), this);
+		Metadata.add(this);
 	}
 
 	@Override
@@ -38,6 +38,6 @@ public enum EnumNodule implements IMetadata
 	@Override
 	public Item getItem()
 	{
-		return GenesisItems.nodule;
+		return Item.getItemFromBlock(GenesisBlocks.fern);
 	}
 }

@@ -1,6 +1,8 @@
 package genesis.util;
 
-import genesis.item.IMetadata;
+import genesis.metadata.IMetaMulti;
+import genesis.metadata.IMetaSingle;
+import genesis.metadata.IMetadata;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +11,7 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public final class Metadata
@@ -27,9 +30,9 @@ public final class Metadata
 		return metaLookup;
 	}
 
-	public static void add(Class clazz, IMetadata meta)
+	public static void add(IMetadata meta)
 	{
-		getLookup(clazz).add(meta);
+		getLookup(meta.getClass()).add(meta);
 	}
 
 	public static <T extends IMetadata> T get(Class<? extends T> clazz, int metadata)
@@ -43,7 +46,6 @@ public final class Metadata
 		}
 		catch (IndexOutOfBoundsException e)
 		{
-			e.printStackTrace();
 			meta = metaLookup.get(0);
 		}
 
@@ -71,6 +73,16 @@ public final class Metadata
 		return getMetadata((IMetadata) state.getValue(property));
 	}
 
+	public static ItemStack newStack(IMetaMulti meta, String type)
+	{
+		return newStack(meta, type, 1);
+	}
+
+	public static ItemStack newStack(IMetaMulti meta, String type, int amount)
+	{
+		return newStack(meta, meta.getItem(type), amount);
+	}
+
 	public static ItemStack newStack(IMetadata meta)
 	{
 		return newStack(meta, 1);
@@ -78,12 +90,50 @@ public final class Metadata
 
 	public static ItemStack newStack(IMetadata meta, int amount)
 	{
-		return new ItemStack(meta.getItem(), amount, getMetadata(meta));
+		Item item;
+
+		if (meta instanceof IMetaMulti)
+		{
+			item = ((IMetaMulti) meta).getItem(null);
+		}
+		else
+		{
+			item = ((IMetaSingle) meta).getItem();
+		}
+
+		return newStack(meta, item, amount);
+	}
+
+	public static ItemStack newStack(IMetadata meta, Item item, int amount)
+	{
+		return new ItemStack(item, amount, getMetadata(meta));
+	}
+
+	/* Item/Block Classes */
+
+	public static IBlockState getDefaultState(Block block, IProperty property, Class clazz)
+	{
+		return block.getBlockState().getBaseState().withProperty(property, (Enum) Metadata.getLookup(clazz).get(0));
 	}
 
 	public static IBlockState getState(Block block, IProperty property, Class clazz, int meta)
 	{
 		return block.getDefaultState().withProperty(property, getEnum(clazz, meta));
+	}
+
+	public static void getSubBlocks(Class<? extends IMetadata> clazz, List list)
+	{
+		if (IMetaMulti.class.isAssignableFrom(clazz))
+		{
+			for (IMetadata meta : getLookup(clazz))
+			{
+				list.add(newStack((IMetaMulti) meta, "block"));
+			}
+		}
+		else
+		{
+			getSubItems(clazz, list);
+		}
 	}
 
 	public static void getSubItems(Class<? extends IMetadata> clazz, List list)

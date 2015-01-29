@@ -1,26 +1,26 @@
-package genesis.item;
+package genesis.metadata;
 
 import genesis.common.GenesisItems;
 import genesis.util.Metadata;
 import net.minecraft.item.Item;
 
-public enum EnumPebble implements IMetadata
+public enum EnumNodule implements IMetaSingle
 {
-	GRANITE("granite"), RHYOLITE("rhyolite"), DOLERITE("dolerite"), QUARTZITE("quartzite"), BROWN_FLINT("brown_flint", "brownFlint");
+	BROWN_FLINT("brown_flint", "brownFlint"), MARCASITE("marcasite");
 
 	private final String name;
 	private final String unlocalizedName;
 
-	EnumPebble(String name)
+	EnumNodule(String name)
 	{
 		this(name, name);
 	}
 
-	EnumPebble(String name, String unlocalizedName)
+	EnumNodule(String name, String unlocalizedName)
 	{
 		this.name = name;
 		this.unlocalizedName = unlocalizedName;
-		Metadata.add(getClass(), this);
+		Metadata.add(this);
 	}
 
 	@Override
@@ -38,6 +38,6 @@ public enum EnumPebble implements IMetadata
 	@Override
 	public Item getItem()
 	{
-		return GenesisItems.pebble;
+		return GenesisItems.nodule;
 	}
 }

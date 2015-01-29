@@ -1,8 +1,9 @@
 package genesis.util;
 
-import genesis.block.EnumCoral;
-import genesis.block.EnumFern;
-import genesis.block.EnumPlant;
+import genesis.metadata.EnumCoral;
+import genesis.metadata.EnumDung;
+import genesis.metadata.EnumFern;
+import genesis.metadata.EnumPlant;
 
 import java.util.Random;
 
@@ -25,8 +26,9 @@ public final class Constants
 	public static final String PROXY_LOCATION = "genesis.common.GenesisProxy";
 	public static final String CLIENT_LOCATION = "genesis.client.GenesisClient";
 
+	public static final PropertyEnum DUNG_VARIANT = PropertyEnum.create("variant", EnumDung.class);
 	public static final PropertyEnum PLANT_VARIANT = PropertyEnum.create("variant", EnumPlant.class);
 	public static final PropertyEnum FERN_VARIANT = PropertyEnum.create("variant", EnumFern.class);
-    public static final PropertyInteger PROTOTAXITES_AGE = PropertyInteger.create("age", 0, 15);
+	public static final PropertyInteger PROTOTAXITES_AGE = PropertyInteger.create("age", 0, 15);
 	public static final PropertyEnum CORAL_VARIANT = PropertyEnum.create("variant", EnumCoral.class);
 }

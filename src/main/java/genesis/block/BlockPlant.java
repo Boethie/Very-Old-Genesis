@@ -2,6 +2,7 @@ package genesis.block;
 
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
+import genesis.metadata.EnumPlant;
 import genesis.util.Constants;
 import genesis.util.Metadata;
 
@@ -24,7 +25,7 @@ public class BlockPlant extends BlockBush
 	{
 		setHardness(0.0F);
 		setStepSound(soundTypeGrass);
-		setDefaultState(getBlockState().getBaseState().withProperty(getVariant(), (Enum) Metadata.getLookup(getMetaClass()).get(0)));
+		setDefaultState(Metadata.getDefaultState(this, getVariant(), getMetaClass()));
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		setBlockBounds(0.5F - 0.4F, 0.0F, 0.5F - 0.4F, 0.5F + 0.4F, 0.4F * 2, 0.5F + 0.4F);
 	}
@@ -44,7 +45,7 @@ public class BlockPlant extends BlockBush
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
 	{
-		Metadata.getSubItems(getMetaClass(), list);
+		Metadata.getSubBlocks(getMetaClass(), list);
 	}
 
 	@Override
