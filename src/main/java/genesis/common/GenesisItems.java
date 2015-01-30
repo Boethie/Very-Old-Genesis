@@ -4,6 +4,7 @@ import genesis.item.ItemFlintAndMarcasite;
 import genesis.item.ItemGenesis;
 import genesis.item.ItemGenesisFood;
 import genesis.item.ItemGenesisMetadata;
+import genesis.item.ItemGenesisSeedFood;
 import genesis.metadata.EnumDung;
 import genesis.metadata.EnumNodule;
 import genesis.metadata.EnumPebble;
@@ -41,6 +42,7 @@ public final class GenesisItems
 	public static final Item cooked_eryops_leg = new ItemGenesisFood(5, 6.0F).setUnlocalizedName(Constants.PREFIX + "eryopsLegCooked");
 	public static final Item tyrannosaurus = new ItemGenesisFood(4, 2.8F).setUnlocalizedName(Constants.PREFIX + "tyrannosaurusRaw");
 	public static final Item cooked_tyrannosaurus = new ItemGenesisFood(16, 19.8F).setUnlocalizedName(Constants.PREFIX + "tyrannosaurusCooked");
+	public static final ItemGenesisSeedFood zingiberopsis_rhizome = (ItemGenesisSeedFood) new ItemGenesisSeedFood(2, 1.2F).setUnlocalizedName(Constants.PREFIX + "zingiberopsisRhizome");
 
 	/* Misc */
 	public static final Item flint_and_marcasite = new ItemFlintAndMarcasite().setUnlocalizedName(Constants.PREFIX + "flintAndMarcasite");
@@ -78,6 +80,7 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(cooked_eryops_leg, "cooked_eryops_leg");
 		Genesis.proxy.registerItem(tyrannosaurus, "tyrannosaurus");
 		Genesis.proxy.registerItem(cooked_tyrannosaurus, "cooked_tyrannosaurus");
+		Genesis.proxy.registerItem(zingiberopsis_rhizome, "zingiberopsis_rhizome");
 		Genesis.proxy.registerItem(flint_and_marcasite, "flint_and_marcasite");
 	}
 }
