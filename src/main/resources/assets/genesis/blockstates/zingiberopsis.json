@@ -9,6 +9,11 @@
         "age=6,top=false": { "model": "genesis:zingiberopsis_stage_6" },
         "age=7,top=false": { "model": "genesis:zingiberopsis_stage_7" },
 
+        "age=0,top=true": { "model": "genesis:invalid" },
+        "age=1,top=true": { "model": "genesis:invalid" },
+        "age=2,top=true": { "model": "genesis:invalid" },
+        "age=3,top=true": { "model": "genesis:invalid" },
+        "age=4,top=true": { "model": "genesis:invalid" },
         "age=5,top=true": { "model": "genesis:zingiberopsis_stage_5_top" },
         "age=6,top=true": { "model": "genesis:zingiberopsis_stage_6_top" },
         "age=7,top=true": { "model": "genesis:zingiberopsis_stage_7_top" }

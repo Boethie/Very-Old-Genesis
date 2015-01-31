@@ -1,21 +1,25 @@
 package genesis.item;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemSeedFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 
-public class ItemGenesisSeedFood extends ItemGenesisFood
+public class ItemGenesisSeedFood extends ItemSeedFood
 {
 	IPlantable cropPlantable;
 	Block cropBlock;
 	
 	public ItemGenesisSeedFood(int hunger, float saturation)
 	{
-		super(hunger, saturation);
+		super(hunger, saturation, null, null);
 	}
 	
 	public ItemGenesisSeedFood setCrop(IPlantable plantable)
@@ -39,10 +43,19 @@ public class ItemGenesisSeedFood extends ItemGenesisFood
 			
 			return true;
 		}
-		else
-		{
-		}
 		
-		return super.onItemUse(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ);
+		return false;
 	}
+
+    @Override
+    public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos)
+    {
+        return null;
+    }
+
+    @Override
+    public IBlockState getPlant(IBlockAccess world, BlockPos pos)
+    {
+        return null;
+    }
 }

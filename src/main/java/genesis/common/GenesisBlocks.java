@@ -1,11 +1,14 @@
 package genesis.common;
 
+import java.util.ArrayList;
+
 import genesis.block.BlockCoral;
 import genesis.block.BlockDung;
 import genesis.block.BlockFern;
 import genesis.block.BlockGenesisOre;
 import genesis.block.BlockGenesisRock;
 import genesis.block.BlockGrowingPlant;
+import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
 import genesis.block.BlockMoss;
 import genesis.block.BlockNewPermafrost;
 import genesis.block.BlockOctaedrite;
@@ -14,6 +17,7 @@ import genesis.block.BlockPlant;
 import genesis.block.BlockPrototaxites;
 import genesis.block.BlockPrototaxitesMycelium;
 import genesis.block.BlockRedClay;
+import genesis.block.BlockSphenophyllumCustoms;
 import genesis.item.ItemBlockColored;
 import genesis.item.ItemBlockMetadata;
 import genesis.metadata.EnumCoral;
@@ -24,8 +28,13 @@ import genesis.metadata.EnumPlant;
 import genesis.util.Constants;
 import genesis.util.RandomItemDrop;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.MathHelper;
+import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.registry.GameData;
 
@@ -70,9 +79,16 @@ public final class GenesisBlocks
 	public static final BlockFern fern = (BlockFern) new BlockFern().setUnlocalizedName(Constants.PREFIX + "fern");
 
 	/* Crops */
-	public static final BlockGrowingPlant zingiberopsis = new BlockGrowingPlant(true, 7, 4, 2).setTopPosition(2)
+	public static final BlockGrowingPlant zingiberopsis = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 4, 2).setTopPosition(2)
 			.setGrowAllTogether(true).setBreakAllTogether(true)
-			.setPlantType(EnumPlantType.Crop);
+			.setPlantType(EnumPlantType.Crop)
+			.setUnlocalizedName(Constants.PREFIX + "crop.zingiberopsis");
+	public static final BlockGrowingPlant sphenophyllum = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 4, 2).setTopPosition(2)
+			.setGrowAllTogether(true)
+			.setPlantType(EnumPlantType.Plains)
+			.setGrowthChanceMult(3, 1, 1)
+			.setCustomsInterface(new BlockSphenophyllumCustoms())
+			.setUnlocalizedName(Constants.PREFIX + "crop.sphenophyllum");
 	
 	/* Misc */
 	public static final Block prototaxites = new BlockPrototaxites().setUnlocalizedName("prototaxites");
@@ -117,10 +133,15 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(fern, "fern", ItemBlockColored.class, EnumFern.class);
 		Genesis.proxy.registerBlock(prototaxites, "prototaxites");
 		Genesis.proxy.registerBlock(coral, "coral", ItemBlockMetadata.class, EnumCoral.class);
-		
+
 		Genesis.proxy.registerBlock(zingiberopsis, "zingiberopsis", null);
+		zingiberopsis.setPlantSize(0, 0.2F, 0.5F);
 		zingiberopsis.setDrops(new RandomItemDrop(GenesisItems.zingiberopsis_rhizome, 1, 1));
-		zingiberopsis.setCropDrops(new RandomItemDrop(GenesisItems.zingiberopsis_rhizome, 0, 2));
+		zingiberopsis.setCropDrops(new RandomItemDrop(GenesisItems.zingiberopsis_rhizome, 1, 3));
+		zingiberopsis.setPickedItem(GenesisItems.zingiberopsis_rhizome);
 		GenesisItems.zingiberopsis_rhizome.setCrop(zingiberopsis);
+		
+		Genesis.proxy.registerBlock(sphenophyllum, "sphenophyllum");
+		sphenophyllum.setPlantSize(0, 0.2F, 0.75F);
 	}
 }

@@ -46,6 +46,7 @@ public final class GenesisItems
 
 	/* Misc */
 	public static final Item flint_and_marcasite = new ItemFlintAndMarcasite().setUnlocalizedName(Constants.PREFIX + "flintAndMarcasite");
+	public static final Item sphenophyllum_fiber = new ItemGenesis().setUnlocalizedName("sphenophyllumFiber");
 
 	public static void registerItems()
 	{
@@ -82,5 +83,6 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(cooked_tyrannosaurus, "cooked_tyrannosaurus");
 		Genesis.proxy.registerItem(zingiberopsis_rhizome, "zingiberopsis_rhizome");
 		Genesis.proxy.registerItem(flint_and_marcasite, "flint_and_marcasite");
+		Genesis.proxy.registerItem(sphenophyllum_fiber, "sphenophyllum_fiber");
 	}
 }

@@ -35,6 +35,8 @@ tile.genesis.plant.nothia.name=Nothia
 tile.genesis.plant.rhynia.name=Rhynia
 tile.genesis.plant.archaeamphora.name=Archaeamphora
 tile.genesis.plant.mabelia.name=Mabelia
+tile.genesis.crop.zingiberopsis.name=Zingiberopsis
+tile.genesis.crop.sphenophyllum.name=Sphenophyllum
 tile.genesis.fern.zygopteris.name=Zygopteris
 tile.genesis.fern.ruffordia.name=Ruffordia
 tile.genesis.fern.astralopteris.name=Astralopteris
@@ -77,6 +79,7 @@ item.genesis.eryopsLegCooked.name=Cooked Eryops Leg
 item.genesis.tyrannosaurusRaw.name=Raw Tyrannosaurus
 item.genesis.tyrannosaurusCooked.name=Cooked Tyrannosaurus
 item.genesis.zingiberopsisRhizome.name=Zingiberopsis Rhizome
+item.genesis.sphenophyllumFiber.name=Sphenophyllum Fiber
 item.genesis.flintAndMarcasite.name=Flint and Marcasite
 
 #Containers
