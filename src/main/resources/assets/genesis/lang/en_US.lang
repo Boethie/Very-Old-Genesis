@@ -67,6 +67,8 @@ item.genesis.olivine.name=Olivine
 item.genesis.dung.brachiosaurus.name=Brachiosaurus Dung
 item.genesis.dung.tyrannosaurus.name=Tyrannosaurus Dung
 item.genesis.resin.name=Resin
+item.genesis.odontopterisFrond.name=Odontopteris Frond
+item.genesis.sphenophyllumFiber.name=Sphenophyllum Fiber
 item.genesis.prototaxitesFlesh.name=Prototaxites Flesh
 item.genesis.tyrannosaurusSaliva.name=Tyrannosaurus Saliva
 item.genesis.tyrannosaurusTooth.name=Tyrannosaurus Tooth
@@ -79,7 +81,7 @@ item.genesis.eryopsLegCooked.name=Cooked Eryops Leg
 item.genesis.tyrannosaurusRaw.name=Raw Tyrannosaurus
 item.genesis.tyrannosaurusCooked.name=Cooked Tyrannosaurus
 item.genesis.zingiberopsisRhizome.name=Zingiberopsis Rhizome
-item.genesis.sphenophyllumFiber.name=Sphenophyllum Fiber
+item.genesis.odontopterisSeeds.name=Odontopteris Seeds
 item.genesis.flintAndMarcasite.name=Flint and Marcasite
 
 #Containers
