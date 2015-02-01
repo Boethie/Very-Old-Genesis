@@ -29,6 +29,8 @@ public final class GenesisItems
 	public static final Item olivine = new ItemGenesis().setUnlocalizedName("olivine");
 	public static final Item dung = new ItemGenesisMetadata(EnumDung.class).setUnlocalizedName("dung");
 	public static final Item resin = new ItemGenesis().setUnlocalizedName("resin");
+	public static final Item sphenophyllum_fiber = new ItemGenesis().setUnlocalizedName("sphenophyllumFiber");
+	public static final Item odontopteris_frond = new ItemGenesis().setUnlocalizedName("odontopterisFrond");
 	public static final Item prototaxites_flesh = new ItemGenesis().setUnlocalizedName("prototaxitesFlesh");
 	public static final Item tyrannosaurus_saliva = new ItemGenesis().setUnlocalizedName("tyrannosaurusSaliva");
 	public static final Item tyrannosaurus_tooth = new ItemGenesis().setUnlocalizedName("tyrannosaurusTooth");
@@ -47,8 +49,6 @@ public final class GenesisItems
 
 	/* Misc */
 	public static final Item flint_and_marcasite = new ItemFlintAndMarcasite().setUnlocalizedName(Constants.PREFIX + "flintAndMarcasite");
-	public static final Item sphenophyllum_fiber = new ItemGenesis().setUnlocalizedName("sphenophyllumFiber");
-	public static final Item odontopteris_frond = new ItemGenesis().setUnlocalizedName("odontopterisFrond");
 
 	public static void registerItems()
 	{
@@ -72,6 +72,8 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(nodule, "nodule");
 		Genesis.proxy.registerItem(dung, "dung");
 		Genesis.proxy.registerItem(resin, "resin");
+		Genesis.proxy.registerItem(sphenophyllum_fiber, "sphenophyllum_fiber");
+		Genesis.proxy.registerItem(odontopteris_frond, "odontopteris_frond");
 		Genesis.proxy.registerItem(prototaxites_flesh, "prototaxites_flesh");
 		Genesis.proxy.registerItem(tyrannosaurus_saliva, "tyrannosaurus_saliva");
 		Genesis.proxy.registerItem(tyrannosaurus_tooth, "tyrannosaurus_tooth");
@@ -85,8 +87,6 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(cooked_tyrannosaurus, "cooked_tyrannosaurus");
 		Genesis.proxy.registerItem(zingiberopsis_rhizome, "zingiberopsis_rhizome");
 		Genesis.proxy.registerItem(flint_and_marcasite, "flint_and_marcasite");
-		Genesis.proxy.registerItem(sphenophyllum_fiber, "sphenophyllum_fiber");
 		Genesis.proxy.registerItem(odontopteris_seeds, "odontopteris_seeds");
-		Genesis.proxy.registerItem(odontopteris_frond, "odontopteris_frond");
 	}
 }
