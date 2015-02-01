@@ -1,5 +1,6 @@
 package genesis.item;
 
+import genesis.common.GenesisCreativeTabs;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,6 +21,8 @@ public class ItemGenesisSeedFood extends ItemSeedFood
 	public ItemGenesisSeedFood(int hunger, float saturation)
 	{
 		super(hunger, saturation, null, null);
+		
+		setCreativeTab(GenesisCreativeTabs.FOOD);
 	}
 	
 	public ItemGenesisSeedFood setCrop(IPlantable plantable)
