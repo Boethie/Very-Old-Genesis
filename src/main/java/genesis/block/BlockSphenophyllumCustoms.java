@@ -19,44 +19,49 @@ import net.minecraft.world.World;
 public class BlockSphenophyllumCustoms implements IGrowingPlantCustoms
 {
 	@Override
-	public ArrayList<ItemStack> getDrops(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, int fortune)
+	public ArrayList<ItemStack> getDrops(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, int fortune, boolean firstBlock)
 	{
-		final Item item = GenesisItems.sphenophyllum_fiber;
-		
-		ArrayList<ItemStack> out = new ArrayList<ItemStack>();
-		int age = (Integer) state.getValue(plant.ageProp);
-		boolean top = (Boolean) state.getValue(plant.topProp);
-		ItemStack addStack = null;
-		
-		if (top)
+		if (firstBlock)
 		{
-			if (age >= plant.maxAge)
+			final Item item = GenesisItems.sphenophyllum_fiber;
+			
+			ArrayList<ItemStack> out = new ArrayList<ItemStack>();
+			int age = (Integer) state.getValue(plant.ageProp);
+			boolean top = (Boolean) state.getValue(plant.topProp);
+			ItemStack addStack = null;
+			
+			if (top)
 			{
-				addStack = new ItemStack(item, 1);
+				if (age >= plant.maxAge)
+				{
+					addStack = new ItemStack(item, 1);
+				}
+				else
+				{
+					addStack = new ItemStack(item, MathHelper.getRandomIntegerInRange(worldIn.rand, 0, 1));	// 0-1
+				}
 			}
 			else
 			{
-				addStack = new ItemStack(item, MathHelper.getRandomIntegerInRange(worldIn.rand, 0, 1));	// 0-1
+				if (age >= 5)
+				{
+					addStack = new ItemStack(item, MathHelper.getRandomIntegerInRange(worldIn.rand, 0, 2));	// 0-2
+				}
+				else
+				{
+					addStack = new ItemStack(item, MathHelper.getRandomIntegerInRange(worldIn.rand, 0, 1));	// 0-1
+				}
 			}
-		}
-		else
-		{
-			if (age >= 5)
+			
+			if (addStack != null && addStack.stackSize > 0)
 			{
-				addStack = new ItemStack(item, MathHelper.getRandomIntegerInRange(worldIn.rand, 0, 2));	// 0-2
+				out.add(addStack);
 			}
-			else
-			{
-				addStack = new ItemStack(item, MathHelper.getRandomIntegerInRange(worldIn.rand, 0, 1));	// 0-1
-			}
+			
+			return out;
 		}
 		
-		if (addStack != null && addStack.stackSize > 0)
-		{
-			out.add(addStack);
-		}
-		
-		return out;
+		return null;
 	}
 	
 	protected boolean waterInRange(World worldIn, BlockPos pos, int radius, int dUp)

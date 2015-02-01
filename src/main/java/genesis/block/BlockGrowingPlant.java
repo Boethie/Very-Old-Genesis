@@ -32,6 +32,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.relauncher.Side;
@@ -195,7 +196,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	}
 
 	public static interface IGrowingPlantCustoms {
-		public ArrayList<ItemStack> getDrops(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, int fortune);
+		public ArrayList<ItemStack> getDrops(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, int fortune, boolean firstBlock);
 		
 		/**
 		 * Called after updateTick in a BlockGrowingPlant.
@@ -221,6 +222,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	public boolean growTogether = false;
 	public boolean breakTogether = false;
 	public boolean resetAge = false;
+	public boolean useBiomeColor = false;
 
 	protected ArrayList<RandomItemDrop> drops = new ArrayList<RandomItemDrop>();
 	protected ArrayList<RandomItemDrop> cropDrops = new ArrayList<RandomItemDrop>();
@@ -287,6 +289,29 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		growTogether = growTogetherIn;
 		
 		return this;
+	}
+
+	/**
+	 * Sets the block to use the biome color multiplier like vanilla grass and ferns.
+	 * 
+	 * @return Returns this block.
+	 */
+	public BlockGrowingPlant setUseBiomeColor(boolean use)
+	{
+		useBiomeColor = use;
+		
+		return this;
+	}
+	
+	@Override
+	public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass)
+	{
+		if (useBiomeColor)
+		{
+			return BiomeColorHelper.getGrassColorAtPos(worldIn, pos);
+		}
+		
+		return 16777215;
 	}
 	
 	/**
@@ -570,6 +595,10 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	protected float fertileChanceMult = 0.5F;
 	protected float neighborFertileChanceMult = 0.975F;
 
+	/**
+	 * Causes the plant to grow each time updateTick() is called.
+	 * @return
+	 */
 	public BlockGrowingPlant setNoGrowthChance()
 	{
 		baseAgeChance = 0;
@@ -579,6 +608,14 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		return this;
 	}
 
+	/**
+	 * Sets the chance (the code uses 1 in [chance]) that the plant will grow in each random tick.
+	 * 
+	 * @param base The base chance value. 
+	 * @param fertileMult The chance is multiplied by this value if the block under the plant is fertile.
+	 * @param neighborFertileMult The chance is multiplied by this value for each fertile land block around it (including at corners).
+	 * @return
+	 */
 	public BlockGrowingPlant setGrowthChanceMult(float base, float fertileMult, float neighborFertileMult)
 	{
 		baseAgeChance = base;
@@ -588,7 +625,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		return this;
 	}
 
-	/*
+	/**
 	 * Gets the chance that a random tick of a crop block will result in the crop aging. 1 is added to the output to determine the actual chance.
 	 */
 	public float getGrowthChance(World worldIn, BlockPos pos, IBlockState state)
@@ -878,34 +915,36 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	@Override
 	public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune)
 	{
-		// Prevent the block dropping without out code telling it, to prevent blocks other than the bottom one dropping.
 		if (!worldIn.isRemote)
 		{
-			if (chance == -1)
+			if (chance <= -1)	// Prevent the block dropping without our code telling it to explicitly
 			{
 				ArrayList<ItemStack> dropStacks = null;
 				
 				if (customs != null)
 				{
-					dropStacks = customs.getDrops(this, worldIn, pos, state, fortune);
+					dropStacks = customs.getDrops(this, worldIn, pos, state, fortune, chance == -1);
 				}
 				
 				if (dropStacks == null || dropStacks.isEmpty())
 				{
-					if ((Integer) state.getValue(ageProp) >= maxAge)
+					if (chance == -1)	// To get drops using customs.getDrops for non-bottom blocks in breakTogether plants
 					{
-						for (RandomItemDrop drop : cropDrops)
+						if ((Integer) state.getValue(ageProp) >= maxAge)
 						{
-							ItemStack stack = drop.getRandom(worldIn.rand);
-							spawnAsEntity(worldIn, pos, stack);
+							for (RandomItemDrop drop : cropDrops)
+							{
+								ItemStack stack = drop.getRandom(worldIn.rand);
+								spawnAsEntity(worldIn, pos, stack);
+							}
 						}
-					}
-					else
-					{
-						for (RandomItemDrop drop : drops)
+						else
 						{
-							ItemStack stack = drop.getRandom(worldIn.rand);
-							spawnAsEntity(worldIn, pos, stack);
+							for (RandomItemDrop drop : drops)
+							{
+								ItemStack stack = drop.getRandom(worldIn.rand);
+								spawnAsEntity(worldIn, pos, stack);
+							}
 						}
 					}
 				}
@@ -919,7 +958,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 			}
 			else if (harvesters.get() == null)	// If the game tries to drop this block, handle it with destroyPlant()
 			{
-				destroyPlant(worldIn, pos, true);
+				destroyPlant(worldIn, pos, worldIn.rand.nextFloat() <= chance);
 			}
 		}
 	}
@@ -935,7 +974,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	 * If breakTogether is true, it removes all plant blocks of this type in a column that they should grow in, optionally dropping items.
 	 * Otherwise, it will handle setting the BlockState to acceptable values for this type of plant.
 	 */
-	protected void destroyPlant(World worldIn, BlockPos pos, boolean drop)
+	protected void destroyPlant(World worldIn, BlockPos pos, final boolean drop)
 	{
 		if (!worldIn.isRemote)
 		{
@@ -943,8 +982,8 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 			
 			if (breakTogether)
 			{
-				BlockPos firstPos = new GrowingPlantProperties(worldIn, pos).getBottom();
-				IBlockState firstState = worldIn.getBlockState(firstPos);
+				final BlockPos firstPos = new GrowingPlantProperties(worldIn, pos).getBottom();
+				final IBlockState firstState = worldIn.getBlockState(firstPos);
 				
 				if (drop)
 				{
@@ -953,7 +992,12 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 				
 				callForEachInColumn(worldIn, pos, new IPerBlockCall() {
 					public void call(World worldIn, BlockPos curPos, IBlockState curState, BlockPos startPos, Object... args) {
-						oldStates.put(curPos, worldIn.getBlockState(curPos));
+						if (drop && !curPos.equals(firstPos))
+						{
+							dropBlockAsItemWithChance(worldIn, curPos, curState, -2, 0);
+						}
+						
+						oldStates.put(curPos, curState);
 						worldIn.setBlockState(curPos, Blocks.air.getDefaultState(), 2);
 					}
 				});

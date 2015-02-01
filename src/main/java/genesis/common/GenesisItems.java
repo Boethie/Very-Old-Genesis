@@ -43,10 +43,12 @@ public final class GenesisItems
 	public static final Item tyrannosaurus = new ItemGenesisFood(4, 2.8F).setUnlocalizedName(Constants.PREFIX + "tyrannosaurusRaw");
 	public static final Item cooked_tyrannosaurus = new ItemGenesisFood(16, 19.8F).setUnlocalizedName(Constants.PREFIX + "tyrannosaurusCooked");
 	public static final ItemGenesisSeedFood zingiberopsis_rhizome = (ItemGenesisSeedFood) new ItemGenesisSeedFood(2, 1.2F).setUnlocalizedName(Constants.PREFIX + "zingiberopsisRhizome");
+	public static final ItemGenesisSeedFood odontopteris_seeds = (ItemGenesisSeedFood) new ItemGenesisSeedFood(1, 0.8F).setUnlocalizedName(Constants.PREFIX + "odontopterisSeeds");
 
 	/* Misc */
 	public static final Item flint_and_marcasite = new ItemFlintAndMarcasite().setUnlocalizedName(Constants.PREFIX + "flintAndMarcasite");
 	public static final Item sphenophyllum_fiber = new ItemGenesis().setUnlocalizedName("sphenophyllumFiber");
+	public static final Item odontopteris_frond = new ItemGenesis().setUnlocalizedName("odontopterisFrond");
 
 	public static void registerItems()
 	{
@@ -84,5 +86,7 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(zingiberopsis_rhizome, "zingiberopsis_rhizome");
 		Genesis.proxy.registerItem(flint_and_marcasite, "flint_and_marcasite");
 		Genesis.proxy.registerItem(sphenophyllum_fiber, "sphenophyllum_fiber");
+		Genesis.proxy.registerItem(odontopteris_seeds, "odontopteris_seeds");
+		Genesis.proxy.registerItem(odontopteris_frond, "odontopteris_frond");
 	}
 }
