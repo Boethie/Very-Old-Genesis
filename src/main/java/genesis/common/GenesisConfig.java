@@ -13,7 +13,7 @@ public final class GenesisConfig
 	{
 		config = new Configuration(configFile);
 		config.load();
-		config.get("tool", "flintAndMarcasiteMaxDamage", flintAndMarcasiteMaxDamage).getInt();
+		flintAndMarcasiteMaxDamage = config.get("tool", "flintAndMarcasiteMaxDamage", flintAndMarcasiteMaxDamage).getInt();
 		config.save();
 	}
 }
