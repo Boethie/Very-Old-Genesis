@@ -102,6 +102,21 @@ public final class GenesisBlocks
 	public static final Block prototaxites = new BlockPrototaxites().setUnlocalizedName("prototaxites");
 	public static final Block coral = new BlockCoral().setUnlocalizedName("coral");
 	public static final Block dung_block = new BlockDung().setUnlocalizedName("dung");
+	
+	static
+	{
+		zingiberopsis.setPlantSize(0, 0.2F, 0.5F);
+		zingiberopsis.setDrops(new RandomItemDrop(GenesisItems.zingiberopsis_rhizome, 1, 1));
+		zingiberopsis.setCropDrops(new RandomItemDrop(GenesisItems.zingiberopsis_rhizome, 1, 3));
+		zingiberopsis.setPickedItem(GenesisItems.zingiberopsis_rhizome);
+		GenesisItems.zingiberopsis_rhizome.setCrop(zingiberopsis);
+		sphenophyllum.setPlantSize(0, 0.2F, 0.75F);
+		odontopteris.setPlantSize(0, 0.2F, 0.75F);
+		odontopteris.setDrops(new RandomItemDrop(GenesisItems.odontopteris_seeds, 1, 1));
+		odontopteris.setCropDrops(new RandomItemDrop(GenesisItems.odontopteris_seeds, 1, 3));
+		odontopteris.setPickedItem(GenesisItems.odontopteris_seeds);
+		GenesisItems.odontopteris_seeds.setCrop(odontopteris);
+	}
 
 	public static void registerBlocks()
 	{
@@ -141,19 +156,8 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(fern, "fern", ItemBlockColored.class, EnumFern.class);
 		
 		Genesis.proxy.registerBlock(zingiberopsis, "zingiberopsis", null);
-		zingiberopsis.setPlantSize(0, 0.2F, 0.5F);
-		zingiberopsis.setDrops(new RandomItemDrop(GenesisItems.zingiberopsis_rhizome, 1, 1));
-		zingiberopsis.setCropDrops(new RandomItemDrop(GenesisItems.zingiberopsis_rhizome, 1, 3));
-		zingiberopsis.setPickedItem(GenesisItems.zingiberopsis_rhizome);
-		GenesisItems.zingiberopsis_rhizome.setCrop(zingiberopsis);
 		Genesis.proxy.registerBlock(sphenophyllum, "sphenophyllum");
-		sphenophyllum.setPlantSize(0, 0.2F, 0.75F);
 		Genesis.proxy.registerBlock(odontopteris, "odontopteris", null);
-		odontopteris.setPlantSize(0, 0.2F, 0.75F);
-		odontopteris.setDrops(new RandomItemDrop(GenesisItems.odontopteris_seeds, 1, 1));
-		odontopteris.setCropDrops(new RandomItemDrop(GenesisItems.odontopteris_seeds, 1, 3));
-		odontopteris.setPickedItem(GenesisItems.odontopteris_seeds);
-		GenesisItems.odontopteris_seeds.setCrop(odontopteris);
 		
 		Genesis.proxy.registerBlock(prototaxites, "prototaxites");
 		Genesis.proxy.registerBlock(coral, "coral", ItemBlockMetadata.class, EnumCoral.class);
