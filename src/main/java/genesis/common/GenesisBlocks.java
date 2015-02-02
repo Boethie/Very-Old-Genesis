@@ -105,11 +105,6 @@ public final class GenesisBlocks
 
 	public static void registerBlocks()
 	{
-		// Initializes values
-		EnumPlant.values();
-		EnumFern.values();
-		EnumCoral.values();
-
 		Genesis.proxy.registerBlock(moss, "moss", ItemBlockColored.class);
 		Genesis.proxy.registerBlock(granite, "granite");
 		Genesis.proxy.registerBlock(mossy_granite, "mossy_granite");

@@ -1,5 +1,11 @@
 package genesis.common;
 
+import genesis.metadata.EnumCoral;
+import genesis.metadata.EnumDung;
+import genesis.metadata.EnumFern;
+import genesis.metadata.EnumNodule;
+import genesis.metadata.EnumPebble;
+import genesis.metadata.EnumPlant;
 import genesis.util.Constants;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -27,6 +33,7 @@ public class Genesis
 		GenesisVersion.startVersionCheck();
 		GenesisConfig.readConfigValues(event.getSuggestedConfigurationFile());
 
+		initEnums();
 		GenesisBlocks.registerBlocks();
 		GenesisItems.registerItems();
 
@@ -53,6 +60,16 @@ public class Genesis
 	public void postInit(FMLPostInitializationEvent event)
 	{
 		proxy.postInit();
+	}
+	
+	private void initEnums()
+	{
+		EnumPlant.values();
+		EnumFern.values();
+		EnumCoral.values();
+		EnumDung.values();
+		EnumPebble.values();
+		EnumNodule.values();
 	}
 
 	private void registerTileEntities()

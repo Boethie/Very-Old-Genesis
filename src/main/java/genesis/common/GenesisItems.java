@@ -52,11 +52,6 @@ public final class GenesisItems
 
 	public static void registerItems()
 	{
-		// Initializes values
-		EnumPebble.values();
-		EnumNodule.values();
-		EnumDung.values();
-
 		Genesis.proxy.registerItem(pebble, "pebble");
 		Genesis.proxy.registerItem(red_clay_ball, "red_clay_ball");
 		Genesis.proxy.registerItem(octaedrite_shard, "octaedrite_shard");
