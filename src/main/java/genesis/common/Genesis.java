@@ -1,17 +1,29 @@
 package genesis.common;
 
+<<<<<<< HEAD
+import java.io.File;
+
+=======
 import genesis.metadata.EnumCoral;
 import genesis.metadata.EnumDung;
 import genesis.metadata.EnumFern;
 import genesis.metadata.EnumNodule;
 import genesis.metadata.EnumPebble;
 import genesis.metadata.EnumPlant;
+>>>>>>> origin/master
 import genesis.util.Constants;
+import genesis.world.CommandTestTeleportGenesis;
+import genesis.world.WorldProviderGenesis;
+import genesis.world.WorldTypeGenesis;
+import net.minecraft.command.ServerCommandManager;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 import org.apache.logging.log4j.Logger;
 
@@ -25,10 +37,20 @@ public class Genesis
 
 	public static Logger logger;
 
+	public static int dimensionId = 37;
+
+	public static File configFolder;
+
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		logger = event.getModLog();
+
+		configFolder = new File(event.getSuggestedConfigurationFile().getParentFile(), "Genesis");
+
+		if(!configFolder.exists()) {
+			configFolder.mkdir();
+		}
 
 		GenesisVersion.startVersionCheck();
 		GenesisConfig.readConfigValues(event.getSuggestedConfigurationFile());
@@ -39,9 +61,17 @@ public class Genesis
 
 		registerTileEntities();
 
+		//Register the biomes.
+		GenesisBiomes.config();
 		GenesisBiomes.loadBiomes();
 
 		registerEntities();
+
+		//Register the dimension.
+		WorldTypeGenesis.instance = new WorldTypeGenesis("Genesis");
+		DimensionManager.registerProviderType(dimensionId, WorldProviderGenesis.class, false);
+		DimensionManager.registerDimension(dimensionId, dimensionId);
+
 
 		proxy.preInit();
 	}
@@ -70,6 +100,17 @@ public class Genesis
 		EnumDung.values();
 		EnumPebble.values();
 		EnumNodule.values();
+	}
+
+	@Mod.EventHandler
+	public void serverLoaded(FMLServerStartingEvent event) {
+
+		//Added by Tmtravlr: Adds a command that can teleport you to genesis.
+		if(event.getServer().getCommandManager() instanceof ServerCommandManager) {
+			ServerCommandManager manager = (ServerCommandManager) event.getServer().getCommandManager();
+
+			manager.registerCommand(new CommandTestTeleportGenesis());
+		}
 	}
 
 	private void registerTileEntities()
