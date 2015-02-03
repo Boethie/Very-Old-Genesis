@@ -1,16 +1,13 @@
 package genesis.common;
 
-<<<<<<< HEAD
 import java.io.File;
 
-=======
 import genesis.metadata.EnumCoral;
 import genesis.metadata.EnumDung;
 import genesis.metadata.EnumFern;
 import genesis.metadata.EnumNodule;
 import genesis.metadata.EnumPebble;
 import genesis.metadata.EnumPlant;
->>>>>>> origin/master
 import genesis.util.Constants;
 import genesis.world.CommandTestTeleportGenesis;
 import genesis.world.WorldProviderGenesis;
