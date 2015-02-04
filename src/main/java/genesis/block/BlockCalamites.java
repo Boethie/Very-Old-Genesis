@@ -76,29 +76,17 @@ public class BlockCalamites extends BlockGrowingPlant implements IGrowingPlantCu
 	@Override
 	public CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World worldIn, BlockPos pos, boolean placed)
 	{
-		/*if (worldIn.getBlockState(pos.down()).getBlock() == plant)
+		if (worldIn.getBlockState(pos.down()).getBlock() == plant)
 		{
-			BlockPos plantPos = pos;
-			
-			if (!placed)
-			{
-				plantPos = plantPos.down();
-			}
-			
-			GrowingPlantProperties props = new GrowingPlantProperties(worldIn, plantPos);
-			int height = props.getToBottom();
-			
-			if (placed ? height <= maxHeight : (props.isTop(plantPos) && height < maxHeight))
-			{
-				return CanStayOptions.YES;
-			}
+			return CanStayOptions.YIELD;
 		}
-		else*/ if (WorldUtils.waterInRange(worldIn, pos, 2, 1))
+		else if (WorldUtils.waterInRange(worldIn, pos, 2, 1))
 		{
 			final ArrayList<Block> plantableOn = new ArrayList<Block>(){{
 				add(Blocks.grass);
 				add(Blocks.dirt);
 				add(Blocks.sand);
+				add(Blocks.farmland);
 			}};
 			
 			if (plantableOn.contains(worldIn.getBlockState(pos.down()).getBlock()))
@@ -106,7 +94,7 @@ public class BlockCalamites extends BlockGrowingPlant implements IGrowingPlantCu
 				return CanStayOptions.YES;
 			}
 		}
-		
-		return CanStayOptions.YIELD;
+
+		return CanStayOptions.NO;
 	}
 }
