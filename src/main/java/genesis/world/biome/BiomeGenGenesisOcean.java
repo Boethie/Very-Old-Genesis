@@ -30,7 +30,7 @@ public class BiomeGenGenesisOcean extends BiomeGenGenesisBase
 	 */
 	 @SideOnly(Side.CLIENT)
 	public int getSkyColorByTemp(float par1) {
-		return 0x336666;
+		return 0x4B7980;
 	 }
 	
 	public int getWaterColorMultiplier() {

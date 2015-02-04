@@ -87,7 +87,7 @@ public class GenLayerBiomeGenesis extends GenLayer {
 
 			if (isBiomeOceanic(k1))
 			{
-				aint1[position] = GenesisBiomes.oceanId;
+				aint1[position] = GenesisBiomes.shallowOceanId;
 			}
 			else if (k1 == 1 && !biomes.get(DESERT).isEmpty())
 			{
