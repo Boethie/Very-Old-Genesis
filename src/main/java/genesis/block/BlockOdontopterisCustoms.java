@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -23,9 +24,14 @@ public class BlockOdontopterisCustoms implements IGrowingPlantCustoms
 	static final RandomItemDrop frondDropMature = new RandomItemDrop(GenesisItems.odontopteris_frond, 1, 2);
 	static final RandomItemDrop seedsDropYoung = new RandomItemDrop(GenesisItems.odontopteris_seeds, 1, 1);
 	static final RandomItemDrop frondDropYoung = new RandomItemDrop(GenesisItems.odontopteris_frond, 1, 1);
-	
+
 	@Override
-	public ArrayList<ItemStack> getDrops(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, int fortune, boolean firstBlock)
+	public void managePlantMetaProperties(BlockGrowingPlant plant, ArrayList<IProperty> metaProps)
+	{
+	}
+
+	@Override
+	public ArrayList<ItemStack> getPlantDrops(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, int fortune, boolean firstBlock)
 	{
 		ArrayList<ItemStack> out = new ArrayList<ItemStack>();
 		int age = (Integer) state.getValue(plant.ageProp);
@@ -58,7 +64,13 @@ public class BlockOdontopterisCustoms implements IGrowingPlantCustoms
 	}
 
 	@Override
-	public void updateTick(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, Random rand, boolean grew)
+	public void plantUpdateTick(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, Random rand, boolean grew)
 	{
+	}
+
+	@Override
+	public CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World worldIn, BlockPos pos, boolean placed)
+	{
+		return CanStayOptions.YIELD;
 	}
 }

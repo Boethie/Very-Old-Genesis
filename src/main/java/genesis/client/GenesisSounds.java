@@ -16,6 +16,14 @@ public final class GenesisSounds
 			return Block.soundTypeGrass.getBreakSound();
 		}
 	};
+	public static final GenesisSoundType CALAMITES = new GenesisSoundType("calamites", 1.0F, 1.0F)
+	{
+		@Override
+		public String getStepSound()
+		{
+			return Block.soundTypeGrass.getStepSound();
+		}
+	};
 	public static final GenesisSoundType CORAL = new GenesisSoundType("coral", 1.0F, 1.0F, true);
 
 	public static class GenesisSoundType extends Block.SoundType

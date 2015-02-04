@@ -1,11 +1,13 @@
 package genesis.item;
 
 import genesis.common.GenesisCreativeTabs;
+import genesis.util.Constants;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
@@ -24,6 +26,14 @@ public class ItemGenesisFood extends ItemFood
 	{
 		super(hunger, saturation, isWolfsFavoriteMeat);
 		setCreativeTab(GenesisCreativeTabs.FOOD);
+	}
+
+	@Override
+	public Item setUnlocalizedName(String unlocalizedName)
+	{
+		super.setUnlocalizedName(Constants.PREFIX + unlocalizedName);
+		
+		return this;
 	}
 
 	/**

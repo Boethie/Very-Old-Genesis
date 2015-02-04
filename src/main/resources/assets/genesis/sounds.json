@@ -35,6 +35,14 @@
       "step/permafrost4"
     ]
   },
+  "dig.calamites": {
+    "category": "block",
+    "sounds": [
+      "dig/calamites1",
+      "dig/calamites2",
+      "dig/calamites3"
+    ]
+  },
   "dig.dung": {
     "category": "block",
     "sounds": [

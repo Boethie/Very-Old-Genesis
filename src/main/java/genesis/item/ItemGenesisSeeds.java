@@ -4,9 +4,10 @@ import genesis.common.GenesisCreativeTabs;
 import genesis.util.Constants;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemSeedFood;
+import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -15,19 +16,19 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 
-public class ItemGenesisSeedFood extends ItemSeedFood
+public class ItemGenesisSeeds extends ItemSeeds
 {
 	IPlantable cropPlantable;
 	Block cropBlock;
 	
-	public ItemGenesisSeedFood(int hunger, float saturation)
+	public ItemGenesisSeeds()
 	{
-		super(hunger, saturation, null, null);
+		super(null, null);
 		
 		setCreativeTab(GenesisCreativeTabs.FOOD);
 	}
 	
-	public ItemGenesisSeedFood setCrop(IPlantable plantable)
+	public ItemGenesisSeeds setCrop(IPlantable plantable)
 	{
 		cropPlantable = plantable;
 		cropBlock = (Block) plantable;

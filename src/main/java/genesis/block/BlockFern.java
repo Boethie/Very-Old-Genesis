@@ -26,6 +26,14 @@ public class BlockFern extends BlockPlant implements IShearable
 	}
 
 	@Override
+	public BlockFern setUnlocalizedName(String unlocalizedName)
+	{
+		super.setUnlocalizedName(unlocalizedName);
+		
+		return this;
+	}
+
+	@Override
 	public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos)
 	{
 		return true;

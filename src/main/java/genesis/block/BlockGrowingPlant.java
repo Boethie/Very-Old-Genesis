@@ -1,10 +1,15 @@
 package genesis.block;
 
+import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms.CanStayOptions;
 import genesis.common.GenesisCreativeTabs;
 import genesis.util.BlockStateToMetadata;
+import genesis.util.Constants;
 import genesis.util.RandomItemDrop;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Random;
@@ -196,26 +201,59 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	}
 
 	public static interface IGrowingPlantCustoms {
-		public ArrayList<ItemStack> getDrops(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, int fortune, boolean firstBlock);
+		/**
+		 * Gets the items that should be dropped for this BlockGrowingPlant when it is broken at pos.
+		 * 
+		 * @param plant The BlockGrowingPlant that is calling the method.
+		 * @param worldIn
+		 * @param pos
+		 * @param state
+		 * @param fortune
+		 * @param firstBlock Whether the BlockPos pos is at the first position in the plant's height.
+		 * @return An ArrayList of ItemStacks to drop from this block's position.
+		 */
+		public ArrayList<ItemStack> getPlantDrops(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, int fortune, boolean firstBlock);
 		
 		/**
 		 * Called after updateTick in a BlockGrowingPlant.
 		 * 
+		 * @param plant The BlockGrowingPlant that is calling the method.
 		 * @param worldIn
 		 * @param pos
 		 * @param state
 		 * @param random
 		 * @param grew Whether the plant grew in this random block update.
 		 */
-		public void updateTick(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, Random rand, boolean grew);
+		public void plantUpdateTick(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, Random rand, boolean grew);
+
+		public static enum CanStayOptions {
+			YES,
+			YIELD,
+			NO
+		}
+		
+		/**
+		 * @param plant The BlockGrowingPlant that is calling the method.
+		 * @param worldIn
+		 * @param pos The position that the plant would at.
+		 * @param placed Whether the block has been placed yet. To allow customs to prevent placing stacked plant blocks.
+		 * @return Whether the BlockGrowingPlant can grow at the specified BlockPos.
+		 */
+		public CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World worldIn, BlockPos pos, boolean placed);
+
+		/**
+		 * For use in adding/removing IPropertys in a list of IPropertys that should be stored in metadata.
+		 * @param plant This BlockGrowingPlant.
+		 * @param metaProps The list whose contents must be stored in metadata.
+		 */
+		public void managePlantMetaProperties(BlockGrowingPlant plant, ArrayList<IProperty> metaProps);
 	}
-	
-	protected BlockState ourBlockState;
 	
 	public PropertyInteger ageProp;
 	public PropertyBool topProp;
+	public IProperty[] metaProperties;
 
-	protected final boolean topProperty;
+	protected final boolean hasTopProperty;
 
 	public int growthAge;
 	public int maxAge;
@@ -231,7 +269,6 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	IGrowingPlantCustoms customs = null;
 	
 	EnumPlantType plantType = EnumPlantType.Plains;
-	protected ArrayList<Block> growsOn = null;
 
 	protected int maxHeight;
 	protected int topBlockPos = -1;
@@ -239,6 +276,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	protected float baseHeight = 0.25F;
 	protected float heightPerStage = 0F;
 	protected float width = 1F;
+	protected AxisAlignedBB collisionBox = null;
 
 	public BlockGrowingPlant(boolean topPropertyIn, int maxAgeIn, int growthAgeIn, int height)
 	{
@@ -247,18 +285,95 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		maxAge = maxAgeIn;
 		growthAge = growthAgeIn;
 
-		topProperty = topPropertyIn;
+		hasTopProperty = topPropertyIn;
 		maxHeight = height;
-
-		ourBlockState = createOurBlockState();
+		
+		try
+		{
+			Class thisClass = Block.class;
+			Field[] fields = thisClass.getDeclaredFields();
+			Field field = null;
+			
+			for (Field curField : fields)
+			{
+				if (curField.getName().equals("blockState"))
+				{
+					field = curField;
+				}
+			}
+			
+			Field modifiers = Field.class.getDeclaredField("modifiers");
+			modifiers.setAccessible(true);
+			modifiers.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+			field.set(this, createOurBlockState());
+		}
+		catch (Exception e)
+		{
+			throw new RuntimeException(e);
+		}
 
 		setTickRandomly(true);
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
+		
+		if (this instanceof IGrowingPlantCustoms)
+		{
+			setCustomsInterface((IGrowingPlantCustoms) this);
+		}
 	}
 
-	public BlockGrowingPlant(int maxAgeIn, int height)
+	public BlockGrowingPlant(boolean topPropertyIn, int maxAgeIn, int height)
 	{
-		this(false, maxAgeIn, maxAgeIn, height);
+		this(topPropertyIn, maxAgeIn, maxAgeIn, height);
+	}
+
+	@Override
+	public BlockGrowingPlant setUnlocalizedName(String unlocalizedName)
+	{
+		super.setUnlocalizedName(Constants.PREFIX + unlocalizedName);
+		
+		return this;
+	}
+
+	/**
+	 * Creates the BlockState for this BlockGrowingPlant. This was used to make the BlockState's properties depend on
+	 * values given to the BlockGrowingPlant in the constructor.
+	 * 
+	 * @return Returns the BlockState containing all properties used by this block.
+	 */
+	protected BlockState createOurBlockState()
+	{
+		BlockState state;
+
+		if (hasTopProperty)
+		{
+			ageProp = PropertyInteger.create("age", 0, maxAge);
+			topProp = PropertyBool.create("top");
+			state = new BlockState(this, ageProp, topProp);
+			setDefaultState(state.getBaseState().withProperty(ageProp, 0).withProperty(topProp, true));
+		}
+		else
+		{
+			ageProp = PropertyInteger.create("age", 0, maxAge);
+			state = new BlockState(this, ageProp);
+			setDefaultState(state.getBaseState().withProperty(ageProp, 0));
+		}
+		
+		ArrayList<IProperty> metaProps = new ArrayList<IProperty>();
+		metaProps.addAll(state.getProperties());
+		
+		if (hasTopProperty)
+		{
+			metaProps.remove(topProp);
+		}
+		
+		if (customs != null)
+		{
+			customs.managePlantMetaProperties(this, metaProps);
+		}
+		
+		metaProperties = metaProps.toArray(new IProperty[0]);
+
+		return state;
 	}
 	
 	/**
@@ -270,11 +385,6 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	public BlockGrowingPlant setTopPosition(int topPos)
 	{
 		topBlockPos = topPos;
-		
-		if (topProperty && topPos > 1)
-		{
-			setDefaultState(getDefaultState().withProperty(topProp, false));
-		}
 		
 		return this;
 	}
@@ -329,7 +439,6 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		return this;
 	}
 	
-	
 	/**
 	 * Sets the EnumPlantType that the plant block should grow on.
 	 * 
@@ -342,28 +451,10 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		return this;
 	}
 	
+	@Override
 	public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos)
 	{
 		return plantType;
-	}
-	
-	/**
-	 * Set the Blocks that the plant can grow on. This is an alternative to EnumPlantType.
-	 * Overrides EnumPlantType plantType, use sparingly/never.
-	 * TODO: May not function correctly.
-	 * 
-	 * @return Returns this block.
-	 */
-	public BlockGrowingPlant setGrowsOn(Block... onBlocks)
-	{
-		growsOn = new ArrayList<Block>();
-		
-		for (Block onBlock : onBlocks)
-		{
-			growsOn.add(onBlock);
-		}
-		
-		return this;
 	}
 	
 	/**
@@ -424,6 +515,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		return this;
 	}
 	
+	@Override
 	public Item getItem(World worldIn, BlockPos pos)
 	{
 		if (pickedItem != null)
@@ -489,6 +581,29 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	}
 
 	/**
+	 * Sets the collision axis aligned bounds of the plant.
+	 * 
+	 * @param bb The AxisAlignedBB to use for entity collision.
+	 * @return
+	 */
+	public BlockGrowingPlant setCollisionBox(AxisAlignedBB bb)
+	{
+		collisionBox = bb;
+		
+		return this;
+	}
+	
+    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
+    {
+    	if (collisionBox != null)
+    	{
+    		return collisionBox.offset(pos.getX(), pos.getY(), pos.getZ());
+    	}
+    	
+    	return null;
+    }
+
+	/**
 	 * Sets the drops when the plant is fully grown.
 	 * 
 	 * @return Returns this block.
@@ -500,49 +615,16 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		return this;
 	}
 
-	/**
-	 * Creates the BlockState for this BlockGrowingPlant. This was used to make the BlockState's properties depend on
-	 * values given to the BlockGrowingPlant in the constructor.
-	 * 
-	 * @return Returns the BlockState containing all properties used by this block.
-	 */
-	protected BlockState createOurBlockState()
-	{
-		BlockState state;
-
-		if (topProperty)
-		{
-			ageProp = PropertyInteger.create("age", 0, maxAge);
-			topProp = PropertyBool.create("top");
-			state = new BlockState(this, ageProp, topProp);
-			setDefaultState(state.getBaseState().withProperty(ageProp, 0).withProperty(topProp, true));
-		}
-		else
-		{
-			ageProp = PropertyInteger.create("age", 0, maxAge);
-			state = new BlockState(this, ageProp);
-			setDefaultState(state.getBaseState().withProperty(ageProp, 0));
-		}
-
-		return state;
-	}
-
 	@Override
 	public BlockState getBlockState()
 	{
-		return ourBlockState;
+		return super.getBlockState();
 	}
 
 	@Override
 	protected BlockState createBlockState()
 	{
 		return super.createBlockState();
-	}
-
-	@Override
-	public int getMetaFromState(IBlockState state)
-	{
-		return BlockStateToMetadata.getMetaForBlockState(state);
 	}
 	
 	/**
@@ -574,22 +656,38 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	@Override
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
 	{
-		return super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(topProp, isTop(worldIn, pos));
+		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
+		
+		return state;
 	}
 	
 	@Override
 	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
 	{
-		worldIn.setBlockState(pos, worldIn.getBlockState(pos).withProperty(topProp, isTop(worldIn, pos)));
-		
 		super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state)
+	{
+		return BlockStateToMetadata.getMetaForBlockState(state, metaProperties);
 	}
 
 	@Override
 	public IBlockState getStateFromMeta(int meta)
 	{
-		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), meta);
+		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), meta, metaProperties);
 	}
+
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+    {
+    	if (hasTopProperty)
+    	{
+    		state = state.withProperty(topProp, isTop(worldIn, pos));
+    	}
+    	
+        return state;
+    }
 
 	protected float baseAgeChance = 12F;
 	protected float fertileChanceMult = 0.5F;
@@ -688,38 +786,16 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	 */
 	protected void callForEachInColumn(World worldIn, BlockPos fromBlock, IPerBlockCall call, Object... args)
 	{
-		IBlockState onBlockState;
-		int i = 0;
-		boolean up = true;
+		GrowingPlantProperties props = new GrowingPlantProperties(worldIn, fromBlock);
 		
-		while (true)
+		BlockPos top = props.getTop();
+		int height = props.getHeight();
+		
+		for (int y = 0; y < height; y++)
 		{
-			BlockPos onPos = fromBlock.up(i);
-			onBlockState = worldIn.getBlockState(onPos);
+			BlockPos curPos = top.down(y);
 			
-			// If we're on this plant type still, set the property.
-			if (onBlockState.getBlock() == this)
-			{
-				call.call(worldIn, onPos, onBlockState, fromBlock, args);
-			}
-			else if (up)	// If we've run out of this plant in the up direction, switch to going down.
-			{
-				up = false;
-				i = 0;
-			}
-			else	// If we've run out of this plant going down, break the loop.
-			{
-				break;
-			}
-			
-			if (up)
-			{
-				i++;
-			}
-			else
-			{
-				i--;
-			}
+			call.call(worldIn, curPos, worldIn.getBlockState(curPos), fromBlock, args);
 		}
 	}
 
@@ -761,27 +837,24 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 				
 				if (chance == 0 || (chance > 0 && (randVal <= 1)))
 				{
+					age++;
+					
 					// Add to the height of the plant if this is the top block and has aged fully
 					if (props.getHeight() < maxHeight && age >= growthAge)
 					{
-						BlockPos top = props.getTop().up();
-						IBlockState upState = worldIn.getBlockState(top);
-						Block upBlock = upState.getBlock();
+						BlockPos above = pos.up();
+						IBlockState aboveState = worldIn.getBlockState(above);
+						Block aboveBlock = aboveState.getBlock();
 						
-						if (upBlock != this && upBlock.isReplaceable(worldIn, top))
+						if (aboveBlock != this && aboveBlock.isReplaceable(worldIn, above))
 						{
-							age++;
 							changed = true;
 							
 							if (!noChange)
 							{
-								worldIn.setBlockState(top, getDefaultState());
+								worldIn.setBlockState(above, getDefaultState());
 							}
 						}
-					}
-					else
-					{
-						age++;
 					}
 				}
 			}
@@ -812,9 +885,18 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	@Override
 	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient)
 	{
-		BlockPos bottom = new GrowingPlantProperties(worldIn, pos).getBottom();
+		BlockPos growOn = pos;
 		
-		return grow(worldIn, worldIn.rand, bottom, worldIn.getBlockState(bottom), true, true);
+		if (growTogether)
+		{
+			growOn = new GrowingPlantProperties(worldIn, pos).getBottom();
+		}
+		else
+		{
+			growOn = pos;
+		}
+		
+		return grow(worldIn, worldIn.rand, growOn, worldIn.getBlockState(growOn), true, true);
 	}
 
 	@Override
@@ -829,11 +911,23 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	@Override
 	public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)
 	{
-		BlockPos bottom = new GrowingPlantProperties(worldIn, pos).getBottom();
-		
-		for (int i = 0; i < MathHelper.getRandomIntegerInRange(worldIn.rand, 2, 5); i++)
+		if (!worldIn.isRemote)
 		{
-			grow(worldIn, rand, bottom, worldIn.getBlockState(bottom), true, false);
+			BlockPos growOn = pos;
+			
+			if (growTogether)
+			{
+				growOn = new GrowingPlantProperties(worldIn, pos).getBottom();
+			}
+			else
+			{
+				growOn = pos;
+			}
+			
+			for (int i = 0; i < MathHelper.getRandomIntegerInRange(worldIn.rand, 2, 5); i++)
+			{
+				grow(worldIn, rand, growOn, worldIn.getBlockState(growOn), true, false);
+			}
 		}
 	}
 
@@ -842,11 +936,15 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	{
 		checkAndDropBlock(worldIn, pos, state);
 		
-		boolean grew = grow(worldIn, rand, pos, state, false, false);
-		
-		if (customs != null)
+		// If the plant was not broken by checkAndDropBlock(), attempt to grow it.
+		if (worldIn.getBlockState(pos).getBlock() == this)
 		{
-			customs.updateTick(this, worldIn, pos, state, rand, grew);
+			boolean grew = grow(worldIn, rand, pos, state, false, false);
+			
+			if (customs != null)
+			{
+				customs.plantUpdateTick(this, worldIn, pos, state, rand, grew);
+			}
 		}
 	}
 	
@@ -856,31 +954,54 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		boolean heightOK = new GrowingPlantProperties(worldIn, pos).getHeight() <= maxHeight;
 		heightOK = true;
 		
-		boolean correctPlant = false;
 		BlockPos under = pos.down();
 		IBlockState stateUnder = worldIn.getBlockState(under);
 		Block blockUnder = stateUnder.getBlock();
 		
+		/*boolean correctPlant = false;
+		
 		if (blockUnder == this)
 		{
-			if (!resetAge && (Integer) stateUnder.getValue(ageProp) > growthAge)
+			if (!resetAge && (Integer) stateUnder.getValue(ageProp) >= growthAge)
 			{
 				correctPlant = true;
 			}
-		}
+		}*/
 		
 		boolean correctLand = false;
+		CanStayOptions stay = CanStayOptions.YIELD;
 		
-		if (canPlaceBlockOn(blockUnder))
+		if (customs != null)
 		{
+			stay = customs.canPlantStayAt(this, worldIn, pos, true);
+		}
+		
+		switch(stay)
+		{
+		case YES:
 			correctLand = true;
-		}
-		else
-		{
-			correctLand = blockUnder.canSustainPlant(worldIn, pos, EnumFacing.UP, this);
+			break;
+		case NO:
+			correctLand = false;
+			break;
+		case YIELD:
+			correctLand = blockUnder.canSustainPlant(worldIn, under, EnumFacing.UP, this);
+			
+			if (blockUnder == this)
+			{
+				GrowingPlantProperties props = new GrowingPlantProperties(worldIn, pos);
+				int height = props.getToBottom();
+				
+				if (height <= maxHeight)
+				{
+					correctLand = true;
+				}
+			}
+			
+			break;
 		}
 		
-		return heightOK && (correctLand || correctPlant);
+		return heightOK && correctLand;
 	}
 
 	@Override
@@ -888,30 +1009,163 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	{
 		if (!canBlockStay(worldIn, pos, state))
 		{
-			destroyPlant(worldIn, pos, true);
+			destroyPlant(worldIn, pos, null, true, true);
 		}
 	}
 	
 	@Override
 	protected boolean canPlaceBlockOn(Block ground)
 	{
-		boolean correctLand = false;
-		
-		if (growsOn != null)
-		{
-			correctLand = growsOn.contains(ground);
-		}
-		
-		// Return false unless we override the EnumPlantType, so that canSustainPlant checks the plant type instead.
-		return correctLand;
+		// Return false so that canSustainPlant checks the plant type instead of BlockBush.canPlaceBlockOn().
+		return false;
 	}
 
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
 	{
-		return super.canPlaceBlockAt(worldIn, pos);
+		CanStayOptions stay = CanStayOptions.YIELD;
+		
+		if (customs != null)
+		{
+			stay = customs.canPlantStayAt(this, worldIn, pos, false);
+		}
+		
+		switch(stay)
+		{
+		case YES:
+			return true;
+		case NO:
+			break;
+		case YIELD:
+			boolean canPlace = super.canPlaceBlockAt(worldIn, pos);
+			
+			BlockPos below = pos.down();
+			
+			if (worldIn.getBlockState(below).getBlock() == this)
+			{
+				GrowingPlantProperties props = new GrowingPlantProperties(worldIn, below);
+				int height = props.getToBottom();
+				
+				if (height < maxHeight)
+				{
+					canPlace = true;
+				}
+			}
+			return canPlace;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Handles removal of a plant block.
+	 * If breakTogether is true, it removes all plant blocks of this type in a column that they should grow in, optionally dropping items.
+	 * Otherwise, it will handle setting the BlockState to acceptable values for this type of plant.
+	 */
+	protected void destroyPlant(World worldIn, BlockPos pos, final EntityPlayer breaker, final boolean drop, boolean noBreakTogether)
+	{
+		final HashMap<BlockPos, IBlockState> oldStates = new HashMap<BlockPos, IBlockState>();
+		
+		if (breakTogether && !noBreakTogether)
+		{
+			callForEachInColumn(worldIn, pos, new IPerBlockCall() {
+				public void call(World worldIn, BlockPos curPos, IBlockState curState, BlockPos startPos, Object... args) {
+					oldStates.put(curPos, curState);
+				}
+			});
+		}
+		else
+		{
+			int up = 0;
+			Block remBlock = null;
+			
+			while (true)
+			{
+				BlockPos remPos = pos.up(up);
+				IBlockState remState = worldIn.getBlockState(remPos);
+				remBlock = remState.getBlock();
+
+				if (remBlock == this)
+				{
+					oldStates.put(remPos, remState);
+				}
+				else
+				{
+					break;
+				}
+				
+				up++;
+			}
+		}
+
+		// Spawn breaking particles for blocks that weren't directly broken by the player
+		for (Entry<BlockPos, IBlockState> entry : oldStates.entrySet())
+		{
+			BlockPos particlePos = entry.getKey();
+			IBlockState oldState = entry.getValue();
+			
+			if (!particlePos.equals(pos) && worldIn.isRemote)
+			{
+				worldIn.playAuxSFXAtEntity(breaker, 2001, particlePos, Block.getStateId(oldState));
+			}
+		}
+		
+		// Set blocks to air without notifying neighbors of the change (so items aren't dropped when they shouldn't).
+		// Also drop items.
+		if (!worldIn.isRemote)
+		{
+			GrowingPlantProperties props = new GrowingPlantProperties(worldIn, pos);
+			
+			for (Entry<BlockPos, IBlockState> entry : oldStates.entrySet())
+			{
+				BlockPos breakPos = entry.getKey();
+				IBlockState oldState = entry.getValue();
+				
+				if (drop)
+				{
+					boolean isBase = props.isBottom(breakPos);
+					dropBlockAsItemWithChance(worldIn, breakPos, oldState, (isBase ? -1 : -2), 0);
+				}
+	
+				worldIn.setBlockState(breakPos, Blocks.air.getDefaultState(), 2);
+			}
+			
+			// Notify of block changes.
+			for (Entry<BlockPos, IBlockState> entry : oldStates.entrySet())
+			{
+				BlockPos notifyPos = entry.getKey();
+				IBlockState oldState = entry.getValue();
+				
+				worldIn.markAndNotifyBlock(notifyPos, worldIn.getChunkFromBlockCoords(notifyPos), oldState, worldIn.getBlockState(notifyPos), 1);
+			}
+			
+			if (growTogether && !breakTogether)
+			{
+				BlockPos under = pos.down();
+				Block blockUnder = worldIn.getBlockState(under).getBlock();
+				
+				if (blockUnder == this)
+				{
+					callForEachInColumn(worldIn, under, new IPerBlockCall() {
+						public void call(World worldIn, BlockPos curPos, IBlockState curState, BlockPos startPos, Object... args) {
+							worldIn.setBlockState(curPos, curState.withProperty(ageProp, growthAge - 1));
+						}
+					});
+				}
+			}
+		}
 	}
 
+	/**
+	 * Drops ItemStacks in EntityItems according to the plant's properties for dropping items.
+	 * 
+	 * @param worldIn
+	 * @param pos
+	 * @param state
+	 * @param chance With a value less than 0, the block will be dropped.
+	 * Otherwise, it will destroy the plant as it should normally, but only if a player is not breaking it.
+	 * @param fortune
+	 */
 	@Override
 	public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune)
 	{
@@ -923,12 +1177,12 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 				
 				if (customs != null)
 				{
-					dropStacks = customs.getDrops(this, worldIn, pos, state, fortune, chance == -1);
+					dropStacks = customs.getPlantDrops(this, worldIn, pos, state, fortune, chance == -1);
 				}
 				
 				if (dropStacks == null || dropStacks.isEmpty())
 				{
-					if (chance == -1)	// To get drops using customs.getDrops for non-bottom blocks in breakTogether plants
+					if (!breakTogether || (breakTogether && chance == -1))
 					{
 						if ((Integer) state.getValue(ageProp) >= maxAge)
 						{
@@ -956,9 +1210,11 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 					}
 				}
 			}
-			else if (harvesters.get() == null)	// If the game tries to drop this block, handle it with destroyPlant()
+			else if (harvesters.get() == null)
 			{
-				destroyPlant(worldIn, pos, worldIn.rand.nextFloat() <= chance);
+				// If the game tries to drop this block, handle it with destroyPlant()
+				// This handles explosions and drops due to the block being unable to stay.
+				destroyPlant(worldIn, pos, null, worldIn.rand.nextFloat() <= chance, false);
 			}
 		}
 	}
@@ -966,97 +1222,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	@Override
 	public void onBlockExploded(World worldIn, BlockPos pos, Explosion explosion)
 	{
-		destroyPlant(worldIn, pos, false);
-	}
-	
-	/**
-	 * Handles removal of a plant block.
-	 * If breakTogether is true, it removes all plant blocks of this type in a column that they should grow in, optionally dropping items.
-	 * Otherwise, it will handle setting the BlockState to acceptable values for this type of plant.
-	 */
-	protected void destroyPlant(World worldIn, BlockPos pos, final boolean drop)
-	{
-		if (!worldIn.isRemote)
-		{
-			final HashMap<BlockPos, IBlockState> oldStates = new HashMap<BlockPos, IBlockState>();
-			
-			if (breakTogether)
-			{
-				final BlockPos firstPos = new GrowingPlantProperties(worldIn, pos).getBottom();
-				final IBlockState firstState = worldIn.getBlockState(firstPos);
-				
-				if (drop)
-				{
-					dropBlockAsItemWithChance(worldIn, firstPos, firstState, -1, 0);
-				}
-				
-				callForEachInColumn(worldIn, pos, new IPerBlockCall() {
-					public void call(World worldIn, BlockPos curPos, IBlockState curState, BlockPos startPos, Object... args) {
-						if (drop && !curPos.equals(firstPos))
-						{
-							dropBlockAsItemWithChance(worldIn, curPos, curState, -2, 0);
-						}
-						
-						oldStates.put(curPos, curState);
-						worldIn.setBlockState(curPos, Blocks.air.getDefaultState(), 2);
-					}
-				});
-			}
-			else
-			{
-				int up = 0;
-				Block remBlock = null;
-				
-				do
-				{
-					BlockPos remPos = pos.up(up);
-					IBlockState remState = worldIn.getBlockState(remPos);
-					remBlock = remState.getBlock();
-
-					if (remBlock == this)
-					{
-						worldIn.setBlockState(remPos, Blocks.air.getDefaultState(), 2);
-						oldStates.put(remPos, remState);
-						
-						if (drop)
-						{
-							dropBlockAsItemWithChance(worldIn, remPos, remState, -1, 0);
-						}
-					}
-					
-					up++;
-				} while (remBlock == this);
-				
-				int down = 1;
-				
-				do
-				{
-					BlockPos remPos = pos.down(down);
-					IBlockState remState = worldIn.getBlockState(remPos);
-					remBlock = remState.getBlock();
-					
-					if (remBlock == this)
-					{
-						worldIn.setBlockState(remPos, remState.withProperty(ageProp, growthAge));
-					}
-					
-					down++;
-				} while (remBlock == this);
-			}
-			
-			for (Entry<BlockPos, IBlockState> entry : oldStates.entrySet())
-			{
-				BlockPos notifyPos = entry.getKey();
-				IBlockState oldState = entry.getValue();
-				worldIn.markAndNotifyBlock(notifyPos, worldIn.getChunkFromBlockCoords(notifyPos), oldState, worldIn.getBlockState(notifyPos), 1);
-				
-				// Spawn breaking particles for blocks that weren't directly broken by the player
-				if (!notifyPos.equals(pos))
-				{
-					worldIn.playAuxSFX(2001, notifyPos, Block.getIdFromBlock(this));
-				}
-			}
-		}
+		// Do not allow the explosions to directly destroy the block, instead let dropBlockAsItemWithChance() handle destruction.
 	}
 	
 	@Override
@@ -1073,7 +1239,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	@Override
 	public boolean removedByPlayer(World worldIn, BlockPos pos, EntityPlayer player, boolean willHarvest)
 	{
-		destroyPlant(worldIn, pos, !player.capabilities.isCreativeMode);
+		destroyPlant(worldIn, pos, player, !player.capabilities.isCreativeMode, false);
 		
 		return true;
 	}
