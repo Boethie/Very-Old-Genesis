@@ -25,7 +25,7 @@ public class ItemGenesisSeeds extends ItemSeeds
 	{
 		super(null, null);
 		
-		setCreativeTab(GenesisCreativeTabs.FOOD);
+		setCreativeTab(GenesisCreativeTabs.MATERIALS);
 	}
 	
 	public ItemGenesisSeeds setCrop(IPlantable plantable)
