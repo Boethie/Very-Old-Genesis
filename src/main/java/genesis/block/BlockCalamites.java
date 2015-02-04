@@ -76,7 +76,9 @@ public class BlockCalamites extends BlockGrowingPlant implements IGrowingPlantCu
 	@Override
 	public CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World worldIn, BlockPos pos, boolean placed)
 	{
-		if (worldIn.getBlockState(pos.down()).getBlock() == plant)
+		Block blockUnder = worldIn.getBlockState(pos.down()).getBlock();
+		
+		if (blockUnder == plant)
 		{
 			return CanStayOptions.YIELD;
 		}
@@ -89,7 +91,7 @@ public class BlockCalamites extends BlockGrowingPlant implements IGrowingPlantCu
 				add(Blocks.farmland);
 			}};
 			
-			if (plantableOn.contains(worldIn.getBlockState(pos.down()).getBlock()))
+			if (plantableOn.contains(blockUnder))
 			{
 				return CanStayOptions.YES;
 			}
