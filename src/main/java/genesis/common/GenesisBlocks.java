@@ -6,10 +6,12 @@ import genesis.block.BlockCalamites;
 import genesis.block.BlockCoral;
 import genesis.block.BlockDung;
 import genesis.block.BlockFern;
+import genesis.block.BlockGenesis;
 import genesis.block.BlockGenesisOre;
 import genesis.block.BlockGenesisRock;
 import genesis.block.BlockGrowingPlant;
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
+import genesis.block.BlockMetadata;
 import genesis.block.BlockMoss;
 import genesis.block.BlockNewPermafrost;
 import genesis.block.BlockOctaedrite;
@@ -47,43 +49,43 @@ public final class GenesisBlocks
 	public static final Block moss = new BlockMoss().setUnlocalizedName(Constants.PREFIX + "moss");
 
 	/* Rocks */
-	public static final Block granite = new BlockGenesisRock(2.1F, 10.0F).setUnlocalizedName("granite");
-	public static final Block mossy_granite = new BlockGenesisRock(2.1F, 10.0F).setUnlocalizedName("mossyGranite");
-	public static final Block rhyolite = new BlockGenesisRock(1.65F, 10.0F).setUnlocalizedName("rhyolite");
-	public static final Block dolerite = new BlockGenesisRock(1.2F, 10.0F).setUnlocalizedName("dolerite");
-	public static final Block komatiite = new BlockGenesisRock(1.95F, 10.0F).setUnlocalizedName("komatiite");
-	public static final Block trondhjemite = new BlockGenesisRock(1.5F, 10.0F).setUnlocalizedName("trondhjemite");
-	public static final Block faux_amphibolite = new BlockGenesisRock(1.5F, 10.0F).setUnlocalizedName("fauxAmphibolite");
-	public static final Block gneiss = new BlockGenesisRock(1.65F, 10.0F).setUnlocalizedName("gneiss");
-	public static final Block quartzite = new BlockGenesisRock(1.95F, 10.0F).setUnlocalizedName("quartzite");
-	public static final Block limestone = new BlockGenesisRock(0.75F, 8.7F).setUnlocalizedName("limestone");
-	public static final Block shale = new BlockGenesisRock(0.75F, 8.7F).setUnlocalizedName("shale");
-	public static final Block red_clay = new BlockRedClay().setUnlocalizedName(Constants.PREFIX + "redClay");
-	public static final Block octaedrite = new BlockOctaedrite().setUnlocalizedName("octaedrite");
+	public static final BlockGenesisRock granite = new BlockGenesisRock(2.1F, 10.0F).setUnlocalizedName("granite");
+	public static final BlockGenesisRock mossy_granite = new BlockGenesisRock(2.1F, 10.0F).setUnlocalizedName("mossyGranite");
+	public static final BlockGenesisRock rhyolite = new BlockGenesisRock(1.65F, 10.0F).setUnlocalizedName("rhyolite");
+	public static final BlockGenesisRock dolerite = new BlockGenesisRock(1.2F, 10.0F).setUnlocalizedName("dolerite");
+	public static final BlockGenesisRock komatiite = new BlockGenesisRock(1.95F, 10.0F).setUnlocalizedName("komatiite");
+	public static final BlockGenesisRock trondhjemite = new BlockGenesisRock(1.5F, 10.0F).setUnlocalizedName("trondhjemite");
+	public static final BlockGenesisRock faux_amphibolite = new BlockGenesisRock(1.5F, 10.0F).setUnlocalizedName("fauxAmphibolite");
+	public static final BlockGenesisRock gneiss = new BlockGenesisRock(1.65F, 10.0F).setUnlocalizedName("gneiss");
+	public static final BlockGenesisRock quartzite = new BlockGenesisRock(1.95F, 10.0F).setUnlocalizedName("quartzite");
+	public static final BlockGenesisRock limestone = new BlockGenesisRock(0.75F, 8.7F).setUnlocalizedName("limestone");
+	public static final BlockGenesisRock shale = new BlockGenesisRock(0.75F, 8.7F).setUnlocalizedName("shale");
+	public static final BlockRedClay red_clay = new BlockRedClay().setUnlocalizedName("redClay");
+	public static final BlockGenesisRock octaedrite = new BlockOctaedrite().setUnlocalizedName("octaedrite");
 
-	public static final Block permafrost = new BlockPermafrost().setUnlocalizedName("permafrost");
-	public static final Block new_permafrost = new BlockNewPermafrost().setUnlocalizedName("permafrost");
-	public static final Block prototaxites_mycelium = new BlockPrototaxitesMycelium().setUnlocalizedName("prototaxitesMycelium");
+	public static final BlockGenesis permafrost = new BlockPermafrost().setUnlocalizedName("permafrost");
+	public static final BlockGenesis new_permafrost = new BlockNewPermafrost().setUnlocalizedName("permafrost");
+	public static final BlockPrototaxitesMycelium prototaxites_mycelium = new BlockPrototaxitesMycelium().setUnlocalizedName("prototaxitesMycelium");
 
 	/* Granite Ores */
-	public static final Block quartz_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 1).setDrop(GenesisItems.quartz).setUnlocalizedName("oreQuartz");
-	public static final Block zircon_ore = new BlockGenesisOre(4.2F, 5.0F, 2, 1).setDrop(GenesisItems.zircon).setUnlocalizedName("oreZircon");
-	public static final Block garnet_ore = new BlockGenesisOre(4.2F, 5.0F, 2, 1).setDrop(GenesisItems.garnet).setUnlocalizedName("oreGarnet");
-	public static final Block manganese_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 1).setDrop(GenesisItems.manganese).setUnlocalizedName("oreManganese");
-	public static final Block hematite_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 1).setDrop(GenesisItems.hematite).setUnlocalizedName("oreHematite");
-	public static final Block malachite_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 2, 1).setDrop(GenesisItems.malachite).setUnlocalizedName("oreMalachite");
-	public static final Block olivine_ore = new BlockGenesisOre(4.2F, 5.0F, 3, 5, 1).setDrop(GenesisItems.olivine).setUnlocalizedName("oreOlivine");
+	public static final BlockGenesisOre quartz_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 1).setDrop(GenesisItems.quartz).setUnlocalizedName("quartz");
+	public static final BlockGenesisOre zircon_ore = new BlockGenesisOre(4.2F, 5.0F, 2, 1).setDrop(GenesisItems.zircon).setUnlocalizedName("zircon");
+	public static final BlockGenesisOre garnet_ore = new BlockGenesisOre(4.2F, 5.0F, 2, 1).setDrop(GenesisItems.garnet).setUnlocalizedName("garnet");
+	public static final BlockGenesisOre manganese_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 1).setDrop(GenesisItems.manganese).setUnlocalizedName("manganese");
+	public static final BlockGenesisOre hematite_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 1).setDrop(GenesisItems.hematite).setUnlocalizedName("hematite");
+	public static final BlockGenesisOre malachite_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 2, 1).setDrop(GenesisItems.malachite).setUnlocalizedName("malachite");
+	public static final BlockGenesisOre olivine_ore = new BlockGenesisOre(4.2F, 5.0F, 3, 5, 1).setDrop(GenesisItems.olivine).setUnlocalizedName("olivine");
 
 	/* Limestone Ores */
-	public static final Block brown_flint_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(EnumNodule.BROWN_FLINT).setUnlocalizedName("oreBrownFlint");
-	public static final Block marcasite_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(EnumNodule.MARCASITE).setUnlocalizedName("oreMarcasite");
+	public static final BlockGenesisOre brown_flint_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(EnumNodule.BROWN_FLINT).setUnlocalizedName("brownFlint");
+	public static final BlockGenesisOre marcasite_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(EnumNodule.MARCASITE).setUnlocalizedName("marcasite");
 
 	/* Plants */
 	public static final BlockPlant plant = new BlockPlant().setUnlocalizedName("plant");
 	public static final BlockGrowingPlant calamites = new BlockCalamites(true, 15, 10)
 			.setGrowthChanceMult(6, 1, 1)
 			.setUnlocalizedName("plant.calamites");
-	public static final BlockFern fern = new BlockFern().setUnlocalizedName("fern");
+	public static final BlockPlant fern = new BlockFern().setUnlocalizedName("fern");
 
 	/* Crops */
 	public static final BlockGrowingPlant zingiberopsis = new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
@@ -105,9 +107,9 @@ public final class GenesisBlocks
 			.setUnlocalizedName("crop.odontopteris");
 	
 	/* Misc */
-	public static final Block prototaxites = new BlockPrototaxites().setUnlocalizedName("prototaxites");
-	public static final Block coral = new BlockCoral().setUnlocalizedName("coral");
-	public static final Block dung_block = new BlockDung().setUnlocalizedName("dung");
+	public static final BlockGenesis prototaxites = new BlockPrototaxites().setUnlocalizedName("prototaxites");
+	public static final BlockMetadata coral = new BlockCoral().setUnlocalizedName("coral");
+	public static final BlockMetadata dung_block = new BlockDung().setUnlocalizedName("dung");
 
 	public static void registerBlocks()
 	{

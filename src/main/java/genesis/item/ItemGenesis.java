@@ -12,8 +12,10 @@ public class ItemGenesis extends Item
 	}
 
 	@Override
-	public Item setUnlocalizedName(String unlocalizedName)
+	public ItemGenesis setUnlocalizedName(String unlocalizedName)
 	{
-		return super.setUnlocalizedName(Constants.PREFIX + unlocalizedName);
+		super.setUnlocalizedName(Constants.PREFIX + "material." + unlocalizedName);
+		
+		return this;
 	}
 }

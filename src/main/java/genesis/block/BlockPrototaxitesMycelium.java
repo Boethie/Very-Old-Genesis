@@ -25,7 +25,7 @@ public class BlockPrototaxitesMycelium extends BlockMycelium
 	}
 
 	@Override
-	public Block setUnlocalizedName(String unlocalizedName)
+	public BlockPrototaxitesMycelium setUnlocalizedName(String unlocalizedName)
 	{
 		super.setUnlocalizedName(Constants.PREFIX + unlocalizedName);
 		

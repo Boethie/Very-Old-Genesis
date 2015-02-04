@@ -40,9 +40,9 @@ public class BlockGenesisOre extends BlockOre
 	}
 
 	@Override
-	public Block setUnlocalizedName(String unlocalizedName)
+	public BlockGenesisOre setUnlocalizedName(String unlocalizedName)
 	{
-		super.setUnlocalizedName(Constants.PREFIX + unlocalizedName);
+		super.setUnlocalizedName(Constants.PREFIX + "ore." + unlocalizedName);
 		
 		return this;
 	}

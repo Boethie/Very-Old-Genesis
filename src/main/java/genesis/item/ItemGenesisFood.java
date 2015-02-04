@@ -25,13 +25,14 @@ public class ItemGenesisFood extends ItemFood
 	public ItemGenesisFood(int hunger, float saturation, boolean isWolfsFavoriteMeat)
 	{
 		super(hunger, saturation, isWolfsFavoriteMeat);
+		
 		setCreativeTab(GenesisCreativeTabs.FOOD);
 	}
 
 	@Override
-	public Item setUnlocalizedName(String unlocalizedName)
+	public ItemGenesisFood setUnlocalizedName(String unlocalizedName)
 	{
-		super.setUnlocalizedName(Constants.PREFIX + unlocalizedName);
+		super.setUnlocalizedName(Constants.PREFIX + "food." + unlocalizedName);
 		
 		return this;
 	}
@@ -57,6 +58,7 @@ public class ItemGenesisFood extends ItemFood
 	public ItemGenesisFood setPotionEffect(int id, int duration, int amplifier, float chance)
 	{
 		effects.put(chance, new PotionEffect(id, duration * 20, amplifier));
+		
 		return this;
 	}
 

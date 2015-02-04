@@ -23,9 +23,11 @@ public class BlockGenesis extends Block
 	}
 
 	@Override
-	public Block setUnlocalizedName(String name)
+	public BlockGenesis setUnlocalizedName(String name)
 	{
-		return super.setUnlocalizedName(Constants.PREFIX + name);
+		super.setUnlocalizedName(Constants.PREFIX + name);
+		
+		return this;
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package genesis.block;
 
 import genesis.common.GenesisCreativeTabs;
 import genesis.common.GenesisItems;
+import genesis.util.Constants;
 
 import java.util.Random;
 
@@ -16,6 +17,14 @@ public class BlockRedClay extends BlockClay
 		setHardness(0.6F);
 		setStepSound(soundTypeGravel);
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
+	}
+
+	@Override
+	public BlockRedClay setUnlocalizedName(String unlocalizedName)
+	{
+		super.setUnlocalizedName(Constants.PREFIX + unlocalizedName);
+		
+		return this;
 	}
 
 	@Override

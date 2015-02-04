@@ -1,5 +1,6 @@
 package genesis.block;
 
+import genesis.util.Constants;
 import genesis.util.Metadata;
 
 import java.util.List;
@@ -17,6 +18,14 @@ public abstract class BlockMetadata extends BlockGenesis
 	{
 		super(material);
 		setDefaultState(Metadata.getDefaultState(this, getVariant(), getMetaClass()));
+	}
+
+	@Override
+	public BlockMetadata setUnlocalizedName(String unlocalizedName)
+	{
+		super.setUnlocalizedName(unlocalizedName);
+		
+		return this;
 	}
 
 	protected abstract IProperty getVariant();

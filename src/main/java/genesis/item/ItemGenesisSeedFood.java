@@ -26,19 +26,19 @@ public class ItemGenesisSeedFood extends ItemSeedFood
 		
 		setCreativeTab(GenesisCreativeTabs.FOOD);
 	}
+
+	@Override
+	public ItemGenesisSeedFood setUnlocalizedName(String unlocalizedName)
+	{
+		super.setUnlocalizedName(Constants.PREFIX + "food." + unlocalizedName);
+		
+		return this;
+	}
 	
 	public ItemGenesisSeedFood setCrop(IPlantable plantable)
 	{
 		cropPlantable = plantable;
 		cropBlock = (Block) plantable;
-		
-		return this;
-	}
-
-	@Override
-	public Item setUnlocalizedName(String unlocalizedName)
-	{
-		super.setUnlocalizedName(Constants.PREFIX + unlocalizedName);
 		
 		return this;
 	}

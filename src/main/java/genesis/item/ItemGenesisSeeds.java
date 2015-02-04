@@ -37,9 +37,9 @@ public class ItemGenesisSeeds extends ItemSeeds
 	}
 
 	@Override
-	public Item setUnlocalizedName(String unlocalizedName)
+	public ItemGenesisSeeds setUnlocalizedName(String unlocalizedName)
 	{
-		super.setUnlocalizedName(Constants.PREFIX + unlocalizedName);
+		super.setUnlocalizedName(Constants.PREFIX + "material." + unlocalizedName);
 		
 		return this;
 	}

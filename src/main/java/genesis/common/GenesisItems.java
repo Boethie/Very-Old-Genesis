@@ -17,42 +17,42 @@ import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 public final class GenesisItems
 {
 	/* Materials */
-	public static final Item pebble = new ItemGenesisMetadata(EnumPebble.class).setUnlocalizedName("pebble");
-	public static final Item red_clay_ball = new ItemGenesis().setUnlocalizedName("redClay");
-	public static final Item octaedrite_shard = new ItemGenesis().setUnlocalizedName("octaedriteShard");
-	public static final Item red_clay_bowl = new ItemGenesis().setUnlocalizedName("bowlRedClay");
-	public static final Item ceramic_bowl = new ItemGenesis().setUnlocalizedName("bowlCeramic");
+	public static final ItemGenesis pebble = new ItemGenesisMetadata(EnumPebble.class).setUnlocalizedName("pebble");
+	public static final ItemGenesis red_clay_ball = new ItemGenesis().setUnlocalizedName("redClay");
+	public static final ItemGenesis octaedrite_shard = new ItemGenesis().setUnlocalizedName("octaedriteShard");
+	public static final ItemGenesis red_clay_bowl = new ItemGenesis().setUnlocalizedName("bowlRedClay");
+	public static final ItemGenesis ceramic_bowl = new ItemGenesis().setUnlocalizedName("bowlCeramic");
 	public static final Item nodule = new ItemGenesisMetadata(EnumNodule.class).setUnlocalizedName("nodule");
-	public static final Item quartz = new ItemGenesis().setUnlocalizedName("quartz");
-	public static final Item zircon = new ItemGenesis().setUnlocalizedName("zircon");
-	public static final Item garnet = new ItemGenesis().setUnlocalizedName("garnet");
-	public static final Item manganese = new ItemGenesis().setUnlocalizedName("manganese");
-	public static final Item hematite = new ItemGenesis().setUnlocalizedName("hematite");
-	public static final Item malachite = new ItemGenesis().setUnlocalizedName("malachite");
-	public static final Item olivine = new ItemGenesis().setUnlocalizedName("olivine");
-	public static final Item dung = new ItemGenesisMetadata(EnumDung.class).setUnlocalizedName("dung");
-	public static final Item resin = new ItemGenesis().setUnlocalizedName("resin");
-	public static final ItemGenesisSeeds calamites = (ItemGenesisSeeds) new ItemGenesisSeeds().setUnlocalizedName("calamites");
-	public static final Item sphenophyllum_fiber = new ItemGenesis().setUnlocalizedName("sphenophyllumFiber");
-	public static final Item odontopteris_frond = new ItemGenesis().setUnlocalizedName("odontopterisFrond");
-	public static final Item prototaxites_flesh = new ItemGenesis().setUnlocalizedName("prototaxitesFlesh");
-	public static final Item tyrannosaurus_saliva = new ItemGenesis().setUnlocalizedName("tyrannosaurusSaliva");
-	public static final Item tyrannosaurus_tooth = new ItemGenesis().setUnlocalizedName("tyrannosaurusTooth");
+	public static final ItemGenesis quartz = new ItemGenesis().setUnlocalizedName("quartz");
+	public static final ItemGenesis zircon = new ItemGenesis().setUnlocalizedName("zircon");
+	public static final ItemGenesis garnet = new ItemGenesis().setUnlocalizedName("garnet");
+	public static final ItemGenesis manganese = new ItemGenesis().setUnlocalizedName("manganese");
+	public static final ItemGenesis hematite = new ItemGenesis().setUnlocalizedName("hematite");
+	public static final ItemGenesis malachite = new ItemGenesis().setUnlocalizedName("malachite");
+	public static final ItemGenesis olivine = new ItemGenesis().setUnlocalizedName("olivine");
+	public static final ItemGenesis dung = new ItemGenesisMetadata(EnumDung.class).setUnlocalizedName("dung");
+	public static final ItemGenesis resin = new ItemGenesis().setUnlocalizedName("resin");
+	public static final ItemGenesisSeeds calamites = new ItemGenesisSeeds().setUnlocalizedName("calamites");
+	public static final ItemGenesis sphenophyllum_fiber = new ItemGenesis().setUnlocalizedName("sphenophyllumFiber");
+	public static final ItemGenesis odontopteris_frond = new ItemGenesis().setUnlocalizedName("odontopterisFrond");
+	public static final ItemGenesis prototaxites_flesh = new ItemGenesis().setUnlocalizedName("prototaxitesFlesh");
+	public static final ItemGenesis tyrannosaurus_saliva = new ItemGenesis().setUnlocalizedName("tyrannosaurusSaliva");
+	public static final ItemGenesis tyrannosaurus_tooth = new ItemGenesis().setUnlocalizedName("tyrannosaurusTooth");
 
 	/* Food */
-	public static final Item aphthoroblattina = new ItemGenesisFood(1, 0.2F).setUnlocalizedName("aphthoroblattinaRaw");
-	public static final Item cooked_aphthoroblattina = new ItemGenesisFood(2, 0.8F).setUnlocalizedName("aphthoroblattinaCooked");
-	public static final Item climatius = new ItemGenesisFood(2, 0.4F).setUnlocalizedName("climatiusRaw");
-	public static final Item cooked_climatius = new ItemGenesisFood(5, 6.0F).setUnlocalizedName("climatiusCooked");
-	public static final Item eryops_leg = new ItemGenesisFood(2, 0.8F).setUnlocalizedName("eryopsLegRaw");
-	public static final Item cooked_eryops_leg = new ItemGenesisFood(5, 6.0F).setUnlocalizedName("eryopsLegCooked");
-	public static final Item tyrannosaurus = new ItemGenesisFood(4, 2.8F).setUnlocalizedName("tyrannosaurusRaw");
-	public static final Item cooked_tyrannosaurus = new ItemGenesisFood(16, 19.8F).setUnlocalizedName("tyrannosaurusCooked");
-	public static final ItemGenesisSeedFood zingiberopsis_rhizome = (ItemGenesisSeedFood) new ItemGenesisSeedFood(2, 1.2F).setUnlocalizedName("zingiberopsisRhizome");
-	public static final ItemGenesisSeedFood odontopteris_seeds = (ItemGenesisSeedFood) new ItemGenesisSeedFood(1, 0.8F).setUnlocalizedName("odontopterisSeeds");
+	public static final ItemGenesisFood aphthoroblattina = new ItemGenesisFood(1, 0.2F).setUnlocalizedName("aphthoroblattinaRaw");
+	public static final ItemGenesisFood cooked_aphthoroblattina = new ItemGenesisFood(2, 0.8F).setUnlocalizedName("aphthoroblattinaCooked");
+	public static final ItemGenesisFood climatius = new ItemGenesisFood(2, 0.4F).setUnlocalizedName("climatiusRaw");
+	public static final ItemGenesisFood cooked_climatius = new ItemGenesisFood(5, 6.0F).setUnlocalizedName("climatiusCooked");
+	public static final ItemGenesisFood eryops_leg = new ItemGenesisFood(2, 0.8F).setUnlocalizedName("eryopsLegRaw");
+	public static final ItemGenesisFood cooked_eryops_leg = new ItemGenesisFood(5, 6.0F).setUnlocalizedName("eryopsLegCooked");
+	public static final ItemGenesisFood tyrannosaurus = new ItemGenesisFood(4, 2.8F).setUnlocalizedName("tyrannosaurusRaw");
+	public static final ItemGenesisFood cooked_tyrannosaurus = new ItemGenesisFood(16, 19.8F).setUnlocalizedName("tyrannosaurusCooked");
+	public static final ItemGenesisSeedFood zingiberopsis_rhizome = new ItemGenesisSeedFood(2, 1.2F).setUnlocalizedName("zingiberopsisRhizome");
+	public static final ItemGenesisSeedFood odontopteris_seeds = new ItemGenesisSeedFood(1, 0.8F).setUnlocalizedName("odontopterisSeeds");
 
 	/* Misc */
-	public static final Item flint_and_marcasite = new ItemFlintAndMarcasite().setUnlocalizedName(Constants.PREFIX + "flintAndMarcasite");
+	public static final ItemFlintAndMarcasite flint_and_marcasite = new ItemFlintAndMarcasite().setUnlocalizedName("flintAndMarcasite");
 
 	public static void registerItems()
 	{
