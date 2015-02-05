@@ -3,6 +3,7 @@ package genesis.block;
 import java.util.List;
 import java.util.Random;
 
+import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.metadata.EnumAquaticPlant;
 import genesis.util.Constants;
@@ -15,6 +16,7 @@ import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumWorldBlockLayer;
@@ -28,7 +30,7 @@ public class BlockAquaticPlant extends BlockMetadata
 	public BlockAquaticPlant()
 	{
 		super(Material.water);
-		setHardness(0.0F).setTickRandomly(true).setCreativeTab(GenesisCreativeTabs.DECORATIONS);
+		setItemDropped(Item.getItemFromBlock(this)).setQuantityDropped(1).setStepSound(soundTypeGrass).setHardness(0.0F).setTickRandomly(true).setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	}
 
 	@Override
@@ -53,6 +55,12 @@ public class BlockAquaticPlant extends BlockMetadata
 
 	@Override
 	public boolean isFullCube()
+	{
+		return false;
+	}
+
+	@Override
+	public boolean isReplaceable(World worldIn, BlockPos pos)
 	{
 		return false;
 	}
@@ -89,10 +97,10 @@ public class BlockAquaticPlant extends BlockMetadata
 	}
 
 	@Override
-	public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+	public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
 	{
-		super.breakBlock(worldIn, pos, state);
-		worldIn.setBlockState(pos, Blocks.water.getStateFromMeta(0));
+		super.onBlockDestroyedByPlayer(worldIn, pos, state);
+		worldIn.setBlockState(pos, Blocks.water.getStateFromMeta(0), 3);
 	}
 
 	@Override
@@ -104,7 +112,7 @@ public class BlockAquaticPlant extends BlockMetadata
 	public boolean canBlockStay(World world, BlockPos pos, IBlockState state)
 	{
 		final IBlockState below = world.getBlockState(pos.down());
-		if (!((below.getBlock() == Blocks.sand) || (below.getBlock() == Blocks.dirt) || (below.getBlock() == Blocks.gravel)))
+		if (!((below.getBlock() == GenesisBlocks.coral) || (below.getBlock() instanceof BlockGenesisRock)))
 		{
 			return false;
 		}
