@@ -13,7 +13,6 @@ import genesis.util.Constants;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 
-@ObjectHolder(Constants.MOD_ID)
 public final class GenesisItems
 {
 	/* Materials */

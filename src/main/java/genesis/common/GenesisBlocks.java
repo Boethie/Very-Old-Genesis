@@ -43,7 +43,6 @@ import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.registry.GameData;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 
-@ObjectHolder(Constants.MOD_ID)
 public final class GenesisBlocks
 {
 	public static final Block moss = new BlockMoss().setUnlocalizedName(Constants.PREFIX + "moss");
