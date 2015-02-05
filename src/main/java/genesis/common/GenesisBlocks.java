@@ -11,6 +11,7 @@ import genesis.block.BlockGenesisOre;
 import genesis.block.BlockGenesisRock;
 import genesis.block.BlockGrowingPlant;
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
+import genesis.block.BlockAquaticPlant;
 import genesis.block.BlockMetadata;
 import genesis.block.BlockMoss;
 import genesis.block.BlockNewPermafrost;
@@ -24,6 +25,7 @@ import genesis.block.BlockRedClay;
 import genesis.block.BlockSphenophyllumCustoms;
 import genesis.item.ItemBlockColored;
 import genesis.item.ItemBlockMetadata;
+import genesis.metadata.EnumAquaticPlant;
 import genesis.metadata.EnumCoral;
 import genesis.metadata.EnumDung;
 import genesis.metadata.EnumFern;
@@ -41,7 +43,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.registry.GameData;
-import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 
 public final class GenesisBlocks
 {
@@ -85,6 +86,7 @@ public final class GenesisBlocks
 			.setGrowthChanceMult(6, 1, 1)
 			.setUnlocalizedName("plant.calamites");
 	public static final BlockPlant fern = new BlockFern().setUnlocalizedName("fern");
+	public static final BlockAquaticPlant aquatic_plant = new BlockAquaticPlant().setUnlocalizedName("aquaticPlant");
 
 	/* Crops */
 	public static final BlockGrowingPlant zingiberopsis = new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
@@ -167,6 +169,7 @@ public final class GenesisBlocks
 		GenesisItems.odontopteris_seeds.setCrop(odontopteris);
 		
 		Genesis.proxy.registerBlock(prototaxites, "prototaxites");
+		Genesis.proxy.registerBlock(aquatic_plant, "aquatic_plant", ItemBlockMetadata.class, EnumAquaticPlant.class);
 		Genesis.proxy.registerBlock(coral, "coral", ItemBlockMetadata.class, EnumCoral.class);
 	}
 }

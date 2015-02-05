@@ -11,7 +11,6 @@ import genesis.metadata.EnumNodule;
 import genesis.metadata.EnumPebble;
 import genesis.util.Constants;
 import net.minecraft.item.Item;
-import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 
 public final class GenesisItems
 {
