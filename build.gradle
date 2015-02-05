@@ -46,3 +46,10 @@ processResources {
 }
 
 version = project.minecraft.version + "-" + project.version
+
+jar {
+    manifest {
+        attributes 'FMLCorePlugin': 'genesis.core.GenesisCore'
+        attributes 'FMLCorePluginContainsFMLMod': 'true'
+    }
+}
