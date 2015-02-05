@@ -1,7 +1,5 @@
 package genesis.common;
 
-import java.util.ArrayList;
-
 import genesis.block.BlockCalamites;
 import genesis.block.BlockCoral;
 import genesis.block.BlockDung;
@@ -10,7 +8,6 @@ import genesis.block.BlockGenesis;
 import genesis.block.BlockGenesisOre;
 import genesis.block.BlockGenesisRock;
 import genesis.block.BlockGrowingPlant;
-import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
 import genesis.block.BlockMetadata;
 import genesis.block.BlockMoss;
 import genesis.block.BlockNewPermafrost;
@@ -32,15 +29,7 @@ import genesis.metadata.EnumPlant;
 import genesis.util.Constants;
 import genesis.util.RandomItemDrop;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.MathHelper;
-import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
-import net.minecraftforge.fml.common.registry.GameData;
 
 public final class GenesisBlocks
 {

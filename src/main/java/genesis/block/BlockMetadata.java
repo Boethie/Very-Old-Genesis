@@ -1,6 +1,5 @@
 package genesis.block;
 
-import genesis.util.Constants;
 import genesis.util.Metadata;
 
 import java.util.List;

@@ -6,7 +6,6 @@ import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.ColorizerGrass;
 
 public class ColorizerDryMoss implements IResourceManagerReloadListener
 {
