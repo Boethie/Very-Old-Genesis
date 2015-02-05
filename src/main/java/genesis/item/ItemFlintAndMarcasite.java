@@ -23,7 +23,7 @@ public class ItemFlintAndMarcasite extends ItemFlintAndSteel
 	public ItemFlintAndMarcasite setUnlocalizedName(String unlocalizedName)
 	{
 		super.setUnlocalizedName(Constants.PREFIX + "tool." + unlocalizedName);
-
+		
 		return this;
 	}
 

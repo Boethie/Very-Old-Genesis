@@ -23,7 +23,7 @@ public class BlockRedClay extends BlockClay
 	public BlockRedClay setUnlocalizedName(String unlocalizedName)
 	{
 		super.setUnlocalizedName(Constants.PREFIX + unlocalizedName);
-
+		
 		return this;
 	}
 

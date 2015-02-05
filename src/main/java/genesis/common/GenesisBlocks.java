@@ -69,14 +69,30 @@ public final class GenesisBlocks
 
 	/* Plants */
 	public static final BlockPlant plant = new BlockPlant().setUnlocalizedName("plant");
-	public static final BlockGrowingPlant calamites = new BlockCalamites(true, 15, 10).setGrowthChanceMult(6, 1, 1).setUnlocalizedName("plant.calamites");
+	public static final BlockGrowingPlant calamites = new BlockCalamites(true, 15, 10)
+			.setGrowthChanceMult(6, 1, 1)
+			.setUnlocalizedName("plant.calamites");
 	public static final BlockPlant fern = new BlockFern().setUnlocalizedName("fern");
 
 	/* Crops */
-	public static final BlockGrowingPlant zingiberopsis = new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2).setGrowAllTogether(true).setBreakAllTogether(true).setPlantType(EnumPlantType.Crop).setUnlocalizedName("crop.zingiberopsis");
-	public static final BlockGrowingPlant sphenophyllum = new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2).setGrowAllTogether(true).setPlantType(EnumPlantType.Plains).setGrowthChanceMult(5, 1, 1).setCustomsInterface(new BlockSphenophyllumCustoms()).setUnlocalizedName("plant.sphenophyllum");
-	public static final BlockGrowingPlant odontopteris = new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2).setGrowAllTogether(true).setBreakAllTogether(true).setPlantType(EnumPlantType.Crop).setGrowthChanceMult(16, 0.4F, 0.95F).setUseBiomeColor(true).setCustomsInterface(new BlockOdontopterisCustoms()).setUnlocalizedName("crop.odontopteris");
-
+	public static final BlockGrowingPlant zingiberopsis = new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
+			.setGrowAllTogether(true).setBreakAllTogether(true)
+			.setPlantType(EnumPlantType.Crop)
+			.setUnlocalizedName("crop.zingiberopsis");
+	public static final BlockGrowingPlant sphenophyllum = new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
+			.setGrowAllTogether(true)
+			.setPlantType(EnumPlantType.Plains)
+			.setGrowthChanceMult(5, 1, 1)
+			.setCustomsInterface(new BlockSphenophyllumCustoms())
+			.setUnlocalizedName("plant.sphenophyllum");
+	public static final BlockGrowingPlant odontopteris = new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
+			.setGrowAllTogether(true).setBreakAllTogether(true)
+			.setPlantType(EnumPlantType.Crop)
+			.setGrowthChanceMult(16, 0.4F, 0.95F)
+			.setUseBiomeColor(true)
+			.setCustomsInterface(new BlockOdontopterisCustoms())
+			.setUnlocalizedName("crop.odontopteris");
+	
 	/* Misc */
 	public static final BlockGenesis prototaxites = new BlockPrototaxites().setUnlocalizedName("prototaxites");
 	public static final BlockMetadata coral = new BlockCoral().setUnlocalizedName("coral");
@@ -118,26 +134,26 @@ public final class GenesisBlocks
 		calamites.setCropDrops(new RandomItemDrop(GenesisItems.calamites, 1, 1));
 		calamites.setPickedItem(GenesisItems.calamites);
 		GenesisItems.calamites.setCrop(calamites);
-
+		
 		Genesis.proxy.registerBlock(fern, "fern", ItemBlockColored.class, EnumFern.class);
-
+		
 		Genesis.proxy.registerBlock(zingiberopsis, "zingiberopsis", null);
 		zingiberopsis.setPlantSize(0, 0.2F, 0.5F);
 		zingiberopsis.setDrops(new RandomItemDrop(GenesisItems.zingiberopsis_rhizome, 1, 1));
 		zingiberopsis.setCropDrops(new RandomItemDrop(GenesisItems.zingiberopsis_rhizome, 1, 3));
 		zingiberopsis.setPickedItem(GenesisItems.zingiberopsis_rhizome);
 		GenesisItems.zingiberopsis_rhizome.setCrop(zingiberopsis);
-
+		
 		Genesis.proxy.registerBlock(sphenophyllum, "sphenophyllum");
 		sphenophyllum.setPlantSize(0, 0.2F, 0.75F);
-
+		
 		Genesis.proxy.registerBlock(odontopteris, "odontopteris", null);
 		odontopteris.setPlantSize(0, 0.2F, 0.75F);
 		odontopteris.setDrops(new RandomItemDrop(GenesisItems.odontopteris_seeds, 1, 1));
 		odontopteris.setCropDrops(new RandomItemDrop(GenesisItems.odontopteris_seeds, 1, 3));
 		odontopteris.setPickedItem(GenesisItems.odontopteris_seeds);
 		GenesisItems.odontopteris_seeds.setCrop(odontopteris);
-
+		
 		Genesis.proxy.registerBlock(prototaxites, "prototaxites");
 		Genesis.proxy.registerBlock(coral, "coral", ItemBlockMetadata.class, EnumCoral.class);
 	}

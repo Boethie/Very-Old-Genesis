@@ -14,7 +14,7 @@ public class GenesisCore extends AccessTransformer implements IFMLLoadingPlugin
 	{
 		super(Constants.MOD_ID + "_at.cfg");
 	}
-
+	
 	@Override
 	public String[] getASMTransformerClass()
 	{

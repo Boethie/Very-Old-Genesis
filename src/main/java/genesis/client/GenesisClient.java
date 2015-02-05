@@ -46,7 +46,7 @@ public class GenesisClient extends GenesisProxy
 			registerModel(texture.item, texture.metadata, texture.name);
 			iterator.remove();
 		}
-
+		
 		((IReloadableResourceManager) MC.getResourceManager()).registerReloadListener(new ColorizerDryMoss());
 	}
 
@@ -68,12 +68,12 @@ public class GenesisClient extends GenesisProxy
 						for (int metadata = 0; metadata < values.length; metadata++)
 						{
 							String textureName = values[metadata].getName();
-
+							
 							if (IMetaMulti.class.isAssignableFrom(argClass))
 							{
 								textureName = ((IMetaMulti) values[metadata]).getName("block");
 							}
-
+							
 							registerModel(block, metadata, textureName);
 							addVariantName(block, textureName);
 						}

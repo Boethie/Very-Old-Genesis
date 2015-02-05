@@ -31,7 +31,7 @@ public class BlockOdontopterisCustoms implements IGrowingPlantCustoms
 		ArrayList<ItemStack> out = new ArrayList<ItemStack>();
 		int age = (Integer) state.getValue(plant.ageProp);
 		boolean top = (Boolean) state.getValue(plant.topProp);
-
+		
 		if (top)
 		{
 			if (age >= plant.maxAge)
@@ -54,7 +54,7 @@ public class BlockOdontopterisCustoms implements IGrowingPlantCustoms
 				out.add(seedsDropYoung.getRandom(worldIn.rand));
 			}
 		}
-
+		
 		return out;
 	}
 

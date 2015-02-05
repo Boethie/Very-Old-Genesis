@@ -23,7 +23,7 @@ public abstract class BlockMetadata extends BlockGenesis
 	public BlockMetadata setUnlocalizedName(String unlocalizedName)
 	{
 		super.setUnlocalizedName(unlocalizedName);
-
+		
 		return this;
 	}
 

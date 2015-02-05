@@ -36,7 +36,7 @@ public class BlockMoss extends BlockGrass
 {
 	protected static final int STAGE_LAST = 3;
 	protected static final IProperty STAGE = PropertyInteger.create("stage", 0, STAGE_LAST);
-
+	
 	public BlockMoss()
 	{
 		setDefaultState(blockState.getBaseState().withProperty(STAGE, 0).withProperty(SNOWY, false));
@@ -45,7 +45,7 @@ public class BlockMoss extends BlockGrass
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 		setHarvestLevel("shovel", 0);
 	}
-
+	
 	@Override
 	public BlockState createBlockState()
 	{
@@ -138,34 +138,35 @@ public class BlockMoss extends BlockGrass
 	{
 		world.setBlockState(pos, net.minecraft.init.Blocks.dirt.getDefaultState(), 2);
 	}
-
-	protected float[] lightGrowthChances = { -0.2F, // 0
-			-0.15F, // 1
-			-0.1F, // 2
-			-0.05F, // 3
-			0, // 4
-			0.125F, // 5
-			0.3F, // 6
-			0.45F, // 7
-			0.55F, // 8
-			0.7F, // 9
-			0.8F, // 10
-			0.9F, // 11
-			1.0F, // 12
-			1.0F, // 13
-			0.5F, // 14
-			-1F }; // 15
-
+	
+	protected float[] lightGrowthChances = {
+			-0.2F,	// 0
+			-0.15F,	// 1
+			-0.1F,	// 2
+			-0.05F,	// 3
+			0,		// 4
+			0.125F,	// 5
+			0.3F,	// 6
+			0.45F,	// 7
+			0.55F,	// 8
+			0.7F,	// 9
+			0.8F,	// 10
+			0.9F,	// 11
+			1.0F,	// 12
+			1.0F,	// 13
+			0.5F,	// 14
+			-1F};	// 15
+	
 	protected float getGrowthChance(IBlockAccess worldIn, BlockPos pos, int light)
 	{
 		float chance = lightGrowthChances[light];
-
+		
 		float humidity = worldIn.getBiomeGenForCoords(pos).getFloatRainfall();
 		chance += (humidity * 0.25F) - 0.125F;
-
+		
 		return chance;
 	}
-
+	
 	protected float getGrowthChance(World worldIn, BlockPos pos)
 	{
 		return getGrowthChance(worldIn, pos, worldIn.getLightFromNeighbors(pos.up()));
@@ -177,11 +178,11 @@ public class BlockMoss extends BlockGrass
 		if (!worldIn.isRemote)
 		{
 			int newStage = (Integer) worldIn.getBlockState(pos).getValue(STAGE);
-
+			
 			float growthChance = getGrowthChance(worldIn, pos);
 			float randFloat = rand.nextFloat();
-
-			if ((growthChance < 0) && ((randFloat - 1) > growthChance))
+			
+			if (growthChance < 0 && randFloat - 1 > growthChance)
 			{
 				newStage--;
 			}
@@ -189,8 +190,8 @@ public class BlockMoss extends BlockGrass
 			{
 				newStage++;
 			}
-
-			if ((newStage < 0) && (rand.nextInt(10) <= 0))
+			
+			if (newStage < 0 && rand.nextInt(10) <= 0)
 			{
 				worldIn.setBlockState(pos, Blocks.dirt.getDefaultState());
 			}
@@ -198,27 +199,27 @@ public class BlockMoss extends BlockGrass
 			{
 				newStage = MathHelper.clamp_int(newStage, 0, STAGE_LAST);
 				worldIn.setBlockState(pos, state.withProperty(STAGE, newStage));
-
+	
 				if (randFloat < growthChance)
 				{
 					float mult = 1;
-
+					
 					if (newStage < 1)
 					{
 						mult = 0;
 					}
-
+					
 					mult = MathHelper.clamp_float(mult, 0, 1);
-
-					for (int i = 0; i < (4 * mult); i++)
+					
+					for (int i = 0; i < 4 * mult; i++)
 					{
 						BlockPos randPos = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
-
+						
 						if (!randPos.equals(pos))
 						{
 							IBlockState randState = worldIn.getBlockState(randPos);
 							Block randBlock = randState.getBlock();
-
+	
 							if (worldIn.getBlockState(randPos.up()).getBlock().getLightOpacity(worldIn, randPos.up()) <= 2)
 							{
 								if ((randState.getBlock() == Blocks.dirt) && (randState.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT))
@@ -228,8 +229,8 @@ public class BlockMoss extends BlockGrass
 								else if (randBlock == this)
 								{
 									int randStage = (Integer) randState.getValue(STAGE);
-
-									if ((newStage >= STAGE_LAST) && (randStage < 2))
+									
+									if (newStage >= STAGE_LAST && randStage < 2)
 									{
 										worldIn.setBlockState(randPos, randState.withProperty(STAGE, Math.min(randStage + 1, STAGE_LAST)));
 									}
@@ -288,101 +289,103 @@ public class BlockMoss extends BlockGrass
 	{
 		if (renderPass == 1)
 		{
-			int color = super.colorMultiplier(worldIn, pos, renderPass);
+	        int color = super.colorMultiplier(worldIn, pos, renderPass);
+	        
+            int r = (color & 16711680) >> 16;
+            int g = (color & 65280) >> 8;
+			int b = color & 255;
+			
+			float avgChance = 0;
+			float chanceSamples = 0;
+			
+			float avgStage = 0;
+			float stageSamples = 0;
+			
+	        for (BlockPos checkPos : (Iterable<BlockPos>) BlockPos.getAllInBox(pos.add(-1, -1, -1), pos.add(1, 1, 1)))
+	        {
+	        	IBlockState checkState = worldIn.getBlockState(checkPos);
+	        	Block checkBlock = checkState.getBlock();
+	        	
+	        	if (checkBlock == this || checkBlock == Blocks.dirt)
+	        	{
+					int combLight = worldIn.getCombinedLight(checkPos.up(), 0);
+					int skyLight = (combLight >> 20) & 15;
+					int blockLight = (combLight >> 4) & 15;
+					float growthChance = getGrowthChance(worldIn, checkPos, skyLight);
+					
+					avgChance += growthChance;
+					chanceSamples++;
+	        	}
+	        	
+	        	if (checkBlock == this)
+	        	{
+					avgStage += (Integer) checkState.getValue(STAGE);
+					stageSamples++;
+	        	}
+	        }
 
-			int r = (color & 16711680) >> 16;
-									int g = (color & 65280) >> 8;
-					int b = color & 255;
+	        avgChance /= chanceSamples;
+			avgChance = MathHelper.clamp_float(avgChance, 0, 1);
+			
+	        avgStage /= stageSamples;
+			
+			BiomeGenBase biome = worldIn.getBiomeGenForCoords(pos);
+	        float temperature = MathHelper.clamp_float(biome.getFloatTemperature(pos), 0, 1);
+	        float humidity = MathHelper.clamp_float(biome.getFloatRainfall(), 0, 1);
+			
+			int dryColor = biome.getModdedBiomeGrassColor(ColorizerDryMoss.getColor(temperature, humidity));
+            int toR = (dryColor & 16711680) >> 16;
+            int toG = (dryColor & 65280) >> 8;
+			int toB = dryColor & 255;
+			
+			float amount = 1 - (avgStage / STAGE_LAST);
 
-					float avgChance = 0;
-					float chanceSamples = 0;
-
-					float avgStage = 0;
-					float stageSamples = 0;
-
-					for (BlockPos checkPos : (Iterable<BlockPos>) BlockPos.getAllInBox(pos.add(-1, -1, -1), pos.add(1, 1, 1)))
-					{
-						IBlockState checkState = worldIn.getBlockState(checkPos);
-						Block checkBlock = checkState.getBlock();
-
-						if ((checkBlock == this) || (checkBlock == Blocks.dirt))
-						{
-							int combLight = worldIn.getCombinedLight(checkPos.up(), 0);
-							int skyLight = (combLight >> 20) & 15;
-							int blockLight = (combLight >> 4) & 15;
-							float growthChance = getGrowthChance(worldIn, checkPos, skyLight);
-
-							avgChance += growthChance;
-							chanceSamples++;
-						}
-
-						if (checkBlock == this)
-						{
-							avgStage += (Integer) checkState.getValue(STAGE);
-							stageSamples++;
-						}
-					}
-
-					avgChance /= chanceSamples;
-					avgChance = MathHelper.clamp_float(avgChance, 0, 1);
-
-					avgStage /= stageSamples;
-
-					BiomeGenBase biome = worldIn.getBiomeGenForCoords(pos);
-					float temperature = MathHelper.clamp_float(biome.getFloatTemperature(pos), 0, 1);
-					float humidity = MathHelper.clamp_float(biome.getFloatRainfall(), 0, 1);
-
-					int dryColor = biome.getModdedBiomeGrassColor(ColorizerDryMoss.getColor(temperature, humidity));
-					int toR = (dryColor & 16711680) >> 16;
-		int toG = (dryColor & 65280) >> 8;
-		int toB = dryColor & 255;
-
-		float amount = 1 - (avgStage / STAGE_LAST);
-
-		r = r + (int) ((toR - r) * amount);
-		g = g + (int) ((toG - g) * amount);
-		b = b + (int) ((toB - b) * amount);
-
-		// Desaturation code.
-		float saturation = 0.75F + (avgChance * 0.25F);
-
-		int[] rgb = { r, g, b };
-		int smallest = 255;
-		int biggest = 0;
-
-		for (int curCol : rgb)
-		{
-			if (curCol < smallest)
+			r = r + (int) ((toR - r) * amount);
+			g = g + (int) ((toG - g) * amount);
+			b = b + (int) ((toB - b) * amount);
+			
+			// Desaturation code.
+	        float saturation = 0.75F + (avgChance * 0.25F);
+	        
+			int[] rgb = {r, g, b};
+			int smallest = 255;
+			int biggest = 0;
+			
+			for (int curCol : rgb)
 			{
-				smallest = curCol;
+				if (curCol < smallest)
+				{
+					smallest = curCol;
+				}
+				
+				if (curCol > biggest)
+				{
+					biggest = curCol;
+				}
+			}
+			
+			float size = (biggest - (float) smallest);
+			
+			for (int i = 0; i < rgb.length; i++)
+			{
+				float part = (rgb[i] - biggest) / size;
+				rgb[i] = (int) ((part * saturation) * size) + biggest;
 			}
 
-			if (curCol > biggest)
-			{
-				biggest = curCol;
-			}
-		}
+			// Update r, g, and b with color from desaturation code
+			r = rgb[0];
+			g = rgb[1];
+			b = rgb[2];
 
-		float size = (biggest - (float) smallest);
+			r = MathHelper.clamp_int(r, 0, 255);
+			g = MathHelper.clamp_int(g, 0, 255);
+			b = MathHelper.clamp_int(b, 0, 255);
 
-		for (int i = 0; i < rgb.length; i++)
-		{
-			float part = (rgb[i] - biggest) / size;
-			rgb[i] = (int) ((part * saturation) * size) + biggest;
-		}
-
-		// Update r, g, and b with color from desaturation code
-		r = rgb[0];
-		g = rgb[1];
-		b = rgb[2];
-
-		r = MathHelper.clamp_int(r, 0, 255);
-		g = MathHelper.clamp_int(g, 0, 255);
-		b = MathHelper.clamp_int(b, 0, 255);
-
-		color = ((r & 255) << 16) | ((g & 255) << 8) | (b & 255);
-
-		return color;
+	        color = ((r & 255) << 16) |
+	        		((g & 255) << 8) |
+	        		(b & 255);
+			
+			return color;
 		}
 		else
 		{

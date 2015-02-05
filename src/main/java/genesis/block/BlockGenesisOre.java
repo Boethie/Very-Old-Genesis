@@ -43,7 +43,7 @@ public class BlockGenesisOre extends BlockOre
 	public BlockGenesisOre setUnlocalizedName(String unlocalizedName)
 	{
 		super.setUnlocalizedName(Constants.PREFIX + "ore." + unlocalizedName);
-
+		
 		return this;
 	}
 
