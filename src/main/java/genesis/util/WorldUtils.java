@@ -1,6 +1,11 @@
 package genesis.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
@@ -26,5 +31,39 @@ public class WorldUtils
 		}
 		
 		return false;
+	}
+	
+	public static List<IBlockState> getBlocksAround(final World world, final BlockPos pos){
+		final List<IBlockState> blocks = new ArrayList<IBlockState>();
+
+		BlockPos shift = pos.north();
+		blocks.add(world.getBlockState(shift));
+
+		shift = pos.north();
+		shift = shift.east();
+		blocks.add(world.getBlockState(shift));
+
+		shift = pos.east();
+		blocks.add(world.getBlockState(shift));
+
+		shift = pos.east();
+		shift = shift.south();
+		blocks.add(world.getBlockState(shift));
+
+		shift = pos.south();
+		blocks.add(world.getBlockState(shift));
+
+		shift = pos.south();
+		shift = pos.west();
+		blocks.add(world.getBlockState(shift));
+
+		shift = pos.west();
+		blocks.add(world.getBlockState(shift));
+
+		shift = pos.west();
+		shift = shift.north();
+		blocks.add(world.getBlockState(shift));
+
+		return blocks;
 	}
 }

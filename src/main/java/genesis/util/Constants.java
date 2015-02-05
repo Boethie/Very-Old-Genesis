@@ -1,5 +1,6 @@
 package genesis.util;
 
+import genesis.metadata.EnumAquaticPlant;
 import genesis.metadata.EnumCoral;
 import genesis.metadata.EnumDung;
 import genesis.metadata.EnumFern;
@@ -9,6 +10,7 @@ import java.util.Random;
 
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.util.DamageSource;
 
 public final class Constants
 {
@@ -31,4 +33,7 @@ public final class Constants
 	public static final PropertyEnum FERN_VARIANT = PropertyEnum.create("variant", EnumFern.class);
 	public static final PropertyInteger PROTOTAXITES_AGE = PropertyInteger.create("age", 0, 15);
 	public static final PropertyEnum CORAL_VARIANT = PropertyEnum.create("variant", EnumCoral.class);
+	public static final PropertyEnum AQUATIC_PLANT_VARIANT = PropertyEnum.create("variant", EnumAquaticPlant.class);
+	
+	public static final DamageSource CHANCELLORIA_DMG = new DamageSource("chancelloria");
 }
