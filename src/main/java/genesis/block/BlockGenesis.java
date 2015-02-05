@@ -26,7 +26,7 @@ public class BlockGenesis extends Block
 	public BlockGenesis setUnlocalizedName(String name)
 	{
 		super.setUnlocalizedName(Constants.PREFIX + name);
-		
+
 		return this;
 	}
 

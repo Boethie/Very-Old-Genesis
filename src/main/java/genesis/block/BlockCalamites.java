@@ -20,30 +20,30 @@ import net.minecraft.world.World;
 public class BlockCalamites extends BlockGrowingPlant implements IGrowingPlantCustoms
 {
 	protected static final float RADIUS = 0.2F;
-	
+
 	public BlockCalamites(boolean topPropertyIn, int maxAgeIn, int height)
 	{
 		super(topPropertyIn, maxAgeIn, height);
-		
+
 		setHardness(0.75F);
 		setHarvestLevel("axe", 0);
-		
+
 		setPlantSize(1, 0, RADIUS * 2);
 		setCollisionBox(new AxisAlignedBB(0.5F - RADIUS, 0, 0.5F - RADIUS, 0.5F + RADIUS, 1, 0.5F + RADIUS));
 		setStepSound(GenesisSounds.CALAMITES);
 	}
-	
+
 	@Override
-    public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face)
-    {
-        return 30;
-    }
-	
+	public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face)
+	{
+		return 30;
+	}
+
 	@Override
-    public int getFireSpreadSpeed(IBlockAccess world, BlockPos pos, EnumFacing face)
-    {
-        return 5;
-    }
+	public int getFireSpreadSpeed(IBlockAccess world, BlockPos pos, EnumFacing face)
+	{
+		return 5;
+	}
 
 	@Override
 	public void managePlantMetaProperties(BlockGrowingPlant plant, ArrayList<IProperty> metaProps)
@@ -65,7 +65,7 @@ public class BlockCalamites extends BlockGrowingPlant implements IGrowingPlantCu
 	public CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World worldIn, BlockPos pos, boolean placed)
 	{
 		Block blockUnder = worldIn.getBlockState(pos.down()).getBlock();
-		
+
 		if (blockUnder == plant)
 		{
 			return CanStayOptions.YIELD;

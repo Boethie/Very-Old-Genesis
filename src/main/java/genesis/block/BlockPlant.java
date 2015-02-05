@@ -34,7 +34,7 @@ public class BlockPlant extends BlockBush
 	public BlockPlant setUnlocalizedName(String unlocalizedName)
 	{
 		super.setUnlocalizedName(Constants.PREFIX + unlocalizedName);
-		
+
 		return this;
 	}
 

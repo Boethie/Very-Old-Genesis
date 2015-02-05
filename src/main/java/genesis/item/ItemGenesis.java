@@ -15,7 +15,7 @@ public class ItemGenesis extends Item
 	public ItemGenesis setUnlocalizedName(String unlocalizedName)
 	{
 		super.setUnlocalizedName(Constants.PREFIX + "material." + unlocalizedName);
-		
+
 		return this;
 	}
 }

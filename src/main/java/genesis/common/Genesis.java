@@ -61,7 +61,7 @@ public class Genesis
 	{
 		proxy.postInit();
 	}
-	
+
 	private void initEnums()
 	{
 		EnumPlant.values();

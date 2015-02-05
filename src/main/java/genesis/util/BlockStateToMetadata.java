@@ -72,8 +72,10 @@ public class BlockStateToMetadata
 	/**
 	 * Gets the IBlockState represented by the metadata passed to the function, filtered by an array of properties.
 	 * 
-	 * @param state The state to convert to metadata.
-	 * @param properties The properties to store in the metadata, in the desired order.
+	 * @param state
+	 *            The state to convert to metadata.
+	 * @param properties
+	 *            The properties to store in the metadata, in the desired order.
 	 * @return The metadata to represent the IBlockState.
 	 */
 	public static int getMetaForBlockState(IBlockState state, IProperty... properties)
@@ -86,7 +88,7 @@ public class BlockStateToMetadata
 			ImmutableSet values = (ImmutableSet) property.getAllowedValues();
 
 			Comparable value = state.getValue(property);
-			
+
 			// Remap undesirable values to desired values (false = metadata 0, true = metadata 1)
 			if (valueToMetaRemap.containsKey(value))
 			{
@@ -112,7 +114,8 @@ public class BlockStateToMetadata
 	/**
 	 * Gets the IBlockState represented by the metadata passed to the function.
 	 * 
-	 * @param state The state to convert to metadata.
+	 * @param state
+	 *            The state to convert to metadata.
 	 * @return The metadata to represent the IBlockState.
 	 */
 	public static int getMetaForBlockState(IBlockState state)
@@ -123,9 +126,12 @@ public class BlockStateToMetadata
 	/**
 	 * Gets the IBlockState represented by the metadata passed to the function, filtered by an array of properties.
 	 * 
-	 * @param state The state to base the new state off of (will usually be Block.getDefaultState()).
-	 * @param metadata The metadata to restore to an IBlockState.
-	 * @param properties The properties to restore from the metadata, in the order they were passed to getMetaForBlockState.
+	 * @param state
+	 *            The state to base the new state off of (will usually be Block.getDefaultState()).
+	 * @param metadata
+	 *            The metadata to restore to an IBlockState.
+	 * @param properties
+	 *            The properties to restore from the metadata, in the order they were passed to getMetaForBlockState.
 	 * @return The restored IBlockState.
 	 */
 	public static IBlockState getBlockStateFromMeta(IBlockState state, int metadata, IProperty... properties)
@@ -163,8 +169,10 @@ public class BlockStateToMetadata
 	/**
 	 * Gets the IBlockState represented by the metadata passed to the function.
 	 * 
-	 * @param state The state to base the new state off of (will usually be Block.getDefaultState()).
-	 * @param metadata The metadata to restore to an IBlockState.
+	 * @param state
+	 *            The state to base the new state off of (will usually be Block.getDefaultState()).
+	 * @param metadata
+	 *            The metadata to restore to an IBlockState.
 	 * @return The restored IBlockState.
 	 */
 	public static IBlockState getBlockStateFromMeta(IBlockState state, int metadata)

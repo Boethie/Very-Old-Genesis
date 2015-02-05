@@ -18,11 +18,11 @@ public class ItemGenesisSeedFood extends ItemSeedFood
 {
 	IPlantable cropPlantable;
 	Block cropBlock;
-	
+
 	public ItemGenesisSeedFood(int hunger, float saturation)
 	{
 		super(hunger, saturation, null, null);
-		
+
 		setCreativeTab(GenesisCreativeTabs.FOOD);
 	}
 
@@ -30,15 +30,15 @@ public class ItemGenesisSeedFood extends ItemSeedFood
 	public ItemGenesisSeedFood setUnlocalizedName(String unlocalizedName)
 	{
 		super.setUnlocalizedName(Constants.PREFIX + "food." + unlocalizedName);
-		
+
 		return this;
 	}
-	
+
 	public ItemGenesisSeedFood setCrop(IPlantable plantable)
 	{
 		cropPlantable = plantable;
 		cropBlock = (Block) plantable;
-		
+
 		return this;
 	}
 
@@ -47,31 +47,27 @@ public class ItemGenesisSeedFood extends ItemSeedFood
 	{
 		BlockPos placePos = pos.offset(side);
 		IBlockState state = worldIn.getBlockState(placePos);
-		
-		if (side == EnumFacing.UP &&
-				worldIn.isAirBlock(placePos) &&
-				playerIn.canPlayerEdit(placePos, side, stack) &&
-				cropBlock.canPlaceBlockOnSide(worldIn, placePos, side) &&
-				worldIn.canBlockBePlaced(cropBlock, placePos, false, side, null, stack))
+
+		if ((side == EnumFacing.UP) && worldIn.isAirBlock(placePos) && playerIn.canPlayerEdit(placePos, side, stack) && cropBlock.canPlaceBlockOnSide(worldIn, placePos, side) && worldIn.canBlockBePlaced(cropBlock, placePos, false, side, null, stack))
 		{
 			worldIn.setBlockState(placePos, cropBlock.getDefaultState());
 			stack.stackSize--;
-			
+
 			return true;
 		}
-		
+
 		return false;
 	}
 
-    @Override
-    public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos)
-    {
-        return null;
-    }
+	@Override
+	public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos)
+	{
+		return null;
+	}
 
-    @Override
-    public IBlockState getPlant(IBlockAccess world, BlockPos pos)
-    {
-        return null;
-    }
+	@Override
+	public IBlockState getPlant(IBlockAccess world, BlockPos pos)
+	{
+		return null;
+	}
 }

@@ -22,7 +22,7 @@ public class BlockGenesisRock extends BlockGenesis
 	public BlockGenesisRock setUnlocalizedName(String unlocalizedName)
 	{
 		super.setUnlocalizedName("rock." + unlocalizedName);
-		
+
 		return this;
 	}
 }
