@@ -1,19 +1,31 @@
 package genesis.block;
 
+import genesis.block.BlockGrowingPlant.GrowingPlantProperties;
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
+import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms.CanStayOptions;
 import genesis.client.GenesisSounds;
+import genesis.common.Genesis;
+import genesis.common.GenesisItems;
+import genesis.util.RandomItemDrop;
 import genesis.util.WorldUtils;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 

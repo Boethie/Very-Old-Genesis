@@ -9,6 +9,7 @@ import genesis.item.ItemGenesisSeeds;
 import genesis.metadata.EnumDung;
 import genesis.metadata.EnumNodule;
 import genesis.metadata.EnumPebble;
+import genesis.util.Constants;
 import net.minecraft.item.Item;
 
 public final class GenesisItems

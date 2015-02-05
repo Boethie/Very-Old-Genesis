@@ -16,6 +16,7 @@ import net.minecraft.block.BlockCactus;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockModelShapes;
 import net.minecraft.client.renderer.block.statemap.StateMap;
+import net.minecraft.client.resources.GrassColorReloadListener;
 import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
