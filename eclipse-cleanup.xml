@@ -48,7 +48,7 @@
 <setting id="cleanup.insert_inferred_type_arguments" value="false"/>
 <setting id="cleanup.use_blocks_only_for_return_and_throw" value="false"/>
 <setting id="cleanup.add_missing_annotations" value="true"/>
-<setting id="cleanup.use_parentheses_in_expressions" value="true"/>
+<setting id="cleanup.use_parentheses_in_expressions" value="false"/>
 <setting id="cleanup.use_lambda" value="true"/>
 <setting id="cleanup.qualify_static_field_accesses_with_declaring_class" value="false"/>
 <setting id="cleanup.use_this_for_non_static_method_access_only_if_necessary" value="true"/>
