@@ -84,17 +84,7 @@ public class BlockCalamites extends BlockGrowingPlant implements IGrowingPlantCu
 		}
 		else if (WorldUtils.waterInRange(worldIn, pos, 2, 1))
 		{
-			final ArrayList<Block> plantableOn = new ArrayList<Block>(){{
-				add(Blocks.grass);
-				add(Blocks.dirt);
-				add(Blocks.sand);
-				add(Blocks.farmland);
-			}};
-			
-			if (plantableOn.contains(blockUnder))
-			{
-				return CanStayOptions.YES;
-			}
+			return CanStayOptions.YIELD;
 		}
 
 		return CanStayOptions.NO;
