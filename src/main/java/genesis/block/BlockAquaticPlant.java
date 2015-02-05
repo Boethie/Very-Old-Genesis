@@ -8,8 +8,10 @@ import genesis.metadata.EnumAquaticPlant;
 import genesis.util.Constants;
 import genesis.util.WorldUtils;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
@@ -25,7 +27,7 @@ public class BlockAquaticPlant extends BlockMetadata
 
 	public BlockAquaticPlant()
 	{
-		super(Material.coral);
+		super(Material.water);
 		setHardness(0.0F).setTickRandomly(true).setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	}
 
@@ -87,6 +89,13 @@ public class BlockAquaticPlant extends BlockMetadata
 	}
 
 	@Override
+	public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+	{
+		super.breakBlock(worldIn, pos, state);
+		worldIn.setBlockState(pos, Blocks.water.getStateFromMeta(0));
+	}
+
+	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
 	{
 		return canBlockStay(worldIn, pos, getDefaultState());
@@ -107,16 +116,16 @@ public class BlockAquaticPlant extends BlockMetadata
 		final List<IBlockState> blocks = WorldUtils.getBlocksAround(world, pos);
 		for (int i = 0; i < blocks.size(); i++)
 		{
-			final boolean corner0 = blocks.get(i++).getBlock() == Blocks.water;
-			final boolean corner1 = blocks.get(i++).getBlock() == Blocks.water;
+			final boolean corner0 = isWaterish(blocks.get(i++).getBlock());
+			final boolean corner1 = isWaterish(blocks.get(i++).getBlock());
 			boolean corner2;
 			if (i == blocks.size())
 			{
-				corner2 = blocks.get(0).getBlock() == Blocks.water;
+				corner2 = isWaterish(blocks.get(0).getBlock());
 			}
 			else
 			{
-				corner2 = blocks.get(i).getBlock() == Blocks.water;
+				corner2 = isWaterish(blocks.get(i).getBlock());
 			}
 			if (corner0 && corner1 && corner2)
 			{
@@ -124,6 +133,17 @@ public class BlockAquaticPlant extends BlockMetadata
 			}
 		}
 		return false;
+	}
+
+	private boolean isWaterish(Block block)
+	{
+		return (block == Blocks.water) || (block == this);
+	}
+
+	@Override
+	protected BlockState createBlockState()
+	{
+		return new BlockState(this, getVariant(), BlockLiquid.LEVEL);
 	}
 
 	@Override

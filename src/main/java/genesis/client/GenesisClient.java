@@ -13,10 +13,10 @@ import java.util.Iterator;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCactus;
+import net.minecraft.block.BlockLiquid;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockModelShapes;
 import net.minecraft.client.renderer.block.statemap.StateMap;
-import net.minecraft.client.resources.GrassColorReloadListener;
 import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -47,7 +47,7 @@ public class GenesisClient extends GenesisProxy
 			registerModel(texture.item, texture.metadata, texture.name);
 			iterator.remove();
 		}
-		
+
 		((IReloadableResourceManager) MC.getResourceManager()).registerReloadListener(new ColorizerDryMoss());
 	}
 
@@ -69,12 +69,12 @@ public class GenesisClient extends GenesisProxy
 						for (int metadata = 0; metadata < values.length; metadata++)
 						{
 							String textureName = values[metadata].getName();
-							
+
 							if (IMetaMulti.class.isAssignableFrom(argClass))
 							{
 								textureName = ((IMetaMulti) values[metadata]).getName("block");
 							}
-							
+
 							registerModel(block, metadata, textureName);
 							addVariantName(block, textureName);
 						}
@@ -138,6 +138,10 @@ public class GenesisClient extends GenesisProxy
 		else
 		{
 			MC.getRenderItem().getItemModelMesher().register(item, metadata, new ModelResourceLocation(Constants.ASSETS + textureName, "inventory"));
+			if ((item instanceof ItemBlock) && (Block.getBlockFromItem(item) == GenesisBlocks.aquatic_plant))
+			{
+				MC.getRenderItem().getItemModelMesher().getModelManager().getBlockModelShapes().registerBlockWithStateMapper(GenesisBlocks.aquatic_plant, (new StateMap.Builder()).addPropertiesToIgnore(BlockLiquid.LEVEL).build());
+			}
 		}
 	}
 
