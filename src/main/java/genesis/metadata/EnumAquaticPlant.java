@@ -7,7 +7,9 @@ import net.minecraft.item.Item;
 public enum EnumAquaticPlant implements IMetaSingle
 {
 
-	BANGIOMORPHA("bangiomorpha"), MARPOLIA("marpolia"), MARGERETIA("margaretia"), CHANCELLORIA("chancelloria"), HAZELLA("hazelia"), DIAONIELLA("diagoniella"), PIRANIA("pirania"), VAUXIA("vauxia"), WAPKIA("wapkia"), PTERIDINIUM("pteridinium"), DINOMISCHUS("dinomischus"), PRIMOCANDELABRUM("primocandelabrum");
+	BANGIOMORPHA("bangiomorpha"), MARPOLIA("marpolia"), MARGERETIA("margaretia"), CHANCELLORIA("chancelloria"), HAZELLA("hazelia"),
+	DIAONIELLA("diagoniella"), PIRANIA("pirania"), VAUXIA("vauxia"), WAPKIA("wapkia"), PTERIDINIUM("pteridinium"), DINOMISCHUS("dinomischus"),
+	PRIMOCANDELABRUM("primocandelabrum");
 
 	private final String name;
 	private final String unlocalizedName;
@@ -27,13 +29,13 @@ public enum EnumAquaticPlant implements IMetaSingle
 	@Override
 	public String getName()
 	{
-		return name;
+		return this.name;
 	}
 
 	@Override
 	public String getUnlocalizedName()
 	{
-		return unlocalizedName;
+		return this.unlocalizedName;
 	}
 
 	@Override

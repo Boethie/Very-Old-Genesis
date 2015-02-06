@@ -2,6 +2,9 @@ package genesis.block;
 
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
+
+import com.google.common.collect.Sets;
 
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
@@ -27,10 +30,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class BlockAquaticPlant extends BlockMetadata
 {
 
+	private Set<Block> bases;
+
 	public BlockAquaticPlant()
 	{
 		super(Material.water);
-		setItemDropped(Item.getItemFromBlock(this)).setQuantityDropped(1).setStepSound(soundTypeGrass).setHardness(0.0F).setTickRandomly(true).setCreativeTab(GenesisCreativeTabs.DECORATIONS);
+		this.setItemDropped(Item.getItemFromBlock(this)).setQuantityDropped(1).setStepSound(soundTypeGrass).setHardness(0.0F).setTickRandomly(true).setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	}
 
 	@Override
@@ -77,21 +82,21 @@ public class BlockAquaticPlant extends BlockMetadata
 	@Override
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
 	{
-		checkAndDropBlock(worldIn, pos, state);
+		this.checkAndDropBlock(worldIn, pos, state);
 	}
 
 	@Override
 	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
 	{
 		super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
-		checkAndDropBlock(worldIn, pos, state);
+		this.checkAndDropBlock(worldIn, pos, state);
 	}
 
 	protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state)
 	{
-		if (!canBlockStay(worldIn, pos, state))
+		if (!this.canBlockStay(worldIn, pos, state))
 		{
-			dropBlockAsItem(worldIn, pos, state, 0);
+			this.dropBlockAsItem(worldIn, pos, state, 0);
 			worldIn.setBlockState(pos, Blocks.water.getStateFromMeta(0), 3);
 		}
 	}
@@ -106,13 +111,24 @@ public class BlockAquaticPlant extends BlockMetadata
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
 	{
-		return canBlockStay(worldIn, pos, getDefaultState());
+		return this.canBlockStay(worldIn, pos, this.getDefaultState());
 	}
 
 	public boolean canBlockStay(World world, BlockPos pos, IBlockState state)
 	{
+		if (this.bases == null)
+		{
+			this.bases = Sets.newIdentityHashSet();
+			this.bases.add(Blocks.dirt);
+			this.bases.add(Blocks.sand);
+			this.bases.add(Blocks.gravel);
+			this.bases.add(Blocks.clay);
+			this.bases.add(GenesisBlocks.red_clay);
+			this.bases.add(GenesisBlocks.coral);
+		}
 		final IBlockState below = world.getBlockState(pos.down());
-		if (!((below.getBlock() == GenesisBlocks.coral) || (below.getBlock() instanceof BlockGenesisRock)))
+		Block block = below.getBlock();
+		if (!(this.bases.contains(block) || block instanceof BlockGenesisRock))
 		{
 			return false;
 		}
@@ -124,16 +140,16 @@ public class BlockAquaticPlant extends BlockMetadata
 		final List<IBlockState> blocks = WorldUtils.getBlocksAround(world, pos);
 		for (int i = 0; i < blocks.size(); i++)
 		{
-			final boolean corner0 = isWaterish(blocks.get(i++).getBlock());
-			final boolean corner1 = isWaterish(blocks.get(i++).getBlock());
+			final boolean corner0 = this.isWaterish(blocks.get(i++).getBlock());
+			final boolean corner1 = this.isWaterish(blocks.get(i++).getBlock());
 			boolean corner2;
 			if (i == blocks.size())
 			{
-				corner2 = isWaterish(blocks.get(0).getBlock());
+				corner2 = this.isWaterish(blocks.get(0).getBlock());
 			}
 			else
 			{
-				corner2 = isWaterish(blocks.get(i).getBlock());
+				corner2 = this.isWaterish(blocks.get(i).getBlock());
 			}
 			if (corner0 && corner1 && corner2)
 			{
@@ -151,7 +167,7 @@ public class BlockAquaticPlant extends BlockMetadata
 	@Override
 	protected BlockState createBlockState()
 	{
-		return new BlockState(this, getVariant(), BlockLiquid.LEVEL);
+		return new BlockState(this, this.getVariant(), BlockLiquid.LEVEL);
 	}
 
 	@Override
