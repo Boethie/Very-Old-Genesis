@@ -1,0 +1,9 @@
+{
+    "variants": {
+        "facing=up": { "model": "genesis:genesis_torch" },
+        "facing=east": { "model": "genesis:genesis_torch_wall" },
+        "facing=south": { "model": "genesis:genesis_torch_wall", "y": 90 },
+        "facing=west": { "model": "genesis:genesis_torch_wall", "y": 180 },
+        "facing=north": { "model": "genesis:genesis_torch_wall", "y": 270 }
+    }
+}

@@ -9,6 +9,7 @@ import genesis.block.BlockFern;
 import genesis.block.BlockGenesis;
 import genesis.block.BlockGenesisOre;
 import genesis.block.BlockGenesisRock;
+import genesis.block.BlockGenesisTorch;
 import genesis.block.BlockGrowingPlant;
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
 import genesis.block.BlockAquaticPlant;
@@ -34,6 +35,7 @@ import genesis.metadata.EnumPlant;
 import genesis.util.Constants;
 import genesis.util.RandomItemDrop;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockTorch;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -111,6 +113,7 @@ public final class GenesisBlocks
 	public static final BlockGenesis prototaxites = new BlockPrototaxites().setUnlocalizedName("prototaxites");
 	public static final BlockMetadata coral = new BlockCoral().setUnlocalizedName("coral");
 	public static final BlockMetadata dung_block = new BlockDung().setUnlocalizedName("dung");
+	public static final BlockGenesisTorch torch = new BlockGenesisTorch().setUnlocalizedName("torch");
 
 	public static void registerBlocks()
 	{
@@ -141,6 +144,7 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(brown_flint_ore, "brown_flint_ore");
 		Genesis.proxy.registerBlock(marcasite_ore, "marcasite_ore");
 		Genesis.proxy.registerBlock(dung_block, "dung_block", ItemBlockMetadata.class, EnumDung.class);
+		Genesis.proxy.registerBlock(torch, "torch");
 		Genesis.proxy.registerBlock(plant, "plant", ItemBlockMetadata.class, EnumPlant.class);
 
 		Genesis.proxy.registerBlock(calamites, "calamites", null);
