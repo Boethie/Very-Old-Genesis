@@ -60,6 +60,8 @@ public class Genesis
 	public void postInit(FMLPostInitializationEvent event)
 	{
 		proxy.postInit();
+		
+		GenesisRecipes.doSubstitutes();
 	}
 	
 	private void initEnums()
