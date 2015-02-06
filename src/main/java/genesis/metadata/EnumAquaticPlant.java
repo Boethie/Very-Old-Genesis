@@ -9,7 +9,7 @@ public enum EnumAquaticPlant implements IMetaSingle
 
 	BANGIOMORPHA("bangiomorpha"), MARPOLIA("marpolia"), MARGERETIA("margaretia"), CHANCELLORIA("chancelloria"), HAZELLA("hazelia"),
 	DIAONIELLA("diagoniella"), PIRANIA("pirania"), VAUXIA("vauxia"), WAPKIA("wapkia"), PTERIDINIUM("pteridinium"), DINOMISCHUS("dinomischus"),
-	PRIMOCANDELABRUM("primocandelabrum");
+	PRIMOCANDELABRUM("primocandelabrum"), CHARNIA("charnia"), CHARNIA_TOP("charnia_top");
 
 	private final String name;
 	private final String unlocalizedName;
