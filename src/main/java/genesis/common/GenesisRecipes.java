@@ -9,9 +9,11 @@ import genesis.metadata.EnumPebble;
 import genesis.metadata.IMetaMulti;
 import genesis.util.FuelHandler;
 import genesis.util.Metadata;
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
@@ -23,112 +25,137 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public final class GenesisRecipes
 {
-	public static void makeSubstituteCraftingItem(ItemStack vanillaItem, ItemStack modItem)
+	public static void makeSubstituteCraftingItem(ItemStack vanillaItem, ItemStack modItem, Object... outputExclusions)
 	{
 		List<IRecipe> recipes = CraftingManager.getInstance().getRecipeList();
 		ArrayList<IRecipe> replacedRecipes = new ArrayList<IRecipe>();
 
 		for (IRecipe recipe : recipes)
 		{
-			if (recipe instanceof ShapedRecipes)
+			ItemStack output = recipe.getRecipeOutput();
+			boolean outputOK = true;
+
+			for (Object obj : outputExclusions)
 			{
-				ShapedRecipes shapedRecipe = (ShapedRecipes) recipe;
+				ItemStack stack = null;
 
-				boolean replaced = false;
-				ItemStack[] replacedItems = new ItemStack[shapedRecipe.recipeItems.length];
-				int i = 0;
-
-				for (ItemStack stack : shapedRecipe.recipeItems)
+				if (obj instanceof ItemStack)
 				{
-					if (vanillaItem.isItemEqual(stack))
-					{
-						ItemStack replacedStack = modItem.copy();
-						replacedStack.stackSize = stack.stackSize;
-						replacedItems[i] = replacedStack;
-						replaced = true;
-					}
-					else
-					{
-						replacedItems[i] = stack;
-					}
-
-					i++;
+					stack = (ItemStack) obj;
+				}
+				else if (obj instanceof Item)
+				{
+					stack = new ItemStack((Item) obj);
+				}
+				else if (obj instanceof Block)
+				{
+					stack = new ItemStack((Block) obj);
 				}
 
-				if (replaced)
+				if (stack != null && stack.isItemEqual(output))
 				{
-					replacedRecipes.add(new ShapedRecipes(shapedRecipe.recipeWidth, shapedRecipe.recipeHeight, replacedItems, shapedRecipe.getRecipeOutput()));
+					outputOK = false;
 				}
 			}
-			else if (recipe instanceof ShapedOreRecipe)
+
+			if (outputOK)
 			{
-				ShapedOreRecipe shapedOreRecipe = (ShapedOreRecipe) recipe;
-
-				Object[] input = shapedOreRecipe.getInput();
-				boolean replaced = false;
-				Object[] replacedInput = new Object[input.length];
-
-				for (int i = 0; i < input.length; i++)
+				if (recipe instanceof ShapedRecipes)
 				{
-					Object replaceObj = input[i];
+					ShapedRecipes shapedRecipe = (ShapedRecipes) recipe;
 
-					if (replaceObj instanceof ItemStack)
+					boolean replaced = false;
+					ItemStack[] replacedItems = new ItemStack[shapedRecipe.recipeItems.length];
+					int i = 0;
+
+					for (ItemStack stack : shapedRecipe.recipeItems)
 					{
-						ItemStack stack = (ItemStack) replaceObj;
-
 						if (vanillaItem.isItemEqual(stack))
 						{
 							ItemStack replacedStack = modItem.copy();
 							replacedStack.stackSize = stack.stackSize;
-							replaceObj = replacedStack;
+							replacedItems[i] = replacedStack;
 							replaced = true;
+						}
+						else
+						{
+							replacedItems[i] = stack;
+						}
+
+						i++;
+					}
+
+					if (replaced)
+					{
+						replacedRecipes.add(new ShapedRecipes(shapedRecipe.recipeWidth, shapedRecipe.recipeHeight, replacedItems, output));
+					}
+				}
+				else if (recipe instanceof ShapedOreRecipe)
+				{
+					ShapedOreRecipe shapedOreRecipe = (ShapedOreRecipe) recipe;
+
+					Object[] input = shapedOreRecipe.getInput();
+					boolean replaced = false;
+					Object[] replacedInput = new Object[input.length];
+
+					for (int i = 0; i < input.length; i++)
+					{
+						Object replaceObj = input[i];
+
+						if (replaceObj instanceof ItemStack)
+						{
+							ItemStack stack = (ItemStack) replaceObj;
+
+							if (vanillaItem.isItemEqual(stack))
+							{
+								ItemStack replacedStack = modItem.copy();
+								replacedStack.stackSize = stack.stackSize;
+								replaceObj = replacedStack;
+								replaced = true;
+							}
+						}
+
+						replacedInput[i] = replaceObj;
+					}
+
+					if (replaced)
+					{
+						int width = ReflectionHelper.getPrivateValue(ShapedOreRecipe.class, shapedOreRecipe, "width");
+						int height = ReflectionHelper.getPrivateValue(ShapedOreRecipe.class, shapedOreRecipe, "height");
+						boolean mirrored = ReflectionHelper.getPrivateValue(ShapedOreRecipe.class, shapedOreRecipe, "mirrored");
+
+						ShapedOreRecipe replacedRecipe = new ShapedOreRecipe(output, mirrored, "z", 'z', Items.apple);
+						ReflectionHelper.setPrivateValue(ShapedOreRecipe.class, replacedRecipe, width, "width");
+						ReflectionHelper.setPrivateValue(ShapedOreRecipe.class, replacedRecipe, height, "height");
+						ReflectionHelper.setPrivateValue(ShapedOreRecipe.class, replacedRecipe, replacedInput, "input");
+						replacedRecipes.add(replacedRecipe);
+					}
+				}
+				else if (recipe instanceof ShapelessRecipes)
+				{
+					ShapelessRecipes shapelessRecipe = (ShapelessRecipes) recipe;
+
+					boolean replaced = false;
+					ArrayList<ItemStack> replacedItems = new ArrayList<ItemStack>();
+					for (ItemStack stack : (List<ItemStack>) shapelessRecipe.recipeItems)
+					{
+						if (stack.isItemEqual(vanillaItem))
+						{
+							ItemStack replacedStack = modItem.copy();
+							replacedStack.stackSize = stack.stackSize;
+							replacedItems.add(replacedStack);
+							replaced = true;
+						}
+						else
+						{
+							replacedItems.add(stack);
 						}
 					}
 
-					replacedInput[i] = replaceObj;
-				}
-
-				if (replaced)
-				{
-					int width = ReflectionHelper.getPrivateValue(ShapedOreRecipe.class, shapedOreRecipe, "width");
-					int height = ReflectionHelper.getPrivateValue(ShapedOreRecipe.class, shapedOreRecipe, "height");
-					boolean mirrored = ReflectionHelper.getPrivateValue(ShapedOreRecipe.class, shapedOreRecipe, "mirrored");
-
-					ShapedOreRecipe replacedRecipe = new ShapedOreRecipe(shapedOreRecipe.getRecipeOutput(), mirrored, "z", 'z', Items.apple);
-					ReflectionHelper.setPrivateValue(ShapedOreRecipe.class, replacedRecipe, width, "width");
-					ReflectionHelper.setPrivateValue(ShapedOreRecipe.class, replacedRecipe, height, "height");
-					ReflectionHelper.setPrivateValue(ShapedOreRecipe.class, replacedRecipe, replacedInput, "input");
-					replacedRecipes.add(replacedRecipe);
-				}
-			}
-			else if (recipe instanceof ShapelessRecipes)
-			{
-				ShapelessRecipes shapelessRecipe = (ShapelessRecipes) recipe;
-
-				boolean replaced = false;
-				ArrayList<ItemStack> replacedItems = new ArrayList<ItemStack>();
-				int i = 0;
-
-				for (ItemStack stack : (List<ItemStack>) shapelessRecipe.recipeItems)
-				{
-					if (stack.isItemEqual(vanillaItem))
+					if (replaced)
 					{
-						ItemStack replacedStack = modItem.copy();
-						replacedStack.stackSize = stack.stackSize;
-						replacedItems.add(replacedStack);
-						replaced = true;
+						replacedRecipes.add(new ShapelessRecipes(output, replacedItems));
 					}
-					else
-					{
-						replacedItems.add(stack);
-					}
-
-					i++;
-				}
-
-				if (replaced)
-				{
-					replacedRecipes.add(new ShapelessRecipes(shapelessRecipe.getRecipeOutput(), replacedItems));
 				}
 			}
 		}
@@ -165,6 +192,6 @@ public final class GenesisRecipes
 
 	public static void doSubstitutes()
 	{
-		makeSubstituteCraftingItem(new ItemStack(Items.string), new ItemStack(GenesisItems.sphenophyllum_fiber));
+		makeSubstituteCraftingItem(new ItemStack(Items.string), new ItemStack(GenesisItems.sphenophyllum_fiber), Blocks.wool);
 	}
 }
