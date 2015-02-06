@@ -288,29 +288,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		hasTopProperty = topPropertyIn;
 		maxHeight = height;
 		
-		try
-		{
-			Class thisClass = Block.class;
-			Field[] fields = thisClass.getDeclaredFields();
-			Field field = null;
-			
-			for (Field curField : fields)
-			{
-				if (curField.getName().equals("blockState"))
-				{
-					field = curField;
-				}
-			}
-			
-			Field modifiers = Field.class.getDeclaredField("modifiers");
-			modifiers.setAccessible(true);
-			modifiers.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-			field.set(this, createOurBlockState());
-		}
-		catch (Exception e)
-		{
-			throw new RuntimeException(e);
-		}
+		this.blockState = createOurBlockState();
 
 		setTickRandomly(true);
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
