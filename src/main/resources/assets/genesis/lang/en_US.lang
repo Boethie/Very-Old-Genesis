@@ -27,6 +27,7 @@ tile.genesis.ore.malachite.name=Malachite Ore
 tile.genesis.ore.olivine.name=Olivine Ore
 tile.genesis.dung.brachiosaurus.name=Brachiosaurus Dung
 tile.genesis.dung.tyrannosaurus.name=Tyrannosaurus Dung
+tile.genesis.torch.name=Calamites Torch
 tile.genesis.plant.cooksonia.name=Cooksonia
 tile.genesis.plant.baragwanathia.name=Baragwanathia
 tile.genesis.plant.sciadophyton.name=Sciadophyton
@@ -57,7 +58,6 @@ tile.genesis.aquaticPlant.primocandelabrum.name=Primocandelabrum
 tile.genesis.coral.favosites.name=Favosites
 tile.genesis.coral.heliolites.name=Heliolites
 tile.genesis.coral.halysites.name=Halysites
-tile.genesis.torch.name=Calamite Torch
 
 #Items
 item.genesis.material.pebble.granite.name=Granite Pebble
