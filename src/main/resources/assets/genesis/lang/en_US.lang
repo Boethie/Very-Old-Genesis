@@ -57,7 +57,7 @@ tile.genesis.aquaticPlant.primocandelabrum.name=Primocandelabrum
 tile.genesis.coral.favosites.name=Favosites
 tile.genesis.coral.heliolites.name=Heliolites
 tile.genesis.coral.halysites.name=Halysites
-tile.genesis.torch.name=Torch
+tile.genesis.torch.name=Calamite Torch
 
 #Items
 item.genesis.material.pebble.granite.name=Granite Pebble
