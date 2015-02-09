@@ -1,6 +1,6 @@
 {
     "parent": "block/torch_wall",
     "textures": {
-        "torch": "genesis:blocks/torch"
+        "torch": "genesis:blocks/calamites_torch"
     }
 }
