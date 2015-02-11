@@ -23,6 +23,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -93,6 +94,11 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 			list.removeAll(variantExclusions);
 			return list;
 		}
+
+		public IStateMapper getStateMapper(T obj)
+		{
+			return null;
+		}
 	}
 	
 	public final List<ObjectType> types;
@@ -107,8 +113,8 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 	 * Creates a BlocksAndItemsWithVariantsOfTypes with Blocks/Items from the "types" list containing the variants in "variants".
 	 * All Block classes that are constructed in this method MUST have a "public static IProperty[] getProperties()" to allow us to
 	 * determine how many variants can be stored in the block.
-	 * The Block classes must also have a constructor that takes a List<IMetadata> that tells the Block what variants it stores.
 	 * The Block's variant property must have a name of "variant" exactly.
+	 * The Block and Item classes must also have a constructor that takes a List<IMetadata> that tells the Block what variants it stores.
 	 * 
 	 * @param types The types of Blocks/Items (Objects) to store.
 	 * @param variants The variants to store for each Block/Item.
@@ -192,7 +198,13 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 						
 						if (prop != null)
 						{
-							StateMap stateMap = new StateMap.Builder().setProperty(prop).setBuilderSuffix("_" + type.getName()).build();
+							IStateMapper stateMap = type.getStateMapper(block);
+							
+							if (stateMap == null)
+							{
+								stateMap = new StateMap.Builder().setProperty(prop).setBuilderSuffix("_" + type.getName()).build();
+							}
+							
 							Genesis.proxy.registerModelStateMap(block, stateMap);
 						}
 						// End registering block resource locations.
