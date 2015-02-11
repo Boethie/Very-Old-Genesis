@@ -6,8 +6,11 @@ import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants;
 import genesis.util.GenesisStateMap;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -139,8 +142,20 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 				// If the block class isn't null, we must get the maximum number of variants it can store in its metadata.
 				if (blockClass != null)
 				{
-					Method propsFunc = blockClass.getMethod("getProperties");
-					Object propsListObj = propsFunc.invoke(null);
+					Object propsListObj = null;
+					for(Field field:blockClass.getDeclaredFields())
+						if(field.isAnnotationPresent(Properties.class) && (field.getModifiers() & Modifier.STATIC) == Modifier.STATIC && field.getType().isArray()){
+							field.setAccessible(true);
+							propsListObj = field.get(null);
+						}
+					if(propsListObj == null)
+						for(Method method:blockClass.getDeclaredMethods())
+							if(method.isAnnotationPresent(Properties.class) && (method.getModifiers() & Modifier.STATIC) == Modifier.STATIC && method.getReturnType().isArray()){
+								method.setAccessible(true);
+								propsListObj = method.invoke(null);
+							}
+					if(propsListObj == null)
+						throw new IllegalArgumentException("Failed to find variant properties for block class "+blockClass.getCanonicalName());
 					maxVariants = BlockStateToMetadata.getMetadataLeftAfter((IProperty[]) propsListObj);
 				}
 

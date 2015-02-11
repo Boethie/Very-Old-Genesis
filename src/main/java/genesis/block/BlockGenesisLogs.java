@@ -3,6 +3,7 @@ package genesis.block;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.metadata.EnumTree;
+import genesis.metadata.Properties;
 import genesis.util.BlockStateToMetadata;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class BlockGenesisLogs extends BlockLog
 	/**
 	 * Used in BlocksAndItemsWithVariantsOfTypes.
 	 */
+	@Properties
 	public static IProperty[] getProperties()
 	{
 		return new IProperty[]{ LOG_AXIS };
