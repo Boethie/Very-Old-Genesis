@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "axis=y":  { "model": "genesis:araucarioxylon_log" },
+        "axis=z":   { "model": "genesis:araucarioxylon_log", "x": 90 },
+        "axis=x":   { "model": "genesis:araucarioxylon_log", "x": 90, "y": 90 },
+        "axis=none": { "model": "genesis:araucarioxylon_bark" }
+    }
+}

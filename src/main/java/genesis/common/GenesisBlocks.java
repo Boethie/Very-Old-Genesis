@@ -32,6 +32,7 @@ import genesis.metadata.EnumDung;
 import genesis.metadata.EnumFern;
 import genesis.metadata.EnumNodule;
 import genesis.metadata.EnumPlant;
+import genesis.metadata.TreeBlocks;
 import genesis.util.Constants;
 import genesis.util.RandomItemDrop;
 import net.minecraft.block.Block;
@@ -81,6 +82,9 @@ public final class GenesisBlocks
 	/* Limestone Ores */
 	public static final BlockGenesisOre brown_flint_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(EnumNodule.BROWN_FLINT).setUnlocalizedName("brownFlint");
 	public static final BlockGenesisOre marcasite_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(EnumNodule.MARCASITE).setUnlocalizedName("marcasite");
+	
+	/* Trees */
+	public static TreeBlocks trees = new TreeBlocks();
 
 	/* Plants */
 	public static final BlockPlant plant = new BlockPlant().setUnlocalizedName("plant");

@@ -37,7 +37,7 @@ public class BlockCalamites extends BlockGrowingPlant implements IGrowingPlantCu
 	{
 		super(topPropertyIn, maxAgeIn, height);
 		
-		setHardness(0.75F);
+		setHardness(1);
 		setHarvestLevel("axe", 0);
 		
 		setPlantSize(1, 0, RADIUS * 2);

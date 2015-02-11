@@ -8,7 +8,7 @@ import com.google.common.collect.ImmutableSet;
 
 public class BlockStateToMetadata
 {
-	public static final BitwiseMask MAXMETAVALUE = new BitwiseMask(15);
+	public static final BitwiseMask MAXMETAVALUE = new BitwiseMask(16);
 
 	public static class BitwiseMask
 	{
@@ -24,7 +24,7 @@ public class BlockStateToMetadata
 			int maxBit = 0;
 			int curBit = 1;
 
-			while ((valueCount / (float) curBit) >= 1)
+			while (((valueCount - 1) / (float) curBit) >= 1)
 			{
 				maxBit = curBit;
 				curBit *= 2;
@@ -95,7 +95,7 @@ public class BlockStateToMetadata
 
 			int index = values.asList().indexOf(value);
 
-			BitwiseMask mask = new BitwiseMask(values.size() - 1);
+			BitwiseMask mask = new BitwiseMask(values.size());
 			metadata |= (index & mask.getMask()) << offset;
 
 			offset += mask.getBitCount();
@@ -136,7 +136,7 @@ public class BlockStateToMetadata
 		{
 			ImmutableSet values = (ImmutableSet) property.getAllowedValues();
 
-			BitwiseMask mask = new BitwiseMask(values.size() - 1);
+			BitwiseMask mask = new BitwiseMask(values.size());
 			int metaValue = (metadata & (mask.getMask() << offset)) >> offset;
 
 			Comparable propValue = (Comparable) values.asList().get(metaValue);
@@ -170,5 +170,31 @@ public class BlockStateToMetadata
 	public static IBlockState getBlockStateFromMeta(IBlockState state, int metadata)
 	{
 		return getBlockStateFromMeta(state, metadata, (IProperty[]) state.getProperties().keySet().toArray(new IProperty[0]));
+	}
+	
+	/**
+	 * Gets the number of possible values after the provided properties have been stored in metadata.
+	 * Used to determine how many variants a block can store after storing other properties (like facing direction).
+	 * 
+	 * @param properties The properties that must be stored.
+	 * @return Number of possible values.
+	 */
+	public static int getMetadataLeftAfter(IProperty... properties)
+	{
+		int bitsLeft = MAXMETAVALUE.getBitCount();
+		
+		for (IProperty property : properties)
+		{
+			BitwiseMask mask = new BitwiseMask(property.getAllowedValues().size());
+			bitsLeft -= mask.getBitCount();
+		}
+		
+		if (bitsLeft > 0)
+		{
+			int vals = (int) Math.pow(2, bitsLeft);
+			return vals;
+		}
+		
+		return 0;
 	}
 }

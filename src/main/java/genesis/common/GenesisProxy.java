@@ -1,8 +1,11 @@
 package genesis.common;
 
+import genesis.util.Constants;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraftforge.fml.common.registry.GameData;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class GenesisProxy
@@ -34,8 +37,28 @@ public class GenesisProxy
 		GameRegistry.registerBlock(block, clazz, name, args);
 	}
 
+	/**
+	 * Registers a Block to an instance of an ItemBlock.
+	 * (To bypass Object... args in GameRegistry.registerBlocks which only works if the passed arguments' types are NOT
+	 * subclasses to the constructor's parameter types.
+	 */
+	public void registerBlockWithItem(Block block, String name, Item item)
+	{
+		GameRegistry.registerBlock(block, null, name);
+		GameRegistry.registerItem(item, name);
+		GameData.getBlockItemMap().put(block, item);
+	}
+
 	public void registerItem(Item item, String name)
 	{
 		GameRegistry.registerItem(item, name);
+	}
+	
+	public void registerModel(Item item, int metadata, String textureName)
+	{
+	}
+	
+	public void registerModelStateMap(Block block, IStateMapper stateMap)
+	{
 	}
 }

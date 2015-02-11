@@ -6,6 +6,7 @@ import genesis.item.ItemGenesisMetadata;
 import genesis.metadata.IMetaMulti;
 import genesis.metadata.IMetadata;
 import genesis.util.Constants;
+import genesis.util.GenesisStateMap;
 import genesis.util.Metadata;
 
 import java.util.ArrayList;
@@ -16,37 +17,29 @@ import net.minecraft.block.BlockCactus;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockModelShapes;
+import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.FMLClientHandler;
 
 public class GenesisClient extends GenesisProxy
 {
 	private static final Minecraft MC = FMLClientHandler.instance().getClient();
-	private final ArrayList<ItemTexture> itemTextures = new ArrayList<ItemTexture>();
+	
 	private boolean hasInit = false;
 
 	@Override
 	public void init()
 	{
-		BlockModelShapes blockModelShapes = MC.getBlockRendererDispatcher().getBlockModelShapes();
-		blockModelShapes.registerBlockWithStateMapper(GenesisBlocks.prototaxites, new StateMap.Builder().addPropertiesToIgnore(BlockCactus.AGE).build());
+		registerModelStateMap(GenesisBlocks.prototaxites, new StateMap.Builder().addPropertiesToIgnore(BlockCactus.AGE).build());
 		// TODO: Cannot add prefix "genesis" when registering variants!
+		// Fixed! Now we need to decide if we actually want to use our StateMap wrapper (GenesisStateMap) for our plants...
 		// blockModelShapes.registerBlockWithStateMapper(GenesisBlocks.coral, new StateMap.Builder().setProperty(BlockCoral.VARIANT).build());
-
-		hasInit = true;
-
-		Iterator<ItemTexture> iterator = itemTextures.iterator();
-		while (iterator.hasNext())
-		{
-			ItemTexture texture = iterator.next();
-			registerModel(texture.item, texture.metadata, texture.name);
-			iterator.remove();
-		}
 
 		((IReloadableResourceManager) MC.getResourceManager()).registerReloadListener(new ColorizerDryMoss());
 	}
@@ -101,7 +94,6 @@ public class GenesisClient extends GenesisProxy
 			{
 				String textureName = name + "_" + lookup.get(metadata).getName();
 				registerModel(item, metadata, textureName);
-				addVariantName(item, textureName);
 			}
 		}
 		else
@@ -121,7 +113,12 @@ public class GenesisClient extends GenesisProxy
 
 	private void registerModel(Block block, int metadata, String textureName)
 	{
-		registerModel(Item.getItemFromBlock(block), metadata, textureName);
+		Item itemFromBlock = Item.getItemFromBlock(block);
+		
+		if (itemFromBlock != null)
+		{
+			registerModel(itemFromBlock, metadata, textureName);
+		}
 	}
 
 	private void registerModel(Item item, String textureName)
@@ -129,20 +126,26 @@ public class GenesisClient extends GenesisProxy
 		registerModel(item, 0, textureName);
 	}
 
-	private void registerModel(Item item, int metadata, String textureName)
+	public void registerModel(Item item, int metadata, String textureName)
 	{
-		if (!hasInit)
+		ModelLoader.setCustomModelResourceLocation(item, metadata, new ModelResourceLocation(Constants.ASSETS + textureName, "inventory"));
+		addVariantName(item, textureName);
+		
+		if ((item instanceof ItemBlock) && (Block.getBlockFromItem(item) == GenesisBlocks.aquatic_plant))
 		{
-			itemTextures.add(new ItemTexture(item, metadata, textureName));
+			registerModelStateMap(GenesisBlocks.aquatic_plant, (new StateMap.Builder()).addPropertiesToIgnore(BlockLiquid.LEVEL).build());
 		}
-		else
+	}
+
+	@Override
+	public void registerModelStateMap(Block block, IStateMapper map)
+	{
+		if (map instanceof StateMap)
 		{
-			MC.getRenderItem().getItemModelMesher().register(item, metadata, new ModelResourceLocation(Constants.ASSETS + textureName, "inventory"));
-			if ((item instanceof ItemBlock) && (Block.getBlockFromItem(item) == GenesisBlocks.aquatic_plant))
-			{
-				MC.getRenderItem().getItemModelMesher().getModelManager().getBlockModelShapes().registerBlockWithStateMapper(GenesisBlocks.aquatic_plant, (new StateMap.Builder()).addPropertiesToIgnore(BlockLiquid.LEVEL).build());
-			}
+			map = new GenesisStateMap((StateMap) map);
 		}
+		
+	    ModelLoader.setCustomStateMapper(block, map);
 	}
 
 	private void addVariantName(Block block, String name)
@@ -166,6 +169,18 @@ public class GenesisClient extends GenesisProxy
 			this.item = item;
 			this.metadata = metadata;
 			this.name = name;
+		}
+	}
+
+	private class BlockStateMap
+	{
+		private final Block block;
+		private final IStateMapper map;
+
+		private BlockStateMap(Block block, IStateMapper map)
+		{
+			this.block = block;
+			this.map = map;
 		}
 	}
 }
