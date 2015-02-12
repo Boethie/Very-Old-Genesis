@@ -18,7 +18,7 @@ public class TreeBlocks extends BlocksAndItemsWithVariantsOfTypes
 {
 	public static final ObjectType<BlockGenesisLogs> LOG = new ObjectType<BlockGenesisLogs>("log", BlockGenesisLogs.class, null);
 	public static final ObjectType<ItemWoodBillet> BILLET = new ObjectType<ItemWoodBillet>("billet", null, ItemWoodBillet.class, EnumTree.NO_BILLET);
-	public static final ObjectType<BlockWattleFence> WATTLE_FENCE = new ObjectType<BlockWattleFence>("wattle_fence", BlockWattleFence.class, null, EnumTree.NO_BILLET){
+	public static final ObjectType<BlockWattleFence> WATTLE_FENCE = new ObjectType<BlockWattleFence>("wattle_fence", "wattleFence", BlockWattleFence.class, null, EnumTree.NO_BILLET){
 		@Override
 		public IStateMapper getStateMapper(BlockWattleFence fenceBlock)
 		{
