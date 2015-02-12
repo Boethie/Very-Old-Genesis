@@ -143,19 +143,33 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 				if (blockClass != null)
 				{
 					Object propsListObj = null;
-					for(Field field:blockClass.getDeclaredFields())
-						if(field.isAnnotationPresent(Properties.class) && (field.getModifiers() & Modifier.STATIC) == Modifier.STATIC && field.getType().isArray()){
+					
+					for (Field field : blockClass.getDeclaredFields())
+					{
+						if (field.isAnnotationPresent(Properties.class) && (field.getModifiers() & Modifier.STATIC) == Modifier.STATIC && field.getType().isArray())
+						{
 							field.setAccessible(true);
 							propsListObj = field.get(null);
 						}
-					if(propsListObj == null)
-						for(Method method:blockClass.getDeclaredMethods())
-							if(method.isAnnotationPresent(Properties.class) && (method.getModifiers() & Modifier.STATIC) == Modifier.STATIC && method.getReturnType().isArray()){
+					}
+					
+					if (propsListObj == null)
+					{
+						for (Method method : blockClass.getDeclaredMethods())
+						{
+							if (method.isAnnotationPresent(Properties.class) && (method.getModifiers() & Modifier.STATIC) == Modifier.STATIC && method.getReturnType().isArray())
+							{
 								method.setAccessible(true);
 								propsListObj = method.invoke(null);
 							}
-					if(propsListObj == null)
-						throw new IllegalArgumentException("Failed to find variant properties for block class "+blockClass.getCanonicalName());
+						}
+					}
+					
+					if (propsListObj == null)
+					{
+						throw new IllegalArgumentException("Failed to find variant properties for block class " + blockClass.getCanonicalName());
+					}
+					
 					maxVariants = BlockStateToMetadata.getMetadataLeftAfter((IProperty[]) propsListObj);
 				}
 
@@ -197,27 +211,16 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 						Genesis.proxy.registerBlockWithItem(block, registryName, item);
 						block.setUnlocalizedName(type.getUnlocalizedName());
 
-						// Register resource locations for the block..
-						IProperty prop = null;
+						// Register resource locations for the block.
+						final IProperty variantProp = getVariantProperty(block);
 						
-						for (IProperty curProp : (List<IProperty>) block.getBlockState().getProperties())
-						{
-							if ("variant".equals(curProp.getName()))
-							{
-								prop = curProp;
-								break;
-							}
-						}
-						
-						final IProperty variantProp = prop;
-						
-						if (prop != null)
+						if (variantProp != null)
 						{
 							IStateMapper stateMap = type.getStateMapper(block);
 							
 							if (stateMap == null)
 							{
-								stateMap = new StateMap.Builder().setProperty(prop).setBuilderSuffix("_" + type.getName()).build();
+								stateMap = new StateMap.Builder().setProperty(variantProp).setBuilderSuffix("_" + type.getName()).build();
 							}
 							
 							Genesis.proxy.registerModelStateMap(block, stateMap);
@@ -280,6 +283,22 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 	{
 		this(Arrays.asList(objectTypes), Arrays.asList(variants));
 	}
+	
+	protected IProperty getVariantProperty(Block block)
+	{
+		IProperty prop = null;
+		
+		for (IProperty curProp : (List<IProperty>) block.getBlockState().getProperties())
+		{
+			if ("variant".equals(curProp.getName()))
+			{
+				prop = curProp;
+				break;
+			}
+		}
+		
+		return prop;
+	}
 
 	/**
 	 * Gets the Pair containing the metadata for this variant and its container Block or Item.
@@ -313,6 +332,24 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 	public <T> T getObject(ObjectType<T> type, IMetadata variant)
 	{
 		return (T) getMetadataObjectPair(type, variant).getRight();
+	}
+	
+	/**
+	 * Gets an IBlockState for the specified Block variant in this combo.
+	 */
+	public IBlockState getBlockState(ObjectType type, IMetadata variant)
+	{
+		Pair<Object, Integer> pair = getMetadataObjectPair(type, variant);
+		
+		Object obj = pair.getLeft();
+		
+		if (obj instanceof Block)
+		{
+			Block block = (Block) obj;
+			return block.getDefaultState().withProperty(getVariantProperty(block), (Comparable) variant);
+		}
+		
+		throw new IllegalArgumentException("ObjectType " + type.getName() + " does not include a Block instance.");
 	}
 	
 	/**

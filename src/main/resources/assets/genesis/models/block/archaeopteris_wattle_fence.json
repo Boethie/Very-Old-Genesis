@@ -1,0 +1,8 @@
+{
+	"parent": "genesis:wattle_fence",
+    "textures": {
+		"particle": "genesis:blocks/log_archaeopteris",
+        "log": "genesis:blocks/log_archaeopteris",
+        "stick": "genesis:blocks/stick_archaeopteris"
+    }
+}

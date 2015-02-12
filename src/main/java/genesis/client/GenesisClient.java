@@ -24,7 +24,12 @@ import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.ISmartBlockModel;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.FMLClientHandler;
 
 public class GenesisClient extends GenesisProxy
@@ -42,6 +47,9 @@ public class GenesisClient extends GenesisProxy
 		// blockModelShapes.registerBlockWithStateMapper(GenesisBlocks.coral, new StateMap.Builder().setProperty(BlockCoral.VARIANT).build());
 
 		((IReloadableResourceManager) MC.getResourceManager()).registerReloadListener(new ColorizerDryMoss());
+		
+		ModelLoaderRegistry.registerLoader(GenesisCustomModelLoader.instance);
+        MinecraftForge.EVENT_BUS.register(GenesisCustomModelLoader.instance);
 	}
 
 	@Override
@@ -146,6 +154,18 @@ public class GenesisClient extends GenesisProxy
 		}
 		
 	    ModelLoader.setCustomStateMapper(block, map);
+	}
+	
+	@Override
+	public void registerCustomModel(String path, IModel model)
+	{
+		GenesisCustomModelLoader.registerCustomModel(path, model);
+	}
+	
+	@Override
+	public void registerCustomModel(ResourceLocation path, ISmartBlockModel model)
+	{
+		GenesisCustomModelLoader.registerCustomModel(path, model);
 	}
 
 	private void addVariantName(Block block, String name)

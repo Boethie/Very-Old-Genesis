@@ -54,6 +54,7 @@ public class BlockGenesisLogs extends BlockLog
 		return new BlockState(this, variantProp, LOG_AXIS);
 	}
 
+	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
 	{
 		for (EnumTree treeType : variants)

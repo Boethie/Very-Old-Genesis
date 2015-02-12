@@ -5,6 +5,9 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.ISmartBlockModel;
 import net.minecraftforge.fml.common.registry.GameData;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -59,6 +62,14 @@ public class GenesisProxy
 	}
 	
 	public void registerModelStateMap(Block block, IStateMapper stateMap)
+	{
+	}
+
+	public void registerCustomModel(String path, IModel model)
+	{
+	}
+
+	public void registerCustomModel(ResourceLocation path, ISmartBlockModel wattleFenceModel)
 	{
 	}
 }
