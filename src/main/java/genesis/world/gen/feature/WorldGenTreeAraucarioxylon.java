@@ -10,8 +10,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
-public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase {
-
+public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase 
+{
 	/**
 	 * Constructor
 	 *
@@ -20,7 +20,8 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase {
 	 * @param notify whether or not to notify blocks of the tree being grown.
 	 *               Generally false for world generation, true for saplings.
 	 */
-	public WorldGenTreeAraucarioxylon(int minH, int maxH, boolean notify) {
+	public WorldGenTreeAraucarioxylon(int minH, int maxH, boolean notify) 
+	{
 		//super(new BlockAndMeta(GenesisTreeBlocks.logs[TreeType.ARAUCARIOXYLON.ordinal()], 0), new BlockAndMeta(GenesisTreeBlocks.leaves[TreeType.ARAUCARIOXYLON.ordinal()], 0), notify);
 		//TODO: Change this to the right log!
 		super(Blocks.log.getDefaultState().withProperty(BlockPlanks.VARIANT, BlockPlanks.EnumType.BIRCH), Blocks.leaves.getDefaultState().withProperty(BlockPlanks.VARIANT, BlockPlanks.EnumType.BIRCH), notify);
@@ -29,26 +30,30 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase {
 	}
 
 	@Override
-	public boolean generate(World world, Random random, BlockPos generatePos) {
+	public boolean generate(World world, Random random, BlockPos generatePos) 
+	{
 		BlockPos pos = generatePos.add(0,0,0);
 		this.world = world;
 		this.random = random;
 
 		// finds top block for the given x,z position (excluding leaves and
 		// grass)
-		for (boolean var6 = false; world.isAirBlock(pos) || world.getBlockState(pos).getBlock().isLeaves(world, pos) && pos.getY() > 0; pos = pos.add(0, -1, 0)) {
+		for (boolean var6 = false; world.isAirBlock(pos) || world.getBlockState(pos).getBlock().isLeaves(world, pos) && pos.getY() > 0; pos = pos.add(0, -1, 0)) 
+		{
 			;
 		}
 		// locY is now the highest solid terrain block
 
 		//Check that the tree can grow here
 		Block soil = world.getBlockState(pos).getBlock();
-		if(!this.canTreeGrow(soil)) {
+		if(!this.canTreeGrow(soil)) 
+		{
 			return false;
 		}
 
 		//Check that there is enough room
-		if (!isCubeClear(pos.add(0, 2, 0), 3, 15)) {
+		if (!isCubeClear(pos.add(0, 2, 0), 3, 15)) 
+		{
 			return false;
 		}
 
@@ -57,7 +62,8 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase {
 		int treeHeight = minHeight + random.nextInt(maxHeight);
 
 		// Generate trunk
-		for (int i = 0; i < treeHeight; i++) {
+		for (int i = 0; i < treeHeight; i++) 
+		{
 			setBlockInWorld(pos.add(0, i, 0), wood);
 		}
 
@@ -71,14 +77,14 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase {
 		// generates branches with leaves
 		int firstDir = random.nextInt(4);
 		int radius = 12;
-		for (int i = topPos.getY(); i > pos.getY() + 6; i--) {
+		for (int i = topPos.getY(); i > pos.getY() + 6; i--) 
+		{
 			BlockPos xyz = generateStraightBranchDown(world, random, radius / 6, new BlockPos(pos.getX(), i, pos.getZ()), (firstDir + i) % 4);
 			generateLeafLayerCircleNoise(world, random, 1, xyz.add(0, -1, 0));
 			generateLeafLayerCircleNoise(world, random, 1.5, xyz);
 			generateLeafLayerCircleNoise(world, random, 1, xyz.add(0, 1, 0));
 			radius++;
 		}
-
 		return true;
 	}
 }

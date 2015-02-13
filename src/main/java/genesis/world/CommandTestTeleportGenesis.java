@@ -28,13 +28,16 @@ public class CommandTestTeleportGenesis extends CommandBase{
 
 	public void execute(ICommandSender sender, String[] args) throws CommandException
 	{
-		if(sender instanceof EntityPlayerMP) {
+		if(sender instanceof EntityPlayerMP) 
+		{
 			EntityPlayerMP player = (EntityPlayerMP) sender;
 
-			if(player.dimension != Genesis.dimensionId) {
+			if(player.dimension != Genesis.dimensionId) 
+			{
 				MinecraftServer.getServer().getConfigurationManager().transferPlayerToDimension(player, Genesis.dimensionId, new TeleporterGenesis(MinecraftServer.getServer().worldServerForDimension(player.dimension)));
 			}
-			else {
+			else 
+			{
 				MinecraftServer.getServer().getConfigurationManager().transferPlayerToDimension(player, 0, new TeleporterGenesis(MinecraftServer.getServer().worldServerForDimension(player.dimension)));
 			}
 		}

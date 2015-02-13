@@ -14,24 +14,28 @@ import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BiomeGenGenesisAuxForest extends BiomeGenGenesisBase {
-
-	public BiomeGenGenesisAuxForest(int par1) {
-		super(par1);
+public class BiomeGenGenesisAuxForest extends BiomeGenGenesisBase 
+{
+	public BiomeGenGenesisAuxForest(int biomeID) 
+	{
+		super(biomeID);
 		this.theBiomeDecorator.treesPerChunk = 5;
 	}
 
 	@Override
-	public WorldGenAbstractTree genBigTreeChance(Random rand) {
+	public WorldGenAbstractTree genBigTreeChance(Random rand)
+	{
 		return new WorldGenTreeAraucarioxylon(10, 15, true);
 	}
 
 	@Override
-	public void decorate(World world, Random rand, BlockPos blockPos) {
+	public void decorate(World world, Random rand, BlockPos blockPos) 
+	{
 		int posX, posY, posZ;
 		BlockPos thisPos;
 
-		if(rand.nextInt(10) == 0){
+		if(rand.nextInt(10) == 0)
+		{
 			GenesisWorldHelper.generateMossyGraniteBoulder(world, rand, blockPos);
 		}
 
@@ -42,7 +46,8 @@ public class BiomeGenGenesisAuxForest extends BiomeGenGenesisBase {
 	 * takes temperature, returns color
 	 */
 	@SideOnly(Side.CLIENT)
-	public int getSkyColorByTemp(float par1) {
+	public int getSkyColorByTemp(float par1) 
+	{
 		return 0x61a3e7;
 	}
 }

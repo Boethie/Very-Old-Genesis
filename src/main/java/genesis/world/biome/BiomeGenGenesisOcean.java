@@ -19,21 +19,22 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BiomeGenGenesisOcean extends BiomeGenGenesisBase
 {
-
-	public BiomeGenGenesisOcean(int par1)
+	public BiomeGenGenesisOcean(int biomeID)
 	{
-		super(par1);
+		super(biomeID);
 	}
 	
 	/**
 	 * takes temperature, returns color
 	 */
 	 @SideOnly(Side.CLIENT)
-	public int getSkyColorByTemp(float par1) {
+	public int getSkyColorByTemp(float par1) 
+	 {
 		return 0x4B7980;
 	 }
 	
-	public int getWaterColorMultiplier() {
+	public int getWaterColorMultiplier() 
+	{
 		 return 0x008d49;
 	 }
 	
@@ -127,12 +128,12 @@ public class BiomeGenGenesisOcean extends BiomeGenGenesisBase
     }
     
     @Override
-	public void decorate(World world, Random rand, BlockPos blockPos) {
+	public void decorate(World world, Random rand, BlockPos blockPos) 
+    {
 		int posX, posY, posZ;
 		BlockPos thisPos;
 
 		super.decorate(world, rand, blockPos);
-		
 		
 		//TODO: Add ocean generation here!
 	}

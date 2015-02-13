@@ -11,26 +11,30 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class WorldProviderGenesis extends WorldProvider {
-
+public class WorldProviderGenesis extends WorldProvider 
+{
 	@Override
-	public String getDimensionName() {
+	public String getDimensionName() 
+	{
 		return "Genesis";
 	}
 
 	@Override
-	public String getInternalNameSuffix() {
+	public String getInternalNameSuffix() 
+	{
 		return "genesis";
 	}
 
 	@Override
-	public void registerWorldChunkManager() {
+	public void registerWorldChunkManager() 
+	{
 		this.worldChunkMgr = new WorldChunkManagerGenesis(worldObj.getSeed(), WorldTypeGenesis.instance);
 		this.dimensionId = Genesis.dimensionId;
 	}
 
 	@Override
-	public IChunkProvider createChunkGenerator() {
+	public IChunkProvider createChunkGenerator() 
+	{
 		return new ChunkProviderGenesis(worldObj, worldObj.getSeed());
 	}
 

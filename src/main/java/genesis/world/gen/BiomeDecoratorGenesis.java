@@ -60,8 +60,8 @@ import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 
-public class BiomeDecoratorGenesis extends BiomeDecorator{
-
+public class BiomeDecoratorGenesis extends BiomeDecorator
+{
 	/**
 	 * The dirt and ore generators.
 	 */
@@ -206,7 +206,9 @@ public class BiomeDecoratorGenesis extends BiomeDecorator{
 		MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(currentWorld, randomGenerator, field_180294_c));
 	}
 
-	private int nextInt(int i) { //Safety wrapper to prevent exceptions.
+	private int nextInt(int i) 
+	{ 
+		//Safety wrapper to prevent exceptions.
 		if (i <= 1)
 			return 0;
 		return this.randomGenerator.nextInt(i);

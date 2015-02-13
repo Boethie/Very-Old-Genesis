@@ -11,12 +11,13 @@ import net.minecraft.world.gen.layer.GenLayerZoom;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class WorldTypeGenesis extends WorldType {
-
+public class WorldTypeGenesis extends WorldType 
+{
 	public static WorldTypeGenesis instance;
 
-	public WorldTypeGenesis(String str) {
-		super(str);
+	public WorldTypeGenesis(String worldName) 
+	{
+		super(worldName);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -26,12 +27,14 @@ public class WorldTypeGenesis extends WorldType {
 	}
 
 	@Override
-	public WorldChunkManager getChunkManager(World world) {
+	public WorldChunkManager getChunkManager(World world) 
+	{
 		return new WorldChunkManagerGenesis(world);
 	}
 
 	@Override
-	public IChunkProvider getChunkGenerator(World world, String generatorOptions) {
+	public IChunkProvider getChunkGenerator(World world, String generatorOptions) 
+	{
 		return new ChunkProviderGenesis(world, world.getSeed());
 	}
 
@@ -42,7 +45,8 @@ public class WorldTypeGenesis extends WorldType {
 	 * @param parentLayer The parent layer to feed into any layer you return
 	 * @return A GenLayer that will return ints representing the Biomes to be generated, see GenLayerBiome
 	 */
-	public GenLayer getBiomeLayer(long worldSeed, GenLayer parentLayer, String chunkProviderSettingsJson) {
+	public GenLayer getBiomeLayer(long worldSeed, GenLayer parentLayer, String chunkProviderSettingsJson) 
+	{
 		GenLayer ret = new GenLayerBiomeGenesis(200L, parentLayer, chunkProviderSettingsJson);
 		ret = GenLayerZoom.magnify(1000L, ret, 2);
 		ret = new GenLayerBiomeEdgeGenesis(1000L, ret);
