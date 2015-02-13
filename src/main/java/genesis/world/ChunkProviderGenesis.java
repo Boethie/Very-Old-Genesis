@@ -70,7 +70,7 @@ public class ChunkProviderGenesis implements IChunkProvider {
 	double[] field_147428_e;
 	double[] field_147425_f;
 	double[] field_147426_g;
-	int[][] field_73219_j = new int[32][32];
+	
 	/**
 	 * RNG.
 	 */
@@ -103,7 +103,8 @@ public class ChunkProviderGenesis implements IChunkProvider {
 	 */
 	private BiomeGenBase[] biomesForGeneration;
 
-	public ChunkProviderGenesis(World par1World, long par2) {
+	public ChunkProviderGenesis(World par1World, long par2) 
+	{
 		this.worldObj = par1World;
 		this.worldType = par1World.getWorldInfo().getTerrainType();
 		this.rand = new Random(par2);
@@ -119,30 +120,36 @@ public class ChunkProviderGenesis implements IChunkProvider {
 		this.field_147434_q = new double[825];
 		this.parabolicField = new float[25];
 
-		for (int j = -2; j <= 2; ++j) {
-			for (int k = -2; k <= 2; ++k) {
+		for (int j = -2; j <= 2; ++j) 
+		{
+			for (int k = -2; k <= 2; ++k) 
+			{
 				float f = 10.0F / MathHelper.sqrt_float((float) (j * j + k * k) + 0.2F);
 				this.parabolicField[j + 2 + (k + 2) * 5] = f;
 			}
 		}
 	}
 
-	public void setBlocksInChunk(int p_147424_1_, int p_147424_2_, ChunkPrimer p_147424_3_) {
+	public void setBlocksInChunk(int p_147424_1_, int p_147424_2_, ChunkPrimer p_147424_3_) 
+	{
 		byte b0 = 63;
 		this.biomesForGeneration = this.worldObj.getWorldChunkManager().getBiomesForGeneration(this.biomesForGeneration, p_147424_1_ * 4 - 2, p_147424_2_ * 4 - 2, 10, 10);
 		this.func_147423_a(p_147424_1_ * 4, 0, p_147424_2_ * 4);
 
-		for (int k = 0; k < 4; ++k) {
+		for (int k = 0; k < 4; ++k) 
+		{
 			int l = k * 5;
 			int i1 = (k + 1) * 5;
 
-			for (int j1 = 0; j1 < 4; ++j1) {
+			for (int j1 = 0; j1 < 4; ++j1) 
+			{
 				int k1 = (l + j1) * 33;
 				int l1 = (l + j1 + 1) * 33;
 				int i2 = (i1 + j1) * 33;
 				int j2 = (i1 + j1 + 1) * 33;
 
-				for (int k2 = 0; k2 < 32; ++k2) {
+				for (int k2 = 0; k2 < 32; ++k2) 
+				{
 					double d0 = 0.125D;
 					double d1 = this.field_147434_q[k1 + k2];
 					double d2 = this.field_147434_q[l1 + k2];
@@ -153,14 +160,16 @@ public class ChunkProviderGenesis implements IChunkProvider {
 					double d7 = (this.field_147434_q[i2 + k2 + 1] - d3) * d0;
 					double d8 = (this.field_147434_q[j2 + k2 + 1] - d4) * d0;
 
-					for (int l2 = 0; l2 < 8; ++l2) {
+					for (int l2 = 0; l2 < 8; ++l2) 
+					{
 						double d9 = 0.25D;
 						double d10 = d1;
 						double d11 = d2;
 						double d12 = (d3 - d1) * d9;
 						double d13 = (d4 - d2) * d9;
 
-						for (int i3 = 0; i3 < 4; ++i3) {
+						for (int i3 = 0; i3 < 4; ++i3) 
+						{
 							int j3 = i3 + k * 4 << 12 | 0 + j1 * 4 << 8 | k2 * 8 + l2;
 							short short1 = 256;
 							j3 -= short1;
@@ -168,13 +177,18 @@ public class ChunkProviderGenesis implements IChunkProvider {
 							double d16 = (d11 - d10) * d14;
 							double d15 = d10 - d16;
 
-							for (int k3 = 0; k3 < 4; ++k3) {
-								if ((d15 += d16) > 0.0D) {
-
+							for (int k3 = 0; k3 < 4; ++k3) 
+							{
+								if ((d15 += d16) > 0.0D) 
+								{
 									p_147424_3_.setBlockState(j3 += short1, Blocks.stone.getDefaultState());
-								} else if (k2 * 8 + l2 < b0) {
+								} 
+								else if (k2 * 8 + l2 < b0) 
+								{
 									p_147424_3_.setBlockState(j3 += short1, Blocks.water.getDefaultState());
-								} else {
+								} 
+								else 
+								{
 									p_147424_3_.setBlockState(j3 += short1, null);
 								}
 							}
@@ -193,14 +207,17 @@ public class ChunkProviderGenesis implements IChunkProvider {
 		}
 	}
 
-	public void replaceBlocksForBiome(int p_147422_1_, int p_147422_2_, ChunkPrimer primer, BiomeGenBase[] p_147422_5_) {
+	public void replaceBlocksForBiome(int p_147422_1_, int p_147422_2_, ChunkPrimer primer, BiomeGenBase[] p_147422_5_) 
+	{
 		double d0 = 0.03125D;
 		this.stoneNoise = this.perlin.func_151599_a(this.stoneNoise, (double) (p_147422_1_ * 16), (double) (p_147422_2_ * 16), 16, 16, d0 * 2.0D, d0 * 2.0D, 1.0D);
 		this.lavaFloorNoise = this.perlinLF.func_151599_a(this.lavaFloorNoise, (double) (p_147422_1_ * 16), (double) (p_147422_2_ * 16), 16, 16, d0 * 2.0D, d0 * 2.0D, 1.0D);
 		this.lavaRoofNoise = this.perlinLR.func_151599_a(this.lavaRoofNoise, (double) (p_147422_1_ * 16), (double) (p_147422_2_ * 16), 16, 16, d0 * 2.0D, d0 * 2.0D, 1.0D);
 
-		for (int k = 0; k < 16; ++k) {
-			for (int l = 0; l < 16; ++l) {
+		for (int k = 0; k < 16; ++k) 
+		{
+			for (int l = 0; l < 16; ++l) 
+			{
 				BiomeGenBase biomegenbase = p_147422_5_[l + k * 16];
 				biomegenbase.genTerrainBlocks(this.worldObj, this.rand, primer, p_147422_1_ * 16 + k, p_147422_2_ * 16 + l, this.stoneNoise[l + k * 16]);
 
@@ -212,49 +229,78 @@ public class ChunkProviderGenesis implements IChunkProvider {
 				Block lowerStoneType;
 
 				//Default Stone Layer
-				if (Math.abs(this.stoneNoise[l + k * 16]) > 3.25D) {
+				if (Math.abs(this.stoneNoise[l + k * 16]) > 3.25D) 
+				{
 					stoneType = GenesisBlocks.quartzite;
-				} else if (Math.abs(this.stoneNoise[l + k * 16]) > 0.75D) {
+				} 
+				else if (Math.abs(this.stoneNoise[l + k * 16]) > 0.75D) 
+				{
 					stoneType = GenesisBlocks.granite;
-				} else {
+				} 
+				else 
+				{
 					stoneType = GenesisBlocks.quartzite;
 				}
 
 				//Low Stone Layer
-				if (this.stoneNoise[l + k * 16] > 1.75D) {
+				if (this.stoneNoise[l + k * 16] > 1.75D) 
+				{
 					lowerStoneType = GenesisBlocks.faux_amphibolite;
-				} else if (this.stoneNoise[l + k * 16] < -1.75D) {
+				} 
+				else if (this.stoneNoise[l + k * 16] < -1.75D) 
+				{
 					lowerStoneType = GenesisBlocks.gneiss;
-				} else {
+				} 
+				else 
+				{
 					lowerStoneType = stoneType;
 				}
 
-				for (int l1 = 255; l1 >= 0; --l1) {
+				for (int l1 = 255; l1 >= 0; --l1) 
+				{
 					int i2 = (j1 * 16 + i1) * k1 + l1;
 
-					if (primer.getBlockState(i2).getBlock() == Blocks.stone) {
+					if (primer.getBlockState(i2).getBlock() == Blocks.stone) 
+					{
 						double lavaFloorNoise = this.lavaFloorNoise[l + k * 16];
-						if (lavaFloorNoise < 0) {
+						if (lavaFloorNoise < 0) 
+						{
 							lavaFloorNoise = 0;
 						}
 
-						if (l1 < 6 + lavaFloorNoise) {
+						if (l1 < 6 + lavaFloorNoise)
+						{
 							primer.setBlockState(i2, GenesisBlocks.komatiite.getDefaultState());
-						} else if (l1 < 9) {
+						} 
+						else if (l1 < 9) 
+						{
 							primer.setBlockState(i2,  /*TODO: Replace with komatiitic*/ Blocks.lava.getDefaultState());
-						} else if (l1 < 16 + this.lavaRoofNoise[l + k * 16]) {
+						} 
+						else if (l1 < 16 + this.lavaRoofNoise[l + k * 16]) 
+						{
 							primer.setBlockState(i2, Blocks.air.getDefaultState());
-						} else if (l1 < 24 + rand.nextInt(4)) {
+						} 
+						else if (l1 < 24 + rand.nextInt(4)) 
+						{
 							primer.setBlockState(i2, GenesisBlocks.komatiite.getDefaultState());
-						} else if (l1 < 36 + rand.nextInt(4)) {
+						} 
+						else if (l1 < 36 + rand.nextInt(4)) 
+						{
 							primer.setBlockState(i2, lowerStoneType.getDefaultState());
-						} else {
+						} 
+						else 
+						{
 							primer.setBlockState(i2, stoneType.getDefaultState());
 						}
-					} else if (primer.getBlockState(i2).getBlock() == GenesisBlocks.limestone) {
-						if ((primer.getBlockState(i2+1).getBlock() == Blocks.water || primer.getBlockState(i2+1).getBlock() == Blocks.flowing_water || primer.getBlockState(i2+1).getBlock() == GenesisBlocks.shale) && this.stoneNoise[l + k * 16] > 1.25D) {
+					} 
+					else if (primer.getBlockState(i2).getBlock() == GenesisBlocks.limestone) 
+					{
+						if ((primer.getBlockState(i2+1).getBlock() == Blocks.water || primer.getBlockState(i2+1).getBlock() == Blocks.flowing_water || primer.getBlockState(i2+1).getBlock() == GenesisBlocks.shale) && this.stoneNoise[l + k * 16] > 1.25D) 
+						{
 							primer.setBlockState(i2, GenesisBlocks.shale.getDefaultState());
-						} else if ((primer.getBlockState(i2+1).getBlock() == Blocks.water || primer.getBlockState(i2+1).getBlock() == Blocks.flowing_water || primer.getBlockState(i2+1).getBlock() == Blocks.dirt) && this.stoneNoise[l + k * 16] < -1.25D) {
+						} 
+						else if ((primer.getBlockState(i2+1).getBlock() == Blocks.water || primer.getBlockState(i2+1).getBlock() == Blocks.flowing_water || primer.getBlockState(i2+1).getBlock() == Blocks.dirt) && this.stoneNoise[l + k * 16] < -1.25D) 
+						{
 							primer.setBlockState(i2, Blocks.dirt.getDefaultState());
 						}
 					}
@@ -266,7 +312,8 @@ public class ChunkProviderGenesis implements IChunkProvider {
 	/**
 	 * loads or generates the chunk at the chunk location specified
 	 */
-	public Chunk loadChunk(int par1, int par2) {
+	public Chunk loadChunk(int par1, int par2) 
+	{
 		return this.provideChunk(par1, par2);
 	}
 
@@ -274,7 +321,8 @@ public class ChunkProviderGenesis implements IChunkProvider {
 	 * Will return back a chunk, if it doesn't exist and its not a MP client it will generates all the blocks for the
 	 * specified chunk from the map seed and chunk seed
 	 */
-	public Chunk provideChunk(int x, int z) {
+	public Chunk provideChunk(int x, int z) 
+	{
 		this.rand.setSeed((long) x * 341873128712L + (long) z * 132897987541L);
 		ChunkPrimer chunkPrimer = new ChunkPrimer();
 		this.setBlocksInChunk(x, z, chunkPrimer);
@@ -288,7 +336,8 @@ public class ChunkProviderGenesis implements IChunkProvider {
 		Chunk chunk = new Chunk(this.worldObj, chunkPrimer, x, z);
 		byte[] abyte1 = chunk.getBiomeArray();
 
-		for (int k = 0; k < abyte1.length; ++k) {
+		for (int k = 0; k < abyte1.length; ++k) 
+		{
 			abyte1[k] = (byte) this.biomesForGeneration[k].biomeID;
 		}
 
@@ -296,7 +345,8 @@ public class ChunkProviderGenesis implements IChunkProvider {
 		return chunk;
 	}
 
-	private void func_147423_a(int p_147423_1_, int p_147423_2_, int p_147423_3_) {
+	private void func_147423_a(int p_147423_1_, int p_147423_2_, int p_147423_3_) 
+	{
 		double d0 = 684.412D;
 		double d1 = 684.412D;
 		double d2 = 512.0D;
@@ -311,28 +361,34 @@ public class ChunkProviderGenesis implements IChunkProvider {
 		int i1 = 0;
 		double d4 = 8.5D;
 
-		for (int j1 = 0; j1 < 5; ++j1) {
-			for (int k1 = 0; k1 < 5; ++k1) {
+		for (int j1 = 0; j1 < 5; ++j1) 
+		{
+			for (int k1 = 0; k1 < 5; ++k1)
+			{
 				float f = 0.0F;
 				float f1 = 0.0F;
 				float f2 = 0.0F;
 				byte b0 = 2;
 				BiomeGenBase biomegenbase = this.biomesForGeneration[j1 + 2 + (k1 + 2) * 10];
 
-				for (int l1 = -b0; l1 <= b0; ++l1) {
-					for (int i2 = -b0; i2 <= b0; ++i2) {
+				for (int l1 = -b0; l1 <= b0; ++l1) 
+				{
+					for (int i2 = -b0; i2 <= b0; ++i2) 
+					{
 						BiomeGenBase biomegenbase1 = this.biomesForGeneration[j1 + l1 + 2 + (k1 + i2 + 2) * 10];
 						float f3 = biomegenbase1.minHeight;
 						float f4 = biomegenbase1.maxHeight;
 
-						if (this.worldType == WorldType.AMPLIFIED && f3 > 0.0F) {
+						if (this.worldType == WorldType.AMPLIFIED && f3 > 0.0F) 
+						{
 							f3 = 1.0F + f3 * 2.0F;
 							f4 = 1.0F + f4 * 4.0F;
 						}
 
 						float f5 = this.parabolicField[l1 + 2 + (i2 + 2) * 5] / (f3 + 2.0F);
 
-						if (biomegenbase1.minHeight > biomegenbase.maxHeight) {
+						if (biomegenbase1.minHeight > biomegenbase.maxHeight) 
+						{
 							f5 /= 2.0F;
 						}
 
@@ -348,23 +404,29 @@ public class ChunkProviderGenesis implements IChunkProvider {
 				f1 = (f1 * 4.0F - 1.0F) / 8.0F;
 				double d13 = this.field_147426_g[i1] / 1000.0D;
 
-				if (d13 < 0.0D) {
+				if (d13 < 0.0D) 
+				{
 					d13 = -d13 * 0.3D;
 				}
 
 				d13 = d13 * 3.0D - 2.0D;
 
-				if (d13 < 0.0D) {
+				if (d13 < 0.0D) 
+				{
 					d13 /= 2.0D;
 
-					if (d13 < -1.0D) {
+					if (d13 < -1.0D) 
+					{
 						d13 = -1.0D;
 					}
 
 					d13 /= 1.4D;
 					d13 /= 2.0D;
-				} else {
-					if (d13 > 1.0D) {
+				} 
+				else 
+				{
+					if (d13 > 1.0D) 
+					{
 						d13 = 1.0D;
 					}
 
@@ -378,10 +440,12 @@ public class ChunkProviderGenesis implements IChunkProvider {
 				d12 = d12 * 8.5D / 8.0D;
 				double d5 = 8.5D + d12 * 4.0D;
 
-				for (int j2 = 0; j2 < 33; ++j2) {
+				for (int j2 = 0; j2 < 33; ++j2) 
+				{
 					double d6 = ((double) j2 - d5) * 12.0D * 128.0D / 256.0D / d14;
 
-					if (d6 < 0.0D) {
+					if (d6 < 0.0D) 
+					{
 						d6 *= 4.0D;
 					}
 
@@ -390,7 +454,8 @@ public class ChunkProviderGenesis implements IChunkProvider {
 					double d9 = (this.field_147427_d[l] / 10.0D + 1.0D) / 2.0D;
 					double d10 = MathHelper.denormalizeClamp(d7, d8, d9) - d6;
 
-					if (j2 > 29) {
+					if (j2 > 29) 
+					{
 						double d11 = (double) ((float) (j2 - 29) / 3.0F);
 						d10 = d10 * (1.0D - d11) + -10.0D * d11;
 					}
@@ -405,14 +470,16 @@ public class ChunkProviderGenesis implements IChunkProvider {
 	/**
 	 * Checks to see if a chunk exists at x, y
 	 */
-	 public boolean chunkExists(int par1, int par2) {
+	 public boolean chunkExists(int par1, int par2) 
+	 {
 		 return true;
 	 }
 
 	/**
 	 * Populates chunk with ores etc etc
 	 */
-	 public void populate(IChunkProvider par1IChunkProvider, int par2, int par3) {
+	 public void populate(IChunkProvider par1IChunkProvider, int par2, int par3) 
+	 {
 		BlockFalling.fallInstantly = true;
 		int k = par2 * 16;
 		int l = par3 * 16;
@@ -428,19 +495,22 @@ public class ChunkProviderGenesis implements IChunkProvider {
 		int l1;
 		int i2;
 
-		if (this.rand.nextInt(2) == 0) {
+		if (this.rand.nextInt(2) == 0) 
+		{
 			k1 = k + this.rand.nextInt(16) + 8;
 			l1 = this.rand.nextInt(256);
 			i2 = l + this.rand.nextInt(16) + 8;
 			(new WorldGenLakesGenesis(Blocks.flowing_water)).generate(this.worldObj, this.rand, new BlockPos(k1, l1, i2));
 		}
 
-		if (this.rand.nextInt(8) == 0) {
+		if (this.rand.nextInt(8) == 0) 
+		{
 			k1 = k + this.rand.nextInt(16) + 8;
 			l1 = this.rand.nextInt(this.rand.nextInt(248) + 8);
 			i2 = l + this.rand.nextInt(16) + 8;
 
-			if (l1 < 63 || this.rand.nextInt(10) == 0) {
+			if (l1 < 63 || this.rand.nextInt(10) == 0) 
+			{
 				//TODO: Change the lava below to komatiitic lava
 				(new WorldGenLakesGenesis(Blocks.flowing_lava)).generate(this.worldObj, this.rand, new BlockPos(k1, l1, i2));
 			}
@@ -451,15 +521,19 @@ public class ChunkProviderGenesis implements IChunkProvider {
 		k += 8;
 		l += 8;
 
-		for (k1 = 0; k1 < 16; k1++) {
-			for (l1 = 0; l1 < 16; ++l1) {
+		for (k1 = 0; k1 < 16; k1++) 
+		{
+			for (l1 = 0; l1 < 16; ++l1) 
+			{
 				BlockPos top = this.worldObj.getPrecipitationHeight(new BlockPos(k + k1, 0, l + l1));
 
-				if (this.worldObj.canBlockFreeze(top.add(0, -1, 0), false)) {
+				if (this.worldObj.canBlockFreeze(top.add(0, -1, 0), false)) 
+				{
 					this.worldObj.setBlockState(top.add(0, -1, 0), Blocks.ice.getDefaultState(), 2);
 				}
 
-				if (this.worldObj.canSnowAt(top, true)) {
+				if (this.worldObj.canSnowAt(top, true)) 
+				{
 					this.worldObj.setBlockState(top, Blocks.snow_layer.getDefaultState(), 2);
 				}
 			}
@@ -472,7 +546,8 @@ public class ChunkProviderGenesis implements IChunkProvider {
 	  * Two modes of operation: if passed true, save all Chunks in one go.  If passed false, save up to two chunks.
 	  * Return true if all chunks have been saved.
 	  */
-	 public boolean saveChunks(boolean par1, IProgressUpdate par2IProgressUpdate) {
+	 public boolean saveChunks(boolean par1, IProgressUpdate par2IProgressUpdate) 
+	 {
 		 return true;
 	 }
 
@@ -480,58 +555,67 @@ public class ChunkProviderGenesis implements IChunkProvider {
 	  * Save extra data not associated with any Chunk.  Not saved during autosave, only during world unload.  Currently
 	  * unimplemented.
 	  */
-	 public void saveExtraData() {
+	 public void saveExtraData() 
+	 {
 	 }
 
 	 /**
 	  * Unloads chunks that are marked to be unloaded. This is not guaranteed to unload every such chunk.
 	  */
-	 public boolean unloadQueuedChunks() {
+	 public boolean unloadQueuedChunks() 
+	 {
 		 return false;
 	 }
 
 	 /**
 	  * Returns if the IChunkProvider supports saving.
 	  */
-	 public boolean canSave() {
+	 public boolean canSave() 
+	 {
 		 return true;
 	 }
 
 	 /**
 	  * Converts the instance data to a readable string.
 	  */
-	 public String makeString() {
+	 public String makeString() 
+	 {
 		 return "RandomLevelSource";
 	 }
 
 	 /**
 	  * Returns a list of creatures of the specified type that can spawn at the given location.
 	  */
-	 public List func_177458_a(EnumCreatureType par1EnumCreatureType, BlockPos pos) {
+	 public List func_177458_a(EnumCreatureType par1EnumCreatureType, BlockPos pos) 
+	 {
 		 BiomeGenBase biomegenbase = this.worldObj.getBiomeGenForCoords(pos);
 		 return par1EnumCreatureType == EnumCreatureType.MONSTER && this.scatteredFeatureGenerator.func_175798_a(pos) ? this.scatteredFeatureGenerator.getScatteredFeatureSpawnList() : biomegenbase.getSpawnableList(par1EnumCreatureType);
 	 }
 
-	 public BlockPos getStrongholdGen(World worldIn, String p_180513_2_, BlockPos p_180513_3_) {
+	 public BlockPos getStrongholdGen(World worldIn, String p_180513_2_, BlockPos p_180513_3_) 
+	 {
 		 return null;
 	 }
 
-	 public int getLoadedChunkCount() {
+	 public int getLoadedChunkCount() 
+	 {
 		 return 0;
 	 }
 
-	 public void recreateStructures(Chunk chunk, int x, int z) {
+	 public void recreateStructures(Chunk chunk, int x, int z) 
+	 {
 		 this.scatteredFeatureGenerator.func_175792_a(this, this.worldObj, x, z, (ChunkPrimer)null);
 	 }
 
 	 @Override
-	 public Chunk provideChunk(BlockPos blockPosIn) {
-
+	 public Chunk provideChunk(BlockPos blockPosIn) 
+	 {
 		 return provideChunk(blockPosIn.getX(), blockPosIn.getZ());
 	 }
 
 	 @Override
-	 public boolean func_177460_a(IChunkProvider p_177460_1_, Chunk p_177460_2_, int p_177460_3_, int p_177460_4_) {
+	 public boolean func_177460_a(IChunkProvider p_177460_1_, Chunk p_177460_2_, int p_177460_3_, int p_177460_4_) 
+	 {
 		 //This seems to have something to do with the ocean monument.
 		 return false;
 	 }

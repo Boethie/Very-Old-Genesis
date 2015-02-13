@@ -9,22 +9,23 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 
-public class GenLayerHillsGenesis extends GenLayer {
+public class GenLayerHillsGenesis extends GenLayer 
+{
 	private static final Logger logger = LogManager.getLogger();
-	private GenLayer field_151628_d;
+	private GenLayer layer;
 	private static final String __OBFID = "CL_00000563";
 
-	public GenLayerHillsGenesis(long p_i45479_1_, GenLayer p_i45479_3_, GenLayer p_i45479_4_)
+	public GenLayerHillsGenesis(long seed, GenLayer parent, GenLayer layer)
 	{
-		super(p_i45479_1_);
-		this.parent = p_i45479_3_;
-		this.field_151628_d = p_i45479_4_;
+		super(seed);
+		this.parent = parent;
+		this.layer = layer;
 	}
 
 	public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight)
 	{
 		int[] aint = this.parent.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
-		int[] aint1 = this.field_151628_d.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
+		int[] aint1 = this.layer.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
 		int[] aint2 = IntCache.getIntCache(areaWidth * areaHeight);
 
 		for (int i1 = 0; i1 < areaHeight; ++i1)
@@ -141,7 +142,6 @@ public class GenLayerHillsGenesis extends GenLayer {
 				}
 			}
 		}
-
 		return aint2;
 	}
 }

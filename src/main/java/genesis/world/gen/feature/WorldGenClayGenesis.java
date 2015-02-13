@@ -13,44 +13,44 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class WorldGenClayGenesis extends WorldGenerator
 {
-	private Block field_150546_a;
+	private Block clayBlock;
     private int numberOfBlocks;
     private static final String __OBFID = "CL_00000405";
 
     public WorldGenClayGenesis(int p_i2011_1_)
     {
-        this.field_150546_a = GenesisBlocks.red_clay;
+        this.clayBlock = GenesisBlocks.red_clay;
         this.numberOfBlocks = p_i2011_1_;
     }
 
-    public boolean generate(World worldIn, Random p_180709_2_, BlockPos p_180709_3_)
+    public boolean generate(World worldIn, Random random, BlockPos pos)
     {
-        if (worldIn.getBlockState(p_180709_3_).getBlock().getMaterial() != Material.water)
+        if (worldIn.getBlockState(pos).getBlock().getMaterial() != Material.water)
         {
             return false;
         }
         else
         {
-            int i = p_180709_2_.nextInt(this.numberOfBlocks - 2) + 2;
+            int i = random.nextInt(this.numberOfBlocks - 2) + 2;
             byte b0 = 1;
 
-            for (int j = p_180709_3_.getX() - i; j <= p_180709_3_.getX() + i; ++j)
+            for (int j = pos.getX() - i; j <= pos.getX() + i; ++j)
             {
-                for (int k = p_180709_3_.getZ() - i; k <= p_180709_3_.getZ() + i; ++k)
+                for (int k = pos.getZ() - i; k <= pos.getZ() + i; ++k)
                 {
-                    int l = j - p_180709_3_.getX();
-                    int i1 = k - p_180709_3_.getZ();
+                    int l = j - pos.getX();
+                    int i1 = k - pos.getZ();
 
                     if (l * l + i1 * i1 <= i * i)
                     {
-                        for (int j1 = p_180709_3_.getY() - b0; j1 <= p_180709_3_.getY() + b0; ++j1)
+                        for (int j1 = pos.getY() - b0; j1 <= pos.getY() + b0; ++j1)
                         {
                             BlockPos blockpos1 = new BlockPos(j, j1, k);
                             Block block = worldIn.getBlockState(blockpos1).getBlock();
 
                             if (block == Blocks.dirt || block == GenesisBlocks.red_clay)
                             {
-                                worldIn.setBlockState(blockpos1, this.field_150546_a.getDefaultState(), 2);
+                                worldIn.setBlockState(blockpos1, this.clayBlock.getDefaultState(), 2);
                             }
                         }
                     }

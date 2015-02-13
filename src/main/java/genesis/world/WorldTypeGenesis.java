@@ -15,8 +15,9 @@ public class WorldTypeGenesis extends WorldType {
 
 	public static WorldTypeGenesis instance;
 
-	public WorldTypeGenesis(String str) {
-		super(str);
+	public WorldTypeGenesis(String worldName) 
+	{
+		super(worldName);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -42,7 +43,8 @@ public class WorldTypeGenesis extends WorldType {
 	 * @param parentLayer The parent layer to feed into any layer you return
 	 * @return A GenLayer that will return ints representing the Biomes to be generated, see GenLayerBiome
 	 */
-	public GenLayer getBiomeLayer(long worldSeed, GenLayer parentLayer, String chunkProviderSettingsJson) {
+	public GenLayer getBiomeLayer(long worldSeed, GenLayer parentLayer, String chunkProviderSettingsJson) 
+	{
 		GenLayer ret = new GenLayerBiomeGenesis(200L, parentLayer, chunkProviderSettingsJson);
 		ret = GenLayerZoom.magnify(1000L, ret, 2);
 		ret = new GenLayerBiomeEdgeGenesis(1000L, ret);

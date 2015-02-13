@@ -4,10 +4,12 @@ import genesis.common.GenesisBiomes;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 
-public class GenLayerRiverGenesis extends GenLayer {
-	public GenLayerRiverGenesis(long par1, GenLayer par3GenLayer) {
-		super(par1);
-		super.parent = par3GenLayer;
+public class GenLayerRiverGenesis extends GenLayer 
+{
+	public GenLayerRiverGenesis(long seed, GenLayer parent) 
+	{
+		super(seed);
+		super.parent = parent;
 	}
 
 	/**
