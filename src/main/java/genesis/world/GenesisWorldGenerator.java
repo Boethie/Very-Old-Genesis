@@ -8,9 +8,11 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
-public class GenesisWorldGenerator implements IWorldGenerator {
+public class GenesisWorldGenerator implements IWorldGenerator 
+{
 	@Override
-	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
+	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) 
+	{
 		switch (world.provider.getDimensionId()) 
 		{
 			case -1:
@@ -32,21 +34,17 @@ public class GenesisWorldGenerator implements IWorldGenerator {
 
 	private void generateNether(Random random, int i, int j, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) 
 	{
-
 	}
 
 	private void generateSurface(Random random, int i, int j, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) 
 	{
-
 	}
 
 	private void generateEnd(Random random, int i, int j, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) 
 	{
-
 	}
 
 	private void generateGenesis(Random random, int i, int j, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider)
 	{
-
 	}
 }

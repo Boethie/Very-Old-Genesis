@@ -6,7 +6,6 @@ import net.minecraft.world.WorldServer;
 
 public class TeleporterGenesis extends Teleporter 
 {
-
 	public TeleporterGenesis(WorldServer worldIn) 
 	{
 		super(worldIn);
@@ -16,5 +15,4 @@ public class TeleporterGenesis extends Teleporter
 	{
 		entityIn.setLocationAndAngles(0, 256, 0, entityIn.rotationYaw, 0.0f);
 	}
-
 }

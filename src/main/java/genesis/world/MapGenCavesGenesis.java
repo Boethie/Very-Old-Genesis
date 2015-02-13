@@ -9,7 +9,8 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.MapGenCaves;
 
-public class MapGenCavesGenesis extends MapGenCaves {
+public class MapGenCavesGenesis extends MapGenCaves 
+{
 	/**
 	 * Digs out the current block, default implementation removes stone, filler, and top block
 	 * Sets the block to lava if y is less then 10, and air other wise.
@@ -32,13 +33,18 @@ public class MapGenCavesGenesis extends MapGenCaves {
 		IBlockState top = biome.topBlock;
 		IBlockState filler = biome.fillerBlock;
 
-		if (state.getBlock() instanceof BlockGenesisRock || state.getBlock() == filler.getBlock() || state.getBlock() == top.getBlock()) {
-			if (y < 9) {
+		if (state.getBlock() instanceof BlockGenesisRock || state.getBlock() == filler.getBlock() || state.getBlock() == top.getBlock()) 
+		{
+			if (y < 9) 
+			{
 				data.setBlockState(x, y, z, Blocks.flowing_lava.getDefaultState()); //TODO: Change this to komatiitic lava
-			} else {
+			} 
+			else 
+			{
 				data.setBlockState(x, y, z, Blocks.air.getDefaultState());
 
-				if (foundTop && data.getBlockState(x, y - 1, z).getBlock() == filler.getBlock()) {
+				if (foundTop && data.getBlockState(x, y - 1, z).getBlock() == filler.getBlock()) 
+				{
 					data.setBlockState(x, y - 1, z, top.getBlock().getDefaultState());
 				}
 			}

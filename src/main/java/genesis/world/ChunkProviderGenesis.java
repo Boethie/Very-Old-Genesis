@@ -53,8 +53,8 @@ import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 
-public class ChunkProviderGenesis implements IChunkProvider {
-
+public class ChunkProviderGenesis implements IChunkProvider 
+{
 	private final double[] field_147434_q;
 	private final float[] parabolicField;
 	/**
@@ -66,10 +66,10 @@ public class ChunkProviderGenesis implements IChunkProvider {
 	 */
 	public NoiseGeneratorOctaves octaves4;
 	public NoiseGeneratorOctaves mobSpawnerNoise;
-	double[] field_147427_d;
-	double[] field_147428_e;
-	double[] field_147425_f;
-	double[] field_147426_g;
+	double[] noise2;
+	double[] noise0;
+	double[] noise1;
+	double[] noise4;
 	
 	/**
 	 * RNG.
@@ -103,10 +103,10 @@ public class ChunkProviderGenesis implements IChunkProvider {
 	 */
 	private BiomeGenBase[] biomesForGeneration;
 
-	public ChunkProviderGenesis(World par1World, long par2) 
+	public ChunkProviderGenesis(World world, long par2) 
 	{
-		this.worldObj = par1World;
-		this.worldType = par1World.getWorldInfo().getTerrainType();
+		this.worldObj = world;
+		this.worldType = world.getWorldInfo().getTerrainType();
 		this.rand = new Random(par2);
 		this.octaves0 = new NoiseGeneratorOctaves(this.rand, 16);
 		this.octaves1 = new NoiseGeneratorOctaves(this.rand, 16);
@@ -130,11 +130,11 @@ public class ChunkProviderGenesis implements IChunkProvider {
 		}
 	}
 
-	public void setBlocksInChunk(int p_147424_1_, int p_147424_2_, ChunkPrimer p_147424_3_) 
+	public void setBlocksInChunk(int chunkX, int chunkZ, ChunkPrimer primer) 
 	{
 		byte b0 = 63;
-		this.biomesForGeneration = this.worldObj.getWorldChunkManager().getBiomesForGeneration(this.biomesForGeneration, p_147424_1_ * 4 - 2, p_147424_2_ * 4 - 2, 10, 10);
-		this.func_147423_a(p_147424_1_ * 4, 0, p_147424_2_ * 4);
+		this.biomesForGeneration = this.worldObj.getWorldChunkManager().getBiomesForGeneration(this.biomesForGeneration, chunkX * 4 - 2, chunkZ * 4 - 2, 10, 10);
+		this.func_147423_a(chunkX * 4, 0, chunkZ * 4);
 
 		for (int k = 0; k < 4; ++k) 
 		{
@@ -181,15 +181,15 @@ public class ChunkProviderGenesis implements IChunkProvider {
 							{
 								if ((d15 += d16) > 0.0D) 
 								{
-									p_147424_3_.setBlockState(j3 += short1, Blocks.stone.getDefaultState());
+									primer.setBlockState(j3 += short1, Blocks.stone.getDefaultState());
 								} 
 								else if (k2 * 8 + l2 < b0) 
 								{
-									p_147424_3_.setBlockState(j3 += short1, Blocks.water.getDefaultState());
+									primer.setBlockState(j3 += short1, Blocks.water.getDefaultState());
 								} 
 								else 
 								{
-									p_147424_3_.setBlockState(j3 += short1, null);
+									primer.setBlockState(j3 += short1, null);
 								}
 							}
 
@@ -345,16 +345,16 @@ public class ChunkProviderGenesis implements IChunkProvider {
 		return chunk;
 	}
 
-	private void func_147423_a(int p_147423_1_, int p_147423_2_, int p_147423_3_) 
+	private void func_147423_a(int x, int y, int z) 
 	{
 		double d0 = 684.412D;
 		double d1 = 684.412D;
 		double d2 = 512.0D;
 		double d3 = 512.0D;
-		this.field_147426_g = this.octaves4.generateNoiseOctaves(this.field_147426_g, p_147423_1_, p_147423_3_, 5, 5, 200.0D, 200.0D, 0.5D);
-		this.field_147427_d = this.octaves2.generateNoiseOctaves(this.field_147427_d, p_147423_1_, p_147423_2_, p_147423_3_, 5, 33, 5, 8.555150000000001D, 4.277575000000001D, 8.555150000000001D);
-		this.field_147428_e = this.octaves0.generateNoiseOctaves(this.field_147428_e, p_147423_1_, p_147423_2_, p_147423_3_, 5, 33, 5, 684.412D, 684.412D, 684.412D);
-		this.field_147425_f = this.octaves1.generateNoiseOctaves(this.field_147425_f, p_147423_1_, p_147423_2_, p_147423_3_, 5, 33, 5, 684.412D, 684.412D, 684.412D);
+		this.noise4 = this.octaves4.generateNoiseOctaves(this.noise4, x, z, 5, 5, 200.0D, 200.0D, 0.5D);
+		this.noise2 = this.octaves2.generateNoiseOctaves(this.noise2, x, y, z, 5, 33, 5, 8.555150000000001D, 4.277575000000001D, 8.555150000000001D);
+		this.noise0 = this.octaves0.generateNoiseOctaves(this.noise0, x, y, z, 5, 33, 5, 684.412D, 684.412D, 684.412D);
+		this.noise1 = this.octaves1.generateNoiseOctaves(this.noise1, x, y, z, 5, 33, 5, 684.412D, 684.412D, 684.412D);
 		boolean flag1 = false;
 		boolean flag = false;
 		int l = 0;
@@ -402,7 +402,7 @@ public class ChunkProviderGenesis implements IChunkProvider {
 				f1 /= f2;
 				f = f * 0.9F + 0.1F;
 				f1 = (f1 * 4.0F - 1.0F) / 8.0F;
-				double d13 = this.field_147426_g[i1] / 1000.0D;
+				double d13 = this.noise4[i1] / 1000.0D;
 
 				if (d13 < 0.0D) 
 				{
@@ -449,9 +449,9 @@ public class ChunkProviderGenesis implements IChunkProvider {
 						d6 *= 4.0D;
 					}
 
-					double d7 = this.field_147428_e[l] / 512.0D;
-					double d8 = this.field_147425_f[l] / 512.0D;
-					double d9 = (this.field_147427_d[l] / 10.0D + 1.0D) / 2.0D;
+					double d7 = this.noise0[l] / 512.0D;
+					double d8 = this.noise1[l] / 512.0D;
+					double d9 = (this.noise2[l] / 10.0D + 1.0D) / 2.0D;
 					double d10 = MathHelper.denormalizeClamp(d7, d8, d9) - d6;
 
 					if (j2 > 29) 
@@ -619,5 +619,4 @@ public class ChunkProviderGenesis implements IChunkProvider {
 		 //This seems to have something to do with the ocean monument.
 		 return false;
 	 }
-
 }

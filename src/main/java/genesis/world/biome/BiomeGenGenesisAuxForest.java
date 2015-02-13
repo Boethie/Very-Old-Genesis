@@ -16,10 +16,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BiomeGenGenesisAuxForest extends BiomeGenGenesisBase 
 {
-
-	public BiomeGenGenesisAuxForest(int par1) 
+	public BiomeGenGenesisAuxForest(int biomeID) 
 	{
-		super(par1);
+		super(biomeID);
 		this.theBiomeDecorator.treesPerChunk = 5;
 	}
 

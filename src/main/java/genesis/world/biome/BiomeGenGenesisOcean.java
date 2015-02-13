@@ -19,10 +19,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BiomeGenGenesisOcean extends BiomeGenGenesisBase
 {
-
-	public BiomeGenGenesisOcean(int par1)
+	public BiomeGenGenesisOcean(int biomeID)
 	{
-		super(par1);
+		super(biomeID);
 	}
 	
 	/**

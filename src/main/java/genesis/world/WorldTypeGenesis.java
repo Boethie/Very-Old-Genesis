@@ -11,8 +11,8 @@ import net.minecraft.world.gen.layer.GenLayerZoom;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class WorldTypeGenesis extends WorldType {
-
+public class WorldTypeGenesis extends WorldType 
+{
 	public static WorldTypeGenesis instance;
 
 	public WorldTypeGenesis(String worldName) 
@@ -27,12 +27,14 @@ public class WorldTypeGenesis extends WorldType {
 	}
 
 	@Override
-	public WorldChunkManager getChunkManager(World world) {
+	public WorldChunkManager getChunkManager(World world) 
+	{
 		return new WorldChunkManagerGenesis(world);
 	}
 
 	@Override
-	public IChunkProvider getChunkGenerator(World world, String generatorOptions) {
+	public IChunkProvider getChunkGenerator(World world, String generatorOptions) 
+	{
 		return new ChunkProviderGenesis(world, world.getSeed());
 	}
 

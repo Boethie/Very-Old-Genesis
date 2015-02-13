@@ -13,7 +13,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class WorldProviderGenesis extends WorldProvider 
 {
-
 	@Override
 	public String getDimensionName() 
 	{
