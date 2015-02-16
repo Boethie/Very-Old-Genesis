@@ -9,6 +9,7 @@ import genesis.item.ItemGenesisSeeds;
 import genesis.metadata.EnumDung;
 import genesis.metadata.EnumNodule;
 import genesis.metadata.EnumPebble;
+import genesis.metadata.TreeBlocks;
 import genesis.util.Constants;
 import net.minecraft.item.Item;
 
@@ -56,9 +57,9 @@ public final class GenesisItems
 	{
 		Genesis.proxy.registerItem(pebble, "pebble");
 		Genesis.proxy.registerItem(red_clay_ball, "red_clay_ball");
-		Genesis.proxy.registerItem(octaedrite_shard, "octaedrite_shard");
 		Genesis.proxy.registerItem(red_clay_bowl, "red_clay_bowl");
 		Genesis.proxy.registerItem(ceramic_bowl, "ceramic_bowl");
+		Genesis.proxy.registerItem(octaedrite_shard, "octaedrite_shard");
 		Genesis.proxy.registerItem(quartz, "quartz");
 		Genesis.proxy.registerItem(zircon, "zircon");
 		Genesis.proxy.registerItem(garnet, "garnet");
@@ -67,14 +68,17 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(malachite, "malachite");
 		Genesis.proxy.registerItem(olivine, "olivine");
 		Genesis.proxy.registerItem(nodule, "nodule");
-		Genesis.proxy.registerItem(dung, "dung");
+		GenesisBlocks.trees.registerObjects(TreeBlocks.BILLET);
 		Genesis.proxy.registerItem(resin, "resin");
 		Genesis.proxy.registerItem(calamites, "calamites");
 		Genesis.proxy.registerItem(sphenophyllum_fiber, "sphenophyllum_fiber");
 		Genesis.proxy.registerItem(odontopteris_frond, "odontopteris_frond");
 		Genesis.proxy.registerItem(prototaxites_flesh, "prototaxites_flesh");
+		Genesis.proxy.registerItem(dung, "dung");
 		Genesis.proxy.registerItem(tyrannosaurus_saliva, "tyrannosaurus_saliva");
 		Genesis.proxy.registerItem(tyrannosaurus_tooth, "tyrannosaurus_tooth");
+		Genesis.proxy.registerItem(zingiberopsis_rhizome, "zingiberopsis_rhizome");
+		Genesis.proxy.registerItem(odontopteris_seeds, "odontopteris_seeds");
 		Genesis.proxy.registerItem(aphthoroblattina, "aphthoroblattina");
 		Genesis.proxy.registerItem(cooked_aphthoroblattina, "cooked_aphthoroblattina");
 		Genesis.proxy.registerItem(climatius, "climatius");
@@ -83,8 +87,6 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(cooked_eryops_leg, "cooked_eryops_leg");
 		Genesis.proxy.registerItem(tyrannosaurus, "tyrannosaurus");
 		Genesis.proxy.registerItem(cooked_tyrannosaurus, "cooked_tyrannosaurus");
-		Genesis.proxy.registerItem(zingiberopsis_rhizome, "zingiberopsis_rhizome");
 		Genesis.proxy.registerItem(flint_and_marcasite, "flint_and_marcasite");
-		Genesis.proxy.registerItem(odontopteris_seeds, "odontopteris_seeds");
 	}
 }

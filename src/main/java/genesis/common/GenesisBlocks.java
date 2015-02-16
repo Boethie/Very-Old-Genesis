@@ -84,7 +84,7 @@ public final class GenesisBlocks
 	public static final BlockGenesisOre marcasite_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(EnumNodule.MARCASITE).setUnlocalizedName("marcasite");
 	
 	/* Trees */
-	public static TreeBlocks trees;
+	public static TreeBlocks trees = new TreeBlocks();
 
 	/* Plants */
 	public static final BlockPlant plant = new BlockPlant().setUnlocalizedName("plant");
@@ -137,7 +137,6 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(octaedrite, "octaedrite");
 		Genesis.proxy.registerBlock(permafrost, "permafrost");
 		Genesis.proxy.registerBlock(new_permafrost, "new_permafrost");
-		Genesis.proxy.registerBlock(prototaxites_mycelium, "prototaxites_mycelium");
 		Genesis.proxy.registerBlock(quartz_ore, "quartz_ore");
 		Genesis.proxy.registerBlock(zircon_ore, "zircon_ore");
 		Genesis.proxy.registerBlock(garnet_ore, "garnet_ore");
@@ -147,8 +146,10 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(olivine_ore, "olivine_ore");
 		Genesis.proxy.registerBlock(brown_flint_ore, "brown_flint_ore");
 		Genesis.proxy.registerBlock(marcasite_ore, "marcasite_ore");
-		trees = new TreeBlocks();
+		trees.registerObjects(TreeBlocks.LOG);
+		Genesis.proxy.registerBlock(prototaxites_mycelium, "prototaxites_mycelium");
 		Genesis.proxy.registerBlock(dung_block, "dung_block", ItemBlockMetadata.class, EnumDung.class);
+		trees.registerObjects(TreeBlocks.WATTLE_FENCE);
 		Genesis.proxy.registerBlock(calamites_torch, "calamites_torch");
 		Genesis.proxy.registerBlock(plant, "plant", ItemBlockMetadata.class, EnumPlant.class);
 

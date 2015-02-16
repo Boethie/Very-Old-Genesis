@@ -225,7 +225,11 @@ public class BlockMoss extends BlockGrass
 	
 							if (worldIn.getBlockState(randPos.up()).getBlock().getLightOpacity(worldIn, randPos.up()) <= 2)
 							{
-								if ((randState.getBlock() == Blocks.dirt) && (randState.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT))
+								boolean correctBlock = false;
+								correctBlock |= randBlock == Blocks.dirt && randState.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT;
+								correctBlock |= randBlock == Blocks.grass;
+								
+								if (correctBlock)
 								{
 									worldIn.setBlockState(randPos, GenesisBlocks.moss.getDefaultState());
 								}

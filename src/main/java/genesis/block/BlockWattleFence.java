@@ -3,6 +3,7 @@ package genesis.block;
 import java.util.List;
 
 import genesis.client.model.WattleFenceModel;
+import genesis.common.GenesisCreativeTabs;
 import genesis.metadata.EnumTree;
 import genesis.metadata.IMetadata;
 import genesis.metadata.Properties;
@@ -42,6 +43,8 @@ public class BlockWattleFence extends BlockFence
 		setDefaultState(getBlockState().getBaseState());
 		
 		WattleFenceModel.register(variants);
+		
+		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	}
 
 	protected BlockState createOurBlockState()

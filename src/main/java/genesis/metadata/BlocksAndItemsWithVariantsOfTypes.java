@@ -107,10 +107,35 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 	public final List<ObjectType> types;
 	public final List<IMetadata> variants;
 	
+	protected class VariantEntry {
+		public Block block;
+		public Item item;
+		public int metadata;
+		public int id;
+		public Object object;
+		
+		public VariantEntry(Block block, Item item, int id, int metadata)
+		{
+			this.block = block;
+			this.item = item;
+			this.id = id;
+			this.metadata = metadata;
+			
+			if (block != null)
+			{
+				object = block;
+			}
+			else
+			{
+				object = item;
+			}
+		}
+	}
+	
 	/**
 	 * Map of Block/Item types to a map of variants to the block/item itself.
 	 */
-	protected final HashMap<ObjectType, HashMap<IMetadata, Pair<Object, Integer>>> map = new HashMap<ObjectType, HashMap<IMetadata, Pair<Object, Integer>>>();
+	protected final HashMap<ObjectType, HashMap<IMetadata, VariantEntry>> map = new HashMap<ObjectType, HashMap<IMetadata, VariantEntry>>();
 	
 	/**
 	 * Creates a BlocksAndItemsWithVariantsOfTypes with Blocks/Items from the "types" list containing the variants in "variants".
@@ -133,7 +158,7 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 			{
 				Class<? extends Block> blockClass = type.getBlockClass();
 				Class<? extends Item> itemClass = type.getItemClass();
-				HashMap<IMetadata, Pair<Object, Integer>> variantObjectMap = new HashMap<IMetadata, Pair<Object, Integer>>();
+				HashMap<IMetadata, VariantEntry> variantMap = new HashMap<IMetadata, VariantEntry>();
 				
 				List<IMetadata> typeVariants = type.getValidVariants(new ArrayList<IMetadata>(variants));
 
@@ -179,7 +204,6 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 
 					Block block = null;
 					Item item = null;
-					String registryName = type.getName() + "_" + i;
 					
 					if (blockClass != null)
 					{
@@ -207,46 +231,12 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 								});
 							}
 						}
-						
-						Genesis.proxy.registerBlockWithItem(block, registryName, item);
-						block.setUnlocalizedName(type.getUnlocalizedName());
-
-						// Register resource locations for the block.
-						final IProperty variantProp = getVariantProperty(block);
-						
-						if (variantProp != null)
-						{
-							IStateMapper stateMap = type.getStateMapper(block);
-							
-							if (stateMap == null)
-							{
-								stateMap = new StateMap.Builder().setProperty(variantProp).setBuilderSuffix("_" + type.getName()).build();
-							}
-							
-							Genesis.proxy.registerModelStateMap(block, stateMap);
-						}
-						// End registering block resource locations.
 					}
 					else if (itemClass != null)
 					{
 						// Construct and register the item alone.
 						Constructor<Item> itemConstructor = (Constructor<Item>) itemClass.getConstructor(List.class);
 						item = itemConstructor.newInstance(subVariants);
-						
-						Genesis.proxy.registerItem(item, registryName);
-					}
-					
-					if (item != null)
-					{
-						item.setUnlocalizedName(type.getUnlocalizedName());
-						
-						// Register item model locations.
-						for (IMetadata variant : subVariants)
-						{
-							int metadata = subVariants.indexOf(variant);
-							String resource = variant.getName() + "_" + type.getName();
-							Genesis.proxy.registerModel(item, metadata, resource);
-						}
 					}
 					
 					// Add the Block or Item to our object map with its metadata ID.
@@ -254,23 +244,12 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 					
 					for (IMetadata variant : subVariants)
 					{
-						Object obj;
-						
-						if (block != null)
-						{
-							obj = block;
-						}
-						else
-						{
-							obj = item;
-						}
-						
-						variantObjectMap.put(variant, Pair.of(obj, variantMetadata));
+						variantMap.put(variant, new VariantEntry(block, item, i, variantMetadata));
 						variantMetadata++;
 					}
 				}
 				
-				map.put(type, variantObjectMap);
+				map.put(type, variantMap);
 			}
 		}
 		catch (Exception e)
@@ -282,6 +261,71 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 	public BlocksAndItemsWithVariantsOfTypes(ObjectType[] objectTypes, IMetadata[] variants)
 	{
 		this(Arrays.asList(objectTypes), Arrays.asList(variants));
+	}
+	
+	public void registerObjects(ObjectType type)
+	{
+		ArrayList<Integer> registeredIDs = new ArrayList<Integer>();
+		
+		for (IMetadata variant : getValidVariants(type))
+		{
+			VariantEntry entry = getMetadataVariantEntry(type, variant);
+			
+			final Block block = entry.block;
+			final Item item = entry.item;
+			final int id = entry.id;
+			final int metadata = entry.metadata;
+			
+			if (!registeredIDs.contains(id))
+			{
+				String registryName = type.getName() + "_" + entry.id;
+				
+				if (block != null)
+				{
+					Genesis.proxy.registerBlockWithItem(block, registryName, item);
+					block.setUnlocalizedName(type.getUnlocalizedName());
+					
+					// Register resource locations for the block.
+					final IProperty variantProp = getVariantProperty(block);
+					
+					if (variantProp != null)
+					{
+						IStateMapper stateMap = type.getStateMapper(block);
+						
+						if (stateMap == null)
+						{
+							stateMap = new StateMap.Builder().setProperty(variantProp).setBuilderSuffix("_" + type.getName()).build();
+						}
+						
+						Genesis.proxy.registerModelStateMap(block, stateMap);
+					}
+					// End registering block resource locations.
+				}
+				else
+				{
+					Genesis.proxy.registerItem(item, registryName);
+				}
+				
+				registeredIDs.add(id);
+			}
+			
+			if (item != null)
+			{
+				item.setUnlocalizedName(type.getUnlocalizedName());
+				
+				// Register item model location.
+				String resource = variant.getName() + "_" + type.getName();
+				Genesis.proxy.registerModel(item, metadata, resource);
+			}
+		}
+	}
+	
+	public void registerAll()
+	{
+		for (ObjectType type : types)
+		{
+			registerObjects(type);
+		}
 	}
 	
 	protected IProperty getVariantProperty(Block block)
@@ -307,14 +351,16 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 	 * @param variant
 	 * @return The Block/Item casted to the type provided by the generic type in "type".
 	 */
-	public Pair<Object, Integer> getMetadataObjectPair(ObjectType type, IMetadata variant)
+	public VariantEntry getMetadataVariantEntry(ObjectType type, IMetadata variant)
 	{
-		if (!types.contains(type))
+		HashMap<IMetadata, VariantEntry> variantMap = map.get(type);
+		
+		if (variantMap == null)
 		{
 			throw new RuntimeException("Attempted to get an object of type " + type + " from a BlocksAndItemsWithVariantsOfTypes that does not contain that type.");
 		}
 		
-		if (!variants.contains(variant))
+		if (!variantMap.containsKey(variant))
 		{
 			throw new RuntimeException("Attempted to get an object of variant " + variant + " from a BlocksAndItemsWithVariantsOfTypes that does not contain that type.");
 		}
@@ -331,7 +377,7 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 	 */
 	public <T> T getObject(ObjectType<T> type, IMetadata variant)
 	{
-		return (T) getMetadataObjectPair(type, variant).getRight();
+		return (T) getMetadataVariantEntry(type, variant).object;
 	}
 	
 	/**
@@ -339,17 +385,15 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 	 */
 	public IBlockState getBlockState(ObjectType type, IMetadata variant)
 	{
-		Pair<Object, Integer> pair = getMetadataObjectPair(type, variant);
+		VariantEntry entry = getMetadataVariantEntry(type, variant);
+		Block block = entry.block;
 		
-		Object obj = pair.getLeft();
-		
-		if (obj instanceof Block)
+		if (block != null)
 		{
-			Block block = (Block) obj;
 			return block.getDefaultState().withProperty(getVariantProperty(block), (Comparable) variant);
 		}
 		
-		throw new IllegalArgumentException("ObjectType " + type.getName() + " does not include a Block instance.");
+		throw new IllegalArgumentException("Variant " + variant.getName() + " of ObjectType " + type.getName() + " does not include a Block instance.");
 	}
 	
 	/**
@@ -357,23 +401,18 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 	 */
 	public ItemStack getStack(ObjectType type, IMetadata variant, int stackSize)
 	{
-		Pair<Object, Integer> pair = getMetadataObjectPair(type, variant);
+		VariantEntry entry = getMetadataVariantEntry(type, variant);
 		
-		Object obj = pair.getLeft();
-		Item item;
+		Item item = entry.item;
 		
-		if (obj instanceof Block)
+		if (item != null)
 		{
-			item = Item.getItemFromBlock((Block) obj);
-		}
-		else
-		{
-			item = (Item) obj;
+			ItemStack stack = new ItemStack(item, stackSize, entry.metadata);
+			
+			return stack;
 		}
 		
-		ItemStack stack = new ItemStack(item, stackSize, pair.getRight());
-		
-		return stack;
+		throw new IllegalArgumentException("Variant " + variant.getName() + " of ObjectType " + type.getName() + " does not include an Item instance.");
 	}
 	
 	/**
