@@ -33,11 +33,17 @@ public class TreeBlocks extends BlocksAndItemsWithVariantsOfTypes
 	public TreeBlocks()
 	{
 		super(new ObjectType[] {LOG, BILLET, WATTLE_FENCE}, EnumTree.values());
-		
+
 		for (IMetadata variant : getValidVariants(BILLET))
 		{
 			ItemStack logStack = getStack(LOG, variant, 1);
 			ItemStack billetStack = getStack(BILLET, variant, 4);
+
+			if (variant.getName().equals("sigillaria") || variant.getName().equals("lepidodendron"))
+			{
+				billetStack = getStack(BILLET, variant, 1);
+
+			}
 			
 			GameRegistry.addShapelessRecipe(billetStack, logStack);
 		}
