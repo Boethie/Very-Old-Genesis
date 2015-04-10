@@ -117,7 +117,7 @@ public final class GenesisBlocks
 	public static final BlockGenesis prototaxites = new BlockPrototaxites().setUnlocalizedName("prototaxites");
 	public static final BlockMetadata coral = new BlockCoral().setUnlocalizedName("coral");
 	public static final BlockMetadata dung_block = new BlockDung().setUnlocalizedName("dung");
-	public static final BlockGenesisTorch calamites_torch = new BlockGenesisTorch().setUnlocalizedName("calamites_torch");
+	public static final BlockGenesisTorch calamites_torch = new BlockGenesisTorch().setUnlocalizedName("calamitesTorch");
 
 	public static void registerBlocks()
 	{
