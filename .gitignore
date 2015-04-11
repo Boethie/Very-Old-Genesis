@@ -16,3 +16,4 @@ bin/
 
 ### GENESIS ###
 src/api/
+out/

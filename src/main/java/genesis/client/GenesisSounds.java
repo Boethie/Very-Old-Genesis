@@ -9,6 +9,7 @@ public final class GenesisSounds
 	public static final GenesisSoundType PERMAFROST = new GenesisSoundType("permafrost", 1.0F, 1.0F);
 	public static final GenesisSoundType DUNG = new GenesisSoundType("dung", 1.0F, 1.0F, true);
 	public static final GenesisSoundType FERN = new GenesisSoundType("fern", 10.0F, 1.0F)
+
 	{
 		@Override
 		public String getBreakSound()
@@ -24,7 +25,9 @@ public final class GenesisSounds
 			return Block.soundTypeGrass.getStepSound();
 		}
 	};
+
 	public static final GenesisSoundType CORAL = new GenesisSoundType("coral", 1.0F, 1.0F, true);
+	public static final GenesisSoundType AQUATICPLANT = new GenesisSoundType("aquaticplant", 10.0F, 1.0F);
 
 	public static class GenesisSoundType extends Block.SoundType
 	{

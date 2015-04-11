@@ -95,5 +95,19 @@
     "sounds": [
       "fire/ignite"
     ]
+  },
+    "dig.aquaticplant": {
+      "category": "block",
+      "sounds": [
+        "dig/aquaticplant1",
+        "dig/aquaticplant2"
+      ]
+  },
+    "step.aquaticplant": {
+      "category": "block",
+      "sounds": [
+        "step/aquaticplant1",
+        "step/aquaticplant2"
+      ]
   }
 }

@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.google.common.collect.Sets;
 
+import genesis.client.GenesisSounds;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.metadata.EnumAquaticPlant;
@@ -39,7 +40,7 @@ public class BlockAquaticPlant extends BlockMetadata
 	public BlockAquaticPlant()
 	{
 		super(Material.water);
-		this.setItemDropped(Item.getItemFromBlock(this)).setQuantityDropped(1).setStepSound(soundTypeGrass).setHardness(0.0F).setTickRandomly(true).setCreativeTab(GenesisCreativeTabs.DECORATIONS);
+		this.setItemDropped(Item.getItemFromBlock(this)).setQuantityDropped(1).setStepSound(GenesisSounds.AQUATICPLANT).setHardness(0.0F).setTickRandomly(true).setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	}
 
 	@Override
