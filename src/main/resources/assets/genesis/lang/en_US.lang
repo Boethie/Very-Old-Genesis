@@ -93,6 +93,7 @@ item.genesis.material.pebble.brownFlint.name=Brown Flint Pebble
 item.genesis.material.redClay.name=Red Clay
 item.genesis.material.bowlRedClay.name=Red Clay Bowl
 item.genesis.material.bowlCeramic.name=Ceramic Bowl
+item.genesis.material.redClayBucket.name=Red Clay Bucket
 item.genesis.material.octaedriteShard.name=Octaedrite Shard
 item.genesis.material.quartz.name=Quartz
 item.genesis.material.zircon.name=Zircon
@@ -117,7 +118,6 @@ item.genesis.material.dung.brachiosaurus.name=Brachiosaurus Dung
 item.genesis.material.dung.tyrannosaurus.name=Tyrannosaurus Dung
 item.genesis.material.tyrannosaurusSaliva.name=Tyrannosaurus Saliva
 item.genesis.material.tyrannosaurusTooth.name=Tyrannosaurus Tooth
-item.genesis.material.redClayBucket.name=Red Clay Bucket
 
 #Containers
 item.genesis.misc.ceramicBucket.name=Ceramic Bucket

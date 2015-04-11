@@ -4,6 +4,7 @@ import genesis.common.GenesisCreativeTabs;
 import genesis.common.GenesisItems;
 import genesis.util.Constants;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockCauldron;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -15,6 +16,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -82,7 +84,6 @@ public class ItemGenesisBucket extends Item
 	{
 		boolean flag = this.isFull == Blocks.air;
 		MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(worldIn, playerIn, flag);
-
 		if (movingobjectposition == null)
 		{
 			return itemStackIn;
@@ -124,7 +125,11 @@ public class ItemGenesisBucket extends Item
 					{
 						return new ItemStack(GenesisItems.ceramic_bucket);
 					}
-
+					IBlockState iblockstate = worldIn.getBlockState(blockpos);
+					if (iblockstate.getBlock() instanceof BlockCauldron) {
+						((BlockCauldron) iblockstate.getBlock()).setWaterLevel(worldIn, blockpos, iblockstate, 3);
+						return itemStackIn;
+					}
 					BlockPos blockpos1 = blockpos.offset(movingobjectposition.sideHit);
 
 					if (!playerIn.canPlayerEdit(blockpos1, movingobjectposition.sideHit, itemStackIn))
