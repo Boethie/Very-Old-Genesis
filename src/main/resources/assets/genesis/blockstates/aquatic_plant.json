@@ -13,6 +13,7 @@
         "variant=dinomischus":  { "model": "genesis:dinomischus" },
         "variant=primocandelabrum":  { "model": "genesis:primocandelabrum" },
         "variant=charnia":  { "model": "genesis:charnia" },
-        "variant=charnia_top":  { "model": "genesis:charnia_top" }
+        "variant=charnia_top":  { "model": "genesis:charnia_top" },
+        "variant=thaumaptilon":  { "model": "genesis:thaumaptilon" }
     }
 }
