@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "axis=y":  { "model": "genesis:calamites_bundle" },
+        "axis=z":   { "model": "genesis:calamites_bundle", "x": 90 },
+        "axis=x":   { "model": "genesis:calamites_bundle", "x": 90, "y": 90 },
+        "axis=none": { "model": "genesis:calamites_bundle_side" }
+    }
+}

@@ -1,29 +1,6 @@
 package genesis.common;
 
-import java.util.ArrayList;
-
-import genesis.block.BlockCalamites;
-import genesis.block.BlockCoral;
-import genesis.block.BlockDung;
-import genesis.block.BlockFern;
-import genesis.block.BlockGenesis;
-import genesis.block.BlockGenesisOre;
-import genesis.block.BlockGenesisRock;
-import genesis.block.BlockGenesisTorch;
-import genesis.block.BlockGrowingPlant;
-import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
-import genesis.block.BlockAquaticPlant;
-import genesis.block.BlockMetadata;
-import genesis.block.BlockMoss;
-import genesis.block.BlockNewPermafrost;
-import genesis.block.BlockOctaedrite;
-import genesis.block.BlockOdontopterisCustoms;
-import genesis.block.BlockPermafrost;
-import genesis.block.BlockPlant;
-import genesis.block.BlockPrototaxites;
-import genesis.block.BlockPrototaxitesMycelium;
-import genesis.block.BlockRedClay;
-import genesis.block.BlockSphenophyllumCustoms;
+import genesis.block.*;
 import genesis.item.ItemBlockColored;
 import genesis.item.ItemBlockMetadata;
 import genesis.metadata.EnumAquaticPlant;
@@ -36,16 +13,7 @@ import genesis.metadata.TreeBlocks;
 import genesis.util.Constants;
 import genesis.util.RandomItemDrop;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockTorch;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.MathHelper;
-import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
-import net.minecraftforge.fml.common.registry.GameData;
 
 public final class GenesisBlocks
 {
@@ -85,6 +53,7 @@ public final class GenesisBlocks
 	
 	/* Trees */
 	public static TreeBlocks trees = new TreeBlocks();
+	public static final BlockCalamitesBundle calamites_bundle = new BlockCalamitesBundle().setUnlocalizedName("calamitesBundle");
 
 	/* Plants */
 	public static final BlockPlant plant = new BlockPlant().setUnlocalizedName("plant");
@@ -147,6 +116,7 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(brown_flint_ore, "brown_flint_ore");
 		Genesis.proxy.registerBlock(marcasite_ore, "marcasite_ore");
 		trees.registerObjects(TreeBlocks.LOG);
+		Genesis.proxy.registerBlock(calamites_bundle, "calamites_bundle");
 		Genesis.proxy.registerBlock(prototaxites_mycelium, "prototaxites_mycelium");
 		Genesis.proxy.registerBlock(dung_block, "dung_block", ItemBlockMetadata.class, EnumDung.class);
 		trees.registerObjects(TreeBlocks.WATTLE_FENCE);
@@ -180,6 +150,7 @@ public final class GenesisBlocks
 		
 		Genesis.proxy.registerBlock(prototaxites, "prototaxites");
 		Genesis.proxy.registerBlock(aquatic_plant, "aquatic_plant", ItemBlockMetadata.class, EnumAquaticPlant.class);
+
 		Genesis.proxy.registerBlock(coral, "coral", ItemBlockMetadata.class, EnumCoral.class);
 	}
 }
