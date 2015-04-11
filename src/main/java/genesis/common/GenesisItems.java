@@ -1,17 +1,19 @@
 package genesis.common;
 
-import genesis.item.ItemFlintAndMarcasite;
-import genesis.item.ItemGenesis;
-import genesis.item.ItemGenesisFood;
-import genesis.item.ItemGenesisMetadata;
-import genesis.item.ItemGenesisSeedFood;
-import genesis.item.ItemGenesisSeeds;
+import genesis.item.*;
 import genesis.metadata.EnumDung;
 import genesis.metadata.EnumNodule;
 import genesis.metadata.EnumPebble;
 import genesis.metadata.TreeBlocks;
 import genesis.util.Constants;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBucketMilk;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 
 public final class GenesisItems
 {
@@ -52,6 +54,11 @@ public final class GenesisItems
 
 	/* Misc */
 	public static final ItemFlintAndMarcasite flint_and_marcasite = new ItemFlintAndMarcasite().setUnlocalizedName("flintAndMarcasite");
+	public static final ItemGenesisBucket ceramic_bucket = new ItemGenesisBucket(Blocks.air).setUnlocalizedName("ceramicBucket");
+	public static final ItemGenesisBucket ceramic_bucket_water = new ItemGenesisBucket(Blocks.flowing_water).setUnlocalizedName("ceramicBucketWater");
+	public static final ItemGenesisBucketMilk ceramic_bucket_milk = new ItemGenesisBucketMilk().setUnlocalizedName("ceramicBucketMilk");
+	public static final ItemGenesis red_clay_bucket = new ItemGenesis().setUnlocalizedName("redClayBucket");
+
 
 	public static void registerItems()
 	{
@@ -88,5 +95,11 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(tyrannosaurus, "tyrannosaurus");
 		Genesis.proxy.registerItem(cooked_tyrannosaurus, "cooked_tyrannosaurus");
 		Genesis.proxy.registerItem(flint_and_marcasite, "flint_and_marcasite");
+		Genesis.proxy.registerItem(ceramic_bucket, "ceramic_bucket");
+		Genesis.proxy.registerItem(ceramic_bucket_water, "ceramic_bucket_water");
+		Genesis.proxy.registerItem(ceramic_bucket_milk, "ceramic_bucket_milk");
+		Genesis.proxy.registerItem(red_clay_bucket, "red_clay_bucket");
+
+		FluidContainerRegistry.registerFluidContainer(new FluidContainerRegistry.FluidContainerData(new FluidStack(FluidRegistry.getFluid("water"), 1), new ItemStack(ceramic_bucket_water), new ItemStack(ceramic_bucket)));
 	}
 }

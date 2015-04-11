@@ -117,8 +117,12 @@ item.genesis.material.dung.brachiosaurus.name=Crotte de Brachiosaurus
 item.genesis.material.dung.tyrannosaurus.name=Crotte de Tyrannosaurus
 item.genesis.material.tyrannosaurusSaliva.name=Salive de Tyrannosaurus
 item.genesis.material.tyrannosaurusTooth.name=Dent de Tyrannosaurus
+item.genesis.material.redClayBucket.name=Seau en argile rouge
 
 #Containers
+item.genesis.misc.ceramicBucket.name=Seau en céramique
+item.genesis.misc.ceramicBucketWater.name=Seau d'eau en céramique
+item.genesis.misc.ceramicBucketMilk.name=Seau de lait en céramique
 
 #Entities
 

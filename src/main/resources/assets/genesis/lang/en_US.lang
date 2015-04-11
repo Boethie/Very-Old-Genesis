@@ -117,8 +117,12 @@ item.genesis.material.dung.brachiosaurus.name=Brachiosaurus Dung
 item.genesis.material.dung.tyrannosaurus.name=Tyrannosaurus Dung
 item.genesis.material.tyrannosaurusSaliva.name=Tyrannosaurus Saliva
 item.genesis.material.tyrannosaurusTooth.name=Tyrannosaurus Tooth
+item.genesis.material.redClayBucket.name=Red Clay Bucket
 
 #Containers
+item.genesis.misc.ceramicBucket.name=Ceramic Bucket
+item.genesis.misc.ceramicBucketWater.name=Ceramic Water Bucket
+item.genesis.misc.ceramicBucketMilk.name=Ceramic Milk Bucket
 
 #Entities
 
