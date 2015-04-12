@@ -37,7 +37,7 @@ public final class GenesisCreativeTabs
 		@Override
 		public Item getTabIconItem()
 		{
-			return GenesisItems.pebble;// komatiitic lava bucket
+			return GenesisItems.ceramic_bucket;
 		}
 	};
 
