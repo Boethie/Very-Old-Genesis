@@ -13,6 +13,7 @@ import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.BlockPos;
@@ -80,18 +81,16 @@ public class ItemGenesisBucket extends Item
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
+	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
 		boolean flag = this.isFull == Blocks.air;
 		MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(worldIn, playerIn, flag);
 		if (movingobjectposition == null)
 		{
-			return itemStackIn;
+			return false;
 		}
 		else
 		{
-			ItemStack ret = net.minecraftforge.event.ForgeEventFactory.onBucketUse(playerIn, worldIn, itemStackIn, movingobjectposition);
-			if (ret != null) return ret;
 
 			if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
 			{
@@ -99,14 +98,14 @@ public class ItemGenesisBucket extends Item
 
 				if (!worldIn.isBlockModifiable(playerIn, blockpos))
 				{
-					return itemStackIn;
+					return false;
 				}
 
 				if (flag)
 				{
-					if (!playerIn.canPlayerEdit(blockpos.offset(movingobjectposition.sideHit), movingobjectposition.sideHit, itemStackIn))
+					if (!playerIn.canPlayerEdit(blockpos.offset(movingobjectposition.sideHit), movingobjectposition.sideHit, stack))
 					{
-						return itemStackIn;
+						return false;
 					}
 
 					IBlockState iblockstate = worldIn.getBlockState(blockpos);
@@ -116,36 +115,47 @@ public class ItemGenesisBucket extends Item
 					{
 						worldIn.setBlockToAir(blockpos);
 						playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
-						return this.fillBucket(itemStackIn, playerIn, GenesisItems.ceramic_bucket_water);
+						if (playerIn.getHeldItem().stackSize <= 1 && !playerIn.capabilities.isCreativeMode)
+						{
+							playerIn.getHeldItem().setItem(GenesisItems.ceramic_bucket_water);
+						}
+						else if (!playerIn.capabilities.isCreativeMode)
+						{
+							--playerIn.getHeldItem().stackSize;
+							playerIn.inventory.addItemStackToInventory(new ItemStack(GenesisItems.ceramic_bucket_water));
+						}
+						return true;
 					}
 				}
 				else
 				{
 					if (this.isFull == Blocks.air)
 					{
-						return new ItemStack(GenesisItems.ceramic_bucket);
+						return false;
 					}
 					IBlockState iblockstate = worldIn.getBlockState(blockpos);
 					if (iblockstate.getBlock() instanceof BlockCauldron) {
 						((BlockCauldron) iblockstate.getBlock()).setWaterLevel(worldIn, blockpos, iblockstate, 3);
-						return itemStackIn;
+						playerIn.getHeldItem().setItem(GenesisItems.ceramic_bucket);
+						return true;
 					}
 					BlockPos blockpos1 = blockpos.offset(movingobjectposition.sideHit);
 
-					if (!playerIn.canPlayerEdit(blockpos1, movingobjectposition.sideHit, itemStackIn))
+					if (!playerIn.canPlayerEdit(blockpos1, movingobjectposition.sideHit, stack))
 					{
-						return itemStackIn;
+						return false;
 					}
 
 					if (this.tryPlaceContainedLiquid(worldIn, blockpos1) && !playerIn.capabilities.isCreativeMode)
 					{
 						playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
-						return new ItemStack(GenesisItems.ceramic_bucket);
+						playerIn.getHeldItem().setItem(GenesisItems.ceramic_bucket);
+						return true;
 					}
 				}
 			}
 
-			return itemStackIn;
+			return false;
 		}
 	}
 
