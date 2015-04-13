@@ -5,12 +5,12 @@ import genesis.block.BlockFern;
 import genesis.item.ItemBlockMulti;
 import genesis.metadata.BlocksAndItemsWithVariantsOfTypes.ObjectType;
 
-public class FernBlocks extends BlocksAndItemsWithVariantsOfTypes
+public class FernBlocksAndItems extends BlocksAndItemsWithVariantsOfTypes
 {
 	public static final ObjectType<BlockFern> FERN = new ObjectType<BlockFern>("fern", BlockFern.class, ItemBlockMulti.class)
 			.setPostfix(null).setUseVariantJsons(false);
 	
-	public FernBlocks()
+	public FernBlocksAndItems()
 	{
 		super(new ObjectType[] {FERN}, EnumFern.values());
 	}

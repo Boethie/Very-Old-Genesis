@@ -14,7 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class TreeBlocks extends BlocksAndItemsWithVariantsOfTypes
+public class TreeBlocksAndItems extends BlocksAndItemsWithVariantsOfTypes
 {
 	public static final ObjectType<BlockGenesisLogs> LOG = new ObjectType<BlockGenesisLogs>("log", BlockGenesisLogs.class, null);
 	public static final ObjectType<ItemMulti> BILLET = new ObjectType<ItemMulti>("billet", null, ItemMulti.class, EnumTree.NO_BILLET);
@@ -30,7 +30,7 @@ public class TreeBlocks extends BlocksAndItemsWithVariantsOfTypes
 		}
 	};
 	
-	public TreeBlocks()
+	public TreeBlocksAndItems()
 	{
 		super(new ObjectType[] {LOG, BILLET, WATTLE_FENCE}, EnumTree.values());
 

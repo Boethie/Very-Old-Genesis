@@ -4,7 +4,7 @@ import genesis.item.*;
 import genesis.metadata.EnumDung;
 import genesis.metadata.EnumNodule;
 import genesis.metadata.EnumPebble;
-import genesis.metadata.TreeBlocks;
+import genesis.metadata.TreeBlocksAndItems;
 import genesis.util.Constants;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -76,7 +76,7 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(malachite, "malachite");
 		Genesis.proxy.registerItem(olivine, "olivine");
 		Genesis.proxy.registerItem(nodule, "nodule");
-		GenesisBlocks.trees.registerObjects(TreeBlocks.BILLET);
+		GenesisBlocks.trees.registerObjects(TreeBlocksAndItems.BILLET);
 		Genesis.proxy.registerItem(resin, "resin");
 		Genesis.proxy.registerItem(calamites, "calamites");
 		Genesis.proxy.registerItem(sphenophyllum_fiber, "sphenophyllum_fiber");

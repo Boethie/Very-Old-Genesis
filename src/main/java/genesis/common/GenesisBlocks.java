@@ -3,15 +3,7 @@ package genesis.common;
 import genesis.block.*;
 import genesis.item.ItemBlockColored;
 import genesis.item.ItemBlockMetadata;
-import genesis.metadata.EnumAquaticPlant;
-import genesis.metadata.EnumCoral;
-import genesis.metadata.EnumDung;
-import genesis.metadata.EnumFern;
-import genesis.metadata.EnumNodule;
-import genesis.metadata.EnumPlant;
-import genesis.metadata.FernBlocks;
-import genesis.metadata.PlantBlocks;
-import genesis.metadata.TreeBlocks;
+import genesis.metadata.*;
 import genesis.util.Constants;
 import genesis.util.RandomItemDrop;
 import net.minecraft.block.Block;
@@ -54,15 +46,15 @@ public final class GenesisBlocks
 	public static final BlockGenesisOre marcasite_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(EnumNodule.MARCASITE).setUnlocalizedName("marcasite");
 	
 	/* Trees */
-	public static TreeBlocks trees = new TreeBlocks();
+	public static TreeBlocksAndItems trees = new TreeBlocksAndItems();
 	public static final BlockCalamitesBundle calamites_bundle = new BlockCalamitesBundle().setUnlocalizedName("calamitesBundle");
 
 	/* Plants */
-	public static final PlantBlocks plants = new PlantBlocks();
+	public static final PlantBlocksAndItems plants = new PlantBlocksAndItems();
 	public static final BlockGrowingPlant calamites = new BlockCalamites(true, 15, 10)
 			.setGrowthChanceMult(6, 1, 1)
 			.setUnlocalizedName("plant.calamites");
-	public static final FernBlocks ferns = new FernBlocks();
+	public static final FernBlocksAndItems ferns = new FernBlocksAndItems();
 	public static final BlockAquaticPlant aquatic_plant = new BlockAquaticPlant().setUnlocalizedName("aquaticPlant");
 
 	/* Crops */
@@ -117,11 +109,11 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(olivine_ore, "olivine_ore");
 		Genesis.proxy.registerBlock(brown_flint_ore, "brown_flint_ore");
 		Genesis.proxy.registerBlock(marcasite_ore, "marcasite_ore");
-		trees.registerObjects(TreeBlocks.LOG);
+		trees.registerObjects(TreeBlocksAndItems.LOG);
 		Genesis.proxy.registerBlock(calamites_bundle, "calamites_bundle");
 		Genesis.proxy.registerBlock(prototaxites_mycelium, "prototaxites_mycelium");
 		Genesis.proxy.registerBlock(dung_block, "dung_block", ItemBlockMetadata.class, EnumDung.class);
-		trees.registerObjects(TreeBlocks.WATTLE_FENCE);
+		trees.registerObjects(TreeBlocksAndItems.WATTLE_FENCE);
 		Genesis.proxy.registerBlock(calamites_torch, "calamites_torch");
 		
 		plants.registerAll();
