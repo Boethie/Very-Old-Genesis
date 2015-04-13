@@ -22,7 +22,6 @@ public class ItemGenesisBucketMilk extends Item
 	@Override
 	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityPlayer playerIn)
 	{
-		System.out.println("Drank water");
 		if (!playerIn.capabilities.isCreativeMode)
 		{
 			--stack.stackSize;
