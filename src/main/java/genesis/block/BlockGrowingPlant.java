@@ -902,7 +902,9 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 				growOn = pos;
 			}
 			
-			for (int i = 0; i < MathHelper.getRandomIntegerInRange(worldIn.rand, 2, 5); i++)
+			int growth = MathHelper.getRandomIntegerInRange(worldIn.rand, 2, 5);
+			
+			for (int i = 0; i < growth; i++)
 			{
 				grow(worldIn, rand, growOn, worldIn.getBlockState(growOn), true, false);
 			}
@@ -914,8 +916,10 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	{
 		checkAndDropBlock(worldIn, pos, state);
 		
+		state = worldIn.getBlockState(pos);
+		
 		// If the plant was not broken by checkAndDropBlock(), attempt to grow it.
-		if (worldIn.getBlockState(pos).getBlock() == this)
+		if (state.getBlock() == this)
 		{
 			boolean grew = grow(worldIn, rand, pos, state, false, false);
 			
@@ -1048,7 +1052,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		{
 			callForEachInColumn(worldIn, pos, new IPerBlockCall() {
 				public void call(World worldIn, BlockPos curPos, IBlockState curState, BlockPos startPos, Object... args) {
-					oldStates.put(curPos, curState);
+					oldStates.put(curPos, getActualState(worldIn.getBlockState(curPos), worldIn, curPos));
 				}
 			});
 		}
@@ -1060,11 +1064,13 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 			while (true)
 			{
 				BlockPos remPos = pos.up(up);
+				
 				IBlockState remState = worldIn.getBlockState(remPos);
 				remBlock = remState.getBlock();
 
 				if (remBlock == this)
 				{
+					remState = getActualState(remState, worldIn, remPos);
 					oldStates.put(remPos, remState);
 				}
 				else
@@ -1211,7 +1217,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	
 	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te)
 	{
-		
+		super.harvestBlock(worldIn, player, pos, state, te);
 	}
 	
 	@Override

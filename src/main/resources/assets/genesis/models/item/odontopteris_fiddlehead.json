@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "genesis:items/odontopteris_frond"
+        "layer0": "genesis:items/odontopteris_fiddlehead"
     },
     "display": {
         "thirdperson": {

@@ -20,10 +20,28 @@ import net.minecraft.world.World;
 
 public class BlockOdontopterisCustoms implements IGrowingPlantCustoms
 {
-	static final RandomItemDrop seedsDropMature = new RandomItemDrop(GenesisItems.odontopteris_seeds, 1, 3);
-	static final RandomItemDrop frondDropMature = new RandomItemDrop(GenesisItems.odontopteris_frond, 1, 2);
-	static final RandomItemDrop seedsDropYoung = new RandomItemDrop(GenesisItems.odontopteris_seeds, 1, 1);
-	static final RandomItemDrop frondDropYoung = new RandomItemDrop(GenesisItems.odontopteris_frond, 1, 1);
+	/* |-----------------------------------------|
+	 * | TOP         | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+	 * |-------------|---------------------------|
+	 * |  Seeds      |       0       |  0-1  |0-2|
+	 * |-------------|---------------------------|
+	 * |  Fiddlehead |             0             |
+	 * |-----------------------------------------|
+	 * | BOTTOM      | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+	 * |-------------|---------------------------|
+	 * |  Seeds      |0-1|          1            |
+	 * |-------------|---------------------------|
+	 * |  Fiddlehead |0-1|     1    |     0      |
+	 * |-----------------------------------------|
+	 */
+	static final RandomItemDrop seedsDropBottom1 = new RandomItemDrop(GenesisItems.odontopteris_seeds, 0, 1);
+	static final RandomItemDrop seedsDropBottom2Up = new RandomItemDrop(GenesisItems.odontopteris_seeds, 1, 1);
+	
+	static final RandomItemDrop seedsDropTopBeforeMature = new RandomItemDrop(GenesisItems.odontopteris_seeds, 0, 1);
+	static final RandomItemDrop seedsDropTopMature = new RandomItemDrop(GenesisItems.odontopteris_seeds, 0, 2);
+
+	static final RandomItemDrop fiddleheadDrop1 = new RandomItemDrop(GenesisItems.odontopteris_fiddlehead, 0, 1);
+	static final RandomItemDrop fiddleheadDrop2To4 = new RandomItemDrop(GenesisItems.odontopteris_fiddlehead, 1, 1);
 
 	@Override
 	public void managePlantMetaProperties(BlockGrowingPlant plant, ArrayList<IProperty> metaProps)
@@ -41,22 +59,31 @@ public class BlockOdontopterisCustoms implements IGrowingPlantCustoms
 		{
 			if (age >= plant.maxAge)
 			{
-				out.add(frondDropMature.getRandom(worldIn.rand));
+				out.add(seedsDropTopMature.getRandom(worldIn.rand));
 			}
 			else
 			{
-				out.add(frondDropYoung.getRandom(worldIn.rand));
+				out.add(seedsDropTopBeforeMature.getRandom(worldIn.rand));
 			}
 		}
 		else
 		{
-			if (age >= plant.maxAge)
+			if (age >= 2)
 			{
-				out.add(seedsDropMature.getRandom(worldIn.rand));
+				out.add(seedsDropBottom2Up.getRandom(worldIn.rand));
 			}
 			else
 			{
-				out.add(seedsDropYoung.getRandom(worldIn.rand));
+				out.add(seedsDropBottom1.getRandom(worldIn.rand));
+			}
+
+			if (age == 1)
+			{
+				out.add(fiddleheadDrop1.getRandom(worldIn.rand));
+			}
+			if (age >= 2 && age <= 4)
+			{
+				out.add(fiddleheadDrop2To4.getRandom(worldIn.rand));
 			}
 		}
 		

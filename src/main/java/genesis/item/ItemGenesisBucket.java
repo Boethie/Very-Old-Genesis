@@ -182,18 +182,19 @@ public class ItemGenesisBucket extends Item
 
 	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target)
 	{
-		System.out.println("Got to interact");
 		if (stack.getItem().equals(GenesisItems.ceramic_bucket) && target instanceof EntityCow)
 		{
-			System.out.println("Got to milk");
 			if (stack.stackSize <= 1)
 			{
 				stack.setItem(GenesisItems.ceramic_bucket_milk);
-			} else {
+			}
+			else
+			{
 				--stack.stackSize;
 				playerIn.inventory.addItemStackToInventory(new ItemStack(GenesisItems.ceramic_bucket_milk));
 			}
 		}
+		
 		return true;
 	}
 
@@ -204,4 +205,12 @@ public class ItemGenesisBucket extends Item
 
 		return this;
 	}
+	
+	@Override
+    public ItemGenesisBucket setContainerItem(Item containerItem)
+    {
+    	super.setContainerItem(containerItem);
+    	
+    	return this;
+    }
 }

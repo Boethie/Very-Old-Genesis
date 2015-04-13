@@ -33,7 +33,7 @@ public final class GenesisItems
 	public static final ItemGenesis resin = new ItemGenesis().setUnlocalizedName("resin");
 	public static final ItemGenesisSeeds calamites = new ItemGenesisSeeds().setUnlocalizedName("calamites");
 	public static final ItemGenesis sphenophyllum_fiber = new ItemGenesis().setUnlocalizedName("sphenophyllumFiber");
-	public static final ItemGenesis odontopteris_frond = new ItemGenesis().setUnlocalizedName("odontopterisFrond");
+	public static final ItemGenesis odontopteris_fiddlehead = new ItemGenesis().setUnlocalizedName("odontopterisFiddlehead");
 	public static final ItemGenesis prototaxites_flesh = new ItemGenesis().setUnlocalizedName("prototaxitesFlesh");
 	public static final ItemGenesis tyrannosaurus_saliva = new ItemGenesis().setUnlocalizedName("tyrannosaurusSaliva");
 	public static final ItemGenesis tyrannosaurus_tooth = new ItemGenesis().setUnlocalizedName("tyrannosaurusTooth");
@@ -52,7 +52,7 @@ public final class GenesisItems
 
 	/* Misc */
 	public static final ItemFlintAndMarcasite flint_and_marcasite = new ItemFlintAndMarcasite().setUnlocalizedName("flintAndMarcasite");
-	public static final ItemGenesisBucket ceramic_bucket = new ItemGenesisBucket(Blocks.air).setUnlocalizedName("ceramicBucket");
+	public static final ItemGenesisBucket ceramic_bucket = new ItemGenesisBucket(Blocks.air).setUnlocalizedName("ceramicBucket").setContainerItem(GenesisItems.ceramic_bucket);
 	public static final ItemGenesisBucket ceramic_bucket_water = new ItemGenesisBucket(Blocks.flowing_water).setUnlocalizedName("ceramicBucketWater");
 	public static final ItemGenesisBucketMilk ceramic_bucket_milk = new ItemGenesisBucketMilk().setUnlocalizedName("ceramicBucketMilk");
 	public static ToolHeads toolheads = new ToolHeads();
@@ -77,7 +77,7 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(resin, "resin");
 		Genesis.proxy.registerItem(calamites, "calamites");
 		Genesis.proxy.registerItem(sphenophyllum_fiber, "sphenophyllum_fiber");
-		Genesis.proxy.registerItem(odontopteris_frond, "odontopteris_frond");
+		Genesis.proxy.registerItem(odontopteris_fiddlehead, "odontopteris_fiddlehead");
 		Genesis.proxy.registerItem(prototaxites_flesh, "prototaxites_flesh");
 		Genesis.proxy.registerItem(dung, "dung");
 		Genesis.proxy.registerItem(tyrannosaurus_saliva, "tyrannosaurus_saliva");
