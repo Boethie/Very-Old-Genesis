@@ -86,7 +86,7 @@ public class BlockAquaticPlant extends BlockMetadata
 	@Override
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
 	{
-		if (((EnumAquaticPlant) state.getValue(Constants.AQUATIC_PLANT_VARIANT)) == EnumAquaticPlant.CHANCELLORIA)
+		if (state.getValue(Constants.AQUATIC_PLANT_VARIANT) == EnumAquaticPlant.CHANCELLORIA)
 		{
 			entityIn.attackEntityFrom(Constants.CHANCELLORIA_DMG, 0.5F);
 		}
@@ -109,7 +109,8 @@ public class BlockAquaticPlant extends BlockMetadata
 	{
 		if (!this.canBlockStay(worldIn, pos, state))
 		{
-			this.breakPlant(worldIn, pos, state);
+			//this.breakPlant(worldIn, pos, state);
+			worldIn.destroyBlock(pos, true);
 		}
 	}
 
@@ -139,36 +140,40 @@ public class BlockAquaticPlant extends BlockMetadata
 	private void breakPlant(World world, BlockPos pos, IBlockState state)
 	{
 		world.setBlockState(pos, Blocks.water.getStateFromMeta(0), 3);
-		EnumAquaticPlant aqua = (EnumAquaticPlant) state.getValue(Constants.AQUATIC_PLANT_VARIANT);
-		if (aqua == EnumAquaticPlant.CHARNIA_TOP)
+		EnumAquaticPlant variant = (EnumAquaticPlant) state.getValue(Constants.AQUATIC_PLANT_VARIANT);
+		
+		if (variant == EnumAquaticPlant.CHARNIA_TOP)
 		{
 			IBlockState below = world.getBlockState(pos.down());
-			if (below.getBlock() == this && ((EnumAquaticPlant) below.getValue(Constants.AQUATIC_PLANT_VARIANT)) == EnumAquaticPlant.CHARNIA)
+			
+			if (below.getBlock() == this && below.getValue(Constants.AQUATIC_PLANT_VARIANT) == EnumAquaticPlant.CHARNIA)
 			{
 				world.setBlockState(pos.down(), Blocks.water.getStateFromMeta(0), 3);
 			}
 		}
-		else if (aqua == EnumAquaticPlant.CHARNIA)
+		else if (variant == EnumAquaticPlant.CHARNIA)
 		{
 			IBlockState above = world.getBlockState(pos.up());
-			if (above.getBlock() == this && ((EnumAquaticPlant) above.getValue(Constants.AQUATIC_PLANT_VARIANT)) == EnumAquaticPlant.CHARNIA_TOP)
+			
+			if (above.getBlock() == this && above.getValue(Constants.AQUATIC_PLANT_VARIANT) == EnumAquaticPlant.CHARNIA_TOP)
 			{
 				world.setBlockState(pos.up(), Blocks.water.getStateFromMeta(0), 3);
 			}
 		}
-		if (!world.isRemote && aqua != EnumAquaticPlant.CHARNIA)
+		
+		/*if (!world.isRemote && variant != EnumAquaticPlant.CHARNIA)
 		{
-			ItemStack stack = Metadata.newStack(aqua);
+			ItemStack stack = Metadata.newStack(variant);
 			Entity entity = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), stack);
 			world.spawnEntityInWorld(entity);
-		}
+		}*/
 	}
 
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		EnumAquaticPlant aqua = (EnumAquaticPlant) state.getValue(Constants.AQUATIC_PLANT_VARIANT);
-		return Metadata.getMetadata(aqua == EnumAquaticPlant.CHARNIA ? EnumAquaticPlant.CHARNIA_TOP : aqua);
+		EnumAquaticPlant variant = (EnumAquaticPlant) state.getValue(Constants.AQUATIC_PLANT_VARIANT);
+		return Metadata.getMetadata(variant == EnumAquaticPlant.CHARNIA ? EnumAquaticPlant.CHARNIA_TOP : variant);
 	}
 
 	public boolean canBlockStay(World world, BlockPos pos, IBlockState state)
@@ -183,30 +188,37 @@ public class BlockAquaticPlant extends BlockMetadata
 			this.bases.add(GenesisBlocks.red_clay);
 			this.bases.add(GenesisBlocks.coral);
 		}
-		final IBlockState below = world.getBlockState(pos.down());
-		EnumAquaticPlant aqua = (EnumAquaticPlant) state.getValue(Constants.AQUATIC_PLANT_VARIANT);
-		Block block = below.getBlock();
-		if (!this.bases.contains(block)
-				&& block instanceof BlockGenesisRock == false
-				&& (aqua != EnumAquaticPlant.CHARNIA_TOP || block != this || ((EnumAquaticPlant) below.getValue(Constants.AQUATIC_PLANT_VARIANT)) != EnumAquaticPlant.CHARNIA))
+		
+		IBlockState below = world.getBlockState(pos.down());
+		Block blockBelow = below.getBlock();
+		EnumAquaticPlant variant = (EnumAquaticPlant) state.getValue(Constants.AQUATIC_PLANT_VARIANT);
+		
+		if (!this.bases.contains(blockBelow)
+				&& blockBelow instanceof BlockGenesisRock == false
+				&& (variant != EnumAquaticPlant.CHARNIA_TOP || blockBelow != this || ((EnumAquaticPlant) below.getValue(Constants.AQUATIC_PLANT_VARIANT)) != EnumAquaticPlant.CHARNIA))
 		{
 			return false;
 		}
-		final IBlockState above = world.getBlockState(pos.up());
+		
+		IBlockState above = world.getBlockState(pos.up());
+		
 		if (above.getBlock().getMaterial() != Material.water)
 		{
 			return false;
 		}
-		if (aqua == EnumAquaticPlant.CHARNIA && world.getBlockState(pos.up().up()).getBlock().getMaterial() != Material.water)
+		if (variant == EnumAquaticPlant.CHARNIA && world.getBlockState(pos.up(2)).getBlock().getMaterial() != Material.water)
 		{
 			return false;
 		}
+		
 		final List<IBlockState> blocks = WorldUtils.getBlocksAround(world, pos);
+		
 		for (int i = 0; i < blocks.size();)
 		{
 			final boolean corner0 = this.isWaterish(blocks.get(i++).getBlock());
 			final boolean corner1 = this.isWaterish(blocks.get(i++).getBlock());
 			boolean corner2;
+			
 			if (i == blocks.size())
 			{
 				corner2 = this.isWaterish(blocks.get(0).getBlock());
@@ -215,11 +227,13 @@ public class BlockAquaticPlant extends BlockMetadata
 			{
 				corner2 = this.isWaterish(blocks.get(i).getBlock());
 			}
+			
 			if (corner0 && corner1 && corner2)
 			{
 				return true;
 			}
 		}
+		
 		return false;
 	}
 
