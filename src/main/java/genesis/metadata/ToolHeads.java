@@ -1,7 +1,6 @@
 package genesis.metadata;
 
 import genesis.item.ItemToolHead;
-import genesis.item.ItemWoodBillet;
 
 public class ToolHeads extends BlocksAndItemsWithVariantsOfTypes
 {
