@@ -38,7 +38,7 @@ public final class GenesisCreativeTabs
 		@Override
 		public Item getTabIconItem()
 		{
-			return GenesisItems.pebble;// TODO: use komatiitic lava bucket when added
+			return GenesisItems.ceramic_bucket_water;	// TODO: use komatiitic lava bucket when added
 		}
 	};
 
@@ -56,7 +56,7 @@ public final class GenesisCreativeTabs
 		@Override
 		public Item getTabIconItem()
 		{
-			return GenesisItems.flint_and_marcasite;// TODO: use chipped granite axe when added
+			return GenesisItems.flint_and_marcasite;	// TODO: use chipped granite axe when added
 		}
 	};
 
@@ -65,7 +65,7 @@ public final class GenesisCreativeTabs
 		@Override
 		public Item getTabIconItem()
 		{
-			return GenesisItems.pebble;// TODO: use chipped bone spear when added
+			return GenesisItems.pebble;	// TODO: use chipped bone spear when added
 		}
 	};
 

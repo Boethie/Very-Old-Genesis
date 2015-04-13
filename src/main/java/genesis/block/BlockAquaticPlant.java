@@ -22,6 +22,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -154,6 +155,12 @@ public class BlockAquaticPlant extends BlockMetadata
 			{
 				world.setBlockState(pos.up(), Blocks.water.getStateFromMeta(0), 3);
 			}
+		}
+		if (!world.isRemote && aqua != EnumAquaticPlant.CHARNIA)
+		{
+			ItemStack stack = Metadata.newStack(aqua);
+			Entity entity = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), stack);
+			world.spawnEntityInWorld(entity);
 		}
 	}
 

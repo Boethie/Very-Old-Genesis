@@ -69,6 +69,7 @@ tile.genesis.aquaticPlant.dinomischus.name=Dinomischus
 tile.genesis.aquaticPlant.primocandelabrum.name=Primocandelabrum
 tile.genesis.aquaticPlant.charnia_top.name=Charnia
 tile.genesis.aquaticPlant.charnia.name=Charnia
+tile.genesis.aquaticPlant.thaumaptilon.name=Thaumaptilon
 tile.genesis.coral.favosites.name=Favosites
 tile.genesis.coral.heliolites.name=Heliolites
 tile.genesis.coral.halysites.name=Halysites
@@ -93,6 +94,7 @@ item.genesis.material.pebble.brownFlint.name=Brown Flint Pebble
 item.genesis.material.redClay.name=Red Clay
 item.genesis.material.bowlRedClay.name=Red Clay Bowl
 item.genesis.material.bowlCeramic.name=Ceramic Bowl
+item.genesis.material.redClayBucket.name=Red Clay Bucket
 item.genesis.material.octaedriteShard.name=Octaedrite Shard
 item.genesis.material.quartz.name=Quartz
 item.genesis.material.zircon.name=Zircon
@@ -119,6 +121,9 @@ item.genesis.material.tyrannosaurusSaliva.name=Tyrannosaurus Saliva
 item.genesis.material.tyrannosaurusTooth.name=Tyrannosaurus Tooth
 
 #Containers
+item.genesis.misc.ceramicBucket.name=Ceramic Bucket
+item.genesis.misc.ceramicBucketWater.name=Ceramic Water Bucket
+item.genesis.misc.ceramicBucketMilk.name=Ceramic Milk Bucket
 
 #Entities
 
