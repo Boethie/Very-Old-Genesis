@@ -27,18 +27,21 @@ import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IModelState;
 import net.minecraftforge.client.model.ISmartBlockModel;
+import net.minecraftforge.client.model.ISmartItemModel;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
-public class MultiBakedModelWrapper implements IFlexibleBakedModel, ISmartBlockModel
+public class MultiBakedModelWrapper implements IFlexibleBakedModel, ISmartBlockModel, ISmartItemModel
 {
 	IBlockState state = null;
 	IMultiBakedModelOwner owner;
@@ -69,14 +72,10 @@ public class MultiBakedModelWrapper implements IFlexibleBakedModel, ISmartBlockM
 		
 		if (state != null)
 		{
-			ModelResourceLocation loc = GenesisCustomModelLoader.blockResourceMap.get(state);
+			ModelResourceLocation loc = ModelHelpers.getLocationFromState(state);
 			loc = new ModelResourceLocation(loc.getResourceDomain() + ":block/" + loc.getResourcePath() + "#" + loc.getVariant());
 			
-			GenesisCustomModelLoader.acceptNothing = true;
-			IModel childModel = ModelLoaderRegistry.getModel(loc);
-			GenesisCustomModelLoader.acceptNothing = false;
-			
-			ModelBlock childModelBlock = ModelHelpers.getModelBlock(childModel);
+			ModelBlock childModelBlock = ModelHelpers.getModelBlock(ModelHelpers.getLoadedModel(loc));
 			
 			ModelBlock toBakeBlock = ModelHelpers.getModelBlock(model);
 			
@@ -211,6 +210,14 @@ public class MultiBakedModelWrapper implements IFlexibleBakedModel, ISmartBlockM
 		stateModel.bake(modelState, format, bakedTextureGetter);
 		
 		return stateModel;
+	}
+
+	@Override
+	public IBakedModel handleItemState(ItemStack stack)
+	{
+		ItemBlock itemBlock = (ItemBlock) stack.getItem();
+		
+		return new MultiBakedModelWrapper(itemBlock.block.getDefaultState(), owner, texture, mainModel, otherModels);
 	}
 
 	@Override

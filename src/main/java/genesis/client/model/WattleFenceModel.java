@@ -9,6 +9,7 @@ import com.google.common.base.Function;
 
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ModelBlock;
@@ -32,7 +33,7 @@ import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumTree;
 import genesis.metadata.IMetadata;
-import genesis.metadata.TreeBlocks;
+import genesis.metadata.TreeBlocksAndItems;
 import genesis.util.Constants;
 import genesis.util.ModelHelpers;
 
@@ -43,12 +44,37 @@ public class WattleFenceModel implements IModel, IMultiBakedModelOwner
 	protected static final ResourceLocation EAST_MODEL = new ResourceLocation(Constants.MOD_ID, "block/wattle_fence_east");
 	protected static final ResourceLocation SOUTH_MODEL = new ResourceLocation(Constants.MOD_ID, "block/wattle_fence_south");
 	protected static final ResourceLocation WEST_MODEL = new ResourceLocation(Constants.MOD_ID, "block/wattle_fence_west");
+	protected static IModel post;
+	protected static IModel north;
+	protected static IModel east;
+	protected static IModel south;
+	protected static IModel west;
+	
+	private static void getModels()
+	{
+		if (post == null)
+		{
+			post = ModelLoaderRegistry.getModel(POST_MODEL);
+			north = ModelLoaderRegistry.getModel(NORTH_MODEL);
+			east = ModelLoaderRegistry.getModel(EAST_MODEL);
+			south = ModelLoaderRegistry.getModel(SOUTH_MODEL);
+			west = ModelLoaderRegistry.getModel(WEST_MODEL);
+		}
+	}
 	
 	public static void register(List<EnumTree> variants)
 	{
 		for (EnumTree variant : variants)
 		{
-			Genesis.proxy.registerCustomModel("models/block/" + variant.getName() + "_wattle_fence", new WattleFenceModel());
+			WattleFenceModel model = new WattleFenceModel();
+			Genesis.proxy.registerCustomModel("models/block/" + variant.getName() + "_wattle_fence", model);
+			//Genesis.proxy.registerCustomModel("models/item/" + variant.getName() + "_wattle_fence", model);
+
+			/*getModels();
+			MultiBakedModelWrapper wrapper = new MultiBakedModelWrapper(new WattleFenceModel(), null, post, north, east, south, west);
+			wrapper.bake(ModelRotation.X0_Y0, Tessellator.getInstance().getWorldRenderer().getVertexFormat(), bakedTextureGetter);
+			
+			Genesis.proxy.registerCustomModel(new ModelResourceLocation("models/block/" + variant.getName() + "_wattle_fence", "inventory"));*/
 		}
 	}
 
@@ -69,124 +95,18 @@ public class WattleFenceModel implements IModel, IMultiBakedModelOwner
 	{
 		ArrayList<ResourceLocation> textures = new ArrayList<ResourceLocation>();
 		
-		for (IMetadata variant : GenesisBlocks.trees.getValidVariants(TreeBlocks.WATTLE_FENCE))
+		for (IMetadata variant : GenesisBlocks.trees.getValidVariants(TreeBlocksAndItems.WATTLE_FENCE))
 		{
-			ResourceLocation loc = new ResourceLocation(Constants.MOD_ID, "blocks/stick_" + variant.getName());
-			textures.add(loc);
-			/*IBlockState blockState = GenesisBlocks.trees.getBlockState(TreeBlocks.WATTLE_FENCE, variant);
+			IBlockState blockState = GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.WATTLE_FENCE, variant);
 
-			ModelResourceLocation loc = GenesisCustomModelLoader.blockResourceMap.get(blockState);
+			ModelResourceLocation loc = ModelHelpers.getLocationFromState(blockState);
 			loc = new ModelResourceLocation(loc.getResourceDomain() + ":block/" + loc.getResourcePath() + "#" + loc.getVariant());
-			
-			GenesisCustomModelLoader.acceptNothing = true;
-			IModel childModel = ModelLoaderRegistry.getModel(loc);
-			GenesisCustomModelLoader.acceptNothing = false;
-			
-			textures.addAll(childModel.getTextures());*/
+
+			textures.addAll(ModelHelpers.getLoadedModel(loc).getTextures());
 		}
 		
 		return textures;
 	}
-
-	@Override
-	public IFlexibleBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter)
-	{
-		/*IFlexibleBakedModel post = ModelLoaderRegistry.getModel(POST_MODEL).bake(state, format, bakedTextureGetter);
-		IFlexibleBakedModel north = ModelLoaderRegistry.getModel(NORTH_MODEL).bake(state, format, bakedTextureGetter);
-		IFlexibleBakedModel east = ModelLoaderRegistry.getModel(EAST_MODEL).bake(state, format, bakedTextureGetter);
-		IFlexibleBakedModel south = ModelLoaderRegistry.getModel(SOUTH_MODEL).bake(state, format, bakedTextureGetter);
-		IFlexibleBakedModel west = ModelLoaderRegistry.getModel(WEST_MODEL).bake(state, format, bakedTextureGetter);*/
-		
-		IModel post = ModelLoaderRegistry.getModel(POST_MODEL);
-		IModel north = ModelLoaderRegistry.getModel(NORTH_MODEL);
-		IModel east = ModelLoaderRegistry.getModel(EAST_MODEL);
-		IModel south = ModelLoaderRegistry.getModel(SOUTH_MODEL);
-		IModel west = ModelLoaderRegistry.getModel(WEST_MODEL);
-		
-		//TextureAtlasSprite texture = ModelLoaderRegistry.getModel(variantTextures.values().iterator().next()).bake(state, format, bakedTextureGetter).getTexture();
-
-		MultiBakedModelWrapper wrapper = new MultiBakedModelWrapper(this, null, post, north, east, south, west);
-		//MultiBakedModelWrapper wrapper = new MultiBakedModelWrapper(this, null, post, north);
-		wrapper.bake(state, format, bakedTextureGetter);
-		//MultiBakedModelWrapper wrapper = new MultiBakedModelWrapper(this, null, post);
-		
-		return wrapper;
-	}
-
-	@Override
-	public IModelState getDefaultState()
-	{
-        return ModelRotation.X0_Y0;
-	}
-	
-	/*protected IBlockState fenceState = null;
-	
-	public WattleFenceModel()
-	{
-	}
-	
-	public WattleFenceModel(IBlockState state)
-	{
-		fenceState = state;
-	}
-
-	@Override
-	public List getFaceQuads(EnumFacing dir)
-	{
-		if (fenceState != null)
-		{
-			
-		}
-		
-		return new ArrayList();
-	}
-
-	@Override
-	public List getGeneralQuads()
-	{
-		if (fenceState != null)
-		{
-			
-		}
-		
-		return new ArrayList();
-	}
-
-	@Override
-	public boolean isAmbientOcclusion()
-	{
-		return false;
-	}
-
-	@Override
-	public boolean isGui3d()
-	{
-		return false;
-	}
-
-	@Override
-	public boolean isBuiltInRenderer()
-	{
-		return false;
-	}
-
-	@Override
-	public TextureAtlasSprite getTexture()
-	{
-		return null;
-	}
-
-	@Override
-	public ItemCameraTransforms getItemCameraTransforms()
-	{
-		return null;
-	}
-
-	@Override
-	public IBakedModel handleBlockState(IBlockState state)
-	{
-		return null;
-	}*/
 
 	@Override
 	public boolean shouldRenderPart(IBlockState state, IBakedModel model, int part)
@@ -209,5 +129,21 @@ public class WattleFenceModel implements IModel, IMultiBakedModelOwner
 		}
 		
 		return false;
+	}
+
+	@Override
+	public IFlexibleBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter)
+	{
+		getModels();
+		MultiBakedModelWrapper wrapper = new MultiBakedModelWrapper(this, null, post, north, east, south, west);
+		wrapper.bake(state, format, bakedTextureGetter);
+		
+		return wrapper;
+	}
+
+	@Override
+	public IModelState getDefaultState()
+	{
+        return ModelRotation.X0_Y0;
 	}
 }

@@ -29,11 +29,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class GenesisCustomModelLoader implements ICustomModelLoader
 {
 	public static GenesisCustomModelLoader instance = new GenesisCustomModelLoader();
-	public static ModelLoader forgeModelLoader;
-	public static BlockModelShapes modelShapes;
-	public static Map<IBlockState, ModelResourceLocation> blockResourceMap;
-	public static Class<? extends IModel> vanillaModelWrapperClass;
-	
 	public static boolean acceptNothing = false;
 
 	protected HashMap<String, IModel> modelMap = new HashMap<String, IModel>();
@@ -85,20 +80,6 @@ public class GenesisCustomModelLoader implements ICustomModelLoader
     @SubscribeEvent
     public void onModelBakeEvent(ModelBakeEvent event)
     {
-    	forgeModelLoader = event.modelLoader;
-		modelShapes = (BlockModelShapes) ObfuscationReflectionHelper.getPrivateValue(ModelBakery.class, GenesisCustomModelLoader.forgeModelLoader, "blockModelShapes", "field_177610_k");
-		blockResourceMap = modelShapes.getBlockStateMapper().putAllStateModelLocations();
-		
-		Class<?>[] classes = ModelLoader.class.getDeclaredClasses();
-		
-		for (Class<?> clazz : classes)
-		{
-			if ("net.minecraftforge.client.model.ModelLoader$VanillaModelWrapper".equals(clazz.getName()))
-			{
-				vanillaModelWrapperClass = (Class<? extends IModel>) clazz;
-			}
-		}
-    	
     	for (Entry<ResourceLocation, ISmartBlockModel> entry : smartModels.entrySet())
     	{
     		ISmartBlockModel model = entry.getValue();
