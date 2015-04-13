@@ -32,6 +32,7 @@ import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemColored;
@@ -60,6 +61,7 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 		protected Class<? extends Item> itemClass;
 		protected List<IMetadata> variantExclusions;
 		protected boolean variantJsons = true;
+		protected CreativeTabs tab = null;
 		
 		public ObjectType(String name, String unlocName, Class<? extends Block> blockClass, Class<? extends Item> itemClass, IMetadata... variantExclusions)
 		{
@@ -129,6 +131,22 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 			variantJsons = use;
 			
 			return this;
+		}
+		
+		public ObjectType<T> setUseVariantJsons(CreativeTabs tab)
+		{
+			this.tab = tab;
+			
+			return this;
+		}
+		
+		public void afterItemConstructed(Item item, List<IMetadata> variant)
+		{
+			item.setCreativeTab(tab);
+		}
+		
+		public void afterItemRegistered(Item item)
+		{
 		}
 	}
 	
@@ -287,6 +305,8 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 						item = itemConstructor.newInstance(subVariants, this);
 					}
 					
+					type.afterItemConstructed(item, subVariants);
+					
 					// Add the Block or Item to our object map with its metadata ID.
 					int variantMetadata = 0;
 					
@@ -389,6 +409,8 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 				{
 					Genesis.proxy.registerItem(item, registryName);
 				}
+
+				type.afterItemRegistered(item);
 				
 				registeredIDs.add(id);
 			}
