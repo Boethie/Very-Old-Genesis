@@ -172,7 +172,7 @@ public final class GenesisRecipes
 		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "x", "y", 'x', Items.coal, 'y', GenesisItems.calamites);
 		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "x", "y", 'x', new ItemStack(Items.coal, 1, 1), 'y', GenesisItems.calamites);
 		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "x", "y", 'x', GenesisItems.resin, 'y', GenesisItems.calamites);
-		GameRegistry.addShapedRecipe(new ItemStack(Items.cake), "xxx", "yzy", "ccc", 'x', GenesisItems.ceramic_bucket_milk.setContainerItem(GenesisItems.ceramic_bucket), 'y', Items.sugar, 'z', Items.egg, 'c', Items.wheat);
+		GameRegistry.addShapedRecipe(new ItemStack(Items.cake), "xxx", "yzy", "ccc", 'x', GenesisItems.ceramic_bucket_milk, 'y', Items.sugar, 'z', Items.egg, 'c', Items.wheat);
 		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite), Metadata.newStack(EnumNodule.MARCASITE), Metadata.newStack(EnumPebble.BROWN_FLINT));
 		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite), Metadata.newStack(EnumNodule.MARCASITE), Metadata.newStack(EnumNodule.BROWN_FLINT));
 		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.calamites, 9), GenesisBlocks.calamites_bundle);
