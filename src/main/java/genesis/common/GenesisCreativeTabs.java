@@ -5,6 +5,7 @@ import genesis.util.Constants;
 import genesis.util.Metadata;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 public final class GenesisCreativeTabs
 {
@@ -20,15 +21,15 @@ public final class GenesisCreativeTabs
 	public static final CreativeTabs DECORATIONS = new CreativeTabs(Constants.PREFIX + "decorations")
 	{
 		@Override
-		public Item getTabIconItem()
-		{
-			return Item.getItemFromBlock(GenesisBlocks.plant);// sigillaria sapling
-		}
+	    public ItemStack getIconItemStack()
+	    {
+			return GenesisBlocks.plants.getStack(GenesisBlocks.plants.PLANT, EnumPlant.SCIADOPHYTON);	// TODO: use sigillaria sapling when added
+	    }
 
 		@Override
-		public int getIconItemDamage()
+		public Item getTabIconItem()
 		{
-			return Metadata.getMetadata(EnumPlant.BARAGWANATHIA);
+			return null;
 		}
 	};
 
@@ -37,7 +38,7 @@ public final class GenesisCreativeTabs
 		@Override
 		public Item getTabIconItem()
 		{
-			return GenesisItems.ceramic_bucket_water;
+			return GenesisItems.ceramic_bucket_water;	// TODO: use komatiitic lava bucket when added
 		}
 	};
 
@@ -55,7 +56,7 @@ public final class GenesisCreativeTabs
 		@Override
 		public Item getTabIconItem()
 		{
-			return GenesisItems.flint_and_marcasite;// chipped granite axe
+			return GenesisItems.flint_and_marcasite;	// TODO: use chipped granite axe when added
 		}
 	};
 
@@ -64,7 +65,7 @@ public final class GenesisCreativeTabs
 		@Override
 		public Item getTabIconItem()
 		{
-			return GenesisItems.pebble;// chipped bone spear
+			return GenesisItems.pebble;	// TODO: use chipped bone spear when added
 		}
 	};
 

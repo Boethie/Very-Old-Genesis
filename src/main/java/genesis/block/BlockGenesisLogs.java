@@ -2,6 +2,7 @@ package genesis.block;
 
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
+import genesis.metadata.BlocksAndItemsWithVariantsOfTypes;
 import genesis.metadata.EnumTree;
 import genesis.metadata.Properties;
 import genesis.util.BlockStateToMetadata;
@@ -33,12 +34,16 @@ public class BlockGenesisLogs extends BlockLog
 		return new IProperty[]{ LOG_AXIS };
 	}
 	
+	public final BlocksAndItemsWithVariantsOfTypes owner;
+	
 	public final PropertyEnum variantProp;
 	public final List<EnumTree> variants;
 	
-	public BlockGenesisLogs(List<EnumTree> variants)
+	public BlockGenesisLogs(List<EnumTree> variants, BlocksAndItemsWithVariantsOfTypes owner)
 	{
 		super();
+		
+		this.owner = owner;
 		
 		variantProp = PropertyEnum.create("variant", EnumTree.class, variants);
 		this.variants = variants;

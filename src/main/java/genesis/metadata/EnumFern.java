@@ -38,6 +38,6 @@ public enum EnumFern implements IMetaSingle
 	@Override
 	public Item getItem()
 	{
-		return Item.getItemFromBlock(GenesisBlocks.fern);
+		return null;
 	}
 }

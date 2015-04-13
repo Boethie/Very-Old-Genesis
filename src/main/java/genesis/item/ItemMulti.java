@@ -1,5 +1,6 @@
 package genesis.item;
 
+import genesis.metadata.BlocksAndItemsWithVariantsOfTypes;
 import genesis.metadata.IMetadata;
 import genesis.util.Metadata;
 
@@ -10,13 +11,17 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class ItemWoodBillet extends ItemGenesis
+public class ItemMulti extends ItemGenesis
 {
+	public final BlocksAndItemsWithVariantsOfTypes owner;
+	
 	protected final List<IMetadata> variants;
 	
-	public ItemWoodBillet(List<IMetadata> variants)
+	public ItemMulti(List<IMetadata> variants, BlocksAndItemsWithVariantsOfTypes owner)
 	{
 		super();
+		
+		this.owner = owner;
 		
 		this.variants = variants;
 		
@@ -32,10 +37,6 @@ public class ItemWoodBillet extends ItemGenesis
 	@Override
 	public void getSubItems(Item itemIn, CreativeTabs tab, List subItems)
 	{
-		for (int i = 0; i < variants.size(); i++)
-		{
-			ItemStack stack = new ItemStack(itemIn, 1, i);
-			subItems.add(stack);
-		}
+		owner.fillSubItems(this, variants, subItems);
 	}
 }

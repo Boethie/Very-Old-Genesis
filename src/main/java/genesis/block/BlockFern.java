@@ -1,14 +1,20 @@
 package genesis.block;
 
 import genesis.client.GenesisSounds;
+import genesis.metadata.BlocksAndItemsWithVariantsOfTypes;
 import genesis.metadata.EnumFern;
+import genesis.metadata.IMetadata;
+import genesis.metadata.Properties;
 import genesis.util.Constants;
 import genesis.util.Metadata;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -20,9 +26,25 @@ import net.minecraftforge.common.IShearable;
 
 public class BlockFern extends BlockPlant implements IShearable
 {
-	public BlockFern()
+	/**
+	 * Used in BlocksAndItemsWithVariantsOfTypes.
+	 */
+	@Properties
+	public static IProperty[] getProperties()
 	{
+		return new IProperty[]{};
+	}
+	
+	public BlockFern(List<IMetadata> variants, BlocksAndItemsWithVariantsOfTypes owner)
+	{
+		super(variants, owner);
+		
 		setStepSound(GenesisSounds.FERN);
+	}
+	
+	protected BlockState createOurBlockState()
+	{
+		return new BlockState(this, variantProp);
 	}
 
 	@Override
@@ -34,21 +56,12 @@ public class BlockFern extends BlockPlant implements IShearable
 	@Override
 	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune)
 	{
-		List<ItemStack> ret = new java.util.ArrayList<ItemStack>();
-		ret.add(Metadata.newStack((EnumFern) world.getBlockState(pos).getValue(Constants.FERN_VARIANT)));
+		ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
+		
+		EnumFern variant = (EnumFern) world.getBlockState(pos).getValue(variantProp);
+		ret.add(owner.getStack(this, variant));
+		
 		return ret;
-	}
-
-	@Override
-	protected IProperty getVariant()
-	{
-		return Constants.FERN_VARIANT;
-	}
-
-	@Override
-	protected Class getMetaClass()
-	{
-		return EnumFern.class;
 	}
 
 	@Override

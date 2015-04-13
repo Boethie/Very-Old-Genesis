@@ -9,6 +9,8 @@ import genesis.metadata.EnumDung;
 import genesis.metadata.EnumFern;
 import genesis.metadata.EnumNodule;
 import genesis.metadata.EnumPlant;
+import genesis.metadata.FernBlocks;
+import genesis.metadata.PlantBlocks;
 import genesis.metadata.TreeBlocks;
 import genesis.util.Constants;
 import genesis.util.RandomItemDrop;
@@ -56,11 +58,11 @@ public final class GenesisBlocks
 	public static final BlockCalamitesBundle calamites_bundle = new BlockCalamitesBundle().setUnlocalizedName("calamitesBundle");
 
 	/* Plants */
-	public static final BlockPlant plant = new BlockPlant().setUnlocalizedName("plant");
+	public static final PlantBlocks plants = new PlantBlocks();
 	public static final BlockGrowingPlant calamites = new BlockCalamites(true, 15, 10)
 			.setGrowthChanceMult(6, 1, 1)
 			.setUnlocalizedName("plant.calamites");
-	public static final BlockPlant fern = new BlockFern().setUnlocalizedName("fern");
+	public static final FernBlocks ferns = new FernBlocks();
 	public static final BlockAquaticPlant aquatic_plant = new BlockAquaticPlant().setUnlocalizedName("aquaticPlant");
 
 	/* Crops */
@@ -121,7 +123,8 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(dung_block, "dung_block", ItemBlockMetadata.class, EnumDung.class);
 		trees.registerObjects(TreeBlocks.WATTLE_FENCE);
 		Genesis.proxy.registerBlock(calamites_torch, "calamites_torch");
-		Genesis.proxy.registerBlock(plant, "plant", ItemBlockMetadata.class, EnumPlant.class);
+		
+		plants.registerAll();
 
 		Genesis.proxy.registerBlock(calamites, "calamites", null);
 		calamites.setDrops(new RandomItemDrop(GenesisItems.calamites, 1, 1));
@@ -129,7 +132,7 @@ public final class GenesisBlocks
 		calamites.setPickedItem(GenesisItems.calamites);
 		GenesisItems.calamites.setCrop(calamites);
 		
-		Genesis.proxy.registerBlock(fern, "fern", ItemBlockColored.class, EnumFern.class);
+		ferns.registerAll();
 		
 		Genesis.proxy.registerBlock(zingiberopsis, "zingiberopsis", null);
 		zingiberopsis.setPlantSize(0, 0.2F, 0.5F);
