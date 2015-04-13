@@ -436,7 +436,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	}
 	
 	/**
-	 * Cause the plant block to reset their age when they grow taller.
+	 * Cause the plant block to reset its age when they grow taller.
 	 * 
 	 * @return Returns this block.
 	 */
@@ -934,11 +934,10 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
 	{
 		boolean heightOK = new GrowingPlantProperties(worldIn, pos).getHeight() <= maxHeight;
-		heightOK = true;
-		
-		BlockPos under = pos.down();
-		IBlockState stateUnder = worldIn.getBlockState(under);
-		Block blockUnder = stateUnder.getBlock();
+
+		BlockPos below = pos.down();
+		IBlockState stateBelow = worldIn.getBlockState(below);
+		Block blockBelow = stateBelow.getBlock();
 		
 		/*boolean correctPlant = false;
 		
@@ -967,14 +966,14 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 			correctLand = false;
 			break;
 		case YIELD:
-			correctLand = blockUnder.canSustainPlant(worldIn, under, EnumFacing.UP, this);
+			correctLand = blockBelow.canSustainPlant(worldIn, below, EnumFacing.UP, this);
 			
-			if (blockUnder == this)
+			if (blockBelow == this)
 			{
 				GrowingPlantProperties props = new GrowingPlantProperties(worldIn, pos);
 				int height = props.getToBottom();
 				
-				if (height <= maxHeight)
+				if (height <= maxHeight && (resetAge || growthAge == maxAge))
 				{
 					correctLand = true;
 				}
@@ -1022,17 +1021,19 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 			boolean canPlace = super.canPlaceBlockAt(worldIn, pos);
 			
 			BlockPos below = pos.down();
+			IBlockState stateBelow = worldIn.getBlockState(below);
 			
-			if (worldIn.getBlockState(below).getBlock() == this)
+			if (stateBelow.getBlock() == this)
 			{
 				GrowingPlantProperties props = new GrowingPlantProperties(worldIn, below);
 				int height = props.getToBottom();
 				
-				if (height < maxHeight)
+				if (height < maxHeight && (resetAge || growthAge == maxAge))
 				{
 					canPlace = true;
 				}
 			}
+			
 			return canPlace;
 		}
 		
