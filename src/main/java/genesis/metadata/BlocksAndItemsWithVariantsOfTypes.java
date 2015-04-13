@@ -14,9 +14,11 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -32,6 +34,7 @@ import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemColored;
 import net.minecraft.item.ItemMultiTexture;
 import net.minecraft.item.ItemStack;
 
@@ -48,18 +51,21 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 	 * 
 	 * @param <T> For the type that should be returned when getting this type's Block/Item.
 	 */
-	public static class ObjectType<T extends Object> implements IMetadata
+	public static class ObjectType<T extends Object>
 	{
 		protected String name;
+		protected String postfix;
 		protected String unlocalizedName;
 		protected Class<? extends Block> blockClass;
 		protected Class<? extends Item> itemClass;
 		protected List<IMetadata> variantExclusions;
+		protected boolean variantJsons = true;
 		
-		public ObjectType(String name, String unlocalizedName, Class<? extends Block> blockClass, Class<? extends Item> itemClass, IMetadata... variantExclusions)
+		public ObjectType(String name, String unlocName, Class<? extends Block> blockClass, Class<? extends Item> itemClass, IMetadata... variantExclusions)
 		{
 			this.name = name;
-			this.unlocalizedName = unlocalizedName;
+			this.postfix = name;
+			this.unlocalizedName = unlocName;
 			this.blockClass = blockClass;
 			this.itemClass = itemClass;
 			this.variantExclusions = Arrays.asList(variantExclusions);
@@ -70,16 +76,26 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 			this(name, name, blockClass, itemClass, variantExclusions);
 		}
 		
-		@Override
 		public String getName()
 		{
 			return name;
 		}
 		
-		@Override
 		public String getUnlocalizedName()
 		{
 			return unlocalizedName;
+		}
+		
+		public String getPostfix()
+		{
+			return postfix;
+		}
+		
+		public ObjectType<T> setPostfix(String postfix)
+		{
+			this.postfix = postfix;
+			
+			return this;
 		}
 		
 		public Class<? extends Block> getBlockClass()
@@ -102,10 +118,19 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 		{
 			return null;
 		}
+		
+		public boolean getUseVariantJsons()
+		{
+			return variantJsons;
+		}
+		
+		public ObjectType<T> setUseVariantJsons(boolean use)
+		{
+			variantJsons = use;
+			
+			return this;
+		}
 	}
-	
-	public final List<ObjectType> types;
-	public final List<IMetadata> variants;
 	
 	protected class VariantEntry {
 		public Block block;
@@ -136,13 +161,21 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 	 * Map of Block/Item types to a map of variants to the block/item itself.
 	 */
 	protected final HashMap<ObjectType, HashMap<IMetadata, VariantEntry>> map = new HashMap<ObjectType, HashMap<IMetadata, VariantEntry>>();
+	public final List<ObjectType> types;
+	public final List<IMetadata> variants;
+	
 	
 	/**
 	 * Creates a BlocksAndItemsWithVariantsOfTypes with Blocks/Items from the "types" list containing the variants in "variants".
+	 * 
 	 * All Block classes that are constructed in this method MUST have a "public static IProperty[] getProperties()" to allow us to
 	 * determine how many variants can be stored in the block.
+	 * 
 	 * The Block's variant property must have a name of "variant" exactly.
-	 * The Block and Item classes must also have a constructor that takes a List<IMetadata> that tells the Block what variants it stores.
+	 * 
+	 * The Block and Item classes must also have a constructor with arguments
+	 * (List<IMetadata>, BlocksAndItemsWithVariantsOfTypes). The List tells the Block or Item what variants it
+	 * stores, and the BlocksAndItems... is the owner group of objects.
 	 * 
 	 * @param types The types of Blocks/Items (Objects) to store.
 	 * @param variants The variants to store for each Block/Item.
@@ -207,16 +240,31 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 					
 					if (blockClass != null)
 					{
-						Constructor<Block> constructor = (Constructor<Block>) blockClass.getConstructor(List.class);
-						block = constructor.newInstance(subVariants);
+						Constructor<Block> constructor = (Constructor<Block>) blockClass.getConstructor(List.class, BlocksAndItemsWithVariantsOfTypes.class);
+						block = constructor.newInstance(subVariants, this);
 						
 						// Construct item as necessary for registering as the item to accompany a block.
 						if (blockClass != null)
 						{
 							if (itemClass != null)
 							{
-								Constructor<Item> itemConstructor = (Constructor<Item>) itemClass.getConstructor(blockClass, List.class);
-								item = itemConstructor.newInstance(block, subVariants);
+								Class blockSuperClass = blockClass;
+								Constructor<Item> itemConstructor = null;
+								
+								while (blockSuperClass != Object.class)
+								{
+									try
+									{
+										itemConstructor = (Constructor<Item>) itemClass.getConstructor(blockSuperClass, List.class, BlocksAndItemsWithVariantsOfTypes.class);
+										break;
+									}
+									catch (NoSuchMethodException e)
+									{
+										blockSuperClass = blockSuperClass.getSuperclass();
+									}
+								}
+								
+								item = itemConstructor.newInstance(block, subVariants, this);
 							}
 							else
 							{
@@ -235,8 +283,8 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 					else if (itemClass != null)
 					{
 						// Construct and register the item alone.
-						Constructor<Item> itemConstructor = (Constructor<Item>) itemClass.getConstructor(List.class);
-						item = itemConstructor.newInstance(subVariants);
+						Constructor<Item> itemConstructor = (Constructor<Item>) itemClass.getConstructor(List.class, BlocksAndItemsWithVariantsOfTypes.class);
+						item = itemConstructor.newInstance(subVariants, this);
 					}
 					
 					// Add the Block or Item to our object map with its metadata ID.
@@ -263,7 +311,7 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 		this(Arrays.asList(objectTypes), Arrays.asList(variants));
 	}
 	
-	public void registerObjects(ObjectType type)
+	public void registerObjects(final ObjectType type)
 	{
 		ArrayList<Integer> registeredIDs = new ArrayList<Integer>();
 		
@@ -294,7 +342,43 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 						
 						if (stateMap == null)
 						{
-							stateMap = new StateMap.Builder().setProperty(variantProp).setBuilderSuffix("_" + type.getName()).build();
+							StateMap.Builder builder = new StateMap.Builder();
+							
+							if (type.getUseVariantJsons())
+							{
+								builder.setProperty(variantProp);
+							}
+							else
+							{
+								builder.setProperty(new IProperty(){
+									@Override
+									public String getName()
+									{
+										return type.getName();
+									}
+
+									@Override
+									public String getName(Comparable value)
+									{
+										return type.getName();
+									}
+
+									@Override
+									public Collection getAllowedValues() { return new ArrayList(); }
+
+									@Override
+									public Class getValueClass() { return null; }
+								});
+							}
+							
+							String postfix = type.getPostfix();
+							
+							if (postfix != null && postfix.length() > 0)
+							{
+								builder.setBuilderSuffix("_" + postfix);
+							}
+							
+							stateMap = builder.build();
 						}
 						
 						Genesis.proxy.registerModelStateMap(block, stateMap);
@@ -314,7 +398,15 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 				item.setUnlocalizedName(type.getUnlocalizedName());
 				
 				// Register item model location.
-				String resource = variant.getName() + "_" + type.getName();
+				String resource = variant.getName();
+				
+				String postfix = type.getPostfix();
+				
+				if (postfix != null && postfix.length() > 0)
+				{
+					resource += "_" + postfix;
+				}
+				
 				Genesis.proxy.registerModel(item, metadata, resource);
 			}
 		}
@@ -397,6 +489,16 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 	}
 	
 	/**
+	 * Gets a random IBlockState for the specified ObjectType.
+	 */
+	public IBlockState getRandomBlockState(ObjectType type, Random rand)
+	{
+		List<IMetadata> variants = getValidVariants(type);
+		
+		return getBlockState(type, variants.get(rand.nextInt(variants.size())));
+	}
+	
+	/**
 	 * Gets a stack of the specified Item in this combo with the specified stack size.
 	 */
 	public ItemStack getStack(ObjectType type, IMetadata variant, int stackSize)
@@ -423,8 +525,76 @@ public abstract class BlocksAndItemsWithVariantsOfTypes
 		return getStack(type, variant, 1);
 	}
 	
+	/**
+	 * Gets a stack of the specified Item in this combo.
+	 * 
+	 * @param obj The Block or Item containing the subitem of the specified variant.
+	 */
+	public ItemStack getStack(Object obj, IMetadata variant, int stackSize)
+	{
+		return getStack(getObjectType(obj), variant, 1);
+	}
+
+	/**
+	 * Gets a stack of the specified Item in this combo.
+	 * 
+	 * @param obj The Block or Item containing the subitem of the specified variant.
+	 */
+	public ItemStack getStack(Object obj, IMetadata variant)
+	{
+		return getStack(getObjectType(obj), variant);
+	}
+	
+	/**
+	 * Gets all the valid variants for this type of object.
+	 * 
+	 * @return List<IMetadata> containing all the variants this object can be.
+	 */
 	public List<IMetadata> getValidVariants(ObjectType type)
 	{
 		return type.getValidVariants(new ArrayList(variants));
+	}
+	
+	/**
+	 * @return Returns the ObjectType that the parameter obj was created for.
+	 */
+	public ObjectType getObjectType(Object obj)
+	{
+		Class objClass = obj.getClass();
+		
+		for (ObjectType type : types)
+		{
+			if (objClass == type.blockClass || objClass == type.itemClass)
+			{
+				return type;
+			}
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Wrapper for getSubItems(Object, List<IMetadata>, List<ItemStack>) to create a new list.
+	 */
+	public List<ItemStack> getSubItems(Object obj, List<IMetadata> variants)
+	{
+		return fillSubItems(obj, variants, new ArrayList<ItemStack>());
+	}
+	
+	/**
+	 * Fills the provided list with all the valid sub-items for this Block or Item.
+	 * 
+	 * @return List<ItemStack> containing all sub-items for this Block or Item.
+	 */
+	public <T extends IMetadata> List<ItemStack> fillSubItems(Object obj, List<T> variants, List<ItemStack> listToFill)
+	{
+		ObjectType objectType = getObjectType(obj);
+		
+		for (IMetadata variant : variants)
+		{
+			listToFill.add(getStack(objectType, variant));
+		}
+		
+		return listToFill;
 	}
 }

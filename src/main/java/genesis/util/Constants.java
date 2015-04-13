@@ -29,8 +29,6 @@ public final class Constants
 	public static final String CLIENT_LOCATION = "genesis.client.GenesisClient";
 
 	public static final PropertyEnum DUNG_VARIANT = PropertyEnum.create("variant", EnumDung.class);
-	public static final PropertyEnum PLANT_VARIANT = PropertyEnum.create("variant", EnumPlant.class);
-	public static final PropertyEnum FERN_VARIANT = PropertyEnum.create("variant", EnumFern.class);
 	public static final PropertyInteger PROTOTAXITES_AGE = PropertyInteger.create("age", 0, 15);
 	public static final PropertyEnum CORAL_VARIANT = PropertyEnum.create("variant", EnumCoral.class);
 	public static final PropertyEnum AQUATIC_PLANT_VARIANT = PropertyEnum.create("variant", EnumAquaticPlant.class);

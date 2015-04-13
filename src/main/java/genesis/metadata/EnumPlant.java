@@ -38,6 +38,6 @@ public enum EnumPlant implements IMetaSingle
 	@Override
 	public Item getItem()
 	{
-		return Item.getItemFromBlock(GenesisBlocks.plant);
+		return null;
 	}
 }

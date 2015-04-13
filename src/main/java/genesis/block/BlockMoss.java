@@ -92,23 +92,20 @@ public class BlockMoss extends BlockGrass
 				}
 				else if (worldIn.isAirBlock(topBlock))
 				{
-					BlockPlant plant;
 					IBlockState randPlant;
 
 					if (rand.nextInt(8) == 0)
 					{
 						// Plant Flower
-						plant = GenesisBlocks.plant;
-						randPlant = plant.getDefaultState().withProperty(Constants.PLANT_VARIANT, Metadata.getRandom(EnumPlant.class));
+						randPlant = GenesisBlocks.plants.getRandomBlockState(GenesisBlocks.plants.PLANT, rand);
 					}
 					else
 					{
 						// Plant Grass
-						plant = GenesisBlocks.fern;
-						randPlant = plant.getDefaultState().withProperty(Constants.FERN_VARIANT, Metadata.getRandom(EnumFern.class));
+						randPlant = GenesisBlocks.ferns.getRandomBlockState(GenesisBlocks.ferns.FERN, rand);
 					}
-
-					if (plant.canBlockStay(worldIn, topBlock, randPlant))
+					
+					if (((BlockPlant)randPlant.getBlock()).canBlockStay(worldIn, topBlock, randPlant))
 					{
 						worldIn.setBlockState(topBlock, randPlant, 3);
 					}
