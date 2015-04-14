@@ -20,25 +20,23 @@ public class ToolHead implements IMetadata
 		}
 	}
 
+	public Pair traits = bimap.inverse().get(this);
+	public EnumToolMaterial material = (EnumToolMaterial) traits.getLeft();
+	public EnumToolQuality quality = (EnumToolQuality) traits.getRight();
+
 	public ToolHead getToolHead(EnumToolQuality quality, EnumToolMaterial material) {
 		return bimap.get(Pair.of(quality,material));
-	}
-
-	public Pair getTraits() {
-		return bimap.inverse().get(this);
 	}
 
 	@Override
 	public String getName()
 	{
-		Pair traits = getTraits();
-		return traits.getLeft() + "_" + traits.getRight();
+		return quality.toString() + "_" + material.toString();
 	}
 
 	@Override
 	public String getUnlocalizedName()
 	{
-		Pair traits = getTraits();
-		return traits.getLeft().toString().toLowerCase() + (traits.getLeft().toString()).substring(0, 1).toUpperCase() + (traits.getRight().toString());
+		return quality.toString().toLowerCase() + (material.toString()).substring(0, 1).toUpperCase() + (material.toString());
 	}
 }
