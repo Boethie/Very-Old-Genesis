@@ -1,13 +1,16 @@
 package genesis.metadata;
 
+import java.util.HashMap;
 
-
-import com.google.common.collect.HashBiMap;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class ToolHead implements IMetadata
 {
-	static HashBiMap<Pair<EnumToolQuality, EnumToolMaterial>, ToolHead> bimap = HashBiMap.create();
+	static HashMap<Pair<EnumToolQuality, EnumToolMaterial>, ToolHead> map = new HashMap();
+
+	public static ToolHead getToolHead(EnumToolQuality quality, EnumToolMaterial material) {
+		return map.get(Pair.of(quality, material));
+	}
 
 	static
 	{
@@ -15,17 +18,18 @@ public class ToolHead implements IMetadata
 		{
 			for (EnumToolQuality quality : EnumToolQuality.values())
 			{
-				bimap.put(Pair.of(quality, material), new ToolHead());
+				map.put(Pair.of(quality, material), new ToolHead(material, quality));
 			}
 		}
 	}
 
-	public Pair traits = bimap.inverse().get(this);
-	public EnumToolMaterial material = (EnumToolMaterial) traits.getLeft();
-	public EnumToolQuality quality = (EnumToolQuality) traits.getRight();
-
-	public ToolHead getToolHead(EnumToolQuality quality, EnumToolMaterial material) {
-		return bimap.get(Pair.of(quality,material));
+	public final EnumToolMaterial material;
+	public final EnumToolQuality quality;
+	
+	public ToolHead(EnumToolMaterial material, EnumToolQuality quality)
+	{
+		this.material = material;
+		this.quality = quality;
 	}
 
 	@Override
@@ -37,6 +41,6 @@ public class ToolHead implements IMetadata
 	@Override
 	public String getUnlocalizedName()
 	{
-		return quality.toString().toLowerCase() + (material.toString()).substring(0, 1).toUpperCase() + (material.toString());
+		return quality.toString().toLowerCase() + material.toString().substring(0, 1).toUpperCase() + material.toString().substring(1);
 	}
 }
