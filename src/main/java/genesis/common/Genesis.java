@@ -1,11 +1,6 @@
 package genesis.common;
 
-import genesis.metadata.EnumCoral;
-import genesis.metadata.EnumDung;
-import genesis.metadata.EnumFern;
-import genesis.metadata.EnumNodule;
-import genesis.metadata.EnumPebble;
-import genesis.metadata.EnumPlant;
+import genesis.metadata.*;
 import genesis.util.Constants;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;

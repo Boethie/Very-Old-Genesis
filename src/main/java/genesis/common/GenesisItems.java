@@ -55,7 +55,6 @@ public final class GenesisItems
 	public static final ItemGenesisBucket ceramic_bucket = new ItemGenesisBucket(Blocks.air).setUnlocalizedName("ceramicBucket").setContainerItem(GenesisItems.ceramic_bucket);
 	public static final ItemGenesisBucket ceramic_bucket_water = new ItemGenesisBucket(Blocks.flowing_water).setUnlocalizedName("ceramicBucketWater");
 	public static final ItemGenesisBucketMilk ceramic_bucket_milk = new ItemGenesisBucketMilk().setUnlocalizedName("ceramicBucketMilk");
-	public static ToolHeads toolheads = new ToolHeads();
 
 	public static void registerItems()
 	{
@@ -96,12 +95,6 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(ceramic_bucket, "ceramic_bucket");
 		Genesis.proxy.registerItem(ceramic_bucket_water, "ceramic_bucket_water");
 		Genesis.proxy.registerItem(ceramic_bucket_milk, "ceramic_bucket_milk");
-		toolheads.registerObjects(ToolHeads.TOOLHEAD_AXE);
-		toolheads.registerObjects(ToolHeads.TOOLHEAD_KNIFE);
-		toolheads.registerObjects(ToolHeads.TOOLHEAD_PICK);
-		toolheads.registerObjects(ToolHeads.TOOLHEAD_SPEAR);
-		toolheads.registerObjects(ToolHeads.TOOLHEAD_POINT);
-		toolheads.registerObjects(ToolHeads.TOOLHEAD_ARROW);
 
 		FluidContainerRegistry.registerFluidContainer(new FluidContainerRegistry.FluidContainerData(new FluidStack(FluidRegistry.getFluid("water"), 1), new ItemStack(ceramic_bucket_water), new ItemStack(ceramic_bucket)));
 	}

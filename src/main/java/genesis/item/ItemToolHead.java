@@ -5,8 +5,10 @@ import genesis.item.ItemGenesis;
 import genesis.metadata.BlocksAndItemsWithVariantsOfTypes;
 import genesis.metadata.IMetadata;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 
 import java.util.List;
 
