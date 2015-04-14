@@ -1,6 +1,7 @@
 package genesis.block;
 
 import genesis.client.GenesisSounds;
+import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.common.GenesisItems;
 import genesis.util.Constants;
@@ -17,7 +18,11 @@ public class BlockCalamitesBundle extends BlockHay
 	{
 		setStepSound(GenesisSounds.CALAMITES);
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
-		Blocks.fire.setFireInfo(this, 60, 20);
+
+		setHardness(1);
+		setHarvestLevel("axe", 0);
+
+		Blocks.fire.setFireInfo(this, 30, 5);
 	}
 
 	@Override
@@ -26,17 +31,5 @@ public class BlockCalamitesBundle extends BlockHay
 		super.setUnlocalizedName(Constants.PREFIX + name);
 
 		return this;
-	}
-
-	@Override
-	public int quantityDropped(Random random)
-	{
-		return 9;
-	}
-
-	@Override
-	public Item getItemDropped(IBlockState state, Random rand, int fortune)
-	{
-		return GenesisItems.calamites;
 	}
 }
