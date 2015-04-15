@@ -16,6 +16,7 @@ public class ItemToolHead extends ItemGenesis
 {
 	protected final List<IMetadata> variants;
 	public final VariantsOfTypesCombo owner;
+	
 	public ItemToolHead(List<IMetadata> variants, VariantsOfTypesCombo owner)
 	{
 		super();

@@ -2,7 +2,7 @@ package genesis.metadata;
 
 public enum EnumToolQuality implements IMetadata
 {
-	CHIPPED("chipped"), POLISHED("polished"), SHARPENED("sharpened");
+	NONE(null), CHIPPED("chipped"), POLISHED("polished"), SHARPENED("sharpened");
 
 	String name;
 	String unlocalizedName;

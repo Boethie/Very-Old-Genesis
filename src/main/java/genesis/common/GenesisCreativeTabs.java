@@ -1,7 +1,6 @@
 package genesis.common;
 
-import genesis.metadata.EnumPebble;
-import genesis.metadata.EnumPlant;
+import genesis.metadata.*;
 import genesis.util.Constants;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -65,7 +64,7 @@ public final class GenesisCreativeTabs
 		@Override
 	    public ItemStack getIconItemStack()
 	    {
-			return GenesisItems.pebbles.getStack(EnumPebble.GRANITE);	// TODO: use chipped bone spear when added
+			return GenesisItems.tools.getStack(GenesisItems.tools.PEBBLE, EnumToolMaterial.GRANITE);	// TODO: use chipped bone spear when added
 	    }
 
 		@Override

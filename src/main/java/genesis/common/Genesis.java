@@ -28,7 +28,6 @@ public class Genesis
 		GenesisVersion.startVersionCheck();
 		GenesisConfig.readConfigValues(event.getSuggestedConfigurationFile());
 
-		initEnums();
 		GenesisBlocks.registerBlocks();
 		GenesisItems.registerItems();
 
@@ -57,16 +56,6 @@ public class Genesis
 		proxy.postInit();
 		
 		GenesisRecipes.doSubstitutes();
-	}
-	
-	private void initEnums()
-	{
-		EnumPlant.values();
-		EnumFern.values();
-		EnumCoral.values();
-		EnumDung.values();
-		EnumPebble.values();
-		EnumNodule.values();
 	}
 
 	private void registerTileEntities()

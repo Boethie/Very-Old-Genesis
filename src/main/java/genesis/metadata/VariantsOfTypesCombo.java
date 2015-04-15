@@ -68,6 +68,7 @@ public class VariantsOfTypesCombo
 		
 		protected String name;
 		protected String unlocalizedName;
+		protected Function<IMetadata, String> resourceNameFunction;
 		protected Class<? extends Block> blockClass;
 		protected Class<? extends Item> itemClass;
 		protected List<IMetadata> variantExclusions;
@@ -116,6 +117,18 @@ public class VariantsOfTypesCombo
 		public String getUnlocalizedName()
 		{
 			return unlocalizedName;
+		}
+		
+		public ObjectType<T> setResourceNameFunction(Function<IMetadata, String> func)
+		{
+			this.resourceNameFunction = func;
+			
+			return this;
+		}
+		
+		public Function<IMetadata, String> getResourceNameFunction()
+		{
+			return resourceNameFunction;
 		}
 		
 		public ObjectNamePosition getNamePosition()
@@ -218,7 +231,7 @@ public class VariantsOfTypesCombo
 	protected final HashMap<ObjectType, HashMap<IMetadata, VariantEntry>> map = new HashMap<ObjectType, HashMap<IMetadata, VariantEntry>>();
 	public final List<ObjectType> types;
 	public final List<IMetadata> variants;
-	
+	public final HashSet<ObjectType> registeredTypes = new HashSet();
 	
 	/**
 	 * Creates a BlocksAndItemsWithVariantsOfTypes with Blocks/Items from the "types" list containing the variants in "variants".
@@ -359,6 +372,11 @@ public class VariantsOfTypesCombo
 	 */
 	public void registerVariants(final ObjectType type)
 	{
+		if (!registeredTypes.add(type))
+		{
+			return;
+		}
+		
 		ArrayList<Integer> registeredIDs = new ArrayList<Integer>();
 		
 		for (IMetadata variant : getValidVariants(type))
@@ -418,88 +436,14 @@ public class VariantsOfTypesCombo
 								((IModifyStateMap) block).customizeStateMap(flexStateMap);
 							}
 							
+							Function<String, String> nameFunction = type.getResourceNameFunction();
+							
+							if (nameFunction != null)
+							{
+								flexStateMap.setNameFunction(nameFunction);
+							}
+							
 							stateMap = flexStateMap;
-							
-							/*StateMap.Builder builder = new StateMap.Builder();
-							
-							final IProperty wrappedProp;
-							
-							if (type.getUseSeparateVariantJsons())
-							{
-								wrappedProp = variantProp;
-								
-								String postfix = type.getPostfix();
-								
-								if (postfix != null && postfix.length() > 0)
-								{
-									builder.setBuilderSuffix(postfix);
-								}
-							}
-							else
-							{
-								wrappedProp = new IProperty() {
-									@Override
-									public String getName()
-									{
-										return type.getName();
-									}
-
-									@Override
-									public String getName(Comparable value)
-									{
-										return type.getName();
-									}
-
-									@Override
-									public Collection getAllowedValues() { return new ArrayList(); }
-
-									@Override
-									public Class getValueClass() { return null; }
-								};
-							}
-							
-							final String prefix = type.getPrefix();
-							final IProperty builderProp;
-							
-							builderProp = new IProperty() {
-								@Override
-								public String getName()
-								{
-									return prefix + wrappedProp.getName();
-								}
-								
-								@Override
-								public String getName(Comparable value)
-								{
-									return prefix + wrappedProp.getName(value);
-								}
-								
-								@Override
-								public Collection getAllowedValues()
-								{
-									return wrappedProp.getAllowedValues();
-								}
-								
-								@Override
-								public Class getValueClass() {
-									return wrappedProp.getValueClass();
-								}
-							};
-							
-							if (builderProp != null)
-							{
-								builder.setProperty(builderProp);
-							}
-							
-							if (block instanceof IModifyStateMap)
-							{
-								((IModifyStateMap) block).customizeStateMap(builder);
-							}
-							
-							type.customizeStateMap(builder);
-							
-							stateMap = builder.build();
-							builder.build();*/
 						}
 						
 						Genesis.proxy.registerModelStateMap(block, stateMap);
@@ -532,6 +476,13 @@ public class VariantsOfTypesCombo
 					resource += "_" + type.getName();
 					break;
 				default:
+				}
+				
+				Function<IMetadata, String> nameFunction = type.getResourceNameFunction();
+				
+				if (nameFunction != null)
+				{
+					resource = nameFunction.apply(variant);
 				}
 				
 				Genesis.proxy.registerModel(item, metadata, resource);
@@ -574,7 +525,7 @@ public class VariantsOfTypesCombo
 	 */
 	public String getIdentification()
 	{
-		return "This " + VariantsOfTypesCombo.class.getSimpleName() + " contains ObjectTypes " + Stringify.stringify(types) + " and variants " + Stringify.stringify(variants) + ".";
+		return "This " + getClass().getSimpleName() + " contains ObjectTypes " + Stringify.stringify(types) + " and variants " + Stringify.stringify(variants) + ".";
 	}
 
 	/**

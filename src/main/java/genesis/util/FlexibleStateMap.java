@@ -2,6 +2,7 @@ package genesis.util;
 
 import java.util.*;
 
+import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
@@ -15,6 +16,7 @@ public class FlexibleStateMap extends StateMapperBase
 	protected String prefix = "";
 	protected IProperty nameProperty = null;
 	protected String postfix = "";
+	protected Function<String, String> nameFunction = null;
 	protected ArrayList<IProperty> ignoreProperties;
 	
 	public FlexibleStateMap(IProperty... ignoreProperties)
@@ -42,6 +44,11 @@ public class FlexibleStateMap extends StateMapperBase
 		
 		return this;
 	}
+
+	public void setNameFunction(Function<String, String> nameFunction)
+	{
+		this.nameFunction = nameFunction;
+	}
 	
 	public FlexibleStateMap addIgnoredProperties(IProperty... addProperties)
 	{
@@ -67,6 +74,11 @@ public class FlexibleStateMap extends StateMapperBase
 		for (IProperty property : ignoreProperties)
 		{
 			propertyMap.remove(property);
+		}
+		
+		if (nameFunction != null)
+		{
+			output = nameFunction.apply(output);
 		}
 		
 		return new ModelResourceLocation(output, getPropertyString(propertyMap));

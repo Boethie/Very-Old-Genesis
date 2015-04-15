@@ -1,6 +1,6 @@
 package genesis.util;
 
-import java.util.Collection;
+import java.util.*;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -24,6 +24,11 @@ public class Stringify
 	
 	public static String stringify(Object obj)
 	{
+		if (obj instanceof Collection)
+		{
+			return stringify((Collection) obj);
+		}
+		
 		if (obj instanceof IStringSerializable)
 		{
 			return ((IStringSerializable)obj).getName();

@@ -4,10 +4,8 @@ import net.minecraft.item.Item;
 
 public enum EnumToolMaterial implements IMetadata
 {
-	GRANITE("granite"), RHYOLITE("rhyolite"), QUARTZITE("quartzite"), DOLERITE("dolerite"), BROWNFLINT("brownFlint");
-
-
-
+	GRANITE("granite"), RHYOLITE("rhyolite"), QUARTZITE("quartzite"), DOLERITE("dolerite"), BROWN_FLINT("brown_flint", "brownFlint");
+	
 	String name;
 	String unlocalizedName;
 
