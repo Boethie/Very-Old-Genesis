@@ -33,7 +33,7 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo
 	
 	public TreeBlocksAndItems()
 	{
-		super(new ObjectType[] {LOG, BILLET, WATTLE_FENCE}, EnumTree.values());
+		super(new ObjectType[]{LOG, BILLET, WATTLE_FENCE}, EnumTree.values());
 
 		for (IMetadata variant : getValidVariants(BILLET))
 		{
