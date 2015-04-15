@@ -2,6 +2,8 @@ package genesis.util;
 
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
+import genesis.metadata.EnumDung;
+import genesis.metadata.IMetadata;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -12,6 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraftforge.fml.common.IFuelHandler;
+import net.minecraftforge.oredict.OreDictionary;
 
 public final class FuelHandler implements IFuelHandler
 {
@@ -20,23 +23,30 @@ public final class FuelHandler implements IFuelHandler
 
 	private FuelHandler()
 	{
-		int burnTime = TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.log));
-		setBurnTime(GenesisItems.dung, burnTime);
-		setBurnTime(GenesisBlocks.dung_block, burnTime * 4);
 	}
 
-	public void setBurnTime(Block fuel, int burnTime)
+	public void setBurnTime(Block fuel, int burnTime, boolean wildcard)
 	{
-		setBurnTime(Item.getItemFromBlock(fuel), burnTime);
+		setBurnTime(Item.getItemFromBlock(fuel), burnTime, wildcard);
 	}
 
-	public void setBurnTime(Item fuel, int burnTime)
+	public void setBurnTime(Item fuel, int burnTime, boolean wildcard)
 	{
-		setBurnTime(new ItemStack(fuel), burnTime);
+		setBurnTime(new ItemStack(fuel), burnTime, wildcard);
 	}
 
-	public void setBurnTime(ItemStack fuel, int burnTime)
+	public void setBurnTime(ItemStack fuel, int burnTime, boolean wildcard)
 	{
+		if (fuel == null)
+		{
+			throw new IllegalArgumentException("Attempted to register a null ItemStack as a fuel.");
+		}
+		
+		if (wildcard)
+		{
+			fuel.setItemDamage(OreDictionary.WILDCARD_VALUE);
+		}
+		
 		fuels.put(fuel, burnTime);
 	}
 
@@ -55,10 +65,18 @@ public final class FuelHandler implements IFuelHandler
 	{
 		for (Entry<ItemStack, Integer> entry : fuels.entrySet())
 		{
-			// TODO: fuels with wildcard metadata
-			if (entry.getKey().getItem() == fuel.getItem())
+			ItemStack registryFuel = entry.getKey();
+			
+			if (fuel != null)
 			{
-				return entry.getValue();
+				if (registryFuel.getItem() == fuel.getItem())
+				{
+					if (registryFuel.getMetadata() == OreDictionary.WILDCARD_VALUE ||
+							registryFuel.getMetadata() == fuel.getMetadata())
+					{
+						return entry.getValue();
+					}
+				}
 			}
 		}
 

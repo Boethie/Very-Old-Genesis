@@ -1,12 +1,10 @@
 package genesis.metadata;
 
 import genesis.common.GenesisBlocks;
-import genesis.util.Metadata;
 import net.minecraft.item.Item;
 
-public enum EnumAquaticPlant implements IMetaSingle
+public enum EnumAquaticPlant implements IMetadata
 {
-
 	BANGIOMORPHA("bangiomorpha"), MARPOLIA("marpolia"), MARGERETIA("margaretia"), CHANCELLORIA("chancelloria"), HAZELLA("hazelia"),
 	DIAONIELLA("diagoniella"), PIRANIA("pirania"), VAUXIA("vauxia"), WAPKIA("wapkia"), PTERIDINIUM("pteridinium"), DINOMISCHUS("dinomischus"),
 	THAUMAPTILON("thaumaptilon"), PRIMOCANDELABRUM("primocandelabrum"), CHARNIA("charnia"), CHARNIA_TOP("charnia_top");
@@ -23,7 +21,6 @@ public enum EnumAquaticPlant implements IMetaSingle
 	{
 		this.name = name;
 		this.unlocalizedName = unlocalizedName;
-		Metadata.add(this);
 	}
 
 	@Override
@@ -37,11 +34,4 @@ public enum EnumAquaticPlant implements IMetaSingle
 	{
 		return this.unlocalizedName;
 	}
-
-	@Override
-	public Item getItem()
-	{
-		return Item.getItemFromBlock(GenesisBlocks.aquatic_plant);
-	}
-
 }

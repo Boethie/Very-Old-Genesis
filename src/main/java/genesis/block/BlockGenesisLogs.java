@@ -2,7 +2,8 @@ package genesis.block;
 
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
-import genesis.metadata.BlocksAndItemsWithVariantsOfTypes;
+import genesis.metadata.IMetadata;
+import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.EnumTree;
 import genesis.metadata.Properties;
 import genesis.util.BlockStateToMetadata;
@@ -34,38 +35,30 @@ public class BlockGenesisLogs extends BlockLog
 		return new IProperty[]{ LOG_AXIS };
 	}
 	
-	public final BlocksAndItemsWithVariantsOfTypes owner;
+	public final VariantsOfTypesCombo owner;
 	
-	public final PropertyEnum variantProp;
 	public final List<EnumTree> variants;
+	public final PropertyEnum variantProp;
 	
-	public BlockGenesisLogs(List<EnumTree> variants, BlocksAndItemsWithVariantsOfTypes owner)
+	public BlockGenesisLogs(List<EnumTree> variants, VariantsOfTypesCombo owner)
 	{
 		super();
 		
 		this.owner = owner;
 		
-		variantProp = PropertyEnum.create("variant", EnumTree.class, variants);
 		this.variants = variants;
+		variantProp = PropertyEnum.create("variant", EnumTree.class, variants);
 		
-		blockState = createOurBlockState();
+		blockState = new BlockState(this, variantProp, LOG_AXIS);
 		setDefaultState(getBlockState().getBaseState().withProperty(LOG_AXIS, EnumAxis.NONE));
 		
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
-	}
-	
-	protected BlockState createOurBlockState()
-	{
-		return new BlockState(this, variantProp, LOG_AXIS);
 	}
 
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
 	{
-		for (EnumTree treeType : variants)
-		{
-			list.add(new ItemStack(itemIn, 1, variants.indexOf(treeType)));
-		}
+		owner.fillSubItems(this, variants, list);
 	}
 	
 	@Override
@@ -96,6 +89,6 @@ public class BlockGenesisLogs extends BlockLog
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return variants.indexOf(state.getValue(variantProp));
+		return owner.getStack(this, (IMetadata) state.getValue(variantProp)).getItemDamage();
 	}
 }

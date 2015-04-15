@@ -2,12 +2,9 @@ package genesis.client;
 
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisProxy;
-import genesis.item.ItemGenesisMetadata;
-import genesis.metadata.IMetaMulti;
 import genesis.metadata.IMetadata;
 import genesis.util.Constants;
 import genesis.util.GenesisStateMap;
-import genesis.util.Metadata;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -71,11 +68,6 @@ public class GenesisClient extends GenesisProxy
 						{
 							String textureName = values[metadata].getName();
 
-							if (IMetaMulti.class.isAssignableFrom(argClass))
-							{
-								textureName = ((IMetaMulti) values[metadata]).getName("block");
-							}
-
 							registerModel(block, metadata, textureName);
 							addVariantName(block, textureName);
 						}
@@ -94,20 +86,7 @@ public class GenesisClient extends GenesisProxy
 	{
 		super.registerItem(item, name);
 
-		if (item instanceof ItemGenesisMetadata)
-		{
-			ArrayList<IMetadata> lookup = Metadata.getLookup(((ItemGenesisMetadata) item).getMetaClass());
-
-			for (int metadata = 0; metadata < lookup.size(); metadata++)
-			{
-				String textureName = name + "_" + lookup.get(metadata).getName();
-				registerModel(item, metadata, textureName);
-			}
-		}
-		else
-		{
-			registerModel(item, name);
-		}
+		registerModel(item, name);
 	}
 
 	private void registerMetaModels(Block block, IMetadata[] values)
@@ -138,11 +117,6 @@ public class GenesisClient extends GenesisProxy
 	{
 		ModelLoader.setCustomModelResourceLocation(item, metadata, new ModelResourceLocation(Constants.ASSETS + textureName, "inventory"));
 		addVariantName(item, textureName);
-		
-		if ((item instanceof ItemBlock) && (Block.getBlockFromItem(item) == GenesisBlocks.aquatic_plant))
-		{
-			registerModelStateMap(GenesisBlocks.aquatic_plant, (new StateMap.Builder()).addPropertiesToIgnore(BlockLiquid.LEVEL).build());
-		}
 	}
 
 	@Override

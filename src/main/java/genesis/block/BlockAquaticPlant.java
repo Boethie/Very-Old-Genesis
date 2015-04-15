@@ -10,15 +10,22 @@ import genesis.client.GenesisSounds;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.metadata.EnumAquaticPlant;
+import genesis.metadata.IMetadata;
+import genesis.metadata.IModifyStateMap;
+import genesis.metadata.Properties;
+import genesis.metadata.VariantsOfTypesCombo;
+import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants;
-import genesis.util.Metadata;
+import genesis.util.FlexibleStateMap;
 import genesis.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.statemap.StateMap.Builder;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -33,15 +40,62 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockAquaticPlant extends BlockMetadata
+public class BlockAquaticPlant extends BlockGenesis implements IModifyStateMap
 {
+	/**
+	 * Used in BlocksAndItemsWithVariantsOfTypes.
+	 */
+	@Properties
+	public static IProperty[] getProperties()
+	{
+		return new IProperty[]{};
+	}
+	
+	public final VariantsOfTypesCombo owner;
+	
+	public final List<EnumAquaticPlant> variants;
+	public final PropertyEnum variantProp;
+	
+	private Set<Block> validGround;
 
-	private Set<Block> bases;
-
-	public BlockAquaticPlant()
+	public BlockAquaticPlant(List<EnumAquaticPlant> variants, VariantsOfTypesCombo owner)
 	{
 		super(Material.water);
-		this.setItemDropped(Item.getItemFromBlock(this)).setQuantityDropped(1).setStepSound(GenesisSounds.AQUATICPLANT).setHardness(0.0F).setTickRandomly(true).setCreativeTab(GenesisCreativeTabs.DECORATIONS);
+		
+		this.owner = owner;
+		
+		this.variants = variants;
+		variantProp = PropertyEnum.create("variant", EnumAquaticPlant.class, variants);
+		
+		blockState = new BlockState(this, variantProp, BlockLiquid.LEVEL);
+		setDefaultState(getBlockState().getBaseState());
+		
+		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
+		
+		setItemDropped(Item.getItemFromBlock(this));
+		setQuantityDropped(1);
+		
+		setHardness(0.0F);
+		setStepSound(GenesisSounds.AQUATICPLANT);
+		setTickRandomly(true);
+	}
+
+	@Override
+	public void customizeStateMap(FlexibleStateMap stateMap)
+	{
+		stateMap.addIgnoredProperties(BlockLiquid.LEVEL);
+	}
+	
+	@Override
+	public int getMetaFromState(IBlockState state)
+	{
+		return BlockStateToMetadata.getMetaForBlockState(state, variantProp);
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int metadata)
+	{
+		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), metadata, variantProp);
 	}
 
 	@Override
@@ -55,8 +109,9 @@ public class BlockAquaticPlant extends BlockMetadata
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
 	{
-		super.getSubBlocks(itemIn, tab, list);
-		list.remove(list.size() - 2);
+		//super.getSubBlocks(itemIn, tab, list);
+		//list.remove(list.size() - 2);
+		owner.fillSubItems(this, variants, list, EnumAquaticPlant.CHARNIA);
 	}
 
 	@Override
@@ -160,40 +215,34 @@ public class BlockAquaticPlant extends BlockMetadata
 				world.setBlockState(pos.up(), Blocks.water.getStateFromMeta(0), 3);
 			}
 		}
-		
-		/*if (!world.isRemote && variant != EnumAquaticPlant.CHARNIA)
-		{
-			ItemStack stack = Metadata.newStack(variant);
-			Entity entity = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), stack);
-			world.spawnEntityInWorld(entity);
-		}*/
 	}
 
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		EnumAquaticPlant variant = (EnumAquaticPlant) state.getValue(Constants.AQUATIC_PLANT_VARIANT);
-		return Metadata.getMetadata(variant == EnumAquaticPlant.CHARNIA ? EnumAquaticPlant.CHARNIA_TOP : variant);
+		//EnumAquaticPlant variant = (EnumAquaticPlant) state.getValue(Constants.AQUATIC_PLANT_VARIANT);
+		//return Metadata.getMetadata(variant == EnumAquaticPlant.CHARNIA ? EnumAquaticPlant.CHARNIA_TOP : variant);
+		return owner.getStack(this, (IMetadata) state.getValue(variantProp)).getItemDamage();
 	}
 
 	public boolean canBlockStay(World world, BlockPos pos, IBlockState state)
 	{
-		if (this.bases == null)
+		if (validGround == null)
 		{
-			this.bases = Sets.newIdentityHashSet();
-			this.bases.add(Blocks.dirt);
-			this.bases.add(Blocks.sand);
-			this.bases.add(Blocks.gravel);
-			this.bases.add(Blocks.clay);
-			this.bases.add(GenesisBlocks.red_clay);
-			this.bases.add(GenesisBlocks.coral);
+			validGround = Sets.newIdentityHashSet();
+			validGround.add(Blocks.dirt);
+			validGround.add(Blocks.sand);
+			validGround.add(Blocks.gravel);
+			validGround.add(Blocks.clay);
+			validGround.add(GenesisBlocks.red_clay);
+			validGround.addAll(GenesisBlocks.corals.getObjects(GenesisBlocks.corals.soleType));
 		}
 		
 		IBlockState below = world.getBlockState(pos.down());
 		Block blockBelow = below.getBlock();
 		EnumAquaticPlant variant = (EnumAquaticPlant) state.getValue(Constants.AQUATIC_PLANT_VARIANT);
 		
-		if (!this.bases.contains(blockBelow)
+		if (!validGround.contains(blockBelow)
 				&& blockBelow instanceof BlockGenesisRock == false
 				&& (variant != EnumAquaticPlant.CHARNIA_TOP || blockBelow != this || ((EnumAquaticPlant) below.getValue(Constants.AQUATIC_PLANT_VARIANT)) != EnumAquaticPlant.CHARNIA))
 		{
@@ -243,28 +292,9 @@ public class BlockAquaticPlant extends BlockMetadata
 	}
 
 	@Override
-	protected BlockState createBlockState()
-	{
-		return new BlockState(this, this.getVariant(), BlockLiquid.LEVEL);
-	}
-
-	@Override
 	@SideOnly(Side.CLIENT)
 	public EnumWorldBlockLayer getBlockLayer()
 	{
 		return EnumWorldBlockLayer.CUTOUT;
 	}
-
-	@Override
-	protected IProperty getVariant()
-	{
-		return Constants.AQUATIC_PLANT_VARIANT;
-	}
-
-	@Override
-	protected Class getMetaClass()
-	{
-		return EnumAquaticPlant.class;
-	}
-
 }

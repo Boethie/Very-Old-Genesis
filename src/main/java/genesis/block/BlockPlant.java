@@ -2,7 +2,7 @@ package genesis.block;
 
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
-import genesis.metadata.BlocksAndItemsWithVariantsOfTypes;
+import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.EnumPlant;
 import genesis.metadata.IMetadata;
 import genesis.metadata.Properties;
@@ -36,12 +36,12 @@ public class BlockPlant extends BlockBush
 		return new IProperty[]{};
 	}
 	
-	public final BlocksAndItemsWithVariantsOfTypes owner;
+	public final VariantsOfTypesCombo owner;
 	
 	public final PropertyEnum variantProp;
 	public final List<IMetadata> variants;
 	
-	public BlockPlant(List<IMetadata> variants, BlocksAndItemsWithVariantsOfTypes owner)
+	public BlockPlant(List<IMetadata> variants, VariantsOfTypesCombo owner)
 	{
 		setHardness(0.0F);
 		setStepSound(soundTypeGrass);
@@ -53,13 +53,8 @@ public class BlockPlant extends BlockBush
 		variantProp = PropertyEnum.create("variant", variants.get(0).getClass(), variants);
 		this.variants = variants;
 		
-		blockState = createOurBlockState();
+		blockState = new BlockState(this, variantProp);
 		setDefaultState(getBlockState().getBaseState());
-	}
-	
-	protected BlockState createOurBlockState()
-	{
-		return new BlockState(this, variantProp);
 	}
 
 	@Override

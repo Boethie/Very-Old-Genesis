@@ -2,6 +2,8 @@ package genesis.common;
 
 import genesis.item.*;
 import genesis.metadata.*;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType.ObjectNamePosition;
 import genesis.util.Constants;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -15,13 +17,13 @@ import net.minecraftforge.fluids.FluidStack;
 public final class GenesisItems
 {
 	/* Materials */
-	public static final ItemGenesis pebble = new ItemGenesisMetadata(EnumPebble.class).setUnlocalizedName("pebble");
+	public static final VariantsCombo pebbles = new VariantsCombo(new ObjectType("pebble", null, null).setNamePosition(ObjectNamePosition.PREFIX), EnumPebble.values());
 	public static final ItemGenesis red_clay_ball = new ItemGenesis().setUnlocalizedName("redClay");
 	public static final ItemGenesis octaedrite_shard = new ItemGenesis().setUnlocalizedName("octaedriteShard");
 	public static final ItemGenesis red_clay_bowl = new ItemGenesis().setUnlocalizedName("bowlRedClay");
 	public static final ItemGenesis ceramic_bowl = new ItemGenesis().setUnlocalizedName("bowlCeramic");
 	public static final ItemGenesis red_clay_bucket = new ItemGenesis().setUnlocalizedName("redClayBucket");
-	public static final Item nodule = new ItemGenesisMetadata(EnumNodule.class).setUnlocalizedName("nodule");
+	public static final VariantsCombo nodules = new VariantsCombo(new ObjectType("nodule", null, null).setNamePosition(ObjectNamePosition.PREFIX), EnumNodule.values());
 	public static final ItemGenesis quartz = new ItemGenesis().setUnlocalizedName("quartz");
 	public static final ItemGenesis zircon = new ItemGenesis().setUnlocalizedName("zircon");
 	public static final ItemGenesis garnet = new ItemGenesis().setUnlocalizedName("garnet");
@@ -29,7 +31,6 @@ public final class GenesisItems
 	public static final ItemGenesis hematite = new ItemGenesis().setUnlocalizedName("hematite");
 	public static final ItemGenesis malachite = new ItemGenesis().setUnlocalizedName("malachite");
 	public static final ItemGenesis olivine = new ItemGenesis().setUnlocalizedName("olivine");
-	public static final ItemGenesis dung = new ItemGenesisMetadata(EnumDung.class).setUnlocalizedName("dung");
 	public static final ItemGenesis resin = new ItemGenesis().setUnlocalizedName("resin");
 	public static final ItemGenesisSeeds calamites = new ItemGenesisSeeds().setUnlocalizedName("calamites");
 	public static final ItemGenesis sphenophyllum_fiber = new ItemGenesis().setUnlocalizedName("sphenophyllumFiber");
@@ -58,7 +59,7 @@ public final class GenesisItems
 
 	public static void registerItems()
 	{
-		Genesis.proxy.registerItem(pebble, "pebble");
+		pebbles.registerAll();
 		Genesis.proxy.registerItem(red_clay_ball, "red_clay_ball");
 		Genesis.proxy.registerItem(red_clay_bowl, "red_clay_bowl");
 		Genesis.proxy.registerItem(ceramic_bowl, "ceramic_bowl");
@@ -71,14 +72,14 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(hematite, "hematite");
 		Genesis.proxy.registerItem(malachite, "malachite");
 		Genesis.proxy.registerItem(olivine, "olivine");
-		Genesis.proxy.registerItem(nodule, "nodule");
-		GenesisBlocks.trees.registerObjects(TreeBlocksAndItems.BILLET);
+		nodules.registerAll();
+		GenesisBlocks.trees.registerVariants(GenesisBlocks.trees.BILLET);
 		Genesis.proxy.registerItem(resin, "resin");
 		Genesis.proxy.registerItem(calamites, "calamites");
 		Genesis.proxy.registerItem(sphenophyllum_fiber, "sphenophyllum_fiber");
 		Genesis.proxy.registerItem(odontopteris_fiddlehead, "odontopteris_fiddlehead");
 		Genesis.proxy.registerItem(prototaxites_flesh, "prototaxites_flesh");
-		Genesis.proxy.registerItem(dung, "dung");
+		GenesisBlocks.dungs.registerVariants(GenesisBlocks.dungs.DUNG);
 		Genesis.proxy.registerItem(tyrannosaurus_saliva, "tyrannosaurus_saliva");
 		Genesis.proxy.registerItem(tyrannosaurus_tooth, "tyrannosaurus_tooth");
 		Genesis.proxy.registerItem(zingiberopsis_rhizome, "zingiberopsis_rhizome");

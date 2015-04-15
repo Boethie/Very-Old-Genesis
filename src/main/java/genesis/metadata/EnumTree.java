@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 import net.minecraft.item.Item;
 
-public enum EnumTree implements IMetaSingle
+public enum EnumTree implements IMetadata
 {
 	ARCHAEOPTERIS("archaeopteris"), SIGILLARIA("sigillaria"), LEPIDODENDRON("lepidodendron"),
 	CORDAITES("cordaites"), PSARONIUS("psaronius"), ARAUCARIOXYLON("araucarioxylon");
@@ -48,10 +48,4 @@ public enum EnumTree implements IMetaSingle
 	{
 		return unlocalizedName;
 	}
-
-	@Override
-	 public Item getItem()
-{
-	return null;
-}
 }

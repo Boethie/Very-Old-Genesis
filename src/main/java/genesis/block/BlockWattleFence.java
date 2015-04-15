@@ -4,7 +4,7 @@ import java.util.List;
 
 import genesis.client.model.WattleFenceModel;
 import genesis.common.GenesisCreativeTabs;
-import genesis.metadata.BlocksAndItemsWithVariantsOfTypes;
+import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.EnumTree;
 import genesis.metadata.IMetadata;
 import genesis.metadata.Properties;
@@ -35,12 +35,12 @@ public class BlockWattleFence extends BlockFence
 		return new IProperty[]{};
 	}
 
-	public final BlocksAndItemsWithVariantsOfTypes owner;
+	public final VariantsOfTypesCombo owner;
 	
 	public final PropertyEnum variantProp;
 	public final List<EnumTree> variants;
 	
-	public BlockWattleFence(List<EnumTree> variants, BlocksAndItemsWithVariantsOfTypes owner)
+	public BlockWattleFence(List<EnumTree> variants, VariantsOfTypesCombo owner)
 	{
 		super(Material.wood);
 		
@@ -49,17 +49,12 @@ public class BlockWattleFence extends BlockFence
 		variantProp = PropertyEnum.create("variant", EnumTree.class, variants);
 		this.variants = variants;
 		
-		blockState = createOurBlockState();
+		blockState = new BlockState(this, variantProp, NORTH, EAST, WEST, SOUTH);
 		setDefaultState(getBlockState().getBaseState());
 		
 		WattleFenceModel.register(variants);
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
-	}
-
-	protected BlockState createOurBlockState()
-	{
-    	return new BlockState(this, variantProp, NORTH, EAST, WEST, SOUTH);
 	}
 	
 	@Override

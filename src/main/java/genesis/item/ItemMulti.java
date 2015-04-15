@@ -1,8 +1,7 @@
 package genesis.item;
 
-import genesis.metadata.BlocksAndItemsWithVariantsOfTypes;
+import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.IMetadata;
-import genesis.util.Metadata;
 
 import java.util.Comparator;
 import java.util.List;
@@ -13,11 +12,11 @@ import net.minecraft.item.ItemStack;
 
 public class ItemMulti extends ItemGenesis
 {
-	public final BlocksAndItemsWithVariantsOfTypes owner;
+	public final VariantsOfTypesCombo owner;
 	
 	protected final List<IMetadata> variants;
 	
-	public ItemMulti(List<IMetadata> variants, BlocksAndItemsWithVariantsOfTypes owner)
+	public ItemMulti(List<IMetadata> variants, VariantsOfTypesCombo owner)
 	{
 		super();
 		

@@ -1,8 +1,8 @@
 package genesis.common;
 
+import genesis.metadata.EnumPebble;
 import genesis.metadata.EnumPlant;
 import genesis.util.Constants;
-import genesis.util.Metadata;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -23,7 +23,7 @@ public final class GenesisCreativeTabs
 		@Override
 	    public ItemStack getIconItemStack()
 	    {
-			return GenesisBlocks.plants.getStack(GenesisBlocks.plants.PLANT, EnumPlant.SCIADOPHYTON);	// TODO: use sigillaria sapling when added
+			return GenesisBlocks.plants.getStack(EnumPlant.SCIADOPHYTON);	// TODO: use sigillaria sapling when added
 	    }
 
 		@Override
@@ -63,9 +63,15 @@ public final class GenesisCreativeTabs
 	public static final CreativeTabs COMBAT = new CreativeTabs(Constants.PREFIX + "combat")
 	{
 		@Override
+	    public ItemStack getIconItemStack()
+	    {
+			return GenesisItems.pebbles.getStack(EnumPebble.GRANITE);	// TODO: use chipped bone spear when added
+	    }
+
+		@Override
 		public Item getTabIconItem()
 		{
-			return GenesisItems.pebble;	// TODO: use chipped bone spear when added
+			return null;
 		}
 	};
 

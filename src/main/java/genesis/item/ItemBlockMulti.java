@@ -1,9 +1,8 @@
 package genesis.item;
 
-import genesis.metadata.BlocksAndItemsWithVariantsOfTypes;
+import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.IMetadata;
 import genesis.util.Constants;
-import genesis.util.Metadata;
 
 import java.util.Comparator;
 import java.util.List;
@@ -19,11 +18,11 @@ import net.minecraft.item.ItemStack;
 
 public class ItemBlockMulti extends ItemMultiTexture
 {
-	public final BlocksAndItemsWithVariantsOfTypes owner;
+	public final VariantsOfTypesCombo owner;
 	
 	protected final List<IMetadata> variants;
 	
-	public ItemBlockMulti(Block block, final List<IMetadata> variants, BlocksAndItemsWithVariantsOfTypes owner)
+	public ItemBlockMulti(Block block, final List<IMetadata> variants, VariantsOfTypesCombo owner)
 	{
 		super(block, block, new Function()
 		{
@@ -43,7 +42,9 @@ public class ItemBlockMulti extends ItemMultiTexture
 	@Override
 	public void getSubItems(Item itemIn, CreativeTabs tab, List subItems)
 	{
-		owner.fillSubItems(this, variants, subItems);
+		super.getSubItems(itemIn, tab, subItems);
+		
+		//owner.fillSubItems(this, variants, subItems);
 	}
 
 	@Override

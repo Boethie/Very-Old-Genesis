@@ -2,7 +2,7 @@ package genesis.item;
 
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemGenesis;
-import genesis.metadata.BlocksAndItemsWithVariantsOfTypes;
+import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.IMetadata;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -15,8 +15,8 @@ import java.util.List;
 public class ItemToolHead extends ItemGenesis
 {
 	protected final List<IMetadata> variants;
-	public final BlocksAndItemsWithVariantsOfTypes owner;
-	public ItemToolHead(List<IMetadata> variants, BlocksAndItemsWithVariantsOfTypes owner)
+	public final VariantsOfTypesCombo owner;
+	public ItemToolHead(List<IMetadata> variants, VariantsOfTypesCombo owner)
 	{
 		super();
 

@@ -2,11 +2,14 @@ package genesis.common;
 
 import genesis.block.*;
 import genesis.item.ItemBlockColored;
-import genesis.item.ItemBlockMetadata;
 import genesis.metadata.*;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType.ObjectNamePosition;
 import genesis.util.Constants;
 import genesis.util.RandomItemDrop;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLiquid;
+import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraftforge.common.EnumPlantType;
 
 public final class GenesisBlocks
@@ -42,20 +45,20 @@ public final class GenesisBlocks
 	public static final BlockGenesisOre olivine_ore = new BlockGenesisOre(4.2F, 5.0F, 3, 5, 1).setDrop(GenesisItems.olivine).setUnlocalizedName("olivine");
 
 	/* Limestone Ores */
-	public static final BlockGenesisOre brown_flint_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(EnumNodule.BROWN_FLINT).setUnlocalizedName("brownFlint");
-	public static final BlockGenesisOre marcasite_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(EnumNodule.MARCASITE).setUnlocalizedName("marcasite");
+	public static final BlockGenesisOre brown_flint_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(GenesisItems.nodules.getStack(EnumNodule.BROWN_FLINT)).setUnlocalizedName("brownFlint");
+	public static final BlockGenesisOre marcasite_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(GenesisItems.nodules.getStack(EnumNodule.MARCASITE)).setUnlocalizedName("marcasite");
 	
 	/* Trees */
-	public static TreeBlocksAndItems trees = new TreeBlocksAndItems();
+	public static final TreeBlocksAndItems trees = new TreeBlocksAndItems();
 	public static final BlockCalamitesBundle calamites_bundle = new BlockCalamitesBundle().setUnlocalizedName("calamitesBundle");
 
 	/* Plants */
-	public static final PlantBlocksAndItems plants = new PlantBlocksAndItems();
+	public static final VariantsCombo<BlockPlant> plants = new VariantsCombo(new ObjectType("plant", BlockPlant.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumPlant.values());
 	public static final BlockGrowingPlant calamites = new BlockCalamites(true, 15, 10)
 			.setGrowthChanceMult(6, 1, 1)
 			.setUnlocalizedName("plant.calamites");
-	public static final FernBlocksAndItems ferns = new FernBlocksAndItems();
-	public static final BlockAquaticPlant aquatic_plant = new BlockAquaticPlant().setUnlocalizedName("aquaticPlant");
+	public static final VariantsCombo<BlockFern> ferns = new VariantsCombo(new ObjectType("fern", BlockFern.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumFern.values());
+	public static final VariantsCombo<BlockAquaticPlant> aquatic_plants = new VariantsCombo(new ObjectType("aquatic_plant", "aquaticPlant", BlockAquaticPlant.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumAquaticPlant.values());
 
 	/* Crops */
 	public static final BlockGrowingPlant zingiberopsis = new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
@@ -78,8 +81,8 @@ public final class GenesisBlocks
 	
 	/* Misc */
 	public static final BlockGenesis prototaxites = new BlockPrototaxites().setUnlocalizedName("prototaxites");
-	public static final BlockMetadata coral = new BlockCoral().setUnlocalizedName("coral");
-	public static final BlockMetadata dung_block = new BlockDung().setUnlocalizedName("dung");
+	public static final VariantsCombo<BlockCoral> corals = new VariantsCombo(new ObjectType("coral", BlockCoral.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumCoral.values());
+	public static final DungBlocksAndItems dungs = new DungBlocksAndItems();
 	public static final BlockGenesisTorch calamites_torch = new BlockGenesisTorch().setUnlocalizedName("calamitesTorch");
 
 	public static void registerBlocks()
@@ -109,11 +112,11 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(olivine_ore, "olivine_ore");
 		Genesis.proxy.registerBlock(brown_flint_ore, "brown_flint_ore");
 		Genesis.proxy.registerBlock(marcasite_ore, "marcasite_ore");
-		trees.registerObjects(TreeBlocksAndItems.LOG);
+		trees.registerVariants(trees.LOG);
 		Genesis.proxy.registerBlock(calamites_bundle, "calamites_bundle");
 		Genesis.proxy.registerBlock(prototaxites_mycelium, "prototaxites_mycelium");
-		Genesis.proxy.registerBlock(dung_block, "dung_block", ItemBlockMetadata.class, EnumDung.class);
-		trees.registerObjects(TreeBlocksAndItems.WATTLE_FENCE);
+		dungs.registerVariants(dungs.DUNG_BLOCK);
+		trees.registerVariants(trees.WATTLE_FENCE);
 		Genesis.proxy.registerBlock(calamites_torch, "calamites_torch");
 		
 		plants.registerAll();
@@ -144,8 +147,8 @@ public final class GenesisBlocks
 		GenesisItems.odontopteris_seeds.setCrop(odontopteris);
 		
 		Genesis.proxy.registerBlock(prototaxites, "prototaxites");
-		Genesis.proxy.registerBlock(aquatic_plant, "aquatic_plant", ItemBlockMetadata.class, EnumAquaticPlant.class);
+		aquatic_plants.registerAll();
 
-		Genesis.proxy.registerBlock(coral, "coral", ItemBlockMetadata.class, EnumCoral.class);
+		corals.registerAll();
 	}
 }

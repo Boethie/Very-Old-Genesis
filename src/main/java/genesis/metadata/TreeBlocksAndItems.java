@@ -14,16 +14,17 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class TreeBlocksAndItems extends BlocksAndItemsWithVariantsOfTypes
+public class TreeBlocksAndItems extends VariantsOfTypesCombo
 {
-	public static final ObjectType<BlockGenesisLogs> LOG = new ObjectType<BlockGenesisLogs>("log", BlockGenesisLogs.class, null);
-	public static final ObjectType<ItemMulti> BILLET = new ObjectType<ItemMulti>("billet", null, ItemMulti.class, EnumTree.NO_BILLET);
-	public static final ObjectType<BlockWattleFence> WATTLE_FENCE = new ObjectType<BlockWattleFence>("wattle_fence", "wattleFence", BlockWattleFence.class, null, EnumTree.NO_BILLET){
+	public static final ObjectType<BlockGenesisLogs> LOG = new ObjectType("log", BlockGenesisLogs.class, null);
+	public static final ObjectType<ItemMulti> BILLET = new ObjectType("billet", null, ItemMulti.class, EnumTree.NO_BILLET);
+	public static final ObjectType<BlockWattleFence> WATTLE_FENCE = new ObjectType("wattle_fence", "wattleFence", BlockWattleFence.class, null, EnumTree.NO_BILLET)
+	{
 		@Override
-		public IStateMapper getStateMapper(BlockWattleFence fenceBlock)
+		public IStateMapper getStateMapper(Block block)
 		{
 			return new StateMap.Builder()
-					.setProperty(fenceBlock.variantProp)
+					.setProperty(((BlockWattleFence) block).variantProp)
 					.addPropertiesToIgnore(BlockFence.NORTH, BlockFence.EAST, BlockFence.SOUTH, BlockFence.WEST)
 					.setBuilderSuffix("_" + WATTLE_FENCE.getName())
 					.build();

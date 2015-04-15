@@ -6,9 +6,8 @@ import java.util.List;
 import genesis.metadata.EnumDung;
 import genesis.metadata.EnumNodule;
 import genesis.metadata.EnumPebble;
-import genesis.metadata.IMetaMulti;
+import genesis.metadata.IMetadata;
 import genesis.util.FuelHandler;
-import genesis.util.Metadata;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -19,6 +18,7 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -172,8 +172,7 @@ public final class GenesisRecipes
 		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "x", "y", 'x', Items.coal, 'y', GenesisItems.calamites);
 		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "x", "y", 'x', new ItemStack(Items.coal, 1, 1), 'y', GenesisItems.calamites);
 		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "x", "y", 'x', GenesisItems.resin, 'y', GenesisItems.calamites);
-		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite), Metadata.newStack(EnumNodule.MARCASITE), Metadata.newStack(EnumPebble.BROWN_FLINT));
-		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite), Metadata.newStack(EnumNodule.MARCASITE), Metadata.newStack(EnumNodule.BROWN_FLINT));
+		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite), GenesisItems.nodules.getStack(EnumNodule.MARCASITE), GenesisItems.pebbles.getStack(EnumPebble.BROWN_FLINT));
 		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.calamites, 9), GenesisBlocks.calamites_bundle);
 		GameRegistry.addSmelting(GenesisBlocks.red_clay, new ItemStack(Blocks.stained_hardened_clay, 1, EnumDyeColor.WHITE.getMetadata()), 0.3F);
 		GameRegistry.addSmelting(GenesisItems.red_clay_bucket, new ItemStack(GenesisItems.ceramic_bucket), 0.3F);
@@ -184,19 +183,26 @@ public final class GenesisRecipes
 		GameRegistry.addSmelting(GenesisBlocks.hematite_ore, new ItemStack(GenesisItems.hematite), 0.05F);
 		GameRegistry.addSmelting(GenesisBlocks.malachite_ore, new ItemStack(GenesisItems.malachite), 0.2F);
 		GameRegistry.addSmelting(GenesisBlocks.olivine_ore, new ItemStack(GenesisItems.olivine), 0.3F);
-		GameRegistry.addSmelting(GenesisBlocks.brown_flint_ore, Metadata.newStack(EnumNodule.BROWN_FLINT), 0.05F);
-		GameRegistry.addSmelting(GenesisBlocks.marcasite_ore, Metadata.newStack(EnumNodule.MARCASITE), 0.05F);
+		GameRegistry.addSmelting(GenesisBlocks.brown_flint_ore, GenesisItems.nodules.getStack(EnumNodule.BROWN_FLINT), 0.05F);
+		GameRegistry.addSmelting(GenesisBlocks.marcasite_ore, GenesisItems.nodules.getStack(EnumNodule.MARCASITE), 0.05F);
 		GameRegistry.addSmelting(GenesisItems.red_clay_bowl, new ItemStack(GenesisItems.ceramic_bowl), 0.3F);
 		GameRegistry.addSmelting(GenesisItems.aphthoroblattina, new ItemStack(GenesisItems.cooked_aphthoroblattina), 0.35F);
 		GameRegistry.addSmelting(GenesisItems.eryops_leg, new ItemStack(GenesisItems.cooked_eryops_leg), 0.35F);
-		GameRegistry.registerFuelHandler(FuelHandler.INSTANCE);
 
-		for (IMetaMulti meta : EnumDung.values())
+		for (IMetadata variant : EnumDung.values())
 		{
-			GameRegistry.addRecipe(Metadata.newStack(meta, "block"), "CC", "CC", 'C', Metadata.newStack(meta));
+			GameRegistry.addRecipe(GenesisBlocks.dungs.getStack(GenesisBlocks.dungs.DUNG_BLOCK, variant), "CC", "CC", 'C', GenesisBlocks.dungs.getStack(GenesisBlocks.dungs.DUNG, variant));
 		}
+		
+		FuelHandler fuelHandler = FuelHandler.INSTANCE;
+		GameRegistry.registerFuelHandler(fuelHandler);
+		
+		int logBurnTime = TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.log));
+		
+		fuelHandler.setBurnTime(GenesisBlocks.dungs.getStack(GenesisBlocks.dungs.DUNG), logBurnTime, true);
+		fuelHandler.setBurnTime(GenesisBlocks.dungs.getStack(GenesisBlocks.dungs.DUNG_BLOCK), logBurnTime * 4, true);
 	}
-
+	
 	public static void doSubstitutes()
 	{
 		makeSubstituteCraftingItem(new ItemStack(Items.string), new ItemStack(GenesisItems.sphenophyllum_fiber), Blocks.wool);

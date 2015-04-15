@@ -1,12 +1,10 @@
 package genesis.block;
 
 import genesis.client.GenesisSounds;
-import genesis.metadata.BlocksAndItemsWithVariantsOfTypes;
+import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.EnumFern;
 import genesis.metadata.IMetadata;
 import genesis.metadata.Properties;
-import genesis.util.Constants;
-import genesis.util.Metadata;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +33,7 @@ public class BlockFern extends BlockPlant implements IShearable
 		return new IProperty[]{};
 	}
 	
-	public BlockFern(List<IMetadata> variants, BlocksAndItemsWithVariantsOfTypes owner)
+	public BlockFern(List<IMetadata> variants, VariantsOfTypesCombo owner)
 	{
 		super(variants, owner);
 		

@@ -1,10 +1,9 @@
 package genesis.metadata;
 
 import genesis.common.GenesisBlocks;
-import genesis.util.Metadata;
 import net.minecraft.item.Item;
 
-public enum EnumPlant implements IMetaSingle
+public enum EnumPlant implements IMetadata
 {
 	COOKSONIA("cooksonia"), BARAGWANATHIA("baragwanathia"), SCIADOPHYTON("sciadophyton"), PSILOPHYTON("psilophyton"), NOTHIA("nothia"), RHYNIA("rhynia"), ARCHAEAMPHORA("archaeamphora"), MABELIA("mabelia");
 
@@ -20,7 +19,6 @@ public enum EnumPlant implements IMetaSingle
 	{
 		this.name = name;
 		this.unlocalizedName = unlocalizedName;
-		Metadata.add(this);
 	}
 
 	@Override
@@ -33,11 +31,5 @@ public enum EnumPlant implements IMetaSingle
 	public String getUnlocalizedName()
 	{
 		return unlocalizedName;
-	}
-
-	@Override
-	public Item getItem()
-	{
-		return null;
 	}
 }

@@ -8,7 +8,6 @@ import genesis.metadata.EnumFern;
 import genesis.metadata.EnumPlant;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants;
-import genesis.util.Metadata;
 
 import java.util.Iterator;
 import java.util.Random;
@@ -97,12 +96,12 @@ public class BlockMoss extends BlockGrass
 					if (rand.nextInt(8) == 0)
 					{
 						// Plant Flower
-						randPlant = GenesisBlocks.plants.getRandomBlockState(GenesisBlocks.plants.PLANT, rand);
+						randPlant = GenesisBlocks.plants.getRandomBlockState(rand);
 					}
 					else
 					{
 						// Plant Grass
-						randPlant = GenesisBlocks.ferns.getRandomBlockState(GenesisBlocks.ferns.FERN, rand);
+						randPlant = GenesisBlocks.ferns.getRandomBlockState(rand);
 					}
 					
 					if (((BlockPlant)randPlant.getBlock()).canBlockStay(worldIn, topBlock, randPlant))
