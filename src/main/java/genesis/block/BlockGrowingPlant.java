@@ -939,16 +939,6 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		IBlockState stateBelow = worldIn.getBlockState(below);
 		Block blockBelow = stateBelow.getBlock();
 		
-		/*boolean correctPlant = false;
-		
-		if (blockUnder == this)
-		{
-			if (!resetAge && (Integer) stateUnder.getValue(ageProp) >= growthAge)
-			{
-				correctPlant = true;
-			}
-		}*/
-		
 		boolean correctLand = false;
 		CanStayOptions stay = CanStayOptions.YIELD;
 		
@@ -973,7 +963,8 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 				GrowingPlantProperties props = new GrowingPlantProperties(worldIn, pos);
 				int height = props.getToBottom();
 				
-				if (height <= maxHeight && (resetAge || growthAge == maxAge))
+				if (height <= maxHeight && height > 0 &&
+						(resetAge || (Integer) stateBelow.getValue(ageProp) >= growthAge))
 				{
 					correctLand = true;
 				}
@@ -1027,8 +1018,9 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 			{
 				GrowingPlantProperties props = new GrowingPlantProperties(worldIn, below);
 				int height = props.getToBottom();
-				
-				if (height < maxHeight && (resetAge || growthAge == maxAge))
+
+				if (height < maxHeight && height > 0 &&
+						(resetAge || (Integer) stateBelow.getValue(ageProp) >= growthAge))
 				{
 					canPlace = true;
 				}
