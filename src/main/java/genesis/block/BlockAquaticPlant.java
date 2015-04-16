@@ -1,8 +1,6 @@
 package genesis.block;
 
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 import com.google.common.collect.Sets;
 
@@ -36,6 +34,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -57,6 +56,9 @@ public class BlockAquaticPlant extends BlockGenesis implements IModifyStateMap
 	public final PropertyEnum variantProp;
 	
 	private Set<Block> validGround;
+	private HashSet<EnumAquaticPlant> noItemVariants = new HashSet(){{
+		add(EnumAquaticPlant.CHARNIA);
+	}};
 
 	public BlockAquaticPlant(List<EnumAquaticPlant> variants, VariantsOfTypesCombo owner)
 	{
@@ -109,9 +111,7 @@ public class BlockAquaticPlant extends BlockGenesis implements IModifyStateMap
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
 	{
-		//super.getSubBlocks(itemIn, tab, list);
-		//list.remove(list.size() - 2);
-		owner.fillSubItems(this, variants, list, EnumAquaticPlant.CHARNIA);
+		owner.fillSubItems(this, variants, list, noItemVariants);
 	}
 
 	@Override
@@ -216,14 +216,19 @@ public class BlockAquaticPlant extends BlockGenesis implements IModifyStateMap
 			}
 		}
 	}
-
+	
 	@Override
-	public int damageDropped(IBlockState state)
-	{
-		//EnumAquaticPlant variant = (EnumAquaticPlant) state.getValue(Constants.AQUATIC_PLANT_VARIANT);
-		//return Metadata.getMetadata(variant == EnumAquaticPlant.CHARNIA ? EnumAquaticPlant.CHARNIA_TOP : variant);
-		return owner.getStack(this, (IMetadata) state.getValue(variantProp)).getItemDamage();
-	}
+    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
+    {
+		ArrayList<ItemStack> stackList = new ArrayList();
+		
+		if (!noItemVariants.contains(state.getValue(variantProp)))
+		{
+			stackList.add(owner.getStack(this, (IMetadata) state.getValue(variantProp)));
+		}
+		
+		return stackList;
+    }
 
 	public boolean canBlockStay(World world, BlockPos pos, IBlockState state)
 	{

@@ -702,19 +702,28 @@ public class VariantsOfTypesCombo
 	 * 
 	 * @return List<ItemStack> containing all sub-items for this Block or Item.
 	 */
-	public <T extends IMetadata> List<ItemStack> fillSubItems(Object obj, List<T> variants, List<ItemStack> listToFill, IMetadata... exclude)
+	public <T extends IMetadata> List<ItemStack> fillSubItems(Object obj, List<T> variants, List<ItemStack> listToFill, Set<T> exclude)
 	{
-		HashSet<IMetadata> excludeSet = Sets.newHashSet(exclude);
 		ObjectType objectType = getObjectType(obj);
 		
 		for (IMetadata variant : variants)
 		{
-			if (!excludeSet.contains(variant))
+			if (!exclude.contains(variant))
 			{
 				listToFill.add(getStack(objectType, variant));
 			}
 		}
 		
 		return listToFill;
+	}
+	
+	/**
+	 * Fills the provided list with all the valid sub-items for this Block or Item.
+	 * 
+	 * @return List<ItemStack> containing all sub-items for this Block or Item.
+	 */
+	public <T extends IMetadata> List<ItemStack> fillSubItems(Object obj, List<T> variants, List<ItemStack> listToFill, T... exclude)
+	{
+		return fillSubItems(obj, variants, listToFill, Sets.newHashSet(exclude));
 	}
 }
