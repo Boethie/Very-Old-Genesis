@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import genesis.metadata.VariantsOfTypesCombo.VariantEntry;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType.ObjectNamePosition;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -105,7 +106,15 @@ public class VariantsCombo<T> extends VariantsOfTypesCombo
 	 */
 	public T getObject(IMetadata variant)
 	{
-		return (T) getMetadataVariantEntry(soleType, variant).object;
+		return (T) getVariantEntry(soleType, variant).object;
+	}
+	
+	/**
+	 * Gets the metadata used to get the Item of this variant.
+	 */
+	public int getMetadata(IMetadata variant)
+	{
+		return getMetadata(soleType, variant);
 	}
 	
 	/**

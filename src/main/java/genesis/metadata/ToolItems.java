@@ -90,7 +90,7 @@ public class ToolItems extends VariantsOfTypesCombo
 	
 	public ToolItems()
 	{
-		super(new ToolObjectType[]{PEBBLE, AXE_HEAD}, ToolTypes.getAll());
+		super(new ToolObjectType[]{PEBBLE, PICK_HEAD, SHOVEL_HEAD, AXE_HEAD}, ToolTypes.getAll());
 	}
 	
 	@Override

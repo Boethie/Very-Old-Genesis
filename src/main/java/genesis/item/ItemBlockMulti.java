@@ -1,5 +1,6 @@
 package genesis.item;
 
+import genesis.common.GenesisCreativeTabs;
 import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.IMetadata;
 import genesis.util.Constants;
@@ -37,14 +38,14 @@ public class ItemBlockMulti extends ItemMultiTexture
 		this.owner = owner;
 		
 		this.variants = variants;
+		
+		setCreativeTab(GenesisCreativeTabs.BLOCK);
 	}
 
 	@Override
 	public void getSubItems(Item itemIn, CreativeTabs tab, List subItems)
 	{
 		super.getSubItems(itemIn, tab, subItems);
-		
-		//owner.fillSubItems(this, variants, subItems);
 	}
 
 	@Override

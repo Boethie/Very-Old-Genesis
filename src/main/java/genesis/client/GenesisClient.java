@@ -38,11 +38,6 @@ public class GenesisClient extends GenesisProxy
 	@Override
 	public void init()
 	{
-		registerModelStateMap(GenesisBlocks.prototaxites, new StateMap.Builder().addPropertiesToIgnore(BlockCactus.AGE).build());
-		// TODO: Cannot add prefix "genesis" when registering variants!
-		// Fixed! Now we need to decide if we actually want to use our StateMap wrapper (GenesisStateMap) for our plants...
-		// blockModelShapes.registerBlockWithStateMapper(GenesisBlocks.coral, new StateMap.Builder().setProperty(BlockCoral.VARIANT).build());
-
 		((IReloadableResourceManager) MC.getResourceManager()).registerReloadListener(new ColorizerDryMoss());
 		
 		ModelLoaderRegistry.registerLoader(GenesisCustomModelLoader.instance);

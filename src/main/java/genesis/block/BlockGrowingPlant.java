@@ -327,7 +327,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 			ageProp = PropertyInteger.create("age", 0, maxAge);
 			topProp = PropertyBool.create("top");
 			state = new BlockState(this, ageProp, topProp);
-			setDefaultState(state.getBaseState().withProperty(ageProp, 0).withProperty(topProp, true));
+			setDefaultState(state.getBaseState().withProperty(ageProp, 0).withProperty(topProp, false));
 		}
 		else
 		{
@@ -1165,7 +1165,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 						{
 							for (RandomItemDrop drop : cropDrops)
 							{
-								ItemStack stack = drop.getRandom(worldIn.rand);
+								ItemStack stack = drop.getRandomStack(worldIn.rand);
 								spawnAsEntity(worldIn, pos, stack);
 							}
 						}
@@ -1173,7 +1173,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 						{
 							for (RandomItemDrop drop : drops)
 							{
-								ItemStack stack = drop.getRandom(worldIn.rand);
+								ItemStack stack = drop.getRandomStack(worldIn.rand);
 								spawnAsEntity(worldIn, pos, stack);
 							}
 						}

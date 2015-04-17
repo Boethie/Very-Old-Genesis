@@ -69,11 +69,15 @@ public class VariantsOfTypesCombo
 		protected String name;
 		protected String unlocalizedName;
 		protected Function<IMetadata, String> resourceNameFunction;
+		protected ObjectNamePosition namePosition = ObjectNamePosition.POSTFIX;
+		
 		protected Class<? extends Block> blockClass;
+		protected LinkedHashMap<Object, Class> blockArgs = new LinkedHashMap();
 		protected Class<? extends Item> itemClass;
+		
 		protected List<IMetadata> variantExclusions;
 		protected boolean separateVariantJsons = true;
-		protected ObjectNamePosition namePosition = ObjectNamePosition.POSTFIX;
+		
 		protected CreativeTabs tab = null;
 		
 		public ObjectType(String name, String unlocalizedName, Class<? extends Block> blockClass, Class<? extends Item> itemClass, IMetadata... variantExclusions)
@@ -176,6 +180,32 @@ public class VariantsOfTypesCombo
 			return this;
 		}
 		
+		public LinkedHashMap<Object, Class> getBlockArguments()
+		{
+			return blockArgs;
+		}
+		
+		public ObjectType<T> setBlockArguments(LinkedHashMap<Object, Class> args)
+		{
+			this.blockArgs = args;
+			
+			return this;
+		}
+		
+		public ObjectType<T> setBlockArguments(Object... args)
+		{
+			LinkedHashMap<Object, Class> argsMap = new LinkedHashMap();
+			
+			for (Object object : args)
+			{
+				argsMap.put(object, object.getClass());
+			}
+			
+			setBlockArguments(argsMap);
+			
+			return this;
+		}
+		
 		public ObjectType<T> setCreativeTab(CreativeTabs tab)
 		{
 			this.tab = tab;
@@ -183,15 +213,23 @@ public class VariantsOfTypesCombo
 			return this;
 		}
 		
-		public void afterItemConstructed(Item item, List<IMetadata> variant)
+		public void afterConstructed(Block block, Item item, List<IMetadata> variants)
 		{
 			if (tab != null)
 			{
-				item.setCreativeTab(tab);
+				if (block != null)
+				{
+					block.setCreativeTab(tab);
+				}
+				
+				if (item != null)
+				{
+					item.setCreativeTab(tab);
+				}
 			}
 		}
 		
-		public void afterItemRegistered(Item item)
+		public void afterRegistered(Block block, Item item)
 		{
 		}
 
@@ -301,17 +339,73 @@ public class VariantsOfTypesCombo
 				
 				int subsets = (int) Math.ceil(typeVariants.size() / (float) maxVariants);
 				
-				for (int i = 0; i < subsets; i++)
+				for (int subset = 0; subset < subsets; subset++)
 				{
-					final List<IMetadata> subVariants = typeVariants.subList(i * maxVariants, Math.min((i + 1) * maxVariants, typeVariants.size()));
+					final List<IMetadata> subVariants = typeVariants.subList(subset * maxVariants, Math.min((subset + 1) * maxVariants, typeVariants.size()));
 
 					Block block = null;
 					Item item = null;
 					
 					if (blockClass != null)
 					{
-						Constructor<Block> constructor = (Constructor<Block>) blockClass.getConstructor(List.class, VariantsOfTypesCombo.class);
-						block = constructor.newInstance(subVariants, this);
+						final LinkedHashMap<Object, Class> argMap = type.getBlockArguments();
+						
+						Class thisClass = getClass();
+						Constructor<? extends Block> constructor = null;
+						
+						ArrayList argsList = new ArrayList();
+						argsList.add(subVariants);
+						argsList.add(this);
+						argsList.addAll(argMap.keySet());
+						Object[] args = argsList.toArray();
+						
+						while (true)
+						{
+							ArrayList<Class> listClasses = new ArrayList<Class>();
+							listClasses.add(List.class);
+							listClasses.add(thisClass);
+							listClasses.addAll(argMap.values());
+							Class[] argClasses = listClasses.toArray(new Class[listClasses.size()]);
+							
+							try
+							{
+								constructor = blockClass.getConstructor(argClasses);
+								break;
+							}
+							catch (NoSuchMethodException e) { }
+							
+							if (thisClass == VariantsOfTypesCombo.class)
+							{
+								break;
+							}
+							
+							thisClass = thisClass.getSuperclass();
+						}
+						
+						if (constructor == null)
+						{
+							throw new RuntimeException("Could not find a valid constructor for arguments " + Stringify.stringify(args) + " in Block class " + blockClass.getSimpleName() + ".\n"
+									+ getIdentification());
+						}
+						
+						try
+						{
+							block = constructor.newInstance(args);
+						}
+						catch (IllegalArgumentException e)
+						{
+							Class[] argTypes = new Class[args.length];
+							
+							for (int i = 0; i < args.length; i++)
+							{
+								argTypes[i] = args[i].getClass();
+							}
+							
+							throw new RuntimeException("IllegalArgumentException encountered while trying to construct a block.\n"
+									+ "Arguments types expected: " + Stringify.stringify(constructor.getParameterTypes()) + "\n"
+									+ "Argument types passed: " + Stringify.stringify(argTypes) + "\n",
+									e);
+						}
 						
 						// Construct item as necessary for registering as the item to accompany a block.
 						Class blockSuperClass = blockClass;
@@ -339,14 +433,14 @@ public class VariantsOfTypesCombo
 						item = itemConstructor.newInstance(subVariants, this);
 					}
 					
-					type.afterItemConstructed(item, subVariants);
+					type.afterConstructed(block, item, subVariants);
 					
 					// Add the Block or Item to our object map with its metadata ID.
 					int variantMetadata = 0;
 					
 					for (IMetadata variant : subVariants)
 					{
-						variantMap.put(variant, new VariantEntry(block, item, i, variantMetadata));
+						variantMap.put(variant, new VariantEntry(block, item, subset, variantMetadata));
 						variantMetadata++;
 					}
 				}
@@ -378,10 +472,11 @@ public class VariantsOfTypesCombo
 		}
 		
 		ArrayList<Integer> registeredIDs = new ArrayList<Integer>();
+		List<IMetadata> variants = getValidVariants(type);
 		
-		for (IMetadata variant : getValidVariants(type))
+		for (IMetadata variant : variants)
 		{
-			VariantEntry entry = getMetadataVariantEntry(type, variant);
+			VariantEntry entry = getVariantEntry(type, variant);
 			
 			final Block block = entry.block;
 			final Item item = entry.item;
@@ -398,56 +493,56 @@ public class VariantsOfTypesCombo
 					block.setUnlocalizedName(type.getUnlocalizedName());
 					
 					// Register resource locations for the block.
-					final IProperty variantProp = getVariantProperty(block);
+					IStateMapper stateMap = type.getStateMapper(block);
 					
-					if (variantProp != null)
+					if (stateMap == null)
 					{
-						IStateMapper stateMap = type.getStateMapper(block);
+						FlexibleStateMap flexStateMap = new FlexibleStateMap();
 						
-						if (stateMap == null)
+						if (type.getUseSeparateVariantJsons())
 						{
-							FlexibleStateMap flexStateMap = new FlexibleStateMap();
-							
-							if (type.getUseSeparateVariantJsons())
+							switch (type.getNamePosition())
 							{
-								switch (type.getNamePosition())
-								{
-								case PREFIX:
-									flexStateMap.setPrefix(type.getName() + "_");
-									break;
-								case POSTFIX:
-									flexStateMap.setPostfix("_" + type.getName());
-									break;
-								default:
-									break;
-								}
-								
+							case PREFIX:
+								flexStateMap.setPrefix(type.getName() + "_");
+								break;
+							case POSTFIX:
+								flexStateMap.setPostfix("_" + type.getName());
+								break;
+							default:
+								break;
+							}
+
+							IProperty variantProp = getVariantProperty(block);
+							
+							if (variantProp != null)
+							{
 								flexStateMap.setNameProperty(variantProp);
 							}
-							else
-							{
-								flexStateMap.setPrefix(type.getName());
-							}
-							
-							type.customizeStateMap(flexStateMap);
-							
-							if (block instanceof IModifyStateMap)
-							{
-								((IModifyStateMap) block).customizeStateMap(flexStateMap);
-							}
-							
-							Function<String, String> nameFunction = type.getResourceNameFunction();
-							
-							if (nameFunction != null)
-							{
-								flexStateMap.setNameFunction(nameFunction);
-							}
-							
-							stateMap = flexStateMap;
+						}
+						else
+						{
+							flexStateMap.setPrefix(type.getName());
 						}
 						
-						Genesis.proxy.registerModelStateMap(block, stateMap);
+						type.customizeStateMap(flexStateMap);
+						
+						if (block instanceof IModifyStateMap)
+						{
+							((IModifyStateMap) block).customizeStateMap(flexStateMap);
+						}
+						
+						Function<String, String> nameFunction = type.getResourceNameFunction();
+						
+						if (nameFunction != null)
+						{
+							flexStateMap.setNameFunction(nameFunction);
+						}
+						
+						stateMap = flexStateMap;
 					}
+					
+					Genesis.proxy.registerModelStateMap(block, stateMap);
 					// End registering block resource locations.
 				}
 				else
@@ -455,7 +550,7 @@ public class VariantsOfTypesCombo
 					Genesis.proxy.registerItem(item, registryName);
 				}
 
-				type.afterItemRegistered(item);
+				type.afterRegistered(block, item);
 				
 				registeredIDs.add(id);
 			}
@@ -535,7 +630,7 @@ public class VariantsOfTypesCombo
 	 * @param variant
 	 * @return The Block/Item casted to the type provided by the generic type in "type".
 	 */
-	public VariantEntry getMetadataVariantEntry(ObjectType type, IMetadata variant)
+	public VariantEntry getVariantEntry(ObjectType type, IMetadata variant)
 	{
 		HashMap<IMetadata, VariantEntry> variantMap = map.get(type);
 		
@@ -561,7 +656,7 @@ public class VariantsOfTypesCombo
 	 */
 	public <T> T getObject(ObjectType<T> type, IMetadata variant)
 	{
-		return (T) getMetadataVariantEntry(type, variant).object;
+		return (T) getVariantEntry(type, variant).object;
 	}
 	
 	/**
@@ -584,7 +679,7 @@ public class VariantsOfTypesCombo
 	 */
 	public IBlockState getBlockState(ObjectType type, IMetadata variant)
 	{
-		VariantEntry entry = getMetadataVariantEntry(type, variant);
+		VariantEntry entry = getVariantEntry(type, variant);
 		Block block = entry.block;
 		
 		if (block != null)
@@ -610,7 +705,7 @@ public class VariantsOfTypesCombo
 	 */
 	public ItemStack getStack(ObjectType type, IMetadata variant, int stackSize)
 	{
-		VariantEntry entry = getMetadataVariantEntry(type, variant);
+		VariantEntry entry = getVariantEntry(type, variant);
 		
 		Item item = entry.item;
 		
@@ -658,6 +753,24 @@ public class VariantsOfTypesCombo
 	public ItemStack getStack(Object obj, IMetadata variant)
 	{
 		return getStack(getObjectType(obj), variant);
+	}
+	
+	/**
+	 * Gets the metadata used to get the Item of this ObjectType and variant.
+	 */
+	public int getMetadata(ObjectType type, IMetadata variant)
+	{
+		VariantEntry entry = getVariantEntry(type, variant);
+		
+		return entry.metadata;
+	}
+	
+	/**
+	 * Gets the metadata used to get the Item of this ObjectType and variant.
+	 */
+	public int getMetadata(Object obj, IMetadata variant)
+	{
+		return getMetadata(getObjectType(obj), variant);
 	}
 	
 	/**

@@ -1,10 +1,13 @@
 package genesis.util;
 
-import net.minecraft.block.properties.IProperty;
+import genesis.metadata.*;
+
+import java.util.*;
+
+import net.minecraft.block.properties.*;
 import net.minecraft.block.state.IBlockState;
 
-import com.google.common.collect.HashBiMap;
-import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.*;
 
 public class BlockStateToMetadata
 {
@@ -60,13 +63,29 @@ public class BlockStateToMetadata
 			return bits;
 		}
 	}
-
-	public static final HashBiMap<Comparable, Comparable> valueToMetaRemap = HashBiMap.create();
-
-	static
+	
+	private static final HashSet<Class<? extends IProperty>> SORT_PROPERTIES = new HashSet(){{
+		add(PropertyBool.class);
+	}};
+	private static final HashMap<IProperty, List<Comparable>> PROPERTY_VALUES = new HashMap();
+	
+	private static List<Comparable> getSortedValues(IProperty property)
 	{
-		valueToMetaRemap.put(false, true);
-		valueToMetaRemap.put(true, false);
+		List<Comparable> values = PROPERTY_VALUES.get(property);
+		
+		if (!PROPERTY_VALUES.containsKey(property))
+		{
+			values = new ArrayList(property.getAllowedValues());
+			
+			if (SORT_PROPERTIES.contains(property.getClass()))
+			{
+				Collections.sort(values);
+			}
+			
+			PROPERTY_VALUES.put(property, values);
+		}
+		
+		return values;
 	}
 
 	/**
@@ -83,17 +102,11 @@ public class BlockStateToMetadata
 
 		for (IProperty property : properties)
 		{
-			ImmutableSet values = (ImmutableSet) property.getAllowedValues();
+			List<Comparable> values = getSortedValues(property);
 
 			Comparable value = state.getValue(property);
-			
-			// Remap undesirable values to desired values (false = metadata 0, true = metadata 1)
-			if (valueToMetaRemap.containsKey(value))
-			{
-				value = valueToMetaRemap.get(value);
-			}
 
-			int index = values.asList().indexOf(value);
+			int index = values.indexOf(value);
 
 			BitwiseMask mask = new BitwiseMask(values.size());
 			metadata |= (index & mask.getMask()) << offset;
@@ -134,29 +147,23 @@ public class BlockStateToMetadata
 
 		for (IProperty property : properties)
 		{
-			ImmutableSet values = (ImmutableSet) property.getAllowedValues();
-
+			List<Comparable> values = getSortedValues(property);
+			
 			BitwiseMask mask = new BitwiseMask(values.size());
 			int metaValue = (metadata & (mask.getMask() << offset)) >> offset;
-
-			Comparable propValue = (Comparable) values.asList().get(metaValue);
-
-			// Remap undesirable values to desired values (metadata 0 = false, metadata 1 = true)
-			if (valueToMetaRemap.containsValue(propValue))
-			{
-				propValue = valueToMetaRemap.inverse().get(propValue);
-			}
-
+			
+			Comparable propValue = values.get(metaValue);
+			
 			state = state.withProperty(property, propValue);
-
+			
 			offset += mask.getBitCount();
 		}
-
+		
 		if (offset > MAXMETAVALUE.getBitCount())
 		{
 			throw new RuntimeException("Attempted to retrieve a property from an IBlockState past " + MAXMETAVALUE.getBitCount() + " bits, the maximum metadata bit count.");
 		}
-
+		
 		return state;
 	}
 

@@ -39,11 +39,6 @@ public class BlockFern extends BlockPlant implements IShearable
 		
 		setStepSound(GenesisSounds.FERN);
 	}
-	
-	protected BlockState createOurBlockState()
-	{
-		return new BlockState(this, variantProp);
-	}
 
 	@Override
 	public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos)

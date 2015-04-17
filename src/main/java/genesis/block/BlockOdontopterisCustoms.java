@@ -59,31 +59,31 @@ public class BlockOdontopterisCustoms implements IGrowingPlantCustoms
 		{
 			if (age >= plant.maxAge)
 			{
-				out.add(seedsDropTopMature.getRandom(worldIn.rand));
+				out.add(seedsDropTopMature.getRandomStack(worldIn.rand));
 			}
 			else
 			{
-				out.add(seedsDropTopBeforeMature.getRandom(worldIn.rand));
+				out.add(seedsDropTopBeforeMature.getRandomStack(worldIn.rand));
 			}
 		}
 		else
 		{
 			if (age >= 2)
 			{
-				out.add(seedsDropBottom2Up.getRandom(worldIn.rand));
+				out.add(seedsDropBottom2Up.getRandomStack(worldIn.rand));
 			}
 			else
 			{
-				out.add(seedsDropBottom1.getRandom(worldIn.rand));
+				out.add(seedsDropBottom1.getRandomStack(worldIn.rand));
 			}
 
 			if (age == 1)
 			{
-				out.add(fiddleheadDrop1.getRandom(worldIn.rand));
+				out.add(fiddleheadDrop1.getRandomStack(worldIn.rand));
 			}
 			if (age >= 2 && age <= 4)
 			{
-				out.add(fiddleheadDrop2To4.getRandom(worldIn.rand));
+				out.add(fiddleheadDrop2To4.getRandomStack(worldIn.rand));
 			}
 		}
 		

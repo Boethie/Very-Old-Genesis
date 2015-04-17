@@ -27,11 +27,6 @@ public final class Constants
 
 	public static final String PROXY_LOCATION = "genesis.common.GenesisProxy";
 	public static final String CLIENT_LOCATION = "genesis.client.GenesisClient";
-
-	public static final PropertyEnum DUNG_VARIANT = PropertyEnum.create("variant", EnumDung.class);
-	public static final PropertyInteger PROTOTAXITES_AGE = PropertyInteger.create("age", 0, 15);
-	public static final PropertyEnum CORAL_VARIANT = PropertyEnum.create("variant", EnumCoral.class);
-	public static final PropertyEnum AQUATIC_PLANT_VARIANT = PropertyEnum.create("variant", EnumAquaticPlant.class);
 	
 	public static final DamageSource CHANCELLORIA_DMG = new DamageSource("chancelloria");
 }

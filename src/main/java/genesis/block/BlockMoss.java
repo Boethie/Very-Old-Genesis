@@ -390,10 +390,8 @@ public class BlockMoss extends BlockGrass
 			
 			return color;
 		}
-		else
-		{
-			return getRenderColor(worldIn.getBlockState(pos));
-		}
+		
+		return getRenderColor(worldIn.getBlockState(pos));
 	}
 
 	@Override

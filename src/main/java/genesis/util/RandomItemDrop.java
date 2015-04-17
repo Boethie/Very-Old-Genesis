@@ -6,17 +6,15 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 
-public class RandomItemDrop
+public class RandomItemDrop extends RandomRange
 {
 	public Item item;
-	public int min;
-	public int max;
 	
 	public RandomItemDrop(Item itemIn, int minIn, int maxIn)
 	{
+		super(minIn, maxIn);
+		
 		item = itemIn;
-		min = minIn;
-		max = maxIn;
 	}
 	
 	/**
@@ -24,23 +22,16 @@ public class RandomItemDrop
 	 * @param rand
 	 * @return A random ItemStack.
 	 */
-	public ItemStack getRandom(Random rand)
+	public ItemStack getRandomStack(Random rand)
 	{
-		int amt = min;
-		
-		if (max != min)
-		{
-			amt = MathHelper.getRandomIntegerInRange(rand, min, max);
-		}
-		
-		return new ItemStack(item, amt);
+		return new ItemStack(item, getRandomAmount(rand));
 	}
 	
 	/**
 	 * Gets an ItemStack with a size of 1.
 	 * @return
 	 */
-	public ItemStack getOne()
+	public ItemStack getOneInStack()
 	{
 		return new ItemStack(item);
 	}

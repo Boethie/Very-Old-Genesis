@@ -7,11 +7,8 @@ import com.google.common.collect.Sets;
 import genesis.client.GenesisSounds;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
-import genesis.metadata.EnumAquaticPlant;
-import genesis.metadata.IMetadata;
-import genesis.metadata.IModifyStateMap;
+import genesis.metadata.*;
 import genesis.metadata.Properties;
-import genesis.metadata.VariantsOfTypesCombo;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants;
 import genesis.util.FlexibleStateMap;
@@ -39,7 +36,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockAquaticPlant extends BlockGenesis implements IModifyStateMap
+public class BlockAquaticPlant extends BlockGenesisVariants<EnumAquaticPlant, VariantsCombo> implements IModifyStateMap
 {
 	/**
 	 * Used in BlocksAndItemsWithVariantsOfTypes.
@@ -50,32 +47,18 @@ public class BlockAquaticPlant extends BlockGenesis implements IModifyStateMap
 		return new IProperty[]{};
 	}
 	
-	public final VariantsOfTypesCombo owner;
-	
-	public final List<EnumAquaticPlant> variants;
-	public final PropertyEnum variantProp;
-	
 	private Set<Block> validGround;
-	private HashSet<EnumAquaticPlant> noItemVariants = new HashSet(){{
-		add(EnumAquaticPlant.CHARNIA);
-	}};
 
-	public BlockAquaticPlant(List<EnumAquaticPlant> variants, VariantsOfTypesCombo owner)
+	public BlockAquaticPlant(List<EnumAquaticPlant> variants, VariantsCombo owner)
 	{
-		super(Material.water);
-		
-		this.owner = owner;
-		
-		this.variants = variants;
-		variantProp = PropertyEnum.create("variant", EnumAquaticPlant.class, variants);
+		super(variants, owner, Material.water);
 		
 		blockState = new BlockState(this, variantProp, BlockLiquid.LEVEL);
 		setDefaultState(getBlockState().getBaseState());
 		
-		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
+		noItemVariants.add(EnumAquaticPlant.CHARNIA);
 		
-		setItemDropped(Item.getItemFromBlock(this));
-		setQuantityDropped(1);
+		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		
 		setHardness(0.0F);
 		setStepSound(GenesisSounds.AQUATICPLANT);
@@ -86,18 +69,6 @@ public class BlockAquaticPlant extends BlockGenesis implements IModifyStateMap
 	public void customizeStateMap(FlexibleStateMap stateMap)
 	{
 		stateMap.addIgnoredProperties(BlockLiquid.LEVEL);
-	}
-	
-	@Override
-	public int getMetaFromState(IBlockState state)
-	{
-		return BlockStateToMetadata.getMetaForBlockState(state, variantProp);
-	}
-
-	@Override
-	public IBlockState getStateFromMeta(int metadata)
-	{
-		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), metadata, variantProp);
 	}
 
 	@Override
@@ -141,7 +112,7 @@ public class BlockAquaticPlant extends BlockGenesis implements IModifyStateMap
 	@Override
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
 	{
-		if (state.getValue(Constants.AQUATIC_PLANT_VARIANT) == EnumAquaticPlant.CHANCELLORIA)
+		if (state.getValue(variantProp) == EnumAquaticPlant.CHANCELLORIA)
 		{
 			entityIn.attackEntityFrom(Constants.CHANCELLORIA_DMG, 0.5F);
 		}
@@ -179,10 +150,10 @@ public class BlockAquaticPlant extends BlockGenesis implements IModifyStateMap
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
 	{
-		if (((EnumAquaticPlant) state.getValue(Constants.AQUATIC_PLANT_VARIANT)) == EnumAquaticPlant.CHARNIA_TOP)
+		if (((EnumAquaticPlant) state.getValue(variantProp)) == EnumAquaticPlant.CHARNIA_TOP)
 		{
-			worldIn.setBlockState(pos, this.getDefaultState().withProperty(Constants.AQUATIC_PLANT_VARIANT, EnumAquaticPlant.CHARNIA), 3);
-			worldIn.setBlockState(pos.up(), this.getDefaultState().withProperty(Constants.AQUATIC_PLANT_VARIANT, EnumAquaticPlant.CHARNIA_TOP), 3);
+			worldIn.setBlockState(pos, getDefaultState().withProperty(variantProp, EnumAquaticPlant.CHARNIA), 3);
+			worldIn.setBlockState(pos.up(), getDefaultState().withProperty(variantProp, EnumAquaticPlant.CHARNIA_TOP), 3);
 		}
 	}
 
@@ -195,13 +166,13 @@ public class BlockAquaticPlant extends BlockGenesis implements IModifyStateMap
 	private void breakPlant(World world, BlockPos pos, IBlockState state)
 	{
 		world.setBlockState(pos, Blocks.water.getStateFromMeta(0), 3);
-		EnumAquaticPlant variant = (EnumAquaticPlant) state.getValue(Constants.AQUATIC_PLANT_VARIANT);
+		EnumAquaticPlant variant = (EnumAquaticPlant) state.getValue(variantProp);
 		
 		if (variant == EnumAquaticPlant.CHARNIA_TOP)
 		{
 			IBlockState below = world.getBlockState(pos.down());
 			
-			if (below.getBlock() == this && below.getValue(Constants.AQUATIC_PLANT_VARIANT) == EnumAquaticPlant.CHARNIA)
+			if (below.getBlock() == this && below.getValue(variantProp) == EnumAquaticPlant.CHARNIA)
 			{
 				world.setBlockState(pos.down(), Blocks.water.getStateFromMeta(0), 3);
 			}
@@ -210,7 +181,7 @@ public class BlockAquaticPlant extends BlockGenesis implements IModifyStateMap
 		{
 			IBlockState above = world.getBlockState(pos.up());
 			
-			if (above.getBlock() == this && above.getValue(Constants.AQUATIC_PLANT_VARIANT) == EnumAquaticPlant.CHARNIA_TOP)
+			if (above.getBlock() == this && above.getValue(variantProp) == EnumAquaticPlant.CHARNIA_TOP)
 			{
 				world.setBlockState(pos.up(), Blocks.water.getStateFromMeta(0), 3);
 			}
@@ -218,17 +189,12 @@ public class BlockAquaticPlant extends BlockGenesis implements IModifyStateMap
 	}
 	
 	@Override
-    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
-    {
-		ArrayList<ItemStack> stackList = new ArrayList();
+	public int damageDropped(IBlockState state)
+	{
+		Comparable variant = state.getValue(variantProp);
 		
-		if (!noItemVariants.contains(state.getValue(variantProp)))
-		{
-			stackList.add(owner.getStack(this, (IMetadata) state.getValue(variantProp)));
-		}
-		
-		return stackList;
-    }
+		return variant == EnumAquaticPlant.CHARNIA ? owner.getMetadata(EnumAquaticPlant.CHARNIA_TOP) : super.damageDropped(state);
+	}
 
 	public boolean canBlockStay(World world, BlockPos pos, IBlockState state)
 	{
@@ -245,11 +211,11 @@ public class BlockAquaticPlant extends BlockGenesis implements IModifyStateMap
 		
 		IBlockState below = world.getBlockState(pos.down());
 		Block blockBelow = below.getBlock();
-		EnumAquaticPlant variant = (EnumAquaticPlant) state.getValue(Constants.AQUATIC_PLANT_VARIANT);
+		EnumAquaticPlant variant = (EnumAquaticPlant) state.getValue(variantProp);
 		
 		if (!validGround.contains(blockBelow)
 				&& blockBelow instanceof BlockGenesisRock == false
-				&& (variant != EnumAquaticPlant.CHARNIA_TOP || blockBelow != this || ((EnumAquaticPlant) below.getValue(Constants.AQUATIC_PLANT_VARIANT)) != EnumAquaticPlant.CHARNIA))
+				&& (variant != EnumAquaticPlant.CHARNIA_TOP || blockBelow != this || below.getValue(variantProp) != EnumAquaticPlant.CHARNIA))
 		{
 			return false;
 		}

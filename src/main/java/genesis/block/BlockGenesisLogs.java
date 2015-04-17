@@ -2,18 +2,14 @@ package genesis.block;
 
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
-import genesis.metadata.IMetadata;
-import genesis.metadata.VariantsOfTypesCombo;
-import genesis.metadata.EnumTree;
-import genesis.metadata.Properties;
-import genesis.util.BlockStateToMetadata;
+import genesis.metadata.*;
+import genesis.util.*;
 
 import java.util.List;
 
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -38,7 +34,7 @@ public class BlockGenesisLogs extends BlockLog
 	public final VariantsOfTypesCombo owner;
 	
 	public final List<EnumTree> variants;
-	public final PropertyEnum variantProp;
+	public final PropertyIMetadata variantProp;
 	
 	public BlockGenesisLogs(List<EnumTree> variants, VariantsOfTypesCombo owner)
 	{
@@ -47,7 +43,7 @@ public class BlockGenesisLogs extends BlockLog
 		this.owner = owner;
 		
 		this.variants = variants;
-		variantProp = PropertyEnum.create("variant", EnumTree.class, variants);
+		variantProp = new PropertyIMetadata("variant", variants);
 		
 		blockState = new BlockState(this, variantProp, LOG_AXIS);
 		setDefaultState(getBlockState().getBaseState().withProperty(LOG_AXIS, EnumAxis.NONE));

@@ -2,6 +2,7 @@ package genesis.block;
 
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
+import genesis.metadata.PropertyIMetadata;
 import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.EnumPlant;
 import genesis.metadata.IMetadata;
@@ -37,9 +38,9 @@ public class BlockPlant extends BlockBush
 	}
 	
 	public final VariantsOfTypesCombo owner;
-	
-	public final PropertyEnum variantProp;
+
 	public final List<IMetadata> variants;
+	public final PropertyIMetadata variantProp;
 	
 	public BlockPlant(List<IMetadata> variants, VariantsOfTypesCombo owner)
 	{
@@ -50,7 +51,7 @@ public class BlockPlant extends BlockBush
 
 		this.owner = owner;
 		
-		variantProp = PropertyEnum.create("variant", variants.get(0).getClass(), variants);
+		variantProp = new PropertyIMetadata("variant", variants);
 		this.variants = variants;
 		
 		blockState = new BlockState(this, variantProp);
@@ -74,7 +75,7 @@ public class BlockPlant extends BlockBush
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return variants.indexOf(state.getValue(variantProp));
+		return owner.getMetadata(this, (IMetadata) state.getValue(variantProp));
 	}
 
 	@Override

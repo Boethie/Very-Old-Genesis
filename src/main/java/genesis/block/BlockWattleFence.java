@@ -4,13 +4,8 @@ import java.util.List;
 
 import genesis.client.model.WattleFenceModel;
 import genesis.common.GenesisCreativeTabs;
-import genesis.metadata.VariantsOfTypesCombo;
-import genesis.metadata.EnumTree;
-import genesis.metadata.IMetadata;
-import genesis.metadata.Properties;
-import genesis.util.BlockStateToMetadata;
-import genesis.util.Constants;
-import net.minecraft.block.Block;
+import genesis.metadata.*;
+import genesis.util.*;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -37,7 +32,7 @@ public class BlockWattleFence extends BlockFence
 
 	public final VariantsOfTypesCombo owner;
 	
-	public final PropertyEnum variantProp;
+	public final PropertyIMetadata variantProp;
 	public final List<EnumTree> variants;
 	
 	public BlockWattleFence(List<EnumTree> variants, VariantsOfTypesCombo owner)
@@ -46,7 +41,7 @@ public class BlockWattleFence extends BlockFence
 		
 		this.owner = owner;
 		
-		variantProp = PropertyEnum.create("variant", EnumTree.class, variants);
+		variantProp = new PropertyIMetadata("variant", variants);
 		this.variants = variants;
 		
 		blockState = new BlockState(this, variantProp, NORTH, EAST, WEST, SOUTH);
@@ -69,7 +64,8 @@ public class BlockWattleFence extends BlockFence
 		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), metadata, variantProp);
 	}
 	
-	public Block setUnlocalizedName(String name)
+	@Override
+	public BlockWattleFence setUnlocalizedName(String name)
 	{
 		super.setUnlocalizedName(Constants.PREFIX + name);
 		

@@ -8,7 +8,7 @@ import net.minecraft.util.IStringSerializable;
 
 public class Stringify
 {
-	public static String stringify(Collection<Object> list)
+	public static String stringify(Iterable<Object> list)
 	{
 		String output = "{ ";
 		
@@ -22,27 +22,46 @@ public class Stringify
 		return output;
 	}
 	
+	public static String stringify(Object[] objArray)
+	{
+		return stringify(Arrays.asList(objArray));
+	}
+	
 	public static String stringify(Object obj)
 	{
-		if (obj instanceof Collection)
+		if (obj instanceof Object[])
+		
+		if (obj instanceof Iterable)
 		{
-			return stringify((Collection) obj);
+			return stringify((Iterable) obj);
 		}
 		
 		if (obj instanceof IStringSerializable)
 		{
-			return ((IStringSerializable)obj).getName();
+			return ((IStringSerializable) obj).getName();
 		}
 		
 		String data = "";
 		
 		if (obj instanceof Item)
 		{
-			data += "name = " + ((Item)obj).getUnlocalizedName();
+			data += "name = " + ((Item) obj).getUnlocalizedName();
 		}
 		else if (obj instanceof Block)
 		{
-			data += "name = " + ((Block)obj).getUnlocalizedName();
+			data += "name = " + ((Block) obj).getUnlocalizedName();
+		}
+		else if (obj instanceof Class)
+		{
+			Class clazz = (Class)obj;
+			String name = clazz.getSimpleName();
+			
+			if (clazz.isAnonymousClass())
+			{
+				name = clazz.getSuperclass().getSimpleName();
+			}
+			
+			data += "name = " + name;
 		}
 		
 		return obj.getClass().getSimpleName() + (data.length() > 0 ? "(" + data + ")" : "");

@@ -1,6 +1,9 @@
 package genesis.common;
 
+import java.util.List;
+
 import genesis.block.*;
+import genesis.client.GenesisSounds;
 import genesis.item.ItemBlockColored;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
@@ -8,8 +11,11 @@ import genesis.metadata.VariantsOfTypesCombo.ObjectType.ObjectNamePosition;
 import genesis.util.Constants;
 import genesis.util.RandomItemDrop;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockCactus;
 import net.minecraft.block.BlockLiquid;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.block.statemap.StateMap;
+import net.minecraft.item.Item;
 import net.minecraftforge.common.EnumPlantType;
 
 public final class GenesisBlocks
@@ -81,7 +87,20 @@ public final class GenesisBlocks
 	
 	/* Misc */
 	public static final BlockGenesis prototaxites = new BlockPrototaxites().setUnlocalizedName("prototaxites");
-	public static final VariantsCombo<BlockCoral> corals = new VariantsCombo(new ObjectType("coral", BlockCoral.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumCoral.values());
+	public static final VariantsCombo<BlockGenesisVariants> corals = new VariantsCombo(new ObjectType<BlockGenesisVariants>("coral", BlockGenesisVariants.class, null)
+			{
+				@Override
+				public void afterConstructed(Block block, Item item, List<IMetadata> variants)
+				{
+					super.afterConstructed(block, item, variants);
+					
+					block.setHardness(0.75F);
+					block.setResistance(8.5F);
+					block.setStepSound(GenesisSounds.CORAL);
+				}
+			}.setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE)
+			.setCreativeTab(GenesisCreativeTabs.DECORATIONS)
+			.setBlockArguments(Material.coral), EnumCoral.values());
 	public static final DungBlocksAndItems dungs = new DungBlocksAndItems();
 	public static final BlockGenesisTorch calamites_torch = new BlockGenesisTorch().setUnlocalizedName("calamitesTorch");
 
@@ -147,6 +166,7 @@ public final class GenesisBlocks
 		GenesisItems.odontopteris_seeds.setCrop(odontopteris);
 		
 		Genesis.proxy.registerBlock(prototaxites, "prototaxites");
+		Genesis.proxy.registerModelStateMap(GenesisBlocks.prototaxites, new StateMap.Builder().addPropertiesToIgnore(BlockCactus.AGE).build());
 		aquatic_plants.registerAll();
 
 		corals.registerAll();

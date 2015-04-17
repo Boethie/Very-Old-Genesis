@@ -3,6 +3,7 @@ package genesis.block;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.common.GenesisItems;
+import genesis.util.BlockStateToMetadata;
 
 import java.util.Random;
 
@@ -19,12 +20,31 @@ public class BlockPrototaxites extends BlockGenesis
 	public BlockPrototaxites()
 	{
 		super(Material.wood);
-		setHardness(0.75F);
+		
 		setDefaultState(getBlockState().getBaseState().withProperty(BlockCactus.AGE, 0));
+		setHardness(0.75F);
 		setTickRandomly(true);
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		setHarvestLevel("axe", 0);
 		setItemDropped(GenesisItems.prototaxites_flesh);
+	}
+
+	@Override
+	protected BlockState createBlockState()
+	{
+		return new BlockState(this, BlockCactus.AGE);
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta)
+	{
+		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), meta);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state)
+	{
+		return ((Integer) state.getValue(BlockCactus.AGE)).intValue();
 	}
 
 	@Override
@@ -79,23 +99,5 @@ public class BlockPrototaxites extends BlockGenesis
 	{
 		Block block = worldIn.getBlockState(pos.down()).getBlock();
 		return (block == GenesisBlocks.prototaxites) || (block == GenesisBlocks.prototaxites_mycelium);
-	}
-
-	@Override
-	public IBlockState getStateFromMeta(int meta)
-	{
-		return getDefaultState().withProperty(BlockCactus.AGE, meta);
-	}
-
-	@Override
-	public int getMetaFromState(IBlockState state)
-	{
-		return ((Integer) state.getValue(BlockCactus.AGE)).intValue();
-	}
-
-	@Override
-	protected BlockState createBlockState()
-	{
-		return new BlockState(this, BlockCactus.AGE);
 	}
 }
