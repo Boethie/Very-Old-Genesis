@@ -1,12 +1,16 @@
 package genesis.common;
 
+import genesis.command.CommandTPGenesis;
 import genesis.metadata.*;
 import genesis.util.Constants;
+import genesis.world.WorldProviderGenesis;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 import org.apache.logging.log4j.Logger;
 
@@ -37,6 +41,9 @@ public class Genesis
 
 		registerEntities();
 
+		DimensionManager.registerProviderType(37, WorldProviderGenesis.class, true);
+		DimensionManager.registerDimension(37, 37);
+		
 		proxy.preInit();
 	}
 
@@ -56,6 +63,11 @@ public class Genesis
 		proxy.postInit();
 		
 		GenesisRecipes.doSubstitutes();
+	}
+	
+	@Mod.EventHandler
+	public void onServerStarting(FMLServerStartingEvent event){
+		event.registerServerCommand(new CommandTPGenesis());
 	}
 
 	private void registerTileEntities()
