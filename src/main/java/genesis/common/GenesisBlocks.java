@@ -4,6 +4,7 @@ import java.util.List;
 
 import genesis.block.*;
 import genesis.client.GenesisSounds;
+import genesis.item.ItemBlockCobbania;
 import genesis.item.ItemBlockColored;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
@@ -64,6 +65,7 @@ public final class GenesisBlocks
 			.setGrowthChanceMult(6, 1, 1)
 			.setUnlocalizedName("plant.calamites");
 	public static final VariantsCombo<BlockFern> ferns = new VariantsCombo(new ObjectType("fern", BlockFern.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumFern.values());
+	public static final BlockCobbania cobbania = new BlockCobbania();//.setUnlocalizedName("cobbania");
 	public static final VariantsCombo<BlockAquaticPlant> aquatic_plants = new VariantsCombo(new ObjectType("aquatic_plant", "aquaticPlant", BlockAquaticPlant.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumAquaticPlant.values());
 
 	/* Crops */
@@ -167,6 +169,7 @@ public final class GenesisBlocks
 		
 		Genesis.proxy.registerBlock(prototaxites, "prototaxites");
 		Genesis.proxy.registerModelStateMap(GenesisBlocks.prototaxites, new StateMap.Builder().addPropertiesToIgnore(BlockCactus.AGE).build());
+		Genesis.proxy.registerBlock(cobbania, "cobbania", ItemBlockCobbania.class);
 		aquatic_plants.registerAll();
 
 		corals.registerAll();

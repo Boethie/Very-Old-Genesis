@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "normal": [
+            { "model": "genesis:cobbania" },
+            { "model": "genesis:cobbania", "y": 90 },
+            { "model": "genesis:cobbania", "y": 180 },
+            { "model": "genesis:cobbania", "y": 270 }
+        ]
+    }
+}
