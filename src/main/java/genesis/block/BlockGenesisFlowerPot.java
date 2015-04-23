@@ -4,19 +4,17 @@ import java.util.*;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import com.google.common.collect.*;
+import com.google.common.base.Optional;
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
 
 import genesis.client.GenesisClient;
-import genesis.metadata.IMetadata;
-import genesis.metadata.VariantsCombo;
-import genesis.metadata.VariantsOfTypesCombo;
+import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.Constants;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockFlowerPot;
-import net.minecraft.block.properties.PropertyHelper;
-import net.minecraft.block.state.BlockState;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.*;
+import net.minecraft.block.properties.*;
+import net.minecraft.block.state.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
@@ -53,7 +51,6 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		public Collection getAllowedValues()
 		{
 			Set<Pair<Item, Integer>> keySet = values.keySet();
-			List<Pair<Item, Integer>> list = Lists.newArrayList(keySet);
 			return keySet;
 		}
 
@@ -64,24 +61,20 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		}
 	}
 	
-	public static final LinkedHashMap<Pair<Item, Integer>, Pair<Item, Integer>> PAIR_MAP = new LinkedHashMap();
+	public static final Table<Item, Integer, Pair<Item, Integer>> PAIR_MAP = HashBasedTable.create();
 	
 	/**
-	 * Used to get the same exact instance of Pair for an ItemStack pair, because BlockState$StateImplementation is stupid.
+	 * Used to get the same exact instance of Pair for an ItemStack pair, because BlockState$StateImplementation doesn't handle new instances for default property values in withProperty.
 	 */
 	public static Pair<Item, Integer> getPair(Item item, int meta)
 	{
+		if (PAIR_MAP.contains(item, meta))
+		{
+			return PAIR_MAP.get(item, meta);
+		}
+		
 		Pair<Item, Integer> pair = Pair.of(item, meta);
-		
-		if (PAIR_MAP.containsKey(pair))
-		{
-			pair = PAIR_MAP.get(pair);
-		}
-		else
-		{
-			PAIR_MAP.put(pair, pair);
-		}
-		
+		PAIR_MAP.put(item, meta, pair);
 		return pair;
 	}
 	
@@ -95,7 +88,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		return new ItemStack(pair.getLeft(), 1, pair.getRight());
 	}
 	
-	protected final HashMap<Pair<Item, Integer>, String> stacksToNames = new HashMap();
+	protected final LinkedHashMap<Pair<Item, Integer>, String> stacksToNames = new LinkedHashMap();
 	protected PropertyContents contentsProp;
 	
 	public BlockGenesisFlowerPot()
@@ -132,8 +125,6 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 	 */
 	public void afterAllRegistered()
 	{
-		//registerPlantForPot(new ItemStack(Item.getItemFromBlock(this)), "empty");
-		
 		contentsProp = new PropertyContents("contents", stacksToNames);
 		blockState = new BlockState(this, contentsProp);
 		setDefaultState(blockState.getBaseState());
@@ -159,7 +150,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		if (te instanceof TileEntityFlowerPot)
 		{
 			TileEntityFlowerPot tePot = (TileEntityFlowerPot) te;
-			Pair<Item, Integer> key = Pair.of(tePot.getFlowerPotItem(), tePot.getFlowerPotData());
+			Pair<Item, Integer> key = getPair(tePot.getFlowerPotItem(), tePot.getFlowerPotData());
 			
 			if (stacksToNames.containsKey(key))
 			{
@@ -215,7 +206,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 						
 						EntityPlayer player = event.entityPlayer;
 						
-						if (world.isRemote)	// We must send a packet to the server telling it that the player right clicked or else it won't place the plant in the flower pot. Bad Forge. D:
+						if (world.isRemote)	// We must send a packet to the server telling it that the player right clicked or else it won't place the plant in the flower pot.
 						{
 							Minecraft mc = GenesisClient.getMC();
 							EntityPlayerSP spPlayer = mc.thePlayer;
