@@ -1,0 +1,6 @@
+{
+    "parent": "block/flower_pot_fern",
+    "textures": {
+        "plant": "genesis:blocks/fern_zygopteris"
+    }
+}

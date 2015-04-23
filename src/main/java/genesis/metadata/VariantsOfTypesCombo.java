@@ -236,6 +236,31 @@ public class VariantsOfTypesCombo
 		public void customizeStateMap(FlexibleStateMap stateMap)
 		{
 		}
+
+		public String getVariantName(IMetadata variant)
+		{
+			String resource = variant.getName();
+			
+			switch (getNamePosition())
+			{
+			case PREFIX:
+				resource = getName() + "_" + resource;
+				break;
+			case POSTFIX:
+				resource += "_" + getName();
+				break;
+			default:
+			}
+			
+			Function<IMetadata, String> nameFunction = getResourceNameFunction();
+			
+			if (nameFunction != null)
+			{
+				resource = nameFunction.apply(variant);
+			}
+			
+			return resource;
+		}
 	}
 	
 	protected class VariantEntry {
@@ -560,27 +585,7 @@ public class VariantsOfTypesCombo
 				item.setUnlocalizedName(type.getUnlocalizedName());
 				
 				// Register item model location.
-				String resource = variant.getName();
-				
-				switch (type.getNamePosition())
-				{
-				case PREFIX:
-					resource = type.getName() + "_" + resource;
-					break;
-				case POSTFIX:
-					resource += "_" + type.getName();
-					break;
-				default:
-				}
-				
-				Function<IMetadata, String> nameFunction = type.getResourceNameFunction();
-				
-				if (nameFunction != null)
-				{
-					resource = nameFunction.apply(variant);
-				}
-				
-				Genesis.proxy.registerModel(item, metadata, resource);
+				Genesis.proxy.registerModel(item, metadata, type.getVariantName(variant));
 			}
 		}
 	}
@@ -803,22 +808,12 @@ public class VariantsOfTypesCombo
 	}
 	
 	/**
-	 * Wrapper for getSubItems(Object, List<IMetadata>, List<ItemStack>) to create a new list.
-	 */
-	public List<ItemStack> getSubItems(Object obj, List<IMetadata> variants)
-	{
-		return fillSubItems(obj, variants, new ArrayList<ItemStack>());
-	}
-	
-	/**
 	 * Fills the provided list with all the valid sub-items for this Block or Item.
 	 * 
 	 * @return List<ItemStack> containing all sub-items for this Block or Item.
 	 */
-	public <T extends IMetadata> List<ItemStack> fillSubItems(Object obj, List<T> variants, List<ItemStack> listToFill, Set<T> exclude)
+	public <T extends IMetadata> List<ItemStack> fillSubItems(ObjectType objectType, List<T> variants, List<ItemStack> listToFill, Set<T> exclude)
 	{
-		ObjectType objectType = getObjectType(obj);
-		
 		for (IMetadata variant : variants)
 		{
 			if (!exclude.contains(variant))
@@ -835,8 +830,34 @@ public class VariantsOfTypesCombo
 	 * 
 	 * @return List<ItemStack> containing all sub-items for this Block or Item.
 	 */
+	public <T extends IMetadata> List<ItemStack> fillSubItems(Object obj, List<T> variants, List<ItemStack> listToFill, Set<T> exclude)
+	{
+		return fillSubItems(getObjectType(obj), variants, listToFill, exclude);
+	}
+	
+	/**
+	 * Fills the provided list with all the valid sub-items for this Block or Item.
+	 * 
+	 * @return List<ItemStack> containing all sub-items for this Block or Item.
+	 */
 	public <T extends IMetadata> List<ItemStack> fillSubItems(Object obj, List<T> variants, List<ItemStack> listToFill, T... exclude)
 	{
 		return fillSubItems(obj, variants, listToFill, Sets.newHashSet(exclude));
+	}
+	
+	/**
+	 * Wrapper for getSubItems(Object, List<IMetadata>, List<ItemStack>) to create a new list.
+	 */
+	public List<ItemStack> getSubItems(ObjectType objectType, List<IMetadata> variants)
+	{
+		return fillSubItems(objectType, variants, new ArrayList<ItemStack>());
+	}
+	
+	/**
+	 * Wrapper for getSubItems(Object, List<IMetadata>, List<ItemStack>) to create a new list.
+	 */
+	public List<ItemStack> getSubItems(ObjectType objectType)
+	{
+		return getSubItems(objectType, getValidVariants(objectType));
 	}
 }

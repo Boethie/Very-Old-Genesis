@@ -33,6 +33,11 @@ public class GenesisClient extends GenesisProxy
 {
 	private static final Minecraft MC = FMLClientHandler.instance().getClient();
 	
+	public static Minecraft getMC()
+	{
+		return MC;
+	}
+	
 	private boolean hasInit = false;
 
 	@Override

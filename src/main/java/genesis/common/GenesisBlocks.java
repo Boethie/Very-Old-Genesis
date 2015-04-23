@@ -87,6 +87,9 @@ public final class GenesisBlocks
 			.setCustomsInterface(new BlockOdontopterisCustoms())
 			.setUnlocalizedName("crop.odontopteris");
 	
+	/* Other Decorative */
+	public static final BlockGenesisFlowerPot flower_pot = new BlockGenesisFlowerPot();
+	
 	/* Misc */
 	public static final BlockGenesis prototaxites = new BlockPrototaxites().setUnlocalizedName("prototaxites");
 	public static final VariantsCombo<BlockGenesisVariants> corals = new VariantsCombo(new ObjectType<BlockGenesisVariants>("coral", BlockGenesisVariants.class, null)
@@ -166,6 +169,11 @@ public final class GenesisBlocks
 		odontopteris.setCropDrops(new RandomItemDrop(GenesisItems.odontopteris_seeds, 1, 3));
 		odontopteris.setPickedItem(GenesisItems.odontopteris_seeds);
 		GenesisItems.odontopteris_seeds.setCrop(odontopteris);
+		
+		Genesis.proxy.registerBlock(flower_pot, "genesis_flower_pot");
+		flower_pot.registerPlantsForPot(plants);
+		flower_pot.registerPlantsForPot(ferns);
+		flower_pot.afterAllRegistered();
 		
 		Genesis.proxy.registerBlock(prototaxites, "prototaxites");
 		Genesis.proxy.registerModelStateMap(GenesisBlocks.prototaxites, new StateMap.Builder().addPropertiesToIgnore(BlockCactus.AGE).build());
