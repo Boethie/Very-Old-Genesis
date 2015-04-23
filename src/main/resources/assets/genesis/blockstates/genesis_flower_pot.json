@@ -11,6 +11,12 @@
         "contents=zygopteris": { "model": "genesis:flower_pot_zygopteris" },
         "contents=ruffordia": { "model": "genesis:flower_pot_ruffordia" },
         "contents=astralopteris": { "model": "genesis:flower_pot_astralopteris" },
-        "contents=matonidium": { "model": "genesis:flower_pot_matonidium" }
+        "contents=matonidium": { "model": "genesis:flower_pot_matonidium" },
+        "contents=archaeopteris_sapling": { "model": "genesis:flower_pot_sapling_archaeopteris" },
+        "contents=sigillaria_sapling": { "model": "genesis:flower_pot_sapling_sigillaria" },
+        "contents=lepidodendron_sapling": { "model": "genesis:flower_pot_sapling_lepidodendron" },
+        "contents=cordaites_sapling": { "model": "genesis:flower_pot_sapling_cordaites" },
+        "contents=psaronius_sapling": { "model": "genesis:flower_pot_sapling_psaronius" },
+        "contents=araucarioxylon_sapling": { "model": "genesis:flower_pot_sapling_araucarioxylon" }
     }
 }
