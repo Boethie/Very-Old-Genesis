@@ -1,13 +1,15 @@
 package genesis.metadata;
 
-import genesis.block.BlockGenesisLogs;
-import genesis.block.BlockWattleFence;
-import genesis.item.ItemMulti;
+import genesis.block.*;
+import genesis.item.*;
+import genesis.util.FlexibleStateMap;
 
 import java.util.ArrayList;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
+import net.minecraft.block.BlockLeaves;
+import net.minecraft.block.BlockSapling;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.item.Item;
@@ -17,6 +19,10 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class TreeBlocksAndItems extends VariantsOfTypesCombo
 {
 	public static final ObjectType<BlockGenesisLogs> LOG = new ObjectType("log", BlockGenesisLogs.class, null);
+	public static final ObjectType<BlockGenesisSaplings> SAPLING = new ObjectType("sapling", BlockGenesisSaplings.class, null)
+			.setIgnoredProperties(BlockSapling.STAGE);
+	public static final ObjectType<BlockGenesisLeaves> LEAVES = new ObjectType("leaves", BlockGenesisLeaves.class, null)
+			.setIgnoredProperties(BlockLeaves.CHECK_DECAY, BlockLeaves.DECAYABLE);
 	public static final ObjectType<ItemMulti> BILLET = new ObjectType("billet", null, ItemMulti.class, EnumTree.NO_BILLET);
 	public static final ObjectType<BlockWattleFence> WATTLE_FENCE = new ObjectType("wattle_fence", "wattleFence", BlockWattleFence.class, null, EnumTree.NO_BILLET)
 	{
@@ -33,7 +39,7 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo
 	
 	public TreeBlocksAndItems()
 	{
-		super(new ObjectType[]{LOG, BILLET, WATTLE_FENCE}, EnumTree.values());
+		super(new ObjectType[]{LOG, SAPLING, LEAVES, BILLET, WATTLE_FENCE}, EnumTree.values());
 
 		for (IMetadata variant : getValidVariants(BILLET))
 		{

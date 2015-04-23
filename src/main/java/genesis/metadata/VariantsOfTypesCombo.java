@@ -77,6 +77,7 @@ public class VariantsOfTypesCombo
 		
 		protected List<IMetadata> variantExclusions;
 		protected boolean separateVariantJsons = true;
+		protected IProperty[] stateMapIgnoredProperties;
 		
 		protected CreativeTabs tab = null;
 		
@@ -232,9 +233,21 @@ public class VariantsOfTypesCombo
 		public void afterRegistered(Block block, Item item)
 		{
 		}
+		
+		public ObjectType<T> setIgnoredProperties(IProperty... properties)
+		{
+			stateMapIgnoredProperties = properties;
+			
+			return this;
+		}
 
 		public void customizeStateMap(FlexibleStateMap stateMap)
 		{
+			if (stateMapIgnoredProperties != null)
+			{
+				stateMap.clearIgnoredProperties();
+				stateMap.addIgnoredProperties(stateMapIgnoredProperties);
+			}
 		}
 
 		public String getVariantName(IMetadata variant)
@@ -635,15 +648,27 @@ public class VariantsOfTypesCombo
 	 * @param variant
 	 * @return The Block/Item casted to the type provided by the generic type in "type".
 	 */
-	public VariantEntry getVariantEntry(ObjectType type, IMetadata variant)
+	public HashMap<IMetadata, VariantEntry> getVariantMap(ObjectType type)
 	{
-		HashMap<IMetadata, VariantEntry> variantMap = map.get(type);
-		
-		if (variantMap == null)
+		if (!map.containsKey(type))
 		{
 			throw new RuntimeException("Attempted to get an object of type " + type + " from a " + VariantsOfTypesCombo.class.getSimpleName() + " that does not contain that type.\n" +
 					getIdentification());
 		}
+		
+		return map.get(type);
+	}
+
+	/**
+	 * Gets the Pair containing the metadata for this variant and its container Block or Item.
+	 * 
+	 * @param type
+	 * @param variant
+	 * @return The Block/Item casted to the type provided by the generic type in "type".
+	 */
+	public VariantEntry getVariantEntry(ObjectType type, IMetadata variant)
+	{
+		HashMap<IMetadata, VariantEntry> variantMap = getVariantMap(type);
 		
 		if (!variantMap.containsKey(variant))
 		{
@@ -651,7 +676,7 @@ public class VariantsOfTypesCombo
 					getIdentification());
 		}
 		
-		return map.get(type).get(variant);
+		return variantMap.get(variant);
 	}
 
 	/**
@@ -693,6 +718,26 @@ public class VariantsOfTypesCombo
 		}
 		
 		throw new IllegalArgumentException("Variant " + variant.getName() + " of ObjectType " + type.getName() + " does not include a Block instance.");
+	}
+	
+	/**
+	 * Gets the variant for the specified Block and item metadata.
+	 */
+	public IMetadata getVariant(Block block, int meta)
+	{
+		HashMap<IMetadata, VariantEntry> map = getVariantMap(getObjectType(block));
+		
+		for (HashMap.Entry<IMetadata, VariantEntry> entry : map.entrySet())
+		{
+			VariantEntry variantEntry = entry.getValue();
+			
+			if (variantEntry.block == block && variantEntry.metadata == meta)
+			{
+				return entry.getKey();
+			}
+		}
+		
+		return null;
 	}
 	
 	/**

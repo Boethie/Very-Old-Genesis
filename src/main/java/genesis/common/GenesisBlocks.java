@@ -169,10 +169,14 @@ public final class GenesisBlocks
 		odontopteris.setCropDrops(new RandomItemDrop(GenesisItems.odontopteris_seeds, 1, 3));
 		odontopteris.setPickedItem(GenesisItems.odontopteris_seeds);
 		GenesisItems.odontopteris_seeds.setCrop(odontopteris);
+
+		trees.registerVariants(trees.SAPLING);
+		trees.registerVariants(trees.LEAVES);
 		
 		Genesis.proxy.registerBlock(flower_pot, "genesis_flower_pot");
 		flower_pot.registerPlantsForPot(plants);
 		flower_pot.registerPlantsForPot(ferns);
+		flower_pot.registerPlantsForPot(trees, trees.SAPLING);
 		flower_pot.afterAllRegistered();
 		
 		Genesis.proxy.registerBlock(prototaxites, "prototaxites");

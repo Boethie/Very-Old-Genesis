@@ -10,12 +10,7 @@ public enum EnumTree implements IMetadata
 	ARCHAEOPTERIS("archaeopteris"), SIGILLARIA("sigillaria"), LEPIDODENDRON("lepidodendron"),
 	CORDAITES("cordaites"), PSARONIUS("psaronius"), ARAUCARIOXYLON("araucarioxylon");
 	
-	public static final EnumTree[] NO_BILLET;
-	
-	static
-	{
-		NO_BILLET = new EnumTree[]{PSARONIUS};
-	}
+	public static final EnumTree[] NO_BILLET = { PSARONIUS };
 
 	String name;
 	String unlocalizedName;

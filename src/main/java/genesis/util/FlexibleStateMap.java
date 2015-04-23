@@ -50,6 +50,13 @@ public class FlexibleStateMap extends StateMapperBase
 		this.nameFunction = nameFunction;
 	}
 	
+	public FlexibleStateMap clearIgnoredProperties()
+	{
+		ignoreProperties.clear();
+		
+		return this;
+	}
+	
 	public FlexibleStateMap addIgnoredProperties(IProperty... addProperties)
 	{
         Collections.addAll(ignoreProperties, addProperties);

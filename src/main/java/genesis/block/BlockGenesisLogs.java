@@ -10,15 +10,12 @@ import java.util.List;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockState;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.state.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.world.World;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
 
 public class BlockGenesisLogs extends BlockLog
 {
@@ -49,6 +46,14 @@ public class BlockGenesisLogs extends BlockLog
 		setDefaultState(getBlockState().getBaseState().withProperty(LOG_AXIS, EnumAxis.NONE));
 		
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
+	}
+
+	@Override
+	public BlockGenesisLogs setUnlocalizedName(String name)
+	{
+		super.setUnlocalizedName(Constants.PREFIX + name);
+		
+		return this;
 	}
 
 	@Override
