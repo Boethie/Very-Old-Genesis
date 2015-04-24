@@ -10,42 +10,22 @@ import genesis.util.FlexibleStateMap;
 import genesis.util.GenesisStateMap;
 import genesis.util.Stringify;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.lang.reflect.*;
+import java.util.*;
 
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.google.common.base.Function;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
+import com.google.common.collect.*;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.statemap.IStateMapper;
-import net.minecraft.client.renderer.block.statemap.StateMap;
-import net.minecraft.client.renderer.block.statemap.StateMap.Builder;
-import net.minecraft.client.renderer.block.statemap.StateMapperBase;
+import net.minecraft.client.renderer.block.statemap.*;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemColored;
-import net.minecraft.item.ItemMultiTexture;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 
 /**
  * Used to create Blocks/Items with variants of ObjectTypes.
@@ -727,7 +707,7 @@ public class VariantsOfTypesCombo
 	{
 		HashMap<IMetadata, VariantEntry> map = getVariantMap(getObjectType(block));
 		
-		for (HashMap.Entry<IMetadata, VariantEntry> entry : map.entrySet())
+		for (Map.Entry<IMetadata, VariantEntry> entry : map.entrySet())
 		{
 			VariantEntry variantEntry = entry.getValue();
 			
