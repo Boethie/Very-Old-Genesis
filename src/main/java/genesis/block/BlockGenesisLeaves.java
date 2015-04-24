@@ -3,6 +3,7 @@ package genesis.block;
 import genesis.client.GenesisClient;
 import genesis.common.GenesisCreativeTabs;
 import genesis.metadata.*;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.*;
 
 import java.util.ArrayList;
@@ -33,15 +34,17 @@ public class BlockGenesisLeaves extends BlockLeaves
 	}
 	
 	public final TreeBlocksAndItems owner;
+	public final ObjectType type;
 	
 	public final List<EnumTree> variants;
 	public final PropertyIMetadata variantProp;
 	
-	public BlockGenesisLeaves(List<EnumTree> variants, TreeBlocksAndItems owner)
+	public BlockGenesisLeaves(List<EnumTree> variants, TreeBlocksAndItems owner, ObjectType type)
 	{
 		super();
 		
 		this.owner = owner;
+		this.type = type;
 		
 		this.variants = variants;
 		variantProp = new PropertyIMetadata("variant", variants);
@@ -78,26 +81,26 @@ public class BlockGenesisLeaves extends BlockLeaves
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return owner.getMetadata(this, (IMetadata) state.getValue(variantProp));
+		return owner.getMetadata(type, (IMetadata) state.getValue(variantProp));
 	}
 	
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos)
 	{
-		return owner.getStack(this, (IMetadata) world.getBlockState(pos).getValue(variantProp));
+		return owner.getStack(type, (IMetadata) world.getBlockState(pos).getValue(variantProp));
 	}
 	
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
 	{
-		owner.fillSubItems(this, variants, list);
+		owner.fillSubItems(type, variants, list);
 	}
 	
 	@Override
 	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune)
 	{
 		ArrayList<ItemStack> drops = new ArrayList();
-		drops.add(owner.getStack(this, (IMetadata) world.getBlockState(pos).getValue(variantProp)));
+		drops.add(owner.getStack(type, (IMetadata) world.getBlockState(pos).getValue(variantProp)));
 		return drops;
 	}
 	

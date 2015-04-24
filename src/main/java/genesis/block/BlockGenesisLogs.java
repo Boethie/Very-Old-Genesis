@@ -3,6 +3,7 @@ package genesis.block;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.metadata.*;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.*;
 
 import java.util.List;
@@ -30,15 +31,17 @@ public class BlockGenesisLogs extends BlockLog
 	}
 	
 	public final VariantsOfTypesCombo owner;
+	public final ObjectType type;
 	
 	public final List<EnumTree> variants;
 	public final PropertyIMetadata variantProp;
 	
-	public BlockGenesisLogs(List<EnumTree> variants, VariantsOfTypesCombo owner)
+	public BlockGenesisLogs(List<EnumTree> variants, VariantsOfTypesCombo owner, ObjectType type)
 	{
 		super();
 		
 		this.owner = owner;
+		this.type = type;
 		
 		this.variants = variants;
 		variantProp = new PropertyIMetadata("variant", variants);
@@ -62,7 +65,7 @@ public class BlockGenesisLogs extends BlockLog
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
 	{
-		owner.fillSubItems(this, variants, list);
+		owner.fillSubItems(type, variants, list);
 	}
 	
 	@Override
@@ -93,6 +96,6 @@ public class BlockGenesisLogs extends BlockLog
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return owner.getStack(this, (IMetadata) state.getValue(variantProp)).getItemDamage();
+		return owner.getStack(type, (IMetadata) state.getValue(variantProp)).getItemDamage();
 	}
 }

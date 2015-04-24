@@ -284,7 +284,7 @@ public class VariantsOfTypesCombo
 	/**
 	 * Map of Block/Item types to a map of variants to the block/item itself.
 	 */
-	protected final HashMap<ObjectType, HashMap<IMetadata, VariantEntry>> map = new HashMap<ObjectType, HashMap<IMetadata, VariantEntry>>();
+	protected final Table<ObjectType, IMetadata, VariantEntry> map = HashBasedTable.create();
 	public final List<ObjectType> types;
 	public final List<IMetadata> variants;
 	public final HashSet<ObjectType> registeredTypes = new HashSet();
@@ -315,7 +315,6 @@ public class VariantsOfTypesCombo
 			{
 				Class<? extends Block> blockClass = type.getBlockClass();
 				Class<? extends Item> itemClass = type.getItemClass();
-				HashMap<IMetadata, VariantEntry> variantMap = new HashMap<IMetadata, VariantEntry>();
 				
 				List<IMetadata> typeVariants = type.getValidVariants(new ArrayList<IMetadata>(variants));
 
@@ -374,6 +373,7 @@ public class VariantsOfTypesCombo
 						ArrayList argsList = new ArrayList();
 						argsList.add(subVariants);
 						argsList.add(this);
+						argsList.add(type);
 						argsList.addAll(argMap.keySet());
 						Object[] args = argsList.toArray();
 						
@@ -382,6 +382,7 @@ public class VariantsOfTypesCombo
 							ArrayList<Class> listClasses = new ArrayList<Class>();
 							listClasses.add(List.class);
 							listClasses.add(thisClass);
+							listClasses.add(ObjectType.class);
 							listClasses.addAll(argMap.values());
 							Class[] argClasses = listClasses.toArray(new Class[listClasses.size()]);
 							
@@ -433,7 +434,7 @@ public class VariantsOfTypesCombo
 						{
 							try
 							{
-								itemConstructor = (Constructor<Item>) itemClass.getConstructor(blockSuperClass, List.class, VariantsOfTypesCombo.class);
+								itemConstructor = (Constructor<Item>) itemClass.getConstructor(blockSuperClass, List.class, VariantsOfTypesCombo.class, ObjectType.class);
 								break;
 							}
 							catch (NoSuchMethodException e)
@@ -442,13 +443,13 @@ public class VariantsOfTypesCombo
 							}
 						}
 						
-						item = itemConstructor.newInstance(block, subVariants, this);
+						item = itemConstructor.newInstance(block, subVariants, this, type);
 					}
 					else
 					{
 						// Construct and register the item alone.
-						Constructor<Item> itemConstructor = (Constructor<Item>) itemClass.getConstructor(List.class, VariantsOfTypesCombo.class);
-						item = itemConstructor.newInstance(subVariants, this);
+						Constructor<Item> itemConstructor = (Constructor<Item>) itemClass.getConstructor(List.class, VariantsOfTypesCombo.class, ObjectType.class);
+						item = itemConstructor.newInstance(subVariants, this, type);
 					}
 					
 					type.afterConstructed(block, item, subVariants);
@@ -458,12 +459,10 @@ public class VariantsOfTypesCombo
 					
 					for (IMetadata variant : subVariants)
 					{
-						variantMap.put(variant, new VariantEntry(block, item, subset, variantMetadata));
+						map.put(type, variant, new VariantEntry(block, item, subset, variantMetadata));
 						variantMetadata++;
 					}
 				}
-				
-				map.put(type, variantMap);
 			}
 		}
 		catch (Exception e)
@@ -628,35 +627,21 @@ public class VariantsOfTypesCombo
 	 * @param variant
 	 * @return The Block/Item casted to the type provided by the generic type in "type".
 	 */
-	public HashMap<IMetadata, VariantEntry> getVariantMap(ObjectType type)
+	public VariantEntry getVariantEntry(ObjectType type, IMetadata variant)
 	{
-		if (!map.containsKey(type))
+		if (!map.containsRow(type))
 		{
 			throw new RuntimeException("Attempted to get an object of type " + type + " from a " + VariantsOfTypesCombo.class.getSimpleName() + " that does not contain that type.\n" +
 					getIdentification());
 		}
 		
-		return map.get(type);
-	}
-
-	/**
-	 * Gets the Pair containing the metadata for this variant and its container Block or Item.
-	 * 
-	 * @param type
-	 * @param variant
-	 * @return The Block/Item casted to the type provided by the generic type in "type".
-	 */
-	public VariantEntry getVariantEntry(ObjectType type, IMetadata variant)
-	{
-		HashMap<IMetadata, VariantEntry> variantMap = getVariantMap(type);
-		
-		if (!variantMap.containsKey(variant))
+		if (!map.containsColumn(variant))
 		{
 			throw new RuntimeException("Attempted to get an object of variant " + variant + " from a BlocksAndItemsWithVariantsOfTypes that does not contain that type.\n" +
 					getIdentification());
 		}
 		
-		return variantMap.get(variant);
+		return map.get(type, variant);
 	}
 
 	/**
@@ -705,15 +690,13 @@ public class VariantsOfTypesCombo
 	 */
 	public IMetadata getVariant(Object obj, int meta)
 	{
-		HashMap<IMetadata, VariantEntry> map = getVariantMap(getObjectType(obj));
-		
-		for (Map.Entry<IMetadata, VariantEntry> entry : map.entrySet())
+		for (Table.Cell<ObjectType, IMetadata, VariantEntry> cell : map.cellSet())
 		{
-			VariantEntry variantEntry = entry.getValue();
+			VariantEntry entry = cell.getValue();
 			
-			if (variantEntry.object == obj && variantEntry.metadata == meta)
+			if (entry.object == obj && entry.metadata == meta)
 			{
-				return entry.getKey();
+				return cell.getColumnKey();
 			}
 		}
 		
@@ -766,26 +749,6 @@ public class VariantsOfTypesCombo
 	}
 	
 	/**
-	 * Gets a stack of the specified Item in this combo.
-	 * 
-	 * @param obj The Block or Item containing the subitem of the specified variant.
-	 */
-	public ItemStack getStack(Object obj, IMetadata variant, int stackSize)
-	{
-		return getStack(getObjectType(obj), variant, 1);
-	}
-
-	/**
-	 * Gets a stack of the specified Item in this combo.
-	 * 
-	 * @param obj The Block or Item containing the subitem of the specified variant.
-	 */
-	public ItemStack getStack(Object obj, IMetadata variant)
-	{
-		return getStack(getObjectType(obj), variant);
-	}
-	
-	/**
 	 * Gets the metadata used to get the Item of this ObjectType and variant.
 	 */
 	public int getMetadata(ObjectType type, IMetadata variant)
@@ -796,14 +759,6 @@ public class VariantsOfTypesCombo
 	}
 	
 	/**
-	 * Gets the metadata used to get the Item of this ObjectType and variant.
-	 */
-	public int getMetadata(Object obj, IMetadata variant)
-	{
-		return getMetadata(getObjectType(obj), variant);
-	}
-	
-	/**
 	 * Gets all the valid variants for this type of object.
 	 * 
 	 * @return List<IMetadata> containing all the variants this object can be.
@@ -811,25 +766,6 @@ public class VariantsOfTypesCombo
 	public List<IMetadata> getValidVariants(ObjectType type)
 	{
 		return type.getValidVariants(new ArrayList(variants));
-	}
-	
-	/**
-	 * @return Returns the ObjectType that the parameter obj was created for.
-	 */
-	public ObjectType getObjectType(Object obj)
-	{
-		Class objClass = obj.getClass();
-		
-		for (ObjectType type : types)
-		{
-			if (objClass == type.getBlockClass() || objClass == type.getItemClass())
-			{
-				return type;
-			}
-		}
-		
-		throw new RuntimeException("Could not find an ObjectType owner for " + Stringify.stringify(obj) + ".\n" +
-				getIdentification());
 	}
 	
 	/**
@@ -855,23 +791,13 @@ public class VariantsOfTypesCombo
 	 * 
 	 * @return List<ItemStack> containing all sub-items for this Block or Item.
 	 */
-	public <T extends IMetadata> List<ItemStack> fillSubItems(Object obj, List<T> variants, List<ItemStack> listToFill, Set<T> exclude)
+	public <T extends IMetadata> List<ItemStack> fillSubItems(ObjectType objectType, List<T> variants, List<ItemStack> listToFill, T... exclude)
 	{
-		return fillSubItems(getObjectType(obj), variants, listToFill, exclude);
+		return fillSubItems(objectType, variants, listToFill, Sets.newHashSet(exclude));
 	}
 	
 	/**
-	 * Fills the provided list with all the valid sub-items for this Block or Item.
-	 * 
-	 * @return List<ItemStack> containing all sub-items for this Block or Item.
-	 */
-	public <T extends IMetadata> List<ItemStack> fillSubItems(Object obj, List<T> variants, List<ItemStack> listToFill, T... exclude)
-	{
-		return fillSubItems(obj, variants, listToFill, Sets.newHashSet(exclude));
-	}
-	
-	/**
-	 * Wrapper for getSubItems(Object, List<IMetadata>, List<ItemStack>) to create a new list.
+	 * Wrapper for getSubItems(ObjectType, List<IMetadata>, List<ItemStack>) to create a new list.
 	 */
 	public List<ItemStack> getSubItems(ObjectType objectType, List<IMetadata> variants)
 	{

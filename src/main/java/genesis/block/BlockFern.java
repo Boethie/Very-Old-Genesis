@@ -5,6 +5,7 @@ import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.EnumFern;
 import genesis.metadata.IMetadata;
 import genesis.metadata.Properties;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +34,9 @@ public class BlockFern extends BlockPlant implements IShearable
 		return new IProperty[]{};
 	}
 	
-	public BlockFern(List<IMetadata> variants, VariantsOfTypesCombo owner)
+	public BlockFern(List<IMetadata> variants, VariantsOfTypesCombo owner, ObjectType type)
 	{
-		super(variants, owner);
+		super(variants, owner, type);
 		
 		setStepSound(GenesisSounds.FERN);
 	}
@@ -52,7 +53,7 @@ public class BlockFern extends BlockPlant implements IShearable
 		ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
 		
 		EnumFern variant = (EnumFern) world.getBlockState(pos).getValue(variantProp);
-		ret.add(owner.getStack(this, variant));
+		ret.add(owner.getStack(type, variant));
 		
 		return ret;
 	}

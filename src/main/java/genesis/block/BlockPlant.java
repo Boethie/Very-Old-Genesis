@@ -7,6 +7,7 @@ import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.EnumPlant;
 import genesis.metadata.IMetadata;
 import genesis.metadata.Properties;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants;
 
@@ -38,11 +39,12 @@ public class BlockPlant extends BlockBush
 	}
 	
 	public final VariantsOfTypesCombo owner;
+	public final ObjectType type;
 
 	public final List<IMetadata> variants;
 	public final PropertyIMetadata variantProp;
 	
-	public BlockPlant(List<IMetadata> variants, VariantsOfTypesCombo owner)
+	public BlockPlant(List<IMetadata> variants, VariantsOfTypesCombo owner, ObjectType type)
 	{
 		setHardness(0.0F);
 		setStepSound(soundTypeGrass);
@@ -50,6 +52,7 @@ public class BlockPlant extends BlockBush
 		setBlockBounds(0.5F - 0.4F, 0.0F, 0.5F - 0.4F, 0.5F + 0.4F, 0.4F * 2, 0.5F + 0.4F);
 
 		this.owner = owner;
+		this.type = type;
 		
 		variantProp = new PropertyIMetadata("variant", variants);
 		this.variants = variants;
@@ -75,13 +78,13 @@ public class BlockPlant extends BlockBush
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return owner.getMetadata(this, (IMetadata) state.getValue(variantProp));
+		return owner.getMetadata(type, (IMetadata) state.getValue(variantProp));
 	}
 
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
 	{
-		owner.fillSubItems(this, variants, list);
+		owner.fillSubItems(type, variants, list);
 	}
 
 	@Override

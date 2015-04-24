@@ -6,6 +6,7 @@ import genesis.metadata.IMetadata;
 import genesis.metadata.Properties;
 import genesis.metadata.PropertyIMetadata;
 import genesis.metadata.VariantsOfTypesCombo;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants;
 
@@ -37,15 +38,17 @@ public class BlockGenesisSaplings extends BlockSapling
 	}
 	
 	public final VariantsOfTypesCombo owner;
+	public final ObjectType type;
 	
 	public final List<EnumTree> variants;
 	public final PropertyIMetadata variantProp;
 	
-	public BlockGenesisSaplings(List<EnumTree> variants, VariantsOfTypesCombo owner)
+	public BlockGenesisSaplings(List<EnumTree> variants, VariantsOfTypesCombo owner, ObjectType type)
 	{
 		super();
 		
 		this.owner = owner;
+		this.type = type;
 		
 		this.variants = variants;
 		variantProp = new PropertyIMetadata("variant", variants);
@@ -80,7 +83,7 @@ public class BlockGenesisSaplings extends BlockSapling
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
 	{
-		owner.fillSubItems(this, variants, list);
+		owner.fillSubItems(type, variants, list);
 	}
 	
 	@Override
@@ -94,13 +97,13 @@ public class BlockGenesisSaplings extends BlockSapling
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return owner.getMetadata(this, (IMetadata) state.getValue(variantProp));
+		return owner.getMetadata(type, (IMetadata) state.getValue(variantProp));
 	}
 	
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos)
 	{
-		return owner.getStack(this, (IMetadata) world.getBlockState(pos).getValue(variantProp));
+		return owner.getStack(type, (IMetadata) world.getBlockState(pos).getValue(variantProp));
 	}
 	
 	@Override

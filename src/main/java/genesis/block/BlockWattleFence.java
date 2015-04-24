@@ -5,6 +5,7 @@ import java.util.List;
 import genesis.client.model.WattleFenceModel;
 import genesis.common.GenesisCreativeTabs;
 import genesis.metadata.*;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.*;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.material.Material;
@@ -31,15 +32,17 @@ public class BlockWattleFence extends BlockFence
 	}
 
 	public final VariantsOfTypesCombo owner;
+	public final ObjectType type;
 	
 	public final PropertyIMetadata variantProp;
 	public final List<EnumTree> variants;
 	
-	public BlockWattleFence(List<EnumTree> variants, VariantsOfTypesCombo owner)
+	public BlockWattleFence(List<EnumTree> variants, VariantsOfTypesCombo owner, ObjectType type)
 	{
 		super(Material.wood);
 		
 		this.owner = owner;
+		this.type = type;
 		
 		variantProp = new PropertyIMetadata("variant", variants);
 		this.variants = variants;

@@ -3,6 +3,7 @@ package genesis.item;
 import genesis.common.GenesisCreativeTabs;
 import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.IMetadata;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.Constants;
 
 import java.util.Comparator;
@@ -20,10 +21,11 @@ import net.minecraft.item.ItemStack;
 public class ItemBlockMulti extends ItemMultiTexture
 {
 	public final VariantsOfTypesCombo owner;
+	public final ObjectType type;
 	
 	protected final List<IMetadata> variants;
 	
-	public ItemBlockMulti(Block block, final List<IMetadata> variants, VariantsOfTypesCombo owner)
+	public ItemBlockMulti(Block block, final List<IMetadata> variants, VariantsOfTypesCombo owner, ObjectType type)
 	{
 		super(block, block, new Function()
 		{
@@ -36,6 +38,7 @@ public class ItemBlockMulti extends ItemMultiTexture
 		});
 		
 		this.owner = owner;
+		this.type = type;
 		
 		this.variants = variants;
 		

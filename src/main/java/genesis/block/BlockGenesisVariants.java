@@ -36,6 +36,7 @@ public class BlockGenesisVariants<T extends IMetadata, S extends VariantsOfTypes
 	}
 	
 	public final S owner;
+	public final ObjectType<BlockGenesisVariants<T, S>> type;
 	
 	public final List<T> variants;
 	public final PropertyIMetadata variantProp;
@@ -44,11 +45,12 @@ public class BlockGenesisVariants<T extends IMetadata, S extends VariantsOfTypes
 	
 	protected final ArrayList<RandomVariantDrop> drops = new ArrayList();
 	
-	public BlockGenesisVariants(List<T> variants, S owner, Material material)
+	public BlockGenesisVariants(List<T> variants, S owner, ObjectType<BlockGenesisVariants<T, S>> type, Material material)
 	{
 		super(material);
 		
 		this.owner = owner;
+		this.type = type;
 		
 		this.variants = variants;
 		variantProp = new PropertyIMetadata("variant", variants);
@@ -56,7 +58,7 @@ public class BlockGenesisVariants<T extends IMetadata, S extends VariantsOfTypes
 		blockState = new BlockState(this, variantProp);
 		setDefaultState(getBlockState().getBaseState());
 		
-		addDrop(owner.getObjectType(this));
+		addDrop(type);
 		
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 	}
@@ -90,7 +92,7 @@ public class BlockGenesisVariants<T extends IMetadata, S extends VariantsOfTypes
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
 	{
-		owner.fillSubItems(this, variants, list);
+		owner.fillSubItems(type, variants, list);
 	}
 	
 	public BlockGenesisVariants clearDrops()
@@ -144,6 +146,6 @@ public class BlockGenesisVariants<T extends IMetadata, S extends VariantsOfTypes
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return owner.getMetadata(this, (T) state.getValue(variantProp));
+		return owner.getMetadata(type, (T) state.getValue(variantProp));
 	}
 }
