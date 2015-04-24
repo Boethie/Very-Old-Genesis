@@ -703,15 +703,15 @@ public class VariantsOfTypesCombo
 	/**
 	 * Gets the variant for the specified Block and item metadata.
 	 */
-	public IMetadata getVariant(Block block, int meta)
+	public IMetadata getVariant(Object obj, int meta)
 	{
-		HashMap<IMetadata, VariantEntry> map = getVariantMap(getObjectType(block));
+		HashMap<IMetadata, VariantEntry> map = getVariantMap(getObjectType(obj));
 		
 		for (Map.Entry<IMetadata, VariantEntry> entry : map.entrySet())
 		{
 			VariantEntry variantEntry = entry.getValue();
 			
-			if (variantEntry.block == block && variantEntry.metadata == meta)
+			if (variantEntry.object == obj && variantEntry.metadata == meta)
 			{
 				return entry.getKey();
 			}

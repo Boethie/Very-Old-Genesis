@@ -32,6 +32,8 @@ public class ToolTypes
 			
 			return (materialName == null ? "" : materialName + ".") + material.getUnlocalizedName();
 		}
+		
+		// TODO: toString() method
 	}
 	
 	public static final LinkedHashMap<Pair<EnumToolQuality, EnumToolMaterial>, ToolType> map = new LinkedHashMap();
