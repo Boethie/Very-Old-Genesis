@@ -138,7 +138,8 @@ public class BlockMoss extends BlockGrass
 		world.setBlockState(pos, net.minecraft.init.Blocks.dirt.getDefaultState(), 2);
 	}
 	
-	protected float[] lightGrowthChances = {
+	protected final float growthChanceMult = 0.25F;
+	protected final float[] lightGrowthChances = {
 			-0.2F,	// 0
 			-0.15F,	// 1
 			-0.1F,	// 2
@@ -163,7 +164,7 @@ public class BlockMoss extends BlockGrass
 		float humidity = worldIn.getBiomeGenForCoords(pos).getFloatRainfall();
 		chance += (humidity * 0.25F) - 0.125F;
 		
-		return chance;
+		return chance * growthChanceMult;
 	}
 	
 	protected float getGrowthChance(World worldIn, BlockPos pos)
