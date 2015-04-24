@@ -5,16 +5,14 @@ import java.util.*;
 import com.google.common.base.Function;
 import com.google.common.collect.Sets;
 
-import genesis.item.ItemMulti;
-import net.minecraft.item.ItemStack;
-import genesis.item.ItemToolHead;
+import genesis.item.*;
+import net.minecraft.item.*;
 import genesis.metadata.ToolTypes.ToolType;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType.ObjectNamePosition;
 
 public class ToolItems extends VariantsOfTypesCombo
 {
-	public static class ToolObjectType extends ObjectType<ItemToolHead>
+	public static class ToolObjectType<T extends Item> extends ObjectType<T>
 	{
 		public final HashSet<EnumToolQuality> validQualities;
 		public final HashSet<EnumToolMaterial> materialExclusions;
@@ -54,15 +52,14 @@ public class ToolItems extends VariantsOfTypesCombo
 		}
 		
 		@Override
-		public ToolObjectType setNamePosition(ObjectNamePosition namePosition)
+		public ToolObjectType<T> setNamePosition(ObjectNamePosition namePosition)
 		{
 			super.setNamePosition(namePosition);
-			
 			return this;
 		}
 	}
 	
-	public static class ToolObjectTypeSoleQuality extends ToolObjectType
+	public static class ToolObjectTypeSoleQuality<T extends Item> extends ToolObjectType<T>
 	{
 		protected final EnumToolQuality soleQuality;
 		
@@ -82,16 +79,22 @@ public class ToolItems extends VariantsOfTypesCombo
 		{
 			return soleQuality;
 		}
+		
+		@Override
+		public ToolObjectTypeSoleQuality<T> setNamePosition(ObjectNamePosition namePosition)
+		{
+			super.setNamePosition(namePosition);
+			return this;
+		}
 	}
 
-	public static final ToolObjectType PEBBLE = new ToolObjectTypeSoleQuality("pebble", null, null, EnumToolQuality.NONE).setNamePosition(ObjectNamePosition.PREFIX);
-	public static final ToolObjectType PICK_HEAD = new ToolObjectType("tool_head_pickaxe", "toolHead.pickaxe", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED});
-	public static final ToolObjectType AXE_HEAD = new ToolObjectType("tool_head_axe", "toolHead.axe", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED});
-	public static final ToolObjectType KNIFE_HEAD = new ToolObjectType("tool_head_knife", "toolHead.knife", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.SHARPENED});
-	public static final ToolObjectType SPEAR_HEAD = new ToolObjectType("tool_head_spear", "toolHead.spear", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.SHARPENED});
-	public static final ToolObjectType ARROW_HEAD = new ToolObjectType("tool_head_arrow", "toolHead.arrow", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.SHARPENED});
-	public static final ToolObjectType POINT_FLAKE = new ToolObjectTypeSoleQuality("point_flake", "pointFlake", null, ItemMulti.class, EnumToolQuality.NONE);
-
+	public static final ToolObjectTypeSoleQuality<ItemMulti> PEBBLE = new ToolObjectTypeSoleQuality("pebble", null, null, EnumToolQuality.NONE).setNamePosition(ObjectNamePosition.PREFIX);
+	public static final ToolObjectType<ItemToolHead> PICK_HEAD = new ToolObjectType("tool_head_pickaxe", "toolHead.pickaxe", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED});
+	public static final ToolObjectType<ItemToolHead> AXE_HEAD = new ToolObjectType("tool_head_axe", "toolHead.axe", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED});
+	public static final ToolObjectType<ItemToolHead> KNIFE_HEAD = new ToolObjectType("tool_head_knife", "toolHead.knife", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.SHARPENED});
+	public static final ToolObjectType<ItemToolHead> SPEAR_HEAD = new ToolObjectType("tool_head_spear", "toolHead.spear", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.SHARPENED});
+	public static final ToolObjectType<ItemToolHead> ARROW_HEAD = new ToolObjectType("tool_head_arrow", "toolHead.arrow", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.SHARPENED});
+	public static final ToolObjectTypeSoleQuality<ItemMulti> POINT_FLAKE = new ToolObjectTypeSoleQuality("point_flake", "pointFlake", null, null, EnumToolQuality.NONE);
 	
 	public ToolItems()
 	{
