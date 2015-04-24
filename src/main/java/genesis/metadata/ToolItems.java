@@ -5,6 +5,7 @@ import java.util.*;
 import com.google.common.base.Function;
 import com.google.common.collect.Sets;
 
+import genesis.item.ItemMulti;
 import net.minecraft.item.ItemStack;
 import genesis.item.ItemToolHead;
 import genesis.metadata.ToolTypes.ToolType;
@@ -82,15 +83,19 @@ public class ToolItems extends VariantsOfTypesCombo
 			return soleQuality;
 		}
 	}
-	
+
 	public static final ToolObjectType PEBBLE = new ToolObjectTypeSoleQuality("pebble", null, null, EnumToolQuality.NONE).setNamePosition(ObjectNamePosition.PREFIX);
 	public static final ToolObjectType PICK_HEAD = new ToolObjectType("tool_head_pickaxe", "toolHead.pickaxe", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED});
-	public static final ToolObjectType SHOVEL_HEAD = new ToolObjectType("tool_head_shovel", "toolHead.shovel", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED});
 	public static final ToolObjectType AXE_HEAD = new ToolObjectType("tool_head_axe", "toolHead.axe", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED});
+	public static final ToolObjectType KNIFE_HEAD = new ToolObjectType("tool_head_knife", "toolHead.knife", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.SHARPENED});
+	public static final ToolObjectType SPEAR_HEAD = new ToolObjectType("tool_head_spear", "toolHead.spear", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.SHARPENED});
+	public static final ToolObjectType ARROW_HEAD = new ToolObjectType("tool_head_arrow", "toolHead.arrow", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.SHARPENED});
+	public static final ToolObjectType POINT_FLAKE = new ToolObjectTypeSoleQuality("point_flake", "pointFlake", null, ItemMulti.class, EnumToolQuality.NONE);
+
 	
 	public ToolItems()
 	{
-		super(new ToolObjectType[]{PEBBLE, PICK_HEAD, SHOVEL_HEAD, AXE_HEAD}, ToolTypes.getAll());
+		super(new ToolObjectType[]{PEBBLE, PICK_HEAD, AXE_HEAD, KNIFE_HEAD, SPEAR_HEAD, ARROW_HEAD, POINT_FLAKE}, ToolTypes.getAll());
 	}
 	
 	@Override
