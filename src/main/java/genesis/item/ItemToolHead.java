@@ -6,6 +6,7 @@ import genesis.metadata.ToolItems.*;
 import genesis.metadata.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -45,5 +46,11 @@ public class ItemToolHead extends ItemGenesis
 			ItemStack stack = new ItemStack(itemIn, 1, i);
 			subItems.add(stack);
 		}
+	}
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
+	{
+		String quality = ((ToolTypes.ToolType) owner.getVariant(this, stack.getMetadata())).quality.getName();
+		tooltip.add(quality.substring(0,1).toUpperCase() + quality.substring(1));
 	}
 }

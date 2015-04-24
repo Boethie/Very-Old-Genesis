@@ -148,3 +148,64 @@ itemGroup.genesis.food=Genesis Foodstuffs
 itemGroup.genesis.tools=Genesis Tools
 itemGroup.genesis.combat=Genesis Combat
 itemGroup.genesis.materials=Genesis Materials
+
+#Tool Heads
+item.genesis.material.toolHead.pick.chipped.granite.name=Granite Pick Head
+item.genesis.material.toolHead.pick.chipped.rhyolite.name=Rhyolite Pick Head
+item.genesis.material.toolHead.pick.chipped.quartzite.name=Quartzite Pick Head
+item.genesis.material.toolHead.pick.chipped.dolerite.name=Dolerite Pick Head
+item.genesis.material.toolHead.pick.chipped.brownFlint.name=Brown Flint Pick Head
+
+item.genesis.material.toolHead.pick.polished.granite.name=Granite Pick Head
+item.genesis.material.toolHead.pick.polished.rhyolite.name=Rhyolite Pick Head
+item.genesis.material.toolHead.pick.polished.quartzite.name=Quartzite Pick Head
+item.genesis.material.toolHead.pick.polished.dolerite.name=Dolerite Pick Head
+item.genesis.material.toolHead.pick.polished.brownFlint.name=Brown Flint Pick Head
+
+item.genesis.material.toolHead.axe.chipped.granite.name=Granite Axe Head
+item.genesis.material.toolHead.axe.chipped.rhyolite.name=Rhyolite Axe Head
+item.genesis.material.toolHead.axe.chipped.quartzite.name=Quartzite Axe Head
+item.genesis.material.toolHead.axe.chipped.dolerite.name=Dolerite Axe Head
+item.genesis.material.toolHead.axe.chipped.brownFlint.name=Brown Flint Axe Head
+
+item.genesis.material.toolHead.axe.polished.granite.name=Granite Axe Head
+item.genesis.material.toolHead.axe.polished.rhyolite.name=Rhyolite Axe Head
+item.genesis.material.toolHead.axe.polished.quartzite.name=Quartzite Axe Head
+item.genesis.material.toolHead.axe.polished.dolerite.name=Dolerite Axe Head
+item.genesis.material.toolHead.axe.polished.brownFlint.name=Brown Flint Axe Head
+
+item.genesis.material.toolHead.knife.chipped.granite.name=Granite Knife Head
+item.genesis.material.toolHead.knife.chipped.rhyolite.name=Rhyolite Knife Head
+item.genesis.material.toolHead.knife.chipped.quartzite.name=Quartzite Knife Head
+item.genesis.material.toolHead.knife.chipped.dolerite.name=Dolerite Knife Head
+item.genesis.material.toolHead.knife.chipped.brownFlint.name=Brown Flint Knife Head
+
+item.genesis.material.toolHead.knife.sharpened.granite.name=Granite Knife Head
+item.genesis.material.toolHead.knife.sharpened.rhyolite.name=Rhyolite Knife Head
+item.genesis.material.toolHead.knife.sharpened.quartzite.name=Quartzite Knife Head
+item.genesis.material.toolHead.knife.sharpened.dolerite.name=Dolerite Knife Head
+item.genesis.material.toolHead.knife.sharpened.brownFlint.name=Brown Flint Knife Head
+
+item.genesis.material.toolHead.spear.chipped.granite.name=Granite Spear Head
+item.genesis.material.toolHead.spear.chipped.rhyolite.name=Rhyolite Spear Head
+item.genesis.material.toolHead.spear.chipped.quartzite.name=Quartzite Spear Head
+item.genesis.material.toolHead.spear.chipped.dolerite.name=Dolerite Spear Head
+item.genesis.material.toolHead.spear.chipped.brownFlint.name=Brown Flint Spear Head
+
+item.genesis.material.toolHead.spear.sharpened.granite.name=Granite Spear Head
+item.genesis.material.toolHead.spear.sharpened.rhyolite.name=Rhyolite Spear Head
+item.genesis.material.toolHead.spear.sharpened.quartzite.name=Quartzite Spear Head
+item.genesis.material.toolHead.spear.sharpened.dolerite.name=Dolerite Spear Head
+item.genesis.material.toolHead.spear.sharpened.brownFlint.name=Brown Flint Spear Head
+
+item.genesis.material.toolHead.arrow.chipped.granite.name=Granite Arrow Head
+item.genesis.material.toolHead.arrow.chipped.rhyolite.name=Rhyolite Arrow Head
+item.genesis.material.toolHead.arrow.chipped.quartzite.name=Quartzite Arrow Head
+item.genesis.material.toolHead.arrow.chipped.dolerite.name=Dolerite Arrow Head
+item.genesis.material.toolHead.arrow.chipped.brownFlint.name=Brown Flint Arrow Head
+
+item.genesis.material.toolHead.arrow.sharpened.granite.name=Granite Arrow Head
+item.genesis.material.toolHead.arrow.sharpened.rhyolite.name=Rhyolite Arrow Head
+item.genesis.material.toolHead.arrow.sharpened.quartzite.name=Quartzite Arrow Head
+item.genesis.material.toolHead.arrow.sharpened.dolerite.name=Dolerite Arrow Head
+item.genesis.material.toolHead.arrow.sharpened.brownFlint.name=Brown Flint Arrow Head
