@@ -13,6 +13,7 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
@@ -46,6 +47,8 @@ public class BlockGenesisLogs extends BlockLog
 		setDefaultState(getBlockState().getBaseState().withProperty(LOG_AXIS, EnumAxis.NONE));
 		
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
+		
+		Blocks.fire.setFireInfo(this, 5, 5);
 	}
 
 	@Override

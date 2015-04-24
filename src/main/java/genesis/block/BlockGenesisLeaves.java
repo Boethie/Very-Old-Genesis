@@ -7,6 +7,7 @@ import genesis.util.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLog.EnumAxis;
@@ -15,6 +16,7 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
@@ -30,12 +32,12 @@ public class BlockGenesisLeaves extends BlockLeaves
 		return new IProperty[]{ CHECK_DECAY, DECAYABLE };
 	}
 	
-	public final VariantsOfTypesCombo owner;
+	public final TreeBlocksAndItems owner;
 	
 	public final List<EnumTree> variants;
 	public final PropertyIMetadata variantProp;
 	
-	public BlockGenesisLeaves(List<EnumTree> variants, VariantsOfTypesCombo owner)
+	public BlockGenesisLeaves(List<EnumTree> variants, TreeBlocksAndItems owner)
 	{
 		super();
 		
@@ -49,6 +51,8 @@ public class BlockGenesisLeaves extends BlockLeaves
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		setStepSound(soundTypeGrass);
+		
+		Blocks.fire.setFireInfo(this, 30, 60);
 	}
 
 	@Override
@@ -95,6 +99,33 @@ public class BlockGenesisLeaves extends BlockLeaves
 		ArrayList<ItemStack> drops = new ArrayList();
 		drops.add(owner.getStack(this, (IMetadata) world.getBlockState(pos).getValue(variantProp)));
 		return drops;
+	}
+	
+	protected ItemStack getSapling(IBlockAccess world, BlockPos pos, IBlockState state)
+	{
+		return owner.getStack(owner.SAPLING, (IMetadata) state.getValue(variantProp));
+	}
+	
+	@Override
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
+	{
+		ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
+		
+		Random rand = world instanceof World ? ((World) world).rand : RANDOM;
+		
+		int chance = this.getSaplingDropChance(state);
+		
+		if (fortune > 0)
+		{
+		    chance = Math.max(chance - (2 << fortune), 10);
+		}
+		
+		if (rand.nextInt(chance) == 0)
+		{
+			ret.add(getSapling(world, pos, state));
+		}
+		
+		return ret;
 	}
 	
 	@Override
