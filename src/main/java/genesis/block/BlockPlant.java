@@ -2,12 +2,8 @@ package genesis.block;
 
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
-import genesis.metadata.PropertyIMetadata;
-import genesis.metadata.VariantsOfTypesCombo;
-import genesis.metadata.EnumPlant;
-import genesis.metadata.IMetadata;
-import genesis.metadata.Properties;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import genesis.metadata.*;
+import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants;
 
@@ -32,7 +28,7 @@ public class BlockPlant extends BlockBush
 	/**
 	 * Used in BlocksAndItemsWithVariantsOfTypes.
 	 */
-	@Properties
+	@BlockProperties
 	public static IProperty[] getProperties()
 	{
 		return new IProperty[]{};

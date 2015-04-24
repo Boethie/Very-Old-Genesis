@@ -2,9 +2,8 @@ package genesis.item;
 
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemGenesis;
-import genesis.metadata.VariantsOfTypesCombo;
-import genesis.metadata.IMetadata;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import genesis.metadata.ToolItems.*;
+import genesis.metadata.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
@@ -17,9 +16,9 @@ public class ItemToolHead extends ItemGenesis
 {
 	protected final List<IMetadata> variants;
 	public final VariantsOfTypesCombo owner;
-	public final ObjectType type;
+	public final ToolObjectType type;
 	
-	public ItemToolHead(List<IMetadata> variants, VariantsOfTypesCombo owner, ObjectType type)
+	public ItemToolHead(List<IMetadata> variants, VariantsOfTypesCombo owner, ToolObjectType type)
 	{
 		super();
 

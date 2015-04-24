@@ -3,7 +3,7 @@ package genesis.block;
 import genesis.client.GenesisClient;
 import genesis.common.GenesisCreativeTabs;
 import genesis.metadata.*;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 	/**
 	 * Used in BlocksAndItemsWithVariantsOfTypes.
 	 */
-	@Properties
+	@BlockProperties
 	public static IProperty[] getProperties()
 	{
 		return new IProperty[]{ CHECK_DECAY, DECAYABLE };

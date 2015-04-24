@@ -1,12 +1,8 @@
 package genesis.block;
 
 import genesis.common.GenesisCreativeTabs;
-import genesis.metadata.EnumTree;
-import genesis.metadata.IMetadata;
-import genesis.metadata.Properties;
-import genesis.metadata.PropertyIMetadata;
-import genesis.metadata.VariantsOfTypesCombo;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import genesis.metadata.*;
+import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants;
 
@@ -31,7 +27,7 @@ public class BlockGenesisSaplings extends BlockSapling
 	/**
 	 * Used in BlocksAndItemsWithVariantsOfTypes.
 	 */
-	@Properties
+	@BlockProperties
 	public static IProperty[] getProperties()
 	{
 		return new IProperty[]{ STAGE };

@@ -1,19 +1,14 @@
 package genesis.metadata;
 
-import genesis.common.Genesis;
-import genesis.common.GenesisBlocks;
-import genesis.item.ItemBlockMulti;
-import genesis.item.ItemMulti;
-import genesis.util.BlockStateToMetadata;
-import genesis.util.Constants;
-import genesis.util.FlexibleStateMap;
-import genesis.util.GenesisStateMap;
-import genesis.util.Stringify;
+import genesis.common.*;
+import genesis.item.*;
+import genesis.util.*;
 
+import java.lang.annotation.*;
 import java.lang.reflect.*;
 import java.util.*;
 
-import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.ArrayUtils;
 
 import com.google.common.base.Function;
 import com.google.common.collect.*;
@@ -35,6 +30,11 @@ import net.minecraft.item.*;
  */
 public class VariantsOfTypesCombo
 {
+	@Retention(RetentionPolicy.RUNTIME)
+	@Target({ElementType.METHOD, ElementType.FIELD})
+	public static @interface BlockProperties {
+	}
+	
 	/**
 	 * Contains the types of Blocks/Items contained in a BlocksAndItemsWithVariantsOfTypes.
 	 * 
@@ -52,8 +52,9 @@ public class VariantsOfTypesCombo
 		protected ObjectNamePosition namePosition = ObjectNamePosition.POSTFIX;
 		
 		protected Class<? extends Block> blockClass;
-		protected LinkedHashMap<Object, Class> blockArgs = new LinkedHashMap();
+		protected Object[] blockArgs = {};
 		protected Class<? extends Item> itemClass;
+		private Object[] itemArgs = {};
 		
 		protected List<IMetadata> variantExclusions;
 		protected boolean separateVariantJsons = true;
@@ -161,28 +162,26 @@ public class VariantsOfTypesCombo
 			return this;
 		}
 		
-		public LinkedHashMap<Object, Class> getBlockArguments()
+		public Object[] getBlockArguments()
 		{
 			return blockArgs;
 		}
 		
-		public ObjectType<T> setBlockArguments(LinkedHashMap<Object, Class> args)
+		public ObjectType<T> setBlockArguments(Object... args)
 		{
 			this.blockArgs = args;
 			
 			return this;
 		}
-		
-		public ObjectType<T> setBlockArguments(Object... args)
+
+		public Object[] getItemArguments()
 		{
-			LinkedHashMap<Object, Class> argsMap = new LinkedHashMap();
-			
-			for (Object object : args)
-			{
-				argsMap.put(object, object.getClass());
-			}
-			
-			setBlockArguments(argsMap);
+			return itemArgs;
+		}
+		
+		public ObjectType<T> setItemArguments(Object... args)
+		{
+			this.itemArgs = args;
 			
 			return this;
 		}
@@ -327,7 +326,7 @@ public class VariantsOfTypesCombo
 					
 					for (Field field : blockClass.getDeclaredFields())
 					{
-						if (field.isAnnotationPresent(Properties.class) && (field.getModifiers() & Modifier.STATIC) == Modifier.STATIC && field.getType().isArray())
+						if (field.isAnnotationPresent(BlockProperties.class) && (field.getModifiers() & Modifier.STATIC) == Modifier.STATIC && field.getType().isArray())
 						{
 							field.setAccessible(true);
 							propsListObj = field.get(null);
@@ -338,7 +337,7 @@ public class VariantsOfTypesCombo
 					{
 						for (Method method : blockClass.getDeclaredMethods())
 						{
-							if (method.isAnnotationPresent(Properties.class) && (method.getModifiers() & Modifier.STATIC) == Modifier.STATIC && method.getReturnType().isArray())
+							if (method.isAnnotationPresent(BlockProperties.class) && (method.getModifiers() & Modifier.STATIC) == Modifier.STATIC && method.getReturnType().isArray())
 							{
 								method.setAccessible(true);
 								propsListObj = method.invoke(null);
@@ -362,95 +361,26 @@ public class VariantsOfTypesCombo
 
 					Block block = null;
 					Item item = null;
+					Object[] itemArgs;
 					
 					if (blockClass != null)
 					{
-						final LinkedHashMap<Object, Class> argMap = type.getBlockArguments();
+						// Get Block constructor and call it.
+						final Object[] blockArgs = {subVariants, this, type};
+						final Object[] args = ArrayUtils.addAll(blockArgs, type.getBlockArguments());
 						
-						Class thisClass = getClass();
-						Constructor<? extends Block> constructor = null;
+						block = ReflectionHelper.construct(blockClass, args);
 						
-						ArrayList argsList = new ArrayList();
-						argsList.add(subVariants);
-						argsList.add(this);
-						argsList.add(type);
-						argsList.addAll(argMap.keySet());
-						Object[] args = argsList.toArray();
-						
-						while (true)
-						{
-							ArrayList<Class> listClasses = new ArrayList<Class>();
-							listClasses.add(List.class);
-							listClasses.add(thisClass);
-							listClasses.add(ObjectType.class);
-							listClasses.addAll(argMap.values());
-							Class[] argClasses = listClasses.toArray(new Class[listClasses.size()]);
-							
-							try
-							{
-								constructor = blockClass.getConstructor(argClasses);
-								break;
-							}
-							catch (NoSuchMethodException e) { }
-							
-							if (thisClass == VariantsOfTypesCombo.class)
-							{
-								break;
-							}
-							
-							thisClass = thisClass.getSuperclass();
-						}
-						
-						if (constructor == null)
-						{
-							throw new RuntimeException("Could not find a valid constructor for arguments " + Stringify.stringify(args) + " in Block class " + blockClass.getSimpleName() + ".\n"
-									+ getIdentification());
-						}
-						
-						try
-						{
-							block = constructor.newInstance(args);
-						}
-						catch (IllegalArgumentException e)
-						{
-							Class[] argTypes = new Class[args.length];
-							
-							for (int i = 0; i < args.length; i++)
-							{
-								argTypes[i] = args[i].getClass();
-							}
-							
-							throw new RuntimeException("IllegalArgumentException encountered while trying to construct a block.\n"
-									+ "Arguments types expected: " + Stringify.stringify(constructor.getParameterTypes()) + "\n"
-									+ "Argument types passed: " + Stringify.stringify(argTypes) + "\n",
-									e);
-						}
-						
-						// Construct item as necessary for registering as the item to accompany a block.
-						Class blockSuperClass = blockClass;
-						Constructor<Item> itemConstructor = null;
-						
-						while (blockSuperClass != Object.class)
-						{
-							try
-							{
-								itemConstructor = (Constructor<Item>) itemClass.getConstructor(blockSuperClass, List.class, VariantsOfTypesCombo.class, ObjectType.class);
-								break;
-							}
-							catch (NoSuchMethodException e)
-							{
-								blockSuperClass = blockSuperClass.getSuperclass();
-							}
-						}
-						
-						item = itemConstructor.newInstance(block, subVariants, this, type);
+						itemArgs = new Object[]{block, subVariants, this, type};
 					}
 					else
 					{
-						// Construct and register the item alone.
-						Constructor<Item> itemConstructor = (Constructor<Item>) itemClass.getConstructor(List.class, VariantsOfTypesCombo.class, ObjectType.class);
-						item = itemConstructor.newInstance(subVariants, this, type);
+						itemArgs = new Object[]{subVariants, this, type};
 					}
+
+					// Get Item constructor and call it.
+					final Object[] args = ArrayUtils.addAll(itemArgs, type.getItemArguments());
+					item = ReflectionHelper.construct(itemClass, args);
 					
 					type.afterConstructed(block, item, subVariants);
 					

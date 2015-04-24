@@ -8,8 +8,7 @@ import genesis.client.GenesisSounds;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.metadata.*;
-import genesis.metadata.Properties;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants;
 import genesis.util.FlexibleStateMap;
@@ -42,7 +41,7 @@ public class BlockAquaticPlant extends BlockGenesisVariants<EnumAquaticPlant, Va
 	/**
 	 * Used in BlocksAndItemsWithVariantsOfTypes.
 	 */
-	@Properties
+	@BlockProperties
 	public static IProperty[] getProperties()
 	{
 		return new IProperty[]{};

@@ -1,11 +1,8 @@
 package genesis.block;
 
 import genesis.client.GenesisSounds;
-import genesis.metadata.VariantsOfTypesCombo;
-import genesis.metadata.EnumFern;
-import genesis.metadata.IMetadata;
-import genesis.metadata.Properties;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import genesis.metadata.*;
+import genesis.metadata.VariantsOfTypesCombo.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +25,7 @@ public class BlockFern extends BlockPlant implements IShearable
 	/**
 	 * Used in BlocksAndItemsWithVariantsOfTypes.
 	 */
-	@Properties
+	@BlockProperties
 	public static IProperty[] getProperties()
 	{
 		return new IProperty[]{};
