@@ -35,7 +35,6 @@ public class ToolTypes
 	}
 	
 	public static final LinkedHashMap<Pair<EnumToolQuality, EnumToolMaterial>, ToolType> map = new LinkedHashMap();
-	public static final ArrayList<ToolType> types = new ArrayList();
 
 	public static ToolType getToolHead(EnumToolQuality quality, EnumToolMaterial material) {
 		return map.get(Pair.of(quality, material));
@@ -49,7 +48,6 @@ public class ToolTypes
 			{
 				ToolType toolType = new ToolType(quality, material);
 				map.put(Pair.of(quality, material), toolType);
-				types.add(toolType);
 			}
 		}
 		
@@ -58,9 +56,7 @@ public class ToolTypes
 
 	public static ToolType[] getAll()
 	{
-		//return types.toArray(new ToolType[typeList.size()]);
 		Collection<ToolType> types = map.values();
-		
 		return types.toArray(new ToolType[types.size()]);
 	}
 }
