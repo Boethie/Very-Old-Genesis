@@ -36,6 +36,7 @@ public final class GenesisItems
 	public static final ItemGenesis sphenophyllum_fiber = new ItemGenesis().setUnlocalizedName("sphenophyllumFiber");
 	public static final ItemGenesis odontopteris_fiddlehead = new ItemGenesis().setUnlocalizedName("odontopterisFiddlehead");
 	public static final ItemGenesis prototaxites_flesh = new ItemGenesis().setUnlocalizedName("prototaxitesFlesh");
+	public static final VariantsCombo dyes = new VariantsCombo(new ObjectType("dye", null, null).setNamePosition(ObjectNamePosition.PREFIX), EnumDye.values());
 	public static final ItemGenesis tyrannosaurus_saliva = new ItemGenesis().setUnlocalizedName("tyrannosaurusSaliva");
 	public static final ItemGenesis tyrannosaurus_tooth = new ItemGenesis().setUnlocalizedName("tyrannosaurusTooth");
 	
@@ -84,6 +85,7 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(sphenophyllum_fiber, "sphenophyllum_fiber");
 		Genesis.proxy.registerItem(odontopteris_fiddlehead, "odontopteris_fiddlehead");
 		Genesis.proxy.registerItem(prototaxites_flesh, "prototaxites_flesh");
+		dyes.registerAll();
 		GenesisBlocks.dungs.registerVariants(GenesisBlocks.dungs.DUNG);
 		Genesis.proxy.registerItem(tyrannosaurus_saliva, "tyrannosaurus_saliva");
 		Genesis.proxy.registerItem(tyrannosaurus_tooth, "tyrannosaurus_tooth");
