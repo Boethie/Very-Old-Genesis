@@ -64,7 +64,7 @@ public final class GenesisCreativeTabs
 		@Override
 	    public ItemStack getIconItemStack()
 	    {
-			return GenesisItems.tools.getStack(GenesisItems.tools.PEBBLE, EnumToolMaterial.GRANITE);	// TODO: use chipped bone spear when added
+			return GenesisItems.tools.getStack(ToolItems.ARROW_HEAD, ToolTypes.getToolHead(EnumToolQuality.CHIPPED, EnumToolMaterial.QUARTZITE));	// TODO: use chipped bone spear when added
 	    }
 
 		@Override

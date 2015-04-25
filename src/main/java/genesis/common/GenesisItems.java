@@ -68,6 +68,7 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(red_clay_ball, "red_clay_ball");
 		Genesis.proxy.registerItem(red_clay_bowl, "red_clay_bowl");
 		Genesis.proxy.registerItem(ceramic_bowl, "ceramic_bowl");
+		dyes.registerAll();
 		Genesis.proxy.registerItem(red_clay_bucket, "red_clay_bucket");
 		Genesis.proxy.registerItem(octaedrite_shard, "octaedrite_shard");
 		Genesis.proxy.registerItem(quartz, "quartz");
@@ -85,7 +86,6 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(sphenophyllum_fiber, "sphenophyllum_fiber");
 		Genesis.proxy.registerItem(odontopteris_fiddlehead, "odontopteris_fiddlehead");
 		Genesis.proxy.registerItem(prototaxites_flesh, "prototaxites_flesh");
-		dyes.registerAll();
 		GenesisBlocks.dungs.registerVariants(GenesisBlocks.dungs.DUNG);
 		Genesis.proxy.registerItem(tyrannosaurus_saliva, "tyrannosaurus_saliva");
 		Genesis.proxy.registerItem(tyrannosaurus_tooth, "tyrannosaurus_tooth");

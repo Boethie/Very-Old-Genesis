@@ -3,10 +3,7 @@ package genesis.common;
 import java.util.ArrayList;
 import java.util.List;
 
-import genesis.metadata.EnumDung;
-import genesis.metadata.EnumNodule;
-import genesis.metadata.EnumToolMaterial;
-import genesis.metadata.IMetadata;
+import genesis.metadata.*;
 import genesis.util.FuelHandler;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -211,5 +208,7 @@ public final class GenesisRecipes
 		makeSubstituteCraftingItem(new ItemStack(Items.bucket), new ItemStack(GenesisItems.ceramic_bucket));
 		makeSubstituteCraftingItem(new ItemStack(Items.water_bucket), new ItemStack(GenesisItems.ceramic_bucket_water));
 		makeSubstituteCraftingItem(new ItemStack(Items.milk_bucket), new ItemStack(GenesisItems.ceramic_bucket_milk));
+		// Dyes
+		makeSubstituteCraftingItem(new ItemStack(Items.dye, 1, EnumDyeColor.YELLOW.getDyeDamage()), GenesisItems.dyes.getStack(EnumDye.CALAMITES_YELLOW));
 	}
 }
