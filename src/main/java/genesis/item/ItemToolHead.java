@@ -4,7 +4,6 @@ import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemGenesis;
 import genesis.metadata.ToolItems.*;
 import genesis.metadata.*;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
