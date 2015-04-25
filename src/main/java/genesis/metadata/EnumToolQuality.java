@@ -17,7 +17,7 @@ public enum EnumToolQuality implements IMetadata
 	EnumToolQuality(String name, String unlocalizedName)
 	{
 		this.name = name;
-		this.unlocalizedName = unlocalizedName;
+		this.unlocalizedName = Constants.PREFIX + "tool.quality." + unlocalizedName;
 	}
 
 	@Override
@@ -35,6 +35,6 @@ public enum EnumToolQuality implements IMetadata
 	@Override
 	public String getUnlocalizedName()
 	{
-		return Constants.PREFIX + "tool.quality." + unlocalizedName;
+		return unlocalizedName;
 	}
 }
