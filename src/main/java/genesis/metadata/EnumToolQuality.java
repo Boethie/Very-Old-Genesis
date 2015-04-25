@@ -1,5 +1,7 @@
 package genesis.metadata;
 
+import genesis.util.Constants;
+
 public enum EnumToolQuality implements IMetadata
 {
 	NONE(null), CHIPPED("chipped"), POLISHED("polished"), SHARPENED("sharpened");
@@ -33,6 +35,6 @@ public enum EnumToolQuality implements IMetadata
 	@Override
 	public String getUnlocalizedName()
 	{
-		return unlocalizedName;
+		return Constants.PREFIX + "tool.quality." + unlocalizedName;
 	}
 }

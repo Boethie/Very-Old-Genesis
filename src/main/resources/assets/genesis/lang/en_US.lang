@@ -150,6 +150,10 @@ itemGroup.genesis.combat=Genesis Combat
 itemGroup.genesis.materials=Genesis Materials
 
 #Tool Heads
+item.genesis.tool.quality.chipped=Chipped
+item.genesis.tool.quality.polished=Polished
+item.genesis.tool.quality.sharpened=Sharpened
+
 item.genesis.material.toolHead.pick.granite.name=Granite Pick Head
 item.genesis.material.toolHead.pick.rhyolite.name=Rhyolite Pick Head
 item.genesis.material.toolHead.pick.quartzite.name=Quartzite Pick Head
