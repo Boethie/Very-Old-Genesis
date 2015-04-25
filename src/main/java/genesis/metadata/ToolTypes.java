@@ -20,17 +20,15 @@ public class ToolTypes
 		@Override
 		public String getName()
 		{
-			String materialName = quality.getName();
+			String qualityName = quality.getName();
 			
-			return (materialName == null ? "" : materialName + "_") + material.getName();
+			return (qualityName == null ? "" : qualityName + "_") + material.getName();
 		}
 
 		@Override
 		public String getUnlocalizedName()
 		{
-			String materialName = quality.getUnlocalizedName();
-			
-			return (materialName == null ? "" : materialName + ".") + material.getUnlocalizedName();
+			return material.getUnlocalizedName();
 		}
 		
 		// TODO: toString() method
