@@ -111,6 +111,7 @@ public final class GenesisBlocks
 
 	public static void registerBlocks()
 	{
+		// Begin general building blocks
 		Genesis.proxy.registerBlock(moss, "moss", ItemBlockColored.class);
 		Genesis.proxy.registerBlock(granite, "granite");
 		Genesis.proxy.registerBlock(mossy_granite, "mossy_granite");
@@ -140,8 +141,12 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(calamites_bundle, "calamites_bundle");
 		Genesis.proxy.registerBlock(prototaxites_mycelium, "prototaxites_mycelium");
 		dungs.registerVariants(dungs.DUNG_BLOCK);
-		trees.registerVariants(trees.WATTLE_FENCE);
 		Genesis.proxy.registerBlock(calamites_torch, "calamites_torch");
+
+		// Begin decorative
+		trees.registerVariants(trees.SAPLING);
+		trees.registerVariants(trees.LEAVES);
+		trees.registerVariants(trees.WATTLE_FENCE);
 		
 		plants.registerAll();
 
@@ -169,9 +174,6 @@ public final class GenesisBlocks
 		odontopteris.setCropDrops(new RandomItemDrop(GenesisItems.odontopteris_seeds, 1, 3));
 		odontopteris.setPickedItem(GenesisItems.odontopteris_seeds);
 		GenesisItems.odontopteris_seeds.setCrop(odontopteris);
-
-		trees.registerVariants(trees.SAPLING);
-		trees.registerVariants(trees.LEAVES);
 		
 		Genesis.proxy.registerBlock(flower_pot, "genesis_flower_pot");
 		flower_pot.registerPlantsForPot(plants);

@@ -10,8 +10,11 @@ import net.minecraft.item.ItemLilyPad;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.BlockSnapshot;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -23,61 +26,43 @@ public class ItemBlockCobbania extends ItemLilyPad
 	}
 
 	@Override
-    public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
-    {
-        MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(worldIn, playerIn, true);
+	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+	{
+		MovingObjectPosition hit = getMovingObjectPositionFromPlayer(world, player, true);
 
-        if (movingobjectposition == null)
-        {
-            return itemStackIn;
-        }
-        else
-        {
-            if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
-            {
-                BlockPos blockpos = movingobjectposition.getBlockPos();
+		if (hit != null && hit.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
+		{
+			BlockPos hitPos = hit.getBlockPos();
 
-                if (!worldIn.isBlockModifiable(playerIn, blockpos))
-                {
-                    return itemStackIn;
-                }
+			if (world.isBlockModifiable(player, hitPos) && player.canPlayerEdit(hitPos.offset(hit.sideHit), hit.sideHit, stack))
+			{
+				IBlockState hitState = world.getBlockState(hitPos);
+				BlockPos placePos = hitPos.up();
+	
+				if (hitState.getBlock().getMaterial() == Material.water
+					&& ((Integer) hitState.getValue(BlockLiquid.LEVEL)).intValue() == 0
+					&& world.isAirBlock(placePos))
+				{
+					world.setBlockState(placePos, block.getDefaultState());
+					player.swingItem();
+	
+					if (!player.capabilities.isCreativeMode)
+					{
+						--stack.stackSize;
+					}
+	
+					player.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
+				}
+			}
+		}
 
-                if (!playerIn.canPlayerEdit(blockpos.offset(movingobjectposition.sideHit), movingobjectposition.sideHit, itemStackIn))
-                {
-                    return itemStackIn;
-                }
+		return stack;
+	}
 
-                BlockPos blockpos1 = blockpos.up();
-                IBlockState iblockstate = worldIn.getBlockState(blockpos);
-
-                if (iblockstate.getBlock().getMaterial() == Material.water && ((Integer)iblockstate.getValue(BlockLiquid.LEVEL)).intValue() == 0 && worldIn.isAirBlock(blockpos1))
-                {
-                    // special case for handling block placement with water lilies
-                    net.minecraftforge.common.util.BlockSnapshot blocksnapshot = net.minecraftforge.common.util.BlockSnapshot.getBlockSnapshot(worldIn, blockpos1);
-                    worldIn.setBlockState(blockpos1, block.getDefaultState());
-                    if (net.minecraftforge.event.ForgeEventFactory.onPlayerBlockPlace(playerIn, blocksnapshot, net.minecraft.util.EnumFacing.UP).isCanceled())
-                    {
-                        blocksnapshot.restore(true, false);
-                        return itemStackIn;
-                    }
-
-                    if (!playerIn.capabilities.isCreativeMode)
-                    {
-                        --itemStackIn.stackSize;
-                    }
-
-                    playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
-                }
-            }
-
-            return itemStackIn;
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
+	@SideOnly(Side.CLIENT)
 	@Override
-    public int getColorFromItemStack(ItemStack stack, int renderPass)
-    {
-        return block.getRenderColor(block.getStateFromMeta(stack.getMetadata()));
-    }
+	public int getColorFromItemStack(ItemStack stack, int renderPass)
+	{
+		return block.getRenderColor(block.getStateFromMeta(stack.getMetadata()));
+	}
 }
