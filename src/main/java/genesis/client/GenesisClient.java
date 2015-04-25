@@ -19,7 +19,6 @@ import net.minecraftforge.common.*;
 import net.minecraftforge.fml.client.*;
 import net.minecraftforge.fml.relauncher.*;
 
-@SideOnly(Side.CLIENT)
 public class GenesisClient extends GenesisProxy
 {
 	private static final Minecraft MC = FMLClientHandler.instance().getClient();
@@ -43,8 +42,6 @@ public class GenesisClient extends GenesisProxy
 		
 		ModelLoaderRegistry.registerLoader(GenesisCustomModelLoader.instance);
         MinecraftForge.EVENT_BUS.register(GenesisCustomModelLoader.instance);
-
-		registerModelStateMap(GenesisBlocks.prototaxites, new StateMap.Builder().addPropertiesToIgnore(BlockCactus.AGE).build());
 	}
 
 	@Override

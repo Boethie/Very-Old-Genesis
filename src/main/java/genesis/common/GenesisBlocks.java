@@ -141,12 +141,13 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(calamites_bundle, "calamites_bundle");
 		Genesis.proxy.registerBlock(prototaxites_mycelium, "prototaxites_mycelium");
 		dungs.registerVariants(dungs.DUNG_BLOCK);
-		Genesis.proxy.registerBlock(calamites_torch, "calamites_torch");
-
+		
 		// Begin decorative
 		trees.registerVariants(trees.SAPLING);
 		trees.registerVariants(trees.LEAVES);
 		trees.registerVariants(trees.WATTLE_FENCE);
+		
+		Genesis.proxy.registerBlock(calamites_torch, "calamites_torch");
 		
 		plants.registerAll();
 

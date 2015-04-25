@@ -149,12 +149,6 @@ public class VariantsOfTypesCombo
 			return list;
 		}
 		
-		@SideOnly(Side.CLIENT)
-		public IStateMapper getStateMapper(Block block)
-		{
-			return null;
-		}
-		
 		public boolean getUseSeparateVariantJsons()
 		{
 			return separateVariantJsons;
@@ -444,60 +438,56 @@ public class VariantsOfTypesCombo
 					Genesis.proxy.registerBlockWithItem(block, registryName, item);
 					block.setUnlocalizedName(type.getUnlocalizedName());
 					
-					Genesis.proxy.callClientOnly(new ClientOnlyFunction(){
+					// Register resource locations for the block.
+					Genesis.proxy.callClientOnly(new ClientOnlyFunction()
+					{
+						@Override
+						@SideOnly(Side.CLIENT)
 						public void apply(GenesisClient client)
 						{
-							// Register resource locations for the block.
-							IStateMapper stateMap = type.getStateMapper(block);
+							FlexibleStateMap flexStateMap = new FlexibleStateMap();
 							
-							if (stateMap == null)
+							if (type.getUseSeparateVariantJsons())
 							{
-								FlexibleStateMap flexStateMap = new FlexibleStateMap();
-								
-								if (type.getUseSeparateVariantJsons())
+								switch (type.getNamePosition())
 								{
-									switch (type.getNamePosition())
-									{
-									case PREFIX:
-										flexStateMap.setPrefix(type.getName() + "_");
-										break;
-									case POSTFIX:
-										flexStateMap.setPostfix("_" + type.getName());
-										break;
-									default:
-										break;
-									}
+								case PREFIX:
+									flexStateMap.setPrefix(type.getName() + "_");
+									break;
+								case POSTFIX:
+									flexStateMap.setPostfix("_" + type.getName());
+									break;
+								default:
+									break;
+								}
 
-									IProperty variantProp = getVariantProperty(block);
-									
-									if (variantProp != null)
-									{
-										flexStateMap.setNameProperty(variantProp);
-									}
-								}
-								else
+								IProperty variantProp = getVariantProperty(block);
+								
+								if (variantProp != null)
 								{
-									flexStateMap.setPrefix(type.getName());
+									flexStateMap.setNameProperty(variantProp);
 								}
-								
-								type.customizeStateMap(flexStateMap);
-								
-								if (block instanceof IModifyStateMap)
-								{
-									((IModifyStateMap) block).customizeStateMap(flexStateMap);
-								}
-								
-								Function<String, String> nameFunction = type.getResourceNameFunction();
-								
-								if (nameFunction != null)
-								{
-									flexStateMap.setNameFunction(nameFunction);
-								}
-								
-								stateMap = flexStateMap;
+							}
+							else
+							{
+								flexStateMap.setPrefix(type.getName());
 							}
 							
-							((GenesisClient) Genesis.proxy).registerModelStateMap(block, stateMap);
+							type.customizeStateMap(flexStateMap);
+							
+							if (block instanceof IModifyStateMap)
+							{
+								((IModifyStateMap) block).customizeStateMap(flexStateMap);
+							}
+							
+							Function<String, String> nameFunction = type.getResourceNameFunction();
+							
+							if (nameFunction != null)
+							{
+								flexStateMap.setNameFunction(nameFunction);
+							}
+							
+							client.registerModelStateMap(block, flexStateMap);
 						}
 					});
 					// End registering block resource locations.

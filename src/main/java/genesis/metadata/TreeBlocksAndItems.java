@@ -21,18 +21,7 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo
 			.setIgnoredProperties(BlockLeaves.CHECK_DECAY, BlockLeaves.DECAYABLE);
 	public static final ObjectType<ItemMulti> BILLET = new ObjectType("billet", null, ItemMulti.class, EnumTree.NO_BILLET);
 	public static final ObjectType<BlockWattleFence> WATTLE_FENCE = new ObjectType("wattle_fence", "wattleFence", BlockWattleFence.class, null, EnumTree.NO_BILLET)
-	{
-		@SideOnly(Side.CLIENT)
-		@Override
-		public IStateMapper getStateMapper(Block block)
-		{
-			return new StateMap.Builder()
-					.setProperty(((BlockWattleFence) block).variantProp)
-					.addPropertiesToIgnore(BlockFence.NORTH, BlockFence.EAST, BlockFence.SOUTH, BlockFence.WEST)
-					.setBuilderSuffix("_" + WATTLE_FENCE.getName())
-					.build();
-		}
-	};
+			.setIgnoredProperties(BlockFence.NORTH, BlockFence.EAST, BlockFence.SOUTH, BlockFence.WEST);
 	
 	public TreeBlocksAndItems()
 	{

@@ -2,40 +2,33 @@ package genesis.block;
 
 import java.util.*;
 
-import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.*;
 
-import com.google.common.base.Optional;
-import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.Table;
+import com.google.common.collect.*;
 
-import genesis.client.GenesisClient;
+import genesis.client.*;
+import genesis.common.*;
 import genesis.metadata.*;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
-import genesis.util.Constants;
+import genesis.metadata.VariantsOfTypesCombo.*;
+import genesis.util.*;
 import net.minecraft.block.*;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.init.*;
+import net.minecraft.item.*;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityFlowerPot;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumWorldBlockLayer;
-import net.minecraft.util.Vec3;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.eventhandler.Event.Result;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.tileentity.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraftforge.common.*;
+import net.minecraftforge.event.entity.player.*;
+import net.minecraftforge.fml.common.eventhandler.*;
+import net.minecraftforge.fml.common.eventhandler.Event.*;
+import net.minecraftforge.fml.relauncher.*;
 
 public class BlockGenesisFlowerPot extends BlockFlowerPot
 {
@@ -98,7 +91,16 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 	{
 		super();
 		
-		MinecraftForge.EVENT_BUS.register(this);
+		// Called only on the client to bypass a problem caused by Block.canRenderInLayer not being @SideOnly(Side.CLIENT)
+		Genesis.proxy.callClientOnly(new ClientOnlyFunction()
+		{
+			@Override
+			@SideOnly(Side.CLIENT)
+			public void apply(GenesisClient client)
+			{
+				MinecraftForge.EVENT_BUS.register(this);
+			}
+		});
 		
 		setUnlocalizedName(Constants.ASSETS + "flowerPot");
 	}
