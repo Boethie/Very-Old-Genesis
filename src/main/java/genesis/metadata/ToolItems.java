@@ -5,7 +5,9 @@ import java.util.*;
 import com.google.common.base.Function;
 import com.google.common.collect.Sets;
 
+import genesis.common.GenesisCreativeTabs;
 import genesis.item.*;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.*;
 import genesis.metadata.ToolTypes.ToolType;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType.ObjectNamePosition;
@@ -57,6 +59,13 @@ public class ToolItems extends VariantsOfTypesCombo
 			super.setNamePosition(namePosition);
 			return this;
 		}
+		@Override
+		public ToolObjectType<T> setCreativeTab(CreativeTabs tab)
+		{
+			this.tab = tab;
+
+			return this;
+		}
 	}
 	
 	public static class ToolObjectTypeSoleQuality<T extends Item> extends ToolObjectType<T>
@@ -92,10 +101,9 @@ public class ToolItems extends VariantsOfTypesCombo
 	public static final ToolObjectType<ItemToolHead> PICK_HEAD = new ToolObjectType("tool_head_pick", "toolHead.pick", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED});
 	public static final ToolObjectType<ItemToolHead> AXE_HEAD = new ToolObjectType("tool_head_axe", "toolHead.axe", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED});
 	public static final ToolObjectType<ItemToolHead> KNIFE_HEAD = new ToolObjectType("tool_head_knife", "toolHead.knife", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.SHARPENED});
-	public static final ToolObjectType<ItemToolHead> SPEAR_HEAD = new ToolObjectType("tool_head_spear", "toolHead.spear", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.SHARPENED});
-	public static final ToolObjectType<ItemToolHead> ARROW_HEAD = new ToolObjectType("tool_head_arrow", "toolHead.arrow", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.SHARPENED});
+	public static final ToolObjectType<ItemToolHead> SPEAR_HEAD = new ToolObjectType("tool_head_spear", "toolHead.spear", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.SHARPENED}).setCreativeTab(GenesisCreativeTabs.COMBAT);
+	public static final ToolObjectType<ItemToolHead> ARROW_HEAD = new ToolObjectType("tool_head_arrow", "toolHead.arrow", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.SHARPENED}).setCreativeTab(GenesisCreativeTabs.COMBAT);
 	public static final ToolObjectTypeSoleQuality<ItemMulti> POINT_FLAKE = new ToolObjectTypeSoleQuality("point_flake", "pointFlake", null, null, EnumToolQuality.NONE);
-	//TODO; Point flakes being registered as pebbles
 	
 	public ToolItems()
 	{
