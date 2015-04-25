@@ -29,6 +29,18 @@ tile.log.lepidodendron.name=Bois de Lepidodendron
 tile.log.cordaites.name=Bois de Cordaites
 tile.log.psaronius.name=Bois de Psaronius
 tile.log.araucarioxylon.name=Bois d'Araucarioxylon
+tile.genesis.leaves.archaeopteris.name=Feuilles d'Archaeopteris
+tile.genesis.leaves.sigillaria.name=Feuilles de Sigillaria
+tile.genesis.leaves.lepidodendron.name=Feuilles de Lepidodendron
+tile.genesis.leaves.cordaites.name=Feuilles de Cordaites
+tile.genesis.leaves.psaronius.name=Feuilles de Psaronius
+tile.genesis.leaves.araucarioxylon.name=Feuilles d'Araucarioxylon
+tile.genesis.sapling.archaeopteris.name=Pousse d'Archaeopteris
+tile.genesis.sapling.sigillaria.name=Pousse de Sigillaria
+tile.genesis.sapling.lepidodendron.name=Pousse de Lepidodendron
+tile.genesis.sapling.cordaites.name=Pousse de Cordaites
+tile.genesis.sapling.psaronius.name=Pousse de Psaronius
+tile.genesis.sapling.araucarioxylon.name=Pousse d'Araucarioxylon
 tile.genesis.calamitesBundle.name=Fagot de Calamites
 tile.genesis.prototaxitesMycelium.name=Mycélium de Prototaxites
 tile.genesis.prototaxites.name=Prototaxites
@@ -96,7 +108,7 @@ item.genesis.material.redClay.name=Argile rouge
 item.genesis.material.bowlRedClay.name=Bol en argile rouge
 item.genesis.material.bowlCeramic.name=Bol en céramique
 item.genesis.material.dye.calamitesYellow.name=Jaune de Calamites
-item.genesis.material.dye.odontopterisLime.name=Vert clair de crosses d'Odontopteris
+item.genesis.material.dye.odontopterisLime.name=Vert clair de crosse d'Odontopteris
 item.genesis.material.redClayBucket.name=Seau en argile rouge
 item.genesis.material.octaedriteShard.name=Éclat d'octaédrite
 item.genesis.material.quartz.name=Quartz
@@ -122,6 +134,47 @@ item.genesis.material.dung.brachiosaurus.name=Crotte de Brachiosaurus
 item.genesis.material.dung.tyrannosaurus.name=Crotte de Tyrannosaurus
 item.genesis.material.tyrannosaurusSaliva.name=Salive de Tyrannosaurus
 item.genesis.material.tyrannosaurusTooth.name=Dent de Tyrannosaurus
+
+#Tool Heads
+item.genesis.tool.quality.chipped=Taillé
+item.genesis.tool.quality.polished=Poli
+item.genesis.tool.quality.sharpened=Affûté
+
+item.genesis.material.toolHead.pick.granite.name=Tête de pic en granite
+item.genesis.material.toolHead.pick.rhyolite.name=Tête de pic en rhyolite
+item.genesis.material.toolHead.pick.quartzite.name=Tête de pic en quartzite
+item.genesis.material.toolHead.pick.dolerite.name=Tête de pic en dolérite
+item.genesis.material.toolHead.pick.brownFlint.name=Tête de pic en silex brun
+
+item.genesis.material.toolHead.axe.granite.name=Tête de hache en granite
+item.genesis.material.toolHead.axe.rhyolite.name=Tête de hache en rhyolite
+item.genesis.material.toolHead.axe.quartzite.name=Tête de hache en quartzite
+item.genesis.material.toolHead.axe.dolerite.name=Tête de hache en dolérite
+item.genesis.material.toolHead.axe.brownFlint.name=Tête de hache en silex brun
+
+item.genesis.material.toolHead.knife.granite.name=Lame de couteau en granite
+item.genesis.material.toolHead.knife.rhyolite.name=Lame de couteau en rhyolite
+item.genesis.material.toolHead.knife.quartzite.name=Lame de couteau en quartzite
+item.genesis.material.toolHead.knife.dolerite.name=Lame de couteau en dolérite
+item.genesis.material.toolHead.knife.brownFlint.name=Lame de couteau en silex brun
+
+item.genesis.material.toolHead.spear.granite.name=Pointe de lance en granite
+item.genesis.material.toolHead.spear.rhyolite.name=Pointe de lance en rhyolite
+item.genesis.material.toolHead.spear.quartzite.name=Pointe de lance en quartzite
+item.genesis.material.toolHead.spear.dolerite.name=Pointe de lance en dolérite
+item.genesis.material.toolHead.spear.brownFlint.name=Pointe de lance en silex brun
+
+item.genesis.material.toolHead.arrow.granite.name=Pointe de flèche en granite
+item.genesis.material.toolHead.arrow.rhyolite.name=Pointe de flèche en rhyolite
+item.genesis.material.toolHead.arrow.quartzite.name=Pointe de flèche en quartzite
+item.genesis.material.toolHead.arrow.dolerite.name=Pointe de flèche en dolérite
+item.genesis.material.toolHead.arrow.brownFlint.name=Pointe de flèche en silex brun
+
+item.genesis.material.pointFlake.granite.name=Éclat pointu en granite
+item.genesis.material.pointFlake.rhyolite.name=Éclat pointu en rhyolite
+item.genesis.material.pointFlake.quartzite.name=Éclat pointu en quartzite
+item.genesis.material.pointFlake.dolerite.name=Éclat pointu en dolérite
+item.genesis.material.pointFlake.brownFlint.name=Éclat pointu en silex brun
 
 #Containers
 item.genesis.misc.ceramicBucket.name=Seau en céramique
