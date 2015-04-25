@@ -1,5 +1,6 @@
 package genesis.common;
 
+import genesis.client.ClientOnlyFunction;
 import genesis.util.Constants;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
@@ -32,12 +33,7 @@ public class GenesisProxy
 
 	public void registerBlock(Block block, String name, Class<? extends ItemBlock> clazz)
 	{
-		registerBlock(block, name, clazz, new Object[0]);
-	}
-
-	public void registerBlock(Block block, String name, Class<? extends ItemBlock> clazz, Object... args)
-	{
-		GameRegistry.registerBlock(block, clazz, name, args);
+		GameRegistry.registerBlock(block, clazz, name);
 	}
 
 	/**
@@ -60,16 +56,8 @@ public class GenesisProxy
 	public void registerModel(Item item, int metadata, String textureName)
 	{
 	}
-	
-	public void registerModelStateMap(Block block, IStateMapper stateMap)
-	{
-	}
 
-	public void registerCustomModel(String path, IModel model)
-	{
-	}
-
-	public void registerCustomModel(ResourceLocation path, ISmartBlockModel wattleFenceModel)
+	public void callClientOnly(ClientOnlyFunction clientOnlyFunction)
 	{
 	}
 }

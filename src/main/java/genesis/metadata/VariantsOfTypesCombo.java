@@ -1,8 +1,11 @@
 package genesis.metadata;
 
+import genesis.client.ClientOnlyFunction;
+import genesis.client.GenesisClient;
 import genesis.common.*;
 import genesis.item.*;
 import genesis.util.*;
+import genesis.util.ReflectionHelper;
 
 import java.lang.annotation.*;
 import java.lang.reflect.*;
@@ -21,6 +24,7 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
+import net.minecraftforge.fml.relauncher.*;
 
 /**
  * Used to create Blocks/Items with variants of ObjectTypes.
@@ -145,6 +149,7 @@ public class VariantsOfTypesCombo
 			return list;
 		}
 		
+		@SideOnly(Side.CLIENT)
 		public IStateMapper getStateMapper(Block block)
 		{
 			return null;
@@ -439,57 +444,62 @@ public class VariantsOfTypesCombo
 					Genesis.proxy.registerBlockWithItem(block, registryName, item);
 					block.setUnlocalizedName(type.getUnlocalizedName());
 					
-					// Register resource locations for the block.
-					IStateMapper stateMap = type.getStateMapper(block);
-					
-					if (stateMap == null)
-					{
-						FlexibleStateMap flexStateMap = new FlexibleStateMap();
-						
-						if (type.getUseSeparateVariantJsons())
+					Genesis.proxy.callClientOnly(new ClientOnlyFunction(){
+						public void apply(GenesisClient client)
 						{
-							switch (type.getNamePosition())
-							{
-							case PREFIX:
-								flexStateMap.setPrefix(type.getName() + "_");
-								break;
-							case POSTFIX:
-								flexStateMap.setPostfix("_" + type.getName());
-								break;
-							default:
-								break;
-							}
-
-							IProperty variantProp = getVariantProperty(block);
+							// Register resource locations for the block.
+							IStateMapper stateMap = type.getStateMapper(block);
 							
-							if (variantProp != null)
+							if (stateMap == null)
 							{
-								flexStateMap.setNameProperty(variantProp);
+								FlexibleStateMap flexStateMap = new FlexibleStateMap();
+								
+								if (type.getUseSeparateVariantJsons())
+								{
+									switch (type.getNamePosition())
+									{
+									case PREFIX:
+										flexStateMap.setPrefix(type.getName() + "_");
+										break;
+									case POSTFIX:
+										flexStateMap.setPostfix("_" + type.getName());
+										break;
+									default:
+										break;
+									}
+
+									IProperty variantProp = getVariantProperty(block);
+									
+									if (variantProp != null)
+									{
+										flexStateMap.setNameProperty(variantProp);
+									}
+								}
+								else
+								{
+									flexStateMap.setPrefix(type.getName());
+								}
+								
+								type.customizeStateMap(flexStateMap);
+								
+								if (block instanceof IModifyStateMap)
+								{
+									((IModifyStateMap) block).customizeStateMap(flexStateMap);
+								}
+								
+								Function<String, String> nameFunction = type.getResourceNameFunction();
+								
+								if (nameFunction != null)
+								{
+									flexStateMap.setNameFunction(nameFunction);
+								}
+								
+								stateMap = flexStateMap;
 							}
+							
+							((GenesisClient) Genesis.proxy).registerModelStateMap(block, stateMap);
 						}
-						else
-						{
-							flexStateMap.setPrefix(type.getName());
-						}
-						
-						type.customizeStateMap(flexStateMap);
-						
-						if (block instanceof IModifyStateMap)
-						{
-							((IModifyStateMap) block).customizeStateMap(flexStateMap);
-						}
-						
-						Function<String, String> nameFunction = type.getResourceNameFunction();
-						
-						if (nameFunction != null)
-						{
-							flexStateMap.setNameFunction(nameFunction);
-						}
-						
-						stateMap = flexStateMap;
-					}
-					
-					Genesis.proxy.registerModelStateMap(block, stateMap);
+					});
 					// End registering block resource locations.
 				}
 				else

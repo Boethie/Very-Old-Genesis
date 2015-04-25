@@ -21,6 +21,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockGenesisLeaves extends BlockLeaves
 {
@@ -146,26 +148,24 @@ public class BlockGenesisLeaves extends BlockLeaves
 		return null;
 	}
 	
-	protected static boolean fancyGraphicsEnabled()
-	{
-		return GenesisClient.getMC().isFancyGraphicsEnabled();
-	}
-	
 	@Override
+	@SideOnly(Side.CLIENT)
 	public EnumWorldBlockLayer getBlockLayer()
 	{
-		return fancyGraphicsEnabled() ? EnumWorldBlockLayer.CUTOUT_MIPPED : EnumWorldBlockLayer.SOLID;
+		return GenesisClient.fancyGraphicsEnabled() ? EnumWorldBlockLayer.CUTOUT_MIPPED : EnumWorldBlockLayer.SOLID;
 	}
 	
 	@Override
+	@SideOnly(Side.CLIENT)
 	public boolean isOpaqueCube()
 	{
-		return !fancyGraphicsEnabled();
+		return !GenesisClient.fancyGraphicsEnabled();
 	}
 	
 	@Override
+	@SideOnly(Side.CLIENT)
 	public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side)
 	{
-		return !fancyGraphicsEnabled() && worldIn.getBlockState(pos).getBlock() == this ? false : super.shouldSideBeRendered(worldIn, pos, side);
+		return !GenesisClient.fancyGraphicsEnabled() && worldIn.getBlockState(pos).getBlock() == this ? false : super.shouldSideBeRendered(worldIn, pos, side);
 	}
 }

@@ -28,6 +28,7 @@ import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IModelState;
 import net.minecraftforge.client.model.ISmartBlockModel;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import genesis.client.GenesisClient;
 import genesis.client.GenesisCustomModelLoader;
 import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
@@ -67,7 +68,7 @@ public class WattleFenceModel implements IModel, IMultiBakedModelOwner
 		for (EnumTree variant : variants)
 		{
 			WattleFenceModel model = new WattleFenceModel();
-			Genesis.proxy.registerCustomModel("models/block/" + variant.getName() + "_wattle_fence", model);
+			((GenesisClient) Genesis.proxy).registerCustomModel("models/block/" + variant.getName() + "_wattle_fence", model);
 			//Genesis.proxy.registerCustomModel("models/item/" + variant.getName() + "_wattle_fence", model);
 
 			/*getModels();

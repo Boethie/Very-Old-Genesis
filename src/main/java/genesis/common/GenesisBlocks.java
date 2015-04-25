@@ -182,7 +182,6 @@ public final class GenesisBlocks
 		flower_pot.afterAllRegistered();
 		
 		Genesis.proxy.registerBlock(prototaxites, "prototaxites");
-		Genesis.proxy.registerModelStateMap(GenesisBlocks.prototaxites, new StateMap.Builder().addPropertiesToIgnore(BlockCactus.AGE).build());
 		Genesis.proxy.registerBlock(cobbania, "cobbania", ItemBlockCobbania.class);
 		aquatic_plants.registerAll();
 

@@ -2,19 +2,15 @@ package genesis.metadata;
 
 import genesis.block.*;
 import genesis.item.*;
-import genesis.util.FlexibleStateMap;
+import genesis.util.*;
 
-import java.util.ArrayList;
+import java.util.*;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockFence;
-import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.BlockSapling;
-import net.minecraft.client.renderer.block.statemap.IStateMapper;
-import net.minecraft.client.renderer.block.statemap.StateMap;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.block.*;
+import net.minecraft.client.renderer.block.statemap.*;
+import net.minecraft.item.*;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.*;
 
 public class TreeBlocksAndItems extends VariantsOfTypesCombo
 {
@@ -26,6 +22,7 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo
 	public static final ObjectType<ItemMulti> BILLET = new ObjectType("billet", null, ItemMulti.class, EnumTree.NO_BILLET);
 	public static final ObjectType<BlockWattleFence> WATTLE_FENCE = new ObjectType("wattle_fence", "wattleFence", BlockWattleFence.class, null, EnumTree.NO_BILLET)
 	{
+		@SideOnly(Side.CLIENT)
 		@Override
 		public IStateMapper getStateMapper(Block block)
 		{

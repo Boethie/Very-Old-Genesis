@@ -1,27 +1,20 @@
 package genesis.block;
 
-import genesis.common.GenesisBlocks;
-import genesis.common.GenesisCreativeTabs;
+import genesis.common.*;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
-import genesis.util.BlockStateToMetadata;
-import genesis.util.Constants;
+import genesis.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockBush;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.*;
+import net.minecraft.block.properties.*;
+import net.minecraft.block.state.*;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.fml.relauncher.*;
 
 public class BlockPlant extends BlockBush
 {
@@ -96,6 +89,7 @@ public class BlockPlant extends BlockBush
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public Block.EnumOffsetType getOffsetType()
 	{
 		return Block.EnumOffsetType.XYZ;

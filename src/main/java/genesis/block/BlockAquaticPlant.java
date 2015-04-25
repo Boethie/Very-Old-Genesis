@@ -66,6 +66,7 @@ public class BlockAquaticPlant extends BlockGenesisVariants<EnumAquaticPlant, Va
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void customizeStateMap(FlexibleStateMap stateMap)
 	{
 		stateMap.addIgnoredProperties(BlockLiquid.LEVEL);
