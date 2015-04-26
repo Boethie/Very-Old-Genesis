@@ -143,9 +143,7 @@ public final class GenesisBlocks
 		dungs.registerVariants(dungs.DUNG_BLOCK);
 		
 		// Begin decorative
-		trees.registerVariants(trees.SAPLING);
-		trees.registerVariants(trees.LEAVES);
-		trees.registerVariants(trees.WATTLE_FENCE);
+		trees.registerAll();
 		
 		Genesis.proxy.registerBlock(calamites_torch, "calamites_torch");
 		

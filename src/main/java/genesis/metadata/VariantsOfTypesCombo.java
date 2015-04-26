@@ -38,6 +38,13 @@ public class VariantsOfTypesCombo
 	@Target({ElementType.METHOD, ElementType.FIELD})
 	public static @interface BlockProperties {
 	}
+
+	@Retention(RetentionPolicy.RUNTIME)
+	@Target(ElementType.TYPE)
+	public @interface ItemVariantCount
+	{
+		public int value();
+	}
 	
 	/**
 	 * Contains the types of Blocks/Items contained in a BlocksAndItemsWithVariantsOfTypes.
@@ -288,19 +295,21 @@ public class VariantsOfTypesCombo
 	public final HashSet<ObjectType> registeredTypes = new HashSet();
 	
 	/**
-	 * Creates a BlocksAndItemsWithVariantsOfTypes with Blocks/Items from the "types" list containing the variants in "variants".
+	 * Creates a {@link #VariantsOfTypesCombo} with each {@link #Block}/{@link #Item} represented by the list of {@link #ObjectType},
+	 * with each {@code ObjectType} having the provided variants.<br><br>
 	 * 
-	 * All Block classes that are constructed in this method MUST have a "public static IProperty[] getProperties()" to allow us to
-	 * determine how many variants can be stored in the block.
+	 * All {@code Block} classes that are constructed in this method MUST have a "public static IProperty[] getProperties()" to allow us
+	 * to determine how many variants can be stored in the block.<br><br>
 	 * 
-	 * The Block's variant property must have a name of "variant" exactly.
+	 * The {@code Block}'s variant property must have a name of "variant" exactly.<br><br>
 	 * 
-	 * The Block and Item classes must also have a constructor with arguments
-	 * (List<IMetadata>, BlocksAndItemsWithVariantsOfTypes). The List tells the Block or Item what variants it
-	 * stores, and the BlocksAndItems... is the owner group of objects.
+	 * The {@code Block} and {@code Item} classes must also have a constructor with arguments
+	 * {@code (List<IMetadata>, VariantsOfTypesCombo, ObjectType)}, as well as the arguments provided by the {@code ObjectType}.
+	 * The {@code List} tells the object what variants it stores, the {@code VariantsOfTypesCombo}
+	 * is the owner group of objects, and the {@code ObjectType} is the {@code ObjectType} the object stores.
 	 * 
-	 * @param types The types of Blocks/Items (Objects) to store.
-	 * @param variants The variants to store for each Block/Item.
+	 * @param types The list of {@link #ObjectType} definitions of the {@code Block} and {@code Item} classes to store.
+	 * @param variants The {@link #IMetadata} representations of the variants to store for each Block/Item.
 	 */
 	public VariantsOfTypesCombo(List<ObjectType> types, List<IMetadata> variants)
 	{
@@ -317,6 +326,12 @@ public class VariantsOfTypesCombo
 				List<IMetadata> typeVariants = type.getValidVariants(new ArrayList<IMetadata>(variants));
 
 				int maxVariants = Short.MAX_VALUE - 1;	// ItemStack max damage value.
+				
+				if (itemClass.isAnnotationPresent(ItemVariantCount.class))
+				{
+					ItemVariantCount annot = itemClass.getAnnotation(ItemVariantCount.class);
+					maxVariants = Math.min(annot.value(), maxVariants);
+				}
 
 				// If the block class isn't null, we must get the maximum number of variants it can store in its metadata.
 				if (blockClass != null)
@@ -344,12 +359,12 @@ public class VariantsOfTypesCombo
 						}
 					}
 					
-					if (propsListObj == null)
+					if (!(propsListObj instanceof IProperty[]))
 					{
-						throw new IllegalArgumentException("Failed to find variant properties for block class " + blockClass.getCanonicalName());
+						throw new IllegalArgumentException("Failed to find variant properties for block class " + blockClass.getSimpleName());
 					}
 					
-					maxVariants = BlockStateToMetadata.getMetadataLeftAfter((IProperty[]) propsListObj);
+					maxVariants = Math.min(BlockStateToMetadata.getMetadataLeftAfter((IProperty[]) propsListObj), maxVariants);
 				}
 				
 				int subsets = (int) Math.ceil(typeVariants.size() / (float) maxVariants);
@@ -357,7 +372,17 @@ public class VariantsOfTypesCombo
 				for (int subset = 0; subset < subsets; subset++)
 				{
 					final List<IMetadata> subVariants = typeVariants.subList(subset * maxVariants, Math.min((subset + 1) * maxVariants, typeVariants.size()));
-
+					final Object variantsArg;
+					
+					if (maxVariants == 1)
+					{
+						variantsArg = subVariants.get(0);
+					}
+					else
+					{
+						variantsArg = subVariants;
+					}
+					
 					Block block = null;
 					Item item = null;
 					Object[] itemArgs;
@@ -365,16 +390,16 @@ public class VariantsOfTypesCombo
 					if (blockClass != null)
 					{
 						// Get Block constructor and call it.
-						final Object[] blockArgs = {subVariants, this, type};
+						final Object[] blockArgs = {variantsArg, this, type};
 						final Object[] args = ArrayUtils.addAll(blockArgs, type.getBlockArguments());
 						
 						block = ReflectionHelper.construct(blockClass, args);
 						
-						itemArgs = new Object[]{block, subVariants, this, type};
+						itemArgs = new Object[]{block, variantsArg, this, type};
 					}
 					else
 					{
-						itemArgs = new Object[]{subVariants, this, type};
+						itemArgs = new Object[]{variantsArg, this, type};
 					}
 
 					// Get Item constructor and call it.
@@ -408,7 +433,7 @@ public class VariantsOfTypesCombo
 	}
 	
 	/**
-	 * Registers all the variants of this ObjectType.
+	 * Registers all the variants of this {@link #ObjectType}.
 	 */
 	public void registerVariants(final ObjectType type)
 	{
@@ -513,7 +538,7 @@ public class VariantsOfTypesCombo
 	}
 	
 	/**
-	 * Registers all variants of all ObjectTypes associated with this combo.
+	 * Registers all variants of all {@link #ObjectType}s associated with this combo.
 	 */
 	public void registerAll()
 	{
@@ -547,7 +572,7 @@ public class VariantsOfTypesCombo
 	 */
 	public String getIdentification()
 	{
-		return "This " + getClass().getSimpleName() + " contains ObjectTypes " + Stringify.stringify(types) + " and variants " + Stringify.stringify(variants) + ".";
+		return "This " + getClass().getSimpleName() + " contains " + ObjectType.class.getSimpleName() + "s " + Stringify.stringify(types) + " and variants " + Stringify.stringify(variants) + ".";
 	}
 
 	/**
@@ -585,7 +610,7 @@ public class VariantsOfTypesCombo
 	}
 	
 	/**
-	 * Gets all the Blocks or Items that this ObjectType uses.
+	 * Gets all the Blocks or Items that this {@link #ObjectType} uses.
 	 */
 	public <T> HashSet<T> getObjects(ObjectType<T> type)
 	{
@@ -612,21 +637,18 @@ public class VariantsOfTypesCombo
 			return block.getDefaultState().withProperty(getVariantProperty(block), (Comparable) variant);
 		}
 		
-		throw new IllegalArgumentException("Variant " + variant.getName() + " of ObjectType " + type.getName() + " does not include a Block instance.");
+		throw new IllegalArgumentException("Variant " + variant.getName() + " of " + ObjectType.class.getSimpleName() + " " + type.getName() + " does not include a Block instance.");
 	}
 	
-	/**
-	 * Gets the variant for the specified Block and item metadata.
-	 */
-	public IMetadata getVariant(Object obj, int meta)
+	protected IMetadata getVariant(Set<Map.Entry<IMetadata, VariantEntry>> cellSet, Object obj, int meta)
 	{
-		for (Table.Cell<ObjectType, IMetadata, VariantEntry> cell : map.cellSet())
+		for (Map.Entry<IMetadata, VariantEntry> entry : cellSet)
 		{
-			VariantEntry entry = cell.getValue();
+			VariantEntry variantEntry = entry.getValue();
 			
-			if (entry.object == obj && entry.metadata == meta)
+			if ((variantEntry.block == obj || variantEntry.item == obj) && variantEntry.metadata == meta)
 			{
-				return cell.getColumnKey();
+				return entry.getKey();
 			}
 		}
 		
@@ -634,7 +656,36 @@ public class VariantsOfTypesCombo
 	}
 	
 	/**
-	 * Gets a random IBlockState for the specified ObjectType.
+	 * Gets the variant for the specified Block and item metadata, in the specified {@link #ObjectType}.
+	 */
+	public IMetadata getVariant(ObjectType objType, Object obj, int meta)
+	{
+		return getVariant(map.row(objType).entrySet(), obj, meta);
+	}
+	
+	/**
+	 * Gets the variant for the specified Block and item metadata.
+	 * 
+	 * @Deprecated Replaced by {@link #getVariant(ObjectType objType, Object obj, int metadata)}
+	 */
+	@Deprecated
+	public IMetadata getVariant(Object obj, int meta)
+	{
+		for (ObjectType type : types)
+		{
+			IMetadata variant = getVariant(type, obj, meta);
+			
+			if (variant != null)
+			{
+				return variant;
+			}
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Gets a random IBlockState for the specified {@link #ObjectType}.
 	 */
 	public IBlockState getRandomBlockState(ObjectType type, Random rand)
 	{
@@ -679,7 +730,7 @@ public class VariantsOfTypesCombo
 	}
 	
 	/**
-	 * Gets the metadata used to get the Item of this ObjectType and variant.
+	 * Gets the metadata used to get the Item of this {@link #ObjectType} and variant.
 	 */
 	public int getMetadata(ObjectType type, IMetadata variant)
 	{
@@ -691,7 +742,7 @@ public class VariantsOfTypesCombo
 	/**
 	 * Gets all the valid variants for this type of object.
 	 * 
-	 * @return List<IMetadata> containing all the variants this object can be.
+	 * @return {@literal List<IMetadata>} containing all the variants this object can be.
 	 */
 	public List<IMetadata> getValidVariants(ObjectType type)
 	{
@@ -701,7 +752,7 @@ public class VariantsOfTypesCombo
 	/**
 	 * Fills the provided list with all the valid sub-items for this Block or Item.
 	 * 
-	 * @return List<ItemStack> containing all sub-items for this Block or Item.
+	 * @return {@literal List<ItemStack>} containing all sub-items for this Block or Item.
 	 */
 	public <T extends IMetadata> List<ItemStack> fillSubItems(ObjectType objectType, List<T> variants, List<ItemStack> listToFill, Set<T> exclude)
 	{
@@ -719,7 +770,7 @@ public class VariantsOfTypesCombo
 	/**
 	 * Fills the provided list with all the valid sub-items for this Block or Item.
 	 * 
-	 * @return List<ItemStack> containing all sub-items for this Block or Item.
+	 * @return {@literal List<ItemStack>} containing all sub-items for this Block or Item.
 	 */
 	public <T extends IMetadata> List<ItemStack> fillSubItems(ObjectType objectType, List<T> variants, List<ItemStack> listToFill, T... exclude)
 	{
@@ -727,7 +778,9 @@ public class VariantsOfTypesCombo
 	}
 	
 	/**
-	 * Wrapper for getSubItems(ObjectType, List<IMetadata>, List<ItemStack>) to create a new list.
+	 * Wrapper for
+	 * {@link #fillSubItems(ObjectType, List, List, T[]) fillSubItems(ObjectType objectType, List&lt;IMetadata&gt; variants, List&lt;ItemStack&gt; listToFill, IMetadata... exclude)}
+	 * to create a new list.
 	 */
 	public List<ItemStack> getSubItems(ObjectType objectType, List<IMetadata> variants)
 	{
@@ -735,7 +788,7 @@ public class VariantsOfTypesCombo
 	}
 	
 	/**
-	 * Wrapper for getSubItems(Object, List<IMetadata>, List<ItemStack>) to create a new list.
+	 * Gets all sub-items for the {@link ObjectType} {@code objectType}.
 	 */
 	public List<ItemStack> getSubItems(ObjectType objectType)
 	{

@@ -3,6 +3,7 @@ package genesis.item;
 import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.IMetadata;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import genesis.util.Constants;
 
 import java.util.Comparator;
 import java.util.List;
@@ -29,11 +30,19 @@ public class ItemMulti extends ItemGenesis
 		
 		setHasSubtypes(true);
 	}
-
+	
 	@Override
 	public String getUnlocalizedName(ItemStack stack)
 	{
-		return super.getUnlocalizedName(stack) + "." + variants.get(stack.getMetadata()).getUnlocalizedName();
+		int metadata = stack.getMetadata();
+		IMetadata variant = owner.getVariant(type, this, metadata);
+		
+		if (variant == null)
+		{
+			return Constants.INVALID_METADATA;
+		}
+		
+		return super.getUnlocalizedName(stack) + "." + variant.getUnlocalizedName();
 	}
 
 	@Override

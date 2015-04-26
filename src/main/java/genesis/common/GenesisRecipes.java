@@ -202,12 +202,14 @@ public final class GenesisRecipes
 	
 	public static void doSubstitutes()
 	{
+		// Fiber for string
 		makeSubstituteCraftingItem(new ItemStack(Items.string), new ItemStack(GenesisItems.sphenophyllum_fiber), Blocks.wool);
 		
-		// Buckets
+		// Ceramic buckets for vanilla buckets
 		makeSubstituteCraftingItem(new ItemStack(Items.bucket), new ItemStack(GenesisItems.ceramic_bucket));
 		makeSubstituteCraftingItem(new ItemStack(Items.water_bucket), new ItemStack(GenesisItems.ceramic_bucket_water));
 		makeSubstituteCraftingItem(new ItemStack(Items.milk_bucket), new ItemStack(GenesisItems.ceramic_bucket_milk));
+		
 		// Dyes
 		makeSubstituteCraftingItem(new ItemStack(Items.dye, 1, EnumDyeColor.YELLOW.getDyeDamage()), GenesisItems.dyes.getStack(EnumDye.CALAMITES_YELLOW));
 	}

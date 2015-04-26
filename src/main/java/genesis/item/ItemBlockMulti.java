@@ -1,41 +1,28 @@
 package genesis.item;
 
 import genesis.common.GenesisCreativeTabs;
-import genesis.metadata.VariantsOfTypesCombo;
-import genesis.metadata.IMetadata;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import genesis.metadata.*;
+import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.Constants;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 import com.google.common.base.Function;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemColored;
-import net.minecraft.item.ItemMultiTexture;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 
-public class ItemBlockMulti extends ItemMultiTexture
+public class ItemBlockMulti extends ItemBlock
 {
 	public final VariantsOfTypesCombo owner;
 	public final ObjectType type;
 	
 	protected final List<IMetadata> variants;
 	
-	public ItemBlockMulti(Block block, final List<IMetadata> variants, VariantsOfTypesCombo owner, ObjectType type)
+	public ItemBlockMulti(Block block, final List<IMetadata> variants, final VariantsOfTypesCombo owner, ObjectType type)
 	{
-		super(block, block, new Function()
-		{
-			@Override
-			public Object apply(Object input)
-			{
-				int metadata = ((ItemStack) input).getMetadata();
-				return variants.get(metadata).getUnlocalizedName();
-			}
-		});
+		super(block);
 		
 		this.owner = owner;
 		this.type = type;
@@ -55,5 +42,25 @@ public class ItemBlockMulti extends ItemMultiTexture
 	public int getColorFromItemStack(ItemStack stack, int renderPass)
 	{
 		return getBlock().getBlockColor();
+	}
+	
+	@Override
+	public String getUnlocalizedName(ItemStack stack)
+	{
+		int metadata = stack.getMetadata();
+		IMetadata variant = owner.getVariant(type, this, metadata);
+		
+		if (variant == null)
+		{
+			return Constants.INVALID_METADATA;
+		}
+		
+		return super.getUnlocalizedName(stack) + "." + variant.getUnlocalizedName();
+	}
+	
+	@Override
+	public int getMetadata(int damage)
+	{
+		return damage;
 	}
 }

@@ -36,7 +36,7 @@ public class ItemToolHead extends ItemGenesis
 	@Override
 	public String getUnlocalizedName(ItemStack stack)
 	{
-		return super.getUnlocalizedName(stack) + "." + owner.getVariant(this, stack.getMetadata()).getUnlocalizedName();
+		return super.getUnlocalizedName(stack) + "." + owner.getVariant(type, this, stack.getMetadata()).getUnlocalizedName();
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class ItemToolHead extends ItemGenesis
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
 	{
-		String quality = ((ToolTypes.ToolType) owner.getVariant(this, stack.getMetadata())).quality.getUnlocalizedName();
+		String quality = ((ToolTypes.ToolType) owner.getVariant(type, this, stack.getMetadata())).quality.getUnlocalizedName();
 		tooltip.add(StatCollector.translateToLocal("item." + quality));
 	}
 }
