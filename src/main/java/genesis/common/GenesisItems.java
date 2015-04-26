@@ -37,6 +37,7 @@ public final class GenesisItems
 	public static final ItemGenesis odontopteris_fiddlehead = new ItemGenesis().setUnlocalizedName("odontopterisFiddlehead");
 	public static final ItemGenesis prototaxites_flesh = new ItemGenesis().setUnlocalizedName("prototaxitesFlesh");
 	public static final VariantsCombo dyes = new VariantsCombo(new ObjectType("dye", null, null).setNamePosition(ObjectNamePosition.PREFIX), EnumDye.values());
+	public static final ItemGenesis arthropleura_chitin = new ItemGenesis().setUnlocalizedName("arthropleuraChitin");
 	public static final ItemGenesis tyrannosaurus_saliva = new ItemGenesis().setUnlocalizedName("tyrannosaurusSaliva");
 	public static final ItemGenesis tyrannosaurus_tooth = new ItemGenesis().setUnlocalizedName("tyrannosaurusTooth");
 	
@@ -87,11 +88,12 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(odontopteris_fiddlehead, "odontopteris_fiddlehead");
 		Genesis.proxy.registerItem(prototaxites_flesh, "prototaxites_flesh");
 		GenesisBlocks.dungs.registerVariants(GenesisBlocks.dungs.DUNG);
+		Genesis.proxy.registerItem(arthropleura_chitin, "arthropleura_chitin");
 		Genesis.proxy.registerItem(tyrannosaurus_saliva, "tyrannosaurus_saliva");
 		Genesis.proxy.registerItem(tyrannosaurus_tooth, "tyrannosaurus_tooth");
 		Genesis.proxy.registerItem(zingiberopsis_rhizome, "zingiberopsis_rhizome");
 		Genesis.proxy.registerItem(odontopteris_seeds, "odontopteris_seeds");
-		
+
 		Genesis.proxy.registerItem(aphthoroblattina, "aphthoroblattina");
 		Genesis.proxy.registerItem(cooked_aphthoroblattina, "cooked_aphthoroblattina");
 		Genesis.proxy.registerItem(climatius, "climatius");
