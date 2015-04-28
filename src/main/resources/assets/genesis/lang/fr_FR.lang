@@ -32,8 +32,8 @@ tile.genesis.ore.olivine.name=Minerai d'olivine
 
 tile.genesis.log.archaeopteris.name=Bois d'Archaeopteris
 tile.genesis.log.sigillaria.name=Bois de Sigillaria
-tile.genesis.log.lepidodendron.namee=Bois de Lepidodendron
-tile.genesis.log.archaeopteris.name=Bois de Cordaites
+tile.genesis.log.lepidodendron.name=Bois de Lepidodendron
+tile.genesis.log.cordaites.name=Bois de Cordaites
 tile.genesis.log.psaronius.name=Bois de Psaronius
 tile.genesis.log.araucarioxylon.name.name=Bois d'Araucarioxylon
 
