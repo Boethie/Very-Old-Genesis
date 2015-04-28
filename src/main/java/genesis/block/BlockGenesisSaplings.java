@@ -86,7 +86,7 @@ public class BlockGenesisSaplings extends BlockSapling
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
 	{
 		IBlockState state = getDefaultState();
-		state = state.withProperty(variantProp, (Comparable) owner.getVariant(type, this, meta));
+		state = state.withProperty(variantProp, (Comparable) owner.getVariant(this, meta));
 		return state;
 	}
 	

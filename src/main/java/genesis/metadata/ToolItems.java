@@ -124,7 +124,9 @@ public class ToolItems extends VariantsOfTypesCombo
 		{
 			if (toolType instanceof ToolObjectTypeSoleQuality)
 			{
-				return getStack(type, ToolTypes.getToolHead(((ToolObjectTypeSoleQuality) toolType).getSoleQuality(), (EnumToolMaterial) variant));
+				EnumToolMaterial material = (EnumToolMaterial) variant;
+				EnumToolQuality quality = ((ToolObjectTypeSoleQuality) toolType).getSoleQuality();
+				return getStack(type, ToolTypes.getToolHead(material, quality));
 			}
 			else
 			{
@@ -135,6 +137,16 @@ public class ToolItems extends VariantsOfTypesCombo
 
 		throw new RuntimeException("Invalid variant.\n" +
 				getIdentification());
+	}
+	
+	public ItemStack getStack(ObjectType type, EnumToolMaterial material, EnumToolQuality quality, int stackSize)
+	{
+		return getStack(type, ToolTypes.getToolHead(material, quality), stackSize);
+	}
+	
+	public ItemStack getStack(ObjectType type, EnumToolMaterial material, EnumToolQuality quality)
+	{
+		return getStack(type, material, quality, 1);
 	}
 	
 	@Override

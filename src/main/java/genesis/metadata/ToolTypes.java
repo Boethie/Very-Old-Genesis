@@ -2,19 +2,19 @@ package genesis.metadata;
 
 import java.util.*;
 
-import org.apache.commons.lang3.tuple.Pair;
+import com.google.common.collect.*;
 
 public class ToolTypes
 {
 	public static class ToolType implements IMetadata
 	{
-		public final EnumToolQuality quality;
 		public final EnumToolMaterial material;
+		public final EnumToolQuality quality;
 		
-		public ToolType(EnumToolQuality quality, EnumToolMaterial material)
+		public ToolType(EnumToolMaterial material, EnumToolQuality quality)
 		{
-			this.quality = quality;
 			this.material = material;
+			this.quality = quality;
 		}
 
 		@Override
@@ -31,14 +31,23 @@ public class ToolTypes
 			return material.getUnlocalizedName();
 		}
 		
-		// TODO: toString() method
+		@Override
+		public String toString()
+		{
+			return super.toString() + "[quality=" + quality + ", material" + material + "]";
+		}
 	}
 	
-	public static final LinkedHashMap<Pair<EnumToolQuality, EnumToolMaterial>, ToolType> map = new LinkedHashMap();
-
-	public static ToolType getToolHead(EnumToolQuality quality, EnumToolMaterial material) {
-		return map.get(Pair.of(quality, material));
-	}
+	// Comparator to sort the table to the correct order.
+	private static final Comparator<Enum> sorter = new Comparator<Enum>()
+			{
+				@Override
+				public int compare(Enum m1, Enum m2)
+				{
+					return Integer.compare(m1.ordinal(), m2.ordinal());
+				}
+			};
+	public static final Table<EnumToolMaterial, EnumToolQuality, ToolType> map = TreeBasedTable.create(sorter, sorter);
 
 	static
 	{
@@ -46,14 +55,17 @@ public class ToolTypes
 		{
 			for (EnumToolQuality quality : EnumToolQuality.values())
 			{
-				ToolType toolType = new ToolType(quality, material);
-				map.put(Pair.of(quality, material), toolType);
+				ToolType toolType = new ToolType(material, quality);
+				map.put(material, quality, toolType);
 			}
 		}
-		
-		map.getClass();
 	}
 
+	public static ToolType getToolHead(EnumToolMaterial material, EnumToolQuality quality)
+	{
+		return map.get(material, quality);
+	}
+	
 	public static ToolType[] getAll()
 	{
 		Collection<ToolType> types = map.values();

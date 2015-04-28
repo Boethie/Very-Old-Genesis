@@ -12,17 +12,16 @@ import java.lang.reflect.*;
 import java.util.*;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.tuple.Pair;
 
 import com.google.common.base.Function;
 import com.google.common.collect.*;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.*;
+import net.minecraft.block.properties.*;
+import net.minecraft.block.state.*;
 import net.minecraft.client.renderer.block.statemap.*;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
 import net.minecraftforge.fml.relauncher.*;
 
@@ -261,35 +260,66 @@ public class VariantsOfTypesCombo
 		}
 	}
 	
-	protected class VariantEntry {
-		public Block block;
-		public Item item;
-		public int metadata;
-		public int id;
-		public Object object;
+	protected static abstract class VariantEntry
+	{
+		public final Item item;
+		public final int itemMetadata;
 		
-		public VariantEntry(Block block, Item item, int id, int metadata)
+		protected static class Value extends VariantEntry
 		{
-			this.block = block;
-			this.item = item;
-			this.id = id;
-			this.metadata = metadata;
+			public final Block block;
+			public final int id;
+			public final Object object;
 			
-			if (block != null)
+			public Value(Block block, Item item, int id, int metadata)
 			{
-				object = block;
+				super(item, metadata);
+				
+				this.block = block;
+				this.id = id;
+				this.object = block != null ? block : item;
 			}
-			else
+		}
+		
+		public static class Key extends VariantEntry
+		{
+			public Key(Item item, int metadata)
 			{
-				object = item;
+				super(item, metadata);
 			}
+		}
+		
+		public VariantEntry(Item item, int metadata)
+		{
+			this.item = item;
+			this.itemMetadata = metadata;
+		}
+		
+		public int hashCode()
+		{
+			return item.hashCode() ^ itemMetadata;
+		}
+		
+		public boolean equals(Object obj)
+		{
+			if (obj instanceof VariantEntry)
+			{
+				VariantEntry other = (VariantEntry) obj;
+				
+				if (other.item == item && other.itemMetadata == itemMetadata)
+				{
+					return true;
+				}
+			}
+			
+			return false;
 		}
 	}
 	
 	/**
 	 * Map of Block/Item types to a map of variants to the block/item itself.
 	 */
-	protected final Table<ObjectType, IMetadata, VariantEntry> map = HashBasedTable.create();
+	protected final HashBiTable<ObjectType, IMetadata, VariantEntry.Value> entryMap = new HashBiTable();
 	public final List<ObjectType> types;
 	public final List<IMetadata> variants;
 	public final HashSet<ObjectType> registeredTypes = new HashSet();
@@ -413,7 +443,7 @@ public class VariantsOfTypesCombo
 					
 					for (IMetadata variant : subVariants)
 					{
-						map.put(type, variant, new VariantEntry(block, item, subset, variantMetadata));
+						entryMap.put(type, variant, new VariantEntry.Value(block, item, subset, variantMetadata));
 						variantMetadata++;
 					}
 				}
@@ -447,12 +477,12 @@ public class VariantsOfTypesCombo
 		
 		for (IMetadata variant : variants)
 		{
-			VariantEntry entry = getVariantEntry(type, variant);
+			VariantEntry.Value entry = getVariantEntry(type, variant);
 			
 			final Block block = entry.block;
 			final Item item = entry.item;
 			final int id = entry.id;
-			final int metadata = entry.metadata;
+			final int metadata = entry.itemMetadata;
 			
 			if (!registeredIDs.contains(id))
 			{
@@ -582,21 +612,21 @@ public class VariantsOfTypesCombo
 	 * @param variant
 	 * @return The Block/Item casted to the type provided by the generic type in "type".
 	 */
-	public VariantEntry getVariantEntry(ObjectType type, IMetadata variant)
+	public VariantEntry.Value getVariantEntry(ObjectType type, IMetadata variant)
 	{
-		if (!map.containsRow(type))
+		if (!entryMap.containsRow(type))
 		{
 			throw new RuntimeException("Attempted to get an object of type " + type + " from a " + VariantsOfTypesCombo.class.getSimpleName() + " that does not contain that type.\n" +
 					getIdentification());
 		}
 		
-		if (!map.containsColumn(variant))
+		if (!entryMap.containsColumn(variant))
 		{
 			throw new RuntimeException("Attempted to get an object of variant " + variant + " from a BlocksAndItemsWithVariantsOfTypes that does not contain that type.\n" +
 					getIdentification());
 		}
 		
-		return map.get(type, variant);
+		return entryMap.get(type, variant);
 	}
 
 	/**
@@ -629,7 +659,7 @@ public class VariantsOfTypesCombo
 	 */
 	public IBlockState getBlockState(ObjectType type, IMetadata variant)
 	{
-		VariantEntry entry = getVariantEntry(type, variant);
+		VariantEntry.Value entry = getVariantEntry(type, variant);
 		Block block = entry.block;
 		
 		if (block != null)
@@ -640,16 +670,22 @@ public class VariantsOfTypesCombo
 		throw new IllegalArgumentException("Variant " + variant.getName() + " of " + ObjectType.class.getSimpleName() + " " + type.getName() + " does not include a Block instance.");
 	}
 	
-	protected IMetadata getVariant(Set<Map.Entry<IMetadata, VariantEntry>> cellSet, Object obj, int meta)
+	public BiTable.Key<ObjectType, IMetadata> getVariantKey(Item item, int meta)
 	{
-		for (Map.Entry<IMetadata, VariantEntry> entry : cellSet)
+		VariantEntry.Key valueKey = new VariantEntry.Key(item, meta);
+		return entryMap.getKey(valueKey);
+	}
+	
+	/**
+	 * Gets the variant for the specified Item and item metadata, in the specified {@link #ObjectType}.
+	 */
+	public IMetadata getVariant(Item item, int meta)
+	{
+		BiTable.Key<ObjectType, IMetadata> tableKey = getVariantKey(item, meta);
+		
+		if (tableKey != null)
 		{
-			VariantEntry variantEntry = entry.getValue();
-			
-			if ((variantEntry.block == obj || variantEntry.item == obj) && variantEntry.metadata == meta)
-			{
-				return entry.getKey();
-			}
+			return tableKey.getColumn();
 		}
 		
 		return null;
@@ -658,30 +694,9 @@ public class VariantsOfTypesCombo
 	/**
 	 * Gets the variant for the specified Block and item metadata, in the specified {@link #ObjectType}.
 	 */
-	public IMetadata getVariant(ObjectType objType, Object obj, int meta)
+	public IMetadata getVariant(Block block, int meta)
 	{
-		return getVariant(map.row(objType).entrySet(), obj, meta);
-	}
-	
-	/**
-	 * Gets the variant for the specified Block and item metadata.
-	 * 
-	 * @Deprecated Replaced by {@link #getVariant(ObjectType objType, Object obj, int metadata)}
-	 */
-	@Deprecated
-	public IMetadata getVariant(Object obj, int meta)
-	{
-		for (ObjectType type : types)
-		{
-			IMetadata variant = getVariant(type, obj, meta);
-			
-			if (variant != null)
-			{
-				return variant;
-			}
-		}
-		
-		return null;
+		return getVariant(Item.getItemFromBlock(block), meta);
 	}
 	
 	/**
@@ -699,13 +714,13 @@ public class VariantsOfTypesCombo
 	 */
 	public ItemStack getStack(ObjectType type, IMetadata variant, int stackSize)
 	{
-		VariantEntry entry = getVariantEntry(type, variant);
+		VariantEntry.Value entry = getVariantEntry(type, variant);
 		
 		Item item = entry.item;
 		
 		if (item != null)
 		{
-			ItemStack stack = new ItemStack(item, stackSize, entry.metadata);
+			ItemStack stack = new ItemStack(item, stackSize, entry.itemMetadata);
 			
 			return stack;
 		}
@@ -736,7 +751,7 @@ public class VariantsOfTypesCombo
 	{
 		VariantEntry entry = getVariantEntry(type, variant);
 		
-		return entry.metadata;
+		return entry.itemMetadata;
 	}
 	
 	/**

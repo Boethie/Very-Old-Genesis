@@ -4,6 +4,7 @@ import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemGenesis;
 import genesis.metadata.ToolItems.*;
 import genesis.metadata.*;
+import genesis.util.Constants;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -36,7 +37,15 @@ public class ItemToolHead extends ItemGenesis
 	@Override
 	public String getUnlocalizedName(ItemStack stack)
 	{
-		return super.getUnlocalizedName(stack) + "." + owner.getVariant(type, this, stack.getMetadata()).getUnlocalizedName();
+		int metadata = stack.getMetadata();
+		IMetadata variant = owner.getVariant(this, metadata);
+		
+		if (variant == null)
+		{
+			return Constants.INVALID_METADATA;
+		}
+		
+		return super.getUnlocalizedName(stack) + "." + variant.getUnlocalizedName();
 	}
 
 	@Override
@@ -52,7 +61,14 @@ public class ItemToolHead extends ItemGenesis
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
 	{
-		String quality = ((ToolTypes.ToolType) owner.getVariant(type, this, stack.getMetadata())).quality.getUnlocalizedName();
-		tooltip.add(StatCollector.translateToLocal("item." + quality));
+		super.addInformation(stack, playerIn, tooltip, advanced);
+		
+		IMetadata variant = owner.getVariant(this, stack.getMetadata());
+		
+		if (variant != null)
+		{
+			String quality = ((ToolTypes.ToolType) variant).quality.getUnlocalizedName();
+			tooltip.add(StatCollector.translateToLocal("item." + quality));
+		}
 	}
 }
