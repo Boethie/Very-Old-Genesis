@@ -368,7 +368,7 @@ public class VariantsOfTypesCombo
 				{
 					Object propsListObj = null;
 					
-					for (Field field : blockClass.getDeclaredFields())
+					for (Field field : blockClass.getFields())
 					{
 						if (field.isAnnotationPresent(BlockProperties.class) && (field.getModifiers() & Modifier.STATIC) == Modifier.STATIC && field.getType().isArray())
 						{
@@ -379,7 +379,7 @@ public class VariantsOfTypesCombo
 					
 					if (propsListObj == null)
 					{
-						for (Method method : blockClass.getDeclaredMethods())
+						for (Method method : blockClass.getMethods())
 						{
 							if (method.isAnnotationPresent(BlockProperties.class) && (method.getModifiers() & Modifier.STATIC) == Modifier.STATIC && method.getReturnType().isArray())
 							{

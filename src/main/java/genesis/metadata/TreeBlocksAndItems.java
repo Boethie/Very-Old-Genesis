@@ -23,7 +23,7 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo
 	public static final ObjectType<ItemMulti> BILLET = new ObjectType("billet", null, ItemMulti.class, EnumTree.NO_BILLET);
 	public static final ObjectType<BlockWattleFence> WATTLE_FENCE = new ObjectType("wattle_fence", "wattleFence", BlockWattleFence.class, null, EnumTree.NO_BILLET)
 			.setIgnoredProperties(BlockFence.NORTH, BlockFence.EAST, BlockFence.SOUTH, BlockFence.WEST);
-	public static final ObjectType<BlockGenesisLogs> ROTTEN_LOG = new ObjectType("rotten_log", "log.rotten", BlockGenesisLogs.class, null, EnumTree.PSARONIUS)
+	public static final ObjectType<BlockGenesisRottenLogs> ROTTEN_LOG = new ObjectType("rotten_log", "log.rotten", BlockGenesisRottenLogs.class, null, EnumTree.PSARONIUS)
 			.setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	
 	public TreeBlocksAndItems()
