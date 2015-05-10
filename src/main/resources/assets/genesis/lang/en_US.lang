@@ -1,6 +1,7 @@
 genesis.multiItem.invalidMetadata.name=§4Invalid Sub-Item Metadata!
 
 #------------- Blocks -------------
+tile.genesis.dummyBlock.name=§4Useless Dummy Block!
 
 #Building blocks
 tile.genesis.moss.name=Moss
@@ -42,7 +43,6 @@ tile.genesis.log.rotten.archaeopteris.name=Rotten Archaeopteris Wood
 tile.genesis.log.rotten.sigillaria.name=Rotten Sigillaria Wood
 tile.genesis.log.rotten.lepidodendron.name=Rotten Lepidodendron Wood
 tile.genesis.log.rotten.cordaites.name=Rotten Cordaites Wood
-tile.genesis.log.rotten.psaronius.name=Rotten Psaronius Wood
 tile.genesis.log.rotten.araucarioxylon.name=Rotten Araucarioxylon Wood
 
 tile.genesis.leaves.archaeopteris.name=Archaeopteris Leaves
@@ -135,9 +135,24 @@ item.genesis.material.pebble.brownFlint.name=Brown Flint Pebble
 
 item.genesis.material.redClay.name=Red Clay
 item.genesis.material.bowlRedClay.name=Red Clay Bowl
-item.genesis.material.bowlCeramic.name=Ceramic Bowl
-item.genesis.material.dye.calamitesYellow.name=Calamites Yellow
-item.genesis.material.dye.odontopterisLime.name=Odontopteris Fiddlehead Lime
+item.genesis.material.ceramicBowl.name=Ceramic Bowl
+item.genesis.material.ceramicBowl.water.name=Ceramic Bowl of Water
+item.genesis.material.dye.white.name=Bowl of White Dye
+item.genesis.material.dye.orange.name=Bowl of Orange Dye
+item.genesis.material.dye.magenta.name=Bowl of Magenta Dye
+item.genesis.material.dye.lightBlue.name=Bowl of Light Blue Dye
+item.genesis.material.dye.yellow.name=Bowl of Yellow Dye
+item.genesis.material.dye.lime.name=Bowl of Lime Dye
+item.genesis.material.dye.pink.name=Bowl of Pink Dye
+item.genesis.material.dye.gray.name=Bowl of Gray Dye
+item.genesis.material.dye.silver.name=Bowl of Silver Dye
+item.genesis.material.dye.cyan.name=Bowl of Cyan Dye
+item.genesis.material.dye.purple.name=Bowl of Purple Dye
+item.genesis.material.dye.blue.name=Bowl of Blue Dye
+item.genesis.material.dye.brown.name=Bowl of Brown Dye
+item.genesis.material.dye.green.name=Bowl of Green Dye
+item.genesis.material.dye.red.name=Bowl of Red Dye
+item.genesis.material.dye.black.name=Bowl of Black Dye
 item.genesis.material.redClayBucket.name=Red Clay Bucket
 
 item.genesis.material.octaedriteShard.name=Octaedrite Shard
@@ -213,6 +228,9 @@ item.genesis.material.pointFlake.brownFlint.name=Brown Flint Point Flake
 item.genesis.misc.ceramicBucket.name=Ceramic Bucket
 item.genesis.misc.ceramicBucketWater.name=Ceramic Water Bucket
 item.genesis.misc.ceramicBucketMilk.name=Ceramic Milk Bucket
+
+#------------- GUIs -------------
+container.genesis.campfire=Campfire
 
 #------------- Entities -------------
 

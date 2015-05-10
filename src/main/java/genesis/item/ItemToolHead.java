@@ -37,15 +37,7 @@ public class ItemToolHead extends ItemGenesis
 	@Override
 	public String getUnlocalizedName(ItemStack stack)
 	{
-		int metadata = stack.getMetadata();
-		IMetadata variant = owner.getVariant(this, metadata);
-		
-		if (variant == null)
-		{
-			return Constants.INVALID_METADATA;
-		}
-		
-		return super.getUnlocalizedName(stack) + "." + variant.getUnlocalizedName();
+		return owner.getUnlocalizedName(stack, super.getUnlocalizedName(stack));
 	}
 
 	@Override

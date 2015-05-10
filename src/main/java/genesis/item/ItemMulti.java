@@ -34,17 +34,7 @@ public class ItemMulti extends ItemGenesis
 	@Override
 	public String getUnlocalizedName(ItemStack stack)
 	{
-		int metadata = stack.getMetadata();
-		IMetadata variant = owner.getVariant(this, metadata);
-		
-		if (variant == null)
-		{
-			return Constants.INVALID_METADATA;
-		}
-		
-		String unlocName = variant.getUnlocalizedName();
-		
-		return super.getUnlocalizedName(stack) + ("".equals(unlocName) ? "" : "." + unlocName);
+		return owner.getUnlocalizedName(stack, super.getUnlocalizedName(stack));
 	}
 
 	@Override

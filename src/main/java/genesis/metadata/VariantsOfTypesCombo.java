@@ -39,7 +39,7 @@ public class VariantsOfTypesCombo
 
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.TYPE)
-	public @interface ItemVariantCount
+	public static @interface ItemVariantCount
 	{
 		public int value();
 	}
@@ -838,5 +838,32 @@ public class VariantsOfTypesCombo
 	public List<ItemStack> getSubItems(ObjectType objectType)
 	{
 		return getSubItems(objectType, getValidVariants(objectType));
+	}
+	
+	/**
+	 * @param stack The stack to get the name for.
+	 * @param base The base string to add the variant's unlocalized name onto (i.e. "tile.genesis.material.pebble").
+	 * This will usually be gotten through <code>super.getUnlocalizedName(stack)</code>.
+	 * @return The unlocalized name for the stack.<br>
+	 * If the variant can't be found, this method will return the invalid metadata unlocalized name.
+	 */
+	public String getUnlocalizedName(ItemStack stack, String base)
+	{
+		int metadata = stack.getMetadata();
+		IMetadata variant = getVariant(stack.getItem(), metadata);
+		
+		if (variant == null)
+		{
+			return Constants.INVALID_METADATA;
+		}
+		
+		String variantName = variant.getUnlocalizedName();
+		
+		if (!"".equals(variantName))
+		{
+			variantName = "." + variantName;
+		}
+		
+		return base + variantName;
 	}
 }
