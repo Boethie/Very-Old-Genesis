@@ -289,34 +289,12 @@ public class VariantsOfTypesCombo
 		}
 	}
 	
-	protected static abstract class VariantEntry
+	public static class VariantKey
 	{
 		public final Item item;
 		public final int itemMetadata;
 		
-		protected static class Value extends VariantEntry
-		{
-			public final Block block;
-			public final int id;
-			
-			public Value(Block block, Item item, int id, int metadata)
-			{
-				super(item, metadata);
-				
-				this.block = block;
-				this.id = id;
-			}
-		}
-		
-		public static class Key extends VariantEntry
-		{
-			public Key(Item item, int metadata)
-			{
-				super(item, metadata);
-			}
-		}
-		
-		public VariantEntry(Item item, int metadata)
+		public VariantKey(Item item, int metadata)
 		{
 			this.item = item;
 			this.itemMetadata = metadata;
@@ -329,11 +307,11 @@ public class VariantsOfTypesCombo
 		
 		public boolean equals(Object obj)
 		{
-			if (obj instanceof VariantEntry)
+			if (obj instanceof VariantKey)
 			{
-				VariantEntry other = (VariantEntry) obj;
+				VariantKey other = (VariantKey) obj;
 				
-				if (other.item == item && other.itemMetadata == itemMetadata)
+				if (item == other.item && other.itemMetadata == itemMetadata)
 				{
 					return true;
 				}
@@ -343,10 +321,24 @@ public class VariantsOfTypesCombo
 		}
 	}
 	
+	public static class VariantData extends VariantKey
+	{
+		public final Block block;
+		public final int id;
+		
+		private VariantData(Block block, Item item, int id, int metadata)
+		{
+			super(item, metadata);
+			
+			this.block = block;
+			this.id = id;
+		}
+	}
+	
 	/**
 	 * Map of Block/Item types to a map of variants to the block/item itself.
 	 */
-	protected final HashBiTable<ObjectType, IMetadata, VariantEntry.Value> entryMap = new HashBiTable();
+	protected final HashBiTable<ObjectType, IMetadata, VariantData> entryMap = new HashBiTable();
 	public final List<ObjectType> types;
 	public final List<IMetadata> variants;
 	public final HashSet<ObjectType> registeredTypes = new HashSet();
@@ -470,7 +462,7 @@ public class VariantsOfTypesCombo
 					
 					for (IMetadata variant : subVariants)
 					{
-						entryMap.put(type, variant, new VariantEntry.Value(block, item, subset, variantMetadata));
+						entryMap.put(type, variant, new VariantData(block, item, subset, variantMetadata));
 						variantMetadata++;
 					}
 				}
@@ -504,7 +496,7 @@ public class VariantsOfTypesCombo
 		
 		for (IMetadata variant : variants)
 		{
-			VariantEntry.Value entry = getVariantEntry(type, variant);
+			VariantData entry = getVariantEntry(type, variant);
 			
 			final Block block = entry.block;
 			final Item item = entry.item;
@@ -635,7 +627,7 @@ public class VariantsOfTypesCombo
 	/**
 	 * Gets the VariantEntry.Value containing the all the information about this variant and its Block and Item.
 	 */
-	public VariantEntry.Value getVariantEntry(ObjectType type, IMetadata variant)
+	public VariantData getVariantEntry(ObjectType type, IMetadata variant)
 	{
 		if (!entryMap.containsRow(type))
 		{
@@ -703,7 +695,7 @@ public class VariantsOfTypesCombo
 	 */
 	public IBlockState getBlockState(ObjectType type, IMetadata variant)
 	{
-		VariantEntry.Value entry = getVariantEntry(type, variant);
+		VariantData entry = getVariantEntry(type, variant);
 		Block block = entry.block;
 		
 		if (block != null)
@@ -716,7 +708,7 @@ public class VariantsOfTypesCombo
 	
 	public BiTable.Key<ObjectType, IMetadata> getVariantKey(Item item, int meta)
 	{
-		VariantEntry.Key valueKey = new VariantEntry.Key(item, meta);
+		VariantKey valueKey = new VariantKey(item, meta);
 		return entryMap.getKey(valueKey);
 	}
 	
@@ -758,7 +750,7 @@ public class VariantsOfTypesCombo
 	 */
 	public ItemStack getStack(ObjectType type, IMetadata variant, int stackSize)
 	{
-		VariantEntry.Value entry = getVariantEntry(type, variant);
+		VariantData entry = getVariantEntry(type, variant);
 		
 		Item item = entry.item;
 		
@@ -793,7 +785,7 @@ public class VariantsOfTypesCombo
 	 */
 	public int getMetadata(ObjectType type, IMetadata variant)
 	{
-		VariantEntry entry = getVariantEntry(type, variant);
+		VariantKey entry = getVariantEntry(type, variant);
 		
 		return entry.itemMetadata;
 	}
