@@ -19,13 +19,18 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public final class FuelHandler implements IFuelHandler
 {
-	public static FuelHandler INSTANCE;
-	public static final HashMap<ItemStack, Integer> FUELS = new HashMap<ItemStack, Integer>();
+	protected static final FuelHandler INSTANCE = new FuelHandler();
+	
+	protected HashMap<ItemStack, Integer> FUELS = new HashMap();
 	
 	public static void initialize()
 	{
-		INSTANCE = new FuelHandler();
 		GameRegistry.registerFuelHandler(INSTANCE);
+	}
+	
+	public static FuelHandler instance()
+	{
+		return INSTANCE;
 	}
 	
 	private FuelHandler()
@@ -43,6 +48,11 @@ public final class FuelHandler implements IFuelHandler
 	}
 	
 	public static void setBurnTime(ItemStack fuel, int burnTime, boolean wildcard)
+	{
+		INSTANCE.setHandlerBurnTime(fuel, burnTime, wildcard);
+	}
+	
+	protected void setHandlerBurnTime(ItemStack fuel, int burnTime, boolean wildcard)
 	{
 		if (fuel == null)
 		{
