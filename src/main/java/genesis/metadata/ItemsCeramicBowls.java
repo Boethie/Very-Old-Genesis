@@ -2,6 +2,7 @@ package genesis.metadata;
 
 import java.util.*;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import genesis.item.*;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType.ObjectNamePosition;
@@ -40,9 +41,9 @@ public class ItemsCeramicBowls extends VariantsOfTypesCombo
 		}
 	}
 	
-	public static final ObjectType<ItemMulti> main = new ObjectType("ceramic_bowl", "ceramicBowl", null, null, EnumDye.valueList())
+	public static final ObjectType<Block, ItemMulti> main = new ObjectType("ceramic_bowl", "ceramicBowl", null, null, EnumDye.valueList())
 			.setNamePosition(ObjectNamePosition.PREFIX);
-	public static final ObjectType<ItemMulti> dyes = new ObjectType("dye", null, null)
+	public static final ObjectType<Block, ItemMulti> dyes = new ObjectType("dye", null, null)
 			.setValidVariants(EnumDye.valueList())
 			.setNamePosition(ObjectNamePosition.PREFIX);
 	

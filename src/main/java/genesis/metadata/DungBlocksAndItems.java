@@ -12,12 +12,14 @@ import genesis.client.GenesisSounds;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemBlockMulti;
+import genesis.item.ItemMulti;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType.ObjectNamePosition;
 
 public class DungBlocksAndItems extends VariantsOfTypesCombo
 {
-	public static final ObjectType<BlockGenesisVariants> DUNG_BLOCK = new ObjectType<BlockGenesisVariants>("dung_block", "dung", BlockGenesisVariants.class, null)
+	public static final ObjectType<BlockGenesisVariants, ItemBlockMulti> DUNG_BLOCK =
+			new ObjectType<BlockGenesisVariants, ItemBlockMulti>("dung_block", "dung", BlockGenesisVariants.class, null)
 			{
 				@Override
 				public void afterConstructed(Block block, Item item, List<IMetadata> variants)
@@ -35,7 +37,7 @@ public class DungBlocksAndItems extends VariantsOfTypesCombo
 					Blocks.fire.setFireInfo(dung, 5, 5);
 				}
 			}.setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.PREFIX).setBlockArguments(Material.ground);
-	public static final ObjectType<ItemBlockMulti> DUNG = new ObjectType("dung", null, null)
+	public static final ObjectType<Block, ItemMulti> DUNG = new ObjectType("dung", null, null)
 			.setCreativeTab(GenesisCreativeTabs.MATERIALS).setNamePosition(ObjectNamePosition.PREFIX);
 	
 	public DungBlocksAndItems()

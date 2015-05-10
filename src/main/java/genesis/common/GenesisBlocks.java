@@ -3,21 +3,18 @@ package genesis.common;
 import java.util.List;
 
 import genesis.block.*;
-import genesis.client.GenesisSounds;
-import genesis.item.ItemBlockCobbania;
-import genesis.item.ItemBlockColored;
+import genesis.client.*;
+import genesis.item.*;
 import genesis.metadata.*;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType.ObjectNamePosition;
+import genesis.metadata.VariantsOfTypesCombo.*;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType.*;
 import genesis.block.tileentity.*;
-import genesis.util.Constants;
-import genesis.util.RandomItemDrop;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockCactus;
-import net.minecraft.block.BlockLiquid;
+import genesis.util.*;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.item.Item;
+
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -64,13 +61,13 @@ public final class GenesisBlocks
 	public static final BlockCampfire campfire = new BlockCampfire().setUnlocalizedName("campfire");
 
 	/* Plants */
-	public static final VariantsCombo<BlockPlant> plants = new VariantsCombo(new ObjectType("plant", BlockPlant.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumPlant.values());
+	public static final VariantsCombo<BlockPlant, ItemBlockMulti> plants = new VariantsCombo(new ObjectType("plant", BlockPlant.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumPlant.values());
 	public static final BlockGrowingPlant calamites = new BlockCalamites(true, 15, 10)
 			.setGrowthChanceMult(6, 1, 1)
 			.setUnlocalizedName("plant.calamites");
-	public static final VariantsCombo<BlockFern> ferns = new VariantsCombo(new ObjectType("fern", BlockFern.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumFern.values());
+	public static final VariantsCombo<BlockFern, ItemBlockMulti> ferns = new VariantsCombo(new ObjectType("fern", BlockFern.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumFern.values());
 	public static final BlockCobbania cobbania = new BlockCobbania();//.setUnlocalizedName("cobbania");
-	public static final VariantsCombo<BlockAquaticPlant> aquatic_plants = new VariantsCombo(new ObjectType("aquatic_plant", "aquaticPlant", BlockAquaticPlant.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumAquaticPlant.values());
+	public static final VariantsCombo<BlockAquaticPlant, ItemBlockMulti> aquatic_plants = new VariantsCombo(new ObjectType("aquatic_plant", "aquaticPlant", BlockAquaticPlant.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumAquaticPlant.values());
 
 	/* Crops */
 	public static final BlockGrowingPlant zingiberopsis = new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
@@ -97,7 +94,7 @@ public final class GenesisBlocks
 	
 	/* Misc */
 	public static final BlockGenesis prototaxites = new BlockPrototaxites().setUnlocalizedName("prototaxites");
-	public static final VariantsCombo<BlockGenesisVariants> corals = new VariantsCombo(new ObjectType<BlockGenesisVariants>("coral", BlockGenesisVariants.class, null)
+	public static final VariantsCombo<BlockGenesisVariants, ItemBlockMulti> corals = new VariantsCombo(new ObjectType<BlockGenesisVariants, ItemBlockMulti>("coral", BlockGenesisVariants.class, null)
 			{
 				@Override
 				public void afterConstructed(Block block, Item item, List<IMetadata> variants)

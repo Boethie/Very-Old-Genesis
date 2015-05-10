@@ -207,7 +207,7 @@ public class BlockAquaticPlant extends BlockGenesisVariants<EnumAquaticPlant, Va
 			validGround.add(Blocks.gravel);
 			validGround.add(Blocks.clay);
 			validGround.add(GenesisBlocks.red_clay);
-			validGround.addAll(GenesisBlocks.corals.getObjects(GenesisBlocks.corals.soleType));
+			validGround.addAll(GenesisBlocks.corals.getBlocks(GenesisBlocks.corals.soleType));
 		}
 		
 		IBlockState below = world.getBlockState(pos.down());

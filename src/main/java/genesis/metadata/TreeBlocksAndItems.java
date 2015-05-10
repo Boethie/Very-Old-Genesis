@@ -15,15 +15,15 @@ import net.minecraftforge.fml.relauncher.*;
 
 public class TreeBlocksAndItems extends VariantsOfTypesCombo
 {
-	public static final ObjectType<BlockGenesisLogs> LOG = new ObjectType("log", BlockGenesisLogs.class, null);
-	public static final ObjectType<BlockGenesisSaplings> SAPLING = new ObjectType("sapling", BlockGenesisSaplings.class, null)
+	public static final ObjectType<BlockGenesisLogs, ItemBlockMulti> LOG = new ObjectType("log", BlockGenesisLogs.class, null);
+	public static final ObjectType<BlockGenesisSaplings, ItemBlockMulti> SAPLING = new ObjectType("sapling", BlockGenesisSaplings.class, null)
 			.setIgnoredProperties(BlockSapling.STAGE);
-	public static final ObjectType<BlockGenesisLeaves> LEAVES = new ObjectType("leaves", BlockGenesisLeaves.class, null)
+	public static final ObjectType<BlockGenesisLeaves, ItemBlockMulti> LEAVES = new ObjectType("leaves", BlockGenesisLeaves.class, null)
 			.setIgnoredProperties(BlockLeaves.CHECK_DECAY, BlockLeaves.DECAYABLE);
-	public static final ObjectType<ItemMulti> BILLET = new ObjectType("billet", null, ItemMulti.class, EnumTree.NO_BILLET);
-	public static final ObjectType<BlockWattleFence> WATTLE_FENCE = new ObjectType("wattle_fence", "wattleFence", BlockWattleFence.class, null, EnumTree.NO_BILLET)
+	public static final ObjectType<Block, ItemMulti> BILLET = new ObjectType("billet", null, ItemMulti.class, EnumTree.NO_BILLET);
+	public static final ObjectType<BlockWattleFence, ItemBlockMulti> WATTLE_FENCE = new ObjectType("wattle_fence", "wattleFence", BlockWattleFence.class, null, EnumTree.NO_BILLET)
 			.setIgnoredProperties(BlockFence.NORTH, BlockFence.EAST, BlockFence.SOUTH, BlockFence.WEST);
-	public static final ObjectType<BlockGenesisRottenLogs> ROTTEN_LOG = new ObjectType("rotten_log", "log.rotten", BlockGenesisRottenLogs.class, null, EnumTree.PSARONIUS)
+	public static final ObjectType<BlockGenesisRottenLogs, ItemBlockMulti> ROTTEN_LOG = new ObjectType("rotten_log", "log.rotten", BlockGenesisRottenLogs.class, null, EnumTree.PSARONIUS)
 			.setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	
 	public TreeBlocksAndItems()

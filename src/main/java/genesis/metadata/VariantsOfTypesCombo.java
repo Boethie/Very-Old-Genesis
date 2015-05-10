@@ -11,7 +11,6 @@ import java.lang.reflect.*;
 import java.util.*;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.tuple.Pair;
 
 import com.google.common.base.Function;
 import com.google.common.collect.*;
@@ -49,7 +48,7 @@ public class VariantsOfTypesCombo
 	 * 
 	 * @param <T> For the type that should be returned when getting this type's Block/Item.
 	 */
-	public static class ObjectType<T extends Object> implements IMetadata
+	public static class ObjectType<B extends Block, I extends Item> implements IMetadata
 	{
 		public static enum ObjectNamePosition {
 			PREFIX, POSTFIX, NONE;
@@ -60,9 +59,9 @@ public class VariantsOfTypesCombo
 		protected Function<IMetadata, String> resourceNameFunction;
 		protected ObjectNamePosition namePosition = ObjectNamePosition.POSTFIX;
 		
-		protected Class<? extends Block> blockClass;
+		protected Class<? extends B> blockClass;
 		protected Object[] blockArgs = {};
-		protected Class<? extends Item> itemClass;
+		protected Class<? extends I> itemClass;
 		private Object[] itemArgs = {};
 		
 		protected List<IMetadata> variantExclusions;
@@ -72,7 +71,7 @@ public class VariantsOfTypesCombo
 		
 		protected CreativeTabs tab = null;
 
-		public ObjectType(String name, String unlocalizedName, Class<? extends Block> blockClass, Class<? extends Item> itemClass, List<IMetadata> variantExclusions)
+		public ObjectType(String name, String unlocalizedName, Class<? extends B> blockClass, Class<? extends I> itemClass, List<IMetadata> variantExclusions)
 		{
 			this.name = name;
 			this.unlocalizedName = unlocalizedName;
@@ -84,26 +83,26 @@ public class VariantsOfTypesCombo
 			{
 				if (this.blockClass != null)
 				{
-					this.itemClass = ItemBlockMulti.class;
+					this.itemClass = (Class<? extends I>) ItemBlockMulti.class;
 				}
 				else
 				{
-					this.itemClass = ItemMulti.class;
+					this.itemClass = (Class<? extends I>) ItemMulti.class;
 				}
 			}
 		}
 		
-		public ObjectType(String name, Class<? extends Block> blockClass, Class<? extends Item> itemClass, List<IMetadata> variantExclusions)
+		public ObjectType(String name, Class<? extends B> blockClass, Class<? extends I> itemClass, List<IMetadata> variantExclusions)
 		{
 			this(name, name, blockClass, itemClass, variantExclusions);
 		}
 		
-		public ObjectType(String name, String unlocalizedName, Class<? extends Block> blockClass, Class<? extends Item> itemClass, IMetadata... variantExclusions)
+		public ObjectType(String name, String unlocalizedName, Class<? extends B> blockClass, Class<? extends I> itemClass, IMetadata... variantExclusions)
 		{
 			this(name, unlocalizedName, blockClass, itemClass, Arrays.asList(variantExclusions));
 		}
 		
-		public ObjectType(String name, Class<? extends Block> blockClass, Class<? extends Item> itemClass, IMetadata... variantExclusions)
+		public ObjectType(String name, Class<? extends B> blockClass, Class<? extends I> itemClass, IMetadata... variantExclusions)
 		{
 			this(name, name, blockClass, itemClass, variantExclusions);
 		}
@@ -113,7 +112,7 @@ public class VariantsOfTypesCombo
 			return name;
 		}
 		
-		public ObjectType<T> setUnlocalizedName(String unlocName)
+		public ObjectType<B, I> setUnlocalizedName(String unlocName)
 		{
 			this.unlocalizedName = unlocName;
 			
@@ -125,7 +124,7 @@ public class VariantsOfTypesCombo
 			return unlocalizedName;
 		}
 		
-		public ObjectType<T> setResourceNameFunction(Function<IMetadata, String> func)
+		public ObjectType<B, I> setResourceNameFunction(Function<IMetadata, String> func)
 		{
 			this.resourceNameFunction = func;
 			
@@ -142,7 +141,7 @@ public class VariantsOfTypesCombo
 			return namePosition;
 		}
 		
-		public ObjectType<T> setNamePosition(ObjectNamePosition namePosition)
+		public ObjectType<B, I> setNamePosition(ObjectNamePosition namePosition)
 		{
 			this.namePosition = namePosition;
 			
@@ -159,7 +158,7 @@ public class VariantsOfTypesCombo
 			return itemClass;
 		}
 		
-		public ObjectType<T> setValidVariants(List<IMetadata> list)
+		public ObjectType<B, I> setValidVariants(List<IMetadata> list)
 		{
 			onlyVariants = list;
 			
@@ -183,7 +182,7 @@ public class VariantsOfTypesCombo
 			return separateVariantJsons;
 		}
 		
-		public ObjectType<T> setUseSeparateVariantJsons(boolean use)
+		public ObjectType<B, I> setUseSeparateVariantJsons(boolean use)
 		{
 			separateVariantJsons = use;
 			
@@ -195,7 +194,7 @@ public class VariantsOfTypesCombo
 			return blockArgs;
 		}
 		
-		public ObjectType<T> setBlockArguments(Object... args)
+		public ObjectType<B, I> setBlockArguments(Object... args)
 		{
 			this.blockArgs = args;
 			
@@ -207,14 +206,14 @@ public class VariantsOfTypesCombo
 			return itemArgs;
 		}
 		
-		public ObjectType<T> setItemArguments(Object... args)
+		public ObjectType<B, I> setItemArguments(Object... args)
 		{
 			this.itemArgs = args;
 			
 			return this;
 		}
 		
-		public ObjectType<T> setCreativeTab(CreativeTabs tab)
+		public ObjectType<B, I> setCreativeTab(CreativeTabs tab)
 		{
 			this.tab = tab;
 			
@@ -241,7 +240,7 @@ public class VariantsOfTypesCombo
 		{
 		}
 		
-		public ObjectType<T> setIgnoredProperties(IProperty... properties)
+		public ObjectType<B, I> setIgnoredProperties(IProperty... properties)
 		{
 			stateMapIgnoredProperties = properties;
 			
@@ -299,7 +298,6 @@ public class VariantsOfTypesCombo
 		{
 			public final Block block;
 			public final int id;
-			public final Object object;
 			
 			public Value(Block block, Item item, int id, int metadata)
 			{
@@ -307,7 +305,6 @@ public class VariantsOfTypesCombo
 				
 				this.block = block;
 				this.id = id;
-				this.object = block != null ? block : item;
 			}
 		}
 		
@@ -636,11 +633,7 @@ public class VariantsOfTypesCombo
 	}
 
 	/**
-	 * Gets the Pair containing the metadata for this variant and its container Block or Item.
-	 * 
-	 * @param type
-	 * @param variant
-	 * @return The Block/Item casted to the type provided by the generic type in "type".
+	 * Gets the VariantEntry.Value containing the all the information about this variant and its Block and Item.
 	 */
 	public VariantEntry.Value getVariantEntry(ObjectType type, IMetadata variant)
 	{
@@ -658,27 +651,48 @@ public class VariantsOfTypesCombo
 		
 		return entryMap.get(type, variant);
 	}
-
+	
 	/**
-	 * Gets the Block or Item for the type and variant.
-	 * 
-	 * @return The Block/Item casted to the type provided by the generic type in "type".
+	 * Returns the Block for this {@link #ObjectType} and variant, casted to the ObjectType's block's generic type.
 	 */
-	public <T> T getObject(ObjectType<T> type, IMetadata variant)
+	public <B extends Block> B getBlock(ObjectType<B, ? extends Item> type, IMetadata variant)
 	{
-		return (T) getVariantEntry(type, variant).object;
+		return (B) getVariantEntry(type, variant).block;
 	}
 	
 	/**
-	 * Gets all the Blocks or Items that this {@link #ObjectType} uses.
+	 * Returns a list of all the constructed Blocks for the specified {@link #ObjectType}.
 	 */
-	public <T> HashSet<T> getObjects(ObjectType<T> type)
+	public <B extends Block> Collection<B> getBlocks(ObjectType<B, ? extends Item> type)
 	{
-		HashSet<T> out = new HashSet();
+		HashSet<B> out = new HashSet();
 		
 		for (IMetadata variant : getValidVariants(type))
 		{
-			out.add(getObject(type, variant));
+			out.add(getBlock(type, variant));
+		}
+		
+		return out;
+	}
+	
+	/**
+	 * Returns the Item for this {@link #ObjectType} and variant, casted to the ObjectType's item generic type.
+	 */
+	public <I extends Item> I getItem(ObjectType<? extends Block, I> type, IMetadata variant)
+	{
+		return (I) getVariantEntry(type, variant).item;
+	}
+	
+	/**
+	 * Returns a list of all the constructed Items for the specified {@link #ObjectType}.
+	 */
+	public <I extends Item> Collection<I> getItems(ObjectType<? extends Block, I> type)
+	{
+		HashSet<I> out = new HashSet();
+		
+		for (IMetadata variant : getValidVariants(type))
+		{
+			out.add(getItem(type, variant));
 		}
 		
 		return out;
