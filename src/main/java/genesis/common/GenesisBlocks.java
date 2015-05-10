@@ -9,6 +9,7 @@ import genesis.item.ItemBlockColored;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType.ObjectNamePosition;
+import genesis.block.tileentity.*;
 import genesis.util.Constants;
 import genesis.util.RandomItemDrop;
 import net.minecraft.block.Block;
@@ -18,6 +19,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.EnumPlantType;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public final class GenesisBlocks
 {
@@ -57,7 +59,9 @@ public final class GenesisBlocks
 	
 	/* Trees */
 	public static final TreeBlocksAndItems trees = new TreeBlocksAndItems();
-	public static final BlockCalamitesBundle calamites_bundle = new BlockCalamitesBundle().setUnlocalizedName("calamitesBundle");
+	
+	/* Crafting */
+	public static final BlockCampfire campfire = new BlockCampfire().setUnlocalizedName("campfire");
 
 	/* Plants */
 	public static final VariantsCombo<BlockPlant> plants = new VariantsCombo(new ObjectType("plant", BlockPlant.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumPlant.values());
@@ -89,6 +93,7 @@ public final class GenesisBlocks
 	
 	/* Other Decorative */
 	public static final BlockGenesisFlowerPot flower_pot = new BlockGenesisFlowerPot();
+	public static final BlockCalamitesBundle calamites_bundle = new BlockCalamitesBundle().setUnlocalizedName("calamitesBundle");
 	
 	/* Misc */
 	public static final BlockGenesis prototaxites = new BlockPrototaxites().setUnlocalizedName("prototaxites");
@@ -144,6 +149,8 @@ public final class GenesisBlocks
 		
 		// Begin decorative
 		trees.registerAll();
+		
+		Genesis.proxy.registerBlock(campfire, "campfire");
 		
 		Genesis.proxy.registerBlock(calamites_torch, "calamites_torch");
 		

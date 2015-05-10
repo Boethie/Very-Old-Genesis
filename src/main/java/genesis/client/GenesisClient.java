@@ -3,6 +3,8 @@ package genesis.client;
 import genesis.common.*;
 import genesis.metadata.*;
 import genesis.util.*;
+import genesis.util.ReflectionHelper;
+import genesis.util.render.ModelHelpers;
 
 import java.util.*;
 
@@ -10,18 +12,23 @@ import net.minecraft.block.*;
 import net.minecraft.client.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.statemap.*;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.resources.*;
 import net.minecraft.client.resources.model.*;
 import net.minecraft.item.*;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraftforge.client.model.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.fml.client.*;
+import net.minecraftforge.fml.client.registry.*;
 import net.minecraftforge.fml.relauncher.*;
 
 public class GenesisClient extends GenesisProxy
 {
 	private static final Minecraft MC = FMLClientHandler.instance().getClient();
+	
+	protected Map<Class<? extends TileEntity>, TileEntitySpecialRenderer> mapTESRsToRegister = new HashMap();
 	
 	public static Minecraft getMC()
 	{
@@ -34,6 +41,12 @@ public class GenesisClient extends GenesisProxy
 	}
 	
 	private boolean hasInit = false;
+	
+	@Override
+	public void preInit()
+	{
+        ModelHelpers.preInit();
+	}
 
 	@Override
 	public void init()
@@ -42,6 +55,12 @@ public class GenesisClient extends GenesisProxy
 		
 		ModelLoaderRegistry.registerLoader(GenesisCustomModelLoader.instance);
         MinecraftForge.EVENT_BUS.register(GenesisCustomModelLoader.instance);
+        
+        // Gotta register TESRs after Minecraft has initialized, otherwise the vanilla piston TESR crashes.
+        for (Map.Entry<Class<? extends TileEntity>, TileEntitySpecialRenderer> entry : mapTESRsToRegister.entrySet())
+        {
+        	ClientRegistry.bindTileEntitySpecialRenderer(entry.getKey(), entry.getValue());
+        }
 	}
 
 	@Override
@@ -52,9 +71,9 @@ public class GenesisClient extends GenesisProxy
 		registerModel(block, name);
 	}
 	
-	public void callClientOnly(ClientOnlyFunction clientOnlyFunction)
+	public void callSided(SidedFunction sidedFunction)
 	{
-		clientOnlyFunction.apply(this);
+		sidedFunction.client(this);
 	}
 
 	@Override
@@ -114,40 +133,19 @@ public class GenesisClient extends GenesisProxy
 	{
 		GenesisCustomModelLoader.registerCustomModel(path, model);
 	}
-
+	
 	private void addVariantName(Block block, String name)
 	{
 		addVariantName(Item.getItemFromBlock(block), name);
 	}
-
+	
 	private void addVariantName(Item item, String name)
 	{
 		ModelBakery.addVariantName(item, Constants.ASSETS + name);
 	}
-
-	private class ItemTexture
+	
+	public void registerTileEntityRenderer(Class<? extends TileEntity> teClass, TileEntitySpecialRenderer renderer)
 	{
-		private final Item item;
-		private final int metadata;
-		private final String name;
-
-		private ItemTexture(Item item, int metadata, String name)
-		{
-			this.item = item;
-			this.metadata = metadata;
-			this.name = name;
-		}
-	}
-
-	private class BlockStateMap
-	{
-		private final Block block;
-		private final IStateMapper map;
-
-		private BlockStateMap(Block block, IStateMapper map)
-		{
-			this.block = block;
-			this.map = map;
-		}
+		mapTESRsToRegister.put(teClass, renderer);
 	}
 }

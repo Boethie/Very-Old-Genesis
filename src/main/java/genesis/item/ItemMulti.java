@@ -42,7 +42,9 @@ public class ItemMulti extends ItemGenesis
 			return Constants.INVALID_METADATA;
 		}
 		
-		return super.getUnlocalizedName(stack) + "." + variant.getUnlocalizedName();
+		String unlocName = variant.getUnlocalizedName();
+		
+		return super.getUnlocalizedName(stack) + ("".equals(unlocName) ? "" : "." + unlocName);
 	}
 
 	@Override

@@ -1,0 +1,31 @@
+{
+    "__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
+    "ambientocclusion": false,
+    "textures": {
+        "campfire_stick": "genesis:blocks/campfire_stick"
+    },
+    "elements": [
+        {   "__comment": "Stick Left",
+            "from": [ 7.5, -0.5, 8 ],
+            "to": [ 8.5, 0.5, 18 ],
+            "faces": {
+                "down": { "uv": [ -0, 5, 10, 6 ], "texture": "#campfire_stick", "rotation": 270 },
+                "south": { "uv": [ 10, 7, 11, 8 ], "texture": "#campfire_stick", "rotation": 90 },
+                "east": { "uv": [ -0, 6, 10, 7 ], "texture": "#campfire_stick", "rotation": 180 },
+                "west": { "uv": [ -0, 4, 10, 5 ], "texture": "#campfire_stick", "rotation": 0 },
+                "up": { "uv": [ -0, 7, 10, 8 ], "texture": "#campfire_stick", "rotation": 90 }
+            }
+        },
+        {   "__comment": "Stick Right",
+            "from": [ 7.5, -0.5, -2 ],
+            "to": [ 8.5, 0.5, 8 ],
+            "faces": {
+                "west": { "uv": [ 0, 2, 10, 3 ], "texture": "#campfire_stick", "rotation": 180 },
+                "north": { "uv": [ 10, 3, 11, 4 ], "texture": "#campfire_stick", "rotation": 90 },
+                "east": { "uv": [ 0, 0, 10, 1 ], "texture": "#campfire_stick", "rotation": 0 },
+                "down": { "uv": [ 0, 1, 10, 2 ], "texture": "#campfire_stick", "rotation": 90 },
+                "up": { "uv": [ 0, 3, 10, 4 ], "texture": "#campfire_stick", "rotation": 270 }
+            }
+        }
+    ]
+}

@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "genesis:items/dye_calamites_yellow"
+        "layer0": "genesis:items/bowl_ceramic_water"
     },
     "display": {
         "thirdperson": {

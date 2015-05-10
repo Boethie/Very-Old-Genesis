@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 import org.apache.logging.log4j.Logger;
 
@@ -24,30 +25,37 @@ public class Genesis
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		logger = event.getModLog();
-
+		
 		GenesisVersion.startVersionCheck();
+		
 		GenesisConfig.readConfigValues(event.getSuggestedConfigurationFile());
-
 		GenesisBlocks.registerBlocks();
 		GenesisItems.registerItems();
-
-		registerTileEntities();
-
-		GenesisBiomes.loadBiomes();
-
+		
+		GenesisRecipes.addRecipes();
+		
 		registerEntities();
-
+		
+		GenesisBiomes.loadBiomes();
+		
 		proxy.preInit();
+	}
+
+	protected void registerEntities()
+	{
 	}
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event)
 	{
-		GenesisRecipes.addRecipes();
-
 		registerHandlers();
-
+		
 		proxy.init();
+	}
+
+	protected void registerHandlers()
+	{
+		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GenesisGuiHandler());
 	}
 
 	@Mod.EventHandler
@@ -56,17 +64,5 @@ public class Genesis
 		proxy.postInit();
 		
 		GenesisRecipes.doSubstitutes();
-	}
-
-	private void registerTileEntities()
-	{
-	}
-
-	private void registerEntities()
-	{
-	}
-
-	private void registerHandlers()
-	{
 	}
 }

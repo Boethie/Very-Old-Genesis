@@ -1,6 +1,5 @@
 package genesis.metadata;
 
-import genesis.client.ClientOnlyFunction;
 import genesis.client.GenesisClient;
 import genesis.common.*;
 import genesis.item.*;
@@ -67,18 +66,19 @@ public class VariantsOfTypesCombo
 		private Object[] itemArgs = {};
 		
 		protected List<IMetadata> variantExclusions;
+		protected List<IMetadata> onlyVariants;
 		protected boolean separateVariantJsons = true;
 		protected IProperty[] stateMapIgnoredProperties;
 		
 		protected CreativeTabs tab = null;
-		
-		public ObjectType(String name, String unlocalizedName, Class<? extends Block> blockClass, Class<? extends Item> itemClass, IMetadata... variantExclusions)
+
+		public ObjectType(String name, String unlocalizedName, Class<? extends Block> blockClass, Class<? extends Item> itemClass, List<IMetadata> variantExclusions)
 		{
 			this.name = name;
 			this.unlocalizedName = unlocalizedName;
 			this.blockClass = blockClass;
 			this.itemClass = itemClass;
-			this.variantExclusions = Arrays.asList(variantExclusions);
+			this.variantExclusions = variantExclusions;
 			
 			if (this.itemClass == null)
 			{
@@ -91,6 +91,16 @@ public class VariantsOfTypesCombo
 					this.itemClass = ItemMulti.class;
 				}
 			}
+		}
+		
+		public ObjectType(String name, Class<? extends Block> blockClass, Class<? extends Item> itemClass, List<IMetadata> variantExclusions)
+		{
+			this(name, name, blockClass, itemClass, variantExclusions);
+		}
+		
+		public ObjectType(String name, String unlocalizedName, Class<? extends Block> blockClass, Class<? extends Item> itemClass, IMetadata... variantExclusions)
+		{
+			this(name, unlocalizedName, blockClass, itemClass, Arrays.asList(variantExclusions));
 		}
 		
 		public ObjectType(String name, Class<? extends Block> blockClass, Class<? extends Item> itemClass, IMetadata... variantExclusions)
@@ -148,10 +158,23 @@ public class VariantsOfTypesCombo
 		{
 			return itemClass;
 		}
+		
+		public ObjectType<T> setValidVariants(List<IMetadata> list)
+		{
+			onlyVariants = list;
+			
+			return this;
+		}
 
 		public List<IMetadata> getValidVariants(List<IMetadata> list)
 		{
 			list.removeAll(variantExclusions);
+			
+			if (onlyVariants != null)
+			{
+				list.retainAll(onlyVariants);
+			}
+			
 			return list;
 		}
 		
@@ -238,15 +261,22 @@ public class VariantsOfTypesCombo
 		{
 			String resource = variant.getName();
 			
-			switch (getNamePosition())
+			if ("".equals(resource))
 			{
-			case PREFIX:
-				resource = getName() + "_" + resource;
-				break;
-			case POSTFIX:
-				resource += "_" + getName();
-				break;
-			default:
+				resource += getName();
+			}
+			else
+			{
+				switch (getNamePosition())
+				{
+				case PREFIX:
+					resource = getName() + "_" + resource;
+					break;
+				case POSTFIX:
+					resource += "_" + getName();
+					break;
+				default:
+				}
 			}
 			
 			Function<IMetadata, String> nameFunction = getResourceNameFunction();
@@ -345,7 +375,7 @@ public class VariantsOfTypesCombo
 	{
 		this.variants = variants;
 		this.types = types;
-
+		
 		try
 		{
 			for (final ObjectType type : types)
@@ -368,7 +398,7 @@ public class VariantsOfTypesCombo
 				{
 					Object propsListObj = null;
 					
-					for (Field field : blockClass.getFields())
+					for (Field field : blockClass.getDeclaredFields())
 					{
 						if (field.isAnnotationPresent(BlockProperties.class) && (field.getModifiers() & Modifier.STATIC) == Modifier.STATIC && field.getType().isArray())
 						{
@@ -379,7 +409,7 @@ public class VariantsOfTypesCombo
 					
 					if (propsListObj == null)
 					{
-						for (Method method : blockClass.getMethods())
+						for (Method method : blockClass.getDeclaredMethods())
 						{
 							if (method.isAnnotationPresent(BlockProperties.class) && (method.getModifiers() & Modifier.STATIC) == Modifier.STATIC && method.getReturnType().isArray())
 							{
@@ -494,11 +524,11 @@ public class VariantsOfTypesCombo
 					block.setUnlocalizedName(type.getUnlocalizedName());
 					
 					// Register resource locations for the block.
-					Genesis.proxy.callClientOnly(new ClientOnlyFunction()
+					Genesis.proxy.callSided(new SidedFunction()
 					{
 						@Override
 						@SideOnly(Side.CLIENT)
-						public void apply(GenesisClient client)
+						public void client(GenesisClient client)
 						{
 							FlexibleStateMap flexStateMap = new FlexibleStateMap();
 							

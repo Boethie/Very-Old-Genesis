@@ -1,0 +1,17 @@
+{
+    "variants": {
+        "facing=z,fire=false": [
+			{ "model": "genesis:campfire_cooking_pot" }
+		],
+        "facing=x,fire=false": [
+			{ "model": "genesis:campfire_cooking_pot" }
+		],
+		
+        "facing=z,fire=true": [
+			{ "model": "genesis:campfire_cooking_pot" }
+		],
+        "facing=x,fire=true": [
+			{ "model": "genesis:campfire_cooking_pot" }
+		]
+    }
+}

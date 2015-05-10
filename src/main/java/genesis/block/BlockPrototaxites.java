@@ -20,11 +20,11 @@ public class BlockPrototaxites extends BlockGenesis
 		super(Material.wood);
 		
 		setDefaultState(getBlockState().getBaseState());
-		Genesis.proxy.callClientOnly(new ClientOnlyFunction()
+		Genesis.proxy.callSided(new SidedFunction()
 		{
 			@Override
 			@SideOnly(Side.CLIENT)
-			public void apply(GenesisClient client)
+			public void client(GenesisClient client)
 			{
 				client.registerModelStateMap(BlockPrototaxites.this, new FlexibleStateMap().addIgnoredProperties(BlockCactus.AGE));
 			}

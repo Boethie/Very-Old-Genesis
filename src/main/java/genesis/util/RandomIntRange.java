@@ -4,18 +4,18 @@ import java.util.Random;
 
 import net.minecraft.util.MathHelper;
 
-public class RandomRange
+public class RandomIntRange
 {
 	public int min;
 	public int max;
 	
-	public RandomRange(int minIn, int maxIn)
+	public RandomIntRange(int minIn, int maxIn)
 	{
 		min = minIn;
 		max = maxIn;
 	}
 	
-	public int getRandomAmount(Random rand)
+	public int getRandom(Random rand)
 	{
 		return MathHelper.getRandomIntegerInRange(rand, min, max);
 	}

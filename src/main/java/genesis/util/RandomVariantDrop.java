@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 
-public class RandomVariantDrop extends RandomRange
+public class RandomVariantDrop extends RandomIntRange
 {
 	public VariantsOfTypesCombo combo;
 	public ObjectType type;
@@ -21,6 +21,6 @@ public class RandomVariantDrop extends RandomRange
 	
 	public ItemStack getRandomStack(IMetadata variant, Random rand)
 	{
-		return combo.getStack(type, variant, getRandomAmount(rand));
+		return combo.getStack(type, variant, getRandom(rand));
 	}
 }

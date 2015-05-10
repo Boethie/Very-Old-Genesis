@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import genesis.util.Constants;
-import genesis.util.ModelHelpers;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockModelShapes;
@@ -40,6 +39,8 @@ public class GenesisCustomModelLoader implements ICustomModelLoader
 	@Override
 	public boolean accepts(ResourceLocation modelLocation)
 	{
+		
+		
 		if (acceptNothing)
 		{
 			return false;

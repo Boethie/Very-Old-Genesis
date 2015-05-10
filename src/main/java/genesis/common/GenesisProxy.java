@@ -1,16 +1,13 @@
 package genesis.common;
 
-import genesis.client.ClientOnlyFunction;
-import genesis.util.Constants;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.block.statemap.IStateMapper;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.ISmartBlockModel;
-import net.minecraftforge.fml.common.registry.GameData;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import genesis.util.*;
+import net.minecraft.block.*;
+import net.minecraft.client.renderer.block.statemap.*;
+import net.minecraft.item.*;
+import net.minecraft.tileentity.*;
+import net.minecraft.util.*;
+import net.minecraftforge.client.model.*;
+import net.minecraftforge.fml.common.registry.*;
 
 public class GenesisProxy
 {
@@ -57,7 +54,8 @@ public class GenesisProxy
 	{
 	}
 
-	public void callClientOnly(ClientOnlyFunction clientOnlyFunction)
+	public void callSided(SidedFunction sidedFunction)
 	{
+		sidedFunction.server(this);
 	}
 }

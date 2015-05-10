@@ -17,11 +17,12 @@ import net.minecraftforge.fluids.FluidStack;
 public final class GenesisItems
 {
 	/* Materials */
-	//public static final VariantsCombo pebbles = new VariantsCombo(new ObjectType("pebble", null, null).setNamePosition(ObjectNamePosition.PREFIX), EnumPebble.values());
 	public static final ItemGenesis red_clay_ball = new ItemGenesis().setUnlocalizedName("redClay");
 	public static final ItemGenesis octaedrite_shard = new ItemGenesis().setUnlocalizedName("octaedriteShard");
 	public static final ItemGenesis red_clay_bowl = new ItemGenesis().setUnlocalizedName("bowlRedClay");
-	public static final ItemGenesis ceramic_bowl = new ItemGenesis().setUnlocalizedName("bowlCeramic");
+	public static final ItemsCeramicBowls ceramic_bowls = new ItemsCeramicBowls();
+	//public static final ItemGenesis ceramic_bowl = new ItemGenesis().setUnlocalizedName("bowlCeramic");
+	//public static final ItemGenesis ceramic_bowl_water = new ItemGenesis().setUnlocalizedName("bowlCeramic.water");
 	public static final ItemGenesis red_clay_bucket = new ItemGenesis().setUnlocalizedName("redClayBucket");
 	public static final VariantsCombo nodules = new VariantsCombo(new ObjectType("nodule", null, null).setNamePosition(ObjectNamePosition.PREFIX), EnumNodule.values());
 	public static final ItemGenesis quartz = new ItemGenesis().setUnlocalizedName("quartz");
@@ -36,7 +37,7 @@ public final class GenesisItems
 	public static final ItemGenesis sphenophyllum_fiber = new ItemGenesis().setUnlocalizedName("sphenophyllumFiber");
 	public static final ItemGenesis odontopteris_fiddlehead = new ItemGenesis().setUnlocalizedName("odontopterisFiddlehead");
 	public static final ItemGenesis prototaxites_flesh = new ItemGenesis().setUnlocalizedName("prototaxitesFlesh");
-	public static final VariantsCombo dyes = new VariantsCombo(new ObjectType("dye", null, null).setNamePosition(ObjectNamePosition.PREFIX), EnumDye.values());
+	//public static final VariantsCombo dyes = new VariantsCombo(new ObjectType("dye", null, null).setNamePosition(ObjectNamePosition.PREFIX), EnumDye.values());
 	public static final ItemGenesis arthropleura_chitin = new ItemGenesis().setUnlocalizedName("arthropleuraChitin");
 	public static final ItemGenesis tyrannosaurus_saliva = new ItemGenesis().setUnlocalizedName("tyrannosaurusSaliva");
 	public static final ItemGenesis tyrannosaurus_tooth = new ItemGenesis().setUnlocalizedName("tyrannosaurusTooth");
@@ -64,12 +65,12 @@ public final class GenesisItems
 
 	public static void registerItems()
 	{
-		//pebbles.registerAll();
 		tools.registerVariants(tools.PEBBLE);
 		Genesis.proxy.registerItem(red_clay_ball, "red_clay_ball");
 		Genesis.proxy.registerItem(red_clay_bowl, "red_clay_bowl");
-		Genesis.proxy.registerItem(ceramic_bowl, "ceramic_bowl");
-		dyes.registerAll();
+		//Genesis.proxy.registerItem(ceramic_bowl, "ceramic_bowl");
+		//Genesis.proxy.registerItem(ceramic_bowl_water, "ceramic_bowl_water");
+		ceramic_bowls.registerAll();
 		Genesis.proxy.registerItem(red_clay_bucket, "red_clay_bucket");
 		Genesis.proxy.registerItem(octaedrite_shard, "octaedrite_shard");
 		Genesis.proxy.registerItem(quartz, "quartz");
@@ -106,10 +107,12 @@ public final class GenesisItems
 		tools.registerAll();
 		
 		Genesis.proxy.registerItem(flint_and_marcasite, "flint_and_marcasite");
+		
 		Genesis.proxy.registerItem(ceramic_bucket, "ceramic_bucket");
 		Genesis.proxy.registerItem(ceramic_bucket_water, "ceramic_bucket_water");
+		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluid("water"),
+				new ItemStack(ceramic_bucket_water), new ItemStack(ceramic_bucket));
 		Genesis.proxy.registerItem(ceramic_bucket_milk, "ceramic_bucket_milk");
 
-		FluidContainerRegistry.registerFluidContainer(new FluidContainerRegistry.FluidContainerData(new FluidStack(FluidRegistry.getFluid("water"), 1), new ItemStack(ceramic_bucket_water), new ItemStack(ceramic_bucket)));
 	}
 }

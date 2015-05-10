@@ -48,8 +48,11 @@ public class BlockWattleFence extends BlockFence
 		blockState = new BlockState(this, variantProp, NORTH, EAST, WEST, SOUTH);
 		setDefaultState(getBlockState().getBaseState());
 		
-		Genesis.proxy.callClientOnly(new ClientOnlyFunction(){
-			public void apply(GenesisClient client)
+		Genesis.proxy.callSided(new SidedFunction()
+		{
+			@SideOnly(Side.CLIENT)
+			@Override
+			public void client(GenesisClient client)
 			{
 				WattleFenceModel.register(variants);
 			}

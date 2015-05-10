@@ -1,9 +1,10 @@
 package genesis.common;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
+import genesis.block.tileentity.crafting.CookingPotRecipeRegistry;
 import genesis.metadata.*;
+import genesis.metadata.ItemsCeramicBowls.EnumCeramicBowls;
 import genesis.util.FuelHandler;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -182,7 +183,7 @@ public final class GenesisRecipes
 		GameRegistry.addSmelting(GenesisBlocks.olivine_ore, new ItemStack(GenesisItems.olivine), 0.3F);
 		GameRegistry.addSmelting(GenesisBlocks.brown_flint_ore, GenesisItems.nodules.getStack(EnumNodule.BROWN_FLINT), 0.05F);
 		GameRegistry.addSmelting(GenesisBlocks.marcasite_ore, GenesisItems.nodules.getStack(EnumNodule.MARCASITE), 0.05F);
-		GameRegistry.addSmelting(GenesisItems.red_clay_bowl, new ItemStack(GenesisItems.ceramic_bowl), 0.3F);
+		GameRegistry.addSmelting(GenesisItems.red_clay_bowl, GenesisItems.ceramic_bowls.getStack(EnumCeramicBowls.BOWL), 0.3F);
 		GameRegistry.addSmelting(GenesisItems.aphthoroblattina, new ItemStack(GenesisItems.cooked_aphthoroblattina), 0.35F);
 		GameRegistry.addSmelting(GenesisItems.eryops_leg, new ItemStack(GenesisItems.cooked_eryops_leg), 0.35F);
 
@@ -198,8 +199,14 @@ public final class GenesisRecipes
 		
 		fuelHandler.setBurnTime(GenesisBlocks.dungs.getStack(GenesisBlocks.dungs.DUNG), logBurnTime, true);
 		fuelHandler.setBurnTime(GenesisBlocks.dungs.getStack(GenesisBlocks.dungs.DUNG_BLOCK), logBurnTime * 4, true);
+		
+		CookingPotRecipeRegistry.registerShapeless(new ItemStack(GenesisItems.cooked_tyrannosaurus),
+				new ItemStack(GenesisItems.tyrannosaurus), new ItemStack(GenesisItems.eryops_leg));
 	}
 	
+	/**
+	 * Called as late as possible so as to have all other recipes registered already.
+	 */
 	public static void doSubstitutes()
 	{
 		// Fiber for string
@@ -211,6 +218,12 @@ public final class GenesisRecipes
 		makeSubstituteCraftingItem(new ItemStack(Items.milk_bucket), new ItemStack(GenesisItems.ceramic_bucket_milk));
 		
 		// Dyes
-		makeSubstituteCraftingItem(new ItemStack(Items.dye, 1, EnumDyeColor.YELLOW.getDyeDamage()), GenesisItems.dyes.getStack(EnumDye.CALAMITES_YELLOW));
+		for (IMetadata variant : GenesisItems.ceramic_bowls.getValidVariants(ItemsCeramicBowls.dyes))
+		{
+			EnumDye dye = (EnumDye) variant;
+			// TODO: Doesn't seem to work. Must fix sometime.
+			makeSubstituteCraftingItem(new ItemStack(Items.dye, 1, dye.getColor().getDyeDamage()),
+					GenesisItems.ceramic_bowls.getStack(dye));
+		}
 	}
 }

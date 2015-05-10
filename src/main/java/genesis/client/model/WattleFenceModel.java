@@ -36,7 +36,7 @@ import genesis.metadata.EnumTree;
 import genesis.metadata.IMetadata;
 import genesis.metadata.TreeBlocksAndItems;
 import genesis.util.Constants;
-import genesis.util.ModelHelpers;
+import genesis.util.render.ModelHelpers;
 
 public class WattleFenceModel implements IModel, IMultiBakedModelOwner
 {
