@@ -1,7 +1,0 @@
-{
-    "parent": "block/cube_column",
-    "textures": {
-        "end": "genesis:blocks/rotten_log_psaronius_top",
-        "side": "genesis:blocks/rotten_log_psaronius"
-    }
-}
