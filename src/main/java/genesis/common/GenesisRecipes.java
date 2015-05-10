@@ -163,6 +163,8 @@ public final class GenesisRecipes
 
 	public static void addRecipes()
 	{
+		FuelHandler.initialize();
+		
 		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.red_clay), "CC", "CC", 'C', GenesisItems.red_clay_ball);
 		GameRegistry.addRecipe(new ItemStack(GenesisItems.red_clay_bowl), "C C", " C ", 'C', GenesisItems.red_clay_ball);
 		GameRegistry.addRecipe(new ItemStack(GenesisItems.red_clay_bucket), "X X", "X X", " X ", 'X', GenesisItems.red_clay_ball);
@@ -189,16 +191,8 @@ public final class GenesisRecipes
 
 		for (IMetadata variant : EnumDung.values())
 		{
-			GameRegistry.addRecipe(GenesisBlocks.dungs.getStack(GenesisBlocks.dungs.DUNG_BLOCK, variant), "CC", "CC", 'C', GenesisBlocks.dungs.getStack(GenesisBlocks.dungs.DUNG, variant));
+			GameRegistry.addRecipe(GenesisBlocks.dungs.getStack(DungBlocksAndItems.DUNG_BLOCK, variant), "CC", "CC", 'C', GenesisBlocks.dungs.getStack(GenesisBlocks.dungs.DUNG, variant));
 		}
-		
-		FuelHandler fuelHandler = FuelHandler.INSTANCE;
-		GameRegistry.registerFuelHandler(fuelHandler);
-		
-		int logBurnTime = TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.log));
-		
-		fuelHandler.setBurnTime(GenesisBlocks.dungs.getStack(GenesisBlocks.dungs.DUNG), logBurnTime, true);
-		fuelHandler.setBurnTime(GenesisBlocks.dungs.getStack(GenesisBlocks.dungs.DUNG_BLOCK), logBurnTime * 4, true);
 		
 		CookingPotRecipeRegistry.registerShapeless(new ItemStack(GenesisItems.cooked_tyrannosaurus),
 				new ItemStack(GenesisItems.tyrannosaurus), new ItemStack(GenesisItems.eryops_leg));

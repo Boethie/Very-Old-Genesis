@@ -220,7 +220,7 @@ public class VariantsOfTypesCombo
 			return this;
 		}
 		
-		public void afterConstructed(Block block, Item item, List<IMetadata> variants)
+		public void afterConstructed(B block, I item, List<IMetadata> variants)
 		{
 			if (tab != null)
 			{
@@ -236,7 +236,7 @@ public class VariantsOfTypesCombo
 			}
 		}
 		
-		public void afterRegistered(Block block, Item item)
+		public void afterRegistered(B block, I item)
 		{
 		}
 		

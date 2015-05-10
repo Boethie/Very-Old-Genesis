@@ -94,20 +94,23 @@ public final class GenesisBlocks
 	
 	/* Misc */
 	public static final BlockGenesis prototaxites = new BlockPrototaxites().setUnlocalizedName("prototaxites");
-	public static final VariantsCombo<BlockGenesisVariants, ItemBlockMulti> corals = new VariantsCombo(new ObjectType<BlockGenesisVariants, ItemBlockMulti>("coral", BlockGenesisVariants.class, null)
-			{
-				@Override
-				public void afterConstructed(Block block, Item item, List<IMetadata> variants)
+	public static final VariantsCombo<BlockGenesisVariants, ItemBlockMulti> corals =
+			new VariantsCombo(
+				new ObjectType<BlockGenesisVariants, ItemBlockMulti>("coral", BlockGenesisVariants.class, null)
 				{
-					super.afterConstructed(block, item, variants);
-					
-					block.setHardness(0.75F);
-					block.setResistance(8.5F);
-					block.setStepSound(GenesisSounds.CORAL);
-				}
-			}.setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE)
-			.setCreativeTab(GenesisCreativeTabs.DECORATIONS)
-			.setBlockArguments(Material.coral), EnumCoral.values());
+					@Override
+					public void afterConstructed(BlockGenesisVariants block, ItemBlockMulti item, List<IMetadata> variants)
+					{
+						super.afterConstructed(block, item, variants);
+						
+						block.setHardness(0.75F);
+						block.setResistance(8.5F);
+						block.setStepSound(GenesisSounds.CORAL);
+					}
+				}.setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE)
+				.setCreativeTab(GenesisCreativeTabs.DECORATIONS)
+				.setBlockArguments(Material.coral),
+			EnumCoral.values());
 	public static final DungBlocksAndItems dungs = new DungBlocksAndItems();
 	public static final BlockGenesisTorch calamites_torch = new BlockGenesisTorch().setUnlocalizedName("calamitesTorch");
 
