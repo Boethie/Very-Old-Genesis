@@ -14,7 +14,7 @@ import net.minecraft.item.*;
  * 
  * @author Zaggy1024
  */
-public class VariantsCombo<V extends IMetadata, B extends Block, I extends Item> extends VariantsOfTypesCombo<V>
+public class VariantsCombo<V extends IMetadata, B extends Block, I extends Item> extends VariantsOfTypesCombo<ObjectType<B, I>, V>
 {
 	public final ObjectType<B, I> soleType;
 	

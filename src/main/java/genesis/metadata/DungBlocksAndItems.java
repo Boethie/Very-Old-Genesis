@@ -18,7 +18,7 @@ import genesis.item.ItemMulti;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.FuelHandler;
 
-public class DungBlocksAndItems extends VariantsOfTypesCombo<EnumDung>
+public class DungBlocksAndItems extends VariantsOfTypesCombo<ObjectType, EnumDung>
 {
 	public static final ObjectType<BlockGenesisVariants, ItemBlockMulti> DUNG_BLOCK =
 			new ObjectType<BlockGenesisVariants, ItemBlockMulti>("dung_block", "dung", BlockGenesisVariants.class, null)

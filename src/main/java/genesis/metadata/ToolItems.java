@@ -1,5 +1,8 @@
 package genesis.metadata;
 
+import genesis.metadata.VariantsOfTypesCombo.*;
+import genesis.metadata.ToolItems.*;
+
 import java.util.*;
 
 import com.google.common.base.Function;
@@ -12,7 +15,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.*;
 import genesis.metadata.ToolTypes.ToolType;
 
-public class ToolItems extends VariantsOfTypesCombo<ToolType>
+public class ToolItems extends VariantsOfTypesCombo<ToolObjectType, ToolType>
 {
 	public static class ToolObjectType<I extends Item> extends ObjectType<Block, I>
 	{
@@ -115,18 +118,27 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 		EnumToolQuality quality = type.getSoleQuality();
 		return getStack(type, ToolTypes.getToolHead(material, quality));
 	}
-	
+
+	/**
+	 * Get an item stack containing the tool item with the specified tool type (with only one quality level), and the tool material.
+	 */
 	public ItemStack getStack(ToolObjectTypeSoleQuality type, EnumToolMaterial material)
 	{
 		return getStack(type, material, 1);
 	}
 	
-	public ItemStack getStack(ObjectType type, EnumToolMaterial material, EnumToolQuality quality, int stackSize)
+	/**
+	 * Get an item stack containing the tool item of the specified tool type, material and quality.
+	 */
+	public ItemStack getStack(ToolObjectType type, EnumToolMaterial material, EnumToolQuality quality, int stackSize)
 	{
 		return getStack(type, ToolTypes.getToolHead(material, quality), stackSize);
 	}
-	
-	public ItemStack getStack(ObjectType type, EnumToolMaterial material, EnumToolQuality quality)
+
+	/**
+	 * Get an item stack containing the tool item of the specified tool type, material and quality.
+	 */
+	public ItemStack getStack(ToolObjectType type, EnumToolMaterial material, EnumToolQuality quality)
 	{
 		return getStack(type, material, quality, 1);
 	}

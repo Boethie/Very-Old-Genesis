@@ -1,12 +1,14 @@
 package genesis.metadata;
 
+import genesis.metadata.VariantsOfTypesCombo.*;
+
 import java.util.*;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import genesis.item.*;
 
-public class ItemsCeramicBowls extends VariantsOfTypesCombo<IMetadata>
+public class ItemsCeramicBowls extends VariantsOfTypesCombo<ObjectType, IMetadata>
 {
 	public static enum EnumCeramicBowls implements IMetadata
 	{

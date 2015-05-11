@@ -4,6 +4,7 @@ import genesis.block.*;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.*;
 import genesis.util.*;
+import genesis.metadata.VariantsOfTypesCombo.*;
 
 import java.util.*;
 
@@ -15,7 +16,7 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.*;
 
-public class TreeBlocksAndItems extends VariantsOfTypesCombo<EnumTree>
+public class TreeBlocksAndItems extends VariantsOfTypesCombo<ObjectType, EnumTree>
 {
 	public static final ObjectType<BlockGenesisLogs, ItemBlockMulti> LOG = new ObjectType("log", BlockGenesisLogs.class, null);
 	public static final ObjectType<BlockGenesisSaplings, ItemBlockMulti> SAPLING = new ObjectType<BlockGenesisSaplings, ItemBlockMulti>("sapling", BlockGenesisSaplings.class, null)

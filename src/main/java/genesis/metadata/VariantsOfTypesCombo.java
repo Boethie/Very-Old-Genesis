@@ -5,6 +5,7 @@ import genesis.common.*;
 import genesis.item.*;
 import genesis.util.*;
 import genesis.util.ReflectionHelper;
+import genesis.metadata.VariantsOfTypesCombo.*;
 
 import java.lang.annotation.*;
 import java.lang.reflect.*;
@@ -29,7 +30,7 @@ import net.minecraftforge.fml.relauncher.*;
  * 
  * @author Zaggy1024
  */
-public class VariantsOfTypesCombo<V extends IMetadata>
+public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 {
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target({ElementType.METHOD, ElementType.FIELD})
@@ -42,7 +43,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	{
 		public int value();
 	}
-
+	
 	public static enum ObjectNamePosition {
 		PREFIX, POSTFIX, NONE;
 	}
@@ -338,10 +339,10 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	/**
 	 * Map of Block/Item types to a map of variants to the block/item itself.
 	 */
-	protected final HashBiTable<ObjectType, V, VariantData> entryMap = new HashBiTable();
-	public final List<ObjectType> types;
+	protected final HashBiTable<O, V, VariantData> entryMap = new HashBiTable();
+	public final List<O> types;
 	public final List<V> variants;
-	public final HashSet<ObjectType> registeredTypes = new HashSet();
+	public final HashSet<O> registeredTypes = new HashSet();
 	
 	/**
 	 * Creates a {@link #VariantsOfTypesCombo} with each {@link #Block}/{@link #Item} represented by the list of {@link #ObjectType},
@@ -360,14 +361,14 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	 * @param types The list of {@link #ObjectType} definitions of the {@code Block} and {@code Item} classes to store.
 	 * @param variants The {@link #IMetadata} representations of the variants to store for each Block/Item.
 	 */
-	public VariantsOfTypesCombo(List<ObjectType> types, List<V> variants)
+	public VariantsOfTypesCombo(List<O> types, List<V> variants)
 	{
 		this.variants = variants;
 		this.types = types;
 		
 		try
 		{
-			for (final ObjectType type : types)
+			for (final O type : types)
 			{
 				Class<? extends Block> blockClass = type.getBlockClass();
 				Class<? extends Item> itemClass = type.getItemClass();
@@ -476,7 +477,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 		}
 	}
 	
-	public VariantsOfTypesCombo(ObjectType[] objectTypes, V[] variants)
+	public VariantsOfTypesCombo(O[] objectTypes, V[] variants)
 	{
 		this(Arrays.asList(objectTypes), Arrays.asList(variants));
 	}
@@ -484,7 +485,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	/**
 	 * Registers all the variants of this {@link #ObjectType}.
 	 */
-	public void registerVariants(final ObjectType type)
+	public void registerVariants(final O type)
 	{
 		if (!registeredTypes.add(type))
 		{
@@ -591,7 +592,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	 */
 	public void registerAll()
 	{
-		for (ObjectType type : types)
+		for (O type : types)
 		{
 			registerVariants(type);
 		}
@@ -627,7 +628,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	/**
 	 * Gets the VariantEntry.Value containing the all the information about this variant and its Block and Item.
 	 */
-	public VariantData getVariantEntry(ObjectType type, V variant)
+	public VariantData getVariantEntry(O type, V variant)
 	{
 		if (!entryMap.containsRow(type))
 		{
@@ -649,7 +650,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	 */
 	public <B extends Block> B getBlock(ObjectType<B, ? extends Item> type, V variant)
 	{
-		return (B) getVariantEntry(type, variant).block;
+		return (B) getVariantEntry((O) type, variant).block;
 	}
 	
 	/**
@@ -659,7 +660,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	{
 		HashSet<B> out = new HashSet();
 		
-		for (V variant : getValidVariants(type))
+		for (V variant : getValidVariants((O) type))
 		{
 			out.add(getBlock(type, variant));
 		}
@@ -672,7 +673,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	 */
 	public <I extends Item> I getItem(ObjectType<? extends Block, I> type, V variant)
 	{
-		return (I) getVariantEntry(type, variant).item;
+		return (I) getVariantEntry((O) type, variant).item;
 	}
 	
 	/**
@@ -682,7 +683,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	{
 		HashSet<I> out = new HashSet();
 		
-		for (V variant : getValidVariants(type))
+		for (V variant : getValidVariants((O) type))
 		{
 			out.add(getItem(type, variant));
 		}
@@ -693,7 +694,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	/**
 	 * Gets an IBlockState for the specified Block variant in this combo.
 	 */
-	public IBlockState getBlockState(ObjectType type, V variant)
+	public IBlockState getBlockState(O type, V variant)
 	{
 		VariantData entry = getVariantEntry(type, variant);
 		Block block = entry.block;
@@ -706,7 +707,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 		throw new IllegalArgumentException("Variant " + variant.getName() + " of " + ObjectType.class.getSimpleName() + " " + type.getName() + " does not include a Block instance.");
 	}
 	
-	public BiTable.Key<ObjectType, V> getVariantKey(Item item, int meta)
+	public BiTable.Key<O, V> getVariantKey(Item item, int meta)
 	{
 		VariantKey valueKey = new VariantKey(item, meta);
 		return entryMap.getKey(valueKey);
@@ -717,7 +718,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	 */
 	public V getVariant(Item item, int meta)
 	{
-		BiTable.Key<ObjectType, V> tableKey = getVariantKey(item, meta);
+		BiTable.Key<O, V> tableKey = getVariantKey(item, meta);
 		
 		if (tableKey != null)
 		{
@@ -738,7 +739,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	/**
 	 * Gets a random IBlockState for the specified {@link #ObjectType}.
 	 */
-	public IBlockState getRandomBlockState(ObjectType type, Random rand)
+	public IBlockState getRandomBlockState(O type, Random rand)
 	{
 		List<V> variants = getValidVariants(type);
 		
@@ -748,7 +749,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	/**
 	 * Gets a stack of the specified Item in this combo with the specified stack size.
 	 */
-	public ItemStack getStack(ObjectType type, V variant, int stackSize)
+	public ItemStack getStack(O type, V variant, int stackSize)
 	{
 		VariantData entry = getVariantEntry(type, variant);
 		
@@ -767,7 +768,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	/**
 	 * Gets a stack of the specified Item in this combo.
 	 */
-	public ItemStack getStack(ObjectType type, V variant)
+	public ItemStack getStack(O type, V variant)
 	{
 		return getStack(type, variant, 1);
 	}
@@ -775,7 +776,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	/**
 	 * Gets a stack of the specified Item in this combo.
 	 */
-	public ItemStack getStack(ObjectType type)
+	public ItemStack getStack(O type)
 	{
 		return getStack(type, getValidVariants(type).get(0), 1);
 	}
@@ -783,7 +784,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	/**
 	 * Gets the metadata used to get the Item of this {@link #ObjectType} and variant.
 	 */
-	public int getMetadata(ObjectType type, V variant)
+	public int getMetadata(O type, V variant)
 	{
 		VariantKey entry = getVariantEntry(type, variant);
 		
@@ -795,7 +796,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	 * 
 	 * @return {@literal List<IMetadata>} containing all the variants this object can be.
 	 */
-	public List<V> getValidVariants(ObjectType type)
+	public List<V> getValidVariants(O type)
 	{
 		return type.getValidVariants(new ArrayList(variants));
 	}
@@ -805,7 +806,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	 * 
 	 * @return {@literal List<ItemStack>} containing all sub-items for this Block or Item.
 	 */
-	public List<ItemStack> fillSubItems(ObjectType objectType, List<V> variants, List<ItemStack> listToFill, Set<V> exclude)
+	public List<ItemStack> fillSubItems(O objectType, List<V> variants, List<ItemStack> listToFill, Set<V> exclude)
 	{
 		for (V variant : variants)
 		{
@@ -823,7 +824,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	 * 
 	 * @return {@literal List<ItemStack>} containing all sub-items for this Block or Item.
 	 */
-	public List<ItemStack> fillSubItems(ObjectType objectType, List<V> variants, List<ItemStack> listToFill, V... exclude)
+	public List<ItemStack> fillSubItems(O objectType, List<V> variants, List<ItemStack> listToFill, V... exclude)
 	{
 		return fillSubItems(objectType, variants, listToFill, Sets.newHashSet(exclude));
 	}
@@ -833,7 +834,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	 * {@link #fillSubItems(ObjectType, List, List, T[]) fillSubItems(ObjectType objectType, List&lt;IMetadata&gt; variants, List&lt;ItemStack&gt; listToFill, IMetadata... exclude)}
 	 * to create a new list.
 	 */
-	public List<ItemStack> getSubItems(ObjectType objectType, List<V> variants)
+	public List<ItemStack> getSubItems(O objectType, List<V> variants)
 	{
 		return fillSubItems(objectType, variants, new ArrayList<ItemStack>());
 	}
@@ -841,7 +842,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	/**
 	 * Gets all sub-items for the {@link ObjectType} {@code objectType}.
 	 */
-	public List<ItemStack> getSubItems(ObjectType objectType)
+	public List<ItemStack> getSubItems(O objectType)
 	{
 		return getSubItems(objectType, getValidVariants(objectType));
 	}
