@@ -5,9 +5,8 @@ import java.util.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import genesis.item.*;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType.ObjectNamePosition;
 
-public class ItemsCeramicBowls extends VariantsOfTypesCombo
+public class ItemsCeramicBowls extends VariantsOfTypesCombo<IMetadata>
 {
 	public static enum EnumCeramicBowls implements IMetadata
 	{

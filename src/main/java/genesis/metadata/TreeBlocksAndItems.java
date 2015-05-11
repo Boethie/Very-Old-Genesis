@@ -15,7 +15,7 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.*;
 
-public class TreeBlocksAndItems extends VariantsOfTypesCombo
+public class TreeBlocksAndItems extends VariantsOfTypesCombo<EnumTree>
 {
 	public static final ObjectType<BlockGenesisLogs, ItemBlockMulti> LOG = new ObjectType("log", BlockGenesisLogs.class, null);
 	public static final ObjectType<BlockGenesisSaplings, ItemBlockMulti> SAPLING = new ObjectType<BlockGenesisSaplings, ItemBlockMulti>("sapling", BlockGenesisSaplings.class, null)
@@ -41,7 +41,7 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo
 	{
 		super(new ObjectType[]{LOG, SAPLING, LEAVES, BILLET, WATTLE_FENCE, ROTTEN_LOG}, EnumTree.values());
 
-		for (IMetadata variant : getValidVariants(BILLET))
+		for (EnumTree variant : getValidVariants(BILLET))
 		{
 			ItemStack logStack = getStack(LOG, variant, 1);
 			ItemStack billetStack = getStack(BILLET, variant, 4);

@@ -83,13 +83,13 @@ public class BlockGenesisLeaves extends BlockLeaves
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return owner.getMetadata(type, (IMetadata) state.getValue(variantProp));
+		return owner.getMetadata(type, (EnumTree) state.getValue(variantProp));
 	}
 	
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos)
 	{
-		return owner.getStack(type, (IMetadata) world.getBlockState(pos).getValue(variantProp));
+		return owner.getStack(type, (EnumTree) world.getBlockState(pos).getValue(variantProp));
 	}
 	
 	@Override
@@ -102,13 +102,13 @@ public class BlockGenesisLeaves extends BlockLeaves
 	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune)
 	{
 		ArrayList<ItemStack> drops = new ArrayList();
-		drops.add(owner.getStack(type, (IMetadata) world.getBlockState(pos).getValue(variantProp)));
+		drops.add(owner.getStack(type, (EnumTree) world.getBlockState(pos).getValue(variantProp)));
 		return drops;
 	}
 	
 	protected ItemStack getSapling(IBlockAccess world, BlockPos pos, IBlockState state)
 	{
-		return owner.getStack(owner.SAPLING, (IMetadata) state.getValue(variantProp));
+		return owner.getStack(owner.SAPLING, (EnumTree) state.getValue(variantProp));
 	}
 	
 	@Override

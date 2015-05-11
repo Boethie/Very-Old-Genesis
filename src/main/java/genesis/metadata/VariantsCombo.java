@@ -4,7 +4,7 @@ import java.util.*;
 
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType.ObjectNamePosition;
+import genesis.metadata.VariantsOfTypesCombo.ObjectNamePosition;
 import net.minecraft.block.*;
 import net.minecraft.block.state.*;
 import net.minecraft.item.*;
@@ -14,7 +14,7 @@ import net.minecraft.item.*;
  * 
  * @author Zaggy1024
  */
-public class VariantsCombo<B extends Block, I extends Item> extends VariantsOfTypesCombo
+public class VariantsCombo<V extends IMetadata, B extends Block, I extends Item> extends VariantsOfTypesCombo<V>
 {
 	public final ObjectType<B, I> soleType;
 	
@@ -24,7 +24,7 @@ public class VariantsCombo<B extends Block, I extends Item> extends VariantsOfTy
 	 * @param objectType The sole ObjectType that this VariantsCombo will use.
 	 * @param itemClass the Item class to initialize for each variant.
 	 */
-	public VariantsCombo(final ObjectType<B, I> objectType, List<IMetadata> variants)
+	public VariantsCombo(final ObjectType<B, I> objectType, List<V> variants)
 	{
 		super(new ArrayList(){{ add(objectType); }}, variants);
 		
@@ -37,7 +37,7 @@ public class VariantsCombo<B extends Block, I extends Item> extends VariantsOfTy
 	 * @param objectType The sole ObjectType that this VariantsCombo will use.
 	 * @param itemClass the Item class to initialize for each variant.
 	 */
-	public VariantsCombo(ObjectType<B, I> objectType, IMetadata[] variants)
+	public VariantsCombo(ObjectType<B, I> objectType, V[] variants)
 	{
 		this(objectType, Arrays.asList(variants));
 	}
@@ -50,9 +50,9 @@ public class VariantsCombo<B extends Block, I extends Item> extends VariantsOfTy
 	 * @param blockClass The Block class to initialize for each variant.
 	 * @param itemClass the Item class to initialize for each variant.
 	 */
-	public VariantsCombo(String name, String unlocalizedName, Class<? extends B> blockClass, Class<? extends Item> itemClass, IMetadata[] variants)
+	public VariantsCombo(String name, String unlocalizedName, Class<? extends B> blockClass, Class<? extends I> itemClass, V[] variants)
 	{
-		this(new ObjectType(name, unlocalizedName, blockClass, itemClass), variants);
+		this(new ObjectType<B, I>(name, unlocalizedName, blockClass, itemClass), variants);
 	}
 	
 	/**
@@ -62,7 +62,7 @@ public class VariantsCombo<B extends Block, I extends Item> extends VariantsOfTy
 	 * @param blockClass The Block class to initialize for each variant.
 	 * @param itemClass the Item class to initialize for each variant.
 	 */
-	public VariantsCombo(String name, Class<? extends B> blockClass, Class<? extends Item> itemClass, IMetadata[] variants)
+	public VariantsCombo(String name, Class<? extends B> blockClass, Class<? extends I> itemClass, V[] variants)
 	{
 		this(name, name, blockClass, itemClass, variants);
 	}
@@ -74,7 +74,7 @@ public class VariantsCombo<B extends Block, I extends Item> extends VariantsOfTy
 	 *  
 	 * @param name The name to attach to each variant (i.e. "ore", to result in "variant_ore").
 	 */
-	public VariantsCombo(String name, String unlocalizedName, IMetadata[] variants)
+	public VariantsCombo(String name, String unlocalizedName, V[] variants)
 	{
 		this(name, unlocalizedName, null, null, variants);
 	}
@@ -86,7 +86,7 @@ public class VariantsCombo<B extends Block, I extends Item> extends VariantsOfTy
 	 *  
 	 * @param name The name to attach to each variant (i.e. "ore", to result in "variant_ore").
 	 */
-	public VariantsCombo(String name, IMetadata[] variants)
+	public VariantsCombo(String name, V[] variants)
 	{
 		this(name, name, variants);
 	}
@@ -94,7 +94,7 @@ public class VariantsCombo<B extends Block, I extends Item> extends VariantsOfTy
 	/**
 	 * Gets a stack of the specified Item in this combo.
 	 */
-	public ItemStack getStack(IMetadata variant, int stackSize)
+	public ItemStack getStack(V variant, int stackSize)
 	{
 		return getStack(soleType, variant, stackSize);
 	}
@@ -102,7 +102,7 @@ public class VariantsCombo<B extends Block, I extends Item> extends VariantsOfTy
 	/**
 	 * Gets a stack of the specified Item in this combo.
 	 */
-	public ItemStack getStack(IMetadata variant)
+	public ItemStack getStack(V variant)
 	{
 		return getStack(variant, 1);
 	}
@@ -110,7 +110,7 @@ public class VariantsCombo<B extends Block, I extends Item> extends VariantsOfTy
 	/**
 	 * Gets the metadata used to get the Item of this variant.
 	 */
-	public int getMetadata(IMetadata variant)
+	public int getMetadata(V variant)
 	{
 		return getMetadata(soleType, variant);
 	}
@@ -126,7 +126,7 @@ public class VariantsCombo<B extends Block, I extends Item> extends VariantsOfTy
 	/**
 	 * Gets the valid variants for this combo's sole {@link #ObjectType}.
 	 */
-	public List<IMetadata> getValidVariants()
+	public List<V> getValidVariants()
 	{
 		return getValidVariants(soleType);
 	}
@@ -134,7 +134,7 @@ public class VariantsCombo<B extends Block, I extends Item> extends VariantsOfTy
 	/**
 	 * Gets the list of Blocks for this combo's sole {@link #ObjectType}.
 	 */
-	public B getBlock(IMetadata variant)
+	public B getBlock(V variant)
 	{
 		return super.getBlock(soleType, variant);
 	}

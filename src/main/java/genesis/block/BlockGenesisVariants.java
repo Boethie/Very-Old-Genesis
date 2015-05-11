@@ -17,7 +17,7 @@ import net.minecraft.item.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 
-public class BlockGenesisVariants<T extends IMetadata, S extends VariantsOfTypesCombo> extends Block
+public class BlockGenesisVariants<V extends IMetadata, C extends VariantsOfTypesCombo> extends Block
 {
 	/**
 	 * Used in BlocksAndItemsWithVariantsOfTypes.
@@ -28,17 +28,17 @@ public class BlockGenesisVariants<T extends IMetadata, S extends VariantsOfTypes
 		return new IProperty[]{};
 	}
 	
-	public final S owner;
-	public final ObjectType<BlockGenesisVariants<T, S>, ItemBlockMulti> type;
+	public final C owner;
+	public final ObjectType<BlockGenesisVariants<V, C>, ItemBlockMulti> type;
 	
-	public final List<T> variants;
+	public final List<V> variants;
 	public final PropertyIMetadata variantProp;
 	
-	protected final HashSet<T> noItemVariants = new HashSet();
+	protected final HashSet<V> noItemVariants = new HashSet();
 	
 	protected final ArrayList<RandomVariantDrop> drops = new ArrayList();
 	
-	public BlockGenesisVariants(List<T> variants, S owner, ObjectType<BlockGenesisVariants<T, S>, ItemBlockMulti> type, Material material)
+	public BlockGenesisVariants(List<V> variants, C owner, ObjectType<BlockGenesisVariants<V, C>, ItemBlockMulti> type, Material material)
 	{
 		super(material);
 		
@@ -116,7 +116,7 @@ public class BlockGenesisVariants<T extends IMetadata, S extends VariantsOfTypes
     public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
     {
 		ArrayList<ItemStack> stackList = new ArrayList();
-		T variant = (T) state.getValue(variantProp);
+		V variant = (V) state.getValue(variantProp);
 		
 		if (!noItemVariants.contains(variant))
 		{
@@ -139,6 +139,6 @@ public class BlockGenesisVariants<T extends IMetadata, S extends VariantsOfTypes
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return owner.getMetadata(type, (T) state.getValue(variantProp));
+		return owner.getMetadata(type, (V) state.getValue(variantProp));
 	}
 }

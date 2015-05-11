@@ -96,13 +96,13 @@ public class WattleFenceModel implements IModel, IMultiBakedModelOwner
 	{
 		ArrayList<ResourceLocation> textures = new ArrayList<ResourceLocation>();
 		
-		for (IMetadata variant : GenesisBlocks.trees.getValidVariants(TreeBlocksAndItems.WATTLE_FENCE))
+		for (EnumTree variant : GenesisBlocks.trees.getValidVariants(TreeBlocksAndItems.WATTLE_FENCE))
 		{
 			IBlockState blockState = GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.WATTLE_FENCE, variant);
-
+			
 			ModelResourceLocation loc = ModelHelpers.getLocationFromState(blockState);
 			loc = new ModelResourceLocation(loc.getResourceDomain() + ":block/" + loc.getResourcePath() + "#" + loc.getVariant());
-
+			
 			textures.addAll(ModelHelpers.getLoadedModel(loc).getTextures());
 		}
 		

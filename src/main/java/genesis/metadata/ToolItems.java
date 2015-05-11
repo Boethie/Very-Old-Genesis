@@ -11,9 +11,8 @@ import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.*;
 import genesis.metadata.ToolTypes.ToolType;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType.ObjectNamePosition;
 
-public class ToolItems extends VariantsOfTypesCombo
+public class ToolItems extends VariantsOfTypesCombo<ToolType>
 {
 	public static class ToolObjectType<I extends Item> extends ObjectType<Block, I>
 	{
@@ -111,33 +110,15 @@ public class ToolItems extends VariantsOfTypesCombo
 		super(new ToolObjectType[]{PEBBLE, PICK_HEAD, AXE_HEAD, KNIFE_HEAD, SPEAR_HEAD, ARROW_HEAD, POINT_FLAKE}, ToolTypes.getAll());
 	}
 	
-	@Override
-	public ItemStack getStack(ObjectType type, IMetadata variant, int stackSize)
+	public ItemStack getStack(ToolObjectTypeSoleQuality type, EnumToolMaterial material, int stackSize)
 	{
-		ToolObjectType toolType = ((ToolObjectType) type);
-		
-		if (variant instanceof ToolType)
-		{
-			return super.getStack(type, variant, stackSize);
-		}
-		
-		if (variant instanceof EnumToolMaterial)
-		{
-			if (toolType instanceof ToolObjectTypeSoleQuality)
-			{
-				EnumToolMaterial material = (EnumToolMaterial) variant;
-				EnumToolQuality quality = ((ToolObjectTypeSoleQuality) toolType).getSoleQuality();
-				return getStack(type, ToolTypes.getToolHead(material, quality));
-			}
-			else
-			{
-				throw new RuntimeException("Attempted to get a stack using an EnumToolMaterial on a non-ToolObjectTypeSoleQuality.\n" +
-						getIdentification());
-			}
-		}
-
-		throw new RuntimeException("Invalid variant.\n" +
-				getIdentification());
+		EnumToolQuality quality = type.getSoleQuality();
+		return getStack(type, ToolTypes.getToolHead(material, quality));
+	}
+	
+	public ItemStack getStack(ToolObjectTypeSoleQuality type, EnumToolMaterial material)
+	{
+		return getStack(type, material, 1);
 	}
 	
 	public ItemStack getStack(ObjectType type, EnumToolMaterial material, EnumToolQuality quality, int stackSize)
@@ -148,11 +129,5 @@ public class ToolItems extends VariantsOfTypesCombo
 	public ItemStack getStack(ObjectType type, EnumToolMaterial material, EnumToolQuality quality)
 	{
 		return getStack(type, material, quality, 1);
-	}
-	
-	@Override
-	public ItemStack getStack(ObjectType type, IMetadata variant)
-	{
-		return getStack(type, variant, 1);
 	}
 }

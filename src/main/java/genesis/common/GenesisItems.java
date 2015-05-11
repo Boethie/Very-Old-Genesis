@@ -2,8 +2,7 @@ package genesis.common;
 
 import genesis.item.*;
 import genesis.metadata.*;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType.ObjectNamePosition;
+import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.Constants;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -21,8 +20,6 @@ public final class GenesisItems
 	public static final ItemGenesis octaedrite_shard = new ItemGenesis().setUnlocalizedName("octaedriteShard");
 	public static final ItemGenesis red_clay_bowl = new ItemGenesis().setUnlocalizedName("bowlRedClay");
 	public static final ItemsCeramicBowls ceramic_bowls = new ItemsCeramicBowls();
-	//public static final ItemGenesis ceramic_bowl = new ItemGenesis().setUnlocalizedName("bowlCeramic");
-	//public static final ItemGenesis ceramic_bowl_water = new ItemGenesis().setUnlocalizedName("bowlCeramic.water");
 	public static final ItemGenesis red_clay_bucket = new ItemGenesis().setUnlocalizedName("redClayBucket");
 	public static final VariantsCombo nodules = new VariantsCombo(new ObjectType("nodule", null, null).setNamePosition(ObjectNamePosition.PREFIX), EnumNodule.values());
 	public static final ItemGenesis quartz = new ItemGenesis().setUnlocalizedName("quartz");
@@ -37,7 +34,6 @@ public final class GenesisItems
 	public static final ItemGenesis sphenophyllum_fiber = new ItemGenesis().setUnlocalizedName("sphenophyllumFiber");
 	public static final ItemGenesis odontopteris_fiddlehead = new ItemGenesis().setUnlocalizedName("odontopterisFiddlehead");
 	public static final ItemGenesis prototaxites_flesh = new ItemGenesis().setUnlocalizedName("prototaxitesFlesh");
-	//public static final VariantsCombo dyes = new VariantsCombo(new ObjectType("dye", null, null).setNamePosition(ObjectNamePosition.PREFIX), EnumDye.values());
 	public static final ItemGenesis arthropleura_chitin = new ItemGenesis().setUnlocalizedName("arthropleuraChitin");
 	public static final ItemGenesis tyrannosaurus_saliva = new ItemGenesis().setUnlocalizedName("tyrannosaurusSaliva");
 	public static final ItemGenesis tyrannosaurus_tooth = new ItemGenesis().setUnlocalizedName("tyrannosaurusTooth");
