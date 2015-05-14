@@ -1,6 +1,10 @@
 genesis.multiItem.invalidMetadata.name=ยง4Invalid Sub-Item Metadata!
 
 #------------- Blocks -------------
+tile.genesis.dummyBlock.name=ยง4Useless Dummy Block!
+
+#Interactive blocks
+tile.genesis.campfire.name=Feu de camp
 
 #Building blocks
 tile.genesis.moss.name=Mousse
@@ -178,9 +182,24 @@ item.genesis.material.pebble.brownFlint.name=Galet de silex brun
 
 item.genesis.material.redClay.name=Argile rouge
 item.genesis.material.bowlRedClay.name=Bol en argile rouge
-item.genesis.material.bowlCeramic.name=Bol en céramique
-item.genesis.material.dye.calamitesYellow.name=Jaune de Calamites
-item.genesis.material.dye.odontopterisLime.name=Vert clair de crosse d'Odontopteris
+item.genesis.material.ceramicBowl.name=Bol en céramique
+item.genesis.material.ceramicBowl.water.name=Bol d'eau en céramique
+item.genesis.material.dye.white.name=Bol de teinture blanche
+item.genesis.material.dye.orange.name=Bol de teinture orange
+item.genesis.material.dye.magenta.name=Bol de teinture magenta
+item.genesis.material.dye.lightBlue.name=Bol de teinture bleu clair
+item.genesis.material.dye.yellow.name=Bol de teinture jaune
+item.genesis.material.dye.lime.name=Bol de teinture vert clair
+item.genesis.material.dye.pink.name=Bol de teinture rose
+item.genesis.material.dye.gray.name=Bol de teinture grise
+item.genesis.material.dye.silver.name=Bol de teinture gris clair
+item.genesis.material.dye.cyan.name=Bol de teinture cyan
+item.genesis.material.dye.purple.name=Bol de teinture violette
+item.genesis.material.dye.blue.name=Bol de teinture bleue
+item.genesis.material.dye.brown.name=Bol de teinture marron
+item.genesis.material.dye.green.name=Bol de teinture verte
+item.genesis.material.dye.red.name=Bol de teinture rouge
+item.genesis.material.dye.black.name=Bol de teinture noire
 item.genesis.material.redClayBucket.name=Seau en argile rouge
 
 item.genesis.material.octaedriteShard.name=Éclat d'octaédrite
@@ -215,6 +234,9 @@ item.genesis.material.tyrannosaurusTooth.name=Dent de Tyrannosaurus
 item.genesis.misc.ceramicBucket.name=Seau en céramique
 item.genesis.misc.ceramicBucketWater.name=Seau d'eau en céramique
 item.genesis.misc.ceramicBucketMilk.name=Seau de lait en céramique
+
+#------------- GUIs -------------
+container.genesis.campfire=Feu de camp
 
 #------------- Entities -------------
 

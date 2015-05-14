@@ -41,6 +41,11 @@ tile.genesis.log.cordaites.name=Cordaites Wood
 tile.genesis.log.psaronius.name=Psaronius Wood
 tile.genesis.log.araucarioxylon.name=Araucarioxylon Wood
 
+tile.genesis.calamitesBundle.name=Bundle of Calamites
+tile.genesis.prototaxitesMycelium.name=Prototaxites Mycelium
+tile.genesis.dung.brachiosaurus.name=Brachiosaurus Dung
+tile.genesis.dung.tyrannosaurus.name=Tyrannosaurus Dung
+
 #Decoration
 tile.genesis.log.rotten.archaeopteris.name=Rotten Archaeopteris Wood
 tile.genesis.log.rotten.sigillaria.name=Rotten Sigillaria Wood
@@ -68,11 +73,6 @@ tile.genesis.wattleFence.lepidodendron.name=Lepidodendron Wattle Fence
 tile.genesis.wattleFence.cordaites.name=Cordaites Wattle Fence
 tile.genesis.wattleFence.araucarioxylon.name=Araucarioxylon Wattle Fence
 
-tile.genesis.calamitesBundle.name=Bundle of Calamites
-tile.genesis.prototaxitesMycelium.name=Prototaxites Mycelium
-tile.genesis.prototaxites.name=Prototaxites
-tile.genesis.dung.brachiosaurus.name=Brachiosaurus Dung
-tile.genesis.dung.tyrannosaurus.name=Tyrannosaurus Dung
 tile.genesis.calamitesTorch.name=Calamites Torch
 
 tile.genesis.plant.cooksonia.name=Cooksonia
@@ -92,6 +92,10 @@ tile.genesis.fern.astralopteris.name=Astralopteris
 tile.genesis.fern.matonidium.name=Matonidium
 
 tile.genesis.crop.zingiberopsis.name=Zingiberopsis
+
+tile.genesis.prototaxites.name=Prototaxites
+
+tile.genesis.cobbania.name=Cobbania
 
 tile.genesis.aquaticPlant.bangiomorpha.name=Bangiomorpha
 tile.genesis.aquaticPlant.marpolia.name=Marpolia
@@ -113,8 +117,6 @@ tile.genesis.coral.favosites.name=Favosites
 tile.genesis.coral.heliolites.name=Heliolites
 tile.genesis.coral.halysites.name=Halysites
 
-tile.genesis.cobbania.name=Cobbania
-
 #------------- Items -------------
 #Food
 item.genesis.food.zingiberopsisRhizome.name=Zingiberopsis Rhizome
@@ -127,6 +129,48 @@ item.genesis.food.eryopsLegRaw.name=Raw Eryops Leg
 item.genesis.food.eryopsLegCooked.name=Cooked Eryops Leg
 item.genesis.food.tyrannosaurusRaw.name=Raw Tyrannosaurus
 item.genesis.food.tyrannosaurusCooked.name=Cooked Tyrannosaurus
+
+#Tools
+item.genesis.tool.quality.chipped=Chipped
+item.genesis.tool.quality.polished=Polished
+item.genesis.tool.quality.sharpened=Sharpened
+
+item.genesis.material.toolHead.pick.granite.name=Granite Pick Head
+item.genesis.material.toolHead.pick.rhyolite.name=Rhyolite Pick Head
+item.genesis.material.toolHead.pick.quartzite.name=Quartzite Pick Head
+item.genesis.material.toolHead.pick.dolerite.name=Dolerite Pick Head
+item.genesis.material.toolHead.pick.brownFlint.name=Brown Flint Pick Head
+
+item.genesis.material.toolHead.axe.granite.name=Granite Axe Head
+item.genesis.material.toolHead.axe.rhyolite.name=Rhyolite Axe Head
+item.genesis.material.toolHead.axe.quartzite.name=Quartzite Axe Head
+item.genesis.material.toolHead.axe.dolerite.name=Dolerite Axe Head
+item.genesis.material.toolHead.axe.brownFlint.name=Brown Flint Axe Head
+
+item.genesis.material.toolHead.knife.granite.name=Granite Knife Head
+item.genesis.material.toolHead.knife.rhyolite.name=Rhyolite Knife Head
+item.genesis.material.toolHead.knife.quartzite.name=Quartzite Knife Head
+item.genesis.material.toolHead.knife.dolerite.name=Dolerite Knife Head
+item.genesis.material.toolHead.knife.brownFlint.name=Brown Flint Knife Head
+
+item.genesis.material.toolHead.spear.granite.name=Granite Spear Head
+item.genesis.material.toolHead.spear.rhyolite.name=Rhyolite Spear Head
+item.genesis.material.toolHead.spear.quartzite.name=Quartzite Spear Head
+item.genesis.material.toolHead.spear.dolerite.name=Dolerite Spear Head
+item.genesis.material.toolHead.spear.brownFlint.name=Brown Flint Spear Head
+
+item.genesis.material.toolHead.arrow.granite.name=Granite Arrow Head
+item.genesis.material.toolHead.arrow.rhyolite.name=Rhyolite Arrow Head
+item.genesis.material.toolHead.arrow.quartzite.name=Quartzite Arrow Head
+item.genesis.material.toolHead.arrow.dolerite.name=Dolerite Arrow Head
+item.genesis.material.toolHead.arrow.brownFlint.name=Brown Flint Arrow Head
+
+item.genesis.material.pointFlake.granite.name=Granite Point Flake
+item.genesis.material.pointFlake.rhyolite.name=Rhyolite Point Flake
+item.genesis.material.pointFlake.quartzite.name=Quartzite Point Flake
+item.genesis.material.pointFlake.dolerite.name=Dolerite Point Flake
+item.genesis.material.pointFlake.brownFlint.name=Brown Flint Point Flake
+
 item.genesis.tool.flintAndMarcasite.name=Flint and Marcasite
 
 #Materials
@@ -185,47 +229,6 @@ item.genesis.material.dung.tyrannosaurus.name=Tyrannosaurus Dung
 item.genesis.material.arthropleuraChitin.name=Arthropleura Chitin
 item.genesis.material.tyrannosaurusSaliva.name=Tyrannosaurus Saliva
 item.genesis.material.tyrannosaurusTooth.name=Tyrannosaurus Tooth
-
-#Tools
-item.genesis.tool.quality.chipped=Chipped
-item.genesis.tool.quality.polished=Polished
-item.genesis.tool.quality.sharpened=Sharpened
-
-item.genesis.material.toolHead.pick.granite.name=Granite Pick Head
-item.genesis.material.toolHead.pick.rhyolite.name=Rhyolite Pick Head
-item.genesis.material.toolHead.pick.quartzite.name=Quartzite Pick Head
-item.genesis.material.toolHead.pick.dolerite.name=Dolerite Pick Head
-item.genesis.material.toolHead.pick.brownFlint.name=Brown Flint Pick Head
-
-item.genesis.material.toolHead.axe.granite.name=Granite Axe Head
-item.genesis.material.toolHead.axe.rhyolite.name=Rhyolite Axe Head
-item.genesis.material.toolHead.axe.quartzite.name=Quartzite Axe Head
-item.genesis.material.toolHead.axe.dolerite.name=Dolerite Axe Head
-item.genesis.material.toolHead.axe.brownFlint.name=Brown Flint Axe Head
-
-item.genesis.material.toolHead.knife.granite.name=Granite Knife Head
-item.genesis.material.toolHead.knife.rhyolite.name=Rhyolite Knife Head
-item.genesis.material.toolHead.knife.quartzite.name=Quartzite Knife Head
-item.genesis.material.toolHead.knife.dolerite.name=Dolerite Knife Head
-item.genesis.material.toolHead.knife.brownFlint.name=Brown Flint Knife Head
-
-item.genesis.material.toolHead.spear.granite.name=Granite Spear Head
-item.genesis.material.toolHead.spear.rhyolite.name=Rhyolite Spear Head
-item.genesis.material.toolHead.spear.quartzite.name=Quartzite Spear Head
-item.genesis.material.toolHead.spear.dolerite.name=Dolerite Spear Head
-item.genesis.material.toolHead.spear.brownFlint.name=Brown Flint Spear Head
-
-item.genesis.material.toolHead.arrow.granite.name=Granite Arrow Head
-item.genesis.material.toolHead.arrow.rhyolite.name=Rhyolite Arrow Head
-item.genesis.material.toolHead.arrow.quartzite.name=Quartzite Arrow Head
-item.genesis.material.toolHead.arrow.dolerite.name=Dolerite Arrow Head
-item.genesis.material.toolHead.arrow.brownFlint.name=Brown Flint Arrow Head
-
-item.genesis.material.pointFlake.granite.name=Granite Point Flake
-item.genesis.material.pointFlake.rhyolite.name=Rhyolite Point Flake
-item.genesis.material.pointFlake.quartzite.name=Quartzite Point Flake
-item.genesis.material.pointFlake.dolerite.name=Dolerite Point Flake
-item.genesis.material.pointFlake.brownFlint.name=Brown Flint Point Flake
 
 #Containers
 item.genesis.misc.ceramicBucket.name=Ceramic Bucket
