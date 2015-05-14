@@ -24,6 +24,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fml.relauncher.*;
 
 public class TileEntityCampfire extends TileEntityLockable implements ISidedInventory, IInventoryDisabledSlots, IInventoryCookingPot, IUpdatePlayerListBox
 {
@@ -361,8 +362,16 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 			// Play fire sound effect every 1.5 secs on client.
 			if (worldObj.isRemote && burnTime % 30 == 0)
 			{
+				RandomFloatRange volumeRange = new RandomFloatRange(1, 2);
+				RandomFloatRange pitchRange = new RandomFloatRange(0.3F, 0.7F);
 				worldObj.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, "fire.fire",
-						1 + worldObj.rand.nextFloat(), 0.3F + worldObj.rand.nextFloat() * 0.4F, false);
+						volumeRange.getRandom(worldObj.rand), pitchRange.getRandom(worldObj.rand), false);
+				
+				if (hasCookingPot() && canSmelt())
+				{
+					worldObj.playSound(pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, Constants.ASSETS + "ambient.cookingpot",
+							volumeRange.getRandom(worldObj.rand), pitchRange.getRandom(worldObj.rand), false);
+				}
 			}
 			
 			// If the campfire is not burning, start an item burning.
@@ -514,7 +523,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 			return TileEntityFurnace.isItemFuel(stack);
 		case SLOT_INGREDIENT_1:
 		case SLOT_INGREDIENT_2:
-			return hasCookingPot();
+			return hasCookingPot() && CookingPotRecipeRegistry.isRecipeIngredient(stack, this);
 		}
 		
 		return false;

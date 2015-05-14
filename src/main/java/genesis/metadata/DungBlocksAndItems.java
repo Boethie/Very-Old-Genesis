@@ -48,9 +48,7 @@ public class DungBlocksAndItems extends VariantsOfTypesCombo<ObjectType, EnumDun
 				public void afterConstructed(Block block, ItemMulti item, List<IMetadata> variants)
 				{
 					super.afterConstructed(block, item, variants);
-					
-					FuelHandler.setBurnTime(item,
-							TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.log)), true);
+					FuelHandler.setBurnTime(item, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.log)), true);
 				}
 			}
 			.setCreativeTab(GenesisCreativeTabs.MATERIALS).setNamePosition(ObjectNamePosition.PREFIX);

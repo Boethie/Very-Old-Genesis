@@ -185,7 +185,7 @@ public final class GenesisRecipes
 		GameRegistry.addSmelting(GenesisBlocks.olivine_ore, new ItemStack(GenesisItems.olivine), 0.3F);
 		GameRegistry.addSmelting(GenesisBlocks.brown_flint_ore, GenesisItems.nodules.getStack(EnumNodule.BROWN_FLINT), 0.05F);
 		GameRegistry.addSmelting(GenesisBlocks.marcasite_ore, GenesisItems.nodules.getStack(EnumNodule.MARCASITE), 0.05F);
-		GameRegistry.addSmelting(GenesisItems.red_clay_bowl, GenesisItems.ceramic_bowls.getStack(EnumCeramicBowls.BOWL), 0.3F);
+		GameRegistry.addSmelting(GenesisItems.red_clay_bowl, GenesisItems.bowls.getStack(EnumCeramicBowls.BOWL), 0.3F);
 		GameRegistry.addSmelting(GenesisItems.aphthoroblattina, new ItemStack(GenesisItems.cooked_aphthoroblattina), 0.35F);
 		GameRegistry.addSmelting(GenesisItems.eryops_leg, new ItemStack(GenesisItems.cooked_eryops_leg), 0.35F);
 
@@ -194,8 +194,26 @@ public final class GenesisRecipes
 			GameRegistry.addRecipe(GenesisBlocks.dungs.getStack(DungBlocksAndItems.DUNG_BLOCK, variant), "CC", "CC", 'C', GenesisBlocks.dungs.getStack(GenesisBlocks.dungs.DUNG, variant));
 		}
 		
-		CookingPotRecipeRegistry.registerShapeless(new ItemStack(GenesisItems.cooked_tyrannosaurus),
-				new ItemStack(GenesisItems.tyrannosaurus), new ItemStack(GenesisItems.eryops_leg));
+		// Cooking pot recipes
+		ItemStack calamites = new ItemStack(GenesisItems.calamites);
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.YELLOW), calamites, calamites);
+		
+		ItemStack mabelia = GenesisBlocks.plants.getStack(EnumPlant.MABELIA);
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.RED), mabelia, mabelia);
+		
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.ORANGE), calamites, mabelia);
+		
+		ItemStack odontHead = new ItemStack(GenesisItems.odontopteris_fiddlehead);
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDye.get(EnumDyeColor.LIME)), odontHead, odontHead);
+		
+		ItemStack protoFlesh = new ItemStack(GenesisItems.prototaxites_flesh);
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDye.get(EnumDyeColor.BROWN)), protoFlesh, protoFlesh);
+		
+		// Cooking pot recipes with vanilla items
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.ORANGE), calamites, new ItemStack(Items.dye, 1, EnumDyeColor.RED.getDyeDamage()));
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.ORANGE), mabelia, new ItemStack(Items.dye, 1, EnumDyeColor.YELLOW.getDyeDamage()));
+		
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.PINK), mabelia, new ItemStack(Items.dye, 1, EnumDyeColor.WHITE.getDyeDamage()));
 	}
 	
 	/**
@@ -212,12 +230,12 @@ public final class GenesisRecipes
 		makeSubstituteCraftingItem(new ItemStack(Items.milk_bucket), new ItemStack(GenesisItems.ceramic_bucket_milk));
 		
 		// Dyes
-		for (IMetadata variant : GenesisItems.ceramic_bowls.getValidVariants(ItemsCeramicBowls.dyes))
+		for (IMetadata variant : GenesisItems.bowls.getValidVariants(ItemsCeramicBowls.dyes))
 		{
 			EnumDye dye = (EnumDye) variant;
 			// TODO: Doesn't seem to work. Must fix sometime.
 			makeSubstituteCraftingItem(new ItemStack(Items.dye, 1, dye.getColor().getDyeDamage()),
-					GenesisItems.ceramic_bowls.getStack(dye));
+					GenesisItems.bowls.getStack(dye));
 		}
 	}
 }

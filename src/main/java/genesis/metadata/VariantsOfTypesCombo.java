@@ -792,13 +792,28 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	}
 	
 	/**
-	 * Gets all the valid variants for this type of object.
+	 * Returns a new List containing the valid variants for this type of object.
 	 * 
 	 * @return {@literal List<IMetadata>} containing all the variants this object can be.
 	 */
 	public List<V> getValidVariants(O type)
 	{
 		return type.getValidVariants(new ArrayList(variants));
+	}
+	
+	/**
+	 * Returns a new list containing the valid variants shared between <code>type</code> and <code>otherTypes</code>.
+	 */
+	public List<V> getSharedValidVariants(O type, O... otherTypes)
+	{
+		List<V> output = getValidVariants(type);
+		
+		for (O otherType : otherTypes)
+		{
+			output.retainAll(getValidVariants(otherType));
+		}
+		
+		return output;
 	}
 	
 	/**

@@ -5,6 +5,7 @@ import genesis.metadata.VariantsOfTypesCombo.*;
 import java.util.*;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import genesis.item.*;
 
@@ -64,13 +65,33 @@ public class ItemsCeramicBowls extends VariantsOfTypesCombo<ObjectType, IMetadat
 		super(allObjectTypes, allVariants);
 	}
 	
+	public ItemStack getStack(EnumCeramicBowls bowlVariant, int size)
+	{
+		return super.getStack(main, bowlVariant, size);
+	}
+	
 	public ItemStack getStack(EnumCeramicBowls bowlVariant)
 	{
-		return super.getStack(main, bowlVariant);
+		return getStack(bowlVariant, 1);
+	}
+	
+	public ItemStack getStack(EnumDye dyeVariant, int size)
+	{
+		return super.getStack(dyes, dyeVariant, size);
 	}
 	
 	public ItemStack getStack(EnumDye dyeVariant)
 	{
-		return super.getStack(dyes, dyeVariant);
+		return getStack(dyeVariant, 1);
+	}
+
+	public ItemStack getStack(EnumDyeColor color, int size)
+	{
+		return getStack(EnumDye.get(color), size);
+	}
+
+	public ItemStack getStack(EnumDyeColor color)
+	{
+		return getStack(color, 1);
 	}
 }

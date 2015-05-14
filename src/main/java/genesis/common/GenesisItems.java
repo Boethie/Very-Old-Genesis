@@ -19,7 +19,7 @@ public final class GenesisItems
 	public static final ItemGenesis red_clay_ball = new ItemGenesis().setUnlocalizedName("redClay");
 	public static final ItemGenesis octaedrite_shard = new ItemGenesis().setUnlocalizedName("octaedriteShard");
 	public static final ItemGenesis red_clay_bowl = new ItemGenesis().setUnlocalizedName("bowlRedClay");
-	public static final ItemsCeramicBowls ceramic_bowls = new ItemsCeramicBowls();
+	public static final ItemsCeramicBowls bowls = new ItemsCeramicBowls();
 	public static final ItemGenesis red_clay_bucket = new ItemGenesis().setUnlocalizedName("redClayBucket");
 	public static final VariantsCombo nodules = new VariantsCombo(new ObjectType("nodule", null, null).setNamePosition(ObjectNamePosition.PREFIX), EnumNodule.values());
 	public static final ItemGenesis quartz = new ItemGenesis().setUnlocalizedName("quartz");
@@ -66,7 +66,7 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(red_clay_bowl, "red_clay_bowl");
 		//Genesis.proxy.registerItem(ceramic_bowl, "ceramic_bowl");
 		//Genesis.proxy.registerItem(ceramic_bowl_water, "ceramic_bowl_water");
-		ceramic_bowls.registerAll();
+		bowls.registerAll();
 		Genesis.proxy.registerItem(red_clay_bucket, "red_clay_bucket");
 		Genesis.proxy.registerItem(octaedrite_shard, "octaedrite_shard");
 		Genesis.proxy.registerItem(quartz, "quartz");

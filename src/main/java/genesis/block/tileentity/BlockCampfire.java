@@ -159,6 +159,10 @@ public class BlockCampfire extends BlockContainer
 					
 					worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y, z, 0, 0, 0);
 				}
+				
+				if (campfire.hasCookingPot() && campfire.canSmelt())
+				{
+				}
 			}
 		}
 	}
@@ -176,29 +180,41 @@ public class BlockCampfire extends BlockContainer
 		return new AxisAlignedBB(bb.minZ - pos.getZ() + pos.getX(), bb.minY, -(bb.minX - pos.getX() - 0.5) + pos.getZ() + 0.5,
 								bb.maxZ - pos.getZ() + pos.getX(), bb.maxY, -(bb.maxX - pos.getX() - 0.5) + pos.getZ() + 0.5);
 	}
-		
+	
+	@Override
+	public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
+	{
+		int x = pos.getX();
+		int y = pos.getY();
+		int z = pos.getZ();
+		return new AxisAlignedBB(x, y, z, x + 1, y + 0.1875, z + 1);
+	}
+	
 	@Override
 	public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List list, Entity collidingEntity)
 	{
 		// Make collision boxes for the two sticks and the base of the campfire.
 		EnumAxis facing = (EnumAxis) state.getValue(FACING);
 		
-		addIfIntersects(new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 0.1875, pos.getZ() + 1), mask, list);
-		
-		double stickSize = 0.125;
-		double stickSize2 = stickSize / 2;
+		addIfIntersects(getCollisionBoundingBox(worldIn, pos, state), mask, list);
 
-		AxisAlignedBB stick0 = new AxisAlignedBB(pos.getX() + 0.5 - stickSize2, pos.getY(), pos.getZ(),
-					pos.getX() + 0.5 + stickSize2, pos.getY() + 1, pos.getZ() + stickSize);
-		AxisAlignedBB stick1 = new AxisAlignedBB(pos.getX() + 0.5 - stickSize2, pos.getY(), pos.getZ() + 1 - stickSize,
-					pos.getX() + 0.5 + stickSize2, pos.getY() + 1, pos.getZ() + 1);
+		int x = pos.getX();
+		int y = pos.getY();
+		int z = pos.getZ();
+		double stickSize = 0.125;
+		double halfStickSize = stickSize / 2;
+		
+		AxisAlignedBB stick0 = new AxisAlignedBB(x + 0.5 - halfStickSize, y, z,
+					x + 0.5 + halfStickSize, y + 1, z + stickSize);
+		AxisAlignedBB stick1 = new AxisAlignedBB(x + 0.5 - halfStickSize, y, z + 1 - stickSize,
+					x + 0.5 + halfStickSize, y + 1, z + 1);
 		
 		if (facing == EnumAxis.Z)
 		{
 			stick0 = reverseBB(pos, stick0);
 			stick1 = reverseBB(pos, stick1);
 		}
-
+		
 		addIfIntersects(stick0, mask, list);
 		addIfIntersects(stick1, mask, list);
 	}

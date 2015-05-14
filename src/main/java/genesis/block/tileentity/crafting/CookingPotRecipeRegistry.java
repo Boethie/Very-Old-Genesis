@@ -7,6 +7,8 @@ import genesis.util.Stringify;
 
 import java.util.*;
 
+import com.google.common.collect.*;
+
 import net.minecraft.inventory.*;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
@@ -82,6 +84,7 @@ public class CookingPotRecipeRegistry
 	
 	public static interface ICookingPotRecipe
 	{
+		public boolean isRecipeIngredient(ItemStack stack, IInventoryCookingPot cookingPot);
 		public boolean canCraft(IInventoryCookingPot cookingPot);
 		public ItemStack getOutput(IInventoryCookingPot cookingPot);
 		public void craft(IInventoryCookingPot cookingPot);
@@ -96,22 +99,16 @@ public class CookingPotRecipeRegistry
 		
 		public abstract ItemStack getOutput(IInventoryCookingPot cookingPot);
 		
-		public abstract ItemStack removeIngredient(ItemStack invIngredient, IInventoryCookingPot cookingPot);
+		public abstract ItemStack[] doRemoveIngredients(IInventoryCookingPot cookingPot);
 		
 		public void removeIngredients(IInventoryCookingPot cookingPot)
 		{
-			ItemStack[] invIngredients = cookingPot.getIngredients();
-
+			ItemStack[] invIngredients = doRemoveIngredients(cookingPot);
+			
 			for (int i = 0; i < invIngredients.length; i++)
 			{
-				ItemStack newStack = removeIngredient(invIngredients[i], cookingPot);
-				
-				if (newStack.stackSize <= 0)
-				{
-					newStack = null;
-				}
-				
-				invIngredients[i] = newStack;
+				ItemStack newStack = invIngredients[i];	// Replace stacks with size less than 1 with null.
+				invIngredients[i] = (newStack != null && newStack.stackSize <= 0) ? null : newStack;
 			}
 			
 			cookingPot.setIngredients(invIngredients);
@@ -148,22 +145,35 @@ public class CookingPotRecipeRegistry
 			
 			for (ItemStack stack : ingredients)
 			{
-				this.ingredients.put(new RecipeKey(stack), stack);
+				ItemStack copy = stack.copy();
+				ItemStack oldStack = this.ingredients.put(new RecipeKey(copy), copy);
+				
+				if (oldStack != null)	// Combine stacks of the same item.
+				{
+					copy.stackSize += oldStack.stackSize;
+				}
 			}
 			
 			this.output = output;
 		}
 		
 		@Override
+		public boolean isRecipeIngredient(ItemStack stack, IInventoryCookingPot cookingPot)
+		{
+			return ingredients.containsKey(new RecipeKey(stack));
+		}
+		
+		@Override
 		public ItemStack getOutput(IInventoryCookingPot cookingPot)
 		{
+			ItemStack[] invIngredients = cookingPot.getIngredients();
 			Set<RecipeKey> ingredientKeySet = new HashSet();
 			
-			for (ItemStack ingredient : cookingPot.getIngredients())
+			for (ItemStack invIngredient : invIngredients)
 			{
-				if (ingredient != null)
+				if (invIngredient != null)
 				{
-					ingredientKeySet.add(new RecipeKey(ingredient));
+					ingredientKeySet.add(new RecipeKey(invIngredient));
 				}
 			}
 			
@@ -174,12 +184,55 @@ public class CookingPotRecipeRegistry
 			
 			return null;
 		}
-		
+
 		@Override
-		public ItemStack removeIngredient(ItemStack invIngredient, IInventoryCookingPot cookingPot)
+		public ItemStack[] doRemoveIngredients(IInventoryCookingPot cookingPot)
 		{
-			invIngredient.stackSize -= ingredients.get(new RecipeKey(invIngredient)).stackSize;
-			return invIngredient;
+			ItemStack[] invIngredients = cookingPot.getIngredients();
+			
+			// Get the number of stacks for each ingredient type.
+			Map<RecipeKey, Integer> countMap = new HashMap(invIngredients.length);
+			Map<RecipeKey, Integer> sizeLeftMap = new HashMap(ingredients.size());
+			
+			for (Map.Entry<RecipeKey, ItemStack> entry : ingredients.entrySet())
+			{
+				sizeLeftMap.put(entry.getKey(), entry.getValue().stackSize);
+			}
+			
+			for (int i = 0; i < invIngredients.length; i++)
+			{
+				ItemStack ingStack = invIngredients[i];
+				
+				if (ingStack != null)
+				{
+					RecipeKey key = new RecipeKey(ingStack);
+					Integer count = countMap.get(key);
+					countMap.put(key, count == null ? 1 : count + 1);
+				}
+			}
+			
+			for (int i = 0; i < invIngredients.length; i++)
+			{
+				ItemStack newStack = invIngredients[i];
+				
+				if (newStack != null)
+				{
+					RecipeKey key = new RecipeKey(newStack);
+					
+					int left = sizeLeftMap.get(key);
+					int count = countMap.get(key);
+					int size = left / count;
+					
+					newStack.stackSize -= size;
+					
+					sizeLeftMap.put(key, left - size);
+					countMap.put(key, count - 1);
+					
+					invIngredients[i] = newStack;
+				}
+			}
+			
+			return invIngredients;
 		}
 	}
 	
@@ -198,7 +251,7 @@ public class CookingPotRecipeRegistry
 		public void setOutput(ItemStack stack);
 	}
 	
-	protected static ItemStack cookingPotItem = GenesisItems.ceramic_bowls.getStack(EnumCeramicBowls.WATER_BOWL);
+	protected static ItemStack cookingPotItem = GenesisItems.bowls.getStack(EnumCeramicBowls.WATER_BOWL);
 	
 	public static boolean isCookingPotItem(ItemStack stack)
 	{
@@ -225,6 +278,19 @@ public class CookingPotRecipeRegistry
 	public static void registerShapeless(ItemStack output, ItemStack... ingredients)
 	{
 		registerRecipe(new CookingPotRecipeShapeless(output, ingredients));
+	}
+	
+	public static boolean isRecipeIngredient(ItemStack stack, IInventoryCookingPot cookingPot)
+	{
+		for (ICookingPotRecipe recipe: recipes)
+		{
+			if (recipe.isRecipeIngredient(stack, cookingPot))
+			{
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	public static ICookingPotRecipe getRecipe(IInventoryCookingPot cookingPot)
