@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "genesis:items/dye_grey"
+        "layer0": "genesis:items/dye_gray"
     },
     "display": {
         "thirdperson": {
