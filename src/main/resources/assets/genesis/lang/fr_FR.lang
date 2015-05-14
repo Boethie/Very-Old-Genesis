@@ -182,7 +182,8 @@ item.genesis.material.pebble.brownFlint.name=Galet de silex brun
 
 item.genesis.material.redClay.name=Argile rouge
 item.genesis.material.bowlRedClay.name=Bol en argile rouge
-item.genesis.material.bowlCeramic.name=Bol en céramique
+item.genesis.material.ceramicBowl.name=Bol en céramique
+item.genesis.material.ceramicBowl.water.name=Bol d'eau en céramique
 item.genesis.material.dye.white.name=Bol de teinture blanche
 item.genesis.material.dye.orange.name=Bol de teinture orange
 item.genesis.material.dye.magenta.name=Bol de teinture magenta
