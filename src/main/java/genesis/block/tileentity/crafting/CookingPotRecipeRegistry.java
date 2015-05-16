@@ -116,6 +116,19 @@ public class CookingPotRecipeRegistry
 		
 		public void craft(IInventoryCookingPot cookingPot)
 		{
+			ItemStack invInput = cookingPot.getInput();
+			
+			if (invInput.stackSize > 1)
+			{
+				invInput.stackSize--;
+			}
+			else
+			{
+				invInput = null;
+			}
+			
+			cookingPot.setInput(invInput);
+			
 			ItemStack invOutput = cookingPot.getOutput();
 			ItemStack recipeOutput = getOutput(cookingPot);
 			
