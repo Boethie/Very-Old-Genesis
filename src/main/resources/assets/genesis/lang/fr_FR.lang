@@ -147,6 +147,12 @@ item.genesis.material.toolHead.axe.quartzite.name=Tête de hache en quartzite
 item.genesis.material.toolHead.axe.dolerite.name=Tête de hache en dolérite
 item.genesis.material.toolHead.axe.brownFlint.name=Tête de hache en silex brun
 
+item.genesis.material.toolHead.hoe.granite.name=Tête de houe en granite
+item.genesis.material.toolHead.hoe.rhyolite.name=Tête de houe en rhyolite
+item.genesis.material.toolHead.hoe.quartzite.name=Tête de houe en quartzite
+item.genesis.material.toolHead.hoe.dolerite.name=Tête de houe en dolérite
+item.genesis.material.toolHead.hoe.brownFlint.name=Tête de houe en silex brun
+
 item.genesis.material.toolHead.knife.granite.name=Lame de couteau en granite
 item.genesis.material.toolHead.knife.rhyolite.name=Lame de couteau en rhyolite
 item.genesis.material.toolHead.knife.quartzite.name=Lame de couteau en quartzite
@@ -165,11 +171,11 @@ item.genesis.material.toolHead.arrow.quartzite.name=Pointe de flèche en quartzi
 item.genesis.material.toolHead.arrow.dolerite.name=Pointe de flèche en dolérite
 item.genesis.material.toolHead.arrow.brownFlint.name=Pointe de flèche en silex brun
 
-item.genesis.material.pointFlake.granite.name=Éclat pointu en granite
-item.genesis.material.pointFlake.rhyolite.name=Éclat pointu en rhyolite
-item.genesis.material.pointFlake.quartzite.name=Éclat pointu en quartzite
-item.genesis.material.pointFlake.dolerite.name=Éclat pointu en dolérite
-item.genesis.material.pointFlake.brownFlint.name=Éclat pointu en silex brun
+item.genesis.material.flake.granite.name=Éclat en granite
+item.genesis.material.flake.rhyolite.name=Éclat en rhyolite
+item.genesis.material.flake.quartzite.name=Éclat en quartzite
+item.genesis.material.flake.dolerite.name=Éclat en dolérite
+item.genesis.material.flake.brownFlint.name=Éclat en silex brun
 
 item.genesis.tool.flintAndMarcasite.name=Silex et marcassite
 

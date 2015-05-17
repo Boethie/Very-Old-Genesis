@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "genesis:items/point_flake_brown_flint"
+        "layer0": "genesis:items/flake_brown_flint"
     },
     "display": {
         "thirdperson": {

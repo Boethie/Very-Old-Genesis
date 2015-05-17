@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "genesis:items/point_flake_dolerite"
+        "layer0": "genesis:items/head_hoe_chipped_dolerite"
     },
     "display": {
         "thirdperson": {

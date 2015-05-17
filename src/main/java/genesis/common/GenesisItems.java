@@ -77,7 +77,7 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(malachite, "malachite");
 		Genesis.proxy.registerItem(olivine, "olivine");
 		nodules.registerAll();
-		tools.registerVariants(tools.POINT_FLAKE);
+		tools.registerVariants(tools.FLAKE);
 		GenesisBlocks.trees.registerVariants(GenesisBlocks.trees.BILLET);
 		Genesis.proxy.registerItem(resin, "resin");
 		Genesis.proxy.registerItem(calamites, "calamites");

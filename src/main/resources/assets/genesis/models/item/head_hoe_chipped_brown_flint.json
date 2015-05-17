@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "genesis:items/point_flake_granite"
+        "layer0": "genesis:items/head_hoe_chipped_brown_flint"
     },
     "display": {
         "thirdperson": {

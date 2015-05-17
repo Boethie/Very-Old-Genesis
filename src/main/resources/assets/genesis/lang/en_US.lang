@@ -147,6 +147,12 @@ item.genesis.material.toolHead.axe.quartzite.name=Quartzite Axe Head
 item.genesis.material.toolHead.axe.dolerite.name=Dolerite Axe Head
 item.genesis.material.toolHead.axe.brownFlint.name=Brown Flint Axe Head
 
+item.genesis.material.toolHead.hoe.granite.name=Granite Hoe Head
+item.genesis.material.toolHead.hoe.rhyolite.name=Rhyolite Hoe Head
+item.genesis.material.toolHead.hoe.quartzite.name=Quartzite Hoe Head
+item.genesis.material.toolHead.hoe.dolerite.name=Dolerite Hoe Head
+item.genesis.material.toolHead.hoe.brownFlint.name=Brown Flint Hoe Head
+
 item.genesis.material.toolHead.knife.granite.name=Granite Knife Head
 item.genesis.material.toolHead.knife.rhyolite.name=Rhyolite Knife Head
 item.genesis.material.toolHead.knife.quartzite.name=Quartzite Knife Head
@@ -165,11 +171,11 @@ item.genesis.material.toolHead.arrow.quartzite.name=Quartzite Arrow Head
 item.genesis.material.toolHead.arrow.dolerite.name=Dolerite Arrow Head
 item.genesis.material.toolHead.arrow.brownFlint.name=Brown Flint Arrow Head
 
-item.genesis.material.pointFlake.granite.name=Granite Point Flake
-item.genesis.material.pointFlake.rhyolite.name=Rhyolite Point Flake
-item.genesis.material.pointFlake.quartzite.name=Quartzite Point Flake
-item.genesis.material.pointFlake.dolerite.name=Dolerite Point Flake
-item.genesis.material.pointFlake.brownFlint.name=Brown Flint Point Flake
+item.genesis.material.flake.granite.name=Granite Flake
+item.genesis.material.flake.rhyolite.name=Rhyolite Flake
+item.genesis.material.flake.quartzite.name=Quartzite Flake
+item.genesis.material.flake.dolerite.name=Dolerite Flake
+item.genesis.material.flake.brownFlint.name=Brown Flint Flake
 
 item.genesis.tool.flintAndMarcasite.name=Flint and Marcasite
 
