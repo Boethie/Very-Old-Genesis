@@ -17,7 +17,7 @@ public final class GenesisItems
 {
 	/* Materials */
 	public static final ItemGenesis red_clay_ball = new ItemGenesis().setUnlocalizedName("redClay");
-	public static final ItemGenesis red_clay_bowl = new ItemGenesis().setUnlocalizedName("bowlRedClay");
+	public static final ItemGenesis red_clay_bowl = new ItemGenesis().setUnlocalizedName("redClayBowl");
 	public static final ItemsCeramicBowls bowls = new ItemsCeramicBowls();
 	public static final ItemGenesis red_clay_bucket = new ItemGenesis().setUnlocalizedName("redClayBucket");
 	public static final ItemGenesis quartz = new ItemGenesis().setUnlocalizedName("quartz");
