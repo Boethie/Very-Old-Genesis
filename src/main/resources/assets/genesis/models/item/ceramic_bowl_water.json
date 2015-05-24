@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "genesis:items/bowl_ceramic_water"
+        "layer0": "genesis:items/ceramic_bowl_water"
     },
     "display": {
         "thirdperson": {

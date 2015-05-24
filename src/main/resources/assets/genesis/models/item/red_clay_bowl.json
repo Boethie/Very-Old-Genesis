@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "genesis:items/bowl_red_clay"
+        "layer0": "genesis:items/red_clay_bowl"
     },
     "display": {
         "thirdperson": {

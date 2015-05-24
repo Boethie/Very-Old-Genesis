@@ -33,8 +33,8 @@ public final class GenesisBlocks
 	public static final BlockGenesisRock quartzite = new BlockGenesisRock(1.95F, 10.0F).setUnlocalizedName("quartzite");
 	public static final BlockGenesisRock limestone = new BlockGenesisRock(0.75F, 8.7F).setUnlocalizedName("limestone");
 	public static final BlockGenesisRock shale = new BlockGenesisRock(0.75F, 8.7F).setUnlocalizedName("shale");
+	public static final BlockGenesisRock octaedrite = new BlockGenesisRock(1.0F, 10.0F).setUnlocalizedName("octaedrite");
 	public static final BlockRedClay red_clay = new BlockRedClay().setUnlocalizedName("redClay");
-	public static final BlockGenesisRock octaedrite = new BlockOctaedrite().setUnlocalizedName("octaedrite");
 
 	public static final BlockGenesis permafrost = new BlockPermafrost().setUnlocalizedName("permafrost");
 	public static final BlockGenesis new_permafrost = new BlockNewPermafrost().setUnlocalizedName("permafrost");

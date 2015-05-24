@@ -39,7 +39,7 @@ public final class GenesisCreativeTabs
 		@Override
 		public ItemStack getIconItemStack()
 		{
-			return GenesisBlocks.plants.getStack(EnumPlant.SCIADOPHYTON);	// TODO: use sigillaria sapling when added
+			return GenesisBlocks.trees.getStack(TreeBlocksAndItems.SAPLING, EnumTree.SIGILLARIA);
 		}
 	};
 

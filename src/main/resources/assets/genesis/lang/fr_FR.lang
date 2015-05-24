@@ -140,42 +140,49 @@ item.genesis.material.toolHead.pick.rhyolite.name=Tête de pic en rhyolite
 item.genesis.material.toolHead.pick.quartzite.name=Tête de pic en quartzite
 item.genesis.material.toolHead.pick.dolerite.name=Tête de pic en dolérite
 item.genesis.material.toolHead.pick.brownFlint.name=Tête de pic en silex brun
+item.genesis.material.toolHead.pick.octaedrite.name=Tête de pic en octaédrite
 
 item.genesis.material.toolHead.axe.granite.name=Tête de hache en granite
 item.genesis.material.toolHead.axe.rhyolite.name=Tête de hache en rhyolite
 item.genesis.material.toolHead.axe.quartzite.name=Tête de hache en quartzite
 item.genesis.material.toolHead.axe.dolerite.name=Tête de hache en dolérite
 item.genesis.material.toolHead.axe.brownFlint.name=Tête de hache en silex brun
+item.genesis.material.toolHead.axe.octaedrite.name=Tête de hache en octaédrite
 
 item.genesis.material.toolHead.hoe.granite.name=Tête de houe en granite
 item.genesis.material.toolHead.hoe.rhyolite.name=Tête de houe en rhyolite
 item.genesis.material.toolHead.hoe.quartzite.name=Tête de houe en quartzite
 item.genesis.material.toolHead.hoe.dolerite.name=Tête de houe en dolérite
 item.genesis.material.toolHead.hoe.brownFlint.name=Tête de houe en silex brun
+item.genesis.material.toolHead.hoe.octaedrite.name=Tête de houe en octaédrite
 
 item.genesis.material.toolHead.knife.granite.name=Lame de couteau en granite
 item.genesis.material.toolHead.knife.rhyolite.name=Lame de couteau en rhyolite
 item.genesis.material.toolHead.knife.quartzite.name=Lame de couteau en quartzite
 item.genesis.material.toolHead.knife.dolerite.name=Lame de couteau en dolérite
 item.genesis.material.toolHead.knife.brownFlint.name=Lame de couteau en silex brun
+item.genesis.material.toolHead.knife.octaedrite.name=Lame de couteau en octaédrite
 
 item.genesis.material.toolHead.spear.granite.name=Pointe de lance en granite
 item.genesis.material.toolHead.spear.rhyolite.name=Pointe de lance en rhyolite
 item.genesis.material.toolHead.spear.quartzite.name=Pointe de lance en quartzite
 item.genesis.material.toolHead.spear.dolerite.name=Pointe de lance en dolérite
 item.genesis.material.toolHead.spear.brownFlint.name=Pointe de lance en silex brun
+item.genesis.material.toolHead.spear.octaedrite.name=Pointe de lance en octaédrite
 
 item.genesis.material.toolHead.arrow.granite.name=Pointe de flèche en granite
 item.genesis.material.toolHead.arrow.rhyolite.name=Pointe de flèche en rhyolite
 item.genesis.material.toolHead.arrow.quartzite.name=Pointe de flèche en quartzite
 item.genesis.material.toolHead.arrow.dolerite.name=Pointe de flèche en dolérite
 item.genesis.material.toolHead.arrow.brownFlint.name=Pointe de flèche en silex brun
+item.genesis.material.toolHead.arrow.octaedrite.name=Pointe de flèche en octaédrite
 
-item.genesis.material.flake.granite.name=Éclat en granite
-item.genesis.material.flake.rhyolite.name=Éclat en rhyolite
-item.genesis.material.flake.quartzite.name=Éclat en quartzite
-item.genesis.material.flake.dolerite.name=Éclat en dolérite
-item.genesis.material.flake.brownFlint.name=Éclat en silex brun
+item.genesis.material.flake.granite.name=Éclat de granite
+item.genesis.material.flake.rhyolite.name=Éclat de rhyolite
+item.genesis.material.flake.quartzite.name=Éclat de quartzite
+item.genesis.material.flake.dolerite.name=Éclat de dolérite
+item.genesis.material.flake.brownFlint.name=Éclat de silex brun
+item.genesis.material.flake.octaedrite.name=Éclat d'octaédrite
 
 item.genesis.tool.flintAndMarcasite.name=Silex et marcassite
 
@@ -187,7 +194,7 @@ item.genesis.material.pebble.quartzite.name=Galet de quartzite
 item.genesis.material.pebble.brownFlint.name=Galet de silex brun
 
 item.genesis.material.redClay.name=Argile rouge
-item.genesis.material.bowlRedClay.name=Bol en argile rouge
+item.genesis.material.redClayBowl.name=Bol en argile rouge
 item.genesis.material.ceramicBowl.name=Bol en céramique
 item.genesis.material.ceramicBowl.water.name=Bol d'eau en céramique
 item.genesis.material.dye.white.name=Bol de teinture blanche
@@ -208,7 +215,6 @@ item.genesis.material.dye.red.name=Bol de teinture rouge
 item.genesis.material.dye.black.name=Bol de teinture noire
 item.genesis.material.redClayBucket.name=Seau en argile rouge
 
-item.genesis.material.octaedriteShard.name=Éclat d'octaédrite
 item.genesis.material.quartz.name=Quartz
 item.genesis.material.zircon.name=Zircon
 item.genesis.material.garnet.name=Grenat
