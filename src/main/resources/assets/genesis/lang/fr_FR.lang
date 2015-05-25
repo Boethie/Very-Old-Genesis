@@ -121,12 +121,18 @@ tile.genesis.coral.halysites.name=Halysites
 #Food
 item.genesis.food.zingiberopsisRhizome.name=Rhizome de Zingiberopsis
 item.genesis.food.odontopterisSeeds.name=Graines d'Odontopteris
+item.genesis.food.spiriferRaw.name=Spirifer cru
+item.genesis.food.spiriferCooked.name=Spirifer cuit
 item.genesis.food.climatiusRaw.name=Climatius cru
 item.genesis.food.climatiusCooked.name=Climatius cuit
 item.genesis.food.aphthoroblattinaRaw.name=Aphthoroblattina cru
 item.genesis.food.aphthoroblattinaCooked.name=Aphthoroblattina cuit
 item.genesis.food.eryopsLegRaw.name=Cuisse d'Eryops crue
 item.genesis.food.eryopsLegCooked.name=Cuisse d'Eryops cuite
+item.genesis.food.ceratitesRaw.name=Ceratites cru
+item.genesis.food.ceratitesCooked.name=Ceratites cuit
+item.genesis.food.liopleurodonRaw.name=Liopleurodon cru
+item.genesis.food.liopleurodonCooked.name=Liopleurodon cuit
 item.genesis.food.tyrannosaurusRaw.name=Tyrannosaurus cru
 item.genesis.food.tyrannosaurusCooked.name=Tyrannosaurus cuit
 
@@ -239,6 +245,7 @@ item.genesis.material.prototaxitesFlesh.name=Chair de Prototaxites
 item.genesis.material.dung.brachiosaurus.name=Crotte de Brachiosaurus
 item.genesis.material.dung.tyrannosaurus.name=Crotte de Tyrannosaurus
 item.genesis.material.arthropleuraChitin.name=Chitine d'Arthropleura
+item.genesis.material.liopleurodonTooth.name=Dent de Liopleurodon
 item.genesis.material.tyrannosaurusSaliva.name=Salive de Tyrannosaurus
 item.genesis.material.tyrannosaurusTooth.name=Dent de Tyrannosaurus
 

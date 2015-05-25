@@ -13,6 +13,7 @@ tile.genesis.rock.mossyGranite.name=Mossy Granite
 tile.genesis.rock.rhyolite.name=Rhyolite
 tile.genesis.rock.dolerite.name=Dolerite
 tile.genesis.rock.komatiite.name=Komatiite
+tile.genesis.rock.anorthosite.name=Anorthosite
 tile.genesis.rock.trondhjemite.name=Trondhjemite
 tile.genesis.rock.fauxAmphibolite.name=Faux-Amphibolite
 tile.genesis.rock.gneiss.name=Gneiss
@@ -121,12 +122,18 @@ tile.genesis.coral.halysites.name=Halysites
 #Food
 item.genesis.food.zingiberopsisRhizome.name=Zingiberopsis Rhizome
 item.genesis.food.odontopterisSeeds.name=Odontopteris Seeds
+item.genesis.food.spiriferRaw.name=Raw Spirifer
+item.genesis.food.spiriferCooked.name=Cooked Spirifer
 item.genesis.food.climatiusRaw.name=Raw Climatius
 item.genesis.food.climatiusCooked.name=Cooked Climatius
 item.genesis.food.aphthoroblattinaRaw.name=Raw Aphthoroblattina
 item.genesis.food.aphthoroblattinaCooked.name=Cooked Aphthoroblattina
 item.genesis.food.eryopsLegRaw.name=Raw Eryops Leg
 item.genesis.food.eryopsLegCooked.name=Cooked Eryops Leg
+item.genesis.food.ceratitesRaw.name=Raw Ceratites
+item.genesis.food.ceratitesCooked.name=Cooked Ceratites
+item.genesis.food.liopleurodonRaw.name=Raw Liopleurodon
+item.genesis.food.liopleurodonCooked.name=Cooked Liopleurodon
 item.genesis.food.tyrannosaurusRaw.name=Raw Tyrannosaurus
 item.genesis.food.tyrannosaurusCooked.name=Cooked Tyrannosaurus
 
@@ -239,6 +246,7 @@ item.genesis.material.prototaxitesFlesh.name=Prototaxites Flesh
 item.genesis.material.dung.brachiosaurus.name=Brachiosaurus Dung
 item.genesis.material.dung.tyrannosaurus.name=Tyrannosaurus Dung
 item.genesis.material.arthropleuraChitin.name=Arthropleura Chitin
+item.genesis.material.liopleurodonTooth.name=Liopleurodon Tooth
 item.genesis.material.tyrannosaurusSaliva.name=Tyrannosaurus Saliva
 item.genesis.material.tyrannosaurusTooth.name=Tyrannosaurus Tooth
 

@@ -34,18 +34,25 @@ public final class GenesisItems
 	public static final ItemGenesis odontopteris_fiddlehead = new ItemGenesis().setUnlocalizedName("odontopterisFiddlehead");
 	public static final ItemGenesis prototaxites_flesh = new ItemGenesis().setUnlocalizedName("prototaxitesFlesh");
 	public static final ItemGenesis arthropleura_chitin = new ItemGenesis().setUnlocalizedName("arthropleuraChitin");
+	public static final ItemGenesis liopleurodon_tooth = new ItemGenesis().setUnlocalizedName("liopleurodonTooth");
 	public static final ItemGenesis tyrannosaurus_saliva = new ItemGenesis().setUnlocalizedName("tyrannosaurusSaliva");
 	public static final ItemGenesis tyrannosaurus_tooth = new ItemGenesis().setUnlocalizedName("tyrannosaurusTooth");
 	
 	/* Food */
 	public static final ItemGenesisSeedFood zingiberopsis_rhizome = new ItemGenesisSeedFood(2, 1.2F).setUnlocalizedName("zingiberopsisRhizome");
 	public static final ItemGenesisSeedFood odontopteris_seeds = new ItemGenesisSeedFood(1, 0.8F).setUnlocalizedName("odontopterisSeeds");
+	public static final ItemGenesisFood spirifer = new ItemGenesisFood(2, 0.4F).setUnlocalizedName("spiriferRaw");
+	public static final ItemGenesisFood cooked_spirifer = new ItemGenesisFood(4, 1.8F).setUnlocalizedName("spiriferCooked");
 	public static final ItemGenesisFood climatius = new ItemGenesisFood(2, 0.4F).setUnlocalizedName("climatiusRaw");
 	public static final ItemGenesisFood cooked_climatius = new ItemGenesisFood(5, 6.0F).setUnlocalizedName("climatiusCooked");
 	public static final ItemGenesisFood aphthoroblattina = new ItemGenesisFood(1, 0.2F).setUnlocalizedName("aphthoroblattinaRaw");
 	public static final ItemGenesisFood cooked_aphthoroblattina = new ItemGenesisFood(2, 0.8F).setUnlocalizedName("aphthoroblattinaCooked");
 	public static final ItemGenesisFood eryops_leg = new ItemGenesisFood(2, 0.8F).setUnlocalizedName("eryopsLegRaw");
 	public static final ItemGenesisFood cooked_eryops_leg = new ItemGenesisFood(5, 6.0F).setUnlocalizedName("eryopsLegCooked");
+	public static final ItemGenesisFood ceratites = new ItemGenesisFood(2, 0.4F).setUnlocalizedName("ceratitesRaw");
+	public static final ItemGenesisFood cooked_ceratites = new ItemGenesisFood(4, 1.8F).setUnlocalizedName("ceratitesCooked");
+	public static final ItemGenesisFood liopleurodon = new ItemGenesisFood(4, 2.8F).setUnlocalizedName("liopleurodonRaw");
+	public static final ItemGenesisFood cooked_liopleurodon = new ItemGenesisFood(16, 19.8F).setUnlocalizedName("liopleurodonCooked");
 	public static final ItemGenesisFood tyrannosaurus = new ItemGenesisFood(4, 2.8F).setUnlocalizedName("tyrannosaurusRaw");
 	public static final ItemGenesisFood cooked_tyrannosaurus = new ItemGenesisFood(16, 19.8F).setUnlocalizedName("tyrannosaurusCooked");
 	
@@ -82,17 +89,24 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(prototaxites_flesh, "prototaxites_flesh");
 		GenesisBlocks.dungs.registerVariants(GenesisBlocks.dungs.DUNG);
 		Genesis.proxy.registerItem(arthropleura_chitin, "arthropleura_chitin");
+		Genesis.proxy.registerItem(liopleurodon_tooth, "liopleurodon_tooth");
 		Genesis.proxy.registerItem(tyrannosaurus_saliva, "tyrannosaurus_saliva");
 		Genesis.proxy.registerItem(tyrannosaurus_tooth, "tyrannosaurus_tooth");
 		
 		Genesis.proxy.registerItem(zingiberopsis_rhizome, "zingiberopsis_rhizome");
 		Genesis.proxy.registerItem(odontopteris_seeds, "odontopteris_seeds");
+		Genesis.proxy.registerItem(spirifer, "spirifer");
+		Genesis.proxy.registerItem(cooked_spirifer, "cooked_spirifer");
 		Genesis.proxy.registerItem(climatius, "climatius");
 		Genesis.proxy.registerItem(cooked_climatius, "cooked_climatius");
 		Genesis.proxy.registerItem(aphthoroblattina, "aphthoroblattina");
 		Genesis.proxy.registerItem(cooked_aphthoroblattina, "cooked_aphthoroblattina");
 		Genesis.proxy.registerItem(eryops_leg, "eryops_leg");
 		Genesis.proxy.registerItem(cooked_eryops_leg, "cooked_eryops_leg");
+		Genesis.proxy.registerItem(ceratites, "ceratites");
+		Genesis.proxy.registerItem(cooked_ceratites, "cooked_ceratites");
+		Genesis.proxy.registerItem(liopleurodon, "liopleurodon");
+		Genesis.proxy.registerItem(cooked_liopleurodon, "cooked_liopleurodon");
 		Genesis.proxy.registerItem(tyrannosaurus, "tyrannosaurus");
 		Genesis.proxy.registerItem(cooked_tyrannosaurus, "cooked_tyrannosaurus");
 		
