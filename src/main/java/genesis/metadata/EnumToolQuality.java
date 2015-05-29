@@ -1,5 +1,7 @@
 package genesis.metadata;
 
+import genesis.util.Constants;
+
 public enum EnumToolQuality implements IMetadata
 {
 	NONE(null), CHIPPED("chipped"), POLISHED("polished"), SHARPENED("sharpened");
@@ -15,7 +17,7 @@ public enum EnumToolQuality implements IMetadata
 	EnumToolQuality(String name, String unlocalizedName)
 	{
 		this.name = name;
-		this.unlocalizedName = unlocalizedName;
+		this.unlocalizedName = Constants.PREFIX + "tool.quality." + unlocalizedName;
 	}
 
 	@Override

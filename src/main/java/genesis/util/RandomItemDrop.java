@@ -6,7 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 
-public class RandomItemDrop extends RandomRange
+public class RandomItemDrop extends RandomIntRange
 {
 	public Item item;
 	
@@ -24,7 +24,7 @@ public class RandomItemDrop extends RandomRange
 	 */
 	public ItemStack getRandomStack(Random rand)
 	{
-		return new ItemStack(item, getRandomAmount(rand));
+		return new ItemStack(item, getRandom(rand));
 	}
 	
 	/**

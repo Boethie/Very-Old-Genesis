@@ -28,6 +28,7 @@ import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IModelState;
 import net.minecraftforge.client.model.ISmartBlockModel;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import genesis.client.GenesisClient;
 import genesis.client.GenesisCustomModelLoader;
 import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
@@ -35,7 +36,7 @@ import genesis.metadata.EnumTree;
 import genesis.metadata.IMetadata;
 import genesis.metadata.TreeBlocksAndItems;
 import genesis.util.Constants;
-import genesis.util.ModelHelpers;
+import genesis.util.render.ModelHelpers;
 
 public class WattleFenceModel implements IModel, IMultiBakedModelOwner
 {
@@ -67,7 +68,7 @@ public class WattleFenceModel implements IModel, IMultiBakedModelOwner
 		for (EnumTree variant : variants)
 		{
 			WattleFenceModel model = new WattleFenceModel();
-			Genesis.proxy.registerCustomModel("models/block/" + variant.getName() + "_wattle_fence", model);
+			((GenesisClient) Genesis.proxy).registerCustomModel("models/block/" + variant.getName() + "_wattle_fence", model);
 			//Genesis.proxy.registerCustomModel("models/item/" + variant.getName() + "_wattle_fence", model);
 
 			/*getModels();
@@ -95,13 +96,13 @@ public class WattleFenceModel implements IModel, IMultiBakedModelOwner
 	{
 		ArrayList<ResourceLocation> textures = new ArrayList<ResourceLocation>();
 		
-		for (IMetadata variant : GenesisBlocks.trees.getValidVariants(TreeBlocksAndItems.WATTLE_FENCE))
+		for (EnumTree variant : GenesisBlocks.trees.getValidVariants(TreeBlocksAndItems.WATTLE_FENCE))
 		{
 			IBlockState blockState = GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.WATTLE_FENCE, variant);
-
+			
 			ModelResourceLocation loc = ModelHelpers.getLocationFromState(blockState);
 			loc = new ModelResourceLocation(loc.getResourceDomain() + ":block/" + loc.getResourcePath() + "#" + loc.getVariant());
-
+			
 			textures.addAll(ModelHelpers.getLoadedModel(loc).getTextures());
 		}
 		

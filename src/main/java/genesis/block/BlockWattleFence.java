@@ -2,44 +2,45 @@ package genesis.block;
 
 import java.util.List;
 
-import genesis.client.model.WattleFenceModel;
-import genesis.common.GenesisCreativeTabs;
+import genesis.client.*;
+import genesis.client.model.*;
+import genesis.common.*;
 import genesis.metadata.*;
+import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.properties.*;
+import net.minecraft.block.state.*;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockWattleFence extends BlockFence
 {
-	@Properties
+	@BlockProperties
 	public static IProperty[] getProperties()
 	{
 		return new IProperty[]{};
 	}
 
 	public final VariantsOfTypesCombo owner;
+	public final ObjectType type;
 	
 	public final PropertyIMetadata variantProp;
 	public final List<EnumTree> variants;
 	
-	public BlockWattleFence(List<EnumTree> variants, VariantsOfTypesCombo owner)
+	public BlockWattleFence(final List<EnumTree> variants, VariantsOfTypesCombo owner, ObjectType type)
 	{
 		super(Material.wood);
 		
 		this.owner = owner;
+		this.type = type;
 		
 		variantProp = new PropertyIMetadata("variant", variants);
 		this.variants = variants;
@@ -47,7 +48,15 @@ public class BlockWattleFence extends BlockFence
 		blockState = new BlockState(this, variantProp, NORTH, EAST, WEST, SOUTH);
 		setDefaultState(getBlockState().getBaseState());
 		
-		WattleFenceModel.register(variants);
+		Genesis.proxy.callSided(new SidedFunction()
+		{
+			@SideOnly(Side.CLIENT)
+			@Override
+			public void client(GenesisClient client)
+			{
+				WattleFenceModel.register(variants);
+			}
+		});
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	}
@@ -82,6 +91,7 @@ public class BlockWattleFence extends BlockFence
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public EnumWorldBlockLayer getBlockLayer()
 	{
 		return EnumWorldBlockLayer.CUTOUT;

@@ -1,48 +1,39 @@
 package genesis.block;
 
-import genesis.common.GenesisBlocks;
-import genesis.common.GenesisCreativeTabs;
-import genesis.metadata.PropertyIMetadata;
-import genesis.metadata.VariantsOfTypesCombo;
-import genesis.metadata.EnumPlant;
-import genesis.metadata.IMetadata;
-import genesis.metadata.Properties;
-import genesis.util.BlockStateToMetadata;
-import genesis.util.Constants;
+import genesis.common.*;
+import genesis.metadata.*;
+import genesis.metadata.VariantsOfTypesCombo.*;
+import genesis.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockBush;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.*;
+import net.minecraft.block.properties.*;
+import net.minecraft.block.state.*;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.fml.relauncher.*;
 
 public class BlockPlant extends BlockBush
 {
 	/**
 	 * Used in BlocksAndItemsWithVariantsOfTypes.
 	 */
-	@Properties
+	@BlockProperties
 	public static IProperty[] getProperties()
 	{
 		return new IProperty[]{};
 	}
 	
 	public final VariantsOfTypesCombo owner;
+	public final ObjectType type;
 
 	public final List<IMetadata> variants;
 	public final PropertyIMetadata variantProp;
 	
-	public BlockPlant(List<IMetadata> variants, VariantsOfTypesCombo owner)
+	public BlockPlant(List<IMetadata> variants, VariantsOfTypesCombo owner, ObjectType type)
 	{
 		setHardness(0.0F);
 		setStepSound(soundTypeGrass);
@@ -50,6 +41,7 @@ public class BlockPlant extends BlockBush
 		setBlockBounds(0.5F - 0.4F, 0.0F, 0.5F - 0.4F, 0.5F + 0.4F, 0.4F * 2, 0.5F + 0.4F);
 
 		this.owner = owner;
+		this.type = type;
 		
 		variantProp = new PropertyIMetadata("variant", variants);
 		this.variants = variants;
@@ -75,13 +67,13 @@ public class BlockPlant extends BlockBush
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return owner.getMetadata(this, (IMetadata) state.getValue(variantProp));
+		return owner.getMetadata(type, (IMetadata) state.getValue(variantProp));
 	}
 
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
 	{
-		owner.fillSubItems(this, variants, list);
+		owner.fillSubItems(type, variants, list);
 	}
 
 	@Override
@@ -97,6 +89,7 @@ public class BlockPlant extends BlockBush
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public Block.EnumOffsetType getOffsetType()
 	{
 		return Block.EnumOffsetType.XYZ;

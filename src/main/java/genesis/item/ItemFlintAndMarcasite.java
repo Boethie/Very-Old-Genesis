@@ -40,7 +40,7 @@ public class ItemFlintAndMarcasite extends ItemFlintAndSteel
 		{
 			if (worldIn.isAirBlock(pos))
 			{
-				worldIn.playSoundEffect(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, Constants.ASSETS + "fire.ignite", 1.0F, (itemRand.nextFloat() * 0.4F) + 0.8F);
+				worldIn.playSoundEffect(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, Constants.ASSETS + "fire.ignite", 1, itemRand.nextFloat() * 0.4F + 0.8F);
 				worldIn.setBlockState(pos, Blocks.fire.getDefaultState());
 			}
 

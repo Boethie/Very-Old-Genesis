@@ -8,6 +8,23 @@ import net.minecraft.item.ItemStack;
 
 public final class GenesisCreativeTabs
 {
+	private static abstract class CreativeTabStackIcon extends CreativeTabs
+	{
+		public CreativeTabStackIcon(String label)
+		{
+			super(label);
+		}
+		
+		@Override
+		public abstract ItemStack getIconItemStack();
+		
+		@Override
+		public final Item getTabIconItem()
+		{
+			return null;
+		}
+	}
+	
 	public static final CreativeTabs BLOCK = new CreativeTabs(Constants.PREFIX + "buildingBlocks")
 	{
 		@Override
@@ -17,18 +34,12 @@ public final class GenesisCreativeTabs
 		}
 	};
 
-	public static final CreativeTabs DECORATIONS = new CreativeTabs(Constants.PREFIX + "decorations")
+	public static final CreativeTabs DECORATIONS = new CreativeTabStackIcon(Constants.PREFIX + "decorations")
 	{
 		@Override
-	    public ItemStack getIconItemStack()
-	    {
-			return GenesisBlocks.plants.getStack(EnumPlant.SCIADOPHYTON);	// TODO: use sigillaria sapling when added
-	    }
-
-		@Override
-		public Item getTabIconItem()
+		public ItemStack getIconItemStack()
 		{
-			return null;
+			return GenesisBlocks.trees.getStack(TreeBlocksAndItems.SAPLING, EnumTree.SIGILLARIA);
 		}
 	};
 
@@ -37,7 +48,7 @@ public final class GenesisCreativeTabs
 		@Override
 		public Item getTabIconItem()
 		{
-			return GenesisItems.ceramic_bucket_water;	// TODO: use komatiitic lava bucket when added
+			return GenesisItems.ceramic_bucket_water;
 		}
 	};
 
@@ -50,27 +61,21 @@ public final class GenesisCreativeTabs
 		}
 	};
 
-	public static final CreativeTabs TOOLS = new CreativeTabs(Constants.PREFIX + "tools")
+	public static final CreativeTabs TOOLS = new CreativeTabStackIcon(Constants.PREFIX + "tools")
 	{
 		@Override
-		public Item getTabIconItem()
+		public ItemStack getIconItemStack()
 		{
-			return GenesisItems.flint_and_marcasite;	// TODO: use chipped granite axe when added
+			return GenesisItems.tools.getStack(ToolItems.KNIFE_HEAD, EnumToolMaterial.GRANITE, EnumToolQuality.CHIPPED);	// TODO: use chipped granite axe when added
 		}
 	};
 
-	public static final CreativeTabs COMBAT = new CreativeTabs(Constants.PREFIX + "combat")
+	public static final CreativeTabs COMBAT = new CreativeTabStackIcon(Constants.PREFIX + "combat")
 	{
 		@Override
-	    public ItemStack getIconItemStack()
-	    {
-			return GenesisItems.tools.getStack(GenesisItems.tools.PEBBLE, EnumToolMaterial.GRANITE);	// TODO: use chipped bone spear when added
-	    }
-
-		@Override
-		public Item getTabIconItem()
+		public ItemStack getIconItemStack()
 		{
-			return null;
+			return GenesisItems.tools.getStack(ToolItems.ARROW_HEAD, EnumToolMaterial.BROWN_FLINT, EnumToolQuality.SHARPENED);
 		}
 	};
 

@@ -3,12 +3,10 @@ package genesis.block;
 import genesis.client.GenesisSounds;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
-import genesis.common.GenesisItems;
 import genesis.util.Constants;
 import net.minecraft.block.BlockHay;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 
 import java.util.Random;
 

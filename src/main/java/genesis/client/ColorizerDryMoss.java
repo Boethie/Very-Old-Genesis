@@ -25,7 +25,6 @@ public class ColorizerDryMoss implements IResourceManagerReloadListener
         int bufferIndex = humidityOff << 8 | temperatureOff;
 
         return bufferIndex > grassBuffer.length ? -65281 : grassBuffer[bufferIndex];
-        //return -65281;
     }
 	
     private static final ResourceLocation DRY_MOSS_RES = new ResourceLocation("genesis:textures/colormap/dry_moss.png");

@@ -1,0 +1,7 @@
+{
+    "parent": "block/cube_column",
+    "textures": {
+        "end": "genesis:blocks/rotten_log_araucarioxylon_top",
+        "side": "genesis:blocks/rotten_log_araucarioxylon"
+    }
+}

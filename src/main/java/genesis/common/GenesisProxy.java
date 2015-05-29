@@ -1,15 +1,13 @@
 package genesis.common;
 
-import genesis.util.Constants;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.block.statemap.IStateMapper;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.ISmartBlockModel;
-import net.minecraftforge.fml.common.registry.GameData;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import genesis.util.*;
+import net.minecraft.block.*;
+import net.minecraft.client.renderer.block.statemap.*;
+import net.minecraft.item.*;
+import net.minecraft.tileentity.*;
+import net.minecraft.util.*;
+import net.minecraftforge.client.model.*;
+import net.minecraftforge.fml.common.registry.*;
 
 public class GenesisProxy
 {
@@ -32,12 +30,7 @@ public class GenesisProxy
 
 	public void registerBlock(Block block, String name, Class<? extends ItemBlock> clazz)
 	{
-		registerBlock(block, name, clazz, new Object[0]);
-	}
-
-	public void registerBlock(Block block, String name, Class<? extends ItemBlock> clazz, Object... args)
-	{
-		GameRegistry.registerBlock(block, clazz, name, args);
+		GameRegistry.registerBlock(block, clazz, name);
 	}
 
 	/**
@@ -60,16 +53,9 @@ public class GenesisProxy
 	public void registerModel(Item item, int metadata, String textureName)
 	{
 	}
-	
-	public void registerModelStateMap(Block block, IStateMapper stateMap)
-	{
-	}
 
-	public void registerCustomModel(String path, IModel model)
+	public void callSided(SidedFunction sidedFunction)
 	{
-	}
-
-	public void registerCustomModel(ResourceLocation path, ISmartBlockModel wattleFenceModel)
-	{
+		sidedFunction.server(this);
 	}
 }

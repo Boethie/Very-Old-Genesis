@@ -1,0 +1,21 @@
+{
+    "variants": {
+        "facing=z,fire=false": [
+			{ "model": "genesis:campfire", "y": 90 },
+			{ "model": "genesis:campfire", "y": 270 }
+		],
+        "facing=x,fire=false": [
+			{ "model": "genesis:campfire", "y": 0 },
+			{ "model": "genesis:campfire", "y": 180 }
+		],
+		
+        "facing=z,fire=true": [
+			{ "model": "genesis:campfire_lit", "y": 90 },
+			{ "model": "genesis:campfire_lit", "y": 270 }
+		],
+        "facing=x,fire=true": [
+			{ "model": "genesis:campfire_lit", "y": 0 },
+			{ "model": "genesis:campfire_lit", "y": 180 }
+		]
+    }
+}

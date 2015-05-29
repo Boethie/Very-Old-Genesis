@@ -2,44 +2,52 @@ package genesis.metadata;
 
 import java.util.*;
 
-import org.apache.commons.lang3.tuple.Pair;
+import com.google.common.collect.*;
 
 public class ToolTypes
 {
 	public static class ToolType implements IMetadata
 	{
-		public final EnumToolQuality quality;
 		public final EnumToolMaterial material;
+		public final EnumToolQuality quality;
 		
-		public ToolType(EnumToolQuality quality, EnumToolMaterial material)
+		public ToolType(EnumToolMaterial material, EnumToolQuality quality)
 		{
-			this.quality = quality;
 			this.material = material;
+			this.quality = quality;
 		}
 
 		@Override
 		public String getName()
 		{
-			String materialName = quality.getName();
+			String qualityName = quality.getName();
 			
-			return (materialName == null ? "" : materialName + "_") + material.getName();
+			return (qualityName == null ? "" : qualityName + "_") + material.getName();
 		}
 
 		@Override
 		public String getUnlocalizedName()
 		{
-			String materialName = quality.getUnlocalizedName();
-			
-			return (materialName == null ? "" : materialName + ".") + material.getUnlocalizedName();
+			return material.getUnlocalizedName();
+		}
+		
+		@Override
+		public String toString()
+		{
+			return super.toString() + "[quality=" + quality + ", material" + material + "]";
 		}
 	}
 	
-	public static final LinkedHashMap<Pair<EnumToolQuality, EnumToolMaterial>, ToolType> map = new LinkedHashMap();
-	public static final ArrayList<ToolType> types = new ArrayList();
-
-	public static ToolType getToolHead(EnumToolQuality quality, EnumToolMaterial material) {
-		return map.get(Pair.of(quality, material));
-	}
+	// Comparator to sort the table to the correct order.
+	private static final Comparator<Enum> sorter = new Comparator<Enum>()
+			{
+				@Override
+				public int compare(Enum m1, Enum m2)
+				{
+					return Integer.compare(m1.ordinal(), m2.ordinal());
+				}
+			};
+	public static final Table<EnumToolMaterial, EnumToolQuality, ToolType> map = TreeBasedTable.create(sorter, sorter);
 
 	static
 	{
@@ -47,20 +55,20 @@ public class ToolTypes
 		{
 			for (EnumToolQuality quality : EnumToolQuality.values())
 			{
-				ToolType toolType = new ToolType(quality, material);
-				map.put(Pair.of(quality, material), toolType);
-				types.add(toolType);
+				ToolType toolType = new ToolType(material, quality);
+				map.put(material, quality, toolType);
 			}
 		}
-		
-		map.getClass();
 	}
 
+	public static ToolType getToolHead(EnumToolMaterial material, EnumToolQuality quality)
+	{
+		return map.get(material, quality);
+	}
+	
 	public static ToolType[] getAll()
 	{
-		//return types.toArray(new ToolType[typeList.size()]);
 		Collection<ToolType> types = map.values();
-		
 		return types.toArray(new ToolType[types.size()]);
 	}
 }

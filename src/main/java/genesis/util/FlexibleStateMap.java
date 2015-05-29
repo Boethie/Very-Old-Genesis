@@ -6,11 +6,15 @@ import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.*;
 
+@SideOnly(Side.CLIENT)
 public class FlexibleStateMap extends StateMapperBase
 {
 	protected String prefix = "";
@@ -50,6 +54,13 @@ public class FlexibleStateMap extends StateMapperBase
 		this.nameFunction = nameFunction;
 	}
 	
+	public FlexibleStateMap clearIgnoredProperties()
+	{
+		ignoreProperties.clear();
+		
+		return this;
+	}
+	
 	public FlexibleStateMap addIgnoredProperties(IProperty... addProperties)
 	{
         Collections.addAll(ignoreProperties, addProperties);
@@ -60,7 +71,13 @@ public class FlexibleStateMap extends StateMapperBase
 	@Override
 	protected ModelResourceLocation getModelResourceLocation(IBlockState state)
 	{
-		String output = Constants.ASSETS + prefix;
+		ResourceLocation registeredAs = (ResourceLocation) Block.blockRegistry.getNameForObject(state.getBlock());
+		String output = registeredAs.getResourceDomain() + ":" + prefix;
+		
+		if ("".equals(prefix) && "".equals(postfix))
+		{
+			output += registeredAs.getResourcePath();
+		}
 		
 		Map<IProperty, Comparable> propertyMap = Maps.newLinkedHashMap(state.getProperties());
 		

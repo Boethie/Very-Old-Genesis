@@ -1,26 +1,30 @@
 package genesis.metadata;
 
+import genesis.metadata.VariantsOfTypesCombo.*;
+import genesis.metadata.ToolItems.*;
+
 import java.util.*;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Sets;
 
-import net.minecraft.item.ItemStack;
-import genesis.item.ItemToolHead;
+import genesis.common.GenesisCreativeTabs;
+import genesis.item.*;
+import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.*;
 import genesis.metadata.ToolTypes.ToolType;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType.ObjectNamePosition;
 
-public class ToolItems extends VariantsOfTypesCombo
+public class ToolItems extends VariantsOfTypesCombo<ToolObjectType, ToolType>
 {
-	public static class ToolObjectType extends ObjectType<ItemToolHead>
+	public static class ToolObjectType<I extends Item> extends ObjectType<Block, I>
 	{
 		public final HashSet<EnumToolQuality> validQualities;
 		public final HashSet<EnumToolMaterial> materialExclusions;
 		
-		public ToolObjectType(String name, String unlocalizedName, Class blockClass, Class itemClass, EnumToolQuality[] qualities, EnumToolMaterial... materialExclusions)
+		public ToolObjectType(String name, String unlocalizedName, Class<? extends I> itemClass, EnumToolQuality[] qualities, EnumToolMaterial... materialExclusions)
 		{
-			super(name, unlocalizedName, blockClass, itemClass);
+			super(name, unlocalizedName, null, itemClass);
 
 			this.validQualities = Sets.newHashSet(qualities);
 			this.materialExclusions = Sets.newHashSet(materialExclusions);
@@ -28,9 +32,9 @@ public class ToolItems extends VariantsOfTypesCombo
 			setNamePosition(ObjectNamePosition.PREFIX);
 		}
 
-		public ToolObjectType(String name, Class blockClass, Class itemClass, EnumToolQuality[] qualities, EnumToolMaterial... materialExclusions)
+		public ToolObjectType(String name, Class<? extends I> itemClass, EnumToolQuality[] qualities, EnumToolMaterial... materialExclusions)
 		{
-			this(name, name, blockClass, itemClass, qualities, materialExclusions);
+			this(name, name, itemClass, qualities, materialExclusions);
 		}
 		
 		@Override
@@ -53,76 +57,90 @@ public class ToolItems extends VariantsOfTypesCombo
 		}
 		
 		@Override
-		public ToolObjectType setNamePosition(ObjectNamePosition namePosition)
+		public ToolObjectType<I> setNamePosition(ObjectNamePosition namePosition)
 		{
 			super.setNamePosition(namePosition);
-			
+			return this;
+		}
+		
+		@Override
+		public ToolObjectType<I> setCreativeTab(CreativeTabs tab)
+		{
+			super.setCreativeTab(tab);
 			return this;
 		}
 	}
 	
-	public static class ToolObjectTypeSoleQuality extends ToolObjectType
+	public static class ToolObjectTypeSoleQuality<I extends Item> extends ToolObjectType<I>
 	{
 		protected final EnumToolQuality soleQuality;
 		
-		public ToolObjectTypeSoleQuality(String name, String unlocalizedName, Class blockClass, Class itemClass, EnumToolQuality quality, EnumToolMaterial... materialExclusions)
+		public ToolObjectTypeSoleQuality(String name, String unlocalizedName, Class<? extends I> itemClass, EnumToolQuality quality, EnumToolMaterial... materialExclusions)
 		{
-			super(name, unlocalizedName, blockClass, itemClass, new EnumToolQuality[]{quality}, materialExclusions);
+			super(name, unlocalizedName, itemClass, new EnumToolQuality[]{quality}, materialExclusions);
 			
 			this.soleQuality = quality;
 		}
 		
-		public ToolObjectTypeSoleQuality(String name, Class blockClass, Class itemClass, EnumToolQuality quality, EnumToolMaterial... materialExclusions)
+		public ToolObjectTypeSoleQuality(String name, Class<? extends I> itemClass, EnumToolQuality quality, EnumToolMaterial... materialExclusions)
 		{
-			this(name, name, blockClass, itemClass, quality, materialExclusions);
+			this(name, name, itemClass, quality, materialExclusions);
 		}
 		
 		public EnumToolQuality getSoleQuality()
 		{
 			return soleQuality;
 		}
+		
+		@Override
+		public ToolObjectTypeSoleQuality<I> setNamePosition(ObjectNamePosition namePosition)
+		{
+			super.setNamePosition(namePosition);
+			return this;
+		}
 	}
-	
-	public static final ToolObjectType PEBBLE = new ToolObjectTypeSoleQuality("pebble", null, null, EnumToolQuality.NONE).setNamePosition(ObjectNamePosition.PREFIX);
-	public static final ToolObjectType PICK_HEAD = new ToolObjectType("tool_head_pickaxe", "toolHead.pickaxe", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED});
-	public static final ToolObjectType SHOVEL_HEAD = new ToolObjectType("tool_head_shovel", "toolHead.shovel", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED});
-	public static final ToolObjectType AXE_HEAD = new ToolObjectType("tool_head_axe", "toolHead.axe", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED});
+
+	public static final ToolObjectTypeSoleQuality<ItemMulti> PEBBLE = new ToolObjectTypeSoleQuality("pebble", null, EnumToolQuality.NONE, EnumToolMaterial.OCTAEDRITE).setNamePosition(ObjectNamePosition.PREFIX);
+	public static final ToolObjectType<ItemToolHead> PICK_HEAD = new ToolObjectType("head_pick", "toolHead.pick", ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED});
+	public static final ToolObjectType<ItemToolHead> AXE_HEAD = new ToolObjectType("head_axe", "toolHead.axe", ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED});
+	public static final ToolObjectType<ItemToolHead> HOE_HEAD = new ToolObjectType("head_hoe", "toolHead.hoe", ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED});
+	public static final ToolObjectType<ItemToolHead> KNIFE_HEAD = new ToolObjectType("head_knife", "toolHead.knife", ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.SHARPENED});
+	public static final ToolObjectType<ItemToolHead> SPEAR_HEAD = new ToolObjectType("head_spear", "toolHead.spear", ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.SHARPENED}).setCreativeTab(GenesisCreativeTabs.COMBAT);
+	public static final ToolObjectType<ItemToolHead> ARROW_HEAD = new ToolObjectType("head_arrow", "toolHead.arrow", ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.SHARPENED}).setCreativeTab(GenesisCreativeTabs.COMBAT);
+	public static final ToolObjectTypeSoleQuality<ItemMulti> FLAKE = new ToolObjectTypeSoleQuality("flake", "flake", null, EnumToolQuality.NONE);
 	
 	public ToolItems()
 	{
-		super(new ToolObjectType[]{PEBBLE, PICK_HEAD, SHOVEL_HEAD, AXE_HEAD}, ToolTypes.getAll());
+		super(new ToolObjectType[]{PEBBLE, PICK_HEAD, AXE_HEAD, HOE_HEAD, KNIFE_HEAD, SPEAR_HEAD, ARROW_HEAD, FLAKE}, ToolTypes.getAll());
 	}
 	
-	@Override
-	public ItemStack getStack(ObjectType type, IMetadata variant, int stackSize)
+	public ItemStack getStack(ToolObjectTypeSoleQuality type, EnumToolMaterial material, int stackSize)
 	{
-		ToolObjectType toolType = ((ToolObjectType) type);
-		
-		if (variant instanceof ToolType)
-		{
-			return super.getStack(type, variant, stackSize);
-		}
-		
-		if (variant instanceof EnumToolMaterial)
-		{
-			if (toolType instanceof ToolObjectTypeSoleQuality)
-			{
-				return getStack(type, ToolTypes.getToolHead(((ToolObjectTypeSoleQuality) toolType).getSoleQuality(), (EnumToolMaterial) variant));
-			}
-			else
-			{
-				throw new RuntimeException("Attempted to get a stack using an EnumToolMaterial on a non-ToolObjectTypeSoleQuality.\n" +
-						getIdentification());
-			}
-		}
+		EnumToolQuality quality = type.getSoleQuality();
+		return getStack(type, ToolTypes.getToolHead(material, quality));
+	}
 
-		throw new RuntimeException("Invalid variant.\n" +
-				getIdentification());
+	/**
+	 * Get an item stack containing the tool item with the specified tool type (with only one quality level), and the tool material.
+	 */
+	public ItemStack getStack(ToolObjectTypeSoleQuality type, EnumToolMaterial material)
+	{
+		return getStack(type, material, 1);
 	}
 	
-	@Override
-	public ItemStack getStack(ObjectType type, IMetadata variant)
+	/**
+	 * Get an item stack containing the tool item of the specified tool type, material and quality.
+	 */
+	public ItemStack getStack(ToolObjectType type, EnumToolMaterial material, EnumToolQuality quality, int stackSize)
 	{
-		return getStack(type, variant, 1);
+		return getStack(type, ToolTypes.getToolHead(material, quality), stackSize);
+	}
+
+	/**
+	 * Get an item stack containing the tool item of the specified tool type, material and quality.
+	 */
+	public ItemStack getStack(ToolObjectType type, EnumToolMaterial material, EnumToolQuality quality)
+	{
+		return getStack(type, material, quality, 1);
 	}
 }

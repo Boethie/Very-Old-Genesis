@@ -1,19 +1,30 @@
-#Blocks
+genesis.multiItem.invalidMetadata.name=§4Invalid Sub-Item Metadata!
+
+#------------- Blocks -------------
+tile.genesis.dummyBlock.name=§4Useless Dummy Block!
+
+#Interactive blocks
+tile.genesis.campfire.name=Campfire
+
+#Building blocks
 tile.genesis.moss.name=Moss
 tile.genesis.rock.granite.name=Granite
 tile.genesis.rock.mossyGranite.name=Mossy Granite
 tile.genesis.rock.rhyolite.name=Rhyolite
 tile.genesis.rock.dolerite.name=Dolerite
 tile.genesis.rock.komatiite.name=Komatiite
+tile.genesis.rock.anorthosite.name=Anorthosite
 tile.genesis.rock.trondhjemite.name=Trondhjemite
 tile.genesis.rock.fauxAmphibolite.name=Faux-Amphibolite
 tile.genesis.rock.gneiss.name=Gneiss
 tile.genesis.rock.quartzite.name=Quartzite
 tile.genesis.rock.limestone.name=Limestone
 tile.genesis.rock.shale.name=Shale
-tile.genesis.redClay.name=Red Clay
 tile.genesis.rock.octaedrite.name=Octaedrite
+tile.genesis.redClay.name=Red Clay
+
 tile.genesis.permafrost.name=Permafrost
+
 tile.genesis.ore.brownFlint.name=Brown Flint Inclusion
 tile.genesis.ore.marcasite.name=Marcasite Ore
 tile.genesis.ore.quartz.name=Quartz Ore
@@ -23,23 +34,48 @@ tile.genesis.ore.manganese.name=Manganese Ore
 tile.genesis.ore.hematite.name=Hematite Ore
 tile.genesis.ore.malachite.name=Malachite Ore
 tile.genesis.ore.olivine.name=Olivine Ore
-tile.log.archaeopteris.name=Archaeopteris Wood
-tile.log.sigillaria.name=Sigillaria Wood
-tile.log.lepidodendron.name=Lepidodendron Wood
-tile.log.cordaites.name=Cordaites Wood
-tile.log.psaronius.name=Psaronius Wood
-tile.log.araucarioxylon.name=Araucarioxylon Wood
+
+tile.genesis.log.archaeopteris.name=Archaeopteris Wood
+tile.genesis.log.sigillaria.name=Sigillaria Wood
+tile.genesis.log.lepidodendron.name=Lepidodendron Wood
+tile.genesis.log.cordaites.name=Cordaites Wood
+tile.genesis.log.psaronius.name=Psaronius Wood
+tile.genesis.log.araucarioxylon.name=Araucarioxylon Wood
+
 tile.genesis.calamitesBundle.name=Bundle of Calamites
 tile.genesis.prototaxitesMycelium.name=Prototaxites Mycelium
-tile.genesis.prototaxites.name=Prototaxites
 tile.genesis.dung.brachiosaurus.name=Brachiosaurus Dung
 tile.genesis.dung.tyrannosaurus.name=Tyrannosaurus Dung
+
+#Decoration
+tile.genesis.log.rotten.archaeopteris.name=Rotten Archaeopteris Wood
+tile.genesis.log.rotten.sigillaria.name=Rotten Sigillaria Wood
+tile.genesis.log.rotten.lepidodendron.name=Rotten Lepidodendron Wood
+tile.genesis.log.rotten.cordaites.name=Rotten Cordaites Wood
+tile.genesis.log.rotten.araucarioxylon.name=Rotten Araucarioxylon Wood
+
+tile.genesis.leaves.archaeopteris.name=Archaeopteris Leaves
+tile.genesis.leaves.sigillaria.name=Sigillaria Leaves
+tile.genesis.leaves.lepidodendron.name=Lepidodendron Leaves
+tile.genesis.leaves.cordaites.name=Cordaites Leaves
+tile.genesis.leaves.psaronius.name=Psaronius Leaves
+tile.genesis.leaves.araucarioxylon.name=Araucarioxylon Leaves
+
+tile.genesis.sapling.archaeopteris.name=Archaeopteris Sapling
+tile.genesis.sapling.sigillaria.name=Sigillaria Sapling
+tile.genesis.sapling.lepidodendron.name=Lepidodendron Sapling
+tile.genesis.sapling.cordaites.name=Cordaites Sapling
+tile.genesis.sapling.psaronius.name=Psaronius Sapling
+tile.genesis.sapling.araucarioxylon.name=Araucarioxylon Sapling
+
 tile.genesis.wattleFence.archaeopteris.name=Archaeopteris Wattle Fence
 tile.genesis.wattleFence.sigillaria.name=Sigillaria Wattle Fence
 tile.genesis.wattleFence.lepidodendron.name=Lepidodendron Wattle Fence
 tile.genesis.wattleFence.cordaites.name=Cordaites Wattle Fence
 tile.genesis.wattleFence.araucarioxylon.name=Araucarioxylon Wattle Fence
+
 tile.genesis.calamitesTorch.name=Calamites Torch
+
 tile.genesis.plant.cooksonia.name=Cooksonia
 tile.genesis.plant.baragwanathia.name=Baragwanathia
 tile.genesis.plant.sciadophyton.name=Sciadophyton
@@ -50,11 +86,18 @@ tile.genesis.plant.archaeamphora.name=Archaeamphora
 tile.genesis.plant.mabelia.name=Mabelia
 tile.genesis.plant.sphenophyllum.name=Sphenophyllum
 tile.genesis.plant.calamites.name=Calamites
-tile.genesis.crop.zingiberopsis.name=Zingiberopsis
+
 tile.genesis.fern.zygopteris.name=Zygopteris
 tile.genesis.fern.ruffordia.name=Ruffordia
 tile.genesis.fern.astralopteris.name=Astralopteris
 tile.genesis.fern.matonidium.name=Matonidium
+
+tile.genesis.crop.zingiberopsis.name=Zingiberopsis
+
+tile.genesis.prototaxites.name=Prototaxites
+
+tile.genesis.cobbania.name=Cobbania
+
 tile.genesis.aquaticPlant.bangiomorpha.name=Bangiomorpha
 tile.genesis.aquaticPlant.marpolia.name=Marpolia
 tile.genesis.aquaticPlant.margaretia.name=Margaretia
@@ -70,46 +113,131 @@ tile.genesis.aquaticPlant.primocandelabrum.name=Primocandelabrum
 tile.genesis.aquaticPlant.charnia_top.name=Charnia
 tile.genesis.aquaticPlant.charnia.name=Charnia
 tile.genesis.aquaticPlant.thaumaptilon.name=Thaumaptilon
+
 tile.genesis.coral.favosites.name=Favosites
 tile.genesis.coral.heliolites.name=Heliolites
 tile.genesis.coral.halysites.name=Halysites
 
-#Items
+#------------- Items -------------
+#Food
 item.genesis.food.zingiberopsisRhizome.name=Zingiberopsis Rhizome
 item.genesis.food.odontopterisSeeds.name=Odontopteris Seeds
-item.genesis.food.aphthoroblattinaRaw.name=Raw Aphthoroblattina
-item.genesis.food.aphthoroblattinaCooked.name=Cooked Aphthoroblattina
+item.genesis.food.spiriferRaw.name=Raw Spirifer
+item.genesis.food.spiriferCooked.name=Cooked Spirifer
 item.genesis.food.climatiusRaw.name=Raw Climatius
 item.genesis.food.climatiusCooked.name=Cooked Climatius
+item.genesis.food.aphthoroblattinaRaw.name=Raw Aphthoroblattina
+item.genesis.food.aphthoroblattinaCooked.name=Cooked Aphthoroblattina
 item.genesis.food.eryopsLegRaw.name=Raw Eryops Leg
 item.genesis.food.eryopsLegCooked.name=Cooked Eryops Leg
+item.genesis.food.ceratitesRaw.name=Raw Ceratites
+item.genesis.food.ceratitesCooked.name=Cooked Ceratites
+item.genesis.food.liopleurodonRaw.name=Raw Liopleurodon
+item.genesis.food.liopleurodonCooked.name=Cooked Liopleurodon
 item.genesis.food.tyrannosaurusRaw.name=Raw Tyrannosaurus
 item.genesis.food.tyrannosaurusCooked.name=Cooked Tyrannosaurus
+
+#Tools
+item.genesis.tool.quality.chipped=Chipped
+item.genesis.tool.quality.polished=Polished
+item.genesis.tool.quality.sharpened=Sharpened
+
+item.genesis.material.toolHead.pick.granite.name=Granite Pick Head
+item.genesis.material.toolHead.pick.rhyolite.name=Rhyolite Pick Head
+item.genesis.material.toolHead.pick.quartzite.name=Quartzite Pick Head
+item.genesis.material.toolHead.pick.dolerite.name=Dolerite Pick Head
+item.genesis.material.toolHead.pick.brownFlint.name=Brown Flint Pick Head
+item.genesis.material.toolHead.pick.octaedrite.name=Octaedrite Pick Head
+
+item.genesis.material.toolHead.axe.granite.name=Granite Axe Head
+item.genesis.material.toolHead.axe.rhyolite.name=Rhyolite Axe Head
+item.genesis.material.toolHead.axe.quartzite.name=Quartzite Axe Head
+item.genesis.material.toolHead.axe.dolerite.name=Dolerite Axe Head
+item.genesis.material.toolHead.axe.brownFlint.name=Brown Flint Axe Head
+item.genesis.material.toolHead.axe.octaedrite.name=Octaedrite Axe Head
+
+item.genesis.material.toolHead.hoe.granite.name=Granite Hoe Head
+item.genesis.material.toolHead.hoe.rhyolite.name=Rhyolite Hoe Head
+item.genesis.material.toolHead.hoe.quartzite.name=Quartzite Hoe Head
+item.genesis.material.toolHead.hoe.dolerite.name=Dolerite Hoe Head
+item.genesis.material.toolHead.hoe.brownFlint.name=Brown Flint Hoe Head
+item.genesis.material.toolHead.hoe.octaedrite.name=Octaedrite Hoe Head
+
+item.genesis.material.toolHead.knife.granite.name=Granite Knife Head
+item.genesis.material.toolHead.knife.rhyolite.name=Rhyolite Knife Head
+item.genesis.material.toolHead.knife.quartzite.name=Quartzite Knife Head
+item.genesis.material.toolHead.knife.dolerite.name=Dolerite Knife Head
+item.genesis.material.toolHead.knife.brownFlint.name=Brown Flint Knife Head
+item.genesis.material.toolHead.knife.octaedrite.name=Octaedrite Knife Head
+
+item.genesis.material.toolHead.spear.granite.name=Granite Spear Head
+item.genesis.material.toolHead.spear.rhyolite.name=Rhyolite Spear Head
+item.genesis.material.toolHead.spear.quartzite.name=Quartzite Spear Head
+item.genesis.material.toolHead.spear.dolerite.name=Dolerite Spear Head
+item.genesis.material.toolHead.spear.brownFlint.name=Brown Flint Spear Head
+item.genesis.material.toolHead.spear.octaedrite.name=Octaedrite Spear Head
+
+item.genesis.material.toolHead.arrow.granite.name=Granite Arrow Head
+item.genesis.material.toolHead.arrow.rhyolite.name=Rhyolite Arrow Head
+item.genesis.material.toolHead.arrow.quartzite.name=Quartzite Arrow Head
+item.genesis.material.toolHead.arrow.dolerite.name=Dolerite Arrow Head
+item.genesis.material.toolHead.arrow.brownFlint.name=Brown Flint Arrow Head
+item.genesis.material.toolHead.arrow.octaedrite.name=Octaedrite Arrow Head
+
+item.genesis.material.flake.granite.name=Granite Flake
+item.genesis.material.flake.rhyolite.name=Rhyolite Flake
+item.genesis.material.flake.quartzite.name=Quartzite Flake
+item.genesis.material.flake.dolerite.name=Dolerite Flake
+item.genesis.material.flake.brownFlint.name=Brown Flint Flake
+item.genesis.material.flake.octaedrite.name=Octaedrite Flake
+
 item.genesis.tool.flintAndMarcasite.name=Flint and Marcasite
+
+#Materials
 item.genesis.material.pebble.granite.name=Granite Pebble
 item.genesis.material.pebble.rhyolite.name=Rhyolite Pebble
 item.genesis.material.pebble.dolerite.name=Dolerite Pebble
 item.genesis.material.pebble.quartzite.name=Quartzite Pebble
 item.genesis.material.pebble.brownFlint.name=Brown Flint Pebble
+
 item.genesis.material.redClay.name=Red Clay
-item.genesis.material.bowlRedClay.name=Red Clay Bowl
-item.genesis.material.bowlCeramic.name=Ceramic Bowl
+item.genesis.material.redClayBowl.name=Red Clay Bowl
+item.genesis.material.ceramicBowl.name=Ceramic Bowl
+item.genesis.material.ceramicBowl.water.name=Ceramic Bowl of Water
+item.genesis.material.dye.white.name=Bowl of White Dye
+item.genesis.material.dye.orange.name=Bowl of Orange Dye
+item.genesis.material.dye.magenta.name=Bowl of Magenta Dye
+item.genesis.material.dye.lightBlue.name=Bowl of Light Blue Dye
+item.genesis.material.dye.yellow.name=Bowl of Yellow Dye
+item.genesis.material.dye.lime.name=Bowl of Lime Dye
+item.genesis.material.dye.pink.name=Bowl of Pink Dye
+item.genesis.material.dye.gray.name=Bowl of Gray Dye
+item.genesis.material.dye.silver.name=Bowl of Silver Dye
+item.genesis.material.dye.cyan.name=Bowl of Cyan Dye
+item.genesis.material.dye.purple.name=Bowl of Purple Dye
+item.genesis.material.dye.blue.name=Bowl of Blue Dye
+item.genesis.material.dye.brown.name=Bowl of Brown Dye
+item.genesis.material.dye.green.name=Bowl of Green Dye
+item.genesis.material.dye.red.name=Bowl of Red Dye
+item.genesis.material.dye.black.name=Bowl of Black Dye
 item.genesis.material.redClayBucket.name=Red Clay Bucket
-item.genesis.material.octaedriteShard.name=Octaedrite Shard
+
 item.genesis.material.quartz.name=Quartz
 item.genesis.material.zircon.name=Zircon
 item.genesis.material.garnet.name=Garnet
-item.genesis.material.manganese.name=Manganese
 item.genesis.material.hematite.name=Hematite
+item.genesis.material.manganese.name=Manganese
 item.genesis.material.malachite.name=Malachite
 item.genesis.material.olivine.name=Olivine
 item.genesis.material.nodule.brownFlint.name=Brown Flint Nodule
 item.genesis.material.nodule.marcasite.name=Marcasite Nodule
+
 item.genesis.material.billet.archaeopteris.name=Archaeopteris Wood Billet
 item.genesis.material.billet.sigillaria.name=Sigillaria Wood Billet
 item.genesis.material.billet.lepidodendron.name=Lepidodendron Wood Billet
 item.genesis.material.billet.cordaites.name=Cordaites Wood Billet
 item.genesis.material.billet.araucarioxylon.name=Araucarioxylon Wood Billet
+
 item.genesis.material.resin.name=Resin
 item.genesis.material.calamites.name=Calamites
 item.genesis.material.sphenophyllumFiber.name=Sphenophyllum Fiber
@@ -117,6 +245,8 @@ item.genesis.material.odontopterisFiddlehead.name=Odontopteris Fiddlehead
 item.genesis.material.prototaxitesFlesh.name=Prototaxites Flesh
 item.genesis.material.dung.brachiosaurus.name=Brachiosaurus Dung
 item.genesis.material.dung.tyrannosaurus.name=Tyrannosaurus Dung
+item.genesis.material.arthropleuraChitin.name=Arthropleura Chitin
+item.genesis.material.liopleurodonTooth.name=Liopleurodon Tooth
 item.genesis.material.tyrannosaurusSaliva.name=Tyrannosaurus Saliva
 item.genesis.material.tyrannosaurusTooth.name=Tyrannosaurus Tooth
 
@@ -125,9 +255,12 @@ item.genesis.misc.ceramicBucket.name=Ceramic Bucket
 item.genesis.misc.ceramicBucketWater.name=Ceramic Water Bucket
 item.genesis.misc.ceramicBucketMilk.name=Ceramic Milk Bucket
 
-#Entities
+#------------- GUIs -------------
+container.genesis.campfire=Campfire
 
-#Creative Tabs
+#------------- Entities -------------
+
+#------------- Creative Tabs -------------
 itemGroup.genesis.buildingBlocks=Genesis Building Blocks
 itemGroup.genesis.decorations=Genesis Decoration Blocks
 itemGroup.genesis.misc=Genesis Miscellaneous

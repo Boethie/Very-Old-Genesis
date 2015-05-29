@@ -1,25 +1,22 @@
 package genesis.metadata;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
+import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
-import genesis.metadata.VariantsOfTypesCombo.VariantEntry;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType.ObjectNamePosition;
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import genesis.metadata.VariantsOfTypesCombo.ObjectNamePosition;
+import net.minecraft.block.*;
+import net.minecraft.block.state.*;
+import net.minecraft.item.*;
 
 /**
  * Used to create a combo of Blocks or Items with variants. Can only contain <i>one</i> ObjectType.
  * 
  * @author Zaggy1024
  */
-public class VariantsCombo<T> extends VariantsOfTypesCombo
+public class VariantsCombo<V extends IMetadata, B extends Block, I extends Item> extends VariantsOfTypesCombo<ObjectType<B, I>, V>
 {
-	public final ObjectType<T> soleType;
+	public final ObjectType<B, I> soleType;
 	
 	/**
 	 * Constructs a BlocksAndItemsWithVariantsOfTypes with one ObjectType for simple one-type combos.
@@ -27,11 +24,22 @@ public class VariantsCombo<T> extends VariantsOfTypesCombo
 	 * @param objectType The sole ObjectType that this VariantsCombo will use.
 	 * @param itemClass the Item class to initialize for each variant.
 	 */
-	public VariantsCombo(ObjectType<T> objectType, IMetadata[] variants)
+	public VariantsCombo(final ObjectType<B, I> objectType, List<V> variants)
 	{
-		super(new ObjectType[]{ objectType }, variants);
+		super(new ArrayList(){{ add(objectType); }}, variants);
 		
 		soleType = types.get(0);
+	}
+	
+	/**
+	 * Constructs a BlocksAndItemsWithVariantsOfTypes with one ObjectType for simple one-type combos.
+	 *  
+	 * @param objectType The sole ObjectType that this VariantsCombo will use.
+	 * @param itemClass the Item class to initialize for each variant.
+	 */
+	public VariantsCombo(ObjectType<B, I> objectType, V[] variants)
+	{
+		this(objectType, Arrays.asList(variants));
 	}
 	
 	/**
@@ -42,9 +50,9 @@ public class VariantsCombo<T> extends VariantsOfTypesCombo
 	 * @param blockClass The Block class to initialize for each variant.
 	 * @param itemClass the Item class to initialize for each variant.
 	 */
-	public VariantsCombo(String name, String unlocalizedName, Class<? extends Block> blockClass, Class<? extends Item> itemClass, IMetadata[] variants)
+	public VariantsCombo(String name, String unlocalizedName, Class<? extends B> blockClass, Class<? extends I> itemClass, V[] variants)
 	{
-		this(new ObjectType(name, unlocalizedName, blockClass, itemClass), variants);
+		this(new ObjectType<B, I>(name, unlocalizedName, blockClass, itemClass), variants);
 	}
 	
 	/**
@@ -54,7 +62,7 @@ public class VariantsCombo<T> extends VariantsOfTypesCombo
 	 * @param blockClass The Block class to initialize for each variant.
 	 * @param itemClass the Item class to initialize for each variant.
 	 */
-	public VariantsCombo(String name, Class<? extends Block> blockClass, Class<? extends Item> itemClass, IMetadata[] variants)
+	public VariantsCombo(String name, Class<? extends B> blockClass, Class<? extends I> itemClass, V[] variants)
 	{
 		this(name, name, blockClass, itemClass, variants);
 	}
@@ -66,7 +74,7 @@ public class VariantsCombo<T> extends VariantsOfTypesCombo
 	 *  
 	 * @param name The name to attach to each variant (i.e. "ore", to result in "variant_ore").
 	 */
-	public VariantsCombo(String name, String unlocalizedName, IMetadata[] variants)
+	public VariantsCombo(String name, String unlocalizedName, V[] variants)
 	{
 		this(name, unlocalizedName, null, null, variants);
 	}
@@ -78,7 +86,7 @@ public class VariantsCombo<T> extends VariantsOfTypesCombo
 	 *  
 	 * @param name The name to attach to each variant (i.e. "ore", to result in "variant_ore").
 	 */
-	public VariantsCombo(String name, IMetadata[] variants)
+	public VariantsCombo(String name, V[] variants)
 	{
 		this(name, name, variants);
 	}
@@ -86,7 +94,7 @@ public class VariantsCombo<T> extends VariantsOfTypesCombo
 	/**
 	 * Gets a stack of the specified Item in this combo.
 	 */
-	public ItemStack getStack(IMetadata variant, int stackSize)
+	public ItemStack getStack(V variant, int stackSize)
 	{
 		return getStack(soleType, variant, stackSize);
 	}
@@ -94,42 +102,17 @@ public class VariantsCombo<T> extends VariantsOfTypesCombo
 	/**
 	 * Gets a stack of the specified Item in this combo.
 	 */
-	public ItemStack getStack(IMetadata variant)
+	public ItemStack getStack(V variant)
 	{
 		return getStack(variant, 1);
-	}
-
-	/**
-	 * Gets the Block or Item for the type and variant.
-	 * 
-	 * @return The Block/Item casted to the type provided by the generic type in "type".
-	 */
-	public T getObject(IMetadata variant)
-	{
-		return (T) getVariantEntry(soleType, variant).object;
 	}
 	
 	/**
 	 * Gets the metadata used to get the Item of this variant.
 	 */
-	public int getMetadata(IMetadata variant)
+	public int getMetadata(V variant)
 	{
 		return getMetadata(soleType, variant);
-	}
-	
-	/**
-	 * Gets all the Blocks or Items that the sole ObjectType uses.
-	 */
-	public HashSet<T> getObjects()
-	{
-		HashSet<T> out = new HashSet();
-		
-		for (IMetadata variant : getValidVariants(soleType))
-		{
-			out.add(getObject(soleType, variant));
-		}
-		
-		return out;
 	}
 	
 	/**
@@ -138,5 +121,29 @@ public class VariantsCombo<T> extends VariantsOfTypesCombo
 	public IBlockState getRandomBlockState(Random rand)
 	{
 		return getRandomBlockState(soleType, rand);
+	}
+	
+	/**
+	 * Gets the valid variants for this combo's sole {@link #ObjectType}.
+	 */
+	public List<V> getValidVariants()
+	{
+		return getValidVariants(soleType);
+	}
+	
+	/**
+	 * Gets the list of Blocks for this combo's sole {@link #ObjectType}.
+	 */
+	public B getBlock(V variant)
+	{
+		return super.getBlock(soleType, variant);
+	}
+	
+	/**
+	 * Gets the list of Blocks for this combo's sole {@link #ObjectType}.
+	 */
+	public Collection<B> getBlocks()
+	{
+		return super.getBlocks(soleType);
 	}
 }

@@ -1,7 +1,7 @@
 package genesis.client.model;
 
 import genesis.client.GenesisCustomModelLoader;
-import genesis.util.ModelHelpers;
+import genesis.util.render.ModelHelpers;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

@@ -1,19 +1,17 @@
 package genesis.block;
 
-import genesis.common.GenesisBlocks;
-import genesis.common.GenesisCreativeTabs;
-import genesis.common.GenesisItems;
-import genesis.util.BlockStateToMetadata;
+import genesis.client.*;
+import genesis.common.*;
+import genesis.util.*;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockCactus;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.BlockState;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.*;
+import net.minecraft.block.material.*;
+import net.minecraft.block.state.*;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.*;
 
 public class BlockPrototaxites extends BlockGenesis
 {
@@ -21,7 +19,17 @@ public class BlockPrototaxites extends BlockGenesis
 	{
 		super(Material.wood);
 		
-		setDefaultState(getBlockState().getBaseState().withProperty(BlockCactus.AGE, 0));
+		setDefaultState(getBlockState().getBaseState());
+		Genesis.proxy.callSided(new SidedFunction()
+		{
+			@Override
+			@SideOnly(Side.CLIENT)
+			public void client(GenesisClient client)
+			{
+				client.registerModelStateMap(BlockPrototaxites.this, new FlexibleStateMap().addIgnoredProperties(BlockCactus.AGE));
+			}
+		});
+		
 		setHardness(0.75F);
 		setTickRandomly(true);
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);

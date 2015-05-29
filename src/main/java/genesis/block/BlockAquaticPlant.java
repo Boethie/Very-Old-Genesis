@@ -8,7 +8,7 @@ import genesis.client.GenesisSounds;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.metadata.*;
-import genesis.metadata.Properties;
+import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants;
 import genesis.util.FlexibleStateMap;
@@ -41,7 +41,7 @@ public class BlockAquaticPlant extends BlockGenesisVariants<EnumAquaticPlant, Va
 	/**
 	 * Used in BlocksAndItemsWithVariantsOfTypes.
 	 */
-	@Properties
+	@BlockProperties
 	public static IProperty[] getProperties()
 	{
 		return new IProperty[]{};
@@ -49,9 +49,9 @@ public class BlockAquaticPlant extends BlockGenesisVariants<EnumAquaticPlant, Va
 	
 	private Set<Block> validGround;
 
-	public BlockAquaticPlant(List<EnumAquaticPlant> variants, VariantsCombo owner)
+	public BlockAquaticPlant(List<EnumAquaticPlant> variants, VariantsCombo owner, ObjectType type)
 	{
-		super(variants, owner, Material.water);
+		super(variants, owner, type, Material.water);
 		
 		blockState = new BlockState(this, variantProp, BlockLiquid.LEVEL);
 		setDefaultState(getBlockState().getBaseState());
@@ -66,6 +66,7 @@ public class BlockAquaticPlant extends BlockGenesisVariants<EnumAquaticPlant, Va
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void customizeStateMap(FlexibleStateMap stateMap)
 	{
 		stateMap.addIgnoredProperties(BlockLiquid.LEVEL);
@@ -82,7 +83,7 @@ public class BlockAquaticPlant extends BlockGenesisVariants<EnumAquaticPlant, Va
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
 	{
-		owner.fillSubItems(this, variants, list, noItemVariants);
+		owner.fillSubItems(type, variants, list, noItemVariants);
 	}
 
 	@Override
@@ -206,7 +207,7 @@ public class BlockAquaticPlant extends BlockGenesisVariants<EnumAquaticPlant, Va
 			validGround.add(Blocks.gravel);
 			validGround.add(Blocks.clay);
 			validGround.add(GenesisBlocks.red_clay);
-			validGround.addAll(GenesisBlocks.corals.getObjects(GenesisBlocks.corals.soleType));
+			validGround.addAll(GenesisBlocks.corals.getBlocks(GenesisBlocks.corals.soleType));
 		}
 		
 		IBlockState below = world.getBlockState(pos.down());
