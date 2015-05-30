@@ -16,7 +16,7 @@ public class ToolTypes
 			this.material = material;
 			this.quality = quality;
 		}
-
+		
 		@Override
 		public String getName()
 		{
@@ -24,7 +24,7 @@ public class ToolTypes
 			
 			return (qualityName == null ? "" : qualityName + "_") + material.getName();
 		}
-
+		
 		@Override
 		public String getUnlocalizedName()
 		{

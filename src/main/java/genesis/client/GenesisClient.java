@@ -45,6 +45,12 @@ public class GenesisClient extends GenesisProxy
 	@Override
 	public void preInit()
 	{
+		for (SidedFunction call : preInitCalls)
+		{
+			call.client(this);
+		}
+		
+		// This should be called as late as possible in preInit.
         ModelHelpers.preInit();
 	}
 
@@ -61,6 +67,8 @@ public class GenesisClient extends GenesisProxy
         {
         	ClientRegistry.bindTileEntitySpecialRenderer(entry.getKey(), entry.getValue());
         }
+		
+		GenesisParticles.createParticles();
 	}
 
 	@Override

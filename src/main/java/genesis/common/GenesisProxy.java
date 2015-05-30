@@ -1,5 +1,7 @@
 package genesis.common;
 
+import java.util.*;
+
 import genesis.util.*;
 import net.minecraft.block.*;
 import net.minecraft.client.renderer.block.statemap.*;
@@ -11,8 +13,19 @@ import net.minecraftforge.fml.common.registry.*;
 
 public class GenesisProxy
 {
+	protected List<SidedFunction> preInitCalls = new ArrayList();
+	
+	public void registerPreInitCall(SidedFunction call)
+	{
+		preInitCalls.add(call);
+	}
+	
 	public void preInit()
 	{
+		for (SidedFunction call : preInitCalls)
+		{
+			call.server(this);
+		}
 	}
 
 	public void init()

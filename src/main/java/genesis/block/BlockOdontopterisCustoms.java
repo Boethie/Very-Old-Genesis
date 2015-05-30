@@ -2,6 +2,7 @@ package genesis.block;
 
 import genesis.block.BlockGrowingPlant.GrowingPlantProperties;
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
+import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
 import genesis.util.RandomItemDrop;
 
@@ -9,9 +10,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
@@ -89,15 +92,25 @@ public class BlockOdontopterisCustoms implements IGrowingPlantCustoms
 		
 		return out;
 	}
-
+	
 	@Override
 	public void plantUpdateTick(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, Random rand, boolean grew)
 	{
 	}
-
+	
 	@Override
 	public CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World worldIn, BlockPos pos, boolean placed)
 	{
+		if (placed)
+		{
+			Block block = worldIn.getBlockState(pos.down()).getBlock();
+			
+			if (block == Blocks.dirt || block == GenesisBlocks.moss)
+			{
+				return CanStayOptions.YES;
+			}
+		}
+		
 		return CanStayOptions.YIELD;
 	}
 }

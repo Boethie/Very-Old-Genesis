@@ -784,7 +784,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	/**
 	 * Gets the metadata used to get the Item of this {@link #ObjectType} and variant.
 	 */
-	public int getMetadata(O type, V variant)
+	public int getItemMetadata(O type, V variant)
 	{
 		VariantKey entry = getVariantEntry(type, variant);
 		

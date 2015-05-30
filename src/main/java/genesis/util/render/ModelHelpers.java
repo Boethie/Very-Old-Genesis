@@ -5,14 +5,25 @@ import genesis.common.*;
 import genesis.util.*;
 import gnu.trove.map.hash.TIntObjectHashMap;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.*;
 import java.util.*;
 import java.util.Map.Entry;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.google.common.base.*;
 import com.google.common.collect.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.*;
@@ -49,7 +60,7 @@ public class ModelHelpers
 	public static Class<? extends IModel> classVanillaModelWrapper;
 	public static IdentityHashMap<Item, TIntObjectHashMap<ModelResourceLocation>> itemModelLocations;
 	
-	protected static List<Pair<Block, ResourceLocation>> forcedModels = new ArrayList();
+	protected static List<Pair<BlockState, ResourceLocation>> forcedModels = new ArrayList();
 	protected static boolean doInit = true;
 	
 	public static void preInit()
@@ -149,6 +160,11 @@ public class ModelHelpers
 		return output;
 	}
 	
+	public static ModelResourceLocation getLocationWithProperties(ResourceLocation loc, String properties)
+	{
+		return new ModelResourceLocation(loc.getResourceDomain() + ":" + loc.getResourcePath(), properties);
+	}
+	
 	public static boolean isGeneratedItemModel(ItemStack stack)
 	{
 		return isGeneratedItemModel(getLocationFromStack(stack));
@@ -206,12 +222,19 @@ public class ModelHelpers
 	/**
 	 * Used to allow a randomized variants of the owner block's block state.
 	 */
-	public static void renderBlockModel(ModelResourceLocation loc, IBlockAccess world, BlockPos pos)
+	public static void renderBlockModel(ModelResourceLocation loc, IBlockState state, IBlockAccess world, BlockPos pos)
 	{
 		Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
-		IBlockState state = locationToFakeState.get(loc);
 		IBakedModel bakedModel = getBlockDispatcher().getModelFromBlockState(state, world, pos);
 		getBlockRenderer().renderModelBrightnessColor(bakedModel, 1, 1, 1, 1);
+	}
+	
+	/**
+	 * Used to allow a randomized variants of the owner block's block state.
+	 */
+	public static void renderBlockModel(ModelResourceLocation loc, IBlockAccess world, BlockPos pos)
+	{
+		renderBlockModel(loc, locationToFakeState.get(loc), world, pos);
 	}
 	
 	public static Map<IBlockState, ModelResourceLocation> getStateToModelLocationMap()
@@ -264,6 +287,37 @@ public class ModelHelpers
 		}
 		
 		return getMissingModelLocation();
+	}
+	
+	public static String getStringIDInSetForStack(ItemStack stack, Set<String> set, String... fallbacks)
+	{
+		if (stack != null)
+		{
+			String id = ModelHelpers.getLocationFromStack(stack).toString();
+			id = id.substring(0, id.lastIndexOf("#"));
+			
+			if (set.contains(id))
+			{
+				return id;
+			}
+			
+			id = ((ResourceLocation) Item.itemRegistry.getNameForObject(stack.getItem())).toString();
+			
+			if (set.contains(id))
+			{
+				return id;
+			}
+			
+			for (String fallback : fallbacks)
+			{
+				if (set.contains(fallback))
+				{
+					return fallback;
+				}
+			}
+		}
+		
+		return null;
 	}
 	
 	public static Class<? extends IModel> getVanillaModelWrapper()
@@ -319,9 +373,130 @@ public class ModelHelpers
 		return getModelBlock(getLoadedModel(loc));
 	}
 	
+	public static Set<String> getBlockstatesVariants(ResourceLocation loc)
+	{
+		JsonDeserializer<List<String>> deserializer = new JsonDeserializer<List<String>>()
+		{
+			@Override
+			public List<String> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+					throws JsonParseException
+			{
+				ArrayList<String> output = new ArrayList();
+				JsonObject variantsObject = JsonUtils.getJsonObject(json.getAsJsonObject(), "variants");
+				
+				for (Entry<String, JsonElement> entry : variantsObject.entrySet())
+				{
+					output.add(entry.getKey());
+				}
+				
+				return output;
+			}
+		};
+		Gson builder = new GsonBuilder().registerTypeAdapter(List.class, deserializer).create();
+		
+		ResourceLocation blockstatesLocation = new ResourceLocation(loc.getResourceDomain(), "blockstates/" + loc.getResourcePath() + ".json");
+		List<IResource> resources;
+		
+		try
+		{
+			resources = Minecraft.getMinecraft().getResourceManager().getAllResources(blockstatesLocation);
+		}
+		catch (IOException exception)
+		{
+			throw new RuntimeException("Encountered an IO exception while getting the IResources for location " + blockstatesLocation, exception);
+		}
+		
+		Set<String> output = new HashSet();
+		
+		for (IResource resource : resources)
+		{
+			InputStream stream = resource.getInputStream();
+			
+			try
+			{
+				output.addAll(builder.fromJson(new InputStreamReader(stream, Charsets.UTF_8), List.class));
+			}
+			catch (JsonParseException exception)
+			{
+				throw new RuntimeException("Encountered an JSON parsing exception when loading a list of variants for " + loc + " from " + resource.getResourceLocation() + " in resourcepack " + resource.getResourcePackName(), exception);
+			}
+			finally
+			{
+				IOUtils.closeQuietly(stream);
+			}
+		}
+		
+		return output;
+	}
+	
+	public static void forceModelLoading(BlockState state, ResourceLocation loc)
+	{
+		forcedModels.add(Pair.of(state, loc));
+	}
+	
+	public static void forceModelLoading(final String name, final Collection<String> states, ResourceLocation loc)
+	{
+		IProperty property = new IProperty()
+		{
+			@Override public String getName()
+			{
+				return name;
+			}
+			@Override public Collection<String> getAllowedValues()
+			{
+				return states;
+			}
+			@Override public Class<? extends String> getValueClass()
+			{
+				return String.class;
+			}
+			@Override public String getName(Comparable value)
+			{
+				return (String) value;
+			}
+		};
+		
+		forceModelLoading(new BlockState(null, property), loc);
+	}
+	
+	public static void forceModelLoading(Collection<String> variants, ResourceLocation loc)
+	{
+		String sharedPropertyName = null;
+		List<String> newVariants = new ArrayList(variants.size());
+		
+		for (String variant : variants)
+		{
+			int equalsIndex = variant.indexOf("=");
+			String variantPropertyName = variant.substring(0, equalsIndex);
+			
+			if (sharedPropertyName == null)
+			{
+				sharedPropertyName = variantPropertyName;
+			}
+			else if (!sharedPropertyName.equals(variantPropertyName))
+			{
+				throw new RuntimeException("Multiple property names found while attempting to create a list of variants in the blockstates json of " + loc + ".");
+			}
+			
+			newVariants.add(variant.substring(equalsIndex + 1));
+		}
+		
+		forceModelLoading(sharedPropertyName, newVariants, loc);
+	}
+	
+	public static void forceModelLoading(ResourceLocation loc)
+	{
+		forceModelLoading(getBlockstatesVariants(loc), loc);
+	}
+	
+	public static void forceModelLoading(final String propertyName, ResourceLocation loc, String... states)
+	{
+		forceModelLoading(propertyName, Arrays.asList(states), loc);
+	}
+	
 	public static void forceModelLoading(Block actualBlock, ResourceLocation loc)
 	{
-		forcedModels.add(Pair.of(actualBlock, loc));
+		forceModelLoading(actualBlock.getBlockState(), loc);
 	}
 	
 	protected static void addForcedModels()
@@ -330,11 +505,9 @@ public class ModelHelpers
 		
 		final Map<IBlockState, IBlockState> actualToFakeState = new HashMap();
 		
-		for (Pair<Block, ResourceLocation> entry : forcedModels)
+		for (Pair<BlockState, ResourceLocation> entry : forcedModels)
 		{
-			Block actualBlock = entry.getKey();
-			
-			for (final IBlockState actualState : (Collection<IBlockState>) actualBlock.getBlockState().getValidStates())
+			for (final IBlockState actualState : (Collection<IBlockState>) entry.getKey().getValidStates())
 			{
 				IBlockState fakeState = new IBlockState()
 				{

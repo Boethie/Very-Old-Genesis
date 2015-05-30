@@ -115,7 +115,7 @@ public class BlockSphenophyllumCustoms implements IGrowingPlantCustoms
 				{
 					spreadPos = spreadToList.get(rand.nextInt(spreadToList.size()));
 					
-					if (worldIn.isAirBlock(spreadPos) && plant.canPlaceBlockAt(worldIn, spreadPos) && WorldUtils.waterInRange(worldIn, spreadPos, 3, 1))
+					if (worldIn.isAirBlock(spreadPos) && plant.canPlaceBlockAt(worldIn, spreadPos) && WorldUtils.waterInRange(worldIn, spreadPos.down(), 3, 1))
 					{
 						break;
 					}

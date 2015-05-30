@@ -139,6 +139,6 @@ public class BlockGenesisVariants<V extends IMetadata, C extends VariantsOfTypes
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return owner.getMetadata(type, (V) state.getValue(variantProp));
+		return owner.getItemMetadata(type, (V) state.getValue(variantProp));
 	}
 }

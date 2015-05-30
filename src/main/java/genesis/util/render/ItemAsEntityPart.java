@@ -9,6 +9,7 @@ import net.minecraft.item.*;
 public class ItemAsEntityPart extends CustomEntityPart
 {
 	public ItemStack itemStack;
+	public ItemStack itemStackDef;
 	
 	public ItemAsEntityPart(ModelBase model)
 	{
@@ -17,6 +18,22 @@ public class ItemAsEntityPart extends CustomEntityPart
 		offsetX += 0.5F;
 		offsetZ += 0.5F;
 		setDefaultState();
+	}
+	
+	public ItemAsEntityPart setDefaultState()
+	{
+		super.setDefaultState();
+
+		itemStackDef = itemStack;
+		
+		return this;
+	}
+	
+	public void resetState()
+	{
+		super.resetState();
+		
+		itemStack = itemStackDef;
 	}
 	
 	public void setStack(ItemStack stack)

@@ -20,13 +20,17 @@ public class WorldUtils
 	/**
 	 * @param worldIn The world.
 	 * @param pos The position to start from.
-	 * @param dHoriz The horizontal distance to check from the starting block position.
-	 * @param dVert The vertical distance to check from the starting block position.
+	 * @param dNegX The distance along the X axis in the negative direction.
+	 * @param dPosX The distance along the X axis in the positive direction.
+	 * @param dNegZ The distance along the Z axis in the negative direction.
+	 * @param dPosZ The distance along the Z axis in the positive direction.
+	 * @param dNegY The distance along the Y axis in the negative direction.
+	 * @param dPosY The distance along the Y axis in the positive direction.
 	 * @return Whether there is water in range.
 	 */
-	public static boolean waterInRange(World worldIn, BlockPos pos, int dHoriz, int dVert)
+	public static boolean waterInRange(World worldIn, BlockPos pos, int dNegX, int dPosX, int dNegZ, int dPosZ, int dNegY, int dPosY)
 	{
-		Iterable<BlockPos> checkArea = (Iterable<BlockPos>) BlockPos.getAllInBox(pos.add(-dHoriz, -1 - dVert, -dHoriz), pos.add(dHoriz, -1 + dVert, dHoriz));
+		Iterable<BlockPos> checkArea = (Iterable<BlockPos>) BlockPos.getAllInBox(pos.add(-dNegX, -dNegY, -dNegZ), pos.add(dPosX, dPosY, dPosZ));
 		
 		for (BlockPos checkPos : checkArea)
 		{
@@ -37,6 +41,31 @@ public class WorldUtils
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * @param worldIn The world.
+	 * @param pos The position to start from.
+	 * @param dX The distance along the X axis to check from the starting block position.
+	 * @param dZ The distance along the Z axis to check from the starting block position.
+	 * @param dY The vertical distance to check from the starting block position.
+	 * @return Whether there is water in range.
+	 */
+	public static boolean waterInRange(World worldIn, BlockPos pos, int dX, int dZ, int dY)
+	{
+		return waterInRange(worldIn, pos, dX, dX, dZ, dZ, dY, dY);
+	}
+	
+	/**
+	 * @param worldIn The world.
+	 * @param pos The position to start from.
+	 * @param dXZ The horizontal distance to check from the starting block position.
+	 * @param dY The vertical distance to check from the starting block position.
+	 * @return Whether there is water in range.
+	 */
+	public static boolean waterInRange(World worldIn, BlockPos pos, int dXZ, int dY)
+	{
+		return waterInRange(worldIn, pos, dXZ, dXZ, dY);
 	}
 	
 	public static List<IBlockState> getBlocksAround(final World world, final BlockPos pos)
