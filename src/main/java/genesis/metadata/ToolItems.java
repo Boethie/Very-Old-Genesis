@@ -100,7 +100,7 @@ public class ToolItems extends VariantsOfTypesCombo<ToolObjectType, ToolType>
 		}
 	}
 
-	public static final ToolObjectTypeSoleQuality<ItemMulti> PEBBLE = new ToolObjectTypeSoleQuality("pebble", null, EnumToolQuality.NONE).setNamePosition(ObjectNamePosition.PREFIX);
+	public static final ToolObjectTypeSoleQuality<ItemMulti> PEBBLE = new ToolObjectTypeSoleQuality("pebble", null, EnumToolQuality.NONE, EnumToolMaterial.OCTAEDRITE).setNamePosition(ObjectNamePosition.PREFIX);
 	public static final ToolObjectType<ItemToolHead> PICK_HEAD = new ToolObjectType("head_pick", "toolHead.pick", ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED});
 	public static final ToolObjectType<ItemToolHead> AXE_HEAD = new ToolObjectType("head_axe", "toolHead.axe", ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED});
 	public static final ToolObjectType<ItemToolHead> HOE_HEAD = new ToolObjectType("head_hoe", "toolHead.hoe", ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED});

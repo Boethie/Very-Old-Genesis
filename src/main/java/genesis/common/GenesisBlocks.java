@@ -29,25 +29,25 @@ public final class GenesisBlocks
 	public static final BlockGenesisRock rhyolite = new BlockGenesisRock(1.65F, 10.0F).setUnlocalizedName("rhyolite");
 	public static final BlockGenesisRock dolerite = new BlockGenesisRock(1.2F, 10.0F).setUnlocalizedName("dolerite");
 	public static final BlockGenesisRock komatiite = new BlockGenesisRock(1.95F, 10.0F).setUnlocalizedName("komatiite");
+	public static final BlockGenesisRock anorthosite = new BlockGenesisRock(1.2F, 10.0F).setUnlocalizedName("anorthosite");
 	public static final BlockGenesisRock trondhjemite = new BlockGenesisRock(1.5F, 10.0F).setUnlocalizedName("trondhjemite");
 	public static final BlockGenesisRock faux_amphibolite = new BlockGenesisRock(1.5F, 10.0F).setUnlocalizedName("fauxAmphibolite");
 	public static final BlockGenesisRock gneiss = new BlockGenesisRock(1.65F, 10.0F).setUnlocalizedName("gneiss");
 	public static final BlockGenesisRock quartzite = new BlockGenesisRock(1.95F, 10.0F).setUnlocalizedName("quartzite");
 	public static final BlockGenesisRock limestone = new BlockGenesisRock(0.75F, 8.7F).setUnlocalizedName("limestone");
 	public static final BlockGenesisRock shale = new BlockGenesisRock(0.75F, 8.7F).setUnlocalizedName("shale");
+	public static final BlockGenesisRock octaedrite = new BlockGenesisRock(1.0F, 10.0F).setUnlocalizedName("octaedrite");
 	public static final BlockRedClay red_clay = new BlockRedClay().setUnlocalizedName("redClay");
-	public static final BlockGenesisRock octaedrite = new BlockOctaedrite().setUnlocalizedName("octaedrite");
 
 	public static final BlockGenesis permafrost = new BlockPermafrost().setUnlocalizedName("permafrost");
 	public static final BlockGenesis new_permafrost = new BlockNewPermafrost().setUnlocalizedName("permafrost");
-	public static final BlockPrototaxitesMycelium prototaxites_mycelium = new BlockPrototaxitesMycelium().setUnlocalizedName("prototaxitesMycelium");
 
 	/* Granite Ores */
 	public static final BlockGenesisOre quartz_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 1).setDrop(GenesisItems.quartz).setUnlocalizedName("quartz");
 	public static final BlockGenesisOre zircon_ore = new BlockGenesisOre(4.2F, 5.0F, 2, 1).setDrop(GenesisItems.zircon).setUnlocalizedName("zircon");
 	public static final BlockGenesisOre garnet_ore = new BlockGenesisOre(4.2F, 5.0F, 2, 1).setDrop(GenesisItems.garnet).setUnlocalizedName("garnet");
-	public static final BlockGenesisOre manganese_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 1).setDrop(GenesisItems.manganese).setUnlocalizedName("manganese");
 	public static final BlockGenesisOre hematite_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 1).setDrop(GenesisItems.hematite).setUnlocalizedName("hematite");
+	public static final BlockGenesisOre manganese_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 1).setDrop(GenesisItems.manganese).setUnlocalizedName("manganese");
 	public static final BlockGenesisOre malachite_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 2, 1).setDrop(GenesisItems.malachite).setUnlocalizedName("malachite");
 	public static final BlockGenesisOre olivine_ore = new BlockGenesisOre(4.2F, 5.0F, 3, 5, 1).setDrop(GenesisItems.olivine).setUnlocalizedName("olivine");
 
@@ -92,6 +92,9 @@ public final class GenesisBlocks
 	/* Other Decorative */
 	public static final BlockGenesisFlowerPot flower_pot = new BlockGenesisFlowerPot();
 	public static final BlockCalamitesBundle calamites_bundle = new BlockCalamitesBundle().setUnlocalizedName("calamitesBundle");
+	public static final BlockGenesisTorch calamites_torch = new BlockGenesisTorch().setUnlocalizedName("calamitesTorch");
+	public static final BlockPrototaxitesMycelium prototaxites_mycelium = new BlockPrototaxitesMycelium().setUnlocalizedName("prototaxitesMycelium");
+	public static final DungBlocksAndItems dungs = new DungBlocksAndItems();
 	
 	/* Misc */
 	public static final BlockGenesis prototaxites = new BlockPrototaxites().setUnlocalizedName("prototaxites");
@@ -112,8 +115,7 @@ public final class GenesisBlocks
 				.setCreativeTab(GenesisCreativeTabs.DECORATIONS)
 				.setBlockArguments(Material.coral),
 			EnumCoral.values());
-	public static final DungBlocksAndItems dungs = new DungBlocksAndItems();
-	public static final BlockGenesisTorch calamites_torch = new BlockGenesisTorch().setUnlocalizedName("calamitesTorch");
+	
 
 	public static void registerBlocks()
 	{
@@ -124,21 +126,22 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(rhyolite, "rhyolite");
 		Genesis.proxy.registerBlock(dolerite, "dolerite");
 		Genesis.proxy.registerBlock(komatiite, "komatiite");
+		Genesis.proxy.registerBlock(anorthosite, "anorthosite");
 		Genesis.proxy.registerBlock(trondhjemite, "trondhjemite");
 		Genesis.proxy.registerBlock(faux_amphibolite, "faux_amphibolite");
 		Genesis.proxy.registerBlock(gneiss, "gneiss");
 		Genesis.proxy.registerBlock(quartzite, "quartzite");
 		Genesis.proxy.registerBlock(limestone, "limestone");
 		Genesis.proxy.registerBlock(shale, "shale");
-		Genesis.proxy.registerBlock(red_clay, "red_clay");
 		Genesis.proxy.registerBlock(octaedrite, "octaedrite");
+		Genesis.proxy.registerBlock(red_clay, "red_clay");
 		Genesis.proxy.registerBlock(permafrost, "permafrost");
 		Genesis.proxy.registerBlock(new_permafrost, "new_permafrost");
 		Genesis.proxy.registerBlock(quartz_ore, "quartz_ore");
 		Genesis.proxy.registerBlock(zircon_ore, "zircon_ore");
 		Genesis.proxy.registerBlock(garnet_ore, "garnet_ore");
-		Genesis.proxy.registerBlock(manganese_ore, "manganese_ore");
 		Genesis.proxy.registerBlock(hematite_ore, "hematite_ore");
+		Genesis.proxy.registerBlock(manganese_ore, "manganese_ore");
 		Genesis.proxy.registerBlock(malachite_ore, "malachite_ore");
 		Genesis.proxy.registerBlock(olivine_ore, "olivine_ore");
 		Genesis.proxy.registerBlock(brown_flint_ore, "brown_flint_ore");

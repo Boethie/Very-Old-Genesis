@@ -167,9 +167,9 @@ public final class GenesisRecipes
 		FuelHandler.initialize();
 		
 		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.calamites_bundle), "CCC", "CCC", "CCC", 'C', GenesisItems.calamites);
-		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "x", "y", 'x', Items.coal, 'y', GenesisItems.calamites);
-		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "x", "y", 'x', new ItemStack(Items.coal, 1, 1), 'y', GenesisItems.calamites);
-		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "x", "y", 'x', GenesisItems.resin, 'y', GenesisItems.calamites);
+		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "X", "Y", 'X', Items.coal, 'Y', GenesisItems.calamites);
+		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "X", "Y", 'X', new ItemStack(Items.coal, 1, 1), 'Y', GenesisItems.calamites);
+		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "X", "Y", 'X', GenesisItems.resin, 'Y', GenesisItems.calamites);
 		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite), GenesisItems.nodules.getStack(EnumNodule.MARCASITE), GenesisItems.tools.getStack(GenesisItems.tools.PEBBLE, EnumToolMaterial.BROWN_FLINT));
 		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.calamites, 9), GenesisBlocks.calamites_bundle);
 		
@@ -182,16 +182,19 @@ public final class GenesisRecipes
 		GameRegistry.addSmelting(GenesisBlocks.quartz_ore, new ItemStack(GenesisItems.quartz), 0.05F);
 		GameRegistry.addSmelting(GenesisBlocks.zircon_ore, new ItemStack(GenesisItems.zircon), 0.1F);
 		GameRegistry.addSmelting(GenesisBlocks.garnet_ore, new ItemStack(GenesisItems.garnet), 0.1F);
+		GameRegistry.addSmelting(GenesisBlocks.hematite_ore, new ItemStack(Items.iron_ingot), 0.05F);
 		GameRegistry.addSmelting(GenesisBlocks.manganese_ore, new ItemStack(GenesisItems.manganese), 0.05F);
-		GameRegistry.addSmelting(GenesisBlocks.hematite_ore, new ItemStack(GenesisItems.hematite), 0.05F);
 		GameRegistry.addSmelting(GenesisBlocks.malachite_ore, new ItemStack(GenesisItems.malachite), 0.2F);
 		GameRegistry.addSmelting(GenesisBlocks.olivine_ore, new ItemStack(GenesisItems.olivine), 0.3F);
 		GameRegistry.addSmelting(GenesisBlocks.brown_flint_ore, GenesisItems.nodules.getStack(EnumNodule.BROWN_FLINT), 0.05F);
 		GameRegistry.addSmelting(GenesisBlocks.marcasite_ore, GenesisItems.nodules.getStack(EnumNodule.MARCASITE), 0.05F);
 		
 		// Food
+		GameRegistry.addSmelting(GenesisItems.climatius, new ItemStack(GenesisItems.cooked_climatius), 0.35F);
 		GameRegistry.addSmelting(GenesisItems.aphthoroblattina, new ItemStack(GenesisItems.cooked_aphthoroblattina), 0.35F);
 		GameRegistry.addSmelting(GenesisItems.eryops_leg, new ItemStack(GenesisItems.cooked_eryops_leg), 0.35F);
+		GameRegistry.addSmelting(GenesisItems.liopleurodon, new ItemStack(GenesisItems.cooked_liopleurodon), 0.35F);
+		GameRegistry.addSmelting(GenesisItems.tyrannosaurus, new ItemStack(GenesisItems.cooked_tyrannosaurus), 0.35F);
 		
 		// Pottery
 		ItemStack input;
