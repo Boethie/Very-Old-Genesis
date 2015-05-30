@@ -1,5 +1,11 @@
 package genesis.world.biome;
 
+import genesis.world.biome.decorate.WorldGenZygopteris;
+
+import java.util.Random;
+
+import net.minecraft.world.gen.feature.WorldGenerator;
+
 public class BiomeGenRainforest extends BiomeGenBaseGensis
 {
 
@@ -11,6 +17,13 @@ public class BiomeGenRainforest extends BiomeGenBaseGensis
 		this.minHeight = 0.05F;
 		this.maxHeight = .1F;
 		this.theBiomeDecorator.treesPerChunk = 10;
+		this.theBiomeDecorator.grassPerChunk = 1;
+	}
+
+	@Override
+	public WorldGenerator getRandomWorldGenForGrass(Random rand)
+	{
+		return new WorldGenZygopteris();
 	}
 
 }
