@@ -83,7 +83,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return owner.getMetadata(type, (EnumTree) state.getValue(variantProp));
+		return owner.getItemMetadata(type, (EnumTree) state.getValue(variantProp));
 	}
 	
 	@Override

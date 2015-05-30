@@ -1,15 +1,22 @@
 package genesis.block.tileentity;
 
+import io.netty.buffer.ByteBuf;
+
 import java.util.*;
 
 import genesis.block.tileentity.crafting.CookingPotRecipeRegistry;
 import genesis.block.tileentity.crafting.CookingPotRecipeRegistry.IInventoryCookingPot;
 import genesis.block.tileentity.gui.ContainerCampfire;
+import genesis.block.tileentity.render.TileEntityCampfireRenderer;
+import genesis.common.Genesis;
+import genesis.common.GenesisBlocks;
 import genesis.util.*;
 import genesis.util.gui.RestrictedDisabledSlot.IInventoryDisabledSlots;
+
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.*;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.*;
 import net.minecraft.init.*;
 import net.minecraft.inventory.*;
@@ -22,9 +29,7 @@ import net.minecraft.server.gui.*;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
-import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fml.relauncher.*;
+import net.minecraftforge.fluids.*;
 
 public class TileEntityCampfire extends TileEntityLockable implements ISidedInventory, IInventoryDisabledSlots, IInventoryCookingPot, IUpdatePlayerListBox
 {
@@ -53,6 +58,24 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		return CookingPotRecipeRegistry.isCookingPotItem(stack);
 	}
 	
+	protected static final Set<ItemStackKey> allowedOutputs = new HashSet();
+	
+	public static ItemStack registerAllowedOutput(ItemStack output)
+	{
+		allowedOutputs.add(new ItemStackKey(output));
+		return output;
+	}
+	
+	public static boolean isAllowedOutput(ItemStack output)
+	{
+		if (output == null)
+		{
+			return false;
+		}
+		
+		return allowedOutputs.contains(new ItemStackKey(output));
+	}
+	
 	public static final int SLOT_COUNT = 5;
 	public static final int SLOT_INPUT = 0;
 	public static final int SLOT_FUEL = 1;
@@ -65,8 +88,9 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	public BlockCampfire blockCampfire;
 	
 	protected ItemStack[] inventory = new ItemStack[SLOT_COUNT];
-	
+
 	protected boolean wasBurning = false;
+	protected boolean waterAround = false;
 	
 	public float prevRot = 0;
 	public float rot = 0;
@@ -78,12 +102,16 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	public int totalBurnTime;
 	public int cookTime;
 	
+	protected int fireSoundTime = 30;
+	protected int fireSoundCounter;
+	
 	public TileEntityCampfire()
 	{
 		super();
 	}
 	
-	public Block getBlockType()
+	@Override
+	public BlockCampfire getBlockType()
 	{
 		super.getBlockType();
 		
@@ -92,7 +120,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 			blockCampfire = (BlockCampfire) blockType;
 		}
 		
-		return blockType;
+		return blockCampfire;
 	}
 	
 	public boolean hasCookingPot()
@@ -118,6 +146,11 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 			
 			if (smeltResult != null)
 			{
+				if (isAllowedOutput(smeltResult))
+				{
+					return true;
+				}
+				
 				if (smeltResult.getItemUseAction().equals(EnumAction.EAT))
 				{
 					return true;
@@ -217,6 +250,23 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		return worldObj.getRainStrength(1) >= 0.9F && worldObj.canLightningStrike(pos.up());
 	}
 	
+	protected void sendDescriptionPacket()
+	{
+		worldObj.markBlockForUpdate(pos);
+	}
+
+	public void setWaterAround(boolean water)
+	{
+		waterAround = water;
+		
+		sendDescriptionPacket();
+	}
+	
+	public boolean isWaterAround()
+	{
+		return waterAround;
+	}
+	
 	public boolean isWet()
 	{
 		return this.burnTime < 0;
@@ -287,7 +337,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		// Get the block type for use in the update method.
 		getBlockType();
 		
-		if (worldObj.isRemote)
+		if (worldObj.isRemote && !TileEntityCampfireRenderer.hasCookingItemModel(getInput()))
 		{
 			final int fullAngle = 360;
 			final int increments = 360;
@@ -349,40 +399,46 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		
 		boolean updateBlock = false;
 		
-		// wasBurning (which is the value of isBurning() at the end of last tick) tells us whether burnTime > 0
-		if (isRainingOn())
+		if (isRainingOn() || isWaterAround())
 		{
 			// Stop burning if the fire is rained on.
 			setWet();
 		}
-		else if (wasBurning)
+		else if (wasBurning)	// wasBurning (which is the value of isBurning() at the end of last tick) tells us whether burnTime > 0
 		{
 			burnTime--;
-			
-			// Play fire sound effect every 1.5 secs on client.
-			if (worldObj.isRemote && burnTime % 30 == 0)
-			{
-				RandomFloatRange volumeRange = new RandomFloatRange(1, 2);
-				RandomFloatRange pitchRange = new RandomFloatRange(0.3F, 0.7F);
-				worldObj.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, "fire.fire",
-						volumeRange.getRandom(worldObj.rand), pitchRange.getRandom(worldObj.rand), false);
-				
-				if (hasCookingPot() && canSmelt())
-				{
-					worldObj.playSound(pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, Constants.ASSETS + "ambient.cookingpot",
-							volumeRange.getRandom(worldObj.rand), pitchRange.getRandom(worldObj.rand), false);
-				}
-			}
-			
 			// If the campfire is not burning, start an item burning.
 			burnFuelIfNotBurning();
+			
+			if (worldObj.isRemote)
+			{	// Play fire sound effect every 1.5 secs on client.
+				if (fireSoundCounter > 0)
+				{
+					fireSoundCounter--;
+				}
+				else
+				{
+					RandomFloatRange volumeRange = new RandomFloatRange(1, 2);
+					RandomFloatRange pitchRange = new RandomFloatRange(0.3F, 0.7F);
+					worldObj.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, "fire.fire",
+							volumeRange.getRandom(worldObj.rand), pitchRange.getRandom(worldObj.rand), false);
+					
+					if (hasCookingPot() && canSmelt())
+					{
+						worldObj.playSound(pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, Constants.ASSETS + "ambient.cookingpot",
+								volumeRange.getRandom(worldObj.rand), pitchRange.getRandom(worldObj.rand), false);
+					}
+					
+					fireSoundCounter = fireSoundTime;
+				}
+			}
 		}
 		else if (isWet())
 		{
 			burnTime++;
 		}
 		
-		updateBlock |= updateBurningValue();
+		updateBlock = updateBlock || updateBurningValue();
 		
 		if (wasBurning && canSmelt())
 		{
@@ -438,21 +494,6 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		return Math.round((cookTime / 200F) * pixels);
 	}
 	
-	@Override
-	public Packet getDescriptionPacket()
-	{
-		NBTTagCompound compound = new NBTTagCompound();
-		writeToNBT(compound);
-		
-		return new S35PacketUpdateTileEntity(pos, 0, compound);
-	}
-	
-	@Override
-	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet)
-	{
-		readFromNBT(packet.getNbtCompound());
-	}
-	
 	/*@Override
 	public void onInventoryChanged()
 	{
@@ -500,6 +541,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	public void setInventorySlotContents(int slot, ItemStack stack)
 	{
 		inventory[slot] = stack;
+		worldObj.markBlockForUpdate(pos);
 	}
 	
 	@Override
@@ -591,9 +633,59 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	}
 	
 	@Override
+	public Packet getDescriptionPacket()
+	{
+		NBTTagCompound compound = new NBTTagCompound();
+		compound.setInteger("burnTime", burnTime);
+		compound.setBoolean("waterAround", waterAround);
+		
+		ItemStack input = getInput();
+		
+		if (input != null)
+		{
+			compound.setTag("input", input.writeToNBT(new NBTTagCompound()));
+		}
+		
+		ItemStack fuel = getFuel();
+		
+		if (fuel != null)
+		{
+			compound.setTag("fuel", fuel.writeToNBT(new NBTTagCompound()));
+		}
+		
+		return new S35PacketUpdateTileEntity(pos, 0, compound);
+	}
+	
+	@Override
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet)
+	{
+		NBTTagCompound compound = packet.getNbtCompound();
+		burnTime = compound.getInteger("burnTime");
+		waterAround = compound.getBoolean("waterAround");
+		
+		if (compound.hasKey("input"))
+		{
+			setInput(ItemStack.loadItemStackFromNBT(compound.getCompoundTag("input")));
+		}
+		else
+		{
+			setInput(null);
+		}
+		
+		if (compound.hasKey("fuel"))
+		{
+			setFuel(ItemStack.loadItemStackFromNBT(compound.getCompoundTag("fuel")));
+		}
+		else
+		{
+			setFuel(null);
+		}
+	}
+	
+	@Override
 	public void readFromNBT(NBTTagCompound compound)
 	{
-		this.pos = new BlockPos(compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
+		super.readFromNBT(compound);
 		
 		NBTTagList tagList = compound.getTagList("items", 10);
 		inventory = new ItemStack[getSizeInventory()];
@@ -608,10 +700,12 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 				inventory[slot] = ItemStack.loadItemStackFromNBT(itemCompound);
 			}
 		}
-
+		
 		burnTime = compound.getInteger("burnTime");
 		cookTime = compound.getInteger("cookTime");
 		totalBurnTime = compound.getInteger("totalBurnTime");
+		
+		waterAround = compound.getBoolean("waterAround");
 		
 		if (compound.hasKey("customName"))
 		{
@@ -622,19 +716,11 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	@Override
 	public void writeToNBT(NBTTagCompound compound)
 	{
-		// Must bypass TileEntityCampfire's writeToNBT or else it will write useless values
-		compound.setString("id", InaccessibleValues.getTEClassToNameMap().get(getClass()));
-		compound.setInteger("x", this.pos.getX());
-		compound.setInteger("y", this.pos.getY());
-		compound.setInteger("z", this.pos.getZ());
-		
-		compound.setInteger("burnTime", burnTime);
-		compound.setInteger("totalBurnTime", totalBurnTime);
-		compound.setInteger("cookTime", cookTime);
+		super.writeToNBT(compound);
 		
 		NBTTagList itemList = new NBTTagList();
 		int i = 0;
-
+		
 		for (ItemStack stack : inventory)
 		{
 			if (stack != null)
@@ -648,8 +734,14 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 			
 			i++;
 		}
-
+		
 		compound.setTag("items", itemList);
+		
+		compound.setInteger("burnTime", burnTime);
+		compound.setInteger("totalBurnTime", totalBurnTime);
+		compound.setInteger("cookTime", cookTime);
+		
+		compound.setBoolean("waterAround", waterAround);
 		
 		if (hasCustomName())
 		{

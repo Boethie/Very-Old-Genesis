@@ -77,7 +77,7 @@ public class ContainerCampfire extends ContainerBase
 				iCrafting.sendProgressBarUpdate(this, 0, campfire.cookTime);
 			}
 			
-			if (lastBurnTime != campfire.burnTime)
+			if (lastBurnTime != campfire.burnTime || campfire.isWet())
 			{
 				iCrafting.sendProgressBarUpdate(this, 1, campfire.burnTime);
 			}

@@ -194,7 +194,7 @@ public class BlockAquaticPlant extends BlockGenesisVariants<EnumAquaticPlant, Va
 	{
 		Comparable variant = state.getValue(variantProp);
 		
-		return variant == EnumAquaticPlant.CHARNIA ? owner.getMetadata(EnumAquaticPlant.CHARNIA_TOP) : super.damageDropped(state);
+		return variant == EnumAquaticPlant.CHARNIA ? owner.getItemMetadata(EnumAquaticPlant.CHARNIA_TOP) : super.damageDropped(state);
 	}
 
 	public boolean canBlockStay(World world, BlockPos pos, IBlockState state)

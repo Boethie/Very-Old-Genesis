@@ -1,9 +1,8 @@
 package genesis.block.tileentity.crafting;
 
-import genesis.common.Genesis;
-import genesis.common.GenesisItems;
+import genesis.common.*;
 import genesis.metadata.ItemsCeramicBowls.EnumCeramicBowls;
-import genesis.util.Stringify;
+import genesis.util.*;
 
 import java.util.*;
 
@@ -26,60 +25,6 @@ public class CookingPotRecipeRegistry
 		}
 		
 		return false;
-	}
-	
-	public static class RecipeKey
-	{
-		protected final Item item;
-		protected final int metadata;
-		protected final NBTTagCompound compound;
-		
-		public RecipeKey(Item item, int metadata, NBTTagCompound compound)
-		{
-			if (item == null)
-			{
-				throw new IllegalArgumentException("Item passed to constructor was null.");
-			}
-			
-			this.item = item;
-			this.metadata = metadata;
-			this.compound = compound;
-		}
-		
-		public RecipeKey(ItemStack stack)
-		{
-			this(stack.getItem(), stack.getItemDamage(), stack.getTagCompound());
-		}
-		
-		@Override
-		public int hashCode()
-		{
-			return item.hashCode() + (metadata << 16) + (compound != null ? compound.hashCode() : 0);
-		}
-		
-		@Override
-		public boolean equals(Object other)
-		{
-			if (this == other)
-			{
-				return true;
-			}
-			
-			if (other instanceof RecipeKey)
-			{
-				RecipeKey otherKey = (RecipeKey) other;
-				
-				if (item.equals(otherKey.item) && metadata == otherKey.metadata)
-				{
-					if (compound == otherKey.compound || (compound != null && compound.equals(otherKey.compound)))
-					{
-						return true;
-					}
-				}
-			}
-			
-			return false;
-		}
 	}
 	
 	public static interface ICookingPotRecipe
@@ -149,7 +94,7 @@ public class CookingPotRecipeRegistry
 	
 	public static class CookingPotRecipeShapeless extends CookingPotRecipeBase
 	{
-		protected Map<RecipeKey, ItemStack> ingredients;
+		protected Map<ItemStackKey, ItemStack> ingredients;
 		protected ItemStack output;
 		
 		public CookingPotRecipeShapeless(ItemStack output, ItemStack... ingredients)
@@ -159,7 +104,7 @@ public class CookingPotRecipeRegistry
 			for (ItemStack stack : ingredients)
 			{
 				ItemStack copy = stack.copy();
-				ItemStack oldStack = this.ingredients.put(new RecipeKey(copy), copy);
+				ItemStack oldStack = this.ingredients.put(new ItemStackKey(copy), copy);
 				
 				if (oldStack != null)	// Combine stacks of the same item.
 				{
@@ -173,20 +118,20 @@ public class CookingPotRecipeRegistry
 		@Override
 		public boolean isRecipeIngredient(ItemStack stack, IInventoryCookingPot cookingPot)
 		{
-			return ingredients.containsKey(new RecipeKey(stack));
+			return ingredients.containsKey(new ItemStackKey(stack));
 		}
 		
 		@Override
 		public ItemStack getOutput(IInventoryCookingPot cookingPot)
 		{
 			ItemStack[] invIngredients = cookingPot.getIngredients();
-			Set<RecipeKey> ingredientKeySet = new HashSet();
+			Set<ItemStackKey> ingredientKeySet = new HashSet();
 			
 			for (ItemStack invIngredient : invIngredients)
 			{
 				if (invIngredient != null)
 				{
-					ingredientKeySet.add(new RecipeKey(invIngredient));
+					ingredientKeySet.add(new ItemStackKey(invIngredient));
 				}
 			}
 			
@@ -204,10 +149,10 @@ public class CookingPotRecipeRegistry
 			ItemStack[] invIngredients = cookingPot.getIngredients();
 			
 			// Get the number of stacks for each ingredient type.
-			Map<RecipeKey, Integer> countMap = new HashMap(invIngredients.length);
-			Map<RecipeKey, Integer> sizeLeftMap = new HashMap(ingredients.size());
+			Map<ItemStackKey, Integer> countMap = new HashMap(invIngredients.length);
+			Map<ItemStackKey, Integer> sizeLeftMap = new HashMap(ingredients.size());
 			
-			for (Map.Entry<RecipeKey, ItemStack> entry : ingredients.entrySet())
+			for (Map.Entry<ItemStackKey, ItemStack> entry : ingredients.entrySet())
 			{
 				sizeLeftMap.put(entry.getKey(), entry.getValue().stackSize);
 			}
@@ -218,7 +163,7 @@ public class CookingPotRecipeRegistry
 				
 				if (ingStack != null)
 				{
-					RecipeKey key = new RecipeKey(ingStack);
+					ItemStackKey key = new ItemStackKey(ingStack);
 					Integer count = countMap.get(key);
 					countMap.put(key, count == null ? 1 : count + 1);
 				}
@@ -230,7 +175,7 @@ public class CookingPotRecipeRegistry
 				
 				if (newStack != null)
 				{
-					RecipeKey key = new RecipeKey(newStack);
+					ItemStackKey key = new ItemStackKey(newStack);
 					
 					int left = sizeLeftMap.get(key);
 					int count = countMap.get(key);
@@ -273,7 +218,7 @@ public class CookingPotRecipeRegistry
 			return false;
 		}
 		
-		return new RecipeKey(cookingPotItem).equals(new RecipeKey(stack));
+		return new ItemStackKey(cookingPotItem).equals(new ItemStackKey(stack));
 	}
 	
 	protected static List<ICookingPotRecipe> recipes = new ArrayList();

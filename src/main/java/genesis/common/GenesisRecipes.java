@@ -2,6 +2,7 @@ package genesis.common;
 
 import java.util.*;
 
+import genesis.block.tileentity.TileEntityCampfire;
 import genesis.block.tileentity.crafting.CookingPotRecipeRegistry;
 import genesis.metadata.*;
 import genesis.metadata.ItemsCeramicBowls.EnumCeramicBowls;
@@ -165,17 +166,19 @@ public final class GenesisRecipes
 	{
 		FuelHandler.initialize();
 		
-		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.red_clay), "CC", "CC", 'C', GenesisItems.red_clay_ball);
-		GameRegistry.addRecipe(new ItemStack(GenesisItems.red_clay_bowl), "C C", " C ", 'C', GenesisItems.red_clay_ball);
-		GameRegistry.addRecipe(new ItemStack(GenesisItems.red_clay_bucket), "X X", "X X", " X ", 'X', GenesisItems.red_clay_ball);
 		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.calamites_bundle), "CCC", "CCC", "CCC", 'C', GenesisItems.calamites);
 		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "x", "y", 'x', Items.coal, 'y', GenesisItems.calamites);
 		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "x", "y", 'x', new ItemStack(Items.coal, 1, 1), 'y', GenesisItems.calamites);
 		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "x", "y", 'x', GenesisItems.resin, 'y', GenesisItems.calamites);
 		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite), GenesisItems.nodules.getStack(EnumNodule.MARCASITE), GenesisItems.tools.getStack(GenesisItems.tools.PEBBLE, EnumToolMaterial.BROWN_FLINT));
 		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.calamites, 9), GenesisBlocks.calamites_bundle);
-		GameRegistry.addSmelting(GenesisBlocks.red_clay, new ItemStack(Blocks.stained_hardened_clay, 1, EnumDyeColor.WHITE.getMetadata()), 0.3F);
-		GameRegistry.addSmelting(GenesisItems.red_clay_bucket, new ItemStack(GenesisItems.ceramic_bucket), 0.3F);
+		
+		for (EnumDung variant : EnumDung.values())
+		{
+			GameRegistry.addRecipe(GenesisBlocks.dungs.getStack(DungBlocksAndItems.DUNG_BLOCK, variant), "CC", "CC", 'C', GenesisBlocks.dungs.getStack(GenesisBlocks.dungs.DUNG, variant));
+		}
+		
+		// Smelting
 		GameRegistry.addSmelting(GenesisBlocks.quartz_ore, new ItemStack(GenesisItems.quartz), 0.05F);
 		GameRegistry.addSmelting(GenesisBlocks.zircon_ore, new ItemStack(GenesisItems.zircon), 0.1F);
 		GameRegistry.addSmelting(GenesisBlocks.garnet_ore, new ItemStack(GenesisItems.garnet), 0.1F);
@@ -185,14 +188,21 @@ public final class GenesisRecipes
 		GameRegistry.addSmelting(GenesisBlocks.olivine_ore, new ItemStack(GenesisItems.olivine), 0.3F);
 		GameRegistry.addSmelting(GenesisBlocks.brown_flint_ore, GenesisItems.nodules.getStack(EnumNodule.BROWN_FLINT), 0.05F);
 		GameRegistry.addSmelting(GenesisBlocks.marcasite_ore, GenesisItems.nodules.getStack(EnumNodule.MARCASITE), 0.05F);
-		GameRegistry.addSmelting(GenesisItems.red_clay_bowl, GenesisItems.bowls.getStack(EnumCeramicBowls.BOWL), 0.3F);
+		
+		// Food
 		GameRegistry.addSmelting(GenesisItems.aphthoroblattina, new ItemStack(GenesisItems.cooked_aphthoroblattina), 0.35F);
 		GameRegistry.addSmelting(GenesisItems.eryops_leg, new ItemStack(GenesisItems.cooked_eryops_leg), 0.35F);
-
-		for (EnumDung variant : EnumDung.values())
-		{
-			GameRegistry.addRecipe(GenesisBlocks.dungs.getStack(DungBlocksAndItems.DUNG_BLOCK, variant), "CC", "CC", 'C', GenesisBlocks.dungs.getStack(GenesisBlocks.dungs.DUNG, variant));
-		}
+		
+		// Pottery
+		ItemStack input;
+		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.red_clay), "CC", "CC", 'C', GenesisItems.red_clay_ball);
+		GameRegistry.addSmelting(GenesisBlocks.red_clay, new ItemStack(Blocks.stained_hardened_clay, 1, EnumDyeColor.WHITE.getMetadata()), 0.3F);
+		
+		GameRegistry.addRecipe(new ItemStack(GenesisItems.red_clay_bowl), "C C", " C ", 'C', GenesisItems.red_clay_ball);
+		GameRegistry.addSmelting(GenesisItems.red_clay_bowl, TileEntityCampfire.registerAllowedOutput(GenesisItems.bowls.getStack(EnumCeramicBowls.BOWL)), 0.3F);
+		
+		GameRegistry.addRecipe(new ItemStack(GenesisItems.red_clay_bucket), "X X", "X X", " X ", 'X', GenesisItems.red_clay_ball);
+		GameRegistry.addSmelting(GenesisItems.red_clay_bucket, TileEntityCampfire.registerAllowedOutput(new ItemStack(GenesisItems.ceramic_bucket)), 0.3F);
 		
 		// Cooking pot recipes
 		ItemStack calamites = new ItemStack(GenesisItems.calamites);

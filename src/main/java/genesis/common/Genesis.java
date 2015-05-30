@@ -2,12 +2,13 @@ package genesis.common;
 
 import genesis.metadata.*;
 import genesis.util.Constants;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.*;
+import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.relauncher.Side;
 
 import org.apache.logging.log4j.Logger;
 
@@ -18,9 +19,11 @@ public class Genesis
 	public static Genesis instance;
 	@SidedProxy(clientSide = Constants.CLIENT_LOCATION, serverSide = Constants.PROXY_LOCATION)
 	public static GenesisProxy proxy;
-
+	
+	public static GenesisNetwork network;
+	
 	public static Logger logger;
-
+	
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
@@ -29,6 +32,9 @@ public class Genesis
 		GenesisVersion.startVersionCheck();
 		
 		GenesisConfig.readConfigValues(event.getSuggestedConfigurationFile());
+		
+		network = new GenesisNetwork(Constants.MOD_ID);
+		
 		GenesisBlocks.registerBlocks();
 		GenesisItems.registerItems();
 		

@@ -1,0 +1,29 @@
+{
+    "variants": {
+        "item=generic_wood": { "model": "genesis:campfire_cooking_oak" },
+        "item=minecraft:oak_log": [
+			{ "model": "genesis:campfire_cooking_oak", "y": 0 },
+			{ "model": "genesis:campfire_cooking_oak", "y": 90 },
+			{ "model": "genesis:campfire_cooking_oak", "y": 180 },
+			{ "model": "genesis:campfire_cooking_oak", "y": 270 }
+		],
+        "item=minecraft:acacia_log": [
+			{ "model": "genesis:campfire_cooking_acacia", "y": 0 },
+			{ "model": "genesis:campfire_cooking_acacia", "y": 90 },
+			{ "model": "genesis:campfire_cooking_acacia", "y": 180 },
+			{ "model": "genesis:campfire_cooking_acacia", "y": 270 }
+		],
+        "item=genesis:red_clay_bowl": [
+			{ "model": "genesis:campfire_red_clay_bowl", "y": 0 },
+			{ "model": "genesis:campfire_red_clay_bowl", "y": 90 },
+			{ "model": "genesis:campfire_red_clay_bowl", "y": 180 },
+			{ "model": "genesis:campfire_red_clay_bowl", "y": 270 }
+		],
+        "item=genesis:red_clay_bucket": [
+			{ "model": "genesis:campfire_red_clay_bucket", "y": 0 },
+			{ "model": "genesis:campfire_red_clay_bucket", "y": 90 },
+			{ "model": "genesis:campfire_red_clay_bucket", "y": 180 },
+			{ "model": "genesis:campfire_red_clay_bucket", "y": 270 }
+		]
+    }
+}

@@ -110,9 +110,17 @@ public class VariantsCombo<V extends IMetadata, B extends Block, I extends Item>
 	/**
 	 * Gets the metadata used to get the Item of this variant.
 	 */
-	public int getMetadata(V variant)
+	public int getItemMetadata(V variant)
 	{
-		return getMetadata(soleType, variant);
+		return getItemMetadata(soleType, variant);
+	}
+	
+	/**
+	 * Gets a random IBlockState.
+	 */
+	public IBlockState getBlockState(V variant)
+	{
+		return super.getBlockState(soleType, variant);
 	}
 	
 	/**
@@ -132,7 +140,7 @@ public class VariantsCombo<V extends IMetadata, B extends Block, I extends Item>
 	}
 	
 	/**
-	 * Gets the list of Blocks for this combo's sole {@link #ObjectType}.
+	 * Gets the Block for this combo's sole {@link #ObjectType} and the provided variant.
 	 */
 	public B getBlock(V variant)
 	{
@@ -145,5 +153,21 @@ public class VariantsCombo<V extends IMetadata, B extends Block, I extends Item>
 	public Collection<B> getBlocks()
 	{
 		return super.getBlocks(soleType);
+	}
+
+	/**
+	 * Gets the Item for this combo's sole {@link #ObjectType} and the provided variant.
+	 */
+	public I getItem(V variant)
+	{
+		return super.getItem(soleType, variant);
+	}
+	
+	/**
+	 * Gets the list of Items for this combo's sole {@link #ObjectType}.
+	 */
+	public Collection<I> getItems()
+	{
+		return super.getItems(soleType);
 	}
 }

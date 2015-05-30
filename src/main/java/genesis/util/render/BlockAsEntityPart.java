@@ -22,6 +22,10 @@ public class BlockAsEntityPart extends CustomEntityPart
 	public IBlockAccess world;
 	public BlockPos pos;
 	
+	public ModelResourceLocation modelLocationDef;
+	public IBlockAccess worldDef;
+	public BlockPos posDef;
+	
 	public BlockAsEntityPart(ModelBase model)
 	{
 		super(model);
@@ -29,6 +33,26 @@ public class BlockAsEntityPart extends CustomEntityPart
 		rotationPointX += 0.5F;
 		rotationPointZ += 0.5F;
 		setDefaultState();
+	}
+	
+	public BlockAsEntityPart setDefaultState()
+	{
+		super.setDefaultState();
+
+		modelLocationDef = modelLocation;
+		worldDef = world;
+		posDef = pos;
+		
+		return this;
+	}
+	
+	public void resetState()
+	{
+		super.resetState();
+		
+		modelLocation = modelLocationDef;
+		world = worldDef;
+		pos = posDef;
 	}
 	
 	public void setModelLocation(ModelResourceLocation modelLocation, IBlockAccess world, BlockPos pos)
@@ -47,9 +71,12 @@ public class BlockAsEntityPart extends CustomEntityPart
 	@Override
 	public void doRender(float pxSize)
 	{
-		float scale = pxSize * 16;
-		GlStateManager.scale(scale, scale, scale);
-		ModelHelpers.renderBlockModel(modelLocation, world, pos);
+		if (modelLocation != null)
+		{
+			float scale = pxSize * 16;
+			GlStateManager.scale(scale, scale, scale);
+			ModelHelpers.renderBlockModel(modelLocation, world, pos);
+		}
 	}
 	
 	@Override

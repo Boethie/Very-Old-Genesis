@@ -8,14 +8,16 @@ import genesis.item.*;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.block.tileentity.*;
+import genesis.block.tileentity.render.TileEntityCampfireRenderer;
 import genesis.util.*;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.item.Item;
-
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public final class GenesisBlocks
 {
@@ -58,7 +60,7 @@ public final class GenesisBlocks
 	
 	/* Crafting */
 	public static final BlockCampfire campfire = new BlockCampfire().setUnlocalizedName("campfire");
-
+	
 	/* Plants */
 	public static final VariantsCombo<EnumPlant, BlockPlant, ItemBlockMulti> plants = new VariantsCombo(new ObjectType("plant", BlockPlant.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumPlant.values());
 	public static final BlockGrowingPlant calamites = new BlockCalamites(true, 15, 10)
@@ -67,7 +69,7 @@ public final class GenesisBlocks
 	public static final VariantsCombo<EnumFern, BlockFern, ItemBlockMulti> ferns = new VariantsCombo(new ObjectType("fern", BlockFern.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumFern.values());
 	public static final BlockCobbania cobbania = new BlockCobbania();//.setUnlocalizedName("cobbania");
 	public static final VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti> aquatic_plants = new VariantsCombo(new ObjectType("aquatic_plant", "aquaticPlant", BlockAquaticPlant.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumAquaticPlant.values());
-
+	
 	/* Crops */
 	public static final BlockGrowingPlant zingiberopsis = new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true).setBreakAllTogether(true)
@@ -150,6 +152,16 @@ public final class GenesisBlocks
 		trees.registerAll();
 		
 		Genesis.proxy.registerBlock(campfire, "campfire");
+		GameRegistry.registerTileEntity(TileEntityCampfire.class, Constants.PREFIX + "Campfire");
+		Genesis.proxy.callSided(new SidedFunction()
+		{
+			@SideOnly(Side.CLIENT)
+			@Override
+			public void client(GenesisClient client)
+			{
+				client.registerTileEntityRenderer(TileEntityCampfire.class, new TileEntityCampfireRenderer(campfire));
+			}
+		});
 		
 		Genesis.proxy.registerBlock(calamites_torch, "calamites_torch");
 		

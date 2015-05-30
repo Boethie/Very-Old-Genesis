@@ -3,7 +3,7 @@ package genesis.block.tileentity;
 import java.util.*;
 
 import genesis.util.*;
-import genesis.client.GenesisClient;
+import genesis.client.*;
 import genesis.common.*;
 import genesis.block.tileentity.*;
 import genesis.block.tileentity.render.TileEntityCampfireRenderer;
@@ -39,22 +39,9 @@ public class BlockCampfire extends BlockContainer
 		
 		setDefaultState(getBlockState().getBaseState());
 		
-		setBlockBounds(0, 0, 0, 1, 1, 1);
 		setTickRandomly(true);
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
-		
-		GameRegistry.registerTileEntity(TileEntityCampfire.class, Constants.PREFIX + "Campfire");
-		
-		Genesis.proxy.callSided(new SidedFunction()
-		{
-			@SideOnly(Side.CLIENT)
-			@Override
-			public void client(GenesisClient client)
-			{
-				client.registerTileEntityRenderer(TileEntityCampfire.class, new TileEntityCampfireRenderer(BlockCampfire.this));
-			}
-		});
 	}
 
 	@Override
@@ -83,6 +70,7 @@ public class BlockCampfire extends BlockContainer
 		if (campfire != null)
 		{
 			//return state.withProperty(FIRE, campfire.isBurning());
+			// TODO: Try to get this working.
 		}
 		
 		return state;
@@ -115,9 +103,26 @@ public class BlockCampfire extends BlockContainer
 			dropBlockAsItem(worldIn, pos, worldIn.getBlockState(pos), 0);
 			worldIn.setBlockToAir(pos);
 		}
-		else if (neighborBlock.getMaterial() == Material.water)
+		else
 		{
-			System.out.println("water");
+			TileEntityCampfire campfire = getTileEntity(worldIn, pos);
+			
+			if (campfire != null)
+			{
+				boolean water = false;
+				BlockPos[] aWaterPos = {pos.up(), pos.north(), pos.east(), pos.south(), pos.west()};
+				
+				for (BlockPos waterPos : aWaterPos)
+				{
+					if (worldIn.getBlockState(waterPos).getBlock().getMaterial() == Material.water)
+					{
+						water = true;
+						break;
+					}
+				}
+				
+				campfire.setWaterAround(water);
+			}
 		}
 	}
 	
@@ -146,7 +151,9 @@ public class BlockCampfire extends BlockContainer
 				worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y, z, 0, 0, 0);
 			}
 			
-			if (campfire.getInput() != null)
+			ItemStack input = campfire.getInput();
+			
+			if (input != null && !TileEntityCampfireRenderer.hasCookingItemModel(input))
 			{
 				rangeXZ = new RandomDoubleRange(0.4, 0.6);
 				rangeY = new RandomDoubleRange(0.9, 1);
@@ -158,10 +165,6 @@ public class BlockCampfire extends BlockContainer
 					double z = pos.getZ() + rangeXZ.getRandom(rand);
 					
 					worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y, z, 0, 0, 0);
-				}
-				
-				if (campfire.hasCookingPot() && campfire.canSmelt())
-				{
 				}
 			}
 		}
@@ -197,7 +200,7 @@ public class BlockCampfire extends BlockContainer
 		EnumAxis facing = (EnumAxis) state.getValue(FACING);
 		
 		addIfIntersects(getCollisionBoundingBox(worldIn, pos, state), mask, list);
-
+		
 		int x = pos.getX();
 		int y = pos.getY();
 		int z = pos.getZ();
@@ -287,6 +290,11 @@ public class BlockCampfire extends BlockContainer
 		WorldUtils.setProperty(world, pos, FIRE, burning);
 	}
 	
+	protected final Set<ItemStackKey> lighterItems = new HashSet(){{
+		add(new ItemStackKey(Items.flint_and_steel));
+		add(new ItemStackKey(GenesisItems.flint_and_marcasite));
+	}};
+	
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
@@ -300,7 +308,7 @@ public class BlockCampfire extends BlockContainer
 			{
 				Item heldItem = heldStack.getItem();
 				
-				if (heldItem == Items.flint_and_steel || heldItem == GenesisItems.flint_and_marcasite)
+				if (lighterItems.contains(new ItemStackKey(heldItem)))
 				{
 					if (campfire.burnFuelIfNotBurning())
 					{
@@ -311,7 +319,45 @@ public class BlockCampfire extends BlockContainer
 				}
 				else if (FluidContainerRegistry.containsFluid(heldStack, new FluidStack(FluidRegistry.getFluid("water"), 250)))
 				{
+					boolean burning = campfire.isBurning();
+					Random rand = worldIn.rand;
+					
+					RandomDoubleRange rangeXZ = new RandomDoubleRange(0.25, 0.75);
+					RandomDoubleRange rangeY = new RandomDoubleRange(0.0, 0.25);
+					RandomDoubleRange speedXZ = new RandomDoubleRange(-0.08, 0.08);
+					RandomDoubleRange speedY = new RandomDoubleRange(0.1, 0.3);
+					
+					final int bigSmokeCount = 1;
+					final int smokeCount = 25;
+					final int waterCount = 50;
+					final int maxCount = Math.max(bigSmokeCount, Math.max(smokeCount, waterCount));
+					
+					for (int i = 0; i < maxCount; i++)
+					{
+						double x = pos.getX() + rangeXZ.getRandom(rand);
+						double y = pos.getY() + rangeY.getRandom(rand);
+						double z = pos.getZ() + rangeXZ.getRandom(rand);
+						
+						if (burning)
+						{
+							if (i < bigSmokeCount)
+							{
+								worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, x, y, z, 0, 0, 0);
+							}
+							if (i < smokeCount)
+							{
+								worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y, z, 0, 0, 0);
+							}
+						}
+						if (i < waterCount)
+						{
+							worldIn.spawnParticle(GenesisParticles.WATER_SPLASH, x, y, z,
+									speedXZ.getRandom(rand), speedY.getRandom(rand), speedXZ.getRandom(rand));
+						}
+					}
+					
 					campfire.setWet();
+					
 					return true;
 				}
 			}
