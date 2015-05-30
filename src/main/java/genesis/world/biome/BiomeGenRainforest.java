@@ -1,8 +1,6 @@
 package genesis.world.biome;
 
-import net.minecraft.world.biome.BiomeGenBase;
-
-public class BiomeGenRainforest extends BiomeGenBase
+public class BiomeGenRainforest extends BiomeGenBaseGensis
 {
 
 	public BiomeGenRainforest(int id)
@@ -10,8 +8,9 @@ public class BiomeGenRainforest extends BiomeGenBase
 		super(id);
 		this.biomeName = "Rainforest";
 		this.rainfall = 1.0F;
+		this.minHeight = 0.05F;
+		this.maxHeight = .1F;
+		this.theBiomeDecorator.treesPerChunk = 10;
 	}
-	
-	
 
 }

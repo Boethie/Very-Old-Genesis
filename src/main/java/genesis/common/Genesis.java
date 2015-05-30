@@ -40,8 +40,7 @@ public class Genesis
 		
 		registerEntities();
 
-		DimensionManager.registerProviderType(37, WorldProviderGenesis.class, true);
-		DimensionManager.registerDimension(37, 37);
+		GenesisDimensions.registerDimensions();
 		
 		GenesisBiomes.loadBiomes();
 		

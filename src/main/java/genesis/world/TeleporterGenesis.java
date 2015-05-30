@@ -11,15 +11,16 @@ public class TeleporterGenesis extends Teleporter
 {
 
 	private final WorldServer server;
-	
+
 	public TeleporterGenesis(WorldServer worldIn)
 	{
 		super(worldIn);
 		this.server = worldIn;
 	}
-	
+
 	// Move the Entity to the portal
-	public void teleport(final Entity entity, final World world) {
+	public void teleport(final Entity entity, final World world)
+	{
 
 		// Setup Variables
 		final EntityPlayerMP playerMP = (EntityPlayerMP) entity;
@@ -28,7 +29,7 @@ public class TeleporterGenesis extends Teleporter
 
 		// Freeze motion
 		entity.motionX = entity.motionY = entity.motionZ = 0.0D;
-		entity.setPosition(pos.getX(), pos.getY(), pos.getZ());  // silly to do this multiple time,s but it kept offseting entity until this was done
+		entity.setPosition(pos.getX(), pos.getY(), pos.getZ());  // silly to do this multiple times but it kept offseting entity until this was done
 
 		// Set Dimension
 		if (entity.worldObj.provider.getDimensionId() != world.provider.getDimensionId())
@@ -60,7 +61,5 @@ public class TeleporterGenesis extends Teleporter
 		// TODO Auto-generated method stub
 		return super.makePortal(p_85188_1_);
 	}
-	
-	
 
 }

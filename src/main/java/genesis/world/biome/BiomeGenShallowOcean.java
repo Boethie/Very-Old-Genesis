@@ -1,0 +1,14 @@
+package genesis.world.biome;
+
+public class BiomeGenShallowOcean extends BiomeGenBaseGensis
+{
+
+	public BiomeGenShallowOcean(int id)
+	{
+		super(id);
+		this.biomeName = "Shallow Ocean";
+		this.minHeight = -.8F;
+		this.maxHeight = 0.1F;
+	}
+
+}

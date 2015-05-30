@@ -11,6 +11,4 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 		super(worldIn, p_i45636_2_, p_i45636_4_, p_i45636_5_);
 	}
 
-	
-	
 }

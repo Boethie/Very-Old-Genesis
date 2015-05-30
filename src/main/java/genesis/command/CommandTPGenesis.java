@@ -40,7 +40,7 @@ public class CommandTPGenesis implements ICommand
 	@Override
 	public List getAliases()
 	{
-		return Lists.newArrayList("tpg", "tpgenesis", "ForwardToThePast");
+		return Lists.newArrayList("tpg", "tpgenesis", "ForwardToThePast", "forwardtothepast");
 	}
 
 	@Override
