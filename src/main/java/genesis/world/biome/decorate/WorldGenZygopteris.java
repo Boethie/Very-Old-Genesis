@@ -15,7 +15,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 public class WorldGenZygopteris extends WorldGenerator
 {
 
-	private final IBlockState state = GenesisBlocks.ferns.getBlockState(GenesisBlocks.ferns.soleType, EnumFern.ZYGOPTERIS);
+	private final IBlockState state = GenesisBlocks.ferns.getBlockState(EnumFern.ZYGOPTERIS);
 
 	@Override
 	public boolean generate(World world, Random random, BlockPos pos)

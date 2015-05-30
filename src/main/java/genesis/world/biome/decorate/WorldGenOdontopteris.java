@@ -6,6 +6,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -35,8 +36,9 @@ public class WorldGenOdontopteris extends WorldGenerator
 					- random.nextInt(8));
 			int growth = random.nextInt(7);
 			IBlockState bottom = GenesisBlocks.odontopteris.getDefaultState().withProperty(GenesisBlocks.odontopteris.ageProp, growth).withProperty(GenesisBlocks.odontopteris.topProp, false);
-			IBlockState top = GenesisBlocks.odontopteris.getDefaultState().withProperty(GenesisBlocks.odontopteris.ageProp, 0).withProperty(GenesisBlocks.odontopteris.topProp, true);
-			if (world.isAirBlock(placePos) && world.isAirBlock(placePos.up()) && GenesisBlocks.odontopteris.canBlockStay(world, placePos, bottom))
+			IBlockState top = GenesisBlocks.odontopteris.getDefaultState().withProperty(GenesisBlocks.odontopteris.ageProp, growth).withProperty(GenesisBlocks.odontopteris.topProp, true);
+			Block soil = world.getBlockState(placePos.down()).getBlock();
+			if (world.isAirBlock(placePos) && world.isAirBlock(placePos.up()) && (soil == Blocks.dirt || soil == GenesisBlocks.moss))
 			{
 				world.setBlockState(placePos, bottom, 2);
 				if (GenesisBlocks.odontopteris.growthAge <= growth)

@@ -14,7 +14,7 @@ public abstract class BiomeGenBaseGensis extends BiomeGenBase
 	{
 		super(id);
 		this.theBiomeDecorator = new BiomeDecoratorGenesis();
-		this.theBiomeDecorator.grassPerChunk = 0;
+		this.theBiomeDecorator.clayPerChunk = 1;
 		this.topBlock = GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.STAGE, BlockMoss.STAGE_LAST).withProperty(BlockGrass.SNOWY, false);
 		this.spawnableCaveCreatureList.clear();
 		this.spawnableCreatureList.clear();
@@ -29,6 +29,4 @@ public abstract class BiomeGenBaseGensis extends BiomeGenBase
 		return 0x8DB360;
 	}
 
-	
-	
 }

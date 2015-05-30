@@ -1,5 +1,6 @@
 package genesis.world.biome;
 
+import genesis.world.biome.decorate.BiomeDecoratorGenesis;
 import genesis.world.biome.decorate.WorldGenZygopteris;
 
 import java.util.Random;
@@ -17,7 +18,8 @@ public class BiomeGenRainforest extends BiomeGenBaseGensis
 		this.minHeight = 0.05F;
 		this.maxHeight = .1F;
 		this.theBiomeDecorator.treesPerChunk = 10;
-		this.theBiomeDecorator.grassPerChunk = 1;
+		this.theBiomeDecorator.grassPerChunk = 2;
+		((BiomeDecoratorGenesis) this.theBiomeDecorator).odontopterisPerChunk = 10;
 	}
 
 	@Override
