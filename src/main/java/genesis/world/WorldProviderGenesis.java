@@ -42,7 +42,7 @@ public class WorldProviderGenesis extends WorldProvider
 	@Override
 	public Vec3 getSkyColor(Entity cameraEntity, float partialTicks)
 	{
-		return new Vec3(0.2862745098039216D, 0.5411764705882353, 0.1647058823529412);
+		return new Vec3(0.29411764705882352941176470588235D, 0.47450980392156862745098039215686D, 0.1960784313725490196078431372549);
 	}
 
 }

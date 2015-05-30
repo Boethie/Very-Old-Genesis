@@ -26,7 +26,7 @@ public abstract class BiomeGenBaseGensis extends BiomeGenBase
 	@Override
 	public int getFoliageColorAtPos(BlockPos p_180625_1_)
 	{
-		return 0x015a03;
+		return 0x8DB360;
 	}
 
 	
