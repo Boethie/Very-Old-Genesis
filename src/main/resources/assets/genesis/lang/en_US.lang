@@ -22,6 +22,8 @@ tile.genesis.rock.limestone.name=Limestone
 tile.genesis.rock.shale.name=Shale
 tile.genesis.rock.octaedrite.name=Octaedrite
 tile.genesis.redClay.name=Red Clay
+tile.genesis.ooze.name=Ooze
+tile.genesis.peat.name=Peat
 
 tile.genesis.permafrost.name=Permafrost
 

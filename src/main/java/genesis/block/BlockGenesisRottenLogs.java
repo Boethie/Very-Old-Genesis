@@ -1,5 +1,6 @@
 package genesis.block;
 
+import genesis.client.GenesisSounds;
 import genesis.metadata.EnumTree;
 import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
@@ -22,6 +23,7 @@ public class BlockGenesisRottenLogs extends BlockGenesisLogs
 	public BlockGenesisRottenLogs(List<EnumTree> variants, VariantsOfTypesCombo owner, ObjectType type)
 	{
 		super(variants, owner, type);
+		setStepSound(GenesisSounds.ROTTEN_LOG);
 	}
 	
 	@Override

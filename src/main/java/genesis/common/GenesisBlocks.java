@@ -38,6 +38,8 @@ public final class GenesisBlocks
 	public static final BlockGenesisRock shale = new BlockGenesisRock(0.75F, 8.7F).setUnlocalizedName("shale");
 	public static final BlockGenesisRock octaedrite = new BlockGenesisRock(1.0F, 10.0F).setUnlocalizedName("octaedrite");
 	public static final BlockRedClay red_clay = new BlockRedClay().setUnlocalizedName("redClay");
+	public static final BlockOoze ooze = new BlockOoze().setUnlocalizedName("ooze");
+	public static final BlockPeat peat = new BlockPeat().setUnlocalizedName("peat");
 
 	public static final BlockGenesis permafrost = new BlockPermafrost().setUnlocalizedName("permafrost");
 	public static final BlockGenesis new_permafrost = new BlockNewPermafrost().setUnlocalizedName("permafrost");
@@ -135,6 +137,8 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(shale, "shale");
 		Genesis.proxy.registerBlock(octaedrite, "octaedrite");
 		Genesis.proxy.registerBlock(red_clay, "red_clay");
+		Genesis.proxy.registerBlock(ooze, "ooze");
+		Genesis.proxy.registerBlock(peat, "peat");
 		Genesis.proxy.registerBlock(permafrost, "permafrost");
 		Genesis.proxy.registerBlock(new_permafrost, "new_permafrost");
 		Genesis.proxy.registerBlock(quartz_ore, "quartz_ore");
