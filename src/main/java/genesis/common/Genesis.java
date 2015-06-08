@@ -1,9 +1,17 @@
 package genesis.common;
 
+import genesis.command.CommandTPGenesis;
 import genesis.util.Constants;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.common.event.*;
+import genesis.world.WorldProviderGenesis;
+import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+
 import org.apache.logging.log4j.Logger;
 
 @Mod(modid = Constants.MOD_ID, name = Constants.MOD_NAME, version = Constants.MOD_VERSION, dependencies = "required-after:Forge")
@@ -35,6 +43,8 @@ public class Genesis
 		GenesisRecipes.addRecipes();
 		
 		registerEntities();
+
+		GenesisDimensions.registerDimensions();
 		
 		GenesisBiomes.loadBiomes();
 		
@@ -42,6 +52,10 @@ public class Genesis
 	}
 
 	protected void registerEntities()
+	{
+	}
+	
+	private void registerTileEntities()
 	{
 	}
 
@@ -65,4 +79,10 @@ public class Genesis
 		
 		GenesisRecipes.doSubstitutes();
 	}
+	
+	@Mod.EventHandler
+	public void onServerStarting(FMLServerStartingEvent event){
+		event.registerServerCommand(new CommandTPGenesis());
+	}
+	
 }
