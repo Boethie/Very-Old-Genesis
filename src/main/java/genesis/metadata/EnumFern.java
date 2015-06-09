@@ -5,7 +5,7 @@ import net.minecraft.item.Item;
 
 public enum EnumFern implements IMetadata
 {
-	ZYGOPTERIS("zygopteris"), RUFFORDIA("ruffordia"), ASTRALOPTERIS("astralopteris"), MATONIDIUM("matonidium");
+	ZYGOPTERIS("zygopteris"), PHLEBOPTERIS("phlebopteris"), RUFFORDIA("ruffordia"), ASTRALOPTERIS("astralopteris"), MATONIDIUM("matonidium");
 
 	private final String name;
 	private final String unlocalizedName;

@@ -9,6 +9,7 @@
         "contents=archaeamphora": { "model": "genesis:flower_pot_archaeamphora" },
         "contents=mabelia": { "model": "genesis:flower_pot_mabelia" },
         "contents=zygopteris": { "model": "genesis:flower_pot_zygopteris" },
+		"contents=phlebopteris": { "model": "genesis:flower_pot_phlebopteris" },
         "contents=ruffordia": { "model": "genesis:flower_pot_ruffordia" },
         "contents=astralopteris": { "model": "genesis:flower_pot_astralopteris" },
         "contents=matonidium": { "model": "genesis:flower_pot_matonidium" },

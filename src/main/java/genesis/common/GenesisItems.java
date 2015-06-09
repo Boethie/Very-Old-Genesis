@@ -42,13 +42,15 @@ public final class GenesisItems
 	public static final ItemGenesisSeedFood zingiberopsis_rhizome = new ItemGenesisSeedFood(2, 1.2F).setUnlocalizedName("zingiberopsisRhizome");
 	public static final ItemGenesisSeedFood odontopteris_seeds = new ItemGenesisSeedFood(1, 0.8F).setUnlocalizedName("odontopterisSeeds");
 	public static final ItemGenesisFood spirifer = new ItemGenesisFood(2, 0.4F).setUnlocalizedName("spiriferRaw");
-	public static final ItemGenesisFood cooked_spirifer = new ItemGenesisFood(4, 1.8F).setUnlocalizedName("spiriferCooked");
+	public static final ItemGenesisFood cooked_spirifer = new ItemGenesisFood(3, 1.0F).setUnlocalizedName("spiriferCooked");
 	public static final ItemGenesisFood climatius = new ItemGenesisFood(2, 0.4F).setUnlocalizedName("climatiusRaw");
 	public static final ItemGenesisFood cooked_climatius = new ItemGenesisFood(5, 6.0F).setUnlocalizedName("climatiusCooked");
 	public static final ItemGenesisFood aphthoroblattina = new ItemGenesisFood(1, 0.2F).setUnlocalizedName("aphthoroblattinaRaw");
 	public static final ItemGenesisFood cooked_aphthoroblattina = new ItemGenesisFood(2, 0.8F).setUnlocalizedName("aphthoroblattinaCooked");
 	public static final ItemGenesisFood eryops_leg = new ItemGenesisFood(2, 0.8F).setUnlocalizedName("eryopsLegRaw");
 	public static final ItemGenesisFood cooked_eryops_leg = new ItemGenesisFood(5, 6.0F).setUnlocalizedName("eryopsLegCooked");
+	public static final ItemGenesisFood gryphaea = new ItemGenesisFood(2, 0.4F).setUnlocalizedName("gryphaeaRaw");
+	public static final ItemGenesisFood cooked_gryphaea = new ItemGenesisFood(3, 1.0F).setUnlocalizedName("gryphaeaCooked");
 	public static final ItemGenesisFood ceratites = new ItemGenesisFood(2, 0.4F).setUnlocalizedName("ceratitesRaw");
 	public static final ItemGenesisFood cooked_ceratites = new ItemGenesisFood(4, 1.8F).setUnlocalizedName("ceratitesCooked");
 	public static final ItemGenesisFood liopleurodon = new ItemGenesisFood(4, 2.8F).setUnlocalizedName("liopleurodonRaw");
@@ -103,6 +105,8 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(cooked_aphthoroblattina, "cooked_aphthoroblattina");
 		Genesis.proxy.registerItem(eryops_leg, "eryops_leg");
 		Genesis.proxy.registerItem(cooked_eryops_leg, "cooked_eryops_leg");
+		Genesis.proxy.registerItem(gryphaea, "gryphaea");
+		Genesis.proxy.registerItem(cooked_gryphaea, "cooked_gryphaea");
 		Genesis.proxy.registerItem(ceratites, "ceratites");
 		Genesis.proxy.registerItem(cooked_ceratites, "cooked_ceratites");
 		Genesis.proxy.registerItem(liopleurodon, "liopleurodon");

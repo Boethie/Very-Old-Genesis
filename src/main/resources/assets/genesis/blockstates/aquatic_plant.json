@@ -11,6 +11,7 @@
         "variant=wapkia":  { "model": "genesis:wapkia" },
         "variant=pteridinium":  { "model": "genesis:pteridinium" },
         "variant=dinomischus":  { "model": "genesis:dinomischus" },
+		"variant=echmatocrinus":  { "model": "genesis:echmatocrinus" },
         "variant=thaumaptilon":  { "model": "genesis:thaumaptilon" },
         "variant=primocandelabrum":  { "model": "genesis:primocandelabrum" },
         "variant=charnia":  { "model": "genesis:charnia" },
