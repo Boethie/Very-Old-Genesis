@@ -56,6 +56,7 @@ public class ModelHelpers
 	public static BlockModelShapes modelShapes;
 	public static BlockModelRenderer modelRenderer;
 	public static ModelManager modelManager;
+	public static ItemModelMesher modelMesher;
 	public static Map<IBlockState, ModelResourceLocation> blockResourceMap;
 	public static Class<? extends IModel> classVanillaModelWrapper;
 	public static IdentityHashMap<Item, TIntObjectHashMap<ModelResourceLocation>> itemModelLocations;
@@ -131,10 +132,20 @@ public class ModelHelpers
 	{
 		if (modelManager == null)
 		{
-			modelManager = ReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), "modelManager", "field_178128_c");
+			modelManager = getModelMesher().getModelManager();
 		}
 		
 		return modelManager;
+	}
+	
+	public static ItemModelMesher getModelMesher()
+	{
+		if (modelMesher == null)
+		{
+			modelMesher = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
+		}
+		
+		return modelMesher;
 	}
 	
 	public static String getPropertyString(Map<IProperty, Comparable> properties)
@@ -257,7 +268,7 @@ public class ModelHelpers
 	{
 		if (itemModelLocations == null)
 		{
-			itemModelLocations = ReflectionHelper.getPrivateValue(ItemModelMesherForge.class, (ItemModelMesherForge) Minecraft.getMinecraft().getRenderItem().getItemModelMesher(), "locations");
+			itemModelLocations = ReflectionHelper.getPrivateValue(ItemModelMesherForge.class, (ItemModelMesherForge) getModelMesher(), "locations");
 		}
 		
 		return itemModelLocations;
@@ -359,10 +370,25 @@ public class ModelHelpers
 		return null;
 	}
 	
+	public static IModel getModel(ResourceLocation loc) {
+		IModel model;
+		
+		try
+		{
+			model = ModelLoaderRegistry.getModel(loc);
+		}
+		catch (IOException e)
+		{
+			model = ModelLoaderRegistry.getMissingModel();
+		}
+		
+		return model;
+	}
+	
 	public static IModel getLoadedModel(ResourceLocation loc)
 	{
 		GenesisCustomModelLoader.acceptNothing = true;
-		IModel model = ModelLoaderRegistry.getModel(loc);
+		IModel model = getModel(loc);
 		GenesisCustomModelLoader.acceptNothing = false;
 		
 		return model;
