@@ -22,7 +22,7 @@ group = "genesis"
 archivesBaseName = "genesis"
 
 minecraft {
-    version = "1.8-11.14.1.1334"
+    version = "1.8-11.14.3.1464"
     runDir = "eclipse"
     mappings = "snapshot_nodoc_20141130"
 

@@ -27,7 +27,6 @@ import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IModelState;
 import net.minecraftforge.client.model.ISmartBlockModel;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
 import genesis.client.GenesisClient;
 import genesis.client.GenesisCustomModelLoader;
 import genesis.common.Genesis;
@@ -55,11 +54,11 @@ public class WattleFenceModel implements IModel, IMultiBakedModelOwner
 	{
 		if (post == null)
 		{
-			post = ModelLoaderRegistry.getModel(POST_MODEL);
-			north = ModelLoaderRegistry.getModel(NORTH_MODEL);
-			east = ModelLoaderRegistry.getModel(EAST_MODEL);
-			south = ModelLoaderRegistry.getModel(SOUTH_MODEL);
-			west = ModelLoaderRegistry.getModel(WEST_MODEL);
+			post = ModelHelpers.getModel(POST_MODEL);
+			north = ModelHelpers.getModel(NORTH_MODEL);
+			east = ModelHelpers.getModel(EAST_MODEL);
+			south = ModelHelpers.getModel(SOUTH_MODEL);
+			west = ModelHelpers.getModel(WEST_MODEL);
 		}
 	}
 	
