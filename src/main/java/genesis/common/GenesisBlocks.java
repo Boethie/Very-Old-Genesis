@@ -91,6 +91,10 @@ public final class GenesisBlocks
 			.setCustomsInterface(new BlockOdontopterisCustoms())
 			.setUnlocalizedName("crop.odontopteris");
 	
+	/* Fluids */
+	
+	public static BlockKomatiiticLava komatiitic_lava;
+	
 	/* Other Decorative */
 	public static final BlockGenesisFlowerPot flower_pot = new BlockGenesisFlowerPot();
 	public static final BlockCalamitesBundle calamites_bundle = new BlockCalamitesBundle().setUnlocalizedName("calamitesBundle");
@@ -204,6 +208,9 @@ public final class GenesisBlocks
 		flower_pot.registerPlantsForPot(ferns);
 		flower_pot.registerPlantsForPot(trees, trees.SAPLING);
 		flower_pot.afterAllRegistered();
+		
+		komatiitic_lava = new BlockKomatiiticLava(GenesisFluids.KOMATIITIC_LAVA).setUnlocalizedName("komatiicLava");
+		Genesis.proxy.registerFluidBlock(komatiitic_lava, "komatiitic_lava");
 		
 		Genesis.proxy.registerBlock(prototaxites, "prototaxites");
 		Genesis.proxy.registerBlock(cobbania, "cobbania", ItemBlockCobbania.class);

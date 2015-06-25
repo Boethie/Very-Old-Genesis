@@ -66,6 +66,7 @@ public final class GenesisItems
 	public static final ItemGenesisBucket ceramic_bucket = new ItemGenesisBucket(Blocks.air).setUnlocalizedName("ceramicBucket").setContainerItem(GenesisItems.ceramic_bucket);
 	public static final ItemGenesisBucket ceramic_bucket_water = new ItemGenesisBucket(Blocks.flowing_water).setUnlocalizedName("ceramicBucketWater");
 	public static final ItemGenesisBucketMilk ceramic_bucket_milk = new ItemGenesisBucketMilk().setUnlocalizedName("ceramicBucketMilk");
+	public static ItemGenesisBucket bucket_komatiitic_lava;
 
 	public static void registerItems()
 	{
@@ -118,10 +119,13 @@ public final class GenesisItems
 		
 		tools.registerAll();
 		
+		
+		bucket_komatiitic_lava = new ItemGenesisBucket(GenesisBlocks.komatiitic_lava).setUnlocalizedName("bucketKomatiiticLava");
 		Genesis.proxy.registerItem(ceramic_bucket, "ceramic_bucket");
 		Genesis.proxy.registerItem(ceramic_bucket_water, "ceramic_bucket_water");
 		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluid("water"),
 				new ItemStack(ceramic_bucket_water), new ItemStack(ceramic_bucket));
 		Genesis.proxy.registerItem(ceramic_bucket_milk, "ceramic_bucket_milk");
+		Genesis.proxy.registerItem(bucket_komatiitic_lava, "bucket_komatiitic_lava");
 	}
 }

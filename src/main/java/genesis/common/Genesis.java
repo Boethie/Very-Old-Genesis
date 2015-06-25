@@ -37,6 +37,7 @@ public class Genesis
 		
 		network = new GenesisNetwork(Constants.MOD_ID);
 		
+		GenesisFluids.registerFluids();
 		GenesisBlocks.registerBlocks();
 		GenesisItems.registerItems();
 		

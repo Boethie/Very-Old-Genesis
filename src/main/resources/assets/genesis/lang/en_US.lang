@@ -260,6 +260,7 @@ item.genesis.material.tyrannosaurusTooth.name=Tyrannosaurus Tooth
 item.genesis.misc.ceramicBucket.name=Ceramic Bucket
 item.genesis.misc.ceramicBucketWater.name=Ceramic Water Bucket
 item.genesis.misc.ceramicBucketMilk.name=Ceramic Milk Bucket
+item.genesis.misc.bucketKomatiiticLava.name=Komatiitic Lava Bucket
 
 #------------- GUIs -------------
 container.genesis.campfire=Campfire

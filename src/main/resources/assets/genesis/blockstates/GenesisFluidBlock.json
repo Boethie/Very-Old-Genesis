@@ -1,0 +1,9 @@
+{
+    "forge_marker": 1,
+    "variants": {
+        "genesis.komatiiticlava": {
+            "model": "forge:fluid",
+			"custom": { "fluid": "genesis.komatiiticlava" }
+        }
+    }
+}
