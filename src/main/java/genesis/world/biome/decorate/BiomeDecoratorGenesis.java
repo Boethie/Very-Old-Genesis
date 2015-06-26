@@ -143,7 +143,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 		{
 			k = this.randomGenerator.nextInt(16) + 8;
 			l = this.randomGenerator.nextInt(16) + 8;
-			i1 = this.nextInt(this.currentWorld.getHorizon(this.field_180294_c.add(k, 0, l)).getY() * 2);
+			i1 = this.nextInt(this.currentWorld.getHeight(this.field_180294_c.add(k, 0, l)).getY() * 2);
 			(new WorldGenTreeLepidodendron(14, 18, true)).generate(this.currentWorld, this.randomGenerator, this.field_180294_c.add(k, i1, l));
 		}
 		
