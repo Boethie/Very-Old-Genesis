@@ -89,7 +89,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			l = this.randomGenerator.nextInt(16) + 8;
 			WorldGenAbstractTree worldgenabstracttree = p_150513_1_.genBigTreeChance(this.randomGenerator);
 			worldgenabstracttree.func_175904_e();
-			blockpos = this.currentWorld.getHorizon(this.field_180294_c.add(k, 0, l));
+			blockpos = this.currentWorld.getHeight(this.field_180294_c.add(k, 0, l));
 
 			if (worldgenabstracttree.generate(this.currentWorld, this.randomGenerator, blockpos))
 			{
@@ -126,7 +126,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 		{
 			k = this.randomGenerator.nextInt(16) + 8;
 			l = this.randomGenerator.nextInt(16) + 8;
-			i1 = this.nextInt(this.currentWorld.getHorizon(this.field_180294_c.add(k, 0, l)).getY() * 2);
+			i1 = this.nextInt(this.currentWorld.getHeight(this.field_180294_c.add(k, 0, l)).getY() * 2);
 			p_150513_1_.getRandomWorldGenForGrass(this.randomGenerator).generate(this.currentWorld, this.randomGenerator, this.field_180294_c.add(k, i1, l));
 		}
 		
@@ -135,7 +135,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 		{
 			k = this.randomGenerator.nextInt(16) + 8;
 			l = this.randomGenerator.nextInt(16) + 8;
-			i1 = this.nextInt(this.currentWorld.getHorizon(this.field_180294_c.add(k, 0, l)).getY() * 2);
+			i1 = this.nextInt(this.currentWorld.getHeight(this.field_180294_c.add(k, 0, l)).getY() * 2);
 			(new WorldGenOdontopteris()).generate(this.currentWorld, this.randomGenerator, this.field_180294_c.add(k, i1, l));
 		}
 		

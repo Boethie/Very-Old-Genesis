@@ -96,6 +96,8 @@ tile.genesis.fern.astralopteris.name=Astralopteris
 tile.genesis.fern.matonidium.name=Matonidium
 
 tile.genesis.crop.zingiberopsis.name=Zingiberopsis
+tile.genesis.crop.odontopteris.name=Odontopteris
+tile.genesis.crop.programinis.name=Programinis
 
 tile.genesis.prototaxites.name=Prototaxites
 
@@ -248,6 +250,8 @@ item.genesis.material.resin.name=Resin
 item.genesis.material.calamites.name=Calamites
 item.genesis.material.sphenophyllumFiber.name=Sphenophyllum Fiber
 item.genesis.material.odontopterisFiddlehead.name=Odontopteris Fiddlehead
+item.genesis.material.programinisSeeds.name=Programinis Seeds
+item.genesis.material.programinis.name=Programinis
 item.genesis.material.prototaxitesFlesh.name=Prototaxites Flesh
 item.genesis.material.dung.brachiosaurus.name=Brachiosaurus Dung
 item.genesis.material.dung.tyrannosaurus.name=Tyrannosaurus Dung

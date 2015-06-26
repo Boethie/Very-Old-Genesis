@@ -32,6 +32,8 @@ public final class GenesisItems
 	public static final ItemGenesisSeeds calamites = new ItemGenesisSeeds().setUnlocalizedName("calamites");
 	public static final ItemGenesis sphenophyllum_fiber = new ItemGenesis().setUnlocalizedName("sphenophyllumFiber");
 	public static final ItemGenesis odontopteris_fiddlehead = new ItemGenesis().setUnlocalizedName("odontopterisFiddlehead");
+	public static final ItemGenesisSeeds programinis_seeds = new ItemGenesisSeeds().setUnlocalizedName("programinisSeeds");
+	public static final ItemGenesis programinis = new ItemGenesis().setUnlocalizedName("programinis");
 	public static final ItemGenesis prototaxites_flesh = new ItemGenesis().setUnlocalizedName("prototaxitesFlesh");
 	public static final ItemGenesis arthropleura_chitin = new ItemGenesis().setUnlocalizedName("arthropleuraChitin");
 	public static final ItemGenesis liopleurodon_tooth = new ItemGenesis().setUnlocalizedName("liopleurodonTooth");
@@ -89,6 +91,8 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(calamites, "calamites");
 		Genesis.proxy.registerItem(sphenophyllum_fiber, "sphenophyllum_fiber");
 		Genesis.proxy.registerItem(odontopteris_fiddlehead, "odontopteris_fiddlehead");
+		Genesis.proxy.registerItem(programinis_seeds, "programinis_seeds");
+		Genesis.proxy.registerItem(programinis, "programinis");
 		Genesis.proxy.registerItem(prototaxites_flesh, "prototaxites_flesh");
 		GenesisBlocks.dungs.registerVariants(GenesisBlocks.dungs.DUNG);
 		Genesis.proxy.registerItem(arthropleura_chitin, "arthropleura_chitin");
