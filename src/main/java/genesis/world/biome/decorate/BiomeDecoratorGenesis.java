@@ -5,6 +5,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LAKE_WATER;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
 import genesis.common.GenesisBlocks;
+import genesis.world.gen.feature.WorldGenTreeLepidodendron;
 
 import java.util.Random;
 
@@ -22,9 +23,10 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 
 public class BiomeDecoratorGenesis extends BiomeDecorator
 {
-
-	public int odontopterisPerChunk;
-
+	public int odontopterisPerChunk = 0;
+	public int lepidodendtronPerChunk = 0;
+	public boolean generateDefaultTrees = true;
+	
 	public BiomeDecoratorGenesis()
 	{
 		WorldGenClay clayGen = new WorldGenClay(4);
@@ -32,7 +34,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 		this.clayGen = clayGen;
 		this.generateLakes = true;
 	}
-
+	
 	@Override
 	public void decorate(World world, Random random, BiomeGenBase biome, BlockPos chunkStart)
 	{
@@ -72,7 +74,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 
 		i = this.treesPerChunk;
 
-		if (this.randomGenerator.nextInt(10) == 0)
+		if (this.randomGenerator.nextInt(10) == 0 && this.generateDefaultTrees)
 		{
 			++i;
 		}
@@ -116,7 +118,9 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 		 * }
 		 * }
 		 */
-
+		
+		// TALL GRASS
+		
 		doGen = TerrainGen.decorate(this.currentWorld, this.randomGenerator, this.field_180294_c, GRASS);
 		for (j = 0; doGen && j < this.grassPerChunk; ++j)
 		{
@@ -125,7 +129,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			i1 = this.nextInt(this.currentWorld.getHorizon(this.field_180294_c.add(k, 0, l)).getY() * 2);
 			p_150513_1_.getRandomWorldGenForGrass(this.randomGenerator).generate(this.currentWorld, this.randomGenerator, this.field_180294_c.add(k, i1, l));
 		}
-
+		
 		// doGen = TerrainGen.decorate(this.currentWorld, this.randomGenerator, this.field_180294_c, CUSTOM);
 		for (j = 0; doGen && j < this.odontopterisPerChunk; ++j)
 		{
@@ -134,7 +138,15 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			i1 = this.nextInt(this.currentWorld.getHorizon(this.field_180294_c.add(k, 0, l)).getY() * 2);
 			(new WorldGenOdontopteris()).generate(this.currentWorld, this.randomGenerator, this.field_180294_c.add(k, i1, l));
 		}
-
+		
+		for (j = 0; doGen && j < this.lepidodendtronPerChunk; ++j)
+		{
+			k = this.randomGenerator.nextInt(16) + 8;
+			l = this.randomGenerator.nextInt(16) + 8;
+			i1 = this.nextInt(this.currentWorld.getHorizon(this.field_180294_c.add(k, 0, l)).getY() * 2);
+			(new WorldGenTreeLepidodendron(14, 18, true)).generate(this.currentWorld, this.randomGenerator, this.field_180294_c.add(k, i1, l));
+		}
+		
 		if (this.generateLakes)
 		{
 			BlockPos blockpos1;

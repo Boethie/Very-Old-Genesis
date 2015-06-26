@@ -17,11 +17,13 @@ public class BiomeGenRainforest extends BiomeGenBaseGensis
 		this.rainfall = 1.0F;
 		this.minHeight = 0.05F;
 		this.maxHeight = .1F;
-		this.theBiomeDecorator.treesPerChunk = 10;
+		this.theBiomeDecorator.treesPerChunk = 0;
 		this.theBiomeDecorator.grassPerChunk = 2;
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).odontopterisPerChunk = 10;
+		((BiomeDecoratorGenesis) this.theBiomeDecorator).generateDefaultTrees = false;
+		((BiomeDecoratorGenesis) this.theBiomeDecorator).odontopterisPerChunk = 0;
+		((BiomeDecoratorGenesis) this.theBiomeDecorator).lepidodendtronPerChunk = 20;
 	}
-
+	
 	@Override
 	public WorldGenerator getRandomWorldGenForGrass(Random rand)
 	{

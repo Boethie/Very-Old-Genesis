@@ -9,12 +9,10 @@ import genesis.metadata.VariantsOfTypesCombo.*;
 import java.util.*;
 
 import net.minecraft.block.*;
-import net.minecraft.client.renderer.block.statemap.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.*;
 
 public class TreeBlocksAndItems extends VariantsOfTypesCombo<ObjectType, EnumTree>
 {
