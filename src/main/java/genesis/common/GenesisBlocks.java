@@ -90,6 +90,10 @@ public final class GenesisBlocks
 			.setUseBiomeColor(true)
 			.setCustomsInterface(new BlockOdontopterisCustoms())
 			.setUnlocalizedName("crop.odontopteris");
+	public static final BlockGrowingPlant programinis = new BlockGrowingPlant(false, 7, 1).setTopPosition(1)
+			.setPlantType(EnumPlantType.Crop)
+			.setUseBiomeColor(true)
+			.setUnlocalizedName("crop.odontopteris");
 	
 	/* Fluids */
 	
@@ -202,6 +206,12 @@ public final class GenesisBlocks
 		odontopteris.setCropDrops(new RandomItemDrop(GenesisItems.odontopteris_seeds, 1, 3));
 		odontopteris.setPickedItem(GenesisItems.odontopteris_seeds);
 		GenesisItems.odontopteris_seeds.setCrop(odontopteris);
+		
+		Genesis.proxy.registerBlock(programinis, "programinis", null);
+		programinis.setDrops(new RandomItemDrop(GenesisItems.programinis_seeds, 1, 1));
+		programinis.setDrops(new RandomItemDrop(GenesisItems.programinis_seeds, 1, 3), new RandomItemDrop(GenesisItems.programinis, 1, 1));
+		programinis.setPickedItem(GenesisItems.programinis_seeds);
+		GenesisItems.programinis_seeds.setCrop(programinis);
 		
 		Genesis.proxy.registerBlock(flower_pot, "genesis_flower_pot");
 		flower_pot.registerPlantsForPot(plants);

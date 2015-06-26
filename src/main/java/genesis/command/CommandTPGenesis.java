@@ -26,7 +26,7 @@ public class CommandTPGenesis implements ICommand
 	}
 
 	@Override
-	public String getName()
+	public String getCommandName()
 	{
 		return "BackToTheFuture";
 	}
@@ -38,13 +38,13 @@ public class CommandTPGenesis implements ICommand
 	}
 
 	@Override
-	public List getAliases()
+	public List getCommandAliases()
 	{
 		return Lists.newArrayList("tpg", "tpgenesis", "ForwardToThePast", "forwardtothepast");
 	}
 
 	@Override
-	public void execute(ICommandSender sender, String[] args) throws CommandException
+	public void processCommand(ICommandSender sender, String[] args) throws CommandException
 	{
 		if(DimensionManager.getWorld(37) == null){
 			DimensionManager.initDimension(37);
@@ -55,7 +55,7 @@ public class CommandTPGenesis implements ICommand
 	}
 
 	@Override
-	public boolean canCommandSenderUse(ICommandSender sender)
+	public boolean canCommandSenderUseCommand(ICommandSender sender)
 	{
 		return sender instanceof EntityPlayerMP;
 	}
