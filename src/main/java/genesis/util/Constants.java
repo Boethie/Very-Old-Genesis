@@ -31,7 +31,7 @@ public final class Constants
 	
 	public static final class Unlocalized
 	{
-		public static final String PREFIX = Constants.MOD_ID + ".";
+		public static final String PREFIX = MOD_ID + ".";
 		
 		public static final String INVALID_METADATA = PREFIX + "multiItem.invalidMetadata";
 		public static final String CONTAINER = "container." + PREFIX;
@@ -42,6 +42,7 @@ public final class Constants
 		public static final String CROP = PREFIX + "crop.";
 		public static final String TOOL = PREFIX + "tool.";
 		public static final String TOOL_QUALITY = TOOL + "quality.";
+		public static final String WEAPON = PREFIX + "weapon.";
 		public static final String MATERIAL = PREFIX + "material.";
 		public static final String MISC = PREFIX + "misc.";
 		public static final String FOOD = PREFIX + "food.";

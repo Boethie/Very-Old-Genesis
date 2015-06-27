@@ -37,7 +37,7 @@ public class ItemGenesisSpear extends ItemSword
 	@Override
 	public ItemGenesisSpear setUnlocalizedName(String unlocalizedName)
 	{
-		super.setUnlocalizedName(Unlocalized.PREFIX + "weapon." + unlocalizedName);
+		super.setUnlocalizedName(Unlocalized.WEAPON + unlocalizedName);
 		
 		return this;
 	}
