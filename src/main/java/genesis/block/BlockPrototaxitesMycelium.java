@@ -22,14 +22,7 @@ public class BlockPrototaxitesMycelium extends BlockMycelium
 		setHardness(0.6F);
 		setStepSound(soundTypeGrass);
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
-	}
-
-	@Override
-	public BlockPrototaxitesMycelium setUnlocalizedName(String unlocalizedName)
-	{
-		super.setUnlocalizedName(Constants.PREFIX + unlocalizedName);
-		
-		return this;
+		setUnlocalizedName(Constants.PREFIX + "prototaxitesMycelium");
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package genesis.block;
 
 import genesis.client.GenesisSounds;
+import genesis.util.Constants;
 import net.minecraft.block.material.Material;
 
 public class BlockPermafrost extends BlockGenesis
@@ -12,5 +13,6 @@ public class BlockPermafrost extends BlockGenesis
 		setHardness(0.5F);
 		setStepSound(GenesisSounds.PERMAFROST);
 		setHarvestLevel("pickaxe", 0);
+		setUnlocalizedName("permafrost");
 	}
 }

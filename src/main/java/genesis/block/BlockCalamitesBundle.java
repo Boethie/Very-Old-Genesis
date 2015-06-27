@@ -15,6 +15,7 @@ public class BlockCalamitesBundle extends BlockHay
 	{
 		setStepSound(GenesisSounds.CALAMITES);
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
+		setUnlocalizedName(Constants.PREFIX + "calamitesBundle");
 
 		setHardness(1);
 		setHarvestLevel("axe", 0);
@@ -22,13 +23,5 @@ public class BlockCalamitesBundle extends BlockHay
 		Blocks.fire.setFireInfo(this, 30, 5);
 		
 		FuelHandler.setBurnTime(this, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.log)) / 4, false);
-	}
-	
-	@Override
-	public BlockCalamitesBundle setUnlocalizedName(String name)
-	{
-		super.setUnlocalizedName(Constants.PREFIX + name);
-
-		return this;
 	}
 }

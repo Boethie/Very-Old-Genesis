@@ -35,6 +35,7 @@ public class BlockPrototaxites extends BlockGenesis
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		setHarvestLevel("axe", 0);
 		setItemDropped(GenesisItems.prototaxites_flesh);
+		setUnlocalizedName("prototaxites");
 	}
 
 	@Override

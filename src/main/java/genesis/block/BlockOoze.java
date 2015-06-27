@@ -14,13 +14,6 @@ public class BlockOoze extends BlockGenesis
 		setHarvestLevel("shovel", 0);
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 		setHardness(1.0F);
-	}
-
-	@Override
-	public BlockOoze setUnlocalizedName(String name)
-	{
-		super.setUnlocalizedName(name);
-
-		return this;
+		setUnlocalizedName("ooze");
 	}
 }
