@@ -14,6 +14,7 @@ import genesis.client.GenesisSounds;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemBlockMulti;
+import genesis.item.ItemDung;
 import genesis.item.ItemMulti;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.FuelHandler;
@@ -42,10 +43,10 @@ public class DungBlocksAndItems extends VariantsOfTypesCombo<ObjectType, EnumDun
 							TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.log)) * 4, true);
 				}
 			}.setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.PREFIX).setBlockArguments(Material.ground);
-	public static final ObjectType<Block, ItemMulti> DUNG = new ObjectType<Block, ItemMulti>("dung", null, null)
+	public static final ObjectType<Block, ItemDung> DUNG = new ObjectType<Block, ItemDung>("dung", null, ItemDung.class)
 			{
 				@Override
-				public void afterConstructed(Block block, ItemMulti item, List<IMetadata> variants)
+				public void afterConstructed(Block block, ItemDung item, List<IMetadata> variants)
 				{
 					super.afterConstructed(block, item, variants);
 					FuelHandler.setBurnTime(item, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.log)), true);
