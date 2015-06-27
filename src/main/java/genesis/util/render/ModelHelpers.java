@@ -1,22 +1,62 @@
 package genesis.util.render;
 
-import genesis.client.*;
-import genesis.common.*;
-import genesis.util.*;
+import genesis.client.GenesisCustomModelLoader;
+import genesis.common.Genesis;
+import genesis.util.Constants;
 import gnu.trove.map.hash.TIntObjectHashMap;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.*;
-import java.util.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.IdentityHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockAir;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BlockModelRenderer;
+import net.minecraft.client.renderer.BlockModelShapes;
+import net.minecraft.client.renderer.BlockRendererDispatcher;
+import net.minecraft.client.renderer.ItemModelMesher;
+import net.minecraft.client.renderer.block.model.ModelBlock;
+import net.minecraft.client.renderer.block.statemap.IStateMapper;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.resources.IResource;
+import net.minecraft.client.resources.model.IBakedModel;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.resources.model.ModelManager;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.JsonUtils;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.client.ItemModelMesherForge;
+import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
-import com.google.common.base.*;
-import com.google.common.collect.*;
+import com.google.common.base.Charsets;
+import com.google.common.collect.HashBiMap;
+import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -24,26 +64,6 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-
-import net.minecraft.block.*;
-import net.minecraft.block.material.*;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.*;
-import net.minecraft.client.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.block.model.*;
-import net.minecraft.client.renderer.block.model.ModelBlockDefinition.*;
-import net.minecraft.client.renderer.block.statemap.IStateMapper;
-import net.minecraft.client.renderer.texture.*;
-import net.minecraft.client.resources.*;
-import net.minecraft.client.resources.model.*;
-import net.minecraft.item.*;
-import net.minecraft.util.*;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-import net.minecraftforge.client.ItemModelMesherForge;
-import net.minecraftforge.client.model.*;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 public class ModelHelpers
 {
@@ -56,6 +76,7 @@ public class ModelHelpers
 	public static BlockModelShapes modelShapes;
 	public static BlockModelRenderer modelRenderer;
 	public static ModelManager modelManager;
+	public static ItemModelMesher modelMesher;
 	public static Map<IBlockState, ModelResourceLocation> blockResourceMap;
 	public static Class<? extends IModel> classVanillaModelWrapper;
 	public static IdentityHashMap<Item, TIntObjectHashMap<ModelResourceLocation>> itemModelLocations;
@@ -131,10 +152,20 @@ public class ModelHelpers
 	{
 		if (modelManager == null)
 		{
-			modelManager = ReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), "modelManager", "field_178128_c");
+			modelManager = getModelMesher().getModelManager();
 		}
 		
 		return modelManager;
+	}
+	
+	public static ItemModelMesher getModelMesher()
+	{
+		if (modelMesher == null)
+		{
+			modelMesher = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
+		}
+		
+		return modelMesher;
 	}
 	
 	public static String getPropertyString(Map<IProperty, Comparable> properties)
@@ -257,7 +288,7 @@ public class ModelHelpers
 	{
 		if (itemModelLocations == null)
 		{
-			itemModelLocations = ReflectionHelper.getPrivateValue(ItemModelMesherForge.class, (ItemModelMesherForge) Minecraft.getMinecraft().getRenderItem().getItemModelMesher(), "locations");
+			itemModelLocations = ReflectionHelper.getPrivateValue(ItemModelMesherForge.class, (ItemModelMesherForge) getModelMesher(), "locations");
 		}
 		
 		return itemModelLocations;
@@ -359,10 +390,25 @@ public class ModelHelpers
 		return null;
 	}
 	
+	public static IModel getModel(ResourceLocation loc) {
+		IModel model;
+		
+		try
+		{
+			model = ModelLoaderRegistry.getModel(loc);
+		}
+		catch (Exception e)
+		{
+			model = ModelLoaderRegistry.getMissingModel();
+		}
+		
+		return model;
+	}
+	
 	public static IModel getLoadedModel(ResourceLocation loc)
 	{
 		GenesisCustomModelLoader.acceptNothing = true;
-		IModel model = ModelLoaderRegistry.getModel(loc);
+		IModel model = getModel(loc);
 		GenesisCustomModelLoader.acceptNothing = false;
 		
 		return model;

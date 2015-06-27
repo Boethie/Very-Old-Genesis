@@ -90,6 +90,49 @@
 			"place/coral2"
 		]
 	},
+	"dig.ooze": {
+		"category": "block",
+		"sounds": [
+			"dig/ooze1",
+			"dig/ooze2"
+		]
+	},
+	"step.ooze": {
+		"category": "neutral",
+		"sounds": [
+			"step/ooze1",
+			"step/ooze2"
+		]
+	},
+	"place.ooze": {
+		"category": "block",
+		"sounds": [
+			"place/ooze1",
+			"place/ooze2"
+		]
+	},
+	"dig.rotten_log": {
+		"category": "block",
+		"sounds": [
+			"dig/rotten_log1"
+		]
+	},
+	"step.rotten_log": {
+		"category": "neutral",
+		"sounds": [
+			"step/rotten_log1",
+			"step/rotten_log2",
+			"step/rotten_log3",
+			"step/rotten_log4"
+		]
+	},
+	"place.rotten_log": {
+		"category": "block",
+		"sounds": [
+			"place/rotten_log1",
+			"place/rotten_log2"
+		]
+	},
 	"fire.ignite": {
 		"category": "block",
 		"sounds": [

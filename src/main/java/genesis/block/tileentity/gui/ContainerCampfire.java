@@ -56,9 +56,9 @@ public class ContainerCampfire extends ContainerBase
 	}
 	
 	@Override
-	public void addCraftingToCrafters(ICrafting iCrafting)
+	public void onCraftGuiOpened(ICrafting iCrafting)
 	{
-		super.addCraftingToCrafters(iCrafting);
+		super.onCraftGuiOpened(iCrafting);
 		
 		iCrafting.sendProgressBarUpdate(this, 0, campfire.cookTime);
 		iCrafting.sendProgressBarUpdate(this, 1, campfire.burnTime);

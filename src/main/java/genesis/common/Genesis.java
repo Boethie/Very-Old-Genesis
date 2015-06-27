@@ -1,14 +1,16 @@
 package genesis.common;
 
-import genesis.metadata.*;
+import genesis.command.CommandTPGenesis;
 import genesis.util.Constants;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.common.event.*;
+import genesis.world.WorldProviderGenesis;
+import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import net.minecraftforge.fml.relauncher.Side;
 
 import org.apache.logging.log4j.Logger;
 
@@ -35,12 +37,15 @@ public class Genesis
 		
 		network = new GenesisNetwork(Constants.MOD_ID);
 		
+		GenesisFluids.registerFluids();
 		GenesisBlocks.registerBlocks();
 		GenesisItems.registerItems();
 		
 		GenesisRecipes.addRecipes();
 		
 		registerEntities();
+
+		GenesisDimensions.registerDimensions();
 		
 		GenesisBiomes.loadBiomes();
 		
@@ -48,6 +53,10 @@ public class Genesis
 	}
 
 	protected void registerEntities()
+	{
+	}
+	
+	private void registerTileEntities()
 	{
 	}
 
@@ -71,4 +80,10 @@ public class Genesis
 		
 		GenesisRecipes.doSubstitutes();
 	}
+	
+	@Mod.EventHandler
+	public void onServerStarting(FMLServerStartingEvent event){
+		event.registerServerCommand(new CommandTPGenesis());
+	}
+	
 }

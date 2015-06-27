@@ -2,6 +2,7 @@ genesis.multiItem.invalidMetadata.name=§4Invalid Sub-Item Metadata!
 
 #------------- Blocks -------------
 tile.genesis.dummyBlock.name=§4Useless Dummy Block!
+tile.genesis.komatiiticLava.name=Komatiitic Lava
 
 #Interactive blocks
 tile.genesis.campfire.name=Campfire
@@ -22,6 +23,8 @@ tile.genesis.rock.limestone.name=Limestone
 tile.genesis.rock.shale.name=Shale
 tile.genesis.rock.octaedrite.name=Octaedrite
 tile.genesis.redClay.name=Red Clay
+tile.genesis.ooze.name=Ooze
+tile.genesis.peat.name=Peat
 
 tile.genesis.permafrost.name=Permafrost
 
@@ -88,11 +91,14 @@ tile.genesis.plant.sphenophyllum.name=Sphenophyllum
 tile.genesis.plant.calamites.name=Calamites
 
 tile.genesis.fern.zygopteris.name=Zygopteris
+tile.genesis.fern.phlebopteris.name=Phlebopteris
 tile.genesis.fern.ruffordia.name=Ruffordia
 tile.genesis.fern.astralopteris.name=Astralopteris
 tile.genesis.fern.matonidium.name=Matonidium
 
 tile.genesis.crop.zingiberopsis.name=Zingiberopsis
+tile.genesis.crop.odontopteris.name=Odontopteris
+tile.genesis.crop.programinis.name=Programinis
 
 tile.genesis.prototaxites.name=Prototaxites
 
@@ -109,6 +115,7 @@ tile.genesis.aquaticPlant.vauxia.name=Vauxia
 tile.genesis.aquaticPlant.wapkia.name=Wapkia
 tile.genesis.aquaticPlant.pteridinium.name=Pteridinium
 tile.genesis.aquaticPlant.dinomischus.name=Dinomischus
+tile.genesis.aquaticPlant.echmatocrinus.name=Echmatocrinus
 tile.genesis.aquaticPlant.primocandelabrum.name=Primocandelabrum
 tile.genesis.aquaticPlant.charnia_top.name=Charnia
 tile.genesis.aquaticPlant.charnia.name=Charnia
@@ -130,6 +137,8 @@ item.genesis.food.aphthoroblattinaRaw.name=Raw Aphthoroblattina
 item.genesis.food.aphthoroblattinaCooked.name=Cooked Aphthoroblattina
 item.genesis.food.eryopsLegRaw.name=Raw Eryops Leg
 item.genesis.food.eryopsLegCooked.name=Cooked Eryops Leg
+item.genesis.food.gryphaeaRaw.name=Raw Gryphaea
+item.genesis.food.gryphaeaCooked.name=Cooked Gryphaea
 item.genesis.food.ceratitesRaw.name=Raw Ceratites
 item.genesis.food.ceratitesCooked.name=Cooked Ceratites
 item.genesis.food.liopleurodonRaw.name=Raw Liopleurodon
@@ -284,6 +293,8 @@ item.genesis.material.resin.name=Resin
 item.genesis.material.calamites.name=Calamites
 item.genesis.material.sphenophyllumFiber.name=Sphenophyllum Fiber
 item.genesis.material.odontopterisFiddlehead.name=Odontopteris Fiddlehead
+item.genesis.material.programinisSeeds.name=Programinis Seeds
+item.genesis.material.programinis.name=Programinis
 item.genesis.material.prototaxitesFlesh.name=Prototaxites Flesh
 item.genesis.material.dung.brachiosaurus.name=Brachiosaurus Dung
 item.genesis.material.dung.tyrannosaurus.name=Tyrannosaurus Dung
@@ -296,6 +307,7 @@ item.genesis.material.tyrannosaurusTooth.name=Tyrannosaurus Tooth
 item.genesis.misc.ceramicBucket.name=Ceramic Bucket
 item.genesis.misc.ceramicBucketWater.name=Ceramic Water Bucket
 item.genesis.misc.ceramicBucketMilk.name=Ceramic Milk Bucket
+item.genesis.misc.bucketKomatiiticLava.name=Komatiitic Lava Bucket
 
 #------------- GUIs -------------
 container.genesis.campfire=Campfire

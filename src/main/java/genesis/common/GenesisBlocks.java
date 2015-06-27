@@ -38,6 +38,8 @@ public final class GenesisBlocks
 	public static final BlockGenesisRock shale = new BlockGenesisRock(0.75F, 8.7F).setUnlocalizedName("shale");
 	public static final BlockGenesisRock octaedrite = new BlockGenesisRock(1.0F, 10.0F).setUnlocalizedName("octaedrite");
 	public static final BlockRedClay red_clay = new BlockRedClay().setUnlocalizedName("redClay");
+	public static final BlockOoze ooze = new BlockOoze().setUnlocalizedName("ooze");
+	public static final BlockPeat peat = new BlockPeat().setUnlocalizedName("peat");
 
 	public static final BlockGenesis permafrost = new BlockPermafrost().setUnlocalizedName("permafrost");
 	public static final BlockGenesis new_permafrost = new BlockNewPermafrost().setUnlocalizedName("permafrost");
@@ -88,6 +90,14 @@ public final class GenesisBlocks
 			.setUseBiomeColor(true)
 			.setCustomsInterface(new BlockOdontopterisCustoms())
 			.setUnlocalizedName("crop.odontopteris");
+	public static final BlockGrowingPlant programinis = new BlockGrowingPlant(false, 7, 1).setTopPosition(1)
+			.setPlantType(EnumPlantType.Crop)
+			.setUseBiomeColor(true)
+			.setUnlocalizedName("crop.odontopteris");
+	
+	/* Fluids */
+	
+	public static BlockKomatiiticLava komatiitic_lava;
 	
 	/* Other Decorative */
 	public static final BlockGenesisFlowerPot flower_pot = new BlockGenesisFlowerPot();
@@ -135,6 +145,8 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(shale, "shale");
 		Genesis.proxy.registerBlock(octaedrite, "octaedrite");
 		Genesis.proxy.registerBlock(red_clay, "red_clay");
+		Genesis.proxy.registerBlock(ooze, "ooze");
+		Genesis.proxy.registerBlock(peat, "peat");
 		Genesis.proxy.registerBlock(permafrost, "permafrost");
 		Genesis.proxy.registerBlock(new_permafrost, "new_permafrost");
 		Genesis.proxy.registerBlock(quartz_ore, "quartz_ore");
@@ -195,11 +207,20 @@ public final class GenesisBlocks
 		odontopteris.setPickedItem(GenesisItems.odontopteris_seeds);
 		GenesisItems.odontopteris_seeds.setCrop(odontopteris);
 		
+		Genesis.proxy.registerBlock(programinis, "programinis", null);
+		programinis.setDrops(new RandomItemDrop(GenesisItems.programinis_seeds, 1, 1));
+		programinis.setCropDrops(new RandomItemDrop(GenesisItems.programinis_seeds, 1, 3), new RandomItemDrop(GenesisItems.programinis, 1, 1));
+		programinis.setPickedItem(GenesisItems.programinis_seeds);
+		GenesisItems.programinis_seeds.setCrop(programinis);
+		
 		Genesis.proxy.registerBlock(flower_pot, "genesis_flower_pot");
 		flower_pot.registerPlantsForPot(plants);
 		flower_pot.registerPlantsForPot(ferns);
 		flower_pot.registerPlantsForPot(trees, trees.SAPLING);
 		flower_pot.afterAllRegistered();
+		
+		komatiitic_lava = new BlockKomatiiticLava(GenesisFluids.KOMATIITIC_LAVA).setUnlocalizedName("komatiiticLava");
+		Genesis.proxy.registerFluidBlock(komatiitic_lava, "komatiitic_lava");
 		
 		Genesis.proxy.registerBlock(prototaxites, "prototaxites");
 		Genesis.proxy.registerBlock(cobbania, "cobbania", ItemBlockCobbania.class);

@@ -1,0 +1,6 @@
+{
+    "parent": "block/tallgrass",
+    "textures": {
+        "cross": "genesis:blocks/programinis_stage_4"
+    }
+}

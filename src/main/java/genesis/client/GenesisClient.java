@@ -8,6 +8,7 @@ import genesis.util.render.ModelHelpers;
 import java.util.*;
 
 import net.minecraft.block.*;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.statemap.*;
@@ -19,8 +20,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraftforge.client.model.*;
 import net.minecraftforge.common.*;
+import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fml.client.*;
 import net.minecraftforge.fml.client.registry.*;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.*;
 
 public class GenesisClient extends GenesisProxy
@@ -78,6 +81,32 @@ public class GenesisClient extends GenesisProxy
 		registerModel(block, name);
 	}
 	
+	@Override
+	public void registerFluidBlock(BlockFluidBase block, String name)
+	{
+		registerBlock(block, name);
+		final ModelResourceLocation modelLoc = new ModelResourceLocation(Constants.ASSETS+"GenesisFluidBlock", block.getFluid().getName());
+		Item fluid = Item.getItemFromBlock(block);
+		ModelLoader.setCustomMeshDefinition(fluid, new ItemMeshDefinition()
+		{
+			
+			@Override
+			public ModelResourceLocation getModelLocation(ItemStack stack)
+			{
+				return modelLoc;
+			}
+		});
+		ModelLoader.setCustomStateMapper(block, new StateMapperBase()
+		{
+			
+			@Override
+			protected ModelResourceLocation getModelResourceLocation(IBlockState state)
+			{
+				return modelLoc;
+			}
+		});
+	}
+
 	public void callSided(SidedFunction sidedFunction)
 	{
 		sidedFunction.client(this);

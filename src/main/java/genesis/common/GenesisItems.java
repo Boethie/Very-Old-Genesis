@@ -32,6 +32,8 @@ public final class GenesisItems
 	public static final ItemGenesisSeeds calamites = new ItemGenesisSeeds().setUnlocalizedName("calamites");
 	public static final ItemGenesis sphenophyllum_fiber = new ItemGenesis().setUnlocalizedName("sphenophyllumFiber");
 	public static final ItemGenesis odontopteris_fiddlehead = new ItemGenesis().setUnlocalizedName("odontopterisFiddlehead");
+	public static final ItemGenesisSeeds programinis_seeds = new ItemGenesisSeeds().setUnlocalizedName("programinisSeeds");
+	public static final ItemGenesis programinis = new ItemGenesis().setUnlocalizedName("programinis");
 	public static final ItemGenesis prototaxites_flesh = new ItemGenesis().setUnlocalizedName("prototaxitesFlesh");
 	public static final ItemGenesis arthropleura_chitin = new ItemGenesis().setUnlocalizedName("arthropleuraChitin");
 	public static final ItemGenesis liopleurodon_tooth = new ItemGenesis().setUnlocalizedName("liopleurodonTooth");
@@ -42,13 +44,15 @@ public final class GenesisItems
 	public static final ItemGenesisSeedFood zingiberopsis_rhizome = new ItemGenesisSeedFood(2, 1.2F).setUnlocalizedName("zingiberopsisRhizome");
 	public static final ItemGenesisSeedFood odontopteris_seeds = new ItemGenesisSeedFood(1, 0.8F).setUnlocalizedName("odontopterisSeeds");
 	public static final ItemGenesisFood spirifer = new ItemGenesisFood(2, 0.4F).setUnlocalizedName("spiriferRaw");
-	public static final ItemGenesisFood cooked_spirifer = new ItemGenesisFood(4, 1.8F).setUnlocalizedName("spiriferCooked");
+	public static final ItemGenesisFood cooked_spirifer = new ItemGenesisFood(3, 1.0F).setUnlocalizedName("spiriferCooked");
 	public static final ItemGenesisFood climatius = new ItemGenesisFood(2, 0.4F).setUnlocalizedName("climatiusRaw");
 	public static final ItemGenesisFood cooked_climatius = new ItemGenesisFood(5, 6.0F).setUnlocalizedName("climatiusCooked");
 	public static final ItemGenesisFood aphthoroblattina = new ItemGenesisFood(1, 0.2F).setUnlocalizedName("aphthoroblattinaRaw");
 	public static final ItemGenesisFood cooked_aphthoroblattina = new ItemGenesisFood(2, 0.8F).setUnlocalizedName("aphthoroblattinaCooked");
 	public static final ItemGenesisFood eryops_leg = new ItemGenesisFood(2, 0.8F).setUnlocalizedName("eryopsLegRaw");
 	public static final ItemGenesisFood cooked_eryops_leg = new ItemGenesisFood(5, 6.0F).setUnlocalizedName("eryopsLegCooked");
+	public static final ItemGenesisFood gryphaea = new ItemGenesisFood(2, 0.4F).setUnlocalizedName("gryphaeaRaw");
+	public static final ItemGenesisFood cooked_gryphaea = new ItemGenesisFood(3, 1.0F).setUnlocalizedName("gryphaeaCooked");
 	public static final ItemGenesisFood ceratites = new ItemGenesisFood(2, 0.4F).setUnlocalizedName("ceratitesRaw");
 	public static final ItemGenesisFood cooked_ceratites = new ItemGenesisFood(4, 1.8F).setUnlocalizedName("ceratitesCooked");
 	public static final ItemGenesisFood liopleurodon = new ItemGenesisFood(4, 2.8F).setUnlocalizedName("liopleurodonRaw");
@@ -64,6 +68,7 @@ public final class GenesisItems
 	public static final ItemGenesisBucket ceramic_bucket = new ItemGenesisBucket(Blocks.air).setUnlocalizedName("ceramicBucket").setContainerItem(GenesisItems.ceramic_bucket);
 	public static final ItemGenesisBucket ceramic_bucket_water = new ItemGenesisBucket(Blocks.flowing_water).setUnlocalizedName("ceramicBucketWater");
 	public static final ItemGenesisBucketMilk ceramic_bucket_milk = new ItemGenesisBucketMilk().setUnlocalizedName("ceramicBucketMilk");
+	public static ItemGenesisBucket bucket_komatiitic_lava;
 
 	public static void registerItems()
 	{
@@ -86,6 +91,8 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(calamites, "calamites");
 		Genesis.proxy.registerItem(sphenophyllum_fiber, "sphenophyllum_fiber");
 		Genesis.proxy.registerItem(odontopteris_fiddlehead, "odontopteris_fiddlehead");
+		Genesis.proxy.registerItem(programinis_seeds, "programinis_seeds");
+		Genesis.proxy.registerItem(programinis, "programinis");
 		Genesis.proxy.registerItem(prototaxites_flesh, "prototaxites_flesh");
 		GenesisBlocks.dungs.registerVariants(GenesisBlocks.dungs.DUNG);
 		Genesis.proxy.registerItem(arthropleura_chitin, "arthropleura_chitin");
@@ -103,6 +110,8 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(cooked_aphthoroblattina, "cooked_aphthoroblattina");
 		Genesis.proxy.registerItem(eryops_leg, "eryops_leg");
 		Genesis.proxy.registerItem(cooked_eryops_leg, "cooked_eryops_leg");
+		Genesis.proxy.registerItem(gryphaea, "gryphaea");
+		Genesis.proxy.registerItem(cooked_gryphaea, "cooked_gryphaea");
 		Genesis.proxy.registerItem(ceratites, "ceratites");
 		Genesis.proxy.registerItem(cooked_ceratites, "cooked_ceratites");
 		Genesis.proxy.registerItem(liopleurodon, "liopleurodon");
@@ -114,10 +123,13 @@ public final class GenesisItems
 		
 		tools.registerAll();
 		
+		
+		bucket_komatiitic_lava = new ItemGenesisBucket(GenesisBlocks.komatiitic_lava).setUnlocalizedName("bucketKomatiiticLava");
 		Genesis.proxy.registerItem(ceramic_bucket, "ceramic_bucket");
 		Genesis.proxy.registerItem(ceramic_bucket_water, "ceramic_bucket_water");
 		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluid("water"),
 				new ItemStack(ceramic_bucket_water), new ItemStack(ceramic_bucket));
 		Genesis.proxy.registerItem(ceramic_bucket_milk, "ceramic_bucket_milk");
+		Genesis.proxy.registerItem(bucket_komatiitic_lava, "bucket_komatiitic_lava");
 	}
 }

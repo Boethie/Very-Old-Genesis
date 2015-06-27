@@ -207,6 +207,8 @@ public class BlockAquaticPlant extends BlockGenesisVariants<EnumAquaticPlant, Va
 			validGround.add(Blocks.gravel);
 			validGround.add(Blocks.clay);
 			validGround.add(GenesisBlocks.red_clay);
+			validGround.add(GenesisBlocks.ooze);
+			validGround.add(GenesisBlocks.peat);
 			validGround.addAll(GenesisBlocks.corals.getBlocks(GenesisBlocks.corals.soleType));
 		}
 		
@@ -268,5 +270,12 @@ public class BlockAquaticPlant extends BlockGenesisVariants<EnumAquaticPlant, Va
 	public EnumWorldBlockLayer getBlockLayer()
 	{
 		return EnumWorldBlockLayer.CUTOUT;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public Block.EnumOffsetType getOffsetType()
+	{
+		return Block.EnumOffsetType.XYZ;
 	}
 }

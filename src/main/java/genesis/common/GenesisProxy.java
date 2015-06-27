@@ -9,6 +9,7 @@ import net.minecraft.item.*;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.*;
 import net.minecraftforge.client.model.*;
+import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fml.common.registry.*;
 
 public class GenesisProxy
@@ -44,6 +45,10 @@ public class GenesisProxy
 	public void registerBlock(Block block, String name, Class<? extends ItemBlock> clazz)
 	{
 		GameRegistry.registerBlock(block, clazz, name);
+	}
+	
+	public void registerFluidBlock(BlockFluidBase block, String name){
+		registerBlock(block, name);
 	}
 
 	/**

@@ -9,7 +9,11 @@ import genesis.util.Constants;
 import java.util.List;
 import java.util.Set;
 
+import com.google.common.collect.Multimap;
+
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 
@@ -29,6 +33,16 @@ public class ItemChoppingTool extends ItemAxe
 		this.type = type;
 		this.objType = objType;
 	}
+    
+	@Override
+    public Multimap<String, AttributeModifier> getItemAttributeModifiers()
+    {
+        Multimap<String, AttributeModifier> map = super.getItemAttributeModifiers();
+        String key = SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName();
+        map.removeAll(key);
+        map.put(key, new AttributeModifier(itemModifierUUID, "Tool modifier", 1 + getToolMaterial().getDamageVsEntity(), 0));
+        return map;
+    }
 	
 	@Override
 	public int getMetadata(ItemStack stack)
