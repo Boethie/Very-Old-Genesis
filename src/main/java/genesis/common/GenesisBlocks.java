@@ -102,7 +102,7 @@ public final class GenesisBlocks
 	/* Other Decorative */
 	public static final BlockGenesisFlowerPot flower_pot = new BlockGenesisFlowerPot();
 	public static final BlockCalamitesBundle calamites_bundle = new BlockCalamitesBundle().setUnlocalizedName("calamitesBundle");
-	public static final BlockGenesisTorch calamites_torch = new BlockGenesisTorch().setUnlocalizedName("calamitesTorch");
+	public static final BlockCalamitesTorch calamites_torch = new BlockCalamitesTorch().setUnlocalizedName("calamitesTorch");
 	public static final BlockPrototaxitesMycelium prototaxites_mycelium = new BlockPrototaxitesMycelium().setUnlocalizedName("prototaxitesMycelium");
 	public static final DungBlocksAndItems dungs = new DungBlocksAndItems();
 	

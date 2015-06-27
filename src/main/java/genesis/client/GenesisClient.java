@@ -1,5 +1,6 @@
 package genesis.client;
 
+import genesis.client.model.FluidModel;
 import genesis.common.*;
 import genesis.metadata.*;
 import genesis.util.*;
@@ -85,26 +86,7 @@ public class GenesisClient extends GenesisProxy
 	public void registerFluidBlock(BlockFluidBase block, String name)
 	{
 		registerBlock(block, name);
-		final ModelResourceLocation modelLoc = new ModelResourceLocation(Constants.ASSETS+"GenesisFluidBlock", block.getFluid().getName());
-		Item fluid = Item.getItemFromBlock(block);
-		ModelLoader.setCustomMeshDefinition(fluid, new ItemMeshDefinition()
-		{
-			
-			@Override
-			public ModelResourceLocation getModelLocation(ItemStack stack)
-			{
-				return modelLoc;
-			}
-		});
-		ModelLoader.setCustomStateMapper(block, new StateMapperBase()
-		{
-			
-			@Override
-			protected ModelResourceLocation getModelResourceLocation(IBlockState state)
-			{
-				return modelLoc;
-			}
-		});
+		FluidModel.registerFluid(block);
 	}
 
 	public void callSided(SidedFunction sidedFunction)
