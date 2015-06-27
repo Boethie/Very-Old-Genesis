@@ -271,4 +271,11 @@ public class BlockAquaticPlant extends BlockGenesisVariants<EnumAquaticPlant, Va
 	{
 		return EnumWorldBlockLayer.CUTOUT;
 	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public Block.EnumOffsetType getOffsetType()
+	{
+		return Block.EnumOffsetType.XYZ;
+	}
 }

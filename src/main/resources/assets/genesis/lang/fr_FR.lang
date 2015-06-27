@@ -2,6 +2,7 @@ genesis.multiItem.invalidMetadata.name=ยง4Invalid Sub-Item Metadata!
 
 #------------- Blocks -------------
 tile.genesis.dummyBlock.name=ยง4Useless Dummy Block!
+tile.genesis.komatiicLava.name=Lave komatiitique
 
 #Interactive blocks
 tile.genesis.campfire.name=Feu de camp
@@ -263,6 +264,7 @@ item.genesis.material.tyrannosaurusTooth.name=Dent de Tyrannosaurus
 item.genesis.misc.ceramicBucket.name=Seau en céramique
 item.genesis.misc.ceramicBucketWater.name=Seau d'eau en céramique
 item.genesis.misc.ceramicBucketMilk.name=Seau de lait en céramique
+item.genesis.misc.bucketKomatiiticLava.name=Seau de lave komatiitique
 
 #------------- GUIs -------------
 container.genesis.campfire=Feu de camp
