@@ -4,14 +4,16 @@ import genesis.client.GenesisClient;
 import genesis.common.*;
 import genesis.item.*;
 import genesis.util.*;
-import genesis.util.ReflectionHelper;
+import genesis.util.ReflectionUtils;
 import genesis.metadata.VariantsOfTypesCombo.*;
 
 import java.lang.annotation.*;
 import java.lang.reflect.*;
 import java.util.*;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.tuple.Pair;
 
 import com.google.common.base.Function;
 import com.google.common.collect.*;
@@ -69,6 +71,8 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 		protected List<IMetadata> onlyVariants;
 		protected boolean separateVariantJsons = true;
 		protected IProperty[] stateMapIgnoredProperties;
+		
+		protected boolean variantAsName = true;
 		
 		protected CreativeTabs tab = null;
 
@@ -190,6 +194,21 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 			return this;
 		}
 		
+		public boolean usesVariantAsRegistryName()
+		{
+			return variantAsName;
+		}
+		
+		/**
+		 * Sets whether to register blocks and items with their variant names,
+		 * if the maximum subset size is 1 (so one variant per block and item instance).
+		 */
+		public ObjectType<B, I> setUseVariantAsRegistryName(boolean use)
+		{
+			variantAsName = use;
+			return this;
+		}
+		
 		public Object[] getBlockArguments()
 		{
 			return blockArgs;
@@ -290,7 +309,10 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 		}
 	}
 	
-	public static class VariantKey
+	/**
+	 * Used to get the ObjectType and IMetadata for a VariantData in the bitable.
+	 */
+	public class VariantKey
 	{
 		public final Item item;
 		public final int itemMetadata;
@@ -301,18 +323,20 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 			this.itemMetadata = metadata;
 		}
 		
+		@Override
 		public int hashCode()
 		{
 			return item.hashCode() ^ itemMetadata;
 		}
 		
+		@Override
 		public boolean equals(Object obj)
 		{
-			if (obj instanceof VariantKey)
+			if (obj instanceof VariantsOfTypesCombo.VariantKey)
 			{
 				VariantKey other = (VariantKey) obj;
 				
-				if (item == other.item && other.itemMetadata == itemMetadata)
+				if (item == other.item && itemMetadata == other.itemMetadata)
 				{
 					return true;
 				}
@@ -322,26 +346,67 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 		}
 	}
 	
-	public static class VariantData extends VariantKey
+	public class VariantData extends VariantKey
 	{
 		public final Block block;
-		public final int id;
+		public final int subset;
 		
-		private VariantData(Block block, Item item, int id, int metadata)
+		private VariantData(Block block, Item item, int subset, int metadata)
 		{
 			super(item, metadata);
 			
 			this.block = block;
-			this.id = id;
+			this.subset = subset;
+		}
+	}
+	
+	public class SubsetData
+	{
+		public final Block block;
+		public final Item item;
+		public final int maxSize;
+		public final int size;
+		public final ImmutableList<V> variants;
+		
+		public SubsetData(Block block, Item item, int maxSize, int size, ImmutableList<V> variants)
+		{
+			this.block = block;
+			this.item = item;
+			this.maxSize = maxSize;
+			this.size = size;
+			this.variants = variants;
+		}
+		
+		@Override
+		public int hashCode()
+		{
+			return item.hashCode();
+		}
+		
+		@Override
+		public boolean equals(Object obj)
+		{
+			if (obj instanceof VariantsOfTypesCombo.SubsetData)
+			{
+				SubsetData other = (SubsetData) obj;
+				
+				if (item == other.item)
+				{
+					return true;
+				}
+			}
+			
+			return false;
 		}
 	}
 	
 	/**
 	 * Map of Block/Item types to a map of variants to the block/item itself.
 	 */
-	protected final HashBiTable<O, V, VariantData> entryMap = new HashBiTable();
-	public final List<O> types;
-	public final List<V> variants;
+	protected final UnmodifiableBiTable<O, V, VariantData> objectDataTable;
+	protected final UnmodifiableBiTable<O, Integer, SubsetData> subsetDataTable;
+	public final ImmutableList<O> types;
+	public final ImmutableList<V> variants;
 	public final HashSet<O> registeredTypes = new HashSet();
 	
 	/**
@@ -361,13 +426,16 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	 * @param types The list of {@link #ObjectType} definitions of the {@code Block} and {@code Item} classes to store.
 	 * @param variants The {@link #IMetadata} representations of the variants to store for each Block/Item.
 	 */
-	public VariantsOfTypesCombo(List<O> types, List<V> variants)
+	public VariantsOfTypesCombo(List<O> typesIn, List<V> variantsIn)
 	{
-		this.variants = variants;
-		this.types = types;
+		this.types = ImmutableList.copyOf(typesIn);
+		this.variants = ImmutableList.copyOf(variantsIn);
 		
 		try
 		{
+			HashBiTable<O, V, VariantData> objectDataTable = new HashBiTable();
+			HashBiTable<O, Integer, SubsetData> subsetDataTable = new HashBiTable();
+			
 			for (final O type : types)
 			{
 				Class<? extends Block> blockClass = type.getBlockClass();
@@ -375,12 +443,12 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 				
 				List<V> typeVariants = type.getValidVariants(new ArrayList<V>(variants));
 				
-				int maxVariants = Short.MAX_VALUE - 1;	// ItemStack max damage value.
+				int maxSubsetSize = Short.MAX_VALUE - 1;	// ItemStack max damage value.
 				
 				if (itemClass.isAnnotationPresent(ItemVariantCount.class))
 				{
 					ItemVariantCount annot = itemClass.getAnnotation(ItemVariantCount.class);
-					maxVariants = Math.min(annot.value(), maxVariants);
+					maxSubsetSize = Math.min(annot.value(), maxSubsetSize);
 				}
 
 				// If the block class isn't null, we must get the maximum number of variants it can store in its metadata.
@@ -414,17 +482,21 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 						throw new IllegalArgumentException("Failed to find variant properties for block class " + blockClass.getSimpleName());
 					}
 					
-					maxVariants = Math.min(BlockStateToMetadata.getMetadataLeftAfter((IProperty[]) propsListObj), maxVariants);
+					maxSubsetSize = Math.min(BlockStateToMetadata.getMetadataLeftAfter((IProperty[]) propsListObj), maxSubsetSize);
 				}
 				
-				int subsets = (int) Math.ceil(typeVariants.size() / (float) maxVariants);
+				int typeVariantsCount = typeVariants.size();
+				int subsets = (int) Math.ceil(typeVariantsCount / (float) maxSubsetSize);
 				
 				for (int subset = 0; subset < subsets; subset++)
 				{
-					final List<V> subVariants = typeVariants.subList(subset * maxVariants, Math.min((subset + 1) * maxVariants, typeVariants.size()));
-					final Object variantsArg;
+					int from = subset * maxSubsetSize;
+					int to = Math.min(from + maxSubsetSize, typeVariantsCount);
+					int subsetSize = to - from;
+					ImmutableList<V> subVariants = ImmutableList.copyOf(typeVariants.subList(from, to));
+					Object variantsArg;
 					
-					if (maxVariants == 1)
+					if (maxSubsetSize == 1)
 					{
 						variantsArg = subVariants.get(0);
 					}
@@ -443,7 +515,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 						final Object[] blockArgs = {variantsArg, this, type};
 						final Object[] args = ArrayUtils.addAll(blockArgs, type.getBlockArguments());
 						
-						block = ReflectionHelper.construct(blockClass, args);
+						block = ReflectionUtils.construct(blockClass, args);
 						
 						itemArgs = new Object[]{block, variantsArg, this, type};
 					}
@@ -454,7 +526,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 
 					// Get Item constructor and call it.
 					final Object[] args = ArrayUtils.addAll(itemArgs, type.getItemArguments());
-					item = ReflectionHelper.construct(itemClass, args);
+					item = ReflectionUtils.construct(itemClass, args);
 					
 					type.afterConstructed(block, item, subVariants);
 					
@@ -463,11 +535,16 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 					
 					for (V variant : subVariants)
 					{
-						entryMap.put(type, variant, new VariantData(block, item, subset, variantMetadata));
+						objectDataTable.put(type, variant, new VariantData(block, item, subset, variantMetadata));
 						variantMetadata++;
 					}
+					
+					subsetDataTable.put(type, subset, new SubsetData(block, item, maxSubsetSize, subsetSize, subVariants));
 				}
 			}
+			
+			this.objectDataTable = new UnmodifiableBiTable(objectDataTable);
+			this.subsetDataTable = new UnmodifiableBiTable(subsetDataTable);
 		}
 		catch (Exception e)
 		{
@@ -492,98 +569,102 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 			return;
 		}
 		
-		ArrayList<Integer> registeredIDs = new ArrayList<Integer>();
+		Set<Integer> registeredSubsets = new HashSet<Integer>();
 		List<V> variants = getValidVariants(type);
+		List<Integer> subsets = new ArrayList<Integer>(subsetDataTable.row(type).keySet());
+		Collections.sort(subsets);
 		
-		for (V variant : variants)
+		for (int subsetID : subsets)
 		{
-			VariantData entry = getVariantEntry(type, variant);
+			SubsetData subset = subsetDataTable.get(type, subsetID);
+			final Block block = subset.block;
+			final Item item = subset.item;
 			
-			final Block block = entry.block;
-			final Item item = entry.item;
-			final int id = entry.id;
-			final int metadata = entry.itemMetadata;
+			String registryName;
 			
-			if (!registeredIDs.contains(id))
+			if (subset.maxSize == 1 && type.usesVariantAsRegistryName())
 			{
-				String registryName = type.getName() + "_" + entry.id;
+				registryName = type.getVariantName(getVariant(item, 0));
+			}
+			else
+			{
+				registryName = type.getName() + "_" + subsetID;
+			}
+			
+			if (block != null)
+			{
+				Genesis.proxy.registerBlockWithItem(block, registryName, item);
+				block.setUnlocalizedName(type.getUnlocalizedName());
 				
-				if (block != null)
+				// Register resource locations for the block.
+				Genesis.proxy.callSided(new SidedFunction()
 				{
-					Genesis.proxy.registerBlockWithItem(block, registryName, item);
-					block.setUnlocalizedName(type.getUnlocalizedName());
-					
-					// Register resource locations for the block.
-					Genesis.proxy.callSided(new SidedFunction()
+					@Override
+					@SideOnly(Side.CLIENT)
+					public void client(GenesisClient client)
 					{
-						@Override
-						@SideOnly(Side.CLIENT)
-						public void client(GenesisClient client)
+						FlexibleStateMap flexStateMap = new FlexibleStateMap();
+						
+						if (type.getUseSeparateVariantJsons())
 						{
-							FlexibleStateMap flexStateMap = new FlexibleStateMap();
-							
-							if (type.getUseSeparateVariantJsons())
+							switch (type.getNamePosition())
 							{
-								switch (type.getNamePosition())
-								{
-								case PREFIX:
-									flexStateMap.setPrefix(type.getName() + "_");
-									break;
-								case POSTFIX:
-									flexStateMap.setPostfix("_" + type.getName());
-									break;
-								default:
-									break;
-								}
-
-								IProperty variantProp = getVariantProperty(block);
-								
-								if (variantProp != null)
-								{
-									flexStateMap.setNameProperty(variantProp);
-								}
-							}
-							else
-							{
-								flexStateMap.setPrefix(type.getName());
+							case PREFIX:
+								flexStateMap.setPrefix(type.getName() + "_");
+								break;
+							case POSTFIX:
+								flexStateMap.setPostfix("_" + type.getName());
+								break;
+							default:
+								break;
 							}
 							
-							type.customizeStateMap(flexStateMap);
+							IProperty variantProp = getVariantProperty(block);
 							
-							if (block instanceof IModifyStateMap)
+							if (variantProp != null)
 							{
-								((IModifyStateMap) block).customizeStateMap(flexStateMap);
+								flexStateMap.setNameProperty(variantProp);
 							}
-							
-							Function<String, String> nameFunction = type.getResourceNameFunction();
-							
-							if (nameFunction != null)
-							{
-								flexStateMap.setNameFunction(nameFunction);
-							}
-							
-							client.registerModelStateMap(block, flexStateMap);
 						}
-					});
-					// End registering block resource locations.
-				}
-				else
-				{
-					Genesis.proxy.registerItem(item, registryName);
-				}
-
-				type.afterRegistered(block, item);
-				
-				registeredIDs.add(id);
+						else
+						{
+							flexStateMap.setPrefix(type.getName());
+						}
+						
+						type.customizeStateMap(flexStateMap);
+						
+						if (block instanceof IModifyStateMap)
+						{
+							((IModifyStateMap) block).customizeStateMap(flexStateMap);
+						}
+						
+						Function<String, String> nameFunction = type.getResourceNameFunction();
+						
+						if (nameFunction != null)
+						{
+							flexStateMap.setNameFunction(nameFunction);
+						}
+						
+						client.registerModelStateMap(block, flexStateMap);
+					}
+				});
+				// End registering block resource locations.
+			}
+			else
+			{
+				Genesis.proxy.registerItem(item, registryName);
 			}
 			
-			if (item != null)
+			// Set unlocalized names and item model locations.
+			for (V variant : subset.variants)
 			{
-				item.setUnlocalizedName(type.getUnlocalizedName());
-				
-				// Register item model location.
-				Genesis.proxy.registerModel(item, metadata, type.getVariantName(variant));
+				VariantData data = getVariantEntry(type, variant);
+				Genesis.proxy.registerModel(data.item, data.itemMetadata, type.getVariantName(variant));
 			}
+			
+			item.setUnlocalizedName(type.getUnlocalizedName());
+			
+			type.afterRegistered(block, item);
 		}
 	}
 	
@@ -630,19 +711,19 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	 */
 	public VariantData getVariantEntry(O type, V variant)
 	{
-		if (!entryMap.containsRow(type))
+		if (!objectDataTable.containsRow(type))
 		{
 			throw new RuntimeException("Attempted to get an object of type " + type + " from a " + VariantsOfTypesCombo.class.getSimpleName() + " that does not contain that type.\n" +
 					getIdentification());
 		}
 		
-		if (!entryMap.containsColumn(variant))
+		if (!objectDataTable.containsColumn(variant))
 		{
 			throw new RuntimeException("Attempted to get an object of variant " + variant + " from a BlocksAndItemsWithVariantsOfTypes that does not contain that type.\n" +
 					getIdentification());
 		}
 		
-		return entryMap.get(type, variant);
+		return objectDataTable.get(type, variant);
 	}
 	
 	/**
@@ -707,10 +788,21 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 		throw new IllegalArgumentException("Variant " + variant.getName() + " of " + ObjectType.class.getSimpleName() + " " + type.getName() + " does not include a Block instance.");
 	}
 	
+	/**
+	 * Gets the BiTable Key for this item and metadata, providing the ObjectType and IMetadata variant.
+	 */
 	public BiTable.Key<O, V> getVariantKey(Item item, int meta)
 	{
 		VariantKey valueKey = new VariantKey(item, meta);
-		return entryMap.getKey(valueKey);
+		return objectDataTable.getKey(valueKey);
+	}
+	
+	/**
+	 * Gets the {@link #VariantData} for this item and metadata.
+	 */
+	public VariantData getVariantData(Item item, int meta)
+	{
+		return objectDataTable.get(getVariantKey(item, meta));
 	}
 	
 	/**

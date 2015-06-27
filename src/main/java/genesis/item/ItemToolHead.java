@@ -4,6 +4,7 @@ import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemGenesis;
 import genesis.metadata.ToolItems.*;
 import genesis.metadata.*;
+import genesis.metadata.ToolTypes.ToolType;
 import genesis.util.Constants;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -18,16 +19,15 @@ import java.util.List;
 public class ItemToolHead extends ItemGenesis
 {
 	protected final List<IMetadata> variants;
-	public final VariantsOfTypesCombo owner;
+	public final ToolItems owner;
 	public final ToolObjectType type;
 	
-	public ItemToolHead(List<IMetadata> variants, VariantsOfTypesCombo owner, ToolObjectType type)
+	public ItemToolHead(List<IMetadata> variants, ToolItems owner, ToolObjectType type)
 	{
 		super();
 
 		this.owner = owner;
 		this.type = type;
-
 		this.variants = variants;
 
 		setHasSubtypes(true);
@@ -54,13 +54,6 @@ public class ItemToolHead extends ItemGenesis
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
 	{
 		super.addInformation(stack, playerIn, tooltip, advanced);
-		
-		IMetadata variant = owner.getVariant(this, stack.getMetadata());
-		
-		if (variant != null)
-		{
-			String quality = ((ToolTypes.ToolType) variant).quality.getUnlocalizedName();
-			tooltip.add(StatCollector.translateToLocal("item." + quality));
-		}
+		owner.addToolInformation(stack, playerIn, tooltip, advanced);
 	}
 }

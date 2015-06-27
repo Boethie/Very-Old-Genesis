@@ -25,7 +25,6 @@ public class ItemMulti extends ItemGenesis
 		
 		this.owner = owner;
 		this.type = type;
-		
 		this.variants = variants;
 		
 		setHasSubtypes(true);

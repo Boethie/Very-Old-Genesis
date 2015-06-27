@@ -2,26 +2,30 @@ package genesis.util;
 
 import java.lang.reflect.Constructor;
 
-public class ReflectionHelper
+public class ReflectionUtils
 {
 	public static <T> Constructor<T> getConstructor(Class<T> clazz, Object[] args)
 	{
 		for (Constructor constructor : clazz.getDeclaredConstructors())
 		{
 			Class[] parameterTypes = constructor.getParameterTypes();
-			boolean correct = true;
 			
-			for (int i = 0; i < args.length; i++)
+			if (parameterTypes.length == args.length)
 			{
-				if (!parameterTypes[i].isAssignableFrom(args[i].getClass()))
+				boolean correct = true;
+				
+				for (int i = 0; i < args.length; i++)
 				{
-					correct = false;
+					if (!parameterTypes[i].isAssignableFrom(args[i].getClass()))
+					{
+						correct = false;
+					}
 				}
-			}
-			
-			if (correct)
-			{
-				return constructor;
+				
+				if (correct)
+				{
+					return constructor;
+				}
 			}
 		}
 		

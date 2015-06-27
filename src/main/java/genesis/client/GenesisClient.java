@@ -3,7 +3,6 @@ package genesis.client;
 import genesis.common.*;
 import genesis.metadata.*;
 import genesis.util.*;
-import genesis.util.ReflectionHelper;
 import genesis.util.render.ModelHelpers;
 
 import java.util.*;

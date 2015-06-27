@@ -2,6 +2,9 @@ package genesis.metadata;
 
 import java.util.*;
 
+import net.minecraft.item.Item.ToolMaterial;
+import net.minecraftforge.common.util.EnumHelper;
+
 import com.google.common.collect.*;
 
 public class ToolTypes
@@ -10,11 +13,43 @@ public class ToolTypes
 	{
 		public final EnumToolMaterial material;
 		public final EnumToolQuality quality;
+		public final ToolMaterial toolMaterial;
 		
 		public ToolType(EnumToolMaterial material, EnumToolQuality quality)
 		{
 			this.material = material;
 			this.quality = quality;
+			
+			// ToolMaterial init
+			int usesBase = material.getUses();
+			float usesMult = quality.getUsesMult();
+
+			float efficiencyBase = material.getEfficiency();
+			float efficiencyMult = quality.getEfficiencyMult();
+
+			float damageBase = material.getEntityDamage();
+			float damageMult = quality.getEntityDamageMult();
+
+			int enchantBase = material.getEnchantability();
+			float enchantMult = quality.getEnchantabilityMult();
+			
+			if (usesBase >= 0 && usesMult >= 0 &&
+				efficiencyBase >= 0 && efficiencyMult >= 0 &&
+				damageBase >= 0 && damageMult >= 0 &&
+				enchantBase >= 0 && enchantMult >= 0)
+			{
+				int uses = Math.round(usesBase * usesMult);
+				float efficiency = efficiencyBase * efficiencyMult;
+				float entityDamage = damageBase * damageMult;
+				int enchantability = Math.round(enchantBase * enchantMult);
+				
+				this.toolMaterial = EnumHelper.addToolMaterial(getName(),
+						material.getHarvestLevel(), uses, efficiency, entityDamage, enchantability);
+			}
+			else
+			{
+				this.toolMaterial = null;
+			}
 		}
 		
 		@Override
@@ -22,7 +57,7 @@ public class ToolTypes
 		{
 			String qualityName = quality.getName();
 			
-			return (qualityName == null ? "" : qualityName + "_") + material.getName();
+			return ("".equals(qualityName) ? "" : qualityName + "_") + material.getName();
 		}
 		
 		@Override
@@ -34,7 +69,7 @@ public class ToolTypes
 		@Override
 		public String toString()
 		{
-			return super.toString() + "[quality=" + quality + ", material" + material + "]";
+			return super.toString() + "[quality=" + quality + ", material=" + material + "]";
 		}
 	}
 	
@@ -47,7 +82,7 @@ public class ToolTypes
 					return Integer.compare(m1.ordinal(), m2.ordinal());
 				}
 			};
-	public static final Table<EnumToolMaterial, EnumToolQuality, ToolType> map = TreeBasedTable.create(sorter, sorter);
+	protected static final Table<EnumToolMaterial, EnumToolQuality, ToolType> table = TreeBasedTable.create(sorter, sorter);
 
 	static
 	{
@@ -56,19 +91,19 @@ public class ToolTypes
 			for (EnumToolQuality quality : EnumToolQuality.values())
 			{
 				ToolType toolType = new ToolType(material, quality);
-				map.put(material, quality, toolType);
+				table.put(material, quality, toolType);
 			}
 		}
 	}
 
 	public static ToolType getToolHead(EnumToolMaterial material, EnumToolQuality quality)
 	{
-		return map.get(material, quality);
+		return table.get(material, quality);
 	}
 	
 	public static ToolType[] getAll()
 	{
-		Collection<ToolType> types = map.values();
+		Collection<ToolType> types = table.values();
 		return types.toArray(new ToolType[types.size()]);
 	}
 }
