@@ -156,7 +156,6 @@ item.genesis.tool.choppingTool.rhyolite.name=Rhyolite Chopping Tool
 item.genesis.tool.choppingTool.quartzite.name=Quartzite Chopping Tool
 item.genesis.tool.choppingTool.dolerite.name=Dolerite Chopping Tool
 item.genesis.tool.choppingTool.brownFlint.name=Brown Flint Chopping Tool
-item.genesis.tool.choppingTool.octaedrite.name=Octaedrite Chopping Tool
 
 item.genesis.material.toolHead.pick.granite.name=Granite Pick Head
 item.genesis.material.toolHead.pick.rhyolite.name=Rhyolite Pick Head
