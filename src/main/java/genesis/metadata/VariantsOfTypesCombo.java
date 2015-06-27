@@ -711,15 +711,9 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	 */
 	public VariantData getVariantEntry(O type, V variant)
 	{
-		if (!objectDataTable.containsRow(type))
+		if (!objectDataTable.contains(type, variant))
 		{
-			throw new RuntimeException("Attempted to get an object of type " + type + " from a " + VariantsOfTypesCombo.class.getSimpleName() + " that does not contain that type.\n" +
-					getIdentification());
-		}
-		
-		if (!objectDataTable.containsColumn(variant))
-		{
-			throw new RuntimeException("Attempted to get an object of variant " + variant + " from a BlocksAndItemsWithVariantsOfTypes that does not contain that type.\n" +
+			throw new RuntimeException("Attempted to get a variant entry for type " + type + " and variant " + variant + " from a " + VariantsOfTypesCombo.class.getSimpleName() + " that does not contain that cell.\n" +
 					getIdentification());
 		}
 		
