@@ -67,7 +67,7 @@ public class ItemPebble extends ItemGenesis
 			// If the pebble was destroyed
 			if (stack.getItemDamage() > stack.getMaxDamage() || player.capabilities.isCreativeMode)
 			{
-				ItemStack choppingTool = owner.getStack(ToolItems.CHOPPING_TOOL, toolType);
+				ItemStack choppingTool = owner.getStack(ToolItems.CHOPPING_TOOL, toolType.material);
 				stack.stackSize--;		// Remove an item from the stack
 				stack.setItemDamage(0);	// Set the stack damage to 0
 				
