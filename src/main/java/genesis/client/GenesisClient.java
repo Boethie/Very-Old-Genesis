@@ -128,7 +128,7 @@ public class GenesisClient extends GenesisProxy
 
 	public void registerModel(Item item, int metadata, String textureName)
 	{
-		ModelLoader.setCustomModelResourceLocation(item, metadata, new ModelResourceLocation(Constants.ASSETS + textureName, "inventory"));
+		ModelLoader.setCustomModelResourceLocation(item, metadata, new ModelResourceLocation(Constants.ASSETS_PREFIX + textureName, "inventory"));
 		addVariantName(item, textureName);
 	}
 
@@ -159,7 +159,7 @@ public class GenesisClient extends GenesisProxy
 	
 	private void addVariantName(Item item, String name)
 	{
-		ModelBakery.addVariantName(item, Constants.ASSETS + name);
+		ModelBakery.addVariantName(item, Constants.ASSETS_PREFIX + name);
 	}
 	
 	public void registerTileEntityRenderer(Class<? extends TileEntity> teClass, TileEntitySpecialRenderer renderer)

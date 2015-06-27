@@ -23,7 +23,7 @@ public class FluidModel extends StateMapperBase implements ItemMeshDefinition
 	public static void registerFluid(BlockFluidBase block)
 	{
 		Item item = Item.getItemFromBlock(block);
-		ModelResourceLocation modelLocation = new ModelResourceLocation(Constants.ASSETS + "fluid", block.getFluid().getName());
+		ModelResourceLocation modelLocation = new ModelResourceLocation(Constants.ASSETS_PREFIX + "fluid", block.getFluid().getName());
 		
 		ModelLoader.setCustomStateMapper(block, INSTANCE);
 		ModelLoader.setCustomMeshDefinition(item, INSTANCE);

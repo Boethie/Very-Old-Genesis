@@ -425,7 +425,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 					
 					if (hasCookingPot() && canSmelt())
 					{
-						worldObj.playSound(pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, Constants.ASSETS + "ambient.cookingpot",
+						worldObj.playSound(pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, Constants.ASSETS_PREFIX + "ambient.cookingpot",
 								volumeRange.getRandom(worldObj.rand), pitchRange.getRandom(worldObj.rand), false);
 					}
 					
