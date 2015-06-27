@@ -6,7 +6,7 @@ import genesis.metadata.ToolItems;
 import genesis.metadata.ToolItems.ToolObjectType;
 import genesis.metadata.ToolTypes.ToolType;
 import genesis.metadata.VariantsOfTypesCombo.ItemVariantCount;
-import genesis.util.Constants;
+import genesis.util.Constants.Unlocalized;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
@@ -37,7 +37,7 @@ public class ItemGenesisAxe extends ItemAxe
 	@Override
 	public ItemGenesisAxe setUnlocalizedName(String unlocalizedName)
 	{
-		super.setUnlocalizedName(Constants.PREFIX + "tool." + unlocalizedName);
+		super.setUnlocalizedName(Unlocalized.TOOL + unlocalizedName);
 		
 		return this;
 	}

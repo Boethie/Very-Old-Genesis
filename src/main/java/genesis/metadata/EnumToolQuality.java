@@ -1,6 +1,6 @@
 package genesis.metadata;
 
-import genesis.util.Constants;
+import genesis.util.Constants.Unlocalized;
 
 public enum EnumToolQuality implements IMetadata
 {
@@ -10,7 +10,7 @@ public enum EnumToolQuality implements IMetadata
 	POLISHED("polished", 1.5F, 1.5F, 1.5F, 1.5F),
 	SHARPENED("sharpened", 1.5F, 1.5F, 1.5F, 1.5F);
 
-	public static final String UNLOC_PREFIX = "item." + Constants.PREFIX + "tool.quality.";
+	public static final String UNLOC_PREFIX = "item." + Unlocalized.TOOL_QUALITY;
 	
 	private final String name;
 	private final String unlocalizedName;

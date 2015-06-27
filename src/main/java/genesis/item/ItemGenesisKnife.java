@@ -6,7 +6,7 @@ import genesis.metadata.ToolItems;
 import genesis.metadata.ToolItems.ToolObjectType;
 import genesis.metadata.ToolTypes.ToolType;
 import genesis.metadata.VariantsOfTypesCombo.ItemVariantCount;
-import genesis.util.Constants;
+import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
@@ -42,7 +42,7 @@ public class ItemGenesisKnife extends ItemTool
 	@Override
 	public ItemGenesisKnife setUnlocalizedName(String unlocalizedName)
 	{
-		super.setUnlocalizedName(Constants.PREFIX + "tool." + unlocalizedName);
+		super.setUnlocalizedName(Unlocalized.TOOL + unlocalizedName);
 		
 		return this;
 	}

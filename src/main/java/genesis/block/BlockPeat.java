@@ -21,12 +21,4 @@ public class BlockPeat extends BlockGenesis
 		Blocks.fire.setFireInfo(this, 5, 5);
 		FuelHandler.setBurnTime(this, TileEntityFurnace.getItemBurnTime(new ItemStack(Items.coal)) / 4, false);
 	}
-	
-	@Override
-	public BlockPeat setUnlocalizedName(String name)
-	{
-		super.setUnlocalizedName(name);
-
-		return this;
-	}
 }

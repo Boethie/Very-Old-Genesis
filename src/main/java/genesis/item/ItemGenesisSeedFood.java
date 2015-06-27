@@ -1,7 +1,7 @@
 package genesis.item;
 
 import genesis.common.GenesisCreativeTabs;
-import genesis.util.Constants;
+import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,14 +25,6 @@ public class ItemGenesisSeedFood extends ItemSeedFood
 		super(hunger, saturation, null, null);
 		
 		setCreativeTab(GenesisCreativeTabs.FOOD);
-	}
-
-	@Override
-	public ItemGenesisSeedFood setUnlocalizedName(String unlocalizedName)
-	{
-		super.setUnlocalizedName(Constants.PREFIX + "food." + unlocalizedName);
-		
-		return this;
 	}
 	
 	public ItemGenesisSeedFood setCrop(IPlantable plantable)

@@ -5,6 +5,7 @@ import genesis.common.GenesisCreativeTabs;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
+import genesis.util.Constants.Unlocalized;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +64,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 	@Override
 	public BlockGenesisLeaves setUnlocalizedName(String name)
 	{
-		super.setUnlocalizedName(Constants.PREFIX + name);
+		super.setUnlocalizedName(Unlocalized.PREFIX + name);
 		
 		return this;
 	}

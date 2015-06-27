@@ -4,6 +4,7 @@ import genesis.common.*;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
+import genesis.util.Constants.Unlocalized;
 
 import java.util.*;
 
@@ -53,7 +54,7 @@ public class BlockPlant extends BlockBush
 	@Override
 	public BlockPlant setUnlocalizedName(String unlocalizedName)
 	{
-		super.setUnlocalizedName(Constants.PREFIX + unlocalizedName);
+		super.setUnlocalizedName(Unlocalized.PREFIX + unlocalizedName);
 		
 		return this;
 	}

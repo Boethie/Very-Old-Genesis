@@ -6,6 +6,7 @@ import genesis.metadata.ToolItems.*;
 import genesis.metadata.*;
 import genesis.metadata.ToolTypes.ToolType;
 import genesis.util.Constants;
+import genesis.util.Constants.Unlocalized;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -34,6 +35,12 @@ public class ItemToolHead extends ItemGenesis
 		setCreativeTab(GenesisCreativeTabs.TOOLS);
 	}
 
+	@Override
+	public Item setUnlocalizedName(String unlocalizedName)
+    {
+        return super.setUnlocalizedName(Unlocalized.PREFIX + unlocalizedName);
+    }
+	
 	@Override
 	public String getUnlocalizedName(ItemStack stack)
 	{

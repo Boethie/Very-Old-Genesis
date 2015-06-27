@@ -8,6 +8,7 @@ import genesis.common.*;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
+import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.*;
@@ -76,7 +77,7 @@ public class BlockWattleFence extends BlockFence
 	@Override
 	public BlockWattleFence setUnlocalizedName(String name)
 	{
-		super.setUnlocalizedName(Constants.PREFIX + name);
+		super.setUnlocalizedName(Unlocalized.PREFIX + name);
 		
 		return this;
 	}

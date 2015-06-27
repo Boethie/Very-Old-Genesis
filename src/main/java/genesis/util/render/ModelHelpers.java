@@ -2,7 +2,7 @@ package genesis.util.render;
 
 import genesis.client.GenesisCustomModelLoader;
 import genesis.common.Genesis;
-import genesis.util.Constants;
+import genesis.util.Constants.Unlocalized;
 import gnu.trove.map.hash.TIntObjectHashMap;
 
 import java.io.IOException;
@@ -67,7 +67,7 @@ import com.google.gson.JsonParseException;
 
 public class ModelHelpers
 {
-	public static final Block fakeBlock = new BlockAir(){}.setUnlocalizedName(Constants.PREFIX + "dummyBlock");
+	public static final Block fakeBlock = new BlockAir(){}.setUnlocalizedName(Unlocalized.PREFIX + "dummyBlock");
 	public static final HashBiMap<ModelResourceLocation, IBlockState> locationToFakeState = HashBiMap.create();
 	
 	public static ModelLoader forgeModelLoader;

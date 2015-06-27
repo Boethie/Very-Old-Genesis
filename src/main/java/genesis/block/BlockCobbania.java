@@ -3,7 +3,8 @@ package genesis.block;
 import java.util.List;
 
 import genesis.common.GenesisCreativeTabs;
-import genesis.util.Constants;
+import genesis.util.Constants.Unlocalized;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockLilyPad;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -19,7 +20,6 @@ public class BlockCobbania extends BlockLilyPad
 	{
 		setHardness(0.0F);
 		setStepSound(soundTypeGrass);
-		setUnlocalizedName(Constants.PREFIX + "cobbania");
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	}
 	
@@ -28,6 +28,7 @@ public class BlockCobbania extends BlockLilyPad
 	{
 	}
 	
+	@Override
 	public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos)
 	{
 		return EnumPlantType.Water;

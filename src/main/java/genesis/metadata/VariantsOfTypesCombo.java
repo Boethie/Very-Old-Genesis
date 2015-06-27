@@ -4,7 +4,7 @@ import genesis.client.GenesisClient;
 import genesis.common.*;
 import genesis.item.*;
 import genesis.util.*;
-import genesis.util.ReflectionUtils;
+import genesis.util.Constants.Unlocalized;
 import genesis.metadata.VariantsOfTypesCombo.*;
 
 import java.lang.annotation.*;
@@ -968,7 +968,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 		
 		if (variant == null)
 		{
-			return Constants.INVALID_METADATA;
+			return Unlocalized.INVALID_METADATA;
 		}
 		
 		String variantName = variant.getUnlocalizedName();

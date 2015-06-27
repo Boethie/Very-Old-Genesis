@@ -3,7 +3,7 @@ package genesis.block;
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms.CanStayOptions;
 import genesis.common.GenesisCreativeTabs;
 import genesis.util.BlockStateToMetadata;
-import genesis.util.Constants;
+import genesis.util.Constants.Unlocalized;
 import genesis.util.RandomItemDrop;
 
 import java.lang.reflect.Field;
@@ -302,14 +302,6 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	public BlockGrowingPlant(boolean topPropertyIn, int maxAgeIn, int height)
 	{
 		this(topPropertyIn, maxAgeIn, maxAgeIn, height);
-	}
-
-	@Override
-	public BlockGrowingPlant setUnlocalizedName(String unlocalizedName)
-	{
-		super.setUnlocalizedName(Constants.PREFIX + unlocalizedName);
-		
-		return this;
 	}
 
 	/**

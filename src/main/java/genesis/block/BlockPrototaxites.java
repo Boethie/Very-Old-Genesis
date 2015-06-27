@@ -9,6 +9,7 @@ import java.util.Random;
 import net.minecraft.block.*;
 import net.minecraft.block.material.*;
 import net.minecraft.block.state.*;
+import net.minecraft.item.Item;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.*;
@@ -34,7 +35,12 @@ public class BlockPrototaxites extends BlockGenesis
 		setTickRandomly(true);
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		setHarvestLevel("axe", 0);
-		setItemDropped(GenesisItems.prototaxites_flesh);
+	}
+
+	@Override
+	public Item getItemDropped(IBlockState state, Random rand, int fortune)
+	{
+		return GenesisItems.prototaxites_flesh;
 	}
 
 	@Override

@@ -5,7 +5,7 @@ import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.BlockStateToMetadata;
-import genesis.util.Constants;
+import genesis.util.Constants.Unlocalized;
 
 import java.util.List;
 
@@ -63,7 +63,7 @@ public class BlockGenesisLogs extends BlockLog
 	@Override
 	public BlockGenesisLogs setUnlocalizedName(String name)
 	{
-		super.setUnlocalizedName(Constants.PREFIX + name);
+		super.setUnlocalizedName(Unlocalized.PREFIX + name);
 		
 		return this;
 	}
