@@ -1,6 +1,6 @@
 package genesis.world.biome;
 
-public class BiomeGenAuxForest extends BiomeGenBaseGensis
+public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 {
 
 	public BiomeGenAuxForest(int id)

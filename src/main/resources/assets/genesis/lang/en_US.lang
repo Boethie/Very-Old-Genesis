@@ -2,7 +2,7 @@ genesis.multiItem.invalidMetadata.name=§4Invalid Sub-Item Metadata!
 
 #------------- Blocks -------------
 tile.genesis.dummyBlock.name=§4Useless Dummy Block!
-tile.genesis.komatiicLava.name=Komatiitic Lava
+tile.genesis.komatiiticLava.name=Komatiitic Lava
 
 #Interactive blocks
 tile.genesis.campfire.name=Campfire

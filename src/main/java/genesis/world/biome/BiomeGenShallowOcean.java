@@ -1,6 +1,6 @@
 package genesis.world.biome;
 
-public class BiomeGenShallowOcean extends BiomeGenBaseGensis
+public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
 {
 
 	public BiomeGenShallowOcean(int id)

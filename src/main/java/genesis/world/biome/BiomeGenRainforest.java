@@ -7,7 +7,7 @@ import java.util.Random;
 
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class BiomeGenRainforest extends BiomeGenBaseGensis
+public class BiomeGenRainforest extends BiomeGenBaseGenesis
 {
 
 	public BiomeGenRainforest(int id)

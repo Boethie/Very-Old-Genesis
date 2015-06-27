@@ -219,7 +219,7 @@ public final class GenesisBlocks
 		flower_pot.registerPlantsForPot(trees, trees.SAPLING);
 		flower_pot.afterAllRegistered();
 		
-		komatiitic_lava = new BlockKomatiiticLava(GenesisFluids.KOMATIITIC_LAVA).setUnlocalizedName("komatiicLava");
+		komatiitic_lava = new BlockKomatiiticLava(GenesisFluids.KOMATIITIC_LAVA).setUnlocalizedName("komatiiticLava");
 		Genesis.proxy.registerFluidBlock(komatiitic_lava, "komatiitic_lava");
 		
 		Genesis.proxy.registerBlock(prototaxites, "prototaxites");
