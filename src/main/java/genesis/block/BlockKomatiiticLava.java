@@ -1,7 +1,6 @@
 package genesis.block;
 
 import genesis.common.GenesisBlocks;
-import genesis.common.GenesisCreativeTabs;
 import genesis.util.Constants;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -20,7 +19,6 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 	public BlockKomatiiticLava(Fluid fluid)
 	{
 		super(fluid, Material.lava);
-		this.setCreativeTab(GenesisCreativeTabs.BLOCK);
 	}
 
 	@Override
