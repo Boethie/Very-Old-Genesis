@@ -209,7 +209,7 @@ public final class GenesisBlocks
 		
 		Genesis.proxy.registerBlock(programinis, "programinis", null);
 		programinis.setDrops(new RandomItemDrop(GenesisItems.programinis_seeds, 1, 1));
-		programinis.setDrops(new RandomItemDrop(GenesisItems.programinis_seeds, 1, 3), new RandomItemDrop(GenesisItems.programinis, 1, 1));
+		programinis.setCropDrops(new RandomItemDrop(GenesisItems.programinis_seeds, 1, 3), new RandomItemDrop(GenesisItems.programinis, 1, 1));
 		programinis.setPickedItem(GenesisItems.programinis_seeds);
 		GenesisItems.programinis_seeds.setCrop(programinis);
 		
