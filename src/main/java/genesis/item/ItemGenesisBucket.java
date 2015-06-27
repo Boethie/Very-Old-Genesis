@@ -2,6 +2,7 @@ package genesis.item;
 
 import genesis.common.*;
 import genesis.util.*;
+import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -146,21 +147,5 @@ public class ItemGenesisBucket extends ItemBucket
 		}
 		
 		return true;
-	}
-
-	@Override
-	public ItemGenesisBucket setUnlocalizedName(String unlocalizedName)
-	{
-		super.setUnlocalizedName(Constants.PREFIX + "misc." + unlocalizedName);
-
-		return this;
-	}
-	
-	@Override
-	public ItemGenesisBucket setContainerItem(Item containerItem)
-	{
-		super.setContainerItem(containerItem);
-		
-		return this;
 	}
 }

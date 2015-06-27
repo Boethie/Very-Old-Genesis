@@ -4,7 +4,7 @@ import genesis.metadata.ToolItems;
 import genesis.metadata.ToolItems.ToolObjectType;
 import genesis.metadata.ToolTypes.ToolType;
 import genesis.metadata.VariantsOfTypesCombo.ItemVariantCount;
-import genesis.util.Constants;
+import genesis.util.Constants.Unlocalized;
 
 import java.util.List;
 
@@ -37,7 +37,7 @@ public class ItemGenesisSpear extends ItemSword
 	@Override
 	public ItemGenesisSpear setUnlocalizedName(String unlocalizedName)
 	{
-		super.setUnlocalizedName(Constants.PREFIX + "weapon." + unlocalizedName);
+		super.setUnlocalizedName(Unlocalized.PREFIX + "weapon." + unlocalizedName);
 		
 		return this;
 	}

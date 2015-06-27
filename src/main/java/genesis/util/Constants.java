@@ -20,10 +20,6 @@ public final class Constants
 	public static final String MOD_NAME = "Project Genesis";
 	public static final String MOD_VERSION = "@VERSION@";
 
-	public static final String PREFIX = MOD_ID + ".";
-	public static final String INVALID_METADATA = PREFIX + "multiItem.invalidMetadata";
-	public static final String CONTAINER = "container." + PREFIX;
-	
 	public static final String ASSETS = MOD_ID + ":";
 
 	public static final String VERSIONS_URL = "https://raw.githubusercontent.com/GenProject/GenProject/master/versions.json";
@@ -32,4 +28,22 @@ public final class Constants
 	public static final String CLIENT_LOCATION = "genesis.client.GenesisClient";
 	
 	public static final DamageSource CHANCELLORIA_DMG = new DamageSource("chancelloria");
+	
+	public static final class Unlocalized
+	{
+		public static final String PREFIX = Constants.MOD_ID + ".";
+		
+		public static final String INVALID_METADATA = PREFIX + "multiItem.invalidMetadata";
+		public static final String CONTAINER = "container." + PREFIX;
+		
+		public static final String ROCK = PREFIX + "rock.";
+		public static final String ORE = PREFIX + "ore.";
+		public static final String PLANT = PREFIX + "plant.";
+		public static final String CROP = PREFIX + "crop.";
+		public static final String TOOL = PREFIX + "tool.";
+		public static final String TOOL_QUALITY = TOOL + "quality.";
+		public static final String MATERIAL = PREFIX + "material.";
+		public static final String MISC = PREFIX + "misc.";
+		public static final String FOOD = PREFIX + "food.";
+	}
 }

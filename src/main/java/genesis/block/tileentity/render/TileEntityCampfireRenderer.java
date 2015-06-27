@@ -19,6 +19,7 @@ import genesis.util.*;
 import genesis.util.render.BlockAsEntityPart;
 import genesis.util.render.ItemAsEntityPart;
 import genesis.util.render.ModelHelpers;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.*;
@@ -89,7 +90,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer
 	protected Set<String> fuelModels;
 	protected Set<String> cookingItemModels;
 	
-	public TileEntityCampfireRenderer(final BlockCampfire block)
+	public TileEntityCampfireRenderer(final Block block)
 	{
 		INSTANCE = this;
 		

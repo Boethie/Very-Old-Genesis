@@ -4,6 +4,7 @@ import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.IMetadata;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.Constants;
+import genesis.util.Constants.Unlocalized;
 
 import java.util.Comparator;
 import java.util.List;
@@ -29,6 +30,12 @@ public class ItemMulti extends ItemGenesis
 		
 		setHasSubtypes(true);
 	}
+
+	@Override
+	public Item setUnlocalizedName(String unlocalizedName)
+    {
+        return super.setUnlocalizedName(Unlocalized.MATERIAL + unlocalizedName);
+    }
 	
 	@Override
 	public String getUnlocalizedName(ItemStack stack)

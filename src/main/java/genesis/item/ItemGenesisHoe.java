@@ -6,7 +6,7 @@ import genesis.metadata.ToolItems;
 import genesis.metadata.ToolItems.ToolObjectType;
 import genesis.metadata.ToolTypes.ToolType;
 import genesis.metadata.VariantsOfTypesCombo.ItemVariantCount;
-import genesis.util.Constants;
+import genesis.util.Constants.Unlocalized;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 
@@ -36,7 +36,7 @@ public class ItemGenesisHoe extends ItemHoe
 	@Override
 	public ItemGenesisHoe setUnlocalizedName(String unlocalizedName)
 	{
-		super.setUnlocalizedName(Constants.PREFIX + "tool." + unlocalizedName);
+		super.setUnlocalizedName(Unlocalized.TOOL + unlocalizedName);
 		
 		return this;
 	}

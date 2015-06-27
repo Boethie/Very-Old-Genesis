@@ -5,6 +5,7 @@ import genesis.metadata.ToolItems.ToolObjectType;
 import genesis.metadata.ToolTypes.ToolType;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.WorldUtils;
+import genesis.util.Constants.Unlocalized;
 
 import java.util.*;
 
@@ -42,6 +43,12 @@ public class ItemPebble extends ItemGenesis
 	{
 		return 0;
 	}
+
+	@Override
+	public Item setUnlocalizedName(String unlocalizedName)
+    {
+        return super.setUnlocalizedName(Unlocalized.MATERIAL + unlocalizedName);
+    }
 	
 	@Override
 	public String getUnlocalizedName(ItemStack stack)

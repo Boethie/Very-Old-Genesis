@@ -1,7 +1,7 @@
 package genesis.item;
 
 import genesis.common.GenesisCreativeTabs;
-import genesis.util.Constants;
+import genesis.util.Constants.Unlocalized;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,14 +27,6 @@ public class ItemGenesisFood extends ItemFood
 		super(hunger, saturation, isWolfsFavoriteMeat);
 		
 		setCreativeTab(GenesisCreativeTabs.FOOD);
-	}
-
-	@Override
-	public ItemGenesisFood setUnlocalizedName(String unlocalizedName)
-	{
-		super.setUnlocalizedName(Constants.PREFIX + "food." + unlocalizedName);
-		
-		return this;
 	}
 
 	/**

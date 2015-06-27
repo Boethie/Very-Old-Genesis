@@ -4,7 +4,7 @@ import genesis.metadata.*;
 import genesis.metadata.ToolItems.ToolObjectType;
 import genesis.metadata.ToolTypes.ToolType;
 import genesis.metadata.VariantsOfTypesCombo.ItemVariantCount;
-import genesis.util.Constants;
+import genesis.util.Constants.Unlocalized;
 
 import java.util.List;
 import java.util.Set;
@@ -53,7 +53,7 @@ public class ItemChoppingTool extends ItemAxe
 	@Override
 	public ItemChoppingTool setUnlocalizedName(String unlocalizedName)
 	{
-		super.setUnlocalizedName(Constants.PREFIX + "tool." + unlocalizedName);
+		super.setUnlocalizedName(Unlocalized.TOOL + unlocalizedName);
 		
 		return this;
 	}
