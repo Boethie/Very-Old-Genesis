@@ -17,14 +17,7 @@ public class BlockRedClay extends BlockClay
 		setHardness(0.6F);
 		setStepSound(soundTypeGravel);
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
-	}
-
-	@Override
-	public BlockRedClay setUnlocalizedName(String unlocalizedName)
-	{
-		super.setUnlocalizedName(Constants.PREFIX + unlocalizedName);
-		
-		return this;
+		setUnlocalizedName(Constants.PREFIX + "redClay");
 	}
 
 	@Override

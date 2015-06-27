@@ -61,13 +61,13 @@ public final class GenesisItems
 	public static final ItemGenesisFood cooked_tyrannosaurus = new ItemGenesisFood(16, 19.8F).setUnlocalizedName("tyrannosaurusCooked");
 	
 	/* Tools */
-	public static final ItemFlintAndMarcasite flint_and_marcasite = new ItemFlintAndMarcasite().setUnlocalizedName("flintAndMarcasite");
+	public static final ItemFlintAndMarcasite flint_and_marcasite = new ItemFlintAndMarcasite();
 	public static final ToolItems tools = new ToolItems();
 	
 	/* Misc */
 	public static final ItemGenesisBucket ceramic_bucket = new ItemGenesisBucket(Blocks.air).setUnlocalizedName("ceramicBucket").setContainerItem(GenesisItems.ceramic_bucket);
 	public static final ItemGenesisBucket ceramic_bucket_water = new ItemGenesisBucket(Blocks.flowing_water).setUnlocalizedName("ceramicBucketWater");
-	public static final ItemGenesisBucketMilk ceramic_bucket_milk = new ItemGenesisBucketMilk().setUnlocalizedName("ceramicBucketMilk");
+	public static final ItemGenesisBucketMilk ceramic_bucket_milk = new ItemGenesisBucketMilk();
 	public static ItemGenesisBucket bucket_komatiitic_lava;
 
 	public static void registerItems()

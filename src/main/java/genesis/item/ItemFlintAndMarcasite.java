@@ -17,14 +17,7 @@ public class ItemFlintAndMarcasite extends ItemFlintAndSteel
 	{
 		setMaxDamage(GenesisConfig.flintAndMarcasiteMaxDamage);
 		setCreativeTab(GenesisCreativeTabs.TOOLS);
-	}
-
-	@Override
-	public ItemFlintAndMarcasite setUnlocalizedName(String unlocalizedName)
-	{
-		super.setUnlocalizedName(Constants.PREFIX + "tool." + unlocalizedName);
-		
-		return this;
+		setUnlocalizedName(Constants.PREFIX + "tool.flintAndMarcasite");
 	}
 
 	@Override

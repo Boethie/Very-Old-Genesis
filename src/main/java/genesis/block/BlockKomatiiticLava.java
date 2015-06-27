@@ -19,14 +19,7 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 	public BlockKomatiiticLava(Fluid fluid)
 	{
 		super(fluid, Material.lava);
-	}
-
-	@Override
-	public BlockKomatiiticLava setUnlocalizedName(String unlocalizedName)
-	{
-		super.setUnlocalizedName(Constants.PREFIX + unlocalizedName);
-
-		return this;
+		setUnlocalizedName(Constants.PREFIX + "komatiiticLava");
 	}
 
 	@Override

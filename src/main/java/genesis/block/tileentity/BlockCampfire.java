@@ -36,12 +36,10 @@ public class BlockCampfire extends BlockContainer
 	public BlockCampfire()
 	{
 		super(Material.rock);
-		
 		setDefaultState(getBlockState().getBaseState());
-		
 		setTickRandomly(true);
-		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
+		setUnlocalizedName(Constants.PREFIX + "campfire");
 	}
 
 	@Override
@@ -74,14 +72,6 @@ public class BlockCampfire extends BlockContainer
 		}
 		
 		return state;
-	}
-	
-	@Override
-	public BlockCampfire setUnlocalizedName(String unlocName)
-	{
-		super.setUnlocalizedName(Constants.PREFIX + unlocName);
-		
-		return this;
 	}
 	
 	public boolean canBlockStay(World worldIn, BlockPos pos)

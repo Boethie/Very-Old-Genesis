@@ -46,6 +46,7 @@ public class BlockMoss extends BlockGrass
 		setStepSound(GenesisSounds.MOSS);
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 		setHarvestLevel("shovel", 0);
+		setUnlocalizedName(Constants.PREFIX + "moss");
 	}
 	
 	@Override

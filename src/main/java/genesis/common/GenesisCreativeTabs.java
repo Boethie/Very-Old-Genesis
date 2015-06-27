@@ -6,9 +6,13 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public final class GenesisCreativeTabs
+public abstract class GenesisCreativeTabs extends CreativeTabs
 {
-	private static abstract class CreativeTabStackIcon extends CreativeTabs
+	public GenesisCreativeTabs(String label) {
+		super(Constants.PREFIX + label);
+	}
+
+	private static abstract class CreativeTabStackIcon extends GenesisCreativeTabs
 	{
 		public CreativeTabStackIcon(String label)
 		{
@@ -21,11 +25,17 @@ public final class GenesisCreativeTabs
 		@Override
 		public final Item getTabIconItem()
 		{
-			return null;
+			return getIconItemStack().getItem();
 		}
+		
+		@Override
+		public int getIconItemDamage()
+	    {
+	        return getIconItemStack().getItemDamage();
+	    }
 	}
 	
-	public static final CreativeTabs BLOCK = new CreativeTabs(Constants.PREFIX + "buildingBlocks")
+	public static final GenesisCreativeTabs BLOCK = new GenesisCreativeTabs("buildingBlocks")
 	{
 		@Override
 		public Item getTabIconItem()
@@ -34,7 +44,7 @@ public final class GenesisCreativeTabs
 		}
 	};
 
-	public static final CreativeTabs DECORATIONS = new CreativeTabStackIcon(Constants.PREFIX + "decorations")
+	public static final CreativeTabs DECORATIONS = new CreativeTabStackIcon("decorations")
 	{
 		@Override
 		public ItemStack getIconItemStack()
@@ -43,7 +53,7 @@ public final class GenesisCreativeTabs
 		}
 	};
 
-	public static final CreativeTabs MISC = new CreativeTabs(Constants.PREFIX + "misc")
+	public static final GenesisCreativeTabs MISC = new GenesisCreativeTabs("misc")
 	{
 		@Override
 		public Item getTabIconItem()
@@ -52,7 +62,7 @@ public final class GenesisCreativeTabs
 		}
 	};
 
-	public static final CreativeTabs FOOD = new CreativeTabs(Constants.PREFIX + "food")
+	public static final GenesisCreativeTabs FOOD = new GenesisCreativeTabs("food")
 	{
 		@Override
 		public Item getTabIconItem()
@@ -61,7 +71,7 @@ public final class GenesisCreativeTabs
 		}
 	};
 
-	public static final CreativeTabs TOOLS = new CreativeTabStackIcon(Constants.PREFIX + "tools")
+	public static final CreativeTabs TOOLS = new CreativeTabStackIcon("tools")
 	{
 		@Override
 		public ItemStack getIconItemStack()
@@ -70,7 +80,7 @@ public final class GenesisCreativeTabs
 		}
 	};
 
-	public static final CreativeTabs COMBAT = new CreativeTabStackIcon(Constants.PREFIX + "combat")
+	public static final CreativeTabs COMBAT = new CreativeTabStackIcon("combat")
 	{
 		@Override
 		public ItemStack getIconItemStack()
@@ -79,7 +89,7 @@ public final class GenesisCreativeTabs
 		}
 	};
 
-	public static final CreativeTabs MATERIALS = new CreativeTabs(Constants.PREFIX + "materials")
+	public static final GenesisCreativeTabs MATERIALS = new GenesisCreativeTabs("materials")
 	{
 		@Override
 		public Item getTabIconItem()

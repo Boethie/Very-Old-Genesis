@@ -16,6 +16,7 @@ public class ItemGenesisBucketMilk extends ItemBucketMilk
 	public ItemGenesisBucketMilk()
 	{
 		setCreativeTab(GenesisCreativeTabs.MISC);
+		setUnlocalizedName(Constants.PREFIX + "misc.ceramicBucketMilk");
 	}
 
 	@Override
@@ -33,13 +34,5 @@ public class ItemGenesisBucketMilk extends ItemBucketMilk
 
 		playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
 		return stack.stackSize <= 0 ? new ItemStack(GenesisItems.ceramic_bucket) : stack;
-	}
-
-	@Override
-	public ItemGenesisBucketMilk setUnlocalizedName(String unlocalizedName)
-	{
-		super.setUnlocalizedName(Constants.PREFIX + "misc." + unlocalizedName);
-
-		return this;
 	}
 }
