@@ -150,12 +150,25 @@ item.genesis.tool.quality.chipped=Taillé
 item.genesis.tool.quality.polished=Poli
 item.genesis.tool.quality.sharpened=Affûté
 
+item.genesis.tool.choppingTool.granite.name=Chopping tool en granite
+item.genesis.tool.choppingTool.rhyolite.name=Chopping tool en rhyolite
+item.genesis.tool.choppingTool.quartzite.name=Chopping tool en quartzite
+item.genesis.tool.choppingTool.dolerite.name=Chopping tool en dolérite
+item.genesis.tool.choppingTool.brownFlint.name=Chopping tool en silex brun
+
 item.genesis.material.toolHead.pick.granite.name=Tête de pic en granite
 item.genesis.material.toolHead.pick.rhyolite.name=Tête de pic en rhyolite
 item.genesis.material.toolHead.pick.quartzite.name=Tête de pic en quartzite
 item.genesis.material.toolHead.pick.dolerite.name=Tête de pic en dolérite
 item.genesis.material.toolHead.pick.brownFlint.name=Tête de pic en silex brun
 item.genesis.material.toolHead.pick.octaedrite.name=Tête de pic en octaédrite
+
+item.genesis.tool.pick.granite.name=Pic en granite
+item.genesis.tool.pick.rhyolite.name=Pic en rhyolite
+item.genesis.tool.pick.quartzite.name=Pic en quartzite
+item.genesis.tool.pick.dolerite.name=Pic en dolérite
+item.genesis.tool.pick.brownFlint.name=Pic en silex brun
+item.genesis.tool.pick.octaedrite.name=Pic en octaédrite
 
 item.genesis.material.toolHead.axe.granite.name=Tête de hache en granite
 item.genesis.material.toolHead.axe.rhyolite.name=Tête de hache en rhyolite
@@ -164,12 +177,26 @@ item.genesis.material.toolHead.axe.dolerite.name=Tête de hache en dolérite
 item.genesis.material.toolHead.axe.brownFlint.name=Tête de hache en silex brun
 item.genesis.material.toolHead.axe.octaedrite.name=Tête de hache en octaédrite
 
+item.genesis.tool.axe.granite.name=Hache en granite
+item.genesis.tool.axe.rhyolite.name=Hache en rhyolite
+item.genesis.tool.axe.quartzite.name=Hache en quartzite
+item.genesis.tool.axe.dolerite.name=Hache en dolérite
+item.genesis.tool.axe.brownFlint.name=Hache en silex brun
+item.genesis.tool.axe.octaedrite.name=Hache en octaédrite
+
 item.genesis.material.toolHead.hoe.granite.name=Tête de houe en granite
 item.genesis.material.toolHead.hoe.rhyolite.name=Tête de houe en rhyolite
 item.genesis.material.toolHead.hoe.quartzite.name=Tête de houe en quartzite
 item.genesis.material.toolHead.hoe.dolerite.name=Tête de houe en dolérite
 item.genesis.material.toolHead.hoe.brownFlint.name=Tête de houe en silex brun
 item.genesis.material.toolHead.hoe.octaedrite.name=Tête de houe en octaédrite
+
+item.genesis.tool.hoe.granite.name=Houe en granite
+item.genesis.tool.hoe.rhyolite.name=Houe en rhyolite
+item.genesis.tool.hoe.quartzite.name=Houe en quartzite
+item.genesis.tool.hoe.dolerite.name=Houe en dolérite
+item.genesis.tool.hoe.brownFlint.name=Houe en silex brun
+item.genesis.tool.hoe.octaedrite.name=Houe en octaédrite
 
 item.genesis.material.toolHead.knife.granite.name=Lame de couteau en granite
 item.genesis.material.toolHead.knife.rhyolite.name=Lame de couteau en rhyolite
@@ -178,12 +205,26 @@ item.genesis.material.toolHead.knife.dolerite.name=Lame de couteau en dolérite
 item.genesis.material.toolHead.knife.brownFlint.name=Lame de couteau en silex brun
 item.genesis.material.toolHead.knife.octaedrite.name=Lame de couteau en octaédrite
 
+item.genesis.tool.knife.granite.name=Couteau en granite
+item.genesis.tool.knife.rhyolite.name=Couteau en rhyolite
+item.genesis.tool.knife.quartzite.name=Couteau en quartzite
+item.genesis.tool.knife.dolerite.name=Couteau en dolérite
+item.genesis.tool.knife.brownFlint.name=Couteau en silex brun
+item.genesis.tool.knife.octaedrite.name=Couteau en octaédrite
+
 item.genesis.material.toolHead.spear.granite.name=Pointe de lance en granite
 item.genesis.material.toolHead.spear.rhyolite.name=Pointe de lance en rhyolite
 item.genesis.material.toolHead.spear.quartzite.name=Pointe de lance en quartzite
 item.genesis.material.toolHead.spear.dolerite.name=Pointe de lance en dolérite
 item.genesis.material.toolHead.spear.brownFlint.name=Pointe de lance en silex brun
 item.genesis.material.toolHead.spear.octaedrite.name=Pointe de lance en octaédrite
+
+item.genesis.weapon.spear.granite.name=Lance en granite
+item.genesis.weapon.spear.rhyolite.name=Lance en rhyolite
+item.genesis.weapon.spear.quartzite.name=Lance en quartzite
+item.genesis.weapon.spear.dolerite.name=Lance en dolérite
+item.genesis.weapon.spear.brownFlint.name=Lance en silex brun
+item.genesis.weapon.spear.octaedrite.name=Lance en octaédrite
 
 item.genesis.material.toolHead.arrow.granite.name=Pointe de flèche en granite
 item.genesis.material.toolHead.arrow.rhyolite.name=Pointe de flèche en rhyolite
