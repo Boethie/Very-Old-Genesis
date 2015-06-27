@@ -38,7 +38,7 @@ public class ItemToolHead extends ItemGenesis
 	@Override
 	public Item setUnlocalizedName(String unlocalizedName)
     {
-        return super.setUnlocalizedName(Unlocalized.PREFIX + unlocalizedName);
+        return super.setUnlocalizedName(Unlocalized.MATERIAL + unlocalizedName);
     }
 	
 	@Override
