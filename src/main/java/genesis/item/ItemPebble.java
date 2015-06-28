@@ -4,6 +4,7 @@ import genesis.metadata.*;
 import genesis.metadata.ToolItems.ToolObjectType;
 import genesis.metadata.ToolTypes.ToolType;
 import genesis.metadata.VariantsOfTypesCombo.*;
+import genesis.util.Constants;
 import genesis.util.WorldUtils;
 import genesis.util.Constants.Unlocalized;
 
@@ -69,7 +70,8 @@ public class ItemPebble extends ItemGenesis
 		if (state.getBlock().getMaterial() == Material.rock && state.getBlock().getBlockHardness(world, pos) >= 1)
 		{
 			player.swingItem();
-			stack.setItemDamage(stack.getItemDamage() + 10);
+			stack.setItemDamage(stack.getItemDamage() + 1);
+			player.playSound(Constants.ASSETS_PREFIX + "crafting.rock_hit", 2, 0.9F + world.rand.nextFloat() * 0.2F);
 			
 			// If the pebble was destroyed
 			if (stack.getItemDamage() > stack.getMaxDamage() || player.capabilities.isCreativeMode)

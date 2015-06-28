@@ -5,7 +5,7 @@ import genesis.util.Constants.Unlocalized;
 public enum EnumToolQuality implements IMetadata
 {
 	NONE("", 1, 1, 1, 1),
-	CHOPPING("", 0.065F, 0.25F, 0.25F, 0.1F),
+	WEAK("", 0.065F, 0.25F, 0.25F, 0.1F),
 	CHIPPED("chipped", 1, 1, 1, 1),
 	POLISHED("polished", 1.5F, 1.5F, 1.5F, 1.5F),
 	SHARPENED("sharpened", 1.5F, 1.5F, 1.5F, 1.5F);

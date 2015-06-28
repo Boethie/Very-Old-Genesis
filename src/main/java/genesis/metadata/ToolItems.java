@@ -123,8 +123,8 @@ public class ToolItems extends VariantsOfTypesCombo<ToolObjectType, ToolType>
 		}
 	}
 
-	public static final ToolObjectTypeSoleQuality<ItemPebble> PEBBLE = new ToolObjectTypeSoleQuality<ItemPebble>("pebble", ItemPebble.class, EnumToolQuality.NONE, EnumToolMaterial.OCTAEDRITE).setNamePosition(ObjectNamePosition.PREFIX);
-	public static final ToolObjectTypeSoleQuality<ItemChoppingTool> CHOPPING_TOOL = new ToolObjectTypeSoleQuality<ItemChoppingTool>("chopping_tool", "choppingTool", ItemChoppingTool.class, EnumToolQuality.CHOPPING, EnumToolMaterial.OCTAEDRITE).setCreativeTab(GenesisCreativeTabs.TOOLS).setNamePosition(ObjectNamePosition.PREFIX).setUseVariantAsRegistryName(true);
+	public static final ToolObjectTypeSoleQuality<ItemPebble> PEBBLE = new ToolObjectTypeSoleQuality<ItemPebble>("pebble", ItemPebble.class, EnumToolQuality.WEAK, EnumToolMaterial.OCTAEDRITE).setNamePosition(ObjectNamePosition.PREFIX);
+	public static final ToolObjectTypeSoleQuality<ItemChoppingTool> CHOPPING_TOOL = new ToolObjectTypeSoleQuality<ItemChoppingTool>("chopping_tool", "choppingTool", ItemChoppingTool.class, EnumToolQuality.WEAK, EnumToolMaterial.OCTAEDRITE).setCreativeTab(GenesisCreativeTabs.TOOLS).setNamePosition(ObjectNamePosition.PREFIX).setUseVariantAsRegistryName(true);
 	public static final ToolObjectType<ItemToolHead> PICK_HEAD = new ToolObjectType<ItemToolHead>("head_pick", "toolHead.pick", ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED});
 	public static final ToolObjectType<ItemGenesisPick> PICK = new ToolObjectType<ItemGenesisPick>("pick", ItemGenesisPick.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED}).setCreativeTab(GenesisCreativeTabs.TOOLS);
 	public static final ToolObjectType<ItemToolHead> AXE_HEAD = new ToolObjectType<ItemToolHead>("head_axe", "toolHead.axe", ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED});
