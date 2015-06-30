@@ -66,7 +66,7 @@ public final class GenesisCreativeTabs
 		@Override
 		public ItemStack getIconItemStack()
 		{
-			return GenesisItems.tools.getStack(ToolItems.KNIFE_HEAD, EnumToolMaterial.GRANITE, EnumToolQuality.CHIPPED);	// TODO: use chipped granite axe when added
+			return GenesisItems.tools.getStack(ToolItems.AXE, EnumToolMaterial.GRANITE, EnumToolQuality.CHIPPED);
 		}
 	};
 

@@ -97,7 +97,6 @@ public final class GenesisBlocks
 			.setUnlocalizedName(Unlocalized.CROP + "odontopteris");
 	
 	/* Fluids */
-	
 	public static BlockKomatiiticLava komatiitic_lava;
 	
 	/* Other Decorative */
