@@ -44,8 +44,8 @@ tile.genesis.log.cordaites.name=Bois de Cordaites
 tile.genesis.log.psaronius.name=Bois de Psaronius
 tile.genesis.log.araucarioxylon.name=Bois d'Araucarioxylon
 
-tile.genesis.calamitesBundle.name=Botte de Programinis
-tile.genesis.programinisBundle.name=Fagot de Calamites
+tile.genesis.calamitesBundle.name=Fagot de Calamites
+tile.genesis.programinisBundle.name=Botte de Programinis
 tile.genesis.prototaxitesMycelium.name=Mycélium de Prototaxites
 tile.genesis.dung.brachiosaurus.name=Crotte de Brachiosaurus
 tile.genesis.dung.tyrannosaurus.name=Crotte de Tyrannosaurus
