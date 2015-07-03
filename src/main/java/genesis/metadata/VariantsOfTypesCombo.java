@@ -823,6 +823,31 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	}
 	
 	/**
+	 * @return The variant contained in this block state. Returns null if the block is not owned by this combo.
+	 */
+	public V getVariant(IBlockState state)
+	{
+		IProperty prop = getVariantProperty(state.getBlock());
+		
+		if (prop == null)
+		{
+			return null;
+		}
+		
+		return (V) state.getValue(prop);
+	}
+	
+	/**
+	 * @return Whether the states have the same variant.
+	 */
+	public boolean areSameVariant(IBlockState state1, IBlockState state2)
+	{
+		V variant1 = getVariant(state1);
+		V variant2 = getVariant(state2);
+		return variant1 != null && variant1 == variant2;
+	}
+	
+	/**
 	 * Gets a random IBlockState for the specified {@link #ObjectType}.
 	 */
 	public IBlockState getRandomBlockState(O type, Random rand)
@@ -852,11 +877,19 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	}
 	
 	/**
-	 * Gets a stack of the specified Item in this combo.
+	 * Gets a stack of the specified ObjectType and variant in this combo.
 	 */
 	public ItemStack getStack(O type, V variant)
 	{
 		return getStack(type, variant, 1);
+	}
+	
+	/**
+	 * Gets a stack of the specified ObjectType and variant from a block state in this combo.
+	 */
+	public ItemStack getStack(O type, IBlockState state)
+	{
+		return getStack(type, getVariant(state), 1);
 	}
 	
 	/**

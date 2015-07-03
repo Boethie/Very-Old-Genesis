@@ -17,8 +17,6 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	
 	protected int minHeight;
     protected int maxHeight;
-    protected World world;
-    protected Random random;
 	
 	public WorldGenTreeBase(IBlockState wood, IBlockState leaves, boolean notify)
 	{
@@ -42,62 +40,54 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 				double zfr = x - xo;
 				
 				if (xfr * xfr + zfr * zfr <= radius * radius)
-					setBlockInWorld(new BlockPos(x, h, z), leaves);
+				{
+					setBlockInWorld(world, new BlockPos(x, h, z), leaves);
+				}
 			}
 		}
 	}
 	
-	protected void setBlockInWorld(BlockPos pos, IBlockState state)
+	protected void setBlockInWorld(World world, BlockPos pos, IBlockState state)
 	{
-		try
+		if (state == wood &&
+					(world.getBlockState(pos).getBlock().isAir(world, pos) 
+					|| world.getBlockState(pos).getBlock().getMaterial().isReplaceable() 
+					|| world.getBlockState(pos).getBlock().isLeaves(world, pos)))
 		{
-			if (state == wood
-					&& (
-							world.getBlockState(pos).getBlock().isAir(world, pos) 
-							|| world.getBlockState(pos).getBlock().getMaterial().isReplaceable() 
-							|| world.getBlockState(pos).getBlock().isLeaves(world, pos)))
+			if (notify)
 			{
-				if (notify)
-				{
-					world.setBlockState(pos, state, 3);
-				} else {
-					world.setBlockState(pos, state, 2);
-				}
-			} else if (state == leaves && world.getBlockState(pos).getBlock().isAir(world, pos))
+				world.setBlockState(pos, state, 3);
+			}
+			else
 			{
-				if (notify)
-				{
-					world.setBlockState(pos, state, 3);
-				} else {
-					world.setBlockState(pos, state, 2);
-				}
+				world.setBlockState(pos, state, 2);
 			}
 		}
-		catch (RuntimeException e)
+		else if (state == leaves && world.getBlockState(pos).getBlock().isAir(world, pos))
 		{
-			Genesis.logger.error("Error: Tree block couldn't generate! " + e.getMessage());
+			if (notify)
+			{
+				world.setBlockState(pos, state, 3);
+			}
+			else
+			{
+				world.setBlockState(pos, state, 2);
+			}
 		}
 	}
 	
-	protected boolean isCubeClear(int x, int y, int z, int radius, int height)
+	protected boolean isCubeClear(World world, BlockPos pos, int radius, int height)
 	{
-		BlockPos pos;
+		Iterable<BlockPos> posList = (Iterable<BlockPos>) BlockPos.getAllInBox(pos.add(-radius, 0, -radius), pos.add(radius, height, radius));
 		
-		for (int i = x - radius; i <= x + radius; i++)
+		for (BlockPos checkPos : posList)
 		{
-			for (int j = z - radius; j <= z + radius; j++)
+			if (!world.isAirBlock(checkPos) && !world.getBlockState(checkPos).getBlock().isLeaves(world, pos))
 			{
-				for (int k = y; k <= y + height; k++)
-				{
-					pos = new BlockPos(i, k, j);
-					
-					if (!(world.getBlockState(pos).getBlock().isAir(world, pos) || world.getBlockState(pos).getBlock().isLeaves(world, pos)))
-					{
-						return false;
-					}
-				}
+				return false;
 			}
 		}
+		
 		return true;
 	}
 }
