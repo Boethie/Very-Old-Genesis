@@ -17,12 +17,4 @@ public class BlockGenesisRock extends BlockGenesis
 		setStepSound(soundTypePiston);
 		setHarvestLevel("pickaxe", harvestLevel);
 	}
-
-	@Override
-	public BlockGenesisRock setUnlocalizedName(String unlocalizedName)
-	{
-		super.setUnlocalizedName("rock." + unlocalizedName);
-		
-		return this;
-	}
 }

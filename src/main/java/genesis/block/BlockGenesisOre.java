@@ -2,7 +2,7 @@ package genesis.block;
 
 import genesis.common.GenesisCreativeTabs;
 import genesis.metadata.IMetadata;
-import genesis.util.Constants;
+import genesis.util.Constants.Unlocalized;
 
 import java.util.Random;
 
@@ -36,14 +36,6 @@ public class BlockGenesisOre extends BlockOre
 		setResistance(resistance);
 		setHarvestLevel("pickaxe", harvestLevel);
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
-	}
-
-	@Override
-	public BlockGenesisOre setUnlocalizedName(String unlocalizedName)
-	{
-		super.setUnlocalizedName(Constants.PREFIX + "ore." + unlocalizedName);
-		
-		return this;
 	}
 
 	@Override

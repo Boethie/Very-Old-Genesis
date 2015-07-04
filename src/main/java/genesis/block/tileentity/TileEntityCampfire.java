@@ -11,8 +11,8 @@ import genesis.block.tileentity.render.TileEntityCampfireRenderer;
 import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
 import genesis.util.*;
+import genesis.util.Constants.Unlocalized;
 import genesis.util.gui.RestrictedDisabledSlot.IInventoryDisabledSlots;
-
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.*;
@@ -425,7 +425,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 					
 					if (hasCookingPot() && canSmelt())
 					{
-						worldObj.playSound(pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, Constants.ASSETS + "ambient.cookingpot",
+						worldObj.playSound(pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, Constants.ASSETS_PREFIX + "ambient.cookingpot",
 								volumeRange.getRandom(worldObj.rand), pitchRange.getRandom(worldObj.rand), false);
 					}
 					
@@ -623,7 +623,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	@Override
 	public String getCommandSenderName()
 	{
-		return hasCustomName() ? customName : Constants.CONTAINER + "campfire";
+		return hasCustomName() ? customName : Unlocalized.CONTAINER + "campfire";
 	}
 
 	@Override

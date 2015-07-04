@@ -2,7 +2,7 @@ package genesis.block;
 
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
-import genesis.util.Constants;
+import genesis.util.Constants.Unlocalized;
 
 import java.util.Random;
 
@@ -22,14 +22,6 @@ public class BlockPrototaxitesMycelium extends BlockMycelium
 		setHardness(0.6F);
 		setStepSound(soundTypeGrass);
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
-	}
-
-	@Override
-	public BlockPrototaxitesMycelium setUnlocalizedName(String unlocalizedName)
-	{
-		super.setUnlocalizedName(Constants.PREFIX + unlocalizedName);
-		
-		return this;
 	}
 
 	@Override

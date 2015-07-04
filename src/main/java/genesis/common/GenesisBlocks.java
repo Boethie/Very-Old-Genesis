@@ -10,6 +10,7 @@ import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.block.tileentity.*;
 import genesis.block.tileentity.render.TileEntityCampfireRenderer;
 import genesis.util.*;
+import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.block.statemap.StateMap;
@@ -21,93 +22,93 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public final class GenesisBlocks
 {
-	public static final Block moss = new BlockMoss().setUnlocalizedName(Constants.PREFIX + "moss");
+	public static final Block moss = new BlockMoss().setUnlocalizedName(Unlocalized.PREFIX + "moss");
 
 	/* Rocks */
-	public static final BlockGenesisRock granite = new BlockGenesisRock(2.1F, 10.0F).setUnlocalizedName("granite");
-	public static final BlockGenesisRock mossy_granite = new BlockGenesisRock(2.1F, 10.0F).setUnlocalizedName("mossyGranite");
-	public static final BlockGenesisRock rhyolite = new BlockGenesisRock(1.65F, 10.0F).setUnlocalizedName("rhyolite");
-	public static final BlockGenesisRock dolerite = new BlockGenesisRock(1.2F, 10.0F).setUnlocalizedName("dolerite");
-	public static final BlockGenesisRock komatiite = new BlockGenesisRock(1.95F, 10.0F).setUnlocalizedName("komatiite");
-	public static final BlockGenesisRock anorthosite = new BlockGenesisRock(1.2F, 10.0F).setUnlocalizedName("anorthosite");
-	public static final BlockGenesisRock trondhjemite = new BlockGenesisRock(1.5F, 10.0F).setUnlocalizedName("trondhjemite");
-	public static final BlockGenesisRock faux_amphibolite = new BlockGenesisRock(1.5F, 10.0F).setUnlocalizedName("fauxAmphibolite");
-	public static final BlockGenesisRock gneiss = new BlockGenesisRock(1.65F, 10.0F).setUnlocalizedName("gneiss");
-	public static final BlockGenesisRock quartzite = new BlockGenesisRock(1.95F, 10.0F).setUnlocalizedName("quartzite");
-	public static final BlockGenesisRock limestone = new BlockGenesisRock(0.75F, 8.7F).setUnlocalizedName("limestone");
-	public static final BlockGenesisRock shale = new BlockGenesisRock(0.75F, 8.7F).setUnlocalizedName("shale");
-	public static final BlockGenesisRock octaedrite = new BlockGenesisRock(1.0F, 10.0F).setUnlocalizedName("octaedrite");
-	public static final BlockRedClay red_clay = new BlockRedClay().setUnlocalizedName("redClay");
-	public static final BlockOoze ooze = new BlockOoze().setUnlocalizedName("ooze");
-	public static final BlockPeat peat = new BlockPeat().setUnlocalizedName("peat");
+	public static final Block granite = new BlockGenesisRock(2.1F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "granite");
+	public static final Block mossy_granite = new BlockGenesisRock(2.1F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "mossyGranite");
+	public static final Block rhyolite = new BlockGenesisRock(1.65F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "rhyolite");
+	public static final Block dolerite = new BlockGenesisRock(1.2F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "dolerite");
+	public static final Block komatiite = new BlockGenesisRock(1.95F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "komatiite");
+	public static final Block anorthosite = new BlockGenesisRock(1.2F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "anorthosite");
+	public static final Block trondhjemite = new BlockGenesisRock(1.5F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "trondhjemite");
+	public static final Block faux_amphibolite = new BlockGenesisRock(1.5F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "fauxAmphibolite");
+	public static final Block gneiss = new BlockGenesisRock(1.65F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "gneiss");
+	public static final Block quartzite = new BlockGenesisRock(1.95F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "quartzite");
+	public static final Block limestone = new BlockGenesisRock(0.75F, 8.7F).setUnlocalizedName(Unlocalized.ROCK + "limestone");
+	public static final Block shale = new BlockGenesisRock(0.75F, 8.7F).setUnlocalizedName(Unlocalized.ROCK + "shale");
+	public static final Block octaedrite = new BlockGenesisRock(1.0F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "octaedrite");
+	public static final Block red_clay = new BlockRedClay().setUnlocalizedName(Unlocalized.PREFIX + "redClay");
+	public static final Block ooze = new BlockOoze().setUnlocalizedName(Unlocalized.PREFIX + "ooze");
+	public static final Block peat = new BlockPeat().setUnlocalizedName(Unlocalized.PREFIX + "peat");
 
-	public static final BlockGenesis permafrost = new BlockPermafrost().setUnlocalizedName("permafrost");
-	public static final BlockGenesis new_permafrost = new BlockNewPermafrost().setUnlocalizedName("permafrost");
+	public static final Block permafrost = new BlockPermafrost().setUnlocalizedName(Unlocalized.PREFIX + "permafrost");
+	public static final Block new_permafrost = new BlockNewPermafrost().setUnlocalizedName(Unlocalized.PREFIX + "permafrost");
 
 	/* Granite Ores */
-	public static final BlockGenesisOre quartz_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 1).setDrop(GenesisItems.quartz).setUnlocalizedName("quartz");
-	public static final BlockGenesisOre zircon_ore = new BlockGenesisOre(4.2F, 5.0F, 2, 1).setDrop(GenesisItems.zircon).setUnlocalizedName("zircon");
-	public static final BlockGenesisOre garnet_ore = new BlockGenesisOre(4.2F, 5.0F, 2, 1).setDrop(GenesisItems.garnet).setUnlocalizedName("garnet");
-	public static final BlockGenesisOre hematite_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 1).setDrop(GenesisItems.hematite).setUnlocalizedName("hematite");
-	public static final BlockGenesisOre manganese_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 1).setDrop(GenesisItems.manganese).setUnlocalizedName("manganese");
-	public static final BlockGenesisOre malachite_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 2, 1).setDrop(GenesisItems.malachite).setUnlocalizedName("malachite");
-	public static final BlockGenesisOre olivine_ore = new BlockGenesisOre(4.2F, 5.0F, 3, 5, 1).setDrop(GenesisItems.olivine).setUnlocalizedName("olivine");
+	public static final Block quartz_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 1).setDrop(GenesisItems.quartz).setUnlocalizedName(Unlocalized.ORE + "quartz");
+	public static final Block zircon_ore = new BlockGenesisOre(4.2F, 5.0F, 2, 1).setDrop(GenesisItems.zircon).setUnlocalizedName(Unlocalized.ORE + "zircon");
+	public static final Block garnet_ore = new BlockGenesisOre(4.2F, 5.0F, 2, 1).setDrop(GenesisItems.garnet).setUnlocalizedName(Unlocalized.ORE + "garnet");
+	public static final Block hematite_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 1).setDrop(GenesisItems.hematite).setUnlocalizedName(Unlocalized.ORE + "hematite");
+	public static final Block manganese_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 1).setDrop(GenesisItems.manganese).setUnlocalizedName(Unlocalized.ORE + "manganese");
+	public static final Block malachite_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 2, 1).setDrop(GenesisItems.malachite).setUnlocalizedName(Unlocalized.ORE + "malachite");
+	public static final Block olivine_ore = new BlockGenesisOre(4.2F, 5.0F, 3, 5, 1).setDrop(GenesisItems.olivine).setUnlocalizedName(Unlocalized.ORE + "olivine");
 
 	/* Limestone Ores */
-	public static final BlockGenesisOre brown_flint_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(GenesisItems.nodules.getStack(EnumNodule.BROWN_FLINT)).setUnlocalizedName("brownFlint");
-	public static final BlockGenesisOre marcasite_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(GenesisItems.nodules.getStack(EnumNodule.MARCASITE)).setUnlocalizedName("marcasite");
+	public static final Block brown_flint_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(GenesisItems.nodules.getStack(EnumNodule.BROWN_FLINT)).setUnlocalizedName(Unlocalized.ORE + "brownFlint");
+	public static final Block marcasite_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(GenesisItems.nodules.getStack(EnumNodule.MARCASITE)).setUnlocalizedName(Unlocalized.ORE + "marcasite");
 	
 	/* Trees */
 	public static final TreeBlocksAndItems trees = new TreeBlocksAndItems();
 	
 	/* Crafting */
-	public static final BlockCampfire campfire = new BlockCampfire().setUnlocalizedName("campfire");
+	public static final Block campfire = new BlockCampfire().setUnlocalizedName(Unlocalized.PREFIX + "campfire");
 	
 	/* Plants */
 	public static final VariantsCombo<EnumPlant, BlockPlant, ItemBlockMulti> plants = new VariantsCombo(new ObjectType("plant", BlockPlant.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumPlant.values());
-	public static final BlockGrowingPlant calamites = new BlockCalamites(true, 15, 10)
+	public static final BlockCalamites calamites = (BlockCalamites) new BlockCalamites(true, 15, 10)
 			.setGrowthChanceMult(6, 1, 1)
-			.setUnlocalizedName("plant.calamites");
+			.setUnlocalizedName(Unlocalized.PLANT + "calamites");
 	public static final VariantsCombo<EnumFern, BlockFern, ItemBlockMulti> ferns = new VariantsCombo(new ObjectType("fern", BlockFern.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumFern.values());
-	public static final BlockCobbania cobbania = new BlockCobbania();//.setUnlocalizedName("cobbania");
+	public static final Block cobbania = new BlockCobbania().setUnlocalizedName(Unlocalized.PREFIX + "cobbania");
 	public static final VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti> aquatic_plants = new VariantsCombo(new ObjectType("aquatic_plant", "aquaticPlant", BlockAquaticPlant.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumAquaticPlant.values());
 	
 	/* Crops */
-	public static final BlockGrowingPlant zingiberopsis = new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
+	public static final BlockGrowingPlant zingiberopsis = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true).setBreakAllTogether(true)
 			.setPlantType(EnumPlantType.Crop)
-			.setUnlocalizedName("crop.zingiberopsis");
-	public static final BlockGrowingPlant sphenophyllum = new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
+			.setUnlocalizedName(Unlocalized.CROP + "zingiberopsis");
+	public static final BlockGrowingPlant sphenophyllum = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true)
 			.setPlantType(EnumPlantType.Plains)
 			.setGrowthChanceMult(5, 1, 1)
 			.setCustomsInterface(new BlockSphenophyllumCustoms())
-			.setUnlocalizedName("plant.sphenophyllum");
-	public static final BlockGrowingPlant odontopteris = new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
+			.setUnlocalizedName(Unlocalized.PLANT + "sphenophyllum");
+	public static final BlockGrowingPlant odontopteris = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true).setBreakAllTogether(true)
 			.setPlantType(EnumPlantType.Crop)
 			.setGrowthChanceMult(16, 0.4F, 0.95F)
 			.setUseBiomeColor(true)
 			.setCustomsInterface(new BlockOdontopterisCustoms())
-			.setUnlocalizedName("crop.odontopteris");
-	public static final BlockGrowingPlant programinis = new BlockGrowingPlant(false, 7, 1).setTopPosition(1)
+			.setUnlocalizedName(Unlocalized.CROP + "odontopteris");
+	public static final BlockGrowingPlant programinis = (BlockGrowingPlant) new BlockGrowingPlant(false, 7, 1).setTopPosition(1)
 			.setPlantType(EnumPlantType.Crop)
 			.setUseBiomeColor(true)
-			.setUnlocalizedName("crop.odontopteris");
+			.setUnlocalizedName(Unlocalized.CROP + "odontopteris");
 	
 	/* Fluids */
-	
 	public static BlockKomatiiticLava komatiitic_lava;
 	
 	/* Other Decorative */
-	public static final BlockGenesisFlowerPot flower_pot = new BlockGenesisFlowerPot();
-	public static final BlockCalamitesBundle calamites_bundle = new BlockCalamitesBundle().setUnlocalizedName("calamitesBundle");
-	public static final BlockGenesisTorch calamites_torch = new BlockGenesisTorch().setUnlocalizedName("calamitesTorch");
-	public static final BlockPrototaxitesMycelium prototaxites_mycelium = new BlockPrototaxitesMycelium().setUnlocalizedName("prototaxitesMycelium");
+	public static final BlockGenesisFlowerPot flower_pot = (BlockGenesisFlowerPot) new BlockGenesisFlowerPot().setUnlocalizedName(Unlocalized.PREFIX + "flowerPot");;
+	public static final Block calamites_bundle = new BlockCalamitesBundle().setUnlocalizedName(Unlocalized.PREFIX + "calamitesBundle");
+	public static final Block programinis_bundle = new BlockPrograminisBundle().setUnlocalizedName(Unlocalized.PREFIX + "programinisBundle");
+	public static final Block calamites_torch = new BlockCalamitesTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTorch");
+	public static final Block prototaxites_mycelium = new BlockPrototaxitesMycelium().setUnlocalizedName(Unlocalized.PREFIX + "prototaxitesMycelium");
 	public static final DungBlocksAndItems dungs = new DungBlocksAndItems();
 	
 	/* Misc */
-	public static final BlockGenesis prototaxites = new BlockPrototaxites().setUnlocalizedName("prototaxites");
+	public static final Block prototaxites = new BlockPrototaxites().setUnlocalizedName(Unlocalized.PREFIX + "prototaxites");
 	public static final VariantsCombo<EnumCoral, BlockGenesisVariants, ItemBlockMulti> corals =
 			new VariantsCombo(
 				new ObjectType<BlockGenesisVariants, ItemBlockMulti>("coral", BlockGenesisVariants.class, null)
@@ -125,7 +126,6 @@ public final class GenesisBlocks
 				.setCreativeTab(GenesisCreativeTabs.DECORATIONS)
 				.setBlockArguments(Material.coral),
 			EnumCoral.values());
-	
 
 	public static void registerBlocks()
 	{
@@ -160,6 +160,7 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(marcasite_ore, "marcasite_ore");
 		trees.registerVariants(trees.LOG);
 		Genesis.proxy.registerBlock(calamites_bundle, "calamites_bundle");
+		Genesis.proxy.registerBlock(programinis_bundle, "programinis_bundle");
 		Genesis.proxy.registerBlock(prototaxites_mycelium, "prototaxites_mycelium");
 		dungs.registerVariants(dungs.DUNG_BLOCK);
 		
@@ -167,7 +168,7 @@ public final class GenesisBlocks
 		trees.registerAll();
 		
 		Genesis.proxy.registerBlock(campfire, "campfire");
-		GameRegistry.registerTileEntity(TileEntityCampfire.class, Constants.PREFIX + "Campfire");
+		GameRegistry.registerTileEntity(TileEntityCampfire.class, Unlocalized.PREFIX + "Campfire");
 		Genesis.proxy.callSided(new SidedFunction()
 		{
 			@SideOnly(Side.CLIENT)
@@ -209,7 +210,7 @@ public final class GenesisBlocks
 		
 		Genesis.proxy.registerBlock(programinis, "programinis", null);
 		programinis.setDrops(new RandomItemDrop(GenesisItems.programinis_seeds, 1, 1));
-		programinis.setDrops(new RandomItemDrop(GenesisItems.programinis_seeds, 1, 3), new RandomItemDrop(GenesisItems.programinis, 1, 1));
+		programinis.setCropDrops(new RandomItemDrop(GenesisItems.programinis_seeds, 1, 3), new RandomItemDrop(GenesisItems.programinis, 1, 1));
 		programinis.setPickedItem(GenesisItems.programinis_seeds);
 		GenesisItems.programinis_seeds.setCrop(programinis);
 		
@@ -219,7 +220,7 @@ public final class GenesisBlocks
 		flower_pot.registerPlantsForPot(trees, trees.SAPLING);
 		flower_pot.afterAllRegistered();
 		
-		komatiitic_lava = new BlockKomatiiticLava(GenesisFluids.KOMATIITIC_LAVA).setUnlocalizedName("komatiicLava");
+		komatiitic_lava = (BlockKomatiiticLava) new BlockKomatiiticLava(GenesisFluids.KOMATIITIC_LAVA).setUnlocalizedName(Unlocalized.PREFIX + "komatiiticLava");
 		Genesis.proxy.registerFluidBlock(komatiitic_lava, "komatiitic_lava");
 		
 		Genesis.proxy.registerBlock(prototaxites, "prototaxites");

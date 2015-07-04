@@ -3,6 +3,7 @@ package genesis.item;
 import genesis.common.GenesisConfig;
 import genesis.common.GenesisCreativeTabs;
 import genesis.util.Constants;
+import genesis.util.Constants.Unlocalized;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemFlintAndSteel;
@@ -20,14 +21,6 @@ public class ItemFlintAndMarcasite extends ItemFlintAndSteel
 	}
 
 	@Override
-	public ItemFlintAndMarcasite setUnlocalizedName(String unlocalizedName)
-	{
-		super.setUnlocalizedName(Constants.PREFIX + "tool." + unlocalizedName);
-		
-		return this;
-	}
-
-	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
 		pos = pos.offset(side);
@@ -40,7 +33,7 @@ public class ItemFlintAndMarcasite extends ItemFlintAndSteel
 		{
 			if (worldIn.isAirBlock(pos))
 			{
-				worldIn.playSoundEffect(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, Constants.ASSETS + "fire.ignite", 1, itemRand.nextFloat() * 0.4F + 0.8F);
+				worldIn.playSoundEffect(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, Constants.ASSETS_PREFIX + "fire.ignite", 1, itemRand.nextFloat() * 0.4F + 0.8F);
 				worldIn.setBlockState(pos, Blocks.fire.getDefaultState());
 			}
 

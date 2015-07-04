@@ -4,7 +4,8 @@ import genesis.common.GenesisCreativeTabs;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.BlockStateToMetadata;
-import genesis.util.Constants;
+import genesis.util.Constants.Unlocalized;
+import genesis.world.gen.feature.WorldGenTreeLepidodendron;
 
 import java.util.List;
 import java.util.Random;
@@ -21,6 +22,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
 public class BlockGenesisSaplings extends BlockSapling
 {
@@ -33,13 +35,13 @@ public class BlockGenesisSaplings extends BlockSapling
 		return new IProperty[]{ STAGE };
 	}
 	
-	public final VariantsOfTypesCombo owner;
+	public final TreeBlocksAndItems owner;
 	public final ObjectType type;
 	
 	public final List<EnumTree> variants;
 	public final PropertyIMetadata variantProp;
 	
-	public BlockGenesisSaplings(List<EnumTree> variants, VariantsOfTypesCombo owner, ObjectType type)
+	public BlockGenesisSaplings(List<EnumTree> variants, TreeBlocksAndItems owner, ObjectType type)
 	{
 		super();
 		
@@ -59,7 +61,7 @@ public class BlockGenesisSaplings extends BlockSapling
 	@Override
 	public BlockGenesisSaplings setUnlocalizedName(String name)
 	{
-		super.setUnlocalizedName(Constants.PREFIX + name);
+		super.setUnlocalizedName(Unlocalized.PREFIX + name);
 		
 		return this;
 	}
@@ -93,18 +95,57 @@ public class BlockGenesisSaplings extends BlockSapling
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return owner.getItemMetadata(type, (IMetadata) state.getValue(variantProp));
+		return owner.getItemMetadata(type, owner.getVariant(state));
 	}
 	
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos)
 	{
-		return owner.getStack(type, (IMetadata) world.getBlockState(pos).getValue(variantProp));
+		return owner.getStack(type, owner.getVariant(world.getBlockState(pos)));
 	}
 	
 	@Override
-	public void generateTree(World worldIn, BlockPos pos, IBlockState state, Random rand)
+	public void generateTree(World world, BlockPos pos, IBlockState state, Random rand)
 	{
+		WorldGenAbstractTree gen = null;
+		BlockPos[] positions = {pos};
 		
+		switch (owner.getVariant(state))
+		{
+		case ARCHAEOPTERIS:
+			break;
+		case SIGILLARIA:
+			break;
+		case LEPIDODENDRON:
+			gen = new WorldGenTreeLepidodendron(14, 18, true);
+			break;
+		case CORDAITES:
+			break;
+		case PSARONIUS:
+			break;
+		case ARAUCARIOXYLON:
+			break;
+		}
+		
+		IBlockState[] states = new IBlockState[positions.length];
+		int i = 0;
+		
+		for (BlockPos sapPos : positions)
+		{
+			states[i] = world.getBlockState(sapPos);
+			world.setBlockToAir(sapPos);
+			i++;
+		}
+		
+		if (!gen.generate(world, rand, pos))
+		{
+			i = 0;
+			
+			for (BlockPos sapPos : positions)
+			{
+				world.setBlockState(sapPos, states[i]);
+				i++;
+			}
+		}
 	}
 }

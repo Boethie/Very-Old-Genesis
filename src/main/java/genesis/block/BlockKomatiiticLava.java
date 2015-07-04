@@ -1,8 +1,7 @@
 package genesis.block;
 
 import genesis.common.GenesisBlocks;
-import genesis.common.GenesisCreativeTabs;
-import genesis.util.Constants;
+import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -20,15 +19,6 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 	public BlockKomatiiticLava(Fluid fluid)
 	{
 		super(fluid, Material.lava);
-		this.setCreativeTab(GenesisCreativeTabs.BLOCK);
-	}
-
-	@Override
-	public BlockKomatiiticLava setUnlocalizedName(String unlocalizedName)
-	{
-		super.setUnlocalizedName(Constants.PREFIX + unlocalizedName);
-
-		return this;
 	}
 
 	@Override

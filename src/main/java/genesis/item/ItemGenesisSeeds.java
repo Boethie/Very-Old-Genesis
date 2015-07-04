@@ -1,7 +1,7 @@
 package genesis.item;
 
 import genesis.common.GenesisCreativeTabs;
-import genesis.util.Constants;
+import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -32,14 +32,6 @@ public class ItemGenesisSeeds extends ItemSeeds
 	{
 		cropPlantable = plantable;
 		cropBlock = (Block) plantable;
-		
-		return this;
-	}
-
-	@Override
-	public ItemGenesisSeeds setUnlocalizedName(String unlocalizedName)
-	{
-		super.setUnlocalizedName(Constants.PREFIX + "material." + unlocalizedName);
 		
 		return this;
 	}

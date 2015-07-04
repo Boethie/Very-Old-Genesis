@@ -3,6 +3,7 @@ package genesis.block.tileentity;
 import java.util.*;
 
 import genesis.util.*;
+import genesis.util.Constants.Unlocalized;
 import genesis.client.*;
 import genesis.common.*;
 import genesis.block.tileentity.*;
@@ -36,11 +37,8 @@ public class BlockCampfire extends BlockContainer
 	public BlockCampfire()
 	{
 		super(Material.rock);
-		
 		setDefaultState(getBlockState().getBaseState());
-		
 		setTickRandomly(true);
-		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	}
 
@@ -74,14 +72,6 @@ public class BlockCampfire extends BlockContainer
 		}
 		
 		return state;
-	}
-	
-	@Override
-	public BlockCampfire setUnlocalizedName(String unlocName)
-	{
-		super.setUnlocalizedName(Constants.PREFIX + unlocName);
-		
-		return this;
 	}
 	
 	public boolean canBlockStay(World worldIn, BlockPos pos)

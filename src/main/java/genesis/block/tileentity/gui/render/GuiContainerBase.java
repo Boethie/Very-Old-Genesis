@@ -12,7 +12,7 @@ import net.minecraft.world.*;
 
 public class GuiContainerBase extends GuiContainer
 {
-	public static final ResourceLocation TEX = new ResourceLocation(Constants.ASSETS + "textures/gui/base.png");
+	public static final ResourceLocation TEX = new ResourceLocation(Constants.ASSETS_PREFIX + "textures/gui/base.png");
 	
 	protected ContainerBase container;
 	protected IWorldNameable namer;

@@ -95,8 +95,6 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		
 		handler = new VanillaPotActivationHandler();
 		MinecraftForge.EVENT_BUS.register(handler);
-		
-		setUnlocalizedName(Constants.ASSETS + "flowerPot");
 	}
 	
 	public void registerPlantForPot(ItemStack stack, String name)

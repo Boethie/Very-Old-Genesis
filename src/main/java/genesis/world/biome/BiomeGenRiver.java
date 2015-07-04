@@ -2,7 +2,7 @@ package genesis.world.biome;
 
 import net.minecraft.world.biome.BiomeGenBase;
 
-public class BiomeGenRiver extends BiomeGenBaseGensis
+public class BiomeGenRiver extends BiomeGenBaseGenesis
 {
 
 	public BiomeGenRiver(int id)

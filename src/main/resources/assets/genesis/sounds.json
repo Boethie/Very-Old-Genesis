@@ -139,27 +139,37 @@
 			"fire/ignite"
 		]
 	},
-		"dig.aquaticplant": {
-			"category": "block",
-			"sounds": [
-				"dig/aquaticplant1",
-				"dig/aquaticplant2"
-			]
+	"dig.aquaticplant": {
+		"category": "block",
+		"sounds": [
+			"dig/aquaticplant1",
+			"dig/aquaticplant2"
+		]
 	},
-		"step.aquaticplant": {
-			"category": "block",
-			"sounds": [
-				"step/aquaticplant1",
-				"step/aquaticplant2"
-			]
+	"step.aquaticplant": {
+		"category": "block",
+		"sounds": [
+			"step/aquaticplant1",
+			"step/aquaticplant2"
+		]
 	},
 	"ambient.cookingpot": {
-		"category": "master",
+		"category": "block",
 		"sounds": [
 			"ambient/cookingpot1",
 			"ambient/cookingpot2",
 			"ambient/cookingpot3",
 			"ambient/cookingpot4"
+		]
+	},
+	"crafting.rock_hit": {
+		"category": "block",
+		"sounds": [
+			"crafting/rock_hit1",
+			"crafting/rock_hit2",
+			"crafting/rock_hit3",
+			"crafting/rock_hit4",
+			"crafting/rock_hit5"
 		]
 	}
 }

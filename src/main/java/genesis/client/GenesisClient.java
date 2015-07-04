@@ -1,9 +1,9 @@
 package genesis.client;
 
+import genesis.client.model.FluidModel;
 import genesis.common.*;
 import genesis.metadata.*;
 import genesis.util.*;
-import genesis.util.ReflectionHelper;
 import genesis.util.render.ModelHelpers;
 
 import java.util.*;
@@ -86,26 +86,7 @@ public class GenesisClient extends GenesisProxy
 	public void registerFluidBlock(BlockFluidBase block, String name)
 	{
 		registerBlock(block, name);
-		final ModelResourceLocation modelLoc = new ModelResourceLocation(Constants.ASSETS+"GenesisFluidBlock", block.getFluid().getName());
-		Item fluid = Item.getItemFromBlock(block);
-		ModelLoader.setCustomMeshDefinition(fluid, new ItemMeshDefinition()
-		{
-			
-			@Override
-			public ModelResourceLocation getModelLocation(ItemStack stack)
-			{
-				return modelLoc;
-			}
-		});
-		ModelLoader.setCustomStateMapper(block, new StateMapperBase()
-		{
-			
-			@Override
-			protected ModelResourceLocation getModelResourceLocation(IBlockState state)
-			{
-				return modelLoc;
-			}
-		});
+		FluidModel.registerFluid(block);
 	}
 
 	public void callSided(SidedFunction sidedFunction)
@@ -147,7 +128,7 @@ public class GenesisClient extends GenesisProxy
 
 	public void registerModel(Item item, int metadata, String textureName)
 	{
-		ModelLoader.setCustomModelResourceLocation(item, metadata, new ModelResourceLocation(Constants.ASSETS + textureName, "inventory"));
+		ModelLoader.setCustomModelResourceLocation(item, metadata, new ModelResourceLocation(Constants.ASSETS_PREFIX + textureName, "inventory"));
 		addVariantName(item, textureName);
 	}
 
@@ -178,7 +159,7 @@ public class GenesisClient extends GenesisProxy
 	
 	private void addVariantName(Item item, String name)
 	{
-		ModelBakery.addVariantName(item, Constants.ASSETS + name);
+		ModelBakery.addVariantName(item, Constants.ASSETS_PREFIX + name);
 	}
 	
 	public void registerTileEntityRenderer(Class<? extends TileEntity> teClass, TileEntitySpecialRenderer renderer)

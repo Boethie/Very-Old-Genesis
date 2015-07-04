@@ -87,19 +87,19 @@ public final class GenesisSounds
 		@Override
 		public String getBreakSound()
 		{
-			return Constants.ASSETS + super.getBreakSound();
+			return Constants.ASSETS_PREFIX + super.getBreakSound();
 		}
 
 		@Override
 		public String getStepSound()
 		{
-			return Constants.ASSETS + super.getStepSound();
+			return Constants.ASSETS_PREFIX + super.getStepSound();
 		}
 
 		@Override
 		public String getPlaceSound()
 		{
-			return hasCustomPlaceSound ? Constants.ASSETS + "place." + soundName : super.getPlaceSound();
+			return hasCustomPlaceSound ? Constants.ASSETS_PREFIX + "place." + soundName : super.getPlaceSound();
 		}
 	}
 }

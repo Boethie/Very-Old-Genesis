@@ -1,14 +1,11 @@
 package genesis.block;
 
 import genesis.common.GenesisCreativeTabs;
-import genesis.metadata.EnumTree;
-import genesis.metadata.IMetadata;
-import genesis.metadata.PropertyIMetadata;
-import genesis.metadata.VariantsOfTypesCombo;
+import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.BlockStateToMetadata;
-import genesis.util.Constants;
+import genesis.util.Constants.Unlocalized;
 
 import java.util.List;
 
@@ -18,11 +15,13 @@ import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.world.World;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraftforge.event.entity.player.PlayerEvent.HarvestCheck;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class BlockGenesisLogs extends BlockLog
 {
@@ -54,15 +53,17 @@ public class BlockGenesisLogs extends BlockLog
 		blockState = new BlockState(this, variantProp, LOG_AXIS);
 		setDefaultState(getBlockState().getBaseState().withProperty(LOG_AXIS, EnumAxis.NONE));
 		
+		setHarvestLevel("axe", 0);
+		Blocks.fire.setFireInfo(this, 5, 5);
+		
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 		
-		Blocks.fire.setFireInfo(this, 5, 5);
 	}
 
 	@Override
 	public BlockGenesisLogs setUnlocalizedName(String name)
 	{
-		super.setUnlocalizedName(Constants.PREFIX + name);
+		super.setUnlocalizedName(Unlocalized.PREFIX + name);
 		
 		return this;
 	}
@@ -102,5 +103,19 @@ public class BlockGenesisLogs extends BlockLog
 	public int damageDropped(IBlockState state)
 	{
 		return owner.getStack(type, (IMetadata) state.getValue(variantProp)).getItemDamage();
+	}
+	
+	@Override
+	public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player)
+	{	// Prevent logs from dropping if the player isn't using the appropriate tool type.
+		IBlockState state = getActualState(world.getBlockState(pos), world, pos);
+		ItemStack held = player.getHeldItem();
+		
+		if (held == null || held.getItem().getHarvestLevel(held, getHarvestTool(state)) < 0)
+		{
+			return false;
+		}
+		
+		return super.canHarvestBlock(world, pos, player);
 	}
 }

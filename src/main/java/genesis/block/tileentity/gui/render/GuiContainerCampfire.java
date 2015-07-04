@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GuiContainerCampfire extends GuiContainerBase
 {
-	public static final ResourceLocation CAMPFIRE_TEX = new ResourceLocation(Constants.ASSETS + "textures/gui/campfire.png");
+	public static final ResourceLocation CAMPFIRE_TEX = new ResourceLocation(Constants.ASSETS_PREFIX + "textures/gui/campfire.png");
 	
 	protected final TileEntityCampfire campfire;
 	protected final ContainerCampfire containerCampfire = (ContainerCampfire) container;

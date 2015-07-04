@@ -12,6 +12,6 @@ public class GenesisParticles
 	public static void createParticles()
 	{
 		WATER_SPLASH = ParticleUtils.registerParticleSystem(Constants.MOD_ID.toUpperCase() + "_WATER_SPLASH",
-				Constants.ASSETS + "water_splash", 1257, false, 0, new EntitySplashInsideBlockFX.Factory());
+				Constants.ASSETS_PREFIX + "water_splash", 1257, false, 0, new EntitySplashInsideBlockFX.Factory());
 	}
 }

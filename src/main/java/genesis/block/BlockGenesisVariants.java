@@ -7,7 +7,7 @@ import genesis.item.*;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
-
+import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.*;
@@ -77,7 +77,7 @@ public class BlockGenesisVariants<V extends IMetadata, C extends VariantsOfTypes
 	@Override
 	public BlockGenesisVariants setUnlocalizedName(String name)
 	{
-		super.setUnlocalizedName(Constants.PREFIX + name);
+		super.setUnlocalizedName(Unlocalized.PREFIX + name);
 		
 		return this;
 	}

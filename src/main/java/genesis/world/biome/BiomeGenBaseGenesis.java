@@ -7,10 +7,10 @@ import net.minecraft.block.BlockGrass;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.biome.BiomeGenBase;
 
-public abstract class BiomeGenBaseGensis extends BiomeGenBase
+public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 {
 
-	public BiomeGenBaseGensis(int id)
+	public BiomeGenBaseGenesis(int id)
 	{
 		super(id);
 		this.theBiomeDecorator = new BiomeDecoratorGenesis();
