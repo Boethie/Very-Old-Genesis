@@ -24,7 +24,7 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 public class BiomeDecoratorGenesis extends BiomeDecorator
 {
 	public int odontopterisPerChunk = 0;
-	public int lepidodendtronPerChunk = 0;
+	public int lepidodendronPerChunk = 0;
 	public boolean generateDefaultTrees = true;
 	
 	public BiomeDecoratorGenesis()
@@ -139,7 +139,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			(new WorldGenOdontopteris()).generate(this.currentWorld, this.randomGenerator, this.field_180294_c.add(k, i1, l));
 		}
 		
-		for (j = 0; doGen && j < this.lepidodendtronPerChunk; ++j)
+		for (j = 0; doGen && j < this.lepidodendronPerChunk; ++j)
 		{
 			k = this.randomGenerator.nextInt(16) + 8;
 			l = this.randomGenerator.nextInt(16) + 8;

@@ -12,7 +12,7 @@ public class BiomeGenRainforestEdgeM extends BiomeGenRainforestEdge
 		this.minHeight = 0.7F;
 		this.maxHeight = 1.5F;
 		this.theBiomeDecorator.treesPerChunk = 0;
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).lepidodendtronPerChunk = 5;
+		((BiomeDecoratorGenesis) this.theBiomeDecorator).lepidodendronPerChunk = 5;
 	}
 
 }

@@ -20,8 +20,8 @@ public class BiomeGenRainforest extends BiomeGenBaseGensis
 		this.theBiomeDecorator.treesPerChunk = 0;
 		this.theBiomeDecorator.grassPerChunk = 2;
 		((BiomeDecoratorGenesis) this.theBiomeDecorator).generateDefaultTrees = false;
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).odontopterisPerChunk = 0;
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).lepidodendtronPerChunk = 20;
+		((BiomeDecoratorGenesis) this.theBiomeDecorator).odontopterisPerChunk = 10;
+		((BiomeDecoratorGenesis) this.theBiomeDecorator).lepidodendronPerChunk = 20;
 	}
 	
 	@Override
