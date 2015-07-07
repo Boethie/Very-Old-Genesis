@@ -4,7 +4,7 @@ import genesis.block.BlockGrowingPlant.GrowingPlantProperties;
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
-import genesis.util.RandomItemDrop;
+import genesis.util.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -37,14 +37,14 @@ public class BlockOdontopterisCustoms implements IGrowingPlantCustoms
 	 * |  Fiddlehead |0-1|     1    |     0      |
 	 * |-----------------------------------------|
 	 */
-	static final RandomItemDrop seedsDropBottom1 = new RandomItemDrop(GenesisItems.odontopteris_seeds, 0, 1);
-	static final RandomItemDrop seedsDropBottom2Up = new RandomItemDrop(GenesisItems.odontopteris_seeds, 1, 1);
+	static final RandomDrop seedsDropBottom1 = new RandomDrop(GenesisItems.odontopteris_seeds, 0, 1);
+	static final RandomDrop seedsDropBottom2Up = new RandomDrop(GenesisItems.odontopteris_seeds, 1, 1);
 	
-	static final RandomItemDrop seedsDropTopBeforeMature = new RandomItemDrop(GenesisItems.odontopteris_seeds, 0, 1);
-	static final RandomItemDrop seedsDropTopMature = new RandomItemDrop(GenesisItems.odontopteris_seeds, 0, 2);
+	static final RandomDrop seedsDropTopBeforeMature = new RandomDrop(GenesisItems.odontopteris_seeds, 0, 1);
+	static final RandomDrop seedsDropTopMature = new RandomDrop(GenesisItems.odontopteris_seeds, 0, 2);
 
-	static final RandomItemDrop fiddleheadDrop1 = new RandomItemDrop(GenesisItems.odontopteris_fiddlehead, 0, 1);
-	static final RandomItemDrop fiddleheadDrop2To4 = new RandomItemDrop(GenesisItems.odontopteris_fiddlehead, 1, 1);
+	static final RandomDrop fiddleheadDrop1 = new RandomDrop(GenesisItems.odontopteris_fiddlehead, 0, 1);
+	static final RandomDrop fiddleheadDrop2To4 = new RandomDrop(GenesisItems.odontopteris_fiddlehead, 1, 1);
 
 	@Override
 	public void managePlantMetaProperties(BlockGrowingPlant plant, ArrayList<IProperty> metaProps)
@@ -62,31 +62,31 @@ public class BlockOdontopterisCustoms implements IGrowingPlantCustoms
 		{
 			if (age >= plant.maxAge)
 			{
-				out.add(seedsDropTopMature.getRandomStack(worldIn.rand));
+				out.add(seedsDropTopMature.getRandomStackDrop(worldIn.rand));
 			}
 			else
 			{
-				out.add(seedsDropTopBeforeMature.getRandomStack(worldIn.rand));
+				out.add(seedsDropTopBeforeMature.getRandomStackDrop(worldIn.rand));
 			}
 		}
 		else
 		{
 			if (age >= 2)
 			{
-				out.add(seedsDropBottom2Up.getRandomStack(worldIn.rand));
+				out.add(seedsDropBottom2Up.getRandomStackDrop(worldIn.rand));
 			}
 			else
 			{
-				out.add(seedsDropBottom1.getRandomStack(worldIn.rand));
+				out.add(seedsDropBottom1.getRandomStackDrop(worldIn.rand));
 			}
 
 			if (age == 1)
 			{
-				out.add(fiddleheadDrop1.getRandomStack(worldIn.rand));
+				out.add(fiddleheadDrop1.getRandomStackDrop(worldIn.rand));
 			}
 			if (age >= 2 && age <= 4)
 			{
-				out.add(fiddleheadDrop2To4.getRandomStack(worldIn.rand));
+				out.add(fiddleheadDrop2To4.getRandomStackDrop(worldIn.rand));
 			}
 		}
 		

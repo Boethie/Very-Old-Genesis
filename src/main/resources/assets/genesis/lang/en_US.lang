@@ -28,7 +28,7 @@ tile.genesis.peat.name=Peat
 
 tile.genesis.permafrost.name=Permafrost
 
-tile.genesis.ore.brownFlint.name=Brown Flint Inclusion
+tile.genesis.ore.flint.name=Flint Inclusion
 tile.genesis.ore.marcasite.name=Marcasite Ore
 tile.genesis.ore.quartz.name=Quartz Ore
 tile.genesis.ore.zircon.name=Zircon Ore
