@@ -26,6 +26,7 @@ tile.genesis.ooze.name=Boue
 tile.genesis.peat.name=Tourbe
 
 tile.genesis.permafrost.name=Pergélisol
+tile.genesis.ancientPermafrost.name=Pergélisol ancien 
 
 tile.genesis.ore.brownFlint.name=Accident de silex brun
 tile.genesis.ore.marcasite.name=Minerai de marcassite

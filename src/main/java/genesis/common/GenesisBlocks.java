@@ -43,7 +43,7 @@ public final class GenesisBlocks
 	public static final Block peat = new BlockPeat().setUnlocalizedName(Unlocalized.PREFIX + "peat");
 
 	public static final Block permafrost = new BlockPermafrost().setUnlocalizedName(Unlocalized.PREFIX + "permafrost");
-	public static final Block new_permafrost = new BlockNewPermafrost().setUnlocalizedName(Unlocalized.PREFIX + "permafrost");
+	public static final Block ancient_permafrost = new BlockAncientPermafrost().setUnlocalizedName(Unlocalized.PREFIX + "ancientPermafrost");
 
 	/* Granite Ores */
 	public static final Block quartz_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 1).setDrop(GenesisItems.quartz).setUnlocalizedName(Unlocalized.ORE + "quartz");
@@ -148,7 +148,7 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(ooze, "ooze");
 		Genesis.proxy.registerBlock(peat, "peat");
 		Genesis.proxy.registerBlock(permafrost, "permafrost");
-		Genesis.proxy.registerBlock(new_permafrost, "new_permafrost");
+		Genesis.proxy.registerBlock(ancient_permafrost, "ancient_permafrost");
 		Genesis.proxy.registerBlock(quartz_ore, "quartz_ore");
 		Genesis.proxy.registerBlock(zircon_ore, "zircon_ore");
 		Genesis.proxy.registerBlock(garnet_ore, "garnet_ore");

@@ -1,5 +1,5 @@
 {
-    "parent": "genesis:block/new_permafrost",
+    "parent": "genesis:block/ancient_permafrost",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

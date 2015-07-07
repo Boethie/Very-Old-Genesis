@@ -8,7 +8,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 
-public class BlockNewPermafrost extends BlockPermafrost
+public class BlockAncientPermafrost extends BlockPermafrost
 {
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune)
