@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class WorldUtils
@@ -151,5 +152,10 @@ public class WorldUtils
 	public static void setProperty(World world, BlockPos pos, IProperty property, Comparable value)
 	{
 		world.setBlockState(pos, world.getBlockState(pos).withProperty(property, value));
+	}
+	
+	public static Random getWorldRandom(IBlockAccess world, Random or)
+	{
+		return world instanceof World ? ((World) world).rand : or;
 	}
 }
