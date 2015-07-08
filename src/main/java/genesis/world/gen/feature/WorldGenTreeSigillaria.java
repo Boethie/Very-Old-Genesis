@@ -55,7 +55,7 @@ public class WorldGenTreeSigillaria extends WorldGenTreeBase
 		
 		if (rand.nextInt(8) > 4)
 		{
-			doBranch(world, branchPos, 0, 0, rand, leaves);
+			doBranch(world, branchPos, 0, 0, rand, leaves, true);
 		}
 		else
 		{
@@ -76,6 +76,11 @@ public class WorldGenTreeSigillaria extends WorldGenTreeBase
 	
 	private boolean doBranch(World world, BlockPos pos, int dirX, int dirZ, Random random, int leaveLength)
 	{
+		return doBranch(world, pos, dirX, dirZ, random, leaveLength, false);
+	}
+	
+	private boolean doBranch(World world, BlockPos pos, int dirX, int dirZ, Random random, int leaveLength, boolean forceLongBranch)
+	{
 		boolean generated = false;
 		
 		pos = pos.add((1 * dirX), 0, (1 * dirZ));
@@ -84,7 +89,7 @@ public class WorldGenTreeSigillaria extends WorldGenTreeBase
 		pos = pos.add((1 * dirX), 1, (1 * dirZ));
 		setBlockInWorld(world, pos, wood);
 		
-		if (random.nextInt(2) == 0)
+		if (random.nextInt(2) == 0 || forceLongBranch)
 		{
 			pos = pos.add(0, 1, 0);
 			setBlockInWorld(world, pos, wood);
