@@ -1,5 +1,5 @@
 {
-    "parent": "genesis:block/brown_flint_ore",
+    "parent": "genesis:block/ancient_permafrost",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

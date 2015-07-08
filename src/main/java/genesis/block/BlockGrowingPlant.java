@@ -2,9 +2,7 @@ package genesis.block;
 
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms.CanStayOptions;
 import genesis.common.GenesisCreativeTabs;
-import genesis.util.BlockStateToMetadata;
-import genesis.util.Constants.Unlocalized;
-import genesis.util.RandomItemDrop;
+import genesis.util.*;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -262,8 +260,8 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	public boolean resetAge = false;
 	public boolean useBiomeColor = false;
 
-	protected ArrayList<RandomItemDrop> drops = new ArrayList<RandomItemDrop>();
-	protected ArrayList<RandomItemDrop> cropDrops = new ArrayList<RandomItemDrop>();
+	protected ArrayList<RandomDrop> drops = new ArrayList<RandomDrop>();
+	protected ArrayList<RandomDrop> cropDrops = new ArrayList<RandomDrop>();
 	protected Item pickedItem = null;
 	
 	IGrowingPlantCustoms customs = null;
@@ -444,11 +442,11 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	 * 
 	 * @return Returns this block.
 	 */
-	public BlockGrowingPlant setDrops(RandomItemDrop... dropsIn)
+	public BlockGrowingPlant setDrops(RandomDrop... dropsIn)
 	{
 		drops.clear();
 		
-		for (RandomItemDrop drop : dropsIn)
+		for (RandomDrop drop : dropsIn)
 		{
 			drops.add(drop);
 		}
@@ -461,11 +459,11 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	 * 
 	 * @return Returns this block.
 	 */
-	public BlockGrowingPlant setCropDrops(RandomItemDrop... dropsIn)
+	public BlockGrowingPlant setCropDrops(RandomDrop... dropsIn)
 	{
 		cropDrops.clear();
 		
-		for (RandomItemDrop drop : dropsIn)
+		for (RandomDrop drop : dropsIn)
 		{
 			cropDrops.add(drop);
 		}
@@ -1155,17 +1153,17 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 					{
 						if ((Integer) state.getValue(ageProp) >= maxAge)
 						{
-							for (RandomItemDrop drop : cropDrops)
+							for (RandomDrop drop : cropDrops)
 							{
-								ItemStack stack = drop.getRandomStack(worldIn.rand);
+								ItemStack stack = drop.getRandomStackDrop(worldIn.rand);
 								spawnAsEntity(worldIn, pos, stack);
 							}
 						}
 						else
 						{
-							for (RandomItemDrop drop : drops)
+							for (RandomDrop drop : drops)
 							{
-								ItemStack stack = drop.getRandomStack(worldIn.rand);
+								ItemStack stack = drop.getRandomStackDrop(worldIn.rand);
 								spawnAsEntity(worldIn, pos, stack);
 							}
 						}

@@ -5,7 +5,7 @@ import net.minecraft.item.Item;
 
 public enum EnumNodule implements IMetadata
 {
-	BROWN_FLINT("brown_flint", "brownFlint"), MARCASITE("marcasite");
+	BROWN_FLINT("brown_flint", "brownFlint"), BLACK_FLINT ("black_flint", "blackFlint"), MARCASITE("marcasite");
 
 	private final String name;
 	private final String unlocalizedName;
