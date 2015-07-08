@@ -6,6 +6,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
 import genesis.common.GenesisBlocks;
 import genesis.world.gen.feature.WorldGenTreeLepidodendron;
+import genesis.world.gen.feature.WorldGenTreeSigillaria;
 
 import java.util.Random;
 
@@ -25,6 +26,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 {
 	public int odontopterisPerChunk = 0;
 	public int lepidodendronPerChunk = 0;
+	public int sigillariaPerChunk = 0;
 	public boolean generateDefaultTrees = true;
 	
 	public BiomeDecoratorGenesis()
@@ -145,6 +147,14 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			l = this.randomGenerator.nextInt(16) + 8;
 			i1 = this.nextInt(this.currentWorld.getHeight(this.field_180294_c.add(k, 0, l)).getY() * 2);
 			(new WorldGenTreeLepidodendron(14, 18, true)).generate(this.currentWorld, this.randomGenerator, this.field_180294_c.add(k, i1, l));
+		}
+		
+		for (j = 0; doGen && j < this.sigillariaPerChunk; ++j)
+		{
+			k = this.randomGenerator.nextInt(16) + 8;
+			l = this.randomGenerator.nextInt(16) + 8;
+			i1 = this.nextInt(this.currentWorld.getHeight(this.field_180294_c.add(k, 0, l)).getY() * 2);
+			(new WorldGenTreeSigillaria(10, 15, true)).generate(this.currentWorld, this.randomGenerator, this.field_180294_c.add(k, i1, l));
 		}
 		
 		if (this.generateLakes)

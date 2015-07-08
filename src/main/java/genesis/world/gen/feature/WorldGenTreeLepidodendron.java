@@ -12,7 +12,6 @@ import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import net.minecraftforge.common.IPlantable;
 
 public class WorldGenTreeLepidodendron extends WorldGenTreeBase
 {
@@ -56,17 +55,17 @@ public class WorldGenTreeLepidodendron extends WorldGenTreeBase
 		
 		if (rand.nextInt(2) == 0)
 		{
-			doBranch(world, branchPos, 1, 0, rand, leaves, true);
-			doBranch(world, branchPos, -1, 0, rand, leaves, true);
-			doBranch(world, branchPos, 0, 1, rand, leaves, true);
-			doBranch(world, branchPos, 0, -1, rand, leaves, true);
+			doBranch(world, branchPos, 1, 0, rand, leaves);
+			doBranch(world, branchPos, -1, 0, rand, leaves);
+			doBranch(world, branchPos, 0, 1, rand, leaves);
+			doBranch(world, branchPos, 0, -1, rand, leaves);
 		}
 		else
 		{
-			doBranch(world, branchPos, 1, 1, rand, leaves, true);
-			doBranch(world, branchPos, -1, -1, rand, leaves, true);
-			doBranch(world, branchPos, -1, 1, rand, leaves, true);
-			doBranch(world, branchPos, 1, -1, rand, leaves, true);
+			doBranch(world, branchPos, 1, 1, rand, leaves);
+			doBranch(world, branchPos, -1, -1, rand, leaves);
+			doBranch(world, branchPos, -1, 1, rand, leaves);
+			doBranch(world, branchPos, 1, -1, rand, leaves);
 		}
 		
 		doBranchLeaves(world, branchPos.down(), rand, false);
@@ -74,44 +73,23 @@ public class WorldGenTreeLepidodendron extends WorldGenTreeBase
 		return true;
 	}
 	
-	private boolean doBranch(World world, BlockPos pos, int dirX, int dirZ, Random random, int leaveLength, boolean force)
+	private boolean doBranch(World world, BlockPos pos, int dirX, int dirZ, Random random, int leaveLength)
 	{
 		boolean generated = false;
 		
-		if (random.nextInt(10) > 5 || force)
-		{
-			pos = pos.add((1 * dirX), 0, (1 * dirZ));
-			
-			setBlockInWorld(world, pos, wood);
-			
-			if (random.nextInt(10) > 1 || force)
-			{
-				doBranchLeaves(world, pos, random, false, leaveLength);
-				
-				pos = pos.add(0, 1, 0);
-				
-				setBlockInWorld(world, pos, wood);
-				
-				if (random.nextInt(10) > 4 || force)
-				{
-					doBranchLeaves(world, pos, random, false, leaveLength);
-					
-					pos = pos.add(0, 1, 0);
-					
-					setBlockInWorld(world, pos, wood);
-					doBranchLeaves(world, pos, random, true, leaveLength);
-				}
-				else
-				{
-					doBranchLeaves(world, pos, random, true, leaveLength);
-				}
-			}
-			else
-			{
-				doBranchLeaves(world, pos, random, true, leaveLength);
-			}
-			generated = true;
-		}
+		pos = pos.add((1 * dirX), 0, (1 * dirZ));
+		setBlockInWorld(world, pos, wood);
+		doBranchLeaves(world, pos, random, false, leaveLength);
+		
+		pos = pos.add(0, 1, 0);
+		setBlockInWorld(world, pos, wood);
+		doBranchLeaves(world, pos, random, false, leaveLength);
+		
+		pos = pos.add(0, 1, 0);
+		setBlockInWorld(world, pos, wood);
+		doBranchLeaves(world, pos, random, true, leaveLength);
+		
+		generated = true;
 		
 		return generated;
 	}
@@ -119,37 +97,5 @@ public class WorldGenTreeLepidodendron extends WorldGenTreeBase
 	private void doBranchLeaves(World world, BlockPos pos, Random random, boolean cap)
 	{
 		doBranchLeaves(world, pos, random, cap, 1 + random.nextInt(2));
-	}
-	
-	private void doBranchLeaves(World world, BlockPos pos, Random random, boolean cap, int length)
-	{
-		for (int i = 1; i <= length; ++i)
-		{
-			setBlockInWorld(world, pos.north(i), leaves);
-			setBlockInWorld(world, pos.north(i - 1).east(), leaves);
-			setBlockInWorld(world, pos.north(i - 1).west(), leaves);
-			
-			setBlockInWorld(world, pos.south(i), leaves);
-			setBlockInWorld(world, pos.south(i - 1).east(), leaves);
-			setBlockInWorld(world, pos.south(i - 1).west(), leaves);
-			
-			setBlockInWorld(world, pos.east(i), leaves);
-			setBlockInWorld(world, pos.east(i - 1).north(), leaves);
-			setBlockInWorld(world, pos.east(i - 1).south(), leaves);
-			
-			setBlockInWorld(world, pos.west(i), leaves);
-			setBlockInWorld(world, pos.west(i - 1).north(), leaves);
-			setBlockInWorld(world, pos.west(i - 1).south(), leaves);
-		}
-		
-		if (cap)
-		{
-			setBlockInWorld(world, pos.up(1), leaves);
-			setBlockInWorld(world, pos.up(1).north(), leaves);
-			setBlockInWorld(world, pos.up(1).south(), leaves);
-			setBlockInWorld(world, pos.up(1).east(), leaves);
-			setBlockInWorld(world, pos.up(1).west(), leaves);
-			setBlockInWorld(world, pos.up(2), leaves);
-		}
 	}
 }

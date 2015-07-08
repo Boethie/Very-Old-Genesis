@@ -1,11 +1,15 @@
 package genesis.block;
 
 import genesis.common.GenesisCreativeTabs;
-import genesis.metadata.*;
-import genesis.metadata.VariantsOfTypesCombo.*;
+import genesis.metadata.EnumTree;
+import genesis.metadata.PropertyIMetadata;
+import genesis.metadata.TreeBlocksAndItems;
+import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants.Unlocalized;
 import genesis.world.gen.feature.WorldGenTreeLepidodendron;
+import genesis.world.gen.feature.WorldGenTreeSigillaria;
 
 import java.util.List;
 import java.util.Random;
@@ -115,6 +119,7 @@ public class BlockGenesisSaplings extends BlockSapling
 		case ARCHAEOPTERIS:
 			break;
 		case SIGILLARIA:
+			gen = new WorldGenTreeSigillaria(10, 15, true);
 			break;
 		case LEPIDODENDRON:
 			gen = new WorldGenTreeLepidodendron(14, 18, true);

@@ -1,7 +1,5 @@
 package genesis.world.gen.feature;
 
-import genesis.common.Genesis;
-
 import java.util.Random;
 
 import net.minecraft.block.state.IBlockState;
@@ -87,7 +85,38 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 				return false;
 			}
 		}
-		
 		return true;
+	}
+	
+	public void doBranchLeaves(World world, BlockPos pos, Random random, boolean cap, int length)
+	{
+		for (int i = 1; i <= length; ++i)
+		{
+			setBlockInWorld(world, pos.north(i), leaves);
+			setBlockInWorld(world, pos.north(i - 1).east(), leaves);
+			setBlockInWorld(world, pos.north(i - 1).west(), leaves);
+			
+			setBlockInWorld(world, pos.south(i), leaves);
+			setBlockInWorld(world, pos.south(i - 1).east(), leaves);
+			setBlockInWorld(world, pos.south(i - 1).west(), leaves);
+			
+			setBlockInWorld(world, pos.east(i), leaves);
+			setBlockInWorld(world, pos.east(i - 1).north(), leaves);
+			setBlockInWorld(world, pos.east(i - 1).south(), leaves);
+			
+			setBlockInWorld(world, pos.west(i), leaves);
+			setBlockInWorld(world, pos.west(i - 1).north(), leaves);
+			setBlockInWorld(world, pos.west(i - 1).south(), leaves);
+		}
+		
+		if (cap)
+		{
+			setBlockInWorld(world, pos.up(1), leaves);
+			setBlockInWorld(world, pos.up(1).north(), leaves);
+			setBlockInWorld(world, pos.up(1).south(), leaves);
+			setBlockInWorld(world, pos.up(1).east(), leaves);
+			setBlockInWorld(world, pos.up(1).west(), leaves);
+			setBlockInWorld(world, pos.up(2), leaves);
+		}
 	}
 }

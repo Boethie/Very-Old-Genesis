@@ -1,10 +1,10 @@
 package genesis.world.biome;
 
-import genesis.world.biome.decorate.BiomeDecoratorGenesis;
 
 public class BiomeGenRainforestEdgeM extends BiomeGenRainforestEdge
 {
-
+	public int totalTreesPerChunk = 10;
+	
 	public BiomeGenRainforestEdgeM(int id)
 	{
 		super(id);
@@ -12,7 +12,6 @@ public class BiomeGenRainforestEdgeM extends BiomeGenRainforestEdge
 		this.minHeight = 0.7F;
 		this.maxHeight = 1.5F;
 		this.theBiomeDecorator.treesPerChunk = 0;
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).lepidodendronPerChunk = 5;
 	}
 
 }
