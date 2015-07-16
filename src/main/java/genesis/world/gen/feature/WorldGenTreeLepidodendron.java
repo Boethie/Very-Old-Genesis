@@ -38,7 +38,7 @@ public class WorldGenTreeLepidodendron extends WorldGenTreeBase
 			return false;
 		}
 		
-		int treeHeight = minHeight + rand.nextInt(maxHeight - minHeight) - 4;
+		int treeHeight = minHeight + rand.nextInt(maxHeight - minHeight) - 5;
 		
 		if (!isCubeClear(world, pos.up(), 1, treeHeight))
 		{
@@ -52,6 +52,8 @@ public class WorldGenTreeLepidodendron extends WorldGenTreeBase
 		
 		BlockPos branchPos = pos.up(treeHeight);
 		int leaves = 1 + rand.nextInt(2);
+		
+		doBranch(world, branchPos, 0, 0, rand, 0);
 		
 		if (rand.nextInt(2) == 0)
 		{

@@ -33,12 +33,12 @@ public class WorldGenTreeSigillaria extends WorldGenTreeBase
 	{
 		Block soil = world.getBlockState(pos.down()).getBlock();
 		
-		if (soil == null || !soil.canSustainPlant(world, pos, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.LEPIDODENDRON)))
+		if (soil == null || !soil.canSustainPlant(world, pos, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.SIGILLARIA)))
 		{
 			return false;
 		}
 		
-		int treeHeight = minHeight + rand.nextInt(maxHeight - minHeight) - 4;
+		int treeHeight = minHeight + rand.nextInt(maxHeight - minHeight) - 5;
 		
 		if (!isCubeClear(world, pos.up(), 1, treeHeight))
 		{
@@ -51,7 +51,7 @@ public class WorldGenTreeSigillaria extends WorldGenTreeBase
 		}
 		
 		BlockPos branchPos = pos.up(treeHeight);
-		int leaves = 1 + rand.nextInt(2);
+		int leaves = 1;
 		
 		if (rand.nextInt(8) > 4)
 		{

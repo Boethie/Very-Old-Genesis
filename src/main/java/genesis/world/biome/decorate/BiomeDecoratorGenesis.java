@@ -6,6 +6,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
 import genesis.common.GenesisBlocks;
 import genesis.world.gen.feature.WorldGenTreeLepidodendron;
+import genesis.world.gen.feature.WorldGenTreePsaronius;
 import genesis.world.gen.feature.WorldGenTreeSigillaria;
 
 import java.util.Random;
@@ -27,6 +28,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	public int odontopterisPerChunk = 0;
 	public int lepidodendronPerChunk = 0;
 	public int sigillariaPerChunk = 0;
+	public int psaroniusPerChunk = 0;
 	public boolean generateDefaultTrees = true;
 	
 	public BiomeDecoratorGenesis()
@@ -124,6 +126,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 		// TALL GRASS
 		
 		doGen = TerrainGen.decorate(this.currentWorld, this.randomGenerator, this.field_180294_c, GRASS);
+		
 		for (j = 0; doGen && j < this.grassPerChunk; ++j)
 		{
 			k = this.randomGenerator.nextInt(16) + 8;
@@ -132,7 +135,6 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			p_150513_1_.getRandomWorldGenForGrass(this.randomGenerator).generate(this.currentWorld, this.randomGenerator, this.field_180294_c.add(k, i1, l));
 		}
 		
-		// doGen = TerrainGen.decorate(this.currentWorld, this.randomGenerator, this.field_180294_c, CUSTOM);
 		for (j = 0; doGen && j < this.odontopterisPerChunk; ++j)
 		{
 			k = this.randomGenerator.nextInt(16) + 8;
@@ -140,6 +142,8 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			i1 = this.nextInt(this.currentWorld.getHeight(this.field_180294_c.add(k, 0, l)).getY() * 2);
 			(new WorldGenOdontopteris()).generate(this.currentWorld, this.randomGenerator, this.field_180294_c.add(k, i1, l));
 		}
+		
+		doGen = true; // TerrainGen.decorate(this.currentWorld, this.randomGenerator, this.field_180294_c, TREE);
 		
 		for (j = 0; doGen && j < this.lepidodendronPerChunk; ++j)
 		{
@@ -155,6 +159,14 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			l = this.randomGenerator.nextInt(16) + 8;
 			i1 = this.nextInt(this.currentWorld.getHeight(this.field_180294_c.add(k, 0, l)).getY() * 2);
 			(new WorldGenTreeSigillaria(10, 15, true)).generate(this.currentWorld, this.randomGenerator, this.field_180294_c.add(k, i1, l));
+		}
+		
+		for (j = 0; doGen && j < this.psaroniusPerChunk; ++j)
+		{
+			k = this.randomGenerator.nextInt(16) + 8;
+			l = this.randomGenerator.nextInt(16) + 8;
+			i1 = this.nextInt(this.currentWorld.getHeight(this.field_180294_c.add(k, 0, l)).getY() * 2);
+			(new WorldGenTreePsaronius(5, 8, true)).generate(this.currentWorld, this.randomGenerator, this.field_180294_c.add(k, i1, l));
 		}
 		
 		if (this.generateLakes)
