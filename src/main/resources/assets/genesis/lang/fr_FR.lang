@@ -19,7 +19,6 @@ tile.genesis.rock.fauxAmphibolite.name=Faux-amphibolite
 tile.genesis.rock.gneiss.name=Gneiss
 tile.genesis.rock.quartzite.name=Quartzite
 tile.genesis.rock.limestone.name=Calcaire
-tile.genesis.rock.shale.name=Schiste argileux
 tile.genesis.rock.octaedrite.name=Octaédrite
 tile.genesis.redClay.name=Argile rouge
 tile.genesis.ooze.name=Boue
@@ -28,7 +27,7 @@ tile.genesis.peat.name=Tourbe
 tile.genesis.permafrost.name=Pergélisol
 tile.genesis.ancientPermafrost.name=Pergélisol ancien 
 
-tile.genesis.ore.brownFlint.name=Accident de silex brun
+tile.genesis.ore.flint.name=Accident de silex
 tile.genesis.ore.marcasite.name=Minerai de marcassite
 tile.genesis.ore.quartz.name=Minerai de quartz
 tile.genesis.ore.zircon.name=Minerai de zircon
