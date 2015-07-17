@@ -8,7 +8,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 {
-
 	public BiomeGenBaseGenesis(int id)
 	{
 		super(id);
@@ -21,11 +20,4 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 		this.spawnableWaterCreatureList.clear();
 		this.waterColorMultiplier = 0xaa791e;
 	}
-	/*
-	@Override
-	public int getFoliageColorAtPos(BlockPos p_180625_1_)
-	{
-		return 0x8DB360;
-	}
-	*/
 }

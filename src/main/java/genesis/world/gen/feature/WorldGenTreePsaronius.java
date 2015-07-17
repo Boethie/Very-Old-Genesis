@@ -33,7 +33,10 @@ public class WorldGenTreePsaronius extends WorldGenTreeBase
 	{
 		Block soil = world.getBlockState(pos.down()).getBlock();
 		
-		if (soil == null || !soil.canSustainPlant(world, pos, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.PSARONIUS)))
+		if (
+				soil == null 
+				|| !soil.canSustainPlant(world, pos, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.PSARONIUS))
+				|| !world.getBlockState(pos).getBlock().isAir(world, pos))
 		{
 			return false;
 		}

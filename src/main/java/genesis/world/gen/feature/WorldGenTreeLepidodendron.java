@@ -33,7 +33,10 @@ public class WorldGenTreeLepidodendron extends WorldGenTreeBase
 	{
 		Block soil = world.getBlockState(pos.down()).getBlock();
 		
-		if (soil == null || !soil.canSustainPlant(world, pos, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.LEPIDODENDRON)))
+		if (
+				soil == null 
+				|| !soil.canSustainPlant(world, pos, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.LEPIDODENDRON))
+				|| !world.getBlockState(pos).getBlock().isAir(world, pos))
 		{
 			return false;
 		}
@@ -53,8 +56,8 @@ public class WorldGenTreeLepidodendron extends WorldGenTreeBase
 		BlockPos branchPos = pos.up(treeHeight);
 		int leaves = 1 + rand.nextInt(2);
 		
-		doBranch(world, branchPos, 0, 0, rand, 0);
-		
+		doBranch(world, branchPos, 0, 0, rand, leaves);
+		/*
 		if (rand.nextInt(2) == 0)
 		{
 			doBranch(world, branchPos, 1, 0, rand, leaves);
@@ -69,7 +72,7 @@ public class WorldGenTreeLepidodendron extends WorldGenTreeBase
 			doBranch(world, branchPos, -1, 1, rand, leaves);
 			doBranch(world, branchPos, 1, -1, rand, leaves);
 		}
-		
+		*/
 		doBranchLeaves(world, branchPos.down(), rand, false);
 		
 		return true;

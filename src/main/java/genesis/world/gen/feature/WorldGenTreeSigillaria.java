@@ -33,7 +33,10 @@ public class WorldGenTreeSigillaria extends WorldGenTreeBase
 	{
 		Block soil = world.getBlockState(pos.down()).getBlock();
 		
-		if (soil == null || !soil.canSustainPlant(world, pos, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.SIGILLARIA)))
+		if (
+				soil == null 
+				|| !soil.canSustainPlant(world, pos, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.SIGILLARIA))
+				|| !world.getBlockState(pos).getBlock().isAir(world, pos))
 		{
 			return false;
 		}
