@@ -3,7 +3,7 @@ package genesis.world.biome;
 
 public class BiomeGenRainforestEdgeM extends BiomeGenRainforestEdge
 {
-	public int totalTreesPerChunk = 350;
+	public int totalTreesPerChunk = 400;
 	
 	public BiomeGenRainforestEdgeM(int id)
 	{

@@ -10,7 +10,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class BiomeGenRainforest extends BiomeGenBaseGenesis
 {
-	public int totalTreesPerChunk = 600;
+	public int totalTreesPerChunk = 650;
 	
 	public BiomeGenRainforest(int id)
 	{

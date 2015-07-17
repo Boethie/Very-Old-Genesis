@@ -56,42 +56,42 @@ public class WorldGenTreeLepidodendron extends WorldGenTreeBase
 		BlockPos branchPos = pos.up(treeHeight);
 		int leaves = 1 + rand.nextInt(2);
 		
-		doBranch(world, branchPos, 0, 0, rand, leaves);
-		/*
+		doBranch(world, branchPos, 0, 0, rand, leaves, false);
+		
 		if (rand.nextInt(2) == 0)
 		{
-			doBranch(world, branchPos, 1, 0, rand, leaves);
-			doBranch(world, branchPos, -1, 0, rand, leaves);
-			doBranch(world, branchPos, 0, 1, rand, leaves);
-			doBranch(world, branchPos, 0, -1, rand, leaves);
+			doBranch(world, branchPos, 1, 0, rand, leaves, true);
+			doBranch(world, branchPos, -1, 0, rand, leaves, true);
+			doBranch(world, branchPos, 0, 1, rand, leaves, true);
+			doBranch(world, branchPos, 0, -1, rand, leaves, true);
 		}
 		else
 		{
-			doBranch(world, branchPos, 1, 1, rand, leaves);
-			doBranch(world, branchPos, -1, -1, rand, leaves);
-			doBranch(world, branchPos, -1, 1, rand, leaves);
-			doBranch(world, branchPos, 1, -1, rand, leaves);
+			doBranch(world, branchPos, 1, 1, rand, leaves, true);
+			doBranch(world, branchPos, -1, -1, rand, leaves, true);
+			doBranch(world, branchPos, -1, 1, rand, leaves, true);
+			doBranch(world, branchPos, 1, -1, rand, leaves, true);
 		}
-		*/
+		
 		doBranchLeaves(world, branchPos.down(), rand, false);
 		
 		return true;
 	}
 	
-	private boolean doBranch(World world, BlockPos pos, int dirX, int dirZ, Random random, int leaveLength)
+	private boolean doBranch(World world, BlockPos pos, int dirX, int dirZ, Random random, int leaveLength, boolean leaveBranch)
 	{
 		boolean generated = false;
 		
 		pos = pos.add((1 * dirX), 0, (1 * dirZ));
-		setBlockInWorld(world, pos, wood);
+		setBlockInWorld(world, pos, (leaveBranch)? leaves : wood);
 		doBranchLeaves(world, pos, random, false, leaveLength);
 		
 		pos = pos.add(0, 1, 0);
-		setBlockInWorld(world, pos, wood);
+		setBlockInWorld(world, pos, (leaveBranch)? leaves : wood);
 		doBranchLeaves(world, pos, random, false, leaveLength);
 		
 		pos = pos.add(0, 1, 0);
-		setBlockInWorld(world, pos, wood);
+		setBlockInWorld(world, pos, (leaveBranch)? leaves : wood);
 		doBranchLeaves(world, pos, random, true, leaveLength);
 		
 		generated = true;
