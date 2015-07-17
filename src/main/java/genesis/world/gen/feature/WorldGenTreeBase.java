@@ -16,6 +16,8 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	protected int minHeight;
     protected int maxHeight;
 	
+    private int treeCountPerChunk = 0;
+    
 	public WorldGenTreeBase(IBlockState wood, IBlockState leaves, boolean notify)
 	{
 		super(notify);
@@ -23,6 +25,17 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		this.wood = wood;
 		this.leaves = leaves;
 		this.notify = notify;
+	}
+	
+	public WorldGenTreeBase setTreeCountPerChunk(int count)
+	{
+		treeCountPerChunk = count;
+		return this;
+	}
+	
+	public int getTreeCountPerChunk()
+	{
+		return treeCountPerChunk;
 	}
 	
 	@Override

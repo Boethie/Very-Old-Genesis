@@ -5,10 +5,10 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LAKE_WATER;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
 import genesis.common.GenesisBlocks;
-import genesis.world.gen.feature.WorldGenTreeLepidodendron;
-import genesis.world.gen.feature.WorldGenTreePsaronius;
-import genesis.world.gen.feature.WorldGenTreeSigillaria;
+import genesis.world.gen.feature.WorldGenTreeBase;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import net.minecraft.init.Blocks;
@@ -26,10 +26,9 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 public class BiomeDecoratorGenesis extends BiomeDecorator
 {
 	public int odontopterisPerChunk = 0;
-	public int lepidodendronPerChunk = 0;
-	public int sigillariaPerChunk = 0;
-	public int psaroniusPerChunk = 0;
 	public boolean generateDefaultTrees = true;
+	
+	public List<WorldGenTreeBase> trees = new ArrayList<WorldGenTreeBase>();
 	
 	public BiomeDecoratorGenesis()
 	{
@@ -145,28 +144,15 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 		
 		doGen = true; // TerrainGen.decorate(this.currentWorld, this.randomGenerator, this.field_180294_c, TREE);
 		
-		for (j = 0; doGen && j < this.lepidodendronPerChunk; ++j)
+		for (int it = 0; it < trees.size(); ++it)
 		{
-			k = this.randomGenerator.nextInt(16) + 8;
-			l = this.randomGenerator.nextInt(16) + 8;
-			i1 = this.nextInt(this.currentWorld.getHeight(this.field_180294_c.add(k, 0, l)).getY() * 2);
-			(new WorldGenTreeLepidodendron(14, 18, true)).generate(this.currentWorld, this.randomGenerator, this.field_180294_c.add(k, i1, l));
-		}
-		
-		for (j = 0; doGen && j < this.sigillariaPerChunk; ++j)
-		{
-			k = this.randomGenerator.nextInt(16) + 8;
-			l = this.randomGenerator.nextInt(16) + 8;
-			i1 = this.nextInt(this.currentWorld.getHeight(this.field_180294_c.add(k, 0, l)).getY() * 2);
-			(new WorldGenTreeSigillaria(10, 15, true)).generate(this.currentWorld, this.randomGenerator, this.field_180294_c.add(k, i1, l));
-		}
-		
-		for (j = 0; doGen && j < this.psaroniusPerChunk; ++j)
-		{
-			k = this.randomGenerator.nextInt(16) + 8;
-			l = this.randomGenerator.nextInt(16) + 8;
-			i1 = this.nextInt(this.currentWorld.getHeight(this.field_180294_c.add(k, 0, l)).getY() * 2);
-			(new WorldGenTreePsaronius(5, 8, true)).generate(this.currentWorld, this.randomGenerator, this.field_180294_c.add(k, i1, l));
+			for (j = 0; j < trees.get(it).getTreeCountPerChunk(); ++j)
+			{
+				k = this.randomGenerator.nextInt(16) + 8;
+				l = this.randomGenerator.nextInt(16) + 8;
+				i1 = this.nextInt(this.currentWorld.getHeight(this.field_180294_c.add(k, 0, l)).getY() * 2);
+				trees.get(it).generate(this.currentWorld, this.randomGenerator, this.field_180294_c.add(k, i1, l));
+			}
 		}
 		
 		if (this.generateLakes)

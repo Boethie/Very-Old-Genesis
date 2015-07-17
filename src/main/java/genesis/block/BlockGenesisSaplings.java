@@ -8,6 +8,7 @@ import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants.Unlocalized;
+import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
 import genesis.world.gen.feature.WorldGenTreeLepidodendron;
 import genesis.world.gen.feature.WorldGenTreePsaronius;
 import genesis.world.gen.feature.WorldGenTreeSigillaria;
@@ -131,6 +132,7 @@ public class BlockGenesisSaplings extends BlockSapling
 			gen = new WorldGenTreePsaronius(5, 8, true);
 			break;
 		case ARAUCARIOXYLON:
+			gen = new WorldGenTreeAraucarioxylon(25, 30, true);
 			break;
 		}
 		
