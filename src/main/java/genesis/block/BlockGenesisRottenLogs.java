@@ -12,7 +12,7 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 
-public class BlockGenesisRottenLogs extends BlockGenesisLogs
+public class BlockGenesisRottenLogs extends BlockGenesisLogs implements IGenesisMushroomBase
 {
 	@BlockProperties
 	public static IProperty[] getProperties()

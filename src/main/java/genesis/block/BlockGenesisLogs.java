@@ -1,7 +1,10 @@
 package genesis.block;
 
 import genesis.common.GenesisCreativeTabs;
-import genesis.metadata.*;
+import genesis.metadata.EnumTree;
+import genesis.metadata.IMetadata;
+import genesis.metadata.PropertyIMetadata;
+import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.BlockStateToMetadata;
@@ -17,13 +20,14 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
-import net.minecraftforge.event.entity.player.PlayerEvent.HarvestCheck;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 
-public class BlockGenesisLogs extends BlockLog
+public class BlockGenesisLogs extends BlockLog implements IGenesisMushroomBase
 {
 	/**
 	 * Used in BlocksAndItemsWithVariantsOfTypes.

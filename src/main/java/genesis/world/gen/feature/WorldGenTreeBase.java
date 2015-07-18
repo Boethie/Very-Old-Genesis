@@ -60,21 +60,22 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	
 	protected void setBlockInWorld(World world, BlockPos pos, IBlockState state)
 	{
+		boolean place = true;
+		
 		if (state == wood &&
-					(world.getBlockState(pos).getBlock().isAir(world, pos) 
+					!(world.getBlockState(pos).getBlock().isAir(world, pos) 
 					|| world.getBlockState(pos).getBlock().getMaterial().isReplaceable() 
 					|| world.getBlockState(pos).getBlock().isLeaves(world, pos)))
 		{
-			if (notify)
-			{
-				world.setBlockState(pos, state, 3);
-			}
-			else
-			{
-				world.setBlockState(pos, state, 2);
-			}
+			place = false;
 		}
-		else if (state == leaves && world.getBlockState(pos).getBlock().isAir(world, pos))
+		
+		if (state == leaves && !world.getBlockState(pos).getBlock().isAir(world, pos))
+		{
+			place = false;
+		}
+		
+		if (place)
 		{
 			if (notify)
 			{

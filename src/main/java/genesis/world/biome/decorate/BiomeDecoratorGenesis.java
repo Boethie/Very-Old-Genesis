@@ -81,10 +81,12 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 		{
 			++i;
 		}
-
+		
 		int l;
+		// NO MORE OAKS IN GENESIS
+		/*
 		BlockPos blockpos;
-
+		
 		doGen = TerrainGen.decorate(this.currentWorld, this.randomGenerator, this.field_180294_c, TREE);
 		for (j = 0; doGen && j < i; ++j)
 		{
@@ -99,7 +101,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 				worldgenabstracttree.func_180711_a(this.currentWorld, this.randomGenerator, blockpos);
 			}
 		}
-
+		*/
 		int i1;
 
 		// TODO change to deadlog

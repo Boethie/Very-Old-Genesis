@@ -62,7 +62,9 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 		float percent;
 		int leaves;
 		
-		while (branchPos.getY() > pos.getY())
+		branchPos = branchPos.add(0, -1, 0);
+		
+		while (branchPos.getY() > pos.getY() + 6)
 		{
 			branchPos = branchPos.add(0, -1, 0);
 			
@@ -78,6 +80,19 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			}
 			
 			alternate = !alternate;
+		}
+		
+		if (rand.nextInt(10) > 7)
+		{
+			BlockPos posSapling = pos.add(rand.nextInt(8) - 4, 0, rand.nextInt(8) - 4);
+			
+			if (
+					posSapling != null
+					&& world.getBlockState(posSapling.up()).getBlock().isAir(world, posSapling)
+					&& world.getBlockState(posSapling).getBlock().canSustainPlant(world, posSapling, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.ARAUCARIOXYLON)))
+			{
+				setBlockInWorld(world, posSapling.up(), GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.SAPLING, EnumTree.ARAUCARIOXYLON));
+			}
 		}
 		
 		return true;

@@ -1,21 +1,58 @@
 package genesis.common;
 
+import genesis.block.BlockAncientPermafrost;
+import genesis.block.BlockAquaticPlant;
+import genesis.block.BlockCalamites;
+import genesis.block.BlockCalamitesBundle;
+import genesis.block.BlockCalamitesTorch;
+import genesis.block.BlockCobbania;
+import genesis.block.BlockFern;
+import genesis.block.BlockGenesisFlowerPot;
+import genesis.block.BlockGenesisMushroom;
+import genesis.block.BlockGenesisOre;
+import genesis.block.BlockGenesisRock;
+import genesis.block.BlockGenesisVariants;
+import genesis.block.BlockGrowingPlant;
+import genesis.block.BlockKomatiiticLava;
+import genesis.block.BlockMoss;
+import genesis.block.BlockOdontopterisCustoms;
+import genesis.block.BlockOoze;
+import genesis.block.BlockPeat;
+import genesis.block.BlockPermafrost;
+import genesis.block.BlockPlant;
+import genesis.block.BlockPrograminisBundle;
+import genesis.block.BlockPrototaxites;
+import genesis.block.BlockPrototaxitesMycelium;
+import genesis.block.BlockRedClay;
+import genesis.block.BlockSphenophyllumCustoms;
+import genesis.block.tileentity.BlockCampfire;
+import genesis.block.tileentity.TileEntityCampfire;
+import genesis.block.tileentity.render.TileEntityCampfireRenderer;
+import genesis.client.GenesisClient;
+import genesis.client.GenesisSounds;
+import genesis.item.ItemBlockCobbania;
+import genesis.item.ItemBlockColored;
+import genesis.item.ItemBlockMulti;
+import genesis.metadata.DungBlocksAndItems;
+import genesis.metadata.EnumAquaticPlant;
+import genesis.metadata.EnumCoral;
+import genesis.metadata.EnumFern;
+import genesis.metadata.EnumNodule;
+import genesis.metadata.EnumPlant;
+import genesis.metadata.IMetadata;
+import genesis.metadata.TreeBlocksAndItems;
+import genesis.metadata.VariantsCombo;
+import genesis.metadata.VariantsOfTypesCombo.ObjectNamePosition;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import genesis.util.Constants.Unlocalized;
+import genesis.util.RandomDrop;
+import genesis.util.RandomDrop.RandomStackDrop;
+import genesis.util.SidedFunction;
+
 import java.util.List;
 
-import genesis.block.*;
-import genesis.client.*;
-import genesis.item.*;
-import genesis.metadata.*;
-import genesis.metadata.VariantsOfTypesCombo.*;
-import genesis.block.tileentity.*;
-import genesis.block.tileentity.render.TileEntityCampfireRenderer;
-import genesis.util.*;
-import genesis.util.Constants.Unlocalized;
-import genesis.util.RandomDrop.RandomStackDrop;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.block.statemap.StateMap;
-import net.minecraft.item.Item;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -104,6 +141,7 @@ public final class GenesisBlocks
 	public static final Block calamites_bundle = new BlockCalamitesBundle().setUnlocalizedName(Unlocalized.PREFIX + "calamitesBundle");
 	public static final Block programinis_bundle = new BlockPrograminisBundle().setUnlocalizedName(Unlocalized.PREFIX + "programinisBundle");
 	public static final Block calamites_torch = new BlockCalamitesTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTorch");
+	public static final BlockGenesisMushroom archaeomarasimus = new BlockGenesisMushroom().setUnlocalizedName(Unlocalized.PREFIX + "archaeomarasmius");
 	public static final Block prototaxites_mycelium = new BlockPrototaxitesMycelium().setUnlocalizedName(Unlocalized.PREFIX + "prototaxitesMycelium");
 	public static final DungBlocksAndItems dungs = new DungBlocksAndItems();
 	
@@ -160,6 +198,7 @@ public final class GenesisBlocks
 		trees.registerVariants(trees.LOG);
 		Genesis.proxy.registerBlock(calamites_bundle, "calamites_bundle");
 		Genesis.proxy.registerBlock(programinis_bundle, "programinis_bundle");
+		Genesis.proxy.registerBlock(archaeomarasimus, "archaeomarasmius");
 		Genesis.proxy.registerBlock(prototaxites_mycelium, "prototaxites_mycelium");
 		dungs.registerVariants(dungs.DUNG_BLOCK);
 		

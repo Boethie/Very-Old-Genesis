@@ -1,12 +1,12 @@
 package genesis.world.gen.feature;
 
-import java.util.Random;
-
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumTree;
 import genesis.metadata.TreeBlocksAndItems;
+
+import java.util.Random;
+
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.util.BlockPos;
@@ -77,18 +77,7 @@ public class WorldGenTreePsaronius extends WorldGenTreeBase
 		for (int i = 1; i <= length; ++ i)
 		{
 			pos = pos.add((1 * dirX), 0, (1 * dirZ));
-			setBlockInWorld(world, pos, leaves.withProperty(BlockLeaves.DECAYABLE, false));
-			/*
-			if (i < 3)
-			{
-				backLeaves = pos.add((-1 * dirX), 0, (-1 * dirZ));
-				
-				setBlockInWorld(world, backLeaves.north(), leaves);
-				setBlockInWorld(world, backLeaves.south(), leaves);
-				setBlockInWorld(world, backLeaves.east(), leaves);
-				setBlockInWorld(world, backLeaves.west(), leaves);
-			}
-			*/
+			setBlockInWorld(world, pos, leaves);
 		}
 	}
 	
