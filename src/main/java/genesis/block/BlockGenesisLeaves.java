@@ -7,9 +7,7 @@ import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLog.EnumAxis;
@@ -53,7 +51,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 		variantProp = new PropertyIMetadata("variant", variants);
 		
 		blockState = new BlockState(this, variantProp, CHECK_DECAY, DECAYABLE);
-		setDefaultState(getBlockState().getBaseState().withProperty(CHECK_DECAY, true).withProperty(DECAYABLE, true));
+		setDefaultState(getBlockState().getBaseState().withProperty(DECAYABLE, true).withProperty(CHECK_DECAY, true));
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		setStepSound(soundTypeGrass);
@@ -139,8 +137,82 @@ public class BlockGenesisLeaves extends BlockLeaves
 	{
 		IBlockState state = getDefaultState();
 		state = state.withProperty(variantProp, (Comparable) owner.getVariant(this, meta));
-		state = state.withProperty(DECAYABLE, false);
+		state = state.withProperty(DECAYABLE, false).withProperty(CHECK_DECAY, false);
 		return state;
+	}
+	
+	protected void breakAndDrop(World world, BlockPos pos)
+	{
+		dropBlockAsItem(world, pos, world.getBlockState(pos), 0);
+		world.setBlockToAir(pos);
+	}
+	
+	protected int leafDistance = 5;
+	
+	public boolean isConnectedToLog(EnumTree treeType, World world, BlockPos curPos, double curDist)
+	{
+		if (curDist < leafDistance)
+		{
+			IBlockState state = world.getBlockState(curPos);
+			TreeBlocksAndItems.VariantData data = owner.getVariantData(state);
+			
+			if (data != null && data.variant == treeType)
+			{
+				if (data.type == owner.LOG)
+				{
+					return true;
+				}
+				else if (data.type == owner.LEAVES)
+				{
+					Iterable<BlockPos> blocksAround = BlockPos.getAllInBox(curPos.add(-1, -1, -1), curPos.add(1, 1, 1));
+					
+					for (BlockPos nextPos : blocksAround)
+					{
+						BlockPos diff = curPos.subtract(nextPos);
+						double addDist = Math.abs(diff.getX()) + Math.abs(diff.getY()) + Math.abs(diff.getZ());
+						addDist = Math.sqrt(addDist);
+						
+						if (addDist > 0 && isConnectedToLog(treeType, world, nextPos, curDist + addDist))
+						{
+							return true;
+						}
+					}
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	public boolean isConnectedToLog(World world, BlockPos pos)
+	{
+		return isConnectedToLog(owner.getVariant(world.getBlockState(pos)), world, pos, 0);
+	}
+	
+	protected void checkAndDoDecay(World world, BlockPos pos)
+	{
+		if (world.isAreaLoaded(pos.add(-leafDistance, -leafDistance, -leafDistance), pos.add(leafDistance, leafDistance, leafDistance)))
+		{
+			if (isConnectedToLog(world, pos))
+			{
+				world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockLeaves.CHECK_DECAY, false));
+			}
+			else
+			{
+				breakAndDrop(world, pos);
+			}
+		}
+	}
+	
+	@Override
+	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
+	{
+		boolean checkDecay = (Boolean) state.getValue(BlockLeaves.CHECK_DECAY);
+		
+		if (checkDecay)
+		{
+			checkAndDoDecay(world, pos);
+		}
 	}
 
 	@Override

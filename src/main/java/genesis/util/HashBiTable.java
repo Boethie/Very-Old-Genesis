@@ -113,6 +113,11 @@ public class HashBiTable<R, C, V> implements BiTable<R, C, V>
 	@Override
 	public V get(BiTable.Key<?, ?> key)
 	{
+		if (key == null)
+		{
+			return null;
+		}
+		
 		return get(key.getRow(), key.getColumn());
 	}
 

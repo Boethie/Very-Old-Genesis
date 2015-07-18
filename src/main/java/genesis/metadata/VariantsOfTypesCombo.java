@@ -309,102 +309,55 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 		}
 	}
 	
-	/**
-	 * Used to get the ObjectType and IMetadata for a VariantData in the bitable.
-	 */
-	public class VariantKey
+	public class VariantData
 	{
+		public final O type;
+		public final int subsetID;
 		public final Item item;
 		public final int itemMetadata;
+		public final Block block;
+		public final V variant;
 		
-		public VariantKey(Item item, int metadata)
+		private VariantData(O type, int subsetID, Block block, Item item, V variant, int metadata)
 		{
+			this.type = type;
+			this.subsetID = subsetID;
 			this.item = item;
 			this.itemMetadata = metadata;
-		}
-		
-		@Override
-		public int hashCode()
-		{
-			return item.hashCode() ^ itemMetadata;
-		}
-		
-		@Override
-		public boolean equals(Object obj)
-		{
-			if (obj instanceof VariantsOfTypesCombo.VariantKey)
-			{
-				VariantKey other = (VariantKey) obj;
-				
-				if (item == other.item && itemMetadata == other.itemMetadata)
-				{
-					return true;
-				}
-			}
-			
-			return false;
-		}
-	}
-	
-	public class VariantData extends VariantKey
-	{
-		public final Block block;
-		public final int subset;
-		
-		private VariantData(Block block, Item item, int subset, int metadata)
-		{
-			super(item, metadata);
-			
 			this.block = block;
-			this.subset = subset;
+			this.variant = variant;
 		}
 	}
 	
 	public class SubsetData
 	{
-		public final Block block;
+		public final O type;
+		public final int id;
 		public final Item item;
+		public final Block block;
 		public final int maxSize;
 		public final int size;
-		public final ImmutableList<V> variants;
+		public final ImmutableMap<Integer, V> variants;
 		
-		public SubsetData(Block block, Item item, int maxSize, int size, ImmutableList<V> variants)
+		public SubsetData(O type, int id, Block block, Item item, int maxSize, int size, ImmutableMap<Integer, V> variants)
 		{
-			this.block = block;
+			this.type = type;
+			this.id = id;
 			this.item = item;
+			this.block = block;
 			this.maxSize = maxSize;
 			this.size = size;
 			this.variants = variants;
-		}
-		
-		@Override
-		public int hashCode()
-		{
-			return item.hashCode();
-		}
-		
-		@Override
-		public boolean equals(Object obj)
-		{
-			if (obj instanceof VariantsOfTypesCombo.SubsetData)
-			{
-				SubsetData other = (SubsetData) obj;
-				
-				if (item == other.item)
-				{
-					return true;
-				}
-			}
-			
-			return false;
 		}
 	}
 	
 	/**
 	 * Map of Block/Item types to a map of variants to the block/item itself.
 	 */
-	protected final UnmodifiableBiTable<O, V, VariantData> objectDataTable;
-	protected final UnmodifiableBiTable<O, Integer, SubsetData> subsetDataTable;
+	protected final ImmutableTable<O, V, VariantData> objectDataTable;
+	protected final ImmutableTable<O, Integer, SubsetData> subsetDataTable;
+	protected final ImmutableMap<Block, SubsetData> blockMap;
+	protected final ImmutableMap<Item, SubsetData> itemMap;
 	public final ImmutableList<O> types;
 	public final ImmutableList<V> variants;
 	public final HashSet<O> registeredTypes = new HashSet();
@@ -433,8 +386,10 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 		
 		try
 		{
-			HashBiTable<O, V, VariantData> objectDataTable = new HashBiTable();
-			HashBiTable<O, Integer, SubsetData> subsetDataTable = new HashBiTable();
+			ImmutableTable.Builder<O, V, VariantData> objectDataTable = ImmutableTable.builder();
+			ImmutableTable.Builder<O, Integer, SubsetData> subsetDataTable = ImmutableTable.builder();
+			ImmutableMap.Builder<Block, SubsetData> blockMap = ImmutableMap.builder();
+			ImmutableMap.Builder<Item, SubsetData> itemMap = ImmutableMap.builder();
 			
 			for (final O type : types)
 			{
@@ -532,19 +487,34 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 					
 					// Add the Block or Item to our object map with its metadata ID.
 					int variantMetadata = 0;
+					ImmutableMap.Builder<Integer, V> variantMap = ImmutableMap.builder();
 					
 					for (V variant : subVariants)
 					{
-						objectDataTable.put(type, variant, new VariantData(block, item, subset, variantMetadata));
+						objectDataTable.put(type, variant, new VariantData(type, subset, block, item, variant, variantMetadata));
+						variantMap.put(variantMetadata, variant);
 						variantMetadata++;
 					}
 					
-					subsetDataTable.put(type, subset, new SubsetData(block, item, maxSubsetSize, subsetSize, subVariants));
+					SubsetData subsetData = new SubsetData(type, subset, block, item, maxSubsetSize, subsetSize, variantMap.build());
+					subsetDataTable.put(type, subset, subsetData);
+					
+					if (block != null)
+					{
+						blockMap.put(block, subsetData);
+					}
+					
+					if (item != null)
+					{
+						itemMap.put(item, subsetData);
+					}
 				}
 			}
 			
-			this.objectDataTable = new UnmodifiableBiTable(objectDataTable);
-			this.subsetDataTable = new UnmodifiableBiTable(subsetDataTable);
+			this.objectDataTable = objectDataTable.build();
+			this.subsetDataTable = subsetDataTable.build();
+			this.blockMap = blockMap.build();
+			this.itemMap = itemMap.build();
 		}
 		catch (Exception e)
 		{
@@ -656,9 +626,9 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 			}
 			
 			// Set unlocalized names and item model locations.
-			for (V variant : subset.variants)
+			for (V variant : subset.variants.values())
 			{
-				VariantData data = getVariantEntry(type, variant);
+				VariantData data = getVariantData(type, variant);
 				Genesis.proxy.registerModel(data.item, data.itemMetadata, type.getVariantName(variant));
 			}
 			
@@ -709,7 +679,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	/**
 	 * Gets the VariantEntry.Value containing the all the information about this variant and its Block and Item.
 	 */
-	public VariantData getVariantEntry(O type, V variant)
+	public VariantData getVariantData(O type, V variant)
 	{
 		if (!objectDataTable.contains(type, variant))
 		{
@@ -725,7 +695,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	 */
 	public <B extends Block> B getBlock(ObjectType<B, ? extends Item> type, V variant)
 	{
-		return (B) getVariantEntry((O) type, variant).block;
+		return (B) getVariantData((O) type, variant).block;
 	}
 	
 	/**
@@ -748,7 +718,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	 */
 	public <I extends Item> I getItem(ObjectType<? extends Block, I> type, V variant)
 	{
-		return (I) getVariantEntry((O) type, variant).item;
+		return (I) getVariantData((O) type, variant).item;
 	}
 	
 	/**
@@ -771,7 +741,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	 */
 	public IBlockState getBlockState(O type, V variant)
 	{
-		VariantData entry = getVariantEntry(type, variant);
+		VariantData entry = getVariantData(type, variant);
 		Block block = entry.block;
 		
 		if (block != null)
@@ -783,12 +753,19 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	}
 	
 	/**
-	 * Gets the BiTable Key for this item and metadata, providing the ObjectType and IMetadata variant.
+	 * Gets the subset key for this item, containing its ObjectType and ID.
 	 */
-	public BiTable.Key<O, V> getVariantKey(Item item, int meta)
+	public SubsetData getSubsetData(Item item)
 	{
-		VariantKey valueKey = new VariantKey(item, meta);
-		return objectDataTable.getKey(valueKey);
+		return itemMap.get(item);
+	}
+	
+	/**
+	 * Gets the subset key for this block, containing its ObjectType and ID.
+	 */
+	public SubsetData getSubsetData(Block block)
+	{
+		return blockMap.get(block);
 	}
 	
 	/**
@@ -796,7 +773,8 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	 */
 	public VariantData getVariantData(Item item, int meta)
 	{
-		return objectDataTable.get(getVariantKey(item, meta));
+		SubsetData data = getSubsetData(item);
+		return getVariantData(data.type, data.variants.get(meta));
 	}
 	
 	/**
@@ -804,11 +782,11 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	 */
 	public V getVariant(Item item, int meta)
 	{
-		BiTable.Key<O, V> tableKey = getVariantKey(item, meta);
+		VariantData tableKey = getVariantData(item, meta);
 		
 		if (tableKey != null)
 		{
-			return tableKey.getColumn();
+			return tableKey.variant;
 		}
 		
 		return null;
@@ -816,6 +794,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	
 	/**
 	 * Gets the variant for the specified Block and item metadata, in the specified {@link #ObjectType}.
+	 * This method assumes that this Block has a corresponding Item.
 	 */
 	public V getVariant(Block block, int meta)
 	{
@@ -835,6 +814,21 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 		}
 		
 		return (V) state.getValue(prop);
+	}
+	
+	/**
+	 * Gets the variant data for the provided block state.
+	 */
+	public VariantData getVariantData(IBlockState state)
+	{
+		SubsetData subsetData = getSubsetData(state.getBlock());
+		
+		if (subsetData != null)
+		{
+			return getVariantData(subsetData.type, getVariant(state));
+		}
+		
+		return null;
 	}
 	
 	/**
@@ -862,7 +856,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	 */
 	public ItemStack getStack(O type, V variant, int stackSize)
 	{
-		VariantData entry = getVariantEntry(type, variant);
+		VariantData entry = getVariantData(type, variant);
 		
 		Item item = entry.item;
 		
@@ -905,8 +899,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	 */
 	public int getItemMetadata(O type, V variant)
 	{
-		VariantKey entry = getVariantEntry(type, variant);
-		
+		VariantData entry = getVariantData(type, variant);
 		return entry.itemMetadata;
 	}
 	
