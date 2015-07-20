@@ -48,7 +48,6 @@ tile.genesis.log.araucarioxylon.name=Araucarioxylon Wood
 tile.genesis.calamitesBundle.name=Bundle of Calamites
 tile.genesis.programinisBundle.name=Bundle of Programinis
 tile.genesis.prototaxitesMycelium.name=Prototaxites Mycelium
-tile.genesis.archaeomarasmius.name=Archaeomarasmius
 tile.genesis.dung.brachiosaurus.name=Brachiosaurus Dung
 tile.genesis.dung.tyrannosaurus.name=Tyrannosaurus Dung
 
@@ -102,10 +101,13 @@ tile.genesis.crop.zingiberopsis.name=Zingiberopsis
 tile.genesis.crop.odontopteris.name=Odontopteris
 tile.genesis.crop.programinis.name=Programinis
 
+tile.genesis.archaeomarasmius.name=Archaeomarasmius
+
 tile.genesis.prototaxites.name=Prototaxites
 
 tile.genesis.cobbania.name=Cobbania
 
+tile.genesis.aquaticPlant.grypania.name=Grypania
 tile.genesis.aquaticPlant.bangiomorpha.name=Bangiomorpha
 tile.genesis.aquaticPlant.marpolia.name=Marpolia
 tile.genesis.aquaticPlant.margaretia.name=Margaretia
@@ -115,6 +117,7 @@ tile.genesis.aquaticPlant.diagoniella.name=Diagoniella
 tile.genesis.aquaticPlant.pirania.name=Pirania
 tile.genesis.aquaticPlant.vauxia.name=Vauxia
 tile.genesis.aquaticPlant.wapkia.name=Wapkia
+tile.genesis.aquaticPlant.ernietta.name=Ernietta
 tile.genesis.aquaticPlant.pteridinium.name=Pteridinium
 tile.genesis.aquaticPlant.dinomischus.name=Dinomischus
 tile.genesis.aquaticPlant.echmatocrinus.name=Echmatocrinus

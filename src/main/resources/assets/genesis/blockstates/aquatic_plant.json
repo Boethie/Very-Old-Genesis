@@ -1,6 +1,7 @@
 {
     "variants": {
-        "variant=bangiomorpha":  { "model": "genesis:bangiomorpha" },
+        "variant=grypania":  { "model": "genesis:grypania" },
+		"variant=bangiomorpha":  { "model": "genesis:bangiomorpha" },
         "variant=marpolia":  { "model": "genesis:marpolia" },
         "variant=margaretia":  { "model": "genesis:margaretia" },
         "variant=chancelloria":  { "model": "genesis:chancelloria" },
@@ -9,6 +10,7 @@
         "variant=pirania":  { "model": "genesis:pirania" },
         "variant=vauxia":  { "model": "genesis:vauxia" },
         "variant=wapkia":  { "model": "genesis:wapkia" },
+		"variant=ernietta":  { "model": "genesis:ernietta" },
         "variant=pteridinium":  { "model": "genesis:pteridinium" },
         "variant=dinomischus":  { "model": "genesis:dinomischus" },
 		"variant=echmatocrinus":  { "model": "genesis:echmatocrinus" },
