@@ -5,9 +5,10 @@ import net.minecraft.item.Item;
 
 public enum EnumAquaticPlant implements IMetadata
 {
-	BANGIOMORPHA("bangiomorpha"), MARPOLIA("marpolia"), MARGERETIA("margaretia"), CHANCELLORIA("chancelloria"), HAZELLA("hazelia"),
-	DIAONIELLA("diagoniella"), PIRANIA("pirania"), VAUXIA("vauxia"), WAPKIA("wapkia"), PTERIDINIUM("pteridinium"), DINOMISCHUS("dinomischus"),
-	ECHMATOCRINUS("echmatocrinus"), THAUMAPTILON("thaumaptilon"), PRIMOCANDELABRUM("primocandelabrum"), CHARNIA("charnia"), CHARNIA_TOP("charnia_top");
+	GRYPANIA("grypania"), BANGIOMORPHA("bangiomorpha"), MARPOLIA("marpolia"), MARGERETIA("margaretia"), CHANCELLORIA("chancelloria"),
+	HAZELLA("hazelia"), DIAONIELLA("diagoniella"), PIRANIA("pirania"), VAUXIA("vauxia"), WAPKIA("wapkia"), ERNIETTA("ernietta"),
+	PTERIDINIUM("pteridinium"), DINOMISCHUS("dinomischus"), ECHMATOCRINUS("echmatocrinus"), THAUMAPTILON("thaumaptilon"), PRIMOCANDELABRUM("primocandelabrum"),
+	CHARNIA("charnia"), CHARNIA_TOP("charnia_top");
 
 	private final String name;
 	private final String unlocalizedName;
