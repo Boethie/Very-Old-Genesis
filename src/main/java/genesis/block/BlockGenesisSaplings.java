@@ -136,24 +136,27 @@ public class BlockGenesisSaplings extends BlockSapling
 			break;
 		}
 		
-		IBlockState[] states = new IBlockState[positions.length];
-		int i = 0;
-		
-		for (BlockPos sapPos : positions)
+		if (gen != null)
 		{
-			states[i] = world.getBlockState(sapPos);
-			world.setBlockToAir(sapPos);
-			i++;
-		}
-		
-		if (!gen.generate(world, rand, pos))
-		{
-			i = 0;
+			IBlockState[] states = new IBlockState[positions.length];
+			int i = 0;
 			
 			for (BlockPos sapPos : positions)
 			{
-				world.setBlockState(sapPos, states[i]);
+				states[i] = world.getBlockState(sapPos);
+				world.setBlockToAir(sapPos);
 				i++;
+			}
+			
+			if (!gen.generate(world, rand, pos))
+			{
+				i = 0;
+				
+				for (BlockPos sapPos : positions)
+				{
+					world.setBlockState(sapPos, states[i]);
+					i++;
+				}
 			}
 		}
 	}

@@ -43,3 +43,4 @@ public class WorldGenDecorationBase extends WorldGenerator
 		}
 	}
 }
+

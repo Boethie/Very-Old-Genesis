@@ -52,6 +52,23 @@ public class WorldGenSphenophyllum extends WorldGenDecorationBase
 		if (!water_exists)
 			return false;
 		
+		placeRandomPlant(world, pos, random);
+		
+		BlockPos secondPos;
+		
+		int additional = random.nextInt(4);
+		
+		for (int i = 0; i <= additional; ++i)
+		{
+			secondPos = pos.add(-3 + random.nextInt(7), 0, -3 + random.nextInt(7));
+			placeRandomPlant(world, secondPos, random);
+		}
+		
+		return true;
+	}
+	
+	private void placeRandomPlant(World world, BlockPos pos, Random random)
+	{
 		int growth = random.nextInt(7);
 		IBlockState bottom = GenesisBlocks.sphenophyllum.getDefaultState().withProperty(GenesisBlocks.sphenophyllum.ageProp, growth).withProperty(GenesisBlocks.sphenophyllum.topProp, false);
 		IBlockState top = GenesisBlocks.sphenophyllum.getDefaultState().withProperty(GenesisBlocks.sphenophyllum.ageProp, growth).withProperty(GenesisBlocks.sphenophyllum.topProp, true);
@@ -65,7 +82,5 @@ public class WorldGenSphenophyllum extends WorldGenDecorationBase
 				world.setBlockState(placePos.up(), top, 2);
 			}
 		}
-		
-		return true;
 	}
 }
