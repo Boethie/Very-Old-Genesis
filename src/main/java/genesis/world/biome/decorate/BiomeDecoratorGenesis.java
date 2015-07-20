@@ -3,7 +3,6 @@ package genesis.world.biome.decorate;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.CLAY;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.GRASS;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LAKE_WATER;
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
 import genesis.common.GenesisBlocks;
 import genesis.world.gen.feature.WorldGenTreeBase;
 
@@ -16,7 +15,6 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenClay;
 import net.minecraft.world.gen.feature.WorldGenLiquids;
 import net.minecraftforge.common.MinecraftForge;
@@ -25,10 +23,10 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 
 public class BiomeDecoratorGenesis extends BiomeDecorator
 {
-	public int odontopterisPerChunk = 0;
 	public boolean generateDefaultTrees = true;
 	
 	public List<WorldGenTreeBase> trees = new ArrayList<WorldGenTreeBase>();
+	public List<WorldGenDecorationBase> decorations = new ArrayList<WorldGenDecorationBase>();
 	
 	public BiomeDecoratorGenesis()
 	{
@@ -136,15 +134,18 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			p_150513_1_.getRandomWorldGenForGrass(this.randomGenerator).generate(this.currentWorld, this.randomGenerator, this.field_180294_c.add(k, i1, l));
 		}
 		
-		for (j = 0; doGen && j < this.odontopterisPerChunk; ++j)
+		for (int id = 0; id < decorations.size(); ++ id)
 		{
-			k = this.randomGenerator.nextInt(16) + 8;
-			l = this.randomGenerator.nextInt(16) + 8;
-			i1 = this.nextInt(this.currentWorld.getHeight(this.field_180294_c.add(k, 0, l)).getY() * 2);
-			(new WorldGenOdontopteris()).generate(this.currentWorld, this.randomGenerator, this.field_180294_c.add(k, i1, l));
+			for (j = 0; doGen && j < decorations.get(id).getCountPerChunk(); ++j)
+			{
+				k = this.randomGenerator.nextInt(16) + 8;
+				l = this.randomGenerator.nextInt(16) + 8;
+				i1 = this.nextInt(this.currentWorld.getHeight(this.field_180294_c.add(k, 0, l)).getY() * 2);
+				decorations.get(id).generate(this.currentWorld, this.randomGenerator, this.field_180294_c.add(k, i1, l));
+			}
 		}
 		
-		doGen = true; // TerrainGen.decorate(this.currentWorld, this.randomGenerator, this.field_180294_c, TREE);
+		doGen = true;
 		
 		for (int it = 0; it < trees.size(); ++it)
 		{

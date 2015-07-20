@@ -38,11 +38,14 @@ public class WorldProviderGenesis extends WorldProvider
 	{
 		return new ChunkGeneratorGenesis(this.worldObj, this.worldObj.getSeed(), this.worldObj.getWorldInfo().isMapFeaturesEnabled(), this.worldObj.getWorldInfo().getGeneratorOptions());
 	}
-
+	
 	@Override
 	public Vec3 getSkyColor(Entity cameraEntity, float partialTicks)
 	{
-		return new Vec3(0.29411764705882352941176470588235D, 0.47450980392156862745098039215686D, 0.1960784313725490196078431372549);
+		if (isDaytime())
+			return new Vec3(0.29411764705882352941176470588235D, 0.47450980392156862745098039215686D, 0.1960784313725490196078431372549D);
+		else
+			return new Vec3(0.0D, 0.0D, 0.0D);
 	}
 
 }

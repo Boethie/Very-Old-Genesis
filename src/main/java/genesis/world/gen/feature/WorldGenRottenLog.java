@@ -4,25 +4,39 @@ import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumTree;
 import genesis.metadata.TreeBlocksAndItems;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
-public class WorldGenRottenLogAraucarioxylon extends WorldGenTreeBase
+public class WorldGenRottenLog extends WorldGenTreeBase
 {
-	public WorldGenRottenLogAraucarioxylon(boolean notify)
+	private List<IBlockState> topDecorations = new ArrayList<IBlockState>();
+	
+	public WorldGenRottenLog(int minLength, int maxLength, EnumTree treeType, boolean notify)
 	{
 		super(
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.ROTTEN_LOG, EnumTree.ARAUCARIOXYLON),
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES, EnumTree.ARAUCARIOXYLON),
+				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.ROTTEN_LOG, treeType),
+				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES, treeType),
 				notify);
 		
 		this.notify = notify;
+		
+		this.minHeight = minLength;
+		this.maxHeight = maxLength;
+	}
+	
+	public WorldGenTreeBase addTopDecoration(IBlockState block)
+	{
+		topDecorations.add(block);
+		return this;
 	}
 	
 	@Override
@@ -32,13 +46,13 @@ public class WorldGenRottenLogAraucarioxylon extends WorldGenTreeBase
 		
 		if (
 				soil == null 
-				|| !soil.canSustainPlant(world, pos, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.ARAUCARIOXYLON))
+				|| !soil.canSustainPlant(world, pos, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.LEPIDODENDRON))
 				|| !world.getBlockState(pos).getBlock().isAir(world, pos))
 		{
 			return false;
 		}
 		
-		int length = 3 + rand.nextInt(4);
+		int length = minHeight + rand.nextInt(maxHeight);
 		
 		if (!isCubeClear(world, pos.up(), length, 1))
 		{
@@ -55,6 +69,11 @@ public class WorldGenRottenLogAraucarioxylon extends WorldGenTreeBase
 			{
 				setBlockInWorld(world, logPos, wood.withProperty(BlockLog.LOG_AXIS, EnumAxis.X));
 				
+				if (rand.nextInt(10) > 7 && topDecorations.size() > 0)
+				{
+					setBlockInWorld(world, logPos.up(), topDecorations.get(rand.nextInt(topDecorations.size())));
+				}
+				
 				logPos = logPos.add(1, 0, 0);
 			}
 		}
@@ -66,9 +85,9 @@ public class WorldGenRottenLogAraucarioxylon extends WorldGenTreeBase
 			{
 				setBlockInWorld(world, logPos, wood.withProperty(BlockLog.LOG_AXIS, EnumAxis.Z));
 				
-				if (rand.nextInt(10) > 7 && world.getLight(logPos.up()) < 13)
+				if (rand.nextInt(10) > 7 && topDecorations.size() > 0)
 				{
-					setBlockInWorld(world, logPos.up(), GenesisBlocks.archaeomarasimus.getDefaultState());
+					setBlockInWorld(world, logPos.up(), topDecorations.get(rand.nextInt(topDecorations.size())));
 				}
 				
 				logPos = logPos.add(0, 0, 1);

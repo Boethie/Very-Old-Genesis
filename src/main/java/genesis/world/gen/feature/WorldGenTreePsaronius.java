@@ -53,7 +53,9 @@ public class WorldGenTreePsaronius extends WorldGenTreeBase
 			setBlockInWorld(world, pos.up(i), wood);
 		}
 		
-		BlockPos branchPos = pos.up(treeHeight - 1);
+		BlockPos branchPos = pos.up(treeHeight);
+		
+		setBlockInWorld(world, branchPos, leaves);
 		
 		doLeavesBranch(world, branchPos, 1, 0, rand, 2 + rand.nextInt(3));
 		doLeavesBranch(world, branchPos, -1, 0, rand, 2 + rand.nextInt(3));
@@ -65,39 +67,19 @@ public class WorldGenTreePsaronius extends WorldGenTreeBase
 		doLeavesBranch(world, branchPos, 1, -1, rand, 2 + rand.nextInt(3));
 		doLeavesBranch(world, branchPos, -1, -1, rand, 2 + rand.nextInt(3));
 		
-		doLeavesCap(world, branchPos, rand);
-		
 		return true;
 	}
 	
 	private void doLeavesBranch(World world, BlockPos pos, int dirX, int dirZ, Random random, int length)
 	{
-		//BlockPos backLeaves;
-		
 		for (int i = 1; i <= length; ++ i)
 		{
 			pos = pos.add((1 * dirX), 0, (1 * dirZ));
+			
+			if (i == length)
+				pos = pos.add(0, -1, 0);
+			
 			setBlockInWorld(world, pos, leaves);
 		}
-	}
-	
-	private void doLeavesCap(World world, BlockPos pos, Random random)
-	{
-		pos = pos.add(0, 1, 0);
-		//setBlockInWorld(world, pos, leaves);
-		setBlockInWorld(world, pos.north(), leaves);
-		setBlockInWorld(world, pos.south(), leaves);
-		setBlockInWorld(world, pos.east(), leaves);
-		setBlockInWorld(world, pos.west(), leaves);
-		/*
-		pos = pos.add(0, 1, 0);
-		setBlockInWorld(world, pos, leaves);
-		
-		if (random.nextInt(2) == 0)
-		{
-			pos = pos.add(0, 1, 0);
-			setBlockInWorld(world, pos, leaves);
-		}
-		*/
 	}
 }
