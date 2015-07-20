@@ -340,10 +340,7 @@ public class BlockMoss extends BlockGrass
 			}
 		}
 
-		//return false;
-
-		updateTick(world, pos, world.getBlockState(pos), world.rand);
-		return true;
+		return false;
 	}
 
 	@Override
