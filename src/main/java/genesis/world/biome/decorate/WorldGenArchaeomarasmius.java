@@ -27,10 +27,10 @@ public class WorldGenArchaeomarasmius extends WorldGenDecorationBase
 		}
 		while (pos.getY() > 0);
 		
-		if (!(world.getBlockState(pos).getBlock() == GenesisBlocks.moss || world.getBlockState(pos).getBlock() == Blocks.dirt))
-			return false;
-		
-		if (world.getLight(pos.up()) > 14)
+		if (
+				world.getBlockState(pos) == null
+				|| !(world.getBlockState(pos).getBlock() == GenesisBlocks.moss || world.getBlockState(pos).getBlock() == Blocks.dirt)
+				|| world.getLight(pos.up()) > 13)
 			return false;
 		
 		setBlockInWorld(world, pos.up(), GenesisBlocks.archaeomarasmius.getDefaultState());

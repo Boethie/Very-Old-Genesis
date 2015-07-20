@@ -20,4 +20,11 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 		this.spawnableWaterCreatureList.clear();
 		this.waterColorMultiplier = 0xaa791e;
 	}
+	
+	@Override
+	public BiomeGenBaseGenesis setColor(int color)
+	{
+		super.setColor(color);
+		return this;
+	}
 }

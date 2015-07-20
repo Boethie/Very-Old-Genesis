@@ -61,7 +61,10 @@ public class WorldGenSphenophyllum extends WorldGenDecorationBase
 		for (int i = 0; i <= additional; ++i)
 		{
 			secondPos = pos.add(-3 + random.nextInt(7), 0, -3 + random.nextInt(7));
-			placeRandomPlant(world, secondPos, random);
+			if (
+					world.getBlockState(secondPos).getBlock() == GenesisBlocks.moss
+					|| world.getBlockState(secondPos).getBlock() == Blocks.dirt)
+				placeRandomPlant(world, secondPos, random);
 		}
 		
 		return true;

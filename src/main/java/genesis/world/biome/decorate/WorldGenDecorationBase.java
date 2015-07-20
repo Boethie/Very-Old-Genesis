@@ -32,14 +32,20 @@ public class WorldGenDecorationBase extends WorldGenerator
 	{
 		boolean place = true;
 		
-		if (!(world.getBlockState(pos).getBlock().isAir(world, pos)))
+		try
 		{
-			place = false;
+			if (!(world.getBlockState(pos).getBlock().isAir(world, pos)))
+			{
+				place = false;
+			}
+			
+			if (place)
+			{
+				world.setBlockState(pos, state, 3);
+			}
 		}
-		
-		if (place)
+		catch(Exception e)
 		{
-			world.setBlockState(pos, state, 3);
 		}
 	}
 }
