@@ -14,6 +14,11 @@ public class RandomIntRange
 		min = minIn;
 		max = maxIn;
 	}
+
+	public RandomIntRange(int value)
+	{
+		this(value, value);
+	}
 	
 	public int getRandom(Random rand)
 	{
