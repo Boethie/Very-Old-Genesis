@@ -10,6 +10,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 public class WorldGenDecorationBase extends WorldGenerator
 {
 	private int countPerChunk = 0;
+	private int patchSize = 0;
 	
 	@Override
 	public boolean generate(World world, Random random, BlockPos pos)
@@ -26,6 +27,17 @@ public class WorldGenDecorationBase extends WorldGenerator
 	public int getCountPerChunk()
 	{
 		return countPerChunk;
+	}
+	
+	public WorldGenDecorationBase setPatchSize(int size)
+	{
+		patchSize = size;
+		return this;
+	}
+	
+	public int getPatchSize()
+	{
+		return (patchSize == 0)? 1 : patchSize;
 	}
 	
 	protected void setBlockInWorld(World world, BlockPos pos, IBlockState state)

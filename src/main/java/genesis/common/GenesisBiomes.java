@@ -2,6 +2,8 @@ package genesis.common;
 
 import genesis.world.biome.BiomeGenAuxForest;
 import genesis.world.biome.BiomeGenAuxForestEdge;
+import genesis.world.biome.BiomeGenAuxForestEdgeM;
+import genesis.world.biome.BiomeGenAuxForestM;
 import genesis.world.biome.BiomeGenBaseGenesis;
 import genesis.world.biome.BiomeGenRainforest;
 import genesis.world.biome.BiomeGenRainforestEdge;
@@ -21,7 +23,9 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis rainforestEdge;
 	public static BiomeGenBaseGenesis rainforestEdgeM;
 	public static BiomeGenBaseGenesis auxForest;
+	public static BiomeGenBaseGenesis auxForestM;
 	public static BiomeGenBaseGenesis auxForestEdge;
+	public static BiomeGenBaseGenesis auxForestEdgeM;
 	public static BiomeGenBaseGenesis river;
 	public static BiomeGenBaseGenesis shallowOcean;
 	
@@ -40,16 +44,23 @@ public final class GenesisBiomes
 		rainforestEdgeM = new BiomeGenRainforestEdgeM(GenesisConfig.rainforestEdgeId+128).setColor(6458135);
 		BiomeDictionary.registerBiomeType(rainforestEdgeM, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.MOUNTAIN);
 		
-		river = new BiomeGenRiver(GenesisConfig.riverId).setColor(0x4a797f);
+		river = new BiomeGenRiver(GenesisConfig.riverId);
 		BiomeDictionary.registerBiomeType(river, BiomeDictionary.Type.RIVER, BiomeDictionary.Type.WET);
 		
-		shallowOcean = new BiomeGenShallowOcean(GenesisConfig.shallowOceanId).setColor(0x4a797f);
+		shallowOcean = new BiomeGenShallowOcean(GenesisConfig.shallowOceanId);
 		BiomeDictionary.registerBiomeType(shallowOcean, BiomeDictionary.Type.OCEAN, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
 		
 		auxForest = new BiomeGenAuxForest(GenesisConfig.auxForestId);
 		BiomeManagerGenesis.registerBiome(auxForest, BiomeType.WARM, GenesisConfig.auxForestWeight);
 		BiomeDictionary.registerBiomeType(auxForest, BiomeDictionary.Type.FOREST);
+		
+		auxForestM = new BiomeGenAuxForestM(GenesisConfig.auxForestId+128);
+		BiomeDictionary.registerBiomeType(auxForestM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.MOUNTAIN);
+		
 		auxForestEdge = new BiomeGenAuxForestEdge(GenesisConfig.auxForestEdgeId);
 		BiomeDictionary.registerBiomeType(auxForestEdge, BiomeDictionary.Type.FOREST);
+		
+		auxForestEdgeM = new BiomeGenAuxForestEdgeM(GenesisConfig.auxForestEdgeId+128);
+		BiomeDictionary.registerBiomeType(auxForestEdgeM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.MOUNTAIN);
 	}
 }

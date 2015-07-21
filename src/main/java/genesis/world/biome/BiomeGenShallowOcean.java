@@ -9,6 +9,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 
@@ -108,4 +109,10 @@ public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
             }
         }
     }
+	
+	@Override
+	public Vec3 getSkyColor()
+	{
+		return new Vec3(0.294117647D, 0.474509804D, 0.501960784D);
+	}
 }

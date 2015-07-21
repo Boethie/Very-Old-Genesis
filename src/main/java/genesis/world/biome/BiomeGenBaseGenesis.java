@@ -4,6 +4,7 @@ import genesis.block.BlockMoss;
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.BiomeDecoratorGenesis;
 import net.minecraft.block.BlockGrass;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public abstract class BiomeGenBaseGenesis extends BiomeGenBase
@@ -26,5 +27,10 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 	{
 		super.setColor(color);
 		return this;
+	}
+	
+	public Vec3 getSkyColor()
+	{
+		return new Vec3(0.29411764705882352941176470588235D, 0.47450980392156862745098039215686D, 0.1960784313725490196078431372549D);
 	}
 }

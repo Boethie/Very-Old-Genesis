@@ -27,10 +27,31 @@ public class WorldGenArchaeomarasmius extends WorldGenDecorationBase
 		}
 		while (pos.getY() > 0);
 		
+		int plantsPlaced = 0;
+		
+		int patch = random.nextInt(getPatchSize());
+		
+		if (patch == 0)
+			patch = 1;
+		
+		for (int i = 1; i <= patch; ++i)
+		{
+			if (placePlant(world, pos.add(random.nextInt(7) - 3, 0, random.nextInt(7) -3)))
+				++plantsPlaced;
+		}
+		
+		if (plantsPlaced == 0)
+			return false;
+		
+		return true;
+	}
+	
+	private boolean placePlant(World world, BlockPos pos)
+	{
 		if (
 				world.getBlockState(pos) == null
 				|| !(world.getBlockState(pos).getBlock() == GenesisBlocks.moss || world.getBlockState(pos).getBlock() == Blocks.dirt)
-				|| world.getLight(pos.up()) > 13)
+				|| world.getLight(pos.up()) > 14)
 			return false;
 		
 		setBlockInWorld(world, pos.up(), GenesisBlocks.archaeomarasmius.getDefaultState());
