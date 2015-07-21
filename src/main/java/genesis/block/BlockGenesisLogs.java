@@ -1,5 +1,6 @@
 package genesis.block;
 
+import genesis.common.GenesisConfig;
 import genesis.common.GenesisCreativeTabs;
 import genesis.metadata.EnumTree;
 import genesis.metadata.IMetadata;
@@ -112,12 +113,15 @@ public class BlockGenesisLogs extends BlockLog implements IGenesisMushroomBase
 	@Override
 	public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player)
 	{	// Prevent logs from dropping if the player isn't using the appropriate tool type.
-		IBlockState state = getActualState(world.getBlockState(pos), world, pos);
-		ItemStack held = player.getHeldItem();
-		
-		if (held == null || held.getItem().getHarvestLevel(held, getHarvestTool(state)) < 0)
+		if (world instanceof World && ((World) world).provider.getDimensionId() == GenesisConfig.genesisDimId)
 		{
-			return false;
+			IBlockState state = getActualState(world.getBlockState(pos), world, pos);
+			ItemStack held = player.getHeldItem();
+			
+			if (held == null || held.getItem().getHarvestLevel(held, getHarvestTool(state)) < 0)
+			{
+				return false;
+			}
 		}
 		
 		return super.canHarvestBlock(world, pos, player);
