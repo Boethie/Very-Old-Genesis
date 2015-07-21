@@ -1,6 +1,7 @@
 package genesis.block;
 
 import genesis.common.GenesisCreativeTabs;
+import genesis.item.ItemBlockMulti;
 import genesis.metadata.EnumTree;
 import genesis.metadata.PropertyIMetadata;
 import genesis.metadata.TreeBlocksAndItems;
@@ -42,12 +43,12 @@ public class BlockGenesisSaplings extends BlockSapling
 	}
 	
 	public final TreeBlocksAndItems owner;
-	public final ObjectType type;
+	public final ObjectType<BlockGenesisSaplings, ItemBlockMulti> type;
 	
 	public final List<EnumTree> variants;
-	public final PropertyIMetadata variantProp;
+	public final PropertyIMetadata<EnumTree> variantProp;
 	
-	public BlockGenesisSaplings(List<EnumTree> variants, TreeBlocksAndItems owner, ObjectType type)
+	public BlockGenesisSaplings(List<EnumTree> variants, TreeBlocksAndItems owner, ObjectType<BlockGenesisSaplings, ItemBlockMulti> type)
 	{
 		super();
 		
@@ -55,7 +56,7 @@ public class BlockGenesisSaplings extends BlockSapling
 		this.type = type;
 		
 		this.variants = variants;
-		variantProp = new PropertyIMetadata("variant", variants);
+		variantProp = new PropertyIMetadata<EnumTree>("variant", variants);
 		
 		blockState = new BlockState(this, variantProp, STAGE);
 		setDefaultState(getBlockState().getBaseState());

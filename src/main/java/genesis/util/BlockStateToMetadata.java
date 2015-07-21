@@ -202,6 +202,6 @@ public class BlockStateToMetadata
 			return vals;
 		}
 		
-		return 0;
+		return 1;
 	}
 }

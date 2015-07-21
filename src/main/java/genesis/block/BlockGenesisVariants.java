@@ -32,7 +32,7 @@ public class BlockGenesisVariants<V extends IMetadata, C extends VariantsOfTypes
 	public final ObjectType<BlockGenesisVariants<V, C>, ItemBlockMulti> type;
 	
 	public final List<V> variants;
-	public final PropertyIMetadata variantProp;
+	public final PropertyIMetadata<V> variantProp;
 	
 	protected final HashSet<V> noItemVariants = new HashSet();
 	
@@ -46,8 +46,8 @@ public class BlockGenesisVariants<V extends IMetadata, C extends VariantsOfTypes
 		this.type = type;
 		
 		this.variants = variants;
-		variantProp = new PropertyIMetadata("variant", variants);
-
+		variantProp = new PropertyIMetadata<V>("variant", variants);
+		
 		blockState = new BlockState(this, variantProp);
 		setDefaultState(getBlockState().getBaseState());
 		
@@ -55,25 +55,26 @@ public class BlockGenesisVariants<V extends IMetadata, C extends VariantsOfTypes
 		
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 	}
-
+	
 	@Override
-	public Block setCreativeTab(CreativeTabs tab)
+	public BlockGenesisVariants<V, C> setCreativeTab(CreativeTabs tab)
 	{
-		return super.setCreativeTab(tab);
+		super.setCreativeTab(tab);
+		return this;
 	}
-
+	
 	@Override
 	public int getMetaFromState(IBlockState state)
 	{
 		return BlockStateToMetadata.getMetaForBlockState(state, variantProp);
 	}
-
+	
 	@Override
 	public IBlockState getStateFromMeta(int metadata)
 	{
 		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), metadata, variantProp);
 	}
-
+	
 	@Override
 	public BlockGenesisVariants setUnlocalizedName(String name)
 	{
@@ -81,7 +82,7 @@ public class BlockGenesisVariants<V extends IMetadata, C extends VariantsOfTypes
 		
 		return this;
 	}
-
+	
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
 	{
@@ -95,7 +96,7 @@ public class BlockGenesisVariants<V extends IMetadata, C extends VariantsOfTypes
 		return this;
 	}
 	
-	public BlockGenesisVariants addDrop(ObjectType type, RandomVariantDrop drop)
+	public BlockGenesisVariants addDrop(RandomVariantDrop drop)
 	{
 		drops.add(drop);
 		
@@ -104,7 +105,7 @@ public class BlockGenesisVariants<V extends IMetadata, C extends VariantsOfTypes
 	
 	public BlockGenesisVariants addDrop(ObjectType type, int min, int max)
 	{
-		return addDrop(type, new RandomVariantDrop(owner, type, min, max));
+		return addDrop(new RandomVariantDrop(owner, type, min, max));
 	}
 	
 	public BlockGenesisVariants addDrop(ObjectType type)

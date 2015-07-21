@@ -1,6 +1,7 @@
 package genesis.block;
 
 import genesis.common.*;
+import genesis.item.ItemBlockMulti;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
@@ -29,12 +30,12 @@ public class BlockPlant extends BlockBush
 	}
 	
 	public final VariantsOfTypesCombo owner;
-	public final ObjectType type;
+	public final ObjectType<BlockPlant, ItemBlockMulti> type;
 
 	public final List<IMetadata> variants;
-	public final PropertyIMetadata variantProp;
+	public final PropertyIMetadata<IMetadata> variantProp;
 	
-	public BlockPlant(List<IMetadata> variants, VariantsOfTypesCombo owner, ObjectType type)
+	public BlockPlant(List<IMetadata> variants, VariantsOfTypesCombo owner, ObjectType<BlockPlant, ItemBlockMulti> type)
 	{
 		setHardness(0.0F);
 		setStepSound(soundTypeGrass);
@@ -44,7 +45,7 @@ public class BlockPlant extends BlockBush
 		this.owner = owner;
 		this.type = type;
 		
-		variantProp = new PropertyIMetadata("variant", variants);
+		variantProp = new PropertyIMetadata<IMetadata>("variant", variants);
 		this.variants = variants;
 		
 		blockState = new BlockState(this, variantProp);

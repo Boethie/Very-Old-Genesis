@@ -1,6 +1,7 @@
 package genesis.block;
 
 import genesis.client.GenesisSounds;
+import genesis.item.ItemBlockMulti;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 
@@ -31,7 +32,7 @@ public class BlockFern extends BlockPlant implements IShearable
 		return new IProperty[]{};
 	}
 	
-	public BlockFern(List<IMetadata> variants, VariantsOfTypesCombo owner, ObjectType type)
+	public BlockFern(List<IMetadata> variants, VariantsOfTypesCombo owner, ObjectType<BlockPlant, ItemBlockMulti> type)
 	{
 		super(variants, owner, type);
 		

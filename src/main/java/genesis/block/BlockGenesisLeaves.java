@@ -2,6 +2,7 @@ package genesis.block;
 
 import genesis.client.GenesisClient;
 import genesis.common.GenesisCreativeTabs;
+import genesis.item.ItemBlockMulti;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
@@ -35,12 +36,12 @@ public class BlockGenesisLeaves extends BlockLeaves
 	}
 	
 	public final TreeBlocksAndItems owner;
-	public final ObjectType type;
+	public final ObjectType<BlockGenesisLeaves, ItemBlockMulti> type;
 	
 	public final List<EnumTree> variants;
-	public final PropertyIMetadata variantProp;
+	public final PropertyIMetadata<EnumTree> variantProp;
 	
-	public BlockGenesisLeaves(List<EnumTree> variants, TreeBlocksAndItems owner, ObjectType type)
+	public BlockGenesisLeaves(List<EnumTree> variants, TreeBlocksAndItems owner, ObjectType<BlockGenesisLeaves, ItemBlockMulti> type)
 	{
 		super();
 		
@@ -48,7 +49,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 		this.type = type;
 		
 		this.variants = variants;
-		variantProp = new PropertyIMetadata("variant", variants);
+		variantProp = new PropertyIMetadata<EnumTree>("variant", variants);
 		
 		blockState = new BlockState(this, variantProp, CHECK_DECAY, DECAYABLE);
 		setDefaultState(getBlockState().getBaseState().withProperty(DECAYABLE, true).withProperty(CHECK_DECAY, true));

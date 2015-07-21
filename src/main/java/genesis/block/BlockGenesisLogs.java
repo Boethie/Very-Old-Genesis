@@ -2,6 +2,7 @@ package genesis.block;
 
 import genesis.common.GenesisConfig;
 import genesis.common.GenesisCreativeTabs;
+import genesis.item.ItemBlockMulti;
 import genesis.metadata.EnumTree;
 import genesis.metadata.IMetadata;
 import genesis.metadata.PropertyIMetadata;
@@ -40,12 +41,12 @@ public class BlockGenesisLogs extends BlockLog implements IGenesisMushroomBase
 	}
 	
 	public final VariantsOfTypesCombo owner;
-	public final ObjectType type;
+	public final ObjectType<BlockGenesisLogs, ItemBlockMulti> type;
 	
 	public final List<EnumTree> variants;
-	public final PropertyIMetadata variantProp;
+	public final PropertyIMetadata<EnumTree> variantProp;
 	
-	public BlockGenesisLogs(List<EnumTree> variants, VariantsOfTypesCombo owner, ObjectType type)
+	public BlockGenesisLogs(List<EnumTree> variants, VariantsOfTypesCombo owner, ObjectType<BlockGenesisLogs, ItemBlockMulti> type)
 	{
 		super();
 		
@@ -53,7 +54,7 @@ public class BlockGenesisLogs extends BlockLog implements IGenesisMushroomBase
 		this.type = type;
 		
 		this.variants = variants;
-		variantProp = new PropertyIMetadata("variant", variants);
+		variantProp = new PropertyIMetadata<EnumTree>("variant", variants);
 		
 		blockState = new BlockState(this, variantProp, LOG_AXIS);
 		setDefaultState(getBlockState().getBaseState().withProperty(LOG_AXIS, EnumAxis.NONE));
