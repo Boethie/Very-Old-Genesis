@@ -42,11 +42,16 @@ public class WorldGenDecorationBase extends WorldGenerator
 	
 	protected void setBlockInWorld(World world, BlockPos pos, IBlockState state)
 	{
+		setBlockInWorld(world, pos, state, false);
+	}
+	
+	protected void setBlockInWorld(World world, BlockPos pos, IBlockState state, boolean force)
+	{
 		boolean place = true;
 		
 		try
 		{
-			if (!(world.getBlockState(pos).getBlock().isAir(world, pos)))
+			if (!(world.getBlockState(pos).getBlock().isAir(world, pos)) && !force)
 			{
 				place = false;
 			}
@@ -59,6 +64,29 @@ public class WorldGenDecorationBase extends WorldGenerator
 		catch(Exception e)
 		{
 		}
+	}
+	
+	public boolean findBlockInRange(World world, BlockPos pos, IBlockState findWhat, int distanceX, int distanceY, int distanceZ)
+	{
+		boolean blockExists = false;
+		
+		found:
+		for (int x = -distanceX; x <= distanceX; ++x)
+		{
+			for (int z = -distanceZ; z <= distanceZ; ++z)
+			{
+				for (int y = -distanceY; y <= distanceY; ++y)
+				{
+					if (world.getBlockState(pos.add(x, y, z)) == findWhat)
+					{
+						blockExists = true;
+						break found;
+					}
+				}
+			}
+		}
+		
+		return blockExists;
 	}
 }
 

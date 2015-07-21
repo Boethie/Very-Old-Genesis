@@ -1,5 +1,7 @@
 package genesis.world.biome;
 
+import genesis.world.biome.decorate.BiomeDecoratorGenesis;
+import genesis.world.biome.decorate.WorldGenRockBoulders;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.biome.BiomeGenBase;
 
@@ -10,6 +12,8 @@ public class BiomeGenRiver extends BiomeGenBaseGenesis
 		super(id);
 		this.biomeName = "River";
 		this.setHeight(BiomeGenBase.height_ShallowWaters);
+		
+		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenRockBoulders().setCountPerChunk(100));
 	}
 	
 	@Override

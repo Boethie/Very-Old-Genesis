@@ -31,8 +31,8 @@ public class WorldGenSphenophyllum extends WorldGenDecorationBase
 		if (!(world.getBlockState(pos).getBlock() == GenesisBlocks.moss || world.getBlockState(pos).getBlock() == Blocks.dirt))
 			return false;
 		
-		boolean water_exists = false;
-		
+		boolean water_exists = findBlockInRange(world, pos, Blocks.water.getDefaultState(), 4, 2, 4);
+		/*
 		found_water:
 		for (int x = -4; x <= 4; ++x)
 		{
@@ -48,7 +48,7 @@ public class WorldGenSphenophyllum extends WorldGenDecorationBase
 				}
 			}
 		}
-		
+		*/
 		if (!water_exists)
 			return false;
 		
