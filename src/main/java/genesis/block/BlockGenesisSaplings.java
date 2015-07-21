@@ -132,7 +132,7 @@ public class BlockGenesisSaplings extends BlockSapling
 			gen = new WorldGenTreePsaronius(5, 8, true);
 			break;
 		case ARAUCARIOXYLON:
-			gen = new WorldGenTreeAraucarioxylon(25, 30, true);
+			gen = new WorldGenTreeAraucarioxylon(25, 30, true).setGenerateRandomSaplings(false);
 			break;
 		}
 		

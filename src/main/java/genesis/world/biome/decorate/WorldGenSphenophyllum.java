@@ -56,7 +56,7 @@ public class WorldGenSphenophyllum extends WorldGenDecorationBase
 		
 		BlockPos secondPos;
 		
-		int additional = random.nextInt(4);
+		int additional = random.nextInt(getPatchSize() - 1);
 		
 		for (int i = 0; i <= additional; ++i)
 		{

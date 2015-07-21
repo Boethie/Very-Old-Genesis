@@ -35,8 +35,9 @@ public class BlockGenesisMushroom extends BlockBush implements IGrowable
 		if (rand.nextInt(25) == 0)
 		{
 			int i = 5;
+			
 			@SuppressWarnings("rawtypes")
-			Iterator iterator = BlockPos.getAllInBoxMutable(pos.add(-4, -1, -4), pos.add(4, 1, 4)).iterator();
+			Iterator iterator = BlockPos.getAllInBox(pos.add(-4, -1, -4), pos.add(4, 1, 4)).iterator();
 			
 			while (iterator.hasNext())
 			{
@@ -94,7 +95,9 @@ public class BlockGenesisMushroom extends BlockBush implements IGrowable
 											net.minecraft.util.EnumFacing.UP,
 											this))? true
 													: iblockstate1.getBlock() instanceof IGenesisMushroomBase;
-		} else {
+		}
+		else
+		{
 			return false;
 		}
 	}

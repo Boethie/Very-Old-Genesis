@@ -16,6 +16,8 @@ import net.minecraft.world.World;
 
 public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 {
+	private boolean generateRandomSaplings = true;
+	
 	public WorldGenTreeAraucarioxylon(int minHeight, int maxHeight, boolean notify)
 	{
 		super(
@@ -27,6 +29,12 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 		
 		this.minHeight = minHeight;
 		this.maxHeight = maxHeight;
+	}
+	
+	public WorldGenTreeBase setGenerateRandomSaplings(boolean generate)
+	{
+		generateRandomSaplings = generate;
+		return this;
 	}
 	
 	@Override
@@ -82,16 +90,21 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			alternate = !alternate;
 		}
 		
-		if (rand.nextInt(10) > 7)
+		if (generateRandomSaplings && rand.nextInt(10) > 3)
 		{
-			BlockPos posSapling = pos.add(rand.nextInt(8) - 4, 0, rand.nextInt(8) - 4);
-			
-			if (
-					posSapling != null
-					&& world.getBlockState(posSapling.up()).getBlock().isAir(world, posSapling)
-					&& world.getBlockState(posSapling).getBlock().canSustainPlant(world, posSapling, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.ARAUCARIOXYLON)))
+			int saplingCount = rand.nextInt(5);
+			BlockPos posSapling;
+			for (int si = 1; si <= saplingCount; ++si)
 			{
-				setBlockInWorld(world, posSapling.up(), GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.SAPLING, EnumTree.ARAUCARIOXYLON));
+				posSapling = pos.add(rand.nextInt(9) - 4, 0, rand.nextInt(9) - 4);
+				
+				if (
+						posSapling != null
+						&& world.getBlockState(posSapling.up()).getBlock().isAir(world, posSapling)
+						&& world.getBlockState(posSapling).getBlock().canSustainPlant(world, posSapling, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.ARAUCARIOXYLON)))
+				{
+					setBlockInWorld(world, posSapling.up(), GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.SAPLING, EnumTree.ARAUCARIOXYLON));
+				}
 			}
 		}
 		
