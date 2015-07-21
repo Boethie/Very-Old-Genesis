@@ -29,6 +29,8 @@ public class ItemBlockMulti extends ItemBlock
 		
 		this.variants = variants;
 		
+		setHasSubtypes(true);
+		
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 	}
 
