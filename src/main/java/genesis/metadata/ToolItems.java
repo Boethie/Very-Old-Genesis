@@ -8,6 +8,7 @@ import java.util.*;
 import com.google.common.base.Function;
 import com.google.common.collect.Sets;
 
+import genesis.block.*;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.*;
 import net.minecraft.block.Block;
@@ -19,24 +20,24 @@ import genesis.metadata.ToolTypes.ToolType;
 
 public class ToolItems extends VariantsOfTypesCombo<ToolObjectType, ToolType>
 {
-	public static class ToolObjectType<I extends Item> extends ObjectType<Block, I>
+	public static class ToolObjectType<B extends Block, I extends Item> extends ObjectType<B, I>
 	{
 		public final HashSet<EnumToolQuality> validQualities;
 		public final HashSet<EnumToolMaterial> materialExclusions;
 		
-		public ToolObjectType(String name, String unlocalizedName, Class<? extends I> itemClass, EnumToolQuality[] qualities, EnumToolMaterial... materialExclusions)
+		public ToolObjectType(String name, String unlocalizedName, Class<? extends B> blockClass, Class<? extends I> itemClass, EnumToolQuality[] qualities, EnumToolMaterial... materialExclusions)
 		{
-			super(name, unlocalizedName, null, itemClass);
-
+			super(name, unlocalizedName, blockClass, itemClass);
+			
 			this.validQualities = Sets.newHashSet(qualities);
 			this.materialExclusions = Sets.newHashSet(materialExclusions);
 			
 			setNamePosition(ObjectNamePosition.PREFIX);
 		}
-
-		public ToolObjectType(String name, Class<? extends I> itemClass, EnumToolQuality[] qualities, EnumToolMaterial... materialExclusions)
+		
+		public ToolObjectType(String name, Class<? extends B> blockClass, Class<? extends I> itemClass, EnumToolQuality[] qualities, EnumToolMaterial... materialExclusions)
 		{
-			this(name, name, itemClass, qualities, materialExclusions);
+			this(name, name, blockClass, itemClass, qualities, materialExclusions);
 		}
 		
 		@Override
@@ -59,41 +60,41 @@ public class ToolItems extends VariantsOfTypesCombo<ToolObjectType, ToolType>
 		}
 		
 		@Override
-		public ToolObjectType<I> setNamePosition(ObjectNamePosition namePosition)
+		public ToolObjectType<B, I> setNamePosition(ObjectNamePosition namePosition)
 		{
 			super.setNamePosition(namePosition);
 			return this;
 		}
 		
 		@Override
-		public ToolObjectType<I> setCreativeTab(CreativeTabs tab)
+		public ToolObjectType<B, I> setCreativeTab(CreativeTabs tab)
 		{
 			super.setCreativeTab(tab);
 			return this;
 		}
 		
 		@Override
-		public ToolObjectType<I> setUseVariantAsRegistryName(boolean use)
+		public ToolObjectType<B, I> setUseVariantAsRegistryName(boolean use)
 		{
 			super.setUseVariantAsRegistryName(use);
 			return this;
 		}
 	}
 	
-	public static class ToolObjectTypeSoleQuality<I extends Item> extends ToolObjectType<I>
+	public static class ToolObjectTypeSoleQuality<B extends Block, I extends Item> extends ToolObjectType<B, I>
 	{
 		protected final EnumToolQuality soleQuality;
 		
-		public ToolObjectTypeSoleQuality(String name, String unlocalizedName, Class<? extends I> itemClass, EnumToolQuality quality, EnumToolMaterial... materialExclusions)
+		public ToolObjectTypeSoleQuality(String name, String unlocalizedName, Class<? extends B> blockClass, Class<? extends I> itemClass, EnumToolQuality quality, EnumToolMaterial... materialExclusions)
 		{
-			super(name, unlocalizedName, itemClass, new EnumToolQuality[]{quality}, materialExclusions);
+			super(name, unlocalizedName, blockClass, itemClass, new EnumToolQuality[]{quality}, materialExclusions);
 			
 			this.soleQuality = quality;
 		}
 		
-		public ToolObjectTypeSoleQuality(String name, Class<? extends I> itemClass, EnumToolQuality quality, EnumToolMaterial... materialExclusions)
+		public ToolObjectTypeSoleQuality(String name, Class<? extends B> blockClass, Class<? extends I> itemClass, EnumToolQuality quality, EnumToolMaterial... materialExclusions)
 		{
-			this(name, name, itemClass, quality, materialExclusions);
+			this(name, name, blockClass, itemClass, quality, materialExclusions);
 		}
 		
 		public EnumToolQuality getSoleQuality()
@@ -102,41 +103,41 @@ public class ToolItems extends VariantsOfTypesCombo<ToolObjectType, ToolType>
 		}
 		
 		@Override
-		public ToolObjectTypeSoleQuality<I> setCreativeTab(CreativeTabs tab)
+		public ToolObjectTypeSoleQuality<B, I> setCreativeTab(CreativeTabs tab)
 		{
 			super.setCreativeTab(tab);
 			return this;
 		}
 		
 		@Override
-		public ToolObjectTypeSoleQuality<I> setNamePosition(ObjectNamePosition namePosition)
+		public ToolObjectTypeSoleQuality<B, I> setNamePosition(ObjectNamePosition namePosition)
 		{
 			super.setNamePosition(namePosition);
 			return this;
 		}
 		
 		@Override
-		public ToolObjectTypeSoleQuality<I> setUseVariantAsRegistryName(boolean use)
+		public ToolObjectTypeSoleQuality<B, I> setUseVariantAsRegistryName(boolean use)
 		{
 			super.setUseVariantAsRegistryName(use);
 			return this;
 		}
 	}
-
-	public static final ToolObjectTypeSoleQuality<ItemPebble> PEBBLE = new ToolObjectTypeSoleQuality<ItemPebble>("pebble", ItemPebble.class, EnumToolQuality.WEAK, EnumToolMaterial.OCTAEDRITE).setNamePosition(ObjectNamePosition.PREFIX);
-	public static final ToolObjectTypeSoleQuality<ItemChoppingTool> CHOPPING_TOOL = new ToolObjectTypeSoleQuality<ItemChoppingTool>("chopping_tool", "choppingTool", ItemChoppingTool.class, EnumToolQuality.WEAK, EnumToolMaterial.OCTAEDRITE).setCreativeTab(GenesisCreativeTabs.TOOLS).setNamePosition(ObjectNamePosition.PREFIX).setUseVariantAsRegistryName(true);
-	public static final ToolObjectType<ItemToolHead> PICK_HEAD = new ToolObjectType<ItemToolHead>("head_pick", "toolHead.pick", ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED});
-	public static final ToolObjectType<ItemGenesisPick> PICK = new ToolObjectType<ItemGenesisPick>("pick", ItemGenesisPick.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED}).setCreativeTab(GenesisCreativeTabs.TOOLS);
-	public static final ToolObjectType<ItemToolHead> AXE_HEAD = new ToolObjectType<ItemToolHead>("head_axe", "toolHead.axe", ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED});
-	public static final ToolObjectType<ItemGenesisAxe> AXE = new ToolObjectType<ItemGenesisAxe>("axe", ItemGenesisAxe.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED}).setCreativeTab(GenesisCreativeTabs.TOOLS);
-	public static final ToolObjectType<ItemToolHead> HOE_HEAD = new ToolObjectType<ItemToolHead>("head_hoe", "toolHead.hoe", ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED});
-	public static final ToolObjectType<ItemGenesisHoe> HOE = new ToolObjectType<ItemGenesisHoe>("hoe", ItemGenesisHoe.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED}).setCreativeTab(GenesisCreativeTabs.TOOLS);
-	public static final ToolObjectType<ItemToolHead> KNIFE_HEAD = new ToolObjectType<ItemToolHead>("head_knife", "toolHead.knife", ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.SHARPENED});
-	public static final ToolObjectType<ItemGenesisKnife> KNIFE = new ToolObjectType<ItemGenesisKnife>("knife", ItemGenesisKnife.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.SHARPENED}).setCreativeTab(GenesisCreativeTabs.TOOLS);
-	public static final ToolObjectType<ItemToolHead> SPEAR_HEAD = new ToolObjectType<ItemToolHead>("head_spear", "toolHead.spear", ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.SHARPENED}).setCreativeTab(GenesisCreativeTabs.COMBAT);
-	public static final ToolObjectType<ItemGenesisSpear> SPEAR = new ToolObjectType<ItemGenesisSpear>("spear", ItemGenesisSpear.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.SHARPENED}).setCreativeTab(GenesisCreativeTabs.COMBAT);
-	public static final ToolObjectType<ItemToolHead> ARROW_HEAD = new ToolObjectType<ItemToolHead>("head_arrow", "toolHead.arrow", ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.SHARPENED}).setCreativeTab(GenesisCreativeTabs.COMBAT);
-	public static final ToolObjectTypeSoleQuality<ItemMulti> FLAKE = new ToolObjectTypeSoleQuality<ItemMulti>("flake", null, EnumToolQuality.NONE);
+	
+	public static final ToolObjectTypeSoleQuality<BlockGenesisPebble, ItemPebble> PEBBLE = (ToolObjectTypeSoleQuality<BlockGenesisPebble, ItemPebble>) new ToolObjectTypeSoleQuality<BlockGenesisPebble, ItemPebble>("pebble", BlockGenesisPebble.class, ItemPebble.class, EnumToolQuality.WEAK, EnumToolMaterial.OCTAEDRITE).setNamePosition(ObjectNamePosition.PREFIX).setUseSeparateVariantJsons(false);
+	public static final ToolObjectTypeSoleQuality<Block, ItemChoppingTool> CHOPPING_TOOL = new ToolObjectTypeSoleQuality<Block, ItemChoppingTool>("chopping_tool", "choppingTool", null, ItemChoppingTool.class, EnumToolQuality.WEAK, EnumToolMaterial.OCTAEDRITE).setCreativeTab(GenesisCreativeTabs.TOOLS).setNamePosition(ObjectNamePosition.PREFIX).setUseVariantAsRegistryName(true);
+	public static final ToolObjectType<Block, ItemToolHead> PICK_HEAD = new ToolObjectType<Block, ItemToolHead>("head_pick", "toolHead.pick", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED});
+	public static final ToolObjectType<Block, ItemGenesisPick> PICK = new ToolObjectType<Block, ItemGenesisPick>("pick", null, ItemGenesisPick.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED}).setCreativeTab(GenesisCreativeTabs.TOOLS);
+	public static final ToolObjectType<Block, ItemToolHead> AXE_HEAD = new ToolObjectType<Block, ItemToolHead>("head_axe", "toolHead.axe", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED});
+	public static final ToolObjectType<Block, ItemGenesisAxe> AXE = new ToolObjectType<Block, ItemGenesisAxe>("axe", null, ItemGenesisAxe.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED}).setCreativeTab(GenesisCreativeTabs.TOOLS);
+	public static final ToolObjectType<Block, ItemToolHead> HOE_HEAD = new ToolObjectType<Block, ItemToolHead>("head_hoe", "toolHead.hoe", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED});
+	public static final ToolObjectType<Block, ItemGenesisHoe> HOE = new ToolObjectType<Block, ItemGenesisHoe>("hoe", null, ItemGenesisHoe.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.POLISHED}).setCreativeTab(GenesisCreativeTabs.TOOLS);
+	public static final ToolObjectType<Block, ItemToolHead> KNIFE_HEAD = new ToolObjectType<Block, ItemToolHead>("head_knife", "toolHead.knife", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.SHARPENED});
+	public static final ToolObjectType<Block, ItemGenesisKnife> KNIFE = new ToolObjectType<Block, ItemGenesisKnife>("knife", null, ItemGenesisKnife.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.SHARPENED}).setCreativeTab(GenesisCreativeTabs.TOOLS);
+	public static final ToolObjectType<Block, ItemToolHead> SPEAR_HEAD = new ToolObjectType<Block, ItemToolHead>("head_spear", "toolHead.spear", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.SHARPENED}).setCreativeTab(GenesisCreativeTabs.COMBAT);
+	public static final ToolObjectType<Block, ItemGenesisSpear> SPEAR = new ToolObjectType<Block, ItemGenesisSpear>("spear", null, ItemGenesisSpear.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.SHARPENED}).setCreativeTab(GenesisCreativeTabs.COMBAT);
+	public static final ToolObjectType<Block, ItemToolHead> ARROW_HEAD = new ToolObjectType<Block, ItemToolHead>("head_arrow", "toolHead.arrow", null, ItemToolHead.class, new EnumToolQuality[]{EnumToolQuality.CHIPPED, EnumToolQuality.SHARPENED}).setCreativeTab(GenesisCreativeTabs.COMBAT);
+	public static final ToolObjectTypeSoleQuality<Block, ItemMulti> FLAKE = new ToolObjectTypeSoleQuality<Block, ItemMulti>("flake", null, null, EnumToolQuality.NONE);
 	
 	public ToolItems()
 	{

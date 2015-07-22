@@ -1,0 +1,18 @@
+{
+    "__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
+    "ambientocclusion": true,
+    "elements": [
+        {   "__comment": "Cube",
+            "from": [ 5, 0, 6 ],
+            "to": [ 10, 2, 10 ],
+            "faces": {
+                "west": { "uv": [ 10, 14, 14, 16 ], "texture": "#granite", "rotation": 0 },
+                "north": { "uv": [ 8, 9, 10, 14 ], "texture": "#granite", "rotation": 270 },
+                "east": { "uv": [ 10, 7, 14, 9 ], "texture": "#granite", "rotation": 180 },
+                "south": { "uv": [ 14, 9, 16, 14 ], "texture": "#granite", "rotation": 90 },
+                "down": { "uv": [ 4, 9, 8, 14 ], "texture": "#granite", "rotation": 90 },
+                "up": { "uv": [ 10, 9, 14, 14 ], "texture": "#granite", "rotation": 90 }
+            }
+        }
+    ]
+}
