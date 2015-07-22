@@ -206,9 +206,26 @@ public class BlockAquaticPlant extends BlockGenesisVariants<EnumAquaticPlant, Va
 			validGround.add(Blocks.sand);
 			validGround.add(Blocks.gravel);
 			validGround.add(Blocks.clay);
+			validGround.add(Blocks.hardened_clay);
+			validGround.add(Blocks.stonebrick);
+			validGround.add(Blocks.stone);
+			validGround.add(Blocks.log);
+			validGround.add(Blocks.log2);
+			validGround.add(Blocks.planks);
 			validGround.add(GenesisBlocks.red_clay);
 			validGround.add(GenesisBlocks.ooze);
 			validGround.add(GenesisBlocks.peat);
+			
+			for (BlockGenesisLogs block : GenesisBlocks.trees.getBlocks(TreeBlocksAndItems.LOG))
+			{
+				validGround.add(block);
+			}
+			
+			for (BlockGenesisLogs block : GenesisBlocks.trees.getBlocks(TreeBlocksAndItems.ROTTEN_LOG))
+			{
+				validGround.add(block);
+			}
+			
 			validGround.addAll(GenesisBlocks.corals.getBlocks(GenesisBlocks.corals.soleType));
 		}
 		

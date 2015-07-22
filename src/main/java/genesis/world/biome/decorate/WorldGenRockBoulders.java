@@ -49,34 +49,36 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 			blocks.add(GenesisBlocks.mossy_granite.getDefaultState());
 		}
 		
-		generateRockColumn(world, pos, random);
+		int maxHeight = 2 + random.nextInt(4);
 		
-		if (random.nextInt(100) > 20)
+		generateRockColumn(world, pos, random, maxHeight);
+		
+		if (random.nextInt(100) > 15)
 		{
-			generateRockColumn(world, pos.add(1, 0, 0), random);
+			generateRockColumn(world, pos.add(1, 0, 0), random, 1 + random.nextInt(maxHeight - 1));
 			if (random.nextInt(10) > 5)
-				generateRockColumn(world, pos.add(1, 0, 1), random);
+				generateRockColumn(world, pos.add(1, 0, 1), random, 1 + random.nextInt(maxHeight - 1));
 		}
 		
-		if (random.nextInt(100) > 20)
+		if (random.nextInt(100) > 15)
 		{
-			generateRockColumn(world, pos.add(-1, 0, 0), random);
+			generateRockColumn(world, pos.add(-1, 0, 0), random, 1 + random.nextInt(maxHeight - 1));
 			if (random.nextInt(10) > 5)
-				generateRockColumn(world, pos.add(-1, 0, -1), random);
+				generateRockColumn(world, pos.add(-1, 0, -1), random, 1 + random.nextInt(maxHeight - 1));
 		}
 		
-		if (random.nextInt(100) > 20)
+		if (random.nextInt(100) > 15)
 		{
-			generateRockColumn(world, pos.add(0, 0, 1), random);
+			generateRockColumn(world, pos.add(0, 0, 1), random, 1 + random.nextInt(maxHeight - 1));
 			if (random.nextInt(10) > 5)
-				generateRockColumn(world, pos.add(-1, 0, 1), random);
+				generateRockColumn(world, pos.add(-1, 0, 1), random, 1 + random.nextInt(maxHeight - 1));
 		}
 		
-		if (random.nextInt(100) > 20)
+		if (random.nextInt(100) > 15)
 		{
-			generateRockColumn(world, pos.add(0, 0, -1), random);
+			generateRockColumn(world, pos.add(0, 0, -1), random, 1 + random.nextInt(maxHeight - 1));
 			if (random.nextInt(10) > 5)
-				generateRockColumn(world, pos.add(1, 0, -1), random);
+				generateRockColumn(world, pos.add(1, 0, -1), random, 1 + random.nextInt(maxHeight - 1));
 		}
 		
 		return true;
@@ -92,28 +94,14 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 		return this;
 	}
 	
-	private void generateRockColumn(World world, BlockPos pos, Random rand)
+	private void generateRockColumn(World world, BlockPos pos, Random rand, int height)
 	{
 		BlockPos rockPos = pos;
 		
-		setBlockInWorld(world, rockPos, blocks.get(rand.nextInt(blocks.size())), true);
-		
-		if (rand.nextInt(10) > 1)
+		for (int i = 1; i <= height; ++i)
 		{
-			rockPos = rockPos.up();
 			setBlockInWorld(world, rockPos, blocks.get(rand.nextInt(blocks.size())), true);
-			
-			if (rand.nextInt(10) > 4)
-			{
-				rockPos = rockPos.up();
-				setBlockInWorld(world, rockPos, blocks.get(rand.nextInt(blocks.size())), true);
-				
-				if (rand.nextInt(10) > 8)
-				{
-					rockPos = rockPos.up();
-					setBlockInWorld(world, rockPos, blocks.get(rand.nextInt(blocks.size())), true);
-				}
-			}
+			rockPos = rockPos.up();
 		}
 	}
 }

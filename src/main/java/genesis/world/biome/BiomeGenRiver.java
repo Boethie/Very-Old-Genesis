@@ -13,7 +13,7 @@ public class BiomeGenRiver extends BiomeGenBaseGenesis
 		this.biomeName = "River";
 		this.setHeight(BiomeGenBase.height_ShallowWaters);
 		
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenRockBoulders().setCountPerChunk(100));
+		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenRockBoulders().setCountPerChunk(300));
 	}
 	
 	@Override
