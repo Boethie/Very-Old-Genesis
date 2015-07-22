@@ -34,7 +34,7 @@ public class BlockOdontopterisCustoms extends SurviveOnDirtCustoms
 	 * |-------------|---------------------------|
 	 * |  Seeds      |0-1|          1            |
 	 * |-------------|---------------------------|
-	 * |  Fiddlehead |0-1|     1    |     0      |
+	 * |  Fiddlehead |0-1|     1     |    0      |
 	 * |-----------------------------------------|
 	 */
 	static final RandomDrop seedsDropBottom1 = new RandomDrop(GenesisItems.odontopteris_seeds, 0, 1);

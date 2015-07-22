@@ -892,7 +892,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 				growOn = pos;
 			}
 			
-			int growth = MathHelper.getRandomIntegerInRange(worldIn.rand, 2, 5);growth = 1;
+			int growth = MathHelper.getRandomIntegerInRange(worldIn.rand, 2, 5);
 			
 			for (int i = 0; i < growth; i++)
 			{
