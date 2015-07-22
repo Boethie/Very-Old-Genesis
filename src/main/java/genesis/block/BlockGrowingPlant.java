@@ -522,16 +522,16 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
+	public void setBlockBoundsBasedOnState(IBlockAccess world, BlockPos pos)
 	{
-		GrowingPlantProperties props = new GrowingPlantProperties(worldIn, pos);
+		GrowingPlantProperties props = new GrowingPlantProperties(world, pos);
 		float w2 = width / 2;
 		
 		AxisAlignedBB newBB = new AxisAlignedBB(0.5 - w2, 0, 0.5 - w2, 0.5 + w2, 0, 0.5 + w2);
 		
 		if (props.isTop(pos))
 		{
-			int stage = (Integer) worldIn.getBlockState(pos).getValue(ageProp);
+			int stage = (Integer) world.getBlockState(pos).getValue(ageProp);
 			
 			if (props.getToBottom() > 1)
 			{
@@ -892,7 +892,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 				growOn = pos;
 			}
 			
-			int growth = MathHelper.getRandomIntegerInRange(worldIn.rand, 2, 5);
+			int growth = MathHelper.getRandomIntegerInRange(worldIn.rand, 2, 5);growth = 1;
 			
 			for (int i = 0; i < growth; i++)
 			{
@@ -1147,7 +1147,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 					dropStacks = customs.getPlantDrops(this, worldIn, pos, state, fortune, chance == -1);
 				}
 				
-				if (dropStacks == null || dropStacks.isEmpty())
+				if (dropStacks == null)
 				{
 					if (!breakTogether || (breakTogether && chance == -1))
 					{
