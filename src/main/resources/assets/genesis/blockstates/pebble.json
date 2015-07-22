@@ -1,0 +1,66 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "genesis:pebble_0"
+	},
+	"variants": {
+		"variant": {
+			"granite": {
+				"textures": {
+					"particle": "#granite",
+					"granite": "genesis:blocks/granite"
+				}
+			}
+		},
+		"zrandom": {
+			"0": {
+				"submodel": {
+					"nw": {"model": "genesis:pebble_0", "transform": {"translation": [-0.25, 0, -0.25]}},
+					"ne": {"model": "genesis:pebble_1", "transform": {"translation": [0.25, 0, -0.25]}},
+					"se": {"model": "genesis:pebble_2", "transform": {"translation": [0.25, 0, 0.25]}},
+					"sw": {"model": "genesis:pebble_3", "transform": {"translation": [-0.25, 0, 0.25]}}
+				}
+			},
+			"1": {
+				"submodel": {
+					"nw": {"model": "genesis:pebble_1", "transform": {"translation": [-0.25, 0, -0.25]}},
+					"ne": {"model": "genesis:pebble_2", "transform": {"translation": [0.25, 0, -0.25]}},
+					"se": {"model": "genesis:pebble_3", "transform": {"translation": [0.25, 0, 0.25]}},
+					"sw": {"model": "genesis:pebble_0", "transform": {"translation": [-0.25, 0, 0.25]}}
+				}
+			},
+			"2": {
+				"submodel": {
+					"nw": {"model": "genesis:pebble_2", "transform": {"translation": [-0.25, 0, -0.25]}},
+					"ne": {"model": "genesis:pebble_3", "transform": {"translation": [0.25, 0, -0.25]}},
+					"se": {"model": "genesis:pebble_0", "transform": {"translation": [0.25, 0, 0.25]}},
+					"sw": {"model": "genesis:pebble_1", "transform": {"translation": [-0.25, 0, 0.25]}}
+				}
+			},
+			"3": {
+				"submodel": {
+					"nw": {"model": "genesis:pebble_3", "transform": {"translation": [-0.25, 0, -0.25]}},
+					"ne": {"model": "genesis:pebble_0", "transform": {"translation": [0.25, 0, -0.25]}},
+					"se": {"model": "genesis:pebble_1", "transform": {"translation": [0.25, 0, 0.25]}},
+					"sw": {"model": "genesis:pebble_2", "transform": {"translation": [-0.25, 0, 0.25]}}
+				}
+			}
+		},
+		"nw": {
+			"false": {"submodel": {"nw": null}},
+			"true": {"model": null}
+		},
+		"ne": {
+			"false": {"submodel": {"ne": null}},
+			"true": {"model": null}
+		},
+		"se": {
+			"false": {"submodel": {"se": null}},
+			"true": {"model": null}
+		},
+		"sw": {
+			"false": {"submodel": {"sw": null}},
+			"true": {"model": null}
+		}
+	}
+}

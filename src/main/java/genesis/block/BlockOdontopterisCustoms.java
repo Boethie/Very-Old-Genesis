@@ -21,7 +21,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class BlockOdontopterisCustoms implements IGrowingPlantCustoms
+public class BlockOdontopterisCustoms extends SurviveOnDirtCustoms
 {
 	/* |-----------------------------------------|
 	 * | TOP         | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
@@ -34,7 +34,7 @@ public class BlockOdontopterisCustoms implements IGrowingPlantCustoms
 	 * |-------------|---------------------------|
 	 * |  Seeds      |0-1|          1            |
 	 * |-------------|---------------------------|
-	 * |  Fiddlehead |0-1|     1    |     0      |
+	 * |  Fiddlehead |0-1|     1     |    0      |
 	 * |-----------------------------------------|
 	 */
 	static final RandomDrop seedsDropBottom1 = new RandomDrop(GenesisItems.odontopteris_seeds, 0, 1);
@@ -45,11 +45,6 @@ public class BlockOdontopterisCustoms implements IGrowingPlantCustoms
 
 	static final RandomDrop fiddleheadDrop1 = new RandomDrop(GenesisItems.odontopteris_fiddlehead, 0, 1);
 	static final RandomDrop fiddleheadDrop2To4 = new RandomDrop(GenesisItems.odontopteris_fiddlehead, 1, 1);
-
-	@Override
-	public void managePlantMetaProperties(BlockGrowingPlant plant, ArrayList<IProperty> metaProps)
-	{
-	}
 
 	@Override
 	public ArrayList<ItemStack> getPlantDrops(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, int fortune, boolean firstBlock)
@@ -91,26 +86,5 @@ public class BlockOdontopterisCustoms implements IGrowingPlantCustoms
 		}
 		
 		return out;
-	}
-	
-	@Override
-	public void plantUpdateTick(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, Random rand, boolean grew)
-	{
-	}
-	
-	@Override
-	public CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World worldIn, BlockPos pos, boolean placed)
-	{
-		if (placed)
-		{
-			Block block = worldIn.getBlockState(pos.down()).getBlock();
-			
-			if (block == Blocks.dirt || block == GenesisBlocks.moss)
-			{
-				return CanStayOptions.YES;
-			}
-		}
-		
-		return CanStayOptions.YIELD;
 	}
 }

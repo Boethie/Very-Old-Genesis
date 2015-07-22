@@ -1,54 +1,15 @@
 package genesis.common;
 
-import genesis.block.BlockAncientPermafrost;
-import genesis.block.BlockAquaticPlant;
-import genesis.block.BlockCalamites;
-import genesis.block.BlockCalamitesBundle;
-import genesis.block.BlockCalamitesTorch;
-import genesis.block.BlockCobbania;
-import genesis.block.BlockFern;
-import genesis.block.BlockGenesisFlowerPot;
-import genesis.block.BlockGenesisMushroom;
-import genesis.block.BlockGenesisMushroom.MushroomGrowType;
-import genesis.block.BlockGenesisOre;
-import genesis.block.BlockGenesisRock;
-import genesis.block.BlockGenesisVariants;
-import genesis.block.BlockGrowingPlant;
-import genesis.block.BlockKomatiiticLava;
-import genesis.block.BlockMoss;
-import genesis.block.BlockOdontopterisCustoms;
-import genesis.block.BlockOoze;
-import genesis.block.BlockPeat;
-import genesis.block.BlockPermafrost;
-import genesis.block.BlockPlant;
-import genesis.block.BlockPrograminisBundle;
-import genesis.block.BlockPrototaxites;
-import genesis.block.BlockPrototaxitesMycelium;
-import genesis.block.BlockRedClay;
-import genesis.block.BlockSphenophyllumCustoms;
-import genesis.block.tileentity.BlockCampfire;
-import genesis.block.tileentity.TileEntityCampfire;
+import genesis.block.*;
+import genesis.block.tileentity.*;
 import genesis.block.tileentity.render.TileEntityCampfireRenderer;
-import genesis.client.GenesisClient;
-import genesis.client.GenesisSounds;
-import genesis.item.ItemBlockCobbania;
-import genesis.item.ItemBlockColored;
-import genesis.item.ItemBlockMulti;
-import genesis.metadata.DungBlocksAndItems;
-import genesis.metadata.EnumAquaticPlant;
-import genesis.metadata.EnumCoral;
-import genesis.metadata.EnumFern;
-import genesis.metadata.EnumNodule;
-import genesis.metadata.EnumPlant;
-import genesis.metadata.IMetadata;
-import genesis.metadata.TreeBlocksAndItems;
-import genesis.metadata.VariantsCombo;
-import genesis.metadata.VariantsOfTypesCombo.ObjectNamePosition;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import genesis.client.*;
+import genesis.item.*;
+import genesis.metadata.*;
+import genesis.metadata.VariantsOfTypesCombo.*;
+import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
-import genesis.util.RandomDrop;
 import genesis.util.RandomDrop.RandomStackDrop;
-import genesis.util.SidedFunction;
 
 import java.util.List;
 
@@ -56,8 +17,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.*;
 
 public final class GenesisBlocks
 {
@@ -114,12 +74,14 @@ public final class GenesisBlocks
 	/* Crops */
 	public static final BlockGrowingPlant zingiberopsis = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true).setBreakAllTogether(true)
+	        .setPlantSize(0, 0.2F, 0.5F)
 			.setPlantType(EnumPlantType.Crop)
 			.setUnlocalizedName(Unlocalized.CROP + "zingiberopsis");
 	public static final BlockGrowingPlant sphenophyllum = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true)
 			.setPlantType(EnumPlantType.Plains)
 			.setGrowthChanceMult(5, 1, 1)
+            .setPlantSize(0, 0.2F, 0.75F)
 			.setCustomsInterface(new BlockSphenophyllumCustoms())
 			.setUnlocalizedName(Unlocalized.PLANT + "sphenophyllum");
 	public static final BlockGrowingPlant odontopteris = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
@@ -127,12 +89,15 @@ public final class GenesisBlocks
 			.setPlantType(EnumPlantType.Crop)
 			.setGrowthChanceMult(16, 0.4F, 0.95F)
 			.setUseBiomeColor(true)
+            .setPlantSize(0, 0.2F, 0.75F)
 			.setCustomsInterface(new BlockOdontopterisCustoms())
 			.setUnlocalizedName(Unlocalized.CROP + "odontopteris");
 	public static final BlockGrowingPlant programinis = (BlockGrowingPlant) new BlockGrowingPlant(false, 7, 1).setTopPosition(1)
 			.setPlantType(EnumPlantType.Crop)
 			.setUseBiomeColor(true)
-			.setUnlocalizedName(Unlocalized.CROP + "odontopteris");
+	        .setPlantSize(0, 0.1F, 0.75F)
+			.setCustomsInterface(new SurviveOnDirtCustoms())
+			.setUnlocalizedName(Unlocalized.CROP + "programinis");
 	
 	/* Fluids */
 	public static BlockKomatiiticLava komatiitic_lava;
@@ -146,8 +111,8 @@ public final class GenesisBlocks
 	public static final DungBlocksAndItems dungs = new DungBlocksAndItems();
 	
 	/* Misc */
-	public static final Block palaeoagaracites = new BlockGenesisMushroom().setUnlocalizedName(Unlocalized.PREFIX + "palaeoagaracites").setGrowType(MushroomGrowType.Grow_side).setCreativeTab(GenesisCreativeTabs.DECORATIONS);
-	public static final Block archaeomarasmius = new BlockGenesisMushroom().setUnlocalizedName(Unlocalized.PREFIX + "archaeomarasmius").setGrowType(MushroomGrowType.Grow_top).setCreativeTab(GenesisCreativeTabs.DECORATIONS);
+	public static final Block palaeoagaracites = new BlockGenesisMushroom().setUnlocalizedName(Unlocalized.PREFIX + "palaeoagaracites").setGrowType(BlockGenesisMushroom.MushroomGrowType.Grow_side).setCreativeTab(GenesisCreativeTabs.DECORATIONS);
+	public static final Block archaeomarasmius = new BlockGenesisMushroom().setUnlocalizedName(Unlocalized.PREFIX + "archaeomarasmius").setGrowType(BlockGenesisMushroom.MushroomGrowType.Grow_top).setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	public static final Block prototaxites = new BlockPrototaxites().setUnlocalizedName(Unlocalized.PREFIX + "prototaxites");
 	public static final VariantsCombo<EnumCoral, BlockGenesisVariants, ItemBlockMulti> corals =
 			new VariantsCombo(
@@ -231,17 +196,14 @@ public final class GenesisBlocks
 		ferns.registerAll();
 		
 		Genesis.proxy.registerBlock(zingiberopsis, "zingiberopsis", null);
-		zingiberopsis.setPlantSize(0, 0.2F, 0.5F);
 		zingiberopsis.setDrops(new RandomDrop(GenesisItems.zingiberopsis_rhizome, 1, 1));
 		zingiberopsis.setCropDrops(new RandomDrop(GenesisItems.zingiberopsis_rhizome, 1, 3));
 		zingiberopsis.setPickedItem(GenesisItems.zingiberopsis_rhizome);
 		GenesisItems.zingiberopsis_rhizome.setCrop(zingiberopsis);
 		
 		Genesis.proxy.registerBlock(sphenophyllum, "sphenophyllum");
-		sphenophyllum.setPlantSize(0, 0.2F, 0.75F);
 		
 		Genesis.proxy.registerBlock(odontopteris, "odontopteris", null);
-		odontopteris.setPlantSize(0, 0.2F, 0.75F);
 		odontopteris.setDrops(new RandomDrop(GenesisItems.odontopteris_seeds, 1, 1));
 		odontopteris.setCropDrops(new RandomDrop(GenesisItems.odontopteris_seeds, 1, 3));
 		odontopteris.setPickedItem(GenesisItems.odontopteris_seeds);

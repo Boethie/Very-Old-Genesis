@@ -44,11 +44,11 @@ public class BlockGenesisMushroom extends BlockBush implements IGrowable
 	public BlockGenesisMushroom setGrowType(MushroomGrowType type)
 	{
 		this.growType = type;
-		//BlockLog
+		
 		switch(type)
 		{
 		case Grow_side:
-			this.setBlockBounds(0.1F, 0.0F, 0.1F, 0.6F, 0.8F, 0.9F);
+			this.setBlockBounds(0.2F, 0.3F, 0.2F, 0.7F, 0.9F, 0.7F);
 			break;
 		default:
 			this.setBlockBounds(0.1F, 0.0F, 0.1F, 0.9F, 0.8F, 0.9F);
@@ -186,32 +186,53 @@ public class BlockGenesisMushroom extends BlockBush implements IGrowable
 	}
 	
 	@Override
-	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+	public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
 	{
-		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
+		IBlockState state = super.onBlockPlaced(world, pos, facing, hitX, hitY, hitZ, meta, placer);
 		
 		if (this.growType == MushroomGrowType.Grow_side)
 		{
 			int l = MathHelper.floor_double((double)(placer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+			boolean placed = true;
 			
 			switch(l)
 			{
 			case 1:
-				state = state.withProperty(FACING, MushroomEnumFacing.WEST);
-				this.setBlockBounds(0.1F, 0.0F, 0.1F, 0.6F, 0.8F, 0.9F);
+				if (checkBlockIsBase(world.getBlockState(pos.west())))
+					state = state.withProperty(FACING, MushroomEnumFacing.WEST);
+				else
+					placed = false;
 				break;
 			case 2:
-				state = state.withProperty(FACING, MushroomEnumFacing.NORTH);
-				this.setBlockBounds(0.1F, 0.0F, 0.1F, 0.9F, 0.8F, 0.6F);
+				if (checkBlockIsBase(world.getBlockState(pos.north())))
+					state = state.withProperty(FACING, MushroomEnumFacing.NORTH);
+				else
+					placed = false;
 				break;
 			case 3:
-				state = state.withProperty(FACING, MushroomEnumFacing.EAST);
-				this.setBlockBounds(0.4F, 0.0F, 0.1F, 0.9F, 0.8F, 0.9F);
+				if (checkBlockIsBase(world.getBlockState(pos.east())))
+					state = state.withProperty(FACING, MushroomEnumFacing.EAST);
+				else
+					placed = false;
 				break;
 			default:
-				state = state.withProperty(FACING, MushroomEnumFacing.SOUTH);
-				this.setBlockBounds(0.1F, 0.0F, 0.4F, 0.9F, 0.8F, 0.9F);
+				if (checkBlockIsBase(world.getBlockState(pos.south())))
+					state = state.withProperty(FACING, MushroomEnumFacing.SOUTH);
+				else
+					placed = false;
 				break;
+			}
+			
+			if (!placed)
+			{
+				if (checkBlockIsBase(world.getBlockState(pos.north())))
+					state = state.withProperty(FACING, MushroomEnumFacing.NORTH);
+				else if (checkBlockIsBase(world.getBlockState(pos.south())))
+					state = state.withProperty(FACING, MushroomEnumFacing.SOUTH);
+				else if (checkBlockIsBase(world.getBlockState(pos.east())))
+					state = state.withProperty(FACING, MushroomEnumFacing.EAST);
+				else if (checkBlockIsBase(world.getBlockState(pos.west())))
+					state = state.withProperty(FACING, MushroomEnumFacing.WEST);
 			}
 		}
 		
