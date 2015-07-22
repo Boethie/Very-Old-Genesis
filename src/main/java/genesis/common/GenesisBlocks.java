@@ -9,6 +9,7 @@ import genesis.block.BlockCobbania;
 import genesis.block.BlockFern;
 import genesis.block.BlockGenesisFlowerPot;
 import genesis.block.BlockGenesisMushroom;
+import genesis.block.BlockGenesisMushroom.MushroomGrowType;
 import genesis.block.BlockGenesisOre;
 import genesis.block.BlockGenesisRock;
 import genesis.block.BlockGenesisVariants;
@@ -141,11 +142,12 @@ public final class GenesisBlocks
 	public static final Block calamites_bundle = new BlockCalamitesBundle().setUnlocalizedName(Unlocalized.PREFIX + "calamitesBundle");
 	public static final Block programinis_bundle = new BlockPrograminisBundle().setUnlocalizedName(Unlocalized.PREFIX + "programinisBundle");
 	public static final Block calamites_torch = new BlockCalamitesTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTorch");
-	public static final Block archaeomarasmius = new BlockGenesisMushroom().setUnlocalizedName(Unlocalized.PREFIX + "archaeomarasmius").setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	public static final Block prototaxites_mycelium = new BlockPrototaxitesMycelium().setUnlocalizedName(Unlocalized.PREFIX + "prototaxitesMycelium");
 	public static final DungBlocksAndItems dungs = new DungBlocksAndItems();
 	
 	/* Misc */
+	public static final Block palaeoagaracites = new BlockGenesisMushroom().setUnlocalizedName(Unlocalized.PREFIX + "palaeoagaracites").setGrowType(MushroomGrowType.Grow_side).setCreativeTab(GenesisCreativeTabs.DECORATIONS);
+	public static final Block archaeomarasmius = new BlockGenesisMushroom().setUnlocalizedName(Unlocalized.PREFIX + "archaeomarasmius").setGrowType(MushroomGrowType.Grow_top).setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	public static final Block prototaxites = new BlockPrototaxites().setUnlocalizedName(Unlocalized.PREFIX + "prototaxites");
 	public static final VariantsCombo<EnumCoral, BlockGenesisVariants, ItemBlockMulti> corals =
 			new VariantsCombo(
@@ -198,7 +200,6 @@ public final class GenesisBlocks
 		trees.registerVariants(trees.LOG);
 		Genesis.proxy.registerBlock(calamites_bundle, "calamites_bundle");
 		Genesis.proxy.registerBlock(programinis_bundle, "programinis_bundle");
-		Genesis.proxy.registerBlock(archaeomarasmius, "archaeomarasmius");
 		Genesis.proxy.registerBlock(prototaxites_mycelium, "prototaxites_mycelium");
 		dungs.registerVariants(dungs.DUNG_BLOCK);
 		
@@ -261,6 +262,8 @@ public final class GenesisBlocks
 		komatiitic_lava = (BlockKomatiiticLava) new BlockKomatiiticLava(GenesisFluids.KOMATIITIC_LAVA).setUnlocalizedName(Unlocalized.PREFIX + "komatiiticLava");
 		Genesis.proxy.registerFluidBlock(komatiitic_lava, "komatiitic_lava");
 		
+		Genesis.proxy.registerBlock(palaeoagaracites, "palaeoagaracites");
+		Genesis.proxy.registerBlock(archaeomarasmius, "archaeomarasmius");
 		Genesis.proxy.registerBlock(prototaxites, "prototaxites");
 		Genesis.proxy.registerBlock(cobbania, "cobbania", ItemBlockCobbania.class);
 		aquatic_plants.registerAll();

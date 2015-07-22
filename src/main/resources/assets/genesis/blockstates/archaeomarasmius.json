@@ -1,5 +1,9 @@
 {
     "variants": {
+        "facing=north": { "model": "genesis:archaeomarasmius" },
+        "facing=south": { "model": "genesis:archaeomarasmius" },
+        "facing=east": { "model": "genesis:archaeomarasmius" },
+        "facing=west": { "model": "genesis:archaeomarasmius" },
         "normal": { "model": "genesis:archaeomarasmius" }
     }
 }
