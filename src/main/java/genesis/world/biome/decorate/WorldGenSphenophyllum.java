@@ -32,23 +32,7 @@ public class WorldGenSphenophyllum extends WorldGenDecorationBase
 			return false;
 		
 		boolean water_exists = findBlockInRange(world, pos, Blocks.water.getDefaultState(), 4, 2, 4);
-		/*
-		found_water:
-		for (int x = -4; x <= 4; ++x)
-		{
-			for (int z = -4; z <= 4; ++z)
-			{
-				for (int y = -2; y <= 2; ++y)
-				{
-					if (world.getBlockState(pos.add(x, y, z)) == Blocks.water.getDefaultState())
-					{
-						water_exists = true;
-						break found_water;
-					}
-				}
-			}
-		}
-		*/
+		
 		if (!water_exists)
 			return false;
 		

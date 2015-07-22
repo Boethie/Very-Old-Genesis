@@ -17,7 +17,7 @@ public class WorldProviderGenesis extends WorldProvider
 	
     protected void generateLightBrightnessTable()
     {
-        float f = -0.06F;
+        float f = -0.0F;
         
         for (int i = 0; i <= 15; ++i)
         {

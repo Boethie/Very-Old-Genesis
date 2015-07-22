@@ -1,6 +1,5 @@
 package genesis.block;
 
-import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
 import genesis.util.BlockStateToMetadata;
 
@@ -39,21 +38,12 @@ public class BlockGenesisMushroom extends BlockBush implements IGrowable
 		this.setDefaultState(this.blockState.getBaseState());
 		this.setTickRandomly(true);
 		this.setStepSound(soundTypeGrass);
+		this.setBlockBounds(0.1F, 0.0F, 0.1F, 0.9F, 0.8F, 0.9F);
 	}
 	
 	public BlockGenesisMushroom setGrowType(MushroomGrowType type)
 	{
 		this.growType = type;
-		
-		switch(type)
-		{
-		case Grow_side:
-			this.setBlockBounds(0.2F, 0.3F, 0.2F, 0.7F, 0.9F, 0.7F);
-			break;
-		default:
-			this.setBlockBounds(0.1F, 0.0F, 0.1F, 0.9F, 0.8F, 0.9F);
-			break;
-		}
 		
 		return this;
 	}
