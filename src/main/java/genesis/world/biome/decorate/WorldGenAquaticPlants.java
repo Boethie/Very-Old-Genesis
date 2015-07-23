@@ -11,7 +11,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
-public class WorldGenAcuaticPlants extends WorldGenDecorationBase
+public class WorldGenAquaticPlants extends WorldGenDecorationBase
 {
 	private EnumAquaticPlant plantType;
 	private EnumAquaticPlant plantTypeTop;
@@ -95,7 +95,7 @@ public class WorldGenAcuaticPlants extends WorldGenDecorationBase
 		return this;
 	}
 	
-	public WorldGenAcuaticPlants setGenerateInGroup(boolean group, int size)
+	public WorldGenAquaticPlants setGenerateInGroup(boolean group, int size)
 	{
 		generateInGroup = group;
 		groupSize = size;

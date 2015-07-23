@@ -13,13 +13,13 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
-public class WorldGenTreeArchaeopteris extends WorldGenTreeBase
+public class WorldGenTreeCoradites extends WorldGenTreeBase
 {
-	public WorldGenTreeArchaeopteris(int minHeight, int maxHeight, boolean notify)
+	public WorldGenTreeCoradites(int minHeight, int maxHeight, boolean notify)
 	{
 		super(
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LOG, EnumTree.ARCHAEOPTERIS).withProperty(BlockLog.LOG_AXIS, EnumAxis.Y),
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES, EnumTree.ARCHAEOPTERIS),
+				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LOG, EnumTree.CORDAITES).withProperty(BlockLog.LOG_AXIS, EnumAxis.Y),
+				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES, EnumTree.CORDAITES),
 				notify);
 		
 		this.notify = notify;
@@ -35,7 +35,7 @@ public class WorldGenTreeArchaeopteris extends WorldGenTreeBase
 		
 		if (
 				soil == null 
-				|| !soil.canSustainPlant(world, pos, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.ARCHAEOPTERIS))
+				|| !soil.canSustainPlant(world, pos, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.CORDAITES))
 				|| !world.getBlockState(pos).getBlock().isAir(world, pos))
 		{
 			return false;
