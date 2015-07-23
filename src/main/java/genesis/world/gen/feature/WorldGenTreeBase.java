@@ -39,7 +39,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	}
 	
 	@Override
-	public abstract boolean generate(World worldIn, Random rand, BlockPos pos);
+	public abstract boolean generate(World world, Random rand, BlockPos pos);
 	
 	protected void generateLeafLayerCircle(World world, Random random, double radius, int xo, int zo, int h)
 	{

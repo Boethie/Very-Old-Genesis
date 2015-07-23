@@ -1,0 +1,9 @@
+{
+    "variants": {
+        "facing=north": { "model": "genesis:palaeoagaracites", "y": 90 },
+        "facing=south": { "model": "genesis:palaeoagaracites", "y": -90 },
+        "facing=east": { "model": "genesis:palaeoagaracites", "y": 180 },
+        "facing=west": { "model": "genesis:palaeoagaracites", "y": 0 },
+        "normal": { "model": "genesis:palaeoagaracites" }
+    }
+}

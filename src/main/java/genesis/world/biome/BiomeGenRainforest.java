@@ -25,7 +25,7 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 		super(id);
 		this.biomeName = "Rainforest";
 		this.rainfall = 1.0F;
-		this.temperature = 0.9F;
+		this.temperature = 0.95F;
 		this.minHeight = 0.05F;
 		this.maxHeight = 0.1F;
 		this.theBiomeDecorator.treesPerChunk = 0;

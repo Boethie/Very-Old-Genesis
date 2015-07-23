@@ -26,7 +26,8 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 		this.theBiomeDecorator.treesPerChunk = 0;
 		this.theBiomeDecorator.grassPerChunk = 5;
 		((BiomeDecoratorGenesis) this.theBiomeDecorator).generateDefaultTrees = false;
-		
+		//GenesisBlocks.programinis;
+		//GenesisBlocks.palaeoagaracites;
 		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenArchaeomarasmius().setPatchSize(6).setCountPerChunk(600));
 		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenRockBoulders().setCountPerChunk(300));
 		((BiomeDecoratorGenesis) this.theBiomeDecorator).trees.add(new WorldGenTreeAraucarioxylon(25, 30, true).setTreeCountPerChunk(totalTreesPerChunk));
