@@ -2,7 +2,6 @@ package genesis.common;
 
 import java.io.File;
 
-import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
 
 public final class GenesisConfig
@@ -19,6 +18,9 @@ public final class GenesisConfig
 	public static int auxForestId = 54;
 	public static int auxForestWeight = 10;
 	public static int auxForestEdgeId = 55;
+	public static int limestoneBeachId = 56;
+	public static int swampRainForestId = 57;
+	public static int swampRainForestWeight = 8;
 	
 	//dimensions
 	public static int genesisDimId = 37;

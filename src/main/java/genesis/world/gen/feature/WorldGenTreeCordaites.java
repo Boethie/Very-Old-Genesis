@@ -13,9 +13,9 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
-public class WorldGenTreeCoradites extends WorldGenTreeBase
+public class WorldGenTreeCordaites extends WorldGenTreeBase
 {
-	public WorldGenTreeCoradites(int minHeight, int maxHeight, boolean notify)
+	public WorldGenTreeCordaites(int minHeight, int maxHeight, boolean notify)
 	{
 		super(
 				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LOG, EnumTree.CORDAITES).withProperty(BlockLog.LOG_AXIS, EnumAxis.Y),

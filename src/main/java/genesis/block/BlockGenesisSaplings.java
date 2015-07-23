@@ -11,7 +11,7 @@ import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants.Unlocalized;
 import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
 import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
-import genesis.world.gen.feature.WorldGenTreeCoradites;
+import genesis.world.gen.feature.WorldGenTreeCordaites;
 import genesis.world.gen.feature.WorldGenTreeLepidodendron;
 import genesis.world.gen.feature.WorldGenTreePsaronius;
 import genesis.world.gen.feature.WorldGenTreeSigillaria;
@@ -131,7 +131,7 @@ public class BlockGenesisSaplings extends BlockSapling
 			gen = new WorldGenTreeLepidodendron(14, 18, true);
 			break;
 		case CORDAITES:
-			gen = new WorldGenTreeCoradites(15, 20, true);
+			gen = new WorldGenTreeCordaites(15, 20, true);
 			break;
 		case PSARONIUS:
 			gen = new WorldGenTreePsaronius(5, 8, true);

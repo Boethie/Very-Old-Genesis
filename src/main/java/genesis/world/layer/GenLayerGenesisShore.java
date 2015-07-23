@@ -41,6 +41,10 @@ public class GenLayerGenesisShore extends GenLayerGenesis
 				{
 					var6 = getIntsForBiome(var5, var6, var8, var7, var9, par3, GenesisBiomes.auxForestM.biomeID, GenesisBiomes.auxForestEdgeM.biomeID);
 				}
+				else if (var9 == GenesisBiomes.shallowOcean.biomeID)
+				{
+					var6 = getIntsForBiome(var5, var6, var8, var7, var9, par3, GenesisBiomes.shallowOcean.biomeID, GenesisBiomes.limestoneBeach.biomeID);
+				}
 				else
 				{
 					var6[var8 + var7 * par3] = var9;

@@ -5,12 +5,14 @@ import genesis.world.biome.BiomeGenAuxForestEdge;
 import genesis.world.biome.BiomeGenAuxForestEdgeM;
 import genesis.world.biome.BiomeGenAuxForestM;
 import genesis.world.biome.BiomeGenBaseGenesis;
+import genesis.world.biome.BiomeGenLimestoneBeach;
 import genesis.world.biome.BiomeGenRainforest;
 import genesis.world.biome.BiomeGenRainforestEdge;
 import genesis.world.biome.BiomeGenRainforestEdgeM;
 import genesis.world.biome.BiomeGenRainforestM;
 import genesis.world.biome.BiomeGenRiver;
 import genesis.world.biome.BiomeGenShallowOcean;
+import genesis.world.biome.BiomeGenSwampRainforest;
 import genesis.world.biome.BiomeManagerGenesis;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager.BiomeType;
@@ -28,6 +30,8 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis auxForestEdgeM;
 	public static BiomeGenBaseGenesis river;
 	public static BiomeGenBaseGenesis shallowOcean;
+	public static BiomeGenBaseGenesis limestoneBeach;
+	public static BiomeGenBaseGenesis swampRainForest;
 	
 	public static void loadBiomes()
 	{
@@ -44,11 +48,18 @@ public final class GenesisBiomes
 		rainforestEdgeM = new BiomeGenRainforestEdgeM(GenesisConfig.rainforestEdgeId+128).setColor(6458135);
 		BiomeDictionary.registerBiomeType(rainforestEdgeM, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.MOUNTAIN);
 		
+		swampRainForest = new BiomeGenSwampRainforest(GenesisConfig.swampRainForestId);
+		BiomeManagerGenesis.registerBiome(swampRainForest, BiomeType.WARM, GenesisConfig.swampRainForestWeight);
+		BiomeDictionary.registerBiomeType(swampRainForest, BiomeDictionary.Type.SWAMP, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		
 		river = new BiomeGenRiver(GenesisConfig.riverId);
 		BiomeDictionary.registerBiomeType(river, BiomeDictionary.Type.RIVER, BiomeDictionary.Type.WET);
 		
 		shallowOcean = new BiomeGenShallowOcean(GenesisConfig.shallowOceanId);
 		BiomeDictionary.registerBiomeType(shallowOcean, BiomeDictionary.Type.OCEAN, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
+		
+		limestoneBeach = new BiomeGenLimestoneBeach(GenesisConfig.limestoneBeachId);
+		BiomeDictionary.registerBiomeType(limestoneBeach, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.WET);
 		
 		auxForest = new BiomeGenAuxForest(GenesisConfig.auxForestId);
 		BiomeManagerGenesis.registerBiome(auxForest, BiomeType.WARM, GenesisConfig.auxForestWeight);
