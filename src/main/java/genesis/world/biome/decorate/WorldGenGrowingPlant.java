@@ -1,5 +1,6 @@
 package genesis.world.biome.decorate;
 
+import genesis.block.BlockGrowingPlant;
 import genesis.common.GenesisBlocks;
 
 import java.util.Random;
@@ -10,8 +11,22 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
-public class WorldGenSphenophyllum extends WorldGenDecorationBase
+public class WorldGenGrowingPlant extends WorldGenDecorationBase
 {
+	private BlockGrowingPlant plant;
+	private boolean isDouble = true;
+	
+	public WorldGenGrowingPlant(BlockGrowingPlant plant)
+	{
+		this.plant = plant;
+	}
+	
+	public WorldGenGrowingPlant setDouble(boolean isDouble)
+	{
+		this.isDouble = isDouble;
+		return this;
+	}
+	
 	@Override
 	public boolean generate(World world, Random random, BlockPos pos)
 	{
@@ -57,14 +72,26 @@ public class WorldGenSphenophyllum extends WorldGenDecorationBase
 	private void placeRandomPlant(World world, BlockPos pos, Random random)
 	{
 		int growth = random.nextInt(7);
-		IBlockState bottom = GenesisBlocks.sphenophyllum.getDefaultState().withProperty(GenesisBlocks.sphenophyllum.ageProp, growth).withProperty(GenesisBlocks.sphenophyllum.topProp, false);
-		IBlockState top = GenesisBlocks.sphenophyllum.getDefaultState().withProperty(GenesisBlocks.sphenophyllum.ageProp, growth).withProperty(GenesisBlocks.sphenophyllum.topProp, true);
+		IBlockState bottom;
+		IBlockState top;
+		
+		if (isDouble)
+		{
+			bottom = plant.getDefaultState().withProperty(plant.ageProp, growth).withProperty(plant.topProp, false);
+			top = plant.getDefaultState().withProperty(plant.ageProp, growth).withProperty(plant.topProp, true);
+		}
+		else
+		{
+			bottom = plant.getDefaultState().withProperty(plant.ageProp, growth);
+			top = plant.getDefaultState().withProperty(plant.ageProp, growth);
+		}
+		
 		BlockPos placePos = pos.up();
 		
 		if (world.isAirBlock(placePos) && world.isAirBlock(placePos.up()))
 		{
 			world.setBlockState(placePos, bottom, 2);
-			if (GenesisBlocks.sphenophyllum.growthAge <= growth)
+			if (plant.growthAge <= growth)
 			{
 				world.setBlockState(placePos.up(), top, 2);
 			}
