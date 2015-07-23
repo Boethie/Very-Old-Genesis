@@ -15,6 +15,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.Item;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.*;
@@ -172,6 +173,7 @@ public final class GenesisBlocks
 		trees.registerAll();
 		
 		Genesis.proxy.registerBlock(campfire, "campfire");
+		Item.getItemFromBlock(campfire).setMaxStackSize(1);
 		GameRegistry.registerTileEntity(TileEntityCampfire.class, Unlocalized.PREFIX + "Campfire");
 		Genesis.proxy.callSided(new SidedFunction()
 		{
