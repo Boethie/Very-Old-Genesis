@@ -158,7 +158,7 @@ public class BlockMoss extends BlockGrass
 		0.0F	// 15
 	};
 	
-	protected float getFertility(World world, BlockPos pos)
+	public float getFertility(World world, BlockPos pos)
 	{
 		BlockPos above = pos.up();
 		
@@ -230,7 +230,7 @@ public class BlockMoss extends BlockGrass
 		new RandomIntRange(3),
 	};
 	
-	protected int getTargetStage(float fertility, Random rand)
+	public int getTargetStage(float fertility, Random rand)
 	{
 		return targetStages[Math.min(Math.round(fertility * targetStages.length), targetStages.length - 1)].getRandom(rand);
 	}
@@ -238,7 +238,7 @@ public class BlockMoss extends BlockGrass
 	protected final float growthChanceHumidityEffect = 0.25F;
 	protected final float growthChanceMult = 0.25F;
 	
-	protected float getGrowthChance(IBlockAccess worldIn, BlockPos pos, boolean dying)
+	public float getGrowthChance(IBlockAccess worldIn, BlockPos pos, boolean dying)
 	{
 		float humidity = worldIn.getBiomeGenForCoords(pos).getFloatRainfall();
 		float chance = 1 - growthChanceHumidityEffect + (humidity * growthChanceHumidityEffect * (dying ? -2 : 1));

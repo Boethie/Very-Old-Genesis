@@ -44,16 +44,15 @@ public class WorldGenMossStages extends WorldGenDecorationBase
 	
 	private boolean setMoss(World world, BlockPos pos, Random rand)
 	{
-		if (!(world.getBlockState(pos).getBlock() == GenesisBlocks.moss || world.getBlockState(pos).getBlock() == Blocks.dirt))
+		if (world.getBlockState(pos).getBlock() != GenesisBlocks.moss && world.getBlockState(pos).getBlock() != Blocks.dirt)
 			return false;
 		
-		if (!world.getBlockState(pos.up()).getBlock().isAir(world, pos))
-			return false;
+		int stage = GenesisBlocks.moss.getTargetStage(GenesisBlocks.moss.getFertility(world, pos), rand);
 		
-		int light = world.getLight(pos.up());
-		int stage = (light > 14)? (rand.nextInt(2) == 0)? 1 : 0 : (light > 13)? 2 : 3;
-		
-		setBlockInWorld(world, pos, GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.STAGE, stage), true);
+		if (stage >= 0)
+		{
+			setBlockInWorld(world, pos, GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.STAGE, stage), true);
+		}
 		
 		return true;
 	}

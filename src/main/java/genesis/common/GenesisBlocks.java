@@ -22,7 +22,7 @@ import net.minecraftforge.fml.relauncher.*;
 
 public final class GenesisBlocks
 {
-	public static final Block moss = new BlockMoss().setUnlocalizedName(Unlocalized.PREFIX + "moss");
+	public static final BlockMoss moss = (BlockMoss) new BlockMoss().setUnlocalizedName(Unlocalized.PREFIX + "moss");
 
 	/* Rocks */
 	public static final Block granite = new BlockGenesisRock(2.1F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "granite");
