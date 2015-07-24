@@ -24,7 +24,7 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 		do
 		{
 			block = world.getBlockState(pos).getBlock();
-			if (!block.isLeaves(world, pos) && !block.isLeaves(world, pos))
+			if (!block.isAir(world, pos) && !block.isLeaves(world, pos))
 			{
 				break;
 			}

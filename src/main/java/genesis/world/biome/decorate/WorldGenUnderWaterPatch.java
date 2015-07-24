@@ -30,7 +30,7 @@ public class WorldGenUnderWaterPatch extends WorldGenDecorationBase
 		do
 		{
 			block = world.getBlockState(pos).getBlock();
-			if (!block.isLeaves(world, pos) && !block.isLeaves(world, pos))
+			if (!block.isAir(world, pos) && !block.isLeaves(world, pos) && !(block == Blocks.water))
 			{
 				break;
 			}
@@ -70,10 +70,14 @@ public class WorldGenUnderWaterPatch extends WorldGenDecorationBase
 			return false;
 		
 		setBlockInWorld(world, pos, blocks.get(random.nextInt(blocks.size())), true);
-		setBlockInWorld(world, pos.north(), blocks.get(random.nextInt(blocks.size())), true);
-		setBlockInWorld(world, pos.south(), blocks.get(random.nextInt(blocks.size())), true);
-		setBlockInWorld(world, pos.east(), blocks.get(random.nextInt(blocks.size())), true);
-		setBlockInWorld(world, pos.west(), blocks.get(random.nextInt(blocks.size())), true);
+		if (world.getBlockState(pos.north()).getBlock() != Blocks.water)
+			setBlockInWorld(world, pos.north(), blocks.get(random.nextInt(blocks.size())), true);
+		if (world.getBlockState(pos.south()).getBlock() != Blocks.water)
+			setBlockInWorld(world, pos.south(), blocks.get(random.nextInt(blocks.size())), true);
+		if (world.getBlockState(pos.east()).getBlock() != Blocks.water)
+			setBlockInWorld(world, pos.east(), blocks.get(random.nextInt(blocks.size())), true);
+		if (world.getBlockState(pos.west()).getBlock() != Blocks.water)
+			setBlockInWorld(world, pos.west(), blocks.get(random.nextInt(blocks.size())), true);
 		
 		return true;
 	}

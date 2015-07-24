@@ -14,16 +14,39 @@ import net.minecraft.world.World;
 public class WorldGenGrowingPlant extends WorldGenDecorationBase
 {
 	private BlockGrowingPlant plant;
-	private boolean isDouble = true;
+	private boolean nextToWater = false;
+	private int waterRadius = 4;
+	private int waterHeight = 2;
+	private GrowingPlantType plantType = GrowingPlantType.NORMAL;
+	
+	public enum GrowingPlantType
+	{
+		NORMAL,
+		DOUBLE,
+		COLUMN
+	}
 	
 	public WorldGenGrowingPlant(BlockGrowingPlant plant)
 	{
 		this.plant = plant;
 	}
 	
-	public WorldGenGrowingPlant setDouble(boolean isDouble)
+	public WorldGenGrowingPlant setPlantType(GrowingPlantType type)
 	{
-		this.isDouble = isDouble;
+		this.plantType = type;
+		return this;
+	}
+	
+	public WorldGenGrowingPlant setWaterProximity(int radius, int height)
+	{
+		this.waterRadius = radius;
+		this.waterHeight = height;
+		return this;
+	}
+	
+	public WorldGenGrowingPlant setNextToWater(boolean nextToWater)
+	{
+		this.nextToWater = nextToWater;
 		return this;
 	}
 	
@@ -35,7 +58,7 @@ public class WorldGenGrowingPlant extends WorldGenDecorationBase
 		do
 		{
 			block = world.getBlockState(pos).getBlock();
-			if (!block.isLeaves(world, pos) && !block.isLeaves(world, pos))
+			if (!block.isAir(world, pos) && !block.isLeaves(world, pos))
 			{
 				break;
 			}
@@ -46,9 +69,12 @@ public class WorldGenGrowingPlant extends WorldGenDecorationBase
 		if (!(world.getBlockState(pos).getBlock() == GenesisBlocks.moss || world.getBlockState(pos).getBlock() == Blocks.dirt))
 			return false;
 		
-		boolean water_exists = findBlockInRange(world, pos, Blocks.water.getDefaultState(), 4, 2, 4);
+		boolean water_exists = findBlockInRange(world, pos, Blocks.water.getDefaultState(), waterRadius, waterHeight, waterRadius);
 		
 		if (!water_exists)
+			return false;
+		
+		if (!world.getBlockState(pos.up()).getBlock().isAir(world, pos))
 			return false;
 		
 		placeRandomPlant(world, pos, random);
@@ -59,32 +85,46 @@ public class WorldGenGrowingPlant extends WorldGenDecorationBase
 		
 		for (int i = 0; i <= additional; ++i)
 		{
-			secondPos = pos.add(-3 + random.nextInt(7), 0, -3 + random.nextInt(7));
+			secondPos = pos.add(random.nextInt(7) - 3, 0, random.nextInt(7) - 3);
 			if (
-					world.getBlockState(secondPos).getBlock() == GenesisBlocks.moss
+					(world.getBlockState(secondPos).getBlock() == GenesisBlocks.moss
 					|| world.getBlockState(secondPos).getBlock() == Blocks.dirt)
+					&& (
+							findBlockInRange(world, pos, Blocks.water.getDefaultState(), waterRadius, waterHeight, waterRadius)
+							|| !nextToWater))
 				placeRandomPlant(world, secondPos, random);
 		}
 		
 		return true;
 	}
 	
-	private void placeRandomPlant(World world, BlockPos pos, Random random)
+	private boolean placeRandomPlant(World world, BlockPos pos, Random random)
+	{
+		if (!(world.getBlockState(pos).getBlock() == GenesisBlocks.moss || world.getBlockState(pos).getBlock() == Blocks.dirt))
+			return false;
+		
+		switch (plantType)
+		{
+		case DOUBLE:
+			placePlantDouble(world, pos, random);
+			break;
+		case COLUMN:
+			placePlantColumn(world, pos, random);
+			break;
+		default:
+			placePlant(world, pos, random);
+			break;
+		}
+		
+		return true;
+	}
+	
+	private void placePlantDouble(World world, BlockPos pos, Random random)
 	{
 		int growth = random.nextInt(7);
-		IBlockState bottom;
-		IBlockState top;
 		
-		if (isDouble)
-		{
-			bottom = plant.getDefaultState().withProperty(plant.ageProp, growth).withProperty(plant.topProp, false);
-			top = plant.getDefaultState().withProperty(plant.ageProp, growth).withProperty(plant.topProp, true);
-		}
-		else
-		{
-			bottom = plant.getDefaultState().withProperty(plant.ageProp, growth);
-			top = plant.getDefaultState().withProperty(plant.ageProp, growth);
-		}
+		IBlockState bottom = plant.getDefaultState().withProperty(plant.ageProp, growth).withProperty(plant.topProp, false);
+		IBlockState top = plant.getDefaultState().withProperty(plant.ageProp, growth).withProperty(plant.topProp, true);
 		
 		BlockPos placePos = pos.up();
 		
@@ -96,5 +136,29 @@ public class WorldGenGrowingPlant extends WorldGenDecorationBase
 				world.setBlockState(placePos.up(), top, 2);
 			}
 		}
+	}
+	
+	private void placePlant(World world, BlockPos pos, Random random)
+	{
+		int growth = random.nextInt(7);
+		IBlockState bottom = plant.getDefaultState().withProperty(plant.ageProp, growth);
+		
+		BlockPos placePos = pos.up();
+		
+		if (world.isAirBlock(placePos) && world.isAirBlock(placePos.up()))
+		{
+			world.setBlockState(placePos, bottom, 2);
+		}
+	}
+	
+	private void placePlantColumn(World world, BlockPos pos, Random random)
+	{
+		int height = 1 + random.nextInt(6);
+		IBlockState plantBlock = plant.getDefaultState();
+		
+		BlockPos placePos = pos.up();
+		
+		for (int i = 0; i <= height; ++i)
+			setBlockInWorld(world, placePos.add(0, i, 0), plantBlock);
 	}
 }
