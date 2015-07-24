@@ -1,5 +1,6 @@
 package genesis.common;
 
+import genesis.block.BlockGenesisPebble.PebbleBreakMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
@@ -17,5 +18,10 @@ public class GenesisNetwork extends SimpleNetworkWrapper
 	public <Q extends IMessage, A extends IMessage> void registerMessage(IMessageHandler<? super Q, ? extends A> messageHandler, Class<Q> requestMessageType, Side side)
 	{
 		registerMessage(messageHandler, requestMessageType, currentID++, side);
+	}
+
+	public void registerMessages()
+	{
+		registerMessage(new PebbleBreakMessage.Handler(), PebbleBreakMessage.class, Side.SERVER);
 	}
 }

@@ -153,9 +153,9 @@ public class ItemPebble extends ItemGenesis
 			if (world.getBlockState(pos).getBlock() == block || world.canBlockBePlaced(block, pos, false, side, player, stack))
 			{
 				state = block.onBlockPlaced(world, pos, side, hitX, hitY, hitZ, stack.getMetadata(), player);
-				world.setBlockState(pos, state);
+				boolean changed = world.setBlockState(pos, state);
 				
-				if (!player.capabilities.isCreativeMode && --stack.stackSize <= 0)
+				if (changed && !player.capabilities.isCreativeMode && --stack.stackSize <= 0)
 				{
 					player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
 				}
