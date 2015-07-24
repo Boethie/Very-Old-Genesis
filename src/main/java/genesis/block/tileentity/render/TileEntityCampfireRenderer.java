@@ -100,7 +100,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer
 			public void client(GenesisClient client)
 			{
 				// Get defined variants of the fire model.
-				Set<String> old = ModelHelpers.getBlockstatesVariants(FIRE);
+				Set<String> old = ModelHelpers.getBlockstatesVariants(FIRE).keySet();
 				fireModels = new HashSet();
 				
 				for (String str : old)
@@ -117,7 +117,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer
 				ModelHelpers.forceModelLoading("fire", fireModels, FIRE);
 				
 				// Force loading of fuel models.
-				old = ModelHelpers.getBlockstatesVariants(FUEL);
+				old = ModelHelpers.getBlockstatesVariants(FUEL).keySet();
 				fuelModels = new HashSet();
 				
 				for (String str : old)
@@ -133,7 +133,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer
 				ModelHelpers.forceModelLoading("item", fuelModels, FUEL);
 				
 				// Force loading of cooking item models.
-				old = ModelHelpers.getBlockstatesVariants(COOKING_ITEM);
+				old = ModelHelpers.getBlockstatesVariants(COOKING_ITEM).keySet();
 				cookingItemModels = new HashSet();
 				
 				for (String str : old)
@@ -181,6 +181,11 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer
 		World world = te.getWorld();
 		BlockPos pos = te.getPos();
 		IBlockState state = world.getBlockState(pos);
+		
+		if (!(state.getBlock() instanceof BlockCampfire))
+		{
+			return;
+		}
 		
 		GlStateManager.pushMatrix();
 		// Translate to the proper coordinates.

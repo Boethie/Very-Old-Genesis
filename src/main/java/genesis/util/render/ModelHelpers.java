@@ -32,6 +32,8 @@ import net.minecraft.client.renderer.BlockModelShapes;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.block.model.ModelBlock;
+import net.minecraft.client.renderer.block.model.ModelBlockDefinition;
+import net.minecraft.client.renderer.block.model.ModelBlockDefinition.Variants;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.IResource;
@@ -80,6 +82,7 @@ public class ModelHelpers
 	public static Map<IBlockState, ModelResourceLocation> blockResourceMap;
 	public static Class<? extends IModel> classVanillaModelWrapper;
 	public static IdentityHashMap<Item, TIntObjectHashMap<ModelResourceLocation>> itemModelLocations;
+	public static Field modelBlockDefinitionMap;
 	
 	protected static List<Pair<BlockState, ResourceLocation>> forcedModels = new ArrayList();
 	protected static boolean doInit = true;
@@ -390,7 +393,8 @@ public class ModelHelpers
 		return null;
 	}
 	
-	public static IModel getModel(ResourceLocation loc) {
+	public static IModel getModel(ResourceLocation loc)
+	{
 		IModel model;
 		
 		try
@@ -419,27 +423,25 @@ public class ModelHelpers
 		return getModelBlock(getLoadedModel(loc));
 	}
 	
-	public static Set<String> getBlockstatesVariants(ResourceLocation loc)
+	public static Map<String, Variants> getModelBlockDefinitionMap(ModelBlockDefinition definition)
 	{
-		JsonDeserializer<List<String>> deserializer = new JsonDeserializer<List<String>>()
+		if (modelBlockDefinitionMap == null)
 		{
-			@Override
-			public List<String> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-					throws JsonParseException
-			{
-				ArrayList<String> output = new ArrayList();
-				JsonObject variantsObject = JsonUtils.getJsonObject(json.getAsJsonObject(), "variants");
-				
-				for (Entry<String, JsonElement> entry : variantsObject.entrySet())
-				{
-					output.add(entry.getKey());
-				}
-				
-				return output;
-			}
-		};
-		Gson builder = new GsonBuilder().registerTypeAdapter(List.class, deserializer).create();
+			modelBlockDefinitionMap = ReflectionHelper.findField(ModelBlockDefinition.class, "mapVariants", "field_178332_b");
+		}
 		
+		try
+		{
+			return (Map<String, Variants>) modelBlockDefinitionMap.get(definition);
+		}
+		catch (IllegalAccessException e)
+		{
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public static Map<String, Variants> getBlockstatesVariants(ResourceLocation loc)
+	{
 		ResourceLocation blockstatesLocation = new ResourceLocation(loc.getResourceDomain(), "blockstates/" + loc.getResourcePath() + ".json");
 		List<IResource> resources;
 		
@@ -452,24 +454,13 @@ public class ModelHelpers
 			throw new RuntimeException("Encountered an IO exception while getting the IResources for location " + blockstatesLocation, exception);
 		}
 		
-		Set<String> output = new HashSet();
+		Map<String, Variants> output = new HashMap<String, Variants>();
 		
 		for (IResource resource : resources)
 		{
-			InputStream stream = resource.getInputStream();
-			
-			try
-			{
-				output.addAll(builder.fromJson(new InputStreamReader(stream, Charsets.UTF_8), List.class));
-			}
-			catch (JsonParseException exception)
-			{
-				throw new RuntimeException("Encountered an JSON parsing exception when loading a list of variants for " + loc + " from " + resource.getResourceLocation() + " in resourcepack " + resource.getResourcePackName(), exception);
-			}
-			finally
-			{
-				IOUtils.closeQuietly(stream);
-			}
+			InputStreamReader reader = new InputStreamReader(resource.getInputStream(), Charsets.UTF_8);
+			ModelBlockDefinition definition = ModelBlockDefinition.parseFromReader(reader);
+			output.putAll(getModelBlockDefinitionMap(definition));
 		}
 		
 		return output;
@@ -532,7 +523,7 @@ public class ModelHelpers
 	
 	public static void forceModelLoading(ResourceLocation loc)
 	{
-		forceModelLoading(getBlockstatesVariants(loc), loc);
+		forceModelLoading(getBlockstatesVariants(loc).keySet(), loc);
 	}
 	
 	public static void forceModelLoading(final String propertyName, ResourceLocation loc, String... states)

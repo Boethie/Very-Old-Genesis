@@ -1,5 +1,6 @@
 package genesis.common;
 
+import genesis.block.BlockGenesisPebble.PebbleBreakMessage;
 import genesis.command.CommandTPGenesis;
 import genesis.util.Constants;
 import net.minecraftforge.fml.common.Mod;
@@ -9,6 +10,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 
 import org.apache.logging.log4j.Logger;
 
@@ -34,6 +36,7 @@ public class Genesis
 		GenesisConfig.readConfigValues(event.getSuggestedConfigurationFile());
 		
 		network = new GenesisNetwork(Constants.MOD_ID);
+		network.registerMessages();
 		
 		GenesisFluids.registerFluids();
 		GenesisBlocks.registerBlocks();
