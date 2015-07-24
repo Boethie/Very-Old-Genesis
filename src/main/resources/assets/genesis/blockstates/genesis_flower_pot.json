@@ -8,6 +8,7 @@
         "contents=rhynia": { "model": "genesis:flower_pot_rhynia" },
         "contents=archaeamphora": { "model": "genesis:flower_pot_archaeamphora" },
         "contents=mabelia": { "model": "genesis:flower_pot_mabelia" },
+		"contents=palaeoaster": { "model": "genesis:flower_pot_palaeoaster" },
         "contents=zygopteris": { "model": "genesis:flower_pot_zygopteris" },
 		"contents=phlebopteris": { "model": "genesis:flower_pot_phlebopteris" },
         "contents=ruffordia": { "model": "genesis:flower_pot_ruffordia" },

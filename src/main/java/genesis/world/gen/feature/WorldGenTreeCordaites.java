@@ -11,7 +11,6 @@ import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class WorldGenTreeCordaites extends WorldGenTreeBase
@@ -36,8 +35,7 @@ public class WorldGenTreeCordaites extends WorldGenTreeBase
 		
 		if (
 				soil == null 
-				|| !soil.canSustainPlant(world, pos, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.CORDAITES))
-				/*|| !world.getBlockState(pos).getBlock().isAir(world, pos)*/)
+				|| !soil.canSustainPlant(world, pos, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.CORDAITES)))
 		{
 			return false;
 		}
@@ -62,28 +60,11 @@ public class WorldGenTreeCordaites extends WorldGenTreeBase
 		generateBaseBranch(world, basePos, rand, baseHeight, 0, 1);
 		generateBaseBranch(world, basePos, rand, baseHeight, 0, -1);
 		
-		BlockPos branchPos = pos.up(treeHeight);
+		BlockPos branchPos = pos.up(treeHeight - 1);
 		
-		branchPos = branchPos.add(0, -1, 0);
-		
-		doBranchLeaves(world, branchPos, rand, true, 1);
-		
-		float percent;
-		int leaves;
 		int leavesLevel = ((pos.getY() + this.minHeight - 5) < basePos.getY())? basePos.getY() + 2 : pos.getY() + this.minHeight - 5;
 		
-		while (branchPos.getY() > leavesLevel)
-		{
-			branchPos = branchPos.add(0, -1, 0);
-			
-			percent = 1.0F - (((float)branchPos.getY() - (float)leavesLevel) / ((float)pos.getY() + (float)treeHeight - (float)leavesLevel));
-			leaves = MathHelper.ceiling_float_int(4.0F * percent);
-			
-			if (leaves > 4)
-				leaves = 4;
-			
-			doBranchLeaves(world, branchPos, rand, false, leaves);
-		}
+		doPineTopLeaves(world, pos, branchPos, treeHeight, leavesLevel, rand, false);
 		
 		return true;
 	}

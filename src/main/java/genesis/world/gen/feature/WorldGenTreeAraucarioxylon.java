@@ -11,7 +11,6 @@ import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
@@ -62,33 +61,9 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			setBlockInWorld(world, pos.up(i), wood);
 		}
 		
-		BlockPos branchPos = pos.up(treeHeight);
+		BlockPos branchPos = pos.up(treeHeight - 1);
 		
-		doBranchLeaves(world, branchPos.down(), rand, true, 1);
-		
-		boolean alternate = false;
-		float percent;
-		int leaves;
-		
-		branchPos = branchPos.add(0, -1, 0);
-		
-		while (branchPos.getY() > pos.getY() + 6)
-		{
-			branchPos = branchPos.add(0, -1, 0);
-			
-			percent = ((float)(pos.getY() + treeHeight) - (float)branchPos.getY()) / (float)treeHeight;
-			leaves = MathHelper.ceiling_float_int(4.0F * percent);
-			
-			if (leaves > 4)
-				leaves = 4;
-			
-			if (alternate)
-			{
-				doBranchLeaves(world, branchPos, rand, false, leaves);
-			}
-			
-			alternate = !alternate;
-		}
+		doPineTopLeaves(world, pos, branchPos, treeHeight, pos.getY() + 6, rand, true);
 		
 		if (generateRandomSaplings && rand.nextInt(10) > 3)
 		{

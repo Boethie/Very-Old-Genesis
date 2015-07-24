@@ -4,6 +4,7 @@ import java.util.Random;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
@@ -141,6 +142,36 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 			setBlockInWorld(world, pos.up(1).east(), leaves);
 			setBlockInWorld(world, pos.up(1).west(), leaves);
 			setBlockInWorld(world, pos.up(2), leaves);
+		}
+	}
+	
+	public void doPineTopLeaves(World world, BlockPos genPos, BlockPos branchPos, int treeHeight, int leavesBase, Random rand, boolean alternate)
+	{
+		doPineTopLeaves(world, genPos, branchPos, treeHeight, leavesBase, rand, alternate, 4);
+	}
+	
+	public void doPineTopLeaves(World world, BlockPos genPos, BlockPos branchPos, int treeHeight, int leavesBase, Random rand, boolean alternate, int maxLeaveLength)
+	{
+		boolean alt = false;
+		float percent;
+		int leaves;
+		
+		doBranchLeaves(world, branchPos, rand, true, 1);
+		
+		while (branchPos.getY() > leavesBase)
+		{
+			branchPos = branchPos.add(0, -1, 0);
+			
+			percent = 1.0F - (((float)branchPos.getY() - (float)leavesBase) / ((float)genPos.getY() + (float)treeHeight - (float)leavesBase));
+			leaves = MathHelper.ceiling_float_int((float)maxLeaveLength * percent);
+			
+			if (leaves > maxLeaveLength)
+				leaves = maxLeaveLength;
+			
+			if (alt || !alternate)
+				doBranchLeaves(world, branchPos, rand, false, leaves);
+			
+			alt = !alt;
 		}
 	}
 }

@@ -5,6 +5,7 @@ import java.util.Random;
 import genesis.block.BlockMoss;
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.BiomeDecoratorGenesis;
+import genesis.world.biome.decorate.WorldGenZygopteris;
 import net.minecraft.block.BlockGrass;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.material.Material;
@@ -15,6 +16,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
+import net.minecraft.world.gen.feature.WorldGenerator;
 
 public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 {
@@ -43,6 +45,12 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 	public Vec3 getSkyColor()
 	{
 		return new Vec3(0.29411764705882352941176470588235D, 0.47450980392156862745098039215686D, 0.1960784313725490196078431372549D);
+	}
+	
+	@Override
+	public WorldGenerator getRandomWorldGenForGrass(Random rand)
+	{
+		return new WorldGenZygopteris();
 	}
 	
 	@Override

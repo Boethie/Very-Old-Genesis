@@ -21,6 +21,8 @@ public final class GenesisConfig
 	public static int limestoneBeachId = 56;
 	public static int swampRainForestId = 57;
 	public static int swampRainForestWeight = 10;
+	public static int archaeopterisForestId = 58;
+	public static int archaeopterisForestWeight = 10;
 	
 	//dimensions
 	public static int genesisDimId = 37;

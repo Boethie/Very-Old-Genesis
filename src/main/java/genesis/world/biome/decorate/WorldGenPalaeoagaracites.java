@@ -34,7 +34,7 @@ public class WorldGenPalaeoagaracites extends WorldGenDecorationBase
 		
 		boolean placedSome = false;
 		
-		for (int i = 0; i < 100; ++i)
+		for (int i = 0; i < this.getPatchSize(); ++i)
 			if(placeMushroom(world, pos, random))
 				placedSome = true;
 		
