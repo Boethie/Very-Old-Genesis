@@ -8,5 +8,6 @@
         "variant=rhynia":  { "model": "genesis:rhynia" },
         "variant=archaeamphora":  { "model": "genesis:archaeamphora" },
         "variant=mabelia":  { "model": "genesis:mabelia" }
+		"variant=palaeoaster":  { "model": "genesis:palaeoaster" }
     }
 }
