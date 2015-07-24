@@ -32,7 +32,7 @@ public class WorldGenCorals extends WorldGenDecorationBase
 		do
 		{
 			block = world.getBlockState(pos).getBlock();
-			if (!block.isLeaves(world, pos) && !block.isLeaves(world, pos))
+			if (!block.isAir(world, pos) && !(block == Blocks.water))
 			{
 				break;
 			}
