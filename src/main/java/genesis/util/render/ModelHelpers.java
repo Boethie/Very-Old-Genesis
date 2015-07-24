@@ -443,24 +443,31 @@ public class ModelHelpers
 	public static Map<String, Variants> getBlockstatesVariants(ResourceLocation loc)
 	{
 		ResourceLocation blockstatesLocation = new ResourceLocation(loc.getResourceDomain(), "blockstates/" + loc.getResourcePath() + ".json");
-		List<IResource> resources;
+		List<IResource> resources = null;
 		
 		try
 		{
 			resources = Minecraft.getMinecraft().getResourceManager().getAllResources(blockstatesLocation);
 		}
-		catch (IOException exception)
+		catch (IOException e)
 		{
-			throw new RuntimeException("Encountered an IO exception while getting the IResources for location " + blockstatesLocation, exception);
+			Genesis.logger.warn("Encountered an IO exception while getting the IResources for location " + blockstatesLocation, e);
 		}
 		
 		Map<String, Variants> output = new HashMap<String, Variants>();
 		
-		for (IResource resource : resources)
+		try
 		{
-			InputStreamReader reader = new InputStreamReader(resource.getInputStream(), Charsets.UTF_8);
-			ModelBlockDefinition definition = ModelBlockDefinition.parseFromReader(reader);
-			output.putAll(getModelBlockDefinitionMap(definition));
+			for (IResource resource : resources)
+			{
+				InputStreamReader reader = new InputStreamReader(resource.getInputStream(), Charsets.UTF_8);
+				ModelBlockDefinition definition = ModelBlockDefinition.parseFromReader(reader);
+				output.putAll(getModelBlockDefinitionMap(definition));
+			}
+		}
+		catch (Exception e)
+		{
+			Genesis.logger.warn("Encountered an exception while loading the blockstates json at " + blockstatesLocation, e);
 		}
 		
 		return output;
