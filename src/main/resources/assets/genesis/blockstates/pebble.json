@@ -5,62 +5,102 @@
 	},
 	"variants": {
 		"variant": {
+			"octaedrite": {
+				"textures": {
+					"particle": "#texture",
+					"texture": "genesis:blocks/octaedrite"
+				}
+			},
+			"dolerite": {
+				"textures": {
+					"particle": "#texture",
+					"texture": "genesis:blocks/dolerite"
+				}
+			},
+			"rhyolite": {
+				"textures": {
+					"particle": "#texture",
+					"texture": "genesis:blocks/rhyolite"
+				}
+			},
 			"granite": {
 				"textures": {
-					"particle": "#granite",
-					"granite": "genesis:blocks/granite"
+					"particle": "#texture",
+					"texture": "genesis:blocks/granite"
+				}
+			},
+			"quartzite": {
+				"textures": {
+					"particle": "#texture",
+					"texture": "genesis:blocks/quartzite"
+				}
+			},
+			"brown_flint": {
+				"textures": {
+					"particle": "#texture",
+					"texture": "genesis:blocks/brown_flint"
+				}
+			},
+			"black_flint": {
+				"textures": {
+					"particle": "#texture",
+					"texture": "genesis:blocks/black_flint"
 				}
 			}
 		},
 		"zrandom": {
-			"0": {
-				"submodel": {
-					"nw": {"model": "genesis:pebble_0", "transform": {"translation": [-0.25, 0, -0.25]}},
-					"ne": {"model": "genesis:pebble_1", "transform": {"translation": [0.25, 0, -0.25]}},
-					"se": {"model": "genesis:pebble_2", "transform": {"translation": [0.25, 0, 0.25]}},
-					"sw": {"model": "genesis:pebble_3", "transform": {"translation": [-0.25, 0, 0.25]}}
-				}
-			},
-			"1": {
-				"submodel": {
-					"nw": {"model": "genesis:pebble_1", "transform": {"translation": [-0.25, 0, -0.25]}},
-					"ne": {"model": "genesis:pebble_2", "transform": {"translation": [0.25, 0, -0.25]}},
-					"se": {"model": "genesis:pebble_3", "transform": {"translation": [0.25, 0, 0.25]}},
-					"sw": {"model": "genesis:pebble_0", "transform": {"translation": [-0.25, 0, 0.25]}}
-				}
-			},
-			"2": {
-				"submodel": {
-					"nw": {"model": "genesis:pebble_2", "transform": {"translation": [-0.25, 0, -0.25]}},
-					"ne": {"model": "genesis:pebble_3", "transform": {"translation": [0.25, 0, -0.25]}},
-					"se": {"model": "genesis:pebble_0", "transform": {"translation": [0.25, 0, 0.25]}},
-					"sw": {"model": "genesis:pebble_1", "transform": {"translation": [-0.25, 0, 0.25]}}
-				}
-			},
-			"3": {
-				"submodel": {
-					"nw": {"model": "genesis:pebble_3", "transform": {"translation": [-0.25, 0, -0.25]}},
-					"ne": {"model": "genesis:pebble_0", "transform": {"translation": [0.25, 0, -0.25]}},
-					"se": {"model": "genesis:pebble_1", "transform": {"translation": [0.25, 0, 0.25]}},
-					"sw": {"model": "genesis:pebble_2", "transform": {"translation": [-0.25, 0, 0.25]}}
-				}
-			}
+			"0": {},
+			"1": {},
+			"2": {},
+			"3": {}
 		},
 		"nw": {
-			"false": {"submodel": {"nw": null}},
-			"true": {"model": null}
+			"true": {
+				"model": null,
+				"submodel": {
+					"nw": {
+						"model": "genesis:pebble_0",
+						"transform": {"translation": [-0.25, 0, -0.25]}
+					}
+				}
+			},
+			"false": {}
 		},
 		"ne": {
-			"false": {"submodel": {"ne": null}},
-			"true": {"model": null}
+			"true": {
+				"model": null,
+				"submodel": {
+					"ne": {
+						"model": "genesis:pebble_1",
+						"transform": {"translation": [0.25, 0, -0.25]}
+					}
+				}
+			},
+			"false": {}
 		},
 		"se": {
-			"false": {"submodel": {"se": null}},
-			"true": {"model": null}
+			"true": {
+				"model": null,
+				"submodel": {
+					"se": {
+						"model": "genesis:pebble_2",
+						"transform": {"translation": [0.25, 0, 0.25]}
+					}
+				}
+			},
+			"false": {}
 		},
 		"sw": {
-			"false": {"submodel": {"sw": null}},
-			"true": {"model": null}
+			"true": {
+				"model": null,
+				"submodel": {
+					"sw": {
+						"model": "genesis:pebble_3",
+						"transform": {"translation": [-0.25, 0, 0.25]}
+					}
+				}
+			},
+			"false": {}
 		}
 	}
 }
