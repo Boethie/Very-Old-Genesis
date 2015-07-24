@@ -1,5 +1,6 @@
 package genesis.common;
 
+import genesis.world.biome.BiomeGenArchaeopterisForest;
 import genesis.world.biome.BiomeGenAuxForest;
 import genesis.world.biome.BiomeGenAuxForestEdge;
 import genesis.world.biome.BiomeGenAuxForestEdgeM;
@@ -32,6 +33,7 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis shallowOcean;
 	public static BiomeGenBaseGenesis limestoneBeach;
 	public static BiomeGenBaseGenesis swampRainForest;
+	public static BiomeGenBaseGenesis archaeopterisForest;
 	
 	public static void loadBiomes()
 	{
@@ -64,6 +66,10 @@ public final class GenesisBiomes
 		swampRainForest = new BiomeGenSwampRainforest(GenesisConfig.swampRainForestId);
 		BiomeManagerGenesis.registerBiome(swampRainForest, BiomeType.WARM, GenesisConfig.swampRainForestWeight);
 		BiomeDictionary.registerBiomeType(swampRainForest, BiomeDictionary.Type.SWAMP, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		
+		archaeopterisForest = new BiomeGenArchaeopterisForest(GenesisConfig.archaeopterisForestId);
+		BiomeManagerGenesis.registerBiome(archaeopterisForest, BiomeType.WARM, GenesisConfig.archaeopterisForestWeight);
+		BiomeDictionary.registerBiomeType(archaeopterisForest, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		river = new BiomeGenRiver(GenesisConfig.riverId);
 		BiomeDictionary.registerBiomeType(river, BiomeDictionary.Type.RIVER, BiomeDictionary.Type.WET);

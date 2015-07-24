@@ -21,7 +21,7 @@ public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
 		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenCorals(2, 5, EnumCoral.HELIOLITES).setCountPerChunk(1));
 		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenCorals(2, 5, EnumCoral.FAVOSITES).setCountPerChunk(1));
 		
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenAquaticPlants().setGenerateInGroup(true, 7).setPlantType(EnumAquaticPlant.BANGIOMORPHA).setCountPerChunk(30));
+		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenAquaticPlants().setGenerateInGroup(true, 7).setPlantType(EnumAquaticPlant.BANGIOMORPHA).setCountPerChunk(15));
 		
 		int[] rarityScale = {40, 30, 20, 10, 5};
 		
