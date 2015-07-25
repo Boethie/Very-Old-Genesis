@@ -12,5 +12,7 @@ public class BiomeGenLimestoneBeach extends BiomeGenBaseGenesis
 		this.fillerBlock = GenesisBlocks.limestone.getDefaultState();
 		this.minHeight = 0.05F;
 		this.maxHeight = 0.1F;
+		this.setHeight(height_RockyWaters);
+		this.setColor(10658436);
 	}
 }

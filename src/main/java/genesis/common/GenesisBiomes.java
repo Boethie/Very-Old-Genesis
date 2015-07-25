@@ -16,6 +16,7 @@ import genesis.world.biome.BiomeGenShallowOcean;
 import genesis.world.biome.BiomeGenSwampRainforest;
 import genesis.world.biome.BiomeManagerGenesis;
 import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.BiomeManager.BiomeType;
 
 public final class GenesisBiomes
@@ -78,6 +79,6 @@ public final class GenesisBiomes
 		BiomeDictionary.registerBiomeType(shallowOcean, BiomeDictionary.Type.OCEAN, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
 		
 		limestoneBeach = new BiomeGenLimestoneBeach(GenesisConfig.limestoneBeachId);
-		BiomeDictionary.registerBiomeType(limestoneBeach, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.WATER, BiomeDictionary.Type.WET);
+		BiomeDictionary.registerBiomeType(limestoneBeach, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.WET);
 	}
 }

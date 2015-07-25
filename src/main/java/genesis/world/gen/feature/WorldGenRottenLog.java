@@ -40,53 +40,60 @@ public class WorldGenRottenLog extends WorldGenTreeBase
 	@Override
 	public boolean generate(World world, Random rand, BlockPos pos)
 	{
-		pos = getTreePos(world, pos);
-		
-		if (!canTreeGrow(world, pos))
-			return false;
-		
-		int length = minHeight + rand.nextInt(maxHeight);
-		
-		if (!isCubeClear(world, pos.up(), length, 1))
+		try
 		{
-			return false;
-		}
-		
-		BlockPos logPos;
-		
-		if (rand.nextInt(2) == 0)
-		{
-			logPos = pos.add(((int)length / 2) * -1, 0, 0);
+			pos = getTreePos(world, pos);
 			
-			for (int i = 0; i < length; ++i)
-			{
-				setBlockInWorld(world, logPos, wood.withProperty(BlockLog.LOG_AXIS, EnumAxis.X));
-				
-				if (rand.nextInt(10) > 7 && topDecorations.size() > 0)
-				{
-					setBlockInWorld(world, logPos.up(), topDecorations.get(rand.nextInt(topDecorations.size())));
-				}
-				
-				logPos = logPos.add(1, 0, 0);
-			}
-		}
-		else
-		{
-			logPos = pos.add(0, 0, ((int)length / 2) * -1);
+			if (!canTreeGrow(world, pos))
+				return false;
 			
-			for (int i = 0; i < length; ++i)
+			int length = minHeight + rand.nextInt(maxHeight);
+			
+			if (!isCubeClear(world, pos.up(), length, 1))
 			{
-				setBlockInWorld(world, logPos, wood.withProperty(BlockLog.LOG_AXIS, EnumAxis.Z));
-				
-				if (rand.nextInt(10) > 7 && topDecorations.size() > 0)
-				{
-					setBlockInWorld(world, logPos.up(), topDecorations.get(rand.nextInt(topDecorations.size())));
-				}
-				
-				logPos = logPos.add(0, 0, 1);
+				return false;
 			}
+			
+			BlockPos logPos;
+			
+			if (rand.nextInt(2) == 0)
+			{
+				logPos = pos.add(((int)length / 2) * -1, 0, 0);
+				
+				for (int i = 0; i < length; ++i)
+				{
+					setBlockInWorld(world, logPos, wood.withProperty(BlockLog.LOG_AXIS, EnumAxis.X));
+					
+					if (rand.nextInt(10) > 7 && topDecorations.size() > 0)
+					{
+						setBlockInWorld(world, logPos.up(), topDecorations.get(rand.nextInt(topDecorations.size())));
+					}
+					
+					logPos = logPos.add(1, 0, 0);
+				}
+			}
+			else
+			{
+				logPos = pos.add(0, 0, ((int)length / 2) * -1);
+				
+				for (int i = 0; i < length; ++i)
+				{
+					setBlockInWorld(world, logPos, wood.withProperty(BlockLog.LOG_AXIS, EnumAxis.Z));
+					
+					if (rand.nextInt(10) > 7 && topDecorations.size() > 0)
+					{
+						setBlockInWorld(world, logPos.up(), topDecorations.get(rand.nextInt(topDecorations.size())));
+					}
+					
+					logPos = logPos.add(0, 0, 1);
+				}
+			}
+			
+			return true;
 		}
-		
-		return true;
+		catch (Exception e)
+		{
+			return false;
+		}
 	}
 }

@@ -71,7 +71,7 @@ public class WorldGenGrowingPlant extends WorldGenDecorationBase
 		
 		boolean water_exists = findBlockInRange(world, pos, Blocks.water.getDefaultState(), waterRadius, waterHeight, waterRadius);
 		
-		if (!water_exists)
+		if (!water_exists && nextToWater)
 			return false;
 		
 		if (!world.getBlockState(pos.up()).getBlock().isAir(world, pos))

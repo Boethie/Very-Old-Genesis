@@ -9,6 +9,8 @@ import net.minecraft.util.Vec3;
 
 public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
 {
+	public int totalTreesPerChunk = 0;
+	
 	public BiomeGenShallowOcean(int id)
 	{
 		super(id);
@@ -21,9 +23,9 @@ public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
 		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenCorals(2, 5, EnumCoral.HELIOLITES).setCountPerChunk(1));
 		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenCorals(2, 5, EnumCoral.FAVOSITES).setCountPerChunk(1));
 		
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenAquaticPlants().setGenerateInGroup(true, 7).setPlantType(EnumAquaticPlant.BANGIOMORPHA).setCountPerChunk(15));
+		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenAquaticPlants().setGenerateInGroup(true, 5).setPlantType(EnumAquaticPlant.BANGIOMORPHA).setCountPerChunk(10));
 		
-		int[] rarityScale = {40, 30, 20, 10, 5};
+		int[] rarityScale = {30, 20, 10, 5, 2};
 		
 		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.HAZELLA).setCountPerChunk(rarityScale[0]));
 		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.DIAONIELLA).setCountPerChunk(rarityScale[1]));
