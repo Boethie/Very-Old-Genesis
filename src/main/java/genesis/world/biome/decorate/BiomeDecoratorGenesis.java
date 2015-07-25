@@ -4,6 +4,8 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.GRASS;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LAKE_LAVA;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LAKE_WATER;
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
+
 import genesis.common.GenesisBlocks;
 import genesis.world.gen.feature.WorldGenTreeBase;
 
@@ -67,6 +69,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 		int k;
 		
 		boolean doGen = TerrainGen.decorate(this.currentWorld, this.randomGenerator, this.field_180294_c, CLAY);
+		
 		for (i = 0; doGen && i < this.clayPerChunk; ++i)
 		{
 			j = nextInt(16) + 8;
@@ -84,27 +87,18 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 		int l;
 		int i1;
 		
-		// TODO change to deadlog
-		/*
-		 * doGen = TerrainGen.decorate(this.currentWorld, this.randomGenerator, this.field_180294_c, FLOWERS);
-		 * for (j = 0; doGen && j < this.flowersPerChunk; ++j)
-		 * {
-		 * k = this.randomGenerator.nextInt(16) + 8;
-		 * l = this.randomGenerator.nextInt(16) + 8;
-		 * i1 = this.nextInt(this.currentWorld.getHorizon(this.field_180294_c.add(k, 0, l)).getY() + 32);
-		 * blockpos = this.field_180294_c.add(k, i1, l);
-		 * BlockFlower.EnumFlowerType enumflowertype = p_150513_1_.pickRandomFlower(this.randomGenerator, blockpos);
-		 * BlockFlower blockflower = enumflowertype.getBlockType().getBlock();
-		 * 
-		 * if (blockflower.getMaterial() != Material.air)
-		 * {
-		 * this.yellowFlowerGen.setGeneratedBlock(blockflower, enumflowertype);
-		 * this.yellowFlowerGen.generate(this.currentWorld, this.randomGenerator, blockpos);
-		 * }
-		 * }
-		 */
+		doGen = TerrainGen.decorate(this.currentWorld, this.randomGenerator, this.field_180294_c, TREE);
 		
-		// TALL GRASS
+		for (int it = 0; it < trees.size(); ++it)
+		{
+			for (j = 0; j < trees.get(it).getTreeCountPerChunk(); ++j)
+			{
+				k = nextInt(16) + 8;
+				l = nextInt(16) + 8;
+				i1 = nextInt(this.currentWorld.getHeight(this.field_180294_c.add(k, 0, l)).getY() * 2);
+				trees.get(it).generate(this.currentWorld, this.randomGenerator, this.field_180294_c.add(k, i1, l));
+			}
+		}
 		
 		doGen = TerrainGen.decorate(this.currentWorld, this.randomGenerator, this.field_180294_c, GRASS);
 		
@@ -116,6 +110,8 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			p_150513_1_.getRandomWorldGenForGrass(this.randomGenerator).generate(this.currentWorld, this.randomGenerator, this.field_180294_c.add(k, i1, l));
 		}
 		
+		doGen = true;
+		
 		for (int id = 0; id < decorations.size(); ++ id)
 		{
 			for (j = 0; doGen && j < decorations.get(id).getCountPerChunk(); ++j)
@@ -124,19 +120,6 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 				l = nextInt(16) + 8;
 				i1 = nextInt(this.currentWorld.getHeight(this.field_180294_c.add(k, 0, l)).getY() * 2);
 				decorations.get(id).generate(this.currentWorld, this.randomGenerator, this.field_180294_c.add(k, i1, l));
-			}
-		}
-		
-		doGen = true;
-		
-		for (int it = 0; it < trees.size(); ++it)
-		{
-			for (j = 0; j < trees.get(it).getTreeCountPerChunk(); ++j)
-			{
-				k = nextInt(16) + 8;
-				l = nextInt(16) + 8;
-				i1 = nextInt(this.currentWorld.getHeight(this.field_180294_c.add(k, 0, l)).getY() * 2);
-				trees.get(it).generate(this.currentWorld, this.randomGenerator, this.field_180294_c.add(k, i1, l));
 			}
 		}
 		

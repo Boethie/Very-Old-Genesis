@@ -28,7 +28,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis
 {
-	public int totalTreesPerChunk = 1100;
+	public int totalTreesPerChunk = 30;
 	
 	public BiomeGenSwampRainforest(int id)
 	{
@@ -58,9 +58,9 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis
 		((BiomeDecoratorGenesis) this.theBiomeDecorator).trees.add(new WorldGenTreeCordaites(15, 20, true).setTreeCountPerChunk(MathHelper.ceiling_float_int((float)totalTreesPerChunk * 0.35F)));
 		((BiomeDecoratorGenesis) this.theBiomeDecorator).trees.add(new WorldGenTreePsaronius(5, 6, true).setTreeCountPerChunk(MathHelper.ceiling_float_int((float)totalTreesPerChunk * 0.1F)));
 		
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).trees.add(new WorldGenRottenLog(3, 6, EnumTree.LEPIDODENDRON, true).setTreeCountPerChunk(180));
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).trees.add(new WorldGenRottenLog(3, 6, EnumTree.SIGILLARIA, true).setTreeCountPerChunk(180));
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).trees.add(new WorldGenRottenLog(3, 6, EnumTree.CORDAITES, true).setTreeCountPerChunk(180));
+		((BiomeDecoratorGenesis) this.theBiomeDecorator).trees.add(new WorldGenRottenLog(3, 6, EnumTree.LEPIDODENDRON, true).setTreeCountPerChunk(40));
+		((BiomeDecoratorGenesis) this.theBiomeDecorator).trees.add(new WorldGenRottenLog(3, 6, EnumTree.SIGILLARIA, true).setTreeCountPerChunk(40));
+		((BiomeDecoratorGenesis) this.theBiomeDecorator).trees.add(new WorldGenRottenLog(3, 6, EnumTree.CORDAITES, true).setTreeCountPerChunk(40));
 	}
 	
 	@Override

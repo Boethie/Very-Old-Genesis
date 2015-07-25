@@ -69,7 +69,7 @@ public final class GenesisBiomes
 		
 		archaeopterisForest = new BiomeGenArchaeopterisForest(GenesisConfig.archaeopterisForestId);
 		BiomeManagerGenesis.registerBiome(archaeopterisForest, BiomeType.WARM, GenesisConfig.archaeopterisForestWeight);
-		BiomeDictionary.registerBiomeType(archaeopterisForest, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		BiomeDictionary.registerBiomeType(archaeopterisForest, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		river = new BiomeGenRiver(GenesisConfig.riverId);
 		BiomeDictionary.registerBiomeType(river, BiomeDictionary.Type.RIVER, BiomeDictionary.Type.WET);
@@ -78,6 +78,6 @@ public final class GenesisBiomes
 		BiomeDictionary.registerBiomeType(shallowOcean, BiomeDictionary.Type.OCEAN, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
 		
 		limestoneBeach = new BiomeGenLimestoneBeach(GenesisConfig.limestoneBeachId);
-		BiomeDictionary.registerBiomeType(limestoneBeach, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.WET);
+		BiomeDictionary.registerBiomeType(limestoneBeach, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.WATER, BiomeDictionary.Type.WET);
 	}
 }

@@ -6,11 +6,9 @@ import genesis.metadata.TreeBlocksAndItems;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 public class WorldGenTreeLepidodendron extends WorldGenTreeBase
@@ -31,15 +29,10 @@ public class WorldGenTreeLepidodendron extends WorldGenTreeBase
 	@Override
 	public boolean generate(World world, Random rand, BlockPos pos)
 	{
-		Block soil = world.getBlockState(pos.down()).getBlock();
+		pos = getTreePos(world, pos);
 		
-		if (
-				soil == null 
-				|| !soil.canSustainPlant(world, pos, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.LEPIDODENDRON))
-				|| !world.getBlockState(pos).getBlock().isAir(world, pos))
-		{
+		if (!canTreeGrow(world, pos))
 			return false;
-		}
 		
 		int treeHeight = minHeight + rand.nextInt(maxHeight - minHeight) - 5;
 		

@@ -7,7 +7,7 @@ import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
 
 public class BiomeGenArchaeopterisForest extends BiomeGenBaseGenesis
 {
-	public int totalTreesPerChunk = 1100;
+	public int totalTreesPerChunk = 20;
 	
 	public BiomeGenArchaeopterisForest(int id)
 	{
@@ -23,6 +23,6 @@ public class BiomeGenArchaeopterisForest extends BiomeGenBaseGenesis
 		((BiomeDecoratorGenesis) this.theBiomeDecorator).generateDefaultTrees = false;
 		
 		((BiomeDecoratorGenesis) this.theBiomeDecorator).trees.add(new WorldGenTreeArchaeopteris(15, 20, true).setTreeCountPerChunk(totalTreesPerChunk));
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).trees.add(new WorldGenRottenLog(3, 6, EnumTree.ARCHAEOPTERIS, true).setTreeCountPerChunk(80));
+		((BiomeDecoratorGenesis) this.theBiomeDecorator).trees.add(new WorldGenRottenLog(3, 6, EnumTree.ARCHAEOPTERIS, true).setTreeCountPerChunk(30));
 	}
 }

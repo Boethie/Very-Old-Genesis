@@ -1,17 +1,25 @@
 package genesis.world.gen.feature;
 
+import genesis.common.GenesisBlocks;
+import genesis.metadata.EnumTree;
+import genesis.metadata.TreeBlocksAndItems;
+
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
 public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 {
-	IBlockState wood;
-	IBlockState leaves;
+	public IBlockState wood;
+	public IBlockState leaves;
+	public Block treeSoil;
+	
 	protected boolean notify;
 	
 	protected int minHeight;
@@ -41,6 +49,37 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	
 	@Override
 	public abstract boolean generate(World world, Random rand, BlockPos pos);
+	
+	public BlockPos getTreePos(World world, BlockPos pos)
+	{
+		BlockPos treePos = pos;
+		
+		do
+		{
+			treeSoil = world.getBlockState(treePos).getBlock();
+			if (!treeSoil.isAir(world, treePos) && !treeSoil.isLeaves(world, treePos))
+			{
+				break;
+			}
+			treePos = treePos.down();
+		}
+		while (treePos.getY() > 0);
+		
+		return treePos.up();
+	}
+	
+	public boolean canTreeGrow(World world, BlockPos pos)
+	{
+		if (
+				treeSoil == null 
+				|| !treeSoil.canSustainPlant(world, pos, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.LEPIDODENDRON))
+				|| !world.getBlockState(pos.up()).getBlock().isAir(world, pos.up()))
+		{
+			return false;
+		}
+		
+		return true;
+	}
 	
 	protected void generateLeafLayerCircle(World world, Random random, double radius, int xo, int zo, int h)
 	{

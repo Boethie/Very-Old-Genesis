@@ -8,12 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 public class WorldGenRottenLog extends WorldGenTreeBase
@@ -42,15 +40,10 @@ public class WorldGenRottenLog extends WorldGenTreeBase
 	@Override
 	public boolean generate(World world, Random rand, BlockPos pos)
 	{
-		Block soil = world.getBlockState(pos.down()).getBlock();
+		pos = getTreePos(world, pos);
 		
-		if (
-				soil == null 
-				|| !soil.canSustainPlant(world, pos, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.LEPIDODENDRON))
-				|| !world.getBlockState(pos).getBlock().isAir(world, pos))
-		{
+		if (!canTreeGrow(world, pos))
 			return false;
-		}
 		
 		int length = minHeight + rand.nextInt(maxHeight);
 		
