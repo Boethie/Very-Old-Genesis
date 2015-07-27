@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
@@ -19,18 +18,7 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 	@Override
 	public boolean generate(World world, Random random, BlockPos pos)
 	{
-		Block block;
-		
-		do
-		{
-			block = world.getBlockState(pos).getBlock();
-			if (!block.isAir(world, pos) && !block.isLeaves(world, pos))
-			{
-				break;
-			}
-			pos = pos.down();
-		}
-		while (pos.getY() > 0);
+		pos = getPosition(world, pos);
 		
 		if (!(world.getBlockState(pos).getBlock() == GenesisBlocks.moss || world.getBlockState(pos).getBlock() == Blocks.dirt))
 			return false;
@@ -45,8 +33,7 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 		
 		if (blocks.size() == 0)
 		{
-			blocks.add(GenesisBlocks.granite.getDefaultState());
-			blocks.add(GenesisBlocks.mossy_granite.getDefaultState());
+			addBlocks(GenesisBlocks.granite.getDefaultState(), GenesisBlocks.mossy_granite.getDefaultState());
 		}
 		
 		int maxHeight = 2 + random.nextInt(4);

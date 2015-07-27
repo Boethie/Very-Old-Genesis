@@ -23,6 +23,10 @@ public final class GenesisConfig
 	public static int swampRainForestWeight = 10;
 	public static int archaeopterisForestId = 58;
 	public static int archaeopterisForestWeight = 10;
+	public static int auxPlainsId = 59;
+	public static int auxPlainsWeight = 10;
+	public static int archaeopterisPlainsId = 60;
+	public static int archaeopterisPlainsWeight = 10;
 	
 	//dimensions
 	public static int genesisDimId = 37;

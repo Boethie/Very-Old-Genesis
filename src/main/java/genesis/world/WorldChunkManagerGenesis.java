@@ -7,7 +7,6 @@ import net.minecraft.world.gen.layer.GenLayer;
 
 public class WorldChunkManagerGenesis extends WorldChunkManager
 {
-
 	public WorldChunkManagerGenesis(long seed)
 	{
 		super();
@@ -15,10 +14,9 @@ public class WorldChunkManagerGenesis extends WorldChunkManager
 		this.genBiomes = agenlayer[0];
 		this.biomeIndexLayer = agenlayer[1];
 	}
-
+	
 	public WorldChunkManagerGenesis(World worldIn)
 	{
 		this(worldIn.getSeed());
 	}
-
 }

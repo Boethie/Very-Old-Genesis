@@ -60,6 +60,21 @@ public class WorldGenTreeCordaites extends WorldGenTreeBase
 		
 		doPineTopLeaves(world, pos, branchPos, treeHeight, leavesLevel, rand, false);
 		
+		int branchBaseHeight = 2;
+		int branchGrowSize = 5;
+		int leavesLength = 3;
+		
+		branchPos = new BlockPos(branchPos.getX(), leavesLevel, branchPos.getZ());
+		
+		if (rand.nextInt(2) == 0)
+			generateBranchSideup(world, branchPos.down(rand.nextInt(3)), rand, 1, 0, branchBaseHeight, branchGrowSize, leavesLength);
+		if (rand.nextInt(2) == 0)
+			generateBranchSideup(world, branchPos.down(rand.nextInt(3)), rand, -1, 0, branchBaseHeight, branchGrowSize, leavesLength);
+		if (rand.nextInt(2) == 0)
+			generateBranchSideup(world, branchPos.down(rand.nextInt(3)), rand, 0, 1, branchBaseHeight, branchGrowSize, leavesLength);
+		if (rand.nextInt(2) == 0)
+			generateBranchSideup(world, branchPos.down(rand.nextInt(3)), rand, 0, -1, branchBaseHeight, branchGrowSize, leavesLength);
+		
 		return true;
 	}
 	

@@ -7,6 +7,8 @@ import genesis.metadata.TreeBlocksAndItems;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLog;
+import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -79,6 +81,68 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		}
 		
 		return true;
+	}
+	
+	protected void generateBranchSideup(World world, BlockPos pos, Random rand, int dirX, int dirZ, int bBaseHeight, int bGrowSize, int leavesLength)
+	{
+		BlockPos branchPos = pos;
+		int height = bBaseHeight + rand.nextInt(bGrowSize);
+		
+		branchPos = branchPos.add(1 * dirX, 0, 1 * dirZ);
+		setBlockInWorld(world, branchPos, wood);
+		
+		branchPos = branchPos.add(1 * dirX, 1, 1 * dirZ);
+		
+		for (int i = 0; i < height; ++i)
+		{
+			setBlockInWorld(world, branchPos, wood);
+			branchPos = branchPos.up();
+		}
+		
+		doPineTopLeaves(world, pos, branchPos.down(), height, branchPos.getY() - height + 1, rand, false, leavesLength);
+	}
+	
+	protected void generateBranchSide(World world, BlockPos pos, Random rand, int dirX, int dirZ, int maxLength)
+	{
+		BlockPos branchPos = pos;
+		EnumAxis axis;
+		int branchLength = 1 + rand.nextInt(maxLength);
+		
+		branchPos = branchPos.add(1 * dirX, 0, 1 * dirZ);
+		
+		if (dirX != 0)
+			axis = EnumAxis.X;
+		else if (dirZ != 0)
+			axis = EnumAxis.Z;
+		else
+			axis = EnumAxis.Y;
+		
+		setBlockInWorld(world, branchPos, wood.withProperty(BlockLog.LOG_AXIS, axis));
+		generateHorizontalBranchLeaveS(world, branchPos, dirX, dirZ);
+		
+		for (int i = 1; i <= branchLength - 1; ++i)
+		{
+			branchPos = branchPos.add(1 * dirX, 0, 1 * dirZ);
+			setBlockInWorld(world, branchPos, wood.withProperty(BlockLog.LOG_AXIS, axis));
+			generateHorizontalBranchLeaveS(world, branchPos, dirX, dirZ);
+			
+			if (rand.nextInt(6) == 0)
+			{
+				int dSwitch = (rand.nextInt(2) == 0)? 1:-1;
+				generateBranchSide(world, branchPos, rand, ((dirX == 0)? dSwitch : 0), ((dirZ == 0)? dSwitch : 0), ((int)(maxLength / 2) < 1)? 1 : ((int)(maxLength / 2)));
+			}
+		}
+		
+		branchPos = branchPos.add(1 * dirX, 0, 1 * dirZ);
+		setBlockInWorld(world, branchPos, leaves);
+	}
+	
+	protected void generateHorizontalBranchLeaveS(World world, BlockPos pos, int dirX, int dirZ)
+	{
+		setBlockInWorld(world, pos.add(0, 1, 0), leaves);
+		setBlockInWorld(world, pos.add(0, -1, 0), leaves);
+		setBlockInWorld(world, pos.add(1 * ((dirX == 0)? 1 : 0), 0, 1 * ((dirZ == 0)? 1 : 0)), leaves);
+		setBlockInWorld(world, pos.add(1 * ((dirX == 0)? -1 : 0), 0, 1 * ((dirZ == 0)? -1 : 0)), leaves);
 	}
 	
 	protected void generateLeafLayerCircle(World world, Random random, double radius, int xo, int zo, int h)

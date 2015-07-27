@@ -1,10 +1,12 @@
 package genesis.common;
 
 import genesis.world.biome.BiomeGenArchaeopterisForest;
+import genesis.world.biome.BiomeGenArchaeopterisPlains;
 import genesis.world.biome.BiomeGenAuxForest;
 import genesis.world.biome.BiomeGenAuxForestEdge;
 import genesis.world.biome.BiomeGenAuxForestEdgeM;
 import genesis.world.biome.BiomeGenAuxForestM;
+import genesis.world.biome.BiomeGenAuxPlains;
 import genesis.world.biome.BiomeGenBaseGenesis;
 import genesis.world.biome.BiomeGenLimestoneBeach;
 import genesis.world.biome.BiomeGenRainforest;
@@ -16,7 +18,6 @@ import genesis.world.biome.BiomeGenShallowOcean;
 import genesis.world.biome.BiomeGenSwampRainforest;
 import genesis.world.biome.BiomeManagerGenesis;
 import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.BiomeManager.BiomeType;
 
 public final class GenesisBiomes
@@ -34,7 +35,9 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis shallowOcean;
 	public static BiomeGenBaseGenesis limestoneBeach;
 	public static BiomeGenBaseGenesis swampRainForest;
+	public static BiomeGenBaseGenesis auxPlains;
 	public static BiomeGenBaseGenesis archaeopterisForest;
+	public static BiomeGenBaseGenesis archaeopterisPlains;
 	
 	public static void loadBiomes()
 	{
@@ -64,6 +67,10 @@ public final class GenesisBiomes
 		auxForestEdgeM = new BiomeGenAuxForestEdgeM(GenesisConfig.auxForestEdgeId+128);
 		BiomeDictionary.registerBiomeType(auxForestEdgeM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.MOUNTAIN);
 		
+		auxPlains = new BiomeGenAuxPlains(GenesisConfig.auxPlainsId);
+		BiomeManagerGenesis.registerBiome(auxPlains, BiomeType.WARM, GenesisConfig.auxPlainsWeight);
+		BiomeDictionary.registerBiomeType(auxPlains, BiomeDictionary.Type.PLAINS);
+		
 		swampRainForest = new BiomeGenSwampRainforest(GenesisConfig.swampRainForestId);
 		BiomeManagerGenesis.registerBiome(swampRainForest, BiomeType.WARM, GenesisConfig.swampRainForestWeight);
 		BiomeDictionary.registerBiomeType(swampRainForest, BiomeDictionary.Type.SWAMP, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
@@ -71,6 +78,10 @@ public final class GenesisBiomes
 		archaeopterisForest = new BiomeGenArchaeopterisForest(GenesisConfig.archaeopterisForestId);
 		BiomeManagerGenesis.registerBiome(archaeopterisForest, BiomeType.WARM, GenesisConfig.archaeopterisForestWeight);
 		BiomeDictionary.registerBiomeType(archaeopterisForest, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		
+		archaeopterisPlains = new BiomeGenArchaeopterisPlains(GenesisConfig.archaeopterisPlainsId);
+		BiomeManagerGenesis.registerBiome(archaeopterisPlains, BiomeType.WARM, GenesisConfig.archaeopterisPlainsWeight);
+		BiomeDictionary.registerBiomeType(archaeopterisPlains, BiomeDictionary.Type.PLAINS);
 		
 		river = new BiomeGenRiver(GenesisConfig.riverId);
 		BiomeDictionary.registerBiomeType(river, BiomeDictionary.Type.RIVER, BiomeDictionary.Type.WET);
