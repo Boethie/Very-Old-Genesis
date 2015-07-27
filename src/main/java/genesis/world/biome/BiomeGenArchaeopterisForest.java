@@ -12,7 +12,7 @@ public class BiomeGenArchaeopterisForest extends BiomeGenBaseGenesis
 	public BiomeGenArchaeopterisForest(int id)
 	{
 		super(id);
-		this.biomeName = "Archaeopteris Rainforest";
+		this.biomeName = "Archaeopteris Forest";
 		this.rainfall = 1.0F;
 		this.temperature = 0.8F;
 		this.minHeight = 0.03F;

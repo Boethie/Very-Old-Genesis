@@ -8,6 +8,7 @@ import genesis.world.biome.BiomeGenAuxForestEdgeM;
 import genesis.world.biome.BiomeGenAuxForestM;
 import genesis.world.biome.BiomeGenAuxPlains;
 import genesis.world.biome.BiomeGenBaseGenesis;
+import genesis.world.biome.BiomeGenBeachGenesis;
 import genesis.world.biome.BiomeGenLimestoneBeach;
 import genesis.world.biome.BiomeGenRainforest;
 import genesis.world.biome.BiomeGenRainforestEdge;
@@ -38,6 +39,7 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis auxPlains;
 	public static BiomeGenBaseGenesis archaeopterisForest;
 	public static BiomeGenBaseGenesis archaeopterisPlains;
+	public static BiomeGenBaseGenesis genesisBeach;
 	
 	public static void loadBiomes()
 	{
@@ -91,5 +93,8 @@ public final class GenesisBiomes
 		
 		limestoneBeach = new BiomeGenLimestoneBeach(GenesisConfig.limestoneBeachId);
 		BiomeDictionary.registerBiomeType(limestoneBeach, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.WET);
+		
+		genesisBeach = new BiomeGenBeachGenesis(GenesisConfig.genesisBeachId);
+		BiomeDictionary.registerBiomeType(genesisBeach, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.WET);
 	}
 }

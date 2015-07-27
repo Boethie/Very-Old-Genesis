@@ -1,8 +1,6 @@
 package genesis.world.biome;
 
-import genesis.metadata.EnumTree;
 import genesis.world.biome.decorate.BiomeDecoratorGenesis;
-import genesis.world.gen.feature.WorldGenRottenLog;
 import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
 
 public class BiomeGenArchaeopterisPlains extends BiomeGenBaseGenesis
@@ -23,6 +21,5 @@ public class BiomeGenArchaeopterisPlains extends BiomeGenBaseGenesis
 		((BiomeDecoratorGenesis) this.theBiomeDecorator).generateDefaultTrees = false;
 		
 		((BiomeDecoratorGenesis) this.theBiomeDecorator).trees.add(new WorldGenTreeArchaeopteris(15, 25, true).setTreeCountPerChunk(this.totalTreesPerChunk));
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).trees.add(new WorldGenRottenLog(3, 6, EnumTree.ARCHAEOPTERIS, true).setTreeCountPerChunk(1));
 	}
 }

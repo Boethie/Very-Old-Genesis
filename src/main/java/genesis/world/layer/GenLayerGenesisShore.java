@@ -12,85 +12,84 @@ public class GenLayerGenesisShore extends GenLayerGenesis
 		this.parent = parent;
 	}
 	
-	@Override
-	public int[] getInts(int par1, int par2, int par3, int par4)
-	{
-		int[] var5 = this.parent.getInts(par1 - 1, par2 - 1, par3 + 2, par4 + 2);
-		int[] var6 = IntCache.getIntCache(par3 * par4);
-		
-		for (int var7 = 0; var7 < par4; ++var7)
-		{
-			for (int var8 = 0; var8 < par3; ++var8)
-			{
-				this.initChunkSeed(var8 + par1, var7 + par2);
-				int var9 = var5[var8 + 1 + (var7 + 1) * (par3 + 2)];
-				
-				if (var9 == GenesisBiomes.rainforest.biomeID)
-				{
-					var6 = getIntsForBiome(var5, var6, var8, var7, var9, par3, GenesisBiomes.rainforest.biomeID, GenesisBiomes.rainforestEdge.biomeID);
-				}
-				else if (var9 == GenesisBiomes.rainforestM.biomeID)
-				{
-					var6 = getIntsForBiome(var5, var6, var8, var7, var9, par3, GenesisBiomes.rainforestM.biomeID, GenesisBiomes.rainforestEdgeM.biomeID);
-				}
-				else if (var9 == GenesisBiomes.auxForest.biomeID)
-				{
-					var6 = getIntsForBiome(var5, var6, var8, var7, var9, par3, GenesisBiomes.auxForest.biomeID, GenesisBiomes.auxForestEdge.biomeID);
-				}
-				else if (var9 == GenesisBiomes.auxForestM.biomeID)
-				{
-					var6 = getIntsForBiome(var5, var6, var8, var7, var9, par3, GenesisBiomes.auxForestM.biomeID, GenesisBiomes.auxForestEdgeM.biomeID);
-				}
-				else if (var9 == GenesisBiomes.shallowOcean.biomeID)
-				{
-					var6 = getIntsForBiome(var5, var6, var8, var7, var9, par3, GenesisBiomes.shallowOcean.biomeID, GenesisBiomes.limestoneBeach.biomeID);
-				}
-				else
-				{
-					var6[var8 + var7 * par3] = var9;
-				}
-			}
-		}
-		return var6;
-	}
+	public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight)
+    {
+        int[] aint = this.parent.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
+        int[] aint1 = IntCache.getIntCache(areaWidth * areaHeight);
+
+        for (int i1 = 0; i1 < areaHeight; ++i1)
+        {
+            for (int j1 = 0; j1 < areaWidth; ++j1)
+            {
+                this.initChunkSeed((long)(j1 + areaX), (long)(i1 + areaY));
+                int k1 = aint[j1 + 1 + (i1 + 1) * (areaWidth + 2)];
+                int l1;
+                int i2;
+                int j2;
+                int k2;
+
+                if (
+                		k1 != GenesisBiomes.auxForest.biomeID 
+                		&& k1 != GenesisBiomes.auxForestM.biomeID 
+                		&& k1 != GenesisBiomes.auxForestEdge.biomeID 
+                		&& k1 != GenesisBiomes.auxForestEdgeM.biomeID 
+                		&& k1 != GenesisBiomes.auxPlains.biomeID)
+                {
+                	if (k1 != GenesisBiomes.shallowOcean.biomeID && k1 != GenesisBiomes.river.biomeID && k1 != GenesisBiomes.swampRainForest.biomeID)
+                    {
+                        l1 = aint[j1 + 1 + (i1 + 1 - 1) * (areaWidth + 2)];
+                        i2 = aint[j1 + 1 + 1 + (i1 + 1) * (areaWidth + 2)];
+                        j2 = aint[j1 + 1 - 1 + (i1 + 1) * (areaWidth + 2)];
+                        k2 = aint[j1 + 1 + (i1 + 1 + 1) * (areaWidth + 2)];
+                        
+                        if (
+                        		l1 != GenesisBiomes.shallowOcean.biomeID 
+                        		&& i2 != GenesisBiomes.shallowOcean.biomeID 
+                        		&& j2 != GenesisBiomes.shallowOcean.biomeID 
+                        		&& k2 != GenesisBiomes.shallowOcean.biomeID)
+                        {
+                            aint1[j1 + i1 * areaWidth] = k1;
+                        }
+                        else
+                        {
+                            aint1[j1 + i1 * areaWidth] = GenesisBiomes.genesisBeach.biomeID;
+                        }
+                    }
+                    else
+                    {
+                        aint1[j1 + i1 * areaWidth] = k1;
+                    }
+                }
+                else
+                {
+                    this.func_151632_a(aint, aint1, j1, i1, areaWidth, k1, GenesisBiomes.limestoneBeach.biomeID);
+                }
+            }
+        }
+        return aint1;
+    }
 	
-	private int[] getIntsForBiome(int[] var5, int[] var6, int var8, int var7, int var9, int par3, int biomeId1, int biomeId2)
-	{
-		int var10 = var5[var8 + 1 + (var7 + 1 - 1) * (par3 + 2)];
-		int var11 = var5[var8 + 1 + 1 + (var7 + 1) * (par3 + 2)];
-		int var12 = var5[var8 + 1 - 1 + (var7 + 1) * (par3 + 2)];
-		int var13 = var5[var8 + 1 + (var7 + 1 + 1) * (par3 + 2)];
-		
-		if (var10 == biomeId1)
-		{
-			if (var11 == biomeId1)
-			{
-				if (var12 == biomeId1)
-				{
-					if (var13 == biomeId1)
-					{
-						var6[var8 + var7 * par3] = var9;
-					}
-					else
-					{
-						var6[var8 + var7 * par3] = biomeId2;
-					}
-				}
-				else
-				{
-					var6[var8 + var7 * par3] = biomeId2;
-				}
-			}
-			else
-			{
-				var6[var8 + var7 * par3] = biomeId2;
-			}
-		}
-		else
-		{
-			var6[var8 + var7 * par3] = biomeId2;
-		}
-		
-		return var6;
-	}
+	private void func_151632_a(int[] p_151632_1_, int[] p_151632_2_, int p_151632_3_, int p_151632_4_, int p_151632_5_, int p_151632_6_, int p_151632_7_)
+    {
+        if (isBiomeOceanic(p_151632_6_))
+        {
+            p_151632_2_[p_151632_3_ + p_151632_4_ * p_151632_5_] = p_151632_6_;
+        }
+        else
+        {
+            int j1 = p_151632_1_[p_151632_3_ + 1 + (p_151632_4_ + 1 - 1) * (p_151632_5_ + 2)];
+            int k1 = p_151632_1_[p_151632_3_ + 1 + 1 + (p_151632_4_ + 1) * (p_151632_5_ + 2)];
+            int l1 = p_151632_1_[p_151632_3_ + 1 - 1 + (p_151632_4_ + 1) * (p_151632_5_ + 2)];
+            int i2 = p_151632_1_[p_151632_3_ + 1 + (p_151632_4_ + 1 + 1) * (p_151632_5_ + 2)];
+
+            if (!isBiomeOceanic(j1) && !isBiomeOceanic(k1) && !isBiomeOceanic(l1) && !isBiomeOceanic(i2))
+            {
+                p_151632_2_[p_151632_3_ + p_151632_4_ * p_151632_5_] = p_151632_6_;
+            }
+            else
+            {
+                p_151632_2_[p_151632_3_ + p_151632_4_ * p_151632_5_] = p_151632_7_;
+            }
+        }
+    }
 }

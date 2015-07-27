@@ -5,6 +5,7 @@ import genesis.metadata.EnumCoral;
 import genesis.world.biome.decorate.BiomeDecoratorGenesis;
 import genesis.world.biome.decorate.WorldGenAquaticPlants;
 import genesis.world.biome.decorate.WorldGenCorals;
+import genesis.world.biome.decorate.WorldGenPebbles;
 import net.minecraft.util.Vec3;
 
 public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
@@ -24,6 +25,7 @@ public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
 		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenCorals(2, 5, EnumCoral.FAVOSITES).setCountPerChunk(1));
 		
 		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenAquaticPlants().setGenerateInGroup(true, 5).setPlantType(EnumAquaticPlant.BANGIOMORPHA).setCountPerChunk(10));
+		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenPebbles().setCountPerChunk(40));
 		
 		int[] rarityScale = {30, 20, 10, 5, 2};
 		
