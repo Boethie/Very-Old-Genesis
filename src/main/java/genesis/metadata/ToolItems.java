@@ -12,6 +12,7 @@ import genesis.block.*;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.*;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
@@ -81,6 +82,9 @@ public class ToolItems extends VariantsOfTypesCombo<ToolObjectType, ToolType>
 		}
 	}
 	
+	/**
+	 * A {@link ToolObjectType} with only one quality level that is always used to get the {@link ToolType} for this {@link ObjectType}.
+	 */
 	public static class ToolObjectTypeSoleQuality<B extends Block, I extends Item> extends ToolObjectType<B, I>
 	{
 		protected final EnumToolQuality soleQuality;
@@ -144,22 +148,8 @@ public class ToolItems extends VariantsOfTypesCombo<ToolObjectType, ToolType>
 		super(new ToolObjectType[]{PEBBLE, CHOPPING_TOOL, PICK_HEAD, PICK, AXE_HEAD, AXE, HOE_HEAD, HOE, KNIFE_HEAD, KNIFE, SPEAR_HEAD, SPEAR, ARROW_HEAD, FLAKE}, ToolTypes.getAll());
 	}
 	
-	public ItemStack getStack(ToolObjectTypeSoleQuality type, EnumToolMaterial material, int stackSize)
-	{
-		EnumToolQuality quality = type.getSoleQuality();
-		return getStack(type, ToolTypes.getToolHead(material, quality));
-	}
-	
 	/**
-	 * Get an item stack containing the tool item with the specified tool type (with only one quality level), and the tool material.
-	 */
-	public ItemStack getStack(ToolObjectTypeSoleQuality type, EnumToolMaterial material)
-	{
-		return getStack(type, material, 1);
-	}
-	
-	/**
-	 * Get an item stack containing the tool item of the specified tool type, material and quality.
+	 * Get an item stack containing the tool item of the specified {@link ToolObjectType}, material and quality.
 	 */
 	public ItemStack getStack(ToolObjectType type, EnumToolMaterial material, EnumToolQuality quality, int stackSize)
 	{
@@ -167,13 +157,32 @@ public class ToolItems extends VariantsOfTypesCombo<ToolObjectType, ToolType>
 	}
 	
 	/**
-	 * Get an item stack containing the tool item of the specified tool type, material and quality.
+	 * Get an item stack containing the tool item of the specified {@link ToolObjectType}, material and quality with a stack size of 1.
 	 */
 	public ItemStack getStack(ToolObjectType type, EnumToolMaterial material, EnumToolQuality quality)
 	{
 		return getStack(type, material, quality, 1);
 	}
+
+	/**
+	 * Get an item stack containing the tool item with the specified {@link ToolObjectTypeSoleQuality}, and the tool material.
+	 */
+	public ItemStack getStack(ToolObjectTypeSoleQuality type, EnumToolMaterial material, int stackSize)
+	{
+		return getStack(type, material, type.getSoleQuality(), stackSize);
+	}
 	
+	/**
+	 * Get an item stack containing the tool item with the specified {@link ToolObjectTypeSoleQuality}, and the tool material, with a stack size of 1.
+	 */
+	public ItemStack getStack(ToolObjectTypeSoleQuality type, EnumToolMaterial material)
+	{
+		return getStack(type, material, 1);
+	}
+	
+	/**
+	 * Adds the information about the {@link ToolType} for this stack.
+	 */
 	public void addToolInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
 	{
 		IMetadata variant = getVariant(stack.getItem(), stack.getMetadata());
@@ -187,5 +196,21 @@ public class ToolItems extends VariantsOfTypesCombo<ToolObjectType, ToolType>
 				tooltip.add(StatCollector.translateToLocal(type.quality.getUnlocalizedName()));
 			}
 		}
+	}
+	
+	/**
+	 * Gets a block state from the specified {@link ToolObjectType}, with the quality level and material specified.
+	 */
+	public IBlockState getBlockState(ToolObjectTypeSoleQuality type, EnumToolMaterial material, EnumToolQuality quality)
+	{
+		return getBlockState(type, ToolTypes.getToolHead(material, quality));
+	}
+	
+	/**
+	 * Gets a block state from the specified {@link ToolObjectTypeSoleQuality}, with the material specified.
+	 */
+	public IBlockState getBlockState(ToolObjectTypeSoleQuality type, EnumToolMaterial material)
+	{
+		return getBlockState(type, material, type.getSoleQuality());
 	}
 }
