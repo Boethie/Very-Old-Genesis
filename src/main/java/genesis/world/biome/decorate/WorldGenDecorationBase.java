@@ -2,6 +2,7 @@ package genesis.world.biome.decorate;
 
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -38,6 +39,24 @@ public class WorldGenDecorationBase extends WorldGenerator
 	public int getPatchSize()
 	{
 		return (patchSize == 0)? 1 : patchSize;
+	}
+	
+	public BlockPos getPosition(World world, BlockPos pos)
+	{
+		Block block;
+		
+		do
+		{
+			block = world.getBlockState(pos).getBlock();
+			if (!block.isAir(world, pos) && !block.isLeaves(world, pos))
+			{
+				break;
+			}
+			pos = pos.down();
+		}
+		while (pos.getY() > 0);
+		
+		return pos;
 	}
 	
 	protected void setBlockInWorld(World world, BlockPos pos, IBlockState state)

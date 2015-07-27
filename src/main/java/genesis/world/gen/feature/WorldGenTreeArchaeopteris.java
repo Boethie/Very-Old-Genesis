@@ -48,43 +48,33 @@ public class WorldGenTreeArchaeopteris extends WorldGenTreeBase
 		
 		BlockPos branchPos = pos.up(treeHeight - 1);
 		
-		int branchY = 2 + rand.nextInt(2);
+		int branchY = 3 + rand.nextInt(4);
+		int branchBaseHeight = 2;
+		int branchGrowSize = 3;
+		int leavesLength = 3;
 		
-		doPineTopLeaves(world, pos, branchPos, treeHeight, branchPos.down(branchY).getY(), rand, false, 3);
-		
-		branchY += 2;
+		doPineTopLeaves(world, pos, branchPos, treeHeight, branchPos.down(branchY).getY(), rand, false);
 		
 		if (rand.nextInt(2) == 0)
-			doRandomBranch(world, branchPos.down(branchY + rand.nextInt(2)), rand, 1, 0);
+			generateBranchSideup(world, branchPos.down(branchY + rand.nextInt(2)), rand, 1, 0, branchBaseHeight, branchGrowSize, leavesLength);
 		if (rand.nextInt(2) == 0)
-			doRandomBranch(world, branchPos.down(branchY + rand.nextInt(2)), rand, -1, 0);
+			generateBranchSideup(world, branchPos.down(branchY + rand.nextInt(2)), rand, -1, 0, branchBaseHeight, branchGrowSize, leavesLength);
 		if (rand.nextInt(2) == 0)
-			doRandomBranch(world, branchPos.down(branchY + rand.nextInt(2)), rand, 0, 1);
+			generateBranchSideup(world, branchPos.down(branchY + rand.nextInt(2)), rand, 0, 1, branchBaseHeight, branchGrowSize, leavesLength);
 		if (rand.nextInt(2) == 0)
-			doRandomBranch(world, branchPos.down(branchY + rand.nextInt(2)), rand, 0, -1);
+			generateBranchSideup(world, branchPos.down(branchY + rand.nextInt(2)), rand, 0, -1, branchBaseHeight, branchGrowSize, leavesLength);
+		
+		branchPos = branchPos.down(branchY - 2);
+		
+		if (rand.nextInt(2) == 0)
+			generateBranchSide(world, branchPos.down(rand.nextInt(4)), rand, 1, 0, 1 + rand.nextInt(3));
+		if (rand.nextInt(2) == 0)
+			generateBranchSide(world, branchPos.down(rand.nextInt(4)), rand, -1, 0, 1 + rand.nextInt(3));
+		if (rand.nextInt(2) == 0)
+			generateBranchSide(world, branchPos.down(rand.nextInt(4)), rand, 0, 1, 1 + rand.nextInt(3));
+		if (rand.nextInt(2) == 0)
+			generateBranchSide(world, branchPos.down(rand.nextInt(4)), rand, 0, -1, 1 + rand.nextInt(3));
 		
 		return true;
-	}
-	
-	private void doRandomBranch(World world, BlockPos pos, Random rand, int dirX, int dirZ)
-	{
-		BlockPos branchPos = pos;
-		int height = 2 + rand.nextInt(2);
-		
-		branchPos = branchPos.add(1 * dirX, 0, 1 * dirZ);
-		setBlockInWorld(world, branchPos, wood);
-		
-		branchPos = branchPos.add(1 * dirX, rand.nextInt(2), 1 * dirZ);
-		setBlockInWorld(world, branchPos, wood);
-		
-		branchPos = branchPos.add(1 * dirX, 1, 1 * dirZ);
-		
-		for (int i = 0; i < height; ++i)
-		{
-			setBlockInWorld(world, branchPos, wood);
-			branchPos = branchPos.up();
-		}
-		
-		doPineTopLeaves(world, pos, branchPos.down(), height, branchPos.getY() - height + 1, rand, false, 3);
 	}
 }

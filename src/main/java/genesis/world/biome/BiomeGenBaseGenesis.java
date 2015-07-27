@@ -20,6 +20,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 {
+	public int totalTreesPerChunk = 0;
 	public IBlockState oceanFloor = GenesisBlocks.ooze.getDefaultState();
 	
 	public BiomeGenBaseGenesis(int id)
