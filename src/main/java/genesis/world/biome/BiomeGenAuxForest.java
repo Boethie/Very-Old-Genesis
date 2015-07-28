@@ -32,7 +32,7 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 		((BiomeDecoratorGenesis) this.theBiomeDecorator).generateDefaultTrees = false;
 		
 		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenArchaeomarasmius().setPatchSize(3).setCountPerChunk(5));
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenPalaeoagaracites().setPatchSize(7).setCountPerChunk(16));
+		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenPalaeoagaracites().setPatchSize(10).setCountPerChunk(16));
 		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPlantType(GrowingPlantType.NORMAL).setPatchSize(5).setCountPerChunk(5));
 		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenRockBoulders().setCountPerChunk(5));
 		

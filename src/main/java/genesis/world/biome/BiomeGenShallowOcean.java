@@ -48,6 +48,7 @@ public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
 	@Override
 	public Vec3 getSkyColor()
 	{
-		return new Vec3(0.294117647D, 0.474509804D, 0.501960784D);
+		//return new Vec3(0.294117647D, 0.474509804D, 0.501960784D);
+		return new Vec3(0.196078431D, 0.474509804D, 0.380392157D);
 	}
 }

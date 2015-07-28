@@ -48,7 +48,7 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis
 		
 		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchSize(5).setCountPerChunk(5));
 		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(5).setCountPerChunk(5));
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(1, 0).setNextToWater(true).setPlantType(GrowingPlantType.COLUMN).setPatchSize(3).setCountPerChunk(5));
+		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(1, 0).setNextToWater(true).setPlantType(GrowingPlantType.COLUMN).setPatchSize(4).setCountPerChunk(6));
 		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenUnderWaterPatch(GenesisBlocks.peat.getDefaultState()).setCountPerChunk(10));
 		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenMossStages().setCountPerChunk(400));
 		
