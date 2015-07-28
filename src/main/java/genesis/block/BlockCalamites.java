@@ -85,4 +85,10 @@ public class BlockCalamites extends BlockGrowingPlant implements IGrowingPlantCu
 
 		return CanStayOptions.NO;
 	}
+	
+	@Override
+	public boolean shouldUseBonemeal(World world, BlockPos pos, IBlockState state)
+	{
+		return isTop(world, pos);
+	}
 }

@@ -39,7 +39,7 @@ public class SurviveOnDirtCustoms implements IGrowingPlantCustoms
         {
             Block block = worldIn.getBlockState(pos.down()).getBlock();
             
-            if (block == Blocks.dirt || block == GenesisBlocks.moss)
+            if (block == Blocks.grass || block == Blocks.dirt || block == GenesisBlocks.moss)
             {
                 return CanStayOptions.YES;
             }
@@ -47,4 +47,10 @@ public class SurviveOnDirtCustoms implements IGrowingPlantCustoms
         
         return CanStayOptions.YIELD;
     }
+	
+	@Override
+	public boolean shouldUseBonemeal(World world, BlockPos pos, IBlockState state)
+	{
+		return true;
+	}
 }

@@ -45,7 +45,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 {
 	protected static interface IPerBlockCall
 	{
-		void call(World worldIn, BlockPos curPos, IBlockState curState, BlockPos startPos, Object... args);
+		void call(World world, BlockPos curPos, IBlockState curState, BlockPos startPos, Object... args);
 	}
 	
 	public static class GrowingPlantProperties
@@ -60,30 +60,33 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		protected BlockPos top = null;
 		protected BlockPos bottom = null;
 		
-		public GrowingPlantProperties(IBlockAccess worldIn, BlockPos pos)
+		public GrowingPlantProperties(IBlockAccess world, BlockPos startPos)
 		{
-			world = worldIn;
-			startPos = pos;
+			this.world = world;
+			this.startPos = startPos;
 		}
 		
-		public GrowingPlantProperties(IBlockAccess worldIn, BlockPos pos, BlockGrowingPlant plantIn)
+		public GrowingPlantProperties(IBlockAccess world, BlockPos startPos, BlockGrowingPlant plant)
 		{
-			world = worldIn;
-			startPos = pos;
-			plant = plantIn;
+			this.world = world;
+			this.startPos = startPos;
+			this.plant = plant;
 		}
 		
-		protected void getPlant()
+		public BlockGrowingPlant getPlant()
 		{
 			if (plant == null)
 			{
 				plant = (BlockGrowingPlant) world.getBlockState(startPos).getBlock();
 			}
+			
+			return plant;
 		}
 		
 		/**
 		 * Initializes all of the properties of this GrowingPlantProperties. For debugging only.
 		 */
+		@Deprecated
 		public void initAll()
 		{
 			getTop();
@@ -99,12 +102,10 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 			if (toTop == -1)
 			{
 				getPlant();
-				
 				int theToTop;
-	
+				
 				for (theToTop = 1; world.getBlockState(startPos.up(theToTop)).getBlock() == plant; theToTop++)
-				{
-				}
+				{}
 				
 				toTop = theToTop;
 			}
@@ -120,12 +121,15 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 			if (toBottom == -1)
 			{
 				getPlant();
+				int theToBottom = 1;
 				
-				int theToBottom;
-	
-				for (theToBottom = 1; world.getBlockState(startPos.down(theToBottom)).getBlock() == plant; theToBottom++)
+				while (world.getBlockState(startPos.down(theToBottom)).getBlock() == plant)
 				{
+					theToBottom++;
 				}
+				
+				/*for (theToBottom = 1; world.getBlockState(startPos.down(theToBottom)).getBlock() == plant; theToBottom++)
+				{}*/
 				
 				toBottom = theToBottom;
 			}
@@ -140,10 +144,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		{
 			if (height == -1)
 			{
-				getToTop();
-				getToBottom();
-				
-				height = toTop + toBottom - 1;
+				height = getToTop() + getToBottom() - 1;
 			}
 			
 			return height;
@@ -156,9 +157,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		{
 			if (bottom == null)
 			{
-				getToBottom();
-				
-				bottom = startPos.down(toBottom - 1);
+				bottom = startPos.down(getToBottom() - 1);
 			}
 			
 			return bottom;
@@ -171,9 +170,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		{
 			if (top == null)
 			{
-				getToTop();
-				
-				top = startPos.up(toTop - 1);
+				top = startPos.up(getToTop() - 1);
 			}
 			
 			return top;
@@ -198,31 +195,23 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		}
 	}
 
-	public static interface IGrowingPlantCustoms {
+	public static interface IGrowingPlantCustoms
+	{
 		/**
 		 * Gets the items that should be dropped for this BlockGrowingPlant when it is broken at pos.
 		 * 
 		 * @param plant The BlockGrowingPlant that is calling the method.
-		 * @param worldIn
-		 * @param pos
-		 * @param state
-		 * @param fortune
 		 * @param firstBlock Whether the BlockPos pos is at the first position in the plant's height.
 		 * @return An ArrayList of ItemStacks to drop from this block's position.
 		 */
-		public ArrayList<ItemStack> getPlantDrops(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, int fortune, boolean firstBlock);
+		public ArrayList<ItemStack> getPlantDrops(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, int fortune, boolean firstBlock);
 		
 		/**
 		 * Called after updateTick in a BlockGrowingPlant.
 		 * 
-		 * @param plant The BlockGrowingPlant that is calling the method.
-		 * @param worldIn
-		 * @param pos
-		 * @param state
-		 * @param random
 		 * @param grew Whether the plant grew in this random block update.
 		 */
-		public void plantUpdateTick(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, Random rand, boolean grew);
+		public void plantUpdateTick(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, Random rand, boolean grew);
 
 		public static enum CanStayOptions {
 			YES,
@@ -231,13 +220,10 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		}
 		
 		/**
-		 * @param plant The BlockGrowingPlant that is calling the method.
-		 * @param worldIn
-		 * @param pos The position that the plant would at.
 		 * @param placed Whether the block has been placed yet. To allow customs to prevent placing stacked plant blocks.
 		 * @return Whether the BlockGrowingPlant can grow at the specified BlockPos.
 		 */
-		public CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World worldIn, BlockPos pos, boolean placed);
+		public CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World world, BlockPos pos, boolean placed);
 
 		/**
 		 * For use in adding/removing IPropertys in a list of IPropertys that should be stored in metadata.
@@ -245,6 +231,11 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		 * @param metaProps The list whose contents must be stored in metadata.
 		 */
 		public void managePlantMetaProperties(BlockGrowingPlant plant, ArrayList<IProperty> metaProps);
+		
+		/**
+		 * @return Whether to consume and use bonemeal to grow the plant.
+		 */
+		public boolean shouldUseBonemeal(World world, BlockPos pos, IBlockState state);
 	}
 	
 	public PropertyInteger ageProp;
@@ -253,12 +244,13 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 
 	protected final boolean hasTopProperty;
 
-	public int growthAge;
-	public int maxAge;
-	public boolean growTogether = false;
-	public boolean breakTogether = false;
-	public boolean resetAge = false;
-	public boolean useBiomeColor = false;
+	protected int growthAge;
+	protected int maxAge;
+	protected boolean growTogether = false;
+	protected boolean breakTogether = false;
+	protected boolean resetAge = false;
+	protected boolean allowBonemeal = true;
+	protected boolean useBiomeColor = false;
 
 	protected ArrayList<RandomDrop> drops = new ArrayList<RandomDrop>();
 	protected ArrayList<RandomDrop> cropDrops = new ArrayList<RandomDrop>();
@@ -293,7 +285,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		
 		if (this instanceof IGrowingPlantCustoms)
 		{
-			setCustomsInterface((IGrowingPlantCustoms) this);
+			setCustoms((IGrowingPlantCustoms) this);
 		}
 	}
 
@@ -347,8 +339,6 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	/**
 	 * Sets the position in a plant column that the "top" property should be true at.
 	 * -1 = Default, the top property will be the top plant block in the column.
-	 * 
-	 * @return Returns this block.
 	 */
 	public BlockGrowingPlant setTopPosition(int topPos)
 	{
@@ -359,8 +349,6 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	
 	/**
 	 * Set a property to make all the plant's blocks age stay the same, and age as the first block ages.
-	 * 
-	 * @return Returns this block.
 	 */
 	public BlockGrowingPlant setGrowAllTogether(boolean growTogetherIn)
 	{
@@ -371,8 +359,6 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 
 	/**
 	 * Sets the block to use the biome color multiplier like vanilla grass and ferns.
-	 * 
-	 * @return Returns this block.
 	 */
 	public BlockGrowingPlant setUseBiomeColor(boolean use)
 	{
@@ -382,11 +368,11 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	}
 	
 	@Override
-	public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass)
+	public int colorMultiplier(IBlockAccess world, BlockPos pos, int renderPass)
 	{
 		if (useBiomeColor)
 		{
-			return BiomeColorHelper.getGrassColorAtPos(worldIn, pos);
+			return BiomeColorHelper.getGrassColorAtPos(world, pos);
 		}
 		
 		return 16777215;
@@ -397,8 +383,6 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	 * drops.
 	 * false = Default, only the plant blocks above the broken one will break as well.
 	 * true = All the plant blocks in the column will break at once and drop only the first block's drops.
-	 * 
-	 * @return Returns this block.
 	 */
 	public BlockGrowingPlant setBreakAllTogether(boolean breakTogetherIn)
 	{
@@ -409,8 +393,6 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	
 	/**
 	 * Sets the EnumPlantType that the plant block should grow on.
-	 * 
-	 * @return Returns this block.
 	 */
 	public BlockGrowingPlant setPlantType(EnumPlantType plantTypeIn)
 	{
@@ -427,8 +409,6 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	
 	/**
 	 * Cause the plant block to reset its age when they grow taller.
-	 * 
-	 * @return Returns this block.
 	 */
 	public BlockGrowingPlant setResetAgeOnGrowth(boolean resetAgeIn)
 	{
@@ -438,9 +418,17 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	}
 	
 	/**
+	 * Sets whether to allow bonemeal to be used on this plant.
+	 */
+	public BlockGrowingPlant setAllowBonemealUse(boolean allow)
+	{
+		allowBonemeal = allow;
+		
+		return this;
+	}
+	
+	/**
 	 * Sets the drops when the plant is NOT fully grown.
-	 * 
-	 * @return Returns this block.
 	 */
 	public BlockGrowingPlant setDrops(RandomDrop... dropsIn)
 	{
@@ -456,8 +444,6 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 
 	/**
 	 * Sets the drops when the plant is fully grown.
-	 * 
-	 * @return Returns this block.
 	 */
 	public BlockGrowingPlant setCropDrops(RandomDrop... dropsIn)
 	{
@@ -473,8 +459,6 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 
 	/**
 	 * Sets the Item picked when the user middle clicks on the block in creative mode.
-	 * 
-	 * @return Returns this block.
 	 */
 	public BlockGrowingPlant setPickedItem(Item item)
 	{
@@ -484,7 +468,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	}
 	
 	@Override
-	public Item getItem(World worldIn, BlockPos pos)
+	public Item getItem(World world, BlockPos pos)
 	{
 		if (pickedItem != null)
 		{
@@ -561,7 +545,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		return this;
 	}
 	
-    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
+    public AxisAlignedBB getCollisionBoundingBox(World world, BlockPos pos, IBlockState state)
     {
     	if (collisionBox != null)
     	{
@@ -573,107 +557,93 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 
 	/**
 	 * Sets the drops when the plant is fully grown.
-	 * 
-	 * @return Returns this block.
 	 */
-	public BlockGrowingPlant setCustomsInterface(IGrowingPlantCustoms customsIn)
+	public BlockGrowingPlant setCustoms(IGrowingPlantCustoms customsIn)
 	{
 		customs = customsIn;
 		
 		return this;
-	}
-
-	@Override
-	public BlockState getBlockState()
-	{
-		return super.getBlockState();
-	}
-
-	@Override
-	protected BlockState createBlockState()
-	{
-		return super.createBlockState();
 	}
 	
 	/**
 	 * Returns whether the block at pos should have the top property set to true.
 	 * This takes this.topBlockPos into account as well, so it will not always be the highest block in the plant.
 	 * 
-	 * @param worldIn
+	 * @param world
 	 * @param pos The position to check.
 	 * @return Whether the block should have "top" property set true.
 	 */
-	protected boolean isTop(IBlockAccess worldIn, BlockPos pos)
+	protected boolean isTop(IBlockAccess world, BlockPos pos)
 	{
 		boolean top;
 		
 		// If topBlock position is defined, set it according to that
 		if (topBlockPos >= 0)
 		{
-			int toBottom = new GrowingPlantProperties(worldIn, pos, this).getToBottom();
+			int toBottom = new GrowingPlantProperties(world, pos, this).getToBottom();
 			top = toBottom == topBlockPos;
 		}
 		else	// Otherwise, set according to if it really is top
 		{
-			top = worldIn.getBlockState(pos.up()).getBlock() != this;
+			top = world.getBlockState(pos.up()).getBlock() != this;
 		}
 		
 		return top;
 	}
 	
 	@Override
-	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+	public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
 	{
-		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
-		
-		return state;
+		return super.onBlockPlaced(world, pos, facing, hitX, hitY, hitZ, meta, placer);
 	}
 	
 	@Override
-	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block neighborBlock)
 	{
-		super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
+		super.onNeighborBlockChange(world, pos, state, neighborBlock);
 	}
-
+	
 	@Override
 	public int getMetaFromState(IBlockState state)
 	{
 		return BlockStateToMetadata.getMetaForBlockState(state, metaProperties);
 	}
-
+	
 	@Override
 	public IBlockState getStateFromMeta(int meta)
 	{
 		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), meta, metaProperties);
 	}
-
-    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+	
+    public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos)
     {
     	if (hasTopProperty)
     	{
-    		state = state.withProperty(topProp, isTop(worldIn, pos));
+    		state = state.withProperty(topProp, isTop(world, pos));
     	}
     	
         return state;
     }
 
-	protected float baseAgeChance = 12F;
-	protected float fertileChanceMult = 0.5F;
-	protected float neighborFertileChanceMult = 0.975F;
-
+	protected float baseAgeChance = 0.08F;
+	protected float farmlandChanceMult = 1.0F;
+	protected float fertileChanceMult = 2.0F;
+	protected float neighborFertileChanceMult = 1.025F;
+	
 	/**
 	 * Causes the plant to grow each time updateTick() is called.
 	 * @return
 	 */
-	public BlockGrowingPlant setNoGrowthChance()
+	public BlockGrowingPlant setFullGrowthChance()
 	{
-		baseAgeChance = 0;
-		fertileChanceMult = 0;
-		neighborFertileChanceMult = 0;
-
+		baseAgeChance = 1;
+		farmlandChanceMult = 1;
+		fertileChanceMult = 1;
+		neighborFertileChanceMult = 1;
+		
 		return this;
 	}
-
+	
 	/**
 	 * Sets the chance (the code uses 1 in [chance]) that the plant will grow in each random tick.
 	 * 
@@ -682,40 +652,79 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	 * @param neighborFertileMult The chance is multiplied by this value for each fertile land block around it (including at corners).
 	 * @return
 	 */
-	public BlockGrowingPlant setGrowthChanceMult(float base, float fertileMult, float neighborFertileMult)
+	public BlockGrowingPlant setGrowth(float base, float farmlandMult, float fertileMult, float neighborFertileMult)
 	{
-		baseAgeChance = base;
-		fertileChanceMult = fertileMult;
-		neighborFertileChanceMult = neighborFertileMult;
-
+		if (base >= 0)
+			baseAgeChance = base;
+		if (farmlandMult >= 0)
+			farmlandChanceMult = farmlandMult;
+		if (fertileMult >= 0)
+			fertileChanceMult = fertileMult;
+		if (neighborFertileMult >= 0)
+			neighborFertileChanceMult = neighborFertileMult;
+		
 		return this;
 	}
-
+	
+	/**
+	 * Sets the base growth chance.
+	 */
+	public BlockGrowingPlant setGrowthBase(float mult)
+	{
+		baseAgeChance = mult;
+		
+		return this;
+	}
+	
+	/**
+	 * Sets the growth chance multiplier for when the plant is not growing on farmland.
+	 */
+	public BlockGrowingPlant setGrowthOnFarmland(float mult)
+	{
+		farmlandChanceMult = mult;
+		
+		return this;
+	}
+	
+	/**
+	 * Sets the growth chance multiplier for when the plant is on fertile farmland.
+	 */
+	public BlockGrowingPlant setGrowthOnFertileFarmland(float mult)
+	{
+		fertileChanceMult = mult;
+		
+		return this;
+	}
+	
+	/**
+	 * Sets the growth chance multiplier for each neighbor farmland block that is fertile.
+	 */
+	public BlockGrowingPlant setGrowthForFertileNeighbors(float mult)
+	{
+		neighborFertileChanceMult = mult;
+		
+		return this;
+	}
+	
 	/**
 	 * Gets the chance that a random tick of a crop block will result in the crop aging. 1 is added to the output to determine the actual chance.
 	 */
-	public float getGrowthChance(World worldIn, BlockPos pos, IBlockState state)
+	public float getGrowthChance(World world, BlockPos pos, IBlockState state)
 	{
 		// If the base age is greater than 0, then we must calculate the chance based on surrounding blocks
 		if (baseAgeChance > 0)
 		{
 			// Default base chance is <= 1 in 7.5
 			float rate = baseAgeChance;
-
-			BlockPos under = pos.down();
-			IBlockState blockUnder = worldIn.getBlockState(under);
 			
-			if (fertileChanceMult != 0)
-			{
-				boolean fertile = blockUnder.getBlock().isFertile(worldIn, under);
-	
-				// If the land under the crop is fertile, chance will be <= 1 in 4.25 by default
-				if (fertile)
-				{
-					rate *= fertileChanceMult;
-				}
+			BlockPos under = pos.down();
+			IBlockState blockUnder = world.getBlockState(under);
+			
+			if (fertileChanceMult != 0 && blockUnder.getBlock().isFertile(world, under))
+			{	// If the land under the crop is fertile, chance will be <= 1 in 4.25 by default
+				rate *= fertileChanceMult;
 			}
-
+			
 			if (neighborFertileChanceMult != 0)
 			{
 				// Make fertile neighboring land slightly affect the growth chance (4.25 -> ~3.65 max)
@@ -726,10 +735,10 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 						if (x != 0 || z != 0)
 						{
 							BlockPos landPos = under.add(x, 0, z);
-							IBlockState landState = worldIn.getBlockState(landPos);
+							IBlockState landState = world.getBlockState(landPos);
 							Block landBlock = landState.getBlock();
 	
-							if (landBlock.canSustainPlant(worldIn, landPos, EnumFacing.UP, (IPlantable) state.getBlock()) && landBlock.isFertile(worldIn, landPos))
+							if (landBlock.canSustainPlant(world, landPos, EnumFacing.UP, (IPlantable) state.getBlock()) && landBlock.isFertile(world, landPos))
 							{
 								rate *= neighborFertileChanceMult;
 							}
@@ -737,7 +746,12 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 					}
 				}
 			}
-
+			
+			if (farmlandChanceMult != 0 && blockUnder.getBlock() == Blocks.farmland)
+			{
+				rate *= farmlandChanceMult;
+			}
+			
 			return rate;
 		}
 
@@ -747,14 +761,14 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	/**
 	 * Calls the call() method in the IPerBlockCall on each block in the plant column, starting with fromBlock.
 	 * 
-	 * @param worldIn
+	 * @param world
 	 * @param fromBlock The BlockPos to start from.
 	 * @param call The IPerBlockCall whose call() method is called.
 	 * @param args An array of arguments to send to call().
 	 */
-	protected void callForEachInColumn(World worldIn, BlockPos fromBlock, IPerBlockCall call, Object... args)
+	protected void callForEachInColumn(World world, BlockPos fromBlock, IPerBlockCall call, Object... args)
 	{
-		GrowingPlantProperties props = new GrowingPlantProperties(worldIn, fromBlock);
+		GrowingPlantProperties props = new GrowingPlantProperties(world, fromBlock);
 		
 		BlockPos top = props.getTop();
 		int height = props.getHeight();
@@ -763,16 +777,16 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		{
 			BlockPos curPos = top.down(y);
 			
-			call.call(worldIn, curPos, worldIn.getBlockState(curPos), fromBlock, args);
+			call.call(world, curPos, world.getBlockState(curPos), fromBlock, args);
 		}
 	}
-
+	
 	protected float minGrowthLight = 9;
 	
 	/**
 	 * Attempts to grow the plant according to its rules of growth. Will use getGrowthChance unless an override chance is given.
 	 * 
-	 * @param worldIn The world.
+	 * @param world The world.
 	 * @param rand The random number generator used to determine if the plant actually grows.
 	 * @param pos
 	 * @param state
@@ -780,11 +794,11 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	 * @param noChange Cancel all changes to the world. This is used to determine if a plant can grow.
 	 * @return Whether the plant was changed.
 	 */
-	public boolean grow(World worldIn, Random rand, BlockPos pos, IBlockState state, boolean forceGrow, boolean noChange)
+	public boolean grow(World world, Random rand, BlockPos pos, IBlockState state, boolean forceGrow, boolean noChange)
 	{
 		boolean changed = false;
 		
-		GrowingPlantProperties props = new GrowingPlantProperties(worldIn, pos, (BlockGrowingPlant) state.getBlock());
+		GrowingPlantProperties props = new GrowingPlantProperties(world, pos, (BlockGrowingPlant) state.getBlock());
 		
 		if (!growTogether || (growTogether && props.isBottom(pos)))
 		{
@@ -792,18 +806,16 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 			int age = oldAge;
 	
 			// Age the plant (using the chance generated from getGrowthChance)
-			if (forceGrow || worldIn.getLightFromNeighbors(pos) >= minGrowthLight)
+			if (forceGrow || world.getLightFromNeighbors(pos) >= minGrowthLight)
 			{
-				float chance = 0;
-				float randVal = 0;
+				float chance = 1;
 				
 				if (!forceGrow)
 				{
-					chance = getGrowthChance(worldIn, pos, state);
-					randVal = rand.nextFloat() * (chance + 1);
+					chance = getGrowthChance(world, pos, state);
 				}
 				
-				if (chance == 0 || (chance > 0 && (randVal <= 1)))
+				if (chance >= 1 || rand.nextFloat() <= chance)
 				{
 					age++;
 					
@@ -811,16 +823,16 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 					if (props.getHeight() < maxHeight && age >= growthAge)
 					{
 						BlockPos above = pos.up();
-						IBlockState aboveState = worldIn.getBlockState(above);
+						IBlockState aboveState = world.getBlockState(above);
 						Block aboveBlock = aboveState.getBlock();
 						
-						if (aboveBlock != this && aboveBlock.isReplaceable(worldIn, above))
+						if (aboveBlock != this && aboveBlock.isReplaceable(world, above))
 						{
 							changed = true;
 							
 							if (!noChange)
 							{
-								worldIn.setBlockState(above, getDefaultState());
+								world.setBlockState(above, getDefaultState());
 							}
 						}
 					}
@@ -828,150 +840,155 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 			}
 			
 			age = MathHelper.clamp_int(age, 0, maxAge);
-			changed |= age != oldAge;
-
+			changed = changed || age != oldAge;
+			
 			if (!noChange)
 			{
 				if (growTogether)
 				{
-					callForEachInColumn(worldIn, pos, new IPerBlockCall() {
-							public void call(World worldIn, BlockPos curPos, IBlockState curState, BlockPos startPos, Object... args) {
-								worldIn.setBlockState(curPos, curState.withProperty(ageProp, (Integer) args[0]));
+					callForEachInColumn(world, pos, new IPerBlockCall() {
+							public void call(World world, BlockPos curPos, IBlockState curState, BlockPos startPos, Object... args) {
+								world.setBlockState(curPos, curState.withProperty(ageProp, (Integer) args[0]));
 							}
 						}, age);
 				}
 				else
 				{
-					worldIn.setBlockState(pos, state.withProperty(ageProp, age), 2);
+					world.setBlockState(pos, state.withProperty(ageProp, age), 2);
 				}
 			}
 		}
 		
 		return changed;
 	}
-
-	@Override
-	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient)
-	{
-		BlockPos growOn = pos;
-		
-		if (growTogether)
-		{
-			growOn = new GrowingPlantProperties(worldIn, pos).getBottom();
-		}
-		else
-		{
-			growOn = pos;
-		}
-		
-		return grow(worldIn, worldIn.rand, growOn, worldIn.getBlockState(growOn), true, true);
-	}
-
-	@Override
-	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state)
-	{
-		return true;
-	}
-
+	
 	/**
-	 * Called by bonemeal to grow the plant.
+	 * Determines whether the bonemeal is consumed when activating this plant.
 	 */
 	@Override
-	public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)
+	public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean isClient)
 	{
-		if (!worldIn.isRemote)
+		if (allowBonemeal && customs.shouldUseBonemeal(world, pos, state))
 		{
 			BlockPos growOn = pos;
 			
 			if (growTogether)
 			{
-				growOn = new GrowingPlantProperties(worldIn, pos).getBottom();
-			}
-			else
-			{
-				growOn = pos;
+				growOn = new GrowingPlantProperties(world, pos).getBottom();
 			}
 			
-			int growth = MathHelper.getRandomIntegerInRange(worldIn.rand, 2, 5);
+			return grow(world, world.rand, growOn, world.getBlockState(growOn), true, true);
+		}
+		return false;
+	}
+	
+	/**
+	 * Used by vanilla to tell whether the plant should actually grow when bonemeal is used and consumed by a plant.
+	 */
+	@Override
+	public boolean canUseBonemeal(World world, Random rand, BlockPos pos, IBlockState state)
+	{
+		return true;
+	}
+	
+	/**
+	 * Called by bonemeal to grow the plant.
+	 */
+	@Override
+	public void grow(World world, Random rand, BlockPos pos, IBlockState state)
+	{
+		if (!world.isRemote)
+		{
+			BlockPos growOn = pos;
+			
+			if (growTogether)
+			{
+				growOn = new GrowingPlantProperties(world, pos).getBottom();
+			}
+			
+			int growth = MathHelper.getRandomIntegerInRange(world.rand, 2, 5);
 			
 			for (int i = 0; i < growth; i++)
 			{
-				grow(worldIn, rand, growOn, worldIn.getBlockState(growOn), true, false);
-			}
-		}
-	}
-
-	@Override
-	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
-	{
-		checkAndDropBlock(worldIn, pos, state);
-		
-		state = worldIn.getBlockState(pos);
-		
-		// If the plant was not broken by checkAndDropBlock(), attempt to grow it.
-		if (state.getBlock() == this)
-		{
-			boolean grew = grow(worldIn, rand, pos, state, false, false);
-			
-			if (customs != null)
-			{
-				customs.plantUpdateTick(this, worldIn, pos, state, rand, grew);
+				grow(world, rand, growOn, world.getBlockState(growOn), true, false);
 			}
 		}
 	}
 	
 	@Override
-	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
+	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
 	{
-		boolean heightOK = new GrowingPlantProperties(worldIn, pos).getHeight() <= maxHeight;
-
-		BlockPos below = pos.down();
-		IBlockState stateBelow = worldIn.getBlockState(below);
-		Block blockBelow = stateBelow.getBlock();
+		checkAndDropBlock(world, pos, state);
 		
-		boolean correctLand = false;
+		state = world.getBlockState(pos);
+		
+		// If the plant was not broken by checkAndDropBlock(), attempt to grow it.
+		if (state.getBlock() == this)
+		{
+			boolean grew = grow(world, rand, pos, state, false, false);
+			
+			if (customs != null)
+			{
+				customs.plantUpdateTick(this, world, pos, state, rand, grew);
+			}
+		}
+	}
+	
+	/**
+	 * @return Whether the plant can survive at this location in the world.
+	 */
+	public boolean canPlantSurvive(World world, BlockPos pos, boolean placed)
+	{
 		CanStayOptions stay = CanStayOptions.YIELD;
 		
 		if (customs != null)
 		{
-			stay = customs.canPlantStayAt(this, worldIn, pos, true);
+			stay = customs.canPlantStayAt(this, world, pos, placed);
 		}
 		
-		switch(stay)
+		switch (stay)
 		{
 		case YES:
-			correctLand = true;
-			break;
+			return true;
 		case NO:
-			correctLand = false;
 			break;
 		case YIELD:
-			correctLand = blockBelow.canSustainPlant(worldIn, below, EnumFacing.UP, this);
+			BlockPos below = pos.down();
+			IBlockState stateBelow = world.getBlockState(below);
 			
-			if (blockBelow == this)
+			if (stateBelow.getBlock().canSustainPlant(world, pos, EnumFacing.UP, this))
 			{
-				GrowingPlantProperties props = new GrowingPlantProperties(worldIn, pos);
+				return true;
+			}
+			
+			if (stateBelow.getBlock() == this)
+			{
+				GrowingPlantProperties props = new GrowingPlantProperties(world, pos, this);
 				int height = props.getToBottom();
 				
 				if (height <= maxHeight && height > 0 &&
 						(resetAge || (Integer) stateBelow.getValue(ageProp) >= growthAge))
 				{
-					correctLand = true;
+					return true;
 				}
 			}
-			
-			break;
 		}
 		
-		return heightOK && correctLand;
+		return false;
 	}
-
+	
 	@Override
-	protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state)
+	public boolean canBlockStay(World world, BlockPos pos, IBlockState state)
 	{
-		if (!canBlockStay(worldIn, pos, state))
+		return canPlantSurvive(world, pos, true);
+	}
+	
+	@Override
+	protected void checkAndDropBlock(World world, BlockPos pos, IBlockState state)
+	{
+		if (!canBlockStay(world, pos, state))
 		{
-			destroyPlant(worldIn, pos, null, true, true);
+			destroyPlant(world, pos, null, true, true);
 		}
 	}
 	
@@ -981,45 +998,11 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		// Return false so that canSustainPlant checks the plant type instead of BlockBush.canPlaceBlockOn().
 		return false;
 	}
-
+	
 	@Override
-	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
+	public boolean canPlaceBlockAt(World world, BlockPos pos)
 	{
-		CanStayOptions stay = CanStayOptions.YIELD;
-		
-		if (customs != null)
-		{
-			stay = customs.canPlantStayAt(this, worldIn, pos, false);
-		}
-		
-		switch(stay)
-		{
-		case YES:
-			return true;
-		case NO:
-			break;
-		case YIELD:
-			boolean canPlace = super.canPlaceBlockAt(worldIn, pos);
-			
-			BlockPos below = pos.down();
-			IBlockState stateBelow = worldIn.getBlockState(below);
-			
-			if (stateBelow.getBlock() == this)
-			{
-				GrowingPlantProperties props = new GrowingPlantProperties(worldIn, below);
-				int height = props.getToBottom();
-
-				if (height < maxHeight && height > 0 &&
-						(resetAge || (Integer) stateBelow.getValue(ageProp) >= growthAge))
-				{
-					canPlace = true;
-				}
-			}
-			
-			return canPlace;
-		}
-		
-		return false;
+		return world.getBlockState(pos).getBlock().isReplaceable(world, pos) && canPlantSurvive(world, pos, false);
 	}
 	
 	/**
@@ -1027,33 +1010,31 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	 * If breakTogether is true, it removes all plant blocks of this type in a column that they should grow in, optionally dropping items.
 	 * Otherwise, it will handle setting the BlockState to acceptable values for this type of plant.
 	 */
-	protected void destroyPlant(World worldIn, BlockPos pos, final EntityPlayer breaker, final boolean drop, boolean noBreakTogether)
+	protected void destroyPlant(World world, BlockPos pos, EntityPlayer breaker, boolean drop, boolean noBreakTogether)
 	{
 		final HashMap<BlockPos, IBlockState> oldStates = new HashMap<BlockPos, IBlockState>();
 		
 		if (breakTogether && !noBreakTogether)
 		{
-			callForEachInColumn(worldIn, pos, new IPerBlockCall() {
-				public void call(World worldIn, BlockPos curPos, IBlockState curState, BlockPos startPos, Object... args) {
-					oldStates.put(curPos, getActualState(worldIn.getBlockState(curPos), worldIn, curPos));
+			callForEachInColumn(world, pos, new IPerBlockCall() {
+				public void call(World world, BlockPos curPos, IBlockState curState, BlockPos startPos, Object... args) {
+					oldStates.put(curPos, getActualState(world.getBlockState(curPos), world, curPos));
 				}
 			});
 		}
 		else
 		{
 			int up = 0;
-			Block remBlock = null;
 			
 			while (true)
 			{
 				BlockPos remPos = pos.up(up);
 				
-				IBlockState remState = worldIn.getBlockState(remPos);
-				remBlock = remState.getBlock();
+				IBlockState remState = world.getBlockState(remPos);
 
-				if (remBlock == this)
+				if (remState.getBlock() == this)
 				{
-					remState = getActualState(remState, worldIn, remPos);
+					remState = getActualState(remState, world, remPos);
 					oldStates.put(remPos, remState);
 				}
 				else
@@ -1071,62 +1052,61 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 			BlockPos particlePos = entry.getKey();
 			IBlockState oldState = entry.getValue();
 			
-			if (!particlePos.equals(pos) && worldIn.isRemote)
+			if (!particlePos.equals(pos) && world.isRemote)
 			{
-				worldIn.playAuxSFXAtEntity(breaker, 2001, particlePos, Block.getStateId(oldState));
+				world.playAuxSFXAtEntity(breaker, 2001, particlePos, Block.getStateId(oldState));
 			}
 		}
 		
+		GrowingPlantProperties props = new GrowingPlantProperties(world, pos);
+		
 		// Set blocks to air without notifying neighbors of the change (so items aren't dropped when they shouldn't).
 		// Also drop items.
-		if (!worldIn.isRemote)
+		for (Entry<BlockPos, IBlockState> entry : oldStates.entrySet())
 		{
-			GrowingPlantProperties props = new GrowingPlantProperties(worldIn, pos);
+			BlockPos breakPos = entry.getKey();
+			IBlockState oldState = entry.getValue();
 			
-			for (Entry<BlockPos, IBlockState> entry : oldStates.entrySet())
+			if (drop)
 			{
-				BlockPos breakPos = entry.getKey();
-				IBlockState oldState = entry.getValue();
-				
-				if (drop)
-				{
-					boolean isBase = props.isBottom(breakPos);
-					dropBlockAsItemWithChance(worldIn, breakPos, oldState, (isBase ? -1 : -2), 0);
-				}
-	
-				worldIn.setBlockState(breakPos, Blocks.air.getDefaultState(), 2);
+				boolean isBase = props.isBottom(breakPos);
+				dropBlockAsItemWithChance(world, breakPos, oldState, (isBase ? -1 : -2), 0);
 			}
+
+			world.setBlockState(breakPos, Blocks.air.getDefaultState(), 2);
+		}
+		
+		// Notify of block changes.
+		for (Entry<BlockPos, IBlockState> entry : oldStates.entrySet())
+		{
+			BlockPos notifyPos = entry.getKey();
+			IBlockState oldState = entry.getValue();
 			
-			// Notify of block changes.
-			for (Entry<BlockPos, IBlockState> entry : oldStates.entrySet())
-			{
-				BlockPos notifyPos = entry.getKey();
-				IBlockState oldState = entry.getValue();
-				
-				worldIn.markAndNotifyBlock(notifyPos, worldIn.getChunkFromBlockCoords(notifyPos), oldState, worldIn.getBlockState(notifyPos), 1);
-			}
+			world.markAndNotifyBlock(notifyPos, world.getChunkFromBlockCoords(notifyPos), oldState, world.getBlockState(notifyPos), 1);
+		}
+		
+		// If the plant grows together (meaning all plant blocks should be the same age in a column),
+		// set blocks underneath the broken ones to the age before the plant grew taller than it is after being destroyed.
+		if (growTogether && !breakTogether)
+		{
+			BlockPos under = pos.down();
+			Block blockUnder = world.getBlockState(under).getBlock();
 			
-			if (growTogether && !breakTogether)
+			if (blockUnder == this)
 			{
-				BlockPos under = pos.down();
-				Block blockUnder = worldIn.getBlockState(under).getBlock();
-				
-				if (blockUnder == this)
-				{
-					callForEachInColumn(worldIn, under, new IPerBlockCall() {
-						public void call(World worldIn, BlockPos curPos, IBlockState curState, BlockPos startPos, Object... args) {
-							worldIn.setBlockState(curPos, curState.withProperty(ageProp, growthAge - 1));
-						}
-					});
-				}
+				callForEachInColumn(world, under, new IPerBlockCall() {
+					public void call(World world, BlockPos curPos, IBlockState curState, BlockPos startPos, Object... args) {
+						world.setBlockState(curPos, curState.withProperty(ageProp, growthAge - 1));
+					}
+				});
 			}
 		}
 	}
-
+	
 	/**
 	 * Drops ItemStacks in EntityItems according to the plant's properties for dropping items.
 	 * 
-	 * @param worldIn
+	 * @param world
 	 * @param pos
 	 * @param state
 	 * @param chance With a value less than 0, the block will be dropped.
@@ -1134,9 +1114,9 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	 * @param fortune
 	 */
 	@Override
-	public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune)
+	public void dropBlockAsItemWithChance(World world, BlockPos pos, IBlockState state, float chance, int fortune)
 	{
-		if (!worldIn.isRemote)
+		if (!world.isRemote)
 		{
 			if (chance <= -1)	// Prevent the block dropping without our code telling it to explicitly
 			{
@@ -1144,7 +1124,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 				
 				if (customs != null)
 				{
-					dropStacks = customs.getPlantDrops(this, worldIn, pos, state, fortune, chance == -1);
+					dropStacks = customs.getPlantDrops(this, world, pos, state, fortune, chance == -1);
 				}
 				
 				if (dropStacks == null)
@@ -1155,16 +1135,16 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 						{
 							for (RandomDrop drop : cropDrops)
 							{
-								ItemStack stack = drop.getRandomStackDrop(worldIn.rand);
-								spawnAsEntity(worldIn, pos, stack);
+								ItemStack stack = drop.getRandomStackDrop(world.rand);
+								spawnAsEntity(world, pos, stack);
 							}
 						}
 						else
 						{
 							for (RandomDrop drop : drops)
 							{
-								ItemStack stack = drop.getRandomStackDrop(worldIn.rand);
-								spawnAsEntity(worldIn, pos, stack);
+								ItemStack stack = drop.getRandomStackDrop(world.rand);
+								spawnAsEntity(world, pos, stack);
 							}
 						}
 					}
@@ -1173,7 +1153,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 				{
 					for (ItemStack stack : dropStacks)
 					{
-						spawnAsEntity(worldIn, pos, stack);
+						spawnAsEntity(world, pos, stack);
 					}
 				}
 			}
@@ -1181,33 +1161,91 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 			{
 				// If the game tries to drop this block, handle it with destroyPlant()
 				// This handles explosions and drops due to the block being unable to stay.
-				destroyPlant(worldIn, pos, null, worldIn.rand.nextFloat() <= chance, false);
+				destroyPlant(world, pos, null, world.rand.nextFloat() <= chance, false);
 			}
 		}
 	}
 	
 	@Override
-	public void onBlockExploded(World worldIn, BlockPos pos, Explosion explosion)
+	public void onBlockExploded(World world, BlockPos pos, Explosion explosion)
 	{
 		// Do not allow the explosions to directly destroy the block, instead let dropBlockAsItemWithChance() handle destruction.
 	}
 	
 	@Override
-	public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player)
+	public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player)
 	{
-		super.onBlockHarvested(worldIn, pos, state, player);
+		super.onBlockHarvested(world, pos, state, player);
 	}
 	
-	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te)
+	public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te)
 	{
-		super.harvestBlock(worldIn, player, pos, state, te);
+		super.harvestBlock(world, player, pos, state, te);
 	}
 	
 	@Override
-	public boolean removedByPlayer(World worldIn, BlockPos pos, EntityPlayer player, boolean willHarvest)
+	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest)
 	{
-		destroyPlant(worldIn, pos, player, !player.capabilities.isCreativeMode, false);
+		destroyPlant(world, pos, player, !player.capabilities.isCreativeMode, false);
 		
 		return true;
+	}
+	
+	/**
+	 * Places a plant with a random height and age value.
+	 */
+	public boolean placeRandomAgePlant(World world, BlockPos pos, Random rand)
+	{
+		if (!canPlantSurvive(world, pos, true))
+		{
+			return false;
+		}
+		
+		RandomIntRange heightRange = new RandomIntRange(1, maxHeight);
+		int targetHeight = heightRange.getRandom(rand);
+		
+		for (int i = 0; i < targetHeight; i++)
+		{
+			BlockPos checkPos = pos.up(i);
+			
+			if (!world.getBlockState(checkPos).getBlock().isReplaceable(world, checkPos))
+			{
+				targetHeight = i;
+				break;
+			}
+		}
+		
+		if (targetHeight > 0)
+		{
+			RandomIntRange ageRange;
+			
+			if (growTogether)
+			{
+				int min = Math.min((targetHeight - 1) * growthAge, maxAge);
+				int max = Math.min(targetHeight * growthAge - 1, maxAge);
+				ageRange = new RandomIntRange(min, max);
+				ageRange = new RandomIntRange(ageRange.getRandom(rand));
+			}
+			else
+			{
+				ageRange = new RandomIntRange(0, maxAge);
+			}
+			
+			for (int i = 0; i < targetHeight; i++)
+			{
+				int age = maxAge;
+				
+				if (growTogether || i == targetHeight - 1)
+				{
+					age = ageRange.getRandom(rand);
+				}
+				
+				world.setBlockState(pos.up(i), getDefaultState().withProperty(ageProp, age), 2);
+			}
+			
+			return true;
+		}
+		
+		return false;
 	}
 }

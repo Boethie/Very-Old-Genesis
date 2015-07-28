@@ -65,39 +65,43 @@ public final class GenesisBlocks
 	
 	/* Plants */
 	public static final VariantsCombo<EnumPlant, BlockPlant, ItemBlockMulti> plants = new VariantsCombo(new ObjectType("plant", BlockPlant.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumPlant.values());
-	public static final BlockCalamites calamites = (BlockCalamites) new BlockCalamites(true, 15, 10)
-			.setGrowthChanceMult(6, 1, 1)
+	public static final BlockCalamites calamites = (BlockCalamites) new BlockCalamites(true, 15, 7)
+			.setGrowth(6, 1, 1, 1)
 			.setUnlocalizedName(Unlocalized.PLANT + "calamites");
 	public static final VariantsCombo<EnumFern, BlockFern, ItemBlockMulti> ferns = new VariantsCombo(new ObjectType("fern", BlockFern.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumFern.values());
 	public static final Block cobbania = new BlockCobbania().setUnlocalizedName(Unlocalized.PREFIX + "cobbania");
 	public static final VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti> aquatic_plants = new VariantsCombo(new ObjectType("aquatic_plant", "aquaticPlant", BlockAquaticPlant.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumAquaticPlant.values());
 	
 	/* Crops */
+	protected static final SurviveOnDirtCustoms surviveOnDirt = new SurviveOnDirtCustoms();
 	public static final BlockGrowingPlant zingiberopsis = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true).setBreakAllTogether(true)
 	        .setPlantSize(0, 0.2F, 0.5F)
 			.setPlantType(EnumPlantType.Crop)
+			.setGrowthOnFarmland(0.75F)
+			.setCustoms(surviveOnDirt)
 			.setUnlocalizedName(Unlocalized.CROP + "zingiberopsis");
 	public static final BlockGrowingPlant sphenophyllum = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true)
 			.setPlantType(EnumPlantType.Plains)
-			.setGrowthChanceMult(5, 1, 1)
+			.setGrowth(5, 1, 1, 1)
             .setPlantSize(0, 0.2F, 0.75F)
-			.setCustomsInterface(new BlockSphenophyllumCustoms())
+			.setCustoms(new BlockSphenophyllumCustoms())
 			.setUnlocalizedName(Unlocalized.PLANT + "sphenophyllum");
 	public static final BlockGrowingPlant odontopteris = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true).setBreakAllTogether(true)
 			.setPlantType(EnumPlantType.Crop)
-			.setGrowthChanceMult(16, 0.4F, 0.95F)
+			.setGrowth(0.05F, 1.5F, 2.5F, 1.05F)
 			.setUseBiomeColor(true)
             .setPlantSize(0, 0.2F, 0.75F)
-			.setCustomsInterface(new BlockOdontopterisCustoms())
+			.setCustoms(new BlockOdontopterisCustoms())
 			.setUnlocalizedName(Unlocalized.CROP + "odontopteris");
 	public static final BlockGrowingPlant programinis = (BlockGrowingPlant) new BlockGrowingPlant(false, 7, 1).setTopPosition(1)
 			.setPlantType(EnumPlantType.Crop)
+			.setGrowthOnFarmland(0.75F)
 			.setUseBiomeColor(true)
 	        .setPlantSize(0, 0.1F, 0.75F)
-			.setCustomsInterface(new SurviveOnDirtCustoms())
+			.setCustoms(surviveOnDirt)
 			.setUnlocalizedName(Unlocalized.CROP + "programinis");
 	
 	/* Fluids */

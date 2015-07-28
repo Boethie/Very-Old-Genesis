@@ -46,18 +46,18 @@ public class BlockSphenophyllumCustoms implements IGrowingPlantCustoms
 				}
 				else
 				{
-					addStack = new ItemStack(item, MathHelper.getRandomIntegerInRange(worldIn.rand, 0, 1));	// 0-1
+					addStack = new ItemStack(item, MathHelper.getRandomIntegerInRange(worldIn.rand, 0, 1));
 				}
 			}
 			else
 			{
 				if (age >= 5)
 				{
-					addStack = new ItemStack(item, MathHelper.getRandomIntegerInRange(worldIn.rand, 0, 2));	// 0-2
+					addStack = new ItemStack(item, MathHelper.getRandomIntegerInRange(worldIn.rand, 0, 2));
 				}
 				else
 				{
-					addStack = new ItemStack(item, MathHelper.getRandomIntegerInRange(worldIn.rand, 0, 1));	// 0-1
+					addStack = new ItemStack(item, MathHelper.getRandomIntegerInRange(worldIn.rand, 0, 1));
 				}
 			}
 			
@@ -123,11 +123,12 @@ public class BlockSphenophyllumCustoms implements IGrowingPlantCustoms
 					{
 						tries--;
 					}
-				} while (tries > 0);
+				}
+				while (tries > 0);
 				
 				if (tries > 0)
 				{
-					worldIn.setBlockState(spreadPos, plant.getDefaultState(), 3);
+					worldIn.setBlockState(spreadPos, plant.getDefaultState());
 				}
 			}
 		}
@@ -137,5 +138,11 @@ public class BlockSphenophyllumCustoms implements IGrowingPlantCustoms
 	public CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World worldIn, BlockPos pos, boolean placed)
 	{
 		return CanStayOptions.YIELD;
+	}
+
+	@Override
+	public boolean shouldUseBonemeal(World world, BlockPos pos, IBlockState state)
+	{
+		return true;
 	}
 }
