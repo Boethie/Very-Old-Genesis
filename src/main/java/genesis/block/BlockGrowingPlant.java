@@ -45,7 +45,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 {
 	protected static interface IPerBlockCall
 	{
-		void call(World world, BlockPos curPos, IBlockState curState, BlockPos startPos, Object... args);
+		void call(World world, BlockPos curPos, IBlockState curState, BlockPos startPos);
 	}
 	
 	public static class GrowingPlantProperties
@@ -271,15 +271,15 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	public BlockGrowingPlant(boolean topPropertyIn, int maxAgeIn, int growthAgeIn, int height)
 	{
 		super();
-
+		
 		maxAge = maxAgeIn;
 		growthAge = growthAgeIn;
-
+		
 		hasTopProperty = topPropertyIn;
 		maxHeight = height;
 		
-		this.blockState = createOurBlockState();
-
+		blockState = createOurBlockState();
+		
 		setTickRandomly(true);
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		
@@ -291,7 +291,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 
 	public BlockGrowingPlant(boolean topPropertyIn, int maxAgeIn, int height)
 	{
-		this(topPropertyIn, maxAgeIn, maxAgeIn, height);
+		this(topPropertyIn, maxAgeIn, maxAgeIn + 1, height);
 	}
 
 	/**
@@ -303,17 +303,17 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	protected BlockState createOurBlockState()
 	{
 		BlockState state;
+		
+		ageProp = PropertyInteger.create("age", 0, maxAge);
 
 		if (hasTopProperty)
 		{
-			ageProp = PropertyInteger.create("age", 0, maxAge);
 			topProp = PropertyBool.create("top");
 			state = new BlockState(this, ageProp, topProp);
 			setDefaultState(state.getBaseState().withProperty(ageProp, 0).withProperty(topProp, false));
 		}
 		else
 		{
-			ageProp = PropertyInteger.create("age", 0, maxAge);
 			state = new BlockState(this, ageProp);
 			setDefaultState(state.getBaseState().withProperty(ageProp, 0));
 		}
@@ -771,7 +771,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	 * @param call The IPerBlockCall whose call() method is called.
 	 * @param args An array of arguments to send to call().
 	 */
-	protected void callForEachInColumn(World world, BlockPos fromBlock, IPerBlockCall call, Object... args)
+	protected void callForEachInColumn(World world, BlockPos fromBlock, IPerBlockCall call)
 	{
 		GrowingPlantProperties props = new GrowingPlantProperties(world, fromBlock);
 		
@@ -782,7 +782,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		{
 			BlockPos curPos = top.down(y);
 			
-			call.call(world, curPos, world.getBlockState(curPos), fromBlock, args);
+			call.call(world, curPos, world.getBlockState(curPos), fromBlock);
 		}
 	}
 	
@@ -805,11 +805,11 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		
 		GrowingPlantProperties props = new GrowingPlantProperties(world, pos, (BlockGrowingPlant) state.getBlock());
 		
-		if (!growTogether || (growTogether && props.isBottom(pos)))
+		if ((!growTogether && props.isTop(pos)) || (growTogether && props.isBottom(pos)))
 		{
 			int oldAge = (Integer) state.getValue(ageProp);
 			int age = oldAge;
-	
+			
 			// Age the plant (using the chance generated from getGrowthChance)
 			if (forceGrow || world.getLightFromNeighbors(pos) >= minGrowthLight)
 			{
@@ -838,7 +838,16 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 							if (!noChange)
 							{
 								world.setBlockState(above, getDefaultState());
+								
+								if (resetAge)
+								{
+									age = 0;
+								}
 							}
+						}
+						else
+						{
+							age = growthAge - 1; // Reset the age to the growth age if it can't grow taller.
 						}
 					}
 				}
@@ -851,11 +860,12 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 			{
 				if (growTogether)
 				{
+					final int setAge = age;
 					callForEachInColumn(world, pos, new IPerBlockCall() {
-							public void call(World world, BlockPos curPos, IBlockState curState, BlockPos startPos, Object... args) {
-								world.setBlockState(curPos, curState.withProperty(ageProp, (Integer) args[0]));
+							public void call(World world, BlockPos curPos, IBlockState curState, BlockPos startPos) {
+								world.setBlockState(curPos, curState.withProperty(ageProp, setAge));
 							}
-						}, age);
+						});
 				}
 				else
 				{
@@ -1022,7 +1032,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		if (breakTogether && !noBreakTogether)
 		{
 			callForEachInColumn(world, pos, new IPerBlockCall() {
-				public void call(World world, BlockPos curPos, IBlockState curState, BlockPos startPos, Object... args) {
+				public void call(World world, BlockPos curPos, IBlockState curState, BlockPos startPos) {
 					oldStates.put(curPos, getActualState(world.getBlockState(curPos), world, curPos));
 				}
 			});
@@ -1100,7 +1110,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 			if (blockUnder == this)
 			{
 				callForEachInColumn(world, under, new IPerBlockCall() {
-					public void call(World world, BlockPos curPos, IBlockState curState, BlockPos startPos, Object... args) {
+					public void call(World world, BlockPos curPos, IBlockState curState, BlockPos startPos) {
 						world.setBlockState(curPos, curState.withProperty(ageProp, growthAge - 1));
 					}
 				});
