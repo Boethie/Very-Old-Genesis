@@ -131,7 +131,7 @@ public class WorldGenGrowingPlant extends WorldGenDecorationBase
 		if (world.isAirBlock(placePos) && world.isAirBlock(placePos.up()))
 		{
 			world.setBlockState(placePos, bottom, 2);
-			if (plant.growthAge <= growth)
+			if (plant.getGrowthAge() <= growth)
 			{
 				world.setBlockState(placePos.up(), top, 2);
 			}

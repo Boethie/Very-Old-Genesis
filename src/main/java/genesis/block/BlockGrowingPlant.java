@@ -336,6 +336,11 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		return state;
 	}
 	
+	public int getGrowthAge()
+	{
+		return growthAge;
+	}
+	
 	/**
 	 * Sets the position in a plant column that the "top" property should be true at.
 	 * -1 = Default, the top property will be the top plant block in the column.
