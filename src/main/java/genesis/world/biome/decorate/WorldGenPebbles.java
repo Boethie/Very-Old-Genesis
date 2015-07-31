@@ -48,7 +48,7 @@ public class WorldGenPebbles extends WorldGenDecorationBase
 		if (!world.getBlockState(pos.up()).getBlock().isAir(world, pos))
 			return false;
 		
-		boolean water_exists = findBlockInRange(world, pos, Blocks.water.getDefaultState(), 3, 2, 3);
+		boolean water_exists = findBlockInRange(world, pos, Blocks.water.getDefaultState(), 4, 3, 4);
 		
 		if (!water_exists)
 			return false;

@@ -18,6 +18,7 @@ import genesis.world.biome.BiomeGenRiver;
 import genesis.world.biome.BiomeGenShallowOcean;
 import genesis.world.biome.BiomeGenSwampRainforest;
 import genesis.world.biome.BiomeManagerGenesis;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager.BiomeType;
 
@@ -28,18 +29,23 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis rainforestM;
 	public static BiomeGenBaseGenesis rainforestEdge;
 	public static BiomeGenBaseGenesis rainforestEdgeM;
+	public static BiomeGenBaseGenesis rainforestHills;
 	public static BiomeGenBaseGenesis auxForest;
 	public static BiomeGenBaseGenesis auxForestM;
 	public static BiomeGenBaseGenesis auxForestEdge;
 	public static BiomeGenBaseGenesis auxForestEdgeM;
+	public static BiomeGenBaseGenesis auxForestHills;
 	public static BiomeGenBaseGenesis river;
 	public static BiomeGenBaseGenesis shallowOcean;
 	public static BiomeGenBaseGenesis limestoneBeach;
 	public static BiomeGenBaseGenesis swampRainForest;
 	public static BiomeGenBaseGenesis auxPlains;
 	public static BiomeGenBaseGenesis archaeopterisForest;
+	public static BiomeGenBaseGenesis archaeopterisForestHills;
 	public static BiomeGenBaseGenesis archaeopterisPlains;
 	public static BiomeGenBaseGenesis genesisBeach;
+	
+	public static final BiomeGenBase.Height height_LowHills = new BiomeGenBase.Height(0.45F, 0.3F);
 	
 	public static void loadBiomes()
 	{
@@ -56,6 +62,9 @@ public final class GenesisBiomes
 		rainforestEdgeM = new BiomeGenRainforestEdgeM(GenesisConfig.rainforestEdgeId+128).setColor(6458135);
 		BiomeDictionary.registerBiomeType(rainforestEdgeM, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.MOUNTAIN);
 		
+		rainforestHills = new BiomeGenRainforest(GenesisConfig.rainforestHillsId).setColor(5470985).setBiomeName("Rainforest Hills").setBiomeHeight(height_LowHills);
+		BiomeDictionary.registerBiomeType(rainforestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		
 		auxForest = new BiomeGenAuxForest(GenesisConfig.auxForestId);
 		BiomeManagerGenesis.registerBiome(auxForest, BiomeType.WARM, GenesisConfig.auxForestWeight);
 		BiomeDictionary.registerBiomeType(auxForest, BiomeDictionary.Type.FOREST);
@@ -69,6 +78,9 @@ public final class GenesisBiomes
 		auxForestEdgeM = new BiomeGenAuxForestEdgeM(GenesisConfig.auxForestEdgeId+128);
 		BiomeDictionary.registerBiomeType(auxForestEdgeM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.MOUNTAIN);
 		
+		auxForestHills = new BiomeGenAuxForest(GenesisConfig.auxForestHillsId).setBiomeName("Araucarioxylon Forest Hills").setBiomeHeight(height_LowHills);
+		BiomeDictionary.registerBiomeType(auxForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST);
+		
 		auxPlains = new BiomeGenAuxPlains(GenesisConfig.auxPlainsId);
 		BiomeManagerGenesis.registerBiome(auxPlains, BiomeType.WARM, GenesisConfig.auxPlainsWeight);
 		BiomeDictionary.registerBiomeType(auxPlains, BiomeDictionary.Type.PLAINS);
@@ -80,6 +92,9 @@ public final class GenesisBiomes
 		archaeopterisForest = new BiomeGenArchaeopterisForest(GenesisConfig.archaeopterisForestId);
 		BiomeManagerGenesis.registerBiome(archaeopterisForest, BiomeType.WARM, GenesisConfig.archaeopterisForestWeight);
 		BiomeDictionary.registerBiomeType(archaeopterisForest, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		
+		archaeopterisForestHills = new BiomeGenArchaeopterisForest(GenesisConfig.archaeopterisForestHillsId).setBiomeName("Archaeopteris Forest Hills").setBiomeHeight(height_LowHills);
+		BiomeDictionary.registerBiomeType(archaeopterisForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		archaeopterisPlains = new BiomeGenArchaeopterisPlains(GenesisConfig.archaeopterisPlainsId);
 		BiomeManagerGenesis.registerBiome(archaeopterisPlains, BiomeType.WARM, GenesisConfig.archaeopterisPlainsWeight);

@@ -10,6 +10,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
@@ -28,6 +29,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
     protected int maxHeight;
 	
     private int treeCountPerChunk = 0;
+    private boolean canGrowInWater = false;
     
 	public WorldGenTreeBase(IBlockState wood, IBlockState leaves, boolean notify)
 	{
@@ -49,6 +51,12 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		return treeCountPerChunk;
 	}
 	
+	public WorldGenTreeBase setCanGrowInWater(boolean canGrow)
+	{
+		canGrowInWater = canGrow;
+		return this;
+	}
+	
 	@Override
 	public abstract boolean generate(World world, Random rand, BlockPos pos);
 	
@@ -59,7 +67,11 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		do
 		{
 			treeSoil = world.getBlockState(treePos).getBlock();
-			if (!treeSoil.isAir(world, treePos) && !treeSoil.isLeaves(world, treePos))
+			if (
+					!treeSoil.isAir(world, treePos) 
+					&& !treeSoil.isLeaves(world, treePos)
+					&& !(treeSoil == Blocks.water && canGrowInWater)
+			)
 			{
 				break;
 			}
@@ -72,10 +84,13 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	
 	public boolean canTreeGrow(World world, BlockPos pos)
 	{
+		Block upBlock = world.getBlockState(pos.up()).getBlock();
+		
 		if (
-				treeSoil == null 
-				|| !treeSoil.canSustainPlant(world, pos, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.LEPIDODENDRON))
-				|| !world.getBlockState(pos.up()).getBlock().isAir(world, pos.up()))
+				(treeSoil == null 
+				|| !treeSoil.canSustainPlant(world, pos, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.LEPIDODENDRON)))
+				|| (!upBlock.isAir(world, pos.up()) && !(canGrowInWater && upBlock == Blocks.water))
+		)
 		{
 			return false;
 		}

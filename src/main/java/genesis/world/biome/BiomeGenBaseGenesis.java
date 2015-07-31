@@ -43,6 +43,19 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 		return this;
 	}
 	
+	@Override
+	public BiomeGenBaseGenesis setBiomeName(String name)
+	{
+		this.biomeName = name;
+		return this;
+	}
+	
+	public BiomeGenBaseGenesis setBiomeHeight(BiomeGenBase.Height height)
+	{
+		this.setHeight(height);
+		return this;
+	}
+	
 	public Vec3 getSkyColor()
 	{
 		return new Vec3(0.29411764705882352941176470588235D, 0.47450980392156862745098039215686D, 0.1960784313725490196078431372549D);

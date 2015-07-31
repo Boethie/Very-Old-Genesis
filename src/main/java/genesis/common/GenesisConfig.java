@@ -28,6 +28,9 @@ public final class GenesisConfig
 	public static int archaeopterisPlainsId = 60;
 	public static int archaeopterisPlainsWeight = 10;
 	public static int genesisBeachId = 61;
+	public static int rainforestHillsId = 62;
+	public static int auxForestHillsId = 63;
+	public static int archaeopterisForestHillsId = 64;
 	
 	//dimensions
 	public static int genesisDimId = 37;

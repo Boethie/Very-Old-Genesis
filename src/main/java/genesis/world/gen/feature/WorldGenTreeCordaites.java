@@ -24,6 +24,8 @@ public class WorldGenTreeCordaites extends WorldGenTreeBase
 		
 		this.minHeight = minHeight;
 		this.maxHeight = maxHeight;
+		
+		setCanGrowInWater(true);
 	}
 	
 	@Override

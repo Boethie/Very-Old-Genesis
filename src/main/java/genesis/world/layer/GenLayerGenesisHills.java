@@ -61,7 +61,7 @@ public class GenLayerGenesisHills extends GenLayerGenesis
 				{
 					int i2 = k1;
 					int j2;
-					
+					/*
 					if (k1 == BiomeGenBase.deepOcean.biomeID && this.nextInt(3) == 0)
 					{
 						j2 = this.nextInt(2);
@@ -75,6 +75,20 @@ public class GenLayerGenesisHills extends GenLayerGenesis
 							i2 = GenesisBiomes.auxForest.biomeID;
 						}
 					}
+					*/
+					
+					if (k1 == GenesisBiomes.rainforest.biomeID)
+                    {
+                        i2 = GenesisBiomes.rainforestHills.biomeID;
+                    }
+                    else if (k1 == GenesisBiomes.auxForest.biomeID)
+                    {
+                        i2 = GenesisBiomes.auxForestHills.biomeID;
+                    }
+                    else if (k1 == GenesisBiomes.archaeopterisForest.biomeID)
+                    {
+                        i2 = GenesisBiomes.archaeopterisForestHills.biomeID;
+                    }
 					
 					if (flag && i2 != k1)
 					{
@@ -135,4 +149,5 @@ public class GenLayerGenesisHills extends GenLayerGenesis
 		
 		return aint2;
 	}
+	
 }
