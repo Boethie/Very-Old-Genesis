@@ -20,21 +20,31 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 {
-	public int totalTreesPerChunk = 0;
 	public IBlockState oceanFloor = GenesisBlocks.ooze.getDefaultState();
 	
 	public BiomeGenBaseGenesis(int id)
 	{
 		super(id);
-		this.theBiomeDecorator = new BiomeDecoratorGenesis();
-		this.theBiomeDecorator.clayPerChunk = 1;
-		this.topBlock = GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.STAGE, BlockMoss.STAGE_LAST).withProperty(BlockGrass.SNOWY, false);
-		this.spawnableCaveCreatureList.clear();
-		this.spawnableCreatureList.clear();
-		this.spawnableMonsterList.clear();
-		this.spawnableWaterCreatureList.clear();
-		this.waterColorMultiplier = 0xaa791e;
+		theBiomeDecorator.clayPerChunk = 1;
+		topBlock = GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.STAGE, BlockMoss.STAGE_LAST).withProperty(BlockGrass.SNOWY, false);
+		spawnableCaveCreatureList.clear();
+		spawnableCreatureList.clear();
+		spawnableMonsterList.clear();
+		spawnableWaterCreatureList.clear();
+		waterColorMultiplier = 0xaa791e;
 	}
+	
+	public BiomeDecoratorGenesis getGenesisDecorator()
+	{
+		return (BiomeDecoratorGenesis) theBiomeDecorator;
+	}
+	
+	@Override
+	public BiomeDecoratorGenesis createBiomeDecorator()
+    {
+        //return getModdedBiomeDecorator(new BiomeDecoratorGenesis());
+		return new BiomeDecoratorGenesis();
+    }
 	
 	@Override
 	public BiomeGenBaseGenesis setColor(int color)
@@ -46,13 +56,14 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 	@Override
 	public BiomeGenBaseGenesis setBiomeName(String name)
 	{
-		this.biomeName = name;
+		super.setBiomeName(name);
 		return this;
 	}
 	
+	//TODO: @Override
 	public BiomeGenBaseGenesis setBiomeHeight(BiomeGenBase.Height height)
 	{
-		this.setHeight(height);
+		super.setHeight(height);
 		return this;
 	}
 	
@@ -68,82 +79,82 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 	}
 	
 	@Override
-	public final void generateBiomeTerrain(World worldIn, Random p_180628_2_, ChunkPrimer p_180628_3_, int p_180628_4_, int p_180628_5_, double p_180628_6_)
+	public final void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
     {
-        IBlockState iblockstate = this.topBlock;
-        IBlockState iblockstate1 = this.fillerBlock;
+        IBlockState top = topBlock;
+        IBlockState filler = fillerBlock;
         int k = -1;
-        int l = (int)(p_180628_6_ / 3.0D + 3.0D + p_180628_2_.nextDouble() * 0.25D);
-        int i1 = p_180628_4_ & 15;
-        int j1 = p_180628_5_ & 15;
+        int l = (int)(d / 3.0D + 3.0D + rand.nextDouble() * 0.25D);
+        int chunkX = blockX & 15;
+        int chunkZ = blockZ & 15;
 
-        for (int k1 = 255; k1 >= 0; --k1)
+        for (int y = 255; y >= 0; --y)
         {
-            if (k1 <= p_180628_2_.nextInt(5))
+            if (y <= rand.nextInt(5))
             {
-                p_180628_3_.setBlockState(j1, k1, i1, Blocks.bedrock.getDefaultState());
+                primer.setBlockState(chunkZ, y, chunkX, Blocks.bedrock.getDefaultState());
             }
             else
             {
-                IBlockState iblockstate2 = p_180628_3_.getBlockState(j1, k1, i1);
+                IBlockState state = primer.getBlockState(chunkZ, y, chunkX);
 
-                if (iblockstate2.getBlock().getMaterial() == Material.air)
+                if (state.getBlock().getMaterial() == Material.air)
                 {
                     k = -1;
                 }
-                else if (iblockstate2.getBlock() == Blocks.stone)
+                else if (state.getBlock() == Blocks.stone)
                 {
                     if (k == -1)
                     {
                         if (l <= 0)
                         {
-                            iblockstate = null;
-                            iblockstate1 = Blocks.stone.getDefaultState();
+                            top = null;
+                            filler = Blocks.stone.getDefaultState();
                         }
-                        else if (k1 >= 59 && k1 <= 64)
+                        else if (y >= 59 && y <= 64)
                         {
-                            iblockstate = this.topBlock;
-                            iblockstate1 = this.fillerBlock;
+                            top = topBlock;
+                            filler = fillerBlock;
                         }
 
-                        if (k1 < 63 && (iblockstate == null || iblockstate.getBlock().getMaterial() == Material.air))
+                        if (y < 63 && (top == null || top.getBlock().getMaterial() == Material.air))
                         {
-                            if (this.getFloatTemperature(new BlockPos(p_180628_4_, k1, p_180628_5_)) < 0.15F)
+                            if (getFloatTemperature(new BlockPos(blockX, y, blockZ)) < 0.15F)
                             {
-                                iblockstate = Blocks.ice.getDefaultState();
+                                top = Blocks.ice.getDefaultState();
                             }
                             else
                             {
-                                iblockstate = Blocks.water.getDefaultState();
+                                top = Blocks.water.getDefaultState();
                             }
                         }
 
                         k = l;
 
-                        if (k1 >= 62)
+                        if (y >= 62)
                         {
-                            p_180628_3_.setBlockState(j1, k1, i1, iblockstate);
+                            primer.setBlockState(chunkZ, y, chunkX, top);
                         }
-                        else if (k1 < 56 - l)
+                        else if (y < 56 - l)
                         {
-                            iblockstate = null;
-                            iblockstate1 = Blocks.stone.getDefaultState();
-                            p_180628_3_.setBlockState(j1, k1, i1, oceanFloor);
+                            top = null;
+                            filler = Blocks.stone.getDefaultState();
+                            primer.setBlockState(chunkZ, y, chunkX, oceanFloor);
                         }
                         else
                         {
-                            p_180628_3_.setBlockState(j1, k1, i1, iblockstate1);
+                            primer.setBlockState(chunkZ, y, chunkX, filler);
                         }
                     }
                     else if (k > 0)
                     {
                         --k;
-                        p_180628_3_.setBlockState(j1, k1, i1, iblockstate1);
+                        primer.setBlockState(chunkZ, y, chunkX, filler);
 
-                        if (k == 0 && iblockstate1.getBlock() == Blocks.sand)
+                        if (k == 0 && filler.getBlock() == Blocks.sand)
                         {
-                            k = p_180628_2_.nextInt(4) + Math.max(0, k1 - 63);
-                            iblockstate1 = iblockstate1.getValue(BlockSand.VARIANT) == BlockSand.EnumType.RED_SAND ? Blocks.red_sandstone.getDefaultState() : Blocks.sandstone.getDefaultState();
+                            k = rand.nextInt(4) + Math.max(0, y - 63);
+                            filler = filler.getValue(BlockSand.VARIANT) == BlockSand.EnumType.RED_SAND ? Blocks.red_sandstone.getDefaultState() : Blocks.sandstone.getDefaultState();
                         }
                     }
                 }
