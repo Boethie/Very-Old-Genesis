@@ -1,0 +1,24 @@
+{
+    "__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
+    "ambientocclusion": true,
+    "elements": [
+        {   "__comment": "Sticks",
+            "from": [ 10, 0, 7 ],
+            "to": [ 16, 12, 9 ],
+            "faces": {
+                "north": { "uv": [ 10, 4, 4, 16 ], "texture": "#stick", "rotation": 0 },
+                "south": { "uv": [ 16, 4, 10, 16 ], "texture": "#stick", "rotation": 0 }
+            }
+        },
+        {   "__comment": "Top",
+            "from": [ 10, 12, 6 ],
+            "to": [ 16, 14, 10 ],
+            "faces": {
+                "north": { "uv": [ 4, 0, 6, 6 ], "texture": "#log", "rotation": 90 },
+                "south": { "uv": [ 10, 0, 12, 6 ], "texture": "#log", "rotation": 270 },
+                "down": { "uv": [ 6, 0, 10, 6 ], "texture": "#log", "rotation": 270 },
+                "up": { "uv": [ -0, 0, 4, 6 ], "texture": "#log", "rotation": 270 }
+            }
+        }
+    ]
+}

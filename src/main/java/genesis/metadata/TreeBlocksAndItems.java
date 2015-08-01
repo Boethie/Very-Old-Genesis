@@ -38,8 +38,7 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo<ObjectType, EnumTre
 					FuelHandler.setBurnTime(item, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.planks)), true);
 				}
 			};
-	public static final ObjectType<BlockWattleFence, ItemBlockMulti> WATTLE_FENCE = new ObjectType<BlockWattleFence, ItemBlockMulti>("wattle_fence", "wattleFence", BlockWattleFence.class, null, EnumTree.NO_BILLET)
-			.setIgnoredProperties(BlockFence.NORTH, BlockFence.EAST, BlockFence.SOUTH, BlockFence.WEST);
+	public static final ObjectType<BlockWattleFence, ItemBlockMulti> WATTLE_FENCE = new ObjectType<BlockWattleFence, ItemBlockMulti>("wattle_fence", "wattleFence", BlockWattleFence.class, null, EnumTree.NO_BILLET);
 	public static final ObjectType<BlockGenesisRottenLogs, ItemBlockMulti> ROTTEN_LOG = new ObjectType<BlockGenesisRottenLogs, ItemBlockMulti>("rotten_log", "log.rotten", BlockGenesisRottenLogs.class, null, EnumTree.PSARONIUS)
 			.setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	
