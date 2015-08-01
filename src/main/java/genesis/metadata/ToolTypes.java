@@ -125,4 +125,9 @@ public class ToolTypes
 		Collection<ToolType> types = table.values();
 		return types.toArray(new ToolType[types.size()]);
 	}
+	
+	public static Collection<ToolType> getToolTypes(EnumToolQuality quality)
+	{
+		return table.column(quality).values();
+	}
 }

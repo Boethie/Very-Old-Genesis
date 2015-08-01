@@ -6,6 +6,8 @@ import genesis.block.tileentity.TileEntityCampfire;
 import genesis.block.tileentity.crafting.CookingPotRecipeRegistry;
 import genesis.metadata.*;
 import genesis.metadata.ItemsCeramicBowls.EnumCeramicBowls;
+import genesis.metadata.ToolTypes.ToolType;
+import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.FuelHandler;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -20,6 +22,7 @@ import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public final class GenesisRecipes
@@ -180,6 +183,19 @@ public final class GenesisRecipes
 			GameRegistry.addRecipe(GenesisBlocks.dungs.getStack(DungBlocksAndItems.DUNG_BLOCK, variant), "CC", "CC", 'C', GenesisBlocks.dungs.getStack(GenesisBlocks.dungs.DUNG, variant));
 		}
 		
+		for (EnumTree treeVariant : GenesisBlocks.trees.getValidVariants(TreeBlocksAndItems.BILLET))
+		{
+			for (ToolType pebbleVariant : GenesisItems.tools.getValidVariants(ToolItems.PEBBLE))
+			{
+				GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.campfire),
+						"III",
+						"I I",
+						"ooo",
+						'I', GenesisBlocks.trees.getStack(TreeBlocksAndItems.BILLET, treeVariant),
+						'o', GenesisItems.tools.getStack(ToolItems.PEBBLE, pebbleVariant));
+			}
+		}
+		
 		// Smelting
 		GameRegistry.addSmelting(GenesisBlocks.quartz_ore, new ItemStack(GenesisItems.quartz), 0.05F);
 		GameRegistry.addSmelting(GenesisBlocks.zircon_ore, new ItemStack(GenesisItems.zircon), 0.1F);
@@ -198,7 +214,6 @@ public final class GenesisRecipes
 		GameRegistry.addSmelting(GenesisItems.tyrannosaurus, new ItemStack(GenesisItems.cooked_tyrannosaurus), 0.35F);
 		
 		// Pottery
-		ItemStack input;
 		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.red_clay), "CC", "CC", 'C', GenesisItems.red_clay_ball);
 		GameRegistry.addSmelting(GenesisBlocks.red_clay, new ItemStack(Blocks.stained_hardened_clay, 1, EnumDyeColor.WHITE.getMetadata()), 0.3F);
 		
