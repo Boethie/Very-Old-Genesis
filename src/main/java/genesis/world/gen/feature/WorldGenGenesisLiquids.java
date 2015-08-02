@@ -11,17 +11,17 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenLiquidsGenesis extends WorldGenerator
+public class WorldGenGenesisLiquids extends WorldGenerator
 {
 	public final Block liquid;
 	public final Block stone;
 	
-	public WorldGenLiquidsGenesis(Block liquid)
+	public WorldGenGenesisLiquids(Block liquid)
 	{
 		this(liquid, GenesisBlocks.granite);
 	}
 	
-	public WorldGenLiquidsGenesis(Block liquid, Block stone)
+	public WorldGenGenesisLiquids(Block liquid, Block stone)
 	{
 		this.liquid = liquid;
 		this.stone = stone;
