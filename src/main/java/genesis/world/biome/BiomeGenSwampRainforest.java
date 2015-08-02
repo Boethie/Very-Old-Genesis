@@ -3,7 +3,6 @@ package genesis.world.biome;
 import genesis.block.BlockMoss;
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumTree;
-import genesis.world.biome.decorate.BiomeDecoratorGenesis;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenGrowingPlant.GrowingPlantType;
 import genesis.world.biome.decorate.WorldGenMossStages;
@@ -20,46 +19,38 @@ import java.util.Random;
 import net.minecraft.block.BlockGrass;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis
 {
-	public int totalTreesPerChunk = 15;
-	
 	public BiomeGenSwampRainforest(int id)
 	{
 		super(id);
-		this.biomeName = "Swamp Rainforest";
-		this.topBlock = GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.STAGE, 0).withProperty(BlockGrass.SNOWY, false);
-		this.rainfall = 1.0F;
-		this.temperature = 0.95F;
-		this.minHeight = 0.0F;
-		this.maxHeight = 0.03F;
-		this.theBiomeDecorator.treesPerChunk = 0;
-		this.theBiomeDecorator.grassPerChunk = 5;
+		setBiomeName("Swamp Rainforest");
+		topBlock = GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.STAGE, 0).withProperty(BlockGrass.SNOWY, false);
+		setTemperatureRainfall(0.95F, 1.0F);
+		setHeight(0.0F, 0.03F);
+		theBiomeDecorator.grassPerChunk = 5;
 		
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).generateDefaultTrees = false;
-		
-		this.waterColorMultiplier = 0x725113;
+		waterColorMultiplier = 0x725113;
 		setColor(522674);
 		
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchSize(5).setCountPerChunk(5));
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(5).setCountPerChunk(5));
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(1, 0).setNextToWater(true).setPlantType(GrowingPlantType.COLUMN).setPatchSize(4).setCountPerChunk(8));
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenUnderWaterPatch(GenesisBlocks.peat.getDefaultState()).setCountPerChunk(10));
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenMossStages().setCountPerChunk(400));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchSize(5).setCountPerChunk(5));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(5).setCountPerChunk(5));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(1, 0).setNextToWater(true).setPlantType(GrowingPlantType.COLUMN).setPatchSize(4).setCountPerChunk(8));
+		addDecoration(new WorldGenUnderWaterPatch(GenesisBlocks.peat.getDefaultState()).setCountPerChunk(10));
+		addDecoration(new WorldGenMossStages().setCountPerChunk(400));
 		
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).trees.add(new WorldGenTreeLepidodendron(11, 15, true).setTreeCountPerChunk(MathHelper.ceiling_float_int((float)totalTreesPerChunk * 0.3F)));
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).trees.add(new WorldGenTreeSigillaria(9, 12, true).setTreeCountPerChunk(MathHelper.ceiling_float_int((float)totalTreesPerChunk * 0.25F)));
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).trees.add(new WorldGenTreeCordaites(15, 20, true).setTreeCountPerChunk(MathHelper.ceiling_float_int((float)totalTreesPerChunk * 0.35F)));
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).trees.add(new WorldGenTreePsaronius(5, 6, true).setTreeCountPerChunk(MathHelper.ceiling_float_int((float)totalTreesPerChunk * 0.1F)));
+		addTree(new WorldGenTreeLepidodendron(11, 15, true).setTreeCountPerChunk(5));
+		addTree(new WorldGenTreeSigillaria(9, 12, true).setTreeCountPerChunk(4));
+		addTree(new WorldGenTreeCordaites(15, 20, true).setTreeCountPerChunk(6));
+		addTree(new WorldGenTreePsaronius(5, 6, true).setTreeCountPerChunk(2));
 		
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).trees.add(new WorldGenRottenLog(3, 6, EnumTree.LEPIDODENDRON, true).setTreeCountPerChunk(10));
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).trees.add(new WorldGenRottenLog(3, 6, EnumTree.SIGILLARIA, true).setTreeCountPerChunk(10));
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).trees.add(new WorldGenRottenLog(3, 6, EnumTree.CORDAITES, true).setCanGrowInWater(true).setTreeCountPerChunk(10));
+		addTree(new WorldGenRottenLog(3, 6, EnumTree.LEPIDODENDRON, true).setTreeCountPerChunk(10));
+		addTree(new WorldGenRottenLog(3, 6, EnumTree.SIGILLARIA, true).setTreeCountPerChunk(10));
+		addTree(new WorldGenRottenLog(3, 6, EnumTree.CORDAITES, true).setCanGrowInWater(true).setTreeCountPerChunk(10));
 	}
 	
 	@Override
@@ -92,6 +83,6 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis
 			}
 		}
 		
-		this.generateBiomeTerrain(world, rand, p_180622_3_, p_180622_4_, p_180622_5_, p_180622_6_);
+		generateBiomeTerrain(world, rand, p_180622_3_, p_180622_4_, p_180622_5_, p_180622_6_);
     }
 }

@@ -15,25 +15,19 @@ import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
 
 public class BiomeGenAuxPlains extends BiomeGenBaseGenesis
 {
-	public int totalTreesPerChunk = 1;
-	
 	public BiomeGenAuxPlains(int id)
 	{
 		super(id);
-		this.biomeName = "Araucarioxylon Plains";
-		this.rainfall = 1.0F;
-		this.temperature = 1.1F;
-		this.theBiomeDecorator.treesPerChunk = 0;
-		this.theBiomeDecorator.grassPerChunk = 1;
+		setBiomeName("Araucarioxylon Plains");
+		setTemperatureRainfall(1.1F, 1.0F);
+		theBiomeDecorator.grassPerChunk = 1;
 		
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).generateDefaultTrees = false;
+		addDecoration(new WorldGenArchaeomarasmius().setPatchSize(3).setCountPerChunk(5));
+		addDecoration(new WorldGenPalaeoagaracites().setPatchSize(5).setCountPerChunk(10));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPlantType(GrowingPlantType.NORMAL).setPatchSize(5).setCountPerChunk(7));
+		addDecoration(new WorldGenRockBoulders().setCountPerChunk(5));
 		
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenArchaeomarasmius().setPatchSize(3).setCountPerChunk(5));
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenPalaeoagaracites().setPatchSize(5).setCountPerChunk(10));
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPlantType(GrowingPlantType.NORMAL).setPatchSize(5).setCountPerChunk(7));
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenRockBoulders().setCountPerChunk(5));
-		
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).trees.add(new WorldGenTreeAraucarioxylon(25, 30, true).setTreeCountPerChunk(this.totalTreesPerChunk));
+		addTree(new WorldGenTreeAraucarioxylon(25, 30, true).setTreeCountPerChunk(1));
 	}
 	
 	@Override

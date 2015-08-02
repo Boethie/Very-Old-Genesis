@@ -7,6 +7,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
 
 import genesis.common.GenesisBlocks;
+import genesis.world.gen.feature.WorldGenLiquidsGenesis;
 import genesis.world.gen.feature.WorldGenTreeBase;
 
 import java.util.ArrayList;
@@ -19,15 +20,12 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenClay;
-import net.minecraft.world.gen.feature.WorldGenLiquids;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 
 public class BiomeDecoratorGenesis extends BiomeDecorator
 {
-	public boolean generateDefaultTrees = true;
-	
 	public List<WorldGenTreeBase> trees = new ArrayList<WorldGenTreeBase>();
 	public List<WorldGenDecorationBase> decorations = new ArrayList<WorldGenDecorationBase>();
 	
@@ -115,7 +113,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			for (int i = 0; doGen && i < 50; ++i)
 			{
 				BlockPos pos = field_180294_c.add(nextInt(16) + 8, nextInt(nextInt(248) + 8), nextInt(16) + 8);
-				(new WorldGenLiquids(Blocks.flowing_water)).generate(currentWorld, randomGenerator, pos);
+				(new WorldGenLiquidsGenesis(Blocks.flowing_water)).generate(currentWorld, randomGenerator, pos);
 			}
 			
 			doGen = TerrainGen.decorate(currentWorld, randomGenerator, field_180294_c, LAKE_LAVA);
@@ -123,7 +121,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
             for (int i = 0; doGen && i < 20; ++i)
             {
             	BlockPos pos = field_180294_c.add(nextInt(16) + 8, nextInt(nextInt(nextInt(240) + 8) + 8), nextInt(16) + 8);
-                (new WorldGenLiquids(GenesisBlocks.komatiitic_lava)).generate(currentWorld, randomGenerator, pos);
+                (new WorldGenLiquidsGenesis(GenesisBlocks.komatiitic_lava)).generate(currentWorld, randomGenerator, pos);
             }
 		}
 		

@@ -18,26 +18,20 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 {
-	public int totalTreesPerChunk = 5;
-	
 	public BiomeGenAuxForest(int id)
 	{
 		super(id);
-		this.biomeName = "Araucarioxylon Forest";
-		this.rainfall = 1.0F;
-		this.temperature = 1.1F;
-		this.theBiomeDecorator.treesPerChunk = 0;
-		this.theBiomeDecorator.grassPerChunk = 5;
+		setBiomeName("Araucarioxylon Forest");
+		setTemperatureRainfall(1.1F, 1.0F);
+		theBiomeDecorator.grassPerChunk = 5;
 		
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).generateDefaultTrees = false;
+		addDecoration(new WorldGenArchaeomarasmius().setPatchSize(3).setCountPerChunk(5));
+		addDecoration(new WorldGenPalaeoagaracites().setPatchSize(10).setCountPerChunk(16));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPlantType(GrowingPlantType.NORMAL).setPatchSize(5).setCountPerChunk(5));
+		addDecoration(new WorldGenRockBoulders().setCountPerChunk(5));
 		
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenArchaeomarasmius().setPatchSize(3).setCountPerChunk(5));
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenPalaeoagaracites().setPatchSize(10).setCountPerChunk(16));
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPlantType(GrowingPlantType.NORMAL).setPatchSize(5).setCountPerChunk(5));
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenRockBoulders().setCountPerChunk(5));
-		
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).trees.add(new WorldGenTreeAraucarioxylon(25, 30, true).setTreeCountPerChunk(totalTreesPerChunk));
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).trees.add(new WorldGenRottenLog(3, 7, EnumTree.ARAUCARIOXYLON, true).addTopDecoration(GenesisBlocks.archaeomarasmius.getDefaultState()).setTreeCountPerChunk(3));
+		addTree(new WorldGenTreeAraucarioxylon(25, 30, true).setTreeCountPerChunk(5));
+		addTree(new WorldGenRottenLog(3, 7, EnumTree.ARAUCARIOXYLON, true).addTopDecoration(GenesisBlocks.archaeomarasmius.getDefaultState()).setTreeCountPerChunk(3));
 	}
 	
 	@Override

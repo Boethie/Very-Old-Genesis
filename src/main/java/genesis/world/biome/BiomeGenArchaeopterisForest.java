@@ -15,25 +15,18 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class BiomeGenArchaeopterisForest extends BiomeGenBaseGenesis
 {
-	public int totalTreesPerChunk = 10;
-	
 	public BiomeGenArchaeopterisForest(int id)
 	{
 		super(id);
-		this.biomeName = "Archaeopteris Forest";
-		this.rainfall = 1.0F;
-		this.temperature = 1.15F;
-		this.minHeight = 0.01F;
-		this.maxHeight = 0.02F;
-		this.theBiomeDecorator.treesPerChunk = 0;
-		this.theBiomeDecorator.grassPerChunk = 1;
+		setBiomeName("Archaeopteris Forest");
+		setTemperatureRainfall(1.15F, 1.0F);
+		setHeight(0.01F, 0.02F);
+		theBiomeDecorator.grassPerChunk = 1;
 		
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).generateDefaultTrees = false;
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(3).setCountPerChunk(3));
 		
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(3).setCountPerChunk(3));
-		
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).trees.add(new WorldGenTreeArchaeopteris(15, 20, true).setTreeCountPerChunk(totalTreesPerChunk));
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).trees.add(new WorldGenRottenLog(3, 6, EnumTree.ARCHAEOPTERIS, true).setTreeCountPerChunk(5));
+		addTree(new WorldGenTreeArchaeopteris(15, 20, true).setTreeCountPerChunk(10));
+		addTree(new WorldGenRottenLog(3, 6, EnumTree.ARCHAEOPTERIS, true).setTreeCountPerChunk(5));
 	}
 	
 	@Override

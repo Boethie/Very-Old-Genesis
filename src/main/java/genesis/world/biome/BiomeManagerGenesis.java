@@ -17,8 +17,7 @@ public class BiomeManagerGenesis
 
 	public static boolean registerBiome(BiomeGenBase biome, BiomeType type, int weight)
 	{
-		checkEntry(type);
-		return biomes.get(type).add(new BiomeEntry(biome, weight));
+		return getEntries(type).add(new BiomeEntry(biome, weight));
 	}
 
 	public static Map<BiomeType, List<BiomeEntry>> getEntriesMap()
@@ -28,16 +27,12 @@ public class BiomeManagerGenesis
 
 	public static List<BiomeEntry> getEntries(BiomeType type)
 	{
-		checkEntry(type);
-		return biomes.get(type);
-	}
-
-	private static void checkEntry(BiomeType type)
-	{
 		if (!biomes.containsKey(type))
 		{
 			biomes.put(type, new ArrayList<BiomeEntry>());
 		}
+		
+		return biomes.get(type);
 	}
 
 }

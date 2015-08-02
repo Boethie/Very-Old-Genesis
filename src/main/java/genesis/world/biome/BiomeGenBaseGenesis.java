@@ -5,7 +5,9 @@ import java.util.Random;
 import genesis.block.BlockMoss;
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.BiomeDecoratorGenesis;
+import genesis.world.biome.decorate.WorldGenDecorationBase;
 import genesis.world.biome.decorate.WorldGenZygopteris;
+import genesis.world.gen.feature.WorldGenTreeBase;
 import net.minecraft.block.BlockGrass;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.material.Material;
@@ -34,6 +36,16 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 		waterColorMultiplier = 0xaa791e;
 	}
 	
+	protected void addDecoration(WorldGenDecorationBase decoration)
+	{
+		getGenesisDecorator().decorations.add(decoration);
+	}
+	
+	protected void addTree(WorldGenTreeBase tree)
+	{
+		getGenesisDecorator().trees.add(tree);
+	}
+	
 	public BiomeDecoratorGenesis getGenesisDecorator()
 	{
 		return (BiomeDecoratorGenesis) theBiomeDecorator;
@@ -60,10 +72,17 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 		return this;
 	}
 	
-	//TODO: @Override
-	public BiomeGenBaseGenesis setBiomeHeight(BiomeGenBase.Height height)
+	@Override
+	public BiomeGenBaseGenesis setHeight(BiomeGenBase.Height height)
 	{
 		super.setHeight(height);
+		return this;
+	}
+	
+	public BiomeGenBaseGenesis setHeight(float minHeight, float maxHeight)
+	{
+		this.minHeight = minHeight;
+        this.maxHeight = maxHeight;
 		return this;
 	}
 	
@@ -79,7 +98,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 	}
 	
 	@Override
-	public final void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
+	public void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
     {
         IBlockState top = topBlock;
         IBlockState filler = fillerBlock;
@@ -102,14 +121,14 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
                 {
                     k = -1;
                 }
-                else if (state.getBlock() == Blocks.stone)
+                else if (state.getBlock() == GenesisBlocks.granite)
                 {
                     if (k == -1)
                     {
                         if (l <= 0)
                         {
                             top = null;
-                            filler = Blocks.stone.getDefaultState();
+                            filler = GenesisBlocks.granite.getDefaultState();
                         }
                         else if (y >= 59 && y <= 64)
                         {
@@ -138,7 +157,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
                         else if (y < 56 - l)
                         {
                             top = null;
-                            filler = Blocks.stone.getDefaultState();
+                            filler = GenesisBlocks.granite.getDefaultState();
                             primer.setBlockState(chunkZ, y, chunkX, oceanFloor);
                         }
                         else
