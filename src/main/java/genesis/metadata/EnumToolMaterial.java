@@ -8,7 +8,7 @@ public enum EnumToolMaterial implements IMetadata
 	DOLERITE("dolerite", 1, 159, 3.8F, 0.3F, 5),
 	RHYOLITE("rhyolite", 1, 173, 4.1F, 0.6F, 5),
 	GRANITE("granite", 1, 180, 4.3F, 0.7F, 5),
-	QUARTZITE("quartzite",  1, 187, 4.5F, 0.8F, 5),
+	QUARTZ("quartz",  1, 187, 4.5F, 0.8F, 5),
 	BROWN_FLINT("brown_flint", "brownFlint",  1, 194, 4.6F, 1.6F, 5),
 	BLACK_FLINT("black_flint", "blackFlint",  1, 194, 4.6F, 1.6F, 5);
 	

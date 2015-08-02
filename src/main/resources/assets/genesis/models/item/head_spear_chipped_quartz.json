@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "genesis:items/head_hoe_chipped_quartzite"
+        "layer0": "genesis:items/head_spear_chipped_quartz"
     },
     "display": {
         "thirdperson": {

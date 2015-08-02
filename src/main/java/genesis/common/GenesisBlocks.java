@@ -34,7 +34,6 @@ public final class GenesisBlocks
 	public static final Block trondhjemite = new BlockGenesisRock(1.5F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "trondhjemite");
 	public static final Block faux_amphibolite = new BlockGenesisRock(1.5F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "fauxAmphibolite");
 	public static final Block gneiss = new BlockGenesisRock(1.65F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "gneiss");
-	public static final Block quartzite = new BlockGenesisRock(1.95F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "quartzite");
 	public static final Block limestone = new BlockGenesisRock(0.75F, 8.7F).setUnlocalizedName(Unlocalized.ROCK + "limestone");
 	public static final Block octaedrite = new BlockGenesisRock(1.0F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "octaedrite");
 	public static final Block red_clay = new BlockRedClay().setUnlocalizedName(Unlocalized.PREFIX + "redClay");
@@ -150,7 +149,6 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(trondhjemite, "trondhjemite");
 		Genesis.proxy.registerBlock(faux_amphibolite, "faux_amphibolite");
 		Genesis.proxy.registerBlock(gneiss, "gneiss");
-		Genesis.proxy.registerBlock(quartzite, "quartzite");
 		Genesis.proxy.registerBlock(limestone, "limestone");
 		Genesis.proxy.registerBlock(octaedrite, "octaedrite");
 		Genesis.proxy.registerBlock(red_clay, "red_clay");

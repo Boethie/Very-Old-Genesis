@@ -25,12 +25,13 @@ public class WorldGenPebbles extends WorldGenDecorationBase
 	
 	public WorldGenPebbles()
 	{
-		pebbleTypes.add(EnumToolMaterial.BLACK_FLINT);
-		pebbleTypes.add(EnumToolMaterial.BROWN_FLINT);
+		
 		pebbleTypes.add(EnumToolMaterial.DOLERITE);
-		pebbleTypes.add(EnumToolMaterial.GRANITE);
-		pebbleTypes.add(EnumToolMaterial.QUARTZITE);
 		pebbleTypes.add(EnumToolMaterial.RHYOLITE);
+		pebbleTypes.add(EnumToolMaterial.GRANITE);
+		pebbleTypes.add(EnumToolMaterial.QUARTZ);
+		pebbleTypes.add(EnumToolMaterial.BROWN_FLINT);
+		pebbleTypes.add(EnumToolMaterial.BLACK_FLINT);
 	}
 	
 	@Override

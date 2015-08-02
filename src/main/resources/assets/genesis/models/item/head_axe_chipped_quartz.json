@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "genesis:items/head_knife_chipped_quartzite"
+        "layer0": "genesis:items/head_axe_chipped_quartz"
     },
     "display": {
         "thirdperson": {

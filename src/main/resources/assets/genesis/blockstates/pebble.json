@@ -32,7 +32,7 @@
 			"quartzite": {
 				"textures": {
 					"particle": "#texture",
-					"texture": "genesis:blocks/quartzite"
+					"texture": "genesis:blocks/quartz"
 				}
 			},
 			"brown_flint": {

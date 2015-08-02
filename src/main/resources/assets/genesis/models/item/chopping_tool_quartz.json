@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "genesis:items/chopping_tool_quartzite"
+        "layer0": "genesis:items/chopping_tool_quartz"
     },
     "display": {
         "thirdperson": {

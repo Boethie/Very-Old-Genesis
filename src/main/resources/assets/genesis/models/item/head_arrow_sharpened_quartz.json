@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "genesis:items/flake_quartzite"
+        "layer0": "genesis:items/head_arrow_sharpened_quartz"
     },
     "display": {
         "thirdperson": {
