@@ -19,9 +19,9 @@ import com.google.common.base.Objects;
 public class MapGenCavesGenesis extends MapGenCaves
 {
 	@Override
-    protected boolean func_175793_a(IBlockState p_175793_1_, IBlockState p_175793_2_)
+    protected boolean func_175793_a(IBlockState state, IBlockState up)
     {
-        return p_175793_1_.getBlock() == Blocks.stone ? true : (p_175793_1_.getBlock() == Blocks.dirt ? true : (p_175793_1_.getBlock() == Blocks.grass ? true : (p_175793_1_.getBlock() == Blocks.hardened_clay ? true : (p_175793_1_.getBlock() == Blocks.stained_hardened_clay ? true : (p_175793_1_.getBlock() == Blocks.sandstone ? true : (p_175793_1_.getBlock() == Blocks.red_sandstone ? true : (p_175793_1_.getBlock() == Blocks.mycelium ? true : (p_175793_1_.getBlock() == Blocks.snow_layer ? true : (p_175793_1_.getBlock() == Blocks.sand || p_175793_1_.getBlock() == Blocks.gravel) && p_175793_2_.getBlock().getMaterial() != Material.water))))))));
+        return state.getBlock() == GenesisBlocks.granite ? true : (state.getBlock() == Blocks.dirt ? true : (state.getBlock() == Blocks.grass ? true : (state.getBlock() == Blocks.hardened_clay ? true : (state.getBlock() == Blocks.stained_hardened_clay ? true : (state.getBlock() == Blocks.sandstone ? true : (state.getBlock() == Blocks.red_sandstone ? true : (state.getBlock() == Blocks.mycelium ? true : (state.getBlock() == Blocks.snow_layer ? true : (state.getBlock() == Blocks.sand || state.getBlock() == Blocks.gravel) && up.getBlock().getMaterial() != Material.water))))))));
     }
 	
 	@Override

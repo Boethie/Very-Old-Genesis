@@ -207,7 +207,7 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
                             {
                                 if ((d15 += d16) > 0.0D)
                                 {
-                                    primer.setBlockState(k * 4 + i3, k2 * 8 + l2, j1 * 4 + j3, Blocks.stone.getDefaultState());
+                                    primer.setBlockState(k * 4 + i3, k2 * 8 + l2, j1 * 4 + j3, GenesisBlocks.granite.getDefaultState());
                                 }
                                 else if (k2 * 8 + l2 < settings.seaLevel)
                                 {

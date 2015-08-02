@@ -16,12 +16,12 @@ import net.minecraft.world.gen.MapGenRavine;
 public class MapGenRavineGenesis extends MapGenRavine
 {
     //Exception biomes to make sure we generate like vanilla
-    private boolean isExceptionBiome(net.minecraft.world.biome.BiomeGenBase biome)//TODO
+    private boolean isExceptionBiome(BiomeGenBase biome)//TODO
     {
-        if (biome == net.minecraft.world.biome.BiomeGenBase.beach) return true;
-        if (biome == net.minecraft.world.biome.BiomeGenBase.desert) return true;
-        if (biome == net.minecraft.world.biome.BiomeGenBase.mushroomIsland) return true;
-        if (biome == net.minecraft.world.biome.BiomeGenBase.mushroomIslandShore) return true;
+        if (biome == BiomeGenBase.beach) return true;
+        if (biome == BiomeGenBase.desert) return true;
+        if (biome == BiomeGenBase.mushroomIsland) return true;
+        if (biome == BiomeGenBase.mushroomIslandShore) return true;
         return false;
     }
     
@@ -33,7 +33,7 @@ public class MapGenRavineGenesis extends MapGenRavine
         IBlockState top = isExceptionBiome(biome) ? Blocks.grass.getDefaultState() : biome.topBlock;
         IBlockState filler = isExceptionBiome(biome) ? Blocks.dirt.getDefaultState() : biome.fillerBlock;
         
-        if (state.getBlock() == Blocks.stone || state.getBlock() == top.getBlock() || state.getBlock() == filler.getBlock())
+        if (state.getBlock() == GenesisBlocks.granite || state.getBlock() == top.getBlock() || state.getBlock() == filler.getBlock())
         {
             if (y < 10)
             {

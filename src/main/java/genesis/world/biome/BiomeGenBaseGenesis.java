@@ -121,14 +121,14 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
                 {
                     k = -1;
                 }
-                else if (state.getBlock() == Blocks.stone)
+                else if (state.getBlock() == GenesisBlocks.granite)
                 {
                     if (k == -1)
                     {
                         if (l <= 0)
                         {
                             top = null;
-                            filler = Blocks.stone.getDefaultState();
+                            filler = GenesisBlocks.granite.getDefaultState();
                         }
                         else if (y >= 59 && y <= 64)
                         {
@@ -157,7 +157,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
                         else if (y < 56 - l)
                         {
                             top = null;
-                            filler = Blocks.stone.getDefaultState();
+                            filler = GenesisBlocks.granite.getDefaultState();
                             primer.setBlockState(chunkZ, y, chunkX, oceanFloor);
                         }
                         else
