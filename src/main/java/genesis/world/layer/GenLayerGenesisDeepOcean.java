@@ -6,13 +6,12 @@ import genesis.common.GenesisBiomes;
 
 public class GenLayerGenesisDeepOcean extends GenLayerGenesis
 {
-
 	public GenLayerGenesisDeepOcean(long p_i45472_1_, GenLayer p_i45472_3_)
 	{
 		super(p_i45472_1_);
 		this.parent = p_i45472_3_;
 	}
-
+	
 	@Override
 	public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight)
 	{
@@ -22,7 +21,7 @@ public class GenLayerGenesisDeepOcean extends GenLayerGenesis
 		int l1 = areaHeight + 2;
 		int[] aint = this.parent.getInts(i1, j1, k1, l1);
 		int[] aint1 = IntCache.getIntCache(areaWidth * areaHeight);
-
+		
 		for (int i2 = 0; i2 < areaHeight; ++i2)
 		{
 			for (int j2 = 0; j2 < areaWidth; ++j2)
@@ -33,31 +32,30 @@ public class GenLayerGenesisDeepOcean extends GenLayerGenesis
 				int j3 = aint[j2 + 1 + (i2 + 1 + 1) * (areaWidth + 2)];
 				int k3 = aint[j2 + 1 + (i2 + 1) * k1];
 				int l3 = 0;
-
+				
 				if (k2 == 0)
 				{
 					++l3;
 				}
-
+				
 				if (l2 == 0)
 				{
 					++l3;
 				}
-
+				
 				if (i3 == 0)
 				{
 					++l3;
 				}
-
+				
 				if (j3 == 0)
 				{
 					++l3;
 				}
-
+				
 				if (k3 == 0 && l3 > 3)
 				{
-					// TODO: Change this to a genesis deep ocean.
-					aint1[j2 + i2 * areaWidth] = GenesisBiomes.shallowOcean.biomeID;
+					aint1[j2 + i2 * areaWidth] = GenesisBiomes.deepOcean.biomeID;
 				}
 				else
 				{
@@ -65,8 +63,7 @@ public class GenLayerGenesisDeepOcean extends GenLayerGenesis
 				}
 			}
 		}
-
+		
 		return aint1;
 	}
-
 }

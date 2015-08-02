@@ -12,9 +12,9 @@ public class BiomeGenArchaeopterisPlains extends BiomeGenBaseGenesis
 		super(id);
 		this.biomeName = "Archaeopteris Plains";
 		this.rainfall = 1.0F;
-		this.temperature = 0.95F;
-		this.minHeight = 0.03F;
-		this.maxHeight = 0.04F;
+		this.temperature = 1.15F;
+		this.minHeight = 0.01F;
+		this.maxHeight = 0.02F;
 		this.theBiomeDecorator.treesPerChunk = 0;
 		this.theBiomeDecorator.grassPerChunk = 0;
 		

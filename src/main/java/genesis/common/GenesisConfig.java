@@ -31,6 +31,7 @@ public final class GenesisConfig
 	public static int rainforestHillsId = 62;
 	public static int auxForestHillsId = 63;
 	public static int archaeopterisForestHillsId = 64;
+	public static int deepOceanId = 65;
 	
 	//dimensions
 	public static int genesisDimId = 37;

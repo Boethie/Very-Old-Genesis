@@ -9,6 +9,7 @@ import genesis.world.biome.BiomeGenAuxForestM;
 import genesis.world.biome.BiomeGenAuxPlains;
 import genesis.world.biome.BiomeGenBaseGenesis;
 import genesis.world.biome.BiomeGenBeachGenesis;
+import genesis.world.biome.BiomeGenDeepOcean;
 import genesis.world.biome.BiomeGenLimestoneBeach;
 import genesis.world.biome.BiomeGenRainforest;
 import genesis.world.biome.BiomeGenRainforestEdge;
@@ -37,6 +38,7 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis auxForestHills;
 	public static BiomeGenBaseGenesis river;
 	public static BiomeGenBaseGenesis shallowOcean;
+	public static BiomeGenBaseGenesis deepOcean;
 	public static BiomeGenBaseGenesis limestoneBeach;
 	public static BiomeGenBaseGenesis swampRainForest;
 	public static BiomeGenBaseGenesis auxPlains;
@@ -105,6 +107,9 @@ public final class GenesisBiomes
 		
 		shallowOcean = new BiomeGenShallowOcean(GenesisConfig.shallowOceanId);
 		BiomeDictionary.registerBiomeType(shallowOcean, BiomeDictionary.Type.OCEAN, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
+		
+		deepOcean = new BiomeGenDeepOcean(GenesisConfig.deepOceanId);
+		BiomeDictionary.registerBiomeType(deepOcean, BiomeDictionary.Type.OCEAN, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
 		
 		limestoneBeach = new BiomeGenLimestoneBeach(GenesisConfig.limestoneBeachId);
 		BiomeDictionary.registerBiomeType(limestoneBeach, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.WET);

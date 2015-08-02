@@ -22,7 +22,7 @@ public class BiomeGenAuxPlains extends BiomeGenBaseGenesis
 		super(id);
 		this.biomeName = "Araucarioxylon Plains";
 		this.rainfall = 1.0F;
-		this.temperature = 0.9F;
+		this.temperature = 1.1F;
 		this.theBiomeDecorator.treesPerChunk = 0;
 		this.theBiomeDecorator.grassPerChunk = 1;
 		

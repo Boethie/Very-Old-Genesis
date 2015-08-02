@@ -28,7 +28,8 @@ public abstract class GenLayerGenesis extends GenLayer
 		GenLayerZoom genlayerzoom = new GenLayerZoom(2001L, genlayeraddisland);
 		genlayeraddisland = new GenLayerAddIsland(2L, genlayerzoom);
 		genlayeraddisland = new GenLayerAddIsland(50L, genlayeraddisland);
-		genlayeraddisland = new GenLayerAddIsland(70L, genlayeraddisland);
+		//Removed line below to get deep ocean to spawn
+		//genlayeraddisland = new GenLayerAddIsland(70L, genlayeraddisland);
 		GenLayerRemoveTooMuchOcean genlayerremovetoomuchocean = new GenLayerRemoveTooMuchOcean(2L, genlayeraddisland);
 		GenLayerAddSnow genlayeraddsnow = new GenLayerAddSnow(2L, genlayerremovetoomuchocean);
 		genlayeraddisland = new GenLayerAddIsland(3L, genlayeraddsnow);
