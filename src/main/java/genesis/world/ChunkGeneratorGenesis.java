@@ -10,9 +10,11 @@ import genesis.world.gen.MapGenCavesGenesis;
 import genesis.world.gen.MapGenRavineGenesis;
 import genesis.world.gen.feature.WorldGenGenesisLakes;
 
+import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.BlockFalling;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.ChunkCoordIntPair;
@@ -48,6 +50,19 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 		super(world, seed, mapFeaturesEnabled, generatorOptions);
 		caveGenerator = new MapGenCavesGenesis();
         ravineGenerator = new MapGenRavineGenesis();
+        
+        if (generatorOptions != null)
+        {
+        	ChunkProviderSettings.Factory factory = ChunkProviderSettings.Factory.func_177865_a(generatorOptions);
+        	factory.useDungeons = false;
+        	factory.useStrongholds = false;
+        	factory.useVillages = false;
+        	factory.useMineShafts = false;
+        	factory.useTemples = false;
+        	factory.useMonuments = false;
+            settings = factory.func_177864_b();
+            field_177476_s = settings.useLavaOceans ? Blocks.lava : Blocks.water;
+        }
 	}
 	
 	@Override
@@ -66,31 +81,6 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 		ChunkCoordIntPair coords = new ChunkCoordIntPair(chunkX, chunkZ);
 		
 		MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(chunkProvider, worldObj, rand, chunkX, chunkZ, flag));
-		
-        if (settings.useMineShafts && mapFeaturesEnabled)
-        {
-            mineshaftGenerator.func_175794_a(worldObj, rand, coords);
-        }
-
-        if (settings.useVillages && mapFeaturesEnabled)
-        {
-            flag = villageGenerator.func_175794_a(worldObj, rand, coords);
-        }
-
-        if (settings.useStrongholds && mapFeaturesEnabled)
-        {
-            strongholdGenerator.func_175794_a(worldObj, rand, coords);
-        }
-
-        if (settings.useTemples && mapFeaturesEnabled)
-        {
-            scatteredFeatureGenerator.func_175794_a(worldObj, rand, coords);
-        }
-
-        if (settings.useMonuments && mapFeaturesEnabled)
-        {
-            oceanMonumentGenerator.func_175794_a(worldObj, rand, coords);
-        }
 
         if (biome != BiomeGenBase.desert && biome != BiomeGenBase.desertHills && settings.useWaterLakes && !flag && rand.nextInt(settings.waterLakeChance) == 0
             && TerrainGen.populate(chunkProvider, worldObj, rand, chunkX, chunkZ, flag, LAKE))
@@ -228,4 +218,16 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
             }
         }
     }
+
+	@Override
+	public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position)
+	{
+		return null;
+	}
+
+	@Override
+	public List getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos)
+	{
+        return worldObj.getBiomeGenForCoords(pos).getSpawnableList(creatureType);
+	}
 }
