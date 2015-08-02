@@ -174,6 +174,7 @@ public final class GenesisRecipes
 		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "X", "Y", 'X', new ItemStack(Items.coal, 1, 1), 'Y', GenesisItems.calamites);
 		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "X", "Y", 'X', GenesisItems.resin, 'Y', GenesisItems.calamites);
 		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite), GenesisItems.nodules.getStack(EnumNodule.MARCASITE), GenesisItems.tools.getStack(GenesisItems.tools.PEBBLE, EnumToolMaterial.BROWN_FLINT));
+		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite), GenesisItems.nodules.getStack(EnumNodule.MARCASITE), GenesisItems.tools.getStack(GenesisItems.tools.PEBBLE, EnumToolMaterial.BLACK_FLINT));
 		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.calamites, 9), GenesisBlocks.calamites_bundle);
 		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.programinis_bundle), "CCC", "CCC", "CCC", 'C', GenesisItems.programinis);
 		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.programinis, 9), GenesisBlocks.programinis_bundle);
