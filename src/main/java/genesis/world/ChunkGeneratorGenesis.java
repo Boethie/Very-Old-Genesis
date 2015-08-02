@@ -38,46 +38,16 @@ import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 
-//TODO: access transforming
 public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 {
-	private Random rand;
-	private NoiseGeneratorPerlin field_147430_m;
-	private World worldObj;
-	private final boolean mapFeaturesEnabled;
-	private ChunkProviderSettings settings;
-	private double[] stoneNoise;
 	private MapGenBase caveGenerator;
-	private MapGenStronghold strongholdGenerator;
-	private MapGenVillage villageGenerator;
-	private MapGenMineshaft mineshaftGenerator;
-	private MapGenScatteredFeature scatteredFeatureGenerator;
-	private StructureOceanMonument oceanMonumentGenerator;
 	private MapGenBase ravineGenerator;
-	private BiomeGenBase[] biomesForGeneration;
 	
 	public ChunkGeneratorGenesis(World world, long seed, boolean mapFeaturesEnabled, String generatorOptions)
 	{
 		super(world, seed, mapFeaturesEnabled, generatorOptions);
-		
-		stoneNoise = new double[256];
 		caveGenerator = new MapGenCavesGenesis();
-		strongholdGenerator = new MapGenStronghold();
-        villageGenerator = new MapGenVillage();
-        mineshaftGenerator = new MapGenMineshaft();
-        scatteredFeatureGenerator = new MapGenScatteredFeature();
         ravineGenerator = new MapGenRavineGenesis();
-        oceanMonumentGenerator = new StructureOceanMonument();
-        
-		worldObj = world;
-		this.mapFeaturesEnabled = mapFeaturesEnabled;
-		rand = new Random(seed);
-		field_147430_m = new NoiseGeneratorPerlin(rand, 4);
-		
-		if (generatorOptions != null)
-		{
-			settings = ChunkProviderSettings.Factory.func_177865_a(generatorOptions).func_177864_b();
-		}
 	}
 	
 	@Override
@@ -190,78 +160,72 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
     }
 	
 	@Override
-	public void replaceBlocksForBiome(int chunkX, int chunkZ, ChunkPrimer primer, BiomeGenBase[] biomes)
+    public void setBlocksInChunk(int x, int y, ChunkPrimer primer)
     {
-        ChunkProviderEvent.ReplaceBiomeBlocks event = new ChunkProviderEvent.ReplaceBiomeBlocks(this, chunkX, chunkZ, primer, worldObj);
-        MinecraftForge.EVENT_BUS.post(event);
-        if (event.getResult() == Result.DENY) return;
-        
-        double d0 = 0.03125D;
-        stoneNoise = field_147430_m.func_151599_a(stoneNoise, (double) (chunkX * 16), (double) (chunkZ * 16), 16, 16, d0 * 2.0D, d0 * 2.0D, 1.0D);
-        
-        for (int offsetX = 0; offsetX < 16; ++offsetX)
+        biomesForGeneration = worldObj.getWorldChunkManager().getBiomesForGeneration(biomesForGeneration, x * 4 - 2, y * 4 - 2, 10, 10);
+        func_147423_a(x * 4, 0, y * 4);
+
+        for (int k = 0; k < 4; ++k)
         {
-            for (int offsetZ = 0; offsetZ < 16; ++offsetZ)
+            int l = k * 5;
+            int i1 = (k + 1) * 5;
+
+            for (int j1 = 0; j1 < 4; ++j1)
             {
-                BiomeGenBase biome = biomes[offsetZ + offsetX * 16];
-                biome.genTerrainBlocks(worldObj, rand, primer, chunkX * 16 + offsetX, chunkZ * 16 + offsetZ, stoneNoise[offsetZ + offsetX * 16]);
+                int k1 = (l + j1) * 33;
+                int l1 = (l + j1 + 1) * 33;
+                int i2 = (i1 + j1) * 33;
+                int j2 = (i1 + j1 + 1) * 33;
+
+                for (int k2 = 0; k2 < 32; ++k2)
+                {
+                    double d0 = 0.125D;
+                    double d1 = field_147434_q[k1 + k2];
+                    double d2 = field_147434_q[l1 + k2];
+                    double d3 = field_147434_q[i2 + k2];
+                    double d4 = field_147434_q[j2 + k2];
+                    double d5 = (field_147434_q[k1 + k2 + 1] - d1) * d0;
+                    double d6 = (field_147434_q[l1 + k2 + 1] - d2) * d0;
+                    double d7 = (field_147434_q[i2 + k2 + 1] - d3) * d0;
+                    double d8 = (field_147434_q[j2 + k2 + 1] - d4) * d0;
+
+                    for (int l2 = 0; l2 < 8; ++l2)
+                    {
+                        double d9 = 0.25D;
+                        double d10 = d1;
+                        double d11 = d2;
+                        double d12 = (d3 - d1) * d9;
+                        double d13 = (d4 - d2) * d9;
+
+                        for (int i3 = 0; i3 < 4; ++i3)
+                        {
+                            double d14 = 0.25D;
+                            double d16 = (d11 - d10) * d14;
+                            double d15 = d10 - d16;
+
+                            for (int j3 = 0; j3 < 4; ++j3)
+                            {
+                                if ((d15 += d16) > 0.0D)
+                                {
+                                    primer.setBlockState(k * 4 + i3, k2 * 8 + l2, j1 * 4 + j3, Blocks.stone.getDefaultState());
+                                }
+                                else if (k2 * 8 + l2 < settings.seaLevel)
+                                {
+                                    primer.setBlockState(k * 4 + i3, k2 * 8 + l2, j1 * 4 + j3, field_177476_s.getDefaultState());
+                                }
+                            }
+
+                            d10 += d12;
+                            d11 += d13;
+                        }
+
+                        d1 += d5;
+                        d2 += d6;
+                        d3 += d7;
+                        d4 += d8;
+                    }
+                }
             }
         }
-    }
-	
-	@Override
-	public Chunk provideChunk(int x, int z)
-	{
-		rand.setSeed((long) x * 341873128712L + (long) z * 132897987541L);
-		ChunkPrimer chunkprimer = new ChunkPrimer();
-		setBlocksInChunk(x, z, chunkprimer);
-		biomesForGeneration = worldObj.getWorldChunkManager().loadBlockGeneratorData(biomesForGeneration, x * 16, z * 16, 16, 16);
-		replaceBlocksForBiome(x, z, chunkprimer, biomesForGeneration);
-
-        if (settings.useCaves)
-        {
-            caveGenerator.func_175792_a(this, worldObj, x, z, chunkprimer);
-        }
-
-        if (settings.useRavines)
-        {
-            ravineGenerator.func_175792_a(this, worldObj, x, z, chunkprimer);
-        }
-
-        if (settings.useMineShafts && mapFeaturesEnabled)
-        {
-            mineshaftGenerator.func_175792_a(this, worldObj, x, z, chunkprimer);
-        }
-
-        if (settings.useVillages && mapFeaturesEnabled)
-        {
-            villageGenerator.func_175792_a(this, worldObj, x, z, chunkprimer);
-        }
-
-        if (settings.useStrongholds && mapFeaturesEnabled)
-        {
-            strongholdGenerator.func_175792_a(this, worldObj, x, z, chunkprimer);
-        }
-
-        if (settings.useTemples && mapFeaturesEnabled)
-        {
-            scatteredFeatureGenerator.func_175792_a(this, worldObj, x, z, chunkprimer);
-        }
-
-        if (settings.useMonuments && mapFeaturesEnabled)
-        {
-            oceanMonumentGenerator.func_175792_a(this, worldObj, x, z, chunkprimer);
-        }
-
-        Chunk chunk = new Chunk(worldObj, chunkprimer, x, z);
-        byte[] biomeArray = chunk.getBiomeArray();
-
-        for (int k = 0; k < biomeArray.length; ++k)
-        {
-            biomeArray[k] = (byte) biomesForGeneration[k].biomeID;
-        }
-
-        chunk.generateSkylightMap();
-        return chunk;
     }
 }

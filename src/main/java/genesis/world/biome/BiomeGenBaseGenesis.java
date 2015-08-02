@@ -72,8 +72,8 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 		return this;
 	}
 	
-	//TODO: @Override
-	public BiomeGenBaseGenesis setBiomeHeight(BiomeGenBase.Height height)
+	@Override
+	public BiomeGenBaseGenesis setHeight(BiomeGenBase.Height height)
 	{
 		super.setHeight(height);
 		return this;
