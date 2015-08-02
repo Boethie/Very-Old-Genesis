@@ -33,128 +33,107 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	
 	public BiomeDecoratorGenesis()
 	{
-		WorldGenClay clayGen = new WorldGenClay(4);
-		clayGen.field_150546_a = GenesisBlocks.red_clay;
-		this.clayGen = clayGen;
-		this.generateLakes = true;
+		((WorldGenClay) clayGen).field_150546_a = GenesisBlocks.red_clay;
 	}
 	
 	@Override
 	public void decorate(World world, Random random, BiomeGenBase biome, BlockPos chunkStart)
 	{
-		if (this.currentWorld != null)
+		if (currentWorld != null)
 		{
 			throw new RuntimeException("Already decorating");
 		}
 		else
 		{
-			this.currentWorld = world;
-			
-			this.randomGenerator = random;
-			this.field_180294_c = chunkStart;
-			
-			this.genDecorations(biome);
-			this.currentWorld = null;
-			this.randomGenerator = null;
+			currentWorld = world;
+			randomGenerator = random;
+			field_180294_c = chunkStart;
+			genDecorations(biome);
+			currentWorld = null;
+			randomGenerator = null;
 		}
 	}
 	
 	@Override
-	protected void genDecorations(BiomeGenBase p_150513_1_)
+	protected void genDecorations(BiomeGenBase biome)
 	{
-		MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(this.currentWorld, this.randomGenerator, this.field_180294_c));
-		// this.generateOres();
-		int i;
-		int j;
-		int k;
+		MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(currentWorld, randomGenerator, field_180294_c));
+		// generateOres();
 		
-		boolean doGen = TerrainGen.decorate(this.currentWorld, this.randomGenerator, this.field_180294_c, CLAY);
+		boolean doGen = TerrainGen.decorate(currentWorld, randomGenerator, field_180294_c, CLAY);
 		
-		for (i = 0; doGen && i < this.clayPerChunk; ++i)
+		for (int i = 0; doGen && i < clayPerChunk; ++i)
 		{
-			j = nextInt(16) + 8;
-			k = nextInt(16) + 8;
-			this.clayGen.generate(this.currentWorld, this.randomGenerator, this.currentWorld.getTopSolidOrLiquidBlock(this.field_180294_c.add(j, 0, k)));
+			int x = nextInt(16) + 8;
+			int z = nextInt(16) + 8;
+			clayGen.generate(currentWorld, randomGenerator, currentWorld.getTopSolidOrLiquidBlock(field_180294_c.add(x, 0, z)));
 		}
 		
-		i = this.treesPerChunk;
+		doGen = TerrainGen.decorate(currentWorld, randomGenerator, field_180294_c, TREE);
 		
-		if (nextInt(10) == 0 && this.generateDefaultTrees)
+		for (int i = 0; doGen && i < trees.size(); ++i)
 		{
-			++i;
-		}
-		
-		int l;
-		int i1;
-		
-		doGen = TerrainGen.decorate(this.currentWorld, this.randomGenerator, this.field_180294_c, TREE);
-		
-		for (int it = 0; it < trees.size(); ++it)
-		{
-			for (j = 0; j < trees.get(it).getTreeCountPerChunk(); ++j)
+			int count = trees.get(i).getTreeCountPerChunk();
+			if (nextInt(10) == 0) ++count;
+			
+			for (int j = 0; j < count; ++j)
 			{
-				k = nextInt(16) + 8;
-				l = nextInt(16) + 8;
-				i1 = nextInt(this.currentWorld.getHeight(this.field_180294_c.add(k, 0, l)).getY() * 2);
-				trees.get(it).generate(this.currentWorld, this.randomGenerator, this.field_180294_c.add(k, i1, l));
+				int x = nextInt(16) + 8;
+				int z = nextInt(16) + 8;
+				int y = nextInt(currentWorld.getHeight(field_180294_c.add(x, 0, z)).getY() * 2);
+				trees.get(i).generate(currentWorld, randomGenerator, field_180294_c.add(x, y, z));
 			}
 		}
 		
-		doGen = TerrainGen.decorate(this.currentWorld, this.randomGenerator, this.field_180294_c, GRASS);
+		doGen = TerrainGen.decorate(currentWorld, randomGenerator, field_180294_c, GRASS);
 		
-		for (j = 0; doGen && j < this.grassPerChunk; ++j)
+		for (int i = 0; doGen && i < grassPerChunk; ++i)
 		{
-			k = nextInt(16) + 8;
-			l = nextInt(16) + 8;
-			i1 = nextInt(this.currentWorld.getHeight(this.field_180294_c.add(k, 0, l)).getY() * 2);
-			p_150513_1_.getRandomWorldGenForGrass(this.randomGenerator).generate(this.currentWorld, this.randomGenerator, this.field_180294_c.add(k, i1, l));
+			int x = nextInt(16) + 8;
+			int z = nextInt(16) + 8;
+			int y = nextInt(currentWorld.getHeight(field_180294_c.add(x, 0, z)).getY() * 2);
+			biome.getRandomWorldGenForGrass(randomGenerator).generate(currentWorld, randomGenerator, field_180294_c.add(x, y, z));
 		}
 		
-		doGen = true;
+		doGen = true;//TODO
 		
-		for (int id = 0; id < decorations.size(); ++ id)
+		for (int i = 0; i < decorations.size(); ++ i)
 		{
-			for (j = 0; doGen && j < decorations.get(id).getCountPerChunk(); ++j)
+			for (int j = 0; doGen && j < decorations.get(i).getCountPerChunk(); ++j)
 			{
-				k = nextInt(16) + 8;
-				l = nextInt(16) + 8;
-				i1 = nextInt(this.currentWorld.getHeight(this.field_180294_c.add(k, 0, l)).getY() * 2);
-				decorations.get(id).generate(this.currentWorld, this.randomGenerator, this.field_180294_c.add(k, i1, l));
+				int x = nextInt(16) + 8;
+				int z = nextInt(16) + 8;
+				int y = nextInt(currentWorld.getHeight(field_180294_c.add(x, 0, z)).getY() * 2);
+				decorations.get(i).generate(currentWorld, randomGenerator, field_180294_c.add(x, y, z));
 			}
 		}
 		
-		if (this.generateLakes)
+		if (generateLakes)
 		{
-			BlockPos blockpos1;
+			doGen = TerrainGen.decorate(currentWorld, randomGenerator, field_180294_c, LAKE_WATER);
 			
-			doGen = TerrainGen.decorate(this.currentWorld, this.randomGenerator, this.field_180294_c, LAKE_WATER);
-			
-			for (j = 0; doGen && j < 50; ++j)
+			for (int i = 0; doGen && i < 50; ++i)
 			{
-				blockpos1 = this.field_180294_c.add(nextInt(16) + 8, nextInt(nextInt(248) + 8), nextInt(16) + 8);
-				(new WorldGenLiquids(Blocks.flowing_water)).generate(this.currentWorld, this.randomGenerator, blockpos1);
+				BlockPos pos = field_180294_c.add(nextInt(16) + 8, nextInt(nextInt(248) + 8), nextInt(16) + 8);
+				(new WorldGenLiquids(Blocks.flowing_water)).generate(currentWorld, randomGenerator, pos);
 			}
 			
 			doGen = TerrainGen.decorate(currentWorld, randomGenerator, field_180294_c, LAKE_LAVA);
 			
-            for (j = 0; doGen && j < 20; ++j)
+            for (int i = 0; doGen && i < 20; ++i)
             {
-                blockpos1 = this.field_180294_c.add(nextInt(16) + 8, nextInt(nextInt(nextInt(240) + 8) + 8), nextInt(16) + 8);
-                (new WorldGenLiquids(GenesisBlocks.komatiitic_lava)).generate(this.currentWorld, this.randomGenerator, blockpos1);
+            	BlockPos pos = field_180294_c.add(nextInt(16) + 8, nextInt(nextInt(nextInt(240) + 8) + 8), nextInt(16) + 8);
+                (new WorldGenLiquids(GenesisBlocks.komatiitic_lava)).generate(currentWorld, randomGenerator, pos);
             }
 		}
 		
-		MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(this.currentWorld, this.randomGenerator, this.field_180294_c));
+		MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(currentWorld, randomGenerator, field_180294_c));
 	}
 	
 	// Safety wrapper to prevent exceptions.
 	private int nextInt(int i)
 	{
-		if (i <= 1)
-		{
-			return 0;
-		}
-		return this.randomGenerator.nextInt(i);
+		return i <= 1 ? 0 : randomGenerator.nextInt(i);
 	}
 
 }

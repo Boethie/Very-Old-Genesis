@@ -51,7 +51,8 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	}
 	
 	/**
-	 * Contains the types of Blocks/Items contained in a BlocksAndItemsWithVariantsOfTypes.
+	 * Represents a type of item and/or block for a combo. Contains the data that determines
+	 * what/how the items and blocks are constructed and registered.
 	 * 
 	 * @param <T> For the type that should be returned when getting this type's Block/Item.
 	 */
@@ -307,8 +308,16 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 			
 			return resource;
 		}
+		
+		public String toString()
+		{
+			return getName();
+		}
 	}
 	
+	/**
+	 * Data about a variant of a {@link ObjectType}.
+	 */
 	public class VariantData
 	{
 		public final O type;
@@ -327,8 +336,26 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 			this.block = block;
 			this.variant = variant;
 		}
+		
+		public ItemStack getStack(int size)
+		{
+			if (item == null)
+			{
+				throw new IllegalArgumentException("Variant " + variant.getName() + " of ObjectType " + type.getName() + " does not include an Item instance.");
+			}
+			
+			return new ItemStack(item, size, itemMetadata);
+		}
+		
+		public ItemStack getStack()
+		{
+			return getStack(1);
+		}
 	}
 	
+	/**
+	 * Data about a subset of an {@link ObjectType}.
+	 */
 	public class SubsetData
 	{
 		public final O type;
@@ -354,7 +381,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	/**
 	 * Map of Block/Item types to a map of variants to the block/item itself.
 	 */
-	protected final ImmutableTable<O, V, VariantData> objectDataTable;
+	protected final ImmutableTable<O, V, VariantData> variantDataTable;
 	protected final ImmutableTable<O, Integer, SubsetData> subsetDataTable;
 	protected final ImmutableMap<Block, SubsetData> blockMap;
 	protected final ImmutableMap<Item, SubsetData> itemMap;
@@ -511,7 +538,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 				}
 			}
 			
-			this.objectDataTable = objectDataTable.build();
+			this.variantDataTable = objectDataTable.build();
 			this.subsetDataTable = subsetDataTable.build();
 			this.blockMap = blockMap.build();
 			this.itemMap = itemMap.build();
@@ -681,13 +708,13 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	 */
 	public VariantData getVariantData(O type, V variant)
 	{
-		if (!objectDataTable.contains(type, variant))
+		if (!variantDataTable.contains(type, variant))
 		{
 			throw new RuntimeException("Attempted to get a variant entry for type " + type + " and variant " + variant + " from a " + VariantsOfTypesCombo.class.getSimpleName() + " that does not contain that cell.\n" +
 					getIdentification());
 		}
 		
-		return objectDataTable.get(type, variant);
+		return variantDataTable.get(type, variant);
 	}
 	
 	/**
@@ -856,18 +883,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	 */
 	public ItemStack getStack(O type, V variant, int stackSize)
 	{
-		VariantData entry = getVariantData(type, variant);
-		
-		Item item = entry.item;
-		
-		if (item != null)
-		{
-			ItemStack stack = new ItemStack(item, stackSize, entry.itemMetadata);
-			
-			return stack;
-		}
-		
-		throw new IllegalArgumentException("Variant " + variant.getName() + " of ObjectType " + type.getName() + " does not include an Item instance.");
+		return getVariantData(type, variant).getStack(stackSize);
 	}
 	
 	/**
@@ -999,5 +1015,21 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 		}
 		
 		return base + variantName;
+	}
+	
+	/**
+	 * @return The internal Table containing the mappings of {@link ObjectType} and variant to {@link VariantData}
+	 */
+	public Table<O, V, VariantData> getVariants()
+	{
+		return variantDataTable;
+	}
+	
+	/**
+	 * @return The internal Table containing the mappings of {@link ObjectType} and subset ID to {@link SubsetData}
+	 */
+	public Table<O, Integer, SubsetData> getSubsets()
+	{
+		return subsetDataTable;
 	}
 }

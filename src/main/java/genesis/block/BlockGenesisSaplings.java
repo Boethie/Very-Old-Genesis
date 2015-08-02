@@ -104,7 +104,7 @@ public class BlockGenesisSaplings extends BlockSapling
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return owner.getItemMetadata(type, owner.getVariant(state));
+		return owner.getItemMetadata(type, (EnumTree) state.getValue(variantProp));
 	}
 	
 	@Override

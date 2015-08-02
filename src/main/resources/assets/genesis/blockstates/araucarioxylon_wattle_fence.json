@@ -2,9 +2,9 @@
 	"forge_marker": 1,
 	"defaults": {
 		"textures": {
-			"particle": "genesis:blocks/log_archaeopteris",
-			"log": "genesis:blocks/log_archaeopteris",
-			"stick": "genesis:blocks/stick_archaeopteris"
+			"particle": "genesis:blocks/log_araucarioxylon",
+			"log": "genesis:blocks/log_araucarioxylon",
+			"stick": "genesis:blocks/stick_araucarioxylon"
 		},
 		"model": "genesis:wattle_fence_post"
 	},
