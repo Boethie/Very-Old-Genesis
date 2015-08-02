@@ -6,8 +6,10 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LAKE_WATER;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
 
+import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.COAL;
 import genesis.common.GenesisBlocks;
 import genesis.world.gen.feature.WorldGenGenesisLiquids;
+import genesis.world.gen.feature.WorldGenMinableGenesis;
 import genesis.world.gen.feature.WorldGenTreeBase;
 
 import java.util.ArrayList;
@@ -20,18 +22,22 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenClay;
+import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
+import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 
 public class BiomeDecoratorGenesis extends BiomeDecorator
 {
 	public List<WorldGenTreeBase> trees = new ArrayList<WorldGenTreeBase>();
 	public List<WorldGenDecorationBase> decorations = new ArrayList<WorldGenDecorationBase>();
+	public WorldGenerator quartzGen;
 	
 	public BiomeDecoratorGenesis()
 	{
 		((WorldGenClay) clayGen).field_150546_a = GenesisBlocks.red_clay;
+		quartzGen = new WorldGenMinableGenesis(GenesisBlocks.quartz_ore, 4, 8);
 	}
 	
 	@Override
@@ -56,7 +62,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	protected void genDecorations(BiomeGenBase biome)
 	{
 		MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(currentWorld, randomGenerator, field_180294_c));
-		// generateOres();
+		generateOres();
 		
 		boolean doGen = TerrainGen.decorate(currentWorld, randomGenerator, field_180294_c, CLAY);
 		
@@ -128,6 +134,15 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 		MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(currentWorld, randomGenerator, field_180294_c));
 	}
 	
+	@Override
+	protected void generateOres()
+	{
+        MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(currentWorld, randomGenerator, field_180294_c));
+        //if (TerrainGen.generateOre(currentWorld, randomGenerator, quartzGen, field_180294_c, QUARTZ))
+        genStandardOre1(27, quartzGen, 0, 128);
+        MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(currentWorld, randomGenerator, field_180294_c));
+	}
+
 	// Safety wrapper to prevent exceptions.
 	private int nextInt(int i)
 	{
