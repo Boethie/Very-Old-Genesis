@@ -29,10 +29,10 @@
 					"texture": "genesis:blocks/granite"
 				}
 			},
-			"quartzite": {
+			"quartz": {
 				"textures": {
 					"particle": "#texture",
-					"texture": "genesis:blocks/quartz"
+					"texture": "genesis:blocks/quartz_block"
 				}
 			},
 			"brown_flint": {
