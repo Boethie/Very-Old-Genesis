@@ -26,8 +26,6 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 
 public class BiomeDecoratorGenesis extends BiomeDecorator
 {
-	public boolean generateDefaultTrees = true;
-	
 	public List<WorldGenTreeBase> trees = new ArrayList<WorldGenTreeBase>();
 	public List<WorldGenDecorationBase> decorations = new ArrayList<WorldGenDecorationBase>();
 	

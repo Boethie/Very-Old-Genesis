@@ -5,7 +5,9 @@ import java.util.Random;
 import genesis.block.BlockMoss;
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.BiomeDecoratorGenesis;
+import genesis.world.biome.decorate.WorldGenDecorationBase;
 import genesis.world.biome.decorate.WorldGenZygopteris;
+import genesis.world.gen.feature.WorldGenTreeBase;
 import net.minecraft.block.BlockGrass;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.material.Material;
@@ -32,6 +34,16 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 		spawnableMonsterList.clear();
 		spawnableWaterCreatureList.clear();
 		waterColorMultiplier = 0xaa791e;
+	}
+	
+	protected void addDecoration(WorldGenDecorationBase decoration)
+	{
+		getGenesisDecorator().decorations.add(decoration);
+	}
+	
+	protected void addTree(WorldGenTreeBase tree)
+	{
+		getGenesisDecorator().trees.add(tree);
 	}
 	
 	public BiomeDecoratorGenesis getGenesisDecorator()
@@ -67,6 +79,13 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 		return this;
 	}
 	
+	public BiomeGenBaseGenesis setHeight(float minHeight, float maxHeight)
+	{
+		this.minHeight = minHeight;
+        this.maxHeight = maxHeight;
+		return this;
+	}
+	
 	public Vec3 getSkyColor()
 	{
 		return new Vec3(0.29411764705882352941176470588235D, 0.47450980392156862745098039215686D, 0.1960784313725490196078431372549D);
@@ -79,7 +98,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 	}
 	
 	@Override
-	public final void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
+	public void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
     {
         IBlockState top = topBlock;
         IBlockState filler = fillerBlock;

@@ -9,14 +9,13 @@ public class BiomeGenLimestoneBeach extends BiomeGenBaseGenesis
 	public BiomeGenLimestoneBeach (int id)
 	{
 		super(id);
-		this.biomeName = "Limestone Beach";
-		this.topBlock = GenesisBlocks.limestone.getDefaultState();
-		this.fillerBlock = GenesisBlocks.limestone.getDefaultState();
-		this.minHeight = 0.05F;
-		this.maxHeight = 0.1F;
-		this.setHeight(height_Shores);
-		this.setColor(10658436);
+		setBiomeName("Limestone Beach");
+		topBlock = GenesisBlocks.limestone.getDefaultState();
+		fillerBlock = GenesisBlocks.limestone.getDefaultState();
+		setHeight(0.05F, 0.1F);
+		setHeight(height_Shores);
+		setColor(10658436);
 		
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenPebbles().setCountPerChunk(25));
+		addDecoration(new WorldGenPebbles().setCountPerChunk(25));
 	}
 }

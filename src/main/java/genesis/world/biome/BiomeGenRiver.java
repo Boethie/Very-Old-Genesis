@@ -12,19 +12,16 @@ public class BiomeGenRiver extends BiomeGenBaseGenesis
 	public BiomeGenRiver(int id)
 	{
 		super(id);
-		this.biomeName = "River";
-		this.setHeight(BiomeGenBase.height_ShallowWaters);
+		setBiomeName("River");
+		setHeight(BiomeGenBase.height_ShallowWaters);
 		
-		this.theBiomeDecorator.treesPerChunk = 0;
-		this.theBiomeDecorator.grassPerChunk = 0;
-		
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).generateDefaultTrees = false;
+		theBiomeDecorator.grassPerChunk = 0;
 		
 		int[] rarityScale = {30, 20, 10, 5, 2};
 		
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenPebbles().setCountPerChunk(40));
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenRockBoulders().setCountPerChunk(10));
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenAquaticPlants().setGenerateInGroup(true, 6).setPlantType(EnumAquaticPlant.BANGIOMORPHA).setCountPerChunk(8));
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).decorations.add(new WorldGenAquaticPlants().setGenerateInGroup(true, 6).setPlantType(EnumAquaticPlant.MARPOLIA).setCountPerChunk(rarityScale[3]));
+		addDecoration(new WorldGenPebbles().setCountPerChunk(40));
+		addDecoration(new WorldGenRockBoulders().setCountPerChunk(10));
+		addDecoration(new WorldGenAquaticPlants().setGenerateInGroup(true, 6).setPlantType(EnumAquaticPlant.BANGIOMORPHA).setCountPerChunk(8));
+		addDecoration(new WorldGenAquaticPlants().setGenerateInGroup(true, 6).setPlantType(EnumAquaticPlant.MARPOLIA).setCountPerChunk(rarityScale[3]));
 	}
 }
