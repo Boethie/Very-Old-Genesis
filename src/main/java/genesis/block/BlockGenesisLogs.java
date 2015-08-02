@@ -63,7 +63,6 @@ public class BlockGenesisLogs extends BlockLog implements IGenesisMushroomBase
 		Blocks.fire.setFireInfo(this, 5, 5);
 		
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
-		
 	}
 
 	@Override

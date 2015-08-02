@@ -52,7 +52,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 		variantProp = new PropertyIMetadata<EnumTree>("variant", variants);
 		
 		blockState = new BlockState(this, variantProp, CHECK_DECAY, DECAYABLE);
-		setDefaultState(getBlockState().getBaseState().withProperty(DECAYABLE, true).withProperty(CHECK_DECAY, true));
+		setDefaultState(getBlockState().getBaseState().withProperty(DECAYABLE, true).withProperty(CHECK_DECAY, false));
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		setStepSound(soundTypeGrass);
@@ -149,10 +149,11 @@ public class BlockGenesisLeaves extends BlockLeaves
 	}
 	
 	protected int leafDistance = 5;
+	protected float[] distanceCosts = {leafDistance, 1, 1.4142F, 1.7321F};	// 0 uses leafDistance to make sure there are no stack overflows.
 	
-	public boolean isConnectedToLog(EnumTree treeType, World world, BlockPos curPos, double curDist)
+	public boolean isConnectedToLog(EnumTree treeType, World world, BlockPos curPos, float curCost)
 	{
-		if (curDist < leafDistance)
+		if (curCost < leafDistance)
 		{
 			IBlockState state = world.getBlockState(curPos);
 			TreeBlocksAndItems.VariantData data = owner.getVariantData(state);
@@ -169,13 +170,16 @@ public class BlockGenesisLeaves extends BlockLeaves
 					
 					for (BlockPos nextPos : blocksAround)
 					{
-						BlockPos diff = curPos.subtract(nextPos);
-						double addDist = Math.abs(diff.getX()) + Math.abs(diff.getY()) + Math.abs(diff.getZ());
-						addDist = Math.sqrt(addDist);
-						
-						if (addDist > 0 && isConnectedToLog(treeType, world, nextPos, curDist + addDist))
+						if (!nextPos.equals(curPos))
 						{
-							return true;
+							BlockPos diff = curPos.subtract(nextPos);
+							int blockDist = Math.abs(diff.getX()) + Math.abs(diff.getY()) + Math.abs(diff.getZ());
+							float addCost = distanceCosts[blockDist];
+							
+							if (isConnectedToLog(treeType, world, nextPos, curCost + addCost))
+							{
+								return true;
+							}
 						}
 					}
 				}
@@ -192,11 +196,13 @@ public class BlockGenesisLeaves extends BlockLeaves
 	
 	protected void checkAndDoDecay(World world, BlockPos pos)
 	{
-		if (world.isAreaLoaded(pos.add(-leafDistance, -leafDistance, -leafDistance), pos.add(leafDistance, leafDistance, leafDistance)))
+		IBlockState state = world.getBlockState(pos);
+		
+		if ((Boolean) state.getValue(BlockLeaves.CHECK_DECAY) && world.isAreaLoaded(pos.add(-leafDistance, -leafDistance, -leafDistance), pos.add(leafDistance, leafDistance, leafDistance)))
 		{
 			if (isConnectedToLog(world, pos))
 			{
-				world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockLeaves.CHECK_DECAY, false));
+				world.setBlockState(pos, state.withProperty(BlockLeaves.CHECK_DECAY, false), 4);
 			}
 			else
 			{
@@ -208,12 +214,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
 	{
-		boolean checkDecay = (Boolean) state.getValue(BlockLeaves.CHECK_DECAY);
-		
-		if (checkDecay)
-		{
-			checkAndDoDecay(world, pos);
-		}
+		checkAndDoDecay(world, pos);
 	}
 
 	@Override
