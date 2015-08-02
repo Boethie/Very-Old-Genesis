@@ -39,6 +39,6 @@ public class BiomeGenArchaeopterisForest extends BiomeGenBaseGenesis
 	@Override
 	public WorldGenerator getRandomWorldGenForGrass(Random rand)
 	{
-		return new WorldGenGrassMulti(GenesisBlocks.plants.getBlock(EnumPlant.PSILOPHYTON).getDefaultState()).setVolume(64);
+		return new WorldGenGrassMulti(GenesisBlocks.plants.getBlockState(EnumPlant.PSILOPHYTON)).setVolume(64);
 	}
 }

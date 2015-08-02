@@ -29,8 +29,6 @@ public class WorldGenRottenLog extends WorldGenTreeBase
 		
 		this.minHeight = minLength;
 		this.maxHeight = maxLength;
-		
-		setCanGrowInWater(true);
 	}
 	
 	public WorldGenTreeBase addTopDecoration(IBlockState block)
