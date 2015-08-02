@@ -64,7 +64,7 @@ public final class GenesisBiomes
 		rainforestEdgeM = new BiomeGenRainforestEdgeM(GenesisConfig.rainforestEdgeId+128).setColor(6458135);
 		BiomeDictionary.registerBiomeType(rainforestEdgeM, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.MOUNTAIN);
 		
-		rainforestHills = new BiomeGenRainforest(GenesisConfig.rainforestHillsId).setColor(5470985).setBiomeName("Rainforest Hills").setBiomeHeight(height_LowHills);
+		rainforestHills = new BiomeGenRainforest(GenesisConfig.rainforestHillsId).setColor(5470985).setBiomeName("Rainforest Hills").setHeight(height_LowHills);
 		BiomeDictionary.registerBiomeType(rainforestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		auxForest = new BiomeGenAuxForest(GenesisConfig.auxForestId);
@@ -80,7 +80,7 @@ public final class GenesisBiomes
 		auxForestEdgeM = new BiomeGenAuxForestEdgeM(GenesisConfig.auxForestEdgeId+128);
 		BiomeDictionary.registerBiomeType(auxForestEdgeM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.MOUNTAIN);
 		
-		auxForestHills = new BiomeGenAuxForest(GenesisConfig.auxForestHillsId).setBiomeName("Araucarioxylon Forest Hills").setBiomeHeight(height_LowHills);
+		auxForestHills = new BiomeGenAuxForest(GenesisConfig.auxForestHillsId).setBiomeName("Araucarioxylon Forest Hills").setHeight(height_LowHills);
 		BiomeDictionary.registerBiomeType(auxForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST);
 		
 		auxPlains = new BiomeGenAuxPlains(GenesisConfig.auxPlainsId);
@@ -95,7 +95,7 @@ public final class GenesisBiomes
 		BiomeManagerGenesis.registerBiome(archaeopterisForest, BiomeType.WARM, GenesisConfig.archaeopterisForestWeight);
 		BiomeDictionary.registerBiomeType(archaeopterisForest, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
-		archaeopterisForestHills = new BiomeGenArchaeopterisForest(GenesisConfig.archaeopterisForestHillsId).setBiomeName("Archaeopteris Forest Hills").setBiomeHeight(height_LowHills);
+		archaeopterisForestHills = new BiomeGenArchaeopterisForest(GenesisConfig.archaeopterisForestHillsId).setBiomeName("Archaeopteris Forest Hills").setHeight(height_LowHills);
 		BiomeDictionary.registerBiomeType(archaeopterisForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		archaeopterisPlains = new BiomeGenArchaeopterisPlains(GenesisConfig.archaeopterisPlainsId);
