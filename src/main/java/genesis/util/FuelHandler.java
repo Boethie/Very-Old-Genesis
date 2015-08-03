@@ -1,11 +1,17 @@
 package genesis.util;
 
+import genesis.common.GenesisBlocks;
+import genesis.common.GenesisItems;
+
 import java.util.HashMap;
 import java.util.Map.Entry;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraftforge.fml.common.IFuelHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
@@ -19,6 +25,10 @@ public final class FuelHandler implements IFuelHandler
 	public static void initialize()
 	{
 		GameRegistry.registerFuelHandler(INSTANCE);
+		setBurnTime(GenesisBlocks.peat, TileEntityFurnace.getItemBurnTime(new ItemStack(Items.coal)) / 4, false);
+		setBurnTime(GenesisBlocks.calamites_bundle, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.log)), false);
+		setBurnTime(GenesisItems.calamites, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.sapling)), false);
+		setBurnTime(GenesisItems.bucket_komatiitic_lava, TileEntityFurnace.getItemBurnTime(new ItemStack(Items.lava_bucket)), false);
 	}
 	
 	public static FuelHandler instance()

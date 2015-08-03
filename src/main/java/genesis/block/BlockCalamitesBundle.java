@@ -3,7 +3,6 @@ package genesis.block;
 import genesis.client.GenesisSounds;
 import genesis.common.GenesisCreativeTabs;
 import genesis.util.Constants.Unlocalized;
-import genesis.util.FuelHandler;
 import net.minecraft.block.BlockHay;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -20,7 +19,5 @@ public class BlockCalamitesBundle extends BlockHay
 		setHarvestLevel("axe", 0);
 
 		Blocks.fire.setFireInfo(this, 30, 5);
-		
-		FuelHandler.setBurnTime(this, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.log)) / 4, false);
 	}
 }

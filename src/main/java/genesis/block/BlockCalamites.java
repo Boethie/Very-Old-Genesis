@@ -2,7 +2,6 @@ package genesis.block;
 
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
 import genesis.client.GenesisSounds;
-import genesis.util.FuelHandler;
 import genesis.util.WorldUtils;
 
 import java.util.ArrayList;
@@ -36,8 +35,6 @@ public class BlockCalamites extends BlockGrowingPlant implements IGrowingPlantCu
 		setStepSound(GenesisSounds.CALAMITES);
 		
 		setResetAgeOnGrowth(true);
-		
-		FuelHandler.setBurnTime(this, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.sapling)) / 4, false);
 	}
 	
 	@Override
