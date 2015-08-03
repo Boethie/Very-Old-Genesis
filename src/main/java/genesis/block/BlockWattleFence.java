@@ -51,13 +51,13 @@ public class BlockWattleFence extends BlockFence
 	public static final PropertyEnum WEST = PropertyEnum.create("west", EnumConnectState.class);
 	
 	// Fields specific to this instance.
-	public final VariantsOfTypesCombo owner;
+	public final TreeBlocksAndItems owner;
 	public final ObjectType<BlockWattleFence, ItemBlockMulti> type;
 	
 	public final PropertyIMetadata<EnumTree> variantProp;
 	public final List<EnumTree> variants;
 	
-	public BlockWattleFence(List<EnumTree> variants, VariantsOfTypesCombo owner, ObjectType<BlockWattleFence, ItemBlockMulti> type)
+	public BlockWattleFence(List<EnumTree> variants, TreeBlocksAndItems owner, ObjectType<BlockWattleFence, ItemBlockMulti> type)
 	{
 		super(Material.wood);
 		

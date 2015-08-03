@@ -126,4 +126,10 @@ public class BlockGenesisLogs extends BlockLog implements IGenesisMushroomBase
 		
 		return super.canHarvestBlock(world, pos, player);
 	}
+	
+	@Override
+	public boolean canSustainMushroom(IBlockAccess world, BlockPos pos, IBlockState state)
+	{
+		return true;
+	}
 }

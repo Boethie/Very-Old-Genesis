@@ -166,7 +166,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 				}
 				else if (data.type == owner.LEAVES)
 				{
-					Iterable<BlockPos> blocksAround = BlockPos.getAllInBox(curPos.add(-1, -1, -1), curPos.add(1, 1, 1));
+					Iterable<BlockPos> blocksAround = (Iterable<BlockPos>) BlockPos.getAllInBox(curPos.add(-1, -1, -1), curPos.add(1, 1, 1));
 					
 					for (BlockPos nextPos : blocksAround)
 					{
