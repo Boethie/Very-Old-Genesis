@@ -9,18 +9,19 @@ import genesis.util.Constants.Unlocalized;
 import java.util.Comparator;
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class ItemMulti extends ItemGenesis
 {
-	public final VariantsOfTypesCombo owner;
+	public final VariantsOfTypesCombo<ObjectType<Block, Item>, IMetadata> owner;
 	
 	protected final List<IMetadata> variants;
-	protected final ObjectType type;
+	protected final ObjectType<Block, Item> type;
 	
-	public ItemMulti(List<IMetadata> variants, VariantsOfTypesCombo owner, ObjectType type)
+	public ItemMulti(List<IMetadata> variants, VariantsOfTypesCombo<ObjectType<Block, Item>, IMetadata> owner, ObjectType<Block, Item> type)
 	{
 		super();
 		
@@ -46,6 +47,6 @@ public class ItemMulti extends ItemGenesis
 	@Override
 	public void getSubItems(Item itemIn, CreativeTabs tab, List subItems)
 	{
-		owner.fillSubItems(type, variants, subItems);
+		owner.fillSubItems(type, variants, (List<ItemStack>) subItems);
 	}
 }

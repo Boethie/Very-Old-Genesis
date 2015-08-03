@@ -260,7 +260,7 @@ public final class GenesisRecipes
 		makeSubstituteCraftingItem(new ItemStack(Items.milk_bucket), new ItemStack(GenesisItems.ceramic_bucket_milk));
 		
 		// Dyes
-		for (IMetadata variant : GenesisItems.bowls.getValidVariants(ItemsCeramicBowls.dyes))
+		for (IMetadata variant : GenesisItems.bowls.getValidVariants(ItemsCeramicBowls.DYES))
 		{
 			EnumDye dye = (EnumDye) variant;
 			// TODO: Doesn't seem to work. Must fix sometime.
