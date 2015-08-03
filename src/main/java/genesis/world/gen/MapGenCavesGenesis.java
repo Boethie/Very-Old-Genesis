@@ -21,7 +21,7 @@ public class MapGenCavesGenesis extends MapGenCaves
 	@Override
     protected boolean func_175793_a(IBlockState state, IBlockState up)
     {
-        return state.getBlock() == GenesisBlocks.granite ? true : (state.getBlock() == Blocks.dirt ? true : (state.getBlock() == Blocks.grass ? true : (state.getBlock() == Blocks.hardened_clay ? true : (state.getBlock() == Blocks.stained_hardened_clay ? true : (state.getBlock() == Blocks.sandstone ? true : (state.getBlock() == Blocks.red_sandstone ? true : (state.getBlock() == Blocks.mycelium ? true : (state.getBlock() == Blocks.snow_layer ? true : (state.getBlock() == Blocks.sand || state.getBlock() == Blocks.gravel) && up.getBlock().getMaterial() != Material.water))))))));
+        return state.getBlock() == GenesisBlocks.granite || state.getBlock() == Blocks.dirt || state.getBlock() == GenesisBlocks.moss || state.getBlock() == Blocks.hardened_clay || state.getBlock() == Blocks.stained_hardened_clay || state.getBlock() == Blocks.sandstone || state.getBlock() == Blocks.red_sandstone || state.getBlock() == Blocks.mycelium || state.getBlock() == Blocks.snow_layer || (state.getBlock() == Blocks.sand || state.getBlock() == Blocks.gravel) && up.getBlock().getMaterial() != Material.water;
     }
 	
 	@Override

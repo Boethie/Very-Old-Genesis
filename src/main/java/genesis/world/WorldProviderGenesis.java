@@ -1,5 +1,6 @@
 package genesis.world;
 
+import genesis.common.GenesisBlocks;
 import genesis.world.biome.BiomeGenBaseGenesis;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.BlockPos;
@@ -169,4 +170,10 @@ public class WorldProviderGenesis extends WorldProvider
 	{
 		return worldObj.getWorldInfo().getWorldTime();
 	}
+	
+	@Override
+	public boolean canCoordinateBeSpawn(int x, int z)
+    {
+        return worldObj.getGroundAboveSeaLevel(new BlockPos(x, 0, z)) == GenesisBlocks.moss;
+    }
 }

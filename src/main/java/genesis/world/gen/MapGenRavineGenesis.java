@@ -1,5 +1,6 @@
 package genesis.world.gen;
 
+import genesis.block.BlockMoss;
 import genesis.common.GenesisBlocks;
 
 import java.util.Random;
@@ -30,7 +31,7 @@ public class MapGenRavineGenesis extends MapGenRavine
     {
         BiomeGenBase biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
         IBlockState state = data.getBlockState(x, y, z);
-        IBlockState top = isExceptionBiome(biome) ? Blocks.grass.getDefaultState() : biome.topBlock;
+        IBlockState top = isExceptionBiome(biome) ? GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.STAGE, BlockMoss.STAGE_LAST) : biome.topBlock;
         IBlockState filler = isExceptionBiome(biome) ? Blocks.dirt.getDefaultState() : biome.fillerBlock;
         
         if (state.getBlock() == GenesisBlocks.granite || state.getBlock() == top.getBlock() || state.getBlock() == filler.getBlock())

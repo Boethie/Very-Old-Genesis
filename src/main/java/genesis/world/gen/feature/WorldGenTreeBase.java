@@ -292,4 +292,10 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 			alt = !alt;
 		}
 	}
+	
+	@Override
+	protected boolean func_150523_a(Block block)
+	{
+		return block == GenesisBlocks.moss || super.func_150523_a(block);
+	}
 }
