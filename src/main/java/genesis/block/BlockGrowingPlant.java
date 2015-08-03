@@ -509,7 +509,8 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		this.maxY = bb.maxY;
 		this.maxZ = bb.maxZ;
 	}
-
+	
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void setBlockBoundsBasedOnState(IBlockAccess world, BlockPos pos)
 	{
