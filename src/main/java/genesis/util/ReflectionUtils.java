@@ -38,7 +38,7 @@ public class ReflectionUtils
 		{
 			return getConstructor(clazz, args).newInstance(args);
 		}
-		catch (ReflectiveOperationException e)
+		catch (Exception e)
 		{
 			throw new RuntimeException(e);
 		}

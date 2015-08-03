@@ -98,7 +98,7 @@ public class ToolTypes
 				@Override
 				public int compare(Enum m1, Enum m2)
 				{
-					return Integer.compare(m1.ordinal(), m2.ordinal());
+					return Integer.valueOf(m1.ordinal()).compareTo(Integer.valueOf(m2.ordinal()));
 				}
 			};
 	protected static final Table<EnumToolMaterial, EnumToolQuality, ToolType> table = TreeBasedTable.create(sorter, sorter);
