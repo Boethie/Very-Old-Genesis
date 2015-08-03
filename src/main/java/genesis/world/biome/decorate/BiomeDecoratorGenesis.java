@@ -33,11 +33,17 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	public List<WorldGenTreeBase> trees = new ArrayList<WorldGenTreeBase>();
 	public List<WorldGenDecorationBase> decorations = new ArrayList<WorldGenDecorationBase>();
 	public WorldGenerator quartzGen;
+	public WorldGenerator zirconGen;
+	public WorldGenerator garnetGen;
+	public WorldGenerator manganeseGen;
 	
 	public BiomeDecoratorGenesis()
 	{
 		((WorldGenClay) clayGen).field_150546_a = GenesisBlocks.red_clay;
 		quartzGen = new WorldGenMinableGenesis(GenesisBlocks.quartz_ore, 4, 8);
+		zirconGen = new WorldGenMinableGenesis(GenesisBlocks.zircon_ore, 1, 4);
+		garnetGen = new WorldGenMinableGenesis(GenesisBlocks.garnet_ore, 1, 4);
+		manganeseGen = new WorldGenMinableGenesis(GenesisBlocks.manganese_ore, 1, 3);
 	}
 	
 	@Override
@@ -140,6 +146,9 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
         MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(currentWorld, randomGenerator, field_180294_c));
         //if (TerrainGen.generateOre(currentWorld, randomGenerator, quartzGen, field_180294_c, QUARTZ))
         genStandardOre1(27, quartzGen, 0, 128);
+        genStandardOre1(13, zirconGen, 0, 128);
+        genStandardOre1(11, garnetGen, 0, 128);
+        genStandardOre1(3, manganeseGen, 64, 128);//TODO: rarely generate manganese below 64
         MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(currentWorld, randomGenerator, field_180294_c));
 	}
 
