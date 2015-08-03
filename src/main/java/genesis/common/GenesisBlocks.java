@@ -115,8 +115,8 @@ public final class GenesisBlocks
 	public static final DungBlocksAndItems dungs = new DungBlocksAndItems();
 	
 	/* Misc */
-	public static final Block palaeoagaracites = new BlockGenesisMushroom().setUnlocalizedName(Unlocalized.PREFIX + "palaeoagaracites").setGrowType(BlockGenesisMushroom.MushroomGrowType.Grow_side).setCreativeTab(GenesisCreativeTabs.DECORATIONS);
-	public static final Block archaeomarasmius = new BlockGenesisMushroom().setUnlocalizedName(Unlocalized.PREFIX + "archaeomarasmius").setGrowType(BlockGenesisMushroom.MushroomGrowType.Grow_top).setCreativeTab(GenesisCreativeTabs.DECORATIONS);
+	public static final Block palaeoagaracites = new BlockGenesisMushroom().setUnlocalizedName(Unlocalized.PREFIX + "palaeoagaracites").setGrowType(BlockGenesisMushroom.MushroomGrowType.GROW_SIDE).setCreativeTab(GenesisCreativeTabs.DECORATIONS);
+	public static final Block archaeomarasmius = new BlockGenesisMushroom().setUnlocalizedName(Unlocalized.PREFIX + "archaeomarasmius").setGrowType(BlockGenesisMushroom.MushroomGrowType.GROW_TOP).setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	public static final Block prototaxites = new BlockPrototaxites().setUnlocalizedName(Unlocalized.PREFIX + "prototaxites");
 	public static final VariantsCombo<EnumCoral, BlockGenesisVariants, ItemBlockMulti> corals =
 			new VariantsCombo(

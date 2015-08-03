@@ -27,9 +27,10 @@ public class BlockGenesisMushroom extends BlockBush implements IGrowable
 	public static final PropertyEnum FACING = PropertyEnum.create("facing", BlockGenesisMushroom.MushroomEnumFacing.class);
 	private MushroomGrowType growType;
 	
-	public enum MushroomGrowType {
-		Grow_top,
-		Grow_side
+	public enum MushroomGrowType
+	{
+		GROW_TOP,
+		GROW_SIDE
 	}
 	
 	public BlockGenesisMushroom()
@@ -101,7 +102,7 @@ public class BlockGenesisMushroom extends BlockBush implements IGrowable
 	
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
 	{
-		if (this.growType == MushroomGrowType.Grow_top)
+		if (this.growType == MushroomGrowType.GROW_TOP)
 			return super.canPlaceBlockAt(worldIn, pos) && this.canBlockStay(worldIn, pos, this.getDefaultState());
 		else
 			return this.canBlockStay(worldIn, pos, this.getDefaultState());
@@ -109,7 +110,7 @@ public class BlockGenesisMushroom extends BlockBush implements IGrowable
 	
 	protected boolean canPlaceBlockOn(Block ground)
 	{
-		if (this.growType == MushroomGrowType.Grow_top)
+		if (this.growType == MushroomGrowType.GROW_TOP)
 			return ground.isFullBlock();
 		else
 			return true;
@@ -123,7 +124,7 @@ public class BlockGenesisMushroom extends BlockBush implements IGrowable
 			
 			switch (this.growType)
 			{
-			case Grow_side:
+			case GROW_SIDE:
 				boolean placeNorth = checkBlockIsBase(worldIn.getBlockState(pos.north()));
 				boolean placeSouth = checkBlockIsBase(worldIn.getBlockState(pos.south()));
 				boolean placeEast = checkBlockIsBase(worldIn.getBlockState(pos.east()));
@@ -180,7 +181,7 @@ public class BlockGenesisMushroom extends BlockBush implements IGrowable
 	{
 		IBlockState state = super.onBlockPlaced(world, pos, facing, hitX, hitY, hitZ, meta, placer);
 		
-		if (this.growType == MushroomGrowType.Grow_side)
+		if (this.growType == MushroomGrowType.GROW_SIDE)
 		{
 			int l = MathHelper.floor_double((double)(placer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 			boolean placed = true;
