@@ -1,10 +1,11 @@
 package genesis.world.biome;
 
+import genesis.world.biome.decorate.WorldGenMossStages;
+import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
+
 import java.util.Random;
 
-import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 public class BiomeGenArchaeopterisPlains extends BiomeGenBaseGenesis
@@ -14,9 +15,11 @@ public class BiomeGenArchaeopterisPlains extends BiomeGenBaseGenesis
 		super(id);
 		setBiomeName("Archaeopteris Plains");
 		setTemperatureRainfall(1.15F, 1.0F);
-		setHeight(new BiomeGenBase.Height(-0.1F, 0.01F));
+		setHeight(-0.1F, 0.01F);
 		
 		theBiomeDecorator.grassPerChunk = 0;
+		
+		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
 		addTree(new WorldGenTreeArchaeopteris(15, 25, true).setTreeCountPerChunk(1));
 	}

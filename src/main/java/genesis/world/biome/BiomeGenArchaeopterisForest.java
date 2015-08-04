@@ -5,13 +5,13 @@ import genesis.metadata.EnumPlant;
 import genesis.metadata.EnumTree;
 import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
+import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.gen.feature.WorldGenRottenLog;
 import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
 
 import java.util.Random;
 
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -22,11 +22,12 @@ public class BiomeGenArchaeopterisForest extends BiomeGenBaseGenesis
 		super(id);
 		setBiomeName("Archaeopteris Forest");
 		setTemperatureRainfall(1.15F, 1.0F);
-		setHeight(new BiomeGenBase.Height(-0.1F, 0.01F));
+		setHeight(-0.1F, 0.01F);
 		
 		theBiomeDecorator.grassPerChunk = 1;
 		
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(3).setCountPerChunk(3));
+		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
 		addTree(new WorldGenTreeArchaeopteris(15, 20, true).setTreeCountPerChunk(10));
 		addTree(new WorldGenRottenLog(3, 6, EnumTree.ARCHAEOPTERIS, true).setTreeCountPerChunk(5));

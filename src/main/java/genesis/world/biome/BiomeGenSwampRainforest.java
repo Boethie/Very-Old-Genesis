@@ -27,7 +27,6 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis
 	{
 		super(id);
 		setBiomeName("Swamp Rainforest");
-		//topBlock = GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.STAGE, 0);
 		setTemperatureRainfall(0.95F, 1.0F);
 		setHeight(0.0F, 0.03F);
 		

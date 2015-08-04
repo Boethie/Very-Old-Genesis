@@ -1,11 +1,16 @@
 package genesis.world.biome;
 
+import java.util.Random;
+
 import genesis.metadata.EnumAquaticPlant;
 import genesis.metadata.EnumCoral;
 import genesis.world.biome.decorate.WorldGenAquaticPlants;
 import genesis.world.biome.decorate.WorldGenCorals;
+import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPebbles;
 import net.minecraft.util.Vec3;
+import net.minecraft.world.World;
+import net.minecraft.world.chunk.ChunkPrimer;
 
 public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
 {
@@ -22,6 +27,7 @@ public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
 		
 		addDecoration(new WorldGenAquaticPlants().setGenerateInGroup(true, 5).setPlantType(EnumAquaticPlant.BANGIOMORPHA).setCountPerChunk(10));
 		addDecoration(new WorldGenPebbles().setCountPerChunk(40));
+		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
 		int[] rarityScale = {30, 20, 10, 5, 2};
 		
@@ -46,5 +52,14 @@ public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
 	{
 		//return new Vec3(0.294117647D, 0.474509804D, 0.501960784D);
 		return new Vec3(0.196078431D, 0.474509804D, 0.380392157D);
+	}
+	
+	@Override
+	public void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
+	{
+		mossStages = new int[2];
+		mossStages[0] = 1;
+		mossStages[1] = 2;
+		super.generateBiomeTerrain(world, rand, primer, blockX, blockZ, d);
 	}
 }

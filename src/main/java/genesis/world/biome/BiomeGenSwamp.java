@@ -1,9 +1,10 @@
 package genesis.world.biome;
 
+import genesis.world.biome.decorate.WorldGenMossStages;
+
 import java.util.Random;
 
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 public class BiomeGenSwamp extends BiomeGenBaseGenesis
@@ -12,7 +13,9 @@ public class BiomeGenSwamp extends BiomeGenBaseGenesis
 	{
 		super(id);
 		setBiomeName("Swamp");
-		setHeight(new BiomeGenBase.Height(-0.1F, 0.01F));
+		setHeight(-0.1F, 0.01F);
+		
+		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 	}
 	
 	@Override

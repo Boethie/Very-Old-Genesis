@@ -50,12 +50,12 @@ public class WorldGenPalaeoagaracites extends WorldGenDecorationBase
 		if (block instanceof IGenesisMushroomBase)
 		{
 			EnumFacing facing = EnumFacing.HORIZONTALS[rand.nextInt(EnumFacing.HORIZONTALS.length)];
-			mushroomPos.offset(facing);
+			mushroomPos = mushroomPos.offset(facing);
 			
 			if (!world.getBlockState(mushroomPos).getBlock().isAir(world, mushroomPos))
 				return false;
 			
-			setBlockInWorld(world, mushroomPos, GenesisBlocks.palaeoagaracites.getDefaultState().withProperty(BlockGenesisMushroom.FACING, facing));
+			setBlockInWorld(world, mushroomPos, GenesisBlocks.palaeoagaracites.getDefaultState().withProperty(BlockGenesisMushroom.FACING, facing.getOpposite()));
 			return true;
 		}
 		
