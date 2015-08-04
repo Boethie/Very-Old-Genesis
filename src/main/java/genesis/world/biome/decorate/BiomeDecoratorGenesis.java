@@ -165,8 +165,8 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
         genStandardOre1(20, komatiiteGen, 0, 16);
         genStandardOre1(15, gneissGen, 0, 64);
         genStandardOre1(10, fauxGen, 0, 64);
-        genStandardOre1(10, rhyoliteGen, 0, 64);
-        genStandardOre1(10, doleriteGen, 0, 64);
+        genStandardOre1(10, rhyoliteGen, 64, 128);
+        genStandardOre1(10, doleriteGen, 64, 128);
         genStandardOre1(5, anorthositeGen, 0, 128);
         //if (TerrainGen.generateOre(currentWorld, randomGenerator, quartzGen, field_180294_c, QUARTZ))
         genStandardOre1(27, quartzGen, 0, 128);
