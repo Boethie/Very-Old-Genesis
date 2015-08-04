@@ -49,19 +49,6 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	public BiomeDecoratorGenesis()
 	{
 		((WorldGenClay) clayGen).field_150546_a = GenesisBlocks.red_clay;
-		gneissGen = new WorldGenMinableGenesis(GenesisBlocks.gneiss, 12, 24);
-		komatiiteGen = new WorldGenMinableGenesis(GenesisBlocks.komatiite, 12, 24);
-		fauxGen = new WorldGenMinableGenesis(GenesisBlocks.faux_amphibolite, 8, 16);
-		rhyoliteGen = new WorldGenMinableGenesis(GenesisBlocks.rhyolite, 8, 16);
-		doleriteGen = new WorldGenMinableGenesis(GenesisBlocks.dolerite, 8, 16);
-		anorthositeGen = new WorldGenMinableGenesis(GenesisBlocks.anorthosite, 4, 8);
-		quartzGen = new WorldGenMinableGenesis(GenesisBlocks.quartz_ore, 4, 8);
-		zirconGen = new WorldGenMinableGenesis(GenesisBlocks.zircon_ore, 1, 4);
-		garnetGen = new WorldGenMinableGenesis(GenesisBlocks.garnet_ore, 1, 4);
-		manganeseGen = new WorldGenMinableGenesis(GenesisBlocks.manganese_ore, 1, 3);
-		hematiteGen = new WorldGenMinableGenesis(GenesisBlocks.hematite_ore, 4, 8);
-		malachiteGen = new WorldGenMinableGenesis(GenesisBlocks.malachite_ore, 2, 4);
-		olivineGen = new WorldGenMinableGenesis(GenesisBlocks.olivine_ore, 1, 4);
 	}
 	
 	@Override
@@ -76,6 +63,19 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			currentWorld = world;
 			randomGenerator = random;
 			field_180294_c = chunkStart;
+			komatiiteGen = new WorldGenMinableGenesis(GenesisBlocks.komatiite, 16, 32);
+			gneissGen = new WorldGenMinableGenesis(GenesisBlocks.gneiss, 12, 24);
+			fauxGen = new WorldGenMinableGenesis(GenesisBlocks.faux_amphibolite, 8, 16);
+			rhyoliteGen = new WorldGenMinableGenesis(GenesisBlocks.rhyolite, 8, 16);
+			doleriteGen = new WorldGenMinableGenesis(GenesisBlocks.dolerite, 8, 16);
+			anorthositeGen = new WorldGenMinableGenesis(GenesisBlocks.anorthosite, 4, 8);
+			quartzGen = new WorldGenMinableGenesis(GenesisBlocks.quartz_ore, 4, 8);
+			zirconGen = new WorldGenMinableGenesis(GenesisBlocks.zircon_ore, 1, 4);
+			garnetGen = new WorldGenMinableGenesis(GenesisBlocks.garnet_ore, 1, 4);
+			manganeseGen = new WorldGenMinableGenesis(GenesisBlocks.manganese_ore, 1, 3);
+			hematiteGen = new WorldGenMinableGenesis(GenesisBlocks.hematite_ore, 4, 8);
+			malachiteGen = new WorldGenMinableGenesis(GenesisBlocks.malachite_ore, 2, 4);
+			olivineGen = new WorldGenMinableGenesis(GenesisBlocks.olivine_ore, 1, 4);
 			genDecorations(biome);
 			currentWorld = null;
 			randomGenerator = null;
@@ -162,8 +162,8 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	protected void generateOres()
 	{
         MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(currentWorld, randomGenerator, field_180294_c));
+        genStandardOre1(20, komatiiteGen, 0, 16);
         genStandardOre1(15, gneissGen, 0, 64);
-        genStandardOre1(15, komatiiteGen, 0, 16);
         genStandardOre1(10, fauxGen, 0, 64);
         genStandardOre1(10, rhyoliteGen, 0, 64);
         genStandardOre1(10, doleriteGen, 0, 64);
