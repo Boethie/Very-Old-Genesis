@@ -48,6 +48,7 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis genesisBeach;
 	
 	public static final BiomeGenBase.Height height_LowHills = new BiomeGenBase.Height(0.45F, 0.3F);
+	public static final BiomeGenBase.Height height_EmergingHills = new BiomeGenBase.Height(0.0F, 0.1F);
 	
 	public static void loadBiomes()
 	{
@@ -95,7 +96,7 @@ public final class GenesisBiomes
 		BiomeManagerGenesis.registerBiome(archaeopterisForest, BiomeType.WARM, GenesisConfig.archaeopterisForestWeight);
 		BiomeDictionary.registerBiomeType(archaeopterisForest, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
-		archaeopterisForestHills = new BiomeGenArchaeopterisForest(GenesisConfig.archaeopterisForestHillsId).setBiomeName("Archaeopteris Forest Hills").setHeight(height_LowHills);
+		archaeopterisForestHills = new BiomeGenArchaeopterisForest(GenesisConfig.archaeopterisForestHillsId).setBiomeName("Archaeopteris Forest Hills").setHeight(height_EmergingHills);
 		BiomeDictionary.registerBiomeType(archaeopterisForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		archaeopterisPlains = new BiomeGenArchaeopterisPlains(GenesisConfig.archaeopterisPlainsId);

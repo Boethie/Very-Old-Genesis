@@ -1,6 +1,5 @@
 package genesis.world.biome;
 
-import genesis.block.BlockMoss;
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumTree;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
@@ -16,7 +15,6 @@ import genesis.world.gen.feature.WorldGenTreeSigillaria;
 
 import java.util.Random;
 
-import net.minecraft.block.BlockGrass;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -29,11 +27,11 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis
 	{
 		super(id);
 		setBiomeName("Swamp Rainforest");
-		topBlock = GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.STAGE, 0).withProperty(BlockGrass.SNOWY, false);
+		//topBlock = GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.STAGE, 0);
 		setTemperatureRainfall(0.95F, 1.0F);
 		setHeight(0.0F, 0.03F);
-		theBiomeDecorator.grassPerChunk = 5;
 		
+		theBiomeDecorator.grassPerChunk = 5;
 		waterColorMultiplier = 0x725113;
 		setColor(522674);
 		
@@ -41,7 +39,7 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(3).setCountPerChunk(3));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(1, 0).setNextToWater(true).setPlantType(GrowingPlantType.COLUMN).setPatchSize(4).setCountPerChunk(8));
 		addDecoration(new WorldGenUnderWaterPatch(GenesisBlocks.peat.getDefaultState()).setCountPerChunk(10));
-		addDecoration(new WorldGenMossStages().setCountPerChunk(80));
+		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
 		addTree(new WorldGenTreeLepidodendron(11, 15, true).setTreeCountPerChunk(5));
 		addTree(new WorldGenTreeSigillaria(9, 12, true).setTreeCountPerChunk(4));
@@ -85,4 +83,13 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis
 		
 		generateBiomeTerrain(world, rand, p_180622_3_, p_180622_4_, p_180622_5_, p_180622_6_);
     }
+	
+	@Override
+	public void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
+	{
+		mossStages = new int[2];
+		mossStages[0] = 0;
+		mossStages[1] = 1;
+		super.generateBiomeTerrain(world, rand, primer, blockX, blockZ, d);
+	}
 }

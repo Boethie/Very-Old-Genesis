@@ -1,14 +1,14 @@
 package genesis.world.biome;
 
-import java.util.Random;
-
 import genesis.block.BlockMoss;
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.BiomeDecoratorGenesis;
 import genesis.world.biome.decorate.WorldGenDecorationBase;
 import genesis.world.biome.decorate.WorldGenZygopteris;
 import genesis.world.gen.feature.WorldGenTreeBase;
-import net.minecraft.block.BlockGrass;
+
+import java.util.Random;
+
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -23,12 +23,13 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 {
 	public IBlockState oceanFloor = GenesisBlocks.ooze.getDefaultState();
+	public int[] mossStages = new int[0];
 	
 	public BiomeGenBaseGenesis(int id)
 	{
 		super(id);
 		theBiomeDecorator.clayPerChunk = 1;
-		topBlock = GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.STAGE, BlockMoss.STAGE_LAST).withProperty(BlockGrass.SNOWY, false);
+		topBlock = GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.STAGE, BlockMoss.STAGE_LAST);
 		spawnableCaveCreatureList.clear();
 		spawnableCreatureList.clear();
 		spawnableMonsterList.clear();
@@ -97,16 +98,28 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 		return new WorldGenZygopteris();
 	}
 	
+	private IBlockState getTopBlock(Random rand)
+	{
+		IBlockState top = topBlock;
+		
+		if (top.getBlock() instanceof BlockMoss && mossStages.length > 0)
+    	{
+    		top = top.withProperty(BlockMoss.STAGE, mossStages[rand.nextInt(mossStages.length)]);
+    	}
+		
+		return top;
+	}
+	
 	@Override
 	public void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
     {
-        IBlockState top = topBlock;
+        IBlockState top = getTopBlock(rand);
         IBlockState filler = fillerBlock;
         int k = -1;
         int l = (int)(d / 3.0D + 3.0D + rand.nextDouble() * 0.25D);
         int chunkX = blockX & 15;
         int chunkZ = blockZ & 15;
-
+        
         for (int y = 255; y >= 0; --y)
         {
             if (y <= rand.nextInt(5))
@@ -132,7 +145,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
                         }
                         else if (y >= 59 && y <= 64)
                         {
-                            top = topBlock;
+                            top = getTopBlock(rand);
                             filler = fillerBlock;
                         }
 
@@ -147,9 +160,9 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
                                 top = Blocks.water.getDefaultState();
                             }
                         }
-
+                        
                         k = l;
-
+                        
                         if (y >= 62)
                         {
                             primer.setBlockState(chunkZ, y, chunkX, top);

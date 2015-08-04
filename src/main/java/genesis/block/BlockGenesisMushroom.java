@@ -11,6 +11,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockDirt;
+import net.minecraft.block.BlockLog;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
@@ -226,11 +227,7 @@ public class BlockGenesisMushroom extends BlockBush
 				{
 					return true;
 				}
-				else if (blockBelow == Blocks.log)
-				{
-					return true;
-				}
-				else if (blockBelow == Blocks.log2)
+				else if (blockBelow instanceof BlockLog)
 				{
 					return true;
 				}

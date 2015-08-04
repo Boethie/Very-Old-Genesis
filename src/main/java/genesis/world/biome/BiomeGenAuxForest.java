@@ -13,6 +13,8 @@ import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
 
 import java.util.Random;
 
+import net.minecraft.world.World;
+import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class BiomeGenAuxForest extends BiomeGenBaseGenesis
@@ -22,6 +24,7 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 		super(id);
 		setBiomeName("Araucarioxylon Forest");
 		setTemperatureRainfall(1.1F, 1.0F);
+		
 		theBiomeDecorator.grassPerChunk = 5;
 		
 		addDecoration(new WorldGenArchaeomarasmius().setPatchSize(3).setCountPerChunk(5));
@@ -37,5 +40,14 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 	public WorldGenerator getRandomWorldGenForGrass(Random rand)
 	{
 		return new WorldGenPhlebopteris();
+	}
+	
+	@Override
+	public void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
+	{
+		mossStages = new int[2];
+		mossStages[0] = 1;
+		mossStages[1] = 2;
+		super.generateBiomeTerrain(world, rand, primer, blockX, blockZ, d);
 	}
 }
