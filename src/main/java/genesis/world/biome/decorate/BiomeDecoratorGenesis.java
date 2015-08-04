@@ -34,9 +34,10 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	public List<WorldGenDecorationBase> decorations = new ArrayList<WorldGenDecorationBase>();
 	public WorldGenerator gneissGen;
 	public WorldGenerator komatiiteGen;
-	public WorldGenerator fauxGen;
 	public WorldGenerator rhyoliteGen;
 	public WorldGenerator doleriteGen;
+	public WorldGenerator trondhjemiteGen;
+	public WorldGenerator fauxGen;
 	public WorldGenerator anorthositeGen;
 	public WorldGenerator quartzGen;
 	public WorldGenerator zirconGen;
@@ -63,12 +64,13 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			currentWorld = world;
 			randomGenerator = random;
 			field_180294_c = chunkStart;
-			komatiiteGen = new WorldGenMinableGenesis(GenesisBlocks.komatiite, 16, 32);
-			gneissGen = new WorldGenMinableGenesis(GenesisBlocks.gneiss, 12, 24);
-			fauxGen = new WorldGenMinableGenesis(GenesisBlocks.faux_amphibolite, 8, 16);
-			rhyoliteGen = new WorldGenMinableGenesis(GenesisBlocks.rhyolite, 8, 16);
-			doleriteGen = new WorldGenMinableGenesis(GenesisBlocks.dolerite, 8, 16);
-			anorthositeGen = new WorldGenMinableGenesis(GenesisBlocks.anorthosite, 4, 8);
+			komatiiteGen = new WorldGenMinableGenesis(GenesisBlocks.komatiite, 18, 36);
+			gneissGen = new WorldGenMinableGenesis(GenesisBlocks.gneiss, 14, 28);
+			rhyoliteGen = new WorldGenMinableGenesis(GenesisBlocks.rhyolite, 10, 20);
+			doleriteGen = new WorldGenMinableGenesis(GenesisBlocks.dolerite, 10, 20);
+			trondhjemiteGen = new WorldGenMinableGenesis(GenesisBlocks.trondhjemite, 7, 14);
+			fauxGen = new WorldGenMinableGenesis(GenesisBlocks.faux_amphibolite, 5, 10);
+			anorthositeGen = new WorldGenMinableGenesis(GenesisBlocks.anorthosite, 5, 10);
 			quartzGen = new WorldGenMinableGenesis(GenesisBlocks.quartz_ore, 4, 8);
 			zirconGen = new WorldGenMinableGenesis(GenesisBlocks.zircon_ore, 1, 4);
 			garnetGen = new WorldGenMinableGenesis(GenesisBlocks.garnet_ore, 1, 4);
@@ -162,11 +164,12 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	protected void generateOres()
 	{
         MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(currentWorld, randomGenerator, field_180294_c));
-        genStandardOre1(20, komatiiteGen, 0, 16);
-        genStandardOre1(15, gneissGen, 0, 64);
-        genStandardOre1(10, fauxGen, 0, 64);
-        genStandardOre1(10, rhyoliteGen, 64, 128);
-        genStandardOre1(10, doleriteGen, 64, 128);
+        genStandardOre1(28, komatiiteGen, 0, 16);
+        genStandardOre1(20, gneissGen, 0, 64);
+        genStandardOre1(11, rhyoliteGen, 64, 128);
+        genStandardOre1(11, doleriteGen, 64, 128);
+        genStandardOre1(8, trondhjemiteGen, 0, 128);
+        genStandardOre1(5, fauxGen, 0, 64);
         genStandardOre1(5, anorthositeGen, 0, 128);
         //if (TerrainGen.generateOre(currentWorld, randomGenerator, quartzGen, field_180294_c, QUARTZ))
         genStandardOre1(27, quartzGen, 0, 128);

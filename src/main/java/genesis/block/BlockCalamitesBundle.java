@@ -6,7 +6,6 @@ import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.BlockHay;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityFurnace;
 
 public class BlockCalamitesBundle extends BlockHay
 {
