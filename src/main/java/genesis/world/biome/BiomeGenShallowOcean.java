@@ -2,7 +2,6 @@ package genesis.world.biome;
 
 import genesis.metadata.EnumAquaticPlant;
 import genesis.metadata.EnumCoral;
-import genesis.world.biome.decorate.BiomeDecoratorGenesis;
 import genesis.world.biome.decorate.WorldGenAquaticPlants;
 import genesis.world.biome.decorate.WorldGenCorals;
 import genesis.world.biome.decorate.WorldGenPebbles;

@@ -1,7 +1,6 @@
 package genesis.world.biome;
 
 import genesis.common.GenesisBlocks;
-import genesis.world.biome.decorate.BiomeDecoratorGenesis;
 import genesis.world.biome.decorate.WorldGenPebbles;
 
 public class BiomeGenLimestoneBeach extends BiomeGenBaseGenesis

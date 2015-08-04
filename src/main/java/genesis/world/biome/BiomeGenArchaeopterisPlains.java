@@ -1,6 +1,5 @@
 package genesis.world.biome;
 
-import genesis.world.biome.decorate.BiomeDecoratorGenesis;
 import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
 
 public class BiomeGenArchaeopterisPlains extends BiomeGenBaseGenesis

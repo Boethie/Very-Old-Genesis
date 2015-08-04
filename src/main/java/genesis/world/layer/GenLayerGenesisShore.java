@@ -16,7 +16,7 @@ public class GenLayerGenesisShore extends GenLayerGenesis
     {
         int[] aint = this.parent.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
         int[] aint1 = IntCache.getIntCache(areaWidth * areaHeight);
-
+        
         for (int i1 = 0; i1 < areaHeight; ++i1)
         {
             for (int j1 = 0; j1 < areaWidth; ++j1)
@@ -27,13 +27,20 @@ public class GenLayerGenesisShore extends GenLayerGenesis
                 int i2;
                 int j2;
                 int k2;
-
+                
                 if (
                 		k1 != GenesisBiomes.auxForest.biomeID 
                 		&& k1 != GenesisBiomes.auxForestM.biomeID 
                 		&& k1 != GenesisBiomes.auxForestEdge.biomeID 
                 		&& k1 != GenesisBiomes.auxForestEdgeM.biomeID 
-                		&& k1 != GenesisBiomes.auxPlains.biomeID)
+                		&& k1 != GenesisBiomes.auxForestHills.biomeID
+                		&& k1 != GenesisBiomes.rainforest.biomeID
+                		&& k1 != GenesisBiomes.rainforestM.biomeID
+                		&& k1 != GenesisBiomes.rainforestEdge.biomeID
+                		&& k1 != GenesisBiomes.rainforestEdgeM.biomeID
+                		&& k1 != GenesisBiomes.rainforestHills.biomeID
+                		&& k1 != GenesisBiomes.archaeopterisForest.biomeID
+                		&& k1 != GenesisBiomes.archaeopterisForestHills.biomeID)
                 {
                 	if (k1 != GenesisBiomes.shallowOcean.biomeID && k1 != GenesisBiomes.river.biomeID && k1 != GenesisBiomes.swampRainForest.biomeID)
                     {

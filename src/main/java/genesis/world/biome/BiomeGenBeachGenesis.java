@@ -2,7 +2,6 @@ package genesis.world.biome;
 
 import genesis.block.BlockMoss;
 import genesis.common.GenesisBlocks;
-import genesis.world.biome.decorate.BiomeDecoratorGenesis;
 import genesis.world.biome.decorate.WorldGenPebbles;
 
 public class BiomeGenBeachGenesis extends BiomeGenBaseGenesis

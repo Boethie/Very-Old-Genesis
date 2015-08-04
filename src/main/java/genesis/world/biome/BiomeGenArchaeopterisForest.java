@@ -3,7 +3,6 @@ package genesis.world.biome;
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumPlant;
 import genesis.metadata.EnumTree;
-import genesis.world.biome.decorate.BiomeDecoratorGenesis;
 import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.gen.feature.WorldGenRottenLog;
@@ -20,7 +19,7 @@ public class BiomeGenArchaeopterisForest extends BiomeGenBaseGenesis
 		super(id);
 		setBiomeName("Archaeopteris Forest");
 		setTemperatureRainfall(1.15F, 1.0F);
-		setHeight(0.01F, 0.02F);
+		setHeight(-0.02F, 0.00F);
 		theBiomeDecorator.grassPerChunk = 1;
 		
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(3).setCountPerChunk(3));

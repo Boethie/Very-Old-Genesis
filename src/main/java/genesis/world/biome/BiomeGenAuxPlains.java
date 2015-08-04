@@ -1,17 +1,17 @@
 package genesis.world.biome;
 
+import genesis.common.GenesisBlocks;
+import genesis.world.biome.decorate.WorldGenArchaeomarasmius;
+import genesis.world.biome.decorate.WorldGenGrowingPlant;
+import genesis.world.biome.decorate.WorldGenGrowingPlant.GrowingPlantType;
+import genesis.world.biome.decorate.WorldGenPalaeoagaracites;
+import genesis.world.biome.decorate.WorldGenPhlebopteris;
+import genesis.world.biome.decorate.WorldGenRockBoulders;
+import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
+
 import java.util.Random;
 
 import net.minecraft.world.gen.feature.WorldGenerator;
-import genesis.common.GenesisBlocks;
-import genesis.world.biome.decorate.BiomeDecoratorGenesis;
-import genesis.world.biome.decorate.WorldGenArchaeomarasmius;
-import genesis.world.biome.decorate.WorldGenGrowingPlant;
-import genesis.world.biome.decorate.WorldGenPhlebopteris;
-import genesis.world.biome.decorate.WorldGenGrowingPlant.GrowingPlantType;
-import genesis.world.biome.decorate.WorldGenPalaeoagaracites;
-import genesis.world.biome.decorate.WorldGenRockBoulders;
-import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
 
 public class BiomeGenAuxPlains extends BiomeGenBaseGenesis
 {

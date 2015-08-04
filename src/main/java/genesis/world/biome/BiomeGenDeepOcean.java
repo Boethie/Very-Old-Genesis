@@ -1,7 +1,6 @@
 package genesis.world.biome;
 
 import genesis.metadata.EnumAquaticPlant;
-import genesis.world.biome.decorate.BiomeDecoratorGenesis;
 import genesis.world.biome.decorate.WorldGenAquaticPlants;
 
 public class BiomeGenDeepOcean extends BiomeGenBaseGenesis
