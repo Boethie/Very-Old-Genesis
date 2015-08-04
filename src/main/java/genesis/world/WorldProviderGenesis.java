@@ -114,7 +114,8 @@ public class WorldProviderGenesis extends WorldProvider
 		double red = 0.29411764705882352941176470588235D;
 		double green = 0.47450980392156862745098039215686D;
 		double blue = 0.1960784313725490196078431372549D;
-		
+		//Green sky everywhere - To change if we ever need different color by biome
+		/*
 		if (getBiomeGenForCoords(new BlockPos(cameraEntity.posX, cameraEntity.posY, cameraEntity.posZ)) instanceof BiomeGenBaseGenesis)
 		{
 			BiomeGenBaseGenesis biome = (BiomeGenBaseGenesis)getBiomeGenForCoords(new BlockPos(cameraEntity.posX, cameraEntity.posY, cameraEntity.posZ));
@@ -122,7 +123,7 @@ public class WorldProviderGenesis extends WorldProvider
 			green = biome.getSkyColor().yCoord;
 			blue = biome.getSkyColor().zCoord;
 		}
-		
+		*/
 		if (time > 20000 && time <= 31000)
 		{
 			red = 0;

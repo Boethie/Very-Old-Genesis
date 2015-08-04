@@ -20,8 +20,8 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 		setHeight(0.05F, 0.1F);
 		theBiomeDecorator.grassPerChunk = 3;
 		
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchSize(5).setCountPerChunk(5));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(5).setCountPerChunk(5));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchSize(3).setCountPerChunk(3));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(3).setCountPerChunk(3));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(1, 0).setNextToWater(true).setPlantType(GrowingPlantType.COLUMN).setPatchSize(4).setCountPerChunk(8));
 		addDecoration(new WorldGenRockBoulders().setCountPerChunk(5));
 		

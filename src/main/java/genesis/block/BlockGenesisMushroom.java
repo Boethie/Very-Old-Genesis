@@ -1,22 +1,29 @@
 package genesis.block;
 
+import static genesis.block.BlockGenesisMushroom.MushroomGrowType.GROW_SIDE;
+import static genesis.block.BlockGenesisMushroom.MushroomGrowType.GROW_TOP;
+import static net.minecraft.util.EnumFacing.UP;
 import genesis.common.GenesisBlocks;
 import genesis.util.BlockStateToMetadata;
-import static genesis.block.BlockGenesisMushroom.MushroomGrowType.*;
 
-import java.util.*;
+import java.util.Random;
 
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockBush;
+import net.minecraft.block.BlockDirt;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.*;
-import net.minecraft.block.state.*;
+import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.*;
-import net.minecraft.util.*;
-import static net.minecraft.util.EnumFacing.*;
-import net.minecraft.world.*;
-import net.minecraftforge.fml.relauncher.*;
-import net.minecraftforge.oredict.OreDictionary;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockGenesisMushroom extends BlockBush
 {
@@ -216,6 +223,14 @@ public class BlockGenesisMushroom extends BlockBush
 					return true;
 				}
 				else if (blockBelow == Blocks.dirt && below.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL)
+				{
+					return true;
+				}
+				else if (blockBelow == Blocks.log)
+				{
+					return true;
+				}
+				else if (blockBelow == Blocks.log2)
 				{
 					return true;
 				}
