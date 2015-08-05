@@ -18,7 +18,9 @@ import net.minecraftforge.fml.relauncher.*;
 public class FlexibleStateMap extends StateMapperBase
 {
 	protected String prefix = "";
+	protected String prefixSeparator = "";
 	protected IProperty nameProperty = null;
+	protected String postfixSeparator = "";
 	protected String postfix = "";
 	protected Function<String, String> nameFunction = null;
 	protected ArrayList<IProperty> ignoreProperties;
@@ -28,16 +30,10 @@ public class FlexibleStateMap extends StateMapperBase
 		this.ignoreProperties = Lists.newArrayList(ignoreProperties);
 	}
 	
-	public FlexibleStateMap setPrefix(String prefix)
+	public FlexibleStateMap setPrefix(String prefix, String separator)
 	{
+		this.prefixSeparator = separator;
 		this.prefix = prefix;
-		
-		return this;
-	}
-	
-	public FlexibleStateMap setPostfix(String postfix)
-	{
-		this.postfix = postfix;
 		
 		return this;
 	}
@@ -45,6 +41,14 @@ public class FlexibleStateMap extends StateMapperBase
 	public FlexibleStateMap setNameProperty(IProperty nameProperty)
 	{
 		this.nameProperty = nameProperty;
+		
+		return this;
+	}
+	
+	public FlexibleStateMap setPostfix(String postfix, String separator)
+	{
+		this.postfixSeparator = separator;
+		this.postfix = postfix;
 		
 		return this;
 	}
@@ -72,32 +76,60 @@ public class FlexibleStateMap extends StateMapperBase
 	protected ModelResourceLocation getModelResourceLocation(IBlockState state)
 	{
 		ResourceLocation registeredAs = (ResourceLocation) Block.blockRegistry.getNameForObject(state.getBlock());
-		String output = registeredAs.getResourceDomain() + ":" + prefix;
+		String domain = registeredAs.getResourceDomain();
 		
-		if ("".equals(prefix) && "".equals(postfix))
-		{
-			output += registeredAs.getResourcePath();
-		}
+		// Set prefix name section.
+		String outPrefix = prefix;
 		
-		Map<IProperty, Comparable<?>> propertyMap = Maps.newLinkedHashMap(state.getProperties());
+		String outMain = "";
+		Map<IProperty, Comparable<?>> propertyMap = new LinkedHashMap<IProperty, Comparable<?>>(state.getProperties());
 		
+		// Set main name section.
 		if (nameProperty != null)
 		{
-            output += nameProperty.getName(propertyMap.remove(nameProperty));
+            outMain = nameProperty.getName(propertyMap.remove(nameProperty));
 		}
 		
-		output += postfix;
+		// Set prefix name section.
+		String outPostfix = postfix;
 		
+		// Remove ignored properties.
 		for (IProperty property : ignoreProperties)
 		{
 			propertyMap.remove(property);
 		}
 		
+		// Begin constructing complete output name, with separators added according to what's a non-empty string.
+		String output = outPrefix;
+		
+		if (!"".equals(outMain))
+		{
+			if (!"".equals(output))
+			{
+				output += prefixSeparator;
+			}
+			
+			output += outMain;
+		}
+		
+		if (!"".equals(output))
+		{
+			output += postfixSeparator;
+		}
+		
+		output += outPostfix;
+		
+		// Call name function on our output.
 		if (nameFunction != null)
 		{
 			output = nameFunction.apply(output);
 		}
 		
-		return new ModelResourceLocation(output, getPropertyString(propertyMap));
+		if ("".equals(output))
+		{
+			outMain = registeredAs.getResourcePath();
+		}
+		
+		return new ModelResourceLocation(domain + ":" + output, getPropertyString(propertyMap));
 	}
 }

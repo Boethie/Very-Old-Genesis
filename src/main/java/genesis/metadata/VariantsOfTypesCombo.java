@@ -394,6 +394,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	public final ImmutableList<O> types;
 	public final ImmutableList<V> variants;
 	public final HashSet<O> registeredTypes = new HashSet<O>();
+	protected String unlocalizedPrefix = "";
 	
 	/**
 	 * Creates a {@link #VariantsOfTypesCombo} with each {@link #Block}/{@link #Item} represented by the list of {@link #ObjectType},
@@ -468,7 +469,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 					
 					if (!(propsListObj instanceof IProperty[]))
 					{
-						throw new IllegalArgumentException("Failed to find variant properties for block class " + blockClass.getSimpleName());
+						throw new IllegalArgumentException("Failed to find properties necessary to store in metadata for block class " + blockClass.getSimpleName());
 					}
 					
 					maxSubsetSize = Math.min(BlockStateToMetadata.getMetadataLeftAfter((IProperty[]) propsListObj), maxSubsetSize);
@@ -563,6 +564,17 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 		this(Arrays.asList(objectTypes), Arrays.asList(variants));
 	}
 	
+	public VariantsOfTypesCombo<O, V> setUnlocalizedPrefix(String prefix)
+	{
+		unlocalizedPrefix = prefix;
+		return this;
+	}
+	
+	public String getUnlocalizedPrefix()
+	{
+		return unlocalizedPrefix;
+	}
+	
 	/**
 	 * Registers all the variants of this {@link #ObjectType}.
 	 */
@@ -599,7 +611,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 			if (block != null)
 			{
 				Genesis.proxy.registerBlockWithItem(block, registryName, item);
-				block.setUnlocalizedName(type.getUnlocalizedName());
+				block.setUnlocalizedName(getUnlocalizedPrefix() + type.getUnlocalizedName());
 				
 				// Register resource locations for the block.
 				Genesis.proxy.callSided(new SidedFunction()
@@ -615,10 +627,10 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 							switch (type.getNamePosition())
 							{
 							case PREFIX:
-								flexStateMap.setPrefix(type.getName() + "_");
+								flexStateMap.setPrefix(type.getName(), "_");
 								break;
 							case POSTFIX:
-								flexStateMap.setPostfix("_" + type.getName());
+								flexStateMap.setPostfix(type.getName(), "_");
 								break;
 							default:
 								break;
@@ -633,7 +645,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 						}
 						else
 						{
-							flexStateMap.setPrefix(type.getName());
+							flexStateMap.setPrefix(type.getName(), "_");
 						}
 						
 						type.customizeStateMap(flexStateMap);

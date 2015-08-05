@@ -39,10 +39,11 @@ public final class GenesisBlocks
 	public static final Block red_clay = new BlockRedClay().setUnlocalizedName(Unlocalized.PREFIX + "redClay");
 	public static final Block ooze = new BlockOoze().setUnlocalizedName(Unlocalized.PREFIX + "ooze");
 	public static final Block peat = new BlockPeat().setUnlocalizedName(Unlocalized.PREFIX + "peat");
-
+	public static final SiltBlocks silt = new SiltBlocks();
+	
 	public static final Block permafrost = new BlockPermafrost().setUnlocalizedName(Unlocalized.PREFIX + "permafrost");
 	public static final Block ancient_permafrost = new BlockAncientPermafrost().setUnlocalizedName(Unlocalized.PREFIX + "ancientPermafrost");
-
+	
 	/* Granite Ores */
 	public static final Block quartz_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 1).setDrop(new RandomDrop(GenesisItems.quartz)).setUnlocalizedName(Unlocalized.ORE + "quartz");
 	public static final Block zircon_ore = new BlockGenesisOre(4.2F, 5.0F, 2, 1).setDrop(new RandomDrop(GenesisItems.zircon)).setUnlocalizedName(Unlocalized.ORE + "zircon");
@@ -51,7 +52,7 @@ public final class GenesisBlocks
 	public static final Block manganese_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 1).setDrop(new RandomDrop(GenesisItems.manganese)).setUnlocalizedName(Unlocalized.ORE + "manganese");
 	public static final Block malachite_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 2, 1).setDrop(new RandomDrop(GenesisItems.malachite)).setUnlocalizedName(Unlocalized.ORE + "malachite");
 	public static final Block olivine_ore = new BlockGenesisOre(4.2F, 5.0F, 3, 5, 1).setDrop(new RandomDrop(GenesisItems.olivine)).setUnlocalizedName(Unlocalized.ORE + "olivine");
-
+	
 	/* Limestone Ores */
 	public static final Block flint_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(new RandomDrop(new RandomStackDrop(GenesisItems.nodules.getStack(EnumNodule.BROWN_FLINT)), new RandomStackDrop(GenesisItems.nodules.getStack(EnumNodule.BLACK_FLINT)))).setUnlocalizedName(Unlocalized.ORE + "flint");
 	public static final Block marcasite_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(new RandomDrop(GenesisItems.nodules.getStack(EnumNodule.MARCASITE))).setUnlocalizedName(Unlocalized.ORE + "marcasite");
@@ -142,7 +143,7 @@ public final class GenesisBlocks
 				.setCreativeTab(GenesisCreativeTabs.DECORATIONS)
 				.setBlockArguments(Material.coral),
 			EnumCoral.values());
-
+	
 	public static void registerBlocks()
 	{
 		// Begin general building blocks
@@ -158,9 +159,12 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(gneiss, "gneiss");
 		Genesis.proxy.registerBlock(limestone, "limestone");
 		Genesis.proxy.registerBlock(octaedrite, "octaedrite");
+		
 		Genesis.proxy.registerBlock(red_clay, "red_clay");
 		Genesis.proxy.registerBlock(ooze, "ooze");
 		Genesis.proxy.registerBlock(peat, "peat");
+		silt.registerAll();
+		
 		Genesis.proxy.registerBlock(permafrost, "permafrost");
 		Genesis.proxy.registerBlock(ancient_permafrost, "ancient_permafrost");
 		Genesis.proxy.registerBlock(quartz_ore, "quartz_ore");
