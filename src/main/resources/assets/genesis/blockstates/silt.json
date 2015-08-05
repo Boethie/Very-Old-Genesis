@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "normal": [
+            { "model": "genesis:silt" },
+            { "model": "genesis:silt", "y": 90 },
+            { "model": "genesis:silt", "y": 180 },
+            { "model": "genesis:silt", "y": 270 }
+        ]
+    }
+}
