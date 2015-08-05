@@ -2,16 +2,19 @@ package genesis.block;
 
 import java.util.*;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 
 import genesis.client.GenesisSounds;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
+import genesis.item.ItemBlockMulti;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants;
 import genesis.util.FlexibleStateMap;
+import genesis.util.RandomVariantDrop;
 import genesis.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
@@ -36,10 +39,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockAquaticPlant extends BlockGenesisVariants<EnumAquaticPlant, VariantsCombo> implements IModifyStateMap
+@SuppressWarnings({"rawtypes", "unchecked"})
+public class BlockAquaticPlant extends Block implements IModifyStateMap
 {
 	/**
-	 * Used in BlocksAndItemsWithVariantsOfTypes.
+	 * Used in VariantsOfTypesCombo.
 	 */
 	@BlockProperties
 	public static IProperty[] getProperties()
@@ -47,22 +51,47 @@ public class BlockAquaticPlant extends BlockGenesisVariants<EnumAquaticPlant, Va
 		return new IProperty[]{};
 	}
 	
-	private Set<Block> validGround;
-
-	public BlockAquaticPlant(List<EnumAquaticPlant> variants, VariantsCombo owner, ObjectType type)
+	public final VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti> owner;
+	public final ObjectType<BlockAquaticPlant, ItemBlockMulti> type;
+	
+	public final List<EnumAquaticPlant> variants;
+	public final PropertyIMetadata<EnumAquaticPlant> variantProp;
+	
+	protected Set<Block> validGround;
+	protected final Set<EnumAquaticPlant> noDrops = ImmutableSet.of(EnumAquaticPlant.CHARNIA);
+	
+	public BlockAquaticPlant(List<EnumAquaticPlant> variants, VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti> owner, ObjectType<BlockAquaticPlant, ItemBlockMulti> type)
 	{
-		super(variants, owner, type, Material.water);
+		super(Material.water);
+		
+		//super(variants, owner, (ObjectType) type, Material.water);
+		
+		this.owner = owner;
+		this.type = type;
+		
+		this.variants = variants;
+		variantProp = new PropertyIMetadata<EnumAquaticPlant>("variant", variants);
 		
 		blockState = new BlockState(this, variantProp, BlockLiquid.LEVEL);
 		setDefaultState(getBlockState().getBaseState());
-		
-		noItemVariants.add(EnumAquaticPlant.CHARNIA);
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		
 		setHardness(0.0F);
 		setStepSound(GenesisSounds.AQUATICPLANT);
 		setTickRandomly(true);
+	}
+	
+	@Override
+	public int getMetaFromState(IBlockState state)
+	{
+		return BlockStateToMetadata.getMetaForBlockState(state, variantProp);
+	}
+	
+	@Override
+	public IBlockState getStateFromMeta(int metadata)
+	{
+		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), metadata, variantProp);
 	}
 
 	@Override
@@ -83,7 +112,24 @@ public class BlockAquaticPlant extends BlockGenesisVariants<EnumAquaticPlant, Va
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
 	{
-		owner.fillSubItems(type, variants, list, noItemVariants);
+		owner.fillSubItems(type, variants, list, noDrops);
+	}
+	
+	@Override
+    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
+    {
+		if (!noDrops.contains((EnumAquaticPlant) state.getValue(variantProp)))
+		{
+	        return super.getDrops(world, pos, state, fortune);
+		}
+		
+		return Collections.emptyList();
+    }
+	
+	@Override
+	public int damageDropped(IBlockState state)
+	{
+		return owner.getItemMetadata(type, (EnumAquaticPlant) state.getValue(variantProp));
 	}
 
 	@Override
@@ -187,14 +233,6 @@ public class BlockAquaticPlant extends BlockGenesisVariants<EnumAquaticPlant, Va
 				world.setBlockState(pos.up(), Blocks.water.getStateFromMeta(0), 3);
 			}
 		}
-	}
-	
-	@Override
-	public int damageDropped(IBlockState state)
-	{
-		Comparable variant = state.getValue(variantProp);
-		
-		return variant == EnumAquaticPlant.CHARNIA ? owner.getItemMetadata(EnumAquaticPlant.CHARNIA_TOP) : super.damageDropped(state);
 	}
 
 	public boolean canBlockStay(World world, BlockPos pos, IBlockState state)

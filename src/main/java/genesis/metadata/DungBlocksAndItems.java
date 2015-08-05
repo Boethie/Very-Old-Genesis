@@ -19,25 +19,24 @@ import genesis.item.ItemMulti;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.FuelHandler;
 
+@SuppressWarnings("rawtypes")
 public class DungBlocksAndItems extends VariantsOfTypesCombo<ObjectType, EnumDung>
 {
 	public static final ObjectType<BlockGenesisVariants, ItemBlockMulti> DUNG_BLOCK =
 			new ObjectType<BlockGenesisVariants, ItemBlockMulti>("dung_block", "dung", BlockGenesisVariants.class, null)
 			{
 				@Override
-				public void afterConstructed(BlockGenesisVariants block, ItemBlockMulti item, List<IMetadata> variants)
+				public void afterConstructed(BlockGenesisVariants block, ItemBlockMulti item, List<? extends IMetadata> variants)
 				{
 					super.afterConstructed(block, item, variants);
 					
-					BlockGenesisVariants dung = (BlockGenesisVariants) block;
+					block.setHardness(0.5F);
+					block.setStepSound(GenesisSounds.DUNG);
 					
-					dung.setHardness(0.5F);
-					dung.setStepSound(GenesisSounds.DUNG);
+					block.clearDrops();
+					block.addDrop(GenesisBlocks.dungs.DUNG, 4, 4);
 					
-					dung.clearDrops();
-					dung.addDrop(GenesisBlocks.dungs.DUNG, 4, 4);
-					
-					Blocks.fire.setFireInfo(dung, 5, 5);
+					Blocks.fire.setFireInfo(block, 5, 5);
 					
 					FuelHandler.setBurnTime(item,
 							TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.log)) * 4, true);
@@ -46,7 +45,7 @@ public class DungBlocksAndItems extends VariantsOfTypesCombo<ObjectType, EnumDun
 	public static final ObjectType<Block, ItemDung> DUNG = new ObjectType<Block, ItemDung>("dung", null, ItemDung.class)
 			{
 				@Override
-				public void afterConstructed(Block block, ItemDung item, List<IMetadata> variants)
+				public void afterConstructed(Block block, ItemDung item, List<? extends IMetadata> variants)
 				{
 					super.afterConstructed(block, item, variants);
 					FuelHandler.setBurnTime(item, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.log)), true);

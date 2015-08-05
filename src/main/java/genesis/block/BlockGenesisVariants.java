@@ -17,7 +17,8 @@ import net.minecraft.item.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 
-public class BlockGenesisVariants<V extends IMetadata, C extends VariantsOfTypesCombo> extends Block
+@SuppressWarnings("rawtypes")
+public class BlockGenesisVariants<V extends IMetadata> extends Block
 {
 	/**
 	 * Used in BlocksAndItemsWithVariantsOfTypes.
@@ -28,17 +29,17 @@ public class BlockGenesisVariants<V extends IMetadata, C extends VariantsOfTypes
 		return new IProperty[]{};
 	}
 	
-	public final C owner;
-	public final ObjectType<BlockGenesisVariants<V, C>, ItemBlockMulti> type;
+	public final VariantsOfTypesCombo<ObjectType<BlockGenesisVariants, ? extends Item>, V> owner;
+	public final ObjectType<BlockGenesisVariants, ? extends Item> type;
 	
 	public final List<V> variants;
 	public final PropertyIMetadata<V> variantProp;
 	
-	protected final HashSet<V> noItemVariants = new HashSet();
+	protected final HashSet<V> noItemVariants = new HashSet<V>();
 	
-	protected final ArrayList<RandomVariantDrop> drops = new ArrayList();
+	protected final List<RandomVariantDrop> drops = new ArrayList<RandomVariantDrop>();
 	
-	public BlockGenesisVariants(List<V> variants, C owner, ObjectType<BlockGenesisVariants<V, C>, ItemBlockMulti> type, Material material)
+	public BlockGenesisVariants(List<V> variants, VariantsOfTypesCombo<ObjectType<BlockGenesisVariants, ? extends Item>, V> owner, ObjectType<BlockGenesisVariants, ? extends Item> type, Material material)
 	{
 		super(material);
 		
@@ -57,7 +58,7 @@ public class BlockGenesisVariants<V extends IMetadata, C extends VariantsOfTypes
 	}
 	
 	@Override
-	public BlockGenesisVariants<V, C> setCreativeTab(CreativeTabs tab)
+	public BlockGenesisVariants<V> setCreativeTab(CreativeTabs tab)
 	{
 		super.setCreativeTab(tab);
 		return this;
@@ -76,7 +77,7 @@ public class BlockGenesisVariants<V extends IMetadata, C extends VariantsOfTypes
 	}
 	
 	@Override
-	public BlockGenesisVariants setUnlocalizedName(String name)
+	public BlockGenesisVariants<V> setUnlocalizedName(String name)
 	{
 		super.setUnlocalizedName(Unlocalized.PREFIX + name);
 		
@@ -89,26 +90,26 @@ public class BlockGenesisVariants<V extends IMetadata, C extends VariantsOfTypes
 		owner.fillSubItems(type, variants, list);
 	}
 	
-	public BlockGenesisVariants clearDrops()
+	public BlockGenesisVariants<V> clearDrops()
 	{
 		drops.clear();
 		
 		return this;
 	}
 	
-	public BlockGenesisVariants addDrop(RandomVariantDrop drop)
+	public BlockGenesisVariants<V> addDrop(RandomVariantDrop drop)
 	{
 		drops.add(drop);
 		
 		return this;
 	}
 	
-	public BlockGenesisVariants addDrop(ObjectType type, int min, int max)
+	public BlockGenesisVariants<V> addDrop(ObjectType type, int min, int max)
 	{
 		return addDrop(new RandomVariantDrop(owner, type, min, max));
 	}
 	
-	public BlockGenesisVariants addDrop(ObjectType type)
+	public BlockGenesisVariants<V> addDrop(ObjectType type)
 	{
 		return addDrop(type, 1, 1);
 	}
@@ -116,7 +117,7 @@ public class BlockGenesisVariants<V extends IMetadata, C extends VariantsOfTypes
 	@Override
     public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
     {
-		ArrayList<ItemStack> stackList = new ArrayList();
+		ArrayList<ItemStack> stackList = new ArrayList<ItemStack>();
 		V variant = (V) state.getValue(variantProp);
 		
 		if (!noItemVariants.contains(variant))

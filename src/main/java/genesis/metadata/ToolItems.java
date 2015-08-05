@@ -19,6 +19,7 @@ import net.minecraft.item.*;
 import net.minecraft.util.StatCollector;
 import genesis.metadata.ToolTypes.ToolType;
 
+@SuppressWarnings("rawtypes")
 public class ToolItems extends VariantsOfTypesCombo<ToolObjectType, ToolType>
 {
 	public static class ToolObjectType<B extends Block, I extends Item> extends ObjectType<B, I>
@@ -42,9 +43,9 @@ public class ToolItems extends VariantsOfTypesCombo<ToolObjectType, ToolType>
 		}
 		
 		@Override
-		public List<IMetadata> getValidVariants(List<IMetadata> list)
+		public <V extends IMetadata> List<V> getValidVariants(List<V> list)
 		{
-			Iterator<IMetadata> iter = list.iterator();
+			Iterator<V> iter = list.iterator();
 			
 			while (iter.hasNext())
 			{
@@ -183,7 +184,7 @@ public class ToolItems extends VariantsOfTypesCombo<ToolObjectType, ToolType>
 	/**
 	 * Adds the information about the {@link ToolType} for this stack.
 	 */
-	public void addToolInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
+	public void addToolInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced)
 	{
 		IMetadata variant = getVariant(stack.getItem(), stack.getMetadata());
 		

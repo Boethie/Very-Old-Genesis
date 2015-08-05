@@ -15,12 +15,12 @@ import net.minecraft.item.*;
 
 public class ItemBlockMulti extends ItemBlock
 {
-	public final VariantsOfTypesCombo owner;
-	public final ObjectType type;
+	public final VariantsOfTypesCombo<ObjectType, IMetadata> owner;
+	public final ObjectType<? extends Block, ? extends ItemBlockMulti> type;
 	
 	protected final List<IMetadata> variants;
 	
-	public ItemBlockMulti(Block block, final List<IMetadata> variants, final VariantsOfTypesCombo owner, ObjectType type)
+	public ItemBlockMulti(Block block, List<IMetadata> variants, VariantsOfTypesCombo<ObjectType, IMetadata> owner, ObjectType<? extends Block, ? extends ItemBlockMulti> type)
 	{
 		super(block);
 		
@@ -35,9 +35,9 @@ public class ItemBlockMulti extends ItemBlock
 	}
 
 	@Override
-	public void getSubItems(Item itemIn, CreativeTabs tab, List subItems)
+	public void getSubItems(Item item, CreativeTabs tab, List subItems)
 	{
-		super.getSubItems(itemIn, tab, subItems);
+		super.getSubItems(item, tab, subItems);
 	}
 
 	@Override

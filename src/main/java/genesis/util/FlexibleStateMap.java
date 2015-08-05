@@ -79,7 +79,7 @@ public class FlexibleStateMap extends StateMapperBase
 			output += registeredAs.getResourcePath();
 		}
 		
-		Map<IProperty, Comparable> propertyMap = Maps.newLinkedHashMap(state.getProperties());
+		Map<IProperty, Comparable<?>> propertyMap = Maps.newLinkedHashMap(state.getProperties());
 		
 		if (nameProperty != null)
 		{

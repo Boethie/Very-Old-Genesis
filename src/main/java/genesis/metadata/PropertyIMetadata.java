@@ -39,7 +39,7 @@ public class PropertyIMetadata<T extends IMetadata> extends PropertyHelper
 		
 		if (other != null && getClass() == other.getClass())
 		{
-			PropertyIMetadata propIMeta = (PropertyIMetadata) other;
+			PropertyIMetadata<?> propIMeta = (PropertyIMetadata<?>) other;
 			
 			if (getName().equals(propIMeta.getName()))
 			{

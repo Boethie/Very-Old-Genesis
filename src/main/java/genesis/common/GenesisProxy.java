@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.registry.*;
 
 public class GenesisProxy
 {
-	protected List<SidedFunction> preInitCalls = new ArrayList();
+	protected List<SidedFunction> preInitCalls = new ArrayList<SidedFunction>();
 	
 	public void registerPreInitCall(SidedFunction call)
 	{

@@ -5,6 +5,7 @@ import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.Constants;
 import genesis.util.Constants.Unlocalized;
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBucketMilk;
@@ -28,7 +29,7 @@ public final class GenesisItems
 	public static final Item manganese = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "manganese");
 	public static final Item malachite = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "malachite");
 	public static final Item olivine = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "olivine");
-	public static final VariantsCombo nodules = new VariantsCombo(new ObjectType("nodule", null, null).setNamePosition(ObjectNamePosition.PREFIX), EnumNodule.values());
+	public static final VariantsCombo<EnumNodule, Block, ItemMulti> nodules = new VariantsCombo<EnumNodule, Block, ItemMulti>(new ObjectType<Block, ItemMulti>("nodule", null, null).setNamePosition(ObjectNamePosition.PREFIX), EnumNodule.values());
 	public static final Item resin = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "resin");
 	public static final ItemGenesisSeeds calamites = (ItemGenesisSeeds) new ItemGenesisSeeds().setUnlocalizedName(Unlocalized.MATERIAL + "calamites");
 	public static final Item sphenophyllum_fiber = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "sphenophyllumFiber");

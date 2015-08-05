@@ -9,7 +9,7 @@ import com.google.common.collect.*;
 
 public class ToolTypes
 {
-	public static class ToolType implements IMetadata, Comparable
+	public static class ToolType implements IMetadata, Comparable<ToolType>
 	{
 		public final EnumToolMaterial material;
 		public final EnumToolQuality quality;
@@ -73,36 +73,31 @@ public class ToolTypes
 		}
 
 		@Override
-		public int compareTo(Object o)
+		public int compareTo(ToolType o)
 		{
-			if (o instanceof ToolType)
+			ToolType other = (ToolType) o;
+			int materialCompare = material.compareTo(other.material);
+			
+			if (materialCompare != 0)
 			{
-				ToolType other = (ToolType) o;
-				int materialCompare = material.compareTo(other.material);
-				
-				if (materialCompare != 0)
-				{
-					return materialCompare;
-				}
-				
-				return quality.compareTo(other.quality);
+				return materialCompare;
 			}
 			
-			return 0;
+			return quality.compareTo(other.quality);
 		}
 	}
 	
 	// Comparator to sort the table to the correct order.
-	private static final Comparator<Enum> sorter = new Comparator<Enum>()
+	private static final Comparator<Enum<?>> sorter = new Comparator<Enum<?>>()
 			{
 				@Override
-				public int compare(Enum m1, Enum m2)
+				public int compare(Enum<?> m1, Enum<?> m2)
 				{
 					return Integer.valueOf(m1.ordinal()).compareTo(Integer.valueOf(m2.ordinal()));
 				}
 			};
 	protected static final Table<EnumToolMaterial, EnumToolQuality, ToolType> table = TreeBasedTable.create(sorter, sorter);
-
+	
 	static
 	{
 		for (EnumToolMaterial material : EnumToolMaterial.values())
@@ -114,7 +109,7 @@ public class ToolTypes
 			}
 		}
 	}
-
+	
 	public static ToolType getToolHead(EnumToolMaterial material, EnumToolQuality quality)
 	{
 		return table.get(material, quality);

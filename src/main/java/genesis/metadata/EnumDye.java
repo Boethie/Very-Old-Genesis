@@ -4,10 +4,10 @@ import java.util.*;
 
 import net.minecraft.item.*;
 
-public class EnumDye implements IMetadata
+public class EnumDye implements IMetadata, Comparable<EnumDye>
 {
-	protected static final List<EnumDye> DYES = new ArrayList();
-	protected static final LinkedHashMap<EnumDyeColor, EnumDye> GETTER_MAP = new LinkedHashMap();
+	protected static final List<EnumDye> DYES = new ArrayList<EnumDye>();
+	protected static final LinkedHashMap<EnumDyeColor, EnumDye> GETTER_MAP = new LinkedHashMap<EnumDyeColor, EnumDye>();
 	
 	static
 	{
@@ -21,14 +21,14 @@ public class EnumDye implements IMetadata
 	{
 		return GETTER_MAP.get(color);
 	}
-
+	
 	public static List<EnumDye> valueList()
 	{
 		return DYES;
 	}
 	
 	protected final EnumDyeColor color;
-
+	
 	protected EnumDye(EnumDyeColor color)
 	{
 		this.color = color;
@@ -51,5 +51,11 @@ public class EnumDye implements IMetadata
 	public String getUnlocalizedName()
 	{
 		return color.getUnlocalizedName();
+	}
+	
+	@Override
+	public int compareTo(EnumDye o)
+	{
+		return getColor().compareTo(o.getColor());
 	}
 }

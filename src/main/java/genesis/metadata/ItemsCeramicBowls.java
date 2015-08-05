@@ -9,6 +9,7 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import genesis.item.*;
 
+@SuppressWarnings("rawtypes")
 public class ItemsCeramicBowls extends VariantsOfTypesCombo<ObjectType, IMetadata>
 {
 	public static enum EnumCeramicBowls implements IMetadata
@@ -43,9 +44,9 @@ public class ItemsCeramicBowls extends VariantsOfTypesCombo<ObjectType, IMetadat
 		}
 	}
 	
-	public static final ObjectType<Block, ItemCeramicBowl> MAIN = new ObjectType("ceramic_bowl", "ceramicBowl", null, ItemCeramicBowl.class, EnumDye.valueList())
+	public static final ObjectType<Block, ItemCeramicBowl> MAIN = new ObjectType<Block, ItemCeramicBowl>("ceramic_bowl", "ceramicBowl", null, ItemCeramicBowl.class, EnumDye.valueList())
 			.setNamePosition(ObjectNamePosition.PREFIX);
-	public static final ObjectType<Block, ItemMulti> DYES = new ObjectType("dye", null, null)
+	public static final ObjectType<Block, ItemMulti> DYES = new ObjectType<Block, ItemMulti>("dye", null, null)
 			.setValidVariants(EnumDye.valueList())
 			.setNamePosition(ObjectNamePosition.PREFIX);
 	
@@ -54,7 +55,7 @@ public class ItemsCeramicBowls extends VariantsOfTypesCombo<ObjectType, IMetadat
 		add(MAIN);
 		add(DYES);
 	}};
-	public static final List<IMetadata> ALL_VARIANTS = new ArrayList()
+	public static final List<IMetadata> ALL_VARIANTS = new ArrayList<IMetadata>()
 	{{
 		addAll(Arrays.asList(EnumCeramicBowls.values()));
 		addAll(EnumDye.valueList());

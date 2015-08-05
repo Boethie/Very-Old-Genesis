@@ -26,7 +26,7 @@ public class VariantsCombo<V extends IMetadata, B extends Block, I extends Item>
 	 */
 	public VariantsCombo(final ObjectType<B, I> objectType, List<V> variants)
 	{
-		super(new ArrayList(){{ add(objectType); }}, variants);
+		super(new ArrayList<ObjectType<B, I>>(){{ add(objectType); }}, variants);
 		
 		soleType = types.get(0);
 	}
