@@ -33,14 +33,6 @@ public class ItemGenesisPick extends ItemPickaxe
 	{
 		return 0;
 	}
-
-	@Override
-	public ItemGenesisPick setUnlocalizedName(String unlocalizedName)
-	{
-		super.setUnlocalizedName(Unlocalized.TOOL + unlocalizedName);
-		
-		return this;
-	}
 	
 	@Override
 	public String getUnlocalizedName(ItemStack stack)

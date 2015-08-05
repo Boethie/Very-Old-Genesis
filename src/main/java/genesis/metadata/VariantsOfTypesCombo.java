@@ -608,10 +608,12 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 				registryName = type.getName() + "_" + subsetID;
 			}
 			
+			String unlocName = getUnlocalizedPrefix() + type.getUnlocalizedName();
+			
 			if (block != null)
 			{
 				Genesis.proxy.registerBlockWithItem(block, registryName, item);
-				block.setUnlocalizedName(getUnlocalizedPrefix() + type.getUnlocalizedName());
+				block.setUnlocalizedName(unlocName);
 				
 				// Register resource locations for the block.
 				Genesis.proxy.callSided(new SidedFunction()
@@ -679,7 +681,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 				Genesis.proxy.registerModel(data.item, data.itemMetadata, type.getVariantName(variant));
 			}
 			
-			item.setUnlocalizedName(type.getUnlocalizedName());
+			item.setUnlocalizedName(unlocName);
 			
 			type.afterRegistered(block, item);
 		}

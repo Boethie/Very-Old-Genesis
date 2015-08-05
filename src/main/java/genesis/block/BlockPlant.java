@@ -53,14 +53,6 @@ public class BlockPlant extends BlockBush
 	}
 
 	@Override
-	public BlockPlant setUnlocalizedName(String unlocalizedName)
-	{
-		super.setUnlocalizedName(Unlocalized.PREFIX + unlocalizedName);
-		
-		return this;
-	}
-
-	@Override
 	protected boolean canPlaceBlockOn(Block ground)
 	{
 		return (ground == GenesisBlocks.moss) || super.canPlaceBlockOn(ground);

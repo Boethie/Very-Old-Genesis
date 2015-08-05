@@ -32,12 +32,6 @@ public class ItemMulti extends ItemGenesis
 		
 		setHasSubtypes(true);
 	}
-
-	@Override
-	public Item setUnlocalizedName(String unlocalizedName)
-    {
-        return super.setUnlocalizedName(Unlocalized.MATERIAL + unlocalizedName);
-    }
 	
 	@Override
 	public String getUnlocalizedName(ItemStack stack)

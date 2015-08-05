@@ -102,14 +102,6 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 	}
 
 	@Override
-	public BlockAquaticPlant setUnlocalizedName(String name)
-	{
-		super.setUnlocalizedName(name);
-
-		return this;
-	}
-
-	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
 	{
 		owner.fillSubItems(type, variants, list, noDrops);

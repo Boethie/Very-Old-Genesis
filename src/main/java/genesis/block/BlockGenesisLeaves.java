@@ -59,14 +59,6 @@ public class BlockGenesisLeaves extends BlockLeaves
 		
 		Blocks.fire.setFireInfo(this, 30, 60);
 	}
-
-	@Override
-	public BlockGenesisLeaves setUnlocalizedName(String name)
-	{
-		super.setUnlocalizedName(Unlocalized.PREFIX + name);
-		
-		return this;
-	}
 	
 	@Override
 	public IBlockState getStateFromMeta(int meta)

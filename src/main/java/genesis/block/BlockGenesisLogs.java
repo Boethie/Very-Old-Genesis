@@ -66,14 +66,6 @@ public class BlockGenesisLogs extends BlockLog implements IGenesisMushroomBase
 	}
 
 	@Override
-	public BlockGenesisLogs setUnlocalizedName(String name)
-	{
-		super.setUnlocalizedName(Unlocalized.PREFIX + name);
-		
-		return this;
-	}
-
-	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
 	{
 		owner.fillSubItems(type, variants, list);

@@ -38,14 +38,6 @@ public class ItemGenesisKnife extends ItemTool
 	{
 		return 0;
 	}
-
-	@Override
-	public ItemGenesisKnife setUnlocalizedName(String unlocalizedName)
-	{
-		super.setUnlocalizedName(Unlocalized.TOOL + unlocalizedName);
-		
-		return this;
-	}
 	
 	@Override
 	public String getUnlocalizedName(ItemStack stack)

@@ -32,14 +32,6 @@ public class ItemGenesisHoe extends ItemHoe
 	{
 		return 0;
 	}
-
-	@Override
-	public ItemGenesisHoe setUnlocalizedName(String unlocalizedName)
-	{
-		super.setUnlocalizedName(Unlocalized.TOOL + unlocalizedName);
-		
-		return this;
-	}
 	
 	@Override
 	public String getUnlocalizedName(ItemStack stack)

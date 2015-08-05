@@ -84,7 +84,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		return new ItemStack(pair.getLeft(), 1, pair.getRight());
 	}
 	
-	protected final LinkedHashMap<Pair<Item, Integer>, String> stacksToNames = new LinkedHashMap();
+	protected final LinkedHashMap<Pair<Item, Integer>, String> stacksToNames = new LinkedHashMap<Pair<Item, Integer>, String>();
 	protected final VanillaPotActivationHandler handler;
 	
 	protected PropertyContents contentsProp;
@@ -102,17 +102,17 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		stacksToNames.put(getPairForStack(stack), name);
 	}
 	
-	public void registerPlantsForPot(VariantsOfTypesCombo combo, ObjectType type)
+	public <O extends ObjectType<?, ?>, V extends IMetadata> void registerPlantsForPot(VariantsOfTypesCombo<O, V> combo, O type)
 	{
-		List<IMetadata> variants = combo.getValidVariants(type);
+		List<V> variants = combo.getValidVariants(type);
 		
-		for (IMetadata variant : variants)
+		for (V variant : variants)
 		{
 			registerPlantForPot(combo.getStack(type, variant), type.getVariantName(variant));
 		}
 	}
 	
-	public void registerPlantsForPot(VariantsCombo combo)
+	public <V extends IMetadata, B extends Block, I extends Item> void registerPlantsForPot(VariantsCombo<V, B, I> combo)
 	{
 		registerPlantsForPot(combo, combo.soleType);
 	}

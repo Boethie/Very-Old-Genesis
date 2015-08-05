@@ -1,6 +1,7 @@
 package genesis.metadata;
 
 import genesis.metadata.VariantsOfTypesCombo.*;
+import genesis.util.Constants.Unlocalized;
 
 import java.util.*;
 
@@ -64,6 +65,8 @@ public class ItemsCeramicBowls extends VariantsOfTypesCombo<ObjectType, IMetadat
 	public ItemsCeramicBowls()
 	{
 		super(ALL_OBJECT_TYPES, ALL_VARIANTS);
+		
+		setUnlocalizedPrefix(Unlocalized.MATERIAL);
 	}
 	
 	public ItemStack getStack(EnumCeramicBowls bowlVariant, int size)

@@ -33,14 +33,6 @@ public class ItemGenesisSpear extends ItemSword
 	{
 		return 0;
 	}
-
-	@Override
-	public ItemGenesisSpear setUnlocalizedName(String unlocalizedName)
-	{
-		super.setUnlocalizedName(Unlocalized.WEAPON + unlocalizedName);
-		
-		return this;
-	}
 	
 	@Override
 	public String getUnlocalizedName(ItemStack stack)

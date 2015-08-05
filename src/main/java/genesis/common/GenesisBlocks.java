@@ -200,6 +200,7 @@ public final class GenesisBlocks
 		
 		Genesis.proxy.registerBlock(calamites_torch, "calamites_torch");
 		
+		plants.setUnlocalizedPrefix(Constants.Unlocalized.PREFIX);
 		plants.registerAll();
 
 		Genesis.proxy.registerBlock(calamites, "calamites", null);
@@ -208,6 +209,7 @@ public final class GenesisBlocks
 		calamites.setPickedItem(GenesisItems.calamites);
 		GenesisItems.calamites.setCrop(calamites);
 		
+		ferns.setUnlocalizedPrefix(Constants.Unlocalized.PREFIX);
 		ferns.registerAll();
 		
 		Genesis.proxy.registerBlock(zingiberopsis, "zingiberopsis", null);
@@ -243,8 +245,10 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(archaeomarasmius, "archaeomarasmius");
 		Genesis.proxy.registerBlock(prototaxites, "prototaxites");
 		Genesis.proxy.registerBlock(cobbania, "cobbania", ItemBlockCobbania.class);
+		aquatic_plants.setUnlocalizedPrefix(Constants.Unlocalized.PREFIX);
 		aquatic_plants.registerAll();
-
+		
+		corals.setUnlocalizedPrefix(Constants.Unlocalized.PREFIX);
 		corals.registerAll();
 	}
 }

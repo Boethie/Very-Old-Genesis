@@ -49,12 +49,6 @@ public class ItemPebble extends ItemGenesis
 	{
 		return 0;
 	}
-
-	@Override
-	public Item setUnlocalizedName(String unlocalizedName)
-    {
-        return super.setUnlocalizedName(Unlocalized.MATERIAL + unlocalizedName);
-    }
 	
 	@Override
 	public String getUnlocalizedName(ItemStack stack)

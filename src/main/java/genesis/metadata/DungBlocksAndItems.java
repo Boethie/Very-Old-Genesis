@@ -17,6 +17,7 @@ import genesis.item.ItemBlockMulti;
 import genesis.item.ItemDung;
 import genesis.item.ItemMulti;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import genesis.util.Constants.Unlocalized;
 import genesis.util.FuelHandler;
 
 @SuppressWarnings("rawtypes")
@@ -42,7 +43,7 @@ public class DungBlocksAndItems extends VariantsOfTypesCombo<ObjectType, EnumDun
 							TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.log)) * 4, true);
 				}
 			}.setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.PREFIX).setBlockArguments(Material.ground);
-	public static final ObjectType<Block, ItemDung> DUNG = new ObjectType<Block, ItemDung>("dung", null, ItemDung.class)
+	public static final ObjectType<Block, ItemDung> DUNG = new ObjectType<Block, ItemDung>("dung", Unlocalized.Section.MATERIAL + "dung", null, ItemDung.class)
 			{
 				@Override
 				public void afterConstructed(Block block, ItemDung item, List<? extends IMetadata> variants)
@@ -56,5 +57,7 @@ public class DungBlocksAndItems extends VariantsOfTypesCombo<ObjectType, EnumDun
 	public DungBlocksAndItems()
 	{
 		super(new ObjectType[] {DUNG_BLOCK, DUNG}, EnumDung.values());
+		
+		setUnlocalizedPrefix(Unlocalized.PREFIX);
 	}
 }

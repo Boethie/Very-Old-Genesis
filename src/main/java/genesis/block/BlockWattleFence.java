@@ -159,14 +159,6 @@ public class BlockWattleFence extends BlockFence
 		
 		return state;
 	}
-	
-	@Override
-	public BlockWattleFence setUnlocalizedName(String name)
-	{
-		super.setUnlocalizedName(Unlocalized.PREFIX + name);
-		
-		return this;
-	}
 
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
