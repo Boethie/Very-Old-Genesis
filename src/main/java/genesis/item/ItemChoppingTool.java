@@ -49,14 +49,6 @@ public class ItemChoppingTool extends ItemAxe
 	{
 		return 0;
 	}
-
-	@Override
-	public ItemChoppingTool setUnlocalizedName(String unlocalizedName)
-	{
-		super.setUnlocalizedName(Unlocalized.TOOL + unlocalizedName);
-		
-		return this;
-	}
 	
 	@Override
 	public String getUnlocalizedName(ItemStack stack)

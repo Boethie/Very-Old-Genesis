@@ -79,8 +79,7 @@ public class BlockGenesisVariants<V extends IMetadata> extends Block
 	@Override
 	public BlockGenesisVariants<V> setUnlocalizedName(String name)
 	{
-		super.setUnlocalizedName(Unlocalized.PREFIX + name);
-		
+		super.setUnlocalizedName(name);
 		return this;
 	}
 	

@@ -31,20 +31,37 @@ public final class Constants
 	
 	public static final class Unlocalized
 	{
+		public static final class Section
+		{
+			public static final String ROCK = "rock.";
+			public static final String ORE = "ore.";
+			public static final String PLANT = "plant.";
+			public static final String CROP = "crop.";
+			
+			public static final String MATERIAL = "material.";
+			public static final String TOOL = "tool.";
+			public static final String TOOL_QUALITY = TOOL + "quality.";
+			public static final String WEAPON = "weapon.";
+			public static final String TOOL_HEAD = MATERIAL + "toolHead.";
+			
+			public static final String FOOD = "food.";
+			public static final String MISC = "misc.";
+		}
+		
 		public static final String PREFIX = MOD_ID + ".";
 		
-		public static final String INVALID_METADATA = PREFIX + "multiItem.invalidMetadata";
 		public static final String CONTAINER = "container." + PREFIX;
 		
-		public static final String ROCK = PREFIX + "rock.";
-		public static final String ORE = PREFIX + "ore.";
-		public static final String PLANT = PREFIX + "plant.";
-		public static final String CROP = PREFIX + "crop.";
-		public static final String TOOL = PREFIX + "tool.";
-		public static final String TOOL_QUALITY = TOOL + "quality.";
-		public static final String WEAPON = PREFIX + "weapon.";
-		public static final String MATERIAL = PREFIX + "material.";
-		public static final String MISC = PREFIX + "misc.";
-		public static final String FOOD = PREFIX + "food.";
+		public static final String INVALID_METADATA = PREFIX + "multiItem.invalidMetadata";
+
+		public static final String MATERIAL = PREFIX + Section.MATERIAL;
+		
+		public static final String ROCK = PREFIX + Section.ROCK;
+		public static final String ORE = PREFIX + Section.ORE;
+		public static final String PLANT = PREFIX + Section.PLANT;
+		public static final String CROP = PREFIX + Section.CROP;
+		
+		public static final String MISC = PREFIX + Section.MISC;
+		public static final String FOOD = PREFIX + Section.FOOD;
 	}
 }

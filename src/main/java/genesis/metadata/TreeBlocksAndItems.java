@@ -4,6 +4,7 @@ import genesis.block.*;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.*;
 import genesis.util.*;
+import genesis.util.Constants.Unlocalized;
 import genesis.metadata.VariantsOfTypesCombo.*;
 
 import java.util.*;
@@ -30,7 +31,7 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo<ObjectType, EnumTre
 			.setIgnoredProperties(BlockSapling.STAGE);
 	public static final ObjectType<BlockGenesisLeaves, ItemBlockMulti> LEAVES = new ObjectType<BlockGenesisLeaves, ItemBlockMulti>("leaves", BlockGenesisLeaves.class, null)
 			.setIgnoredProperties(BlockLeaves.CHECK_DECAY, BlockLeaves.DECAYABLE);
-	public static final ObjectType<Block, ItemMulti> BILLET = new ObjectType<Block, ItemMulti>("billet", null, ItemMulti.class, EnumTree.NO_BILLET)
+	public static final ObjectType<Block, ItemMulti> BILLET = new ObjectType<Block, ItemMulti>("billet", Unlocalized.Section.MATERIAL + "billet", null, ItemMulti.class, EnumTree.NO_BILLET)
 			{
 				@Override
 				public void afterConstructed(Block block, ItemMulti item, List<? extends IMetadata> variants)
@@ -46,6 +47,8 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo<ObjectType, EnumTre
 	public TreeBlocksAndItems()
 	{
 		super(new ObjectType[]{LOG, SAPLING, LEAVES, BILLET, WATTLE_FENCE, ROTTEN_LOG}, EnumTree.values());
+
+		setUnlocalizedPrefix(Constants.Unlocalized.PREFIX);
 		
 		for (EnumTree variant : getSharedValidVariants(LOG, BILLET))
 		{

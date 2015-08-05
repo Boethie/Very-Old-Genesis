@@ -65,7 +65,7 @@ public final class GenesisItems
 	public static final Item cooked_tyrannosaurus = new ItemGenesisFood(16, 19.8F).setUnlocalizedName(Unlocalized.FOOD + "tyrannosaurusCooked");
 	
 	/* Tools */
-	public static final Item flint_and_marcasite = new ItemFlintAndMarcasite().setUnlocalizedName(Unlocalized.TOOL + "flintAndMarcasite");
+	public static final Item flint_and_marcasite = new ItemFlintAndMarcasite().setUnlocalizedName(Unlocalized.PREFIX + Unlocalized.Section.TOOL + "flintAndMarcasite");
 	public static final ToolItems tools = new ToolItems();
 	
 	/* Misc */
@@ -89,6 +89,7 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(manganese, "manganese");
 		Genesis.proxy.registerItem(malachite, "malachite");
 		Genesis.proxy.registerItem(olivine, "olivine");
+		nodules.setUnlocalizedPrefix(Constants.Unlocalized.MATERIAL);
 		nodules.registerAll();
 		tools.registerVariants(tools.FLAKE);
 		Genesis.proxy.registerItem(resin, "resin");

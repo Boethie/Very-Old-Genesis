@@ -34,12 +34,6 @@ public class ItemToolHead extends ItemGenesis
 		setHasSubtypes(true);
 		setCreativeTab(GenesisCreativeTabs.TOOLS);
 	}
-
-	@Override
-	public Item setUnlocalizedName(String unlocalizedName)
-    {
-        return super.setUnlocalizedName(Unlocalized.MATERIAL + unlocalizedName);
-    }
 	
 	@Override
 	public String getUnlocalizedName(ItemStack stack)

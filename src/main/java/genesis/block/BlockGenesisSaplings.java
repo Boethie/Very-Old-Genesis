@@ -66,14 +66,6 @@ public class BlockGenesisSaplings extends BlockSapling
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		setStepSound(soundTypeGrass);
 	}
-
-	@Override
-	public BlockGenesisSaplings setUnlocalizedName(String name)
-	{
-		super.setUnlocalizedName(Unlocalized.PREFIX + name);
-		
-		return this;
-	}
 	
 	@Override
 	public IBlockState getStateFromMeta(int meta)
