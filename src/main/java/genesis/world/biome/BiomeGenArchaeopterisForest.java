@@ -26,6 +26,8 @@ public class BiomeGenArchaeopterisForest extends BiomeGenBaseGenesis
 		
 		theBiomeDecorator.grassPerChunk = 1;
 		
+		setSpawnablePlants(GenesisBlocks.sphenophyllum);
+		
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(3).setCountPerChunk(3));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		

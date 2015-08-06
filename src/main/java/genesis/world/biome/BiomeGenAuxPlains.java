@@ -26,6 +26,8 @@ public class BiomeGenAuxPlains extends BiomeGenBaseGenesis
 		
 		theBiomeDecorator.grassPerChunk = 1;
 		
+		setSpawnablePlants(GenesisBlocks.programinis);
+		
 		addDecoration(new WorldGenArchaeomarasmius().setPatchSize(3).setCountPerChunk(5));
 		addDecoration(new WorldGenPalaeoagaracites().setPatchSize(5).setCountPerChunk(10));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPlantType(GrowingPlantType.NORMAL).setPatchSize(5).setCountPerChunk(7));

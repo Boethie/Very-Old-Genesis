@@ -34,6 +34,8 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis
 		waterColorMultiplier = 0x725113;
 		setColor(522674);
 		
+		setSpawnablePlants(GenesisBlocks.odontopteris, GenesisBlocks.sphenophyllum, GenesisBlocks.calamites);
+		
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchSize(3).setCountPerChunk(3));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(3).setCountPerChunk(3));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(1, 0).setNextToWater(true).setPlantType(GrowingPlantType.COLUMN).setPatchSize(4).setCountPerChunk(8));

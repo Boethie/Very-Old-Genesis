@@ -1,11 +1,17 @@
 package genesis.world.biome;
 
+import genesis.common.GenesisBlocks;
+import genesis.metadata.EnumPlant;
+import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenMossStages;
 
 import java.util.Random;
 
+import net.minecraft.block.material.Material;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
+import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class BiomeGenSwamp extends BiomeGenBaseGenesis
 {
@@ -13,17 +19,55 @@ public class BiomeGenSwamp extends BiomeGenBaseGenesis
 	{
 		super(id);
 		setBiomeName("Swamp");
-		setHeight(-0.1F, 0.01F);
+		this.temperature = 1.15f;
+		this.topBlock = Blocks.dirt.getDefaultState();
+		setHeight(-0.2F, 0.01F);
+		
+		theBiomeDecorator.grassPerChunk = 2;
 		
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
+		
+		//Asteroxylon
+		//Prototaxites on Prototaxites Mycellium
 	}
 	
 	@Override
-	public void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
+	public WorldGenerator getRandomWorldGenForGrass(Random rand)
 	{
-		mossStages = new int[2];
-		mossStages[0] = 1;
-		mossStages[1] = 2;
-		super.generateBiomeTerrain(world, rand, primer, blockX, blockZ, d);
+		return new WorldGenGrassMulti(
+				GenesisBlocks.plants.getBlockState(EnumPlant.PSILOPHYTON)
+				,GenesisBlocks.plants.getBlockState(EnumPlant.SCIADOPHYTON)
+				,GenesisBlocks.plants.getBlockState(EnumPlant.NOTHIA)
+				,GenesisBlocks.plants.getBlockState(EnumPlant.ARCHAEAMPHORA)
+				,GenesisBlocks.plants.getBlockState(EnumPlant.COOKSONIA)
+				,GenesisBlocks.plants.getBlockState(EnumPlant.BARAGWANATHIA)
+				,GenesisBlocks.plants.getBlockState(EnumPlant.RHYNIA)).setVolume(64);
 	}
+	
+	@Override
+	public void genTerrainBlocks(World world, Random rand, ChunkPrimer p_180622_3_, int p_180622_4_, int p_180622_5_, double p_180622_6_)
+	{
+		double d1 = field_180281_af.func_151601_a((double)p_180622_4_ * 0.25D, (double)p_180622_5_ * 0.25D);
+		
+		if (d1 > -0.2D)
+		{
+			int k = p_180622_4_ & 15;
+			int l = p_180622_5_ & 15;
+			
+			for (int i1 = 255; i1 >= 0; --i1)
+			{
+				if (p_180622_3_.getBlockState(l, i1, k).getBlock().getMaterial() != Material.air)
+				{
+					if (i1 == 62 && p_180622_3_.getBlockState(l, i1, k).getBlock() != Blocks.water)
+					{
+						p_180622_3_.setBlockState(l, i1, k, Blocks.water.getDefaultState());
+					}
+					
+					break;
+				}
+			}
+		}
+		
+		generateBiomeTerrain(world, rand, p_180622_3_, p_180622_4_, p_180622_5_, p_180622_6_);
+    }
 }

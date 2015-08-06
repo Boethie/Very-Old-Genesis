@@ -2,6 +2,7 @@ package genesis.world.biome;
 
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumTree;
+import genesis.metadata.TreeBlocksAndItems;
 import genesis.world.biome.decorate.WorldGenArchaeomarasmius;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenGrowingPlant.GrowingPlantType;
@@ -26,6 +27,8 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 		setTemperatureRainfall(1.1F, 1.0F);
 		
 		theBiomeDecorator.grassPerChunk = 5;
+		
+		setSpawnablePlants(GenesisBlocks.programinis, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.ARAUCARIOXYLON));
 		
 		addDecoration(new WorldGenArchaeomarasmius().setPatchSize(3).setCountPerChunk(5));
 		addDecoration(new WorldGenPalaeoagaracites().setPatchSize(10).setCountPerChunk(16));

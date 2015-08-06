@@ -36,7 +36,7 @@ public class WorldGenMossStages extends WorldGenDecorationBase
 		if (setMoss(world, pos, random))
 			generated = true;
 		
-		for (int i = 0; i < 32; ++i)
+		for (int i = 0; i < 64; ++i)
 			setMoss(world, pos.add(random.nextInt(7) - 3, 0, random.nextInt(7) - 3), random);
 		
 		return generated;

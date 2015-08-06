@@ -7,9 +7,12 @@ import genesis.world.biome.decorate.WorldGenDecorationBase;
 import genesis.world.biome.decorate.WorldGenZygopteris;
 import genesis.world.gen.feature.WorldGenTreeBase;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.BlockSand;
+import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -24,6 +27,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 {
 	public IBlockState oceanFloor = GenesisBlocks.ooze.getDefaultState();
 	public int[] mossStages = new int[0];
+	public List<IGrowable> spawnablePlants;
 	
 	public BiomeGenBaseGenesis(int id)
 	{
@@ -35,6 +39,15 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 		spawnableMonsterList.clear();
 		spawnableWaterCreatureList.clear();
 		waterColorMultiplier = 0xaa791e;
+	}
+	
+	protected void setSpawnablePlants(IGrowable... plants)
+	{
+		spawnablePlants = new ArrayList<IGrowable>();
+		for (IGrowable plant : plants)
+		{
+			spawnablePlants.add(plant);
+		}
 	}
 	
 	protected void addDecoration(WorldGenDecorationBase decoration)
