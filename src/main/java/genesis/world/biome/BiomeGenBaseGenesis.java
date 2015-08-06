@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
@@ -27,7 +28,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 {
 	public IBlockState oceanFloor = GenesisBlocks.ooze.getDefaultState();
 	public int[] mossStages = new int[0];
-	public List<IGrowable> spawnablePlants;
+	public List<IBlockState> spawnablePlants = new ArrayList<IBlockState>();
 	
 	public BiomeGenBaseGenesis(int id)
 	{
@@ -41,12 +42,22 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 		waterColorMultiplier = 0xaa791e;
 	}
 	
-	protected void setSpawnablePlants(IGrowable... plants)
+	protected void setSpawnablePlants(Object... plants)
 	{
-		spawnablePlants = new ArrayList<IGrowable>();
-		for (IGrowable plant : plants)
+		for (Object plant : plants)
 		{
-			spawnablePlants.add(plant);
+			if (plant instanceof Block)
+			{
+				spawnablePlants.add(((Block) plant).getDefaultState());
+			}
+			else if (plant instanceof IBlockState)
+			{
+				spawnablePlants.add((IBlockState) plant);
+			}
+			else
+			{
+				throw new RuntimeException("Invalid plant: " + plant);
+			}
 		}
 	}
 	

@@ -9,13 +9,16 @@ import genesis.metadata.EnumPlant;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants;
 import genesis.util.RandomIntRange;
+import genesis.world.biome.BiomeGenBaseGenesis;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockGrass;
+import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
@@ -70,6 +73,14 @@ public class BlockMoss extends BlockGrass
 	@Override
 	public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)
 	{
+		BiomeGenBase biome = worldIn.getBiomeGenForCoords(pos);
+		List<IBlockState> spawnablePlants = null;
+		
+		if (biome instanceof BiomeGenBaseGenesis)
+		{
+			spawnablePlants = ((BiomeGenBaseGenesis) biome).spawnablePlants;
+		}
+		
 		BlockPos origTopBlock = pos.up();
 		int loops = 0;
 
@@ -92,20 +103,28 @@ public class BlockMoss extends BlockGrass
 				}
 				else if (worldIn.isAirBlock(topBlock))
 				{
-					IBlockState randPlant;
+					IBlockState randPlant = null;
 
 					if (rand.nextInt(8) == 0)
 					{
 						// Plant Flower
-						randPlant = GenesisBlocks.plants.getRandomBlockState(rand);
+						if (spawnablePlants != null)
+						{
+							randPlant = !spawnablePlants.isEmpty() ? spawnablePlants.get(rand.nextInt(spawnablePlants.size())) : null;
+						}
+						else
+						{
+							randPlant = GenesisBlocks.plants.getRandomBlockState(rand);
+						}
 					}
-					else
+					
+					if (randPlant == null)
 					{
 						// Plant Grass
 						randPlant = GenesisBlocks.ferns.getRandomBlockState(rand);
 					}
 					
-					if (((BlockPlant)randPlant.getBlock()).canBlockStay(worldIn, topBlock, randPlant))
+					if (randPlant.getBlock().canPlaceBlockAt(worldIn, topBlock))
 					{
 						worldIn.setBlockState(topBlock, randPlant, 3);
 					}
