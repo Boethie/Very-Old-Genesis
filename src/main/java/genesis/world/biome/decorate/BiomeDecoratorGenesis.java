@@ -46,6 +46,8 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	public WorldGenerator hematiteGen;
 	public WorldGenerator malachiteGen;
 	public WorldGenerator olivineGen;
+	public WorldGenerator flintGen;
+	public WorldGenerator marcasiteGen;
 	
 	public BiomeDecoratorGenesis()
 	{
@@ -78,6 +80,8 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			hematiteGen = new WorldGenMinableGenesis(GenesisBlocks.hematite_ore, 4, 8);
 			malachiteGen = new WorldGenMinableGenesis(GenesisBlocks.malachite_ore, 2, 4);
 			olivineGen = new WorldGenMinableGenesis(GenesisBlocks.olivine_ore, 1, 4);
+			flintGen = new WorldGenMinableGenesis(GenesisBlocks.flint_ore, 4, 10, GenesisBlocks.limestone);
+			marcasiteGen = new WorldGenMinableGenesis(GenesisBlocks.marcasite_ore, 1, 3, GenesisBlocks.limestone);
 			genDecorations(biome);
 			currentWorld = null;
 			randomGenerator = null;
@@ -171,6 +175,8 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
         genStandardOre1(8, trondhjemiteGen, 0, 128);
         genStandardOre1(5, fauxGen, 0, 64);
         genStandardOre1(5, anorthositeGen, 0, 128);
+        genStandardOre1(20, flintGen, 0, 128);
+        genStandardOre1(5, marcasiteGen, 0, 128);
         //if (TerrainGen.generateOre(currentWorld, randomGenerator, quartzGen, field_180294_c, QUARTZ))
         genStandardOre1(27, quartzGen, 0, 128);
         genStandardOre1(13, zirconGen, 0, 128);
