@@ -828,7 +828,13 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	public VariantData getVariantData(Item item, int meta)
 	{
 		SubsetData data = getSubsetData(item);
-		return getVariantData(data.type, data.variants.get(meta));
+		
+		if (data != null)
+		{
+			return getVariantData(data.type, data.variants.get(meta));
+		}
+		
+		return null;
 	}
 
 	/**
@@ -836,7 +842,12 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	 */
 	public VariantData getVariantData(ItemStack stack)
 	{
-		return getVariantData(stack.getItem(), stack.getMetadata());
+		if (stack != null)
+		{
+			return getVariantData(stack.getItem(), stack.getMetadata());
+		}
+		
+		return null;
 	}
 	
 	/**
