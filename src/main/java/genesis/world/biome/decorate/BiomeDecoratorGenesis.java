@@ -4,11 +4,15 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.GRASS;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LAKE_LAVA;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LAKE_WATER;
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.SAND;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
 
 import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.COAL;
 import genesis.common.GenesisBlocks;
+import genesis.metadata.EnumSilt;
+import genesis.metadata.SiltBlocks;
 import genesis.world.gen.feature.WorldGenGenesisLiquids;
+import genesis.world.gen.feature.WorldGenGenesisSand;
 import genesis.world.gen.feature.WorldGenMinableGenesis;
 import genesis.world.gen.feature.WorldGenTreeBase;
 
@@ -52,6 +56,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	public BiomeDecoratorGenesis()
 	{
 		((WorldGenClay) clayGen).field_150546_a = GenesisBlocks.red_clay;
+		sandGen = new WorldGenGenesisSand(GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT), 7);
 	}
 	
 	@Override
@@ -93,8 +98,17 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	{
 		MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(currentWorld, randomGenerator, field_180294_c));
 		generateOres();
+
+        boolean doGen = TerrainGen.decorate(currentWorld, randomGenerator, field_180294_c, SAND);
+        
+        for (int i = 0; doGen && i < sandPerChunk2; ++i)
+        {
+            int x = nextInt(16) + 8;
+            int z = nextInt(16) + 8;
+            sandGen.generate(currentWorld, randomGenerator, currentWorld.getTopSolidOrLiquidBlock(field_180294_c.add(x, 0, z)));
+        }
 		
-		boolean doGen = TerrainGen.decorate(currentWorld, randomGenerator, field_180294_c, CLAY);
+		doGen = TerrainGen.decorate(currentWorld, randomGenerator, field_180294_c, CLAY);
 		
 		for (int i = 0; doGen && i < clayPerChunk; ++i)
 		{
