@@ -28,6 +28,7 @@ public final class GenesisSounds
 	public static final GenesisSoundType AQUATICPLANT = new GenesisSoundType("aquaticplant", 10.0F, 1.0F);
 	public static final GenesisSoundType OOZE = new GenesisSoundType("ooze", 1.5F, 1.5F, true);
 	public static final GenesisSoundType ROTTEN_LOG = new GenesisSoundType("rotten_log", 1.5F, 1.5F, true);
+	public static final GenesisSoundType MUSHROOM = new GenesisSoundType("mushroom", 1.5F, 1.5F, true);
 
 	public static class GenesisSoundType extends Block.SoundType
 	{

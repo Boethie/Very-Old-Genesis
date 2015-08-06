@@ -171,5 +171,29 @@
 			"crafting/rock_hit4",
 			"crafting/rock_hit5"
 		]
+	},
+	"dig.mushroom": {
+		"category": "block",
+		"sounds": [
+			"dig/mushroom1",
+			"dig/mushroom2",
+			"dig/mushroom3"
+		]
+	}
+	,"step.mushroom": {
+		"category": "block",
+		"sounds": [
+			"step/mushroom1",
+			"step/mushroom2",
+			"step/mushroom3"
+		]
+	}
+	,"place.mushroom": {
+		"category": "block",
+		"sounds": [
+			"dig/mushroom1",
+			"dig/mushroom2",
+			"dig/mushroom3"
+		]
 	}
 }
