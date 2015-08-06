@@ -462,18 +462,9 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		}
 	}
 	
-	/**
-	 * Have to use this method to update the light because otherwise it won't update when the block is broken, as of Forge 1390.
-	 */
 	@Override
 	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState)
 	{
-		if (oldState.getBlock() != newState.getBlock() ||
-			(oldState.getValue(BlockCampfire.FIRE) != newState.getValue(BlockCampfire.FIRE)))
-		{
-			worldObj.checkLight(pos);
-		}
-		
 		return oldState.getBlock() != newState.getBlock();
 	}
 	

@@ -41,7 +41,7 @@ public class BlockCampfire extends BlockContainer
 		setTickRandomly(true);
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	}
-
+	
 	@Override
 	protected BlockState createBlockState()
 	{
