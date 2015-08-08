@@ -7,32 +7,9 @@ import net.minecraft.client.renderer.*;
 
 public class EntityPart extends ModelRenderer
 {
-	protected static ModelBase addingToModel = null;
-	protected static List<EntityPart> addingToList = null;
-	
-	public static void addPartsTo(ModelBase model, List<EntityPart> parts)
-	{
-		addingToModel = model;
-		addingToList = parts;
-	}
-	
-	public static void stopAddingParts()
-	{
-		addingToModel = null;
-		addingToList = null;
-	}
-	
-	protected static void addPart(ModelBase model, EntityPart part)
-	{
-		if (addingToModel == model)
-		{
-			addingToList.add(part);
-		}
-		else
-		{
-			throw new RuntimeException("Tried to create a model part for a model when adding model parts to another model's list.");
-		}
-	}
+	public float scaleX = 1;
+	public float scaleY = 1;
+	public float scaleZ = 1;
 	
 	protected boolean showModelDef = true;
 	protected boolean isHiddenDef = false;
@@ -45,6 +22,9 @@ public class EntityPart extends ModelRenderer
 	protected float rotateAngleXDef = 0;
 	protected float rotateAngleYDef = 0;
 	protected float rotateAngleZDef = 0;
+	protected float scaleXDef = 1;
+	protected float scaleYDef = 1;
+	protected float scaleZDef = 1;
 	
 	public EntityPart(ModelBase model)
 	{
@@ -73,6 +53,27 @@ public class EntityPart extends ModelRenderer
 		rotateAngleXDef = rotateAngleX;
 		rotateAngleYDef = rotateAngleY;
 		rotateAngleZDef = rotateAngleZ;
+		scaleXDef = scaleX;
+		scaleYDef = scaleY;
+		scaleZDef = scaleZ;
+		
+		return this;
+	}
+	
+	public EntityPart setDefaultState(boolean children)
+	{
+		setDefaultState();
+
+		if (children && childModels != null)
+		{
+			for (Object child : childModels)
+			{
+				if (child instanceof EntityPart)
+				{
+					((EntityPart) child).setDefaultState(true);
+				}
+			}
+		}
 		
 		return this;
 	}
@@ -90,6 +91,27 @@ public class EntityPart extends ModelRenderer
 		rotateAngleX = rotateAngleXDef;
 		rotateAngleY = rotateAngleYDef;
 		rotateAngleZ = rotateAngleZDef;
+		scaleX = scaleXDef;
+		scaleY = scaleYDef;
+		scaleZ = scaleZDef;
+	}
+	
+	public EntityPart resetState(boolean children)
+	{
+		resetState();
+		
+		if (children && childModels != null)
+		{
+			for (Object child : childModels)
+			{
+				if (child instanceof EntityPart)
+				{
+					((EntityPart) child).resetState(true);
+				}
+			}
+		}
+		
+		return this;
 	}
 	
 	public EntityPart setOffset(float x, float y, float z)
@@ -108,5 +130,12 @@ public class EntityPart extends ModelRenderer
         rotateAngleZ = z;
         
         return this;
+	}
+	
+	public void render(float scale)
+	{
+		GlStateManager.scale(scaleX, scaleY, scaleZ);
+		super.render(scale);
+		GlStateManager.scale(1 / scaleX, 1 / scaleY, 1 / scaleZ);
 	}
 }
