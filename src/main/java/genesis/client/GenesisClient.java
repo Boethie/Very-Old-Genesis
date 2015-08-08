@@ -8,6 +8,8 @@ import genesis.util.render.ModelHelpers;
 
 import java.util.*;
 
+import com.google.common.collect.Maps;
+
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.*;
@@ -31,7 +33,7 @@ public class GenesisClient extends GenesisProxy
 {
 	private static final Minecraft MC = FMLClientHandler.instance().getClient();
 	
-	protected Map<Class<? extends TileEntity>, TileEntitySpecialRenderer> mapTESRsToRegister = new HashMap();
+	protected Map<Class<? extends TileEntity>, TileEntitySpecialRenderer> mapTESRsToRegister = Maps.newHashMap();
 	
 	public static Minecraft getMC()
 	{
@@ -70,6 +72,8 @@ public class GenesisClient extends GenesisProxy
         {
         	ClientRegistry.bindTileEntitySpecialRenderer(entry.getKey(), entry.getValue());
         }
+		
+		GenesisEntities.registerEntityRenderers();
 		
 		GenesisParticles.createParticles();
 	}

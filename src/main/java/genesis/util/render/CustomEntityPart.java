@@ -1,25 +1,13 @@
 package genesis.util.render;
 
 import genesis.util.*;
-
 import net.minecraft.client.*;
 import net.minecraft.client.model.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.item.*;
 
-public abstract class CustomEntityPart extends ModelRenderer
+public abstract class CustomEntityPart extends EntityPart
 {
-	protected boolean showModelDef = true;
-	protected boolean isHiddenDef = false;
-	protected float offsetXDef = 0;
-	protected float offsetYDef = 0;
-	protected float offsetZDef = 0;
-	protected float rotationPointXDef = 0;
-	protected float rotationPointYDef = 0;
-	protected float rotationPointZDef = 0;
-	protected float rotateAngleXDef = 0;
-	protected float rotateAngleYDef = 0;
-	protected float rotateAngleZDef = 0;
 	protected float scaleXDef = 1;
 	protected float scaleYDef = 1;
 	protected float scaleZDef = 1;
@@ -35,19 +23,11 @@ public abstract class CustomEntityPart extends ModelRenderer
 		resetState();
 	}
 	
+	@Override
 	public CustomEntityPart setDefaultState()
 	{
-		showModelDef = showModel;
-		isHiddenDef = isHidden;
-		offsetXDef = offsetX;
-		offsetYDef = offsetY;
-		offsetZDef = offsetZ;
-		rotationPointXDef = rotationPointX;
-		rotationPointYDef = rotationPointY;
-		rotationPointZDef = rotationPointZ;
-		rotateAngleXDef = rotateAngleX;
-		rotateAngleYDef = rotateAngleY;
-		rotateAngleZDef = rotateAngleZ;
+		super.setDefaultState();
+		
 		scaleXDef = scaleX;
 		scaleYDef = scaleY;
 		scaleZDef = scaleZ;
@@ -57,17 +37,8 @@ public abstract class CustomEntityPart extends ModelRenderer
 	
 	public void resetState()
 	{
-		showModel = showModelDef;
-		isHidden = isHiddenDef;
-		offsetX = offsetXDef;
-		offsetY = offsetYDef;
-		offsetZ = offsetZDef;
-		rotationPointX = rotationPointXDef;
-		rotationPointY = rotationPointYDef;
-		rotationPointZ = rotationPointZDef;
-		rotateAngleX = rotateAngleXDef;
-		rotateAngleY = rotateAngleYDef;
-		rotateAngleZ = rotateAngleZDef;
+		super.resetState();
+		
 		scaleX = scaleXDef;
 		scaleY = scaleYDef;
 		scaleZ = scaleZDef;

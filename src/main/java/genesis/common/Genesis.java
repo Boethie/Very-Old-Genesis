@@ -42,23 +42,15 @@ public class Genesis
 		GenesisBlocks.registerBlocks();
 		GenesisItems.registerItems();
 		
+		GenesisEntities.registerEntities();
+		
 		GenesisRecipes.addRecipes();
 		
-		registerEntities();
-
 		GenesisDimensions.registerDimensions();
 		
 		GenesisBiomes.loadBiomes();
 		
 		proxy.preInit();
-	}
-
-	protected void registerEntities()
-	{
-	}
-	
-	private void registerTileEntities()
-	{
 	}
 
 	@Mod.EventHandler
