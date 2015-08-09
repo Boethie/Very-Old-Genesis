@@ -5,6 +5,8 @@ import io.netty.buffer.ByteBuf;
 import java.util.*;
 import java.util.concurrent.Callable;
 
+import com.google.common.base.Function;
+
 import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
 import static genesis.entity.flying.EntityMeganeura.State.*;
@@ -16,7 +18,7 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.entity.*;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.*;
 import net.minecraft.util.*;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
@@ -48,13 +50,6 @@ public class EntityMeganeura extends EntityLiving
 	@SideOnly(Side.CLIENT)
 	public float prevRoll = 0;
 	
-	@SideOnly(Side.CLIENT)
-	public float wingSwing = 0;
-	@SideOnly(Side.CLIENT)
-	public float prevWingSwing = 0;
-	@SideOnly(Side.CLIENT)
-	protected boolean wingSwingDown = true;
-	@SideOnly(Side.CLIENT)
 	protected float wingSwingMax = 0.5F;
 	@SideOnly(Side.CLIENT)
 	protected float wingSwingSpeed = 1;
@@ -65,6 +60,14 @@ public class EntityMeganeura extends EntityLiving
 	@SideOnly(Side.CLIENT)
 	protected float wingSwingIdleSpeed = 0.05F;
 	
+	@SideOnly(Side.CLIENT)
+	public float wingSwing = 0;
+	@SideOnly(Side.CLIENT)
+	public float prevWingSwing = 0;
+	@SideOnly(Side.CLIENT)
+	protected boolean wingSwingDown = true;
+	@SideOnly(Side.CLIENT)
+	
 	public EntityMeganeura(World world)
 	{
 		super(world);
@@ -74,18 +77,18 @@ public class EntityMeganeura extends EntityLiving
 	protected void entityInit()
 	{
 		super.entityInit();
-
-		getDataWatcher().addObject(STATE, (byte) IDLE.ordinal());
+		
+		dataWatcher.addObject(STATE, (byte) IDLE.ordinal());
 	}
 	
 	public State getState()
 	{
-		return State.values()[getDataWatcher().getWatchableObjectByte(STATE)];
+		return State.values()[dataWatcher.getWatchableObjectByte(STATE)];
 	}
 	
 	public void setState(State state)
 	{
-		getDataWatcher().updateObject(STATE, (byte) state.ordinal());
+		dataWatcher.updateObject(STATE, (byte) state.ordinal());
 	}
 	
 	@Override
@@ -109,15 +112,14 @@ public class EntityMeganeura extends EntityLiving
 		super.onUpdate();
 		
 		State state = getState();
+		boolean idle = state == IDLE || state == PLACING_EGG;
 		
 		double negGrav = negateGravity;
 		
-		if (state == PLACING_EGG)
+		if (!idle)
 		{
-			//negGrav = 1;
+			motionY += 0.08 * negGrav;	// Negate some of the 0.08 gravity of EntityLivingBase.
 		}
-		
-		motionY += 0.08 * negGrav;	// Negate some of the 0.08 gravity of EntityLivingBase.
 		
 		if (prevEggPlaceTimer > 0)
 		{
@@ -136,7 +138,11 @@ public class EntityMeganeura extends EntityLiving
 			double diffY = posY - prevPosY;
 			double diffZ = posZ - prevPosZ;
 			
-			boolean idle = state == IDLE || state == PLACING_EGG;
+			Vec3 posDiff = new Vec3(diffX, diffY, diffZ);
+			double rads = Math.toRadians(rotationYaw);
+			Vec3 forward = new Vec3(Math.cos(rads), 0, Math.sin(rads));
+			double dotSpeed = MathHelper.sqrt_double(posDiff.dotProduct(forward));
+			double maxSpeed = speed * (2 / 3.0F);
 			
 			final float tiltSpeed = 0.5F;
 			
@@ -149,12 +155,7 @@ public class EntityMeganeura extends EntityLiving
 			}
 			else if (state == LANDING_CALAMITES)
 			{
-				Vec3 diff = new Vec3(diffX, diffY, diffZ);
-				double rads = Math.toRadians(rotationYaw);
-				Vec3 forward = new Vec3(Math.cos(rads), 0, Math.sin(rads));
-				double dot = diff.dotProduct(forward);
-				float max = 1.5F;
-				float amt = (float) Math.max(max - dot, 0) / max;
+				float amt = (float) (Math.max(maxSpeed - dotSpeed, 0) / maxSpeed);
 				pitchTarget = -90 * amt;
 			}
 			else
@@ -163,7 +164,7 @@ public class EntityMeganeura extends EntityLiving
 				
 				if (horizSpeed > 0.1)
 				{
-					float movePitch = (float) -Math.toDegrees(Math.atan2(motionY, horizSpeed));
+					float movePitch = (float) -Math.toDegrees(Math.atan2(diffY, horizSpeed));
 					pitchTarget = movePitch;
 				}
 			}
@@ -198,7 +199,6 @@ public class EntityMeganeura extends EntityLiving
 			}
 			
 			float epsilon = wingSwingEpsilon;
-			
 			target = swingMax;
 			
 			if (wingSwingDown)
@@ -208,9 +208,9 @@ public class EntityMeganeura extends EntityLiving
 			
 			prevWingSwing = wingSwing;
 			wingSwing += (target - wingSwing) * swingSpeed;
-			float diff = target - wingSwing;
+			float wingDiff = target - wingSwing;
 			
-			if (diff >= -epsilon && diff <= epsilon)
+			if (wingDiff >= -epsilon && wingDiff <= epsilon)
 			{
 				wingSwingDown = !wingSwingDown;
 			}
@@ -401,7 +401,7 @@ public class EntityMeganeura extends EntityLiving
 						
 						if (land)
 						{
-							targetLocation = new Vec3(landingPos.getX() + 0.5, landingPos.getY(), landingPos.getZ() + 0.5);
+							targetLocation = new Vec3(landingPos.getX() + 0.5, landingPos.getY() + (checkCalamites ? 0.5 : 0), landingPos.getZ() + 0.5);
 							break;
 						}
 					}
@@ -410,13 +410,13 @@ public class EntityMeganeura extends EntityLiving
 			
 			break;
 		case LANDING:
-			if (reachedClose)
+			if (onGround && reachedClose)
 			{
 				setState(IDLE);
 			}
 			break;
 		case IDLE:
-			if (rand.nextInt(100) == 0)
+			if (!onGround || rand.nextInt(100) == 0)
 			{
 				setState(FLYING);
 			}
@@ -424,28 +424,54 @@ public class EntityMeganeura extends EntityLiving
 		case LANDING_CALAMITES:
 			boolean calamites = atTarget.getBlock() == GenesisBlocks.calamites;
 			
-			if (calamites)
+			if (!reachedClose)
 			{
-				if (reachedClose)
+				MovingObjectPosition hit = worldObj.rayTraceBlocks(ourPos, targetLocation, false, false, true);
+				
+				if (hit != null)
 				{
-					setState(PLACING_EGG);
-					eggPlaceTimer = 1;
+					BlockPos hitPos = hit.getBlockPos();
+					
+					if (worldObj.getBlockState(hitPos).getBlock() == GenesisBlocks.calamites)
+					{
+						targetLocation = new Vec3(hitPos.getX() + 0.5, hitPos.getY() + 0.5, hitPos.getZ() + 0.5);
+						calamites = true;
+					}
 				}
 			}
-			else
+			else if (reachedClose)
+			{
+				setState(PLACING_EGG);
+				eggPlaceTimer = 1;
+			}
+			
+			if (!calamites)
 			{
 				setState(FLYING);
 			}
 			break;
 		case PLACING_EGG:
-			if (eggPlaceTimer <= 0)
+			boolean flyAway = worldObj.getBlockState(targetPos).getBlock() != GenesisBlocks.calamites;
+			
+			if (!flyAway && eggPlaceTimer <= 0)
 			{
-				setState(FLYING);
 				// TODO: ADD MEGANEURA EGGS.
+				flyAway = true;
 			}
 			
+			if (flyAway)
+			{
+				setState(FLYING);
+				eggPlaceTimer = 0;
+				sendUpdateMessage();
+			}
 			break;
 		}
+		
+		/*if (ourState != getState())
+		{
+			System.out.println(ourState + " -> " + getState());
+		}*/
 		
 		ourState = getState();
 		
@@ -459,36 +485,68 @@ public class EntityMeganeura extends EntityLiving
 			{
 				newTarget = true;
 			}
-			else if (slowing)
-			{
-				if (rand.nextInt(50) == 0)
-				{
-					newTarget = true;
-				}
-			}
 			else
 			{
-				if (rand.nextInt(30) == 0)
+				MovingObjectPosition hit = worldObj.rayTraceBlocks(ourPos, targetLocation, false, false, true);
+				
+				if (hit != null && hit.typeOfHit == MovingObjectType.BLOCK)
 				{
-					newTarget = true;
+					if (ourState != LANDING_CALAMITES)
+					{
+						newTarget = true;
+					}
+					else if (worldObj.getBlockState(hit.getBlockPos()).getBlock() != GenesisBlocks.calamites)
+					{
+						newTarget = true;
+					}
+				}
+				else if (slowing)
+				{
+					if (rand.nextInt(75) == 0)
+					{
+						newTarget = true;
+					}
+				}
+				else
+				{
+					if (rand.nextInt(30) == 0)
+					{
+						newTarget = true;
+					}
 				}
 			}
 		}
 		
 		if (newTarget)
 		{
-			// Start finding ground level
-			BlockPos ground = new BlockPos(this);
-			
-			while (worldObj.isAirBlock(ground))
-			{
-				ground = ground.down();
-			}
-			
-			double altitude = posY - ground.getY();
 			RandomDoubleRange vertRange = new RandomDoubleRange(4, 8);
-			double vertMove = vertRange.getRandom(rand) - altitude;
-			// End finding ground level
+			double vertMove = vertRange.getRandom(rand);
+			
+			if (!isInWater())
+			{
+				// Start finding ground level
+				Vec3 to = new Vec3(posX, 0, posZ);
+				MovingObjectPosition hit = worldObj.rayTraceBlocks(ourPos, to, true, false, true);
+				
+				double ground = 0;
+				
+				if (hit != null)
+				{
+					ground = Math.min((hit.hitVec.yCoord + 0.5) - posY, 0);
+				}
+				
+				vertMove += ground;
+				
+				to = new Vec3(posX, posY + vertMove, posZ);
+				hit = worldObj.rayTraceBlocks(ourPos, to, true, false, true);
+				
+				if (hit != null)
+				{
+					double ceiling = Math.max((hit.hitVec.yCoord - 0.5) - posY, 0);
+					vertMove = Math.min(vertMove, ceiling);
+				}
+				// End finding ground level
+			}
 			
 			RandomDoubleRange horiz = new RandomDoubleRange(-1, 1);
 			Vec3 random = new Vec3(horiz.getRandom(rand), 0, horiz.getRandom(rand)).normalize();
@@ -502,7 +560,7 @@ public class EntityMeganeura extends EntityLiving
 			setState(FLYING);
 		}
 		
-		double moveX = 0, moveY = 0, moveZ = 0;
+		double moveX = motionX, moveY = motionY, moveZ = motionZ;
 		boolean strafe = false;
 		
 		if (ourState == PLACING_EGG)
@@ -559,15 +617,39 @@ public class EntityMeganeura extends EntityLiving
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compund)
+	public void readEntityFromNBT(NBTTagCompound compound)
 	{
-		super.readEntityFromNBT(compund);
+		super.readEntityFromNBT(compound);
+		
+		String state = compound.getString("state");
+		if (state != null && !"".equals(state))
+		{
+			setState(State.valueOf(state));
+		}
+		
+		NBTTagCompound targetComp = compound.getCompoundTag("target");
+		
+		if (targetComp.hasKey("x") && targetComp.hasKey("y") && targetComp.hasKey("z"))
+		{
+			targetLocation = new Vec3(targetComp.getDouble("x"), targetComp.getDouble("y"), targetComp.getDouble("z"));
+		}
 	}
 
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
+		
+		compound.setString("state", getState().toString());
+		
+		if (targetLocation != null)
+		{
+			NBTTagCompound targetComp = new NBTTagCompound();
+			targetComp.setDouble("x", targetLocation.xCoord);
+			targetComp.setDouble("y", targetLocation.yCoord);
+			targetComp.setDouble("z", targetLocation.zCoord);
+			compound.setTag("target", targetComp);
+		}
 	}
 	
 	@Override
