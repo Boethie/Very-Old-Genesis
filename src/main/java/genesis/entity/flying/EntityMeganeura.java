@@ -220,11 +220,12 @@ public class EntityMeganeura extends EntityLiving
 	/**
 	 * Overrides EntityLivingBase code which receives position updates from the server, so that it doesn't set pitch.
 	 */
-	public void func_180426_a(double x, double y, double z, float yaw, float pitch, int increments, boolean unknown)
+	@Override
+	public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int increments, boolean unknown)
 	{
 		float oldRotationPitch = rotationPitch;
 		float oldPrevRotationPitch = prevRotationPitch;
-		super.func_180426_a(x, y, z, yaw, pitch, increments, unknown);
+		super.setPositionAndRotation2(x, y, z, yaw, pitch, increments, unknown);
 		newRotationPitch = rotationPitch = oldRotationPitch;
 		prevRotationPitch = oldPrevRotationPitch;
 	}
