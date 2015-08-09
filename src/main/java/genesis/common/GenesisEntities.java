@@ -1,6 +1,7 @@
 package genesis.common;
 
 import genesis.entity.*;
+import genesis.entity.fixed.EntityMeganeuraEgg;
 import genesis.entity.flying.*;
 import genesis.util.Constants;
 import net.minecraft.entity.*;
@@ -14,7 +15,8 @@ public class GenesisEntities
 	
 	public static void registerEntities()
 	{
-		registerEntity(EntityMeganeura.class, "Meganeura", 80, 3, true, 0, 0);
+		registerEntity(EntityMeganeura.class, "Meganeura", 160, 3, true, 0, 0);
+		registerEntity(EntityMeganeuraEgg.class, "MeganeuraEgg", 160, Integer.MAX_VALUE, true, 1, 1);
 	}
 	
 	protected static void registerEntity(Class<? extends Entity> clazz, String name, int trackRange, int trackFrequency, boolean trackVelocity, int primaryColor, int secondaryColor)
@@ -27,5 +29,6 @@ public class GenesisEntities
 	public static void registerEntityRenderers()
 	{
 		RenderingRegistry.registerEntityRenderingHandler(EntityMeganeura.class, new EntityMeganeura.Render());
+		RenderingRegistry.registerEntityRenderingHandler(EntityMeganeuraEgg.class, new EntityMeganeuraEgg.EggRender());
 	}
 }

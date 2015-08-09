@@ -9,6 +9,7 @@ import com.google.common.base.Function;
 
 import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
+import genesis.entity.fixed.EntityMeganeuraEgg;
 import static genesis.entity.flying.EntityMeganeura.State.*;
 import genesis.util.*;
 import genesis.util.render.*;
@@ -358,7 +359,7 @@ public class EntityMeganeura extends EntityLiving
 			}
 
 			boolean checkIdle = rand.nextInt(100) == 0;
-			boolean checkCalamites = rand.nextInt(25) == 0;
+			boolean checkCalamites = rand.nextInt(50) == 0;
 			double distance = 16;
 			
 			if (checkCalamites)
@@ -456,7 +457,15 @@ public class EntityMeganeura extends EntityLiving
 			
 			if (!flyAway && eggPlaceTimer <= 0)
 			{
-				// TODO: ADD MEGANEURA EGGS.
+				MovingObjectPosition hit = worldObj.rayTraceBlocks(ourPos, targetLocation, false, false, true);
+				
+				if (hit != null)
+				{
+					EntityMeganeuraEgg egg = new EntityMeganeuraEgg(worldObj);
+					egg.setPositionAndUpdate(hit.hitVec.xCoord, hit.hitVec.yCoord - 0.25, hit.hitVec.zCoord);
+					worldObj.spawnEntityInWorld(egg);
+				}
+				
 				flyAway = true;
 			}
 			
@@ -615,6 +624,17 @@ public class EntityMeganeura extends EntityLiving
 		{
 			sendUpdateMessage();
 		}
+	}
+	
+	@Override
+	public boolean attackEntityFrom(DamageSource source, float amount)
+	{
+		if (amount > 0)
+		{
+			setState(FLYING);
+		}
+		
+		return super.attackEntityFrom(source, amount);
 	}
 
 	@Override
