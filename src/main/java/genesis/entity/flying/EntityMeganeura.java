@@ -39,7 +39,6 @@ public class EntityMeganeura extends EntityLiving
 
 	public static final int STATE = 17;
 	
-	protected double negateGravity = 0.5;
 	protected double speed = 1.5;
 
 	public float prevEggPlaceTimer = 0;
@@ -89,6 +88,12 @@ public class EntityMeganeura extends EntityLiving
 	
 	public void setState(State state)
 	{
+		if (state == FLYING && getState() != FLYING)
+		{
+			targetLocation = null;
+			sendUpdateMessage();
+		}
+		
 		dataWatcher.updateObject(STATE, (byte) state.ordinal());
 	}
 	
@@ -96,7 +101,8 @@ public class EntityMeganeura extends EntityLiving
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(6.0D);
+		
+		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(4);
 	}
 	
 	protected void sendUpdateMessage()
@@ -114,13 +120,6 @@ public class EntityMeganeura extends EntityLiving
 		
 		State state = getState();
 		boolean idle = state == IDLE || state == PLACING_EGG;
-		
-		double negGrav = negateGravity;
-		
-		if (!idle)
-		{
-			motionY += 0.08 * negGrav;	// Negate some of the 0.08 gravity of EntityLivingBase.
-		}
 		
 		if (prevEggPlaceTimer > 0)
 		{
@@ -260,10 +259,15 @@ public class EntityMeganeura extends EntityLiving
 			
 			buf.writeFloat(eggPlaceTimer);
 			
-			buf.writeBoolean(targetLocation != null);
-			buf.writeDouble(targetLocation.xCoord);
-			buf.writeDouble(targetLocation.yCoord);
-			buf.writeDouble(targetLocation.zCoord);
+			boolean hasTarget = targetLocation != null;
+			buf.writeBoolean(hasTarget);
+			
+			if (hasTarget)
+			{
+				buf.writeDouble(targetLocation.xCoord);
+				buf.writeDouble(targetLocation.yCoord);
+				buf.writeDouble(targetLocation.zCoord);
+			}
 		}
 		
 		@Override
@@ -341,7 +345,6 @@ public class EntityMeganeura extends EntityLiving
 		BlockPos targetPos = new BlockPos(targetLocation);
 		IBlockState atTarget = worldObj.getBlockState(targetPos);
 		
-		boolean newTarget = false;
 		double targetDistance = targetLocation.distanceTo(ourPos);
 		boolean reachedClose = targetDistance <= 0.75;
 		boolean reachedFar = targetDistance <= 1;
@@ -355,7 +358,7 @@ public class EntityMeganeura extends EntityLiving
 		case FLYING:
 			if (reachedFar)
 			{
-				newTarget = true;
+				targetLocation = null;
 			}
 
 			boolean checkIdle = rand.nextInt(100) == 0;
@@ -403,7 +406,8 @@ public class EntityMeganeura extends EntityLiving
 						
 						if (land)
 						{
-							targetLocation = new Vec3(landingPos.getX() + 0.5, landingPos.getY() + (checkCalamites ? 0.5 : 0), landingPos.getZ() + 0.5);
+							double y = checkCalamites ? hit.hitVec.yCoord : landingPos.getY();
+							targetLocation = new Vec3(landingPos.getX() + 0.5, y, landingPos.getZ() + 0.5);
 							break;
 						}
 					}
@@ -426,7 +430,12 @@ public class EntityMeganeura extends EntityLiving
 		case LANDING_CALAMITES:
 			boolean calamites = atTarget.getBlock() == GenesisBlocks.calamites;
 			
-			if (!reachedClose)
+			if (reachedClose)
+			{
+				setState(PLACING_EGG);
+				eggPlaceTimer = 1;
+			}
+			else
 			{
 				MovingObjectPosition hit = worldObj.rayTraceBlocks(ourPos, targetLocation, false, false, true);
 				
@@ -436,15 +445,10 @@ public class EntityMeganeura extends EntityLiving
 					
 					if (worldObj.getBlockState(hitPos).getBlock() == GenesisBlocks.calamites)
 					{
-						targetLocation = new Vec3(hitPos.getX() + 0.5, hitPos.getY() + 0.5, hitPos.getZ() + 0.5);
+						targetLocation = new Vec3(hitPos.getX() + 0.5, hit.hitVec.yCoord, hitPos.getZ() + 0.5);
 						calamites = true;
 					}
 				}
-			}
-			else if (reachedClose)
-			{
-				setState(PLACING_EGG);
-				eggPlaceTimer = 1;
 			}
 			
 			if (!calamites)
@@ -478,22 +482,18 @@ public class EntityMeganeura extends EntityLiving
 			break;
 		}
 		
-		/*if (ourState != getState())
-		{
-			System.out.println(ourState + " -> " + getState());
-		}*/
-		
 		ourState = getState();
 		
 		boolean slowing = ourState == LANDING || ourState == LANDING_CALAMITES;
 		boolean inAir = ourState == FLYING || slowing;
 		
-		// If we've stopped, get us started in a different direction.
-		if (!newTarget && inAir)
+		// Get us started in a different direction if necessary.
+		if (targetLocation != null && inAir)
 		{
-			if (targetLocation == null)
+			if (ourState == FLYING && entityAge % 20 == 0 && new Vec3(motionX, motionY, motionZ).squareDistanceTo(new Vec3(0, 0, 0)) < 0.01)
 			{
-				newTarget = true;
+				//System.out.println("stuck " + entityAge);
+				targetLocation = null;
 			}
 			else
 			{
@@ -503,31 +503,31 @@ public class EntityMeganeura extends EntityLiving
 				{
 					if (ourState != LANDING_CALAMITES)
 					{
-						newTarget = true;
+						targetLocation = null;
 					}
 					else if (worldObj.getBlockState(hit.getBlockPos()).getBlock() != GenesisBlocks.calamites)
 					{
-						newTarget = true;
+						targetLocation = null;
 					}
 				}
 				else if (slowing)
 				{
 					if (rand.nextInt(75) == 0)
 					{
-						newTarget = true;
+						targetLocation = null;
 					}
 				}
 				else
 				{
 					if (rand.nextInt(30) == 0)
 					{
-						newTarget = true;
+						targetLocation = null;
 					}
 				}
 			}
 		}
 		
-		if (newTarget)
+		if (targetLocation == null)
 		{
 			RandomDoubleRange vertRange = new RandomDoubleRange(4, 8);
 			double vertMove = vertRange.getRandom(rand);
@@ -566,8 +566,8 @@ public class EntityMeganeura extends EntityLiving
 			random = new Vec3(random.xCoord * distance, random.yCoord * distance, random.zCoord * distance);
 			random = random.addVector(0, vertMove, 0);
 			
-			targetLocation = ourPos.add(random);
 			setState(FLYING);
+			targetLocation = ourPos.add(random);
 		}
 		
 		double moveX = motionX, moveY = motionY, moveZ = motionZ;
@@ -629,12 +629,15 @@ public class EntityMeganeura extends EntityLiving
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount)
 	{
-		if (amount > 0)
+		boolean ret = super.attackEntityFrom(source, amount);
+		
+		if (amount > 0 && ret)
 		{
 			setState(FLYING);
+			//System.out.println("set flying from attack " + source.getDamageType());
 		}
 		
-		return super.attackEntityFrom(source, amount);
+		return ret;
 	}
 
 	@Override
@@ -1052,7 +1055,7 @@ public class EntityMeganeura extends EntityLiving
 		{
 			super.doRender(entity, x, y, z, yaw, partialTicks);
 			
-			/*EntityMeganeura meganeura = (EntityMeganeura) entity;
+			EntityMeganeura meganeura = (EntityMeganeura) entity;
 			
 			if (meganeura.targetLocation != null)
 			{
@@ -1063,7 +1066,7 @@ public class EntityMeganeura extends EntityLiving
 				Vec3 target = meganeura.targetLocation.add(offset);
 				
 				super.doRender(entity, target.xCoord, target.yCoord, target.zCoord, yaw, partialTicks);
-			}*/
+			}
 		}
 		
 		@Override

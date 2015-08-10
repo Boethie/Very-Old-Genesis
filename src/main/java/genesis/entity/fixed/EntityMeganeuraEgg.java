@@ -134,7 +134,7 @@ public class EntityMeganeuraEgg extends EntityEgg
 			
 	        model.render(entity, 0, 0, 0, 0, 0, 0.0625F);
 	        
-	        // Render bounding box around entity.
+	        // Render bounding box around entity if it is being looked at.
 			MovingObjectPosition lookingAt = Minecraft.getMinecraft().objectMouseOver;
 			
 			if (lookingAt != null && lookingAt.typeOfHit == MovingObjectType.ENTITY && lookingAt.entityHit == entity)
