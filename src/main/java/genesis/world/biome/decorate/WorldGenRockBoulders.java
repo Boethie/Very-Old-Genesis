@@ -14,6 +14,8 @@ import net.minecraft.world.World;
 public class WorldGenRockBoulders extends WorldGenDecorationBase
 {
 	private List<IBlockState> blocks = new ArrayList<IBlockState>();
+	private boolean waterRequired = true;
+	private int rarity = 1;
 	
 	@Override
 	public boolean generate(World world, Random random, BlockPos pos)
@@ -26,9 +28,12 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 		if (!world.getBlockState(pos.up()).getBlock().isAir(world, pos))
 			return false;
 		
-		boolean water_exists = findBlockInRange(world, pos, Blocks.water.getDefaultState(), 1, 1, 1);
+		boolean waterExists = findBlockInRange(world, pos, Blocks.water.getDefaultState(), 1, 1, 1);
 		
-		if (!water_exists)
+		if (!waterExists && waterRequired)
+			return false;
+		
+		if (random.nextInt(rarity) != 0)
 			return false;
 		
 		if (blocks.size() == 0)
@@ -69,6 +74,18 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 		}
 		
 		return true;
+	}
+	
+	public WorldGenRockBoulders setRarity(int rarity)
+	{
+		this.rarity = rarity;
+		return this;
+	}
+	
+	public WorldGenRockBoulders setWaterRequired(boolean required)
+	{
+		waterRequired = required;
+		return this;
 	}
 	
 	public WorldGenDecorationBase addBlocks(IBlockState... blockTypes)

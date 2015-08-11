@@ -1,6 +1,8 @@
 package genesis.world.biome;
 
 import genesis.common.GenesisBlocks;
+import genesis.metadata.DungBlocksAndItems;
+import genesis.metadata.EnumDung;
 import genesis.world.biome.decorate.WorldGenArchaeomarasmius;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenGrowingPlant.GrowingPlantType;
@@ -32,6 +34,7 @@ public class BiomeGenAuxPlains extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenPalaeoagaracites().setPatchSize(5).setCountPerChunk(10));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPlantType(GrowingPlantType.NORMAL).setPatchSize(5).setCountPerChunk(7));
 		addDecoration(new WorldGenRockBoulders().setCountPerChunk(5));
+		addDecoration(new WorldGenRockBoulders().setRarity(7).setWaterRequired(false).addBlocks(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.BRACHIOSAURUS)).setCountPerChunk(1));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
 		addTree(new WorldGenTreeAraucarioxylon(25, 30, true).setTreeCountPerChunk(1));

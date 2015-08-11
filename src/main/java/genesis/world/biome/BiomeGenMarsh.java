@@ -20,7 +20,7 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		super(id);
 		setBiomeName("Marsh");
 		this.temperature = 1.15f;
-		this.topBlock = Blocks.dirt.getDefaultState();
+		//this.topBlock = Blocks.dirt.getDefaultState();
 		setHeight(-0.2F, 0.01F);
 		
 		theBiomeDecorator.grassPerChunk = 2;
@@ -45,29 +45,32 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 	}
 	
 	@Override
+	public void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
+	{
+		mossStages = new int[1];
+		mossStages[0] = 0;
+		super.generateBiomeTerrain(world, rand, primer, blockX, blockZ, d);
+	}
+	
+	@Override
 	public void genTerrainBlocks(World world, Random rand, ChunkPrimer p_180622_3_, int p_180622_4_, int p_180622_5_, double p_180622_6_)
 	{
-		double d1 = field_180281_af.func_151601_a((double)p_180622_4_ * 0.25D, (double)p_180622_5_ * 0.25D);
+		int k = p_180622_4_ & 15;
+		int l = p_180622_5_ & 15;
 		
-		if (d1 > -0.2D)
+		for (int i1 = 255; i1 >= 0; --i1)
 		{
-			int k = p_180622_4_ & 15;
-			int l = p_180622_5_ & 15;
-			
-			for (int i1 = 255; i1 >= 0; --i1)
+			if (p_180622_3_.getBlockState(l, i1, k).getBlock().getMaterial() != Material.air)
 			{
-				if (p_180622_3_.getBlockState(l, i1, k).getBlock().getMaterial() != Material.air)
+				if (i1 == 62 && p_180622_3_.getBlockState(l, i1, k).getBlock() != Blocks.water)
 				{
-					if (i1 == 62 && p_180622_3_.getBlockState(l, i1, k).getBlock() != Blocks.water)
-					{
-						p_180622_3_.setBlockState(l, i1, k, Blocks.water.getDefaultState());
-					}
-					
-					break;
+					p_180622_3_.setBlockState(l, i1, k, Blocks.water.getDefaultState());
 				}
+				
+				break;
 			}
 		}
 		
-		generateBiomeTerrain(world, rand, p_180622_3_, p_180622_4_, p_180622_5_, p_180622_6_);
+		this.generateBiomeTerrain(world, rand, p_180622_3_, p_180622_4_, p_180622_5_, p_180622_6_);
     }
 }
