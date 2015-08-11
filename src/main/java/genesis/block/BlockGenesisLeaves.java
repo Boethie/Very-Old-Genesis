@@ -164,7 +164,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 					{
 						if (!nextPos.equals(curPos))
 						{
-							BlockPos diff = curPos.subtract(nextPos);
+							BlockPos diff = curPos.add(nextPos.multiply(-1));
 							int blockDist = Math.abs(diff.getX()) + Math.abs(diff.getY()) + Math.abs(diff.getZ());
 							float addCost = distanceCosts[blockDist];
 							

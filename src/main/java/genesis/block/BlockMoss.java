@@ -228,7 +228,7 @@ public class BlockMoss extends BlockGrass
 		
 		light /= lightSamples;
 		
-		float humidity = world.getBiomeGenForCoords(pos).getFloatRainfall();
+		float humidity = world.getBiomeGenForCoords(pos).rainfall;
 		humidity *= 0.35F;
 		
 		float out = water + light;
@@ -257,9 +257,9 @@ public class BlockMoss extends BlockGrass
 	protected final float growthChanceHumidityEffect = 0.25F;
 	protected final float growthChanceMult = 0.25F;
 	
-	public float getGrowthChance(IBlockAccess worldIn, BlockPos pos, boolean dying)
+	public float getGrowthChance(World world, BlockPos pos, boolean dying)
 	{
-		float humidity = worldIn.getBiomeGenForCoords(pos).getFloatRainfall();
+		float humidity = world.getBiomeGenForCoords(pos).rainfall;
 		float chance = 1 - growthChanceHumidityEffect + (humidity * growthChanceHumidityEffect * (dying ? -2 : 1));
 		
 		return chance * growthChanceMult;
@@ -397,7 +397,7 @@ public class BlockMoss extends BlockGrass
 			
 			BiomeGenBase biome = worldIn.getBiomeGenForCoords(pos);
 			float temperature = MathHelper.clamp_float(biome.getFloatTemperature(pos), 0, 1);
-			float humidity = MathHelper.clamp_float(biome.getFloatRainfall(), 0, 1);
+			float humidity = MathHelper.clamp_float(biome.rainfall, 0, 1);
 			
 			int dryColor = biome.getModdedBiomeGrassColor(ColorizerDryMoss.getColor(temperature, humidity));
 			int toR = (dryColor & 16711680) >> 16;

@@ -114,13 +114,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	public BlockCampfire getBlockType()
 	{
 		super.getBlockType();
-		
-		if (blockCampfire == null)
-		{
-			blockCampfire = (BlockCampfire) blockType;
-		}
-		
-		return blockCampfire;
+		return (BlockCampfire) blockType;
 	}
 	
 	public boolean hasCookingPot()
@@ -820,7 +814,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	}
 
 	@Override
-	public ContainerCampfire createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
+	public ContainerCampfire createContainer(InventoryPlayer playerInventory, EntityPlayer player)
 	{
 		return null;
 	}

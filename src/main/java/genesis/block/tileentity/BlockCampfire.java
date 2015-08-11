@@ -37,6 +37,7 @@ public class BlockCampfire extends BlockContainer
 	public BlockCampfire()
 	{
 		super(Material.rock);
+		
 		setDefaultState(getBlockState().getBaseState());
 		setTickRandomly(true);
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
