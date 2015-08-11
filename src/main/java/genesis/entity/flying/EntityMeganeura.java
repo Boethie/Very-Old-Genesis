@@ -57,28 +57,18 @@ public class EntityMeganeura extends EntityLiving
 	
 	protected boolean placedEgg = false;
 	
-	@SideOnly(Side.CLIENT)
 	public float roll = 0;
-	@SideOnly(Side.CLIENT)
 	public float prevRoll = 0;
 	
 	protected float wingSwingMax = 0.5F;
-	@SideOnly(Side.CLIENT)
 	protected float wingSwingSpeed = 1;
-	@SideOnly(Side.CLIENT)
 	protected float wingSwingEpsilon = 0.075F;
-	@SideOnly(Side.CLIENT)
 	protected float wingSwingIdleMax = 0.25F;
-	@SideOnly(Side.CLIENT)
 	protected float wingSwingIdleSpeed = 0.05F;
 	
-	@SideOnly(Side.CLIENT)
 	public float wingSwing = 0;
-	@SideOnly(Side.CLIENT)
 	public float prevWingSwing = 0;
-	@SideOnly(Side.CLIENT)
 	protected boolean wingSwingDown = true;
-	@SideOnly(Side.CLIENT)
 	
 	public EntityMeganeura(World world)
 	{
