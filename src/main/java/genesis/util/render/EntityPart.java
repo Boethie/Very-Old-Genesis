@@ -25,6 +25,9 @@ public class EntityPart extends ModelRenderer
 	protected float scaleXDef = 1;
 	protected float scaleYDef = 1;
 	protected float scaleZDef = 1;
+
+	protected int textureOffsetX = 0;
+	protected int textureOffsetY = 0;
 	
 	public EntityPart(ModelBase model)
 	{
@@ -137,5 +140,31 @@ public class EntityPart extends ModelRenderer
 		GlStateManager.scale(scaleX, scaleY, scaleZ);
 		super.render(scale);
 		GlStateManager.scale(1 / scaleX, 1 / scaleY, 1 / scaleZ);
+	}
+	
+	@Override
+	public EntityPart setTextureOffset(int u, int v)
+	{
+		super.setTextureOffset(u, v);
+		
+		textureOffsetX = u;
+		textureOffsetY = v;
+		
+		return this;
+	}
+
+	public void addElement(CustomModelElement element)
+	{
+		cubeList.add(element);
+	}
+	
+	public int getTextureOffsetX()
+	{
+		return textureOffsetX;
+	}
+	
+	public int getTextureOffsetY()
+	{
+		return textureOffsetY;
 	}
 }

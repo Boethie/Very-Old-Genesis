@@ -29,7 +29,7 @@ public abstract class EntityEgg extends EntityFixed
 	{
 		super.entityInit();
 		
-		float size = 0.0625F * 2;
+		float size = 0.0625F;
 		setSize(size, size);
 		renderDistanceWeight = 8;
 	}

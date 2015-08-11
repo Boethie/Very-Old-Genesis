@@ -6,6 +6,7 @@ import genesis.common.GenesisBlocks;
 import genesis.entity.flying.EntityMeganeura;
 import genesis.util.Constants;
 import genesis.util.render.EntityPart;
+import genesis.util.render.RenderHelpers;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -39,7 +40,6 @@ public class EntityMeganeuraEgg extends EntityEgg
 	protected void setMaxAge()
 	{
 		maxAge = 1200;
-		//System.out.println(worldObj.isRemote + " spawned egg");
 	}
 	
 	@Override
@@ -83,7 +83,7 @@ public class EntityMeganeuraEgg extends EntityEgg
 				// ~~~~~~~~~~~~~~~~~~~~~~
 				// ~~~~==== Body ====~~~~
 				egg = new EntityPart(this);
-				egg.addBox(-1, 0, -1, 2, 2, 2);
+				egg.addBox(-0.5F, 0, -0.5F, 1, 1, 1);
 				
 				egg.setDefaultState(true);
 			}
@@ -124,42 +124,19 @@ public class EntityMeganeuraEgg extends EntityEgg
 		}
 		
 		@Override
-		public void doRender(Entity entity, double x, double y, double z, float yaw, float partialTicks)
-		{
-			model = new Model();
-			
+		public void doRender(Entity entity, double x, double y, double z, float yaw, float partialTick)
+		{model = new Model();
 	        GlStateManager.pushMatrix();
-	        bindEntityTexture(entity);
 	        GlStateManager.translate(x, y, z);
-			
-	        model.render(entity, 0, 0, 0, 0, 0, 0.0625F);
 	        
-	        // Render bounding box around entity if it is being looked at.
-			MovingObjectPosition lookingAt = Minecraft.getMinecraft().objectMouseOver;
-			
-			if (lookingAt != null && lookingAt.typeOfHit == MovingObjectType.ENTITY && lookingAt.entityHit == entity)
-			{
-	            GlStateManager.enableBlend();
-	            GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-	            GlStateManager.color(0.0F, 0.0F, 0.0F, 0.4F);
-	            GL11.glLineWidth(2);
-	            GlStateManager.disableTexture2D();
-	            GlStateManager.depthMask(false);
-	            float expand = entity.getCollisionBorderSize() + 0.002F;
-	            
-                double offX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
-                double offY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
-                double offZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
-                RenderGlobal.drawOutlinedBoundingBox(entity.getEntityBoundingBox().expand(expand, expand, expand).offset(-offX, -offY, -offZ), -1);
-                
-	            GlStateManager.depthMask(true);
-	            GlStateManager.enableTexture2D();
-	            GlStateManager.disableBlend();
-			}
+			RenderHelpers.renderEntityBounds(entity, partialTick);
+	        
+	        bindEntityTexture(entity);
+	        model.render(entity, 0, 0, 0, 0, 0, 0.0625F);
 			
 			GlStateManager.popMatrix();
 			
-			super.doRender(entity, x, y, z, yaw, partialTicks);
+			super.doRender(entity, x, y, z, yaw, partialTick);
 		}
 		
 		@Override

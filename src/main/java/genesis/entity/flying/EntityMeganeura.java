@@ -5,6 +5,8 @@ import io.netty.buffer.ByteBuf;
 import java.util.*;
 import java.util.concurrent.Callable;
 
+import org.lwjgl.opengl.GL11;
+
 import com.google.common.base.Function;
 
 import genesis.common.Genesis;
@@ -17,6 +19,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.*;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.entity.*;
 import net.minecraft.nbt.*;
@@ -39,11 +42,14 @@ public class EntityMeganeura extends EntityLiving
 
 	public static final int STATE = 17;
 	
-	protected double speed = 1.5;
+	protected double speed = 1;
 
 	public float prevEggPlaceTimer = 0;
 	public float eggPlaceTimer = 0;
+	public float newEggPlaceTimer = -1;
 	protected int eggPlaceTicks = 100;
+	
+	protected boolean placedEgg = false;
 	
 	@SideOnly(Side.CLIENT)
 	public float roll = 0;
@@ -88,7 +94,7 @@ public class EntityMeganeura extends EntityLiving
 	
 	public void setState(State state)
 	{
-		if (state == FLYING && getState() != FLYING)
+		if (getState() != FLYING && state == FLYING)
 		{
 			targetLocation = null;
 			sendUpdateMessage();
@@ -121,9 +127,12 @@ public class EntityMeganeura extends EntityLiving
 		State state = getState();
 		boolean idle = state == IDLE || state == PLACING_EGG;
 		
-		if (prevEggPlaceTimer > 0)
+		prevEggPlaceTimer = eggPlaceTimer;
+		
+		if (newEggPlaceTimer != -1)
 		{
-			prevEggPlaceTimer = eggPlaceTimer;
+			eggPlaceTimer = newEggPlaceTimer;
+			newEggPlaceTimer = -1;
 		}
 		
 		if (eggPlaceTimer > 0)
@@ -181,7 +190,10 @@ public class EntityMeganeura extends EntityLiving
 			else
 			{
 				float diffYaw = rotationYaw - prevRotationYaw;
-				roll = MathHelper.clamp_float(diffYaw, -15, 15) / 15;
+				diffYaw = rotationYawHead - prevRotationYawHead;
+				diffYaw += renderYawOffset - prevRenderYawOffset;
+				final float max = 15;
+				roll = MathHelper.clamp_float(diffYaw, -max, max) / max * 45;
 			}
 			
 			roll = prevRoll + (roll - prevRoll) * tiltSpeed;
@@ -300,7 +312,16 @@ public class EntityMeganeura extends EntityLiving
 						if (entity instanceof EntityMeganeura)
 						{
 							EntityMeganeura meganeura = (EntityMeganeura) entity;
-							meganeura.eggPlaceTimer = message.eggPlaceTimer;
+							
+							if (message.eggPlaceTimer == 1)	// Set the timer directly when starting it, so it doesn't interpolate.
+							{
+								meganeura.prevEggPlaceTimer = meganeura.eggPlaceTimer = message.eggPlaceTimer;
+							}
+							else
+							{
+								meganeura.newEggPlaceTimer = message.eggPlaceTimer;
+							}
+							
 							meganeura.targetLocation = message.targetLocation;
 						}
 						else
@@ -350,7 +371,6 @@ public class EntityMeganeura extends EntityLiving
 		boolean reachedFar = targetDistance <= 1;
 		
 		ourState = getState();
-		//setDead();
 		
 		// Update our state according to whether we've reached our destination.
 		switch (ourState)
@@ -406,7 +426,7 @@ public class EntityMeganeura extends EntityLiving
 						
 						if (land)
 						{
-							double y = checkCalamites ? hit.hitVec.yCoord : landingPos.getY();
+							double y = checkCalamites ? hit.hitVec.yCoord + 0.5 : landingPos.getY();
 							targetLocation = new Vec3(landingPos.getX() + 0.5, y, landingPos.getZ() + 0.5);
 							break;
 						}
@@ -434,6 +454,7 @@ public class EntityMeganeura extends EntityLiving
 			{
 				setState(PLACING_EGG);
 				eggPlaceTimer = 1;
+				sendUpdateMessage();
 			}
 			else
 			{
@@ -459,24 +480,32 @@ public class EntityMeganeura extends EntityLiving
 		case PLACING_EGG:
 			boolean flyAway = worldObj.getBlockState(targetPos).getBlock() != GenesisBlocks.calamites;
 			
-			if (!flyAway && eggPlaceTimer <= 0)
+			if (!flyAway)
 			{
-				MovingObjectPosition hit = worldObj.rayTraceBlocks(ourPos, targetLocation, false, false, true);
-				
-				if (hit != null)
+				if (eggPlaceTimer <= 0)
 				{
-					EntityMeganeuraEgg egg = new EntityMeganeuraEgg(worldObj);
-					egg.setPositionAndUpdate(hit.hitVec.xCoord, hit.hitVec.yCoord - 0.25, hit.hitVec.zCoord);
-					worldObj.spawnEntityInWorld(egg);
+					flyAway = true;
 				}
-				
-				flyAway = true;
+				else if (!placedEgg && eggPlaceTimer <= 0.1F)
+				{
+					MovingObjectPosition hit = worldObj.rayTraceBlocks(ourPos, targetLocation, false, false, true);
+					
+					if (hit != null)
+					{
+						EntityMeganeuraEgg egg = new EntityMeganeuraEgg(worldObj);
+						egg.setPositionAndUpdate(hit.hitVec.xCoord, hit.hitVec.yCoord - 0.45, hit.hitVec.zCoord);
+						worldObj.spawnEntityInWorld(egg);
+					}
+					
+					placedEgg = true;
+				}
 			}
 			
 			if (flyAway)
 			{
 				setState(FLYING);
 				eggPlaceTimer = 0;
+				placedEgg = false;
 				sendUpdateMessage();
 			}
 			break;
@@ -492,7 +521,6 @@ public class EntityMeganeura extends EntityLiving
 		{
 			if (ourState == FLYING && entityAge % 20 == 0 && new Vec3(motionX, motionY, motionZ).squareDistanceTo(new Vec3(0, 0, 0)) < 0.01)
 			{
-				//System.out.println("stuck " + entityAge);
 				targetLocation = null;
 			}
 			else
@@ -613,6 +641,7 @@ public class EntityMeganeura extends EntityLiving
 		
 		moveX *= speed;
 		moveZ *= speed;
+		
 		motionX += (moveX - motionX) * 0.5;
 		motionY += (moveY - motionY) * 0.5;
 		motionZ += (moveZ - motionZ) * 0.5;
@@ -631,10 +660,9 @@ public class EntityMeganeura extends EntityLiving
 	{
 		boolean ret = super.attackEntityFrom(source, amount);
 		
-		if (amount > 0 && ret)
+		if (!worldObj.isRemote && amount > 0 && ret)
 		{
 			setState(FLYING);
-			//System.out.println("set flying from attack " + source.getDamageType());
 		}
 		
 		return ret;
@@ -705,57 +733,47 @@ public class EntityMeganeura extends EntityLiving
 	{
 		public static class Model extends ModelBase
 		{
-			public final EntityPart main;
+			public EntityPart body;
 			
-			public final EntityPart body;
+			// Head
+			public EntityPart neck;
+			public EntityPart mouth;
+			public EntityPart face;
+			public EntityPart eyeLeft;
+			public EntityPart eyeRight;
 			
-			public final EntityPart head;
-			public final EntityPart eyeLeft;
-			public final EntityPart eyeRight;
-			public final EntityPart headUpper;
-			public final EntityPart mouth1;
-			public final EntityPart mouth2;
-			public final EntityPart mandibleLeft;
-			public final EntityPart mandibleRight;
+			// Wings
+			public EntityPart wingBoneLeft;
+			public EntityPart wingForeLeft;
+			public EntityPart wingRearLeft;
 			
-			public final EntityPart legFrontLeftUpper;
-			public final EntityPart legFrontLeftLower;
-			public final EntityPart legFrontLeftFoot;
+			public EntityPart wingBoneRight;
+			public EntityPart wingForeRight;
+			public EntityPart wingRearRight;
 			
-			public final EntityPart legFrontRightUpper;
-			public final EntityPart legFrontRightLower;
-			public final EntityPart legFrontRightFoot;
+			// Legs
+			public EntityPart legFrontLeftUpper;
+			public EntityPart legFrontLeftLower;
+			public EntityPart legFrontRightUpper;
+			public EntityPart legFrontRightLower;
 			
-			public final EntityPart legMiddleLeftUpper;
-			public final EntityPart legMiddleLeftLower;
-			public final EntityPart legMiddleLeftFoot;
+			public EntityPart legMiddleLeftUpper;
+			public EntityPart legMiddleLeftLower;
+			public EntityPart legMiddleRightUpper;
+			public EntityPart legMiddleRightLower;
 			
-			public final EntityPart legMiddleRightUpper;
-			public final EntityPart legMiddleRightLower;
-			public final EntityPart legMiddleRightFoot;
+			public EntityPart legRearLeftUpper;
+			public EntityPart legRearLeftLower;
+			public EntityPart legRearRightUpper;
+			public EntityPart legRearRightLower;
 			
-			public final EntityPart legRearLeftUpper;
-			public final EntityPart legRearLeftLower;
-			public final EntityPart legRearLeftFoot;
-			
-			public final EntityPart legRearRightUpper;
-			public final EntityPart legRearRightLower;
-			public final EntityPart legRearRightFoot;
-			
-			public final EntityPart wingLeft;
-			public final EntityPart wingUpperLeft;
-			public final EntityPart wingLowerLeft;
-
-			public final EntityPart wingRight;
-			public final EntityPart wingLowerRight;
-			public final EntityPart wingUpperRight;
-			
-			public final EntityPart tail1;
-			public final EntityPart tail2;
-			public final EntityPart tail3;
-			public final EntityPart tail4;
-			public final EntityPart tailTipLeft;
-			public final EntityPart tailTipRight;
+			// Tail
+			public EntityPart tail1;
+			public EntityPart tail2;
+			public EntityPart tail3;
+			public EntityPart drill;
+			public EntityPart spikeLeft;
+			public EntityPart spikeRight;
 			
 			public Model()
 			{
@@ -764,241 +782,213 @@ public class EntityMeganeura extends EntityLiving
 				
 				// ~~~~~~~~~~~~~~~~~~~~~~
 				// ~~~~==== Body ====~~~~
-				main = new EntityPart(this);
-				main.setRotationPoint(0.0F, 16.0F, 0.0F);
-				
 				body = new EntityPart(this, 0, 0);
-				body.setRotationPoint(0.0F, 0.0F, 0.0F);
-				body.addBox(-3.0F, -3.0F, -5.0F, 6, 6, 9, 0.0F);
-				body.setRotation(0, (float) -Math.PI / 2, 0);
-				body.scaleX = body.scaleY = body.scaleZ = 0.5F;
+				body.setRotationPoint(3, 20, 0);
+				body.addBox(-3, -1, -1, 5, 2, 2);
+				body.addBox(-1.5F, -1.5F, -0.5F, 3, 1, 1);
 				
 				// ==== Head ====
-				head = new EntityPart(this, 19, 19);
-				head.setRotationPoint(0.0F, 1.0F, -4.0F);
-				head.addBox(-1.5F, -1.5F, -5.0F, 3, 3, 5, 0.0F);
+				neck = new EntityPart(this, 0, 0);
+				neck.setRotationPoint(2, 0, 0);
+				neck.addBox(0, 0, -0.5F, 1, 1, 1);
+				neck.setRotation(0, 0, (float) Math.toRadians(15));
 				
-				// Eyes
-				eyeLeft = new EntityPart(this, 0, 30);
-				eyeLeft.setRotationPoint(1.0F, -1.5F, -3.4F);
-				eyeLeft.addBox(0.0F, -1.5F, -1.5F, 2, 3, 3, 0.0F);
-				setRotateAngle(eyeLeft, 0.0F, 0.5009094953223726F, 0.0F);
+				mouth = new EntityPart(this, 0, 0);
+				mouth.setRotationPoint(1.5F, 1, 0);
+				mouth.addBox(-0.5F, -1, -0.5F, 1, 1, 1);
+				mouth.setRotation(0, 0, (float) Math.toRadians(-10));
 				
-				eyeRight = new EntityPart(this, 0, 30);
-				eyeRight.setRotationPoint(-1.0F, -1.5F, -3.4F);
-				eyeRight.addBox(-2.0F, -1.5F, -1.5F, 2, 3, 3, 0.0F);
-				setRotateAngle(eyeRight, 0.0F, -0.5009094953223726F, 0.0F);
+				face = new EntityPart(this, 0, 0);
+				face.setRotationPoint(0.5F, -1, 0);
+				face.addBox(-1, -1, -1, 1, 1, 2);
 				
-				// Head part
-				headUpper = new EntityPart(this, 0, 20);
-				headUpper.setRotationPoint(0.0F, -2.0F, -1.0F);
-				headUpper.addBox(-2.0F, -1.5F, -4.0F, 4, 3, 4, 0.0F);
-				
-				// Mouth
-				mouth1 = new EntityPart(this, 39, 21);
-				mouth1.setRotationPoint(0.0F, -1.0F, -2.9F);
-				mouth1.addBox(-1.5F, 0.0F, -2.0F, 3, 3, 2, 0.0F);
+				float eyeRot = (float) Math.toRadians(10);
+				eyeLeft = new EntityPart(this, 0, 0);
+				eyeLeft.setRotationPoint(-1.5F, -1.5F, -1);
+				eyeLeft.addBox(0, 0, 0, 1, 2, 1);
+				eyeLeft.setRotation(-eyeRot, eyeRot, eyeRot);
 
-				mouth2 = new EntityPart(this, 53, 22);
-				mouth2.setRotationPoint(0.0F, 3.0F, 0.0F);
-				mouth2.addBox(-1.0F, 0.0F, -2.0F, 2, 1, 2, 0.0F);
-				
-				mandibleLeft = new EntityPart(this, 65, 23);
-				mandibleLeft.setRotationPoint(0.5F, 0.8F, -1.0F);
-				mandibleLeft.addBox(-0.5F, 0.0F, -1.0F, 1, 1, 1, 0.0F);
-				setRotateAngle(mandibleLeft, -0.22759093446006054F, 0.0F, -0.27314402793711257F);
-
-				mandibleRight = new EntityPart(this, 65, 23);
-				mandibleRight.setRotationPoint(-0.5F, 0.8F, -1.0F);
-				mandibleRight.addBox(-0.5F, 0.0F, -1.0F, 1, 1, 1, 0.0F);
-				setRotateAngle(mandibleRight, -0.22759093446006054F, 0.0F, 0.27314402793711257F);
-				
-				// ==== Legs ====
-				// Front Left
-				legFrontLeftUpper = new EntityPart(this, 61, 0);
-				legFrontLeftUpper.setRotationPoint(1.4F, 2.8F, -3.8F);
-				legFrontLeftUpper.addBox(-0.5F, 0.0F, -0.5F, 1, 3, 1, 0.0F);
-				setRotateAngle(legFrontLeftUpper, 0.0F, 0.0F, -0.36425021489121656F);
-				legFrontLeftLower = new EntityPart(this, 61, 10);
-				legFrontLeftLower.setRotationPoint(0.1F, 2.7F, 0.0F);
-				legFrontLeftLower.addBox(-0.5F, 0.0F, -0.5F, 1, 2, 1, 0.0F);
-				setRotateAngle(legFrontLeftLower, 0.0F, 0.0F, 0.7285004297824331F);
-				legFrontLeftFoot = new EntityPart(this, 61, 16);
-				legFrontLeftFoot.setRotationPoint(-0.03F, 1.8F, 0.0F);
-				legFrontLeftFoot.addBox(-0.5F, 0.0F, -0.5F, 1, 1, 1, 0.0F);
-				setRotateAngle(legFrontLeftFoot, 0.0F, 0.0F, -0.36425021489121656F);
-				
-				// Front Right
-				legFrontRightUpper = new EntityPart(this, 61, 0);
-				legFrontRightUpper.setRotationPoint(-1.4F, 2.8F, -3.8F);
-				legFrontRightUpper.addBox(-0.5F, 0.0F, -0.5F, 1, 3, 1, 0.0F);
-				setRotateAngle(legFrontRightUpper, 0.0F, 0.0F, 0.36425021489121656F);
-				legFrontRightLower = new EntityPart(this, 61, 10);
-				legFrontRightLower.setRotationPoint(-0.1F, 2.7F, 0.0F);
-				legFrontRightLower.addBox(-0.5F, 0.0F, -0.5F, 1, 2, 1, 0.0F);
-				setRotateAngle(legFrontRightLower, 0.0F, 0.0F, -0.7285004297824331F);
-				legFrontRightFoot = new EntityPart(this, 61, 16);
-				legFrontRightFoot.setRotationPoint(-0.03F, 1.8F, 0.0F);
-				legFrontRightFoot.addBox(-0.5F, 0.0F, -0.5F, 1, 1, 1, 0.0F);
-				setRotateAngle(legFrontRightFoot, 0.0F, 0.0F, 0.36425021489121656F);
-				
-				// Middle Left
-				legMiddleLeftUpper = new EntityPart(this, 61, 0);
-				legMiddleLeftUpper.setRotationPoint(1.4F, 2.8F, -0.3F);
-				legMiddleLeftUpper.addBox(-0.5F, 0.0F, -0.5F, 1, 3, 1, 0.0F);
-				setRotateAngle(legMiddleLeftUpper, 0.0F, 0.0F, -0.36425021489121656F);
-				legMiddleLeftLower = new EntityPart(this, 61, 10);
-				legMiddleLeftLower.setRotationPoint(0.1F, 2.7F, 0.0F);
-				legMiddleLeftLower.addBox(-0.5F, 0.0F, -0.5F, 1, 2, 1, 0.0F);
-				setRotateAngle(legMiddleLeftLower, 0.0F, 0.0F, 0.7285004297824331F);
-				legMiddleLeftFoot = new EntityPart(this, 61, 16);
-				legMiddleLeftFoot.setRotationPoint(-0.03F, 1.8F, 0.0F);
-				legMiddleLeftFoot.addBox(-0.5F, 0.0F, -0.5F, 1, 1, 1, 0.0F);
-				setRotateAngle(legMiddleLeftFoot, 0.0F, 0.0F, -0.36425021489121656F);
-				
-				// Middle Right
-				legMiddleRightUpper = new EntityPart(this, 61, 0);
-				legMiddleRightUpper.setRotationPoint(-1.4F, 2.8F, -0.3F);
-				legMiddleRightUpper.addBox(-0.5F, 0.0F, -0.5F, 1, 3, 1, 0.0F);
-				setRotateAngle(legMiddleRightUpper, 0.0F, 0.0F, 0.36425021489121656F);
-				legMiddleRightLower = new EntityPart(this, 61, 10);
-				legMiddleRightLower.setRotationPoint(-0.1F, 2.7F, 0.0F);
-				legMiddleRightLower.addBox(-0.5F, 0.0F, -0.5F, 1, 2, 1, 0.0F);
-				setRotateAngle(legMiddleRightLower, 0.0F, 0.0F, -0.7285004297824331F);
-				legMiddleRightFoot = new EntityPart(this, 61, 16);
-				legMiddleRightFoot.setRotationPoint(-0.03F, 1.8F, 0.0F);
-				legMiddleRightFoot.addBox(-0.5F, 0.0F, -0.5F, 1, 1, 1, 0.0F);
-				setRotateAngle(legMiddleRightFoot, 0.0F, 0.0F, 0.36425021489121656F);
-				
-				// Rear Left
-				legRearLeftUpper = new EntityPart(this, 61, 0);
-				legRearLeftUpper.setRotationPoint(1.4F, 2.8F, 3.0F);
-				legRearLeftUpper.addBox(-0.5F, 0.0F, -0.5F, 1, 3, 1, 0.0F);
-				setRotateAngle(legRearLeftUpper, 0.0F, 0.0F, -0.36425021489121656F);
-				legRearLeftLower = new EntityPart(this, 61, 10);
-				legRearLeftLower.setRotationPoint(0.1F, 2.7F, 0.0F);
-				legRearLeftLower.addBox(-0.5F, 0.0F, -0.5F, 1, 2, 1, 0.0F);
-				setRotateAngle(legRearLeftLower, 0.0F, 0.0F, 0.7285004297824331F);
-				legRearLeftFoot = new EntityPart(this, 61, 16);
-				legRearLeftFoot.setRotationPoint(-0.03F, 1.8F, 0.0F);
-				legRearLeftFoot.addBox(-0.5F, 0.0F, -0.5F, 1, 1, 1, 0.0F);
-				setRotateAngle(legRearLeftFoot, 0.0F, 0.0F, -0.36425021489121656F);
-				
-				// Rear Right
-				legRearRightUpper = new EntityPart(this, 61, 0);
-				legRearRightUpper.setRotationPoint(-1.4F, 2.8F, 3.0F);
-				legRearRightUpper.addBox(-0.5F, 0.0F, -0.5F, 1, 3, 1, 0.0F);
-				setRotateAngle(legRearRightUpper, 0.0F, 0.0F, 0.36425021489121656F);
-				legRearRightLower = new EntityPart(this, 61, 10);
-				legRearRightLower.setRotationPoint(-0.1F, 2.7F, 0.0F);
-				legRearRightLower.addBox(-0.5F, 0.0F, -0.5F, 1, 2, 1, 0.0F);
-				setRotateAngle(legRearRightLower, 0.0F, 0.0F, -0.7285004297824331F);
-				legRearRightFoot = new EntityPart(this, 61, 16);
-				legRearRightFoot.setRotationPoint(-0.03F, 1.8F, 0.0F);
-				legRearRightFoot.addBox(-0.5F, 0.0F, -0.5F, 1, 1, 1, 0.0F);
-				setRotateAngle(legRearRightFoot, 0.0F, 0.0F, 0.36425021489121656F);
+				eyeRight = new EntityPart(this, 0, 0);
+				eyeRight.setRotationPoint(-1.5F, -1.5F, 1);
+				eyeRight.addBox(0, 0, -1, 1, 2, 1);
+				eyeRight.setRotation(eyeRot, -eyeRot, eyeRot);
 				
 				// ==== Wings ====
-				// Right
-				wingRight = new EntityPart(this);
-				
-				wingUpperRight = new EntityPart(this, 76, 0);
-				wingUpperRight.setRotationPoint(-1.3F, -2.3F, 0.5F);
-				wingUpperRight.addBox(-38.0F, 0.0F, -4.0F, 38, 0, 8, 0.0F);
-				setRotateAngle(wingUpperRight, 0.0F, -0.31869712141416456F, 0.0F);
-				
-				wingLowerRight = new EntityPart(this, 73, 28);
-				wingLowerRight.setRotationPoint(-1.3F, -1.5F, 5.4F);
-				wingLowerRight.addBox(-38.0F, 0.0F, -3.0F, 38, 0, 10, 0.0F);
-				setRotateAngle(wingLowerRight, 0.0F, 0.091106186954104F, 0.0F);
-				
 				// Left
-				wingLeft = new EntityPart(this);
+				wingBoneLeft = new EntityPart(this);
+				wingBoneLeft.setRotationPoint(0.5F, -1.5F, 0.5F);
 				
-				wingUpperLeft = new EntityPart(this, 73, 28);
-				wingUpperLeft.setRotationPoint(1.3F, -1.5F, 5.4F);
-				wingUpperLeft.addBox(0.0F, 0.0F, -3.0F, 38, 0, 10, 0.0F);
-				setRotateAngle(wingUpperLeft, 0.0F, -0.045553093477052F, 0.0F);
+				wingForeLeft = new EntityPart(this, 0, 0);
+				wingForeLeft.setRotationPoint(1, 0, 0);
+				wingForeLeft.addElement(new ModelPlane(wingForeLeft, EnumAxis.Y, -4, 0, 0, 8, 4));
+				wingForeLeft.setRotation(0, (float) Math.toRadians(20), 0);
 				
-				wingLowerLeft = new EntityPart(this, 76, 0);
-				wingLowerLeft.setRotationPoint(1.3F, -2.3F, 0.5F);
-				wingLowerLeft.addBox(0.0F, 0.0F, -4.0F, 38, 0, 8, 0.0F);
-				setRotateAngle(wingLowerLeft, 0.0F, 0.31869712141416456F, 0.0F);
+				wingRearLeft = new EntityPart(this, 0, 0);
+				wingRearLeft.setRotationPoint(-1, 0, 0);
+				wingRearLeft.addElement(new ModelPlane(wingRearLeft, EnumAxis.Y, -4, 0, 0, 8, 4));
+				wingRearLeft.setRotation(0, (float) Math.toRadians(-5), 0);
+				
+				// Right
+				wingBoneRight = new EntityPart(this);
+				wingBoneRight.setRotationPoint(0.5F, -1.5F, -0.5F);
+				
+				wingForeRight = new EntityPart(this, 0, 0);
+				wingForeRight.setRotationPoint(1, 0, 0);
+				wingForeRight.addElement(new ModelPlane(wingForeRight, EnumAxis.Y, -4, 0, -8, 8, 4));
+				wingForeRight.setRotation(0, (float) Math.toRadians(-20), 0);
+				
+				wingRearRight = new EntityPart(this, 0, 0);
+				wingRearRight.setRotationPoint(-1, 0, 0);
+				wingRearRight.addElement(new ModelPlane(wingRearRight, EnumAxis.Y, -4, 0, -8, 8, 4));
+				wingRearRight.setRotation(0, (float) Math.toRadians(5), 0);
+				
+				// ==== Legs ====
+				// -- Front --
+				// Left
+				legFrontLeftUpper = new EntityPart(this, 0, 0);
+				legFrontLeftUpper.setRotationPoint(1.5F, 1, 0.5F);
+				legFrontLeftUpper.addElement(new ModelPlane(legFrontLeftUpper, EnumAxis.Z, -0.5F, 0, 0, 1, 2));
+				legFrontLeftUpper.setRotation((float) Math.toRadians(60), (float) Math.toRadians(-10), 0);
+
+				legFrontLeftLower = new EntityPart(this, 0, 0);
+				legFrontLeftLower.setRotationPoint(0, 2, 0);
+				legFrontLeftLower.addElement(new ModelPlane(legFrontLeftLower, EnumAxis.Z, -0.5F, 0, 0, 1, 2));
+				legFrontLeftLower.setRotation((float) Math.toRadians(-80), 0, 0);
+				
+				// Right
+				legFrontRightUpper = new EntityPart(this, 0, 0);
+				legFrontRightUpper.setRotationPoint(1.5F, 1, -0.5F);
+				legFrontRightUpper.addElement(new ModelPlane(legFrontRightUpper, EnumAxis.Z, -0.5F, 0, 0, 1, 2));
+				legFrontRightUpper.setRotation((float) Math.toRadians(-60), (float) Math.toRadians(10), 0);
+
+				legFrontRightLower = new EntityPart(this, 0, 0);
+				legFrontRightLower.setRotationPoint(0, 2, 0);
+				legFrontRightLower.addElement(new ModelPlane(legFrontRightLower, EnumAxis.Z, -0.5F, 0, 0, 1, 2));
+				legFrontRightLower.setRotation((float) Math.toRadians(80), 0, 0);
+				
+				// -- Middle --
+				// Left
+				legMiddleLeftUpper = new EntityPart(this, 0, 0);
+				legMiddleLeftUpper.setRotationPoint(0.5F, 1, 0.5F);
+				legMiddleLeftUpper.addElement(new ModelPlane(legMiddleLeftUpper, EnumAxis.Z, -0.5F, 0, 0, 1, 2));
+				legMiddleLeftUpper.setRotation((float) Math.toRadians(60), (float) Math.toRadians(-30), 0);
+				
+				legMiddleLeftLower = new EntityPart(this, 0, 0);
+				legMiddleLeftLower.setRotationPoint(0, 2, 0);
+				legMiddleLeftLower.addElement(new ModelPlane(legMiddleLeftLower, EnumAxis.Z, -0.5F, 0, 0, 1, 2));
+				legMiddleLeftLower.setRotation((float) Math.toRadians(-80), 0, 0);
+
+				// Right
+				legMiddleRightUpper = new EntityPart(this, 0, 0);
+				legMiddleRightUpper.setRotationPoint(0.5F, 1, -0.5F);
+				legMiddleRightUpper.addElement(new ModelPlane(legMiddleRightUpper, EnumAxis.Z, -0.5F, 0, 0, 1, 2));
+				legMiddleRightUpper.setRotation((float) Math.toRadians(-60), (float) Math.toRadians(30), 0);
+				
+				legMiddleRightLower = new EntityPart(this, 0, 0);
+				legMiddleRightLower.setRotationPoint(0, 2, 0);
+				legMiddleRightLower.addElement(new ModelPlane(legMiddleRightLower, EnumAxis.Z, -0.5F, 0, 0, 1, 2));
+				legMiddleRightLower.setRotation((float) Math.toRadians(80), 0, 0);
+				
+				// -- Rear --
+				// Left
+				legRearLeftUpper = new EntityPart(this, 0, 0);
+				legRearLeftUpper.setRotationPoint(-0.5F, 1, 0.5F);
+				legRearLeftUpper.addElement(new ModelPlane(legRearLeftUpper, EnumAxis.Z, -0.5F, 0, 0, 1, 2));
+				legRearLeftUpper.setRotation((float) Math.toRadians(60), (float) Math.toRadians(-50), 0);
+				
+				legRearLeftLower = new EntityPart(this, 0, 0);
+				legRearLeftLower.setRotationPoint(0, 2, 0);
+				legRearLeftLower.addElement(new ModelPlane(legRearLeftLower, EnumAxis.Z, -0.5F, 0, 0, 1, 2));
+				legRearLeftLower.setRotation((float) Math.toRadians(-80), 0, 0);
+				
+				// Right
+				legRearRightUpper = new EntityPart(this, 0, 0);
+				legRearRightUpper.setRotationPoint(-0.5F, 1, -0.5F);
+				legRearRightUpper.addElement(new ModelPlane(legRearRightUpper, EnumAxis.Z, -0.5F, 0, 0, 1, 2));
+				legRearRightUpper.setRotation((float) Math.toRadians(-60), (float) Math.toRadians(50), 0);
+				
+				legRearRightLower = new EntityPart(this, 0, 0);
+				legRearRightLower.setRotationPoint(0, 2, 0);
+				legRearRightLower.addElement(new ModelPlane(legRearRightLower, EnumAxis.Z, -0.5F, 0, 0, 1, 2));
+				legRearRightLower.setRotation((float) Math.toRadians(80), 0, 0);
 				
 				// ==== Tail ====
-				tail1 = new EntityPart(this, 0, 40);
-				tail1.setRotationPoint(0.0F, -0.2F, 3.6F);
-				tail1.addBox(-2.0F, -2.5F, 0.0F, 4, 5, 9, 0.0F);
-				tail2 = new EntityPart(this, 30, 40);
-				tail2.setRotationPoint(0.0F, 0.0F, 8.6F);
-				tail2.addBox(-1.5F, -2.0F, 0.0F, 3, 4, 10, 0.0F);
-				tail3 = new EntityPart(this, 60, 40);
-				tail3.setRotationPoint(0.0F, 0.0F, 9.7F);
-				tail3.addBox(-1.0F, -1.5F, 0.0F, 2, 3, 11, 0.0F);
-				tail4 = new EntityPart(this, 90, 40);
-				tail4.setRotationPoint(0.0F, 0.0F, 11.0F);
-				tail4.addBox(-0.5F, -1.0F, 0.0F, 1, 2, 12, 0.0F);
-				tailTipLeft = new EntityPart(this, 25, 0);
-				tailTipLeft.setRotationPoint(0.0F, 0.0F, 10.0F);
-				tailTipLeft.addBox(0.0F, -0.5F, -0.5F, 9, 1, 1, 0.0F);
-				setRotateAngle(tailTipLeft, 0.0F, -1.2747884856566583F, 0.0F);
-				tailTipRight = new EntityPart(this, 25, 0);
-				tailTipRight.setRotationPoint(0.0F, 0.0F, 10.0F);
-				tailTipRight.addBox(-9.0F, -0.5F, -0.5F, 9, 1, 1, 0.0F);
-				setRotateAngle(tailTipRight, 0.0F, 1.2747884856566583F, 0.0F);
+				tail1 = new EntityPart(this, 0, 0);
+				tail1.setRotationPoint(-3, 0, 0);
+				tail1.addBox(-3, -0.5F, -0.5F, 4, 1, 1);
+				tail1.setRotation(0, 0, (float) Math.toRadians(2.5));
 				
-				main.addChild(body);
-					body.addChild(head);
-						head.addChild(eyeLeft);
-						head.addChild(eyeRight);
-						head.addChild(headUpper);
-							headUpper.addChild(mouth1);
-								mouth1.addChild(mouth2);
-									mouth2.addChild(mandibleLeft);
-									mouth2.addChild(mandibleRight);
-					
-					// wings
-					body.addChild(wingLeft);
-						wingLeft.addChild(wingUpperLeft);
-						wingLeft.addChild(wingLowerLeft);
-					body.addChild(wingRight);
-						wingRight.addChild(wingUpperRight);
-						wingRight.addChild(wingLowerRight);
-					
-					// legs
-					body.addChild(legFrontRightUpper);
-						legFrontRightUpper.addChild(legFrontRightLower);
-							legFrontRightLower.addChild(legFrontRightFoot);
-					
-					body.addChild(legFrontLeftUpper);
-						legFrontLeftUpper.addChild(legFrontLeftLower);
-							legFrontLeftLower.addChild(legFrontLeftFoot);
-					
-					body.addChild(legMiddleRightUpper);
-						legMiddleRightUpper.addChild(legMiddleRightLower);
-							legMiddleRightLower.addChild(legMiddleRightFoot);
-					
-					body.addChild(legMiddleLeftUpper);
-						legMiddleLeftUpper.addChild(legMiddleLeftLower);
-							legMiddleLeftLower.addChild(legMiddleLeftFoot);
-					
-					body.addChild(legRearRightUpper);
-						legRearRightUpper.addChild(legRearRightLower);
-							legRearRightLower.addChild(legRearRightFoot);
-					
-					body.addChild(legRearLeftUpper);
-						legRearLeftUpper.addChild(legRearLeftLower);
-							legRearLeftLower.addChild(legRearLeftFoot);
-					
-					// tail
-					body.addChild(tail1);
-						tail1.addChild(tail2);
-							tail2.addChild(tail3);
-								tail3.addChild(tail4);
-									tail4.addChild(tailTipLeft);
-									tail4.addChild(tailTipRight);
+				tail2 = new EntityPart(this, 0, 0);
+				tail2.setRotationPoint(-3, -0.5F, 0);
+				tail2.addBox(-3, 0, -0.5F, 3, 1, 1);
+				tail2.setRotation(0, 0, (float) Math.toRadians(-5));
 				
-				main.setDefaultState(true);
+				tail3 = new EntityPart(this, 0, 0);
+				tail3.setRotationPoint(-3, 0, 0);
+				tail3.addBox(-3, 0, -0.5F, 3, 1, 1);
+				tail3.setRotation(0, 0, (float) Math.toRadians(-2.5));
+				
+				drill = new EntityPart(this, 0, 0);
+				drill.setRotationPoint(-3, 1, 0);
+				drill.addElement(new ModelPlane(drill, EnumAxis.Y, -2, 0, -0.5F, 1, 2));
+				
+				spikeLeft = new EntityPart(this, 0, 0);
+				spikeLeft.setRotationPoint(-3, 0.5F, 0.5F);
+				spikeLeft.addElement(new ModelPlane(spikeLeft, EnumAxis.Z, -2, -0.5F, 0, 2, 1));
+				spikeLeft.setRotation(0, (float) Math.toRadians(30), 0);
+				
+				spikeRight = new EntityPart(this, 0, 0);
+				spikeRight.setRotationPoint(-3, 0.5F, -0.5F);
+				spikeRight.addElement(new ModelPlane(spikeRight, EnumAxis.Z, -2, -0.5F, 0, 2, 1));
+				spikeRight.setRotation(0, (float) Math.toRadians(-30), 0);
+				
+				// Head
+				body.addChild(neck);
+					neck.addChild(mouth);
+						mouth.addChild(face);
+							face.addChild(eyeLeft);
+							face.addChild(eyeRight);
+				
+				// Wings
+				body.addChild(wingBoneLeft);
+					wingBoneLeft.addChild(wingForeLeft);
+					wingBoneLeft.addChild(wingRearLeft);
+
+				body.addChild(wingBoneRight);
+					wingBoneRight.addChild(wingForeRight);
+					wingBoneRight.addChild(wingRearRight);
+				
+				// Legs
+				// Front
+				body.addChild(legFrontLeftUpper);
+					legFrontLeftUpper.addChild(legFrontLeftLower);
+				
+				body.addChild(legFrontRightUpper);
+					legFrontRightUpper.addChild(legFrontRightLower);
+				
+				// Middle
+				body.addChild(legMiddleLeftUpper);
+					legMiddleLeftUpper.addChild(legMiddleLeftLower);
+				
+				body.addChild(legMiddleRightUpper);
+					legMiddleRightUpper.addChild(legMiddleRightLower);
+				
+				// Rear
+				body.addChild(legRearLeftUpper);
+					legRearLeftUpper.addChild(legRearLeftLower);
+				
+				body.addChild(legRearRightUpper);
+					legRearRightUpper.addChild(legRearRightLower);
+				
+				// Tail
+				body.addChild(tail1);
+					tail1.addChild(tail2);
+						tail2.addChild(tail3);
+							tail3.addChild(drill);
+							tail3.addChild(spikeLeft);
+							tail3.addChild(spikeRight);
+				
+				body.setDefaultState(true);
 			}
 			
 			@Override
@@ -1006,7 +996,7 @@ public class EntityMeganeura extends EntityLiving
 			{
 				EntityMeganeura meganeura = (EntityMeganeura) entity;
 				
-				main.render(p6);
+				body.render(p6);
 			}
 			
 			protected float partialTick = 0;
@@ -1022,17 +1012,65 @@ public class EntityMeganeura extends EntityLiving
 			{
 				EntityMeganeura meganeura = (EntityMeganeura) entity;
 				
-				main.resetState(true);
+				body.resetState(true);
 				
 				float pitch = meganeura.prevRotationPitch + (meganeura.rotationPitch - meganeura.prevRotationPitch) * partialTick;
-				main.rotateAngleZ += Math.toRadians(pitch);
+				body.rotateAngleZ += Math.toRadians(pitch);
 				
 				float roll = meganeura.prevRoll + (meganeura.roll - meganeura.prevRoll) * partialTick;
-				main.rotateAngleX += roll;
+				body.rotateAngleX += Math.toRadians(roll);
 				
 				float wingSwing = meganeura.prevWingSwing + (meganeura.wingSwing - meganeura.prevWingSwing) * partialTick;
-				wingLeft.rotateAngleZ += -wingSwing;
-				wingRight.rotateAngleZ += wingSwing;
+				wingBoneLeft.rotateAngleX += -wingSwing;
+				wingBoneRight.rotateAngleX += wingSwing;
+				
+				// Laying egg animation.
+				if (meganeura.getState() == PLACING_EGG)
+				{
+					float eggTimer = meganeura.prevEggPlaceTimer + (meganeura.eggPlaceTimer - meganeura.prevEggPlaceTimer) * partialTick;
+					eggTimer = MathHelper.clamp_float(eggTimer, 0, 1);
+					
+					float eggAnimation = MathHelper.sin(eggTimer * (float) Math.PI);
+					
+					final float transitionTime = 0.3F;
+					eggAnimation *= transitionTime + 1;
+					float drillAnimationAmt = Math.max(eggAnimation - transitionTime, 0);
+					eggAnimation -= drillAnimationAmt;
+					eggAnimation /= transitionTime;
+					
+					float eggAnimation2 = (float) Math.pow(eggAnimation, 2);
+					
+					double bodyRot1 = Math.toRadians(5);
+					
+					double tail1Rot1 = Math.toRadians(30);
+					double tail2Rot1 = Math.toRadians(-30);
+					double tail3Rot1 = Math.toRadians(-50);
+					
+					body.offsetY += -0.02 * eggAnimation;
+					body.rotateAngleZ += bodyRot1 * eggAnimation;
+					
+					tail1.rotateAngleZ += tail1Rot1 * eggAnimation;
+					tail2.rotateAngleZ += tail2Rot1 * eggAnimation2;
+					tail3.rotateAngleZ += tail3Rot1 * eggAnimation2;
+					
+					if (drillAnimationAmt > 0)
+					{
+						drillAnimationAmt = MathHelper.sqrt_float(drillAnimationAmt);
+						
+						double tail1Rot2 = Math.toRadians(2.5);
+						double tail2Rot2 = Math.toRadians(0);
+						double tail3Rot2 = Math.toRadians(-3.5);
+						tail1Rot2 *= drillAnimationAmt;
+						tail2Rot2 *= drillAnimationAmt;
+						tail3Rot2 *= drillAnimationAmt;
+						float speed = 60;
+						float drillAnimation = MathHelper.sin(eggTimer * (float) Math.PI * speed);
+						
+						tail1.rotateAngleZ += tail1Rot2 * drillAnimation;
+						tail2.rotateAngleZ += tail2Rot2 * drillAnimation;
+						tail3.rotateAngleZ += tail3Rot2 * drillAnimation;
+					}
+				}
 			}
 			
 			public void setRotateAngle(EntityPart part, float x, float y, float z)
@@ -1055,7 +1093,9 @@ public class EntityMeganeura extends EntityLiving
 		{
 			super.doRender(entity, x, y, z, yaw, partialTicks);
 			
-			EntityMeganeura meganeura = (EntityMeganeura) entity;
+			//RenderHelpers.renderEntityBounds(entity, x, y, z, partialTicks);
+			
+			/*EntityMeganeura meganeura = (EntityMeganeura) entity;
 			
 			if (meganeura.targetLocation != null)
 			{
@@ -1066,7 +1106,7 @@ public class EntityMeganeura extends EntityLiving
 				Vec3 target = meganeura.targetLocation.add(offset);
 				
 				super.doRender(entity, target.xCoord, target.yCoord, target.zCoord, yaw, partialTicks);
-			}
+			}*/
 		}
 		
 		@Override

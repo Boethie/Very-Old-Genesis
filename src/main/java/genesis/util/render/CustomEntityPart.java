@@ -45,7 +45,7 @@ public abstract class CustomEntityPart extends EntityPart
 	}
 
 	@Override
-	public ModelRenderer setTextureOffset(int x, int y)
+	public EntityPart setTextureOffset(int x, int y)
 	{
 		throw new UnsupportedOperationException();
 	}

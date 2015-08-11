@@ -195,7 +195,12 @@ public class BlockGenesisPebble extends Block
 	
 	protected void setBlockBounds(AxisAlignedBB bb)
 	{
-		setBlockBounds((float) bb.minX, (float) bb.minY, (float) bb.minZ, (float) bb.maxX, (float) bb.maxY, (float) bb.maxZ);
+		minX = bb.minX;
+		minY = bb.minY;
+		minZ = bb.minZ;
+		maxX = bb.maxX;
+		maxY = bb.maxY;
+		maxZ = bb.maxZ;
 	}
 	
 	protected static enum Part

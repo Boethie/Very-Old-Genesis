@@ -3,7 +3,7 @@ package genesis.util;
 import genesis.metadata.*;
 import net.minecraft.util.*;
 
-public enum EnumAxis implements IMetadata, IStringSerializable
+public enum EnumAxis implements IMetadata
 {
 	X("x"),
 	Y("y"),
@@ -42,7 +42,7 @@ public enum EnumAxis implements IMetadata, IStringSerializable
 	{
 		return unlocName;
 	}
-
+	
 	public static EnumAxis getForAngle(float rotationYaw)
 	{
 		rotationYaw = MathHelper.wrapAngleTo180_float(rotationYaw);
