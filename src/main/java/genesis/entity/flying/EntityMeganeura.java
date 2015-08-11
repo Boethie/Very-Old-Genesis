@@ -11,6 +11,7 @@ import com.google.common.base.Function;
 
 import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
+import genesis.common.GenesisItems;
 import genesis.entity.fixed.EntityMeganeuraEgg;
 import static genesis.entity.flying.EntityMeganeura.State.*;
 import genesis.util.*;
@@ -22,7 +23,12 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.entity.*;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
+import net.minecraft.stats.AchievementList;
 import net.minecraft.util.*;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
@@ -87,6 +93,19 @@ public class EntityMeganeura extends EntityLiving
 		dataWatcher.addObject(STATE, (byte) IDLE.ordinal());
 	}
 	
+	@Override
+	protected int getExperiencePoints(EntityPlayer player)
+	{
+		return 1 + worldObj.rand.nextInt(3);
+	}
+	
+	protected void dropFewItems(boolean hitRecently, int looting)
+	{
+		super.dropFewItems(hitRecently, looting);
+		
+		entityDropItem(new ItemStack(GenesisItems.meganeura), 0);
+	}
+	
 	public State getState()
 	{
 		return State.values()[dataWatcher.getWatchableObjectByte(STATE)];
@@ -138,6 +157,11 @@ public class EntityMeganeura extends EntityLiving
 		if (eggPlaceTimer > 0)
 		{
 			eggPlaceTimer = Math.max(eggPlaceTimer - (1F / eggPlaceTicks), 0);
+			sendUpdateMessage();
+		}
+		
+		if (entityAge % 25 == 0)
+		{
 			sendUpdateMessage();
 		}
 		
@@ -244,24 +268,30 @@ public class EntityMeganeura extends EntityLiving
 	
 	public static class MeganeuraUpdateMessage implements IMessage
 	{
-		protected int entityID;
-		protected float eggPlaceTimer;
-		protected Vec3 targetLocation;
+		public int entityID;
+		public float eggPlaceTimer;
+		public Vec3 position;
+		public Vec3 velocity;
+		public float yaw;
+		public Vec3 targetLocation;
 		
 		public MeganeuraUpdateMessage()
 		{
 		}
 		
-		public MeganeuraUpdateMessage(int entityID, float eggPlaceTimer, Vec3 targetLocation)
+		public MeganeuraUpdateMessage(int entityID, Vec3 position, Vec3 velocity, float yaw, Vec3 targetLocation, float eggPlaceTimer)
 		{
 			this.entityID = entityID;
 			this.eggPlaceTimer = eggPlaceTimer;
+			this.position = position;
+			this.yaw = yaw;
+			this.velocity = velocity;
 			this.targetLocation = targetLocation;
 		}
 		
 		public MeganeuraUpdateMessage(EntityMeganeura entity)
 		{
-			this(entity.getEntityId(), entity.eggPlaceTimer, entity.targetLocation);
+			this(entity.getEntityId(), entity.getPositionVector(), new Vec3(entity.motionX, entity.motionY, entity.motionZ), entity.rotationYaw, entity.targetLocation, entity.eggPlaceTimer);
 		}
 		
 		@Override
@@ -271,10 +301,32 @@ public class EntityMeganeura extends EntityLiving
 			
 			buf.writeFloat(eggPlaceTimer);
 			
-			boolean hasTarget = targetLocation != null;
-			buf.writeBoolean(hasTarget);
+			boolean has = position != null;
+			buf.writeBoolean(has);
 			
-			if (hasTarget)
+			if (has)
+			{
+				buf.writeDouble(position.xCoord);
+				buf.writeDouble(position.yCoord);
+				buf.writeDouble(position.zCoord);
+			}
+			
+			has = velocity != null;
+			buf.writeBoolean(has);
+			
+			if (has)
+			{
+				buf.writeDouble(velocity.xCoord);
+				buf.writeDouble(velocity.yCoord);
+				buf.writeDouble(velocity.zCoord);
+			}
+			
+			buf.writeFloat(yaw);
+			
+			has = targetLocation != null;
+			buf.writeBoolean(has);
+			
+			if (has)
 			{
 				buf.writeDouble(targetLocation.xCoord);
 				buf.writeDouble(targetLocation.yCoord);
@@ -288,6 +340,18 @@ public class EntityMeganeura extends EntityLiving
 			entityID = buf.readInt();
 			
 			eggPlaceTimer = buf.readFloat();
+			
+			if (buf.readBoolean())
+			{
+				position = new Vec3(buf.readDouble(), buf.readDouble(), buf.readDouble());
+			}
+			
+			if (buf.readBoolean())
+			{
+				velocity = new Vec3(buf.readDouble(), buf.readDouble(), buf.readDouble());
+			}
+			
+			yaw = buf.readFloat();
 			
 			if (buf.readBoolean())
 			{
@@ -320,6 +384,23 @@ public class EntityMeganeura extends EntityLiving
 							else
 							{
 								meganeura.newEggPlaceTimer = message.eggPlaceTimer;
+							}
+							
+							Vec3 p = message.position;
+							
+							if (p != null)
+							{
+								meganeura.setPositionAndRotation2(p.xCoord, p.yCoord, p.zCoord, message.yaw, meganeura.rotationPitch, 2, false);
+								meganeura.serverPosX = (int) (p.xCoord * 32);
+								meganeura.serverPosY = (int) (p.yCoord * 32);
+								meganeura.serverPosZ = (int) (p.zCoord * 32);
+							}
+							
+							Vec3 v = message.velocity;
+							
+							if (v != null)
+							{
+								meganeura.setVelocity(v.xCoord, v.yCoord, v.zCoord);
 							}
 							
 							meganeura.targetLocation = message.targetLocation;
@@ -382,7 +463,7 @@ public class EntityMeganeura extends EntityLiving
 			}
 
 			boolean checkIdle = rand.nextInt(100) == 0;
-			boolean checkCalamites = rand.nextInt(50) == 0;
+			boolean checkCalamites = rand.nextInt(150) == 0;
 			double distance = 16;
 			
 			if (checkCalamites)
@@ -1085,7 +1166,7 @@ public class EntityMeganeura extends EntityLiving
 		
 		public Render()
 		{
-			super(Minecraft.getMinecraft().getRenderManager(), new Model(), 1);
+			super(Minecraft.getMinecraft().getRenderManager(), new Model(), 0.4F);
 		}
 		
 		@Override

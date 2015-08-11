@@ -15,14 +15,25 @@ public class GenesisEntities
 	
 	public static void registerEntities()
 	{
-		registerEntity(EntityMeganeura.class, "Meganeura", 160, 3, true, 0, 0);
-		registerEntity(EntityMeganeuraEgg.class, "MeganeuraEgg", 160, Integer.MAX_VALUE, true, 1, 1);
+		registerEntity(EntityMeganeura.class, "Meganeura", 160, 1, true, 0, 0);
+		registerEntity(EntityMeganeuraEgg.class, "MeganeuraEgg", 160, Integer.MAX_VALUE, false);
+	}
+	
+	protected static void registerEntity(Class<? extends Entity> clazz, String name, int trackRange, int trackFrequency, boolean trackVelocity)
+	{
+		EntityRegistry.registerGlobalEntityID(clazz, name, EntityRegistry.findGlobalUniqueEntityId());
+		EntityRegistry.registerModEntity(clazz, name, modID++, Genesis.instance, trackRange, trackFrequency, trackVelocity);
+	}
+	
+	protected static void registerEntity(Class<? extends Entity> clazz, String name)
+	{
+		registerEntity(clazz, name, 80, Integer.MAX_VALUE, false);
 	}
 	
 	protected static void registerEntity(Class<? extends Entity> clazz, String name, int trackRange, int trackFrequency, boolean trackVelocity, int primaryColor, int secondaryColor)
 	{
-		EntityRegistry.registerGlobalEntityID(clazz, name, EntityRegistry.findGlobalUniqueEntityId());
-		EntityRegistry.registerModEntity(clazz, name, modID++, Genesis.instance, trackRange, trackFrequency, trackVelocity, primaryColor, secondaryColor);
+		registerEntity(clazz, name, trackRange, trackFrequency, trackVelocity);
+		EntityRegistry.registerEgg(clazz, primaryColor, secondaryColor);
 	}
 	
 	@SideOnly(Side.CLIENT)
