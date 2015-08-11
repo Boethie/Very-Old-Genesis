@@ -19,7 +19,9 @@ public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
 		super(id);
 		setBiomeName("Shallow Ocean");
 		setHeight(-.8F, 0.1F);
+		
 		waterColorMultiplier = 0x008d49;
+		theBiomeDecorator.grassPerChunk = 0;
 		
 		addDecoration(new WorldGenCorals(2, 5, EnumCoral.HALYSITES).setCountPerChunk(1));
 		addDecoration(new WorldGenCorals(2, 5, EnumCoral.HELIOLITES).setCountPerChunk(1));

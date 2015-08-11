@@ -33,6 +33,7 @@ public class BlockPrototaxites extends BlockGenesis
 		
 		setHardness(0.75F);
 		setTickRandomly(true);
+		setStepSound(GenesisSounds.MUSHROOM);
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		setHarvestLevel("axe", 0);
 	}

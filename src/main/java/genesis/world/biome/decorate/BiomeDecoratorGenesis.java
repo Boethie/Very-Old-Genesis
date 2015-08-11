@@ -6,8 +6,6 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LAKE_WATER;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.SAND;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
-
-import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.COAL;
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumSilt;
 import genesis.metadata.SiltBlocks;
@@ -189,8 +187,8 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
         genStandardOre1(8, trondhjemiteGen, 0, 128);
         genStandardOre1(5, fauxGen, 0, 64);
         genStandardOre1(5, anorthositeGen, 0, 128);
-        genStandardOre1(20, flintGen, 0, 128);
-        genStandardOre1(5, marcasiteGen, 0, 128);
+        genStandardOre1(25, flintGen, 60, 128);
+        genStandardOre1(21, marcasiteGen, 60, 128);
         //if (TerrainGen.generateOre(currentWorld, randomGenerator, quartzGen, field_180294_c, QUARTZ))
         genStandardOre1(27, quartzGen, 0, 128);
         genStandardOre1(13, zirconGen, 0, 128);

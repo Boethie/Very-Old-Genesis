@@ -6,11 +6,9 @@ import genesis.metadata.TreeBlocksAndItems;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 public class WorldGenTreeSigillaria extends WorldGenTreeBase

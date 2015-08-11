@@ -117,7 +117,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		doPineTopLeaves(world, pos, branchPos.down(), height, branchPos.getY() - height + 1, rand, false, leavesLength);
 	}
 	
-	protected void generateBranchSide(World world, BlockPos pos, Random rand, int dirX, int dirZ, int maxLength)
+	protected void generateBranchSide(World world, BlockPos pos, Random rand, int dirX, int dirZ, int maxLength, int branchRarity)
 	{
 		BlockPos branchPos = pos;
 		EnumAxis axis;
@@ -141,10 +141,10 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 			setBlockInWorld(world, branchPos, wood.withProperty(BlockLog.LOG_AXIS, axis));
 			generateHorizontalBranchLeaveS(world, branchPos, dirX, dirZ);
 			
-			if (rand.nextInt(6) == 0)
+			if (rand.nextInt(branchRarity) == 0)
 			{
 				int dSwitch = (rand.nextInt(2) == 0)? 1:-1;
-				generateBranchSide(world, branchPos, rand, ((dirX == 0)? dSwitch : 0), ((dirZ == 0)? dSwitch : 0), ((int)(maxLength / 2) < 1)? 1 : ((int)(maxLength / 2)));
+				generateBranchSide(world, branchPos, rand, ((dirX == 0)? dSwitch : 0), ((dirZ == 0)? dSwitch : 0), ((int)(maxLength / 2) < 1)? 1 : ((int)(maxLength / 2)), branchRarity + 1);
 			}
 		}
 		

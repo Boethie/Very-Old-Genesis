@@ -191,9 +191,9 @@
 	,"place.mushroom": {
 		"category": "block",
 		"sounds": [
-			"dig/mushroom1",
-			"dig/mushroom2",
-			"dig/mushroom3"
+			"step/mushroom1",
+			"step/mushroom2",
+			"step/mushroom3"
 		]
 	}
 }

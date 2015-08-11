@@ -13,12 +13,12 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class BiomeGenSwamp extends BiomeGenBaseGenesis
+public class BiomeGenMarsh extends BiomeGenBaseGenesis
 {
-	public BiomeGenSwamp(int id)
+	public BiomeGenMarsh(int id)
 	{
 		super(id);
-		setBiomeName("Swamp");
+		setBiomeName("Marsh");
 		this.temperature = 1.15f;
 		this.topBlock = Blocks.dirt.getDefaultState();
 		setHeight(-0.2F, 0.01F);

@@ -60,6 +60,8 @@ public class WorldGenTreeCordaites extends WorldGenTreeBase
 		
 		int leavesLevel = ((pos.getY() + this.minHeight - 5) < basePos.getY())? basePos.getY() + 2 : pos.getY() + this.minHeight - 5;
 		
+		leavesLevel += rand.nextInt(3);
+		
 		doPineTopLeaves(world, pos, branchPos, treeHeight, leavesLevel, rand, false);
 		
 		int branchBaseHeight = 2;
@@ -76,6 +78,17 @@ public class WorldGenTreeCordaites extends WorldGenTreeBase
 			generateBranchSideup(world, branchPos.down(rand.nextInt(3)), rand, 0, 1, branchBaseHeight, branchGrowSize, leavesLength);
 		if (rand.nextInt(2) == 0)
 			generateBranchSideup(world, branchPos.down(rand.nextInt(3)), rand, 0, -1, branchBaseHeight, branchGrowSize, leavesLength);
+		
+		branchPos = branchPos.up(2);
+		
+		if (rand.nextInt(3) == 0)
+			generateBranchSide(world, branchPos.down(rand.nextInt(4)), rand, 1, 0, 1 + rand.nextInt(4), 3);
+		if (rand.nextInt(3) == 0)
+			generateBranchSide(world, branchPos.down(rand.nextInt(4)), rand, -1, 0, 1 + rand.nextInt(4), 3);
+		if (rand.nextInt(3) == 0)
+			generateBranchSide(world, branchPos.down(rand.nextInt(4)), rand, 0, 1, 1 + rand.nextInt(4), 3);
+		if (rand.nextInt(3) == 0)
+			generateBranchSide(world, branchPos.down(rand.nextInt(4)), rand, 0, -1, 1 + rand.nextInt(4), 3);
 		
 		return true;
 	}

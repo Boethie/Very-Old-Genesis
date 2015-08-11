@@ -67,13 +67,13 @@ public class WorldGenTreeArchaeopteris extends WorldGenTreeBase
 		branchPos = branchPos.down(branchY - 2);
 		
 		if (rand.nextInt(2) == 0)
-			generateBranchSide(world, branchPos.down(rand.nextInt(4)), rand, 1, 0, 1 + rand.nextInt(3));
+			generateBranchSide(world, branchPos.down(rand.nextInt(4)), rand, 1, 0, 1 + rand.nextInt(3), 6);
 		if (rand.nextInt(2) == 0)
-			generateBranchSide(world, branchPos.down(rand.nextInt(4)), rand, -1, 0, 1 + rand.nextInt(3));
+			generateBranchSide(world, branchPos.down(rand.nextInt(4)), rand, -1, 0, 1 + rand.nextInt(3), 6);
 		if (rand.nextInt(2) == 0)
-			generateBranchSide(world, branchPos.down(rand.nextInt(4)), rand, 0, 1, 1 + rand.nextInt(3));
+			generateBranchSide(world, branchPos.down(rand.nextInt(4)), rand, 0, 1, 1 + rand.nextInt(3), 6);
 		if (rand.nextInt(2) == 0)
-			generateBranchSide(world, branchPos.down(rand.nextInt(4)), rand, 0, -1, 1 + rand.nextInt(3));
+			generateBranchSide(world, branchPos.down(rand.nextInt(4)), rand, 0, -1, 1 + rand.nextInt(3), 6);
 		
 		return true;
 	}

@@ -11,13 +11,13 @@ import genesis.world.biome.BiomeGenBaseGenesis;
 import genesis.world.biome.BiomeGenBeachGenesis;
 import genesis.world.biome.BiomeGenDeepOcean;
 import genesis.world.biome.BiomeGenLimestoneBeach;
+import genesis.world.biome.BiomeGenMarsh;
 import genesis.world.biome.BiomeGenRainforest;
 import genesis.world.biome.BiomeGenRainforestEdge;
 import genesis.world.biome.BiomeGenRainforestEdgeM;
 import genesis.world.biome.BiomeGenRainforestM;
 import genesis.world.biome.BiomeGenRiver;
 import genesis.world.biome.BiomeGenShallowOcean;
-import genesis.world.biome.BiomeGenSwamp;
 import genesis.world.biome.BiomeGenSwampRainforest;
 import genesis.world.biome.BiomeManagerGenesis;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -47,7 +47,7 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis archaeopterisForestHills;
 	public static BiomeGenBaseGenesis archaeopterisPlains;
 	public static BiomeGenBaseGenesis genesisBeach;
-	public static BiomeGenBaseGenesis swamp;
+	public static BiomeGenBaseGenesis marsh;
 	
 	public static final BiomeGenBase.Height height_LowHills = new BiomeGenBase.Height(0.45F, 0.3F);
 	public static final BiomeGenBase.Height height_EmergingHills = new BiomeGenBase.Height(0.0F, 0.1F);
@@ -94,9 +94,9 @@ public final class GenesisBiomes
 		BiomeManagerGenesis.registerBiome(swampRainForest, BiomeType.WARM, GenesisConfig.swampRainForestWeight);
 		BiomeDictionary.registerBiomeType(swampRainForest, BiomeDictionary.Type.SWAMP, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
-		swamp = new BiomeGenSwamp(GenesisConfig.swampId);
-		BiomeManagerGenesis.registerBiome(swamp, BiomeType.WARM, GenesisConfig.swampWeight);
-		BiomeDictionary.registerBiomeType(swamp, BiomeDictionary.Type.SWAMP, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
+		marsh = new BiomeGenMarsh(GenesisConfig.marshId);
+		BiomeManagerGenesis.registerBiome(marsh, BiomeType.WARM, GenesisConfig.marshWeight);
+		BiomeDictionary.registerBiomeType(marsh, BiomeDictionary.Type.SWAMP, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
 		
 		archaeopterisForest = new BiomeGenArchaeopterisForest(GenesisConfig.archaeopterisForestId);
 		BiomeManagerGenesis.registerBiome(archaeopterisForest, BiomeType.WARM, GenesisConfig.archaeopterisForestWeight);
