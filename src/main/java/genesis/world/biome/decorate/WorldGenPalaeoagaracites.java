@@ -7,7 +7,6 @@ import genesis.common.GenesisBlocks;
 import java.util.Random;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -61,11 +60,5 @@ public class WorldGenPalaeoagaracites extends WorldGenDecorationBase
 		}
 		
 		return false;
-	}
-
-	@Override
-	public IBlockState getSpawnablePlant(Random rand)
-	{
-		return GenesisBlocks.palaeoagaracites.getDefaultState();
 	}
 }

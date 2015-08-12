@@ -161,10 +161,4 @@ public class WorldGenGrowingPlant extends WorldGenDecorationBase
 		for (int i = 0; i <= height; ++i)
 			setBlockInWorld(world, placePos.add(0, i, 0), plantBlock);
 	}
-
-	@Override
-	public IBlockState getSpawnablePlant(Random random)
-	{
-		return plant.getDefaultState().withProperty(plant.ageProp, random.nextInt(7));
-	}
 }
