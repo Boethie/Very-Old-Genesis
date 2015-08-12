@@ -1,7 +1,6 @@
 package genesis.world.layer;
 
 import genesis.common.GenesisBiomes;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 
@@ -39,7 +38,7 @@ public class GenLayerGenesisRiverMix extends GenLayerGenesis
 
 		for (int i1 = 0; i1 < areaWidth * areaHeight; ++i1)
 		{
-			if (aint[i1] != BiomeGenBase.ocean.biomeID && aint[i1] != BiomeGenBase.deepOcean.biomeID)
+			if (aint[i1] != GenesisBiomes.shallowOcean.biomeID && aint[i1] != GenesisBiomes.deepOcean.biomeID)
 			{
 				if (aint1[i1] == GenesisBiomes.river.biomeID)
 				{

@@ -16,6 +16,7 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 	private List<IBlockState> blocks = new ArrayList<IBlockState>();
 	private boolean waterRequired = true;
 	private int rarity = 1;
+	private int maxHeight = 5;
 	
 	@Override
 	public boolean generate(World world, Random random, BlockPos pos)
@@ -41,7 +42,7 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 			addBlocks(GenesisBlocks.granite.getDefaultState(), GenesisBlocks.mossy_granite.getDefaultState());
 		}
 		
-		int maxHeight = 2 + random.nextInt(4);
+		int maxHeight = 2 + random.nextInt(this.maxHeight - 1);
 		
 		generateRockColumn(world, pos, random, maxHeight);
 		
@@ -74,6 +75,12 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 		}
 		
 		return true;
+	}
+	
+	public WorldGenRockBoulders setMaxHeight(int mxHeight)
+	{
+		maxHeight = mxHeight;
+		return this;
 	}
 	
 	public WorldGenRockBoulders setRarity(int rarity)

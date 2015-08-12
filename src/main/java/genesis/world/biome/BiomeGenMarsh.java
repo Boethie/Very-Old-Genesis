@@ -21,7 +21,7 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		setBiomeName("Marsh");
 		this.temperature = 1.15f;
 		//this.topBlock = Blocks.dirt.getDefaultState();
-		setHeight(-0.2F, 0.01F);
+		setHeight(-0.2F, 0.05F);
 		
 		theBiomeDecorator.grassPerChunk = 2;
 		
@@ -38,7 +38,6 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 				GenesisBlocks.plants.getBlockState(EnumPlant.PSILOPHYTON)
 				,GenesisBlocks.plants.getBlockState(EnumPlant.SCIADOPHYTON)
 				,GenesisBlocks.plants.getBlockState(EnumPlant.NOTHIA)
-				,GenesisBlocks.plants.getBlockState(EnumPlant.ARCHAEAMPHORA)
 				,GenesisBlocks.plants.getBlockState(EnumPlant.COOKSONIA)
 				,GenesisBlocks.plants.getBlockState(EnumPlant.BARAGWANATHIA)
 				,GenesisBlocks.plants.getBlockState(EnumPlant.RHYNIA)).setVolume(64);
@@ -62,7 +61,7 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		{
 			if (p_180622_3_.getBlockState(l, i1, k).getBlock().getMaterial() != Material.air)
 			{
-				if (i1 == 62 && p_180622_3_.getBlockState(l, i1, k).getBlock() != Blocks.water)
+				if (i1 == 61 && p_180622_3_.getBlockState(l, i1, k).getBlock() != Blocks.water)
 				{
 					p_180622_3_.setBlockState(l, i1, k, Blocks.water.getDefaultState());
 				}
