@@ -3,6 +3,7 @@ package genesis.world.biome;
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumPlant;
 import genesis.metadata.EnumTree;
+import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenMossStages;
@@ -13,7 +14,6 @@ import java.util.Random;
 
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class BiomeGenArchaeopterisForest extends BiomeGenBaseGenesis
 {
@@ -26,8 +26,6 @@ public class BiomeGenArchaeopterisForest extends BiomeGenBaseGenesis
 		
 		theBiomeDecorator.grassPerChunk = 1;
 		
-		setSpawnablePlants(GenesisBlocks.sphenophyllum);
-		
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(3).setCountPerChunk(3));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
@@ -36,7 +34,7 @@ public class BiomeGenArchaeopterisForest extends BiomeGenBaseGenesis
 	}
 	
 	@Override
-	public WorldGenerator getRandomWorldGenForGrass(Random rand)
+	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
 	{
 		return new WorldGenGrassMulti(GenesisBlocks.plants.getBlockState(EnumPlant.PSILOPHYTON)).setVolume(64);
 	}

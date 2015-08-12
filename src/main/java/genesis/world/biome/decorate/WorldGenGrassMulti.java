@@ -11,7 +11,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenGrassMulti extends WorldGenerator
+public class WorldGenGrassMulti extends WorldGenGrass
 {
 	private final List<IBlockState> states = new ArrayList<IBlockState>();
 	private int volume = 128;
@@ -57,5 +57,11 @@ public class WorldGenGrassMulti extends WorldGenerator
 		}
 		
 		return true;
+	}
+
+	@Override
+	public IBlockState getSpawnablePlant(Random rand)
+	{
+		return states.get(rand.nextInt(states.size()));
 	}
 }

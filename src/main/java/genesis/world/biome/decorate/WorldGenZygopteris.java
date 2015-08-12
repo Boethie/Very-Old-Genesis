@@ -12,7 +12,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenZygopteris extends WorldGenerator
+public class WorldGenZygopteris extends WorldGenGrass
 {
 
 	private final IBlockState state = GenesisBlocks.ferns.getBlockState(EnumFern.ZYGOPTERIS);
@@ -44,6 +44,12 @@ public class WorldGenZygopteris extends WorldGenerator
 		}
 
 		return true;
+	}
+
+	@Override
+	public IBlockState getSpawnablePlant(Random rand)
+	{
+		return state;
 	}
 
 }

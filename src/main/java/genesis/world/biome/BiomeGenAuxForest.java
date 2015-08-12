@@ -4,6 +4,7 @@ import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumTree;
 import genesis.metadata.TreeBlocksAndItems;
 import genesis.world.biome.decorate.WorldGenArchaeomarasmius;
+import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenGrowingPlant.GrowingPlantType;
 import genesis.world.biome.decorate.WorldGenPalaeoagaracites;
@@ -16,7 +17,6 @@ import java.util.Random;
 
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 {
@@ -28,8 +28,6 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 		
 		theBiomeDecorator.grassPerChunk = 5;
 		
-		setSpawnablePlants(GenesisBlocks.programinis, GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.SAPLING, EnumTree.ARAUCARIOXYLON));
-		
 		addDecoration(new WorldGenArchaeomarasmius().setPatchSize(3).setCountPerChunk(5));
 		addDecoration(new WorldGenPalaeoagaracites().setPatchSize(10).setCountPerChunk(16));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPlantType(GrowingPlantType.NORMAL).setPatchSize(5).setCountPerChunk(5));
@@ -40,7 +38,7 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 	}
 	
 	@Override
-	public WorldGenerator getRandomWorldGenForGrass(Random rand)
+	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
 	{
 		return new WorldGenPhlebopteris();
 	}

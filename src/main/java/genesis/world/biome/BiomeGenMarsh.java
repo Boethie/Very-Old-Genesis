@@ -2,6 +2,7 @@ package genesis.world.biome;
 
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumPlant;
+import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenMossStages;
 
@@ -11,7 +12,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class BiomeGenMarsh extends BiomeGenBaseGenesis
 {
@@ -32,7 +32,7 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 	}
 	
 	@Override
-	public WorldGenerator getRandomWorldGenForGrass(Random rand)
+	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
 	{
 		return new WorldGenGrassMulti(
 				GenesisBlocks.plants.getBlockState(EnumPlant.PSILOPHYTON)
