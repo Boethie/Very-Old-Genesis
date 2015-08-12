@@ -256,6 +256,16 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 				validGround.add(block);
 			}
 			
+			for (Block block : GenesisBlocks.silt.getBlocks(SiltBlocks.SILT))
+			{
+				validGround.add(block);
+			}
+			
+			for (Block block : GenesisBlocks.silt.getBlocks(SiltBlocks.SILTSTONE))
+			{
+				validGround.add(block);
+			}
+			
 			validGround.addAll(GenesisBlocks.corals.getBlocks(GenesisBlocks.corals.soleType));
 		}
 		
