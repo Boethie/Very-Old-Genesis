@@ -2,6 +2,7 @@ package genesis.world.biome;
 
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumTree;
+import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenGrowingPlant.GrowingPlantType;
 import genesis.world.biome.decorate.WorldGenMossStages;
@@ -19,7 +20,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis
 {
@@ -33,8 +33,6 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis
 		theBiomeDecorator.grassPerChunk = 5;
 		waterColorMultiplier = 0x725113;
 		setColor(522674);
-		
-		setSpawnablePlants(GenesisBlocks.odontopteris, GenesisBlocks.sphenophyllum, GenesisBlocks.calamites);
 		
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchSize(3).setCountPerChunk(3));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(3).setCountPerChunk(3));
@@ -53,7 +51,7 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis
 	}
 	
 	@Override
-	public WorldGenerator getRandomWorldGenForGrass(Random rand)
+	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
 	{
 		return new WorldGenZygopteris();
 	}

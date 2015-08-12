@@ -4,6 +4,7 @@ import genesis.block.BlockMoss;
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.BiomeDecoratorGenesis;
 import genesis.world.biome.decorate.WorldGenDecorationBase;
+import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenZygopteris;
 import genesis.world.gen.feature.WorldGenTreeBase;
 
@@ -22,13 +23,11 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.feature.WorldGenerator;
 
 public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 {
 	public IBlockState oceanFloor = GenesisBlocks.ooze.getDefaultState();
 	public int[] mossStages = new int[0];
-	public List<IBlockState> spawnablePlants = new ArrayList<IBlockState>();
 	
 	public BiomeGenBaseGenesis(int id)
 	{
@@ -42,23 +41,21 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 		waterColorMultiplier = 0xaa791e;
 	}
 	
-	protected void setSpawnablePlants(Object... plants)
+	public List<IBlockState> getSpawnablePlants(Random rand)
 	{
-		for (Object plant : plants)
+		List<IBlockState> spawnablePlants = new ArrayList<IBlockState>();
+		
+		for (WorldGenDecorationBase decoration : getGenesisDecorator().decorations)
 		{
-			if (plant instanceof Block)
+			IBlockState plant = decoration.getSpawnablePlant(rand);
+			
+			if (plant != null)
 			{
-				spawnablePlants.add(((Block) plant).getDefaultState());
-			}
-			else if (plant instanceof IBlockState)
-			{
-				spawnablePlants.add((IBlockState) plant);
-			}
-			else
-			{
-				throw new RuntimeException("Invalid plant: " + plant);
+				spawnablePlants.add(plant);
 			}
 		}
+		
+		return spawnablePlants;
 	}
 	
 	protected void addDecoration(WorldGenDecorationBase decoration)
@@ -117,7 +114,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 	}
 	
 	@Override
-	public WorldGenerator getRandomWorldGenForGrass(Random rand)
+	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
 	{
 		return new WorldGenZygopteris();
 	}

@@ -107,5 +107,10 @@ public class WorldGenDecorationBase extends WorldGenerator
 		
 		return blockExists;
 	}
+	
+	public IBlockState getSpawnablePlant(Random rand)
+	{
+		return null;
+	}
 }
 

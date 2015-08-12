@@ -5,6 +5,7 @@ import genesis.common.GenesisBlocks;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -57,5 +58,11 @@ public class WorldGenArchaeomarasmius extends WorldGenDecorationBase
 		setBlockInWorld(world, pos.up(), GenesisBlocks.archaeomarasmius.getDefaultState());
 		
 		return true;
+	}
+
+	@Override
+	public IBlockState getSpawnablePlant(Random rand)
+	{
+		return GenesisBlocks.archaeomarasmius.getDefaultState();
 	}
 }

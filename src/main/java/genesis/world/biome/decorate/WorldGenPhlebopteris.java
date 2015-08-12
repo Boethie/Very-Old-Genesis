@@ -11,7 +11,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenPhlebopteris extends WorldGenerator
+public class WorldGenPhlebopteris extends WorldGenGrass
 {
 	private final IBlockState state = GenesisBlocks.ferns.getBlockState(EnumFern.PHLEBOPTERIS);
 	
@@ -42,5 +42,11 @@ public class WorldGenPhlebopteris extends WorldGenerator
 		}
 
 		return true;
+	}
+
+	@Override
+	public IBlockState getSpawnablePlant(Random rand)
+	{
+		return state;
 	}
 }

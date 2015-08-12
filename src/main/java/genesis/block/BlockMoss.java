@@ -16,8 +16,10 @@ import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockGrass;
+import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -74,11 +76,13 @@ public class BlockMoss extends BlockGrass
 	public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)
 	{
 		BiomeGenBase biome = worldIn.getBiomeGenForCoords(pos);
-		List<IBlockState> spawnablePlants = null;
+		BiomeGenBaseGenesis biomeGenesis = null;
+		List<IBlockState> genesisPlants = null;
 		
 		if (biome instanceof BiomeGenBaseGenesis)
 		{
-			spawnablePlants = ((BiomeGenBaseGenesis) biome).spawnablePlants;
+			biomeGenesis = (BiomeGenBaseGenesis) biome;
+			genesisPlants = biomeGenesis.getSpawnablePlants(rand);
 		}
 		
 		BlockPos origTopBlock = pos.up();
@@ -95,7 +99,7 @@ public class BlockMoss extends BlockGrass
 				{
 					topBlock = topBlock.add(rand.nextInt(3) - 1, ((rand.nextInt(3) - 1) * rand.nextInt(3)) / 2, rand.nextInt(3) - 1);
 
-					if ((worldIn.getBlockState(topBlock.down()).getBlock() == GenesisBlocks.moss) && !worldIn.getBlockState(topBlock).getBlock().isNormalCube())
+					if ((worldIn.getBlockState(topBlock.down()).getBlock() == this) && !worldIn.getBlockState(topBlock).getBlock().isNormalCube())
 					{
 						++i;
 						continue;
@@ -108,25 +112,46 @@ public class BlockMoss extends BlockGrass
 					if (rand.nextInt(8) == 0)
 					{
 						// Plant Flower
-						if (spawnablePlants != null)
+						if (genesisPlants != null)
 						{
-							randPlant = !spawnablePlants.isEmpty() ? spawnablePlants.get(rand.nextInt(spawnablePlants.size())) : null;
+							randPlant = !genesisPlants.isEmpty() ? genesisPlants.get(rand.nextInt(genesisPlants.size())) : null;
 						}
 						else
 						{
-							randPlant = GenesisBlocks.plants.getRandomBlockState(rand);
+							// Vanilla
+							worldIn.getBiomeGenForCoords(topBlock).plantFlower(worldIn, rand, topBlock);
+						}
+					}
+					else
+					{
+						// Plant Grass
+						if (biomeGenesis != null)
+						{
+							randPlant = biomeGenesis.getRandomWorldGenForGrass(rand).getSpawnablePlant(rand);
+						}
+						else
+						{
+							// Vanilla
+							IBlockState tallgrass = Blocks.tallgrass.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS);
+							
+							if (Blocks.tallgrass.canBlockStay(worldIn, topBlock, tallgrass))
+	                        {
+	                            worldIn.setBlockState(topBlock, tallgrass, 3);
+	                        }
 						}
 					}
 					
-					if (randPlant == null)
+					if (randPlant != null)
 					{
-						// Plant Grass
-						randPlant = GenesisBlocks.ferns.getRandomBlockState(rand);
-					}
-					
-					if (randPlant.getBlock().canPlaceBlockAt(worldIn, topBlock))
-					{
-						worldIn.setBlockState(topBlock, randPlant, 3);
+						Block block = randPlant.getBlock();
+						boolean isBush = block instanceof BlockBush;
+						boolean canBushStay = isBush && ((BlockBush) block).canBlockStay(worldIn, topBlock, randPlant);
+						boolean canPlaceBlock = !isBush && block.canPlaceBlockAt(worldIn, topBlock);
+						
+						if (canBushStay || canPlaceBlock)
+						{
+							worldIn.setBlockState(topBlock, randPlant, 3);
+						}
 					}
 				}
 
