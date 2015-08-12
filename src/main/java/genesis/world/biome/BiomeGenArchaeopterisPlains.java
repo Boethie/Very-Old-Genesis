@@ -2,6 +2,7 @@ package genesis.world.biome;
 
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumPlant;
+import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
@@ -10,7 +11,6 @@ import java.util.Random;
 
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class BiomeGenArchaeopterisPlains extends BiomeGenBaseGenesis
 {
@@ -29,7 +29,7 @@ public class BiomeGenArchaeopterisPlains extends BiomeGenBaseGenesis
 	}
 	
 	@Override
-	public WorldGenerator getRandomWorldGenForGrass(Random rand)
+	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
 	{
 		return new WorldGenGrassMulti(GenesisBlocks.plants.getBlockState(EnumPlant.PSILOPHYTON)).setVolume(64);
 	}
