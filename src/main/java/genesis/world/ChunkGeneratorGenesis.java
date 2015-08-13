@@ -5,6 +5,7 @@ import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.Ev
 import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.ICE;
 import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.LAKE;
 import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.LAVA;
+import genesis.common.GenesisBiomes;
 import genesis.common.GenesisBlocks;
 import genesis.world.gen.MapGenCavesGenesis;
 import genesis.world.gen.MapGenRavineGenesis;
@@ -16,10 +17,10 @@ import net.minecraft.block.BlockFalling;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
-import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.SpawnerAnimals;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.ChunkProviderGenerate;
@@ -27,8 +28,10 @@ import net.minecraft.world.gen.ChunkProviderSettings;
 import net.minecraft.world.gen.MapGenBase;
 import net.minecraft.world.gen.feature.WorldGenDungeons;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.terraingen.ChunkProviderEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
+import net.minecraftforge.fml.common.eventhandler.Event.Result;
 
 public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 {
@@ -68,12 +71,20 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 		long j1 = rand.nextLong() / 2L * 2L + 1L;
 		rand.setSeed((long) chunkX * i1 + (long) chunkZ * j1 ^ worldObj.getSeed());
 		boolean flag = false;
-		ChunkCoordIntPair coords = new ChunkCoordIntPair(chunkX, chunkZ);
+		//ChunkCoordIntPair coords = new ChunkCoordIntPair(chunkX, chunkZ);
 		
 		MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(chunkProvider, worldObj, rand, chunkX, chunkZ, flag));
 		
-        if (biome != BiomeGenBase.desert && biome != BiomeGenBase.desertHills && settings.useWaterLakes && !flag && rand.nextInt(settings.waterLakeChance) == 0
-            && TerrainGen.populate(chunkProvider, worldObj, rand, chunkX, chunkZ, flag, LAKE))
+		int waterLakeChance = settings.waterLakeChance;
+		
+		if (biome.biomeID == GenesisBiomes.marsh.biomeID)
+			waterLakeChance = 1;
+		
+        if (
+        		settings.useWaterLakes 
+        		&& !flag 
+        		&& rand.nextInt(waterLakeChance) == 0 
+        		&& TerrainGen.populate(chunkProvider, worldObj, rand, chunkX, chunkZ, flag, LAKE))
         {
             int x = rand.nextInt(16) + 8;
             int y = rand.nextInt(256);
@@ -207,6 +218,81 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
                 }
             }
         }
+    }
+	
+	public void func_180517_a(int blockX, int blockZ, ChunkPrimer chunkPrimer, BiomeGenBase[] biomes)
+    {
+        ChunkProviderEvent.ReplaceBiomeBlocks event = new ChunkProviderEvent.ReplaceBiomeBlocks(this, blockX, blockZ, chunkPrimer, this.worldObj);
+        MinecraftForge.EVENT_BUS.post(event);
+        if (event.getResult() == Result.DENY) return;
+        
+        double d0 = 0.03125D;
+        this.stoneNoise = this.field_147430_m.func_151599_a(this.stoneNoise, (double)(blockX * 16), (double)(blockZ * 16), 16, 16, d0 * 2.0D, d0 * 2.0D, 1.0D);
+        
+        for (int k = 0; k < 16; ++k)
+        {
+            for (int l = 0; l < 16; ++l)
+            {
+                BiomeGenBase biomegenbase = biomes[l + k * 16];
+                biomegenbase.genTerrainBlocks(this.worldObj, this.rand, chunkPrimer, blockX * 16 + k, blockZ * 16 + l, this.stoneNoise[l + k * 16]);
+            }
+        }
+    }
+	
+	@Override
+	public Chunk provideChunk(int x, int z)
+    {
+        this.rand.setSeed((long)x * 341873128712L + (long)z * 132897987541L);
+        ChunkPrimer chunkprimer = new ChunkPrimer();
+        this.setBlocksInChunk(x, z, chunkprimer);
+        this.biomesForGeneration = this.worldObj.getWorldChunkManager().loadBlockGeneratorData(this.biomesForGeneration, x * 16, z * 16, 16, 16);
+        func_180517_a(x, z, chunkprimer, this.biomesForGeneration);
+
+        if (this.settings.useCaves)
+        {
+            this.caveGenerator.func_175792_a(this, this.worldObj, x, z, chunkprimer);
+        }
+
+        if (this.settings.useRavines)
+        {
+            this.ravineGenerator.func_175792_a(this, this.worldObj, x, z, chunkprimer);
+        }
+
+        if (this.settings.useMineShafts && this.mapFeaturesEnabled)
+        {
+            this.mineshaftGenerator.func_175792_a(this, this.worldObj, x, z, chunkprimer);
+        }
+
+        if (this.settings.useVillages && this.mapFeaturesEnabled)
+        {
+            this.villageGenerator.func_175792_a(this, this.worldObj, x, z, chunkprimer);
+        }
+
+        if (this.settings.useStrongholds && this.mapFeaturesEnabled)
+        {
+            this.strongholdGenerator.func_175792_a(this, this.worldObj, x, z, chunkprimer);
+        }
+
+        if (this.settings.useTemples && this.mapFeaturesEnabled)
+        {
+            this.scatteredFeatureGenerator.func_175792_a(this, this.worldObj, x, z, chunkprimer);
+        }
+
+        if (this.settings.useMonuments && this.mapFeaturesEnabled)
+        {
+            this.oceanMonumentGenerator.func_175792_a(this, this.worldObj, x, z, chunkprimer);
+        }
+
+        Chunk chunk = new Chunk(this.worldObj, chunkprimer, x, z);
+        byte[] abyte = chunk.getBiomeArray();
+
+        for (int k = 0; k < abyte.length; ++k)
+        {
+            abyte[k] = (byte)this.biomesForGeneration[k].biomeID;
+        }
+
+        chunk.generateSkylightMap();
+        return chunk;
     }
 	
 	@Override

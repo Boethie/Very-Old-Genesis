@@ -22,7 +22,7 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 		super(id);
 		setBiomeName("Rainforest");
 		setTemperatureRainfall(0.95F, 1.0F);
-		setHeight(0.05F, 0.1F);
+		setHeight(-0.2F, 0.05F);
 		
 		theBiomeDecorator.grassPerChunk = 3;
 		

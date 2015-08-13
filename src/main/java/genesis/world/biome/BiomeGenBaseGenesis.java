@@ -12,9 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockSand;
-import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -39,6 +37,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 		spawnableMonsterList.clear();
 		spawnableWaterCreatureList.clear();
 		waterColorMultiplier = 0xaa791e;
+		getGenesisDecorator().sandPerChunk2 = 1;
 	}
 	
 	public List<IBlockState> getSpawnablePlants(Random rand)

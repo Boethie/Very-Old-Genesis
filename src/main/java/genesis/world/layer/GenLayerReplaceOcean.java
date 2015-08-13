@@ -6,15 +6,14 @@ import net.minecraft.world.gen.layer.GenLayer;
 
 public class GenLayerReplaceOcean extends GenLayerGenesis
 {
-
 	private final GenLayer parent;
-
+	
 	public GenLayerReplaceOcean(long seed, GenLayer parent)
 	{
 		super(seed);
 		this.parent = parent;
 	}
-
+	
 	@Override
 	public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight)
 	{
@@ -28,5 +27,4 @@ public class GenLayerReplaceOcean extends GenLayerGenesis
 		}
 		return aint;
 	}
-
 }

@@ -29,7 +29,8 @@ public class GenLayerGenesisBiomeEdge extends GenLayerGenesis
 				if (!this.replaceBiomeEdge(aint, aint1, j1, i1, areaWidth, k1, GenesisBiomes.rainforest.biomeID, GenesisBiomes.rainforestEdge.biomeID)
 						&& !this.replaceBiomeEdgeIfNecessary(aint, aint1, j1, i1, areaWidth, k1, GenesisBiomes.rainforestM.biomeID, GenesisBiomes.rainforestEdgeM.biomeID)
 						&& !this.replaceBiomeEdge(aint, aint1, j1, i1, areaWidth, k1, GenesisBiomes.auxForest.biomeID, GenesisBiomes.auxForestEdge.biomeID)
-						&& !this.replaceBiomeEdgeIfNecessary(aint, aint1, j1, i1, areaWidth, k1, GenesisBiomes.auxForestM.biomeID, GenesisBiomes.auxForestEdgeM.biomeID))
+						&& !this.replaceBiomeEdgeIfNecessary(aint, aint1, j1, i1, areaWidth, k1, GenesisBiomes.auxForestM.biomeID, GenesisBiomes.auxForestEdgeM.biomeID)
+						&& !this.replaceBiomeEdge(aint, aint1, j1, i1, areaWidth, k1, GenesisBiomes.deepOcean.biomeID, GenesisBiomes.ocean.biomeID))
 				{
 					aint1[j1 + i1 * areaWidth] = k1;
 				}

@@ -8,8 +8,6 @@ import genesis.world.biome.decorate.WorldGenMossStages;
 
 import java.util.Random;
 
-import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 
@@ -21,12 +19,12 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		setBiomeName("Marsh");
 		this.temperature = 1.15f;
 		//this.topBlock = Blocks.dirt.getDefaultState();
-		setHeight(-0.2F, 0.05F);
+		setHeight(0.0F, 0.01F);
 		
 		theBiomeDecorator.grassPerChunk = 2;
 		
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
-		
+		//BiomeGenHills
 		//Asteroxylon
 		//Prototaxites on Prototaxites Mycellium
 	}
@@ -51,7 +49,7 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		super.generateBiomeTerrain(world, rand, primer, blockX, blockZ, d);
 	}
 	
-	@Override
+	/*@Override
 	public void genTerrainBlocks(World world, Random rand, ChunkPrimer p_180622_3_, int p_180622_4_, int p_180622_5_, double p_180622_6_)
 	{
 		int k = p_180622_4_ & 15;
@@ -71,5 +69,5 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		}
 		
 		this.generateBiomeTerrain(world, rand, p_180622_3_, p_180622_4_, p_180622_5_, p_180622_6_);
-    }
+    }*/
 }

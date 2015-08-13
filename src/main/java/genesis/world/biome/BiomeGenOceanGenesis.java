@@ -3,13 +3,12 @@ package genesis.world.biome;
 import genesis.metadata.EnumAquaticPlant;
 import genesis.world.biome.decorate.WorldGenAquaticPlants;
 
-public class BiomeGenDeepOcean extends BiomeGenBaseGenesis
+public class BiomeGenOceanGenesis extends BiomeGenBaseGenesis
 {
-	public BiomeGenDeepOcean(int id)
+	public BiomeGenOceanGenesis(int id)
 	{
 		super(id);
-		setBiomeName("Deep Ocean");
-		setHeight(-1.0F, -0.1F);
+		
 		waterColorMultiplier = 0x008d49;
 		
 		addDecoration(new WorldGenAquaticPlants().setGenerateInGroup(true, 5).setPlantType(EnumAquaticPlant.BANGIOMORPHA).setCountPerChunk(2));

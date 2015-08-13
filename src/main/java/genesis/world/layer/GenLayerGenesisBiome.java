@@ -15,21 +15,23 @@ import net.minecraftforge.common.BiomeManager.BiomeType;
 
 public class GenLayerGenesisBiome extends GenLayerGenesis
 {
-
 	private final List<BiomeEntry>[] allowedBiomes;
-
+	
 	public GenLayerGenesisBiome(long seed, GenLayer parentGenLayer)
 	{
 		super(seed);
+		
 		List<BiomeEntry>[] biomes = new ArrayList[BiomeType.values().length];
+		
 		for (BiomeType type : BiomeType.values())
 		{
 			biomes[type.ordinal()] = BiomeManagerGenesis.getEntries(type);
 		}
+		
 		this.allowedBiomes = biomes;
 		this.parent = parentGenLayer;
 	}
-
+	
 	/*
 	 * @Override
 	 * public int[] getInts(int par1, int par2, int par3, int par4)
@@ -46,22 +48,22 @@ public class GenLayerGenesisBiome extends GenLayerGenesis
 	 * return aint1;
 	 * }
 	 */
-
+	
 	@Override
 	public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight)
 	{
 		int[] aint = this.parent.getInts(areaX, areaY, areaWidth, areaHeight);
 		int[] aint1 = IntCache.getIntCache(areaWidth * areaHeight);
-
+		
 		for (int i1 = 0; i1 < areaHeight; ++i1)
 		{
 			for (int j1 = 0; j1 < areaWidth; ++j1)
 			{
 				this.initChunkSeed(j1 + areaX, i1 + areaY);
 				int k1 = aint[j1 + i1 * areaWidth];
-				int l1 = (k1 & 3840) >> 8;
+				//int l1 = (k1 & 3840) >> 8;
 				k1 &= -3841;
-
+				
 				if (isBiomeOceanic(k1))
 				{
 					aint1[j1 + i1 * areaWidth] = k1;
@@ -96,10 +98,10 @@ public class GenLayerGenesisBiome extends GenLayerGenesis
 				 */
 			}
 		}
-
+		
 		return aint1;
 	}
-
+	
 	protected BiomeEntry getWeightedBiomeEntry(BiomeManager.BiomeType type)
 	{
 		List<BiomeEntry> biomeList = this.allowedBiomes[type.ordinal()];
@@ -107,5 +109,4 @@ public class GenLayerGenesisBiome extends GenLayerGenesis
 		int weight = BiomeManager.isTypeListModded(type) ? this.nextInt(totalWeight) : this.nextInt(totalWeight / 10) * 10;
 		return (BiomeEntry) WeightedRandom.getRandomItem(biomeList, weight);
 	}
-
 }
