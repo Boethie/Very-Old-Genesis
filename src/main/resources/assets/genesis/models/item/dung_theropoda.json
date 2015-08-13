@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "genesis:items/dung_brachiosaurus"
+        "layer0": "genesis:items/dung_theropoda"
     },
     "display": {
         "thirdperson": {

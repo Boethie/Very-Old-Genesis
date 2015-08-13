@@ -1,5 +1,5 @@
 {
-    "parent": "genesis:block/dung_block_tyrannosaurus",
+    "parent": "genesis:block/dung_block_theropoda",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

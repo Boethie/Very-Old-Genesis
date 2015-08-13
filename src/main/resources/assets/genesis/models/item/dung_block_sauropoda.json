@@ -1,5 +1,5 @@
 {
-    "parent": "genesis:block/dung_block_brachiosaurus",
+    "parent": "genesis:block/dung_block_sauropoda",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

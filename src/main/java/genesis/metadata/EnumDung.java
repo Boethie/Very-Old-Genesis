@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 
 public enum EnumDung implements IMetadata
 {
-	BRACHIOSAURUS("brachiosaurus"), TYRANNOSAURUS("tyrannosaurus");
+	SAUROPODA("sauropoda"), THEROPODA("theropoda");
 
 	private final String name;
 	private final String unlocalizedName;

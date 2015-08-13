@@ -44,8 +44,8 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	public WorldGenerator quartzGen;
 	public WorldGenerator zirconGen;
 	public WorldGenerator garnetGen;
-	public WorldGenerator manganeseGen;
 	public WorldGenerator hematiteGen;
+	public WorldGenerator manganeseGen;
 	public WorldGenerator malachiteGen;
 	public WorldGenerator olivineGen;
 	public WorldGenerator flintGen;
@@ -190,12 +190,12 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
         genStandardOre1(25, flintGen, 60, 128);
         genStandardOre1(21, marcasiteGen, 60, 128);
         //if (TerrainGen.generateOre(currentWorld, randomGenerator, quartzGen, field_180294_c, QUARTZ))
-        genStandardOre1(27, quartzGen, 0, 128);
-        genStandardOre1(13, zirconGen, 0, 128);
-        genStandardOre1(11, garnetGen, 0, 128);
-        genStandardOre1(3, manganeseGen, 64, 128);//TODO: rarely generate manganese & hematite below 64
-        genStandardOre1(6, hematiteGen, 64, 128);
-        genStandardOre1(4, malachiteGen, 0, 32);//TODO: generate 0-4 malachite and 0-2 olivine veins
+        genStandardOre1(74, quartzGen, 0, 128);
+        genStandardOre1(31, zirconGen, 0, 128);
+        genStandardOre1(27, garnetGen, 0, 128);
+        genStandardOre1(8, hematiteGen, 64, 128);
+        genStandardOre1(6, manganeseGen, 64, 128);//TODO: rarely generate manganese & hematite below 64
+        genStandardOre1(3, malachiteGen, 0, 32);//TODO: generate 0-4 malachite and 0-2 olivine veins
         genStandardOre1(2, olivineGen, 0, 16);
         MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(currentWorld, randomGenerator, field_180294_c));
 	}
