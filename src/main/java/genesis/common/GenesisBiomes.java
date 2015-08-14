@@ -97,7 +97,7 @@ public final class GenesisBiomes
 		
 		marsh = new BiomeGenMarsh(GenesisConfig.marshId);
 		BiomeManagerGenesis.registerBiome(marsh, BiomeType.WARM, GenesisConfig.marshWeight);
-		BiomeDictionary.registerBiomeType(marsh, BiomeDictionary.Type.SWAMP, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
+		BiomeDictionary.registerBiomeType(marsh, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
 		
 		archaeopterisForest = new BiomeGenArchaeopterisForest(GenesisConfig.archaeopterisForestId);
 		BiomeManagerGenesis.registerBiome(archaeopterisForest, BiomeType.WARM, GenesisConfig.archaeopterisForestWeight);
@@ -116,10 +116,10 @@ public final class GenesisBiomes
 		shallowOcean = new BiomeGenShallowOcean(GenesisConfig.shallowOceanId);
 		BiomeDictionary.registerBiomeType(shallowOcean, BiomeDictionary.Type.OCEAN, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
 		
-		ocean = new BiomeGenOceanGenesis(GenesisConfig.oceanId).setBiomeName("Ocean").setHeight(-0.9F, -0.1F);
+		ocean = new BiomeGenOceanGenesis(GenesisConfig.oceanId).addElements(1).setBiomeName("Ocean").setHeight(-0.9F, -0.1F);
 		BiomeDictionary.registerBiomeType(ocean, BiomeDictionary.Type.OCEAN, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
 		
-		deepOcean = new BiomeGenOceanGenesis(GenesisConfig.deepOceanId).setBiomeName("Deep Ocean").setHeight(-1.0F, -0.1F);
+		deepOcean = new BiomeGenOceanGenesis(GenesisConfig.deepOceanId).addElements(0).setWaterColor(0x01723c).setBiomeName("Deep Ocean").setHeight(-1.0F, -0.1F);
 		BiomeDictionary.registerBiomeType(deepOcean, BiomeDictionary.Type.OCEAN, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
 		
 		limestoneBeach = new BiomeGenLimestoneBeach(GenesisConfig.limestoneBeachId);

@@ -1,5 +1,9 @@
 package genesis.world.biome;
 
+import java.util.Random;
+
+import net.minecraft.world.World;
+import net.minecraft.world.chunk.ChunkPrimer;
 import genesis.metadata.EnumAquaticPlant;
 import genesis.world.biome.decorate.WorldGenAquaticPlants;
 
@@ -9,11 +13,22 @@ public class BiomeGenOceanGenesis extends BiomeGenBaseGenesis
 	{
 		super(id);
 		
-		waterColorMultiplier = 0x008d49;
+		theBiomeDecorator.grassPerChunk = 0;
 		
-		addDecoration(new WorldGenAquaticPlants().setGenerateInGroup(true, 5).setPlantType(EnumAquaticPlant.BANGIOMORPHA).setCountPerChunk(2));
+		setWaterColor(0x008d49);
+	}
+	
+	public BiomeGenOceanGenesis setWaterColor(int color)
+	{
+		waterColorMultiplier = color;
+		return this;
+	}
+	
+	public BiomeGenOceanGenesis addElements(int multiplier)
+	{
+		int[] rarityScale = {2 * multiplier, 2 * multiplier, 2 * multiplier, 1 * multiplier, 1 * multiplier};
 		
-		int[] rarityScale = {2, 2, 2, 1, 1};
+		addDecoration(new WorldGenAquaticPlants().setGenerateInGroup(true, 5).setPlantType(EnumAquaticPlant.BANGIOMORPHA).setCountPerChunk(rarityScale[0]));
 		
 		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.HAZELLA).setCountPerChunk(rarityScale[0]));
 		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.DIAONIELLA).setCountPerChunk(rarityScale[1]));
@@ -29,5 +44,16 @@ public class BiomeGenOceanGenesis extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.DINOMISCHUS).setCountPerChunk(rarityScale[4]));
 		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.ECHMATOCRINUS).setCountPerChunk(rarityScale[4]));
 		addDecoration(new WorldGenAquaticPlants().setGenerateInGroup(true, 6).setPlantType(EnumAquaticPlant.GRYPANIA).setCountPerChunk(rarityScale[4]));
+		
+		return this;
+	}
+	
+	@Override
+	public void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
+	{
+		mossStages = new int[2];
+		mossStages[0] = 1;
+		mossStages[1] = 2;
+		super.generateBiomeTerrain(world, rand, primer, blockX, blockZ, d);
 	}
 }

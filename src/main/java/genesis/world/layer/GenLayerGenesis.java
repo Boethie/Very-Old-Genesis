@@ -93,6 +93,7 @@ public abstract class GenLayerGenesis extends GenLayer
 	{
 		if (
 				biomeId == GenesisBiomes.shallowOcean.biomeID
+				|| biomeId == GenesisBiomes.ocean.biomeID
 				|| biomeId == GenesisBiomes.deepOcean.biomeID)
 		{
 			return true;
