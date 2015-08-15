@@ -49,31 +49,28 @@ public class WorldGenTreeArchaeopteris extends WorldGenTreeBase
 		BlockPos branchPos = pos.up(treeHeight - 1);
 		
 		int branchY = 3 + rand.nextInt(4);
-		int branchBaseHeight = 2;
-		int branchGrowSize = 3;
-		int leavesLength = 3;
 		
 		doPineTopLeaves(world, pos, branchPos, treeHeight, branchPos.down(branchY).getY(), rand, false);
 		
-		if (rand.nextInt(2) == 0)
-			generateBranchSideup(world, branchPos.down(branchY + rand.nextInt(2)), rand, 1, 0, branchBaseHeight, branchGrowSize, leavesLength);
-		if (rand.nextInt(2) == 0)
-			generateBranchSideup(world, branchPos.down(branchY + rand.nextInt(2)), rand, -1, 0, branchBaseHeight, branchGrowSize, leavesLength);
-		if (rand.nextInt(2) == 0)
-			generateBranchSideup(world, branchPos.down(branchY + rand.nextInt(2)), rand, 0, 1, branchBaseHeight, branchGrowSize, leavesLength);
-		if (rand.nextInt(2) == 0)
-			generateBranchSideup(world, branchPos.down(branchY + rand.nextInt(2)), rand, 0, -1, branchBaseHeight, branchGrowSize, leavesLength);
-		
-		branchPos = branchPos.down(branchY - 2);
+		int distFromTop = branchPos.getY() - branchPos.down(branchY).getY();
 		
 		if (rand.nextInt(2) == 0)
-			generateBranchSide(world, branchPos.down(rand.nextInt(4)), rand, 1, 0, 1 + rand.nextInt(3), 6);
+			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 1, 0, 1 + rand.nextInt(3), 3);
 		if (rand.nextInt(2) == 0)
-			generateBranchSide(world, branchPos.down(rand.nextInt(4)), rand, -1, 0, 1 + rand.nextInt(3), 6);
+			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, -1, 0, 1 + rand.nextInt(3), 3);
 		if (rand.nextInt(2) == 0)
-			generateBranchSide(world, branchPos.down(rand.nextInt(4)), rand, 0, 1, 1 + rand.nextInt(3), 6);
+			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 0, 1, 1 + rand.nextInt(3), 3);
 		if (rand.nextInt(2) == 0)
-			generateBranchSide(world, branchPos.down(rand.nextInt(4)), rand, 0, -1, 1 + rand.nextInt(3), 6);
+			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 0, -1, 1 + rand.nextInt(3), 3);
+		
+		if (rand.nextInt(2) == 0)
+			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 1, 0, 1 + rand.nextInt(3), 3);
+		if (rand.nextInt(2) == 0)
+			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, -1, 0, 1 + rand.nextInt(3), 3);
+		if (rand.nextInt(2) == 0)
+			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 0, 1, 1 + rand.nextInt(3), 3);
+		if (rand.nextInt(2) == 0)
+			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 0, -1, 1 + rand.nextInt(3), 3);
 		
 		return true;
 	}

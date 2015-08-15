@@ -4,6 +4,7 @@ import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumPlant;
 import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrassMulti;
+import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
 
@@ -23,6 +24,7 @@ public class BiomeGenArchaeopterisPlains extends BiomeGenBaseGenesis
 		
 		theBiomeDecorator.grassPerChunk = 3;
 		
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(3).setCountPerChunk(2));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
 		addTree(new WorldGenTreeArchaeopteris(15, 25, true).setTreeCountPerChunk(1));
