@@ -15,7 +15,9 @@ import net.minecraft.block.state.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.*;
 import net.minecraft.util.*;
+import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.fml.relauncher.*;
 
 public class BlockPlant extends BlockBush
@@ -99,5 +101,25 @@ public class BlockPlant extends BlockBush
 	public int getFireSpreadSpeed(IBlockAccess world, BlockPos pos, EnumFacing face)
 	{
 		return 60;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+    public int getRenderColor(IBlockState state)
+	{
+		return useBiomeColor(state) ? ColorizerGrass.getGrassColor(0.5D, 1.0D) : super.getRenderColor(state);
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+    public int colorMultiplier(IBlockAccess world, BlockPos pos, int renderPass)
+    {
+        return useBiomeColor(world.getBlockState(pos)) ? BiomeColorHelper.getGrassColorAtPos(world, pos) : super.colorMultiplier(world, pos, renderPass);
+    }
+
+	@SideOnly(Side.CLIENT)
+	protected boolean useBiomeColor(IBlockState state)
+	{
+		return GenesisBlocks.plants.getVariant(state) == EnumPlant.ASTEROXLYON;
 	}
 }
