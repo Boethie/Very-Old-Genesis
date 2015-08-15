@@ -19,7 +19,7 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 	{
 		super(id);
 		setBiomeName("Marsh");
-		this.temperature = 1.15f;
+		this.temperature = 1.15F;
 		setHeight(0.0F, -0.01F);
 		
 		theBiomeDecorator.grassPerChunk = 2;

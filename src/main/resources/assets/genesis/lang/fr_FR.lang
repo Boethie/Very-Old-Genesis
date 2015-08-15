@@ -20,6 +20,7 @@ tile.genesis.rock.gneiss.name=Gneiss
 tile.genesis.rock.limestone.name=Calcaire
 tile.genesis.rock.siltstone.name=Siltstone
 tile.genesis.rock.siltstone.red.name=Siltstone rouge
+tile.genesis.rock.geyserite.name=Geysérite
 tile.genesis.rock.octaedrite.name=Octaédrite
 tile.genesis.redClay.name=Argile rouge
 tile.genesis.silt.name=Limon
