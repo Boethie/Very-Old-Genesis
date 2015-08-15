@@ -1,15 +1,15 @@
 package genesis.world.biome.decorate;
 
-import java.util.Random;
-
 import genesis.block.BlockFern;
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumFern;
+
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class WorldGenPhlebopteris extends WorldGenGrass
 {

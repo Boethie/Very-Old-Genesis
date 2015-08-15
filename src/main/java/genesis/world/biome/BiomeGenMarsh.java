@@ -2,9 +2,10 @@ package genesis.world.biome;
 
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumPlant;
-import genesis.world.biome.decorate.WorldGenGrass;
-import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenMossStages;
+import genesis.world.biome.decorate.WorldGenPlant;
+import genesis.world.biome.decorate.WorldGenPrototaxites;
+import genesis.world.biome.decorate.WorldGenUnderWaterPatch;
 
 import java.util.Random;
 
@@ -22,23 +23,22 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		this.temperature = 1.15F;
 		setHeight(0.0F, -0.01F);
 		
-		theBiomeDecorator.grassPerChunk = 2;
+		theBiomeDecorator.grassPerChunk = 0;
 		
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
+		
+		addDecoration(new WorldGenUnderWaterPatch(GenesisBlocks.peat.getDefaultState()).setCountPerChunk(4));
+		addDecoration(new WorldGenPrototaxites().setCountPerChunk(3));
+		
+		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.COOKSONIA)).setPatchSize(6).setCountPerChunk(5));
+		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.BARAGWANATHIA)).setPatchSize(6).setCountPerChunk(5));
+		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.RHYNIA)).setPatchSize(6).setCountPerChunk(5));
+		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.PSILOPHYTON)).setPatchSize(4).setCountPerChunk(2));
+		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.SCIADOPHYTON)).setPatchSize(4).setCountPerChunk(2));
+		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.NOTHIA)).setPatchSize(4).setCountPerChunk(2));
+		
 		//Asteroxylon
 		//Prototaxites on Prototaxites Mycellium
-	}
-	
-	@Override
-	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
-	{
-		return new WorldGenGrassMulti(
-				GenesisBlocks.plants.getBlockState(EnumPlant.PSILOPHYTON)
-				,GenesisBlocks.plants.getBlockState(EnumPlant.SCIADOPHYTON)
-				,GenesisBlocks.plants.getBlockState(EnumPlant.NOTHIA)
-				,GenesisBlocks.plants.getBlockState(EnumPlant.COOKSONIA)
-				,GenesisBlocks.plants.getBlockState(EnumPlant.BARAGWANATHIA)
-				,GenesisBlocks.plants.getBlockState(EnumPlant.RHYNIA)).setVolume(64);
 	}
 	
 	@Override
