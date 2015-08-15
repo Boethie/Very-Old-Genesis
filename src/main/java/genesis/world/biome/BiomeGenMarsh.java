@@ -2,6 +2,7 @@ package genesis.world.biome;
 
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumPlant;
+import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPlant;
 import genesis.world.biome.decorate.WorldGenPrototaxites;
@@ -28,7 +29,6 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
 		addDecoration(new WorldGenUnderWaterPatch(GenesisBlocks.peat.getDefaultState()).setCountPerChunk(4));
-		addDecoration(new WorldGenPrototaxites().setCountPerChunk(3));
 		
 		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.COOKSONIA)).setPatchSize(6).setCountPerChunk(5));
 		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.BARAGWANATHIA)).setPatchSize(6).setCountPerChunk(5));
@@ -37,8 +37,9 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.SCIADOPHYTON)).setPatchSize(4).setCountPerChunk(2));
 		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.NOTHIA)).setPatchSize(4).setCountPerChunk(2));
 		
+		addDecoration(new WorldGenPrototaxites().setCountPerChunk(1));
+		
 		//Asteroxylon
-		//Prototaxites on Prototaxites Mycellium
 	}
 	
 	@Override
