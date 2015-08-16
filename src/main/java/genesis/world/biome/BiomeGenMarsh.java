@@ -2,6 +2,8 @@ package genesis.world.biome;
 
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumPlant;
+import genesis.world.biome.decorate.WorldGenGrass;
+import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPlant;
 import genesis.world.biome.decorate.WorldGenPrototaxites;
@@ -23,22 +25,27 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		this.temperature = 1.15F;
 		setHeight(0.0F, -0.01F);
 		
-		theBiomeDecorator.grassPerChunk = 0;
+		theBiomeDecorator.grassPerChunk = 3;
 		
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
 		addDecoration(new WorldGenUnderWaterPatch(GenesisBlocks.peat.getDefaultState()).setCountPerChunk(4));
 		
-		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.COOKSONIA)).setPatchSize(6).setCountPerChunk(5));
-		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.BARAGWANATHIA)).setPatchSize(6).setCountPerChunk(5));
-		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.RHYNIA)).setPatchSize(6).setCountPerChunk(5));
-		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.PSILOPHYTON)).setPatchSize(4).setCountPerChunk(2));
-		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.SCIADOPHYTON)).setPatchSize(4).setCountPerChunk(2));
-		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.NOTHIA)).setPatchSize(4).setCountPerChunk(2));
+		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.double_asteroxylon.getDefaultState()).setIsDouble(true).setCountPerChunk(8));
+		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.COOKSONIA)).setPatchSize(6).setCountPerChunk(6));
+		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.BARAGWANATHIA)).setPatchSize(6).setCountPerChunk(6));
+		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.RHYNIA)).setPatchSize(6).setCountPerChunk(6));
+		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.PSILOPHYTON)).setPatchSize(4).setCountPerChunk(3));
+		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.SCIADOPHYTON)).setPatchSize(4).setCountPerChunk(3));
+		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.NOTHIA)).setPatchSize(4).setCountPerChunk(3));
 		
-		addDecoration(new WorldGenPrototaxites().setCountPerChunk(1));
-		
-		//Asteroxylon
+		//addDecoration(new WorldGenPrototaxites().setCountPerChunk(1));
+	}
+	
+	@Override
+	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
+	{
+		return new WorldGenGrassMulti(GenesisBlocks.plants.getBlockState(EnumPlant.ASTEROXLYON)).setVolume(64);
 	}
 	
 	@Override
@@ -71,8 +78,9 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 	@Override
 	public void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
 	{
-		mossStages = new int[1];
+		mossStages = new int[2];
 		mossStages[0] = 0;
+		mossStages[1] = 1;
 		super.generateBiomeTerrain(world, rand, primer, blockX, blockZ, d);
 	}
 }

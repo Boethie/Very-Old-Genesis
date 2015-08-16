@@ -22,6 +22,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	public IBlockState wood;
 	public IBlockState leaves;
 	public Block treeSoil;
+	public int rarity = 1;
 	
 	protected boolean notify;
 	
@@ -38,6 +39,12 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		this.wood = wood;
 		this.leaves = leaves;
 		this.notify = notify;
+	}
+	
+	public WorldGenTreeBase setRarity(int r)
+	{
+		rarity = r;
+		return this;
 	}
 	
 	public WorldGenTreeBase setTreeCountPerChunk(int count)

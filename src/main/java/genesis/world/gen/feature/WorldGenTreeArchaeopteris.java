@@ -31,6 +31,9 @@ public class WorldGenTreeArchaeopteris extends WorldGenTreeBase
 	{
 		pos = getTreePos(world, pos);
 		
+		if (rand.nextInt(rarity) != 0)
+			return false;
+		
 		if (!canTreeGrow(world, pos))
 			return false;
 		

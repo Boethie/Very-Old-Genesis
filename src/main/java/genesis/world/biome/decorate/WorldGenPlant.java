@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 public class WorldGenPlant extends WorldGenDecorationBase
 {
 	private IBlockState plant;
+	private boolean isDouble;
 	
 	@Override
 	public boolean generate(World world, Random random, BlockPos pos)
@@ -38,6 +39,9 @@ public class WorldGenPlant extends WorldGenDecorationBase
 		
 		placePlant(world, pos, random);
 		
+		if (getPatchSize() == 1)
+			return true;
+		
 		BlockPos secondPos;
 		int additional = random.nextInt(getPatchSize() - 1);
 		
@@ -53,6 +57,12 @@ public class WorldGenPlant extends WorldGenDecorationBase
 		return true;
 	}
 	
+	public WorldGenPlant setIsDouble(boolean d)
+	{
+		isDouble = d;
+		return this;
+	}
+	
 	public WorldGenPlant setPlant(IBlockState blockPlant)
 	{
 		plant = blockPlant;
@@ -66,6 +76,9 @@ public class WorldGenPlant extends WorldGenDecorationBase
 		if (world.isAirBlock(placePos) && world.isAirBlock(placePos.up()))
 		{
 			world.setBlockState(placePos, plant, 2);
+			
+			if (isDouble)
+				world.setBlockState(placePos.up(), plant, 2);
 		}
 	}
 }

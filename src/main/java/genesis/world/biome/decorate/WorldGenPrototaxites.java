@@ -18,6 +18,9 @@ public class WorldGenPrototaxites extends WorldGenDecorationBase
 	@Override
 	public boolean generate(World world, Random random, BlockPos pos)
 	{
+		if (random.nextInt(4) != 0)
+			return false;
+		
 		Block block;
 		
 		do
@@ -44,7 +47,7 @@ public class WorldGenPrototaxites extends WorldGenDecorationBase
 			placeMycelliumBase(world, pos.east(), random);
 			placeMycelliumBase(world, pos.west(), random);
 			
-			int size = 1 + random.nextInt(7);
+			int size = 1 + random.nextInt(5);
 			
 			for (int i = 1; i <= size; ++i)
 			{

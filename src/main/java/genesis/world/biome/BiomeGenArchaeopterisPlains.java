@@ -27,7 +27,7 @@ public class BiomeGenArchaeopterisPlains extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(3).setCountPerChunk(2));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
-		addTree(new WorldGenTreeArchaeopteris(15, 25, true).setTreeCountPerChunk(1));
+		addTree(new WorldGenTreeArchaeopteris(15, 25, true).setRarity(4).setTreeCountPerChunk(1));
 	}
 	
 	@Override
