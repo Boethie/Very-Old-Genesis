@@ -2,11 +2,10 @@ package genesis.util;
 
 import java.util.Random;
 
-import com.google.common.collect.ImmutableList;
-
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MathHelper;
+
+import com.google.common.collect.ImmutableList;
 
 public class RandomDrop
 {

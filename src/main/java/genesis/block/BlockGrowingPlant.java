@@ -2,18 +2,16 @@ package genesis.block;
 
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms.CanStayOptions;
 import genesis.common.GenesisCreativeTabs;
-import genesis.util.*;
+import genesis.util.BlockStateToMetadata;
+import genesis.util.RandomDrop;
+import genesis.util.RandomIntRange;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Random;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.properties.IProperty;
@@ -21,7 +19,6 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;

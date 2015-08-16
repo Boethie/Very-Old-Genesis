@@ -1,41 +1,45 @@
 package genesis.entity.flying;
 
-import io.netty.buffer.ByteBuf;
-
-import java.util.*;
-import java.util.concurrent.Callable;
-
-import org.lwjgl.opengl.GL11;
-
-import com.google.common.base.Function;
-
+import static genesis.entity.flying.EntityMeganeura.State.FLYING;
+import static genesis.entity.flying.EntityMeganeura.State.IDLE;
+import static genesis.entity.flying.EntityMeganeura.State.LANDING;
+import static genesis.entity.flying.EntityMeganeura.State.LANDING_CALAMITES;
+import static genesis.entity.flying.EntityMeganeura.State.PLACING_EGG;
 import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
 import genesis.entity.fixed.EntityMeganeuraEgg;
-import static genesis.entity.flying.EntityMeganeura.State.*;
-import genesis.util.*;
-import genesis.util.render.*;
+import genesis.util.Constants;
+import genesis.util.EnumAxis;
+import genesis.util.RandomDoubleRange;
+import genesis.util.render.EntityPart;
+import genesis.util.render.ModelPlane;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.*;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderGlobal;
-import net.minecraft.client.renderer.entity.*;
-import net.minecraft.entity.*;
-import net.minecraft.entity.item.EntityItem;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.*;
-import net.minecraft.stats.AchievementList;
-import net.minecraft.util.*;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.relauncher.*;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityMeganeura extends EntityLiving
 {

@@ -1,18 +1,19 @@
 package genesis.item;
 
-import java.util.*;
-
 import genesis.metadata.ToolItems;
 import genesis.metadata.ToolItems.ToolObjectType;
 import genesis.metadata.ToolTypes.ToolType;
 import genesis.metadata.VariantsOfTypesCombo.ItemVariantCount;
-import genesis.util.Constants.Unlocalized;
+
+import java.util.Collections;
+import java.util.List;
+
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.*;
-import net.minecraft.item.*;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTool;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 

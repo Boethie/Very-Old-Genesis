@@ -1,24 +1,17 @@
 package genesis.item;
 
 import genesis.block.BlockGenesisPebble;
-import genesis.metadata.*;
+import genesis.metadata.ToolItems;
 import genesis.metadata.ToolItems.ToolObjectType;
 import genesis.metadata.ToolTypes.ToolType;
-import genesis.metadata.VariantsOfTypesCombo.*;
+import genesis.metadata.VariantsOfTypesCombo.ItemVariantCount;
 import genesis.util.Constants;
-import genesis.util.WorldUtils;
-import genesis.util.Constants.Unlocalized;
-
-import java.util.*;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.*;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 @ItemVariantCount(1)

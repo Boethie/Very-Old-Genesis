@@ -1,10 +1,9 @@
 package genesis.util.render;
 
-import genesis.util.*;
-import net.minecraft.client.*;
-import net.minecraft.client.model.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.item.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.item.ItemStack;
 
 public class ItemAsEntityPart extends CustomEntityPart
 {

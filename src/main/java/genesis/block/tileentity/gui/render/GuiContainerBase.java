@@ -1,14 +1,18 @@
 package genesis.block.tileentity.gui.render;
 
-import java.util.*;
+import genesis.block.tileentity.gui.ContainerBase;
+import genesis.util.Constants;
 
-import genesis.block.tileentity.gui.*;
-import genesis.util.*;
-import net.minecraft.client.gui.inventory.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.inventory.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
+import java.util.List;
+
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.inventory.Slot;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
+import net.minecraft.world.IWorldNameable;
 
 public class GuiContainerBase extends GuiContainer
 {

@@ -1,9 +1,5 @@
 package genesis.metadata;
 
-import genesis.common.GenesisBlocks;
-import genesis.common.GenesisItems;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 
 public enum EnumDung implements IMetadata
 {

@@ -1,7 +1,7 @@
 package genesis.util;
 
-import genesis.metadata.*;
-import net.minecraft.util.*;
+import genesis.metadata.IMetadata;
+import net.minecraft.util.MathHelper;
 
 public enum EnumAxis implements IMetadata
 {

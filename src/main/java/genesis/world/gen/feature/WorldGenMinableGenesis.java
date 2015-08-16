@@ -1,9 +1,10 @@
 package genesis.world.gen.feature;
 
-import java.util.Random;
-
 import genesis.common.GenesisBlocks;
 import genesis.util.RandomIntRange;
+
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockHelper;

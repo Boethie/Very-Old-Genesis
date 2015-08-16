@@ -1,16 +1,19 @@
 package genesis.block.tileentity.crafting;
 
-import genesis.common.*;
+import genesis.common.Genesis;
+import genesis.common.GenesisItems;
 import genesis.metadata.ItemsCeramicBowls.EnumCeramicBowls;
-import genesis.util.*;
+import genesis.util.ItemStackKey;
+import genesis.util.Stringify;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import com.google.common.collect.*;
-
-import net.minecraft.inventory.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.item.ItemStack;
 
 public class CookingPotRecipeRegistry
 {

@@ -1,19 +1,27 @@
 package genesis.common;
 
-import genesis.item.*;
-import genesis.metadata.*;
-import genesis.metadata.VariantsOfTypesCombo.*;
+import genesis.item.ItemFlintAndMarcasite;
+import genesis.item.ItemGenesis;
+import genesis.item.ItemGenesisBucket;
+import genesis.item.ItemGenesisBucketMilk;
+import genesis.item.ItemGenesisFood;
+import genesis.item.ItemGenesisSeedFood;
+import genesis.item.ItemGenesisSeeds;
+import genesis.item.ItemMulti;
+import genesis.metadata.EnumNodule;
+import genesis.metadata.ItemsCeramicBowls;
+import genesis.metadata.ToolItems;
+import genesis.metadata.VariantsCombo;
+import genesis.metadata.VariantsOfTypesCombo.ObjectNamePosition;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.Constants;
 import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBucketMilk;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 
 public final class GenesisItems
 {

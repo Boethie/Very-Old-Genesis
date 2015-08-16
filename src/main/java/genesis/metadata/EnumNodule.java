@@ -1,7 +1,5 @@
 package genesis.metadata;
 
-import genesis.common.GenesisItems;
-import net.minecraft.item.Item;
 
 public enum EnumNodule implements IMetadata
 {

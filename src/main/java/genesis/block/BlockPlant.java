@@ -1,22 +1,29 @@
 package genesis.block;
 
-import genesis.common.*;
+import genesis.common.GenesisBlocks;
+import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemBlockMulti;
-import genesis.metadata.*;
-import genesis.metadata.VariantsOfTypesCombo.*;
-import genesis.util.*;
-import genesis.util.Constants.Unlocalized;
+import genesis.metadata.IMetadata;
+import genesis.metadata.PropertyIMetadata;
+import genesis.metadata.VariantsOfTypesCombo;
+import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import genesis.util.BlockStateToMetadata;
 
-import java.util.*;
+import java.util.List;
 
-import net.minecraft.block.*;
-import net.minecraft.block.properties.*;
-import net.minecraft.block.state.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockBush;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.*;
-import net.minecraft.util.*;
+import net.minecraft.item.Item;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.fml.relauncher.*;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockPlant extends BlockBush
 {

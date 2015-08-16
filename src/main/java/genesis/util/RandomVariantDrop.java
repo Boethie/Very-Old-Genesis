@@ -1,10 +1,12 @@
 package genesis.util;
 
+import genesis.metadata.IMetadata;
+import genesis.metadata.VariantsOfTypesCombo;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+
 import java.util.Random;
 
 import net.minecraft.item.ItemStack;
-import genesis.metadata.*;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 
 public class RandomVariantDrop extends RandomIntRange
 {

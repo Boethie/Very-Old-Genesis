@@ -2,14 +2,9 @@ package genesis.world.gen;
 
 import genesis.block.BlockMoss;
 import genesis.common.GenesisBlocks;
-
-import java.util.Random;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.MathHelper;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.MapGenRavine;

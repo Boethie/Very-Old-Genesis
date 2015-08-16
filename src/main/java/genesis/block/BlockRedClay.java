@@ -2,11 +2,9 @@ package genesis.block;
 
 import genesis.common.GenesisCreativeTabs;
 import genesis.common.GenesisItems;
-import genesis.util.Constants.Unlocalized;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockClay;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;

@@ -1,34 +1,45 @@
 package genesis.block;
 
-import java.util.*;
+import genesis.client.GenesisClient;
+import genesis.metadata.IMetadata;
+import genesis.metadata.VariantsCombo;
+import genesis.metadata.VariantsOfTypesCombo;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 
-import org.apache.commons.lang3.tuple.*;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import com.google.common.collect.*;
-
-import genesis.client.*;
-import genesis.common.*;
-import genesis.metadata.*;
-import genesis.metadata.VariantsOfTypesCombo.*;
-import genesis.util.*;
-import net.minecraft.block.*;
-import net.minecraft.block.properties.*;
-import net.minecraft.block.state.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockFlowerPot;
+import net.minecraft.block.properties.PropertyHelper;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.*;
-import net.minecraft.item.*;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
-import net.minecraft.tileentity.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.event.entity.player.*;
-import net.minecraftforge.fml.common.eventhandler.*;
-import net.minecraftforge.fml.common.eventhandler.Event.*;
-import net.minecraftforge.fml.relauncher.*;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityFlowerPot;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.Vec3;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.eventhandler.Event.Result;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import org.apache.commons.lang3.tuple.Pair;
+
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
 
 public class BlockGenesisFlowerPot extends BlockFlowerPot
 {

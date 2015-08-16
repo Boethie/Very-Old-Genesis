@@ -1,6 +1,5 @@
 package genesis.metadata;
 
-import net.minecraft.item.Item;
 
 public enum EnumToolMaterial implements IMetadata
 {

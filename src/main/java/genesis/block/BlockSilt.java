@@ -2,16 +2,20 @@ package genesis.block;
 
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemBlockMulti;
-import genesis.metadata.*;
-import genesis.metadata.VariantsOfTypesCombo.*;
+import genesis.metadata.EnumSilt;
+import genesis.metadata.PropertyIMetadata;
+import genesis.metadata.SiltBlocks;
+import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.BlockStateToMetadata;
 
 import java.util.List;
 
-import net.minecraft.block.*;
+import net.minecraft.block.BlockFalling;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.*;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 

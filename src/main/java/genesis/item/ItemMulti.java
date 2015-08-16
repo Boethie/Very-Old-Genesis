@@ -1,12 +1,9 @@
 package genesis.item;
 
-import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.IMetadata;
+import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
-import genesis.util.Constants;
-import genesis.util.Constants.Unlocalized;
 
-import java.util.Comparator;
 import java.util.List;
 
 import net.minecraft.block.Block;

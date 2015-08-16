@@ -1,6 +1,7 @@
 package genesis.util.render;
 
-import net.minecraft.client.model.*;
+import net.minecraft.client.model.ModelBox;
+import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.WorldRenderer;
 
 public abstract class CustomModelElement extends ModelBox

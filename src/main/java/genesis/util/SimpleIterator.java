@@ -1,10 +1,11 @@
 package genesis.util;
 
-import static genesis.util.SimpleIterator.State.*;
+import static genesis.util.SimpleIterator.State.DONE;
+import static genesis.util.SimpleIterator.State.NOT_READY;
+import static genesis.util.SimpleIterator.State.READY;
 
 import java.util.NoSuchElementException;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.PeekingIterator;
 
 public abstract class SimpleIterator<T> implements PeekingIterator<T>

@@ -1,15 +1,7 @@
 package genesis.util;
 
-import genesis.metadata.EnumAquaticPlant;
-import genesis.metadata.EnumCoral;
-import genesis.metadata.EnumDung;
-import genesis.metadata.EnumFern;
-import genesis.metadata.EnumPlant;
-
 import java.util.Random;
 
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.util.DamageSource;
 
 public final class Constants

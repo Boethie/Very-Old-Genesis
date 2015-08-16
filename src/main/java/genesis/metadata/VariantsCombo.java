@@ -1,13 +1,17 @@
 package genesis.metadata;
 
-import java.util.*;
-
-import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
-import genesis.metadata.VariantsOfTypesCombo.ObjectNamePosition;
-import net.minecraft.block.*;
-import net.minecraft.block.state.*;
-import net.minecraft.item.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Random;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 /**
  * Used to create a combo of Blocks or Items with variants. Can only contain <i>one</i> ObjectType.

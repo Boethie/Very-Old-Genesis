@@ -1,18 +1,27 @@
 package genesis.block;
 
-import genesis.client.*;
-import genesis.common.*;
-import genesis.util.*;
+import genesis.client.GenesisClient;
+import genesis.client.GenesisSounds;
+import genesis.common.Genesis;
+import genesis.common.GenesisBlocks;
+import genesis.common.GenesisCreativeTabs;
+import genesis.common.GenesisItems;
+import genesis.util.BlockStateToMetadata;
+import genesis.util.FlexibleStateMap;
+import genesis.util.SidedFunction;
 
 import java.util.Random;
 
-import net.minecraft.block.*;
-import net.minecraft.block.material.*;
-import net.minecraft.block.state.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockCactus;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.*;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockPrototaxites extends BlockGenesis
 {

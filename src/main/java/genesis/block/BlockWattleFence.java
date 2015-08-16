@@ -1,25 +1,32 @@
 package genesis.block;
 
+import genesis.common.GenesisCreativeTabs;
+import genesis.item.ItemBlockMulti;
+import genesis.metadata.EnumTree;
+import genesis.metadata.PropertyIMetadata;
+import genesis.metadata.TreeBlocksAndItems;
+import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import genesis.util.BlockStateToMetadata;
+
 import java.util.List;
 
-import genesis.client.*;
-import genesis.client.model.*;
-import genesis.common.*;
-import genesis.item.ItemBlockMulti;
-import genesis.metadata.*;
-import genesis.metadata.VariantsOfTypesCombo.*;
-import genesis.util.*;
-import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.*;
-import net.minecraft.block.state.*;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.*;
-import net.minecraft.util.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;

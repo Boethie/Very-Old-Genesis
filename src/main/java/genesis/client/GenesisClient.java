@@ -1,33 +1,38 @@
 package genesis.client;
 
 import genesis.client.model.FluidModel;
-import genesis.common.*;
-import genesis.metadata.*;
-import genesis.util.*;
+import genesis.common.GenesisEntities;
+import genesis.common.GenesisProxy;
+import genesis.metadata.IMetadata;
+import genesis.util.Constants;
+import genesis.util.GenesisStateMap;
+import genesis.util.SidedFunction;
 import genesis.util.render.ModelHelpers;
 
-import java.util.*;
+import java.util.Map;
+
+import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.statemap.IStateMapper;
+import net.minecraft.client.renderer.block.statemap.StateMap;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.resources.IReloadableResourceManager;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.ISmartBlockModel;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.BlockFluidBase;
+import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 import com.google.common.collect.Maps;
-
-import net.minecraft.block.*;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.block.statemap.*;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.client.resources.*;
-import net.minecraft.client.resources.model.*;
-import net.minecraft.item.*;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
-import net.minecraftforge.client.model.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.fluids.BlockFluidBase;
-import net.minecraftforge.fml.client.*;
-import net.minecraftforge.fml.client.registry.*;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.*;
 
 public class GenesisClient extends GenesisProxy
 {

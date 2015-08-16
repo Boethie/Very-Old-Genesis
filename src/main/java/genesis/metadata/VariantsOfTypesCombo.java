@@ -1,30 +1,50 @@
 package genesis.metadata;
 
 import genesis.client.GenesisClient;
-import genesis.common.*;
-import genesis.item.*;
-import genesis.util.*;
+import genesis.common.Genesis;
+import genesis.item.ItemBlockMulti;
+import genesis.item.ItemMulti;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants.Unlocalized;
-import genesis.metadata.VariantsOfTypesCombo.*;
+import genesis.util.FlexibleStateMap;
+import genesis.util.ReflectionUtils;
+import genesis.util.SidedFunction;
+import genesis.util.Stringify;
 
-import java.lang.annotation.*;
-import java.lang.reflect.*;
-import java.util.*;
-import java.util.Map.Entry;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.tuple.Pair;
 
 import com.google.common.base.Function;
-import com.google.common.collect.*;
-
-import net.minecraft.block.*;
-import net.minecraft.block.properties.*;
-import net.minecraft.block.state.*;
-import net.minecraft.client.renderer.block.statemap.*;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.*;
-import net.minecraftforge.fml.relauncher.*;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableTable;
+import com.google.common.collect.Sets;
+import com.google.common.collect.Table;
 
 /**
  * Used to create Blocks/Items with variants of ObjectTypes.

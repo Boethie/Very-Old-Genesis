@@ -1,35 +1,46 @@
 package genesis.block.tileentity;
 
-import io.netty.buffer.ByteBuf;
-
-import java.util.*;
-
 import genesis.block.tileentity.crafting.CookingPotRecipeRegistry;
 import genesis.block.tileentity.crafting.CookingPotRecipeRegistry.IInventoryCookingPot;
 import genesis.block.tileentity.gui.ContainerCampfire;
 import genesis.block.tileentity.render.TileEntityCampfireRenderer;
-import genesis.common.Genesis;
-import genesis.common.GenesisBlocks;
-import genesis.util.*;
+import genesis.util.Constants;
 import genesis.util.Constants.Unlocalized;
+import genesis.util.ItemStackKey;
+import genesis.util.RandomFloatRange;
+import genesis.util.WorldUtils;
 import genesis.util.gui.RestrictedDisabledSlot.IInventoryDisabledSlots;
-import net.minecraft.block.*;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.*;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.*;
-import net.minecraft.init.*;
-import net.minecraft.inventory.*;
-import net.minecraft.item.*;
-import net.minecraft.item.crafting.*;
-import net.minecraft.nbt.*;
-import net.minecraft.network.*;
-import net.minecraft.network.play.server.*;
-import net.minecraft.server.gui.*;
-import net.minecraft.tileentity.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
-import net.minecraftforge.fluids.*;
+
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.EnumAction;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.tileentity.TileEntityLockable;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.MathHelper;
+import net.minecraft.world.LockCode;
+import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidStack;
 
 public class TileEntityCampfire extends TileEntityLockable implements ISidedInventory, IInventoryDisabledSlots, IInventoryCookingPot, IUpdatePlayerListBox
 {

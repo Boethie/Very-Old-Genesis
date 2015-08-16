@@ -1,6 +1,10 @@
 package genesis.common;
 
-import genesis.metadata.*;
+import genesis.metadata.EnumToolMaterial;
+import genesis.metadata.EnumToolQuality;
+import genesis.metadata.EnumTree;
+import genesis.metadata.ToolItems;
+import genesis.metadata.TreeBlocksAndItems;
 import genesis.util.Constants.Unlocalized;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;

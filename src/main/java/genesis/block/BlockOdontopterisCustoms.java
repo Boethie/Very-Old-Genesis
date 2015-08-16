@@ -1,24 +1,13 @@
 package genesis.block;
 
-import genesis.block.BlockGrowingPlant.GrowingPlantProperties;
-import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
-import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
-import genesis.util.*;
+import genesis.util.RandomDrop;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Random;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class BlockOdontopterisCustoms extends SurviveOnDirtCustoms

@@ -1,31 +1,37 @@
 package genesis.item;
 
-import java.util.*;
+import genesis.client.GenesisClient;
+import genesis.common.GenesisItems;
+import genesis.metadata.IMetadata;
+import genesis.metadata.ItemsCeramicBowls;
+import genesis.metadata.ItemsCeramicBowls.EnumCeramicBowls;
+import genesis.metadata.VariantsOfTypesCombo;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 
-import net.minecraft.block.*;
+import java.util.List;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockCauldron;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.creativetab.*;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.*;
-import net.minecraft.item.*;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.*;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
-import genesis.client.GenesisClient;
-import genesis.common.GenesisItems;
-import genesis.metadata.*;
-import genesis.metadata.ItemsCeramicBowls.EnumCeramicBowls;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
-import genesis.metadata.VariantsOfTypesCombo.*;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ItemCeramicBowl extends ItemGenesis
 {

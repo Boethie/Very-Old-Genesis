@@ -2,7 +2,8 @@ package genesis.util;
 
 import genesis.client.GenesisClient;
 import genesis.common.GenesisProxy;
-import net.minecraftforge.fml.relauncher.*;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class SidedFunction
 {

@@ -1,11 +1,11 @@
 package genesis.block;
 
+import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
+import genesis.common.GenesisBlocks;
+
 import java.util.ArrayList;
 import java.util.Random;
 
-import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
-import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms.CanStayOptions;
-import genesis.common.GenesisBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;

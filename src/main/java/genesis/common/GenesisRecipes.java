@@ -1,14 +1,25 @@
 package genesis.common;
 
-import java.util.*;
-
 import genesis.block.tileentity.TileEntityCampfire;
 import genesis.block.tileentity.crafting.CookingPotRecipeRegistry;
-import genesis.metadata.*;
+import genesis.metadata.DungBlocksAndItems;
+import genesis.metadata.EnumDung;
+import genesis.metadata.EnumDye;
+import genesis.metadata.EnumNodule;
+import genesis.metadata.EnumPlant;
+import genesis.metadata.EnumToolMaterial;
+import genesis.metadata.EnumTree;
+import genesis.metadata.IMetadata;
+import genesis.metadata.ItemsCeramicBowls;
 import genesis.metadata.ItemsCeramicBowls.EnumCeramicBowls;
+import genesis.metadata.ToolItems;
 import genesis.metadata.ToolTypes.ToolType;
-import genesis.metadata.VariantsOfTypesCombo.*;
+import genesis.metadata.TreeBlocksAndItems;
 import genesis.util.FuelHandler;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -19,10 +30,8 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
-import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public final class GenesisRecipes

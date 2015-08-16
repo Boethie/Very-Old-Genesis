@@ -1,14 +1,17 @@
 package genesis.metadata;
 
-import genesis.metadata.VariantsOfTypesCombo.*;
+import genesis.item.ItemCeramicBowl;
+import genesis.item.ItemMulti;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.Constants.Unlocalized;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
-import genesis.item.*;
 
 @SuppressWarnings("rawtypes")
 public class ItemsCeramicBowls extends VariantsOfTypesCombo<ObjectType, IMetadata>

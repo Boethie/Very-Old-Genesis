@@ -1,11 +1,11 @@
 package genesis.block.tileentity.gui.render;
 
-import genesis.block.tileentity.*;
-import genesis.block.tileentity.gui.*;
+import genesis.block.tileentity.TileEntityCampfire;
+import genesis.block.tileentity.gui.ContainerCampfire;
 import genesis.util.Constants;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.player.*;
-import net.minecraft.inventory.*;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Slot;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiContainerCampfire extends GuiContainerBase

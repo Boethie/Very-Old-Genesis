@@ -1,13 +1,12 @@
 package genesis.common;
 
-import genesis.entity.*;
 import genesis.entity.fixed.EntityMeganeuraEgg;
-import genesis.entity.flying.*;
-import genesis.util.Constants;
-import net.minecraft.entity.*;
+import genesis.entity.flying.EntityMeganeura;
+import net.minecraft.entity.Entity;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
-import net.minecraftforge.fml.relauncher.*;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class GenesisEntities
 {

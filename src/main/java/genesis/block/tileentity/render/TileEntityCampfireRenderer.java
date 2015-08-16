@@ -1,43 +1,32 @@
 package genesis.block.tileentity.render;
 
-import java.lang.reflect.Type;
-import java.util.*;
-import java.util.Map.Entry;
-
-import org.lwjgl.opengl.GL11;
-
-import com.google.common.collect.Lists;
-import com.google.gson.*;
-
 import genesis.block.tileentity.BlockCampfire;
 import genesis.block.tileentity.TileEntityCampfire;
 import genesis.client.GenesisClient;
-import genesis.client.GenesisCustomModelLoader;
 import genesis.common.Genesis;
-import genesis.common.GenesisBlocks;
-import genesis.util.*;
+import genesis.util.EnumAxis;
+import genesis.util.SidedFunction;
 import genesis.util.render.BlockAsEntityPart;
 import genesis.util.render.ItemAsEntityPart;
 import genesis.util.render.ModelHelpers;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.block.model.ModelBlock;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.*;
-import net.minecraft.client.resources.model.*;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.tileentity.*;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.JsonUtils;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.*;
 
 public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer
 {

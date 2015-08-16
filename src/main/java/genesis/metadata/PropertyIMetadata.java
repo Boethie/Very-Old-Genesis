@@ -1,10 +1,12 @@
 package genesis.metadata;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
+import net.minecraft.block.properties.PropertyHelper;
 
 import com.google.common.collect.ImmutableSet;
-
-import net.minecraft.block.properties.*;
 
 public class PropertyIMetadata<T extends IMetadata> extends PropertyHelper
 {

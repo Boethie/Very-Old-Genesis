@@ -1,24 +1,18 @@
 package genesis.block;
 
 import genesis.common.GenesisCreativeTabs;
-import genesis.metadata.IMetadata;
-import genesis.util.Constants.Unlocalized;
 import genesis.util.RandomDrop;
 import genesis.util.WorldUtils;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 
 public class BlockGenesisOre extends BlockOre
 {

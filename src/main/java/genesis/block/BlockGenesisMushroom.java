@@ -1,21 +1,30 @@
 package genesis.block;
 
-import static genesis.block.BlockGenesisMushroom.MushroomGrowType.*;
+import static genesis.block.BlockGenesisMushroom.MushroomGrowType.GROW_SIDE;
+import static genesis.block.BlockGenesisMushroom.MushroomGrowType.GROW_TOP;
 import genesis.client.GenesisSounds;
 import genesis.common.GenesisBlocks;
 import genesis.util.BlockStateToMetadata;
 
 import java.util.Random;
 
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockBush;
+import net.minecraft.block.BlockDirt;
+import net.minecraft.block.BlockLog;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.*;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
-import net.minecraftforge.fml.relauncher.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockGenesisMushroom extends BlockBush
 {

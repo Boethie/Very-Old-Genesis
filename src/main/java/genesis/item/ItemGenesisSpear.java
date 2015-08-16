@@ -4,12 +4,12 @@ import genesis.metadata.ToolItems;
 import genesis.metadata.ToolItems.ToolObjectType;
 import genesis.metadata.ToolTypes.ToolType;
 import genesis.metadata.VariantsOfTypesCombo.ItemVariantCount;
-import genesis.util.Constants.Unlocalized;
 
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.*;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 
 @ItemVariantCount(1)
 public class ItemGenesisSpear extends ItemSword

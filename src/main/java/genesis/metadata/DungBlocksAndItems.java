@@ -1,24 +1,22 @@
 package genesis.metadata;
 
-import java.util.*;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraftforge.common.util.EnumHelper;
-import genesis.block.*;
+import genesis.block.BlockGenesisVariants;
 import genesis.client.GenesisSounds;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemBlockMulti;
 import genesis.item.ItemDung;
-import genesis.item.ItemMulti;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.Constants.Unlocalized;
 import genesis.util.FuelHandler;
+
+import java.util.List;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntityFurnace;
 
 @SuppressWarnings("rawtypes")
 public class DungBlocksAndItems extends VariantsOfTypesCombo<ObjectType, EnumDung>

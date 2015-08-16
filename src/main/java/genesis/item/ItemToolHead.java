@@ -1,21 +1,16 @@
 package genesis.item;
 
 import genesis.common.GenesisCreativeTabs;
-import genesis.item.ItemGenesis;
-import genesis.metadata.ToolItems.*;
-import genesis.metadata.*;
-import genesis.metadata.ToolTypes.ToolType;
-import genesis.util.Constants;
-import genesis.util.Constants.Unlocalized;
+import genesis.metadata.IMetadata;
+import genesis.metadata.ToolItems;
+import genesis.metadata.ToolItems.ToolObjectType;
+
+import java.util.List;
+
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
-import net.minecraft.world.World;
-
-import java.util.List;
 
 public class ItemToolHead extends ItemGenesis
 {
