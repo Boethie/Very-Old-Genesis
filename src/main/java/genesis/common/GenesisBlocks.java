@@ -66,6 +66,7 @@ public final class GenesisBlocks
 	
 	/* Plants */
 	public static final VariantsCombo<EnumPlant, BlockPlant, ItemBlockMulti> plants = new VariantsCombo<EnumPlant, BlockPlant, ItemBlockMulti>(new ObjectType<BlockPlant, ItemBlockMulti>("plant", BlockPlant.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumPlant.values());
+	public static final Block double_asteroxylon = new BlockDoubleAsteroxylon().setUnlocalizedName(Unlocalized.PLANT + "doubleAsteroxylon");
 	public static final BlockCalamites calamites = (BlockCalamites) new BlockCalamites(true, 15, 7)
 			.setGrowth(6, 1, 1, 1)
 			.setUnlocalizedName(Unlocalized.PLANT + "calamites");
@@ -204,6 +205,7 @@ public final class GenesisBlocks
 		
 		plants.setUnlocalizedPrefix(Constants.Unlocalized.PREFIX);
 		plants.registerAll();
+		Genesis.proxy.registerBlock(double_asteroxylon, "double_asteroxylon", ItemBlockColored.class);
 
 		Genesis.proxy.registerBlock(calamites, "calamites", null);
 		calamites.setDrops(new RandomDrop(GenesisItems.calamites, 1, 1));

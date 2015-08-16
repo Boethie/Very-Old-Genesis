@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "top=false": { "model": "genesis:double_asteroxylon_bottom" },
+        "top=true": { "model": "genesis:double_asteroxylon_top" }
+    }
+}
