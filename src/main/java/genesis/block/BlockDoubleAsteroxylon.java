@@ -5,7 +5,6 @@ import java.util.Random;
 import genesis.common.GenesisCreativeTabs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
-import net.minecraft.block.IGrowable;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockState;
@@ -23,7 +22,7 @@ import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockDoubleAsteroxylon extends BlockBush implements IGrowable
+public class BlockDoubleAsteroxylon extends BlockBush
 {
 	public static final PropertyBool TOP = PropertyBool.create("top");
 
@@ -162,24 +161,6 @@ public class BlockDoubleAsteroxylon extends BlockBush implements IGrowable
 		}
 
 		super.onBlockHarvested(world, pos, state, player);
-	}
-
-	@Override
-	public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean isClient)
-	{
-		return true;
-	}
-
-	@Override
-	public boolean canUseBonemeal(World world, Random rand, BlockPos pos, IBlockState state)
-	{
-		return true;
-	}
-
-	@Override
-	public void grow(World world, Random rand, BlockPos pos, IBlockState state)
-	{
-		spawnAsEntity(world, pos, new ItemStack(this, 1, 0));
 	}
 
 	@Override

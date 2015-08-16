@@ -12,21 +12,25 @@ import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.BlockStateToMetadata;
 
 import java.util.List;
+import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
+import net.minecraft.block.IGrowable;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.util.*;
 import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockPlant extends BlockBush
+public class BlockPlant extends BlockBush implements IGrowable
 {
 	/**
 	 * Used in BlocksAndItemsWithVariantsOfTypes.
@@ -126,6 +130,33 @@ public class BlockPlant extends BlockBush
 	@SideOnly(Side.CLIENT)
 	protected boolean useBiomeColor(IBlockState state)
 	{
-		return GenesisBlocks.plants.getVariant(state) == EnumPlant.ASTEROXLYON;
+		return owner.getVariant(state) == EnumPlant.ASTEROXLYON;
+	}
+
+	@Override
+	public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean isClient)
+	{
+		return owner.getVariant(state) == EnumPlant.ASTEROXLYON;
+	}
+
+	@Override
+	public boolean canUseBonemeal(World world, Random rand, BlockPos pos, IBlockState state)
+	{
+		return true;
+	}
+
+	@Override
+	public void grow(World world, Random rand, BlockPos pos, IBlockState state)
+	{
+		world.setBlockState(pos, Blocks.air.getDefaultState(), 2);
+		
+		if (GenesisBlocks.double_asteroxylon.canPlaceBlockAt(world, pos))
+		{
+			GenesisBlocks.double_asteroxylon.placeAt(world, pos, 2);
+		}
+		else
+		{
+			world.setBlockState(pos, state, 2);
+		}
 	}
 }

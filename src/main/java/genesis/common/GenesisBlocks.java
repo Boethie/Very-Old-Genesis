@@ -109,7 +109,7 @@ public final class GenesisBlocks
 	
 	/* Plants */
 	public static final VariantsCombo<EnumPlant, BlockPlant, ItemBlockMulti> plants = new VariantsCombo<EnumPlant, BlockPlant, ItemBlockMulti>(new ObjectType<BlockPlant, ItemBlockMulti>("plant", BlockPlant.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumPlant.values());
-	public static final Block double_asteroxylon = new BlockDoubleAsteroxylon().setUnlocalizedName(Unlocalized.PLANT + "doubleAsteroxylon");
+	public static final BlockDoubleAsteroxylon double_asteroxylon = (BlockDoubleAsteroxylon) new BlockDoubleAsteroxylon().setUnlocalizedName(Unlocalized.PLANT + "doubleAsteroxylon");
 	public static final BlockCalamites calamites = (BlockCalamites) new BlockCalamites(true, 15, 7)
 			.setGrowth(6, 1, 1, 1)
 			.setUnlocalizedName(Unlocalized.PLANT + "calamites");
