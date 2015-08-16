@@ -3,6 +3,7 @@ package genesis.block;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemBlockMulti;
+import genesis.metadata.EnumPlant;
 import genesis.metadata.IMetadata;
 import genesis.metadata.PropertyIMetadata;
 import genesis.metadata.VariantsOfTypesCombo;
@@ -18,9 +19,9 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -106,5 +107,25 @@ public class BlockPlant extends BlockBush
 	public int getFireSpreadSpeed(IBlockAccess world, BlockPos pos, EnumFacing face)
 	{
 		return 60;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public int getRenderColor(IBlockState state)
+	{
+		return useBiomeColor(state) ? ColorizerGrass.getGrassColor(0.5D, 1.0D) : super.getRenderColor(state);
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public int colorMultiplier(IBlockAccess world, BlockPos pos, int renderPass)
+	{
+		return useBiomeColor(world.getBlockState(pos)) ? world.getBiomeGenForCoords(pos).getGrassColorAtPos(pos) : super.colorMultiplier(world, pos, renderPass);
+	}
+
+	@SideOnly(Side.CLIENT)
+	protected boolean useBiomeColor(IBlockState state)
+	{
+		return GenesisBlocks.plants.getVariant(state) == EnumPlant.ASTEROXLYON;
 	}
 }

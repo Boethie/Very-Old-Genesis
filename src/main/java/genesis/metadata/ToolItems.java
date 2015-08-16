@@ -13,6 +13,7 @@ import genesis.item.ItemPebble;
 import genesis.item.ItemToolHead;
 import genesis.metadata.ToolItems.ToolObjectType;
 import genesis.metadata.ToolTypes.ToolType;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.Constants.Unlocalized;
 import genesis.util.Constants.Unlocalized.Section;
 
