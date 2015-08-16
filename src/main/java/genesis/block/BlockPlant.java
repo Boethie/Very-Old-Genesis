@@ -17,7 +17,6 @@ import net.minecraft.item.*;
 import net.minecraft.util.*;
 import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.fml.relauncher.*;
 
 public class BlockPlant extends BlockBush
@@ -105,17 +104,17 @@ public class BlockPlant extends BlockBush
 
 	@Override
 	@SideOnly(Side.CLIENT)
-    public int getRenderColor(IBlockState state)
+	public int getRenderColor(IBlockState state)
 	{
 		return useBiomeColor(state) ? ColorizerGrass.getGrassColor(0.5D, 1.0D) : super.getRenderColor(state);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-    public int colorMultiplier(IBlockAccess world, BlockPos pos, int renderPass)
-    {
-        return useBiomeColor(world.getBlockState(pos)) ? BiomeColorHelper.getGrassColorAtPos(world, pos) : super.colorMultiplier(world, pos, renderPass);
-    }
+	public int colorMultiplier(IBlockAccess world, BlockPos pos, int renderPass)
+	{
+		return useBiomeColor(world.getBlockState(pos)) ? world.getBiomeGenForCoords(pos).getGrassColorAtPos(pos) : super.colorMultiplier(world, pos, renderPass);
+	}
 
 	@SideOnly(Side.CLIENT)
 	protected boolean useBiomeColor(IBlockState state)
