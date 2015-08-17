@@ -1,8 +1,8 @@
 package genesis.metadata;
 
-import genesis.util.BitwiseMask;
+import genesis.util.BitMask;
 
 public interface IItemMetadataBitMask
 {
-	public BitwiseMask getMetadataBitMask();
+	public BitMask getMetadataBitMask();
 }

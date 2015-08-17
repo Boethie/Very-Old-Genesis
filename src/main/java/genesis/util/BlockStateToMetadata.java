@@ -18,7 +18,7 @@ import com.google.common.collect.*;
  */
 public class BlockStateToMetadata
 {
-	public static final BitwiseMask MAXMETAVALUE = new BitwiseMask(16);
+	public static final BitMask MAXMETAVALUE = BitMask.forValueCount(16);
 	
 	private static final HashMap<Collection<IProperty>, List<IProperty>> SORTED_PROPERTIES = Maps.newHashMap();
 	private static final HashMap<IProperty, List<Comparable<?>>> SORTED_VALUES = Maps.newHashMap();
@@ -80,7 +80,7 @@ public class BlockStateToMetadata
 			
 			int index = values.indexOf(value);
 			
-			BitwiseMask mask = new BitwiseMask(values.size());
+			BitMask mask = BitMask.forValueCount(values.size());
 			metadata |= (index & mask.getMask()) << offset;
 			
 			offset += mask.getBitCount();
@@ -121,8 +121,8 @@ public class BlockStateToMetadata
 		{
 			List<T> values = getSortedValues(property);
 			
-			BitwiseMask mask = new BitwiseMask(values.size());
-			int metaValue = (metadata & (mask.getMask() << offset)) >> offset;
+			BitMask mask = BitMask.forValueCount(values.size());
+			int metaValue = mask.decode(metadata);
 			
 			T propValue = values.get(metaValue);
 			
@@ -164,7 +164,7 @@ public class BlockStateToMetadata
 		
 		for (IProperty property : properties)
 		{
-			BitwiseMask mask = new BitwiseMask(property.getAllowedValues().size());
+			BitMask mask = BitMask.forValueCount(property.getAllowedValues().size());
 			bitsLeft -= mask.getBitCount();
 		}
 		

@@ -19,6 +19,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraftforge.fml.relauncher.*;
 
+@SuppressWarnings("rawtypes")
 public class BlockPlant extends BlockBush implements IGrowable
 {
 	/**
@@ -30,18 +31,21 @@ public class BlockPlant extends BlockBush implements IGrowable
 		return new IProperty[]{};
 	}
 	
-	public final VariantsOfTypesCombo owner;
-	public final ObjectType<BlockPlant, ItemBlockMulti> type;
+	public final VariantsOfTypesCombo<ObjectType, IMetadata> owner;
+	public final ObjectType type;
 
 	public final List<IMetadata> variants;
 	public final PropertyIMetadata<IMetadata> variantProp;
 	
-	public BlockPlant(List<IMetadata> variants, VariantsOfTypesCombo owner, ObjectType<BlockPlant, ItemBlockMulti> type)
+	public BlockPlant(List<IMetadata> variants, VariantsOfTypesCombo<ObjectType, IMetadata> owner, ObjectType type)
 	{
-		setHardness(0.0F);
 		setStepSound(soundTypeGrass);
+		
+		final float size = 0.4F;
+		setBlockBounds(0.5F - size, 0, 0.5F - size, 0.5F + size, size * 2, 0.5F + size);
+		setHardness(0);
+		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
-		setBlockBounds(0.5F - 0.4F, 0.0F, 0.5F - 0.4F, 0.5F + 0.4F, 0.4F * 2, 0.5F + 0.4F);
 
 		this.owner = owner;
 		this.type = type;
@@ -119,13 +123,13 @@ public class BlockPlant extends BlockBush implements IGrowable
 	@SideOnly(Side.CLIENT)
 	protected boolean useBiomeColor(IBlockState state)
 	{
-		return owner.getVariant(state) == EnumPlant.ASTEROXLYON;
+		return owner.getVariant(state) == EnumPlant.ASTEROXYLON;
 	}
 
 	@Override
 	public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean isClient)
 	{
-		return owner.getVariant(state) == EnumPlant.ASTEROXLYON;
+		return type != PlantBlocks.DOUBLE_PLANT && EnumPlant.DOUBLES.contains(state.getValue(variantProp));
 	}
 
 	@Override
@@ -137,15 +141,12 @@ public class BlockPlant extends BlockBush implements IGrowable
 	@Override
 	public void grow(World world, Random rand, BlockPos pos, IBlockState state)
 	{
-		world.setBlockState(pos, Blocks.air.getDefaultState(), 2);
+		IMetadata variant = (IMetadata) state.getValue(variantProp);
 		
-		if (GenesisBlocks.double_asteroxylon.canPlaceBlockAt(world, pos))
+		if (EnumPlant.DOUBLES.contains(variant))
 		{
-			GenesisBlocks.double_asteroxylon.placeAt(world, pos, 2);
-		}
-		else
-		{
-			world.setBlockState(pos, state, 2);
+			BlockGenesisDoublePlant doublePlant = owner.getBlock(PlantBlocks.DOUBLE_PLANT, variant);
+			doublePlant.placeAt(world, pos, 3);
 		}
 	}
 }

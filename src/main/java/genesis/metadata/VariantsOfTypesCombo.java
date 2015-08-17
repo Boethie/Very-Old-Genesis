@@ -69,8 +69,8 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 		protected Class<? extends I> itemClass;
 		private Object[] itemArgs = {};
 		
-		protected List<? extends IMetadata> variantExclusions;
-		protected List<? extends IMetadata> onlyVariants;
+		protected Set<? extends IMetadata> variantExclusions;
+		protected Set<? extends IMetadata> onlyVariants;
 		protected boolean separateVariantJsons = true;
 		protected IProperty[] stateMapIgnoredProperties;
 		
@@ -79,13 +79,13 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 		protected CreativeTabs tab = null;
 
 		@SuppressWarnings("unchecked")
-		public ObjectType(String name, String unlocalizedName, Class<? extends B> blockClass, Class<? extends I> itemClass, List<? extends IMetadata> variantExclusions)
+		public ObjectType(String name, String unlocalizedName, Class<? extends B> blockClass, Class<? extends I> itemClass, Collection<? extends IMetadata> variantExclusions)
 		{
 			this.name = name;
 			this.unlocalizedName = unlocalizedName;
 			this.blockClass = blockClass;
 			this.itemClass = itemClass;
-			this.variantExclusions = variantExclusions;
+			this.variantExclusions = ImmutableSet.copyOf(variantExclusions);
 			
 			if (this.itemClass == null)
 			{
@@ -170,9 +170,9 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 			return itemClass;
 		}
 		
-		public ObjectType<B, I> setValidVariants(List<? extends IMetadata> list)
+		public ObjectType<B, I> setValidVariants(Collection<? extends IMetadata> list)
 		{
-			onlyVariants = ImmutableList.copyOf(list);
+			onlyVariants = ImmutableSet.copyOf(list);
 			
 			return this;
 		}
@@ -370,10 +370,10 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 		public final Block block;
 		public final int maxSize;
 		public final int size;
-		public final BitwiseMask itemVariantMask;
+		public final BitMask itemVariantMask;
 		public final ImmutableMap<Integer, V> variants;
 		
-		public SubsetData(O type, int id, Block block, Item item, int maxSize, int size, BitwiseMask itemVariantMask, ImmutableMap<Integer, V> variants)
+		public SubsetData(O type, int id, Block block, Item item, int maxSize, int size, BitMask itemVariantMask, ImmutableMap<Integer, V> variants)
 		{
 			this.type = type;
 			this.id = id;
@@ -522,7 +522,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 					
 					type.afterConstructed(block, item, subVariants);
 					
-					BitwiseMask mask;
+					BitMask mask;
 					
 					if (item instanceof IItemMetadataBitMask)
 					{
@@ -530,7 +530,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 					}
 					else
 					{
-						mask = new BitwiseMask(maxSubsetSize);
+						mask = BitMask.forValueCount(maxSubsetSize);
 					}
 					
 					// Add the Block or Item to our object map with its metadata ID.
@@ -1083,7 +1083,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 		
 		String variantName = variant.getUnlocalizedName();
 		
-		if (!"".equals(variantName))
+		if (!"".equals(variantName) && !base.substring(base.length() - 1).equals("."))
 		{
 			variantName = "." + variantName;
 		}

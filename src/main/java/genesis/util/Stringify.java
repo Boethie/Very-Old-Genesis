@@ -30,6 +30,9 @@ public class Stringify
 	public static String stringify(Object obj)
 	{
 		if (obj instanceof Object[])
+		{
+			return stringify((Object[]) obj);
+		}
 		
 		if (obj instanceof Iterable)
 		{

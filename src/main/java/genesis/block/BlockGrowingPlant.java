@@ -1066,11 +1066,10 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		for (Entry<BlockPos, IBlockState> entry : oldStates.entrySet())
 		{
 			BlockPos particlePos = entry.getKey();
-			IBlockState oldState = entry.getValue();
 			
-			if (!particlePos.equals(pos) && world.isRemote)
+			if (!particlePos.equals(pos))
 			{
-				world.playAuxSFXAtEntity(breaker, 2001, particlePos, Block.getStateId(oldState));
+				world.playAuxSFXAtEntity(breaker, 2001, particlePos, Block.getStateId(entry.getValue()));
 			}
 		}
 		
