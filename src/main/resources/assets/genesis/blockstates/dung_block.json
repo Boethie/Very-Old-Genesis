@@ -1,6 +1,6 @@
 {
     "variants": {
-        "variant=brachiosaurus":  { "model": "genesis:dung_block_brachiosaurus" },
-        "variant=tyrannosaurus":  { "model": "genesis:dung_block_tyrannosaurus" }
+        "variant=sauropoda":  { "model": "genesis:dung_block_sauropoda" },
+        "variant=theropoda":  { "model": "genesis:dung_block_theropoda" }
     }
 }

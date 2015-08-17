@@ -8,6 +8,7 @@ import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
 
 import java.util.*;
+import java.util.Random;
 
 import net.minecraft.block.*;
 import net.minecraft.block.properties.*;
@@ -18,7 +19,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.relauncher.*;
 
-public class BlockPlant extends BlockBush
+public class BlockPlant extends BlockBush implements IGrowable
 {
 	/**
 	 * Used in BlocksAndItemsWithVariantsOfTypes.
@@ -99,5 +100,52 @@ public class BlockPlant extends BlockBush
 	public int getFireSpreadSpeed(IBlockAccess world, BlockPos pos, EnumFacing face)
 	{
 		return 60;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public int getRenderColor(IBlockState state)
+	{
+		return useBiomeColor(state) ? ColorizerGrass.getGrassColor(0.5D, 1.0D) : super.getRenderColor(state);
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public int colorMultiplier(IBlockAccess world, BlockPos pos, int renderPass)
+	{
+		return useBiomeColor(world.getBlockState(pos)) ? world.getBiomeGenForCoords(pos).getGrassColorAtPos(pos) : super.colorMultiplier(world, pos, renderPass);
+	}
+
+	@SideOnly(Side.CLIENT)
+	protected boolean useBiomeColor(IBlockState state)
+	{
+		return owner.getVariant(state) == EnumPlant.ASTEROXLYON;
+	}
+
+	@Override
+	public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean isClient)
+	{
+		return owner.getVariant(state) == EnumPlant.ASTEROXLYON;
+	}
+
+	@Override
+	public boolean canUseBonemeal(World world, Random rand, BlockPos pos, IBlockState state)
+	{
+		return true;
+	}
+
+	@Override
+	public void grow(World world, Random rand, BlockPos pos, IBlockState state)
+	{
+		world.setBlockState(pos, Blocks.air.getDefaultState(), 2);
+		
+		if (GenesisBlocks.double_asteroxylon.canPlaceBlockAt(world, pos))
+		{
+			GenesisBlocks.double_asteroxylon.placeAt(world, pos, 2);
+		}
+		else
+		{
+			world.setBlockState(pos, state, 2);
+		}
 	}
 }

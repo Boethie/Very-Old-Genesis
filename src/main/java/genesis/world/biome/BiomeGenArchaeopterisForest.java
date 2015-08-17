@@ -30,7 +30,7 @@ public class BiomeGenArchaeopterisForest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
 		addTree(new WorldGenTreeArchaeopteris(15, 20, true).setTreeCountPerChunk(10));
-		addTree(new WorldGenRottenLog(3, 6, EnumTree.ARCHAEOPTERIS, true).setTreeCountPerChunk(5));
+		addTree(new WorldGenRottenLog(3, 6, EnumTree.ARCHAEOPTERIS, true).setTreeCountPerChunk(2));
 	}
 	
 	@Override

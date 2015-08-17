@@ -43,7 +43,7 @@ public class ItemBlockMulti extends ItemBlock
 	@Override
 	public int getColorFromItemStack(ItemStack stack, int renderPass)
 	{
-		return getBlock().getBlockColor();
+		return getBlock().getRenderColor(owner.getBlockState(type, owner.getVariant(stack)));
 	}
 	
 	@Override

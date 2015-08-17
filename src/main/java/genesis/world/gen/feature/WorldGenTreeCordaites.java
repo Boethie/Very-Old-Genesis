@@ -62,33 +62,60 @@ public class WorldGenTreeCordaites extends WorldGenTreeBase
 		
 		leavesLevel += rand.nextInt(3);
 		
-		doPineTopLeaves(world, pos, branchPos, treeHeight, leavesLevel, rand, false);
+		branchPos = pos.up(treeHeight - 1);
+		int distFromTop = branchPos.getY() - leavesLevel;
+		int maxBranchLength = 3;
 		
-		int branchBaseHeight = 2;
-		int branchGrowSize = 5;
-		int leavesLength = 3;
+		if (rand.nextInt(100) > 10)
+			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 1, 0, 1 + rand.nextInt(maxBranchLength), 2);
+		if (rand.nextInt(100) > 10)
+			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, -1, 0, 1 + rand.nextInt(maxBranchLength), 2);
+		if (rand.nextInt(100) > 10)
+			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 0, 1, 1 + rand.nextInt(maxBranchLength), 2);
+		if (rand.nextInt(100) > 10)
+			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 0, -1, 1 + rand.nextInt(maxBranchLength), 2);
 		
-		branchPos = new BlockPos(branchPos.getX(), leavesLevel, branchPos.getZ());
+		distFromTop++;
+		
+		if (rand.nextInt(100) > 10)
+			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 1, 0, 1 + rand.nextInt(maxBranchLength - 1), 2);
+		if (rand.nextInt(100) > 10)
+			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, -1, 0, 1 + rand.nextInt(maxBranchLength - 1), 2);
+		if (rand.nextInt(100) > 10)
+			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 0, 1, 1 + rand.nextInt(maxBranchLength - 1), 2);
+		if (rand.nextInt(100) > 10)
+			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 0, -1, 1 + rand.nextInt(maxBranchLength - 1), 2);
+		
+		distFromTop += 2;
+		
+		if (rand.nextInt(100) > 50)
+			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 1, 0, 1 + rand.nextInt(maxBranchLength - 2), 2);
+		if (rand.nextInt(100) > 50)
+			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, -1, 0, 1 + rand.nextInt(maxBranchLength - 2), 2);
+		if (rand.nextInt(100) > 50)
+			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 0, 1, 1 + rand.nextInt(maxBranchLength - 2), 2);
+		if (rand.nextInt(100) > 50)
+			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 0, -1, 1 + rand.nextInt(maxBranchLength - 2), 2);
+		
+		doPineTopLeaves(world, pos, branchPos, treeHeight, leavesLevel, rand, false, 3);
+		branchPos = new BlockPos(pos.getX(), leavesLevel, pos.getZ());
+		
+		int leaves = 1 + rand.nextInt(2);
 		
 		if (rand.nextInt(2) == 0)
-			generateBranchSideup(world, branchPos.down(rand.nextInt(3)), rand, 1, 0, branchBaseHeight, branchGrowSize, leavesLength);
-		if (rand.nextInt(2) == 0)
-			generateBranchSideup(world, branchPos.down(rand.nextInt(3)), rand, -1, 0, branchBaseHeight, branchGrowSize, leavesLength);
-		if (rand.nextInt(2) == 0)
-			generateBranchSideup(world, branchPos.down(rand.nextInt(3)), rand, 0, 1, branchBaseHeight, branchGrowSize, leavesLength);
-		if (rand.nextInt(2) == 0)
-			generateBranchSideup(world, branchPos.down(rand.nextInt(3)), rand, 0, -1, branchBaseHeight, branchGrowSize, leavesLength);
-		
-		branchPos = branchPos.up(2);
-		
-		if (rand.nextInt(3) == 0)
-			generateBranchSide(world, branchPos.down(rand.nextInt(4)), rand, 1, 0, 1 + rand.nextInt(4), 3);
-		if (rand.nextInt(3) == 0)
-			generateBranchSide(world, branchPos.down(rand.nextInt(4)), rand, -1, 0, 1 + rand.nextInt(4), 3);
-		if (rand.nextInt(3) == 0)
-			generateBranchSide(world, branchPos.down(rand.nextInt(4)), rand, 0, 1, 1 + rand.nextInt(4), 3);
-		if (rand.nextInt(3) == 0)
-			generateBranchSide(world, branchPos.down(rand.nextInt(4)), rand, 0, -1, 1 + rand.nextInt(4), 3);
+		{
+			doBranch(world, branchPos, 1, 0, rand, leaves, true);
+			doBranch(world, branchPos, -1, 0, rand, leaves, true);
+			doBranch(world, branchPos, 0, 1, rand, leaves, true);
+			doBranch(world, branchPos, 0, -1, rand, leaves, true);
+		}
+		else
+		{
+			doBranch(world, branchPos, 1, 1, rand, leaves, true);
+			doBranch(world, branchPos, -1, -1, rand, leaves, true);
+			doBranch(world, branchPos, -1, 1, rand, leaves, true);
+			doBranch(world, branchPos, 1, -1, rand, leaves, true);
+		}
 		
 		return true;
 	}
@@ -104,5 +131,26 @@ public class WorldGenTreeCordaites extends WorldGenTreeBase
 			
 			setBlockInWorld(world, pos.add(spread * dirX, -i, spread * dirZ), wood, true);
 		}
+	}
+	
+	private boolean doBranch(World world, BlockPos pos, int dirX, int dirZ, Random random, int leaveLength, boolean leaveBranch)
+	{
+		pos = pos.add((1 * dirX), 0, (1 * dirZ));
+		setBlockInWorld(world, pos, (leaveBranch)? leaves : wood);
+		doBranchLeaves(world, pos, random, false, leaveLength);
+		
+		pos = pos.add(0, 1, 0);
+		setBlockInWorld(world, pos, (leaveBranch)? leaves : wood);
+		doBranchLeaves(world, pos, random, false, leaveLength);
+		
+		pos = pos.add(0, 1, 0);
+		setBlockInWorld(world, pos, (leaveBranch)? leaves : wood);
+		doBranchLeaves(world, pos, random, true, leaveLength);
+		
+		pos = pos.add(0, 1, 0);
+		setBlockInWorld(world, pos, (leaveBranch)? leaves : wood);
+		doBranchLeaves(world, pos, random, true, leaveLength);
+		
+		return true;
 	}
 }

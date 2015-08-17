@@ -42,7 +42,7 @@ public class GenLayerGenesisShore extends GenLayerGenesis
                 		&& k1 != GenesisBiomes.archaeopterisForest.biomeID
                 		&& k1 != GenesisBiomes.archaeopterisForestHills.biomeID)
                 {
-                	if (k1 != GenesisBiomes.shallowOcean.biomeID && k1 != GenesisBiomes.river.biomeID && k1 != GenesisBiomes.swampRainForest.biomeID)
+                	if (!isBiomeOceanic(k1) /*&& k1 != GenesisBiomes.river.biomeID /*&& k1 != GenesisBiomes.swampRainForest.biomeID*/)
                     {
                         l1 = aint[j1 + 1 + (i1 + 1 - 1) * (areaWidth + 2)];
                         i2 = aint[j1 + 1 + 1 + (i1 + 1) * (areaWidth + 2)];
@@ -50,16 +50,16 @@ public class GenLayerGenesisShore extends GenLayerGenesis
                         k2 = aint[j1 + 1 + (i1 + 1 + 1) * (areaWidth + 2)];
                         
                         if (
-                        		l1 != GenesisBiomes.shallowOcean.biomeID 
-                        		&& i2 != GenesisBiomes.shallowOcean.biomeID 
-                        		&& j2 != GenesisBiomes.shallowOcean.biomeID 
-                        		&& k2 != GenesisBiomes.shallowOcean.biomeID)
+                        		!isBiomeOceanic(l1) 
+                        		&& !isBiomeOceanic(i2) 
+                        		&& !isBiomeOceanic(j2) 
+                        		&& !isBiomeOceanic(k2))
                         {
                             aint1[j1 + i1 * areaWidth] = k1;
                         }
                         else
                         {
-                            aint1[j1 + i1 * areaWidth] = GenesisBiomes.genesisBeach.biomeID;
+                            aint1[j1 + i1 * areaWidth] = GenesisBiomes.shallowOcean.biomeID;
                         }
                     }
                     else

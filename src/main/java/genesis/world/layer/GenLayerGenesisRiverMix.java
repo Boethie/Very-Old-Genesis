@@ -1,23 +1,21 @@
 package genesis.world.layer;
 
 import genesis.common.GenesisBiomes;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 
 public class GenLayerGenesisRiverMix extends GenLayerGenesis
 {
-
 	private GenLayer biomePatternGeneratorChain;
 	private GenLayer riverPatternGeneratorChain;
-
+	
 	public GenLayerGenesisRiverMix(long seed, GenLayer biomeLayer, GenLayer riverLayer)
 	{
 		super(seed);
 		this.biomePatternGeneratorChain = biomeLayer;
 		this.riverPatternGeneratorChain = riverLayer;
 	}
-
+	
 	/**
 	 * Initialize layer's local worldGenSeed based on its own baseSeed and the world's global seed (passed in as an
 	 * argument).
@@ -29,17 +27,17 @@ public class GenLayerGenesisRiverMix extends GenLayerGenesis
 		this.riverPatternGeneratorChain.initWorldGenSeed(seed);
 		super.initWorldGenSeed(seed);
 	}
-
+	
 	@Override
 	public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight)
 	{
 		int[] aint = this.biomePatternGeneratorChain.getInts(areaX, areaY, areaWidth, areaHeight);
 		int[] aint1 = this.riverPatternGeneratorChain.getInts(areaX, areaY, areaWidth, areaHeight);
 		int[] aint2 = IntCache.getIntCache(areaWidth * areaHeight);
-
+		
 		for (int i1 = 0; i1 < areaWidth * areaHeight; ++i1)
 		{
-			if (aint[i1] != BiomeGenBase.ocean.biomeID && aint[i1] != BiomeGenBase.deepOcean.biomeID)
+			if (!isBiomeOceanic(aint[i1]))
 			{
 				if (aint1[i1] == GenesisBiomes.river.biomeID)
 				{
@@ -57,5 +55,4 @@ public class GenLayerGenesisRiverMix extends GenLayerGenesis
 		}
 		return aint2;
 	}
-
 }

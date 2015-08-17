@@ -1,7 +1,6 @@
 package genesis.world;
 
 import genesis.common.GenesisBlocks;
-import genesis.world.biome.BiomeGenBaseGenesis;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumChatFormatting;

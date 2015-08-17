@@ -35,6 +35,7 @@ public final class GenesisBlocks
 	public static final Block faux_amphibolite = new BlockGenesisRock(1.5F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "fauxAmphibolite");
 	public static final Block gneiss = new BlockGenesisRock(1.65F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "gneiss");
 	public static final Block limestone = new BlockGenesisRock(0.75F, 8.7F).setUnlocalizedName(Unlocalized.ROCK + "limestone");
+	public static final Block geyserite = new BlockGenesisRock(1.35F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "geyserite");
 	public static final Block octaedrite = new BlockGenesisRock(1.0F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "octaedrite");
 	public static final Block red_clay = new BlockRedClay().setUnlocalizedName(Unlocalized.PREFIX + "redClay");
 	public static final Block ooze = new BlockOoze().setUnlocalizedName(Unlocalized.PREFIX + "ooze");
@@ -66,6 +67,7 @@ public final class GenesisBlocks
 	
 	/* Plants */
 	public static final VariantsCombo<EnumPlant, BlockPlant, ItemBlockMulti> plants = new VariantsCombo<EnumPlant, BlockPlant, ItemBlockMulti>(new ObjectType<BlockPlant, ItemBlockMulti>("plant", BlockPlant.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumPlant.values());
+	public static final BlockDoubleAsteroxylon double_asteroxylon = (BlockDoubleAsteroxylon) new BlockDoubleAsteroxylon().setUnlocalizedName(Unlocalized.PLANT + "doubleAsteroxylon");
 	public static final BlockCalamites calamites = (BlockCalamites) new BlockCalamites(true, 15, 7)
 			.setGrowth(6, 1, 1, 1)
 			.setUnlocalizedName(Unlocalized.PLANT + "calamites");
@@ -159,6 +161,7 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(faux_amphibolite, "faux_amphibolite");
 		Genesis.proxy.registerBlock(gneiss, "gneiss");
 		Genesis.proxy.registerBlock(limestone, "limestone");
+		Genesis.proxy.registerBlock(geyserite, "geyserite");
 		Genesis.proxy.registerBlock(octaedrite, "octaedrite");
 		
 		Genesis.proxy.registerBlock(red_clay, "red_clay");
@@ -206,6 +209,7 @@ public final class GenesisBlocks
 		
 		plants.setUnlocalizedPrefix(Constants.Unlocalized.PREFIX);
 		plants.registerAll();
+		Genesis.proxy.registerBlock(double_asteroxylon, "double_asteroxylon", ItemBlockColored.class);
 
 		Genesis.proxy.registerBlock(calamites, "calamites", null);
 		calamites.setDrops(new RandomDrop(GenesisItems.calamites, 1, 1));

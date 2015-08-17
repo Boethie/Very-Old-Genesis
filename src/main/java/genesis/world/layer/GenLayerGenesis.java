@@ -1,5 +1,6 @@
 package genesis.world.layer;
 
+import genesis.common.GenesisBiomes;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.GenLayerAddIsland;
 import net.minecraft.world.gen.layer.GenLayerAddSnow;
@@ -29,9 +30,11 @@ public abstract class GenLayerGenesis extends GenLayer
 		genlayeraddisland = new GenLayerAddIsland(2L, genlayerzoom);
 		genlayeraddisland = new GenLayerAddIsland(50L, genlayeraddisland);
 		genlayeraddisland = new GenLayerAddIsland(70L, genlayeraddisland);
-		GenLayerRemoveTooMuchOcean genlayerremovetoomuchocean = new GenLayerRemoveTooMuchOcean(2L, genlayeraddisland);
-		GenLayerAddSnow genlayeraddsnow = new GenLayerAddSnow(2L, genlayerremovetoomuchocean);
+		
+		GenLayerRemoveTooMuchOcean genlayerremovetoomuchocean = new GenLayerRemoveTooMuchOcean(1L, genlayeraddisland);
+		GenLayerAddSnow genlayeraddsnow = new GenLayerAddSnow(1L, genlayerremovetoomuchocean);
 		genlayeraddisland = new GenLayerAddIsland(3L, genlayeraddsnow);
+		
 		GenLayerEdge genlayeredge = new GenLayerEdge(2L, genlayeraddisland, GenLayerEdge.Mode.COOL_WARM);
 		genlayeredge = new GenLayerEdge(2L, genlayeredge, GenLayerEdge.Mode.HEAT_ICE);
 		genlayeredge = new GenLayerEdge(3L, genlayeredge, GenLayerEdge.Mode.SPECIAL);
@@ -84,5 +87,20 @@ public abstract class GenLayerGenesis extends GenLayer
 		genlayerrivermix.initWorldGenSeed(seed);
 		genlayervoronoizoom.initWorldGenSeed(seed);
 		return new GenLayer[]{ genlayerrivermixreplaced, genlayervoronoizoomreplaced, genlayerrivermixreplaced };
+	}
+	
+	protected static boolean isBiomeOceanic(int biomeId)
+	{
+		if (
+				biomeId == GenesisBiomes.shallowOcean.biomeID
+				|| biomeId == GenesisBiomes.ocean.biomeID
+				|| biomeId == GenesisBiomes.deepOcean.biomeID)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 }

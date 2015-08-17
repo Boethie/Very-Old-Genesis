@@ -34,6 +34,7 @@ public final class GenesisConfig
 	public static int deepOceanId = 65;
 	public static int marshId = 66;
 	public static int marshWeight = 10;
+	public static int oceanId = 67;
 	
 	//dimensions
 	public static int genesisDimId = 37;

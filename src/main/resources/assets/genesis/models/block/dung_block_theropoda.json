@@ -1,6 +1,6 @@
 {
     "parent": "block/cube_all",
     "textures": {
-        "all": "genesis:blocks/dung_block_tyrannosaurus"
+        "all": "genesis:blocks/dung_block_theropoda"
     }
 }

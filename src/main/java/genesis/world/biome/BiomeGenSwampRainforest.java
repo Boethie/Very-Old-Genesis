@@ -28,7 +28,7 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis
 		super(id);
 		setBiomeName("Swamp Rainforest");
 		setTemperatureRainfall(0.95F, 1.0F);
-		setHeight(0.0F, 0.03F);
+		setHeight(-0.2F, 0.03F);
 		
 		theBiomeDecorator.grassPerChunk = 5;
 		waterColorMultiplier = 0x725113;

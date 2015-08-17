@@ -32,10 +32,10 @@ public class BiomeGenAuxPlains extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenPalaeoagaracites().setPatchSize(5).setCountPerChunk(10));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPlantType(GrowingPlantType.NORMAL).setPatchSize(5).setCountPerChunk(7));
 		addDecoration(new WorldGenRockBoulders().setCountPerChunk(5));
-		addDecoration(new WorldGenRockBoulders().setRarity(7).setWaterRequired(false).addBlocks(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.BRACHIOSAURUS)).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders().setRarity(10).setWaterRequired(false).setMaxHeight(3).addBlocks(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.SAUROPODA)).setCountPerChunk(1));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
-		addTree(new WorldGenTreeAraucarioxylon(25, 30, true).setTreeCountPerChunk(1));
+		addTree(new WorldGenTreeAraucarioxylon(25, 30, true).setRarity(4).setTreeCountPerChunk(1));
 	}
 	
 	@Override

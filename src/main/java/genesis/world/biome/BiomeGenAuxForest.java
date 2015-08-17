@@ -2,7 +2,6 @@ package genesis.world.biome;
 
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumTree;
-import genesis.metadata.TreeBlocksAndItems;
 import genesis.world.biome.decorate.WorldGenArchaeomarasmius;
 import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;

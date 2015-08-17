@@ -2,9 +2,11 @@ package genesis.world.biome;
 
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumPlant;
-import genesis.world.biome.decorate.WorldGenGrass;
-import genesis.world.biome.decorate.WorldGenGrassMulti;
+import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenMossStages;
+import genesis.world.biome.decorate.WorldGenPlant;
+import genesis.world.biome.decorate.WorldGenPrototaxites;
+import genesis.world.biome.decorate.WorldGenUnderWaterPatch;
 
 import java.util.Random;
 
@@ -19,58 +21,65 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 	{
 		super(id);
 		setBiomeName("Marsh");
-		this.temperature = 1.15f;
-		//this.topBlock = Blocks.dirt.getDefaultState();
-		setHeight(-0.2F, 0.01F);
+		this.temperature = 1.15F;
+		setHeight(0.0F, -0.01F);
 		
-		theBiomeDecorator.grassPerChunk = 2;
+		theBiomeDecorator.grassPerChunk = 3;
 		
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
-		//Asteroxylon
-		//Prototaxites on Prototaxites Mycellium
+		addDecoration(new WorldGenUnderWaterPatch(GenesisBlocks.peat.getDefaultState()).setCountPerChunk(4));
+		
+		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.double_asteroxylon.getDefaultState()).setIsDouble(true).setCountPerChunk(8));
+		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.COOKSONIA)).setPatchSize(6).setCountPerChunk(6));
+		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.BARAGWANATHIA)).setPatchSize(6).setCountPerChunk(6));
+		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.RHYNIA)).setPatchSize(6).setCountPerChunk(6));
+		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.PSILOPHYTON)).setPatchSize(4).setCountPerChunk(3));
+		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.SCIADOPHYTON)).setPatchSize(4).setCountPerChunk(3));
+		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getBlockState(EnumPlant.NOTHIA)).setPatchSize(4).setCountPerChunk(3));
+		
+		//addDecoration(new WorldGenPrototaxites().setCountPerChunk(1));
 	}
 	
 	@Override
 	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
 	{
-		return new WorldGenGrassMulti(
-				GenesisBlocks.plants.getBlockState(EnumPlant.PSILOPHYTON)
-				,GenesisBlocks.plants.getBlockState(EnumPlant.SCIADOPHYTON)
-				,GenesisBlocks.plants.getBlockState(EnumPlant.NOTHIA)
-				,GenesisBlocks.plants.getBlockState(EnumPlant.ARCHAEAMPHORA)
-				,GenesisBlocks.plants.getBlockState(EnumPlant.COOKSONIA)
-				,GenesisBlocks.plants.getBlockState(EnumPlant.BARAGWANATHIA)
-				,GenesisBlocks.plants.getBlockState(EnumPlant.RHYNIA)).setVolume(64);
-	}
-	
-	@Override
-	public void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
-	{
-		mossStages = new int[1];
-		mossStages[0] = 0;
-		super.generateBiomeTerrain(world, rand, primer, blockX, blockZ, d);
+		return new WorldGenGrassMulti(GenesisBlocks.plants.getBlockState(EnumPlant.ASTEROXLYON)).setVolume(64);
 	}
 	
 	@Override
 	public void genTerrainBlocks(World world, Random rand, ChunkPrimer p_180622_3_, int p_180622_4_, int p_180622_5_, double p_180622_6_)
 	{
-		int k = p_180622_4_ & 15;
-		int l = p_180622_5_ & 15;
+		double d1 = field_180281_af.func_151601_a((double)p_180622_4_ * 0.25D, (double)p_180622_5_ * 0.25D);
 		
-		for (int i1 = 255; i1 >= 0; --i1)
+		if (d1 > -0.2D)
 		{
-			if (p_180622_3_.getBlockState(l, i1, k).getBlock().getMaterial() != Material.air)
+			int k = p_180622_4_ & 15;
+			int l = p_180622_5_ & 15;
+			
+			for (int i1 = 255; i1 >= 0; --i1)
 			{
-				if (i1 == 62 && p_180622_3_.getBlockState(l, i1, k).getBlock() != Blocks.water)
+				if (p_180622_3_.getBlockState(l, i1, k).getBlock().getMaterial() != Material.air)
 				{
-					p_180622_3_.setBlockState(l, i1, k, Blocks.water.getDefaultState());
+					if (i1 == 62 && p_180622_3_.getBlockState(l, i1, k).getBlock() != Blocks.water)
+					{
+						p_180622_3_.setBlockState(l, i1, k, Blocks.water.getDefaultState());
+					}
+					
+					break;
 				}
-				
-				break;
 			}
 		}
 		
-		this.generateBiomeTerrain(world, rand, p_180622_3_, p_180622_4_, p_180622_5_, p_180622_6_);
+		generateBiomeTerrain(world, rand, p_180622_3_, p_180622_4_, p_180622_5_, p_180622_6_);
     }
+	
+	@Override
+	public void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
+	{
+		mossStages = new int[2];
+		mossStages[0] = 0;
+		mossStages[1] = 1;
+		super.generateBiomeTerrain(world, rand, primer, blockX, blockZ, d);
+	}
 }

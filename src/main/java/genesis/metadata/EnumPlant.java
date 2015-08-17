@@ -6,7 +6,7 @@ import net.minecraft.item.Item;
 public enum EnumPlant implements IMetadata
 {
 	COOKSONIA("cooksonia"), BARAGWANATHIA("baragwanathia"), SCIADOPHYTON("sciadophyton"), PSILOPHYTON("psilophyton"), NOTHIA("nothia"),
-	RHYNIA("rhynia"), ARCHAEAMPHORA("archaeamphora"), MABELIA("mabelia"), PALAEOASTER("palaeoaster");
+	RHYNIA("rhynia"), ARCHAEAMPHORA("archaeamphora"), MABELIA("mabelia"), PALAEOASTER("palaeoaster"), ASTEROXLYON("asteroxylon");
 
 	private final String name;
 	private final String unlocalizedName;

@@ -20,6 +20,8 @@ import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockFern extends BlockPlant implements IShearable
 {
@@ -75,18 +77,21 @@ public class BlockFern extends BlockPlant implements IShearable
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public int getBlockColor()
 	{
 		return ColorizerGrass.getGrassColor(0.5D, 1.0D);
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public int getRenderColor(IBlockState state)
 	{
 		return getBlockColor();
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass)
 	{
 		return worldIn.getBiomeGenForCoords(pos).getGrassColorAtPos(pos);

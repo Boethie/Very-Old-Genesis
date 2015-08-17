@@ -22,6 +22,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	public IBlockState wood;
 	public IBlockState leaves;
 	public Block treeSoil;
+	public int rarity = 1;
 	
 	protected boolean notify;
 	
@@ -38,6 +39,12 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		this.wood = wood;
 		this.leaves = leaves;
 		this.notify = notify;
+	}
+	
+	public WorldGenTreeBase setRarity(int r)
+	{
+		rarity = r;
+		return this;
 	}
 	
 	public WorldGenTreeBase setTreeCountPerChunk(int count)
@@ -137,14 +144,15 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		
 		for (int i = 1; i <= branchLength - 1; ++i)
 		{
-			branchPos = branchPos.add(1 * dirX, 0, 1 * dirZ);
+			branchPos = branchPos.add(1 * dirX, (rand.nextInt(3) - 1) * rand.nextInt(2), 1 * dirZ);
 			setBlockInWorld(world, branchPos, wood.withProperty(BlockLog.LOG_AXIS, axis));
 			generateHorizontalBranchLeaveS(world, branchPos, dirX, dirZ);
 			
 			if (rand.nextInt(branchRarity) == 0)
 			{
 				int dSwitch = (rand.nextInt(2) == 0)? 1:-1;
-				generateBranchSide(world, branchPos, rand, ((dirX == 0)? dSwitch : 0), ((dirZ == 0)? dSwitch : 0), ((int)(maxLength / 2) < 1)? 1 : ((int)(maxLength / 2)), branchRarity + 1);
+				int childLength = 1 + rand.nextInt(branchLength);
+				generateBranchSide(world, branchPos, rand, ((dirX == 0)? dSwitch : 0), ((dirZ == 0)? dSwitch : 0), childLength, branchRarity + 1); //((int)(maxLength / 2) < 1)? 1 : ((int)(maxLength / 2))
 			}
 		}
 		
