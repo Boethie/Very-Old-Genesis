@@ -8,15 +8,15 @@ import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
 
 import java.util.*;
-import java.util.Random;
 
 import net.minecraft.block.*;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.util.*;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.*;
 import net.minecraftforge.fml.relauncher.*;
 
 public class BlockPlant extends BlockBush implements IGrowable
