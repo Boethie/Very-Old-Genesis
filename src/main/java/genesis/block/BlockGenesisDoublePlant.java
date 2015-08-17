@@ -123,8 +123,12 @@ public class BlockGenesisDoublePlant extends BlockPlant
 	public void placeAt(World world, BlockPos bottom, IMetadata variant, int flags)
 	{
 		IBlockState state = owner.getBlockState(type, variant);
-		world.setBlockState(bottom, state.withProperty(TOP, false), flags);
-		world.setBlockState(bottom.up(), state.withProperty(TOP, true), flags);
+		
+		if (world.isAirBlock(bottom) && world.isAirBlock(bottom.up()))
+		{
+			world.setBlockState(bottom, state.withProperty(TOP, false), flags);
+			world.setBlockState(bottom.up(), state.withProperty(TOP, true), flags);
+		}
 	}
 	
 	@Override

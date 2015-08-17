@@ -33,7 +33,7 @@ public class BlockPlant extends BlockBush implements IGrowable
 	
 	public final VariantsOfTypesCombo<ObjectType, IMetadata> owner;
 	public final ObjectType type;
-
+	
 	public final List<IMetadata> variants;
 	public final PropertyIMetadata<IMetadata> variantProp;
 	
@@ -46,7 +46,7 @@ public class BlockPlant extends BlockBush implements IGrowable
 		setHardness(0);
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
-
+		
 		this.owner = owner;
 		this.type = type;
 		
@@ -56,88 +56,88 @@ public class BlockPlant extends BlockBush implements IGrowable
 		blockState = new BlockState(this, variantProp);
 		setDefaultState(getBlockState().getBaseState());
 	}
-
+	
 	@Override
 	protected boolean canPlaceBlockOn(Block ground)
 	{
 		return (ground == GenesisBlocks.moss) || super.canPlaceBlockOn(ground);
 	}
-
+	
 	@Override
 	public int damageDropped(IBlockState state)
 	{
 		return owner.getItemMetadata(type, (IMetadata) state.getValue(variantProp));
 	}
-
+	
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
 	{
 		owner.fillSubItems(type, variants, list);
 	}
-
+	
 	@Override
 	public int getMetaFromState(IBlockState state)
 	{
 		return BlockStateToMetadata.getMetaForBlockState(state, variantProp);
 	}
-
+	
 	@Override
 	public IBlockState getStateFromMeta(int metadata)
 	{
 		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), metadata, variantProp);
 	}
-
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Block.EnumOffsetType getOffsetType()
 	{
 		return Block.EnumOffsetType.XYZ;
 	}
-
+	
 	@Override
 	public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face)
 	{
 		return 100;
 	}
-
+	
 	@Override
 	public int getFireSpreadSpeed(IBlockAccess world, BlockPos pos, EnumFacing face)
 	{
 		return 60;
 	}
-
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public int getRenderColor(IBlockState state)
 	{
 		return useBiomeColor(state) ? ColorizerGrass.getGrassColor(0.5D, 1.0D) : super.getRenderColor(state);
 	}
-
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public int colorMultiplier(IBlockAccess world, BlockPos pos, int renderPass)
 	{
 		return useBiomeColor(world.getBlockState(pos)) ? world.getBiomeGenForCoords(pos).getGrassColorAtPos(pos) : super.colorMultiplier(world, pos, renderPass);
 	}
-
+	
 	@SideOnly(Side.CLIENT)
 	protected boolean useBiomeColor(IBlockState state)
 	{
 		return owner.getVariant(state) == EnumPlant.ASTEROXYLON;
 	}
-
+	
 	@Override
 	public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean isClient)
 	{
 		return type != PlantBlocks.DOUBLE_PLANT && EnumPlant.DOUBLES.contains(state.getValue(variantProp));
 	}
-
+	
 	@Override
 	public boolean canUseBonemeal(World world, Random rand, BlockPos pos, IBlockState state)
 	{
 		return true;
 	}
-
+	
 	@Override
 	public void grow(World world, Random rand, BlockPos pos, IBlockState state)
 	{
@@ -149,9 +149,12 @@ public class BlockPlant extends BlockBush implements IGrowable
 			doublePlant.placeAt(world, pos, variant, 3);
 		}
 	}
-
+	
 	public void placeAt(World world, BlockPos bottom, IMetadata variant, int flags)
 	{
-		world.setBlockState(bottom, owner.getBlockState(type, variant), flags);
+		if (world.isAirBlock(bottom))
+		{
+			world.setBlockState(bottom, owner.getBlockState(type, variant), flags);
+		}
 	}
 }
