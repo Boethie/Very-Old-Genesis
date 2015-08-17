@@ -2,9 +2,14 @@ package genesis.util;
 
 public class BitMask
 {
+	public static BitMask forValueCount(int values, int shift)
+	{
+		return new BitMask(values == 1 ? 0 : (values - 1) | 1, shift);
+	}
+	
 	public static BitMask forValueCount(int values)
 	{
-		return new BitMask((values - 1) | 1);
+		return forValueCount(values, 0);
 	}
 	
 	protected final int shift;
@@ -18,15 +23,21 @@ public class BitMask
 	public BitMask(int maskIn, int shift)
 	{
 		if (maskIn == 0)
-			throw new IllegalArgumentException("Mask must not be 0.");
-		
-		int firstBit = Integer.lowestOneBit(maskIn);
-		int lastBit = Integer.highestOneBit(maskIn);
-		int firstBitPos = Integer.numberOfTrailingZeros(firstBit);
-		
-		this.mask = (((lastBit - 1) | lastBit) & -firstBit) >> firstBitPos;
-		this.shift = shift + firstBitPos;
-		this.bits = Integer.bitCount(mask);
+		{
+			this.mask = maskIn;
+			this.shift = shift;
+			this.bits = 0;
+		}
+		else
+		{
+			int firstBit = Integer.lowestOneBit(maskIn);
+			int lastBit = Integer.highestOneBit(maskIn);
+			int firstBitPos = Integer.numberOfTrailingZeros(firstBit);
+			
+			this.mask = (((lastBit - 1) | lastBit) & -firstBit) >> firstBitPos;
+			this.shift = shift + firstBitPos;
+			this.bits = Integer.bitCount(mask);
+		}
 	}
 	
 	public BitMask(int mask)

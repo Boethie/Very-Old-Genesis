@@ -35,6 +35,17 @@ public class BlockStateToMetadata
 				@Override
 				public int compare(IProperty prop1, IProperty prop2)
 				{
+					// Special case "variant" properties to always be last so that if we add variants it doesn't mess up loading old worlds.
+					boolean prop1Var = prop1.getName().equals("variant");
+					boolean prop2Var = prop2.getName().equals("variant");
+					
+					if (prop1Var && prop2Var)
+						return 0;
+					else if (prop1Var)
+						return 1;
+					else if (prop2Var)
+						return -1;
+					
 					return prop1.getName().compareTo(prop2.getName());
 				}
 			});
@@ -74,14 +85,12 @@ public class BlockStateToMetadata
 		
 		for (IProperty property : properties)
 		{
-			List<T> values = getSortedValues(property);
-			
 			T value = (T) state.getValue(property);
-			
+			List<T> values = getSortedValues(property);
 			int index = values.indexOf(value);
 			
-			BitMask mask = BitMask.forValueCount(values.size());
-			metadata |= (index & mask.getMask()) << offset;
+			BitMask mask = BitMask.forValueCount(values.size(), offset);
+			metadata = mask.encode(metadata, index);
 			
 			offset += mask.getBitCount();
 		}
@@ -121,7 +130,7 @@ public class BlockStateToMetadata
 		{
 			List<T> values = getSortedValues(property);
 			
-			BitMask mask = BitMask.forValueCount(values.size());
+			BitMask mask = BitMask.forValueCount(values.size(), offset);
 			int metaValue = mask.decode(metadata);
 			
 			T propValue = values.get(metaValue);
