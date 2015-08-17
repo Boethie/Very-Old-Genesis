@@ -5,6 +5,7 @@ tile.genesis.dummyBlock.name=ยง4Useless Dummy Block!
 tile.genesis.komatiiticLava.name=Lave komatiitique
 
 #Interactive blocks
+tile.genesis.workbench.name=Établi
 tile.genesis.campfire.name=Feu de camp
 
 #Building blocks
@@ -93,7 +94,7 @@ tile.genesis.plant.archaeamphora.name=Archaeamphora
 tile.genesis.plant.mabelia.name=Mabelia
 tile.genesis.plant.palaeoaster.name=Palaeoaster
 tile.genesis.plant.asteroxylon.name=Asteroxylon
-tile.genesis.plant.doubleAsteroxylon.name=Grand Asteroxylon
+tile.genesis.plant.double.asteroxylon.name=Grand Asteroxylon
 tile.genesis.plant.sphenophyllum.name=Sphenophyllum
 tile.genesis.plant.calamites.name=Calamites
 
@@ -338,6 +339,7 @@ item.genesis.misc.ceramicBucketMilk.name=Seau de lait en céramique
 item.genesis.misc.bucketKomatiiticLava.name=Seau de lave komatiitique
 
 #------------- GUIs -------------
+container.genesis.workbench=Établi
 container.genesis.campfire=Feu de camp
 
 #------------- Entities -------------
