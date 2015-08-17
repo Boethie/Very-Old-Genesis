@@ -146,7 +146,12 @@ public class BlockPlant extends BlockBush implements IGrowable
 		if (EnumPlant.DOUBLES.contains(variant))
 		{
 			BlockGenesisDoublePlant doublePlant = owner.getBlock(PlantBlocks.DOUBLE_PLANT, variant);
-			doublePlant.placeAt(world, pos, 3);
+			doublePlant.placeAt(world, pos, variant, 3);
 		}
+	}
+
+	public void placeAt(World world, BlockPos bottom, IMetadata variant, int flags)
+	{
+		world.setBlockState(bottom, owner.getBlockState(type, variant), flags);
 	}
 }

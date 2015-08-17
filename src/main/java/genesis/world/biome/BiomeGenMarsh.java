@@ -2,6 +2,7 @@ package genesis.world.biome;
 
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumPlant;
+import genesis.metadata.PlantBlocks;
 import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
@@ -32,13 +33,13 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		
 		addDecoration(new WorldGenUnderWaterPatch(GenesisBlocks.peat.getDefaultState()).setCountPerChunk(4));
 		
-		//addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.double_asteroxylon.getDefaultState()).setIsDouble(true).setCountPerChunk(8));
-		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getPlantBlockState(EnumPlant.COOKSONIA)).setPatchSize(6).setCountPerChunk(6));
-		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getPlantBlockState(EnumPlant.BARAGWANATHIA)).setPatchSize(6).setCountPerChunk(6));
-		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getPlantBlockState(EnumPlant.RHYNIA)).setPatchSize(6).setCountPerChunk(6));
-		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getPlantBlockState(EnumPlant.PSILOPHYTON)).setPatchSize(4).setCountPerChunk(3));
-		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getPlantBlockState(EnumPlant.SCIADOPHYTON)).setPatchSize(4).setCountPerChunk(3));
-		addDecoration(new WorldGenPlant().setPlant(GenesisBlocks.plants.getPlantBlockState(EnumPlant.NOTHIA)).setPatchSize(4).setCountPerChunk(3));
+		addDecoration(new WorldGenPlant(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.ASTEROXYLON).setCountPerChunk(8));
+		addDecoration(new WorldGenPlant(EnumPlant.COOKSONIA).setPatchSize(6).setCountPerChunk(6));
+		addDecoration(new WorldGenPlant(EnumPlant.BARAGWANATHIA).setPatchSize(6).setCountPerChunk(6));
+		addDecoration(new WorldGenPlant(EnumPlant.RHYNIA).setPatchSize(6).setCountPerChunk(6));
+		addDecoration(new WorldGenPlant(EnumPlant.PSILOPHYTON).setPatchSize(4).setCountPerChunk(3));
+		addDecoration(new WorldGenPlant(EnumPlant.SCIADOPHYTON).setPatchSize(4).setCountPerChunk(3));
+		addDecoration(new WorldGenPlant(EnumPlant.NOTHIA).setPatchSize(4).setCountPerChunk(3));
 		
 		//addDecoration(new WorldGenPrototaxites().setCountPerChunk(1));
 	}
