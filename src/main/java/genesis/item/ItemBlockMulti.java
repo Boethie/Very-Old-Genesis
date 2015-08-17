@@ -1,17 +1,17 @@
 package genesis.item;
 
 import genesis.common.GenesisCreativeTabs;
-import genesis.metadata.IMetadata;
-import genesis.metadata.VariantsOfTypesCombo;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import genesis.metadata.*;
+import genesis.metadata.VariantsOfTypesCombo.*;
+import genesis.util.Constants;
 
-import java.util.List;
+import java.util.*;
+
+import com.google.common.base.Function;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 
 public class ItemBlockMulti extends ItemBlock
 {

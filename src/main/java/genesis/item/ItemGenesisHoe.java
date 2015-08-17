@@ -1,15 +1,14 @@
 package genesis.item;
 
+import java.util.List;
+
 import genesis.metadata.ToolItems;
 import genesis.metadata.ToolItems.ToolObjectType;
 import genesis.metadata.ToolTypes.ToolType;
 import genesis.metadata.VariantsOfTypesCombo.ItemVariantCount;
-
-import java.util.List;
-
+import genesis.util.Constants.Unlocalized;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemHoe;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 
 @ItemVariantCount(1)
 public class ItemGenesisHoe extends ItemHoe

@@ -1,25 +1,17 @@
 package genesis.metadata;
 
-import genesis.block.BlockGenesisLeaves;
-import genesis.block.BlockGenesisLogs;
-import genesis.block.BlockGenesisRottenLogs;
-import genesis.block.BlockGenesisSaplings;
-import genesis.block.BlockWattleFence;
+import genesis.block.*;
 import genesis.common.GenesisCreativeTabs;
-import genesis.item.ItemBlockMulti;
-import genesis.item.ItemMulti;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
-import genesis.util.Constants;
+import genesis.item.*;
+import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
-import genesis.util.FuelHandler;
+import genesis.metadata.VariantsOfTypesCombo.*;
 
-import java.util.List;
+import java.util.*;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.BlockSapling;
+import net.minecraft.block.*;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 

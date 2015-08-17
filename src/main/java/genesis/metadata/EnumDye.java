@@ -1,10 +1,8 @@
 package genesis.metadata;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.*;
 
 public class EnumDye implements IMetadata, Comparable<EnumDye>
 {

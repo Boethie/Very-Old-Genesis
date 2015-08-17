@@ -2,12 +2,15 @@ package genesis.block;
 
 import genesis.block.BlockGrowingPlant.GrowingPlantProperties;
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
+import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms.CanStayOptions;
 import genesis.common.GenesisItems;
 import genesis.util.WorldUtils;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;

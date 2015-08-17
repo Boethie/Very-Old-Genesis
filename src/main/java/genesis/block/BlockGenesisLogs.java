@@ -10,6 +10,7 @@ import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.BlockStateToMetadata;
+import genesis.util.Constants.Unlocalized;
 
 import java.util.List;
 

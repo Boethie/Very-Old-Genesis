@@ -11,6 +11,7 @@ import genesis.util.BlockStateToMetadata;
 
 import java.util.List;
 
+import net.minecraft.block.BlockSandStone;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockState;

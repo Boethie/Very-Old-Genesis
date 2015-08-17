@@ -1,6 +1,6 @@
 package genesis.util;
 
-import java.util.Arrays;
+import java.util.*;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;

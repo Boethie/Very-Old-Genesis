@@ -2,23 +2,12 @@ package genesis.util;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.AbstractCollection;
-import java.util.AbstractMap;
-import java.util.AbstractSet;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import com.google.common.base.Objects;
-import com.google.common.collect.HashBiMap;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.PeekingIterator;
-import com.google.common.collect.Table;
-import com.google.common.collect.Tables;
+import com.google.common.base.Optional;
+import com.google.common.collect.*;
 
 public class HashBiTable<R, C, V> implements BiTable<R, C, V>
 {

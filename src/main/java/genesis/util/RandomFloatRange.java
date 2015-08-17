@@ -2,6 +2,8 @@ package genesis.util;
 
 import java.util.Random;
 
+import net.minecraft.util.MathHelper;
+
 public class RandomFloatRange
 {
 	public float min;

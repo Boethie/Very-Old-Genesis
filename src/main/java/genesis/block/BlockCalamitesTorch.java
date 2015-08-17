@@ -1,6 +1,7 @@
 package genesis.block;
 
 import genesis.common.GenesisCreativeTabs;
+import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.BlockTorch;
 
 public class BlockCalamitesTorch extends BlockTorch

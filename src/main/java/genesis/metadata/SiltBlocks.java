@@ -1,11 +1,10 @@
 package genesis.metadata;
 
-import genesis.block.BlockSilt;
-import genesis.block.BlockSiltstone;
-import genesis.item.ItemBlockMulti;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import net.minecraft.block.*;
+import genesis.block.*;
+import genesis.item.*;
+import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.Constants;
-import net.minecraft.block.Block;
 
 @SuppressWarnings("unchecked")
 public class SiltBlocks extends VariantsOfTypesCombo<ObjectType<? extends Block, ? extends ItemBlockMulti>, EnumSilt>

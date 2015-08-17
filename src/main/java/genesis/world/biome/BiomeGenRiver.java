@@ -1,13 +1,12 @@
 package genesis.world.biome;
 
+import java.util.Random;
+
 import genesis.metadata.EnumAquaticPlant;
 import genesis.world.biome.decorate.WorldGenAquaticPlants;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPebbles;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
-
-import java.util.Random;
-
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;

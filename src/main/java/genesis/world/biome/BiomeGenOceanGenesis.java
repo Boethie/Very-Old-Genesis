@@ -1,12 +1,11 @@
 package genesis.world.biome;
 
-import genesis.metadata.EnumAquaticPlant;
-import genesis.world.biome.decorate.WorldGenAquaticPlants;
-
 import java.util.Random;
 
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
+import genesis.metadata.EnumAquaticPlant;
+import genesis.world.biome.decorate.WorldGenAquaticPlants;
 
 public class BiomeGenOceanGenesis extends BiomeGenBaseGenesis
 {

@@ -1,34 +1,23 @@
 package genesis.block;
 
-import genesis.common.GenesisBlocks;
-import genesis.common.GenesisCreativeTabs;
+import genesis.common.*;
 import genesis.item.ItemBlockMulti;
-import genesis.metadata.EnumPlant;
-import genesis.metadata.IMetadata;
-import genesis.metadata.PropertyIMetadata;
-import genesis.metadata.VariantsOfTypesCombo;
-import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
-import genesis.util.BlockStateToMetadata;
+import genesis.metadata.*;
+import genesis.metadata.VariantsOfTypesCombo.*;
+import genesis.util.*;
+import genesis.util.Constants.Unlocalized;
 
-import java.util.List;
+import java.util.*;
 import java.util.Random;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockBush;
-import net.minecraft.block.IGrowable;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockState;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.*;
+import net.minecraft.block.properties.*;
+import net.minecraft.block.state.*;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.util.*;
-import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.*;
 
 public class BlockPlant extends BlockBush implements IGrowable
 {

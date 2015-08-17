@@ -1,16 +1,16 @@
 package genesis.common;
 
-import genesis.util.SidedFunction;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
+import genesis.util.*;
+import net.minecraft.block.*;
+import net.minecraft.client.renderer.block.statemap.*;
+import net.minecraft.item.*;
+import net.minecraft.tileentity.*;
+import net.minecraft.util.*;
+import net.minecraftforge.client.model.*;
 import net.minecraftforge.fluids.BlockFluidBase;
-import net.minecraftforge.fml.common.registry.GameData;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.*;
 
 public class GenesisProxy
 {

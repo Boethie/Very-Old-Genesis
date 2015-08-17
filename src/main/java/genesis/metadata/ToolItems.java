@@ -1,35 +1,26 @@
 package genesis.metadata;
 
-import genesis.block.BlockGenesisPebble;
+import genesis.metadata.VariantsOfTypesCombo.*;
+import genesis.metadata.ToolItems.*;
+
+import java.util.*;
+
+import com.google.common.base.Function;
+import com.google.common.collect.Sets;
+
+import genesis.block.*;
 import genesis.common.GenesisCreativeTabs;
-import genesis.item.ItemChoppingTool;
-import genesis.item.ItemGenesisAxe;
-import genesis.item.ItemGenesisHoe;
-import genesis.item.ItemGenesisKnife;
-import genesis.item.ItemGenesisPick;
-import genesis.item.ItemGenesisSpear;
-import genesis.item.ItemMulti;
-import genesis.item.ItemPebble;
-import genesis.item.ItemToolHead;
-import genesis.metadata.ToolItems.ToolObjectType;
-import genesis.metadata.ToolTypes.ToolType;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
-import genesis.util.Constants.Unlocalized;
-import genesis.util.Constants.Unlocalized.Section;
-
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-
+import genesis.item.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.util.StatCollector;
-
-import com.google.common.collect.Sets;
+import genesis.metadata.ToolTypes.ToolType;
+import genesis.util.Constants;
+import genesis.util.Constants.Unlocalized;
+import genesis.util.Constants.Unlocalized.Section;
 
 @SuppressWarnings("rawtypes")
 public class ToolItems extends VariantsOfTypesCombo<ToolObjectType, ToolType>

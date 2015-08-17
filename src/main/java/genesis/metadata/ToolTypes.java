@@ -1,13 +1,11 @@
 package genesis.metadata;
 
-import java.util.Collection;
-import java.util.Comparator;
+import java.util.*;
 
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraftforge.common.util.EnumHelper;
 
-import com.google.common.collect.Table;
-import com.google.common.collect.TreeBasedTable;
+import com.google.common.collect.*;
 
 public class ToolTypes
 {

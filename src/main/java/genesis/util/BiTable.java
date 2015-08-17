@@ -1,6 +1,8 @@
 package genesis.util;
 
-import com.google.common.collect.Table;
+import genesis.util.HashBiTable.Key;
+
+import com.google.common.collect.*;
 
 public interface BiTable<R, C, V> extends Table<R, C, V>
 {

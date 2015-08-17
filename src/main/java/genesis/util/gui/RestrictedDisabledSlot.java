@@ -1,6 +1,6 @@
 package genesis.util.gui;
 
-import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.*;
 
 public class RestrictedDisabledSlot extends RestrictedSlot
 {

@@ -1,7 +1,9 @@
 package genesis.util;
 
-import java.util.Map;
+import java.lang.reflect.*;
+import java.util.*;
 
+import net.minecraft.item.ItemBucket;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 

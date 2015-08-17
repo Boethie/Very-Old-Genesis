@@ -1,14 +1,13 @@
 package genesis.util;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import genesis.metadata.*;
 
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyBool;
+import java.util.*;
+
+import net.minecraft.block.properties.*;
 import net.minecraft.block.state.IBlockState;
+
+import com.google.common.collect.*;
 
 public class BlockStateToMetadata
 {

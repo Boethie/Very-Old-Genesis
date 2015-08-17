@@ -6,8 +6,7 @@ import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;

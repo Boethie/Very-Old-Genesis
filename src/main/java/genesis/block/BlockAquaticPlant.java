@@ -1,36 +1,33 @@
 package genesis.block;
 
+import java.util.*;
+
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
+
 import genesis.client.GenesisSounds;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemBlockMulti;
-import genesis.metadata.EnumAquaticPlant;
-import genesis.metadata.IModifyStateMap;
-import genesis.metadata.PropertyIMetadata;
-import genesis.metadata.SiltBlocks;
-import genesis.metadata.TreeBlocksAndItems;
-import genesis.metadata.VariantsCombo;
-import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import genesis.metadata.*;
+import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants;
 import genesis.util.FlexibleStateMap;
+import genesis.util.RandomVariantDrop;
 import genesis.util.WorldUtils;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.statemap.StateMap.Builder;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -41,9 +38,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class BlockAquaticPlant extends Block implements IModifyStateMap

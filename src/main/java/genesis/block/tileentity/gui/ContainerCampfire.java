@@ -1,16 +1,13 @@
 package genesis.block.tileentity.gui;
 
-import genesis.block.tileentity.TileEntityCampfire;
-import genesis.util.gui.RestrictedDisabledSlot;
-import genesis.util.gui.RestrictedSlot;
+import java.util.*;
 
-import java.util.List;
-
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.ICrafting;
-import net.minecraft.inventory.SlotFurnaceOutput;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import genesis.block.tileentity.*;
+import genesis.util.gui.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.inventory.*;
+import net.minecraft.item.*;
+import net.minecraftforge.fml.relauncher.*;
 
 public class ContainerCampfire extends ContainerBase
 {

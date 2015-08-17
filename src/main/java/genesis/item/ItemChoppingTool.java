@@ -1,19 +1,21 @@
 package genesis.item;
 
-import genesis.metadata.ToolItems;
+import genesis.metadata.*;
 import genesis.metadata.ToolItems.ToolObjectType;
 import genesis.metadata.ToolTypes.ToolType;
 import genesis.metadata.VariantsOfTypesCombo.ItemVariantCount;
+import genesis.util.Constants.Unlocalized;
 
 import java.util.List;
+import java.util.Set;
 
+import com.google.common.collect.Multimap;
+
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemAxe;
-import net.minecraft.item.ItemStack;
-
-import com.google.common.collect.Multimap;
+import net.minecraft.item.*;
 
 @ItemVariantCount(1)
 public class ItemChoppingTool extends ItemAxe

@@ -1,20 +1,17 @@
 package genesis.common;
 
+import java.util.*;
+
 import genesis.block.BlockGenesisPebble.PebbleBreakMessage;
 import genesis.entity.flying.EntityMeganeura.MeganeuraUpdateMessage;
-
-import java.util.Set;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.Vec3;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
-import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraft.world.*;
+import net.minecraftforge.fml.common.network.*;
+import net.minecraftforge.fml.common.network.NetworkRegistry.*;
+import net.minecraftforge.fml.common.network.simpleimpl.*;
 import net.minecraftforge.fml.relauncher.Side;
 
 public class GenesisNetwork extends SimpleNetworkWrapper

@@ -2,6 +2,7 @@ package genesis.item;
 
 import genesis.common.GenesisCreativeTabs;
 import genesis.common.GenesisItems;
+import genesis.util.Constants.Unlocalized;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;

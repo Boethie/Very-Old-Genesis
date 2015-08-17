@@ -1,12 +1,14 @@
 package genesis.common;
 
-import genesis.block.tileentity.TileEntityCampfire;
-import genesis.block.tileentity.gui.ContainerCampfire;
-import genesis.block.tileentity.gui.render.GuiContainerCampfire;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.common.network.IGuiHandler;
+import genesis.block.tileentity.*;
+import genesis.block.tileentity.gui.*;
+import genesis.block.tileentity.gui.render.*;
+
+import net.minecraft.entity.player.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+
+import net.minecraftforge.fml.common.network.*;
 
 public class GenesisGuiHandler implements IGuiHandler
 {

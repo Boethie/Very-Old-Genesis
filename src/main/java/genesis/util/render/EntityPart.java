@@ -1,8 +1,9 @@
 package genesis.util.render;
 
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.GlStateManager;
+import java.util.List;
+
+import net.minecraft.client.model.*;
+import net.minecraft.client.renderer.*;
 
 public class EntityPart extends ModelRenderer
 {

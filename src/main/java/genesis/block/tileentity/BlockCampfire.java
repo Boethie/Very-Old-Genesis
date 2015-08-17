@@ -1,51 +1,33 @@
 package genesis.block.tileentity;
 
+import java.util.*;
+
+import genesis.util.*;
+import genesis.util.Constants.Unlocalized;
+import genesis.client.*;
+import genesis.common.*;
+import genesis.block.tileentity.*;
 import genesis.block.tileentity.render.TileEntityCampfireRenderer;
-import genesis.client.GenesisParticles;
-import genesis.common.Genesis;
-import genesis.common.GenesisCreativeTabs;
-import genesis.common.GenesisGuiHandler;
-import genesis.common.GenesisItems;
-import genesis.util.BlockStateToMetadata;
-import genesis.util.EnumAxis;
-import genesis.util.ItemStackKey;
-import genesis.util.RandomDoubleRange;
-import genesis.util.WorldUtils;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.block.*;
+import net.minecraft.block.material.*;
+import net.minecraft.block.properties.*;
+import net.minecraft.block.state.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
+import net.minecraft.init.*;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.EnumWorldBlockLayer;
-import net.minecraft.util.Vec3;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.common.registry.*;
+import net.minecraftforge.fml.relauncher.*;
 
 public class BlockCampfire extends BlockContainer
 {

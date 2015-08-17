@@ -2,6 +2,7 @@ package genesis.block;
 
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
+import genesis.util.Constants.Unlocalized;
 
 import java.util.Random;
 
@@ -10,6 +11,7 @@ import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockMycelium;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 

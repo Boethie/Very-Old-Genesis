@@ -1,30 +1,21 @@
 package genesis.block;
 
+import java.util.*;
+
 import genesis.common.GenesisCreativeTabs;
-import genesis.metadata.IMetadata;
-import genesis.metadata.PropertyIMetadata;
-import genesis.metadata.VariantsOfTypesCombo;
-import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
-import genesis.util.BlockStateToMetadata;
-import genesis.util.RandomVariantDrop;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-
+import genesis.item.*;
+import genesis.metadata.*;
+import genesis.metadata.VariantsOfTypesCombo.*;
+import genesis.util.*;
+import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockState;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.properties.*;
+import net.minecraft.block.state.*;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
 
 @SuppressWarnings("rawtypes")
 public class BlockGenesisVariants<V extends IMetadata> extends Block

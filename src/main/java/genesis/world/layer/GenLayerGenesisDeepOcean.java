@@ -1,8 +1,8 @@
 package genesis.world.layer;
 
-import genesis.common.GenesisBiomes;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
+import genesis.common.GenesisBiomes;
 
 public class GenLayerGenesisDeepOcean extends GenLayerGenesis
 {
