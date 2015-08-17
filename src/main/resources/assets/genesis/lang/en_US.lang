@@ -340,7 +340,7 @@ item.genesis.misc.ceramicBucketMilk.name=Ceramic Milk Bucket
 item.genesis.misc.bucketKomatiiticLava.name=Komatiitic Lava Bucket
 
 #------------- GUIs -------------
-container.genesis.workbench=Workbench
+container.genesis.workbench=Crafting & Knapping
 container.genesis.campfire=Campfire
 
 #------------- Entities -------------

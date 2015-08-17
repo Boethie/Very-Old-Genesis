@@ -339,7 +339,7 @@ item.genesis.misc.ceramicBucketMilk.name=Seau de lait en céramique
 item.genesis.misc.bucketKomatiiticLava.name=Seau de lave komatiitique
 
 #------------- GUIs -------------
-container.genesis.workbench=Établi
+container.genesis.workbench=Fabrication et débitage
 container.genesis.campfire=Feu de camp
 
 #------------- Entities -------------
