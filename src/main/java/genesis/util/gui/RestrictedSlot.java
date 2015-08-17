@@ -6,11 +6,12 @@ import net.minecraft.item.ItemStack;
 
 public class RestrictedSlot extends Slot
 {
-	public RestrictedSlot(IInventory inventoryIn, int index, int xPosition, int yPosition)
+	public RestrictedSlot(IInventory inv, int index, int x, int y)
 	{
-		super(inventoryIn, index, xPosition, yPosition);
+		super(inv, index, x, y);
 	}
 	
+	@Override
 	public boolean isItemValid(ItemStack stack)
 	{
 		return inventory.isItemValidForSlot(getSlotIndex(), stack);

@@ -30,17 +30,22 @@ public class ContainerCampfire extends ContainerBase
 		campfire = te;
 		
 		int y = 0;
-		ingredient1 = addTopAlignedSlot(new RestrictedDisabledSlot(te, TileEntityCampfire.SLOT_INGREDIENT_1, -64, y));
-		ingredient2 = addTopAlignedSlot(new RestrictedDisabledSlot(te, TileEntityCampfire.SLOT_INGREDIENT_2, -32, y));
-		input = addTopAlignedSlot(new RestrictedSlot(te, TileEntityCampfire.SLOT_INPUT, -48, y += SLOT_H + 8));
-		fuel = addTopAlignedSlot(new RestrictedSlot(te, TileEntityCampfire.SLOT_FUEL, -48, y += SLOT_H * 2));
-		output = addBigTopAlignedSlot(new SlotFurnaceOutput(inventoryPlayer.player, te, TileEntityCampfire.SLOT_OUTPUT, 48, y /= 2));
+		int ingSep = 32;
+		ingredient1 = addTopAlignedSlot(new RestrictedDisabledSlot(te, TileEntityCampfire.SLOT_INGREDIENT_1, 0, y));
+		ingredient2 = addTopAlignedSlot(new RestrictedDisabledSlot(te, TileEntityCampfire.SLOT_INGREDIENT_2, ingSep, y));
+		input = addTopAlignedSlot(new RestrictedSlot(te, TileEntityCampfire.SLOT_INPUT, ingSep / 2, y += SLOT_H + 8));
+		fuel = addTopAlignedSlot(new RestrictedSlot(te, TileEntityCampfire.SLOT_FUEL, ingSep / 2, y += SLOT_H * 2));
+		output = addBigTopAlignedSlot(new SlotFurnaceOutput(inventoryPlayer.player, te, TileEntityCampfire.SLOT_OUTPUT, 112, y /= 2));
+		
+		setupGUILayout();
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void updateProgressBar(int id, int value)
 	{
+		super.updateProgressBar(id, value);
+		
 		switch (id)
 		{
 		case 0:

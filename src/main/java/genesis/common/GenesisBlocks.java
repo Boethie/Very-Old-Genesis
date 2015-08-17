@@ -2,7 +2,7 @@ package genesis.common;
 
 import genesis.block.*;
 import genesis.block.tileentity.*;
-import genesis.block.tileentity.render.TileEntityCampfireRenderer;
+import genesis.block.tileentity.render.*;
 import genesis.client.*;
 import genesis.item.*;
 import genesis.metadata.*;
@@ -61,7 +61,8 @@ public final class GenesisBlocks
 	public static final TreeBlocksAndItems trees = new TreeBlocksAndItems();
 	
 	/* Crafting */
-	public static final Block campfire = new BlockCampfire().setUnlocalizedName(Unlocalized.PREFIX + "campfire");
+	public static final BlockKnapper workbench = (BlockKnapper) new BlockKnapper().setUnlocalizedName(Unlocalized.PREFIX + "workbench");
+	public static final BlockCampfire campfire = (BlockCampfire) new BlockCampfire().setUnlocalizedName(Unlocalized.PREFIX + "campfire");
 	
 	/* Plants */
 	public static final VariantsCombo<EnumPlant, BlockPlant, ItemBlockMulti> plants = new VariantsCombo<EnumPlant, BlockPlant, ItemBlockMulti>(new ObjectType<BlockPlant, ItemBlockMulti>("plant", BlockPlant.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumPlant.values());
@@ -185,9 +186,12 @@ public final class GenesisBlocks
 		// Begin decorative
 		trees.registerAll();
 		
+		Genesis.proxy.registerBlock(workbench, "workbench");
+		GameRegistry.registerTileEntity(TileEntityKnapper.class, Constants.ASSETS_PREFIX + "workbench");
+		
 		Genesis.proxy.registerBlock(campfire, "campfire");
 		Item.getItemFromBlock(campfire).setMaxStackSize(1);
-		GameRegistry.registerTileEntity(TileEntityCampfire.class, Unlocalized.PREFIX + "Campfire");
+		GameRegistry.registerTileEntity(TileEntityCampfire.class, Constants.ASSETS_PREFIX + "campfire");
 		Genesis.proxy.callSided(new SidedFunction()
 		{
 			@SideOnly(Side.CLIENT)

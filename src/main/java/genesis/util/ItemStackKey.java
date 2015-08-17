@@ -30,7 +30,7 @@ public class ItemStackKey
 	
 	public ItemStackKey(ItemStack stack)
 	{
-		this(stack.getItem(), stack.getItemDamage(), stack.getTagCompound());
+		this(stack.getItem(), stack.getItemDamage(), stack.getTagCompound() == null ? null : (NBTTagCompound) stack.getTagCompound().copy());
 	}
 	
 	@Override
@@ -64,5 +64,31 @@ public class ItemStackKey
 		}
 		
 		return false;
+	}
+	
+	public boolean equalsStack(ItemStack stack)
+	{
+		if (stack == null)
+		{
+			return false;
+		}
+		
+		return equals(new ItemStackKey(stack));
+	}
+	
+	public ItemStack createNewStack()
+	{
+		ItemStack stack = new ItemStack(item, 1, metadata);
+		
+		if (compound != null)
+			stack.setTagCompound((NBTTagCompound) compound.copy());
+		
+		return stack;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return createNewStack().toString();
 	}
 }

@@ -11,11 +11,11 @@ public class RestrictedDisabledSlot extends RestrictedSlot
 	
 	protected final IInventoryDisabledSlots disabledSlots;
 	
-	public RestrictedDisabledSlot(IInventoryDisabledSlots inventory, int index, int x, int y)
+	public RestrictedDisabledSlot(IInventoryDisabledSlots inv, int index, int x, int y)
 	{
-		super(inventory, index, x, y);
+		super(inv, index, x, y);
 		
-		disabledSlots = inventory;
+		disabledSlots = inv;
 	}
 	
 	@Override

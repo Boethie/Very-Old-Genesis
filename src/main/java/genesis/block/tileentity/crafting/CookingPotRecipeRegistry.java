@@ -14,19 +14,6 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class CookingPotRecipeRegistry
 {
-	protected static boolean stackContainsOther(ItemStack stack, ItemStack other)
-	{
-		if (stack.isItemEqual(other) && ItemStack.areItemStackTagsEqual(stack, other))
-		{
-			if (stack.stackSize <= other.stackSize)
-			{
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	
 	public static interface ICookingPotRecipe
 	{
 		public boolean isRecipeIngredient(ItemStack stack, IInventoryCookingPot cookingPot);

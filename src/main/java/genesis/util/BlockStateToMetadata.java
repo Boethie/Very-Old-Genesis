@@ -1,93 +1,65 @@
 package genesis.util;
 
 import genesis.metadata.*;
+import io.netty.buffer.ByteBuf;
 
 import java.util.*;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.IBlockState;
 
 import com.google.common.collect.*;
 
+/**
+ * @author Zaggy1024
+ * 
+ * Utilities pertaining to storage of block states and stuff.
+ */
 public class BlockStateToMetadata
 {
 	public static final BitwiseMask MAXMETAVALUE = new BitwiseMask(16);
-
-	public static class BitwiseMask
+	
+	private static final HashMap<Collection<IProperty>, List<IProperty>> SORTED_PROPERTIES = Maps.newHashMap();
+	private static final HashMap<IProperty, List<Comparable<?>>> SORTED_VALUES = Maps.newHashMap();
+	
+	public static List<IProperty> getSortedProperties(Collection<IProperty> properties)
 	{
-		private int mask;
-		private int bits;
-
-		/**
-		 * Create a bitwise mask from the number of values it must be able to represent.
-		 */
-		public BitwiseMask(int valueCount)
+		List<IProperty> output = SORTED_PROPERTIES.get(properties);
+		
+		if (output == null)
 		{
-			// Find last used bit
-			int maxBit = 0;
-			int curBit = 1;
-
-			while (((valueCount - 1) / (float) curBit) >= 1)
+			output = new ArrayList<IProperty>(properties);
+			Collections.sort(output, new Comparator<IProperty>()
 			{
-				maxBit = curBit;
-				curBit *= 2;
-			}
-
-			// Add up all used bits
-			int allBits = 0;
-			int bitCount = 0;
-
-			for (int i = maxBit; i >= 1; i /= 2)
-			{
-				allBits += i;
-				bitCount += 1;
-			}
-
-			mask = allBits;
-			bits = bitCount;
+				@Override
+				public int compare(IProperty prop1, IProperty prop2)
+				{
+					return prop1.getName().compareTo(prop2.getName());
+				}
+			});
+			output = ImmutableList.copyOf(output);
+			SORTED_PROPERTIES.put(ImmutableList.copyOf(properties), output);
 		}
-
-		/**
-		 * Get the bitwise mask.
-		 */
-		public int getMask()
-		{
-			return mask;
-		}
-
-		/**
-		 * Get the number of bits used by the mask.
-		 */
-		public int getBitCount()
-		{
-			return bits;
-		}
+		
+		return output;
 	}
 	
-	private static final HashSet<Class<? extends IProperty>> SORT_PROPERTIES = new HashSet(){{
-		add(PropertyBool.class);
-	}};
-	private static final HashMap<IProperty, List<Comparable>> PROPERTY_VALUES = new HashMap();
-	
-	private static List<Comparable> getSortedValues(IProperty property)
+	public static <T extends Comparable<? super T>> List<T> getSortedValues(IProperty property)
 	{
-		List<Comparable> values = PROPERTY_VALUES.get(property);
+		List<T> values = (List<T>) SORTED_VALUES.get(property);
 		
-		if (!PROPERTY_VALUES.containsKey(property))
+		if (values == null)
 		{
-			values = new ArrayList(property.getAllowedValues());
-			
-			if (SORT_PROPERTIES.contains(property.getClass()))
-			{
-				Collections.sort(values);
-			}
-			
-			PROPERTY_VALUES.put(property, values);
+			values = new ArrayList<T>(property.getAllowedValues());
+			Collections.sort(values);
+			values = ImmutableList.copyOf(values);
+			SORTED_VALUES.put(property, (List<Comparable<?>>) values);
 		}
 		
 		return values;
 	}
-
+	
 	/**
 	 * Gets the IBlockState represented by the metadata passed to the function, filtered by an array of properties.
 	 * 
@@ -95,33 +67,33 @@ public class BlockStateToMetadata
 	 * @param properties The properties to store in the metadata, in the desired order.
 	 * @return The metadata to represent the IBlockState.
 	 */
-	public static int getMetaForBlockState(IBlockState state, IProperty... properties)
+	public static <T extends Comparable<? super T>> int getMetaForBlockState(IBlockState state, IProperty... properties)
 	{
 		int metadata = 0;
 		int offset = 0;
-
+		
 		for (IProperty property : properties)
 		{
-			List<Comparable> values = getSortedValues(property);
-
-			Comparable value = state.getValue(property);
-
+			List<T> values = getSortedValues(property);
+			
+			T value = (T) state.getValue(property);
+			
 			int index = values.indexOf(value);
-
+			
 			BitwiseMask mask = new BitwiseMask(values.size());
 			metadata |= (index & mask.getMask()) << offset;
-
+			
 			offset += mask.getBitCount();
 		}
-
+		
 		if (offset > MAXMETAVALUE.getBitCount())
 		{
 			throw new RuntimeException("Attempted to store an IBlockState that requires " + offset + " bits in " + MAXMETAVALUE.getBitCount() + " bits of metadata");
 		}
-
+		
 		return metadata;
 	}
-
+	
 	/**
 	 * Gets the IBlockState represented by the metadata passed to the function.
 	 * 
@@ -130,9 +102,9 @@ public class BlockStateToMetadata
 	 */
 	public static int getMetaForBlockState(IBlockState state)
 	{
-		return getMetaForBlockState(state, (IProperty[]) state.getProperties().keySet().toArray(new IProperty[0]));
+		return getMetaForBlockState(state, getSortedProperties(state.getProperties().keySet()).toArray(new IProperty[0]));
 	}
-
+	
 	/**
 	 * Gets the IBlockState represented by the metadata passed to the function, filtered by an array of properties.
 	 * 
@@ -141,18 +113,18 @@ public class BlockStateToMetadata
 	 * @param properties The properties to restore from the metadata, in the order they were passed to getMetaForBlockState.
 	 * @return The restored IBlockState.
 	 */
-	public static IBlockState getBlockStateFromMeta(IBlockState state, int metadata, IProperty... properties)
+	public static <T extends Comparable<? super T>> IBlockState getBlockStateFromMeta(IBlockState state, int metadata, IProperty... properties)
 	{
 		int offset = 0;
-
+		
 		for (IProperty property : properties)
 		{
-			List<Comparable> values = getSortedValues(property);
+			List<T> values = getSortedValues(property);
 			
 			BitwiseMask mask = new BitwiseMask(values.size());
 			int metaValue = (metadata & (mask.getMask() << offset)) >> offset;
 			
-			Comparable propValue = values.get(metaValue);
+			T propValue = values.get(metaValue);
 			
 			state = state.withProperty(property, propValue);
 			
@@ -166,7 +138,7 @@ public class BlockStateToMetadata
 		
 		return state;
 	}
-
+	
 	/**
 	 * Gets the IBlockState represented by the metadata passed to the function.
 	 * 
@@ -176,7 +148,7 @@ public class BlockStateToMetadata
 	 */
 	public static IBlockState getBlockStateFromMeta(IBlockState state, int metadata)
 	{
-		return getBlockStateFromMeta(state, metadata, (IProperty[]) state.getProperties().keySet().toArray(new IProperty[0]));
+		return getBlockStateFromMeta(state, metadata, getSortedProperties(state.getProperties().keySet()).toArray(new IProperty[0]));
 	}
 	
 	/**
@@ -203,5 +175,42 @@ public class BlockStateToMetadata
 		}
 		
 		return 1;
+	}
+	
+	public static void serializeBlockState(IBlockState inputState, ByteBuf buf)
+	{
+		int stateID = Block.getStateId(inputState);
+		buf.writeInt(stateID);
+		IBlockState metaState = Block.getStateById(stateID);
+		IBlockState defaultState = inputState.getBlock().getDefaultState();
+		
+		List<IProperty> propertyList = getSortedProperties(defaultState.getProperties().keySet());
+		
+		for (IProperty property : propertyList)
+		{
+			if (metaState.getValue(property).equals(defaultState.getValue(property)))
+			{
+				buf.writeInt(getSortedValues(property).indexOf(inputState.getValue(property)));
+			}
+		}
+	}
+	
+	public static IBlockState deserializeBlockState(ByteBuf buf)
+	{
+		IBlockState metaState = Block.getStateById(buf.readInt());
+		IBlockState outState = metaState;
+		IBlockState defaultState = metaState.getBlock().getDefaultState();
+
+		List<IProperty> propertyList = getSortedProperties(defaultState.getProperties().keySet());
+		
+		for (IProperty property : (Collection<IProperty>) metaState.getProperties().keySet())
+		{
+			if (metaState.getValue(property).equals(defaultState.getValue(property)))
+			{
+				outState = outState.withProperty(property, getSortedValues(property).get(buf.readInt()));
+			}
+		}
+		
+		return outState;
 	}
 }

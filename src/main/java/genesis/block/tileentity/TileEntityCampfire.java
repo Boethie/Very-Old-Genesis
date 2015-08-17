@@ -85,10 +85,8 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	
 	protected static final int WET_TIME = 200;
 	
-	public BlockCampfire blockCampfire;
-	
 	protected ItemStack[] inventory = new ItemStack[SLOT_COUNT];
-
+	
 	protected boolean wasBurning = false;
 	protected boolean waterAround = false;
 	
@@ -227,9 +225,9 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 				{
 					smeltingItem = null;
 				}
-	
-				setInventorySlotContents(SLOT_INPUT, smeltingItem);
-				setInventorySlotContents(SLOT_OUTPUT, outputItem);
+				
+				setInput(smeltingItem);
+				setOutput(outputItem);
 			}
 		}
 	}
@@ -248,7 +246,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	{
 		worldObj.markBlockForUpdate(pos);
 	}
-
+	
 	public void setWaterAround(boolean water)
 	{
 		waterAround = water;
@@ -268,7 +266,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	
 	public void setWet()
 	{
-		blockCampfire.randomDisplayTick(worldObj, pos, worldObj.getBlockState(pos), worldObj.rand);
+		getBlockType().randomDisplayTick(worldObj, pos, worldObj.getBlockState(pos), worldObj.rand);
 		
 		if (isBurning())
 		{
@@ -285,7 +283,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		
 		if (wasBurning != burning)
 		{
-			blockCampfire.setBurning(worldObj, pos, burning);
+			getBlockType().setBurning(worldObj, pos, burning);
 			wasBurning = burning;
 			return true;
 		}
@@ -309,7 +307,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 					
 					if (burningItem.stackSize == 0)
 					{
-						setInventorySlotContents(1, container);
+						setFuel(container);
 					}
 					else
 					{
@@ -501,7 +499,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	{
 		return inventory[slot];
 	}
-
+	
 	@Override
 	public boolean isSlotDisabled(int index)
 	{
@@ -604,13 +602,13 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	{
 		customName = name;
 	}
-
+	
 	@Override
 	public String getCommandSenderName()
 	{
 		return hasCustomName() ? customName : Unlocalized.CONTAINER + "campfire";
 	}
-
+	
 	@Override
 	public boolean hasCustomName()
 	{
@@ -740,7 +738,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		return new AxisAlignedBB(pos.getX() - 0.25, pos.getY(), pos.getZ() - 0.25,
 				pos.getX() + 1.25, pos.getY() + 1.25, pos.getZ() + 1.25);
 	}
-
+	
 	@Override
 	public ItemStack getInput()
 	{
@@ -789,84 +787,65 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	{
 		setInventorySlotContents(SLOT_OUTPUT, stack);
 	}
-
+	
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player)
 	{
 		return true;
 	}
-
+	
 	@Override
 	public int getField(int id)
 	{
 		return 0;
 	}
-
+	
 	@Override
 	public void setField(int id, int value)
 	{
 	}
-
+	
 	@Override
 	public int getFieldCount()
 	{
 		return 0;
 	}
-
+	
 	@Override
 	public ContainerCampfire createContainer(InventoryPlayer playerInventory, EntityPlayer player)
 	{
 		return null;
 	}
-
+	
 	@Override
 	public String getGuiID()
 	{
 		return null;
 	}
-
+	
 	@Override
 	public int[] getSlotsForFace(EnumFacing side)
 	{
 		return null;
 	}
-
+	
 	@Override
 	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction)
 	{
 		return false;
 	}
-
+	
 	@Override
 	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction)
 	{
 		return false;
 	}
-
-
-	@Override
-	public boolean isLocked()
-	{
-		return false;
-	}
-
-	@Override
-	public void setLockCode(LockCode code)
-	{
-		
-	}
-
-	@Override
-	public LockCode getLockCode()
-	{
-		return null;
-	}
-
+	
 	@Override
 	public void openInventory(EntityPlayer player)
 	{
 	}
-
+	
 	@Override
 	public void closeInventory(EntityPlayer player)
 	{

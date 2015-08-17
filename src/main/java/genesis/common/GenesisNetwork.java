@@ -3,6 +3,7 @@ package genesis.common;
 import java.util.*;
 
 import genesis.block.BlockGenesisPebble.PebbleBreakMessage;
+import genesis.block.tileentity.TileEntityKnapper.KnappingSlotMessage;
 import genesis.entity.flying.EntityMeganeura.MeganeuraUpdateMessage;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,6 +33,7 @@ public class GenesisNetwork extends SimpleNetworkWrapper
 	{
 		registerMessage(new PebbleBreakMessage.Handler(), PebbleBreakMessage.class, Side.SERVER);
 		registerMessage(new MeganeuraUpdateMessage.Handler(), MeganeuraUpdateMessage.class, Side.CLIENT);
+		registerMessage(new KnappingSlotMessage.Handler(), KnappingSlotMessage.class, Side.SERVER);
 	}
 	
 	public void sendToAllAround(IMessage message, World world, double x, double y, double z, double range)

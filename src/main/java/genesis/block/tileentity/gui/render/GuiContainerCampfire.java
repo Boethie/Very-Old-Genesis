@@ -6,6 +6,7 @@ import genesis.util.Constants;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.*;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiContainerCampfire extends GuiContainerBase
@@ -33,12 +34,11 @@ public class GuiContainerCampfire extends GuiContainerBase
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(guiLeft, guiTop, 0);
 		
+		// BURNER PROGRESS
 		// Render burner background.
 		final int burnerW = 14;
 		final int burnerH = 14;
-		final int burnerX = -burnerW / 2 - 1;
-		final int burnerY = -burnerH / 2;
-		drawTexBetweenSlots(burnerX, burnerY, burnerW, burnerH,
+		drawTexBetweenSlots(0, 0, burnerW, burnerH,
 							0, 0, burnerW, burnerH,
 							containerCampfire.input, containerCampfire.fuel);
 		// Render burner fire or water overlay.
@@ -47,22 +47,21 @@ public class GuiContainerCampfire extends GuiContainerBase
 		
 		final int burnH = campfire.getBurnTimeLeftScaled(burnerH - 1);
 		final int burnY = burnerH - burnH;
-		drawTexBetweenSlots(burnerX, burnerY + burnY, burnerW, burnH,
+		drawTexBetweenSlots(0, burnY / 2, burnerW, burnH,
 							burnerU, burnY, burnerW, burnH,
 							containerCampfire.input, containerCampfire.fuel);
 		
+		// COOKING PROGRESS
 		// Render cook progress bar background.
 		final Slot[] allSlots = {containerCampfire.ingredient1, containerCampfire.ingredient2, containerCampfire.input, containerCampfire.fuel, containerCampfire.output};
 		final int cookerW = 22;
 		final int cookerH = 16;
-		final int cookerX = -cookerW / 2 - 1;
-		final int cookerY = -cookerH / 2;
-		drawTexBetweenSlots(cookerX, cookerY, cookerW, cookerH,
+		drawTexBetweenSlots(0, 0, cookerW, cookerH,
 							0, burnerH, cookerW, cookerH,
 							allSlots);
 		// Render cook progress bar overlay.
 		final int cookW = campfire.getCookProgressScaled(cookerW);
-		drawTexBetweenSlots(cookerX, cookerY, cookW, cookerH,
+		drawTexBetweenSlots(0, 0, cookW, cookerH,
 							cookerW, burnerH, cookW, cookerH,
 							allSlots);
 		

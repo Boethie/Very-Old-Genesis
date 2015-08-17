@@ -370,9 +370,10 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 		public final Block block;
 		public final int maxSize;
 		public final int size;
+		public final BitwiseMask itemVariantMask;
 		public final ImmutableMap<Integer, V> variants;
 		
-		public SubsetData(O type, int id, Block block, Item item, int maxSize, int size, ImmutableMap<Integer, V> variants)
+		public SubsetData(O type, int id, Block block, Item item, int maxSize, int size, BitwiseMask itemVariantMask, ImmutableMap<Integer, V> variants)
 		{
 			this.type = type;
 			this.id = id;
@@ -380,6 +381,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 			this.block = block;
 			this.maxSize = maxSize;
 			this.size = size;
+			this.itemVariantMask = itemVariantMask;
 			this.variants = variants;
 		}
 	}
@@ -520,18 +522,35 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 					
 					type.afterConstructed(block, item, subVariants);
 					
+					BitwiseMask mask;
+					
+					if (item instanceof IItemMetadataBitMask)
+					{
+						mask = ((IItemMetadataBitMask) item).getMetadataBitMask();
+					}
+					else
+					{
+						mask = new BitwiseMask(maxSubsetSize);
+					}
+					
 					// Add the Block or Item to our object map with its metadata ID.
 					int variantMetadata = 0;
 					ImmutableMap.Builder<Integer, V> variantMap = ImmutableMap.builder();
 					
 					for (V variant : subVariants)
 					{
-						objectDataTable.put(type, variant, new VariantData(type, subset, block, item, variant, variantMetadata));
+						if (mask.decode(mask.encode(0, variantMetadata)) != variantMetadata)
+						{
+							throw new RuntimeException("Item metadata bitwise mask did not encode and decode metadata " + variantMetadata + " properly.");
+						}
+						
+						objectDataTable.put(type, variant, new VariantData(type, subset, block, item, variant, mask.encode(0, variantMetadata)));
 						variantMap.put(variantMetadata, variant);
+						
 						variantMetadata++;
 					}
 					
-					SubsetData subsetData = new SubsetData(type, subset, block, item, maxSubsetSize, subsetSize, variantMap.build());
+					SubsetData subsetData = new SubsetData(type, subset, block, item, maxSubsetSize, subsetSize, mask, variantMap.build());
 					subsetDataTable.put(type, subset, subsetData);
 					
 					if (block != null)
@@ -831,7 +850,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 		
 		if (data != null)
 		{
-			return getVariantData(data.type, data.variants.get(meta));
+			return getVariantData(data.type, data.variants.get(data.itemVariantMask.decode(meta)));
 		}
 		
 		return null;
@@ -1055,8 +1074,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	 */
 	public String getUnlocalizedName(ItemStack stack, String base)
 	{
-		int metadata = stack.getMetadata();
-		V variant = getVariant(stack.getItem(), metadata);
+		V variant = getVariant(stack.getItem(), stack.getMetadata());
 		
 		if (variant == null)
 		{

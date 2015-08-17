@@ -47,7 +47,7 @@ public class ItemPebble extends ItemGenesis
 	@Override
 	public int getMetadata(ItemStack stack)
 	{
-		return 0;
+		return super.getMetadata(stack);
 	}
 	
 	@Override
@@ -69,7 +69,7 @@ public class ItemPebble extends ItemGenesis
 		if (!player.isSneaking() && state.getBlock().getMaterial() == Material.rock && state.getBlock().getBlockHardness(world, pos) >= 1)
 		{
 			player.swingItem();
-			stack.setItemDamage(stack.getItemDamage() + 1);
+			stack.setItemDamage(stack.getItemDamage() + 10);
 			player.playSound(Constants.ASSETS_PREFIX + "crafting.rock_hit", 2, 0.9F + world.rand.nextFloat() * 0.2F);
 			
 			// If the pebble was destroyed

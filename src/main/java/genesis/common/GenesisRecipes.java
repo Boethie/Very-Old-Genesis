@@ -2,28 +2,27 @@ package genesis.common;
 
 import java.util.*;
 
-import genesis.block.tileentity.TileEntityCampfire;
-import genesis.block.tileentity.crafting.CookingPotRecipeRegistry;
+import org.apache.commons.lang3.tuple.Pair;
+
+import com.google.common.collect.*;
+
+import genesis.block.tileentity.*;
+import genesis.block.tileentity.crafting.*;
 import genesis.metadata.*;
 import genesis.metadata.ItemsCeramicBowls.EnumCeramicBowls;
 import genesis.metadata.ToolTypes.ToolType;
 import genesis.metadata.VariantsOfTypesCombo.*;
-import genesis.util.FuelHandler;
+import genesis.util.*;
+import genesis.util.render.*;
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.ShapedRecipes;
-import net.minecraft.item.crafting.ShapelessRecipes;
-import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.init.*;
+import net.minecraft.item.*;
+import net.minecraft.item.crafting.*;
+import net.minecraft.tileentity.*;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.*;
 
 public final class GenesisRecipes
 {
@@ -164,6 +163,50 @@ public final class GenesisRecipes
 
 		recipes.addAll(replacedRecipes);
 	}
+	
+	protected static ItemStack getFullBlockToolCraftingMaterial(EnumToolMaterial material)
+	{
+		switch (material)
+		{
+		case OCTAEDRITE:
+			return new ItemStack(GenesisBlocks.octaedrite);
+		case DOLERITE:
+			return new ItemStack(GenesisBlocks.dolerite);
+		case RHYOLITE:
+			return new ItemStack(GenesisBlocks.rhyolite);
+		case GRANITE:
+			return new ItemStack(GenesisBlocks.granite);
+		case QUARTZ:
+			return new ItemStack(GenesisItems.quartz);
+		case BROWN_FLINT:
+		case BLACK_FLINT:
+		}
+		
+		return null;
+	}
+	
+	protected static ISpriteUVs getToolCraftingMaterialSprite(EnumToolMaterial material)
+	{
+		switch (material)
+		{
+		case OCTAEDRITE:
+			return new BlockSpriteUVs(GenesisBlocks.octaedrite);
+		case DOLERITE:
+			return new BlockSpriteUVs(GenesisBlocks.dolerite);
+		case RHYOLITE:
+			return new BlockSpriteUVs(GenesisBlocks.rhyolite);
+		case GRANITE:
+			return new BlockSpriteUVs(GenesisBlocks.granite);
+		case QUARTZ:
+			return new SpriteUVs(new ResourceLocation(Constants.ASSETS_PREFIX + "textures/blocks/quartz_block.png"), 0, 0, 1, 1);
+		case BROWN_FLINT:
+			return new SpriteUVs(new ResourceLocation(Constants.ASSETS_PREFIX + "textures/blocks/brown_flint.png"), 0, 0, 1, 1);
+		case BLACK_FLINT:
+			return new SpriteUVs(new ResourceLocation(Constants.ASSETS_PREFIX + "textures/blocks/black_flint.png"), 0, 0, 1, 1);
+		}
+		
+		return null;
+	}
 
 	public static void addRecipes()
 	{
@@ -245,6 +288,116 @@ public final class GenesisRecipes
 		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.ORANGE), mabelia, new ItemStack(Items.dye, 1, EnumDyeColor.YELLOW.getDyeDamage()));
 		
 		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.PINK), mabelia, new ItemStack(Items.dye, 1, EnumDyeColor.WHITE.getDyeDamage()));
+		
+		// Knapping recipes
+		for (ItemStack tool : GenesisItems.tools.getSubItems(ToolItems.PEBBLE))
+		{
+			tool.setItemDamage(OreDictionary.WILDCARD_VALUE);
+			KnappingRecipeRegistry.registerKnappingTool(tool);
+		}
+		
+		Multimap<EnumToolMaterial, Pair<ItemStack, Integer>> materials = HashMultimap.create();
+		List<ToolType> validPebbles = GenesisItems.tools.getValidVariants(ToolItems.PEBBLE);
+		
+		for (EnumToolMaterial material : EnumToolMaterial.values())
+		{
+			ISpriteUVs sprite = getToolCraftingMaterialSprite(material);
+			
+			ItemStack stack;
+			
+			// Pebble
+			if (validPebbles.contains(ToolTypes.getToolHead(material, ToolItems.PEBBLE.getSoleQuality())))
+			{
+				stack = GenesisItems.tools.getStack(ToolItems.PEBBLE, material);
+				
+				if (stack != null)
+				{
+					materials.put(material, Pair.of(stack, 1));
+					KnappingRecipeRegistry.registerMaterialData(stack,
+							15, 1, 1,
+							GenesisItems.tools.getStack(ToolItems.FLAKE, material, 1),
+							sprite);
+				}
+			}
+			
+			// Nodule
+			EnumNodule nodule = EnumNodule.fromToolMaterial(material);
+			
+			if (nodule != null)
+			{
+				stack = GenesisItems.nodules.getStack(nodule);
+				
+				if (stack != null)
+				{
+					materials.put(material, Pair.of(stack, 1));
+					KnappingRecipeRegistry.registerMaterialData(stack,
+							20, 1, 1,
+							GenesisItems.tools.getStack(ToolItems.FLAKE, material, 1),
+							sprite);
+				}
+			}
+			
+			// Full block
+			stack = getFullBlockToolCraftingMaterial(material);
+			
+			if (stack != null)
+			{
+				materials.put(material, Pair.of(stack, 2));
+				KnappingRecipeRegistry.registerMaterialData(stack,
+						40, 1, 2,
+						GenesisItems.tools.getStack(ToolItems.FLAKE, material, 2),
+						sprite);
+			}
+		}
+		
+		for (EnumToolMaterial material : EnumToolMaterial.values())
+		{
+			for (Pair<ItemStack, Integer> pair : materials.get(material))
+			{
+				EnumToolQuality quality = EnumToolQuality.CHIPPED;
+				
+				// Axe
+				ItemStack toolHead = GenesisItems.tools.getStack(ToolItems.AXE_HEAD, material, quality, pair.getRight());
+				KnappingRecipeRegistry.registerRecipe(toolHead,
+						3, 3,
+						pair.getLeft(),
+						true,	false,	false,
+						true,	true,	true,
+						true,	false,	false);
+				
+				// Pickaxe
+				toolHead = GenesisItems.tools.getStack(ToolItems.PICK_HEAD, material, quality, pair.getRight());
+				KnappingRecipeRegistry.registerRecipe(toolHead,
+						3, 1,
+						pair.getLeft(),
+						true,	true,	true);
+				
+				// Hoe
+				toolHead = GenesisItems.tools.getStack(ToolItems.HOE_HEAD, material, quality, pair.getRight());
+				KnappingRecipeRegistry.registerRecipe(toolHead,
+						3, 2,
+						pair.getLeft(),
+						true,	true,	true,
+						false,	false,	true);
+				
+				// Knife
+				toolHead = GenesisItems.tools.getStack(ToolItems.KNIFE_HEAD, material, quality, pair.getRight());
+				KnappingRecipeRegistry.registerRecipe(toolHead,
+						1, 2,
+						pair.getLeft(),
+						true,
+						true);
+				
+				// Spear
+				toolHead = GenesisItems.tools.getStack(ToolItems.SPEAR_HEAD, material, quality, pair.getRight());
+				KnappingRecipeRegistry.registerRecipe(toolHead,
+						3, 3,
+						pair.getLeft(),
+						false,	true,	false,
+						true,	true,	true,
+						true,	true,	true);
+			}
+		}
 	}
 	
 	/**
