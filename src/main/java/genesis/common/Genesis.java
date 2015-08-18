@@ -41,6 +41,7 @@ public class Genesis
 		GenesisFluids.registerFluids();
 		GenesisBlocks.registerBlocks();
 		GenesisItems.registerItems();
+		GenesisEntityData.registerHandler();
 		
 		GenesisEntities.registerEntities();
 		

@@ -162,14 +162,14 @@
 			"ambient/cookingpot4"
 		]
 	},
-	"crafting.rock_hit": {
+	"crafting.pebble_hit": {
 		"category": "block",
 		"sounds": [
-			"crafting/rock_hit1",
-			"crafting/rock_hit2",
-			"crafting/rock_hit3",
-			"crafting/rock_hit4",
-			"crafting/rock_hit5"
+			"crafting/pebble_hit1",
+			"crafting/pebble_hit2",
+			"crafting/pebble_hit3",
+			"crafting/pebble_hit4",
+			"crafting/pebble_hit5"
 		]
 	},
 	"dig.mushroom": {
@@ -179,16 +179,16 @@
 			"dig/mushroom2",
 			"dig/mushroom3"
 		]
-	}
-	,"step.mushroom": {
+	},
+	"step.mushroom": {
 		"category": "block",
 		"sounds": [
 			"step/mushroom1",
 			"step/mushroom2",
 			"step/mushroom3"
 		]
-	}
-	,"place.mushroom": {
+	},
+	"place.mushroom": {
 		"category": "block",
 		"sounds": [
 			"step/mushroom1",

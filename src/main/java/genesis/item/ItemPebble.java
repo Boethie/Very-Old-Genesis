@@ -70,7 +70,7 @@ public class ItemPebble extends ItemGenesis
 		{
 			player.swingItem();
 			stack.setItemDamage(stack.getItemDamage() + 10);
-			player.playSound(Constants.ASSETS_PREFIX + "crafting.rock_hit", 2, 0.9F + world.rand.nextFloat() * 0.2F);
+			player.playSound(Constants.ASSETS_PREFIX + "crafting.pebble_hit", 2, 0.9F + world.rand.nextFloat() * 0.2F);
 			
 			// If the pebble was destroyed
 			if (stack.getItemDamage() > stack.getMaxDamage() || player.capabilities.isCreativeMode)

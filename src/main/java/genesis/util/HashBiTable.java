@@ -11,7 +11,12 @@ import com.google.common.collect.*;
 
 public class HashBiTable<R, C, V> implements BiTable<R, C, V>
 {
-	public class Key implements BiTable.Key<R, C>
+	public static <R, C, V> HashBiTable<R, C, V> create()
+	{
+		return new HashBiTable<R, C, V>();
+	}
+	
+	public static class Key<R, C> implements BiTable.Key<R, C>
 	{
 		protected final R row;
 		protected final C column;
@@ -46,7 +51,7 @@ public class HashBiTable<R, C, V> implements BiTable<R, C, V>
 			
 			if (other instanceof HashBiTable.Key)
 			{
-				Key otherKey = (Key) other;
+				Key<?, ?> otherKey = (Key<?, ?>) other;
 				
 				if (Objects.equal(getRow(), otherKey.getRow()) && Objects.equal(getColumn(), otherKey.getColumn()))
 				{
@@ -58,12 +63,12 @@ public class HashBiTable<R, C, V> implements BiTable<R, C, V>
 		}
 	}
 	
-	protected final HashBiMap<Key, V> backingMap = HashBiMap.create();
+	protected final HashBiMap<Key<R, C>, V> backingMap = HashBiMap.create();
 	protected ImmutableSet<R> rowSet;
 	protected ImmutableSet<C> columnSet;
 	protected final CellSet cellSet = new CellSet();
 	protected RowMap rowMap;
-	protected HashMap<C, Column> columnsMap = new HashMap();
+	protected Map<C, Column> columnsMap = Maps.newHashMap();
 	protected int modCount = 0;
 	
 	public HashBiTable()
@@ -93,7 +98,7 @@ public class HashBiTable<R, C, V> implements BiTable<R, C, V>
 	{
 		if (isValidKey(rowKey, columnKey))
 		{
-			return backingMap.containsKey(new Key((R) rowKey, (C) columnKey));
+			return backingMap.containsKey(new Key<Object, Object>(rowKey, columnKey));
 		}
 		
 		return false;
@@ -104,7 +109,7 @@ public class HashBiTable<R, C, V> implements BiTable<R, C, V>
 	{
 		if (isValidKey(rowKey, columnKey))
 		{
-			return backingMap.get(new Key((R) rowKey, (C) columnKey));
+			return backingMap.get(new Key<Object, Object>(rowKey, columnKey));
 		}
 		
 		return null;
@@ -122,7 +127,7 @@ public class HashBiTable<R, C, V> implements BiTable<R, C, V>
 	}
 
 	@Override
-	public Key getKey(Object value)
+	public Key<R, C> getKey(Object value)
 	{
 		return backingMap.inverse().get(value);
 	}
@@ -158,7 +163,7 @@ public class HashBiTable<R, C, V> implements BiTable<R, C, V>
 	    ImmutableSet.Builder<R> rowBuilder = ImmutableSet.builder();
 	    ImmutableSet.Builder<C> colBuilder = ImmutableSet.builder();
 		
-		for (Key key : backingMap.keySet())
+		for (Key<R, C> key : backingMap.keySet())
 		{
 			rowBuilder.add(key.getRow());
 			colBuilder.add(key.getColumn());
@@ -175,7 +180,7 @@ public class HashBiTable<R, C, V> implements BiTable<R, C, V>
 	    checkNotNull(columnKey);
 	    checkNotNull(value);
 	    
-	    V old = backingMap.put(new Key(rowKey, columnKey), value);
+	    V old = backingMap.put(new Key<R, C>(rowKey, columnKey), value);
 	    onChanged();
 		return old;
 	}
@@ -185,7 +190,7 @@ public class HashBiTable<R, C, V> implements BiTable<R, C, V>
 	{
 		if (isValidKey(rowKey, columnKey))
 		{
-			V old = backingMap.remove(new Key((R) rowKey, (C) columnKey));
+			V old = backingMap.remove(new Key<Object, Object>(rowKey, columnKey));
 		    onChanged();
 			return old;
 		}
@@ -194,9 +199,9 @@ public class HashBiTable<R, C, V> implements BiTable<R, C, V>
 	}
 	
 	@Override
-	public Key removeValue(Object value)
+	public Key<R, C> removeValue(Object value)
 	{
-		Key key = getKey(value);
+		Key<R, C> key = getKey(value);
 		if (key != null)
 			remove(key.getRow(), key.getColumn());
 		return key;
@@ -330,13 +335,13 @@ public class HashBiTable<R, C, V> implements BiTable<R, C, V>
 		
 		public class Iter extends SimpleIterator<Cell<R, C, V>>
 		{
-			protected final Iterator<Entry<Key, V>> iter = HashBiTable.this.backingMap.entrySet().iterator();
+			protected final Iterator<Entry<Key<R, C>, V>> iter = HashBiTable.this.backingMap.entrySet().iterator();
 			
 			@Override protected Cell<R, C, V> computeNext()
 			{
 				if (iter.hasNext())
 				{
-					final Entry<Key, V> entry = iter.next();
+					final Entry<Key<R, C>, V> entry = iter.next();
 					return Tables.immutableCell(entry.getKey().getRow(), entry.getKey().getColumn(), entry.getValue());
 				}
 				
@@ -555,6 +560,7 @@ public class HashBiTable<R, C, V> implements BiTable<R, C, V>
 		{
 			if (containsKey(key))
 			{
+				@SuppressWarnings("unchecked")
 				R rowKey = (R) key;
 				Row row = map.get(key);
 				if (!map.containsKey(row))
@@ -578,8 +584,9 @@ public class HashBiTable<R, C, V> implements BiTable<R, C, V>
 		@Override public Map<C, V> remove(Object key)
 		{
 			Map<C, V> row = get(key);
-			ImmutableMap<C, V> out = ImmutableMap.copyOf(row);
-			row.clear();
+			ImmutableMap<C, V> out = row == null ? null : ImmutableMap.copyOf(row);
+			if (row != null)
+				row.clear();
 			return out;
 		}
 
@@ -858,6 +865,7 @@ public class HashBiTable<R, C, V> implements BiTable<R, C, V>
 		{
 			if (containsKey(key))
 			{
+				@SuppressWarnings("unchecked")
 				C columnKey = (C) key;
 				Column row = map.get(key);
 				if (!map.containsKey(row))
@@ -880,9 +888,10 @@ public class HashBiTable<R, C, V> implements BiTable<R, C, V>
 
 		@Override public Map<R, V> remove(Object key)
 		{
-			Map<R, V> row = get(key);
-			ImmutableMap<R, V> out = ImmutableMap.copyOf(row);
-			row.clear();
+			Map<R, V> column = get(key);
+			ImmutableMap<R, V> out = column == null ? null : ImmutableMap.copyOf(column);
+			if (column != null)
+				column.clear();
 			return out;
 		}
 

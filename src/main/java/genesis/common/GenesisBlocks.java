@@ -1,5 +1,6 @@
 package genesis.common;
 
+import genesis.common.GenesisEntityData.*;
 import genesis.block.*;
 import genesis.block.tileentity.*;
 import genesis.block.tileentity.render.*;
@@ -15,6 +16,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -190,6 +192,7 @@ public final class GenesisBlocks
 		
 		Genesis.proxy.registerBlock(workbench, "workbench");
 		GameRegistry.registerTileEntity(TileEntityKnapper.class, Constants.ASSETS_PREFIX + "workbench");
+		GenesisEntityData.registerProperty(EntityPlayer.class, TileEntityKnapper.KNAPPING_TIME, 0, false);
 		
 		Genesis.proxy.registerBlock(campfire, "campfire");
 		Item.getItemFromBlock(campfire).setMaxStackSize(1);

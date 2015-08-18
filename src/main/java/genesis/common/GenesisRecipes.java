@@ -290,10 +290,19 @@ public final class GenesisRecipes
 		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.PINK), mabelia, new ItemStack(Items.dye, 1, EnumDyeColor.WHITE.getDyeDamage()));
 		
 		// Knapping recipes
-		for (ItemStack tool : GenesisItems.tools.getSubItems(ToolItems.PEBBLE))
+		for (ItemStack pebble : GenesisItems.tools.getSubItems(ToolItems.PEBBLE))
 		{
-			tool.setItemDamage(OreDictionary.WILDCARD_VALUE);
-			KnappingRecipeRegistry.registerKnappingTool(tool);
+			pebble.setItemDamage(OreDictionary.WILDCARD_VALUE);
+			KnappingRecipeRegistry.registerKnappingTool(pebble);
+			
+			for (ItemStack log : GenesisBlocks.trees.getSubItems(TreeBlocksAndItems.LOG))
+			{
+				GameRegistry.addRecipe(new ItemStack(GenesisBlocks.workbench),
+						"o",
+						"L",
+						'o', pebble,
+						'L', log);
+			}
 		}
 		
 		Multimap<EnumToolMaterial, Pair<ItemStack, Integer>> materials = HashMultimap.create();

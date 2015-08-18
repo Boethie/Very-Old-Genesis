@@ -85,7 +85,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 	}
 	
 	protected final LinkedHashMap<Pair<Item, Integer>, String> stacksToNames = new LinkedHashMap<Pair<Item, Integer>, String>();
-	protected final VanillaPotActivationHandler handler;
+	protected final VanillaPotActivationHandler handler = new VanillaPotActivationHandler();
 	
 	protected PropertyContents contentsProp;
 	
@@ -93,7 +93,6 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 	{
 		super();
 		
-		handler = new VanillaPotActivationHandler();
 		MinecraftForge.EVENT_BUS.register(handler);
 	}
 	

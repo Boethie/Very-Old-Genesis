@@ -6,9 +6,12 @@ import com.google.common.collect.ImmutableSet;
 
 import io.netty.buffer.ByteBuf;
 import genesis.common.Genesis;
+import genesis.common.GenesisEntityData;
+import genesis.common.GenesisEntityData.IntegerEntityProperty;
 import genesis.block.tileentity.crafting.*;
 import genesis.block.tileentity.crafting.KnappingRecipeRegistry.*;
 import genesis.block.tileentity.gui.ContainerKnapper.SlotKnapping;
+import genesis.util.Constants;
 import genesis.util.WorldUtils;
 import genesis.util.Constants.Unlocalized;
 import net.minecraft.entity.player.*;
@@ -141,6 +144,8 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 	public static final int SLOT_OUTPUT_WASTE = 13;
 	public static final int SLOT_COUNT = SLOTS_CRAFTING_COUNT + 5;
 	
+	public static final IntegerEntityProperty KNAPPING_TIME = new IntegerEntityProperty("knappingTime");
+	
 	protected ItemStack[] inventory = new ItemStack[SLOT_COUNT];
 	
 	protected KnappingState[] knappingStates = new KnappingState[SLOTS_CRAFTING_COUNT];
@@ -173,11 +178,22 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		{
 			if (state.isKnapping())
 			{
-				if (state.iterateProgress())
+				for (EntityPlayer player : state.getKnappingPlayers())
 				{
+					int time = GenesisEntityData.getValue(player, KNAPPING_TIME);
+					
+					if (time % 5 == 0)
+					{
+						player.playSound(Constants.ASSETS_PREFIX + "crafting.pebble_hit", 010000, 0.9F + worldObj.rand.nextFloat() * 0.2F);
+					}
+					
+					GenesisEntityData.setValue(player, KNAPPING_TIME, time + 1);
+				}
+				
+				if (state.iterateProgress())
+				{	// Has been knapped.
 					if (!worldObj.isRemote)
 					{
-						// If the section has been knapped fully...
 						// Damage the knapping tool.
 						ItemStack tool = getKnappingTool();
 						
@@ -225,8 +241,17 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 									
 									if (drop != null)
 									{
-										EntityPlayer player = state.getKnappingPlayers().iterator().next();
-										player.dropItem(drop, false, false);
+										Set<EntityPlayer> players = state.getKnappingPlayers();
+										Iterator<EntityPlayer> playerIter = players.iterator();
+										int random = worldObj.rand.nextInt(players.size());
+										EntityPlayer randomPlayer = null;
+										
+										for (int i = 0; i <= random; i++)
+										{
+											randomPlayer = playerIter.next();
+										}
+										
+										randomPlayer.dropItem(drop, false, false);
 									}
 								}
 							}
@@ -571,19 +596,23 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		}
 		else if (amtStopped == 1)
 		{
-			changed = wasKnapping;
+			changed = !wasKnapping;
 		}
 		else
 		{
 			changed = state != null;
 		}
 		
-		if (state != null && changed)
+		if (state != null)
 		{
 			state.addKnappingPlayer(player);
 		}
+		else
+		{
+			GenesisEntityData.setValue(player, KNAPPING_TIME, 0);
+		}
 		
-		if (worldObj.isRemote)
+		if (changed && worldObj.isRemote)
 		{
 			KnappingSlotMessage message = new KnappingSlotMessage(pos, index);
 			Genesis.network.sendToServer(message);
