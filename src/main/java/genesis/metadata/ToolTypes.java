@@ -23,13 +23,13 @@ public class ToolTypes
 			// ToolMaterial init
 			int usesBase = material.getUses();
 			float usesMult = quality.getUsesMult();
-
+			
 			float efficiencyBase = material.getEfficiency();
 			float efficiencyMult = quality.getEfficiencyMult();
-
+			
 			float damageBase = material.getEntityDamage();
 			float damageMult = quality.getEntityDamageMult();
-
+			
 			int enchantBase = material.getEnchantability();
 			float enchantMult = quality.getEnchantabilityMult();
 			
@@ -69,9 +69,9 @@ public class ToolTypes
 		@Override
 		public String toString()
 		{
-			return super.toString() + "[quality=" + quality + ", material=" + material + "]";
+			return (quality.toString().equals("") ? "" : "quality=" + quality + ", material=") + material;
 		}
-
+		
 		@Override
 		public int compareTo(ToolType o)
 		{

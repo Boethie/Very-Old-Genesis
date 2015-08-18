@@ -2,6 +2,7 @@ package genesis.common;
 
 import java.util.*;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.google.common.collect.*;
@@ -10,6 +11,7 @@ import genesis.block.tileentity.*;
 import genesis.block.tileentity.crafting.*;
 import genesis.metadata.*;
 import genesis.metadata.ItemsCeramicBowls.EnumCeramicBowls;
+import genesis.metadata.ToolItems.ToolObjectType;
 import genesis.metadata.ToolTypes.ToolType;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
@@ -208,6 +210,35 @@ public final class GenesisRecipes
 		return null;
 	}
 
+	protected static void addToolRecipe(ItemStack toolHead, ToolObjectType<?, ?> type, EnumToolMaterial material, Object... shape)
+	{
+		toolHead = toolHead.copy();
+		ItemStack toolChipped = GenesisItems.tools.getBadStack(type, material);
+		ItemStack toolGood = GenesisItems.tools.getGoodStack(type, material);
+		
+		for (ItemStack billet : GenesisBlocks.trees.getSubItems(TreeBlocksAndItems.BILLET))
+		{
+			Object[] paramsBase = ArrayUtils.addAll(shape,
+					'B', billet,
+					'T', toolHead);
+			Object[] paramsFiber = ArrayUtils.addAll(paramsBase,
+					'S', GenesisItems.sphenophyllum_fiber);
+			Object[] paramsString = ArrayUtils.addAll(paramsBase,
+					'S', Items.string);
+			
+			GameRegistry.addShapedRecipe(toolChipped, paramsFiber);
+			GameRegistry.addShapedRecipe(toolChipped, paramsString);
+		}
+	}
+	
+	protected static void addToolRecipe(ItemStack toolHead, ToolObjectType<?, ?> type, EnumToolMaterial material)
+	{
+		addToolRecipe(toolHead, type, material,
+				" T ",
+				"SBS",
+				" B ");
+	}
+	
 	public static void addRecipes()
 	{
 		FuelHandler.initialize();
@@ -222,74 +253,49 @@ public final class GenesisRecipes
 		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.programinis_bundle), "CCC", "CCC", "CCC", 'C', GenesisItems.programinis);
 		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.programinis, 9), GenesisBlocks.programinis_bundle);
 		
-		for (EnumDung variant : EnumDung.values())
+		// All recipes involving billets.
+		for (EnumTree variant : GenesisBlocks.trees.getSharedValidVariants(TreeBlocksAndItems.LOG, TreeBlocksAndItems.BILLET))
 		{
-			GameRegistry.addRecipe(GenesisBlocks.dungs.getStack(DungBlocksAndItems.DUNG_BLOCK, variant), "CC", "CC", 'C', GenesisBlocks.dungs.getStack(GenesisBlocks.dungs.DUNG, variant));
-		}
-		
-		for (EnumTree treeVariant : GenesisBlocks.trees.getValidVariants(TreeBlocksAndItems.BILLET))
-		{
-			for (ToolType pebbleVariant : GenesisItems.tools.getValidVariants(ToolItems.PEBBLE))
+			ItemStack logStack = GenesisBlocks.trees.getStack(TreeBlocksAndItems.LOG, variant, 1);
+			ItemStack billetStack = GenesisBlocks.trees.getStack(TreeBlocksAndItems.BILLET, variant, 4);
+			
+			if (variant == EnumTree.SIGILLARIA || variant == EnumTree.LEPIDODENDRON)
+			{
+				billetStack.stackSize = 1;
+			}
+			
+			// Logs -> billets
+			GameRegistry.addShapelessRecipe(billetStack, logStack);
+			
+			billetStack.stackSize = 1;
+			
+			// Wattle fence
+			GameRegistry.addShapedRecipe(GenesisBlocks.trees.getStack(TreeBlocksAndItems.WATTLE_FENCE, variant, 3),
+					"BBB",
+					"BBB",
+					'B', billetStack);
+			
+			// Vanilla torch
+			GameRegistry.addShapedRecipe(new ItemStack(Blocks.torch, 4),
+					"c",
+					"B",
+					'c', new ItemStack(Items.coal, 1, OreDictionary.WILDCARD_VALUE),
+					'B', billetStack);
+			
+			// Campfire
+			for (ItemStack pebble : GenesisItems.tools.getSubItems(ToolItems.PEBBLE))
 			{
 				GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.campfire),
 						"III",
 						"I I",
 						"ooo",
-						'I', GenesisBlocks.trees.getStack(TreeBlocksAndItems.BILLET, treeVariant),
-						'o', GenesisItems.tools.getStack(ToolItems.PEBBLE, pebbleVariant));
+						'I', billetStack,
+						'o', pebble);
 			}
 		}
 		
-		// Smelting
-		GameRegistry.addSmelting(GenesisBlocks.quartz_ore, new ItemStack(GenesisItems.quartz), 0.05F);
-		GameRegistry.addSmelting(GenesisBlocks.zircon_ore, new ItemStack(GenesisItems.zircon), 0.1F);
-		GameRegistry.addSmelting(GenesisBlocks.garnet_ore, new ItemStack(GenesisItems.garnet), 0.1F);
-		GameRegistry.addSmelting(GenesisBlocks.hematite_ore, new ItemStack(Items.iron_ingot), 0.05F);
-		GameRegistry.addSmelting(GenesisBlocks.manganese_ore, new ItemStack(GenesisItems.manganese), 0.05F);
-		GameRegistry.addSmelting(GenesisBlocks.malachite_ore, new ItemStack(GenesisItems.malachite), 0.2F);
-		GameRegistry.addSmelting(GenesisBlocks.olivine_ore, new ItemStack(GenesisItems.olivine), 0.3F);
-		GameRegistry.addSmelting(GenesisBlocks.marcasite_ore, GenesisItems.nodules.getStack(EnumNodule.MARCASITE), 0.05F);
-		
-		// Food
-		GameRegistry.addSmelting(GenesisItems.climatius, new ItemStack(GenesisItems.cooked_climatius), 0.35F);
-		GameRegistry.addSmelting(GenesisItems.meganeura, new ItemStack(GenesisItems.cooked_meganeura), 0.35F);
-		GameRegistry.addSmelting(GenesisItems.aphthoroblattina, new ItemStack(GenesisItems.cooked_aphthoroblattina), 0.35F);
-		GameRegistry.addSmelting(GenesisItems.eryops_leg, new ItemStack(GenesisItems.cooked_eryops_leg), 0.35F);
-		GameRegistry.addSmelting(GenesisItems.liopleurodon, new ItemStack(GenesisItems.cooked_liopleurodon), 0.35F);
-		GameRegistry.addSmelting(GenesisItems.tyrannosaurus, new ItemStack(GenesisItems.cooked_tyrannosaurus), 0.35F);
-		
-		// Pottery
-		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.red_clay), "CC", "CC", 'C', GenesisItems.red_clay_ball);
-		GameRegistry.addSmelting(GenesisBlocks.red_clay, new ItemStack(Blocks.stained_hardened_clay, 1, EnumDyeColor.WHITE.getMetadata()), 0.3F);
-		
-		GameRegistry.addRecipe(new ItemStack(GenesisItems.red_clay_bowl), "C C", " C ", 'C', GenesisItems.red_clay_ball);
-		GameRegistry.addSmelting(GenesisItems.red_clay_bowl, TileEntityCampfire.registerAllowedOutput(GenesisItems.bowls.getStack(EnumCeramicBowls.BOWL)), 0.3F);
-		
-		GameRegistry.addRecipe(new ItemStack(GenesisItems.red_clay_bucket), "X X", "X X", " X ", 'X', GenesisItems.red_clay_ball);
-		GameRegistry.addSmelting(GenesisItems.red_clay_bucket, TileEntityCampfire.registerAllowedOutput(new ItemStack(GenesisItems.ceramic_bucket)), 0.3F);
-		
-		// Cooking pot recipes
-		ItemStack calamites = new ItemStack(GenesisItems.calamites);
-		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.YELLOW), calamites, calamites);
-		
-		ItemStack mabelia = GenesisBlocks.plants.getPlantStack(EnumPlant.MABELIA);
-		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.RED), mabelia, mabelia);
-		
-		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.ORANGE), calamites, mabelia);
-		
-		ItemStack odontHead = new ItemStack(GenesisItems.odontopteris_fiddlehead);
-		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDye.get(EnumDyeColor.LIME)), odontHead, odontHead);
-		
-		ItemStack protoFlesh = new ItemStack(GenesisItems.prototaxites_flesh);
-		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDye.get(EnumDyeColor.BROWN)), protoFlesh, protoFlesh);
-		
-		// Cooking pot recipes with vanilla items
-		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.ORANGE), calamites, new ItemStack(Items.dye, 1, EnumDyeColor.RED.getDyeDamage()));
-		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.ORANGE), mabelia, new ItemStack(Items.dye, 1, EnumDyeColor.YELLOW.getDyeDamage()));
-		
-		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.PINK), mabelia, new ItemStack(Items.dye, 1, EnumDyeColor.WHITE.getDyeDamage()));
-		
-		// Knapping recipes
+		// Register knapping tools and
+		// Register workbench recipes.
 		for (ItemStack pebble : GenesisItems.tools.getSubItems(ToolItems.PEBBLE))
 		{
 			pebble.setItemDamage(OreDictionary.WILDCARD_VALUE);
@@ -305,6 +311,7 @@ public final class GenesisRecipes
 			}
 		}
 		
+		// Register knapping materials.
 		Multimap<EnumToolMaterial, Pair<ItemStack, Integer>> materials = HashMultimap.create();
 		List<ToolType> validPebbles = GenesisItems.tools.getValidVariants(ToolItems.PEBBLE);
 		
@@ -359,15 +366,31 @@ public final class GenesisRecipes
 			}
 		}
 		
+		// Add knapping recipes from map created earlier.
 		for (EnumToolMaterial material : EnumToolMaterial.values())
 		{
+			ItemStack axeHead = GenesisItems.tools.getBadStack(ToolItems.AXE_HEAD, material, 1);
+			addToolRecipe(axeHead, ToolItems.AXE, material);
+			
+			ItemStack pickHead = GenesisItems.tools.getBadStack(ToolItems.PICK_HEAD, material, 1);
+			addToolRecipe(pickHead, ToolItems.PICK, material);
+			
+			ItemStack hoeHead = GenesisItems.tools.getBadStack(ToolItems.HOE_HEAD, material, 1);
+			addToolRecipe(hoeHead, ToolItems.HOE, material);
+			
+			ItemStack knifeHead = GenesisItems.tools.getBadStack(ToolItems.KNIFE_HEAD, material, 1);
+			addToolRecipe(knifeHead, ToolItems.KNIFE, material,
+					" T",
+					"SB");
+			
+			ItemStack spearHead = GenesisItems.tools.getBadStack(ToolItems.SPEAR_HEAD, material, 1);
+			addToolRecipe(spearHead, ToolItems.SPEAR, material);
+			
 			for (Pair<ItemStack, Integer> pair : materials.get(material))
 			{
-				EnumToolQuality quality = EnumToolQuality.CHIPPED;
-				
 				// Axe
-				ItemStack toolHead = GenesisItems.tools.getStack(ToolItems.AXE_HEAD, material, quality, pair.getRight());
-				KnappingRecipeRegistry.registerRecipe(toolHead,
+				axeHead.stackSize = pair.getRight();
+				KnappingRecipeRegistry.registerRecipe(axeHead,
 						3, 3,
 						pair.getLeft(),
 						true,	false,	false,
@@ -375,31 +398,31 @@ public final class GenesisRecipes
 						true,	false,	false);
 				
 				// Pickaxe
-				toolHead = GenesisItems.tools.getStack(ToolItems.PICK_HEAD, material, quality, pair.getRight());
-				KnappingRecipeRegistry.registerRecipe(toolHead,
+				pickHead.stackSize = pair.getRight();
+				KnappingRecipeRegistry.registerRecipe(pickHead,
 						3, 1,
 						pair.getLeft(),
 						true,	true,	true);
 				
 				// Hoe
-				toolHead = GenesisItems.tools.getStack(ToolItems.HOE_HEAD, material, quality, pair.getRight());
-				KnappingRecipeRegistry.registerRecipe(toolHead,
+				hoeHead.stackSize = pair.getRight();
+				KnappingRecipeRegistry.registerRecipe(hoeHead,
 						3, 2,
 						pair.getLeft(),
 						true,	true,	true,
 						false,	false,	true);
 				
 				// Knife
-				toolHead = GenesisItems.tools.getStack(ToolItems.KNIFE_HEAD, material, quality, pair.getRight());
-				KnappingRecipeRegistry.registerRecipe(toolHead,
+				knifeHead.stackSize = pair.getRight();
+				KnappingRecipeRegistry.registerRecipe(knifeHead,
 						1, 2,
 						pair.getLeft(),
 						true,
 						true);
 				
 				// Spear
-				toolHead = GenesisItems.tools.getStack(ToolItems.SPEAR_HEAD, material, quality, pair.getRight());
-				KnappingRecipeRegistry.registerRecipe(toolHead,
+				spearHead.stackSize = pair.getRight();
+				KnappingRecipeRegistry.registerRecipe(spearHead,
 						3, 3,
 						pair.getLeft(),
 						false,	true,	false,
@@ -407,6 +430,61 @@ public final class GenesisRecipes
 						true,	true,	true);
 			}
 		}
+		
+		// Dung storage
+		for (EnumDung variant : EnumDung.values())
+		{
+			GameRegistry.addRecipe(GenesisBlocks.dungs.getStack(DungBlocksAndItems.DUNG_BLOCK, variant), "CC", "CC", 'C', GenesisBlocks.dungs.getStack(GenesisBlocks.dungs.DUNG, variant));
+		}
+		
+		// Smelting
+		GameRegistry.addSmelting(GenesisBlocks.quartz_ore, new ItemStack(GenesisItems.quartz), 0.05F);
+		GameRegistry.addSmelting(GenesisBlocks.zircon_ore, new ItemStack(GenesisItems.zircon), 0.1F);
+		GameRegistry.addSmelting(GenesisBlocks.garnet_ore, new ItemStack(GenesisItems.garnet), 0.1F);
+		GameRegistry.addSmelting(GenesisBlocks.hematite_ore, new ItemStack(Items.iron_ingot), 0.05F);
+		GameRegistry.addSmelting(GenesisBlocks.manganese_ore, new ItemStack(GenesisItems.manganese), 0.05F);
+		GameRegistry.addSmelting(GenesisBlocks.malachite_ore, new ItemStack(GenesisItems.malachite), 0.2F);
+		GameRegistry.addSmelting(GenesisBlocks.olivine_ore, new ItemStack(GenesisItems.olivine), 0.3F);
+		GameRegistry.addSmelting(GenesisBlocks.marcasite_ore, GenesisItems.nodules.getStack(EnumNodule.MARCASITE), 0.05F);
+		
+		// Food
+		GameRegistry.addSmelting(GenesisItems.climatius, new ItemStack(GenesisItems.cooked_climatius), 0.35F);
+		GameRegistry.addSmelting(GenesisItems.meganeura, new ItemStack(GenesisItems.cooked_meganeura), 0.35F);
+		GameRegistry.addSmelting(GenesisItems.aphthoroblattina, new ItemStack(GenesisItems.cooked_aphthoroblattina), 0.35F);
+		GameRegistry.addSmelting(GenesisItems.eryops_leg, new ItemStack(GenesisItems.cooked_eryops_leg), 0.35F);
+		GameRegistry.addSmelting(GenesisItems.liopleurodon, new ItemStack(GenesisItems.cooked_liopleurodon), 0.35F);
+		GameRegistry.addSmelting(GenesisItems.tyrannosaurus, new ItemStack(GenesisItems.cooked_tyrannosaurus), 0.35F);
+		
+		// Pottery
+		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.red_clay), "CC", "CC", 'C', GenesisItems.red_clay_ball);
+		GameRegistry.addSmelting(GenesisBlocks.red_clay, new ItemStack(Blocks.stained_hardened_clay, 1, EnumDyeColor.WHITE.getMetadata()), 0.3F);
+		
+		GameRegistry.addRecipe(new ItemStack(GenesisItems.red_clay_bowl), "C C", " C ", 'C', GenesisItems.red_clay_ball);
+		GameRegistry.addSmelting(GenesisItems.red_clay_bowl, TileEntityCampfire.registerAllowedOutput(GenesisItems.bowls.getStack(EnumCeramicBowls.BOWL)), 0.3F);
+		
+		GameRegistry.addRecipe(new ItemStack(GenesisItems.red_clay_bucket), "X X", "X X", " X ", 'X', GenesisItems.red_clay_ball);
+		GameRegistry.addSmelting(GenesisItems.red_clay_bucket, TileEntityCampfire.registerAllowedOutput(new ItemStack(GenesisItems.ceramic_bucket)), 0.3F);
+		
+		// Cooking pot recipes
+		ItemStack calamites = new ItemStack(GenesisItems.calamites);
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.YELLOW), calamites, calamites);
+		
+		ItemStack mabelia = GenesisBlocks.plants.getPlantStack(EnumPlant.MABELIA);
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.RED), mabelia, mabelia);
+		
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.ORANGE), calamites, mabelia);
+		
+		ItemStack odontHead = new ItemStack(GenesisItems.odontopteris_fiddlehead);
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDye.get(EnumDyeColor.LIME)), odontHead, odontHead);
+		
+		ItemStack protoFlesh = new ItemStack(GenesisItems.prototaxites_flesh);
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDye.get(EnumDyeColor.BROWN)), protoFlesh, protoFlesh);
+		
+		// Cooking pot recipes with vanilla items
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.ORANGE), calamites, new ItemStack(Items.dye, 1, EnumDyeColor.RED.getDyeDamage()));
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.ORANGE), mabelia, new ItemStack(Items.dye, 1, EnumDyeColor.YELLOW.getDyeDamage()));
+		
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.PINK), mabelia, new ItemStack(Items.dye, 1, EnumDyeColor.WHITE.getDyeDamage()));
 	}
 	
 	/**

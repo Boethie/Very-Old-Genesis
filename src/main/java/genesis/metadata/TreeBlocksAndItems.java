@@ -49,18 +49,5 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo<ObjectType, EnumTre
 		super(new ObjectType[]{LOG, SAPLING, LEAVES, BILLET, WATTLE_FENCE, ROTTEN_LOG}, EnumTree.values());
 
 		setUnlocalizedPrefix(Constants.Unlocalized.PREFIX);
-		
-		for (EnumTree variant : getSharedValidVariants(LOG, BILLET))
-		{
-			ItemStack logStack = getStack(LOG, variant, 1);
-			ItemStack billetStack = getStack(BILLET, variant, 4);
-			
-			if (variant == EnumTree.SIGILLARIA || variant == EnumTree.LEPIDODENDRON)
-			{
-				billetStack.stackSize = 1;
-			}
-			
-			GameRegistry.addShapelessRecipe(billetStack, logStack);
-		}
 	}
 }
