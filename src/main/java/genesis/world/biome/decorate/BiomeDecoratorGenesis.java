@@ -83,8 +83,8 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			hematiteGen = new WorldGenMinableGenesis(GenesisBlocks.hematite_ore, 4, 8);
 			malachiteGen = new WorldGenMinableGenesis(GenesisBlocks.malachite_ore, 2, 4);
 			olivineGen = new WorldGenMinableGenesis(GenesisBlocks.olivine_ore, 1, 4);
-			flintGen = new WorldGenMinableGenesis(GenesisBlocks.flint_ore, 4, 10, GenesisBlocks.limestone);
-			marcasiteGen = new WorldGenMinableGenesis(GenesisBlocks.marcasite_ore, 1, 3, GenesisBlocks.limestone);
+			flintGen = new WorldGenMinableGenesis(GenesisBlocks.flint_ore, 4, 8, GenesisBlocks.limestone);
+			marcasiteGen = new WorldGenMinableGenesis(GenesisBlocks.marcasite_ore, 1, 4, GenesisBlocks.limestone);
 			genDecorations(biome);
 			currentWorld = null;
 			randomGenerator = null;
@@ -195,7 +195,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
         genStandardOre1(6, manganeseGen, 64, 128);//TODO: rarely generate manganese & hematite below 64
         genStandardOre1(3, malachiteGen, 0, 32);//TODO: generate 0-4 malachite and 0-2 olivine veins
         genStandardOre1(2, olivineGen, 0, 16);
-        genStandardOre1(95, flintGen, 60, 128);
+        genStandardOre1(35, flintGen, 60, 128);
         genStandardOre1(86, marcasiteGen, 60, 128);
         MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(currentWorld, randomGenerator, field_180294_c));
 	}
