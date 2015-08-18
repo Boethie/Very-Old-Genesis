@@ -105,17 +105,12 @@ public class WorldUtils
 	}
 	
 	public static final RandomIntRange ITEM_DROP_SIZE = new RandomIntRange(10, 30);
-	public static final RandomDoubleRange ITEM_OFFSET = new RandomDoubleRange(0.1, 0.9);
 	
 	public static void spawnItemsAt(World world, double x, double y, double z, ItemStack stack)
 	{
-		Random rand = world.rand;
-		
 		if (stack != null)
 		{
-			double offX = ITEM_OFFSET.getRandom(rand);
-			double offY = ITEM_OFFSET.getRandom(rand);
-			double offZ = ITEM_OFFSET.getRandom(rand);
+			Random rand = world.rand;
 			
 			while (stack.stackSize > 0)
 			{
@@ -123,7 +118,7 @@ public class WorldUtils
 				
 				stack.stackSize -= subSize;
 				
-				EntityItem dropItem = new EntityItem(world, x + offX, y + offY, z + offZ,
+				EntityItem dropItem = new EntityItem(world, x, y, z,
 						new ItemStack(stack.getItem(), subSize, stack.getItemDamage()));
 				
 				if (stack.hasTagCompound())
@@ -146,6 +141,24 @@ public class WorldUtils
 		for (ItemStack stack : stacks)
 		{
 			spawnItemsAt(world, x, y, z, stack);
+		}
+	}
+	
+	public static final RandomDoubleRange ITEM_OFFSET = new RandomDoubleRange(0.1, 0.9);
+	
+	public static void spawnItemsAt(World world, BlockPos pos, ItemStack stack)
+	{
+		double x = pos.getX() + ITEM_OFFSET.getRandom(world.rand);
+		double y = pos.getY() + ITEM_OFFSET.getRandom(world.rand);
+		double z = pos.getZ() + ITEM_OFFSET.getRandom(world.rand);
+		spawnItemsAt(world, x, y, z, stack);
+	}
+	
+	public static void spawnItemsAt(World world, BlockPos pos, Iterable<ItemStack> stacks)
+	{
+		for (ItemStack stack : stacks)
+		{
+			spawnItemsAt(world, pos, stack);
 		}
 	}
 

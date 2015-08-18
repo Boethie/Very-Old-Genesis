@@ -31,7 +31,9 @@ public class BlockKnapper extends Block
 		super(Material.wood);
 		
 		setDefaultState(getBlockState().getBaseState());
-		setTickRandomly(true);
+		
+		setHardness(2.5F);
+		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	}
 	
@@ -69,7 +71,7 @@ public class BlockKnapper extends Block
 		
 		if (workbench != null)
 		{
-			InventoryHelper.dropInventoryItems(world, pos, workbench);
+			workbench.dropItems();
 		}
 	}
 	
