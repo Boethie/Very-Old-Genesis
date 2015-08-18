@@ -624,13 +624,11 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 	
 	public void dropItems()
 	{
+		resetKnappingState();
+		
 		for (int i = 0; i < inventory.length; i++)
 		{
-			if (i != SLOT_KNAP_MATERIAL_LOCKED && i != SLOT_OUTPUT_MAIN)
-			{
-				WorldUtils.spawnItemsAt(worldObj, pos, getStackInSlot(i));
-			}
-			
+			WorldUtils.spawnItemsAt(worldObj, pos, getStackInSlot(i));
 			setInventorySlotContents(i, null);
 		}
 	}
