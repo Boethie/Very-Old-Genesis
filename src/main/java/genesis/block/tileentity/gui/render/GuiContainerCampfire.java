@@ -61,8 +61,9 @@ public class GuiContainerCampfire extends GuiContainerBase
 							allSlots);
 		// Render cook progress bar overlay.
 		final int cookW = campfire.getCookProgressScaled(cookerW);
-		drawTexBetweenSlots(0, 0, cookW, cookerH,
+		drawTexBetweenSlots(-cookerW / 2, 0, cookW, cookerH,
 							cookerW, burnerH, cookW, cookerH,
+							false, true,
 							allSlots);
 		
 		GlStateManager.popMatrix();
