@@ -184,7 +184,7 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 					
 					if (time % 5 == 0)
 					{
-						player.playSound(Constants.ASSETS_PREFIX + "crafting.pebble_hit", 010000, 0.9F + worldObj.rand.nextFloat() * 0.2F);
+						player.playSound(Constants.ASSETS_PREFIX + "crafting.knapping_hit", 2, 0.9F + worldObj.rand.nextFloat() * 0.2F);
 					}
 					
 					GenesisEntityData.setValue(player, KNAPPING_TIME, time + 1);
@@ -200,6 +200,7 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 						if (tool != null && tool.attemptDamageItem(1, worldObj.rand))
 						{
 							setKnappingTool(null);
+							worldObj.playSoundEffect(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, Constants.ASSETS_PREFIX + "crafting.knapping_tool_break", 2, 0.8F + worldObj.rand.nextFloat() * 0.4F);
 						}
 						
 						// Add waste items to the output waste slot.

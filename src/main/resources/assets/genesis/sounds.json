@@ -172,6 +172,22 @@
 			"crafting/pebble_hit5"
 		]
 	},
+	"crafting.knapping_hit": {
+		"category": "block",
+		"sounds": [
+			"crafting/pebble_hit1",
+			"crafting/pebble_hit2",
+			"crafting/pebble_hit3",
+			"crafting/pebble_hit4",
+			"crafting/pebble_hit5"
+		]
+	},
+	"crafting.knapping_tool_break": {
+		"category": "block",
+		"sounds": [
+			"crafting/knapping_tool_break"
+		]
+	},
 	"dig.mushroom": {
 		"category": "block",
 		"sounds": [
