@@ -6,6 +6,8 @@ import genesis.common.GenesisItems;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import com.google.common.collect.Maps;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -16,11 +18,11 @@ import net.minecraftforge.fml.common.IFuelHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
-public final class FuelHandler implements IFuelHandler
+public class FuelHandler implements IFuelHandler
 {
 	protected static final FuelHandler INSTANCE = new FuelHandler();
 	
-	protected HashMap<ItemStack, Integer> FUELS = new HashMap();
+	protected HashMap<ItemStackKey, Integer> fuels = Maps.newHashMap();
 	
 	public static void initialize()
 	{
@@ -59,7 +61,7 @@ public final class FuelHandler implements IFuelHandler
 	{
 		if (fuel == null)
 		{
-			throw new IllegalArgumentException("Attempted to register a null ItemStack as a fuel.");
+			throw new NullPointerException("Attempted to register a null ItemStack as a fuel.");
 		}
 		
 		if (wildcard)
@@ -67,7 +69,7 @@ public final class FuelHandler implements IFuelHandler
 			fuel.setItemDamage(OreDictionary.WILDCARD_VALUE);
 		}
 		
-		FUELS.put(fuel, burnTime);
+		fuels.put(new ItemStackKey(fuel), burnTime);
 	}
 	
 	public int getBurnTime(Block fuel)
@@ -83,21 +85,11 @@ public final class FuelHandler implements IFuelHandler
 	@Override
 	public int getBurnTime(ItemStack fuel)
 	{
-		for (Entry<ItemStack, Integer> entry : FUELS.entrySet())
+		ItemStackKey key = new ItemStackKey(fuel);
+		
+		if (fuels.containsKey(key))
 		{
-			ItemStack registryFuel = entry.getKey();
-			
-			if (fuel != null)
-			{
-				if (registryFuel.getItem() == fuel.getItem())
-				{
-					if (registryFuel.getMetadata() == OreDictionary.WILDCARD_VALUE ||
-							registryFuel.getMetadata() == fuel.getMetadata())
-					{
-						return entry.getValue();
-					}
-				}
-			}
+			return fuels.get(key);
 		}
 		
 		return 0;

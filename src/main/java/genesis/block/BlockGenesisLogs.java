@@ -40,13 +40,13 @@ public class BlockGenesisLogs extends BlockLog implements IGenesisMushroomBase
 		return new IProperty[]{ LOG_AXIS };
 	}
 	
-	public final VariantsOfTypesCombo owner;
-	public final ObjectType<BlockGenesisLogs, ItemBlockMulti> type;
+	public final VariantsOfTypesCombo<ObjectType<? extends BlockGenesisLogs, ? extends ItemBlockMulti>, EnumTree> owner;
+	public final ObjectType<? extends BlockGenesisLogs, ? extends ItemBlockMulti> type;
 	
 	public final List<EnumTree> variants;
 	public final PropertyIMetadata<EnumTree> variantProp;
 	
-	public BlockGenesisLogs(List<EnumTree> variants, VariantsOfTypesCombo owner, ObjectType<BlockGenesisLogs, ItemBlockMulti> type)
+	public BlockGenesisLogs(List<EnumTree> variants, VariantsOfTypesCombo<ObjectType<? extends BlockGenesisLogs, ? extends ItemBlockMulti>, EnumTree> owner, ObjectType<? extends BlockGenesisLogs, ? extends ItemBlockMulti> type)
 	{
 		super();
 		
@@ -66,7 +66,7 @@ public class BlockGenesisLogs extends BlockLog implements IGenesisMushroomBase
 	}
 
 	@Override
-	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
+	public void getSubBlocks(Item item, CreativeTabs tab, List list)
 	{
 		owner.fillSubItems(type, variants, list);
 	}
@@ -99,7 +99,7 @@ public class BlockGenesisLogs extends BlockLog implements IGenesisMushroomBase
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return owner.getStack(type, (IMetadata) state.getValue(variantProp)).getItemDamage();
+		return owner.getStack(type, (EnumTree) state.getValue(variantProp)).getItemDamage();
 	}
 	
 	@Override
