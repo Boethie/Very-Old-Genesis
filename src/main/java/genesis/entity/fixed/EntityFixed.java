@@ -1,9 +1,15 @@
 package genesis.entity.fixed;
 
+import genesis.common.GenesisItems;
+import genesis.util.RandomReflection;
+import genesis.util.WorldUtils;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 
 public abstract class EntityFixed extends Entity
@@ -13,8 +19,6 @@ public abstract class EntityFixed extends Entity
 	public EntityFixed(World world)
 	{
 		super(world);
-		
-		fixedTo = new BlockPos(this);
 	}
 	
 	public EntityFixed(World world, Vec3 position)
@@ -33,6 +37,7 @@ public abstract class EntityFixed extends Entity
 	public void setPositionAndUpdate(double x, double y, double z)
 	{
 		super.setPositionAndUpdate(x, y, z);
+		// Set the fixedTo position, as this is what gets called to set the position on spawn.
 		fixedTo = new BlockPos(posX, posY, posZ);
 	}
 	
@@ -45,9 +50,58 @@ public abstract class EntityFixed extends Entity
 		
 		if (!worldObj.isRemote && !isValid())
 		{
-			System.out.println("not valid");
 			setDead();
 		}
+	}
+	
+	public abstract ItemStack getDroppedItem();
+	
+	public void dropItem()
+	{
+		WorldUtils.spawnItemsAt(worldObj, posX, posY, posZ, null, getDroppedItem());
+	}
+	
+	@Override
+	public boolean attackEntityFrom(DamageSource source, float amount)
+	{
+		if (amount > 0)
+		{
+			if (source instanceof EntityDamageSource)
+			{
+				Entity sourceEntity = ((EntityDamageSource) source).getEntity();
+				
+				if (sourceEntity instanceof EntityPlayer)
+				{
+					EntityPlayer player = (EntityPlayer) sourceEntity;
+					
+					if (worldObj.isRemote && player == Minecraft.getMinecraft().thePlayer)
+					{
+						RandomReflection.setBlockHitDelay(5);
+					}
+					
+					if (player.capabilities.isCreativeMode)
+					{	// Stop items dropping the player attacking is in creative mode.
+						isDead = true;
+					}
+				}
+			}
+			
+			setDead();
+			return true;
+		}
+		
+		return false;
+	}
+	
+	@Override
+	public void setDead()
+	{
+		if (!worldObj.isRemote && !isDead)
+		{
+			dropItem();
+		}
+		
+		super.setDead();
 	}
 	
 	/**

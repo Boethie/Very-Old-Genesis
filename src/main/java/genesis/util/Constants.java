@@ -44,6 +44,7 @@ public final class Constants
 			public static final String TOOL_QUALITY = TOOL + "quality.";
 			public static final String WEAPON = "weapon.";
 			public static final String TOOL_HEAD = MATERIAL + "toolHead.";
+			public static final String EGG = MATERIAL + "egg.";
 			
 			public static final String FOOD = "food.";
 			public static final String MISC = "misc.";
@@ -56,6 +57,7 @@ public final class Constants
 		public static final String INVALID_METADATA = PREFIX + "multiItem.invalidMetadata";
 
 		public static final String MATERIAL = PREFIX + Section.MATERIAL;
+		public static final String EGG = PREFIX + Section.EGG;
 		
 		public static final String ROCK = PREFIX + Section.ROCK;
 		public static final String ORE = PREFIX + Section.ORE;

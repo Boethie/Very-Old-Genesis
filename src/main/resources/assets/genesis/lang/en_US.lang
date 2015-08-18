@@ -332,6 +332,7 @@ item.genesis.material.arthropleuraChitin.name=Arthropleura Chitin
 item.genesis.material.liopleurodonTooth.name=Liopleurodon Tooth
 item.genesis.material.tyrannosaurusSaliva.name=Tyrannosaurus Saliva
 item.genesis.material.tyrannosaurusTooth.name=Tyrannosaurus Tooth
+item.genesis.material.egg.meganeura.name=Meganeura Egg
 
 #Containers
 item.genesis.misc.ceramicBucket.name=Ceramic Bucket

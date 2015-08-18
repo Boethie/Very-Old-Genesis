@@ -59,23 +59,6 @@ public abstract class EntityEgg extends EntityFixed
 			grow();
 		}
 	}
-
-	public void dropItem()
-	{
-		
-	}
-	
-	@Override
-	public boolean attackEntityFrom(DamageSource source, float amount)
-	{
-		if (amount > 0)
-		{
-			setDead();
-			return true;
-		}
-		
-		return false;
-	}
 	
 	@Override
 	protected void writeEntityToNBT(NBTTagCompound compound)

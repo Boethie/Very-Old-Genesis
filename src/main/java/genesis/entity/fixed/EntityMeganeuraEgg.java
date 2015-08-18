@@ -3,8 +3,10 @@ package genesis.entity.fixed;
 import org.lwjgl.opengl.GL11;
 
 import genesis.common.GenesisBlocks;
-import genesis.entity.flying.EntityMeganeura;
+import genesis.common.GenesisItems;
+import genesis.entity.living.flying.EntityMeganeura;
 import genesis.util.Constants;
+import genesis.util.RandomIntRange;
 import genesis.util.render.EntityPart;
 import genesis.util.render.RenderHelpers;
 import net.minecraft.block.Block;
@@ -18,6 +20,7 @@ import net.minecraft.client.renderer.entity.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.*;
@@ -39,7 +42,8 @@ public class EntityMeganeuraEgg extends EntityEgg
 	@Override
 	protected void setMaxAge()
 	{
-		maxAge = 1200;
+		RandomIntRange range = new RandomIntRange(1200, 1600);
+		maxAge = range.getRandom(rand);
 	}
 	
 	@Override
@@ -50,7 +54,7 @@ public class EntityMeganeuraEgg extends EntityEgg
 		meganeura.setState(EntityMeganeura.State.PLACING_EGG);
 		worldObj.spawnEntityInWorld(meganeura);
 	}
-
+	
 	@Override
 	protected boolean isValid()
 	{
@@ -58,14 +62,9 @@ public class EntityMeganeuraEgg extends EntityEgg
 	}
 	
 	@Override
-	public void setDead()
+	public ItemStack getDroppedItem()
 	{
-		if (!isDead)
-		{
-			// TODO: Drop meganeura eggs as items.
-		}
-		
-		super.setDead();
+		return new ItemStack(GenesisItems.meganeura_egg);
 	}
 	
 	@SideOnly(Side.CLIENT)

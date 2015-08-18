@@ -4,7 +4,7 @@ import java.util.*;
 
 import genesis.block.BlockGenesisPebble.PebbleBreakMessage;
 import genesis.block.tileentity.TileEntityKnapper.KnappingSlotMessage;
-import genesis.entity.flying.EntityMeganeura.MeganeuraUpdateMessage;
+import genesis.entity.living.flying.EntityMeganeura.MeganeuraUpdateMessage;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;

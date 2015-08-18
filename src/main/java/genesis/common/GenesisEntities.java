@@ -2,7 +2,7 @@ package genesis.common;
 
 import genesis.entity.*;
 import genesis.entity.fixed.EntityMeganeuraEgg;
-import genesis.entity.flying.*;
+import genesis.entity.living.flying.*;
 import genesis.util.Constants;
 import net.minecraft.entity.*;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -15,8 +15,8 @@ public class GenesisEntities
 	
 	public static void registerEntities()
 	{
-		registerEntity(EntityMeganeura.class, "Meganeura", 160, 1, true, 0, 0);
-		registerEntity(EntityMeganeuraEgg.class, "MeganeuraEgg", 160, Integer.MAX_VALUE, false);
+		registerEntity(EntityMeganeura.class, "meganeura", 160, 1, true, 0, 0);
+		registerEntity(EntityMeganeuraEgg.class, "meganeuraEgg", 160, Integer.MAX_VALUE, false);
 	}
 	
 	protected static void registerEntity(Class<? extends Entity> clazz, String name, int trackRange, int trackFrequency, boolean trackVelocity)

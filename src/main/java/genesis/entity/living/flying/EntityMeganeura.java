@@ -1,4 +1,4 @@
-package genesis.entity.flying;
+package genesis.entity.living.flying;
 
 import io.netty.buffer.ByteBuf;
 
@@ -13,7 +13,7 @@ import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
 import genesis.entity.fixed.EntityMeganeuraEgg;
-import static genesis.entity.flying.EntityMeganeura.State.*;
+import static genesis.entity.living.flying.EntityMeganeura.State.*;
 import genesis.util.*;
 import genesis.util.render.*;
 import net.minecraft.block.state.IBlockState;

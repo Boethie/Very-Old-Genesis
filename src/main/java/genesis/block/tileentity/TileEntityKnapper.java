@@ -628,7 +628,7 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		
 		for (int i = 0; i < inventory.length; i++)
 		{
-			WorldUtils.spawnItemsAt(worldObj, pos, getStackInSlot(i));
+			WorldUtils.spawnItemsAt(worldObj, pos, WorldUtils.DropType.CONTAINER, getStackInSlot(i));
 			setInventorySlotContents(i, null);
 		}
 	}

@@ -1,5 +1,6 @@
 package genesis.common;
 
+import genesis.entity.fixed.EntityMeganeuraEgg;
 import genesis.item.*;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
@@ -41,6 +42,10 @@ public final class GenesisItems
 	public static final Item liopleurodon_tooth = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "liopleurodonTooth");
 	public static final Item tyrannosaurus_saliva = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "tyrannosaurusSaliva");
 	public static final Item tyrannosaurus_tooth = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "tyrannosaurusTooth");
+	
+	/* Eggs */
+	public static final ItemGenesisEgg<EntityMeganeuraEgg> meganeura_egg = new ItemGenesisEgg<EntityMeganeuraEgg>(EntityMeganeuraEgg.class)
+			.setUnlocalizedName(Unlocalized.EGG + "meganeura");
 	
 	/* Food */
 	public static final ItemGenesisSeedFood zingiberopsis_rhizome = (ItemGenesisSeedFood) new ItemGenesisSeedFood(2, 1.2F).setUnlocalizedName(Unlocalized.FOOD + "zingiberopsisRhizome");
@@ -104,6 +109,7 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(liopleurodon_tooth, "liopleurodon_tooth");
 		Genesis.proxy.registerItem(tyrannosaurus_saliva, "tyrannosaurus_saliva");
 		Genesis.proxy.registerItem(tyrannosaurus_tooth, "tyrannosaurus_tooth");
+		Genesis.proxy.registerItem(meganeura_egg, "meganeura_egg");
 		
 		Genesis.proxy.registerItem(zingiberopsis_rhizome, "zingiberopsis_rhizome");
 		Genesis.proxy.registerItem(odontopteris_seeds, "odontopteris_seeds");

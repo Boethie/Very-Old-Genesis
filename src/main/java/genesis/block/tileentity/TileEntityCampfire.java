@@ -311,7 +311,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 					}
 					else
 					{
-						WorldUtils.spawnItemsAt(worldObj, pos.getX() + 0.5, pos.getY() + 0.25, pos.getZ() + 0.5, container);
+						WorldUtils.spawnItemsAt(worldObj, pos, WorldUtils.DropType.CONTAINER, container);
 					}
 					
 					updateBurningValue();

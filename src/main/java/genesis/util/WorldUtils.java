@@ -1,8 +1,11 @@
 package genesis.util;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+
+import com.google.common.collect.ImmutableList;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -13,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -104,13 +108,40 @@ public class WorldUtils
 		return blocks;
 	}
 	
+	public static enum DropType
+	{
+		BLOCK(new RandomDoubleRange(-0.25, 0.25), 0, 0, true),
+		CONTAINER(new RandomDoubleRange(-0.4, 0.4), 0.05, 0.2, false);
+		
+		public final RandomDoubleRange offsetRange;
+		public final double randomSpeed;
+		public final double upwardSpeed;
+		public final boolean delayPickup;
+		
+		DropType(RandomDoubleRange offsetRange, double randomSpeed, double upwardSpeed, boolean delayPickup)
+		{
+			this.offsetRange = offsetRange;
+			this.randomSpeed = randomSpeed;
+			this.upwardSpeed = upwardSpeed;
+			this.delayPickup = delayPickup;
+		}
+	}
+	
 	public static final RandomIntRange ITEM_DROP_SIZE = new RandomIntRange(10, 30);
 	
-	public static void spawnItemsAt(World world, double x, double y, double z, ItemStack stack)
+	public static List<EntityItem> spawnItemsAt(World world, double x, double y, double z, DropType dropType, ItemStack stack)
 	{
 		if (stack != null)
 		{
 			Random rand = world.rand;
+			ImmutableList.Builder<EntityItem> builder = ImmutableList.builder();
+			
+			if (dropType != null && dropType.offsetRange != null)
+			{
+				x += dropType.offsetRange.getRandom(world.rand);
+				y += dropType.offsetRange.getRandom(world.rand);
+				z += dropType.offsetRange.getRandom(world.rand);
+			}
 			
 			while (stack.stackSize > 0)
 			{
@@ -126,43 +157,41 @@ public class WorldUtils
 					dropItem.getEntityItem().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());
 				}
 				
-				float speed = 0.05F;
-				dropItem.motionX = rand.nextGaussian() * speed;
-				dropItem.motionY = rand.nextGaussian() * speed + 0.2;
-				dropItem.motionZ = rand.nextGaussian() * speed;
+				if (dropType != null && (dropType.randomSpeed != 0 || dropType.upwardSpeed != 0))
+				{
+					dropItem.motionX = rand.nextGaussian() * dropType.randomSpeed;
+					dropItem.motionY = rand.nextGaussian() * dropType.randomSpeed + dropType.upwardSpeed;
+					dropItem.motionZ = rand.nextGaussian() * dropType.randomSpeed;
+				}
+				
+				if (dropType == null || dropType.delayPickup)
+				{
+					dropItem.setDefaultPickupDelay();
+				}
 				
 				world.spawnEntityInWorld(dropItem);
+				builder.add(dropItem);
 			}
+			
+			return builder.build();
 		}
+		
+		return Collections.emptyList();
 	}
 	
-	public static void spawnItemsAt(World world, double x, double y, double z, Iterable<ItemStack> stacks)
+	public static List<EntityItem> spawnItemsAt(World world, Vec3 pos, DropType dropType, ItemStack stack)
 	{
-		for (ItemStack stack : stacks)
-		{
-			spawnItemsAt(world, x, y, z, stack);
-		}
+		return spawnItemsAt(world, pos.xCoord, pos.yCoord, pos.zCoord, dropType, stack);
 	}
 	
-	public static final RandomDoubleRange ITEM_OFFSET = new RandomDoubleRange(0.1, 0.9);
+	public static final RandomDoubleRange ITEM_OFFSET = new RandomDoubleRange(-0.4, 0.4);
 	
-	public static void spawnItemsAt(World world, BlockPos pos, ItemStack stack)
+	public static List<EntityItem> spawnItemsAt(World world, BlockPos pos, DropType dropType, ItemStack stack)
 	{
-		double x = pos.getX() + ITEM_OFFSET.getRandom(world.rand);
-		double y = pos.getY() + ITEM_OFFSET.getRandom(world.rand);
-		double z = pos.getZ() + ITEM_OFFSET.getRandom(world.rand);
-		spawnItemsAt(world, x, y, z, stack);
-	}
-	
-	public static void spawnItemsAt(World world, BlockPos pos, Iterable<ItemStack> stacks)
-	{
-		for (ItemStack stack : stacks)
-		{
-			spawnItemsAt(world, pos, stack);
-		}
+		return spawnItemsAt(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, dropType, stack);
 	}
 
-	public static void setProperty(World world, BlockPos pos, IProperty property, Comparable value)
+	public static void setProperty(World world, BlockPos pos, IProperty property, Comparable<?> value)
 	{
 		world.setBlockState(pos, world.getBlockState(pos).withProperty(property, value));
 	}

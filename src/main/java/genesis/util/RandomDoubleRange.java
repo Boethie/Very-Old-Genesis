@@ -6,8 +6,8 @@ import net.minecraft.util.MathHelper;
 
 public class RandomDoubleRange
 {
-	public double min;
-	public double max;
+	public final double min;
+	public final double max;
 	
 	public RandomDoubleRange(double minIn, double maxIn)
 	{
@@ -15,6 +15,11 @@ public class RandomDoubleRange
 		max = maxIn;
 	}
 	
+	public RandomDoubleRange(double value)
+	{
+		this(value, value);
+	}
+
 	public double getRandom(Random rand)
 	{
 		return MathHelper.getRandomDoubleInRange(rand, min, max);
