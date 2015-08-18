@@ -27,7 +27,7 @@ public class BiomeGenArchaeopterisPlains extends BiomeGenBaseGenesis
 		theBiomeDecorator.grassPerChunk = 3;
 		
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(3).setCountPerChunk(2));
-		addDecoration(new WorldGenPlant(EnumPlant.PSILOPHYTON).setPatchSize(3).setCountPerChunk(1));
+		addDecoration(new WorldGenPlant(EnumPlant.PSILOPHYTON).setPatchSize(8).setCountPerChunk(8));
 		addDecoration(new WorldGenPlant(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.ASTEROXYLON).setCountPerChunk(2));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
