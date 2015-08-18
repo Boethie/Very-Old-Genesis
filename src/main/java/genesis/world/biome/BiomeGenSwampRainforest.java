@@ -1,6 +1,7 @@
 package genesis.world.biome;
 
 import genesis.common.GenesisBlocks;
+import genesis.entity.living.flying.EntityMeganeura;
 import genesis.metadata.EnumTree;
 import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
@@ -19,10 +20,12 @@ import java.util.Random;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis
 {
+	@SuppressWarnings("unchecked")
 	public BiomeGenSwampRainforest(int id)
 	{
 		super(id);
@@ -33,6 +36,8 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis
 		theBiomeDecorator.grassPerChunk = 5;
 		waterColorMultiplier = 0x725113;
 		setColor(522674);
+		
+		spawnableCreatureList.add(new BiomeGenBase.SpawnListEntry(EntityMeganeura.class, 8, 4, 8));
 		
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchSize(3).setCountPerChunk(3));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(3).setCountPerChunk(3));
