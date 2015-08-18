@@ -2,6 +2,9 @@ package genesis.block;
 
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
 import genesis.client.GenesisSounds;
+import genesis.common.GenesisBlocks;
+import genesis.metadata.EnumSilt;
+import genesis.metadata.SiltBlocks;
 import genesis.util.WorldUtils;
 
 import java.util.ArrayList;
@@ -73,6 +76,13 @@ public class BlockCalamites extends BlockGrowingPlant implements IGrowingPlantCu
 		if (blockUnder == plant)
 		{
 			return CanStayOptions.YIELD;
+		}
+		else if (
+				blockUnder == Blocks.sand
+				|| blockUnder == GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT)
+				|| blockUnder == GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.RED_SILT))
+		{
+			return CanStayOptions.YES;
 		}
 		else if (WorldUtils.waterInRange(worldIn, under, 2, 1))
 		{

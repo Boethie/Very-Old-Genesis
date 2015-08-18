@@ -2,16 +2,17 @@ package genesis.block;
 
 import genesis.client.GenesisSounds;
 import genesis.item.ItemBlockMulti;
-import genesis.metadata.*;
-import genesis.metadata.VariantsOfTypesCombo.*;
+import genesis.metadata.EnumFern;
+import genesis.metadata.IMetadata;
+import genesis.metadata.VariantsOfTypesCombo;
+import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

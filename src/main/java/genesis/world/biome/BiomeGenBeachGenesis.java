@@ -1,7 +1,8 @@
 package genesis.world.biome;
 
-import genesis.block.BlockMoss;
 import genesis.common.GenesisBlocks;
+import genesis.metadata.EnumSilt;
+import genesis.metadata.SiltBlocks;
 import genesis.world.biome.decorate.WorldGenPebbles;
 
 public class BiomeGenBeachGenesis extends BiomeGenBaseGenesis
@@ -10,7 +11,7 @@ public class BiomeGenBeachGenesis extends BiomeGenBaseGenesis
 	{
 		super(id);
 		setBiomeName("Beach");
-		fillerBlock = GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.STAGE, BlockMoss.STAGE_LAST);
+		topBlock = GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT).getDefaultState();
 		setHeight(0.05F, 0.1F);
 		setHeight(height_Shores);
 		

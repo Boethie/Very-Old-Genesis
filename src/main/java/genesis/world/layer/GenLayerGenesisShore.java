@@ -59,7 +59,7 @@ public class GenLayerGenesisShore extends GenLayerGenesis
                         }
                         else
                         {
-                            aint1[j1 + i1 * areaWidth] = GenesisBiomes.shallowOcean.biomeID;
+                            aint1[j1 + i1 * areaWidth] = GenesisBiomes.genesisBeach.biomeID;
                         }
                     }
                     else

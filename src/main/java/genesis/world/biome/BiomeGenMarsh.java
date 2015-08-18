@@ -5,10 +5,8 @@ import genesis.metadata.EnumPlant;
 import genesis.metadata.PlantBlocks;
 import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrassMulti;
-import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPlant;
-import genesis.world.biome.decorate.WorldGenPrototaxites;
 import genesis.world.biome.decorate.WorldGenUnderWaterPatch;
 
 import java.util.Random;

@@ -3,7 +3,9 @@ package genesis.world.biome.decorate;
 import genesis.block.BlockGenesisPebble;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
+import genesis.metadata.EnumSilt;
 import genesis.metadata.EnumToolMaterial;
+import genesis.metadata.SiltBlocks;
 import genesis.metadata.ToolItems;
 
 import java.util.ArrayList;
@@ -43,7 +45,8 @@ public class WorldGenPebbles extends WorldGenDecorationBase
 		if (
 				!(block == GenesisBlocks.moss 
 				|| block == Blocks.dirt
-				|| block == GenesisBlocks.limestone))
+				|| block == GenesisBlocks.limestone
+				|| block == GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT)))
 			return false;
 		
 		if (!world.getBlockState(pos.up()).getBlock().isAir(world, pos))

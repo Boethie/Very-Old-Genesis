@@ -7,6 +7,7 @@ import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenMossStages;
+import genesis.world.biome.decorate.WorldGenPlant;
 import genesis.world.gen.feature.WorldGenRottenLog;
 import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
 
@@ -27,6 +28,7 @@ public class BiomeGenArchaeopterisForest extends BiomeGenBaseGenesis
 		theBiomeDecorator.grassPerChunk = 1;
 		
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(3).setCountPerChunk(3));
+		addDecoration(new WorldGenPlant(EnumPlant.PSILOPHYTON).setPatchSize(4).setCountPerChunk(3));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
 		addTree(new WorldGenTreeArchaeopteris(15, 20, true).setTreeCountPerChunk(10));
@@ -36,7 +38,7 @@ public class BiomeGenArchaeopterisForest extends BiomeGenBaseGenesis
 	@Override
 	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
 	{
-		return new WorldGenGrassMulti(GenesisBlocks.plants.getPlantBlockState(EnumPlant.PSILOPHYTON)).setVolume(64);
+		return new WorldGenGrassMulti(GenesisBlocks.plants.getPlantBlockState(EnumPlant.ASTEROXYLON)).setVolume(64);
 	}
 	
 	@Override

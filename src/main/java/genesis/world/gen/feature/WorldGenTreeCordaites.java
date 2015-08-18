@@ -62,40 +62,45 @@ public class WorldGenTreeCordaites extends WorldGenTreeBase
 		
 		leavesLevel += rand.nextInt(3);
 		
-		branchPos = pos.up(treeHeight - 1);
+		branchPos = pos.up(treeHeight - 3);
 		int distFromTop = branchPos.getY() - leavesLevel;
 		int maxBranchLength = 3;
 		
-		if (rand.nextInt(100) > 10)
-			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 1, 0, 1 + rand.nextInt(maxBranchLength), 2);
-		if (rand.nextInt(100) > 10)
-			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, -1, 0, 1 + rand.nextInt(maxBranchLength), 2);
-		if (rand.nextInt(100) > 10)
-			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 0, 1, 1 + rand.nextInt(maxBranchLength), 2);
-		if (rand.nextInt(100) > 10)
-			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 0, -1, 1 + rand.nextInt(maxBranchLength), 2);
+		if (distFromTop > 0)
+		{
+			if (rand.nextInt(100) > 10)
+				generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 1, 0, 1 + rand.nextInt(maxBranchLength), 2);
+			if (rand.nextInt(100) > 10)
+				generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, -1, 0, 1 + rand.nextInt(maxBranchLength), 2);
+			if (rand.nextInt(100) > 10)
+				generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 0, 1, 1 + rand.nextInt(maxBranchLength), 2);
+			if (rand.nextInt(100) > 10)
+				generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 0, -1, 1 + rand.nextInt(maxBranchLength), 2);
+			
+			distFromTop++;
+			
+			if (rand.nextInt(100) > 10)
+				generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 1, 0, 1 + rand.nextInt(maxBranchLength - 1), 2);
+			if (rand.nextInt(100) > 10)
+				generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, -1, 0, 1 + rand.nextInt(maxBranchLength - 1), 2);
+			if (rand.nextInt(100) > 10)
+				generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 0, 1, 1 + rand.nextInt(maxBranchLength - 1), 2);
+			if (rand.nextInt(100) > 10)
+				generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 0, -1, 1 + rand.nextInt(maxBranchLength - 1), 2);
+			
+			distFromTop += 2;
+			
+			if (rand.nextInt(100) > 50)
+				generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 1, 0, 1 + rand.nextInt(maxBranchLength - 2), 2);
+			if (rand.nextInt(100) > 50)
+				generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, -1, 0, 1 + rand.nextInt(maxBranchLength - 2), 2);
+			if (rand.nextInt(100) > 50)
+				generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 0, 1, 1 + rand.nextInt(maxBranchLength - 2), 2);
+			if (rand.nextInt(100) > 50)
+				generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 0, -1, 1 + rand.nextInt(maxBranchLength - 2), 2);
+		}
 		
-		distFromTop++;
-		
-		if (rand.nextInt(100) > 10)
-			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 1, 0, 1 + rand.nextInt(maxBranchLength - 1), 2);
-		if (rand.nextInt(100) > 10)
-			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, -1, 0, 1 + rand.nextInt(maxBranchLength - 1), 2);
-		if (rand.nextInt(100) > 10)
-			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 0, 1, 1 + rand.nextInt(maxBranchLength - 1), 2);
-		if (rand.nextInt(100) > 10)
-			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 0, -1, 1 + rand.nextInt(maxBranchLength - 1), 2);
-		
-		distFromTop += 2;
-		
-		if (rand.nextInt(100) > 50)
-			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 1, 0, 1 + rand.nextInt(maxBranchLength - 2), 2);
-		if (rand.nextInt(100) > 50)
-			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, -1, 0, 1 + rand.nextInt(maxBranchLength - 2), 2);
-		if (rand.nextInt(100) > 50)
-			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 0, 1, 1 + rand.nextInt(maxBranchLength - 2), 2);
-		if (rand.nextInt(100) > 50)
-			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 0, -1, 1 + rand.nextInt(maxBranchLength - 2), 2);
+		branchPos = branchPos.up(2);
 		
 		doPineTopLeaves(world, pos, branchPos, treeHeight, leavesLevel, rand, false, 3);
 		branchPos = new BlockPos(pos.getX(), leavesLevel, pos.getZ());

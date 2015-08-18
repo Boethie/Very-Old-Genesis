@@ -2,10 +2,12 @@ package genesis.world.biome;
 
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumPlant;
+import genesis.metadata.PlantBlocks;
 import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenMossStages;
+import genesis.world.biome.decorate.WorldGenPlant;
 import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
 
 import java.util.Random;
@@ -25,15 +27,17 @@ public class BiomeGenArchaeopterisPlains extends BiomeGenBaseGenesis
 		theBiomeDecorator.grassPerChunk = 3;
 		
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(3).setCountPerChunk(2));
+		addDecoration(new WorldGenPlant(EnumPlant.PSILOPHYTON).setPatchSize(3).setCountPerChunk(1));
+		addDecoration(new WorldGenPlant(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.ASTEROXYLON).setCountPerChunk(2));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
-		addTree(new WorldGenTreeArchaeopteris(15, 25, true).setRarity(4).setTreeCountPerChunk(1));
+		addTree(new WorldGenTreeArchaeopteris(15, 25, true).setRarity(5).setTreeCountPerChunk(1));
 	}
 	
 	@Override
 	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
 	{
-		return new WorldGenGrassMulti(GenesisBlocks.plants.getPlantBlockState(EnumPlant.PSILOPHYTON)).setVolume(16);
+		return new WorldGenGrassMulti(GenesisBlocks.plants.getPlantBlockState(EnumPlant.ASTEROXYLON)).setVolume(64);
 	}
 	
 	@Override
