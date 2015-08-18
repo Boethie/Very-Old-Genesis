@@ -253,6 +253,12 @@ public final class GenesisRecipes
 		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.programinis_bundle), "CCC", "CCC", "CCC", 'C', GenesisItems.programinis);
 		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.programinis, 9), GenesisBlocks.programinis_bundle);
 		
+		// All recipes with only logs, and one constant output.
+		for (Item log : GenesisBlocks.trees.getItems(TreeBlocksAndItems.LOG))
+		{
+			GameRegistry.addSmelting(new ItemStack(log, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.coal, 1, 1), 0.15F);
+		}
+		
 		// All recipes involving billets.
 		for (EnumTree variant : GenesisBlocks.trees.getSharedValidVariants(TreeBlocksAndItems.LOG, TreeBlocksAndItems.BILLET))
 		{
@@ -284,7 +290,7 @@ public final class GenesisRecipes
 			
 			// Campfire
 			for (ItemStack pebble : GenesisItems.tools.getSubItems(ToolItems.PEBBLE))
-			{
+			{	// TODO: Add variants for pebbles and billets.
 				GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.campfire),
 						"III",
 						"I I",

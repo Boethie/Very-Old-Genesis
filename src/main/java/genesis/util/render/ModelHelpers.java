@@ -296,19 +296,24 @@ public class ModelHelpers
 	{
 		if (stack != null)
 		{
-			String id = ModelHelpers.getLocationFromStack(stack).toString();
-			id = id.substring(0, id.lastIndexOf("#"));
+			String stackModel = ModelHelpers.getLocationFromStack(stack).toString();
+			stackModel = stackModel.substring(0, stackModel.lastIndexOf("#"));
 			
-			if (set.contains(id))
+			if (set.contains(stackModel))
 			{
-				return id;
+				return stackModel;
 			}
 			
-			id = ((ResourceLocation) Item.itemRegistry.getNameForObject(stack.getItem())).toString();
+			String regID = ((ResourceLocation) Item.itemRegistry.getNameForObject(stack.getItem())).toString();
+			String regStackID = regID + "@" + stack.getMetadata();
 			
-			if (set.contains(id))
+			if (set.contains(regStackID))
 			{
-				return id;
+				return regStackID;
+			}
+			else if (set.contains(regID))
+			{
+				return regID;
 			}
 			
 			for (String fallback : fallbacks)
