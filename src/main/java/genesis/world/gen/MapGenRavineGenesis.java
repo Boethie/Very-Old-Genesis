@@ -1,28 +1,20 @@
 package genesis.world.gen;
 
 import genesis.block.BlockMoss;
+import genesis.common.GenesisBiomes;
 import genesis.common.GenesisBlocks;
-
-import java.util.Random;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.MathHelper;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.MapGenRavine;
 
 public class MapGenRavineGenesis extends MapGenRavine
 {
-    //Exception biomes to make sure we generate like vanilla
-    private boolean isExceptionBiome(BiomeGenBase biome)//TODO
+    private boolean isExceptionBiome(BiomeGenBase biome)
     {
-        if (biome == BiomeGenBase.beach) return true;
-        if (biome == BiomeGenBase.desert) return true;
-        if (biome == BiomeGenBase.mushroomIsland) return true;
-        if (biome == BiomeGenBase.mushroomIslandShore) return true;
+        if (biome == GenesisBiomes.genesisBeach) return true;
         return false;
     }
     

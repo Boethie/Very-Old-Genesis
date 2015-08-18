@@ -28,7 +28,7 @@ public class BiomeGenArchaeopterisForest extends BiomeGenBaseGenesis
 		theBiomeDecorator.grassPerChunk = 1;
 		
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(3).setCountPerChunk(3));
-		addDecoration(new WorldGenPlant(EnumPlant.PSILOPHYTON).setPatchSize(4).setCountPerChunk(3));
+		addDecoration(new WorldGenPlant(EnumPlant.PSILOPHYTON).setPatchSize(8).setCountPerChunk(6));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
 		addTree(new WorldGenTreeArchaeopteris(15, 20, true).setTreeCountPerChunk(10));
@@ -38,7 +38,7 @@ public class BiomeGenArchaeopterisForest extends BiomeGenBaseGenesis
 	@Override
 	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
 	{
-		return new WorldGenGrassMulti(GenesisBlocks.plants.getPlantBlockState(EnumPlant.ASTEROXYLON)).setVolume(64);
+		return new WorldGenGrassMulti(GenesisBlocks.plants.getPlantBlockState(EnumPlant.ASTEROXYLON)).setVolume(128);
 	}
 	
 	@Override
