@@ -13,6 +13,7 @@ import genesis.common.GenesisBlocks;
 import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
 import genesis.util.gui.RestrictedDisabledSlot.IInventoryDisabledSlots;
+import genesis.util.range.FloatRange;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.*;
@@ -410,15 +411,15 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 				}
 				else
 				{
-					RandomFloatRange volumeRange = new RandomFloatRange(1, 2);
-					RandomFloatRange pitchRange = new RandomFloatRange(0.3F, 0.7F);
+					FloatRange volumeRange = FloatRange.create(1, 2);
+					FloatRange pitchRange = FloatRange.create(0.3F, 0.7F);
 					worldObj.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, "fire.fire",
-							volumeRange.getRandom(worldObj.rand), pitchRange.getRandom(worldObj.rand), false);
+							volumeRange.get(worldObj.rand), pitchRange.get(worldObj.rand), false);
 					
 					if (hasCookingPot() && canSmelt())
 					{
 						worldObj.playSound(pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, Constants.ASSETS_PREFIX + "ambient.cookingpot",
-								volumeRange.getRandom(worldObj.rand), pitchRange.getRandom(worldObj.rand), false);
+								volumeRange.get(worldObj.rand), pitchRange.get(worldObj.rand), false);
 					}
 					
 					fireSoundCounter = fireSoundTime;

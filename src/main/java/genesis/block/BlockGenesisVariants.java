@@ -8,6 +8,7 @@ import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
+import genesis.util.range.RandomVariantDrop;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.*;
@@ -29,8 +30,8 @@ public class BlockGenesisVariants<V extends IMetadata> extends Block
 		return new IProperty[]{};
 	}
 	
-	public final VariantsOfTypesCombo<ObjectType<BlockGenesisVariants, ? extends Item>, V> owner;
-	public final ObjectType<BlockGenesisVariants, ? extends Item> type;
+	public final VariantsOfTypesCombo<ObjectType<? extends BlockGenesisVariants, ? extends Item>, V> owner;
+	public final ObjectType<? extends BlockGenesisVariants, ? extends Item> type;
 	
 	public final List<V> variants;
 	public final PropertyIMetadata<V> variantProp;
@@ -39,7 +40,7 @@ public class BlockGenesisVariants<V extends IMetadata> extends Block
 	
 	protected final List<RandomVariantDrop> drops = new ArrayList<RandomVariantDrop>();
 	
-	public BlockGenesisVariants(List<V> variants, VariantsOfTypesCombo<ObjectType<BlockGenesisVariants, ? extends Item>, V> owner, ObjectType<BlockGenesisVariants, ? extends Item> type, Material material)
+	public BlockGenesisVariants(List<V> variants, VariantsOfTypesCombo<ObjectType<? extends BlockGenesisVariants, ? extends Item>, V> owner, ObjectType<? extends BlockGenesisVariants, ? extends Item> type, Material material)
 	{
 		super(material);
 		

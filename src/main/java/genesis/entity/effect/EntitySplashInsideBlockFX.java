@@ -1,6 +1,7 @@
 package genesis.entity.effect;
 
 import genesis.util.*;
+import genesis.util.range.DoubleRange;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.WorldRenderer;
@@ -9,6 +10,9 @@ import net.minecraft.world.World;
 
 public class EntitySplashInsideBlockFX extends EntityFX
 {
+	protected static final DoubleRange RANGE_XZ = DoubleRange.create(-0.06, 0.06);
+	protected static final DoubleRange RANGE_Y = DoubleRange.create(0.1, 0.3);
+	
 	public static class Factory implements IParticleFactory
 	{
 		@Override
@@ -27,9 +31,6 @@ public class EntitySplashInsideBlockFX extends EntityFX
 		setParticleTextureIndex(19 + rand.nextInt(4));
 		
 		particleGravity = 1.5F;
-
-		RandomDoubleRange rangeXZ = new RandomDoubleRange(-0.06, 0.06);
-		RandomDoubleRange rangeY = new RandomDoubleRange(0.1, 0.3);
 		
 		// Keep EntityFX's random velocity if no velocity is specified.
 		if (xVel != 0 || yVel != 0 || zVel != 0)
@@ -40,9 +41,9 @@ public class EntitySplashInsideBlockFX extends EntityFX
 		}
 		else
 		{
-			motionX = rangeXZ.getRandom(rand);
-			motionY = rangeY.getRandom(rand);
-			motionZ = rangeXZ.getRandom(rand);
+			motionX = RANGE_XZ.get(rand);
+			motionY = RANGE_Y.get(rand);
+			motionZ = RANGE_XZ.get(rand);
 		}
 	}
 	

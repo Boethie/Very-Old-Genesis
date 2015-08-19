@@ -2,6 +2,7 @@ package genesis.block.tileentity.crafting;
 
 import genesis.block.tileentity.TileEntityKnapper.*;
 import genesis.util.*;
+import genesis.util.range.IntRange;
 import genesis.util.render.ISpriteUVs;
 
 import java.util.*;
@@ -156,12 +157,12 @@ public class KnappingRecipeRegistry
 		public static class Impl implements IMaterialData
 		{
 			protected final int destroyTime;
-			protected final RandomIntRange countUsed;
-			protected final RandomIntRange toolDamage;
+			protected final IntRange countUsed;
+			protected final IntRange toolDamage;
 			protected final ItemStack waste;
 			protected final ISpriteUVs texture;
 			
-			public Impl(int destroyTime, RandomIntRange countUsed, RandomIntRange toolDamage, ItemStack waste, ISpriteUVs texture)
+			public Impl(int destroyTime, IntRange countUsed, IntRange toolDamage, ItemStack waste, ISpriteUVs texture)
 			{
 				if (countUsed == null)
 					throw new IllegalArgumentException("RandomIntRange countUsed cannot be null.");
@@ -179,7 +180,7 @@ public class KnappingRecipeRegistry
 			
 			public Impl(int destroyTime, int countUsed, int toolDamage, ItemStack waste, ISpriteUVs texture)
 			{
-				this(destroyTime, new RandomIntRange(1), new RandomIntRange(1), waste, texture);
+				this(destroyTime, IntRange.create(1), IntRange.create(1), waste, texture);
 			}
 			
 			@Override
@@ -191,13 +192,13 @@ public class KnappingRecipeRegistry
 			@Override
 			public int getCountUsed(Random rand)
 			{
-				return countUsed.getRandom(rand);
+				return countUsed.get(rand);
 			}
 
 			@Override
 			public int getToolDamage(Random rand)
 			{
-				return toolDamage.getRandom(rand);
+				return toolDamage.get(rand);
 			}
 
 			@Override
@@ -255,7 +256,7 @@ public class KnappingRecipeRegistry
 		materialData.put(new ItemStackKey(material), data);
 	}
 	
-	public static void registerMaterialData(ItemStack material, int destroyTime, RandomIntRange countUsed, RandomIntRange toolDamage, ItemStack waste, ISpriteUVs texture)
+	public static void registerMaterialData(ItemStack material, int destroyTime, IntRange countUsed, IntRange toolDamage, ItemStack waste, ISpriteUVs texture)
 	{
 		registerMaterialData(material, new IMaterialData.Impl(destroyTime, countUsed, toolDamage, waste, texture));
 	}

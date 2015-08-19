@@ -1,12 +1,14 @@
-package genesis.util;
+package genesis.util.range;
 
 import java.util.Random;
 
 import net.minecraft.item.ItemStack;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import genesis.util.range.IntRange.Range;
 
-public class RandomVariantDrop extends RandomIntRange
+@SuppressWarnings({"rawtypes", "unchecked"})
+public class RandomVariantDrop extends IntRange.Range
 {
 	public VariantsOfTypesCombo combo;
 	public ObjectType type;
@@ -21,6 +23,6 @@ public class RandomVariantDrop extends RandomIntRange
 	
 	public ItemStack getRandomStack(IMetadata variant, Random rand)
 	{
-		return combo.getStack(type, variant, getRandom(rand));
+		return combo.getStack(type, variant, get(rand));
 	}
 }

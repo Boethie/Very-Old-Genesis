@@ -15,6 +15,7 @@ import genesis.common.GenesisItems;
 import genesis.entity.fixed.EntityMeganeuraEgg;
 import static genesis.entity.living.flying.EntityMeganeura.State.*;
 import genesis.util.*;
+import genesis.util.range.DoubleRange;
 import genesis.util.render.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -465,9 +466,9 @@ public class EntityMeganeura extends EntityLiving
 			{
 				for (int i = 0; i < 16; i++)
 				{
-					RandomDoubleRange horizRange = new RandomDoubleRange(-1, 1);
-					RandomDoubleRange vertRange = new RandomDoubleRange(-1, 0.25);
-					Vec3 random = new Vec3(horizRange.getRandom(rand), vertRange.getRandom(rand), horizRange.getRandom(rand)).normalize();
+					DoubleRange horizRange = DoubleRange.create(-1, 1);
+					DoubleRange vertRange = DoubleRange.create(-1, 0.25);
+					Vec3 random = new Vec3(horizRange.get(rand), vertRange.get(rand), horizRange.get(rand)).normalize();
 					Vec3 to = ourPos.addVector(random.xCoord * distance, random.yCoord * distance, random.zCoord * distance);
 					MovingObjectPosition hit = worldObj.rayTraceBlocks(ourPos, to, false, false, true);
 					
@@ -628,8 +629,8 @@ public class EntityMeganeura extends EntityLiving
 		
 		if (targetLocation == null)
 		{
-			RandomDoubleRange vertRange = new RandomDoubleRange(4, 8);
-			double vertMove = vertRange.getRandom(rand);
+			DoubleRange vertRange = DoubleRange.create(4, 8);
+			double vertMove = vertRange.get(rand);
 			
 			if (!isInWater())
 			{
@@ -657,11 +658,11 @@ public class EntityMeganeura extends EntityLiving
 				// End finding ground level
 			}
 			
-			RandomDoubleRange horiz = new RandomDoubleRange(-1, 1);
-			Vec3 random = new Vec3(horiz.getRandom(rand), 0, horiz.getRandom(rand)).normalize();
+			DoubleRange horiz = DoubleRange.create(-1, 1);
+			Vec3 random = new Vec3(horiz.get(rand), 0, horiz.get(rand)).normalize();
 			
-			RandomDoubleRange distRange = new RandomDoubleRange(5, 10);
-			double distance = distRange.getRandom(rand);
+			DoubleRange distRange = DoubleRange.create(5, 10);
+			double distance = distRange.get(rand);
 			random = new Vec3(random.xCoord * distance, random.yCoord * distance, random.zCoord * distance);
 			random = random.addVector(0, vertMove, 0);
 			

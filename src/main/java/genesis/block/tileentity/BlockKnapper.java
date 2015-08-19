@@ -7,7 +7,7 @@ import genesis.common.Genesis;
 import genesis.common.GenesisCreativeTabs;
 import genesis.common.GenesisGuiHandler;
 import genesis.util.ItemStackKey;
-import genesis.util.RandomDoubleRange;
+import genesis.util.range.DoubleRange;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.*;

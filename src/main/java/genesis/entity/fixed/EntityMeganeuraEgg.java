@@ -6,7 +6,7 @@ import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
 import genesis.entity.living.flying.EntityMeganeura;
 import genesis.util.Constants;
-import genesis.util.RandomIntRange;
+import genesis.util.range.IntRange;
 import genesis.util.render.EntityPart;
 import genesis.util.render.RenderHelpers;
 import net.minecraft.block.Block;
@@ -42,8 +42,8 @@ public class EntityMeganeuraEgg extends EntityEgg
 	@Override
 	protected void setMaxAge()
 	{
-		RandomIntRange range = new RandomIntRange(1200, 1600);
-		maxAge = range.getRandom(rand);
+		IntRange range = IntRange.create(1200, 1600);
+		maxAge = range.get(rand);
 	}
 	
 	@Override

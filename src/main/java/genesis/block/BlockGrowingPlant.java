@@ -3,43 +3,25 @@ package genesis.block;
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms.CanStayOptions;
 import genesis.common.GenesisCreativeTabs;
 import genesis.util.*;
+import genesis.util.range.*;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Random;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockBush;
-import net.minecraft.block.BlockCrops;
-import net.minecraft.block.IGrowable;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.properties.PropertyInteger;
-import net.minecraft.block.state.BlockState;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.*;
+import net.minecraft.block.properties.*;
+import net.minecraft.block.state.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
-import net.minecraft.world.Explosion;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
 import net.minecraft.world.biome.BiomeColorHelper;
-import net.minecraftforge.common.EnumPlantType;
-import net.minecraftforge.common.IPlantable;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.common.*;
+import net.minecraftforge.fml.relauncher.*;
 
 public class BlockGrowingPlant extends BlockCrops implements IGrowable
 {
@@ -1216,8 +1198,8 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 			return false;
 		}
 		
-		RandomIntRange heightRange = new RandomIntRange(1, maxHeight);
-		int targetHeight = heightRange.getRandom(rand);
+		IntRange heightRange = IntRange.create(1, maxHeight);
+		int targetHeight = heightRange.get(rand);
 		
 		for (int i = 0; i < targetHeight; i++)
 		{
@@ -1232,18 +1214,18 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		
 		if (targetHeight > 0)
 		{
-			RandomIntRange ageRange;
+			IntRange ageRange;
 			
 			if (growTogether)
 			{
 				int min = Math.min((targetHeight - 1) * growthAge, maxAge);
 				int max = Math.min(targetHeight * growthAge - 1, maxAge);
-				ageRange = new RandomIntRange(min, max);
-				ageRange = new RandomIntRange(ageRange.getRandom(rand));
+				ageRange = IntRange.create(min, max);
+				ageRange = IntRange.create(ageRange.get(rand));
 			}
 			else
 			{
-				ageRange = new RandomIntRange(0, maxAge);
+				ageRange = IntRange.create(0, maxAge);
 			}
 			
 			for (int i = 0; i < targetHeight; i++)
@@ -1252,7 +1234,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 				
 				if (growTogether || i == targetHeight - 1)
 				{
-					age = ageRange.getRandom(rand);
+					age = ageRange.get(rand);
 				}
 				
 				world.setBlockState(pos.up(i), getDefaultState().withProperty(ageProp, age), 2);

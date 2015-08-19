@@ -10,7 +10,8 @@ import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
-import genesis.util.RandomDrop.RandomStackDrop;
+import genesis.util.range.RandomDrop;
+import genesis.util.range.RandomDrop.RandomStackDrop;
 
 import java.util.List;
 
@@ -48,6 +49,7 @@ public final class GenesisBlocks
 	public static final Block ancient_permafrost = new BlockAncientPermafrost().setUnlocalizedName(Unlocalized.PREFIX + "ancientPermafrost");
 	
 	/* Granite Ores */
+	//public static final GraniteOreBlocks ores = new GraniteOreBlocks();
 	public static final Block quartz_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 1).setDrop(new RandomDrop(GenesisItems.quartz)).setUnlocalizedName(Unlocalized.ORE + "quartz");
 	public static final Block zircon_ore = new BlockGenesisOre(4.2F, 5.0F, 2, 1).setDrop(new RandomDrop(GenesisItems.zircon)).setUnlocalizedName(Unlocalized.ORE + "zircon");
 	public static final Block garnet_ore = new BlockGenesisOre(4.2F, 5.0F, 2, 1).setDrop(new RandomDrop(GenesisItems.garnet)).setUnlocalizedName(Unlocalized.ORE + "garnet");

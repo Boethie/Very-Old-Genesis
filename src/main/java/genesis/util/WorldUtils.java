@@ -1,5 +1,8 @@
 package genesis.util;
 
+import genesis.util.range.DoubleRange;
+import genesis.util.range.IntRange;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -112,15 +115,15 @@ public class WorldUtils
 	
 	public static enum DropType
 	{
-		BLOCK(new RandomDoubleRange(-0.25, 0.25), 0, 0, true),
-		CONTAINER(new RandomDoubleRange(-0.4, 0.4), 0.05, 0.2, false);
+		BLOCK(DoubleRange.create(-0.25, 0.25), 0, 0, true),
+		CONTAINER(DoubleRange.create(-0.4, 0.4), 0.05, 0.2, false);
 		
-		public final RandomDoubleRange offsetRange;
+		public final DoubleRange offsetRange;
 		public final double randomSpeed;
 		public final double upwardSpeed;
 		public final boolean delayPickup;
 		
-		DropType(RandomDoubleRange offsetRange, double randomSpeed, double upwardSpeed, boolean delayPickup)
+		DropType(DoubleRange offsetRange, double randomSpeed, double upwardSpeed, boolean delayPickup)
 		{
 			this.offsetRange = offsetRange;
 			this.randomSpeed = randomSpeed;
@@ -129,7 +132,7 @@ public class WorldUtils
 		}
 	}
 	
-	public static final RandomIntRange ITEM_DROP_SIZE = new RandomIntRange(10, 30);
+	public static final IntRange ITEM_DROP_SIZE = IntRange.create(10, 30);
 	
 	/**
 	 * Spawns the specified ItemStack in the world using the DropType to determine spawn offset and velocity.
@@ -143,14 +146,14 @@ public class WorldUtils
 			
 			if (dropType != null && dropType.offsetRange != null)
 			{
-				x += dropType.offsetRange.getRandom(world.rand);
-				y += dropType.offsetRange.getRandom(world.rand);
-				z += dropType.offsetRange.getRandom(world.rand);
+				x += dropType.offsetRange.get(world.rand);
+				y += dropType.offsetRange.get(world.rand);
+				z += dropType.offsetRange.get(world.rand);
 			}
 			
 			while (stack.stackSize > 0)
 			{
-				int subSize = Math.min(stack.stackSize, ITEM_DROP_SIZE.getRandom(rand));
+				int subSize = Math.min(stack.stackSize, ITEM_DROP_SIZE.get(rand));
 				
 				stack.stackSize -= subSize;
 				
@@ -189,7 +192,7 @@ public class WorldUtils
 		return spawnItemsAt(world, pos.xCoord, pos.yCoord, pos.zCoord, dropType, stack);
 	}
 	
-	public static final RandomDoubleRange ITEM_OFFSET = new RandomDoubleRange(-0.4, 0.4);
+	public static final DoubleRange ITEM_OFFSET = DoubleRange.create(-0.4, 0.4);
 	
 	public static List<EntityItem> spawnItemsAt(World world, BlockPos pos, DropType dropType, ItemStack stack)
 	{

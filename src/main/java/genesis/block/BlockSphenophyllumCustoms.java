@@ -5,6 +5,7 @@ import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms.CanStayOptions;
 import genesis.common.GenesisItems;
 import genesis.util.WorldUtils;
+import genesis.util.range.IntRange;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -36,34 +37,53 @@ public class BlockSphenophyllumCustoms implements IGrowingPlantCustoms
 			ArrayList<ItemStack> out = new ArrayList<ItemStack>();
 			int age = (Integer) state.getValue(plant.ageProp);
 			boolean top = (Boolean) state.getValue(plant.topProp);
-			ItemStack addStack = null;
+			IntRange range = null;
 			
-			if (top)
+			if (!top)
 			{
-				if (age >= plant.maxAge)
+				switch (age)
 				{
-					addStack = new ItemStack(item, 1);
-				}
-				else
-				{
-					addStack = new ItemStack(item, MathHelper.getRandomIntegerInRange(worldIn.rand, 0, 1));
+				case 0:
+				case 1:
+					break;
+				case 2:
+					range = IntRange.create(0, 1);
+					break;
+				case 3:
+					range = IntRange.create(1);
+					break;
+				case 4:
+					range = IntRange.create(1, 2);
+					break;
+				case 5:
+				case 6:
+				case 7:
+					range = IntRange.create(1, 3);
+					break;
 				}
 			}
 			else
 			{
-				if (age >= 5)
+				switch (age)
 				{
-					addStack = new ItemStack(item, MathHelper.getRandomIntegerInRange(worldIn.rand, 0, 2));
-				}
-				else
-				{
-					addStack = new ItemStack(item, MathHelper.getRandomIntegerInRange(worldIn.rand, 0, 1));
+				case 5:
+					range = IntRange.create(0, 1);
+				case 6:
+					range = IntRange.create(1);
+				case 7:
+					range = IntRange.create(1, 2);
+					break;
 				}
 			}
 			
-			if (addStack != null && addStack.stackSize > 0)
+			if (range != null)
 			{
-				out.add(addStack);
+				ItemStack addStack = new ItemStack(item, range.get(worldIn.rand));
+				
+				if (addStack.stackSize > 0)
+				{
+					out.add(addStack);
+				}
 			}
 			
 			return out;

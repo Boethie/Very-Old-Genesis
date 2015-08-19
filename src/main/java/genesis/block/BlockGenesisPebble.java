@@ -2,59 +2,33 @@ package genesis.block;
 
 import io.netty.buffer.ByteBuf;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.google.common.collect.Lists;
 
 import genesis.client.GenesisClient;
-import genesis.common.Genesis;
-import genesis.common.GenesisProxy;
-import genesis.item.ItemBlockMulti;
-import genesis.item.ItemPebble;
+import genesis.common.*;
+import genesis.item.*;
 import genesis.metadata.*;
 import genesis.metadata.ToolTypes.ToolType;
 import genesis.metadata.ToolItems.*;
-import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
-import genesis.util.BlockStateToMetadata;
-import genesis.util.RandomVariantDrop;
-import genesis.util.SidedFunction;
+import genesis.metadata.VariantsOfTypesCombo.*;
+import genesis.util.*;
+import genesis.util.range.RandomVariantDrop;
 import genesis.util.render.ModelHelpers;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.properties.PropertyInteger;
-import net.minecraft.block.state.BlockState;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.block.properties.*;
+import net.minecraft.block.state.*;
+import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.MovingObjectPosition.MovingObjectType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Vec3;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraftforge.fml.common.network.simpleimpl.*;
+import net.minecraftforge.fml.relauncher.*;
 
 public class BlockGenesisPebble extends Block
 {

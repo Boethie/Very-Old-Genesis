@@ -1,42 +1,24 @@
 package genesis.block;
 
-import genesis.client.ColorizerDryMoss;
-import genesis.client.GenesisSounds;
-import genesis.common.GenesisBlocks;
-import genesis.common.GenesisCreativeTabs;
-import genesis.metadata.EnumFern;
-import genesis.metadata.EnumPlant;
-import genesis.util.BlockStateToMetadata;
-import genesis.util.Constants;
-import genesis.util.RandomIntRange;
+import genesis.client.*;
+import genesis.common.*;
+import genesis.metadata.*;
+import genesis.util.*;
+import genesis.util.range.*;
 import genesis.world.biome.BiomeGenBaseGenesis;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockBush;
-import net.minecraft.block.BlockDirt;
-import net.minecraft.block.BlockGrass;
-import net.minecraft.block.BlockTallGrass;
-import net.minecraft.block.IGrowable;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyInteger;
-import net.minecraft.block.state.BlockState;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.properties.*;
+import net.minecraft.block.state.*;
 import net.minecraft.client.renderer.RegionRenderCache;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemHoe;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
-import net.minecraft.world.ColorizerGrass;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.IPlantable;
 
@@ -262,21 +244,21 @@ public class BlockMoss extends BlockGrass
 		return out;
 	}
 	
-	protected final RandomIntRange[] targetStages = {
-		new RandomIntRange(-1),
-		new RandomIntRange(-1, 0),
-		new RandomIntRange(0),
-		new RandomIntRange(0, 1),
-		new RandomIntRange(1),
-		new RandomIntRange(1, 2),
-		new RandomIntRange(2),
-		new RandomIntRange(2, 3),
-		new RandomIntRange(3),
+	protected final IntRange[] targetStages = {
+		IntRange.create(-1),
+		IntRange.create(-1, 0),
+		IntRange.create(0),
+		IntRange.create(0, 1),
+		IntRange.create(1),
+		IntRange.create(1, 2),
+		IntRange.create(2),
+		IntRange.create(2, 3),
+		IntRange.create(3),
 	};
 	
 	public int getTargetStage(float fertility, Random rand)
 	{
-		return targetStages[Math.min(Math.round(fertility * targetStages.length), targetStages.length - 1)].getRandom(rand);
+		return targetStages[Math.min(Math.round(fertility * targetStages.length), targetStages.length - 1)].get(rand);
 	}
 
 	protected final float growthChanceHumidityEffect = 0.25F;

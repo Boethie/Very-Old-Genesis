@@ -1,4 +1,6 @@
-package genesis.util;
+package genesis.util.range;
+
+import genesis.util.range.IntRange.Range;
 
 import java.util.Random;
 
@@ -10,7 +12,7 @@ import net.minecraft.util.MathHelper;
 
 public class RandomDrop
 {
-	public static class RandomStackDrop extends RandomIntRange
+	public static class RandomStackDrop extends IntRange.Range
 	{
 		protected ItemStack stack;
 		
@@ -62,7 +64,7 @@ public class RandomDrop
 		 */
 		public ItemStack getRandomStack(Random rand)
 		{
-			return getStackWithSize(getRandom(rand));
+			return getStackWithSize(get(rand));
 		}
 	}
 	

@@ -4,6 +4,7 @@ import java.util.*;
 
 import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
+import genesis.util.range.DoubleRange;
 import genesis.client.*;
 import genesis.common.*;
 import genesis.block.tileentity.*;
@@ -130,14 +131,14 @@ public class BlockCampfire extends Block
 
 		if (campfire != null && campfire.isBurning())
 		{
-			RandomDoubleRange rangeXZ = new RandomDoubleRange(0.25, 0.75);
-			RandomDoubleRange rangeY = new RandomDoubleRange(0.0, 0.5);
+			DoubleRange rangeXZ = DoubleRange.create(0.25, 0.75);
+			DoubleRange rangeY = DoubleRange.create(0.0, 0.5);
 			
 			for (int i = 0; i < 4; i++)
 			{
-				double x = pos.getX() + rangeXZ.getRandom(rand);
-				double y = pos.getY() + rangeY.getRandom(rand);
-				double z = pos.getZ() + rangeXZ.getRandom(rand);
+				double x = pos.getX() + rangeXZ.get(rand);
+				double y = pos.getY() + rangeY.get(rand);
+				double z = pos.getZ() + rangeXZ.get(rand);
 				
 				world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y, z, 0, 0, 0);
 			}
@@ -146,14 +147,14 @@ public class BlockCampfire extends Block
 			
 			if (input != null && !TileEntityCampfireRenderer.hasCookingItemModel(input))
 			{
-				rangeXZ = new RandomDoubleRange(0.4, 0.6);
-				rangeY = new RandomDoubleRange(0.9, 1);
+				rangeXZ = DoubleRange.create(0.4, 0.6);
+				rangeY = DoubleRange.create(0.9, 1);
 				
 				for (int i = 0; i < 2; i++)
 				{
-					double x = pos.getX() + rangeXZ.getRandom(rand);
-					double y = pos.getY() + rangeY.getRandom(rand);
-					double z = pos.getZ() + rangeXZ.getRandom(rand);
+					double x = pos.getX() + rangeXZ.get(rand);
+					double y = pos.getY() + rangeY.get(rand);
+					double z = pos.getZ() + rangeXZ.get(rand);
 					
 					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y, z, 0, 0, 0);
 				}
@@ -313,10 +314,10 @@ public class BlockCampfire extends Block
 					boolean burning = campfire.isBurning();
 					Random rand = world.rand;
 					
-					RandomDoubleRange rangeXZ = new RandomDoubleRange(0.25, 0.75);
-					RandomDoubleRange rangeY = new RandomDoubleRange(0.0, 0.25);
-					RandomDoubleRange speedXZ = new RandomDoubleRange(-0.08, 0.08);
-					RandomDoubleRange speedY = new RandomDoubleRange(0.1, 0.3);
+					DoubleRange rangeXZ = DoubleRange.create(0.25, 0.75);
+					DoubleRange rangeY = DoubleRange.create(0.0, 0.25);
+					DoubleRange speedXZ = DoubleRange.create(-0.08, 0.08);
+					DoubleRange speedY = DoubleRange.create(0.1, 0.3);
 					
 					final int bigSmokeCount = 1;
 					final int smokeCount = 25;
@@ -325,9 +326,9 @@ public class BlockCampfire extends Block
 					
 					for (int i = 0; i < maxCount; i++)
 					{
-						double x = pos.getX() + rangeXZ.getRandom(rand);
-						double y = pos.getY() + rangeY.getRandom(rand);
-						double z = pos.getZ() + rangeXZ.getRandom(rand);
+						double x = pos.getX() + rangeXZ.get(rand);
+						double y = pos.getY() + rangeY.get(rand);
+						double z = pos.getZ() + rangeXZ.get(rand);
 						
 						if (burning)
 						{
@@ -343,7 +344,7 @@ public class BlockCampfire extends Block
 						if (i < waterCount)
 						{
 							world.spawnParticle(GenesisParticles.WATER_SPLASH, x, y, z,
-									speedXZ.getRandom(rand), speedY.getRandom(rand), speedXZ.getRandom(rand));
+									speedXZ.get(rand), speedY.get(rand), speedXZ.get(rand));
 						}
 					}
 					

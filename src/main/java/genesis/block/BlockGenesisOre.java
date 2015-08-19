@@ -3,7 +3,7 @@ package genesis.block;
 import genesis.common.GenesisCreativeTabs;
 import genesis.metadata.IMetadata;
 import genesis.util.Constants.Unlocalized;
-import genesis.util.RandomDrop;
+import genesis.util.range.RandomDrop;
 import genesis.util.WorldUtils;
 
 import java.util.Collections;

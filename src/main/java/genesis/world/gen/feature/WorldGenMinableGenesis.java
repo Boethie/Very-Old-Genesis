@@ -3,7 +3,7 @@ package genesis.world.gen.feature;
 import java.util.Random;
 
 import genesis.common.GenesisBlocks;
-import genesis.util.RandomIntRange;
+import genesis.util.range.IntRange;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockHelper;
@@ -17,7 +17,7 @@ import com.google.common.base.Predicate;
 public class WorldGenMinableGenesis extends WorldGenMinable
 {
 	public final IBlockState ore;
-	public final RandomIntRange count;
+	public final IntRange count;
 	public final Predicate target;
 	
 	public WorldGenMinableGenesis(Block oreBlock, int minCount, int maxCount)
@@ -34,7 +34,7 @@ public class WorldGenMinableGenesis extends WorldGenMinable
 	{
 		super(ore, minCount, target);
 		this.ore = ore;
-		this.count = new RandomIntRange(minCount, maxCount);
+		this.count = IntRange.create(minCount, maxCount);
 		this.target = target;
 	}
 
@@ -45,7 +45,7 @@ public class WorldGenMinableGenesis extends WorldGenMinable
 		//boolean generate = super.generate(world, rand, pos);
 		//numberOfBlocks = count.min;
 		//return generate;
-		int numberOfBlocks = count.getRandom(rand);
+		int numberOfBlocks = count.get(rand);
 		float f = rand.nextFloat() * (float)Math.PI;
 		double d0 = (double)((float)(pos.getX() + 8) + MathHelper.sin(f) * (float)numberOfBlocks / 8.0F);
 		double d1 = (double)((float)(pos.getX() + 8) - MathHelper.sin(f) * (float)numberOfBlocks / 8.0F);
