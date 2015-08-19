@@ -284,7 +284,8 @@ public final class GenesisRecipes
 			// Logs -> billets
 			GameRegistry.addShapelessRecipe(billetStack, logStack);
 			
-			billetStack.stackSize = 1;
+			// All recipes after this point use 1 billet.
+			billetStack = GenesisBlocks.trees.getStack(TreeBlocksAndItems.BILLET, variant, 1);
 			
 			// Wattle fence
 			GameRegistry.addShapedRecipe(GenesisBlocks.trees.getStack(TreeBlocksAndItems.WATTLE_FENCE, variant, 3),

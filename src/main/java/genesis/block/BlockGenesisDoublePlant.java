@@ -120,7 +120,7 @@ public class BlockGenesisDoublePlant extends BlockPlant
 	}
 	
 	@Override
-	public void placeAt(World world, BlockPos bottom, IMetadata variant, int flags)
+	public boolean placeAt(World world, BlockPos bottom, IMetadata variant, int flags)
 	{
 		IBlockState state = owner.getBlockState(type, variant);
 		
@@ -128,7 +128,10 @@ public class BlockGenesisDoublePlant extends BlockPlant
 		{
 			world.setBlockState(bottom, state.withProperty(TOP, false), flags);
 			world.setBlockState(bottom.up(), state.withProperty(TOP, true), flags);
+			return true;
 		}
+		
+		return false;
 	}
 	
 	@Override
