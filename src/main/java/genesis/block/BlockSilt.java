@@ -47,6 +47,7 @@ public class BlockSilt extends BlockFalling
 		
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 		setStepSound(soundTypeSand);
+		setHardness(0.5F);
 	}
 	
 	@Override
