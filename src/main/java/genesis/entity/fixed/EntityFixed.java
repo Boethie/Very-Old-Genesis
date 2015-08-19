@@ -39,6 +39,7 @@ public abstract class EntityFixed extends Entity
 		super.setPositionAndUpdate(x, y, z);
 		// Set the fixedTo position, as this is what gets called to set the position on spawn.
 		fixedTo = new BlockPos(posX, posY, posZ);
+		genesis.common.Genesis.logger.warn("Set EntityFixed position to " + x + ", " + y + ", " + z + ".");
 	}
 	
 	protected abstract boolean isValid();

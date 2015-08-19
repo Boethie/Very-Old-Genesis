@@ -566,6 +566,7 @@ public class EntityMeganeura extends EntityLiving
 						EntityMeganeuraEgg egg = new EntityMeganeuraEgg(worldObj);
 						egg.setPositionAndUpdate(hit.hitVec.xCoord, hit.hitVec.yCoord - 0.45, hit.hitVec.zCoord);
 						worldObj.spawnEntityInWorld(egg);
+						genesis.common.Genesis.logger.warn("Spawned egg from meganeura.");
 					}
 					
 					placedEgg = true;
