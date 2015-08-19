@@ -177,11 +177,11 @@ public class BlockWattleFence extends BlockFence
 	}
 	
 	@Override
-	public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List list, Entity collidingEntity)
+	public void addCollisionBoxesToList(World world, BlockPos pos, IBlockState state, AxisAlignedBB mask, List list, Entity collidingEntity)
 	{
-		super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
+		super.addCollisionBoxesToList(world, pos, state, mask, list, collidingEntity);
 		
-		if (collidingEntity instanceof EntityFX)  // Make particles collide with the actual top of the fence, rather than the raised version.
+		if (world.isRemote && collidingEntity instanceof EntityFX)  // Make particles collide with the actual top of the fence, rather than the raised version.
 		{
 			for (int i = 0; i < list.size(); i++)
 			{
