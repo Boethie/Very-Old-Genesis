@@ -49,7 +49,7 @@ public class BlockSiltstone extends BlockGenesis
 		blockState = new BlockState(this, variantProp);
 		setDefaultState(blockState.getBaseState());
 		
-		setHardness(0.8F);
+		setHardness(0.9F);
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 		setStepSound(soundTypePiston);
 	}
