@@ -53,7 +53,6 @@ public class EntityMeganeuraEgg extends EntityEgg
 		meganeura.setPositionAndUpdate(posX, posY, posZ);
 		meganeura.setState(EntityMeganeura.State.PLACING_EGG);
 		worldObj.spawnEntityInWorld(meganeura);
-		genesis.common.Genesis.logger.warn("Spawned baby from meganeura egg.");
 	}
 	
 	@Override

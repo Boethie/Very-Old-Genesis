@@ -559,14 +559,13 @@ public class EntityMeganeura extends EntityLiving
 				}
 				else if (!placedEgg && eggPlaceTimer <= 0.1F)
 				{
-					MovingObjectPosition hit = worldObj.rayTraceBlocks(ourPos, targetLocation, false, false, true);
+					MovingObjectPosition hit = worldObj.rayTraceBlocks(ourPos, targetLocation, false, false, false);
 					
 					if (hit != null)
 					{
 						EntityMeganeuraEgg egg = new EntityMeganeuraEgg(worldObj);
 						egg.setPositionAndUpdate(hit.hitVec.xCoord, hit.hitVec.yCoord - 0.45, hit.hitVec.zCoord);
 						worldObj.spawnEntityInWorld(egg);
-						genesis.common.Genesis.logger.warn("Spawned egg from meganeura.");
 					}
 					
 					placedEgg = true;

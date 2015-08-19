@@ -511,7 +511,6 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	}
 	
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void setBlockBoundsBasedOnState(IBlockAccess world, BlockPos pos)
 	{
 		GrowingPlantProperties props = new GrowingPlantProperties(world, pos);
@@ -539,7 +538,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	}
 
 	/**
-	 * Sets the collision axis aligned bounds of the plant.
+	 * Sets the collision bounds of the plant.
 	 * 
 	 * @param bb The AxisAlignedBB to use for entity collision.
 	 * @return
@@ -551,6 +550,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		return this;
 	}
 	
+	@Override
     public AxisAlignedBB getCollisionBoundingBox(World world, BlockPos pos, IBlockState state)
     {
     	if (collisionBox != null)
@@ -560,7 +560,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
     	
     	return null;
     }
-
+	
 	/**
 	 * Sets the drops when the plant is fully grown.
 	 */
