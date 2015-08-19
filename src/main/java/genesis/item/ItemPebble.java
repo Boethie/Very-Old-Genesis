@@ -45,12 +45,6 @@ public class ItemPebble extends ItemGenesis
 	}
 	
 	@Override
-	public int getMetadata(ItemStack stack)
-	{
-		return super.getMetadata(stack);
-	}
-	
-	@Override
 	public String getUnlocalizedName(ItemStack stack)
 	{
 		return owner.getUnlocalizedName(stack, super.getUnlocalizedName(stack));

@@ -28,12 +28,6 @@ public class ItemGenesisHoe extends ItemHoe
 	}
 	
 	@Override
-	public int getMetadata(ItemStack stack)
-	{
-		return 0;
-	}
-	
-	@Override
 	public String getUnlocalizedName(ItemStack stack)
 	{
 		return owner.getUnlocalizedName(stack, super.getUnlocalizedName(stack));
