@@ -111,7 +111,7 @@ public class BlockStateToMetadata
 	 */
 	public static int getMetaForBlockState(IBlockState state)
 	{
-		return getMetaForBlockState(state, getSortedProperties(state.getProperties().keySet()).toArray(new IProperty[0]));
+		return getMetaForBlockState(state, (IProperty[]) getSortedProperties(state.getProperties().keySet()).toArray(new IProperty[0]));
 	}
 	
 	/**
@@ -157,7 +157,7 @@ public class BlockStateToMetadata
 	 */
 	public static IBlockState getBlockStateFromMeta(IBlockState state, int metadata)
 	{
-		return getBlockStateFromMeta(state, metadata, getSortedProperties(state.getProperties().keySet()).toArray(new IProperty[0]));
+		return getBlockStateFromMeta(state, metadata, (IProperty[]) getSortedProperties(state.getProperties().keySet()).toArray(new IProperty[0]));
 	}
 	
 	/**
