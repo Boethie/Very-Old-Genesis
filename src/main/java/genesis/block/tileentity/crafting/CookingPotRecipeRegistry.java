@@ -250,7 +250,7 @@ public class CookingPotRecipeRegistry
 				{
 					Genesis.logger.warn("CookingPotRecipeRegistry.getRecipe found multiple valid recipes for this cooking pot:");
 					Genesis.logger.warn("Input stack: " + cookingPot.getInput());
-					Genesis.logger.warn("Ingredient stacks: " + Stringify.stringify(cookingPot.getIngredients()));
+					Genesis.logger.warn("Ingredient stacks: " + Stringify.stringifyArray(cookingPot.getIngredients()));
 					Genesis.logger.warn("Output stack: " + cookingPot.getOutput());
 				}
 				

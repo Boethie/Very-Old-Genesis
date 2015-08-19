@@ -12,10 +12,13 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
+import net.minecraft.entity.item.EntityXPOrb;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 
 public class KnappingRecipeRegistry
 {
@@ -33,6 +36,7 @@ public class KnappingRecipeRegistry
 		public boolean shouldShowKnapping(ISlotsKnapping slots, TileEntity te);
 		public boolean hasRecipe(ISlotsKnapping slots, TileEntity te);
 		public ItemStack getOutput(ISlotsKnapping slots, TileEntity te);
+		public void onOutputTaken(ISlotsKnapping slots, TileEntity te, EntityPlayer player);
 	}
 	
 	public static abstract class KnappingRecipeBase implements IKnappingRecipe
@@ -41,6 +45,15 @@ public class KnappingRecipeRegistry
 		public boolean hasRecipe(ISlotsKnapping slots, TileEntity te)
 		{
 			return getOutput(slots, te) != null;
+		}
+		
+		protected abstract float getExperienceDropped(ISlotsKnapping slots, TileEntity te, EntityPlayer player);
+		
+		@Override
+		public void onOutputTaken(ISlotsKnapping slots, TileEntity te, EntityPlayer player)
+		{
+			World world = te.getWorld();
+			WorldUtils.spawnXPOrbs(world, player.posX, player.posY + 0.5, player.posZ, getExperienceDropped(slots, te, player));
 		}
 	}
 	
@@ -51,15 +64,17 @@ public class KnappingRecipeRegistry
 		protected final int h;
 		protected final boolean flip;
 		protected final ItemStackKey material;
+		protected final float experience;
 		protected final boolean[] states;
 		
-		public DumbKnappingRecipe(ItemStack output, int w, int h, boolean flip, ItemStack material, boolean... states)
+		public DumbKnappingRecipe(ItemStack output, int w, int h, boolean flip, ItemStack material, float experience, boolean... states)
 		{
 			this.output = output;
 			this.w = w;
 			this.h = h;
 			this.flip = flip;
 			this.material = new ItemStackKey(material);
+			this.experience = experience;
 			this.states = states;
 		}
 		
@@ -127,6 +142,12 @@ public class KnappingRecipeRegistry
 			}
 			
 			return null;
+		}
+
+		@Override
+		protected float getExperienceDropped(ISlotsKnapping slots, TileEntity te, EntityPlayer player)
+		{
+			return experience;
 		}
 	}
 	
@@ -257,21 +278,21 @@ public class KnappingRecipeRegistry
 		return tools.contains(new ItemStackKey(knappingTool));
 	}
 	
-	public static DumbKnappingRecipe registerRecipe(ItemStack output, int w, int h, boolean flip, ItemStack material, boolean... states)
+	public static DumbKnappingRecipe registerRecipe(ItemStack output, int w, int h, boolean flip, ItemStack material, float experience, boolean... states)
 	{
 		if (w * h != states.length)
 		{
 			throw new IllegalArgumentException("Error creating dumb knapping recipe: The size of the knapping matrix states array for this recipe does not match the width and height provided.");
 		}
 		
-		DumbKnappingRecipe recipe = new DumbKnappingRecipe(output, w, h, flip, material, states);
+		DumbKnappingRecipe recipe = new DumbKnappingRecipe(output, w, h, flip, material, experience, states);
 		registerRecipe(recipe);
 		return recipe;
 	}
 	
-	public static DumbKnappingRecipe registerRecipe(ItemStack output, int w, int h, ItemStack material, boolean... states)
+	public static DumbKnappingRecipe registerRecipe(ItemStack output, int w, int h, ItemStack material, float experience, boolean... states)
 	{
-		return registerRecipe(output, w, h, true, material, states);
+		return registerRecipe(output, w, h, true, material, experience, states);
 	}
 	
 	public static IKnappingRecipe getRecipe(ISlotsKnapping slots, TileEntity te)
@@ -307,5 +328,11 @@ public class KnappingRecipeRegistry
 	{
 		IKnappingRecipe recipe = getRecipe(slots, te);
 		return recipe != null ? recipe.getOutput(slots, te) : null;
+	}
+	
+	public static void onOutputTaken(ISlotsKnapping slots, TileEntity te, EntityPlayer player)
+	{
+		IKnappingRecipe recipe = getRecipe(slots, te);
+		recipe.onOutputTaken(slots, te, player);
 	}
 }

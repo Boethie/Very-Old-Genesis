@@ -16,6 +16,7 @@ public class BlockGenesis extends Block
 	public BlockGenesis(Material material)
 	{
 		super(material);
+		
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 	}
 }

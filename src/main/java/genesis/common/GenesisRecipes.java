@@ -247,11 +247,22 @@ public final class GenesisRecipes
 		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "X", "Y", 'X', Items.coal, 'Y', GenesisItems.calamites);
 		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "X", "Y", 'X', new ItemStack(Items.coal, 1, 1), 'Y', GenesisItems.calamites);
 		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "X", "Y", 'X', GenesisItems.resin, 'Y', GenesisItems.calamites);
-		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite), GenesisItems.nodules.getStack(EnumNodule.MARCASITE), GenesisItems.tools.getStack(GenesisItems.tools.PEBBLE, EnumToolMaterial.BROWN_FLINT));
-		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite), GenesisItems.nodules.getStack(EnumNodule.MARCASITE), GenesisItems.tools.getStack(GenesisItems.tools.PEBBLE, EnumToolMaterial.BLACK_FLINT));
 		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.calamites, 9), GenesisBlocks.calamites_bundle);
 		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.programinis_bundle), "CCC", "CCC", "CCC", 'C', GenesisItems.programinis);
 		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.programinis, 9), GenesisBlocks.programinis_bundle);
+		
+		EnumToolMaterial[] flintMaterials = {EnumToolMaterial.BLACK_FLINT, EnumToolMaterial.BROWN_FLINT};
+		
+		// Flint and marcasite recipe
+		for (EnumToolMaterial mat : flintMaterials)
+		{
+			GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite),
+					GenesisItems.nodules.getStack(EnumNodule.MARCASITE),
+					GenesisItems.tools.getStack(GenesisItems.tools.PEBBLE, mat));	// Pebble
+			GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite),
+					GenesisItems.nodules.getStack(EnumNodule.MARCASITE),
+					GenesisItems.nodules.getStack(EnumNodule.fromToolMaterial(mat)));	// Nodule
+		}
 		
 		// All recipes with only logs, and one constant output.
 		for (Item log : GenesisBlocks.trees.getItems(TreeBlocksAndItems.LOG))
@@ -394,43 +405,47 @@ public final class GenesisRecipes
 			
 			for (Pair<ItemStack, Integer> pair : materials.get(material))
 			{
+				ItemStack matStack = pair.getLeft();
+				int stackSize = pair.getRight();
+				float xp = 0.5F * stackSize;
+				
 				// Axe
-				axeHead.stackSize = pair.getRight();
+				axeHead.stackSize = stackSize;
 				KnappingRecipeRegistry.registerRecipe(axeHead,
 						3, 3,
-						pair.getLeft(),
+						matStack, xp,
 						true,	false,	false,
 						true,	true,	true,
 						true,	false,	false);
 				
 				// Pickaxe
-				pickHead.stackSize = pair.getRight();
+				pickHead.stackSize = stackSize;
 				KnappingRecipeRegistry.registerRecipe(pickHead,
 						3, 1,
-						pair.getLeft(),
+						matStack, xp,
 						true,	true,	true);
 				
 				// Hoe
-				hoeHead.stackSize = pair.getRight();
+				hoeHead.stackSize = stackSize;
 				KnappingRecipeRegistry.registerRecipe(hoeHead,
 						3, 2,
-						pair.getLeft(),
+						matStack, xp,
 						true,	true,	true,
 						false,	false,	true);
 				
 				// Knife
-				knifeHead.stackSize = pair.getRight();
+				knifeHead.stackSize = stackSize;
 				KnappingRecipeRegistry.registerRecipe(knifeHead,
 						1, 2,
-						pair.getLeft(),
+						matStack, xp,
 						true,
 						true);
 				
 				// Spear
-				spearHead.stackSize = pair.getRight();
+				spearHead.stackSize = stackSize;
 				KnappingRecipeRegistry.registerRecipe(spearHead,
 						3, 3,
-						pair.getLeft(),
+						matStack, xp,
 						false,	true,	false,
 						true,	true,	true,
 						true,	true,	true);

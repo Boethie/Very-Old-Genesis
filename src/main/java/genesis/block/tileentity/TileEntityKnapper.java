@@ -12,6 +12,7 @@ import genesis.block.tileentity.crafting.*;
 import genesis.block.tileentity.crafting.KnappingRecipeRegistry.*;
 import genesis.block.tileentity.gui.ContainerKnapper.SlotKnapping;
 import genesis.util.Constants;
+import genesis.util.Stringify;
 import genesis.util.WorldUtils;
 import genesis.util.Constants.Unlocalized;
 import net.minecraft.entity.player.*;
@@ -129,6 +130,11 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		public void readFromNBT(NBTTagCompound compound)
 		{
 			setProgress(compound.getInteger("progress"));
+		}
+		
+		public String toString()
+		{
+			return "progress=" + getProgress() + ",players=" + Stringify.stringifyIterable(getKnappingPlayers());
 		}
 	}
 	
@@ -371,23 +377,26 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 	
 	public void updateRecipeOutput()
 	{
-		boolean set = true;
-		ItemStack output = null;
-		
-		if (isKnappingEnabled())
+		if (!isKnappingEnabled() || !knappingLocked)
 		{
-			output = KnappingRecipeRegistry.getRecipeOutput(this, this);
-			set = getOutputMain() == null || output == null;
-			set = true;
-		}
-		else
-		{
-			output = CraftingManager.getInstance().findMatchingRecipe(getCraftingInventory(), worldObj);
-		}
-
-		if (set)
-		{
-			setOutputMain(output == null ? null : output.copy());
+			boolean set = true;
+			ItemStack output = null;
+			
+			if (isKnappingEnabled())
+			{
+				output = KnappingRecipeRegistry.getRecipeOutput(this, this);
+				set = getOutputMain() == null || output == null;
+				set = true;
+			}
+			else
+			{
+				output = CraftingManager.getInstance().findMatchingRecipe(getCraftingInventory(), worldObj);
+			}
+			
+			if (set)
+			{
+				setOutputMain(output == null ? null : output.copy());
+			}
 		}
 	}
 	
@@ -395,6 +404,8 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 	public void markDirty()
 	{
 		super.markDirty();
+		
+		updateRecipeOutput();
 	}
 	
 	public void stopAllKnapping()
@@ -659,6 +670,8 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 			}
 		}
 		
+		knappingLocked = compound.getBoolean("knappingLocked");
+		
 		if (compound.hasKey("customName"))
 		{
 			customName = compound.getString("customName");
@@ -701,6 +714,8 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		}
 		
 		compound.setTag("items", itemList);
+		
+		compound.setBoolean("knappingLocked", knappingLocked);
 		
 		if (hasCustomName())
 		{
@@ -1025,11 +1040,6 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 	public void setInventorySlotContents(int slot, ItemStack stack)
 	{
 		inventory[slot] = stack;
-		
-		if (slot >= SLOTS_CRAFTING_START && slot <= SLOTS_CRAFTING_END)
-		{
-			updateRecipeOutput();
-		}
 	}
 	
 	@Override

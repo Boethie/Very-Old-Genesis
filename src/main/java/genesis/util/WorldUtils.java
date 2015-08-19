@@ -12,10 +12,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -129,6 +131,9 @@ public class WorldUtils
 	
 	public static final RandomIntRange ITEM_DROP_SIZE = new RandomIntRange(10, 30);
 	
+	/**
+	 * Spawns the specified ItemStack in the world using the DropType to determine spawn offset and velocity.
+	 */
 	public static List<EntityItem> spawnItemsAt(World world, double x, double y, double z, DropType dropType, ItemStack stack)
 	{
 		if (stack != null)
@@ -190,7 +195,27 @@ public class WorldUtils
 	{
 		return spawnItemsAt(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, dropType, stack);
 	}
-
+	
+	public static void spawnXPOrbs(World world, double x, double y, double z, float fAmount)
+	{
+		if (!world.isRemote)
+		{
+			int amount = MathHelper.floor_float(fAmount);
+			
+			if (amount < fAmount && world.rand.nextFloat() <= fAmount - amount)
+			{
+				amount++;
+			}
+			
+			while (amount > 0)
+			{
+				int split = EntityXPOrb.getXPSplit(amount);
+				world.spawnEntityInWorld(new EntityXPOrb(world, x, y, z, split));
+				amount -= split;
+			}
+		}
+	}
+	
 	public static void setProperty(World world, BlockPos pos, IProperty property, Comparable<?> value)
 	{
 		world.setBlockState(pos, world.getBlockState(pos).withProperty(property, value));

@@ -173,6 +173,8 @@ public class GuiContainerKnapper extends GuiContainerBase
 						
 						TextureAtlasSprite sprite = ModelHelpers.getDestroyBlockIcon(knapState.getProgressFloat());
 						drawTexturedModalRect(slot.xDisplayPosition, slot.yDisplayPosition, sprite, 16, 16);
+						
+						GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
 					}
 				}
 			}

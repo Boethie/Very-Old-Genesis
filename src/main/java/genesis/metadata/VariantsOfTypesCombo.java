@@ -742,7 +742,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	 */
 	public String getIdentification()
 	{
-		return "This " + getClass().getSimpleName() + " contains " + ObjectType.class.getSimpleName() + "s " + Stringify.stringify(types) + " and variants " + Stringify.stringify(variants) + ".";
+		return "This " + getClass().getSimpleName() + " contains " + ObjectType.class.getSimpleName() + "s " + Stringify.stringifyIterable(types) + " and variants " + Stringify.stringifyIterable(variants) + ".";
 	}
 
 	/**

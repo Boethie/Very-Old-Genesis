@@ -52,7 +52,7 @@ public class ContainerKnapper extends ContainerBase
 	public final Slot knappingInputSlot;
 	public final Slot knappingInputSlotLocked;
 	public final Slot knappingToolSlot;
-	public final Slot outputSlotMain;
+	public final SlotCrafting outputSlotMain;
 	public final Slot outputSlotWaste;
 	
 	public ContainerKnapper(InventoryPlayer invPlayer, TileEntityKnapper workbench)
@@ -148,22 +148,59 @@ public class ContainerKnapper extends ContainerBase
 	}
 	
 	protected int[] prevProgresses = new int[TileEntityKnapper.SLOTS_CRAFTING_COUNT];
+	protected boolean wasLocked = false;
 	
 	protected void sendGUIData(boolean force)
 	{
-		for (int i = 0; i < prevProgresses.length; i++)
+		for (ICrafting crafting : (List<ICrafting>) crafters)
 		{
-			KnappingState curState = workbench.getKnappingSlotState(i);
-			int progress = curState.getProgress();
+			int i = 0;
 			
-			if (force || prevProgresses[i] != progress)
+			for (; i < prevProgresses.length; i++)
 			{
-				for (ICrafting crafting : (List<ICrafting>) crafters)
+				KnappingState curState = workbench.getKnappingSlotState(i);
+				int progress = curState.getProgress();
+				
+				if (force || prevProgresses[i] != progress)
 				{
 					crafting.sendProgressBarUpdate(this, i, progress);
+					prevProgresses[i] = progress;
 				}
-				
-				prevProgresses[i] = progress;
+			}
+			
+			boolean locked = workbench.areKnappingSlotsLocked();
+			
+			if (force || wasLocked != locked)
+			{
+				crafting.sendProgressBarUpdate(this, i, locked ? 1 : 0);
+				wasLocked = locked;
+			}
+		}
+	}
+	
+	@Override
+	public void updateProgressBar(int id, int value)
+	{
+		super.updateProgressBar(id, value);
+		
+		if (id < prevProgresses.length)
+		{
+			KnappingState state = workbench.getKnappingSlotState(id);
+			
+			if (state != null)
+			{
+				state.setProgress(value);
+			}
+		}
+		else
+		{
+			id -= prevProgresses.length;
+			
+			switch (id)
+			{
+			case 0:
+				workbench.setKnappingSlotsLocked(value == 1);
+				break;
 			}
 		}
 	}
@@ -203,19 +240,6 @@ public class ContainerKnapper extends ContainerBase
 	}
 	
 	@Override
-	public void updateProgressBar(int id, int value)
-	{
-		super.updateProgressBar(id, value);
-		
-		KnappingState state = workbench.getKnappingSlotState(id);
-		
-		if (state != null)
-		{
-			state.setProgress(value);
-		}
-	}
-	
-	@Override
 	public ItemStack slotClick(int slotID, int button, int mode, EntityPlayer player)
 	{
 		if (slotID >= 0)
@@ -224,28 +248,43 @@ public class ContainerKnapper extends ContainerBase
 			
 			if (slot == knappingInputSlotLocked)
 			{
-				workbench.setKnappingMaterialLocked(null);
 				workbench.resetKnappingState();
 				return null;
 			}
 			
 			if (slot.getHasStack() && (slot == outputSlotMain || slot == outputSlotWaste))
 			{
-				ItemStack old = super.slotClick(slotID, button, mode, player);
+				if (slot == outputSlotMain)
+				{
+					workbench.setKnappingSlotsLocked(true);
+				}
+				
+				ItemStack old = slot.getStack().copy();
+				ItemStack out = super.slotClick(slotID, button, mode, player);
 				
 				if (slot == outputSlotMain)
 				{
 					if (!slot.getHasStack())
 					{
+						if (workbench.isKnappingEnabled())
+						{
+							KnappingRecipeRegistry.onOutputTaken(workbench, workbench, player);
+						}
+						
 						workbench.resetKnappingState();
 					}
-					else if (old.stackSize != slot.getStack().stackSize)
+					else
 					{
-						workbench.setKnappingSlotsLocked(true);
+						ItemStack newStack = slot.getStack();
+						
+						if (old.isItemEqual(newStack) && old.stackSize == newStack.stackSize)
+						{
+							workbench.setKnappingSlotsLocked(false);
+						}
 					}
 				}
 				
-				return old;
+				return out;
 			}
 		}
 		
@@ -259,26 +298,41 @@ public class ContainerKnapper extends ContainerBase
 		{
 			Slot slot = (Slot) inventorySlots.get(slotID);
 			
-			if (slot == outputSlotMain && slot.getHasStack())
+			if (slot == outputSlotMain)// && slot.getHasStack())
 			{
-				ItemStack oldStack = slot.getStack().copy();
+				/*ItemStack stack = slot.getStack();
+				ItemStack oldStack = stack.copy();
+				
+				if (!mergeStackToPlayerInv(stack, true))
+				{
+					return null;
+				}
+				
+				if (stack.stackSize <= 0)
+				{
+					slot.putStack(null);
+				}
+				else
+				{
+					slot.onSlotChange(stack, oldStack);
+				}
+				
+				return oldStack;*/
 				
 				while (slot.getHasStack())
 				{
-					mergeStackToPlayerInv(slot.getStack(), true);
+					if (super.transferStackInSlot(player, slotID) == null)
+					{
+						return null;
+					}
 					
-					if (slot.getHasStack())
-						oldStack.stackSize -= slot.getStack().stackSize;
-					
-					slot.onPickupFromSlot(player, oldStack);
-					workbench.resetKnappingState();
 					workbench.updateRecipeOutput();
 					
-					if (slot.getHasStack())
-						oldStack = slot.getStack().copy();
+					if (!slot.getHasStack())
+					{
+						return null;
+					}
 				}
-				
-				return null;
 			}
 		}
 		

@@ -2,41 +2,51 @@ package genesis.util;
 
 import java.util.*;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.util.IStringSerializable;
 
 public class Stringify
 {
-	public static String stringify(Iterable<Object> list)
+	public static String stringifyIterable(Iterable<?> list)
 	{
-		String output = "{ ";
+		String output = "{";
+		String sep = ", ";
+		boolean remove = false;
 		
 		for (Object obj : list)
 		{
-			output += stringify(obj) + ", ";
+			output += stringify(obj) + sep;
+			remove = true;
 		}
 		
-		output = output.substring(0, output.length() - 2) + " }";
+		if (remove)
+		{
+			output.substring(0, output.length() - sep.length());
+		}
+		
+		output += "}";
 		
 		return output;
 	}
 	
-	public static String stringify(Object[] objArray)
+	public static String stringifyArray(Object[] objArray)
 	{
-		return stringify(Arrays.asList(objArray));
+		return stringifyIterable(ImmutableList.copyOf(objArray));
 	}
 	
 	public static String stringify(Object obj)
 	{
 		if (obj instanceof Object[])
 		{
-			return stringify((Object[]) obj);
+			return stringifyArray((Object[]) obj);
 		}
 		
-		if (obj instanceof Iterable)
+		if (obj instanceof Iterable<?>)
 		{
-			return stringify((Iterable) obj);
+			return stringifyIterable((Iterable<?>) obj);
 		}
 		
 		if (obj instanceof IStringSerializable)
