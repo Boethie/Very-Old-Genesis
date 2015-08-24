@@ -9,6 +9,7 @@ import genesis.common.GenesisBiomes;
 import genesis.common.GenesisBlocks;
 import genesis.world.gen.MapGenCavesGenesis;
 import genesis.world.gen.MapGenRavineGenesis;
+import genesis.world.gen.MapGenUndergroundLavaLakes;
 import genesis.world.gen.feature.WorldGenGenesisLakes;
 
 import java.util.List;
@@ -37,12 +38,14 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 {
 	private MapGenBase caveGenerator;
 	private MapGenBase ravineGenerator;
+	private MapGenBase underGroundLavaLakeGenerator;
 	
 	public ChunkGeneratorGenesis(World world, long seed, boolean mapFeaturesEnabled, String generatorOptions)
 	{
 		super(world, seed, mapFeaturesEnabled, generatorOptions);
 		caveGenerator = new MapGenCavesGenesis();
         ravineGenerator = new MapGenRavineGenesis();
+        underGroundLavaLakeGenerator = new MapGenUndergroundLavaLakes();
         
         if (generatorOptions != null)
         {
@@ -257,7 +260,11 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
         {
             this.ravineGenerator.func_175792_a(this, this.worldObj, x, z, chunkprimer);
         }
-
+        
+        {
+        	this.underGroundLavaLakeGenerator.func_175792_a(this, this.worldObj, x, z, chunkprimer);
+        }
+        
         if (this.settings.useMineShafts && this.mapFeaturesEnabled)
         {
             this.mineshaftGenerator.func_175792_a(this, this.worldObj, x, z, chunkprimer);
