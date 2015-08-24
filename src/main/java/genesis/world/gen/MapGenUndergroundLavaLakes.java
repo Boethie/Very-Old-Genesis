@@ -21,9 +21,7 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
 		lakeBottom = 10 + rand.nextInt(15);
 		lakeHeight = 8 + rand.nextInt(8);
 		
-		int lev = ((int)(lakeHeight / 2)) - 4;
-		if (lev < 0)
-			lev = 1;
+		int lev = Math.max((lakeHeight / 2) - 4, 1);
 		
 		lavaLevel = lakeBottom + 4 + rand.nextInt(lev);
 	}
