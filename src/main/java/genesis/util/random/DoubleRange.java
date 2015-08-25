@@ -1,4 +1,4 @@
-package genesis.util.range;
+package genesis.util.random;
 
 import java.util.Random;
 
@@ -27,7 +27,7 @@ public abstract class DoubleRange implements Range<Double>
 		public final double min;
 		public final double max;
 		
-		public Range(double minIn, double maxIn)
+		protected Range(double minIn, double maxIn)
 		{
 			min = minIn;
 			max = maxIn;
@@ -56,7 +56,7 @@ public abstract class DoubleRange implements Range<Double>
 	{
 		public final double value;
 		
-		public Value(double value)
+		protected Value(double value)
 		{
 			this.value = value;
 		}

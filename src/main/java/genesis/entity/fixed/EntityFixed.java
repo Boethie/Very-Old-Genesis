@@ -33,12 +33,34 @@ public abstract class EntityFixed extends Entity
 	{
 	}
 	
+	public void setFixedTo(BlockPos pos)
+	{
+		fixedTo = pos;
+	}
+	
 	@Override
 	public void setPositionAndUpdate(double x, double y, double z)
 	{
 		super.setPositionAndUpdate(x, y, z);
 		// Set the fixedTo position, as this is what gets called to set the position on spawn.
-		fixedTo = new BlockPos(posX, posY, posZ);
+		setFixedTo(new BlockPos(posX, posY, posZ));
+	}
+	
+	public abstract ItemStack getDroppedItem();
+	
+	public void dropItem()
+	{
+		WorldUtils.spawnItemsAt(worldObj, posX, posY, posZ, null, getDroppedItem());
+	}
+	
+	public void setDeadAndDrop()
+	{
+		if (!isDead)
+		{
+			dropItem();
+		}
+		
+		setDead();
 	}
 	
 	protected abstract boolean isValid();
@@ -50,15 +72,8 @@ public abstract class EntityFixed extends Entity
 		
 		if (!worldObj.isRemote && !isValid())
 		{
-			setDead();
+			setDeadAndDrop();
 		}
-	}
-	
-	public abstract ItemStack getDroppedItem();
-	
-	public void dropItem()
-	{
-		WorldUtils.spawnItemsAt(worldObj, posX, posY, posZ, null, getDroppedItem());
 	}
 	
 	@Override
@@ -81,12 +96,12 @@ public abstract class EntityFixed extends Entity
 					
 					if (player.capabilities.isCreativeMode)
 					{	// Stop items dropping the player attacking is in creative mode.
-						isDead = true;
+						setDead();
 					}
 				}
 			}
 			
-			setDead();
+			setDeadAndDrop();
 			return true;
 		}
 		
@@ -96,11 +111,6 @@ public abstract class EntityFixed extends Entity
 	@Override
 	public void setDead()
 	{
-		if (!worldObj.isRemote && !isDead)
-		{
-			dropItem();
-		}
-		
 		super.setDead();
 	}
 	
@@ -140,7 +150,7 @@ public abstract class EntityFixed extends Entity
 		}
 		else
 		{
-			fixedTo = new BlockPos(posX, posY, posZ);
+			fixedTo = new BlockPos(this);
 		}
 	}
 }

@@ -4,7 +4,7 @@ import java.util.*;
 
 import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
-import genesis.util.range.DoubleRange;
+import genesis.util.random.DoubleRange;
 import genesis.client.*;
 import genesis.common.*;
 import genesis.block.tileentity.*;
@@ -74,6 +74,13 @@ public class BlockCampfire extends Block
 		}
 		
 		return state;
+	}
+	
+	@Override
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
+	{
+		//return Collections.singletonList(new ItemStack(this));
+		return super.getDrops(world, pos, state, fortune);
 	}
 	
 	public boolean canBlockStay(World world, BlockPos pos)

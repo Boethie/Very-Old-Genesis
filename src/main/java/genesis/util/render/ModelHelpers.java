@@ -47,8 +47,11 @@ public class ModelHelpers
 	public static BlockModelRenderer modelRenderer;
 	public static ModelManager modelManager;
 	public static ItemModelMesher modelMesher;
+	public static Method getItemMesherIndex;
+	public static Map<Integer, ModelResourceLocation> itemLocation;
 	public static Map<IBlockState, ModelResourceLocation> blockResourceMap;
 	public static Class<? extends IModel> classVanillaModelWrapper;
+	public static Field vanillaModelWrapperModelBlock;
 	public static IdentityHashMap<Item, TIntObjectHashMap<ModelResourceLocation>> itemModelLocations;
 	public static Field modelBlockDefinitionMap;
 	public static Field destroyBlockIcons;
@@ -63,7 +66,8 @@ public class ModelHelpers
 		addForcedModels();
 	}
 	
-	public static Class getModelLoaderClass(String name)
+	@SuppressWarnings("unchecked")
+	public static <T> Class<T> getModelLoaderClass(String name)
 	{
 		Class<?>[] classes = ModelLoader.class.getDeclaredClasses();
 		
@@ -71,7 +75,7 @@ public class ModelHelpers
 		{
 			if (clazz.getName().endsWith("$" + name))
 			{
-				return clazz;
+				return (Class<T>) clazz;
 			}
 		}
 		
@@ -140,11 +144,11 @@ public class ModelHelpers
 		return modelMesher;
 	}
 	
-	public static String getPropertyString(Map<IProperty, Comparable> properties)
+	public static String getPropertyString(Map<IProperty, Comparable<?>> properties)
 	{
 		String output = "";
 		
-		for (Map.Entry<IProperty, Comparable> entry : properties.entrySet())
+		for (Map.Entry<IProperty, Comparable<?>> entry : properties.entrySet())
 		{
 			if (output.length() > 0)
 			{
@@ -252,8 +256,7 @@ public class ModelHelpers
 	
 	public static ModelResourceLocation getLocationFromState(IBlockState state)
 	{
-		getStateToModelLocationMap();
-		return blockResourceMap.get(state);
+		return getStateToModelLocationMap().get(state);
 	}
 	
 	public static IdentityHashMap<Item, TIntObjectHashMap<ModelResourceLocation>> getItemModelLocationMap()
@@ -328,6 +331,7 @@ public class ModelHelpers
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static Class<? extends IModel> getVanillaModelWrapper()
 	{
 		if (classVanillaModelWrapper == null)
@@ -352,11 +356,14 @@ public class ModelHelpers
 		
 		if (classVanillaModelWrapper.isInstance(model))
 		{
-			Field modelField = ReflectionHelper.findField(classVanillaModelWrapper, "model");
+			if (vanillaModelWrapperModelBlock == null)
+			{
+				vanillaModelWrapperModelBlock = ReflectionHelper.findField(classVanillaModelWrapper, "model");
+			}
 			
 			try
 			{
-				return (ModelBlock) modelField.get(model);
+				return (ModelBlock) vanillaModelWrapperModelBlock.get(model);
 			}
 			catch (Exception e)
 			{
@@ -487,7 +494,7 @@ public class ModelHelpers
 	public static void forceModelLoading(Collection<String> variants, ResourceLocation loc)
 	{
 		String sharedPropertyName = null;
-		List<String> newVariants = new ArrayList(variants.size());
+		List<String> newVariants = new ArrayList<String>(variants.size());
 		
 		for (String variant : variants)
 		{
@@ -528,7 +535,7 @@ public class ModelHelpers
 	{
 		Genesis.proxy.registerBlock(fakeBlock, "dummy_block");
 		
-		final Map<IBlockState, IBlockState> actualToFakeState = new HashMap();
+		final Map<IBlockState, IBlockState> actualToFakeState = Maps.newHashMap();
 		
 		for (Pair<BlockState, ResourceLocation> entry : forcedModels)
 		{

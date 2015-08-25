@@ -1,4 +1,4 @@
-package genesis.util.range;
+package genesis.util.random;
 
 import java.util.Random;
 
@@ -26,7 +26,7 @@ public abstract class FloatRange implements Range<Float>
 		private final float min;
 		private final float max;
 		
-		public Range(float min, float max)
+		protected Range(float min, float max)
 		{
 			this.min = min;
 			this.max = max;
@@ -55,7 +55,7 @@ public abstract class FloatRange implements Range<Float>
 	{
 		private final float value;
 		
-		public Value(float value)
+		protected Value(float value)
 		{
 			this.value = value;
 		}

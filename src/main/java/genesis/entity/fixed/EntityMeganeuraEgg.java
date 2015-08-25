@@ -6,7 +6,7 @@ import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
 import genesis.entity.living.flying.EntityMeganeura;
 import genesis.util.Constants;
-import genesis.util.range.IntRange;
+import genesis.util.random.IntRange;
 import genesis.util.render.EntityPart;
 import genesis.util.render.RenderHelpers;
 import net.minecraft.block.Block;

@@ -9,8 +9,8 @@ public enum EnumDung implements IMetadata
 {
 	SAUROPODA("sauropoda"), THEROPODA("theropoda");
 
-	private final String name;
-	private final String unlocalizedName;
+	final String name;
+	final String unlocalizedName;
 
 	EnumDung(String name)
 	{

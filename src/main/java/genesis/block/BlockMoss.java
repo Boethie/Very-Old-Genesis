@@ -4,7 +4,7 @@ import genesis.client.*;
 import genesis.common.*;
 import genesis.metadata.*;
 import genesis.util.*;
-import genesis.util.range.*;
+import genesis.util.random.*;
 import genesis.world.biome.BiomeGenBaseGenesis;
 
 import java.util.*;

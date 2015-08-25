@@ -23,7 +23,7 @@ public class SurviveOnDirtCustoms implements IGrowingPlantCustoms
     }
     
     @Override
-    public void plantUpdateTick(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, Random rand, boolean grew)
+    public void plantUpdateTick(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, Random rand, boolean grew)
     {
     }
     
@@ -33,11 +33,11 @@ public class SurviveOnDirtCustoms implements IGrowingPlantCustoms
     }
     
     @Override
-    public CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World worldIn, BlockPos pos, boolean placed)
+    public CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World world, BlockPos pos, boolean placed)
     {
         if (placed)
         {
-            Block block = worldIn.getBlockState(pos.down()).getBlock();
+            Block block = world.getBlockState(pos.down()).getBlock();
             
             if (block == Blocks.grass || block == Blocks.dirt || block == GenesisBlocks.moss)
             {

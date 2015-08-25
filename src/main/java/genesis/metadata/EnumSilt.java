@@ -4,11 +4,11 @@ public enum EnumSilt implements IMetadata
 {
 	SILT("", "", "default"), RED_SILT("red");
 	
-	protected final String name;
-	protected final String unlocalizedName;
-	protected final String toString;
+	final String name;
+	final String unlocalizedName;
+	final String toString;
 	
-	private EnumSilt(String name, String unlocalizedName, String toString)
+	EnumSilt(String name, String unlocalizedName, String toString)
 	{
 		this.name = name;
 		this.unlocalizedName = unlocalizedName;

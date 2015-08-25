@@ -5,7 +5,7 @@ import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms.CanStayOptions;
 import genesis.common.GenesisItems;
 import genesis.util.WorldUtils;
-import genesis.util.range.IntRange;
+import genesis.util.random.IntRange;
 
 import java.util.ArrayList;
 import java.util.Iterator;

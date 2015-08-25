@@ -15,7 +15,7 @@ import genesis.common.GenesisItems;
 import genesis.entity.fixed.EntityMeganeuraEgg;
 import static genesis.entity.living.flying.EntityMeganeura.State.*;
 import genesis.util.*;
-import genesis.util.range.DoubleRange;
+import genesis.util.random.DoubleRange;
 import genesis.util.render.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;

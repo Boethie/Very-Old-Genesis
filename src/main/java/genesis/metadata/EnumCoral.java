@@ -7,8 +7,8 @@ public enum EnumCoral implements IMetadata
 {
 	FAVOSITES("favosites"), HELIOLITES("heliolites"), HALYSITES("halysites");
 
-	private final String name;
-	private final String unlocalizedName;
+	final String name;
+	final String unlocalizedName;
 
 	EnumCoral(String name)
 	{

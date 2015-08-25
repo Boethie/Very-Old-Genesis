@@ -10,10 +10,10 @@ public enum EnumAquaticPlant implements IMetadata
 	PTERIDINIUM("pteridinium"), DINOMISCHUS("dinomischus"), ECHMATOCRINUS("echmatocrinus"), THAUMAPTILON("thaumaptilon"), PRIMOCANDELABRUM("primocandelabrum"),
 	CHARNIA("charnia"), CHARNIA_TOP("charnia_top");
 
-	private final String name;
-	private final String unlocalizedName;
+	final String name;
+	final String unlocalizedName;
 
-	private EnumAquaticPlant(String name)
+	EnumAquaticPlant(String name)
 	{
 		this(name, name);
 	}

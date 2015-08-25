@@ -3,7 +3,7 @@ package genesis.block;
 import genesis.common.GenesisCreativeTabs;
 import genesis.metadata.IMetadata;
 import genesis.util.Constants.Unlocalized;
-import genesis.util.range.RandomDrop;
+import genesis.util.random.drops.BlockDrops;
 import genesis.util.WorldUtils;
 
 import java.util.Collections;
@@ -24,7 +24,7 @@ public class BlockGenesisOre extends BlockOre
 {
 	protected int minExp;
 	protected int maxExp;
-	protected RandomDrop drop;
+	protected BlockDrops drop;
 
 	public BlockGenesisOre(float hardness, float resistance, int maxExp, int harvestLevel)
 	{
@@ -58,12 +58,12 @@ public class BlockGenesisOre extends BlockOre
 		return maxExp;
 	}
 	
-	public RandomDrop getDrop()
+	public BlockDrops getDrop()
 	{
 		return drop;
 	}
 	
-	public BlockGenesisOre setDrop(RandomDrop drop)
+	public BlockGenesisOre setDrops(BlockDrops drop)
 	{
 		this.drop = drop;
 		return this;
@@ -72,6 +72,6 @@ public class BlockGenesisOre extends BlockOre
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
 	{
-		return Collections.singletonList(getDrop().getRandomStackDrop(WorldUtils.getWorldRandom(world, RANDOM)));
+		return getDrop().getDrops(state, WorldUtils.getWorldRandom(world, RANDOM));
 	}
 }

@@ -12,8 +12,8 @@ public enum EnumTree implements IMetadata
 	
 	public static final EnumTree[] NO_BILLET = { PSARONIUS };
 
-	String name;
-	String unlocalizedName;
+	final String name;
+	final String unlocalizedName;
 	
 	EnumTree(String name)
 	{

@@ -3,6 +3,7 @@ package genesis.item;
 import java.lang.reflect.Constructor;
 
 import genesis.common.GenesisBlocks;
+import genesis.entity.fixed.EntityFixed;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,7 +13,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
-public class ItemGenesisEgg<T extends Entity> extends ItemGenesis
+public class ItemGenesisEgg<T extends EntityFixed> extends ItemGenesis
 {
 	public final Class<T> entityClass;
 	
@@ -57,6 +58,7 @@ public class ItemGenesisEgg<T extends Entity> extends ItemGenesis
 					}
 					
 					entity.setPositionAndUpdate(pos.getX() + hitX, pos.getY() + hitY, pos.getZ() + hitZ);
+					entity.setFixedTo(pos);
 					setData(entity, stack, player, world, pos, side, hitX, hitY, hitZ);
 					
 					world.spawnEntityInWorld(entity);

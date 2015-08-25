@@ -45,10 +45,10 @@ public class ItemsCeramicBowls extends VariantsOfTypesCombo<ObjectType, IMetadat
 		}
 	}
 	
-	public static final ObjectType<Block, ItemCeramicBowl> MAIN = new ObjectType<Block, ItemCeramicBowl>("ceramic_bowl", "ceramicBowl", null, ItemCeramicBowl.class, EnumDye.valueList())
+	public static final ObjectType<Block, ItemCeramicBowl> MAIN = new ObjectType<Block, ItemCeramicBowl>("ceramic_bowl", "ceramicBowl", null, ItemCeramicBowl.class, GenesisDye.valueList())
 			.setNamePosition(ObjectNamePosition.PREFIX);
 	public static final ObjectType<Block, ItemMulti> DYES = new ObjectType<Block, ItemMulti>("dye", null, null)
-			.setValidVariants(EnumDye.valueList())
+			.setValidVariants(GenesisDye.valueList())
 			.setNamePosition(ObjectNamePosition.PREFIX);
 	
 	public static final List<ObjectType> ALL_OBJECT_TYPES = new ArrayList<ObjectType>()
@@ -59,7 +59,7 @@ public class ItemsCeramicBowls extends VariantsOfTypesCombo<ObjectType, IMetadat
 	public static final List<IMetadata> ALL_VARIANTS = new ArrayList<IMetadata>()
 	{{
 		addAll(Arrays.asList(EnumCeramicBowls.values()));
-		addAll(EnumDye.valueList());
+		addAll(GenesisDye.valueList());
 	}};
 	
 	public ItemsCeramicBowls()
@@ -79,19 +79,19 @@ public class ItemsCeramicBowls extends VariantsOfTypesCombo<ObjectType, IMetadat
 		return getStack(bowlVariant, 1);
 	}
 	
-	public ItemStack getStack(EnumDye dyeVariant, int size)
+	public ItemStack getStack(GenesisDye dyeVariant, int size)
 	{
 		return super.getStack(DYES, dyeVariant, size);
 	}
 	
-	public ItemStack getStack(EnumDye dyeVariant)
+	public ItemStack getStack(GenesisDye dyeVariant)
 	{
 		return getStack(dyeVariant, 1);
 	}
 
 	public ItemStack getStack(EnumDyeColor color, int size)
 	{
-		return getStack(EnumDye.get(color), size);
+		return getStack(GenesisDye.get(color), size);
 	}
 
 	public ItemStack getStack(EnumDyeColor color)

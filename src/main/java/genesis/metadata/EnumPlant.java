@@ -13,8 +13,8 @@ public enum EnumPlant implements IMetadata
 	public static final Set<EnumPlant> NO_SINGLES = Collections.emptySet();
 	public static final Set<EnumPlant> DOUBLES = EnumSet.of(ASTEROXYLON);
 	
-	private final String name;
-	private final String unlocalizedName;
+	final String name;
+	final String unlocalizedName;
 	
 	EnumPlant(String name)
 	{

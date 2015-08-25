@@ -2,7 +2,7 @@ package genesis.block.tileentity.crafting;
 
 import genesis.block.tileentity.TileEntityKnapper.*;
 import genesis.util.*;
-import genesis.util.range.IntRange;
+import genesis.util.random.IntRange;
 import genesis.util.render.ISpriteUVs;
 
 import java.util.*;

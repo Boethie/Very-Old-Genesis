@@ -1,4 +1,4 @@
-package genesis.util.range;
+package genesis.util.random;
 
 import java.util.Random;
 
@@ -53,7 +53,7 @@ public abstract class IntRange implements Range<Integer>
 	
 	protected static class Value extends IntRange
 	{
-		private final int value;
+		public final int value;
 		
 		protected Value(int value)
 		{

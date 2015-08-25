@@ -10,8 +10,7 @@ import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
-import genesis.util.range.RandomDrop;
-import genesis.util.range.RandomDrop.RandomStackDrop;
+import genesis.util.random.drops.*;
 
 import java.util.List;
 
@@ -49,18 +48,12 @@ public final class GenesisBlocks
 	public static final Block ancient_permafrost = new BlockAncientPermafrost().setUnlocalizedName(Unlocalized.PREFIX + "ancientPermafrost");
 	
 	/* Granite Ores */
-	//public static final GraniteOreBlocks ores = new GraniteOreBlocks();
-	public static final Block quartz_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 1).setDrop(new RandomDrop(GenesisItems.quartz)).setUnlocalizedName(Unlocalized.ORE + "quartz");
-	public static final Block zircon_ore = new BlockGenesisOre(4.2F, 5.0F, 2, 1).setDrop(new RandomDrop(GenesisItems.zircon)).setUnlocalizedName(Unlocalized.ORE + "zircon");
-	public static final Block garnet_ore = new BlockGenesisOre(4.2F, 5.0F, 2, 1).setDrop(new RandomDrop(GenesisItems.garnet)).setUnlocalizedName(Unlocalized.ORE + "garnet");
-	public static final Block hematite_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 1).setDrop(new RandomDrop(GenesisItems.hematite)).setUnlocalizedName(Unlocalized.ORE + "hematite");
-	public static final Block manganese_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 1).setDrop(new RandomDrop(GenesisItems.manganese)).setUnlocalizedName(Unlocalized.ORE + "manganese");
-	public static final Block malachite_ore = new BlockGenesisOre(4.2F, 5.0F, 1, 2, 1).setDrop(new RandomDrop(GenesisItems.malachite)).setUnlocalizedName(Unlocalized.ORE + "malachite");
-	public static final Block olivine_ore = new BlockGenesisOre(4.2F, 5.0F, 3, 5, 1).setDrop(new RandomDrop(GenesisItems.olivine)).setUnlocalizedName(Unlocalized.ORE + "olivine");
+	public static final GraniteOreBlocks graniteOres = new GraniteOreBlocks();
 	
 	/* Limestone Ores */
-	public static final Block flint_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(new RandomDrop(new RandomStackDrop(GenesisItems.nodules.getStack(EnumNodule.BROWN_FLINT)), new RandomStackDrop(GenesisItems.nodules.getStack(EnumNodule.BLACK_FLINT)))).setUnlocalizedName(Unlocalized.ORE + "flint");
-	public static final Block marcasite_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrop(new RandomDrop(GenesisItems.nodules.getStack(EnumNodule.MARCASITE))).setUnlocalizedName(Unlocalized.ORE + "marcasite");
+	public static final Block flint_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0)
+			.setDrops(new BlockDrops(new BlockMultiDrop(new StackDrop(GenesisItems.nodules.getStack(EnumNodule.BROWN_FLINT), 1), new StackDrop(GenesisItems.nodules.getStack(EnumNodule.BLACK_FLINT), 1)))).setUnlocalizedName(Unlocalized.ORE + "flint");
+	public static final Block marcasite_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrops(new BlockDrops(GenesisItems.nodules.getStack(EnumNodule.MARCASITE), 1)).setUnlocalizedName(Unlocalized.ORE + "marcasite");
 	
 	/* Trees */
 	public static final TreeBlocksAndItems trees = new TreeBlocksAndItems();
@@ -174,15 +167,12 @@ public final class GenesisBlocks
 		
 		Genesis.proxy.registerBlock(permafrost, "permafrost");
 		Genesis.proxy.registerBlock(ancient_permafrost, "ancient_permafrost");
-		Genesis.proxy.registerBlock(quartz_ore, "quartz_ore");
-		Genesis.proxy.registerBlock(zircon_ore, "zircon_ore");
-		Genesis.proxy.registerBlock(garnet_ore, "garnet_ore");
-		Genesis.proxy.registerBlock(hematite_ore, "hematite_ore");
-		Genesis.proxy.registerBlock(manganese_ore, "manganese_ore");
-		Genesis.proxy.registerBlock(malachite_ore, "malachite_ore");
-		Genesis.proxy.registerBlock(olivine_ore, "olivine_ore");
+		
+		// Ores
+		graniteOres.registerAll();
 		Genesis.proxy.registerBlock(flint_ore, "flint_ore");
 		Genesis.proxy.registerBlock(marcasite_ore, "marcasite_ore");
+		
 		trees.registerVariants(trees.LOG);
 		Genesis.proxy.registerBlock(calamites_bundle, "calamites_bundle");
 		Genesis.proxy.registerBlock(programinis_bundle, "programinis_bundle");
@@ -215,8 +205,8 @@ public final class GenesisBlocks
 		plants.registerAll();
 
 		Genesis.proxy.registerBlock(calamites, "calamites", null);
-		calamites.setDrops(new RandomDrop(GenesisItems.calamites, 1, 1));
-		calamites.setCropDrops(new RandomDrop(GenesisItems.calamites, 1, 1));
+		calamites.setDrops(new BlockDrops(GenesisItems.calamites, 1, 1));
+		calamites.setCropDrops(new BlockDrops(GenesisItems.calamites, 1, 1));
 		calamites.setPickedItem(GenesisItems.calamites);
 		GenesisItems.calamites.setCrop(calamites);
 		
@@ -224,22 +214,22 @@ public final class GenesisBlocks
 		ferns.registerAll();
 		
 		Genesis.proxy.registerBlock(zingiberopsis, "zingiberopsis", null);
-		zingiberopsis.setDrops(new RandomDrop(GenesisItems.zingiberopsis_rhizome, 1, 1));
-		zingiberopsis.setCropDrops(new RandomDrop(GenesisItems.zingiberopsis_rhizome, 1, 3));
+		zingiberopsis.setDrops(new BlockDrops(GenesisItems.zingiberopsis_rhizome, 1, 1));
+		zingiberopsis.setCropDrops(new BlockDrops(GenesisItems.zingiberopsis_rhizome, 1, 3));
 		zingiberopsis.setPickedItem(GenesisItems.zingiberopsis_rhizome);
 		GenesisItems.zingiberopsis_rhizome.setCrop(zingiberopsis);
 		
 		Genesis.proxy.registerBlock(sphenophyllum, "sphenophyllum");
 		
 		Genesis.proxy.registerBlock(odontopteris, "odontopteris", null);
-		odontopteris.setDrops(new RandomDrop(GenesisItems.odontopteris_seeds, 1, 1));
-		odontopteris.setCropDrops(new RandomDrop(GenesisItems.odontopteris_seeds, 1, 3));
+		odontopteris.setDrops(new BlockDrops(GenesisItems.odontopteris_seeds, 1, 1));
+		odontopteris.setCropDrops(new BlockDrops(GenesisItems.odontopteris_seeds, 1, 3));
 		odontopteris.setPickedItem(GenesisItems.odontopteris_seeds);
 		GenesisItems.odontopteris_seeds.setCrop(odontopteris);
 		
 		Genesis.proxy.registerBlock(programinis, "programinis", null);
-		programinis.setDrops(new RandomDrop(GenesisItems.programinis_seeds, 1, 1));
-		programinis.setCropDrops(new RandomDrop(GenesisItems.programinis_seeds, 1, 3), new RandomDrop(GenesisItems.programinis, 1, 1));
+		programinis.setDrops(new BlockDrops(GenesisItems.programinis_seeds, 1, 1));
+		programinis.setCropDrops(new BlockDrops(new StackDrop(GenesisItems.programinis_seeds, 1, 3), new StackDrop(GenesisItems.programinis, 1, 1)));
 		programinis.setPickedItem(GenesisItems.programinis_seeds);
 		GenesisItems.programinis_seeds.setCrop(programinis);
 		

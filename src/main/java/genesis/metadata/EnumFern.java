@@ -7,8 +7,8 @@ public enum EnumFern implements IMetadata
 {
 	ZYGOPTERIS("zygopteris"), PHLEBOPTERIS("phlebopteris"), RUFFORDIA("ruffordia"), ASTRALOPTERIS("astralopteris"), MATONIDIUM("matonidium");
 
-	private final String name;
-	private final String unlocalizedName;
+	final String name;
+	final String unlocalizedName;
 
 	EnumFern(String name)
 	{

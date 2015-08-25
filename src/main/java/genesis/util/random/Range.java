@@ -1,4 +1,4 @@
-package genesis.util.range;
+package genesis.util.random;
 
 import java.util.Random;
 

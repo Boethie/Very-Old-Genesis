@@ -13,7 +13,7 @@ import genesis.common.GenesisBlocks;
 import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
 import genesis.util.gui.RestrictedDisabledSlot.IInventoryDisabledSlots;
-import genesis.util.range.FloatRange;
+import genesis.util.random.FloatRange;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.*;

@@ -12,14 +12,14 @@ public enum EnumToolMaterial implements IMetadata
 	BROWN_FLINT("brown_flint", "brownFlint",  1, 194, 4.6F, 1.6F, 5),
 	BLACK_FLINT("black_flint", "blackFlint",  1, 194, 4.6F, 1.6F, 5);
 	
-	private final String name;
-	private final String unlocalizedName;
+	final String name;
+	final String unlocalizedName;
 	
-	private final int harvestLevel;
-	private final int uses;
-	private final float efficiency;
-	private final float entityDamage;
-	private final int enchantability;
+	final int harvestLevel;
+	final int uses;
+	final float efficiency;
+	final float entityDamage;
+	final int enchantability;
 
 	EnumToolMaterial(String name, String unlocalizedName,
 			int harvestLevel, int uses, float efficiency, float entityDamage, int enchantability)

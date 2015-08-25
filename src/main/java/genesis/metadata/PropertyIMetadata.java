@@ -8,9 +8,9 @@ import net.minecraft.block.properties.*;
 
 public class PropertyIMetadata<T extends IMetadata> extends PropertyHelper
 {
-	protected final ImmutableSet<T> values;
+	protected final ImmutableSet<? extends T> values;
 	
-	public PropertyIMetadata(String name, List<T> values)
+	public PropertyIMetadata(String name, List<? extends T> values)
 	{
 		super(name, IMetadata.class);
 		

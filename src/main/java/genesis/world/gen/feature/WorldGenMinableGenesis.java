@@ -3,7 +3,7 @@ package genesis.world.gen.feature;
 import java.util.Random;
 
 import genesis.common.GenesisBlocks;
-import genesis.util.range.IntRange;
+import genesis.util.random.IntRange;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockHelper;
@@ -18,19 +18,20 @@ public class WorldGenMinableGenesis extends WorldGenMinable
 {
 	public final IBlockState ore;
 	public final IntRange count;
-	public final Predicate target;
+	public final Predicate<IBlockState> target;
 	
-	public WorldGenMinableGenesis(Block oreBlock, int minCount, int maxCount)
+	public WorldGenMinableGenesis(IBlockState ore, int minCount, int maxCount)
 	{
-		this(oreBlock, minCount, maxCount, GenesisBlocks.granite);
+		this(ore, minCount, maxCount, GenesisBlocks.granite);
 	}
 
-	public WorldGenMinableGenesis(Block oreBlock, int minCount, int maxCount, Block targetBlock)
+	@SuppressWarnings("unchecked")
+	public WorldGenMinableGenesis(IBlockState ore, int minCount, int maxCount, Block targetBlock)
 	{
-		this(oreBlock.getDefaultState(), minCount, maxCount, BlockHelper.forBlock(targetBlock));
+		this(ore, minCount, maxCount, BlockHelper.forBlock(targetBlock));
 	}
 
-	public WorldGenMinableGenesis(IBlockState ore, int minCount, int maxCount, Predicate target)
+	public WorldGenMinableGenesis(IBlockState ore, int minCount, int maxCount, Predicate<IBlockState> target)
 	{
 		super(ore, minCount, target);
 		this.ore = ore;

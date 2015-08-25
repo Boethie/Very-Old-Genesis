@@ -460,13 +460,13 @@ public final class GenesisRecipes
 		}
 		
 		// Smelting
-		GameRegistry.addSmelting(GenesisBlocks.quartz_ore, new ItemStack(GenesisItems.quartz), 0.05F);
-		GameRegistry.addSmelting(GenesisBlocks.zircon_ore, new ItemStack(GenesisItems.zircon), 0.1F);
-		GameRegistry.addSmelting(GenesisBlocks.garnet_ore, new ItemStack(GenesisItems.garnet), 0.1F);
-		GameRegistry.addSmelting(GenesisBlocks.hematite_ore, new ItemStack(Items.iron_ingot), 0.05F);
-		GameRegistry.addSmelting(GenesisBlocks.manganese_ore, new ItemStack(GenesisItems.manganese), 0.05F);
-		GameRegistry.addSmelting(GenesisBlocks.malachite_ore, new ItemStack(GenesisItems.malachite), 0.2F);
-		GameRegistry.addSmelting(GenesisBlocks.olivine_ore, new ItemStack(GenesisItems.olivine), 0.3F);
+		for (EnumGraniteOre ore : GenesisBlocks.graniteOres.getSharedValidVariants(GraniteOreBlocks.ORE, GraniteOreBlocks.DROP))
+		{
+			ItemStack oreStack = GenesisBlocks.graniteOres.getOreStack(ore);
+			ItemStack dropStack = GenesisBlocks.graniteOres.getDrop(ore);
+			GameRegistry.addSmelting(oreStack, dropStack, ore.getSmeltingExperience());
+		}
+		
 		GameRegistry.addSmelting(GenesisBlocks.marcasite_ore, GenesisItems.nodules.getStack(EnumNodule.MARCASITE), 0.05F);
 		
 		// Food
@@ -497,10 +497,10 @@ public final class GenesisRecipes
 		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.ORANGE), calamites, mabelia);
 		
 		ItemStack odontHead = new ItemStack(GenesisItems.odontopteris_fiddlehead);
-		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDye.get(EnumDyeColor.LIME)), odontHead, odontHead);
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(GenesisDye.get(EnumDyeColor.LIME)), odontHead, odontHead);
 		
 		ItemStack protoFlesh = new ItemStack(GenesisItems.prototaxites_flesh);
-		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDye.get(EnumDyeColor.BROWN)), protoFlesh, protoFlesh);
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(GenesisDye.get(EnumDyeColor.BROWN)), protoFlesh, protoFlesh);
 		
 		// Cooking pot recipes with vanilla items
 		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.ORANGE), calamites, new ItemStack(Items.dye, 1, EnumDyeColor.RED.getDyeDamage()));
@@ -525,7 +525,7 @@ public final class GenesisRecipes
 		// Dyes
 		for (IMetadata variant : GenesisItems.bowls.getValidVariants(ItemsCeramicBowls.DYES))
 		{
-			EnumDye dye = (EnumDye) variant;
+			GenesisDye dye = (GenesisDye) variant;
 			// TODO: Doesn't seem to work. Must fix sometime.
 			makeSubstituteCraftingItem(new ItemStack(Items.dye, 1, dye.getColor().getDyeDamage()),
 					GenesisItems.bowls.getStack(dye));

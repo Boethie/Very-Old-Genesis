@@ -3,7 +3,8 @@ package genesis.block;
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms.CanStayOptions;
 import genesis.common.GenesisCreativeTabs;
 import genesis.util.*;
-import genesis.util.range.*;
+import genesis.util.random.*;
+import genesis.util.random.drops.BlockDrops;
 
 import java.util.*;
 import java.util.Map.Entry;
@@ -234,8 +235,8 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	protected boolean allowBonemeal = true;
 	protected boolean useBiomeColor = false;
 
-	protected ArrayList<RandomDrop> drops = new ArrayList<RandomDrop>();
-	protected ArrayList<RandomDrop> cropDrops = new ArrayList<RandomDrop>();
+	protected BlockDrops drops;
+	protected BlockDrops cropDrops;
 	protected Item pickedItem = null;
 	
 	IGrowingPlantCustoms customs = null;
@@ -417,14 +418,9 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	/**
 	 * Sets the drops when the plant is NOT fully grown.
 	 */
-	public BlockGrowingPlant setDrops(RandomDrop... dropsIn)
+	public BlockGrowingPlant setDrops(BlockDrops dropsIn)
 	{
-		drops.clear();
-		
-		for (RandomDrop drop : dropsIn)
-		{
-			drops.add(drop);
-		}
+		drops = dropsIn;
 		
 		return this;
 	}
@@ -432,14 +428,9 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	/**
 	 * Sets the drops when the plant is fully grown.
 	 */
-	public BlockGrowingPlant setCropDrops(RandomDrop... dropsIn)
+	public BlockGrowingPlant setCropDrops(BlockDrops dropsIn)
 	{
-		cropDrops.clear();
-		
-		for (RandomDrop drop : dropsIn)
-		{
-			cropDrops.add(drop);
-		}
+		cropDrops = dropsIn;
 		
 		return this;
 	}
@@ -1117,7 +1108,8 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		{
 			if (chance <= -1)	// Prevent the block dropping without our code telling it to explicitly
 			{
-				ArrayList<ItemStack> dropStacks = null;
+				state = getActualState(state, world, pos);
+				List<ItemStack> dropStacks = null;
 				
 				if (customs != null)
 				{
@@ -1130,23 +1122,22 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 					{
 						if ((Integer) state.getValue(ageProp) >= maxAge)
 						{
-							for (RandomDrop drop : cropDrops)
+							if (drops != null)
 							{
-								ItemStack stack = drop.getRandomStackDrop(world.rand);
-								spawnAsEntity(world, pos, stack);
+								dropStacks = drops.getDrops(state, world.rand);
 							}
 						}
 						else
 						{
-							for (RandomDrop drop : drops)
+							if (cropDrops != null)
 							{
-								ItemStack stack = drop.getRandomStackDrop(world.rand);
-								spawnAsEntity(world, pos, stack);
+								dropStacks = cropDrops.getDrops(state, world.rand);
 							}
 						}
 					}
 				}
-				else
+				
+				if (dropStacks != null)
 				{
 					for (ItemStack stack : dropStacks)
 					{

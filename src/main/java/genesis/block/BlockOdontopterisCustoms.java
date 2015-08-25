@@ -5,7 +5,7 @@ import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
 import genesis.util.*;
-import genesis.util.range.RandomDrop;
+import genesis.util.random.drops.BlockDrops;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -38,17 +38,17 @@ public class BlockOdontopterisCustoms extends SurviveOnDirtCustoms
 	 * |  Fiddlehead |0-1|     1     |    0      |
 	 * |-----------------------------------------|
 	 */
-	static final RandomDrop seedsDropBottom1 = new RandomDrop(GenesisItems.odontopteris_seeds, 0, 1);
-	static final RandomDrop seedsDropBottom2Up = new RandomDrop(GenesisItems.odontopteris_seeds, 1, 1);
+	static final BlockDrops seedsDropBottom1 = new BlockDrops(GenesisItems.odontopteris_seeds, 0, 1);
+	static final BlockDrops seedsDropBottom2Up = new BlockDrops(GenesisItems.odontopteris_seeds, 1, 1);
 	
-	static final RandomDrop seedsDropTopBeforeMature = new RandomDrop(GenesisItems.odontopteris_seeds, 0, 1);
-	static final RandomDrop seedsDropTopMature = new RandomDrop(GenesisItems.odontopteris_seeds, 0, 2);
+	static final BlockDrops seedsDropTopBeforeMature = new BlockDrops(GenesisItems.odontopteris_seeds, 0, 1);
+	static final BlockDrops seedsDropTopMature = new BlockDrops(GenesisItems.odontopteris_seeds, 0, 2);
 
-	static final RandomDrop fiddleheadDrop1 = new RandomDrop(GenesisItems.odontopteris_fiddlehead, 0, 1);
-	static final RandomDrop fiddleheadDrop2To4 = new RandomDrop(GenesisItems.odontopteris_fiddlehead, 1, 1);
+	static final BlockDrops fiddleheadDrop1 = new BlockDrops(GenesisItems.odontopteris_fiddlehead, 0, 1);
+	static final BlockDrops fiddleheadDrop2To4 = new BlockDrops(GenesisItems.odontopteris_fiddlehead, 1, 1);
 
 	@Override
-	public ArrayList<ItemStack> getPlantDrops(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, int fortune, boolean firstBlock)
+	public ArrayList<ItemStack> getPlantDrops(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, int fortune, boolean firstBlock)
 	{
 		ArrayList<ItemStack> out = new ArrayList<ItemStack>();
 		int age = (Integer) state.getValue(plant.ageProp);
@@ -58,31 +58,31 @@ public class BlockOdontopterisCustoms extends SurviveOnDirtCustoms
 		{
 			if (age >= plant.maxAge)
 			{
-				out.add(seedsDropTopMature.getRandomStackDrop(worldIn.rand));
+				out.addAll(seedsDropTopMature.getDrops(state, world.rand));
 			}
 			else
 			{
-				out.add(seedsDropTopBeforeMature.getRandomStackDrop(worldIn.rand));
+				out.addAll(seedsDropTopBeforeMature.getDrops(state, world.rand));
 			}
 		}
 		else
 		{
 			if (age >= 2)
 			{
-				out.add(seedsDropBottom2Up.getRandomStackDrop(worldIn.rand));
+				out.addAll(seedsDropBottom2Up.getDrops(state, world.rand));
 			}
 			else
 			{
-				out.add(seedsDropBottom1.getRandomStackDrop(worldIn.rand));
+				out.addAll(seedsDropBottom1.getDrops(state, world.rand));
 			}
 
 			if (age == 1)
 			{
-				out.add(fiddleheadDrop1.getRandomStackDrop(worldIn.rand));
+				out.addAll(fiddleheadDrop1.getDrops(state, world.rand));
 			}
 			if (age >= 2 && age <= 4)
 			{
-				out.add(fiddleheadDrop2To4.getRandomStackDrop(worldIn.rand));
+				out.addAll(fiddleheadDrop2To4.getDrops(state, world.rand));
 			}
 		}
 		

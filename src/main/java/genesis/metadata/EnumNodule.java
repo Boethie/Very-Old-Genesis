@@ -20,8 +20,8 @@ public enum EnumNodule implements IMetadata
 		}
 	}
 	
-	private final String name;
-	private final String unlocalizedName;
+	final String name;
+	final String unlocalizedName;
 	
 	EnumNodule(String name)
 	{

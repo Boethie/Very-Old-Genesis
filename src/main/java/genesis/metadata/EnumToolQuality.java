@@ -12,13 +12,13 @@ public enum EnumToolQuality implements IMetadata
 
 	public static final String UNLOC_PREFIX = "item." + Unlocalized.PREFIX + Unlocalized.Section.TOOL_QUALITY;
 	
-	private final String name;
-	private final String unlocalizedName;
+	final String name;
+	final String unlocalizedName;
 	
-	private final float usesMult;
-	private final float efficiencyMult;
-	private final float entityDamageMult;
-	private final float enchantabilityMult;
+	final float usesMult;
+	final float efficiencyMult;
+	final float entityDamageMult;
+	final float enchantabilityMult;
 
 	EnumToolQuality(String name, String unlocalizedName,
 			float usesMult, float efficiencyMult, float entityDamageMult, float enchantabilityMult)

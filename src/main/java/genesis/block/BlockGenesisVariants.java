@@ -8,7 +8,7 @@ import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
-import genesis.util.range.RandomVariantDrop;
+import genesis.util.random.drops.VariantDrop;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.*;
@@ -38,7 +38,7 @@ public class BlockGenesisVariants<V extends IMetadata> extends Block
 	
 	protected final HashSet<V> noItemVariants = new HashSet<V>();
 	
-	protected final List<RandomVariantDrop> drops = new ArrayList<RandomVariantDrop>();
+	protected final List<VariantDrop> drops = new ArrayList<VariantDrop>();
 	
 	public BlockGenesisVariants(List<V> variants, VariantsOfTypesCombo<ObjectType<? extends BlockGenesisVariants, ? extends Item>, V> owner, ObjectType<? extends BlockGenesisVariants, ? extends Item> type, Material material)
 	{
@@ -97,7 +97,7 @@ public class BlockGenesisVariants<V extends IMetadata> extends Block
 		return this;
 	}
 	
-	public BlockGenesisVariants<V> addDrop(RandomVariantDrop drop)
+	public BlockGenesisVariants<V> addDrop(VariantDrop drop)
 	{
 		drops.add(drop);
 		
@@ -106,7 +106,7 @@ public class BlockGenesisVariants<V extends IMetadata> extends Block
 	
 	public BlockGenesisVariants<V> addDrop(ObjectType type, int min, int max)
 	{
-		return addDrop(new RandomVariantDrop(owner, type, min, max));
+		return addDrop(new VariantDrop(owner, type, min, max));
 	}
 	
 	public BlockGenesisVariants<V> addDrop(ObjectType type)
@@ -124,9 +124,9 @@ public class BlockGenesisVariants<V extends IMetadata> extends Block
 		{
 	        Random rand = world instanceof World ? ((World) world).rand : RANDOM;
 			
-			for (RandomVariantDrop drop : drops)
+			for (VariantDrop drop : drops)
 			{
-				ItemStack stack = drop.getRandomStack(variant, rand);
+				ItemStack stack = drop.getStack(state, rand);
 				
 				if (stack != null)
 				{

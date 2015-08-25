@@ -1,7 +1,7 @@
 package genesis.util;
 
-import genesis.util.range.DoubleRange;
-import genesis.util.range.IntRange;
+import genesis.util.random.DoubleRange;
+import genesis.util.random.IntRange;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -139,7 +139,7 @@ public class WorldUtils
 	 */
 	public static List<EntityItem> spawnItemsAt(World world, double x, double y, double z, DropType dropType, ItemStack stack)
 	{
-		if (stack != null)
+		if (!world.isRemote && stack != null)
 		{
 			Random rand = world.rand;
 			ImmutableList.Builder<EntityItem> builder = ImmutableList.builder();

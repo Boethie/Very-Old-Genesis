@@ -13,7 +13,7 @@ public class ParticleUtils
 		{
 			if (existingParticle.getParticleID() == id)
 			{
-				throw new RuntimeException("Something attempted to register a particle with the same integer ID as " + existingParticle.getParticleName() + "(" + existingParticle + ").");
+				throw new RuntimeException("Something attempted to register a particle with the same integer ID as " + existingParticle.getParticleName() + " (" + existingParticle + ").");
 			}
 		}
 		

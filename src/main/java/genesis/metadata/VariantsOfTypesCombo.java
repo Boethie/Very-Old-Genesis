@@ -22,6 +22,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
 import net.minecraft.client.renderer.block.statemap.*;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.*;
 import net.minecraftforge.fml.relauncher.*;
@@ -60,6 +61,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	public static class ObjectType<B extends Block, I extends Item> implements IMetadata
 	{
 		protected String name;
+		protected String resourceName;
 		protected String unlocalizedName;
 		protected Function<String, String> resourceNameFunction;
 		protected ObjectNamePosition namePosition = ObjectNamePosition.POSTFIX;
@@ -82,6 +84,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 		public ObjectType(String name, String unlocalizedName, Class<? extends B> blockClass, Class<? extends I> itemClass, Collection<? extends IMetadata> variantExclusions)
 		{
 			this.name = name;
+			this.resourceName = name;
 			this.unlocalizedName = unlocalizedName;
 			this.blockClass = blockClass;
 			this.itemClass = itemClass;
@@ -122,6 +125,18 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 		public String getName()
 		{
 			return name;
+		}
+		
+		public ObjectType<B, I> setResourceName(String name)
+		{
+			resourceName = name;
+			
+			return this;
+		}
+		
+		public String getResourceName()
+		{
+			return resourceName;
 		}
 		
 		public ObjectType<B, I> setUnlocalizedName(String unlocName)
@@ -289,17 +304,19 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 			
 			if ("".equals(resource))
 			{
-				resource += getName();
+				resource += getResourceName();
 			}
 			else
 			{
+				String sep = getResourceName().equals("") ? "" : "_";
+				
 				switch (getNamePosition())
 				{
 				case PREFIX:
-					resource = getName() + "_" + resource;
+					resource = getResourceName() + sep + resource;
 					break;
 				case POSTFIX:
-					resource += "_" + getName();
+					resource += sep + getResourceName();
 					break;
 				default:
 				}
@@ -624,7 +641,8 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 			}
 			else
 			{
-				registryName = type.getName() + "_" + subsetID;
+				String name = type.getName();
+				registryName = name + (name.equals("") ? "" : "_") + subsetID;
 			}
 			
 			String unlocName = getUnlocalizedPrefix() + type.getUnlocalizedName();
@@ -641,17 +659,17 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 					@SideOnly(Side.CLIENT)
 					public void client(GenesisClient client)
 					{
-						FlexibleStateMap flexStateMap = new FlexibleStateMap();
+						FlexibleStateMap mapper = new FlexibleStateMap();
 						
 						if (type.getUseSeparateVariantJsons())
 						{
 							switch (type.getNamePosition())
 							{
 							case PREFIX:
-								flexStateMap.setPrefix(type.getName(), "_");
+								mapper.setPrefix(type.getResourceName(), "_");
 								break;
 							case POSTFIX:
-								flexStateMap.setPostfix(type.getName(), "_");
+								mapper.setPostfix(type.getResourceName(), "_");
 								break;
 							default:
 								break;
@@ -661,29 +679,29 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 							
 							if (variantProp != null)
 							{
-								flexStateMap.setNameProperty(variantProp);
+								mapper.setNameProperty(variantProp);
 							}
 						}
 						else
 						{
-							flexStateMap.setPrefix(type.getName(), "_");
+							mapper.setPrefix(type.getResourceName(), "_");
 						}
 						
-						type.customizeStateMap(flexStateMap);
+						type.customizeStateMap(mapper);
 						
 						if (block instanceof IModifyStateMap)
 						{
-							((IModifyStateMap) block).customizeStateMap(flexStateMap);
+							((IModifyStateMap) block).customizeStateMap(mapper);
 						}
 						
 						Function<String, String> nameFunction = type.getResourceNameFunction();
 						
 						if (nameFunction != null)
 						{
-							flexStateMap.setNameFunction(nameFunction);
+							mapper.setNameFunction(nameFunction);
 						}
 						
-						client.registerModelStateMap(block, flexStateMap);
+						client.registerModelStateMap(block, mapper);
 					}
 				});
 				// End registering block resource locations.

@@ -4,32 +4,32 @@ import java.util.*;
 
 import net.minecraft.item.*;
 
-public class EnumDye implements IMetadata, Comparable<EnumDye>
+public class GenesisDye implements IMetadata, Comparable<GenesisDye>
 {
-	protected static final List<EnumDye> DYES = new ArrayList<EnumDye>();
-	protected static final LinkedHashMap<EnumDyeColor, EnumDye> GETTER_MAP = new LinkedHashMap<EnumDyeColor, EnumDye>();
+	protected static final List<GenesisDye> DYES = new ArrayList<GenesisDye>();
+	protected static final LinkedHashMap<EnumDyeColor, GenesisDye> GETTER_MAP = new LinkedHashMap<EnumDyeColor, GenesisDye>();
 	
 	static
 	{
 		for (EnumDyeColor color : EnumDyeColor.values())
 		{
-			new EnumDye(color);
+			new GenesisDye(color);
 		}
 	}
 	
-	public static EnumDye get(EnumDyeColor color)
+	public static GenesisDye get(EnumDyeColor color)
 	{
 		return GETTER_MAP.get(color);
 	}
 	
-	public static List<EnumDye> valueList()
+	public static List<GenesisDye> valueList()
 	{
 		return DYES;
 	}
 	
 	protected final EnumDyeColor color;
 	
-	protected EnumDye(EnumDyeColor color)
+	protected GenesisDye(EnumDyeColor color)
 	{
 		this.color = color;
 		GETTER_MAP.put(color, this);
@@ -54,7 +54,7 @@ public class EnumDye implements IMetadata, Comparable<EnumDye>
 	}
 	
 	@Override
-	public int compareTo(EnumDye o)
+	public int compareTo(GenesisDye o)
 	{
 		return getColor().compareTo(o.getColor());
 	}
