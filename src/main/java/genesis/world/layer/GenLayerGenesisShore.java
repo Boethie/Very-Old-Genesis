@@ -42,7 +42,7 @@ public class GenLayerGenesisShore extends GenLayerGenesis
                 		&& k1 != GenesisBiomes.archaeopterisForest.biomeID
                 		&& k1 != GenesisBiomes.archaeopterisForestHills.biomeID)
                 {
-                	if (!isBiomeOceanic(k1) /*&& k1 != GenesisBiomes.river.biomeID /*&& k1 != GenesisBiomes.swampRainForest.biomeID*/)
+                	if (!isBiomeOceanic(k1) && k1 != GenesisBiomes.swampRainForest.biomeID /*&& k1 != GenesisBiomes.river.biomeID */)
                     {
                         l1 = aint[j1 + 1 + (i1 + 1 - 1) * (areaWidth + 2)];
                         i2 = aint[j1 + 1 + 1 + (i1 + 1) * (areaWidth + 2)];
