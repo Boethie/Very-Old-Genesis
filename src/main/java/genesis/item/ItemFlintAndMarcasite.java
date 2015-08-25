@@ -3,6 +3,7 @@ package genesis.item;
 import genesis.common.GenesisConfig;
 import genesis.common.GenesisCreativeTabs;
 import genesis.util.Constants;
+import genesis.util.Constants.Sounds;
 import genesis.util.Constants.Unlocalized;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -21,23 +22,23 @@ public class ItemFlintAndMarcasite extends ItemFlintAndSteel
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
+	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
 		pos = pos.offset(side);
 
-		if (!playerIn.canPlayerEdit(pos, side, stack))
+		if (!player.canPlayerEdit(pos, side, stack))
 		{
 			return false;
 		}
 		else
 		{
-			if (worldIn.isAirBlock(pos))
+			if (world.isAirBlock(pos))
 			{
-				worldIn.playSoundEffect(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, Constants.ASSETS_PREFIX + "fire.ignite", 1, itemRand.nextFloat() * 0.4F + 0.8F);
-				worldIn.setBlockState(pos, Blocks.fire.getDefaultState());
+				world.playSoundEffect(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, Sounds.IGNITE_FIRE, 1, world.rand.nextFloat() * 0.4F + 0.8F);
+				world.setBlockState(pos, Blocks.fire.getDefaultState());
 			}
 
-			stack.damageItem(1, playerIn);
+			stack.damageItem(1, player);
 			return true;
 		}
 	}

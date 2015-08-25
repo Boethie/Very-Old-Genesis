@@ -18,13 +18,13 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public enum EnumGraniteOre implements IOreVariant
 {
-	QUARTZ("quartz", 4.2F, 5.0F, IntRange.create(0, 1), 0.05F),
-	ZIRCON("zircon", 4.2F, 5.0F, IntRange.create(0, 2), 0.1F),
-	GARNET("garnet", 4.2F, 5.0F, IntRange.create(0, 2), 0.1F),
-	HEMATITE("hematite", 4.2F, 5.0F, IntRange.create(0, 1), 0.05F),
-	MANGANESE("manganese", 4.2F, 5.0F, IntRange.create(0, 1), 0.05F),
-	MALACHITE("malachite", 4.2F, 5.0F, IntRange.create(1, 2), 0.2F),
-	OLIVINE("olivine", 4.2F, 5.0F, IntRange.create(1, 3), 0.3F);
+	QUARTZ("quartz", 1, 4.2F, 5.0F, IntRange.create(0, 1), 0.05F),
+	ZIRCON("zircon", 1, 4.2F, 5.0F, IntRange.create(0, 2), 0.1F),
+	GARNET("garnet", 1, 4.2F, 5.0F, IntRange.create(0, 2), 0.1F),
+	HEMATITE("hematite", 1, 4.2F, 5.0F, IntRange.create(0, 1), 0.05F),
+	MANGANESE("manganese", 1, 4.2F, 5.0F, IntRange.create(0, 1), 0.05F),
+	MALACHITE("malachite", 1, 4.2F, 5.0F, IntRange.create(1, 2), 0.2F),
+	OLIVINE("olivine", 1, 4.2F, 5.0F, IntRange.create(1, 3), 0.3F);
 	/**
 	 * Called from the combo that owns these variants, because otherwise the reference loop (Combo -> Enum -> Combo...) will cause a runtime error.
 	 */
@@ -40,6 +40,7 @@ public enum EnumGraniteOre implements IOreVariant
 	
 	final String name;
 	final String unlocName;
+	final int harvestLevel;
 	final float hardness;
 	final float resistance;
 	final IntRange dropExperience;
@@ -47,9 +48,10 @@ public enum EnumGraniteOre implements IOreVariant
 	
 	BlockDrops drops;
 	
-	EnumGraniteOre(String name, String unlocName, float hardness, float resistance, IntRange dropExperience, float smeltExperience)
+	EnumGraniteOre(String name, String unlocName, int harvestLevel, float hardness, float resistance, IntRange dropExperience, float smeltExperience)
 	{
 		this.name = name;
+		this.harvestLevel = harvestLevel;
 		this.unlocName = unlocName;
 		this.hardness = hardness;
 		this.resistance = resistance;
@@ -57,9 +59,9 @@ public enum EnumGraniteOre implements IOreVariant
 		this.smeltExperience = smeltExperience;
 	}
 	
-	EnumGraniteOre(String name, float hardness, float resistance, IntRange dropExperience, float smeltExperience)
+	EnumGraniteOre(String name, int harvestLevel, float hardness, float resistance, IntRange dropExperience, float smeltExperience)
 	{
-		this(name, name, hardness, resistance, dropExperience, smeltExperience);
+		this(name, name, harvestLevel, hardness, resistance, dropExperience, smeltExperience);
 	}
 	
 	protected void setDrops(BlockDrops drops)
@@ -77,6 +79,12 @@ public enum EnumGraniteOre implements IOreVariant
 	public String getUnlocalizedName()
 	{
 		return unlocName;
+	}
+	
+	@Override
+	public int getHarvestLevel()
+	{
+		return harvestLevel;
 	}
 	
 	@Override

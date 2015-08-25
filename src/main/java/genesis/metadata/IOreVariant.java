@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 
 public interface IOreVariant extends IMetadata
 {
+	public int getHarvestLevel();
 	public float getHardness();
 	public float getExplosionResistance();
 	public IntRange getDropExperience();

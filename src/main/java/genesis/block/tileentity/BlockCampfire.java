@@ -3,6 +3,7 @@ package genesis.block.tileentity;
 import java.util.*;
 
 import genesis.util.*;
+import genesis.util.Constants.Sounds;
 import genesis.util.Constants.Unlocalized;
 import genesis.util.random.DoubleRange;
 import genesis.client.*;
@@ -37,7 +38,7 @@ public class BlockCampfire extends Block
 	
 	public BlockCampfire()
 	{
-		super(Material.rock);
+		super(Material.wood);
 		
 		setDefaultState(getBlockState().getBaseState());
 		setTickRandomly(true);
@@ -74,13 +75,6 @@ public class BlockCampfire extends Block
 		}
 		
 		return state;
-	}
-	
-	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
-	{
-		//return Collections.singletonList(new ItemStack(this));
-		return super.getDrops(world, pos, state, fortune);
 	}
 	
 	public boolean canBlockStay(World world, BlockPos pos)
@@ -289,10 +283,40 @@ public class BlockCampfire extends Block
 		WorldUtils.setProperty(world, pos, FIRE, burning);
 	}
 	
-	protected final Set<ItemStackKey> lighterItems = new HashSet(){{
-		add(new ItemStackKey(Items.flint_and_steel));
-		add(new ItemStackKey(GenesisItems.flint_and_marcasite));
+	protected final Map<ItemStackKey, String> lighterItems = new HashMap<ItemStackKey, String>(){{
+		put(new ItemStackKey(Items.flint_and_steel), "fire.ignite");
+		put(new ItemStackKey(GenesisItems.flint_and_marcasite), Sounds.IGNITE_FIRE);
 	}};
+	
+	/**
+	 * Registers a item to light this campfire.
+	 * @param key The {@link ItemStackKey} to match the ItemStack to use to light the campfire.
+	 * @param sound The sound to play when the fire has been lit.
+	 */
+	public void registerLighterItem(ItemStackKey key, String sound)
+	{
+		lighterItems.put(key, sound);
+	}
+	
+	/**
+	 * Registers a item to light this campfire.
+	 * @param key The {@link ItemStack} to match when right clicking to light the campfire.
+	 * @param sound The sound to play when the fire has been lit.
+	 */
+	public void registerLighterItem(ItemStack stack, String sound)
+	{
+		registerLighterItem(new ItemStackKey(stack), sound);
+	}
+	
+	/**
+	 * Registers a item to light this campfire.
+	 * @param key The {@link Item} to match when right clicking to light the campfire.
+	 * @param sound The sound to play when the fire has been lit.
+	 */
+	public void registerLighterItem(Item item, String sound)
+	{
+		registerLighterItem(new ItemStackKey(item), sound);
+	}
 	
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ)
@@ -305,12 +329,14 @@ public class BlockCampfire extends Block
 			
 			if (heldStack != null)
 			{
-				Item heldItem = heldStack.getItem();
+				ItemStackKey key = new ItemStackKey(heldStack);
 				
-				if (lighterItems.contains(new ItemStackKey(heldItem)))
+				if (lighterItems.containsKey(key))
 				{
 					if (campfire.burnFuelIfNotBurning())
 					{
+						world.playSoundEffect(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, lighterItems.get(key), 1, world.rand.nextFloat() * 0.4F + 0.8F);
+						
 						heldStack.damageItem(1, player);
 					}
 					

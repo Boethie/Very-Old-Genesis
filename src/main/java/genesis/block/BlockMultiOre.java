@@ -3,6 +3,7 @@ package genesis.block;
 import java.util.Collections;
 import java.util.List;
 
+import genesis.common.GenesisCreativeTabs;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.BlockStateToMetadata;
@@ -41,7 +42,10 @@ public class BlockMultiOre<T extends IOreVariant> extends BlockOre
 		blockState = new BlockState(this, variantProp);
 		setDefaultState(blockState.getBaseState());
 		
+		setCreativeTab(GenesisCreativeTabs.BLOCK);
+		
 		// Set defaults for when a function doesn't get the variant from which to get the value to return.
+		setHarvestLevel("pickaxe", 1);
 		setHardness(4.2F);
 	}
 	
@@ -76,6 +80,13 @@ public class BlockMultiOre<T extends IOreVariant> extends BlockOre
 	protected IOreVariant getVariant(IBlockAccess world, BlockPos pos)
 	{
 		return getVariant(world.getBlockState(pos));
+	}
+	
+	@Override
+	public int getHarvestLevel(IBlockState state)
+	{
+		IOreVariant variant = getVariant(state);
+		return variant.getHarvestLevel();
 	}
 	
 	@Override

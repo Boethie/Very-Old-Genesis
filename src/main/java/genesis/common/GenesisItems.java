@@ -70,7 +70,7 @@ public final class GenesisItems
 	public static final Item cooked_tyrannosaurus = new ItemGenesisFood(16, 19.8F).setUnlocalizedName(Unlocalized.FOOD + "tyrannosaurusCooked");
 	
 	/* Tools */
-	public static final Item flint_and_marcasite = new ItemFlintAndMarcasite().setUnlocalizedName(Unlocalized.PREFIX + Unlocalized.Section.TOOL + "flintAndMarcasite");
+	public static final ItemFlintAndMarcasite flint_and_marcasite = (ItemFlintAndMarcasite) new ItemFlintAndMarcasite().setUnlocalizedName(Unlocalized.PREFIX + Unlocalized.Section.TOOL + "flintAndMarcasite");
 	public static final ToolItems tools = new ToolItems();
 	
 	/* Misc */

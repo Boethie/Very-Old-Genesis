@@ -67,4 +67,9 @@ public final class Constants
 		public static final String MISC = PREFIX + Section.MISC;
 		public static final String FOOD = PREFIX + Section.FOOD;
 	}
+	
+	public static final class Sounds
+	{
+		public static final String IGNITE_FIRE = ASSETS_PREFIX + "fire.ignite";
+	}
 }
