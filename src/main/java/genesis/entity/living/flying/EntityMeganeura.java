@@ -1256,7 +1256,7 @@ public class EntityMeganeura extends EntityLiving
 			
 			//RenderHelpers.renderEntityBounds(entity, x, y, z, partialTicks);
 			
-			EntityMeganeura meganeura = (EntityMeganeura) entity;
+			/*EntityMeganeura meganeura = (EntityMeganeura) entity;
 			
 			if (meganeura.targetLocation != null)
 			{
@@ -1267,7 +1267,7 @@ public class EntityMeganeura extends EntityLiving
 				Vec3 target = meganeura.targetLocation.add(offset);
 				
 				super.doRender(entity, target.xCoord, target.yCoord, target.zCoord, yaw, partialTicks);
-			}
+			}*/
 		}
 		
 		@Override
