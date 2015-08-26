@@ -145,8 +145,11 @@ public final class GenesisBlocks
 	
 	public static void registerBlocks()
 	{
-		// Begin general building blocks
+		// --- Building blocks ---
+		// Surface
 		Genesis.proxy.registerBlock(moss, "moss", ItemBlockColored.class);
+		
+		// Stone
 		Genesis.proxy.registerBlock(granite, "granite");
 		Genesis.proxy.registerBlock(mossy_granite, "mossy_granite");
 		Genesis.proxy.registerBlock(rhyolite, "rhyolite");
@@ -160,16 +163,18 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(geyserite, "geyserite");
 		Genesis.proxy.registerBlock(octaedrite, "octaedrite");
 		
+		// Soft
 		Genesis.proxy.registerBlock(red_clay, "red_clay");
 		Genesis.proxy.registerBlock(ooze, "ooze");
 		Genesis.proxy.registerBlock(peat, "peat");
 		silt.registerAll();
 		
+		// Permafrost
 		Genesis.proxy.registerBlock(permafrost, "permafrost");
 		Genesis.proxy.registerBlock(ancient_permafrost, "ancient_permafrost");
 		
 		// Ores
-		graniteOres.registerAll();
+		graniteOres.registerVariants(GraniteOreBlocks.ORE);
 		Genesis.proxy.registerBlock(flint_ore, "flint_ore");
 		Genesis.proxy.registerBlock(marcasite_ore, "marcasite_ore");
 		

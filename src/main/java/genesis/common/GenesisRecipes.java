@@ -179,7 +179,7 @@ public final class GenesisRecipes
 		case GRANITE:
 			return new ItemStack(GenesisBlocks.granite);
 		case QUARTZ:
-			return new ItemStack(GenesisItems.quartz);
+			return GenesisBlocks.graniteOres.getDrop(EnumGraniteOre.QUARTZ);
 		case BROWN_FLINT:
 		case BLACK_FLINT:
 		}

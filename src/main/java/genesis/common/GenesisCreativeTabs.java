@@ -79,12 +79,12 @@ public final class GenesisCreativeTabs
 		}
 	};
 
-	public static final CreativeTabs MATERIALS = new CreativeTabs(Unlocalized.PREFIX + "materials")
+	public static final CreativeTabs MATERIALS = new CreativeTabStackIcon(Unlocalized.PREFIX + "materials")
 	{
 		@Override
-		public Item getTabIconItem()
+		public ItemStack getIconItemStack()
 		{
-			return GenesisItems.manganese;
+			return GenesisBlocks.graniteOres.getDrop(EnumGraniteOre.MANGANESE);
 		}
 	};
 }

@@ -23,13 +23,6 @@ public final class GenesisItems
 	public static final Item red_clay_bowl = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "redClayBowl");
 	public static final ItemsCeramicBowls bowls = new ItemsCeramicBowls();
 	public static final Item red_clay_bucket = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "redClayBucket");
-	public static final Item quartz = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "quartz");
-	public static final Item zircon = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "zircon");
-	public static final Item garnet = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "garnet");
-	public static final Item hematite = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "hematite");
-	public static final Item manganese = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "manganese");
-	public static final Item malachite = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "malachite");
-	public static final Item olivine = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "olivine");
 	public static final VariantsCombo<EnumNodule, Block, ItemMulti> nodules = new VariantsCombo<EnumNodule, Block, ItemMulti>(new ObjectType<Block, ItemMulti>("nodule", null, null).setNamePosition(ObjectNamePosition.PREFIX), EnumNodule.values());
 	public static final Item resin = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "resin");
 	public static final ItemGenesisSeeds calamites = (ItemGenesisSeeds) new ItemGenesisSeeds().setUnlocalizedName(Unlocalized.MATERIAL + "calamites");
@@ -81,22 +74,26 @@ public final class GenesisItems
 
 	public static void registerItems()
 	{
-		GenesisBlocks.trees.registerVariants(GenesisBlocks.trees.BILLET);
+		// --- Materials ---
+		// Tool materials
 		tools.registerVariants(tools.PEBBLE);
+		tools.registerVariants(tools.FLAKE);
+		
+		// Clay
 		Genesis.proxy.registerItem(red_clay_ball, "red_clay_ball");
 		Genesis.proxy.registerItem(red_clay_bowl, "red_clay_bowl");
 		bowls.registerAll();
 		Genesis.proxy.registerItem(red_clay_bucket, "red_clay_bucket");
-		Genesis.proxy.registerItem(quartz, "quartz");
-		Genesis.proxy.registerItem(zircon, "zircon");
-		Genesis.proxy.registerItem(garnet, "garnet");
-		Genesis.proxy.registerItem(hematite, "hematite");
-		Genesis.proxy.registerItem(manganese, "manganese");
-		Genesis.proxy.registerItem(malachite, "malachite");
-		Genesis.proxy.registerItem(olivine, "olivine");
+		
+		// Ores
+		GenesisBlocks.graniteOres.registerVariants(GraniteOreBlocks.DROP);
 		nodules.setUnlocalizedPrefix(Constants.Unlocalized.MATERIAL);
 		nodules.registerAll();
-		tools.registerVariants(tools.FLAKE);
+		
+		// Billets
+		GenesisBlocks.trees.registerVariants(GenesisBlocks.trees.BILLET);
+		
+		// Random materials
 		Genesis.proxy.registerItem(resin, "resin");
 		Genesis.proxy.registerItem(calamites, "calamites");
 		Genesis.proxy.registerItem(sphenophyllum_fiber, "sphenophyllum_fiber");
@@ -111,6 +108,7 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(tyrannosaurus_tooth, "tyrannosaurus_tooth");
 		Genesis.proxy.registerItem(meganeura_egg, "meganeura_egg");
 		
+		// --- Foods ---
 		Genesis.proxy.registerItem(zingiberopsis_rhizome, "zingiberopsis_rhizome");
 		Genesis.proxy.registerItem(odontopteris_seeds, "odontopteris_seeds");
 		Genesis.proxy.registerItem(spirifer, "spirifer");
@@ -132,11 +130,13 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(tyrannosaurus, "tyrannosaurus");
 		Genesis.proxy.registerItem(cooked_tyrannosaurus, "cooked_tyrannosaurus");
 		
+		// --- Begin tools ---
 		Genesis.proxy.registerItem(flint_and_marcasite, "flint_and_marcasite");
 		
+		// All tools
 		tools.registerAll();
 		
-		
+		// --- Misc ---
 		bucket_komatiitic_lava = new ItemGenesisBucket(GenesisBlocks.komatiitic_lava).setUnlocalizedName(Unlocalized.MISC + "bucketKomatiiticLava");
 		Genesis.proxy.registerItem(ceramic_bucket, "ceramic_bucket");
 		Genesis.proxy.registerItem(ceramic_bucket_water, "ceramic_bucket_water");
