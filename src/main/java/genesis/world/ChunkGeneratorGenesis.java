@@ -255,7 +255,7 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
         {
             this.caveGenerator.func_175792_a(this, this.worldObj, x, z, chunkprimer);
         }
-
+        
         if (this.settings.useRavines)
         {
             this.ravineGenerator.func_175792_a(this, this.worldObj, x, z, chunkprimer);

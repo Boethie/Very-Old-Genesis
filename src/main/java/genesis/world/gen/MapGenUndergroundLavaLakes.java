@@ -22,23 +22,36 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
 	
 	private float[] field_75046_d = new float[1024];
 	
-    protected void digBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop)
+    protected void digBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop, boolean column)
     {
-        BiomeGenBase biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
+    	BlockPos pos = new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16);
+        BiomeGenBase biome = worldObj.getBiomeGenForCoords(pos);
         IBlockState state = data.getBlockState(x, y, z);
         IBlockState top = biome.topBlock;
         IBlockState filler = biome.fillerBlock;
         
-        if (state.getBlock() == GenesisBlocks.granite || state.getBlock() == top.getBlock() || state.getBlock() == filler.getBlock())
+        if (y > lakeBottom + lakeHeight || y < lakeBottom)
+        	return;
+        
+        if (column)
+    	{
+    		data.setBlockState(x, y, z, GenesisBlocks.komatiite.getDefaultState());
+    	}
+        else if (
+        		state.getBlock() == GenesisBlocks.granite 
+        		|| state.getBlock() == GenesisBlocks.komatiite 
+        		|| state.getBlock() == top.getBlock() 
+        		|| state.getBlock() == filler.getBlock())
         {
-            if (y < lavaLevel)
+        	if (y < lavaLevel)
             {
-                data.setBlockState(x, y, z, GenesisBlocks.komatiitic_lava.getDefaultState());
+            	data.setBlockState(x, y, z, GenesisBlocks.komatiitic_lava.getDefaultState());
             }
             else
             {
-                data.setBlockState(x, y, z, Blocks.air.getDefaultState());
-
+            	if (state.getBlock() != GenesisBlocks.komatiitic_lava)
+            		data.setBlockState(x, y, z, Blocks.air.getDefaultState());
+            	
                 if (foundTop && data.getBlockState(x, y - 1, z).getBlock() == filler.getBlock())
                 {
                     data.setBlockState(x, y - 1, z, top.getBlock().getDefaultState());
@@ -71,16 +84,14 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
     {
         if (this.rand.nextInt(50) == 0)
         {
-        	lakeBottom = 10 + rand.nextInt(15);
-    		lakeHeight = 8 + rand.nextInt(8);
+        	lakeBottom = 5 + rand.nextInt(5);
+    		lakeHeight = 10 + rand.nextInt(8);
     		
-    		int lev = Math.max((lakeHeight / 2) - 4, 1);
+    		lavaLevel = 12;
     		
-    		lavaLevel = lakeBottom + 4 + rand.nextInt(lev);
-    		
-            double d0 = (double)(blockX * 16 + this.rand.nextInt(16));
-            double d1 = (double)lakeBottom; //(this.rand.nextInt(this.rand.nextInt(40) + 8) + 20);
-            double d2 = (double)(blockZ * 16 + this.rand.nextInt(16));
+            double x1 = (double)(blockX * 16 + this.rand.nextInt(16));
+            double y1 = (double)lakeBottom;
+            double z1 = (double)(blockZ * 16 + this.rand.nextInt(16));
             byte b0 = 1;
             
             for (int i1 = 0; i1 < b0; ++i1)
@@ -88,12 +99,12 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
                 float f = this.rand.nextFloat() * (float)Math.PI * 2.0F;
                 float f1 = (this.rand.nextFloat() - 0.5F) * 2.0F / 8.0F;
                 float f2 = (this.rand.nextFloat() * 2.0F + this.rand.nextFloat()) * 2.0F;
-                this.func_180707_a(this.rand.nextLong(), chunkX, chunkZ, chunkPrimer, d0, d1, d2, f2, f, f1, 0, 0, 3.0D);
+                this.generateArea(this.rand.nextLong(), chunkX, chunkZ, chunkPrimer, x1, y1, z1, f2, f, f1, 0, 0, 3.0D);
             }
         }
     }
     
-    protected void func_180707_a(long seed, int chunkX, int chunkZ, ChunkPrimer chunkPrimer, double x1, double y1, double z1, float p_180707_12_, float p_180707_13_, float p_180707_14_, int p_180707_15_, int p_180707_16_, double p_180707_17_)
+    protected void generateArea(long seed, int chunkX, int chunkZ, ChunkPrimer chunkPrimer, double x1, double y1, double z1, float p_180707_12_, float p_180707_13_, float p_180707_14_, int p_180707_15_, int p_180707_16_, double p_180707_17_)
     {
         Random random = new Random(seed);
         double d4 = (double)(chunkX * 16 + 8);
@@ -129,7 +140,7 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
         
         for (; p_180707_15_ < p_180707_16_; ++p_180707_15_)
         {
-            double d13 = 1.5D + (double)(MathHelper.sin((float)p_180707_15_ * (float)Math.PI / (float)p_180707_16_) * p_180707_12_ * 1.0F);
+            double d13 = 3.5D + (double)(MathHelper.sin((float)p_180707_15_ * (float)Math.PI / (float)p_180707_16_) * p_180707_12_ * 12.0F);
             double d6 = d13 * p_180707_17_;
             d13 *= (double)random.nextFloat() * 0.25D + 0.75D;
             d6 *= (double)random.nextFloat() * 0.25D + 0.75D;
@@ -145,19 +156,19 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
             f3 *= 0.5F;
             f4 += (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 2.0F;
             f3 += (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 4.0F;
-
+            
             if (flag1 || random.nextInt(4) != 0)
             {
                 double d7 = x1 - d4;
                 double d8 = z1 - d5;
                 double d9 = (double)(p_180707_16_ - p_180707_15_);
                 double d10 = (double)(p_180707_12_ + 2.0F + 16.0F);
-
+                
                 if (d7 * d7 + d8 * d8 - d9 * d9 > d10 * d10)
                 {
                     return;
                 }
-
+                
                 if (x1 >= d4 - 16.0D - d13 * 2.0D && z1 >= d5 - 16.0D - d13 * 2.0D && x1 <= d4 + 16.0D + d13 * 2.0D && z1 <= d5 + 16.0D + d13 * 2.0D)
                 {
                     int k3 = MathHelper.floor_double(x1 - d13) - chunkX * 16 - 1;
@@ -181,6 +192,9 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
                     {
                         l3 = 1;
                     }
+                    
+                    if (l3 > lakeBottom + lakeHeight)
+                    	l3 = lakeBottom + lakeHeight;
 
                     if (i2 > 248)
                     {
@@ -232,7 +246,7 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
                             {
                                 double d11 = ((double)(j4 + chunkZ * 16) + 0.5D - z1) / d13;
                                 boolean flag = false;
-
+                                
                                 if (d14 * d14 + d11 * d11 < 1.0D)
                                 {
                                     for (int j3 = i2; j3 > l3; --j3)
@@ -246,9 +260,15 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
                                                 flag = true;
                                             }
                                             
-                                            digBlock(chunkPrimer, k2, j3, j4, chunkX, chunkZ, flag);
+                                            digBlock(chunkPrimer, k2, j3, j4, chunkX, chunkZ, flag, false);
                                         }
                                     }
+                                }
+                                
+                                if (this.rand.nextInt(600) == 0)
+                                {
+                                	for (int c = lakeBottom; c <= lakeBottom + lakeHeight; c++)
+                                		digBlock(chunkPrimer, k2, c, j4, chunkX, chunkZ, flag, true);
                                 }
                             }
                         }
