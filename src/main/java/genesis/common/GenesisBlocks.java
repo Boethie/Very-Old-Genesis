@@ -37,7 +37,6 @@ public final class GenesisBlocks
 	public static final Block faux_amphibolite = new BlockGenesisRock(1.5F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "fauxAmphibolite");
 	public static final Block gneiss = new BlockGenesisRock(1.65F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "gneiss");
 	public static final Block limestone = new BlockGenesisRock(0.75F, 8.7F).setUnlocalizedName(Unlocalized.ROCK + "limestone");
-	public static final Block geyserite = new BlockGenesisRock(1.35F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "geyserite");
 	public static final Block octaedrite = new BlockGenesisRock(1.0F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "octaedrite");
 	public static final Block red_clay = new BlockRedClay().setUnlocalizedName(Unlocalized.PREFIX + "redClay");
 	public static final Block ooze = new BlockOoze().setUnlocalizedName(Unlocalized.PREFIX + "ooze");
@@ -149,7 +148,7 @@ public final class GenesisBlocks
 		// Surface
 		Genesis.proxy.registerBlock(moss, "moss", ItemBlockColored.class);
 		
-		// - Stone -
+		// Stone
 		Genesis.proxy.registerBlock(granite, "granite");
 		Genesis.proxy.registerBlock(mossy_granite, "mossy_granite");
 		Genesis.proxy.registerBlock(rhyolite, "rhyolite");
@@ -160,33 +159,27 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(faux_amphibolite, "faux_amphibolite");
 		Genesis.proxy.registerBlock(gneiss, "gneiss");
 		Genesis.proxy.registerBlock(limestone, "limestone");
-		Genesis.proxy.registerBlock(geyserite, "geyserite");
 		Genesis.proxy.registerBlock(octaedrite, "octaedrite");
 		
-		// - Soft -
+		// Soft
 		Genesis.proxy.registerBlock(red_clay, "red_clay");
 		Genesis.proxy.registerBlock(ooze, "ooze");
 		Genesis.proxy.registerBlock(peat, "peat");
 		silt.registerAll();
 		
-		// - Permafrost -
+		// Permafrost
 		Genesis.proxy.registerBlock(permafrost, "permafrost");
 		Genesis.proxy.registerBlock(ancient_permafrost, "ancient_permafrost");
 		
-		// - Ores -
+		// Ores
 		graniteOres.registerVariants(GraniteOreBlocks.ORE);
 		Genesis.proxy.registerBlock(flint_ore, "flint_ore");
 		Genesis.proxy.registerBlock(marcasite_ore, "marcasite_ore");
 		
-		// - Wooden -
-		// Logs
 		trees.registerVariants(trees.LOG);
-		
-		// Plants
 		Genesis.proxy.registerBlock(calamites_bundle, "calamites_bundle");
 		Genesis.proxy.registerBlock(programinis_bundle, "programinis_bundle");
 		Genesis.proxy.registerBlock(prototaxites_mycelium, "prototaxites_mycelium");
-		
 		dungs.registerVariants(dungs.DUNG_BLOCK);
 		
 		// Begin decorative
