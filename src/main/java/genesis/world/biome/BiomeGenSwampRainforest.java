@@ -1,6 +1,7 @@
 package genesis.world.biome;
 
 import genesis.common.GenesisBlocks;
+import genesis.entity.living.IEntityPreferredBiome;
 import genesis.entity.living.flying.EntityMeganeura;
 import genesis.metadata.EnumTree;
 import genesis.world.biome.decorate.WorldGenGrass;
@@ -18,12 +19,13 @@ import genesis.world.gen.feature.WorldGenTreeSigillaria;
 import java.util.Random;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis
+public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEntityPreferredBiome
 {
 	@SuppressWarnings("unchecked")
 	public BiomeGenSwampRainforest(int id)
@@ -95,5 +97,11 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis
 		mossStages[0] = 0;
 		mossStages[1] = 1;
 		super.generateBiomeTerrain(world, rand, primer, blockX, blockZ, d);
+	}
+
+	@Override
+	public boolean shouldEntityPreferBiome(EntityLivingBase entity)
+	{
+		return true;
 	}
 }

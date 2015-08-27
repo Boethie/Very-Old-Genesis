@@ -50,8 +50,18 @@ public class EntityMeganeuraEgg extends EntityEgg
 	public void spawnBaby()
 	{
 		EntityMeganeura meganeura = new EntityMeganeura(worldObj);
-		meganeura.setPositionAndUpdate(posX, posY, posZ);
-		meganeura.setState(EntityMeganeura.State.PLACING_EGG);
+		
+		Vec3 center = new Vec3(fixedTo.getX() + 0.5, posY, fixedTo.getZ() + 0.5);
+		Vec3 normal = getPositionVector().subtract(center).normalize();
+		float w = meganeura.width;	// Offset the meganeura out of the calamites.
+		Vec3 spawnLoc = getPositionVector().addVector(normal.xCoord * w, normal.yCoord * w, normal.zCoord * w);
+		
+		float yaw = (float) (Math.toDegrees(Math.atan2(-normal.zCoord, -normal.xCoord)));
+		
+		meganeura.setPositionAndRotation(spawnLoc.xCoord, spawnLoc.yCoord, spawnLoc.zCoord, yaw, -90);
+		meganeura.setState(EntityMeganeura.State.IDLE_SIDE);
+		meganeura.setTargetLocation(center);
+		
 		worldObj.spawnEntityInWorld(meganeura);
 	}
 	
