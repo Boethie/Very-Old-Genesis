@@ -84,10 +84,10 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
     {
         if (this.rand.nextInt(50) == 0)
         {
-        	lakeBottom = 5 + rand.nextInt(5);
-    		lakeHeight = 10 + rand.nextInt(8);
+        	lakeBottom = 2 + rand.nextInt(3);
+    		lakeHeight = 9 + rand.nextInt(4);
     		
-    		lavaLevel = 12;
+    		lavaLevel = 10;
     		
             double x1 = (double)(blockX * 16 + this.rand.nextInt(16));
             double y1 = (double)lakeBottom;
@@ -177,43 +177,43 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
                     int i2 = MathHelper.floor_double(y1 + d6) + 1;
                     int i4 = MathHelper.floor_double(z1 - d13) - chunkZ * 16 - 1;
                     int j2 = MathHelper.floor_double(z1 + d13) - chunkZ * 16 + 1;
-
+                    
                     if (k3 < 0)
                     {
                         k3 = 0;
                     }
-
+                    
                     if (l1 > 16)
                     {
                         l1 = 16;
                     }
-
+                    
                     if (l3 < 1)
                     {
                         l3 = 1;
                     }
-                    
-                    if (l3 > lakeBottom + lakeHeight)
-                    	l3 = lakeBottom + lakeHeight;
-
+                    /*
                     if (i2 > 248)
                     {
                         i2 = 248;
                     }
-
+                    */
+                    if (i2 > lakeBottom + lakeHeight)
+                    	i2 = lakeBottom + lakeHeight;
+                    
                     if (i4 < 0)
                     {
                         i4 = 0;
                     }
-
+                    
                     if (j2 > 16)
                     {
                         j2 = 16;
                     }
-
-                    boolean flag2 = false;
+                    
+                    //boolean flag2 = false;
                     int k2;
-
+                    /*
                     for (k2 = k3; !flag2 && k2 < l1; ++k2)
                     {
                         for (int l2 = i4; !flag2 && l2 < j2; ++l2)
@@ -235,8 +235,8 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
                             }
                         }
                     }
-
-                    if (!flag2)
+                    */
+                    //if (!flag2)
                     {
                         for (k2 = k3; k2 < l1; ++k2)
                         {
@@ -272,11 +272,11 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
                                 }
                             }
                         }
-
+                        /*
                         if (flag1)
                         {
                             break;
-                        }
+                        }*/
                     }
                 }
             }

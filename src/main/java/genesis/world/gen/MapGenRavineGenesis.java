@@ -34,8 +34,9 @@ public class MapGenRavineGenesis extends MapGenRavine
             }
             else
             {
-                data.setBlockState(x, y, z, Blocks.air.getDefaultState());
-
+            	if (state.getBlock() != GenesisBlocks.komatiitic_lava)
+            		data.setBlockState(x, y, z, Blocks.air.getDefaultState());
+                
                 if (foundTop && data.getBlockState(x, y - 1, z).getBlock() == filler.getBlock())
                 {
                     data.setBlockState(x, y - 1, z, top.getBlock().getDefaultState());
