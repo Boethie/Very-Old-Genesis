@@ -1265,7 +1265,7 @@ public class EntityMeganeura extends EntityLiving
 			}
 		}
 		
-		public static final ResourceLocation texture = new ResourceLocation(Constants.ASSETS_PREFIX + "textures/entity/meganeura");
+		public static final ResourceLocation texture = new ResourceLocation(Constants.ASSETS_PREFIX + "textures/entity/meganeura/meganeura.png");
 		
 		public Render()
 		{

@@ -122,7 +122,7 @@ public class EntityMeganeuraEgg extends EntityEgg
 			}
 		}
 		
-		public static final ResourceLocation texture = new ResourceLocation(Constants.ASSETS_PREFIX + "textures/entity/meganeura_egg");
+		public static final ResourceLocation texture = new ResourceLocation(Constants.ASSETS_PREFIX + "textures/entity/meganeura/egg.png");
 		protected Model model = new Model();
 		
 		public EggRender()

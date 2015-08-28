@@ -139,6 +139,9 @@ tile.genesis.coral.heliolites.name=Heliolites
 tile.genesis.coral.halysites.name=Halysites
 
 #------------- Items -------------
+#Misc
+entity.meganeura.name=Meganeura
+
 #Food
 item.genesis.food.zingiberopsisRhizome.name=Zingiberopsis Rhizome
 item.genesis.food.odontopterisSeeds.name=Odontopteris Seeds
