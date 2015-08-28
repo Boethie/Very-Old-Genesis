@@ -142,6 +142,11 @@ tile.genesis.coral.halysites.name=Halysites
 #Misc
 entity.meganeura.name=Meganeura
 
+item.genesis.misc.ceramicBucket.name=Ceramic Bucket
+item.genesis.misc.ceramicBucketWater.name=Ceramic Water Bucket
+item.genesis.misc.ceramicBucketMilk.name=Ceramic Milk Bucket
+item.genesis.misc.bucketKomatiiticLava.name=Komatiitic Lava Bucket
+
 #Food
 item.genesis.food.zingiberopsisRhizome.name=Zingiberopsis Rhizome
 item.genesis.food.odontopterisSeeds.name=Odontopteris Seeds
@@ -335,12 +340,6 @@ item.genesis.material.liopleurodonTooth.name=Liopleurodon Tooth
 item.genesis.material.tyrannosaurusSaliva.name=Tyrannosaurus Saliva
 item.genesis.material.tyrannosaurusTooth.name=Tyrannosaurus Tooth
 item.genesis.material.egg.meganeura.name=Meganeura Egg
-
-#Containers
-item.genesis.misc.ceramicBucket.name=Ceramic Bucket
-item.genesis.misc.ceramicBucketWater.name=Ceramic Water Bucket
-item.genesis.misc.ceramicBucketMilk.name=Ceramic Milk Bucket
-item.genesis.misc.bucketKomatiiticLava.name=Komatiitic Lava Bucket
 
 #------------- GUIs -------------
 container.genesis.workbench=Crafting & Knapping
