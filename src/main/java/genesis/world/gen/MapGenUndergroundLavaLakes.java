@@ -39,7 +39,7 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
     	}
         else if (
         		state.getBlock() == GenesisBlocks.granite 
-        		|| state.getBlock() == GenesisBlocks.komatiite 
+        		//|| state.getBlock() == GenesisBlocks.komatiite 
         		|| state.getBlock() == top.getBlock() 
         		|| state.getBlock() == filler.getBlock())
         {
@@ -82,12 +82,12 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
     
     protected void generateInChunk(World worldIn, int blockX, int blockZ, int chunkX, int chunkZ, ChunkPrimer chunkPrimer)
     {
-        if (this.rand.nextInt(50) == 0)
+        if (this.rand.nextInt(6) == 0)
         {
-        	lakeBottom = 2 + rand.nextInt(3);
-    		lakeHeight = 9 + rand.nextInt(4);
+        	lakeBottom = 1 + rand.nextInt(3);
+    		lakeHeight = 11 + rand.nextInt(3);
     		
-    		lavaLevel = 10;
+    		lavaLevel = 7;
     		
             double x1 = (double)(blockX * 16 + this.rand.nextInt(16));
             double y1 = (double)lakeBottom;
@@ -140,7 +140,7 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
         
         for (; p_180707_15_ < p_180707_16_; ++p_180707_15_)
         {
-            double d13 = 3.5D + (double)(MathHelper.sin((float)p_180707_15_ * (float)Math.PI / (float)p_180707_16_) * p_180707_12_ * 12.0F);
+            double d13 = 3.5D + (double)(MathHelper.sin((float)p_180707_15_ * (float)Math.PI / (float)p_180707_16_) * p_180707_12_ * 8.0F);
             double d6 = d13 * p_180707_17_;
             d13 *= (double)random.nextFloat() * 0.25D + 0.75D;
             d6 *= (double)random.nextFloat() * 0.25D + 0.75D;
@@ -192,12 +192,7 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
                     {
                         l3 = 1;
                     }
-                    /*
-                    if (i2 > 248)
-                    {
-                        i2 = 248;
-                    }
-                    */
+                    
                     if (i2 > lakeBottom + lakeHeight)
                     	i2 = lakeBottom + lakeHeight;
                     
@@ -211,32 +206,8 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
                         j2 = 16;
                     }
                     
-                    //boolean flag2 = false;
                     int k2;
-                    /*
-                    for (k2 = k3; !flag2 && k2 < l1; ++k2)
-                    {
-                        for (int l2 = i4; !flag2 && l2 < j2; ++l2)
-                        {
-                            for (int i3 = i2 + 1; !flag2 && i3 >= l3 - 1; --i3)
-                            {
-                                if (i3 >= 0 && i3 < 256)
-                                {
-                                    if (isOceanBlock(chunkPrimer, k2, i2, l2, chunkX, chunkZ))
-                                    {
-                                        flag2 = true;
-                                    }
-
-                                    if (i3 != l3 - 1 && k2 != k3 && k2 != l1 - 1 && l2 != i4 && l2 != j2 - 1)
-                                    {
-                                        i3 = l3;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    */
-                    //if (!flag2)
+                    
                     {
                         for (k2 = k3; k2 < l1; ++k2)
                         {
@@ -244,7 +215,7 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
 
                             for (int j4 = i4; j4 < j2; ++j4)
                             {
-                                double d11 = ((double)(j4 + chunkZ * 16) + 0.5D - z1) / d13;
+                                double d11 = ((double)(j4 + chunkZ * 16) + 0.8D - z1) / d13;
                                 boolean flag = false;
                                 
                                 if (d14 * d14 + d11 * d11 < 1.0D)
@@ -264,19 +235,14 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
                                         }
                                     }
                                 }
-                                
-                                if (this.rand.nextInt(600) == 0)
+                                /*
+                                if (this.rand.nextInt(200) == 0 && this.rand.nextInt(180) == 0)
                                 {
-                                	for (int c = lakeBottom; c <= lakeBottom + lakeHeight; c++)
+                                	for (int c = 2; c <= 18; c++)
                                 		digBlock(chunkPrimer, k2, c, j4, chunkX, chunkZ, flag, true);
-                                }
+                                }*/
                             }
                         }
-                        /*
-                        if (flag1)
-                        {
-                            break;
-                        }*/
                     }
                 }
             }

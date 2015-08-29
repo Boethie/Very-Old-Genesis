@@ -28,7 +28,7 @@ public class MapGenRavineGenesis extends MapGenRavine
         
         if (state.getBlock() == GenesisBlocks.granite || state.getBlock() == top.getBlock() || state.getBlock() == filler.getBlock())
         {
-            if (y < 10)
+            if (y < 7)
             {
                 data.setBlockState(x, y, z, GenesisBlocks.komatiitic_lava.getDefaultState());
             }
