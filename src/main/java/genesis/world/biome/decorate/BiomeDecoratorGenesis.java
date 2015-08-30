@@ -48,6 +48,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	public WorldGenerator hematiteGen;
 	public WorldGenerator manganeseGen;
 	public WorldGenerator malachiteGen;
+	public WorldGenerator azuriteGen;
 	public WorldGenerator olivineGen;
 	public WorldGenerator flintGen;
 	public WorldGenerator marcasiteGen;
@@ -83,6 +84,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			manganeseGen = new WorldGenMinableGenesis(GenesisBlocks.graniteOres.getOreState(EnumGraniteOre.MANGANESE), 1, 3);
 			hematiteGen = new WorldGenMinableGenesis(GenesisBlocks.graniteOres.getOreState(EnumGraniteOre.HEMATITE), 4, 8);
 			malachiteGen = new WorldGenMinableGenesis(GenesisBlocks.graniteOres.getOreState(EnumGraniteOre.MALACHITE), 2, 4);
+			azuriteGen = new WorldGenMinableGenesis(GenesisBlocks.graniteOres.getOreState(EnumGraniteOre.AZURITE), 2, 4);
 			olivineGen = new WorldGenMinableGenesis(GenesisBlocks.graniteOres.getOreState(EnumGraniteOre.OLIVINE), 1, 4);
 			flintGen = new WorldGenMinableGenesis(GenesisBlocks.flint_ore.getDefaultState(), 4, 8, GenesisBlocks.limestone);
 			marcasiteGen = new WorldGenMinableGenesis(GenesisBlocks.marcasite_ore.getDefaultState(), 1, 4, GenesisBlocks.limestone);
@@ -193,8 +195,9 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
         genStandardOre1(31, zirconGen, 0, 128);
         genStandardOre1(27, garnetGen, 0, 128);
         genStandardOre1(8, hematiteGen, 64, 128);
-        genStandardOre1(6, manganeseGen, 64, 128);//TODO: rarely generate manganese & hematite below 64
-        genStandardOre1(3, malachiteGen, 0, 32);//TODO: generate 0-4 malachite and 0-2 olivine veins
+        genStandardOre1(6, manganeseGen, 64, 128);
+        genStandardOre1(3, malachiteGen, 40, 128);
+        genStandardOre1(3, azuriteGen, 40, 128);
         genStandardOre1(2, olivineGen, 0, 16);
         genStandardOre1(35, flintGen, 60, 128);
         genStandardOre1(86, marcasiteGen, 60, 128);
