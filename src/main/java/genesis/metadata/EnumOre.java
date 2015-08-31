@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import com.google.common.collect.ImmutableSet;
+
 import genesis.block.BlockGenesisOre;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
@@ -25,7 +27,19 @@ public enum EnumOre implements IOreVariant
 	MANGANESE("manganese", 1, 4.2F, 5.0F, IntRange.create(0, 1), 0.05F),
 	MALACHITE("malachite", 1, 4.2F, 5.0F, IntRange.create(1, 2), 0.2F),
 	AZURITE("azurite", 1, 4.2F, 5.0F, IntRange.create(1, 2), 0.2F),
-	OLIVINE("olivine", 1, 4.2F, 5.0F, IntRange.create(1, 3), 0.3F);
+	OLIVINE("olivine", 1, 4.2F, 5.0F, IntRange.create(1, 3), 0.3F),
+	FLINT("flint", 1, 1.5F, 4.35F, IntRange.create(0, 1), 0,
+			new BlockDrops(
+				new BlockMultiDrop(
+					new StackDrop(GenesisItems.nodules.getStack(EnumNodule.BROWN_FLINT), 1),
+					new StackDrop(GenesisItems.nodules.getStack(EnumNodule.BLACK_FLINT), 1)
+				)
+			)),
+	MARCASITE("marcasite", 1, 1.5F, 4.35F, IntRange.create(0, 1), 0.05F,
+			new BlockDrops(GenesisItems.nodules.getStack(EnumNodule.MARCASITE), 1));
+	
+	public static ImmutableSet<EnumOre> noDrops = ImmutableSet.of(FLINT, MARCASITE);
+	
 	/**
 	 * Called from the combo that owns these variants, because otherwise the reference loop (Combo -> Enum -> Combo...) will cause a runtime error.
 	 */
@@ -35,7 +49,10 @@ public enum EnumOre implements IOreVariant
 		
 		for (EnumOre ore : values())
 		{
-			ore.setDrops(drops);
+			if (ore.drops == null)
+			{
+				ore.setDrops(drops);
+			}
 		}
 	}
 	
@@ -60,9 +77,21 @@ public enum EnumOre implements IOreVariant
 		this.smeltExperience = smeltExperience;
 	}
 	
+	EnumOre(String name, String unlocName, int harvestLevel, float hardness, float resistance, IntRange dropExperience, float smeltExperience, BlockDrops drops)
+	{
+		this(name, unlocName, harvestLevel, hardness, resistance, dropExperience, smeltExperience);
+		
+		this.drops = drops;
+	}
+	
 	EnumOre(String name, int harvestLevel, float hardness, float resistance, IntRange dropExperience, float smeltExperience)
 	{
 		this(name, name, harvestLevel, hardness, resistance, dropExperience, smeltExperience);
+	}
+	
+	EnumOre(String name, int harvestLevel, float hardness, float resistance, IntRange dropExperience, float smeltExperience, BlockDrops drops)
+	{
+		this(name, name, harvestLevel, hardness, resistance, dropExperience, smeltExperience, drops);
 	}
 	
 	protected void setDrops(BlockDrops drops)

@@ -467,7 +467,7 @@ public final class GenesisRecipes
 			GameRegistry.addSmelting(oreStack, dropStack, ore.getSmeltingExperience());
 		}
 		
-		GameRegistry.addSmelting(GenesisBlocks.marcasite_ore, GenesisItems.nodules.getStack(EnumNodule.MARCASITE), 0.05F);
+		GameRegistry.addSmelting(GenesisBlocks.ores.getOreStack(EnumOre.MARCASITE), GenesisItems.nodules.getStack(EnumNodule.MARCASITE), EnumOre.MARCASITE.getSmeltingExperience());
 		
 		// Food
 		GameRegistry.addSmelting(GenesisItems.climatius, new ItemStack(GenesisItems.cooked_climatius), 0.35F);

@@ -46,13 +46,8 @@ public final class GenesisBlocks
 	public static final Block permafrost = new BlockPermafrost().setUnlocalizedName(Unlocalized.PREFIX + "permafrost");
 	public static final Block ancient_permafrost = new BlockAncientPermafrost().setUnlocalizedName(Unlocalized.PREFIX + "ancientPermafrost");
 	
-	/* Granite Ores */
+	/* Ores */
 	public static final OreBlocks ores = new OreBlocks();
-	
-	/* Limestone Ores */
-	public static final Block flint_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0)
-			.setDrops(new BlockDrops(new BlockMultiDrop(new StackDrop(GenesisItems.nodules.getStack(EnumNodule.BROWN_FLINT), 1), new StackDrop(GenesisItems.nodules.getStack(EnumNodule.BLACK_FLINT), 1)))).setUnlocalizedName(Unlocalized.ORE + "flint");
-	public static final Block marcasite_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0).setDrops(new BlockDrops(GenesisItems.nodules.getStack(EnumNodule.MARCASITE), 1)).setUnlocalizedName(Unlocalized.ORE + "marcasite");
 	
 	/* Trees */
 	public static final TreeBlocksAndItems trees = new TreeBlocksAndItems();
@@ -174,8 +169,6 @@ public final class GenesisBlocks
 		
 		// - Ores -
 		ores.registerVariants(OreBlocks.ORE);
-		Genesis.proxy.registerBlock(flint_ore, "flint_ore");
-		Genesis.proxy.registerBlock(marcasite_ore, "marcasite_ore");
 		
 		// - Full Block Woody -
 		trees.registerVariants(trees.LOG);
