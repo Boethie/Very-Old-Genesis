@@ -86,8 +86,8 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			malachiteGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.MALACHITE), 2, 4);
 			azuriteGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.AZURITE), 2, 4);
 			olivineGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.OLIVINE), 1, 4);
-			flintGen = new WorldGenMinableGenesis(GenesisBlocks.flint_ore.getDefaultState(), 4, 8, GenesisBlocks.limestone);
-			marcasiteGen = new WorldGenMinableGenesis(GenesisBlocks.marcasite_ore.getDefaultState(), 1, 4, GenesisBlocks.limestone);
+			flintGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.FLINT), 4, 8, GenesisBlocks.limestone);
+			marcasiteGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.MARCASITE), 1, 4, GenesisBlocks.limestone);
 			genDecorations(biome);
 			currentWorld = null;
 			randomGenerator = null;
