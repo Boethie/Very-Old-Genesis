@@ -1,5 +1,6 @@
 package genesis.common;
 
+import genesis.client.model.entity.RenderMeganeura;
 import genesis.entity.*;
 import genesis.entity.fixed.EntityMeganeuraEgg;
 import genesis.entity.living.flying.*;
@@ -39,7 +40,7 @@ public class GenesisEntities
 	@SideOnly(Side.CLIENT)
 	public static void registerEntityRenderers()
 	{
-		RenderingRegistry.registerEntityRenderingHandler(EntityMeganeura.class, new EntityMeganeura.Render());
+		RenderingRegistry.registerEntityRenderingHandler(EntityMeganeura.class, new RenderMeganeura());
 		RenderingRegistry.registerEntityRenderingHandler(EntityMeganeuraEgg.class, new EntityMeganeuraEgg.EggRender());
 	}
 }

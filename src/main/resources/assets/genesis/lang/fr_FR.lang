@@ -5,8 +5,9 @@ tile.genesis.dummyBlock.name=ยง4Useless Dummy Block!
 tile.genesis.komatiiticLava.name=Lave komatiitique
 
 #Interactive blocks
-tile.genesis.workbench.name=Établi
-tile.genesis.campfire.name=Feu de camp
+tile.genesis.container.workbench.name=Établi
+tile.genesis.container.campfire.name=Feu de camp
+tile.genesis.container.storageBox.name=Caisse de stockage
 
 #Building blocks
 tile.genesis.moss.name=Mousse
@@ -341,6 +342,7 @@ item.genesis.misc.bucketKomatiiticLava.name=Seau de lave komatiitique
 #------------- GUIs -------------
 container.genesis.workbench=Fabrication et débitage
 container.genesis.campfire=Feu de camp
+container.genesis.storageBox.name=Caisse de stockage
 
 #------------- Entities -------------
 

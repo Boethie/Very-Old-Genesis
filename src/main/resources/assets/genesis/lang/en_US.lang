@@ -5,8 +5,9 @@ tile.genesis.dummyBlock.name=§4Useless Dummy Block!
 tile.genesis.komatiiticLava.name=Komatiitic Lava
 
 #Interactive blocks
-tile.genesis.workbench.name=Workbench
-tile.genesis.campfire.name=Campfire
+tile.genesis.container.workbench.name=Workbench
+tile.genesis.container.campfire.name=Campfire
+tile.genesis.container.storageBox.name=Storage Box
 
 #Building blocks
 tile.genesis.moss.name=Moss
@@ -342,6 +343,7 @@ item.genesis.misc.bucketKomatiiticLava.name=Komatiitic Lava Bucket
 #------------- GUIs -------------
 container.genesis.workbench=Crafting & Knapping
 container.genesis.campfire=Campfire
+container.genesis.storageBox=Storage Box
 
 #------------- Entities -------------
 

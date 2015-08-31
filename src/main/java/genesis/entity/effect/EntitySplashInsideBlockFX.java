@@ -58,10 +58,4 @@ public class EntitySplashInsideBlockFX extends EntityFX
 			setDead();
 		}
 	}
-	
-	@Override
-	public void writeToNBT(NBTTagCompound compound)
-	{
-		super.writeToNBT(compound);
-	}
 }

@@ -1,9 +1,12 @@
 package genesis.util.render;
 
+import org.lwjgl.opengl.GL11;
+
 import genesis.util.EnumAxis;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.model.PositionTextureVertex;
 import net.minecraft.client.model.TexturedQuad;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.util.Vec3;
 
@@ -21,6 +24,12 @@ public class ModelPlane extends CustomModelElement
 		Vec3 localW = null;
 		Vec3 localH = null;
 		
+		float texW = part.textureWidth;
+		float texH = part.textureHeight;
+
+		float uW = w / texW;
+		float uH = h / texH;
+		
 		switch (facingAxis)
 		{
 		case X:
@@ -32,38 +41,44 @@ public class ModelPlane extends CustomModelElement
 			normal = new Vec3(0, 1, 0);
 			localW = new Vec3(h, 0, 0);
 			localH = new Vec3(0, 0, w);
+			
+			uW = h / texW;
+			uH = w / texH;
 			break;
 		case Z:
 			normal = new Vec3(0, 0, -1);
 			localW = new Vec3(w, 0, 0);
 			localH = new Vec3(0, h, 0);
 			break;
-		case NONE:
-			throw new IllegalArgumentException("NONE axis is not a valid axis for a ModelPlane.");
+		default:
+			throw new IllegalArgumentException(facingAxis + " is not a valid axis for a ModelPlane.");
 		}
 		
-		float texW = part.textureWidth;
-		float texH = part.textureHeight;
 		float uStart = u / texW;
-		float uEnd = (u + w) / texW;
+		float uEnd = u / texW + uW;
 		float vStart = v / texH;
-		float vEnd = (v + h) / texH;
+		float vEnd = v / texH + uH;
 		
-		PositionTextureVertex vertBL = new PositionTextureVertex(start, uStart, vStart);
-		PositionTextureVertex vertTL = new PositionTextureVertex(start.add(localH), uStart, vEnd);
-		PositionTextureVertex vertTR = new PositionTextureVertex(vertTL.vector3D.add(localW), uEnd, vEnd);
-		PositionTextureVertex vertBR = new PositionTextureVertex(vertTR.vector3D.subtract(localH), uEnd, v);
+		PositionTextureVertex vertBL;
+		PositionTextureVertex vertTL;
+		PositionTextureVertex vertTR;
+		PositionTextureVertex vertBR;
 		
-		quadUp = new TexturedQuad(new PositionTextureVertex[]{vertBL, vertTL, vertTR, vertBR});
+		vertBL = new PositionTextureVertex(start, 							uStart, vStart);
+		vertTL = new PositionTextureVertex(start.add(localH),				uStart, vEnd);
+		vertTR = new PositionTextureVertex(start.add(localW).add(localH),	uEnd, vEnd);
+		vertBR = new PositionTextureVertex(start.add(localW),				uEnd, vStart);
 		
-		double sepAmt = -0.01;
-		Vec3 sep = new Vec3(normal.xCoord * sepAmt, normal.yCoord * sepAmt, normal.zCoord * sepAmt);
-		vertBL = new PositionTextureVertex(vertBL.vector3D.add(sep), vertBL.texturePositionX, vertBL.texturePositionY);
-		vertTL = new PositionTextureVertex(vertTL.vector3D.add(sep), vertBL.texturePositionX, vertBL.texturePositionY);
-		vertTR = new PositionTextureVertex(vertTR.vector3D.add(sep), vertTR.texturePositionX, vertTR.texturePositionY);
-		vertBR = new PositionTextureVertex(vertBR.vector3D.add(sep), vertBR.texturePositionX, vertBR.texturePositionY);
+		quadUp = new TexturedQuad(new PositionTextureVertex[]{vertBR, vertTR, vertTL, vertBL});
 		
-		quadDown = new TexturedQuad(new PositionTextureVertex[]{vertBL, vertBR, vertTR, vertTL});
+		uStart += uW;
+		uEnd += uW;
+		vertBL = new PositionTextureVertex(start.add(localW), 				uStart, vStart);
+		vertTL = new PositionTextureVertex(start.add(localW).add(localH),	uStart, vEnd);
+		vertTR = new PositionTextureVertex(start.add(localH),				uEnd, vEnd);
+		vertBR = new PositionTextureVertex(start,							uEnd, vStart);
+		
+		quadDown = new TexturedQuad(new PositionTextureVertex[]{vertBR, vertTR, vertTL, vertBL});
 	}
 	
 	public ModelPlane(EntityPart part, EnumAxis facingAxis, float x, float y, float z, float w, float h)
@@ -74,7 +89,9 @@ public class ModelPlane extends CustomModelElement
 	@Override
 	public void render(WorldRenderer renderer, float scale)
 	{
+		GlStateManager.enableCull();
 		quadUp.draw(renderer, scale);
 		quadDown.draw(renderer, scale);
+		GlStateManager.disableCull();
 	}
 }

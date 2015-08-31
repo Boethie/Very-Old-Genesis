@@ -86,8 +86,8 @@ public class EntityMeganeuraEgg extends EntityEgg
 			
 			public Model()
 			{
-				textureWidth = 180;
-				textureHeight = 100;
+				textureWidth = 8;
+				textureHeight = 8;
 				
 				// ~~~~~~~~~~~~~~~~~~~~~~
 				// ~~~~==== Body ====~~~~
@@ -105,14 +105,6 @@ public class EntityMeganeuraEgg extends EntityEgg
 				egg.render(p6);
 			}
 			
-			protected float partialTick = 0;
-			
-			@Override
-			public void setLivingAnimations(EntityLivingBase entity, float p_78086_2_, float p_78086_3_, float partialTick)
-			{
-				this.partialTick = partialTick;
-			}
-			
 			@Override
 			public void setRotationAngles(float p1, float p2, float p3, float p4, float p5, float p6, Entity entity)
 			{
@@ -122,7 +114,7 @@ public class EntityMeganeuraEgg extends EntityEgg
 			}
 		}
 		
-		public static final ResourceLocation texture = new ResourceLocation(Constants.ASSETS_PREFIX + "textures/entity/meganeura_egg");
+		public static final ResourceLocation texture = new ResourceLocation(Constants.ASSETS_PREFIX + "textures/entity/meganeura/egg.png");
 		protected Model model = new Model();
 		
 		public EggRender()
@@ -134,7 +126,10 @@ public class EntityMeganeuraEgg extends EntityEgg
 		
 		@Override
 		public void doRender(Entity entity, double x, double y, double z, float yaw, float partialTick)
-		{model = new Model();
+		{
+			//Minecraft.getMinecraft().getTextureManager().loadTexture(texture, new net.minecraft.client.renderer.texture.SimpleTexture(texture));
+			//model = new Model();
+			
 	        GlStateManager.pushMatrix();
 	        GlStateManager.translate(x, y, z);
 	        
@@ -151,7 +146,8 @@ public class EntityMeganeuraEgg extends EntityEgg
 		@Override
 		protected ResourceLocation getEntityTexture(Entity entity)
 		{
-			return texture;
+			return new ResourceLocation(Constants.ASSETS_PREFIX + "textures/entity/meganeura/egg.png");
+			// TODO: return texture;
 		}
 	}
 }
