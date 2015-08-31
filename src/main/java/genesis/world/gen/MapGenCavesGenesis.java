@@ -1,7 +1,8 @@
 package genesis.world.gen;
 
 import genesis.common.GenesisBlocks;
-import net.minecraft.block.BlockSand;
+import genesis.metadata.EnumSilt;
+import genesis.metadata.SiltBlocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -23,10 +24,10 @@ public class MapGenCavesGenesis extends MapGenCaves
         net.minecraft.world.biome.BiomeGenBase biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
         IBlockState top = biome.topBlock;
         IBlockState filler = biome.fillerBlock;
-
+        
         if (func_175793_a(state, up) || state.getBlock() == top.getBlock() || state.getBlock() == filler.getBlock())
         {
-            if (y < 10)
+            if (y < 7)
             {
                 data.setBlockState(x, y, z, GenesisBlocks.komatiitic_lava.getDefaultState());
             }
@@ -34,11 +35,11 @@ public class MapGenCavesGenesis extends MapGenCaves
             {
                 data.setBlockState(x, y, z, Blocks.air.getDefaultState());
 
-                if (up.getBlock() == Blocks.sand)
+                if (up.getBlock() == GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT))
                 {
-                    data.setBlockState(x, y + 1, z, up.getValue(BlockSand.VARIANT) == BlockSand.EnumType.RED_SAND ? Blocks.red_sandstone.getDefaultState() : Blocks.sandstone.getDefaultState());
+                    data.setBlockState(x, y + 1, z, GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.SILT));
                 }
-
+                
                 if (foundTop && data.getBlockState(x, y - 1, z).getBlock() == filler.getBlock())
                 {
                     data.setBlockState(x, y - 1, z, top.getBlock().getDefaultState());

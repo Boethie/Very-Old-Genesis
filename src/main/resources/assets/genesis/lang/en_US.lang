@@ -38,9 +38,10 @@ tile.genesis.ore.marcasite.name=Marcasite Ore
 tile.genesis.ore.quartz.name=Quartz Ore
 tile.genesis.ore.zircon.name=Zircon Ore
 tile.genesis.ore.garnet.name=Garnet Ore
-tile.genesis.ore.manganese.name=Manganese Ore
 tile.genesis.ore.hematite.name=Hematite Ore
+tile.genesis.ore.manganese.name=Manganese Ore
 tile.genesis.ore.malachite.name=Malachite Ore
+tile.genesis.ore.azurite.name=Azurite Ore
 tile.genesis.ore.olivine.name=Olivine Ore
 
 tile.genesis.log.archaeopteris.name=Archaeopteris Wood
@@ -140,6 +141,14 @@ tile.genesis.coral.heliolites.name=Heliolites
 tile.genesis.coral.halysites.name=Halysites
 
 #------------- Items -------------
+#Misc
+entity.meganeura.name=Meganeura
+
+item.genesis.misc.ceramicBucket.name=Ceramic Bucket
+item.genesis.misc.ceramicBucketWater.name=Ceramic Water Bucket
+item.genesis.misc.ceramicBucketMilk.name=Ceramic Milk Bucket
+item.genesis.misc.bucketKomatiiticLava.name=Komatiitic Lava Bucket
+
 #Food
 item.genesis.food.zingiberopsisRhizome.name=Zingiberopsis Rhizome
 item.genesis.food.odontopterisSeeds.name=Odontopteris Seeds
@@ -308,6 +317,7 @@ item.genesis.material.garnet.name=Garnet
 item.genesis.material.hematite.name=Hematite
 item.genesis.material.manganese.name=Manganese
 item.genesis.material.malachite.name=Malachite
+item.genesis.material.azurite.name=Azurite
 item.genesis.material.olivine.name=Olivine
 item.genesis.material.nodule.brownFlint.name=Brown Flint Nodule
 item.genesis.material.nodule.blackFlint.name=Black Flint Nodule
@@ -333,12 +343,6 @@ item.genesis.material.liopleurodonTooth.name=Liopleurodon Tooth
 item.genesis.material.tyrannosaurusSaliva.name=Tyrannosaurus Saliva
 item.genesis.material.tyrannosaurusTooth.name=Tyrannosaurus Tooth
 item.genesis.material.egg.meganeura.name=Meganeura Egg
-
-#Containers
-item.genesis.misc.ceramicBucket.name=Ceramic Bucket
-item.genesis.misc.ceramicBucketWater.name=Ceramic Water Bucket
-item.genesis.misc.ceramicBucketMilk.name=Ceramic Milk Bucket
-item.genesis.misc.bucketKomatiiticLava.name=Komatiitic Lava Bucket
 
 #------------- GUIs -------------
 container.genesis.workbench=Crafting & Knapping

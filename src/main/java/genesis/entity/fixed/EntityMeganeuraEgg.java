@@ -146,8 +146,7 @@ public class EntityMeganeuraEgg extends EntityEgg
 		@Override
 		protected ResourceLocation getEntityTexture(Entity entity)
 		{
-			return new ResourceLocation(Constants.ASSETS_PREFIX + "textures/entity/meganeura/egg.png");
-			// TODO: return texture;
+			return texture;
 		}
 	}
 }

@@ -37,9 +37,10 @@ tile.genesis.ore.marcasite.name=Minerai de marcassite
 tile.genesis.ore.quartz.name=Minerai de quartz
 tile.genesis.ore.zircon.name=Minerai de zircon
 tile.genesis.ore.garnet.name=Minerai de grenat
-tile.genesis.ore.manganese.name=Minerai de manganèse
 tile.genesis.ore.hematite.name=Minerai d'hématite
+tile.genesis.ore.manganese.name=Minerai de manganèse
 tile.genesis.ore.malachite.name=Minerai de malachite
+tile.genesis.ore.malachite.name=Minerai d'azurite
 tile.genesis.ore.olivine.name=Minerai d'olivine
 
 tile.genesis.log.archaeopteris.name=Bois d'Archaeopteris
@@ -139,6 +140,14 @@ tile.genesis.coral.heliolites.name=Heliolites
 tile.genesis.coral.halysites.name=Halysites
 
 #------------- Items -------------
+#Misc
+entity.meganeura.name=Meganeura
+
+item.genesis.misc.ceramicBucket.name=Seau en céramique
+item.genesis.misc.ceramicBucketWater.name=Seau d'eau en céramique
+item.genesis.misc.ceramicBucketMilk.name=Seau de lait en céramique
+item.genesis.misc.bucketKomatiiticLava.name=Seau de lave komatiitique
+
 #Food
 item.genesis.food.zingiberopsisRhizome.name=Rhizome de Zingiberopsis
 item.genesis.food.odontopterisSeeds.name=Graines d'Odontopteris
@@ -307,6 +316,7 @@ item.genesis.material.garnet.name=Grenat
 item.genesis.material.hematite.name=Hématite
 item.genesis.material.manganese.name=Manganèse
 item.genesis.material.malachite.name=Malachite
+item.genesis.material.azurite.name=Azurite
 item.genesis.material.olivine.name=Olivine
 item.genesis.material.nodule.brownFlint.name=Rognon de silex brun
 item.genesis.material.nodule.blackFlint.name=Rognon de silex noir
@@ -332,12 +342,6 @@ item.genesis.material.liopleurodonTooth.name=Dent de Liopleurodon
 item.genesis.material.tyrannosaurusSaliva.name=Salive de Tyrannosaurus
 item.genesis.material.tyrannosaurusTooth.name=Dent de Tyrannosaurus
 item.genesis.material.egg.meganeura.name=Œuf de Meganeura
-
-#Containers
-item.genesis.misc.ceramicBucket.name=Seau en céramique
-item.genesis.misc.ceramicBucketWater.name=Seau d'eau en céramique
-item.genesis.misc.ceramicBucketMilk.name=Seau de lait en céramique
-item.genesis.misc.bucketKomatiiticLava.name=Seau de lave komatiitique
 
 #------------- GUIs -------------
 container.genesis.workbench=Fabrication et débitage

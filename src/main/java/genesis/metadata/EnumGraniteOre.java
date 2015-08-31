@@ -24,6 +24,7 @@ public enum EnumGraniteOre implements IOreVariant
 	HEMATITE("hematite", 1, 4.2F, 5.0F, IntRange.create(0, 1), 0.05F),
 	MANGANESE("manganese", 1, 4.2F, 5.0F, IntRange.create(0, 1), 0.05F),
 	MALACHITE("malachite", 1, 4.2F, 5.0F, IntRange.create(1, 2), 0.2F),
+	AZURITE("azurite", 1, 4.2F, 5.0F, IntRange.create(1, 2), 0.2F),
 	OLIVINE("olivine", 1, 4.2F, 5.0F, IntRange.create(1, 3), 0.3F);
 	/**
 	 * Called from the combo that owns these variants, because otherwise the reference loop (Combo -> Enum -> Combo...) will cause a runtime error.
