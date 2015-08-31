@@ -47,7 +47,7 @@ public final class GenesisBlocks
 	public static final Block ancient_permafrost = new BlockAncientPermafrost().setUnlocalizedName(Unlocalized.PREFIX + "ancientPermafrost");
 	
 	/* Granite Ores */
-	public static final GraniteOreBlocks graniteOres = new GraniteOreBlocks();
+	public static final OreBlocks ores = new OreBlocks();
 	
 	/* Limestone Ores */
 	public static final Block flint_ore = new BlockGenesisOre(1.5F, 4.35F, 1, 0)
@@ -58,8 +58,9 @@ public final class GenesisBlocks
 	public static final TreeBlocksAndItems trees = new TreeBlocksAndItems();
 	
 	/* Crafting */
-	public static final BlockKnapper workbench = (BlockKnapper) new BlockKnapper().setUnlocalizedName(Unlocalized.PREFIX + "workbench");
-	public static final BlockCampfire campfire = (BlockCampfire) new BlockCampfire().setUnlocalizedName(Unlocalized.PREFIX + "campfire");
+	public static final BlockKnapper workbench = (BlockKnapper) new BlockKnapper().setUnlocalizedName(Unlocalized.CONTAINER + "workbench");
+	public static final BlockCampfire campfire = (BlockCampfire) new BlockCampfire().setUnlocalizedName(Unlocalized.CONTAINER + "campfire");
+	//public static final BlockStorageBox storage_box = (BlockStorageBox) new BlockStorageBox().setUnlocalizedName(Unlocalized.CONTAINER + "storageBox");
 	
 	/* Plants */
 	public static final PlantBlocks plants = new PlantBlocks();
@@ -145,10 +146,10 @@ public final class GenesisBlocks
 	public static void registerBlocks()
 	{
 		// --- Building blocks ---
-		// Surface
+		// - Surface -
 		Genesis.proxy.registerBlock(moss, "moss", ItemBlockColored.class);
 		
-		// Stone
+		// - Stone -
 		Genesis.proxy.registerBlock(granite, "granite");
 		Genesis.proxy.registerBlock(mossy_granite, "mossy_granite");
 		Genesis.proxy.registerBlock(rhyolite, "rhyolite");
@@ -161,34 +162,40 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(limestone, "limestone");
 		Genesis.proxy.registerBlock(octaedrite, "octaedrite");
 		
-		// Soft
+		// - Soft -
 		Genesis.proxy.registerBlock(red_clay, "red_clay");
 		Genesis.proxy.registerBlock(ooze, "ooze");
 		Genesis.proxy.registerBlock(peat, "peat");
 		silt.registerAll();
 		
-		// Permafrost
+		// - Permafrost -
 		Genesis.proxy.registerBlock(permafrost, "permafrost");
 		Genesis.proxy.registerBlock(ancient_permafrost, "ancient_permafrost");
 		
-		// Ores
-		graniteOres.registerVariants(GraniteOreBlocks.ORE);
+		// - Ores -
+		ores.registerVariants(OreBlocks.ORE);
 		Genesis.proxy.registerBlock(flint_ore, "flint_ore");
 		Genesis.proxy.registerBlock(marcasite_ore, "marcasite_ore");
 		
+		// - Full Block Woody -
 		trees.registerVariants(trees.LOG);
 		Genesis.proxy.registerBlock(calamites_bundle, "calamites_bundle");
 		Genesis.proxy.registerBlock(programinis_bundle, "programinis_bundle");
 		Genesis.proxy.registerBlock(prototaxites_mycelium, "prototaxites_mycelium");
+		
+		// - Dungs -
 		dungs.registerVariants(dungs.DUNG_BLOCK);
 		
-		// Begin decorative
+		// --- Decorative ---
 		trees.registerAll();
 		
+		// - Containers -
+		// Workbench
 		Genesis.proxy.registerBlock(workbench, "workbench");
 		GameRegistry.registerTileEntity(TileEntityKnapper.class, Constants.ASSETS_PREFIX + "workbench");
 		GenesisEntityData.registerProperty(EntityPlayer.class, TileEntityKnapper.KNAPPING_TIME, 0, false);
 		
+		// Campfire
 		Genesis.proxy.registerBlock(campfire, "campfire");
 		Item.getItemFromBlock(campfire).setMaxStackSize(1);
 		GameRegistry.registerTileEntity(TileEntityCampfire.class, Constants.ASSETS_PREFIX + "campfire");
@@ -202,57 +209,79 @@ public final class GenesisBlocks
 			}
 		});
 		
+		// Storage box
+		//Genesis.proxy.registerBlock(storage_box, "storage_box");
+		//GameRegistry.registerTileEntity(TileEntityStorageBox.class, Constants.ASSETS_PREFIX + "storage_box");
+		
+		// - Torches -
 		Genesis.proxy.registerBlock(calamites_torch, "calamites_torch");
 		
+		// - Plants -
 		plants.setUnlocalizedPrefix(Constants.Unlocalized.PREFIX);
 		plants.registerAll();
-
+		
+		// Calamites
 		Genesis.proxy.registerBlock(calamites, "calamites", null);
 		calamites.setDrops(new BlockDrops(GenesisItems.calamites, 1, 1));
 		calamites.setCropDrops(new BlockDrops(GenesisItems.calamites, 1, 1));
 		calamites.setPickedItem(GenesisItems.calamites);
 		GenesisItems.calamites.setCrop(calamites);
 		
+		// Ferns
 		ferns.setUnlocalizedPrefix(Constants.Unlocalized.PREFIX);
 		ferns.registerAll();
 		
+		// - Growing Plants -
+		// Zingiberopsis
 		Genesis.proxy.registerBlock(zingiberopsis, "zingiberopsis", null);
 		zingiberopsis.setDrops(new BlockDrops(GenesisItems.zingiberopsis_rhizome, 1, 1));
 		zingiberopsis.setCropDrops(new BlockDrops(GenesisItems.zingiberopsis_rhizome, 1, 3));
 		zingiberopsis.setPickedItem(GenesisItems.zingiberopsis_rhizome);
 		GenesisItems.zingiberopsis_rhizome.setCrop(zingiberopsis);
 		
+		// Sphenophyllum
 		Genesis.proxy.registerBlock(sphenophyllum, "sphenophyllum");
 		
+		// Odontopteris
 		Genesis.proxy.registerBlock(odontopteris, "odontopteris", null);
 		odontopteris.setDrops(new BlockDrops(GenesisItems.odontopteris_seeds, 1, 1));
 		odontopteris.setCropDrops(new BlockDrops(GenesisItems.odontopteris_seeds, 1, 3));
 		odontopteris.setPickedItem(GenesisItems.odontopteris_seeds);
 		GenesisItems.odontopteris_seeds.setCrop(odontopteris);
 		
+		// Programinis
 		Genesis.proxy.registerBlock(programinis, "programinis", null);
 		programinis.setDrops(new BlockDrops(GenesisItems.programinis_seeds, 1, 1));
 		programinis.setCropDrops(new BlockDrops(new StackDrop(GenesisItems.programinis_seeds, 1, 3), new StackDrop(GenesisItems.programinis, 1, 1)));
 		programinis.setPickedItem(GenesisItems.programinis_seeds);
 		GenesisItems.programinis_seeds.setCrop(programinis);
 		
+		// Flower pot
 		Genesis.proxy.registerBlock(flower_pot, "genesis_flower_pot");
 		flower_pot.registerPlantsForPot(plants, PlantBlocks.PLANT);
 		flower_pot.registerPlantsForPot(ferns);
 		flower_pot.registerPlantsForPot(trees, trees.SAPLING);
 		flower_pot.afterAllRegistered();
 		
-		komatiitic_lava = (BlockKomatiiticLava) new BlockKomatiiticLava(GenesisFluids.KOMATIITIC_LAVA).setUnlocalizedName(Unlocalized.PREFIX + "komatiiticLava");
-		Genesis.proxy.registerFluidBlock(komatiitic_lava, "komatiitic_lava");
-		
+		// - Mushrooms -
 		Genesis.proxy.registerBlock(palaeoagaracites, "palaeoagaracites");
 		Genesis.proxy.registerBlock(archaeomarasmius, "archaeomarasmius");
 		Genesis.proxy.registerBlock(prototaxites, "prototaxites");
+		
+		// - Water Plants -
+		// Cobbania
 		Genesis.proxy.registerBlock(cobbania, "cobbania", ItemBlockCobbania.class);
+		
+		// Aquatic plants
 		aquatic_plants.setUnlocalizedPrefix(Constants.Unlocalized.PREFIX);
 		aquatic_plants.registerAll();
 		
+		// Corals
 		corals.setUnlocalizedPrefix(Constants.Unlocalized.PREFIX);
 		corals.registerAll();
+		
+		// --- Liquids ---
+		komatiitic_lava = (BlockKomatiiticLava) new BlockKomatiiticLava(GenesisFluids.KOMATIITIC_LAVA).setUnlocalizedName(Unlocalized.PREFIX + "komatiiticLava");
+		Genesis.proxy.registerFluidBlock(komatiitic_lava, "komatiitic_lava");
 	}
 }

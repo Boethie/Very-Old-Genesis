@@ -179,7 +179,7 @@ public final class GenesisRecipes
 		case GRANITE:
 			return new ItemStack(GenesisBlocks.granite);
 		case QUARTZ:
-			return GenesisBlocks.graniteOres.getDrop(EnumGraniteOre.QUARTZ);
+			return GenesisBlocks.ores.getDrop(EnumOre.QUARTZ);
 		case BROWN_FLINT:
 		case BLACK_FLINT:
 		}
@@ -460,10 +460,10 @@ public final class GenesisRecipes
 		}
 		
 		// Smelting
-		for (EnumGraniteOre ore : GenesisBlocks.graniteOres.getSharedValidVariants(GraniteOreBlocks.ORE, GraniteOreBlocks.DROP))
+		for (EnumOre ore : GenesisBlocks.ores.getSharedValidVariants(OreBlocks.ORE, OreBlocks.DROP))
 		{
-			ItemStack oreStack = GenesisBlocks.graniteOres.getOreStack(ore);
-			ItemStack dropStack = GenesisBlocks.graniteOres.getDrop(ore);
+			ItemStack oreStack = GenesisBlocks.ores.getOreStack(ore);
+			ItemStack dropStack = GenesisBlocks.ores.getDrop(ore);
 			GameRegistry.addSmelting(oreStack, dropStack, ore.getSmeltingExperience());
 		}
 		

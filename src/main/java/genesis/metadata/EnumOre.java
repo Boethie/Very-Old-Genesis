@@ -16,7 +16,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public enum EnumGraniteOre implements IOreVariant
+public enum EnumOre implements IOreVariant
 {
 	QUARTZ("quartz", 1, 4.2F, 5.0F, IntRange.create(0, 1), 0.05F),
 	ZIRCON("zircon", 1, 4.2F, 5.0F, IntRange.create(0, 2), 0.1F),
@@ -29,11 +29,11 @@ public enum EnumGraniteOre implements IOreVariant
 	/**
 	 * Called from the combo that owns these variants, because otherwise the reference loop (Combo -> Enum -> Combo...) will cause a runtime error.
 	 */
-	public static void setDrops(GraniteOreBlocks combo)
+	public static void setDrops(OreBlocks combo)
 	{
-		BlockDrops drops = new BlockDrops(VariantDrop.create(combo, GraniteOreBlocks.DROP, 1));
+		BlockDrops drops = new BlockDrops(VariantDrop.create(combo, OreBlocks.DROP, 1));
 		
-		for (EnumGraniteOre ore : values())
+		for (EnumOre ore : values())
 		{
 			ore.setDrops(drops);
 		}
@@ -49,7 +49,7 @@ public enum EnumGraniteOre implements IOreVariant
 	
 	BlockDrops drops;
 	
-	EnumGraniteOre(String name, String unlocName, int harvestLevel, float hardness, float resistance, IntRange dropExperience, float smeltExperience)
+	EnumOre(String name, String unlocName, int harvestLevel, float hardness, float resistance, IntRange dropExperience, float smeltExperience)
 	{
 		this.name = name;
 		this.harvestLevel = harvestLevel;
@@ -60,7 +60,7 @@ public enum EnumGraniteOre implements IOreVariant
 		this.smeltExperience = smeltExperience;
 	}
 	
-	EnumGraniteOre(String name, int harvestLevel, float hardness, float resistance, IntRange dropExperience, float smeltExperience)
+	EnumOre(String name, int harvestLevel, float hardness, float resistance, IntRange dropExperience, float smeltExperience)
 	{
 		this(name, name, harvestLevel, hardness, resistance, dropExperience, smeltExperience);
 	}

@@ -84,7 +84,7 @@ public final class GenesisCreativeTabs
 		@Override
 		public ItemStack getIconItemStack()
 		{
-			return GenesisBlocks.graniteOres.getDrop(EnumGraniteOre.MANGANESE);
+			return GenesisBlocks.ores.getDrop(EnumOre.MANGANESE);
 		}
 	};
 }

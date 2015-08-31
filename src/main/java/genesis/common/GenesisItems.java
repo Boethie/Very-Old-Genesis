@@ -86,7 +86,7 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(red_clay_bucket, "red_clay_bucket");
 		
 		// Ores
-		GenesisBlocks.graniteOres.registerVariants(GraniteOreBlocks.DROP);
+		GenesisBlocks.ores.registerVariants(OreBlocks.DROP);
 		nodules.setUnlocalizedPrefix(Constants.Unlocalized.MATERIAL);
 		nodules.registerAll();
 		
