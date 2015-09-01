@@ -87,7 +87,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			azuriteGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.AZURITE), 2, 4);
 			olivineGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.OLIVINE), 1, 4);
 			flintGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.FLINT), 4, 8, GenesisBlocks.limestone);
-			marcasiteGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.MARCASITE), 1, 4, GenesisBlocks.limestone);
+			marcasiteGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.MARCASITE), 1, 3, GenesisBlocks.limestone);
 			genDecorations(biome);
 			currentWorld = null;
 			randomGenerator = null;
@@ -183,7 +183,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	protected void generateOres()
 	{
         MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(currentWorld, randomGenerator, field_180294_c));
-        genStandardOre1(32, komatiiteGen, 0, 16);
+        genStandardOre1(62, komatiiteGen, 0, 16);
         genStandardOre1(20, gneissGen, 0, 64);
         genStandardOre1(11, rhyoliteGen, 64, 128);
         genStandardOre1(11, doleriteGen, 64, 128);
@@ -199,8 +199,8 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
         genStandardOre1(3, malachiteGen, 40, 128);
         genStandardOre1(3, azuriteGen, 40, 128);
         genStandardOre1(2, olivineGen, 0, 16);
-        genStandardOre1(35, flintGen, 60, 128);
-        genStandardOre1(86, marcasiteGen, 60, 128);
+        genStandardOre1(35, flintGen, 40, 128);
+        genStandardOre1(86, marcasiteGen, 40, 128);
         MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(currentWorld, randomGenerator, field_180294_c));
 	}
 
