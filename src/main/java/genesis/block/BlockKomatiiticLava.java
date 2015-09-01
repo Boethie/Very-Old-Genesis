@@ -3,7 +3,6 @@ package genesis.block;
 import java.util.Random;
 
 import genesis.common.GenesisBlocks;
-import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

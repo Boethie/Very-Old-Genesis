@@ -14,6 +14,7 @@ import genesis.world.gen.feature.WorldGenGenesisLiquids;
 import genesis.world.gen.feature.WorldGenGenesisSand;
 import genesis.world.gen.feature.WorldGenMinableGenesis;
 import genesis.world.gen.feature.WorldGenTreeBase;
+import genesis.world.gen.feature.WorldGenUndergroundColumns;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -157,6 +158,12 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			}
 		}
 		
+		for (int i = 0; nextInt(3) == 0 && i < 2; ++i)
+		{
+			BlockPos pos = field_180294_c.add(nextInt(16) + 8, nextInt(nextInt(248) + 8), nextInt(16) + 8);
+			(new WorldGenUndergroundColumns(randomGenerator)).generate(currentWorld, randomGenerator, pos);
+		}
+		
 		if (generateLakes)
 		{
 			doGen = TerrainGen.decorate(currentWorld, randomGenerator, field_180294_c, LAKE_WATER);
@@ -203,11 +210,10 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
         genStandardOre1(86, marcasiteGen, 60, 128);
         MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(currentWorld, randomGenerator, field_180294_c));
 	}
-
+	
 	// Safety wrapper to prevent exceptions.
 	private int nextInt(int i)
 	{
 		return i <= 1 ? 0 : randomGenerator.nextInt(i);
 	}
-
 }

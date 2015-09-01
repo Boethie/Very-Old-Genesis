@@ -20,7 +20,7 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
 	private int lakeBottom;
 	private int lakeHeight;
 	
-	private float[] field_75046_d = new float[1024];
+	private float[] column = new float[1024];
 	
     protected void digBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop, boolean column)
     {
@@ -39,7 +39,6 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
     	}
         else if (
         		state.getBlock() == GenesisBlocks.granite 
-        		//|| state.getBlock() == GenesisBlocks.komatiite 
         		|| state.getBlock() == top.getBlock() 
         		|| state.getBlock() == filler.getBlock())
         {
@@ -135,7 +134,7 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
                 f5 = 1.0F + random.nextFloat() * random.nextFloat() * 1.0F;
             }
             
-            this.field_75046_d[k1] = f5 * f5;
+            this.column[k1] = f5 * f5;
         }
         
         for (; p_180707_15_ < p_180707_16_; ++p_180707_15_)
@@ -224,7 +223,7 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
                                     {
                                         double d12 = ((double)(j3 - 1) + 0.5D - y1) / d6;
 
-                                        if ((d14 * d14 + d11 * d11) * (double)this.field_75046_d[j3 - 1] + d12 * d12 / 6.0D < 1.0D)
+                                        if ((d14 * d14 + d11 * d11) * (double)this.column[j3 - 1] + d12 * d12 / 6.0D < 1.0D)
                                         {
                                             if (isTopBlock(chunkPrimer, k2, j3, j4, chunkX, chunkZ))
                                             {
