@@ -9,9 +9,12 @@ import org.lwjgl.opengl.GL11;
 
 import com.google.common.base.Function;
 
+import genesis.client.sound.MovingEntitySound;
+import genesis.client.sound.MovingEntitySound.IMovingEntitySoundOwner;
 import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
+import genesis.common.GenesisSounds;
 import genesis.entity.fixed.EntityMeganeuraEgg;
 import genesis.entity.living.IEntityPreferredBiome;
 
@@ -25,6 +28,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.*;
+import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.entity.*;
@@ -44,7 +48,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.*;
 
-public class EntityMeganeura extends EntityLiving
+public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundOwner
 {
 	public static enum StateCategory
 	{
@@ -96,6 +100,8 @@ public class EntityMeganeura extends EntityLiving
 	protected double speed = 1;
 	
 	private Vec3 targetLocation;
+	
+	protected int takeoffSoundTimer = 0;
 
 	public float prevEggPlaceTimer = 0;
 	public float eggPlaceTimer = 0;
@@ -157,16 +163,71 @@ public class EntityMeganeura extends EntityLiving
 	{
 		return State.values()[dataWatcher.getWatchableObjectByte(STATE)];
 	}
+
+	public static final ResourceLocation FLY_SOUND = new ResourceLocation(Constants.ASSETS_PREFIX + "mob.meganeura.fly");
+	public static final ResourceLocation LAND_SOUND = new ResourceLocation(Constants.ASSETS_PREFIX + "mob.meganeura.land");
+	public static final ResourceLocation TAKEOFF_SOUND = new ResourceLocation(Constants.ASSETS_PREFIX + "mob.meganeura.takeoff");
 	
 	public void setState(State state)
 	{
-		if (getState() != FLYING && state == FLYING)
+		if (!isDead)
 		{
-			setTargetLocation(null);
-			sendUpdateMessage();
+			State oldState = getState();
+			
+			if (oldState != FLYING && state == FLYING)
+			{
+				setTargetLocation(null);
+				sendUpdateMessage();
+			}
+			
+			if ((oldState.category == LANDED || oldState.category == SLOW) && state.category == AIR)
+			{
+				playMovingSound(TAKEOFF_SOUND, false);
+				takeoffSoundTimer = 15;	// Start timer to play looping flight sound when takeoff is done.
+			}
+			else if (oldState.category == AIR && state.category == SLOW)
+			{
+				playMovingSound(LAND_SOUND, true);
+			}
+			
+			dataWatcher.updateObject(STATE, (byte) state.ordinal());
+		}
+	}
+	
+	protected void playMovingSound(ResourceLocation sound, boolean loop)
+	{
+		GenesisSounds.playMovingEntitySound(sound, loop, this, getSoundVolume(), getSoundPitch());
+	}
+	
+	@Override
+	public float getPitch(MovingEntitySound sound, float pitch)
+	{
+		return GenesisSounds.getDopplerEffect(this, pitch, 0.03F);
+	}
+	
+	@Override
+	public float getVolume(MovingEntitySound sound, float volume)
+	{
+		return volume;
+	}
+	
+	@Override
+	public boolean shouldStopSound(MovingEntitySound sound)
+	{
+		ResourceLocation loc = sound.getSoundLocation();
+		State state = getState();
+		
+		if ((loc.equals(FLY_SOUND) || loc.equals(TAKEOFF_SOUND)) && state.category != AIR)
+		{
+			return true;
 		}
 		
-		dataWatcher.updateObject(STATE, (byte) state.ordinal());
+		if (loc.equals(LAND_SOUND) && state.category != SLOW)
+		{
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public void setTargetLocation(Vec3 location)
@@ -220,6 +281,17 @@ public class EntityMeganeura extends EntityLiving
 		if (entityAge % 25 == 0)
 		{
 			sendUpdateMessage();
+		}
+		
+		if (!worldObj.isRemote && takeoffSoundTimer > 0)
+		{
+			takeoffSoundTimer--;
+			
+			if (takeoffSoundTimer == 0)
+			{
+				playMovingSound(FLY_SOUND, true);
+				takeoffSoundTimer = -1;
+			}
 		}
 		
 		if (worldObj.isRemote)
@@ -606,15 +678,17 @@ public class EntityMeganeura extends EntityLiving
 			break;
 		case IDLE_GROUND:
 		case IDLE_SIDE:
+			boolean fly = false;
+			
 			if (rand.nextInt(100) == 0)
 			{
-				setState(FLYING);
+				fly = true;
 			}
 			else if (ourState == IDLE_GROUND)
 			{
 				if (!onGround)
 				{
-					setState(FLYING);
+					fly = true;
 				}
 			}
 			else
@@ -627,8 +701,13 @@ public class EntityMeganeura extends EntityLiving
 				
 				if (hit == null || hit.typeOfHit != MovingObjectType.BLOCK)
 				{
-					setState(FLYING);
+					fly = true;
 				}
+			}
+			
+			if (fly)
+			{
+				setState(FLYING);
 			}
 			break;
 		case LANDING_SIDE:
@@ -840,8 +919,6 @@ public class EntityMeganeura extends EntityLiving
 		motionY += (moveY - motionY) * 0.5;
 		motionZ += (moveZ - motionZ) * 0.5;
 		
-		//motionX = motionY = motionZ = rotationYaw = 0;
-		
 		if (ourOldTarget == null ||
 			ourOldTarget.xCoord != ourNewTarget.xCoord ||
 			ourOldTarget.yCoord != ourNewTarget.yCoord ||
@@ -851,6 +928,18 @@ public class EntityMeganeura extends EntityLiving
 		}
 		
 		setTargetLocation(ourNewTarget);
+	}
+	
+	@Override
+	protected String getHurtSound()
+	{
+		return Constants.ASSETS_PREFIX + "mob.meganeura.hurt";
+	}
+	
+	@Override
+	protected String getDeathSound()
+	{
+		return Constants.ASSETS_PREFIX + "mob.meganeura.die";
 	}
 	
 	@Override

@@ -1,6 +1,6 @@
 package genesis.block;
 
-import genesis.client.GenesisSounds;
+import genesis.common.GenesisSounds;
 import genesis.common.GenesisCreativeTabs;
 import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.BlockHay;

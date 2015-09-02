@@ -1,6 +1,6 @@
 package genesis.block;
 
-import genesis.client.GenesisSounds;
+import genesis.common.GenesisSounds;
 import genesis.item.ItemBlockMulti;
 import genesis.metadata.EnumFern;
 import genesis.metadata.IMetadata;

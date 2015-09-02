@@ -5,7 +5,7 @@ import java.util.*;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 
-import genesis.client.GenesisSounds;
+import genesis.common.GenesisSounds;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemBlockMulti;

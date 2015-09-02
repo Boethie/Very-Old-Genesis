@@ -1,7 +1,7 @@
 package genesis.block;
 
 import static genesis.block.BlockGenesisMushroom.MushroomGrowType.*;
-import genesis.client.GenesisSounds;
+import genesis.common.GenesisSounds;
 import genesis.common.GenesisBlocks;
 import genesis.util.BlockStateToMetadata;
 

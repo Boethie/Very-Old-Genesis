@@ -1,7 +1,7 @@
 package genesis.block;
 
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
-import genesis.client.GenesisSounds;
+import genesis.common.GenesisSounds;
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumSilt;
 import genesis.metadata.SiltBlocks;

@@ -211,5 +211,39 @@
 			"step/mushroom2",
 			"step/mushroom3"
 		]
+	},
+	"mob.meganeura.fly": {
+		"category": "neutral",
+		"sounds": [
+			"entity/meganeura/fly1",
+			"entity/meganeura/fly2",
+			"entity/meganeura/fly3"
+		]
+	},
+	"mob.meganeura.hurt": {
+		"category": "neutral",
+		"sounds": [
+			"entity/meganeura/hurt1",
+			"entity/meganeura/hurt2",
+			"entity/meganeura/hurt3"
+		]
+	},
+	"mob.meganeura.land": {
+		"category": "neutral",
+		"sounds": [
+			"entity/meganeura/land"
+		]
+	},
+	"mob.meganeura.takeoff": {
+		"category": "neutral",
+		"sounds": [
+			"entity/meganeura/takeoff"
+		]
+	},
+	"mob.meganeura.die": {
+		"category": "neutral",
+		"sounds": [
+			"entity/meganeura/die"
+		]
 	}
 }
