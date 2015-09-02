@@ -1,6 +1,7 @@
 package genesis.entity.fixed;
 
 import genesis.common.GenesisItems;
+import genesis.util.Constants;
 import genesis.util.RandomReflection;
 import genesis.util.WorldUtils;
 import net.minecraft.client.Minecraft;
@@ -53,11 +54,28 @@ public abstract class EntityFixed extends Entity
 		WorldUtils.spawnItemsAt(worldObj, posX, posY, posZ, null, getDroppedItem());
 	}
 	
+	public abstract String getBreakSound();
+	
+	protected void playBreakingSound()
+	{
+		String breakSound = getBreakSound();
+		
+		if (breakSound != null)
+		{
+			worldObj.playSoundAtEntity(this, breakSound, 0.8F + rand.nextFloat() * 0.4F, 0.9F + rand.nextFloat() * 0.2F);
+		}
+	}
+	
 	public void setDeadAndDrop()
 	{
 		if (!isDead)
 		{
 			dropItem();
+		}
+		
+		if (!worldObj.isRemote)
+		{
+			playBreakingSound();
 		}
 		
 		setDead();

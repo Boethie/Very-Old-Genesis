@@ -27,6 +27,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
 import net.minecraftforge.fml.relauncher.*;
+import paulscode.sound.SoundSystem;
 
 public final class GenesisSounds
 {
@@ -194,8 +195,12 @@ public final class GenesisSounds
 		}
 	}
 	
+	public static Random RANDOM = new Random();
+	
 	public static abstract class RandomLoopingSound extends MovingSound implements ITickableSound
 	{
+		protected boolean forceStop = false;
+		
 		protected RandomLoopingSound(ResourceLocation sound, boolean repeat)
 		{
 			super(sound);
@@ -206,126 +211,38 @@ public final class GenesisSounds
 		@Override
 		public boolean canRepeat()
 		{
-			return false;
+			return repeat && !isDonePlaying();
 		}
 		
-		public boolean canActuallyRepeat()
+		@Override
+		public int getRepeatDelay()
 		{
-			return repeat;
+			if (repeat)
+			{
+				return 1;
+			}
+			
+			return 0;
 		}
-		
-		public abstract void update();
 	}
-	
-	private static List<RandomLoopingSound> loopingSounds = new ArrayList<RandomLoopingSound>();
 	
 	public static void playSound(ISound sound)
 	{
 		Minecraft.getMinecraft().getSoundHandler().playSound(sound);
-		
-		if (sound instanceof RandomLoopingSound)
-		{
-			RandomLoopingSound repeatSound = (RandomLoopingSound) sound;
-			
-			if (repeatSound.canActuallyRepeat())
-			{
-				loopingSounds.add(repeatSound);
-			}
-		}
 	}
 	
-	@SubscribeEvent
-	public void onClientTick(ClientTickEvent event)
-	{
-		if (event.phase == TickEvent.Phase.END)
-		{
-			List<RandomLoopingSound> replay = new ArrayList<RandomLoopingSound>();
-			Iterator<RandomLoopingSound> iter = loopingSounds.iterator();
-			
-			while (iter.hasNext())
-			{
-				RandomLoopingSound sound = iter.next();
-				
-				if (!sound.canActuallyRepeat() || sound.isDonePlaying())
-				{
-					iter.remove();
-				}
-				else if (!isSoundPlaying(sound))
-				{
-					getSoundManager().stopSound(sound);
-					getPlayingSounds().inverse().remove(sound);
-					iter.remove();
-					replay.add(sound);
-				}
-			}
-			
-			for (RandomLoopingSound sound : replay)
-			{
-				playSound(sound);
-			}
-		}
-	}
-	
-	@SubscribeEvent
-	public void onWorldUnloaded(WorldEvent.Unload event)
-	{
-		loopingSounds.clear();
-	}
-	
-	private static SoundManager soundManager;
-	private static BiMap<String, ISound> playingSounds;
-	
-	public static SoundManager getSoundManager()
-	{
-		if (soundManager == null)
-		{
-			soundManager = ReflectionHelper.getPrivateValue(SoundHandler.class, Minecraft.getMinecraft().getSoundHandler(), "sndManager", "field_147694_f");
-		}
-		
-		return soundManager;
-	}
-	
-	public static BiMap<String, ISound> getPlayingSounds()
-	{
-		if (playingSounds == null)
-		{
-			playingSounds = ReflectionHelper.getPrivateValue(SoundManager.class, getSoundManager(), "playingSounds", "field_148629_h");
-		}
-		
-		return playingSounds;
-	}
-	
-	public static String getSoundID(ISound sound)
-	{
-		return getPlayingSounds().inverse().get(sound);
-	}
-	
-	public static boolean isSoundInWorld(ISound sound)
-	{
-		return getPlayingSounds().containsValue(sound);
-	}
-	
-	public static boolean isSoundPlaying(ISound sound)
-	{
-		return getSoundManager().isSoundPlaying(sound);
-	}
-	
-	public static float getDopplerEffect(Entity entity, float pitch, float strength)
+	public static float getDopplerEffect(Entity entity, float strength)
 	{
 		Entity viewEntity = Minecraft.getMinecraft().getRenderViewEntity();
 		
-		Vec3 posDiff = entity.getPositionVector().subtract(viewEntity.getPositionVector().add(ActiveRenderInfo.getPosition()));
+		Vec3 renderOff = ActiveRenderInfo.getPosition();
 		
-		Vec3 camMove = new Vec3(viewEntity.posX - viewEntity.prevPosX, viewEntity.posY - viewEntity.prevPosY, viewEntity.posZ - viewEntity.prevPosZ);
-		Vec3 megMove = new Vec3(entity.posX - entity.prevPosX, entity.posY - entity.prevPosY, entity.posZ - entity.prevPosZ);
-		Vec3 relMove = camMove.subtract(megMove);
+		// Dot product of the difference between camera position and the entity, and the relative motion of the entity.
+		float relative = (float) (
+				(entity.posX - (viewEntity.posX + renderOff.xCoord)) * ((viewEntity.posX - viewEntity.prevPosX) - (entity.posX - entity.prevPosX)) +
+				(entity.posY - (viewEntity.posY + renderOff.yCoord)) * ((viewEntity.posY - viewEntity.prevPosY) - (entity.posY - entity.prevPosY)) +
+				(entity.posZ - (viewEntity.posZ + renderOff.zCoord)) * ((viewEntity.posZ - viewEntity.prevPosZ) - (entity.posZ - entity.prevPosZ)));
 		
-		float relative = (float) posDiff.dotProduct(relMove);
-		
-		float amount = relative;
-		amount *= strength;
-		amount += 1;
-		
-		return pitch * amount;
+		return relative * strength + 1;
 	}
 }

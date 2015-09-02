@@ -77,6 +77,12 @@ public class EntityMeganeuraEgg extends EntityEgg
 		return new ItemStack(GenesisItems.meganeura_egg);
 	}
 	
+	@Override
+	public String getBreakSound()
+	{
+		return Constants.ASSETS_PREFIX + "dig.egg";
+	}
+	
 	@SideOnly(Side.CLIENT)
 	public static class EggRender extends Render
 	{

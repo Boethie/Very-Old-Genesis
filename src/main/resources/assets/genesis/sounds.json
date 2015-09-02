@@ -245,5 +245,11 @@
 		"sounds": [
 			"entity/meganeura/die"
 		]
+	},
+	"dig.egg": {
+		"category": "block",
+		"sounds": [
+			"dig/egg"
+		]
 	}
 }

@@ -59,6 +59,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 	
 	public static enum State
 	{
+		NONE(null),
 		FLYING(AIR),
 		LANDING_GROUND(SLOW), LANDING_SIDE(SLOW),
 		IDLE_GROUND(LANDED), IDLE_SIDE(LANDED, true), PLACING_EGG(LANDED, true);
@@ -126,6 +127,8 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 	public float prevLegPosition = 0;
 	public float legPosition = 0;
 	
+	protected float dopplerPitch = 1;
+	
 	public EntityMeganeura(World world)
 	{
 		super(world);
@@ -136,7 +139,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 	{
 		super.entityInit();
 		
-		dataWatcher.addObject(STATE, (byte) IDLE_GROUND.ordinal());
+		dataWatcher.addObject(STATE, (byte) NONE.ordinal());
 	}
 	
 	@Override
@@ -180,12 +183,12 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 				sendUpdateMessage();
 			}
 			
-			if ((oldState.category == LANDED || oldState.category == SLOW) && state.category == AIR)
+			if ((oldState == NONE || oldState.category == LANDED || oldState.category == SLOW) && state.category == AIR)
 			{
 				playMovingSound(TAKEOFF_SOUND, false);
 				takeoffSoundTimer = 15;	// Start timer to play looping flight sound when takeoff is done.
 			}
-			else if (oldState.category == AIR && state.category == SLOW)
+			else if ((oldState == NONE || oldState.category == AIR) && state.category == SLOW)
 			{
 				playMovingSound(LAND_SOUND, true);
 			}
@@ -202,7 +205,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 	@Override
 	public float getPitch(MovingEntitySound sound, float pitch)
 	{
-		return GenesisSounds.getDopplerEffect(this, pitch, 0.03F);
+		return pitch * dopplerPitch;
 	}
 	
 	@Override
@@ -296,6 +299,8 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 		
 		if (worldObj.isRemote)
 		{
+			dopplerPitch = GenesisSounds.getDopplerEffect(this, 0.03F);
+			
 			double diffX = posX - prevPosX;
 			double diffY = posY - prevPosY;
 			double diffZ = posZ - prevPosZ;
@@ -605,6 +610,9 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 		// Update our state according to whether we've reached our destination.
 		switch (ourState)
 		{
+		case NONE:
+			setState(FLYING);
+			break;
 		case FLYING:
 			if (reachedFar)
 			{
