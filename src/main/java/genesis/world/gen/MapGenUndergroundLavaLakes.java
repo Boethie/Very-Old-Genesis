@@ -1,15 +1,13 @@
 package genesis.world.gen;
 
+import genesis.common.GenesisBlocks;
+
 import java.util.Random;
 
-import genesis.common.GenesisBlocks;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.MapGenBase;
@@ -22,25 +20,14 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
 	
 	private float[] column = new float[1024];
 	
-    protected void digBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop, boolean column)
+    protected void digBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ)
     {
-    	BlockPos pos = new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16);
-        BiomeGenBase biome = worldObj.getBiomeGenForCoords(pos);
         IBlockState state = data.getBlockState(x, y, z);
-        IBlockState top = biome.topBlock;
-        IBlockState filler = biome.fillerBlock;
         
         if (y > lakeBottom + lakeHeight || y < lakeBottom)
         	return;
         
-        if (column)
-    	{
-    		data.setBlockState(x, y, z, GenesisBlocks.komatiite.getDefaultState());
-    	}
-        else if (
-        		state.getBlock() == GenesisBlocks.granite 
-        		|| state.getBlock() == top.getBlock() 
-        		|| state.getBlock() == filler.getBlock())
+        if (state.getBlock() == GenesisBlocks.granite)
         {
         	if (y < lavaLevel)
             {
@@ -50,11 +37,6 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
             {
             	if (state.getBlock() != GenesisBlocks.komatiitic_lava)
             		data.setBlockState(x, y, z, Blocks.air.getDefaultState());
-            	
-                if (foundTop && data.getBlockState(x, y - 1, z).getBlock() == filler.getBlock())
-                {
-                    data.setBlockState(x, y - 1, z, top.getBlock().getDefaultState());
-                }
             }
         }
     }
@@ -81,7 +63,7 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
     
     protected void generateInChunk(World worldIn, int blockX, int blockZ, int chunkX, int chunkZ, ChunkPrimer chunkPrimer)
     {
-        if (this.rand.nextInt(30) == 0)
+        if (this.rand.nextInt(25) == 0)
         {
         	lakeBottom = 1 + rand.nextInt(3);
     		lakeHeight = 11 + rand.nextInt(3);
@@ -139,10 +121,10 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
         
         for (; p_180707_15_ < p_180707_16_; ++p_180707_15_)
         {
-            double d13 = 2.5D + (double)(MathHelper.sin((float)p_180707_15_ * (float)Math.PI / (float)p_180707_16_) * p_180707_12_ * 6.0F);
+            double d13 = 3.5D + (double)(MathHelper.sin((float)p_180707_15_ * (float)Math.PI / (float)p_180707_16_) * p_180707_12_ * 5.8F);
             double d6 = d13 * p_180707_17_;
             d13 *= (double)random.nextFloat() * 0.25D + 0.75D;
-            d6 *= (double)random.nextFloat() * 0.25D + 0.75D;
+            d6 *= MathHelper.sin(p_180707_14_) * (random.nextFloat() * 2.0F); // (double)random.nextFloat() * 0.25D + 0.75D;
             float f6 = MathHelper.cos(p_180707_14_);
             float f7 = MathHelper.sin(p_180707_14_);
             x1 += (double)(MathHelper.cos(p_180707_13_) * f6);
@@ -187,11 +169,11 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
                         l1 = 16;
                     }
                     
-                    if (l3 < 1)
+                    if (l3 < lakeBottom)
                     {
-                        l3 = 1;
+                        l3 = lakeBottom;
                     }
-                    
+                    //MapGenCaves
                     if (i2 > lakeBottom + lakeHeight)
                     	i2 = lakeBottom + lakeHeight;
                     
@@ -215,49 +197,24 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
                             for (int j4 = i4; j4 < j2; ++j4)
                             {
                                 double d11 = ((double)(j4 + chunkZ * 16) + 0.8D - z1) / d13;
-                                boolean flag = false;
                                 
                                 if (d14 * d14 + d11 * d11 < 1.0D)
                                 {
                                     for (int j3 = i2; j3 > l3; --j3)
                                     {
                                         double d12 = ((double)(j3 - 1) + 0.5D - y1) / d6;
-
+                                        
                                         if ((d14 * d14 + d11 * d11) * (double)this.column[j3 - 1] + d12 * d12 / 6.0D < 1.0D)
                                         {
-                                            if (isTopBlock(chunkPrimer, k2, j3, j4, chunkX, chunkZ))
-                                            {
-                                                flag = true;
-                                            }
-                                            
-                                            digBlock(chunkPrimer, k2, j3, j4, chunkX, chunkZ, flag, false);
+                                            digBlock(chunkPrimer, k2, j3, j4, chunkX, chunkZ);
                                         }
                                     }
                                 }
-                                /*
-                                if (this.rand.nextInt(200) == 0 && this.rand.nextInt(180) == 0)
-                                {
-                                	for (int c = 2; c <= 18; c++)
-                                		digBlock(chunkPrimer, k2, c, j4, chunkX, chunkZ, flag, true);
-                                }*/
                             }
                         }
                     }
                 }
             }
         }
-    }
-    
-    protected boolean isOceanBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ)
-    {
-        Block block = data.getBlockState(x, y, z).getBlock();
-        return block == Blocks.flowing_water || block == Blocks.water;
-    }
-    
-    private boolean isTopBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ)
-    {
-        net.minecraft.world.biome.BiomeGenBase biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
-        IBlockState state = data.getBlockState(x, y, z);
-        return state.getBlock() == biome.topBlock;
     }
 }

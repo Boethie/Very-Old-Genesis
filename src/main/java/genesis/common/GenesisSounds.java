@@ -314,7 +314,8 @@ public final class GenesisSounds
 	{
 		Entity viewEntity = Minecraft.getMinecraft().getRenderViewEntity();
 		
-		Vec3 posDiff = entity.getPositionVector().subtract(viewEntity.getPositionVector().add(ActiveRenderInfo.getPosition()));
+		Vec3 posDiff = entity.getPositionVector().subtract(viewEntity.getPositionVector());
+		ActiveRenderInfo.getPosition();
 		
 		Vec3 camMove = new Vec3(viewEntity.posX - viewEntity.prevPosX, viewEntity.posY - viewEntity.prevPosY, viewEntity.posZ - viewEntity.prevPosZ);
 		Vec3 megMove = new Vec3(entity.posX - entity.prevPosX, entity.posY - entity.prevPosY, entity.posZ - entity.prevPosZ);
