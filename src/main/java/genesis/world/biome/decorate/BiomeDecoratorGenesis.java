@@ -100,7 +100,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	{
 		MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(currentWorld, randomGenerator, field_180294_c));
 		
-		for (int i = 0; nextInt(3) == 0 && i < 2; ++i)
+		for (int i = 0; nextInt(3) == 0 && i < 5; ++i)
 		{
 			BlockPos pos = field_180294_c.add(nextInt(16) + 8, nextInt(nextInt(248) + 8), nextInt(16) + 8);
 			(new WorldGenUndergroundColumns(randomGenerator, 18)).generate(currentWorld, randomGenerator, pos);
