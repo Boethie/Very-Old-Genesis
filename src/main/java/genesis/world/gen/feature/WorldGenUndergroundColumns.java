@@ -11,14 +11,18 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class WorldGenUndergroundColumns extends WorldGenerator
 {
-	public final Block stone;
+	public final Block[] blocks;
 	
 	private final Random random;
+	private final int maxHeight;
 	
-	public WorldGenUndergroundColumns(Random r)
+	public WorldGenUndergroundColumns(Random r, int h)
 	{
-		this.stone = GenesisBlocks.komatiite;
 		this.random = r;
+		this.maxHeight = (h < 5)? 5 : h;
+		
+		this.blocks = new Block[1];
+		this.blocks[0] = GenesisBlocks.granite;
 	}
 	
 	@Override
@@ -29,22 +33,22 @@ public class WorldGenUndergroundColumns extends WorldGenerator
 		if (world.getBlockState(pos).getBlock() != GenesisBlocks.komatiitic_lava)
 			return false;
 		
-		int height = rand.nextInt(13);
+		int height = nextInt(maxHeight - 5);
 		
 		generateColumn(world, pos, height, 8);
 		
 		return true;
 	}
 	
-	private void generateColumn(World world, BlockPos pos, int maxHeight, int count)
+	private void generateColumn(World world, BlockPos pos, int height, int count)
 	{
 		if (count <= 0)
 			return;
 		
-		if (maxHeight < 0)
-			maxHeight = 0;
+		if (height < 0)
+			height = 0;
 		
-		for (int i = 1; i <= 6 + maxHeight; ++i)
+		for (int i = 1; i <= 6 + height; ++i)
 		{
 			BlockPos colPos = new BlockPos(pos.getX(), i, pos.getZ());
 			
@@ -52,18 +56,18 @@ public class WorldGenUndergroundColumns extends WorldGenerator
 					world.getBlockState(colPos).getBlock() == GenesisBlocks.komatiitic_lava 
 					|| world.getBlockState(colPos).getBlock().isAir(world, colPos))
 			{
-				world.setBlockState(colPos, stone.getDefaultState());
+				world.setBlockState(colPos, blocks[random.nextInt(blocks.length)].getDefaultState());
 			}
 		}
 		
 		if (nextInt(3) == 0)
-			generateColumn(world, pos.north(), maxHeight - (1 + nextInt(3)), count - 1);
+			generateColumn(world, pos.north(), height - (1 + nextInt(3)), count - 1);
 		if (nextInt(3) == 0)
-			generateColumn(world, pos.south(), maxHeight - (1 + nextInt(3)), count - 1);
+			generateColumn(world, pos.south(), height - (1 + nextInt(3)), count - 1);
 		if (nextInt(3) == 0)
-			generateColumn(world, pos.east(), maxHeight - (1 + nextInt(3)), count - 1);
+			generateColumn(world, pos.east(), height - (1 + nextInt(3)), count - 1);
 		if (nextInt(3) == 0)
-			generateColumn(world, pos.west(), maxHeight - (1 + nextInt(3)), count - 1);
+			generateColumn(world, pos.west(), height - (1 + nextInt(3)), count - 1);
 	}
 	
 	private int nextInt(int i)

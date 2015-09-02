@@ -99,6 +99,22 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	protected void genDecorations(BiomeGenBase biome)
 	{
 		MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(currentWorld, randomGenerator, field_180294_c));
+		
+		for (int i = 0; nextInt(3) == 0 && i < 2; ++i)
+		{
+			BlockPos pos = field_180294_c.add(nextInt(16) + 8, nextInt(nextInt(248) + 8), nextInt(16) + 8);
+			(new WorldGenUndergroundColumns(randomGenerator, 18)).generate(currentWorld, randomGenerator, pos);
+			(new WorldGenUndergroundColumns(randomGenerator, 7)).generate(currentWorld, randomGenerator, pos.add(1 + nextInt(2), 0, 1 + nextInt(2)));
+			(new WorldGenUndergroundColumns(randomGenerator, 7)).generate(currentWorld, randomGenerator, pos.add(1 + nextInt(2), 0, 1 + nextInt(2)));
+			(new WorldGenUndergroundColumns(randomGenerator, 7)).generate(currentWorld, randomGenerator, pos.add(1 + nextInt(2), 0, 1 + nextInt(2)));
+		}
+		
+		for (int i = 0; nextInt(3) == 0 && i < 3; ++i)
+		{
+			BlockPos pos = field_180294_c.add(nextInt(16) + 8, nextInt(nextInt(248) + 8), nextInt(16) + 8);
+			(new WorldGenUndergroundColumns(randomGenerator, 7)).generate(currentWorld, randomGenerator, pos);
+		}
+		
 		generateOres();
 
         boolean doGen = TerrainGen.decorate(currentWorld, randomGenerator, field_180294_c, SAND);
@@ -156,12 +172,6 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 				int y = nextInt(currentWorld.getHeight(field_180294_c.add(x, 0, z)).getY() * 2);
 				decorations.get(i).generate(currentWorld, randomGenerator, field_180294_c.add(x, y, z));
 			}
-		}
-		
-		for (int i = 0; nextInt(3) == 0 && i < 2; ++i)
-		{
-			BlockPos pos = field_180294_c.add(nextInt(16) + 8, nextInt(nextInt(248) + 8), nextInt(16) + 8);
-			(new WorldGenUndergroundColumns(randomGenerator)).generate(currentWorld, randomGenerator, pos);
 		}
 		
 		if (generateLakes)

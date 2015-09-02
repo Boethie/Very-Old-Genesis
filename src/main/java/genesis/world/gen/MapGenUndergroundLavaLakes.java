@@ -81,7 +81,7 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
     
     protected void generateInChunk(World worldIn, int blockX, int blockZ, int chunkX, int chunkZ, ChunkPrimer chunkPrimer)
     {
-        if (this.rand.nextInt(6) == 0)
+        if (this.rand.nextInt(30) == 0)
         {
         	lakeBottom = 1 + rand.nextInt(3);
     		lakeHeight = 11 + rand.nextInt(3);
@@ -139,7 +139,7 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
         
         for (; p_180707_15_ < p_180707_16_; ++p_180707_15_)
         {
-            double d13 = 3.5D + (double)(MathHelper.sin((float)p_180707_15_ * (float)Math.PI / (float)p_180707_16_) * p_180707_12_ * 8.0F);
+            double d13 = 2.5D + (double)(MathHelper.sin((float)p_180707_15_ * (float)Math.PI / (float)p_180707_16_) * p_180707_12_ * 6.0F);
             double d6 = d13 * p_180707_17_;
             d13 *= (double)random.nextFloat() * 0.25D + 0.75D;
             d6 *= (double)random.nextFloat() * 0.25D + 0.75D;
