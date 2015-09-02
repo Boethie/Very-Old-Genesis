@@ -29,15 +29,21 @@ public class WorldGenUndergroundColumns extends WorldGenerator
 		if (world.getBlockState(pos).getBlock() != GenesisBlocks.komatiitic_lava)
 			return false;
 		
-		int height = rand.nextInt(11);
+		int height = rand.nextInt(13);
 		
-		generateColumn(world, pos, height);
+		generateColumn(world, pos, height, 8);
 		
 		return true;
 	}
 	
-	private void generateColumn(World world, BlockPos pos, int maxHeight)
+	private void generateColumn(World world, BlockPos pos, int maxHeight, int count)
 	{
+		if (count <= 0)
+			return;
+		
+		if (maxHeight < 0)
+			maxHeight = 0;
+		
 		for (int i = 1; i <= 6 + maxHeight; ++i)
 		{
 			BlockPos colPos = new BlockPos(pos.getX(), i, pos.getZ());
@@ -46,20 +52,18 @@ public class WorldGenUndergroundColumns extends WorldGenerator
 					world.getBlockState(colPos).getBlock() == GenesisBlocks.komatiitic_lava 
 					|| world.getBlockState(colPos).getBlock().isAir(world, colPos))
 			{
-				try{
 				world.setBlockState(colPos, stone.getDefaultState());
-				}catch(Exception e){}
 			}
 		}
 		
-		if (nextInt(4) == 0)
-			generateColumn(world, pos.north(), nextInt(maxHeight));
-		if (nextInt(4) == 0)
-			generateColumn(world, pos.south(), nextInt(maxHeight));
-		if (nextInt(4) == 0)
-			generateColumn(world, pos.east(), nextInt(maxHeight));
-		if (nextInt(4) == 0)
-			generateColumn(world, pos.west(), nextInt(maxHeight));
+		if (nextInt(3) == 0)
+			generateColumn(world, pos.north(), maxHeight - (1 + nextInt(3)), count - 1);
+		if (nextInt(3) == 0)
+			generateColumn(world, pos.south(), maxHeight - (1 + nextInt(3)), count - 1);
+		if (nextInt(3) == 0)
+			generateColumn(world, pos.east(), maxHeight - (1 + nextInt(3)), count - 1);
+		if (nextInt(3) == 0)
+			generateColumn(world, pos.west(), maxHeight - (1 + nextInt(3)), count - 1);
 	}
 	
 	private int nextInt(int i)

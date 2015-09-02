@@ -55,31 +55,6 @@ public class WorldGenTreeArchaeopteris extends WorldGenTreeBase
 		
 		doPineTopLeaves(world, pos, branchPos, treeHeight, branchPos.down(branchY).getY(), rand, false);
 		
-		branchPos = branchPos.down(2);
-		
-		int distFromTop = branchPos.getY() - branchPos.down(branchY - 2).getY();
-		
-		if (distFromTop <= 0)
-			return true;
-		
-		if (rand.nextInt(2) == 0)
-			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 1, 0, 1 + rand.nextInt(3), 3);
-		if (rand.nextInt(2) == 0)
-			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, -1, 0, 1 + rand.nextInt(3), 3);
-		if (rand.nextInt(2) == 0)
-			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 0, 1, 1 + rand.nextInt(3), 3);
-		if (rand.nextInt(2) == 0)
-			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 0, -1, 1 + rand.nextInt(3), 3);
-		
-		if (rand.nextInt(2) == 0)
-			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 1, 0, 1 + rand.nextInt(3), 3);
-		if (rand.nextInt(2) == 0)
-			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, -1, 0, 1 + rand.nextInt(3), 3);
-		if (rand.nextInt(2) == 0)
-			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 0, 1, 1 + rand.nextInt(3), 3);
-		if (rand.nextInt(2) == 0)
-			generateBranchSide(world, branchPos.down(rand.nextInt(distFromTop)), rand, 0, -1, 1 + rand.nextInt(3), 3);
-		
 		return true;
 	}
 }
