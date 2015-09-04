@@ -17,42 +17,41 @@ import net.minecraftforge.fluids.Fluid;
 
 public class BlockKomatiiticLava extends BlockFluidClassic
 {
-
 	public BlockKomatiiticLava(Fluid fluid)
 	{
 		super(fluid, Material.lava);
+		
+		lightValue = maxScaledLight;
 	}
-
+	
 	@Override
 	public void onBlockAdded(World world, BlockPos pos, IBlockState state)
 	{
 		super.onBlockAdded(world, pos, state);
 		checkForMixing(world, pos, state);
 	}
-
+	
 	@Override
 	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block neighborBlock)
 	{
 		super.onNeighborBlockChange(world, pos, state, neighborBlock);
 		checkForMixing(world, pos, state);
 	}
-
+	
 	@Override
 	public int getLightValue(IBlockAccess world, BlockPos pos)
 	{
 		Block block = world.getBlockState(pos).getBlock();
-		if (maxScaledLight == 0)
-		{
-			return getLightValue();
-		}
-		else if (block != this)
+		
+		if (block != this)
 		{
 			return block.getLightValue(world, pos);
 		}
-		int data = quantaPerBlock - ((Integer) world.getBlockState(pos).getValue(LEVEL)).intValue() - 1;
-		return (int) (data / quantaPerBlockFloat * maxScaledLight);
+		
+		float levelF = (Integer) world.getBlockState(pos).getValue(LEVEL) / quantaPerBlockFloat;
+        return Math.round((1 - levelF) * maxScaledLight);
 	}
-
+	
 	public boolean checkForMixing(World world, BlockPos pos, IBlockState state)
 	{
 		boolean mix = false;
@@ -66,11 +65,11 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 				break;
 			}
 		}
-
+		
 		if (mix)
 		{
 			Integer level = (Integer) state.getValue(LEVEL);
-
+			
 			if (level.intValue() <= 4)
 			{
 				world.setBlockState(pos, GenesisBlocks.komatiite.getDefaultState());
@@ -78,10 +77,10 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 				return true;
 			}
 		}
-
+		
 		return false;
 	}
-
+	
 	protected void triggerMixEffects(World world, BlockPos pos)
 	{
 		double x = pos.getX();
@@ -94,7 +93,7 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 			world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, x + Math.random(), y + 1.2D, z + Math.random(), 0.0D, 0.0D, 0.0D);
 		}
 	}
-
+	
 	@Override
     public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
     {
@@ -103,16 +102,16 @@ public class BlockKomatiiticLava extends BlockFluidClassic
         if (world.getGameRules().getGameRuleBooleanValue("doFireTick"))
         {
             int i = rand.nextInt(3);
-
+            
             if (i > 0)
             {
                 BlockPos randPos = pos;
-
+                
                 for (int j = 0; j < i; ++j)
                 {
                     randPos = randPos.add(rand.nextInt(3) - 1, 1, rand.nextInt(3) - 1);
                     Block randBlock = world.getBlockState(randPos).getBlock();
-
+                    
                     if (randBlock.getMaterial() == Material.air)
                     {
                         if (isSurroundingBlockFlammable(world, randPos))
@@ -132,7 +131,7 @@ public class BlockKomatiiticLava extends BlockFluidClassic
                 for (int k = 0; k < 3; ++k)
                 {
                     BlockPos randPos = pos.add(rand.nextInt(3) - 1, 0, rand.nextInt(3) - 1);
-
+                    
                     if (world.isAirBlock(randPos.up()) && getCanBlockBurn(world, randPos))
                     {
                         world.setBlockState(randPos.up(), Blocks.fire.getDefaultState());
@@ -141,7 +140,7 @@ public class BlockKomatiiticLava extends BlockFluidClassic
             }
         }
     }
-
+	
     protected boolean isSurroundingBlockFlammable(World world, BlockPos pos)
     {
         for (EnumFacing side : EnumFacing.values())
@@ -151,10 +150,10 @@ public class BlockKomatiiticLava extends BlockFluidClassic
                 return true;
             }
         }
-
+        
         return false;
     }
-
+    
     private boolean getCanBlockBurn(World world, BlockPos pos)
     {
         return world.getBlockState(pos).getBlock().getMaterial().getCanBurn();

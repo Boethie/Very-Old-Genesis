@@ -1,6 +1,6 @@
 package genesis.client;
 
-import genesis.client.model.FluidModel;
+import genesis.client.model.FluidModelMapper;
 import genesis.common.*;
 import genesis.metadata.*;
 import genesis.util.*;
@@ -90,7 +90,7 @@ public class GenesisClient extends GenesisProxy
 	public void registerFluidBlock(BlockFluidBase block, String name)
 	{
 		registerBlock(block, name);
-		FluidModel.registerFluid(block);
+		FluidModelMapper.registerFluid(block);
 	}
 
 	public void callSided(SidedFunction sidedFunction)

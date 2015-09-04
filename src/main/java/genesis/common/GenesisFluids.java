@@ -8,13 +8,15 @@ import net.minecraftforge.fluids.FluidRegistry;
 
 public class GenesisFluids
 {
-
-	public static final Fluid KOMATIITIC_LAVA = new Fluid(Unlocalized.PREFIX+"komatiiticlava", new ResourceLocation(Constants.ASSETS_PREFIX+"blocks/komatiitic_lava_still"),
-			new ResourceLocation(Constants.ASSETS_PREFIX+"blocks/komatiitic_lava_flow")).setLuminosity(16).setDensity(2000).setViscosity(2000).setTemperature(1800)
-			.setUnlocalizedName(Unlocalized.PREFIX+"komatiiticLava");
-
-	public static void registerFluids(){
+	public static final Fluid KOMATIITIC_LAVA =
+			new Fluid(Constants.ASSETS_PREFIX + "komatiitic_lava",
+			new ResourceLocation(Constants.ASSETS_PREFIX + "blocks/komatiitic_lava_still"),
+			new ResourceLocation(Constants.ASSETS_PREFIX + "blocks/komatiitic_lava_flow"))
+			.setLuminosity(15).setDensity(2000).setViscosity(2000).setTemperature(1800)
+			.setUnlocalizedName(Unlocalized.PREFIX + "komatiiticLava");
+	
+	public static void registerFluids()
+	{
 		FluidRegistry.registerFluid(KOMATIITIC_LAVA);
 	}
-	
 }
