@@ -73,10 +73,12 @@ public class TileEntityStorageBoxRenderer extends TileEntitySpecialRenderer
 		
 		// Get animation values.
 		final float rotateTime = 0.6F;
+		final float stopTime = -0.15F;
+		final float translateTime = 1 - rotateTime - stopTime;
 		
 		float open = box.getOpenAnimation(partialTick);
 		float rotateAmt = MathHelper.clamp_float(open / rotateTime, 0, 1);
-		float translateAmt = MathHelper.clamp_float((open - (rotateAmt * rotateTime)) / (1 - rotateTime), 0, 1);
+		float translateAmt = MathHelper.clamp_float((open - (1 - translateTime)) / translateTime, 0, 1);
 		translateAmt = (float) Math.pow(translateAmt, 1.5);
 		
 		// Reset model state.
@@ -92,7 +94,7 @@ public class TileEntityStorageBoxRenderer extends TileEntitySpecialRenderer
 		float pointHoriz = 7 * px;
 		
 		float rotation = rotateAmt * 90;
-		float translation = (rotateAmt * px) + (translateAmt * 12 * px);
+		float translation = translateAmt * 13 * px;
 		
 		model.lid.rotationPointY += pointY;
 		model.lid.rotationPointX += pointHoriz * openDirection.getFrontOffsetX();
