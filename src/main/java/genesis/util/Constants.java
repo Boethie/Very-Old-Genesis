@@ -51,8 +51,9 @@ public final class Constants
 		}
 		
 		public static final String PREFIX = MOD_ID + ".";
-		
-		public static final String CONTAINER = "container." + PREFIX;
+
+		public static final String CONTAINER_BLOCK = PREFIX + "container.";
+		public static final String CONTAINER_UI = "container." + PREFIX;
 		
 		public static final String INVALID_METADATA = PREFIX + "multiItem.invalidMetadata";
 

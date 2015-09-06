@@ -53,9 +53,9 @@ public final class GenesisBlocks
 	public static final TreeBlocksAndItems trees = new TreeBlocksAndItems();
 	
 	/* Crafting */
-	public static final BlockKnapper workbench = (BlockKnapper) new BlockKnapper().setUnlocalizedName(Unlocalized.CONTAINER + "workbench");
-	public static final BlockCampfire campfire = (BlockCampfire) new BlockCampfire().setUnlocalizedName(Unlocalized.CONTAINER + "campfire");
-	public static final BlockStorageBox storage_box = (BlockStorageBox) new BlockStorageBox().setUnlocalizedName(Unlocalized.CONTAINER + "storageBox");
+	public static final BlockKnapper workbench = (BlockKnapper) new BlockKnapper().setUnlocalizedName(Unlocalized.CONTAINER_BLOCK + "workbench");
+	public static final BlockCampfire campfire = (BlockCampfire) new BlockCampfire().setUnlocalizedName(Unlocalized.CONTAINER_BLOCK + "campfire");
+	public static final BlockStorageBox storage_box = (BlockStorageBox) new BlockStorageBox().setUnlocalizedName(Unlocalized.CONTAINER_BLOCK + "storageBox");
 	
 	/* Plants */
 	public static final PlantBlocks plants = new PlantBlocks();

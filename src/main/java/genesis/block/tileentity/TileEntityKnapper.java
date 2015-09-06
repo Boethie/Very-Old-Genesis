@@ -977,7 +977,7 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 	@Override
 	public String getCommandSenderName()
 	{
-		return hasCustomName() ? customName : Unlocalized.CONTAINER + "workbench";
+		return hasCustomName() ? customName : Unlocalized.CONTAINER_UI + "workbench";
 	}
 	
 	@Override

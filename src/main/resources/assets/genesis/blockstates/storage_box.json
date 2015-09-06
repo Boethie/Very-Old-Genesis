@@ -9,6 +9,15 @@
 		}
 	},
 	"variants": {
+		/*"inventory": [{
+			"submodel": {
+				"left_box": {"model": "genesis:storage_box/box_left_single"},
+				"right_box": {"model": "genesis:storage_box/box_right_single"},
+				"left_lid": {"model": "genesis:storage_box/lid_left"},
+				"right_lid": {"model": "genesis:storage_box/lid_right"}
+			},
+			"transform": "forge:default-block"
+		}],*/
 		"facing": {
 			"east": {
 				"y": 0

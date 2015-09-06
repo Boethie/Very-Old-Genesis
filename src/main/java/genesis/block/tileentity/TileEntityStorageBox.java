@@ -201,7 +201,7 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 			float exagTarget = (target - 0.5F) * 1.5F + 0.5F;
 			
 			setPrevOpenAnimation(openAnimation);
-			setOpenAnimation(openAnimation + 0.05F / (exagTarget - openAnimation));
+			setOpenAnimation(openAnimation + 0.06F / (exagTarget - openAnimation));
 			
 			// Debug code for looping animation.
 			/*if (getUserCount() > 0 && getOpenAnimation(1) >= target - 0.01)
@@ -519,7 +519,7 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 	@Override
 	public String getCommandSenderName()
 	{
-		return hasCustomName() ? customName : Unlocalized.CONTAINER + "storageBox";
+		return hasCustomName() ? customName : Unlocalized.CONTAINER_UI + "storageBox";
 	}
 	
 	@Override

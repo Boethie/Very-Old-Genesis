@@ -615,7 +615,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	@Override
 	public String getCommandSenderName()
 	{
-		return hasCustomName() ? customName : Unlocalized.CONTAINER + "campfire";
+		return hasCustomName() ? customName : Unlocalized.CONTAINER_UI + "campfire";
 	}
 	
 	@Override
