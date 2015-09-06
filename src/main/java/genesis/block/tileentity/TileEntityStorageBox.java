@@ -1,5 +1,7 @@
 package genesis.block.tileentity;
 
+import genesis.block.tileentity.gui.ContainerStorageBox;
+import genesis.common.GenesisGuiHandler;
 import genesis.util.*;
 
 import java.lang.*;
@@ -10,21 +12,16 @@ import com.google.common.collect.PeekingIterator;
 
 import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.entity.player.*;
+import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
+import net.minecraft.nbt.*;
+import net.minecraft.network.*;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.*;
-import net.minecraft.util.EnumFacing.Axis;
-import net.minecraft.util.EnumFacing.AxisDirection;
+import net.minecraft.util.EnumFacing.*;
 
 public class TileEntityStorageBox extends TileEntityLockable implements ISidedInventory, IUpdatePlayerListBox
 {
@@ -556,15 +553,15 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 	public int getFieldCount() { return 0; }
 	
 	@Override
-	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
+	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer player)
 	{
-		return null;
+		return new ContainerStorageBox(player, this);
 	}
 	
 	@Override
 	public String getGuiID()
 	{
-		return null;
+		return Constants.ASSETS_PREFIX + "storage_box";
 	}
 	
 	public static class BoxIterator extends SimpleIterator<TileEntityStorageBox>

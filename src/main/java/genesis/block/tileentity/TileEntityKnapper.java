@@ -10,6 +10,7 @@ import genesis.common.GenesisEntityData;
 import genesis.common.GenesisEntityData.IntegerEntityProperty;
 import genesis.block.tileentity.crafting.*;
 import genesis.block.tileentity.crafting.KnappingRecipeRegistry.*;
+import genesis.block.tileentity.gui.ContainerKnapper;
 import genesis.block.tileentity.gui.ContainerKnapper.SlotKnapping;
 import genesis.util.Constants;
 import genesis.util.Stringify;
@@ -1090,13 +1091,13 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 	@Override
 	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer player)
 	{
-		return null;
+		return new ContainerKnapper(player, this);
 	}
 	
 	@Override
 	public String getGuiID()
 	{
-		return null;
+		return Constants.ASSETS_PREFIX + "workbench";
 	}
 	
 	@Override

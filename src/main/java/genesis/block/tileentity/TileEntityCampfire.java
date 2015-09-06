@@ -814,18 +814,6 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	}
 	
 	@Override
-	public ContainerCampfire createContainer(InventoryPlayer playerInventory, EntityPlayer player)
-	{
-		return null;
-	}
-	
-	@Override
-	public String getGuiID()
-	{
-		return null;
-	}
-	
-	@Override
 	public int[] getSlotsForFace(EnumFacing side)
 	{
 		return null;
@@ -841,6 +829,18 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction)
 	{
 		return false;
+	}
+	
+	@Override
+	public ContainerCampfire createContainer(InventoryPlayer playerInventory, EntityPlayer player)
+	{
+		return new ContainerCampfire(player, this);
+	}
+	
+	@Override
+	public String getGuiID()
+	{
+		return Constants.ASSETS_PREFIX + "campfire";
 	}
 	
 	@Override
