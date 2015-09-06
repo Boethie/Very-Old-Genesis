@@ -55,9 +55,9 @@ public class ContainerKnapper extends ContainerBase
 	public final SlotCrafting outputSlotMain;
 	public final Slot outputSlotWaste;
 	
-	public ContainerKnapper(InventoryPlayer invPlayer, TileEntityKnapper workbench)
+	public ContainerKnapper(EntityPlayer player, TileEntityKnapper workbench)
 	{
-		super(invPlayer, workbench);
+		super(player.inventory, workbench);
 		
 		this.workbench = workbench;
 		
@@ -134,7 +134,7 @@ public class ContainerKnapper extends ContainerBase
 		int outputX = getSlotsArea(topSlots).right + sep + 1;
 		int outputY = (topAreaHeight - SLOT_H * 2) / 2;
 		
-		outputSlotMain = addTopAlignedSlot(new SlotCrafting(invPlayer.player, workbench.getCraftingInventory(), workbench.getCraftingOutput(), workbench.SLOT_OUTPUT_MAIN, outputX, outputY));
+		outputSlotMain = addTopAlignedSlot(new SlotCrafting(player, workbench.getCraftingInventory(), workbench.getCraftingOutput(), workbench.SLOT_OUTPUT_MAIN, outputX, outputY));
 		outputSlotWaste = addTopAlignedSlot(new Slot(workbench, workbench.SLOT_OUTPUT_WASTE, outputX, outputY + SLOT_H)
 		{
 			@Override

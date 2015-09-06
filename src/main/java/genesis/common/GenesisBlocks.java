@@ -55,7 +55,7 @@ public final class GenesisBlocks
 	/* Crafting */
 	public static final BlockKnapper workbench = (BlockKnapper) new BlockKnapper().setUnlocalizedName(Unlocalized.CONTAINER + "workbench");
 	public static final BlockCampfire campfire = (BlockCampfire) new BlockCampfire().setUnlocalizedName(Unlocalized.CONTAINER + "campfire");
-	//public static final BlockStorageBox storage_box = (BlockStorageBox) new BlockStorageBox().setUnlocalizedName(Unlocalized.CONTAINER + "storageBox");
+	public static final BlockStorageBox storage_box = (BlockStorageBox) new BlockStorageBox().setUnlocalizedName(Unlocalized.CONTAINER + "storageBox");
 	
 	/* Plants */
 	public static final PlantBlocks plants = new PlantBlocks();
@@ -203,8 +203,17 @@ public final class GenesisBlocks
 		});
 		
 		// Storage box
-		//Genesis.proxy.registerBlock(storage_box, "storage_box");
-		//GameRegistry.registerTileEntity(TileEntityStorageBox.class, Constants.ASSETS_PREFIX + "storage_box");
+		Genesis.proxy.registerBlock(storage_box, "storage_box");
+		GameRegistry.registerTileEntity(TileEntityStorageBox.class, Constants.ASSETS_PREFIX + "storage_box");
+		Genesis.proxy.callSided(new SidedFunction()
+		{
+			@SideOnly(Side.CLIENT)
+			@Override
+			public void client(GenesisClient client)
+			{
+				client.registerTileEntityRenderer(TileEntityStorageBox.class, new TileEntityStorageBoxRenderer(storage_box));
+			}
+		});
 		
 		// - Torches -
 		Genesis.proxy.registerBlock(calamites_torch, "calamites_torch");

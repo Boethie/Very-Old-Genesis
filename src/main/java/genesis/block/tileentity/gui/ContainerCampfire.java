@@ -23,9 +23,9 @@ public class ContainerCampfire extends ContainerBase
 	public final RestrictedSlot ingredient1;
 	public final RestrictedSlot ingredient2;
 
-	public ContainerCampfire(InventoryPlayer inventoryPlayer, TileEntityCampfire te)
+	public ContainerCampfire(EntityPlayer player, TileEntityCampfire te)
 	{
-		super(inventoryPlayer, te, UI_WIDTH, UI_HEIGHT + 26);
+		super(player.inventory, te, UI_WIDTH, UI_HEIGHT + 26);
 		
 		campfire = te;
 		
@@ -35,7 +35,7 @@ public class ContainerCampfire extends ContainerBase
 		ingredient2 = addTopAlignedSlot(new RestrictedDisabledSlot(te, TileEntityCampfire.SLOT_INGREDIENT_2, ingSep, y));
 		input = addTopAlignedSlot(new RestrictedSlot(te, TileEntityCampfire.SLOT_INPUT, ingSep / 2, y += SLOT_H + 8));
 		fuel = addTopAlignedSlot(new RestrictedSlot(te, TileEntityCampfire.SLOT_FUEL, ingSep / 2, y += SLOT_H * 2));
-		output = addBigTopAlignedSlot(new SlotFurnaceOutput(inventoryPlayer.player, te, TileEntityCampfire.SLOT_OUTPUT, 112, y /= 2));
+		output = addBigTopAlignedSlot(new SlotFurnaceOutput(player, te, TileEntityCampfire.SLOT_OUTPUT, 112, y /= 2));
 		
 		setupGUILayout();
 	}

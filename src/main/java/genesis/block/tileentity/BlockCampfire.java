@@ -40,7 +40,6 @@ public class BlockCampfire extends Block
 	{
 		super(Material.wood);
 		
-		setDefaultState(getBlockState().getBaseState());
 		setTickRandomly(true);
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	}
@@ -250,7 +249,6 @@ public class BlockCampfire extends Block
 	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state)
 	{
-		Random rand = world.rand;
 		TileEntityCampfire campfire = getTileEntity(world, pos);
 		
 		if (campfire != null)
@@ -401,7 +399,7 @@ public class BlockCampfire extends Block
 	}
 	
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state)
+	public TileEntityCampfire createTileEntity(World world, IBlockState state)
 	{
 		return new TileEntityCampfire();
 	}

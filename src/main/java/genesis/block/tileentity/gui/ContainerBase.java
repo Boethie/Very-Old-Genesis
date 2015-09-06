@@ -237,7 +237,9 @@ public abstract class ContainerBase extends Container
 	{
 		UIArea area = getSlotsArea(slots);
 		
-		int maxDistH = Math.max((width / 2) - area.left, area.right - (width / 2));
+		int left = (width / 2) - area.left;
+		int right = area.right - (width / 2);
+		int maxDistH = Math.max(left, right);
 		width = Math.max(width, (maxDistH + paddingX) * 2);
 		height = Math.max(height, area.getHeight() + textH + (paddingY + BORDER_H) * 2);
 	}
@@ -265,8 +267,13 @@ public abstract class ContainerBase extends Container
 	
 	public void setupGUILayout()
 	{
+		UIArea topArea = getSlotsArea(topSlots);
+		UIArea playerArea = getSlotsArea(playerSlots);
+		width = Math.max(topArea.getWidth(), playerArea.getWidth()) + (paddingY + BORDER_H) * 2;
+		
 		centerSlotsHorizontally(topSlots);
 		centerSlotsHorizontally(playerSlots);
+		
 		positionSlotsVertically(topSlots, BORDER_H + paddingY + textH);
 		positionSlotsVertically(playerSlots, getSlotsArea(topSlots).bottom + textH + 4);
 		fitGUIAroundSlots(inventorySlots);

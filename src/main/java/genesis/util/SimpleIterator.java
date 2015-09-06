@@ -14,8 +14,18 @@ public abstract class SimpleIterator<T> implements PeekingIterator<T>
 		NOT_READY, READY, DONE;
 	}
 	
+	private boolean iterNull = true;
 	private T current = null;
 	private State state = NOT_READY;
+	
+	public SimpleIterator()
+	{
+	}
+	
+	public SimpleIterator(boolean iterNull)
+	{
+		this.iterNull = iterNull;
+	}
 	
 	protected abstract T computeNext();
 	
@@ -23,10 +33,14 @@ public abstract class SimpleIterator<T> implements PeekingIterator<T>
 	{
 		if (state == NOT_READY)
 			current = computeNext();
+		if (!iterNull && current == null)
+			setDone();
 		if (state != DONE)
 			state = READY;
 		return current;
 	}
+	
+	protected final T getCurrent() { return current; }
 	
 	protected final void setDone() { state = DONE; }
 	

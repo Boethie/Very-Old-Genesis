@@ -59,8 +59,11 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		return CookingPotRecipeRegistry.isCookingPotItem(stack);
 	}
 	
-	protected static final Set<ItemStackKey> allowedOutputs = new HashSet();
+	private static final Set<ItemStackKey> allowedOutputs = new HashSet<ItemStackKey>();
 	
+	/**
+	 * Used to allow outputs that aren't foods to be created using the campfire.
+	 */
 	public static ItemStack registerAllowedOutput(ItemStack output)
 	{
 		allowedOutputs.add(new ItemStackKey(output));
@@ -86,7 +89,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	
 	protected static final int WET_TIME = 200;
 	
-	protected ItemStack[] inventory = new ItemStack[SLOT_COUNT];
+	protected final ItemStack[] inventory = new ItemStack[SLOT_COUNT];
 	
 	protected boolean wasBurning = false;
 	protected boolean waterAround = false;
@@ -112,8 +115,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	@Override
 	public BlockCampfire getBlockType()
 	{
-		super.getBlockType();
-		return (BlockCampfire) blockType;
+		return (BlockCampfire) super.getBlockType();
 	}
 	
 	public boolean hasCookingPot()
@@ -515,9 +517,9 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	@Override
 	public void clear()
 	{
-		for (int i = 0; i < this.inventory.length; ++i)
+		for (int i = 0; i < inventory.length; ++i)
 		{
-			this.inventory[i] = null;
+			inventory[i] = null;
 		}
 	}
 	
@@ -605,15 +607,15 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	}
 	
 	@Override
-	public String getCommandSenderName()
-	{
-		return hasCustomName() ? customName : Unlocalized.CONTAINER + "campfire";
-	}
-	
-	@Override
 	public boolean hasCustomName()
 	{
 		return customName != null && customName.length() > 0;
+	}
+	
+	@Override
+	public String getCommandSenderName()
+	{
+		return hasCustomName() ? customName : Unlocalized.CONTAINER + "campfire";
 	}
 	
 	@Override
@@ -672,7 +674,6 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		super.readFromNBT(compound);
 		
 		NBTTagList tagList = compound.getTagList("items", 10);
-		inventory = new ItemStack[getSizeInventory()];
 		
 		for (int i = 0; i < tagList.tagCount(); ++i)
 		{

@@ -228,4 +228,18 @@ public class WorldUtils
 	{
 		return world instanceof World ? ((World) world).rand : or;
 	}
+	
+	public static NBTTagCompound writeBlockPosToNBT(BlockPos pos)
+	{
+		NBTTagCompound compound = new NBTTagCompound();
+		compound.setInteger("x", pos.getX());
+		compound.setInteger("y", pos.getY());
+		compound.setInteger("z", pos.getZ());
+		return compound;
+	}
+	
+	public static BlockPos readBlockPosFromNBT(NBTTagCompound compound)
+	{
+		return new BlockPos(compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
+	}
 }

@@ -37,9 +37,9 @@ public class GuiContainerKnapper extends GuiContainerBase
 	protected final TileEntityKnapper knapper;
 	protected final ContainerKnapper containerKnapper = (ContainerKnapper) container;
 	
-	public GuiContainerKnapper(InventoryPlayer inv, TileEntityKnapper te)
+	public GuiContainerKnapper(EntityPlayer player, TileEntityKnapper te)
 	{
-		super(new ContainerKnapper(inv, te), te);
+		super(new ContainerKnapper(player, te), te);
 		
 		knapper = te;
 	}

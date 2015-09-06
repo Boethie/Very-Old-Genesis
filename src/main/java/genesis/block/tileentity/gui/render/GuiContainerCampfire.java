@@ -16,9 +16,9 @@ public class GuiContainerCampfire extends GuiContainerBase
 	protected final TileEntityCampfire campfire;
 	protected final ContainerCampfire containerCampfire = (ContainerCampfire) container;
 	
-	public GuiContainerCampfire(InventoryPlayer inv, TileEntityCampfire te)
+	public GuiContainerCampfire(EntityPlayer player, TileEntityCampfire te)
 	{
-		super(new ContainerCampfire(inv, te), te);
+		super(new ContainerCampfire(player, te), te);
 		
 		campfire = te;
 	}

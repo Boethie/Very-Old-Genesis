@@ -1,0 +1,35 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"textures": {
+			"particle": "#side",
+			"side": "genesis:blocks/storage_box/side",
+			"top_single": "genesis:blocks/storage_box/top_single",
+			"top_connect": "genesis:blocks/storage_box/top_connect"
+		}
+	},
+	"variants": {
+		"facing": {
+			"east": {
+				"y": 0
+			},
+			"south": {
+				"y": 90
+			},
+			"west": {
+				"y": 180
+			},
+			"north": {
+				"y": 270
+			}
+		},
+		"left": {
+			"true": {"submodel": "genesis:storage_box/box_left_connect"},
+			"false": {"submodel": "genesis:storage_box/box_left_single"}
+		},
+		"right": {
+			"true": {"submodel": "genesis:storage_box/box_right_connect"},
+			"false": {"submodel": "genesis:storage_box/box_right_single"}
+		}
+	}
+}

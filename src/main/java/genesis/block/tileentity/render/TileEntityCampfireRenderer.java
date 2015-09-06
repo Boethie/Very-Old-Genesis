@@ -41,11 +41,11 @@ import net.minecraftforge.client.model.*;
 
 public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer
 {
-	public static final ModelResourceLocation FIRE = new ModelResourceLocation("genesis:campfire_fire");
-	public static final ModelResourceLocation STICK = new ModelResourceLocation("genesis:campfire_stick");
-	public static final ModelResourceLocation COOKING_POT = new ModelResourceLocation("genesis:campfire_cooking_pot");
-	public static final ModelResourceLocation COOKING_ITEM = new ModelResourceLocation("genesis:campfire_cooking_item");
-	public static final ModelResourceLocation FUEL = new ModelResourceLocation("genesis:campfire_fuel_item");
+	public static final ModelResourceLocation FIRE = new ModelResourceLocation(Constants.ASSETS_PREFIX + "campfire_fire");
+	public static final ModelResourceLocation STICK = new ModelResourceLocation(Constants.ASSETS_PREFIX + "campfire_stick");
+	public static final ModelResourceLocation COOKING_POT = new ModelResourceLocation(Constants.ASSETS_PREFIX + "campfire_cooking_pot");
+	public static final ModelResourceLocation COOKING_ITEM = new ModelResourceLocation(Constants.ASSETS_PREFIX + "campfire_cooking_item");
+	public static final ModelResourceLocation FUEL = new ModelResourceLocation(Constants.ASSETS_PREFIX + "campfire_fuel_item");
 	
 	public static class ModelCampfire extends ModelBase
 	{
@@ -76,7 +76,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer
 			fuel.render(0.0625F);
 			cookingItem.render(0.0625F);
 		}
-	};
+	}
 	
 	public static TileEntityCampfireRenderer INSTANCE;
 	
@@ -90,7 +90,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer
 	protected Set<String> fuelModels;
 	protected Set<String> cookingItemModels;
 	
-	public TileEntityCampfireRenderer(final Block block)
+	public TileEntityCampfireRenderer(final BlockCampfire block)
 	{
 		INSTANCE = this;
 		
@@ -179,19 +179,20 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer
 	@Override
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float partialTick, int destroyStage)
 	{
+		// Translate to the proper coordinates.
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(x, y, z);
+		
+		// Get data about the block in the world.
 		TileEntityCampfire campfire = (TileEntityCampfire) te;
-		World world = te.getWorld();
-		BlockPos pos = te.getPos();
+		World world = campfire.getWorld();
+		BlockPos pos = campfire.getPos();
 		IBlockState state = world.getBlockState(pos);
 		
 		if (!(state.getBlock() instanceof BlockCampfire))
 		{
 			return;
 		}
-		
-		GlStateManager.pushMatrix();
-		// Translate to the proper coordinates.
-		GlStateManager.translate(x, y, z);
 		
 		EnumAxis axis = (EnumAxis) state.getValue(BlockCampfire.FACING);
 		
