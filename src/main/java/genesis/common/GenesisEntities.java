@@ -16,7 +16,7 @@ public class GenesisEntities
 	
 	public static void registerEntities()
 	{
-		registerEntity(EntityMeganeura.class, "meganeura", 160, 1, true, 0x4DBE00, 0xC4C633);
+		registerEntity(EntityMeganeura.class, "meganeura", 160, 1, true, 0xB5C457, 0x7E8B3A);
 		registerEntity(EntityMeganeuraEgg.class, "meganeuraEgg", 160, Integer.MAX_VALUE, false);
 	}
 	
