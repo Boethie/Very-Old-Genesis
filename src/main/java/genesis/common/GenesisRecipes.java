@@ -287,6 +287,13 @@ public final class GenesisRecipes
 			// All recipes after this point use 1 billet.
 			billetStack = GenesisBlocks.trees.getStack(TreeBlocksAndItems.BILLET, variant, 1);
 			
+			// Storage box
+			GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.storage_box),
+					"BBB",
+					"B B",
+					"BBB",
+					'B', billetStack);
+			
 			// Wattle fence
 			GameRegistry.addShapedRecipe(GenesisBlocks.trees.getStack(TreeBlocksAndItems.WATTLE_FENCE, variant, 3),
 					"BBB",
