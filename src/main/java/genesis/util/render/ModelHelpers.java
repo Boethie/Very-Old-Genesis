@@ -216,32 +216,59 @@ public class ModelHelpers
 		return false;
 	}
 	
+	public static void renderBakedModel(IBakedModel model)
+	{
+		getBlockRenderer().renderModelBrightnessColor(model, 1, 1, 1, 1);
+	}
+	
 	/**
 	 * Render the model at the ModelResourceLocation as a plain baked model. Not preferable for rendering in a block.
 	 */
 	public static void renderModel(ModelResourceLocation loc)
 	{
 		Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
-		IBakedModel bakedModel = getModelManager().getModel(loc);
-		getBlockRenderer().renderModelBrightnessColor(bakedModel, 1, 1, 1, 1);
+		renderBakedModel(getModelManager().getModel(loc));
 	}
 	
 	/**
-	 * Used to allow a randomized variants of the owner block's block state.
+	 * @return A randomized baked model using the provided block state and position in the world.
 	 */
-	public static void renderBlockModel(ModelResourceLocation loc, IBlockState state, IBlockAccess world, BlockPos pos)
+	public static IBakedModel getBakedBlockModel(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
 		Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
-		IBakedModel bakedModel = getBlockDispatcher().getModelFromBlockState(state, world, pos);
-		getBlockRenderer().renderModelBrightnessColor(bakedModel, 1, 1, 1, 1);
+		return getBlockDispatcher().getModelFromBlockState(state, world, pos);
 	}
 	
 	/**
-	 * Used to allow a randomized variants of the owner block's block state.
+	 * @return A wrapper for the original baked model with all faces forced to use the provided sprite.
+	 */
+	public static IBakedModel getRetexturedBakedModel(IBakedModel model, TextureAtlasSprite texture)
+	{
+		return new SimpleBakedModel.Builder(model, texture).makeBakedModel();
+	}
+	
+	/**
+	 * Renders a randomized block model for the provided state, world and position.
+	 */
+	public static void renderBlockModel(IBlockState state, IBlockAccess world, BlockPos pos)
+	{
+		renderBakedModel(getBakedBlockModel(state, world, pos));
+	}
+	
+	/**
+	 * @return A randomized model from a blockstates json forced to load by this helper. 
+	 */
+	public static IBakedModel getBakedBlockModel(ModelResourceLocation loc, IBlockAccess world, BlockPos pos)
+	{
+		return getBakedBlockModel(locationToFakeState.get(loc), world, pos);
+	}
+	
+	/**
+	 * Renders a model that was forced to load using this helper's system.
 	 */
 	public static void renderBlockModel(ModelResourceLocation loc, IBlockAccess world, BlockPos pos)
 	{
-		renderBlockModel(loc, locationToFakeState.get(loc), world, pos);
+		renderBakedModel(getBakedBlockModel(loc, world, pos));
 	}
 	
 	public static Map<IBlockState, ModelResourceLocation> getStateToModelLocationMap()
@@ -454,11 +481,16 @@ public class ModelHelpers
 		return output;
 	}
 	
+	public static TextureAtlasSprite getDestroyBlockIcon(int progress)
+	{
+		return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("minecraft:blocks/destroy_stage_" + progress);
+	}
+	
 	public static TextureAtlasSprite getDestroyBlockIcon(float progress)
 	{
 		progress = MathHelper.clamp_float(progress, 0, 1);
 		int index = (int) Math.ceil(progress * 10) - 1;
-		return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("minecraft:blocks/destroy_stage_" + index);
+		return getDestroyBlockIcon(index);
 	}
 	
 	public static void forceModelLoading(BlockState state, ResourceLocation loc)

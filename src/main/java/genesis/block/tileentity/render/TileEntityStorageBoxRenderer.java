@@ -1,5 +1,7 @@
 package genesis.block.tileentity.render;
 
+import org.lwjgl.opengl.GL11;
+
 import genesis.block.tileentity.BlockStorageBox;
 import genesis.block.tileentity.TileEntityStorageBox;
 import genesis.client.GenesisClient;
@@ -12,6 +14,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.tileentity.TileEntity;
@@ -58,10 +62,6 @@ public class TileEntityStorageBoxRenderer extends TileEntitySpecialRenderer
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float partialTick, int destroyStage)
 	{
 		model = new ModelStorageBox();
-		
-		// Translate to the proper coordinates.
-		GlStateManager.pushMatrix();
-		GlStateManager.translate(x, y, z);
 
 		// Get data about the block in the world.
 		TileEntityStorageBox box = (TileEntityStorageBox) te;
@@ -118,8 +118,26 @@ public class TileEntityStorageBoxRenderer extends TileEntitySpecialRenderer
 			break;
 		}
 		
+		// Translate to the proper coordinates.
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(x, y, z);
+		
+		// If we're rendering a destroy stage, set the breaking texture.
+		if (destroyStage >= 0)
+		{
+			RenderHelper.disableStandardItemLighting();
+			TextureAtlasSprite breakTexture = ModelHelpers.getDestroyBlockIcon(destroyStage);
+			model.lid.setTexture(breakTexture);
+			ModelHelpers.renderBakedModel(ModelHelpers.getRetexturedBakedModel(ModelHelpers.getBakedBlockModel(state, world, pos), breakTexture));
+		}
+		
 		// Render model.
 		model.renderAll();
+		
+		if (destroyStage >= 0)
+		{
+			RenderHelper.enableStandardItemLighting();
+		}
 		
 		// Pop the matrix to clear all our transforms in here.
 		GlStateManager.popMatrix();

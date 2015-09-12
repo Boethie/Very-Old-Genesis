@@ -169,6 +169,12 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 		return GenesisMath.lerp(box.prevOpenAnimation, box.openAnimation, partialTick);
 	}
 	
+	@Override
+	public boolean canRenderBreaking()
+	{
+		return true;
+	}
+	
 	protected void setPrevOpenAnimation(float value)
 	{
 		value = MathHelper.clamp_float(value, 0, 1);

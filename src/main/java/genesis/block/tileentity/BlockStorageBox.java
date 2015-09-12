@@ -39,6 +39,8 @@ public class BlockStorageBox extends Block
 		setStepSound(soundTypeWood);
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
+		
+		setHardness(2.5F);
 	}
 	
 	@Override
