@@ -30,66 +30,61 @@ public class BlockSphenophyllumCustoms implements IGrowingPlantCustoms
 	@Override
 	public ArrayList<ItemStack> getPlantDrops(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, int fortune, boolean firstBlock)
 	{
-		if (firstBlock)
-		{
-			final Item item = GenesisItems.sphenophyllum_fiber;
-			
-			ArrayList<ItemStack> out = new ArrayList<ItemStack>();
-			int age = (Integer) state.getValue(plant.ageProp);
-			boolean top = (Boolean) state.getValue(plant.topProp);
-			IntRange range = null;
-			
-			if (!top)
+		final Item item = GenesisItems.sphenophyllum_fiber;
+		
+		ArrayList<ItemStack> out = new ArrayList<ItemStack>();
+		int age = (Integer) state.getValue(plant.ageProp);
+		boolean top = (Boolean) state.getValue(plant.topProp);
+		IntRange range = null;
+		
+		if (!top)
+		{	// Bottom
+			switch (age)
 			{
-				switch (age)
-				{
-				case 0:
-				case 1:
-					break;
-				case 2:
-					range = IntRange.create(0, 1);
-					break;
-				case 3:
-					range = IntRange.create(1);
-					break;
-				case 4:
-					range = IntRange.create(1, 2);
-					break;
-				case 5:
-				case 6:
-				case 7:
-					range = IntRange.create(1, 3);
-					break;
-				}
+			case 0:
+			case 1:
+				break;
+			case 2:
+				range = IntRange.create(0, 1);
+				break;
+			case 3:
+				range = IntRange.create(1);
+				break;
+			case 4:
+				range = IntRange.create(1, 2);
+				break;
+			case 5:
+			case 6:
+			case 7:
+				range = IntRange.create(1, 3);
+				break;
 			}
-			else
+		}
+		else
+		{	// Top
+			switch (age)
 			{
-				switch (age)
-				{
-				case 5:
-					range = IntRange.create(0, 1);
-				case 6:
-					range = IntRange.create(1);
-				case 7:
-					range = IntRange.create(1, 2);
-					break;
-				}
+			case 5:
+				range = IntRange.create(0, 1);
+			case 6:
+				range = IntRange.create(1);
+			case 7:
+				range = IntRange.create(1, 2);
+				break;
 			}
-			
-			if (range != null)
-			{
-				ItemStack addStack = new ItemStack(item, range.get(worldIn.rand));
-				
-				if (addStack.stackSize > 0)
-				{
-					out.add(addStack);
-				}
-			}
-			
-			return out;
 		}
 		
-		return null;
+		if (range != null)
+		{
+			ItemStack addStack = new ItemStack(item, range.get(worldIn.rand));
+			
+			if (addStack.stackSize > 0)
+			{
+				out.add(addStack);
+			}
+		}
+		
+		return out;
 	}
 
 	@Override
