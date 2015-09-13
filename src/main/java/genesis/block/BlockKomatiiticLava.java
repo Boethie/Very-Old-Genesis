@@ -20,7 +20,7 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 	public BlockKomatiiticLava(Fluid fluid)
 	{
 		super(fluid, Material.lava);
-		
+		setQuantaPerBlock(4);
 		lightValue = maxScaledLight;
 	}
 	
