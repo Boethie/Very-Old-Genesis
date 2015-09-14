@@ -108,6 +108,7 @@ public final class GenesisBlocks
 	public static final Block calamites_torch = new BlockCalamitesTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTorch");
 	public static final Block prototaxites_mycelium = new BlockPrototaxitesMycelium().setUnlocalizedName(Unlocalized.PREFIX + "prototaxitesMycelium");
 	public static final DungBlocksAndItems dungs = new DungBlocksAndItems();
+	public static final Block calmites_long_torch = new BlockLongTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesLongTorch");
 	
 	/* Misc */
 	public static final Block palaeoagaracites = new BlockGenesisMushroom().setUnlocalizedName(Unlocalized.PREFIX + "palaeoagaracites")
@@ -194,12 +195,12 @@ public final class GenesisBlocks
 		GameRegistry.registerTileEntity(TileEntityCampfire.class, Constants.ASSETS_PREFIX + "campfire");
 		Genesis.proxy.callSided(new SidedFunction()
 		{
-			@SideOnly(Side.CLIENT)
-			@Override
-			public void client(GenesisClient client)
-			{
-				client.registerTileEntityRenderer(TileEntityCampfire.class, new TileEntityCampfireRenderer(campfire));
-			}
+				@SideOnly(Side.CLIENT)
+				@Override
+				public void client(GenesisClient client)
+				{
+						client.registerTileEntityRenderer(TileEntityCampfire.class, new TileEntityCampfireRenderer(campfire));
+				}
 		});
 		
 		// Storage box
@@ -207,16 +208,17 @@ public final class GenesisBlocks
 		GameRegistry.registerTileEntity(TileEntityStorageBox.class, Constants.ASSETS_PREFIX + "storage_box");
 		Genesis.proxy.callSided(new SidedFunction()
 		{
-			@SideOnly(Side.CLIENT)
-			@Override
-			public void client(GenesisClient client)
-			{
-				client.registerTileEntityRenderer(TileEntityStorageBox.class, new TileEntityStorageBoxRenderer(storage_box));
-			}
+				@SideOnly(Side.CLIENT)
+				@Override
+				public void client(GenesisClient client)
+				{
+						client.registerTileEntityRenderer(TileEntityStorageBox.class, new TileEntityStorageBoxRenderer(storage_box));
+				}
 		});
 		
 		// - Torches -
 		Genesis.proxy.registerBlock(calamites_torch, "calamites_torch");
+		Genesis.proxy.registerBlock(calmites_long_torch, "calamites_long_torch", ItemLongTorch.class);
 		
 		// - Plants -
 		plants.setUnlocalizedPrefix(Constants.Unlocalized.PREFIX);
