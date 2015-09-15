@@ -22,9 +22,9 @@ group = "genesis"
 archivesBaseName = "genesis"
 
 minecraft {
-    version = "1.8-11.14.3.1497"
+    version = "1.8-11.14.3.1514"
     runDir = "eclipse"
-    mappings = "stable_16"
+    mappings = "snapshot_20141130"
 
     replaceIn "Genesis.java"
     replace "@VERSION@", project.version
