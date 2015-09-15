@@ -30,7 +30,7 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenArchaeomarasmius().setPatchSize(3).setCountPerChunk(5));
 		addDecoration(new WorldGenPalaeoagaracites().setPatchSize(10).setCountPerChunk(16));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPlantType(GrowingPlantType.NORMAL).setPatchSize(5).setCountPerChunk(5));
-		addDecoration(new WorldGenRockBoulders().setCountPerChunk(5));
+		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(5));
 		
 		addTree(new WorldGenTreeAraucarioxylon(25, 30, true).setTreeCountPerChunk(5));
 		addTree(new WorldGenRottenLog(3, 7, EnumTree.ARAUCARIOXYLON, true).addTopDecoration(GenesisBlocks.archaeomarasmius.getDefaultState()).setTreeCountPerChunk(3));

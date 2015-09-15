@@ -16,6 +16,7 @@ public class WorldGenCorals extends WorldGenDecorationBase
 	private EnumCoral coralType;
 	private int minHeight;
 	private int maxHeight;
+	public int rarity = 1;
 	
 	public WorldGenCorals(int minHeight, int maxHeight, EnumCoral coralType)
 	{
@@ -24,10 +25,19 @@ public class WorldGenCorals extends WorldGenDecorationBase
 		this.coralType = coralType;
 	}
 	
+	public WorldGenCorals setRarity(int r)
+	{
+		rarity = r;
+		return this;
+	}
+	
 	@Override
 	public boolean generate(World world, Random random, BlockPos pos)
 	{
 		Block block;
+		
+		if (random.nextInt(rarity) != 0)
+			return false;
 		
 		do
 		{

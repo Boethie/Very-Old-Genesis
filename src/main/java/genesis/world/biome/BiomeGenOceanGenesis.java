@@ -5,7 +5,9 @@ import java.util.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 import genesis.metadata.EnumAquaticPlant;
+import genesis.metadata.EnumCoral;
 import genesis.world.biome.decorate.WorldGenAquaticPlants;
+import genesis.world.biome.decorate.WorldGenCorals;
 
 public class BiomeGenOceanGenesis extends BiomeGenBaseGenesis
 {
@@ -27,6 +29,10 @@ public class BiomeGenOceanGenesis extends BiomeGenBaseGenesis
 	public BiomeGenOceanGenesis addElements(int multiplier)
 	{
 		int[] rarityScale = {2 * multiplier, 2 * multiplier, 2 * multiplier, 1 * multiplier, 1 * multiplier};
+		
+		addDecoration(new WorldGenCorals(2, 5, EnumCoral.HALYSITES).setRarity(4).setCountPerChunk(1));
+		addDecoration(new WorldGenCorals(2, 5, EnumCoral.HELIOLITES).setRarity(4).setCountPerChunk(1));
+		addDecoration(new WorldGenCorals(2, 5, EnumCoral.FAVOSITES).setRarity(4).setCountPerChunk(1));
 		
 		addDecoration(new WorldGenAquaticPlants().setGenerateInGroup(true, 5).setPlantType(EnumAquaticPlant.BANGIOMORPHA).setCountPerChunk(rarityScale[0]));
 		
