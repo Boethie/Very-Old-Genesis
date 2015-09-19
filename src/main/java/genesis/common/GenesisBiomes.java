@@ -1,7 +1,6 @@
 package genesis.common;
 
-import genesis.world.biome.BiomeGenArchaeopterisForest;
-import genesis.world.biome.BiomeGenArchaeopterisPlains;
+import genesis.world.biome.BiomeGenFloodplainsForest;
 import genesis.world.biome.BiomeGenAuxForest;
 import genesis.world.biome.BiomeGenAuxForestEdge;
 import genesis.world.biome.BiomeGenAuxForestEdgeM;
@@ -44,9 +43,7 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis limestoneBeach;
 	public static BiomeGenBaseGenesis swampRainForest;
 	public static BiomeGenBaseGenesis auxPlains;
-	public static BiomeGenBaseGenesis archaeopterisForest;
-	public static BiomeGenBaseGenesis archaeopterisForestHills;
-	public static BiomeGenBaseGenesis archaeopterisPlains;
+	public static BiomeGenBaseGenesis floodplainsForest;
 	public static BiomeGenBaseGenesis genesisBeach;
 	public static BiomeGenBaseGenesis marsh;
 	
@@ -99,16 +96,9 @@ public final class GenesisBiomes
 		BiomeManagerGenesis.registerBiome(marsh, BiomeType.WARM, GenesisConfig.marshWeight);
 		BiomeDictionary.registerBiomeType(marsh, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
 		
-		archaeopterisForest = new BiomeGenArchaeopterisForest(GenesisConfig.archaeopterisForestId);
-		BiomeManagerGenesis.registerBiome(archaeopterisForest, BiomeType.WARM, GenesisConfig.archaeopterisForestWeight);
-		BiomeDictionary.registerBiomeType(archaeopterisForest, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
-		
-		archaeopterisForestHills = new BiomeGenArchaeopterisForest(GenesisConfig.archaeopterisForestHillsId).setBiomeName("Archaeopteris Forest Hills").setHeight(height_EmergingHills);
-		BiomeDictionary.registerBiomeType(archaeopterisForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
-		
-		archaeopterisPlains = new BiomeGenArchaeopterisPlains(GenesisConfig.archaeopterisPlainsId);
-		BiomeManagerGenesis.registerBiome(archaeopterisPlains, BiomeType.WARM, GenesisConfig.archaeopterisPlainsWeight);
-		BiomeDictionary.registerBiomeType(archaeopterisPlains, BiomeDictionary.Type.PLAINS);
+		floodplainsForest = new BiomeGenFloodplainsForest(GenesisConfig.floodplainsForestId);
+		BiomeManagerGenesis.registerBiome(floodplainsForest, BiomeType.WARM, GenesisConfig.floodplainsForestWeight);
+		BiomeDictionary.registerBiomeType(floodplainsForest, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		river = new BiomeGenRiver(GenesisConfig.riverId);
 		BiomeDictionary.registerBiomeType(river, BiomeDictionary.Type.RIVER, BiomeDictionary.Type.WET);

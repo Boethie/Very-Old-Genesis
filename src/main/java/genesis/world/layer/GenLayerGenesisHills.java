@@ -85,10 +85,6 @@ public class GenLayerGenesisHills extends GenLayerGenesis
                     {
                         i2 = GenesisBiomes.auxForestHills.biomeID;
                     }
-                    else if (k1 == GenesisBiomes.archaeopterisForest.biomeID)
-                    {
-                        i2 = GenesisBiomes.archaeopterisForestHills.biomeID;
-                    }
 					
 					if (flag && i2 != k1)
 					{
