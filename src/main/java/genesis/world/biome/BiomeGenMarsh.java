@@ -29,7 +29,7 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
-		addDecoration(new WorldGenUnderWaterPatch(GenesisBlocks.peat.getDefaultState()).setCountPerChunk(4));
+		addDecoration(new WorldGenUnderWaterPatch(GenesisBlocks.peat.getDefaultState()).setCountPerChunk(1));
 		
 		addDecoration(new WorldGenPlant(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.ASTEROXYLON).setCountPerChunk(8));
 		addDecoration(new WorldGenPlant(EnumPlant.COOKSONIA).setPatchSize(6).setCountPerChunk(6));

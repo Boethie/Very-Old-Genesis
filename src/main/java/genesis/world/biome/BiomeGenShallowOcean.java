@@ -8,7 +8,6 @@ import genesis.world.biome.decorate.WorldGenAquaticPlants;
 import genesis.world.biome.decorate.WorldGenCorals;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPebbles;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 
@@ -27,7 +26,6 @@ public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenCorals(2, 5, EnumCoral.HELIOLITES).setCountPerChunk(1));
 		addDecoration(new WorldGenCorals(2, 5, EnumCoral.FAVOSITES).setCountPerChunk(1));
 		
-		addDecoration(new WorldGenAquaticPlants().setGenerateInGroup(true, 5).setPlantType(EnumAquaticPlant.BANGIOMORPHA).setCountPerChunk(10));
 		addDecoration(new WorldGenPebbles().setCountPerChunk(40));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
@@ -39,6 +37,7 @@ public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.PIRANIA).setCountPerChunk(rarityScale[2]));
 		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.VAUXIA).setCountPerChunk(rarityScale[2]));
 		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.PTERIDINIUM).setCountPerChunk(rarityScale[2]));
+		addDecoration(new WorldGenAquaticPlants().setGenerateInGroup(true, 6).setPlantType(EnumAquaticPlant.BANGIOMORPHA).setCountPerChunk(rarityScale[2]));
 		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.CHARNIA, EnumAquaticPlant.CHARNIA_TOP).setCountPerChunk(rarityScale[2]));
 		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.ERNIETTA).setCountPerChunk(rarityScale[2]));
 		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.WAPKIA).setCountPerChunk(rarityScale[3]));
@@ -47,13 +46,6 @@ public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.DINOMISCHUS).setCountPerChunk(rarityScale[4]));
 		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.ECHMATOCRINUS).setCountPerChunk(rarityScale[4]));
 		addDecoration(new WorldGenAquaticPlants().setGenerateInGroup(true, 6).setPlantType(EnumAquaticPlant.GRYPANIA).setCountPerChunk(rarityScale[4]));
-	}
-	
-	@Override
-	public Vec3 getSkyColor()
-	{
-		//return new Vec3(0.294117647D, 0.474509804D, 0.501960784D);
-		return new Vec3(0.196078431D, 0.474509804D, 0.380392157D);
 	}
 	
 	@Override

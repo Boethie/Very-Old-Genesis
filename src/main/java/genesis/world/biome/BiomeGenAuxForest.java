@@ -23,7 +23,7 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 	{
 		super(id);
 		setBiomeName("Araucarioxylon Forest");
-		setTemperatureRainfall(1.1F, 1.0F);
+		setTemperatureRainfall(1.1F, 0.9F);
 		
 		theBiomeDecorator.grassPerChunk = 5;
 		

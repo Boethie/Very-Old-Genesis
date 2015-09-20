@@ -32,18 +32,18 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 	{
 		super(id);
 		setBiomeName("Swamp Rainforest");
-		setTemperatureRainfall(0.95F, 1.0F);
+		setTemperatureRainfall(0.95F, 1.4F);
 		setHeight(-0.2F, 0.03F);
 		
-		theBiomeDecorator.grassPerChunk = 5;
 		waterColorMultiplier = 0x725113;
-		setColor(522674);
+		
+		theBiomeDecorator.grassPerChunk = 5;
 		
 		spawnableCreatureList.add(new BiomeGenBase.SpawnListEntry(EntityMeganeura.class, 8, 4, 8));
 		
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchSize(3).setCountPerChunk(3));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(3).setCountPerChunk(3));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(1, 0).setNextToWater(true).setPlantType(GrowingPlantType.COLUMN).setPatchSize(4).setCountPerChunk(8));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(6));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(1, 0).setNextToWater(true).setPlantType(GrowingPlantType.COLUMN).setPatchSize(4).setCountPerChunk(10));
 		addDecoration(new WorldGenUnderWaterPatch(GenesisBlocks.peat.getDefaultState()).setCountPerChunk(10));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
@@ -52,8 +52,8 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 		addTree(new WorldGenTreeCordaites(15, 20, true).setTreeCountPerChunk(6));
 		addTree(new WorldGenTreePsaronius(5, 6, true).setTreeCountPerChunk(2));
 		
-		addTree(new WorldGenRottenLog(3, 6, EnumTree.LEPIDODENDRON, true).setTreeCountPerChunk(10));
-		addTree(new WorldGenRottenLog(3, 6, EnumTree.SIGILLARIA, true).setTreeCountPerChunk(10));
+		addTree(new WorldGenRottenLog(3, 6, EnumTree.LEPIDODENDRON, true).setTreeCountPerChunk(8));
+		addTree(new WorldGenRottenLog(3, 6, EnumTree.SIGILLARIA, true).setTreeCountPerChunk(6));
 		addTree(new WorldGenRottenLog(3, 6, EnumTree.CORDAITES, true).setCanGrowInWater(true).setTreeCountPerChunk(10));
 	}
 	

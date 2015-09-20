@@ -24,14 +24,14 @@ public class BiomeGenAuxPlains extends BiomeGenBaseGenesis
 	{
 		super(id);
 		setBiomeName("Araucarioxylon Plains");
-		setTemperatureRainfall(1.1F, 1.0F);
+		setTemperatureRainfall(1.1F, 0.9F);
 		
 		theBiomeDecorator.grassPerChunk = 1;
 		
 		addDecoration(new WorldGenArchaeomarasmius().setPatchSize(3).setCountPerChunk(5));
-		addDecoration(new WorldGenPalaeoagaracites().setPatchSize(5).setCountPerChunk(10));
+		addDecoration(new WorldGenPalaeoagaracites().setPatchSize(10).setCountPerChunk(16));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPlantType(GrowingPlantType.NORMAL).setPatchSize(5).setCountPerChunk(7));
-		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(5));
+		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(3));
 		addDecoration(new WorldGenRockBoulders().setRarity(10).setWaterRequired(false).setMaxHeight(3).addBlocks(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.SAUROPODA)).setCountPerChunk(1));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		

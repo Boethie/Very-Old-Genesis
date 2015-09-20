@@ -32,10 +32,10 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(3).setCountPerChunk(3));
 		addDecoration(new WorldGenPlant(EnumPlant.PSILOPHYTON).setPatchSize(8).setCountPerChunk(6));
 		addDecoration(new WorldGenPlant(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.ASTEROXYLON).setCountPerChunk(6));
-		addDecoration(new WorldGenUnderWaterPatch(GenesisBlocks.peat.getDefaultState()).setCountPerChunk(4));
+		addDecoration(new WorldGenUnderWaterPatch(GenesisBlocks.peat.getDefaultState()).setCountPerChunk(1));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
-		addTree(new WorldGenTreeArchaeopteris(15, 25, true).setCanGrowInWater(true).setTreeCountPerChunk(6));
+		addTree(new WorldGenTreeArchaeopteris(15, 25, true).setCanGrowInWater(true).setTreeCountPerChunk(7));
 		addTree(new WorldGenRottenLog(3, 6, EnumTree.ARCHAEOPTERIS, true).setCanGrowInWater(true).setTreeCountPerChunk(3));
 	}
 	
