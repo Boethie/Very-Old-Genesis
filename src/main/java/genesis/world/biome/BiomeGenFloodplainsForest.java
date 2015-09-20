@@ -10,6 +10,7 @@ import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPlant;
 import genesis.world.biome.decorate.WorldGenUnderWaterPatch;
+import genesis.world.biome.decorate.WorldGenGrowingPlant.GrowingPlantType;
 import genesis.world.gen.feature.WorldGenRottenLog;
 import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
 
@@ -25,24 +26,19 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 		super(id);
 		setBiomeName("Floodplains Forest");
 		setTemperatureRainfall(1.15F, 1.0F);
-		setHeight(-0.2F, 0.05F);
+		setHeight(-0.2F, 0.03F);
 		
-		theBiomeDecorator.grassPerChunk = 2;
+		theBiomeDecorator.grassPerChunk = 0;
 		
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(3).setCountPerChunk(3));
+		//TODO Generate Rhacophyton Fern
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(4));
 		addDecoration(new WorldGenPlant(EnumPlant.PSILOPHYTON).setPatchSize(8).setCountPerChunk(6));
-		addDecoration(new WorldGenPlant(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.ASTEROXYLON).setCountPerChunk(6));
 		addDecoration(new WorldGenUnderWaterPatch(GenesisBlocks.peat.getDefaultState()).setCountPerChunk(1));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
-		addTree(new WorldGenTreeArchaeopteris(15, 25, true).setCanGrowInWater(true).setTreeCountPerChunk(7));
-		addTree(new WorldGenRottenLog(3, 6, EnumTree.ARCHAEOPTERIS, true).setCanGrowInWater(true).setTreeCountPerChunk(3));
-	}
-	
-	@Override
-	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
-	{
-		return new WorldGenGrassMulti(GenesisBlocks.plants.getPlantBlockState(EnumPlant.ASTEROXYLON)).setVolume(128);
+		addTree(new WorldGenTreeArchaeopteris(15, 25, true).setCanGrowInWater(true).setTreeCountPerChunk(12));
+		
+		addTree(new WorldGenRottenLog(3, 6, EnumTree.ARCHAEOPTERIS, true).setCanGrowInWater(true).setTreeCountPerChunk(5));
 	}
 	
 	@Override
