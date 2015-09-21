@@ -200,21 +200,52 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 	{
 		if (!isConnected(MAIN_DIR))
 		{
+			final float epsilon = 0.001F;
+			
+			// Play sound for opening and closing.
+			// Also contains debug code for looping animation.
+			String sound = null;
+			
+			if (openAnimation <= epsilon && users > 0)
+			{
+				sound = Constants.ASSETS_PREFIX + "interact.storage_box_open";
+				
+				setUserCount(1, 1);
+			}
+			else if (openAnimation >= 1 - epsilon && users <= 0)
+			{
+				sound = Constants.ASSETS_PREFIX + "interact.storage_box_close";
+				
+				setUserCount(0, 0);
+			}
+			
+			if (sound != null)
+			{
+				double centerX = 0;
+				double centerY = 0;
+				double centerZ = 0;
+				int boxes = 0;
+				
+				for (TileEntityStorageBox box : iterableFromThisToEnd())	// Use this -> end because this box should be main.
+				{
+					centerX += box.getPos().getX();
+					centerY += box.getPos().getY();
+					centerZ += box.getPos().getZ();
+					boxes++;
+				}
+
+				centerX /= boxes;
+				centerY /= boxes;
+				centerZ /= boxes;
+				
+				worldObj.playSoundEffect(centerX, centerY, centerZ, sound, 1 + worldObj.rand.nextFloat() * 0.2F, 0.9F + worldObj.rand.nextFloat() * 0.1F);
+			}
+			
 			float target = getUserCount() > 0 ? 1 : 0;
-			float exagTarget = (target - 0.5F) * 1.5F + 0.5F;
+			float exagTarget = (target - 0.5F) * 1.5F + 0.5F;	// Makes the animation play a little faster and reach 0 or 1.
 			
 			setPrevOpenAnimation(openAnimation);
 			setOpenAnimation(openAnimation + 0.06F / (exagTarget - openAnimation));
-			
-			// Debug code for looping animation.
-			/*if (getUserCount() > 0 && getOpenAnimation(1) >= target - 0.01)
-			{
-				setUserCount(0, 0);
-			}
-			else if (getUserCount() <= 0 && getOpenAnimation(1) <= target + 0.01)
-			{
-				setUserCount(1, 1);
-			}*/
 		}
 	}
 	

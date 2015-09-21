@@ -162,6 +162,18 @@
 			"ambient/cookingpot4"
 		]
 	},
+	"interact.storage_box_open": {
+		"category": "block",
+		"sounds": [
+			"interact/storage_box_open"
+		]
+	},
+	"interact.storage_box_close": {
+		"category": "block",
+		"sounds": [
+			"interact/storage_box_close"
+		]
+	},
 	"crafting.pebble_hit": {
 		"category": "block",
 		"sounds": [

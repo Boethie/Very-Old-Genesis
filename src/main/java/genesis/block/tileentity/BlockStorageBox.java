@@ -137,7 +137,7 @@ public class BlockStorageBox extends Block
 	
 	@Override
 	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block otherBlock)
-	{
+	{	// TODO: Investigate bug with two boxes on either side connecting to one in the middle wrong.
 		TileEntityStorageBox box = getTileEntity(world, pos);
 		Axis boxAxis = box.getAxis();
 		
