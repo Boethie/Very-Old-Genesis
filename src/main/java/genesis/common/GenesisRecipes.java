@@ -248,9 +248,9 @@ public final class GenesisRecipes
 		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "X", "Y", 'X', Items.coal, 'Y', GenesisItems.calamites);
 		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "X", "Y", 'X', new ItemStack(Items.coal, 1, 1), 'Y', GenesisItems.calamites);
 		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "X", "Y", 'X', GenesisItems.resin, 'Y', GenesisItems.calamites);
-		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calmites_long_torch,3),"X","Y","Y",'X',Items.coal,'Y',GenesisItems.calamites);
-		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calmites_long_torch,3),"X","Y","Y",'X',new ItemStack(Items.coal, 1, 1),'Y',GenesisItems.calamites);
-		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calmites_long_torch,3),"X","Y","Y",'X',GenesisItems.resin,'Y',GenesisItems.calamites);
+		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_tall_torch, 2), "X", "Y", "Y", 'X', Items.coal, 'Y' , GenesisItems.calamites);
+		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_tall_torch, 2), "X", "Y", "Y", 'X', new ItemStack(Items.coal, 1, 1), 'Y' , GenesisItems.calamites);
+		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_tall_torch, 2), "X", "Y", "Y", 'X', GenesisItems.resin, 'Y' , GenesisItems.calamites);
 
 		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.calamites, 9), GenesisBlocks.calamites_bundle);
 		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.programinis_bundle), "CCC", "CCC", "CCC", 'C', GenesisItems.programinis);

@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "genesis:items/calamites_long_torch"
+        "layer0": "genesis:items/calamites_tall_torch"
     },
     "display": {
         "thirdperson": {

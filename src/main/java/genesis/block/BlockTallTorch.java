@@ -15,17 +15,18 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import genesis.common.GenesisCreativeTabs;
 
 import java.util.Random;
 
 /**
  * Created by Simeon on 9/14/2015.
  */
-public class BlockLongTorch extends Block
+public class BlockTallTorch extends Block
 {
 		public static IProperty PART_PROPERTY = PropertyEnum.create("part", PART.class);
 
-		public BlockLongTorch()
+		public BlockTallTorch()
 		{
 				super(Material.circuits);
 				setDefaultState(this.blockState.getBaseState().withProperty(PART_PROPERTY, PART.BOTTOM));
@@ -34,6 +35,7 @@ public class BlockLongTorch extends Block
 				setLightLevel(.9375F);
 				setHardness(0.0F);
 				setStepSound(soundTypeWood);
+				this.setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		}
 
 		public boolean isOpaqueCube()

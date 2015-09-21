@@ -1,7 +1,6 @@
 package genesis.item;
 
-import genesis.block.BlockLongTorch;
-import genesis.common.GenesisCreativeTabs;
+import genesis.block.BlockTallTorch;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,12 +13,11 @@ import net.minecraft.world.World;
 /**
  * Created by Simeon on 9/15/2015.
  */
-public class ItemLongTorch extends ItemBlock
+public class ItemTallTorch extends ItemBlock
 {
-		public ItemLongTorch(Block longTorch)
+		public ItemTallTorch(Block tallTorch)
 		{
-				super(longTorch);
-				this.setCreativeTab(GenesisCreativeTabs.DECORATIONS);
+				super(tallTorch);
 		}
 
 		/**
@@ -63,7 +61,7 @@ public class ItemLongTorch extends ItemBlock
 
 		public static void placeTorch(World worldIn, BlockPos pos, Block torch)
 		{
-				worldIn.setBlockState(pos, torch.getDefaultState().withProperty(BlockLongTorch.PART_PROPERTY, BlockLongTorch.PART.BOTTOM));
-				worldIn.setBlockState(pos.up(), torch.getDefaultState().withProperty(BlockLongTorch.PART_PROPERTY, BlockLongTorch.PART.TOP));
+				worldIn.setBlockState(pos, torch.getDefaultState().withProperty(BlockTallTorch.PART_PROPERTY, BlockTallTorch.PART.BOTTOM));
+				worldIn.setBlockState(pos.up(), torch.getDefaultState().withProperty(BlockTallTorch.PART_PROPERTY, BlockTallTorch.PART.TOP));
 		}
 }

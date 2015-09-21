@@ -108,7 +108,7 @@ public final class GenesisBlocks
 	public static final Block calamites_torch = new BlockCalamitesTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTorch");
 	public static final Block prototaxites_mycelium = new BlockPrototaxitesMycelium().setUnlocalizedName(Unlocalized.PREFIX + "prototaxitesMycelium");
 	public static final DungBlocksAndItems dungs = new DungBlocksAndItems();
-	public static final Block calmites_long_torch = new BlockLongTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesLongTorch");
+	public static final Block calamites_tall_torch = new BlockTallTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTallTorch");
 	
 	/* Misc */
 	public static final Block palaeoagaracites = new BlockGenesisMushroom().setUnlocalizedName(Unlocalized.PREFIX + "palaeoagaracites")
@@ -218,7 +218,7 @@ public final class GenesisBlocks
 		
 		// - Torches -
 		Genesis.proxy.registerBlock(calamites_torch, "calamites_torch");
-		Genesis.proxy.registerBlock(calmites_long_torch, "calamites_long_torch", ItemLongTorch.class);
+		Genesis.proxy.registerBlock(calamites_tall_torch, "calamites_tall_torch", ItemTallTorch.class);
 		
 		// - Plants -
 		plants.setUnlocalizedPrefix(Constants.Unlocalized.PREFIX);

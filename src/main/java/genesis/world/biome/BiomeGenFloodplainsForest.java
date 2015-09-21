@@ -5,7 +5,6 @@ import genesis.metadata.EnumPlant;
 import genesis.metadata.EnumTree;
 import genesis.metadata.PlantBlocks;
 import genesis.world.biome.decorate.WorldGenGrass;
-import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPlant;
