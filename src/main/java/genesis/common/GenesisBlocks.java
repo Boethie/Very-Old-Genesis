@@ -106,9 +106,9 @@ public final class GenesisBlocks
 	public static final Block calamites_bundle = new BlockCalamitesBundle().setUnlocalizedName(Unlocalized.PREFIX + "calamitesBundle");
 	public static final Block programinis_bundle = new BlockPrograminisBundle().setUnlocalizedName(Unlocalized.PREFIX + "programinisBundle");
 	public static final Block calamites_torch = new BlockCalamitesTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTorch");
+	public static final Block calamites_tall_torch = new BlockTallTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTallTorch");
 	public static final Block prototaxites_mycelium = new BlockPrototaxitesMycelium().setUnlocalizedName(Unlocalized.PREFIX + "prototaxitesMycelium");
 	public static final DungBlocksAndItems dungs = new DungBlocksAndItems();
-	public static final Block calamites_tall_torch = new BlockTallTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTallTorch");
 	
 	/* Misc */
 	public static final Block palaeoagaracites = new BlockGenesisMushroom().setUnlocalizedName(Unlocalized.PREFIX + "palaeoagaracites")
