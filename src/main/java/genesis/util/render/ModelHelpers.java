@@ -500,6 +500,12 @@ public class ModelHelpers
 	
 	public static void forceModelLoading(final String name, final Collection<String> states, ResourceLocation loc)
 	{
+		if (states.isEmpty())
+		{
+			Genesis.logger.warn(new IllegalArgumentException("No states provided to force loading for model location '" + loc + "'."));
+			return;
+		}
+		
 		IProperty property = new IProperty()
 		{
 			@Override public String getName()
@@ -520,7 +526,14 @@ public class ModelHelpers
 			}
 		};
 		
-		forceModelLoading(new BlockState(null, property), loc);
+		try
+		{
+			forceModelLoading(new BlockState(null, property), loc);
+		}
+		catch (RuntimeException e)
+		{
+			Genesis.logger.warn("An error occurred constructing a fake BlockState object to force loading of '" + loc + "'.");
+		}
 	}
 	
 	public static void forceModelLoading(Collection<String> variants, ResourceLocation loc)

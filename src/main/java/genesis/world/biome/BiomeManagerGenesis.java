@@ -1,6 +1,7 @@
 package genesis.world.biome;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -12,8 +13,7 @@ import com.google.common.collect.Maps;
 
 public class BiomeManagerGenesis
 {
-
-	private static final Map<BiomeType, List<BiomeEntry>> biomes = Maps.newEnumMap(BiomeType.class);
+	private static final Map<BiomeType, List<BiomeEntry>> biomes = Maps.newHashMap();
 
 	public static boolean registerBiome(BiomeGenBase biome, BiomeType type, int weight)
 	{
@@ -22,7 +22,7 @@ public class BiomeManagerGenesis
 
 	public static Map<BiomeType, List<BiomeEntry>> getEntriesMap()
 	{
-		return Maps.newEnumMap(biomes);
+		return Collections.unmodifiableMap(biomes);
 	}
 
 	public static List<BiomeEntry> getEntries(BiomeType type)

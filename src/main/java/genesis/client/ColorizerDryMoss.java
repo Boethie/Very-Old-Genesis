@@ -2,6 +2,7 @@ package genesis.client;
 
 import java.io.IOException;
 
+import genesis.common.Genesis;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
@@ -38,7 +39,7 @@ public class ColorizerDryMoss implements IResourceManagerReloadListener
         }
         catch (IOException e)
         {
-            throw new RuntimeException("Could not load dry moss color map.", e);
+            Genesis.logger.warn(new RuntimeException("Could not load dry moss color map.", e));
         }
     }
 }
