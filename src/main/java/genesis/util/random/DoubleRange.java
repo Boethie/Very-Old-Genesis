@@ -3,7 +3,6 @@ package genesis.util.random;
 import java.util.Random;
 
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
 
 public abstract class DoubleRange implements Range<Double>
 {

@@ -3,12 +3,6 @@ package genesis.entity.living.flying;
 import io.netty.buffer.ByteBuf;
 
 import java.util.*;
-import java.util.concurrent.Callable;
-
-import org.lwjgl.opengl.GL11;
-
-import com.google.common.base.Function;
-
 import genesis.client.sound.MovingEntitySound;
 import genesis.client.sound.MovingEntitySound.IMovingEntitySoundOwner;
 import genesis.common.Genesis;
@@ -22,23 +16,14 @@ import static genesis.entity.living.flying.EntityMeganeura.State.*;
 import static genesis.entity.living.flying.EntityMeganeura.StateCategory.*;
 import genesis.util.*;
 import genesis.util.random.DoubleRange;
-import genesis.util.render.*;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.*;
-import net.minecraft.client.renderer.ActiveRenderInfo;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderGlobal;
-import net.minecraft.client.renderer.entity.*;
 import net.minecraft.entity.*;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
-import net.minecraft.stats.AchievementList;
 import net.minecraft.util.*;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
@@ -46,7 +31,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.relauncher.*;
 
 public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundOwner
 {
@@ -81,6 +65,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 	
 	public static final int SPAWN_LIMIT = 2;
 	
+	@SuppressWarnings("unchecked")
 	public static int getChunkMeganeuraCount(World world, Vec3 pos)
 	{
 		double radius = 8;
@@ -583,7 +568,6 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 		super.updateAITasks();
 		
 		Vec3 ourPos = getPositionVector();
-		Vec3 ourMotion = new Vec3(motionX, motionY, motionZ);
 		State ourState = getState();
 		Vec3 ourOldTarget = getTargetLocation();
 		Vec3 ourNewTarget = ourOldTarget;

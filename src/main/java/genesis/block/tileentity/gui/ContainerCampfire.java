@@ -6,7 +6,6 @@ import genesis.block.tileentity.*;
 import genesis.util.gui.*;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.*;
-import net.minecraft.item.*;
 import net.minecraftforge.fml.relauncher.*;
 
 public class ContainerCampfire extends ContainerBase
@@ -25,7 +24,7 @@ public class ContainerCampfire extends ContainerBase
 
 	public ContainerCampfire(EntityPlayer player, TileEntityCampfire te)
 	{
-		super(player.inventory, te, UI_WIDTH, UI_HEIGHT + 26);
+		super(player.inventory, te);
 		
 		campfire = te;
 		
@@ -33,8 +32,8 @@ public class ContainerCampfire extends ContainerBase
 		int ingSep = 32;
 		ingredient1 = addTopAlignedSlot(new RestrictedDisabledSlot(te, TileEntityCampfire.SLOT_INGREDIENT_1, 0, y));
 		ingredient2 = addTopAlignedSlot(new RestrictedDisabledSlot(te, TileEntityCampfire.SLOT_INGREDIENT_2, ingSep, y));
-		input = addTopAlignedSlot(new RestrictedSlot(te, TileEntityCampfire.SLOT_INPUT, ingSep / 2, y += SLOT_H + 8));
-		fuel = addTopAlignedSlot(new RestrictedSlot(te, TileEntityCampfire.SLOT_FUEL, ingSep / 2, y += SLOT_H * 2));
+		input = addTopAlignedSlot(new RestrictedSlot(te, TileEntityCampfire.SLOT_INPUT, ingSep / 2, y += slotH + 8));
+		fuel = addTopAlignedSlot(new RestrictedSlot(te, TileEntityCampfire.SLOT_FUEL, ingSep / 2, y += slotH * 2));
 		output = addBigTopAlignedSlot(new SlotFurnaceOutput(player, te, TileEntityCampfire.SLOT_OUTPUT, 112, y /= 2));
 		
 		setupGUILayout();
@@ -75,6 +74,7 @@ public class ContainerCampfire extends ContainerBase
 	{
 		super.detectAndSendChanges();
 		
+		// TODO: Remove cast
 		for (ICrafting iCrafting : (List<ICrafting>) crafters)
 		{
 			if (lastCookTime != campfire.cookTime)

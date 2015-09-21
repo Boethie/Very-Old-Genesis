@@ -2,8 +2,6 @@ package genesis.util.random;
 
 import java.util.Random;
 
-import net.minecraft.util.MathHelper;
-
 public abstract class FloatRange implements Range<Float>
 {
 	public static FloatRange create(float value)

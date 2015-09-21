@@ -3,16 +3,14 @@ package genesis.item;
 import genesis.common.GenesisCreativeTabs;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
-import genesis.util.Constants;
 
 import java.util.*;
-
-import com.google.common.base.Function;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.*;
 
+@SuppressWarnings("rawtypes")
 public class ItemBlockMulti extends ItemBlock
 {
 	public final VariantsOfTypesCombo<ObjectType, IMetadata> owner;

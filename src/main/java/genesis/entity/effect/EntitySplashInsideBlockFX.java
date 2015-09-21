@@ -1,12 +1,7 @@
 package genesis.entity.effect;
 
-import genesis.util.*;
 import genesis.util.random.DoubleRange;
 import net.minecraft.client.particle.*;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.WorldRenderer;
-import net.minecraft.entity.Entity;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 public class EntitySplashInsideBlockFX extends EntityFX

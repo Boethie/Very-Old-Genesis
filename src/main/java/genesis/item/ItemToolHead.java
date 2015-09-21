@@ -4,19 +4,14 @@ import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemGenesis;
 import genesis.metadata.ToolItems.*;
 import genesis.metadata.*;
-import genesis.metadata.ToolTypes.ToolType;
-import genesis.util.Constants;
-import genesis.util.Constants.Unlocalized;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
-import net.minecraft.world.World;
 
 import java.util.List;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class ItemToolHead extends ItemGenesis
 {
 	protected final List<IMetadata> variants;

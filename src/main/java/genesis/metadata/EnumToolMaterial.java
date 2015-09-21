@@ -1,7 +1,5 @@
 package genesis.metadata;
 
-import net.minecraft.item.Item;
-
 public enum EnumToolMaterial implements IMetadata
 {
 	OCTAEDRITE("octaedrite", 1, 145, 2.6F, 0.3F, 5),

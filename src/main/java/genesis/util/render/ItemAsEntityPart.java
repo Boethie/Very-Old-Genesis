@@ -1,6 +1,5 @@
 package genesis.util.render;
 
-import genesis.util.*;
 import net.minecraft.client.*;
 import net.minecraft.client.model.*;
 import net.minecraft.client.renderer.*;

@@ -60,8 +60,8 @@ public class GuiContainerBase extends GuiContainer
 		GlStateManager.color(1, 1, 1, 1);
 		mc.getTextureManager().bindTexture(TEX);
 
-		final int borderW = container.BORDER_W;
-		final int borderH = container.BORDER_H;
+		final int borderW = container.borderW;
+		final int borderH = container.borderH;
 		
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(guiLeft, guiTop, 0);
@@ -96,17 +96,13 @@ public class GuiContainerBase extends GuiContainer
 		
 		for (Slot slot : (List<Slot>) inventorySlots.inventorySlots)
 		{
-			int slotX = slot.xDisplayPosition;
-			int slotY = slot.yDisplayPosition;
 			int slotU = -1;
 			int slotV = -1;
-			int slotW = container.SLOT_W;
-			int slotH = container.SLOT_H;
+			int slotW = container.slotW;
+			int slotH = container.slotH;
 			
 			if (container.isBigSlot(slot))
 			{
-				slotX += 4;
-				slotY += 4;
 				slotW += 8;
 				slotH += 8;
 

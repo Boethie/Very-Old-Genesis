@@ -10,10 +10,8 @@ import genesis.metadata.VariantsOfTypesCombo.*;
 import java.lang.annotation.*;
 import java.lang.reflect.*;
 import java.util.*;
-import java.util.Map.Entry;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.tuple.Pair;
 
 import com.google.common.base.Function;
 import com.google.common.collect.*;
@@ -21,8 +19,6 @@ import com.google.common.collect.*;
 import net.minecraft.block.*;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
-import net.minecraft.client.renderer.block.statemap.*;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.*;
 import net.minecraftforge.fml.relauncher.*;
@@ -622,8 +618,6 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 			return;
 		}
 		
-		Set<Integer> registeredSubsets = new HashSet<Integer>();
-		List<V> variants = getValidVariants(type);
 		List<Integer> subsets = new ArrayList<Integer>(subsetDataTable.row(type).keySet());
 		Collections.sort(subsets);
 		
@@ -1025,6 +1019,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	/**
 	 * Returns a new list containing the valid variants shared between <code>type</code> and <code>otherTypes</code>.
 	 */
+	@SuppressWarnings("unchecked")
 	public List<V> getSharedValidVariants(O type, O... otherTypes)
 	{
 		List<V> output = getValidVariants(type);
@@ -1060,6 +1055,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	 * 
 	 * @return {@literal List<ItemStack>} containing all sub-items for this Block or Item.
 	 */
+	@SuppressWarnings("unchecked")
 	public List<ItemStack> fillSubItems(O objectType, List<V> variants, List<ItemStack> listToFill, V... exclude)
 	{
 		return fillSubItems(objectType, variants, listToFill, Sets.newHashSet(exclude));
@@ -1070,6 +1066,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	 * {@link #fillSubItems(ObjectType, List, List, T[]) fillSubItems(ObjectType objectType, List&lt;IMetadata&gt; variants, List&lt;ItemStack&gt; listToFill, IMetadata... exclude)}
 	 * to create a new list.
 	 */
+	@SuppressWarnings("unchecked")
 	public List<ItemStack> getSubItems(O objectType, List<V> variants, V... exclude)
 	{
 		return fillSubItems(objectType, variants, new ArrayList<ItemStack>(), exclude);
@@ -1078,6 +1075,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	/**
 	 * Gets all sub-items for the {@link ObjectType} {@code objectType}.
 	 */
+	@SuppressWarnings("unchecked")
 	public List<ItemStack> getSubItems(O objectType, V... exclude)
 	{
 		return getSubItems(objectType, getValidVariants(objectType), exclude);

@@ -1,8 +1,5 @@
 package genesis.metadata;
 
-import genesis.common.GenesisBlocks;
-import net.minecraft.item.Item;
-
 public enum EnumFern implements IMetadata
 {
 	ZYGOPTERIS("zygopteris"), PHLEBOPTERIS("phlebopteris"), RUFFORDIA("ruffordia"), ASTRALOPTERIS("astralopteris"), MATONIDIUM("matonidium");

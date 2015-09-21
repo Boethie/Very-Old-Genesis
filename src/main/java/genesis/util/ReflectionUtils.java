@@ -6,30 +6,41 @@ public class ReflectionUtils
 {
 	public static <T> Constructor<T> getConstructor(Class<T> clazz, Object[] args)
 	{
-		for (Constructor constructor : clazz.getDeclaredConstructors())
+		for (Constructor<?> declared : clazz.getConstructors())
 		{
-			Class[] parameterTypes = constructor.getParameterTypes();
+			Constructor<T> actual = null;
 			
-			if (parameterTypes.length == args.length)
+			try
 			{
-				boolean correct = true;
+				actual = clazz.getConstructor(declared.getParameterTypes());
+			}
+			catch (NoSuchMethodException e) {}
+			
+			if (actual != null)
+			{
+				Class<?>[] parameterTypes = actual.getParameterTypes();
 				
-				for (int i = 0; i < args.length; i++)
+				if (parameterTypes.length == args.length)
 				{
-					if (!parameterTypes[i].isAssignableFrom(args[i].getClass()))
+					boolean correct = true;
+					
+					for (int i = 0; i < args.length; i++)
 					{
-						correct = false;
+						if (!parameterTypes[i].isAssignableFrom(args[i].getClass()))
+						{
+							correct = false;
+						}
 					}
-				}
-				
-				if (correct)
-				{
-					return constructor;
+					
+					if (correct)
+					{
+						return actual;
+					}
 				}
 			}
 		}
 		
-		return null;
+		throw new RuntimeException(new NoSuchMethodException("Constructor with parameters " + args + " not found in " + clazz.getName() + "."));
 	}
 	
 	public static <T> T construct(Class<T> clazz, Object[] args)

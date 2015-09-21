@@ -1,9 +1,6 @@
 package genesis.common;
 
-import java.lang.reflect.Field;
 import java.util.*;
-
-import com.google.common.collect.*;
 
 import genesis.client.GenesisClient;
 import genesis.client.sound.MovingEntitySound;
@@ -19,15 +16,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
 import net.minecraftforge.fml.relauncher.*;
-import paulscode.sound.SoundSystem;
 
 public final class GenesisSounds
 {

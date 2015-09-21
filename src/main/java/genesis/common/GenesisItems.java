@@ -9,12 +9,9 @@ import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBucketMilk;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 
 public final class GenesisItems
 {
@@ -76,8 +73,8 @@ public final class GenesisItems
 	{
 		// --- Materials ---
 		// Tool materials
-		tools.registerVariants(tools.PEBBLE);
-		tools.registerVariants(tools.FLAKE);
+		tools.registerVariants(ToolItems.PEBBLE);
+		tools.registerVariants(ToolItems.FLAKE);
 		
 		// Clay
 		Genesis.proxy.registerItem(red_clay_ball, "red_clay_ball");
@@ -91,7 +88,7 @@ public final class GenesisItems
 		nodules.registerAll();
 		
 		// Billets
-		GenesisBlocks.trees.registerVariants(GenesisBlocks.trees.BILLET);
+		GenesisBlocks.trees.registerVariants(TreeBlocksAndItems.BILLET);
 		
 		// Random materials
 		Genesis.proxy.registerItem(resin, "resin");
@@ -101,7 +98,7 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(programinis_seeds, "programinis_seeds");
 		Genesis.proxy.registerItem(programinis, "programinis");
 		Genesis.proxy.registerItem(prototaxites_flesh, "prototaxites_flesh");
-		GenesisBlocks.dungs.registerVariants(GenesisBlocks.dungs.DUNG);
+		GenesisBlocks.dungs.registerVariants(DungBlocksAndItems.DUNG);
 		Genesis.proxy.registerItem(arthropleura_chitin, "arthropleura_chitin");
 		Genesis.proxy.registerItem(liopleurodon_tooth, "liopleurodon_tooth");
 		Genesis.proxy.registerItem(tyrannosaurus_saliva, "tyrannosaurus_saliva");

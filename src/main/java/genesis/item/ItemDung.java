@@ -13,6 +13,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class ItemDung extends ItemMulti
 {
 	public ItemDung(List<IMetadata> variants, VariantsOfTypesCombo owner, ObjectType type)

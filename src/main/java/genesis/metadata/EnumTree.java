@@ -1,10 +1,5 @@
 package genesis.metadata;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import net.minecraft.item.Item;
-
 public enum EnumTree implements IMetadata
 {
 	ARCHAEOPTERIS("archaeopteris"), SIGILLARIA("sigillaria"), LEPIDODENDRON("lepidodendron"),

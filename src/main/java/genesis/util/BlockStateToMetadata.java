@@ -1,6 +1,5 @@
 package genesis.util;
 
-import genesis.metadata.*;
 import io.netty.buffer.ByteBuf;
 
 import java.util.*;
@@ -16,6 +15,7 @@ import com.google.common.collect.*;
  * 
  * Utilities pertaining to storage of block states and stuff.
  */
+@SuppressWarnings("unchecked")
 public class BlockStateToMetadata
 {
 	public static final BitMask MAXMETAVALUE = BitMask.forValueCount(16);
@@ -209,8 +209,6 @@ public class BlockStateToMetadata
 		IBlockState metaState = Block.getStateById(buf.readInt());
 		IBlockState outState = metaState;
 		IBlockState defaultState = metaState.getBlock().getDefaultState();
-
-		List<IProperty> propertyList = getSortedProperties(defaultState.getProperties().keySet());
 		
 		for (IProperty property : (Collection<IProperty>) metaState.getProperties().keySet())
 		{

@@ -4,31 +4,25 @@ import java.util.*;
 
 import genesis.util.*;
 import genesis.util.Constants.Sounds;
-import genesis.util.Constants.Unlocalized;
 import genesis.util.random.DoubleRange;
 import genesis.client.*;
 import genesis.common.*;
-import genesis.block.tileentity.*;
 import genesis.block.tileentity.render.TileEntityCampfireRenderer;
 import net.minecraft.block.*;
 import net.minecraft.block.material.*;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
 import net.minecraft.entity.*;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.*;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.*;
-import net.minecraft.nbt.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.registry.*;
 import net.minecraftforge.fml.relauncher.*;
 
 public class BlockCampfire extends Block
@@ -281,6 +275,7 @@ public class BlockCampfire extends Block
 		WorldUtils.setProperty(world, pos, FIRE, burning);
 	}
 	
+	@SuppressWarnings("serial")
 	protected final Map<ItemStackKey, String> lighterItems = new HashMap<ItemStackKey, String>(){{
 		put(new ItemStackKey(Items.flint_and_steel), "fire.ignite");
 		put(new ItemStackKey(GenesisItems.flint_and_marcasite), Sounds.IGNITE_FIRE);

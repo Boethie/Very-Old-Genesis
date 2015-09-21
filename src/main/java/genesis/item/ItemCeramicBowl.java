@@ -25,8 +25,8 @@ import genesis.common.GenesisItems;
 import genesis.metadata.*;
 import genesis.metadata.ItemsCeramicBowls.EnumCeramicBowls;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
-import genesis.metadata.VariantsOfTypesCombo.*;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class ItemCeramicBowl extends ItemGenesis
 {
 	public final ItemsCeramicBowls owner;
@@ -55,7 +55,7 @@ public class ItemCeramicBowl extends ItemGenesis
 	{
 		return owner.getUnlocalizedName(stack, super.getUnlocalizedName(stack));
 	}
-
+	
 	@Override
 	public void getSubItems(Item itemIn, CreativeTabs tab, List subItems)
 	{

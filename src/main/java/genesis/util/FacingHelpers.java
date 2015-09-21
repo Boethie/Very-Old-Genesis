@@ -5,7 +5,6 @@ import java.util.Random;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 
-import static net.minecraft.util.EnumFacing.*;
 import net.minecraft.util.EnumFacing.Axis;
 import static net.minecraft.util.EnumFacing.Axis.*;
 import net.minecraft.util.EnumFacing.AxisDirection;

@@ -29,12 +29,12 @@ import net.minecraftforge.client.ItemModelMesherForge;
 import net.minecraftforge.client.model.*;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.google.common.base.Charsets;
 import com.google.common.collect.*;
 
+@SuppressWarnings({"unchecked", "deprecation"})
 public class ModelHelpers
 {
 	public static final Block fakeBlock = new BlockAir(){}.setUnlocalizedName(Unlocalized.PREFIX + "dummyBlock");
@@ -56,17 +56,15 @@ public class ModelHelpers
 	public static Field modelBlockDefinitionMap;
 	public static Field destroyBlockIcons;
 	
-	protected static List<Pair<BlockState, ResourceLocation>> forcedModels = new ArrayList();
+	protected static List<Pair<BlockState, ResourceLocation>> forcedModels = Lists.newArrayList();
 	protected static boolean doInit = true;
 	
 	public static void preInit()
 	{
-		ModelHelpers instance = new ModelHelpers();
-		
 		addForcedModels();
 	}
 	
-	@SuppressWarnings("unchecked")
+	// TODO: @SuppressWarnings("unchecked")
 	public static <T> Class<T> getModelLoaderClass(String name)
 	{
 		Class<?>[] classes = ModelLoader.class.getDeclaredClasses();
@@ -358,7 +356,7 @@ public class ModelHelpers
 		return null;
 	}
 	
-	@SuppressWarnings("unchecked")
+	// TODO: @SuppressWarnings("unchecked")
 	public static Class<? extends IModel> getVanillaModelWrapper()
 	{
 		if (classVanillaModelWrapper == null)
@@ -505,7 +503,8 @@ public class ModelHelpers
 			Genesis.logger.warn(new IllegalArgumentException("No states provided to force loading for model location '" + loc + "'."));
 			return;
 		}
-		
+
+		@SuppressWarnings("rawtypes")
 		IProperty property = new IProperty()
 		{
 			@Override public String getName()
@@ -586,6 +585,7 @@ public class ModelHelpers
 		{
 			for (final IBlockState actualState : (Collection<IBlockState>) entry.getKey().getValidStates())
 			{
+				@SuppressWarnings("rawtypes")
 				IBlockState fakeState = new IBlockState()
 				{
 					@Override public Collection getPropertyNames()

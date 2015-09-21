@@ -1,7 +1,5 @@
 package genesis.entity.fixed;
 
-import org.lwjgl.opengl.GL11;
-
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
 import genesis.entity.living.flying.EntityMeganeura;
@@ -9,20 +7,13 @@ import genesis.util.Constants;
 import genesis.util.random.IntRange;
 import genesis.util.render.EntityPart;
 import genesis.util.render.RenderHelpers;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
-import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.*;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;

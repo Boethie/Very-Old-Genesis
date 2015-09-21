@@ -5,7 +5,6 @@ import genesis.metadata.ToolItems.*;
 
 import java.util.*;
 
-import com.google.common.base.Function;
 import com.google.common.collect.Sets;
 
 import genesis.block.*;
@@ -18,7 +17,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 import net.minecraft.util.StatCollector;
 import genesis.metadata.ToolTypes.ToolType;
-import genesis.util.Constants;
 import genesis.util.Constants.Unlocalized;
 import genesis.util.Constants.Unlocalized.Section;
 

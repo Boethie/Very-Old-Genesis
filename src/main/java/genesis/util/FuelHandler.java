@@ -4,7 +4,6 @@ import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
 
 import java.util.HashMap;
-import java.util.Map.Entry;
 
 import com.google.common.collect.Maps;
 

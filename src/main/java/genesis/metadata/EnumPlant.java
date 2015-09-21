@@ -2,9 +2,6 @@ package genesis.metadata;
 
 import java.util.*;
 
-import genesis.common.GenesisBlocks;
-import net.minecraft.item.Item;
-
 public enum EnumPlant implements IMetadata
 {
 	COOKSONIA("cooksonia"), BARAGWANATHIA("baragwanathia"), SCIADOPHYTON("sciadophyton"), PSILOPHYTON("psilophyton"), NOTHIA("nothia"),

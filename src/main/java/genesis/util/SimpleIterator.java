@@ -4,7 +4,6 @@ import static genesis.util.SimpleIterator.State.*;
 
 import java.util.NoSuchElementException;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.PeekingIterator;
 
 public abstract class SimpleIterator<T> implements PeekingIterator<T>

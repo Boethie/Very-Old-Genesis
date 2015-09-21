@@ -1,6 +1,5 @@
 package genesis.block.tileentity.gui;
 
-import java.util.Arrays;
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
@@ -8,15 +7,11 @@ import com.google.common.collect.ImmutableList;
 import genesis.block.tileentity.*;
 import genesis.block.tileentity.TileEntityKnapper.KnappingState;
 import genesis.block.tileentity.crafting.KnappingRecipeRegistry;
-import genesis.util.gui.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.network.play.server.S2FPacketSetSlot;
-import net.minecraft.util.MathHelper;
 
 public class ContainerKnapper extends ContainerBase
 {
@@ -61,15 +56,15 @@ public class ContainerKnapper extends ContainerBase
 		
 		this.workbench = workbench;
 		
-		int topAreaHeight = SLOT_H * 3;
+		int topAreaHeight = slotH * 3;
 		int sep = 36;
 		
-		int knappingX = -sep - SLOT_W;
-		int knappingH = SLOT_H * 3 + 15;
+		int knappingX = -sep - slotW;
+		int knappingH = slotH * 3 + 15;
 		int knappingY = (topAreaHeight - knappingH) / 2;
 
 		knappingInputSlot = addTopAlignedSlot(new Slot(workbench, TileEntityKnapper.SLOT_KNAP_MATERIAL, knappingX, knappingY));
-		knappingInputSlotLocked = addTopAlignedSlot(new Slot(workbench, TileEntityKnapper.SLOT_KNAP_MATERIAL_LOCKED, knappingX, knappingY + (knappingH - SLOT_H) / 2)
+		knappingInputSlotLocked = addTopAlignedSlot(new Slot(workbench, TileEntityKnapper.SLOT_KNAP_MATERIAL_LOCKED, knappingX, knappingY + (knappingH - slotH) / 2)
 		{
 			@Override
 			public boolean isItemValid(ItemStack stack)
@@ -77,7 +72,7 @@ public class ContainerKnapper extends ContainerBase
 				return false;
 			}
 		});
-		knappingToolSlot = addTopAlignedSlot(new Slot(workbench, TileEntityKnapper.SLOT_KNAP_TOOL, knappingX, knappingY + knappingH - SLOT_H)
+		knappingToolSlot = addTopAlignedSlot(new Slot(workbench, TileEntityKnapper.SLOT_KNAP_TOOL, knappingX, knappingY + knappingH - slotH)
 		{
 			@Override
 			public boolean isItemValid(ItemStack stack)
@@ -92,7 +87,7 @@ public class ContainerKnapper extends ContainerBase
 		int rows = (int) Math.ceil(craftingSlotCount / (float) rowWidth);
 		
 		int craftX = 0;
-		int craftY = (topAreaHeight - SLOT_H * rows) / 2;
+		int craftY = (topAreaHeight - slotH * rows) / 2;
 
 		ImmutableList.Builder<SlotKnapping> mainBuilder = ImmutableList.builder();
 		ImmutableList.Builder<SlotKnapping> leftBuilder = ImmutableList.builder();
@@ -108,8 +103,8 @@ public class ContainerKnapper extends ContainerBase
 			for (int x = 0; x < rowWidth && startX + x < craftingSlotCount; x++)
 			{
 				int index = startX + x;
-				int posX = craftX + x * SLOT_W;
-				int posY = craftY + y * SLOT_H;
+				int posX = craftX + x * slotW;
+				int posY = craftY + y * slotH;
 				
 				SlotKnapping cur = addTopAlignedSlot(new SlotKnapping(workbench, index, posX, posY));
 				mainBuilder.add(cur);
@@ -129,13 +124,11 @@ public class ContainerKnapper extends ContainerBase
 		leftCraftingSlots = leftBuilder.build();
 		rightCraftingSlots = rightBuilder.build();
 		
-		int sepY = SLOT_H * 2;
-		
 		int outputX = getSlotsArea(topSlots).right + sep + 1;
-		int outputY = (topAreaHeight - SLOT_H * 2) / 2;
+		int outputY = (topAreaHeight - slotH * 2) / 2;
 		
-		outputSlotMain = addTopAlignedSlot(new SlotCrafting(player, workbench.getCraftingInventory(), workbench.getCraftingOutput(), workbench.SLOT_OUTPUT_MAIN, outputX, outputY));
-		outputSlotWaste = addTopAlignedSlot(new Slot(workbench, workbench.SLOT_OUTPUT_WASTE, outputX, outputY + SLOT_H)
+		outputSlotMain = addTopAlignedSlot(new SlotCrafting(player, workbench.getCraftingInventory(), workbench.getCraftingOutput(), TileEntityKnapper.SLOT_OUTPUT_MAIN, outputX, outputY));
+		outputSlotWaste = addTopAlignedSlot(new Slot(workbench, TileEntityKnapper.SLOT_OUTPUT_WASTE, outputX, outputY + slotH)
 		{
 			@Override
 			public boolean isItemValid(ItemStack stack)

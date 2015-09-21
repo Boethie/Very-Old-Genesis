@@ -42,7 +42,7 @@ public final class GenesisVersion extends ForgeVersion
 					con = url.openStream();
 					String data = new String(ByteStreams.toByteArray(con));
 
-					Map<String, Object> json = new Gson().fromJson(data, Map.class);
+					Map<String, Object> json = new Gson().<Map<String, Object>>fromJson(data, Map.class);
 					homepage = (String) json.get("homepage");
 					Map<String, String> promos = (Map<String, String>) json.get("versions");
 

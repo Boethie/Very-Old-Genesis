@@ -2,9 +2,7 @@ package genesis.item;
 
 import genesis.common.GenesisConfig;
 import genesis.common.GenesisCreativeTabs;
-import genesis.util.Constants;
 import genesis.util.Constants.Sounds;
-import genesis.util.Constants.Unlocalized;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemFlintAndSteel;

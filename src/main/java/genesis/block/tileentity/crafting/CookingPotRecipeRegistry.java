@@ -8,9 +8,7 @@ import java.util.*;
 
 import com.google.common.collect.*;
 
-import net.minecraft.inventory.*;
 import net.minecraft.item.*;
-import net.minecraft.nbt.NBTTagCompound;
 
 public class CookingPotRecipeRegistry
 {
@@ -86,7 +84,7 @@ public class CookingPotRecipeRegistry
 		
 		public CookingPotRecipeShapeless(ItemStack output, ItemStack... ingredients)
 		{
-			this.ingredients = new HashMap();
+			this.ingredients = Maps.newHashMap();
 			
 			for (ItemStack stack : ingredients)
 			{
@@ -112,7 +110,7 @@ public class CookingPotRecipeRegistry
 		public ItemStack getOutput(IInventoryCookingPot cookingPot)
 		{
 			ItemStack[] invIngredients = cookingPot.getIngredients();
-			Set<ItemStackKey> ingredientKeySet = new HashSet();
+			Set<ItemStackKey> ingredientKeySet = Sets.newHashSet();
 			
 			for (ItemStack invIngredient : invIngredients)
 			{
@@ -136,8 +134,8 @@ public class CookingPotRecipeRegistry
 			ItemStack[] invIngredients = cookingPot.getIngredients();
 			
 			// Get the number of stacks for each ingredient type.
-			Map<ItemStackKey, Integer> countMap = new HashMap(invIngredients.length);
-			Map<ItemStackKey, Integer> sizeLeftMap = new HashMap(ingredients.size());
+			Map<ItemStackKey, Integer> countMap = new HashMap<ItemStackKey, Integer>(invIngredients.length);
+			Map<ItemStackKey, Integer> sizeLeftMap = new HashMap<ItemStackKey, Integer>(ingredients.size());
 			
 			for (Map.Entry<ItemStackKey, ItemStack> entry : ingredients.entrySet())
 			{
@@ -208,7 +206,7 @@ public class CookingPotRecipeRegistry
 		return new ItemStackKey(cookingPotItem).equals(new ItemStackKey(stack));
 	}
 	
-	protected static List<ICookingPotRecipe> recipes = new ArrayList();
+	protected static List<ICookingPotRecipe> recipes = Lists.newArrayList();
 	
 	public static void registerRecipe(ICookingPotRecipe recipe)
 	{

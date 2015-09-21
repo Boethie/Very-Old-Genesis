@@ -1,10 +1,8 @@
 package genesis.common;
 
 import genesis.client.model.entity.RenderMeganeura;
-import genesis.entity.*;
 import genesis.entity.fixed.EntityMeganeuraEgg;
 import genesis.entity.living.flying.*;
-import genesis.util.Constants;
 import net.minecraft.entity.*;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;

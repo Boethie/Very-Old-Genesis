@@ -1,7 +1,5 @@
 package genesis.util.render;
 
-import java.util.List;
-
 import net.minecraft.client.model.*;
 import net.minecraft.client.renderer.*;
 

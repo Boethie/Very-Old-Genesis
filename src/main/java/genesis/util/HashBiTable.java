@@ -6,7 +6,6 @@ import java.util.*;
 import java.util.Map.Entry;
 
 import com.google.common.base.Objects;
-import com.google.common.base.Optional;
 import com.google.common.collect.*;
 
 public class HashBiTable<R, C, V> implements BiTable<R, C, V>
@@ -432,6 +431,7 @@ public class HashBiTable<R, C, V> implements BiTable<R, C, V>
 		
 		public class EntrySet extends AbstractSet<Entry<C, V>>
 		{
+			@SuppressWarnings("unused")
 			@Override
 			public int size()
 			{
@@ -735,6 +735,7 @@ public class HashBiTable<R, C, V> implements BiTable<R, C, V>
 		
 		public class EntrySet extends AbstractSet<Entry<R, V>>
 		{
+			@SuppressWarnings("unused")
 			@Override
 			public int size()
 			{

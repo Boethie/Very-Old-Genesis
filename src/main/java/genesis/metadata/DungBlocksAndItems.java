@@ -5,10 +5,8 @@ import java.util.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraftforge.common.util.EnumHelper;
 import genesis.block.*;
 import genesis.common.*;
 import genesis.item.*;
@@ -31,7 +29,7 @@ public class DungBlocksAndItems extends VariantsOfTypesCombo<ObjectType, EnumDun
 					block.setStepSound(GenesisSounds.DUNG);
 					
 					block.clearDrops();
-					block.addDrop(GenesisBlocks.dungs.DUNG, 4, 4);
+					block.addDrop(DUNG, 4, 4);
 					
 					Blocks.fire.setFireInfo(block, 5, 5);
 					

@@ -13,14 +13,12 @@ import genesis.metadata.*;
 import genesis.metadata.ItemsCeramicBowls.EnumCeramicBowls;
 import genesis.metadata.ToolItems.ToolObjectType;
 import genesis.metadata.ToolTypes.ToolType;
-import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
 import genesis.util.render.*;
 import net.minecraft.block.Block;
 import net.minecraft.init.*;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.*;
-import net.minecraft.tileentity.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
@@ -214,7 +212,7 @@ public final class GenesisRecipes
 	{
 		toolHead = toolHead.copy();
 		ItemStack toolChipped = GenesisItems.tools.getBadStack(type, material);
-		ItemStack toolGood = GenesisItems.tools.getGoodStack(type, material);
+		//ItemStack toolGood = GenesisItems.tools.getGoodStack(type, material);
 		
 		for (ItemStack billet : GenesisBlocks.trees.getSubItems(TreeBlocksAndItems.BILLET))
 		{
@@ -263,7 +261,7 @@ public final class GenesisRecipes
 		{
 			GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite),
 					GenesisItems.nodules.getStack(EnumNodule.MARCASITE),
-					GenesisItems.tools.getStack(GenesisItems.tools.PEBBLE, mat));	// Pebble
+					GenesisItems.tools.getStack(ToolItems.PEBBLE, mat));	// Pebble
 			GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite),
 					GenesisItems.nodules.getStack(EnumNodule.MARCASITE),
 					GenesisItems.nodules.getStack(EnumNodule.fromToolMaterial(mat)));	// Nodule
@@ -468,7 +466,7 @@ public final class GenesisRecipes
 		// Dung storage
 		for (EnumDung variant : EnumDung.values())
 		{
-			GameRegistry.addRecipe(GenesisBlocks.dungs.getStack(DungBlocksAndItems.DUNG_BLOCK, variant), "CC", "CC", 'C', GenesisBlocks.dungs.getStack(GenesisBlocks.dungs.DUNG, variant));
+			GameRegistry.addRecipe(GenesisBlocks.dungs.getStack(DungBlocksAndItems.DUNG_BLOCK, variant), "CC", "CC", 'C', GenesisBlocks.dungs.getStack(DungBlocksAndItems.DUNG, variant));
 		}
 		
 		// Smelting

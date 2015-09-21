@@ -6,7 +6,6 @@ import genesis.util.Constants;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.*;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiContainerCampfire extends GuiContainerBase
@@ -43,7 +42,6 @@ public class GuiContainerCampfire extends GuiContainerBase
 							containerCampfire.input, containerCampfire.fuel);
 		// Render burner fire or water overlay.
 		int burnerU = campfire.isWet() ? burnerW * 2 : burnerW;
-		int maxH = campfire.isWet() ? burnerH - 3 : burnerH - 1;
 		
 		final int burnH = campfire.getBurnTimeLeftScaled(burnerH - 1);
 		final int burnY = burnerH - burnH;

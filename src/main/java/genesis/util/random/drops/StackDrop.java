@@ -1,7 +1,5 @@
 package genesis.util.random.drops;
 
-import genesis.util.random.IntRange;
-
 import java.util.Random;
 
 import net.minecraft.block.state.IBlockState;

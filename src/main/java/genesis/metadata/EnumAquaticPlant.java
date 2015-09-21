@@ -1,8 +1,5 @@
 package genesis.metadata;
 
-import genesis.common.GenesisBlocks;
-import net.minecraft.item.Item;
-
 public enum EnumAquaticPlant implements IMetadata
 {
 	GRYPANIA("grypania"), BANGIOMORPHA("bangiomorpha"), MARPOLIA("marpolia"), MARGERETIA("margaretia"), CHANCELLORIA("chancelloria"),

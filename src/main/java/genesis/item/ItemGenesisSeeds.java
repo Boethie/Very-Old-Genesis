@@ -1,12 +1,9 @@
 package genesis.item;
 
 import genesis.common.GenesisCreativeTabs;
-import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
@@ -40,7 +37,6 @@ public class ItemGenesisSeeds extends ItemSeeds
 	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
 		BlockPos placePos = pos.offset(side);
-		IBlockState state = worldIn.getBlockState(placePos);
 		
 		if (side == EnumFacing.UP &&
 				worldIn.isAirBlock(placePos) &&

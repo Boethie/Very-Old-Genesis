@@ -13,7 +13,6 @@ import net.minecraft.block.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @SuppressWarnings("rawtypes")
 public class TreeBlocksAndItems extends VariantsOfTypesCombo<ObjectType, EnumTree>

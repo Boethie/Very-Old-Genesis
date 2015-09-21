@@ -13,21 +13,15 @@ import genesis.block.tileentity.crafting.KnappingRecipeRegistry;
 import genesis.block.tileentity.crafting.KnappingRecipeRegistry.IMaterialData;
 import genesis.block.tileentity.gui.*;
 import genesis.block.tileentity.gui.ContainerKnapper.SlotKnapping;
-import genesis.common.GenesisBlocks;
 import genesis.util.Constants;
 import genesis.util.render.ModelHelpers;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.texture.ITextureObject;
-import net.minecraft.client.renderer.texture.SimpleTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.*;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiContainerKnapper extends GuiContainerBase

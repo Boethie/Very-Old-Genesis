@@ -1,16 +1,13 @@
 package genesis.common;
 
-import genesis.common.GenesisEntityData.IntegerEntityProperty;
 import genesis.util.*;
 
 import java.util.*;
 import java.util.Map.Entry;
 
-import com.google.common.base.Function;
 import com.google.common.collect.*;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;

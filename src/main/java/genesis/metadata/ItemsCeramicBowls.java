@@ -10,7 +10,7 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import genesis.item.*;
 
-@SuppressWarnings("rawtypes")
+@SuppressWarnings({"rawtypes", "serial"})
 public class ItemsCeramicBowls extends VariantsOfTypesCombo<ObjectType, IMetadata>
 {
 	public static enum EnumCeramicBowls implements IMetadata

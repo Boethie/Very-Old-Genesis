@@ -1,7 +1,5 @@
 package genesis.util.render;
 
-import org.lwjgl.opengl.GL11;
-
 import genesis.util.EnumAxis;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.model.PositionTextureVertex;
@@ -20,7 +18,6 @@ public class ModelPlane extends CustomModelElement
 		super(part);
 		
 		Vec3 start = new Vec3(x, y, z);
-		Vec3 normal = null;
 		Vec3 localW = null;
 		Vec3 localH = null;
 		
@@ -33,12 +30,10 @@ public class ModelPlane extends CustomModelElement
 		switch (facingAxis)
 		{
 		case X:
-			normal = new Vec3(1, 0, 0);
 			localW = new Vec3(0, 0, w);
 			localH = new Vec3(0, h, 0);
 			break;
 		case Y:
-			normal = new Vec3(0, 1, 0);
 			localW = new Vec3(h, 0, 0);
 			localH = new Vec3(0, 0, w);
 			
@@ -46,7 +41,6 @@ public class ModelPlane extends CustomModelElement
 			uH = w / texH;
 			break;
 		case Z:
-			normal = new Vec3(0, 0, -1);
 			localW = new Vec3(w, 0, 0);
 			localH = new Vec3(0, h, 0);
 			break;

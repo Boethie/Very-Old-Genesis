@@ -2,9 +2,7 @@ package genesis.metadata;
 
 import java.util.*;
 
-import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
-import genesis.metadata.VariantsOfTypesCombo.ObjectNamePosition;
 import net.minecraft.block.*;
 import net.minecraft.block.state.*;
 import net.minecraft.item.*;
@@ -24,6 +22,7 @@ public class VariantsCombo<V extends IMetadata, B extends Block, I extends Item>
 	 * @param objectType The sole ObjectType that this VariantsCombo will use.
 	 * @param itemClass the Item class to initialize for each variant.
 	 */
+	@SuppressWarnings("serial")
 	public VariantsCombo(final ObjectType<B, I> objectType, List<V> variants)
 	{
 		super(new ArrayList<ObjectType<B, I>>(){{ add(objectType); }}, variants);

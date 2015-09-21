@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.block.properties.*;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class PropertyIMetadata<T extends IMetadata> extends PropertyHelper
 {
 	protected final ImmutableSet<? extends T> values;

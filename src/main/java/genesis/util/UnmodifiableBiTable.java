@@ -80,7 +80,7 @@ public class UnmodifiableBiTable<R, C, V> implements BiTable<R, C, V>
 
 	@Deprecated
 	@Override
-	public void putAll(Table table)
+	public void putAll(Table<? extends R, ? extends C, ? extends V> table)
 	{
 		throw new UnsupportedOperationException("unmodifiable");
 	}

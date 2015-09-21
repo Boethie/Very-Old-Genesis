@@ -1,12 +1,9 @@
 package genesis.entity.fixed;
 
-import genesis.common.GenesisItems;
-import genesis.util.Constants;
 import genesis.util.RandomReflection;
 import genesis.util.WorldUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

@@ -1,6 +1,5 @@
 package genesis.common;
 
-import genesis.common.GenesisEntityData.*;
 import genesis.block.*;
 import genesis.block.tileentity.*;
 import genesis.block.tileentity.render.*;
@@ -172,13 +171,13 @@ public final class GenesisBlocks
 		ores.registerVariants(OreBlocks.ORE);
 		
 		// - Full Block Woody -
-		trees.registerVariants(trees.LOG);
+		trees.registerVariants(TreeBlocksAndItems.LOG);
 		Genesis.proxy.registerBlock(calamites_bundle, "calamites_bundle");
 		Genesis.proxy.registerBlock(programinis_bundle, "programinis_bundle");
 		Genesis.proxy.registerBlock(prototaxites_mycelium, "prototaxites_mycelium");
 		
 		// - Dungs -
-		dungs.registerVariants(dungs.DUNG_BLOCK);
+		dungs.registerVariants(DungBlocksAndItems.DUNG_BLOCK);
 		
 		// --- Decorative ---
 		trees.registerAll();
@@ -264,7 +263,7 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(flower_pot, "genesis_flower_pot");
 		flower_pot.registerPlantsForPot(plants, PlantBlocks.PLANT);
 		flower_pot.registerPlantsForPot(ferns);
-		flower_pot.registerPlantsForPot(trees, trees.SAPLING);
+		flower_pot.registerPlantsForPot(trees, TreeBlocksAndItems.SAPLING);
 		flower_pot.afterAllRegistered();
 		
 		// - Mushrooms -

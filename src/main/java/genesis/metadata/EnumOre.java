@@ -1,22 +1,15 @@
 package genesis.metadata;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 import com.google.common.collect.ImmutableSet;
 
-import genesis.block.BlockGenesisOre;
-import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
-import genesis.util.Constants.Unlocalized;
 import genesis.util.random.IntRange;
 import genesis.util.random.drops.*;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public enum EnumOre implements IOreVariant
 {

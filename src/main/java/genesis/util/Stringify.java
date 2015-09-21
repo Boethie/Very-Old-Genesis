@@ -1,7 +1,5 @@
 package genesis.util;
 
-import java.util.*;
-
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.block.Block;
@@ -66,7 +64,7 @@ public class Stringify
 		}
 		else if (obj instanceof Class)
 		{
-			Class clazz = (Class)obj;
+			Class<?> clazz = (Class<?>) obj;
 			String name = clazz.getSimpleName();
 			
 			if (clazz.isAnonymousClass())

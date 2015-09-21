@@ -5,25 +5,24 @@ import java.util.*;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.*;
 
 public abstract class ContainerBase extends Container
 {
-	public static final int UI_WIDTH = 176;
-	public static final int UI_HEIGHT = 166;
+	public static final int DEFAULT_UI_WIDTH = 176;
+	public static final int DEFAULT_UI_HEIGHT = 166;
 	
 	public static final int INV_PL_H = 4;
 	public static final int INV_PL_W = 9;
-	public static final int SLOT_W = 18;
-	public static final int SLOT_H = 18;
-	public static final int BORDER_W = 4;
-	public static final int BORDER_H = 4;
 	
 	protected int playerInvStart = -1;
 	protected int playerInvEnd = -1;
 	protected int playerHotbarStart = -1;
 	protected int playerHotbarEnd = -1;
 	
+	public int borderW = 4;
+	public int borderH = 4;
+	public int slotW = 18;
+	public int slotH = 18;
 	public int separatorH = 4;
 	public int paddingX = 3;
 	public int paddingY = 3;
@@ -39,14 +38,22 @@ public abstract class ContainerBase extends Container
 	public int height;
 	public IInventory inventory;
 	
-	public ContainerBase(InventoryPlayer invPlayer, IInventory inventory, int w, int h)
+	protected ContainerBase(IInventory inventory)
 	{
 		super();
 		
 		this.inventory = inventory;
-		this.width = w;
-		this.height = h;
+	}
+	
+	public ContainerBase(InventoryPlayer invPlayer, IInventory inventory)
+	{
+		this(inventory);
 		
+		addPlayerInventory(invPlayer);
+	}
+	
+	protected void addPlayerInventory(InventoryPlayer invPlayer)
+	{
 		int posX = 0;
 		int posY = 0;
 		
@@ -83,22 +90,17 @@ public abstract class ContainerBase extends Container
 					playerInvEnd = slot.slotNumber;
 				}
 				
-				posX += SLOT_W;
+				posX += slotW;
 			}
 			
-			posX -= INV_PL_W * SLOT_W;
-			posY += SLOT_H;
+			posX -= INV_PL_W * slotW;
+			posY += slotH;
 			
 			if (iY == 0)
 			{
 				break;
 			}
 		}
-	}
-	
-	public ContainerBase(InventoryPlayer invPlayer, IInventory inventory)
-	{
-		this(invPlayer, inventory, UI_WIDTH, UI_HEIGHT);
 	}
 	
 	protected <T extends Slot> T addTopAlignedSlot(T slot)
@@ -150,10 +152,10 @@ public abstract class ContainerBase extends Container
 		
 		if (bigSlots.contains(slot))
 		{
-			return SLOT_W + 2;
+			return slotW + 2;
 		}
 		
-		return SLOT_W;
+		return slotW;
 	}
 	
 	public int getActualSlotHeight(Slot slot)
@@ -165,10 +167,10 @@ public abstract class ContainerBase extends Container
 		
 		if (bigSlots.contains(slot))
 		{
-			return SLOT_H + 2;
+			return slotH + 2;
 		}
 		
-		return SLOT_H;
+		return slotH;
 	}
 	
 	public static class UIArea
@@ -241,7 +243,7 @@ public abstract class ContainerBase extends Container
 		int right = area.right - (width / 2);
 		int maxDistH = Math.max(left, right);
 		width = Math.max(width, (maxDistH + paddingX) * 2);
-		height = Math.max(height, area.getHeight() + textH + (paddingY + BORDER_H) * 2);
+		height = Math.max(height, area.getHeight() + textH + (paddingY + borderH) * 2);
 	}
 	
 	public void moveSlots(Collection<Slot> slots, int offX, int offY)
@@ -269,12 +271,12 @@ public abstract class ContainerBase extends Container
 	{
 		UIArea topArea = getSlotsArea(topSlots);
 		UIArea playerArea = getSlotsArea(playerSlots);
-		width = Math.max(topArea.getWidth(), playerArea.getWidth()) + (paddingY + BORDER_H) * 2;
+		width = Math.max(topArea.getWidth(), playerArea.getWidth()) + (paddingY + borderH) * 2;
 		
 		centerSlotsHorizontally(topSlots);
 		centerSlotsHorizontally(playerSlots);
 		
-		positionSlotsVertically(topSlots, BORDER_H + paddingY + textH);
+		positionSlotsVertically(topSlots, borderH + paddingY + textH);
 		positionSlotsVertically(playerSlots, getSlotsArea(topSlots).bottom + textH + 4);
 		fitGUIAroundSlots(inventorySlots);
 	}

@@ -3,8 +3,6 @@ package genesis.block.tileentity.gui.render;
 import genesis.block.tileentity.TileEntityStorageBox;
 import genesis.block.tileentity.gui.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.world.IWorldNameable;
 
 public class GuiContainerStorageBox extends GuiContainerBase
 {
