@@ -630,7 +630,7 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 				return start;
 			}
 			
-			TileEntityStorageBox next = direction == null ? null : current.getBlockType().getTileEntity(current.worldObj, current.getPos().offset(direction));
+			TileEntityStorageBox next = direction == null || !current.isConnected(direction) ? null : current.getBlockType().getTileEntity(current.worldObj, current.getPos().offset(direction));
 			
 			return next != null && next.isConnected(direction.getOpposite()) ? next : null;
 		}

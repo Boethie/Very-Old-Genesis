@@ -1,16 +1,11 @@
 package genesis.block.tileentity;
 
-import java.util.List;
 import java.util.Random;
-
-import com.google.common.collect.ImmutableList;
 
 import genesis.common.Genesis;
 import genesis.common.GenesisCreativeTabs;
 import genesis.common.GenesisGuiHandler;
 import genesis.util.FacingHelpers;
-import genesis.util.BlockStateToMetadata;
-import genesis.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.*;
@@ -22,7 +17,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.EnumFacing.Axis;
-import net.minecraft.util.EnumFacing.AxisDirection;
 import net.minecraft.world.*;
 
 public class BlockStorageBox extends Block
@@ -95,15 +89,16 @@ public class BlockStorageBox extends Block
 		}
 	}
 	
-	protected void notifyNeighborsClient(World world, BlockPos pos)
+	protected void connectBoxes(World world, BlockPos pos)
 	{
-		if (world.isRemote)
+		for (EnumFacing facing : new EnumFacing[]{EnumFacing.WEST, EnumFacing.EAST, EnumFacing.NORTH, EnumFacing.SOUTH})
 		{
-			for (EnumFacing facing : EnumFacing.HORIZONTALS)
+			BlockPos notifyPos = pos.offset(facing);
+			IBlockState notifyState = world.getBlockState(notifyPos);
+			
+			if (notifyState.getBlock() == this)
 			{
-				BlockPos notifyPos = pos.offset(facing);
-				IBlockState notifyState = world.getBlockState(notifyPos);
-				notifyState.getBlock().onNeighborBlockChange(world, notifyPos, notifyState, this);
+				onNeighborBlockChange(world, notifyPos, notifyState, this);
 			}
 		}
 	}
@@ -111,10 +106,8 @@ public class BlockStorageBox extends Block
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack)
 	{
-		if (world.isRemote)
-		{	// Make the box connect to neighboring boxes ASAP.
-			notifyNeighborsClient(world, pos);
-		}
+		// Make the box connect to neighboring boxes ASAP.
+		connectBoxes(world, pos);
 		
 		if (stack.hasDisplayName())
 		{
@@ -131,13 +124,13 @@ public class BlockStorageBox extends Block
 	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest)
 	{
 		boolean out = super.removedByPlayer(world, pos, player, willHarvest);
-		notifyNeighborsClient(world, pos);
+		connectBoxes(world, pos);
 		return out;
 	}
 	
 	@Override
 	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block otherBlock)
-	{	// TODO: Investigate bug with two boxes on either side connecting to one in the middle wrong.
+	{
 		TileEntityStorageBox box = getTileEntity(world, pos);
 		Axis boxAxis = box.getAxis();
 		
@@ -169,6 +162,8 @@ public class BlockStorageBox extends Block
 						checkBox.sendOpenDirectionUpdate();
 						checkBox.sendUsersUpdate();
 					}
+					
+					checkBox.sendUpdate();
 				}
 			}
 		}
