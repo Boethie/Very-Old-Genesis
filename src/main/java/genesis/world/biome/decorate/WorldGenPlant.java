@@ -3,7 +3,7 @@ package genesis.world.biome.decorate;
 import genesis.block.BlockPlant;
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumPlant;
-import genesis.metadata.IMetadata;
+import genesis.metadata.IPlantMetadata;
 import genesis.metadata.PlantBlocks;
 import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
@@ -21,9 +21,9 @@ public class WorldGenPlant extends WorldGenDecorationBase
 {
 	protected final VariantsOfTypesCombo combo;
 	protected final ObjectType<? extends BlockPlant, ? extends Item> type;
-	protected final IMetadata variant;
+	protected final IPlantMetadata variant;
 	
-	public WorldGenPlant(VariantsOfTypesCombo combo, ObjectType<? extends BlockPlant, ? extends Item> type, IMetadata variant)
+	public WorldGenPlant(VariantsOfTypesCombo combo, ObjectType<? extends BlockPlant, ? extends Item> type, IPlantMetadata variant)
 	{
 		this.combo = combo;
 		this.type = type;

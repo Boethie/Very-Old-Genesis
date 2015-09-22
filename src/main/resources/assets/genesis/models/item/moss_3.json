@@ -1,5 +1,5 @@
 {
-    "parent": "genesis:block/moss_normal",
+    "parent": "genesis:block/moss_3",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

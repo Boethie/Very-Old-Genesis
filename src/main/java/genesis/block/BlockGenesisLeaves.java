@@ -183,7 +183,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 	
 	public boolean isConnectedToLog(World world, BlockPos pos)
 	{
-		return isConnectedToLog(owner.getVariant(world.getBlockState(pos)), world, pos, 0);
+		return isConnectedToLog((EnumTree) world.getBlockState(pos).getValue(variantProp), world, pos, 0);
 	}
 	
 	protected void checkAndDoDecay(World world, BlockPos pos)

@@ -34,7 +34,7 @@ public class BlockGenesisDoublePlant extends BlockPlant
 	
 	public static final PropertyBool TOP = PropertyBool.create("top");
 	
-	public BlockGenesisDoublePlant(List<IMetadata> variants, VariantsOfTypesCombo<ObjectType, IMetadata> owner, ObjectType type)
+	public BlockGenesisDoublePlant(List<IPlantMetadata> variants, VariantsOfTypesCombo<ObjectType, IPlantMetadata> owner, ObjectType type)
 	{
 		super(variants, owner, type);
 
@@ -120,7 +120,7 @@ public class BlockGenesisDoublePlant extends BlockPlant
 	}
 	
 	@Override
-	public boolean placeAt(World world, BlockPos bottom, IMetadata variant, int flags)
+	public boolean placeAt(World world, BlockPos bottom, IPlantMetadata variant, int flags)
 	{
 		IBlockState state = owner.getBlockState(type, variant);
 		

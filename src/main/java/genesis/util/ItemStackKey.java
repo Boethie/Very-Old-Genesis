@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class ItemStackKey
+public class ItemStackKey implements Comparable<ItemStackKey>
 {
 	protected final Item item;
 	protected final int metadata;
@@ -84,6 +84,17 @@ public class ItemStackKey
 			stack.setTagCompound((NBTTagCompound) compound.copy());
 		
 		return stack;
+	}
+	
+	@Override
+	public int compareTo(ItemStackKey other)
+	{
+		if (other == null)
+		{
+			return -1;
+		}
+		
+		return toString().compareTo(other.toString());
 	}
 	
 	@Override

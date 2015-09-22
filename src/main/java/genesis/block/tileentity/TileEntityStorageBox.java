@@ -390,7 +390,7 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 	}
 	
 	@Override
-	public Packet getDescriptionPacket()
+	public S35PacketUpdateTileEntity getDescriptionPacket()
 	{
 		NBTTagCompound compound = new NBTTagCompound();
 		writeVisualData(compound);

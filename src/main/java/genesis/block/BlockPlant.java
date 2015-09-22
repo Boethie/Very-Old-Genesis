@@ -1,11 +1,9 @@
 package genesis.block;
 
 import genesis.common.*;
-import genesis.item.ItemBlockMulti;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
-import genesis.util.Constants.Unlocalized;
 
 import java.util.*;
 
@@ -13,7 +11,6 @@ import net.minecraft.block.*;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
@@ -31,13 +28,13 @@ public class BlockPlant extends BlockBush implements IGrowable
 		return new IProperty[]{};
 	}
 	
-	public final VariantsOfTypesCombo<ObjectType, IMetadata> owner;
+	public final VariantsOfTypesCombo<ObjectType, IPlantMetadata> owner;
 	public final ObjectType type;
 	
-	public final List<IMetadata> variants;
-	public final PropertyIMetadata<IMetadata> variantProp;
+	public final List<IPlantMetadata> variants;
+	public final PropertyIMetadata<IPlantMetadata> variantProp;
 	
-	public BlockPlant(List<IMetadata> variants, VariantsOfTypesCombo<ObjectType, IMetadata> owner, ObjectType type)
+	public BlockPlant(List<IPlantMetadata> variants, VariantsOfTypesCombo<ObjectType, IPlantMetadata> owner, ObjectType type)
 	{
 		setStepSound(soundTypeGrass);
 		
@@ -50,7 +47,7 @@ public class BlockPlant extends BlockBush implements IGrowable
 		this.owner = owner;
 		this.type = type;
 		
-		variantProp = new PropertyIMetadata<IMetadata>("variant", variants);
+		variantProp = new PropertyIMetadata<IPlantMetadata>("variant", variants);
 		this.variants = variants;
 		
 		blockState = new BlockState(this, variantProp);
@@ -66,7 +63,7 @@ public class BlockPlant extends BlockBush implements IGrowable
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return owner.getItemMetadata(type, (IMetadata) state.getValue(variantProp));
+		return owner.getItemMetadata(type, (IPlantMetadata) state.getValue(variantProp));
 	}
 	
 	@Override
@@ -107,23 +104,22 @@ public class BlockPlant extends BlockBush implements IGrowable
 	}
 	
 	@Override
-	@SideOnly(Side.CLIENT)
-	public int getRenderColor(IBlockState state)
+	public int colorMultiplier(IBlockAccess world, BlockPos pos, int renderPass)
 	{
-		return useBiomeColor(state) ? ColorizerGrass.getGrassColor(0.5D, 1.0D) : super.getRenderColor(state);
+		IBlockState state = world.getBlockState(pos);
+		
+		if (state.getBlock() == this)
+		{
+			return ((IPlantMetadata) state.getValue(variantProp)).getColorMultiplier(world, pos);
+		}
+		
+		return super.colorMultiplier(world, pos, renderPass);
 	}
 	
 	@Override
-	@SideOnly(Side.CLIENT)
-	public int colorMultiplier(IBlockAccess world, BlockPos pos, int renderPass)
+	public int getRenderColor(IBlockState state)
 	{
-		return useBiomeColor(world.getBlockState(pos)) ? world.getBiomeGenForCoords(pos).getGrassColorAtPos(pos) : super.colorMultiplier(world, pos, renderPass);
-	}
-	
-	@SideOnly(Side.CLIENT)
-	protected boolean useBiomeColor(IBlockState state)
-	{
-		return owner.getVariant(state) == EnumPlant.ASTEROXYLON;
+		return ((IPlantMetadata) state.getValue(variantProp)).getRenderColor();
 	}
 	
 	@Override
@@ -141,7 +137,7 @@ public class BlockPlant extends BlockBush implements IGrowable
 	@Override
 	public void grow(World world, Random rand, BlockPos pos, IBlockState state)
 	{
-		IMetadata variant = (IMetadata) state.getValue(variantProp);
+		IPlantMetadata variant = (IPlantMetadata) state.getValue(variantProp);
 		
 		if (EnumPlant.DOUBLES.contains(variant))
 		{
@@ -155,7 +151,7 @@ public class BlockPlant extends BlockBush implements IGrowable
 		}
 	}
 	
-	public boolean placeAt(World world, BlockPos bottom, IMetadata variant, int flags)
+	public boolean placeAt(World world, BlockPos bottom, IPlantMetadata variant, int flags)
 	{
 		if (world.isAirBlock(bottom))
 		{

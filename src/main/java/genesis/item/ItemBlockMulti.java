@@ -31,13 +31,13 @@ public class ItemBlockMulti extends ItemBlock
 		
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 	}
-
+	
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List subItems)
 	{
 		super.getSubItems(item, tab, subItems);
 	}
-
+	
 	@Override
 	public int getColorFromItemStack(ItemStack stack, int renderPass)
 	{

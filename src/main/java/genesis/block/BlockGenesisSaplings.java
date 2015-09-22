@@ -102,7 +102,7 @@ public class BlockGenesisSaplings extends BlockSapling
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos)
 	{
-		return owner.getStack(type, owner.getVariant(world.getBlockState(pos)));
+		return owner.getStack(type, (EnumTree) world.getBlockState(pos).getValue(variantProp));
 	}
 	
 	@Override
@@ -111,7 +111,7 @@ public class BlockGenesisSaplings extends BlockSapling
 		WorldGenAbstractTree gen = null;
 		BlockPos[] positions = {pos};
 		
-		switch (owner.getVariant(state))
+		switch ((EnumTree) state.getValue(variantProp))
 		{
 		case ARCHAEOPTERIS:
 			gen = new WorldGenTreeArchaeopteris(15, 20, true);

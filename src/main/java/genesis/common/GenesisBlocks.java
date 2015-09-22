@@ -1,6 +1,7 @@
 package genesis.common;
 
 import genesis.block.*;
+import genesis.block.BlockGenesisFlowerPot.IFlowerPotPlant;
 import genesis.block.tileentity.*;
 import genesis.block.tileentity.render.*;
 import genesis.client.*;
@@ -11,12 +12,16 @@ import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
 import genesis.util.random.drops.*;
 
+import java.util.Collection;
 import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.*;
@@ -142,7 +147,12 @@ public final class GenesisBlocks
 	{
 		// --- Building blocks ---
 		// - Surface -
-		Genesis.proxy.registerBlock(moss, "moss", ItemBlockColored.class);
+		Genesis.proxy.registerBlock(moss, "moss", ItemMoss.class);
+		
+		for (int mossStage = 0; mossStage <= BlockMoss.STAGE_LAST; mossStage++)
+		{
+			Genesis.proxy.registerModel(moss, mossStage, "moss_" + mossStage);
+		}
 		
 		// - Stone -
 		Genesis.proxy.registerBlock(granite, "granite");
@@ -260,10 +270,11 @@ public final class GenesisBlocks
 		GenesisItems.programinis_seeds.setCrop(programinis);
 		
 		// Flower pot
-		Genesis.proxy.registerBlock(flower_pot, "genesis_flower_pot");
-		flower_pot.registerPlantsForPot(plants, PlantBlocks.PLANT);
-		flower_pot.registerPlantsForPot(ferns);
-		flower_pot.registerPlantsForPot(trees, TreeBlocksAndItems.SAPLING);
+		Genesis.proxy.registerBlock(flower_pot, "flower_pot");
+		GameRegistry.registerTileEntity(TileEntityGenesisFlowerPot.class, Constants.ASSETS_PREFIX + "flower_pot");
+		flower_pot.registerPlantsForPot(plants, PlantBlocks.PLANT, new FlowerPotComboCustoms(plants));
+		flower_pot.registerPlantsForPot(ferns, new FlowerPotComboCustoms(ferns));
+		flower_pot.registerPlantsForPot(trees, TreeBlocksAndItems.SAPLING, null);
 		flower_pot.afterAllRegistered();
 		
 		// - Mushrooms -
@@ -286,5 +297,22 @@ public final class GenesisBlocks
 		// --- Liquids ---
 		komatiitic_lava = (BlockKomatiiticLava) new BlockKomatiiticLava(GenesisFluids.KOMATIITIC_LAVA).setUnlocalizedName(Unlocalized.PREFIX + "komatiiticLava");
 		Genesis.proxy.registerFluidBlock(komatiitic_lava, "komatiitic_lava");
+	}
+	
+	public static class FlowerPotComboCustoms implements IFlowerPotPlant
+	{
+		final VariantsOfTypesCombo<?, ? extends IPlantMetadata> combo;
+		
+		public FlowerPotComboCustoms(VariantsOfTypesCombo<?, ? extends IPlantMetadata> combo)
+		{
+			this.combo = combo;
+		}
+		
+		@Override
+		public int getColorMultiplier(ItemStack contents, IBlockAccess world, BlockPos pos)
+		{
+			IPlantMetadata variant = combo.getVariant(contents);
+			return variant.getColorMultiplier(world, pos);
+		}
 	}
 }

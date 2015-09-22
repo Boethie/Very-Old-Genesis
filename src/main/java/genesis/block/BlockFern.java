@@ -3,7 +3,7 @@ package genesis.block;
 import genesis.common.GenesisSounds;
 import genesis.item.ItemBlockMulti;
 import genesis.metadata.EnumFern;
-import genesis.metadata.IMetadata;
+import genesis.metadata.IPlantMetadata;
 import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
@@ -24,6 +24,7 @@ import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class BlockFern extends BlockPlant implements IShearable
 {
 	/**
@@ -35,7 +36,7 @@ public class BlockFern extends BlockPlant implements IShearable
 		return new IProperty[]{};
 	}
 	
-	public BlockFern(List<IMetadata> variants, VariantsOfTypesCombo owner, ObjectType<BlockPlant, ItemBlockMulti> type)
+	public BlockFern(List<IPlantMetadata> variants, VariantsOfTypesCombo owner, ObjectType<BlockPlant, ItemBlockMulti> type)
 	{
 		super(variants, owner, type);
 		
@@ -75,26 +76,5 @@ public class BlockFern extends BlockPlant implements IShearable
 	public int quantityDroppedWithBonus(int fortune, Random random)
 	{
 		return 1 + random.nextInt((fortune * 2) + 1);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public int getBlockColor()
-	{
-		return ColorizerGrass.getGrassColor(0.5D, 1.0D);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public int getRenderColor(IBlockState state)
-	{
-		return getBlockColor();
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass)
-	{
-		return worldIn.getBiomeGenForCoords(pos).getGrassColorAtPos(pos);
 	}
 }

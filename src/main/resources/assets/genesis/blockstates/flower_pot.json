@@ -1,0 +1,120 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"textures": {
+			"particle": "blocks/flower_pot",
+			"flowerpot": "blocks/flower_pot",
+			"dirt": "blocks/dirt"
+		},
+		"model": "flower_pot_fern"
+	},
+    "variants": {
+		"contents": {
+			"cooksonia": {
+				"textures": {
+					"plant": "genesis:blocks/plant_cooksonia"
+				}
+			},
+			"baragwanathia": {
+				"textures": {
+					"plant": "genesis:blocks/plant_baragwanathia"
+				}
+			},
+			"sciadophyton": {
+				"textures": {
+					"plant": "genesis:blocks/plant_sciadophyton"
+				}
+			},
+			"psilophyton": {
+				"textures": {
+					"plant": "genesis:blocks/plant_psilophyton"
+				}
+			},
+			"nothia": {
+				"textures": {
+					"plant": "genesis:blocks/plant_nothia"
+				}
+			},
+			"rhynia": {
+				"textures": {
+					"plant": "genesis:blocks/plant_rhynia"
+				}
+			},
+			"archaeamphora": {
+				"textures": {
+					"plant": "genesis:blocks/plant_archaeamphora"
+				}
+			},
+			"mabelia": {
+				"textures": {
+					"plant": "genesis:blocks/plant_mabelia"
+				}
+			},
+			"palaeoaster": {
+				"textures": {
+					"plant": "genesis:blocks/plant_palaeoaster"
+				}
+			},
+			"asteroxylon": {
+				"textures": {
+					"plant": "genesis:blocks/plant_asteroxylon"
+				}
+			},
+			"zygopteris": {
+				"textures": {
+					"plant": "genesis:blocks/fern_zygopteris"
+				}
+			},
+			"phlebopteris": {
+				"textures": {
+					"plant": "genesis:blocks/fern_phlebopteris"
+				}
+			},
+			"ruffordia": {
+				"textures": {
+					"plant": "genesis:blocks/fern_ruffordia"
+				}
+			},
+			"astralopteris": {
+				"textures": {
+					"plant": "genesis:blocks/fern_astralopteris"
+				}
+			},
+			"matonidium": {
+				"textures": {
+					"plant": "genesis:blocks/fern_matonidium"
+				}
+			},
+			"archaeopteris_sapling": {
+				"textures": {
+					"plant": "genesis:blocks/sapling_archaeopteris"
+				}
+			},
+			"sigillaria_sapling": {
+				"textures": {
+					"plant": "genesis:blocks/sapling_sigillaria"
+				}
+			},
+			"lepidodendron_sapling": {
+				"textures": {
+					"plant": "genesis:blocks/sapling_lepidodendron"
+				}
+			},
+			"cordaites_sapling": {
+				"textures": {
+					"plant": "genesis:blocks/sapling_cordaites"
+				}
+			},
+			"psaronius_sapling": {
+				"textures": {
+					"plant": "genesis:blocks/sapling_psaronius"
+				}
+			},
+			"araucarioxylon_sapling": {
+				"textures": {
+					"plant": "genesis:blocks/sapling_araucarioxylon"
+				}
+			}
+		}
+    }
+}

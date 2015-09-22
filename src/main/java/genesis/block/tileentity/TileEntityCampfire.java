@@ -1,23 +1,17 @@
 package genesis.block.tileentity;
 
-import io.netty.buffer.ByteBuf;
-
 import java.util.*;
 
 import genesis.block.tileentity.crafting.CookingPotRecipeRegistry;
 import genesis.block.tileentity.crafting.CookingPotRecipeRegistry.IInventoryCookingPot;
 import genesis.block.tileentity.gui.ContainerCampfire;
 import genesis.block.tileentity.render.TileEntityCampfireRenderer;
-import genesis.common.Genesis;
-import genesis.common.GenesisBlocks;
 import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
 import genesis.util.gui.RestrictedDisabledSlot.IInventoryDisabledSlots;
 import genesis.util.random.FloatRange;
 import net.minecraft.block.*;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.*;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.*;
 import net.minecraft.init.*;
 import net.minecraft.inventory.*;
@@ -619,7 +613,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	}
 	
 	@Override
-	public Packet getDescriptionPacket()
+	public S35PacketUpdateTileEntity getDescriptionPacket()
 	{
 		NBTTagCompound compound = new NBTTagCompound();
 		compound.setInteger("burnTime", burnTime);

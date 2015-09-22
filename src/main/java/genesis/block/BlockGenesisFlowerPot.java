@@ -6,11 +6,11 @@ import org.apache.commons.lang3.tuple.*;
 
 import com.google.common.collect.*;
 
+import genesis.block.tileentity.TileEntityGenesisFlowerPot;
 import genesis.client.*;
-import genesis.common.*;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
-import genesis.util.*;
+import genesis.util.ItemStackKey;
 import net.minecraft.block.*;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
@@ -28,28 +28,32 @@ import net.minecraftforge.common.*;
 import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.fml.common.eventhandler.*;
 import net.minecraftforge.fml.common.eventhandler.Event.*;
-import net.minecraftforge.fml.relauncher.*;
 
 public class BlockGenesisFlowerPot extends BlockFlowerPot
 {
+	public static interface IFlowerPotPlant
+	{
+		public int getColorMultiplier(ItemStack contents, IBlockAccess world, BlockPos pos);
+	}
+	
 	public static class PropertyContents extends PropertyHelper
 	{
-		protected final Map<Pair<Item, Integer>, String> values;
+		protected final Map<ItemStackKey, String> values;
 		
-		public PropertyContents(String name, Map<Pair<Item, Integer>, String> values)
+		public PropertyContents(String name, Map<ItemStackKey, String> values)
 		{
 			super(name, Pair.class);
 			
 			this.values = values;
 		}
-
+		
 		@Override
-		public Collection getAllowedValues()
+		public Collection<ItemStackKey> getAllowedValues()
 		{
-			Set<Pair<Item, Integer>> keySet = values.keySet();
+			Set<ItemStackKey> keySet = values.keySet();
 			return keySet;
 		}
-
+		
 		@Override
 		public String getName(Comparable value)
 		{
@@ -57,35 +61,31 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		}
 	}
 	
-	public static final Table<Item, Integer, Pair<Item, Integer>> PAIR_MAP = HashBasedTable.create();
+	private static final Map<ItemStackKey, ItemStackKey> PAIR_MAP = Maps.newHashMap();
 	
 	/**
-	 * Used to get the same exact instance of Pair for an ItemStack pair, because BlockState$StateImplementation doesn't handle new instances for default property values in withProperty.
+	 * Used to get the same exact instance of ItemStackKey for an ItemStack, because BlockState$StateImplementation doesn't handle new instances for default property values in withProperty.
 	 */
-	public static Pair<Item, Integer> getPair(Item item, int meta)
+	public static ItemStackKey getStackKey(ItemStack stack)
 	{
-		if (PAIR_MAP.contains(item, meta))
+		if (stack == null)
 		{
-			return PAIR_MAP.get(item, meta);
+			return null;
 		}
 		
-		Pair<Item, Integer> pair = Pair.of(item, meta);
-		PAIR_MAP.put(item, meta, pair);
-		return pair;
+		ItemStackKey newKey = new ItemStackKey(stack);
+		
+		if (PAIR_MAP.containsKey(newKey))
+		{
+			return PAIR_MAP.get(newKey);
+		}
+		
+		PAIR_MAP.put(newKey, newKey);
+		return newKey;
 	}
 	
-	public static Pair<Item, Integer> getPairForStack(ItemStack stack)
-	{
-		return getPair(stack.getItem(), stack.getMetadata());
-	}
-	
-	public static ItemStack getStackFromPair(Pair<Item, Integer> pair)
-	{
-		return new ItemStack(pair.getLeft(), 1, pair.getRight());
-	}
-	
-	protected final LinkedHashMap<Pair<Item, Integer>, String> stacksToNames = new LinkedHashMap<Pair<Item, Integer>, String>();
-	protected final VanillaPotActivationHandler handler = new VanillaPotActivationHandler();
+	private final Map<ItemStackKey, String> stacksToNames = new LinkedHashMap<ItemStackKey, String>();
+	private final Map<ItemStackKey, IFlowerPotPlant> stacksToCustoms = new HashMap<ItemStackKey, IFlowerPotPlant>();
 	
 	protected PropertyContents contentsProp;
 	
@@ -93,112 +93,54 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 	{
 		super();
 		
-		MinecraftForge.EVENT_BUS.register(handler);
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 	
 	public void registerPlantForPot(ItemStack stack, String name)
 	{
-		stacksToNames.put(getPairForStack(stack), name);
+		stacksToNames.put(getStackKey(stack), name);
 	}
 	
-	public <O extends ObjectType<?, ?>, V extends IMetadata> void registerPlantsForPot(VariantsOfTypesCombo<O, V> combo, O type)
+	public String getPlantName(ItemStack stack)
 	{
-		List<V> variants = combo.getValidVariants(type);
-		
-		for (V variant : variants)
+		return stacksToNames.get(getStackKey(stack));
+	}
+	
+	public boolean isPlantRegistered(ItemStack stack)
+	{
+		return getPlantName(stack) != null;
+	}
+	
+	public void registerPlantCustoms(ItemStack stack, IFlowerPotPlant customs)
+	{
+		stacksToCustoms.put(getStackKey(stack), customs);
+	}
+	
+	public IFlowerPotPlant getPlantCustoms(ItemStack stack)
+	{
+		return stacksToCustoms.get(getStackKey(stack));
+	}
+	
+	public <O extends ObjectType<?, ?>, V extends IMetadata> void registerPlantsForPot(VariantsOfTypesCombo<O, V> combo, O type, IFlowerPotPlant customs)
+	{
+		for (V variant : combo.getValidVariants(type))
 		{
-			registerPlantForPot(combo.getStack(type, variant), type.getVariantName(variant));
+			ItemStack stack = combo.getStack(type, variant);
+			registerPlantForPot(stack, type.getVariantName(variant));
+			registerPlantCustoms(stack, customs);
 		}
 	}
 	
-	public <V extends IMetadata, B extends Block, I extends Item> void registerPlantsForPot(VariantsCombo<V, B, I> combo)
+	public <V extends IMetadata, B extends Block, I extends Item> void registerPlantsForPot(VariantsCombo<V, B, I> combo, IFlowerPotPlant customs)
 	{
-		registerPlantsForPot(combo, combo.soleType);
+		registerPlantsForPot(combo, combo.soleType, customs);
 	}
 	
-	protected class VanillaPotActivationHandler
+	public TileEntityGenesisFlowerPot createTileEntity(World world, IBlockState state)
 	{
-		@SubscribeEvent
-		public void onBlockInteracted(PlayerInteractEvent event)
-		{
-			if (event.action != PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK)
-			{
-				return;
-			}
-
-			ItemStack held = event.entityPlayer.getCurrentEquippedItem();
-			
-			if (held == null)
-			{
-				return;
-			}
-			
-			World world = event.world;
-			BlockPos pos = event.pos;
-			
-			IBlockState state = world.getBlockState(pos);
-			Block block = state.getBlock();
-			
-			if (block != Blocks.flower_pot)
-			{
-				return;
-			}
-			
-			BlockFlowerPot pot = (BlockFlowerPot) block;
-			state = pot.getActualState(state, world, pos);
-			EnumFlowerType contents = (EnumFlowerType) state.getValue(pot.CONTENTS);
-			
-			if (contents != EnumFlowerType.EMPTY)
-			{
-				return;
-			}
-			
-			if (stacksToNames.containsKey(getPairForStack(held)))
-			{
-				world.setBlockState(pos, getDefaultState());
-				
-				TileEntity te = world.getTileEntity(pos);
-				
-				if (te instanceof TileEntityFlowerPot)
-				{
-					TileEntityFlowerPot tePot = (TileEntityFlowerPot) te;
-					tePot.setFlowerPotData(held.getItem(), held.getMetadata());
-					
-					event.useBlock = Result.DENY;
-					event.useItem = Result.DENY;
-					
-					EntityPlayer player = event.entityPlayer;
-					
-					if (world.isRemote)	// We must send a packet to the server telling it that the player right clicked or else it won't place the plant in the flower pot.
-					{
-						Minecraft mc = GenesisClient.getMC();
-						EntityPlayerSP spPlayer = mc.thePlayer;
-						
-						if (spPlayer == player)
-						{
-							Vec3 hitVec = mc.objectMouseOver.hitVec;
-							hitVec = hitVec.subtract(pos.getX(), pos.getY(), pos.getZ());
-							Packet packet = new C08PacketPlayerBlockPlacement(pos, event.face.getIndex(), held, (float) hitVec.xCoord, (float) hitVec.yCoord, (float) hitVec.zCoord);
-							spPlayer.sendQueue.addToSendQueue(packet);
-							
-							spPlayer.swingItem();
-							event.setCanceled(true);
-						}
-					}
-					
-					if (!player.capabilities.isCreativeMode)
-					{
-						held.stackSize--;
-					}
-				}
-				else
-				{
-					world.setBlockState(pos, state);
-				}
-			}
-		}
+		return new TileEntityGenesisFlowerPot();
 	}
-
+	
 	/**
 	 * To be called after all plants for this pot have been registered.
 	 */
@@ -221,15 +163,26 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		return getDefaultState();
 	}
 	
-	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos)
+	public TileEntityGenesisFlowerPot getTileEntity(IBlockAccess world, BlockPos pos)
 	{
 		TileEntity te = world.getTileEntity(pos);
 		
-		if (te instanceof TileEntityFlowerPot)
+		if (te instanceof TileEntityGenesisFlowerPot)
 		{
-			TileEntityFlowerPot tePot = (TileEntityFlowerPot) te;
-			Pair<Item, Integer> key = getPair(tePot.getFlowerPotItem(), tePot.getFlowerPotData());
+			return (TileEntityGenesisFlowerPot) te;
+		}
+		
+		return null;
+	}
+	
+	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos)
+	{
+		TileEntityGenesisFlowerPot pot = getTileEntity(world, pos);
+		
+		if (pot != null)
+		{
+			ItemStackKey key = getStackKey(pot.getContents());
 			
 			if (stacksToNames.containsKey(key))
 			{
@@ -238,5 +191,101 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		}
 		
 		return state;
+	}
+	
+	@Override
+	public int colorMultiplier(IBlockAccess world, BlockPos pos, int renderPass)
+	{
+		TileEntityGenesisFlowerPot pot = getTileEntity(world, pos);
+		
+		if (pot != null)
+		{
+			IFlowerPotPlant customs = getPlantCustoms(pot.getContents());
+			
+			if (customs != null)
+			{
+				return customs.getColorMultiplier(pot.getContents(), world, pos);
+			}
+		}
+		
+		return super.colorMultiplier(world, pos, renderPass);
+	}
+	
+	@SubscribeEvent
+	public void onBlockInteracted(PlayerInteractEvent event)
+	{
+		if (event.action != PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK)
+		{
+			return;
+		}
+
+		ItemStack stack = event.entityPlayer.getCurrentEquippedItem();
+		
+		if (stack == null)
+		{
+			return;
+		}
+		
+		World world = event.world;
+		BlockPos pos = event.pos;
+		
+		IBlockState state = world.getBlockState(pos);
+		Block block = state.getBlock();
+		
+		if (block != Blocks.flower_pot)
+		{
+			return;
+		}
+		
+		state = Blocks.flower_pot.getActualState(state, world, pos);
+		EnumFlowerType contents = (EnumFlowerType) state.getValue(BlockFlowerPot.CONTENTS);
+		
+		if (contents != EnumFlowerType.EMPTY)
+		{
+			return;
+		}
+		
+		if (isPlantRegistered(stack))
+		{
+			world.setBlockState(pos, getDefaultState());
+			
+			TileEntityGenesisFlowerPot pot = getTileEntity(world, pos);
+			
+			if (pot != null)
+			{
+				pot.setContents(stack);
+				
+				event.useBlock = Result.DENY;
+				event.useItem = Result.DENY;
+				
+				EntityPlayer player = event.entityPlayer;
+				
+				if (world.isRemote)	// We must send a packet to the server telling it that the player right clicked or else it won't place the plant in the flower pot.
+				{
+					Minecraft mc = GenesisClient.getMC();
+					EntityPlayerSP spPlayer = mc.thePlayer;
+					
+					if (spPlayer == player)
+					{
+						Vec3 hitVec = mc.objectMouseOver.hitVec;
+						hitVec = hitVec.subtract(pos.getX(), pos.getY(), pos.getZ());
+						Packet packet = new C08PacketPlayerBlockPlacement(pos, event.face.getIndex(), stack, (float) hitVec.xCoord, (float) hitVec.yCoord, (float) hitVec.zCoord);
+						spPlayer.sendQueue.addToSendQueue(packet);
+						
+						spPlayer.swingItem();
+						event.setCanceled(true);
+					}
+				}
+				
+				if (!player.capabilities.isCreativeMode)
+				{
+					stack.stackSize--;
+				}
+			}
+			else
+			{
+				world.setBlockState(pos, state);
+			}
+		}
 	}
 }

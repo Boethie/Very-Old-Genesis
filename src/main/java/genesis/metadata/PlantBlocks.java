@@ -10,7 +10,7 @@ import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.Constants.Unlocalized;
 
 @SuppressWarnings("rawtypes")
-public class PlantBlocks extends VariantsOfTypesCombo<ObjectType, EnumPlant>
+public class PlantBlocks extends VariantsOfTypesCombo<ObjectType<?, ?>, EnumPlant>
 {
 	public static final ObjectType<BlockPlant, ItemBlockMulti> PLANT = new ObjectType<BlockPlant, ItemBlockMulti>("plant", Unlocalized.Section.PLANT, BlockPlant.class, ItemBlockMulti.class, EnumPlant.NO_SINGLES)
 			.setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE);
@@ -46,6 +46,16 @@ public class PlantBlocks extends VariantsOfTypesCombo<ObjectType, EnumPlant>
 	public ItemStack getDoublePlantStack(EnumPlant variant)
 	{
 		return getStack(DOUBLE_PLANT, variant, 1);
+	}
+	
+	public BlockPlant getPlantBlock(EnumPlant variant)
+	{
+		return getBlock(PLANT, variant);
+	}
+	
+	public BlockGenesisDoublePlant getDoublePlantBlock(EnumPlant variant)
+	{
+		return getBlock(DOUBLE_PLANT, variant);
 	}
 	
 	public IBlockState getPlantBlockState(EnumPlant variant)
