@@ -14,10 +14,11 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
+import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.*;
 
 @SuppressWarnings("rawtypes")
-public class BlockPlant extends BlockBush implements IGrowable
+public class BlockPlant extends BlockBush implements IGrowable, IShearable
 {
 	/**
 	 * Used in BlocksAndItemsWithVariantsOfTypes.
@@ -58,12 +59,6 @@ public class BlockPlant extends BlockBush implements IGrowable
 	protected boolean canPlaceBlockOn(Block ground)
 	{
 		return (ground == GenesisBlocks.moss) || super.canPlaceBlockOn(ground);
-	}
-	
-	@Override
-	public int damageDropped(IBlockState state)
-	{
-		return owner.getItemMetadata(type, (IPlantMetadata) state.getValue(variantProp));
 	}
 	
 	@Override
@@ -160,5 +155,35 @@ public class BlockPlant extends BlockBush implements IGrowable
 		}
 		
 		return false;
+	}
+	
+	@Override
+	public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos)
+	{
+		return ((IPlantMetadata) world.getBlockState(pos).getValue(variantProp)).isShearable(item, world, pos);
+	}
+	
+	protected ItemStack getDrop(IBlockState state)
+	{
+		return owner.getStack(type, (IPlantMetadata) state.getValue(variantProp));
+	}
+	
+	@Override
+	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune)
+	{
+		IBlockState state = world.getBlockState(pos);
+		return ((IPlantMetadata) state.getValue(variantProp)).onSheared(item, world, pos, Collections.singletonList(getDrop(state)));
+	}
+	
+	@Override
+	public boolean isReplaceable(World world, BlockPos pos)
+	{
+		return ((IPlantMetadata) world.getBlockState(pos).getValue(variantProp)).isReplaceable(world, pos);
+	}
+	
+	@Override
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
+	{
+		return ((IPlantMetadata) state.getValue(variantProp)).getDrops(world, pos, state, WorldUtils.getWorldRandom(world, RANDOM), Collections.singletonList(getDrop(state)));
 	}
 }

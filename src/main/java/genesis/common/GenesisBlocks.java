@@ -66,7 +66,6 @@ public final class GenesisBlocks
 	public static final BlockCalamites calamites = (BlockCalamites) new BlockCalamites(true, 15, 7)
 			.setGrowth(6, 1, 1, 1)
 			.setUnlocalizedName(Unlocalized.PLANT + "calamites");
-	public static final VariantsCombo<EnumFern, BlockFern, ItemBlockMulti> ferns = new VariantsCombo<EnumFern, BlockFern, ItemBlockMulti>(new ObjectType<BlockFern, ItemBlockMulti>("fern", BlockFern.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumFern.values());
 	public static final Block cobbania = new BlockCobbania().setUnlocalizedName(Unlocalized.PREFIX + "cobbania");
 	public static final VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti> aquatic_plants = new VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti>(new ObjectType<BlockAquaticPlant, ItemBlockMulti>("aquatic_plant", "aquaticPlant", BlockAquaticPlant.class, null).setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE), EnumAquaticPlant.values());
 	
@@ -231,7 +230,8 @@ public final class GenesisBlocks
 		
 		// - Plants -
 		plants.setUnlocalizedPrefix(Constants.Unlocalized.PREFIX);
-		plants.registerAll();
+		plants.registerVariants(PlantBlocks.PLANT);
+		plants.registerVariants(PlantBlocks.DOUBLE_PLANT);
 		
 		// Calamites
 		Genesis.proxy.registerBlock(calamites, "calamites", null);
@@ -241,8 +241,8 @@ public final class GenesisBlocks
 		GenesisItems.calamites.setCrop(calamites);
 		
 		// Ferns
-		ferns.setUnlocalizedPrefix(Constants.Unlocalized.PREFIX);
-		ferns.registerAll();
+		plants.registerVariants(PlantBlocks.FERN);
+		plants.registerVariants(PlantBlocks.DOUBLE_FERN);
 		
 		// - Growing Plants -
 		// Zingiberopsis
@@ -272,8 +272,20 @@ public final class GenesisBlocks
 		// Flower pot
 		Genesis.proxy.registerBlock(flower_pot, "flower_pot");
 		GameRegistry.registerTileEntity(TileEntityGenesisFlowerPot.class, Constants.ASSETS_PREFIX + "flower_pot");
-		flower_pot.registerPlantsForPot(plants, PlantBlocks.PLANT, new FlowerPotComboCustoms(plants));
-		flower_pot.registerPlantsForPot(ferns, new FlowerPotComboCustoms(ferns));
+		
+		IFlowerPotPlant plantCustoms = new IFlowerPotPlant()
+		{
+			@Override
+			public int getColorMultiplier(ItemStack contents, IBlockAccess world, BlockPos pos)
+			{
+				IPlantMetadata variant = plants.getVariant(contents);
+				return variant.getColorMultiplier(world, pos);
+			}
+		};
+		
+		flower_pot.registerPlantsForPot(plants, PlantBlocks.PLANT, plantCustoms);
+		flower_pot.registerPlantsForPot(plants, PlantBlocks.FERN, plantCustoms);
+		//flower_pot.registerPlantsForPot(ferns, plantCustoms);
 		flower_pot.registerPlantsForPot(trees, TreeBlocksAndItems.SAPLING, null);
 		flower_pot.afterAllRegistered();
 		
@@ -297,22 +309,5 @@ public final class GenesisBlocks
 		// --- Liquids ---
 		komatiitic_lava = (BlockKomatiiticLava) new BlockKomatiiticLava(GenesisFluids.KOMATIITIC_LAVA).setUnlocalizedName(Unlocalized.PREFIX + "komatiiticLava");
 		Genesis.proxy.registerFluidBlock(komatiitic_lava, "komatiitic_lava");
-	}
-	
-	public static class FlowerPotComboCustoms implements IFlowerPotPlant
-	{
-		final VariantsOfTypesCombo<?, ? extends IPlantMetadata> combo;
-		
-		public FlowerPotComboCustoms(VariantsOfTypesCombo<?, ? extends IPlantMetadata> combo)
-		{
-			this.combo = combo;
-		}
-		
-		@Override
-		public int getColorMultiplier(ItemStack contents, IBlockAccess world, BlockPos pos)
-		{
-			IPlantMetadata variant = combo.getVariant(contents);
-			return variant.getColorMultiplier(world, pos);
-		}
 	}
 }

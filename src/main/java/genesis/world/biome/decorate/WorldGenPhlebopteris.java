@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 public class WorldGenPhlebopteris extends WorldGenGrass
 {
-	private final IBlockState state = GenesisBlocks.ferns.getBlockState(EnumFern.PHLEBOPTERIS);
+	private final IBlockState state = GenesisBlocks.plants.getFernBlockState(EnumFern.PHLEBOPTERIS);
 	
 	@Override
 	public boolean generate(World world, Random random, BlockPos pos)

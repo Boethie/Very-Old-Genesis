@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 public class WorldGenZygopteris extends WorldGenGrass
 {
 
-	private final IBlockState state = GenesisBlocks.ferns.getBlockState(EnumFern.ZYGOPTERIS);
+	private final IBlockState state = GenesisBlocks.plants.getFernBlockState(EnumFern.ZYGOPTERIS);
 
 	@Override
 	public boolean generate(World world, Random random, BlockPos pos)

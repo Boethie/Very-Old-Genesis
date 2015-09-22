@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "top=false,variant=rhacophyton": { "model": "genesis:double_rhacophyton_bottom" },
+        "top=true,variant=rhacophyton": { "model": "genesis:double_rhacophyton_top" }
+    }
+}

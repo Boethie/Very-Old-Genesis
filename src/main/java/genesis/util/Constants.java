@@ -27,8 +27,11 @@ public final class Constants
 		{
 			public static final String ROCK = "rock.";
 			public static final String ORE = "ore.";
+			public static final String DOUBLE = "double.";
 			public static final String PLANT = "plant.";
-			public static final String PLANT_DOUBLE = PLANT + "double.";
+			public static final String PLANT_DOUBLE = PLANT + DOUBLE;
+			public static final String FERN = "fern.";
+			public static final String FERN_DOUBLE = FERN + DOUBLE;
 			public static final String CROP = "crop.";
 			
 			public static final String MATERIAL = "material.";
