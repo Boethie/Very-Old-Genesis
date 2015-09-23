@@ -1,6 +1,6 @@
 package genesis.world.biome.decorate;
 
-import genesis.block.BlockFern;
+import genesis.block.BlockPlant;
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumFern;
 
@@ -13,9 +13,8 @@ import net.minecraft.world.World;
 
 public class WorldGenZygopteris extends WorldGenGrass
 {
-
 	private final IBlockState state = GenesisBlocks.plants.getFernBlockState(EnumFern.ZYGOPTERIS);
-
+	
 	@Override
 	public boolean generate(World world, Random random, BlockPos pos)
 	{
@@ -30,25 +29,23 @@ public class WorldGenZygopteris extends WorldGenGrass
 			pos = pos.down();
 		}
 		while (pos.getY() > 0);
-
+		
 		for (int i = 0; i < 128; ++i)
 		{
-			BlockPos placePos = pos.add(random.nextInt(8) - random.nextInt(8), random.nextInt(4) - random.nextInt(4), random.nextInt(8)
-					- random.nextInt(8));
-
-			if (world.isAirBlock(placePos) && ((BlockFern) this.state.getBlock()).canBlockStay(world, placePos, world.getBlockState(placePos)))
+			BlockPos placePos = pos.add(random.nextInt(8) - random.nextInt(8), random.nextInt(4) - random.nextInt(4), random.nextInt(8) - random.nextInt(8));
+			
+			if (world.isAirBlock(placePos) && ((BlockPlant)this.state.getBlock()).canBlockStay(world, placePos, world.getBlockState(placePos)))
 			{
 				world.setBlockState(placePos, this.state, 2);
 			}
 		}
-
+		
 		return true;
 	}
-
+	
 	@Override
 	public IBlockState getSpawnablePlant(Random rand)
 	{
 		return state;
 	}
-
 }
