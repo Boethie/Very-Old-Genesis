@@ -1,6 +1,6 @@
 package genesis.world.biome.decorate;
 
-import genesis.block.BlockFern;
+import genesis.block.BlockPlant;
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumFern;
 
@@ -29,21 +29,20 @@ public class WorldGenPhlebopteris extends WorldGenGrass
 			pos = pos.down();
 		}
 		while (pos.getY() > 0);
-
+		
 		for (int i = 0; i < 128; ++i)
 		{
-			BlockPos placePos = pos.add(random.nextInt(8) - random.nextInt(8), random.nextInt(4) - random.nextInt(4), random.nextInt(8)
-					- random.nextInt(8));
-
-			if (world.isAirBlock(placePos) && ((BlockFern) this.state.getBlock()).canBlockStay(world, placePos, world.getBlockState(placePos)))
+			BlockPos placePos = pos.add(random.nextInt(8) - random.nextInt(8), random.nextInt(4) - random.nextInt(4), random.nextInt(8) - random.nextInt(8));
+			
+			if (world.isAirBlock(placePos) && ((BlockPlant) this.state.getBlock()).canBlockStay(world, placePos, world.getBlockState(placePos)))
 			{
 				world.setBlockState(placePos, this.state, 2);
 			}
 		}
-
+		
 		return true;
 	}
-
+	
 	@Override
 	public IBlockState getSpawnablePlant(Random rand)
 	{
