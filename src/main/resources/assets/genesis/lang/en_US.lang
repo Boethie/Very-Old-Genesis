@@ -249,6 +249,22 @@ item.genesis.tool.knife.quartz.name=Quartz Knife
 item.genesis.tool.knife.brownFlint.name=Brown Flint Knife
 item.genesis.tool.knife.blackFlint.name=Black Flint Knife
 
+item.genesis.material.toolHead.club.octaedrite.name=Octaedrite Club Head
+item.genesis.material.toolHead.club.dolerite.name=Dolerite Club Head
+item.genesis.material.toolHead.club.rhyolite.name=Rhyolite Spear Head
+item.genesis.material.toolHead.club.granite.name=Granite Club Head
+item.genesis.material.toolHead.club.quartz.name=Quartz Club Head
+item.genesis.material.toolHead.club.brownFlint.name=Brown Flint Club Head
+item.genesis.material.toolHead.club.blackFlint.name=Black Flint Club Head
+
+item.genesis.weapon.club.octaedrite.name=Octaedrite Club
+item.genesis.weapon.club.dolerite.name=Dolerite Club
+item.genesis.weapon.club.rhyolite.name=Rhyolite Club
+item.genesis.weapon.club.granite.name=Granite Club
+item.genesis.weapon.club.quartz.name=Quartz Club
+item.genesis.weapon.club.brownFlint.name=Brown Flint Club
+item.genesis.weapon.club.blackFlint.name=Black Flint Club
+
 item.genesis.material.toolHead.spear.octaedrite.name=Octaedrite Spear Head
 item.genesis.material.toolHead.spear.dolerite.name=Dolerite Spear Head
 item.genesis.material.toolHead.spear.rhyolite.name=Rhyolite Spear Head
