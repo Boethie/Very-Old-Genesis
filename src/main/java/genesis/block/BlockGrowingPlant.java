@@ -4,7 +4,7 @@ import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms.CanStayOptions;
 import genesis.common.GenesisCreativeTabs;
 import genesis.util.*;
 import genesis.util.random.*;
-import genesis.util.random.drops.BlockDrops;
+import genesis.util.random.drops.blocks.BlockDrops;
 
 import java.util.*;
 import java.util.Map.Entry;

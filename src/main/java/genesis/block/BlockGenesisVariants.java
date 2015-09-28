@@ -8,7 +8,7 @@ import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
-import genesis.util.random.drops.VariantDrop;
+import genesis.util.random.drops.blocks.VariantDrop;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.*;

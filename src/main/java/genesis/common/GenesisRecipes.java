@@ -348,6 +348,7 @@ public final class GenesisRecipes
 			ISpriteUVs sprite = getToolCraftingMaterialSprite(material);
 			
 			ItemStack stack;
+			ItemStack flake = GenesisItems.tools.getStack(ToolItems.FLAKE, material);
 			
 			// Pebble
 			if (validPebbles.contains(ToolTypes.getToolHead(material, ToolItems.PEBBLE.getSoleQuality())))
@@ -359,7 +360,7 @@ public final class GenesisRecipes
 					materials.put(material, Pair.of(stack, 1));
 					KnappingRecipeRegistry.registerMaterialData(stack,
 							15, 1, 1,
-							GenesisItems.tools.getStack(ToolItems.FLAKE, material, 1),
+							flake, 0.5F,
 							sprite);
 				}
 			}
@@ -376,7 +377,7 @@ public final class GenesisRecipes
 					materials.put(material, Pair.of(stack, 1));
 					KnappingRecipeRegistry.registerMaterialData(stack,
 							20, 1, 1,
-							GenesisItems.tools.getStack(ToolItems.FLAKE, material, 1),
+							flake, 0.5F,
 							sprite);
 				}
 			}
@@ -389,7 +390,7 @@ public final class GenesisRecipes
 				materials.put(material, Pair.of(stack, 2));
 				KnappingRecipeRegistry.registerMaterialData(stack,
 						40, 1, 2,
-						GenesisItems.tools.getStack(ToolItems.FLAKE, material, 2),
+						flake, 1,
 						sprite);
 			}
 		}

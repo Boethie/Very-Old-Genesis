@@ -1,4 +1,4 @@
-package genesis.util.random.drops;
+package genesis.util.random.drops.blocks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class BlockDrops
 	
 	public BlockDrops(ItemStack stack, int min, int max)
 	{
-		this(new StackDrop(stack, min, max));
+		this(new BlockStackDrop(stack, min, max));
 	}
 	
 	public BlockDrops(ItemStack stack, int size)

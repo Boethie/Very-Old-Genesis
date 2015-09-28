@@ -1,4 +1,4 @@
-package genesis.util.random.drops;
+package genesis.util.random.drops.blocks;
 
 import java.util.Random;
 
@@ -6,7 +6,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import genesis.util.random.*;
 
-public abstract class BlockDrop extends IntRange
+public abstract class BlockDrop implements BlockStackProvider
 {
 	protected final IntRange range;
 	
@@ -15,8 +15,19 @@ public abstract class BlockDrop extends IntRange
 		range = IntRange.create(min, max);
 	}
 	
-	public abstract ItemStack getStack(IBlockState state, int size);
-	public abstract ItemStack getStack(IBlockState state, Random rand);
+	@Override
+	@Deprecated
+	public ItemStack getStack(int size)
+	{
+		return null;
+	}
+	
+	@Deprecated
+	@Override
+	public ItemStack getStack(Random rand)
+	{
+		return null;
+	}
 	
 	@Override
 	public Integer get(Random rand)

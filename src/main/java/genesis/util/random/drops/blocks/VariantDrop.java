@@ -1,4 +1,4 @@
-package genesis.util.random.drops;
+package genesis.util.random.drops.blocks;
 
 import java.util.Random;
 
@@ -35,13 +35,13 @@ public class VariantDrop<T extends IMetadata> extends BlockDrop
 	{
 		this(combo, type, size, size);
 	}
-
+	
 	@Override
 	public ItemStack getStack(IBlockState state, int size)
 	{
 		return combo.getStack(type, combo.getVariant(state), size);
 	}
-
+	
 	@Override
 	public ItemStack getStack(IBlockState state, Random rand)
 	{

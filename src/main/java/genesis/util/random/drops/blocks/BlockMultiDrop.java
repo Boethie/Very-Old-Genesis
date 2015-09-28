@@ -1,4 +1,4 @@
-package genesis.util.random.drops;
+package genesis.util.random.drops.blocks;
 
 import java.util.List;
 import java.util.Random;

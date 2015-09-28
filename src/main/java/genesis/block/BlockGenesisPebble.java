@@ -16,7 +16,7 @@ import genesis.metadata.ToolTypes.ToolType;
 import genesis.metadata.ToolItems.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
-import genesis.util.random.drops.VariantDrop;
+import genesis.util.random.drops.blocks.VariantDrop;
 import genesis.util.render.ModelHelpers;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

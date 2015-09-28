@@ -3,6 +3,8 @@ package genesis.block.tileentity.crafting;
 import genesis.block.tileentity.TileEntityKnapper.*;
 import genesis.util.*;
 import genesis.util.random.IntRange;
+import genesis.util.random.drops.DecimalStackProvider;
+import genesis.util.random.drops.StackProvider;
 import genesis.util.render.ISpriteUVs;
 
 import java.util.*;
@@ -152,10 +154,10 @@ public class KnappingRecipeRegistry
 			protected final int destroyTime;
 			protected final IntRange countUsed;
 			protected final IntRange toolDamage;
-			protected final ItemStack waste;
+			protected final StackProvider waste;
 			protected final ISpriteUVs texture;
 			
-			public Impl(int destroyTime, IntRange countUsed, IntRange toolDamage, ItemStack waste, ISpriteUVs texture)
+			public Impl(int destroyTime, IntRange countUsed, IntRange toolDamage, StackProvider waste, ISpriteUVs texture)
 			{
 				if (countUsed == null)
 					throw new IllegalArgumentException("RandomIntRange countUsed cannot be null.");
@@ -171,7 +173,7 @@ public class KnappingRecipeRegistry
 				this.texture = texture;
 			}
 			
-			public Impl(int destroyTime, int countUsed, int toolDamage, ItemStack waste, ISpriteUVs texture)
+			public Impl(int destroyTime, int countUsed, int toolDamage, StackProvider waste, ISpriteUVs texture)
 			{
 				this(destroyTime, IntRange.create(1), IntRange.create(1), waste, texture);
 			}
@@ -197,7 +199,7 @@ public class KnappingRecipeRegistry
 			@Override
 			public ItemStack getWaste(Random rand)
 			{
-				return waste;
+				return waste.getStack(rand);
 			}
 			
 			@Override
@@ -246,17 +248,17 @@ public class KnappingRecipeRegistry
 	
 	public static void registerMaterialData(ItemStack material, IMaterialData data)
 	{
-		materialData.put(new ItemStackKey(material), data);
+		registerMaterialData(new ItemStackKey(material), data);
 	}
 	
-	public static void registerMaterialData(ItemStack material, int destroyTime, IntRange countUsed, IntRange toolDamage, ItemStack waste, ISpriteUVs texture)
+	public static void registerMaterialData(ItemStack material, int destroyTime, IntRange countUsed, IntRange toolDamage, ItemStack waste, float wasteAmount, ISpriteUVs texture)
 	{
-		registerMaterialData(material, new IMaterialData.Impl(destroyTime, countUsed, toolDamage, waste, texture));
+		registerMaterialData(material, new IMaterialData.Impl(destroyTime, countUsed, toolDamage, new DecimalStackProvider(waste, wasteAmount), texture));
 	}
 	
-	public static void registerMaterialData(ItemStack material, int destroyTime, int countUsed, int toolDamage, ItemStack waste, ISpriteUVs texture)
+	public static void registerMaterialData(ItemStack material, int destroyTime, int countUsed, int toolDamage, ItemStack waste, float wasteAmount, ISpriteUVs texture)
 	{
-		registerMaterialData(material, new IMaterialData.Impl(destroyTime, countUsed, toolDamage, waste, texture));
+		registerMaterialData(material, new IMaterialData.Impl(destroyTime, countUsed, toolDamage, new DecimalStackProvider(waste, wasteAmount), texture));
 	}
 	
 	public static void registerKnappingTool(ItemStack tool)

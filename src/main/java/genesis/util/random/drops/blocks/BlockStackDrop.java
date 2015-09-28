@@ -1,4 +1,4 @@
-package genesis.util.random.drops;
+package genesis.util.random.drops.blocks;
 
 import java.util.Random;
 
@@ -6,27 +6,27 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class StackDrop extends BlockDrop
+public class BlockStackDrop extends BlockDrop
 {
 	protected final ItemStack stack;
 	
-	public StackDrop(ItemStack stack, int min, int max)
+	public BlockStackDrop(ItemStack stack, int min, int max)
 	{
 		super(min, max);
 		this.stack = stack.copy();
 	}
 	
-	public StackDrop(Item item, int min, int max)
+	public BlockStackDrop(Item item, int min, int max)
 	{
 		this(new ItemStack(item), min, max);
 	}
 	
-	public StackDrop(ItemStack stack, int size)
+	public BlockStackDrop(ItemStack stack, int size)
 	{
 		this(stack, size, size);
 	}
 	
-	public StackDrop(Item item, int size)
+	public BlockStackDrop(Item item, int size)
 	{
 		this(item, size, size);
 	}

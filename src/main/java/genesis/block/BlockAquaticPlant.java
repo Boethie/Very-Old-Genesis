@@ -15,7 +15,7 @@ import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants;
 import genesis.util.FlexibleStateMap;
 import genesis.util.WorldUtils;
-import genesis.util.random.drops.VariantDrop;
+import genesis.util.random.drops.blocks.VariantDrop;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;

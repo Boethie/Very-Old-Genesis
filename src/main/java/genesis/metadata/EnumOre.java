@@ -8,6 +8,10 @@ import com.google.common.collect.ImmutableSet;
 import genesis.common.GenesisItems;
 import genesis.util.random.IntRange;
 import genesis.util.random.drops.*;
+import genesis.util.random.drops.blocks.BlockDrops;
+import genesis.util.random.drops.blocks.BlockMultiDrop;
+import genesis.util.random.drops.blocks.BlockStackDrop;
+import genesis.util.random.drops.blocks.VariantDrop;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 
@@ -24,8 +28,8 @@ public enum EnumOre implements IOreVariant
 	FLINT("flint", 1, 1.5F, 4.35F, IntRange.create(0, 1), 0,
 			new BlockDrops(
 				new BlockMultiDrop(
-					new StackDrop(GenesisItems.nodules.getStack(EnumNodule.BROWN_FLINT), 1),
-					new StackDrop(GenesisItems.nodules.getStack(EnumNodule.BLACK_FLINT), 1)
+					new BlockStackDrop(GenesisItems.nodules.getStack(EnumNodule.BROWN_FLINT), 1),
+					new BlockStackDrop(GenesisItems.nodules.getStack(EnumNodule.BLACK_FLINT), 1)
 				)
 			)),
 	MARCASITE("marcasite", 1, 1.5F, 4.35F, IntRange.create(0, 1), 0.05F,
