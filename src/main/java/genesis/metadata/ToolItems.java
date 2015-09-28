@@ -160,6 +160,8 @@ public class ToolItems extends VariantsOfTypesCombo<ToolObjectType, ToolType>
 	public static final ToolObjectType<Block, ItemGenesisHoe> HOE = new ToolObjectType<Block, ItemGenesisHoe>("hoe", Section.TOOL + "hoe", null, ItemGenesisHoe.class, TOOL_QUALITIES).setCreativeTab(GenesisCreativeTabs.TOOLS);
 	public static final ToolObjectType<Block, ItemToolHead> KNIFE_HEAD = new ToolObjectType<Block, ItemToolHead>("head_knife", Section.TOOL_HEAD + "knife", null, ItemToolHead.class, WEAPON_QUALITIES);
 	public static final ToolObjectType<Block, ItemGenesisKnife> KNIFE = new ToolObjectType<Block, ItemGenesisKnife>("knife", Section.TOOL + "knife", null, ItemGenesisKnife.class, WEAPON_QUALITIES).setCreativeTab(GenesisCreativeTabs.TOOLS);
+	public static final ToolObjectType<Block, ItemToolHead> CLUB_HEAD = new ToolObjectType<Block, ItemToolHead>("head_club", Section.TOOL_HEAD + "club", null, ItemToolHead.class, TOOL_QUALITIES).setCreativeTab(GenesisCreativeTabs.COMBAT);
+	public static final ToolObjectType<Block, ItemGenesisClub> CLUB = new ToolObjectType<Block, ItemGenesisClub>("club", Section.WEAPON + "club", null, ItemGenesisClub.class, TOOL_QUALITIES).setCreativeTab(GenesisCreativeTabs.COMBAT);
 	public static final ToolObjectType<Block, ItemToolHead> SPEAR_HEAD = new ToolObjectType<Block, ItemToolHead>("head_spear", Section.TOOL_HEAD + "spear", null, ItemToolHead.class, WEAPON_QUALITIES).setCreativeTab(GenesisCreativeTabs.COMBAT);
 	public static final ToolObjectType<Block, ItemGenesisSpear> SPEAR = new ToolObjectType<Block, ItemGenesisSpear>("spear", Section.WEAPON + "spear", null, ItemGenesisSpear.class, WEAPON_QUALITIES).setCreativeTab(GenesisCreativeTabs.COMBAT);
 	public static final ToolObjectType<Block, ItemToolHead> ARROW_HEAD = new ToolObjectType<Block, ItemToolHead>("head_arrow", Section.TOOL_HEAD + "arrow", null, ItemToolHead.class, WEAPON_QUALITIES).setCreativeTab(GenesisCreativeTabs.COMBAT);
@@ -167,7 +169,7 @@ public class ToolItems extends VariantsOfTypesCombo<ToolObjectType, ToolType>
 	
 	public ToolItems()
 	{
-		super(new ToolObjectType[]{PEBBLE, CHOPPING_TOOL, PICK_HEAD, PICK, AXE_HEAD, AXE, HOE_HEAD, HOE, KNIFE_HEAD, KNIFE, SPEAR_HEAD, SPEAR, ARROW_HEAD, FLAKE}, ToolTypes.getAll());
+		super(new ToolObjectType[]{PEBBLE, CHOPPING_TOOL, PICK_HEAD, PICK, AXE_HEAD, AXE, HOE_HEAD, HOE, KNIFE_HEAD, KNIFE, CLUB_HEAD, CLUB, SPEAR_HEAD, SPEAR, ARROW_HEAD, FLAKE}, ToolTypes.getAll());
 		
 		setUnlocalizedPrefix(Unlocalized.PREFIX);
 	}

@@ -100,6 +100,7 @@ tile.genesis.plant.double.asteroxylon.name=Grand Asteroxylon
 tile.genesis.plant.sphenophyllum.name=Sphenophyllum
 tile.genesis.plant.calamites.name=Calamites
 
+tile.genesis.fern.double.rhacophyton.name=Rhacophyton
 tile.genesis.fern.zygopteris.name=Zygopteris
 tile.genesis.fern.phlebopteris.name=Phlebopteris
 tile.genesis.fern.ruffordia.name=Ruffordia
@@ -246,6 +247,22 @@ item.genesis.tool.knife.granite.name=Couteau en granite
 item.genesis.tool.knife.quartz.name=Couteau en quartz
 item.genesis.tool.knife.brownFlint.name=Couteau en silex brun
 item.genesis.tool.knife.blackFlint.name=Couteau en silex noir
+
+item.genesis.material.toolHead.club.octaedrite.name=Tête de gourdin en octaédrite
+item.genesis.material.toolHead.club.dolerite.name=Tête de gourdin en dolérite
+item.genesis.material.toolHead.club.rhyolite.name=Tête de gourdin en rhyolite
+item.genesis.material.toolHead.club.granite.name=Tête de gourdin en granite
+item.genesis.material.toolHead.club.quartz.name=Tête de gourdin en quartz
+item.genesis.material.toolHead.club.brownFlint.name=Tête de gourdin en silex brun
+item.genesis.material.toolHead.club.blackFlint.name=Tête de gourdin en silex noir
+
+item.genesis.weapon.club.octaedrite.name=Gourdin en octaédrite
+item.genesis.weapon.club.dolerite.name=Gourdin en dolérite
+item.genesis.weapon.club.rhyolite.name=Gourdin en rhyolite
+item.genesis.weapon.club.granite.name=Gourdin en granite
+item.genesis.weapon.club.quartz.name=Gourdin en quartz
+item.genesis.weapon.club.brownFlint.name=Gourdin en silex brun
+item.genesis.weapon.club.blackFlint.name=Gourdin en silex noir
 
 item.genesis.material.toolHead.spear.octaedrite.name=Pointe de lance en octaédrite
 item.genesis.material.toolHead.spear.dolerite.name=Pointe de lance en dolérite

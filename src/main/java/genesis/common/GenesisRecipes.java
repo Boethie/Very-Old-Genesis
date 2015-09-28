@@ -411,6 +411,9 @@ public final class GenesisRecipes
 					" T",
 					"SB");
 			
+			ItemStack clubHead = GenesisItems.tools.getBadStack(ToolItems.CLUB_HEAD, material, 1);
+			addToolRecipe(clubHead, ToolItems.CLUB, material);
+			
 			ItemStack spearHead = GenesisItems.tools.getBadStack(ToolItems.SPEAR_HEAD, material, 1);
 			addToolRecipe(spearHead, ToolItems.SPEAR, material);
 			
@@ -451,6 +454,14 @@ public final class GenesisRecipes
 						matStack, xp,
 						true,
 						true);
+				
+				// Club
+				clubHead.stackSize = stackSize;
+				KnappingRecipeRegistry.registerRecipe(clubHead,
+						2, 2,
+						matStack, xp,
+						true,	true,
+						true,	true);
 				
 				// Spear
 				spearHead.stackSize = stackSize;
