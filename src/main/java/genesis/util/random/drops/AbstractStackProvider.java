@@ -16,6 +16,11 @@ public abstract class AbstractStackProvider implements StackProvider
 	@Override
 	public ItemStack getStack(int size)
 	{
+		if (size == 0)
+		{
+			return null;
+		}
+		
 		ItemStack out = stack.copy();
 		out.stackSize = size;
 		return out;
