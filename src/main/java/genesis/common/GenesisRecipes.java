@@ -425,6 +425,7 @@ public final class GenesisRecipes
 				float xp = 0.5F * stackSize;
 				
 				// Axe
+				axeHead = axeHead.copy();
 				axeHead.stackSize = stackSize;
 				KnappingRecipeRegistry.registerRecipe(axeHead,
 						3, 3,
@@ -434,6 +435,7 @@ public final class GenesisRecipes
 						true,	false,	false);
 				
 				// Pickaxe
+				pickHead = pickHead.copy();
 				pickHead.stackSize = stackSize;
 				KnappingRecipeRegistry.registerRecipe(pickHead,
 						3, 1,
@@ -441,6 +443,7 @@ public final class GenesisRecipes
 						true,	true,	true);
 				
 				// Hoe
+				hoeHead = hoeHead.copy();
 				hoeHead.stackSize = stackSize;
 				KnappingRecipeRegistry.registerRecipe(hoeHead,
 						3, 2,
@@ -449,6 +452,7 @@ public final class GenesisRecipes
 						false,	false,	true);
 				
 				// Knife
+				knifeHead = knifeHead.copy();
 				knifeHead.stackSize = stackSize;
 				KnappingRecipeRegistry.registerRecipe(knifeHead,
 						1, 2,
@@ -457,6 +461,7 @@ public final class GenesisRecipes
 						true);
 				
 				// Club
+				clubHead = clubHead.copy();
 				clubHead.stackSize = stackSize;
 				KnappingRecipeRegistry.registerRecipe(clubHead,
 						2, 2,
@@ -465,6 +470,7 @@ public final class GenesisRecipes
 						true,	true);
 				
 				// Spear
+				spearHead = spearHead.copy();
 				spearHead.stackSize = stackSize;
 				KnappingRecipeRegistry.registerRecipe(spearHead,
 						3, 3,
