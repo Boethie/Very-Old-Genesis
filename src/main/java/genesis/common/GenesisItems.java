@@ -68,6 +68,8 @@ public final class GenesisItems
 	public static final Item ceramic_bucket_water = new ItemGenesisBucket(Blocks.flowing_water).setUnlocalizedName(Unlocalized.MISC + "ceramicBucketWater").setContainerItem(ceramic_bucket);
 	public static final Item ceramic_bucket_milk = new ItemGenesisBucketMilk().setUnlocalizedName(Unlocalized.MISC + "ceramicBucketMilk").setContainerItem(ceramic_bucket);
 	public static Item bucket_komatiitic_lava;
+	public static final Item ancient_amber = new ItemGenesis().setUnlocalizedName(Unlocalized.MISC + "ancientAmber").setCreativeTab(GenesisCreativeTabs.MISC);
+	public static final Item fossilized_egg = new ItemGenesis().setUnlocalizedName(Unlocalized.MISC + "fossilizedEgg").setCreativeTab(GenesisCreativeTabs.MISC);
 
 	public static void registerItems()
 	{
@@ -141,5 +143,7 @@ public final class GenesisItems
 				new ItemStack(ceramic_bucket_water), new ItemStack(ceramic_bucket));
 		Genesis.proxy.registerItem(ceramic_bucket_milk, "ceramic_bucket_milk");
 		Genesis.proxy.registerItem(bucket_komatiitic_lava, "bucket_komatiitic_lava");
+		Genesis.proxy.registerItem(ancient_amber, "ancient_amber");
+		Genesis.proxy.registerItem(fossilized_egg, "fossilized_egg");
 	}
 }
