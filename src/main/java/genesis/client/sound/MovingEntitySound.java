@@ -1,7 +1,5 @@
 package genesis.client.sound;
 
-import genesis.common.GenesisSounds.RandomLoopingSound;
-import net.minecraft.client.audio.*;
 import net.minecraft.entity.*;
 import net.minecraft.util.*;
 

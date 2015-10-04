@@ -110,7 +110,6 @@ public final class GenesisSounds
 		}
 	}
 	
-	// Custom sound types
 	public static class MovingEntitySoundMessage implements IMessage
 	{
 		public ResourceLocation sound;
@@ -175,54 +174,32 @@ public final class GenesisSounds
 		}
 	}
 	
-	public static void playMovingEntitySound(ResourceLocation sound, boolean loop, Entity entity, float volume, float pitch)
+	public static void playMovingEntitySound(final ResourceLocation soundLoc, final boolean loop, final Entity entity, final float volume, final float pitch)
 	{
 		if (entity.worldObj.isRemote)
 		{
-			playSound(new MovingEntitySound(sound, loop, entity, volume, pitch));
+			Genesis.proxy.callSided(new SidedFunction()
+			{
+				@Override
+				public void client(GenesisClient client)
+				{
+					playSound(new MovingEntitySound(soundLoc, loop, entity, volume, pitch));
+				}
+			});
 		}
 		else
 		{
-			Genesis.network.sendToAllTracking(new MovingEntitySoundMessage(sound, loop, entity, volume, pitch), entity);
+			Genesis.network.sendToAllTracking(new MovingEntitySoundMessage(soundLoc, loop, entity, volume, pitch), entity);
 		}
 	}
 	
-	public static Random RANDOM = new Random();
-	
-	public static abstract class RandomLoopingSound extends MovingSound implements ITickableSound
-	{
-		protected boolean forceStop = false;
-		
-		protected RandomLoopingSound(ResourceLocation sound, boolean repeat)
-		{
-			super(sound);
-			
-			this.repeat = repeat;
-		}
-		
-		@Override
-		public boolean canRepeat()
-		{
-			return repeat && !isDonePlaying();
-		}
-		
-		@Override
-		public int getRepeatDelay()
-		{
-			if (repeat)
-			{
-				return 1;
-			}
-			
-			return 0;
-		}
-	}
-	
+	@SideOnly(Side.CLIENT)
 	public static void playSound(ISound sound)
 	{
 		Minecraft.getMinecraft().getSoundHandler().playSound(sound);
 	}
 	
+	@SideOnly(Side.CLIENT)
 	public static float getDopplerEffect(Entity entity, float strength)
 	{
 		Entity viewEntity = Minecraft.getMinecraft().getRenderViewEntity();
