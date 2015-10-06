@@ -150,6 +150,8 @@ item.genesis.misc.ceramicBucket.name=Ceramic Bucket
 item.genesis.misc.ceramicBucketWater.name=Ceramic Water Bucket
 item.genesis.misc.ceramicBucketMilk.name=Ceramic Milk Bucket
 item.genesis.misc.bucketKomatiiticLava.name=Komatiitic Lava Bucket
+item.genesis.misc.rustedOctaedriteFlake.name=Rusted Octaedrite Flake
+item.genesis.misc.brokenCeremonialAxe.name=Broken Ceremonial Axe
 item.genesis.misc.ancientAmber.name=Ancient Amber
 item.genesis.misc.fossilizedEgg.name=Fossilized Egg
 

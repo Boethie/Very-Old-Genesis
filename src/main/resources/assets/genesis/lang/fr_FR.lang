@@ -149,6 +149,8 @@ item.genesis.misc.ceramicBucket.name=Seau en céramique
 item.genesis.misc.ceramicBucketWater.name=Seau d'eau en céramique
 item.genesis.misc.ceramicBucketMilk.name=Seau de lait en céramique
 item.genesis.misc.bucketKomatiiticLava.name=Seau de lave komatiitique
+item.genesis.misc.rustedOctaedriteFlake.name=Éclat d'octaédrite rouillé
+item.genesis.misc.brokenCeremonialAxe.name=Hache d'apparat brisée
 item.genesis.misc.ancientAmber.name=Ambre ancien
 item.genesis.misc.fossilizedEgg.name= Œuf fossilisé
 
