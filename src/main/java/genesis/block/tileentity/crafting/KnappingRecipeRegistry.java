@@ -329,6 +329,10 @@ public class KnappingRecipeRegistry
 	public static void onOutputTaken(ISlotsKnapping slots, TileEntity te, EntityPlayer player)
 	{
 		IKnappingRecipe recipe = getRecipe(slots, te);
-		recipe.onOutputTaken(slots, te, player);
+		
+		if (recipe != null)
+		{
+			recipe.onOutputTaken(slots, te, player);
+		}
 	}
 }
