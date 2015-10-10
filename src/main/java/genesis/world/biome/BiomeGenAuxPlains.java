@@ -3,13 +3,14 @@ package genesis.world.biome;
 import genesis.common.GenesisBlocks;
 import genesis.metadata.DungBlocksAndItems;
 import genesis.metadata.EnumDung;
+import genesis.metadata.EnumFern;
 import genesis.world.biome.decorate.WorldGenArchaeomarasmius;
 import genesis.world.biome.decorate.WorldGenGrass;
+import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenGrowingPlant.GrowingPlantType;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPalaeoagaracites;
-import genesis.world.biome.decorate.WorldGenPhlebopteris;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
 import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
 
@@ -40,7 +41,7 @@ public class BiomeGenAuxPlains extends BiomeGenBaseGenesis
 	@Override
 	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
 	{
-		return new WorldGenPhlebopteris();
+		return new WorldGenGrassMulti(GenesisBlocks.plants.getFernBlockState(EnumFern.PHLEBOPTERIS)).setVolume(64);
 	}
 	
 	@Override

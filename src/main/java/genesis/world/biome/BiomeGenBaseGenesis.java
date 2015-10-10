@@ -2,10 +2,11 @@ package genesis.world.biome;
 
 import genesis.block.BlockMoss;
 import genesis.common.GenesisBlocks;
+import genesis.metadata.EnumFern;
 import genesis.world.biome.decorate.BiomeDecoratorGenesis;
 import genesis.world.biome.decorate.WorldGenDecorationBase;
 import genesis.world.biome.decorate.WorldGenGrass;
-import genesis.world.biome.decorate.WorldGenZygopteris;
+import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.gen.feature.WorldGenTreeBase;
 
 import java.util.ArrayList;
@@ -115,7 +116,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 	@Override
 	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
 	{
-		return new WorldGenZygopteris();
+		return new WorldGenGrassMulti(GenesisBlocks.plants.getFernBlockState(EnumFern.ZYGOPTERIS)).setVolume(64);
 	}
 	
 	private IBlockState getTopBlock(Random rand)

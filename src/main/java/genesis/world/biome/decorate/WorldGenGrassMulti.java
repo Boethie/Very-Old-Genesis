@@ -57,7 +57,7 @@ public class WorldGenGrassMulti extends WorldGenGrass
 		
 		return true;
 	}
-
+	
 	@Override
 	public IBlockState getSpawnablePlant(Random rand)
 	{

@@ -3,13 +3,10 @@ package genesis.world.biome;
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumPlant;
 import genesis.metadata.EnumTree;
-import genesis.metadata.PlantBlocks;
-import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPlant;
 import genesis.world.biome.decorate.WorldGenUnderWaterPatch;
-import genesis.world.biome.decorate.WorldGenGrowingPlant.GrowingPlantType;
 import genesis.world.gen.feature.WorldGenRottenLog;
 import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
 
@@ -29,7 +26,6 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 		
 		theBiomeDecorator.grassPerChunk = 0;
 		
-		//TODO Generate Rhacophyton Fern
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(4));
 		addDecoration(new WorldGenPlant(EnumPlant.PSILOPHYTON).setPatchSize(8).setCountPerChunk(6));
 		addDecoration(new WorldGenUnderWaterPatch(GenesisBlocks.peat.getDefaultState()).setCountPerChunk(1));
@@ -39,7 +35,13 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 		
 		addTree(new WorldGenRottenLog(3, 6, EnumTree.ARCHAEOPTERIS, true).setCanGrowInWater(true).setTreeCountPerChunk(5));
 	}
-	
+	/*
+	@Override
+	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
+	{
+		return new WorldGenGrassMulti(GenesisBlocks.plants.getFernBlockState(EnumFern.RHACOPHYTON)).setVolume(64);
+	}
+	*/
 	@Override
 	public void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
 	{
