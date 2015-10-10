@@ -2,6 +2,7 @@ package genesis.world.biome.decorate;
 
 import genesis.block.BlockPlant;
 import genesis.common.GenesisBlocks;
+import genesis.metadata.EnumFern;
 import genesis.metadata.EnumPlant;
 import genesis.metadata.IPlantMetadata;
 import genesis.metadata.PlantBlocks;
@@ -33,6 +34,11 @@ public class WorldGenPlant extends WorldGenDecorationBase
 	public WorldGenPlant(EnumPlant variant)
 	{
 		this(GenesisBlocks.plants, PlantBlocks.PLANT, variant);
+	}
+	
+	public WorldGenPlant(EnumFern variant)
+	{
+		this(GenesisBlocks.plants, PlantBlocks.DOUBLE_FERN, variant);
 	}
 	
 	@Override

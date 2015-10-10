@@ -1,6 +1,7 @@
 package genesis.world.biome;
 
 import genesis.common.GenesisBlocks;
+import genesis.metadata.EnumFern;
 import genesis.metadata.EnumPlant;
 import genesis.metadata.EnumTree;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
@@ -26,6 +27,7 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 		
 		theBiomeDecorator.grassPerChunk = 0;
 		
+		addDecoration(new WorldGenPlant(EnumFern.RHACOPHYTON).setCountPerChunk(8));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(4));
 		addDecoration(new WorldGenPlant(EnumPlant.PSILOPHYTON).setPatchSize(8).setCountPerChunk(6));
 		addDecoration(new WorldGenUnderWaterPatch(GenesisBlocks.peat.getDefaultState()).setCountPerChunk(1));
@@ -35,13 +37,7 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 		
 		addTree(new WorldGenRottenLog(3, 6, EnumTree.ARCHAEOPTERIS, true).setCanGrowInWater(true).setTreeCountPerChunk(5));
 	}
-	/*
-	@Override
-	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
-	{
-		return new WorldGenGrassMulti(GenesisBlocks.plants.getFernBlockState(EnumFern.RHACOPHYTON)).setVolume(64);
-	}
-	*/
+	
 	@Override
 	public void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
 	{
