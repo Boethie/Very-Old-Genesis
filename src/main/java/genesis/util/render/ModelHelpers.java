@@ -235,7 +235,7 @@ public class ModelHelpers
 	{
 		if (state == null)	
 		{
-			return getBakedBlockModel(getMissingModelLocation(), world, pos);
+			return getModelManager().getModel(getMissingModelLocation());
 		}
 		
 		Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
