@@ -27,7 +27,7 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 		
 		theBiomeDecorator.grassPerChunk = 0;
 		
-		addDecoration(new WorldGenPlant(EnumFern.RHACOPHYTON).setCountPerChunk(8));
+		addDecoration(new WorldGenPlant(EnumFern.RHACOPHYTON).setCountPerChunk(30));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(4));
 		addDecoration(new WorldGenPlant(EnumPlant.PSILOPHYTON).setPatchSize(8).setCountPerChunk(6));
 		addDecoration(new WorldGenUnderWaterPatch(GenesisBlocks.peat.getDefaultState()).setCountPerChunk(1));
