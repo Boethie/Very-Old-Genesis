@@ -233,6 +233,11 @@ public class ModelHelpers
 	 */
 	public static IBakedModel getBakedBlockModel(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
+		if (state == null)	
+		{
+			return getBakedBlockModel(getMissingModelLocation(), world, pos);
+		}
+		
 		Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
 		return getBlockDispatcher().getModelFromBlockState(state, world, pos);
 	}
