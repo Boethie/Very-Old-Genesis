@@ -240,7 +240,7 @@ public final class GenesisRecipes
 	public static void addRecipes()
 	{
 		FuelHandler.initialize();
-
+		
 		//torches
 		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.calamites_bundle), "CCC", "CCC", "CCC", 'C', GenesisItems.calamites);
 		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "X", "Y", 'X', Items.coal, 'Y', GenesisItems.calamites);
@@ -249,7 +249,7 @@ public final class GenesisRecipes
 		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_tall_torch, 2), "X", "Y", "Y", 'X', Items.coal, 'Y' , GenesisItems.calamites);
 		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_tall_torch, 2), "X", "Y", "Y", 'X', new ItemStack(Items.coal, 1, 1), 'Y' , GenesisItems.calamites);
 		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_tall_torch, 2), "X", "Y", "Y", 'X', GenesisItems.resin, 'Y' , GenesisItems.calamites);
-
+		
 		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.calamites, 9), GenesisBlocks.calamites_bundle);
 		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.programinis_bundle), "CCC", "CCC", "CCC", 'C', GenesisItems.programinis);
 		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.programinis, 9), GenesisBlocks.programinis_bundle);
@@ -535,6 +535,20 @@ public final class GenesisRecipes
 		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.ORANGE), mabelia, new ItemStack(Items.dye, 1, EnumDyeColor.YELLOW.getDyeDamage()));
 		
 		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.PINK), mabelia, new ItemStack(Items.dye, 1, EnumDyeColor.WHITE.getDyeDamage()));
+		
+		ItemStack[] porridgeBases = new ItemStack[]{new ItemStack(GenesisItems.programinis)};
+		
+		for (IMetadata variant : GenesisItems.bowls.getValidVariants(ItemsCeramicBowls.PORRIDGE))
+		{
+			EnumPorridge porridge = (EnumPorridge) variant;
+			ItemStack ingredient = porridge.getIngredient();
+			
+			for (ItemStack porridgeBase : porridgeBases)
+			{
+				ItemStack[] ingredients = ingredient == null ? new ItemStack[]{porridgeBase} : new ItemStack[]{porridgeBase, ingredient};
+				CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(porridge), ingredients);
+			}
+		}
 	}
 	
 	/**

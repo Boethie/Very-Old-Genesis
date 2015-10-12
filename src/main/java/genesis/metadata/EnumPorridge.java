@@ -1,30 +1,50 @@
 package genesis.metadata;
 
+import genesis.common.GenesisBlocks;
+import genesis.common.GenesisItems;
+import net.minecraft.item.ItemStack;
+
 public enum EnumPorridge implements IMetadata
 {
 	BASE("base", "", 4, 4.8F),
-	ZINGIBEROPSIS("zingiberopsis", "zingiberopsis", 5, 5.2F),
-	ODONTOPTERIS("odontopteris", "odontopteris", 6, 5.6F),
-	ARCHAEOMARASMIUS("archaeomarasmius", "archaeomarasmius", 5, 5.2F);
+	ZINGIBEROPSIS("zingiberopsis", 5, 5.2F)
+	{
+		@Override public ItemStack getIngredient()
+		{
+			return new ItemStack(GenesisItems.zingiberopsis_rhizome);
+		}
+	},
+	ODONTOPTERIS("odontopteris", 6, 5.6F)
+	{
+		@Override public ItemStack getIngredient()
+		{
+			return new ItemStack(GenesisItems.odontopteris_seeds);
+		}
+	},
+	ARCHAEOMARASMIUS("archaeomarasmius", 5, 5.2F)
+	{
+		@Override public ItemStack getIngredient()
+		{
+			return new ItemStack(GenesisBlocks.archaeomarasmius);
+		}
+	};
 	
 	final String name;
 	final String unlocalizedName;
 	final int food;
 	final float saturation;
-	final String[] ingredientNames;
 	
-	EnumPorridge(String name, String unlocalizedName, int food, float saturation, String... ingredientNames)
+	EnumPorridge(String name, String unlocalizedName, int food, float saturation)
 	{
 		this.name = name;
 		this.unlocalizedName = unlocalizedName;
 		this.food = food;
 		this.saturation = saturation;
-		this.ingredientNames = ingredientNames;
 	}
 	
-	EnumPorridge(String name, int food, float saturation, String... ingredientNames)
+	EnumPorridge(String name, int food, float saturation)
 	{
-		this(name, name, food, saturation, ingredientNames);
+		this(name, name, food, saturation);
 	}
 	
 	@Override
@@ -37,6 +57,11 @@ public enum EnumPorridge implements IMetadata
 	public String getUnlocalizedName()
 	{
 		return unlocalizedName;
+	}
+	
+	public ItemStack getIngredient()
+	{
+		return null;
 	}
 	
 	public int getFoodAmount()

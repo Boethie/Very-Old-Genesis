@@ -94,14 +94,24 @@ public class ItemsCeramicBowls extends VariantsOfTypesCombo<ObjectType, IMetadat
 	{
 		return getStack(dyeVariant, 1);
 	}
-
+	
 	public ItemStack getStack(EnumDyeColor color, int size)
 	{
 		return getStack(GenesisDye.get(color), size);
 	}
-
+	
 	public ItemStack getStack(EnumDyeColor color)
 	{
 		return getStack(color, 1);
+	}
+	
+	public ItemStack getStack(EnumPorridge porridge, int size)
+	{
+		return getStack(PORRIDGE, porridge, size);
+	}
+	
+	public ItemStack getStack(EnumPorridge porridge)
+	{
+		return getStack(porridge, 1);
 	}
 }
