@@ -6,7 +6,6 @@ import genesis.common.GenesisBlocks;
 import java.util.Random;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -17,24 +16,10 @@ public class WorldGenGrowingPlant extends WorldGenDecorationBase
 	private boolean nextToWater = false;
 	private int waterRadius = 4;
 	private int waterHeight = 2;
-	private GrowingPlantType plantType = GrowingPlantType.NORMAL;
-	
-	public enum GrowingPlantType
-	{
-		NORMAL,
-		DOUBLE,
-		COLUMN
-	}
 	
 	public WorldGenGrowingPlant(BlockGrowingPlant plant)
 	{
 		this.plant = plant;
-	}
-	
-	public WorldGenGrowingPlant setPlantType(GrowingPlantType type)
-	{
-		this.plantType = type;
-		return this;
 	}
 	
 	public WorldGenGrowingPlant setWaterProximity(int radius, int height)
@@ -103,62 +88,8 @@ public class WorldGenGrowingPlant extends WorldGenDecorationBase
 		if (!(world.getBlockState(pos).getBlock() == GenesisBlocks.moss || world.getBlockState(pos).getBlock() == Blocks.dirt))
 			return false;
 		
-		switch (plantType)
-		{
-		case DOUBLE:
-			placePlantDouble(world, pos, random);
-			break;
-		case COLUMN:
-			placePlantColumn(world, pos, random);
-			break;
-		default:
-			placePlant(world, pos, random);
-			break;
-		}
+		plant.placeRandomAgePlant(world, pos.up(), random);
 		
 		return true;
-	}
-	
-	private void placePlantDouble(World world, BlockPos pos, Random random)
-	{
-		int growth = random.nextInt(7);
-		
-		IBlockState bottom = plant.getDefaultState().withProperty(plant.ageProp, growth).withProperty(plant.topProp, false);
-		IBlockState top = plant.getDefaultState().withProperty(plant.ageProp, growth).withProperty(plant.topProp, true);
-		
-		BlockPos placePos = pos.up();
-		
-		if (world.isAirBlock(placePos) && world.isAirBlock(placePos.up()))
-		{
-			world.setBlockState(placePos, bottom, 2);
-			if (plant.getGrowthAge() <= growth)
-			{
-				world.setBlockState(placePos.up(), top, 2);
-			}
-		}
-	}
-	
-	private void placePlant(World world, BlockPos pos, Random random)
-	{
-		int growth = random.nextInt(7);
-		IBlockState bottom = plant.getDefaultState().withProperty(plant.ageProp, growth);
-		
-		BlockPos placePos = pos.up();
-		
-		if (world.isAirBlock(placePos) && world.isAirBlock(placePos.up()))
-		{
-			world.setBlockState(placePos, bottom, 2);
-		}
-	}
-	
-	private void placePlantColumn(World world, BlockPos pos, Random random)
-	{
-		int height = 1 + random.nextInt(6);
-		IBlockState plantBlock = plant.getDefaultState();
-		
-		BlockPos placePos = pos.up();
-		
-		for (int i = 0; i <= height; ++i)
-			setBlockInWorld(world, placePos.add(0, i, 0), plantBlock);
 	}
 }

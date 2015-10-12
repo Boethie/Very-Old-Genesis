@@ -42,7 +42,7 @@ public class WorldGenUndergroundColumns extends WorldGenerator
 	
 	private void generateColumn(World world, BlockPos pos, int height, int count)
 	{
-		if (count <= 0)
+		if (count < 2)
 			return;
 		
 		if (height < 0)
