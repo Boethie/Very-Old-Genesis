@@ -243,7 +243,7 @@ public class ToolItems extends VariantsOfTypesCombo<ToolObjectType, ToolType>
 	 */
 	public void addToolInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced)
 	{
-		IMetadata variant = getVariant(stack.getItem(), stack.getMetadata());
+		IMetadata variant = getVariant(stack);
 		
 		if (variant instanceof ToolType)
 		{

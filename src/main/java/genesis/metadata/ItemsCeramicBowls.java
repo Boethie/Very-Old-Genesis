@@ -45,28 +45,34 @@ public class ItemsCeramicBowls extends VariantsOfTypesCombo<ObjectType, IMetadat
 		}
 	}
 	
-	public static final ObjectType<Block, ItemCeramicBowl> MAIN = new ObjectType<Block, ItemCeramicBowl>("ceramic_bowl", "ceramicBowl", null, ItemCeramicBowl.class, GenesisDye.valueList())
+	public static final ObjectType<Block, ItemCeramicBowl> MAIN = new ObjectType<Block, ItemCeramicBowl>("ceramic_bowl", Unlocalized.Section.MATERIAL + "ceramicBowl", null, ItemCeramicBowl.class)
+			.setValidVariants(Arrays.asList(EnumCeramicBowls.values()))
 			.setNamePosition(ObjectNamePosition.PREFIX);
-	public static final ObjectType<Block, ItemMulti> DYES = new ObjectType<Block, ItemMulti>("dye", null, null)
+	public static final ObjectType<Block, ItemMulti> DYES = new ObjectType<Block, ItemMulti>("dye", Unlocalized.Section.MATERIAL + "dye", null, null)
 			.setValidVariants(GenesisDye.valueList())
+			.setNamePosition(ObjectNamePosition.PREFIX);
+	public static final ObjectType<Block, ItemPorridge> PORRIDGE = new ObjectType<Block, ItemPorridge>("porridge", Unlocalized.Section.FOOD + "porridge", null, ItemPorridge.class)
+			.setValidVariants(Arrays.asList(EnumPorridge.values()))
 			.setNamePosition(ObjectNamePosition.PREFIX);
 	
 	public static final List<ObjectType> ALL_OBJECT_TYPES = new ArrayList<ObjectType>()
 	{{
 		add(MAIN);
 		add(DYES);
+		add(PORRIDGE);
 	}};
 	public static final List<IMetadata> ALL_VARIANTS = new ArrayList<IMetadata>()
 	{{
 		addAll(Arrays.asList(EnumCeramicBowls.values()));
 		addAll(GenesisDye.valueList());
+		addAll(Arrays.asList(EnumPorridge.values()));
 	}};
 	
 	public ItemsCeramicBowls()
 	{
 		super(ALL_OBJECT_TYPES, ALL_VARIANTS);
 		
-		setUnlocalizedPrefix(Unlocalized.MATERIAL);
+		setUnlocalizedPrefix(Unlocalized.PREFIX);
 	}
 	
 	public ItemStack getStack(EnumCeramicBowls bowlVariant, int size)
