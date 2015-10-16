@@ -521,8 +521,10 @@ public final class GenesisRecipes
 		
 		ItemStack mabelia = GenesisBlocks.plants.getPlantStack(EnumPlant.MABELIA);
 		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.RED), mabelia, mabelia);
-		
 		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.ORANGE), calamites, mabelia);
+		
+		ItemStack palaeoaster = GenesisBlocks.plants.getPlantStack(EnumPlant.PALAEOASTER);
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.RED), palaeoaster, palaeoaster);
 		
 		ItemStack odontHead = new ItemStack(GenesisItems.odontopteris_fiddlehead);
 		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(GenesisDye.get(EnumDyeColor.LIME)), odontHead, odontHead);
