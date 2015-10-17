@@ -1120,7 +1120,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 				{
 					if (!breakTogether || (breakTogether && chance == -1))
 					{
-						if ((Integer) state.getValue(ageProp) >= maxAge)
+						if ((Integer) state.getValue(ageProp) < maxAge)
 						{
 							if (drops != null)
 							{

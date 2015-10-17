@@ -14,7 +14,6 @@ import genesis.util.random.drops.*;
 import genesis.util.random.drops.blocks.BlockDrops;
 import genesis.util.random.drops.blocks.BlockStackDrop;
 
-import java.util.Collection;
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -31,7 +30,7 @@ import net.minecraftforge.fml.relauncher.*;
 public final class GenesisBlocks
 {
 	public static final BlockMoss moss = (BlockMoss) new BlockMoss().setUnlocalizedName(Unlocalized.PREFIX + "moss");
-
+	
 	/* Rocks */
 	public static final Block granite = new BlockGenesisRock(2.1F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "granite");
 	public static final Block mossy_granite = new BlockGenesisRock(2.1F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "mossyGranite");
@@ -266,8 +265,8 @@ public final class GenesisBlocks
 		
 		// Programinis
 		Genesis.proxy.registerBlock(programinis, "programinis", null);
-		programinis.setDrops(new BlockDrops(GenesisItems.programinis_seeds, 1, 1));
-		programinis.setCropDrops(new BlockDrops(new BlockStackDrop(GenesisItems.programinis_seeds, 1, 3), new BlockStackDrop(GenesisItems.programinis, 1, 1)));
+		programinis.setDrops(new BlockDrops(GenesisItems.programinis_seeds, 0, 1));
+		programinis.setCropDrops(new BlockDrops(new BlockStackDrop(GenesisItems.programinis_seeds, 0, 3), new BlockStackDrop(GenesisItems.programinis, 1)));
 		programinis.setPickedItem(GenesisItems.programinis_seeds);
 		GenesisItems.programinis_seeds.setCrop(programinis);
 		
