@@ -6,6 +6,7 @@ import genesis.util.render.*;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.*;
 import net.minecraft.util.*;
@@ -105,19 +106,19 @@ public class RenderMeganeura extends RenderLiving
 			eyeRight.setRotation(eyeRot, -eyeRot, eyeRot);
 			
 			// ==== Wings ====
-			float frontOff = -0.005F;
+			float frontVOff = -0.005F;
 			// Left
 			wingBoneLeft = new EntityPart(this);
 			wingBoneLeft.setRotationPoint(0.5F, -1.5F, 0.5F);
 			
 			wingForeLeft = new EntityPart(this, 24, 0);
-			wingForeLeft.setRotationPoint(1, frontOff, 0);
-			wingForeLeft.addElement(new ModelPlane(wingForeLeft, EnumAxis.Y, -4, 0, 0, 8, 4));
+			wingForeLeft.setRotationPoint(1, frontVOff, 0);
+			wingForeLeft.addElement(new ModelPlane(wingForeLeft, EnumAxis.Y, -4, 0, 0, 13, 4));
 			wingForeLeft.setRotation(0, (float) Math.toRadians(20), 0);
 			
-			wingRearLeft = new EntityPart(this, 24, 9);
+			wingRearLeft = new EntityPart(this, 24, 14);
 			wingRearLeft.setRotationPoint(-1, 0, 0);
-			wingRearLeft.addElement(new ModelPlane(wingRearLeft, EnumAxis.Y, -4, 0, 0, 8, 4));
+			wingRearLeft.addElement(new ModelPlane(wingRearLeft, EnumAxis.Y, -4, 0, 0, 12, 4));
 			wingRearLeft.setRotation(0, (float) Math.toRadians(-5), 0);
 			
 			// Right
@@ -125,13 +126,13 @@ public class RenderMeganeura extends RenderLiving
 			wingBoneRight.setRotationPoint(0.5F, -1.5F, -0.5F);
 			
 			wingForeRight = new EntityPart(this, 32, 0);
-			wingForeRight.setRotationPoint(1, frontOff, 0);
-			wingForeRight.addElement(new ModelPlane(wingForeRight, EnumAxis.Y, -4, 0, -8, 8, 4));
+			wingForeRight.setRotationPoint(1, frontVOff, 0);
+			wingForeRight.addElement(new ModelPlane(wingForeRight, EnumAxis.Y, -4, 0, -13, 13, 4));
 			wingForeRight.setRotation(0, (float) Math.toRadians(-20), 0);
 			
-			wingRearRight = new EntityPart(this, 32, 9);
+			wingRearRight = new EntityPart(this, 32, 14);
 			wingRearRight.setRotationPoint(-1, 0, 0);
-			wingRearRight.addElement(new ModelPlane(wingRearRight, EnumAxis.Y, -4, 0, -8, 8, 4));
+			wingRearRight.addElement(new ModelPlane(wingRearRight, EnumAxis.Y, -4, 0, -12, 12, 4));
 			wingRearRight.setRotation(0, (float) Math.toRadians(5), 0);
 			
 			// ==== Legs ====
@@ -287,8 +288,10 @@ public class RenderMeganeura extends RenderLiving
 		@Override
 		public void render(Entity entity, float p1, float p2, float p3, float p4, float p5, float p6)
 		{
+			GlStateManager.enableBlend();
 			EntityMeganeura meganeura = (EntityMeganeura) entity;
 			body.render(p6);
+			GlStateManager.disableBlend();
 		}
 		
 		protected float partialTick = 0;
@@ -416,7 +419,7 @@ public class RenderMeganeura extends RenderLiving
 	@Override
 	public void doRender(EntityLiving entity, double x, double y, double z, float yaw, float partialTicks)
 	{
-		//mainModel = new Model();
+		mainModel = new Model();
 		//Minecraft.getMinecraft().getTextureManager().loadTexture(texture, new net.minecraft.client.renderer.texture.SimpleTexture(texture));
 		
 		super.doRender(entity, x, y, z, yaw, partialTicks);
