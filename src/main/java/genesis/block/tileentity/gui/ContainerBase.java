@@ -285,6 +285,65 @@ public abstract class ContainerBase extends Container
 	{
 		return slotNumber >= playerInvStart && slotNumber <= playerInvEnd;
 	}
+
+	@Override
+	protected boolean mergeItemStack(ItemStack stack, int startIndex, int endIndex, boolean useEndIndex)
+	{
+		boolean merged = false;
+		
+		// Attempt to merge into existing stacks first.
+		if (stack.isStackable())
+		{
+			for (int i = useEndIndex ? endIndex - 1 : startIndex;
+					stack.stackSize > 0 && (useEndIndex ? i >= startIndex : i < endIndex);
+					i += useEndIndex ? -1 : 1)
+			{
+				Slot slot = (Slot) inventorySlots.get(i);
+				ItemStack slotStack = slot.getStack();
+				
+				if (slotStack != null && slotStack.getItem() == stack.getItem() &&
+						(!stack.getHasSubtypes() || stack.getMetadata() == slotStack.getMetadata()) &&
+						ItemStack.areItemStackTagsEqual(stack, slotStack))
+				{
+					int newSize = Math.min(slotStack.stackSize + stack.stackSize, stack.getMaxStackSize());
+					
+					ItemStack testStack = slotStack.copy();
+					testStack.stackSize = newSize;
+					
+					if (slot.isItemValid(testStack))
+					{
+						stack.stackSize -= newSize - slotStack.stackSize;
+						slotStack.stackSize = newSize;
+						slot.onSlotChanged();
+						merged = true;
+					}
+				}
+			}
+		}
+		
+		// Then try to merge into empty slots.
+		if (stack.stackSize > 0)
+		{
+			for (int i = useEndIndex ? endIndex - 1 : startIndex;
+					useEndIndex ? i >= startIndex : i < endIndex;
+					i += useEndIndex ? -1 : 1)
+			{
+				Slot slot = (Slot) inventorySlots.get(i);
+				ItemStack slotStack = slot.getStack();
+
+				if (slotStack == null && slot.isItemValid(stack))
+				{
+					slot.putStack(stack.copy());
+					slot.onSlotChanged();
+					stack.stackSize = 0;
+					merged = true;
+					break;
+				}
+			}
+		}
+
+		return merged;
+	}
 	
 	protected boolean mergeStackToPlayerMain(ItemStack stack, boolean reverse)
 	{

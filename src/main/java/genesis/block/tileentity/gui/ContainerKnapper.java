@@ -68,6 +68,12 @@ public class ContainerKnapper extends ContainerBase
 		knappingInputSlotLocked = addTopAlignedSlot(new Slot(workbench, TileEntityKnapper.SLOT_KNAP_MATERIAL_LOCKED, knappingX + slotW, knappingY)
 		{
 			@Override
+			public int getSlotStackLimit()
+			{
+				return 1;
+			}
+			
+			@Override
 			public boolean isItemValid(ItemStack stack)
 			{
 				return false;
@@ -90,9 +96,9 @@ public class ContainerKnapper extends ContainerBase
 		knappingToolSlotDamaged = addTopAlignedSlot(new Slot(workbench, TileEntityKnapper.SLOT_KNAP_TOOL_DAMAGED, knappingX + slotW, knappingY + knappingH - slotH)
 		{
 			@Override
-			public boolean isItemValid(ItemStack stack)
+			public int getSlotStackLimit()
 			{
-				return stack.stackSize == 1;
+				return 1;
 			}
 		});
 		
