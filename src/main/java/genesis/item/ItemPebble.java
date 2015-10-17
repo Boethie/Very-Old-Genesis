@@ -35,6 +35,7 @@ public class ItemPebble extends ItemGenesis
 		this.objType = type;
 		
 		setMaxDamage(toolType.toolMaterial.getMaxUses());
+		setHasSubtypes(true);
 		setMaxStackSize(1);
 	}
 	
