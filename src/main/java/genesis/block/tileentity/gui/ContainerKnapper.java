@@ -47,6 +47,7 @@ public class ContainerKnapper extends ContainerBase
 	public final Slot knappingInputSlot;
 	public final Slot knappingInputSlotLocked;
 	public final Slot knappingToolSlot;
+	public final Slot knappingToolSlotDamaged;
 	public final SlotCrafting outputSlotMain;
 	public final Slot outputSlotWaste;
 	
@@ -59,15 +60,21 @@ public class ContainerKnapper extends ContainerBase
 		int topAreaHeight = slotH * 3;
 		int sep = 36;
 		
-		int knappingX = -sep - slotW;
-		int knappingH = slotH * 3 + 15;
+		int knappingX = -sep - (slotW * 2);
+		int knappingH = slotH * 2 + 8;
 		int knappingY = (topAreaHeight - knappingH) / 2;
 
 		knappingInputSlot = addTopAlignedSlot(new Slot(workbench, TileEntityKnapper.SLOT_KNAP_MATERIAL, knappingX, knappingY));
-		knappingInputSlotLocked = addTopAlignedSlot(new Slot(workbench, TileEntityKnapper.SLOT_KNAP_MATERIAL_LOCKED, knappingX, knappingY + (knappingH - slotH) / 2)
+		knappingInputSlotLocked = addTopAlignedSlot(new Slot(workbench, TileEntityKnapper.SLOT_KNAP_MATERIAL_LOCKED, knappingX + slotW, knappingY)
 		{
 			@Override
 			public boolean isItemValid(ItemStack stack)
+			{
+				return false;
+			}
+			
+			@Override
+			public boolean canTakeStack(EntityPlayer player)
 			{
 				return false;
 			}
@@ -78,6 +85,14 @@ public class ContainerKnapper extends ContainerBase
 			public boolean isItemValid(ItemStack stack)
 			{
 				return KnappingRecipeRegistry.isKnappingTool(stack);
+			}
+		});
+		knappingToolSlotDamaged = addTopAlignedSlot(new Slot(workbench, TileEntityKnapper.SLOT_KNAP_TOOL_DAMAGED, knappingX + slotW, knappingY + knappingH - slotH)
+		{
+			@Override
+			public boolean isItemValid(ItemStack stack)
+			{
+				return stack.stackSize == 1;
 			}
 		});
 		

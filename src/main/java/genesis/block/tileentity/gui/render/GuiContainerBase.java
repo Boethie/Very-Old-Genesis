@@ -49,7 +49,7 @@ public class GuiContainerBase extends GuiContainer
 		String displayName = namer.getDisplayName().getUnformattedText();
 		fontRendererObj.drawString(displayName, xSize / 2 - fontRendererObj.getStringWidth(displayName) / 2, 6, color);
 		
-		fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, container.getPlayerInventoryTextY(), color);
+		fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), container.getPlayerInventoryArea().left, container.getPlayerInventoryTextY(), color);
 	}
 
 	@Override

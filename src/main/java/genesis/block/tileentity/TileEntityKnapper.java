@@ -147,9 +147,10 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 	public static final int SLOT_KNAP_MATERIAL = 9;
 	public static final int SLOT_KNAP_MATERIAL_LOCKED = 10;
 	public static final int SLOT_KNAP_TOOL = 11;
-	public static final int SLOT_OUTPUT_MAIN = 12;
-	public static final int SLOT_OUTPUT_WASTE = 13;
-	public static final int SLOT_COUNT = SLOTS_CRAFTING_COUNT + 5;
+	public static final int SLOT_KNAP_TOOL_DAMAGED = 12;
+	public static final int SLOT_OUTPUT_MAIN = 13;
+	public static final int SLOT_OUTPUT_WASTE = 14;
+	public static final int SLOT_COUNT = SLOTS_CRAFTING_COUNT + 6;
 	
 	public static final IntegerEntityProperty KNAPPING_TIME = new IntegerEntityProperty("knappingTime");
 	
@@ -202,11 +203,36 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 					if (!worldObj.isRemote)
 					{
 						// Damage the knapping tool.
-						ItemStack tool = getKnappingTool();
+						ItemStack usingTool = getKnappingToolDamaged();
 						
-						if (tool != null && tool.attemptDamageItem(1, worldObj.rand))
+						if (usingTool == null)
 						{
-							setKnappingTool(null);
+							ItemStack newTool = getKnappingTool();
+							
+							if (newTool != null)
+							{
+								if (newTool.stackSize <= 0)
+								{
+									setKnappingTool(null);
+								}
+								else
+								{
+									usingTool = newTool.splitStack(1);
+									setKnappingToolDamaged(usingTool);
+									
+									if (newTool.stackSize == 0)
+									{
+										setKnappingTool(null);
+									}
+								}
+							}
+						}
+						
+						usingTool = getKnappingRecipeTool();
+						
+						if (usingTool != null && usingTool.attemptDamageItem(1, worldObj.rand))
+						{
+							setKnappingToolDamaged(null);
 							worldObj.playSoundEffect(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, Constants.ASSETS_PREFIX + "crafting.knapping_tool_break", 2, 0.8F + worldObj.rand.nextFloat() * 0.4F);
 						}
 						
@@ -314,14 +340,8 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 	@Override
 	public ItemStack getKnappingRecipeMaterial()
 	{
-		ItemStack lockedSlot = getKnappingMaterialLocked();
-		
-		if (lockedSlot != null)
-		{
-			return lockedSlot;
-		}
-		
-		return getKnappingMaterial();
+		ItemStack lockedMaterial = getKnappingMaterialLocked();
+		return lockedMaterial != null ? lockedMaterial : getKnappingMaterial();
 	}
 	
 	public ItemStack getKnappingTool()
@@ -329,15 +349,26 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		return getStackInSlot(SLOT_KNAP_TOOL);
 	}
 	
-	@Override
-	public ItemStack getKnappingRecipeTool()
-	{
-		return getKnappingTool();
-	}
-	
 	public void setKnappingTool(ItemStack stack)
 	{
 		setInventorySlotContents(SLOT_KNAP_TOOL, stack);
+	}
+	
+	public ItemStack getKnappingToolDamaged()
+	{
+		return getStackInSlot(SLOT_KNAP_TOOL_DAMAGED);
+	}
+	
+	public void setKnappingToolDamaged(ItemStack stack)
+	{
+		setInventorySlotContents(SLOT_KNAP_TOOL_DAMAGED, stack);
+	}
+	
+	@Override
+	public ItemStack getKnappingRecipeTool()
+	{
+		ItemStack damagedTool = getKnappingToolDamaged();
+		return damagedTool != null ? damagedTool : getKnappingTool();
 	}
 	
 	public ItemStack getOutputMain()
@@ -551,7 +582,7 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 			{	// Check that the index is within the crafting grid.
 				index = -1;
 			}
-			else if (!isKnappingEnabled() || knappingLocked || !KnappingRecipeRegistry.isKnappingTool(getKnappingTool()))
+			else if (!isKnappingEnabled() || knappingLocked || !KnappingRecipeRegistry.isKnappingTool(getKnappingRecipeTool()))
 			{	// Prevent knapping when the items necessary to knap aren't there.
 				index = -1;
 			}

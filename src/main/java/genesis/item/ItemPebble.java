@@ -57,7 +57,21 @@ public class ItemPebble extends ItemGenesis
 		if (!player.isSneaking() && state.getBlock().getMaterial() == Material.rock && state.getBlock().getBlockHardness(world, pos) >= 1)
 		{
 			player.swingItem();
+			
+			ItemStack undamaged = null;
+			
+			if (stack.stackSize > 1)
+			{
+				undamaged = stack.splitStack(stack.stackSize - 1);
+			}
+			
 			stack.setItemDamage(stack.getItemDamage() + 10);
+			
+			if (undamaged != null && !player.inventory.addItemStackToInventory(undamaged))
+			{
+				player.dropItem(undamaged, false, true);
+			}
+			
 			player.playSound(Constants.ASSETS_PREFIX + "crafting.pebble_hit", 2, 0.9F + world.rand.nextFloat() * 0.2F);
 			
 			// If the pebble was destroyed
@@ -147,5 +161,10 @@ public class ItemPebble extends ItemGenesis
 		}
 		
 		return false;
+	}
+	
+	public int getItemStackLimit(ItemStack stack)
+	{
+		return stack.isItemDamaged() ? 1 : 64;
 	}
 }

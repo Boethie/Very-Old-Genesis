@@ -84,16 +84,29 @@ public class GuiContainerKnapper extends GuiContainerBase
 		
 		bindTexture(KNAPPER_TEX);
 		
-		if (!containerKnapper.knappingToolSlot.getHasStack())
+		// Backgrounds
+		final int toolU = 0;
+		final int toolV = 31;
+		final int toolW = 16;
+		final int toolH = 16;
+		
+		// Tool slot
+		final Slot toolSlot = containerKnapper.knappingToolSlot;
+		
+		if (!toolSlot.getHasStack())
 		{
-			final int toolU = 0;
-			final int toolV = 31;
-			final int toolW = 16;
-			final int toolH = 16;
-			final Slot toolSlot = containerKnapper.knappingToolSlot;
 			drawTexturedModalRect(toolSlot.xDisplayPosition, toolSlot.yDisplayPosition, toolU, toolV, toolW, toolH);
 		}
 		
+		// Damaged tool slot
+		final Slot toolSlotDamaged = containerKnapper.knappingToolSlotDamaged;
+		
+		if (!toolSlotDamaged.getHasStack())
+		{
+			drawTexturedModalRect(toolSlotDamaged.xDisplayPosition, toolSlotDamaged.yDisplayPosition, toolU, toolV, toolW, toolH);
+		}
+		
+		// Output waste slot
 		if (!containerKnapper.outputSlotWaste.getHasStack())
 		{
 			final int wasteU = 16;
@@ -108,9 +121,8 @@ public class GuiContainerKnapper extends GuiContainerBase
 		{
 			leftSlots = new ImmutableList.Builder<Slot>()
 					.addAll(containerKnapper.leftCraftingSlots)
-					.add(containerKnapper.knappingInputSlot)
 					.add(containerKnapper.knappingInputSlotLocked)
-					.add(containerKnapper.knappingToolSlot)
+					.add(containerKnapper.knappingToolSlotDamaged)
 					.build();
 		}
 		
@@ -123,6 +135,7 @@ public class GuiContainerKnapper extends GuiContainerBase
 					.build();
 		}
 		
+		// Arrows
 		int arrowW = 22;
 		int arrowH = 15;
 		int arrowU = 0;
