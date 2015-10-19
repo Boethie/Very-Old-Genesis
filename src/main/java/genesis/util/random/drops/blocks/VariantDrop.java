@@ -10,20 +10,20 @@ import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 @SuppressWarnings("rawtypes")
 public class VariantDrop<T extends IMetadata> extends BlockDrop
 {
-	public static <T extends IMetadata> VariantDrop<T> create(VariantsOfTypesCombo<ObjectType, T> combo, ObjectType type, int min, int max)
+	public static <T extends IMetadata> VariantDrop<T> create(VariantsOfTypesCombo<ObjectType<?, ?>, T> combo, ObjectType type, int min, int max)
 	{
 		return new VariantDrop<T>(combo, type, min, max);
 	}
 	
-	public static <T extends IMetadata> VariantDrop<T> create(VariantsOfTypesCombo<ObjectType, T> combo, ObjectType type, int size)
+	public static <T extends IMetadata> VariantDrop<T> create(VariantsOfTypesCombo<ObjectType<?, ?>, T> combo, ObjectType type, int size)
 	{
 		return new VariantDrop<T>(combo, type, size);
 	}
 	
-	public VariantsOfTypesCombo<ObjectType, T> combo;
+	public VariantsOfTypesCombo<ObjectType<?, ?>, T> combo;
 	public ObjectType type;
 	
-	public VariantDrop(VariantsOfTypesCombo<ObjectType, T> combo, ObjectType type, int min, int max)
+	public VariantDrop(VariantsOfTypesCombo<ObjectType<?, ?>, T> combo, ObjectType type, int min, int max)
 	{
 		super(min, max);
 		
@@ -31,7 +31,7 @@ public class VariantDrop<T extends IMetadata> extends BlockDrop
 		this.type = type;
 	}
 	
-	public VariantDrop(VariantsOfTypesCombo<ObjectType, T> combo, ObjectType type, int size)
+	public VariantDrop(VariantsOfTypesCombo<ObjectType<?, ?>, T> combo, ObjectType type, int size)
 	{
 		this(combo, type, size, size);
 	}

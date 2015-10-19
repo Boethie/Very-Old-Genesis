@@ -3,11 +3,9 @@ package genesis.block;
 import java.util.*;
 
 import genesis.common.GenesisCreativeTabs;
-import genesis.item.*;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
-import genesis.util.Constants.Unlocalized;
 import genesis.util.random.drops.blocks.VariantDrop;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -22,7 +20,7 @@ import net.minecraft.world.*;
 public class BlockGenesisVariants<V extends IMetadata> extends Block
 {
 	/**
-	 * Used in BlocksAndItemsWithVariantsOfTypes.
+	 * Used in {@link #VariantsOfTypesCombo}.
 	 */
 	@BlockProperties
 	public static IProperty[] getProperties()
@@ -30,7 +28,7 @@ public class BlockGenesisVariants<V extends IMetadata> extends Block
 		return new IProperty[]{};
 	}
 	
-	public final VariantsOfTypesCombo<ObjectType<? extends BlockGenesisVariants, ? extends Item>, V> owner;
+	public final VariantsOfTypesCombo<ObjectType<?, ?>, V> owner;
 	public final ObjectType<? extends BlockGenesisVariants, ? extends Item> type;
 	
 	public final List<V> variants;
@@ -40,7 +38,7 @@ public class BlockGenesisVariants<V extends IMetadata> extends Block
 	
 	protected final List<VariantDrop> drops = new ArrayList<VariantDrop>();
 	
-	public BlockGenesisVariants(List<V> variants, VariantsOfTypesCombo<ObjectType<? extends BlockGenesisVariants, ? extends Item>, V> owner, ObjectType<? extends BlockGenesisVariants, ? extends Item> type, Material material)
+	public BlockGenesisVariants(List<V> variants, VariantsOfTypesCombo<ObjectType<?, ?>, V> owner, ObjectType<? extends BlockGenesisVariants, ? extends Item> type, Material material)
 	{
 		super(material);
 		
@@ -85,7 +83,7 @@ public class BlockGenesisVariants<V extends IMetadata> extends Block
 	}
 	
 	@Override
-	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
+	public void getSubBlocks(Item item, CreativeTabs tab, List list)
 	{
 		owner.fillSubItems(type, variants, list);
 	}
@@ -104,9 +102,9 @@ public class BlockGenesisVariants<V extends IMetadata> extends Block
 		return this;
 	}
 	
-	public BlockGenesisVariants<V> addDrop(ObjectType type, int min, int max)
+	public BlockGenesisVariants<V> addDrop(ObjectType<?, ?> type, int min, int max)
 	{
-		return addDrop(new VariantDrop(owner, type, min, max));
+		return addDrop(new VariantDrop<V>(owner, type, min, max));
 	}
 	
 	public BlockGenesisVariants<V> addDrop(ObjectType type)

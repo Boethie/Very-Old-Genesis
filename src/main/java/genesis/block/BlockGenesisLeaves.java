@@ -93,7 +93,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 	@Override
 	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune)
 	{
-		ArrayList<ItemStack> drops = new ArrayList();
+		ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
 		drops.add(owner.getStack(type, (EnumTree) world.getBlockState(pos).getValue(variantProp)));
 		return drops;
 	}
@@ -129,7 +129,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
 	{
 		IBlockState state = getDefaultState();
-		state = state.withProperty(variantProp, (Comparable) owner.getVariant(this, meta));
+		state = state.withProperty(variantProp, (Comparable<?>) owner.getVariant(this, meta));
 		state = state.withProperty(DECAYABLE, false).withProperty(CHECK_DECAY, false);
 		return state;
 	}

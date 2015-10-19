@@ -239,11 +239,6 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		return worldObj.getRainStrength(1) >= 0.9F && worldObj.canLightningStrike(pos.up());
 	}
 	
-	protected void sendDescriptionPacket()
-	{
-		worldObj.markBlockForUpdate(pos);
-	}
-	
 	public void setWaterAround(boolean water)
 	{
 		waterAround = water;
@@ -521,7 +516,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	public void setInventorySlotContents(int slot, ItemStack stack)
 	{
 		inventory[slot] = stack;
-		worldObj.markBlockForUpdate(pos);
+		sendDescriptionPacket();
 	}
 	
 	@Override
@@ -610,6 +605,11 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	public String getCommandSenderName()
 	{
 		return hasCustomName() ? customName : Unlocalized.CONTAINER_UI + "campfire";
+	}
+	
+	protected void sendDescriptionPacket()
+	{
+		worldObj.markBlockForUpdate(pos);
 	}
 	
 	@Override

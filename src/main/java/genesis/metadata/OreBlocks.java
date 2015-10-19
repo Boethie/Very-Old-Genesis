@@ -10,7 +10,7 @@ import genesis.util.Constants;
 import genesis.util.Constants.Unlocalized;
 
 @SuppressWarnings("rawtypes")
-public class OreBlocks extends VariantsOfTypesCombo<ObjectType, EnumOre>
+public class OreBlocks extends VariantsOfTypesCombo<ObjectType<?, ?>, EnumOre>
 {
 	public static final ObjectType<BlockMultiOre, ItemBlockMulti> ORE = new ObjectType<BlockMultiOre, ItemBlockMulti>("ore", BlockMultiOre.class, ItemBlockMulti.class);
 	public static final ObjectType<Block, ItemMulti> DROP = new ObjectType<Block, ItemMulti>("ore_drop", Unlocalized.Section.MATERIAL, null, ItemMulti.class, EnumOre.noDrops)
