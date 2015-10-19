@@ -3,6 +3,7 @@ package genesis.common;
 import genesis.block.*;
 import genesis.block.BlockGenesisFlowerPot.IFlowerPotPlant;
 import genesis.block.tileentity.*;
+import genesis.block.tileentity.portal.*;
 import genesis.block.tileentity.render.*;
 import genesis.client.*;
 import genesis.item.*;
@@ -10,7 +11,6 @@ import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
-import genesis.util.random.drops.*;
 import genesis.util.random.drops.blocks.BlockDrops;
 import genesis.util.random.drops.blocks.BlockStackDrop;
 
@@ -29,6 +29,16 @@ import net.minecraftforge.fml.relauncher.*;
 
 public final class GenesisBlocks
 {
+	/* Portal */
+	public static final VariantsCombo<EnumMenhirPart, BlockMenhir, ItemBlockMulti> menhirs =
+			new VariantsCombo<EnumMenhirPart, BlockMenhir, ItemBlockMulti>(
+					new ObjectType<BlockMenhir, ItemBlockMulti>("menhir", Unlocalized.PREFIX + "menhir", BlockMenhir.class, ItemBlockMulti.class)
+							.setUseSeparateVariantJsons(false),
+					EnumMenhirPart.values()
+			);
+	public static final Block portal = null;
+	
+	/* Moss */
 	public static final BlockMoss moss = (BlockMoss) new BlockMoss().setUnlocalizedName(Unlocalized.PREFIX + "moss");
 	
 	/* Rocks */
@@ -190,6 +200,10 @@ public final class GenesisBlocks
 		dungs.registerVariants(DungBlocksAndItems.DUNG_BLOCK);
 		
 		// --- Decorative ---
+		menhirs.registerAll();
+		GameRegistry.registerTileEntity(TileEntityMenhirGlyph.class, Constants.ASSETS_PREFIX + "menhir_glyph");
+		GameRegistry.registerTileEntity(TileEntityMenhirReceptacle.class, Constants.ASSETS_PREFIX + "menhir_receptacle");
+		
 		trees.registerAll();
 		
 		// - Containers -

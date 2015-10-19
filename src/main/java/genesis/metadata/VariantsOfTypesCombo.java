@@ -736,13 +736,16 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	protected IProperty getVariantProperty(Block block)
 	{
 		IProperty prop = null;
-		
-		for (IProperty curProp : (Collection<IProperty>) block.getBlockState().getProperties())
+
+		if (getSubsetData(block) != null)
 		{
-			if ("variant".equals(curProp.getName()))
+			for (IProperty curProp : (Collection<IProperty>) block.getBlockState().getProperties())
 			{
-				prop = curProp;
-				break;
+				if ("variant".equals(curProp.getName()))
+				{
+					prop = curProp;
+					break;
+				}
 			}
 		}
 		

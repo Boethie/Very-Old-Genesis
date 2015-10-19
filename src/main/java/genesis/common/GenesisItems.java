@@ -1,5 +1,6 @@
 package genesis.common;
 
+import genesis.block.tileentity.portal.BlockMenhir;
 import genesis.entity.fixed.EntityMeganeuraEgg;
 import genesis.item.*;
 import genesis.metadata.*;
@@ -68,11 +69,15 @@ public final class GenesisItems
 	public static final Item ceramic_bucket_water = new ItemGenesisBucket(Blocks.flowing_water).setUnlocalizedName(Unlocalized.MISC + "ceramicBucketWater").setContainerItem(ceramic_bucket);
 	public static final Item ceramic_bucket_milk = new ItemGenesisBucketMilk().setUnlocalizedName(Unlocalized.MISC + "ceramicBucketMilk").setContainerItem(ceramic_bucket);
 	public static Item bucket_komatiitic_lava;
-	public static final Item rusted_octaedrite_flake = new ItemGenesis().setUnlocalizedName(Unlocalized.MISC + "rustedOctaedriteFlake").setCreativeTab(GenesisCreativeTabs.MISC);
-	public static final Item broken_ceremonial_axe = new ItemGenesis().setUnlocalizedName(Unlocalized.MISC + "brokenCeremonialAxe").setCreativeTab(GenesisCreativeTabs.MISC);
-	public static final Item ancient_amber = new ItemGenesis().setUnlocalizedName(Unlocalized.MISC + "ancientAmber").setCreativeTab(GenesisCreativeTabs.MISC);
-	public static final Item fossilized_egg = new ItemGenesis().setUnlocalizedName(Unlocalized.MISC + "fossilizedEgg").setCreativeTab(GenesisCreativeTabs.MISC);
 
+	public static final VariantsCombo<EnumMenhirActivator, Block, ItemMulti> menhir_activators =
+			new VariantsCombo<EnumMenhirActivator, Block, ItemMulti>(
+					new ObjectType<Block, ItemMulti>("menhir_activator", Unlocalized.MISC + "menhirActivator", null, ItemMulti.class)
+							.setCreativeTab(GenesisCreativeTabs.MISC)
+							.setResourceName(""),
+					EnumMenhirActivator.values()
+			);
+	
 	public static void registerItems()
 	{
 		// --- Materials ---
@@ -145,9 +150,7 @@ public final class GenesisItems
 				new ItemStack(ceramic_bucket_water), new ItemStack(ceramic_bucket));
 		Genesis.proxy.registerItem(ceramic_bucket_milk, "ceramic_bucket_milk");
 		Genesis.proxy.registerItem(bucket_komatiitic_lava, "bucket_komatiitic_lava");
-		Genesis.proxy.registerItem(rusted_octaedrite_flake, "rusted_octaedrite_flake");
-		Genesis.proxy.registerItem(broken_ceremonial_axe, "broken_ceremonial_axe");
-		Genesis.proxy.registerItem(ancient_amber, "ancient_amber");
-		Genesis.proxy.registerItem(fossilized_egg, "fossilized_egg");
+		
+		menhir_activators.registerAll();
 	}
 }

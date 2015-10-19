@@ -1,0 +1,61 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"textures": {
+			"glyph_side": "genesis:blocks/granite",
+			"glyph_front": "genesis:blocks/granite",
+			"receptacle_front": "genesis:blocks/granite",
+			"receptacle_hole": "genesis:blocks/granite",
+			"receptacle_side": "genesis:blocks/granite",
+			"top_side": "genesis:blocks/granite",
+			"top_front": "genesis:blocks/granite"
+		}
+	},
+    "variants": {
+		"variant": {
+			"glyph": {
+				"model": "genesis:portal/menhir_glyph"
+			},
+			"receptacle": {
+				"model": "genesis:portal/menhir_receptacle"
+			},
+			"top": {
+				"model": "genesis:portal/menhir_top"
+			}
+		},
+		"facing": {
+			"west": {"y": 0},
+			"north": {"y": 90},
+			"east": {"y": 180},
+			"south": {"y": 270}
+		},
+		"glyph": {
+			"none": {
+			},
+			"vegetal": {
+				"textures": {
+					"glyph_front": "genesis:blocks/portal/glyph_vegetal"
+				}
+			},
+			"animal": {
+				"textures": {
+					"glyph_front": "genesis:blocks/portal/glyph_animal"
+				}
+			},
+			"hominid": {
+				"textures": {
+					"glyph_front": "genesis:blocks/portal/glyph_hominid"
+				}
+			},
+			"cosmos": {
+				"textures": {
+					"glyph_front": "genesis:blocks/portal/glyph_cosmos"
+				}
+			}
+		},
+		"active": {
+			"true": {},
+			"false": {}
+		}
+    }
+}
