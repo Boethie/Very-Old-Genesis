@@ -521,6 +521,7 @@ public final class GenesisRecipes
 		
 		ItemStack mabelia = GenesisBlocks.plants.getPlantStack(EnumPlant.MABELIA);
 		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.RED), mabelia, mabelia);
+		
 		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.ORANGE), calamites, mabelia);
 		
 		ItemStack palaeoaster = GenesisBlocks.plants.getPlantStack(EnumPlant.PALAEOASTER);
