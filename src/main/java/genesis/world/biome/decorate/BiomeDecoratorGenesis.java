@@ -7,6 +7,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.SAND;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
 import genesis.common.GenesisBlocks;
+import genesis.common.GenesisConfig;
 import genesis.metadata.EnumOre;
 import genesis.metadata.EnumSilt;
 import genesis.metadata.SiltBlocks;
@@ -199,26 +200,37 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	@Override
 	protected void generateOres()
 	{
-        MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(currentWorld, randomGenerator, field_180294_c));
-        genStandardOre1(62, komatiiteGen, 0, 16);
-        genStandardOre1(20, gneissGen, 0, 64);
-        genStandardOre1(11, rhyoliteGen, 64, 128);
-        genStandardOre1(11, doleriteGen, 64, 128);
-        genStandardOre1(8, trondhjemiteGen, 0, 128);
-        genStandardOre1(5, fauxGen, 0, 64);
-        genStandardOre1(5, anorthositeGen, 0, 128);
-        //if (TerrainGen.generateOre(currentWorld, randomGenerator, quartzGen, field_180294_c, QUARTZ))
-        genStandardOre1(74, quartzGen, 0, 128);
-        genStandardOre1(31, zirconGen, 0, 128);
-        genStandardOre1(27, garnetGen, 0, 128);
-        genStandardOre1(8, hematiteGen, 64, 128);
-        genStandardOre1(6, manganeseGen, 64, 128);
-        genStandardOre1(3, malachiteGen, 40, 128);
-        genStandardOre1(3, azuriteGen, 40, 128);
-        genStandardOre1(2, olivineGen, 0, 16);
-        genStandardOre1(35, flintGen, 40, 128);
-        genStandardOre1(86, marcasiteGen, 40, 128);
-        MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(currentWorld, randomGenerator, field_180294_c));
+		MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(currentWorld, randomGenerator, field_180294_c));
+		
+		//if (TerrainGen.generateOre(currentWorld, randomGenerator, quartzGen, field_180294_c, QUARTZ))
+		
+		genStandardOre1(62, komatiiteGen, 0, 16);
+		genStandardOre1(20, gneissGen, 0, 64);
+		genStandardOre1(11, rhyoliteGen, 64, 128);
+		genStandardOre1(11, doleriteGen, 64, 128);
+		genStandardOre1(8, trondhjemiteGen, 0, 128);
+		genStandardOre1(5, fauxGen, 0, 64);
+		genStandardOre1(5, anorthositeGen, 0, 128);
+		
+		genStandardOreByLayers(quartzGen, GenesisConfig.quartzCount, 5, 55, 128, 131);
+		genStandardOreByLayers(zirconGen, GenesisConfig.zirconCount, 5, 55, 128, 131);
+		genStandardOreByLayers(garnetGen, GenesisConfig.garnetCount, 5, 55, 128, 131);
+		genStandardOreByLayers(hematiteGen, GenesisConfig.hematiteCount, 64, 68, 128, 131);
+		genStandardOreByLayers(manganeseGen, GenesisConfig.manganeseCount, 64, 68, 128, 131);
+		genStandardOreByLayers(malachiteGen, GenesisConfig.malachiteCount, 40, 68, 128, 131);
+		genStandardOreByLayers(azuriteGen, GenesisConfig.azuriteCount, 40, 68, 128, 131);
+		genStandardOreByLayers(olivineGen, GenesisConfig.olivineCount, 5, 13, 13, 15);
+		genStandardOreByLayers(flintGen, GenesisConfig.flintCount, 64, 68, 128, 131);
+		genStandardOreByLayers(marcasiteGen, GenesisConfig.marcaisteCount, 64, 68, 128, 131);
+		
+		MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(currentWorld, randomGenerator, field_180294_c));
+	}
+	
+	private void genStandardOreByLayers(WorldGenerator gen, int count, int lower, int midLower, int midUpper, int upper)
+	{
+		genStandardOre1(count, gen, lower, midLower - 1);
+		genStandardOre1(((int)(count * 0.6)), gen, midLower, midUpper);
+		genStandardOre1(((int)(count * 0.1)), gen, midUpper + 1, upper);
 	}
 	
 	// Safety wrapper to prevent exceptions.
