@@ -5,6 +5,7 @@ import genesis.common.*;
 import genesis.metadata.*;
 import genesis.util.*;
 import genesis.util.render.ModelHelpers;
+import genesis.client.sound.music.MusicEventHandler;
 
 import java.util.*;
 
@@ -67,6 +68,9 @@ public class GenesisClient extends GenesisProxy
 		
 		ModelLoaderRegistry.registerLoader(GenesisCustomModelLoader.instance);
         MinecraftForge.EVENT_BUS.register(GenesisCustomModelLoader.instance);
+        
+        //Music Event Handler
+        MinecraftForge.EVENT_BUS.register(new MusicEventHandler());
         
         // Gotta register TESRs after Minecraft has initialized, otherwise the vanilla piston TESR crashes.
         for (Map.Entry<Class<? extends TileEntity>, TileEntitySpecialRenderer> entry : mapTESRsToRegister.entrySet())

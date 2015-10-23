@@ -263,5 +263,14 @@
 		"sounds": [
 			"dig/egg"
 		]
+	},
+	"music.genesis": {
+		"category": "music",
+		"sounds": [
+			{
+				"stream": true,
+				"name": "music/dawn_of_a_new_day"
+			}
+		]
 	}
 }
