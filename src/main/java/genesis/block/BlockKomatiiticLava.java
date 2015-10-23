@@ -14,6 +14,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockKomatiiticLava extends BlockFluidClassic
 {
@@ -22,6 +24,7 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 		super(fluid, Material.lava);
 		setQuantaPerBlock(4);
 		lightValue = maxScaledLight;
+		this.setTickRandomly(true);
 	}
 	
 	@Override
@@ -36,6 +39,16 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 	{
 		super.onNeighborBlockChange(world, pos, state, neighborBlock);
 		checkForMixing(world, pos, state);
+	}
+	
+	@SideOnly(Side.CLIENT)
+    public void randomDisplayTick(World world, BlockPos pos, IBlockState state, Random rand)
+	{
+		if (rand.nextInt(500) == 0)
+		{
+			world.playSound(pos.getX(), pos.getY(), pos.getZ(), "liquid.lavapop", 1.0F, 1.2F / (rand.nextFloat() * 0.2F + 0.9F), true);
+			world.spawnParticle(EnumParticleTypes.LAVA, pos.getX(), pos.getY(), pos.getZ(), 0.0D, 1.2D, 0.0D, 1);
+		}
 	}
 	
 	@Override

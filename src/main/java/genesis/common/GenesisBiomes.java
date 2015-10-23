@@ -89,7 +89,7 @@ public final class GenesisBiomes
 		BiomeDictionary.registerBiomeType(auxPlains, BiomeDictionary.Type.PLAINS);
 		
 		swampRainForest = new BiomeGenSwampRainforest(GenesisConfig.swampRainForestId);
-		BiomeManagerGenesis.registerBiome(swampRainForest, BiomeType.WARM, GenesisConfig.swampRainForestWeight);
+		//BiomeManagerGenesis.registerBiome(swampRainForest, BiomeType.WARM, GenesisConfig.swampRainForestWeight);
 		BiomeDictionary.registerBiomeType(swampRainForest, BiomeDictionary.Type.SWAMP, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		marsh = new BiomeGenMarsh(GenesisConfig.marshId);

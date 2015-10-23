@@ -4,13 +4,11 @@ import genesis.common.GenesisConfig;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemBlockMulti;
 import genesis.metadata.EnumTree;
-import genesis.metadata.IMetadata;
 import genesis.metadata.PropertyIMetadata;
 import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.BlockStateToMetadata;
-import genesis.util.Constants.Unlocalized;
 
 import java.util.List;
 
@@ -29,7 +27,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockGenesisLogs extends BlockLog implements IGenesisMushroomBase
+public class BlockGenesisLogs extends BlockLog
 {
 	/**
 	 * Used in BlocksAndItemsWithVariantsOfTypes.
@@ -117,11 +115,5 @@ public class BlockGenesisLogs extends BlockLog implements IGenesisMushroomBase
 		}
 		
 		return super.canHarvestBlock(world, pos, player);
-	}
-	
-	@Override
-	public boolean canSustainMushroom(IBlockAccess world, BlockPos pos, IBlockState state)
-	{
-		return true;
 	}
 }

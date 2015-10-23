@@ -54,7 +54,7 @@ public final class GenesisConfig
 	public static int azuriteCount = 3;
 	public static int olivineCount = 2;
 	public static int flintCount = 35;
-	public static int marcaisteCount = 86;
+	public static int marcasiteCount = 86;
 	
 	public static void readConfigValues(File configFile)
 	{
@@ -95,7 +95,7 @@ public final class GenesisConfig
 		azuriteCount = config.getInt("azurite", "oregen", azuriteCount, 0, 255, "Generation count for azurite");
 		olivineCount = config.getInt("olivine", "oregen", olivineCount, 0, 255, "Generation count for olivine");
 		flintCount = config.getInt("flint", "oregen", flintCount, 0, 255, "Generation count for flint");
-		marcaisteCount = config.getInt("marcaiste", "oregen", marcaisteCount, 0, 255, "Generation count for marcaiste");
+		marcasiteCount = config.getInt("marcaiste", "oregen", marcasiteCount, 0, 255, "Generation count for marcaiste");
 		
 		config.save();
 	}

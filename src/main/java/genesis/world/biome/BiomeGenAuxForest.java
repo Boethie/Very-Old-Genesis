@@ -28,7 +28,7 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 		theBiomeDecorator.grassPerChunk = 5;
 		
 		addDecoration(new WorldGenArchaeomarasmius().setPatchSize(3).setCountPerChunk(5));
-		addDecoration(new WorldGenPalaeoagaracites().setPatchSize(10).setCountPerChunk(16));
+		addDecoration(new WorldGenPalaeoagaracites().setPatchSize(16).setCountPerChunk(128));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPatchSize(5).setCountPerChunk(5));
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(5));
 		

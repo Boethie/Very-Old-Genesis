@@ -4,12 +4,12 @@ import genesis.common.GenesisBiomes;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 
-public class GenLayerGenesisDeepOcean extends GenLayerGenesis
+public class GenLayerGenesisSwampRainforest extends GenLayerGenesis
 {
-	public GenLayerGenesisDeepOcean(long p_i45472_1_, GenLayer p_i45472_3_)
+	public GenLayerGenesisSwampRainforest(long l, GenLayer genLayer)
 	{
-		super(p_i45472_1_);
-		this.parent = p_i45472_3_;
+		super(l);
+		this.parent = genLayer;
 	}
 	
 	@Override
@@ -53,19 +53,7 @@ public class GenLayerGenesisDeepOcean extends GenLayerGenesis
 					++l3;
 				}
 				
-				if (k3 == 0 && l3 > 3)
-				{
-					aint1[j2 + i2 * areaWidth] = GenesisBiomes.deepOcean.biomeID;
-				}
-				else if (k3 == 0 && l3 > 2)
-				{
-					aint1[j2 + i2 * areaWidth] = GenesisBiomes.ocean.biomeID;
-				}
-				else if (k3 == 0 && l3 > 1)
-				{
-					aint1[j2 + i2 * areaWidth] = GenesisBiomes.shallowOcean.biomeID;
-				}
-				else if (k3 == 0 && l3 > 0)
+				if (k3 == 0 && l3 > 0)
 				{
 					aint1[j2 + i2 * areaWidth] = GenesisBiomes.swampRainForest.biomeID;
 				}

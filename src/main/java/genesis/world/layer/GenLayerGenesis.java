@@ -42,7 +42,8 @@ public abstract class GenLayerGenesis extends GenLayer
 		genlayerzoom = new GenLayerZoom(2003L, genlayerzoom);
 		genlayeraddisland = new GenLayerAddIsland(4L, genlayerzoom);
 		GenLayerGenesisDeepOcean genlayerdeepocean = new GenLayerGenesisDeepOcean(4L, genlayeraddisland);
-		GenLayer genlayer2 = GenLayerZoom.magnify(1000L, genlayerdeepocean, 0);
+		GenLayerGenesisSwampRainforest genlayerswamprainforest = new GenLayerGenesisSwampRainforest(2L, genlayerdeepocean);
+		GenLayer genlayer2 = GenLayerZoom.magnify(1000L, genlayerswamprainforest, 0);
 		
 		//ChunkProviderSettings chunkprovidersettings = null;
 		int biomesize = 4;
@@ -94,7 +95,8 @@ public abstract class GenLayerGenesis extends GenLayer
 		if (
 				biomeId == GenesisBiomes.shallowOcean.biomeID
 				|| biomeId == GenesisBiomes.ocean.biomeID
-				|| biomeId == GenesisBiomes.deepOcean.biomeID)
+				|| biomeId == GenesisBiomes.deepOcean.biomeID
+				|| biomeId == GenesisBiomes.swampRainForest.biomeID)
 		{
 			return true;
 		}

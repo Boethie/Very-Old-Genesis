@@ -11,6 +11,8 @@ import java.util.*;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.IBlockAccess;
 
 public class BlockGenesisRottenLogs extends BlockGenesisLogs implements IGenesisMushroomBase
 {
@@ -30,5 +32,11 @@ public class BlockGenesisRottenLogs extends BlockGenesisLogs implements IGenesis
 	public Item getItemDropped(IBlockState state, Random rand, int fortune)
 	{
 		return null;
+	}
+	
+	@Override
+	public boolean canSustainMushroom(IBlockAccess world, BlockPos pos, IBlockState state)
+	{
+		return true;
 	}
 }
