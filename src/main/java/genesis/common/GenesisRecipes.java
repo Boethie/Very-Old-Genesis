@@ -240,7 +240,10 @@ public final class GenesisRecipes
 	public static void addRecipes()
 	{
 		FuelHandler.initialize();
-		
+
+		//food
+		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.araucarioxylon_seeds), GenesisItems.araucarioxylon_cone);
+
 		//torches
 		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.calamites_bundle), "CCC", "CCC", "CCC", 'C', GenesisItems.calamites);
 		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "X", "Y", 'X', Items.coal, 'Y', GenesisItems.calamites);

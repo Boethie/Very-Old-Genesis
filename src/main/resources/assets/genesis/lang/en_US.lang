@@ -158,6 +158,7 @@ item.genesis.misc.menhirActivator.ancientAmber.name=Ancient Amber
 item.genesis.misc.menhirActivator.fossilizedEgg.name=Fossilized Egg
 
 #Food
+item.genesis.food.araucarioxylonSeeds.name=Araucarioxylon Seeds
 item.genesis.food.zingiberopsisRhizome.name=Zingiberopsis Rhizome
 item.genesis.food.odontopterisSeeds.name=Odontopteris Seeds
 item.genesis.food.spiriferRaw.name=Raw Spirifer
@@ -359,6 +360,7 @@ item.genesis.material.billet.cordaites.name=Cordaites Wood Billet
 item.genesis.material.billet.araucarioxylon.name=Araucarioxylon Wood Billet
 
 item.genesis.material.resin.name=Resin
+item.genesis.material.araucarioxylonCone.name=Araucarioxylon Cone
 item.genesis.material.calamites.name=Calamites
 item.genesis.material.sphenophyllumFiber.name=Sphenophyllum Fiber
 item.genesis.material.odontopterisFiddlehead.name=Odontopteris Fiddlehead
