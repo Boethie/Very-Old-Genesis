@@ -13,6 +13,7 @@
 		"variant=ernietta":  { "model": "genesis:ernietta" },
         "variant=pteridinium":  { "model": "genesis:pteridinium" },
         "variant=dinomischus":  { "model": "genesis:dinomischus" },
+		"variant=vetulocystis":  { "model": "genesis:vetulocystis" },
 		"variant=echmatocrinus":  { "model": "genesis:echmatocrinus" },
         "variant=thaumaptilon":  { "model": "genesis:thaumaptilon" },
         "variant=primocandelabrum":  { "model": "genesis:primocandelabrum" },
