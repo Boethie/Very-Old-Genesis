@@ -26,6 +26,8 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 		setTemperatureRainfall(1.15F, 1.0F);
 		setHeight(-0.2F, 0.03F);
 		
+		theBiomeDecorator.clayPerChunk = 6;
+		theBiomeDecorator.sandPerChunk2 = 2;
 		theBiomeDecorator.grassPerChunk = 0;
 		
 		addDecoration(new WorldGenPlant(EnumFern.RHACOPHYTON).setCountPerChunk(35));

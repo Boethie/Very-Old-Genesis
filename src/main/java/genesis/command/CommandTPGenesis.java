@@ -43,11 +43,18 @@ public class CommandTPGenesis implements ICommand
 	@Override
 	public void processCommand(ICommandSender sender, String[] args) throws CommandException
 	{
-		if(DimensionManager.getWorld(37) == null)
+		int dimension = 37;
+		
+		if (args.length > 0 && args[0].contains("overworld"))
 		{
-			DimensionManager.initDimension(37);
+			dimension = 0;
 		}
-		WorldServer server = DimensionManager.getWorld(37);
+		
+		if(DimensionManager.getWorld(dimension) == null)
+		{
+			DimensionManager.initDimension(dimension);
+		}
+		WorldServer server = DimensionManager.getWorld(dimension);
 		EntityPlayerMP player = (EntityPlayerMP) sender;
 		new TeleporterGenesis(player.mcServer.worldServerForDimension(player.worldObj.provider.getDimensionId())).teleport(player, server);
 	}

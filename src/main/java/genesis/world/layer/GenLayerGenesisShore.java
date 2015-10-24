@@ -87,7 +87,11 @@ public class GenLayerGenesisShore extends GenLayerGenesis
             int l1 = p_151632_1_[p_151632_3_ + 1 - 1 + (p_151632_4_ + 1) * (p_151632_5_ + 2)];
             int i2 = p_151632_1_[p_151632_3_ + 1 + (p_151632_4_ + 1 + 1) * (p_151632_5_ + 2)];
 
-            if (!isBiomeOceanic(j1) && !isBiomeOceanic(k1) && !isBiomeOceanic(l1) && !isBiomeOceanic(i2))
+            if (
+            		(!isBiomeOceanic(j1) || j1 == GenesisBiomes.swampRainForest.biomeID) 
+            		&& (!isBiomeOceanic(k1) || k1 == GenesisBiomes.swampRainForest.biomeID) 
+            		&& (!isBiomeOceanic(l1) || l1 == GenesisBiomes.swampRainForest.biomeID) 
+            		&& (!isBiomeOceanic(i2) || i2 == GenesisBiomes.swampRainForest.biomeID))
             {
                 p_151632_2_[p_151632_3_ + p_151632_4_ * p_151632_5_] = p_151632_6_;
             }

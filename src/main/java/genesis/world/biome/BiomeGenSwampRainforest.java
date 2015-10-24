@@ -35,6 +35,7 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 		waterColorMultiplier = 0x725113;
 		
 		theBiomeDecorator.clayPerChunk = 6;
+		theBiomeDecorator.sandPerChunk2 = 2;
 		theBiomeDecorator.grassPerChunk = 5;
 		
 		spawnableCreatureList.add(new BiomeGenBase.SpawnListEntry(EntityMeganeura.class, 8, 4, 8));
