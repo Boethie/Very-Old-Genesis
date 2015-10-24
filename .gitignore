@@ -10,6 +10,7 @@ bin/
 .project
 
 ### INTELLIJ IDEA ###
+.idea/
 *.iml
 *.ipr
 *.iws
