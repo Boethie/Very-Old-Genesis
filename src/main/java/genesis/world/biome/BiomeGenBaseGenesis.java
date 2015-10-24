@@ -194,6 +194,12 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
                             filler = GenesisBlocks.limestone.getDefaultState();
                             primer.setBlockState(chunkZ, y, chunkX, oceanFloor);
                         }
+                        else if (y < 62 - l)
+                        {
+                            top = null;
+                            primer.setBlockState(chunkZ, y, chunkX, filler);
+                            filler = GenesisBlocks.limestone.getDefaultState();
+                        }
                         else
                         {
                             primer.setBlockState(chunkZ, y, chunkX, filler);
