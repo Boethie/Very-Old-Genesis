@@ -34,6 +34,7 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 		
 		waterColorMultiplier = 0x725113;
 		
+		theBiomeDecorator.clayPerChunk = 6;
 		theBiomeDecorator.grassPerChunk = 5;
 		
 		spawnableCreatureList.add(new BiomeGenBase.SpawnListEntry(EntityMeganeura.class, 8, 4, 8));
@@ -41,7 +42,7 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchSize(3).setCountPerChunk(3));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(6));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(1, 0).setNextToWater(true).setPatchSize(4).setCountPerChunk(10));
-		addDecoration(new WorldGenUnderWaterPatch(GenesisBlocks.peat.getDefaultState()).setCountPerChunk(10));
+		addDecoration(new WorldGenUnderWaterPatch(Blocks.water, GenesisBlocks.peat.getDefaultState()).setCountPerChunk(10));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
 		addTree(new WorldGenTreeLepidodendron(11, 15, true).setTreeCountPerChunk(5));

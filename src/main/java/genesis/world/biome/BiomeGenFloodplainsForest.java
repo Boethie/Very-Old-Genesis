@@ -13,6 +13,7 @@ import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
 
 import java.util.Random;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 
@@ -30,7 +31,7 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenPlant(EnumFern.RHACOPHYTON).setCountPerChunk(35));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(4));
 		addDecoration(new WorldGenPlant(EnumPlant.PSILOPHYTON).setPatchSize(8).setCountPerChunk(6));
-		addDecoration(new WorldGenUnderWaterPatch(GenesisBlocks.peat.getDefaultState()).setCountPerChunk(1));
+		addDecoration(new WorldGenUnderWaterPatch(Blocks.water, GenesisBlocks.peat.getDefaultState()).setCountPerChunk(1));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
 		addTree(new WorldGenTreeArchaeopteris(15, 25, true).setCanGrowInWater(true).setTreeCountPerChunk(9));

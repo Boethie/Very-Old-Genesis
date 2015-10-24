@@ -12,14 +12,25 @@ import net.minecraft.world.World;
 
 public class WorldGenUnderWaterPatch extends WorldGenDecorationBase
 {
-	private List<IBlockState> blocks = new ArrayList<IBlockState>();
+	private final Block upperBlock;
 	
-	public WorldGenUnderWaterPatch(IBlockState... block)
+	private List<IBlockState> blocks = new ArrayList<IBlockState>();
+	private boolean setInBlock = true;
+	
+	public WorldGenUnderWaterPatch(Block upper, IBlockState... block)
 	{
+		this.upperBlock = upper;
+		
 		for (int i = 0; i < block.length; ++i)
 		{
 			blocks.add(block[i]);
 		}
+	}
+	
+	public WorldGenUnderWaterPatch mustSetInBlock(boolean inBlock)
+	{
+		this.setInBlock = inBlock;
+		return this;
 	}
 	
 	@Override
@@ -30,7 +41,7 @@ public class WorldGenUnderWaterPatch extends WorldGenDecorationBase
 		do
 		{
 			block = world.getBlockState(pos).getBlock();
-			if (!block.isAir(world, pos) && !block.isLeaves(world, pos) && !(block == Blocks.water))
+			if (!block.isAir(world, pos) && !block.isLeaves(world, pos) && !(block == this.upperBlock))
 			{
 				break;
 			}
@@ -65,8 +76,8 @@ public class WorldGenUnderWaterPatch extends WorldGenDecorationBase
 	private boolean placeSmallPatch(World world, BlockPos pos, Random random)
 	{
 		if (!(
-				world.getBlockState(pos.up()).getBlock() == Blocks.water
-				&& world.getBlockState(pos).getBlock() != Blocks.water))
+				world.getBlockState(pos.up()).getBlock() == this.upperBlock
+				&& (world.getBlockState(pos).getBlock() != this.upperBlock || !this.setInBlock)))
 			return false;
 		
 		setBlockInWorld(world, pos, blocks.get(random.nextInt(blocks.size())), true);

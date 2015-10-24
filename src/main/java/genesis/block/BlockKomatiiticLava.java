@@ -1,8 +1,9 @@
 package genesis.block;
 
+import genesis.common.GenesisBlocks;
+
 import java.util.Random;
 
-import genesis.common.GenesisBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -70,25 +71,32 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 		boolean mix = false;
 		EnumFacing[] sides = EnumFacing.values();
 		
-		for (EnumFacing side : sides)
+		try
 		{
-			if (side != EnumFacing.DOWN && world.getBlockState(pos.offset(side)).getBlock().getMaterial() == Material.water)
+			for (EnumFacing side : sides)
 			{
-				mix = true;
-				break;
+				if (side != EnumFacing.DOWN && world.getBlockState(pos.offset(side)).getBlock().getMaterial() == Material.water)
+				{
+					mix = true;
+					break;
+				}
+			}
+			
+			if (mix)
+			{
+				Integer level = (Integer) state.getValue(LEVEL);
+				
+				if (level.intValue() <= 4)
+				{
+					world.setBlockState(pos, GenesisBlocks.komatiite.getDefaultState());
+					triggerMixEffects(world, pos);
+					return true;
+				}
 			}
 		}
-		
-		if (mix)
+		catch (Exception e)
 		{
-			Integer level = (Integer) state.getValue(LEVEL);
-			
-			if (level.intValue() <= 4)
-			{
-				world.setBlockState(pos, GenesisBlocks.komatiite.getDefaultState());
-				triggerMixEffects(world, pos);
-				return true;
-			}
+			;
 		}
 		
 		return false;

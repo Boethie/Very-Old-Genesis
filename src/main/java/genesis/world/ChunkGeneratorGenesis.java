@@ -5,6 +5,7 @@ import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.Ev
 import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.ICE;
 import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.LAKE;
 import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.LAVA;
+import genesis.common.Genesis;
 import genesis.common.GenesisBiomes;
 import genesis.common.GenesisBlocks;
 import genesis.world.gen.MapGenCavesGenesis;

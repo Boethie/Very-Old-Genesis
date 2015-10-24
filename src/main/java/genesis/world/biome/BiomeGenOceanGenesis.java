@@ -4,8 +4,11 @@ import java.util.Random;
 
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
+import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumAquaticPlant;
 import genesis.metadata.EnumCoral;
+import genesis.metadata.EnumSilt;
+import genesis.metadata.SiltBlocks;
 import genesis.world.biome.decorate.WorldGenAquaticPlants;
 import genesis.world.biome.decorate.WorldGenCorals;
 
@@ -14,6 +17,8 @@ public class BiomeGenOceanGenesis extends BiomeGenBaseGenesis
 	public BiomeGenOceanGenesis(int id)
 	{
 		super(id);
+		
+		topBlock = GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT).getDefaultState();
 		
 		theBiomeDecorator.grassPerChunk = 0;
 		

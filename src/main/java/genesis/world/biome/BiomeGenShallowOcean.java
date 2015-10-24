@@ -1,13 +1,17 @@
 package genesis.world.biome;
 
-import java.util.Random;
-
+import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumAquaticPlant;
 import genesis.metadata.EnumCoral;
+import genesis.metadata.EnumSilt;
+import genesis.metadata.SiltBlocks;
 import genesis.world.biome.decorate.WorldGenAquaticPlants;
 import genesis.world.biome.decorate.WorldGenCorals;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPebbles;
+
+import java.util.Random;
+
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 
@@ -17,6 +21,7 @@ public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
 	{
 		super(id);
 		setBiomeName("Shallow Ocean");
+		topBlock = GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT).getDefaultState();
 		setHeight(-0.8F, 0.1F);
 		
 		waterColorMultiplier = 0x008d49;

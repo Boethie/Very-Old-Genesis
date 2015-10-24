@@ -75,7 +75,7 @@ public class WorldGenGrowingPlant extends WorldGenDecorationBase
 					(world.getBlockState(secondPos).getBlock() == GenesisBlocks.moss
 					|| world.getBlockState(secondPos).getBlock() == Blocks.dirt)
 					&& (
-							findBlockInRange(world, pos, Blocks.water.getDefaultState(), waterRadius, waterHeight, waterRadius)
+							findBlockInRange(world, secondPos, Blocks.water.getDefaultState(), waterRadius, waterHeight, waterRadius)
 							|| !nextToWater))
 				placeRandomPlant(world, secondPos, random);
 		}

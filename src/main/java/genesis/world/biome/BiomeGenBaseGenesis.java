@@ -150,7 +150,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
             else
             {
                 IBlockState state = primer.getBlockState(chunkZ, y, chunkX);
-
+                
                 if (state.getBlock().getMaterial() == Material.air)
                 {
                     k = -1;
@@ -191,7 +191,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
                         else if (y < 56 - l)
                         {
                             top = null;
-                            filler = GenesisBlocks.granite.getDefaultState();
+                            filler = GenesisBlocks.limestone.getDefaultState();
                             primer.setBlockState(chunkZ, y, chunkX, oceanFloor);
                         }
                         else

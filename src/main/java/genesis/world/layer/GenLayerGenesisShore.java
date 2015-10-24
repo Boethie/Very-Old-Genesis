@@ -40,7 +40,7 @@ public class GenLayerGenesisShore extends GenLayerGenesis
                 		&& k1 != GenesisBiomes.rainforestEdgeM.biomeID
                 		&& k1 != GenesisBiomes.rainforestHills.biomeID)
                 {
-                	if (!isBiomeOceanic(k1) && k1 != GenesisBiomes.swampRainForest.biomeID /*&& k1 != GenesisBiomes.river.biomeID */)
+                	if (!isBiomeOceanic(k1) && k1 != GenesisBiomes.swampRainForest.biomeID)
                     {
                         l1 = aint[j1 + 1 + (i1 + 1 - 1) * (areaWidth + 2)];
                         i2 = aint[j1 + 1 + 1 + (i1 + 1) * (areaWidth + 2)];
@@ -48,10 +48,10 @@ public class GenLayerGenesisShore extends GenLayerGenesis
                         k2 = aint[j1 + 1 + (i1 + 1 + 1) * (areaWidth + 2)];
                         
                         if (
-                        		!isBiomeOceanic(l1) 
-                        		&& !isBiomeOceanic(i2) 
-                        		&& !isBiomeOceanic(j2) 
-                        		&& !isBiomeOceanic(k2))
+                        		(!isBiomeOceanic(l1) || l1 == GenesisBiomes.swampRainForest.biomeID)
+                        		&& (!isBiomeOceanic(i2) || i2 == GenesisBiomes.swampRainForest.biomeID)
+                        		&& (!isBiomeOceanic(j2) || j2 == GenesisBiomes.swampRainForest.biomeID)
+                        		&& (!isBiomeOceanic(k2) || k2 == GenesisBiomes.swampRainForest.biomeID))
                         {
                             aint1[j1 + i1 * areaWidth] = k1;
                         }
