@@ -24,19 +24,19 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 		super(id);
 		setBiomeName("Floodplains Forest");
 		setTemperatureRainfall(1.15F, 1.0F);
-		setHeight(-0.2F, 0.03F);
+		setHeight(-0.1F, 0.1F);
 		
-		theBiomeDecorator.clayPerChunk = 6;
+		theBiomeDecorator.clayPerChunk = 4;
 		theBiomeDecorator.sandPerChunk2 = 2;
 		theBiomeDecorator.grassPerChunk = 0;
 		
 		addDecoration(new WorldGenPlant(EnumFern.RHACOPHYTON).setCountPerChunk(35));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(3));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(2));
 		addDecoration(new WorldGenPlant(EnumPlant.PSILOPHYTON).setPatchSize(8).setCountPerChunk(6));
 		addDecoration(new WorldGenUnderWaterPatch(Blocks.water, GenesisBlocks.peat.getDefaultState()).setCountPerChunk(1));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
-		addTree(new WorldGenTreeArchaeopteris(15, 25, true).setCanGrowInWater(true).setTreeCountPerChunk(9));
+		addTree(new WorldGenTreeArchaeopteris(15, 20, true).setCanGrowInWater(true).setTreeCountPerChunk(9));
 		
 		addTree(new WorldGenRottenLog(3, 6, EnumTree.ARCHAEOPTERIS, true).setCanGrowInWater(true).setTreeCountPerChunk(5));
 	}
@@ -45,8 +45,8 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 	public void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
 	{
 		mossStages = new int[2];
-		mossStages[0] = 0;
-		mossStages[1] = 1;
+		mossStages[0] = 1;
+		mossStages[1] = 2;
 		super.generateBiomeTerrain(world, rand, primer, blockX, blockZ, d);
 	}
 }

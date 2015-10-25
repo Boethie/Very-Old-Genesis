@@ -22,14 +22,14 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 		super(id);
 		setBiomeName("Rainforest");
 		setTemperatureRainfall(0.95F, 1.4F);
-		setHeight(-0.2F, 0.05F);
+		setHeight(0.125F, 0.2F);
 		
 		waterColorMultiplier = 0x725113;
 		
-		theBiomeDecorator.grassPerChunk = 3;
+		theBiomeDecorator.grassPerChunk = 5;
 		
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchSize(3).setCountPerChunk(2));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(4));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(3));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(1, 0).setNextToWater(true).setPatchSize(4).setCountPerChunk(8));
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(7));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));

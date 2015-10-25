@@ -22,7 +22,7 @@ public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
 		super(id);
 		setBiomeName("Shallow Ocean");
 		topBlock = GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT).getDefaultState();
-		setHeight(-0.8F, 0.1F);
+		setHeight(-0.7F, 0.1F);
 		
 		waterColorMultiplier = 0x008d49;
 		theBiomeDecorator.grassPerChunk = 0;
@@ -37,7 +37,7 @@ public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
 		int[] rarityScale = {30, 20, 10, 5, 2};
 		
 		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.HAZELLA).setCountPerChunk(rarityScale[0]));
-		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.DIAONIELLA).setCountPerChunk(rarityScale[1]));
+		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.DIAGONIELLA).setCountPerChunk(rarityScale[1]));
 		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.CHANCELLORIA).setCountPerChunk(rarityScale[1]));
 		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.VETULOCYSTIS).setCountPerChunk(rarityScale[1]));
 		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.PIRANIA).setCountPerChunk(rarityScale[2]));
