@@ -23,8 +23,23 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+@SuppressWarnings("unchecked")
 public class WorldUtils
 {
+	public static Iterable<BlockPos> getAreaFullHeight(BlockPos pos, int area, int height)
+	{
+		BlockPos start = new BlockPos(pos.getX() - area, 0, pos.getZ() - area);
+		BlockPos end = new BlockPos(pos.getX() + area, height, pos.getZ() + area);
+		return (Iterable<BlockPos>) BlockPos.getAllInBox(start, end);
+	}
+	
+	public static Iterable<BlockPos> getArea(BlockPos pos, int area)
+	{
+		BlockPos start = pos.add(-area, -area, -area);
+		BlockPos end = pos.add(area, area, area);
+		return (Iterable<BlockPos>) BlockPos.getAllInBox(start, end);
+	}
+	
 	/**
 	 * @param worldIn The world.
 	 * @param pos The position to start from.
@@ -36,13 +51,13 @@ public class WorldUtils
 	 * @param dPosY The distance along the Y axis in the positive direction.
 	 * @return Whether there is water in range.
 	 */
-	public static boolean waterInRange(World worldIn, BlockPos pos, int dNegX, int dPosX, int dNegZ, int dPosZ, int dNegY, int dPosY)
+	public static boolean waterInRange(World world, BlockPos pos, int dNegX, int dPosX, int dNegZ, int dPosZ, int dNegY, int dPosY)
 	{
 		Iterable<BlockPos> checkArea = (Iterable<BlockPos>) BlockPos.getAllInBox(pos.add(-dNegX, -dNegY, -dNegZ), pos.add(dPosX, dPosY, dPosZ));
 		
 		for (BlockPos checkPos : checkArea)
 		{
-			if (worldIn.getBlockState(checkPos).getBlock().getMaterial() == Material.water)
+			if (world.getBlockState(checkPos).getBlock().getMaterial() == Material.water)
 			{
 				return true;
 			}

@@ -1,6 +1,12 @@
 package genesis.common;
 
+import genesis.world.TeleporterGenesis;
 import genesis.world.WorldProviderGenesis;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.management.ServerConfigurationManager;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
 
 public class GenesisDimensions
@@ -9,5 +15,26 @@ public class GenesisDimensions
 	{
 		DimensionManager.registerProviderType(GenesisConfig.genesisProviderId, WorldProviderGenesis.class, true);
 		DimensionManager.registerDimension(GenesisConfig.genesisDimId, GenesisConfig.genesisProviderId);
+	}
+	
+	public static void teleportToDimension(Entity entity, int id)
+	{
+		if (!entity.worldObj.isRemote)
+		{
+			MinecraftServer server = MinecraftServer.getServer();
+			ServerConfigurationManager manager = server.getConfigurationManager();
+			WorldServer oldWorld = (WorldServer) entity.worldObj;
+			WorldServer newWorld = server.worldServerForDimension(id);
+			TeleporterGenesis teleporter = new TeleporterGenesis(newWorld);
+			
+			if (entity instanceof EntityPlayerMP)
+			{
+				manager.transferPlayerToDimension((EntityPlayerMP) entity, id, teleporter);
+			}
+			else
+			{
+				manager.transferEntityToWorld(entity, entity.dimension, oldWorld, newWorld, teleporter);
+			}
+		}
 	}
 }

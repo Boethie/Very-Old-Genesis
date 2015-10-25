@@ -7,13 +7,14 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.WorldProvider;
+import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class WorldProviderGenesis extends WorldProvider
 {
-	private float[] colorsSunriseSunset = new float[4];
+	protected float[] colorsSunriseSunset = new float[4];
 	
     protected void generateLightBrightnessTable()
     {

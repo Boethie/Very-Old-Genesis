@@ -1,16 +1,15 @@
 package genesis.command;
 
-import genesis.world.TeleporterGenesis;
+import genesis.common.GenesisConfig;
+import genesis.common.GenesisDimensions;
 
 import java.util.List;
 
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.world.WorldServer;
-import net.minecraftforge.common.DimensionManager;
 
 import com.google.common.collect.Lists;
 
@@ -31,11 +30,11 @@ public class CommandTPGenesis implements ICommand
 	@Override
 	public String getCommandUsage(ICommandSender sender)
 	{
-		return "Really?";
+		return "command.genesis.tpgenesis.usage";
 	}
 	
 	@Override
-	public List getCommandAliases()
+	public List<String> getCommandAliases()
 	{
 		return Lists.newArrayList("tpg", "tpgenesis", "ForwardToThePast", "forwardtothepast");
 	}
@@ -43,30 +42,25 @@ public class CommandTPGenesis implements ICommand
 	@Override
 	public void processCommand(ICommandSender sender, String[] args) throws CommandException
 	{
-		int dimension = 37;
+		Entity entity = (Entity) sender;
+		int dimension = GenesisConfig.genesisDimId;
 		
-		if (args.length > 0 && args[0].contains("overworld"))
+		if (entity.dimension == dimension)
 		{
 			dimension = 0;
 		}
 		
-		if(DimensionManager.getWorld(dimension) == null)
-		{
-			DimensionManager.initDimension(dimension);
-		}
-		WorldServer server = DimensionManager.getWorld(dimension);
-		EntityPlayerMP player = (EntityPlayerMP) sender;
-		new TeleporterGenesis(player.mcServer.worldServerForDimension(player.worldObj.provider.getDimensionId())).teleport(player, server);
+		GenesisDimensions.teleportToDimension(entity, dimension);
 	}
 	
 	@Override
 	public boolean canCommandSenderUseCommand(ICommandSender sender)
 	{
-		return sender instanceof EntityPlayerMP;
+		return true;
 	}
 	
 	@Override
-	public List addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
+	public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
 	{
 		return null;
 	}

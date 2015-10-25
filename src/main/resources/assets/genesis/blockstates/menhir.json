@@ -4,9 +4,7 @@
 		"textures": {
 			"glyph_side": "genesis:blocks/granite",
 			"glyph_front": "genesis:blocks/granite",
-			"receptacle_front": "genesis:blocks/granite",
-			"receptacle_hole": "genesis:blocks/granite",
-			"receptacle_side": "genesis:blocks/granite",
+			"receptacle": "genesis:blocks/portal/receptacle",
 			"top_side": "genesis:blocks/granite",
 			"top_front": "genesis:blocks/granite"
 		}

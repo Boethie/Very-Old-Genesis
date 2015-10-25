@@ -36,7 +36,7 @@ public final class GenesisBlocks
 							.setUseSeparateVariantJsons(false),
 					EnumMenhirPart.values()
 			);
-	public static final Block portal = null;
+	public static final BlockGenesisPortal portal = (BlockGenesisPortal) new BlockGenesisPortal().setUnlocalizedName(Unlocalized.MISC + "portal");
 	
 	/* Moss */
 	public static final BlockMoss moss = (BlockMoss) new BlockMoss().setUnlocalizedName(Unlocalized.PREFIX + "moss");
@@ -203,6 +203,8 @@ public final class GenesisBlocks
 		menhirs.registerAll();
 		GameRegistry.registerTileEntity(TileEntityMenhirGlyph.class, Constants.ASSETS_PREFIX + "menhir_glyph");
 		GameRegistry.registerTileEntity(TileEntityMenhirReceptacle.class, Constants.ASSETS_PREFIX + "menhir_receptacle");
+
+		Genesis.proxy.registerBlock(portal, "portal");
 		
 		trees.registerAll();
 		

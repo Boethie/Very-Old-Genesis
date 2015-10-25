@@ -352,7 +352,14 @@ public class BlockMenhir extends BlockGenesis
 	@Override
 	public boolean hasTileEntity(IBlockState state)
 	{
-		return true;
+		switch (((EnumMenhirPart) state.getValue(variantProp)))
+		{
+		case GLYPH:
+		case RECEPTACLE:
+			return true;
+		default:
+			return false;
+		}
 	}
 	
 	@Override
@@ -369,7 +376,19 @@ public class BlockMenhir extends BlockGenesis
 		}
 	}
 	
-	public TileEntityMenhirGlyph getGlyphTileEntity(IBlockAccess world, BlockPos pos)
+	@Override
+	public boolean isFullCube()
+	{
+		return false;
+	}
+	
+	@Override
+	public boolean isOpaqueCube()
+	{
+		return false;
+	}
+	
+	public static TileEntityMenhirGlyph getGlyphTileEntity(IBlockAccess world, BlockPos pos)
 	{
 		TileEntity te = world.getTileEntity(pos);
 		
@@ -381,7 +400,7 @@ public class BlockMenhir extends BlockGenesis
 		return null;
 	}
 	
-	public TileEntityMenhirReceptacle getReceptacleTileEntity(IBlockAccess world, BlockPos pos)
+	public static TileEntityMenhirReceptacle getReceptacleTileEntity(IBlockAccess world, BlockPos pos)
 	{
 		TileEntity te = world.getTileEntity(pos);
 		

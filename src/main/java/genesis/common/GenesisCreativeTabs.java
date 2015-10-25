@@ -33,7 +33,7 @@ public final class GenesisCreativeTabs
 			return Item.getItemFromBlock(GenesisBlocks.moss);
 		}
 	};
-
+	
 	public static final CreativeTabs DECORATIONS = new CreativeTabStackIcon(Unlocalized.PREFIX + "decorations")
 	{
 		@Override
@@ -42,7 +42,7 @@ public final class GenesisCreativeTabs
 			return GenesisBlocks.trees.getStack(TreeBlocksAndItems.SAPLING, EnumTree.SIGILLARIA);
 		}
 	};
-
+	
 	public static final CreativeTabs MISC = new CreativeTabs(Unlocalized.PREFIX + "misc")
 	{
 		@Override
@@ -60,7 +60,7 @@ public final class GenesisCreativeTabs
 			return GenesisItems.cooked_eryops_leg;
 		}
 	};
-
+	
 	public static final CreativeTabs TOOLS = new CreativeTabStackIcon(Unlocalized.PREFIX + "tools")
 	{
 		@Override
@@ -69,7 +69,7 @@ public final class GenesisCreativeTabs
 			return GenesisItems.tools.getStack(ToolItems.AXE, EnumToolMaterial.GRANITE, EnumToolQuality.CHIPPED);
 		}
 	};
-
+	
 	public static final CreativeTabs COMBAT = new CreativeTabStackIcon(Unlocalized.PREFIX + "combat")
 	{
 		@Override
@@ -78,7 +78,7 @@ public final class GenesisCreativeTabs
 			return GenesisItems.tools.getStack(ToolItems.ARROW_HEAD, EnumToolMaterial.BROWN_FLINT, EnumToolQuality.SHARPENED);
 		}
 	};
-
+	
 	public static final CreativeTabs MATERIALS = new CreativeTabStackIcon(Unlocalized.PREFIX + "materials")
 	{
 		@Override
