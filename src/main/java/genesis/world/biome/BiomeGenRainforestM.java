@@ -6,6 +6,6 @@ public class BiomeGenRainforestM extends BiomeGenRainforest
 	{
 		super(id);
 		setBiomeName("Rainforest M");
-		setHeight(0.5F, 1.2F);
+		setHeight(0.4F, 1.1F);
 	}
 }

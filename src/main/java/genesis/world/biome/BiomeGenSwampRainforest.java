@@ -36,7 +36,7 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 		
 		theBiomeDecorator.clayPerChunk = 4;
 		theBiomeDecorator.sandPerChunk2 = 2;
-		theBiomeDecorator.grassPerChunk = 5;
+		theBiomeDecorator.grassPerChunk = 6;
 		
 		spawnableCreatureList.add(new BiomeGenBase.SpawnListEntry(EntityMeganeura.class, 8, 4, 8));
 		

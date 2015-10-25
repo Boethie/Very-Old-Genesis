@@ -25,6 +25,7 @@ public class BiomeGenAuxPlains extends BiomeGenBaseGenesis
 		super(id);
 		setBiomeName("Araucarioxylon Plains");
 		setTemperatureRainfall(1.1F, 0.9F);
+		setHeight(0.125F, 0.05F);
 		
 		theBiomeDecorator.grassPerChunk = 1;
 		

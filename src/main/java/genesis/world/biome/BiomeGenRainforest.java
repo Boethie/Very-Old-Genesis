@@ -22,11 +22,11 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 		super(id);
 		setBiomeName("Rainforest");
 		setTemperatureRainfall(0.95F, 1.4F);
-		setHeight(0.125F, 0.2F);
+		setHeight(0.15F, 0.05F);
 		
 		waterColorMultiplier = 0x725113;
 		
-		theBiomeDecorator.grassPerChunk = 5;
+		theBiomeDecorator.grassPerChunk = 6;
 		
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchSize(3).setCountPerChunk(2));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(3));
@@ -34,9 +34,9 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(7));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
-		addTree(new WorldGenTreeLepidodendron(14, 18, true).setTreeCountPerChunk(9));
-		addTree(new WorldGenTreeSigillaria(10, 15, true).setTreeCountPerChunk(6));
-		addTree(new WorldGenTreePsaronius(5, 8, true).setTreeCountPerChunk(2));
+		addTree(new WorldGenTreeLepidodendron(14, 18, true).setTreeCountPerChunk(10));
+		addTree(new WorldGenTreeSigillaria(10, 15, true).setTreeCountPerChunk(7));
+		addTree(new WorldGenTreePsaronius(5, 8, true).setTreeCountPerChunk(3));
 		
 		addTree(new WorldGenRottenLog(3, 6, EnumTree.LEPIDODENDRON, true).setTreeCountPerChunk(5));
 		addTree(new WorldGenRottenLog(3, 6, EnumTree.SIGILLARIA, true).setTreeCountPerChunk(4));

@@ -6,6 +6,6 @@ public class BiomeGenAuxForestM extends BiomeGenAuxForest
 	{
 		super(id);
 		setBiomeName("Araucarioxylon Forest M");
-		setHeight(0.8F, 1.2F);
+		setHeight(0.4F, 0.9F);
 	}
 }
