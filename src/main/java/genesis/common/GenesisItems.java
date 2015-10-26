@@ -23,6 +23,7 @@ public final class GenesisItems
 	public static final Item red_clay_bucket = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "redClayBucket");
 	public static final VariantsCombo<EnumNodule, Block, ItemMulti> nodules = new VariantsCombo<EnumNodule, Block, ItemMulti>(new ObjectType<Block, ItemMulti>("nodule", null, null).setNamePosition(ObjectNamePosition.PREFIX), EnumNodule.values());
 	public static final Item resin = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "resin");
+	public static final Item araucarioxylon_cone = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "araucarioxylonCone");
 	public static final ItemGenesisSeeds calamites = (ItemGenesisSeeds) new ItemGenesisSeeds().setUnlocalizedName(Unlocalized.MATERIAL + "calamites");
 	public static final Item sphenophyllum_fiber = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "sphenophyllumFiber");
 	public static final Item odontopteris_fiddlehead = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "odontopterisFiddlehead");
@@ -39,6 +40,7 @@ public final class GenesisItems
 			.setUnlocalizedName(Unlocalized.EGG + "meganeura");
 	
 	/* Food */
+	public static final ItemGenesisSeedFood araucarioxylon_seeds = (ItemGenesisSeedFood) new ItemGenesisSeedFood(1, 0.6F).setUnlocalizedName(Unlocalized.FOOD + "araucarioxylonSeeds");
 	public static final ItemGenesisSeedFood zingiberopsis_rhizome = (ItemGenesisSeedFood) new ItemGenesisSeedFood(2, 1.2F).setUnlocalizedName(Unlocalized.FOOD + "zingiberopsisRhizome");
 	public static final ItemGenesisSeedFood odontopteris_seeds = (ItemGenesisSeedFood) new ItemGenesisSeedFood(1, 0.8F).setUnlocalizedName(Unlocalized.FOOD + "odontopterisSeeds");
 	public static final Item spirifer = new ItemGenesisFood(2, 0.4F).setUnlocalizedName(Unlocalized.FOOD + "spiriferRaw");
@@ -101,6 +103,7 @@ public final class GenesisItems
 		
 		// Random materials
 		Genesis.proxy.registerItem(resin, "resin");
+		Genesis.proxy.registerItem(araucarioxylon_cone, "araucarioxylon_cone");
 		Genesis.proxy.registerItem(calamites, "calamites");
 		Genesis.proxy.registerItem(sphenophyllum_fiber, "sphenophyllum_fiber");
 		Genesis.proxy.registerItem(odontopteris_fiddlehead, "odontopteris_fiddlehead");
@@ -115,6 +118,7 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(meganeura_egg, "meganeura_egg");
 		
 		// --- Foods ---
+		Genesis.proxy.registerItem(araucarioxylon_seeds, "araucarioxylon_seeds");
 		Genesis.proxy.registerItem(zingiberopsis_rhizome, "zingiberopsis_rhizome");
 		Genesis.proxy.registerItem(odontopteris_seeds, "odontopteris_seeds");
 		Genesis.proxy.registerItem(spirifer, "spirifer");

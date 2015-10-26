@@ -116,7 +116,7 @@ public final class GenesisBlocks
 	public static BlockKomatiiticLava komatiitic_lava;
 	
 	/* Other Decorative */
-	public static final BlockGenesisFlowerPot flower_pot = (BlockGenesisFlowerPot) new BlockGenesisFlowerPot().setUnlocalizedName(Unlocalized.PREFIX + "flowerPot");;
+	public static final BlockGenesisFlowerPot flower_pot = (BlockGenesisFlowerPot) new BlockGenesisFlowerPot().setUnlocalizedName(Unlocalized.PREFIX + "flowerPot");
 	public static final Block calamites_bundle = new BlockCalamitesBundle().setUnlocalizedName(Unlocalized.PREFIX + "calamitesBundle");
 	public static final Block programinis_bundle = new BlockPrograminisBundle().setUnlocalizedName(Unlocalized.PREFIX + "programinisBundle");
 	public static final Block calamites_torch = new BlockCalamitesTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTorch");
@@ -208,6 +208,7 @@ public final class GenesisBlocks
 		GameRegistry.registerTileEntity(TileEntityGenesisPortal.class, Constants.ASSETS_PREFIX + "portal");
 		
 		trees.registerAll();
+		trees.getBlock(TreeBlocksAndItems.LEAVES, EnumTree.ARAUCARIOXYLON).setRareDrop(new ItemStack(GenesisItems.araucarioxylon_cone), .015);
 		
 		// - Containers -
 		// Workbench

@@ -6,13 +6,11 @@ import genesis.item.ItemBlockMulti;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
-import genesis.util.Constants.Unlocalized;
 
 import java.util.*;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.*;
@@ -41,6 +39,9 @@ public class BlockGenesisLeaves extends BlockLeaves
 	
 	public final List<EnumTree> variants;
 	public final PropertyIMetadata<EnumTree> variantProp;
+	
+	private ItemStack rareDrop;
+	private double rareDropChance;
 	
 	public BlockGenesisLeaves(List<EnumTree> variants, TreeBlocksAndItems owner, ObjectType<BlockGenesisLeaves, ItemBlockMulti> type)
 	{
@@ -123,7 +124,18 @@ public class BlockGenesisLeaves extends BlockLeaves
 			ret.add(getSapling(world, pos, state));
 		}
 		
+		if (rand.nextDouble() < rareDropChance)
+		{
+			ret.add(rareDrop.copy());
+		}
+		
 		return ret;
+	}
+	
+	public void setRareDrop(ItemStack stack, double chance)
+	{
+		rareDrop = stack.copy();
+		rareDropChance = chance;
 	}
 	
 	@Override
@@ -209,7 +221,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 	{
 		checkAndDoDecay(world, pos);
 	}
-
+	
 	@Override
 	public EnumType getWoodType(int meta)
 	{
