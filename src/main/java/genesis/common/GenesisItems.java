@@ -1,6 +1,5 @@
 package genesis.common;
 
-import genesis.block.tileentity.portal.BlockMenhir;
 import genesis.entity.fixed.EntityMeganeuraEgg;
 import genesis.item.*;
 import genesis.metadata.*;

@@ -1,7 +1,5 @@
 package genesis.common;
 
-import java.util.*;
-
 import genesis.client.GenesisClient;
 import genesis.client.sound.MovingEntitySound;
 import genesis.util.Constants;

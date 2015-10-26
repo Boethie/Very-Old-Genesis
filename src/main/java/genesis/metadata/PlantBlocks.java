@@ -2,8 +2,6 @@ package genesis.metadata;
 
 import java.util.List;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.block.Block;

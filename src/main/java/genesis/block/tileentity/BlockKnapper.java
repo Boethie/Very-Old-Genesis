@@ -2,27 +2,17 @@ package genesis.block.tileentity;
 
 import java.util.Random;
 
-import genesis.client.GenesisParticles;
 import genesis.common.Genesis;
 import genesis.common.GenesisCreativeTabs;
 import genesis.common.GenesisGuiHandler;
-import genesis.util.ItemStackKey;
-import genesis.util.random.DoubleRange;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.*;
-import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 
 public class BlockKnapper extends Block
 {

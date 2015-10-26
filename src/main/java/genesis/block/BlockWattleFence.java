@@ -2,14 +2,11 @@ package genesis.block;
 
 import java.util.List;
 
-import genesis.client.*;
-import genesis.client.model.*;
 import genesis.common.*;
 import genesis.item.ItemBlockMulti;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
-import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.material.Material;

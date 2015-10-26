@@ -1,6 +1,5 @@
 package genesis.block;
 
-import genesis.client.GenesisClient;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemBlockMulti;
 import genesis.metadata.*;

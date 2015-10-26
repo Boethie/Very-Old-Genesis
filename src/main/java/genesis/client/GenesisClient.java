@@ -2,20 +2,16 @@ package genesis.client;
 
 import genesis.client.model.FluidModelMapper;
 import genesis.common.*;
-import genesis.metadata.*;
 import genesis.util.*;
 import genesis.util.render.ModelHelpers;
 import genesis.client.sound.music.MusicEventHandler;
 
 import java.util.*;
-import java.util.function.Predicate;
 
 import com.google.common.collect.Maps;
 
 import net.minecraft.block.*;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.*;
-import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.statemap.*;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.resources.*;
@@ -28,9 +24,6 @@ import net.minecraftforge.common.*;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fml.client.*;
 import net.minecraftforge.fml.client.registry.*;
-import net.minecraftforge.fml.common.registry.GameData;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.*;
 
 public class GenesisClient extends GenesisProxy
 {

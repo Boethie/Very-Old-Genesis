@@ -6,7 +6,6 @@ import genesis.metadata.ToolItems;
 import genesis.metadata.ToolItems.ToolObjectType;
 import genesis.metadata.ToolTypes.ToolType;
 import genesis.metadata.VariantsOfTypesCombo.ItemVariantCount;
-import genesis.util.Constants.Unlocalized;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 

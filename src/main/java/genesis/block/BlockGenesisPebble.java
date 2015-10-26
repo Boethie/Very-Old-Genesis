@@ -16,7 +16,6 @@ import genesis.metadata.ToolTypes.ToolType;
 import genesis.metadata.ToolItems.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
-import genesis.util.random.drops.blocks.VariantDrop;
 import genesis.util.render.ModelHelpers;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -24,11 +23,9 @@ import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
-import net.minecraftforge.fml.relauncher.*;
 
 public class BlockGenesisPebble extends Block
 {

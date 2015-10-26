@@ -3,8 +3,6 @@ package genesis.client.sound;
 import net.minecraft.client.audio.ITickableSound;
 import net.minecraft.client.audio.MovingSound;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class RandomLoopingSound extends MovingSound implements ITickableSound
 {

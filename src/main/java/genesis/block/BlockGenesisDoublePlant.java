@@ -3,8 +3,6 @@ package genesis.block;
 import java.util.List;
 import java.util.Random;
 
-import genesis.common.GenesisCreativeTabs;
-import genesis.item.ItemBlockMulti;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.BlockStateToMetadata;
@@ -17,8 +15,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.*;
-import net.minecraft.world.biome.BiomeColorHelper;
-import net.minecraftforge.fml.relauncher.*;
 
 @SuppressWarnings("rawtypes")
 public class BlockGenesisDoublePlant extends BlockPlant

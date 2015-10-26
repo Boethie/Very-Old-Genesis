@@ -1,17 +1,14 @@
 package genesis.block.tileentity;
 
 import genesis.block.tileentity.gui.ContainerStorageBox;
-import genesis.common.GenesisGuiHandler;
 import genesis.util.*;
 
 import java.lang.*;
 import java.util.*;
 
-import com.google.common.base.Function;
 import com.google.common.collect.PeekingIterator;
 
 import genesis.util.Constants.Unlocalized;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;

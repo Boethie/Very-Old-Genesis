@@ -8,7 +8,6 @@ import genesis.metadata.TreeBlocksAndItems;
 import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.BlockStateToMetadata;
-import genesis.util.Constants.Unlocalized;
 import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
 import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
 import genesis.world.gen.feature.WorldGenTreeCordaites;

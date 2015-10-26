@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.*;
 import net.minecraft.util.*;
-import net.minecraftforge.fml.relauncher.*;
 
 public class RenderMeganeura extends RenderLiving
 {

@@ -3,8 +3,6 @@ package genesis.block;
 import java.util.List;
 
 import genesis.common.GenesisCreativeTabs;
-import genesis.util.Constants.Unlocalized;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockLilyPad;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;

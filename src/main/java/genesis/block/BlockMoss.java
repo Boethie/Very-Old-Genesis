@@ -2,7 +2,6 @@ package genesis.block;
 
 import genesis.client.*;
 import genesis.common.*;
-import genesis.metadata.*;
 import genesis.util.*;
 import genesis.util.random.*;
 import genesis.world.biome.BiomeGenBaseGenesis;
@@ -13,7 +12,6 @@ import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
-import net.minecraft.client.renderer.RegionRenderCache;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.*;

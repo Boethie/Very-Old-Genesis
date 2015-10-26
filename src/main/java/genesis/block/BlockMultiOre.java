@@ -1,6 +1,5 @@
 package genesis.block;
 
-import java.util.Collections;
 import java.util.List;
 
 import genesis.common.GenesisCreativeTabs;

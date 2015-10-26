@@ -12,7 +12,6 @@ import java.util.Map.Entry;
 import net.minecraft.block.*;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -22,7 +21,6 @@ import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.common.*;
-import net.minecraftforge.fml.relauncher.*;
 
 public class BlockGrowingPlant extends BlockCrops implements IGrowable
 {

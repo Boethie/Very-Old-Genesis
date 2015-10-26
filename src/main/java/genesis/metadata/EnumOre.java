@@ -7,7 +7,6 @@ import com.google.common.collect.ImmutableSet;
 
 import genesis.common.GenesisItems;
 import genesis.util.random.IntRange;
-import genesis.util.random.drops.*;
 import genesis.util.random.drops.blocks.BlockDrops;
 import genesis.util.random.drops.blocks.BlockMultiDrop;
 import genesis.util.random.drops.blocks.BlockStackDrop;
