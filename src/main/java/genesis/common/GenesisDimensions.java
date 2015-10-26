@@ -6,6 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.ServerConfigurationManager;
+import net.minecraft.world.Teleporter;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
 
@@ -17,6 +18,19 @@ public class GenesisDimensions
 		DimensionManager.registerDimension(GenesisConfig.genesisDimId, GenesisConfig.genesisProviderId);
 	}
 	
+	public static TeleporterGenesis getTeleporter(WorldServer world)
+	{
+		for (Teleporter teleporter : world.customTeleporters)
+		{
+			if (teleporter instanceof TeleporterGenesis)
+			{
+				return (TeleporterGenesis) teleporter;
+			}
+		}
+		
+		return new TeleporterGenesis(world);
+	}
+	
 	public static void teleportToDimension(Entity entity, int id)
 	{
 		if (!entity.worldObj.isRemote)
@@ -25,7 +39,7 @@ public class GenesisDimensions
 			ServerConfigurationManager manager = server.getConfigurationManager();
 			WorldServer oldWorld = (WorldServer) entity.worldObj;
 			WorldServer newWorld = server.worldServerForDimension(id);
-			TeleporterGenesis teleporter = new TeleporterGenesis(newWorld);
+			TeleporterGenesis teleporter = getTeleporter(newWorld);
 			
 			if (entity instanceof EntityPlayerMP)
 			{

@@ -48,6 +48,8 @@ public class BlockMenhir extends BlockGenesis
 		COSMOS("cosmos",
 				GenesisItems.menhir_activators.getStack(EnumMenhirActivator.RUSTED_OCTAEDRITE_FLAKE));
 		
+		public static final EnumGlyph[] VALID = {VEGETAL, ANIMAL, HOMINID, COSMOS};
+		
 		final String name;
 		final String unlocalizedName;
 		final Set<ItemStackKey> activators = new HashSet<ItemStackKey>();

@@ -26,18 +26,23 @@ import net.minecraft.world.World;
 @SuppressWarnings("unchecked")
 public class WorldUtils
 {
-	public static Iterable<BlockPos> getAreaFullHeight(BlockPos pos, int area, int height)
+	public static Iterable<BlockPos> getArea(BlockPos start, BlockPos end)
 	{
-		BlockPos start = new BlockPos(pos.getX() - area, 0, pos.getZ() - area);
-		BlockPos end = new BlockPos(pos.getX() + area, height, pos.getZ() + area);
 		return (Iterable<BlockPos>) BlockPos.getAllInBox(start, end);
+	}
+	
+	public static Iterable<BlockPos> getAreaWithHeight(BlockPos pos, int area, int startY, int endY)
+	{
+		BlockPos start = new BlockPos(pos.getX() - area, startY, pos.getZ() - area);
+		BlockPos end = new BlockPos(pos.getX() + area, endY, pos.getZ() + area);
+		return getArea(start, end);
 	}
 	
 	public static Iterable<BlockPos> getArea(BlockPos pos, int area)
 	{
 		BlockPos start = pos.add(-area, -area, -area);
 		BlockPos end = pos.add(area, area, area);
-		return (Iterable<BlockPos>) BlockPos.getAllInBox(start, end);
+		return getArea(start, end);
 	}
 	
 	/**
