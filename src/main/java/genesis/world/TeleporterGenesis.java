@@ -100,7 +100,7 @@ public class TeleporterGenesis extends Teleporter
 			
 			portalPos = portalPos.up();*/
 			
-			entity.setLocationAndAngles(portalPos.getX() + 0.5, portalPos.getY(), portalPos.getZ() + 0.5, entity.rotationYaw, entity.rotationPitch);
+			entity.setLocationAndAngles(portalPos.getX() + 0.5, portalPos.getY() - entity.getEyeHeight() / 2, portalPos.getZ() + 0.5, entity.rotationYaw, entity.rotationPitch);
 			return true;
 		}
 		

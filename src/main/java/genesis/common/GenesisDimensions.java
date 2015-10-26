@@ -49,6 +49,8 @@ public class GenesisDimensions
 			{
 				manager.transferEntityToWorld(entity, entity.dimension, oldWorld, newWorld, teleporter);
 			}
+			
+			entity.timeUntilPortal = entity.getPortalCooldown();
 		}
 	}
 }
