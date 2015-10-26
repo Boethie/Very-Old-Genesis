@@ -203,8 +203,9 @@ public final class GenesisBlocks
 		menhirs.registerAll();
 		GameRegistry.registerTileEntity(TileEntityMenhirGlyph.class, Constants.ASSETS_PREFIX + "menhir_glyph");
 		GameRegistry.registerTileEntity(TileEntityMenhirReceptacle.class, Constants.ASSETS_PREFIX + "menhir_receptacle");
-
+		
 		Genesis.proxy.registerBlock(portal, "portal");
+		GameRegistry.registerTileEntity(TileEntityGenesisPortal.class, Constants.ASSETS_PREFIX + "portal");
 		
 		trees.registerAll();
 		

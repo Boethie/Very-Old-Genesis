@@ -7,6 +7,7 @@ import genesis.common.GenesisDimensions;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumWorldBlockLayer;
@@ -20,6 +21,8 @@ public class BlockGenesisPortal extends BlockGenesis
 		super(Material.air);
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
+		
+		setLightLevel(1);
 	}
 	
 	@Override
@@ -61,7 +64,7 @@ public class BlockGenesisPortal extends BlockGenesis
 				}
 				
 				Vec3 entityMiddle = entity.getPositionVector().addVector(0, entity.getEyeHeight() / 2, 0);
-				AxisAlignedBB blockBounds = new AxisAlignedBB(pos, pos.add(1, 1, 1));
+				AxisAlignedBB blockBounds = new AxisAlignedBB(pos, pos.add(1, 1, 1)).expand(0.25, 0.25, 0.25);
 				
 				if (blockBounds.isVecInside(entityMiddle))
 				{
@@ -69,5 +72,17 @@ public class BlockGenesisPortal extends BlockGenesis
 				}
 			}
 		}
+	}
+	
+	@Override
+	public boolean hasTileEntity(IBlockState state)
+	{
+		return true;
+	}
+	
+	@Override
+	public TileEntityGenesisPortal createTileEntity(World world, IBlockState state)
+	{
+		return new TileEntityGenesisPortal();
 	}
 }
