@@ -2,12 +2,10 @@ package genesis.block.tileentity.portal;
 
 import genesis.block.BlockGenesis;
 import genesis.common.GenesisConfig;
-import genesis.common.GenesisCreativeTabs;
 import genesis.common.GenesisDimensions;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumWorldBlockLayer;
@@ -20,7 +18,7 @@ public class BlockGenesisPortal extends BlockGenesis
 	{
 		super(Material.air);
 		
-		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
+		setCreativeTab(null);
 		
 		setLightLevel(1);
 	}

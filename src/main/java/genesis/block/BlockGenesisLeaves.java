@@ -10,6 +10,7 @@ import genesis.util.Constants.Unlocalized;
 
 import java.util.*;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.BlockPlanks.EnumType;
@@ -219,20 +220,20 @@ public class BlockGenesisLeaves extends BlockLeaves
 	@SideOnly(Side.CLIENT)
 	public EnumWorldBlockLayer getBlockLayer()
 	{
-		return GenesisClient.fancyGraphicsEnabled() ? EnumWorldBlockLayer.CUTOUT_MIPPED : EnumWorldBlockLayer.SOLID;
+		return Minecraft.isFancyGraphicsEnabled() ? EnumWorldBlockLayer.CUTOUT_MIPPED : EnumWorldBlockLayer.SOLID;
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public boolean isOpaqueCube()
 	{
-		return !GenesisClient.fancyGraphicsEnabled();
+		return !Minecraft.isFancyGraphicsEnabled();
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side)
 	{
-		return !GenesisClient.fancyGraphicsEnabled() && worldIn.getBlockState(pos).getBlock() == this ? false : super.shouldSideBeRendered(worldIn, pos, side);
+		return !Minecraft.isFancyGraphicsEnabled() && worldIn.getBlockState(pos).getBlock() == this ? false : super.shouldSideBeRendered(worldIn, pos, side);
 	}
 }

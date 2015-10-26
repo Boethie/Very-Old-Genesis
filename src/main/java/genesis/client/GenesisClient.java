@@ -8,6 +8,7 @@ import genesis.util.render.ModelHelpers;
 import genesis.client.sound.music.MusicEventHandler;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 import com.google.common.collect.Maps;
 
@@ -42,11 +43,6 @@ public class GenesisClient extends GenesisProxy
 		return MC;
 	}
 	
-	public static boolean fancyGraphicsEnabled()
-	{
-		return MC.isFancyGraphicsEnabled();
-	}
-	
 	private boolean hasInit = false;
 	
 	@Override
@@ -58,7 +54,7 @@ public class GenesisClient extends GenesisProxy
 		}
 		
 		// This should be called as late as possible in preInit.
-        ModelHelpers.preInit();
+		ModelHelpers.preInit();
 	}
 	
 	@Override
@@ -67,16 +63,16 @@ public class GenesisClient extends GenesisProxy
 		((IReloadableResourceManager) MC.getResourceManager()).registerReloadListener(new ColorizerDryMoss());
 		
 		ModelLoaderRegistry.registerLoader(GenesisCustomModelLoader.instance);
-        MinecraftForge.EVENT_BUS.register(GenesisCustomModelLoader.instance);
-        
-        //Music Event Handler
-        MinecraftForge.EVENT_BUS.register(new MusicEventHandler());
-        
-        // Gotta register TESRs after Minecraft has initialized, otherwise the vanilla piston TESR crashes.
-        for (Map.Entry<Class<? extends TileEntity>, TileEntitySpecialRenderer> entry : mapTESRsToRegister.entrySet())
-        {
-        	ClientRegistry.bindTileEntitySpecialRenderer(entry.getKey(), entry.getValue());
-        }
+		MinecraftForge.EVENT_BUS.register(GenesisCustomModelLoader.instance);
+		
+		//Music Event Handler
+		MinecraftForge.EVENT_BUS.register(new MusicEventHandler());
+		
+		// Gotta register TESRs after Minecraft has initialized, otherwise the vanilla piston TESR crashes.
+		for (Map.Entry<Class<? extends TileEntity>, TileEntitySpecialRenderer> entry : mapTESRsToRegister.entrySet())
+		{
+			ClientRegistry.bindTileEntitySpecialRenderer(entry.getKey(), entry.getValue());
+		}
 		
 		GenesisEntities.registerEntityRenderers();
 		
@@ -106,6 +102,7 @@ public class GenesisClient extends GenesisProxy
 		FluidModelMapper.registerFluid(block);
 	}
 	
+	@Override
 	public void callSided(SidedFunction sidedFunction)
 	{
 		sidedFunction.client(this);
@@ -140,6 +137,7 @@ public class GenesisClient extends GenesisProxy
 		registerModel(item, 0, textureName);
 	}
 	
+	@Override
 	public void registerModel(Item item, int metadata, String textureName)
 	{
 		ModelLoader.setCustomModelResourceLocation(item, metadata, new ModelResourceLocation(Constants.ASSETS_PREFIX + textureName, "inventory"));
@@ -153,7 +151,7 @@ public class GenesisClient extends GenesisProxy
 			map = new GenesisStateMap((StateMap) map);
 		}
 		
-	    ModelLoader.setCustomStateMapper(block, map);
+		ModelLoader.setCustomStateMapper(block, map);
 	}
 	
 	public void registerCustomModel(String path, IModel model)
