@@ -16,21 +16,23 @@ public class BiomeGenAuxForestEdgeM extends BiomeGenAuxForestEdge
 		super(id);
 		setBiomeName("Araucarioxylon Forest Edge M");
 		setHeight(0.4F, 0.9F);
+		
+		theBiomeDecorator.grassPerChunk = 7;
 	}
 	
 	@Override
 	protected void addDecorations()
 	{
 		addDecoration(new WorldGenArchaeomarasmius().setPatchSize(3).setCountPerChunk(3));
-		addDecoration(new WorldGenPalaeoagaracites().setPatchSize(16).setCountPerChunk(50));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPatchSize(5).setCountPerChunk(9));
+		addDecoration(new WorldGenPalaeoagaracites().setPatchSize(16).setCountPerChunk(80));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPatchSize(5).setCountPerChunk(6));
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(5));
 	}
 	
 	@Override
 	protected void addTrees()
 	{
-		addTree(new WorldGenTreeAraucarioxylon(25, 30, true).setTreeCountPerChunk(1));
-		addTree(new WorldGenRottenLog(3, 7, EnumTree.ARAUCARIOXYLON, true).addTopDecoration(GenesisBlocks.archaeomarasmius.getDefaultState()).setTreeCountPerChunk(3));
+		addTree(new WorldGenTreeAraucarioxylon(25, 27, true).setTreeCountPerChunk(2));
+		addTree(new WorldGenRottenLog(3, 7, EnumTree.ARAUCARIOXYLON, true).addTopDecoration(GenesisBlocks.archaeomarasmius.getDefaultState()).setTreeCountPerChunk(1));
 	}
 }

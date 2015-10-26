@@ -24,7 +24,7 @@ public class BiomeGenRainforestM extends BiomeGenRainforest
 	{
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchSize(3).setCountPerChunk(4));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(5));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(1, 0).setNextToWater(true).setPatchSize(4).setCountPerChunk(12));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(1, 0).setNextToWater(true).setPatchSize(4).setCountPerChunk(8));
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(7));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 	}
@@ -32,9 +32,9 @@ public class BiomeGenRainforestM extends BiomeGenRainforest
 	@Override
 	protected void addTrees()
 	{
-		addTree(new WorldGenTreeLepidodendron(14, 18, true).setTreeCountPerChunk(2));
-		addTree(new WorldGenTreeSigillaria(10, 15, true).setTreeCountPerChunk(2));
-		addTree(new WorldGenTreePsaronius(5, 8, true).setTreeCountPerChunk(1));
+		addTree(new WorldGenTreeLepidodendron(14, 18, true).setTreeCountPerChunk(10));
+		addTree(new WorldGenTreeSigillaria(10, 15, true).setTreeCountPerChunk(7));
+		addTree(new WorldGenTreePsaronius(5, 8, true).setTreeCountPerChunk(3));
 		
 		addTree(new WorldGenRottenLog(3, 6, EnumTree.LEPIDODENDRON, true).setTreeCountPerChunk(5));
 		addTree(new WorldGenRottenLog(3, 6, EnumTree.SIGILLARIA, true).setTreeCountPerChunk(4));
