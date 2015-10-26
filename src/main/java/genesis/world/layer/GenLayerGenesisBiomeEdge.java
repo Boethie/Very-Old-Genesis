@@ -25,16 +25,12 @@ public class GenLayerGenesisBiomeEdge extends GenLayerGenesis
 			{
 				this.initChunkSeed(j1 + areaX, i1 + areaY);
 				int k1 = aint[j1 + 1 + (i1 + 1) * (areaWidth + 2)];
-				// TODO replace with edge biomes
+				
 				if (!this.replaceBiomeEdge(aint, aint1, j1, i1, areaWidth, k1, GenesisBiomes.rainforest.biomeID, GenesisBiomes.rainforestEdge.biomeID)
 						&& !this.replaceBiomeEdgeIfNecessary(aint, aint1, j1, i1, areaWidth, k1, GenesisBiomes.rainforestM.biomeID, GenesisBiomes.rainforestEdgeM.biomeID)
 						&& !this.replaceBiomeEdge(aint, aint1, j1, i1, areaWidth, k1, GenesisBiomes.auxForest.biomeID, GenesisBiomes.auxForestEdge.biomeID)
 						&& !this.replaceBiomeEdgeIfNecessary(aint, aint1, j1, i1, areaWidth, k1, GenesisBiomes.auxForestM.biomeID, GenesisBiomes.auxForestEdgeM.biomeID)
 						&& !this.replaceBiomeEdge(aint, aint1, j1, i1, areaWidth, k1, GenesisBiomes.deepOcean.biomeID, GenesisBiomes.ocean.biomeID))
-				{
-					aint1[j1 + i1 * areaWidth] = k1;
-				}
-				else
 				{
 					aint1[j1 + i1 * areaWidth] = k1;
 				}

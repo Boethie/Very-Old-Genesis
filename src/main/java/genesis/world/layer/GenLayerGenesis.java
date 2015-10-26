@@ -42,8 +42,7 @@ public abstract class GenLayerGenesis extends GenLayer
 		genlayerzoom = new GenLayerZoom(2003L, genlayerzoom);
 		genlayeraddisland = new GenLayerAddIsland(4L, genlayerzoom);
 		GenLayerGenesisDeepOcean genlayerdeepocean = new GenLayerGenesisDeepOcean(4L, genlayeraddisland);
-		GenLayerGenesisSwampRainforest genlayerswamprainforest = new GenLayerGenesisSwampRainforest(2L, genlayerdeepocean);
-		GenLayer genlayer2 = GenLayerZoom.magnify(1000L, genlayerswamprainforest, 0);
+		GenLayer genlayer2 = GenLayerZoom.magnify(1000L, genlayerdeepocean, 0);
 		
 		//ChunkProviderSettings chunkprovidersettings = null;
 		int biomesize = 4;
@@ -56,7 +55,6 @@ public abstract class GenLayerGenesis extends GenLayer
 		GenLayer ret = new GenLayerGenesisBiome(200L, genlayer2);
 		ret = GenLayerZoom.magnify(1000L, ret, 2);
 		ret = new GenLayerGenesisBiomeEdge(1000L, ret);
-		
 		GenLayer genlayer1 = GenLayerZoom.magnify(1000L, genlayerriverinit, 2);
 		GenLayerGenesisHills genlayergenesishills = new GenLayerGenesisHills(1000L, ret, genlayer1);
 		genlayer = GenLayerZoom.magnify(1000L, genlayerriverinit, 2);
