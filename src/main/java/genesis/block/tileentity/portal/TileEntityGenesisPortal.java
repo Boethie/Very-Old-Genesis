@@ -3,6 +3,7 @@ package genesis.block.tileentity.portal;
 import java.util.List;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -36,6 +37,11 @@ public class TileEntityGenesisPortal extends TileEntity implements IUpdatePlayer
 		
 		for (EntityLivingBase entity : entities)
 		{
+			if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isFlying)
+			{
+				continue;
+			}
+			
 			double diffX = entity.posX - center.xCoord;
 			double diffY = entity.posY + (entity.getEyeHeight() / 2) - center.yCoord;
 			double diffZ = entity.posZ - center.zCoord;
