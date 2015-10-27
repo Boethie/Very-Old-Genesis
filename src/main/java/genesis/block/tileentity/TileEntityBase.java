@@ -9,7 +9,10 @@ public abstract class TileEntityBase extends TileEntity
 {
 	public void sendDescriptionPacket()
 	{
-		worldObj.markBlockForUpdate(pos);
+		if (worldObj != null)
+		{
+			worldObj.markBlockForUpdate(pos);
+		}
 	}
 	
 	protected abstract void writeVisualData(NBTTagCompound compound, boolean save);

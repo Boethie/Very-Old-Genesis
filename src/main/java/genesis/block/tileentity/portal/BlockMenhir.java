@@ -26,6 +26,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -266,9 +267,37 @@ public class BlockMenhir extends BlockGenesis
 	}
 	
 	@Override
-	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
+	public void getSubBlocks(Item item, CreativeTabs tab, List list)
 	{
-		owner.fillSubItems(type, variants, list);
+		for (EnumMenhirPart part : variants)
+		{
+			ItemStack stack = owner.getStack(part);
+			
+			if (part == EnumMenhirPart.GLYPH)
+			{
+				for (EnumGlyph glyph : EnumGlyph.values())
+				{	// Create a stack containing tile entity data to set the glyph.
+					ItemStack glyphStack = stack.copy();
+					
+					NBTTagCompound compound = new NBTTagCompound();
+					NBTTagCompound blockCompound = new NBTTagCompound();
+					
+					// Create a TE to store in the block tag.
+					TileEntityMenhirGlyph glyphTE = new TileEntityMenhirGlyph();
+					glyphTE.setGlyph(glyph);
+					glyphTE.writeToNBT(blockCompound);
+					
+					compound.setTag("BlockEntityTag", blockCompound);
+					glyphStack.setTagCompound(compound);
+					
+					list.add(glyphStack);
+				}
+			}
+			else
+			{
+				list.add(stack);
+			}
+		}
 	}
 	
 	@Override
@@ -283,21 +312,7 @@ public class BlockMenhir extends BlockGenesis
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
 	{
-		switch (((EnumMenhirPart) state.getValue(variantProp)))
-		{
-		case GLYPH:
-			TileEntityMenhirGlyph glyphTE = getGlyphTileEntity(world, pos);
-			
-			if (glyphTE != null)
-			{
-				glyphTE.setGlyph(EnumGlyph.VEGETAL);
-			}
-			break;
-		case RECEPTACLE:
-			break;
-		default:
-			break;
-		}
+		super.onBlockPlacedBy(world, pos, state, placer, stack);
 	}
 	
 	@Override

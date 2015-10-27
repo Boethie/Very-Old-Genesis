@@ -130,10 +130,15 @@ public class GenesisClient extends GenesisProxy
 		registerModel(item, 0, textureName);
 	}
 	
+	protected ModelResourceLocation getItemModelLocation(String textureName)
+	{
+		return new ModelResourceLocation(Constants.ASSETS_PREFIX + textureName, "inventory");
+	}
+	
 	@Override
 	public void registerModel(Item item, int metadata, String textureName)
 	{
-		ModelLoader.setCustomModelResourceLocation(item, metadata, new ModelResourceLocation(Constants.ASSETS_PREFIX + textureName, "inventory"));
+		ModelLoader.setCustomModelResourceLocation(item, metadata, getItemModelLocation(textureName));
 		addVariantName(item, textureName);
 	}
 	
