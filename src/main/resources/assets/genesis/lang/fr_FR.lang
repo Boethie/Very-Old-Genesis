@@ -379,6 +379,7 @@ item.genesis.material.egg.meganeura.name=Œuf de Meganeura
 container.genesis.workbench=Fabrication et débitage
 container.genesis.campfire=Feu de camp
 container.genesis.storageBox=Caisse de stockage
+container.genesis.largeStorageBox=Grande Caisse de stockage
 
 #------------- Entities -------------
 

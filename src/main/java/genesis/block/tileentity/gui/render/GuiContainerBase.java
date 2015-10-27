@@ -46,12 +46,16 @@ public class GuiContainerBase extends GuiContainer
 		final int b = 15;
 		final int color = (r << 16) | (g << 8) | b;
 		
-		String displayName = namer.getDisplayName().getUnformattedText();
-		fontRendererObj.drawString(displayName, xSize / 2 - fontRendererObj.getStringWidth(displayName) / 2, 6, color);
-		
+		drawDisplayName(color);
 		fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), container.getPlayerInventoryArea().left, container.getPlayerInventoryTextY(), color);
 	}
-
+	
+	protected void drawDisplayName(int color)
+	{
+		String displayName = namer.getDisplayName().getUnformattedText();
+		fontRendererObj.drawString(displayName, xSize / 2 - fontRendererObj.getStringWidth(displayName) / 2, 6, color);
+	}
+	
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTick, int mouseX, int mouseY)
 	{
