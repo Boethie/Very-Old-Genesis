@@ -19,10 +19,10 @@
 			}
 		},
 		"facing": {
-			"west": {"y": 0},
-			"north": {"y": 90},
-			"east": {"y": 180},
-			"south": {"y": 270}
+			"east": {"y": 0},
+			"south": {"y": 90},
+			"west": {"y": 180},
+			"north": {"y": 270}
 		},
 		"glyph": {
 			"none": {

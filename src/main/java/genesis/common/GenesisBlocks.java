@@ -33,7 +33,7 @@ public final class GenesisBlocks
 	public static final VariantsCombo<EnumMenhirPart, BlockMenhir, ItemBlockMulti> menhirs =
 			new VariantsCombo<EnumMenhirPart, BlockMenhir, ItemBlockMulti>(
 					new ObjectType<BlockMenhir, ItemBlockMulti>("menhir", Unlocalized.PREFIX + "menhir", BlockMenhir.class, ItemBlockMulti.class)
-							.setUseSeparateVariantJsons(false),
+							.setUseSeparateVariantJsons(false).setShouldRegisterVariantModels(false),
 					EnumMenhirPart.values()
 			);
 	public static final BlockGenesisPortal portal = (BlockGenesisPortal) new BlockGenesisPortal().setUnlocalizedName(Unlocalized.MISC + "portal");
@@ -157,7 +157,7 @@ public final class GenesisBlocks
 	{
 		// --- Building blocks ---
 		// - Surface -
-		Genesis.proxy.registerBlock(moss, "moss", ItemMoss.class);
+		Genesis.proxy.registerBlock(moss, "moss", ItemMoss.class, false);
 		
 		for (int mossStage = 0; mossStage <= BlockMoss.STAGE_LAST; mossStage++)
 		{

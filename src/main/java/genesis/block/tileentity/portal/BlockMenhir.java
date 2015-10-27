@@ -3,7 +3,10 @@ package genesis.block.tileentity.portal;
 import java.util.*;
 
 import genesis.common.GenesisItems;
+import genesis.common.IRegistrationCallback;
 import genesis.block.BlockGenesis;
+import genesis.client.model.ListedItemMeshDefinition;
+import genesis.common.Genesis;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemBlockMulti;
 import genesis.metadata.EnumMenhirActivator;
@@ -21,6 +24,7 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.*;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,10 +34,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockMenhir extends BlockGenesis
+public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 {
 	public static enum EnumGlyph implements IMetadata
 	{
@@ -160,28 +165,90 @@ public class BlockMenhir extends BlockGenesis
 		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), metadata, variantProp, FACING);
 	}
 	
+	@Override
+	public void onRegistered()
+	{
+		Genesis.proxy.registerModel(Item.getItemFromBlock(this),
+				new ListedItemMeshDefinition()
+				{
+					public String getName(EnumMenhirPart part, EnumGlyph glyph)
+					{
+						return "portal/" + part.getName() + (glyph != null ? "_" + glyph.getName() : "");
+					}
+					
+					@Override
+					public ModelResourceLocation getModelLocation(ItemStack stack)
+					{
+						EnumMenhirPart part = owner.getVariant(stack);
+						EnumGlyph glyph = null;
+						
+						if (part == EnumMenhirPart.GLYPH)
+						{
+							glyph = EnumGlyph.NONE;
+							TileEntityMenhirGlyph glyphTE = new TileEntityMenhirGlyph();
+							
+							NBTTagCompound compound = stack.getTagCompound();
+							
+							if (compound != null && compound.hasKey("BlockEntityTag", 10))
+							{
+								glyphTE.readFromNBT(compound.getCompoundTag("BlockEntityTag"));
+								glyph = glyphTE.getGlyph();
+							}
+						}
+						
+						return (ModelResourceLocation) Genesis.proxy.getItemModelLocation(getName(part, glyph));
+					}
+					
+					@Override
+					public Collection<String> getVariants()
+					{
+						ArrayList<String> variants = new ArrayList<String>();
+						
+						for (EnumMenhirPart part : EnumMenhirPart.values())
+						{
+							if (part == EnumMenhirPart.GLYPH)
+							{
+								for (EnumGlyph glyph : EnumGlyph.values())
+								{
+									variants.add(getName(part, glyph));
+								}
+							}
+							else
+							{
+								variants.add(getName(part, null));
+							}
+						}
+						
+						return variants;
+					}
+				});
+	}
+	
 	public BlockPos getTopOfMenhir(IBlockAccess world, BlockPos pos)
 	{
 		BlockPos curPos = pos;
-		EnumMenhirPart top = EnumMenhirPart.values()[0];
-		boolean foundTop = false;
 		
-		while (true)
+		for (EnumMenhirPart part : EnumMenhirPart.values())
 		{
-			EnumMenhirPart part = owner.getVariant(world.getBlockState(curPos));
+			EnumMenhirPart checkPart;
 			
-			if (part == top)
+			do
 			{
-				foundTop = true;
-			}
-			else if (foundTop ? true : part == null)
+				checkPart = owner.getVariant(world.getBlockState(curPos));
+				
+				if (checkPart == part)
+				{
+					curPos = curPos.up();
+				}
+			} while (part.canStack() && checkPart == part);
+			
+			if (checkPart == null)
 			{
-				curPos = curPos.down();
 				break;
 			}
-			
-			curPos = curPos.up();
 		}
+		
+		curPos = curPos.down();
 		
 		return curPos;
 	}
@@ -266,6 +333,24 @@ public class BlockMenhir extends BlockGenesis
 		return state;
 	}
 	
+	public ItemStack getGlyphStack(EnumGlyph glyph)
+	{
+		ItemStack glyphStack = owner.getStack(EnumMenhirPart.GLYPH);
+		
+		NBTTagCompound compound = new NBTTagCompound();
+		NBTTagCompound blockCompound = new NBTTagCompound();
+		
+		// Create a TE to store in the block tag.
+		TileEntityMenhirGlyph glyphTE = new TileEntityMenhirGlyph();
+		glyphTE.setGlyph(glyph);
+		glyphTE.writeToNBT(blockCompound);
+		
+		compound.setTag("BlockEntityTag", blockCompound);
+		glyphStack.setTagCompound(compound);
+		
+		return glyphStack;
+	}
+	
 	@Override
 	public void getSubBlocks(Item item, CreativeTabs tab, List list)
 	{
@@ -277,20 +362,7 @@ public class BlockMenhir extends BlockGenesis
 			{
 				for (EnumGlyph glyph : EnumGlyph.values())
 				{	// Create a stack containing tile entity data to set the glyph.
-					ItemStack glyphStack = stack.copy();
-					
-					NBTTagCompound compound = new NBTTagCompound();
-					NBTTagCompound blockCompound = new NBTTagCompound();
-					
-					// Create a TE to store in the block tag.
-					TileEntityMenhirGlyph glyphTE = new TileEntityMenhirGlyph();
-					glyphTE.setGlyph(glyph);
-					glyphTE.writeToNBT(blockCompound);
-					
-					compound.setTag("BlockEntityTag", blockCompound);
-					glyphStack.setTagCompound(compound);
-					
-					list.add(glyphStack);
+					list.add(getGlyphStack(glyph));
 				}
 			}
 			else
@@ -298,6 +370,22 @@ public class BlockMenhir extends BlockGenesis
 				list.add(stack);
 			}
 		}
+	}
+	
+	@Override
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player)
+	{
+		if (owner.getVariant(world.getBlockState(pos)) == EnumMenhirPart.GLYPH)
+		{
+			TileEntityMenhirGlyph glyphTE = getGlyphTileEntity(world, pos);
+			
+			if (glyphTE != null)
+			{
+				return getGlyphStack(glyphTE.getGlyph());
+			}
+		}
+		
+		return super.getPickBlock(target, world, pos, player);
 	}
 	
 	@Override

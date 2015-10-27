@@ -73,6 +73,7 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 		protected IProperty[] stateMapIgnoredProperties;
 		
 		protected boolean variantAsName = true;
+		protected boolean registerVariantModels = true;
 		
 		protected CreativeTabs tab = null;
 
@@ -205,9 +206,9 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 			return separateVariantJsons;
 		}
 		
-		public ObjectType<B, I> setUseSeparateVariantJsons(boolean use)
+		public ObjectType<B, I> setUseSeparateVariantJsons(boolean value)
 		{
-			separateVariantJsons = use;
+			separateVariantJsons = value;
 			
 			return this;
 		}
@@ -221,9 +222,23 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 		 * Sets whether to register blocks and items with their variant names,
 		 * if the maximum subset size is 1 (so one variant per block and item instance).
 		 */
-		public ObjectType<B, I> setUseVariantAsRegistryName(boolean use)
+		public ObjectType<B, I> setUseVariantAsRegistryName(boolean value)
 		{
-			variantAsName = use;
+			variantAsName = value;
+			return this;
+		}
+		
+		public boolean shouldRegisterVariantModels()
+		{
+			return registerVariantModels;
+		}
+		
+		/**
+		 * Sets whether to register the variant models automatically when registering the blocks.
+		 */
+		public ObjectType<B, I> setShouldRegisterVariantModels(boolean value)
+		{
+			registerVariantModels = value;
 			return this;
 		}
 		
@@ -702,16 +717,20 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 			}
 			else
 			{
-				Genesis.proxy.registerItem(item, registryName);
+				Genesis.proxy.registerItem(item, registryName, false);
 			}
 			
-			// Set unlocalized names and item model locations.
-			for (V variant : subset.variants.values())
+			// Set item model locations.
+			if (type.shouldRegisterVariantModels())
 			{
-				VariantData data = getVariantData(type, variant);
-				Genesis.proxy.registerModel(data.item, data.itemMetadata, type.getVariantName(variant));
+				for (V variant : subset.variants.values())
+				{
+					VariantData data = getVariantData(type, variant);
+					Genesis.proxy.registerModel(data.item, data.itemMetadata, type.getVariantName(variant));
+				}
 			}
 			
+			// Set unlocalized name.
 			item.setUnlocalizedName(unlocName);
 			
 			type.afterRegistered(block, item);

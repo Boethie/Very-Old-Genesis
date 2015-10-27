@@ -1,22 +1,22 @@
 {
     "__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
     "ambientocclusion": true,
-    "textures": {
-        "texture": "genesis:blocks/portal/texture",
-        "glyph": "genesis:blocks/portal/glyph_none"
-    },
     "elements": [
         {   "__comment": "base",
             "from": [ 2, 0, -0 ],
             "to": [ 14, 16, 16 ],
             "faces": {
-                "down": { "uv": [ 4, 10.75, 8, 13.75 ], "texture": "#texture", "rotation": 90 },
-                "up": { "uv": [ 0, 10.75, 4, 13.75 ], "texture": "#texture", "rotation": 270 },
-                "east": { "uv": [ 6, 6.75, 10, 10.75 ], "texture": "#texture", "rotation": 0 },
-                "south": { "uv": [ 3, 6.75, 6, 10.75 ], "texture": "#texture", "rotation": 0 },
-                "west": { "uv": [ 0, 0, 16, 16 ], "texture": "#glyph", "rotation": 0 },
-                "north": { "uv": [ 0, 6.75, 3, 10.75 ], "texture": "#texture", "rotation": 0 }
+                "down": { "uv": [ 4, 10.75, 8, 13.75 ], "texture": "#texture", "rotation": 270 },
+                "up": { "uv": [ 0, 10.75, 4, 13.75 ], "texture": "#texture", "rotation": 90 },
+                "west": { "uv": [ 6, 6.75, 10, 10.75 ], "texture": "#texture", "rotation": 0 },
+                "north": { "uv": [ 3, 6.75, 6, 10.75 ], "texture": "#texture", "rotation": 0 },
+                "east": { "uv": [ 0, 0, 16, 16 ], "texture": "#glyph", "rotation": 0 },
+                "south": { "uv": [ 0, 6.75, 3, 10.75 ], "texture": "#texture", "rotation": 0 }
             }
         }
-    ]
+    ],
+    "textures": {
+        "texture": "genesis:blocks/portal/texture",
+        "glyph": "genesis:blocks/portal/glyph_cosmos"
+    }
 }

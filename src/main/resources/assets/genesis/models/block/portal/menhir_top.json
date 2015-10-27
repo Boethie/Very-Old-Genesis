@@ -1,21 +1,21 @@
 {
     "__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
     "ambientocclusion": true,
-    "textures": {
-        "texture": "genesis:blocks/portal/texture"
-    },
     "elements": [
         {   "__comment": "top",
             "from": [ 4, 0, 2 ],
             "to": [ 12, 12, 14 ],
             "faces": {
-                "down": { "uv": [ 6.25, 13.75, 9.25, 15.75 ], "texture": "#texture", "rotation": 90 },
-                "up": { "uv": [ 0.25, 13.75, 3.25, 15.75 ], "texture": "#texture", "rotation": 90 },
-                "east": { "uv": [ 12.75, 9.75, 15.75, 12.75 ], "texture": "#texture", "rotation": 270 },
-                "south": { "uv": [ 3.25, 13.75, 6.25, 15.75 ], "texture": "#texture", "rotation": 90 },
-                "west": { "uv": [ 12.75, 12.75, 15.75, 15.75 ], "texture": "#texture", "rotation": 90 },
-                "north": { "uv": [ 9.25, 13.75, 12.25, 15.75 ], "texture": "#texture", "rotation": 270 }
+                "down": { "uv": [ 6.25, 13.75, 9.25, 15.75 ], "texture": "#texture", "rotation": 270 },
+                "up": { "uv": [ 0.25, 13.75, 3.25, 15.75 ], "texture": "#texture", "rotation": 270 },
+                "west": { "uv": [ 12.75, 9.75, 15.75, 12.75 ], "texture": "#texture", "rotation": 270 },
+                "north": { "uv": [ 3.25, 13.75, 6.25, 15.75 ], "texture": "#texture", "rotation": 90 },
+                "east": { "uv": [ 12.75, 12.75, 15.75, 15.75 ], "texture": "#texture", "rotation": 90 },
+                "south": { "uv": [ 9.25, 13.75, 12.25, 15.75 ], "texture": "#texture", "rotation": 270 }
             }
         }
-    ]
+    ],
+    "textures": {
+        "texture": "genesis:blocks/portal/texture"
+    }
 }

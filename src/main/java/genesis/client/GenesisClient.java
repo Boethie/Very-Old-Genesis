@@ -1,6 +1,7 @@
 package genesis.client;
 
 import genesis.client.model.FluidModelMapper;
+import genesis.client.model.ListedItemMeshDefinition;
 import genesis.common.*;
 import genesis.util.*;
 import genesis.util.render.ModelHelpers;
@@ -73,25 +74,27 @@ public class GenesisClient extends GenesisProxy
 	}
 	
 	@Override
-	public void registerBlock(Block block, String name, Class<? extends ItemBlock> clazz)
+	public void registerBlock(Block block, String name, Class<? extends ItemBlock> clazz, boolean doModel)
 	{
-		super.registerBlock(block, name, clazz);
+		super.registerBlock(block, name, clazz, doModel);
 		
-		registerModel(block, name);
+		if (doModel)
+		{
+			registerModel(block, name);
+		}
 	}
 	
 	@Override
 	public void registerBlockWithItem(Block block, String name, Item item)
 	{
 		super.registerBlockWithItem(block, name, item);
-		
-		registerModel(item, name);
 	}
 	
 	@Override
 	public void registerFluidBlock(BlockFluidBase block, String name)
 	{
-		registerBlock(block, name);
+		super.registerFluidBlock(block, name);
+		
 		FluidModelMapper.registerFluid(block);
 	}
 	
@@ -102,18 +105,39 @@ public class GenesisClient extends GenesisProxy
 	}
 	
 	@Override
-	public void registerItem(Item item, String name)
+	public void registerItem(Item item, String name, boolean doModel)
 	{
-		super.registerItem(item, name);
+		super.registerItem(item, name, doModel);
 		
-		registerModel(item, name);
+		if (doModel)
+		{
+			registerModel(item, name);
+		}
 	}
 	
 	public void registerModel(Block block, String textureName)
 	{
 		registerModel(block, 0, textureName);
 	}
-
+	
+	@Override
+	public ModelResourceLocation getItemModelLocation(String textureName)
+	{
+		return new ModelResourceLocation(Constants.ASSETS_PREFIX + textureName, "inventory");
+	}
+	
+	@Override
+	public void registerModel(Item item, int metadata, String textureName)
+	{
+		ModelLoader.setCustomModelResourceLocation(item, metadata, getItemModelLocation(textureName));
+		addVariantName(item, textureName);
+	}
+	
+	private void registerModel(Item item, String textureName)
+	{
+		registerModel(item, 0, textureName);
+	}
+	
 	@Override
 	public void registerModel(Block block, int metadata, String textureName)
 	{
@@ -125,21 +149,11 @@ public class GenesisClient extends GenesisProxy
 		}
 	}
 	
-	private void registerModel(Item item, String textureName)
-	{
-		registerModel(item, 0, textureName);
-	}
-	
-	protected ModelResourceLocation getItemModelLocation(String textureName)
-	{
-		return new ModelResourceLocation(Constants.ASSETS_PREFIX + textureName, "inventory");
-	}
-	
 	@Override
-	public void registerModel(Item item, int metadata, String textureName)
+	public void registerModel(Item item, ListedItemMeshDefinition definition)
 	{
-		ModelLoader.setCustomModelResourceLocation(item, metadata, getItemModelLocation(textureName));
-		addVariantName(item, textureName);
+		ModelLoader.setCustomMeshDefinition(item, definition);
+		definition.getVariants().forEach(variant -> addVariantName(item, variant));
 	}
 	
 	public void registerModelStateMap(Block block, IStateMapper map)

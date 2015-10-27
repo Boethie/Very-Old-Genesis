@@ -1,8 +1,8 @@
 package genesis.block.tileentity.portal;
 
-import genesis.block.BlockGenesis;
 import genesis.common.GenesisConfig;
 import genesis.common.GenesisDimensions;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -12,13 +12,11 @@ import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
-public class BlockGenesisPortal extends BlockGenesis
+public class BlockGenesisPortal extends Block
 {
 	public BlockGenesisPortal()
 	{
 		super(Material.air);
-		
-		setCreativeTab(null);
 		
 		setLightLevel(1);
 	}
