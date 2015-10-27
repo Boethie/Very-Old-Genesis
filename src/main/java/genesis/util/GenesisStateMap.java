@@ -19,7 +19,7 @@ public class GenesisStateMap implements IStateMapper
 	}
 
 	@Override
-	public Map putStateModelLocations(Block block)
+	public Map<IBlockState, ModelResourceLocation> putStateModelLocations(Block block)
 	{
 		Map<IBlockState, ModelResourceLocation> map = stateMap.putStateModelLocations(block);
 		

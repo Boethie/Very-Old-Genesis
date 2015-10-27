@@ -66,7 +66,7 @@ public class GenesisProxy
 	
 	public void registerFluidBlock(BlockFluidBase block, String name)
 	{
-		registerBlock(block, name);
+		registerBlock(block, name, null);
 	}
 	
 	/**

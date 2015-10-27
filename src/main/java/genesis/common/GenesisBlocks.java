@@ -289,7 +289,7 @@ public final class GenesisBlocks
 		GenesisItems.programinis_seeds.setCrop(programinis);
 		
 		// Flower pot
-		Genesis.proxy.registerBlock(flower_pot, "flower_pot");
+		Genesis.proxy.registerBlock(flower_pot, "flower_pot", null);
 		GameRegistry.registerTileEntity(TileEntityGenesisFlowerPot.class, Constants.ASSETS_PREFIX + "flower_pot");
 		
 		IFlowerPotPlant plantCustoms = new IFlowerPotPlant()

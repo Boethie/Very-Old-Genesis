@@ -582,7 +582,7 @@ public class ModelHelpers
 	
 	protected static void addForcedModels()
 	{
-		Genesis.proxy.registerBlock(fakeBlock, "dummy_block");
+		Genesis.proxy.registerBlock(fakeBlock, "dummy_block", null);
 		
 		final Map<IBlockState, IBlockState> actualToFakeState = Maps.newHashMap();
 		

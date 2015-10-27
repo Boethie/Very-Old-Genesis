@@ -6,42 +6,29 @@ import java.util.HashMap;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fluids.BlockFluidBase;
 
-public class FluidModelMapper extends StateMapperBase implements ItemMeshDefinition
+public class FluidModelMapper extends StateMapperBase
 {
 	private static final FluidModelMapper INSTANCE = new FluidModelMapper();
 	private static final HashMap<Block, ModelResourceLocation> BLOCKS = new HashMap<Block, ModelResourceLocation>();
-	private static final HashMap<Item, ModelResourceLocation> ITEMS = new HashMap<Item, ModelResourceLocation>();
 	
 	public static void registerFluid(BlockFluidBase block)
 	{
-		Item item = Item.getItemFromBlock(block);
 		ModelResourceLocation modelLocation = new ModelResourceLocation(Constants.ASSETS_PREFIX + "fluid", new ResourceLocation(block.getFluid().getName()).getResourcePath());
 		
 		ModelLoader.setCustomStateMapper(block, INSTANCE);
-		ModelLoader.setCustomMeshDefinition(item, INSTANCE);
 		
 		BLOCKS.put(block, modelLocation);
-		ITEMS.put(item, modelLocation);
 	}
 	
 	@Override
 	protected ModelResourceLocation getModelResourceLocation(IBlockState state)
 	{
 		return BLOCKS.get(state.getBlock());
-	}
-	
-	@Override
-	public ModelResourceLocation getModelLocation(ItemStack stack)
-	{
-		return ITEMS.get(stack.getItem());
 	}
 }
