@@ -30,15 +30,15 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 		theBiomeDecorator.sandPerChunk2 = 2;
 		theBiomeDecorator.grassPerChunk = 0;
 		
-		addDecoration(new WorldGenPlant(EnumFern.RHACOPHYTON).setCountPerChunk(35));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(2));
+		addDecoration(new WorldGenPlant(EnumFern.RHACOPHYTON).setCountPerChunk(110));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(3));
 		addDecoration(new WorldGenPlant(EnumPlant.PSILOPHYTON).setPatchSize(8).setCountPerChunk(6));
 		addDecoration(new WorldGenUnderWaterPatch(Blocks.water, GenesisBlocks.peat.getDefaultState()).setCountPerChunk(1));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
-		addTree(new WorldGenTreeArchaeopteris(15, 20, true).setCanGrowInWater(true).setTreeCountPerChunk(9));
+		addTree(new WorldGenTreeArchaeopteris(15, 20, true).setCanGrowInWater(true).setTreeCountPerChunk(18));
 		
-		addTree(new WorldGenRottenLog(3, 6, EnumTree.ARCHAEOPTERIS, true).setCanGrowInWater(true).setTreeCountPerChunk(5));
+		addTree(new WorldGenRottenLog(3, 6, EnumTree.ARCHAEOPTERIS, true).setCanGrowInWater(true).setTreeCountPerChunk(9));
 	}
 	
 	@Override
