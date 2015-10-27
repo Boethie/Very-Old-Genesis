@@ -7,21 +7,28 @@ import net.minecraft.item.ItemStack;
 public enum EnumPorridge implements IMetadata
 {
 	BASE("base", "", 4, 4.8F),
-	ZINGIBEROPSIS("zingiberopsis", 5, 5.2F)
+	ARAUCARIOXYLON("araucarioxylon", 5, 5.7F)
 	{
 		@Override public ItemStack getIngredient()
-		{
-			return new ItemStack(GenesisItems.zingiberopsis_rhizome);
-		}
+				{
+					return new ItemStack(GenesisItems.araucarioxylon_seeds);
+				}
 	},
-	ODONTOPTERIS("odontopteris", 6, 5.6F)
+	ZINGIBEROPSIS("zingiberopsis", 6, 6.6F)
+	{
+		@Override public ItemStack getIngredient()
+				{
+					return new ItemStack(GenesisItems.zingiberopsis_rhizome);
+				}
+	},
+	ODONTOPTERIS("odontopteris", 5, 6F)
 	{
 		@Override public ItemStack getIngredient()
 		{
 			return new ItemStack(GenesisItems.odontopteris_seeds);
 		}
 	},
-	ARCHAEOMARASMIUS("archaeomarasmius", 5, 5.2F)
+	ARCHAEOMARASMIUS("archaeomarasmius", 5, 6.2F)
 	{
 		@Override public ItemStack getIngredient()
 		{
