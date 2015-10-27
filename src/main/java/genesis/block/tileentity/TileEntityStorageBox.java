@@ -3,7 +3,6 @@ package genesis.block.tileentity;
 import genesis.block.tileentity.gui.ContainerStorageBox;
 import genesis.util.*;
 
-import java.lang.*;
 import java.util.*;
 
 import com.google.common.collect.PeekingIterator;
@@ -560,7 +559,7 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 	}
 	
 	@Override
-	public boolean canInsertItem(int slot, ItemStack itemStackIn, EnumFacing direction)
+	public boolean canInsertItem(int slot, ItemStack stack, EnumFacing direction)
 	{
 		return false;
 	}
