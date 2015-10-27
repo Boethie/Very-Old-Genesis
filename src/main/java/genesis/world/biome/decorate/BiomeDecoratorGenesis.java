@@ -215,13 +215,13 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 		genStandardOreByLayers(quartzGen, GenesisConfig.quartzCount, 5, 55, 128, 131);
 		genStandardOreByLayers(zirconGen, GenesisConfig.zirconCount, 5, 55, 128, 131);
 		genStandardOreByLayers(garnetGen, GenesisConfig.garnetCount, 5, 55, 128, 131);
-		genStandardOreByLayers(hematiteGen, GenesisConfig.hematiteCount, 40, 68, 128, 131);
-		genStandardOreByLayers(manganeseGen, GenesisConfig.manganeseCount, 40, 68, 128, 131);
-		genStandardOreByLayers(malachiteGen, GenesisConfig.malachiteCount, 40, 68, 128, 131);
-		genStandardOreByLayers(azuriteGen, GenesisConfig.azuriteCount, 40, 68, 128, 131);
+		genStandardOreByLayers(hematiteGen, GenesisConfig.hematiteCount, 35, 68, 128, 131);
+		genStandardOreByLayers(manganeseGen, GenesisConfig.manganeseCount, 35, 68, 128, 131);
+		genStandardOreByLayers(malachiteGen, GenesisConfig.malachiteCount, 35, 68, 128, 131);
+		genStandardOreByLayers(azuriteGen, GenesisConfig.azuriteCount, 35, 68, 128, 131);
 		genStandardOreByLayers(olivineGen, GenesisConfig.olivineCount, 5, 13, 13, 15);
-		genStandardOreByLayers(flintGen, GenesisConfig.flintCount, 40, 67, 128, 131);
-		genStandardOreByLayers(marcasiteGen, GenesisConfig.marcasiteCount, 40, 67, 128, 131);
+		genStandardOreByLayers(flintGen, GenesisConfig.flintCount, 25, 68, 128, 131);
+		genStandardOreByLayers(marcasiteGen, GenesisConfig.marcasiteCount, 25, 68, 128, 131);
 		
 		MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(currentWorld, randomGenerator, field_180294_c));
 	}

@@ -9,7 +9,7 @@ public final class GenesisConfig
 	public static Configuration config;
 	public static int flintAndMarcasiteMaxDamage = 33;
 	
-	//biomes
+	//Biomes
 	public static int rainforestId = 50;
 	public static int rainforestWeight = 10;
 	public static int rainforestEdgeId = 51;
@@ -33,11 +33,11 @@ public final class GenesisConfig
 	public static int marshWeight = 10;
 	public static int oceanId = 67;
 	
-	//dimensions
+	//Dimensions
 	public static int genesisDimId = 37;
 	public static int genesisProviderId = 37;
 	
-	//Ore Gen
+	//Ore gen
 	public static int komatiiteCount = 62;
 	public static int gneissCount = 20;
 	public static int rhyoliteCount = 11;
@@ -45,15 +45,15 @@ public final class GenesisConfig
 	public static int trondhjemiteCount = 8;
 	public static int fauxCount = 5;
 	public static int anorthositeCount = 5;
-	public static int quartzCount = 74;
-	public static int zirconCount = 31;
-	public static int garnetCount = 27;
-	public static int hematiteCount = 8;
-	public static int manganeseCount = 6;
-	public static int malachiteCount = 3;
-	public static int azuriteCount = 3;
-	public static int olivineCount = 2;
-	public static int flintCount = 35;
+	public static int quartzCount = 52;
+	public static int zirconCount = 17;
+	public static int garnetCount = 13;
+	public static int hematiteCount = 1;
+	public static int manganeseCount = 4;
+	public static int malachiteCount = 2;
+	public static int azuriteCount = 2;
+	public static int olivineCount = 1;
+	public static int flintCount = 50;
 	public static int marcasiteCount = 86;
 	
 	//Dimension music
