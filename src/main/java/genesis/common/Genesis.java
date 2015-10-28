@@ -2,6 +2,7 @@ package genesis.common;
 
 import genesis.command.CommandTPGenesis;
 import genesis.util.Constants;
+import genesis.world.gen.OverworldGeneration;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -49,6 +50,8 @@ public class Genesis
 		GenesisDimensions.registerDimensions();
 		
 		GenesisBiomes.loadBiomes();
+		
+		OverworldGeneration.register();
 		
 		proxy.preInit();
 	}
