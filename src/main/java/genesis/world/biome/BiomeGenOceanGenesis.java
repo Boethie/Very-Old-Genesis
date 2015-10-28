@@ -22,7 +22,7 @@ public class BiomeGenOceanGenesis extends BiomeGenBaseGenesis
 		
 		theBiomeDecorator.grassPerChunk = 0;
 		
-		setWaterColor(0x008d49);
+		setWaterColor(0x007d39);
 	}
 	
 	public BiomeGenOceanGenesis setWaterColor(int color)

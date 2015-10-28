@@ -47,6 +47,7 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis genesisBeach;
 	public static BiomeGenBaseGenesis limestoneBeach;
 	
+	public static final BiomeGenBase.Height height_ShallowWaters = new BiomeGenBase.Height(0.45F, 0.3F);
 	public static final BiomeGenBase.Height height_Oceans = new BiomeGenBase.Height(-1.0F, 0.1F);
 	public static final BiomeGenBase.Height height_DeepOceans = new BiomeGenBase.Height(-1.8F, 0.1F);
 	public static final BiomeGenBase.Height height_EmergingHills = new BiomeGenBase.Height(0.0F, 0.1F);
@@ -101,7 +102,7 @@ public final class GenesisBiomes
 		BiomeManagerGenesis.registerBiome(floodplainsForest, BiomeType.WARM, GenesisConfig.floodplainsForestWeight);
 		BiomeDictionary.registerBiomeType(floodplainsForest, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.DENSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
 		
-		river = new BiomeGenRiver(GenesisConfig.riverId);
+		river = new BiomeGenRiver(GenesisConfig.riverId).setHeight(height_ShallowWaters);
 		BiomeDictionary.registerBiomeType(river, BiomeDictionary.Type.RIVER, BiomeDictionary.Type.WET);
 		
 		shallowOcean = new BiomeGenShallowOcean(GenesisConfig.shallowOceanId);

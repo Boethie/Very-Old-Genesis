@@ -10,7 +10,6 @@ import genesis.world.biome.decorate.WorldGenPebbles;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 public class BiomeGenRiver extends BiomeGenBaseGenesis implements IEntityPreferredBiome
@@ -19,7 +18,6 @@ public class BiomeGenRiver extends BiomeGenBaseGenesis implements IEntityPreferr
 	{
 		super(id);
 		setBiomeName("River");
-		setHeight(BiomeGenBase.height_ShallowWaters);
 		
 		theBiomeDecorator.grassPerChunk = 0;
 		
