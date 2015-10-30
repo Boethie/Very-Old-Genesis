@@ -154,7 +154,9 @@ item.genesis.misc.bucketKomatiiticLava.name=Seau de lave komatiitique
 item.genesis.misc.menhirActivator.rustedOctaedriteFlake.name=Éclat d'octaédrite rouillé
 item.genesis.misc.menhirActivator.brokenCeremonialAxe.name=Hache d'apparat brisée
 item.genesis.misc.menhirActivator.brokenSpiritMask.name=Masque d'esprit brisé
+item.genesis.misc.menhirActivator.trepannedHomonidSkull.name=Crâne d'hominidé trépané
 item.genesis.misc.menhirActivator.ancientAmber.name=Ambre ancien
+item.genesis.misc.menhirActivator.carbonizedCone.name=Cône carbonisé
 item.genesis.misc.menhirActivator.fossilizedEgg.name= Œuf fossilisé
 
 #Food

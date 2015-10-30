@@ -17,12 +17,10 @@ public class BiomeGenOceanGenesis extends BiomeGenBaseGenesis
 	public BiomeGenOceanGenesis(int id)
 	{
 		super(id);
-		
 		topBlock = GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT).getDefaultState();
+		setWaterColor(0x007d39);
 		
 		theBiomeDecorator.grassPerChunk = 0;
-		
-		setWaterColor(0x007d39);
 	}
 	
 	public BiomeGenOceanGenesis setWaterColor(int color)

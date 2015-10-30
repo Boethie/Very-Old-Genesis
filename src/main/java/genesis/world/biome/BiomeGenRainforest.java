@@ -23,8 +23,8 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 		setBiomeName("Rainforest");
 		setTemperatureRainfall(0.95F, 1.4F);
 		setHeight(0.15F, 0.05F);
-		
 		waterColorMultiplier = 0x725113;
+		
 		theBiomeDecorator.grassPerChunk = 6;
 		
 		addDecorations();
