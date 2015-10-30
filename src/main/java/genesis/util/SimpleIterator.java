@@ -56,4 +56,6 @@ public abstract class SimpleIterator<T> implements PeekingIterator<T>
 		return current;
 	}
 	@Override public T peek() { return prepareNext(); }
+	
+	@Override public void remove() { throw new UnsupportedOperationException("remove"); }
 }

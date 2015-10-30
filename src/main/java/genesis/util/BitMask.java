@@ -1,5 +1,8 @@
 package genesis.util;
 
+/**
+ * @author Zaggy1024
+ */
 public class BitMask
 {
 	public static BitMask forValueCount(int values, int shift)

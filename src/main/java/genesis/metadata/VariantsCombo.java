@@ -169,4 +169,9 @@ public class VariantsCombo<V extends IMetadata, B extends Block, I extends Item>
 	{
 		return super.getItems(soleType);
 	}
+
+	public boolean hasState(IBlockState state)
+	{
+		return super.hasState(soleType, state);
+	}
 }

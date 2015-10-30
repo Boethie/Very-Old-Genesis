@@ -64,7 +64,7 @@ public class BlockGenesisPortal extends Block
 				
 				if (blockBounds.isVecInside(entityMiddle))
 				{
-					GenesisDimensions.teleportToDimension(entity, dimension);
+					GenesisDimensions.teleportToDimension(entity, new GenesisPortal(world, pos), dimension);
 				}
 			}
 		}

@@ -12,11 +12,17 @@ public class TileEntityMenhirReceptacle extends TileEntityBase
 	{
 		containedItem = stack;
 		sendDescriptionPacket();
+		new GenesisPortal(worldObj, pos).updatePortalStatus(worldObj);
+	}
+	
+	public ItemStack getReceptacleItem()
+	{
+		return containedItem;
 	}
 
 	public boolean isReceptacleActive()
 	{
-		return containedItem != null;
+		return getReceptacleItem() != null;
 	}
 	
 	@Override

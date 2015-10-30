@@ -609,13 +609,7 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 			start = startBox;
 			direction = iterDirection;
 		}
-
-		@Override
-		public void remove()
-		{
-			throw new UnsupportedOperationException("remove");
-		}
-
+		
 		@Override
 		protected TileEntityStorageBox computeNext()
 		{
@@ -697,12 +691,6 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 		
 		return new SimpleIterator<TileEntityStorageBox>(false)
 		{
-			@Override
-			public void remove()
-			{
-				throw new UnsupportedOperationException("remove");
-			}
-			
 			@Override
 			protected TileEntityStorageBox computeNext()
 			{

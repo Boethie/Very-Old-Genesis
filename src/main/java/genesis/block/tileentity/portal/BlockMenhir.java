@@ -5,6 +5,7 @@ import java.util.*;
 import genesis.common.GenesisItems;
 import genesis.common.IRegistrationCallback;
 import genesis.block.BlockGenesis;
+import genesis.block.tileentity.portal.GenesisPortal.MenhirData;
 import genesis.client.model.ListedItemMeshDefinition;
 import genesis.common.Genesis;
 import genesis.common.GenesisCreativeTabs;
@@ -18,6 +19,7 @@ import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.ItemStackKey;
+import genesis.util.WorldUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -224,111 +226,14 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 				});
 	}
 	
-	public BlockPos getTopOfMenhir(IBlockAccess world, BlockPos pos)
-	{
-		BlockPos curPos = pos;
-		
-		for (EnumMenhirPart part : EnumMenhirPart.values())
-		{
-			EnumMenhirPart checkPart;
-			
-			do
-			{
-				checkPart = owner.getVariant(world.getBlockState(curPos));
-				
-				if (checkPart == part)
-				{
-					curPos = curPos.up();
-				}
-			} while (part.canStack() && checkPart == part);
-			
-			if (checkPart == null)
-			{
-				break;
-			}
-		}
-		
-		curPos = curPos.down();
-		
-		return curPos;
-	}
-	
-	public TileEntityMenhirGlyph getGlyphInMenhir(IBlockAccess world, BlockPos pos)
-	{
-		pos = getTopOfMenhir(world, pos);
-		
-		while (true)
-		{
-			IBlockState state = world.getBlockState(pos);
-			EnumMenhirPart part = owner.getVariant(state);
-			
-			if (part == null)
-			{
-				break;
-			}
-			else if (part == EnumMenhirPart.GLYPH)
-			{
-				TileEntityMenhirGlyph glyph = getGlyphTileEntity(world, pos);
-				
-				if (glyph != null)
-				{
-					return glyph;
-				}
-			}
-			
-			pos = pos.down();
-		}
-		
-		return null;
-	}
-	
-	public TileEntityMenhirReceptacle getReceptacleInMenhir(IBlockAccess world, BlockPos pos)
-	{
-		pos = getTopOfMenhir(world, pos);
-		
-		while (true)
-		{
-			IBlockState state = world.getBlockState(pos);
-			EnumMenhirPart part = owner.getVariant(state);
-			
-			if (part == null)
-			{
-				break;
-			}
-			else if (part == EnumMenhirPart.RECEPTACLE)
-			{
-				TileEntityMenhirReceptacle recep = getReceptacleTileEntity(world, pos);
-				
-				if (recep != null)
-				{
-					return recep;
-				}
-			}
-			
-			pos = pos.down();
-		}
-		
-		return null;
-	}
-	
 	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
 		state = getStateFromMeta(getMetaFromState(state));	// Fix stupid bug where default doesn't stay for GLYPH
-
-		TileEntityMenhirGlyph glyphTE = getGlyphInMenhir(world, pos);
 		
-		if (glyphTE != null)
-		{
-			state = state.withProperty(GLYPH, glyphTE.getGlyph());
-		}
-
-		TileEntityMenhirReceptacle recepTE = getReceptacleInMenhir(world, pos);
-		
-		if (recepTE != null)
-		{
-			state = state.withProperty(ACTIVE, recepTE.isReceptacleActive());
-		}
+		MenhirData menhir = new MenhirData(world, pos);
+		state = state.withProperty(GLYPH, menhir.getGlyph());
+		state = state.withProperty(ACTIVE, menhir.isReceptacleActive());
 		
 		return state;
 	}
@@ -344,6 +249,7 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 		TileEntityMenhirGlyph glyphTE = new TileEntityMenhirGlyph();
 		glyphTE.setGlyph(glyph);
 		glyphTE.writeToNBT(blockCompound);
+		WorldUtils.removeBoilerplateTileEntityNBT(blockCompound);
 		
 		compound.setTag("BlockEntityTag", blockCompound);
 		glyphStack.setTagCompound(compound);
@@ -411,15 +317,15 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 		switch (part)
 		{
 		case RECEPTACLE:
+			MenhirData menhir = new MenhirData(world, pos);
 			TileEntityMenhirReceptacle recepTE = getReceptacleTileEntity(world, pos);
-			TileEntityMenhirGlyph glyphTE = getGlyphInMenhir(world, pos);
 			
 			if (recepTE != null && !recepTE.isReceptacleActive() &&
-				glyphTE != null && glyphTE.getGlyph() != EnumGlyph.NONE)
+				menhir.getGlyph() != EnumGlyph.NONE)
 			{
 				ItemStack heldStack = player.getHeldItem();
 				
-				if (heldStack != null && glyphTE.getGlyph().isActivator(heldStack))
+				if (heldStack != null && menhir.getGlyph().isActivator(heldStack))
 				{
 					ItemStack addStack;
 					
@@ -444,6 +350,30 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 		default:
 			return false;
 		}
+	}
+	
+	@Override
+	public void breakBlock(World world, BlockPos pos, IBlockState state)
+	{
+		super.breakBlock(world, pos, state);
+		
+		switch (((EnumMenhirPart) state.getValue(variantProp)))
+		{
+		case GLYPH:
+			TileEntityMenhirReceptacle recepTE = new MenhirData(world, pos, state).getReceptacleTE();
+			
+			if (recepTE != null)
+			{
+				recepTE.setContainedItem(null);
+			}
+			break;
+		case RECEPTACLE:
+			break;
+		default:
+			break;
+		}
+		
+		new GenesisPortal(world, pos, state).updatePortalStatus(world);
 	}
 	
 	@Override
@@ -489,6 +419,16 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 	public boolean isOpaqueCube()
 	{
 		return false;
+	}
+	
+	public static EnumFacing getFacing(IBlockState state)
+	{
+		if (state.getProperties().containsKey(FACING))
+		{
+			return (EnumFacing) state.getValue(FACING);
+		}
+		
+		return null;
 	}
 	
 	public static TileEntityMenhirGlyph getGlyphTileEntity(IBlockAccess world, BlockPos pos)

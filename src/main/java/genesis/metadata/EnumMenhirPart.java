@@ -36,4 +36,20 @@ public enum EnumMenhirPart implements IMetadata
 	{
 		return canStack;
 	}
+	
+	public EnumMenhirPart getOffset(int offset)
+	{
+		int index = ordinal() + offset;
+		return index >= 0 && index < values().length ? values()[index] : null;
+	}
+	
+	public boolean isFirst()
+	{
+		return ordinal() == 0;
+	}
+	
+	public boolean isLast()
+	{
+		return ordinal() == values().length - 1;
+	}
 }

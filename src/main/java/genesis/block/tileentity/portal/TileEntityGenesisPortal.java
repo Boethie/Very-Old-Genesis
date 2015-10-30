@@ -37,7 +37,9 @@ public class TileEntityGenesisPortal extends TileEntity implements IUpdatePlayer
 		
 		for (EntityLivingBase entity : entities)
 		{
-			if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isFlying)
+			EntityPlayer player = entity instanceof EntityPlayer ? (EntityPlayer) entity : null;
+			
+			if (player != null && player.capabilities.isFlying)
 			{
 				continue;
 			}
@@ -51,6 +53,12 @@ public class TileEntityGenesisPortal extends TileEntity implements IUpdatePlayer
 			{
 				distance = MathHelper.sqrt_double(distance);
 				double speed = -(distance / radius) * 0.05;
+				
+				if (player != null && player.isSneaking())
+				{
+					speed *= 0.5;
+				}
+				
 				entity.motionX += diffX * speed;
 				entity.motionY += diffY * speed;
 				entity.motionZ += diffZ * speed;

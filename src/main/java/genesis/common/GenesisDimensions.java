@@ -1,5 +1,6 @@
 package genesis.common;
 
+import genesis.block.tileentity.portal.GenesisPortal;
 import genesis.world.TeleporterGenesis;
 import genesis.world.WorldProviderGenesis;
 import net.minecraft.entity.Entity;
@@ -31,7 +32,7 @@ public class GenesisDimensions
 		return new TeleporterGenesis(world);
 	}
 	
-	public static void teleportToDimension(Entity entity, int id)
+	public static void teleportToDimension(Entity entity, GenesisPortal portal, int id)
 	{
 		if (!entity.worldObj.isRemote)
 		{
@@ -39,7 +40,9 @@ public class GenesisDimensions
 			ServerConfigurationManager manager = server.getConfigurationManager();
 			WorldServer oldWorld = (WorldServer) entity.worldObj;
 			WorldServer newWorld = server.worldServerForDimension(id);
+			
 			TeleporterGenesis teleporter = getTeleporter(newWorld);
+			teleporter.setOriginatingPortal(portal);
 			
 			if (entity instanceof EntityPlayerMP)
 			{

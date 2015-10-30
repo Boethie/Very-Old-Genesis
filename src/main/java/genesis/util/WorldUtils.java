@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.base.Function;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -17,11 +18,15 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldType;
+import net.minecraft.world.biome.BiomeGenBase;
 
 @SuppressWarnings("unchecked")
 public class WorldUtils
@@ -259,5 +264,78 @@ public class WorldUtils
 	public static BlockPos readBlockPosFromNBT(NBTTagCompound compound)
 	{
 		return new BlockPos(compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
+	}
+	
+	public static void removeBoilerplateTileEntityNBT(NBTTagCompound compound)
+	{
+		compound.removeTag("id");
+		compound.removeTag("x");
+		compound.removeTag("y");
+		compound.removeTag("z");
+	}
+	
+	/**
+	 * Creates a fake {@link IBlockAccess} to pretend that there are blocks in the world where they don't exist.
+	 * Useful for when one needs to do some action on a set of block after one is removed.<br>
+	 * If a getter returns null for a position, it will instead return the base {@link World}'s return value for that location.
+	 * @param base The world to fall back to.
+	 * @param stateGetter Function used to get the {@link IBlockState} at a position.
+	 * @param teGetter Function used to get a {@link TileEntity} at a position.
+	 * @return An {@link IBlockAccess} for use in a call to some method.
+	 */
+	public static IBlockAccess getFakeWorld(IBlockAccess base, Function<BlockPos, IBlockState> stateGetter, Function<BlockPos, TileEntity> teGetter)
+	{
+		return new IBlockAccess()
+		{
+			@Override public TileEntity getTileEntity(BlockPos pos) {
+				TileEntity te = teGetter.apply(pos);
+				return te == null ? base.getTileEntity(pos) : te;
+			}
+			
+			@Override public IBlockState getBlockState(BlockPos pos)
+			{
+				IBlockState state = stateGetter.apply(pos);
+				return state == null ? base.getBlockState(pos) : state;
+			}
+			
+			@Override public boolean isAirBlock(BlockPos pos)
+			{
+				return getBlockState(pos).getBlock().isAir(this, pos);
+			}
+			
+			@Override public int getStrongPower(BlockPos pos, EnumFacing direction)
+			{
+		        IBlockState state = getBlockState(pos);
+		        return state.getBlock().isProvidingStrongPower(this, pos, state, direction);
+			}
+			
+			@Override public boolean isSideSolid(BlockPos pos, EnumFacing side, boolean _default)
+			{
+				return getBlockState(pos).getBlock().isSideSolid(this, pos, side);
+			}
+			
+			@Override public BiomeGenBase getBiomeGenForCoords(BlockPos pos) { return base.getBiomeGenForCoords(pos); }
+			
+			@Override public boolean extendedLevelsInChunkCache() { return base.extendedLevelsInChunkCache(); }
+			
+			@Override public int getCombinedLight(BlockPos pos, int lightValue) { return base.getCombinedLight(pos, lightValue); }
+			
+			@Override public WorldType getWorldType() {
+				return base.getWorldType();
+			}
+		};
+	}
+
+	/**
+	 * Creates a fake {@link IBlockAccess} to pretend that there are blocks in the world where they don't exist.
+	 * Useful for when one needs to do some action on a set of block after one is removed.<br>
+	 * If a getter returns null for a position, it will instead return the base {@link World}'s return value for that location.
+	 * @param base The world to fall back to.
+	 * @param stateGetter Function used to get the {@link IBlockState} at a position.
+	 * @return An {@link IBlockAccess} for use in a call to some method.
+	 */
+	public static IBlockAccess getFakeWorld(IBlockAccess base, Function<BlockPos, IBlockState> stateGetter)
+	{
+		return getFakeWorld(base, stateGetter, new Function<BlockPos, TileEntity>(){ public TileEntity apply(BlockPos pos) { return null; } });
 	}
 }

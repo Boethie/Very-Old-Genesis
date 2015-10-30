@@ -50,7 +50,7 @@ public class CommandTPGenesis implements ICommand
 			dimension = 0;
 		}
 		
-		GenesisDimensions.teleportToDimension(entity, dimension);
+		GenesisDimensions.teleportToDimension(entity, null, dimension);
 	}
 	
 	@Override

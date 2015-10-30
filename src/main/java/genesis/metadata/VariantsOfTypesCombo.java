@@ -977,6 +977,15 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 	}
 	
 	/**
+	 * @return Whether the state is contained by this combo.
+	 */
+	public boolean hasState(O type, IBlockState state)
+	{
+		SubsetData data = getSubsetData(state.getBlock());
+		return data != null ? data.type == type : false;
+	}
+	
+	/**
 	 * Gets a random IBlockState for the specified {@link #ObjectType}.
 	 */
 	public IBlockState getRandomBlockState(O type, Random rand)

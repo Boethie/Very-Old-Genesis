@@ -1,30 +1,28 @@
 package genesis.world;
 
-import java.util.EnumSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 import com.google.common.collect.Maps;
 
-import genesis.block.tileentity.portal.BlockMenhir;
+import genesis.block.tileentity.portal.*;
 import genesis.block.tileentity.portal.BlockMenhir.EnumGlyph;
 import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumMenhirPart;
 import genesis.util.WorldUtils;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.world.Teleporter;
-import net.minecraft.world.WorldServer;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
 
 public class TeleporterGenesis extends Teleporter
 {
 	protected final WorldServer world;
 	protected final Map<BlockPos, PortalPosition> cache = Maps.newHashMap();
 	protected final Random random;
+	
+	protected GenesisPortal portal;
 	
 	public TeleporterGenesis(WorldServer world)
 	{
@@ -39,14 +37,21 @@ public class TeleporterGenesis extends Teleporter
 		}
 	}
 	
+	public void setOriginatingPortal(GenesisPortal portal)
+	{
+		this.portal = portal;
+	}
+	
 	@Override
 	public void placeInPortal(Entity entity, float rotationYaw)
 	{
 		if (!placeInExistingPortal(entity, rotationYaw))
 		{
-			makePortal(entity);
+			makePortal(entity);	// TODO: Handle when this process does not create a portal block, in case something weird happens.
 			placeInExistingPortal(entity, rotationYaw);
 		}
+		
+		setOriginatingPortal(null);
 	}
 	
 	@Override
@@ -116,8 +121,8 @@ public class TeleporterGenesis extends Teleporter
 	
 	public boolean makePortal(BlockPos pos)
 	{
-		final int portalHeight = 3;
-		final int portalRadius = 3;
+		final int portalHeight = GenesisPortal.PORTAL_HEIGHT;
+		final int portalRadius = GenesisPortal.MENHIR_MAX_DISTANCE;
 		
 		double distance = -1;
 		BlockPos portalPos = null;
@@ -129,18 +134,19 @@ public class TeleporterGenesis extends Teleporter
 			
 			for (EnumFacing dir : EnumFacing.HORIZONTALS)
 			{
-				for (int r = startR; r <= portalRadius; r++)
+				int menhirDistance = portal == null ? portalRadius : portal.getDistance(dir);
+				
+				for (int r = startR; r <= menhirDistance; r++)
 				{
 					for (int h = -1; h <= portalHeight; h++)
 					{
 						BlockPos checkPos = checkCenter.offset(dir, r).up(h);
-						IBlockState checkState = world.getBlockState(checkPos);
+						Block checkBlock = world.getBlockState(checkPos).getBlock();
 						
-						if (h < 0 ?
-							!checkState.getBlock().isSideSolid(world, checkPos, EnumFacing.UP) :
-							(h == 0) ? !world.canSeeSky(checkPos) : false ||
-							checkState.getBlock().getMaterial().isLiquid() ||
-							!checkState.getBlock().isReplaceable(world, checkPos))
+						if (h < 0 ? !World.doesBlockHaveSolidTopSurface(world, checkPos) :	// Under the menhirs, check if there's a solid top.
+							(h == 0 && !world.canSeeSky(checkPos)) ||	// Check if bottom of menhirs can see the sky.
+							checkBlock.getMaterial().isLiquid() ||		// Check if it's a liquid or
+							!checkBlock.isReplaceable(world, checkPos))	// if it's not replaceable.
 						{
 							continue nextCenter;
 						}
@@ -178,29 +184,36 @@ public class TeleporterGenesis extends Teleporter
 		
 		if (portalPos != null)
 		{
-			EnumSet<EnumGlyph> glyphs = EnumSet.allOf(EnumGlyph.class);
-			glyphs.remove(EnumGlyph.NONE);
-			
-			// Place a menhir on each horizontal direction.
-			for (EnumFacing dir : EnumFacing.HORIZONTALS)
+			if (portal != null)
 			{
-				// Get random glyph from the set.
-				EnumGlyph glyph = null;
-				int glyphIndex = random.nextInt(glyphs.size());
-				Iterator<EnumGlyph> glyphsIter = glyphs.iterator();
+				portal.duplicatePortal(world, portalPos);
+			}
+			else
+			{
+				EnumSet<EnumGlyph> glyphs = EnumSet.allOf(EnumGlyph.class);
+				glyphs.remove(EnumGlyph.NONE);
 				
-				for (int i = 0; i <= glyphIndex; i++)
+				// Place a menhir on each horizontal direction.
+				for (EnumFacing dir : EnumFacing.HORIZONTALS)
 				{
-					glyph = glyphsIter.next();
+					// Get random glyph from the set.
+					EnumGlyph glyph = null;
+					int glyphIndex = random.nextInt(glyphs.size());
+					Iterator<EnumGlyph> glyphsIter = glyphs.iterator();
+					
+					for (int i = 0; i <= glyphIndex; i++)
+					{
+						glyph = glyphsIter.next();
+					}
+					
+					glyphs.remove(glyph);
+					
+					// Place the menhir.
+					placeMenhir(portalPos.offset(dir, portalRadius), dir.getOpposite(), glyph);
 				}
 				
-				glyphs.remove(glyph);
-				
-				// Place the menhir.
-				placeMenhir(portalPos.offset(dir, portalRadius), dir.getOpposite(), glyph);
+				world.setBlockState(portalPos.up(portalHeight), GenesisBlocks.portal.getDefaultState());
 			}
-			
-			world.setBlockState(portalPos.up(portalHeight), GenesisBlocks.portal.getDefaultState());
 		}
 		
 		return true;
