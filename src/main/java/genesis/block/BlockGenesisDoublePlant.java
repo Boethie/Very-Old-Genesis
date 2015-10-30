@@ -15,6 +15,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.*;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SuppressWarnings("rawtypes")
 public class BlockGenesisDoublePlant extends BlockPlant
@@ -188,5 +190,12 @@ public class BlockGenesisDoublePlant extends BlockPlant
 		}
 		
 		return BlockStateToMetadata.getMetaForBlockState(state, TOP, variantProp);
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public Block.EnumOffsetType getOffsetType()
+	{
+		return Block.EnumOffsetType.XZ;
 	}
 }
