@@ -116,6 +116,7 @@ public class TeleporterGenesis extends Teleporter
 		world.setBlockState(pos, GenesisBlocks.menhirs.getBlockState(EnumMenhirPart.GLYPH).withProperty(BlockMenhir.FACING, facing));
 		BlockMenhir.getGlyphTileEntity(world, pos).setGlyph(glyph);
 		world.setBlockState(pos = pos.up(), GenesisBlocks.menhirs.getBlockState(EnumMenhirPart.RECEPTACLE).withProperty(BlockMenhir.FACING, facing));
+		BlockMenhir.getReceptacleTileEntity(world, pos).setContainedItem(glyph.getDefaultActivator());
 		world.setBlockState(pos = pos.up(), GenesisBlocks.menhirs.getBlockState(EnumMenhirPart.TOP).withProperty(BlockMenhir.FACING, facing));
 	}
 	
@@ -212,7 +213,7 @@ public class TeleporterGenesis extends Teleporter
 					placeMenhir(portalPos.offset(dir, portalRadius), dir.getOpposite(), glyph);
 				}
 				
-				world.setBlockState(portalPos.up(portalHeight), GenesisBlocks.portal.getDefaultState());
+				//world.setBlockState(portalPos.up(portalHeight), GenesisBlocks.portal.getDefaultState());
 			}
 		}
 		

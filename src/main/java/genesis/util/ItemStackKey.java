@@ -78,7 +78,7 @@ public class ItemStackKey implements Comparable<ItemStackKey>
 	
 	public ItemStack createNewStack()
 	{
-		ItemStack stack = new ItemStack(item, 1, metadata);
+		ItemStack stack = new ItemStack(item, 1, metadata == OreDictionary.WILDCARD_VALUE ? 0 : metadata);
 		
 		if (compound != null)
 			stack.setTagCompound((NBTTagCompound) compound.copy());

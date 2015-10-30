@@ -58,6 +58,7 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 		
 		final String name;
 		final String unlocalizedName;
+		final ItemStack defaultActivator;
 		final Set<ItemStackKey> activators = new HashSet<ItemStackKey>();
 		
 		EnumGlyph(String name, String unlocalizedName, Object... activators)
@@ -65,21 +66,32 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 			this.name = name;
 			this.unlocalizedName = unlocalizedName;
 			
+			ItemStack defaultActivator = null;
+			
 			for (Object activator : activators)
 			{
+				ItemStackKey key = null;
+				
 				if (activator instanceof ItemStack)
 				{
-					addActivator((ItemStack) activator);
+					key = addActivator((ItemStack) activator);
 				}
 				else if (activator instanceof ItemStackKey)
 				{
-					addActivator((ItemStackKey) activator);
+					key = addActivator((ItemStackKey) activator);
 				}
 				else
 				{
 					throw new IllegalArgumentException("Invalid activator item " + activator + " for glyph with name \"" + name + "\".");
 				}
+				
+				if (defaultActivator == null)
+				{
+					defaultActivator = key.createNewStack();
+				}
 			}
+			
+			this.defaultActivator = defaultActivator;
 		}
 		
 		EnumGlyph(String name, Object... activators)
@@ -109,14 +121,20 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 			return activators.contains(new ItemStackKey(stack));
 		}
 		
-		public void addActivator(ItemStackKey stack)
+		public ItemStackKey addActivator(ItemStackKey stack)
 		{
 			activators.add(stack);
+			return stack;
 		}
 		
-		public void addActivator(ItemStack stack)
+		public ItemStackKey addActivator(ItemStack stack)
 		{
-			addActivator(new ItemStackKey(stack));
+			return addActivator(new ItemStackKey(stack));
+		}
+		
+		public ItemStack getDefaultActivator()
+		{
+			return defaultActivator;
 		}
 	}
 	

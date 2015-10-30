@@ -50,7 +50,9 @@ public class BlockGenesisPortal extends Block
 	{
 		if (!world.isRemote)
 		{
-			if (entity.timeUntilPortal <= 0)
+			new GenesisPortal(world, pos).updatePortalStatus(world);
+			
+			if (world.getBlockState(pos).getBlock() == this && entity.timeUntilPortal <= 0)
 			{
 				int dimension = GenesisConfig.genesisDimId;
 				
