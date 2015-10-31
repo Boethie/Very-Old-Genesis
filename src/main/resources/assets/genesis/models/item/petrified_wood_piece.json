@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "genesis:items/carbonized_cone"
+        "layer0": "genesis:items/petrified_wood_piece"
     },
     "display": {
         "thirdperson": {
