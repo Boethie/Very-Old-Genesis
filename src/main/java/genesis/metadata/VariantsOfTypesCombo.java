@@ -856,7 +856,8 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 			return block.getDefaultState().withProperty(getVariantProperty(block), (Comparable) variant);
 		}
 		
-		throw new IllegalArgumentException("Variant " + variant.getName() + " of " + ObjectType.class.getSimpleName() + " " + type.getName() + " does not include a Block instance.");
+		throw new IllegalArgumentException("Variant " + variant.getName() + " of " + ObjectType.class.getSimpleName() + " " + type.getName() + " does not include a Block instance." +
+				getIdentification());
 	}
 	
 	/**
@@ -884,7 +885,12 @@ public class VariantsOfTypesCombo<O extends ObjectType, V extends IMetadata>
 		
 		if (data != null)
 		{
-			return getVariantData(data.type, data.variants.get(data.itemVariantMask.decode(meta)));
+			int index = data.itemVariantMask.decode(meta);
+			
+			if (data.variants.containsKey(index))
+			{
+				return getVariantData(data.type, data.variants.get(index));
+			}
 		}
 		
 		return null;

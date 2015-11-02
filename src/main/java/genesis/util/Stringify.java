@@ -1,5 +1,7 @@
 package genesis.util;
 
+import java.util.Iterator;
+
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.block.Block;
@@ -8,21 +10,16 @@ import net.minecraft.util.IStringSerializable;
 
 public class Stringify
 {
-	public static String stringifyIterable(Iterable<?> list)
+	public static String stringifyIterable(Iterable<?> iterable)
 	{
 		String output = "{";
-		String sep = ", ";
-		boolean remove = false;
 		
-		for (Object obj : list)
-		{
-			output += stringify(obj) + sep;
-			remove = true;
-		}
+		Iterator<?> iter = iterable.iterator();
 		
-		if (remove)
+		while (iter.hasNext())
 		{
-			output.substring(0, output.length() - sep.length());
+			Object obj = iter.next();
+			output += stringify(obj) + (iter.hasNext() ? ", " : "");
 		}
 		
 		output += "}";
