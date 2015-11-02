@@ -46,11 +46,13 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 	{
 		NONE("none"),
 		VEGETAL("vegetal",
+				GenesisItems.menhir_activators.getStack(EnumMenhirActivator.PETRIFIED_WOOD_PIECE),
 				GenesisItems.menhir_activators.getStack(EnumMenhirActivator.ANCIENT_AMBER)),
 		ANIMAL("animal",
 				GenesisItems.menhir_activators.getStack(EnumMenhirActivator.FOSSILIZED_EGG)),
 		HOMINID("hominid",
-				GenesisItems.menhir_activators.getStack(EnumMenhirActivator.BROKEN_CEREMONIAL_AXE)),
+				GenesisItems.menhir_activators.getStack(EnumMenhirActivator.BROKEN_CEREMONIAL_AXE),
+				GenesisItems.menhir_activators.getStack(EnumMenhirActivator.BROKEN_SPIRIT_MASK)),
 		COSMOS("cosmos",
 				GenesisItems.menhir_activators.getStack(EnumMenhirActivator.RUSTED_OCTAEDRITE_FLAKE));
 		

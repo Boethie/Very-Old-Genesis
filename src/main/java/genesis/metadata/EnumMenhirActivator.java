@@ -7,8 +7,7 @@ public enum EnumMenhirActivator implements IMetadata
 	ANCIENT_AMBER("ancient_amber", "ancientAmber"),
 	FOSSILIZED_EGG("fossilized_egg", "fossilizedEgg"),
 	BROKEN_CEREMONIAL_AXE("broken_ceremonial_axe", "brokenCeremonialAxe"),
-	BROKEN_SPIRIT_MASK("broken_spirit_mask", "brokenSpiritMask"),
-	TREPANNED_HOMONID_SKULL("trepanned_homonid_skull", "trepannedHomonidSkull");
+	BROKEN_SPIRIT_MASK("broken_spirit_mask", "brokenSpiritMask");
 	
 	final String name;
 	final String unlocalizedName;
