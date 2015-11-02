@@ -323,9 +323,13 @@ public class WorldUtils
 			@Override public WorldType getWorldType() {
 				return base.getWorldType();
 			}
+			
+			@Override public String toString() {
+				return base.toString();
+			}
 		};
 	}
-
+	
 	/**
 	 * Creates a fake {@link IBlockAccess} to pretend that there are blocks in the world where they don't exist.
 	 * Useful for when one needs to do some action on a set of block after one is removed.<br>
@@ -337,5 +341,36 @@ public class WorldUtils
 	public static IBlockAccess getFakeWorld(IBlockAccess base, Function<BlockPos, IBlockState> stateGetter)
 	{
 		return getFakeWorld(base, stateGetter, new Function<BlockPos, TileEntity>(){ public TileEntity apply(BlockPos pos) { return null; } });
+	}
+	
+	/**
+	 * Creates a fake {@link IBlockAccess} to pretend that there are blocks in the world where they don't exist.
+	 * Useful for when one needs to do some action on a set of block after one is removed.<br>
+	 * If a getter returns null for a position, it will instead return the base {@link World}'s return value for that location.
+	 * @param base The world to fall back to.
+	 * @param pos The position of the block to fake.
+	 * @param state The faked {@link IBlockState} to return for that position.
+	 * @param te The faked {@link TileEntity} to return for that position.
+	 * @return An {@link IBlockAccess} for use in a call to some method.
+	 */
+	public static IBlockAccess getFakeWorld(IBlockAccess base, BlockPos pos, IBlockState state, TileEntity te)
+	{
+		return getFakeWorld(base,
+				new Function<BlockPos, IBlockState>() { public IBlockState apply(BlockPos input) { return input.equals(pos) ? state : null; } },
+				new Function<BlockPos, TileEntity>() { public TileEntity apply(BlockPos input) { return input.equals(pos) ? te : null; } });
+	}
+
+	/**
+	 * Creates a fake {@link IBlockAccess} to pretend that there are blocks in the world where they don't exist.
+	 * Useful for when one needs to do some action on a set of block after one is removed.<br>
+	 * If a getter returns null for a position, it will instead return the base {@link World}'s return value for that location.
+	 * @param base The world to fall back to.
+	 * @param pos The position of the block to fake.
+	 * @param state The faked {@link IBlockState} to return for that position.
+	 * @return An {@link IBlockAccess} for use in a call to some method.
+	 */
+	public static IBlockAccess getFakeWorld(IBlockAccess base, BlockPos pos, IBlockState state)
+	{
+		return getFakeWorld(base, pos, state, null);
 	}
 }

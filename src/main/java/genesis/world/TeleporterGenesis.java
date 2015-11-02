@@ -11,7 +11,6 @@ import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumMenhirPart;
 import genesis.util.WorldUtils;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
@@ -144,12 +143,29 @@ public class TeleporterGenesis extends Teleporter
 						BlockPos checkPos = checkCenter.offset(dir, r).up(h);
 						Block checkBlock = world.getBlockState(checkPos).getBlock();
 						
-						if (h < 0 ? !World.doesBlockHaveSolidTopSurface(world, checkPos) :	// Under the menhirs, check if there's a solid top.
-							(h == 0 && !world.canSeeSky(checkPos)) ||	// Check if bottom of menhirs can see the sky.
-							checkBlock.getMaterial().isLiquid() ||		// Check if it's a liquid or
-							!checkBlock.isReplaceable(world, checkPos))	// if it's not replaceable.
-						{
-							continue nextCenter;
+						if (r < menhirDistance)
+						{	// Check line to menhir
+							if (h == 0)
+							{	// Blocks at the same level as the bottoms of the menhirs
+								if (!world.canSeeSky(checkPos) || GenesisPortal.isBlockingPortal(world, checkPos))
+								{
+									continue nextCenter;
+								}
+							}
+						}
+						else
+						{	// Check menhir position
+							if (h == -1)
+							{
+								if (!World.doesBlockHaveSolidTopSurface(world, checkPos))
+								{	// Block below menhir.
+									continue nextCenter;
+								}
+							}
+							else if (checkBlock.getMaterial().isLiquid() || !checkBlock.isReplaceable(world, checkPos))
+							{	// Blocks in the way of the menhir
+								continue nextCenter;
+							}
 						}
 					}
 				}

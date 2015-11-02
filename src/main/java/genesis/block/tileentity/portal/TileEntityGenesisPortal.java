@@ -2,18 +2,22 @@ package genesis.block.tileentity.portal;
 
 import java.util.List;
 
+import genesis.block.tileentity.TileEntityBase;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 
-public class TileEntityGenesisPortal extends TileEntity implements IUpdatePlayerListBox
+public class TileEntityGenesisPortal extends TileEntityBase implements IUpdatePlayerListBox
 {
 	protected double radius = 5 / 2.0;
+	protected byte timer = 0;
+	
+	//Cached
 	protected Vec3 center = null;
 	protected AxisAlignedBB bounds = null;
 	
@@ -33,6 +37,17 @@ public class TileEntityGenesisPortal extends TileEntity implements IUpdatePlayer
 	@Override
 	public void update()
 	{
+		if (!worldObj.isRemote)
+		{
+			timer--;
+			
+			if (timer <= 0)
+			{
+				GenesisPortal.fromPortalBlock(worldObj, pos).updatePortalStatus(worldObj);
+				timer = GenesisPortal.PORTAL_CHECK_TIME;
+			}
+		}
+		
 		List<EntityLivingBase> entities = (List<EntityLivingBase>) worldObj.getEntitiesWithinAABB(EntityLivingBase.class, bounds);
 		
 		for (EntityLivingBase entity : entities)
@@ -64,5 +79,31 @@ public class TileEntityGenesisPortal extends TileEntity implements IUpdatePlayer
 				entity.motionZ += diffZ * speed;
 			}
 		}
+	}
+	
+	public void writeToNBT(NBTTagCompound compound)
+	{
+		super.writeToNBT(compound);
+		
+		compound.setDouble("radius", radius);
+		compound.setByte("timer", timer);
+	}
+	
+	public void readFromNBT(NBTTagCompound compound)
+	{
+		super.readFromNBT(compound);
+
+		radius = compound.getDouble("radius");
+		timer = compound.getByte("timer");
+	}
+	
+	@Override
+	protected void writeVisualData(NBTTagCompound compound, boolean save)
+	{
+	}
+	
+	@Override
+	protected void readVisualData(NBTTagCompound compound, boolean save)
+	{
 	}
 }

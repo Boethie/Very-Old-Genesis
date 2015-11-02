@@ -50,9 +50,10 @@ public class BlockGenesisPortal extends Block
 	{
 		if (!world.isRemote)
 		{
-			new GenesisPortal(world, pos).updatePortalStatus(world);
+			GenesisPortal portal = GenesisPortal.fromPortalBlock(world, pos);
+			portal.updatePortalStatus(world);
 			
-			if (world.getBlockState(pos).getBlock() == this && entity.timeUntilPortal <= 0)
+			if ((state = world.getBlockState(pos)).getBlock() == this)
 			{
 				int dimension = GenesisConfig.genesisDimId;
 				
@@ -66,7 +67,14 @@ public class BlockGenesisPortal extends Block
 				
 				if (blockBounds.isVecInside(entityMiddle))
 				{
-					GenesisDimensions.teleportToDimension(entity, new GenesisPortal(world, pos), dimension);
+					if (entity.timeUntilPortal > 0)
+					{
+						entity.timeUntilPortal = entity.getPortalCooldown();
+					}
+					else
+					{
+						GenesisDimensions.teleportToDimension(entity, portal, dimension);
+					}
 				}
 			}
 		}

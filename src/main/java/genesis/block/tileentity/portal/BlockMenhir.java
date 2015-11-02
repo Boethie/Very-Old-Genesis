@@ -393,7 +393,7 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 			break;
 		}
 		
-		new GenesisPortal(world, pos, state).updatePortalStatus(world);
+		GenesisPortal.fromMenhirBlock(world, pos, state).updatePortalStatus(world);
 	}
 	
 	@Override
