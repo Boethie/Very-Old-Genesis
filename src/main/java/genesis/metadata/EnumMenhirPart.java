@@ -1,8 +1,12 @@
 package genesis.metadata;
 
+import com.google.common.collect.ImmutableList;
+
 public enum EnumMenhirPart implements IMetadata
 {
 	GLYPH("glyph", false), RECEPTACLE("receptacle", false), TOP("top", true);
+	
+	public static final ImmutableList<EnumMenhirPart> ORDERED = ImmutableList.of(GLYPH, RECEPTACLE, TOP);
 	
 	final String name;
 	final String unlocalizedName;
@@ -37,19 +41,24 @@ public enum EnumMenhirPart implements IMetadata
 		return canStack;
 	}
 	
+	public int getOrderedIndex()
+	{
+		return ORDERED.indexOf(this);
+	}
+	
 	public EnumMenhirPart getOffset(int offset)
 	{
-		int index = ordinal() + offset;
-		return index >= 0 && index < values().length ? values()[index] : null;
+		int index = getOrderedIndex() + offset;
+		return index >= 0 && index < ORDERED.size() ? ORDERED.get(index) : null;
 	}
 	
 	public boolean isFirst()
 	{
-		return ordinal() == 0;
+		return getOrderedIndex() == 0;
 	}
 	
 	public boolean isLast()
 	{
-		return ordinal() == values().length - 1;
+		return getOrderedIndex() == ORDERED.size() - 1;
 	}
 }

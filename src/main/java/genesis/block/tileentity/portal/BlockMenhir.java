@@ -225,7 +225,7 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 					{
 						ArrayList<String> variants = new ArrayList<String>();
 						
-						for (EnumMenhirPart part : EnumMenhirPart.values())
+						for (EnumMenhirPart part : EnumMenhirPart.ORDERED)
 						{
 							if (part == EnumMenhirPart.GLYPH)
 							{

@@ -94,10 +94,10 @@ public class GenesisPortal
 		}
 	}
 	
-	public static int MENHIR_MIN_DISTANCE = 1;
-	public static int MENHIR_DEFAULT_DISTANCE = 3;
-	public static int MENHIR_MAX_DISTANCE = 3;
-	public static int PORTAL_HEIGHT = 3;
+	public static final int MENHIR_MIN_DISTANCE = 1;
+	public static final int MENHIR_DEFAULT_DISTANCE = 3;
+	public static final int MENHIR_MAX_DISTANCE = 3;
+	public static final int PORTAL_HEIGHT = 3;
 	
 	// Values for external things
 	public static final byte PORTAL_CHECK_TIME = 5;

@@ -1,0 +1,11 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+	},
+    "variants": {
+        "normal": {
+			"model": "genesis:portal/portal",
+			"transform": { "scale": [4, 4, 4] }
+		}
+    }
+}
