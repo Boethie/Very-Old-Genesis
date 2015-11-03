@@ -2,8 +2,7 @@ package genesis.metadata;
 
 public enum EnumMenhirActivator implements IMetadata
 {
-	RUSTED_OCTAEDRITE_FLAKE("rusted_octaedrite_flake", "rustedOctaedriteFlake"),
-	PETRIFIED_WOOD_PIECE("petrified_wood_piece", "petrifiedWoodPiece"),
+	RUSTED_OCTAEDRITE_FRAGMENT("rusted_octaedrite_fragment", "rustedOctaedriteFragment"),
 	ANCIENT_AMBER("ancient_amber", "ancientAmber"),
 	FOSSILIZED_EGG("fossilized_egg", "fossilizedEgg"),
 	BROKEN_CEREMONIAL_AXE("broken_ceremonial_axe", "brokenCeremonialAxe"),

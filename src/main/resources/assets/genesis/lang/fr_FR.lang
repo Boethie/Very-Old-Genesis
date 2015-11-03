@@ -151,8 +151,7 @@ item.genesis.misc.ceramicBucketWater.name=Seau d'eau en céramique
 item.genesis.misc.ceramicBucketMilk.name=Seau de lait en céramique
 item.genesis.misc.bucketKomatiiticLava.name=Seau de lave komatiitique
 
-item.genesis.misc.menhirActivator.rustedOctaedriteFlake.name=Éclat d'octaédrite rouillé
-item.genesis.misc.menhirActivator.petrifiedWoodPiece.name=Morceau de bois pétrifié
+item.genesis.misc.menhirActivator.rustedOctaedriteFragment.name=Fragment d'octaédrite rouillé
 item.genesis.misc.menhirActivator.ancientAmber.name=Ambre ancien
 item.genesis.misc.menhirActivator.fossilizedEgg.name= Œuf fossilisé
 item.genesis.misc.menhirActivator.brokenCeremonialAxe.name=Hache d'apparat brisée

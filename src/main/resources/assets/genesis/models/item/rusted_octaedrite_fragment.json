@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "genesis:items/petrified_wood_piece"
+        "layer0": "genesis:items/rusted_octaedrite_fragment"
     },
     "display": {
         "thirdperson": {
