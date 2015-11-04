@@ -4,8 +4,10 @@ import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenTaiga;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -33,7 +35,7 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 			for(int z = -7; z <= 7; ++ z)
 				if(x * x + z * z < 64)
 					rubble.add(new BlockPos(x, 0, z));
-		hut.add(rubble, StructureType.RUBBLE, 1d/12d);
+		hut.add(rubble, StructureType.RUBBLE, 1d/4d);
 		
 		List<BlockPos> air = Lists.newArrayList();
 		List<BlockPos> gestalt = Lists.newArrayList();
@@ -51,6 +53,43 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 		hut.add(gestalt, StructureType.GESTALT, 11d/12d);
 		
 		structures.add(hut);
+
+		MenhirStructure tumulus = new MenhirStructure();
+		
+		rubble = Lists.newArrayList();
+		for(int x = -5; x <= 5; ++x)
+			for(int z = -5; z <= 5; ++ z)
+			{
+				int d2 = x * x + z * z;
+				if(d2 < 27 && d2 > 18)
+					rubble.add(new BlockPos(x, 1, z));
+			}
+		tumulus.add(rubble, StructureType.RUBBLE, 1d/2d);
+		
+		rubble = Lists.newArrayList();
+		for(int x = -5; x <= 5; ++x)
+			for(int z = -5; z <= 5; ++ z)
+				if(x * x + z * z < 27)
+					rubble.add(new BlockPos(x, 0, z));
+		tumulus.add(rubble, StructureType.RUBBLE, 1d/4d);
+		
+		gestalt = Lists.newArrayList();
+		gestalt.add(new BlockPos( 0, 1,  0));
+		gestalt.add(new BlockPos(-1, 1,  0));
+		gestalt.add(new BlockPos( 1, 1,  0));
+		gestalt.add(new BlockPos( 0, 1, -1));
+		gestalt.add(new BlockPos( 0, 1,  1));
+		gestalt.add(new BlockPos( 0, 2,  0));
+		tumulus.add(gestalt, StructureType.GESTALT, 1d);
+		
+		gestalt = Lists.newArrayList();
+		gestalt.add(new BlockPos(-1, 1, -1));
+		gestalt.add(new BlockPos(-1, 1,  1));
+		gestalt.add(new BlockPos( 1, 1, -1));
+		gestalt.add(new BlockPos( 1, 1,  1));
+		tumulus.add(gestalt, StructureType.GESTALT, 1d/4d);
+		
+		structures.add(tumulus);
 	}
 	
 	@Override
@@ -58,7 +97,7 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 	{
 		BlockPos chunkPos = new BlockPos(chunkX << 4, 0, chunkZ << 4);
 		
-		int menhirHutChance = 500;
+		int menhirHutChance = 300;
 		if(random.nextInt(menhirHutChance) == 0 && world.getBiomeGenForCoords(chunkPos.add(8, 0, 8)) instanceof BiomeGenTaiga)
 			generateHut(random, world, chunkPos);
 	}
@@ -95,20 +134,12 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 		world.setBlockState(chestPos, Blocks.chest.getDefaultState());
 		IInventory inventory = (IInventory) world.getTileEntity(chestPos);
 		
+		List<WeightedRandomChestContent> loot = Lists.newArrayList(menhirHutChest.getItems(random));
 		int count = menhirHutChest.getCount(random);
-		List<ItemStack> loot = Lists.newArrayList();
-		for(int i = 0; i < count; ++i)
-		{
-			ItemStack nextStack;
-			do
-			{
-				nextStack = menhirHutChest.getOneItem(random);
-			}
-			while(loot.contains(nextStack));
-			loot.add(nextStack);
-		}
+		while(loot.size() > count)
+			loot.remove(random.nextInt(loot.size()));
 		
-		for(ItemStack stack : loot)
+		for(WeightedRandomChestContent stack : loot)
 		{
 			int nextPos;
 			do
@@ -116,7 +147,7 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 				nextPos = random.nextInt(inventory.getSizeInventory());
 			}
 			while(inventory.getStackInSlot(nextPos) != null);
-			inventory.setInventorySlotContents(nextPos, stack);
+			inventory.setInventorySlotContents(nextPos, stack.theItemId);
 		}
 	}
 	
