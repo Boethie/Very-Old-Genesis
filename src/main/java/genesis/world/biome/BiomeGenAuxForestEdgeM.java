@@ -17,7 +17,7 @@ public class BiomeGenAuxForestEdgeM extends BiomeGenAuxForestEdge
 		setBiomeName("Araucarioxylon Forest Edge M");
 		setHeight(0.4F, 0.9F);
 		
-		theBiomeDecorator.grassPerChunk = 7;
+		theBiomeDecorator.grassPerChunk = 3;
 	}
 	
 	@Override
