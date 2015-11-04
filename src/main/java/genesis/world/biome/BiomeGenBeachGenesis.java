@@ -12,7 +12,7 @@ public class BiomeGenBeachGenesis extends BiomeGenBaseGenesis
 		super(id);
 		setBiomeName("Beach");
 		topBlock = GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT).getDefaultState();
-		fillerBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.SILT);
+		fillerBlock = GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT).getDefaultState();
 		
 		addDecoration(new WorldGenPebbles().setCountPerChunk(25));
 	}
