@@ -121,7 +121,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 			branchPos = branchPos.up();
 		}
 		
-		doPineTopLeaves(world, pos, branchPos.down(), height, branchPos.getY() - height + 1, rand, false, leavesLength);
+		doPineTopLeaves(world, pos, branchPos.down(), height, branchPos.getY() - height + 1, rand, false, leavesLength, false);
 	}
 	
 	protected void generateBranchSide(World world, BlockPos pos, Random rand, int dirX, int dirZ, int maxLength, int branchRarity)
@@ -241,23 +241,45 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	
 	public void doBranchLeaves(World world, BlockPos pos, Random random, boolean cap, int length)
 	{
-		for (int i = 1; i <= length; ++i)
+		doBranchLeaves(world, pos, random, cap, length, false);
+	}
+	
+	public void doBranchLeaves(World world, BlockPos pos, Random random, boolean cap, int length, boolean irregular)
+	{
+		for (int i = 1; i <= length - ((irregular && random.nextInt(3) == 0)? (random.nextInt(length + 1)) : 0); ++i)
 		{
 			setBlockInWorld(world, pos.north(i), leaves);
-			setBlockInWorld(world, pos.north(i - 1).east(), leaves);
-			setBlockInWorld(world, pos.north(i - 1).west(), leaves);
-			
+			if (irregular && !(random.nextInt(6) == 0))
+				setBlockInWorld(world, pos.north(i - 1).east(), leaves);
+			if (irregular && !(random.nextInt(6) == 0))
+				setBlockInWorld(world, pos.north(i - 1).west(), leaves);
+		}
+		
+		for (int i = 1; i <= length - ((irregular && random.nextInt(3) == 0)? (random.nextInt(length + 1)) : 0); ++i)
+		{
 			setBlockInWorld(world, pos.south(i), leaves);
-			setBlockInWorld(world, pos.south(i - 1).east(), leaves);
-			setBlockInWorld(world, pos.south(i - 1).west(), leaves);
-			
+			if (irregular && !(random.nextInt(6) == 0))
+				setBlockInWorld(world, pos.south(i - 1).east(), leaves);
+			if (irregular && !(random.nextInt(6) == 0))
+				setBlockInWorld(world, pos.south(i - 1).west(), leaves);
+		}
+		
+		for (int i = 1; i <= length - ((irregular && random.nextInt(3) == 0)? (random.nextInt(length + 1)) : 0); ++i)
+		{
 			setBlockInWorld(world, pos.east(i), leaves);
-			setBlockInWorld(world, pos.east(i - 1).north(), leaves);
-			setBlockInWorld(world, pos.east(i - 1).south(), leaves);
-			
+			if (irregular && !(random.nextInt(6) == 0))
+				setBlockInWorld(world, pos.east(i - 1).north(), leaves);
+			if (irregular && !(random.nextInt(6) == 0))
+				setBlockInWorld(world, pos.east(i - 1).south(), leaves);
+		}
+		
+		for (int i = 1; i <= length - ((irregular && random.nextInt(3) == 0)? (random.nextInt(length + 1)) : 0); ++i)
+		{
 			setBlockInWorld(world, pos.west(i), leaves);
-			setBlockInWorld(world, pos.west(i - 1).north(), leaves);
-			setBlockInWorld(world, pos.west(i - 1).south(), leaves);
+			if (irregular && !(random.nextInt(6) == 0))
+				setBlockInWorld(world, pos.west(i - 1).north(), leaves);
+			if (irregular && !(random.nextInt(6) == 0))
+				setBlockInWorld(world, pos.west(i - 1).south(), leaves);
 		}
 		
 		if (cap)
@@ -271,12 +293,17 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		}
 	}
 	
-	public void doPineTopLeaves(World world, BlockPos genPos, BlockPos branchPos, int treeHeight, int leavesBase, Random rand, boolean alternate)
+	public void doPineTopLeaves(World world, BlockPos genPos, BlockPos branchPos, int treeHeight, int leavesBase, Random rand, boolean alternate, boolean irregular)
 	{
-		doPineTopLeaves(world, genPos, branchPos, treeHeight, leavesBase, rand, alternate, 4);
+		doPineTopLeaves(world, genPos, branchPos, treeHeight, leavesBase, rand, alternate, 4, irregular);
 	}
 	
-	public void doPineTopLeaves(World world, BlockPos genPos, BlockPos branchPos, int treeHeight, int leavesBase, Random rand, boolean alternate, int maxLeaveLength)
+	public void doPineTopLeaves(World world, BlockPos genPos, BlockPos branchPos, int treeHeight, int leavesBase, Random rand, boolean alternate)
+	{
+		doPineTopLeaves(world, genPos, branchPos, treeHeight, leavesBase, rand, alternate, 4, false);
+	}
+	
+	public void doPineTopLeaves(World world, BlockPos genPos, BlockPos branchPos, int treeHeight, int leavesBase, Random rand, boolean alternate, int maxLeaveLength, boolean irregular)
 	{
 		boolean alt = false;
 		float percent;
@@ -295,7 +322,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 				leaves = maxLeaveLength;
 			
 			if (alt || !alternate)
-				doBranchLeaves(world, branchPos, rand, false, leaves);
+				doBranchLeaves(world, branchPos, rand, false, leaves, irregular);
 			
 			alt = !alt;
 		}

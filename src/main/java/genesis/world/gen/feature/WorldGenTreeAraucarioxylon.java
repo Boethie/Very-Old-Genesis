@@ -60,7 +60,7 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 		
 		BlockPos branchPos = pos.up(treeHeight - 1);
 		
-		doPineTopLeaves(world, pos, branchPos, treeHeight, pos.getY() + 6, rand, true);
+		doPineTopLeaves(world, pos, branchPos, treeHeight, pos.getY() + 6, rand, true, true);
 		
 		if (generateRandomSaplings && rand.nextInt(10) > 3)
 		{

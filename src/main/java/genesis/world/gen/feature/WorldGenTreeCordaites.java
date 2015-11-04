@@ -102,7 +102,7 @@ public class WorldGenTreeCordaites extends WorldGenTreeBase
 		*/
 		branchPos = branchPos.up(2);
 		
-		doPineTopLeaves(world, pos, branchPos, treeHeight, leavesLevel, rand, false, 3);
+		doPineTopLeaves(world, pos, branchPos, treeHeight, leavesLevel, rand, false, 3, false);
 		branchPos = new BlockPos(pos.getX(), leavesLevel, pos.getZ());
 		
 		int leaves = 1 + rand.nextInt(2);
