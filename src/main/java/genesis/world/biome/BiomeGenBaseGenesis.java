@@ -1,19 +1,19 @@
 package genesis.world.biome;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import genesis.block.BlockMoss;
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumFern;
+import genesis.metadata.EnumSilt;
+import genesis.metadata.SiltBlocks;
 import genesis.world.biome.decorate.BiomeDecoratorGenesis;
 import genesis.world.biome.decorate.WorldGenDecorationBase;
 import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.gen.feature.WorldGenTreeBase;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import net.minecraft.block.BlockSand;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -143,7 +143,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
         IBlockState top = getTopBlock(rand);
         IBlockState filler = fillerBlock;
         int k = -1;
-        int l = (int)(d / 3.0D + 3.0D + rand.nextDouble() * 0.25D);
+        int l = (int)(d / 3.0D + 5.0D + rand.nextDouble() * 0.25D);
         int chunkX = blockX & 15;
         int chunkZ = blockZ & 15;
         
@@ -155,74 +155,80 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
             }
             else
             {
-                IBlockState state = primer.getBlockState(chunkZ, y, chunkX);
-                
-                if (state.getBlock().getMaterial() == Material.air)
-                {
-                    k = -1;
-                }
-                else if (state.getBlock() == GenesisBlocks.granite)
-                {
-                    if (k == -1)
-                    {
-                        if (l <= 0)
-                        {
-                            top = null;
-                            filler = GenesisBlocks.granite.getDefaultState();
-                        }
-                        else if (y >= 59 && y <= 64)
-                        {
-                            top = getTopBlock(rand);
-                            filler = fillerBlock;
-                        }
-
-                        if (y < 63 && (top == null || top.getBlock().getMaterial() == Material.air))
-                        {
-                            if (getFloatTemperature(new BlockPos(blockX, y, blockZ)) < 0.15F)
-                            {
-                                top = Blocks.ice.getDefaultState();
-                            }
-                            else
-                            {
-                                top = Blocks.water.getDefaultState();
-                            }
-                        }
-                        
-                        k = l;
-                        
-                        if (y >= 62)
-                        {
-                            primer.setBlockState(chunkZ, y, chunkX, top);
-                        }
-                        else if (y < 56 - l)
-                        {
-                            top = null;
-                            filler = GenesisBlocks.limestone.getDefaultState();
-                            primer.setBlockState(chunkZ, y, chunkX, oceanFloor);
-                        }
-                        else if (y < 62 - l)
-                        {
-                            top = null;
-                            primer.setBlockState(chunkZ, y, chunkX, filler);
-                            filler = GenesisBlocks.limestone.getDefaultState();
-                        }
-                        else
-                        {
-                            primer.setBlockState(chunkZ, y, chunkX, filler);
-                        }
-                    }
-                    else if (k > 0)
-                    {
-                        --k;
-                        primer.setBlockState(chunkZ, y, chunkX, filler);
-
-                        if (k == 0 && filler.getBlock() == Blocks.sand)
-                        {
-                            k = rand.nextInt(4) + Math.max(0, y - 63);
-                            filler = filler.getValue(BlockSand.VARIANT) == BlockSand.EnumType.RED_SAND ? Blocks.red_sandstone.getDefaultState() : Blocks.sandstone.getDefaultState();
-                        }
-                    }
-                }
+            	IBlockState state = primer.getBlockState(chunkZ, y, chunkX);
+            	
+            	if (state.getBlock().getMaterial() == Material.air)
+            	{
+            		k = -1;
+            	}
+            	else if (state.getBlock() == GenesisBlocks.granite)
+            	{
+            		if (k == -1)
+            		{
+            			if (l <= 0)
+            			{
+            				top = null;
+            				filler = GenesisBlocks.granite.getDefaultState();
+            			}
+            			else if (y >= 59 && y <= 64)
+            			{
+            				top = getTopBlock(rand);
+            				filler = fillerBlock;
+            			}
+            			
+            			if (y < 63 && (top == null || top.getBlock().getMaterial() == Material.air))
+            			{
+            				if (getFloatTemperature(new BlockPos(blockX, y, blockZ)) < 0.15F)
+            				{
+            					top = Blocks.ice.getDefaultState();
+            				}
+            				else
+            				{
+            					top = Blocks.water.getDefaultState();
+            				}
+            			}
+            			
+            			k = l;
+            			
+            			if (y >= 62)
+            			{
+            				primer.setBlockState(chunkZ, y, chunkX, top);
+            			}
+            			else if (y < 56 - l)
+            			{
+            				top = null;
+            				filler = oceanFloor;
+            				primer.setBlockState(chunkZ, y, chunkX, filler);
+            			}
+            			else if (y < 62 - l)
+            			{
+            				top = null;
+            				primer.setBlockState(chunkZ, y, chunkX, filler);
+            				filler = GenesisBlocks.limestone.getDefaultState();
+            			}
+            			else
+            			{
+            				primer.setBlockState(chunkZ, y, chunkX, filler);
+            			}
+            		}
+            		else if (k > 0)
+            		{
+            			--k;
+            			primer.setBlockState(chunkZ, y, chunkX, filler);
+            			
+            			if (k == 0 && filler == oceanFloor)
+            			{
+            				k = rand.nextInt(6) + Math.max(0, y - 58);
+            				filler = GenesisBlocks.limestone.getDefaultState();
+            			}
+            			
+            			if (k == 0 && filler.getBlock() == GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT))
+            			{
+            				k = rand.nextInt(5) + Math.max(0, y - 58);
+            				filler = GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.SILT);
+            			}
+            		}
+            	}
             }
         }
     }

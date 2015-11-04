@@ -321,7 +321,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 			if (leaves > maxLeaveLength)
 				leaves = maxLeaveLength;
 			
-			if (alt || !alternate || (irregular && rand.nextInt(6) == 0))
+			if (alt || !alternate || (irregular && rand.nextInt(3) == 0))
 				doBranchLeaves(world, branchPos, rand, false, leaves, irregular);
 			
 			alt = !alt;
