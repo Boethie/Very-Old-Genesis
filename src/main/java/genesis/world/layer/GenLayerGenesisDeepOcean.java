@@ -53,11 +53,11 @@ public class GenLayerGenesisDeepOcean extends GenLayerGenesis
 					++l3;
 				}
 				
-				if (k3 == 0 && l3 > 3)
+				if (k3 == 0 && l3 > 3 && j3 == 0)
 				{
 					aint1[j2 + i2 * areaWidth] = GenesisBiomes.deepOcean.biomeID;
 				}
-				else if (k3 == 0 && l3 > 2)
+				else if (k3 == 0 && l3 > 2 && i3 == 0)
 				{
 					aint1[j2 + i2 * areaWidth] = GenesisBiomes.ocean.biomeID;
 				}

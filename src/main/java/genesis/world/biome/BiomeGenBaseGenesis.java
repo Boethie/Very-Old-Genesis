@@ -41,6 +41,12 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 		getGenesisDecorator().sandPerChunk2 = 1;
 	}
 	
+	public BiomeGenBaseGenesis setWaterColor(int color)
+	{
+		waterColorMultiplier = color;
+		return this;
+	}
+	
 	public List<IBlockState> getSpawnablePlants(Random rand)
 	{
 		List<IBlockState> spawnablePlants = new ArrayList<IBlockState>();

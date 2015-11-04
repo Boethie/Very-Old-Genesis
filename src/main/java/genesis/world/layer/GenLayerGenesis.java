@@ -42,7 +42,7 @@ public abstract class GenLayerGenesis extends GenLayer
 		genlayerzoom = new GenLayerZoom(2003L, genlayerzoom);
 		genlayeraddisland = new GenLayerAddIsland(4L, genlayerzoom);
 		GenLayerGenesisDeepOcean genlayerdeepocean = new GenLayerGenesisDeepOcean(4L, genlayeraddisland);
-		GenLayer genlayer2 = GenLayerZoom.magnify(1000L, genlayerdeepocean, 0);
+		GenLayer genlayer2 = GenLayerZoom.magnify(1700L, genlayerdeepocean, 0);
 		
 		//ChunkProviderSettings chunkprovidersettings = null;
 		int biomesize = 4;

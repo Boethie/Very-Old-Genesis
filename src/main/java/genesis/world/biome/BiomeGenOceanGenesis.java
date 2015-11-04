@@ -23,12 +23,6 @@ public class BiomeGenOceanGenesis extends BiomeGenBaseGenesis
 		theBiomeDecorator.grassPerChunk = 0;
 	}
 	
-	public BiomeGenOceanGenesis setWaterColor(int color)
-	{
-		waterColorMultiplier = color;
-		return this;
-	}
-	
 	public BiomeGenOceanGenesis addElements(int multiplier)
 	{
 		int[] rarityScale = {2 * multiplier, 2 * multiplier, 2 * multiplier, 1 * multiplier, 1 * multiplier};
