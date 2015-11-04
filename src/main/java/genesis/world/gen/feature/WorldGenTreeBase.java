@@ -249,36 +249,36 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		for (int i = 1; i <= length - ((irregular && random.nextInt(3) == 0)? (random.nextInt(length + 1)) : 0); ++i)
 		{
 			setBlockInWorld(world, pos.north(i), leaves);
-			if (irregular && !(random.nextInt(6) == 0))
+			if (!irregular || !(random.nextInt(6) == 0))
 				setBlockInWorld(world, pos.north(i - 1).east(), leaves);
-			if (irregular && !(random.nextInt(6) == 0))
+			if (!irregular || !(random.nextInt(6) == 0))
 				setBlockInWorld(world, pos.north(i - 1).west(), leaves);
 		}
 		
 		for (int i = 1; i <= length - ((irregular && random.nextInt(3) == 0)? (random.nextInt(length + 1)) : 0); ++i)
 		{
 			setBlockInWorld(world, pos.south(i), leaves);
-			if (irregular && !(random.nextInt(6) == 0))
+			if (!irregular || !(random.nextInt(6) == 0))
 				setBlockInWorld(world, pos.south(i - 1).east(), leaves);
-			if (irregular && !(random.nextInt(6) == 0))
+			if (!irregular || !(random.nextInt(6) == 0))
 				setBlockInWorld(world, pos.south(i - 1).west(), leaves);
 		}
 		
 		for (int i = 1; i <= length - ((irregular && random.nextInt(3) == 0)? (random.nextInt(length + 1)) : 0); ++i)
 		{
 			setBlockInWorld(world, pos.east(i), leaves);
-			if (irregular && !(random.nextInt(6) == 0))
+			if (!irregular || !(random.nextInt(6) == 0))
 				setBlockInWorld(world, pos.east(i - 1).north(), leaves);
-			if (irregular && !(random.nextInt(6) == 0))
+			if (!irregular || !(random.nextInt(6) == 0))
 				setBlockInWorld(world, pos.east(i - 1).south(), leaves);
 		}
 		
 		for (int i = 1; i <= length - ((irregular && random.nextInt(3) == 0)? (random.nextInt(length + 1)) : 0); ++i)
 		{
 			setBlockInWorld(world, pos.west(i), leaves);
-			if (irregular && !(random.nextInt(6) == 0))
+			if (!irregular || !(random.nextInt(6) == 0))
 				setBlockInWorld(world, pos.west(i - 1).north(), leaves);
-			if (irregular && !(random.nextInt(6) == 0))
+			if (!irregular || !(random.nextInt(6) == 0))
 				setBlockInWorld(world, pos.west(i - 1).south(), leaves);
 		}
 		
@@ -321,7 +321,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 			if (leaves > maxLeaveLength)
 				leaves = maxLeaveLength;
 			
-			if (alt || !alternate)
+			if (alt || !alternate || (irregular && rand.nextInt(6) == 0))
 				doBranchLeaves(world, branchPos, rand, false, leaves, irregular);
 			
 			alt = !alt;
