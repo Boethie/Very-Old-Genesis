@@ -253,6 +253,8 @@ public final class GenesisRecipes
 		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_tall_torch, 2), "X", "Y", "Y", 'X', new ItemStack(Items.coal, 1, 1), 'Y' , GenesisItems.calamites);
 		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_tall_torch, 2), "X", "Y", "Y", 'X', GenesisItems.resin, 'Y' , GenesisItems.calamites);
 		
+		GameRegistry.addShapedRecipe(new ItemStack(Blocks.torch, 4), "X", "Y", 'X', GenesisItems.resin, 'Y', Items.stick);
+		
 		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.calamites, 9), GenesisBlocks.calamites_bundle);
 		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.programinis_bundle), "CCC", "CCC", "CCC", 'C', GenesisItems.programinis);
 		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.programinis, 9), GenesisBlocks.programinis_bundle);
@@ -311,6 +313,12 @@ public final class GenesisRecipes
 					"c",
 					"B",
 					'c', new ItemStack(Items.coal, 1, OreDictionary.WILDCARD_VALUE),
+					'B', billetStack);
+			
+			GameRegistry.addShapedRecipe(new ItemStack(Blocks.torch, 4),
+					"r",
+					"B",
+					'r', new ItemStack(GenesisItems.resin),
 					'B', billetStack);
 			
 			// Campfire
