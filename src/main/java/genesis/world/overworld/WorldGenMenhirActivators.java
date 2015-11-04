@@ -19,7 +19,7 @@ import static genesis.world.gen.OverworldGeneration.menhirHutChest;
 /**
  * Created by Vorquel on 10/27/15.
  */
-public class WorldGenMenhirHut implements IWorldGenerator
+public class WorldGenMenhirActivators implements IWorldGenerator
 {
 	private List<MenhirStructure> structures = Lists.newArrayList();
 	private List<Block> topBlocks = Lists.newArrayList(Blocks.dirt, Blocks.grass, Blocks.stone);
@@ -42,9 +42,9 @@ public class WorldGenMenhirHut implements IWorldGenerator
 				for(int z = -3; z <= 3; ++z)
 				{
 					int d2 = x * x + y * y + z * z;
-					if(d2 < 9 || x == 3 && y <= 0 && z == 0)
+					if(d2 < 8 || x == 3 && y <= 0 && z == 0)
 						air.add(new BlockPos(x, y + 2, z));
-					else if(d2 < 16)
+					else if(d2 < 12)
 						gestalt.add(new BlockPos(x, y + 2, z));
 				}
 		hut.add(air, StructureType.AIR, 1d);
@@ -52,7 +52,7 @@ public class WorldGenMenhirHut implements IWorldGenerator
 		
 		structures.add(hut);
 	}
-
+	
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider)
 	{
@@ -69,7 +69,7 @@ public class WorldGenMenhirHut implements IWorldGenerator
 		BlockPos center = getValidPos(structure, random, world, chunkPos);
 		if(center == null)
 			return;
-
+		
 		for(BlockPos offset : structure.get(random, StructureType.RUBBLE))
 		{
 			BlockPos pos = getRealHeight(world, center.add(offset), topBlocks).up(offset.getY());
@@ -90,7 +90,7 @@ public class WorldGenMenhirHut implements IWorldGenerator
 		
 		for(BlockPos offset : structure.get(random, StructureType.AIR))
 			world.setBlockToAir(center.add(offset));
-
+		
 		BlockPos chestPos = center.add(0, -1, 0);
 		world.setBlockState(chestPos, Blocks.chest.getDefaultState());
 		IInventory inventory = (IInventory) world.getTileEntity(chestPos);
@@ -104,7 +104,7 @@ public class WorldGenMenhirHut implements IWorldGenerator
 			{
 				nextStack = menhirHutChest.getOneItem(random);
 			}
-			while(!loot.contains(nextStack));
+			while(loot.contains(nextStack));
 			loot.add(nextStack);
 		}
 		
@@ -171,7 +171,7 @@ public class WorldGenMenhirHut implements IWorldGenerator
 			types.add(type);
 			chances.add(chance);
 		}
-
+		
 		List<BlockPos> get(Random random, StructureType type)
 		{
 			List<BlockPos> posList = Lists.newArrayList();
