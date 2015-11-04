@@ -549,7 +549,7 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 	@Override
 	public String getCommandSenderName()
 	{
-		return hasCustomName() ? customName : Unlocalized.CONTAINER_UI + "storageBox";
+		return hasCustomName() ? customName : Unlocalized.CONTAINER_UI + "storageBox." + (getWidth() <= 1 ? "normal" : "large");
 	}
 	
 	@Override

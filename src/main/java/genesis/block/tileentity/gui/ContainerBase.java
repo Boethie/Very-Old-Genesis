@@ -31,8 +31,9 @@ public abstract class ContainerBase extends Container
 	protected List<Slot> playerSlots = new ArrayList<Slot>();
 	protected List<Slot> topSlots = new ArrayList<Slot>();
 	protected Set<Slot> bigSlots = new HashSet<Slot>();
-	
+
 	protected UIArea playerInvArea = null;
+	protected UIArea containerInvArea = null;
 	
 	public int width;
 	public int height;
@@ -141,6 +142,16 @@ public abstract class ContainerBase extends Container
 	public int getPlayerInventoryTextY()
 	{
 		return getPlayerInventoryArea().top - textH - 1;
+	}
+	
+	public UIArea getContainerInventoryArea()
+	{
+		if (containerInvArea == null)
+		{
+			containerInvArea = getSlotsArea(topSlots);
+		}
+		
+		return containerInvArea;
 	}
 	
 	public int getActualSlotWidth(Slot slot)
@@ -267,10 +278,16 @@ public abstract class ContainerBase extends Container
 		moveSlots(slots, 0, -area.top + y);
 	}
 	
-	public void setupGUILayout()
+	public void resetCached()
 	{
-		UIArea topArea = getSlotsArea(topSlots);
-		UIArea playerArea = getSlotsArea(playerSlots);
+		playerInvArea = null;
+		containerInvArea = null;
+	}
+	
+	public void setUpGUILayout()
+	{
+		UIArea topArea = getContainerInventoryArea();
+		UIArea playerArea = getPlayerInventoryArea();
 		width = Math.max(topArea.getWidth(), playerArea.getWidth()) + (paddingY + borderH) * 2;
 		
 		centerSlotsHorizontally(topSlots);
@@ -279,6 +296,8 @@ public abstract class ContainerBase extends Container
 		positionSlotsVertically(topSlots, borderH + paddingY + textH);
 		positionSlotsVertically(playerSlots, getSlotsArea(topSlots).bottom + textH + 4);
 		fitGUIAroundSlots(inventorySlots);
+		
+		resetCached();
 	}
 	
 	protected boolean isPlayerMain(int slotNumber)

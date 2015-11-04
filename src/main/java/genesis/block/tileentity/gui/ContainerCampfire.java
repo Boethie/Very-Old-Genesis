@@ -36,7 +36,7 @@ public class ContainerCampfire extends ContainerBase
 		fuel = addTopAlignedSlot(new RestrictedSlot(te, TileEntityCampfire.SLOT_FUEL, ingSep / 2, y += slotH * 2));
 		output = addBigTopAlignedSlot(new SlotFurnaceOutput(player, te, TileEntityCampfire.SLOT_OUTPUT, 112, y /= 2));
 		
-		setupGUILayout();
+		setUpGUILayout();
 	}
 	
 	@Override

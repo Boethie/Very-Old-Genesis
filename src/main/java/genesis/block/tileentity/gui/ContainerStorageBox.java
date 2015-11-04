@@ -39,7 +39,7 @@ public class ContainerStorageBox extends ContainerBase
 			boxCount++;
 		}
 		
-		setupGUILayout();
+		setUpGUILayout();
 		
 		inventory.openInventory(player);
 	}

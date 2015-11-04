@@ -380,8 +380,8 @@ item.genesis.material.egg.meganeura.name=Meganeura Egg
 #------------- GUIs -------------
 container.genesis.workbench=Crafting & Knapping
 container.genesis.campfire=Campfire
-container.genesis.storageBox=Storage Box
-container.genesis.largeStorageBox=Large Storage Box
+container.genesis.storageBox.normal=Storage Box
+container.genesis.storageBox.large=Large Storage Box
 
 #------------- Entities -------------
 

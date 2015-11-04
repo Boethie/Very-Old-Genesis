@@ -56,8 +56,6 @@ public class TileEntityStorageBoxRenderer extends TileEntitySpecialRenderer
 	@Override
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float partialTick, int destroyStage)
 	{
-		model = new ModelStorageBox();
-
 		// Get data about the block in the world.
 		TileEntityStorageBox box = (TileEntityStorageBox) te;
 		World world = box.getWorld();

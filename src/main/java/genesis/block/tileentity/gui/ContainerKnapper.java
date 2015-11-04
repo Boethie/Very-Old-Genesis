@@ -158,7 +158,7 @@ public class ContainerKnapper extends ContainerBase
 			}
 		});
 		
-		setupGUILayout();
+		setUpGUILayout();
 	}
 	
 	protected int[] prevProgresses = new int[TileEntityKnapper.SLOTS_CRAFTING_COUNT];
