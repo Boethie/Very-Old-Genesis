@@ -261,6 +261,15 @@ public final class GenesisRecipes
 		
 		EnumToolMaterial[] flintMaterials = {EnumToolMaterial.BLACK_FLINT, EnumToolMaterial.BROWN_FLINT};
 		
+		// silt to siltstone recipes
+		for (EnumSilt mat: EnumSilt.values())
+		{
+			GameRegistry.addShapedRecipe(GenesisBlocks.silt.getStack(SiltBlocks.SILTSTONE, mat),
+					"ss",
+					"ss",
+					's', GenesisBlocks.silt.getStack(SiltBlocks.SILT, mat));
+		}
+		
 		// Flint and marcasite recipe
 		for (EnumToolMaterial mat : flintMaterials)
 		{
