@@ -12,6 +12,7 @@
         }
     ],
     "textures": {
+		"particle": "genesis:blocks/portal/portal",
         "portal": "genesis:blocks/portal/portal"
     }
 }

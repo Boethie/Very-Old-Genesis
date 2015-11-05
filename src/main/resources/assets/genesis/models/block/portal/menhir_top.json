@@ -8,14 +8,15 @@
             "faces": {
                 "down": { "uv": [ 6.25, 13.75, 9.25, 15.75 ], "texture": "#texture", "rotation": 270 },
                 "up": { "uv": [ 0.25, 13.75, 3.25, 15.75 ], "texture": "#texture", "rotation": 270 },
-                "west": { "uv": [ 12.75, 9.75, 15.75, 12.75 ], "texture": "#texture", "rotation": 270 },
+                "west": { "uv": [ 12.75, 9.75, 15.75, 12.75 ], "texture": "#texture", "rotation": 180 },
                 "north": { "uv": [ 3.25, 13.75, 6.25, 15.75 ], "texture": "#texture", "rotation": 90 },
-                "east": { "uv": [ 12.75, 12.75, 15.75, 15.75 ], "texture": "#texture", "rotation": 90 },
+                "east": { "uv": [ 12.75, 12.75, 15.75, 15.75 ], "texture": "#texture", "rotation": 0 },
                 "south": { "uv": [ 9.25, 13.75, 12.25, 15.75 ], "texture": "#texture", "rotation": 270 }
             }
         }
     ],
     "textures": {
-        "texture": "genesis:blocks/portal/texture"
+		"particle": "genesis:blocks/granite",
+        "texture": "genesis:blocks/portal/menhir"
     }
 }

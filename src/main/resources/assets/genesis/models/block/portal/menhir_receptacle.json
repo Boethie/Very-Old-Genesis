@@ -48,6 +48,7 @@
         }
     ],
     "textures": {
-        "texture": "genesis:blocks/portal/texture"
+		"particle": "genesis:blocks/granite",
+        "texture": "genesis:blocks/portal/menhir"
     }
 }
