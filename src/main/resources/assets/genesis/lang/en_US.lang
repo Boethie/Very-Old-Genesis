@@ -377,6 +377,9 @@ item.genesis.material.tyrannosaurusSaliva.name=Tyrannosaurus Saliva
 item.genesis.material.tyrannosaurusTooth.name=Tyrannosaurus Tooth
 item.genesis.material.egg.meganeura.name=Meganeura Egg
 
+#Hidden
+tile.genesis.misc.portal.name=Genesis Portal
+
 #------------- GUIs -------------
 container.genesis.workbench=Crafting & Knapping
 container.genesis.campfire=Campfire

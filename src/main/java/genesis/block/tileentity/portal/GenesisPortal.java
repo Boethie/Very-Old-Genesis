@@ -10,6 +10,7 @@ import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumMenhirPart;
 import genesis.util.SimpleIterator;
 import genesis.util.WorldUtils;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,80 +21,6 @@ import net.minecraft.world.*;
 
 public class GenesisPortal
 {
-	public static class MenhirIterator extends SimpleIterator<Pair<EnumMenhirPart, BlockPos>>
-	{
-		private final IBlockAccess world;
-		private final Pair<EnumMenhirPart, BlockPos> start;
-		private final int up;
-		private final EnumFacing facing;
-		
-		public MenhirIterator(IBlockAccess world, BlockPos start, IBlockState startState, boolean up)
-		{
-			super(false);
-			
-			this.world = world;
-			this.start = Pair.of(GenesisBlocks.menhirs.getVariant(startState), start);
-			this.up = up ? 1 : -1;
-			this.facing = BlockMenhir.getFacing(startState);
-		}
-		
-		public MenhirIterator(IBlockAccess world, BlockPos start, boolean up)
-		{
-			this(world, start, world.getBlockState(start), up);
-		}
-		
-		@Override
-		protected Pair<EnumMenhirPart, BlockPos> computeNext()
-		{
-			if (getCurrent() == null)
-			{
-				return start;
-			}
-			
-			EnumMenhirPart curPart = getCurrent().getLeft();
-			
-			BlockPos checkPos = getCurrent().getRight().up(up);
-			IBlockState checkState = world.getBlockState(checkPos);
-			EnumMenhirPart checkPart = GenesisBlocks.menhirs.getVariant(checkState);
-			
-			if (checkPart != null &&
-				BlockMenhir.getFacing(checkState) == facing &&
-				((checkPart == curPart && curPart.canStack()) || checkPart == getCurrent().getLeft().getOffset(up)))
-			{
-				return Pair.of(checkPart, checkPos);
-			}
-			
-			return null;
-		}
-	}
-	
-	public static class MenhirIterable implements Iterable<Pair<EnumMenhirPart, BlockPos>>
-	{
-		private final IBlockAccess world;
-		private final BlockPos start;
-		private final IBlockState startState;
-		private final boolean up;
-		
-		public MenhirIterable(IBlockAccess world, BlockPos start, IBlockState startState, boolean up)
-		{
-			this.world = world;
-			this.start = start;
-			this.startState = startState;
-			this.up = up;
-		}
-		
-		public MenhirIterable(IBlockAccess world, BlockPos start, boolean up)
-		{
-			this(world, start, null, up);
-		}
-		
-		@Override
-		public Iterator<Pair<EnumMenhirPart, BlockPos>> iterator()
-		{
-			return startState == null ? new MenhirIterator(world, start, up) : new MenhirIterator(world, start, startState, up);
-		}
-	}
-	
 	public static final int MENHIR_MIN_DISTANCE = 1;
 	public static final int MENHIR_DEFAULT_DISTANCE = 3;
 	public static final int MENHIR_MAX_DISTANCE = 3;
@@ -101,129 +28,6 @@ public class GenesisPortal
 	
 	// Values for external things
 	public static final byte PORTAL_CHECK_TIME = 5;
-	
-	public static class MenhirData
-	{
-		protected IBlockAccess world;
-		protected BlockPos bottom;
-		protected BlockPos top;
-		protected EnumFacing facing;
-		protected BlockPos glyph;
-		protected TileEntityMenhirGlyph glyphTE;
-		protected BlockPos receptacle;
-		protected TileEntityMenhirReceptacle receptacleTE;
-		
-		public MenhirData(IBlockAccess world, BlockPos pos, IBlockState state)
-		{
-			world = WorldUtils.getFakeWorld(world, pos, state);
-			this.world = world;
-			
-			this.facing = BlockMenhir.getFacing(state);
-			
-			bottom = pos;
-			
-			for (Pair<EnumMenhirPart, BlockPos> pair : new MenhirIterable(world, pos, false))
-			{
-				bottom = pair.getRight();
-			}
-			
-			refresh();
-		}
-		
-		public MenhirData(IBlockAccess world, BlockPos pos)
-		{
-			this(world, pos, world.getBlockState(pos));
-		}
-		
-		public void refresh()
-		{
-			top = null;
-			glyph = null;
-			glyphTE = null;
-			receptacle = null;
-			receptacleTE = null;
-		}
-		
-		public BlockPos getBottomPos()
-		{
-			return bottom;
-		}
-		
-		public EnumFacing getFacing()
-		{
-			return facing;
-		}
-		
-		public BlockPos getGlyphPos()
-		{
-			if (glyph == null && GenesisBlocks.menhirs.getVariant(world.getBlockState(bottom)) == EnumMenhirPart.GLYPH)
-			{
-				glyph = bottom;
-			}
-			
-			return glyph;
-		}
-		
-		public TileEntityMenhirGlyph getGlyphTE()
-		{
-			return glyphTE == null && getGlyphPos() != null ? glyphTE = BlockMenhir.getGlyphTileEntity(world, getGlyphPos()) : glyphTE;
-		}
-		
-		public EnumGlyph getGlyph()
-		{
-			return getGlyphTE() == null ? EnumGlyph.NONE : getGlyphTE().getGlyph();
-		}
-		
-		public BlockPos getReceptaclePos()
-		{
-			if (receptacle == null)
-			{
-				for (Pair<EnumMenhirPart, BlockPos> pair : new MenhirIterable(world, bottom, true))
-				{
-					if (pair.getLeft() == EnumMenhirPart.RECEPTACLE)
-					{
-						receptacle = pair.getRight();
-						break;
-					}
-				}
-			}
-			
-			return receptacle;
-		}
-		
-		public TileEntityMenhirReceptacle getReceptacleTE()
-		{
-			return receptacleTE == null && getReceptaclePos() != null ? receptacleTE = BlockMenhir.getReceptacleTileEntity(world, getReceptaclePos()) : receptacleTE;
-		}
-		
-		public ItemStack getReceptacleItem()
-		{
-			return getReceptacleTE() == null ? null : getReceptacleTE().getReceptacleItem();
-		}
-		
-		public boolean isReceptacleActive()
-		{
-			return getReceptacleTE() == null ? false : getReceptacleTE().isReceptacleActive();
-		}
-		
-		public BlockPos getTop()
-		{
-			if (top == null)
-			{
-				for (Pair<EnumMenhirPart, BlockPos> pair : new MenhirIterable(world, bottom, true))
-				{
-					top = pair.getRight();
-				}
-			}
-			
-			return top;
-		}
-		
-		public String toString()
-		{
-			return "menhir[at: " + getBottomPos() + ", facing: " + getFacing() + ", glyph: " + getGlyph() + ", receptacle: " + getReceptaclePos() + ", active: " + isReceptacleActive() + ", item: " + getReceptacleItem() + "]";
-		}
-	}
 	
 	public static boolean isBlockingPortal(IBlockAccess world, BlockPos pos, IBlockState state)
 	{
@@ -236,7 +40,7 @@ public class GenesisPortal
 	}
 	
 	protected final IBlockAccess world;
-	protected final BlockPos center;
+	protected BlockPos center;
 	protected BlockPos portal;
 	protected final Map<EnumFacing, MenhirData> menhirs = new EnumMap<EnumFacing, MenhirData>(EnumFacing.class);
 	protected final Map<EnumFacing, MenhirData> menhirsView = Collections.unmodifiableMap(menhirs);
@@ -369,9 +173,20 @@ public class GenesisPortal
 		menhirs.clear();
 	}
 	
+	public IBlockAccess getWorld()
+	{
+		return world;
+	}
+	
 	public BlockPos getCenterPosition()
 	{
 		return center;
+	}
+	
+	public void setCenterPosition(BlockPos pos)
+	{
+		center = pos;
+		refresh();
 	}
 	
 	public BlockPos getPortalPosition()
@@ -466,34 +281,180 @@ public class GenesisPortal
 		return direction.getFrontOffsetX() * off.getX() + direction.getFrontOffsetY() * off.getY() + direction.getFrontOffsetZ() * off.getZ();
 	}
 	
-	public void duplicatePortal(World newWorld, BlockPos newCenter)
+	public void placeMenhir(World world, BlockPos pos, EnumFacing facing, EnumGlyph glyph)
 	{
-		Genesis.logger.info("Duplicating portal " + this + " to world " + newWorld + " at pos " + newCenter + ".");
-		BlockPos posDiff = newCenter.subtract(center);
+		world.setBlockState(pos, GenesisBlocks.menhirs.getBlockState(EnumMenhirPart.GLYPH).withProperty(BlockMenhir.FACING, facing));
+		BlockMenhir.getGlyphTileEntity(world, pos).setGlyph(glyph);
+		world.setBlockState(pos = pos.up(), GenesisBlocks.menhirs.getBlockState(EnumMenhirPart.RECEPTACLE).withProperty(BlockMenhir.FACING, facing));
+		BlockMenhir.getReceptacleTileEntity(world, pos).setContainedItem(glyph.getDefaultActivator());
+		world.setBlockState(pos = pos.up(), GenesisBlocks.menhirs.getBlockState(EnumMenhirPart.TOP).withProperty(BlockMenhir.FACING, facing));
+	}
+	
+	public int getDistanceWithDefault(EnumFacing direction, int def)
+	{
+		int distance = getDistance(direction);
+		return distance == -1 ? def : distance;
+	}
+	
+	public void setPlacementPosition(World world)
+	{
+		double distance = -1;
+		BlockPos portalPos = null;
 		
-		for (MenhirData menhir : getMenhirs().values())
+		nextCenter:
+		for (BlockPos checkCenter : WorldUtils.getAreaWithHeight(getCenterPosition(), 64, 0, world.getActualHeight()))
+		{
+			int startR = 0;
+			
+			for (EnumFacing dir : EnumFacing.HORIZONTALS)
+			{
+				int menhirDistance = getDistanceWithDefault(dir, MENHIR_DEFAULT_DISTANCE);
+				
+				for (int r = startR; r <= menhirDistance; r++)
+				{
+					for (int h = -1; h <= PORTAL_HEIGHT; h++)
+					{
+						BlockPos checkPos = checkCenter.offset(dir, r).up(h);
+						Block checkBlock = world.getBlockState(checkPos).getBlock();
+						
+						if (r < menhirDistance)
+						{	// Check line to menhir
+							if (h == 0)
+							{	// Blocks at the same level as the bottoms of the menhirs
+								if (!world.canSeeSky(checkPos) || GenesisPortal.isBlockingPortal(world, checkPos))
+								{
+									continue nextCenter;
+								}
+							}
+						}
+						else
+						{	// Check menhir position
+							if (h == -1)
+							{
+								if (!World.doesBlockHaveSolidTopSurface(world, checkPos))
+								{	// Block below menhir.
+									continue nextCenter;
+								}
+							}
+							else if (checkBlock.getMaterial().isLiquid() || !checkBlock.isReplaceable(world, checkPos))
+							{	// Blocks in the way of the menhir
+								continue nextCenter;
+							}
+						}
+					}
+				}
+				
+				startR = 1;
+			}
+			
+			double checkDistance = getCenterPosition().distanceSq(checkCenter);
+			
+			if (distance < 0 || checkDistance < distance)
+			{
+				distance = checkDistance;
+				portalPos = checkCenter;
+			}
+		}
+		
+		if (portalPos == null)
+		{
+			portalPos = new BlockPos(getCenterPosition().getX(), world.getActualHeight(), getCenterPosition().getZ());
+			
+			while (world.isAirBlock(portalPos))
+			{
+				portalPos = portalPos.down();
+			}
+			
+			portalPos = portalPos.up(2);
+
+			BlockPos start = portalPos.down();
+			BlockPos end = start;
+			
+			for (EnumFacing dir : EnumFacing.HORIZONTALS)
+			{
+				if (dir.getAxisDirection().getOffset() <= 0)
+				{
+					start.offset(dir, getDistanceWithDefault(dir, MENHIR_DEFAULT_DISTANCE));
+				}
+				else
+				{
+					end.offset(dir, getDistanceWithDefault(dir, MENHIR_DEFAULT_DISTANCE));
+				}
+			}
+			
+			for (BlockPos padPos : WorldUtils.getArea(start, end))
+			{
+				world.setBlockState(padPos, GenesisBlocks.moss.getDefaultState());
+			}
+		}
+		
+		setCenterPosition(portalPos);
+	}
+	
+	public void makePortal(World world, Random random)
+	{
+		setPlacementPosition(world);
+		
+		EnumSet<EnumGlyph> glyphs = EnumSet.allOf(EnumGlyph.class);
+		glyphs.remove(EnumGlyph.NONE);
+		
+		// Place a menhir on each horizontal direction.
+		for (EnumFacing dir : EnumFacing.HORIZONTALS)
+		{
+			// Get random glyph from the set.
+			EnumGlyph glyph = null;
+			int glyphIndex = random.nextInt(glyphs.size());
+			Iterator<EnumGlyph> glyphsIter = glyphs.iterator();
+			
+			for (int i = 0; i <= glyphIndex; i++)
+			{
+				glyph = glyphsIter.next();
+			}
+			
+			glyphs.remove(glyph);
+			
+			// Place the menhir.
+			placeMenhir(world,
+					getCenterPosition().offset(dir, getDistanceWithDefault(dir, MENHIR_DEFAULT_DISTANCE)),
+					dir.getOpposite(), glyph);
+		}
+		
+		refresh();
+		updatePortalStatus(world);
+	}
+	
+	public void duplicatePortal(World world, GenesisPortal fromPortal)
+	{
+		Genesis.logger.info("Duplicating portal " + fromPortal + " to portal " + this + ".");
+		BlockPos posDiff = getCenterPosition().subtract(fromPortal.getCenterPosition());
+		IBlockAccess fromWorld = fromPortal.getWorld();
+		
+		for (MenhirData menhir : fromPortal.getMenhirs().values())
 		{
 			if (menhir != null)
 			{
-				for (Pair<EnumMenhirPart, BlockPos> from : new MenhirIterable(world, menhir.getBottomPos(), true))
+				for (Pair<EnumMenhirPart, BlockPos> from : new MenhirIterator(fromWorld, menhir.getBottomPos(), true))
 				{
 					BlockPos newPos = from.getRight().add(posDiff);
-					newWorld.setBlockState(newPos, world.getBlockState(from.getRight()));
-					TileEntity te = world.getTileEntity(from.getRight());
+					world.setBlockState(newPos, fromWorld.getBlockState(from.getRight()));
+					TileEntity te = fromWorld.getTileEntity(from.getRight());
 					
 					if (te != null)
 					{
 						NBTTagCompound compound = new NBTTagCompound();
 						te.writeToNBT(compound);
 						TileEntity newTE = TileEntity.createAndLoadEntity(compound);
-						newWorld.removeTileEntity(newPos);
-						newWorld.setTileEntity(newPos, newTE);
+						world.removeTileEntity(newPos);
+						world.setTileEntity(newPos, newTE);
 					}
+					
+					world.markBlockForUpdate(newPos);
 				}
 			}
 		}
 		
-		GenesisPortal.fromCenterBlock(newWorld, newCenter).updatePortalStatus(newWorld);
+		refresh();
+		updatePortalStatus(world);
 	}
 	
 	public String toString()

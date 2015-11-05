@@ -5,7 +5,6 @@ import java.util.*;
 import genesis.common.GenesisItems;
 import genesis.common.IRegistrationCallback;
 import genesis.block.BlockGenesis;
-import genesis.block.tileentity.portal.GenesisPortal.MenhirData;
 import genesis.client.model.ListedItemMeshDefinition;
 import genesis.common.Genesis;
 import genesis.common.GenesisCreativeTabs;

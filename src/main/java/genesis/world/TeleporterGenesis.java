@@ -95,151 +95,40 @@ public class TeleporterGenesis extends Teleporter
 			cache.put(center, new PortalPosition(portalPos, world.getTotalWorldTime()));
 			Genesis.logger.info("Caching portal position from location " + center + " to " + portalPos);
 			
-			/* TODO: Decide whether to keep this or make it float you down through the same force that carries you into the portal
-			while (world.isAirBlock(portalPos))
+			Vec3 to = new Vec3(portalPos.getX() + 0.5, portalPos.getY(), portalPos.getZ() + 0.5);
+			
+			if (!world.getBlockState(portalPos.down()).getBlock().isVisuallyOpaque())
 			{
-				portalPos = portalPos.down();
+				to = to.subtract(0, entity.getEyeHeight() / 2, 0);
 			}
 			
-			portalPos = portalPos.up();*/
+			entity.setLocationAndAngles(to.xCoord, to.yCoord, to.zCoord, entity.rotationYaw, entity.rotationPitch);
+			entity.setVelocity(0, 0, 0);
 			
-			entity.setLocationAndAngles(portalPos.getX() + 0.5, portalPos.getY() - entity.getEyeHeight() / 2, portalPos.getZ() + 0.5, entity.rotationYaw, entity.rotationPitch);
+			//world.playSoundEffect(portalPos.getX() + 0.5, portalPos.getY() + 0.5, portalPos.getZ() + 0.5,
+			//		Constants.ASSETS_PREFIX + "portal.exit", 0.9F + world.rand.nextFloat() * 0.2F, 0.8F + world.rand.nextFloat() * 0.4F);
+			
 			return true;
 		}
 		
 		return false;
 	}
 	
-	public void placeMenhir(BlockPos pos, EnumFacing facing, EnumGlyph glyph)
-	{
-		world.setBlockState(pos, GenesisBlocks.menhirs.getBlockState(EnumMenhirPart.GLYPH).withProperty(BlockMenhir.FACING, facing));
-		BlockMenhir.getGlyphTileEntity(world, pos).setGlyph(glyph);
-		world.setBlockState(pos = pos.up(), GenesisBlocks.menhirs.getBlockState(EnumMenhirPart.RECEPTACLE).withProperty(BlockMenhir.FACING, facing));
-		BlockMenhir.getReceptacleTileEntity(world, pos).setContainedItem(glyph.getDefaultActivator());
-		world.setBlockState(pos = pos.up(), GenesisBlocks.menhirs.getBlockState(EnumMenhirPart.TOP).withProperty(BlockMenhir.FACING, facing));
-	}
-	
-	public boolean makePortal(BlockPos pos)
-	{
-		final int portalHeight = GenesisPortal.PORTAL_HEIGHT;
-		final int portalRadius = GenesisPortal.MENHIR_MAX_DISTANCE;
-		
-		double distance = -1;
-		BlockPos portalPos = null;
-		
-		nextCenter:
-		for (BlockPos checkCenter : WorldUtils.getAreaWithHeight(pos, 64, 0, world.getActualHeight()))
-		{
-			int startR = 0;
-			
-			for (EnumFacing dir : EnumFacing.HORIZONTALS)
-			{
-				int menhirDistance = portal == null ? portalRadius : portal.getDistance(dir);
-				
-				for (int r = startR; r <= menhirDistance; r++)
-				{
-					for (int h = -1; h <= portalHeight; h++)
-					{
-						BlockPos checkPos = checkCenter.offset(dir, r).up(h);
-						Block checkBlock = world.getBlockState(checkPos).getBlock();
-						
-						if (r < menhirDistance)
-						{	// Check line to menhir
-							if (h == 0)
-							{	// Blocks at the same level as the bottoms of the menhirs
-								if (!world.canSeeSky(checkPos) || GenesisPortal.isBlockingPortal(world, checkPos))
-								{
-									continue nextCenter;
-								}
-							}
-						}
-						else
-						{	// Check menhir position
-							if (h == -1)
-							{
-								if (!World.doesBlockHaveSolidTopSurface(world, checkPos))
-								{	// Block below menhir.
-									continue nextCenter;
-								}
-							}
-							else if (checkBlock.getMaterial().isLiquid() || !checkBlock.isReplaceable(world, checkPos))
-							{	// Blocks in the way of the menhir
-								continue nextCenter;
-							}
-						}
-					}
-				}
-				
-				startR = 1;
-			}
-			
-			double checkDistance = pos.distanceSq(checkCenter);
-			
-			if (distance < 0 || checkDistance < distance)
-			{
-				distance = checkDistance;
-				portalPos = checkCenter;
-			}
-		}
-		
-		if (portalPos == null)
-		{
-			portalPos = new BlockPos(pos.getX(), world.getActualHeight(), pos.getZ());
-			
-			while (world.isAirBlock(portalPos))
-			{
-				portalPos = portalPos.down();
-			}
-			
-			portalPos = portalPos.up(2);
-			
-			for (BlockPos padPos : WorldUtils.getAreaWithHeight(portalPos, portalRadius, portalPos.getY() - 1, portalPos.getY() - 1))
-			{
-				world.setBlockState(padPos, GenesisBlocks.moss.getDefaultState());
-			}
-		}
-		
-		if (portalPos != null)
-		{
-			if (portal != null)
-			{
-				portal.duplicatePortal(world, portalPos);
-			}
-			else
-			{
-				EnumSet<EnumGlyph> glyphs = EnumSet.allOf(EnumGlyph.class);
-				glyphs.remove(EnumGlyph.NONE);
-				
-				// Place a menhir on each horizontal direction.
-				for (EnumFacing dir : EnumFacing.HORIZONTALS)
-				{
-					// Get random glyph from the set.
-					EnumGlyph glyph = null;
-					int glyphIndex = random.nextInt(glyphs.size());
-					Iterator<EnumGlyph> glyphsIter = glyphs.iterator();
-					
-					for (int i = 0; i <= glyphIndex; i++)
-					{
-						glyph = glyphsIter.next();
-					}
-					
-					glyphs.remove(glyph);
-					
-					// Place the menhir.
-					placeMenhir(portalPos.offset(dir, portalRadius), dir.getOpposite(), glyph);
-				}
-				
-				//world.setBlockState(portalPos.up(portalHeight), GenesisBlocks.portal.getDefaultState());
-			}
-		}
-		
-		return true;
-	}
-	
 	@Override
 	public boolean makePortal(Entity entity)
 	{
-		makePortal(entity.getPosition());
+		GenesisPortal newPortal = GenesisPortal.fromCenterBlock(world, entity.getPosition());
+		newPortal.setPlacementPosition(world);
+		
+		if (portal != null)
+		{
+			newPortal.duplicatePortal(world, portal);
+		}
+		else
+		{
+			newPortal.makePortal(world, random);
+		}
+		
 		return true;
 	}
 	

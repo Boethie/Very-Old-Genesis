@@ -204,7 +204,17 @@ public final class GenesisBlocks
 		GameRegistry.registerTileEntity(TileEntityMenhirGlyph.class, Constants.ASSETS_PREFIX + "menhir_glyph");
 		GameRegistry.registerTileEntity(TileEntityMenhirReceptacle.class, Constants.ASSETS_PREFIX + "menhir_receptacle");
 		
-		Genesis.proxy.registerBlock(portal, "portal");
+		Genesis.proxy.registerBlock(portal, "portal", false);
+		Genesis.proxy.callSided(new SidedFunction()
+		{
+			@SideOnly(Side.CLIENT)
+			@Override
+			public void client(GenesisClient client)
+			{
+				client.registerModelStateMap(portal, new FlexibleStateMap().setPrefix("portal/portal", ""));
+			}
+		});
+		Genesis.proxy.registerModel(portal, 0, "portal/portal");
 		GameRegistry.registerTileEntity(TileEntityGenesisPortal.class, Constants.ASSETS_PREFIX + "portal");
 		
 		trees.registerAll();

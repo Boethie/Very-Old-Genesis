@@ -37,7 +37,7 @@ public class TileEntityGenesisPortal extends TileEntityBase implements IUpdatePl
 	@Override
 	public void update()
 	{
-		if (!worldObj.isRemote)
+		/*if (!worldObj.isRemote)
 		{
 			timer--;
 			
@@ -46,7 +46,7 @@ public class TileEntityGenesisPortal extends TileEntityBase implements IUpdatePl
 				GenesisPortal.fromPortalBlock(worldObj, pos).updatePortalStatus(worldObj);
 				timer = GenesisPortal.PORTAL_CHECK_TIME;
 			}
-		}
+		}*/
 		
 		List<EntityLivingBase> entities = (List<EntityLivingBase>) worldObj.getEntitiesWithinAABB(EntityLivingBase.class, bounds);
 		
@@ -86,7 +86,7 @@ public class TileEntityGenesisPortal extends TileEntityBase implements IUpdatePl
 		super.writeToNBT(compound);
 		
 		compound.setDouble("radius", radius);
-		compound.setByte("timer", timer);
+		//compound.setByte("timer", timer);
 	}
 	
 	public void readFromNBT(NBTTagCompound compound)
@@ -94,7 +94,7 @@ public class TileEntityGenesisPortal extends TileEntityBase implements IUpdatePl
 		super.readFromNBT(compound);
 
 		radius = compound.getDouble("radius");
-		timer = compound.getByte("timer");
+		//timer = compound.getByte("timer");
 	}
 	
 	@Override

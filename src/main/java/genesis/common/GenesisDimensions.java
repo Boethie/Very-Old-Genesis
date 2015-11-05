@@ -53,6 +53,9 @@ public class GenesisDimensions
 				manager.transferEntityToWorld(entity, entity.dimension, oldWorld, newWorld, teleporter);
 			}
 			
+			//GenesisSounds.playMovingEntitySound(new ResourceLocation(Constants.ASSETS_PREFIX + "portal.enter"), false,
+			//		entity, 0.9F + oldWorld.rand.nextFloat() * 0.2F, 0.8F + oldWorld.rand.nextFloat() * 0.4F);
+			
 			entity.timeUntilPortal = entity.getPortalCooldown();
 		}
 	}
