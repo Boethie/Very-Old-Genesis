@@ -1,7 +1,8 @@
-package genesis.world.gen;
+package genesis.world.overworld;
 
 import genesis.common.GenesisItems;
 import genesis.metadata.EnumMenhirActivator;
+import genesis.world.overworld.GenesisPortalGenerator;
 import genesis.world.overworld.WorldGenMenhirActivators;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
@@ -16,12 +17,13 @@ public class OverworldGeneration
 	
 	public static void register()
 	{
+		GameRegistry.registerWorldGenerator(new GenesisPortalGenerator(), 0);
 		GameRegistry.registerWorldGenerator(new WorldGenMenhirActivators(), 0);
 		
 		menhirHutChest = ChestGenHooks.getInfo("menhirHutChest");
 		menhirHutChest.setMin(2);
 		menhirHutChest.setMax(4);
-		for(EnumMenhirActivator activator : EnumMenhirActivator.values())
+		for (EnumMenhirActivator activator : EnumMenhirActivator.values())
 		{
 			menhirHutChest.addItem(new WeightedRandomChestContent(GenesisItems.menhir_activators.getStack(activator), 1, 1, 1));
 		}

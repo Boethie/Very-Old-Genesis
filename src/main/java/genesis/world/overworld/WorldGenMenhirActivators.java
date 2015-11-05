@@ -4,8 +4,6 @@ import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
@@ -16,7 +14,7 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 import java.util.List;
 import java.util.Random;
 
-import static genesis.world.gen.OverworldGeneration.menhirHutChest;
+import static genesis.world.overworld.OverworldGeneration.menhirHutChest;
 
 /**
  * Created by Vorquel on 10/27/15.
