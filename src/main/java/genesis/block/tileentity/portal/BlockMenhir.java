@@ -2,6 +2,8 @@ package genesis.block.tileentity.portal;
 
 import java.util.*;
 
+import com.google.common.collect.ImmutableList;
+
 import genesis.common.GenesisItems;
 import genesis.common.IRegistrationCallback;
 import genesis.block.BlockGenesis;
@@ -74,6 +76,9 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 		setDefaultState(getBlockState().getBaseState().withProperty(GLYPH, EnumGlyph.NONE).withProperty(ACTIVE, false));
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
+		
+		setHardness(2.1F);
+		setResistance(2000);
 	}
 	
 	@Override
@@ -200,22 +205,6 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 	}
 	
 	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player)
-	{
-		if (owner.getVariant(world.getBlockState(pos)) == EnumMenhirPart.GLYPH)
-		{
-			TileEntityMenhirGlyph glyphTE = getGlyphTileEntity(world, pos);
-			
-			if (glyphTE != null)
-			{
-				return getGlyphStack(glyphTE.getGlyph());
-			}
-		}
-		
-		return super.getPickBlock(target, world, pos, player);
-	}
-	
-	@Override
 	public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
 	{
 		IBlockState state = getDefaultState();
@@ -273,6 +262,56 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 		}
 	}
 	
+	public ItemStack getStack(IBlockState state, TileEntity te)
+	{
+		if (owner.getVariant(state) == EnumMenhirPart.GLYPH && te instanceof TileEntityMenhirGlyph)
+		{
+			return getGlyphStack(((TileEntityMenhirGlyph) te).getGlyph());
+		}
+		
+		return owner.getStack((EnumMenhirPart) state.getValue(variantProp));
+	}
+	
+	public ItemStack getStack(IBlockAccess world, BlockPos pos)
+	{
+		return getStack(world.getBlockState(pos), world.getTileEntity(pos));
+	}
+	
+	@Override
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player)
+	{
+		return getStack(world, pos);
+	}
+	
+	protected TileEntity brokenTE = null;
+	
+	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest)
+	{
+		brokenTE = world.getTileEntity(pos);
+		boolean removed = super.removedByPlayer(world, pos, player, willHarvest);
+		
+		if (!willHarvest || !removed)
+		{
+			brokenTE = null;
+		}
+		
+		return removed;
+	}
+	
+	@Override
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
+	{
+		TileEntity te = brokenTE == null ? world.getTileEntity(pos) : brokenTE;
+		ItemStack blockStack = getStack(state, te);
+		
+		if (owner.getVariant(state) == EnumMenhirPart.RECEPTACLE && te instanceof TileEntityMenhirReceptacle)
+		{
+			return ImmutableList.of(blockStack, ((TileEntityMenhirReceptacle) te).getReceptacleItem());
+		}
+		
+		return Collections.singletonList(blockStack);
+	}
+	
 	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state)
 	{
@@ -285,6 +324,7 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 			
 			if (recepTE != null)
 			{
+				spawnAsEntity(world, recepTE.getPos(), recepTE.getReceptacleItem());
 				recepTE.setContainedItem(null);
 			}
 			break;

@@ -50,6 +50,26 @@
 		"active": {
 			"true": {},
 			"false": {}
-		}
+		},
+		
+		"active=true,facing=east,glyph=vegetal,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_vegetal_active" } }],
+		"active=true,facing=south,glyph=vegetal,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_vegetal_active" } }],
+		"active=true,facing=west,glyph=vegetal,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_vegetal_active" } }],
+		"active=true,facing=north,glyph=vegetal,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_vegetal_active" } }],
+		
+		"active=true,facing=east,glyph=animal,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_animal_active" } }],
+		"active=true,facing=south,glyph=animal,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_animal_active" } }],
+		"active=true,facing=west,glyph=animal,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_animal_active" } }],
+		"active=true,facing=north,glyph=animal,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_animal_active" } }],
+		
+		"active=true,facing=east,glyph=hominid,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_hominid_active" } }],
+		"active=true,facing=south,glyph=hominid,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_hominid_active" } }],
+		"active=true,facing=west,glyph=hominid,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_hominid_active" } }],
+		"active=true,facing=north,glyph=hominid,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_hominid_active" } }],
+		
+		"active=true,facing=east,glyph=cosmos,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_cosmos_active" } }],
+		"active=true,facing=south,glyph=cosmos,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_cosmos_active" } }],
+		"active=true,facing=west,glyph=cosmos,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_cosmos_active" } }],
+		"active=true,facing=north,glyph=cosmos,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_cosmos_active" } }]
     }
 }
