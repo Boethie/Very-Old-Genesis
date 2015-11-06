@@ -24,7 +24,7 @@ public class GenesisPortalGenerator implements IWorldGenerator
 					|| world.provider.getDimensionId() == GenesisConfig.genesisDimId)
 			{
 				GenesisPortal newPortal = GenesisPortal.fromCenterBlock(world, pos);
-				newPortal.setPlacementPosition(world);
+				newPortal.setPlacementPosition(world, false);
 				newPortal.makePortal(world, random);
 			}
 	}

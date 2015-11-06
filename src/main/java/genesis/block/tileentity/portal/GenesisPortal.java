@@ -295,7 +295,7 @@ public class GenesisPortal
 		return distance == -1 ? def : distance;
 	}
 	
-	public void setPlacementPosition(World world)
+	public void setPlacementPosition(World world, boolean createPlatform)
 	{
 		double distance = -1;
 		BlockPos portalPos = null;
@@ -355,7 +355,7 @@ public class GenesisPortal
 			}
 		}
 		
-		if (portalPos == null)
+		if (createPlatform && portalPos == null)
 		{
 			portalPos = new BlockPos(getCenterPosition().getX(), world.getActualHeight(), getCenterPosition().getZ());
 			
@@ -387,39 +387,54 @@ public class GenesisPortal
 			}
 		}
 		
-		setCenterPosition(portalPos);
+		if (portalPos != null)
+		{
+			setCenterPosition(portalPos);
+		}
 	}
 	
-	public void makePortal(World world, Random random)
+	public boolean makePortal(World world, Random random)
 	{
-		setPlacementPosition(world);
-		
 		EnumSet<EnumGlyph> glyphs = EnumSet.allOf(EnumGlyph.class);
 		glyphs.remove(EnumGlyph.NONE);
 		
-		// Place a menhir on each horizontal direction.
-		for (EnumFacing dir : EnumFacing.HORIZONTALS)
+		for (boolean check : new boolean[]{true, false})
 		{
-			// Get random glyph from the set.
-			EnumGlyph glyph = null;
-			int glyphIndex = random.nextInt(glyphs.size());
-			Iterator<EnumGlyph> glyphsIter = glyphs.iterator();
-			
-			for (int i = 0; i <= glyphIndex; i++)
+			// Place a menhir on each horizontal direction.
+			for (EnumFacing dir : EnumFacing.HORIZONTALS)
 			{
-				glyph = glyphsIter.next();
+				BlockPos placePos = getCenterPosition().offset(dir, getDistanceWithDefault(dir, MENHIR_DEFAULT_DISTANCE));
+				
+				if (check)
+				{
+					if (!world.getBlockState(placePos).getBlock().isReplaceable(world, placePos))
+					{
+						return false;
+					}
+				}
+				else
+				{
+					// Get random glyph from the set.
+					EnumGlyph glyph = null;
+					int glyphIndex = random.nextInt(glyphs.size());
+					Iterator<EnumGlyph> glyphsIter = glyphs.iterator();
+					
+					for (int i = 0; i <= glyphIndex; i++)
+					{
+						glyph = glyphsIter.next();
+					}
+					
+					glyphs.remove(glyph);
+					
+					// Place the menhir.
+					placeMenhir(world, placePos, dir.getOpposite(), glyph);
+				}
 			}
-			
-			glyphs.remove(glyph);
-			
-			// Place the menhir.
-			placeMenhir(world,
-					getCenterPosition().offset(dir, getDistanceWithDefault(dir, MENHIR_DEFAULT_DISTANCE)),
-					dir.getOpposite(), glyph);
 		}
 		
 		refresh();
 		updatePortalStatus(world);
+		return true;
 	}
 	
 	public void duplicatePortal(World world, GenesisPortal fromPortal)
