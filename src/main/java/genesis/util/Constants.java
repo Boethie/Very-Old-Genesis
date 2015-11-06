@@ -35,10 +35,12 @@ public final class Constants
 			public static final String CROP = "crop.";
 			
 			public static final String MATERIAL = "material.";
+			
 			public static final String TOOL = "tool.";
 			public static final String TOOL_QUALITY = TOOL + "quality.";
 			public static final String WEAPON = "weapon.";
 			public static final String TOOL_HEAD = MATERIAL + "toolHead.";
+			
 			public static final String EGG = MATERIAL + "egg.";
 			
 			public static final String FOOD = "food.";
@@ -46,6 +48,7 @@ public final class Constants
 		}
 		
 		public static final String PREFIX = MOD_ID + ".";
+		public static final String ITEM_PREFIX = "item." + PREFIX;
 
 		public static final String CONTAINER_BLOCK = PREFIX + "container.";
 		public static final String CONTAINER_UI = "container." + PREFIX;

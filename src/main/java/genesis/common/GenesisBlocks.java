@@ -30,9 +30,9 @@ import net.minecraftforge.fml.relauncher.*;
 public final class GenesisBlocks
 {
 	/* Portal */
-	public static final VariantsCombo<EnumMenhirPart, BlockMenhir, ItemBlockMulti> menhirs =
-			new VariantsCombo<EnumMenhirPart, BlockMenhir, ItemBlockMulti>(
-					new ObjectType<BlockMenhir, ItemBlockMulti>("menhir", Unlocalized.PREFIX + "menhir", BlockMenhir.class, ItemBlockMulti.class)
+	public static final VariantsCombo<EnumMenhirPart, BlockMenhir, ItemMenhir> menhirs =
+			new VariantsCombo<EnumMenhirPart, BlockMenhir, ItemMenhir>(
+					new ObjectType<BlockMenhir, ItemMenhir>("menhir", Unlocalized.PREFIX + "menhir", BlockMenhir.class, ItemMenhir.class)
 							.setUseSeparateVariantJsons(false).setShouldRegisterVariantModels(false),
 					EnumMenhirPart.values()
 			);

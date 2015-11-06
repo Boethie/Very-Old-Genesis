@@ -4,7 +4,6 @@ import java.util.*;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import genesis.block.tileentity.portal.BlockMenhir.EnumGlyph;
 import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumMenhirPart;

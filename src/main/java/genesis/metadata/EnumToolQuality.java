@@ -10,7 +10,7 @@ public enum EnumToolQuality implements IMetadata
 	POLISHED("polished", 1.5F, 1.5F, 1.5F, 1.5F),
 	SHARPENED("sharpened", 1.5F, 1.5F, 1.5F, 1.5F);
 
-	public static final String UNLOC_PREFIX = "item." + Unlocalized.PREFIX + Unlocalized.Section.TOOL_QUALITY;
+	public static final String UNLOC_PREFIX = Unlocalized.ITEM_PREFIX + Unlocalized.Section.TOOL_QUALITY;
 	
 	final String name;
 	final String unlocalizedName;

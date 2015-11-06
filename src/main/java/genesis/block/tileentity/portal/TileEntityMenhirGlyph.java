@@ -1,7 +1,6 @@
 package genesis.block.tileentity.portal;
 
 import genesis.block.tileentity.TileEntityBase;
-import genesis.block.tileentity.portal.BlockMenhir.EnumGlyph;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class TileEntityMenhirGlyph extends TileEntityBase

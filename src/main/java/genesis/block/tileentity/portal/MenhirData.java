@@ -2,7 +2,6 @@ package genesis.block.tileentity.portal;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import genesis.block.tileentity.portal.BlockMenhir.EnumGlyph;
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumMenhirPart;
 import genesis.util.WorldUtils;

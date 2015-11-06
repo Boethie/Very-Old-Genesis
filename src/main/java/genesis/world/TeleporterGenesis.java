@@ -5,12 +5,9 @@ import java.util.*;
 import com.google.common.collect.Maps;
 
 import genesis.block.tileentity.portal.*;
-import genesis.block.tileentity.portal.BlockMenhir.EnumGlyph;
 import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
-import genesis.metadata.EnumMenhirPart;
 import genesis.util.WorldUtils;
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
