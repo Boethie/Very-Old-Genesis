@@ -9,6 +9,14 @@ tile.genesis.container.workbench.name=Établi
 tile.genesis.container.campfire.name=Feu de camp
 tile.genesis.container.storageBox.name=Caisse de stockage
 
+tile.genesis.menhir.glyph.none.name=Base du menhir
+tile.genesis.menhir.glyph.vegetal.name=Base du menhir avec pétroglyphe végétal
+tile.genesis.menhir.glyph.animal.name=Base du menhir avec pétroglyphe animal
+tile.genesis.menhir.glyph.hominid.name=Base du menhir avec pétroglyphe hominidé
+tile.genesis.menhir.glyph.cosmos.name=Base du menhir avec pétroglyphe cosmos
+tile.genesis.menhir.receptacle.name=Réceptacle du menhir
+tile.genesis.menhir.top.name=Sommet du menhir
+
 #Building blocks
 tile.genesis.moss.name=Mousse
 tile.genesis.rock.granite.name=Granite
@@ -375,6 +383,9 @@ item.genesis.material.liopleurodonTooth.name=Dent de Liopleurodon
 item.genesis.material.tyrannosaurusSaliva.name=Salive de Tyrannosaurus
 item.genesis.material.tyrannosaurusTooth.name=Dent de Tyrannosaurus
 item.genesis.material.egg.meganeura.name=Œuf de Meganeura
+
+#Hidden
+tile.genesis.misc.portal.name=Portail de Genesis
 
 #------------- GUIs -------------
 container.genesis.workbench=Fabrication et débitage
