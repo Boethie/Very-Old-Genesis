@@ -328,6 +328,6 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 	@SideOnly(Side.CLIENT)
 	public Block.EnumOffsetType getOffsetType()
 	{
-		return Block.EnumOffsetType.XYZ;
+		return Block.EnumOffsetType.XZ;
 	}
 }
