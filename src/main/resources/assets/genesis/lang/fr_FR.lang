@@ -1,4 +1,4 @@
-genesis.multiItem.invalidMetadata.name=ยง4Invalid Sub-Item Metadata!
+﻿genesis.multiItem.invalidMetadata.name=ยง4Invalid Sub-Item Metadata!
 
 #------------- Blocks -------------
 tile.genesis.dummyBlock.name=ยง4Useless Dummy Block!
@@ -195,9 +195,9 @@ item.genesis.food.porridge.odontopteris.name=Bouillie à l'Odontopteris
 item.genesis.food.porridge.archaeomarasmius.name=Bouillie à l'Archaeomarasmius
 
 #Tools
-item.genesis.tool.quality.chipped=Taillé
-item.genesis.tool.quality.polished=Poli
-item.genesis.tool.quality.sharpened=Affûté
+item.genesis.tool.quality.chipped=§oTaillé
+item.genesis.tool.quality.polished=§oPoli
+item.genesis.tool.quality.sharpened=§oAffûté
 
 item.genesis.tool.choppingTool.dolerite.name=Chopping tool en dolérite
 item.genesis.tool.choppingTool.rhyolite.name=Chopping tool en rhyolite
