@@ -202,7 +202,7 @@ public class BlockMoss extends BlockGrass
 		int lightSamples = 0;
 		float water = 0;
 		
-		for (BlockPos sample : (Iterable<BlockPos>) BlockPos.getAllInBox(pos.add(-1, 0, -1), pos.add(1, 0, 1)))
+		for (BlockPos sample : WorldUtils.getArea(pos.add(-1, 0, -1), pos.add(1, 0, 1)))
 		{
 			BlockPos aboveSample = sample;
 			
@@ -221,7 +221,7 @@ public class BlockMoss extends BlockGrass
 		
 		final int rad = 3;
 		
-		for (BlockPos sample : (Iterable<BlockPos>) BlockPos.getAllInBox(pos.add(-rad, -rad, -rad), pos.add(rad, rad, rad)))
+		for (BlockPos sample : WorldUtils.getArea(pos.add(-rad, -rad, -rad), pos.add(rad, rad, rad)))
 		{
 			if (sample.distanceSq(pos) <= rad * rad && world.getBlockState(sample).getBlock().getMaterial() == Material.water)
 			{
@@ -233,8 +233,8 @@ public class BlockMoss extends BlockGrass
 		
 		light /= lightSamples;
 		
-		float humidity = world.getBiomeGenForCoords(pos).rainfall;
-		humidity *= 0.35F;
+		//float humidity = world.getBiomeGenForCoords(pos).rainfall;
+		//humidity *= 0.35F;
 		
 		float out = water + light;
 		out = MathHelper.clamp_float(out, 0, 1);
@@ -378,13 +378,10 @@ public class BlockMoss extends BlockGrass
 			int g = (color & 65280) >> 8;
 			int b = color & 255;
 			
-			float avgChance = 0;
-			float chanceSamples = 0;
-			
 			float avgStage = 0;
 			float stageSamples = 0;
 			
-			for (BlockPos checkPos : (Iterable<BlockPos>) BlockPos.getAllInBox(pos.add(-1, -1, -1), pos.add(1, 1, 1)))
+			for (BlockPos checkPos : WorldUtils.getArea(pos.add(-1, -1, -1), pos.add(1, 1, 1)))
 			{
 				IBlockState checkState = worldIn.getBlockState(checkPos);
 				Block checkBlock = checkState.getBlock();

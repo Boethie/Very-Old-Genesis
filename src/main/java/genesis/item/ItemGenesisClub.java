@@ -9,21 +9,21 @@ import java.util.List;
 
 import com.google.common.collect.Multimap;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
 @ItemVariantCount(1)
 public class ItemGenesisClub extends ItemSword
 {
 	public final ToolItems owner;
 	
 	protected final ToolType type;
-	protected final ToolObjectType objType;
+	protected final ToolObjectType<Block, ItemGenesisClub> objType;
 	
-	public ItemGenesisClub(ToolType type, ToolItems owner, ToolObjectType objType)
+	public ItemGenesisClub(ToolType type, ToolItems owner, ToolObjectType<Block, ItemGenesisClub> objType)
 	{
 		super(type.toolMaterial);
 		

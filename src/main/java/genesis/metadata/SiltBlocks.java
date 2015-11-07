@@ -1,20 +1,19 @@
 package genesis.metadata;
 
-import net.minecraft.block.*;
+import com.google.common.collect.ImmutableList;
+
 import genesis.block.*;
 import genesis.item.*;
-import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.Constants;
 
-@SuppressWarnings("unchecked")
-public class SiltBlocks extends VariantsOfTypesCombo<ObjectType<? extends Block, ? extends ItemBlockMulti>, EnumSilt>
+public class SiltBlocks extends VariantsOfTypesCombo<EnumSilt>
 {
-	public static final ObjectType<BlockSilt, ItemBlockMulti> SILT = new ObjectType<BlockSilt, ItemBlockMulti>("silt", BlockSilt.class, null).setNamePosition(ObjectNamePosition.PREFIX);
-	public static final ObjectType<BlockSiltstone, ItemBlockMulti> SILTSTONE = new ObjectType<BlockSiltstone, ItemBlockMulti>("siltstone", "rock.siltstone", BlockSiltstone.class, null).setNamePosition(ObjectNamePosition.PREFIX);
+	public static final ObjectType<BlockSilt, ItemBlockMulti<EnumSilt>> SILT = ObjectType.create("silt", BlockSilt.class, ItemBlockMulti.<EnumSilt>getClassV()).setNamePosition(ObjectNamePosition.PREFIX);
+	public static final ObjectType<BlockSiltstone, ItemBlockMulti<EnumSilt>> SILTSTONE = ObjectType.create("siltstone", "rock.siltstone", BlockSiltstone.class, ItemBlockMulti.<EnumSilt>getClassV()).setNamePosition(ObjectNamePosition.PREFIX);
 	
 	public SiltBlocks()
 	{
-		super(new ObjectType[]{SILTSTONE, SILT}, EnumSilt.values());
+		super(ImmutableList.of(SILTSTONE, SILT), ImmutableList.copyOf(EnumSilt.values()));
 		
 		setUnlocalizedPrefix(Constants.Unlocalized.PREFIX);
 	}

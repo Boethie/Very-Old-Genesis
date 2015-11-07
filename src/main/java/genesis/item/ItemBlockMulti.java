@@ -10,15 +10,20 @@ import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.*;
 
-@SuppressWarnings("rawtypes")
-public class ItemBlockMulti extends ItemBlock
+public class ItemBlockMulti<V extends IMetadata> extends ItemBlock
 {
-	public final VariantsOfTypesCombo<ObjectType, IMetadata> owner;
-	public final ObjectType<? extends Block, ? extends ItemBlockMulti> type;
+	@SuppressWarnings("unchecked")
+	public static <V extends IMetadata> Class<ItemBlockMulti<V>> getClassV()
+	{
+		return (Class<ItemBlockMulti<V>>) (Class<?>) ItemBlockMulti.class;
+	}
 	
-	protected final List<IMetadata> variants;
+	public final VariantsOfTypesCombo<V> owner;
+	public final ObjectType<? extends Block, ? extends ItemBlockMulti<V>> type;
 	
-	public ItemBlockMulti(Block block, List<IMetadata> variants, VariantsOfTypesCombo<ObjectType, IMetadata> owner, ObjectType<? extends Block, ? extends ItemBlockMulti> type)
+	protected final List<V> variants;
+	
+	public ItemBlockMulti(Block block, List<V> variants, VariantsOfTypesCombo<V> owner, ObjectType<? extends Block, ? extends ItemBlockMulti<V>> type)
 	{
 		super(block);
 		

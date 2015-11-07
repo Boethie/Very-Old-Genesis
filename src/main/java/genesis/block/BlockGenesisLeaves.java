@@ -34,7 +34,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 	}
 	
 	public final TreeBlocksAndItems owner;
-	public final ObjectType<BlockGenesisLeaves, ItemBlockMulti> type;
+	public final ObjectType<BlockGenesisLeaves, ItemBlockMulti<EnumTree>> type;
 	
 	public final List<EnumTree> variants;
 	public final PropertyIMetadata<EnumTree> variantProp;
@@ -42,7 +42,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 	private ItemStack rareDrop;
 	private double rareDropChance;
 	
-	public BlockGenesisLeaves(List<EnumTree> variants, TreeBlocksAndItems owner, ObjectType<BlockGenesisLeaves, ItemBlockMulti> type)
+	public BlockGenesisLeaves(List<EnumTree> variants, TreeBlocksAndItems owner, ObjectType<BlockGenesisLeaves, ItemBlockMulti<EnumTree>> type)
 	{
 		super();
 		
@@ -101,7 +101,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 	
 	protected ItemStack getSapling(IBlockAccess world, BlockPos pos, IBlockState state)
 	{
-		return owner.getStack(owner.SAPLING, (EnumTree) state.getValue(variantProp));
+		return owner.getStack(TreeBlocksAndItems.SAPLING, (EnumTree) state.getValue(variantProp));
 	}
 	
 	@Override
@@ -164,13 +164,13 @@ public class BlockGenesisLeaves extends BlockLeaves
 			
 			if (data != null && data.variant == treeType)
 			{
-				if (data.type == owner.LOG)
+				if (data.type == TreeBlocksAndItems.LOG)
 				{
 					return true;
 				}
-				else if (data.type == owner.LEAVES)
+				else if (data.type == TreeBlocksAndItems.LEAVES)
 				{
-					Iterable<BlockPos> blocksAround = (Iterable<BlockPos>) BlockPos.getAllInBox(curPos.add(-1, -1, -1), curPos.add(1, 1, 1));
+					Iterable<BlockPos> blocksAround = WorldUtils.getArea(curPos.add(-1, -1, -1), curPos.add(1, 1, 1));
 					
 					for (BlockPos nextPos : blocksAround)
 					{

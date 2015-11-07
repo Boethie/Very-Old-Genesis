@@ -15,15 +15,14 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
 public class ItemPorridge extends ItemGenesisFood
 {
-	public final VariantsOfTypesCombo<ObjectType, IMetadata> owner;
+	public final VariantsOfTypesCombo<IMetadata> owner;
 	
 	protected final List<IMetadata> variants;
-	protected final ObjectType<? extends Block, ? extends ItemMulti> type;
+	protected final ObjectType<Block, ? extends ItemPorridge> type;
 	
-	public ItemPorridge(List<IMetadata> variants, VariantsOfTypesCombo<ObjectType, IMetadata> owner, ObjectType<? extends Block, ? extends ItemMulti> type)
+	public ItemPorridge(List<IMetadata> variants, VariantsOfTypesCombo<IMetadata> owner, ObjectType<Block, ? extends ItemPorridge> type)
 	{
 		super(0, 0);
 		

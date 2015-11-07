@@ -3,24 +3,25 @@ package genesis.metadata;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
+
+import com.google.common.collect.ImmutableList;
+
 import genesis.block.*;
 import genesis.item.*;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.Constants;
 import genesis.util.Constants.Unlocalized;
 
-@SuppressWarnings("rawtypes")
-public class OreBlocks extends VariantsOfTypesCombo<ObjectType<?, ?>, EnumOre>
+public class OreBlocks extends VariantsOfTypesCombo<EnumOre>
 {
-	public static final ObjectType<BlockMultiOre, ItemBlockMulti> ORE = new ObjectType<BlockMultiOre, ItemBlockMulti>("ore", BlockMultiOre.class, ItemBlockMulti.class);
-	public static final ObjectType<Block, ItemMulti> DROP = new ObjectType<Block, ItemMulti>("ore_drop", Unlocalized.Section.MATERIAL, null, ItemMulti.class, EnumOre.noDrops)
+	public static final ObjectType<BlockMultiOre<?>, ItemBlockMulti<EnumOre>> ORE = ObjectType.create("ore", BlockMultiOre.class, ItemBlockMulti.class);
+	public static final ObjectType<Block, ItemMulti<EnumOre>> DROP = ObjectType.create("ore_drop", Unlocalized.Section.MATERIAL, null, (Class<ItemMulti<EnumOre>>) null, EnumOre.noDrops)
 			.setResourceName("");
 	
 	public OreBlocks()
 	{
-		super(new ObjectType[]{ORE, DROP}, EnumOre.values());
+		super(ImmutableList.of(ORE, DROP), ImmutableList.copyOf(EnumOre.values()));
+		
 		EnumOre.setDrops(this);
-
 		setUnlocalizedPrefix(Constants.Unlocalized.PREFIX);
 	}
 	

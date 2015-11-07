@@ -1,10 +1,10 @@
 package genesis.metadata;
 
 import genesis.metadata.VariantsOfTypesCombo.*;
-import genesis.metadata.ToolItems.*;
 
 import java.util.*;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Sets;
 
 import genesis.block.*;
@@ -21,7 +21,7 @@ import genesis.util.Constants.Unlocalized;
 import genesis.util.Constants.Unlocalized.Section;
 
 @SuppressWarnings("rawtypes")
-public class ToolItems extends VariantsOfTypesCombo<ToolObjectType, ToolType>
+public class ToolItems extends VariantsOfTypesCombo<ToolType>
 {
 	public static class ToolObjectType<B extends Block, I extends Item> extends ObjectType<B, I>
 	{
@@ -169,7 +169,7 @@ public class ToolItems extends VariantsOfTypesCombo<ToolObjectType, ToolType>
 	
 	public ToolItems()
 	{
-		super(new ToolObjectType[]{PEBBLE, CHOPPING_TOOL, PICK_HEAD, PICK, AXE_HEAD, AXE, HOE_HEAD, HOE, KNIFE_HEAD, KNIFE, CLUB_HEAD, CLUB, SPEAR_HEAD, SPEAR, ARROW_HEAD, FLAKE}, ToolTypes.getAll());
+		super(ImmutableList.<ObjectType<?, ?>>of(PEBBLE, CHOPPING_TOOL, PICK_HEAD, PICK, AXE_HEAD, AXE, HOE_HEAD, HOE, KNIFE_HEAD, KNIFE, CLUB_HEAD, CLUB, SPEAR_HEAD, SPEAR, ARROW_HEAD, FLAKE), ToolTypes.getAll());
 		
 		setUnlocalizedPrefix(Unlocalized.PREFIX);
 	}

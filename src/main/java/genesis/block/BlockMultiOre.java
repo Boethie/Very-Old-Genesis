@@ -19,19 +19,18 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
 public class BlockMultiOre<T extends IOreVariant> extends BlockOre
 {
 	@BlockProperties
 	public static IProperty[] properties = {};
 	
-	public VariantsOfTypesCombo<ObjectType, T> owner;
-	public ObjectType type;
+	public VariantsOfTypesCombo<T> owner;
+	public ObjectType<? extends BlockMultiOre<T>, ?> type;
 	public List<T> variants;
 	
 	public PropertyIMetadata<T> variantProp;
 	
-	public BlockMultiOre(List<T> variants, VariantsOfTypesCombo<ObjectType, T> owner, ObjectType type)
+	public BlockMultiOre(List<T> variants, VariantsOfTypesCombo<T> owner, ObjectType<? extends BlockMultiOre<T>, ?> type)
 	{
 		this.variants = variants;
 		this.owner = owner;

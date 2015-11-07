@@ -9,21 +9,21 @@ import java.util.List;
 
 import com.google.common.collect.Multimap;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 
-@SuppressWarnings("rawtypes")
 @ItemVariantCount(1)
 public class ItemChoppingTool extends ItemAxe
 {
 	public final ToolItems owner;
 	
 	protected final ToolType type;
-	protected final ToolObjectType objType;
+	protected final ToolObjectType<Block, ItemChoppingTool> objType;
 	
-	public ItemChoppingTool(ToolType type, ToolItems owner, ToolObjectType objType)
+	public ItemChoppingTool(ToolType type, ToolItems owner, ToolObjectType<Block, ItemChoppingTool> objType)
 	{
 		super(type.toolMaterial);
 		

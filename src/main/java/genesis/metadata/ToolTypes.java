@@ -96,7 +96,7 @@ public class ToolTypes
 					return Integer.valueOf(m1.ordinal()).compareTo(Integer.valueOf(m2.ordinal()));
 				}
 			};
-	protected static final Table<EnumToolMaterial, EnumToolQuality, ToolType> table = TreeBasedTable.create(sorter, sorter);
+	protected static final TreeBasedTable<EnumToolMaterial, EnumToolQuality, ToolType> table = TreeBasedTable.create(sorter, sorter);
 	
 	static
 	{
@@ -115,10 +115,9 @@ public class ToolTypes
 		return table.get(material, quality);
 	}
 	
-	public static ToolType[] getAll()
+	public static List<ToolType> getAll()
 	{
-		Collection<ToolType> types = table.values();
-		return types.toArray(new ToolType[types.size()]);
+		return ImmutableList.copyOf(table.values());
 	}
 	
 	public static Collection<ToolType> getToolTypes(EnumToolQuality quality)

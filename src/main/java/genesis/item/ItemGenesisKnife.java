@@ -14,16 +14,15 @@ import net.minecraft.item.*;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
 @ItemVariantCount(1)
 public class ItemGenesisKnife extends ItemTool
 {
 	public final ToolItems owner;
 	
 	protected final ToolType type;
-	protected final ToolObjectType objType;
+	protected final ToolObjectType<Block, ItemGenesisKnife> objType;
 	
-	public ItemGenesisKnife(ToolType type, ToolItems owner, ToolObjectType objType)
+	public ItemGenesisKnife(ToolType type, ToolItems owner, ToolObjectType<Block, ItemGenesisKnife> objType)
 	{
 		super(3, type.toolMaterial, Collections.emptySet());
 		

@@ -1,6 +1,7 @@
 package genesis.block;
 
 import genesis.common.*;
+import genesis.item.ItemBlockMulti;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
@@ -17,7 +18,6 @@ import net.minecraft.world.*;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.*;
 
-@SuppressWarnings("rawtypes")
 public class BlockPlant extends BlockBush implements IGrowable, IShearable
 {
 	/**
@@ -29,13 +29,13 @@ public class BlockPlant extends BlockBush implements IGrowable, IShearable
 		return new IProperty[]{};
 	}
 	
-	public final VariantsOfTypesCombo<ObjectType, IPlantMetadata> owner;
-	public final ObjectType type;
+	public final VariantsOfTypesCombo<IPlantMetadata> owner;
+	public final ObjectType<? extends BlockPlant, ?> type;
 	
 	public final List<IPlantMetadata> variants;
 	public final PropertyIMetadata<IPlantMetadata> variantProp;
 	
-	public BlockPlant(List<IPlantMetadata> variants, VariantsOfTypesCombo<ObjectType, IPlantMetadata> owner, ObjectType type)
+	public BlockPlant(List<IPlantMetadata> variants, VariantsOfTypesCombo<IPlantMetadata> owner, ObjectType<? extends BlockPlant, ? extends ItemBlockMulti<IPlantMetadata>> type)
 	{
 		setStepSound(soundTypeGrass);
 		

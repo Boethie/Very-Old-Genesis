@@ -1,17 +1,17 @@
 package genesis.metadata;
 
-import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.Constants.Unlocalized;
 
 import java.util.*;
+
+import com.google.common.collect.ImmutableList;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import genesis.item.*;
 
-@SuppressWarnings({"rawtypes", "serial"})
-public class ItemsCeramicBowls extends VariantsOfTypesCombo<ObjectType, IMetadata>
+public class ItemsCeramicBowls extends VariantsOfTypesCombo<IMetadata>
 {
 	public static enum EnumCeramicBowls implements IMetadata
 	{
@@ -48,25 +48,23 @@ public class ItemsCeramicBowls extends VariantsOfTypesCombo<ObjectType, IMetadat
 	public static final ObjectType<Block, ItemCeramicBowl> MAIN = new ObjectType<Block, ItemCeramicBowl>("ceramic_bowl", Unlocalized.Section.MATERIAL + "ceramicBowl", null, ItemCeramicBowl.class)
 			.setValidVariants(Arrays.asList(EnumCeramicBowls.values()))
 			.setNamePosition(ObjectNamePosition.PREFIX);
-	public static final ObjectType<Block, ItemMulti> DYES = new ObjectType<Block, ItemMulti>("dye", Unlocalized.Section.MATERIAL + "dye", null, null)
+	public static final ObjectType<Block, ItemMulti<GenesisDye>> DYES = new ObjectType<Block, ItemMulti<GenesisDye>>("dye", Unlocalized.Section.MATERIAL + "dye", null, null)
 			.setValidVariants(GenesisDye.valueList())
 			.setNamePosition(ObjectNamePosition.PREFIX);
 	public static final ObjectType<Block, ItemPorridge> PORRIDGE = new ObjectType<Block, ItemPorridge>("porridge", Unlocalized.Section.FOOD + "porridge", null, ItemPorridge.class)
 			.setValidVariants(Arrays.asList(EnumPorridge.values()))
 			.setNamePosition(ObjectNamePosition.PREFIX);
 	
-	public static final List<ObjectType> ALL_OBJECT_TYPES = new ArrayList<ObjectType>()
-	{{
-		add(MAIN);
-		add(DYES);
-		add(PORRIDGE);
-	}};
-	public static final List<IMetadata> ALL_VARIANTS = new ArrayList<IMetadata>()
-	{{
-		addAll(Arrays.asList(EnumCeramicBowls.values()));
-		addAll(GenesisDye.valueList());
-		addAll(Arrays.asList(EnumPorridge.values()));
-	}};
+	public static final List<ObjectType<?, ?>> ALL_OBJECT_TYPES = new ImmutableList.Builder<ObjectType<?, ?>>()
+		.add(MAIN)
+		.add(DYES)
+		.add(PORRIDGE)
+		.build();
+	public static final List<IMetadata> ALL_VARIANTS = new ImmutableList.Builder<IMetadata>()
+		.addAll(Arrays.asList(EnumCeramicBowls.values()))
+		.addAll(GenesisDye.valueList())
+		.addAll(Arrays.asList(EnumPorridge.values()))
+		.build();
 	
 	public ItemsCeramicBowls()
 	{

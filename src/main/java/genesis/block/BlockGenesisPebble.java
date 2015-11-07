@@ -63,7 +63,8 @@ public class BlockGenesisPebble extends Block
 			@Override
 			public void client(GenesisClient client)
 			{
-				Set<String> variants = ModelHelpers.getBlockstatesVariants(new ResourceLocation("genesis:pebble")).keySet();
+				// TODO: Random variants
+				//Set<String> variants = ModelHelpers.getBlockstatesVariants(new ResourceLocation("genesis:pebble")).keySet();
 				
 				randomProp = PropertyInteger.create(randomName, 0, 1);
 			}
@@ -96,7 +97,8 @@ public class BlockGenesisPebble extends Block
 	{
 		if (world instanceof World && ((World) world).isRemote)
 		{
-			long rand = MathHelper.getPositionRandom(pos);
+			// TODO: Random variants here too.
+			/*long rand = MathHelper.getPositionRandom(pos);
 			Collection<Integer> values = randomProp.getAllowedValues();
 			int size = values.size();
 			Iterator<Integer> iter = values.iterator();
@@ -105,7 +107,7 @@ public class BlockGenesisPebble extends Block
 			for (int i = 0; i < (rand / 5.0F) % size; i++)
 			{
 				value = iter.next();
-			}
+			}*/
 			
 			state = state.withProperty(randomProp, 0);
 		}

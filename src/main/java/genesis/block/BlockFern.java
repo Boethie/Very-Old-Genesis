@@ -21,7 +21,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
 public class BlockFern extends BlockPlant implements IShearable
 {
 	/**
@@ -33,7 +32,7 @@ public class BlockFern extends BlockPlant implements IShearable
 		return new IProperty[]{};
 	}
 	
-	public BlockFern(List<IPlantMetadata> variants, VariantsOfTypesCombo owner, ObjectType<BlockPlant, ItemBlockMulti> type)
+	public BlockFern(List<IPlantMetadata> variants, VariantsOfTypesCombo<IPlantMetadata> owner, ObjectType<BlockPlant, ? extends ItemBlockMulti<IPlantMetadata>> type)
 	{
 		super(variants, owner, type);
 		

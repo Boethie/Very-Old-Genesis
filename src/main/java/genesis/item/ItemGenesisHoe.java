@@ -6,6 +6,7 @@ import genesis.metadata.ToolItems;
 import genesis.metadata.ToolItems.ToolObjectType;
 import genesis.metadata.ToolTypes.ToolType;
 import genesis.metadata.VariantsOfTypesCombo.ItemVariantCount;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 
@@ -15,9 +16,9 @@ public class ItemGenesisHoe extends ItemHoe
 	public final ToolItems owner;
 	
 	protected final ToolType type;
-	protected final ToolObjectType objType;
+	protected final ToolObjectType<Block, ItemGenesisHoe> objType;
 	
-	public ItemGenesisHoe(ToolType type, ToolItems owner, ToolObjectType objType)
+	public ItemGenesisHoe(ToolType type, ToolItems owner, ToolObjectType<Block, ItemGenesisHoe> objType)
 	{
 		super(type.toolMaterial);
 		

@@ -2,7 +2,6 @@ package genesis.block;
 
 import genesis.block.BlockGrowingPlant.GrowingPlantProperties;
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
-import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms.CanStayOptions;
 import genesis.common.GenesisItems;
 import genesis.util.WorldUtils;
 import genesis.util.random.IntRange;
@@ -94,7 +93,7 @@ public class BlockSphenophyllumCustoms implements IGrowingPlantCustoms
 			GrowingPlantProperties props = new GrowingPlantProperties(worldIn, pos);
 			pos = props.getBottom();
 			
-			Iterable<BlockPos> checkArea = (Iterable<BlockPos>) BlockPos.getAllInBox(pos.add(-3, -1, -3), pos.add(3, 1, 3));
+			Iterable<BlockPos> checkArea = WorldUtils.getArea(pos.add(-3, -1, -3), pos.add(3, 1, 3));
 			
 			int plantsLeft = 6;
 			
@@ -113,7 +112,7 @@ public class BlockSphenophyllumCustoms implements IGrowingPlantCustoms
 			
 			ArrayList<BlockPos> spreadToList = new ArrayList<BlockPos>();
 			
-			for (BlockPos plantCheck : (Iterable<BlockPos>) BlockPos.getAllInBox(pos.add(-1, 0, -1), pos.add(1, 1, 1)))
+			for (BlockPos plantCheck : WorldUtils.getArea(pos.add(-1, 0, -1), pos.add(1, 1, 1)))
 			{
 				spreadToList.add(plantCheck);
 			}

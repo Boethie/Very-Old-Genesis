@@ -49,12 +49,12 @@ public class BlockWattleFence extends BlockFence
 	
 	// Fields specific to this instance.
 	public final TreeBlocksAndItems owner;
-	public final ObjectType<BlockWattleFence, ItemBlockMulti> type;
+	public final ObjectType<BlockWattleFence, ItemBlockMulti<EnumTree>> type;
 	
 	public final PropertyIMetadata<EnumTree> variantProp;
 	public final List<EnumTree> variants;
 	
-	public BlockWattleFence(List<EnumTree> variants, TreeBlocksAndItems owner, ObjectType<BlockWattleFence, ItemBlockMulti> type)
+	public BlockWattleFence(List<EnumTree> variants, TreeBlocksAndItems owner, ObjectType<BlockWattleFence, ItemBlockMulti<EnumTree>> type)
 	{
 		super(Material.wood);
 		
@@ -160,10 +160,7 @@ public class BlockWattleFence extends BlockFence
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
 	{
-		for (EnumTree treeType : variants)
-		{
-			list.add(new ItemStack(itemIn, 1, variants.indexOf(treeType)));
-		}
+		owner.fillSubItems(type, variants, list);
 	}
 
 	@Override

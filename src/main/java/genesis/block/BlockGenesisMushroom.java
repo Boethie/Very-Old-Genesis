@@ -4,6 +4,7 @@ import static genesis.block.BlockGenesisMushroom.MushroomGrowType.*;
 import genesis.common.GenesisSounds;
 import genesis.common.GenesisBlocks;
 import genesis.util.BlockStateToMetadata;
+import genesis.util.WorldUtils;
 
 import java.util.Random;
 
@@ -127,7 +128,7 @@ public class BlockGenesisMushroom extends BlockBush
 		{
 			int shroomsLeft = 5;
 			
-			Iterable<BlockPos> box = (Iterable<BlockPos>) BlockPos.getAllInBox(pos.add(-4, -1, -4), pos.add(4, 1, 4));
+			Iterable<BlockPos> box = WorldUtils.getArea(pos.add(-4, -1, -4), pos.add(4, 1, 4));
 			
 			for (BlockPos checkPos : box)
 			{

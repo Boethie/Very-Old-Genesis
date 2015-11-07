@@ -44,12 +44,12 @@ public class BlockGenesisSaplings extends BlockSapling
 	}
 	
 	public final TreeBlocksAndItems owner;
-	public final ObjectType<BlockGenesisSaplings, ItemBlockMulti> type;
+	public final ObjectType<BlockGenesisSaplings, ItemBlockMulti<EnumTree>> type;
 	
 	public final List<EnumTree> variants;
 	public final PropertyIMetadata<EnumTree> variantProp;
 	
-	public BlockGenesisSaplings(List<EnumTree> variants, TreeBlocksAndItems owner, ObjectType<BlockGenesisSaplings, ItemBlockMulti> type)
+	public BlockGenesisSaplings(List<EnumTree> variants, TreeBlocksAndItems owner, ObjectType<BlockGenesisSaplings, ItemBlockMulti<EnumTree>> type)
 	{
 		super();
 		
@@ -88,7 +88,7 @@ public class BlockGenesisSaplings extends BlockSapling
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
 	{
 		IBlockState state = getDefaultState();
-		state = state.withProperty(variantProp, (Comparable) owner.getVariant(this, meta));
+		state = state.withProperty(variantProp, owner.getVariant(this, meta));
 		return state;
 	}
 	

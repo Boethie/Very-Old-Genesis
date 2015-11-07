@@ -3,6 +3,7 @@ package genesis.block;
 import java.util.List;
 import java.util.Random;
 
+import genesis.item.ItemBlockMulti;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.BlockStateToMetadata;
@@ -18,7 +19,6 @@ import net.minecraft.world.*;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SuppressWarnings("rawtypes")
 public class BlockGenesisDoublePlant extends BlockPlant
 {
 	/**
@@ -32,7 +32,7 @@ public class BlockGenesisDoublePlant extends BlockPlant
 	
 	public static final PropertyBool TOP = PropertyBool.create("top");
 	
-	public BlockGenesisDoublePlant(List<IPlantMetadata> variants, VariantsOfTypesCombo<ObjectType, IPlantMetadata> owner, ObjectType type)
+	public BlockGenesisDoublePlant(List<IPlantMetadata> variants, VariantsOfTypesCombo<IPlantMetadata> owner, ObjectType<? extends BlockGenesisDoublePlant, ? extends ItemBlockMulti<IPlantMetadata>> type)
 	{
 		super(variants, owner, type);
 

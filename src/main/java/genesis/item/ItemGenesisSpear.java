@@ -7,19 +7,19 @@ import genesis.metadata.VariantsOfTypesCombo.ItemVariantCount;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
 @ItemVariantCount(1)
 public class ItemGenesisSpear extends ItemSword
 {
 	public final ToolItems owner;
 	
 	protected final ToolType type;
-	protected final ToolObjectType objType;
+	protected final ToolObjectType<Block, ItemGenesisSpear> objType;
 	
-	public ItemGenesisSpear(ToolType type, ToolItems owner, ToolObjectType objType)
+	public ItemGenesisSpear(ToolType type, ToolItems owner, ToolObjectType<Block, ItemGenesisSpear> objType)
 	{
 		super(type.toolMaterial);
 		

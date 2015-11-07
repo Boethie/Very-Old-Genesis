@@ -121,7 +121,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		return stacksToCustoms.get(getStackKey(stack));
 	}
 	
-	public <O extends ObjectType<?, ?>, V extends IMetadata> void registerPlantsForPot(VariantsOfTypesCombo<O, V> combo, O type, IFlowerPotPlant customs)
+	public <O extends ObjectType<?, ?>, V extends IMetadata> void registerPlantsForPot(VariantsOfTypesCombo<V> combo, O type, IFlowerPotPlant customs)
 	{
 		for (V variant : combo.getValidVariants(type))
 		{

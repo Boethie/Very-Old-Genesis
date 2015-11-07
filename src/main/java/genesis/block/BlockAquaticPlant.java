@@ -35,7 +35,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
 public class BlockAquaticPlant extends Block implements IModifyStateMap
 {
 	/**
@@ -47,8 +46,8 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 		return new IProperty[]{};
 	}
 	
-	public final VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti> owner;
-	public final ObjectType<BlockAquaticPlant, ItemBlockMulti> type;
+	public final VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>> owner;
+	public final ObjectType<BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>> type;
 	
 	public final List<EnumAquaticPlant> variants;
 	public final PropertyIMetadata<EnumAquaticPlant> variantProp;
@@ -56,7 +55,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 	protected Set<Block> validGround;
 	protected final Set<EnumAquaticPlant> noDrops = ImmutableSet.of(EnumAquaticPlant.CHARNIA);
 	
-	public BlockAquaticPlant(List<EnumAquaticPlant> variants, VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti> owner, ObjectType<BlockAquaticPlant, ItemBlockMulti> type)
+	public BlockAquaticPlant(List<EnumAquaticPlant> variants, VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>> owner, ObjectType<BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>> type)
 	{
 		super(Material.water);
 		

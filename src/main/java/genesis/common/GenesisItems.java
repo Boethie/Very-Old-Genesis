@@ -20,7 +20,7 @@ public final class GenesisItems
 	public static final Item red_clay_bowl = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "redClayBowl");
 	public static final ItemsCeramicBowls bowls = new ItemsCeramicBowls();
 	public static final Item red_clay_bucket = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "redClayBucket");
-	public static final VariantsCombo<EnumNodule, Block, ItemMulti> nodules = new VariantsCombo<EnumNodule, Block, ItemMulti>(new ObjectType<Block, ItemMulti>("nodule", null, null).setNamePosition(ObjectNamePosition.PREFIX), EnumNodule.values());
+	public static final VariantsCombo<EnumNodule, Block, ItemMulti<EnumNodule>> nodules = new VariantsCombo<EnumNodule, Block, ItemMulti<EnumNodule>>(new ObjectType<Block, ItemMulti<EnumNodule>>("nodule", null, null).setNamePosition(ObjectNamePosition.PREFIX), EnumNodule.values());
 	public static final Item resin = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "resin");
 	public static final Item araucarioxylon_cone = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "araucarioxylonCone");
 	public static final ItemGenesisSeeds calamites = (ItemGenesisSeeds) new ItemGenesisSeeds().setUnlocalizedName(Unlocalized.MATERIAL + "calamites");
@@ -71,9 +71,9 @@ public final class GenesisItems
 	public static final Item ceramic_bucket_milk = new ItemGenesisBucketMilk().setUnlocalizedName(Unlocalized.MISC + "ceramicBucketMilk").setContainerItem(ceramic_bucket);
 	public static Item bucket_komatiitic_lava;
 
-	public static final VariantsCombo<EnumMenhirActivator, Block, ItemMulti> menhir_activators =
-			new VariantsCombo<EnumMenhirActivator, Block, ItemMulti>(
-					new ObjectType<Block, ItemMulti>("menhir_activator", Unlocalized.MISC + "menhirActivator", null, ItemMulti.class)
+	public static final VariantsCombo<EnumMenhirActivator, Block, ItemMulti<EnumMenhirActivator>> menhir_activators =
+			new VariantsCombo<EnumMenhirActivator, Block, ItemMulti<EnumMenhirActivator>>(
+					new ObjectType<Block, ItemMulti<EnumMenhirActivator>>("menhir_activator", Unlocalized.MISC + "menhirActivator", null, null)
 							.setCreativeTab(GenesisCreativeTabs.MISC)
 							.setResourceName(""),
 					EnumMenhirActivator.values()

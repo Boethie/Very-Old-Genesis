@@ -10,15 +10,17 @@ import net.minecraft.item.ItemStack;
 import genesis.block.*;
 import genesis.common.GenesisSounds;
 import genesis.item.*;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.Constants.Unlocalized;
 
-public class PlantBlocks extends VariantsOfTypesCombo<ObjectType<?, ?>, IPlantMetadata>
+public class PlantBlocks extends VariantsOfTypesCombo<IPlantMetadata>
 {
-	public static final ObjectType<BlockPlant, ItemBlockMulti> PLANT = new ObjectType<BlockPlant, ItemBlockMulti>("plant", Unlocalized.Section.PLANT, BlockPlant.class, ItemBlockMulti.class)
+	private static final Class<ItemBlockMulti<IPlantMetadata>> ITEM_CLASS = ItemBlockMulti.<IPlantMetadata>getClassV();
+	
+	// Plants
+	public static final ObjectType<BlockPlant, ItemBlockMulti<IPlantMetadata>> PLANT = ObjectType.create("plant", Unlocalized.Section.PLANT, BlockPlant.class, ITEM_CLASS)
 			.setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE)
 			.setValidVariants(EnumPlant.SINGLES);
-	public static final ObjectType<BlockGenesisDoublePlant, ItemBlockMulti> DOUBLE_PLANT = new ObjectType<BlockGenesisDoublePlant, ItemBlockMulti>("double_plant", Unlocalized.Section.PLANT_DOUBLE, BlockGenesisDoublePlant.class, ItemBlockMulti.class)
+	public static final ObjectType<BlockGenesisDoublePlant, ItemBlockMulti<IPlantMetadata>> DOUBLE_PLANT = new ObjectType<BlockGenesisDoublePlant, ItemBlockMulti<IPlantMetadata>>("double_plant", Unlocalized.Section.PLANT_DOUBLE, BlockGenesisDoublePlant.class, ITEM_CLASS)
 			{
 				@Override
 				public String getVariantName(IMetadata variant)
@@ -29,25 +31,21 @@ public class PlantBlocks extends VariantsOfTypesCombo<ObjectType<?, ?>, IPlantMe
 			.setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE)
 			.setValidVariants(ImmutableList.copyOf(EnumPlant.DOUBLES));
 	
-	private static void afterFernConstructed(Block block, ItemBlockMulti item, List<? extends IMetadata> variants)
-	{
-		block.setStepSound(GenesisSounds.FERN);
-	}
-	
-	public static final ObjectType<BlockPlant, ItemBlockMulti> FERN = new ObjectType<BlockPlant, ItemBlockMulti>("fern", Unlocalized.Section.FERN, BlockPlant.class, ItemBlockMulti.class)
+	// Ferns
+	public static final ObjectType<BlockPlant, ItemBlockMulti<IPlantMetadata>> FERN = new ObjectType<BlockPlant, ItemBlockMulti<IPlantMetadata>>("fern", Unlocalized.Section.FERN, BlockPlant.class, ITEM_CLASS)
 			{
 				@Override
-				public void afterConstructed(BlockPlant block, ItemBlockMulti item, List<? extends IMetadata> variants)
+				public void afterConstructed(BlockPlant block, ItemBlockMulti<IPlantMetadata> item, List<? extends IMetadata> variants)
 				{
 					afterFernConstructed(block, item, variants);
 				}
 			}
 			.setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE)
 			.setValidVariants(EnumFern.SINGLES);
-	public static final ObjectType<BlockGenesisDoublePlant, ItemBlockMulti> DOUBLE_FERN = new ObjectType<BlockGenesisDoublePlant, ItemBlockMulti>("double_fern", Unlocalized.Section.FERN_DOUBLE, BlockGenesisDoublePlant.class, ItemBlockMulti.class)
+	public static final ObjectType<BlockGenesisDoublePlant, ItemBlockMulti<IPlantMetadata>> DOUBLE_FERN = new ObjectType<BlockGenesisDoublePlant, ItemBlockMulti<IPlantMetadata>>("double_fern", Unlocalized.Section.FERN_DOUBLE, BlockGenesisDoublePlant.class, ITEM_CLASS)
 			{
 				@Override
-				public void afterConstructed(BlockGenesisDoublePlant block, ItemBlockMulti item, List<? extends IMetadata> variants)
+				public void afterConstructed(BlockGenesisDoublePlant block, ItemBlockMulti<IPlantMetadata> item, List<? extends IMetadata> variants)
 				{
 					afterFernConstructed(block, item, variants);
 				}
@@ -61,9 +59,14 @@ public class PlantBlocks extends VariantsOfTypesCombo<ObjectType<?, ?>, IPlantMe
 			.setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE)
 			.setValidVariants(ImmutableList.copyOf(EnumFern.DOUBLES));
 	
+	private static void afterFernConstructed(Block block, ItemBlockMulti<IPlantMetadata> item, List<? extends IMetadata> variants)
+	{
+		block.setStepSound(GenesisSounds.FERN);
+	}
+	
 	public PlantBlocks()
 	{
-		super(new ImmutableList.Builder<ObjectType<?, ?>>().add(PLANT, DOUBLE_PLANT, FERN, DOUBLE_FERN).build(), new ImmutableList.Builder<IPlantMetadata>().add(EnumPlant.values()).add(EnumFern.values()).build());
+		super(ImmutableList.of(PLANT, DOUBLE_PLANT, FERN, DOUBLE_FERN), new ImmutableList.Builder<IPlantMetadata>().add(EnumPlant.values()).add(EnumFern.values()).build());
 	}
 	
 	// -------- Plants --------

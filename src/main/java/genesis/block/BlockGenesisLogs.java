@@ -38,13 +38,13 @@ public class BlockGenesisLogs extends BlockLog
 		return new IProperty[]{ LOG_AXIS };
 	}
 	
-	public final VariantsOfTypesCombo<ObjectType<? extends BlockGenesisLogs, ? extends ItemBlockMulti>, EnumTree> owner;
-	public final ObjectType<? extends BlockGenesisLogs, ? extends ItemBlockMulti> type;
+	public final VariantsOfTypesCombo<EnumTree> owner;
+	public final ObjectType<? extends BlockGenesisLogs, ? extends ItemBlockMulti<EnumTree>> type;
 	
 	public final List<EnumTree> variants;
 	public final PropertyIMetadata<EnumTree> variantProp;
 	
-	public BlockGenesisLogs(List<EnumTree> variants, VariantsOfTypesCombo<ObjectType<? extends BlockGenesisLogs, ? extends ItemBlockMulti>, EnumTree> owner, ObjectType<? extends BlockGenesisLogs, ? extends ItemBlockMulti> type)
+	public BlockGenesisLogs(List<EnumTree> variants, VariantsOfTypesCombo<EnumTree> owner, ObjectType<? extends BlockGenesisLogs, ? extends ItemBlockMulti<EnumTree>> type)
 	{
 		super();
 		

@@ -7,19 +7,19 @@ import genesis.metadata.VariantsOfTypesCombo.ItemVariantCount;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
 @ItemVariantCount(1)
 public class ItemGenesisPick extends ItemPickaxe
 {
 	public final ToolItems owner;
 	
 	protected final ToolType type;
-	protected final ToolObjectType objType;
+	protected final ToolObjectType<Block, ItemGenesisPick> objType;
 	
-	public ItemGenesisPick(ToolType type, ToolItems owner, ToolObjectType objType)
+	public ItemGenesisPick(ToolType type, ToolItems owner, ToolObjectType<Block, ItemGenesisPick> objType)
 	{
 		super(type.toolMaterial);
 		

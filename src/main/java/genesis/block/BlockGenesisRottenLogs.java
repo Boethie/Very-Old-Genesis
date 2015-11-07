@@ -1,6 +1,7 @@
 package genesis.block;
 
 import genesis.common.GenesisSounds;
+import genesis.item.ItemBlockMulti;
 import genesis.metadata.EnumTree;
 import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
@@ -22,9 +23,10 @@ public class BlockGenesisRottenLogs extends BlockGenesisLogs implements IGenesis
 		return BlockGenesisLogs.getProperties();
 	}
 	
-	public BlockGenesisRottenLogs(List<EnumTree> variants, VariantsOfTypesCombo owner, ObjectType type)
+	public BlockGenesisRottenLogs(List<EnumTree> variants, VariantsOfTypesCombo<EnumTree> owner, ObjectType<? extends BlockGenesisRottenLogs, ? extends ItemBlockMulti<EnumTree>> type)
 	{
 		super(variants, owner, type);
+		
 		setStepSound(GenesisSounds.ROTTEN_LOG);
 	}
 	

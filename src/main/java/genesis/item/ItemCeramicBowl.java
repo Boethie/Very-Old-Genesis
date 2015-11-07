@@ -26,7 +26,6 @@ import genesis.metadata.*;
 import genesis.metadata.ItemsCeramicBowls.EnumCeramicBowls;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
 public class ItemCeramicBowl extends ItemGenesis
 {
 	public final ItemsCeramicBowls owner;
@@ -114,7 +113,7 @@ public class ItemCeramicBowl extends ItemGenesis
 		Block block = state.getBlock();
 		
 		ItemStack stack = player.getHeldItem();
-		VariantsOfTypesCombo<ObjectType, IMetadata>.VariantData variantData = owner.getVariantData(stack);
+		VariantsOfTypesCombo<IMetadata>.VariantData variantData = owner.getVariantData(stack);
 		
 		switch (event.action)
 		{

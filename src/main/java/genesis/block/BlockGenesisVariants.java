@@ -16,7 +16,6 @@ import net.minecraft.item.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 
-@SuppressWarnings("rawtypes")
 public class BlockGenesisVariants<V extends IMetadata> extends Block
 {
 	/**
@@ -28,17 +27,17 @@ public class BlockGenesisVariants<V extends IMetadata> extends Block
 		return new IProperty[]{};
 	}
 	
-	public final VariantsOfTypesCombo<ObjectType<?, ?>, V> owner;
-	public final ObjectType<? extends BlockGenesisVariants, ? extends Item> type;
+	public final VariantsOfTypesCombo<V> owner;
+	public final ObjectType<? extends BlockGenesisVariants<V>, ? extends Item> type;
 	
 	public final List<V> variants;
 	public final PropertyIMetadata<V> variantProp;
 	
 	protected final HashSet<V> noItemVariants = new HashSet<V>();
 	
-	protected final List<VariantDrop> drops = new ArrayList<VariantDrop>();
+	protected final List<VariantDrop<V>> drops = new ArrayList<VariantDrop<V>>();
 	
-	public BlockGenesisVariants(List<V> variants, VariantsOfTypesCombo<ObjectType<?, ?>, V> owner, ObjectType<? extends BlockGenesisVariants, ? extends Item> type, Material material)
+	public BlockGenesisVariants(List<V> variants, VariantsOfTypesCombo<V> owner, ObjectType<? extends BlockGenesisVariants<V>, ? extends Item> type, Material material)
 	{
 		super(material);
 		
@@ -95,7 +94,7 @@ public class BlockGenesisVariants<V extends IMetadata> extends Block
 		return this;
 	}
 	
-	public BlockGenesisVariants<V> addDrop(VariantDrop drop)
+	public BlockGenesisVariants<V> addDrop(VariantDrop<V> drop)
 	{
 		drops.add(drop);
 		
@@ -107,7 +106,7 @@ public class BlockGenesisVariants<V extends IMetadata> extends Block
 		return addDrop(new VariantDrop<V>(owner, type, min, max));
 	}
 	
-	public BlockGenesisVariants<V> addDrop(ObjectType type)
+	public BlockGenesisVariants<V> addDrop(ObjectType<?, ?> type)
 	{
 		return addDrop(type, 1, 1);
 	}
@@ -122,7 +121,7 @@ public class BlockGenesisVariants<V extends IMetadata> extends Block
 		{
 	        Random rand = world instanceof World ? ((World) world).rand : RANDOM;
 			
-			for (VariantDrop drop : drops)
+			for (VariantDrop<V> drop : drops)
 			{
 				ItemStack stack = drop.getStack(state, rand);
 				

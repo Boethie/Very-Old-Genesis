@@ -6,20 +6,20 @@ import genesis.metadata.ToolItems;
 import genesis.metadata.ToolItems.ToolObjectType;
 import genesis.metadata.ToolTypes.ToolType;
 import genesis.metadata.VariantsOfTypesCombo.ItemVariantCount;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
 @ItemVariantCount(1)
 public class ItemGenesisAxe extends ItemAxe
 {
 	public final ToolItems owner;
 	
 	protected final ToolType type;
-	protected final ToolObjectType objType;
+	protected final ToolObjectType<Block, ItemGenesisAxe> objType;
 	
-	public ItemGenesisAxe(ToolType type, ToolItems owner, ToolObjectType objType)
+	public ItemGenesisAxe(ToolType type, ToolItems owner, ToolObjectType<Block, ItemGenesisAxe> objType)
 	{
 		super(type.toolMaterial);
 		
