@@ -19,24 +19,24 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockMultiOre<T extends IOreVariant> extends BlockOre
+public class BlockMultiOre<V extends IOreVariant> extends BlockOre
 {
 	@BlockProperties
 	public static IProperty[] properties = {};
 	
-	public VariantsOfTypesCombo<T> owner;
-	public ObjectType<? extends BlockMultiOre<T>, ?> type;
-	public List<T> variants;
+	public VariantsOfTypesCombo<V> owner;
+	public ObjectType<? extends BlockMultiOre<V>, ?> type;
+	public List<V> variants;
 	
-	public PropertyIMetadata<T> variantProp;
+	public PropertyIMetadata<V> variantProp;
 	
-	public BlockMultiOre(List<T> variants, VariantsOfTypesCombo<T> owner, ObjectType<? extends BlockMultiOre<T>, ?> type)
+	public BlockMultiOre(List<V> variants, VariantsOfTypesCombo<V> owner, ObjectType<? extends BlockMultiOre<V>, ?> type)
 	{
 		this.variants = variants;
 		this.owner = owner;
 		this.type = type;
 		
-		variantProp = new PropertyIMetadata<T>("variant", variants);
+		variantProp = new PropertyIMetadata<V>("variant", variants);
 		blockState = new BlockState(this, variantProp);
 		setDefaultState(blockState.getBaseState());
 		
@@ -117,5 +117,17 @@ public class BlockMultiOre<T extends IOreVariant> extends BlockOre
 	public int getExpDrop(IBlockAccess world, BlockPos pos, int fortune)
 	{
 		return getVariant(world, pos).getDropExperience().get(WorldUtils.getWorldRandom(world, RANDOM));
+	}
+	
+	@Override
+	public int damageDropped(IBlockState state)
+	{
+		return owner.getItemMetadata(type, (V) state.getValue(variantProp));
+	}
+	
+	@Override
+	public int getDamageValue(World world, BlockPos pos)
+	{
+		return damageDropped(world.getBlockState(pos));
 	}
 }
