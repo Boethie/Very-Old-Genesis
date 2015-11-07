@@ -324,7 +324,11 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 			
 			if (recepTE != null)
 			{
-				spawnAsEntity(world, recepTE.getPos(), recepTE.getReceptacleItem());
+				if (recepTE.getReceptacleItem() != null)
+				{
+					spawnAsEntity(world, recepTE.getPos(), recepTE.getReceptacleItem());
+				}
+				
 				recepTE.setContainedItem(null);
 			}
 			break;
