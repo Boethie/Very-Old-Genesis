@@ -69,7 +69,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 		
 		public static <B extends Block, I extends Item> ObjectType<B, I> create(String name, Class<? extends B> blockClass, Class<? extends I> itemClass, List<? extends IMetadata> variantExclusions)
 		{
-			return create(name, blockClass, itemClass, variantExclusions);
+			return new ObjectType<B, I>(name, blockClass, itemClass, variantExclusions);
 		}
 		
 		public static <B extends Block> ObjectType<B, ItemBlockMulti> create(String name, Class<? extends B> blockClass, List<? extends IMetadata> variantExclusions)
@@ -80,7 +80,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 		
 		public static <B extends Block, I extends Item> ObjectType<B, I> create(String name, String unlocalizedName, Class<? extends B> blockClass, Class<? extends I> itemClass, IMetadata... variantExclusions)
 		{
-			return create(name, unlocalizedName, blockClass, itemClass, variantExclusions);
+			return new ObjectType<B, I>(name, unlocalizedName, blockClass, itemClass, variantExclusions);
 		}
 		
 		public static <B extends Block> ObjectType<B, ItemBlockMulti> create(String name, String unlocalizedName, Class<? extends B> blockClass, IMetadata... variantExclusions)
@@ -91,12 +91,12 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 		
 		public static <B extends Block, I extends Item> ObjectType<B, I> create(String name, Class<? extends B> blockClass, Class<? extends I> itemClass, IMetadata... variantExclusions)
 		{
-			return create(name, name, blockClass, itemClass, variantExclusions);
+			return new ObjectType<B, I>(name, name, blockClass, itemClass, variantExclusions);
 		}
 		
 		public static <B extends Block> ObjectType<B, ItemBlockMulti> create(String name, Class<? extends B> blockClass, IMetadata... variantExclusions)
 		{
-			return create(name, name, blockClass, ItemBlockMulti.class, variantExclusions);
+			return create(name, blockClass, ItemBlockMulti.class, variantExclusions);
 		}
 		
 		protected String name;
