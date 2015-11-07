@@ -25,7 +25,7 @@ public class BiomeGenAuxForestEdgeM extends BiomeGenAuxForestEdge
 	{
 		addDecoration(new WorldGenArchaeomarasmius().setPatchSize(3).setCountPerChunk(3));
 		addDecoration(new WorldGenPalaeoagaracites().setPatchSize(16).setCountPerChunk(80));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPatchSize(5).setCountPerChunk(6));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPatchSize(5).setCountPerChunk(2));
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(5));
 	}
 	
