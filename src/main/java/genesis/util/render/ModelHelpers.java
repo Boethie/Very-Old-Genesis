@@ -64,7 +64,6 @@ public class ModelHelpers
 		addForcedModels();
 	}
 	
-	// TODO: @SuppressWarnings("unchecked")
 	public static <T> Class<T> getModelLoaderClass(String name)
 	{
 		Class<?>[] classes = ModelLoader.class.getDeclaredClasses();

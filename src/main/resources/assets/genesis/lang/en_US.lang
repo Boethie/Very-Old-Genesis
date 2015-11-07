@@ -196,9 +196,9 @@ item.genesis.food.porridge.odontopteris.name=Porridge with Odontopteris
 item.genesis.food.porridge.archaeomarasmius.name=Porridge with Archaeomarasmius
 
 #Tools
-item.genesis.tool.quality.chipped=Chipped
-item.genesis.tool.quality.polished=Polished
-item.genesis.tool.quality.sharpened=Sharpened
+item.genesis.tool.quality.chipped=§oChipped
+item.genesis.tool.quality.polished=§oPolished
+item.genesis.tool.quality.sharpened=§oSharpened
 
 item.genesis.tool.choppingTool.dolerite.name=Dolerite Chopping Tool
 item.genesis.tool.choppingTool.rhyolite.name=Rhyolite Chopping Tool
