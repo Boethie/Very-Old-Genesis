@@ -38,38 +38,38 @@ public class GenesisPortal
 		return isBlockingPortal(world, pos, world.getBlockState(pos));
 	}
 	
-	protected final IBlockAccess world;
+	protected final IBlockAccess blockAccess;
 	protected BlockPos center;
 	protected BlockPos portal;
 	protected final Map<EnumFacing, MenhirData> menhirs = new EnumMap<EnumFacing, MenhirData>(EnumFacing.class);
 	protected final Map<EnumFacing, MenhirData> menhirsView = Collections.unmodifiableMap(menhirs);
 	
-	public static GenesisPortal fromPortalBlock(IBlockAccess world, BlockPos pos)
+	public static GenesisPortal fromPortalBlock(IBlockAccess blockAccess, BlockPos pos)
 	{
-		return new GenesisPortal(world, pos.down(PORTAL_HEIGHT));
+		return new GenesisPortal(blockAccess, pos.down(PORTAL_HEIGHT));
 	}
 	
-	public static GenesisPortal fromCenterBlock(IBlockAccess world, BlockPos pos)
+	public static GenesisPortal fromCenterBlock(IBlockAccess blockAccess, BlockPos pos)
 	{
-		return new GenesisPortal(world, pos);
+		return new GenesisPortal(blockAccess, pos);
 	}
 	
-	public static GenesisPortal fromMenhirBlock(IBlockAccess world, BlockPos pos, IBlockState state)
+	public static GenesisPortal fromMenhirBlock(IBlockAccess blockAccess, BlockPos pos, IBlockState state)
 	{
-		return new GenesisPortal(world, pos, state);
+		return new GenesisPortal(blockAccess, pos, state);
 	}
 	
-	public static GenesisPortal fromMenhirBlock(IBlockAccess world, BlockPos pos)
+	public static GenesisPortal fromMenhirBlock(IBlockAccess blockAccess, BlockPos pos)
 	{
-		return fromMenhirBlock(world, pos, null);
+		return fromMenhirBlock(blockAccess, pos, null);
 	}
 	
 	/**
 	 * Provides data about a portal from the position of the center of the portal.
 	 */
-	protected GenesisPortal(IBlockAccess world, BlockPos center)
+	protected GenesisPortal(IBlockAccess blockAccess, BlockPos center)
 	{
-		this.world = world;
+		this.blockAccess = blockAccess;
 		this.center = center;
 		refresh();
 	}
@@ -77,9 +77,9 @@ public class GenesisPortal
 	/**
 	 * Provides data about a portal from the position of a menhir.
 	 */
-	protected GenesisPortal(IBlockAccess world, BlockPos pos, IBlockState state)
+	protected GenesisPortal(IBlockAccess blockAccess, BlockPos pos, IBlockState state)
 	{
-		this.world = WorldUtils.getFakeWorld(world, pos, state);
+		this.blockAccess = WorldUtils.getFakeWorld(blockAccess, pos, state);
 		BlockPos menhirCenter = findCenterFromMenhir(pos, state);
 		center = menhirCenter == null ? pos : menhirCenter;
 		refresh();
@@ -89,7 +89,7 @@ public class GenesisPortal
 	{
 		if (GenesisBlocks.menhirs.hasState(state) && BlockMenhir.getFacing(state) == facing)
 		{
-			if (y == new MenhirData(world, pos).getBottomPos().getY())
+			if (y == new MenhirData(blockAccess, pos).getBottomPos().getY())
 			{
 				return true;
 			}
@@ -105,7 +105,7 @@ public class GenesisPortal
 	
 	protected BlockPos findCenterFromMenhir(BlockPos pos, IBlockState state)
 	{
-		MenhirData startMenhir = new MenhirData(world, pos);
+		MenhirData startMenhir = new MenhirData(blockAccess, pos);
 		pos = startMenhir.getBottomPos();
 		EnumFacing facing = startMenhir.getFacing();
 		
@@ -117,7 +117,7 @@ public class GenesisPortal
 		{
 			BlockPos curCenter = pos.offset(facing, forward);
 			
-			if (isBlockingPortal(world, curCenter))
+			if (isBlockingPortal(blockAccess, curCenter))
 			{
 				break forward;
 			}
@@ -128,14 +128,14 @@ public class GenesisPortal
 					for (int side = 0; side <= MENHIR_MAX_DISTANCE; side++)
 					{
 						BlockPos checkPos = curCenter.offset(facing.rotateY(), side * direction.getOffset());
-						IBlockState checkState = world.getBlockState(checkPos);
+						IBlockState checkState = blockAccess.getBlockState(checkPos);
 
 						if (side >= MENHIR_MIN_DISTANCE && isValidMenhir(checkPos, checkState, facing.rotateYCCW(), y))
 						{
 							centerPos = curCenter;
 							break forward;
 						}
-						else if (isBlockingPortal(world, checkPos, checkState))
+						else if (isBlockingPortal(blockAccess, checkPos, checkState))
 						{
 							break;
 						}
@@ -149,14 +149,14 @@ public class GenesisPortal
 			for (int forward = 0; forward <= MENHIR_MAX_DISTANCE * 2; forward++)
 			{
 				BlockPos checkPos = pos.offset(facing, forward);
-				IBlockState checkState = world.getBlockState(checkPos);
+				IBlockState checkState = blockAccess.getBlockState(checkPos);
 				
 				if (forward >= MENHIR_MIN_DISTANCE * 2 && isValidMenhir(checkPos, checkState, facing.getOpposite(), y))
 				{
 					centerPos = pos.offset(facing, forward / 2);
 					break;
 				}
-				else if (isBlockingPortal(world, checkPos, checkState))
+				else if (isBlockingPortal(blockAccess, checkPos, checkState))
 				{
 					break;
 				}
@@ -172,9 +172,9 @@ public class GenesisPortal
 		menhirs.clear();
 	}
 	
-	public IBlockAccess getWorld()
+	public IBlockAccess getBlockAccess()
 	{
-		return world;
+		return blockAccess;
 	}
 	
 	public BlockPos getCenterPosition()
@@ -250,16 +250,16 @@ public class GenesisPortal
 			for (int forward = 0; forward <= MENHIR_MAX_DISTANCE; forward++)
 			{
 				BlockPos checkPos = center.offset(direction, forward);
-				IBlockState checkState = world.getBlockState(checkPos);
+				IBlockState checkState = blockAccess.getBlockState(checkPos);
 				
 				if (forward >= MENHIR_MIN_DISTANCE && isValidMenhir(checkPos, checkState, direction.getOpposite()))
 				{
-					MenhirData menhir = new MenhirData(world, checkPos);
+					MenhirData menhir = new MenhirData(blockAccess, checkPos);
 					menhirs.put(direction, menhir);
 					break;
 				}
 				
-				if (isBlockingPortal(world, checkPos, checkState))
+				if (isBlockingPortal(blockAccess, checkPos, checkState))
 				{
 					break;
 				}
@@ -295,7 +295,7 @@ public class GenesisPortal
 		return distance == -1 ? def : distance;
 	}
 	
-	public void setPlacementPosition(World world, boolean createPlatform)
+	public boolean setPlacementPosition(World world)
 	{
 		double distance = -1;
 		BlockPos portalPos = null;
@@ -355,41 +355,51 @@ public class GenesisPortal
 			}
 		}
 		
-		if (createPlatform && portalPos == null)
+		if (portalPos != null)
 		{
-			portalPos = new BlockPos(getCenterPosition().getX(), world.getActualHeight(), getCenterPosition().getZ());
-			
-			while (world.isAirBlock(portalPos))
-			{
-				portalPos = portalPos.down();
-			}
-			
-			portalPos = portalPos.up(2);
-
-			BlockPos start = portalPos.down();
+			setCenterPosition(portalPos);
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public void createPlatform(World world)
+	{
+		BlockPos center = null;
+		Iterable<BlockPos> platform = null;
+		
+		findPlatform:
+		for (int y = world.getActualHeight(); y >= 0; y--)
+		{
+			center = new BlockPos(getCenterPosition().getX(), y, getCenterPosition().getZ());
+			BlockPos start = center;
 			BlockPos end = start;
 			
 			for (EnumFacing dir : EnumFacing.HORIZONTALS)
 			{
 				if (dir.getAxisDirection().getOffset() <= 0)
-				{
-					start.offset(dir, getDistanceWithDefault(dir, MENHIR_DEFAULT_DISTANCE));
-				}
+					start = start.offset(dir, getDistanceWithDefault(dir, MENHIR_DEFAULT_DISTANCE));
 				else
-				{
-					end.offset(dir, getDistanceWithDefault(dir, MENHIR_DEFAULT_DISTANCE));
-				}
+					end = end.offset(dir, getDistanceWithDefault(dir, MENHIR_DEFAULT_DISTANCE));
 			}
 			
-			for (BlockPos padPos : WorldUtils.getArea(start, end))
+			platform = WorldUtils.getArea(start, end);
+			
+			for (BlockPos pos : platform)
 			{
-				world.setBlockState(padPos, GenesisBlocks.moss.getDefaultState());
+				if (!blockAccess.isAirBlock(pos.down()))
+				{
+					break findPlatform;
+				}
 			}
 		}
 		
-		if (portalPos != null)
+		setCenterPosition(center.up());
+		
+		for (BlockPos pos : platform)
 		{
-			setCenterPosition(portalPos);
+			world.setBlockState(pos, GenesisBlocks.moss.getDefaultState());
 		}
 	}
 	
@@ -441,7 +451,7 @@ public class GenesisPortal
 	{
 		Genesis.logger.info("Duplicating portal " + fromPortal + " to portal " + this + ".");
 		BlockPos posDiff = getCenterPosition().subtract(fromPortal.getCenterPosition());
-		IBlockAccess fromWorld = fromPortal.getWorld();
+		IBlockAccess fromWorld = fromPortal.getBlockAccess();
 		
 		for (MenhirData menhir : fromPortal.getMenhirs().values())
 		{

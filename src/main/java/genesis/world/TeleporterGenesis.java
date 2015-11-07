@@ -115,7 +115,11 @@ public class TeleporterGenesis extends Teleporter
 	public boolean makePortal(Entity entity)
 	{
 		GenesisPortal newPortal = GenesisPortal.fromCenterBlock(world, entity.getPosition());
-		newPortal.setPlacementPosition(world, true);
+		
+		if (!newPortal.setPlacementPosition(world))
+		{
+			newPortal.createPlatform(world);
+		}
 		
 		if (portal != null)
 		{
