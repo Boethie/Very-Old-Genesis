@@ -1,6 +1,6 @@
 {
     "__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
-    "ambientocclusion": true,
+    "ambientocclusion": false,
     "elements": [
         {   "__comment": "Lid Left Single",
             "from": [ 0, 14, 0 ],

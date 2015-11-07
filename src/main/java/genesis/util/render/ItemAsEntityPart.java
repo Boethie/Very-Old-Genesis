@@ -47,6 +47,7 @@ public class ItemAsEntityPart extends CustomEntityPart
 		{
 			float scale = pxSize * 16;
 			GlStateManager.scale(scale, scale, scale);
+			RenderHelper.enableStandardItemLighting();
 			Minecraft.getMinecraft().getRenderItem().renderItemModel(itemStack);
 		}
 	}

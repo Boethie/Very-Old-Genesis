@@ -1,8 +1,18 @@
 package genesis.util.render;
 
+import java.util.*;
+
+import org.apache.commons.lang3.tuple.Pair;
+
+import genesis.common.Genesis;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.util.BlockPos;
@@ -16,6 +26,8 @@ public class BlockAsEntityPart extends CustomEntityPart
 	public IBlockAccess world;
 	public BlockPos pos;
 	
+	public boolean ambientOcclusion = true;
+	
 	public TextureAtlasSprite texture = null;
 	
 	// Defaults
@@ -23,7 +35,11 @@ public class BlockAsEntityPart extends CustomEntityPart
 	public IBlockAccess worldDef;
 	public BlockPos posDef;
 	
+	public boolean ambientOcclusionDef = true;
+	
 	public TextureAtlasSprite textureDef = null;
+	
+	protected final Set<Pair<Class<? extends Exception>, String>> exceptionsCaught = new HashSet<Pair<Class<? extends Exception>, String>>();
 	
 	public BlockAsEntityPart(ModelBase model)
 	{
@@ -42,6 +58,8 @@ public class BlockAsEntityPart extends CustomEntityPart
 		worldDef = world;
 		posDef = pos;
 		
+		ambientOcclusionDef = ambientOcclusion;
+		
 		textureDef = texture;
 		
 		return this;
@@ -55,6 +73,8 @@ public class BlockAsEntityPart extends CustomEntityPart
 		world = worldDef;
 		pos = posDef;
 		
+		ambientOcclusion = ambientOcclusionDef;
+		
 		texture = textureDef;
 	}
 	
@@ -63,6 +83,11 @@ public class BlockAsEntityPart extends CustomEntityPart
 		this.modelLocation = modelLocation;
 		this.world = world;
 		this.pos = pos;
+	}
+
+	public void setAmbientOcclusion(boolean ambientOcclusion)
+	{
+		this.ambientOcclusion = ambientOcclusion;
 	}
 	
 	public void setTexture(TextureAtlasSprite texture)
@@ -85,13 +110,40 @@ public class BlockAsEntityPart extends CustomEntityPart
 			GlStateManager.scale(scale, scale, scale);
 			
 			IBakedModel model = ModelHelpers.getBakedBlockModel(modelLocation, world, pos);
+			IBlockState state = world.getBlockState(pos);
 			
 			if (texture != null)
 			{
 				model = ModelHelpers.getRetexturedBakedModel(model, texture);
 			}
 			
-			ModelHelpers.renderBakedModel(model);
+			if (ambientOcclusion)
+			{
+				Tessellator tess = Tessellator.getInstance();
+				WorldRenderer wr = tess.getWorldRenderer();
+				
+				GlStateManager.translate(-pos.getX(), -pos.getY(), -pos.getZ());
+				
+				RenderHelper.disableStandardItemLighting();
+				
+				wr.startDrawingQuads();
+				wr.setVertexFormat(DefaultVertexFormats.BLOCK);
+				
+				ModelHelpers.getBlockRenderer().renderModel(world, model, state, pos, Tessellator.getInstance().getWorldRenderer(), false);
+				
+				tess.draw();
+				
+				RenderHelper.enableStandardItemLighting();
+				
+				GlStateManager.translate(pos.getX(), pos.getY(), pos.getZ());
+			}
+			else
+			{
+				GlStateManager.rotate(-90, 0, 1, 0);	// Screwy vanilla methods. >.>
+				RenderHelper.enableStandardItemLighting();
+				ModelHelpers.getBlockRenderer().renderModelBrightness(model, state, 1, true);
+				GlStateManager.rotate(90, 0, 1, 0);
+			}
 		}
 	}
 	

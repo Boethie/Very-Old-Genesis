@@ -1,6 +1,6 @@
 {
     "__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
-    "ambientocclusion": false,
+    "ambientocclusion": true,
     "elements": [
         {   "__comment": "Billet Right",
             "from": [ 6, 3, 4.01 ],

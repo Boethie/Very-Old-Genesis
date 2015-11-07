@@ -44,6 +44,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer
 		public ModelCampfire()
 		{
 			stick.offsetY = 1 + MathHelper.cos(45) * 0.0625F;
+			stick.setAmbientOcclusion(false);
 			stick.setDefaultState();
 			
 			stick.addChild(cookingPot);
@@ -294,6 +295,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer
 		}
 		
 		// Render the model.
+		ModelHelpers.bindAtlasTexture();
 		model.renderAll();
 		
 		GlStateManager.popMatrix();

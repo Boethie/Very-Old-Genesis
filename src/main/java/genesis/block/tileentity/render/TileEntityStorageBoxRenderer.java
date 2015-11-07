@@ -28,6 +28,7 @@ public class TileEntityStorageBoxRenderer extends TileEntitySpecialRenderer
 		
 		public ModelStorageBox()
 		{
+			lid.setAmbientOcclusion(false);
 			lid.setDefaultState();
 		}
 
@@ -125,6 +126,7 @@ public class TileEntityStorageBoxRenderer extends TileEntitySpecialRenderer
 		}
 		
 		// Render model.
+		ModelHelpers.bindAtlasTexture();
 		model.renderAll();
 		
 		if (destroyStage >= 0)

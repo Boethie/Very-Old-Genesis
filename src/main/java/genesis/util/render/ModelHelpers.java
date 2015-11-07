@@ -214,6 +214,11 @@ public class ModelHelpers
 		return false;
 	}
 	
+	public static void bindAtlasTexture()
+	{
+		Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
+	}
+	
 	public static void renderBakedModel(IBakedModel model)
 	{
 		getBlockRenderer().renderModelBrightnessColor(model, 1, 1, 1, 1);
@@ -224,7 +229,6 @@ public class ModelHelpers
 	 */
 	public static void renderModel(ModelResourceLocation loc)
 	{
-		Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
 		renderBakedModel(getModelManager().getModel(loc));
 	}
 	
@@ -238,7 +242,6 @@ public class ModelHelpers
 			return getModelManager().getModel(getMissingModelLocation());
 		}
 		
-		Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
 		return getBlockDispatcher().getModelFromBlockState(state, world, pos);
 	}
 	
