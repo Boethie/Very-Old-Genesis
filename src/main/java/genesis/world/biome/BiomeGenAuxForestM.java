@@ -25,6 +25,8 @@ public class BiomeGenAuxForestM extends BiomeGenAuxForest
 		addDecoration(new WorldGenPalaeoagaracites().setPatchSize(16).setCountPerChunk(80));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPatchSize(5).setCountPerChunk(1));
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(5));
+		
+		addDecoration(new WorldGenRockBoulders().setRarity(75).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 	}
 	
 	@Override

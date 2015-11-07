@@ -27,6 +27,8 @@ public class BiomeGenRainforestM extends BiomeGenRainforest
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(1, 0).setNextToWater(true).setPatchSize(4).setCountPerChunk(8));
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(7));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
+		
+		addDecoration(new WorldGenRockBoulders().setRarity(75).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 	}
 	
 	@Override

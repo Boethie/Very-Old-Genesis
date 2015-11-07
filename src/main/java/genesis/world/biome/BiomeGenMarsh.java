@@ -40,7 +40,7 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenPlant(EnumPlant.SCIADOPHYTON).setPatchSize(4).setCountPerChunk(3));
 		addDecoration(new WorldGenPlant(EnumPlant.NOTHIA).setPatchSize(4).setCountPerChunk(3));
 		
-		addDecoration(new WorldGenRockBoulders().setRarity(12).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders().setRarity(75).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 	}
 	
 	@Override
