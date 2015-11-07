@@ -1136,30 +1136,44 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	 * 
 	 * @return {@literal List<ItemStack>} containing all sub-items for this Block or Item.
 	 */
-	@SuppressWarnings("unchecked")
-	public List<ItemStack> fillSubItems(ObjectType<?, ?> objectType, List<V> variants, List<ItemStack> listToFill, V... exclude)
+	@SafeVarargs
+	public final List<ItemStack> fillSubItems(ObjectType<?, ?> objectType, List<V> variants, List<ItemStack> listToFill, V... exclude)
 	{
-		return fillSubItems(objectType, variants, listToFill, Sets.newHashSet(exclude));
+		return fillSubItems(objectType, variants, listToFill, ImmutableSet.copyOf(exclude));
 	}
 	
 	/**
-	 * Wrapper for
-	 * {@link #fillSubItems(ObjectType, List, List, T[]) fillSubItems(ObjectType objectType, List&lt;IMetadata&gt; variants, List&lt;ItemStack&gt; listToFill, IMetadata... exclude)}
-	 * to create a new list.
+	 * Gets all sub-items for the {@link ObjectType} with the variants contained in the list.
 	 */
-	@SuppressWarnings("unchecked")
-	public List<ItemStack> getSubItems(ObjectType<?, ?> objectType, List<V> variants, V... exclude)
+	public final List<ItemStack> getSubItems(ObjectType<?, ?> objectType, List<V> variants, Set<V> exclude)
 	{
 		return fillSubItems(objectType, variants, new ArrayList<ItemStack>(), exclude);
 	}
 	
 	/**
-	 * Gets all sub-items for the {@link ObjectType} {@code objectType}.
+	 * Gets all sub-items for the {@link ObjectType} with the variants contained in the list.
 	 */
-	@SuppressWarnings("unchecked")
-	public List<ItemStack> getSubItems(ObjectType<?, ?> objectType, V... exclude)
+	@SafeVarargs
+	public final List<ItemStack> getSubItems(ObjectType<?, ?> objectType, List<V> variants, V... exclude)
+	{
+		return getSubItems(objectType, variants, ImmutableSet.copyOf(exclude));
+	}
+	
+	/**
+	 * Gets all sub-items for the {@link ObjectType}.
+	 */
+	public final List<ItemStack> getSubItems(ObjectType<?, ?> objectType, Set<V> exclude)
 	{
 		return getSubItems(objectType, getValidVariants(objectType), exclude);
+	}
+	
+	/**
+	 * Gets all sub-items for the {@link ObjectType}.
+	 */
+	@SafeVarargs
+	public final List<ItemStack> getSubItems(ObjectType<?, ?> objectType, V... exclude)
+	{
+		return getSubItems(objectType, ImmutableSet.copyOf(exclude));
 	}
 	
 	/**
