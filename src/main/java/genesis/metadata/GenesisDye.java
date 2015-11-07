@@ -2,19 +2,29 @@ package genesis.metadata;
 
 import java.util.*;
 
+import com.google.common.collect.*;
+
 import net.minecraft.item.*;
 
 public class GenesisDye implements IMetadata, Comparable<GenesisDye>
 {
-	protected static final List<GenesisDye> DYES = new ArrayList<GenesisDye>();
-	protected static final LinkedHashMap<EnumDyeColor, GenesisDye> GETTER_MAP = new LinkedHashMap<EnumDyeColor, GenesisDye>();
+	protected static final List<GenesisDye> DYES;
+	protected static final Map<EnumDyeColor, GenesisDye> GETTER_MAP;
 	
 	static
 	{
+		ImmutableList.Builder<GenesisDye> dyesBuilder = ImmutableList.builder();
+		ImmutableMap.Builder<EnumDyeColor, GenesisDye> getterBuilder = ImmutableMap.builder();
+		
 		for (EnumDyeColor color : EnumDyeColor.values())
 		{
-			new GenesisDye(color);
+			GenesisDye variant = new GenesisDye(color);
+			dyesBuilder.add(variant);
+			getterBuilder.put(color, variant);
 		}
+		
+		DYES = dyesBuilder.build();
+		GETTER_MAP = getterBuilder.build();
 	}
 	
 	public static GenesisDye get(EnumDyeColor color)
@@ -32,8 +42,6 @@ public class GenesisDye implements IMetadata, Comparable<GenesisDye>
 	protected GenesisDye(EnumDyeColor color)
 	{
 		this.color = color;
-		GETTER_MAP.put(color, this);
-		DYES.add(this);
 	}
 	
 	public EnumDyeColor getColor()
