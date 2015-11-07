@@ -7,6 +7,7 @@ import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPlant;
+import genesis.world.biome.decorate.WorldGenRockBoulders;
 import genesis.world.biome.decorate.WorldGenUnderWaterPatch;
 
 import java.util.Random;
@@ -39,7 +40,7 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenPlant(EnumPlant.SCIADOPHYTON).setPatchSize(4).setCountPerChunk(3));
 		addDecoration(new WorldGenPlant(EnumPlant.NOTHIA).setPatchSize(4).setCountPerChunk(3));
 		
-		//addDecoration(new WorldGenPrototaxites().setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders().setRarity(12).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 	}
 	
 	@Override
