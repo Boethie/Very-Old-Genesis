@@ -180,6 +180,8 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 	@Override
 	public void update()
 	{
+		boolean changed = false;
+		
 		for (KnappingState state : knappingStates)
 		{
 			if (state.isKnapping())
@@ -198,6 +200,8 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 				
 				if (state.iterateProgress())
 				{	// Has been knapped.
+					changed = true;
+					
 					if (!worldObj.isRemote)
 					{
 						// Damage the knapping tool.
@@ -298,20 +302,23 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 			}
 		}
 		
-		boolean allBroken = true;
-		
-		for (KnappingState state : knappingStates)
+		if (changed)
 		{
-			if (!state.isKnapped())
+			boolean allBroken = true;
+			
+			for (KnappingState state : knappingStates)
 			{
-				allBroken = false;
-				break;
+				if (!state.isKnapped())
+				{
+					allBroken = false;
+					break;
+				}
 			}
-		}
-		
-		if (allBroken)
-		{
-			resetKnappingState();
+			
+			if (allBroken)
+			{
+				resetKnappingState();
+			}
 		}
 	}
 	

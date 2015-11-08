@@ -13,17 +13,18 @@ public class GenesisDye implements IMetadata, Comparable<GenesisDye>
 	
 	static
 	{
-		ImmutableList.Builder<GenesisDye> dyesBuilder = ImmutableList.builder();
+		List<GenesisDye> dyes = Lists.newArrayList();
 		ImmutableMap.Builder<EnumDyeColor, GenesisDye> getterBuilder = ImmutableMap.builder();
 		
 		for (EnumDyeColor color : EnumDyeColor.values())
 		{
 			GenesisDye variant = new GenesisDye(color);
-			dyesBuilder.add(variant);
+			dyes.add(variant);
 			getterBuilder.put(color, variant);
 		}
 		
-		DYES = dyesBuilder.build();
+		dyes.sort(null);
+		DYES = ImmutableList.copyOf(dyes);
 		GETTER_MAP = getterBuilder.build();
 	}
 	
@@ -61,9 +62,34 @@ public class GenesisDye implements IMetadata, Comparable<GenesisDye>
 		return color.getUnlocalizedName();
 	}
 	
+	public String getOreDictName()
+	{
+		switch (color)
+		{
+		case SILVER:
+			return "dyeLightGray";
+		default:
+			String out = "dye_" + getName();
+			int index;
+			
+			while ((index = out.indexOf('_')) != -1)
+			{	// Convert underscores to camelCase
+				out = out.substring(0, index) + out.substring(++index, ++index).toUpperCase() + out.substring(index, out.length());
+			}
+			
+			return out;
+		}
+	}
+	
 	@Override
 	public int compareTo(GenesisDye o)
 	{
-		return getColor().compareTo(o.getColor());
+		return Integer.compare(getColor().getDyeDamage(), o.getColor().getDyeDamage());
+	}
+	
+	@Override
+	public String toString()
+	{
+		return getColor().toString();
 	}
 }

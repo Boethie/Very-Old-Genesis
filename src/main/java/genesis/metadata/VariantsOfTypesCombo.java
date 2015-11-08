@@ -975,7 +975,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	 */
 	public V getVariant(ItemStack stack)
 	{
-		return getVariant(stack.getItem(), stack.getMetadata());
+		return stack != null ? getVariant(stack.getItem(), stack.getMetadata()) : null;
 	}
 	
 	/**

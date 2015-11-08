@@ -5,14 +5,17 @@ import java.util.*;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
+import com.google.common.base.Function;
 import com.google.common.collect.*;
 
 import genesis.block.tileentity.*;
 import genesis.block.tileentity.crafting.*;
+import genesis.item.ItemMulti;
 import genesis.metadata.*;
 import genesis.metadata.ItemsCeramicBowls.EnumCeramicBowls;
 import genesis.metadata.ToolItems.ToolObjectType;
 import genesis.metadata.ToolTypes.ToolType;
+import genesis.recipes.SubstituteRecipe;
 import genesis.util.*;
 import genesis.util.render.*;
 import net.minecraft.block.Block;
@@ -588,12 +591,33 @@ public final class GenesisRecipes
 		makeSubstituteCraftingItem(new ItemStack(Items.milk_bucket), new ItemStack(GenesisItems.ceramic_bucket_milk));
 		
 		// Dyes
+		GameRegistry.addRecipe(new SubstituteRecipe(RecipesArmorDyes.class,
+				new Function<ItemStack, ItemStack>()
+				{
+					@Override
+					public ItemStack apply(ItemStack input)
+					{
+						GenesisDye dye = (GenesisDye) GenesisItems.bowls.getVariant(input);
+						return dye != null ? new ItemStack(Items.dye, input.stackSize, dye.getColor().getDyeDamage()) : null;
+					}
+				}));
+		
+		for (ItemMulti<GenesisDye> item : GenesisItems.bowls.getItems(ItemsCeramicBowls.DYES))
+		{
+			OreDictionary.registerOre("dye", new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE));
+		}
+		
 		for (IMetadata variant : GenesisItems.bowls.getValidVariants(ItemsCeramicBowls.DYES))
 		{
 			GenesisDye dye = (GenesisDye) variant;
-			// TODO: Doesn't seem to work. Must fix sometime.
-			makeSubstituteCraftingItem(new ItemStack(Items.dye, 1, dye.getColor().getDyeDamage()),
-					GenesisItems.bowls.getStack(dye));
+			String name = dye.getOreDictName();
+			
+			if (OreDictionary.getOres(name).isEmpty())
+			{
+				Genesis.logger.warn("Dye " + dye + " has not been previously added to the OreDictionary under the name " + name + ".");
+			}
+			
+			OreDictionary.registerOre(name, GenesisItems.bowls.getStack(dye));
 		}
 	}
 }
