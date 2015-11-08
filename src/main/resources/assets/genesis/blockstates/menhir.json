@@ -5,7 +5,7 @@
     "variants": {
 		"variant": {
 			"glyph": {
-				"model": "genesis:portal/menhir_glyph"
+				"model": "genesis:campfire_cooking_pot"
 			},
 			"receptacle": {
 				"model": "genesis:portal/menhir_receptacle"

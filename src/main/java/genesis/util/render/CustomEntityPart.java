@@ -107,6 +107,7 @@ public abstract class CustomEntityPart extends EntityPart
 			doRender(pxSize);
 			
 			GlStateManager.popMatrix();
+			RenderHelper.enableStandardItemLighting();
 		}
 	}
 	
