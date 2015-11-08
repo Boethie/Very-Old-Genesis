@@ -23,9 +23,9 @@ public class BiomeGenRainforestM extends BiomeGenRainforest
 	protected void addDecorations()
 	{
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchSize(3).setCountPerChunk(4));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(5));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(1, 0).setNextToWater(true).setPatchSize(4).setCountPerChunk(8));
-		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(21));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(2));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(2, 0).setNextToWater(true).setPatchSize(4).setCountPerChunk(8));
+		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(14));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
 		addDecoration(new WorldGenRockBoulders().setRarity(80).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));

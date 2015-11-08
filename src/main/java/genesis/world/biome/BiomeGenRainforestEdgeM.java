@@ -27,8 +27,8 @@ public class BiomeGenRainforestEdgeM extends BiomeGenRainforestEdge
 	{
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchSize(3).setCountPerChunk(4));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(3));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(1, 0).setNextToWater(true).setPatchSize(4).setCountPerChunk(14));
-		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(21));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(2, 0).setNextToWater(true).setPatchSize(4).setCountPerChunk(12));
+		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(14));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
 		addDecoration(new WorldGenRockBoulders().setRarity(80).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
