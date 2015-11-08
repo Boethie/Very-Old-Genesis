@@ -47,6 +47,9 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer
 			stick.setAmbientOcclusion(false);
 			stick.setDefaultState();
 			
+			cookingPot.offsetY = -stick.offsetY;
+			cookingPot.setDefaultState();
+			
 			stick.addChild(cookingPot);
 			stick.addChild(stickItem);
 		}
@@ -163,7 +166,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer
 	
 	@Override
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float partialTick, int destroyStage)
-	{
+	{model = new ModelCampfire();
 		// Translate to the proper coordinates.
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x, y, z);

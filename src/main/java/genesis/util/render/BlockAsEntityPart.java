@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.util.BlockPos;
@@ -102,6 +103,17 @@ public class BlockAsEntityPart extends CustomEntityPart
 	}
 	
 	@Override
+	public void render(float pxSize)
+	{
+		super.render(pxSize);
+		
+		if (!isHidden && showModel)
+		{
+			RenderHelper.enableStandardItemLighting();
+		}
+	}
+	
+	@Override
 	public void doRender(float pxSize)
 	{
 		if (modelLocation != null)
@@ -122,27 +134,28 @@ public class BlockAsEntityPart extends CustomEntityPart
 				Tessellator tess = Tessellator.getInstance();
 				WorldRenderer wr = tess.getWorldRenderer();
 				
+				GlStateManager.pushMatrix();
 				GlStateManager.translate(-pos.getX(), -pos.getY(), -pos.getZ());
 				
 				RenderHelper.disableStandardItemLighting();
 				
 				wr.startDrawingQuads();
+				VertexFormat oldFormat = wr.getVertexFormat();
 				wr.setVertexFormat(DefaultVertexFormats.BLOCK);
 				
-				ModelHelpers.getBlockRenderer().renderModel(world, model, state, pos, Tessellator.getInstance().getWorldRenderer(), false);
+				ModelHelpers.getBlockRenderer().renderModel(world, model, state, pos, wr, false);
 				
 				tess.draw();
 				
-				RenderHelper.enableStandardItemLighting();
-				
-				GlStateManager.translate(pos.getX(), pos.getY(), pos.getZ());
+				wr.setVertexFormat(oldFormat);
+				GlStateManager.popMatrix();
 			}
 			else
 			{
+				GlStateManager.pushMatrix();
 				GlStateManager.rotate(-90, 0, 1, 0);	// Screwy vanilla methods. >.>
-				RenderHelper.enableStandardItemLighting();
 				ModelHelpers.getBlockRenderer().renderModelBrightness(model, state, 1, true);
-				GlStateManager.rotate(90, 0, 1, 0);
+				GlStateManager.popMatrix();
 			}
 		}
 	}
