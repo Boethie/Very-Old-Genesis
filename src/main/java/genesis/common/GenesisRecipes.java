@@ -10,7 +10,7 @@ import com.google.common.collect.*;
 
 import genesis.block.tileentity.*;
 import genesis.block.tileentity.crafting.*;
-import genesis.item.ItemMulti;
+import genesis.item.*;
 import genesis.metadata.*;
 import genesis.metadata.ItemsCeramicBowls.EnumCeramicBowls;
 import genesis.metadata.ToolItems.ToolObjectType;
@@ -597,12 +597,12 @@ public final class GenesisRecipes
 					@Override
 					public ItemStack apply(ItemStack input)
 					{
-						GenesisDye dye = (GenesisDye) GenesisItems.bowls.getVariant(input);
-						return dye != null ? new ItemStack(Items.dye, input.stackSize, dye.getColor().getDyeDamage()) : null;
+						IMetadata variant = GenesisItems.bowls.getVariant(input);
+						return variant instanceof GenesisDye ? new ItemStack(Items.dye, input.stackSize, ((GenesisDye) variant).getColor().getDyeDamage()) : null;
 					}
 				}));
 		
-		for (ItemMulti<GenesisDye> item : GenesisItems.bowls.getItems(ItemsCeramicBowls.DYES))
+		for (ItemDyeBowl item : GenesisItems.bowls.getItems(ItemsCeramicBowls.DYES))
 		{
 			OreDictionary.registerOre("dye", new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE));
 		}

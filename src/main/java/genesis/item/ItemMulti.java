@@ -11,15 +11,14 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
 public class ItemMulti<V extends IMetadata> extends ItemGenesis
 {
 	public final VariantsOfTypesCombo<V> owner;
 	
 	protected final List<V> variants;
-	protected final ObjectType<? extends Block, ? extends ItemMulti> type;
+	protected final ObjectType<? extends Block, ? extends ItemMulti<V>> type;
 	
-	public ItemMulti(List<V> variants, VariantsOfTypesCombo<V> owner, ObjectType<? extends Block, ? extends ItemMulti> type)
+	public ItemMulti(List<V> variants, VariantsOfTypesCombo<V> owner, ObjectType<? extends Block, ? extends ItemMulti<V>> type)
 	{
 		super();
 		

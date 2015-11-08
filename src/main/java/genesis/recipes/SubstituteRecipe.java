@@ -51,7 +51,6 @@ public class SubstituteRecipe implements IRecipe
 	@Override
 	public ItemStack[] getRemainingItems(InventoryCrafting inventory)
 	{
-		inventory = getSubstituteInventory(inventory);
-		return RecipeHelpers.tryGetMatchingRecipe(inventory, recipeClass).getRemainingItems(inventory);
+		return RecipeHelpers.tryGetMatchingRecipe(getSubstituteInventory(inventory), recipeClass).getRemainingItems(inventory);
 	}
 }

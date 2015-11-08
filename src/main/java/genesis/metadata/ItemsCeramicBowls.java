@@ -48,7 +48,7 @@ public class ItemsCeramicBowls extends VariantsOfTypesCombo<IMetadata>
 	public static final ObjectType<Block, ItemCeramicBowl> MAIN = new ObjectType<Block, ItemCeramicBowl>("ceramic_bowl", Unlocalized.Section.MATERIAL + "ceramicBowl", null, ItemCeramicBowl.class)
 			.setValidVariants(Arrays.asList(EnumCeramicBowls.values()))
 			.setNamePosition(ObjectNamePosition.PREFIX);
-	public static final ObjectType<Block, ItemMulti<GenesisDye>> DYES = new ObjectType<Block, ItemMulti<GenesisDye>>("dye", Unlocalized.Section.MATERIAL + "dye", null, null)
+	public static final ObjectType<Block, ItemDyeBowl> DYES = new ObjectType<Block, ItemDyeBowl>("dye", Unlocalized.Section.MATERIAL + "dye", null, ItemDyeBowl.class)
 			.setValidVariants(GenesisDye.valueList())
 			.setNamePosition(ObjectNamePosition.PREFIX);
 	public static final ObjectType<Block, ItemPorridge> PORRIDGE = new ObjectType<Block, ItemPorridge>("porridge", Unlocalized.Section.FOOD + "porridge", null, ItemPorridge.class)
