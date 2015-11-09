@@ -15,7 +15,7 @@ import genesis.metadata.*;
 import genesis.metadata.ItemsCeramicBowls.EnumCeramicBowls;
 import genesis.metadata.ToolItems.ToolObjectType;
 import genesis.metadata.ToolTypes.ToolType;
-import genesis.recipes.SubstituteRecipe;
+import genesis.recipes.*;
 import genesis.util.*;
 import genesis.util.render.*;
 import net.minecraft.block.Block;
@@ -575,6 +575,9 @@ public final class GenesisRecipes
 				CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(porridge), ingredients);
 			}
 		}
+		
+		// Dye cooking pot recipes
+		CookingPotRecipeRegistry.registerRecipe(new DyeCookingRecipe());
 	}
 	
 	/**

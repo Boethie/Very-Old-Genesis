@@ -38,6 +38,25 @@ public class GenesisDye implements IMetadata, Comparable<GenesisDye>
 		return DYES;
 	}
 	
+	public static String getOreDictName(EnumDyeColor color)
+	{
+		switch (color)
+		{
+		case SILVER:
+			return "dyeLightGray";
+		default:
+			String out = "dye_" + color.getName();
+			int index;
+			
+			while ((index = out.indexOf('_')) != -1)
+			{	// Convert underscores to camelCase
+				out = out.substring(0, index) + out.substring(++index, ++index).toUpperCase() + out.substring(index, out.length());
+			}
+			
+			return out;
+		}
+	}
+	
 	protected final EnumDyeColor color;
 	
 	protected GenesisDye(EnumDyeColor color)
@@ -64,21 +83,7 @@ public class GenesisDye implements IMetadata, Comparable<GenesisDye>
 	
 	public String getOreDictName()
 	{
-		switch (color)
-		{
-		case SILVER:
-			return "dyeLightGray";
-		default:
-			String out = "dye_" + getName();
-			int index;
-			
-			while ((index = out.indexOf('_')) != -1)
-			{	// Convert underscores to camelCase
-				out = out.substring(0, index) + out.substring(++index, ++index).toUpperCase() + out.substring(index, out.length());
-			}
-			
-			return out;
-		}
+		return getOreDictName(color);
 	}
 	
 	@Override

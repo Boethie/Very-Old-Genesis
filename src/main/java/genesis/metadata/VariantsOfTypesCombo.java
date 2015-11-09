@@ -1126,6 +1126,20 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	}
 	
 	/**
+	 * @return Whether the stack is contained by this combo.
+	 */
+	public boolean hasStack(ObjectType<?, ?> type, ItemStack stack)
+	{
+		if (stack == null)
+		{
+			return false;
+		}
+		
+		SubsetData data = getSubsetData(stack.getItem());
+		return data != null ? data.type == type : false;
+	}
+	
+	/**
 	 * Gets a random IBlockState for the specified {@link #ObjectType}.
 	 */
 	public IBlockState getRandomBlockState(ObjectType<?, ?> type, Random rand)

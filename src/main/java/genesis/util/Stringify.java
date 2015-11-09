@@ -2,7 +2,7 @@ package genesis.util;
 
 import java.util.Iterator;
 
-import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterators;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -10,26 +10,29 @@ import net.minecraft.util.IStringSerializable;
 
 public class Stringify
 {
-	public static String stringifyIterable(Iterable<?> iterable)
+	public static String stringifyIterator(Iterator<?> iterator)
 	{
 		String output = "{";
 		
-		Iterator<?> iter = iterable.iterator();
-		
-		while (iter.hasNext())
+		while (iterator.hasNext())
 		{
-			Object obj = iter.next();
-			output += stringify(obj) + (iter.hasNext() ? ", " : "");
+			Object obj = iterator.next();
+			output += stringify(obj) + (iterator.hasNext() ? ", " : "");
 		}
 		
 		output += "}";
 		
 		return output;
 	}
-	
-	public static String stringifyArray(Object[] objArray)
+
+	public static String stringifyIterable(Iterable<?> iterable)
 	{
-		return stringifyIterable(ImmutableList.copyOf(objArray));
+		return stringifyIterator(iterable.iterator());
+	}
+	
+	public static <T> String stringifyArray(T[] objArray)
+	{
+		return stringifyIterator(Iterators.forArray(objArray));
 	}
 	
 	public static String stringify(Object obj)

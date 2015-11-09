@@ -12,53 +12,29 @@ import net.minecraft.item.*;
 
 public class CookingPotRecipeRegistry
 {
-	public static interface ICookingPotRecipe
+	public static interface CookingPotRecipe
 	{
-		public boolean isRecipeIngredient(ItemStack stack, IInventoryCookingPot cookingPot);
-		public boolean canCraft(IInventoryCookingPot cookingPot);
-		public ItemStack getOutput(IInventoryCookingPot cookingPot);
-		public void craft(IInventoryCookingPot cookingPot);
+		public boolean isRecipeIngredient(ItemStack stack, InventoryCookingPot cookingPot);
+		public boolean canCraft(InventoryCookingPot cookingPot);
+		public void craft(InventoryCookingPot cookingPot);
 	}
 	
-	public static abstract class CookingPotRecipeBase implements ICookingPotRecipe
+	public static abstract class CookingPotRecipeBase implements CookingPotRecipe
 	{
-		public boolean canCraft(IInventoryCookingPot cookingPot)
+		protected abstract ItemStack getOutput(InventoryCookingPot cookingPot);
+		
+		@Override
+		public boolean canCraft(InventoryCookingPot cookingPot)
 		{
-			return getOutput(cookingPot) != null;
+			ItemStack output = getOutput(cookingPot);
+			return output != null && cookingPot.canOutputAccept(output);
 		}
 		
-		public abstract ItemStack getOutput(IInventoryCookingPot cookingPot);
+		protected abstract void removeConsumed(InventoryCookingPot cookingPot, int countCrafted);
 		
-		public abstract ItemStack[] doRemoveIngredients(IInventoryCookingPot cookingPot);
-		
-		public void removeIngredients(IInventoryCookingPot cookingPot)
+		@Override
+		public void craft(InventoryCookingPot cookingPot)
 		{
-			ItemStack[] invIngredients = doRemoveIngredients(cookingPot);
-			
-			for (int i = 0; i < invIngredients.length; i++)
-			{
-				ItemStack newStack = invIngredients[i];	// Replace stacks with size less than 1 with null.
-				invIngredients[i] = (newStack != null && newStack.stackSize <= 0) ? null : newStack;
-			}
-			
-			cookingPot.setIngredients(invIngredients);
-		}
-		
-		public void craft(IInventoryCookingPot cookingPot)
-		{
-			ItemStack invInput = cookingPot.getInput();
-			
-			if (invInput.stackSize > 1)
-			{
-				invInput.stackSize--;
-			}
-			else
-			{
-				invInput = null;
-			}
-			
-			cookingPot.setInput(invInput);
-			
 			ItemStack invOutput = cookingPot.getOutput();
 			ItemStack recipeOutput = getOutput(cookingPot);
 			
@@ -73,7 +49,8 @@ public class CookingPotRecipeRegistry
 			
 			cookingPot.setOutput(invOutput);
 			
-			removeIngredients(cookingPot);
+			// Remove ingredients
+			removeConsumed(cookingPot, recipeOutput.stackSize);
 		}
 	}
 	
@@ -101,22 +78,23 @@ public class CookingPotRecipeRegistry
 		}
 		
 		@Override
-		public boolean isRecipeIngredient(ItemStack stack, IInventoryCookingPot cookingPot)
+		public boolean isRecipeIngredient(ItemStack stack, InventoryCookingPot cookingPot)
 		{
 			return ingredients.containsKey(new ItemStackKey(stack));
 		}
 		
 		@Override
-		public ItemStack getOutput(IInventoryCookingPot cookingPot)
+		public ItemStack getOutput(InventoryCookingPot cookingPot)
 		{
-			ItemStack[] invIngredients = cookingPot.getIngredients();
 			Set<ItemStackKey> ingredientKeySet = Sets.newHashSet();
 			
-			for (ItemStack invIngredient : invIngredients)
+			for (SlotModifier ingSlot : cookingPot.getIngredients())
 			{
-				if (invIngredient != null)
+				ItemStack ingStack = ingSlot.getStack();
+				
+				if (ingStack != null)
 				{
-					ingredientKeySet.add(new ItemStackKey(invIngredient));
+					ingredientKeySet.add(new ItemStackKey(ingStack));
 				}
 			}
 			
@@ -129,12 +107,25 @@ public class CookingPotRecipeRegistry
 		}
 
 		@Override
-		public ItemStack[] doRemoveIngredients(IInventoryCookingPot cookingPot)
+		public void removeConsumed(InventoryCookingPot cookingPot, int countCrafted)
 		{
-			ItemStack[] invIngredients = cookingPot.getIngredients();
+			ItemStack invInput = cookingPot.getInput();
+			
+			if (invInput.stackSize > 1)
+			{
+				invInput.stackSize--;
+			}
+			else
+			{
+				invInput = null;
+			}
+			
+			cookingPot.setInput(invInput);
+			
+			//ItemStack[] invIngredients = cookingPot.getIngredients();
 			
 			// Get the number of stacks for each ingredient type.
-			Map<ItemStackKey, Integer> countMap = new HashMap<ItemStackKey, Integer>(invIngredients.length);
+			Map<ItemStackKey, Integer> countMap = new HashMap<ItemStackKey, Integer>(cookingPot.getIngredientSlotCount());
 			Map<ItemStackKey, Integer> sizeLeftMap = new HashMap<ItemStackKey, Integer>(ingredients.size());
 			
 			for (Map.Entry<ItemStackKey, ItemStack> entry : ingredients.entrySet())
@@ -142,9 +133,9 @@ public class CookingPotRecipeRegistry
 				sizeLeftMap.put(entry.getKey(), entry.getValue().stackSize);
 			}
 			
-			for (int i = 0; i < invIngredients.length; i++)
+			for (SlotModifier ingSlot : cookingPot.getIngredients())
 			{
-				ItemStack ingStack = invIngredients[i];
+				ItemStack ingStack = ingSlot.getStack();
 				
 				if (ingStack != null)
 				{
@@ -154,43 +145,42 @@ public class CookingPotRecipeRegistry
 				}
 			}
 			
-			for (int i = 0; i < invIngredients.length; i++)
+			for (SlotModifier ingSlot : cookingPot.getIngredients())
 			{
-				ItemStack newStack = invIngredients[i];
+				ItemStack ingStack = ingSlot.getStack();
 				
-				if (newStack != null)
+				if (ingStack != null)
 				{
-					ItemStackKey key = new ItemStackKey(newStack);
+					ItemStackKey key = new ItemStackKey(ingStack);
 					
 					int left = sizeLeftMap.get(key);
 					int count = countMap.get(key);
 					int size = left / count;
 					
-					newStack.stackSize -= size;
+					ingSlot.modifySize(-size);
 					
 					sizeLeftMap.put(key, left - size);
 					countMap.put(key, count - 1);
-					
-					invIngredients[i] = newStack;
 				}
 			}
-			
-			return invIngredients;
 		}
 	}
 	
-	public static interface IInventoryCookingPot
+	public static interface InventoryCookingPot
 	{
 		public ItemStack getInput();
 		public void setInput(ItemStack stack);
 		
-		public ItemStack[] getIngredients();
-		public void setIngredients(ItemStack[] stacks);
+		public ItemStack getIngredient(int slot);
+		public void setIngredient(int slot, ItemStack stack);
+		public int getIngredientSlotCount();
+		public List<SlotModifier> getIngredients();
 		
 		public ItemStack getFuel();
 		public void setFuel(ItemStack stack);
 		
 		public ItemStack getOutput();
+		public boolean canOutputAccept(ItemStack stack);
 		public void setOutput(ItemStack stack);
 	}
 	
@@ -206,9 +196,9 @@ public class CookingPotRecipeRegistry
 		return new ItemStackKey(cookingPotItem).equals(new ItemStackKey(stack));
 	}
 	
-	protected static List<ICookingPotRecipe> recipes = Lists.newArrayList();
+	protected static List<CookingPotRecipe> recipes = Lists.newArrayList();
 	
-	public static void registerRecipe(ICookingPotRecipe recipe)
+	public static void registerRecipe(CookingPotRecipe recipe)
 	{
 		if (recipe == null)
 		{
@@ -223,9 +213,9 @@ public class CookingPotRecipeRegistry
 		registerRecipe(new CookingPotRecipeShapeless(output, ingredients));
 	}
 	
-	public static boolean isRecipeIngredient(ItemStack stack, IInventoryCookingPot cookingPot)
+	public static boolean isRecipeIngredient(ItemStack stack, InventoryCookingPot cookingPot)
 	{
-		for (ICookingPotRecipe recipe: recipes)
+		for (CookingPotRecipe recipe: recipes)
 		{
 			if (recipe.isRecipeIngredient(stack, cookingPot))
 			{
@@ -236,43 +226,40 @@ public class CookingPotRecipeRegistry
 		return false;
 	}
 	
-	public static ICookingPotRecipe getRecipe(IInventoryCookingPot cookingPot)
+	public static CookingPotRecipe getRecipe(InventoryCookingPot cookingPot)
 	{
-		ICookingPotRecipe output = null;
+		CookingPotRecipe output = null;
 		
-		for (ICookingPotRecipe recipe : recipes)
+		for (CookingPotRecipe recipe : recipes)
 		{
 			if (recipe.canCraft(cookingPot))
 			{
 				if (output != null)
 				{
+					ItemStack[] ingredients = new ItemStack[cookingPot.getIngredientSlotCount()];
+					
+					for (int i = 0; i < ingredients.length; i++)
+					{
+						ingredients[i] = cookingPot.getIngredient(i);
+					}
+					
 					Genesis.logger.warn("CookingPotRecipeRegistry.getRecipe found multiple valid recipes for this cooking pot:");
 					Genesis.logger.warn("Input stack: " + cookingPot.getInput());
-					Genesis.logger.warn("Ingredient stacks: " + Stringify.stringifyArray(cookingPot.getIngredients()));
+					Genesis.logger.warn("Ingredient stacks: " + Stringify.stringifyArray(ingredients));
 					Genesis.logger.warn("Output stack: " + cookingPot.getOutput());
 				}
-				
-				output = recipe;
+				else
+				{
+					output = recipe;
+				}
 			}
 		}
 		
 		return output;
 	}
 	
-	public static boolean hasRecipe(IInventoryCookingPot cookingPot)
+	public static boolean hasRecipe(InventoryCookingPot cookingPot)
 	{
 		return getRecipe(cookingPot) != null;
-	}
-	
-	public static ItemStack getResult(IInventoryCookingPot cookingPot)
-	{
-		ICookingPotRecipe recipe = getRecipe(cookingPot);
-		
-		if (recipe != null && recipe.canCraft(cookingPot))
-		{
-			return recipe.getOutput(cookingPot);
-		}
-		
-		return null;
 	}
 }

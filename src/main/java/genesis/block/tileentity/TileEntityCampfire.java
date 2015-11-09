@@ -2,12 +2,16 @@ package genesis.block.tileentity;
 
 import java.util.*;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterators;
+
 import genesis.block.tileentity.crafting.CookingPotRecipeRegistry;
-import genesis.block.tileentity.crafting.CookingPotRecipeRegistry.IInventoryCookingPot;
+import genesis.block.tileentity.crafting.CookingPotRecipeRegistry.InventoryCookingPot;
 import genesis.block.tileentity.gui.ContainerCampfire;
 import genesis.block.tileentity.render.TileEntityCampfireRenderer;
 import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
+import genesis.util.SlotModifier.SlotModifierInventory;
 import genesis.util.gui.RestrictedDisabledSlot.IInventoryDisabledSlots;
 import genesis.util.random.FloatRange;
 import net.minecraft.block.*;
@@ -26,7 +30,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraftforge.fluids.*;
 
-public class TileEntityCampfire extends TileEntityLockable implements ISidedInventory, IInventoryDisabledSlots, IInventoryCookingPot, IUpdatePlayerListBox
+public class TileEntityCampfire extends TileEntityLockable implements ISidedInventory, IInventoryDisabledSlots, InventoryCookingPot, IUpdatePlayerListBox
 {
 	public static int getItemBurnTime(ItemStack stack)
 	{
@@ -121,7 +125,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	{
 		if (stack != null)
 		{
-			if (stack.getItemUseAction().equals(EnumAction.EAT))
+			if (stack.getItemUseAction() == EnumAction.EAT)
 			{
 				return true;
 			}
@@ -140,7 +144,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 					return true;
 				}
 				
-				if (smeltResult.getItemUseAction().equals(EnumAction.EAT))
+				if (smeltResult.getItemUseAction() == EnumAction.EAT)
 				{
 					return true;
 				}
@@ -155,6 +159,31 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		return false;
 	}
 	
+	@Override
+	public boolean canOutputAccept(ItemStack stack)
+	{
+		if (stack == null)
+		{
+			return false;
+		}
+		
+		ItemStack output = getOutput();
+		
+		if (output == null)
+		{
+			return true;
+		}
+		
+		if (!output.isItemEqual(stack) || !ItemStack.areItemStackTagsEqual(output, stack))
+		{
+			return false;
+		}
+		
+		int newOutputSize = output.stackSize + stack.stackSize;
+		
+		return (newOutputSize <= getInventoryStackLimit() && newOutputSize <= output.getMaxStackSize());
+	}
+	
 	public boolean canSmelt()
 	{
 		ItemStack smeltingItem = getInput();
@@ -164,32 +193,12 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 			return false;
 		}
 		
-		ItemStack outputSlotStack = getOutput();
-		ItemStack smeltResult = CookingPotRecipeRegistry.getResult(this);
-		
-		if (smeltResult == null)
-		{
-			smeltResult = FurnaceRecipes.instance().getSmeltingResult(smeltingItem);
-			
-			if (smeltResult == null)
-			{
-				return false;
-			}
-		}
-		
-		if (outputSlotStack == null)
+		if (CookingPotRecipeRegistry.hasRecipe(this))
 		{
 			return true;
 		}
 		
-		if (!outputSlotStack.isItemEqual(smeltResult))
-		{
-			return false;
-		}
-		
-		int newOutputSize = outputSlotStack.stackSize + smeltResult.stackSize;
-		
-		return (newOutputSize <= getInventoryStackLimit() && newOutputSize <= outputSlotStack.getMaxStackSize());
+		return canOutputAccept(FurnaceRecipes.instance().getSmeltingResult(smeltingItem));
 	}
 	
 	public void smeltItem()
@@ -217,14 +226,16 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 				}
 				
 				smeltingItem.stackSize--;
-	
-				if (smeltingItem.stackSize <= 0)
-				{
-					smeltingItem = null;
-				}
 				
-				setInput(smeltingItem);
 				setOutput(outputItem);
+			}
+			
+			for (int i = 0; i < inventory.length; i++)
+			{
+				if (inventory[i] != null && inventory[i].stackSize <= 0)
+				{
+					inventory[i] = null;
+				}
 			}
 		}
 	}
@@ -748,16 +759,29 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	}
 	
 	@Override
-	public ItemStack[] getIngredients()
+	public ItemStack getIngredient(int slot)
 	{
-		return new ItemStack[]{getStackInSlot(SLOT_INGREDIENT_1), getStackInSlot(SLOT_INGREDIENT_2)};
+		return getStackInSlot(slot);
 	}
 	
 	@Override
-	public void setIngredients(ItemStack[] stacks)
+	public void setIngredient(int slot, ItemStack stack)
 	{
-		setInventorySlotContents(SLOT_INGREDIENT_1, stacks[0]);
-		setInventorySlotContents(SLOT_INGREDIENT_2, stacks[1]);
+		setInventorySlotContents(slot, stack);
+	}
+	
+	@Override
+	public int getIngredientSlotCount()
+	{
+		return 2;
+	}
+	
+	@Override
+	public List<SlotModifier> getIngredients()
+	{
+		return ImmutableList.of(
+				new SlotModifierInventory(this, SLOT_INGREDIENT_1),
+				new SlotModifierInventory(this, SLOT_INGREDIENT_2));
 	}
 	
 	@Override
