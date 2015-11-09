@@ -329,6 +329,24 @@ item.genesis.material.pebble.quartz.name=Quartz Pebble
 item.genesis.material.pebble.brownFlint.name=Brown Flint Pebble
 item.genesis.material.pebble.blackFlint.name=Black Flint Pebble
 
+item.genesis.material.quartz.name=Quartz
+item.genesis.material.zircon.name=Zircon
+item.genesis.material.garnet.name=Garnet
+item.genesis.material.hematite.name=Hematite
+item.genesis.material.manganese.name=Manganese
+item.genesis.material.malachite.name=Malachite
+item.genesis.material.azurite.name=Azurite
+item.genesis.material.olivine.name=Olivine
+item.genesis.material.nodule.brownFlint.name=Brown Flint Nodule
+item.genesis.material.nodule.blackFlint.name=Black Flint Nodule
+item.genesis.material.nodule.marcasite.name=Marcasite Nodule
+
+item.genesis.material.powder.limestone.name=Limestone Powder
+item.genesis.material.powder.hematite.name=Hematite Powder
+item.genesis.material.powder.manganese.name=Manganese Powder
+item.genesis.material.powder.malachite.name=Malachite Powder
+item.genesis.material.powder.azurite.name=Azurite Powder
+
 item.genesis.material.redClay.name=Red Clay
 item.genesis.material.redClayBowl.name=Red Clay Bowl
 item.genesis.material.ceramicBowl.name=Ceramic Bowl
@@ -350,18 +368,6 @@ item.genesis.material.dye.green.name=Bowl of Green Dye
 item.genesis.material.dye.red.name=Bowl of Red Dye
 item.genesis.material.dye.black.name=Bowl of Black Dye
 item.genesis.material.redClayBucket.name=Red Clay Bucket
-
-item.genesis.material.quartz.name=Quartz
-item.genesis.material.zircon.name=Zircon
-item.genesis.material.garnet.name=Garnet
-item.genesis.material.hematite.name=Hematite
-item.genesis.material.manganese.name=Manganese
-item.genesis.material.malachite.name=Malachite
-item.genesis.material.azurite.name=Azurite
-item.genesis.material.olivine.name=Olivine
-item.genesis.material.nodule.brownFlint.name=Brown Flint Nodule
-item.genesis.material.nodule.blackFlint.name=Black Flint Nodule
-item.genesis.material.nodule.marcasite.name=Marcasite Nodule
 
 item.genesis.material.billet.archaeopteris.name=Archaeopteris Wood Billet
 item.genesis.material.billet.sigillaria.name=Sigillaria Wood Billet

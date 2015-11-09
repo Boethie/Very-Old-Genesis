@@ -38,7 +38,7 @@ public class DungBlocksAndItems extends VariantsOfTypesCombo<EnumDung>
 					FuelHandler.setBurnTime(item,
 							TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.log)) * 4, true);
 				}
-			}.setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.PREFIX).setBlockArguments(Material.ground);
+			}.setUseSeparateVariantJsons(false).setBlockArguments(Material.ground);
 	public static final ObjectType<Block, ItemDung> DUNG = new ObjectType<Block, ItemDung>("dung", Unlocalized.Section.MATERIAL + "dung", null, ItemDung.class)
 			{
 				@Override
@@ -48,7 +48,7 @@ public class DungBlocksAndItems extends VariantsOfTypesCombo<EnumDung>
 					FuelHandler.setBurnTime(item, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.log)), true);
 				}
 			}
-			.setCreativeTab(GenesisCreativeTabs.MATERIALS).setNamePosition(ObjectNamePosition.PREFIX);
+			.setCreativeTab(GenesisCreativeTabs.MATERIALS);
 	
 	public DungBlocksAndItems()
 	{

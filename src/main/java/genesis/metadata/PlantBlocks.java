@@ -14,25 +14,19 @@ import genesis.util.Constants.Unlocalized;
 
 public class PlantBlocks extends VariantsOfTypesCombo<IPlantMetadata>
 {
-	private static final Class<ItemBlockMulti<IPlantMetadata>> ITEM_CLASS = ItemBlockMulti.<IPlantMetadata>getClassV();
-	
 	// Plants
-	public static final ObjectType<BlockPlant, ItemBlockMulti<IPlantMetadata>> PLANT = ObjectType.create("plant", Unlocalized.Section.PLANT, BlockPlant.class, ITEM_CLASS)
-			.setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE)
-			.setValidVariants(EnumPlant.SINGLES);
-	public static final ObjectType<BlockGenesisDoublePlant, ItemBlockMulti<IPlantMetadata>> DOUBLE_PLANT = new ObjectType<BlockGenesisDoublePlant, ItemBlockMulti<IPlantMetadata>>("double_plant", Unlocalized.Section.PLANT_DOUBLE, BlockGenesisDoublePlant.class, ITEM_CLASS)
+	public static final ObjectType<BlockPlant, ItemBlockMulti<IPlantMetadata>> PLANT = ObjectType.create("plant", Unlocalized.Section.PLANT, BlockPlant.class, null);
+	public static final ObjectType<BlockGenesisDoublePlant, ItemBlockMulti<IPlantMetadata>> DOUBLE_PLANT = new ObjectType<BlockGenesisDoublePlant, ItemBlockMulti<IPlantMetadata>>("double_plant", Unlocalized.Section.PLANT_DOUBLE, BlockGenesisDoublePlant.class, null)
 			{
 				@Override
 				public String getVariantName(IMetadata variant)
 				{
 					return "double_" + variant.getName();
 				}
-			}
-			.setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE)
-			.setValidVariants(ImmutableList.copyOf(EnumPlant.DOUBLES));
+			};
 	
 	// Ferns
-	public static final ObjectType<BlockPlant, ItemBlockMulti<IPlantMetadata>> FERN = new ObjectType<BlockPlant, ItemBlockMulti<IPlantMetadata>>("fern", Unlocalized.Section.FERN, BlockPlant.class, ITEM_CLASS)
+	public static final ObjectType<BlockPlant, ItemBlockMulti<IPlantMetadata>> FERN = new ObjectType<BlockPlant, ItemBlockMulti<IPlantMetadata>>("fern", Unlocalized.Section.FERN, BlockPlant.class, null)
 			{
 				@Override
 				public void afterConstructed(BlockPlant block, ItemBlockMulti<IPlantMetadata> item, List<? extends IMetadata> variants)
@@ -40,9 +34,8 @@ public class PlantBlocks extends VariantsOfTypesCombo<IPlantMetadata>
 					afterFernConstructed(block, item, variants);
 				}
 			}
-			.setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE)
-			.setValidVariants(EnumFern.SINGLES);
-	public static final ObjectType<BlockGenesisDoublePlant, ItemBlockMulti<IPlantMetadata>> DOUBLE_FERN = new ObjectType<BlockGenesisDoublePlant, ItemBlockMulti<IPlantMetadata>>("double_fern", Unlocalized.Section.FERN_DOUBLE, BlockGenesisDoublePlant.class, ITEM_CLASS)
+			;
+	public static final ObjectType<BlockGenesisDoublePlant, ItemBlockMulti<IPlantMetadata>> DOUBLE_FERN = new ObjectType<BlockGenesisDoublePlant, ItemBlockMulti<IPlantMetadata>>("double_fern", Unlocalized.Section.FERN_DOUBLE, BlockGenesisDoublePlant.class, null)
 			{
 				@Override
 				public void afterConstructed(BlockGenesisDoublePlant block, ItemBlockMulti<IPlantMetadata> item, List<? extends IMetadata> variants)
@@ -55,9 +48,20 @@ public class PlantBlocks extends VariantsOfTypesCombo<IPlantMetadata>
 				{
 					return "double_" + variant.getName();
 				}
-			}
-			.setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE)
-			.setValidVariants(ImmutableList.copyOf(EnumFern.DOUBLES));
+			};			
+	
+	static
+	{
+		PLANT.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE)
+				.setValidVariants(EnumPlant.SINGLES);
+		DOUBLE_PLANT.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE)
+				.setValidVariants(ImmutableList.copyOf(EnumPlant.DOUBLES));
+		
+		FERN.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE)
+				.setValidVariants(EnumFern.SINGLES);
+		DOUBLE_FERN.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE)
+				.setValidVariants(ImmutableList.copyOf(EnumFern.DOUBLES));
+	}
 	
 	private static void afterFernConstructed(Block block, ItemBlockMulti<IPlantMetadata> item, List<? extends IMetadata> variants)
 	{

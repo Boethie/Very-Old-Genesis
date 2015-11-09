@@ -12,12 +12,6 @@ import net.minecraft.item.*;
 
 public class ItemBlockMulti<V extends IMetadata> extends ItemBlock
 {
-	@SuppressWarnings("unchecked")
-	public static <V extends IMetadata> Class<ItemBlockMulti<V>> getClassV()
-	{
-		return (Class<ItemBlockMulti<V>>) (Class<?>) ItemBlockMulti.class;
-	}
-	
 	public final VariantsOfTypesCombo<V> owner;
 	public final ObjectType<? extends Block, ? extends ItemBlockMulti<V>> type;
 	

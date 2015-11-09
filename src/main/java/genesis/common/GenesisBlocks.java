@@ -81,7 +81,7 @@ public final class GenesisBlocks
 	public static final VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>> aquatic_plants =
 			new VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>>(
 					new ObjectType<BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>>("aquatic_plant", "aquaticPlant", BlockAquaticPlant.class, null)
-							.setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE),
+							.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE),
 					EnumAquaticPlant.values());
 	
 	/* Crops */
@@ -152,7 +152,7 @@ public final class GenesisBlocks
 							block.setResistance(8.5F);
 							block.setStepSound(GenesisSounds.CORAL);
 						}
-					}.setUseSeparateVariantJsons(false).setNamePosition(ObjectNamePosition.NONE)
+					}.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE)
 					.setCreativeTab(GenesisCreativeTabs.DECORATIONS)
 					.setBlockArguments(Material.coral),
 					EnumCoral.values());

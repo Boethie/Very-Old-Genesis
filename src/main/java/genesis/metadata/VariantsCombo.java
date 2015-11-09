@@ -15,6 +15,16 @@ import net.minecraft.item.*;
  */
 public class VariantsCombo<V extends IMetadata, B extends Block, I extends Item> extends VariantsOfTypesCombo<V>
 {
+	public static <V extends IMetadata, B extends Block, I extends Item> VariantsCombo<V, B, I> create(ObjectType<B, I> objectType, List<V> variants)
+	{
+		return new VariantsCombo<V, B, I>(objectType, variants);
+	}
+	
+	public static <V extends IMetadata, B extends Block, I extends Item> VariantsCombo<V, B, I> create(ObjectType<B, I> objectType, V[] variants)
+	{
+		return new VariantsCombo<V, B, I>(objectType, variants);
+	}
+	
 	public final ObjectType<B, I> soleType;
 	
 	/**

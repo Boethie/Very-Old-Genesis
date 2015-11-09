@@ -29,7 +29,6 @@ import net.minecraftforge.fml.relauncher.*;
  * 
  * @author Zaggy1024
  */
-@SuppressWarnings("rawtypes")
 public class VariantsOfTypesCombo<V extends IMetadata>
 {
 	@Retention(RetentionPolicy.RUNTIME)
@@ -44,7 +43,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 		public int value();
 	}
 	
-	public static enum ObjectNamePosition {
+	public static enum TypeNamePosition {
 		PREFIX, POSTFIX, NONE;
 	}
 	
@@ -56,54 +55,11 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	 */
 	public static class ObjectType<B extends Block, I extends Item> implements IMetadata
 	{
-		public static <B extends Block, I extends Item> ObjectType<B, I> create(String name, String unlocalizedName, Class<? extends B> blockClass, Class<? extends I> itemClass, Collection<? extends IMetadata> variantExclusions)
-		{
-			return new ObjectType<B, I>(name, unlocalizedName, blockClass, itemClass, variantExclusions);
-		}
-		
-		public static <B extends Block> ObjectType<B, ItemBlockMulti> create(String name, String unlocalizedName, Class<? extends B> blockClass, Collection<? extends IMetadata> variantExclusions)
-		{
-			return create(name, unlocalizedName, blockClass, ItemBlockMulti.class, variantExclusions);
-		}
-		
-		
-		public static <B extends Block, I extends Item> ObjectType<B, I> create(String name, Class<? extends B> blockClass, Class<? extends I> itemClass, List<? extends IMetadata> variantExclusions)
-		{
-			return new ObjectType<B, I>(name, blockClass, itemClass, variantExclusions);
-		}
-		
-		public static <B extends Block> ObjectType<B, ItemBlockMulti> create(String name, Class<? extends B> blockClass, List<? extends IMetadata> variantExclusions)
-		{
-			return create(name, blockClass, ItemBlockMulti.class, variantExclusions);
-		}
-		
-		
-		public static <B extends Block, I extends Item> ObjectType<B, I> create(String name, String unlocalizedName, Class<? extends B> blockClass, Class<? extends I> itemClass, IMetadata... variantExclusions)
-		{
-			return new ObjectType<B, I>(name, unlocalizedName, blockClass, itemClass, variantExclusions);
-		}
-		
-		public static <B extends Block> ObjectType<B, ItemBlockMulti> create(String name, String unlocalizedName, Class<? extends B> blockClass, IMetadata... variantExclusions)
-		{
-			return create(name, unlocalizedName, blockClass, ItemBlockMulti.class, variantExclusions);
-		}
-		
-		
-		public static <B extends Block, I extends Item> ObjectType<B, I> create(String name, Class<? extends B> blockClass, Class<? extends I> itemClass, IMetadata... variantExclusions)
-		{
-			return new ObjectType<B, I>(name, name, blockClass, itemClass, variantExclusions);
-		}
-		
-		public static <B extends Block> ObjectType<B, ItemBlockMulti> create(String name, Class<? extends B> blockClass, IMetadata... variantExclusions)
-		{
-			return create(name, blockClass, ItemBlockMulti.class, variantExclusions);
-		}
-		
 		protected String name;
 		protected String resourceName;
 		protected String unlocalizedName;
 		protected Function<String, String> resourceNameFunction;
-		protected ObjectNamePosition namePosition = ObjectNamePosition.POSTFIX;
+		protected TypeNamePosition typeNamePosition = TypeNamePosition.PREFIX;
 		
 		protected Class<? extends B> blockClass;
 		protected Object[] blockArgs = {};
@@ -147,7 +103,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 			//this.itemClass = (Class<I>) typeArgs[1];
 		}
 		
-		public ObjectType(String name, Class<? extends B> blockClass, Class<? extends I> itemClass, List<? extends IMetadata> variantExclusions)
+		public ObjectType(String name, Class<? extends B> blockClass, Class<? extends I> itemClass, Collection<? extends IMetadata> variantExclusions)
 		{
 			this(name, name, blockClass, itemClass, variantExclusions);
 		}
@@ -203,14 +159,14 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 			return resourceNameFunction;
 		}
 		
-		public ObjectNamePosition getNamePosition()
+		public TypeNamePosition getTypeNamePosition()
 		{
-			return namePosition;
+			return typeNamePosition;
 		}
 		
-		public ObjectType<B, I> setNamePosition(ObjectNamePosition namePosition)
+		public ObjectType<B, I> setTypeNamePosition(TypeNamePosition typeNamePosition)
 		{
-			this.namePosition = namePosition;
+			this.typeNamePosition = typeNamePosition;
 			
 			return this;
 		}
@@ -376,7 +332,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 			{
 				String sep = getResourceName().equals("") ? "" : "_";
 				
-				switch (getNamePosition())
+				switch (getTypeNamePosition())
 				{
 				case PREFIX:
 					resource = getResourceName() + sep + resource;
@@ -401,6 +357,138 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 		public String toString()
 		{
 			return getName();
+		}
+		
+		// LOTS of create, createBlock and createItem methods for convenience.
+		/**
+		 * Full parameters.
+		 */
+		public static <B extends Block, I extends Item> ObjectType<B, I> create(String name, String unlocalizedName, Class<? extends B> blockClass, Class<? extends I> itemClass, Collection<? extends IMetadata> variantExclusions)
+		{
+			return new ObjectType<B, I>(name, unlocalizedName, blockClass, itemClass, variantExclusions);
+		}
+		
+		/**
+		 * Full parameters, default ItemBlock.
+		 */
+		public static <B extends Block, V extends IMetadata> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, String unlocalizedName, Class<? extends B> blockClass, Collection<? extends IMetadata> variantExclusions)
+		{
+			return create(name, unlocalizedName, blockClass, ItemBlockMulti.class, variantExclusions);
+		}
+		
+		/**
+		 * Full parameters, no block.
+		 */
+		public static <I extends Item> ObjectType<Block, I> createItem(String name, String unlocalizedName, Class<? extends I> itemClass, Collection<? extends IMetadata> variantExclusions)
+		{
+			return create(name, unlocalizedName, null, itemClass, variantExclusions);
+		}
+		
+		/**
+		 * Full parameters, default item.
+		 */
+		public static <V extends IMetadata> ObjectType<Block, ItemMulti<V>> createItem(String name, String unlocalizedName, Collection<? extends IMetadata> variantExclusions)
+		{
+			return create(name, unlocalizedName, null, null, variantExclusions);
+		}
+		
+		
+		/**
+		 * Same name for registry and unlocalized, all other parameters.
+		 */
+		public static <B extends Block, I extends Item> ObjectType<B, I> create(String name, Class<? extends B> blockClass, Class<? extends I> itemClass, Collection<? extends IMetadata> variantExclusions)
+		{
+			return new ObjectType<B, I>(name, blockClass, itemClass, variantExclusions);
+		}
+		
+		/**
+		 * Same name for registry and unlocalized, default ItemBlock.
+		 */
+		public static <B extends Block, V extends IMetadata> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, Class<? extends B> blockClass, Collection<? extends IMetadata> variantExclusions)
+		{
+			return create(name, blockClass, ItemBlockMulti.class, variantExclusions);
+		}
+		
+		/**
+		 * Same name for registry and unlocalized, no block.
+		 */
+		public static <I extends Item> ObjectType<Block, I> createItem(String name, Class<? extends I> itemClass, Collection<? extends IMetadata> variantExclusions)
+		{
+			return create(name, null, itemClass, variantExclusions);
+		}
+		
+		/**
+		 * Same name for registry and unlocalized, default item.
+		 */
+		public static <V extends IMetadata> ObjectType<Block, ItemMulti<V>> createItem(String name, Collection<? extends IMetadata> variantExclusions)
+		{
+			return create(name, null, null, variantExclusions);
+		}
+		
+		
+		/**
+		 * Varargs exclusion.
+		 */
+		public static <B extends Block, I extends Item> ObjectType<B, I> create(String name, String unlocalizedName, Class<? extends B> blockClass, Class<? extends I> itemClass, IMetadata... variantExclusions)
+		{
+			return new ObjectType<B, I>(name, unlocalizedName, blockClass, itemClass, variantExclusions);
+		}
+		
+		/**
+		 * Default ItemBlock, varargs exclusion.
+		 */
+		public static <B extends Block, V extends IMetadata> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, String unlocalizedName, Class<? extends B> blockClass, IMetadata... variantExclusions)
+		{
+			return create(name, unlocalizedName, blockClass, ItemBlockMulti.class, variantExclusions);
+		}
+		
+		/**
+		 * No block, varargs exclusion.
+		 */
+		public static <I extends Item> ObjectType<Block, I> createItem(String name, String unlocalizedName, Class<? extends I> itemClass, IMetadata... variantExclusions)
+		{
+			return new ObjectType<Block, I>(name, unlocalizedName, null, itemClass, variantExclusions);
+		}
+		
+		/**
+		 * Default item, varargs exclusion.
+		 */
+		public static <V extends IMetadata> ObjectType<Block, ItemMulti<V>> createItem(String name, String unlocalizedName, IMetadata... variantExclusions)
+		{
+			return create(name, unlocalizedName, null, null, variantExclusions);
+		}
+		
+		
+		/**
+		 * Same name for registry and unlocalized, varargs exclusion.
+		 */
+		public static <B extends Block, I extends Item> ObjectType<B, I> create(String name, Class<? extends B> blockClass, Class<? extends I> itemClass, IMetadata... variantExclusions)
+		{
+			return new ObjectType<B, I>(name, name, blockClass, itemClass, variantExclusions);
+		}
+		
+		/**
+		 * Default ItemBlock, same name for registry and unlocalized, with varargs exclusion.
+		 */
+		public static <B extends Block, V extends IMetadata> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, Class<? extends B> blockClass, IMetadata... variantExclusions)
+		{
+			return create(name, blockClass, ItemBlockMulti.class, variantExclusions);
+		}
+		
+		/**
+		 * No block, same name for registry and unlocalized, with varargs exclusion.
+		 */
+		public static <I extends Item> ObjectType<Block, I> createItem(String name, Class<? extends I> itemClass, IMetadata... variantExclusions)
+		{
+			return new ObjectType<Block, I>(name, name, null, itemClass, variantExclusions);
+		}
+		
+		/**
+		 * Default item, same name for registry and unlocalized, with varargs exclusion.
+		 */
+		public static <V extends IMetadata> ObjectType<Block, ItemMulti<V>> createItem(String name, IMetadata... variantExclusions)
+		{
+			return create(name, null, null, variantExclusions);
 		}
 	}
 	
@@ -498,7 +586,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	 * @param types The list of {@link #ObjectType} definitions of the {@code Block} and {@code Item} classes to store.
 	 * @param variants The {@link #IMetadata} representations of the variants to store for each Block/Item.
 	 */
-	public VariantsOfTypesCombo(List<? extends ObjectType<?, ?>> typesIn, List<V> variantsIn)
+	public VariantsOfTypesCombo(List<? extends ObjectType<?, ?>> typesIn, List<? extends V> variantsIn)
 	{
 		this.types = ImmutableList.copyOf(typesIn);
 		this.variants = ImmutableList.copyOf(variantsIn);
@@ -720,7 +808,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 						
 						if (type.getUseSeparateVariantJsons())
 						{
-							switch (type.getNamePosition())
+							switch (type.getTypeNamePosition())
 							{
 							case PREFIX:
 								mapper.setPrefix(type.getResourceName(), "_");
@@ -899,7 +987,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 		
 		if (block != null)
 		{
-			return block.getDefaultState().withProperty(getVariantProperty(block), (Comparable) variant);
+			return block.getDefaultState().withProperty(getVariantProperty(block), (Comparable<?>) variant);
 		}
 		
 		throw new IllegalArgumentException("Variant " + variant.getName() + " of " + ObjectType.class.getSimpleName() + " " + type.getName() + " does not include a Block instance." +

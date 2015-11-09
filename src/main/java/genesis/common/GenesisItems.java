@@ -4,7 +4,6 @@ import genesis.entity.fixed.EntityMeganeuraEgg;
 import genesis.item.*;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
-import genesis.util.Constants;
 import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -20,7 +19,14 @@ public final class GenesisItems
 	public static final Item red_clay_bowl = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "redClayBowl");
 	public static final ItemsCeramicBowls bowls = new ItemsCeramicBowls();
 	public static final Item red_clay_bucket = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "redClayBucket");
-	public static final VariantsCombo<EnumNodule, Block, ItemMulti<EnumNodule>> nodules = new VariantsCombo<EnumNodule, Block, ItemMulti<EnumNodule>>(new ObjectType<Block, ItemMulti<EnumNodule>>("nodule", null, null).setNamePosition(ObjectNamePosition.PREFIX), EnumNodule.values());
+	public static final VariantsCombo<EnumNodule, Block, ItemMulti<EnumNodule>> nodules =
+			VariantsCombo.create(
+					ObjectType.<EnumNodule>createItem("nodule"),
+					EnumNodule.values());
+	public static final VariantsCombo<EnumPowder, Block, ItemMulti<EnumPowder>> powders =
+			VariantsCombo.create(
+					ObjectType.<EnumPowder>createItem("powder"),
+					EnumPowder.values());
 	public static final Item resin = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "resin");
 	public static final Item araucarioxylon_cone = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "araucarioxylonCone");
 	public static final ItemGenesisSeeds calamites = (ItemGenesisSeeds) new ItemGenesisSeeds().setUnlocalizedName(Unlocalized.MATERIAL + "calamites");
@@ -94,7 +100,11 @@ public final class GenesisItems
 		
 		// Ores
 		GenesisBlocks.ores.registerVariants(OreBlocks.DROP);
-		nodules.setUnlocalizedPrefix(Constants.Unlocalized.MATERIAL);
+		
+		powders.setUnlocalizedPrefix(Unlocalized.MATERIAL);
+		powders.registerAll();
+		
+		nodules.setUnlocalizedPrefix(Unlocalized.MATERIAL);
 		nodules.registerAll();
 		
 		// Billets

@@ -13,9 +13,14 @@ import genesis.util.Constants.Unlocalized;
 
 public class OreBlocks extends VariantsOfTypesCombo<EnumOre>
 {
-	public static final ObjectType<BlockMultiOre<?>, ItemBlockMulti<EnumOre>> ORE = ObjectType.create("ore", BlockMultiOre.class, ItemBlockMulti.class);
-	public static final ObjectType<Block, ItemMulti<EnumOre>> DROP = ObjectType.create("ore_drop", Unlocalized.Section.MATERIAL, null, (Class<ItemMulti<EnumOre>>) null, EnumOre.noDrops)
-			.setResourceName("");
+	public static final ObjectType<BlockMultiOre<EnumOre>, ItemBlockMulti<EnumOre>> ORE = ObjectType.create("ore", BlockMultiOre.class, ItemBlockMulti.class);
+	public static final ObjectType<Block, ItemMulti<EnumOre>> DROP = ObjectType.createItem("ore_drop", Unlocalized.Section.MATERIAL, EnumOre.noDrops);
+	
+	static
+	{
+		ORE.setTypeNamePosition(TypeNamePosition.POSTFIX);
+		DROP.setResourceName("").setTypeNamePosition(TypeNamePosition.POSTFIX);
+	}
 	
 	public OreBlocks()
 	{
