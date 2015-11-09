@@ -33,7 +33,11 @@ public class DyeCookingRecipe extends CookingPotRecipeBase
 		builder.put(ImmutableSet.of(EnumDyeColor.WHITE, EnumDyeColor.BLUE), EnumDyeColor.LIGHT_BLUE);
 		builder.put(ImmutableSet.of(EnumDyeColor.GREEN, EnumDyeColor.BLUE), EnumDyeColor.CYAN);
 		builder.put(ImmutableSet.of(EnumDyeColor.WHITE, EnumDyeColor.GREEN), EnumDyeColor.LIME);
+		builder.put(ImmutableSet.of(EnumDyeColor.RED, EnumDyeColor.YELLOW), EnumDyeColor.ORANGE);
+		builder.put(ImmutableSet.of(EnumDyeColor.BLUE, EnumDyeColor.ORANGE), EnumDyeColor.BROWN);
+		builder.put(ImmutableSet.of(EnumDyeColor.GREEN, EnumDyeColor.RED), EnumDyeColor.BROWN);
 		builder.put(ImmutableSet.of(EnumDyeColor.WHITE, EnumDyeColor.BLACK), EnumDyeColor.GRAY);
+		builder.put(ImmutableSet.of(EnumDyeColor.WHITE, EnumDyeColor.GRAY), EnumDyeColor.SILVER);
 		
 		CRAFTING_MAP = builder.build();
 	}
