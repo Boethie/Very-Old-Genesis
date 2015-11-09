@@ -504,6 +504,17 @@ public final class GenesisRecipes
 			}
 		}
 		
+		// Crafting dyes
+		GameRegistry.addShapelessRecipe(GenesisItems.powders.getStack(EnumPowder.LIMESTONE, 4), GenesisBlocks.limestone);
+		
+		for (EnumPowder powder : EnumPowder.values())
+		{
+			if (powder.getCraftingOreDrop() != null)
+			{
+				GameRegistry.addShapelessRecipe(GenesisItems.powders.getStack(powder, 2), GenesisBlocks.ores.getDrop(powder.getCraftingOreDrop()));
+			}
+		}
+		
 		// Dung storage
 		for (EnumDung variant : EnumDung.values())
 		{

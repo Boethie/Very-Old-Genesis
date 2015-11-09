@@ -140,7 +140,7 @@ public final class GenesisBlocks
 	public static final Block prototaxites = new BlockPrototaxites().setUnlocalizedName(Unlocalized.PREFIX + "prototaxites");
 	@SuppressWarnings("unchecked")
 	public static final VariantsCombo<EnumCoral, BlockGenesisVariants<EnumCoral>, ItemBlockMulti<EnumCoral>> corals =
-			new VariantsCombo<EnumCoral, BlockGenesisVariants<EnumCoral>, ItemBlockMulti<EnumCoral>>(
+			VariantsCombo.create(
 					new ObjectType<BlockGenesisVariants<EnumCoral>, ItemBlockMulti<EnumCoral>>("coral", (Class<BlockGenesisVariants<EnumCoral>>) ((Class<?>) BlockGenesisVariants.class), null)
 					{
 						@Override

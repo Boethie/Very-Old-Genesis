@@ -4,26 +4,28 @@ import net.minecraft.item.EnumDyeColor;
 
 public enum EnumPowder implements IMetadata
 {
-	LIMESTONE("limestone", EnumDyeColor.WHITE),
-	HEMATITE("hematite", EnumDyeColor.RED),
-	MANGANESE("manganese", EnumDyeColor.BLACK),
-	MALACHITE("malachite", EnumDyeColor.GREEN),
-	AZURITE("azurite", EnumDyeColor.BLUE);
+	LIMESTONE("limestone", EnumDyeColor.WHITE, null),
+	HEMATITE("hematite", EnumDyeColor.RED, EnumOre.HEMATITE),
+	MANGANESE("manganese", EnumDyeColor.BLACK, EnumOre.MANGANESE),
+	MALACHITE("malachite", EnumDyeColor.GREEN, EnumOre.MALACHITE),
+	AZURITE("azurite", EnumDyeColor.BLUE, EnumOre.AZURITE);
 	
 	final String name;
 	final String unlocalizedName;
 	final EnumDyeColor color;
+	final EnumOre craftOreDrop;
 	
-	EnumPowder(String name, String unlocalizedName, EnumDyeColor color)
+	EnumPowder(String name, String unlocalizedName, EnumDyeColor color, EnumOre craftOreDrop)
 	{
 		this.name = name;
 		this.unlocalizedName = unlocalizedName;
 		this.color = color;
+		this.craftOreDrop = craftOreDrop;
 	}
 	
-	EnumPowder(String name, EnumDyeColor color)
+	EnumPowder(String name, EnumDyeColor color, EnumOre craftOreDrop)
 	{
-		this(name, name, color);
+		this(name, name, color, craftOreDrop);
 	}
 	
 	@Override
@@ -41,5 +43,15 @@ public enum EnumPowder implements IMetadata
 	public EnumDyeColor getColor()
 	{
 		return color;
+	}
+	
+	public EnumOre getCraftingOreDrop()
+	{
+		return craftOreDrop;
+	}
+	
+	public String toString()
+	{
+		return getName();
 	}
 }
