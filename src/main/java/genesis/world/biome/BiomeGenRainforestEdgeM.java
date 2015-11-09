@@ -19,16 +19,16 @@ public class BiomeGenRainforestEdgeM extends BiomeGenRainforestEdge
 		setBiomeName("Rainforest Edge M");
 		setHeight(0.4F, 1.1F);
 		
-		theBiomeDecorator.grassPerChunk = 8;
+		theBiomeDecorator.grassPerChunk = 5;
 	}
 	
 	@Override
 	protected void addDecorations()
 	{
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchSize(3).setCountPerChunk(4));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(3));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchSize(3).setCountPerChunk(1));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(1));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(2, 0).setNextToWater(true).setPatchSize(4).setCountPerChunk(12));
-		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(14));
+		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(10));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
 		addDecoration(new WorldGenRockBoulders().setRarity(80).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
