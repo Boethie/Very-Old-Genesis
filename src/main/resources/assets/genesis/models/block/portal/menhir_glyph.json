@@ -18,6 +18,6 @@
     "textures": {
 		"particle": "genesis:blocks/granite",
         "texture": "genesis:blocks/portal/menhir",
-        "glyph": "genesis:blocks/portal/glyph_cosmos"
+        "glyph": "genesis:blocks/portal/glyph_none"
     }
 }
