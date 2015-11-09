@@ -1,5 +1,5 @@
 {
-    "variants": {
-        "normal": { "model": "genesis:gneiss" }
-    }
+	"variants": {
+		"normal": { "model": "genesis:gneiss" }
+	}
 }

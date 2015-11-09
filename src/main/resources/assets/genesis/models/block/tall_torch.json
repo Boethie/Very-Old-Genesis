@@ -1,13 +1,13 @@
 {
-    "ambientocclusion": false,
+	"ambientocclusion": false,
 	"textures":
 	{	"particle": "#torch"
 	},
 	"elements": [
-        {   "from": [ 7, 0, 7 ],
-            "to": [ 9, 16, 9 ],
-            "shade": false,
-            "faces": {
+		{   "from": [ 7, 0, 7 ],
+			"to": [ 9, 16, 9 ],
+			"shade": false,
+			"faces": {
 				"down": { "uv": [ 7, 13, 9, 15 ], "texture": "#torch" },
 				"up":   { "uv": [ 7,  6, 9,  8 ], "texture": "#torch" }
 			}

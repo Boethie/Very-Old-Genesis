@@ -1,8 +1,8 @@
 {
-    "variants": {
-        "axis=y":  { "model": "genesis:lepidodendron_rotten_log" },
-        "axis=z":   { "model": "genesis:lepidodendron_rotten_log", "x": 90 },
-        "axis=x":   { "model": "genesis:lepidodendron_rotten_log", "x": 90, "y": 90 },
-        "axis=none": { "model": "genesis:lepidodendron_rotten_bark" }
-    }
+	"variants": {
+		"axis=y":  { "model": "genesis:lepidodendron_rotten_log" },
+		"axis=z":   { "model": "genesis:lepidodendron_rotten_log", "x": 90 },
+		"axis=x":   { "model": "genesis:lepidodendron_rotten_log", "x": 90, "y": 90 },
+		"axis=none": { "model": "genesis:lepidodendron_rotten_bark" }
+	}
 }

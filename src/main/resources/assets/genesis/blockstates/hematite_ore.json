@@ -1,5 +1,5 @@
 {
-    "variants": {
-        "normal": { "model": "genesis:hematite_ore" }
-    }
+	"variants": {
+		"normal": { "model": "genesis:hematite_ore" }
+	}
 }

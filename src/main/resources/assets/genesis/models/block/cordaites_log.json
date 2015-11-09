@@ -1,7 +1,7 @@
 {
-    "parent": "block/cube_column",
-    "textures": {
-        "end": "genesis:blocks/log_cordaites_top",
-        "side": "genesis:blocks/log_cordaites"
-    }
+	"parent": "block/cube_column",
+	"textures": {
+		"end": "genesis:blocks/log_cordaites_top",
+		"side": "genesis:blocks/log_cordaites"
+	}
 }

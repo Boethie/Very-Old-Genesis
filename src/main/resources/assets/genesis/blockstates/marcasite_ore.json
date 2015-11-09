@@ -1,5 +1,5 @@
 {
-    "variants": {
-        "normal": { "model": "genesis:marcasite_ore" }
-    }
+	"variants": {
+		"normal": { "model": "genesis:marcasite_ore" }
+	}
 }

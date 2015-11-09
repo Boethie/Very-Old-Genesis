@@ -1,5 +1,5 @@
 {
-    "variants": {
-        "normal": { "model": "genesis:granite" }
-    }
+	"variants": {
+		"normal": { "model": "genesis:granite" }
+	}
 }

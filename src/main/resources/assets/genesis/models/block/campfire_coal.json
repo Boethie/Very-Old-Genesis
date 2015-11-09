@@ -1,61 +1,61 @@
 {
-    "__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
-    "ambientocclusion": true,
-    "textures": {
-        "coal": "blocks/coal_block"
-    },
-    "elements": [
-        {   "__comment": "Coal 4",
-            "from": [ 5.5, 0, 9.5 ],
-            "to": [ 8.5, 1, 11.5 ],
-            "rotation": { "origin": [ 7, 0, 10.5 ], "axis": "y", "angle": -22.5 },
-            "faces": {
-                "north": { "uv": [ 5, 6, 6, 9 ], "texture": "#coal", "rotation": 90 },
-                "east": { "uv": [ 3, 9, 5, 10 ], "texture": "#coal", "rotation": 0 },
-                "south": { "uv": [ 2, 6, 3, 9 ], "texture": "#coal", "rotation": 270 },
-                "west": { "uv": [ 3, 5, 5, 6 ], "texture": "#coal", "rotation": 180 },
-                "down": { "uv": [ 0, 6, 2, 9 ], "texture": "#coal", "rotation": 270 },
-                "up": { "uv": [ 3, 6, 5, 9 ], "texture": "#coal", "rotation": 270 }
-            }
-        },
-        {   "__comment": "Coal 3",
-            "from": [ 8.5, 0, 8 ],
-            "to": [ 10.5, 2, 11 ],
-            "rotation": { "origin": [ 9.5, 0, 9.5 ], "axis": "y", "angle": 22.5 },
-            "faces": {
-                "west": { "uv": [ 0, 11, 2, 14 ], "texture": "#coal", "rotation": 270 },
-                "north": { "uv": [ 2, 9, 4, 11 ], "texture": "#coal", "rotation": 180 },
-                "east": { "uv": [ 4, 11, 6, 14 ], "texture": "#coal", "rotation": 90 },
-                "south": { "uv": [ 2, 14, 4, 16 ], "texture": "#coal", "rotation": 0 },
-                "down": { "uv": [ 6, 11, 8, 14 ], "texture": "#coal", "rotation": 180 },
-                "up": { "uv": [ 2, 11, 4, 14 ], "texture": "#coal", "rotation": 0 }
-            }
-        },
-        {   "__comment": "Coal 2",
-            "from": [ 9, 0, 4 ],
-            "to": [ 11, 2, 8 ],
-            "rotation": { "origin": [ 10, 0, 6 ], "axis": "y", "angle": 45.0 },
-            "faces": {
-                "west": { "uv": [ 14, 10, 16, 14 ], "texture": "#coal", "rotation": 90 },
-                "north": { "uv": [ 12, 14, 14, 16 ], "texture": "#coal", "rotation": 0 },
-                "east": { "uv": [ 10, 10, 12, 14 ], "texture": "#coal", "rotation": 270 },
-                "south": { "uv": [ 12, 8, 14, 10 ], "texture": "#coal", "rotation": 180 },
-                "down": { "uv": [ 8, 10, 10, 14 ], "texture": "#coal", "rotation": 0 },
-                "up": { "uv": [ 12, 10, 14, 14 ], "texture": "#coal", "rotation": 180 }
-            }
-        },
-        {   "__comment": "Coal 1",
-            "from": [ 5, 0, 5 ],
-            "to": [ 7, 2, 9 ],
-            "rotation": { "origin": [ 6, 0, 7 ], "axis": "y", "angle": -22.5 },
-            "faces": {
-                "west": { "uv": [ 7, 3, 9, 7 ], "texture": "#coal", "rotation": 90 },
-                "north": { "uv": [ 5, 7, 7, 9 ], "texture": "#coal", "rotation": 0 },
-                "east": { "uv": [ 3, 3, 5, 7 ], "texture": "#coal", "rotation": 270 },
-                "south": { "uv": [ 5, 1, 7, 3 ], "texture": "#coal", "rotation": 180 },
-                "down": { "uv": [ 1, 3, 3, 7 ], "texture": "#coal", "rotation": 0 },
-                "up": { "uv": [ 5, 3, 7, 7 ], "texture": "#coal", "rotation": 180 }
-            }
-        }
-    ]
+	"__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
+	"ambientocclusion": true,
+	"textures": {
+		"coal": "blocks/coal_block"
+	},
+	"elements": [
+		{   "__comment": "Coal 4",
+			"from": [ 5.5, 0, 9.5 ],
+			"to": [ 8.5, 1, 11.5 ],
+			"rotation": { "origin": [ 7, 0, 10.5 ], "axis": "y", "angle": -22.5 },
+			"faces": {
+				"north": { "uv": [ 5, 6, 6, 9 ], "texture": "#coal", "rotation": 90 },
+				"east": { "uv": [ 3, 9, 5, 10 ], "texture": "#coal", "rotation": 0 },
+				"south": { "uv": [ 2, 6, 3, 9 ], "texture": "#coal", "rotation": 270 },
+				"west": { "uv": [ 3, 5, 5, 6 ], "texture": "#coal", "rotation": 180 },
+				"down": { "uv": [ 0, 6, 2, 9 ], "texture": "#coal", "rotation": 270 },
+				"up": { "uv": [ 3, 6, 5, 9 ], "texture": "#coal", "rotation": 270 }
+			}
+		},
+		{   "__comment": "Coal 3",
+			"from": [ 8.5, 0, 8 ],
+			"to": [ 10.5, 2, 11 ],
+			"rotation": { "origin": [ 9.5, 0, 9.5 ], "axis": "y", "angle": 22.5 },
+			"faces": {
+				"west": { "uv": [ 0, 11, 2, 14 ], "texture": "#coal", "rotation": 270 },
+				"north": { "uv": [ 2, 9, 4, 11 ], "texture": "#coal", "rotation": 180 },
+				"east": { "uv": [ 4, 11, 6, 14 ], "texture": "#coal", "rotation": 90 },
+				"south": { "uv": [ 2, 14, 4, 16 ], "texture": "#coal", "rotation": 0 },
+				"down": { "uv": [ 6, 11, 8, 14 ], "texture": "#coal", "rotation": 180 },
+				"up": { "uv": [ 2, 11, 4, 14 ], "texture": "#coal", "rotation": 0 }
+			}
+		},
+		{   "__comment": "Coal 2",
+			"from": [ 9, 0, 4 ],
+			"to": [ 11, 2, 8 ],
+			"rotation": { "origin": [ 10, 0, 6 ], "axis": "y", "angle": 45.0 },
+			"faces": {
+				"west": { "uv": [ 14, 10, 16, 14 ], "texture": "#coal", "rotation": 90 },
+				"north": { "uv": [ 12, 14, 14, 16 ], "texture": "#coal", "rotation": 0 },
+				"east": { "uv": [ 10, 10, 12, 14 ], "texture": "#coal", "rotation": 270 },
+				"south": { "uv": [ 12, 8, 14, 10 ], "texture": "#coal", "rotation": 180 },
+				"down": { "uv": [ 8, 10, 10, 14 ], "texture": "#coal", "rotation": 0 },
+				"up": { "uv": [ 12, 10, 14, 14 ], "texture": "#coal", "rotation": 180 }
+			}
+		},
+		{   "__comment": "Coal 1",
+			"from": [ 5, 0, 5 ],
+			"to": [ 7, 2, 9 ],
+			"rotation": { "origin": [ 6, 0, 7 ], "axis": "y", "angle": -22.5 },
+			"faces": {
+				"west": { "uv": [ 7, 3, 9, 7 ], "texture": "#coal", "rotation": 90 },
+				"north": { "uv": [ 5, 7, 7, 9 ], "texture": "#coal", "rotation": 0 },
+				"east": { "uv": [ 3, 3, 5, 7 ], "texture": "#coal", "rotation": 270 },
+				"south": { "uv": [ 5, 1, 7, 3 ], "texture": "#coal", "rotation": 180 },
+				"down": { "uv": [ 1, 3, 3, 7 ], "texture": "#coal", "rotation": 0 },
+				"up": { "uv": [ 5, 3, 7, 7 ], "texture": "#coal", "rotation": 180 }
+			}
+		}
+	]
 }

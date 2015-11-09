@@ -2,7 +2,7 @@
 	"forge_marker": 1,
 	"defaults": {
 	},
-    "variants": {
+	"variants": {
 		"variant": {
 			"glyph": {
 				"model": "genesis:portal/menhir_glyph"
@@ -71,5 +71,5 @@
 		"active=true,facing=south,glyph=cosmos,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_cosmos_active" } }],
 		"active=true,facing=west,glyph=cosmos,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_cosmos_active" } }],
 		"active=true,facing=north,glyph=cosmos,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_cosmos_active" } }]
-    }
+	}
 }

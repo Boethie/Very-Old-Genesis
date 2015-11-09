@@ -1,6 +1,6 @@
 {
-    "parent": "block/cube_all",
-    "textures": {
-        "all": "genesis:blocks/flint_ore"
-    }
+	"parent": "block/cube_all",
+	"textures": {
+		"all": "genesis:blocks/flint_ore"
+	}
 }

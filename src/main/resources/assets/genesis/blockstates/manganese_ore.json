@@ -1,5 +1,5 @@
 {
-    "variants": {
-        "normal": { "model": "genesis:manganese_ore" }
-    }
+	"variants": {
+		"normal": { "model": "genesis:manganese_ore" }
+	}
 }

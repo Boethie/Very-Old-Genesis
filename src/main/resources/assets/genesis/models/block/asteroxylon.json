@@ -1,6 +1,6 @@
 {
-    "parent": "block/tallgrass",
-    "textures": {
-        "cross": "genesis:blocks/plant_asteroxylon"
-    }
+	"parent": "block/tallgrass",
+	"textures": {
+		"cross": "genesis:blocks/plant_asteroxylon"
+	}
 }

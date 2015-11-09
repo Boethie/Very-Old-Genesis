@@ -1,6 +1,6 @@
 {
-    "parent": "block/cross",
-    "textures": {
-        "cross": "genesis:blocks/sapling_archaeopteris"
-    }
+	"parent": "block/cross",
+	"textures": {
+		"cross": "genesis:blocks/sapling_archaeopteris"
+	}
 }

@@ -1,6 +1,6 @@
 {
-    "variants": {
-        "variant=sauropoda":  { "model": "genesis:dung_block_sauropoda" },
-        "variant=theropoda":  { "model": "genesis:dung_block_theropoda" }
-    }
+	"variants": {
+		"variant=sauropoda":  { "model": "genesis:dung_block_sauropoda" },
+		"variant=theropoda":  { "model": "genesis:dung_block_theropoda" }
+	}
 }

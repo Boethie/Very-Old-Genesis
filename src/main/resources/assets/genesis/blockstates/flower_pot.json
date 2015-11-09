@@ -8,7 +8,7 @@
 		},
 		"model": "flower_pot_fern"
 	},
-    "variants": {
+	"variants": {
 		"contents": {
 			"cooksonia": {
 				"textures": {
@@ -116,5 +116,5 @@
 				}
 			}
 		}
-    }
+	}
 }

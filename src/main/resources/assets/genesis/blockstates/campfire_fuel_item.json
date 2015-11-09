@@ -1,16 +1,16 @@
 {
-    "variants": {
-        "item=generic_fuel": [
+	"variants": {
+		"item=generic_fuel": [
 			{ "model": "genesis:campfire_coal", "y": 0 },
 			{ "model": "genesis:campfire_coal", "y": 90 },
 			{ "model": "genesis:campfire_coal", "y": 180 },
 			{ "model": "genesis:campfire_coal", "y": 270 }
 		],
-        "item=minecraft:coal": [
+		"item=minecraft:coal": [
 			{ "model": "genesis:campfire_coal", "y": 0 },
 			{ "model": "genesis:campfire_coal", "y": 90 },
 			{ "model": "genesis:campfire_coal", "y": 180 },
 			{ "model": "genesis:campfire_coal", "y": 270 }
 		]
-    }
+	}
 }

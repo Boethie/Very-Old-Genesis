@@ -1,7 +1,7 @@
 {
-    "parent": "block/cube_column",
-    "textures": {
-        "end": "genesis:blocks/rotten_log_lepidodendron_top",
-        "side": "genesis:blocks/rotten_log_lepidodendron"
-    }
+	"parent": "block/cube_column",
+	"textures": {
+		"end": "genesis:blocks/rotten_log_lepidodendron_top",
+		"side": "genesis:blocks/rotten_log_lepidodendron"
+	}
 }

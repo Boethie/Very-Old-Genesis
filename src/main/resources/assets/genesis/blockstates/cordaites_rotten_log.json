@@ -1,8 +1,8 @@
 {
-    "variants": {
-        "axis=y":  { "model": "genesis:cordaites_rotten_log" },
-        "axis=z":   { "model": "genesis:cordaites_rotten_log", "x": 90 },
-        "axis=x":   { "model": "genesis:cordaites_rotten_log", "x": 90, "y": 90 },
-        "axis=none": { "model": "genesis:cordaites_rotten_bark" }
-    }
+	"variants": {
+		"axis=y":  { "model": "genesis:cordaites_rotten_log" },
+		"axis=z":   { "model": "genesis:cordaites_rotten_log", "x": 90 },
+		"axis=x":   { "model": "genesis:cordaites_rotten_log", "x": 90, "y": 90 },
+		"axis=none": { "model": "genesis:cordaites_rotten_bark" }
+	}
 }

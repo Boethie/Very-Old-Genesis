@@ -1,21 +1,21 @@
 {
-    "variants": {
-        "facing=z,fire=false": [
+	"variants": {
+		"facing=z,fire=false": [
 			{ "model": "genesis:campfire", "y": 90 },
 			{ "model": "genesis:campfire", "y": 270 }
 		],
-        "facing=x,fire=false": [
+		"facing=x,fire=false": [
 			{ "model": "genesis:campfire", "y": 0 },
 			{ "model": "genesis:campfire", "y": 180 }
 		],
 		
-        "facing=z,fire=true": [
+		"facing=z,fire=true": [
 			{ "model": "genesis:campfire", "y": 90 },
 			{ "model": "genesis:campfire", "y": 270 }
 		],
-        "facing=x,fire=true": [
+		"facing=x,fire=true": [
 			{ "model": "genesis:campfire", "y": 0 },
 			{ "model": "genesis:campfire", "y": 180 }
 		]
-    }
+	}
 }

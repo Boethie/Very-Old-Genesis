@@ -1,6 +1,6 @@
 {
-    "parent": "block/tallgrass",
-    "textures": {
-        "cross": "genesis:blocks/programinis_stage_2"
-    }
+	"parent": "block/tallgrass",
+	"textures": {
+		"cross": "genesis:blocks/programinis_stage_2"
+	}
 }

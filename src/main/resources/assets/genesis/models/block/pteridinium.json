@@ -1,6 +1,6 @@
 {
-    "parent": "block/cross",
-    "textures": {
-        "cross": "genesis:blocks/aquatic_plant_pteridinium"
-    }
+	"parent": "block/cross",
+	"textures": {
+		"cross": "genesis:blocks/aquatic_plant_pteridinium"
+	}
 }

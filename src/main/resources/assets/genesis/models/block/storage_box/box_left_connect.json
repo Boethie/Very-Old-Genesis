@@ -1,17 +1,17 @@
 {
-    "__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
-    "ambientocclusion": true,
-    "elements": [
-        {   "__comment": "Box Left Connect",
-            "from": [ 1, 0, 0 ],
-            "to": [ 15, 14, 8 ],
-            "faces": {
-                "west": { "uv": [ 0, 2, 8, 16 ], "texture": "#side", "rotation": 0 },
-                "north": { "uv": [ 1, 0, 15, 14 ], "texture": "#top_connect", "rotation": 180 },
-                "up": { "uv": [ 1, 0, 15, 8 ], "texture": "#top_connect", "rotation": 0 },
-                "east": { "uv": [ 8, 2, 16, 16 ], "texture": "#side", "rotation": 0 },
-                "down": { "uv": [ 8, 1, 16, 15 ], "texture": "#side", "rotation": 90 }
-            }
-        }
-    ]
+	"__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
+	"ambientocclusion": true,
+	"elements": [
+		{   "__comment": "Box Left Connect",
+			"from": [ 1, 0, 0 ],
+			"to": [ 15, 14, 8 ],
+			"faces": {
+				"west": { "uv": [ 0, 2, 8, 16 ], "texture": "#side", "rotation": 0 },
+				"north": { "uv": [ 1, 0, 15, 14 ], "texture": "#top_connect", "rotation": 180 },
+				"up": { "uv": [ 1, 0, 15, 8 ], "texture": "#top_connect", "rotation": 0 },
+				"east": { "uv": [ 8, 2, 16, 16 ], "texture": "#side", "rotation": 0 },
+				"down": { "uv": [ 8, 1, 16, 15 ], "texture": "#side", "rotation": 90 }
+			}
+		}
+	]
 }

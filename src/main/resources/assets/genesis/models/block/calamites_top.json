@@ -1,6 +1,6 @@
 {
-    "parent": "block/cross",
-    "textures": {
-        "cross": "genesis:blocks/calamites_top"
-    }
+	"parent": "block/cross",
+	"textures": {
+		"cross": "genesis:blocks/calamites_top"
+	}
 }

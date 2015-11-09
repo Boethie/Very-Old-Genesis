@@ -1,10 +1,10 @@
 {
-    "variants": {
-        "normal": [
-            { "model": "genesis:siltstone" },
-            { "model": "genesis:siltstone", "y": 90 },
-            { "model": "genesis:siltstone", "y": 180 },
-            { "model": "genesis:siltstone", "y": 270 }
-        ]
-    }
+	"variants": {
+		"normal": [
+			{ "model": "genesis:siltstone" },
+			{ "model": "genesis:siltstone", "y": 90 },
+			{ "model": "genesis:siltstone", "y": 180 },
+			{ "model": "genesis:siltstone", "y": 270 }
+		]
+	}
 }

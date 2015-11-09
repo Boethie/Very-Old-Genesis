@@ -1,5 +1,5 @@
 {
-    "variants": {
-        "normal": { "model": "genesis:araucarioxylon_leaves" }
-    }
+	"variants": {
+		"normal": { "model": "genesis:araucarioxylon_leaves" }
+	}
 }

@@ -1,5 +1,5 @@
 {
-    "variants": {
-        "normal": { "model": "genesis:psaronius_sapling" }
-    }
+	"variants": {
+		"normal": { "model": "genesis:psaronius_sapling" }
+	}
 }

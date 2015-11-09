@@ -1,9 +1,9 @@
 {
-    "parent": "genesis:block/moss",
-    "textures": {
-        "particle": "blocks/dirt",
-        "dirt": "blocks/dirt",
-        "side": "genesis:blocks/moss_side_3",
-        "top": "genesis:blocks/moss_top_3"
-    }
+	"parent": "genesis:block/moss",
+	"textures": {
+		"particle": "blocks/dirt",
+		"dirt": "blocks/dirt",
+		"side": "genesis:blocks/moss_side_3",
+		"top": "genesis:blocks/moss_top_3"
+	}
 }

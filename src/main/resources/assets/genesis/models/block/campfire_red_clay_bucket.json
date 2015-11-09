@@ -1,61 +1,61 @@
 {
-    "__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
-    "ambientocclusion": true,
-    "textures": {
-        "red_clay": "genesis:blocks/red_clay_model"
-    },
-    "elements": [
-        {   "__comment": "Pottery Bucket Bottom",
-            "from": [ 5, 3, 5 ],
-            "to": [ 11, 4, 11 ],
-            "faces": {
-                "west": { "uv": [ 0.5, 12, 3.5, 12.5 ], "texture": "#red_clay", "rotation": 180 },
-                "north": { "uv": [ 3.5, 12.5, 4, 15.5 ], "texture": "#red_clay", "rotation": 90 },
-                "east": { "uv": [ 0.5, 15.5, 3.5, 16 ], "texture": "#red_clay", "rotation": 0 },
-                "south": { "uv": [ 0, 12.5, 0.5, 15.5 ], "texture": "#red_clay", "rotation": 270 },
-                "down": { "uv": [ 4, 12.5, 7, 15.5 ], "texture": "#red_clay", "rotation": 270 },
-                "up": { "uv": [ 0.5, 12.5, 3.5, 15.5 ], "texture": "#red_clay", "rotation": 270 }
-            }
-        },
-        {   "__comment": "Pottery Bucket Right",
-            "from": [ 6, 4, 5 ],
-            "to": [ 10, 8, 6 ],
-            "faces": {
-                "north": { "uv": [ 4, 10, 6, 12 ], "texture": "#red_clay", "rotation": 0 },
-                "south": { "uv": [ 4, 7.5, 6, 9.5 ], "texture": "#red_clay", "rotation": 180 },
-                "up": { "uv": [ 4, 9.5, 6, 10 ], "texture": "#red_clay", "rotation": 180 }
-            }
-        },
-        {   "__comment": "Pottery Bucket Near",
-            "from": [ 10, 4, 5 ],
-            "to": [ 11, 8, 11 ],
-            "faces": {
-                "east": { "uv": [ 0.5, 10, 3.5, 12 ], "texture": "#red_clay", "rotation": 0 },
-                "west": { "uv": [ 0.5, 7.5, 3.5, 9.5 ], "texture": "#red_clay", "rotation": 180 },
-                "up": { "uv": [ 0.5, 9.5, 3.5, 10 ], "texture": "#red_clay", "rotation": 270 },
-                "north": { "uv": [ 3.5, 7.5, 4, 9.5 ], "texture": "#red_clay", "rotation": 180 },
-                "south": { "uv": [ 0, 7.5, 0.5, 9.5 ], "texture": "#red_clay", "rotation": 180 }
-            }
-        },
-        {   "__comment": "Pottery Bucket Left",
-            "from": [ 6, 4, 10 ],
-            "to": [ 10, 8, 11 ],
-            "faces": {
-                "north": { "uv": [ 10, 7.5, 12, 9.5 ], "texture": "#red_clay", "rotation": 180 },
-                "south": { "uv": [ 10, 10, 12, 12 ], "texture": "#red_clay", "rotation": 0 },
-                "up": { "uv": [ 10, 9.5, 12, 10 ], "texture": "#red_clay", "rotation": 0 }
-            }
-        },
-        {   "__comment": "Pottery Bucket Far",
-            "from": [ 5, 4, 5 ],
-            "to": [ 6, 8, 11 ],
-            "faces": {
-                "east": { "uv": [ 6.5, 7.5, 9.5, 9.5 ], "texture": "#red_clay", "rotation": 180 },
-                "west": { "uv": [ 6.5, 10, 9.5, 12 ], "texture": "#red_clay", "rotation": 0 },
-                "up": { "uv": [ 6.5, 9.5, 9.5, 10 ], "texture": "#red_clay", "rotation": 90 },
-                "north": { "uv": [ 6, 10, 6.5, 12 ], "texture": "#red_clay", "rotation": 0 },
-                "south": { "uv": [ 9.5, 10, 10, 12 ], "texture": "#red_clay", "rotation": 0 }
-            }
-        }
-    ]
+	"__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
+	"ambientocclusion": true,
+	"textures": {
+		"red_clay": "genesis:blocks/red_clay_model"
+	},
+	"elements": [
+		{   "__comment": "Pottery Bucket Bottom",
+			"from": [ 5, 3, 5 ],
+			"to": [ 11, 4, 11 ],
+			"faces": {
+				"west": { "uv": [ 0.5, 12, 3.5, 12.5 ], "texture": "#red_clay", "rotation": 180 },
+				"north": { "uv": [ 3.5, 12.5, 4, 15.5 ], "texture": "#red_clay", "rotation": 90 },
+				"east": { "uv": [ 0.5, 15.5, 3.5, 16 ], "texture": "#red_clay", "rotation": 0 },
+				"south": { "uv": [ 0, 12.5, 0.5, 15.5 ], "texture": "#red_clay", "rotation": 270 },
+				"down": { "uv": [ 4, 12.5, 7, 15.5 ], "texture": "#red_clay", "rotation": 270 },
+				"up": { "uv": [ 0.5, 12.5, 3.5, 15.5 ], "texture": "#red_clay", "rotation": 270 }
+			}
+		},
+		{   "__comment": "Pottery Bucket Right",
+			"from": [ 6, 4, 5 ],
+			"to": [ 10, 8, 6 ],
+			"faces": {
+				"north": { "uv": [ 4, 10, 6, 12 ], "texture": "#red_clay", "rotation": 0 },
+				"south": { "uv": [ 4, 7.5, 6, 9.5 ], "texture": "#red_clay", "rotation": 180 },
+				"up": { "uv": [ 4, 9.5, 6, 10 ], "texture": "#red_clay", "rotation": 180 }
+			}
+		},
+		{   "__comment": "Pottery Bucket Near",
+			"from": [ 10, 4, 5 ],
+			"to": [ 11, 8, 11 ],
+			"faces": {
+				"east": { "uv": [ 0.5, 10, 3.5, 12 ], "texture": "#red_clay", "rotation": 0 },
+				"west": { "uv": [ 0.5, 7.5, 3.5, 9.5 ], "texture": "#red_clay", "rotation": 180 },
+				"up": { "uv": [ 0.5, 9.5, 3.5, 10 ], "texture": "#red_clay", "rotation": 270 },
+				"north": { "uv": [ 3.5, 7.5, 4, 9.5 ], "texture": "#red_clay", "rotation": 180 },
+				"south": { "uv": [ 0, 7.5, 0.5, 9.5 ], "texture": "#red_clay", "rotation": 180 }
+			}
+		},
+		{   "__comment": "Pottery Bucket Left",
+			"from": [ 6, 4, 10 ],
+			"to": [ 10, 8, 11 ],
+			"faces": {
+				"north": { "uv": [ 10, 7.5, 12, 9.5 ], "texture": "#red_clay", "rotation": 180 },
+				"south": { "uv": [ 10, 10, 12, 12 ], "texture": "#red_clay", "rotation": 0 },
+				"up": { "uv": [ 10, 9.5, 12, 10 ], "texture": "#red_clay", "rotation": 0 }
+			}
+		},
+		{   "__comment": "Pottery Bucket Far",
+			"from": [ 5, 4, 5 ],
+			"to": [ 6, 8, 11 ],
+			"faces": {
+				"east": { "uv": [ 6.5, 7.5, 9.5, 9.5 ], "texture": "#red_clay", "rotation": 180 },
+				"west": { "uv": [ 6.5, 10, 9.5, 12 ], "texture": "#red_clay", "rotation": 0 },
+				"up": { "uv": [ 6.5, 9.5, 9.5, 10 ], "texture": "#red_clay", "rotation": 90 },
+				"north": { "uv": [ 6, 10, 6.5, 12 ], "texture": "#red_clay", "rotation": 0 },
+				"south": { "uv": [ 9.5, 10, 10, 12 ], "texture": "#red_clay", "rotation": 0 }
+			}
+		}
+	]
 }

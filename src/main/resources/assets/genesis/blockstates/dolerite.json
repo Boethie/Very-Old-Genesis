@@ -1,5 +1,5 @@
 {
-    "variants": {
-        "normal": { "model": "genesis:dolerite" }
-    }
+	"variants": {
+		"normal": { "model": "genesis:dolerite" }
+	}
 }

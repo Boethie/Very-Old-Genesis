@@ -1,12 +1,12 @@
 {
-    "variants": {
-        "age=0": { "model": "genesis:programinis_stage0" },
-        "age=1": { "model": "genesis:programinis_stage1" },
-        "age=2": { "model": "genesis:programinis_stage2" },
-        "age=3": { "model": "genesis:programinis_stage3" },
-        "age=4": { "model": "genesis:programinis_stage4" },
-        "age=5": { "model": "genesis:programinis_stage5" },
-        "age=6": { "model": "genesis:programinis_stage6" },
-        "age=7": { "model": "genesis:programinis_stage7" }
-    }
+	"variants": {
+		"age=0": { "model": "genesis:programinis_stage0" },
+		"age=1": { "model": "genesis:programinis_stage1" },
+		"age=2": { "model": "genesis:programinis_stage2" },
+		"age=3": { "model": "genesis:programinis_stage3" },
+		"age=4": { "model": "genesis:programinis_stage4" },
+		"age=5": { "model": "genesis:programinis_stage5" },
+		"age=6": { "model": "genesis:programinis_stage6" },
+		"age=7": { "model": "genesis:programinis_stage7" }
+	}
 }

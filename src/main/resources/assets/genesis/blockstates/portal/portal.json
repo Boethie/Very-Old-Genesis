@@ -3,8 +3,8 @@
 	"defaults": {
 		"model": "genesis:portal/portal"
 	},
-    "variants": {
-        "normal": [
+	"variants": {
+		"normal": [
 			{ "transform": { "rotation": {"y": 0}, "scale": [4, 4, 4] } },
 			{ "transform": { "rotation": {"y": 90}, "scale": [4, 4, 4] } },
 			{ "transform": { "rotation": {"y": 180}, "scale": [4, 4, 4] } },
@@ -29,5 +29,5 @@
 				}
 			}
 		}]
-    }
+	}
 }

@@ -1,10 +1,10 @@
 {
-    "parent": "block/cube_bottom_top",
-    "textures": {
-        "particle": "blocks/dirt",
-        "dirt": "blocks/dirt",
-        "bottom": "blocks/dirt",
-        "side": "genesis:blocks/moss_side_snowed_3",
-        "top": "genesis:blocks/moss_top_3"
-    }
+	"parent": "block/cube_bottom_top",
+	"textures": {
+		"particle": "blocks/dirt",
+		"dirt": "blocks/dirt",
+		"bottom": "blocks/dirt",
+		"side": "genesis:blocks/moss_side_snowed_3",
+		"top": "genesis:blocks/moss_top_3"
+	}
 }

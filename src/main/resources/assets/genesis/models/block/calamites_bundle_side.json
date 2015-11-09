@@ -1,6 +1,6 @@
 {
-    "parent": "block/cube_all",
-    "textures": {
-        "all": "genesis:blocks/calamites_bundle_side"
-    }
+	"parent": "block/cube_all",
+	"textures": {
+		"all": "genesis:blocks/calamites_bundle_side"
+	}
 }

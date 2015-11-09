@@ -1,6 +1,6 @@
 {
-    "parent": "block/cube_all",
-    "textures": {
-        "all": "genesis:blocks/silt_red"
-    }
+	"parent": "block/cube_all",
+	"textures": {
+		"all": "genesis:blocks/silt_red"
+	}
 }

@@ -1,9 +1,9 @@
 {
-    "variants": {
-        "facing=up": { "model": "genesis:calamites_torch" },
-        "facing=east": { "model": "genesis:calamites_torch_wall" },
-        "facing=south": { "model": "genesis:calamites_torch_wall", "y": 90 },
-        "facing=west": { "model": "genesis:calamites_torch_wall", "y": 180 },
-        "facing=north": { "model": "genesis:calamites_torch_wall", "y": 270 }
-    }
+	"variants": {
+		"facing=up": { "model": "genesis:calamites_torch" },
+		"facing=east": { "model": "genesis:calamites_torch_wall" },
+		"facing=south": { "model": "genesis:calamites_torch_wall", "y": 90 },
+		"facing=west": { "model": "genesis:calamites_torch_wall", "y": 180 },
+		"facing=north": { "model": "genesis:calamites_torch_wall", "y": 270 }
+	}
 }

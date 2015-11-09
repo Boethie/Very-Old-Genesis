@@ -1,6 +1,6 @@
 {
-    "parent": "block/tallgrass",
-    "textures": {
-        "cross": "genesis:blocks/fern_zygopteris"
-    }
+	"parent": "block/tallgrass",
+	"textures": {
+		"cross": "genesis:blocks/fern_zygopteris"
+	}
 }

@@ -1,16 +1,16 @@
 {
-    "variants": {
-        "fire=uncovered": [
+	"variants": {
+		"fire=uncovered": [
 			{ "model": "genesis:campfire_fire", "y": 0 },
 			{ "model": "genesis:campfire_fire", "y": 90 },
 			{ "model": "genesis:campfire_fire", "y": 180 },
 			{ "model": "genesis:campfire_fire", "y": 270 }
 		],
-        "fire=covered": [
+		"fire=covered": [
 			{ "model": "genesis:campfire_fire_low", "y": 0 },
 			{ "model": "genesis:campfire_fire_low", "y": 90 },
 			{ "model": "genesis:campfire_fire_low", "y": 180 },
 			{ "model": "genesis:campfire_fire_low", "y": 270 }
 		]
-    }
+	}
 }

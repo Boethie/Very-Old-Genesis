@@ -1,6 +1,6 @@
 {
-    "parent": "block/tallgrass",
-    "textures": {
-        "cross": "genesis:blocks/double_rhacophyton_bottom"
-    }
+	"parent": "block/tallgrass",
+	"textures": {
+		"cross": "genesis:blocks/double_rhacophyton_bottom"
+	}
 }

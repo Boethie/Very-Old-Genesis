@@ -1,10 +1,10 @@
 {
-    "variants": {
-        "normal": [
-            { "model": "genesis:workbench" },
-            { "model": "genesis:workbench", "y": 90 },
-            { "model": "genesis:workbench", "y": 180 },
-            { "model": "genesis:workbench", "y": 270 }
-        ]
-    }
+	"variants": {
+		"normal": [
+			{ "model": "genesis:workbench" },
+			{ "model": "genesis:workbench", "y": 90 },
+			{ "model": "genesis:workbench", "y": 180 },
+			{ "model": "genesis:workbench", "y": 270 }
+		]
+	}
 }

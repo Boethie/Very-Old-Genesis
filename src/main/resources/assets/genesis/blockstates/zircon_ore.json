@@ -1,5 +1,5 @@
 {
-    "variants": {
-        "normal": { "model": "genesis:zircon_ore" }
-    }
+	"variants": {
+		"normal": { "model": "genesis:zircon_ore" }
+	}
 }

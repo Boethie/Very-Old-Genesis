@@ -1,57 +1,57 @@
 {
-    "__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
-    "elements": [
-        {   "__comment": "Post",
-            "from": [ 6, 0, -2 ],
-            "to": [ 10, 16, 2 ],
-            "faces": {
-                "west": { "uv": [ 12, 0, 16, 16 ], "texture": "#log", "rotation": 0 },
-                "north": { "uv": [ 8, 0, 12, 16 ], "texture": "#log", "rotation": 0 },
-                "east": { "uv": [ 4, 0, 8, 16 ], "texture": "#log", "rotation": 0 },
-                "south": { "uv": [ 0, 0, 4, 16 ], "texture": "#log", "rotation": 0 },
-                "down": { "uv": [ -0, 0, 4, 4 ], "texture": "#stick", "rotation": 0 },
-                "up": { "uv": [ 4, 0, 0, 4 ], "texture": "#stick", "rotation": 180 }
-            }
-        },
-        {   "__comment": "Top",
-            "from": [ 6, 12, 2 ],
-            "to": [ 10, 14, 14 ],
-            "faces": {
-                "east": { "uv": [ 4, 0, 6, 12 ], "texture": "#log", "rotation": 90 },
-                "west": { "uv": [ 10, 0, 12, 12 ], "texture": "#log", "rotation": 270 },
-                "down": { "uv": [ 6, 0, 10, 12 ], "texture": "#log", "rotation": 180 },
-                "up": { "uv": [ 0, 0, 4, 12 ], "texture": "#log", "rotation": 0 }
-            }
-        },
-        {   "__comment": "Sticks",
-            "from": [ 7, 2, 2 ],
-            "to": [ 9, 12, 14 ],
-            "faces": {
-                "east": { "uv": [ 12, 4, 0, 14 ], "texture": "#stick", "rotation": 0 },
-                "west": { "uv": [ 16, 4, 4, 14 ], "texture": "#stick", "rotation": 0 }
-            }
-        },
-        {   "__comment": "Bottom",
-            "from": [ 6, 0, 2 ],
-            "to": [ 10, 2, 14 ],
-            "faces": {
-                "east": { "uv": [ 6, 4, 8, 16 ], "texture": "#log", "rotation": 270 },
-                "west": { "uv": [ 0, 4, 2, 16 ], "texture": "#log", "rotation": 90 },
-                "down": { "uv": [ 2, 4, 6, 16 ], "texture": "#log", "rotation": 0 },
-                "up": { "uv": [ 8, 4, 12, 16 ], "texture": "#log", "rotation": 180 }
-            }
-        },
-        {   "__comment": "Post",
-            "from": [ 6, 0, 14 ],
-            "to": [ 10, 16, 18 ],
-            "faces": {
-                "west": { "uv": [ 12, 0, 16, 16 ], "texture": "#log", "rotation": 0 },
-                "north": { "uv": [ 8, 0, 12, 16 ], "texture": "#log", "rotation": 0 },
-                "east": { "uv": [ 4, 0, 8, 16 ], "texture": "#log", "rotation": 0 },
-                "south": { "uv": [ 0, 0, 4, 16 ], "texture": "#log", "rotation": 0 },
-                "down": { "uv": [ -0, 0, 4, 4 ], "texture": "#stick", "rotation": 0 },
-                "up": { "uv": [ 4, 0, 0, 4 ], "texture": "#stick", "rotation": 180 }
-            }
-        }
-    ]
+	"__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
+	"elements": [
+		{   "__comment": "Post",
+			"from": [ 6, 0, -2 ],
+			"to": [ 10, 16, 2 ],
+			"faces": {
+				"west": { "uv": [ 12, 0, 16, 16 ], "texture": "#log", "rotation": 0 },
+				"north": { "uv": [ 8, 0, 12, 16 ], "texture": "#log", "rotation": 0 },
+				"east": { "uv": [ 4, 0, 8, 16 ], "texture": "#log", "rotation": 0 },
+				"south": { "uv": [ 0, 0, 4, 16 ], "texture": "#log", "rotation": 0 },
+				"down": { "uv": [ -0, 0, 4, 4 ], "texture": "#stick", "rotation": 0 },
+				"up": { "uv": [ 4, 0, 0, 4 ], "texture": "#stick", "rotation": 180 }
+			}
+		},
+		{   "__comment": "Top",
+			"from": [ 6, 12, 2 ],
+			"to": [ 10, 14, 14 ],
+			"faces": {
+				"east": { "uv": [ 4, 0, 6, 12 ], "texture": "#log", "rotation": 90 },
+				"west": { "uv": [ 10, 0, 12, 12 ], "texture": "#log", "rotation": 270 },
+				"down": { "uv": [ 6, 0, 10, 12 ], "texture": "#log", "rotation": 180 },
+				"up": { "uv": [ 0, 0, 4, 12 ], "texture": "#log", "rotation": 0 }
+			}
+		},
+		{   "__comment": "Sticks",
+			"from": [ 7, 2, 2 ],
+			"to": [ 9, 12, 14 ],
+			"faces": {
+				"east": { "uv": [ 12, 4, 0, 14 ], "texture": "#stick", "rotation": 0 },
+				"west": { "uv": [ 16, 4, 4, 14 ], "texture": "#stick", "rotation": 0 }
+			}
+		},
+		{   "__comment": "Bottom",
+			"from": [ 6, 0, 2 ],
+			"to": [ 10, 2, 14 ],
+			"faces": {
+				"east": { "uv": [ 6, 4, 8, 16 ], "texture": "#log", "rotation": 270 },
+				"west": { "uv": [ 0, 4, 2, 16 ], "texture": "#log", "rotation": 90 },
+				"down": { "uv": [ 2, 4, 6, 16 ], "texture": "#log", "rotation": 0 },
+				"up": { "uv": [ 8, 4, 12, 16 ], "texture": "#log", "rotation": 180 }
+			}
+		},
+		{   "__comment": "Post",
+			"from": [ 6, 0, 14 ],
+			"to": [ 10, 16, 18 ],
+			"faces": {
+				"west": { "uv": [ 12, 0, 16, 16 ], "texture": "#log", "rotation": 0 },
+				"north": { "uv": [ 8, 0, 12, 16 ], "texture": "#log", "rotation": 0 },
+				"east": { "uv": [ 4, 0, 8, 16 ], "texture": "#log", "rotation": 0 },
+				"south": { "uv": [ 0, 0, 4, 16 ], "texture": "#log", "rotation": 0 },
+				"down": { "uv": [ -0, 0, 4, 4 ], "texture": "#stick", "rotation": 0 },
+				"up": { "uv": [ 4, 0, 0, 4 ], "texture": "#stick", "rotation": 180 }
+			}
+		}
+	]
 }

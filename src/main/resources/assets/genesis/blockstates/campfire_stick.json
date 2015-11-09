@@ -1,25 +1,25 @@
 {
-    "variants": {
-        "facing=z,fire=false": [
+	"variants": {
+		"facing=z,fire=false": [
 			{ "model": "genesis:campfire_stick_1", "weight": 2 },
 			{ "model": "genesis:campfire_stick_2" },
 			{ "model": "genesis:campfire_stick_2", "y": 180}
 		],
-        "facing=x,fire=false": [
+		"facing=x,fire=false": [
 			{ "model": "genesis:campfire_stick_1", "weight": 2 },
 			{ "model": "genesis:campfire_stick_2" },
 			{ "model": "genesis:campfire_stick_2", "y": 180}
 		],
 		
-        "facing=z,fire=true": [
+		"facing=z,fire=true": [
 			{ "model": "genesis:campfire_stick_1", "weight": 2 },
 			{ "model": "genesis:campfire_stick_2" },
 			{ "model": "genesis:campfire_stick_2", "y": 180}
 		],
-        "facing=x,fire=true": [
+		"facing=x,fire=true": [
 			{ "model": "genesis:campfire_stick_1", "weight": 2 },
 			{ "model": "genesis:campfire_stick_2" },
 			{ "model": "genesis:campfire_stick_2", "y": 180}
 		]
-    }
+	}
 }

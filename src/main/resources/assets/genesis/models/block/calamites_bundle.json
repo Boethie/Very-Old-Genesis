@@ -1,7 +1,7 @@
 {
-    "parent": "block/cube_column",
-    "textures": {
-        "end": "genesis:blocks/calamites_bundle",
-        "side": "genesis:blocks/calamites_bundle_side"
-    }
+	"parent": "block/cube_column",
+	"textures": {
+		"end": "genesis:blocks/calamites_bundle",
+		"side": "genesis:blocks/calamites_bundle_side"
+	}
 }

@@ -1,6 +1,6 @@
 {
-    "parent": "block/tallgrass",
-    "textures": {
-        "cross": "genesis:blocks/odontopteris_stage_7_top"
-    }
+	"parent": "block/tallgrass",
+	"textures": {
+		"cross": "genesis:blocks/odontopteris_stage_7_top"
+	}
 }

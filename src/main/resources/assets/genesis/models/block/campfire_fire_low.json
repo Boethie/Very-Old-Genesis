@@ -1,81 +1,81 @@
 {
-    "__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
-    "ambientocclusion": false,
-    "textures": {
-        "fire": "blocks/fire_layer_0"
-    },
-    "elements": [
-        {   "__comment": "Fire Covered Right 2",
-            "from": [ 4, -2, 3.99 ],
-            "to": [ 12, 9.2, 3.99 ],
-            "shade": false,
-            "faces": {
-                "south": { "uv": [ 0, 0, 16, 16 ], "texture": "#fire", "rotation": 0 },
-                "north": { "uv": [ 16, 0, 0, 16 ], "texture": "#fire", "rotation": 0 }
-            }
-        },
-        {   "__comment": "Fire Covered Front 2",
-            "from": [ 12.01, -2, 4 ],
-            "to": [ 12.01, 9.2, 12 ],
-            "shade": false,
-            "faces": {
-                "west": { "uv": [ 0, 0, 16, 16 ], "texture": "#fire", "rotation": 0 },
-                "east": { "uv": [ 16, 0, 0, 16 ], "texture": "#fire", "rotation": 0 }
-            }
-        },
-        {   "__comment": "Fire Covered Left 2",
-            "from": [ 4, -2, 12.01 ],
-            "to": [ 12, 9.2, 12.01 ],
-            "shade": false,
-            "faces": {
-                "north": { "uv": [ 0, 0, 16, 16 ], "texture": "#fire", "rotation": 0 },
-                "south": { "uv": [ 16, 0, 0, 16 ], "texture": "#fire", "rotation": 0 }
-            }
-        },
-        {   "__comment": "Fire Covered Back 2",
-            "from": [ 3.99, -2, 4 ],
-            "to": [ 3.99, 9.2, 12 ],
-            "shade": false,
-            "faces": {
-                "east": { "uv": [ 0, 0, 16, 16 ], "texture": "#fire", "rotation": 0 },
-                "west": { "uv": [ 16, 0, 0, 16 ], "texture": "#fire", "rotation": 0 }
-            }
-        },
-        {   "__comment": "Fire Covered Back 1",
-            "from": [ 4.99, 0, 4 ],
-            "to": [ 4.99, 11.2, 12 ],
-            "shade": false,
-            "faces": {
-                "west": { "uv": [ 0, 0, 16, 16 ], "texture": "#fire", "rotation": 0 },
-                "east": { "uv": [ 16, 0, 0, 16 ], "texture": "#fire", "rotation": 0 }
-            }
-        },
-        {   "__comment": "Fire Covered Left 1",
-            "from": [ 4, 0, 11.01 ],
-            "to": [ 12, 11.2, 11.01 ],
-            "shade": false,
-            "faces": {
-                "south": { "uv": [ 0, 0, 16, 16 ], "texture": "#fire", "rotation": 0 },
-                "north": { "uv": [ 16, 0, 0, 16 ], "texture": "#fire", "rotation": 0 }
-            }
-        },
-        {   "__comment": "Fire Covered Front 1",
-            "from": [ 11.01, 0, 4 ],
-            "to": [ 11.01, 11.2, 12 ],
-            "shade": false,
-            "faces": {
-                "east": { "uv": [ 0, 0, 16, 16 ], "texture": "#fire", "rotation": 0 },
-                "west": { "uv": [ 16, 0, 0, 16 ], "texture": "#fire", "rotation": 0 }
-            }
-        },
-        {   "__comment": "Fire Covered Right 1",
-            "from": [ 4, 0, 4.99 ],
-            "to": [ 12, 11.2, 4.99 ],
-            "shade": false,
-            "faces": {
-                "north": { "uv": [ 0, 0, 16, 16 ], "texture": "#fire", "rotation": 0 },
-                "south": { "uv": [ 16, 0, 0, 16 ], "texture": "#fire", "rotation": 0 }
-            }
-        }
-    ]
+	"__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
+	"ambientocclusion": false,
+	"textures": {
+		"fire": "blocks/fire_layer_0"
+	},
+	"elements": [
+		{   "__comment": "Fire Covered Right 2",
+			"from": [ 4, -2, 3.99 ],
+			"to": [ 12, 9.2, 3.99 ],
+			"shade": false,
+			"faces": {
+				"south": { "uv": [ 0, 0, 16, 16 ], "texture": "#fire", "rotation": 0 },
+				"north": { "uv": [ 16, 0, 0, 16 ], "texture": "#fire", "rotation": 0 }
+			}
+		},
+		{   "__comment": "Fire Covered Front 2",
+			"from": [ 12.01, -2, 4 ],
+			"to": [ 12.01, 9.2, 12 ],
+			"shade": false,
+			"faces": {
+				"west": { "uv": [ 0, 0, 16, 16 ], "texture": "#fire", "rotation": 0 },
+				"east": { "uv": [ 16, 0, 0, 16 ], "texture": "#fire", "rotation": 0 }
+			}
+		},
+		{   "__comment": "Fire Covered Left 2",
+			"from": [ 4, -2, 12.01 ],
+			"to": [ 12, 9.2, 12.01 ],
+			"shade": false,
+			"faces": {
+				"north": { "uv": [ 0, 0, 16, 16 ], "texture": "#fire", "rotation": 0 },
+				"south": { "uv": [ 16, 0, 0, 16 ], "texture": "#fire", "rotation": 0 }
+			}
+		},
+		{   "__comment": "Fire Covered Back 2",
+			"from": [ 3.99, -2, 4 ],
+			"to": [ 3.99, 9.2, 12 ],
+			"shade": false,
+			"faces": {
+				"east": { "uv": [ 0, 0, 16, 16 ], "texture": "#fire", "rotation": 0 },
+				"west": { "uv": [ 16, 0, 0, 16 ], "texture": "#fire", "rotation": 0 }
+			}
+		},
+		{   "__comment": "Fire Covered Back 1",
+			"from": [ 4.99, 0, 4 ],
+			"to": [ 4.99, 11.2, 12 ],
+			"shade": false,
+			"faces": {
+				"west": { "uv": [ 0, 0, 16, 16 ], "texture": "#fire", "rotation": 0 },
+				"east": { "uv": [ 16, 0, 0, 16 ], "texture": "#fire", "rotation": 0 }
+			}
+		},
+		{   "__comment": "Fire Covered Left 1",
+			"from": [ 4, 0, 11.01 ],
+			"to": [ 12, 11.2, 11.01 ],
+			"shade": false,
+			"faces": {
+				"south": { "uv": [ 0, 0, 16, 16 ], "texture": "#fire", "rotation": 0 },
+				"north": { "uv": [ 16, 0, 0, 16 ], "texture": "#fire", "rotation": 0 }
+			}
+		},
+		{   "__comment": "Fire Covered Front 1",
+			"from": [ 11.01, 0, 4 ],
+			"to": [ 11.01, 11.2, 12 ],
+			"shade": false,
+			"faces": {
+				"east": { "uv": [ 0, 0, 16, 16 ], "texture": "#fire", "rotation": 0 },
+				"west": { "uv": [ 16, 0, 0, 16 ], "texture": "#fire", "rotation": 0 }
+			}
+		},
+		{   "__comment": "Fire Covered Right 1",
+			"from": [ 4, 0, 4.99 ],
+			"to": [ 12, 11.2, 4.99 ],
+			"shade": false,
+			"faces": {
+				"north": { "uv": [ 0, 0, 16, 16 ], "texture": "#fire", "rotation": 0 },
+				"south": { "uv": [ 16, 0, 0, 16 ], "texture": "#fire", "rotation": 0 }
+			}
+		}
+	]
 }

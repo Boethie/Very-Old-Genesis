@@ -1,5 +1,5 @@
 {
-    "variants": {
-        "normal": { "model": "genesis:permafrost" }
-    }
+	"variants": {
+		"normal": { "model": "genesis:permafrost" }
+	}
 }

@@ -1,5 +1,5 @@
 {
-    "variants": {
-        "normal": { "model": "genesis:cordaites_sapling" }
-    }
+	"variants": {
+		"normal": { "model": "genesis:cordaites_sapling" }
+	}
 }
