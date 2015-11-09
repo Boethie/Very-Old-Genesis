@@ -14,6 +14,7 @@ import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.event.ForgeEventFactory;
 
 public class ItemDyeBowl extends ItemMulti<IMetadata>
 {
@@ -70,12 +71,17 @@ public class ItemDyeBowl extends ItemMulti<IMetadata>
 			}
 		}
 		
-		if (consume)
+		if (consume && !player.capabilities.isCreativeMode)
 		{
-			stack.stackSize--;
 			ItemStack empty = bowlsOwner.getStack(EnumCeramicBowls.BOWL);
 			
-			if (!player.worldObj.isRemote && !player.capabilities.isCreativeMode && !player.inventory.addItemStackToInventory(empty))
+			if (--stack.stackSize <= 0)
+			{
+				ForgeEventFactory.onPlayerDestroyItem(player, stack);
+				stack.stackSize = 1;	// Hack to make the code calling this ignore that the stack has been destroyed.
+				player.inventory.setInventorySlotContents(player.inventory.currentItem, empty);
+			}
+			else if (!player.worldObj.isRemote && !player.inventory.addItemStackToInventory(empty))
 			{
 				player.dropPlayerItemWithRandomChoice(empty, false);
 			}
