@@ -73,7 +73,7 @@ public class ItemDyeBowl extends ItemMulti<IMetadata>
 		
 		if (consume && !player.capabilities.isCreativeMode)
 		{
-			ItemStack empty = bowlsOwner.getStack(EnumCeramicBowls.BOWL);
+			ItemStack empty = getContainerItem(stack);
 			
 			if (--stack.stackSize <= 0)
 			{
