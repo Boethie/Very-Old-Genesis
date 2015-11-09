@@ -22,15 +22,15 @@ public class ItemDung extends ItemMulti
 	}
 	
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
+	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
     {
-		if (playerIn.canPlayerEdit(pos.offset(side), side, stack) && ItemDye.applyBonemeal(stack, worldIn, pos, playerIn))
+		if (player.canPlayerEdit(pos.offset(side), side, stack) && ItemDye.applyBonemeal(stack, world, pos, player))
 		{
-			if (!worldIn.isRemote)
+			if (!world.isRemote)
 			{
-				worldIn.playAuxSFX(2005, pos, 0);
+				world.playAuxSFX(2005, pos, 0);
 			}
-
+			
 			return true;
 		}
 		
