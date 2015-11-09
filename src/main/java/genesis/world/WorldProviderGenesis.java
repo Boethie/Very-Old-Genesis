@@ -15,17 +15,17 @@ public class WorldProviderGenesis extends WorldProvider
 {
 	protected float[] colorsSunriseSunset = new float[4];
 	
-    protected void generateLightBrightnessTable()
-    {
-        float f = -0.0F;
-        
-        for (int i = 0; i <= 15; ++i)
-        {
-            float f1 = 1.0F - (float)i / 15.0F;
-            this.lightBrightnessTable[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * (1.0F - f) + f;
-        }
-    }
-    
+	protected void generateLightBrightnessTable()
+	{
+		float f = -0.0F;
+		
+		for (int i = 0; i <= 15; ++i)
+		{
+			float f1 = 1.0F - (float)i / 15.0F;
+			this.lightBrightnessTable[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * (1.0F - f) + f;
+		}
+	}
+	
 	@Override
 	public String getDimensionName()
 	{
@@ -57,7 +57,7 @@ public class WorldProviderGenesis extends WorldProvider
 	}
 	
 	@Override
-    public float calculateCelestialAngle(long par1, float par3)
+	public float calculateCelestialAngle(long par1, float par3)
 	{
 		int j = (int) (par1 % 34000L);
 		float f1 = ((float) j + par3) / 34000.0F - 0.25F;
@@ -75,7 +75,7 @@ public class WorldProviderGenesis extends WorldProvider
 	}
 	
 	@Override
-    public int getMoonPhase(long par1)
+	public int getMoonPhase(long par1)
 	{
 		return (int) (par1 / 34000L % 8L + 8L) % 8;
 	}
@@ -98,8 +98,8 @@ public class WorldProviderGenesis extends WorldProvider
 	}
 	
 	@Override
-    @SideOnly(Side.CLIENT)
-    public float[] calcSunriseSunsetColors(float par1, float par2)
+	@SideOnly(Side.CLIENT)
+	public float[] calcSunriseSunsetColors(float par1, float par2)
 	{
 		float f2 = 0.4F;
 		float f3 = MathHelper.cos(par1 * (float) Math.PI * 2.0F) - 0.0F;
@@ -177,20 +177,20 @@ public class WorldProviderGenesis extends WorldProvider
 	}
 	
 	@Override
-    public void setWorldTime(long time)
+	public void setWorldTime(long time)
 	{
 		worldObj.getWorldInfo().setWorldTime(time);
 	}
 	
 	@Override
-    public long getWorldTime()
+	public long getWorldTime()
 	{
 		return worldObj.getWorldInfo().getWorldTime();
 	}
 	
 	@Override
 	public boolean canCoordinateBeSpawn(int x, int z)
-    {
-        return worldObj.getGroundAboveSeaLevel(new BlockPos(x, 0, z)) == GenesisBlocks.moss;
-    }
+	{
+		return worldObj.getGroundAboveSeaLevel(new BlockPos(x, 0, z)) == GenesisBlocks.moss;
+	}
 }

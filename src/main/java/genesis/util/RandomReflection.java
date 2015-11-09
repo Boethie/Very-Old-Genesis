@@ -150,11 +150,11 @@ public class RandomReflection
 			String id = getSoundID(sound);
 			
 			getPlayingSounds().remove(id);
-	        getSoundSystem().removeSource(id);
-	        getPlayingSoundsStopTime().remove(id);
-	        getPlayingSoundPoolEntries().remove(sound);
-	        getCategorySounds().remove(getSoundHandler().getSound(sound.getSoundLocation()).getSoundCategory(), id);
-	        getTickableSounds().remove(sound);
+			getSoundSystem().removeSource(id);
+			getPlayingSoundsStopTime().remove(id);
+			getPlayingSoundPoolEntries().remove(sound);
+			getCategorySounds().remove(getSoundHandler().getSound(sound.getSoundLocation()).getSoundCategory(), id);
+			getTickableSounds().remove(sound);
 		}
 	}
 }

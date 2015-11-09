@@ -103,15 +103,15 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 	}
 	
 	@Override
-    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
-    {
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
+	{
 		if (!noDrops.contains(state.getValue(variantProp)))
 		{
-	        return super.getDrops(world, pos, state, fortune);
+			return super.getDrops(world, pos, state, fortune);
 		}
 		
 		return Collections.emptyList();
-    }
+	}
 	
 	@Override
 	public int damageDropped(IBlockState state)

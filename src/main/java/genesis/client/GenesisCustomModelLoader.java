@@ -65,14 +65,14 @@ public class GenesisCustomModelLoader implements ICustomModelLoader
 		instance.smartModels.put(loc, model);
 	}
 
-    @SubscribeEvent
-    public void onModelBakeEvent(ModelBakeEvent event)
-    {
-    	for (Entry<ResourceLocation, ISmartBlockModel> entry : smartModels.entrySet())
-    	{
-    		ISmartBlockModel model = entry.getValue();
-    		ResourceLocation resource = entry.getKey();
-            event.modelRegistry.putObject(resource, model);
-    	}
-    }
+	@SubscribeEvent
+	public void onModelBakeEvent(ModelBakeEvent event)
+	{
+		for (Entry<ResourceLocation, ISmartBlockModel> entry : smartModels.entrySet())
+		{
+			ISmartBlockModel model = entry.getValue();
+			ResourceLocation resource = entry.getKey();
+			event.modelRegistry.putObject(resource, model);
+		}
+	}
 }

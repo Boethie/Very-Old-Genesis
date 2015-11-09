@@ -157,10 +157,10 @@ public class HashBiTable<R, C, V> implements BiTable<R, C, V>
 	
 	protected void onChanged()
 	{
-	    modCount++;
+		modCount++;
 
-	    ImmutableSet.Builder<R> rowBuilder = ImmutableSet.builder();
-	    ImmutableSet.Builder<C> colBuilder = ImmutableSet.builder();
+		ImmutableSet.Builder<R> rowBuilder = ImmutableSet.builder();
+		ImmutableSet.Builder<C> colBuilder = ImmutableSet.builder();
 		
 		for (Key<R, C> key : backingMap.keySet())
 		{
@@ -175,12 +175,12 @@ public class HashBiTable<R, C, V> implements BiTable<R, C, V>
 	@Override
 	public V put(R rowKey, C columnKey, V value)
 	{
-	    checkNotNull(rowKey);
-	    checkNotNull(columnKey);
-	    checkNotNull(value);
-	    
-	    V old = backingMap.put(new Key<R, C>(rowKey, columnKey), value);
-	    onChanged();
+		checkNotNull(rowKey);
+		checkNotNull(columnKey);
+		checkNotNull(value);
+		
+		V old = backingMap.put(new Key<R, C>(rowKey, columnKey), value);
+		onChanged();
 		return old;
 	}
 
@@ -190,7 +190,7 @@ public class HashBiTable<R, C, V> implements BiTable<R, C, V>
 		if (isValidKey(rowKey, columnKey))
 		{
 			V old = backingMap.remove(new Key<Object, Object>(rowKey, columnKey));
-		    onChanged();
+			onChanged();
 			return old;
 		}
 		

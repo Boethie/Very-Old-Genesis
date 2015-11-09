@@ -135,8 +135,8 @@ public abstract class EntityFixed extends Entity
 	@Override
 	public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int ticks, boolean unknown)
 	{
-        setPosition(x, y, z);
-        setRotation(yaw, pitch);
+		setPosition(x, y, z);
+		setRotation(yaw, pitch);
 	}
 	
 	@Override

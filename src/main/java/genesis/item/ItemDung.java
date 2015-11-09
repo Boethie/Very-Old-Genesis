@@ -23,7 +23,7 @@ public class ItemDung extends ItemMulti
 	
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
-    {
+	{
 		if (player.canPlayerEdit(pos.offset(side), side, stack) && ItemDye.applyBonemeal(stack, world, pos, player))
 		{
 			if (!world.isRemote)
@@ -35,5 +35,5 @@ public class ItemDung extends ItemMulti
 		}
 		
 		return false;
-    }
+	}
 }

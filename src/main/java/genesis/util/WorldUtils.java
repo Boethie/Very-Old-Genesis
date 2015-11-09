@@ -51,7 +51,7 @@ public class WorldUtils
 	}
 	
 	/**
-	 * @param worldIn The world.
+	 * @param world The world.
 	 * @param pos The position to start from.
 	 * @param dNegX The distance along the X axis in the negative direction.
 	 * @param dPosX The distance along the X axis in the positive direction.
@@ -305,8 +305,8 @@ public class WorldUtils
 			
 			@Override public int getStrongPower(BlockPos pos, EnumFacing direction)
 			{
-		        IBlockState state = getBlockState(pos);
-		        return state.getBlock().isProvidingStrongPower(this, pos, state, direction);
+				IBlockState state = getBlockState(pos);
+				return state.getBlock().isProvidingStrongPower(this, pos, state, direction);
 			}
 			
 			@Override public boolean isSideSolid(BlockPos pos, EnumFacing side, boolean _default)

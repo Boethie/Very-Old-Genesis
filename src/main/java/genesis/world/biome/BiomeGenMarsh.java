@@ -74,7 +74,7 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		}
 		
 		generateBiomeTerrain(world, rand, p_180622_3_, p_180622_4_, p_180622_5_, p_180622_6_);
-    }
+	}
 	
 	@Override
 	public void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)

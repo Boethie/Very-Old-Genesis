@@ -53,15 +53,15 @@ public class ItemGenesisSeeds extends ItemSeeds
 		return false;
 	}
 
-    @Override
-    public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos)
-    {
-        return null;
-    }
+	@Override
+	public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos)
+	{
+		return null;
+	}
 
-    @Override
-    public IBlockState getPlant(IBlockAccess world, BlockPos pos)
-    {
-        return null;
-    }
+	@Override
+	public IBlockState getPlant(IBlockAccess world, BlockPos pos)
+	{
+		return null;
+	}
 }

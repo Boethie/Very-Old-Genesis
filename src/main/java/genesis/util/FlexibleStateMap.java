@@ -66,7 +66,7 @@ public class FlexibleStateMap extends StateMapperBase
 	
 	public FlexibleStateMap addIgnoredProperties(IProperty... addProperties)
 	{
-        Collections.addAll(ignoreProperties, addProperties);
+		Collections.addAll(ignoreProperties, addProperties);
 		
 		return this;
 	}
@@ -86,7 +86,7 @@ public class FlexibleStateMap extends StateMapperBase
 		// Set main name section.
 		if (nameProperty != null)
 		{
-            outMain = nameProperty.getName(propertyMap.remove(nameProperty));
+			outMain = nameProperty.getName(propertyMap.remove(nameProperty));
 		}
 		
 		// Set prefix name section.

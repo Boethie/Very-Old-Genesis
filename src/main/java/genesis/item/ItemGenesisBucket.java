@@ -52,31 +52,31 @@ public class ItemGenesisBucket extends ItemBucket
 		return containedBlock == Blocks.air;
 	}
 
-    protected ItemStack fillBucket(ItemStack emptyBucket, EntityPlayer player, Item fullItem)
-    {
-        if (player.capabilities.isCreativeMode)
-        {
-            return emptyBucket;
-        }
-        else
-        {
-        	ItemStack full = new ItemStack(fullItem);
-        	
-	        if (--emptyBucket.stackSize <= 0)
-	        {
-	            return full;
-	        }
-	        else
-	        {
-	            if (!player.inventory.addItemStackToInventory(full))
-	            {
-	                player.dropPlayerItemWithRandomChoice(full, false);
-	            }
+	protected ItemStack fillBucket(ItemStack emptyBucket, EntityPlayer player, Item fullItem)
+	{
+		if (player.capabilities.isCreativeMode)
+		{
+			return emptyBucket;
+		}
+		else
+		{
+			ItemStack full = new ItemStack(fullItem);
+			
+			if (--emptyBucket.stackSize <= 0)
+			{
+				return full;
+			}
+			else
+			{
+				if (!player.inventory.addItemStackToInventory(full))
+				{
+					player.dropPlayerItemWithRandomChoice(full, false);
+				}
 	
-	            return emptyBucket;
-	        }
-        }
-    }
+				return emptyBucket;
+			}
+		}
+	}
 	
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)

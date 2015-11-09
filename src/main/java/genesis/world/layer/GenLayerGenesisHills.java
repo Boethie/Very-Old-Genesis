@@ -78,13 +78,13 @@ public class GenLayerGenesisHills extends GenLayerGenesis
 					*/
 					
 					if (k1 == GenesisBiomes.rainforest.biomeID)
-                    {
-                        i2 = GenesisBiomes.rainforestHills.biomeID;
-                    }
-                    else if (k1 == GenesisBiomes.auxForest.biomeID)
-                    {
-                        i2 = GenesisBiomes.auxForestHills.biomeID;
-                    }
+					{
+						i2 = GenesisBiomes.rainforestHills.biomeID;
+					}
+					else if (k1 == GenesisBiomes.auxForest.biomeID)
+					{
+						i2 = GenesisBiomes.auxForestHills.biomeID;
+					}
 					
 					if (flag && i2 != k1)
 					{

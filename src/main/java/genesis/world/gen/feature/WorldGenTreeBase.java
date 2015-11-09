@@ -27,11 +27,11 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	protected boolean notify;
 	
 	protected int minHeight;
-    protected int maxHeight;
+	protected int maxHeight;
 	
-    private int treeCountPerChunk = 0;
-    private boolean canGrowInWater = false;
-    
+	private int treeCountPerChunk = 0;
+	private boolean canGrowInWater = false;
+	
 	public WorldGenTreeBase(IBlockState wood, IBlockState leaves, boolean notify)
 	{
 		super(notify);

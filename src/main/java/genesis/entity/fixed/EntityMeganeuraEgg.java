@@ -118,7 +118,7 @@ public class EntityMeganeuraEgg extends EntityEgg
 		{
 			super(Minecraft.getMinecraft().getRenderManager());
 			
-	        shadowSize = 0;
+			shadowSize = 0;
 		}
 		
 		@Override
@@ -127,13 +127,13 @@ public class EntityMeganeuraEgg extends EntityEgg
 			//Minecraft.getMinecraft().getTextureManager().loadTexture(texture, new net.minecraft.client.renderer.texture.SimpleTexture(texture));
 			//model = new Model();
 			
-	        GlStateManager.pushMatrix();
-	        GlStateManager.translate(x, y, z);
-	        
+			GlStateManager.pushMatrix();
+			GlStateManager.translate(x, y, z);
+			
 			RenderHelpers.renderEntityBounds(entity, partialTick);
-	        
-	        bindEntityTexture(entity);
-	        model.render(entity, 0, 0, 0, 0, 0, 0.0625F);
+			
+			bindEntityTexture(entity);
+			model.render(entity, 0, 0, 0, 0, 0, 0.0625F);
 			
 			GlStateManager.popMatrix();
 			

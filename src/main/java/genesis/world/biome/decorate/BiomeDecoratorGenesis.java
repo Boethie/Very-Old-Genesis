@@ -118,14 +118,14 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 		
 		generateOres();
 
-        boolean doGen = TerrainGen.decorate(currentWorld, randomGenerator, field_180294_c, SAND);
-        
-        for (int i = 0; doGen && i < sandPerChunk2; ++i)
-        {
-            int x = nextInt(16) + 8;
-            int z = nextInt(16) + 8;
-            sandGen.generate(currentWorld, randomGenerator, currentWorld.getTopSolidOrLiquidBlock(field_180294_c.add(x, 0, z)));
-        }
+		boolean doGen = TerrainGen.decorate(currentWorld, randomGenerator, field_180294_c, SAND);
+		
+		for (int i = 0; doGen && i < sandPerChunk2; ++i)
+		{
+			int x = nextInt(16) + 8;
+			int z = nextInt(16) + 8;
+			sandGen.generate(currentWorld, randomGenerator, currentWorld.getTopSolidOrLiquidBlock(field_180294_c.add(x, 0, z)));
+		}
 		
 		doGen = TerrainGen.decorate(currentWorld, randomGenerator, field_180294_c, CLAY);
 		
@@ -187,11 +187,11 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			
 			doGen = TerrainGen.decorate(currentWorld, randomGenerator, field_180294_c, LAKE_LAVA);
 			
-            for (int i = 0; doGen && i < 20; ++i)
-            {
-            	BlockPos pos = field_180294_c.add(nextInt(16) + 8, nextInt(nextInt(nextInt(240) + 8) + 8), nextInt(16) + 8);
-                (new WorldGenGenesisLiquids(GenesisBlocks.komatiitic_lava)).generate(currentWorld, randomGenerator, pos);
-            }
+			for (int i = 0; doGen && i < 20; ++i)
+			{
+				BlockPos pos = field_180294_c.add(nextInt(16) + 8, nextInt(nextInt(nextInt(240) + 8) + 8), nextInt(16) + 8);
+				(new WorldGenGenesisLiquids(GenesisBlocks.komatiitic_lava)).generate(currentWorld, randomGenerator, pos);
+			}
 		}
 		
 		MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(currentWorld, randomGenerator, field_180294_c));

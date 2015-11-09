@@ -115,7 +115,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 		
 		if (fortune > 0)
 		{
-		    chance = Math.max(chance - (2 << fortune), 10);
+			chance = Math.max(chance - (2 << fortune), 10);
 		}
 		
 		if (rand.nextInt(chance) == 0)

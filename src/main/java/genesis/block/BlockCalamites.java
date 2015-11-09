@@ -40,16 +40,16 @@ public class BlockCalamites extends BlockGrowingPlant implements IGrowingPlantCu
 	}
 	
 	@Override
-    public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face)
-    {
-        return 30;
-    }
+	public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face)
+	{
+		return 30;
+	}
 	
 	@Override
-    public int getFireSpreadSpeed(IBlockAccess world, BlockPos pos, EnumFacing face)
-    {
-        return 5;
-    }
+	public int getFireSpreadSpeed(IBlockAccess world, BlockPos pos, EnumFacing face)
+	{
+		return 5;
+	}
 
 	@Override
 	public void managePlantMetaProperties(BlockGrowingPlant plant, ArrayList<IProperty> metaProps)

@@ -115,9 +115,9 @@ public class BlockMoss extends BlockGrass
 							IBlockState tallgrass = Blocks.tallgrass.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS);
 							
 							if (Blocks.tallgrass.canBlockStay(worldIn, topBlock, tallgrass))
-	                        {
-	                            worldIn.setBlockState(topBlock, tallgrass, 3);
-	                        }
+							{
+								worldIn.setBlockState(topBlock, tallgrass, 3);
+							}
 						}
 					}
 					

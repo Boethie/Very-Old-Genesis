@@ -233,19 +233,19 @@ public class ContainerKnapper extends ContainerBase
 	public void detectAndSendChanges()
 	{
 		int outputSlot = outputSlotMain.slotNumber;
-        ItemStack oldOutput = (ItemStack) inventoryItemStacks.get(outputSlot);
-        ItemStack newOutput = ((Slot) inventorySlots.get(outputSlot)).getStack();
-        
-        if (!ItemStack.areItemStacksEqual(oldOutput, newOutput))
-        {
-	        for (ICrafting crafting : (List<ICrafting>) crafters)
-	        {
-	        	if (crafting instanceof EntityPlayerMP)
-	        	{
-	        		((EntityPlayerMP) crafting).playerNetServerHandler.sendPacket(new S2FPacketSetSlot(windowId, outputSlot, newOutput));
-	        	}
-	        }
-        }
+		ItemStack oldOutput = (ItemStack) inventoryItemStacks.get(outputSlot);
+		ItemStack newOutput = ((Slot) inventorySlots.get(outputSlot)).getStack();
+		
+		if (!ItemStack.areItemStacksEqual(oldOutput, newOutput))
+		{
+			for (ICrafting crafting : (List<ICrafting>) crafters)
+			{
+				if (crafting instanceof EntityPlayerMP)
+				{
+					((EntityPlayerMP) crafting).playerNetServerHandler.sendPacket(new S2FPacketSetSlot(windowId, outputSlot, newOutput));
+				}
+			}
+		}
 		
 		super.detectAndSendChanges();
 		

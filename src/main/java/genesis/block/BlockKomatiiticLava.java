@@ -43,7 +43,7 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 	}
 	
 	@SideOnly(Side.CLIENT)
-    public void randomDisplayTick(World world, BlockPos pos, IBlockState state, Random rand)
+	public void randomDisplayTick(World world, BlockPos pos, IBlockState state, Random rand)
 	{
 		if (rand.nextInt(500) == 0)
 		{
@@ -63,7 +63,7 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 		}
 		
 		float levelF = (Integer) world.getBlockState(pos).getValue(LEVEL) / quantaPerBlockFloat;
-        return Math.round((1 - levelF) * maxScaledLight);
+		return Math.round((1 - levelF) * maxScaledLight);
 	}
 	
 	public boolean checkForMixing(World world, BlockPos pos, IBlockState state)
@@ -116,67 +116,67 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 	}
 	
 	@Override
-    public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
-    {
+	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
+	{
 		super.updateTick(world, pos, state, rand);
 		
-        if (world.getGameRules().getGameRuleBooleanValue("doFireTick"))
-        {
-            int i = rand.nextInt(3);
-            
-            if (i > 0)
-            {
-                BlockPos randPos = pos;
-                
-                for (int j = 0; j < i; ++j)
-                {
-                    randPos = randPos.add(rand.nextInt(3) - 1, 1, rand.nextInt(3) - 1);
-                    Block randBlock = world.getBlockState(randPos).getBlock();
-                    
-                    if (randBlock.getMaterial() == Material.air)
-                    {
-                        if (isSurroundingBlockFlammable(world, randPos))
-                        {
-                            world.setBlockState(randPos, Blocks.fire.getDefaultState());
-                            return;
-                        }
-                    }
-                    else if (randBlock.getMaterial().blocksMovement())
-                    {
-                        return;
-                    }
-                }
-            }
-            else
-            {
-                for (int k = 0; k < 3; ++k)
-                {
-                    BlockPos randPos = pos.add(rand.nextInt(3) - 1, 0, rand.nextInt(3) - 1);
-                    
-                    if (world.isAirBlock(randPos.up()) && getCanBlockBurn(world, randPos))
-                    {
-                        world.setBlockState(randPos.up(), Blocks.fire.getDefaultState());
-                    }
-                }
-            }
-        }
-    }
+		if (world.getGameRules().getGameRuleBooleanValue("doFireTick"))
+		{
+			int i = rand.nextInt(3);
+			
+			if (i > 0)
+			{
+				BlockPos randPos = pos;
+				
+				for (int j = 0; j < i; ++j)
+				{
+					randPos = randPos.add(rand.nextInt(3) - 1, 1, rand.nextInt(3) - 1);
+					Block randBlock = world.getBlockState(randPos).getBlock();
+					
+					if (randBlock.getMaterial() == Material.air)
+					{
+						if (isSurroundingBlockFlammable(world, randPos))
+						{
+							world.setBlockState(randPos, Blocks.fire.getDefaultState());
+							return;
+						}
+					}
+					else if (randBlock.getMaterial().blocksMovement())
+					{
+						return;
+					}
+				}
+			}
+			else
+			{
+				for (int k = 0; k < 3; ++k)
+				{
+					BlockPos randPos = pos.add(rand.nextInt(3) - 1, 0, rand.nextInt(3) - 1);
+					
+					if (world.isAirBlock(randPos.up()) && getCanBlockBurn(world, randPos))
+					{
+						world.setBlockState(randPos.up(), Blocks.fire.getDefaultState());
+					}
+				}
+			}
+		}
+	}
 	
-    protected boolean isSurroundingBlockFlammable(World world, BlockPos pos)
-    {
-        for (EnumFacing side : EnumFacing.values())
-        {
-            if (getCanBlockBurn(world, pos.offset(side)))
-            {
-                return true;
-            }
-        }
-        
-        return false;
-    }
-    
-    private boolean getCanBlockBurn(World world, BlockPos pos)
-    {
-        return world.getBlockState(pos).getBlock().getMaterial().getCanBurn();
-    }
+	protected boolean isSurroundingBlockFlammable(World world, BlockPos pos)
+	{
+		for (EnumFacing side : EnumFacing.values())
+		{
+			if (getCanBlockBurn(world, pos.offset(side)))
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	private boolean getCanBlockBurn(World world, BlockPos pos)
+	{
+		return world.getBlockState(pos).getBlock().getMaterial().getCanBurn();
+	}
 }

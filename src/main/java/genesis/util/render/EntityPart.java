@@ -120,17 +120,17 @@ public class EntityPart extends ModelRenderer
 		offsetX = x;
 		offsetY = y;
 		offsetZ = z;
-        
-        return this;
+		
+		return this;
 	}
 	
 	public EntityPart setRotation(float x, float y, float z)
 	{
-        rotateAngleX = x;
-        rotateAngleY = y;
-        rotateAngleZ = z;
-        
-        return this;
+		rotateAngleX = x;
+		rotateAngleY = y;
+		rotateAngleZ = z;
+		
+		return this;
 	}
 	
 	public void render(float scale)

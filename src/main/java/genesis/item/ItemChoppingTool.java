@@ -31,16 +31,16 @@ public class ItemChoppingTool extends ItemAxe
 		this.type = type;
 		this.objType = objType;
 	}
-    
+	
 	@Override
-    public Multimap<String, AttributeModifier> getItemAttributeModifiers()
-    {
-        Multimap<String, AttributeModifier> map = super.getItemAttributeModifiers();
-        String key = SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName();
-        map.removeAll(key);
-        map.put(key, new AttributeModifier(itemModifierUUID, "Tool modifier", 1 + getToolMaterial().getDamageVsEntity(), 0));
-        return map;
-    }
+	public Multimap<String, AttributeModifier> getItemAttributeModifiers()
+	{
+		Multimap<String, AttributeModifier> map = super.getItemAttributeModifiers();
+		String key = SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName();
+		map.removeAll(key);
+		map.put(key, new AttributeModifier(itemModifierUUID, "Tool modifier", 1 + getToolMaterial().getDamageVsEntity(), 0));
+		return map;
+	}
 	
 	@Override
 	public String getUnlocalizedName(ItemStack stack)

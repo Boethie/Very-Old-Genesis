@@ -112,14 +112,14 @@ public class BlockGenesisVariants<V extends IMetadata> extends Block
 	}
 	
 	@Override
-    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
-    {
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
+	{
 		ArrayList<ItemStack> stackList = new ArrayList<ItemStack>();
 		V variant = (V) state.getValue(variantProp);
 		
 		if (!noItemVariants.contains(variant))
 		{
-	        Random rand = world instanceof World ? ((World) world).rand : RANDOM;
+			Random rand = world instanceof World ? ((World) world).rand : RANDOM;
 			
 			for (VariantDrop<V> drop : drops)
 			{
@@ -133,7 +133,7 @@ public class BlockGenesisVariants<V extends IMetadata> extends Block
 		}
 		
 		return stackList;
-    }
+	}
 	
 	@Override
 	public int damageDropped(IBlockState state)

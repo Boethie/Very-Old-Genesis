@@ -66,7 +66,7 @@ public class ItemDyeBowl extends ItemMulti<IMetadata>
 				
 				if (wolf.isOwner(player))
 				{	// Set the AI's sitting value to the watchable sitting value, which will not have updated. 
-	                wolf.getAISit().setSitting(wolf.isSitting());	// This keeps it in the same state as before interacting.
+					wolf.getAISit().setSitting(wolf.isSitting());	// This keeps it in the same state as before interacting.
 				}
 			}
 		}

@@ -47,11 +47,11 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		return (int)(time * 1.125F);
 	}
 	
-    public static boolean isItemFuel(ItemStack stack)
-    {
-        return getItemBurnTime(stack) > 0;
-    }
-    
+	public static boolean isItemFuel(ItemStack stack)
+	{
+		return getItemBurnTime(stack) > 0;
+	}
+	
 	public static boolean isCookingPot(ItemStack stack)
 	{
 		return CookingPotRecipeRegistry.isCookingPotItem(stack);

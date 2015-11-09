@@ -88,7 +88,7 @@ public final class GenesisBlocks
 	protected static final SurviveOnDirtCustoms surviveOnDirt = new SurviveOnDirtCustoms();
 	public static final BlockGrowingPlant zingiberopsis = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true).setBreakAllTogether(true)
-	        .setPlantSize(0, 0.2F, 0.5F)
+			.setPlantSize(0, 0.2F, 0.5F)
 			.setPlantType(EnumPlantType.Crop)
 			.setGrowthOnFarmland(0.75F)
 			.setCustoms(surviveOnDirt)
@@ -97,7 +97,7 @@ public final class GenesisBlocks
 			.setGrowAllTogether(true)
 			.setPlantType(EnumPlantType.Plains)
 			.setGrowth(5, 1, 1, 1)
-            .setPlantSize(0, 0.2F, 0.75F)
+			.setPlantSize(0, 0.2F, 0.75F)
 			.setCustoms(new BlockSphenophyllumCustoms())
 			.setUnlocalizedName(Unlocalized.PLANT + "sphenophyllum");
 	public static final BlockGrowingPlant odontopteris = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
@@ -105,14 +105,14 @@ public final class GenesisBlocks
 			.setPlantType(EnumPlantType.Crop)
 			.setGrowth(0.05F, 1.5F, 2.5F, 1.05F)
 			.setUseBiomeColor(true)
-            .setPlantSize(0, 0.2F, 0.75F)
+			.setPlantSize(0, 0.2F, 0.75F)
 			.setCustoms(new BlockOdontopterisCustoms())
 			.setUnlocalizedName(Unlocalized.CROP + "odontopteris");
 	public static final BlockGrowingPlant programinis = (BlockGrowingPlant) new BlockGrowingPlant(false, 7, 1).setTopPosition(1)
 			.setPlantType(EnumPlantType.Crop)
 			.setGrowthOnFarmland(0.75F)
 			.setUseBiomeColor(true)
-	        .setPlantSize(0, 0.1F, 0.75F)
+			.setPlantSize(0, 0.1F, 0.75F)
 			.setCustoms(surviveOnDirt)
 			.setUnlocalizedName(Unlocalized.CROP + "programinis");
 	

@@ -522,15 +522,15 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	}
 	
 	@Override
-    public AxisAlignedBB getCollisionBoundingBox(World world, BlockPos pos, IBlockState state)
-    {
-    	if (collisionBox != null)
-    	{
-    		return collisionBox.offset(pos.getX(), pos.getY(), pos.getZ());
-    	}
-    	
-    	return null;
-    }
+	public AxisAlignedBB getCollisionBoundingBox(World world, BlockPos pos, IBlockState state)
+	{
+		if (collisionBox != null)
+		{
+			return collisionBox.offset(pos.getX(), pos.getY(), pos.getZ());
+		}
+		
+		return null;
+	}
 	
 	/**
 	 * Sets the drops when the plant is fully grown.
@@ -592,15 +592,15 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), meta, metaProperties);
 	}
 	
-    public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos)
-    {
-    	if (hasTopProperty)
-    	{
-    		state = state.withProperty(topProp, isTop(world, pos));
-    	}
-    	
-        return state;
-    }
+	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos)
+	{
+		if (hasTopProperty)
+		{
+			state = state.withProperty(topProp, isTop(world, pos));
+		}
+		
+		return state;
+	}
 
 	protected float baseAgeChance = 0.08F;
 	protected float farmlandChanceMult = 1.0F;
@@ -741,7 +741,6 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	 * @param world
 	 * @param fromBlock The BlockPos to start from.
 	 * @param call The IPerBlockCall whose call() method is called.
-	 * @param args An array of arguments to send to call().
 	 */
 	protected void callForEachInColumn(World world, BlockPos fromBlock, IPerBlockCall call)
 	{
