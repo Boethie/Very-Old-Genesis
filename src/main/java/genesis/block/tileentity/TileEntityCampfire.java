@@ -3,7 +3,6 @@ package genesis.block.tileentity;
 import java.util.*;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterators;
 
 import genesis.block.tileentity.crafting.CookingPotRecipeRegistry;
 import genesis.block.tileentity.crafting.CookingPotRecipeRegistry.InventoryCookingPot;
@@ -777,7 +776,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	}
 	
 	@Override
-	public List<SlotModifier> getIngredients()
+	public List<? extends SlotModifier> getIngredients()
 	{
 		return ImmutableList.of(
 				new SlotModifierInventory(this, SLOT_INGREDIENT_1),

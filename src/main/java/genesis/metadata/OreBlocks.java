@@ -10,10 +10,11 @@ import genesis.block.*;
 import genesis.item.*;
 import genesis.util.Constants;
 import genesis.util.Constants.Unlocalized;
+import genesis.util.JavaHelpers;
 
 public class OreBlocks extends VariantsOfTypesCombo<EnumOre>
 {
-	public static final ObjectType<BlockMultiOre<EnumOre>, ItemBlockMulti<EnumOre>> ORE = ObjectType.create("ore", BlockMultiOre.class, ItemBlockMulti.class);
+	public static final ObjectType<BlockMultiOre<EnumOre>, ItemBlockMulti<EnumOre>> ORE = ObjectType.createBlock("ore", JavaHelpers.<BlockMultiOre<EnumOre>>convertClass(BlockMultiOre.class));
 	public static final ObjectType<Block, ItemMulti<EnumOre>> DROP = ObjectType.createItem("ore_drop", Unlocalized.Section.MATERIAL, EnumOre.noDrops);
 	
 	static

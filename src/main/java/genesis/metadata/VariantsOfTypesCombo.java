@@ -373,7 +373,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 		 */
 		public static <B extends Block, V extends IMetadata> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, String unlocalizedName, Class<? extends B> blockClass, Collection<? extends IMetadata> variantExclusions)
 		{
-			return create(name, unlocalizedName, blockClass, ItemBlockMulti.class, variantExclusions);
+			return create(name, unlocalizedName, blockClass, JavaHelpers.<ItemBlockMulti<V>>convertClass(ItemBlockMulti.class), variantExclusions);
 		}
 		
 		/**
@@ -406,7 +406,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 		 */
 		public static <B extends Block, V extends IMetadata> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, Class<? extends B> blockClass, Collection<? extends IMetadata> variantExclusions)
 		{
-			return create(name, blockClass, ItemBlockMulti.class, variantExclusions);
+			return create(name, blockClass, JavaHelpers.<ItemBlockMulti<V>>convertClass(ItemBlockMulti.class), variantExclusions);
 		}
 		
 		/**
@@ -439,7 +439,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 		 */
 		public static <B extends Block, V extends IMetadata> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, String unlocalizedName, Class<? extends B> blockClass, IMetadata... variantExclusions)
 		{
-			return create(name, unlocalizedName, blockClass, ItemBlockMulti.class, variantExclusions);
+			return create(name, unlocalizedName, blockClass, JavaHelpers.<ItemBlockMulti<V>>convertClass(ItemBlockMulti.class), variantExclusions);
 		}
 		
 		/**
@@ -472,7 +472,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 		 */
 		public static <B extends Block, V extends IMetadata> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, Class<? extends B> blockClass, IMetadata... variantExclusions)
 		{
-			return create(name, blockClass, ItemBlockMulti.class, variantExclusions);
+			return create(name, blockClass, JavaHelpers.<ItemBlockMulti<V>>convertClass(ItemBlockMulti.class), variantExclusions);
 		}
 		
 		/**

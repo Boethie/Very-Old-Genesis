@@ -4,28 +4,17 @@ import java.util.*;
 
 import com.google.common.collect.ImmutableList;
 
-import genesis.common.GenesisItems;
 import genesis.common.IRegistrationCallback;
 import genesis.block.BlockGenesis;
 import genesis.client.model.ListedItemMeshDefinition;
-import genesis.common.Genesis;
-import genesis.common.GenesisCreativeTabs;
+import genesis.common.*;
 import genesis.item.ItemBlockMulti;
-import genesis.metadata.EnumMenhirActivator;
-import genesis.metadata.EnumMenhirPart;
-import genesis.metadata.IMetadata;
-import genesis.metadata.PropertyIMetadata;
-import genesis.metadata.VariantsCombo;
-import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
-import genesis.util.BlockStateToMetadata;
-import genesis.util.ItemStackKey;
-import genesis.util.WorldUtils;
+import genesis.metadata.*;
+import genesis.metadata.VariantsOfTypesCombo.*;
+import genesis.util.*;
+
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
@@ -35,11 +24,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
 
 public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 {
@@ -56,13 +42,13 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 	public static final PropertyEnum GLYPH = PropertyEnum.create("glyph", EnumGlyph.class);
 	public static final PropertyBool ACTIVE = PropertyBool.create("active");
 	
-	public VariantsCombo<EnumMenhirPart, BlockMenhir, ItemBlockMulti> owner;
-	public ObjectType<BlockMenhir, ItemBlockMulti> type;
+	public VariantsCombo<EnumMenhirPart, BlockMenhir, ItemBlockMulti<EnumMenhirPart>> owner;
+	public ObjectType<BlockMenhir, ItemBlockMulti<EnumMenhirPart>> type;
 	
 	public List<EnumMenhirPart> variants;
 	public PropertyIMetadata<EnumMenhirPart> variantProp;
 	
-	public BlockMenhir(List<EnumMenhirPart> variants, VariantsCombo<EnumMenhirPart, BlockMenhir, ItemBlockMulti> owner, ObjectType<BlockMenhir, ItemBlockMulti> type)
+	public BlockMenhir(List<EnumMenhirPart> variants, VariantsCombo<EnumMenhirPart, BlockMenhir, ItemBlockMulti<EnumMenhirPart>> owner, ObjectType<BlockMenhir, ItemBlockMulti<EnumMenhirPart>> type)
 	{
 		super(Material.rock);
 		

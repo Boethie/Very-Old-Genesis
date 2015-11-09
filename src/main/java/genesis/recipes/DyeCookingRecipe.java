@@ -112,7 +112,7 @@ public class DyeCookingRecipe extends CookingPotRecipeBase
 		return getOutputColorFromColors(colorSet);
 	}
 	
-	protected static EnumDyeColor getOutputColorFromSlots(Iterable<SlotModifier> slots)
+	protected static EnumDyeColor getOutputColorFromSlots(Iterable<? extends SlotModifier> slots)
 	{
 		Set<EnumDyeColor> colorSet = Sets.newHashSet();
 		

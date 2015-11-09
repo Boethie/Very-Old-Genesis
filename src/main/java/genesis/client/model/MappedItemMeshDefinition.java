@@ -1,8 +1,6 @@
 package genesis.client.model;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -28,6 +26,13 @@ public class MappedItemMeshDefinition implements ListedItemMeshDefinition
 	@Override
 	public Collection<String> getVariants()
 	{
-		return map.values().stream().map(ModelResourceLocation::getResourcePath).collect(Collectors.toList());
+		Set<String> variants = new HashSet<String>();
+		
+		for (ModelResourceLocation location : map.values())
+		{
+			variants.add(location.getResourcePath());
+		}
+		
+		return variants;
 	}
 }

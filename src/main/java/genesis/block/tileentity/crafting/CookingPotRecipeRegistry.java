@@ -174,7 +174,7 @@ public class CookingPotRecipeRegistry
 		public ItemStack getIngredient(int slot);
 		public void setIngredient(int slot, ItemStack stack);
 		public int getIngredientSlotCount();
-		public List<SlotModifier> getIngredients();
+		public List<? extends SlotModifier> getIngredients();
 		
 		public ItemStack getFuel();
 		public void setFuel(ItemStack stack);

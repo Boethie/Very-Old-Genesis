@@ -37,8 +37,6 @@ public class GenesisClient extends GenesisProxy
 		return MC;
 	}
 	
-	private boolean hasInit = false;
-	
 	@Override
 	public void preInit()
 	{
@@ -153,7 +151,11 @@ public class GenesisClient extends GenesisProxy
 	public void registerModel(Item item, ListedItemMeshDefinition definition)
 	{
 		ModelLoader.setCustomMeshDefinition(item, definition);
-		definition.getVariants().forEach(variant -> addVariantName(item, variant));
+		
+		for (String variant : definition.getVariants())
+		{
+			addVariantName(item, variant);
+		}
 	}
 	
 	public void registerModelStateMap(Block block, IStateMapper map)

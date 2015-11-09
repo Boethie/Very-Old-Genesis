@@ -283,7 +283,7 @@ public class WorldUtils
 	 * @param teGetter Function used to get a {@link TileEntity} at a position.
 	 * @return An {@link IBlockAccess} for use in a call to some method.
 	 */
-	public static IBlockAccess getFakeWorld(IBlockAccess base, Function<BlockPos, IBlockState> stateGetter, Function<BlockPos, TileEntity> teGetter)
+	public static IBlockAccess getFakeWorld(final IBlockAccess base, final Function<BlockPos, IBlockState> stateGetter, final Function<BlockPos, TileEntity> teGetter)
 	{
 		return new IBlockAccess()
 		{
@@ -353,13 +353,13 @@ public class WorldUtils
 	 * @param te The faked {@link TileEntity} to return for that position.
 	 * @return An {@link IBlockAccess} for use in a call to some method.
 	 */
-	public static IBlockAccess getFakeWorld(IBlockAccess base, BlockPos pos, IBlockState state, TileEntity te)
+	public static IBlockAccess getFakeWorld(IBlockAccess base, final BlockPos pos, final IBlockState state, final TileEntity te)
 	{
 		return getFakeWorld(base,
 				new Function<BlockPos, IBlockState>() { public IBlockState apply(BlockPos input) { return input.equals(pos) ? state : null; } },
 				new Function<BlockPos, TileEntity>() { public TileEntity apply(BlockPos input) { return input.equals(pos) ? te : null; } });
 	}
-
+	
 	/**
 	 * Creates a fake {@link IBlockAccess} to pretend that there are blocks in the world where they don't exist.
 	 * Useful for when one needs to do some action on a set of block after one is removed.<br>
