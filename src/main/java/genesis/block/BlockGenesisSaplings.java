@@ -24,6 +24,7 @@ import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
@@ -99,7 +100,7 @@ public class BlockGenesisSaplings extends BlockSapling
 	}
 	
 	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos)
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player)
 	{
 		return owner.getStack(type, (EnumTree) world.getBlockState(pos).getValue(variantProp));
 	}

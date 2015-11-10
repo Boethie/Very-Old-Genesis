@@ -15,6 +15,7 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.util.*;
@@ -80,7 +81,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 	}
 	
 	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos)
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player)
 	{
 		return owner.getStack(type, (EnumTree) world.getBlockState(pos).getValue(variantProp));
 	}
