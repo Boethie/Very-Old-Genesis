@@ -44,11 +44,6 @@
 				"submodel": { "wall": null },
 				"y": 90
 			}
-		},
-		"inventory": [{
-			"model": "builtin/generated",
-			"textures": { "layer0": "genesis:items/calamites_torch_tall" },
-			"transform": "forge:default-item"
-		}]
+		}
 	}
 }
