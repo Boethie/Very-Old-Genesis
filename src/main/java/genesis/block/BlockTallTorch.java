@@ -280,7 +280,7 @@ public class BlockTallTorch extends Block
 		case WEST:
 		case SOUTH:
 		case NORTH:
-			bb = bb.offset(0, -0.1875, 0);
+			bb = bb.contract(0, 0.1875, 0);
 			bb = bb.addCoord(toOuter * -facing.getFrontOffsetX(),
 							toOuter * -facing.getFrontOffsetY(),
 							toOuter * -facing.getFrontOffsetZ());
