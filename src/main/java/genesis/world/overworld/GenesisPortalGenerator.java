@@ -18,17 +18,43 @@ public class GenesisPortalGenerator implements IWorldGenerator
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider)
 	{
-		BlockPos pos = new BlockPos(chunkX * 16 + 8, 0, chunkZ * 16 + 8);
-		if (random.nextInt(800) == 0)
-			if (world.provider.getDimensionId() == 0 && world.getBiomeGenForCoords(pos) instanceof BiomeGenTaiga
-					|| world.provider.getDimensionId() == GenesisConfig.genesisDimId)
-			{
-				GenesisPortal newPortal = GenesisPortal.fromCenterBlock(world, pos);
-				
-				if (newPortal.setPlacementPosition(world))
-				{
-					newPortal.makePortal(world, random);
-				}
-			}
+		int dimension = world.provider.getDimensionId();
+		if (dimension == 0)
+		{
+			genPortal(random, chunkX, chunkZ, world, 5, true);
+		}
+		else if (dimension == GenesisConfig.genesisDimId)
+		{
+			genPortal(random, chunkX, chunkZ, world, 8, false);
+		}
+	}
+	
+	private void genPortal(Random random, int chunkX, int chunkZ, World world, int bits, boolean tiagaOnly)
+	{
+		BlockPos center = new BlockPos(chunkX * 16 + 8, 0, chunkZ * 16 + 8);
+		
+		if (tiagaOnly && !(world.getBiomeGenForCoords(center) instanceof BiomeGenTaiga))
+		{
+			return;
+		}
+		
+		int zoneX = chunkX >> bits;
+		int zoneZ = chunkZ >> bits;
+		int localX = (int) Math.floor((Math.sin(zoneX * 1017 + zoneZ * 8808) + 1) * (1 << bits - 1));
+		int localZ = (int) Math.floor((Math.sin(zoneX * 4594 + zoneZ * 9628) + 1) * (1 << bits - 1));
+		int nearX = (zoneX << bits) + localX;
+		int nearZ = (zoneZ << bits) + localZ;
+		
+		if (nearX != chunkX || nearZ != chunkZ)
+		{
+			return;
+		}
+		
+		GenesisPortal newPortal = GenesisPortal.fromCenterBlock(world, center);
+		
+		if (newPortal.setPlacementPosition(world))
+		{
+			newPortal.makePortal(world, random);
+		}
 	}
 }
