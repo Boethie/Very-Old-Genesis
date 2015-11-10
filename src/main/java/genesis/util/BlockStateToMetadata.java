@@ -21,7 +21,7 @@ public class BlockStateToMetadata
 	public static final BitMask MAXMETAVALUE = BitMask.forValueCount(16);
 	
 	private static final HashMap<Collection<IProperty>, List<IProperty>> SORTED_PROPERTIES = Maps.newHashMap();
-	private static final HashMap<IProperty, List<Comparable<?>>> SORTED_VALUES = Maps.newHashMap();
+	private static final HashMap<Collection<? extends Comparable<?>>, List<? extends Comparable<?>>> SORTED_VALUES = Maps.newHashMap();
 	
 	public static List<IProperty> getSortedProperties(Collection<IProperty> properties)
 	{
@@ -58,17 +58,18 @@ public class BlockStateToMetadata
 	
 	public static <T extends Comparable<? super T>> List<T> getSortedValues(IProperty property)
 	{
-		List<T> values = (List<T>) SORTED_VALUES.get(property);
+		Collection<T> unsortedValues = property.getAllowedValues();
+		List<T> sortedValues = (List<T>) SORTED_VALUES.get(unsortedValues);
 		
-		if (values == null)
+		if (sortedValues == null)
 		{
-			values = new ArrayList<T>(property.getAllowedValues());
-			Collections.sort(values);
-			values = ImmutableList.copyOf(values);
-			SORTED_VALUES.put(property, (List<Comparable<?>>) values);
+			sortedValues = new ArrayList<T>(unsortedValues);
+			Collections.sort(sortedValues);
+			sortedValues = ImmutableList.copyOf(sortedValues);
+			SORTED_VALUES.put(unsortedValues, sortedValues);
 		}
 		
-		return values;
+		return sortedValues;
 	}
 	
 	/**

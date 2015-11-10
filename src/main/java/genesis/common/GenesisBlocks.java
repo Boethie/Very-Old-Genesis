@@ -124,7 +124,7 @@ public final class GenesisBlocks
 	public static final Block calamites_bundle = new BlockCalamitesBundle().setUnlocalizedName(Unlocalized.PREFIX + "calamitesBundle");
 	public static final Block programinis_bundle = new BlockPrograminisBundle().setUnlocalizedName(Unlocalized.PREFIX + "programinisBundle");
 	public static final Block calamites_torch = new BlockCalamitesTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTorch");
-	public static final Block calamites_tall_torch = new BlockTallTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTallTorch");
+	public static final Block calamites_torch_tall = new BlockTallTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTorch.tall");
 	public static final Block prototaxites_mycelium = new BlockPrototaxitesMycelium().setUnlocalizedName(Unlocalized.PREFIX + "prototaxitesMycelium");
 	public static final DungBlocksAndItems dungs = new DungBlocksAndItems();
 	
@@ -259,7 +259,7 @@ public final class GenesisBlocks
 		
 		// - Torches -
 		Genesis.proxy.registerBlock(calamites_torch, "calamites_torch");
-		Genesis.proxy.registerBlock(calamites_tall_torch, "calamites_tall_torch", ItemTallTorch.class);
+		Genesis.proxy.registerBlock(calamites_torch_tall, "calamites_torch_tall");
 		
 		// - Plants -
 		plants.setUnlocalizedPrefix(Constants.Unlocalized.PREFIX);

@@ -1,6 +1,0 @@
-{
-	"variants": {
-		"part=top":  { "model": "genesis:calamites_tall_torch_top" },
-		"part=bottom":  { "model": "genesis:calamites_tall_torch_bottom" }
-	}
-}

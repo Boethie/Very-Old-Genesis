@@ -1,0 +1,54 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+	},
+	"variants": {
+		"part": {
+			"top": {
+				"textures": {
+					"torch": "genesis:blocks/calamites_torch_tall_top"
+				},
+				"submodel": {
+					"middle": {"model": "genesis:torch_top"},
+					"wall": {"model": "genesis:torch_wall_top"}
+				}
+			},
+			"bottom": {
+				"textures": {
+					"torch": "genesis:blocks/calamites_torch_tall_bottom"
+				},
+				"submodel": {
+					"middle": {"model": "genesis:torch_bottom"},
+					"wall": {"model": "genesis:torch_wall_bottom"}
+				}
+			}
+		},
+		"facing": {
+			"east": {
+				"submodel": { "middle": null },
+				"y": 0
+			},
+			"south": {
+				"submodel": { "middle": null },
+				"y": 90
+			},
+			"west": {
+				"submodel": { "middle": null },
+				"y": 180
+			},
+			"north": {
+				"submodel": { "middle": null },
+				"y": 270
+			},
+			"up": {
+				"submodel": { "wall": null },
+				"y": 90
+			}
+		},
+		"inventory": [{
+			"model": "builtin/generated",
+			"textures": { "layer0": "genesis:items/calamites_torch_tall" },
+			"transform": "forge:default-item"
+		}]
+	}
+}

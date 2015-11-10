@@ -1,6 +1,0 @@
-{
-	"parent": "genesis:block/tall_torch",
-	"textures": {
-		"torch": "genesis:blocks/calamites_tall_torch_bottom"
-	}
-}
