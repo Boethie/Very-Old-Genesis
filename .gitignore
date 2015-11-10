@@ -1,13 +1,14 @@
 ### GRADLE ###
 .gradle/
 build/
-eclipse
 
 ### ECLIPSE ###
+eclipse
 .settings/
 bin/
 .classpath
 .project
+*.launch
 
 ### INTELLIJ IDEA ###
 .idea/
