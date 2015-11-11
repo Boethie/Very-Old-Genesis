@@ -23,7 +23,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-public abstract class BiomeGenBaseGenesis extends BiomeGenBase
+public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiomeGenFog
 {
 	public IBlockState oceanFloor = GenesisBlocks.ooze.getDefaultState();
 	public int[] mossStages = new int[0];
@@ -235,5 +235,41 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 				}
 			}
 		}
+	}
+	
+	public float getFogDensity(int x, int y, int z)
+	{
+		return 1.0F;
+	}
+	
+	public Vec3 getFogColor()
+	{
+		float red = 0.29411764705882352941176470588235F;
+		float green = 0.47450980392156862745098039215686F;
+		float blue = 0.1960784313725490196078431372549F;
+		
+		return new Vec3(red, green, blue);
+	}
+	
+	public int getFogColor(int x, int y, int z)
+	{
+		float red = 0.29411764705882352941176470588235F;
+		float green = 0.47450980392156862745098039215686F;
+		float blue = 0.1960784313725490196078431372549F;
+		
+		return getIntFromColor(red, green, blue);
+	}
+	
+	public int getIntFromColor(float red, float green, float blue)
+	{
+		int r = Math.round(255 * red);
+		int g = Math.round(255 * green);
+		int b = Math.round(255 * blue);
+		
+		r = (r << 16) & 0x00FF0000;
+		g = (g << 8) & 0x0000FF00;
+		b = b & 0x000000FF;
+		
+		return 0xFF000000 | r | g | b;
 	}
 }

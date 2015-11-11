@@ -19,6 +19,7 @@ import java.util.Random;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -57,6 +58,22 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 		addTree(new WorldGenRottenLog(3, 6, EnumTree.LEPIDODENDRON, true).setTreeCountPerChunk(8));
 		addTree(new WorldGenRottenLog(3, 6, EnumTree.SIGILLARIA, true).setTreeCountPerChunk(4));
 		addTree(new WorldGenRottenLog(3, 6, EnumTree.CORDAITES, true).setCanGrowInWater(true).setTreeCountPerChunk(8));
+	}
+	
+	@Override
+	public float getFogDensity(int x, int y, int z)
+	{
+		return 0.25F;
+	}
+	
+	@Override
+	public Vec3 getFogColor()
+	{
+		float red = 0.29411764705882352941176470588235F;
+		float green = 0.47450980392156862745098039215686F;
+		float blue = 0.1960784313725490196078431372549F;
+		
+		return new Vec3(red, green, blue);
 	}
 	
 	@Override

@@ -53,6 +53,8 @@ public class Genesis
 		
 		OverworldGeneration.register();
 		
+		GenesisEvent.init();
+		
 		proxy.preInit();
 	}
 
