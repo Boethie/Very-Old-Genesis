@@ -2,7 +2,7 @@ package genesis.metadata;
 
 public enum EnumSilt implements IMetadata
 {
-	SILT("", "", "default"), RED_SILT("red");
+	SILT("", "", "normal"), RED_SILT("red");
 	
 	final String name;
 	final String unlocalizedName;

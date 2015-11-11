@@ -93,7 +93,7 @@ public class BlockTallTorch extends Block
 	{
 		return BlockStateToMetadata.getMetaForBlockState(state, PART, FACING);
 	}
-
+	
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune)
 	{
@@ -146,7 +146,7 @@ public class BlockTallTorch extends Block
 		
 		return false;
 	}
-
+	
 	@Override
 	public boolean canPlaceBlockAt(World world, BlockPos pos)
 	{
@@ -326,7 +326,7 @@ public class BlockTallTorch extends Block
 			double xPos = pos.getX() + 0.5;
 			double yPos = pos.getY() + 0.7;
 			double zPos = pos.getZ() + 0.5;
-
+			
 			double off = 0.015625;
 			
 			xPos += off * facing.getFrontOffsetX();
