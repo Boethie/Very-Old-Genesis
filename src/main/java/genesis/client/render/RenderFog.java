@@ -3,6 +3,9 @@ package genesis.client.render;
 import org.lwjgl.opengl.GL11;
 
 import genesis.world.biome.IBiomeGenFog;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
@@ -35,19 +38,62 @@ public class RenderFog
 			
 			if (biome instanceof IBiomeGenFog)
 			{
-				event.red = (float) ((IBiomeGenFog)biome).getFogColor().xCoord;
-				event.green = (float) ((IBiomeGenFog)biome).getFogColor().yCoord;
-				event.blue = (float) ((IBiomeGenFog)biome).getFogColor().zCoord;
-			}
-			else
-			{
-				float red = 0.29411764705882352941176470588235F;
-				float green = 0.47450980392156862745098039215686F;
-				float blue = 0.1960784313725490196078431372549F;
+				long time = world.getWorldTime()%34000;
 				
-				event.red = red;
-				event.green = green;
-				event.blue = blue;
+				double red = (float) ((IBiomeGenFog)biome).getFogColor().xCoord;
+				double green = (float) ((IBiomeGenFog)biome).getFogColor().yCoord;
+				double blue = (float) ((IBiomeGenFog)biome).getFogColor().zCoord;
+				
+				Block blockAtEyes = ActiveRenderInfo.getBlockAtEntityViewpoint(world, event.entity, (float)event.renderPartialTicks);
+				
+				if (time > 20000 && time <= 31000)
+				{
+					red = 0;
+					green = 0;
+					blue = 0;
+				}
+				else
+				{
+					if (time > 17000 && time <= 20000)
+					{
+						float percent = 1.0F - (((float)time - 17000F) / 3000F);
+						
+						if (percent < 0.0F)
+							percent = 0.0F;
+						
+						red *= percent;
+						green *= percent;
+						blue *= percent;
+					}
+					
+					if (time > 31000 && time <= 34000)
+					{
+						float percent = (((float)time - 31000F) / 3000F);
+						
+						if (percent > 1.0F)
+							percent = 1.0F;
+						
+						red *= percent;
+						green *= percent;
+						blue *= percent;
+					}
+				}
+				
+				if (blockAtEyes.getMaterial() == Material.water)
+				{
+					int waterColorMultiplier = biome.getWaterColorMultiplier();
+					red = (waterColorMultiplier % 0xff0000) >> 16;
+					green = (waterColorMultiplier % 0x00ff00) >> 8;
+					blue = (waterColorMultiplier % 0x0000ff);
+					
+					red *= 0.002D;
+					green *= 0.002D;
+					blue *= 0.002D;
+				}
+				
+				event.red = (float)red;
+				event.green = (float)green;
+				event.blue = (float)blue;
 			}
 		}
 	}
