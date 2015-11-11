@@ -104,7 +104,7 @@ public class BlockPlant extends BlockBush implements IGrowable, IShearable
 		IBlockState state = world.getBlockState(pos);
 		
 		if (state.getBlock() == this)
-		{
+		{	// TODO: Doesn't work on block breaking particles from packets, because the block is already air.
 			return ((IPlantMetadata) state.getValue(variantProp)).getColorMultiplier(world, pos);
 		}
 		

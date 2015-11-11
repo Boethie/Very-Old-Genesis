@@ -1,7 +1,7 @@
 package genesis.block;
 
+import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 import genesis.item.ItemBlockMulti;
 import genesis.metadata.*;
@@ -60,6 +60,23 @@ public class BlockGenesisDoublePlant extends BlockPlant
 	}
 	
 	@Override
+	public boolean canBlockStay(World world, BlockPos pos, IBlockState state)
+	{
+		if (state.getBlock() != this)
+		{	// TODO: Make sure Paul uses canPlaceBlockAt instead, so we can remove this.
+			return super.canBlockStay(world, pos, state); //Forge: This function is called during world gen and placement, before this block is set, so if we are not 'here' then assume it's the pre-check.
+		}
+		else if ((Boolean) state.getValue(TOP))
+		{
+			return world.getBlockState(pos.down()).getBlock() == this;
+		}
+		else
+		{
+			return super.canBlockStay(world, pos, state);
+		}
+	}
+	
+	@Override
 	protected void checkAndDropBlock(World world, BlockPos pos, IBlockState state)
 	{
 		if (!canBlockStay(world, pos, state))
@@ -87,34 +104,14 @@ public class BlockGenesisDoublePlant extends BlockPlant
 		}
 	}
 	
-	@Override
-	public boolean canBlockStay(World world, BlockPos pos, IBlockState state)
-	{
-		if (state.getBlock() != this)
-		{	// TODO: Make sure Paul uses canPlaceBlockAt instead, so we can remove this.
-			return super.canBlockStay(world, pos, state); //Forge: This function is called during world gen and placement, before this block is set, so if we are not 'here' then assume it's the pre-check.
-		}
-		else if ((Boolean) state.getValue(TOP))
-		{
-			return world.getBlockState(pos.down()).getBlock() == this;
-		}
-		else
-		{
-			return super.canBlockStay(world, pos, state);
-		}
-	}
-	
-	@Override
-	public Item getItemDropped(IBlockState state, Random rand, int fortune)
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
 	{
 		if ((Boolean) state.getValue(TOP))
 		{
-			return null;
+			return Collections.emptyList();
 		}
-		else
-		{
-			return super.getItemDropped(state, rand, fortune);
-		}
+		
+		return super.getDrops(world, pos, state, fortune);
 	}
 	
 	@Override
@@ -143,15 +140,17 @@ public class BlockGenesisDoublePlant extends BlockPlant
 	{
 		boolean top = (Boolean) world.getBlockState(pos).getValue(TOP);
 		BlockPos other = top ? pos.down() : pos.up();
-		
+
 		IBlockState otherState = world.getBlockState(other);
 		
 		if (otherState.getBlock() == this)
 		{
 			world.playAuxSFXAtEntity(player, 2001, other, Block.getStateId(otherState));
 			
-			if (!player.capabilities.isCreativeMode && top)	// Drop the bottom of the plant as an item.
+			if (!player.capabilities.isCreativeMode)	// Drop the bottom of the plant as an item.
+			{
 				dropBlockAsItem(world, other, otherState, 0);
+			}
 			
 			world.setBlockToAir(other);
 		}
