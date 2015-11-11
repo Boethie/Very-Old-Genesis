@@ -1,5 +1,6 @@
 package genesis.common;
 
+import genesis.world.biome.BiomeGenDesert;
 import genesis.world.biome.BiomeGenFloodplainsForest;
 import genesis.world.biome.BiomeGenAuxForest;
 import genesis.world.biome.BiomeGenAuxForestEdge;
@@ -40,6 +41,7 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis swampRainForest;
 	public static BiomeGenBaseGenesis marsh;
 	public static BiomeGenBaseGenesis floodplainsForest;
+	public static BiomeGenBaseGenesis desert;
 	public static BiomeGenBaseGenesis river;
 	public static BiomeGenBaseGenesis shallowOcean;
 	public static BiomeGenBaseGenesis ocean;
@@ -102,6 +104,10 @@ public final class GenesisBiomes
 		floodplainsForest = new BiomeGenFloodplainsForest(GenesisConfig.floodplainsForestId);
 		BiomeManagerGenesis.registerBiome(floodplainsForest, BiomeType.WARM, GenesisConfig.floodplainsForestWeight);
 		BiomeDictionary.registerBiomeType(floodplainsForest, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.DENSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
+		
+		desert = new BiomeGenDesert(GenesisConfig.desertId);
+		BiomeManagerGenesis.registerBiome(desert, BiomeType.DESERT, GenesisConfig.desertWeight);
+		BiomeDictionary.registerBiomeType(desert, BiomeDictionary.Type.SANDY, BiomeDictionary.Type.DRY);
 		
 		river = new BiomeGenRiver(GenesisConfig.riverId).setHeight(height_ShallowWaters).setWaterColor(0x059044);
 		BiomeDictionary.registerBiomeType(river, BiomeDictionary.Type.RIVER, BiomeDictionary.Type.WET);

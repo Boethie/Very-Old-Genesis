@@ -22,7 +22,7 @@ public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
 	{
 		super(id);
 		setBiomeName("Shallow Ocean");
-		topBlock = GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT).getDefaultState();
+		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);
 		setHeight(-0.7F, 0.1F);
 		
 		setWaterColor(0x007d39);

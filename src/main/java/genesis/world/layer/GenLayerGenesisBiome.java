@@ -1,6 +1,7 @@
 package genesis.world.layer;
 
 import static net.minecraftforge.common.BiomeManager.BiomeType.WARM;
+import static net.minecraftforge.common.BiomeManager.BiomeType.DESERT;
 import genesis.world.biome.BiomeManagerGenesis;
 
 import java.util.ArrayList;
@@ -72,17 +73,16 @@ public class GenLayerGenesisBiome extends GenLayerGenesis
 				{
 					aint1[j1 + i1 * areaWidth] = this.getWeightedBiomeEntry(WARM).biome.biomeID;
 				}
-				/*
-				 * else if (k1 == 1)
-				 * {
-				 * //Should be DESERT, but we don't have any desert biomes
-				 * aint1[j1 + i1 * areaWidth] = getWeightedBiomeEntry(WARM).biome.biomeID;
-				 * }
-				 * else if (k1 == 2)
-				 * {
-				 * aint1[j1 + i1 * areaWidth] = getWeightedBiomeEntry(WARM).biome.biomeID;
-				 * }
-				 * else if (k1 == 3)
+				
+				if (k1 == 1)
+				{
+					aint1[j1 + i1 * areaWidth] = getWeightedBiomeEntry(DESERT).biome.biomeID;
+				}
+				else if (k1 == 2)
+				{
+					aint1[j1 + i1 * areaWidth] = getWeightedBiomeEntry(DESERT).biome.biomeID;
+				}
+				 /* else if (k1 == 3)
 				 * {
 				 * aint1[j1 + i1 * areaWidth] = getWeightedBiomeEntry(COOL).biome.biomeID;
 				 * }
