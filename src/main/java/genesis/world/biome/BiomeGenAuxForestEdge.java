@@ -31,7 +31,7 @@ public class BiomeGenAuxForestEdge extends BiomeGenAuxForest
 	@Override
 	protected void addTrees()
 	{
-		addTree(new WorldGenTreeAraucarioxylon(22, 27, true).setTreeCountPerChunk(2));
+		addTree(new WorldGenTreeAraucarioxylon(23, 28, true).setTreeCountPerChunk(2));
 		addTree(new WorldGenRottenLog(4, 8, EnumTree.ARAUCARIOXYLON, true).addTopDecoration(GenesisBlocks.archaeomarasmius.getDefaultState()).setTreeCountPerChunk(1));
 	}
 }

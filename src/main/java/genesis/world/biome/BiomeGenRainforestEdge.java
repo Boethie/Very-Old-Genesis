@@ -33,11 +33,11 @@ public class BiomeGenRainforestEdge extends BiomeGenRainforest
 	@Override
 	protected void addTrees()
 	{
-		addTree(new WorldGenTreeLepidodendron(14, 16, true).setTreeCountPerChunk(5));
-		addTree(new WorldGenTreeSigillaria(10, 12, true).setTreeCountPerChunk(3));
+		addTree(new WorldGenTreeLepidodendron(12, 16, true).setTreeCountPerChunk(5));
+		addTree(new WorldGenTreeSigillaria(10, 13, true).setTreeCountPerChunk(3));
 		addTree(new WorldGenTreePsaronius(5, 6, true).setTreeCountPerChunk(1));
 		
-		addTree(new WorldGenRottenLog(3, 5, EnumTree.LEPIDODENDRON, true).setTreeCountPerChunk(2));
-		addTree(new WorldGenRottenLog(3, 5, EnumTree.SIGILLARIA, true).setTreeCountPerChunk(1));
+		addTree(new WorldGenRottenLog(3, 6, EnumTree.LEPIDODENDRON, true).setTreeCountPerChunk(2));
+		addTree(new WorldGenRottenLog(3, 6, EnumTree.SIGILLARIA, true).setTreeCountPerChunk(1));
 	}
 }
