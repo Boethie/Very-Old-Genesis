@@ -33,7 +33,7 @@ public final class GenesisConfig
 	public static int marshWeight = 10;
 	public static int oceanId = 67;
 	public static int desertId = 68;
-	public static int desertWeight = 20;
+	public static int desertWeight = 10;
 	public static int desertHillsId = 69;
 	
 	//Dimensions
