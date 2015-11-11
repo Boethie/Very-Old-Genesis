@@ -272,5 +272,23 @@
 				"name": "music/dawn_of_a_new_day"
 			}
 		]
+	},
+	"portal.ambient": {
+		"category": "block",
+		"sounds": [
+			"portal/ambient"
+		]
+	},
+	"portal.enter": {
+		"category": "block",
+		"sounds": [
+			"portal/enter"
+		]
+	},
+	"portal.exit": {
+		"category": "block",
+		"sounds": [
+			"portal/exit"
+		]
 	}
 }
