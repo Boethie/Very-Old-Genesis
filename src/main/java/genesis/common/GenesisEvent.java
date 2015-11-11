@@ -2,14 +2,13 @@ package genesis.common;
 
 import genesis.client.render.RenderFog;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 
 public class GenesisEvent
 {
-	public static void init()
+	public static void init(Side side)
 	{
-		if (FMLCommonHandler.instance().getSide() == Side.CLIENT)
+		if (side == Side.CLIENT)
 		{
 			registerClientEvents();
 		}
