@@ -44,7 +44,7 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 		
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchSize(3).setCountPerChunk(3));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(5));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(2, 0).setNextToWater(true).setPatchSize(4).setCountPerChunk(12));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(2, 0).setNextToWater(true).setPatchSize(4).setCountPerChunk(11));
 		addDecoration(new WorldGenUnderWaterPatch(Blocks.water, GenesisBlocks.peat.getDefaultState()).setCountPerChunk(10));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
@@ -63,15 +63,15 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 	@Override
 	public float getFogDensity(int x, int y, int z)
 	{
-		return 0.25F;
+		return 0.27F;
 	}
 	
 	@Override
 	public Vec3 getFogColor()
 	{
-		float red = 0.29411764705882352941176470588235F;
-		float green = 0.47450980392156862745098039215686F;
-		float blue = 0.1960784313725490196078431372549F;
+		float red = 0.533333333F;
+		float green = 0.647058824F;
+		float blue = 0.474509804F;
 		
 		return new Vec3(red, green, blue);
 	}
