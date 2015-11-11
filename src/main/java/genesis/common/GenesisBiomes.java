@@ -1,6 +1,7 @@
 package genesis.common;
 
 import genesis.world.biome.BiomeGenDesert;
+import genesis.world.biome.BiomeGenDesertM;
 import genesis.world.biome.BiomeGenFloodplainsForest;
 import genesis.world.biome.BiomeGenAuxForest;
 import genesis.world.biome.BiomeGenAuxForestEdge;
@@ -42,6 +43,8 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis marsh;
 	public static BiomeGenBaseGenesis floodplainsForest;
 	public static BiomeGenBaseGenesis desert;
+	public static BiomeGenBaseGenesis desertHills;
+	public static BiomeGenBaseGenesis desertM;
 	public static BiomeGenBaseGenesis river;
 	public static BiomeGenBaseGenesis shallowOcean;
 	public static BiomeGenBaseGenesis ocean;
@@ -108,6 +111,12 @@ public final class GenesisBiomes
 		desert = new BiomeGenDesert(GenesisConfig.desertId);
 		BiomeManagerGenesis.registerBiome(desert, BiomeType.DESERT, GenesisConfig.desertWeight);
 		BiomeDictionary.registerBiomeType(desert, BiomeDictionary.Type.SANDY, BiomeDictionary.Type.DRY);
+		
+		desertHills = new BiomeGenDesert(GenesisConfig.desertHillsId).setBiomeName("Desert Hills").setHeight(height_LowHills);
+		BiomeDictionary.registerBiomeType(desertHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.SANDY, BiomeDictionary.Type.DRY);
+		
+		desertM = new BiomeGenDesertM(GenesisConfig.desertId+128);
+		BiomeDictionary.registerBiomeType(desertM, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.SANDY, BiomeDictionary.Type.DRY);
 		
 		river = new BiomeGenRiver(GenesisConfig.riverId).setHeight(height_ShallowWaters).setWaterColor(0x059044);
 		BiomeDictionary.registerBiomeType(river, BiomeDictionary.Type.RIVER, BiomeDictionary.Type.WET);

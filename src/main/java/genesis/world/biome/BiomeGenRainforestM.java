@@ -18,27 +18,4 @@ public class BiomeGenRainforestM extends BiomeGenRainforest
 		setBiomeName("Rainforest M");
 		setHeight(0.4F, 1.1F);
 	}
-	
-	@Override
-	protected void addDecorations()
-	{
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchSize(3).setCountPerChunk(4));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(2));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(2, 0).setNextToWater(true).setPatchSize(4).setCountPerChunk(8));
-		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(10));
-		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
-		
-		addDecoration(new WorldGenRockBoulders().setRarity(80).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
-	}
-	
-	@Override
-	protected void addTrees()
-	{
-		addTree(new WorldGenTreeLepidodendron(14, 18, true).setTreeCountPerChunk(10));
-		addTree(new WorldGenTreeSigillaria(10, 15, true).setTreeCountPerChunk(7));
-		addTree(new WorldGenTreePsaronius(5, 8, true).setTreeCountPerChunk(3));
-		
-		addTree(new WorldGenRottenLog(3, 6, EnumTree.LEPIDODENDRON, true).setTreeCountPerChunk(5));
-		addTree(new WorldGenRottenLog(3, 6, EnumTree.SIGILLARIA, true).setTreeCountPerChunk(4));
-	}
 }

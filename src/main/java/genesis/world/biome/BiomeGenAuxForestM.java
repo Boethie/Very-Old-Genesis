@@ -17,22 +17,4 @@ public class BiomeGenAuxForestM extends BiomeGenAuxForest
 		setBiomeName("Araucarioxylon Forest M");
 		setHeight(0.4F, 0.9F);
 	}
-	
-	@Override
-	protected void addDecorations()
-	{
-		addDecoration(new WorldGenArchaeomarasmius().setPatchSize(3).setCountPerChunk(4));
-		addDecoration(new WorldGenPalaeoagaracites().setPatchSize(16).setCountPerChunk(128));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPatchSize(5).setCountPerChunk(1));
-		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(5));
-		
-		addDecoration(new WorldGenRockBoulders().setRarity(80).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
-	}
-	
-	@Override
-	protected void addTrees()
-	{
-		addTree(new WorldGenTreeAraucarioxylon(25, 30, true).setTreeCountPerChunk(5));
-		addTree(new WorldGenRottenLog(4, 8, EnumTree.ARAUCARIOXYLON, true).addTopDecoration(GenesisBlocks.archaeomarasmius.getDefaultState()).setTreeCountPerChunk(2));
-	}
 }
