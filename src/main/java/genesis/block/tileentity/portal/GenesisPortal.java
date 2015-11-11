@@ -30,7 +30,7 @@ public class GenesisPortal
 	
 	public static boolean isBlockingPortal(IBlockAccess world, BlockPos pos, IBlockState state)
 	{
-		return GenesisBlocks.menhirs.hasState(state) || state.getBlock().getLightOpacity(world, pos) >= 15;
+		return GenesisBlocks.menhirs.containsState(state) || state.getBlock().getLightOpacity(world, pos) >= 15;
 	}
 	
 	public static boolean isBlockingPortal(IBlockAccess world, BlockPos pos)
@@ -87,7 +87,7 @@ public class GenesisPortal
 	
 	protected boolean isValidMenhir(BlockPos pos, IBlockState state, EnumFacing facing, int y)
 	{
-		if (GenesisBlocks.menhirs.hasState(state) && BlockMenhir.getFacing(state) == facing)
+		if (GenesisBlocks.menhirs.containsState(state) && BlockMenhir.getFacing(state) == facing)
 		{
 			if (y == new MenhirData(blockAccess, pos).getBottomPos().getY())
 			{

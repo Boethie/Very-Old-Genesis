@@ -179,9 +179,12 @@ public class VariantsCombo<V extends IMetadata, B extends Block, I extends Item>
 	{
 		return super.getItems(soleType);
 	}
-
-	public boolean hasState(IBlockState state)
+	
+	/**
+	 * @return Whether the state is contained by this combo.
+	 */
+	public boolean containsState(IBlockState state)
 	{
-		return super.hasState(soleType, state);
+		return super.isStateOf(state, soleType);
 	}
 }

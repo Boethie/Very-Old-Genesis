@@ -1117,9 +1117,9 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	}
 	
 	/**
-	 * @return Whether the state is contained by this combo.
+	 * @return Whether the state is of the specified {@link ObjectType}.
 	 */
-	public boolean hasState(ObjectType<?, ?> type, IBlockState state)
+	public boolean isStateOf(IBlockState state, ObjectType<?, ?> type)
 	{
 		SubsetData data = getSubsetData(state.getBlock());
 		return data != null && data.type == type;
@@ -1130,14 +1130,13 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	 */
 	public boolean isStateOf(IBlockState state, ObjectType<?, ?> type, V variant)
 	{
-		SubsetData data = getSubsetData(state.getBlock());
-		return data != null && data.type == type && data.variants.containsValue(variant);
+		return isStateOf(state, type) && getVariant(state) == variant;
 	}
 	
 	/**
-	 * @return Whether the stack is contained by this combo.
+	 * @return Whether the stack is of the specified {@link ObjectType}.
 	 */
-	public boolean hasStack(ObjectType<?, ?> type, ItemStack stack)
+	public boolean isStackOf(ItemStack stack, ObjectType<?, ?> type)
 	{
 		if (stack == null)
 		{
@@ -1153,8 +1152,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	 */
 	public boolean isStackOf(ItemStack stack, ObjectType<?, ?> type, V variant)
 	{
-		SubsetData data = getSubsetData(stack.getItem());
-		return data != null && data.type == type && data.variants.containsValue(variant);
+		return isStackOf(stack, type) && getVariant(stack) == variant;
 	}
 	
 	/**
