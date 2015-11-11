@@ -13,7 +13,7 @@ public class SiltBlocks extends VariantsOfTypesCombo<EnumSilt>
 	
 	public SiltBlocks()
 	{
-		super(ImmutableList.of(SILTSTONE, SILT), ImmutableList.copyOf(EnumSilt.values()));
+		super(ImmutableList.of(SILT, SILTSTONE), ImmutableList.copyOf(EnumSilt.values()));
 		
 		setUnlocalizedPrefix(Constants.Unlocalized.PREFIX);
 	}
