@@ -222,11 +222,11 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 							filler = GenesisBlocks.limestone.getDefaultState();
 						}
 						
-						if (k == 0 && filler.getBlock() == GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT))
+						if (k == 0 && filler.getBlock().getBlockState() == GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT).getBlockState())
 						{
 							k = rand.nextInt(5) + Math.max(0, y - 58);
 							filler = GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.SILT);
-						} else if (k == 0 && filler.getBlock() == GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.RED_SILT))
+						} else if (k == 0 && filler.getBlock().getBlockState() == GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.RED_SILT).getBlockState())
 						{
 							k = rand.nextInt(5) + Math.max(0, y - 58);
 							filler = GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT);
