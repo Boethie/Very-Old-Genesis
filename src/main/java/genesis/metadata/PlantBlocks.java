@@ -33,8 +33,7 @@ public class PlantBlocks extends VariantsOfTypesCombo<IPlantMetadata>
 				{
 					afterFernConstructed(block, item, variants);
 				}
-			}
-			;
+			};
 	public static final ObjectType<BlockGenesisDoublePlant, ItemBlockMulti<IPlantMetadata>> DOUBLE_FERN = new ObjectType<BlockGenesisDoublePlant, ItemBlockMulti<IPlantMetadata>>("double_fern", Unlocalized.Section.FERN_DOUBLE, BlockGenesisDoublePlant.class, null)
 			{
 				@Override
@@ -48,7 +47,7 @@ public class PlantBlocks extends VariantsOfTypesCombo<IPlantMetadata>
 				{
 					return "double_" + variant.getName();
 				}
-			};			
+			};
 	
 	static
 	{

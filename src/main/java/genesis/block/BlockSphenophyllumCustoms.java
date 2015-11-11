@@ -9,6 +9,8 @@ import genesis.util.random.IntRange;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.google.common.collect.Lists;
+
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
@@ -84,13 +86,13 @@ public class BlockSphenophyllumCustoms implements IGrowingPlantCustoms
 	}
 
 	@Override
-	public void plantUpdateTick(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, Random rand, boolean grew)
+	public void plantUpdateTick(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, Random rand, boolean grew)
 	{
 		int age = (Integer) state.getValue(plant.ageProp);
 		
 		if (age >= plant.maxAge && rand.nextInt(35) == 0)
 		{
-			GrowingPlantProperties props = new GrowingPlantProperties(worldIn, pos);
+			GrowingPlantProperties props = new GrowingPlantProperties(world, pos);
 			pos = props.getBottom();
 			
 			Iterable<BlockPos> checkArea = WorldUtils.getArea(pos.add(-3, -1, -3), pos.add(3, 1, 3));
@@ -99,7 +101,7 @@ public class BlockSphenophyllumCustoms implements IGrowingPlantCustoms
 			
 			for (BlockPos plantCheck : checkArea)
 			{
-				if (worldIn.getBlockState(plantCheck).getBlock() == plant && new GrowingPlantProperties(worldIn, plantCheck).isBottom(plantCheck))
+				if (world.getBlockState(plantCheck).getBlock() == plant && new GrowingPlantProperties(world, plantCheck).isBottom(plantCheck))
 				{
 					plantsLeft--;
 
@@ -110,23 +112,19 @@ public class BlockSphenophyllumCustoms implements IGrowingPlantCustoms
 				}
 			}
 			
-			ArrayList<BlockPos> spreadToList = new ArrayList<BlockPos>();
-			
-			for (BlockPos plantCheck : WorldUtils.getArea(pos.add(-1, 0, -1), pos.add(1, 1, 1)))
-			{
-				spreadToList.add(plantCheck);
-			}
+			ArrayList<BlockPos> spreadToList = Lists.newArrayList(WorldUtils.getArea(pos.add(-1, 0, -1), pos.add(1, 1, 1)));
 			
 			if (plantsLeft > 0)
 			{
 				BlockPos spreadPos;
-				int tries = 10;
+				int tries = 5;
 				
 				do
 				{
 					spreadPos = spreadToList.get(rand.nextInt(spreadToList.size()));
+					spreadToList.remove(spreadPos);
 					
-					if (worldIn.isAirBlock(spreadPos) && plant.canPlaceBlockAt(worldIn, spreadPos) && WorldUtils.waterInRange(worldIn, spreadPos.down(), 3, 1))
+					if (world.isAirBlock(spreadPos) && plant.canPlaceBlockAt(world, spreadPos) && WorldUtils.waterInRange(world, spreadPos.down(), 3, 1))
 					{
 						break;
 					}
@@ -139,7 +137,7 @@ public class BlockSphenophyllumCustoms implements IGrowingPlantCustoms
 				
 				if (tries > 0)
 				{
-					worldIn.setBlockState(spreadPos, plant.getDefaultState());
+					world.setBlockState(spreadPos, plant.getDefaultState());
 				}
 			}
 		}

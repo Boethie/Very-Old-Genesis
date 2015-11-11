@@ -433,7 +433,7 @@ public class BlockGenesisPebble extends Block
 	protected boolean canBlockStay(World world, BlockPos pos, IBlockState state)
 	{
 		pos = pos.down();
-		return world.getBlockState(pos).getBlock().isSideSolid(world, pos, EnumFacing.UP);
+		return world.isSideSolid(pos, EnumFacing.UP);
 	}
 	
 	@Override
