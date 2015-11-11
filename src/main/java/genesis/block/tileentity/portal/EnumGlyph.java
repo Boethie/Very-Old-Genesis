@@ -8,7 +8,6 @@ import genesis.common.GenesisItems;
 import genesis.metadata.EnumMenhirActivator;
 import genesis.metadata.IMetadata;
 import genesis.util.ItemStackKey;
-import genesis.util.Constants.Unlocalized;
 import net.minecraft.item.ItemStack;
 
 public enum EnumGlyph implements IMetadata
