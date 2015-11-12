@@ -362,6 +362,12 @@ item.genesis.material.nodule.brownFlint.name=Rognon de silex brun
 item.genesis.material.nodule.blackFlint.name=Rognon de silex noir
 item.genesis.material.nodule.marcasite.name=Rognon de marcassite
 
+item.genesis.material.powder.limestone.name=Poudre de calcaire
+item.genesis.material.powder.hematite.name=Poudre d'hématite
+item.genesis.material.powder.manganese.name=Poudre de manganèse
+item.genesis.material.powder.malachite.name=Poudre de malachite
+item.genesis.material.powder.azurite.name=Poudre d'azurite
+
 item.genesis.material.billet.archaeopteris.name=Billette en bois d'Archaeopteris
 item.genesis.material.billet.sigillaria.name=Billette en bois de Sigillaria
 item.genesis.material.billet.lepidodendron.name=Billette en bois de Lepidodendron
