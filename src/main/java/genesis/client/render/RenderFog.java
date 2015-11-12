@@ -49,9 +49,21 @@ public class RenderFog
 			{
 				long time = world.getWorldTime()%34000;
 				
-				double red = (float) ((IBiomeGenFog)biome).getFogColor().xCoord;
-				double green = (float) ((IBiomeGenFog)biome).getFogColor().yCoord;
-				double blue = (float) ((IBiomeGenFog)biome).getFogColor().zCoord;
+				double red = ((IBiomeGenFog)biome).getFogColor().xCoord;
+				double green = ((IBiomeGenFog)biome).getFogColor().yCoord;
+				double blue = ((IBiomeGenFog)biome).getFogColor().zCoord;
+				
+				double nRed = ((IBiomeGenFog)biome).getFogColorNight().xCoord;
+				double nGreen = ((IBiomeGenFog)biome).getFogColorNight().yCoord;
+				double nBlue = ((IBiomeGenFog)biome).getFogColorNight().zCoord;
+				
+				Block blockAtEyes = ActiveRenderInfo.getBlockAtEntityViewpoint(world, event.entity, (float)event.renderPartialTicks);
+				
+				float percent = getDayNightFactor(time);
+				
+				red = applyColorTransition(red, nRed, 1.0f - percent);
+				green = applyColorTransition(green, nGreen, 1.0f - percent);
+				blue = applyColorTransition(blue, nBlue, 1.0f - percent);
 				
 				if (!colorInit)
 				{
@@ -60,14 +72,6 @@ public class RenderFog
 					curBlue = blue;
 					colorInit = true;
 				}
-				
-				Block blockAtEyes = ActiveRenderInfo.getBlockAtEntityViewpoint(world, event.entity, (float)event.renderPartialTicks);
-				
-				float percent = getDayNightFactor(time);
-				
-				red *= percent;
-				green *= percent;
-				blue *= percent;
 				
 				if (blockAtEyes.getMaterial() == Material.water)
 				{
@@ -94,6 +98,11 @@ public class RenderFog
 				event.blue = (float)curBlue;
 			}
 		}
+	}
+	
+	private double applyColorTransition(double origin, double destiny, float percentage)
+	{
+		return origin + ((destiny - origin) * percentage);
 	}
 	
 	private float getDayNightFactor(long time)
