@@ -74,6 +74,7 @@ public final class GenesisBlocks
 	public static final BlockStorageBox storage_box = (BlockStorageBox) new BlockStorageBox().setUnlocalizedName(Unlocalized.CONTAINER_BLOCK + "storageBox");
 	
 	/* Plants */
+	public static final Block roots = new BlockRoots().setUnlocalizedName(Unlocalized.PLANT + "roots");
 	public static final PlantBlocks plants = new PlantBlocks();
 	public static final BlockCalamites calamites = (BlockCalamites) new BlockCalamites(true, 15, 7)
 			.setGrowth(6, 1, 1, 1)
@@ -197,6 +198,7 @@ public final class GenesisBlocks
 		
 		// - Full Block Woody -
 		trees.registerVariants(TreeBlocksAndItems.LOG);
+		Genesis.proxy.registerBlock(roots, "roots");
 		Genesis.proxy.registerBlock(calamites_bundle, "calamites_bundle");
 		Genesis.proxy.registerBlock(programinis_bundle, "programinis_bundle");
 		Genesis.proxy.registerBlock(prototaxites_mycelium, "prototaxites_mycelium");
