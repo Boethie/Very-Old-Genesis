@@ -253,9 +253,9 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 	
 	public Vec3 getFogColorNight()
 	{
-		float red = 0.152941176f;
-		float green = 0.152941176f;
-		float blue = 0.152941176f;
+		float red = 0.070941176F;
+		float green = 0.070941176F;
+		float blue = 0.070941176F;
 		
 		return new Vec3(red, green, blue);
 	}

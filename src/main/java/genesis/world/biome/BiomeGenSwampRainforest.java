@@ -77,16 +77,6 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 	}
 	
 	@Override
-	public Vec3 getFogColorNight()
-	{
-		float red = 0.152941176f;
-		float green = 0.152941176f;
-		float blue = 0.152941176f;
-		
-		return new Vec3(red, green, blue);
-	}
-	
-	@Override
 	public float getNightFogModifier()
 	{
 		//the higher the number, more dense fog will be at night
