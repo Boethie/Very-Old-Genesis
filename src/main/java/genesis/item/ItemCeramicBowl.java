@@ -62,10 +62,25 @@ public class ItemCeramicBowl extends ItemGenesis
 	}
 	
 	@Override
+	public int getMaxItemUseDuration(ItemStack stack)
+	{
+		return 32;
+	}
+	
+	@Override
+	public EnumAction getItemUseAction(ItemStack stack)
+	{
+		return EnumAction.DRINK;
+	}
+	
+	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
 	{
-		if (owner.getVariant(stack) == EnumCeramicBowls.BOWL)
+		EnumCeramicBowls variant = (EnumCeramicBowls) owner.getVariant(stack);
+		
+		switch (variant)
 		{
+		case BOWL:
 			MovingObjectPosition hit = getMovingObjectPositionFromPlayer(world, player, true);
 	
 			if (hit != null && hit.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
@@ -94,6 +109,41 @@ public class ItemCeramicBowl extends ItemGenesis
 					}
 				}
 			}
+			break;
+		case WATER_BOWL:
+			if (!player.capabilities.isCreativeMode)
+			{
+				player.setItemInUse(stack, getMaxItemUseDuration(stack));
+			}
+			break;
+		}
+		
+		return stack;
+	}
+	
+	@Override
+	public ItemStack onItemUseFinish(ItemStack stack, World world, EntityPlayer player)
+	{
+		EnumCeramicBowls variant = (EnumCeramicBowls) owner.getVariant(stack);
+		
+		switch (variant)
+		{
+		case WATER_BOWL:
+			ItemStack empty = owner.getStack(EnumCeramicBowls.BOWL);
+			
+			if (--stack.stackSize <= 0)
+			{
+				return empty;
+			}
+			
+			if (!player.inventory.addItemStackToInventory(empty))
+			{
+				player.dropPlayerItemWithRandomChoice(empty, false);
+			}
+			
+			break;
+		default:
+			break;
 		}
 		
 		return stack;
