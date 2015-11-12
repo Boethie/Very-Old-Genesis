@@ -63,7 +63,7 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 	@Override
 	public float getFogDensity(int x, int y, int z)
 	{
-		return 1.0F;
+		return 0.75F;
 	}
 	
 	@Override

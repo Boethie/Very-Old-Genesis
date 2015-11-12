@@ -72,7 +72,7 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 	@Override
 	public float getNightFogModifier()
 	{
-		return 0.5F;
+		return 0.65F;
 	}
 	
 	@Override
