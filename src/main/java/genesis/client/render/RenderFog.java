@@ -76,9 +76,9 @@ public class RenderFog
 					green = (waterColorMultiplier % 0x00ff00) >> 8;
 					blue = (waterColorMultiplier % 0x0000ff);
 					
-					red *= 0.002D;
-					green *= 0.002D;
-					blue *= 0.002D;
+					red *= 0.0008D;
+					green *= 0.0008D;
+					blue *= 0.0008D;
 				}
 				
 				targetRed = red;
