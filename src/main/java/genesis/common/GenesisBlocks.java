@@ -228,7 +228,7 @@ public final class GenesisBlocks
 		// Workbench
 		Genesis.proxy.registerBlock(workbench, "workbench");
 		GameRegistry.registerTileEntity(TileEntityKnapper.class, Constants.ASSETS_PREFIX + "workbench");
-		GenesisEntityData.registerProperty(EntityPlayer.class, TileEntityKnapper.KNAPPING_TIME, 0, false);
+		GenesisEntityData.registerProperty(EntityPlayer.class, TileEntityKnapper.KNAPPING_TIME);
 		
 		// Campfire
 		Genesis.proxy.registerBlock(campfire, "campfire");

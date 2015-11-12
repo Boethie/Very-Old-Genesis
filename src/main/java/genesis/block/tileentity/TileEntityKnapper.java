@@ -150,7 +150,7 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 	public static final int SLOT_OUTPUT_WASTE = 14;
 	public static final int SLOT_COUNT = SLOTS_CRAFTING_COUNT + 6;
 	
-	public static final IntegerEntityProperty KNAPPING_TIME = new IntegerEntityProperty("knappingTime");
+	public static final IntegerEntityProperty KNAPPING_TIME = new IntegerEntityProperty("knappingTime", 0, false);
 	
 	protected ItemStack[] inventory = new ItemStack[SLOT_COUNT];
 	
@@ -190,7 +190,7 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 				{
 					int time = GenesisEntityData.getValue(player, KNAPPING_TIME);
 					
-					if (time % 5 == 0)
+					if (time % 5 == 0 && worldObj.isRemote)
 					{
 						player.playSound(Constants.ASSETS_PREFIX + "crafting.knapping_hit", 2, 0.9F + worldObj.rand.nextFloat() * 0.2F);
 					}

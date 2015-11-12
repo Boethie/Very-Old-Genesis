@@ -15,7 +15,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityEvent.*;
 import net.minecraftforge.fml.common.eventhandler.*;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
 public class GenesisEntityData implements IExtendedEntityProperties
 {
 	public static class EventHandler
@@ -32,7 +31,7 @@ public class GenesisEntityData implements IExtendedEntityProperties
 		}
 	}
 	
-	public static void registerHandler()
+	public static void register()
 	{
 		MinecraftForge.EVENT_BUS.register(EventHandler.INSTANCE);
 	}
@@ -42,96 +41,105 @@ public class GenesisEntityData implements IExtendedEntityProperties
 		public String getName();
 		public void writeToNBT(T value, NBTTagCompound compound);
 		public T readFromNBT(NBTTagCompound compound);
+		public T getDefaultValue();
 	}
 	
-	public static abstract class NamedEntityProperty<T> implements EntityProperty<T>
+	public static abstract class EntityPropertyBase<T> implements EntityProperty<T>
 	{
-		private final String name;
+		protected final String name;
+		protected final T defaultValue;
+		protected final boolean writeToNBT;
 		
-		public NamedEntityProperty(String name)
+		public EntityPropertyBase(String name, T defaultValue, boolean writeToNBT)
 		{
 			this.name = name;
+			this.defaultValue = defaultValue;
+			this.writeToNBT = writeToNBT;
 		}
 		
 		public String getName()
 		{
 			return name;
 		}
-	}
-	
-	public static class IntegerEntityProperty extends NamedEntityProperty<Integer>
-	{
-		public IntegerEntityProperty(String name)
+		
+		public T getDefaultValue()
 		{
-			super(name);
+			return defaultValue;
+		}
+		
+		public abstract void doWriteToNBT(T value, NBTTagCompound compound);
+		public abstract T doReadFromNBT(NBTTagCompound compound);
+		
+		@Override
+		public void writeToNBT(T value, NBTTagCompound compound)
+		{
+			if (writeToNBT)
+			{
+				doWriteToNBT(value, compound);
+			}
 		}
 		
 		@Override
-		public void writeToNBT(Integer value, NBTTagCompound compound)
+		public T readFromNBT(NBTTagCompound compound)
+		{
+			return writeToNBT ? doReadFromNBT(compound) : null;
+		}
+	}
+	
+	public static class IntegerEntityProperty extends EntityPropertyBase<Integer>
+	{
+		public IntegerEntityProperty(String name, Integer defaultValue, boolean write)
+		{
+			super(name, defaultValue, write);
+		}
+		
+		@Override
+		public void doWriteToNBT(Integer value, NBTTagCompound compound)
 		{
 			compound.setInteger(getName(), value);
 		}
 		
 		@Override
-		public Integer readFromNBT(NBTTagCompound compound)
+		public Integer doReadFromNBT(NBTTagCompound compound)
 		{
 			return compound.getInteger(getName());
 		}
 	}
 	
-	public static class PropertySettings<T>
-	{
-		public final EntityProperty<T> property;
-		public final T defaultValue;
-		public final boolean saveToNBT;
-		
-		public PropertySettings(EntityProperty<T> property, T defaultValue, boolean saveToNBT)
-		{
-			this.property = property;
-			this.defaultValue = defaultValue;
-			this.saveToNBT = saveToNBT;
-		}
-	}
-	
-	private static final Table<Class<? extends Entity>, EntityProperty, PropertySettings> properties = HashBasedTable.create();
+	private static final Multimap<Class<? extends Entity>, EntityProperty<?>> properties = HashMultimap.create();
 
-	public static <T> void registerProperty(Class<? extends Entity> entityClass, EntityProperty<T> property, T defaultValue, boolean saveToNBT)
+	public static <T> void registerProperty(Class<? extends Entity> entityClass, EntityProperty<T> property)
 	{
-		properties.put(entityClass, property, new PropertySettings<T>(property, defaultValue, saveToNBT));
+		properties.put(entityClass, property);
 	}
 	
-	public static Map<EntityProperty, PropertySettings> getPropertyMap(Class<? extends Entity> entityClass)
+	public static Collection<EntityProperty<?>> getProperties(Class<? extends Entity> entityClass)
 	{
-		if (properties.containsRow(entityClass))
+		if (!properties.containsKey(entityClass))
 		{
-			return properties.row(entityClass);
-		}
-		
-		for (Entry<Class<? extends Entity>, Map<EntityProperty, PropertySettings>> check : properties.rowMap().entrySet())
-		{
-			if (check.getKey().isAssignableFrom(check.getKey()))
+			for (Entry<Class<? extends Entity>, Collection<EntityProperty<?>>> check : properties.asMap().entrySet())
 			{
-				for (Entry<EntityProperty, PropertySettings> entry : check.getValue().entrySet())
+				if (check.getKey().isAssignableFrom(entityClass))
 				{
-					properties.put(entityClass, entry.getKey(), entry.getValue());
+					for (EntityProperty<?> property : check.getValue())
+					{
+						properties.put(entityClass, property);
+					}
 				}
-				
-				return check.getValue();
 			}
 		}
 		
-		return null;
+		return properties.get(entityClass);
 	}
 
-	public static Map<EntityProperty, PropertySettings> getPropertyMap(Entity entity)
+	public static Collection<EntityProperty<?>> getProperties(Entity entity)
 	{
-		return getPropertyMap(entity.getClass());
+		return getProperties(entity.getClass());
 	}
 	
 	public static boolean isEntityRegistered(Class<? extends Entity> entityClass)
 	{
-		Map<EntityProperty, PropertySettings> propertyMap = getPropertyMap(entityClass);
-		return propertyMap != null && !propertyMap.isEmpty();
+		return !getProperties(entityClass).isEmpty();
 	}
 	
 	public static boolean isEntityRegistered(Entity entity)
@@ -139,75 +147,80 @@ public class GenesisEntityData implements IExtendedEntityProperties
 		return isEntityRegistered(entity.getClass());
 	}
 	
-	public static boolean isPropertyRegisteredToEntity(Class<? extends Entity> entityClass, EntityProperty property)
+	public static boolean isPropertyRegisteredToEntity(Class<? extends Entity> entityClass, EntityProperty<?> property)
 	{
-		return isEntityRegistered(entityClass) && getPropertyMap(entityClass).containsKey(property);
+		return isEntityRegistered(entityClass) && getProperties(entityClass).contains(property);
 	}
 	
-	public static boolean isPropertyRegisteredToEntity(Entity entity, EntityProperty property)
+	public static boolean isPropertyRegisteredToEntity(Entity entity, EntityProperty<?> property)
 	{
 		return isPropertyRegisteredToEntity(entity.getClass(), property);
 	}
 	
-	public static GenesisEntityData getProperties(Entity entity)
+	public static GenesisEntityData getData(Entity entity)
 	{
 		if (!isEntityRegistered(entity))
 		{
 			throw new RuntimeException("Cannot get properties for entity " + entity + " as no properties have been registered for that type.");
 		}
 		
-		GenesisEntityData properties = (GenesisEntityData) entity.getExtendedProperties(Constants.MOD_ID);
-		return properties;
+		return (GenesisEntityData) entity.getExtendedProperties(Constants.MOD_ID);
 	}
 	
 	public static <T> T getValue(Entity entity, EntityProperty<T> property)
 	{
-		return getProperties(entity).getValue(property);
+		return getData(entity).getValue(property);
 	}
 	
 	public static <T> void setValue(Entity entity, EntityProperty<T> property, T value)
 	{
-		getProperties(entity).setValue(property, value);
+		getData(entity).setValue(property, value);
 	}
 	
 	private Entity entity;
-	private final Map<EntityProperty, Object> dataMap = Maps.newHashMap();
+	private final Map<EntityProperty<?>, Object> dataMap = Maps.newHashMap();
 	
 	@Override
 	public void init(Entity entity, World world)
 	{
 		this.entity = entity;
 
-		for (Entry<EntityProperty, PropertySettings> entry : getPropertyMap(entity).entrySet())
+		for (EntityProperty<?> property : getProperties(entity))
 		{
-			dataMap.put(entry.getKey(), entry.getValue().defaultValue);
+			dataMap.put(property, property.getDefaultValue());
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	protected <T> void saveNBTData(NBTTagCompound compound, EntityProperty<T> property, Object value)
+	{
+		property.writeToNBT((T) value, compound);
 	}
 	
 	@Override
 	public void saveNBTData(NBTTagCompound compound)
 	{
-		for (Entry<EntityProperty, PropertySettings> entry : getPropertyMap(entity).entrySet())
+		for (EntityProperty<?> property : getProperties(entity))
 		{
-			if (entry.getValue().saveToNBT)
-			{
-				entry.getKey().writeToNBT(dataMap.get(entry.getKey()), compound);
-			}
+			saveNBTData(compound, property, dataMap.get(property));
 		}
 	}
 	
 	@Override
 	public void loadNBTData(NBTTagCompound compound)
 	{
-		for (Entry<EntityProperty, PropertySettings> entry : getPropertyMap(entity.getClass()).entrySet())
+		for (EntityProperty<?> property : getProperties(entity.getClass()))
 		{
-			if (entry.getValue().saveToNBT)
+			Object value = property.readFromNBT(compound);
+			
+			if (value != null)
 			{
-				dataMap.put(entry.getKey(), entry.getKey().readFromNBT(compound));
+				dataMap.put(property, value);
 			}
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public <T> T getValue(EntityProperty<T> property)
 	{
 		return (T) dataMap.get(property);

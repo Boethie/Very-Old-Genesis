@@ -40,7 +40,7 @@ public class Genesis
 		GenesisFluids.registerFluids();
 		GenesisBlocks.registerBlocks();
 		GenesisItems.registerItems();
-		GenesisEntityData.registerHandler();
+		GenesisEntityData.register();
 		GenesisSounds.register();
 		
 		GenesisEntities.registerEntities();
