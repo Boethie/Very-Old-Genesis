@@ -260,6 +260,11 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 		return getIntFromColor(red, green, blue);
 	}
 	
+	public float getNightFogModifier()
+	{
+		return 0.01f;
+	}
+	
 	public int getIntFromColor(float red, float green, float blue)
 	{
 		int r = Math.round(255 * red);

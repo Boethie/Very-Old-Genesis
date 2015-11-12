@@ -82,23 +82,6 @@ public class WorldProviderGenesis extends WorldProvider
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Vec3 getFogColor(float p_76562_1_, float p_76562_2_)
-	{
-		float f2 = MathHelper.cos(p_76562_1_ * (float)Math.PI * 2.0F) * 2.0F + 0.5F;
-		f2 = MathHelper.clamp_float(f2, 0.0F, 1.0F);
-		
-		float red = 0.29411764705882352941176470588235F;
-		float green = 0.47450980392156862745098039215686F;
-		float blue = 0.1960784313725490196078431372549F;
-		
-		red *= f2 * 0.94F + 0.06F;
-		green *= f2 * 0.94F + 0.06F;
-		blue *= f2 * 0.91F + 0.09F;
-		return new Vec3((double)red, (double)green, (double)blue);
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
 	public float[] calcSunriseSunsetColors(float par1, float par2)
 	{
 		float f2 = 0.4F;

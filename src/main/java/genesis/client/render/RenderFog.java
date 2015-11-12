@@ -20,8 +20,17 @@ public class RenderFog
 {
 	private static double fogX = 0.0D;
 	private static double fogZ = 0.0D;
-	private static boolean initialized = false;
+	private static boolean densityInit = false;
+	private static boolean colorInit = false;
 	private static float planeDistance = 0.0F;
+	
+	public static double curRed = 0.0D;
+	public static double curGreen = 0.0D;
+	public static double curBlue = 0.0D;
+	
+	public static double targetRed = 0.0D;
+	public static double targetGreen = 0.0D;
+	public static double targetBlue = 0.0D;
 	
 	@SubscribeEvent
 	public void onGetFogColor(FogColors event)
@@ -44,40 +53,21 @@ public class RenderFog
 				double green = (float) ((IBiomeGenFog)biome).getFogColor().yCoord;
 				double blue = (float) ((IBiomeGenFog)biome).getFogColor().zCoord;
 				
+				if (!colorInit)
+				{
+					curRed = red;
+					curGreen = green;
+					curBlue = blue;
+					colorInit = true;
+				}
+				
 				Block blockAtEyes = ActiveRenderInfo.getBlockAtEntityViewpoint(world, event.entity, (float)event.renderPartialTicks);
 				
-				if (time > 20000 && time <= 31000)
-				{
-					red = 0;
-					green = 0;
-					blue = 0;
-				}
-				else
-				{
-					if (time > 17000 && time <= 20000)
-					{
-						float percent = 1.0F - (((float)time - 17000F) / 3000F);
-						
-						if (percent < 0.0F)
-							percent = 0.0F;
-						
-						red *= percent;
-						green *= percent;
-						blue *= percent;
-					}
-					
-					if (time > 31000 && time <= 34000)
-					{
-						float percent = (((float)time - 31000F) / 3000F);
-						
-						if (percent > 1.0F)
-							percent = 1.0F;
-						
-						red *= percent;
-						green *= percent;
-						blue *= percent;
-					}
-				}
+				float percent = getDayNightFactor(time);
+				
+				red *= percent;
+				green *= percent;
+				blue *= percent;
 				
 				if (blockAtEyes.getMaterial() == Material.water)
 				{
@@ -91,11 +81,46 @@ public class RenderFog
 					blue *= 0.002D;
 				}
 				
-				event.red = (float)red;
-				event.green = (float)green;
-				event.blue = (float)blue;
+				targetRed = red;
+				targetGreen = green;
+				targetBlue = blue;
+				
+				curRed += (targetRed - curRed) * 0.01D;
+				curGreen += (targetGreen - curGreen) * 0.01D;
+				curBlue += (targetBlue - curBlue) * 0.01D;
+				
+				event.red = (float)curRed;
+				event.green = (float)curGreen;
+				event.blue = (float)curBlue;
 			}
 		}
+	}
+	
+	private float getDayNightFactor(long time)
+	{
+		float factor = 1.0F;
+		
+		//Night time
+		if (time > 20000 && time <= 31000)
+		{
+			factor = 0;
+		}
+		//Sunset
+		else if (time > 17000 && time <= 20000)
+		{
+			factor = 1.0f - (((float)time - 17000f) / 3000f);
+			if (factor < 0.0f)
+				factor = 0.0f;
+		}
+		//Sunrise
+		else if (time > 31000 && time <= 34000)
+		{
+			factor = (((float)time - 31000f) / 3000f);
+			if (factor > 1.0f)
+				factor = 1.0f;
+		}
+		
+		return factor;
 	}
 	
 	@SubscribeEvent
@@ -104,17 +129,19 @@ public class RenderFog
 		Entity entity = event.entity;
 		World world = entity.worldObj;
 		
+		long time = world.getWorldTime()%34000;
+		
 		int playerX = MathHelper.floor_double(entity.posX);
 		int playerY = MathHelper.floor_double(entity.posY);
 		int playerZ = MathHelper.floor_double(entity.posZ);
 		
-		if (playerX == fogX && playerZ == fogZ && initialized)
+		if (playerX == fogX && playerZ == fogZ && densityInit)
 		{
 			renderFog(event.fogMode, planeDistance, 0.75f);
 			return;
 		}
 		
-		initialized = true;
+		densityInit = true;
 		
 		int distance = 20;
 		float fogDistance = 0F;
@@ -129,6 +156,8 @@ public class RenderFog
 				{
 					float distancePart = ((IBiomeGenFog)biome).getFogDensity(playerX + x, playerY, playerZ + z);
 					float weightPart = 1;
+					
+					distancePart *= 1.0f - (((IBiomeGenFog)biome).getNightFogModifier() * (1.0f - getDayNightFactor(time)));
 					
 					if (x == -distance)
 					{

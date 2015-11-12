@@ -77,6 +77,13 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 	}
 	
 	@Override
+	public float getNightFogModifier()
+	{
+		//the higher the number, more dense fog will be at night
+		return 0.5f;
+	}
+	
+	@Override
 	public void genTerrainBlocks(World world, Random rand, ChunkPrimer p_180622_3_, int p_180622_4_, int p_180622_5_, double p_180622_6_)
 	{
 		double d1 = field_180281_af.func_151601_a((double)p_180622_4_ * 0.25D, (double)p_180622_5_ * 0.25D);
