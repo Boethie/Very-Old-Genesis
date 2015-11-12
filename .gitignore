@@ -1,21 +1,15 @@
-### GRADLE ###
-.gradle/
-build/
+### USE WHITTELIST ###
+*
 
-### ECLIPSE ###
-eclipse
-.settings/
-bin/
-.classpath
-.project
-*.launch
-
-### INTELLIJ IDEA ###
-.idea/
-*.iml
-*.ipr
-*.iws
-
-### GENESIS ###
+### FOLDERS ###
+!src/
 src/api/
-out/
+!gradle/
+
+### FILES ###
+!.gitignore
+!build.gradle
+!gradlew
+!gradlew.bat
+!LICENSE.md
+!versions.json
