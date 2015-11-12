@@ -48,7 +48,7 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 		addDecoration(new WorldGenUnderWaterPatch(Blocks.water, GenesisBlocks.peat.getDefaultState()).setCountPerChunk(10));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
-		addDecoration(new WorldGenRockBoulders().setRarity(80).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders().setRarity(85).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 		
 		addTree(new WorldGenTreeLepidodendron(11, 15, true).setTreeCountPerChunk(6));
 		addTree(new WorldGenTreeSigillaria(9, 12, true).setTreeCountPerChunk(2));
@@ -63,7 +63,7 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 	@Override
 	public float getFogDensity(int x, int y, int z)
 	{
-		return 0.27F;
+		return 1.0F;
 	}
 	
 	@Override
@@ -80,7 +80,7 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 	public float getNightFogModifier()
 	{
 		//the higher the number, more dense fog will be at night
-		return 0.5f;
+		return 0.65F;
 	}
 	
 	@Override

@@ -40,7 +40,7 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(10));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
-		addDecoration(new WorldGenRockBoulders().setRarity(80).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders().setRarity(85).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 	}
 	
 	protected void addTrees()
@@ -67,6 +67,12 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 		float blue = 0.474509804F;
 		
 		return new Vec3(red, green, blue);
+	}
+	
+	@Override
+	public float getNightFogModifier()
+	{
+		return 0.5F;
 	}
 	
 	@Override

@@ -2,6 +2,7 @@ package genesis.world.biome;
 
 import java.util.Random;
 
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 import genesis.common.GenesisBlocks;
@@ -50,9 +51,31 @@ public class BiomeGenOceanGenesis extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.ECHMATOCRINUS).setCountPerChunk(rarityScale[4]));
 		addDecoration(new WorldGenAquaticPlants().setGenerateInGroup(true, 6).setPlantType(EnumAquaticPlant.GRYPANIA).setCountPerChunk(rarityScale[4]));
 		
-		addDecoration(new WorldGenRockBoulders().setRarity(80).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders().setRarity(85).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 		
 		return this;
+	}
+	
+	@Override
+	public float getFogDensity(int x, int y, int z)
+	{
+		return 1.0F;
+	}
+	
+	@Override
+	public Vec3 getFogColor()
+	{
+		float red = 0.533333333F;
+		float green = 0.647058824F;
+		float blue = 0.474509804F;
+		
+		return new Vec3(red, green, blue);
+	}
+	
+	@Override
+	public float getNightFogModifier()
+	{
+		return 0.65F;
 	}
 	
 	@Override
