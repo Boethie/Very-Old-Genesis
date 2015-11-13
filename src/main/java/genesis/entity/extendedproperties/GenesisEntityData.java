@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 import com.google.common.collect.*;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
@@ -38,7 +39,8 @@ public class GenesisEntityData implements IExtendedEntityProperties
 	
 	public static final String COMPOUND_KEY = Constants.MOD_ID + "EntityData";
 	
-	private static final Multimap<Class<? extends Entity>, EntityProperty<?>> ENTITY_PROPERTIES = HashMultimap.create();
+	private static final Set<Class<? extends Entity>> LISTED = Sets.newHashSet();
+	private static final Multimap<Class<? extends Entity>, EntityProperty<?>> PROPERTIES = HashMultimap.create();
 	
 	public static NBTTagCompound getGenesisCompound(NBTTagCompound compound)
 	{
@@ -52,16 +54,16 @@ public class GenesisEntityData implements IExtendedEntityProperties
 
 	public static <T> void registerProperty(Class<? extends Entity> entityClass, EntityProperty<T> property)
 	{
-		ENTITY_PROPERTIES.put(entityClass, property);
+		PROPERTIES.put(entityClass, property);
 	}
 	
 	public static Collection<EntityProperty<?>> getProperties(Class<? extends Entity> entityClass)
 	{
-		if (!ENTITY_PROPERTIES.containsKey(entityClass))
+		if (!LISTED.contains(entityClass))
 		{
 			Collection<EntityProperty<?>> properties = Sets.newHashSet();
 			
-			for (Entry<Class<? extends Entity>, Collection<EntityProperty<?>>> check : ENTITY_PROPERTIES.asMap().entrySet())
+			for (Entry<Class<? extends Entity>, Collection<EntityProperty<?>>> check : PROPERTIES.asMap().entrySet())
 			{
 				if (check.getKey().isAssignableFrom(entityClass))
 				{
@@ -72,11 +74,17 @@ public class GenesisEntityData implements IExtendedEntityProperties
 				}
 			}
 			
-			ENTITY_PROPERTIES.putAll(entityClass, properties);
-			return properties;
+			if (EntityPlayer.class.isAssignableFrom(entityClass))
+			{
+				entityClass.getClass();
+			}
+			
+			LISTED.add(entityClass);
+			PROPERTIES.putAll(entityClass, properties);
 		}
 		
-		return ENTITY_PROPERTIES.get(entityClass);
+		Collection<EntityProperty<?>> properties = PROPERTIES.get(entityClass);
+		return properties;
 	}
 
 	public static Collection<EntityProperty<?>> getProperties(Entity entity)
@@ -188,6 +196,11 @@ public class GenesisEntityData implements IExtendedEntityProperties
 		{
 			throw new IllegalArgumentException("Cannot set property " + property + " for entity " + entity + "," +
 					"as the property has not been registered to that entity class.");
+		}
+		
+		if (!property.isValidValue(value))
+		{
+			throw new IllegalArgumentException("Value " + value + " is not valid for property " + property + ".");
 		}
 		
 		dataMap.put(property, value);

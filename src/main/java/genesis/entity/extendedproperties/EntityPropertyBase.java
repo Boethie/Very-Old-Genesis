@@ -42,4 +42,16 @@ public abstract class EntityPropertyBase<T> implements EntityProperty<T>
 	{
 		return writeToNBT ? doReadFromNBT(compound) : null;
 	}
+	
+	@Override
+	public boolean isValidValue(T value)
+	{
+		return true;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return getName() + "[default=" + getDefaultValue() + "]";
+	}
 }

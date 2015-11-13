@@ -190,7 +190,7 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 				{
 					int time = GenesisEntityData.getValue(player, KNAPPING_TIME);
 					
-					if (time % 5 == 0 && worldObj.isRemote)
+					if (time % 5 == 0)
 					{
 						player.playSound(Constants.ASSETS_PREFIX + "crafting.knapping_hit", 2, 0.9F + worldObj.rand.nextFloat() * 0.2F);
 					}

@@ -8,4 +8,5 @@ public interface EntityProperty<T>
 	public void writeToNBT(T value, NBTTagCompound compound);
 	public T readFromNBT(NBTTagCompound compound);
 	public T getDefaultValue();
+	public boolean isValidValue(T value);
 }
