@@ -5,12 +5,12 @@ import genesis.metadata.EnumSilt;
 import genesis.metadata.SiltBlocks;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
 
-public class BiomeGenDesert extends BiomeGenBaseGenesis
+public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 {
-	public BiomeGenDesert(int id)
+	public BiomeGenRedDesert(int id)
 	{
 		super(id);
-		setBiomeName("Desert");
+		setBiomeName("Red Desert");
 		setTemperatureRainfall(2.0F, 0.0F);
 		setDisableRain();
 		setHeight(0.125F, 0.05F);
