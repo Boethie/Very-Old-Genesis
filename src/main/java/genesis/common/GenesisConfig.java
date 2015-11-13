@@ -35,7 +35,7 @@ public final class GenesisConfig
 	public static int redDesertId = 68;
 	public static int redDesertWeight = 10;
 	public static int redDesertHillsId = 69;
-	public static int redBeachId = 61;
+	public static int redBeachId = 70;
 	
 	//Dimensions
 	public static int genesisDimId = 37;
