@@ -54,7 +54,7 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis redBeach;
 	public static BiomeGenBaseGenesis limestoneBeach;
 	
-	public static final BiomeGenBase.Height height_ShallowWaters = new BiomeGenBase.Height(0.45F, 0.3F);
+	public static final BiomeGenBase.Height height_ShallowWaters = new BiomeGenBase.Height((-0.5F, 0.0F);
 	public static final BiomeGenBase.Height height_Oceans = new BiomeGenBase.Height(-1.0F, 0.1F);
 	public static final BiomeGenBase.Height height_DeepOceans = new BiomeGenBase.Height(-1.8F, 0.1F);
 	public static final BiomeGenBase.Height height_EmergingHills = new BiomeGenBase.Height(0.0F, 0.1F);
