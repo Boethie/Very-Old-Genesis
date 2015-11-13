@@ -12,7 +12,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.ServerConfigurationManager;
 import net.minecraft.world.Teleporter;
 import net.minecraft.world.WorldServer;
-import net.minecraft.world.WorldSettings.GameType;
 import net.minecraftforge.common.DimensionManager;
 
 public class GenesisDimensions
@@ -42,7 +41,7 @@ public class GenesisDimensions
 		return new TeleporterGenesis(world);
 	}
 	
-	public static void teleportToDimension(Entity entity, GenesisPortal portal, int id, boolean force)
+	public static boolean teleportToDimension(Entity entity, GenesisPortal portal, int id, boolean force)
 	{
 		if (!entity.worldObj.isRemote)
 		{
@@ -61,67 +60,101 @@ public class GenesisDimensions
 			TeleporterGenesis teleporter = getTeleporter(newWorld);
 			teleporter.setOriginatingPortal(portal);
 			
+			boolean teleported = false;
+			
 			if (player != null)
-			{	// Creates a new player
-				String fromData = null;
-				String toData = null;
+			{
+				NBTTagCompound dimensionPlayers = null;
+				NBTTagCompound restoreData = null;
 				
-				if (id == GenesisConfig.genesisDimId)
+				if (!force && !player.capabilities.isCreativeMode)
 				{
-					fromData = OTHER_PLAYER_DATA;
-					toData = GENESIS_PLAYER_DATA;
+					String storingName = null;
+					String restoreName = null;
+					
+					// Set the names that will be loaded from and saved to in the extended entity property.
+					if (id == GenesisConfig.genesisDimId)
+					{
+						storingName = OTHER_PLAYER_DATA;
+						restoreName = GENESIS_PLAYER_DATA;
+					}
+					else
+					{
+						storingName = GENESIS_PLAYER_DATA;
+						restoreName = OTHER_PLAYER_DATA;
+					}
+					
+					// Get the stored players from both sides.
+					dimensionPlayers = GenesisEntityData.getValue(player, STORED_PLAYERS);
+					
+					// Get the player to restore.
+					restoreData = dimensionPlayers.getCompoundTag(restoreName);	
+					dimensionPlayers.removeTag(restoreName);	// Remove the stored player so that no duplication occurs.
+					
+					// Write the current player.
+					NBTTagCompound storingData = new NBTTagCompound();
+					player.writeToNBT(storingData);	// Write the current player to the compound.
+					storingData.getCompoundTag(GenesisEntityData.COMPOUND_KEY).removeTag(STORED_PLAYERS.getName());
+					
+					// Save the current player to the data.
+					dimensionPlayers.setTag(storingName, storingData);
 				}
-				else
-				{
-					fromData = GENESIS_PLAYER_DATA;
-					toData = OTHER_PLAYER_DATA;
-				}
 				
-				NBTTagCompound dimensionPlayers = GenesisEntityData.getValue(player, STORED_PLAYERS);
-				NBTTagCompound loadingPlayer = dimensionPlayers.getCompoundTag(toData);
-				dimensionPlayers.removeTag(toData);
-				
-				NBTTagCompound savedPlayer = new NBTTagCompound();
-				player.writeToNBT(savedPlayer);
-				savedPlayer.getCompoundTag(GenesisEntityData.COMPOUND_KEY).removeTag(STORED_PLAYERS.getName());
-				dimensionPlayers.setTag(fromData, savedPlayer);
-				
+				// Transfer the original player.
 				manager.transferPlayerToDimension(player, id, teleporter);
 				
-				double x = player.posX;
-				double y = player.posY;
-				double z = player.posZ;
-				float yaw = player.rotationYaw;
-				float pitch = player.rotationPitch;
-				GameType gameType = player.theItemInWorldManager.getGameType();
-				
-				EntityPlayerMP respawnedPlayer = manager.recreatePlayerEntity(player, id, false);
-				respawnedPlayer.playerNetServerHandler.playerEntity = respawnedPlayer;	// recreate doesn't set this.
-				
-				if (loadingPlayer != null)
+				if (dimensionPlayers != null)
 				{
-					loadingPlayer.removeTag("abilities");
-					respawnedPlayer.readFromNBT(loadingPlayer);
-					respawnedPlayer.dimension = id;
-					respawnedPlayer.theItemInWorldManager.setGameType(gameType);
+					// Save player position.
+					double x = player.posX;
+					double y = player.posY;
+					double z = player.posZ;
+					float yaw = player.rotationYaw;
+					float pitch = player.rotationPitch;
+					
+					// Create a new player to reset all their stats and inventory.
+					EntityPlayerMP respawnedPlayer = manager.recreatePlayerEntity(player, id, false);
+					respawnedPlayer.playerNetServerHandler.playerEntity = respawnedPlayer;	// recreate doesn't set this.
+					
+					entity = respawnedPlayer;
+					
+					if (restoreData != null)
+					{	// Restore the player's inventory from data saved when the player traveled from the dimension previously.
+						respawnedPlayer.readFromNBT(restoreData);
+						respawnedPlayer.dimension = id;
+						respawnedPlayer.capabilities.isFlying = player.capabilities.isFlying;	// Will be sent to client by setGameType.
+						respawnedPlayer.theItemInWorldManager.setGameType(player.theItemInWorldManager.getGameType());
+					}
+					
+					respawnedPlayer.inventory.currentItem = player.inventory.currentItem;	// Keep the current selected hotbar item.
+					manager.syncPlayerInventory(respawnedPlayer);	// Send the player's inventory, stats and current item.
+					
+					// Save the old player's data for restoration later.
+					GenesisEntityData.setValue(respawnedPlayer, STORED_PLAYERS, dimensionPlayers);
+					
+					// Restore the player to the position of the portal.
+					respawnedPlayer.playerNetServerHandler.setPlayerLocation(x, y, z, yaw, pitch);
 				}
 				
-				entity = respawnedPlayer;
-				
-				respawnedPlayer.playerNetServerHandler.setPlayerLocation(x, y, z, yaw, pitch);
-				respawnedPlayer.capabilities.isCreativeMode = false;
-				manager.syncPlayerInventory(respawnedPlayer);
-				GenesisEntityData.setValue(respawnedPlayer, STORED_PLAYERS, dimensionPlayers);
+				teleported = true;
 			}
 			else
 			{	// Is broken, and we probably don't want vanilla entities entering the dimension anyway.
+				// TODO: Should maybe get this working for Genesis -> Overworld, and maybe a server option?
 				//manager.transferEntityToWorld(entity, entity.dimension, oldWorld, newWorld, teleporter);
 			}
 			
 			//GenesisSounds.playMovingEntitySound(new ResourceLocation(Constants.ASSETS_PREFIX + "portal.enter"), false,
 			//		entity, 0.9F + oldWorld.rand.nextFloat() * 0.2F, 0.8F + oldWorld.rand.nextFloat() * 0.4F);
 			
-			entity.timeUntilPortal = entity.getPortalCooldown();
+			if (teleported)
+			{
+				entity.timeUntilPortal = GenesisPortal.COOLDOWN;
+			}
+			
+			return teleported;
 		}
+		
+		return true;
 	}
 }

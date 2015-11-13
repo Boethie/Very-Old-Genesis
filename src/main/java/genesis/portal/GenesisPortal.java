@@ -25,6 +25,8 @@ public class GenesisPortal
 	public static final int MENHIR_MAX_DISTANCE = 3;
 	public static final int PORTAL_HEIGHT = 3;
 	
+	public static final int COOLDOWN = 5;
+	
 	// Values for external things
 	public static final byte PORTAL_CHECK_TIME = 5;
 	

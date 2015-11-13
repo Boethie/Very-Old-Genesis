@@ -76,14 +76,15 @@ public class BlockGenesisPortal extends Block
 					dimension = 0;
 				}
 				
-				Vec3 entityMiddle = entity.getPositionVector().addVector(0, entity.getEyeHeight() / 2, 0);
-				AxisAlignedBB blockBounds = new AxisAlignedBB(pos, pos.add(1, 1, 1)).expand(0.25, 0.25, 0.25);
+				final float tpDist = 1.25F;
+				Vec3 entityCenter = entity.getPositionVector().addVector(0, entity.getEyeHeight() / 2, 0);
+				Vec3 blockCenter = new Vec3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 				
-				if (blockBounds.isVecInside(entityMiddle))
+				if (entityCenter.squareDistanceTo(blockCenter) <= tpDist * tpDist)
 				{
 					if (entity.timeUntilPortal > 0)
 					{
-						entity.timeUntilPortal = entity.getPortalCooldown();
+						entity.timeUntilPortal = GenesisPortal.COOLDOWN;
 					}
 					else
 					{

@@ -3,6 +3,7 @@ package genesis.block.tileentity.portal;
 import java.util.List;
 
 import genesis.block.tileentity.TileEntityBase;
+import genesis.portal.GenesisPortal;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -37,7 +38,7 @@ public class TileEntityGenesisPortal extends TileEntityBase implements IUpdatePl
 	@Override
 	public void update()
 	{
-		/*if (!worldObj.isRemote)
+		if (!worldObj.isRemote)
 		{
 			timer--;
 			
@@ -46,7 +47,7 @@ public class TileEntityGenesisPortal extends TileEntityBase implements IUpdatePl
 				GenesisPortal.fromPortalBlock(worldObj, pos).updatePortalStatus(worldObj);
 				timer = GenesisPortal.PORTAL_CHECK_TIME;
 			}
-		}*/
+		}
 		
 		List<EntityLivingBase> entities = (List<EntityLivingBase>) worldObj.getEntitiesWithinAABB(EntityLivingBase.class, bounds);
 		
