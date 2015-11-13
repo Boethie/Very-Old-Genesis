@@ -1,5 +1,6 @@
 package genesis.common;
 
+import genesis.world.biome.BiomeGenRedBeach;
 import genesis.world.biome.BiomeGenRedDesert;
 import genesis.world.biome.BiomeGenRedDesertM;
 import genesis.world.biome.BiomeGenFloodplainsForest;
@@ -50,6 +51,7 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis ocean;
 	public static BiomeGenBaseGenesis deepOcean;
 	public static BiomeGenBaseGenesis genesisBeach;
+	public static BiomeGenBaseGenesis redBeach;
 	public static BiomeGenBaseGenesis limestoneBeach;
 	
 	public static final BiomeGenBase.Height height_ShallowWaters = new BiomeGenBase.Height(0.45F, 0.3F);
@@ -132,6 +134,9 @@ public final class GenesisBiomes
 		
 		genesisBeach = new BiomeGenBeachGenesis(GenesisConfig.genesisBeachId).setHeight(height_Shore).setWaterColor(0x059044);
 		BiomeDictionary.registerBiomeType(genesisBeach, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.WET);
+		
+		redBeach = new BiomeGenRedBeach(GenesisConfig.redBeachId).setHeight(height_Shore).setWaterColor(0x059044);
+		BiomeDictionary.registerBiomeType(redBeach, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.WET);
 		
 		limestoneBeach = new BiomeGenLimestoneBeach(GenesisConfig.limestoneBeachId).setWaterColor(0x059044);
 		BiomeDictionary.registerBiomeType(limestoneBeach, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.WET);
