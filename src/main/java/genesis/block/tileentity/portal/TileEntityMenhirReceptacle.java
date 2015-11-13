@@ -1,6 +1,7 @@
 package genesis.block.tileentity.portal;
 
 import genesis.block.tileentity.TileEntityBase;
+import genesis.portal.GenesisPortal;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.gui.IUpdatePlayerListBox;

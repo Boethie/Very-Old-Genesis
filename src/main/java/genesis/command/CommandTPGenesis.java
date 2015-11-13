@@ -16,12 +16,6 @@ import com.google.common.collect.Lists;
 public class CommandTPGenesis implements ICommand
 {
 	@Override
-	public int compareTo(Object o)
-	{
-		return 0;
-	}
-	
-	@Override
 	public String getCommandName()
 	{
 		return "BackToTheFuture";
@@ -42,15 +36,18 @@ public class CommandTPGenesis implements ICommand
 	@Override
 	public void processCommand(ICommandSender sender, String[] args) throws CommandException
 	{
-		Entity entity = (Entity) sender;
-		int dimension = GenesisConfig.genesisDimId;
-		
-		if (entity.dimension == dimension)
+		if (sender instanceof Entity)
 		{
-			dimension = 0;
+			Entity entity = (Entity) sender;
+			int dimension = GenesisConfig.genesisDimId;
+			
+			if (entity.dimension == dimension)
+			{
+				dimension = 0;
+			}
+			
+			GenesisDimensions.teleportToDimension(entity, null, dimension, true);
 		}
-		
-		GenesisDimensions.teleportToDimension(entity, null, dimension);
 	}
 	
 	@Override
@@ -69,5 +66,11 @@ public class CommandTPGenesis implements ICommand
 	public boolean isUsernameIndex(String[] args, int index)
 	{
 		return false;
+	}
+	
+	@Override
+	public int compareTo(Object o)
+	{
+		return 0;
 	}
 }

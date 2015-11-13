@@ -1,6 +1,7 @@
 package genesis.common;
 
 import genesis.command.CommandTPGenesis;
+import genesis.entity.extendedproperties.GenesisEntityData;
 import genesis.util.Constants;
 import genesis.world.overworld.OverworldGeneration;
 import net.minecraftforge.fml.common.Mod;
@@ -47,7 +48,7 @@ public class Genesis
 		
 		GenesisRecipes.addRecipes();
 		
-		GenesisDimensions.registerDimensions();
+		GenesisDimensions.register();
 		
 		GenesisBiomes.loadBiomes();
 		

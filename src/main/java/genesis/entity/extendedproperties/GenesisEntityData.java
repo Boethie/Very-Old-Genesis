@@ -1,4 +1,4 @@
-package genesis.common;
+package genesis.entity.extendedproperties;
 
 import genesis.util.*;
 
@@ -36,100 +36,47 @@ public class GenesisEntityData implements IExtendedEntityProperties
 		MinecraftForge.EVENT_BUS.register(EventHandler.INSTANCE);
 	}
 	
-	public static interface EntityProperty<T>
-	{
-		public String getName();
-		public void writeToNBT(T value, NBTTagCompound compound);
-		public T readFromNBT(NBTTagCompound compound);
-		public T getDefaultValue();
-	}
+	public static final String COMPOUND_KEY = Constants.MOD_ID + "EntityData";
 	
-	public static abstract class EntityPropertyBase<T> implements EntityProperty<T>
-	{
-		protected final String name;
-		protected final T defaultValue;
-		protected final boolean writeToNBT;
-		
-		public EntityPropertyBase(String name, T defaultValue, boolean writeToNBT)
-		{
-			this.name = name;
-			this.defaultValue = defaultValue;
-			this.writeToNBT = writeToNBT;
-		}
-		
-		public String getName()
-		{
-			return name;
-		}
-		
-		public T getDefaultValue()
-		{
-			return defaultValue;
-		}
-		
-		public abstract void doWriteToNBT(T value, NBTTagCompound compound);
-		public abstract T doReadFromNBT(NBTTagCompound compound);
-		
-		@Override
-		public void writeToNBT(T value, NBTTagCompound compound)
-		{
-			if (writeToNBT)
-			{
-				doWriteToNBT(value, compound);
-			}
-		}
-		
-		@Override
-		public T readFromNBT(NBTTagCompound compound)
-		{
-			return writeToNBT ? doReadFromNBT(compound) : null;
-		}
-	}
+	private static final Multimap<Class<? extends Entity>, EntityProperty<?>> ENTITY_PROPERTIES = HashMultimap.create();
 	
-	public static class IntegerEntityProperty extends EntityPropertyBase<Integer>
+	public static NBTTagCompound getGenesisCompound(NBTTagCompound compound)
 	{
-		public IntegerEntityProperty(String name, Integer defaultValue, boolean write)
+		if (!compound.hasKey(COMPOUND_KEY))
 		{
-			super(name, defaultValue, write);
+			compound.setTag(COMPOUND_KEY, new NBTTagCompound());
 		}
 		
-		@Override
-		public void doWriteToNBT(Integer value, NBTTagCompound compound)
-		{
-			compound.setInteger(getName(), value);
-		}
-		
-		@Override
-		public Integer doReadFromNBT(NBTTagCompound compound)
-		{
-			return compound.getInteger(getName());
-		}
+		return compound.getCompoundTag(COMPOUND_KEY);
 	}
-	
-	private static final Multimap<Class<? extends Entity>, EntityProperty<?>> properties = HashMultimap.create();
 
 	public static <T> void registerProperty(Class<? extends Entity> entityClass, EntityProperty<T> property)
 	{
-		properties.put(entityClass, property);
+		ENTITY_PROPERTIES.put(entityClass, property);
 	}
 	
 	public static Collection<EntityProperty<?>> getProperties(Class<? extends Entity> entityClass)
 	{
-		if (!properties.containsKey(entityClass))
+		if (!ENTITY_PROPERTIES.containsKey(entityClass))
 		{
-			for (Entry<Class<? extends Entity>, Collection<EntityProperty<?>>> check : properties.asMap().entrySet())
+			Collection<EntityProperty<?>> properties = Sets.newHashSet();
+			
+			for (Entry<Class<? extends Entity>, Collection<EntityProperty<?>>> check : ENTITY_PROPERTIES.asMap().entrySet())
 			{
 				if (check.getKey().isAssignableFrom(entityClass))
 				{
 					for (EntityProperty<?> property : check.getValue())
 					{
-						properties.put(entityClass, property);
+						properties.add(property);
 					}
 				}
 			}
+			
+			ENTITY_PROPERTIES.putAll(entityClass, properties);
+			return properties;
 		}
 		
-		return properties.get(entityClass);
+		return ENTITY_PROPERTIES.get(entityClass);
 	}
 
 	public static Collection<EntityProperty<?>> getProperties(Entity entity)
@@ -187,7 +134,10 @@ public class GenesisEntityData implements IExtendedEntityProperties
 
 		for (EntityProperty<?> property : getProperties(entity))
 		{
-			dataMap.put(property, property.getDefaultValue());
+			if (!dataMap.containsKey(property))
+			{
+				dataMap.put(property, property.getDefaultValue());
+			}
 		}
 	}
 	
@@ -200,18 +150,24 @@ public class GenesisEntityData implements IExtendedEntityProperties
 	@Override
 	public void saveNBTData(NBTTagCompound compound)
 	{
+		NBTTagCompound genesisCompound = getGenesisCompound(compound);
+		
 		for (EntityProperty<?> property : getProperties(entity))
 		{
-			saveNBTData(compound, property, dataMap.get(property));
+			NBTTagCompound propertyCompound = genesisCompound.getCompoundTag(property.getName());
+			saveNBTData(propertyCompound, property, dataMap.get(property));
+			genesisCompound.setTag(property.getName(), propertyCompound);
 		}
 	}
 	
 	@Override
 	public void loadNBTData(NBTTagCompound compound)
 	{
+		NBTTagCompound genesisCompound = getGenesisCompound(compound);
+		
 		for (EntityProperty<?> property : getProperties(entity.getClass()))
 		{
-			Object value = property.readFromNBT(compound);
+			Object value = property.readFromNBT(genesisCompound.getCompoundTag(property.getName()));
 			
 			if (value != null)
 			{

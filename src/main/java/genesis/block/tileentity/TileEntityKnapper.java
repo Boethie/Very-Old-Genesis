@@ -6,8 +6,8 @@ import com.google.common.collect.ImmutableSet;
 
 import io.netty.buffer.ByteBuf;
 import genesis.common.Genesis;
-import genesis.common.GenesisEntityData;
-import genesis.common.GenesisEntityData.IntegerEntityProperty;
+import genesis.entity.extendedproperties.GenesisEntityData;
+import genesis.entity.extendedproperties.IntegerEntityProperty;
 import genesis.block.tileentity.crafting.*;
 import genesis.block.tileentity.crafting.KnappingRecipeRegistry.*;
 import genesis.block.tileentity.gui.ContainerKnapper;

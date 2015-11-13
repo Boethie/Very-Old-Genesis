@@ -6,6 +6,7 @@ import genesis.block.tileentity.*;
 import genesis.block.tileentity.portal.*;
 import genesis.block.tileentity.render.*;
 import genesis.client.*;
+import genesis.entity.extendedproperties.GenesisEntityData;
 import genesis.item.*;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;

@@ -1,7 +1,7 @@
 package genesis.world.overworld;
 
-import genesis.block.tileentity.portal.GenesisPortal;
 import genesis.common.GenesisConfig;
+import genesis.portal.GenesisPortal;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenTaiga;

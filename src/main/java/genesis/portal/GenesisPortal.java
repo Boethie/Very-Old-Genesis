@@ -1,9 +1,11 @@
-package genesis.block.tileentity.portal;
+package genesis.portal;
 
 import java.util.*;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import genesis.block.tileentity.portal.BlockMenhir;
+import genesis.block.tileentity.portal.EnumGlyph;
 import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumMenhirPart;

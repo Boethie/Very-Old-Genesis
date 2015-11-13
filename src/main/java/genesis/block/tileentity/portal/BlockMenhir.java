@@ -11,6 +11,8 @@ import genesis.common.*;
 import genesis.item.ItemBlockMulti;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
+import genesis.portal.GenesisPortal;
+import genesis.portal.MenhirData;
 import genesis.util.*;
 
 import net.minecraft.block.material.Material;
