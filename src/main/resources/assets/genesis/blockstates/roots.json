@@ -1,6 +1,5 @@
 {
 	"variants": {
-		"normal": { "model": "genesis:roots" },
 		"end=false": { "model": "genesis:roots" },
 		"end=true":  { "model": "genesis:roots_end" }
 	}

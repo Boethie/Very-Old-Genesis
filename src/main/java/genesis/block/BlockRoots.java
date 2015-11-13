@@ -34,9 +34,7 @@ public class BlockRoots extends BlockGenesis
 	{
 		super(Material.vine);
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
-		System.out.println("hello1");
 		setDefaultState(blockState.getBaseState().withProperty(END, true));
-		System.out.println("hello2");
 		setHardness(0.5F);
 	}
 	
@@ -85,6 +83,17 @@ public class BlockRoots extends BlockGenesis
 	}
 	
 	@Override
+	public boolean isOpaqueCube()
+	{
+		return false;
+	}
+	
+	public boolean isFullCube()
+	{
+		return false;
+	}
+	
+	@Override
 	@SideOnly(Side.CLIENT)
 	public EnumWorldBlockLayer getBlockLayer()
 	{
@@ -98,14 +107,7 @@ public class BlockRoots extends BlockGenesis
 			return;
 		if (canSupport(worldIn, pos.up()))
 		{
-			if (worldIn.getBlockState(pos.down()).getBlock() == this)
-			{
-				updateStateIfNecessary(worldIn, pos, state, true);
-			}
-			else
-			{
-				updateStateIfNecessary(worldIn, pos, state, false);
-			}
+			updateStateIfNecessary(worldIn, pos, state, worldIn.getBlockState(pos.down()).getBlock() != this);
 		}
 		else
 		{
@@ -115,10 +117,6 @@ public class BlockRoots extends BlockGenesis
 	
 	private boolean canSupport(World worldIn, BlockPos up)
 	{
-		if (up.getY() > worldIn.getHeight())
-		{
-			return false;
-		}
 		IBlockState state = worldIn.getBlockState(up);
 		ItemStack stack = state.getBlock().getPickBlock(null, worldIn, up, null);
 		int[] ids = stack == null ? new int[0] : OreDictionary.getOreIDs(stack);
