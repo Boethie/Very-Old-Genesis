@@ -8,7 +8,6 @@ import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPlant;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
-import genesis.world.biome.decorate.WorldGenUnderWaterPatch;
 
 import java.util.Random;
 
@@ -23,14 +22,13 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 	{
 		super(id);
 		setBiomeName("Marsh");
-		this.temperature = 1.15F;
+		setTemperatureRainfall(1.15F, 0.0F);
+		setDisableRain();
 		setHeight(0.0F, -0.01F);
 		
 		theBiomeDecorator.grassPerChunk = 3;
 		
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
-		
-		addDecoration(new WorldGenUnderWaterPatch(Blocks.water, GenesisBlocks.peat.getDefaultState()).setCountPerChunk(1));
 		
 		addDecoration(new WorldGenPlant(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.ASTEROXYLON).setCountPerChunk(8));
 		addDecoration(new WorldGenPlant(EnumPlant.COOKSONIA).setPatchSize(6).setCountPerChunk(6));

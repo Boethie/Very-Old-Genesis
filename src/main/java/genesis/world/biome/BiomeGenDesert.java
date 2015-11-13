@@ -11,7 +11,7 @@ public class BiomeGenDesert extends BiomeGenBaseGenesis
 	{
 		super(id);
 		setBiomeName("Desert");
-		this.temperature = 2.0F;
+		setTemperatureRainfall(2.0F, 0.0F);
 		setDisableRain();
 		setHeight(0.125F, 0.05F);
 		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
