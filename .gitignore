@@ -1,15 +1,24 @@
 ### USE WHITTELIST ###
+
+# Ignore everything
 *
+# But don't skip over subdirectories
+!*/
 
 ### FOLDERS ###
-!src/
-src/api/
-!gradle/
+
+# Recursively add everything from these directories
+!/gradle/**
+!/src/**
+# Except in this subdirectory
+/src/api/
 
 ### FILES ###
-!.gitignore
-!build.gradle
-!gradlew
-!gradlew.bat
-!LICENSE.md
-!versions.json
+
+# And add all these files individually
+!/.gitignore
+!/build.gradle
+!/gradlew
+!/gradlew.bat
+!/LICENSE.md
+!/versions.json
