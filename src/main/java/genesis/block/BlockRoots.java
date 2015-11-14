@@ -2,33 +2,33 @@ package genesis.block;
 
 import com.google.common.collect.Lists;
 import genesis.common.GenesisCreativeTabs;
+import genesis.metadata.TreeBlocksAndItems;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockFire;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
 
-import static genesis.common.GenesisBlocks.prototaxites_mycelium;
+import static genesis.common.GenesisBlocks.*;
 import static net.minecraft.init.Blocks.*;
 
-/**
- * Created by Vorquel on 11/10/15.
- */
 public class BlockRoots extends BlockGenesis
 {
 	public static final PropertyBool END = PropertyBool.create("end");
-	private List<Integer> oreDictionarySupportList = Lists.newArrayList();
-	private List<Block> blockSupportList = Lists.newArrayList();
+	
+	private boolean unInit = true;
+	private List<IBlockState> blockStateSupportList = Lists.newArrayList();
 	
 	public BlockRoots()
 	{
@@ -36,20 +36,32 @@ public class BlockRoots extends BlockGenesis
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		setDefaultState(blockState.getBaseState().withProperty(END, true));
 		setHardness(0.5F);
+		fire.setFireInfo(this, 30, 100);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void init()
 	{
-		OreDictionary.registerOre("dirt", dirt);
-		OreDictionary.registerOre("blockDirt", dirt);
-		OreDictionary.registerOre("blockMycelium", mycelium);
-		OreDictionary.registerOre("blockMycelium", prototaxites_mycelium);
+		blockStateSupportList.addAll(grass.getBlockState().getValidStates());
+		blockStateSupportList.addAll(mycelium.getBlockState().getValidStates());
+		blockStateSupportList.addAll(dirt.getBlockState().getValidStates());
+		blockStateSupportList.addAll(log.getBlockState().getValidStates());
+		blockStateSupportList.addAll(log2.getBlockState().getValidStates());
 		
-		oreDictionarySupportList.add(OreDictionary.getOreID("logWood"));
-		oreDictionarySupportList.add(OreDictionary.getOreID("blockMycelium"));
-
-		blockSupportList.add(grass);
-		blockSupportList.add(dirt);
+		blockStateSupportList.addAll(this.blockState.getValidStates());
+		blockStateSupportList.addAll(moss.getBlockState().getValidStates());
+		blockStateSupportList.addAll(prototaxites_mycelium.getBlockState().getValidStates());
+		
+		for (Block log : trees.getBlocks(TreeBlocksAndItems.LOG))
+		{
+			blockStateSupportList.addAll(log.getBlockState().getValidStates());
+		}
+		for (Block log : trees.getBlocks(TreeBlocksAndItems.ROTTEN_LOG))
+		{
+			blockStateSupportList.addAll(log.getBlockState().getValidStates());
+		}
+		
+		unInit = false;
 	}
 	
 	@Override
@@ -101,13 +113,35 @@ public class BlockRoots extends BlockGenesis
 	}
 	
 	@Override
+	public boolean isReplaceable(World worldIn, BlockPos pos)
+	{
+		return false;
+	}
+	
+	@Override
+	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
+	{
+		return super.canPlaceBlockAt(worldIn, pos) && canSupport(worldIn.getBlockState(pos.up()));
+	}
+	
+	@Override
+	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+	{
+		return getCorrectState(worldIn, pos.down());
+	}
+	
+	@Override
 	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
 	{
 		if (worldIn.isRemote)
 			return;
-		if (canSupport(worldIn, pos.up()))
+		if (canSupport(worldIn.getBlockState(pos.up())))
 		{
-			updateStateIfNecessary(worldIn, pos, state, worldIn.getBlockState(pos.down()).getBlock() != this);
+			IBlockState newState = getCorrectState(worldIn, pos.down());
+			if(newState.getValue(END) != state.getValue(END))
+			{
+				worldIn.setBlockState(pos, newState);
+			}
 		}
 		else
 		{
@@ -115,19 +149,21 @@ public class BlockRoots extends BlockGenesis
 		}
 	}
 	
-	private boolean canSupport(World worldIn, BlockPos up)
+	private IBlockState getCorrectState(World world, BlockPos posBelow)
 	{
-		IBlockState state = worldIn.getBlockState(up);
-		ItemStack stack = state.getBlock().getPickBlock(null, worldIn, up, null);
-		int[] ids = stack == null ? new int[0] : OreDictionary.getOreIDs(stack);
-		return true;
+		IBlockState stateBelow = world.getBlockState(posBelow);
+		Block blockBelow = stateBelow.getBlock();
+		AxisAlignedBB aabb = blockBelow.getCollisionBoundingBox(world, posBelow, stateBelow);
+		boolean end = blockBelow != this || aabb == null;
+		return blockState.getBaseState().withProperty(END, end);
 	}
 	
-	private void updateStateIfNecessary(World worldIn, BlockPos pos, IBlockState state, Comparable newState)
+	private boolean canSupport(IBlockState state)
 	{
-		if(newState != state.getValue(END))
+		if (unInit)
 		{
-			worldIn.setBlockState(pos, blockState.getBaseState().withProperty(END, newState));
+			init();
 		}
+		return blockStateSupportList.contains(state);
 	}
 }
