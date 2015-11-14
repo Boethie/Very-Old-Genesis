@@ -26,6 +26,7 @@ public class FuelHandler implements IFuelHandler
 	public static void initialize()
 	{
 		GameRegistry.registerFuelHandler(INSTANCE);
+		setBurnTime(GenesisBlocks.roots, TileEntityFurnace.getItemBurnTime(new ItemStack(Items.stick)), true);
 		setBurnTime(GenesisBlocks.peat, TileEntityFurnace.getItemBurnTime(new ItemStack(Items.coal)) / 4, false);
 		setBurnTime(GenesisBlocks.calamites_bundle, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.log)), false);
 		setBurnTime(GenesisItems.araucarioxylon_cone, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.sapling)), false);
