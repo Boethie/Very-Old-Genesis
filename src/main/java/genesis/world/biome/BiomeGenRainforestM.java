@@ -1,15 +1,6 @@
 package genesis.world.biome;
 
 import net.minecraft.util.Vec3;
-import genesis.common.GenesisBlocks;
-import genesis.metadata.EnumTree;
-import genesis.world.biome.decorate.WorldGenGrowingPlant;
-import genesis.world.biome.decorate.WorldGenMossStages;
-import genesis.world.biome.decorate.WorldGenRockBoulders;
-import genesis.world.gen.feature.WorldGenRottenLog;
-import genesis.world.gen.feature.WorldGenTreeLepidodendron;
-import genesis.world.gen.feature.WorldGenTreePsaronius;
-import genesis.world.gen.feature.WorldGenTreeSigillaria;
 
 public class BiomeGenRainforestM extends BiomeGenRainforest
 {
@@ -17,13 +8,13 @@ public class BiomeGenRainforestM extends BiomeGenRainforest
 	{
 		super(id);
 		setBiomeName("Rainforest M");
-		setHeight(0.4F, 1.1F);
+		setHeight(0.4F, 0.7F);
 	}
 	
 	@Override
 	public float getFogDensity(int x, int y, int z)
 	{
-		return 0.75F;
+		return 0.25F;
 	}
 	
 	@Override
@@ -39,6 +30,6 @@ public class BiomeGenRainforestM extends BiomeGenRainforest
 	@Override
 	public float getNightFogModifier()
 	{
-		return 0.65F;
+		return 0.15F;
 	}
 }

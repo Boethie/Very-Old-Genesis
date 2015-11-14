@@ -1,13 +1,6 @@
 package genesis.world.biome;
 
-import genesis.common.GenesisBlocks;
-import genesis.metadata.EnumTree;
-import genesis.world.biome.decorate.WorldGenArchaeomarasmius;
-import genesis.world.biome.decorate.WorldGenGrowingPlant;
-import genesis.world.biome.decorate.WorldGenPalaeoagaracites;
-import genesis.world.biome.decorate.WorldGenRockBoulders;
-import genesis.world.gen.feature.WorldGenRottenLog;
-import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
+import net.minecraft.util.Vec3;
 
 public class BiomeGenAuxForestM extends BiomeGenAuxForest
 {
@@ -15,6 +8,28 @@ public class BiomeGenAuxForestM extends BiomeGenAuxForest
 	{
 		super(id);
 		setBiomeName("Araucarioxylon Forest M");
-		setHeight(0.4F, 0.9F);
+		setHeight(0.4F, 0.7F);
+	}
+	
+	@Override
+	public float getFogDensity(int x, int y, int z)
+	{
+		return 0.75F;
+	}
+	
+	@Override
+	public Vec3 getFogColor()
+	{
+		float red = 0.533333333F;
+		float green = 0.647058824F;
+		float blue = 0.474509804F;
+		
+		return new Vec3(red, green, blue);
+	}
+	
+	@Override
+	public float getNightFogModifier()
+	{
+		return 0.65F;
 	}
 }
