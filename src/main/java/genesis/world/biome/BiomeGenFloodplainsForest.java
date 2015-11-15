@@ -15,7 +15,6 @@ import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
 import java.util.Random;
 
 import net.minecraft.init.Blocks;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 
@@ -49,16 +48,6 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 	public float getFogDensity(int x, int y, int z)
 	{
 		return 1.0F;
-	}
-	
-	@Override
-	public Vec3 getFogColor()
-	{
-		float red = 0.533333333F;
-		float green = 0.647058824F;
-		float blue = 0.474509804F;
-		
-		return new Vec3(red, green, blue);
 	}
 	
 	@Override
