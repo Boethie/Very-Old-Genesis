@@ -22,8 +22,7 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 	{
 		super(id);
 		setBiomeName("Marsh");
-		setTemperatureRainfall(1.15F, 0.0F);
-		setDisableRain();
+		setTemperatureRainfall(1.15F, 0.3F);
 		setHeight(0.0F, -0.01F);
 		
 		theBiomeDecorator.grassPerChunk = 3;
@@ -31,12 +30,11 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
 		addDecoration(new WorldGenPlant(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.ASTEROXYLON).setCountPerChunk(8));
-		addDecoration(new WorldGenPlant(EnumPlant.COOKSONIA).setPatchSize(6).setCountPerChunk(6));
-		addDecoration(new WorldGenPlant(EnumPlant.BARAGWANATHIA).setPatchSize(6).setCountPerChunk(6));
-		addDecoration(new WorldGenPlant(EnumPlant.RHYNIA).setPatchSize(6).setCountPerChunk(6));
-		addDecoration(new WorldGenPlant(EnumPlant.PSILOPHYTON).setPatchSize(4).setCountPerChunk(3));
-		addDecoration(new WorldGenPlant(EnumPlant.SCIADOPHYTON).setPatchSize(4).setCountPerChunk(3));
-		addDecoration(new WorldGenPlant(EnumPlant.NOTHIA).setPatchSize(4).setCountPerChunk(3));
+		addDecoration(new WorldGenPlant(EnumPlant.RHYNIA).setPatchSize(6).setCountPerChunk(8));
+		addDecoration(new WorldGenPlant(EnumPlant.NOTHIA).setPatchSize(6).setCountPerChunk(7));
+		addDecoration(new WorldGenPlant(EnumPlant.SCIADOPHYTON).setPatchSize(4).setCountPerChunk(5));
+		addDecoration(new WorldGenPlant(EnumPlant.PSILOPHYTON).setPatchSize(4).setCountPerChunk(2));
+		addDecoration(new WorldGenPlant(EnumPlant.BARAGWANATHIA).setPatchSize(4).setCountPerChunk(2));
 		
 		addDecoration(new WorldGenRockBoulders().setRarity(85).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 	}
