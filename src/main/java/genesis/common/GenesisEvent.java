@@ -12,6 +12,8 @@ public class GenesisEvent
 		{
 			registerClientEvents();
 		}
+		
+		MinecraftForge.EVENT_BUS.register(GenesisBlocks.roots);
 	}
 	
 	private static void registerClientEvents()

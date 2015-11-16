@@ -4,19 +4,20 @@ import com.google.common.collect.Lists;
 import genesis.common.GenesisCreativeTabs;
 import genesis.metadata.TreeBlocksAndItems;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFire;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -39,6 +40,7 @@ public class BlockRoots extends BlockGenesis
 		setDefaultState(blockState.getBaseState().withProperty(END, true));
 		setHardness(0.5F);
 		setStepSound(Block.soundTypeWood);
+		setBlockBounds(2 / 16F, 0, 2 / 16F, 14 / 16F, 1, 14 / 16F);
 		fire.setFireInfo(this, 30, 100);
 	}
 	
@@ -137,19 +139,13 @@ public class BlockRoots extends BlockGenesis
 	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
 	{
 		if (worldIn.isRemote)
+		{
 			return;
-		if (canSupport(worldIn.getBlockState(pos.up())))
-		{
-			IBlockState newState = getCorrectState(worldIn, pos.down());
-			if(newState.getValue(END) != state.getValue(END))
-			{
-				worldIn.setBlockState(pos, newState);
-			}
 		}
-		else
+		IBlockState newState = getCorrectState(worldIn, pos.down());
+		if (newState.getValue(END) != state.getValue(END))
 		{
-			worldIn.setBlockToAir(pos);
-			dropBlockAsItem(worldIn, pos, blockState.getBaseState(), 0);
+			worldIn.setBlockState(pos, newState);
 		}
 	}
 	
@@ -169,5 +165,32 @@ public class BlockRoots extends BlockGenesis
 			init();
 		}
 		return blockStateSupportList.contains(state);
+	}
+	
+	@SubscribeEvent
+	@SuppressWarnings("unused")
+	public void onAnyBlockBreaks(BlockEvent.BreakEvent event)
+	{
+		Block block = event.world.getBlockState(event.pos.down()).getBlock();
+		if (!event.world.isRemote && block == roots)
+		{
+			EntityPlayer player = event.getPlayer();
+			boolean drop = player instanceof FakePlayer || !player.capabilities.isCreativeMode;
+			killRoot(event.world, event.pos.down(), drop);
+		}
+	}
+	
+	private void killRoot(World world, BlockPos pos, boolean drop)
+	{
+		do
+		{
+			world.setBlockToAir(pos);
+			if (drop)
+			{
+				dropBlockAsItem(world, pos, blockState.getBaseState(), 0);
+			}
+			pos = pos.down();
+		}
+		while (world.getBlockState(pos).getBlock() == roots);
 	}
 }
