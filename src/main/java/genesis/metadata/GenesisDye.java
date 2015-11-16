@@ -23,7 +23,7 @@ public class GenesisDye implements IMetadata, Comparable<GenesisDye>
 			getterBuilder.put(color, variant);
 		}
 		
-		dyes.sort(null);
+		Collections.sort(dyes);
 		DYES = ImmutableList.copyOf(dyes);
 		GETTER_MAP = getterBuilder.build();
 	}
