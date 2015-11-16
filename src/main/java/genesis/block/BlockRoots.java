@@ -10,6 +10,8 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -36,6 +38,7 @@ public class BlockRoots extends BlockGenesis
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		setDefaultState(blockState.getBaseState().withProperty(END, true));
 		setHardness(0.5F);
+		setStepSound(Block.soundTypeWood);
 		fire.setFireInfo(this, 30, 100);
 	}
 	
@@ -146,6 +149,7 @@ public class BlockRoots extends BlockGenesis
 		else
 		{
 			worldIn.setBlockToAir(pos);
+			dropBlockAsItem(worldIn, pos, blockState.getBaseState(), 0);
 		}
 	}
 	
@@ -154,7 +158,7 @@ public class BlockRoots extends BlockGenesis
 		IBlockState stateBelow = world.getBlockState(posBelow);
 		Block blockBelow = stateBelow.getBlock();
 		AxisAlignedBB aabb = blockBelow.getCollisionBoundingBox(world, posBelow, stateBelow);
-		boolean end = blockBelow != this || aabb == null;
+		boolean end = blockBelow != this && aabb == null;
 		return blockState.getBaseState().withProperty(END, end);
 	}
 	
