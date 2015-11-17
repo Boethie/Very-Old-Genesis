@@ -293,7 +293,7 @@ public class BlockCampfire extends Block
 	
 	/**
 	 * Registers a item to light this campfire.
-	 * @param key The {@link ItemStack} to match when right clicking to light the campfire.
+	 * @param stack The {@link ItemStack} to match when right clicking to light the campfire.
 	 * @param sound The sound to play when the fire has been lit.
 	 */
 	public void registerLighterItem(ItemStack stack, String sound)
@@ -303,7 +303,7 @@ public class BlockCampfire extends Block
 	
 	/**
 	 * Registers a item to light this campfire.
-	 * @param key The {@link Item} to match when right clicking to light the campfire.
+	 * @param item The {@link Item} to match when right clicking to light the campfire.
 	 * @param sound The sound to play when the fire has been lit.
 	 */
 	public void registerLighterItem(Item item, String sound)

@@ -31,7 +31,6 @@ public class VariantsCombo<V extends IMetadata, B extends Block, I extends Item>
 	 * Constructs a BlocksAndItemsWithVariantsOfTypes with one ObjectType for simple one-type combos.
 	 *  
 	 * @param objectType The sole ObjectType that this VariantsCombo will use.
-	 * @param itemClass the Item class to initialize for each variant.
 	 */
 	public VariantsCombo(final ObjectType<B, I> objectType, List<V> variants)
 	{
@@ -44,7 +43,6 @@ public class VariantsCombo<V extends IMetadata, B extends Block, I extends Item>
 	 * Constructs a BlocksAndItemsWithVariantsOfTypes with one ObjectType for simple one-type combos.
 	 *  
 	 * @param objectType The sole ObjectType that this VariantsCombo will use.
-	 * @param itemClass the Item class to initialize for each variant.
 	 */
 	public VariantsCombo(ObjectType<B, I> objectType, V[] variants)
 	{
@@ -141,7 +139,7 @@ public class VariantsCombo<V extends IMetadata, B extends Block, I extends Item>
 	}
 	
 	/**
-	 * Gets the valid variants for this combo's sole {@link #ObjectType}.
+	 * Gets the valid variants for this combo's sole {@link ObjectType}.
 	 */
 	public List<V> getValidVariants()
 	{
@@ -149,7 +147,7 @@ public class VariantsCombo<V extends IMetadata, B extends Block, I extends Item>
 	}
 	
 	/**
-	 * Gets the Block for this combo's sole {@link #ObjectType} and the provided variant.
+	 * Gets the Block for this combo's sole {@link ObjectType} and the provided variant.
 	 */
 	public B getBlock(V variant)
 	{
@@ -157,7 +155,7 @@ public class VariantsCombo<V extends IMetadata, B extends Block, I extends Item>
 	}
 	
 	/**
-	 * Gets the list of Blocks for this combo's sole {@link #ObjectType}.
+	 * Gets the list of Blocks for this combo's sole {@link ObjectType}.
 	 */
 	public Collection<B> getBlocks()
 	{
@@ -165,7 +163,7 @@ public class VariantsCombo<V extends IMetadata, B extends Block, I extends Item>
 	}
 
 	/**
-	 * Gets the Item for this combo's sole {@link #ObjectType} and the provided variant.
+	 * Gets the Item for this combo's sole {@link ObjectType} and the provided variant.
 	 */
 	public I getItem(V variant)
 	{
@@ -173,7 +171,7 @@ public class VariantsCombo<V extends IMetadata, B extends Block, I extends Item>
 	}
 	
 	/**
-	 * Gets the list of Items for this combo's sole {@link #ObjectType}.
+	 * Gets the list of Items for this combo's sole {@link ObjectType}.
 	 */
 	public Collection<I> getItems()
 	{

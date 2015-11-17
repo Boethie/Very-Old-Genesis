@@ -50,8 +50,9 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	/**
 	 * Represents a type of item and/or block for a combo. Contains the data that determines
 	 * what/how the items and blocks are constructed and registered.
-	 * 
-	 * @param <T> For the type that should be returned when getting this type's Block/Item.
+	 *
+	 * @param <B> For the type that should be returned when getting this type's Block.
+	 * @param <I> For the type that should be returned when getting this type's Item.
 	 */
 	public static class ObjectType<B extends Block, I extends Item> implements IMetadata
 	{
@@ -575,7 +576,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	protected String unlocalizedPrefix = "";
 	
 	/**
-	 * Creates a {@link #VariantsOfTypesCombo} with each {@link #Block}/{@link #Item} represented by the list of {@link #ObjectType},
+	 * Creates a {@link #VariantsOfTypesCombo} with each {@link Block}/{@link Item} represented by the list of {@link ObjectType},
 	 * with each {@code ObjectType} having the provided variants.<br><br>
 	 * 
 	 * All {@code Block} classes that are constructed in this method MUST have a "public static IProperty[] getProperties()" to allow us
@@ -588,8 +589,8 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	 * The {@code List} tells the object what variants it stores, the {@code VariantsOfTypesCombo}
 	 * is the owner group of objects, and the {@code ObjectType} is the {@code ObjectType} the object stores.
 	 * 
-	 * @param types The list of {@link #ObjectType} definitions of the {@code Block} and {@code Item} classes to store.
-	 * @param variants The {@link #IMetadata} representations of the variants to store for each Block/Item.
+	 * @param typesIn The list of {@link ObjectType} definitions of the {@code Block} and {@code Item} classes to store.
+	 * @param variantsIn The {@link IMetadata} representations of the variants to store for each Block/Item.
 	 */
 	@SuppressWarnings("unchecked")
 	public VariantsOfTypesCombo(List<? extends ObjectType<?, ?>> typesIn, List<? extends V> variantsIn)
@@ -807,7 +808,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	}
 	
 	/**
-	 * Registers all the variants of this {@link #ObjectType}.
+	 * Registers all the variants of this {@link ObjectType}.
 	 */
 	public void registerVariants(final ObjectType<?, ?> type)
 	{
@@ -921,7 +922,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	}
 	
 	/**
-	 * Registers all variants of all {@link #ObjectType}s associated with this combo.
+	 * Registers all variants of all {@link ObjectType}s associated with this combo.
 	 */
 	public void registerAll()
 	{
@@ -963,7 +964,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	}
 	
 	/**
-	 * Returns the Block for this {@link #ObjectType} and variant, casted to the ObjectType's block's generic type.
+	 * Returns the Block for this {@link ObjectType} and variant, casted to the ObjectType's block's generic type.
 	 */
 	@SuppressWarnings("unchecked")
 	public <B extends Block> B getBlock(ObjectType<B, ? extends Item> type, V variant)
@@ -972,7 +973,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	}
 	
 	/**
-	 * Returns a list of all the constructed Blocks for the specified {@link #ObjectType}.
+	 * Returns a list of all the constructed Blocks for the specified {@link ObjectType}.
 	 */
 	public <B extends Block> Collection<B> getBlocks(ObjectType<B, ? extends Item> type)
 	{
@@ -987,7 +988,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	}
 	
 	/**
-	 * Returns the Item for this {@link #ObjectType} and variant, casted to the ObjectType's item generic type.
+	 * Returns the Item for this {@link ObjectType} and variant, casted to the ObjectType's item generic type.
 	 */
 	@SuppressWarnings("unchecked")
 	public <I extends Item> I getItem(ObjectType<? extends Block, I> type, V variant)
@@ -996,7 +997,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	}
 	
 	/**
-	 * Returns a list of all the constructed Items for the specified {@link #ObjectType}.
+	 * Returns a list of all the constructed Items for the specified {@link ObjectType}.
 	 */
 	public <I extends Item> Collection<I> getItems(ObjectType<? extends Block, I> type)
 	{
@@ -1044,7 +1045,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	}
 	
 	/**
-	 * Gets the {@link #VariantData} for this item and metadata.
+	 * Gets the {@link VariantData} for this item and metadata.
 	 */
 	public VariantData getVariantData(Item item, int meta)
 	{
@@ -1064,7 +1065,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	}
 
 	/**
-	 * Gets the {@link #VariantData} for this item stack.
+	 * Gets the {@link VariantData} for this item stack.
 	 */
 	public VariantData getVariantData(ItemStack stack)
 	{
@@ -1077,7 +1078,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	}
 	
 	/**
-	 * Gets the variant for the specified Item and item metadata, in the specified {@link #ObjectType}.
+	 * Gets the variant for the specified Item and item metadata, in the specified {@link ObjectType}.
 	 */
 	public V getVariant(Item item, int meta)
 	{
@@ -1092,7 +1093,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	}
 	
 	/**
-	 * Gets the variant for the specified Item and item metadata, in the specified {@link #ObjectType}.
+	 * Gets the variant for the specified Item and item metadata, in the specified {@link ObjectType}.
 	 */
 	public V getVariant(ItemStack stack)
 	{
@@ -1100,7 +1101,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	}
 	
 	/**
-	 * Gets the variant for the specified Block and item metadata, in the specified {@link #ObjectType}.
+	 * Gets the variant for the specified Block and item metadata, in the specified {@link ObjectType}.
 	 * This method assumes that this Block has a corresponding Item.
 	 */
 	public V getVariant(Block block, int meta)
@@ -1183,7 +1184,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	}
 	
 	/**
-	 * Gets a random IBlockState for the specified {@link #ObjectType}.
+	 * Gets a random IBlockState for the specified {@link ObjectType}.
 	 */
 	public IBlockState getRandomBlockState(ObjectType<?, ?> type, Random rand)
 	{
@@ -1225,7 +1226,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	}
 	
 	/**
-	 * Gets the metadata used to get the Item of this {@link #ObjectType} and variant.
+	 * Gets the metadata used to get the Item of this {@link ObjectType} and variant.
 	 */
 	public int getItemMetadata(ObjectType<?, ?> type, V variant)
 	{

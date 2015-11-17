@@ -32,7 +32,7 @@ import net.minecraft.world.*;
 public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 {
 	/**
-	 * Used in {@link #VariantsOfTypesCombo}.
+	 * Used in {@link VariantsOfTypesCombo}.
 	 */
 	@BlockProperties
 	public static IProperty[] getProperties()

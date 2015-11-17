@@ -19,7 +19,7 @@ import net.minecraft.world.*;
 public class BlockGenesisVariants<V extends IMetadata> extends Block
 {
 	/**
-	 * Used in {@link #VariantsOfTypesCombo}.
+	 * Used in {@link VariantsOfTypesCombo}.
 	 */
 	@BlockProperties
 	public static IProperty[] getProperties()
