@@ -57,7 +57,7 @@ public final class GenesisConfig
 	public static int malachiteCount = 2;
 	public static int azuriteCount = 2;
 	public static int olivineCount = 1;
-	public static int flintCount = 45;
+	public static int flintCount = 38;
 	public static int marcasiteCount = 86;
 	
 	//Dimension music
