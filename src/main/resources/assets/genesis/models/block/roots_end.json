@@ -1,6 +1,6 @@
 {
-	"parent": "block/crop",
+	"parent": "genesis:block/root_base",
 	"textures": {
-		"crop": "genesis:blocks/roots_end"
+		"all": "genesis:blocks/roots_end"
 	}
 }
