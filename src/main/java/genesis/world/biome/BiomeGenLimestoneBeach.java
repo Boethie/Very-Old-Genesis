@@ -10,6 +10,7 @@ public class BiomeGenLimestoneBeach extends BiomeGenBaseGenesis
 	{
 		super(id);
 		setBiomeName("Limestone Beach");
+		setTemperatureRainfall(0.8F, 0.4F);
 		topBlock = GenesisBlocks.limestone.getDefaultState();
 		fillerBlock = GenesisBlocks.limestone.getDefaultState();
 		setHeight(0.05F, 0.1F);

@@ -22,6 +22,7 @@ public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
 	{
 		super(id);
 		setBiomeName("Shallow Ocean");
+		setTemperatureRainfall(0.5F, 0.4F);
 		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);
 		setHeight(-0.7F, 0.1F);
 		

@@ -19,6 +19,7 @@ public class BiomeGenRiver extends BiomeGenBaseGenesis implements IEntityPreferr
 	{
 		super(id);
 		setBiomeName("River");
+		setTemperatureRainfall(0.5F, 0.4F);
 		
 		theBiomeDecorator.grassPerChunk = 0;
 		
