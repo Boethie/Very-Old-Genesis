@@ -80,7 +80,7 @@ public class GenLayerGenesisBiome extends GenLayerGenesis
 				}
 				else if (k1 == 2)
 				{
-					aint1[j1 + i1 * areaWidth] = getWeightedBiomeEntry(DESERT).biome.biomeID;
+					aint1[j1 + i1 * areaWidth] = getWeightedBiomeEntry(WARM).biome.biomeID;
 				}
 				 /* else if (k1 == 3)
 				 * {

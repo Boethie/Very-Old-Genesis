@@ -1,10 +1,9 @@
 package genesis.world.layer;
 
-import genesis.common.GenesisBiomes;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import genesis.common.GenesisBiomes;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;

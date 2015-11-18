@@ -34,7 +34,7 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 	
 	protected void addDecorations()
 	{
-		addDecoration(new WorldGenArchaeomarasmius().setPatchSize(3).setCountPerChunk(2));
+		addDecoration(new WorldGenArchaeomarasmius().setRarity(4).setPatchSize(3).setCountPerChunk(1));
 		addDecoration(new WorldGenPalaeoagaracites().setPatchSize(24).setCountPerChunk(128));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPatchSize(3).setCountPerChunk(2));
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(5));

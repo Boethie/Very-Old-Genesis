@@ -11,6 +11,8 @@ import net.minecraft.world.World;
 
 public class WorldGenArchaeomarasmius extends WorldGenDecorationBase
 {
+	private int rarity = 1;
+	
 	@Override
 	public boolean generate(World world, Random random, BlockPos pos)
 	{
@@ -26,6 +28,9 @@ public class WorldGenArchaeomarasmius extends WorldGenDecorationBase
 			pos = pos.down();
 		}
 		while (pos.getY() > 0);
+		
+		if (random.nextInt(rarity) != 0)
+			return false;
 		
 		int plantsPlaced = 0;
 		
@@ -44,6 +49,12 @@ public class WorldGenArchaeomarasmius extends WorldGenDecorationBase
 			return false;
 		
 		return true;
+	}
+	
+	public WorldGenArchaeomarasmius setRarity(int rarity)
+	{
+		this.rarity = rarity;
+		return this;
 	}
 	
 	private boolean placePlant(World world, BlockPos pos)

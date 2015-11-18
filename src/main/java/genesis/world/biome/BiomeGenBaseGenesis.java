@@ -218,17 +218,17 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 						
 						if (k == 0 && filler == oceanFloor)
 						{
-							k = rand.nextInt(6) + Math.max(0, y - 58);
+							k = rand.nextInt(6) + Math.max(1, y - 58);
 							filler = GenesisBlocks.limestone.getDefaultState();
 						}
 						
 						if(k == 0 && GenesisBlocks.silt.isStateOf(filler, SiltBlocks.SILT, EnumSilt.SILT))
 						{
-							k = rand.nextInt(5) + Math.max(0, y - 58);
+							k = rand.nextInt(5) + Math.max(1, y - 58);
 							filler = GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.SILT);
 						} else if(k == 0 && GenesisBlocks.silt.isStateOf(filler, SiltBlocks.SILT, EnumSilt.RED_SILT))
 						{
-							k = rand.nextInt(5) + Math.max(0, y - 58);
+							k = rand.nextInt(5) + Math.max(1, y - 58);
 							filler = GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT);
 						}
 					}
