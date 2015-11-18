@@ -3,9 +3,9 @@ package genesis.metadata;
 public enum EnumTree implements IMetadata
 {
 	ARCHAEOPTERIS("archaeopteris"), SIGILLARIA("sigillaria"), LEPIDODENDRON("lepidodendron"),
-	CORDAITES("cordaites"), PSARONIUS("psaronius"), ARAUCARIOXYLON("araucarioxylon");
+	CORDAITES("cordaites"), PSARONIUS("psaronius"), BJUVIA("bjuvia"), ARAUCARIOXYLON("araucarioxylon");
 	
-	public static final EnumTree[] NO_BILLET = { PSARONIUS };
+	public static final EnumTree[] NO_BILLET = { PSARONIUS, BJUVIA };
 
 	final String name;
 	final String unlocalizedName;

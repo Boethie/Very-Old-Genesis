@@ -1,0 +1,8 @@
+{
+	"variants": {
+		"axis=y":  { "model": "genesis:bjuvia_log" },
+		"axis=z":   { "model": "genesis:bjuvia_log", "x": 90 },
+		"axis=x":   { "model": "genesis:bjuvia_log", "x": 90, "y": 90 },
+		"axis=none": { "model": "genesis:bjuvia_bark" }
+	}
+}

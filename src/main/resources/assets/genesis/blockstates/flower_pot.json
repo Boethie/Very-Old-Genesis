@@ -110,6 +110,11 @@
 					"plant": "genesis:blocks/sapling_psaronius"
 				}
 			},
+			"bjuvia_sapling": {
+				"textures": {
+					"plant": "genesis:blocks/sapling_bjuvia"
+				}
+			},
 			"araucarioxylon_sapling": {
 				"textures": {
 					"plant": "genesis:blocks/sapling_araucarioxylon"
