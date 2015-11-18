@@ -57,7 +57,7 @@ tile.genesis.log.sigillaria.name=Sigillaria Wood
 tile.genesis.log.lepidodendron.name=Lepidodendron Wood
 tile.genesis.log.cordaites.name=Cordaites Wood
 tile.genesis.log.psaronius.name=Psaronius Wood
-tile.genesis.log.psaronius.name=Bjuvia Wood
+tile.genesis.log.bjuvia.name=Bjuvia Wood
 tile.genesis.log.araucarioxylon.name=Araucarioxylon Wood
 
 tile.genesis.calamitesBundle.name=Bundle of Calamites
@@ -80,7 +80,7 @@ tile.genesis.leaves.sigillaria.name=Sigillaria Leaves
 tile.genesis.leaves.lepidodendron.name=Lepidodendron Leaves
 tile.genesis.leaves.cordaites.name=Cordaites Leaves
 tile.genesis.leaves.psaronius.name=Psaronius Leaves
-tile.genesis.leaves.psaronius.name=Bjuvia Leaves
+tile.genesis.leaves.bjuvia.name=Bjuvia Leaves
 tile.genesis.leaves.araucarioxylon.name=Araucarioxylon Leaves
 
 tile.genesis.sapling.archaeopteris.name=Archaeopteris Sapling
@@ -88,7 +88,7 @@ tile.genesis.sapling.sigillaria.name=Sigillaria Sapling
 tile.genesis.sapling.lepidodendron.name=Lepidodendron Sapling
 tile.genesis.sapling.cordaites.name=Cordaites Sapling
 tile.genesis.sapling.psaronius.name=Psaronius Sapling
-tile.genesis.sapling.psaronius.name=Bjuvia Sapling
+tile.genesis.sapling.bjuvia.name=Bjuvia Sapling
 tile.genesis.sapling.araucarioxylon.name=Araucarioxylon Sapling
 
 tile.genesis.wattleFence.archaeopteris.name=Archaeopteris Wattle Fence

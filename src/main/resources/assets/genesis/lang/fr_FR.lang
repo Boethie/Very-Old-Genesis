@@ -56,7 +56,7 @@ tile.genesis.log.sigillaria.name=Bois de Sigillaria
 tile.genesis.log.lepidodendron.name=Bois de Lepidodendron
 tile.genesis.log.cordaites.name=Bois de Cordaites
 tile.genesis.log.psaronius.name=Bois de Psaronius
-tile.genesis.log.psaronius.name=Bois de Bjuvia
+tile.genesis.log.bjuvia.name=Bois de Bjuvia
 tile.genesis.log.araucarioxylon.name=Bois d'Araucarioxylon
 
 tile.genesis.calamitesBundle.name=Fagot de Calamites
@@ -79,7 +79,7 @@ tile.genesis.leaves.sigillaria.name=Feuilles de Sigillaria
 tile.genesis.leaves.lepidodendron.name=Feuilles de Lepidodendron
 tile.genesis.leaves.cordaites.name=Feuilles de Cordaites
 tile.genesis.leaves.psaronius.name=Feuilles de Psaronius
-tile.genesis.leaves.psaronius.name=Feuilles de Bjuvia
+tile.genesis.leaves.bjuvia.name=Feuilles de Bjuvia
 tile.genesis.leaves.araucarioxylon.name=Feuilles d'Araucarioxylon
 
 tile.genesis.sapling.archaeopteris.name=Pousse d'Archaeopteris
@@ -87,7 +87,7 @@ tile.genesis.sapling.sigillaria.name=Pousse de Sigillaria
 tile.genesis.sapling.lepidodendron.name=Pousse de Lepidodendron
 tile.genesis.sapling.cordaites.name=Pousse de Cordaites
 tile.genesis.sapling.psaronius.name=Pousse de Psaronius
-tile.genesis.sapling.psaronius.name=Pousse de Bjuvia
+tile.genesis.sapling.bjuvia.name=Pousse de Bjuvia
 tile.genesis.sapling.araucarioxylon.name=Pousse d'Araucarioxylon
 
 tile.genesis.wattleFence.archaeopteris.name=Clayonnage en bois d'Archaeopteris
