@@ -14,6 +14,10 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.common.IPlantable;
 
 public class BlockSilt extends BlockFalling
 {
@@ -72,5 +76,18 @@ public class BlockSilt extends BlockFalling
 	public int damageDropped(IBlockState state)
 	{
 		return owner.getItemMetadata(type, (EnumSilt) state.getValue(variantProp));
+	}
+	
+	@Override
+	public boolean canSustainPlant(IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plant)
+	{
+		switch (plant.getPlantType(world, pos))
+		{
+		case Beach:
+		case Desert:
+			return true;
+		default:
+			return super.canSustainPlant(world, pos, direction, plant);
+		}
 	}
 }

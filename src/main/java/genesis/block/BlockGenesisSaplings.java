@@ -30,8 +30,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
+import net.minecraftforge.common.EnumPlantType;
+import net.minecraftforge.common.IPlantable;
 
 public class BlockGenesisSaplings extends BlockSapling
 {
@@ -131,6 +134,8 @@ public class BlockGenesisSaplings extends BlockSapling
 		case ARAUCARIOXYLON:
 			gen = new WorldGenTreeAraucarioxylon(25, 30, true).setGenerateRandomSaplings(false);
 			break;
+		default:
+			break;
 		}
 		
 		if (gen != null)
@@ -157,4 +162,54 @@ public class BlockGenesisSaplings extends BlockSapling
 			}
 		}
 	}
+	
+	@Override
+	public boolean canReplace(World world, BlockPos pos, EnumFacing side, ItemStack stack)
+	{
+		EnumTree variant = owner.getVariant(stack);
+		
+		switch (variant)
+		{
+		case BJUVIA:
+			for (final EnumPlantType plantType : new EnumPlantType[]{EnumPlantType.Plains, EnumPlantType.Desert})
+			{
+				IPlantable plantable = new IPlantable()
+				{
+					@Override
+					public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos)
+					{
+						return plantType;
+					}
+					
+					@Override
+					public IBlockState getPlant(IBlockAccess world, BlockPos pos)
+					{
+						return world.getBlockState(pos);
+					}
+				};
+				
+				if (world.getBlockState(pos.down()).getBlock().canSustainPlant(world, pos.down(), EnumFacing.UP, plantable))
+				{
+					return true;
+				}
+			}
+		default:
+			break;
+		}
+		
+		return super.canReplace(world, pos, side, stack);
+	}
+	
+	/*public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos)
+	{
+		EnumTree variant = owner.getVariant(world.getBlockState(pos));
+		
+		switch (variant)
+		{
+		case BJUVIA:
+			return EnumPlantType.Beach;
+		default:
+			return EnumPlantType.Plains;
+		}
+	}*/
 }
