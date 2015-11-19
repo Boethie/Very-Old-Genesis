@@ -8,6 +8,7 @@ import genesis.metadata.TreeBlocksAndItems;
 import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.BlockStateToMetadata;
+import genesis.util.WorldUtils;
 import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
 import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
 import genesis.world.gen.feature.WorldGenTreeCordaites;
@@ -200,16 +201,17 @@ public class BlockGenesisSaplings extends BlockSapling
 		return super.canReplace(world, pos, side, stack);
 	}
 	
-	/*public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos)
+	@Override
+	public boolean canBlockStay(World world, BlockPos pos, IBlockState state)
 	{
-		EnumTree variant = owner.getVariant(world.getBlockState(pos));
+		EnumTree variant = owner.getVariant(state);
 		
 		switch (variant)
 		{
 		case BJUVIA:
-			return EnumPlantType.Beach;
+			return WorldUtils.canSoilSustainTypes(world, pos, EnumPlantType.Plains, EnumPlantType.Desert);
 		default:
-			return EnumPlantType.Plains;
+			return super.canBlockStay(world, pos, state);
 		}
-	}*/
+	}
 }

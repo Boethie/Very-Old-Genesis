@@ -11,6 +11,8 @@ import java.util.Random;
 import com.google.common.collect.ImmutableList;
 import com.google.common.base.Function;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockBush;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
@@ -27,6 +29,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.EnumPlantType;
+import net.minecraftforge.common.IPlantable;
 
 @SuppressWarnings("unchecked")
 public class WorldUtils
@@ -372,5 +376,52 @@ public class WorldUtils
 	public static IBlockAccess getFakeWorld(IBlockAccess base, BlockPos pos, IBlockState state)
 	{
 		return getFakeWorld(base, pos, state, null);
+	}
+	
+	/**
+	 * Returns whether a soil can sustain a block with multiple {@link EnumPlantType}s.
+	 */
+	public static boolean canSoilSustainTypes(IBlockAccess world, BlockPos pos, EnumPlantType... types)
+	{
+		final BlockPos soilPos = pos.down();
+		final Block soil = world.getBlockState(soilPos).getBlock();
+		
+		for (final EnumPlantType type : types)
+		{
+			IPlantable plantable = new IPlantable()
+			{
+				@Override
+				public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos)
+				{
+					return type;
+				}
+				
+				@Override
+				public IBlockState getPlant(IBlockAccess world, BlockPos pos)
+				{
+					return world.getBlockState(pos);
+				}
+			};
+			
+			if (soil.canSustainPlant(world, soilPos, EnumFacing.UP, plantable))
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Returns whether a soil can sustain a block with multiple {@link EnumPlantType}s.
+	 */
+	public static boolean canSoilSustainTypes(World world, BlockPos pos, BlockBush plant, EnumPlantType... types)
+	{
+		if (world.getBlockState(pos).getBlock() != plant)
+		{
+			return plant.canBlockStay(world, pos, world.getBlockState(pos));
+		}
+		
+		return canSoilSustainTypes(world, pos, plant, types);
 	}
 }
