@@ -26,18 +26,18 @@ public class ItemsCeramicBowls extends VariantsOfTypesCombo<IMetadata>
 			this.name = name;
 			this.unlocalizedName = unlocalizedName;
 		}
-
+		
 		private EnumCeramicBowls(String name)
 		{
 			this(name, name);
 		}
-
+		
 		@Override
 		public String getName()
 		{
 			return name;
 		}
-
+		
 		@Override
 		public String getUnlocalizedName()
 		{
@@ -46,11 +46,11 @@ public class ItemsCeramicBowls extends VariantsOfTypesCombo<IMetadata>
 	}
 	
 	public static final ObjectType<Block, ItemCeramicBowl> MAIN = new ObjectType<Block, ItemCeramicBowl>("ceramic_bowl", Unlocalized.Section.MATERIAL + "ceramicBowl", null, ItemCeramicBowl.class)
-			.setValidVariants(Arrays.asList(EnumCeramicBowls.values()));
+			.setValidVariants(ImmutableList.copyOf(EnumCeramicBowls.values()));
 	public static final ObjectType<Block, ItemDyeBowl> DYES = new ObjectType<Block, ItemDyeBowl>("dye", Unlocalized.Section.MATERIAL + "dye", null, ItemDyeBowl.class)
 			.setValidVariants(GenesisDye.valueList());
 	public static final ObjectType<Block, ItemPorridge> PORRIDGE = new ObjectType<Block, ItemPorridge>("porridge", Unlocalized.Section.FOOD + "porridge", null, ItemPorridge.class)
-			.setValidVariants(Arrays.asList(EnumPorridge.values()));
+			.setValidVariants(ImmutableList.copyOf(EnumPorridge.values()));
 	
 	public static final List<ObjectType<?, ?>> ALL_OBJECT_TYPES = new ImmutableList.Builder<ObjectType<?, ?>>()
 		.add(MAIN)
