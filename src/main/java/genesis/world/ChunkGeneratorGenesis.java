@@ -82,6 +82,8 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 		
 		if (biome.biomeID == GenesisBiomes.marsh.biomeID)
 			waterLakeChance = 1;
+		else if (biome.biomeID == GenesisBiomes.redDesert.biomeID)
+			waterLakeChance = 2;
 		
 		if (
 				settings.useWaterLakes 

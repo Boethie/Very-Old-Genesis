@@ -64,7 +64,7 @@ public class WorldGenRottenLog extends WorldGenTreeBase
 				{
 					setBlockInWorld(world, logPos, wood.withProperty(BlockLog.LOG_AXIS, EnumAxis.X));
 					
-					if (rand.nextInt(100) > 90 && topDecorations.size() > 0)
+					if (rand.nextInt(100) > 96 && topDecorations.size() > 0)
 					{
 						setBlockInWorld(world, logPos.up(), topDecorations.get(rand.nextInt(topDecorations.size())));
 					}

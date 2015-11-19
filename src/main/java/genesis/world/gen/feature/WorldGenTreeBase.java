@@ -1,14 +1,16 @@
 package genesis.world.gen.feature;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumTree;
 import genesis.metadata.TreeBlocksAndItems;
-
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
@@ -31,6 +33,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	
 	private int treeCountPerChunk = 0;
 	private boolean canGrowInWater = false;
+	private List<BlockState> allowedBlocks = new ArrayList<BlockState>();
 	
 	public WorldGenTreeBase(IBlockState wood, IBlockState leaves, boolean notify)
 	{
@@ -64,6 +67,14 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		return this;
 	}
 	
+	public void addAllowedBlocks(BlockState... blocks)
+	{
+		for (int i = 0; i < blocks.length; ++i)
+		{
+			allowedBlocks.add(blocks[i]);
+		}
+	}
+	
 	@Override
 	public abstract boolean generate(World world, Random rand, BlockPos pos);
 	
@@ -95,7 +106,9 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		
 		if (
 				(treeSoil == null 
-				|| !treeSoil.canSustainPlant(world, pos, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.LEPIDODENDRON)))
+				|| (
+						!treeSoil.canSustainPlant(world, pos, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.LEPIDODENDRON))
+						&& !allowedBlocks.contains(treeSoil.getBlockState())))
 				|| (!upBlock.isAir(world, pos.up()) && !(canGrowInWater && upBlock == Blocks.water))
 		)
 		{
