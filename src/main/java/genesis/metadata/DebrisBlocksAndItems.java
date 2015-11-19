@@ -12,12 +12,12 @@ import java.util.List;
 
 public class DebrisBlocksAndItems extends VariantsOfTypesCombo<IMetadata>
 {
-	public static final ObjectType<BlockGenesisDebris, ItemBlockMulti<EnumTree>> LEAVES = ObjectType.createBlock("debrisLeaves", BlockGenesisDebris.class);
+	public static final ObjectType<BlockGenesisDebris, ItemBlockMulti<EnumTree>> LEAVES = ObjectType.createBlock("debris", BlockGenesisDebris.class);
 	public static final ObjectType<BlockGenesisDebris, ItemBlockMulti<EnumDebrisOther>> OTHERS = ObjectType.createBlock("debrisOther", BlockGenesisDebris.class);
 	
 	public static final List<ObjectType<BlockGenesisDebris, ?>> TYPES = new ImmutableList.Builder<ObjectType<BlockGenesisDebris, ?>>()
 			.add(LEAVES)
-			.add(OTHERS)
+			//.add(OTHERS)
 			.build();
 	public static final List<IMetadata> VARIANTS = new ImmutableList.Builder<IMetadata>()
 			.addAll(Iterables.filter(Arrays.asList(EnumTree.values()), new Predicate<EnumTree>()

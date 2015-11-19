@@ -69,40 +69,41 @@ public class BlockStateToMetadata
 		Collection<T> unsortedValuesKey = ImmutableSet.copyOf(unsortedValues);
 		List<T> sortedValues = (List<T>) VALUES_SORTED.get(unsortedValues);
 		
-			if (sortedValues == null)
-			{
-				boolean hasSorter = VALUES_SORTERS.containsKey(unsortedValues);
+		if (sortedValues == null)
+		{
+			boolean hasSorter = VALUES_SORTERS.containsKey(unsortedValues);
+			
+			if (unsortedValues instanceof List<?> && !hasSorter)
+			{	// Values have an order that we can use.
+				sortedValues = ImmutableList.copyOf(unsortedValues);
+			}
+			else
+			{	// We have to sort the values.
+				sortedValues = new ArrayList<T>(unsortedValues);
 				
-				if (unsortedValues instanceof List<?> && hasSorter)
-				{	// Values have an order that we can use.
-					VALUES_SORTED.put(unsortedValuesKey, ImmutableList.copyOf(unsortedValues));
+				if (hasSorter)
+				{
+					Collections.sort(sortedValues, (Comparator<T>) VALUES_SORTERS.get(unsortedValuesKey));
 				}
 				else
-				{	// We have to sort the values.
-					sortedValues = new ArrayList<T>(unsortedValues);
-					
-					if (hasSorter)
+				{
+					try
 					{
-						Collections.sort(sortedValues, (Comparator<T>) VALUES_SORTERS.get(unsortedValuesKey));
+						Collections.sort(sortedValues);
 					}
-					else
+					catch (ClassCastException e)
 					{
-						try
-						{
-							Collections.sort(sortedValues);
-						}
-						catch (ClassCastException e)
-						{
-							throw new RuntimeException("Property " + property + " cannot be sorted with its values' comparators, "
-									+ "as they do not all expect the same types. "
-									+ "Please set a comparator for getSortedValues to use.", e);
-						}
+						throw new RuntimeException("Property " + property + " cannot be sorted with its values' comparators, "
+								+ "as they do not all expect the same types. "
+								+ "Please set a comparator for getSortedValues to use.", e);
 					}
-					
-					sortedValues = ImmutableList.copyOf(sortedValues);
-					VALUES_SORTED.put(unsortedValues, sortedValues);
 				}
+				
+				sortedValues = ImmutableList.copyOf(sortedValues);
 			}
+			
+			VALUES_SORTED.put(unsortedValues, sortedValues);
+		}
 		
 		return sortedValues;
 	}
