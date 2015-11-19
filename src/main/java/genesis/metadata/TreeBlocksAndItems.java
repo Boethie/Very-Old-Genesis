@@ -45,7 +45,7 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo<EnumTree>
 	public static final ObjectType<BlockGenesisDebris, ItemBlockMulti<EnumTree>> DEBRIS = new ObjectType<BlockGenesisDebris, ItemBlockMulti<EnumTree>>("debris", "log.debris", BlockGenesisDebris.class, null, EnumTree.NO_DEBRIS)
 			.setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	
-	public static final ImmutableList<? extends ObjectType<?, ?>> TYPES = ImmutableList.of(LOG, SAPLING, LEAVES, BILLET, WATTLE_FENCE, ROTTEN_LOG);
+	public static final ImmutableList<? extends ObjectType<?, ?>> TYPES = ImmutableList.of(LOG, SAPLING, LEAVES, BILLET, WATTLE_FENCE, ROTTEN_LOG, DEBRIS);
 	
 	static
 	{
