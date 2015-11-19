@@ -98,6 +98,24 @@ public class BlockStateToMetadata
 		return sortedValues;
 	}
 	
+	private static final class MetadataStruct
+	{
+		int metadata = 0;
+		int offset = 0;
+	}
+	
+	private static <T extends Comparable<? super T>> void addMetaForProperty(MetadataStruct struct, IBlockState state, IProperty property)
+	{
+		T value = (T) state.getValue(property);
+		List<T> values = getSortedValues(property);
+		int index = values.indexOf(value);
+		
+		BitMask mask = BitMask.forValueCount(values.size(), struct.offset);
+		struct.metadata = mask.encode(struct.metadata, index);
+		
+		struct.offset += mask.getBitCount();
+	}
+	
 	/**
 	 * Gets the IBlockState represented by the metadata passed to the function, filtered by an array of properties.
 	 * 
@@ -105,29 +123,21 @@ public class BlockStateToMetadata
 	 * @param properties The properties to store in the metadata, in the desired order.
 	 * @return The metadata to represent the IBlockState.
 	 */
-	public static <T extends Comparable<? super T>> int getMetaForBlockState(IBlockState state, IProperty... properties)
+	public static int getMetaForBlockState(IBlockState state, IProperty... properties)
 	{
-		int metadata = 0;
-		int offset = 0;
+		MetadataStruct struct = new MetadataStruct();
 		
 		for (IProperty property : properties)
 		{
-			T value = (T) state.getValue(property);
-			List<T> values = getSortedValues(property);
-			int index = values.indexOf(value);
-			
-			BitMask mask = BitMask.forValueCount(values.size(), offset);
-			metadata = mask.encode(metadata, index);
-			
-			offset += mask.getBitCount();
+			addMetaForProperty(struct, state, property);
 		}
 		
-		if (offset > MAXMETAVALUE.getBitCount())
+		if (struct.offset > MAXMETAVALUE.getBitCount())
 		{
-			throw new RuntimeException("Attempted to store an IBlockState that requires " + offset + " bits in " + MAXMETAVALUE.getBitCount() + " bits of metadata");
+			throw new RuntimeException("Attempted to store an IBlockState that requires " + struct.offset + " bits in " + MAXMETAVALUE.getBitCount() + " bits of metadata");
 		}
 		
-		return metadata;
+		return struct.metadata;
 	}
 	
 	/**
@@ -138,7 +148,7 @@ public class BlockStateToMetadata
 	 */
 	public static int getMetaForBlockState(IBlockState state)
 	{
-		return getMetaForBlockState(state, getSortedProperties(state.getProperties().keySet()).toArray(new IProperty[0]));
+		return getMetaForBlockState(state, (IProperty[]) getSortedProperties(state.getProperties().keySet()).toArray(new IProperty[0]));
 	}
 	
 	/**
