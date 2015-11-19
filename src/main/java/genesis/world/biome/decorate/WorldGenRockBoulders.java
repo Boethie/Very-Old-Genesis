@@ -1,6 +1,7 @@
 package genesis.world.biome.decorate;
 
 import genesis.common.GenesisBlocks;
+import genesis.metadata.SiltBlocks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,10 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 	{
 		pos = getPosition(world, pos);
 		
-		if (!(world.getBlockState(pos).getBlock() == GenesisBlocks.moss || world.getBlockState(pos).getBlock() == Blocks.dirt))
+		if (!(
+				world.getBlockState(pos).getBlock() == GenesisBlocks.moss 
+				|| world.getBlockState(pos).getBlock() == Blocks.dirt
+				|| GenesisBlocks.silt.isStateOf(world.getBlockState(pos), SiltBlocks.SILT)))
 			return false;
 		
 		if (!world.getBlockState(pos.up()).getBlock().isAir(world, pos))

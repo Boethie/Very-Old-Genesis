@@ -23,6 +23,7 @@ public class WorldGenPebbles extends WorldGenDecorationBase
 {
 	public List<EnumToolMaterial> pebbleTypes = new ArrayList<EnumToolMaterial>();
 	
+	private boolean waterRequired = true;
 	private List<PropertyBool> pebblePositions;
 	
 	public WorldGenPebbles()
@@ -52,9 +53,9 @@ public class WorldGenPebbles extends WorldGenDecorationBase
 		if (!world.getBlockState(pos.up()).getBlock().isAir(world, pos))
 			return false;
 		
-		boolean water_exists = findBlockInRange(world, pos, Blocks.water.getDefaultState(), 4, 3, 4);
+		boolean waterExists = findBlockInRange(world, pos, Blocks.water.getDefaultState(), 4, 3, 4);
 		
-		if (!water_exists)
+		if (!waterExists && waterRequired)
 			return false;
 		
 		populatePositions();
@@ -70,6 +71,12 @@ public class WorldGenPebbles extends WorldGenDecorationBase
 		setBlockInWorld(world, pos.up(), pebble);
 		
 		return true;
+	}
+	
+	public WorldGenPebbles setWaterRequired(boolean required)
+	{
+		waterRequired = required;
+		return this;
 	}
 	
 	private void populatePositions()
