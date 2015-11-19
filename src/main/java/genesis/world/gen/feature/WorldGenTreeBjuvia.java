@@ -37,6 +37,9 @@ public class WorldGenTreeBjuvia extends WorldGenTreeBase
 		if (!canTreeGrow(world, pos))
 			return false;
 		
+		if (rand.nextInt(rarity) != 0)
+			return false;
+		
 		int treeHeight = minHeight + rand.nextInt(maxHeight - minHeight) - 1;
 		
 		if (!isCubeClear(world, pos.up(), 1, treeHeight))
@@ -52,18 +55,6 @@ public class WorldGenTreeBjuvia extends WorldGenTreeBase
 		BlockPos branchPos = pos.up(treeHeight);
 		
 		//setBlockInWorld(world, branchPos, leaves);
-		
-		doLeavesBranch(world, branchPos, 1, 0, rand, 2 + rand.nextInt(3));
-		doLeavesBranch(world, branchPos, -1, 0, rand, 2 + rand.nextInt(3));
-		doLeavesBranch(world, branchPos, 0, 1, rand, 2 + rand.nextInt(3));
-		doLeavesBranch(world, branchPos, 0, -1, rand, 2 + rand.nextInt(3));
-		
-		doLeavesBranch(world, branchPos, 1, 1, rand, 2 + rand.nextInt(3));
-		doLeavesBranch(world, branchPos, -1, 1, rand, 2 + rand.nextInt(3));
-		doLeavesBranch(world, branchPos, 1, -1, rand, 2 + rand.nextInt(3));
-		doLeavesBranch(world, branchPos, -1, -1, rand, 2 + rand.nextInt(3));
-		
-		branchPos = pos.up(treeHeight - 2 - rand.nextInt(1));
 		
 		doLeavesBranch(world, branchPos, 1, 0, rand, 2 + rand.nextInt(3));
 		doLeavesBranch(world, branchPos, -1, 0, rand, 2 + rand.nextInt(3));
