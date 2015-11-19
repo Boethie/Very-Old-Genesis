@@ -56,15 +56,15 @@ public class WorldGenTreeBjuvia extends WorldGenTreeBase
 		
 		//setBlockInWorld(world, branchPos, leaves);
 		
-		doLeavesBranch(world, branchPos, 1, 0, rand, 2 + rand.nextInt(3));
-		doLeavesBranch(world, branchPos, -1, 0, rand, 2 + rand.nextInt(3));
-		doLeavesBranch(world, branchPos, 0, 1, rand, 2 + rand.nextInt(3));
-		doLeavesBranch(world, branchPos, 0, -1, rand, 2 + rand.nextInt(3));
+		doLeavesBranch(world, branchPos, 1, 0, rand, 1 + rand.nextInt(2));
+		doLeavesBranch(world, branchPos, -1, 0, rand, 1 + rand.nextInt(2));
+		doLeavesBranch(world, branchPos, 0, 1, rand, 1 + rand.nextInt(2));
+		doLeavesBranch(world, branchPos, 0, -1, rand, 1 + rand.nextInt(2));
 		
-		doLeavesBranch(world, branchPos, 1, 1, rand, 2 + rand.nextInt(3));
-		doLeavesBranch(world, branchPos, -1, 1, rand, 2 + rand.nextInt(3));
-		doLeavesBranch(world, branchPos, 1, -1, rand, 2 + rand.nextInt(3));
-		doLeavesBranch(world, branchPos, -1, -1, rand, 2 + rand.nextInt(3));
+		doLeavesBranch(world, branchPos, 1, 1, rand, 1 + rand.nextInt(2));
+		doLeavesBranch(world, branchPos, -1, 1, rand, 1 + rand.nextInt(2));
+		doLeavesBranch(world, branchPos, 1, -1, rand, 1 + rand.nextInt(2));
+		doLeavesBranch(world, branchPos, -1, -1, rand, 1 + rand.nextInt(2));
 		
 		return true;
 	}

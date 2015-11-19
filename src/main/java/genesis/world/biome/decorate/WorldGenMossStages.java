@@ -1,17 +1,21 @@
 package genesis.world.biome.decorate;
 
-import genesis.block.BlockMoss;
-import genesis.common.GenesisBlocks;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
+import genesis.block.BlockMoss;
+import genesis.common.GenesisBlocks;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class WorldGenMossStages extends WorldGenDecorationBase
 {
+	private List<BlockState> allowedBlocks = new ArrayList<BlockState>();
+	
 	@Override
 	public boolean generate(World world, Random random, BlockPos pos)
 	{
@@ -28,7 +32,9 @@ public class WorldGenMossStages extends WorldGenDecorationBase
 		}
 		while (pos.getY() > 0);
 		
-		if (!(world.getBlockState(pos).getBlock() == GenesisBlocks.moss || world.getBlockState(pos).getBlock() == Blocks.dirt))
+		if (
+				!(world.getBlockState(pos).getBlock() == GenesisBlocks.moss || world.getBlockState(pos).getBlock() == Blocks.dirt)
+				&& !(allowedBlocks.contains(world.getBlockState(pos).getBlock().getBlockState())))
 			return false;
 		
 		boolean generated = false;
@@ -44,7 +50,10 @@ public class WorldGenMossStages extends WorldGenDecorationBase
 	
 	private boolean setMoss(World world, BlockPos pos, Random rand)
 	{
-		if (world.getBlockState(pos).getBlock() != GenesisBlocks.moss && world.getBlockState(pos).getBlock() != Blocks.dirt)
+		if (
+				world.getBlockState(pos).getBlock() != GenesisBlocks.moss 
+				&& world.getBlockState(pos).getBlock() != Blocks.dirt 
+				&& !(allowedBlocks.contains(world.getBlockState(pos).getBlock().getBlockState())))
 			return false;
 		
 		int stage = GenesisBlocks.moss.getTargetStage(GenesisBlocks.moss.getFertility(world, pos), rand);
@@ -55,5 +64,15 @@ public class WorldGenMossStages extends WorldGenDecorationBase
 		}
 		
 		return true;
+	}
+	
+	public WorldGenMossStages addAllowedBlocks(BlockState... blocks)
+	{
+		for (int i = 0; i < blocks.length; ++i)
+		{
+			allowedBlocks.add(blocks[i]);
+		}
+		
+		return this;
 	}
 }
