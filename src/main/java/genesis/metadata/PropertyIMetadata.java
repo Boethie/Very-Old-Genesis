@@ -2,20 +2,20 @@ package genesis.metadata;
 
 import java.util.*;
 
-import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableList;
 
 import net.minecraft.block.properties.*;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class PropertyIMetadata<T extends IMetadata> extends PropertyHelper
 {
-	protected final ImmutableSet<? extends T> values;
+	protected final List<? extends T> values;
 	
 	public PropertyIMetadata(String name, List<? extends T> values)
 	{
 		super(name, IMetadata.class);
 		
-		this.values = ImmutableSet.copyOf(values);
+		this.values = ImmutableList.copyOf(values);
 	}
 	
 	@Override

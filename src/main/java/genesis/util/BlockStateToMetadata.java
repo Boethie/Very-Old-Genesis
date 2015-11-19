@@ -20,8 +20,10 @@ public class BlockStateToMetadata
 {
 	public static final BitMask MAXMETAVALUE = BitMask.forValueCount(16);
 	
-	private static final HashMap<Collection<IProperty>, List<IProperty>> SORTED_PROPERTIES = Maps.newHashMap();
-	private static final HashMap<Collection<? extends Comparable<?>>, List<? extends Comparable<?>>> SORTED_VALUES = Maps.newHashMap();
+	private static final Map<Collection<IProperty>, List<IProperty>> SORTED_PROPERTIES = Maps.newHashMap();
+	
+	private static final Map<Collection<? extends Comparable<?>>, Comparator<?>> VALUES_SORTERS = Maps.newHashMap();
+	private static final Map<Collection<? extends Comparable<?>>, List<? extends Comparable<?>>> VALUES_SORTED = Maps.newHashMap();
 	
 	public static List<IProperty> getSortedProperties(Collection<IProperty> properties)
 	{
@@ -56,17 +58,41 @@ public class BlockStateToMetadata
 		return output;
 	}
 	
+	public static <T extends Comparable<? super T>> void setSorter(Collection<T> values, Comparator<T> sorter)
+	{
+		VALUES_SORTERS.put(ImmutableSet.copyOf(values), sorter);
+	}
+	
 	public static <T extends Comparable<? super T>> List<T> getSortedValues(IProperty property)
 	{
 		Collection<T> unsortedValues = property.getAllowedValues();
-		List<T> sortedValues = (List<T>) SORTED_VALUES.get(unsortedValues);
+		Collection<T> unsortedValuesKey = ImmutableSet.copyOf(unsortedValues);
+		List<T> sortedValues = (List<T>) VALUES_SORTED.get(unsortedValues);
 		
 		if (sortedValues == null)
 		{
-			sortedValues = new ArrayList<T>(unsortedValues);
-			Collections.sort(sortedValues);
-			sortedValues = ImmutableList.copyOf(sortedValues);
-			SORTED_VALUES.put(unsortedValues, sortedValues);
+			boolean hasSorter = VALUES_SORTERS.containsKey(unsortedValues);
+			
+			if (unsortedValues instanceof List<?> && hasSorter)
+			{	// Values have an order that we can use.
+				VALUES_SORTED.put(unsortedValuesKey, ImmutableList.copyOf(unsortedValues));
+			}
+			else
+			{	// We have to sort the values.
+				sortedValues = new ArrayList<T>(unsortedValues);
+				
+				if (hasSorter)
+				{
+					Collections.sort(sortedValues, (Comparator<T>) VALUES_SORTERS.get(unsortedValuesKey));
+				}
+				else
+				{
+					Collections.sort(sortedValues);
+				}
+				
+				sortedValues = ImmutableList.copyOf(sortedValues);
+				VALUES_SORTED.put(unsortedValues, sortedValues);
+			}
 		}
 		
 		return sortedValues;
@@ -112,7 +138,7 @@ public class BlockStateToMetadata
 	 */
 	public static int getMetaForBlockState(IBlockState state)
 	{
-		return getMetaForBlockState(state, (IProperty[]) getSortedProperties(state.getProperties().keySet()).toArray(new IProperty[0]));
+		return getMetaForBlockState(state, getSortedProperties(state.getProperties().keySet()).toArray(new IProperty[0]));
 	}
 	
 	/**
