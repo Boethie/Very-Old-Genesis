@@ -4,7 +4,6 @@ import java.util.*;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import genesis.common.Genesis;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;

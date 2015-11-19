@@ -25,7 +25,7 @@ public class GenesisPortal
 	public static final int MENHIR_MAX_DISTANCE = 3;
 	public static final int PORTAL_HEIGHT = 3;
 	
-	public static final int COOLDOWN = 5;
+	public static final int COOLDOWN = 10;
 	
 	// Values for external things
 	public static final byte PORTAL_CHECK_TIME = 5;
@@ -278,8 +278,11 @@ public class GenesisPortal
 			return -1;
 		}
 		
-		BlockPos off = getMenhir(direction).getBottomPos().subtract(getCenterPosition());
-		return direction.getFrontOffsetX() * off.getX() + direction.getFrontOffsetY() * off.getY() + direction.getFrontOffsetZ() * off.getZ();
+		BlockPos bottom = getMenhir(direction).getBottomPos();
+		BlockPos center = getCenterPosition();
+		return direction.getFrontOffsetX() * (bottom.getX() - center.getX()) +
+				direction.getFrontOffsetY() * (bottom.getY() - center.getY()) +
+				direction.getFrontOffsetZ() * (bottom.getZ() - center.getZ());
 	}
 	
 	public void placeMenhir(World world, BlockPos pos, EnumFacing facing, EnumGlyph glyph)
@@ -452,7 +455,7 @@ public class GenesisPortal
 	public void duplicatePortal(World world, GenesisPortal fromPortal)
 	{
 		Genesis.logger.info("Duplicating portal " + fromPortal + " to portal " + this + ".");
-		BlockPos posDiff = getCenterPosition().subtract(fromPortal.getCenterPosition());
+		BlockPos posDiff = getCenterPosition().add(fromPortal.getCenterPosition().multiply(-1));
 		IBlockAccess fromWorld = fromPortal.getBlockAccess();
 		
 		for (MenhirData menhir : fromPortal.getMenhirs().values())

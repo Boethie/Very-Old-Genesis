@@ -101,7 +101,7 @@ public class TeleporterGenesis extends Teleporter
 			}
 			
 			entity.setLocationAndAngles(to.xCoord, to.yCoord, to.zCoord, entity.rotationYaw, entity.rotationPitch);
-			entity.setVelocity(0, 0, 0);
+			//entity.motionX = entity.motionY = entity.motionZ = 0;
 			
 			//world.playSoundEffect(portalPos.getX() + 0.5, portalPos.getY() + 0.5, portalPos.getZ() + 0.5,
 			//		Constants.ASSETS_PREFIX + "portal.exit", 0.9F + world.rand.nextFloat() * 0.2F, 0.8F + world.rand.nextFloat() * 0.4F);

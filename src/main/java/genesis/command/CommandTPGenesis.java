@@ -47,6 +47,8 @@ public class CommandTPGenesis implements ICommand
 			}
 			
 			GenesisDimensions.teleportToDimension(entity, null, dimension, true);
+			// Currently forces teleportation without resetting player.
+			// TODO: Figure out permissions.
 		}
 	}
 	

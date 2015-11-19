@@ -8,6 +8,7 @@ import genesis.world.WorldProviderGenesis;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.play.server.S12PacketEntityVelocity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.ServerConfigurationManager;
 import net.minecraft.world.Teleporter;
@@ -45,6 +46,10 @@ public class GenesisDimensions
 	{
 		if (!entity.worldObj.isRemote)
 		{
+			double motionX = entity.motionX;
+			double motionY = entity.motionY;
+			double motionZ = entity.motionZ;
+			
 			EntityPlayerMP player = null;
 			
 			if (entity instanceof EntityPlayerMP)
@@ -129,11 +134,16 @@ public class GenesisDimensions
 					respawnedPlayer.inventory.currentItem = player.inventory.currentItem;	// Keep the current selected hotbar item.
 					manager.syncPlayerInventory(respawnedPlayer);	// Send the player's inventory, stats and current item.
 					
+					// Restore other relevant stuff.
+					respawnedPlayer.fallDistance = player.fallDistance;
+					
 					// Save the old player's data for restoration later.
 					GenesisEntityData.setValue(respawnedPlayer, STORED_PLAYERS, dimensionPlayers);
 					
 					// Restore the player to the position of the portal.
 					respawnedPlayer.playerNetServerHandler.setPlayerLocation(x, y, z, yaw, pitch);
+					
+					player = respawnedPlayer;
 				}
 				
 				teleported = true;
@@ -150,6 +160,15 @@ public class GenesisDimensions
 			if (teleported)
 			{
 				entity.timeUntilPortal = GenesisPortal.COOLDOWN;
+			}
+			
+			entity.motionX = motionX;
+			entity.motionY = motionY;
+			entity.motionZ = motionZ;
+			
+			if (player != null)
+			{
+				player.playerNetServerHandler.sendPacket(new S12PacketEntityVelocity(player));
 			}
 			
 			return teleported;

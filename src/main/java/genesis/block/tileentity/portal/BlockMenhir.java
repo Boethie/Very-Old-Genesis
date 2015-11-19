@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableList;
 
 import genesis.common.IRegistrationCallback;
 import genesis.block.BlockGenesis;
+import genesis.client.GenesisClient;
 import genesis.client.model.ListedItemMeshDefinition;
 import genesis.common.*;
 import genesis.item.ItemBlockMulti;
@@ -28,6 +29,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
+import net.minecraftforge.fml.relauncher.*;
 
 public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 {
@@ -84,60 +86,68 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 	@Override
 	public void onRegistered()
 	{
-		Genesis.proxy.registerModel(Item.getItemFromBlock(this),
-				new ListedItemMeshDefinition()
-				{
-					public String getName(EnumMenhirPart part, EnumGlyph glyph)
-					{
-						return "portal/" + part.getName() + (glyph != null ? "_" + glyph.getName() : "");
-					}
-					
-					@Override
-					public ModelResourceLocation getModelLocation(ItemStack stack)
-					{
-						EnumMenhirPart part = owner.getVariant(stack);
-						EnumGlyph glyph = null;
-						
-						if (part == EnumMenhirPart.GLYPH)
+		Genesis.proxy.callSided(new SidedFunction()
+		{
+			@SideOnly(Side.CLIENT)
+			@Override
+			public void client(GenesisClient client)
+			{
+				client.registerModel(Item.getItemFromBlock(BlockMenhir.this),
+						new ListedItemMeshDefinition()
 						{
-							glyph = EnumGlyph.NONE;
-							
-							NBTTagCompound compound = stack.getTagCompound();
-							
-							if (compound != null && compound.hasKey("BlockEntityTag", 10))
+							public String getName(EnumMenhirPart part, EnumGlyph glyph)
 							{
-								TileEntityMenhirGlyph glyphTE = new TileEntityMenhirGlyph();
-								glyphTE.readFromNBT(compound.getCompoundTag("BlockEntityTag"));
-								glyph = glyphTE.getGlyph();
+								return "portal/" + part.getName() + (glyph != null ? "_" + glyph.getName() : "");
 							}
-						}
-						
-						return (ModelResourceLocation) Genesis.proxy.getItemModelLocation(getName(part, glyph));
-					}
-					
-					@Override
-					public Collection<String> getVariants()
-					{
-						ArrayList<String> variants = new ArrayList<String>();
-						
-						for (EnumMenhirPart part : EnumMenhirPart.ORDERED)
-						{
-							if (part == EnumMenhirPart.GLYPH)
+							
+							@Override
+							public ModelResourceLocation getModelLocation(ItemStack stack)
 							{
-								for (EnumGlyph glyph : EnumGlyph.values())
+								EnumMenhirPart part = owner.getVariant(stack);
+								EnumGlyph glyph = null;
+								
+								if (part == EnumMenhirPart.GLYPH)
 								{
-									variants.add(getName(part, glyph));
+									glyph = EnumGlyph.NONE;
+									
+									NBTTagCompound compound = stack.getTagCompound();
+									
+									if (compound != null && compound.hasKey("BlockEntityTag", 10))
+									{
+										TileEntityMenhirGlyph glyphTE = new TileEntityMenhirGlyph();
+										glyphTE.readFromNBT(compound.getCompoundTag("BlockEntityTag"));
+										glyph = glyphTE.getGlyph();
+									}
 								}
+								
+								return (ModelResourceLocation) Genesis.proxy.getItemModelLocation(getName(part, glyph));
 							}
-							else
+							
+							@Override
+							public Collection<String> getVariants()
 							{
-								variants.add(getName(part, null));
+								ArrayList<String> variants = new ArrayList<String>();
+								
+								for (EnumMenhirPart part : EnumMenhirPart.ORDERED)
+								{
+									if (part == EnumMenhirPart.GLYPH)
+									{
+										for (EnumGlyph glyph : EnumGlyph.values())
+										{
+											variants.add(getName(part, glyph));
+										}
+									}
+									else
+									{
+										variants.add(getName(part, null));
+									}
+								}
+								
+								return variants;
 							}
-						}
-						
-						return variants;
-					}
-				});
+						});
+			}
+		});
 	}
 	
 	@Override
