@@ -9,7 +9,7 @@ import net.minecraft.block.properties.*;
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class PropertyIMetadata<T extends IMetadata> extends PropertyHelper
 {
-	protected final List<? extends T> values;
+	protected final ImmutableList<? extends T> values;
 	
 	public PropertyIMetadata(String name, List<? extends T> values)
 	{
