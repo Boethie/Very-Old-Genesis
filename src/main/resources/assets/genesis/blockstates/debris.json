@@ -1,0 +1,28 @@
+{
+	"variants": {
+		"from_tree=true,variant=araucarioxylon_leaves":
+		{
+			"model": "genesis:debris_araucarioxylon_leaves"
+		},
+		"from_tree=true,variant=archaeopteris_leaves":
+		{
+			"model": "genesis:debris_archaeopteris_leaves"
+		},
+		"from_tree=true,variant=lepidodendron_leaves":
+		{
+			"model": "genesis:debris_lepidodendron_leaves"
+		},
+		"from_tree=true,variant=sigillaria_leaves":
+		{
+			"model": "genesis:debris_sigillaria_leaves"
+		},
+		"from_tree=false,variant=calamites":
+		{
+			"model": "genesis:debris_calamites"
+		},
+		"from_tree=false,variant=epidexipteryx_feather":
+		{
+			"model": "genesis:debris_epidexipteryx_feather"
+		}
+	}
+}

@@ -6,7 +6,8 @@ public enum EnumTree implements IMetadata
 	CORDAITES("cordaites"), PSARONIUS("psaronius"), BJUVIA("bjuvia"), ARAUCARIOXYLON("araucarioxylon");
 	
 	public static final EnumTree[] NO_BILLET = { PSARONIUS, BJUVIA };
-
+	public static final EnumTree[] NO_DEBRIS = { CORDAITES, PSARONIUS, BJUVIA };
+	
 	final String name;
 	final String unlocalizedName;
 	
