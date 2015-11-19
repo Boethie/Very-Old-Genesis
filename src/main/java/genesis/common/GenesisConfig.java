@@ -77,7 +77,7 @@ public final class GenesisConfig
 		auxForestId = config.getInt("auxForestId", "biome", auxForestId, 0, 255, "Araucarioxylon Forest Biome ID");
 		auxForestWeight = config.getInt("auxForestWeight", "biome", auxForestWeight, 0, Integer.MAX_VALUE, "Araucarioxylon Forest Biome Weight");
 		auxForestEdgeId = config.getInt("auxForestEdgeId", "biome", auxForestEdgeId, 0, 255, "Araucarioxylon Forest Edge Biome ID");
-		redDesertId = config.getInt("redDesertId", "biome", redDesertId, 0, 255, "Desert Biome ID");
+		redDesertId = config.getInt("redDesertId", "biome", redDesertId, 0, 255, "Red Desert Biome ID");
 		redDesertWeight = config.getInt("redDesertWeight", "biome", redDesertWeight, 0, Integer.MAX_VALUE, "Red Desert Biome Weight");
 		
 		//Dimension Id

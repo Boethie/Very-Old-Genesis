@@ -115,6 +115,11 @@
 					"plant": "genesis:blocks/sapling_bjuvia"
 				}
 			},
+			"voltzia_sapling": {
+				"textures": {
+					"plant": "genesis:blocks/sapling_voltzia"
+				}
+			},
 			"araucarioxylon_sapling": {
 				"textures": {
 					"plant": "genesis:blocks/sapling_araucarioxylon"

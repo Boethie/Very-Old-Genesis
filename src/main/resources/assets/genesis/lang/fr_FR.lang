@@ -57,6 +57,7 @@ tile.genesis.log.lepidodendron.name=Bois de Lepidodendron
 tile.genesis.log.cordaites.name=Bois de Cordaites
 tile.genesis.log.psaronius.name=Bois de Psaronius
 tile.genesis.log.bjuvia.name=Bois de Bjuvia
+tile.genesis.log.voltzia.name=Bois de Voltzia
 tile.genesis.log.araucarioxylon.name=Bois d'Araucarioxylon
 
 tile.genesis.calamitesBundle.name=Fagot de Calamites
@@ -80,6 +81,7 @@ tile.genesis.leaves.lepidodendron.name=Feuilles de Lepidodendron
 tile.genesis.leaves.cordaites.name=Feuilles de Cordaites
 tile.genesis.leaves.psaronius.name=Feuilles de Psaronius
 tile.genesis.leaves.bjuvia.name=Feuilles de Bjuvia
+tile.genesis.leaves.voltzia.name=Feuilles de Voltzia
 tile.genesis.leaves.araucarioxylon.name=Feuilles d'Araucarioxylon
 
 tile.genesis.sapling.archaeopteris.name=Pousse d'Archaeopteris
@@ -88,12 +90,14 @@ tile.genesis.sapling.lepidodendron.name=Pousse de Lepidodendron
 tile.genesis.sapling.cordaites.name=Pousse de Cordaites
 tile.genesis.sapling.psaronius.name=Pousse de Psaronius
 tile.genesis.sapling.bjuvia.name=Pousse de Bjuvia
+tile.genesis.sapling.voltzia.name=Pousse de Voltzia
 tile.genesis.sapling.araucarioxylon.name=Pousse d'Araucarioxylon
 
 tile.genesis.wattleFence.archaeopteris.name=Clayonnage en bois d'Archaeopteris
 tile.genesis.wattleFence.sigillaria.name=Clayonnage en bois de Sigillaria
 tile.genesis.wattleFence.lepidodendron.name=Clayonnage en bois de Lepidodendron
 tile.genesis.wattleFence.cordaites.name=Clayonnage en bois de Cordaites
+tile.genesis.wattleFence.voltzia.name=Clayonnage en bois de Voltzia
 tile.genesis.wattleFence.araucarioxylon.name=Clayonnage en bois d'Araucarioxylon
 
 tile.genesis.calamitesTorch.name=Torche en Calamites
@@ -377,6 +381,7 @@ item.genesis.material.billet.archaeopteris.name=Billette en bois d'Archaeopteris
 item.genesis.material.billet.sigillaria.name=Billette en bois de Sigillaria
 item.genesis.material.billet.lepidodendron.name=Billette en bois de Lepidodendron
 item.genesis.material.billet.cordaites.name=Billette en bois de Cordaites
+item.genesis.material.billet.voltzia.name=Billette en bois de Voltzia
 item.genesis.material.billet.araucarioxylon.name=Billette en bois d'Araucarioxylon
 
 item.genesis.material.resin.name=Résine
