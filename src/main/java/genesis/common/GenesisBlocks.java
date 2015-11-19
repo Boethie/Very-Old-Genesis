@@ -67,6 +67,7 @@ public final class GenesisBlocks
 	
 	/* Trees */
 	public static final TreeBlocksAndItems trees = new TreeBlocksAndItems();
+	public static final DebrisBlocksAndItems debris = new DebrisBlocksAndItems();
 	public static final Block roots = new BlockRoots().setUnlocalizedName(Unlocalized.PREFIX + "roots");
 	
 	/* Crafting */
@@ -225,6 +226,8 @@ public final class GenesisBlocks
 		
 		trees.registerAll();
 		trees.getBlock(TreeBlocksAndItems.LEAVES, EnumTree.ARAUCARIOXYLON).setRareDrop(new ItemStack(GenesisItems.araucarioxylon_cone), .015);
+		
+		debris.registerAll();
 		
 		Genesis.proxy.registerBlock(roots, "roots");
 		

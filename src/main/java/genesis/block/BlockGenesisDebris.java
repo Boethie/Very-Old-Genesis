@@ -2,10 +2,10 @@ package genesis.block;
 
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemBlockMulti;
-import genesis.metadata.EnumTree;
-import genesis.metadata.TreeBlocksAndItems;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import genesis.metadata.DebrisBlocksAndItems;
+import genesis.metadata.IMetadata;
 import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.BlockStateToMetadata;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -15,7 +15,7 @@ import net.minecraft.block.state.IBlockState;
 
 import java.util.List;
 
-public class BlockGenesisDebris extends BlockGenesisVariants<EnumTree>
+public class BlockGenesisDebris extends BlockGenesisVariants<IMetadata>
 {
 	@BlockProperties
 	public static IProperty[] getProperties()
@@ -25,7 +25,7 @@ public class BlockGenesisDebris extends BlockGenesisVariants<EnumTree>
 	
 	public static final PropertyBool FROM_TREE = PropertyBool.create("from_tree");
 	
-	public BlockGenesisDebris(List<EnumTree> variants, TreeBlocksAndItems owner, ObjectType<BlockGenesisDebris, ItemBlockMulti<EnumTree>> type)
+	public BlockGenesisDebris(List<IMetadata> variants, DebrisBlocksAndItems owner, ObjectType<BlockGenesisDebris, ItemBlockMulti<IMetadata>> type)
 	{
 		super(variants, owner, type, Material.leaves);
 		

@@ -1,5 +1,9 @@
 package genesis.metadata;
 
+import com.google.common.collect.Lists;
+
+import java.util.List;
+
 public enum EnumTree implements IMetadata
 {
 	ARCHAEOPTERIS("archaeopteris"), SIGILLARIA("sigillaria"), LEPIDODENDRON("lepidodendron"),
@@ -8,7 +12,7 @@ public enum EnumTree implements IMetadata
 
 	public static final EnumTree[] NO_BILLET = { PSARONIUS, BJUVIA };
 	public static final EnumTree[] NO_ROTTEN = { PSARONIUS, BJUVIA, VOLTZIA };
-	public static final EnumTree[] NO_DEBRIS = { CORDAITES, PSARONIUS, BJUVIA };
+	public static final List<EnumTree> NO_DEBRIS = Lists.newArrayList(CORDAITES, PSARONIUS, BJUVIA);
 	
 	final String name;
 	final String unlocalizedName;
