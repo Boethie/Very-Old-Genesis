@@ -182,6 +182,22 @@ public class VariantsCombo<V extends IMetadata, B extends Block, I extends Item>
 	/**
 	 * @return Whether the state is contained by this combo.
 	 */
+	public boolean containsStack(ItemStack stack)
+	{
+		return super.isStackOf(stack, soleType);
+	}
+	
+	/**
+	 * @return Whether the state is contained by this combo.
+	 */
+	public boolean isStackOf(ItemStack stack, V variant)
+	{
+		return super.isStackOf(stack, soleType, variant);
+	}
+	
+	/**
+	 * @return Whether the state is contained by this combo.
+	 */
 	public boolean containsState(IBlockState state)
 	{
 		return super.isStateOf(state, soleType);
@@ -190,9 +206,9 @@ public class VariantsCombo<V extends IMetadata, B extends Block, I extends Item>
 	/**
 	 * @return Whether the state is contained by this combo.
 	 */
-	public boolean containsStack(ItemStack stack)
+	public boolean isStateOf(IBlockState state, V variant)
 	{
-		return super.isStackOf(stack, soleType);
+		return super.isStateOf(state, soleType, variant);
 	}
 	
 	/**

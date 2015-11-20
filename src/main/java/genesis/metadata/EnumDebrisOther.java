@@ -2,7 +2,7 @@ package genesis.metadata;
 
 public enum EnumDebrisOther implements IMetadata
 {
-	CALAMITES("calamites"), epidexipteryx_feather("epidexipteryx_feather", "epidexipteryxFeather");
+	CALAMITES("calamites"), EPIDEXIPTERYX_FEATHER("epidexipteryx_feather", "epidexipteryxFeather");
 	
 	final String name;
 	final String unlocalizedName;

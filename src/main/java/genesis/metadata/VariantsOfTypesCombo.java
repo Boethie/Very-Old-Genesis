@@ -1012,23 +1012,6 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	}
 	
 	/**
-	 * Gets an IBlockState for the specified Block variant in this combo.
-	 */
-	public IBlockState getBlockState(ObjectType<?, ?> type, V variant)
-	{
-		VariantData entry = getVariantData(type, variant);
-		Block block = entry.block;
-		
-		if (block != null)
-		{
-			return block.getDefaultState().withProperty(getVariantProperty(block), (Comparable<?>) variant);
-		}
-		
-		throw new IllegalArgumentException("Variant " + variant.getName() + " of " + ObjectType.class.getSimpleName() + " " + type.getName() + " does not include a Block instance." +
-				getIdentification());
-	}
-	
-	/**
 	 * Gets the subset key for this item, containing its ObjectType and ID.
 	 */
 	public SubsetData getSubsetData(Item item)
@@ -1145,23 +1128,6 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	}
 	
 	/**
-	 * @return Whether the state is of the specified {@link ObjectType}.
-	 */
-	public boolean isStateOf(IBlockState state, ObjectType<?, ?> type)
-	{
-		SubsetData data = getSubsetData(state.getBlock());
-		return data != null && data.type == type;
-	}
-	
-	/**
-	 * @return Whether the state is of the specified {@link ObjectType} and variant.
-	 */
-	public boolean isStateOf(IBlockState state, ObjectType<?, ?> type, V variant)
-	{
-		return isStateOf(state, type) && getVariant(state) == variant;
-	}
-	
-	/**
 	 * @return Whether the stack is of the specified {@link ObjectType}.
 	 */
 	public boolean isStackOf(ItemStack stack, ObjectType<?, ?> type)
@@ -1184,13 +1150,20 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	}
 	
 	/**
-	 * Gets a random IBlockState for the specified {@link ObjectType}.
+	 * @return Whether the state is of the specified {@link ObjectType}.
 	 */
-	public IBlockState getRandomBlockState(ObjectType<?, ?> type, Random rand)
+	public boolean isStateOf(IBlockState state, ObjectType<?, ?> type)
 	{
-		List<V> variants = getValidVariants(type);
-		
-		return getBlockState(type, variants.get(rand.nextInt(variants.size())));
+		SubsetData data = getSubsetData(state.getBlock());
+		return data != null && data.type == type;
+	}
+	
+	/**
+	 * @return Whether the state is of the specified {@link ObjectType} and variant.
+	 */
+	public boolean isStateOf(IBlockState state, ObjectType<?, ?> type, V variant)
+	{
+		return isStateOf(state, type) && getVariant(state) == variant;
 	}
 	
 	/**
@@ -1232,6 +1205,33 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	{
 		VariantData entry = getVariantData(type, variant);
 		return entry.itemMetadata;
+	}
+	
+	/**
+	 * Gets an IBlockState for the specified Block variant in this combo.
+	 */
+	public IBlockState getBlockState(ObjectType<?, ?> type, V variant)
+	{
+		VariantData entry = getVariantData(type, variant);
+		Block block = entry.block;
+		
+		if (block != null)
+		{
+			return block.getDefaultState().withProperty(getVariantProperty(block), (Comparable<?>) variant);
+		}
+		
+		throw new IllegalArgumentException("Variant " + variant.getName() + " of " + ObjectType.class.getSimpleName() + " " + type.getName() + " does not include a Block instance." +
+				getIdentification());
+	}
+	
+	/**
+	 * Gets a random IBlockState for the specified {@link ObjectType}.
+	 */
+	public IBlockState getRandomBlockState(ObjectType<?, ?> type, Random rand)
+	{
+		List<V> variants = getValidVariants(type);
+		
+		return getBlockState(type, variants.get(rand.nextInt(variants.size())));
 	}
 	
 	/**

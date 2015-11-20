@@ -39,6 +39,7 @@ public final class GenesisItems
 	public static final Item liopleurodon_tooth = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "liopleurodonTooth");
 	public static final Item tyrannosaurus_saliva = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "tyrannosaurusSaliva");
 	public static final Item tyrannosaurus_tooth = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "tyrannosaurusTooth");
+	public static final Item epidexipteryx_feather = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "epidexipteryxFeather");
 	
 	/* Eggs */
 	public static final ItemGenesisEgg<EntityMeganeuraEgg> meganeura_egg = new ItemGenesisEgg<EntityMeganeuraEgg>(EntityMeganeuraEgg.class)
@@ -124,6 +125,7 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(liopleurodon_tooth, "liopleurodon_tooth");
 		Genesis.proxy.registerItem(tyrannosaurus_saliva, "tyrannosaurus_saliva");
 		Genesis.proxy.registerItem(tyrannosaurus_tooth, "tyrannosaurus_tooth");
+		Genesis.proxy.registerItem(epidexipteryx_feather, "epidexipteryx_feather");
 		Genesis.proxy.registerItem(meganeura_egg, "meganeura_egg");
 		
 		// --- Foods ---

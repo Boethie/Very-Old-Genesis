@@ -2,6 +2,7 @@ package genesis.util.random.drops.blocks;
 
 import java.util.Random;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import genesis.util.random.*;
 
@@ -12,6 +13,11 @@ public abstract class BlockDrop implements BlockStackProvider
 	public BlockDrop(int min, int max)
 	{
 		range = IntRange.create(min, max);
+	}
+	
+	public BlockDrop(int size)
+	{
+		range = IntRange.create(size);
 	}
 	
 	@Override
@@ -32,6 +38,12 @@ public abstract class BlockDrop implements BlockStackProvider
 	public Integer get(Random rand)
 	{
 		return range.get(rand);
+	}
+	
+	@Override
+	public ItemStack getStack(IBlockState state, Random rand)
+	{
+		return getStack(state, get(rand));
 	}
 	
 	@Override
