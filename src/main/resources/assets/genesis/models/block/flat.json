@@ -1,6 +1,6 @@
 {
 	"textures": {
-		"particles": "#all"
+		"particle": "#all"
 	},
 	"elements": [
 		{   "from": [ 0, 0.00390625, 0 ],
