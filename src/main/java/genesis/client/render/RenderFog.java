@@ -85,6 +85,13 @@ public class RenderFog
 					blue *= 0.0008D;
 				}
 				
+				if (blockAtEyes.getMaterial() == Material.lava)
+				{
+					red = 0.8D;
+					green = 0.482352941D;
+					blue = 0.17254902D;
+				}
+				
 				targetRed = red;
 				targetGreen = green;
 				targetBlue = blue;
