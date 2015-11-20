@@ -41,12 +41,6 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 	}
 	
 	@Override
-	public float getFogDensity(int x, int y, int z)
-	{
-		return 0.68F;
-	}
-	
-	@Override
 	public Vec3 getFogColor()
 	{
 		float red = 0.917647059F;

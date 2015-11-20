@@ -41,12 +41,6 @@ public class BiomeGenAuxPlains extends BiomeGenBaseGenesis
 	}
 	
 	@Override
-	public float getFogDensity(int x, int y, int z)
-	{
-		return 1.0F;
-	}
-	
-	@Override
 	public float getNightFogModifier()
 	{
 		return 0.65F;
