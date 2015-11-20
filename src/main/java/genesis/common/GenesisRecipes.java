@@ -291,11 +291,10 @@ public final class GenesisRecipes
 			{
 				continue;
 			}
-			GameRegistry.addShapelessRecipe(new ItemStack(GenesisBlocks.debris.getBlock(tree)),
-					GenesisBlocks.trees.getBlock(TreeBlocksAndItems.LEAVES, tree));
+			GameRegistry.addShapelessRecipe(GenesisBlocks.debris.getStack(tree),
+					GenesisBlocks.trees.getStack(TreeBlocksAndItems.LEAVES, tree));
 		}
-		GameRegistry.addShapelessRecipe(new ItemStack(GenesisBlocks.debris.getBlock(EnumDebrisOther.CALAMITES)), GenesisItems.calamites);
-		
+		GameRegistry.addShapelessRecipe(GenesisBlocks.debris.getStack(EnumDebrisOther.CALAMITES), GenesisItems.calamites);
 		// All recipes with only logs, and one constant output.
 		for (Item log : GenesisBlocks.trees.getItems(TreeBlocksAndItems.LOG))
 		{
