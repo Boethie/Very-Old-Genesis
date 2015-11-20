@@ -284,6 +284,18 @@ public final class GenesisRecipes
 					GenesisItems.nodules.getStack(EnumNodule.fromToolMaterial(mat)));	// Nodule
 		}
 		
+		// All debris recipes
+		for (EnumTree tree : EnumTree.values())
+		{
+			if (EnumTree.NO_DEBRIS.contains(tree))
+			{
+				continue;
+			}
+			GameRegistry.addShapelessRecipe(new ItemStack(GenesisBlocks.debris.getBlock(tree)),
+					GenesisBlocks.trees.getBlock(TreeBlocksAndItems.LEAVES, tree));
+		}
+		GameRegistry.addShapelessRecipe(new ItemStack(GenesisBlocks.debris.getBlock(EnumDebrisOther.CALAMITES)), GenesisItems.calamites);
+		
 		// All recipes with only logs, and one constant output.
 		for (Item log : GenesisBlocks.trees.getItems(TreeBlocksAndItems.LOG))
 		{
