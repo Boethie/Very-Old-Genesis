@@ -62,9 +62,10 @@ public class FoodItems extends VariantsCombo<IFoodMetadata, Block, ItemGenesisFo
 		return MAP_VARIANTS.get(food).getRight();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public FoodItems()
 	{
-		super(ObjectType.createItem("food", ItemGenesisFood.class), ORDERED_VARIANTS);
+		super(ObjectType.createItem("food", (Class<ItemGenesisFood<IFoodMetadata>>) ((Class<?>) ItemGenesisFood.class)), ORDERED_VARIANTS);
 		
 		setUnlocalizedPrefix(Unlocalized.PREFIX);
 		
