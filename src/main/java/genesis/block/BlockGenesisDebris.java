@@ -30,7 +30,7 @@ public class BlockGenesisDebris extends BlockGenesisVariants<IMetadata>
 	
 	public BlockGenesisDebris(List<IMetadata> variants, DebrisBlocks owner, ObjectType<BlockGenesisDebris, ItemBlockMulti<IMetadata>> type)
 	{
-		super(variants, owner, type, Material.leaves);
+		super(variants, owner, type, Material.vine);
 		
 		blockState = new BlockState(this, variantProp);
 		setDefaultState(blockState.getBaseState());
