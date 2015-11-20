@@ -73,6 +73,12 @@ tile.genesis.log.dead.lepidodendron.name=Bois mort de Lepidodendron
 tile.genesis.log.dead.cordaites.name=Bois mort de Cordaites
 tile.genesis.log.dead.araucarioxylon.name=Bois mort d'Araucarioxylon
 
+tile.genesis.debris.archaeopteris.name=Débris de feuilles d'Archaeopteris
+tile.genesis.debris.sigillaria.name=Débris de feuilles de Sigillaria
+tile.genesis.debris.lepidodendron.name=Débris de feuilles de Lepidodendron
+tile.genesis.debris.araucarioxylon.name=Débris de feuilles d'Araucarioxylon
+tile.genesis.debris.calamites.name=Débris de Calamites
+
 tile.genesis.roots.name=Racines
 
 tile.genesis.leaves.archaeopteris.name=Feuilles d'Archaeopteris
@@ -400,6 +406,8 @@ item.genesis.material.liopleurodonTooth.name=Dent de Liopleurodon
 item.genesis.material.tyrannosaurusSaliva.name=Salive de Tyrannosaurus
 item.genesis.material.tyrannosaurusTooth.name=Dent de Tyrannosaurus
 item.genesis.material.egg.meganeura.name=Œuf de Meganeura
+
+item.genesis.material.epidexipteryxFeather.name=Plume d'Epidexipteryx
 
 #Hidden
 tile.genesis.misc.portal.name=Portail de Genesis

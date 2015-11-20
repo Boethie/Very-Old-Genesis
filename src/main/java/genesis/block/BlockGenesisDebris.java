@@ -14,6 +14,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
@@ -38,12 +39,13 @@ public class BlockGenesisDebris extends BlockGenesisVariants<IMetadata>
 	
 	public BlockGenesisDebris(List<IMetadata> variants, DebrisBlocks owner, ObjectType<BlockGenesisDebris, ItemBlockMulti<IMetadata>> type)
 	{
-		super(variants, owner, type, Material.leaves);
+		super(variants, owner, type, Material.vine);
 		
 		debrisOwner = owner;
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		setStepSound(soundTypeGrass);
+		Blocks.fire.setFireInfo(this, 60, 100);
 		
 		setBlockBounds(0, 0, 0, 1, 1/16F, 1);
 		
