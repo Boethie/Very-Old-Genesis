@@ -10,15 +10,11 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 
-public class DebrisBlocksAndItems extends VariantsOfTypesCombo<IMetadata>
+public class DebrisBlocks extends VariantsCombo<IMetadata, BlockGenesisDebris, ItemBlockMulti<IMetadata>>
 {
-	public static final ObjectType<BlockGenesisDebris, ItemBlockMulti<EnumTree>> LEAVES = ObjectType.createBlock("debris", BlockGenesisDebris.class);
-	public static final ObjectType<BlockGenesisDebris, ItemBlockMulti<EnumDebrisOther>> OTHERS = ObjectType.createBlock("debrisOther", BlockGenesisDebris.class);
-	
-	public static final List<ObjectType<BlockGenesisDebris, ?>> TYPES = new ImmutableList.Builder<ObjectType<BlockGenesisDebris, ?>>()
-			.add(LEAVES)
-			//.add(OTHERS)
-			.build();
+	public static final ObjectType<BlockGenesisDebris, ItemBlockMulti<IMetadata>> TYPE 
+			= ObjectType.createBlock("debris", BlockGenesisDebris.class);
+
 	public static final List<IMetadata> VARIANTS = new ImmutableList.Builder<IMetadata>()
 			.addAll(Iterables.filter(Arrays.asList(EnumTree.values()), new Predicate<EnumTree>()
 			{
@@ -31,8 +27,8 @@ public class DebrisBlocksAndItems extends VariantsOfTypesCombo<IMetadata>
 			.addAll(Arrays.asList(EnumDebrisOther.values()))
 			.build();
 	
-	public DebrisBlocksAndItems()
+	public DebrisBlocks()
 	{
-		super(TYPES, VARIANTS);
+		super(TYPE, VARIANTS);
 	}
 }

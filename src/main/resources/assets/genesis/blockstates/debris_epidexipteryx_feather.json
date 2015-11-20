@@ -1,0 +1,11 @@
+{
+	"variants": {
+		"normal":
+		[
+			{ "model": "genesis:debris_epidexipteryx_feather" },
+			{ "model": "genesis:debris_epidexipteryx_feather", "y": 90 },
+			{ "model": "genesis:debris_epidexipteryx_feather", "y": 180 },
+			{ "model": "genesis:debris_epidexipteryx_feather", "y": 270 }
+		]
+	}
+}

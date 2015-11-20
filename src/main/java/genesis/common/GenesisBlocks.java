@@ -67,7 +67,7 @@ public final class GenesisBlocks
 	
 	/* Trees */
 	public static final TreeBlocksAndItems trees = new TreeBlocksAndItems();
-	public static final DebrisBlocksAndItems debris = new DebrisBlocksAndItems();
+	public static final DebrisBlocks debris = new DebrisBlocks();
 	public static final Block roots = new BlockRoots().setUnlocalizedName(Unlocalized.PREFIX + "roots");
 	
 	/* Crafting */

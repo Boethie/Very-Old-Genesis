@@ -12,7 +12,7 @@ public enum EnumTree implements IMetadata
 
 	public static final EnumTree[] NO_BILLET = { PSARONIUS, BJUVIA };
 	public static final EnumTree[] NO_ROTTEN = { PSARONIUS, BJUVIA, VOLTZIA };
-	public static final List<EnumTree> NO_DEBRIS = Lists.newArrayList(CORDAITES, PSARONIUS, BJUVIA);
+	public static final List<EnumTree> NO_DEBRIS = Lists.newArrayList(CORDAITES, PSARONIUS, BJUVIA, VOLTZIA);
 	
 	final String name;
 	final String unlocalizedName;

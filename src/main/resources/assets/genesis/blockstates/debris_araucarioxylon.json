@@ -1,0 +1,11 @@
+{
+	"variants": {
+		"normal":
+		[
+			{ "model": "genesis:debris_araucarioxylon_leaves" },
+			{ "model": "genesis:debris_araucarioxylon_leaves", "y": 90 },
+			{ "model": "genesis:debris_araucarioxylon_leaves", "y": 180 },
+			{ "model": "genesis:debris_araucarioxylon_leaves", "y": 270 }
+		]
+	}
+}

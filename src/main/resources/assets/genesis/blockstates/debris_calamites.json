@@ -1,0 +1,11 @@
+{
+	"variants": {
+		"normal":
+		[
+			{ "model": "genesis:debris_calamites" },
+			{ "model": "genesis:debris_calamites", "y": 90 },
+			{ "model": "genesis:debris_calamites", "y": 180 },
+			{ "model": "genesis:debris_calamites", "y": 270 }
+		]
+	}
+}

@@ -21,18 +21,18 @@ public enum EnumDebrisOther implements IMetadata
 	@Override
 	public String getUnlocalizedName()
 	{
-		return null;
+		return unlocalizedName;
 	}
 	
 	@Override
 	public String getName()
 	{
-		return null;
+		return name;
 	}
 	
 	@Override
 	public String toString()
 	{
-		return super.toString();
+		return getName();
 	}
 }
