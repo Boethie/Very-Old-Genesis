@@ -4,6 +4,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.*;
 import genesis.block.BlockGenesisDebris;
 import genesis.item.ItemBlockMulti;
+import genesis.util.Constants.Unlocalized;
 
 import java.util.*;
 
@@ -24,5 +25,7 @@ public class DebrisBlocks extends VariantsCombo<IMetadata, BlockGenesisDebris, I
 	public DebrisBlocks()
 	{
 		super(ObjectType.createBlock("debris", BlockGenesisDebris.class), VARIANTS);
+		
+		setUnlocalizedPrefix(Unlocalized.PREFIX);
 	}
 }
