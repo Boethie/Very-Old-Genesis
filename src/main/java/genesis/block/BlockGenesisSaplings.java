@@ -3,12 +3,10 @@ package genesis.block;
 import java.util.List;
 import java.util.Random;
 
-import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemBlockMulti;
 import genesis.metadata.EnumTree;
 import genesis.metadata.PropertyIMetadata;
-import genesis.metadata.SiltBlocks;
 import genesis.metadata.TreeBlocksAndItems;
 import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
@@ -16,11 +14,12 @@ import genesis.util.BlockStateToMetadata;
 import genesis.util.WorldUtils;
 import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
 import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
+import genesis.world.gen.feature.WorldGenTreeBjuvia;
 import genesis.world.gen.feature.WorldGenTreeCordaites;
 import genesis.world.gen.feature.WorldGenTreeLepidodendron;
 import genesis.world.gen.feature.WorldGenTreePsaronius;
 import genesis.world.gen.feature.WorldGenTreeSigillaria;
-import net.minecraft.block.Block;
+import genesis.world.gen.feature.WorldGenTreeVoltzia;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockState;
@@ -136,6 +135,12 @@ public class BlockGenesisSaplings extends BlockSapling
 			break;
 		case ARAUCARIOXYLON:
 			gen = new WorldGenTreeAraucarioxylon(25, 30, true).setGenerateRandomSaplings(false);
+			break;
+		case BJUVIA:
+			gen = new WorldGenTreeBjuvia(4, 6, true);
+			break;
+		case VOLTZIA:
+			gen = new WorldGenTreeVoltzia(5, 8, true);
 			break;
 		default:
 			break;
