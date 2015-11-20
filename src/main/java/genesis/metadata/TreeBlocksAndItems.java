@@ -42,10 +42,8 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo<EnumTree>
 	public static final ObjectType<BlockWattleFence, ItemBlockMulti<EnumTree>> WATTLE_FENCE = new ObjectType<BlockWattleFence, ItemBlockMulti<EnumTree>>("wattle_fence", "wattleFence", BlockWattleFence.class, null, EnumTree.NO_BILLET);
 	public static final ObjectType<BlockGenesisDeadLogs, ItemBlockMulti<EnumTree>> DEAD_LOG = new ObjectType<BlockGenesisDeadLogs, ItemBlockMulti<EnumTree>>("dead_log", "log.dead", BlockGenesisDeadLogs.class, null, EnumTree.NO_DEAD)
 			.setCreativeTab(GenesisCreativeTabs.DECORATIONS);
-	public static final ObjectType<BlockGenesisDebris, ItemBlockMulti<EnumTree>> DEBRIS = new ObjectType<BlockGenesisDebris, ItemBlockMulti<EnumTree>>("debris", "log.debris", BlockGenesisDebris.class, null, EnumTree.NO_DEBRIS)
-			.setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	
-	public static final ImmutableList<? extends ObjectType<?, ?>> TYPES = ImmutableList.of(LOG, SAPLING, LEAVES, BILLET, WATTLE_FENCE, DEAD_LOG, DEBRIS);
+	public static final ImmutableList<? extends ObjectType<?, ?>> TYPES = ImmutableList.of(LOG, SAPLING, LEAVES, BILLET, WATTLE_FENCE, DEAD_LOG);
 	
 	static
 	{
