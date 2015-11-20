@@ -26,4 +26,10 @@ public class BiomeGenRedBeach extends BiomeGenBeachGenesis
 		
 		return new Vec3(red, green, blue);
 	}
+	
+	@Override
+	public float getNightFogModifier()
+	{
+		return 0.65F;
+	}
 }
