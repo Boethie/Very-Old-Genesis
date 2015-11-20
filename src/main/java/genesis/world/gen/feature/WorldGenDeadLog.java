@@ -14,14 +14,14 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
-public class WorldGenRottenLog extends WorldGenTreeBase
+public class WorldGenDeadLog extends WorldGenTreeBase
 {
 	private List<IBlockState> topDecorations = new ArrayList<IBlockState>();
 	
-	public WorldGenRottenLog(int minLength, int maxLength, EnumTree treeType, boolean notify)
+	public WorldGenDeadLog(int minLength, int maxLength, EnumTree treeType, boolean notify)
 	{
 		super(
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.ROTTEN_LOG, treeType),
+				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.DEAD_LOG, treeType),
 				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES, treeType),
 				notify);
 		

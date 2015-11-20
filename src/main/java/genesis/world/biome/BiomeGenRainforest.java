@@ -5,7 +5,7 @@ import genesis.metadata.EnumTree;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
-import genesis.world.gen.feature.WorldGenRottenLog;
+import genesis.world.gen.feature.WorldGenDeadLog;
 import genesis.world.gen.feature.WorldGenTreeLepidodendron;
 import genesis.world.gen.feature.WorldGenTreePsaronius;
 import genesis.world.gen.feature.WorldGenTreeSigillaria;
@@ -48,8 +48,8 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 		addTree(new WorldGenTreeSigillaria(10, 15, true).setTreeCountPerChunk(7));
 		addTree(new WorldGenTreePsaronius(5, 8, true).setTreeCountPerChunk(3));
 		
-		addTree(new WorldGenRottenLog(3, 6, EnumTree.LEPIDODENDRON, true).setTreeCountPerChunk(5));
-		addTree(new WorldGenRottenLog(3, 6, EnumTree.SIGILLARIA, true).setTreeCountPerChunk(4));
+		addTree(new WorldGenDeadLog(3, 6, EnumTree.LEPIDODENDRON, true).setTreeCountPerChunk(5));
+		addTree(new WorldGenDeadLog(3, 6, EnumTree.SIGILLARIA, true).setTreeCountPerChunk(4));
 	}
 	
 	@Override

@@ -9,7 +9,7 @@ import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPlant;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
 import genesis.world.biome.decorate.WorldGenUnderWaterPatch;
-import genesis.world.gen.feature.WorldGenRottenLog;
+import genesis.world.gen.feature.WorldGenDeadLog;
 import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
 
 import java.util.Random;
@@ -41,7 +41,7 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 		
 		addTree(new WorldGenTreeArchaeopteris(15, 20, true).setTreeCountPerChunk(9));
 		
-		addTree(new WorldGenRottenLog(3, 6, EnumTree.ARCHAEOPTERIS, true).setTreeCountPerChunk(6));
+		addTree(new WorldGenDeadLog(3, 6, EnumTree.ARCHAEOPTERIS, true).setTreeCountPerChunk(6));
 	}
 	
 	@Override

@@ -15,7 +15,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockGenesisRottenLogs extends BlockGenesisLogs implements IGenesisMushroomBase
+public class BlockGenesisDeadLogs extends BlockGenesisLogs implements IGenesisMushroomBase
 {
 	@BlockProperties
 	public static IProperty[] getProperties()
@@ -23,11 +23,11 @@ public class BlockGenesisRottenLogs extends BlockGenesisLogs implements IGenesis
 		return BlockGenesisLogs.getProperties();
 	}
 	
-	public BlockGenesisRottenLogs(List<EnumTree> variants, VariantsOfTypesCombo<EnumTree> owner, ObjectType<? extends BlockGenesisRottenLogs, ? extends ItemBlockMulti<EnumTree>> type)
+	public BlockGenesisDeadLogs(List<EnumTree> variants, VariantsOfTypesCombo<EnumTree> owner, ObjectType<? extends BlockGenesisDeadLogs, ? extends ItemBlockMulti<EnumTree>> type)
 	{
 		super(variants, owner, type);
 		
-		setStepSound(GenesisSounds.ROTTEN_LOG);
+		setStepSound(GenesisSounds.DEAD_LOG);
 	}
 	
 	@Override

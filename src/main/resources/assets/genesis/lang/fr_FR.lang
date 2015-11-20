@@ -67,11 +67,11 @@ tile.genesis.dung.sauropoda.name=Crotte de sauropode
 tile.genesis.dung.theropoda.name=Crotte de théropode
 
 #Decoration
-tile.genesis.log.rotten.archaeopteris.name=Bois pourri d'Archaeopteris
-tile.genesis.log.rotten.sigillaria.name=Bois pourri de Sigillaria
-tile.genesis.log.rotten.lepidodendron.name=Bois pourri de Lepidodendron
-tile.genesis.log.rotten.cordaites.name=Bois pourri de Cordaites
-tile.genesis.log.rotten.araucarioxylon.name=Bois pourri d'Araucarioxylon
+tile.genesis.log.dead.archaeopteris.name=Bois mort d'Archaeopteris
+tile.genesis.log.dead.sigillaria.name=Bois mort de Sigillaria
+tile.genesis.log.dead.lepidodendron.name=Bois mort de Lepidodendron
+tile.genesis.log.dead.cordaites.name=Bois mort de Cordaites
+tile.genesis.log.dead.araucarioxylon.name=Bois mort d'Araucarioxylon
 
 tile.genesis.roots.name=Racines
 

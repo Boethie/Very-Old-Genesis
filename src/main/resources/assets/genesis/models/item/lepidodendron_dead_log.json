@@ -1,5 +1,5 @@
 {
-	"parent": "genesis:block/archaeopteris_rotten_log",
+	"parent": "genesis:block/lepidodendron_dead_log",
 	"display": {
 		"thirdperson": {
 			"rotation": [ 10, -45, 170 ],

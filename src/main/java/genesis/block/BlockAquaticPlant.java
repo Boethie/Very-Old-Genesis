@@ -246,7 +246,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 				validGround.add(block);
 			}
 			
-			for (BlockGenesisLogs block : GenesisBlocks.trees.getBlocks(TreeBlocksAndItems.ROTTEN_LOG))
+			for (BlockGenesisLogs block : GenesisBlocks.trees.getBlocks(TreeBlocksAndItems.DEAD_LOG))
 			{
 				validGround.add(block);
 			}

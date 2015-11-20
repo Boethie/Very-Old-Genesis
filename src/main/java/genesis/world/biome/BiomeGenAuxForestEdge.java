@@ -6,7 +6,7 @@ import genesis.world.biome.decorate.WorldGenArchaeomarasmius;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenPalaeoagaracites;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
-import genesis.world.gen.feature.WorldGenRottenLog;
+import genesis.world.gen.feature.WorldGenDeadLog;
 import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
 
 public class BiomeGenAuxForestEdge extends BiomeGenAuxForest
@@ -32,6 +32,6 @@ public class BiomeGenAuxForestEdge extends BiomeGenAuxForest
 	protected void addTrees()
 	{
 		addTree(new WorldGenTreeAraucarioxylon(23, 28, true).setTreeCountPerChunk(2));
-		addTree(new WorldGenRottenLog(4, 8, EnumTree.ARAUCARIOXYLON, true).addTopDecoration(GenesisBlocks.archaeomarasmius.getDefaultState()).setTreeCountPerChunk(1));
+		addTree(new WorldGenDeadLog(4, 8, EnumTree.ARAUCARIOXYLON, true).addTopDecoration(GenesisBlocks.archaeomarasmius.getDefaultState()).setTreeCountPerChunk(1));
 	}
 }

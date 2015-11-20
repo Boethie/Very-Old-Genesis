@@ -8,7 +8,7 @@ import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
 import genesis.world.biome.decorate.WorldGenUnderWaterPatch;
-import genesis.world.gen.feature.WorldGenRottenLog;
+import genesis.world.gen.feature.WorldGenDeadLog;
 import genesis.world.gen.feature.WorldGenTreeCordaites;
 import genesis.world.gen.feature.WorldGenTreeLepidodendron;
 import genesis.world.gen.feature.WorldGenTreePsaronius;
@@ -54,9 +54,9 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 		addTree(new WorldGenTreeCordaites(12, 17, true).setTreeCountPerChunk(5));
 		addTree(new WorldGenTreePsaronius(5, 6, true).setTreeCountPerChunk(2));
 		
-		addTree(new WorldGenRottenLog(3, 6, EnumTree.LEPIDODENDRON, true).setTreeCountPerChunk(8));
-		addTree(new WorldGenRottenLog(3, 6, EnumTree.SIGILLARIA, true).setTreeCountPerChunk(4));
-		addTree(new WorldGenRottenLog(3, 6, EnumTree.CORDAITES, true).setCanGrowInWater(true).setTreeCountPerChunk(8));
+		addTree(new WorldGenDeadLog(3, 6, EnumTree.LEPIDODENDRON, true).setTreeCountPerChunk(8));
+		addTree(new WorldGenDeadLog(3, 6, EnumTree.SIGILLARIA, true).setTreeCountPerChunk(4));
+		addTree(new WorldGenDeadLog(3, 6, EnumTree.CORDAITES, true).setCanGrowInWater(true).setTreeCountPerChunk(8));
 	}
 	
 	@Override

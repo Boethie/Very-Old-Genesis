@@ -61,7 +61,7 @@ public class BlockRoots extends BlockGenesis
 		{
 			blockStateSupportList.addAll(log.getBlockState().getValidStates());
 		}
-		for (Block log : trees.getBlocks(TreeBlocksAndItems.ROTTEN_LOG))
+		for (Block log : trees.getBlocks(TreeBlocksAndItems.DEAD_LOG))
 		{
 			blockStateSupportList.addAll(log.getBlockState().getValidStates());
 		}

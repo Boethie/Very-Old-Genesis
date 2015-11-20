@@ -111,26 +111,26 @@
 			"place/ooze2"
 		]
 	},
-	"dig.rotten_log": {
+	"dig.dead_log": {
 		"category": "block",
 		"sounds": [
-			"dig/rotten_log1"
+			"dig/dead_log1"
 		]
 	},
-	"step.rotten_log": {
+	"step.dead_log": {
 		"category": "neutral",
 		"sounds": [
-			"step/rotten_log1",
-			"step/rotten_log2",
-			"step/rotten_log3",
-			"step/rotten_log4"
+			"step/dead_log1",
+			"step/dead_log2",
+			"step/dead_log3",
+			"step/dead_log4"
 		]
 	},
-	"place.rotten_log": {
+	"place.dead_log": {
 		"category": "block",
 		"sounds": [
-			"place/rotten_log1",
-			"place/rotten_log2"
+			"place/dead_log1",
+			"place/dead_log2"
 		]
 	},
 	"fire.ignite": {

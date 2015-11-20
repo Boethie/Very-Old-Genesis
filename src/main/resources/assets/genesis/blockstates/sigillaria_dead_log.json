@@ -1,0 +1,8 @@
+{
+	"variants": {
+		"axis=y":  { "model": "genesis:sigillaria_dead_log" },
+		"axis=z":   { "model": "genesis:sigillaria_dead_log", "x": 90 },
+		"axis=x":   { "model": "genesis:sigillaria_dead_log", "x": 90, "y": 90 },
+		"axis=none": { "model": "genesis:sigillaria_dead_bark" }
+	}
+}
