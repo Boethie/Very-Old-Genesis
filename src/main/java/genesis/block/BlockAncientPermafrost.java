@@ -45,6 +45,11 @@ public class BlockAncientPermafrost extends BlockPermafrost
 			stack = GenesisItems.foods.getRawStack(EnumFood.eryops_leg);// meat
 		}
 		
-		return stack == null ? Collections.emptyList() : Collections.singletonList(stack);
+		if (stack == null)
+		{
+			return Collections.emptyList();
+		}
+		
+		return Collections.singletonList(stack);
 	}
 }
