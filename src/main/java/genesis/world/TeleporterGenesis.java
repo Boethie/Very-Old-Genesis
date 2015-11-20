@@ -128,7 +128,7 @@ public class TeleporterGenesis extends Teleporter
 		}
 		else
 		{
-			newPortal.makePortal(world, random);
+			newPortal.makePortal(world, random, true);
 		}
 		
 		return true;

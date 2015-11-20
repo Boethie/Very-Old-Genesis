@@ -54,7 +54,7 @@ public class GenesisPortalGenerator implements IWorldGenerator
 		
 		if (newPortal.setPlacementPosition(world))
 		{
-			newPortal.makePortal(world, random);
+			newPortal.makePortal(world, random, false);
 		}
 	}
 }

@@ -1,8 +1,6 @@
 package genesis.block.tileentity.portal;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import genesis.common.GenesisItems;
 import genesis.metadata.EnumMenhirActivator;
@@ -27,8 +25,7 @@ public enum EnumGlyph implements IMetadata
 	
 	final String name;
 	final String unlocalizedName;
-	final ItemStack defaultActivator;
-	final Set<ItemStackKey> activators = new HashSet<ItemStackKey>();
+	final List<ItemStackKey> activators = new ArrayList<ItemStackKey>();
 	
 	EnumGlyph(String name, String unlocalizedName, Object... activators)
 	{
@@ -39,28 +36,19 @@ public enum EnumGlyph implements IMetadata
 		
 		for (Object activator : activators)
 		{
-			ItemStackKey key = null;
-			
 			if (activator instanceof ItemStack)
 			{
-				key = addActivator((ItemStack) activator);
+				addActivator((ItemStack) activator);
 			}
 			else if (activator instanceof ItemStackKey)
 			{
-				key = addActivator((ItemStackKey) activator);
+				addActivator((ItemStackKey) activator);
 			}
 			else
 			{
 				throw new IllegalArgumentException("Invalid activator item " + activator + " for glyph with name \"" + name + "\".");
 			}
-			
-			if (defaultActivator == null)
-			{
-				defaultActivator = key.createNewStack();
-			}
 		}
-		
-		this.defaultActivator = defaultActivator;
 	}
 	
 	EnumGlyph(String name, Object... activators)
@@ -80,9 +68,9 @@ public enum EnumGlyph implements IMetadata
 		return unlocalizedName;
 	}
 	
-	public Set<ItemStackKey> getActivators()
+	public Collection<ItemStackKey> getActivators()
 	{
-		return Collections.unmodifiableSet(activators);
+		return Collections.unmodifiableList(activators);
 	}
 	
 	public boolean isActivator(ItemStack stack)
@@ -101,8 +89,15 @@ public enum EnumGlyph implements IMetadata
 		return addActivator(new ItemStackKey(stack));
 	}
 	
-	public ItemStack getDefaultActivator()
+	public ItemStack getActivator(Random rand)
 	{
-		return defaultActivator;
+		int size = activators.size();
+		
+		if (size > 0)
+		{
+			return activators.get(rand.nextInt(size)).createNewStack();
+		}
+		
+		return null;
 	}
 }

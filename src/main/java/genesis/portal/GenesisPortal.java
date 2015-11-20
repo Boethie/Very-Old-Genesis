@@ -285,12 +285,18 @@ public class GenesisPortal
 				direction.getFrontOffsetZ() * (bottom.getZ() - center.getZ());
 	}
 	
-	public void placeMenhir(World world, BlockPos pos, EnumFacing facing, EnumGlyph glyph)
+	public void placeMenhir(World world, BlockPos pos, EnumFacing facing, EnumGlyph glyph, boolean active)
 	{
 		world.setBlockState(pos, GenesisBlocks.menhirs.getBlockState(EnumMenhirPart.GLYPH).withProperty(BlockMenhir.FACING, facing));
 		BlockMenhir.getGlyphTileEntity(world, pos).setGlyph(glyph);
+		
 		world.setBlockState(pos = pos.up(), GenesisBlocks.menhirs.getBlockState(EnumMenhirPart.RECEPTACLE).withProperty(BlockMenhir.FACING, facing));
-		BlockMenhir.getReceptacleTileEntity(world, pos).setContainedItem(glyph.getDefaultActivator());
+		
+		if (active)
+		{
+			BlockMenhir.getReceptacleTileEntity(world, pos).setContainedItem(glyph.getActivator(world.rand));
+		}
+		
 		world.setBlockState(pos = pos.up(), GenesisBlocks.menhirs.getBlockState(EnumMenhirPart.TOP).withProperty(BlockMenhir.FACING, facing));
 	}
 	
@@ -408,7 +414,7 @@ public class GenesisPortal
 		}
 	}
 	
-	public boolean makePortal(World world, Random random)
+	public boolean makePortal(World world, Random random, boolean active)
 	{
 		EnumSet<EnumGlyph> glyphs = EnumSet.allOf(EnumGlyph.class);
 		glyphs.remove(EnumGlyph.NONE);
@@ -442,7 +448,7 @@ public class GenesisPortal
 					glyphs.remove(glyph);
 					
 					// Place the menhir.
-					placeMenhir(world, placePos, dir.getOpposite(), glyph);
+					placeMenhir(world, placePos, dir.getOpposite(), glyph, active);
 				}
 			}
 		}
