@@ -99,7 +99,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
 	{
-		owner.fillSubItems(type, variants, list, noDrops);
+		owner.fillSubItems(variants, list, noDrops);
 	}
 	
 	@Override
@@ -116,7 +116,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return owner.getItemMetadata(type, (EnumAquaticPlant) state.getValue(variantProp));
+		return owner.getItemMetadata((EnumAquaticPlant) state.getValue(variantProp));
 	}
 
 	@Override

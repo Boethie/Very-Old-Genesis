@@ -1260,11 +1260,9 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	}
 	
 	/**
-	 * Fills the provided list with all the valid sub-items for this Block or Item.
-	 * 
-	 * @return {@literal List<ItemStack>} containing all sub-items for this Block or Item.
+	 * @return listToFill, after having added all sub-items for this {@link ObjectType} and list of variants.
 	 */
-	public List<ItemStack> fillSubItems(ObjectType<?, ?> objectType, List<V> variants, List<ItemStack> listToFill, Set<V> exclude)
+	public List<ItemStack> fillSubItems(ObjectType<?, ?> objectType, List<V> variants, List<ItemStack> listToFill, Collection<V> exclude)
 	{
 		for (V variant : variants)
 		{
@@ -1276,11 +1274,9 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 		
 		return listToFill;
 	}
-	
+
 	/**
-	 * Fills the provided list with all the valid sub-items for this Block or Item.
-	 * 
-	 * @return {@literal List<ItemStack>} containing all sub-items for this Block or Item.
+	 * @return listToFill, after having added all sub-items for this {@link ObjectType} and list of variants.
 	 */
 	@SafeVarargs
 	public final List<ItemStack> fillSubItems(ObjectType<?, ?> objectType, List<V> variants, List<ItemStack> listToFill, V... exclude)
@@ -1289,15 +1285,15 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	}
 	
 	/**
-	 * Gets all sub-items for the {@link ObjectType} with the variants contained in the list.
+	 * @return All sub-items for the {@link ObjectType} with the variants contained in the list.
 	 */
-	public final List<ItemStack> getSubItems(ObjectType<?, ?> objectType, List<V> variants, Set<V> exclude)
+	public final List<ItemStack> getSubItems(ObjectType<?, ?> objectType, List<V> variants, Collection<V> exclude)
 	{
 		return fillSubItems(objectType, variants, new ArrayList<ItemStack>(), exclude);
 	}
 	
 	/**
-	 * Gets all sub-items for the {@link ObjectType} with the variants contained in the list.
+	 * @return All sub-items for the {@link ObjectType} with the variants contained in the list.
 	 */
 	@SafeVarargs
 	public final List<ItemStack> getSubItems(ObjectType<?, ?> objectType, List<V> variants, V... exclude)

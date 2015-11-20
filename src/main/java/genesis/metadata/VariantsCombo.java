@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.google.common.collect.ImmutableList;
 
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import net.minecraft.block.*;
 import net.minecraft.block.state.*;
 import net.minecraft.item.*;
@@ -184,5 +185,47 @@ public class VariantsCombo<V extends IMetadata, B extends Block, I extends Item>
 	public boolean containsState(IBlockState state)
 	{
 		return super.isStateOf(state, soleType);
+	}
+	
+	/**
+	 * @return Whether the state is contained by this combo.
+	 */
+	public boolean containsStack(ItemStack stack)
+	{
+		return super.isStackOf(stack, soleType);
+	}
+	
+	/**
+	 * @return listToFill, after having added all sub-items for this list of variants.
+	 */
+	public List<ItemStack> fillSubItems(List<V> variants, List<ItemStack> listToFill, Collection<V> noDrops)
+	{
+		return super.fillSubItems(soleType, variants, listToFill, noDrops);
+	}
+	
+	/**
+	 * @return listToFill, after having added all sub-items for this list of variants.
+	 */
+	@SafeVarargs
+	public final List<ItemStack> fillSubItems(List<V> variants, List<ItemStack> listToFill, V... noDrops)
+	{
+		return super.fillSubItems(soleType, variants, listToFill, noDrops);
+	}
+	
+	/**
+	 * @return All sub-items with the variants contained in the list.
+	 */
+	public List<ItemStack> getSubItems(List<V> variants, Collection<V> noDrops)
+	{
+		return super.getSubItems(soleType, variants, noDrops);
+	}
+	
+	/**
+	 * @return All sub-items with the variants contained in the list.
+	 */
+	@SafeVarargs
+	public final List<ItemStack> getSubItems(List<V> variants, V... noDrops)
+	{
+		return super.getSubItems(soleType, variants, noDrops);
 	}
 }
