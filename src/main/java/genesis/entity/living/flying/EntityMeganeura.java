@@ -12,6 +12,7 @@ import genesis.common.GenesisItems;
 import genesis.common.GenesisSounds;
 import genesis.entity.fixed.EntityMeganeuraEgg;
 import genesis.entity.living.IEntityPreferredBiome;
+import genesis.metadata.EnumFood;
 
 import static genesis.entity.living.flying.EntityMeganeura.State.*;
 import static genesis.entity.living.flying.EntityMeganeura.StateCategory.*;
@@ -23,7 +24,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import net.minecraft.util.*;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
@@ -145,7 +145,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 	{
 		super.dropFewItems(hitRecently, looting);
 		
-		entityDropItem(new ItemStack(GenesisItems.meganeura), 0);
+		entityDropItem(GenesisItems.foods.getRawStack(EnumFood.meganeura), 0);
 	}
 	
 	public State getState()

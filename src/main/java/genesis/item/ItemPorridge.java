@@ -3,46 +3,23 @@ package genesis.item;
 import java.util.List;
 
 import genesis.common.GenesisItems;
-import genesis.metadata.EnumPorridge;
-import genesis.metadata.IMetadata;
-import genesis.metadata.ItemsCeramicBowls.EnumCeramicBowls;
+import genesis.metadata.*;
+import genesis.metadata.ItemsCeramicBowls.*;
 import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+
 import net.minecraft.block.Block;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ItemPorridge extends ItemGenesisFood
+public class ItemPorridge extends ItemGenesisFood<IFoodMetadata>
 {
-	public final VariantsOfTypesCombo<IMetadata> owner;
-	
-	protected final List<IMetadata> variants;
-	protected final ObjectType<Block, ? extends ItemPorridge> type;
-	
-	public ItemPorridge(List<IMetadata> variants, VariantsOfTypesCombo<IMetadata> owner, ObjectType<Block, ? extends ItemPorridge> type)
+	public ItemPorridge(List<IFoodMetadata> variants, VariantsOfTypesCombo<IFoodMetadata> owner, ObjectType<Block, ? extends ItemPorridge> type)
 	{
-		super(0, 0);
-		
-		this.owner = owner;
-		this.type = type;
-		this.variants = variants;
+		super(variants, owner, type);
 		
 		setHasSubtypes(true);
-	}
-	
-	@Override
-	public String getUnlocalizedName(ItemStack stack)
-	{
-		return owner.getUnlocalizedName(stack, super.getUnlocalizedName(stack));
-	}
-	
-	@Override
-	public void getSubItems(Item itemIn, CreativeTabs tab, List subItems)
-	{
-		owner.fillSubItems(type, variants, (List<ItemStack>) subItems);
 	}
 	
 	@Override

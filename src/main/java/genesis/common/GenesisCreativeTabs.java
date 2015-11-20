@@ -52,12 +52,12 @@ public final class GenesisCreativeTabs
 		}
 	};
 
-	public static final CreativeTabs FOOD = new CreativeTabs(Unlocalized.PREFIX + "food")
+	public static final CreativeTabs FOOD = new CreativeTabStackIcon(Unlocalized.PREFIX + "food")
 	{
 		@Override
-		public Item getTabIconItem()
+		public ItemStack getIconItemStack()
 		{
-			return GenesisItems.cooked_eryops_leg;
+			return GenesisItems.foods.getCookedStack(EnumFood.eryops_leg);
 		}
 	};
 	

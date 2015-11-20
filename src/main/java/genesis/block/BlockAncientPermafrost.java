@@ -1,42 +1,50 @@
 package genesis.block;
 
 import genesis.common.GenesisItems;
+import genesis.metadata.EnumFood;
+import genesis.util.WorldUtils;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.IBlockAccess;
 
 public class BlockAncientPermafrost extends BlockPermafrost
 {
 	@Override
-	public Item getItemDropped(IBlockState state, Random rand, int fortune)
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
 	{
+		Random rand = WorldUtils.getWorldRandom(world, RANDOM);
 		int chance = rand.nextInt(100);
-
-		// if (chance < 3) return GenesisItems.necklace;
+		ItemStack stack = null;
+		
+		// if (chance < 3) stack = new ItemStack(GenesisItems.necklace);
 		if (chance < 5)
 		{
-			return Items.arrow;
+			stack = new ItemStack(Items.arrow);
 		}
 		else if (chance < 7)
 		{
-			return Items.bow;
+			stack = new ItemStack(Items.bow);
 		}
 		else if (chance < 10)
 		{
-			return Items.wooden_pickaxe;// pick
+			stack = new ItemStack(Items.wooden_pickaxe);// pick
 		}
 		else if (chance < 35)
 		{
-			return Items.bone;
+			stack = new ItemStack(Items.bone);
 		}
 		else if (chance < 40)
 		{
-			return GenesisItems.eryops_leg;// meat
+			stack = GenesisItems.foods.getRawStack(EnumFood.eryops_leg);// meat
 		}
-
-		return null;
+		
+		return stack == null ? Collections.emptyList() : Collections.singletonList(stack);
 	}
 }

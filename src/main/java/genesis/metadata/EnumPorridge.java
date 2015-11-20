@@ -4,7 +4,7 @@ import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
 import net.minecraft.item.ItemStack;
 
-public enum EnumPorridge implements IMetadata
+public enum EnumPorridge implements IFoodMetadata
 {
 	BASE("base", "", 4, 4.8F),
 	ARAUCARIOXYLON("araucarioxylon", 5, 5.7F)
@@ -70,12 +70,14 @@ public enum EnumPorridge implements IMetadata
 	{
 		return null;
 	}
-	
+
+	@Override
 	public int getFoodAmount()
 	{
 		return food;
 	}
-	
+
+	@Override
 	public float getSaturationModifier()
 	{
 		return saturation;

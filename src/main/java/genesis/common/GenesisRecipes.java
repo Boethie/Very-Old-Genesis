@@ -532,12 +532,13 @@ public final class GenesisRecipes
 		GameRegistry.addSmelting(GenesisBlocks.ores.getOreStack(EnumOre.MARCASITE), GenesisItems.nodules.getStack(EnumNodule.MARCASITE), EnumOre.MARCASITE.getSmeltingExperience());
 		
 		// Food
-		GameRegistry.addSmelting(GenesisItems.climatius, new ItemStack(GenesisItems.cooked_climatius), 0.35F);
-		GameRegistry.addSmelting(GenesisItems.meganeura, new ItemStack(GenesisItems.cooked_meganeura), 0.35F);
-		GameRegistry.addSmelting(GenesisItems.aphthoroblattina, new ItemStack(GenesisItems.cooked_aphthoroblattina), 0.35F);
-		GameRegistry.addSmelting(GenesisItems.eryops_leg, new ItemStack(GenesisItems.cooked_eryops_leg), 0.35F);
-		GameRegistry.addSmelting(GenesisItems.liopleurodon, new ItemStack(GenesisItems.cooked_liopleurodon), 0.35F);
-		GameRegistry.addSmelting(GenesisItems.tyrannosaurus, new ItemStack(GenesisItems.cooked_tyrannosaurus), 0.35F);
+		for (EnumFood food : EnumFood.values())
+		{
+			if (food.hasCookedVariant())
+			{
+				GameRegistry.addSmelting(GenesisItems.foods.getRawStack(food), GenesisItems.foods.getCookedStack(food), 0.35F);
+			}
+		}
 		
 		// Pottery
 		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.red_clay), "CC", "CC", 'C', GenesisItems.red_clay_ball);
