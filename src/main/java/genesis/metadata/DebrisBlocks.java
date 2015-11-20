@@ -27,5 +27,7 @@ public class DebrisBlocks extends VariantsCombo<IMetadata, BlockGenesisDebris, I
 		super(ObjectType.createBlock("debris", BlockGenesisDebris.class), VARIANTS);
 		
 		setUnlocalizedPrefix(Unlocalized.PREFIX);
+		
+		soleType.setTypeNamePosition(TypeNamePosition.POSTFIX);
 	}
 }

@@ -1,7 +1,7 @@
 {
 	"parent": "builtin/generated",
 	"textures": {
-		"layer0": "genesis:blocks/debris_sigillaria_leaves"
+		"layer0": "genesis:blocks/debris_archaeopteris"
 	},
 	"display": {
 		"thirdperson": {

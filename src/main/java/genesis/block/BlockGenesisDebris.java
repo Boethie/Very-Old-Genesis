@@ -80,7 +80,7 @@ public class BlockGenesisDebris extends BlockGenesisVariants<IMetadata>
 	@Override
 	public void getSubBlocks(Item item, CreativeTabs tab, List list)
 	{
-		owner.fillSubItems(type, variants, list, EnumDebrisOther.EPIDEXIPTERYX_FEATHER);
+		owner.fillSubItems(type, variants, list);
 	}
 	
 	@Override
