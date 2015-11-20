@@ -1,14 +1,18 @@
 package genesis.metadata;
 
+import java.util.Set;
+
+import com.google.common.collect.ImmutableSet;
+
 public enum EnumTree implements IMetadata
 {
 	ARCHAEOPTERIS("archaeopteris"), SIGILLARIA("sigillaria"), LEPIDODENDRON("lepidodendron"),
 	CORDAITES("cordaites"), PSARONIUS("psaronius"), BJUVIA("bjuvia"), VOLTZIA("voltzia"),
 	ARAUCARIOXYLON("araucarioxylon");
 
-	public static final EnumTree[] NO_BILLET = { PSARONIUS, BJUVIA };
-	public static final EnumTree[] NO_DEAD = { PSARONIUS, BJUVIA, VOLTZIA };
-	public static final EnumTree[] NO_DEBRIS = { CORDAITES, PSARONIUS, BJUVIA, VOLTZIA };
+	public static final Set<EnumTree> NO_BILLET = ImmutableSet.of(PSARONIUS, BJUVIA);
+	public static final Set<EnumTree> NO_DEAD = ImmutableSet.of(PSARONIUS, BJUVIA, VOLTZIA);
+	public static final Set<EnumTree> NO_DEBRIS = ImmutableSet.of(CORDAITES, PSARONIUS, BJUVIA, VOLTZIA);
 	
 	final String name;
 	final String unlocalizedName;
