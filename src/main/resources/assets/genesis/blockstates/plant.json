@@ -4,6 +4,7 @@
 		"variant=baragwanathia":  { "model": "genesis:baragwanathia" },
 		"variant=sciadophyton":  { "model": "genesis:sciadophyton" },
 		"variant=psilophyton":  { "model": "genesis:psilophyton" },
+		"variant=horneophyton":  { "model": "genesis:horneophyton" },
 		"variant=nothia":  { "model": "genesis:nothia" },
 		"variant=rhynia":  { "model": "genesis:rhynia" },
 		"variant=archaeamphora":  { "model": "genesis:archaeamphora" },

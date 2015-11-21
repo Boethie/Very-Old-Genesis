@@ -30,6 +30,11 @@
 					"plant": "genesis:blocks/plant_psilophyton"
 				}
 			},
+			"horneophyton": {
+				"textures": {
+					"plant": "genesis:blocks/plant_horneophyton"
+				}
+			},
 			"nothia": {
 				"textures": {
 					"plant": "genesis:blocks/plant_nothia"

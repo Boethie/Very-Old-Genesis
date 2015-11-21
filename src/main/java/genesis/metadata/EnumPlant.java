@@ -14,8 +14,8 @@ import net.minecraft.world.biome.BiomeColorHelper;
 
 public enum EnumPlant implements IPlantMetadata
 {
-	COOKSONIA("cooksonia"), BARAGWANATHIA("baragwanathia"), SCIADOPHYTON("sciadophyton"), PSILOPHYTON("psilophyton"), NOTHIA("nothia"),
-	RHYNIA("rhynia"), ARCHAEAMPHORA("archaeamphora"), MABELIA("mabelia"), PALAEOASTER("palaeoaster"), ASTEROXYLON("asteroxylon", true);
+	COOKSONIA("cooksonia"), BARAGWANATHIA("baragwanathia"), SCIADOPHYTON("sciadophyton"), PSILOPHYTON("psilophyton"), HORNEOPHYTON("horneophyton"),
+	NOTHIA("nothia"), RHYNIA("rhynia"), ARCHAEAMPHORA("archaeamphora"), MABELIA("mabelia"), PALAEOASTER("palaeoaster"), ASTEROXYLON("asteroxylon", true);
 	
 	public static final Set<EnumPlant> SINGLES;
 	public static final Set<EnumPlant> DOUBLES;
