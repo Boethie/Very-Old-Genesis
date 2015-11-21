@@ -207,9 +207,9 @@ item.genesis.food.tyrannosaurus.raw.name=Tyrannosaurus cru
 item.genesis.food.tyrannosaurus.cooked.name=Tyrannosaurus cuit
 
 item.genesis.food.porridge.name=Bouillie
-item.genesis.food.porridge.araucarioxylon.name=Bouillie d'Araucarioxylon
-item.genesis.food.porridge.zingiberopsis.name=Bouillie au Zingiberopsis
+item.genesis.food.porridge.araucarioxylon.name=Bouillie à l'Araucarioxylon
 item.genesis.food.porridge.odontopteris.name=Bouillie à l'Odontopteris
+item.genesis.food.porridge.zingiberopsis.name=Bouillie au Zingiberopsis
 item.genesis.food.porridge.archaeomarasmius.name=Bouillie à l'Archaeomarasmius
 
 #Tools

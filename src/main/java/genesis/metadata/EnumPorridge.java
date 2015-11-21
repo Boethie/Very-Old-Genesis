@@ -14,18 +14,18 @@ public enum EnumPorridge implements IFoodMetadata
 			return new ItemStack(GenesisItems.araucarioxylon_seeds);
 		}
 	},
-	ZINGIBEROPSIS("zingiberopsis", 6, 6.6F)
-	{
-		@Override public ItemStack getIngredient()
-		{
-			return new ItemStack(GenesisItems.zingiberopsis_rhizome);
-		}
-	},
 	ODONTOPTERIS("odontopteris", 5, 6F)
 	{
 		@Override public ItemStack getIngredient()
 		{
 			return new ItemStack(GenesisItems.odontopteris_seeds);
+		}
+	},
+	ZINGIBEROPSIS("zingiberopsis", 6, 6.6F)
+	{
+		@Override public ItemStack getIngredient()
+		{
+			return new ItemStack(GenesisItems.zingiberopsis_rhizome);
 		}
 	},
 	ARCHAEOMARASMIUS("archaeomarasmius", 5, 6.2F)
