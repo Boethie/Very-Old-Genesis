@@ -5,6 +5,7 @@ import genesis.common.GenesisItems;
 import genesis.item.ItemBlockMulti;
 import genesis.metadata.DebrisBlocks;
 import genesis.metadata.EnumDebrisOther;
+import genesis.metadata.EnumMaterial;
 import genesis.metadata.IMetadata;
 import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
@@ -59,7 +60,7 @@ public class BlockGenesisDebris extends BlockGenesisVariants<IMetadata>
 				
 				if (variant == EnumDebrisOther.EPIDEXIPTERYX_FEATHER)
 				{
-					return new ItemStack(GenesisItems.epidexipteryx_feather);
+					return GenesisItems.materials.getStack(EnumMaterial.EPIDEXIPTERYX_FEATHER);
 				}
 				
 				return debrisOwner.getStack(variant);

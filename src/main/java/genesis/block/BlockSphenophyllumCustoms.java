@@ -3,17 +3,16 @@ package genesis.block;
 import genesis.block.BlockGrowingPlant.GrowingPlantProperties;
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
 import genesis.common.GenesisItems;
+import genesis.metadata.EnumMaterial;
 import genesis.util.WorldUtils;
 import genesis.util.random.IntRange;
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 
 import com.google.common.collect.Lists;
 
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -26,11 +25,10 @@ public class BlockSphenophyllumCustoms implements IGrowingPlantCustoms
 	}
 	
 	@Override
-	public ArrayList<ItemStack> getPlantDrops(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, int fortune, boolean firstBlock)
+	public List<ItemStack> getPlantDrops(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, int fortune, boolean firstBlock)
 	{
-		final Item item = GenesisItems.sphenophyllum_fiber;
+		ItemStack stack = GenesisItems.materials.getStack(EnumMaterial.SPHENOPHYLLUM_FIBER);
 		
-		ArrayList<ItemStack> out = new ArrayList<ItemStack>();
 		int age = (Integer) state.getValue(plant.ageProp);
 		boolean top = (Boolean) state.getValue(plant.topProp);
 		IntRange range = null;
@@ -74,15 +72,15 @@ public class BlockSphenophyllumCustoms implements IGrowingPlantCustoms
 		
 		if (range != null)
 		{
-			ItemStack addStack = new ItemStack(item, range.get(worldIn.rand));
+			stack.stackSize = range.get(world.rand);
 			
-			if (addStack.stackSize > 0)
+			if (stack.stackSize > 0)
 			{
-				out.add(addStack);
+				return Collections.singletonList(stack);
 			}
 		}
 		
-		return out;
+		return Collections.emptyList();
 	}
 
 	@Override

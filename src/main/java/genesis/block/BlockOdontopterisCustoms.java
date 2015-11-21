@@ -1,6 +1,7 @@
 package genesis.block;
 
 import genesis.common.GenesisItems;
+import genesis.metadata.EnumMaterial;
 import genesis.util.random.drops.blocks.BlockDrops;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class BlockOdontopterisCustoms extends SurviveOnDirtCustoms
 	 * |-----------------------------------------|
 	 * | BOTTOM      | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
 	 * |-------------|---------------------------|
-	 * |  Seeds      |0-1|          1            |
+	 * |  Seeds      |0-1|           1           |
 	 * |-------------|---------------------------|
 	 * |  Fiddlehead |0-1|     1     |    0      |
 	 * |-----------------------------------------|
@@ -32,8 +33,8 @@ public class BlockOdontopterisCustoms extends SurviveOnDirtCustoms
 	static final BlockDrops seedsDropTopBeforeMature = new BlockDrops(GenesisItems.odontopteris_seeds, 0, 1);
 	static final BlockDrops seedsDropTopMature = new BlockDrops(GenesisItems.odontopteris_seeds, 0, 2);
 
-	static final BlockDrops fiddleheadDrop1 = new BlockDrops(GenesisItems.odontopteris_fiddlehead, 0, 1);
-	static final BlockDrops fiddleheadDrop2To4 = new BlockDrops(GenesisItems.odontopteris_fiddlehead, 1, 1);
+	static final BlockDrops fiddleheadDrop1 = new BlockDrops(GenesisItems.materials.getStack(EnumMaterial.ODONTOPTERIS_FIDDLEHEAD), 0, 1);
+	static final BlockDrops fiddleheadDrop2To4 = new BlockDrops(GenesisItems.materials.getStack(EnumMaterial.ODONTOPTERIS_FIDDLEHEAD), 1, 1);
 
 	@Override
 	public ArrayList<ItemStack> getPlantDrops(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, int fortune, boolean firstBlock)

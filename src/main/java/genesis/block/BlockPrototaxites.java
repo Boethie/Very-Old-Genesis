@@ -2,15 +2,19 @@ package genesis.block;
 
 
 import genesis.common.*;
+import genesis.metadata.EnumMaterial;
 import genesis.util.*;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.*;
 import net.minecraft.block.state.*;
-import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockPrototaxites extends BlockGenesis
@@ -27,70 +31,70 @@ public class BlockPrototaxites extends BlockGenesis
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		setHarvestLevel("axe", 0);
 	}
-
+	
 	@Override
-	public Item getItemDropped(IBlockState state, Random rand, int fortune)
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
 	{
-		return GenesisItems.prototaxites_flesh;
+		return Collections.singletonList(GenesisItems.materials.getStack(EnumMaterial.PROTOTAXITES_FLESH));
 	}
-
+	
 	@Override
 	protected BlockState createBlockState()
 	{
 		return new BlockState(this, BlockCactus.AGE);
 	}
-
+	
 	@Override
 	public IBlockState getStateFromMeta(int meta)
 	{
 		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), meta);
 	}
-
+	
 	@Override
 	public int getMetaFromState(IBlockState state)
 	{
 		return ((Integer) state.getValue(BlockCactus.AGE)).intValue();
 	}
-
+	
 	@Override
-	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
 	{
 		BlockPos topBlock = pos.up();
-
-		if (worldIn.isAirBlock(topBlock))
+		
+		if (world.isAirBlock(topBlock))
 		{
 			int size = 1;
-
-			while (worldIn.getBlockState(pos.down(size)).getBlock() == this)
+			
+			while (world.getBlockState(pos.down(size)).getBlock() == this)
 			{
 				++size;
 			}
-
+			
 			if (size < 8)
 			{
 				int age = ((Integer) state.getValue(BlockCactus.AGE)).intValue();
-
+				
 				if (age == 15)
 				{
-					worldIn.setBlockState(topBlock, getDefaultState());
+					world.setBlockState(topBlock, getDefaultState());
 					IBlockState ageReset = state.withProperty(BlockCactus.AGE, 0);
-					worldIn.setBlockState(pos, ageReset, 4);
-					onNeighborBlockChange(worldIn, topBlock, ageReset, this);
+					world.setBlockState(pos, ageReset, 4);
+					onNeighborBlockChange(world, topBlock, ageReset, this);
 				}
 				else if (rand.nextInt(4) > 0)
 				{
-					worldIn.setBlockState(pos, state.withProperty(BlockCactus.AGE, age + 1), 4);
+					world.setBlockState(pos, state.withProperty(BlockCactus.AGE, age + 1), 4);
 				}
 			}
 		}
 	}
-
+	
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
 	{
 		return super.canPlaceBlockAt(worldIn, pos) && canBlockStay(worldIn, pos);
 	}
-
+	
 	@Override
 	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
 	{
@@ -99,7 +103,7 @@ public class BlockPrototaxites extends BlockGenesis
 			worldIn.destroyBlock(pos, true);
 		}
 	}
-
+	
 	public boolean canBlockStay(World worldIn, BlockPos pos)
 	{
 		Block block = worldIn.getBlockState(pos.down()).getBlock();

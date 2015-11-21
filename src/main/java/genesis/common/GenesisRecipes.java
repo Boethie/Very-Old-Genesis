@@ -223,7 +223,7 @@ public final class GenesisRecipes
 					'B', billet,
 					'T', toolHead);
 			Object[] paramsFiber = ArrayUtils.addAll(paramsBase,
-					'S', GenesisItems.sphenophyllum_fiber);
+					'S', GenesisItems.materials.getStack(EnumMaterial.SPHENOPHYLLUM_FIBER));
 			Object[] paramsString = ArrayUtils.addAll(paramsBase,
 					'S', Items.string);
 			
@@ -244,27 +244,65 @@ public final class GenesisRecipes
 	{
 		FuelHandler.initialize();
 		
-		//food
-		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.araucarioxylon_seeds), GenesisItems.araucarioxylon_cone);
+		//Food
+		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.araucarioxylon_seeds), GenesisItems.materials.getStack(EnumMaterial.ARAUCARIOXYLON_CONE));
 		
-		//torches
-		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.calamites_bundle), "CCC", "CCC", "CCC", 'C', GenesisItems.calamites);
-		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "X", "Y", 'X', Items.coal, 'Y', GenesisItems.calamites);
-		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "X", "Y", 'X', new ItemStack(Items.coal, 1, 1), 'Y', GenesisItems.calamites);
-		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4), "X", "Y", 'X', GenesisItems.resin, 'Y', GenesisItems.calamites);
-		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch_tall, 2), "X", "Y", "Y", 'X', Items.coal, 'Y' , GenesisItems.calamites);
-		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch_tall, 2), "X", "Y", "Y", 'X', new ItemStack(Items.coal, 1, 1), 'Y' , GenesisItems.calamites);
-		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch_tall, 2), "X", "Y", "Y", 'X', GenesisItems.resin, 'Y' , GenesisItems.calamites);
+		//Torches
+		ItemStack resin = GenesisItems.materials.getStack(EnumMaterial.RESIN);
 		
-		GameRegistry.addShapedRecipe(new ItemStack(Blocks.torch, 4), "X", "Y", 'X', GenesisItems.resin, 'Y', Items.stick);
+		// Calamites torch
+		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4),
+				"o",
+				"|",
+				'o', Items.coal, '|', GenesisBlocks.calamites);
+		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4),
+				"o",
+				"|",
+				'o', new ItemStack(Items.coal, 1, 1), '|', GenesisBlocks.calamites);
+		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4),
+				"o",
+				"|",
+				'o', resin, '|', GenesisBlocks.calamites);
 		
-		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.calamites, 9), GenesisBlocks.calamites_bundle);
-		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.programinis_bundle), "CCC", "CCC", "CCC", 'C', GenesisItems.programinis);
-		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.programinis, 9), GenesisBlocks.programinis_bundle);
+		// Tall calamites torch
+		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch_tall, 2),
+				"o",
+				"|",
+				"|",
+				'o', Items.coal, '|', GenesisBlocks.calamites);
+		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch_tall, 2),
+				"o",
+				"|",
+				"|",
+				'o', new ItemStack(Items.coal, 1, 1), '|', GenesisBlocks.calamites);
+		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch_tall, 2),
+				"o",
+				"|",
+				"|",
+				'o', resin, '|', GenesisBlocks.calamites);
+		GameRegistry.addShapedRecipe(new ItemStack(Blocks.torch, 4),
+				"o",
+				"|",
+				'o', resin, '|', Items.stick);
+		
+		GameRegistry.addShapelessRecipe(new ItemStack(GenesisBlocks.calamites, 9), GenesisBlocks.calamites_bundle);
+		
+		// Bundles
+		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.calamites_bundle),
+				"CCC",
+				"CCC",
+				"CCC",
+				'C', GenesisBlocks.calamites);
+		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.programinis_bundle),
+				"CCC",
+				"CCC",
+				"CCC",
+				'C', GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS));
+		GameRegistry.addShapelessRecipe(GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS, 9), GenesisBlocks.programinis_bundle);
 		
 		EnumToolMaterial[] flintMaterials = {EnumToolMaterial.BLACK_FLINT, EnumToolMaterial.BROWN_FLINT};
 		
-		// silt to siltstone recipes
+		// Silt to siltstone recipes
 		for (EnumSilt mat: EnumSilt.values())
 		{
 			GameRegistry.addShapedRecipe(GenesisBlocks.silt.getStack(SiltBlocks.SILTSTONE, mat),
@@ -287,14 +325,15 @@ public final class GenesisRecipes
 		// All debris recipes
 		for (EnumTree tree : EnumTree.values())
 		{
-			if (EnumTree.NO_DEBRIS.contains(tree))
+			if (!EnumTree.NO_DEBRIS.contains(tree))
 			{
-				continue;
+				GameRegistry.addShapelessRecipe(GenesisBlocks.debris.getStack(tree),
+						GenesisBlocks.trees.getStack(TreeBlocksAndItems.LEAVES, tree));
 			}
-			GameRegistry.addShapelessRecipe(GenesisBlocks.debris.getStack(tree),
-					GenesisBlocks.trees.getStack(TreeBlocksAndItems.LEAVES, tree));
 		}
-		GameRegistry.addShapelessRecipe(GenesisBlocks.debris.getStack(EnumDebrisOther.CALAMITES), GenesisItems.calamites);
+		
+		GameRegistry.addShapelessRecipe(GenesisBlocks.debris.getStack(EnumDebrisOther.CALAMITES), GenesisBlocks.calamites);
+		
 		// All recipes with only logs, and one constant output.
 		for (Item log : GenesisBlocks.trees.getItems(TreeBlocksAndItems.LOG))
 		{
@@ -341,7 +380,7 @@ public final class GenesisRecipes
 			GameRegistry.addShapedRecipe(new ItemStack(Blocks.torch, 4),
 					"r",
 					"B",
-					'r', new ItemStack(GenesisItems.resin),
+					'r', GenesisItems.materials.getStack(EnumMaterial.RESIN),
 					'B', billetStack);
 			
 			// Campfire
@@ -562,7 +601,7 @@ public final class GenesisRecipes
 		GameRegistry.addSmelting(GenesisItems.red_clay_bucket, TileEntityCampfire.registerAllowedOutput(new ItemStack(GenesisItems.ceramic_bucket)), 0.3F);
 		
 		// Cooking pot recipes
-		ItemStack calamites = new ItemStack(GenesisItems.calamites);
+		ItemStack calamites = new ItemStack(GenesisBlocks.calamites);
 		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.YELLOW), calamites, calamites);
 		
 		ItemStack mabelia = GenesisBlocks.plants.getPlantStack(EnumPlant.MABELIA);
@@ -573,10 +612,10 @@ public final class GenesisRecipes
 		ItemStack palaeoaster = GenesisBlocks.plants.getPlantStack(EnumPlant.PALAEOASTER);
 		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.RED), palaeoaster, palaeoaster);
 		
-		ItemStack odontHead = new ItemStack(GenesisItems.odontopteris_fiddlehead);
+		ItemStack odontHead = GenesisItems.materials.getStack(EnumMaterial.ODONTOPTERIS_FIDDLEHEAD);
 		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(GenesisDye.get(EnumDyeColor.LIME)), odontHead, odontHead);
 		
-		ItemStack protoFlesh = new ItemStack(GenesisItems.prototaxites_flesh);
+		ItemStack protoFlesh = GenesisItems.materials.getStack(EnumMaterial.PROTOTAXITES_FLESH);
 		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(GenesisDye.get(EnumDyeColor.BROWN)), protoFlesh, protoFlesh);
 		
 		// Cooking pot recipes with vanilla items
@@ -585,7 +624,7 @@ public final class GenesisRecipes
 		
 		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.PINK), mabelia, new ItemStack(Items.dye, 1, EnumDyeColor.WHITE.getDyeDamage()));
 		
-		ItemStack[] porridgeBases = new ItemStack[]{new ItemStack(GenesisItems.programinis)};
+		ItemStack[] porridgeBases = new ItemStack[]{GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS)};
 		
 		for (IMetadata variant : GenesisItems.bowls.getValidVariants(ItemsCeramicBowls.PORRIDGE))
 		{
@@ -609,7 +648,7 @@ public final class GenesisRecipes
 	public static void doSubstitutes()
 	{
 		// Fiber for string
-		makeSubstituteCraftingItem(new ItemStack(Items.string), new ItemStack(GenesisItems.sphenophyllum_fiber), Blocks.wool);
+		makeSubstituteCraftingItem(new ItemStack(Items.string), GenesisItems.materials.getStack(EnumMaterial.SPHENOPHYLLUM_FIBER), Blocks.wool);
 		
 		// Ceramic buckets for vanilla buckets
 		makeSubstituteCraftingItem(new ItemStack(Items.bucket), new ItemStack(GenesisItems.ceramic_bucket));

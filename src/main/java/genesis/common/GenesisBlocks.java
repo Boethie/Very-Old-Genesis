@@ -128,7 +128,7 @@ public final class GenesisBlocks
 			.setUnlocalizedName(Unlocalized.CROP + "zingiberopsis");
 	
 	/* Fluids */
-	public static BlockKomatiiticLava komatiitic_lava;
+	public static final BlockKomatiiticLava komatiitic_lava = (BlockKomatiiticLava) new BlockKomatiiticLava(GenesisFluids.KOMATIITIC_LAVA).setUnlocalizedName(Unlocalized.PREFIX + "komatiiticLava");
 	
 	/* Other Decorative */
 	public static final BlockGenesisFlowerPot flower_pot = (BlockGenesisFlowerPot) new BlockGenesisFlowerPot().setUnlocalizedName(Unlocalized.PREFIX + "flowerPot");
@@ -233,7 +233,8 @@ public final class GenesisBlocks
 		GameRegistry.registerTileEntity(TileEntityGenesisPortal.class, Constants.ASSETS_PREFIX + "portal");
 		
 		trees.registerAll();
-		trees.getBlock(TreeBlocksAndItems.LEAVES, EnumTree.ARAUCARIOXYLON).setRareDrop(new ItemStack(GenesisItems.araucarioxylon_cone), .015);
+		//trees.getBlock(TreeBlocksAndItems.LEAVES, EnumTree.ARAUCARIOXYLON).setRareDrop(new ItemStack(GenesisItems.materials.getStack(EnumMaterial.ARAUCARIOXYLON_CONE)), .015);
+		// The above code does not work, all leaves contained by the block instance containing araucarioxylon leaves will drop cones.
 		
 		debris.registerAll();
 		
@@ -282,11 +283,9 @@ public final class GenesisBlocks
 		plants.registerVariants(PlantBlocks.DOUBLE_PLANT);
 		
 		// Calamites
-		Genesis.proxy.registerBlock(calamites, "calamites", null);
-		calamites.setDrops(new BlockDrops(GenesisItems.calamites, 1, 1));
-		calamites.setCropDrops(new BlockDrops(GenesisItems.calamites, 1, 1));
-		calamites.setPickedItem(GenesisItems.calamites);
-		GenesisItems.calamites.setCrop(calamites);
+		Genesis.proxy.registerBlock(calamites, "calamites");
+		calamites.setDrops(new BlockDrops(calamites, 1));
+		calamites.setCropDrops(new BlockDrops(calamites, 1));
 		
 		// Ferns
 		plants.registerVariants(PlantBlocks.FERN);
@@ -315,7 +314,10 @@ public final class GenesisBlocks
 		// Programinis
 		Genesis.proxy.registerBlock(programinis, "programinis", null);
 		programinis.setDrops(new BlockDrops(GenesisItems.programinis_seeds, 0, 1));
-		programinis.setCropDrops(new BlockDrops(new BlockStackDrop(GenesisItems.programinis_seeds, 0, 3), new BlockStackDrop(GenesisItems.programinis, 1)));
+		programinis.setCropDrops(
+				new BlockDrops(
+					new BlockStackDrop(GenesisItems.programinis_seeds, 0, 3),
+					new BlockStackDrop(GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS), 1)));
 		programinis.setPickedItem(GenesisItems.programinis_seeds);
 		GenesisItems.programinis_seeds.setCrop(programinis);
 		
@@ -364,7 +366,6 @@ public final class GenesisBlocks
 		corals.registerAll();
 		
 		// --- Liquids ---
-		komatiitic_lava = (BlockKomatiiticLava) new BlockKomatiiticLava(GenesisFluids.KOMATIITIC_LAVA).setUnlocalizedName(Unlocalized.PREFIX + "komatiiticLava");
 		Genesis.proxy.registerFluidBlock(komatiitic_lava, "komatiitic_lava");
 	}
 }

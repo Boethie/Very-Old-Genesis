@@ -2,6 +2,7 @@ package genesis.util;
 
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
+import genesis.metadata.EnumMaterial;
 
 import java.util.HashMap;
 
@@ -26,11 +27,15 @@ public class FuelHandler implements IFuelHandler
 	public static void initialize()
 	{
 		GameRegistry.registerFuelHandler(INSTANCE);
+		
 		setBurnTime(GenesisBlocks.roots, TileEntityFurnace.getItemBurnTime(new ItemStack(Items.stick)), true);
 		setBurnTime(GenesisBlocks.peat, TileEntityFurnace.getItemBurnTime(new ItemStack(Items.coal)) / 4, false);
+		
 		setBurnTime(GenesisBlocks.calamites_bundle, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.log)), false);
-		setBurnTime(GenesisItems.araucarioxylon_cone, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.sapling)), false);
-		setBurnTime(GenesisItems.calamites, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.sapling)), false);
+		setBurnTime(GenesisBlocks.calamites, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.sapling)), false);
+		
+		setBurnTime(GenesisItems.materials.getStack(EnumMaterial.ARAUCARIOXYLON_CONE), TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.sapling)), false);
+		
 		setBurnTime(GenesisItems.bucket_komatiitic_lava, TileEntityFurnace.getItemBurnTime(new ItemStack(Items.lava_bucket)), false);
 	}
 	

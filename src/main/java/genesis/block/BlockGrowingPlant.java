@@ -185,7 +185,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		 * @param firstBlock Whether the BlockPos pos is at the first position in the plant's height.
 		 * @return An ArrayList of ItemStacks to drop from this block's position.
 		 */
-		public ArrayList<ItemStack> getPlantDrops(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, int fortune, boolean firstBlock);
+		public List<ItemStack> getPlantDrops(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, int fortune, boolean firstBlock);
 		
 		/**
 		 * Called after updateTick in a BlockGrowingPlant.
@@ -422,7 +422,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		
 		return this;
 	}
-
+	
 	/**
 	 * Sets the drops when the plant is fully grown.
 	 */
@@ -432,7 +432,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		
 		return this;
 	}
-
+	
 	/**
 	 * Sets the Item picked when the user middle clicks on the block in creative mode.
 	 */
