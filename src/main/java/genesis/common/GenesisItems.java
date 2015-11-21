@@ -47,8 +47,9 @@ public final class GenesisItems
 	
 	/* Food */
 	public static final ItemGenesisSeedFood araucarioxylon_seeds = (ItemGenesisSeedFood) new ItemGenesisSeedFood(1, 0.6F).setUnlocalizedName(Unlocalized.FOOD + "araucarioxylonSeeds");
-	public static final ItemGenesisSeedFood zingiberopsis_rhizome = (ItemGenesisSeedFood) new ItemGenesisSeedFood(2, 1.2F).setUnlocalizedName(Unlocalized.FOOD + "zingiberopsisRhizome");
 	public static final ItemGenesisSeedFood odontopteris_seeds = (ItemGenesisSeedFood) new ItemGenesisSeedFood(1, 0.8F).setUnlocalizedName(Unlocalized.FOOD + "odontopterisSeeds");
+	public static final ItemGenesisSeedFood neuropteridium_rhizome = (ItemGenesisSeedFood) new ItemGenesisSeedFood(2, 1.4F).setUnlocalizedName(Unlocalized.FOOD + "neuropteridiumRhizome");
+	public static final ItemGenesisSeedFood zingiberopsis_rhizome = (ItemGenesisSeedFood) new ItemGenesisSeedFood(2, 1.2F).setUnlocalizedName(Unlocalized.FOOD + "zingiberopsisRhizome");
 	
 	public static final FoodItems foods = new FoodItems();
 	
@@ -114,8 +115,9 @@ public final class GenesisItems
 		
 		// --- Foods ---
 		Genesis.proxy.registerItem(araucarioxylon_seeds, "araucarioxylon_seeds");
-		Genesis.proxy.registerItem(zingiberopsis_rhizome, "zingiberopsis_rhizome");
 		Genesis.proxy.registerItem(odontopteris_seeds, "odontopteris_seeds");
+		Genesis.proxy.registerItem(neuropteridium_rhizome, "neuropteridium_rhizome");
+		Genesis.proxy.registerItem(zingiberopsis_rhizome, "zingiberopsis_rhizome");
 		
 		foods.registerAll();
 		

@@ -34,7 +34,7 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 		
 		addDecoration(new WorldGenPebbles().setWaterRequired(false).setCountPerChunk(1));
 		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(4).setRarity(5).addBlocks(GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT)).setCountPerChunk(1));
-		addDecoration(new WorldGenRockBoulders().setRarity(85).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders().setRarity(95).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 		
 		addTree(new WorldGenTreeBjuvia(4, 6, true).setTreeCountPerChunk(1).setRarity(12));
 		addTree(new WorldGenTreeVoltzia(5, 8, true).setTreeCountPerChunk(1).setRarity(2));

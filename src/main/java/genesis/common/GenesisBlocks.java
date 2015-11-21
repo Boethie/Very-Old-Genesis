@@ -89,13 +89,7 @@ public final class GenesisBlocks
 	
 	/* Crops */
 	protected static final SurviveOnDirtCustoms surviveOnDirt = new SurviveOnDirtCustoms();
-	public static final BlockGrowingPlant zingiberopsis = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
-			.setGrowAllTogether(true).setBreakAllTogether(true)
-			.setPlantSize(0, 0.2F, 0.5F)
-			.setPlantType(EnumPlantType.Crop)
-			.setGrowthOnFarmland(0.75F)
-			.setCustoms(surviveOnDirt)
-			.setUnlocalizedName(Unlocalized.CROP + "zingiberopsis");
+	
 	public static final BlockGrowingPlant sphenophyllum = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true)
 			.setPlantType(EnumPlantType.Plains)
@@ -111,6 +105,13 @@ public final class GenesisBlocks
 			.setPlantSize(0, 0.2F, 0.75F)
 			.setCustoms(new BlockOdontopterisCustoms())
 			.setUnlocalizedName(Unlocalized.CROP + "odontopteris");
+	public static final BlockGrowingPlant neuropteridium = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
+			.setGrowAllTogether(true).setBreakAllTogether(true)
+			.setPlantSize(0, 0.2F, 0.75F)
+			.setPlantType(EnumPlantType.Crop)
+			.setGrowthOnFarmland(0.75F)
+			.setCustoms(surviveOnDirt)
+			.setUnlocalizedName(Unlocalized.CROP + "neuropteridium");
 	public static final BlockGrowingPlant programinis = (BlockGrowingPlant) new BlockGrowingPlant(false, 7, 1).setTopPosition(1)
 			.setPlantType(EnumPlantType.Crop)
 			.setGrowthOnFarmland(0.75F)
@@ -118,6 +119,13 @@ public final class GenesisBlocks
 			.setPlantSize(0, 0.1F, 0.75F)
 			.setCustoms(surviveOnDirt)
 			.setUnlocalizedName(Unlocalized.CROP + "programinis");
+	public static final BlockGrowingPlant zingiberopsis = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
+			.setGrowAllTogether(true).setBreakAllTogether(true)
+			.setPlantSize(0, 0.2F, 0.5F)
+			.setPlantType(EnumPlantType.Crop)
+			.setGrowthOnFarmland(0.75F)
+			.setCustoms(surviveOnDirt)
+			.setUnlocalizedName(Unlocalized.CROP + "zingiberopsis");
 	
 	/* Fluids */
 	public static BlockKomatiiticLava komatiitic_lava;
@@ -285,12 +293,7 @@ public final class GenesisBlocks
 		plants.registerVariants(PlantBlocks.DOUBLE_FERN);
 		
 		// - Growing Plants -
-		// Zingiberopsis
-		Genesis.proxy.registerBlock(zingiberopsis, "zingiberopsis", null);
-		zingiberopsis.setDrops(new BlockDrops(GenesisItems.zingiberopsis_rhizome, 1, 1));
-		zingiberopsis.setCropDrops(new BlockDrops(GenesisItems.zingiberopsis_rhizome, 1, 3));
-		zingiberopsis.setPickedItem(GenesisItems.zingiberopsis_rhizome);
-		GenesisItems.zingiberopsis_rhizome.setCrop(zingiberopsis);
+		
 		
 		// Sphenophyllum
 		Genesis.proxy.registerBlock(sphenophyllum, "sphenophyllum");
@@ -302,12 +305,26 @@ public final class GenesisBlocks
 		odontopteris.setPickedItem(GenesisItems.odontopteris_seeds);
 		GenesisItems.odontopteris_seeds.setCrop(odontopteris);
 		
+		// Neuropteridium
+		Genesis.proxy.registerBlock(neuropteridium, "neuropteridium", null);
+		neuropteridium.setDrops(new BlockDrops(GenesisItems.neuropteridium_rhizome, 1, 1));
+		neuropteridium.setCropDrops(new BlockDrops(GenesisItems.neuropteridium_rhizome, 1, 3));
+		neuropteridium.setPickedItem(GenesisItems.neuropteridium_rhizome);
+		GenesisItems.neuropteridium_rhizome.setCrop(neuropteridium);
+		
 		// Programinis
 		Genesis.proxy.registerBlock(programinis, "programinis", null);
 		programinis.setDrops(new BlockDrops(GenesisItems.programinis_seeds, 0, 1));
 		programinis.setCropDrops(new BlockDrops(new BlockStackDrop(GenesisItems.programinis_seeds, 0, 3), new BlockStackDrop(GenesisItems.programinis, 1)));
 		programinis.setPickedItem(GenesisItems.programinis_seeds);
 		GenesisItems.programinis_seeds.setCrop(programinis);
+		
+		// Zingiberopsis
+		Genesis.proxy.registerBlock(zingiberopsis, "zingiberopsis", null);
+		zingiberopsis.setDrops(new BlockDrops(GenesisItems.zingiberopsis_rhizome, 1, 1));
+		zingiberopsis.setCropDrops(new BlockDrops(GenesisItems.zingiberopsis_rhizome, 1, 3));
+		zingiberopsis.setPickedItem(GenesisItems.zingiberopsis_rhizome);
+		GenesisItems.zingiberopsis_rhizome.setCrop(zingiberopsis);
 		
 		// Flower pot
 		Genesis.proxy.registerBlock(flower_pot, "flower_pot", null);

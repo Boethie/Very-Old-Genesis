@@ -183,8 +183,9 @@ item.genesis.misc.menhirActivator.brokenSpiritMask.name=Masque d'esprit brisé
 
 #Food
 item.genesis.food.araucarioxylonSeeds.name=Graines d'Araucarioxylon
-item.genesis.food.zingiberopsisRhizome.name=Rhizome de Zingiberopsis
 item.genesis.food.odontopterisSeeds.name=Graines d'Odontopteris
+item.genesis.food.neuropteridiumRhizome.name=Rhizome de Neuropteridium
+item.genesis.food.zingiberopsisRhizome.name=Rhizome de Zingiberopsis
 
 item.genesis.food.spirifer.raw.name=Spirifer cru
 item.genesis.food.spirifer.cooked.name=Spirifer cuit
