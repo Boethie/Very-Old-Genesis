@@ -25,13 +25,13 @@ public class ItemPorridge extends ItemGenesisFood<IFoodMetadata>
 	@Override
 	public int getHealAmount(ItemStack stack)
 	{
-		return ((EnumPorridge) owner.getVariant(stack)).getFoodAmount();
+		return owner.getVariant(stack).getFoodAmount();
 	}
 	
 	@Override
 	public float getSaturationModifier(ItemStack stack)
 	{
-		return ((EnumPorridge) owner.getVariant(stack)).getSaturationModifier();
+		return owner.getVariant(stack).getSaturationModifier();
 	}
 	
 	@Override

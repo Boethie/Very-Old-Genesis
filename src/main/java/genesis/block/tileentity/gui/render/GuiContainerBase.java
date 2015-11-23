@@ -98,7 +98,7 @@ public class GuiContainerBase extends GuiContainer
 		drawTextureUVPx(borderW, borderH, xSize - borderW * 2, ySize - borderH * 2,
 						borderW, borderH, 1, 1);
 		
-		for (Slot slot : (List<Slot>) inventorySlots.inventorySlots)
+		for (Slot slot : inventorySlots.inventorySlots)
 		{
 			int slotU = -1;
 			int slotV = -1;
@@ -156,7 +156,7 @@ public class GuiContainerBase extends GuiContainer
 	
 	protected Slot getSlot(int x, int y)
 	{
-		for (Slot slot : (List<Slot>) container.inventorySlots)
+		for (Slot slot : container.inventorySlots)
 		{
 			if (isPointInSlot(slot, x, y))
 			{

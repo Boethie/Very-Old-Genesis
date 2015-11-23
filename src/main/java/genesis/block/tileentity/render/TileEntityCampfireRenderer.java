@@ -23,7 +23,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer
+public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEntityCampfire>
 {
 	public static final ModelResourceLocation FIRE = new ModelResourceLocation(Constants.ASSETS_PREFIX + "campfire_fire");
 	public static final ModelResourceLocation STICK = new ModelResourceLocation(Constants.ASSETS_PREFIX + "campfire_stick");
@@ -165,7 +165,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer
 	}
 	
 	@Override
-	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float partialTick, int destroyStage)
+	public void renderTileEntityAt(TileEntityCampfire te, double x, double y, double z, float partialTick, int destroyStage)
 	{model = new ModelCampfire();
 		// Translate to the proper coordinates.
 		GlStateManager.pushMatrix();

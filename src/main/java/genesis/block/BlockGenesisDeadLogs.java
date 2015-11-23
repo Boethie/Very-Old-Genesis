@@ -18,7 +18,7 @@ import net.minecraft.world.IBlockAccess;
 public class BlockGenesisDeadLogs extends BlockGenesisLogs implements IGenesisMushroomBase
 {
 	@BlockProperties
-	public static IProperty[] getProperties()
+	public static IProperty<?>[] getProperties()
 	{
 		return BlockGenesisLogs.getProperties();
 	}

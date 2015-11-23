@@ -41,7 +41,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 	 * Used in VariantsOfTypesCombo.
 	 */
 	@BlockProperties
-	public static IProperty[] getProperties()
+	public static IProperty<?>[] getProperties()
 	{
 		return new IProperty[]{};
 	}
@@ -97,7 +97,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 	}
 
 	@Override
-	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
+	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list)
 	{
 		owner.fillSubItems(variants, list, noDrops);
 	}
@@ -184,7 +184,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
 	{
-		if (((EnumAquaticPlant) state.getValue(variantProp)) == EnumAquaticPlant.CHARNIA_TOP)
+		if (state.getValue(variantProp) == EnumAquaticPlant.CHARNIA_TOP)
 		{
 			worldIn.setBlockState(pos, getDefaultState().withProperty(variantProp, EnumAquaticPlant.CHARNIA), 3);
 			worldIn.setBlockState(pos.up(), getDefaultState().withProperty(variantProp, EnumAquaticPlant.CHARNIA_TOP), 3);

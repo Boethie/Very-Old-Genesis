@@ -98,7 +98,7 @@ public abstract class EntityFixed extends Entity
 		{
 			if (source instanceof EntityDamageSource)
 			{
-				Entity sourceEntity = ((EntityDamageSource) source).getEntity();
+				Entity sourceEntity = source.getEntity();
 				
 				if (sourceEntity instanceof EntityPlayer)
 				{

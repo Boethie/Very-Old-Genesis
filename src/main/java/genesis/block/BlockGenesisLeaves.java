@@ -29,7 +29,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 	 * Used in BlocksAndItemsWithVariantsOfTypes.
 	 */
 	@BlockProperties
-	public static IProperty[] getProperties()
+	public static IProperty<?>[] getProperties()
 	{
 		return new IProperty[]{ CHECK_DECAY, DECAYABLE };
 	}
@@ -87,7 +87,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 	}
 	
 	@Override
-	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
+	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list)
 	{
 		owner.fillSubItems(type, variants, list);
 	}
@@ -142,7 +142,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
 	{
 		IBlockState state = getDefaultState();
-		state = state.withProperty(variantProp, (Comparable<?>) owner.getVariant(this, meta));
+		state = state.withProperty(variantProp, owner.getVariant(this, meta));
 		state = state.withProperty(DECAYABLE, false).withProperty(CHECK_DECAY, false);
 		return state;
 	}
@@ -203,7 +203,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 	{
 		IBlockState state = world.getBlockState(pos);
 		
-		if ((Boolean) state.getValue(BlockLeaves.CHECK_DECAY) && world.isAreaLoaded(pos.add(-leafDistance, -leafDistance, -leafDistance), pos.add(leafDistance, leafDistance, leafDistance)))
+		if (state.getValue(BlockLeaves.CHECK_DECAY) && world.isAreaLoaded(pos.add(-leafDistance, -leafDistance, -leafDistance), pos.add(leafDistance, leafDistance, leafDistance)))
 		{
 			if (isConnectedToLog(world, pos))
 			{

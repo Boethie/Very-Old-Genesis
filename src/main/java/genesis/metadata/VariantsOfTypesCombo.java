@@ -579,7 +579,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 	 * Creates a {@link #VariantsOfTypesCombo} with each {@link Block}/{@link Item} represented by the list of {@link ObjectType},
 	 * with each {@code ObjectType} having the provided variants.<br><br>
 	 * 
-	 * All {@code Block} classes that are constructed in this method MUST have a "public static IProperty[] getProperties()" to allow us
+	 * All {@code Block} classes that are constructed in this method MUST have a "public static IProperty<?>[] getProperties()" to allow us
 	 * to determine how many variants can be stored in the block.<br><br>
 	 * 
 	 * The {@code Block}'s variant property must have a name of "variant" exactly.<br><br>
@@ -731,7 +731,7 @@ public class VariantsOfTypesCombo<V extends IMetadata>
 					
 					if (block != null)
 					{
-						for (IProperty property : (Collection<IProperty>) block.getBlockState().getProperties())
+						for (IProperty property : block.getBlockState().getProperties())
 						{
 							Collection<Comparable<?>> values = property.getAllowedValues();
 							boolean equal = subVariants.size() == values.size();

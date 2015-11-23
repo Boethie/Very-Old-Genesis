@@ -53,7 +53,7 @@ public class BlockPrototaxites extends BlockGenesis
 	@Override
 	public int getMetaFromState(IBlockState state)
 	{
-		return ((Integer) state.getValue(BlockCactus.AGE)).intValue();
+		return state.getValue(BlockCactus.AGE).intValue();
 	}
 	
 	@Override
@@ -72,7 +72,7 @@ public class BlockPrototaxites extends BlockGenesis
 			
 			if (size < 8)
 			{
-				int age = ((Integer) state.getValue(BlockCactus.AGE)).intValue();
+				int age = state.getValue(BlockCactus.AGE).intValue();
 				
 				if (age == 15)
 				{

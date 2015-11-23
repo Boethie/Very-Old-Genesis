@@ -347,7 +347,7 @@ public class ModelHelpers
 				return stackModel;
 			}
 			
-			String regID = ((ResourceLocation) Item.itemRegistry.getNameForObject(stack.getItem())).toString();
+			String regID = Item.itemRegistry.getNameForObject(stack.getItem()).toString();
 			String regStackID = regID + "@" + stack.getMetadata();
 			
 			if (set.contains(regStackID))
@@ -598,7 +598,7 @@ public class ModelHelpers
 		
 		for (Pair<BlockState, ResourceLocation> entry : forcedModels)
 		{
-			for (final IBlockState actualState : (Collection<IBlockState>) entry.getKey().getValidStates())
+			for (final IBlockState actualState : entry.getKey().getValidStates())
 			{
 				@SuppressWarnings("rawtypes")
 				IBlockState fakeState = new IBlockState()

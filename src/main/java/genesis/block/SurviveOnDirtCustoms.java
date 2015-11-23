@@ -28,7 +28,7 @@ public class SurviveOnDirtCustoms implements IGrowingPlantCustoms
 	}
 	
 	@Override
-	public void managePlantMetaProperties(BlockGrowingPlant plant, ArrayList<IProperty> metaProps)
+	public void managePlantMetaProperties(BlockGrowingPlant plant, ArrayList<IProperty<?>> metaProps)
 	{
 	}
 	

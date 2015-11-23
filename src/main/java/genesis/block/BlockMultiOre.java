@@ -60,7 +60,7 @@ public class BlockMultiOre<V extends IOreVariant> extends BlockOre
 	}
 	
 	@Override
-	public void getSubBlocks(Item item, CreativeTabs tab, List list)
+	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list)
 	{
 		owner.fillSubItems(type, variants, list);
 	}

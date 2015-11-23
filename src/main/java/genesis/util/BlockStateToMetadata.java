@@ -257,7 +257,7 @@ public class BlockStateToMetadata
 		IBlockState outState = metaState;
 		IBlockState defaultState = metaState.getBlock().getDefaultState();
 		
-		for (IProperty property : (Collection<IProperty>) metaState.getProperties().keySet())
+		for (IProperty property : metaState.getProperties().keySet())
 		{
 			if (metaState.getValue(property).equals(defaultState.getValue(property)))
 			{

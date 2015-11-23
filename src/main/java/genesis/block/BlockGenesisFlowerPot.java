@@ -238,7 +238,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		}
 		
 		state = Blocks.flower_pot.getActualState(state, world, pos);
-		EnumFlowerType contents = (EnumFlowerType) state.getValue(BlockFlowerPot.CONTENTS);
+		EnumFlowerType contents = state.getValue(BlockFlowerPot.CONTENTS);
 		
 		if (contents != EnumFlowerType.EMPTY)
 		{

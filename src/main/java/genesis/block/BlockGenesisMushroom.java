@@ -26,7 +26,7 @@ public class BlockGenesisMushroom extends BlockBush
 		GROW_SIDE
 	}
 	
-	public static final PropertyEnum FACING = PropertyEnum.create("facing", EnumFacing.class, EnumFacing.HORIZONTALS);
+	public static final PropertyEnum<EnumFacing> FACING = PropertyEnum.create("facing", EnumFacing.class, EnumFacing.HORIZONTALS);
 	protected MushroomGrowType growType;
 	protected float boundsRadius;
 	protected float boundsHeight;

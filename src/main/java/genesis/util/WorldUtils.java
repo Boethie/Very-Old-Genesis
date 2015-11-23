@@ -37,7 +37,7 @@ public class WorldUtils
 {
 	public static Iterable<BlockPos> getArea(BlockPos start, BlockPos end)
 	{
-		return (Iterable<BlockPos>) BlockPos.getAllInBox(start, end);
+		return BlockPos.getAllInBox(start, end);
 	}
 	
 	public static Iterable<BlockPos> getAreaWithHeight(BlockPos pos, int area, int startY, int endY)
@@ -67,7 +67,7 @@ public class WorldUtils
 	 */
 	public static boolean waterInRange(World world, BlockPos pos, int dNegX, int dPosX, int dNegZ, int dPosZ, int dNegY, int dPosY)
 	{
-		Iterable<BlockPos> checkArea = (Iterable<BlockPos>) BlockPos.getAllInBox(pos.add(-dNegX, -dNegY, -dNegZ), pos.add(dPosX, dPosY, dPosZ));
+		Iterable<BlockPos> checkArea = BlockPos.getAllInBox(pos.add(-dNegX, -dNegY, -dNegZ), pos.add(dPosX, dPosY, dPosZ));
 		
 		for (BlockPos checkPos : checkArea)
 		{

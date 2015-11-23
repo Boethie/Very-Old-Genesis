@@ -32,7 +32,7 @@ public class ItemBlockMulti<V extends IMetadata> extends ItemBlock
 	}
 	
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List subItems)
+	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> subItems)
 	{
 		super.getSubItems(item, tab, subItems);
 	}

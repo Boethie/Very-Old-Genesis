@@ -7,13 +7,10 @@ import genesis.portal.GenesisPortal;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
 
-public class TileEntityGenesisPortal extends TileEntityBase implements IUpdatePlayerListBox
+import net.minecraft.util.*;
+
+public class TileEntityGenesisPortal extends TileEntityBase implements ITickable
 {
 	protected double radius = 5 / 2.0;
 	protected byte timer = 0;
@@ -63,7 +60,7 @@ public class TileEntityGenesisPortal extends TileEntityBase implements IUpdatePl
 			}
 		}
 		
-		List<EntityLivingBase> entities = (List<EntityLivingBase>) worldObj.getEntitiesWithinAABB(EntityLivingBase.class, bounds);
+		List<EntityLivingBase> entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, bounds);
 		
 		for (EntityLivingBase entity : entities)
 		{

@@ -75,7 +75,7 @@ public class ToolTypes
 		@Override
 		public int compareTo(ToolType o)
 		{
-			ToolType other = (ToolType) o;
+			ToolType other = o;
 			int materialCompare = material.compareTo(other.material);
 			
 			if (materialCompare != 0)

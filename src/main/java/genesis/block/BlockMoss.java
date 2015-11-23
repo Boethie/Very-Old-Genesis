@@ -23,7 +23,7 @@ import net.minecraftforge.common.IPlantable;
 public class BlockMoss extends BlockGrass
 {
 	public static final int STAGE_LAST = 3;
-	public static final IProperty STAGE = PropertyInteger.create("stage", 0, STAGE_LAST);
+	public static final IProperty<Integer> STAGE = PropertyInteger.create("stage", 0, STAGE_LAST);
 	
 	public BlockMoss()
 	{

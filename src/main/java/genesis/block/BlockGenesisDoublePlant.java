@@ -25,7 +25,7 @@ public class BlockGenesisDoublePlant extends BlockPlant
 	 * Used in BlocksAndItemsWithVariantsOfTypes.
 	 */
 	@BlockProperties
-	public static IProperty[] getProperties()
+	public static IProperty<?>[] getProperties()
 	{
 		return new IProperty[]{TOP};
 	}
@@ -43,7 +43,7 @@ public class BlockGenesisDoublePlant extends BlockPlant
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess world, BlockPos pos)
 	{
-		boolean top = (Boolean) world.getBlockState(pos).getValue(TOP);
+		boolean top = world.getBlockState(pos).getValue(TOP);
 		float inset = 0.0625F * 2;
 		setBlockBounds(inset, 0, inset, 1 - inset, 1, 1 - inset);
 		
@@ -66,7 +66,7 @@ public class BlockGenesisDoublePlant extends BlockPlant
 		{	// TODO: Make sure Paul uses canPlaceBlockAt instead, so we can remove this.
 			return super.canBlockStay(world, pos, state); //Forge: This function is called during world gen and placement, before this block is set, so if we are not 'here' then assume it's the pre-check.
 		}
-		else if ((Boolean) state.getValue(TOP))
+		else if (state.getValue(TOP))
 		{
 			return world.getBlockState(pos.down()).getBlock() == this;
 		}
@@ -81,7 +81,7 @@ public class BlockGenesisDoublePlant extends BlockPlant
 	{
 		if (!canBlockStay(world, pos, state))
 		{
-			boolean isTop = (Boolean) state.getValue(TOP);
+			boolean isTop = state.getValue(TOP);
 			BlockPos top = isTop ? pos : pos.up();
 			BlockPos bottom = isTop ? pos.down() : pos;
 			Block topBlock = isTop ? this : world.getBlockState(top).getBlock();
@@ -106,7 +106,7 @@ public class BlockGenesisDoublePlant extends BlockPlant
 	
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
 	{
-		if ((Boolean) state.getValue(TOP))
+		if (state.getValue(TOP))
 		{
 			return Collections.emptyList();
 		}
@@ -138,7 +138,7 @@ public class BlockGenesisDoublePlant extends BlockPlant
 	@Override
 	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest)
 	{
-		boolean top = (Boolean) world.getBlockState(pos).getValue(TOP);
+		boolean top = world.getBlockState(pos).getValue(TOP);
 		BlockPos other = top ? pos.down() : pos.up();
 
 		IBlockState otherState = world.getBlockState(other);
@@ -183,7 +183,7 @@ public class BlockGenesisDoublePlant extends BlockPlant
 	@Override
 	public int getMetaFromState(IBlockState state)
 	{
-		if ((Boolean) state.getValue(TOP))
+		if (state.getValue(TOP))
 		{
 			return BlockStateToMetadata.getMetaForBlockState(state, TOP);
 		}

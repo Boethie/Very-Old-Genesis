@@ -36,8 +36,8 @@ public class ItemMulti<V extends IMetadata> extends ItemGenesis
 	}
 
 	@Override
-	public void getSubItems(Item itemIn, CreativeTabs tab, List subItems)
+	public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems)
 	{
-		owner.fillSubItems(type, variants, (List<ItemStack>) subItems);
+		owner.fillSubItems(type, variants, subItems);
 	}
 }

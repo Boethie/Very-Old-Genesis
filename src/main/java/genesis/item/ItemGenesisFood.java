@@ -41,7 +41,7 @@ public class ItemGenesisFood<V extends IMetadata> extends ItemFood
 	}
 	
 	@Override
-	public void getSubItems(Item itemIn, CreativeTabs tab, List subItems)
+	public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems)
 	{
 		owner.fillSubItems(type, variants, subItems);
 	}

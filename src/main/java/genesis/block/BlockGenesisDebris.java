@@ -31,7 +31,7 @@ import java.util.List;
 public class BlockGenesisDebris extends BlockGenesisVariants<IMetadata>
 {
 	@BlockProperties
-	public static IProperty[] getProperties()
+	public static IProperty<?>[] getProperties()
 	{
 		return new IProperty[]{};
 	}
@@ -81,7 +81,7 @@ public class BlockGenesisDebris extends BlockGenesisVariants<IMetadata>
 	}
 	
 	@Override
-	public void getSubBlocks(Item item, CreativeTabs tab, List list)
+	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list)
 	{
 		owner.fillSubItems(type, variants, list);
 	}

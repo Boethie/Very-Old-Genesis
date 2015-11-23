@@ -115,7 +115,7 @@ public class ItemGenesisBucket extends ItemBucket
 					return stack;
 				}
 				
-				if (hitBlock.getMaterial() == Material.water && ((Integer) hitState.getValue(BlockLiquid.LEVEL)).intValue() == 0)
+				if (hitBlock.getMaterial() == Material.water && hitState.getValue(BlockLiquid.LEVEL).intValue() == 0)
 				{
 					world.setBlockToAir(hitPos);
 					player.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
@@ -185,7 +185,7 @@ public class ItemGenesisBucket extends ItemBucket
 			{
 				event.useBlock = Result.DENY;
 				
-				int cauldronLevel = (Integer) state.getValue(BlockCauldron.LEVEL);
+				int cauldronLevel = state.getValue(BlockCauldron.LEVEL);
 				int max = 0;
 				
 				for (Object val : BlockCauldron.LEVEL.getAllowedValues())

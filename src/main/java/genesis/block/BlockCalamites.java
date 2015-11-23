@@ -52,7 +52,7 @@ public class BlockCalamites extends BlockGrowingPlant implements IGrowingPlantCu
 	}
 
 	@Override
-	public void managePlantMetaProperties(BlockGrowingPlant plant, ArrayList<IProperty> metaProps)
+	public void managePlantMetaProperties(BlockGrowingPlant plant, ArrayList<IProperty<?>> metaProps)
 	{
 	}
 

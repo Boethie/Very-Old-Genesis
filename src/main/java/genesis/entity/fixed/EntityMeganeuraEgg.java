@@ -75,7 +75,7 @@ public class EntityMeganeuraEgg extends EntityEgg
 	}
 	
 	@SideOnly(Side.CLIENT)
-	public static class EggRender extends Render
+	public static class EggRender extends Render<EntityMeganeuraEgg>
 	{
 		public static class Model extends ModelBase
 		{
@@ -122,7 +122,7 @@ public class EntityMeganeuraEgg extends EntityEgg
 		}
 		
 		@Override
-		public void doRender(Entity entity, double x, double y, double z, float yaw, float partialTick)
+		public void doRender(EntityMeganeuraEgg entity, double x, double y, double z, float yaw, float partialTick)
 		{
 			//Minecraft.getMinecraft().getTextureManager().loadTexture(texture, new net.minecraft.client.renderer.texture.SimpleTexture(texture));
 			//model = new Model();
@@ -141,7 +141,7 @@ public class EntityMeganeuraEgg extends EntityEgg
 		}
 		
 		@Override
-		protected ResourceLocation getEntityTexture(Entity entity)
+		protected ResourceLocation getEntityTexture(EntityMeganeuraEgg entity)
 		{
 			return texture;
 		}

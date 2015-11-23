@@ -141,7 +141,7 @@ public final class GenesisRecipes
 
 					boolean replaced = false;
 					ArrayList<ItemStack> replacedItems = new ArrayList<ItemStack>();
-					for (ItemStack stack : (List<ItemStack>) shapelessRecipe.recipeItems)
+					for (ItemStack stack : shapelessRecipe.recipeItems)
 					{
 						if (stack.isItemEqual(vanillaItem))
 						{

@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.*;
 import net.minecraft.util.*;
 
-public class RenderMeganeura extends RenderLiving
+public class RenderMeganeura extends RenderLiving<EntityMeganeura>
 {
 	public static class Model extends ModelBase
 	{
@@ -416,7 +416,7 @@ public class RenderMeganeura extends RenderLiving
 	}
 	
 	@Override
-	public void doRender(EntityLiving entity, double x, double y, double z, float yaw, float partialTicks)
+	public void doRender(EntityMeganeura entity, double x, double y, double z, float yaw, float partialTicks)
 	{
 		mainModel = new Model();
 		//Minecraft.getMinecraft().getTextureManager().loadTexture(texture, new net.minecraft.client.renderer.texture.SimpleTexture(texture));
@@ -440,7 +440,7 @@ public class RenderMeganeura extends RenderLiving
 	}
 	
 	@Override
-	protected ResourceLocation getEntityTexture(Entity entity)
+	protected ResourceLocation getEntityTexture(EntityMeganeura entity)
 	{
 		return texture;
 	}

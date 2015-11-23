@@ -56,7 +56,7 @@ public class ItemCeramicBowl extends ItemGenesis
 	}
 	
 	@Override
-	public void getSubItems(Item itemIn, CreativeTabs tab, List subItems)
+	public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems)
 	{
 		owner.fillSubItems(type, variants, subItems);
 	}
@@ -172,7 +172,7 @@ public class ItemCeramicBowl extends ItemGenesis
 			{
 				event.useBlock = Result.DENY;
 				
-				int cauldronLevel = (Integer) state.getValue(BlockCauldron.LEVEL);
+				int cauldronLevel = state.getValue(BlockCauldron.LEVEL);
 				
 				if (cauldronLevel > 0)
 				{

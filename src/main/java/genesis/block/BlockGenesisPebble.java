@@ -30,7 +30,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.*;
 public class BlockGenesisPebble extends Block
 {
 	@BlockProperties
-	public static IProperty[] getProperties()
+	public static IProperty<?>[] getProperties()
 	{
 		return new IProperty[]{NW, NE, SE, SW};
 	}
@@ -203,7 +203,7 @@ public class BlockGenesisPebble extends Block
 		
 		for (Part part : Part.values())
 		{
-			if ((Boolean) state.getValue(part.prop))
+			if (state.getValue(part.prop))
 			{
 				hasPebble = true;
 				setBlockBounds(part.bounds);
@@ -247,13 +247,13 @@ public class BlockGenesisPebble extends Block
 	}
 	
 	@Override
-	public void addCollisionBoxesToList(World world, BlockPos pos, IBlockState state, AxisAlignedBB mask, List list, Entity collidingEntity)
+	public void addCollisionBoxesToList(World world, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
 	{
 		for (Part part : Part.values())
 		{
 			AxisAlignedBB bb = part.bounds.offset(pos.getX(), pos.getY(), pos.getZ());
 			
-			if ((Boolean) state.getValue(part.prop) && mask.intersectsWith(bb))
+			if (state.getValue(part.prop) && mask.intersectsWith(bb))
 			{
 				list.add(bb);
 			}
@@ -350,7 +350,7 @@ public class BlockGenesisPebble extends Block
 			
 			for (Part part : Part.values())
 			{
-				if ((Boolean) state.getValue(part.prop))
+				if (state.getValue(part.prop))
 				{
 					hasPebble = true;
 					break;
@@ -412,7 +412,7 @@ public class BlockGenesisPebble extends Block
 			
 			for (Part part : Part.values())
 			{
-				if ((Boolean) state.getValue(part.prop))
+				if (state.getValue(part.prop))
 				{
 					count++;
 				}

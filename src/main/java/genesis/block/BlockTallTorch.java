@@ -57,7 +57,7 @@ public class BlockTallTorch extends Block
 		}
 	}
 	
-	public static final PropertyEnum PART = PropertyEnum.create("part", Part.class);
+	public static final PropertyEnum<Part> PART = PropertyEnum.create("part", Part.class);
 	public static final PropertyDirection FACING = BlockTorch.FACING;
 	
 	public BlockTallTorch()
@@ -115,7 +115,7 @@ public class BlockTallTorch extends Block
 			if (placing && stateAbove.getBlock().isReplaceable(world, above) ||
 				stateAbove.getBlock() == this && stateAbove.getValue(PART) == Part.TOP)
 			{
-				EnumFacing facing = (EnumFacing) state.getValue(FACING);
+				EnumFacing facing = state.getValue(FACING);
 				
 				if (world.isSideSolid(pos.offset(facing.getOpposite()), facing, true))
 				{
@@ -273,7 +273,7 @@ public class BlockTallTorch extends Block
 		double topDown = 0.0625;
 		double toOuter = 0.5F - radius;
 		
-		EnumFacing facing = (EnumFacing) state.getValue(FACING);
+		EnumFacing facing = state.getValue(FACING);
 		
 		switch (facing) {
 		case EAST:
@@ -322,7 +322,7 @@ public class BlockTallTorch extends Block
 	{
 		if (state.getValue(PART) == Part.TOP)
 		{
-			EnumFacing facing = (EnumFacing) state.getValue(FACING);
+			EnumFacing facing = state.getValue(FACING);
 			double xPos = pos.getX() + 0.5;
 			double yPos = pos.getY() + 0.7;
 			double zPos = pos.getZ() + 0.5;

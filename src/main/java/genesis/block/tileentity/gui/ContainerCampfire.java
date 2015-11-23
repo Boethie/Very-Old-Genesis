@@ -75,7 +75,7 @@ public class ContainerCampfire extends ContainerBase
 		super.detectAndSendChanges();
 		
 		// TODO: Remove cast
-		for (ICrafting iCrafting : (List<ICrafting>) crafters)
+		for (ICrafting iCrafting : crafters)
 		{
 			if (lastCookTime != campfire.cookTime)
 			{

@@ -14,12 +14,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import net.minecraft.network.*;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.*;
 import net.minecraft.util.EnumFacing.*;
 
-public class TileEntityStorageBox extends TileEntityLockable implements ISidedInventory, IUpdatePlayerListBox
+public class TileEntityStorageBox extends TileEntityLockable implements ISidedInventory, ITickable
 {
 	public static final AxisDirection MAIN_DIR = AxisDirection.NEGATIVE;
 	

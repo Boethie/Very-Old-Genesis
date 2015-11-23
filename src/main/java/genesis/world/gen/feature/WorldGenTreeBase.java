@@ -240,7 +240,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	
 	protected boolean isCubeClear(World world, BlockPos pos, int radius, int height)
 	{
-		Iterable<BlockPos> posList = (Iterable<BlockPos>) BlockPos.getAllInBox(pos.add(-radius, 0, -radius), pos.add(radius, height, radius));
+		Iterable<BlockPos> posList = BlockPos.getAllInBox(pos.add(-radius, 0, -radius), pos.add(radius, height, radius));
 		
 		for (BlockPos checkPos : posList)
 		{

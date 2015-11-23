@@ -11,7 +11,6 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
 public class ItemToolHead extends ItemGenesis
 {
 	protected final List<IMetadata> variants;
@@ -37,7 +36,7 @@ public class ItemToolHead extends ItemGenesis
 	}
 
 	@Override
-	public void getSubItems(Item itemIn, CreativeTabs tab, List subItems)
+	public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems)
 	{
 		for (int i = 0; i < variants.size(); i++)
 		{
@@ -47,7 +46,7 @@ public class ItemToolHead extends ItemGenesis
 	}
 	
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
 		super.addInformation(stack, playerIn, tooltip, advanced);
 		owner.addToolInformation(stack, playerIn, tooltip, advanced);

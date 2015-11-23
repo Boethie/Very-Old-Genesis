@@ -317,7 +317,7 @@ public abstract class ContainerBase extends Container
 					stack.stackSize > 0 && (useEndIndex ? i >= startIndex : i < endIndex);
 					i += useEndIndex ? -1 : 1)
 			{
-				Slot slot = (Slot) inventorySlots.get(i);
+				Slot slot = inventorySlots.get(i);
 				ItemStack slotStack = slot.getStack();
 				
 				if (slotStack != null && slotStack.getItem() == stack.getItem() &&
@@ -347,7 +347,7 @@ public abstract class ContainerBase extends Container
 					useEndIndex ? i >= startIndex : i < endIndex;
 					i += useEndIndex ? -1 : 1)
 			{
-				Slot slot = (Slot) inventorySlots.get(i);
+				Slot slot = inventorySlots.get(i);
 				ItemStack slotStack = slot.getStack();
 
 				if (slotStack == null && slot.isItemValid(stack))
@@ -418,7 +418,7 @@ public abstract class ContainerBase extends Container
 	public ItemStack transferStackInSlot(EntityPlayer player, int slotNumber)
 	{
 		ItemStack originalStack = null;
-		Slot slot = (Slot) inventorySlots.get(slotNumber);
+		Slot slot = inventorySlots.get(slotNumber);
 		
 		if (slot != null && slot.getHasStack())
 		{

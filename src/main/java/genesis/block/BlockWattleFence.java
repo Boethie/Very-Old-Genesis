@@ -25,7 +25,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class BlockWattleFence extends BlockFence
 {
 	@BlockProperties
-	public static IProperty[] getProperties()
+	public static IProperty<?>[] getProperties()
 	{
 		return new IProperty[]{};
 	}
@@ -42,10 +42,10 @@ public class BlockWattleFence extends BlockFence
 		}
 	}
 
-	public static final PropertyEnum NORTH = PropertyEnum.create("north", EnumConnectState.class);
-	public static final PropertyEnum EAST = PropertyEnum.create("east", EnumConnectState.class);
-	public static final PropertyEnum SOUTH = PropertyEnum.create("south", EnumConnectState.class);
-	public static final PropertyEnum WEST = PropertyEnum.create("west", EnumConnectState.class);
+	public static final PropertyEnum<EnumConnectState> NORTH = PropertyEnum.create("north", EnumConnectState.class);
+	public static final PropertyEnum<EnumConnectState> EAST = PropertyEnum.create("east", EnumConnectState.class);
+	public static final PropertyEnum<EnumConnectState> SOUTH = PropertyEnum.create("south", EnumConnectState.class);
+	public static final PropertyEnum<EnumConnectState> WEST = PropertyEnum.create("west", EnumConnectState.class);
 	
 	// Fields specific to this instance.
 	public final TreeBlocksAndItems owner;
@@ -158,7 +158,7 @@ public class BlockWattleFence extends BlockFence
 	}
 
 	@Override
-	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
+	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list)
 	{
 		owner.fillSubItems(type, variants, list);
 	}
@@ -171,7 +171,7 @@ public class BlockWattleFence extends BlockFence
 	}
 	
 	@Override
-	public void addCollisionBoxesToList(World world, BlockPos pos, IBlockState state, AxisAlignedBB mask, List list, Entity collidingEntity)
+	public void addCollisionBoxesToList(World world, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
 	{
 		super.addCollisionBoxesToList(world, pos, state, mask, list, collidingEntity);
 		
