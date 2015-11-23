@@ -35,7 +35,7 @@ public abstract class TileEntityBase extends TileEntity
 	{
 		readVisualData(packet.getNbtCompound(), false);
 	}
-
+	
 	@Override
 	public void writeToNBT(NBTTagCompound compound)
 	{
@@ -43,7 +43,7 @@ public abstract class TileEntityBase extends TileEntity
 		
 		writeVisualData(compound, true);
 	}
-
+	
 	@Override
 	public void readFromNBT(NBTTagCompound compound)
 	{

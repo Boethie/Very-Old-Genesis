@@ -1,10 +1,13 @@
 package genesis.block.tileentity.portal;
 
 import genesis.block.tileentity.TileEntityBase;
-import genesis.portal.GenesisPortal;
+import genesis.portal.*;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
 
 public class TileEntityMenhirReceptacle extends TileEntityBase implements IUpdatePlayerListBox
 {
@@ -48,6 +51,17 @@ public class TileEntityMenhirReceptacle extends TileEntityBase implements IUpdat
 	}
 	
 	@Override
+	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState)
+	{
+		for (BlockPos partPos : new MenhirData(world, pos, oldState))
+		{
+			world.checkLight(partPos);
+		}
+		
+		return super.shouldRefresh(world, pos, oldState, newState);
+	}
+	
+	@Override
 	protected void writeVisualData(NBTTagCompound compound, boolean save)
 	{
 		if (containedItem != null)
@@ -70,6 +84,14 @@ public class TileEntityMenhirReceptacle extends TileEntityBase implements IUpdat
 		else
 		{
 			containedItem = null;
+		}
+		
+		if (worldObj != null)
+		{
+			for (BlockPos pos : new MenhirData(worldObj, pos))
+			{
+				worldObj.checkLight(pos);
+			}
 		}
 	}
 	

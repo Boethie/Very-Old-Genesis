@@ -245,6 +245,22 @@ public class ModelHelpers
 	}
 	
 	/**
+	 * Gets the block state for the model location that was forced to load by this class's dummy block.
+	 */
+	public static IBlockState getFakeState(ModelResourceLocation location)
+	{
+		return locationToFakeState.get(location);
+	}
+	
+	/**
+	 * @return A randomized model from a blockstates json forced to load by this helper. 
+	 */
+	public static IBakedModel getBakedBlockModel(ModelResourceLocation loc, IBlockAccess world, BlockPos pos)
+	{
+		return getBakedBlockModel(getFakeState(loc), world, pos);
+	}
+	
+	/**
 	 * @return A wrapper for the original baked model with all faces forced to use the provided sprite.
 	 */
 	public static IBakedModel getRetexturedBakedModel(IBakedModel model, TextureAtlasSprite texture)
@@ -258,14 +274,6 @@ public class ModelHelpers
 	public static void renderBlockModel(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
 		renderBakedModel(getBakedBlockModel(state, world, pos));
-	}
-	
-	/**
-	 * @return A randomized model from a blockstates json forced to load by this helper. 
-	 */
-	public static IBakedModel getBakedBlockModel(ModelResourceLocation loc, IBlockAccess world, BlockPos pos)
-	{
-		return getBakedBlockModel(locationToFakeState.get(loc), world, pos);
 	}
 	
 	/**

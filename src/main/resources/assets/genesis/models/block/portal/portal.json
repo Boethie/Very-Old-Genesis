@@ -1,18 +1,72 @@
 {
-	"__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
-	"ambientocclusion": false,
-	"elements": [
-		{   "__comment": "Plane",
-			"from": [ 0, 8, 0 ],
-			"to": [ 16, 8, 16 ],
-			"faces": {
-				"up": { "uv": [ 0, 0, 16, 16 ], "texture": "#portal", "rotation": 0 },
-				"down": { "uv": [ 16, 0, 0, 16 ], "texture": "#portal", "rotation": 180 }
-			}
-		}
-	],
-	"textures": {
-		"particle": "genesis:blocks/portal/portal",
-		"portal": "genesis:blocks/portal/portal"
-	}
+    "__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
+    "ambientocclusion": true,
+    "elements": [
+        {   "__comment": "Bottom Plane",
+            "from": [ 0, 7.7, 0 ],
+            "to": [ 16, 7.7, 16 ],
+            "shade": false,
+            "faces": {
+                "up": { "uv": [ 0, 0, 16, 16 ], "texture": "#portal", "rotation": 0 },
+                "down": { "uv": [ 16, 0, 0, 16 ], "texture": "#portal", "rotation": 180 }
+            }
+        },
+        {   "__comment": "Top Plane",
+            "from": [ 0, 8.3, 0 ],
+            "to": [ 16, 8.3, 16 ],
+            "shade": false,
+            "faces": {
+                "up": { "uv": [ 0, 0, 16, 16 ], "texture": "#portal", "rotation": 0 },
+                "down": { "uv": [ 16, 0, 0, 16 ], "texture": "#portal", "rotation": 180 }
+            }
+        },
+        {   "__comment": "Bottom Middle Plane",
+            "from": [ 0, 7.8, 0 ],
+            "to": [ 16, 7.8, 16 ],
+            "shade": false,
+            "faces": {
+                "up": { "uv": [ 0, 0, 16, 16 ], "texture": "#portal", "rotation": 0 },
+                "down": { "uv": [ 16, 0, 0, 16 ], "texture": "#portal", "rotation": 180 }
+            }
+        },
+        {   "__comment": "Top Middle Plane",
+            "from": [ 0, 8.2, 0 ],
+            "to": [ 16, 8.2, 16 ],
+            "shade": false,
+            "faces": {
+                "up": { "uv": [ 0, 0, 16, 16 ], "texture": "#portal", "rotation": 0 },
+                "down": { "uv": [ 16, 0, 0, 16 ], "texture": "#portal", "rotation": 180 }
+            }
+        },
+        {   "__comment": "Bottom Middle Plane",
+            "from": [ 0, 7.9, 0 ],
+            "to": [ 16, 7.9, 16 ],
+            "shade": false,
+            "faces": {
+                "up": { "uv": [ 0, 0, 16, 16 ], "texture": "#portal", "rotation": 0 },
+                "down": { "uv": [ 16, 0, 0, 16 ], "texture": "#portal", "rotation": 180 }
+            }
+        },
+        {   "__comment": "Top Middle Plane",
+            "from": [ 0, 8.1, 0 ],
+            "to": [ 16, 8.1, 16 ],
+            "shade": false,
+            "faces": {
+                "up": { "uv": [ 0, 0, 16, 16 ], "texture": "#portal", "rotation": 0 },
+                "down": { "uv": [ 16, 0, 0, 16 ], "texture": "#portal", "rotation": 180 }
+            }
+        },
+        {   "__comment": "Middle Plane",
+            "from": [ 0, 8, 0 ],
+            "to": [ 16, 8, 16 ],
+            "shade": false,
+            "faces": {
+                "up": { "uv": [ 0, 0, 16, 16 ], "texture": "#portal", "rotation": 0 },
+                "down": { "uv": [ 16, 0, 0, 16 ], "texture": "#portal", "rotation": 180 }
+            }
+        }
+    ],
+    "textures": {
+        "portal": "genesis:blocks/portal/portal"
+    }
 }

@@ -15,7 +15,7 @@ import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.portal.GenesisPortal;
 import genesis.portal.MenhirData;
 import genesis.util.*;
-
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
@@ -370,6 +370,19 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 		default:
 			return null;
 		}
+	}
+	
+	@Override
+	public int getLightValue(IBlockAccess world, BlockPos pos)
+	{
+		MenhirData menhir = new MenhirData(world, pos);
+		
+		if (pos.equals(menhir.getGlyphPos()) && menhir.isReceptacleActive())
+		{
+			return 8;
+		}
+		
+		return super.getLightValue(world, pos);
 	}
 	
 	@Override

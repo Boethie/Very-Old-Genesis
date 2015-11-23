@@ -80,7 +80,7 @@ public class TileEntityStorageBoxRenderer extends TileEntitySpecialRenderer
 		
 		// Set model state before rendering.
 		String props = ModelHelpers.getPropertyString(state.getProperties());
-		model.lid.setModelLocation(ModelHelpers.getLocationWithProperties(LID, props), world, pos);
+		model.lid.setModel(ModelHelpers.getLocationWithProperties(LID, props), world, pos);
 		
 		EnumFacing openDirection = box.getOpenDirection();
 		

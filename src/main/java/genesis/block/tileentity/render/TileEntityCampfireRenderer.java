@@ -195,7 +195,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer
 		// Construct the proper ModelResourceLocation from STICK_LOC and the variant string.
 		String properties = ModelHelpers.getPropertyString(state.getProperties());
 		ModelResourceLocation stickLoc = ModelHelpers.getLocationWithProperties(STICK, properties);
-		model.stick.setModelLocation(stickLoc, world, pos);
+		model.stick.setModel(stickLoc, world, pos);
 
 		boolean hasCookingPot = campfire.hasCookingPot();
 		
@@ -212,20 +212,20 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer
 		// Set fire model location.
 		if (burning)
 		{
-			model.fire.setModelLocation(ModelHelpers.getLocationWithProperties(FIRE, "fire=uncovered"), world, pos);
+			model.fire.setModel(ModelHelpers.getLocationWithProperties(FIRE, "fire=uncovered"), world, pos);
 		}
 		else if (campfire.isWet())
 		{
 			if (fireModels.contains("wet"))
 			{
-				model.fire.setModelLocation(ModelHelpers.getLocationWithProperties(FIRE, "fire=wet"), world, pos);
+				model.fire.setModel(ModelHelpers.getLocationWithProperties(FIRE, "fire=wet"), world, pos);
 			}
 		}
 		else
 		{
 			if (fireModels.contains("none"))
 			{
-				model.fire.setModelLocation(ModelHelpers.getLocationWithProperties(FIRE, "fire=none"), world, pos);
+				model.fire.setModel(ModelHelpers.getLocationWithProperties(FIRE, "fire=none"), world, pos);
 			}
 		}
 		
@@ -235,7 +235,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer
 			model.stickItem.showModel = false;
 			model.cookingPot.showModel = true;
 			
-			model.cookingPot.setModelLocation(ModelHelpers.getLocationWithProperties(COOKING_POT, properties), world, pos);
+			model.cookingPot.setModel(ModelHelpers.getLocationWithProperties(COOKING_POT, properties), world, pos);
 		}
 		else
 		{
@@ -250,10 +250,10 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer
 					// Change fire model to a "covered" version so that it doesn't clip through the cooking item.
 					if (burning)
 					{
-						model.fire.setModelLocation(ModelHelpers.getLocationWithProperties(FIRE, "fire=covered"), world, pos);
+						model.fire.setModel(ModelHelpers.getLocationWithProperties(FIRE, "fire=covered"), world, pos);
 					}
 					
-					model.cookingItem.setModelLocation(ModelHelpers.getLocationWithProperties(COOKING_ITEM, "item=" + itemID), world, pos);
+					model.cookingItem.setModel(ModelHelpers.getLocationWithProperties(COOKING_ITEM, "item=" + itemID), world, pos);
 				}
 				else
 				{
@@ -293,7 +293,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer
 			
 			if (itemID != null)
 			{
-				model.fuel.setModelLocation(ModelHelpers.getLocationWithProperties(FUEL, "item=" + itemID), world, pos);
+				model.fuel.setModel(ModelHelpers.getLocationWithProperties(FUEL, "item=" + itemID), world, pos);
 			}
 		}
 		

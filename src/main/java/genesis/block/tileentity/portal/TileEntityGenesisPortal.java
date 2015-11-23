@@ -17,6 +17,9 @@ public class TileEntityGenesisPortal extends TileEntityBase implements IUpdatePl
 {
 	protected double radius = 5 / 2.0;
 	protected byte timer = 0;
+
+	public float prevRotation = 0;
+	public float rotation = 0;
 	
 	//Cached
 	protected Vec3 center = null;
@@ -46,6 +49,17 @@ public class TileEntityGenesisPortal extends TileEntityBase implements IUpdatePl
 			{
 				GenesisPortal.fromPortalBlock(worldObj, pos).updatePortalStatus(worldObj);
 				timer = GenesisPortal.PORTAL_CHECK_TIME;
+			}
+		}
+		else
+		{
+			prevRotation = rotation;
+			rotation += 1.25;
+			
+			while (rotation > 360)
+			{
+				prevRotation -= 360;
+				rotation -= 360;
 			}
 		}
 		
@@ -82,12 +96,20 @@ public class TileEntityGenesisPortal extends TileEntityBase implements IUpdatePl
 		}
 	}
 	
+	@Override
+	public boolean shouldRenderInPass(int pass)
+	{
+		return pass == 1;
+	}
+	
 	public void writeToNBT(NBTTagCompound compound)
 	{
 		super.writeToNBT(compound);
 		
 		compound.setDouble("radius", radius);
-		//compound.setByte("timer", timer);
+		compound.setByte("timer", timer);
+		
+		compound.setFloat("rotation", rotation);
 	}
 	
 	public void readFromNBT(NBTTagCompound compound)
@@ -95,7 +117,9 @@ public class TileEntityGenesisPortal extends TileEntityBase implements IUpdatePl
 		super.readFromNBT(compound);
 
 		radius = compound.getDouble("radius");
-		//timer = compound.getByte("timer");
+		timer = compound.getByte("timer");
+		
+		prevRotation = rotation = compound.getFloat("rotation");
 	}
 	
 	@Override

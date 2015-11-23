@@ -4,6 +4,7 @@ import genesis.block.*;
 import genesis.block.BlockGenesisFlowerPot.IFlowerPotPlant;
 import genesis.block.tileentity.*;
 import genesis.block.tileentity.portal.*;
+import genesis.block.tileentity.portal.render.TileEntityGenesisPortalRenderer;
 import genesis.block.tileentity.render.*;
 import genesis.client.*;
 import genesis.entity.extendedproperties.GenesisEntityData;
@@ -231,6 +232,15 @@ public final class GenesisBlocks
 		});
 		Genesis.proxy.registerModel(portal, 0, "portal/portal");
 		GameRegistry.registerTileEntity(TileEntityGenesisPortal.class, Constants.ASSETS_PREFIX + "portal");
+		Genesis.proxy.callSided(new SidedFunction()
+		{
+				@SideOnly(Side.CLIENT)
+				@Override
+				public void client(GenesisClient client)
+				{
+					client.registerTileEntityRenderer(TileEntityGenesisPortal.class, new TileEntityGenesisPortalRenderer());
+				}
+		});
 		
 		trees.registerAll();
 		//trees.getBlock(TreeBlocksAndItems.LEAVES, EnumTree.ARAUCARIOXYLON).setRareDrop(new ItemStack(GenesisItems.materials.getStack(EnumMaterial.ARAUCARIOXYLON_CONE)), .015);

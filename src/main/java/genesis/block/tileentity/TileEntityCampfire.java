@@ -307,7 +307,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 					--burningItem.stackSize;
 					ItemStack container = burningItem.getItem().getContainerItem(burningItem);
 					
-					if (burningItem.stackSize == 0)
+					if (burningItem.stackSize <= 0)
 					{
 						setFuel(container);
 					}

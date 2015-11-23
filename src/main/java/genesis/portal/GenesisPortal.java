@@ -2,8 +2,6 @@ package genesis.portal;
 
 import java.util.*;
 
-import org.apache.commons.lang3.tuple.Pair;
-
 import genesis.block.tileentity.portal.BlockMenhir;
 import genesis.block.tileentity.portal.EnumGlyph;
 import genesis.common.Genesis;
@@ -468,11 +466,11 @@ public class GenesisPortal
 		{
 			if (menhir != null)
 			{
-				for (Pair<EnumMenhirPart, BlockPos> from : new MenhirIterator(fromWorld, menhir.getBottomPos(), true))
+				for (BlockPos from : new MenhirIterator(fromWorld, menhir.getBottomPos(), true))
 				{
-					BlockPos newPos = from.getRight().add(posDiff);
-					world.setBlockState(newPos, fromWorld.getBlockState(from.getRight()));
-					TileEntity te = fromWorld.getTileEntity(from.getRight());
+					BlockPos newPos = from.add(posDiff);
+					world.setBlockState(newPos, fromWorld.getBlockState(from));
+					TileEntity te = fromWorld.getTileEntity(from);
 					
 					if (te != null)
 					{

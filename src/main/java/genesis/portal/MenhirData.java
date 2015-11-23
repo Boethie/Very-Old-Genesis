@@ -1,6 +1,6 @@
 package genesis.portal;
 
-import org.apache.commons.lang3.tuple.Pair;
+import java.util.Iterator;
 
 import genesis.block.tileentity.portal.BlockMenhir;
 import genesis.block.tileentity.portal.EnumGlyph;
@@ -15,7 +15,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 
-public class MenhirData
+public class MenhirData implements Iterable<MenhirEntry>
 {
 	protected IBlockAccess world;
 	protected BlockPos bottom;
@@ -35,9 +35,9 @@ public class MenhirData
 		
 		bottom = pos;
 		
-		for (Pair<EnumMenhirPart, BlockPos> pair : new MenhirIterator(world, pos, false))
+		for (MenhirEntry pair : new MenhirIterator(world, pos, false))
 		{
-			bottom = pair.getRight();
+			bottom = pair;
 		}
 		
 		refresh();
@@ -91,11 +91,11 @@ public class MenhirData
 	{
 		if (receptacle == null)
 		{
-			for (Pair<EnumMenhirPart, BlockPos> pair : new MenhirIterator(world, bottom, true))
+			for (MenhirEntry pair : new MenhirIterator(world, bottom, true))
 			{
-				if (pair.getLeft() == EnumMenhirPart.RECEPTACLE)
+				if (pair.getValue() == EnumMenhirPart.RECEPTACLE)
 				{
-					receptacle = pair.getRight();
+					receptacle = pair;
 					break;
 				}
 			}
@@ -123,9 +123,9 @@ public class MenhirData
 	{
 		if (top == null)
 		{
-			for (Pair<EnumMenhirPart, BlockPos> pair : new MenhirIterator(world, bottom, true))
+			for (MenhirEntry pair : new MenhirIterator(world, bottom, true))
 			{
-				top = pair.getRight();
+				top = pair;
 			}
 		}
 		
@@ -135,5 +135,11 @@ public class MenhirData
 	public String toString()
 	{
 		return "menhir[at: " + getBottomPos() + ", facing: " + getFacing() + ", glyph: " + getGlyph() + ", receptacle: " + getReceptaclePos() + ", active: " + isReceptacleActive() + ", item: " + getReceptacleItem() + "]";
+	}
+	
+	@Override
+	public Iterator<MenhirEntry> iterator()
+	{
+		return new MenhirIterator(world, getBottomPos(), true);
 	}
 }

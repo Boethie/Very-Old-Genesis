@@ -22,7 +22,7 @@ import net.minecraft.world.IBlockAccess;
 public class BlockAsEntityPart extends CustomEntityPart
 {
 	// Values
-	public ModelResourceLocation modelLocation;
+	public IBlockState state;
 	public IBlockAccess world;
 	public BlockPos pos;
 	
@@ -31,7 +31,7 @@ public class BlockAsEntityPart extends CustomEntityPart
 	public TextureAtlasSprite texture = null;
 	
 	// Defaults
-	public ModelResourceLocation modelLocationDef;
+	public IBlockState stateDef;
 	public IBlockAccess worldDef;
 	public BlockPos posDef;
 	
@@ -54,7 +54,7 @@ public class BlockAsEntityPart extends CustomEntityPart
 	{
 		super.setDefaultState();
 
-		modelLocationDef = modelLocation;
+		stateDef = state;
 		worldDef = world;
 		posDef = pos;
 		
@@ -69,7 +69,7 @@ public class BlockAsEntityPart extends CustomEntityPart
 	{
 		super.resetState();
 		
-		modelLocation = modelLocationDef;
+		state = stateDef;
 		world = worldDef;
 		pos = posDef;
 		
@@ -78,9 +78,16 @@ public class BlockAsEntityPart extends CustomEntityPart
 		texture = textureDef;
 	}
 	
-	public void setModelLocation(ModelResourceLocation modelLocation, IBlockAccess world, BlockPos pos)
+	public void setModel(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
-		this.modelLocation = modelLocation;
+		this.state = state;
+		this.world = world;
+		this.pos = pos;
+	}
+	
+	public void setModel(ModelResourceLocation location, IBlockAccess world, BlockPos pos)
+	{
+		this.state = ModelHelpers.getFakeState(location);
 		this.world = world;
 		this.pos = pos;
 	}
@@ -115,12 +122,12 @@ public class BlockAsEntityPart extends CustomEntityPart
 	@Override
 	public void doRender(float pxSize)
 	{
-		if (modelLocation != null)
+		if (state != null)
 		{
 			float scale = pxSize * 16;
 			GlStateManager.scale(scale, scale, scale);
 			
-			IBakedModel model = ModelHelpers.getBakedBlockModel(modelLocation, world, pos);
+			IBakedModel model = ModelHelpers.getBakedBlockModel(state, world, pos);
 			IBlockState state = world.getBlockState(pos);
 			
 			if (texture != null)
