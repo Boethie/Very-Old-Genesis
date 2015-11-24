@@ -55,17 +55,15 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 	protected Set<Block> validGround;
 	protected final Set<EnumAquaticPlant> noDrops = ImmutableSet.of(EnumAquaticPlant.CHARNIA);
 	
-	public BlockAquaticPlant(List<EnumAquaticPlant> variants, VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>> owner, ObjectType<BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>> type)
+	public BlockAquaticPlant(VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>> owner, ObjectType<BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>> type, List<EnumAquaticPlant> variants, Class<EnumAquaticPlant> variantClass)
 	{
 		super(Material.water);
-		
-		//super(variants, owner, (ObjectType) type, Material.water);
 		
 		this.owner = owner;
 		this.type = type;
 		
 		this.variants = variants;
-		variantProp = new PropertyIMetadata<EnumAquaticPlant>("variant", variants);
+		variantProp = new PropertyIMetadata<EnumAquaticPlant>("variant", variants, variantClass);
 		
 		blockState = new BlockState(this, variantProp, BlockLiquid.LEVEL);
 		setDefaultState(getBlockState().getBaseState());
@@ -88,14 +86,14 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 	{
 		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), metadata, variantProp);
 	}
-
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void customizeStateMap(FlexibleStateMap stateMap)
 	{
 		stateMap.addIgnoredProperties(BlockLiquid.LEVEL);
 	}
-
+	
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list)
 	{

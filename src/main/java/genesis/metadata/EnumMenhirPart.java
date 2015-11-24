@@ -2,7 +2,7 @@ package genesis.metadata;
 
 import com.google.common.collect.ImmutableList;
 
-public enum EnumMenhirPart implements IMetadata
+public enum EnumMenhirPart implements IMetadata<EnumMenhirPart>
 {
 	GLYPH("glyph", false), RECEPTACLE("receptacle", false), TOP("top", true);
 	

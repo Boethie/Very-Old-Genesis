@@ -3,7 +3,7 @@ package genesis.item;
 import java.util.*;
 
 import genesis.common.GenesisCreativeTabs;
-import genesis.metadata.IFoodMetadata;
+import genesis.metadata.IFood;
 import genesis.metadata.IMetadata;
 import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
@@ -15,14 +15,14 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ItemGenesisFood<V extends IMetadata> extends ItemFood
+public class ItemGenesisFood<V extends IMetadata<V>> extends ItemFood
 {
 	public final VariantsOfTypesCombo<V> owner;
 	
 	protected final List<V> variants;
 	protected final ObjectType<Block, ? extends ItemPorridge> type;
 	
-	public ItemGenesisFood(List<V> variants, VariantsOfTypesCombo<V> owner, ObjectType<Block, ? extends ItemPorridge> type)
+	public ItemGenesisFood(VariantsOfTypesCombo<V> owner, ObjectType<Block, ? extends ItemPorridge> type, List<V> variants, Class<V> variantClass)
 	{
 		super(0, 0, false);
 		
@@ -49,13 +49,13 @@ public class ItemGenesisFood<V extends IMetadata> extends ItemFood
 	@Override
 	public int getHealAmount(ItemStack stack)
 	{
-		return ((IFoodMetadata) owner.getVariant(stack)).getFoodAmount();
+		return ((IFood) owner.getVariant(stack)).getFoodAmount();
 	}
 	
 	@Override
 	public float getSaturationModifier(ItemStack stack)
 	{
-		return ((IFoodMetadata) owner.getVariant(stack)).getSaturationModifier();
+		return ((IFood) owner.getVariant(stack)).getSaturationModifier();
 	}
 	
 	@Override

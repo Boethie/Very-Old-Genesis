@@ -20,7 +20,6 @@ import genesis.metadata.ToolTypes.ToolType;
 import genesis.util.Constants.Unlocalized;
 import genesis.util.Constants.Unlocalized.Section;
 
-@SuppressWarnings("rawtypes")
 public class ToolItems extends VariantsOfTypesCombo<ToolType>
 {
 	public static class ToolObjectType<B extends Block, I extends Item> extends ObjectType<B, I>
@@ -56,7 +55,7 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 		}
 		
 		@Override
-		public <V extends IMetadata> List<V> getValidVariants(List<V> list)
+		public <V extends IMetadata<V>> List<V> getValidVariants(List<V> list)
 		{
 			Iterator<V> iter = list.iterator();
 			
@@ -163,11 +162,20 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 	public static final ToolObjectType<Block, ItemToolHead> SPEAR_HEAD = new ToolObjectType<Block, ItemToolHead>("head_spear", Section.TOOL_HEAD + "spear", null, ItemToolHead.class, WEAPON_QUALITIES).setCreativeTab(GenesisCreativeTabs.COMBAT);
 	public static final ToolObjectType<Block, ItemGenesisSpear> SPEAR = new ToolObjectType<Block, ItemGenesisSpear>("spear", Section.WEAPON + "spear", null, ItemGenesisSpear.class, WEAPON_QUALITIES).setCreativeTab(GenesisCreativeTabs.COMBAT);
 	public static final ToolObjectType<Block, ItemToolHead> ARROW_HEAD = new ToolObjectType<Block, ItemToolHead>("head_arrow", Section.TOOL_HEAD + "arrow", null, ItemToolHead.class, WEAPON_QUALITIES).setCreativeTab(GenesisCreativeTabs.COMBAT);
-	public static final ToolObjectTypeSoleQuality<Block, ItemMulti> FLAKE = new ToolObjectTypeSoleQuality<Block, ItemMulti>("flake", Section.MATERIAL + "flake", null, null, EnumToolQuality.NONE);
+	public static final ToolObjectTypeSoleQuality<Block, ItemMulti<ToolType>> FLAKE = new ToolObjectTypeSoleQuality<Block, ItemMulti<ToolType>>("flake", Section.MATERIAL + "flake", null, null, EnumToolQuality.NONE);
 	
 	public ToolItems()
 	{
-		super(ImmutableList.<ObjectType<?, ?>>of(PEBBLE, CHOPPING_TOOL, PICK_HEAD, PICK, AXE_HEAD, AXE, HOE_HEAD, HOE, KNIFE_HEAD, KNIFE, CLUB_HEAD, CLUB, SPEAR_HEAD, SPEAR, ARROW_HEAD, FLAKE), ToolTypes.getAll());
+		super(ImmutableList.<ObjectType<?, ?>>of(
+						PEBBLE, CHOPPING_TOOL,
+						PICK_HEAD, PICK,
+						AXE_HEAD, AXE,
+						HOE_HEAD, HOE,
+						KNIFE_HEAD, KNIFE,
+						CLUB_HEAD, CLUB,
+						SPEAR_HEAD, SPEAR,
+						FLAKE, ARROW_HEAD),
+				ToolType.class, ToolTypes.getAll());
 		
 		setUnlocalizedPrefix(Unlocalized.PREFIX);
 	}
@@ -175,7 +183,7 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 	/**
 	 * Get an item stack containing the tool item of the specified {@link ToolObjectType}, material and quality.
 	 */
-	public ItemStack getStack(ToolObjectType type, EnumToolMaterial material, EnumToolQuality quality, int stackSize)
+	public ItemStack getStack(ToolObjectType<?, ?> type, EnumToolMaterial material, EnumToolQuality quality, int stackSize)
 	{
 		return getStack(type, ToolTypes.getToolHead(material, quality), stackSize);
 	}
@@ -183,7 +191,7 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 	/**
 	 * Get an item stack containing the tool item of the specified {@link ToolObjectType}, material and quality with a stack size of 1.
 	 */
-	public ItemStack getStack(ToolObjectType type, EnumToolMaterial material, EnumToolQuality quality)
+	public ItemStack getStack(ToolObjectType<?, ?> type, EnumToolMaterial material, EnumToolQuality quality)
 	{
 		return getStack(type, material, quality, 1);
 	}
@@ -191,7 +199,7 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 	/**
 	 * Gets a bad quality item of the specified {@link ToolObjectType} and material.
 	 */
-	public ItemStack getBadStack(ToolObjectType type, EnumToolMaterial material, int stackSize)
+	public ItemStack getBadStack(ToolObjectType<?, ?> type, EnumToolMaterial material, int stackSize)
 	{
 		return getStack(type, material, type.badQuality, stackSize);
 	}
@@ -199,7 +207,7 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 	/**
 	 * Gets a bad quality item of the specified {@link ToolObjectType} and material.
 	 */
-	public ItemStack getBadStack(ToolObjectType type, EnumToolMaterial material)
+	public ItemStack getBadStack(ToolObjectType<?, ?> type, EnumToolMaterial material)
 	{
 		return getBadStack(type, material, 1);
 	}
@@ -207,7 +215,7 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 	/**
 	 * Gets a good quality item of the specified {@link ToolObjectType} and material.
 	 */
-	public ItemStack getGoodStack(ToolObjectType type, EnumToolMaterial material, int stackSize)
+	public ItemStack getGoodStack(ToolObjectType<?, ?> type, EnumToolMaterial material, int stackSize)
 	{
 		return getStack(type, material, type.goodQuality, stackSize);
 	}
@@ -215,7 +223,7 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 	/**
 	 * Gets a good quality item of the specified {@link ToolObjectType} and material.
 	 */
-	public ItemStack getGoodStack(ToolObjectType type, EnumToolMaterial material)
+	public ItemStack getGoodStack(ToolObjectType<?, ?> type, EnumToolMaterial material)
 	{
 		return getGoodStack(type, material, 1);
 	}
@@ -223,7 +231,7 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 	/**
 	 * Get an item stack containing the tool item with the specified {@link ToolObjectTypeSoleQuality}, and the tool material.
 	 */
-	public ItemStack getStack(ToolObjectTypeSoleQuality type, EnumToolMaterial material, int stackSize)
+	public ItemStack getStack(ToolObjectTypeSoleQuality<?, ?> type, EnumToolMaterial material, int stackSize)
 	{
 		return getStack(type, material, type.getSoleQuality(), stackSize);
 	}
@@ -231,7 +239,7 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 	/**
 	 * Get an item stack containing the tool item with the specified {@link ToolObjectTypeSoleQuality}, and the tool material, with a stack size of 1.
 	 */
-	public ItemStack getStack(ToolObjectTypeSoleQuality type, EnumToolMaterial material)
+	public ItemStack getStack(ToolObjectTypeSoleQuality<?, ?> type, EnumToolMaterial material)
 	{
 		return getStack(type, material, 1);
 	}
@@ -241,23 +249,18 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 	 */
 	public void addToolInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced)
 	{
-		IMetadata variant = getVariant(stack);
+		ToolType type = getVariant(stack);
 		
-		if (variant instanceof ToolType)
+		if (type != null && type.quality.hasUnlocalizedName())
 		{
-			ToolType type = (ToolType) variant;
-			
-			if (type.quality.hasUnlocalizedName())
-			{
-				tooltip.add(StatCollector.translateToLocal(type.quality.getUnlocalizedName()));
-			}
+			tooltip.add(StatCollector.translateToLocal(type.quality.getUnlocalizedName()));
 		}
 	}
 	
 	/**
 	 * Gets a block state from the specified {@link ToolObjectType}, with the quality level and material specified.
 	 */
-	public IBlockState getBlockState(ToolObjectTypeSoleQuality type, EnumToolMaterial material, EnumToolQuality quality)
+	public IBlockState getBlockState(ToolObjectTypeSoleQuality<?, ?> type, EnumToolMaterial material, EnumToolQuality quality)
 	{
 		return getBlockState(type, ToolTypes.getToolHead(material, quality));
 	}
@@ -265,7 +268,7 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 	/**
 	 * Gets a block state from the specified {@link ToolObjectTypeSoleQuality}, with the material specified.
 	 */
-	public IBlockState getBlockState(ToolObjectTypeSoleQuality type, EnumToolMaterial material)
+	public IBlockState getBlockState(ToolObjectTypeSoleQuality<?, ?> type, EnumToolMaterial material)
 	{
 		return getBlockState(type, material, type.getSoleQuality());
 	}

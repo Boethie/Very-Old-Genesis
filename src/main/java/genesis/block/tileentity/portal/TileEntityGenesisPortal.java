@@ -14,7 +14,7 @@ public class TileEntityGenesisPortal extends TileEntityBase implements ITickable
 {
 	protected double radius = 5 / 2.0;
 	protected byte timer = 0;
-
+	
 	public float prevRotation = 0;
 	public float rotation = 0;
 	
@@ -97,6 +97,12 @@ public class TileEntityGenesisPortal extends TileEntityBase implements ITickable
 	public boolean shouldRenderInPass(int pass)
 	{
 		return pass == 1;
+	}
+	
+	@Override
+	public double getMaxRenderDistanceSquared()
+	{
+		return 65536;
 	}
 	
 	public void writeToNBT(NBTTagCompound compound)

@@ -51,7 +51,7 @@ public class GenesisNetwork extends SimpleNetworkWrapper
 	{
 		if (!entity.worldObj.isRemote)
 		{
-			Set<EntityPlayer> players = ((WorldServer) entity.worldObj).getEntityTracker().getTrackingPlayers(entity);
+			Set<? extends EntityPlayer> players = ((WorldServer) entity.worldObj).getEntityTracker().getTrackingPlayers(entity);
 			
 			for (EntityPlayer player : players)
 			{

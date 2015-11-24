@@ -13,6 +13,7 @@ import genesis.block.tileentity.crafting.*;
 import genesis.item.*;
 import genesis.metadata.*;
 import genesis.metadata.ItemsCeramicBowls.EnumCeramicBowls;
+import genesis.metadata.MultiMetadataList.MultiMetadata;
 import genesis.metadata.ToolItems.ToolObjectType;
 import genesis.metadata.ToolTypes.ToolType;
 import genesis.recipes.*;
@@ -626,9 +627,9 @@ public final class GenesisRecipes
 		
 		ItemStack[] porridgeBases = new ItemStack[]{GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS)};
 		
-		for (IMetadata variant : GenesisItems.bowls.getValidVariants(ItemsCeramicBowls.PORRIDGE))
+		for (MultiMetadata variant : GenesisItems.bowls.getValidVariants(ItemsCeramicBowls.PORRIDGE))
 		{
-			EnumPorridge porridge = (EnumPorridge) variant;
+			EnumPorridge porridge = (EnumPorridge) variant.getOriginal();
 			ItemStack ingredient = porridge.getIngredient();
 			
 			for (ItemStack porridgeBase : porridgeBases)
@@ -662,19 +663,19 @@ public final class GenesisRecipes
 					@Override
 					public ItemStack apply(ItemStack input)
 					{
-						IMetadata variant = GenesisItems.bowls.getVariant(input);
+						IMetadata<?> variant = GenesisItems.bowls.getVariant(input).getOriginal();
 						return variant instanceof GenesisDye ? new ItemStack(Items.dye, input.stackSize, ((GenesisDye) variant).getColor().getDyeDamage()) : null;
 					}
 				}));
 		
-		for (ItemDyeBowl item : GenesisItems.bowls.getItems(ItemsCeramicBowls.DYES))
+		for (ItemDyeBowl item : GenesisItems.bowls.getItems(ItemsCeramicBowls.DYE))
 		{
 			OreDictionary.registerOre("dye", new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE));
 		}
 		
-		for (IMetadata variant : GenesisItems.bowls.getValidVariants(ItemsCeramicBowls.DYES))
+		for (MultiMetadata variant : GenesisItems.bowls.getValidVariants(ItemsCeramicBowls.DYE))
 		{
-			GenesisDye dye = (GenesisDye) variant;
+			GenesisDye dye = (GenesisDye) variant.getOriginal();
 			String name = dye.getOreDictName();
 			
 			if (OreDictionary.getOres(name).isEmpty())

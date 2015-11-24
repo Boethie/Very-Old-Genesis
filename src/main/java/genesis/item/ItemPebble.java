@@ -24,7 +24,7 @@ public class ItemPebble extends ItemGenesis
 	protected final ToolType toolType;
 	protected final ToolObjectType<BlockGenesisPebble, ItemPebble> objType;
 	
-	public ItemPebble(BlockGenesisPebble block, ToolType toolType, ToolItems owner, ToolObjectType<BlockGenesisPebble, ItemPebble> type)
+	public ItemPebble(BlockGenesisPebble block, ToolItems owner, ToolObjectType<BlockGenesisPebble, ItemPebble> type, ToolType toolType, Class<ToolType> variantClass)
 	{
 		super();
 		

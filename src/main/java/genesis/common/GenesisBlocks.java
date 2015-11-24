@@ -36,7 +36,7 @@ public final class GenesisBlocks
 			new VariantsCombo<EnumMenhirPart, BlockMenhir, ItemMenhir>(
 					new ObjectType<BlockMenhir, ItemMenhir>("menhir", Unlocalized.PREFIX + "menhir", BlockMenhir.class, ItemMenhir.class)
 							.setUseSeparateVariantJsons(false).setShouldRegisterVariantModels(false),
-					EnumMenhirPart.values()
+					EnumMenhirPart.class, EnumMenhirPart.values()
 			);
 	public static final BlockGenesisPortal portal = (BlockGenesisPortal) new BlockGenesisPortal().setUnlocalizedName(Unlocalized.MISC + "portal");
 	
@@ -86,7 +86,7 @@ public final class GenesisBlocks
 			new VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>>(
 					new ObjectType<BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>>("aquatic_plant", "aquaticPlant", BlockAquaticPlant.class, null)
 							.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE),
-					EnumAquaticPlant.values());
+					EnumAquaticPlant.class, EnumAquaticPlant.values());
 	
 	/* Crops */
 	protected static final SurviveOnDirtCustoms surviveOnDirt = new SurviveOnDirtCustoms();
@@ -154,20 +154,20 @@ public final class GenesisBlocks
 	public static final VariantsCombo<EnumCoral, BlockGenesisVariants<EnumCoral>, ItemBlockMulti<EnumCoral>> corals =
 			VariantsCombo.create(
 					new ObjectType<BlockGenesisVariants<EnumCoral>, ItemBlockMulti<EnumCoral>>("coral", (Class<BlockGenesisVariants<EnumCoral>>) ((Class<?>) BlockGenesisVariants.class), null)
-					{
-						@Override
-						public void afterConstructed(BlockGenesisVariants<EnumCoral> block, ItemBlockMulti<EnumCoral> item, List<? extends IMetadata> variants)
-						{
-							super.afterConstructed(block, item, variants);
-							
-							block.setHardness(0.75F);
-							block.setResistance(8.5F);
-							block.setStepSound(GenesisSounds.CORAL);
-						}
-					}.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE)
-					.setCreativeTab(GenesisCreativeTabs.DECORATIONS)
-					.setBlockArguments(Material.coral),
-					EnumCoral.values());
+							{
+								@Override
+								public <V extends IMetadata<V>> void afterConstructed(BlockGenesisVariants<EnumCoral> block, ItemBlockMulti<EnumCoral> item, List<V> variants)
+								{
+									super.afterConstructed(block, item, variants);
+									
+									block.setHardness(0.75F);
+									block.setResistance(8.5F);
+									block.setStepSound(GenesisSounds.CORAL);
+								}
+							}.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE)
+							.setCreativeTab(GenesisCreativeTabs.DECORATIONS)
+							.setBlockArguments(Material.coral),
+					EnumCoral.class, EnumCoral.values());
 	
 	public static void registerBlocks()
 	{
@@ -347,7 +347,7 @@ public final class GenesisBlocks
 			@Override
 			public int getColorMultiplier(ItemStack contents, IBlockAccess world, BlockPos pos)
 			{
-				IPlantMetadata variant = plants.getVariant(contents);
+				EnumPlant variant = plants.getVariant(contents);
 				return variant.getColorMultiplier(world, pos);
 			}
 		};

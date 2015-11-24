@@ -16,7 +16,6 @@ import genesis.metadata.ToolTypes.ToolType;
 import genesis.metadata.ToolItems.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
-import genesis.util.render.ModelHelpers;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.*;
@@ -47,7 +46,7 @@ public class BlockGenesisPebble extends Block
 	public final PropertyIMetadata<ToolType> variantProp;
 	public PropertyInteger randomProp;
 	
-	public BlockGenesisPebble(ToolType variant, ToolItems owner, ToolObjectType<BlockGenesisPebble, ItemPebble> type)
+	public BlockGenesisPebble(ToolItems owner, ToolObjectType<BlockGenesisPebble, ItemPebble> type, ToolType variant, Class<ToolType> variantClass)
 	{
 		super(Material.rock);
 		
@@ -55,7 +54,7 @@ public class BlockGenesisPebble extends Block
 		this.type = type;
 		
 		this.variant = variant;
-		variantProp = new PropertyIMetadata<ToolType>("variant", Collections.singletonList(variant));
+		variantProp = new PropertyIMetadata<ToolType>("variant", Collections.singletonList(variant), variantClass);
 		
 		final String randomName = "zrandom";
 		Genesis.proxy.callSided(new SidedFunction()

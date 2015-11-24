@@ -1,7 +1,5 @@
 package genesis.block.tileentity.gui;
 
-import java.util.*;
-
 import genesis.block.tileentity.*;
 import genesis.util.gui.*;
 import net.minecraft.entity.player.*;

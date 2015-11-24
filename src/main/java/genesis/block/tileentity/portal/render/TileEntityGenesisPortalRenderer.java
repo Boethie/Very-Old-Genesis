@@ -10,9 +10,8 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.tileentity.TileEntity;
 
-public class TileEntityGenesisPortalRenderer extends TileEntitySpecialRenderer
+public class TileEntityGenesisPortalRenderer extends TileEntitySpecialRenderer<TileEntityGenesisPortal>
 {
 	public static final class ModelPortal extends ModelBase
 	{
@@ -33,10 +32,8 @@ public class TileEntityGenesisPortalRenderer extends TileEntitySpecialRenderer
 	protected ModelPortal model = new ModelPortal();
 	
 	@Override
-	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float partialTick, int destroyStage)
+	public void renderTileEntityAt(TileEntityGenesisPortal te, double x, double y, double z, float partialTick, int destroyStage)
 	{
-		TileEntityGenesisPortal tePortal = (TileEntityGenesisPortal) te;
-		
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x, y, z);
 		
@@ -50,7 +47,7 @@ public class TileEntityGenesisPortalRenderer extends TileEntitySpecialRenderer
 		ModelHelpers.bindAtlasTexture();
 		model.portal.resetState();
 		model.portal.setModel(te.getWorld().getBlockState(te.getPos()), te.getWorld(), te.getPos());
-		model.portal.rotateAngleY = -GenesisMath.lerp(tePortal.prevRotation, tePortal.rotation, partialTick);
+		model.portal.rotateAngleY = -GenesisMath.lerp(te.prevRotation, te.rotation, partialTick);
 		model.renderAll();
 		
 		RenderHelper.enableStandardItemLighting();

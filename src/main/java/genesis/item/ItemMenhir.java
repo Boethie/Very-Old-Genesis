@@ -17,7 +17,7 @@ public class ItemMenhir extends ItemBlock
 	
 	protected final List<EnumMenhirPart> variants;
 
-	public ItemMenhir(BlockMenhir block, List<EnumMenhirPart> variants, VariantsOfTypesCombo<EnumMenhirPart> owner, ObjectType<BlockMenhir, ItemMenhir> type)
+	public ItemMenhir(BlockMenhir block, VariantsOfTypesCombo<EnumMenhirPart> owner, ObjectType<BlockMenhir, ItemMenhir> type, List<EnumMenhirPart> variants, Class<EnumMenhirPart> variantClass)
 	{
 		super(block);
 		

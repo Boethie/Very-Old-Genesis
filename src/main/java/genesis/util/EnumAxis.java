@@ -3,7 +3,7 @@ package genesis.util;
 import genesis.metadata.*;
 import net.minecraft.util.*;
 
-public enum EnumAxis implements IMetadata
+public enum EnumAxis implements IMetadata<EnumAxis>
 {
 	X("x"),
 	Y("y"),

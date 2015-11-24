@@ -19,7 +19,7 @@ public class ItemGenesisPick extends ItemPickaxe
 	protected final ToolType type;
 	protected final ToolObjectType<Block, ItemGenesisPick> objType;
 	
-	public ItemGenesisPick(ToolType type, ToolItems owner, ToolObjectType<Block, ItemGenesisPick> objType)
+	public ItemGenesisPick(ToolItems owner, ToolObjectType<Block, ItemGenesisPick> objType, ToolType type, Class<ToolType> variantClass)
 	{
 		super(type.toolMaterial);
 		

@@ -32,7 +32,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 
-@SuppressWarnings("unchecked")
 public class WorldUtils
 {
 	public static Iterable<BlockPos> getArea(BlockPos start, BlockPos end)
@@ -246,7 +245,7 @@ public class WorldUtils
 		}
 	}
 	
-	public static void setProperty(World world, BlockPos pos, IProperty property, Comparable<?> value)
+	public static <V extends Comparable<V>> void setProperty(World world, BlockPos pos, IProperty<V> property, V value)
 	{
 		world.setBlockState(pos, world.getBlockState(pos).withProperty(property, value));
 	}

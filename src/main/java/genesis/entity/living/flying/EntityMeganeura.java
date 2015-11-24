@@ -66,7 +66,6 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 	
 	public static final int SPAWN_LIMIT = 2;
 	
-	@SuppressWarnings("unchecked")
 	public static int getChunkMeganeuraCount(World world, Vec3 pos)
 	{
 		double radius = 8;

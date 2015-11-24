@@ -37,7 +37,7 @@ public class BlockSilt extends BlockFalling
 	public final PropertyIMetadata<EnumSilt> variantProp;
 	public final List<EnumSilt> variants;
 	
-	public BlockSilt(List<EnumSilt> variants, SiltBlocks owner, ObjectType<BlockSilt, ItemBlockMulti<EnumSilt>> type)
+	public BlockSilt(SiltBlocks owner, ObjectType<BlockSilt, ItemBlockMulti<EnumSilt>> type, List<EnumSilt> variants, Class<EnumSilt> variantClass)
 	{
 		super(Material.sand);
 		
@@ -45,7 +45,7 @@ public class BlockSilt extends BlockFalling
 		this.type = type;
 		
 		this.variants = variants;
-		this.variantProp = new PropertyIMetadata<EnumSilt>("variant", variants);
+		this.variantProp = new PropertyIMetadata<EnumSilt>("variant", variants, variantClass);
 		
 		blockState = new BlockState(this, variantProp);
 		setDefaultState(blockState.getBaseState());

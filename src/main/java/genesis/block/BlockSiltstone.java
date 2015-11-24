@@ -36,7 +36,7 @@ public class BlockSiltstone extends BlockGenesis
 	public final PropertyIMetadata<EnumSilt> variantProp;
 	public final List<EnumSilt> variants;
 	
-	public BlockSiltstone(List<EnumSilt> variants, SiltBlocks owner, ObjectType<BlockSiltstone, ItemBlockMulti<EnumSilt>> type)
+	public BlockSiltstone(SiltBlocks owner, ObjectType<BlockSiltstone, ItemBlockMulti<EnumSilt>> type, List<EnumSilt> variants, Class<EnumSilt> variantClass)
 	{
 		super(Material.rock);
 		
@@ -44,7 +44,7 @@ public class BlockSiltstone extends BlockGenesis
 		this.type = type;
 		
 		this.variants = variants;
-		this.variantProp = new PropertyIMetadata<EnumSilt>("variant", variants);
+		this.variantProp = new PropertyIMetadata<EnumSilt>("variant", variants, variantClass);
 		
 		blockState = new BlockState(this, variantProp);
 		setDefaultState(blockState.getBaseState());

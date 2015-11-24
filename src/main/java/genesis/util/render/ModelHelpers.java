@@ -1,6 +1,5 @@
 package genesis.util.render;
 
-import genesis.client.GenesisCustomModelLoader;
 import genesis.common.Genesis;
 import genesis.util.Constants.Unlocalized;
 import gnu.trove.map.hash.TIntObjectHashMap;
@@ -34,7 +33,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import com.google.common.base.Charsets;
 import com.google.common.collect.*;
 
-@SuppressWarnings({"unchecked", "deprecation"})
+@SuppressWarnings({"unchecked"})
 public class ModelHelpers
 {
 	public static final Block fakeBlock = new BlockAir(){}.setUnlocalizedName(Unlocalized.PREFIX + "dummyBlock");
@@ -141,11 +140,12 @@ public class ModelHelpers
 		return modelMesher;
 	}
 	
-	public static String getPropertyString(Map<IProperty, Comparable<?>> properties)
+	@SuppressWarnings("rawtypes")
+	public static String getPropertyString(Map<IProperty, Comparable> properties)
 	{
 		String output = "";
 		
-		for (Map.Entry<IProperty, Comparable<?>> entry : properties.entrySet())
+		for (Map.Entry<IProperty, Comparable> entry : properties.entrySet())
 		{
 			if (output.length() > 0)
 			{
@@ -430,18 +430,9 @@ public class ModelHelpers
 		return model;
 	}
 	
-	public static IModel getLoadedModel(ResourceLocation loc)
-	{
-		GenesisCustomModelLoader.acceptNothing = true;
-		IModel model = getModel(loc);
-		GenesisCustomModelLoader.acceptNothing = false;
-		
-		return model;
-	}
-	
 	public static ModelBlock getModelBlock(ResourceLocation loc)
 	{
-		return getModelBlock(getLoadedModel(loc));
+		return getModelBlock(getModel(loc));
 	}
 	
 	public static Map<String, Variants> getModelBlockDefinitionMap(ModelBlockDefinition definition)
@@ -600,26 +591,27 @@ public class ModelHelpers
 		{
 			for (final IBlockState actualState : entry.getKey().getValidStates())
 			{
-				@SuppressWarnings("rawtypes")
 				IBlockState fakeState = new IBlockState()
 				{
-					@Override public Collection getPropertyNames()
+					@SuppressWarnings("rawtypes")
+					@Override public Collection<IProperty> getPropertyNames()
 					{
 						return actualState.getPropertyNames();
 					}
-					@Override public Comparable getValue(IProperty property)
+					@Override public <T extends Comparable<T>> T getValue(IProperty<T> property)
 					{
 						return actualState.getValue(property);
 					}
-					@Override public IBlockState withProperty(IProperty property, Comparable value)
+					@Override public <T extends Comparable<T>, V extends T> IBlockState withProperty(IProperty<T> property, V value)
 					{
 						return actualToFakeState.get(actualState.withProperty(property, value));
 					}
-					@Override public IBlockState cycleProperty(IProperty property)
+					@Override public <T extends Comparable<T>> IBlockState cycleProperty(IProperty<T> property)
 					{
 						return actualToFakeState.get(actualState.cycleProperty(property));
 					}
-					@Override public ImmutableMap getProperties()
+					@SuppressWarnings("rawtypes")
+					@Override public ImmutableMap<IProperty, Comparable> getProperties()
 					{
 						return actualState.getProperties();
 					}

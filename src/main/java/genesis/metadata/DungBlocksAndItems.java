@@ -23,7 +23,7 @@ public class DungBlocksAndItems extends VariantsOfTypesCombo<EnumDung>
 			new ObjectType<BlockGenesisVariants<EnumDung>, ItemBlockMulti<EnumDung>>("dung_block", "dung", DUNG_CLASS, null)
 			{
 				@Override
-				public void afterConstructed(BlockGenesisVariants<EnumDung> block, ItemBlockMulti<EnumDung> item, List<? extends IMetadata> variants)
+				public <V extends IMetadata<V>> void afterConstructed(BlockGenesisVariants<EnumDung> block, ItemBlockMulti<EnumDung> item, List<V> variants)
 				{
 					super.afterConstructed(block, item, variants);
 					
@@ -42,7 +42,7 @@ public class DungBlocksAndItems extends VariantsOfTypesCombo<EnumDung>
 	public static final ObjectType<Block, ItemDung> DUNG = new ObjectType<Block, ItemDung>("dung", Unlocalized.Section.MATERIAL + "dung", null, ItemDung.class)
 			{
 				@Override
-				public void afterConstructed(Block block, ItemDung item, List<? extends IMetadata> variants)
+				public <V extends IMetadata<V>> void afterConstructed(Block block, ItemDung item, List<V> variants)
 				{
 					super.afterConstructed(block, item, variants);
 					FuelHandler.setBurnTime(item, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.log)), true);
@@ -52,7 +52,7 @@ public class DungBlocksAndItems extends VariantsOfTypesCombo<EnumDung>
 	
 	public DungBlocksAndItems()
 	{
-		super(ImmutableList.of(DUNG_BLOCK, DUNG), ImmutableList.copyOf(EnumDung.values()));
+		super(ImmutableList.of(DUNG_BLOCK, DUNG), EnumDung.class, ImmutableList.copyOf(EnumDung.values()));
 		
 		setUnlocalizedPrefix(Unlocalized.PREFIX);
 	}

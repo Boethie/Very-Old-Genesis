@@ -288,7 +288,7 @@ public class RenderMeganeura extends RenderLiving<EntityMeganeura>
 		public void render(Entity entity, float p1, float p2, float p3, float p4, float p5, float p6)
 		{
 			GlStateManager.enableBlend();
-			EntityMeganeura meganeura = (EntityMeganeura) entity;
+			//EntityMeganeura meganeura = (EntityMeganeura) entity;
 			body.render(p6);
 			GlStateManager.disableBlend();
 		}
@@ -418,7 +418,6 @@ public class RenderMeganeura extends RenderLiving<EntityMeganeura>
 	@Override
 	public void doRender(EntityMeganeura entity, double x, double y, double z, float yaw, float partialTicks)
 	{
-		mainModel = new Model();
 		//Minecraft.getMinecraft().getTextureManager().loadTexture(texture, new net.minecraft.client.renderer.texture.SimpleTexture(texture));
 		
 		super.doRender(entity, x, y, z, yaw, partialTicks);

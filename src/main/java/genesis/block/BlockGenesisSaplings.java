@@ -55,7 +55,7 @@ public class BlockGenesisSaplings extends BlockSapling
 	public final List<EnumTree> variants;
 	public final PropertyIMetadata<EnumTree> variantProp;
 	
-	public BlockGenesisSaplings(List<EnumTree> variants, TreeBlocksAndItems owner, ObjectType<BlockGenesisSaplings, ItemBlockMulti<EnumTree>> type)
+	public BlockGenesisSaplings(TreeBlocksAndItems owner, ObjectType<BlockGenesisSaplings, ItemBlockMulti<EnumTree>> type, List<EnumTree> variants, Class<EnumTree> variantClass)
 	{
 		super();
 		
@@ -63,7 +63,7 @@ public class BlockGenesisSaplings extends BlockSapling
 		this.type = type;
 		
 		this.variants = variants;
-		variantProp = new PropertyIMetadata<EnumTree>("variant", variants);
+		variantProp = new PropertyIMetadata<EnumTree>("variant", variants, variantClass);
 		
 		blockState = new BlockState(this, variantProp, STAGE);
 		setDefaultState(getBlockState().getBaseState());

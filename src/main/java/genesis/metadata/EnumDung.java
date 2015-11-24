@@ -1,6 +1,6 @@
 package genesis.metadata;
 
-public enum EnumDung implements IMetadata
+public enum EnumDung implements IMetadata<EnumDung>
 {
 	SAUROPODA("sauropoda"), THEROPODA("theropoda");
 

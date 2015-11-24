@@ -3,7 +3,7 @@ package genesis.world.biome;
 import genesis.common.GenesisBlocks;
 import genesis.metadata.DungBlocksAndItems;
 import genesis.metadata.EnumDung;
-import genesis.metadata.EnumFern;
+import genesis.metadata.EnumPlant;
 import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenMossStages;
@@ -37,7 +37,7 @@ public class BiomeGenAuxPlains extends BiomeGenBaseGenesis
 	@Override
 	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
 	{
-		return new WorldGenGrassMulti(GenesisBlocks.plants.getFernBlockState(EnumFern.PHLEBOPTERIS)).setVolume(64);
+		return new WorldGenGrassMulti(GenesisBlocks.plants.getPlantBlockState(EnumPlant.PHLEBOPTERIS)).setVolume(64);
 	}
 	
 	@Override

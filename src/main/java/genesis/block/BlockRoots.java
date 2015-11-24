@@ -44,19 +44,17 @@ public class BlockRoots extends BlockGenesis
 		fire.setFireInfo(this, 30, 100);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void init()
 	{
+		blockStateSupportList.addAll(getBlockState().getValidStates());
+		
 		blockStateSupportList.addAll(grass.getBlockState().getValidStates());
 		blockStateSupportList.addAll(mycelium.getBlockState().getValidStates());
 		blockStateSupportList.addAll(dirt.getBlockState().getValidStates());
+		blockStateSupportList.addAll(moss.getBlockState().getValidStates());
+		
 		blockStateSupportList.addAll(log.getBlockState().getValidStates());
 		blockStateSupportList.addAll(log2.getBlockState().getValidStates());
-		
-		blockStateSupportList.addAll(this.blockState.getValidStates());
-		blockStateSupportList.addAll(moss.getBlockState().getValidStates());
-		blockStateSupportList.addAll(prototaxites_mycelium.getBlockState().getValidStates());
-		
 		for (Block log : trees.getBlocks(TreeBlocksAndItems.LOG))
 		{
 			blockStateSupportList.addAll(log.getBlockState().getValidStates());
@@ -65,6 +63,8 @@ public class BlockRoots extends BlockGenesis
 		{
 			blockStateSupportList.addAll(log.getBlockState().getValidStates());
 		}
+		
+		blockStateSupportList.addAll(prototaxites_mycelium.getBlockState().getValidStates());
 		
 		unInit = false;
 	}
@@ -168,11 +168,10 @@ public class BlockRoots extends BlockGenesis
 	}
 	
 	@SubscribeEvent
-	@SuppressWarnings("unused")
 	public void onAnyBlockBreaks(BlockEvent.BreakEvent event)
 	{
 		Block block = event.world.getBlockState(event.pos.down()).getBlock();
-		if (!event.world.isRemote && block == roots)
+		if (!event.world.isRemote && block == this)
 		{
 			EntityPlayer player = event.getPlayer();
 			boolean drop = player instanceof FakePlayer || !player.capabilities.isCreativeMode;

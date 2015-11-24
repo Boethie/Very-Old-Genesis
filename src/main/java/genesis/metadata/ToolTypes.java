@@ -9,7 +9,7 @@ import com.google.common.collect.*;
 
 public class ToolTypes
 {
-	public static class ToolType implements IMetadata, Comparable<ToolType>
+	public static class ToolType implements IMetadata<ToolType>
 	{
 		public final EnumToolMaterial material;
 		public final EnumToolQuality quality;

@@ -10,7 +10,7 @@ import java.util.Random;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.*;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
@@ -26,7 +26,7 @@ public class BlockGenesisMushroom extends BlockBush
 		GROW_SIDE
 	}
 	
-	public static final PropertyEnum<EnumFacing> FACING = PropertyEnum.create("facing", EnumFacing.class, EnumFacing.HORIZONTALS);
+	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	protected MushroomGrowType growType;
 	protected float boundsRadius;
 	protected float boundsHeight;
@@ -105,7 +105,7 @@ public class BlockGenesisMushroom extends BlockBush
 		if (getGrowType() == GROW_SIDE)
 		{
 			IBlockState state = world.getBlockState(pos);
-			EnumFacing facing = (EnumFacing) state.getValue(FACING);
+			EnumFacing facing = state.getValue(FACING);
 			
 			double offsetAmount = 0.5 - radius;
 			bb = bb.offset(facing.getFrontOffsetX() * offsetAmount,
@@ -199,8 +199,7 @@ public class BlockGenesisMushroom extends BlockBush
 			switch (this.growType)
 			{
 			case GROW_SIDE:
-				EnumFacing facing = (EnumFacing) state.getValue(FACING);
-				BlockPos offPos = pos.offset(facing);
+				BlockPos offPos = pos.offset(state.getValue(FACING));
 				return checkBlockIsBase(world, offPos, world.getBlockState(offPos));
 			case GROW_TOP:
 				IBlockState below = world.getBlockState(pos.down());

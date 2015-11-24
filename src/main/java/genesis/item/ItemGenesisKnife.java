@@ -22,9 +22,9 @@ public class ItemGenesisKnife extends ItemTool
 	protected final ToolType type;
 	protected final ToolObjectType<Block, ItemGenesisKnife> objType;
 	
-	public ItemGenesisKnife(ToolType type, ToolItems owner, ToolObjectType<Block, ItemGenesisKnife> objType)
+	public ItemGenesisKnife(ToolItems owner, ToolObjectType<Block, ItemGenesisKnife> objType, ToolType type, Class<ToolType> variantClass)
 	{
-		super(3, type.toolMaterial, Collections.emptySet());
+		super(3, type.toolMaterial, Collections.<Block>emptySet());
 		
 		this.owner = owner;
 		this.type = type;

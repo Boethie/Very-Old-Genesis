@@ -19,10 +19,10 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockMultiOre<V extends IOreVariant> extends BlockOre
+public class BlockMultiOre<V extends IOreVariant<V>> extends BlockOre
 {
 	@BlockProperties
-	public static IProperty[] properties = {};
+	public static IProperty<?>[] properties = {};
 	
 	public VariantsOfTypesCombo<V> owner;
 	public ObjectType<? extends BlockMultiOre<V>, ?> type;
@@ -30,13 +30,13 @@ public class BlockMultiOre<V extends IOreVariant> extends BlockOre
 	
 	public PropertyIMetadata<V> variantProp;
 	
-	public BlockMultiOre(List<V> variants, VariantsOfTypesCombo<V> owner, ObjectType<? extends BlockMultiOre<V>, ?> type)
+	public BlockMultiOre(VariantsOfTypesCombo<V> owner, ObjectType<? extends BlockMultiOre<V>, ?> type, List<V> variants, Class<V> variantClass)
 	{
 		this.variants = variants;
 		this.owner = owner;
 		this.type = type;
 		
-		variantProp = new PropertyIMetadata<V>("variant", variants);
+		variantProp = new PropertyIMetadata<V>("variant", variants, variantClass);
 		blockState = new BlockState(this, variantProp);
 		setDefaultState(blockState.getBaseState());
 		
@@ -65,17 +65,17 @@ public class BlockMultiOre<V extends IOreVariant> extends BlockOre
 		owner.fillSubItems(type, variants, list);
 	}
 	
-	protected IOreVariant getVariant(IBlockState state)
+	protected IOreVariant<V> getVariant(IBlockState state)
 	{
 		if (state.getBlock() == this)
 		{
-			return (IOreVariant) state.getValue(variantProp);
+			return state.getValue(variantProp);
 		}
 		
 		return null;
 	}
 	
-	protected IOreVariant getVariant(IBlockAccess world, BlockPos pos)
+	protected IOreVariant<V> getVariant(IBlockAccess world, BlockPos pos)
 	{
 		return getVariant(world.getBlockState(pos));
 	}
@@ -83,21 +83,20 @@ public class BlockMultiOre<V extends IOreVariant> extends BlockOre
 	@Override
 	public int getHarvestLevel(IBlockState state)
 	{
-		IOreVariant variant = getVariant(state);
-		return variant.getHarvestLevel();
+		return state.getValue(variantProp).getHarvestLevel();
 	}
 	
 	@Override
 	public float getBlockHardness(World world, BlockPos pos)
 	{
-		IOreVariant variant = getVariant(world, pos);
+		IOreVariant<V> variant = getVariant(world, pos);
 		return variant != null ? variant.getHardness() : super.getBlockHardness(world, pos);
 	}
 	
 	@Override
 	public float getExplosionResistance(World world, BlockPos pos, Entity exploder, Explosion explosion)
 	{
-		IOreVariant variant = getVariant(world, pos);
+		IOreVariant<V> variant = getVariant(world, pos);
 		
 		if (variant != null)
 		{
@@ -122,7 +121,7 @@ public class BlockMultiOre<V extends IOreVariant> extends BlockOre
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return owner.getItemMetadata(type, (V) state.getValue(variantProp));
+		return owner.getItemMetadata(type, state.getValue(variantProp));
 	}
 	
 	@Override

@@ -19,7 +19,7 @@ import net.minecraft.world.*;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockGenesisDoublePlant extends BlockPlant
+public class BlockGenesisDoublePlant<V extends IPlantMetadata<V>> extends BlockPlant<V>
 {
 	/**
 	 * Used in BlocksAndItemsWithVariantsOfTypes.
@@ -32,10 +32,10 @@ public class BlockGenesisDoublePlant extends BlockPlant
 	
 	public static final PropertyBool TOP = PropertyBool.create("top");
 	
-	public BlockGenesisDoublePlant(List<IPlantMetadata> variants, VariantsOfTypesCombo<IPlantMetadata> owner, ObjectType<? extends BlockGenesisDoublePlant, ? extends ItemBlockMulti<IPlantMetadata>> type)
+	public BlockGenesisDoublePlant(VariantsOfTypesCombo<V> owner, ObjectType<? extends BlockGenesisDoublePlant<V>, ? extends ItemBlockMulti<V>> type, List<V> variants, Class<V> variantClass)
 	{
-		super(variants, owner, type);
-
+		super(owner, type, variants, variantClass, null);
+		
 		blockState = new BlockState(this, variantProp, TOP);
 		setDefaultState(getBlockState().getBaseState().withProperty(TOP, false));
 	}
@@ -115,7 +115,7 @@ public class BlockGenesisDoublePlant extends BlockPlant
 	}
 	
 	@Override
-	public boolean placeAt(World world, BlockPos bottom, IPlantMetadata variant, int flags)
+	public boolean placeAt(World world, BlockPos bottom, V variant, int flags)
 	{
 		IBlockState state = owner.getBlockState(type, variant);
 		

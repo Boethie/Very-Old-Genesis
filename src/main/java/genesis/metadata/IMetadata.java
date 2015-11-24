@@ -1,8 +1,6 @@
 package genesis.metadata;
 
-import net.minecraft.util.IStringSerializable;
-
-public interface IMetadata extends IStringSerializable
+public interface IMetadata<V> extends IVariant, Comparable<V>
 {
 	public String getUnlocalizedName();
 }

@@ -43,7 +43,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 	private ItemStack rareDrop;
 	private double rareDropChance;
 	
-	public BlockGenesisLeaves(List<EnumTree> variants, TreeBlocksAndItems owner, ObjectType<BlockGenesisLeaves, ItemBlockMulti<EnumTree>> type)
+	public BlockGenesisLeaves(TreeBlocksAndItems owner, ObjectType<BlockGenesisLeaves, ItemBlockMulti<EnumTree>> type, List<EnumTree> variants, Class<EnumTree> variantClass)
 	{
 		super();
 		
@@ -51,7 +51,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 		this.type = type;
 		
 		this.variants = variants;
-		variantProp = new PropertyIMetadata<EnumTree>("variant", variants);
+		variantProp = new PropertyIMetadata<EnumTree>("variant", variants, variantClass);
 		
 		blockState = new BlockState(this, variantProp, CHECK_DECAY, DECAYABLE);
 		setDefaultState(getBlockState().getBaseState().withProperty(DECAYABLE, true).withProperty(CHECK_DECAY, false));
@@ -177,7 +177,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 					{
 						if (!nextPos.equals(curPos))
 						{
-							BlockPos diff = curPos.add(nextPos.multiply(-1));
+							BlockPos diff = curPos.subtract(nextPos);
 							int blockDist = Math.abs(diff.getX()) + Math.abs(diff.getY()) + Math.abs(diff.getZ());
 							float addCost = distanceCosts[blockDist];
 							

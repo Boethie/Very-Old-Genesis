@@ -3,8 +3,10 @@ package genesis.util.render;
 import net.minecraft.client.*;
 import net.minecraft.client.model.*;
 import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.item.*;
 
+@SuppressWarnings("deprecation")
 public class ItemAsEntityPart extends CustomEntityPart
 {
 	public ItemStack itemStack;
@@ -48,7 +50,7 @@ public class ItemAsEntityPart extends CustomEntityPart
 			float scale = pxSize * 16;
 			GlStateManager.scale(scale, scale, scale);
 			RenderHelper.enableStandardItemLighting();
-			Minecraft.getMinecraft().getRenderItem().renderItemModel(itemStack);
+			Minecraft.getMinecraft().getRenderItem().func_181564_a(itemStack, TransformType.FIXED);
 		}
 	}
 }

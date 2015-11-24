@@ -183,7 +183,7 @@ public class BlockCampfire extends Block
 	public void addCollisionBoxesToList(World world, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
 	{
 		// Make collision boxes for the two sticks and the base of the campfire.
-		EnumAxis facing = (EnumAxis) state.getValue(FACING);
+		EnumAxis facing = state.getValue(FACING);
 		
 		addIfIntersects(getCollisionBoundingBox(world, pos, state), mask, list);
 		

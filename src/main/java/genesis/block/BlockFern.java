@@ -2,7 +2,6 @@ package genesis.block;
 
 import genesis.common.GenesisSounds;
 import genesis.item.ItemBlockMulti;
-import genesis.metadata.EnumFern;
 import genesis.metadata.IPlantMetadata;
 import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
@@ -21,7 +20,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 
-public class BlockFern extends BlockPlant implements IShearable
+public class BlockFern<V extends IPlantMetadata<V>> extends BlockPlant<V> implements IShearable
 {
 	/**
 	 * Used in BlocksAndItemsWithVariantsOfTypes.
@@ -32,9 +31,9 @@ public class BlockFern extends BlockPlant implements IShearable
 		return new IProperty[]{};
 	}
 	
-	public BlockFern(List<IPlantMetadata> variants, VariantsOfTypesCombo<IPlantMetadata> owner, ObjectType<BlockPlant, ? extends ItemBlockMulti<IPlantMetadata>> type)
+	public BlockFern(VariantsOfTypesCombo<V> owner, ObjectType<BlockPlant<V>, ? extends ItemBlockMulti<V>> type, List<V> variants, Class<V> variantClass, ObjectType<? extends BlockGenesisDoublePlant<V>, ? extends ItemBlockMulti<V>> doubleType)
 	{
-		super(variants, owner, type);
+		super(owner, type, variants, variantClass, doubleType);
 		
 		setStepSound(GenesisSounds.FERN);
 	}
@@ -50,7 +49,7 @@ public class BlockFern extends BlockPlant implements IShearable
 	{
 		ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
 		
-		EnumFern variant = (EnumFern) world.getBlockState(pos).getValue(variantProp);
+		V variant = world.getBlockState(pos).getValue(variantProp);
 		ret.add(owner.getStack(type, variant));
 		
 		return ret;

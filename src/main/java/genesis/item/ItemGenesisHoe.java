@@ -18,7 +18,7 @@ public class ItemGenesisHoe extends ItemHoe
 	protected final ToolType type;
 	protected final ToolObjectType<Block, ItemGenesisHoe> objType;
 	
-	public ItemGenesisHoe(ToolType type, ToolItems owner, ToolObjectType<Block, ItemGenesisHoe> objType)
+	public ItemGenesisHoe(ToolItems owner, ToolObjectType<Block, ItemGenesisHoe> objType, ToolType type, Class<ToolType> variantClass)
 	{
 		super(type.toolMaterial);
 		

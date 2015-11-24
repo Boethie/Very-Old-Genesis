@@ -221,7 +221,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	
 	public PropertyInteger ageProp;
 	public PropertyBool topProp;
-	public IProperty[] metaProperties;
+	public IProperty<?>[] metaProperties;
 
 	protected final boolean hasTopProperty;
 
@@ -281,6 +281,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	 * 
 	 * @return Returns the BlockState containing all properties used by this block.
 	 */
+	@SuppressWarnings("unchecked")
 	protected BlockState createOurBlockState()
 	{
 		BlockState state;
@@ -299,8 +300,8 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 			setDefaultState(state.getBaseState().withProperty(ageProp, 0));
 		}
 		
-		ArrayList<IProperty> metaProps = new ArrayList<IProperty>();
-		metaProps.addAll(state.getProperties());
+		ArrayList<IProperty<?>> metaProps = new ArrayList<IProperty<?>>();
+		metaProps.addAll((Collection<? extends IProperty<?>>) state.getProperties());
 		
 		if (hasTopProperty)
 		{

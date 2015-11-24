@@ -1,7 +1,6 @@
 package genesis.world.biome;
 
 import genesis.common.GenesisBlocks;
-import genesis.metadata.EnumFern;
 import genesis.metadata.EnumPlant;
 import genesis.metadata.EnumTree;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
@@ -31,7 +30,7 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 		theBiomeDecorator.sandPerChunk2 = 2;
 		theBiomeDecorator.grassPerChunk = 0;
 		
-		addDecoration(new WorldGenPlant(EnumFern.RHACOPHYTON).setCountPerChunk(38));
+		addDecoration(new WorldGenPlant(EnumPlant.RHACOPHYTON).setCountPerChunk(38));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(3));
 		addDecoration(new WorldGenPlant(EnumPlant.PSILOPHYTON).setPatchSize(8).setCountPerChunk(6));
 		addDecoration(new WorldGenUnderWaterPatch(Blocks.water, GenesisBlocks.peat.getDefaultState()).setCountPerChunk(1));

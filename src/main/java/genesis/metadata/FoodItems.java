@@ -8,39 +8,30 @@ import com.google.common.collect.*;
 
 import genesis.item.ItemGenesisFood;
 import genesis.util.Constants.Unlocalized;
+import genesis.util.ReflectionUtils;
+import genesis.metadata.FoodItems.*;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
-public class FoodItems extends VariantsCombo<IFoodMetadata, Block, ItemGenesisFood<IFoodMetadata>>
+public class FoodItems extends VariantsCombo<FoodWrapper, Block, ItemGenesisFood<FoodWrapper>>
 {
-	private static final List<IFoodMetadata> ORDERED_VARIANTS;
-	private static final Map<EnumFood, Pair<IFoodMetadata, IFoodMetadata>> MAP_VARIANTS;
+	private static final List<FoodWrapper> ORDERED_VARIANTS;
+	private static final Map<EnumFood, Pair<FoodWrapper, FoodWrapper>> MAP_VARIANTS;
 	
 	static
 	{
-		ImmutableList.Builder<IFoodMetadata> orderedBuilder = ImmutableList.builder();
-		ImmutableMap.Builder<EnumFood, Pair<IFoodMetadata, IFoodMetadata>> mapBuilder = ImmutableMap.builder();
+		ImmutableList.Builder<FoodWrapper> orderedBuilder = ImmutableList.builder();
+		ImmutableMap.Builder<EnumFood, Pair<FoodWrapper, FoodWrapper>> mapBuilder = ImmutableMap.builder();
 		
 		for (final EnumFood food : EnumFood.values())
 		{
-			IFoodMetadata raw = new IFoodMetadata()
-			{
-				@Override public String getName() { return food.getName(); }
-				@Override public String getUnlocalizedName() { return food.getUnlocalizedName() + ".raw"; }
-				@Override public int getFoodAmount() { return food.getRawFoodAmount(); }
-				@Override public float getSaturationModifier() { return food.getRawSaturationModifier(); }
-			};
-			IFoodMetadata cooked = null;
+			FoodWrapper raw = new FoodWrapper(food, true);
+			FoodWrapper cooked = null;
 			
 			if (food.hasCookedVariant())
 			{
-				cooked = new IFoodMetadata()
-				{
-					@Override public String getName() { return "cooked_" + food.getName(); }
-					@Override public String getUnlocalizedName() { return food.getUnlocalizedName() + ".cooked"; }
-					@Override public int getFoodAmount() { return food.getCookedFoodAmount(); }
-					@Override public float getSaturationModifier() { return food.getCookedSaturationModifier(); }
-				};
+				cooked = new FoodWrapper(food, false);
 			}
 			
 			orderedBuilder.add(raw);
@@ -52,20 +43,19 @@ public class FoodItems extends VariantsCombo<IFoodMetadata, Block, ItemGenesisFo
 		MAP_VARIANTS = mapBuilder.build();
 	}
 	
-	public static IFoodMetadata getRawVariant(EnumFood food)
+	public static FoodWrapper getRawVariant(EnumFood food)
 	{
 		return MAP_VARIANTS.get(food).getLeft();
 	}
 	
-	public static IFoodMetadata getCookedVariant(EnumFood food)
+	public static FoodWrapper getCookedVariant(EnumFood food)
 	{
 		return MAP_VARIANTS.get(food).getRight();
 	}
 	
-	@SuppressWarnings("unchecked")
 	public FoodItems()
 	{
-		super(ObjectType.createItem("food", (Class<ItemGenesisFood<IFoodMetadata>>) ((Class<?>) ItemGenesisFood.class)), ORDERED_VARIANTS);
+		super(ObjectType.createItem("food", ReflectionUtils.<ItemGenesisFood<FoodWrapper>>convertClass(ItemGenesisFood.class)), FoodWrapper.class, ORDERED_VARIANTS);
 		
 		setUnlocalizedPrefix(Unlocalized.PREFIX);
 		
@@ -85,5 +75,52 @@ public class FoodItems extends VariantsCombo<IFoodMetadata, Block, ItemGenesisFo
 		}
 		
 		return super.getStack(getCookedVariant(variant));
+	}
+	
+	public static final class FoodWrapper implements IFood, IMetadata<FoodWrapper>
+	{
+		final EnumFood food;
+		final boolean raw;
+		
+		private FoodWrapper(EnumFood food, boolean raw)
+		{
+			this.food = food;
+			this.raw = raw;
+		}
+		
+		@Override
+		public String getName()
+		{
+			return (raw ? "" : "cooked_") + food.getName();
+		}
+		
+		@Override
+		public String getUnlocalizedName()
+		{
+			return food.getUnlocalizedName() + (raw ? ".raw" : ".cooked");
+		}
+		
+		@Override
+		public int getFoodAmount()
+		{
+			return raw ? food.getRawFoodAmount() : food.getCookedFoodAmount();
+		}
+		
+		@Override
+		public float getSaturationModifier()
+		{
+			return raw ? food.getRawSaturationModifier() : food.getCookedSaturationModifier();
+		}
+		
+		public boolean isCooked()
+		{
+			return !raw;
+		}
+		
+		@Override
+		public int compareTo(FoodWrapper o)
+		{
+			return Integer.compare(ORDERED_VARIANTS.indexOf(this), ORDERED_VARIANTS.indexOf(o));
+		}
 	}
 }

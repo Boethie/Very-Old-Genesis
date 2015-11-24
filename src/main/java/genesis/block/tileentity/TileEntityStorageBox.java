@@ -24,7 +24,7 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 	
 	public static final int SLOTS_W = 9;
 	public static final int SLOTS_H = 3;
-
+	
 	public static final int USERS_UPDATE_ID = 1;
 	public static final int OPEN_DIRECTION_UPDATE_ID = 2;
 	

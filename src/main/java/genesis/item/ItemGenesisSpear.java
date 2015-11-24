@@ -19,7 +19,7 @@ public class ItemGenesisSpear extends ItemSword
 	protected final ToolType type;
 	protected final ToolObjectType<Block, ItemGenesisSpear> objType;
 	
-	public ItemGenesisSpear(ToolType type, ToolItems owner, ToolObjectType<Block, ItemGenesisSpear> objType)
+	public ItemGenesisSpear(ToolItems owner, ToolObjectType<Block, ItemGenesisSpear> objType, ToolType type, Class<ToolType> variantClass)
 	{
 		super(type.toolMaterial);
 		

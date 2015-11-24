@@ -1,6 +1,6 @@
 package genesis.metadata;
 
-public interface IFoodMetadata extends IMetadata
+public interface IFood
 {
 	public int getFoodAmount();
 	public float getSaturationModifier();

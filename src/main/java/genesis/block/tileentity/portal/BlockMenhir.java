@@ -15,7 +15,6 @@ import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.portal.GenesisPortal;
 import genesis.portal.MenhirData;
 import genesis.util.*;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
@@ -52,7 +51,7 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 	public List<EnumMenhirPart> variants;
 	public PropertyIMetadata<EnumMenhirPart> variantProp;
 	
-	public BlockMenhir(List<EnumMenhirPart> variants, VariantsCombo<EnumMenhirPart, BlockMenhir, ItemBlockMulti<EnumMenhirPart>> owner, ObjectType<BlockMenhir, ItemBlockMulti<EnumMenhirPart>> type)
+	public BlockMenhir(VariantsCombo<EnumMenhirPart, BlockMenhir, ItemBlockMulti<EnumMenhirPart>> owner, ObjectType<BlockMenhir, ItemBlockMulti<EnumMenhirPart>> type, List<EnumMenhirPart> variants, Class<EnumMenhirPart> variantClass)
 	{
 		super(Material.rock);
 		
@@ -60,7 +59,7 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 		this.type = type;
 		
 		this.variants = variants;
-		variantProp = new PropertyIMetadata<EnumMenhirPart>("variant", variants);
+		variantProp = new PropertyIMetadata<EnumMenhirPart>("variant", variants, variantClass);
 		
 		blockState = new BlockState(this, variantProp, FACING, GLYPH, ACTIVE);
 		setDefaultState(getBlockState().getBaseState().withProperty(GLYPH, EnumGlyph.NONE).withProperty(ACTIVE, false));

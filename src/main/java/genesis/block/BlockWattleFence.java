@@ -54,7 +54,7 @@ public class BlockWattleFence extends BlockFence
 	public final PropertyIMetadata<EnumTree> variantProp;
 	public final List<EnumTree> variants;
 	
-	public BlockWattleFence(List<EnumTree> variants, TreeBlocksAndItems owner, ObjectType<BlockWattleFence, ItemBlockMulti<EnumTree>> type)
+	public BlockWattleFence(TreeBlocksAndItems owner, ObjectType<BlockWattleFence, ItemBlockMulti<EnumTree>> type, List<EnumTree> variants, Class<EnumTree> variantClass)
 	{
 		super(Material.wood);
 		
@@ -65,7 +65,7 @@ public class BlockWattleFence extends BlockFence
 		this.owner = owner;
 		this.type = type;
 		
-		variantProp = new PropertyIMetadata<EnumTree>("variant", variants);
+		variantProp = new PropertyIMetadata<EnumTree>("variant", variants, variantClass);
 		this.variants = variants;
 		
 		blockState = new BlockState(this, variantProp, NORTH, EAST, SOUTH, WEST);
@@ -92,7 +92,7 @@ public class BlockWattleFence extends BlockFence
 		return owner.getItemMetadata(type, (EnumTree) state.getValue(variantProp));
 	}
 	
-	protected IBlockState setSideState(IBlockAccess world, IBlockState state, BlockPos sidePos, PropertyEnum property, boolean above, boolean below)
+	protected IBlockState setSideState(IBlockAccess world, IBlockState state, BlockPos sidePos, PropertyEnum<EnumConnectState> property, boolean above, boolean below)
 	{
 		EnumConnectState sideState = EnumConnectState.NONE;
 		

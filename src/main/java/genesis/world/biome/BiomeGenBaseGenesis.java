@@ -6,7 +6,7 @@ import java.util.Random;
 
 import genesis.block.BlockMoss;
 import genesis.common.GenesisBlocks;
-import genesis.metadata.EnumFern;
+import genesis.metadata.EnumPlant;
 import genesis.metadata.EnumSilt;
 import genesis.metadata.SiltBlocks;
 import genesis.world.biome.decorate.BiomeDecoratorGenesis;
@@ -122,7 +122,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 	@Override
 	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
 	{
-		return new WorldGenGrassMulti(GenesisBlocks.plants.getFernBlockState(EnumFern.ZYGOPTERIS)).setVolume(64);
+		return new WorldGenGrassMulti(GenesisBlocks.plants.getPlantBlockState(EnumPlant.ZYGOPTERIS)).setVolume(64);
 	}
 	
 	private IBlockState getTopBlock(Random rand)

@@ -23,7 +23,7 @@ public class ItemChoppingTool extends ItemAxe
 	protected final ToolType type;
 	protected final ToolObjectType<Block, ItemChoppingTool> objType;
 	
-	public ItemChoppingTool(ToolType type, ToolItems owner, ToolObjectType<Block, ItemChoppingTool> objType)
+	public ItemChoppingTool(ToolItems owner, ToolObjectType<Block, ItemChoppingTool> objType, ToolType type, Class<ToolType> variantClass)
 	{
 		super(type.toolMaterial);
 		

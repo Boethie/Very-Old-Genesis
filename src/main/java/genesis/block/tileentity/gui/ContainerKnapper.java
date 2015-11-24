@@ -1,7 +1,5 @@
 package genesis.block.tileentity.gui;
 
-import java.util.List;
-
 import com.google.common.collect.ImmutableList;
 
 import genesis.block.tileentity.*;

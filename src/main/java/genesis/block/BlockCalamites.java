@@ -68,10 +68,10 @@ public class BlockCalamites extends BlockGrowingPlant implements IGrowingPlantCu
 	}
 
 	@Override
-	public CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World worldIn, BlockPos pos, boolean placed)
+	public CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World world, BlockPos pos, boolean placed)
 	{
 		BlockPos under = pos.down();
-		Block blockUnder = worldIn.getBlockState(under).getBlock();
+		Block blockUnder = world.getBlockState(under).getBlock();
 		
 		if (blockUnder == plant)
 		{
@@ -84,7 +84,7 @@ public class BlockCalamites extends BlockGrowingPlant implements IGrowingPlantCu
 		{
 			return CanStayOptions.YES;
 		}
-		else if (WorldUtils.waterInRange(worldIn, under, 2, 1))
+		else if (WorldUtils.waterInRange(world, under, 2, 1))
 		{
 			return CanStayOptions.YIELD;
 		}

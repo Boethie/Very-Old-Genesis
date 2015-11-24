@@ -774,7 +774,7 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		
 		protected int getParentSlotIndex(int index)
 		{
-			return TileEntityKnapper.this.SLOTS_CRAFTING_START + index;
+			return TileEntityKnapper.SLOTS_CRAFTING_START + index;
 		}
 		
 		@Override
@@ -798,7 +798,7 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		@Override
 		public int getSizeInventory()
 		{
-			return TileEntityKnapper.this.SLOTS_CRAFTING_W * TileEntityKnapper.this.SLOTS_CRAFTING_H;
+			return TileEntityKnapper.SLOTS_CRAFTING_W * TileEntityKnapper.SLOTS_CRAFTING_H;
 		}
 		
 		@Override

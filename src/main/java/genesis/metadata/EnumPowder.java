@@ -2,7 +2,7 @@ package genesis.metadata;
 
 import net.minecraft.item.EnumDyeColor;
 
-public enum EnumPowder implements IMetadata
+public enum EnumPowder implements IMetadata<EnumPowder>
 {
 	LIMESTONE("limestone", EnumDyeColor.WHITE, null),
 	HEMATITE("hematite", EnumDyeColor.RED, EnumOre.HEMATITE),

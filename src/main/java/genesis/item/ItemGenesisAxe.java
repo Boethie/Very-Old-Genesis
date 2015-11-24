@@ -19,7 +19,7 @@ public class ItemGenesisAxe extends ItemAxe
 	protected final ToolType type;
 	protected final ToolObjectType<Block, ItemGenesisAxe> objType;
 	
-	public ItemGenesisAxe(ToolType type, ToolItems owner, ToolObjectType<Block, ItemGenesisAxe> objType)
+	public ItemGenesisAxe(ToolItems owner, ToolObjectType<Block, ItemGenesisAxe> objType, ToolType type, Class<ToolType> variantClass)
 	{
 		super(type.toolMaterial);
 		

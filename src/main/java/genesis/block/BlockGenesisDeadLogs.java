@@ -23,9 +23,9 @@ public class BlockGenesisDeadLogs extends BlockGenesisLogs implements IGenesisMu
 		return BlockGenesisLogs.getProperties();
 	}
 	
-	public BlockGenesisDeadLogs(List<EnumTree> variants, VariantsOfTypesCombo<EnumTree> owner, ObjectType<? extends BlockGenesisDeadLogs, ? extends ItemBlockMulti<EnumTree>> type)
+	public BlockGenesisDeadLogs(VariantsOfTypesCombo<EnumTree> owner, ObjectType<? extends BlockGenesisDeadLogs, ? extends ItemBlockMulti<EnumTree>> type, List<EnumTree> variants, Class<EnumTree> variantClass)
 	{
-		super(variants, owner, type);
+		super(owner, type, variants, variantClass);
 		
 		setStepSound(GenesisSounds.DEAD_LOG);
 	}

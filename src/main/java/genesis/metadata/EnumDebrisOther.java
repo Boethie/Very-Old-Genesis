@@ -1,6 +1,6 @@
 package genesis.metadata;
 
-public enum EnumDebrisOther implements IMetadata
+public enum EnumDebrisOther implements IMetadata<EnumDebrisOther>
 {
 	CALAMITES("calamites"), EPIDEXIPTERYX_FEATHER("epidexipteryx_feather", "epidexipteryxFeather");
 	

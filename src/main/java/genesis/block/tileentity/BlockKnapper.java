@@ -1,7 +1,5 @@
 package genesis.block.tileentity;
 
-import java.util.Random;
-
 import genesis.common.Genesis;
 import genesis.common.GenesisCreativeTabs;
 import genesis.common.GenesisGuiHandler;
@@ -57,7 +55,6 @@ public class BlockKnapper extends Block
 	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state)
 	{
-		Random rand = world.rand;
 		TileEntityKnapper workbench = getTileEntity(world, pos);
 		
 		if (workbench != null)

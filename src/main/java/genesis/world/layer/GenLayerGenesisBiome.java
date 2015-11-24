@@ -22,6 +22,7 @@ public class GenLayerGenesisBiome extends GenLayerGenesis
 	{
 		super(seed);
 		
+		@SuppressWarnings("unchecked")
 		List<BiomeEntry>[] biomes = new ArrayList[BiomeType.values().length];
 		
 		for (BiomeType type : BiomeType.values())
