@@ -17,6 +17,7 @@ import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import org.lwjgl.opengl.GL11;
 
 @SuppressWarnings("deprecation")
 public class BlockAsEntityPart extends CustomEntityPart
@@ -145,15 +146,12 @@ public class BlockAsEntityPart extends CustomEntityPart
 				
 				RenderHelper.disableStandardItemLighting();
 				
-				wr.startDrawingQuads();
-				VertexFormat oldFormat = wr.getVertexFormat();
-				wr.setVertexFormat(DefaultVertexFormats.BLOCK);
+				wr.func_181668_a(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
 				
 				ModelHelpers.getBlockRenderer().renderModel(world, model, state, pos, wr, false);
 				
 				tess.draw();
 				
-				wr.setVertexFormat(oldFormat);
 				GlStateManager.popMatrix();
 			}
 			else

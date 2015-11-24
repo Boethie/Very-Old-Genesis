@@ -20,7 +20,7 @@ public class ParticleUtils
 		EnumParticleTypes particle = EnumHelper.addEnum(EnumParticleTypes.class, enumName,
 				new Class[]{String.class, int.class, boolean.class, int.class},
 				new Object[]{name, id, ignoreRange, argumentCount});
-		Minecraft.getMinecraft().effectRenderer.func_178929_a(id, factory);
+		Minecraft.getMinecraft().effectRenderer.registerParticle(id, factory);
 		
 		return particle;
 	}
