@@ -80,6 +80,10 @@ public class RenderFog
 					green = (waterColorMultiplier % 0x00ff00) >> 8;
 					blue = (waterColorMultiplier % 0x0000ff);
 					
+					red *= 0.160784314D;
+					green *= 0.384313725D;
+					blue *= 0.749019608D;
+					
 					red *= 0.0008D;
 					green *= 0.0008D;
 					blue *= 0.0008D;
