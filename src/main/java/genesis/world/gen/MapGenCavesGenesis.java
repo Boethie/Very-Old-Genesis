@@ -35,12 +35,15 @@ public class MapGenCavesGenesis extends MapGenCaves
 			{
 				data.setBlockState(x, y, z, Blocks.air.getDefaultState());
 				
-				if (GenesisBlocks.silt.isStateOf(filler, SiltBlocks.SILT, EnumSilt.SILT))
+				if (y > 55)
 				{
-					data.setBlockState(x, y + 1, z, GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.SILT));
-				} else if (GenesisBlocks.silt.isStateOf(filler, SiltBlocks.SILT, EnumSilt.RED_SILT))
-				{
-					data.setBlockState(x, y + 1, z, GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT));
+					if (GenesisBlocks.silt.isStateOf(filler, SiltBlocks.SILT, EnumSilt.SILT))
+					{
+						data.setBlockState(x, y + 1, z, GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.SILT));
+					} else if (GenesisBlocks.silt.isStateOf(filler, SiltBlocks.SILT, EnumSilt.RED_SILT))
+					{
+						data.setBlockState(x, y + 1, z, GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT));
+					}
 				}
 				
 				if (foundTop && data.getBlockState(x, y - 1, z).getBlock() == filler.getBlock())

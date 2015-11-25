@@ -86,15 +86,5 @@ public class WorldGenPlant extends WorldGenDecorationBase
 	protected void placePlant(World world, BlockPos pos, Random random)
 	{
 		((BlockPlant) combo.getBlock(type, variant)).placeAt(world, pos, variant, 2);
-		
-		/*BlockPos placePos = pos.up();
-		
-		if (world.isAirBlock(placePos) && world.isAirBlock(placePos.up()))
-		{
-			world.setBlockState(placePos, plant, 2);
-			
-			if (isDouble)
-				world.setBlockState(placePos.up(), plant, 2);
-		}*/
 	}
 }
