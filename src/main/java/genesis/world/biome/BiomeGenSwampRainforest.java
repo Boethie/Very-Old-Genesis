@@ -4,6 +4,7 @@ import genesis.common.GenesisBlocks;
 import genesis.entity.living.IEntityPreferredBiome;
 import genesis.entity.living.flying.EntityMeganeura;
 import genesis.metadata.EnumTree;
+import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
@@ -45,6 +46,7 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(2, 0).setNextToWater(true).setPatchSize(4).setCountPerChunk(11));
 		addDecoration(new WorldGenUnderWaterPatch(Blocks.water, GenesisBlocks.peat.getDefaultState()).setCountPerChunk(10));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
+		addDecoration(new WorldGenDebris().setCountPerChunk(15));
 		
 		addDecoration(new WorldGenRockBoulders().setRarity(95).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 		

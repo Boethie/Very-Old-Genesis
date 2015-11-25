@@ -3,6 +3,8 @@ package genesis.world.biome.decorate;
 import java.util.Random;
 
 import genesis.common.GenesisBlocks;
+import genesis.metadata.EnumDebrisOther;
+import genesis.metadata.EnumTree;
 import genesis.metadata.TreeBlocksAndItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -28,17 +30,39 @@ public class WorldGenDebris extends WorldGenDecorationBase
 		}
 		while (pos.getY() > 0);
 		
+		boolean willGenerate = false;
+		
+		int debrisCount = this.getPatchSize();
+		
+		if (debrisCount <= 1)
+			debrisCount = 25;
+		
+		for (int i = 0; i < debrisCount; ++i)
+		{
+			if (generateDebris(world, pos.add(3 - random.nextInt(7), 0, 3 - random.nextInt(7)), 5, 3, 5))
+			{
+				willGenerate = true;
+			}
+		}
+		
+		return willGenerate;
+	}
+	
+	private boolean generateDebris(World world, BlockPos pos, int distanceX, int distanceY, int distanceZ)
+	{
+		boolean willGenerate = false;
+		
 		if (!(world.getBlockState(pos).getBlock() == GenesisBlocks.moss || world.getBlockState(pos).getBlock() == Blocks.dirt))
 			return false;
 		
 		if (!world.getBlockState(pos.up()).getBlock().isAir(world, pos))
 			return false;
 		
-		int distanceX = 5;
-		int distanceZ = 5;
-		int distanceY = 3;
-		
 		IBlockState wood;
+		EnumTree variant = null;
+		IBlockState debris = null;
+		
+		BlockPos debrisPos = pos.up();
 		
 		found:
 			for (int x = -distanceX; x <= distanceX; ++x)
@@ -47,16 +71,38 @@ public class WorldGenDebris extends WorldGenDecorationBase
 				{
 					for (int y = -distanceY; y <= distanceY; ++y)
 					{
-						wood = world.getBlockState(pos.add(x, y, z));
+						wood = world.getBlockState(debrisPos.add(x, y, z));
 						
-						if (GenesisBlocks.trees.isStateOf(wood, TreeBlocksAndItems.LOG))
+						if (wood == GenesisBlocks.calamites.getDefaultState())
 						{
+							debris = GenesisBlocks.debris.getBlockState(EnumDebrisOther.CALAMITES);
+							willGenerate = true;
 							break found;
+						}
+						else if (GenesisBlocks.trees.isStateOf(wood, TreeBlocksAndItems.LOG))
+						{
+							variant = GenesisBlocks.trees.getVariant(wood);
+							
+							if (
+									variant == EnumTree.ARCHAEOPTERIS
+									|| variant == EnumTree.SIGILLARIA
+									|| variant == EnumTree.LEPIDODENDRON
+									|| variant == EnumTree.ARAUCARIOXYLON)
+							{
+								debris = GenesisBlocks.debris.getBlockState(variant);
+								willGenerate = true;
+								break found;
+							}
 						}
 					}
 				}
 			}
 		
-		return true;
+		if (willGenerate && debris != null)
+		{
+			setBlockInWorld(world, debrisPos, debris);
+		}
+		
+		return willGenerate;
 	}
 }

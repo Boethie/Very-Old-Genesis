@@ -1,9 +1,12 @@
 package genesis.world.biome;
 
+import java.util.Random;
+
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumPlant;
 import genesis.metadata.EnumTree;
 import genesis.world.biome.decorate.WorldGenArchaeomarasmius;
+import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
@@ -11,9 +14,6 @@ import genesis.world.biome.decorate.WorldGenPalaeoagaracites;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
 import genesis.world.gen.feature.WorldGenDeadLog;
 import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
-
-import java.util.Random;
-
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 
@@ -38,6 +38,7 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenPalaeoagaracites().setPatchSize(24).setCountPerChunk(128));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPatchSize(3).setCountPerChunk(2));
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(4));
+		addDecoration(new WorldGenDebris().setCountPerChunk(7));
 		
 		addDecoration(new WorldGenRockBoulders().setRarity(95).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 	}

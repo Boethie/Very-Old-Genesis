@@ -4,6 +4,7 @@ import genesis.common.GenesisBlocks;
 import genesis.metadata.DungBlocksAndItems;
 import genesis.metadata.EnumDung;
 import genesis.metadata.EnumPlant;
+import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenMossStages;
@@ -28,6 +29,7 @@ public class BiomeGenAuxPlains extends BiomeGenBaseGenesis
 		
 		addDecoration(new WorldGenRockBoulders().setRarity(10).setWaterRequired(false).setMaxHeight(3).addBlocks(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.SAUROPODA)).setCountPerChunk(1));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
+		addDecoration(new WorldGenDebris().setCountPerChunk(7));
 		
 		addDecoration(new WorldGenRockBoulders().setRarity(95).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 		

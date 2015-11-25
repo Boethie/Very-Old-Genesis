@@ -2,6 +2,7 @@ package genesis.world.biome;
 
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumTree;
+import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
@@ -38,6 +39,7 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(2, 0).setNextToWater(true).setPatchSize(4).setCountPerChunk(8));
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(8));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
+		addDecoration(new WorldGenDebris().setCountPerChunk(7));
 		
 		addDecoration(new WorldGenRockBoulders().setRarity(95).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 	}
