@@ -24,7 +24,7 @@ public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
 		setBiomeName("Shallow Ocean");
 		setTemperatureRainfall(0.5F, 0.4F);
 		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);
-		setHeight(-0.7F, 0.1F);
+		setHeight(-0.7F, 0.0F);
 		
 		setWaterColor(0x007d39);
 		theBiomeDecorator.grassPerChunk = 0;
