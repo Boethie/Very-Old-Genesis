@@ -300,8 +300,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 			setDefaultState(state.getBaseState().withProperty(ageProp, 0));
 		}
 		
-		ArrayList<IProperty<?>> metaProps = new ArrayList<IProperty<?>>();
-		metaProps.addAll((Collection<? extends IProperty<?>>) state.getProperties());
+		ArrayList<IProperty<?>> metaProps = new ArrayList<IProperty<?>>((Collection) state.getProperties());
 		
 		if (hasTopProperty)
 		{
