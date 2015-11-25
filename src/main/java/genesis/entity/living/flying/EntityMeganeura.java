@@ -66,13 +66,12 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 	
 	public static final int SPAWN_LIMIT = 2;
 	
-	@SuppressWarnings("unchecked")
 	public static int getChunkMeganeuraCount(World world, Vec3 pos)
 	{
 		double radius = 8;
 		AxisAlignedBB bb = new AxisAlignedBB(pos.xCoord, pos.yCoord, pos.zCoord, pos.xCoord, pos.yCoord, pos.zCoord).expand(radius, radius, radius);
-		List<Entity> meganeura = world.getEntitiesWithinAABB(EntityMeganeura.class, bb);
-		List<Entity> eggs = world.getEntitiesWithinAABB(EntityMeganeuraEgg.class, bb);
+		List<EntityMeganeura> meganeura = world.getEntitiesWithinAABB(EntityMeganeura.class, bb);
+		List<EntityMeganeuraEgg> eggs = world.getEntitiesWithinAABB(EntityMeganeuraEgg.class, bb);
 		
 		return meganeura.size() + eggs.size();
 	}

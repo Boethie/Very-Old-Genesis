@@ -4,7 +4,6 @@ import java.util.*;
 
 import com.google.common.collect.Maps;
 
-import genesis.block.tileentity.portal.*;
 import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
 import genesis.portal.GenesisPortal;

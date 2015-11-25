@@ -2,8 +2,6 @@ package genesis.block;
 
 import java.util.*;
 
-import org.apache.commons.lang3.tuple.*;
-
 import com.google.common.collect.*;
 
 import genesis.block.tileentity.TileEntityGenesisFlowerPot;
@@ -36,13 +34,13 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		public int getColorMultiplier(ItemStack contents, IBlockAccess world, BlockPos pos);
 	}
 	
-	public static class PropertyContents extends PropertyHelper
+	public static class PropertyContents extends PropertyHelper<ItemStackKey>
 	{
 		protected final Map<ItemStackKey, String> values;
 		
 		public PropertyContents(String name, Map<ItemStackKey, String> values)
 		{
-			super(name, Pair.class);
+			super(name, ItemStackKey.class);
 			
 			this.values = values;
 		}
@@ -55,7 +53,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		}
 		
 		@Override
-		public String getName(Comparable value)
+		public String getName(ItemStackKey value)
 		{
 			return values.get(value);
 		}
@@ -121,7 +119,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		return stacksToCustoms.get(getStackKey(stack));
 	}
 	
-	public <O extends ObjectType<?, ?>, V extends IMetadata> void registerPlantsForPot(VariantsOfTypesCombo<V> combo, O type, IFlowerPotPlant customs)
+	public <O extends ObjectType<?, ?>, V extends IMetadata<V>> void registerPlantsForPot(VariantsOfTypesCombo<V> combo, O type, IFlowerPotPlant customs)
 	{
 		for (V variant : combo.getValidVariants(type))
 		{
@@ -131,7 +129,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		}
 	}
 	
-	public <V extends IMetadata, B extends Block, I extends Item> void registerPlantsForPot(VariantsCombo<V, B, I> combo, IFlowerPotPlant customs)
+	public <V extends IMetadata<V>, B extends Block, I extends Item> void registerPlantsForPot(VariantsCombo<V, B, I> combo, IFlowerPotPlant customs)
 	{
 		registerPlantsForPot(combo, combo.soleType, customs);
 	}
@@ -238,7 +236,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		}
 		
 		state = Blocks.flower_pot.getActualState(state, world, pos);
-		EnumFlowerType contents = (EnumFlowerType) state.getValue(BlockFlowerPot.CONTENTS);
+		EnumFlowerType contents = state.getValue(BlockFlowerPot.CONTENTS);
 		
 		if (contents != EnumFlowerType.EMPTY)
 		{
@@ -269,7 +267,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 					{
 						Vec3 hitVec = mc.objectMouseOver.hitVec;
 						hitVec = hitVec.subtract(pos.getX(), pos.getY(), pos.getZ());
-						Packet packet = new C08PacketPlayerBlockPlacement(pos, event.face.getIndex(), stack, (float) hitVec.xCoord, (float) hitVec.yCoord, (float) hitVec.zCoord);
+						Packet<?> packet = new C08PacketPlayerBlockPlacement(pos, event.face.getIndex(), stack, (float) hitVec.xCoord, (float) hitVec.yCoord, (float) hitVec.zCoord);
 						spPlayer.sendQueue.addToSendQueue(packet);
 						
 						spPlayer.swingItem();

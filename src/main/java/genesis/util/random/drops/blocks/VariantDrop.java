@@ -7,16 +7,16 @@ import net.minecraft.item.ItemStack;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 
-public class VariantDrop<V extends IMetadata> extends BlockDrop
+public class VariantDrop<V extends IMetadata<V>> extends BlockDrop
 {
-	public static <T extends IMetadata> VariantDrop<T> create(VariantsOfTypesCombo<T> combo, ObjectType<?, ?> type, int min, int max)
+	public static <V extends IMetadata<V>> VariantDrop<V> create(VariantsOfTypesCombo<V> combo, ObjectType<?, ?> type, int min, int max)
 	{
-		return new VariantDrop<T>(combo, type, min, max);
+		return new VariantDrop<V>(combo, type, min, max);
 	}
 	
-	public static <T extends IMetadata> VariantDrop<T> create(VariantsOfTypesCombo<T> combo, ObjectType<?, ?> type, int size)
+	public static <V extends IMetadata<V>> VariantDrop<V> create(VariantsOfTypesCombo<V> combo, ObjectType<?, ?> type, int size)
 	{
-		return new VariantDrop<T>(combo, type, size);
+		return new VariantDrop<V>(combo, type, size);
 	}
 	
 	public VariantsOfTypesCombo<V> combo;

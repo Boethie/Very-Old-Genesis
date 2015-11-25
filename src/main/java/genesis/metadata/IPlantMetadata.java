@@ -9,7 +9,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public interface IPlantMetadata extends IMetadata
+public interface IPlantMetadata<V> extends IMetadata<V>
 {
 	public int getColorMultiplier(IBlockAccess world, BlockPos pos);
 	

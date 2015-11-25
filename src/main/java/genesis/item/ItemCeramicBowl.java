@@ -24,16 +24,17 @@ import genesis.client.GenesisClient;
 import genesis.common.GenesisItems;
 import genesis.metadata.*;
 import genesis.metadata.ItemsCeramicBowls.EnumCeramicBowls;
+import genesis.metadata.MultiMetadataList.MultiMetadata;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 
 public class ItemCeramicBowl extends ItemGenesis
 {
 	public final ItemsCeramicBowls owner;
 	
-	protected final List<IMetadata> variants;
+	protected final List<MultiMetadata> variants;
 	protected final ObjectType<Block, ItemCeramicBowl> type;
 	
-	public ItemCeramicBowl(List<IMetadata> variants, ItemsCeramicBowls owner, ObjectType<Block, ItemCeramicBowl> type)
+	public ItemCeramicBowl(ItemsCeramicBowls owner, ObjectType<Block, ItemCeramicBowl> type, List<MultiMetadata> variants, Class<MultiMetadata> variantClass)
 	{
 		super();
 		
@@ -56,7 +57,7 @@ public class ItemCeramicBowl extends ItemGenesis
 	}
 	
 	@Override
-	public void getSubItems(Item itemIn, CreativeTabs tab, List subItems)
+	public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems)
 	{
 		owner.fillSubItems(type, variants, subItems);
 	}
@@ -76,7 +77,7 @@ public class ItemCeramicBowl extends ItemGenesis
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
 	{
-		EnumCeramicBowls variant = (EnumCeramicBowls) owner.getVariant(stack);
+		EnumCeramicBowls variant = (EnumCeramicBowls) owner.getVariant(stack).getOriginal();
 		
 		switch (variant)
 		{
@@ -94,7 +95,7 @@ public class ItemCeramicBowl extends ItemGenesis
 						player.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
 						
 						player.swingItem();
-						ItemStack newStack = GenesisItems.bowls.getStack(ItemsCeramicBowls.MAIN, EnumCeramicBowls.WATER_BOWL);
+						ItemStack newStack = GenesisItems.bowls.getStack(EnumCeramicBowls.WATER_BOWL);
 						stack.stackSize--;
 						
 						if (stack.stackSize <= 0)
@@ -124,7 +125,7 @@ public class ItemCeramicBowl extends ItemGenesis
 	@Override
 	public ItemStack onItemUseFinish(ItemStack stack, World world, EntityPlayer player)
 	{
-		EnumCeramicBowls variant = (EnumCeramicBowls) owner.getVariant(stack);
+		EnumCeramicBowls variant = (EnumCeramicBowls) owner.getVariant(stack).getOriginal();
 		
 		switch (variant)
 		{
@@ -163,16 +164,15 @@ public class ItemCeramicBowl extends ItemGenesis
 		Block block = state.getBlock();
 		
 		ItemStack stack = player.getHeldItem();
-		VariantsOfTypesCombo<IMetadata>.VariantData variantData = owner.getVariantData(stack);
 		
 		switch (event.action)
 		{
 		case RIGHT_CLICK_BLOCK:
-			if (variantData != null && variantData.variant == EnumCeramicBowls.BOWL && block == Blocks.cauldron)
+			if (owner.isStackOf(stack, EnumCeramicBowls.BOWL) && block == Blocks.cauldron)
 			{
 				event.useBlock = Result.DENY;
 				
-				int cauldronLevel = (Integer) state.getValue(BlockCauldron.LEVEL);
+				int cauldronLevel = state.getValue(BlockCauldron.LEVEL);
 				
 				if (cauldronLevel > 0)
 				{
@@ -206,7 +206,7 @@ public class ItemCeramicBowl extends ItemGenesis
 						{
 							Vec3 hitVec = mc.objectMouseOver.hitVec;
 							hitVec = hitVec.subtract(pos.getX(), pos.getY(), pos.getZ());
-							Packet packet = new C08PacketPlayerBlockPlacement(pos, event.face.getIndex(), stack, (float) hitVec.xCoord, (float) hitVec.yCoord, (float) hitVec.zCoord);
+							Packet<?> packet = new C08PacketPlayerBlockPlacement(pos, event.face.getIndex(), stack, (float) hitVec.xCoord, (float) hitVec.yCoord, (float) hitVec.zCoord);
 							spPlayer.sendQueue.addToSendQueue(packet);
 							
 							spPlayer.swingItem();

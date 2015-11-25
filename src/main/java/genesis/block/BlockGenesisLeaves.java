@@ -29,7 +29,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 	 * Used in BlocksAndItemsWithVariantsOfTypes.
 	 */
 	@BlockProperties
-	public static IProperty[] getProperties()
+	public static IProperty<?>[] getProperties()
 	{
 		return new IProperty[]{ CHECK_DECAY, DECAYABLE };
 	}
@@ -43,7 +43,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 	private ItemStack rareDrop;
 	private double rareDropChance;
 	
-	public BlockGenesisLeaves(List<EnumTree> variants, TreeBlocksAndItems owner, ObjectType<BlockGenesisLeaves, ItemBlockMulti<EnumTree>> type)
+	public BlockGenesisLeaves(TreeBlocksAndItems owner, ObjectType<BlockGenesisLeaves, ItemBlockMulti<EnumTree>> type, List<EnumTree> variants, Class<EnumTree> variantClass)
 	{
 		super();
 		
@@ -51,7 +51,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 		this.type = type;
 		
 		this.variants = variants;
-		variantProp = new PropertyIMetadata<EnumTree>("variant", variants);
+		variantProp = new PropertyIMetadata<EnumTree>("variant", variants, variantClass);
 		
 		blockState = new BlockState(this, variantProp, CHECK_DECAY, DECAYABLE);
 		setDefaultState(getBlockState().getBaseState().withProperty(DECAYABLE, true).withProperty(CHECK_DECAY, false));
@@ -87,7 +87,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 	}
 	
 	@Override
-	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
+	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list)
 	{
 		owner.fillSubItems(type, variants, list);
 	}
@@ -142,7 +142,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
 	{
 		IBlockState state = getDefaultState();
-		state = state.withProperty(variantProp, (Comparable<?>) owner.getVariant(this, meta));
+		state = state.withProperty(variantProp, owner.getVariant(this, meta));
 		state = state.withProperty(DECAYABLE, false).withProperty(CHECK_DECAY, false);
 		return state;
 	}
@@ -177,7 +177,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 					{
 						if (!nextPos.equals(curPos))
 						{
-							BlockPos diff = curPos.add(nextPos.multiply(-1));
+							BlockPos diff = curPos.subtract(nextPos);
 							int blockDist = Math.abs(diff.getX()) + Math.abs(diff.getY()) + Math.abs(diff.getZ());
 							float addCost = distanceCosts[blockDist];
 							
@@ -203,7 +203,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 	{
 		IBlockState state = world.getBlockState(pos);
 		
-		if ((Boolean) state.getValue(BlockLeaves.CHECK_DECAY) && world.isAreaLoaded(pos.add(-leafDistance, -leafDistance, -leafDistance), pos.add(leafDistance, leafDistance, leafDistance)))
+		if (state.getValue(BlockLeaves.CHECK_DECAY) && world.isAreaLoaded(pos.add(-leafDistance, -leafDistance, -leafDistance), pos.add(leafDistance, leafDistance, leafDistance)))
 		{
 			if (isConnectedToLog(world, pos))
 			{

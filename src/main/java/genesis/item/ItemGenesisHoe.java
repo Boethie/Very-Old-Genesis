@@ -18,7 +18,7 @@ public class ItemGenesisHoe extends ItemHoe
 	protected final ToolType type;
 	protected final ToolObjectType<Block, ItemGenesisHoe> objType;
 	
-	public ItemGenesisHoe(ToolType type, ToolItems owner, ToolObjectType<Block, ItemGenesisHoe> objType)
+	public ItemGenesisHoe(ToolItems owner, ToolObjectType<Block, ItemGenesisHoe> objType, ToolType type, Class<ToolType> variantClass)
 	{
 		super(type.toolMaterial);
 		
@@ -34,7 +34,7 @@ public class ItemGenesisHoe extends ItemHoe
 	}
 	
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
 		super.addInformation(stack, playerIn, tooltip, advanced);
 		owner.addToolInformation(stack, playerIn, tooltip, advanced);

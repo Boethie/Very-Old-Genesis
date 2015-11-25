@@ -21,16 +21,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.IChatComponent;
+import net.minecraft.util.ITickable;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapping, IUpdatePlayerListBox
+public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapping, ITickable
 {
 	public class KnappingState
 	{
@@ -774,7 +774,7 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		
 		protected int getParentSlotIndex(int index)
 		{
-			return TileEntityKnapper.this.SLOTS_CRAFTING_START + index;
+			return TileEntityKnapper.SLOTS_CRAFTING_START + index;
 		}
 		
 		@Override
@@ -798,7 +798,7 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		@Override
 		public int getSizeInventory()
 		{
-			return TileEntityKnapper.this.SLOTS_CRAFTING_W * TileEntityKnapper.this.SLOTS_CRAFTING_H;
+			return TileEntityKnapper.SLOTS_CRAFTING_W * TileEntityKnapper.SLOTS_CRAFTING_H;
 		}
 		
 		@Override

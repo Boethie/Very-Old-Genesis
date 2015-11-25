@@ -23,7 +23,7 @@ public class ItemGenesisClub extends ItemSword
 	protected final ToolType type;
 	protected final ToolObjectType<Block, ItemGenesisClub> objType;
 	
-	public ItemGenesisClub(ToolType type, ToolItems owner, ToolObjectType<Block, ItemGenesisClub> objType)
+	public ItemGenesisClub(ToolItems owner, ToolObjectType<Block, ItemGenesisClub> objType, ToolType type, Class<ToolType> variantClass)
 	{
 		super(type.toolMaterial);
 		
@@ -39,16 +39,16 @@ public class ItemGenesisClub extends ItemSword
 	}
 	
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
 		super.addInformation(stack, playerIn, tooltip, advanced);
 		owner.addToolInformation(stack, playerIn, tooltip, advanced);
 	}
 	
 	@Override
-	public Multimap getItemAttributeModifiers()
+	public Multimap<String, AttributeModifier> getAttributeModifiers(ItemStack stack)
 	{
-		Multimap modifiers = super.getItemAttributeModifiers();
+		Multimap<String, AttributeModifier> modifiers = super.getItemAttributeModifiers();
 		modifiers.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(),
 				new AttributeModifier(itemModifierUUID, "Weapon modifier", 3.5F + type.toolMaterial.getDamageVsEntity(), 0));
 		return modifiers;

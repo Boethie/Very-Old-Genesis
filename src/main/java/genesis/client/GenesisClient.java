@@ -19,7 +19,6 @@ import net.minecraft.client.resources.*;
 import net.minecraft.client.resources.model.*;
 import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
 import net.minecraftforge.client.model.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.fluids.BlockFluidBase;
@@ -30,7 +29,7 @@ public class GenesisClient extends GenesisProxy
 {
 	private static final Minecraft MC = FMLClientHandler.instance().getClient();
 	
-	protected Map<Class<? extends TileEntity>, TileEntitySpecialRenderer> mapTESRsToRegister = Maps.newHashMap();
+	protected Map<Class<? extends TileEntity>, TileEntitySpecialRenderer<?>> mapTESRsToRegister = Maps.newHashMap();
 	
 	public static Minecraft getMC()
 	{
@@ -54,14 +53,11 @@ public class GenesisClient extends GenesisProxy
 	{
 		((IReloadableResourceManager) MC.getResourceManager()).registerReloadListener(new ColorizerDryMoss());
 		
-		ModelLoaderRegistry.registerLoader(GenesisCustomModelLoader.instance);
-		MinecraftForge.EVENT_BUS.register(GenesisCustomModelLoader.instance);
-		
 		//Music Event Handler
 		MinecraftForge.EVENT_BUS.register(new MusicEventHandler());
 		
 		// Gotta register TESRs after Minecraft has initialized, otherwise the vanilla piston TESR crashes.
-		for (Map.Entry<Class<? extends TileEntity>, TileEntitySpecialRenderer> entry : mapTESRsToRegister.entrySet())
+		for (Map.Entry<Class<? extends TileEntity>, TileEntitySpecialRenderer<?>> entry : mapTESRsToRegister.entrySet())
 		{
 			ClientRegistry.bindTileEntitySpecialRenderer(entry.getKey(), entry.getValue());
 		}
@@ -168,16 +164,6 @@ public class GenesisClient extends GenesisProxy
 		ModelLoader.setCustomStateMapper(block, map);
 	}
 	
-	public void registerCustomModel(String path, IModel model)
-	{
-		GenesisCustomModelLoader.registerCustomModel(path, model);
-	}
-	
-	public void registerCustomModel(ResourceLocation path, ISmartBlockModel model)
-	{
-		GenesisCustomModelLoader.registerCustomModel(path, model);
-	}
-	
 	public void addVariantName(Block block, String name)
 	{
 		addVariantName(Item.getItemFromBlock(block), name);
@@ -188,7 +174,7 @@ public class GenesisClient extends GenesisProxy
 		ModelBakery.addVariantName(item, Constants.ASSETS_PREFIX + name);
 	}
 	
-	public void registerTileEntityRenderer(Class<? extends TileEntity> teClass, TileEntitySpecialRenderer renderer)
+	public void registerTileEntityRenderer(Class<? extends TileEntity> teClass, TileEntitySpecialRenderer<?> renderer)
 	{
 		mapTESRsToRegister.put(teClass, renderer);
 	}

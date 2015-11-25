@@ -18,12 +18,11 @@ import net.minecraft.client.resources.model.*;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.tileentity.*;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer
+public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEntityCampfire>
 {
 	public static final ModelResourceLocation FIRE = new ModelResourceLocation(Constants.ASSETS_PREFIX + "campfire_fire");
 	public static final ModelResourceLocation STICK = new ModelResourceLocation(Constants.ASSETS_PREFIX + "campfire_stick");
@@ -165,14 +164,13 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer
 	}
 	
 	@Override
-	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float partialTick, int destroyStage)
-	{model = new ModelCampfire();
+	public void renderTileEntityAt(TileEntityCampfire campfire, double x, double y, double z, float partialTick, int destroyStage)
+	{
 		// Translate to the proper coordinates.
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x, y, z);
 		
 		// Get data about the block in the world.
-		TileEntityCampfire campfire = (TileEntityCampfire) te;
 		World world = campfire.getWorld();
 		BlockPos pos = campfire.getPos();
 		IBlockState state = world.getBlockState(pos);

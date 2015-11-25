@@ -23,13 +23,12 @@ import net.minecraft.item.crafting.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.*;
 import net.minecraft.network.play.server.*;
-import net.minecraft.server.gui.*;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraftforge.fluids.*;
 
-public class TileEntityCampfire extends TileEntityLockable implements ISidedInventory, IInventoryDisabledSlots, InventoryCookingPot, IUpdatePlayerListBox
+public class TileEntityCampfire extends TileEntityLockable implements ISidedInventory, IInventoryDisabledSlots, InventoryCookingPot, ITickable
 {
 	public static int getItemBurnTime(ItemStack stack)
 	{

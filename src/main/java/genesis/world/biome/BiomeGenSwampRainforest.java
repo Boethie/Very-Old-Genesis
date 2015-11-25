@@ -25,7 +25,6 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEntityPreferredBiome
 {
-	@SuppressWarnings("unchecked")
 	public BiomeGenSwampRainforest(int id)
 	{
 		super(id);
@@ -75,7 +74,7 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 	@Override
 	public void genTerrainBlocks(World world, Random rand, ChunkPrimer p_180622_3_, int p_180622_4_, int p_180622_5_, double p_180622_6_)
 	{
-		double d1 = field_180281_af.func_151601_a((double)p_180622_4_ * 0.25D, (double)p_180622_5_ * 0.25D);
+		double d1 = GRASS_COLOR_NOISE.func_151601_a((double)p_180622_4_ * 0.25D, (double)p_180622_5_ * 0.25D);
 		
 		if (d1 > -0.2D)
 		{

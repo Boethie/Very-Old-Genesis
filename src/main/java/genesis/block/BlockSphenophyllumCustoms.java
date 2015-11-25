@@ -20,7 +20,7 @@ import net.minecraft.world.World;
 public class BlockSphenophyllumCustoms implements IGrowingPlantCustoms
 {
 	@Override
-	public void managePlantMetaProperties(BlockGrowingPlant plant, ArrayList<IProperty> metaProps)
+	public void managePlantMetaProperties(BlockGrowingPlant plant, ArrayList<IProperty<?>> metaProps)
 	{
 	}
 	
@@ -29,8 +29,8 @@ public class BlockSphenophyllumCustoms implements IGrowingPlantCustoms
 	{
 		ItemStack stack = GenesisItems.materials.getStack(EnumMaterial.SPHENOPHYLLUM_FIBER);
 		
-		int age = (Integer) state.getValue(plant.ageProp);
-		boolean top = (Boolean) state.getValue(plant.topProp);
+		int age = state.getValue(plant.ageProp);
+		boolean top = state.getValue(plant.topProp);
 		IntRange range = null;
 		
 		if (!top)
@@ -86,7 +86,7 @@ public class BlockSphenophyllumCustoms implements IGrowingPlantCustoms
 	@Override
 	public void plantUpdateTick(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, Random rand, boolean grew)
 	{
-		int age = (Integer) state.getValue(plant.ageProp);
+		int age = state.getValue(plant.ageProp);
 		
 		if (age >= plant.maxAge && rand.nextInt(35) == 0)
 		{

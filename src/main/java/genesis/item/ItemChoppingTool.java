@@ -23,7 +23,7 @@ public class ItemChoppingTool extends ItemAxe
 	protected final ToolType type;
 	protected final ToolObjectType<Block, ItemChoppingTool> objType;
 	
-	public ItemChoppingTool(ToolType type, ToolItems owner, ToolObjectType<Block, ItemChoppingTool> objType)
+	public ItemChoppingTool(ToolItems owner, ToolObjectType<Block, ItemChoppingTool> objType, ToolType type, Class<ToolType> variantClass)
 	{
 		super(type.toolMaterial);
 		
@@ -49,7 +49,7 @@ public class ItemChoppingTool extends ItemAxe
 	}
 	
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
 		super.addInformation(stack, playerIn, tooltip, advanced);
 		owner.addToolInformation(stack, playerIn, tooltip, advanced);

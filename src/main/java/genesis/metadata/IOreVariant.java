@@ -6,7 +6,7 @@ import genesis.util.random.IntRange;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 
-public interface IOreVariant extends IMetadata
+public interface IOreVariant<V> extends IMetadata<V>
 {
 	public int getHarvestLevel();
 	public float getHardness();

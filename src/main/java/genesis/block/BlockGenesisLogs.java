@@ -33,7 +33,7 @@ public class BlockGenesisLogs extends BlockLog
 	 * Used in BlocksAndItemsWithVariantsOfTypes.
 	 */
 	@BlockProperties
-	public static IProperty[] getProperties()
+	public static IProperty<?>[] getProperties()
 	{
 		return new IProperty[]{ LOG_AXIS };
 	}
@@ -44,7 +44,7 @@ public class BlockGenesisLogs extends BlockLog
 	public final List<EnumTree> variants;
 	public final PropertyIMetadata<EnumTree> variantProp;
 	
-	public BlockGenesisLogs(List<EnumTree> variants, VariantsOfTypesCombo<EnumTree> owner, ObjectType<? extends BlockGenesisLogs, ? extends ItemBlockMulti<EnumTree>> type)
+	public BlockGenesisLogs(VariantsOfTypesCombo<EnumTree> owner, ObjectType<? extends BlockGenesisLogs, ? extends ItemBlockMulti<EnumTree>> type, List<EnumTree> variants, Class<EnumTree> variantClass)
 	{
 		super();
 		
@@ -52,7 +52,7 @@ public class BlockGenesisLogs extends BlockLog
 		this.type = type;
 		
 		this.variants = variants;
-		variantProp = new PropertyIMetadata<EnumTree>("variant", variants);
+		variantProp = new PropertyIMetadata<EnumTree>("variant", variants, variantClass);
 		
 		blockState = new BlockState(this, variantProp, LOG_AXIS);
 		setDefaultState(getBlockState().getBaseState().withProperty(LOG_AXIS, EnumAxis.NONE));
@@ -64,7 +64,7 @@ public class BlockGenesisLogs extends BlockLog
 	}
 
 	@Override
-	public void getSubBlocks(Item item, CreativeTabs tab, List list)
+	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list)
 	{
 		owner.fillSubItems(type, variants, list);
 	}

@@ -18,13 +18,14 @@ public class FlexibleStateMap extends StateMapperBase
 {
 	protected String prefix = "";
 	protected String prefixSeparator = "";
+	@SuppressWarnings("rawtypes")
 	protected IProperty nameProperty = null;
 	protected String postfixSeparator = "";
 	protected String postfix = "";
 	protected Function<String, String> nameFunction = null;
-	protected ArrayList<IProperty> ignoreProperties;
+	protected ArrayList<IProperty<?>> ignoreProperties;
 	
-	public FlexibleStateMap(IProperty... ignoreProperties)
+	public FlexibleStateMap(IProperty<?>... ignoreProperties)
 	{
 		this.ignoreProperties = Lists.newArrayList(ignoreProperties);
 	}
@@ -37,7 +38,7 @@ public class FlexibleStateMap extends StateMapperBase
 		return this;
 	}
 	
-	public FlexibleStateMap setNameProperty(IProperty nameProperty)
+	public FlexibleStateMap setNameProperty(IProperty<?> nameProperty)
 	{
 		this.nameProperty = nameProperty;
 		
@@ -64,24 +65,25 @@ public class FlexibleStateMap extends StateMapperBase
 		return this;
 	}
 	
-	public FlexibleStateMap addIgnoredProperties(IProperty... addProperties)
+	public FlexibleStateMap addIgnoredProperties(IProperty<?>... addProperties)
 	{
 		Collections.addAll(ignoreProperties, addProperties);
 		
 		return this;
 	}
-	
+
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	@Override
 	protected ModelResourceLocation getModelResourceLocation(IBlockState state)
 	{
-		ResourceLocation registeredAs = (ResourceLocation) Block.blockRegistry.getNameForObject(state.getBlock());
+		ResourceLocation registeredAs = Block.blockRegistry.getNameForObject(state.getBlock());
 		String domain = registeredAs.getResourceDomain();
 		
 		// Set prefix name section.
 		String outPrefix = prefix;
 		
 		String outMain = "";
-		Map<IProperty, Comparable<?>> propertyMap = new LinkedHashMap<IProperty, Comparable<?>>(state.getProperties());
+		Map<IProperty, Comparable> propertyMap = new LinkedHashMap<IProperty, Comparable>(state.getProperties());
 		
 		// Set main name section.
 		if (nameProperty != null)

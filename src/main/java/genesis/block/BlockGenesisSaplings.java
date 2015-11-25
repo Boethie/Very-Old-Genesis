@@ -44,7 +44,7 @@ public class BlockGenesisSaplings extends BlockSapling
 	 * Used in BlocksAndItemsWithVariantsOfTypes.
 	 */
 	@BlockProperties
-	public static IProperty[] getProperties()
+	public static IProperty<?>[] getProperties()
 	{
 		return new IProperty[]{ STAGE };
 	}
@@ -55,7 +55,7 @@ public class BlockGenesisSaplings extends BlockSapling
 	public final List<EnumTree> variants;
 	public final PropertyIMetadata<EnumTree> variantProp;
 	
-	public BlockGenesisSaplings(List<EnumTree> variants, TreeBlocksAndItems owner, ObjectType<BlockGenesisSaplings, ItemBlockMulti<EnumTree>> type)
+	public BlockGenesisSaplings(TreeBlocksAndItems owner, ObjectType<BlockGenesisSaplings, ItemBlockMulti<EnumTree>> type, List<EnumTree> variants, Class<EnumTree> variantClass)
 	{
 		super();
 		
@@ -63,7 +63,7 @@ public class BlockGenesisSaplings extends BlockSapling
 		this.type = type;
 		
 		this.variants = variants;
-		variantProp = new PropertyIMetadata<EnumTree>("variant", variants);
+		variantProp = new PropertyIMetadata<EnumTree>("variant", variants, variantClass);
 		
 		blockState = new BlockState(this, variantProp, STAGE);
 		setDefaultState(getBlockState().getBaseState());
@@ -85,7 +85,7 @@ public class BlockGenesisSaplings extends BlockSapling
 	}
 	
 	@Override
-	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
+	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list)
 	{
 		owner.fillSubItems(type, variants, list);
 	}

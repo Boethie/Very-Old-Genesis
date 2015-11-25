@@ -5,11 +5,11 @@ import genesis.portal.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
 
-public class TileEntityMenhirReceptacle extends TileEntityBase implements IUpdatePlayerListBox
+public class TileEntityMenhirReceptacle extends TileEntityBase implements ITickable
 {
 	protected ItemStack containedItem = null;
 	protected byte timer = 0;

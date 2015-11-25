@@ -1,6 +1,6 @@
 package genesis.metadata;
 
-public enum EnumFood implements IMetadata
+public enum EnumFood implements IMetadata<EnumFood>
 {
 	SPIRIFER("spirifer",
 			2, 0.4F,

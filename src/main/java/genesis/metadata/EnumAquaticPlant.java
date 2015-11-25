@@ -1,6 +1,6 @@
 package genesis.metadata;
 
-public enum EnumAquaticPlant implements IMetadata
+public enum EnumAquaticPlant implements IMetadata<EnumAquaticPlant>
 {
 	GRYPANIA("grypania"), BANGIOMORPHA("bangiomorpha"), MARPOLIA("marpolia"), MARGERETIA("margaretia"), CHANCELLORIA("chancelloria"),
 	HAZELLA("hazelia"), DIAGONIELLA("diagoniella"), PIRANIA("pirania"), VAUXIA("vauxia"), WAPKIA("wapkia"), ERNIETTA("ernietta"),

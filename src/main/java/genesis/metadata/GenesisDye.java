@@ -6,7 +6,7 @@ import com.google.common.collect.*;
 
 import net.minecraft.item.*;
 
-public class GenesisDye implements IMetadata, Comparable<GenesisDye>
+public class GenesisDye implements IMetadata<GenesisDye>
 {
 	protected static final List<GenesisDye> DYES;
 	protected static final Map<EnumDyeColor, GenesisDye> GETTER_MAP;

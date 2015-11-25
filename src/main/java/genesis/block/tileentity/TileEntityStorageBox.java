@@ -14,18 +14,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import net.minecraft.network.*;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.*;
 import net.minecraft.util.EnumFacing.*;
 
-public class TileEntityStorageBox extends TileEntityLockable implements ISidedInventory, IUpdatePlayerListBox
+public class TileEntityStorageBox extends TileEntityLockable implements ISidedInventory, ITickable
 {
 	public static final AxisDirection MAIN_DIR = AxisDirection.NEGATIVE;
 	
 	public static final int SLOTS_W = 9;
 	public static final int SLOTS_H = 3;
-
+	
 	public static final int USERS_UPDATE_ID = 1;
 	public static final int OPEN_DIRECTION_UPDATE_ID = 2;
 	

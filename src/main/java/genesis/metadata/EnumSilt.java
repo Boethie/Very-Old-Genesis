@@ -1,6 +1,6 @@
 package genesis.metadata;
 
-public enum EnumSilt implements IMetadata
+public enum EnumSilt implements IMetadata<EnumSilt>
 {
 	SILT("", "", "normal"), RED_SILT("red");
 	

@@ -16,7 +16,6 @@ import genesis.metadata.ToolTypes.ToolType;
 import genesis.metadata.ToolItems.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
-import genesis.util.render.ModelHelpers;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.*;
@@ -30,7 +29,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.*;
 public class BlockGenesisPebble extends Block
 {
 	@BlockProperties
-	public static IProperty[] getProperties()
+	public static IProperty<?>[] getProperties()
 	{
 		return new IProperty[]{NW, NE, SE, SW};
 	}
@@ -47,7 +46,7 @@ public class BlockGenesisPebble extends Block
 	public final PropertyIMetadata<ToolType> variantProp;
 	public PropertyInteger randomProp;
 	
-	public BlockGenesisPebble(ToolType variant, ToolItems owner, ToolObjectType<BlockGenesisPebble, ItemPebble> type)
+	public BlockGenesisPebble(ToolItems owner, ToolObjectType<BlockGenesisPebble, ItemPebble> type, ToolType variant, Class<ToolType> variantClass)
 	{
 		super(Material.rock);
 		
@@ -55,7 +54,7 @@ public class BlockGenesisPebble extends Block
 		this.type = type;
 		
 		this.variant = variant;
-		variantProp = new PropertyIMetadata<ToolType>("variant", Collections.singletonList(variant));
+		variantProp = new PropertyIMetadata<ToolType>("variant", Collections.singletonList(variant), variantClass);
 		
 		final String randomName = "zrandom";
 		Genesis.proxy.callSided(new SidedFunction()
@@ -203,7 +202,7 @@ public class BlockGenesisPebble extends Block
 		
 		for (Part part : Part.values())
 		{
-			if ((Boolean) state.getValue(part.prop))
+			if (state.getValue(part.prop))
 			{
 				hasPebble = true;
 				setBlockBounds(part.bounds);
@@ -247,13 +246,13 @@ public class BlockGenesisPebble extends Block
 	}
 	
 	@Override
-	public void addCollisionBoxesToList(World world, BlockPos pos, IBlockState state, AxisAlignedBB mask, List list, Entity collidingEntity)
+	public void addCollisionBoxesToList(World world, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
 	{
 		for (Part part : Part.values())
 		{
 			AxisAlignedBB bb = part.bounds.offset(pos.getX(), pos.getY(), pos.getZ());
 			
-			if ((Boolean) state.getValue(part.prop) && mask.intersectsWith(bb))
+			if (state.getValue(part.prop) && mask.intersectsWith(bb))
 			{
 				list.add(bb);
 			}
@@ -350,7 +349,7 @@ public class BlockGenesisPebble extends Block
 			
 			for (Part part : Part.values())
 			{
-				if ((Boolean) state.getValue(part.prop))
+				if (state.getValue(part.prop))
 				{
 					hasPebble = true;
 					break;
@@ -412,7 +411,7 @@ public class BlockGenesisPebble extends Block
 			
 			for (Part part : Part.values())
 			{
-				if ((Boolean) state.getValue(part.prop))
+				if (state.getValue(part.prop))
 				{
 					count++;
 				}

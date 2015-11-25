@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
-import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms.CanStayOptions;
 import genesis.common.GenesisBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
@@ -28,7 +27,7 @@ public class SurviveOnDirtCustoms implements IGrowingPlantCustoms
 	}
 	
 	@Override
-	public void managePlantMetaProperties(BlockGrowingPlant plant, ArrayList<IProperty> metaProps)
+	public void managePlantMetaProperties(BlockGrowingPlant plant, ArrayList<IProperty<?>> metaProps)
 	{
 	}
 	

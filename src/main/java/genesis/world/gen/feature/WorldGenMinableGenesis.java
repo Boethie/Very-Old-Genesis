@@ -25,7 +25,6 @@ public class WorldGenMinableGenesis extends WorldGenMinable
 		this(ore, minCount, maxCount, GenesisBlocks.granite);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public WorldGenMinableGenesis(IBlockState ore, int minCount, int maxCount, Block targetBlock)
 	{
 		this(ore, minCount, maxCount, BlockHelper.forBlock(targetBlock));

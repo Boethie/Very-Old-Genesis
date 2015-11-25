@@ -60,7 +60,7 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 			return block.getLightValue(world, pos);
 		}
 		
-		float levelF = (Integer) world.getBlockState(pos).getValue(LEVEL) / quantaPerBlockFloat;
+		float levelF = world.getBlockState(pos).getValue(LEVEL) / quantaPerBlockFloat;
 		return Math.round((1 - levelF) * maxScaledLight);
 	}
 	
@@ -82,7 +82,7 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 			
 			if (mix)
 			{
-				Integer level = (Integer) state.getValue(LEVEL);
+				Integer level = state.getValue(LEVEL);
 				
 				if (level.intValue() <= 4)
 				{

@@ -4,7 +4,7 @@ import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
 import net.minecraft.item.ItemStack;
 
-public enum EnumPorridge implements IFoodMetadata
+public enum EnumPorridge implements IFood, IMetadata<EnumPorridge>
 {
 	BASE("base", "", 4, 4.8F),
 	ARAUCARIOXYLON("araucarioxylon", 5, 5.7F)

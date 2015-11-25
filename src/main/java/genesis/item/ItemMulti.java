@@ -11,14 +11,14 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class ItemMulti<V extends IMetadata> extends ItemGenesis
+public class ItemMulti<V extends IMetadata<V>> extends ItemGenesis
 {
 	public final VariantsOfTypesCombo<V> owner;
 	
 	protected final List<V> variants;
 	protected final ObjectType<? extends Block, ? extends ItemMulti<V>> type;
 	
-	public ItemMulti(List<V> variants, VariantsOfTypesCombo<V> owner, ObjectType<? extends Block, ? extends ItemMulti<V>> type)
+	public ItemMulti(VariantsOfTypesCombo<V> owner, ObjectType<? extends Block, ? extends ItemMulti<V>> type, List<V> variants, Class<V> variantClass)
 	{
 		super();
 		
@@ -36,8 +36,8 @@ public class ItemMulti<V extends IMetadata> extends ItemGenesis
 	}
 
 	@Override
-	public void getSubItems(Item itemIn, CreativeTabs tab, List subItems)
+	public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems)
 	{
-		owner.fillSubItems(type, variants, (List<ItemStack>) subItems);
+		owner.fillSubItems(type, variants, subItems);
 	}
 }

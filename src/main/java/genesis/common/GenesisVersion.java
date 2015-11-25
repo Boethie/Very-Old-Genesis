@@ -44,6 +44,7 @@ public final class GenesisVersion extends ForgeVersion
 
 					Map<String, Object> json = new Gson().<Map<String, Object>>fromJson(data, Map.class);
 					homepage = (String) json.get("homepage");
+					@SuppressWarnings("unchecked")
 					Map<String, String> promos = (Map<String, String>) json.get("versions");
 
 					String lat = promos.get(MinecraftForge.MC_VERSION);

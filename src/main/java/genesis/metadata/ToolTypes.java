@@ -9,7 +9,7 @@ import com.google.common.collect.*;
 
 public class ToolTypes
 {
-	public static class ToolType implements IMetadata, Comparable<ToolType>
+	public static class ToolType implements IMetadata<ToolType>
 	{
 		public final EnumToolMaterial material;
 		public final EnumToolQuality quality;
@@ -75,7 +75,7 @@ public class ToolTypes
 		@Override
 		public int compareTo(ToolType o)
 		{
-			ToolType other = (ToolType) o;
+			ToolType other = o;
 			int materialCompare = material.compareTo(other.material);
 			
 			if (materialCompare != 0)

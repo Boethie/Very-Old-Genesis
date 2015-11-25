@@ -13,29 +13,32 @@ import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.*;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.*;
 
-public class BlockPlant extends BlockBush implements IGrowable, IShearable
+public class BlockPlant<V extends IPlantMetadata<V>> extends BlockBush implements IGrowable, IShearable
 {
 	/**
 	 * Used in BlocksAndItemsWithVariantsOfTypes.
 	 */
 	@BlockProperties
-	public static IProperty[] getProperties()
+	public static IProperty<?>[] getProperties()
 	{
 		return new IProperty[]{};
 	}
 	
-	public final VariantsOfTypesCombo<IPlantMetadata> owner;
-	public final ObjectType<? extends BlockPlant, ?> type;
+	public final VariantsOfTypesCombo<V> owner;
+	public final ObjectType<? extends BlockPlant<V>, ?> type;
 	
-	public final List<IPlantMetadata> variants;
-	public final PropertyIMetadata<IPlantMetadata> variantProp;
+	public final List<V> variants;
+	public final PropertyIMetadata<V> variantProp;
 	
-	public BlockPlant(List<IPlantMetadata> variants, VariantsOfTypesCombo<IPlantMetadata> owner, ObjectType<? extends BlockPlant, ? extends ItemBlockMulti<IPlantMetadata>> type)
+	public final ObjectType<? extends BlockGenesisDoublePlant<V>, ?> doubleType;
+	
+	public BlockPlant(VariantsOfTypesCombo<V> owner, ObjectType<? extends BlockPlant<V>, ? extends ItemBlockMulti<V>> type, List<V> variants, Class<V> variantClass, ObjectType<? extends BlockGenesisDoublePlant<V>, ? extends ItemBlockMulti<V>> doubleType)
 	{
 		setStepSound(soundTypeGrass);
 		
@@ -48,11 +51,13 @@ public class BlockPlant extends BlockBush implements IGrowable, IShearable
 		this.owner = owner;
 		this.type = type;
 		
-		variantProp = new PropertyIMetadata<IPlantMetadata>("variant", variants);
+		variantProp = new PropertyIMetadata<V>("variant", variants, variantClass);
 		this.variants = variants;
 		
 		blockState = new BlockState(this, variantProp);
 		setDefaultState(getBlockState().getBaseState());
+		
+		this.doubleType = doubleType;
 	}
 	
 	@Override
@@ -62,7 +67,7 @@ public class BlockPlant extends BlockBush implements IGrowable, IShearable
 	}
 	
 	@Override
-	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
+	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list)
 	{
 		owner.fillSubItems(type, variants, list);
 	}
@@ -105,7 +110,7 @@ public class BlockPlant extends BlockBush implements IGrowable, IShearable
 		
 		if (state.getBlock() == this)
 		{	// TODO: Doesn't work on block breaking particles from packets, because the block is already air.
-			return ((IPlantMetadata) state.getValue(variantProp)).getColorMultiplier(world, pos);
+			return state.getValue(variantProp).getColorMultiplier(world, pos);
 		}
 		
 		return super.colorMultiplier(world, pos, renderPass);
@@ -114,13 +119,13 @@ public class BlockPlant extends BlockBush implements IGrowable, IShearable
 	@Override
 	public int getRenderColor(IBlockState state)
 	{
-		return ((IPlantMetadata) state.getValue(variantProp)).getRenderColor();
+		return state.getValue(variantProp).getRenderColor();
 	}
 	
 	@Override
 	public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean isClient)
 	{
-		return type != PlantBlocks.DOUBLE_PLANT && EnumPlant.DOUBLES.contains(state.getValue(variantProp));
+		return doubleType != null && owner.getValidVariants(doubleType).contains(state.getValue(variantProp));
 	}
 	
 	@Override
@@ -132,21 +137,20 @@ public class BlockPlant extends BlockBush implements IGrowable, IShearable
 	@Override
 	public void grow(World world, Random rand, BlockPos pos, IBlockState state)
 	{
-		IPlantMetadata variant = (IPlantMetadata) state.getValue(variantProp);
+		world.setBlockToAir(pos);
+		TileEntity te = world.getTileEntity(pos);
+		V variant = state.getValue(variantProp);
 		
-		if (EnumPlant.DOUBLES.contains(variant))
+		BlockGenesisDoublePlant<V> doublePlant = owner.getBlock(doubleType, variant);
+		
+		if (!doublePlant.placeAt(world, pos, variant, 3))
 		{
-			world.setBlockToAir(pos);
-			BlockGenesisDoublePlant doublePlant = owner.getBlock(PlantBlocks.DOUBLE_PLANT, variant);
-			
-			if (!doublePlant.placeAt(world, pos, variant, 3))
-			{
-				world.setBlockState(pos, state);
-			}
+			world.setBlockState(pos, state);
+			world.setTileEntity(pos, te);
 		}
 	}
 	
-	public boolean placeAt(World world, BlockPos bottom, IPlantMetadata variant, int flags)
+	public boolean placeAt(World world, BlockPos bottom, V variant, int flags)
 	{
 		if (world.isAirBlock(bottom))
 		{
@@ -160,30 +164,30 @@ public class BlockPlant extends BlockBush implements IGrowable, IShearable
 	@Override
 	public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos)
 	{
-		return ((IPlantMetadata) world.getBlockState(pos).getValue(variantProp)).isShearable(item, world, pos);
+		return world.getBlockState(pos).getValue(variantProp).isShearable(item, world, pos);
 	}
 	
 	protected ItemStack getDrop(IBlockState state)
 	{
-		return owner.getStack(type, (IPlantMetadata) state.getValue(variantProp));
+		return owner.getStack(type, state.getValue(variantProp));
 	}
 	
 	@Override
 	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune)
 	{
 		IBlockState state = world.getBlockState(pos);
-		return ((IPlantMetadata) state.getValue(variantProp)).onSheared(item, world, pos, Collections.singletonList(getDrop(state)));
+		return state.getValue(variantProp).onSheared(item, world, pos, Collections.singletonList(getDrop(state)));
 	}
 	
 	@Override
 	public boolean isReplaceable(World world, BlockPos pos)
 	{
-		return ((IPlantMetadata) world.getBlockState(pos).getValue(variantProp)).isReplaceable(world, pos);
+		return world.getBlockState(pos).getValue(variantProp).isReplaceable(world, pos);
 	}
 	
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
 	{
-		return ((IPlantMetadata) state.getValue(variantProp)).getDrops(world, pos, state, WorldUtils.getWorldRandom(world, RANDOM), Collections.singletonList(getDrop(state)));
+		return state.getValue(variantProp).getDrops(world, pos, state, WorldUtils.getWorldRandom(world, RANDOM), Collections.singletonList(getDrop(state)));
 	}
 }

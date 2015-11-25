@@ -14,6 +14,7 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
@@ -25,7 +26,7 @@ public class BlockSilt extends BlockFalling
 	 * Used in BlocksAndItemsWithVariantsOfTypes.
 	 */
 	@BlockProperties
-	public static IProperty[] getProperties()
+	public static IProperty<?>[] getProperties()
 	{
 		return new IProperty[]{};
 	}
@@ -36,7 +37,7 @@ public class BlockSilt extends BlockFalling
 	public final PropertyIMetadata<EnumSilt> variantProp;
 	public final List<EnumSilt> variants;
 	
-	public BlockSilt(List<EnumSilt> variants, SiltBlocks owner, ObjectType<BlockSilt, ItemBlockMulti<EnumSilt>> type)
+	public BlockSilt(SiltBlocks owner, ObjectType<BlockSilt, ItemBlockMulti<EnumSilt>> type, List<EnumSilt> variants, Class<EnumSilt> variantClass)
 	{
 		super(Material.sand);
 		
@@ -44,7 +45,7 @@ public class BlockSilt extends BlockFalling
 		this.type = type;
 		
 		this.variants = variants;
-		this.variantProp = new PropertyIMetadata<EnumSilt>("variant", variants);
+		this.variantProp = new PropertyIMetadata<EnumSilt>("variant", variants, variantClass);
 		
 		blockState = new BlockState(this, variantProp);
 		setDefaultState(blockState.getBaseState());
@@ -67,7 +68,7 @@ public class BlockSilt extends BlockFalling
 	}
 	
 	@Override
-	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
+	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list)
 	{
 		owner.fillSubItems(type, variants, list);
 	}

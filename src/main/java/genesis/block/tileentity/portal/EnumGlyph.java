@@ -8,7 +8,7 @@ import genesis.metadata.IMetadata;
 import genesis.util.ItemStackKey;
 import net.minecraft.item.ItemStack;
 
-public enum EnumGlyph implements IMetadata
+public enum EnumGlyph implements IMetadata<EnumGlyph>
 {
 	NONE("none"),
 	VEGETAL("vegetal",
@@ -31,8 +31,6 @@ public enum EnumGlyph implements IMetadata
 	{
 		this.name = name;
 		this.unlocalizedName = unlocalizedName;
-		
-		ItemStack defaultActivator = null;
 		
 		for (Object activator : activators)
 		{

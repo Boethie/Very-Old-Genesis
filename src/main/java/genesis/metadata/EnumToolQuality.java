@@ -2,7 +2,7 @@ package genesis.metadata;
 
 import genesis.util.Constants.Unlocalized;
 
-public enum EnumToolQuality implements IMetadata
+public enum EnumToolQuality implements IMetadata<EnumToolQuality>
 {
 	NONE("", 1, 1, 1, 1),
 	WEAK("", 0.65F, 0.25F, 0.25F, 0.1F),

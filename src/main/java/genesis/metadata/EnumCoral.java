@@ -1,6 +1,6 @@
 package genesis.metadata;
 
-public enum EnumCoral implements IMetadata
+public enum EnumCoral implements IMetadata<EnumCoral>
 {
 	FAVOSITES("favosites"), HELIOLITES("heliolites"), HALYSITES("halysites");
 

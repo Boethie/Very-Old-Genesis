@@ -49,7 +49,7 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 		
 		if (generatorOptions != null)
 		{
-			ChunkProviderSettings.Factory factory = ChunkProviderSettings.Factory.func_177865_a(generatorOptions);
+			ChunkProviderSettings.Factory factory = ChunkProviderSettings.Factory.jsonToFactory(generatorOptions);
 			factory.useDungeons = false;
 			factory.useStrongholds = false;
 			factory.useVillages = false;
@@ -255,41 +255,41 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 
 		if (this.settings.useCaves)
 		{
-			this.caveGenerator.func_175792_a(this, this.worldObj, x, z, chunkprimer);
+			this.caveGenerator.generate(this, this.worldObj, x, z, chunkprimer);
 		}
 		
 		if (this.settings.useRavines)
 		{
-			this.ravineGenerator.func_175792_a(this, this.worldObj, x, z, chunkprimer);
+			this.ravineGenerator.generate(this, this.worldObj, x, z, chunkprimer);
 		}
 		
 		{
-			this.underGroundLavaLakeGenerator.func_175792_a(this, this.worldObj, x, z, chunkprimer);
+			this.underGroundLavaLakeGenerator.generate(this, this.worldObj, x, z, chunkprimer);
 		}
 		
 		if (this.settings.useMineShafts && this.mapFeaturesEnabled)
 		{
-			this.mineshaftGenerator.func_175792_a(this, this.worldObj, x, z, chunkprimer);
+			this.mineshaftGenerator.generate(this, this.worldObj, x, z, chunkprimer);
 		}
 
 		if (this.settings.useVillages && this.mapFeaturesEnabled)
 		{
-			this.villageGenerator.func_175792_a(this, this.worldObj, x, z, chunkprimer);
+			this.villageGenerator.generate(this, this.worldObj, x, z, chunkprimer);
 		}
 
 		if (this.settings.useStrongholds && this.mapFeaturesEnabled)
 		{
-			this.strongholdGenerator.func_175792_a(this, this.worldObj, x, z, chunkprimer);
+			this.strongholdGenerator.generate(this, this.worldObj, x, z, chunkprimer);
 		}
 
 		if (this.settings.useTemples && this.mapFeaturesEnabled)
 		{
-			this.scatteredFeatureGenerator.func_175792_a(this, this.worldObj, x, z, chunkprimer);
+			this.scatteredFeatureGenerator.generate(this, this.worldObj, x, z, chunkprimer);
 		}
 
 		if (this.settings.useMonuments && this.mapFeaturesEnabled)
 		{
-			this.oceanMonumentGenerator.func_175792_a(this, this.worldObj, x, z, chunkprimer);
+			this.oceanMonumentGenerator.generate(this, this.worldObj, x, z, chunkprimer);
 		}
 
 		Chunk chunk = new Chunk(this.worldObj, chunkprimer, x, z);
@@ -311,7 +311,7 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 	}
 	
 	@Override
-	public List getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos)
+	public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos)
 	{
 		return worldObj.getBiomeGenForCoords(pos).getSpawnableList(creatureType);
 	}

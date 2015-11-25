@@ -211,7 +211,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		 * @param plant This BlockGrowingPlant.
 		 * @param metaProps The list whose contents must be stored in metadata.
 		 */
-		public void managePlantMetaProperties(BlockGrowingPlant plant, ArrayList<IProperty> metaProps);
+		public void managePlantMetaProperties(BlockGrowingPlant plant, ArrayList<IProperty<?>> metaProps);
 		
 		/**
 		 * @return Whether to consume and use bonemeal to grow the plant.
@@ -221,7 +221,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	
 	public PropertyInteger ageProp;
 	public PropertyBool topProp;
-	public IProperty[] metaProperties;
+	public IProperty<?>[] metaProperties;
 
 	protected final boolean hasTopProperty;
 
@@ -281,6 +281,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 	 * 
 	 * @return Returns the BlockState containing all properties used by this block.
 	 */
+	@SuppressWarnings("unchecked")
 	protected BlockState createOurBlockState()
 	{
 		BlockState state;
@@ -299,8 +300,8 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 			setDefaultState(state.getBaseState().withProperty(ageProp, 0));
 		}
 		
-		ArrayList<IProperty> metaProps = new ArrayList<IProperty>();
-		metaProps.addAll(state.getProperties());
+		ArrayList<IProperty<?>> metaProps = new ArrayList<IProperty<?>>();
+		metaProps.addAll((Collection<? extends IProperty<?>>) state.getProperties());
 		
 		if (hasTopProperty)
 		{
@@ -491,7 +492,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		
 		if (props.isTop(pos))
 		{
-			int stage = (Integer) world.getBlockState(pos).getValue(ageProp);
+			int stage = world.getBlockState(pos).getValue(ageProp);
 			
 			if (props.getToBottom() > 1)
 			{
@@ -778,7 +779,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		
 		if ((!growTogether && props.isTop(pos)) || (growTogether && props.isBottom(pos)))
 		{
-			int oldAge = (Integer) state.getValue(ageProp);
+			int oldAge = state.getValue(ageProp);
 			int age = oldAge;
 			
 			// Age the plant (using the chance generated from getGrowthChance)
@@ -953,7 +954,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 				int height = props.getToBottom();
 				
 				if (height <= maxHeight && height > 0 &&
-						(resetAge || (Integer) stateBelow.getValue(ageProp) >= growthAge))
+						(resetAge || stateBelow.getValue(ageProp) >= growthAge))
 				{
 					return true;
 				}
@@ -1117,7 +1118,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 				{
 					if (!breakTogether || (breakTogether && chance == -1))
 					{
-						if ((Integer) state.getValue(ageProp) < maxAge)
+						if (state.getValue(ageProp) < maxAge)
 						{
 							if (drops != null)
 							{

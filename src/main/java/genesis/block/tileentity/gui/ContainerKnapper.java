@@ -1,7 +1,5 @@
 package genesis.block.tileentity.gui;
 
-import java.util.List;
-
 import com.google.common.collect.ImmutableList;
 
 import genesis.block.tileentity.*;
@@ -166,7 +164,7 @@ public class ContainerKnapper extends ContainerBase
 	
 	protected void sendGUIData(boolean force)
 	{
-		for (ICrafting crafting : (List<ICrafting>) crafters)
+		for (ICrafting crafting : crafters)
 		{
 			int i = 0;
 			
@@ -233,12 +231,12 @@ public class ContainerKnapper extends ContainerBase
 	public void detectAndSendChanges()
 	{
 		int outputSlot = outputSlotMain.slotNumber;
-		ItemStack oldOutput = (ItemStack) inventoryItemStacks.get(outputSlot);
-		ItemStack newOutput = ((Slot) inventorySlots.get(outputSlot)).getStack();
+		ItemStack oldOutput = inventoryItemStacks.get(outputSlot);
+		ItemStack newOutput = inventorySlots.get(outputSlot).getStack();
 		
 		if (!ItemStack.areItemStacksEqual(oldOutput, newOutput))
 		{
-			for (ICrafting crafting : (List<ICrafting>) crafters)
+			for (ICrafting crafting : crafters)
 			{
 				if (crafting instanceof EntityPlayerMP)
 				{
@@ -258,7 +256,7 @@ public class ContainerKnapper extends ContainerBase
 	{
 		if (slotID >= 0)
 		{
-			Slot slot = (Slot) inventorySlots.get(slotID);
+			Slot slot = inventorySlots.get(slotID);
 			
 			if (slot == knappingInputSlotLocked)
 			{
@@ -310,7 +308,7 @@ public class ContainerKnapper extends ContainerBase
 	{
 		if (slotID >= 0)
 		{
-			Slot slot = (Slot) inventorySlots.get(slotID);
+			Slot slot = inventorySlots.get(slotID);
 			
 			if (slot == outputSlotMain)// && slot.getHasStack())
 			{

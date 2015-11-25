@@ -1,6 +1,6 @@
 package genesis.metadata;
 
-public enum EnumToolMaterial implements IMetadata
+public enum EnumToolMaterial implements IMetadata<EnumToolMaterial>
 {
 	OCTAEDRITE("octaedrite", 1, 145, 2.6F, 0.3F, 5),
 	DOLERITE("dolerite", 1, 159, 3.8F, 0.3F, 5),

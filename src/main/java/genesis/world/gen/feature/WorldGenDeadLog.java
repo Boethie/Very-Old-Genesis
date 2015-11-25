@@ -58,7 +58,7 @@ public class WorldGenDeadLog extends WorldGenTreeBase
 			
 			if (rand.nextInt(2) == 0)
 			{
-				logPos = pos.add(((int)length / 2) * -1, 0, 0);
+				logPos = pos.add((length / 2) * -1, 0, 0);
 				
 				for (int i = 0; i < length; ++i)
 				{
@@ -74,7 +74,7 @@ public class WorldGenDeadLog extends WorldGenTreeBase
 			}
 			else
 			{
-				logPos = pos.add(0, 0, ((int)length / 2) * -1);
+				logPos = pos.add(0, 0, (length / 2) * -1);
 				
 				for (int i = 0; i < length; ++i)
 				{

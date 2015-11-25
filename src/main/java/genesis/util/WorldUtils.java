@@ -32,12 +32,11 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 
-@SuppressWarnings("unchecked")
 public class WorldUtils
 {
 	public static Iterable<BlockPos> getArea(BlockPos start, BlockPos end)
 	{
-		return (Iterable<BlockPos>) BlockPos.getAllInBox(start, end);
+		return BlockPos.getAllInBox(start, end);
 	}
 	
 	public static Iterable<BlockPos> getAreaWithHeight(BlockPos pos, int area, int startY, int endY)
@@ -67,7 +66,7 @@ public class WorldUtils
 	 */
 	public static boolean waterInRange(World world, BlockPos pos, int dNegX, int dPosX, int dNegZ, int dPosZ, int dNegY, int dPosY)
 	{
-		Iterable<BlockPos> checkArea = (Iterable<BlockPos>) BlockPos.getAllInBox(pos.add(-dNegX, -dNegY, -dNegZ), pos.add(dPosX, dPosY, dPosZ));
+		Iterable<BlockPos> checkArea = BlockPos.getAllInBox(pos.add(-dNegX, -dNegY, -dNegZ), pos.add(dPosX, dPosY, dPosZ));
 		
 		for (BlockPos checkPos : checkArea)
 		{
@@ -246,7 +245,7 @@ public class WorldUtils
 		}
 	}
 	
-	public static void setProperty(World world, BlockPos pos, IProperty property, Comparable<?> value)
+	public static <V extends Comparable<V>> void setProperty(World world, BlockPos pos, IProperty<V> property, V value)
 	{
 		world.setBlockState(pos, world.getBlockState(pos).withProperty(property, value));
 	}

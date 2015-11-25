@@ -17,6 +17,7 @@ import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 public class BlockSiltstone extends BlockGenesis
 {
@@ -24,7 +25,7 @@ public class BlockSiltstone extends BlockGenesis
 	 * Used in BlocksAndItemsWithVariantsOfTypes.
 	 */
 	@BlockProperties
-	public static IProperty[] getProperties()
+	public static IProperty<?>[] getProperties()
 	{
 		return new IProperty[]{};
 	}
@@ -35,7 +36,7 @@ public class BlockSiltstone extends BlockGenesis
 	public final PropertyIMetadata<EnumSilt> variantProp;
 	public final List<EnumSilt> variants;
 	
-	public BlockSiltstone(List<EnumSilt> variants, SiltBlocks owner, ObjectType<BlockSiltstone, ItemBlockMulti<EnumSilt>> type)
+	public BlockSiltstone(SiltBlocks owner, ObjectType<BlockSiltstone, ItemBlockMulti<EnumSilt>> type, List<EnumSilt> variants, Class<EnumSilt> variantClass)
 	{
 		super(Material.rock);
 		
@@ -43,7 +44,7 @@ public class BlockSiltstone extends BlockGenesis
 		this.type = type;
 		
 		this.variants = variants;
-		this.variantProp = new PropertyIMetadata<EnumSilt>("variant", variants);
+		this.variantProp = new PropertyIMetadata<EnumSilt>("variant", variants, variantClass);
 		
 		blockState = new BlockState(this, variantProp);
 		setDefaultState(blockState.getBaseState());
@@ -66,7 +67,7 @@ public class BlockSiltstone extends BlockGenesis
 	}
 	
 	@Override
-	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
+	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list)
 	{
 		owner.fillSubItems(type, variants, list);
 	}

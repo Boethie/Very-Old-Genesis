@@ -75,6 +75,7 @@ public class GenesisProxy
 	 * subclasses to the constructor's parameter types.
 	 * This method does not register an item model.
 	 */
+	@SuppressWarnings("unchecked")	// Apparently Forge's GameData returns a raw Map for some reason. :\
 	public void registerBlockWithItem(Block block, String name, Item item)
 	{
 		GameRegistry.registerBlock(block, null, name);

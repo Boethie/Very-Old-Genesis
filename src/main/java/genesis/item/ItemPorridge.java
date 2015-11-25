@@ -5,6 +5,7 @@ import java.util.List;
 import genesis.common.GenesisItems;
 import genesis.metadata.*;
 import genesis.metadata.ItemsCeramicBowls.*;
+import genesis.metadata.MultiMetadataList.MultiMetadata;
 import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 
@@ -13,11 +14,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ItemPorridge extends ItemGenesisFood<IFoodMetadata>
+public class ItemPorridge extends ItemGenesisFood<MultiMetadata>
 {
-	public ItemPorridge(List<IFoodMetadata> variants, VariantsOfTypesCombo<IFoodMetadata> owner, ObjectType<Block, ? extends ItemPorridge> type)
+	public ItemPorridge(VariantsOfTypesCombo<MultiMetadata> owner, ObjectType<Block, ? extends ItemPorridge> type, List<MultiMetadata> variants, Class<MultiMetadata> variantClass)
 	{
-		super(variants, owner, type);
+		super(owner, type, variants, variantClass);
 		
 		setHasSubtypes(true);
 	}
@@ -25,13 +26,13 @@ public class ItemPorridge extends ItemGenesisFood<IFoodMetadata>
 	@Override
 	public int getHealAmount(ItemStack stack)
 	{
-		return ((EnumPorridge) owner.getVariant(stack)).getFoodAmount();
+		return ((EnumPorridge) owner.getVariant(stack).getOriginal()).getFoodAmount();
 	}
 	
 	@Override
 	public float getSaturationModifier(ItemStack stack)
 	{
-		return ((EnumPorridge) owner.getVariant(stack)).getSaturationModifier();
+		return ((EnumPorridge) owner.getVariant(stack).getOriginal()).getSaturationModifier();
 	}
 	
 	@Override

@@ -1,5 +1,6 @@
 package genesis.metadata;
 
+import genesis.util.MiscUtils;
 import genesis.util.Constants.Unlocalized;
 
 import java.util.*;
@@ -10,10 +11,11 @@ import net.minecraft.block.Block;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import genesis.item.*;
+import genesis.metadata.MultiMetadataList.MultiMetadata;
 
-public class ItemsCeramicBowls extends VariantsOfTypesCombo<IMetadata>
+public class ItemsCeramicBowls extends VariantsOfTypesCombo<MultiMetadata>
 {
-	public static enum EnumCeramicBowls implements IMetadata
+	public static enum EnumCeramicBowls implements IMetadata<EnumCeramicBowls>
 	{
 		BOWL(""),
 		WATER_BOWL("water");
@@ -45,49 +47,69 @@ public class ItemsCeramicBowls extends VariantsOfTypesCombo<IMetadata>
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
+	public static final MultiMetadataList ALL_VARIANTS = new MultiMetadataList(MiscUtils.iterable(EnumCeramicBowls.values()), GenesisDye.valueList(), MiscUtils.iterable(EnumPorridge.values()));
+	
 	public static final ObjectType<Block, ItemCeramicBowl> MAIN = new ObjectType<Block, ItemCeramicBowl>("ceramic_bowl", Unlocalized.Section.MATERIAL + "ceramicBowl", null, ItemCeramicBowl.class)
-			.setValidVariants(ImmutableList.copyOf(EnumCeramicBowls.values()));
-	public static final ObjectType<Block, ItemDyeBowl> DYES = new ObjectType<Block, ItemDyeBowl>("dye", Unlocalized.Section.MATERIAL + "dye", null, ItemDyeBowl.class)
-			.setValidVariants(GenesisDye.valueList());
+			.setValidVariants(ALL_VARIANTS.getMultiVariants(EnumCeramicBowls.values()));
+	public static final ObjectType<Block, ItemDyeBowl> DYE = new ObjectType<Block, ItemDyeBowl>("dye", Unlocalized.Section.MATERIAL + "dye", null, ItemDyeBowl.class)
+			.setValidVariants(ALL_VARIANTS.getMultiVariants(GenesisDye.valueList()));
 	public static final ObjectType<Block, ItemPorridge> PORRIDGE = new ObjectType<Block, ItemPorridge>("porridge", Unlocalized.Section.FOOD + "porridge", null, ItemPorridge.class)
-			.setValidVariants(ImmutableList.copyOf(EnumPorridge.values()));
+			.setValidVariants(ALL_VARIANTS.getMultiVariants(EnumPorridge.values()));
 	
 	public static final List<ObjectType<?, ?>> ALL_OBJECT_TYPES = new ImmutableList.Builder<ObjectType<?, ?>>()
 		.add(MAIN)
-		.add(DYES)
+		.add(DYE)
 		.add(PORRIDGE)
-		.build();
-	public static final List<IMetadata> ALL_VARIANTS = new ImmutableList.Builder<IMetadata>()
-		.addAll(Arrays.asList(EnumCeramicBowls.values()))
-		.addAll(GenesisDye.valueList())
-		.addAll(Arrays.asList(EnumPorridge.values()))
 		.build();
 	
 	public ItemsCeramicBowls()
 	{
-		super(ALL_OBJECT_TYPES, ALL_VARIANTS);
+		super(ALL_OBJECT_TYPES, MultiMetadata.class, ALL_VARIANTS);
 		
 		setUnlocalizedPrefix(Unlocalized.PREFIX);
 	}
 	
-	public ItemStack getStack(EnumCeramicBowls bowlVariant, int size)
+	// Variants
+	public MultiMetadata getVariant(EnumCeramicBowls variant)
 	{
-		return super.getStack(MAIN, bowlVariant, size);
+		return ALL_VARIANTS.getMultiVariant(variant);
 	}
 	
-	public ItemStack getStack(EnumCeramicBowls bowlVariant)
+	public MultiMetadata getVariant(GenesisDye variant)
 	{
-		return getStack(bowlVariant, 1);
+		return ALL_VARIANTS.getMultiVariant(variant);
 	}
 	
-	public ItemStack getStack(GenesisDye dyeVariant, int size)
+	public MultiMetadata getVariant(EnumDyeColor variant)
 	{
-		return super.getStack(DYES, dyeVariant, size);
+		return ALL_VARIANTS.getMultiVariant(GenesisDye.get(variant));
 	}
 	
-	public ItemStack getStack(GenesisDye dyeVariant)
+	public MultiMetadata getVariant(EnumPorridge variant)
 	{
-		return getStack(dyeVariant, 1);
+		return ALL_VARIANTS.getMultiVariant(variant);
+	}
+	
+	// getStack
+	public ItemStack getStack(EnumCeramicBowls variant, int size)
+	{
+		return super.getStack(MAIN, getVariant(variant), size);
+	}
+	
+	public ItemStack getStack(EnumCeramicBowls variant)
+	{
+		return getStack(variant, 1);
+	}
+	
+	public ItemStack getStack(GenesisDye variant, int size)
+	{
+		return super.getStack(DYE, getVariant(variant), size);
+	}
+	
+	public ItemStack getStack(GenesisDye variant)
+	{
+		return getStack(variant, 1);
 	}
 	
 	public ItemStack getStack(EnumDyeColor color, int size)
@@ -100,13 +122,34 @@ public class ItemsCeramicBowls extends VariantsOfTypesCombo<IMetadata>
 		return getStack(color, 1);
 	}
 	
-	public ItemStack getStack(EnumPorridge porridge, int size)
+	public ItemStack getStack(EnumPorridge variant, int size)
 	{
-		return getStack(PORRIDGE, porridge, size);
+		return getStack(PORRIDGE, getVariant(variant), size);
 	}
 	
-	public ItemStack getStack(EnumPorridge porridge)
+	public ItemStack getStack(EnumPorridge variant)
 	{
-		return getStack(porridge, 1);
+		return getStack(variant, 1);
+	}
+	
+	// isStackOf
+	public boolean isStackOf(ItemStack stack, EnumCeramicBowls variant)
+	{
+		return super.isStackOf(stack, MAIN, getVariant(variant));
+	}
+	
+	public boolean isStackOf(ItemStack stack, GenesisDye variant)
+	{
+		return super.isStackOf(stack, DYE, getVariant(variant));
+	}
+	
+	public boolean isStackOf(ItemStack stack, EnumDyeColor variant)
+	{
+		return super.isStackOf(stack, DYE, getVariant(variant));
+	}
+	
+	public boolean isStackOf(ItemStack stack, EnumPorridge variant)
+	{
+		return super.isStackOf(stack, PORRIDGE, getVariant(variant));
 	}
 }

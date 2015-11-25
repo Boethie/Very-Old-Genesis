@@ -37,7 +37,7 @@ public class ItemBlockCobbania extends ItemLilyPad
 				BlockPos placePos = hitPos.up();
 	
 				if (hitState.getBlock().getMaterial() == Material.water
-					&& ((Integer) hitState.getValue(BlockLiquid.LEVEL)).intValue() == 0
+					&& hitState.getValue(BlockLiquid.LEVEL) == 0
 					&& world.isAirBlock(placePos))
 				{
 					world.setBlockState(placePos, block.getDefaultState());

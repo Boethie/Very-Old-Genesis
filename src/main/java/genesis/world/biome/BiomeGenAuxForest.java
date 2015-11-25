@@ -1,7 +1,7 @@
 package genesis.world.biome;
 
 import genesis.common.GenesisBlocks;
-import genesis.metadata.EnumFern;
+import genesis.metadata.EnumPlant;
 import genesis.metadata.EnumTree;
 import genesis.world.biome.decorate.WorldGenArchaeomarasmius;
 import genesis.world.biome.decorate.WorldGenGrass;
@@ -37,7 +37,7 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenArchaeomarasmius().setRarity(4).setPatchSize(3).setCountPerChunk(1));
 		addDecoration(new WorldGenPalaeoagaracites().setPatchSize(24).setCountPerChunk(128));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPatchSize(3).setCountPerChunk(2));
-		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(5));
+		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(4));
 		
 		addDecoration(new WorldGenRockBoulders().setRarity(95).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 	}
@@ -51,7 +51,7 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 	@Override
 	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
 	{
-		return new WorldGenGrassMulti(GenesisBlocks.plants.getFernBlockState(EnumFern.PHLEBOPTERIS)).setVolume(64);
+		return new WorldGenGrassMulti(GenesisBlocks.plants.getPlantBlockState(EnumPlant.PHLEBOPTERIS)).setVolume(64);
 	}
 	
 	@Override

@@ -3,6 +3,7 @@ package genesis.util.render;
 import java.util.*;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.lwjgl.opengl.GL11;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.model.ModelBase;
@@ -12,13 +13,11 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
-@SuppressWarnings("deprecation")
 public class BlockAsEntityPart extends CustomEntityPart
 {
 	// Values
@@ -145,15 +144,12 @@ public class BlockAsEntityPart extends CustomEntityPart
 				
 				RenderHelper.disableStandardItemLighting();
 				
-				wr.startDrawingQuads();
-				VertexFormat oldFormat = wr.getVertexFormat();
-				wr.setVertexFormat(DefaultVertexFormats.BLOCK);
+				wr.func_181668_a(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
 				
 				ModelHelpers.getBlockRenderer().renderModel(world, model, state, pos, wr, false);
 				
 				tess.draw();
 				
-				wr.setVertexFormat(oldFormat);
 				GlStateManager.popMatrix();
 			}
 			else

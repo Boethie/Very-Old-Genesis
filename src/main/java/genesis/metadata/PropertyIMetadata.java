@@ -6,28 +6,27 @@ import com.google.common.collect.ImmutableList;
 
 import net.minecraft.block.properties.*;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
-public class PropertyIMetadata<T extends IMetadata> extends PropertyHelper
+public class PropertyIMetadata<T extends IMetadata<T>> extends PropertyHelper<T>
 {
-	protected final ImmutableList<? extends T> values;
+	protected final ImmutableList<T> values;
 	
-	public PropertyIMetadata(String name, List<? extends T> values)
+	public PropertyIMetadata(String name, List<T> values, Class<T> clazz)
 	{
-		super(name, IMetadata.class);
+		super(name, clazz);
 		
 		this.values = ImmutableList.copyOf(values);
 	}
 	
 	@Override
-	public Collection getAllowedValues()
+	public Collection<T> getAllowedValues()
 	{
 		return values;
 	}
 	
 	@Override
-	public String getName(Comparable value)
+	public String getName(T value)
 	{
-		return ((IMetadata) value).getName();
+		return value.getName();
 	}
 	
 	@Override
@@ -44,8 +43,8 @@ public class PropertyIMetadata<T extends IMetadata> extends PropertyHelper
 			
 			if (getName().equals(propIMeta.getName()))
 			{
-				Iterator<Comparable> ourValIter = getAllowedValues().iterator();
-				Iterator<Comparable> otherValIter = propIMeta.getAllowedValues().iterator();
+				Iterator<T> ourValIter = getAllowedValues().iterator();
+				Iterator<?> otherValIter = propIMeta.getAllowedValues().iterator();
 				
 				while (ourValIter.hasNext() && otherValIter.hasNext())
 				{

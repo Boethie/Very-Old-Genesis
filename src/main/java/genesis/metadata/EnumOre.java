@@ -14,7 +14,7 @@ import genesis.util.random.drops.blocks.VariantDrop;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 
-public enum EnumOre implements IOreVariant
+public enum EnumOre implements IOreVariant<EnumOre>
 {
 	QUARTZ("quartz", 1, 4.2F, 5.0F, IntRange.create(0, 1), 0.05F),
 	ZIRCON("zircon", 1, 4.2F, 5.0F, IntRange.create(0, 2), 0.1F),

@@ -4,7 +4,7 @@ import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
 
-public enum EnumTree implements IMetadata
+public enum EnumTree implements IMetadata<EnumTree>
 {
 	ARCHAEOPTERIS("archaeopteris"), SIGILLARIA("sigillaria"), LEPIDODENDRON("lepidodendron"),
 	CORDAITES("cordaites"), PSARONIUS("psaronius"), BJUVIA("bjuvia"), VOLTZIA("voltzia"),

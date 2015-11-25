@@ -459,7 +459,7 @@ public class GenesisPortal
 	public void duplicatePortal(World world, GenesisPortal fromPortal)
 	{
 		Genesis.logger.info("Duplicating portal " + fromPortal + " to portal " + this + ".");
-		BlockPos posDiff = getCenterPosition().add(fromPortal.getCenterPosition().multiply(-1));
+		BlockPos posDiff = getCenterPosition().subtract(fromPortal.getCenterPosition());
 		IBlockAccess fromWorld = fromPortal.getBlockAccess();
 		
 		for (MenhirData menhir : fromPortal.getMenhirs().values())

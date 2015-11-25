@@ -3,9 +3,9 @@ package genesis.item;
 import java.util.List;
 
 import genesis.metadata.GenesisDye;
-import genesis.metadata.IMetadata;
 import genesis.metadata.ItemsCeramicBowls;
 import genesis.metadata.ItemsCeramicBowls.EnumCeramicBowls;
+import genesis.metadata.MultiMetadataList.MultiMetadata;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
@@ -16,13 +16,13 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.ForgeEventFactory;
 
-public class ItemDyeBowl extends ItemMulti<IMetadata>
+public class ItemDyeBowl extends ItemMulti<MultiMetadata>
 {
 	protected final ItemsCeramicBowls bowlsOwner;
 	
-	public ItemDyeBowl(List<IMetadata> variants, ItemsCeramicBowls owner, ObjectType<? extends Block, ? extends ItemMulti<IMetadata>> type)
+	public ItemDyeBowl(ItemsCeramicBowls owner, ObjectType<Block, ItemDyeBowl> type, List<MultiMetadata> variants, Class<MultiMetadata> variantClass)
 	{
-		super(variants, owner, type);
+		super(owner, type, variants, variantClass);
 		
 		bowlsOwner = owner;
 	}
@@ -43,7 +43,7 @@ public class ItemDyeBowl extends ItemMulti<IMetadata>
 	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase target)
 	{
 		boolean consume = false;
-		EnumDyeColor color = ((GenesisDye) bowlsOwner.getVariant(stack)).getColor();
+		EnumDyeColor color = ((GenesisDye) bowlsOwner.getVariant(stack).getOriginal()).getColor();
 		
 		if (target instanceof EntitySheep)
 		{

@@ -2,6 +2,8 @@ package genesis.block.tileentity.gui.render;
 
 import java.util.*;
 
+import org.lwjgl.opengl.GL11;
+
 import com.google.common.collect.ImmutableList;
 
 import genesis.block.tileentity.gui.*;
@@ -10,6 +12,7 @@ import genesis.util.*;
 import genesis.util.render.ISpriteUVs;
 import net.minecraft.client.gui.inventory.*;
 import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.inventory.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
@@ -98,7 +101,7 @@ public class GuiContainerBase extends GuiContainer
 		drawTextureUVPx(borderW, borderH, xSize - borderW * 2, ySize - borderH * 2,
 						borderW, borderH, 1, 1);
 		
-		for (Slot slot : (List<Slot>) inventorySlots.inventorySlots)
+		for (Slot slot : inventorySlots.inventorySlots)
 		{
 			int slotU = -1;
 			int slotV = -1;
@@ -156,7 +159,7 @@ public class GuiContainerBase extends GuiContainer
 	
 	protected Slot getSlot(int x, int y)
 	{
-		for (Slot slot : (List<Slot>) container.inventorySlots)
+		for (Slot slot : container.inventorySlots)
 		{
 			if (isPointInSlot(slot, x, y))
 			{
@@ -171,11 +174,11 @@ public class GuiContainerBase extends GuiContainer
 	{
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer renderer = tessellator.getWorldRenderer();
-		renderer.startDrawingQuads();
-		renderer.addVertexWithUV(x,		y + h,	zLevel,	minU, maxV);
-		renderer.addVertexWithUV(x + w,	y + h,	zLevel,	maxU, maxV);
-		renderer.addVertexWithUV(x + w,	y,		zLevel,	maxU, minV);
-		renderer.addVertexWithUV(x,		y,		zLevel,	minU, minV);
+		renderer.func_181668_a(GL11.GL_QUADS, DefaultVertexFormats.field_181707_g);
+		renderer.func_181662_b(x,		y + h,	zLevel).func_181673_a(minU, maxV);
+		renderer.func_181662_b(x + w,	y + h,	zLevel).func_181673_a(maxU, maxV);
+		renderer.func_181662_b(x + w,	y,		zLevel).func_181673_a(maxU, minV);
+		renderer.func_181662_b(x,		y,		zLevel).func_181673_a(minU, minV);
 		tessellator.draw();
 	}
 	
@@ -183,11 +186,11 @@ public class GuiContainerBase extends GuiContainer
 	{
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer renderer = tessellator.getWorldRenderer();
-		renderer.startDrawingQuads();
-		renderer.addVertexWithUV(x,		y + h,	zLevel,	u,			(v + uvH));
-		renderer.addVertexWithUV(x + w,	y + h,	zLevel,	(u + uvW),	(v + uvH));
-		renderer.addVertexWithUV(x + w,	y,		zLevel,	(u + uvW),	v);
-		renderer.addVertexWithUV(x,		y,		zLevel,	u,			v);
+		renderer.func_181668_a(GL11.GL_QUADS, DefaultVertexFormats.field_181707_g);
+		renderer.func_181662_b(x,		y + h,	zLevel).func_181673_a(u,		v + uvH);
+		renderer.func_181662_b(x + w,	y + h,	zLevel).func_181673_a(u + uvW,	v + uvH);
+		renderer.func_181662_b(x + w,	y,		zLevel).func_181673_a(u + uvW,	v);
+		renderer.func_181662_b(x,		y,		zLevel).func_181673_a(u,		v);
 		tessellator.draw();
 	}
 	

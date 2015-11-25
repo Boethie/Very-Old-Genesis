@@ -35,7 +35,7 @@ public class RenderHelpers
 				double offX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTick;
 				double offY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTick;
 				double offZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTick;
-				RenderGlobal.drawOutlinedBoundingBox(entity.getEntityBoundingBox().expand(expand, expand, expand).offset(-offX, -offY, -offZ), -1);
+				RenderGlobal.func_181561_a(entity.getEntityBoundingBox().expand(expand, expand, expand).offset(-offX, -offY, -offZ));
 				
 				GlStateManager.depthMask(true);
 				GlStateManager.enableTexture2D();

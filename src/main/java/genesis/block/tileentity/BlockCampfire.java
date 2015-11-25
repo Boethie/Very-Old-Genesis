@@ -27,7 +27,7 @@ import net.minecraftforge.fml.relauncher.*;
 
 public class BlockCampfire extends Block
 {
-	public static final PropertyEnum FACING = PropertyEnum.create("facing", EnumAxis.class, EnumAxis.HORIZ);
+	public static final PropertyEnum<EnumAxis> FACING = PropertyEnum.create("facing", EnumAxis.class, EnumAxis.HORIZ);
 	public static final PropertyBool FIRE = PropertyBool.create("fire");
 	
 	public BlockCampfire()
@@ -156,7 +156,7 @@ public class BlockCampfire extends Block
 		}
 	}
 	
-	protected void addIfIntersects(AxisAlignedBB aabb, AxisAlignedBB mask, List list)
+	protected void addIfIntersects(AxisAlignedBB aabb, AxisAlignedBB mask, List<AxisAlignedBB> list)
 	{
 		if (aabb != null && aabb.intersectsWith(mask))
 		{
@@ -180,10 +180,10 @@ public class BlockCampfire extends Block
 	}
 	
 	@Override
-	public void addCollisionBoxesToList(World world, BlockPos pos, IBlockState state, AxisAlignedBB mask, List list, Entity collidingEntity)
+	public void addCollisionBoxesToList(World world, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
 	{
 		// Make collision boxes for the two sticks and the base of the campfire.
-		EnumAxis facing = (EnumAxis) state.getValue(FACING);
+		EnumAxis facing = state.getValue(FACING);
 		
 		addIfIntersects(getCollisionBoundingBox(world, pos, state), mask, list);
 		
@@ -435,7 +435,7 @@ public class BlockCampfire extends Block
 		
 		IBlockState state = world.getBlockState(pos);
 		
-		if (state.getBlock() == this && (Boolean) state.getValue(FIRE))
+		if (state.getBlock() == this && state.getValue(FIRE))
 		{
 			lightVal = Math.max(lightVal, 15);
 		}

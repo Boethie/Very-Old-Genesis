@@ -22,9 +22,9 @@ public class ItemGenesisKnife extends ItemTool
 	protected final ToolType type;
 	protected final ToolObjectType<Block, ItemGenesisKnife> objType;
 	
-	public ItemGenesisKnife(ToolType type, ToolItems owner, ToolObjectType<Block, ItemGenesisKnife> objType)
+	public ItemGenesisKnife(ToolItems owner, ToolObjectType<Block, ItemGenesisKnife> objType, ToolType type, Class<ToolType> variantClass)
 	{
-		super(3, type.toolMaterial, Collections.emptySet());
+		super(3, type.toolMaterial, Collections.<Block>emptySet());
 		
 		this.owner = owner;
 		this.type = type;
@@ -38,7 +38,7 @@ public class ItemGenesisKnife extends ItemTool
 	}
 	
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
 		super.addInformation(stack, playerIn, tooltip, advanced);
 		owner.addToolInformation(stack, playerIn, tooltip, advanced);

@@ -1,6 +1,6 @@
 package genesis.metadata;
 
-public enum EnumMaterial implements IMetadata
+public enum EnumMaterial implements IMetadata<EnumMaterial>
 {
 	RESIN("resin"),
 	ARAUCARIOXYLON_CONE("araucarioxylon_cone", "araucarioxylonCone"),

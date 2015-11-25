@@ -22,6 +22,7 @@ public class GenLayerGenesisBiome extends GenLayerGenesis
 	{
 		super(seed);
 		
+		@SuppressWarnings("unchecked")
 		List<BiomeEntry>[] biomes = new ArrayList[BiomeType.values().length];
 		
 		for (BiomeType type : BiomeType.values())
@@ -107,6 +108,6 @@ public class GenLayerGenesisBiome extends GenLayerGenesis
 		List<BiomeEntry> biomeList = this.allowedBiomes[type.ordinal()];
 		int totalWeight = WeightedRandom.getTotalWeight(biomeList);
 		int weight = BiomeManager.isTypeListModded(type) ? this.nextInt(totalWeight) : this.nextInt(totalWeight / 10) * 10;
-		return (BiomeEntry) WeightedRandom.getRandomItem(biomeList, weight);
+		return WeightedRandom.getRandomItem(biomeList, weight);
 	}
 }

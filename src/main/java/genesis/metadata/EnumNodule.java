@@ -1,6 +1,6 @@
 package genesis.metadata;
 
-public enum EnumNodule implements IMetadata
+public enum EnumNodule implements IMetadata<EnumNodule>
 {
 	BROWN_FLINT("brown_flint", "brownFlint"), BLACK_FLINT("black_flint", "blackFlint"), MARCASITE("marcasite");
 	

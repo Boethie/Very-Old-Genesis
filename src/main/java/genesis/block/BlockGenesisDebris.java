@@ -6,7 +6,7 @@ import genesis.item.ItemBlockMulti;
 import genesis.metadata.DebrisBlocks;
 import genesis.metadata.EnumDebrisOther;
 import genesis.metadata.EnumMaterial;
-import genesis.metadata.IMetadata;
+import genesis.metadata.MultiMetadataList.MultiMetadata;
 import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.BlockStateToMetadata;
@@ -28,19 +28,19 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
-public class BlockGenesisDebris extends BlockGenesisVariants<IMetadata>
+public class BlockGenesisDebris extends BlockGenesisVariants<MultiMetadata>
 {
 	@BlockProperties
-	public static IProperty[] getProperties()
+	public static IProperty<?>[] getProperties()
 	{
 		return new IProperty[]{};
 	}
 	
 	protected final DebrisBlocks debrisOwner;
 	
-	public BlockGenesisDebris(List<IMetadata> variants, DebrisBlocks owner, ObjectType<BlockGenesisDebris, ItemBlockMulti<IMetadata>> type)
+	public BlockGenesisDebris(DebrisBlocks owner, ObjectType<BlockGenesisDebris, ItemBlockMulti<MultiMetadata>> type, List<MultiMetadata> variants, Class<MultiMetadata> variantClass)
 	{
-		super(variants, owner, type, Material.vine);
+		super(owner, type, variants, variantClass, Material.vine);
 		
 		debrisOwner = owner;
 		
@@ -56,9 +56,9 @@ public class BlockGenesisDebris extends BlockGenesisVariants<IMetadata>
 			@Override
 			public ItemStack getStack(IBlockState state, int size)
 			{
-				IMetadata variant = debrisOwner.getVariant(state);
+				MultiMetadata variant = debrisOwner.getVariant(state);
 				
-				if (variant == EnumDebrisOther.EPIDEXIPTERYX_FEATHER)
+				if (variant.getOriginal() == EnumDebrisOther.EPIDEXIPTERYX_FEATHER)
 				{
 					return GenesisItems.materials.getStack(EnumMaterial.EPIDEXIPTERYX_FEATHER);
 				}
@@ -81,7 +81,7 @@ public class BlockGenesisDebris extends BlockGenesisVariants<IMetadata>
 	}
 	
 	@Override
-	public void getSubBlocks(Item item, CreativeTabs tab, List list)
+	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list)
 	{
 		owner.fillSubItems(type, variants, list);
 	}
@@ -89,7 +89,7 @@ public class BlockGenesisDebris extends BlockGenesisVariants<IMetadata>
 	@Override
 	public boolean isReplaceable(World world, BlockPos pos)
 	{
-		return !debrisOwner.isStateOf(world.getBlockState(pos), EnumDebrisOther.EPIDEXIPTERYX_FEATHER);
+		return !debrisOwner.isStateOf(world.getBlockState(pos), debrisOwner.getVariant(EnumDebrisOther.EPIDEXIPTERYX_FEATHER));
 	}
 	
 	@Override

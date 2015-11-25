@@ -13,14 +13,13 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
-public class TileEntityStorageBoxRenderer extends TileEntitySpecialRenderer
+public class TileEntityStorageBoxRenderer extends TileEntitySpecialRenderer<TileEntityStorageBox>
 {
 	public static class ModelStorageBox extends ModelBase
 	{
@@ -55,10 +54,9 @@ public class TileEntityStorageBoxRenderer extends TileEntitySpecialRenderer
 	}
 	
 	@Override
-	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float partialTick, int destroyStage)
+	public void renderTileEntityAt(TileEntityStorageBox box, double x, double y, double z, float partialTick, int destroyStage)
 	{
 		// Get data about the block in the world.
-		TileEntityStorageBox box = (TileEntityStorageBox) te;
 		World world = box.getWorld();
 		BlockPos pos = box.getPos();
 		IBlockState state = world.getBlockState(pos);

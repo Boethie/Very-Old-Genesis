@@ -1,6 +1,6 @@
 package genesis.metadata;
 
-public enum EnumMenhirActivator implements IMetadata
+public enum EnumMenhirActivator implements IMetadata<EnumMenhirActivator>
 {
 	RUSTED_OCTAEDRITE_FRAGMENT("rusted_octaedrite_fragment", "rustedOctaedriteFragment"),
 	ANCIENT_AMBER("ancient_amber", "ancientAmber"),

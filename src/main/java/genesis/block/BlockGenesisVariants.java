@@ -17,13 +17,13 @@ import net.minecraft.item.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 
-public class BlockGenesisVariants<V extends IMetadata> extends Block
+public class BlockGenesisVariants<V extends IMetadata<V>> extends Block
 {
 	/**
 	 * Used in {@link VariantsOfTypesCombo}.
 	 */
 	@BlockProperties
-	public static IProperty[] getProperties()
+	public static IProperty<?>[] getProperties()
 	{
 		return new IProperty[]{};
 	}
@@ -38,7 +38,7 @@ public class BlockGenesisVariants<V extends IMetadata> extends Block
 	
 	protected final List<BlockDrop> drops = new ArrayList<BlockDrop>();
 	
-	public BlockGenesisVariants(List<V> variants, VariantsOfTypesCombo<V> owner, ObjectType<? extends BlockGenesisVariants<V>, ? extends Item> type, Material material)
+	public BlockGenesisVariants(VariantsOfTypesCombo<V> owner, ObjectType<? extends BlockGenesisVariants<V>, ? extends Item> type, List<V> variants, Class<V> variantClass, Material material)
 	{
 		super(material);
 		
@@ -46,7 +46,7 @@ public class BlockGenesisVariants<V extends IMetadata> extends Block
 		this.type = type;
 		
 		this.variants = variants;
-		variantProp = new PropertyIMetadata<V>("variant", variants);
+		variantProp = new PropertyIMetadata<V>("variant", variants, variantClass);
 		
 		blockState = new BlockState(this, variantProp);
 		setDefaultState(getBlockState().getBaseState());
@@ -83,7 +83,7 @@ public class BlockGenesisVariants<V extends IMetadata> extends Block
 	}
 	
 	@Override
-	public void getSubBlocks(Item item, CreativeTabs tab, List list)
+	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list)
 	{
 		owner.fillSubItems(type, variants, list);
 	}

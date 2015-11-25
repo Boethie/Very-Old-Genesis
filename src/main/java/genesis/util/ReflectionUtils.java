@@ -40,7 +40,7 @@ public class ReflectionUtils
 			}
 		}
 		
-		throw new RuntimeException(new NoSuchMethodException("Constructor with parameters " + args + " not found in " + clazz.getName() + "."));
+		throw new RuntimeException(new NoSuchMethodException(clazz.getName() + " has no constructor with parameters " + Stringify.stringifyArray(args) + "."));
 	}
 	
 	public static <T> T construct(Class<T> clazz, Object[] args)
@@ -53,5 +53,11 @@ public class ReflectionUtils
 		{
 			throw new RuntimeException(e);
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T> Class<T> convertClass(Class<? super T> clazz)
+	{
+		return (Class<T>) clazz;
 	}
 }

@@ -1,11 +1,12 @@
 package genesis.item;
 
-import genesis.metadata.IMetadata;
+import genesis.metadata.EnumDung;
 import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
@@ -13,12 +14,11 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
-public class ItemDung extends ItemMulti
+public class ItemDung extends ItemMulti<EnumDung>
 {
-	public ItemDung(List<IMetadata> variants, VariantsOfTypesCombo owner, ObjectType type)
+	public ItemDung(VariantsOfTypesCombo<EnumDung> owner, ObjectType<Block, ItemDung> type, List<EnumDung> variants, Class<EnumDung> variantClass)
 	{
-		super(variants, owner, type);
+		super(owner, type, variants, variantClass);
 	}
 	
 	@Override

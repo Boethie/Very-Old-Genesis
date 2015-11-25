@@ -21,7 +21,7 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo<EnumTree>
 	public static final ObjectType<BlockGenesisSaplings, ItemBlockMulti<EnumTree>> SAPLING = new ObjectType<BlockGenesisSaplings, ItemBlockMulti<EnumTree>>("sapling", BlockGenesisSaplings.class, null)
 			{
 				@Override
-				public void afterConstructed(BlockGenesisSaplings block, ItemBlockMulti<EnumTree> item, List<? extends IMetadata> variants)
+				public <V extends IMetadata<V>> void afterConstructed(BlockGenesisSaplings block, ItemBlockMulti<EnumTree> item, List<V> variants)
 				{
 					super.afterConstructed(block, item, variants);
 					FuelHandler.setBurnTime(item, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.sapling)), true);
@@ -33,7 +33,7 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo<EnumTree>
 	public static final ObjectType<Block, ItemMulti<EnumTree>> BILLET = new ObjectType<Block, ItemMulti<EnumTree>>("billet", Unlocalized.Section.MATERIAL + "billet", null, null, EnumTree.NO_BILLET)
 			{
 				@Override
-				public void afterConstructed(Block block, ItemMulti<EnumTree> item, List<? extends IMetadata> variants)
+				public <V extends IMetadata<V>> void afterConstructed(Block block, ItemMulti<EnumTree> item, List<V> variants)
 				{
 					super.afterConstructed(block, item, variants);
 					FuelHandler.setBurnTime(item, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.planks)), true);
@@ -55,7 +55,7 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo<EnumTree>
 	
 	public TreeBlocksAndItems()
 	{
-		super(TYPES, ImmutableList.copyOf(EnumTree.values()));
+		super(TYPES, EnumTree.class, ImmutableList.copyOf(EnumTree.values()));
 		
 		setUnlocalizedPrefix(Constants.Unlocalized.PREFIX);
 	}

@@ -19,7 +19,7 @@ public class ItemGenesisAxe extends ItemAxe
 	protected final ToolType type;
 	protected final ToolObjectType<Block, ItemGenesisAxe> objType;
 	
-	public ItemGenesisAxe(ToolType type, ToolItems owner, ToolObjectType<Block, ItemGenesisAxe> objType)
+	public ItemGenesisAxe(ToolItems owner, ToolObjectType<Block, ItemGenesisAxe> objType, ToolType type, Class<ToolType> variantClass)
 	{
 		super(type.toolMaterial);
 		
@@ -35,7 +35,7 @@ public class ItemGenesisAxe extends ItemAxe
 	}
 	
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
 		super.addInformation(stack, playerIn, tooltip, advanced);
 		owner.addToolInformation(stack, playerIn, tooltip, advanced);
