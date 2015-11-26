@@ -32,6 +32,7 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	PALAEOASTER("palaeoaster", plant()),
 	ASTEROXYLON("asteroxylon", plant().biomeColor(true).soil(EnumPlantType.Plains, EnumPlantType.Desert)),
 	ISOETITES("isoetites", plant().biomeColor(true).soil(EnumPlantType.Plains, EnumPlantType.Desert).water(2)),
+	AETHOPHYLLUM("aethophyllum", plant()),
 	
 	// Ferns
 	RHACOPHYTON("rhacophyton", fern()),
@@ -69,9 +70,10 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 		
 		Set<EnumPlant> singlesSet = EnumSet.allOf(EnumPlant.class);
 		singlesSet.remove(RHACOPHYTON);
+		singlesSet.remove(AETHOPHYLLUM);
 		SINGLES = Sets.immutableEnumSet(singlesSet);
 		
-		DOUBLES = Sets.immutableEnumSet(ASTEROXYLON, RHACOPHYTON);
+		DOUBLES = Sets.immutableEnumSet(ASTEROXYLON, RHACOPHYTON, AETHOPHYLLUM);
 	}
 	
 	final String name;
