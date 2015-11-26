@@ -37,7 +37,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 		spawnableCreatureList.clear();
 		spawnableMonsterList.clear();
 		spawnableWaterCreatureList.clear();
-		waterColorMultiplier = 0xaa791e;
+		waterColorMultiplier = 0xAA791E;
 		getGenesisDecorator().sandPerChunk2 = 1;
 	}
 	

@@ -21,7 +21,7 @@ public class BiomeGenOceanGenesis extends BiomeGenBaseGenesis
 		setTemperatureRainfall(0.5F, 0.4F);
 		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);
 		fillerBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);
-		setWaterColor(0x007d39);
+		setWaterColor(0x007D39);
 		
 		theBiomeDecorator.grassPerChunk = 0;
 	}

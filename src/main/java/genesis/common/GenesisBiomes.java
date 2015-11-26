@@ -120,7 +120,7 @@ public final class GenesisBiomes
 		redDesertM = new BiomeGenRedDesertM(GenesisConfig.redDesertId+128);
 		BiomeDictionary.registerBiomeType(redDesertM, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.SANDY, BiomeDictionary.Type.DRY);
 		
-		river = new BiomeGenRiver(GenesisConfig.riverId).setHeight(height_ShallowWaters).setWaterColor(0x059044);
+		river = new BiomeGenRiver(GenesisConfig.riverId).setHeight(height_ShallowWaters);
 		BiomeDictionary.registerBiomeType(river, BiomeDictionary.Type.RIVER, BiomeDictionary.Type.WET);
 		
 		shallowOcean = new BiomeGenShallowOcean(GenesisConfig.shallowOceanId);
@@ -132,13 +132,13 @@ public final class GenesisBiomes
 		deepOcean = new BiomeGenOceanGenesis(GenesisConfig.deepOceanId).addElements(0).setWaterColor(0x01723c).setBiomeName("Deep Ocean").setHeight(height_DeepOceans);
 		BiomeDictionary.registerBiomeType(deepOcean, BiomeDictionary.Type.OCEAN, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
 		
-		genesisBeach = new BiomeGenBeachGenesis(GenesisConfig.genesisBeachId).setHeight(height_Shore).setWaterColor(0x059044);
+		genesisBeach = new BiomeGenBeachGenesis(GenesisConfig.genesisBeachId).setHeight(height_Shore);
 		BiomeDictionary.registerBiomeType(genesisBeach, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.WET);
 		
-		redBeach = new BiomeGenRedBeach(GenesisConfig.redBeachId).setHeight(height_Shore).setWaterColor(0x059044);
+		redBeach = new BiomeGenRedBeach(GenesisConfig.redBeachId).setHeight(height_Shore);
 		BiomeDictionary.registerBiomeType(redBeach, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.WET);
 		
-		limestoneBeach = new BiomeGenLimestoneBeach(GenesisConfig.limestoneBeachId).setWaterColor(0x059044);
+		limestoneBeach = new BiomeGenLimestoneBeach(GenesisConfig.limestoneBeachId);
 		BiomeDictionary.registerBiomeType(limestoneBeach, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.WET);
 	}
 }

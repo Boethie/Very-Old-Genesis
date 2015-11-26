@@ -15,6 +15,8 @@ public class BiomeGenRedBeach extends BiomeGenBeachGenesis
 		setDisableRain();
 		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
 		fillerBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
+		
+		waterColorMultiplier = 0x059044;
 	}
 	
 	@Override

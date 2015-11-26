@@ -15,6 +15,8 @@ public class BiomeGenBeachGenesis extends BiomeGenBaseGenesis
 		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);
 		fillerBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);
 		
+		waterColorMultiplier = 0x059044;
+		
 		addDecoration(new WorldGenPebbles().setCountPerChunk(25));
 		
 		addDecoration(new WorldGenRockBoulders().setRarity(95).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
