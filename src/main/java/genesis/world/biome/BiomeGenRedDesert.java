@@ -1,11 +1,15 @@
 package genesis.world.biome;
 
 import genesis.common.GenesisBlocks;
+import genesis.metadata.EnumPlant;
 import genesis.metadata.EnumSilt;
+import genesis.metadata.PlantBlocks;
 import genesis.metadata.SiltBlocks;
+import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPatch;
 import genesis.world.biome.decorate.WorldGenPebbles;
+import genesis.world.biome.decorate.WorldGenPlant;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
 import genesis.world.gen.feature.WorldGenTreeBjuvia;
 import genesis.world.gen.feature.WorldGenTreeVoltzia;
@@ -31,6 +35,9 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 		
 		addDecoration(new WorldGenPatch().addBlocks(Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT)).addAllowedBlocks(GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.RED_SILT).getBlockState()).setCountPerChunk(6));
 		addDecoration(new WorldGenMossStages().addAllowedBlocks(GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.RED_SILT).getBlockState(), Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT).getBlock().getBlockState()).setCountPerChunk(35));
+		
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.neuropteridium).setNextToWater(true).setPatchSize(3).setCountPerChunk(2));
+		addDecoration(new WorldGenPlant(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.AETHOPHYLLUM).setCountPerChunk(2));
 		
 		addDecoration(new WorldGenPebbles().setWaterRequired(false).setCountPerChunk(1));
 		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(4).setRarity(5).addBlocks(GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT)).setCountPerChunk(1));

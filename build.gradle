@@ -25,7 +25,7 @@ group = "genesis" // http://maven.apache.org/guides/mini/guide-naming-convention
 archivesBaseName = "genesis"
 
 minecraft {
-    version = "1.8.8-11.14.4.1576-1.8.8"
+    version = "1.8.8-11.15.0.1591-1.8.8"
     runDir = "run"
     
     // the mappings can be changed at any time, and must be in the following format.
