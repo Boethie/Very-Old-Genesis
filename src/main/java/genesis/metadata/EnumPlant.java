@@ -13,25 +13,26 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.common.EnumPlantType;
+import static net.minecraftforge.common.EnumPlantType.*;
 
 import static genesis.metadata.EnumPlant.PlantType.*;
 
 public enum EnumPlant implements IPlantMetadata<EnumPlant>
 {
 	// Plants
-	COOKSONIA("cooksonia", plant().soil(EnumPlantType.Plains, EnumPlantType.Desert)),
-	BARAGWANATHIA("baragwanathia", plant().soil(EnumPlantType.Plains, EnumPlantType.Desert)),
-	SCIADOPHYTON("sciadophyton", plant().soil(EnumPlantType.Plains, EnumPlantType.Desert)),
-	PSILOPHYTON("psilophyton", plant().soil(EnumPlantType.Plains, EnumPlantType.Desert)),
-	HORNEOPHYTON("horneophyton", plant().soil(EnumPlantType.Plains, EnumPlantType.Desert)),
-	AGLAOPHYTON("aglaophyton", plant().soil(EnumPlantType.Plains, EnumPlantType.Desert)),
-	NOTHIA("nothia", plant().soil(EnumPlantType.Plains, EnumPlantType.Desert)),
-	RHYNIA("rhynia", plant().soil(EnumPlantType.Plains, EnumPlantType.Desert)),
+	COOKSONIA("cooksonia", plant().soil(Plains, Desert)),
+	BARAGWANATHIA("baragwanathia", plant().soil(Plains, Desert)),
+	SCIADOPHYTON("sciadophyton", plant().soil(Plains, Desert)),
+	PSILOPHYTON("psilophyton", plant().soil(Plains, Desert)),
+	HORNEOPHYTON("horneophyton", plant().soil(Plains, Desert)),
+	AGLAOPHYTON("aglaophyton", plant().soil(Plains, Desert)),
+	NOTHIA("nothia", plant().soil(Plains, Desert)),
+	RHYNIA("rhynia", plant().soil(Plains, Desert)),
 	ARCHAEAMPHORA("archaeamphora", plant()),
 	MABELIA("mabelia", plant()),
 	PALAEOASTER("palaeoaster", plant()),
-	ASTEROXYLON("asteroxylon", plant().biomeColor(true).soil(EnumPlantType.Plains, EnumPlantType.Desert)),
-	ISOETITES("isoetites", plant().biomeColor(true).soil(EnumPlantType.Plains, EnumPlantType.Desert).water(2)),
+	ASTEROXYLON("asteroxylon", plant().soil(Plains, Desert).biomeColor(true)),
+	ISOETITES("isoetites", plant().soil(Plains, Desert).water(2).biomeColor(true)),
 	AETHOPHYLLUM("aethophyllum", plant().shearable(true)),
 	
 	// Ferns
@@ -188,7 +189,6 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 		return new Props(FERN).biomeColor(true).shearable(true).replaceable(true);
 	}
 	
-	@SuppressWarnings("unused")
 	private static class Props
 	{
 		PlantType type;
@@ -203,15 +203,21 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 			this.type = type;
 		}
 		
-		private Props biomeColor(boolean biomeColor)
-		{
-			this.biomeColor = biomeColor;
-			return this;
-		}
-		
 		private Props soil(EnumPlantType... soils)
 		{
 			this.soils = soils;
+			return this;
+		}
+		
+		private Props water(int distance)
+		{
+			this.waterDistance = distance;
+			return this;
+		}
+		
+		private Props biomeColor(boolean biomeColor)
+		{
+			this.biomeColor = biomeColor;
 			return this;
 		}
 		
@@ -224,12 +230,6 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 		private Props replaceable(boolean replaceable)
 		{
 			this.replaceable = replaceable;
-			return this;
-		}
-		
-		private Props water(int distance)
-		{
-			this.waterDistance = distance;
 			return this;
 		}
 	}
