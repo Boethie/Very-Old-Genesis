@@ -25,4 +25,6 @@ public interface IPlantMetadata<V> extends IMetadata<V>
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, Random rand, List<ItemStack> normalDrop);
 	
 	public EnumPlantType[] getSoilTypes();
+	
+	public int getWaterDistance();
 }

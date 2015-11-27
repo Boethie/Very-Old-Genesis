@@ -11,6 +11,7 @@
 		"variant=archaeamphora":  { "model": "genesis:archaeamphora" },
 		"variant=mabelia":  { "model": "genesis:mabelia" },
 		"variant=palaeoaster":  { "model": "genesis:palaeoaster" },
-		"variant=asteroxylon":  { "model": "genesis:asteroxylon" }
+		"variant=asteroxylon":  { "model": "genesis:asteroxylon" },
+		"variant=isoetites":  { "model": "genesis:isoetites" }
 	}
 }

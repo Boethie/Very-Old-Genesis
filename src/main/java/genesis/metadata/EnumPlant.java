@@ -19,18 +19,19 @@ import static genesis.metadata.EnumPlant.PlantType.*;
 public enum EnumPlant implements IPlantMetadata<EnumPlant>
 {
 	// Plants
-	COOKSONIA("cooksonia", plant()),
-	BARAGWANATHIA("baragwanathia", plant()),
-	SCIADOPHYTON("sciadophyton", plant()),
-	PSILOPHYTON("psilophyton", plant()),
-	HORNEOPHYTON("horneophyton", plant()),
-	AGLAOPHYTON("aglaophyton", plant()),
-	NOTHIA("nothia", plant()),
-	RHYNIA("rhynia", plant()),
+	COOKSONIA("cooksonia", plant().soil(EnumPlantType.Plains, EnumPlantType.Desert)),
+	BARAGWANATHIA("baragwanathia", plant().soil(EnumPlantType.Plains, EnumPlantType.Desert)),
+	SCIADOPHYTON("sciadophyton", plant().soil(EnumPlantType.Plains, EnumPlantType.Desert)),
+	PSILOPHYTON("psilophyton", plant().soil(EnumPlantType.Plains, EnumPlantType.Desert)),
+	HORNEOPHYTON("horneophyton", plant().soil(EnumPlantType.Plains, EnumPlantType.Desert)),
+	AGLAOPHYTON("aglaophyton", plant().soil(EnumPlantType.Plains, EnumPlantType.Desert)),
+	NOTHIA("nothia", plant().soil(EnumPlantType.Plains, EnumPlantType.Desert)),
+	RHYNIA("rhynia", plant().soil(EnumPlantType.Plains, EnumPlantType.Desert)),
 	ARCHAEAMPHORA("archaeamphora", plant()),
 	MABELIA("mabelia", plant()),
 	PALAEOASTER("palaeoaster", plant()),
-	ASTEROXYLON("asteroxylon", plant().biomeColor(true)),
+	ASTEROXYLON("asteroxylon", plant().biomeColor(true).soil(EnumPlantType.Plains, EnumPlantType.Desert)),
+	ISOETITES("isoetites", plant().biomeColor(true).soil(EnumPlantType.Plains, EnumPlantType.Desert).water(2)),
 	
 	// Ferns
 	RHACOPHYTON("rhacophyton", fern()),
@@ -80,6 +81,7 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	final EnumPlantType[] soils;
 	final boolean shearable;
 	final boolean replaceable;
+	final int waterDistance;
 	
 	EnumPlant(String name, String unlocalizedName, Props props)
 	{
@@ -90,6 +92,7 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 		this.shearable = props.shearable;
 		this.replaceable = props.replaceable;
 		this.soils = props.soils;
+		this.waterDistance = props.waterDistance;
 	}
 	
 	EnumPlant(String name, Props props)
@@ -161,6 +164,12 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 		return soils;
 	}
 	
+	@Override
+	public int getWaterDistance()
+	{
+		return waterDistance;
+	}
+	
 	public static enum PlantType
 	{
 		PLANT, FERN;
@@ -185,6 +194,7 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 		boolean shearable = false;
 		boolean replaceable = false;
 		EnumPlantType[] soils = {EnumPlantType.Plains};
+		int waterDistance = -1;
 		
 		private Props(PlantType type)
 		{
@@ -212,6 +222,12 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 		private Props replaceable(boolean replaceable)
 		{
 			this.replaceable = replaceable;
+			return this;
+		}
+		
+		private Props water(int distance)
+		{
+			this.waterDistance = distance;
 			return this;
 		}
 	}
