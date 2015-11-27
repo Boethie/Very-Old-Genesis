@@ -97,10 +97,6 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 			
 			this.blockClass = blockClass;
 			this.itemClass = itemClass;
-			
-			//Type[] typeArgs = ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments();
-			//this.blockClass = (Class<B>) typeArgs[0];
-			//this.itemClass = (Class<I>) typeArgs[1];
 		}
 		
 		public ObjectType(String name, Class<? extends B> blockClass, Class<? extends I> itemClass, Collection<? extends IMetadata<?>> variantExclusions)
@@ -278,20 +274,18 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 			}
 		}
 		
-		@SuppressWarnings("unchecked")
 		public <V extends IMetadata<V>> void afterConstructedPass(Block block, Item item, List<V> variants)
 		{
-			afterConstructed((B) block, (I) item, variants);
+			afterConstructed(blockClass.cast(block), itemClass.cast(item), variants);
 		}
 		
 		protected void afterRegistered(B block, I item)
 		{
 		}
 		
-		@SuppressWarnings("unchecked")
 		public final void afterRegisteredPass(Block block, Item item)
 		{
-			afterRegistered((B) block, (I) item);
+			afterRegistered(blockClass.cast(block), itemClass.cast(item));
 		}
 		
 		public ObjectType<B, I> setIgnoredProperties(IProperty<?>... properties)
@@ -1015,10 +1009,9 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	/**
 	 * Returns the Block for this {@link ObjectType} and variant, casted to the ObjectType's block's generic type.
 	 */
-	@SuppressWarnings("unchecked")
 	public <B extends Block> B getBlock(ObjectType<B, ? extends Item> type, V variant)
 	{
-		return (B) getVariantData(type, variant).block;
+		return type.blockClass.cast(getVariantData(type, variant).block);
 	}
 	
 	/**
@@ -1039,10 +1032,9 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	/**
 	 * Returns the Item for this {@link ObjectType} and variant, casted to the ObjectType's item generic type.
 	 */
-	@SuppressWarnings("unchecked")
 	public <I extends Item> I getItem(ObjectType<? extends Block, I> type, V variant)
 	{
-		return (I) getVariantData(type, variant).item;
+		return type.itemClass.cast(getVariantData(type, variant).item);
 	}
 	
 	/**
