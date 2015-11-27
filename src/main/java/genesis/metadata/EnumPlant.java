@@ -32,7 +32,7 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	PALAEOASTER("palaeoaster", plant()),
 	ASTEROXYLON("asteroxylon", plant().biomeColor(true).soil(EnumPlantType.Plains, EnumPlantType.Desert)),
 	ISOETITES("isoetites", plant().biomeColor(true).soil(EnumPlantType.Plains, EnumPlantType.Desert).water(2)),
-	AETHOPHYLLUM("aethophyllum", plant()),
+	AETHOPHYLLUM("aethophyllum", plant().shearable(true)),
 	
 	// Ferns
 	RHACOPHYTON("rhacophyton", fern()),
