@@ -133,7 +133,7 @@ public class BlockGenesisDoublePlant<V extends IPlantMetadata<V>> extends BlockP
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
 	{
-		world.setBlockState(pos.up(), getDefaultState().withProperty(TOP, true), 2);
+		world.setBlockState(pos.up(), state.withProperty(TOP, true), 2);
 	}
 	
 	@Override

@@ -12,6 +12,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
@@ -150,6 +151,12 @@ public class BlockPlant<V extends IPlantMetadata<V>> extends BlockBush implement
 		}
 	}
 	
+	@Override
+	public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+	{
+		return owner.getBlockState(type, owner.getVariant(this, meta));
+	}
+	
 	public boolean placeAt(World world, BlockPos bottom, V variant, int flags)
 	{
 		if (world.isAirBlock(bottom))
@@ -183,6 +190,12 @@ public class BlockPlant<V extends IPlantMetadata<V>> extends BlockBush implement
 	public boolean isReplaceable(World world, BlockPos pos)
 	{
 		return world.getBlockState(pos).getValue(variantProp).isReplaceable(world, pos);
+	}
+	
+	@Override
+	public int damageDropped(IBlockState state)
+	{
+		return owner.getItemMetadata(type, state.getValue(variantProp));
 	}
 	
 	@Override
