@@ -50,6 +50,7 @@ public enum EnumPowder implements IMetadata<EnumPowder>
 		return craftOreDrop;
 	}
 	
+	@Override
 	public String toString()
 	{
 		return getName();

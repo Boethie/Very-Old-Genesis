@@ -68,32 +68,30 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 		{
 			throw new RuntimeException("Already decorating");
 		}
-		else
-		{
-			currentWorld = world;
-			randomGenerator = random;
-			field_180294_c = chunkStart;
-			komatiiteGen = new WorldGenMinableGenesis(GenesisBlocks.komatiite.getDefaultState(), 18, 36);
-			gneissGen = new WorldGenMinableGenesis(GenesisBlocks.gneiss.getDefaultState(), 14, 28);
-			rhyoliteGen = new WorldGenMinableGenesis(GenesisBlocks.rhyolite.getDefaultState(), 10, 20);
-			doleriteGen = new WorldGenMinableGenesis(GenesisBlocks.dolerite.getDefaultState(), 10, 20);
-			trondhjemiteGen = new WorldGenMinableGenesis(GenesisBlocks.trondhjemite.getDefaultState(), 7, 14);
-			fauxGen = new WorldGenMinableGenesis(GenesisBlocks.faux_amphibolite.getDefaultState(), 5, 10);
-			anorthositeGen = new WorldGenMinableGenesis(GenesisBlocks.anorthosite.getDefaultState(), 5, 10);
-			quartzGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.QUARTZ), 4, 8);
-			zirconGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.ZIRCON), 1, 4);
-			garnetGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.GARNET), 1, 4);
-			manganeseGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.MANGANESE), 1, 3);
-			hematiteGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.HEMATITE), 4, 8);
-			malachiteGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.MALACHITE), 2, 4);
-			azuriteGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.AZURITE), 2, 4);
-			olivineGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.OLIVINE), 1, 4);
-			flintGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.FLINT), 4, 8, GenesisBlocks.limestone);
-			marcasiteGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.MARCASITE), 1, 3, GenesisBlocks.limestone);
-			genDecorations(biome);
-			currentWorld = null;
-			randomGenerator = null;
-		}
+		
+		currentWorld = world;
+		randomGenerator = random;
+		field_180294_c = chunkStart;
+		komatiiteGen = new WorldGenMinableGenesis(GenesisBlocks.komatiite.getDefaultState(), 18, 36);
+		gneissGen = new WorldGenMinableGenesis(GenesisBlocks.gneiss.getDefaultState(), 14, 28);
+		rhyoliteGen = new WorldGenMinableGenesis(GenesisBlocks.rhyolite.getDefaultState(), 10, 20);
+		doleriteGen = new WorldGenMinableGenesis(GenesisBlocks.dolerite.getDefaultState(), 10, 20);
+		trondhjemiteGen = new WorldGenMinableGenesis(GenesisBlocks.trondhjemite.getDefaultState(), 7, 14);
+		fauxGen = new WorldGenMinableGenesis(GenesisBlocks.faux_amphibolite.getDefaultState(), 5, 10);
+		anorthositeGen = new WorldGenMinableGenesis(GenesisBlocks.anorthosite.getDefaultState(), 5, 10);
+		quartzGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.QUARTZ), 4, 8);
+		zirconGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.ZIRCON), 1, 4);
+		garnetGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.GARNET), 1, 4);
+		manganeseGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.MANGANESE), 1, 3);
+		hematiteGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.HEMATITE), 4, 8);
+		malachiteGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.MALACHITE), 2, 4);
+		azuriteGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.AZURITE), 2, 4);
+		olivineGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.OLIVINE), 1, 4);
+		flintGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.FLINT), 4, 8, GenesisBlocks.limestone);
+		marcasiteGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.MARCASITE), 1, 3, GenesisBlocks.limestone);
+		genDecorations(biome);
+		currentWorld = null;
+		randomGenerator = null;
 	}
 	
 	@Override

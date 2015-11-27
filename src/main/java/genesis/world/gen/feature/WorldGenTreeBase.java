@@ -328,8 +328,8 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		{
 			branchPos = branchPos.add(0, -1, 0);
 			
-			percent = 1.0F - (((float)branchPos.getY() - (float)leavesBase) / ((float)genPos.getY() + (float)treeHeight - (float)leavesBase));
-			leaves = MathHelper.ceiling_float_int((float)maxLeaveLength * percent);
+			percent = 1 - ((branchPos.getY() - leavesBase) / (float) (genPos.getY() + treeHeight - leavesBase));
+			leaves = MathHelper.ceiling_float_int(maxLeaveLength * percent);
 			
 			if (leaves > maxLeaveLength)
 				leaves = maxLeaveLength;

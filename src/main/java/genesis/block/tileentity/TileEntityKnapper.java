@@ -131,6 +131,7 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 			setProgress(compound.getInteger("progress"));
 		}
 		
+		@Override
 		public String toString()
 		{
 			return "progress=" + getProgress() + ",players=" + Stringify.stringifyIterable(getKnappingPlayers());

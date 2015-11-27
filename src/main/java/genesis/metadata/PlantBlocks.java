@@ -22,38 +22,42 @@ public class PlantBlocks extends VariantsOfTypesCombo<EnumPlant>
 	// Plants
 	public static final ObjectType<BlockPlant<EnumPlant>, ItemBlockMulti<EnumPlant>> PLANT = ObjectType.create("plant", Unlocalized.Section.PLANT, SINGLE, null);
 	public static final ObjectType<BlockGenesisDoublePlant<EnumPlant>, ItemBlockMulti<EnumPlant>> DOUBLE_PLANT = new ObjectType<BlockGenesisDoublePlant<EnumPlant>, ItemBlockMulti<EnumPlant>>("double_plant", Unlocalized.Section.PLANT_DOUBLE, DOUBLE, null)
-			{
-				@Override
-				public String getVariantName(IMetadata<?> variant)
-				{
-					return "double_" + variant.getName();
-				}
-			};
+	{
+		@Override
+		public String getVariantName(IMetadata<?> variant)
+		{
+			return "double_" + variant.getName();
+		}
+	};
 	
 	// Ferns
+	private static void afterFernConstructed(Block block, ItemBlockMulti<EnumPlant> item, List<? extends IMetadata<?>> variants)
+	{
+		block.setStepSound(GenesisSounds.FERN);
+	}
+	
 	public static final ObjectType<BlockPlant<EnumPlant>, ItemBlockMulti<EnumPlant>> FERN = new ObjectType<BlockPlant<EnumPlant>, ItemBlockMulti<EnumPlant>>("fern", Unlocalized.Section.FERN, SINGLE, null)
-			{
-				@Override
-				public  <V extends IMetadata<V>> void afterConstructed(BlockPlant<EnumPlant> block, ItemBlockMulti<EnumPlant> item, List<V> variants)
-				{
-					afterFernConstructed(block, item, variants);
-				}
-			};
+	{
+		@Override
+		public  <V extends IMetadata<V>> void afterConstructed(BlockPlant<EnumPlant> block, ItemBlockMulti<EnumPlant> item, List<V> variants)
+		{
+			afterFernConstructed(block, item, variants);
+		}
+	};
 	public static final ObjectType<BlockGenesisDoublePlant<EnumPlant>, ItemBlockMulti<EnumPlant>> DOUBLE_FERN = new ObjectType<BlockGenesisDoublePlant<EnumPlant>, ItemBlockMulti<EnumPlant>>("double_fern", Unlocalized.Section.FERN_DOUBLE, DOUBLE, null)
-			{
-				@Override
-				public  <V extends IMetadata<V>> void afterConstructed(BlockGenesisDoublePlant<EnumPlant> block, ItemBlockMulti<EnumPlant> item, List<V> variants)
-				{
-					afterFernConstructed(block, item, variants);
-				}
-				
-				@Override
-				public String getVariantName(IMetadata<?> variant)
-				{
-					return "double_" + variant.getName();
-				}
-			}
-			.setValidVariants(EnumPlant.FERNS);
+	{
+		@Override
+		public  <V extends IMetadata<V>> void afterConstructed(BlockGenesisDoublePlant<EnumPlant> block, ItemBlockMulti<EnumPlant> item, List<V> variants)
+		{
+			afterFernConstructed(block, item, variants);
+		}
+		
+		@Override
+		public String getVariantName(IMetadata<?> variant)
+		{
+			return "double_" + variant.getName();
+		}
+	}.setValidVariants(EnumPlant.FERNS);
 	
 	static
 	{
@@ -70,20 +74,40 @@ public class PlantBlocks extends VariantsOfTypesCombo<EnumPlant>
 				.setValidVariants(Sets.intersection(EnumPlant.FERNS, EnumPlant.DOUBLES));
 	}
 	
-	private static void afterFernConstructed(Block block, ItemBlockMulti<EnumPlant> item, List<? extends IMetadata<?>> variants)
-	{
-		block.setStepSound(GenesisSounds.FERN);
-	}
-	
 	public PlantBlocks()
 	{
 		super(ImmutableList.of(PLANT, DOUBLE_PLANT, FERN, DOUBLE_FERN), EnumPlant.class, ImmutableList.copyOf(EnumPlant.values()));
 	}
 	
-	// -------- Plants --------
+	public ObjectType<BlockPlant<EnumPlant>, ItemBlockMulti<EnumPlant>> getType(EnumPlant variant)
+	{
+		switch (variant.getType())
+		{
+		case PLANT:
+			return PLANT;
+		case FERN:
+			return FERN;
+		}
+		
+		return null;
+	}
+	
+	public ObjectType<BlockGenesisDoublePlant<EnumPlant>, ItemBlockMulti<EnumPlant>> getDoubleType(EnumPlant variant)
+	{
+		switch (variant.getType())
+		{
+		case PLANT:
+			return DOUBLE_PLANT;
+		case FERN:
+			return DOUBLE_FERN;
+		}
+		
+		return null;
+	}
+	
 	public ItemStack getPlantStack(EnumPlant variant, int stackSize)
 	{
-		return !variant.isFern() ? getStack(PLANT, variant, stackSize) : getStack(FERN, variant, stackSize);
+		return getStack(getType(variant), variant, stackSize);
 	}
 	
 	public ItemStack getPlantStack(EnumPlant variant)
@@ -93,7 +117,7 @@ public class PlantBlocks extends VariantsOfTypesCombo<EnumPlant>
 	
 	public ItemStack getDoublePlantStack(EnumPlant variant, int stackSize)
 	{
-		return !variant.isFern() ? getStack(DOUBLE_PLANT, variant, stackSize) : getStack(DOUBLE_FERN, variant, stackSize);
+		return getStack(getDoubleType(variant), variant, stackSize);
 	}
 	
 	public ItemStack getDoublePlantStack(EnumPlant variant)
@@ -103,21 +127,21 @@ public class PlantBlocks extends VariantsOfTypesCombo<EnumPlant>
 	
 	public BlockPlant<EnumPlant> getPlantBlock(EnumPlant variant)
 	{
-		return !variant.isFern() ? getBlock(PLANT, variant) : getBlock(FERN, variant);
+		return getBlock(getType(variant), variant);
 	}
 	
 	public BlockGenesisDoublePlant<EnumPlant> getDoublePlantBlock(EnumPlant variant)
 	{
-		return !variant.isFern() ? getBlock(DOUBLE_PLANT, variant) : getBlock(DOUBLE_FERN, variant);
+		return getBlock(getDoubleType(variant), variant);
 	}
 	
 	public IBlockState getPlantBlockState(EnumPlant variant)
 	{
-		return !variant.isFern() ? getBlockState(PLANT, variant) : getBlockState(FERN, variant);
+		return getBlockState(getType(variant), variant);
 	}
 	
 	public IBlockState getDoublePlantBlockState(EnumPlant variant)
 	{
-		return !variant.isFern() ? getBlockState(DOUBLE_PLANT, variant) : getBlockState(DOUBLE_FERN, variant);
+		return getBlockState(getDoubleType(variant), variant);
 	}
 }

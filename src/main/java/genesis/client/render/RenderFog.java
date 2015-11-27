@@ -2,6 +2,7 @@ package genesis.client.render;
 
 import org.lwjgl.opengl.GL11;
 
+import genesis.util.GenesisMath;
 import genesis.world.biome.IBiomeGenFog;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -61,9 +62,9 @@ public class RenderFog
 				
 				float percent = getDayNightFactor(time);
 				
-				red = applyColorTransition(red, nRed, 1.0f - percent);
-				green = applyColorTransition(green, nGreen, 1.0f - percent);
-				blue = applyColorTransition(blue, nBlue, 1.0f - percent);
+				red = GenesisMath.lerp(red, nRed, 1.0f - percent);
+				green = GenesisMath.lerp(green, nGreen, 1.0f - percent);
+				blue = GenesisMath.lerp(blue, nBlue, 1.0f - percent);
 				
 				if (!colorInit)
 				{
@@ -111,12 +112,7 @@ public class RenderFog
 		}
 	}
 	
-	private double applyColorTransition(double origin, double destiny, float percentage)
-	{
-		return origin + ((destiny - origin) * percentage);
-	}
-	
-	private float getDayNightFactor(long time)
+	private static float getDayNightFactor(long time)
 	{
 		float factor = 1.0F;
 		
@@ -128,14 +124,14 @@ public class RenderFog
 		//Sunset
 		else if (time > 17000 && time <= 20000)
 		{
-			factor = 1.0f - (((float)time - 17000f) / 3000f);
+			factor = 1.0f - ((time - 17000) / 3000f);
 			if (factor < 0.0f)
 				factor = 0.0f;
 		}
 		//Sunrise
 		else if (time > 31000 && time <= 34000)
 		{
-			factor = (((float)time - 31000f) / 3000f);
+			factor = ((time - 31000) / 3000F);
 			if (factor > 1.0f)
 				factor = 1.0f;
 		}

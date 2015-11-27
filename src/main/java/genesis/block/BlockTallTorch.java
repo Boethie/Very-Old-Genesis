@@ -39,6 +39,7 @@ public class BlockTallTorch extends Block
 	{
 		TOP("top"),
 		BOTTOM("bottom");
+		
 		final String name;
 		
 		Part(String name)
@@ -46,14 +47,16 @@ public class BlockTallTorch extends Block
 			this.name = name;
 		}
 		
-		public String toString()
-		{
-			return this.name;
-		}
-		
+		@Override
 		public String getName()
 		{
-			return this.name;
+			return name;
+		}
+		
+		@Override
+		public String toString()
+		{
+			return name;
 		}
 	}
 	
@@ -107,25 +110,23 @@ public class BlockTallTorch extends Block
 			IBlockState stateBelow = world.getBlockState(pos.down());
 			return stateBelow.getBlock() == this && stateBelow.getValue(PART) == Part.BOTTOM;
 		}
-		else
+		
+		BlockPos above = pos.up();
+		IBlockState stateAbove = world.getBlockState(pos.up());
+		
+		if (placing && stateAbove.getBlock().isReplaceable(world, above) ||
+			stateAbove.getBlock() == this && stateAbove.getValue(PART) == Part.TOP)
 		{
-			BlockPos above = pos.up();
-			IBlockState stateAbove = world.getBlockState(pos.up());
+			EnumFacing facing = state.getValue(FACING);
 			
-			if (placing && stateAbove.getBlock().isReplaceable(world, above) ||
-				stateAbove.getBlock() == this && stateAbove.getValue(PART) == Part.TOP)
+			if (world.isSideSolid(pos.offset(facing.getOpposite()), facing, true))
 			{
-				EnumFacing facing = state.getValue(FACING);
-				
-				if (world.isSideSolid(pos.offset(facing.getOpposite()), facing, true))
-				{
-					return true;
-				}
-				
-				if (facing == EnumFacing.UP && world.getBlockState(pos.down()).getBlock().canPlaceTorchOnTop(world, pos))
-				{
-					return true;
-				}
+				return true;
+			}
+			
+			if (facing == EnumFacing.UP && world.getBlockState(pos.down()).getBlock().canPlaceTorchOnTop(world, pos))
+			{
+				return true;
 			}
 		}
 		
@@ -198,7 +199,7 @@ public class BlockTallTorch extends Block
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
 	{
-		switch ((Part) state.getValue(PART))
+		switch (state.getValue(PART))
 		{
 		case BOTTOM:
 			world.setBlockState(pos.up(), state.withProperty(PART, Part.TOP));
@@ -211,7 +212,7 @@ public class BlockTallTorch extends Block
 	
 	protected BlockPos getOther(IBlockAccess world, BlockPos pos)
 	{
-		Part part = (Part) world.getBlockState(pos).getValue(PART);
+		Part part = world.getBlockState(pos).getValue(PART);
 		BlockPos other = part == Part.BOTTOM ? pos.up() : pos.down();
 		IBlockState otherState = world.getBlockState(other);
 		return otherState.getBlock() == this && otherState.getValue(PART) != part ? other : null;

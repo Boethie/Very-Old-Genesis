@@ -149,7 +149,7 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 		}
 	}
 	
-	private BlockPos getValidPos(MenhirStructure structure, Random random, World world, BlockPos chunkPos)
+	protected BlockPos getValidPos(MenhirStructure structure, Random random, World world, BlockPos chunkPos)
 	{
 		chunkPos = new BlockPos(chunkPos.getX(), 0, chunkPos.getZ());
 		BlockPos candidate;
@@ -172,7 +172,7 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 		return null;
 	}
 	
-	private BlockPos getRealHeight(World world, BlockPos blockPos, List<Block> blockList)
+	protected BlockPos getRealHeight(World world, BlockPos blockPos, List<Block> blockList)
 	{
 		int top = world.getChunkFromBlockCoords(blockPos).getTopFilledSegment() + 15;
 		int x = blockPos.getX();

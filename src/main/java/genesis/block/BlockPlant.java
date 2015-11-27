@@ -190,4 +190,16 @@ public class BlockPlant<V extends IPlantMetadata<V>> extends BlockBush implement
 	{
 		return state.getValue(variantProp).getDrops(world, pos, state, WorldUtils.getWorldRandom(world, RANDOM), Collections.singletonList(getDrop(state)));
 	}
+	
+	@Override
+	public boolean canReplace(World world, BlockPos pos, EnumFacing side, ItemStack stack)
+	{
+		return WorldUtils.canSoilSustainTypes(world, pos, owner.getVariant(stack).getSoilTypes());
+	}
+	
+	@Override
+	public boolean canBlockStay(World world, BlockPos pos, IBlockState state)
+	{
+		return WorldUtils.canSoilSustainTypes(world, pos, state.getValue(variantProp).getSoilTypes());
+	}
 }

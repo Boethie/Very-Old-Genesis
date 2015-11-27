@@ -26,6 +26,7 @@ public class TileEntityGenesisPortal extends TileEntityBase implements ITickable
 	{
 	}
 	
+	@Override
 	public void setPos(BlockPos pos)
 	{
 		super.setPos(pos);
@@ -105,6 +106,7 @@ public class TileEntityGenesisPortal extends TileEntityBase implements ITickable
 		return 65536;
 	}
 	
+	@Override
 	public void writeToNBT(NBTTagCompound compound)
 	{
 		super.writeToNBT(compound);
@@ -115,6 +117,7 @@ public class TileEntityGenesisPortal extends TileEntityBase implements ITickable
 		compound.setFloat("rotation", rotation);
 	}
 	
+	@Override
 	public void readFromNBT(NBTTagCompound compound)
 	{
 		super.readFromNBT(compound);

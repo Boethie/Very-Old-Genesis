@@ -354,7 +354,6 @@ public final class GenesisBlocks
 		
 		flower_pot.registerPlantsForPot(plants, PlantBlocks.PLANT, plantCustoms);
 		flower_pot.registerPlantsForPot(plants, PlantBlocks.FERN, plantCustoms);
-		//flower_pot.registerPlantsForPot(ferns, plantCustoms);
 		flower_pot.registerPlantsForPot(trees, TreeBlocksAndItems.SAPLING, null);
 		flower_pot.afterAllRegistered();
 		

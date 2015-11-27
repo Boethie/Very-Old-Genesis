@@ -27,11 +27,13 @@ public enum EnumAxis implements IMetadata<EnumAxis>
 		this(name, name);
 	}
 	
+	@Override
 	public String toString()
 	{
 		return name;
 	}
 	
+	@Override
 	public String getName()
 	{
 		return name;

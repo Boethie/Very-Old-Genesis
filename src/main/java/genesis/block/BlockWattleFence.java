@@ -89,7 +89,7 @@ public class BlockWattleFence extends BlockFence
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return owner.getItemMetadata(type, (EnumTree) state.getValue(variantProp));
+		return owner.getItemMetadata(type, state.getValue(variantProp));
 	}
 	
 	protected IBlockState setSideState(IBlockAccess world, IBlockState state, BlockPos sidePos, PropertyEnum<EnumConnectState> property, boolean above, boolean below)
@@ -179,7 +179,7 @@ public class BlockWattleFence extends BlockFence
 		{
 			for (int i = 0; i < list.size(); i++)
 			{
-				AxisAlignedBB bb = (AxisAlignedBB) list.get(i);
+				AxisAlignedBB bb = list.get(i);
 				bb = new AxisAlignedBB(bb.minX, bb.minY, bb.minZ, bb.maxX, bb.maxY - 0.5, bb.maxZ);
 				list.set(i, bb);
 			}

@@ -14,11 +14,12 @@ import genesis.common.*;
 import genesis.item.*;
 import genesis.util.Constants.Unlocalized;
 import genesis.util.FuelHandler;
+import genesis.util.ReflectionUtils;
 
 public class DungBlocksAndItems extends VariantsOfTypesCombo<EnumDung>
 {
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private static final Class<BlockGenesisVariants<EnumDung>> DUNG_CLASS = (Class<BlockGenesisVariants<EnumDung>>) ((Class) BlockGenesisVariants.class);
+	private static final Class<BlockGenesisVariants<EnumDung>> DUNG_CLASS = ReflectionUtils.convertClass(BlockGenesisVariants.class);
+	
 	public static final ObjectType<BlockGenesisVariants<EnumDung>, ItemBlockMulti<EnumDung>> DUNG_BLOCK =
 			new ObjectType<BlockGenesisVariants<EnumDung>, ItemBlockMulti<EnumDung>>("dung_block", "dung", DUNG_CLASS, null)
 			{

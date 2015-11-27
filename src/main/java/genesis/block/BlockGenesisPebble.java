@@ -426,7 +426,7 @@ public class BlockGenesisPebble extends Block
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return owner.getStack(type, (ToolType) state.getValue(variantProp)).getItemDamage();
+		return owner.getStack(type, state.getValue(variantProp)).getItemDamage();
 	}
 	
 	protected boolean canBlockStay(World world, BlockPos pos, IBlockState state)

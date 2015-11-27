@@ -13,6 +13,7 @@ public interface SlotModifier
 	
 	public static abstract class SlotModifierBase implements SlotModifier
 	{
+		@Override
 		public void modifySize(int amount)
 		{
 			ItemStack stack = getStack();
@@ -24,6 +25,7 @@ public interface SlotModifier
 			}
 		}
 		
+		@Override
 		public void clearStack()
 		{
 			setStack(null);

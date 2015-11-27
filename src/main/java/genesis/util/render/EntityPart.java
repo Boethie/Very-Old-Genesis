@@ -133,6 +133,7 @@ public class EntityPart extends ModelRenderer
 		return this;
 	}
 	
+	@Override
 	public void render(float scale)
 	{
 		GlStateManager.scale(scaleX, scaleY, scaleZ);

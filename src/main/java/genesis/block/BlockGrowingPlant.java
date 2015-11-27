@@ -22,7 +22,7 @@ import net.minecraft.world.*;
 import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.common.*;
 
-public class BlockGrowingPlant extends BlockCrops implements IGrowable
+public class BlockGrowingPlant extends BlockCrops
 {
 	protected static interface IPerBlockCall
 	{
@@ -300,6 +300,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 			setDefaultState(state.getBaseState().withProperty(ageProp, 0));
 		}
 		
+		@SuppressWarnings("rawtypes")
 		ArrayList<IProperty<?>> metaProps = new ArrayList<IProperty<?>>((Collection) state.getProperties());
 		
 		if (hasTopProperty)
@@ -592,6 +593,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), meta, metaProperties);
 	}
 	
+	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
 		if (hasTopProperty)
@@ -833,6 +835,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 				{
 					final int setAge = age;
 					callForEachInColumn(world, pos, new IPerBlockCall() {
+							@Override
 							public void call(World world, BlockPos curPos, IBlockState curState, BlockPos startPos) {
 								world.setBlockState(curPos, curState.withProperty(ageProp, setAge));
 							}
@@ -1003,6 +1006,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		if (breakTogether && !noBreakTogether)
 		{
 			callForEachInColumn(world, pos, new IPerBlockCall() {
+				@Override
 				public void call(World world, BlockPos curPos, IBlockState curState, BlockPos startPos) {
 					oldStates.put(curPos, getActualState(world.getBlockState(curPos), world, curPos));
 				}
@@ -1080,6 +1084,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 			if (blockUnder == this)
 			{
 				callForEachInColumn(world, under, new IPerBlockCall() {
+					@Override
 					public void call(World world, BlockPos curPos, IBlockState curState, BlockPos startPos) {
 						world.setBlockState(curPos, curState.withProperty(ageProp, growthAge - 1));
 					}
@@ -1163,6 +1168,7 @@ public class BlockGrowingPlant extends BlockCrops implements IGrowable
 		super.onBlockHarvested(world, pos, state, player);
 	}
 	
+	@Override
 	public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te)
 	{
 		super.harvestBlock(world, player, pos, state, te);

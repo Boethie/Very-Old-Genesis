@@ -53,8 +53,8 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
 		{
 			for (int blockZ = chunkZ - k; blockZ <= chunkZ + k; ++blockZ)
 			{
-				long l1 = (long)blockX * l;
-				long i2 = (long)blockZ * i1;
+				long l1 = blockX * l;
+				long i2 = blockZ * i1;
 				this.rand.setSeed(l1 ^ i2 ^ world.getSeed());
 				this.generateInChunk(world, blockX, blockZ, chunkX, chunkZ, chunkPrimer);
 			}
@@ -70,9 +70,9 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
 			
 			lavaLevel = 7;
 			
-			double x1 = (double)(blockX * 16 + this.rand.nextInt(16));
-			double y1 = (double)lakeBottom;
-			double z1 = (double)(blockZ * 16 + this.rand.nextInt(16));
+			double x1 = (blockX * 16 + this.rand.nextInt(16));
+			double y1 = lakeBottom;
+			double z1 = (blockZ * 16 + this.rand.nextInt(16));
 			byte b0 = 1;
 			
 			for (int i1 = 0; i1 < b0; ++i1)
@@ -88,8 +88,8 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
 	protected void generateArea(long seed, int chunkX, int chunkZ, ChunkPrimer chunkPrimer, double x1, double y1, double z1, float p_180707_12_, float p_180707_13_, float p_180707_14_, int p_180707_15_, int p_180707_16_, double p_180707_17_)
 	{
 		Random random = new Random(seed);
-		double d4 = (double)(chunkX * 16 + 8);
-		double d5 = (double)(chunkZ * 16 + 8);
+		double d4 = (chunkX * 16 + 8);
+		double d5 = (chunkZ * 16 + 8);
 		float f3 = 0.0F;
 		float f4 = 0.0F;
 		
@@ -121,15 +121,15 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
 		
 		for (; p_180707_15_ < p_180707_16_; ++p_180707_15_)
 		{
-			double d13 = 3.5D + (double)(MathHelper.sin((float)p_180707_15_ * (float)Math.PI / (float)p_180707_16_) * p_180707_12_ * 5.8F);
+			double d13 = 3.5D + (MathHelper.sin(p_180707_15_ * (float)Math.PI / p_180707_16_) * p_180707_12_ * 5.8F);
 			double d6 = d13 * p_180707_17_;
-			d13 *= (double)random.nextFloat() * 0.25D + 0.75D;
-			d6 *= MathHelper.sin(p_180707_14_) * (random.nextFloat() * 2.0F); // (double)random.nextFloat() * 0.25D + 0.75D;
+			d13 *= random.nextFloat() * 0.25D + 0.75D;
+			d6 *= MathHelper.sin(p_180707_14_) * (random.nextFloat() * 2.0F); // random.nextFloat() * 0.25D + 0.75D;
 			float f6 = MathHelper.cos(p_180707_14_);
 			float f7 = MathHelper.sin(p_180707_14_);
-			x1 += (double)(MathHelper.cos(p_180707_13_) * f6);
-			y1 += (double)f7;
-			z1 += (double)(MathHelper.sin(p_180707_13_) * f6);
+			x1 += (MathHelper.cos(p_180707_13_) * f6);
+			y1 += f7;
+			z1 += (MathHelper.sin(p_180707_13_) * f6);
 			p_180707_14_ *= 0.7F;
 			p_180707_14_ += f4 * 0.05F;
 			p_180707_13_ += f3 * 0.05F;
@@ -142,8 +142,8 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
 			{
 				double d7 = x1 - d4;
 				double d8 = z1 - d5;
-				double d9 = (double)(p_180707_16_ - p_180707_15_);
-				double d10 = (double)(p_180707_12_ + 2.0F + 16.0F);
+				double d9 = (p_180707_16_ - p_180707_15_);
+				double d10 = (p_180707_12_ + 2.0F + 16.0F);
 				
 				if (d7 * d7 + d8 * d8 - d9 * d9 > d10 * d10)
 				{
@@ -192,19 +192,19 @@ public class MapGenUndergroundLavaLakes extends MapGenBase
 					{
 						for (k2 = k3; k2 < l1; ++k2)
 						{
-							double d14 = ((double)(k2 + chunkX * 16) + 0.5D - x1) / d13;
+							double d14 = (k2 + chunkX * 16 + 0.5D - x1) / d13;
 
 							for (int j4 = i4; j4 < j2; ++j4)
 							{
-								double d11 = ((double)(j4 + chunkZ * 16) + 0.8D - z1) / d13;
+								double d11 = (j4 + chunkZ * 16 + 0.8D - z1) / d13;
 								
 								if (d14 * d14 + d11 * d11 < 1.0D)
 								{
 									for (int j3 = i2; j3 > l3; --j3)
 									{
-										double d12 = ((double)(j3 - 1) + 0.5D - y1) / d6;
+										double d12 = (j3 - 1 + 0.5D - y1) / d6;
 										
-										if ((d14 * d14 + d11 * d11) * (double)this.column[j3 - 1] + d12 * d12 / 6.0D < 1.0D)
+										if ((d14 * d14 + d11 * d11) * this.column[j3 - 1] + d12 * d12 / 6.0D < 1.0D)
 										{
 											digBlock(chunkPrimer, k2, j3, j4, chunkX, chunkZ);
 										}

@@ -49,6 +49,7 @@ public class BlockAsEntityPart extends CustomEntityPart
 		setDefaultState();
 	}
 	
+	@Override
 	public BlockAsEntityPart setDefaultState()
 	{
 		super.setDefaultState();
@@ -64,6 +65,7 @@ public class BlockAsEntityPart extends CustomEntityPart
 		return this;
 	}
 	
+	@Override
 	public void resetState()
 	{
 		super.resetState();

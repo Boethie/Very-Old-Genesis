@@ -97,7 +97,7 @@ public class BlockGenesisLogs extends BlockLog
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return owner.getStack(type, (EnumTree) state.getValue(variantProp)).getItemDamage();
+		return owner.getStack(type, state.getValue(variantProp)).getItemDamage();
 	}
 	
 	@Override

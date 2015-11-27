@@ -5,7 +5,6 @@ import genesis.metadata.EnumTree;
 import genesis.world.biome.decorate.WorldGenArchaeomarasmius;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenPalaeoagaracites;
-import genesis.world.biome.decorate.WorldGenRockBoulders;
 import genesis.world.gen.feature.WorldGenDeadLog;
 import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
 

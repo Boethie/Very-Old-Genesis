@@ -43,7 +43,8 @@ public class ItemGenesisKnife extends ItemTool
 		super.addInformation(stack, playerIn, tooltip, advanced);
 		owner.addToolInformation(stack, playerIn, tooltip, advanced);
 	}
-
+	
+	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EntityLivingBase playerIn)
 	{
 		return Items.shears.onBlockDestroyed(stack, worldIn, blockIn, pos, playerIn);

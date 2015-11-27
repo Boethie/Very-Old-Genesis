@@ -21,6 +21,7 @@ public class ItemAsEntityPart extends CustomEntityPart
 		setDefaultState();
 	}
 	
+	@Override
 	public ItemAsEntityPart setDefaultState()
 	{
 		super.setDefaultState();
@@ -30,6 +31,7 @@ public class ItemAsEntityPart extends CustomEntityPart
 		return this;
 	}
 	
+	@Override
 	public void resetState()
 	{
 		super.resetState();

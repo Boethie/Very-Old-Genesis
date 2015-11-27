@@ -164,6 +164,7 @@ public class ItemPebble extends ItemGenesis
 		return false;
 	}
 	
+	@Override
 	public int getItemStackLimit(ItemStack stack)
 	{
 		return stack.isItemDamaged() ? 1 : 64;

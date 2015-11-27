@@ -49,7 +49,7 @@ public class WorldGenGrassMulti extends WorldGenGrass
 			BlockPos placePos = pos.add(random.nextInt(8) - random.nextInt(8), random.nextInt(4) - random.nextInt(4), random.nextInt(8) - random.nextInt(8));
 			IBlockState state = states.get(random.nextInt(states.size()));
 			
-			if (world.isAirBlock(placePos) && ((BlockBush) state.getBlock()).canBlockStay(world, placePos, world.getBlockState(placePos)))
+			if (world.isAirBlock(placePos) && ((BlockBush) state.getBlock()).canBlockStay(world, placePos, state))
 			{
 				world.setBlockState(placePos, state, 2);
 			}

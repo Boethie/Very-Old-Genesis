@@ -151,12 +151,15 @@ public class BlockMoss extends BlockGrass
 		case Desert:
 			return true;
 		case Beach:
-			return hasWater(world, pos.east()) || hasWater(world, pos.west()) || hasWater(world, pos.north()) || hasWater(world, pos.south());
+			return WorldUtils.isWater(world, pos.east()) ||
+					WorldUtils.isWater(world, pos.west()) ||
+					WorldUtils.isWater(world, pos.north()) ||
+					WorldUtils.isWater(world, pos.south());
 		default:
 			return super.canSustainPlant(world, pos, direction, plantable);
 		}
 	}
-
+	
 	@Override
 	public void onPlantGrow(World world, BlockPos pos, BlockPos source)
 	{
@@ -258,7 +261,7 @@ public class BlockMoss extends BlockGrass
 	{
 		return targetStages[Math.min(Math.round(fertility * targetStages.length), targetStages.length - 1)].get(rand);
 	}
-
+	
 	protected final float growthChanceHumidityEffect = 0.25F;
 	protected final float growthChanceMult = 0.25F;
 	
@@ -275,7 +278,7 @@ public class BlockMoss extends BlockGrass
 	{
 		if (!world.isRemote)
 		{
-			int stage = (Integer) state.getValue(STAGE);
+			int stage = state.getValue(STAGE);
 			
 			float fertility = getFertility(world, pos);
 			int targetStage = getTargetStage(fertility, world.rand);
@@ -300,7 +303,7 @@ public class BlockMoss extends BlockGrass
 						BlockPos randPos = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
 						IBlockState randState = world.getBlockState(randPos);
 						Block randBlock = randState.getBlock();
-
+						
 						boolean correctBlock = randBlock == Blocks.dirt || randBlock == Blocks.grass;
 						
 						if (correctBlock)
@@ -325,7 +328,7 @@ public class BlockMoss extends BlockGrass
 			}
 		}
 	}
-
+	
 	/**
 	 * @see ItemHoe#useHoe(ItemStack, EntityPlayer, World, BlockPos, IBlockState)
 	 */
@@ -333,40 +336,40 @@ public class BlockMoss extends BlockGrass
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
 		ItemStack stack = playerIn.getCurrentEquippedItem();
-
+		
 		if ((stack != null) && (stack.getItem() instanceof ItemHoe))
 		{
 			if (!playerIn.canPlayerEdit(pos.offset(side), side, stack))
 			{
 				return false;
 			}
-
+			
 			if ((side != EnumFacing.DOWN) && world.isAirBlock(pos.up()))
 			{
 				IBlockState newState = Blocks.farmland.getDefaultState();
-
+				
 				double x = pos.getX() + 0.5F;
 				double y = pos.getY() + 0.5F;
 				double z = pos.getZ() + 0.5F;
 				String soundName = newState.getBlock().stepSound.getStepSound();
-				float volume = (newState.getBlock().stepSound.getVolume() + 1.0F) / 2.0F;
+				float volume = (newState.getBlock().stepSound.getVolume() + 1F) / 2F;
 				float pitch = newState.getBlock().stepSound.getFrequency() * 0.8F;
-
+				
 				world.playSoundEffect(x, y, z, soundName, volume, pitch);
-
+				
 				if (!world.isRemote)
 				{
 					world.setBlockState(pos, newState);
 					stack.damageItem(1, playerIn);
 				}
-
+				
 				return true;
 			}
 		}
-
+		
 		return false;
 	}
-
+	
 	@Override
 	public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass)
 	{
@@ -388,7 +391,7 @@ public class BlockMoss extends BlockGrass
 				
 				if (checkBlock == this)
 				{
-					avgStage += (Integer) checkState.getValue(STAGE);
+					avgStage += checkState.getValue(STAGE);
 					stageSamples++;
 				}
 			}
@@ -421,15 +424,10 @@ public class BlockMoss extends BlockGrass
 		
 		return getRenderColor(worldIn.getBlockState(pos));
 	}
-
+	
 	@Override
 	public int getRenderColor(IBlockState state)
 	{
 		return 16777215;
-	}
-
-	private boolean hasWater(IBlockAccess world, BlockPos pos)
-	{
-		return world.getBlockState(pos).getBlock().getMaterial() == Material.water;
 	}
 }

@@ -132,14 +132,15 @@ public class MenhirData implements Iterable<MenhirEntry>
 		return top;
 	}
 	
-	public String toString()
-	{
-		return "menhir[at: " + getBottomPos() + ", facing: " + getFacing() + ", glyph: " + getGlyph() + ", receptacle: " + getReceptaclePos() + ", active: " + isReceptacleActive() + ", item: " + getReceptacleItem() + "]";
-	}
-	
 	@Override
 	public Iterator<MenhirEntry> iterator()
 	{
 		return new MenhirIterator(world, getBottomPos(), true);
+	}
+	
+	@Override
+	public String toString()
+	{
+		return "menhir[at: " + getBottomPos() + ", facing: " + getFacing() + ", glyph: " + getGlyph() + ", receptacle: " + getReceptaclePos() + ", active: " + isReceptacleActive() + ", item: " + getReceptacleItem() + "]";
 	}
 }

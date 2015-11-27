@@ -12,30 +12,33 @@ import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColorHelper;
+import net.minecraftforge.common.EnumPlantType;
+
+import static genesis.metadata.EnumPlant.PlantType.*;
 
 public enum EnumPlant implements IPlantMetadata<EnumPlant>
 {
 	// Plants
-	COOKSONIA("cooksonia", false, false),
-	BARAGWANATHIA("baragwanathia", false, false),
-	SCIADOPHYTON("sciadophyton", false, false),
-	PSILOPHYTON("psilophyton", false, false),
-	HORNEOPHYTON("horneophyton", false, false),
-	AGLAOPHYTON("aglaophyton", false, false),
-	NOTHIA("nothia", false, false),
-	RHYNIA("rhynia", false, false),
-	ARCHAEAMPHORA("archaeamphora", false, false),
-	MABELIA("mabelia", false, false),
-	PALAEOASTER("palaeoaster", false, false),
-	ASTEROXYLON("asteroxylon", false, true),
+	COOKSONIA("cooksonia", plant()),
+	BARAGWANATHIA("baragwanathia", plant()),
+	SCIADOPHYTON("sciadophyton", plant()),
+	PSILOPHYTON("psilophyton", plant()),
+	HORNEOPHYTON("horneophyton", plant()),
+	AGLAOPHYTON("aglaophyton", plant()),
+	NOTHIA("nothia", plant()),
+	RHYNIA("rhynia", plant()),
+	ARCHAEAMPHORA("archaeamphora", plant()),
+	MABELIA("mabelia", plant()),
+	PALAEOASTER("palaeoaster", plant()),
+	ASTEROXYLON("asteroxylon", plant().biomeColor(true)),
 	
 	// Ferns
-	RHACOPHYTON("rhacophyton", true, true),
-	ZYGOPTERIS("zygopteris", true, true),
-	PHLEBOPTERIS("phlebopteris", true, true),
-	RUFFORDIA("ruffordia", true, true),
-	ASTRALOPTERIS("astralopteris", true, true),
-	MATONIDIUM("matonidium", true, true);
+	RHACOPHYTON("rhacophyton", fern()),
+	ZYGOPTERIS("zygopteris", fern()),
+	PHLEBOPTERIS("phlebopteris", fern()),
+	RUFFORDIA("ruffordia", fern()),
+	ASTRALOPTERIS("astralopteris", fern()),
+	MATONIDIUM("matonidium", fern());
 
 	public static final Set<EnumPlant> PLANTS;
 	public static final Set<EnumPlant> FERNS;
@@ -49,7 +52,15 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 		
 		for (EnumPlant plant : values())
 		{
-			(!plant.isFern ? plantsBuilder : fernsBuilder).add(plant);
+			switch (plant.getType())
+			{
+			case PLANT:
+				plantsBuilder.add(plant);
+				break;
+			case FERN:
+				fernsBuilder.add(plant);
+				break;
+			}
 		}
 		
 		PLANTS = plantsBuilder.build();
@@ -64,20 +75,26 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	
 	final String name;
 	final String unlocalizedName;
+	final PlantType type;
 	final boolean biomeColor;
-	final boolean isFern;
+	final EnumPlantType[] soils;
+	final boolean shearable;
+	final boolean replaceable;
 	
-	EnumPlant(String name, String unlocalizedName, boolean isFern, boolean biomeColor)
+	EnumPlant(String name, String unlocalizedName, Props props)
 	{
 		this.name = name;
 		this.unlocalizedName = unlocalizedName;
-		this.biomeColor = biomeColor;
-		this.isFern = isFern;
+		this.type = props.type;
+		this.biomeColor = props.biomeColor;
+		this.shearable = props.shearable;
+		this.replaceable = props.replaceable;
+		this.soils = props.soils;
 	}
 	
-	EnumPlant(String name, boolean isFern, boolean biomeColor)
+	EnumPlant(String name, Props props)
 	{
-		this(name, name, isFern, biomeColor);
+		this(name, name, props);
 	}
 	
 	@Override
@@ -92,9 +109,9 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 		return unlocalizedName;
 	}
 	
-	public boolean isFern()
+	public PlantType getType()
 	{
-		return isFern;
+		return type;
 	}
 	
 	public boolean shouldUseBiomeColor()
@@ -117,24 +134,85 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	@Override
 	public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos)
 	{
-		return false;
+		return shearable;
 	}
 	
 	@Override
 	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, List<ItemStack> normalDrop)
 	{
-		return Collections.emptyList();
-	}
-	
-	@Override
-	public boolean isReplaceable(World world, BlockPos pos)
-	{
-		return false;
+		return shearable ? normalDrop : Collections.<ItemStack>emptyList();
 	}
 	
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, Random rand, List<ItemStack> normalDrop)
 	{
-		return normalDrop;
+		return shearable ? Collections.<ItemStack>emptyList() : normalDrop;
+	}
+	
+	@Override
+	public boolean isReplaceable(World world, BlockPos pos)
+	{
+		return replaceable;
+	}
+	
+	@Override
+	public EnumPlantType[] getSoilTypes()
+	{
+		return soils;
+	}
+	
+	public static enum PlantType
+	{
+		PLANT, FERN;
+	}
+	
+	// Initialization helpers.
+	private static Props plant()
+	{
+		return new Props(PLANT);
+	}
+	
+	private static Props fern()
+	{
+		return new Props(FERN).biomeColor(true).shearable(true).replaceable(true);
+	}
+	
+	@SuppressWarnings("unused")
+	private static class Props
+	{
+		PlantType type;
+		boolean biomeColor = false;
+		boolean shearable = false;
+		boolean replaceable = false;
+		EnumPlantType[] soils = {EnumPlantType.Plains};
+		
+		private Props(PlantType type)
+		{
+			this.type = type;
+		}
+		
+		private Props biomeColor(boolean biomeColor)
+		{
+			this.biomeColor = biomeColor;
+			return this;
+		}
+		
+		private Props soil(EnumPlantType... soils)
+		{
+			this.soils = soils;
+			return this;
+		}
+		
+		private Props shearable(boolean shearable)
+		{
+			this.shearable = shearable;
+			return this;
+		}
+		
+		private Props replaceable(boolean replaceable)
+		{
+			this.replaceable = replaceable;
+			return this;
+		}
 	}
 }

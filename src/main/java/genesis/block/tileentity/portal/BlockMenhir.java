@@ -219,7 +219,7 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
-		EnumMenhirPart part = (EnumMenhirPart) world.getBlockState(pos).getValue(variantProp);
+		EnumMenhirPart part = world.getBlockState(pos).getValue(variantProp);
 		
 		switch (part)
 		{
@@ -266,7 +266,7 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 			return getGlyphStack(((TileEntityMenhirGlyph) te).getGlyph());
 		}
 		
-		return owner.getStack((EnumMenhirPart) state.getValue(variantProp));
+		return owner.getStack(state.getValue(variantProp));
 	}
 	
 	public ItemStack getStack(IBlockAccess world, BlockPos pos)
@@ -282,6 +282,7 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 	
 	protected TileEntity brokenTE = null;
 	
+	@Override
 	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest)
 	{
 		brokenTE = world.getTileEntity(pos);
@@ -314,7 +315,7 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 	{
 		super.breakBlock(world, pos, state);
 		
-		switch (((EnumMenhirPart) state.getValue(variantProp)))
+		switch (state.getValue(variantProp))
 		{
 		case GLYPH:
 			TileEntityMenhirReceptacle recepTE = new MenhirData(world, pos, state).getReceptacleTE();
@@ -341,13 +342,13 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return owner.getItemMetadata(type, (EnumMenhirPart) state.getValue(variantProp));
+		return owner.getItemMetadata(type, state.getValue(variantProp));
 	}
 	
 	@Override
 	public boolean hasTileEntity(IBlockState state)
 	{
-		switch (((EnumMenhirPart) state.getValue(variantProp)))
+		switch (state.getValue(variantProp))
 		{
 		case GLYPH:
 		case RECEPTACLE:
@@ -360,7 +361,7 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState state)
 	{
-		switch (((EnumMenhirPart) state.getValue(variantProp)))
+		switch (state.getValue(variantProp))
 		{
 		case GLYPH:
 			return new TileEntityMenhirGlyph();

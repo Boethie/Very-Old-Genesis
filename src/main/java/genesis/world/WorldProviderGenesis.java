@@ -15,13 +15,14 @@ public class WorldProviderGenesis extends WorldProvider
 {
 	protected float[] colorsSunriseSunset = new float[4];
 	
+	@Override
 	protected void generateLightBrightnessTable()
 	{
-		float f = -0.0F;
+		float f = 0.0F;
 		
 		for (int i = 0; i <= 15; ++i)
 		{
-			float f1 = 1.0F - (float)i / 15.0F;
+			float f1 = 1 - i / 15F;
 			this.lightBrightnessTable[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * (1.0F - f) + f;
 		}
 	}
@@ -57,21 +58,21 @@ public class WorldProviderGenesis extends WorldProvider
 	}
 	
 	@Override
-	public float calculateCelestialAngle(long par1, float par3)
+	public float calculateCelestialAngle(long time, float partialTick)
 	{
-		int j = (int) (par1 % 34000L);
-		float f1 = ((float) j + par3) / 34000.0F - 0.25F;
+		int dayTime = (int) (time % 34000L);
+		float angle = (dayTime + partialTick) / 34000.0F - 0.25F;
 		
-		if (f1 < 0.0F)
-			++f1;
+		if (angle < 0)
+			angle++;
 		
-		if (f1 > 1.0F)
-			--f1;
+		if (angle > 1)
+			angle--;
 		
-		float f2 = f1;
-		f1 = 1.0F - (float) ((Math.cos((double) f1 * Math.PI) + 1.0D) / 2.0D);
-		f1 = f2 + (f1 - f2) / 3.0F;
-		return f1;
+		float target = angle;
+		angle = 1 - (float) ((Math.cos(angle * Math.PI) + 1) / 2);
+		angle = target + (angle - target) / 3;
+		return angle;
 	}
 	
 	@Override
@@ -82,10 +83,10 @@ public class WorldProviderGenesis extends WorldProvider
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public float[] calcSunriseSunsetColors(float par1, float par2)
+	public float[] calcSunriseSunsetColors(float celestialAngle, float partialTicks)
 	{
 		float f2 = 0.4F;
-		float f3 = MathHelper.cos(par1 * (float) Math.PI * 2.0F) - 0.0F;
+		float f3 = MathHelper.cos(celestialAngle * (float) Math.PI * 2.0F) - 0.0F;
 		float f4 = -0.0F;
 		
 		if (f3 >= f4 - f2 && f3 <= f4 + f2)
@@ -93,16 +94,14 @@ public class WorldProviderGenesis extends WorldProvider
 			float f5 = (f3 - f4) / f2 * 0.5F + 0.5F;
 			float f6 = 1.0F - (1.0F - MathHelper.sin(f5 * (float) Math.PI)) * 0.99F;
 			f6 *= f6;
-			this.colorsSunriseSunset[0] = f5 * 0.3F + 0.7F;
-			this.colorsSunriseSunset[1] = f5 * f5 * 0.7F + 0.2F;
-			this.colorsSunriseSunset[2] = f5 * f5 * 0.0F + 0.2F;
-			this.colorsSunriseSunset[3] = f6;
-			return this.colorsSunriseSunset;
+			colorsSunriseSunset[0] = f5 * 0.3F + 0.7F;
+			colorsSunriseSunset[1] = f5 * f5 * 0.7F + 0.2F;
+			colorsSunriseSunset[2] = f5 * f5 * 0.0F + 0.2F;
+			colorsSunriseSunset[3] = f6;
+			return colorsSunriseSunset;
 		}
-		else
-		{
-			return null;
-		}
+		
+		return null;
 	}
 	
 	@Override
@@ -133,7 +132,7 @@ public class WorldProviderGenesis extends WorldProvider
 		{
 			if (time > 17000 && time <= 20000)
 			{
-				float percent = 1.0F - (((float)time - 17000F) / 3000F);
+				float percent = 1.0F - ((time - 17000F) / 3000F);
 				
 				if (percent < 0.0F)
 					percent = 0.0F;
@@ -145,7 +144,7 @@ public class WorldProviderGenesis extends WorldProvider
 			
 			if (time > 31000 && time <= 34000)
 			{
-				float percent = (((float)time - 31000F) / 3000F);
+				float percent = ((time - 31000F) / 3000F);
 				
 				if (percent > 1.0F)
 					percent = 1.0F;

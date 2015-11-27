@@ -54,11 +54,7 @@ public class ItemGenesisBucket extends ItemBucket
 
 	protected ItemStack fillBucket(ItemStack emptyBucket, EntityPlayer player, Item fullItem)
 	{
-		if (player.capabilities.isCreativeMode)
-		{
-			return emptyBucket;
-		}
-		else
+		if (!player.capabilities.isCreativeMode)
 		{
 			ItemStack full = new ItemStack(fullItem);
 			
@@ -66,16 +62,13 @@ public class ItemGenesisBucket extends ItemBucket
 			{
 				return full;
 			}
-			else
+			else if (!player.inventory.addItemStackToInventory(full))
 			{
-				if (!player.inventory.addItemStackToInventory(full))
-				{
-					player.dropPlayerItemWithRandomChoice(full, false);
-				}
-	
-				return emptyBucket;
+				player.dropPlayerItemWithRandomChoice(full, false);
 			}
 		}
+		
+		return emptyBucket;
 	}
 	
 	@Override
@@ -171,16 +164,14 @@ public class ItemGenesisBucket extends ItemBucket
 		World world = event.world;
 		BlockPos pos = event.pos;
 		
-		IBlockState state = Blocks.air.getDefaultState();
-		if (pos != null)
-			state = world.getBlockState(pos);
-		Block block = state.getBlock();
-		
 		ItemStack stack = player.getHeldItem();
 		
 		switch (event.action)
 		{
 		case RIGHT_CLICK_BLOCK:
+			IBlockState state = world.getBlockState(pos);
+			Block block = state.getBlock();
+			
 			if (stack != null && stack.getItem() == this && block == Blocks.cauldron)
 			{
 				event.useBlock = Result.DENY;

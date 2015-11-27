@@ -46,49 +46,55 @@ public class WorldGenMinableGenesis extends WorldGenMinable
 		//numberOfBlocks = count.min;
 		//return generate;
 		int numberOfBlocks = count.get(rand);
-		float f = rand.nextFloat() * (float)Math.PI;
-		double d0 = (double)((float)(pos.getX() + 8) + MathHelper.sin(f) * (float)numberOfBlocks / 8.0F);
-		double d1 = (double)((float)(pos.getX() + 8) - MathHelper.sin(f) * (float)numberOfBlocks / 8.0F);
-		double d2 = (double)((float)(pos.getZ() + 8) + MathHelper.cos(f) * (float)numberOfBlocks / 8.0F);
-		double d3 = (double)((float)(pos.getZ() + 8) - MathHelper.cos(f) * (float)numberOfBlocks / 8.0F);
-		double d4 = (double)(pos.getY() + rand.nextInt(3) - 2);
-		double d5 = (double)(pos.getY() + rand.nextInt(3) - 2);
+		
+		float angle = rand.nextFloat() * (float) Math.PI;
+		float vecX = MathHelper.sin(angle);
+		float vecY = MathHelper.cos(angle);
+		
+		double startX = (pos.getX() + 8) - vecX * numberOfBlocks / 8;
+		double endX = (pos.getX() + 8) + vecX * numberOfBlocks / 8;
+		
+		double startZ = (pos.getZ() + 8) - vecY * numberOfBlocks / 8;
+		double endZ = (pos.getZ() + 8) + vecY * numberOfBlocks / 8;
+		
+		double startY = pos.getY() + rand.nextInt(3) - 2;
+		double endY = pos.getY() + rand.nextInt(3) - 2;
 		
 		for (int i = 0; i < numberOfBlocks; ++i)
 		{
-			float f1 = (float)i / (float)numberOfBlocks;
-			double d6 = d0 + (d1 - d0) * (double)f1;
-			double d7 = d4 + (d5 - d4) * (double)f1;
-			double d8 = d2 + (d3 - d2) * (double)f1;
-			double d9 = rand.nextDouble() * (double)numberOfBlocks / 16.0D;
-			double d10 = (double)(MathHelper.sin((float)Math.PI * f1) + 1.0F) * d9 + 1.0D;
-			double d11 = (double)(MathHelper.sin((float)Math.PI * f1) + 1.0F) * d9 + 1.0D;
-			int j = MathHelper.floor_double(d6 - d10 / 2.0D);
-			int k = MathHelper.floor_double(d7 - d11 / 2.0D);
-			int l = MathHelper.floor_double(d8 - d10 / 2.0D);
-			int i1 = MathHelper.floor_double(d6 + d10 / 2.0D);
-			int j1 = MathHelper.floor_double(d7 + d11 / 2.0D);
-			int k1 = MathHelper.floor_double(d8 + d10 / 2.0D);
+			float part = i / (float) numberOfBlocks;
+			double partX = endX + (startX - endX) * part;
+			double partY = endY + (startY - endY) * part;
+			double partZ = endZ + (startZ - endZ) * part;
 			
-			for (int l1 = j; l1 <= i1; ++l1)
+			double d9 = rand.nextDouble() * numberOfBlocks / 16;
+			double d10 = (MathHelper.sin((float) Math.PI * part) + 1) * d9 + 1;
+			int j = MathHelper.floor_double(partX - d10 / 2);
+			int k = MathHelper.floor_double(partY - d10 / 2);
+			int l = MathHelper.floor_double(partZ - d10 / 2);
+			int i1 = MathHelper.floor_double(partX + d10 / 2);
+			int j1 = MathHelper.floor_double(partY + d10 / 2);
+			int k1 = MathHelper.floor_double(partZ + d10 / 2);
+			
+			for (int x = j; x <= i1; ++x)
 			{
-				double d12 = ((double)l1 + 0.5D - d6) / (d10 / 2.0D);
+				double d12 = (x + 0.5D - partX) / (d10 / 2.0D);
 				
 				if (d12 * d12 < 1.0D)
 				{
-					for (int i2 = k; i2 <= j1; ++i2)
+					for (int y = k; y <= j1; ++y)
 					{
-						double d13 = ((double)i2 + 0.5D - d7) / (d11 / 2.0D);
+						double d13 = (y + 0.5D - partY) / (d10 / 2.0D);
 						
 						if (d12 * d12 + d13 * d13 < 1.0D)
 						{
-							for (int j2 = l; j2 <= k1; ++j2)
+							for (int z = l; z <= k1; ++z)
 							{
-								double d14 = ((double)j2 + 0.5D - d8) / (d10 / 2.0D);
+								double d14 = (z + 0.5D - partZ) / (d10 / 2.0D);
 								
 								if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D)
 								{
-									BlockPos blockpos1 = new BlockPos(l1, i2, j2);
+									BlockPos blockpos1 = new BlockPos(x, y, z);
 									
 									if (world.getBlockState(blockpos1).getBlock().isReplaceableOreGen(world, blockpos1, target))
 									{

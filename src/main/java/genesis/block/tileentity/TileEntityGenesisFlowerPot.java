@@ -17,6 +17,7 @@ public class TileEntityGenesisFlowerPot extends TileEntity
 		setContents(contents);
 	}
 
+	@Override
 	public void writeToNBT(NBTTagCompound compound)
 	{
 		super.writeToNBT(compound);
@@ -26,6 +27,7 @@ public class TileEntityGenesisFlowerPot extends TileEntity
 		compound.setTag("contents", contentsNBT);
 	}
 
+	@Override
 	public void readFromNBT(NBTTagCompound compound)
 	{
 		super.readFromNBT(compound);
@@ -33,6 +35,7 @@ public class TileEntityGenesisFlowerPot extends TileEntity
 		contents = ItemStack.loadItemStackFromNBT(compound.getCompoundTag("contents"));
 	}
 
+	@Override
 	public S35PacketUpdateTileEntity getDescriptionPacket()
 	{
 		NBTTagCompound compound = new NBTTagCompound();
@@ -40,6 +43,7 @@ public class TileEntityGenesisFlowerPot extends TileEntity
 		return new S35PacketUpdateTileEntity(pos, 5, compound);
 	}
 	
+	@Override
 	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet)
 	{
 		readFromNBT(packet.getNbtCompound());

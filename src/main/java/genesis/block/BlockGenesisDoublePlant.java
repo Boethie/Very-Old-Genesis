@@ -104,6 +104,7 @@ public class BlockGenesisDoublePlant<V extends IPlantMetadata<V>> extends BlockP
 		}
 	}
 	
+	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
 	{
 		if (state.getValue(TOP))
@@ -159,22 +160,6 @@ public class BlockGenesisDoublePlant<V extends IPlantMetadata<V>> extends BlockP
 	}
 	
 	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos)
-	{
-		/*if ((Boolean) state.getValue(TOP))
-		{
-			IBlockState bottomState = world.getBlockState(pos.down());
-
-			if (bottomState.getBlock() == this)
-			{
-				state = bottomState;
-			}
-		}*/
-		
-		return state;
-	}
-	
-	@Override
 	public IBlockState getStateFromMeta(int meta)
 	{
 		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), meta, TOP, variantProp);
@@ -183,11 +168,6 @@ public class BlockGenesisDoublePlant<V extends IPlantMetadata<V>> extends BlockP
 	@Override
 	public int getMetaFromState(IBlockState state)
 	{
-		if (state.getValue(TOP))
-		{
-			return BlockStateToMetadata.getMetaForBlockState(state, TOP);
-		}
-		
 		return BlockStateToMetadata.getMetaForBlockState(state, TOP, variantProp);
 	}
 	

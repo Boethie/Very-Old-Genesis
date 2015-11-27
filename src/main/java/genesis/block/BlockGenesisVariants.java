@@ -116,7 +116,7 @@ public class BlockGenesisVariants<V extends IMetadata<V>> extends Block
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
 	{
 		ArrayList<ItemStack> stackList = new ArrayList<ItemStack>();
-		V variant = (V) state.getValue(variantProp);
+		V variant = state.getValue(variantProp);
 		
 		if (!noItemVariants.contains(variant))
 		{
@@ -139,6 +139,6 @@ public class BlockGenesisVariants<V extends IMetadata<V>> extends Block
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return owner.getItemMetadata(type, (V) state.getValue(variantProp));
+		return owner.getItemMetadata(type, state.getValue(variantProp));
 	}
 }

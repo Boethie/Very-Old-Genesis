@@ -32,11 +32,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraftforge.common.EnumPlantType;
-import net.minecraftforge.common.IPlantable;
 
 public class BlockGenesisSaplings extends BlockSapling
 {
@@ -101,13 +99,13 @@ public class BlockGenesisSaplings extends BlockSapling
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return owner.getItemMetadata(type, (EnumTree) state.getValue(variantProp));
+		return owner.getItemMetadata(type, state.getValue(variantProp));
 	}
 	
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player)
 	{
-		return owner.getStack(type, (EnumTree) world.getBlockState(pos).getValue(variantProp));
+		return owner.getStack(type, world.getBlockState(pos).getValue(variantProp));
 	}
 	
 	@Override
@@ -116,7 +114,7 @@ public class BlockGenesisSaplings extends BlockSapling
 		WorldGenAbstractTree gen = null;
 		BlockPos[] positions = {pos};
 		
-		switch ((EnumTree) state.getValue(variantProp))
+		switch (state.getValue(variantProp))
 		{
 		case ARCHAEOPTERIS:
 			gen = new WorldGenTreeArchaeopteris(15, 20, true);
@@ -179,28 +177,7 @@ public class BlockGenesisSaplings extends BlockSapling
 		switch (variant)
 		{
 		case BJUVIA:
-			for (final EnumPlantType plantType : new EnumPlantType[]{EnumPlantType.Plains, EnumPlantType.Desert})
-			{
-				IPlantable plantable = new IPlantable()
-				{
-					@Override
-					public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos)
-					{
-						return plantType;
-					}
-					
-					@Override
-					public IBlockState getPlant(IBlockAccess world, BlockPos pos)
-					{
-						return world.getBlockState(pos);
-					}
-				};
-				
-				if (world.getBlockState(pos.down()).getBlock().canSustainPlant(world, pos.down(), EnumFacing.UP, plantable))
-				{
-					return true;
-				}
-			}
+			return WorldUtils.canSoilSustainTypes(world, pos, EnumPlantType.Plains, EnumPlantType.Desert);
 		default:
 			break;
 		}

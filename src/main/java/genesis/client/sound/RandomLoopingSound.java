@@ -1,10 +1,9 @@
 package genesis.client.sound;
 
-import net.minecraft.client.audio.ITickableSound;
 import net.minecraft.client.audio.MovingSound;
 import net.minecraft.util.ResourceLocation;
 
-public abstract class RandomLoopingSound extends MovingSound implements ITickableSound
+public abstract class RandomLoopingSound extends MovingSound
 {
 	protected boolean forceStop = false;
 	

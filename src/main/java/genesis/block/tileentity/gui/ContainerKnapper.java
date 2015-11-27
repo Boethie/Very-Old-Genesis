@@ -31,6 +31,7 @@ public class ContainerKnapper extends ContainerBase
 			return !workbench.isKnappingEnabled() && super.isItemValid(stack);
 		}
 		
+		@Override
 		public boolean canBeHovered()
 		{
 			return !workbench.areKnappingSlotsLocked();

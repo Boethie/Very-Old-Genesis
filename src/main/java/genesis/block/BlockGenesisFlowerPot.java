@@ -134,6 +134,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		registerPlantsForPot(combo, combo.soleType, customs);
 	}
 	
+	@Override
 	public TileEntityGenesisFlowerPot createTileEntity(World world, IBlockState state)
 	{
 		return new TileEntityGenesisFlowerPot();
@@ -216,7 +217,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		{
 			return;
 		}
-
+		
 		ItemStack stack = event.entityPlayer.getCurrentEquippedItem();
 		
 		if (stack == null)

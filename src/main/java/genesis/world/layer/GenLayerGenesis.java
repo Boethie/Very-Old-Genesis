@@ -89,7 +89,7 @@ public abstract class GenLayerGenesis extends GenLayer
 	}
 	
 	protected static boolean isBiomeOceanic(int biomeId)
-	{
+	{	// TODO: Use BiomeDictionary?
 		if (
 				biomeId == GenesisBiomes.shallowOcean.biomeID
 				|| biomeId == GenesisBiomes.ocean.biomeID
@@ -98,9 +98,7 @@ public abstract class GenLayerGenesis extends GenLayer
 		{
 			return true;
 		}
-		else
-		{
-			return false;
-		}
+		
+		return false;
 	}
 }

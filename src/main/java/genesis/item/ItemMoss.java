@@ -11,6 +11,7 @@ public class ItemMoss extends ItemColored
 		super(block, true);
 	}
 	
+	@Override
 	public int getColorFromItemStack(ItemStack stack, int renderPass)
 	{
 		return block.getBlockColor();

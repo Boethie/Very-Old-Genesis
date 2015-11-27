@@ -118,6 +118,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 			this(name, name, blockClass, itemClass, variantExclusions);
 		}
 		
+		@Override
 		public String getName()
 		{
 			return name;
@@ -142,6 +143,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 			return this;
 		}
 		
+		@Override
 		public String getUnlocalizedName()
 		{
 			return unlocalizedName;
@@ -298,7 +300,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 			
 			return this;
 		}
-
+		
 		public void customizeStateMap(FlexibleStateMap stateMap)
 		{
 			if (stateMapIgnoredProperties != null)
@@ -307,7 +309,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 				stateMap.addIgnoredProperties(stateMapIgnoredProperties);
 			}
 		}
-
+		
 		public String getVariantName(IMetadata<?> variant)
 		{
 			String resource = variant.getName();
@@ -335,6 +337,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 			return resource;
 		}
 		
+		@Override
 		public String toString()
 		{
 			return getName() + "[item=" + itemClass + ",block=" + blockClass + "]";

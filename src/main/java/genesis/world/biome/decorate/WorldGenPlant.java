@@ -31,8 +31,8 @@ public class WorldGenPlant extends WorldGenDecorationBase
 	}
 	
 	public WorldGenPlant(EnumPlant variant)
-	{
-		this(GenesisBlocks.plants, !variant.isFern() ? PlantBlocks.PLANT : PlantBlocks.DOUBLE_FERN, variant);
+	{	// TODO: This should be changed to make less assumptions. Use EnumPlant.getType(), SINGLES, DOUBLES, etc as necessary.
+		this(GenesisBlocks.plants, variant.getType() == EnumPlant.PlantType.FERN ? PlantBlocks.DOUBLE_FERN : PlantBlocks.PLANT, variant);
 	}
 	
 	@Override

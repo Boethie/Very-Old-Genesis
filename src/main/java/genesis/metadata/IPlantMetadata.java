@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.EnumPlantType;
 
 public interface IPlantMetadata<V> extends IMetadata<V>
 {
@@ -22,4 +23,6 @@ public interface IPlantMetadata<V> extends IMetadata<V>
 	public boolean isReplaceable(World world, BlockPos pos);
 	
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, Random rand, List<ItemStack> normalDrop);
+	
+	public EnumPlantType[] getSoilTypes();
 }

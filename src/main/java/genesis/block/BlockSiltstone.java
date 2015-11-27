@@ -75,6 +75,6 @@ public class BlockSiltstone extends BlockGenesis
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return owner.getItemMetadata(type, (EnumSilt) state.getValue(variantProp));
+		return owner.getItemMetadata(type, state.getValue(variantProp));
 	}
 }

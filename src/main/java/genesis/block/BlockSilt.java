@@ -76,7 +76,7 @@ public class BlockSilt extends BlockFalling
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return owner.getItemMetadata(type, (EnumSilt) state.getValue(variantProp));
+		return owner.getItemMetadata(type, state.getValue(variantProp));
 	}
 	
 	@Override

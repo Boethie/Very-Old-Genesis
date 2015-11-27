@@ -53,6 +53,7 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 		}
 	}
 	
+	@Override
 	public BlockStorageBox getBlockType()
 	{
 		return (BlockStorageBox) super.getBlockType();
@@ -104,14 +105,14 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 			
 			if (connectBox == null || getAxis() != connectBox.getAxis())
 			{
-				connected = false;
+				connectBox = null;
 				ret = false;
 			}
 		}
 		
 		setConnectedForced(dir, connected);
 		
-		if (connected && !connectBox.isConnected(otherConnectDir) && !connectBox.setConnected(otherConnectDir, true))
+		if (connectBox != null && !connectBox.isConnected(otherConnectDir) && !connectBox.setConnected(otherConnectDir, true))
 		{
 			setConnectedForced(dir, false);
 			ret = false;

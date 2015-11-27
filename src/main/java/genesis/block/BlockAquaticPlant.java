@@ -114,7 +114,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return owner.getItemMetadata((EnumAquaticPlant) state.getValue(variantProp));
+		return owner.getItemMetadata(state.getValue(variantProp));
 	}
 
 	@Override
@@ -198,7 +198,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 	private void breakPlant(World world, BlockPos pos, IBlockState state)
 	{
 		world.setBlockState(pos, Blocks.water.getStateFromMeta(0), 3);
-		EnumAquaticPlant variant = (EnumAquaticPlant) state.getValue(variantProp);
+		EnumAquaticPlant variant = state.getValue(variantProp);
 		
 		if (variant == EnumAquaticPlant.CHARNIA_TOP)
 		{
@@ -264,7 +264,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 		
 		IBlockState below = world.getBlockState(pos.down());
 		Block blockBelow = below.getBlock();
-		EnumAquaticPlant variant = (EnumAquaticPlant) state.getValue(variantProp);
+		EnumAquaticPlant variant = state.getValue(variantProp);
 		
 		if (!validGround.contains(blockBelow)
 				&& blockBelow instanceof BlockGenesisRock == false

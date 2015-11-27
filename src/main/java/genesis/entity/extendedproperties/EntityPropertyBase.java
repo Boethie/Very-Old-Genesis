@@ -15,11 +15,13 @@ public abstract class EntityPropertyBase<T> implements EntityProperty<T>
 		this.writeToNBT = writeToNBT;
 	}
 	
+	@Override
 	public String getName()
 	{
 		return name;
 	}
 	
+	@Override
 	public T getDefaultValue()
 	{
 		return defaultValue;

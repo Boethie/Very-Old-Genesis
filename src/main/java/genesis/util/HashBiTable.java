@@ -26,21 +26,25 @@ public class HashBiTable<R, C, V> implements BiTable<R, C, V>
 			this.column = column;
 		}
 		
+		@Override
 		public R getRow()
 		{
 			return row;
 		}
 		
+		@Override
 		public C getColumn()
 		{
 			return column;
 		}
 		
+		@Override
 		public int hashCode()
 		{
 			return row.hashCode() + column.hashCode();
 		}
 		
+		@Override
 		public boolean equals(Object other)
 		{
 			if (this == other)

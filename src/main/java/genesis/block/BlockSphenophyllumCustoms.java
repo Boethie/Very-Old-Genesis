@@ -126,10 +126,8 @@ public class BlockSphenophyllumCustoms implements IGrowingPlantCustoms
 					{
 						break;
 					}
-					else
-					{
-						tries--;
-					}
+					
+					tries--;
 				}
 				while (tries > 0);
 				

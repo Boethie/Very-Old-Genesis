@@ -28,16 +28,13 @@ public class ItemFlintAndMarcasite extends ItemFlintAndSteel
 		{
 			return false;
 		}
-		else
+		else if (world.isAirBlock(pos))
 		{
-			if (world.isAirBlock(pos))
-			{
-				world.playSoundEffect(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, Sounds.IGNITE_FIRE, 1, world.rand.nextFloat() * 0.4F + 0.8F);
-				world.setBlockState(pos, Blocks.fire.getDefaultState());
-			}
-
-			stack.damageItem(1, player);
-			return true;
+			world.playSoundEffect(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, Sounds.IGNITE_FIRE, 1, world.rand.nextFloat() * 0.4F + 0.8F);
+			world.setBlockState(pos, Blocks.fire.getDefaultState());
 		}
+		
+		stack.damageItem(1, player);
+		return true;
 	}
 }

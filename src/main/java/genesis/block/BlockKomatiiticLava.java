@@ -173,7 +173,7 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 		return false;
 	}
 	
-	private boolean getCanBlockBurn(World world, BlockPos pos)
+	private static boolean getCanBlockBurn(World world, BlockPos pos)
 	{
 		return world.getBlockState(pos).getBlock().getMaterial().getCanBurn();
 	}

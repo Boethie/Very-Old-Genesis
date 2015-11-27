@@ -54,6 +54,14 @@ public class WorldUtils
 	}
 	
 	/**
+	 * @return Whether the block at that position has the water material.
+	 */
+	public static boolean isWater(IBlockAccess world, BlockPos pos)
+	{
+		return world.getBlockState(pos).getBlock().getMaterial() == Material.water;
+	}
+	
+	/**
 	 * @param world The world.
 	 * @param pos The position to start from.
 	 * @param dNegX The distance along the X axis in the negative direction.
@@ -64,13 +72,13 @@ public class WorldUtils
 	 * @param dPosY The distance along the Y axis in the positive direction.
 	 * @return Whether there is water in range.
 	 */
-	public static boolean waterInRange(World world, BlockPos pos, int dNegX, int dPosX, int dNegZ, int dPosZ, int dNegY, int dPosY)
+	public static boolean waterInRange(IBlockAccess world, BlockPos pos, int dNegX, int dPosX, int dNegZ, int dPosZ, int dNegY, int dPosY)
 	{
 		Iterable<BlockPos> checkArea = BlockPos.getAllInBox(pos.add(-dNegX, -dNegY, -dNegZ), pos.add(dPosX, dPosY, dPosZ));
 		
 		for (BlockPos checkPos : checkArea)
 		{
-			if (world.getBlockState(checkPos).getBlock().getMaterial() == Material.water)
+			if (isWater(world, checkPos))
 			{
 				return true;
 			}
@@ -80,16 +88,16 @@ public class WorldUtils
 	}
 	
 	/**
-	 * @param worldIn The world.
+	 * @param world The world.
 	 * @param pos The position to start from.
 	 * @param dX The distance along the X axis to check from the starting block position.
 	 * @param dZ The distance along the Z axis to check from the starting block position.
 	 * @param dY The vertical distance to check from the starting block position.
 	 * @return Whether there is water in range.
 	 */
-	public static boolean waterInRange(World worldIn, BlockPos pos, int dX, int dZ, int dY)
+	public static boolean waterInRange(IBlockAccess world, BlockPos pos, int dX, int dZ, int dY)
 	{
-		return waterInRange(worldIn, pos, dX, dX, dZ, dZ, dY, dY);
+		return waterInRange(world, pos, dX, dX, dZ, dZ, dY, dY);
 	}
 	
 	/**
@@ -343,7 +351,10 @@ public class WorldUtils
 	 */
 	public static IBlockAccess getFakeWorld(IBlockAccess base, Function<BlockPos, IBlockState> stateGetter)
 	{
-		return getFakeWorld(base, stateGetter, new Function<BlockPos, TileEntity>(){ public TileEntity apply(BlockPos pos) { return null; } });
+		return getFakeWorld(base, stateGetter, new Function<BlockPos, TileEntity>()
+		{
+			@Override public TileEntity apply(BlockPos pos) { return null; }
+		});
 	}
 	
 	/**
@@ -359,8 +370,14 @@ public class WorldUtils
 	public static IBlockAccess getFakeWorld(IBlockAccess base, final BlockPos pos, final IBlockState state, final TileEntity te)
 	{
 		return getFakeWorld(base,
-				new Function<BlockPos, IBlockState>() { public IBlockState apply(BlockPos input) { return input.equals(pos) ? state : null; } },
-				new Function<BlockPos, TileEntity>() { public TileEntity apply(BlockPos input) { return input.equals(pos) ? te : null; } });
+				new Function<BlockPos, IBlockState>()
+				{
+					@Override public IBlockState apply(BlockPos input) { return input.equals(pos) ? state : null; }
+				},
+				new Function<BlockPos, TileEntity>()
+				{
+					@Override public TileEntity apply(BlockPos input) { return input.equals(pos) ? te : null; }
+				});
 	}
 	
 	/**

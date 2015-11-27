@@ -180,7 +180,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 			return;
 		}
 		
-		EnumAxis axis = (EnumAxis) state.getValue(BlockCampfire.FACING);
+		EnumAxis axis = state.getValue(BlockCampfire.FACING);
 		
 		// Clear all rotation on the model parts before setting new rotation angles.
 		model.fire.resetState();

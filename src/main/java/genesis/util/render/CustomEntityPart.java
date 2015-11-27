@@ -32,6 +32,7 @@ public abstract class CustomEntityPart extends EntityPart
 		return this;
 	}
 	
+	@Override
 	public void resetState()
 	{
 		super.resetState();

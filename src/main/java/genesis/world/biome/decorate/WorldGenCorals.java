@@ -173,7 +173,7 @@ public class WorldGenCorals extends WorldGenDecorationBase
 		}
 	}
 	
-	private boolean isPositionSuitable(World world, BlockPos pos, int height)
+	protected boolean isPositionSuitable(World world, BlockPos pos, int height)
 	{
 		Block block = world.getBlockState(pos).getBlock();
 		

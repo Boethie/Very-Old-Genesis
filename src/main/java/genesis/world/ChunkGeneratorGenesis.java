@@ -70,9 +70,9 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 		BlockPos pos = new BlockPos(blockX, 0, blockZ);
 		BiomeGenBase biome = worldObj.getBiomeGenForCoords(pos.add(16, 0, 16));
 		rand.setSeed(worldObj.getSeed());
-		long i1 = rand.nextLong() / 2L * 2L + 1L;
-		long j1 = rand.nextLong() / 2L * 2L + 1L;
-		rand.setSeed((long) chunkX * i1 + (long) chunkZ * j1 ^ worldObj.getSeed());
+		long xSeed = rand.nextLong() / 2L * 2L + 1L;
+		long ySeed = rand.nextLong() / 2L * 2L + 1L;
+		rand.setSeed(chunkX * xSeed + chunkZ * ySeed ^ worldObj.getSeed());
 		boolean flag = false;
 		//ChunkCoordIntPair coords = new ChunkCoordIntPair(chunkX, chunkZ);
 		
@@ -232,7 +232,7 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 		if (event.getResult() == Result.DENY) return;
 		
 		double d0 = 0.03125D;
-		this.stoneNoise = this.field_147430_m.func_151599_a(this.stoneNoise, (double)(blockX * 16), (double)(blockZ * 16), 16, 16, d0 * 2.0D, d0 * 2.0D, 1.0D);
+		this.stoneNoise = this.field_147430_m.func_151599_a(this.stoneNoise, blockX * 16, blockZ * 16, 16, 16, d0 * 2, d0 * 2, 1);
 		
 		for (int k = 0; k < 16; ++k)
 		{
@@ -247,7 +247,7 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 	@Override
 	public Chunk provideChunk(int x, int z)
 	{
-		this.rand.setSeed((long)x * 341873128712L + (long)z * 132897987541L);
+		this.rand.setSeed(x * 341873128712L + z * 132897987541L);
 		ChunkPrimer chunkprimer = new ChunkPrimer();
 		this.setBlocksInChunk(x, z, chunkprimer);
 		this.biomesForGeneration = this.worldObj.getWorldChunkManager().loadBlockGeneratorData(this.biomesForGeneration, x * 16, z * 16, 16, 16);

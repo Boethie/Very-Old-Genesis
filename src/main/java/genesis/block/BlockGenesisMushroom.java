@@ -185,12 +185,11 @@ public class BlockGenesisMushroom extends BlockBush
 	@Override
 	protected boolean canPlaceBlockOn(Block ground)
 	{
-		if (this.growType == GROW_TOP)
+		if (growType == GROW_TOP)
 			return ground.isFullBlock();
-		else
-			return true;
+		return true;
 	}
-
+	
 	@Override
 	public boolean canBlockStay(World world, BlockPos pos, IBlockState state)
 	{
@@ -236,7 +235,7 @@ public class BlockGenesisMushroom extends BlockBush
 		return false;
 	}
 	
-	private boolean checkBlockIsBase(IBlockAccess world, BlockPos pos, IBlockState state)
+	protected boolean checkBlockIsBase(IBlockAccess world, BlockPos pos, IBlockState state)
 	{
 		Block block = state.getBlock();
 		

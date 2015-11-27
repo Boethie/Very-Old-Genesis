@@ -29,7 +29,7 @@ public class GenesisPortalGenerator implements IWorldGenerator
 		}
 	}
 	
-	private void genPortal(Random random, int chunkX, int chunkZ, World world, int bits, boolean tiagaOnly)
+	protected void genPortal(Random random, int chunkX, int chunkZ, World world, int bits, boolean tiagaOnly)
 	{
 		BlockPos center = new BlockPos(chunkX * 16 + 8, 0, chunkZ * 16 + 8);
 		

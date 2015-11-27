@@ -20,6 +20,7 @@ public class ItemGenesisEgg<T extends EntityFixed> extends ItemGenesis
 		this.entityClass = entityClass;
 	}
 	
+	@Override
 	public ItemGenesisEgg<T> setUnlocalizedName(String name)
 	{
 		super.setUnlocalizedName(name);

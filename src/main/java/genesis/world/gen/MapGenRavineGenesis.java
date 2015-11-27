@@ -12,7 +12,7 @@ import net.minecraft.world.gen.MapGenRavine;
 
 public class MapGenRavineGenesis extends MapGenRavine
 {
-	private boolean isExceptionBiome(BiomeGenBase biome)
+	protected boolean isExceptionBiome(BiomeGenBase biome)
 	{
 		if (biome == GenesisBiomes.genesisBeach) return true;
 		return false;

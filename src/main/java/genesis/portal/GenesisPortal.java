@@ -379,7 +379,7 @@ public class GenesisPortal
 		Iterable<BlockPos> platform = null;
 		
 		findPlatform:
-		for (int y = world.getActualHeight(); y >= 0; y--)
+		for (int y = world.getActualHeight(); y >= 0 || y == world.getActualHeight(); y--)
 		{
 			center = new BlockPos(getCenterPosition().getX(), y, getCenterPosition().getZ());
 			BlockPos start = center;
@@ -490,6 +490,7 @@ public class GenesisPortal
 		updatePortalStatus(world);
 	}
 	
+	@Override
 	public String toString()
 	{
 		return "portal at " + getCenterPosition() + " with menhirs " + getMenhirs();

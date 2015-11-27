@@ -140,6 +140,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 		return 1 + worldObj.rand.nextInt(3);
 	}
 	
+	@Override
 	protected void dropFewItems(boolean hitRecently, int looting)
 	{
 		super.dropFewItems(hitRecently, looting);

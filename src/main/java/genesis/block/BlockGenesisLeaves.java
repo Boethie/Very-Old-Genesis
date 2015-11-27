@@ -77,13 +77,13 @@ public class BlockGenesisLeaves extends BlockLeaves
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return owner.getItemMetadata(type, (EnumTree) state.getValue(variantProp));
+		return owner.getItemMetadata(type, state.getValue(variantProp));
 	}
 	
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player)
 	{
-		return owner.getStack(type, (EnumTree) world.getBlockState(pos).getValue(variantProp));
+		return owner.getStack(type, world.getBlockState(pos).getValue(variantProp));
 	}
 	
 	@Override
@@ -96,13 +96,13 @@ public class BlockGenesisLeaves extends BlockLeaves
 	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune)
 	{
 		ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
-		drops.add(owner.getStack(type, (EnumTree) world.getBlockState(pos).getValue(variantProp)));
+		drops.add(owner.getStack(type, world.getBlockState(pos).getValue(variantProp)));
 		return drops;
 	}
 	
 	protected ItemStack getSapling(IBlockAccess world, BlockPos pos, IBlockState state)
 	{
-		return owner.getStack(TreeBlocksAndItems.SAPLING, (EnumTree) state.getValue(variantProp));
+		return owner.getStack(TreeBlocksAndItems.SAPLING, state.getValue(variantProp));
 	}
 	
 	@Override
@@ -196,7 +196,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 	
 	public boolean isConnectedToLog(World world, BlockPos pos)
 	{
-		return isConnectedToLog((EnumTree) world.getBlockState(pos).getValue(variantProp), world, pos, 0);
+		return isConnectedToLog(world.getBlockState(pos).getValue(variantProp), world, pos, 0);
 	}
 	
 	protected void checkAndDoDecay(World world, BlockPos pos)

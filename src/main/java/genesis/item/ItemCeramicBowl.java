@@ -158,16 +158,14 @@ public class ItemCeramicBowl extends ItemGenesis
 		World world = event.world;
 		BlockPos pos = event.pos;
 		
-		IBlockState state = Blocks.air.getDefaultState();
-		if (pos != null)
-			state = world.getBlockState(pos);
-		Block block = state.getBlock();
-		
 		ItemStack stack = player.getHeldItem();
 		
 		switch (event.action)
 		{
 		case RIGHT_CLICK_BLOCK:
+			IBlockState state = world.getBlockState(pos);
+			Block block = state.getBlock();
+			
 			if (owner.isStackOf(stack, EnumCeramicBowls.BOWL) && block == Blocks.cauldron)
 			{
 				event.useBlock = Result.DENY;

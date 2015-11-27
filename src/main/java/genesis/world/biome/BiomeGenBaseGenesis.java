@@ -237,11 +237,13 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 		}
 	}
 	
+	@Override
 	public float getFogDensity(int x, int y, int z)
 	{
 		return 1.0F;
 	}
 	
+	@Override
 	public Vec3 getFogColor()
 	{
 		float red = 0.533333333F;
@@ -251,6 +253,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 		return new Vec3(red, green, blue);
 	}
 	
+	@Override
 	public Vec3 getFogColorNight()
 	{
 		float red = 0.070941176F;
@@ -260,11 +263,13 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 		return new Vec3(red, green, blue);
 	}
 	
+	@Override
 	public float getNightFogModifier()
 	{
 		return 0.01F;
 	}
 	
+	//TODO: Get rid of this? It's unused...
 	public int getIntFromColor(float red, float green, float blue)
 	{
 		int r = Math.round(255 * red);
