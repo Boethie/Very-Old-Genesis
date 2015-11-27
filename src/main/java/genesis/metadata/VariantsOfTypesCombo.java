@@ -276,7 +276,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 		
 		public <V extends IMetadata<V>> void afterConstructedPass(Block block, Item item, List<V> variants)
 		{
-			afterConstructed(blockClass.cast(block), itemClass.cast(item), variants);
+			afterConstructed(ReflectionUtils.safeCast(blockClass, block), ReflectionUtils.safeCast(itemClass, item), variants);
 		}
 		
 		protected void afterRegistered(B block, I item)
@@ -285,7 +285,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 		
 		public final void afterRegisteredPass(Block block, Item item)
 		{
-			afterRegistered(blockClass.cast(block), itemClass.cast(item));
+			afterRegistered(ReflectionUtils.safeCast(blockClass, block), ReflectionUtils.safeCast(itemClass, item));
 		}
 		
 		public ObjectType<B, I> setIgnoredProperties(IProperty<?>... properties)
@@ -1011,7 +1011,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	 */
 	public <B extends Block> B getBlock(ObjectType<B, ? extends Item> type, V variant)
 	{
-		return type.blockClass.cast(getVariantData(type, variant).block);
+		return ReflectionUtils.safeCast(type.blockClass, getVariantData(type, variant).block);
 	}
 	
 	/**
@@ -1034,7 +1034,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	 */
 	public <I extends Item> I getItem(ObjectType<? extends Block, I> type, V variant)
 	{
-		return type.itemClass.cast(getVariantData(type, variant).item);
+		return ReflectionUtils.safeCast(type.itemClass, getVariantData(type, variant).item);
 	}
 	
 	/**
