@@ -28,11 +28,12 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	AGLAOPHYTON("aglaophyton", plant().soil(Plains, Desert)),
 	NOTHIA("nothia", plant().soil(Plains, Desert)),
 	RHYNIA("rhynia", plant().soil(Plains, Desert)),
+	APOLDIA("apoldia", plant().soil(Plains, Desert).biomeColor(true)),
+	ISOETITES("isoetites", plant().soil(Plains, Desert).water(2).biomeColor(true)),
 	ARCHAEAMPHORA("archaeamphora", plant()),
 	MABELIA("mabelia", plant()),
 	PALAEOASTER("palaeoaster", plant()),
 	ASTEROXYLON("asteroxylon", plant().soil(Plains, Desert).biomeColor(true)),
-	ISOETITES("isoetites", plant().soil(Plains, Desert).water(2).biomeColor(true)),
 	AETHOPHYLLUM("aethophyllum", plant().shearable(true)),
 	
 	// Ferns
