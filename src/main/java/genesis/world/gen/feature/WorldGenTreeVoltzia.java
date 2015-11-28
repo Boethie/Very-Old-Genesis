@@ -56,7 +56,7 @@ public class WorldGenTreeVoltzia extends WorldGenTreeBase
 		
 		BlockPos branchPos = pos.up(treeHeight - 2);
 		
-		doPineTopLeaves(world, pos, branchPos, treeHeight, pos.getY() + 1, rand, true, true);
+		doPineTopLeaves(world, pos, branchPos, treeHeight, pos.getY() + 1, rand, false, 2, true);
 		
 		return true;
 	}

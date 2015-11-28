@@ -1,5 +1,7 @@
 package genesis.world.biome.decorate;
 
+import java.util.Random;
+
 import genesis.block.BlockPlant;
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumPlant;
@@ -7,9 +9,6 @@ import genesis.metadata.IPlantMetadata;
 import genesis.metadata.PlantBlocks;
 import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
-
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -22,6 +21,7 @@ public class WorldGenPlant extends WorldGenDecorationBase
 	protected final VariantsOfTypesCombo combo;
 	protected final ObjectType<? extends BlockPlant, ? extends Item> type;
 	protected final IPlantMetadata variant;
+	private boolean nextToWater = false;
 	
 	public WorldGenPlant(VariantsOfTypesCombo combo, ObjectType<? extends BlockPlant, ? extends Item> type, IPlantMetadata variant)
 	{
@@ -33,6 +33,12 @@ public class WorldGenPlant extends WorldGenDecorationBase
 	public WorldGenPlant(EnumPlant variant)
 	{	// TODO: This should be changed to make less assumptions. Use EnumPlant.getType(), SINGLES, DOUBLES, etc as necessary.
 		this(GenesisBlocks.plants, variant.getType() == EnumPlant.PlantType.FERN ? PlantBlocks.DOUBLE_FERN : PlantBlocks.PLANT, variant);
+	}
+	
+	public WorldGenPlant setNextToWater(boolean nextToWater)
+	{
+		this.nextToWater = nextToWater;
+		return this;
 	}
 	
 	@Override
@@ -55,6 +61,11 @@ public class WorldGenPlant extends WorldGenDecorationBase
 			return false;
 		
 		if (!world.getBlockState(pos.up()).getBlock().isAir(world, pos))
+			return false;
+		
+		boolean water_exists = findBlockInRange(world, pos, Blocks.water.getDefaultState(), 4, 2, 4);
+		
+		if (!water_exists && nextToWater)
 			return false;
 		
 		placePlant(world, pos.up(), random);

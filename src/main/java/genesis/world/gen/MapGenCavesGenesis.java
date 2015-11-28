@@ -48,7 +48,7 @@ public class MapGenCavesGenesis extends MapGenCaves
 				
 				if (foundTop && data.getBlockState(x, y - 1, z).getBlock() == filler.getBlock())
 				{
-					data.setBlockState(x, y - 1, z, top.getBlock().getDefaultState());
+					data.setBlockState(x, y - 1, z, top);
 				}
 			}
 		}

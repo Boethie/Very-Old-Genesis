@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 {
 	private boolean generateRandomSaplings = true;
+	private int treeType = 0;
 	
 	public WorldGenTreeAraucarioxylon(int minHeight, int maxHeight, boolean notify)
 	{
@@ -27,6 +28,12 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 		
 		this.minHeight = minHeight;
 		this.maxHeight = maxHeight;
+	}
+	
+	public WorldGenTreeAraucarioxylon setType(int type)
+	{
+		treeType = type;
+		return this;
 	}
 	
 	public WorldGenTreeBase setGenerateRandomSaplings(boolean generate)
@@ -60,7 +67,19 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 		
 		BlockPos branchPos = pos.up(treeHeight - 1);
 		
-		doPineTopLeaves(world, pos, branchPos, treeHeight, pos.getY() + 6, rand, true, true);
+		int leavesBase = 0;
+		
+		switch (treeType)
+		{
+		case 1:
+			leavesBase = branchPos.getY() - 2 + rand.nextInt(4);
+			break;
+		default:
+			leavesBase = pos.getY() + 6;
+			break;
+		}
+		
+		doPineTopLeaves(world, pos, branchPos, treeHeight, leavesBase, rand, true, true);
 		
 		if (generateRandomSaplings && rand.nextInt(10) > 3)
 		{
