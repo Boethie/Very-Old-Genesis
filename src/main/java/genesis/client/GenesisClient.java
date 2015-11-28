@@ -9,7 +9,7 @@ import genesis.client.sound.music.MusicEventHandler;
 
 import java.util.*;
 
-import com.google.common.collect.Maps;
+import com.google.common.collect.Lists;
 
 import net.minecraft.block.*;
 import net.minecraft.client.*;
@@ -29,7 +29,24 @@ public class GenesisClient extends GenesisProxy
 {
 	private static final Minecraft MC = FMLClientHandler.instance().getClient();
 	
-	protected Map<Class<? extends TileEntity>, TileEntitySpecialRenderer<?>> mapTESRsToRegister = Maps.newHashMap();
+	private static final class TESREntry<T extends TileEntity>
+	{
+		final Class<T> type;
+		final TileEntitySpecialRenderer<T> renderer;
+		
+		private TESREntry(Class<T> type, TileEntitySpecialRenderer<T> renderer)
+		{
+			this.type = type;
+			this.renderer = renderer;
+		}
+		
+		private void register()
+		{
+			ClientRegistry.bindTileEntitySpecialRenderer(type, renderer);
+		}
+	}
+	
+	protected List<TESREntry<?>> tileEntityRenderers = Lists.newArrayList();
 	
 	public static Minecraft getMC()
 	{
@@ -57,9 +74,9 @@ public class GenesisClient extends GenesisProxy
 		MinecraftForge.EVENT_BUS.register(new MusicEventHandler());
 		
 		// Gotta register TESRs after Minecraft has initialized, otherwise the vanilla piston TESR crashes.
-		for (Map.Entry<Class<? extends TileEntity>, TileEntitySpecialRenderer<?>> entry : mapTESRsToRegister.entrySet())
+		for (TESREntry<?> entry : tileEntityRenderers)
 		{
-			ClientRegistry.bindTileEntitySpecialRenderer(entry.getKey(), entry.getValue());
+			entry.register();
 		}
 		
 		GenesisEntities.registerEntityRenderers();
@@ -174,8 +191,8 @@ public class GenesisClient extends GenesisProxy
 		ModelBakery.addVariantName(item, Constants.ASSETS_PREFIX + name);
 	}
 	
-	public void registerTileEntityRenderer(Class<? extends TileEntity> teClass, TileEntitySpecialRenderer<?> renderer)
+	public <T extends TileEntity> void registerTileEntityRenderer(Class<T> teClass, TileEntitySpecialRenderer<T> renderer)
 	{
-		mapTESRsToRegister.put(teClass, renderer);
+		tileEntityRenderers.add(new TESREntry<T>(teClass, renderer));
 	}
 }
