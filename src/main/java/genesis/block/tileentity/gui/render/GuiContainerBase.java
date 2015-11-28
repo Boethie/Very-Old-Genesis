@@ -187,10 +187,10 @@ public class GuiContainerBase extends GuiContainer
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer renderer = tessellator.getWorldRenderer();
 		renderer.func_181668_a(GL11.GL_QUADS, DefaultVertexFormats.field_181707_g);
-		renderer.func_181662_b(x,		y + h,	zLevel).func_181673_a(u,		v + uvH);
-		renderer.func_181662_b(x + w,	y + h,	zLevel).func_181673_a(u + uvW,	v + uvH);
-		renderer.func_181662_b(x + w,	y,		zLevel).func_181673_a(u + uvW,	v);
-		renderer.func_181662_b(x,		y,		zLevel).func_181673_a(u,		v);
+		renderer.func_181662_b(x,		y + h,	zLevel).func_181673_a(u,		v + uvH).func_181675_d();
+		renderer.func_181662_b(x + w,	y + h,	zLevel).func_181673_a(u + uvW,	v + uvH).func_181675_d();
+		renderer.func_181662_b(x + w,	y,		zLevel).func_181673_a(u + uvW,	v).func_181675_d();
+		renderer.func_181662_b(x,		y,		zLevel).func_181673_a(u,		v).func_181675_d();
 		tessellator.draw();
 	}
 	
@@ -206,7 +206,7 @@ public class GuiContainerBase extends GuiContainer
 		bindTexture(uvs.getTexture());
 		drawTextureUVs(x, y, w, h, uvs.getMinU(), uvs.getMinV(), uvs.getMaxU(), uvs.getMaxV());
 	}
-
+	
 	protected void drawTexBetweenSlots(int x, int y, int w, int h, int u, int v, int uvW, int uvH, boolean centerX, boolean centerY, Collection<Slot> slots)
 	{
 		if (centerX || centerY)
