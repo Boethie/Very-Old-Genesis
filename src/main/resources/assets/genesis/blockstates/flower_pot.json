@@ -50,13 +50,11 @@
 					"plant": "genesis:blocks/plant_rhynia"
 				}
 			},
-						},
 			"apoldia": {
 				"textures": {
 					"plant": "genesis:blocks/plant_apoldia"
 				}
 			},
-						},
 			"isoetites": {
 				"textures": {
 					"plant": "genesis:blocks/plant_isoetites"
@@ -81,6 +79,7 @@
 				"textures": {
 					"plant": "genesis:blocks/plant_asteroxylon"
 				}
+			},
 			"zygopteris": {
 				"textures": {
 					"plant": "genesis:blocks/fern_zygopteris"
