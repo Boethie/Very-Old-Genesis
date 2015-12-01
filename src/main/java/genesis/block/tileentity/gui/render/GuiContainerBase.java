@@ -174,11 +174,11 @@ public class GuiContainerBase extends GuiContainer
 	{
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer renderer = tessellator.getWorldRenderer();
-		renderer.func_181668_a(GL11.GL_QUADS, DefaultVertexFormats.field_181707_g);
-		renderer.func_181662_b(x,		y + h,	zLevel).func_181673_a(minU, maxV);
-		renderer.func_181662_b(x + w,	y + h,	zLevel).func_181673_a(maxU, maxV);
-		renderer.func_181662_b(x + w,	y,		zLevel).func_181673_a(maxU, minV);
-		renderer.func_181662_b(x,		y,		zLevel).func_181673_a(minU, minV);
+		renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+		renderer.pos(x,		y + h,	zLevel).tex(minU, maxV);
+		renderer.pos(x + w,	y + h,	zLevel).tex(maxU, maxV);
+		renderer.pos(x + w,	y,		zLevel).tex(maxU, minV);
+		renderer.pos(x,		y,		zLevel).tex(minU, minV);
 		tessellator.draw();
 	}
 	
@@ -186,11 +186,11 @@ public class GuiContainerBase extends GuiContainer
 	{
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer renderer = tessellator.getWorldRenderer();
-		renderer.func_181668_a(GL11.GL_QUADS, DefaultVertexFormats.field_181707_g);
-		renderer.func_181662_b(x,		y + h,	zLevel).func_181673_a(u,		v + uvH).func_181675_d();
-		renderer.func_181662_b(x + w,	y + h,	zLevel).func_181673_a(u + uvW,	v + uvH).func_181675_d();
-		renderer.func_181662_b(x + w,	y,		zLevel).func_181673_a(u + uvW,	v).func_181675_d();
-		renderer.func_181662_b(x,		y,		zLevel).func_181673_a(u,		v).func_181675_d();
+		renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+		renderer.pos(x,		y + h,	zLevel).tex(u,			v + uvH).endVertex();
+		renderer.pos(x + w,	y + h,	zLevel).tex(u + uvW,	v + uvH).endVertex();
+		renderer.pos(x + w,	y,		zLevel).tex(u + uvW,	v).endVertex();
+		renderer.pos(x,		y,		zLevel).tex(u,			v).endVertex();
 		tessellator.draw();
 	}
 	

@@ -556,7 +556,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	}
 	
 	@Override
-	public ItemStack getStackInSlotOnClosing(int slot)
+	public ItemStack removeStackFromSlot(int slot)
 	{
 		ItemStack stack = getStackInSlot(slot);
 		
@@ -611,7 +611,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	}
 	
 	@Override
-	public String getCommandSenderName()
+	public String getName()
 	{
 		return hasCustomName() ? customName : Unlocalized.CONTAINER_UI + "campfire";
 	}

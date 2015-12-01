@@ -779,9 +779,9 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		}
 		
 		@Override
-		public String getCommandSenderName()
+		public String getName()
 		{
-			return TileEntityKnapper.this.getCommandSenderName();
+			return TileEntityKnapper.this.getName();
 		}
 		
 		@Override
@@ -815,9 +815,9 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		}
 		
 		@Override
-		public ItemStack getStackInSlotOnClosing(int index)
+		public ItemStack removeStackFromSlot(int index)
 		{
-			return TileEntityKnapper.this.getStackInSlotOnClosing(getParentSlotIndex(index));
+			return TileEntityKnapper.this.removeStackFromSlot(getParentSlotIndex(index));
 		}
 		
 		@Override
@@ -904,9 +904,9 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		}
 		
 		@Override
-		public String getCommandSenderName()
+		public String getName()
 		{
-			return TileEntityKnapper.this.getCommandSenderName();
+			return TileEntityKnapper.this.getName();
 		}
 		
 		@Override
@@ -940,9 +940,9 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		}
 		
 		@Override
-		public ItemStack getStackInSlotOnClosing(int index)
+		public ItemStack removeStackFromSlot(int index)
 		{
-			return TileEntityKnapper.this.getStackInSlotOnClosing(getParentSlotIndex(index));
+			return TileEntityKnapper.this.removeStackFromSlot(getParentSlotIndex(index));
 		}
 		
 		@Override
@@ -1013,7 +1013,7 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 	}
 	
 	@Override
-	public String getCommandSenderName()
+	public String getName()
 	{
 		return hasCustomName() ? customName : Unlocalized.CONTAINER_UI + "workbench";
 	}
@@ -1062,7 +1062,7 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 	}
 	
 	@Override
-	public ItemStack getStackInSlotOnClosing(int slot)
+	public ItemStack removeStackFromSlot(int slot)
 	{
 		ItemStack stack = getStackInSlot(slot);
 		

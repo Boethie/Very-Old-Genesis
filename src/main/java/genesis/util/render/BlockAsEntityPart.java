@@ -146,7 +146,7 @@ public class BlockAsEntityPart extends CustomEntityPart
 				
 				RenderHelper.disableStandardItemLighting();
 				
-				wr.func_181668_a(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
+				wr.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
 				
 				ModelHelpers.getBlockRenderer().renderModel(world, model, state, pos, wr, false);
 				

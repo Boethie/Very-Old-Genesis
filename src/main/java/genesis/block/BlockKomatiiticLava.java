@@ -118,7 +118,7 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 	{
 		super.updateTick(world, pos, state, rand);
 		
-		if (world.getGameRules().getGameRuleBooleanValue("doFireTick"))
+		if (world.getGameRules().getBoolean("doFireTick"))
 		{
 			int i = rand.nextInt(3);
 			

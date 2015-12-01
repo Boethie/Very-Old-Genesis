@@ -496,7 +496,7 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 	}
 	
 	@Override
-	public ItemStack getStackInSlotOnClosing(int slot)
+	public ItemStack removeStackFromSlot(int slot)
 	{
 		ItemStack stack = getStackInSlot(slot);
 		
@@ -547,7 +547,7 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 	}
 	
 	@Override
-	public String getCommandSenderName()
+	public String getName()
 	{
 		return hasCustomName() ? customName : Unlocalized.CONTAINER_UI + "storageBox." + (getWidth() <= 1 ? "normal" : "large");
 	}

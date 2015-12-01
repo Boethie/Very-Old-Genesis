@@ -51,9 +51,9 @@ public class SubstituteCraftingGrid extends InventoryCrafting
 	}
 	
 	@Override
-	public String getCommandSenderName()
+	public String getName()
 	{
-		return wrapping.getCommandSenderName();
+		return wrapping.getName();
 	}
 	
 	@Override
@@ -69,9 +69,9 @@ public class SubstituteCraftingGrid extends InventoryCrafting
 	}
 	
 	@Override
-	public ItemStack getStackInSlotOnClosing(int index)
+	public ItemStack removeStackFromSlot(int index)
 	{
-		return getSubstituted(wrapping.getStackInSlotOnClosing(index));
+		return getSubstituted(wrapping.removeStackFromSlot(index));
 	}
 	
 	@Override

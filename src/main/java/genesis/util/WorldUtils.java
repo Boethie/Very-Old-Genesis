@@ -317,7 +317,7 @@ public class WorldUtils
 			@Override public int getStrongPower(BlockPos pos, EnumFacing direction)
 			{
 				IBlockState state = getBlockState(pos);
-				return state.getBlock().isProvidingStrongPower(this, pos, state, direction);
+				return state.getBlock().getStrongPower(this, pos, state, direction);
 			}
 			
 			@Override public boolean isSideSolid(BlockPos pos, EnumFacing side, boolean _default)
