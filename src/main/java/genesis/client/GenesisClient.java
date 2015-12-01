@@ -126,37 +126,37 @@ public class GenesisClient extends GenesisProxy
 		}
 	}
 	
-	public void registerModel(Block block, String textureName)
+	public void registerModel(Block block, String variantName)
 	{
-		registerModel(block, 0, textureName);
+		registerModel(block, 0, variantName);
 	}
 	
 	@Override
-	public ModelResourceLocation getItemModelLocation(String textureName)
+	public ModelResourceLocation getItemModelLocation(String variantName)
 	{
-		return new ModelResourceLocation(Constants.ASSETS_PREFIX + textureName, "inventory");
+		return new ModelResourceLocation(Constants.ASSETS_PREFIX + variantName, "inventory");
 	}
 	
 	@Override
-	public void registerModel(Item item, int metadata, String textureName)
+	public void registerModel(Item item, int metadata, String variantName)
 	{
-		ModelLoader.setCustomModelResourceLocation(item, metadata, getItemModelLocation(textureName));
-		addVariantName(item, textureName);
+		ModelLoader.setCustomModelResourceLocation(item, metadata, getItemModelLocation(variantName));
+		addVariantName(item, variantName);
 	}
 	
-	private void registerModel(Item item, String textureName)
+	private void registerModel(Item item, String variantName)
 	{
-		registerModel(item, 0, textureName);
+		registerModel(item, 0, variantName);
 	}
 	
 	@Override
-	public void registerModel(Block block, int metadata, String textureName)
+	public void registerModel(Block block, int metadata, String variantName)
 	{
 		Item item = Item.getItemFromBlock(block);
 		
 		if (item != null)
 		{
-			registerModel(item, metadata, textureName);
+			registerModel(item, metadata, variantName);
 		}
 	}
 	
