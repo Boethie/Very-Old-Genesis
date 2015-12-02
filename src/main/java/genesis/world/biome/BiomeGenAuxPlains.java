@@ -33,7 +33,7 @@ public class BiomeGenAuxPlains extends BiomeGenBaseGenesis
 		
 		addDecoration(new WorldGenRockBoulders().setRarity(95).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 		
-		addTree(new WorldGenTreeAraucarioxylon(25, 30, true).setType(1).setRarity(5).setTreeCountPerChunk(1));
+		addTree(new WorldGenTreeAraucarioxylon(18, 22, true).setType(1).setRarity(5).setTreeCountPerChunk(1));
 	}
 	
 	@Override

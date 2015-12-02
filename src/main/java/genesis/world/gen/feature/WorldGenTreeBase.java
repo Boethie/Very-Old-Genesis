@@ -134,7 +134,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 			branchPos = branchPos.up();
 		}
 		
-		doPineTopLeaves(world, pos, branchPos.down(), height, branchPos.getY() - height + 1, rand, false, leavesLength, false);
+		doPineTopLeaves(world, pos, branchPos.down(), height, branchPos.getY() - height + 1, rand, false, leavesLength, false, false);
 	}
 	
 	protected void generateBranchSide(World world, BlockPos pos, Random rand, int dirX, int dirZ, int maxLength, int branchRarity)
@@ -306,17 +306,22 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		}
 	}
 	
+	public void doPineTopLeaves(World world, BlockPos genPos, BlockPos branchPos, int treeHeight, int leavesBase, Random rand, boolean alternate, boolean irregular, boolean inverted)
+	{
+		doPineTopLeaves(world, genPos, branchPos, treeHeight, leavesBase, rand, alternate, 4, irregular, inverted);
+	}
+	
 	public void doPineTopLeaves(World world, BlockPos genPos, BlockPos branchPos, int treeHeight, int leavesBase, Random rand, boolean alternate, boolean irregular)
 	{
-		doPineTopLeaves(world, genPos, branchPos, treeHeight, leavesBase, rand, alternate, 4, irregular);
+		doPineTopLeaves(world, genPos, branchPos, treeHeight, leavesBase, rand, alternate, 4, irregular, false);
 	}
 	
 	public void doPineTopLeaves(World world, BlockPos genPos, BlockPos branchPos, int treeHeight, int leavesBase, Random rand, boolean alternate)
 	{
-		doPineTopLeaves(world, genPos, branchPos, treeHeight, leavesBase, rand, alternate, 4, false);
+		doPineTopLeaves(world, genPos, branchPos, treeHeight, leavesBase, rand, alternate, 4, false, false);
 	}
 	
-	public void doPineTopLeaves(World world, BlockPos genPos, BlockPos branchPos, int treeHeight, int leavesBase, Random rand, boolean alternate, int maxLeaveLength, boolean irregular)
+	public void doPineTopLeaves(World world, BlockPos genPos, BlockPos branchPos, int treeHeight, int leavesBase, Random rand, boolean alternate, int maxLeaveLength, boolean irregular, boolean inverted)
 	{
 		boolean alt = false;
 		float percent;
@@ -328,7 +333,11 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		{
 			branchPos = branchPos.add(0, -1, 0);
 			
-			percent = 1 - ((branchPos.getY() - leavesBase) / (float) (genPos.getY() + treeHeight - leavesBase));
+			percent = ((branchPos.getY() - leavesBase) / (float) (genPos.getY() + treeHeight - leavesBase));
+			
+			if (!inverted)
+				percent = 1 - percent;
+			
 			leaves = MathHelper.ceiling_float_int(maxLeaveLength * percent);
 			
 			if (leaves > maxLeaveLength)
