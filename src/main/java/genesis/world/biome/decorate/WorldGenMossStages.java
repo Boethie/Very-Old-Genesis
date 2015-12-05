@@ -56,7 +56,7 @@ public class WorldGenMossStages extends WorldGenDecorationBase
 				&& !(allowedBlocks.contains(world.getBlockState(pos).getBlock().getBlockState())))
 			return false;
 		
-		int stage = GenesisBlocks.moss.getTargetStage(GenesisBlocks.moss.getFertility(world, pos), rand);
+		int stage = GenesisBlocks.moss.getTargetStage(GenesisBlocks.moss.getFertility(world, pos, true), rand);
 		
 		if (stage >= 0)
 		{

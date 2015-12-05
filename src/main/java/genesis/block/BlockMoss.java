@@ -185,7 +185,7 @@ public class BlockMoss extends BlockGrass
 		0.0F	// 15
 	};
 	
-	public float getFertility(World world, BlockPos pos)
+	public float getFertility(World world, BlockPos pos, boolean generation)
 	{
 		BlockPos above = pos.up();
 		
@@ -215,7 +215,21 @@ public class BlockMoss extends BlockGrass
 				
 				if (world.getBlockLightOpacity(aboveSample) < 255)
 				{
-					light += lightFertility[world.getLightFromNeighbors(aboveSample)];
+					int lightLevel;
+					
+					if (generation)
+					{
+						int combined = world.getCombinedLight(pos, 0);
+						int block = combined >> 4 & 255;
+						int sky = combined >> 20 & 255;
+						lightLevel = Math.min(block, sky);
+					}
+					else
+					{
+						lightLevel = world.getLightFromNeighbors(aboveSample);
+					}
+					
+					light += lightFertility[lightLevel];
 					lightSamples++;
 					break;
 				}
@@ -243,6 +257,11 @@ public class BlockMoss extends BlockGrass
 		out = MathHelper.clamp_float(out, 0, 1);
 		
 		return out;
+	}
+	
+	public float getFertility(World world, BlockPos pos)
+	{
+		return getFertility(world, pos, false);
 	}
 	
 	protected final IntRange[] targetStages = {
@@ -304,9 +323,7 @@ public class BlockMoss extends BlockGrass
 						IBlockState randState = world.getBlockState(randPos);
 						Block randBlock = randState.getBlock();
 						
-						boolean correctBlock = randBlock == Blocks.dirt || randBlock == Blocks.grass;
-						
-						if (correctBlock)
+						if (randBlock == Blocks.dirt || randBlock == Blocks.grass)
 						{
 							if (rand.nextFloat() >= getGrowthChance(world, randPos, false))
 							{
@@ -333,13 +350,13 @@ public class BlockMoss extends BlockGrass
 	 * @see ItemHoe#useHoe(ItemStack, EntityPlayer, World, BlockPos, IBlockState)
 	 */
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
-		ItemStack stack = playerIn.getCurrentEquippedItem();
+		ItemStack stack = player.getCurrentEquippedItem();
 		
 		if ((stack != null) && (stack.getItem() instanceof ItemHoe))
 		{
-			if (!playerIn.canPlayerEdit(pos.offset(side), side, stack))
+			if (!player.canPlayerEdit(pos.offset(side), side, stack))
 			{
 				return false;
 			}
@@ -360,7 +377,7 @@ public class BlockMoss extends BlockGrass
 				if (!world.isRemote)
 				{
 					world.setBlockState(pos, newState);
-					stack.damageItem(1, playerIn);
+					stack.damageItem(1, player);
 				}
 				
 				return true;
@@ -371,11 +388,11 @@ public class BlockMoss extends BlockGrass
 	}
 	
 	@Override
-	public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass)
+	public int colorMultiplier(IBlockAccess world, BlockPos pos, int renderPass)
 	{
 		if (renderPass == 1)
 		{
-			int color = super.colorMultiplier(worldIn, pos, renderPass);
+			int color = super.colorMultiplier(world, pos, renderPass);
 			
 			int r = (color & 16711680) >> 16;
 			int g = (color & 65280) >> 8;
@@ -386,7 +403,7 @@ public class BlockMoss extends BlockGrass
 			
 			for (BlockPos checkPos : WorldUtils.getArea(pos.add(-1, -1, -1), pos.add(1, 1, 1)))
 			{
-				IBlockState checkState = worldIn.getBlockState(checkPos);
+				IBlockState checkState = world.getBlockState(checkPos);
 				Block checkBlock = checkState.getBlock();
 				
 				if (checkBlock == this)
@@ -400,7 +417,7 @@ public class BlockMoss extends BlockGrass
 			avgStage /= STAGE_LAST;
 			avgStage = MathHelper.clamp_float(avgStage, 0, 1);
 			
-			BiomeGenBase biome = worldIn.getBiomeGenForCoords(pos);
+			BiomeGenBase biome = world.getBiomeGenForCoords(pos);
 			float temperature = MathHelper.clamp_float(biome.getFloatTemperature(pos), 0, 1);
 			float humidity = MathHelper.clamp_float(biome.rainfall, 0, 1);
 			
@@ -422,7 +439,7 @@ public class BlockMoss extends BlockGrass
 			return color;
 		}
 		
-		return getRenderColor(worldIn.getBlockState(pos));
+		return getRenderColor(world.getBlockState(pos));
 	}
 	
 	@Override
