@@ -75,6 +75,9 @@ public class WorldGenDebris extends WorldGenDecorationBase
 						
 						if (wood == GenesisBlocks.calamites.getDefaultState())
 						{
+							if (Math.abs(distanceX) > 3 || Math.abs(distanceY) > 3)
+								return false;
+							
 							debris = GenesisBlocks.debris.getBlockState(EnumDebrisOther.CALAMITES);
 							willGenerate = true;
 							break found;
