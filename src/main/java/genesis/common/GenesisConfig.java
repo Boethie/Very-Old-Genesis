@@ -54,6 +54,7 @@ public final class GenesisConfig
 	public static int garnetCount = 13;
 	public static int hematiteCount = 1;
 	public static int manganeseCount = 4;
+	public static int chalcopyriteCount = 4;
 	public static int malachiteCount = 2;
 	public static int azuriteCount = 2;
 	public static int olivineCount = 1;
@@ -100,6 +101,7 @@ public final class GenesisConfig
 		garnetCount = config.getInt("garnet", "oregen", garnetCount, 0, 255, "Generation count for garnet");
 		hematiteCount = config.getInt("hematite", "oregen", hematiteCount, 0, 255, "Generation count for hematite");
 		manganeseCount = config.getInt("manganese", "oregen", manganeseCount, 0, 255, "Generation count for manganese");
+		chalcopyriteCount = config.getInt("chalcopyrite", "oregen", chalcopyriteCount, 0, 255, "Generation count for chalcopyrite");
 		malachiteCount = config.getInt("malachite", "oregen", malachiteCount, 0, 255, "Generation count for malachite");
 		azuriteCount = config.getInt("azurite", "oregen", azuriteCount, 0, 255, "Generation count for azurite");
 		olivineCount = config.getInt("olivine", "oregen", olivineCount, 0, 255, "Generation count for olivine");

@@ -7,6 +7,7 @@ public enum EnumPowder implements IMetadata<EnumPowder>
 	LIMESTONE("limestone", EnumDyeColor.WHITE, null),
 	HEMATITE("hematite", EnumDyeColor.RED, EnumOre.HEMATITE),
 	MANGANESE("manganese", EnumDyeColor.BLACK, EnumOre.MANGANESE),
+	CHALCOPYRITE("chalcopyrite", EnumDyeColor.YELLOW, EnumOre.CHALCOPYRITE),
 	MALACHITE("malachite", EnumDyeColor.GREEN, EnumOre.MALACHITE),
 	AZURITE("azurite", EnumDyeColor.BLUE, EnumOre.AZURITE);
 	
