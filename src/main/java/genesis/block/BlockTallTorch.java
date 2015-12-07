@@ -212,10 +212,21 @@ public class BlockTallTorch extends Block
 	
 	protected BlockPos getOther(IBlockAccess world, BlockPos pos)
 	{
-		Part part = world.getBlockState(pos).getValue(PART);
-		BlockPos other = part == Part.BOTTOM ? pos.up() : pos.down();
-		IBlockState otherState = world.getBlockState(other);
-		return otherState.getBlock() == this && otherState.getValue(PART) != part ? other : null;
+		IBlockState state = world.getBlockState(pos);
+		
+		if (state.getBlock() == this)
+		{
+			Part part = state.getValue(PART);
+			BlockPos other = part == Part.BOTTOM ? pos.up() : pos.down();
+			IBlockState otherState = world.getBlockState(other);
+			
+			if (otherState.getBlock() == this && otherState.getValue(PART) != part)
+			{
+				return other;
+			}
+		}
+		
+		return null;
 	}
 	
 	@Override
