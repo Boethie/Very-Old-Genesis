@@ -22,6 +22,8 @@ public class WorldGenPlant extends WorldGenDecorationBase
 	protected final ObjectType<? extends BlockPlant, ? extends Item> type;
 	protected final IPlantMetadata variant;
 	private boolean nextToWater = false;
+	private int waterRadius = 1;
+	private int waterHeight = 1;
 	
 	public WorldGenPlant(VariantsOfTypesCombo combo, ObjectType<? extends BlockPlant, ? extends Item> type, IPlantMetadata variant)
 	{
@@ -38,6 +40,13 @@ public class WorldGenPlant extends WorldGenDecorationBase
 	public WorldGenPlant setNextToWater(boolean nextToWater)
 	{
 		this.nextToWater = nextToWater;
+		return this;
+	}
+	
+	public WorldGenPlant setWaterProximity(int radius, int height)
+	{
+		this.waterRadius = radius;
+		this.waterHeight = height;
 		return this;
 	}
 	
@@ -63,7 +72,7 @@ public class WorldGenPlant extends WorldGenDecorationBase
 		if (!world.getBlockState(pos.up()).getBlock().isAir(world, pos))
 			return false;
 		
-		boolean water_exists = findBlockInRange(world, pos, Blocks.water.getDefaultState(), 2, 1, 2);
+		boolean water_exists = findBlockInRange(world, pos, Blocks.water.getDefaultState(), waterRadius, waterHeight, waterRadius);
 		
 		if (!water_exists && nextToWater)
 			return false;
