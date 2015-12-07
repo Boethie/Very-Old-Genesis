@@ -19,7 +19,7 @@ public class BiomeGenLimestoneBeach extends BiomeGenBaseGenesis
 		
 		addDecoration(new WorldGenPebbles().setCountPerChunk(25));
 		
-		addDecoration(new WorldGenRockBoulders().setRarity(95).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders().setRarity(110).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 	}
 	
 	@Override
