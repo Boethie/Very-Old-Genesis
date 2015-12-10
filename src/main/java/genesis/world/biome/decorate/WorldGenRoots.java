@@ -1,11 +1,14 @@
 package genesis.world.biome.decorate;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumTree;
 import genesis.metadata.TreeBlocksAndItems;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirt;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -17,8 +20,14 @@ public class WorldGenRoots extends WorldGenDecorationBase
 	{
 		Block block = world.getBlockState(pos).getBlock();
 		
+		List<Block> allowedBlocks = new ArrayList<Block>();
+		
+		allowedBlocks.add(Blocks.dirt);
+		allowedBlocks.add(Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT).getBlock());
+		allowedBlocks.add(GenesisBlocks.moss);
+		
 		if (
-				block != Blocks.dirt
+				!(allowedBlocks.contains(block))
 				|| !world.getBlockState(pos.down()).getBlock().isAir(world, pos))
 		{
 			return false;
