@@ -2,6 +2,7 @@ package genesis.metadata;
 
 public enum EnumMaterial implements IMetadata<EnumMaterial>
 {
+	SALT("salt"),
 	RESIN("resin"),
 	ARAUCARIOXYLON_CONE("araucarioxylon_cone", "araucarioxylonCone"),
 	SPHENOPHYLLUM_FIBER("sphenophyllum_fiber", "sphenophyllumFiber"),

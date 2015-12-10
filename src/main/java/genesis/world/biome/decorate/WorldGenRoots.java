@@ -24,8 +24,8 @@ public class WorldGenRoots extends WorldGenDecorationBase
 			return false;
 		}
 		
-		int radius = 5;
-		int depth = 8;
+		int radius = 6;
+		int depth = 3;
 		int length = 1 + random.nextInt(5);
 		
 		if (!(
@@ -34,6 +34,7 @@ public class WorldGenRoots extends WorldGenDecorationBase
 				|| findBlockInRange(world, pos, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.LOG, EnumTree.SIGILLARIA), radius, depth, radius)
 				|| findBlockInRange(world, pos, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.LOG, EnumTree.CORDAITES), radius, depth, radius)
 				|| findBlockInRange(world, pos, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.LOG, EnumTree.PSARONIUS), radius, depth, radius)
+				|| findBlockInRange(world, pos, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.LOG, EnumTree.VOLTZIA), radius, depth, radius)
 				|| findBlockInRange(world, pos, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.LOG, EnumTree.ARAUCARIOXYLON), radius, depth, radius)))
 		{
 			return false;
