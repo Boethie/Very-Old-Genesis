@@ -41,7 +41,7 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenPlant(GenesisBlocks.plants, PlantBlocks.PLANT, EnumPlant.ISOETITES).setWaterProximity(2, 0).setNextToWater(true).setPatchSize(6).setCountPerChunk(48));
 		addDecoration(new WorldGenPlant(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.AETHOPHYLLUM).setCountPerChunk(2));
 		addDecoration(new WorldGenPlant(EnumPlant.APOLDIA).setCountPerChunk(7));
-		addDecoration(new WorldGenRoots().setCountPerChunk(256));
+		addDecoration(new WorldGenRoots().setCountPerChunk(32));
 		
 		addDecoration(new WorldGenPebbles().setWaterRequired(false).setCountPerChunk(1));
 		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(4).setRarity(5).addBlocks(GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT)).setCountPerChunk(1));
