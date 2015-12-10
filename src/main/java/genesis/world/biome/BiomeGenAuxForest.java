@@ -12,6 +12,7 @@ import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenPalaeoagaracites;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
+import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.gen.feature.WorldGenDeadLog;
 import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
 import net.minecraft.world.World;
@@ -39,6 +40,7 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPatchSize(3).setCountPerChunk(2));
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(3));
 		addDecoration(new WorldGenDebris().setCountPerChunk(7));
+		addDecoration(new WorldGenRoots().setCountPerChunk(256));
 		
 		addDecoration(new WorldGenRockBoulders().setRarity(110).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 	}

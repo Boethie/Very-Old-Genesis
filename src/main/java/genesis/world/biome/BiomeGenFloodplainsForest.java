@@ -8,6 +8,7 @@ import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPlant;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
+import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.biome.decorate.WorldGenUnderWaterPatch;
 import genesis.world.gen.feature.WorldGenDeadLog;
 import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
@@ -37,6 +38,7 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenUnderWaterPatch(Blocks.water, GenesisBlocks.peat.getDefaultState()).setCountPerChunk(1));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		addDecoration(new WorldGenDebris().setCountPerChunk(7));
+		addDecoration(new WorldGenRoots().setCountPerChunk(32));
 		
 		addDecoration(new WorldGenRockBoulders().setRarity(110).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 		

@@ -9,6 +9,7 @@ import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
+import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
 
 import java.util.Random;
@@ -30,6 +31,7 @@ public class BiomeGenAuxPlains extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenRockBoulders().setRarity(10).setWaterRequired(false).setMaxHeight(3).addBlocks(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.SAUROPODA)).setCountPerChunk(1));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		addDecoration(new WorldGenDebris().setCountPerChunk(7));
+		addDecoration(new WorldGenRoots().setCountPerChunk(256));
 		
 		addDecoration(new WorldGenRockBoulders().setRarity(110).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 		
