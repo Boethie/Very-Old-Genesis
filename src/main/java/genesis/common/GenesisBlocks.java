@@ -303,40 +303,39 @@ public final class GenesisBlocks
 		
 		// - Growing Plants -
 		
-		
 		// Sphenophyllum
 		Genesis.proxy.registerBlock(sphenophyllum, "sphenophyllum");
 		
 		// Odontopteris
 		Genesis.proxy.registerBlock(odontopteris, "odontopteris", null);
-		odontopteris.setDrops(new BlockDrops(GenesisItems.odontopteris_seeds, 1, 1));
-		odontopteris.setCropDrops(new BlockDrops(GenesisItems.odontopteris_seeds, 1, 3));
-		odontopteris.setPickedItem(GenesisItems.odontopteris_seeds);
-		GenesisItems.odontopteris_seeds.setCrop(odontopteris);
+		ItemStack drop = GenesisItems.seeds.getStack(EnumSeeds.ZINGIBEROPSIS_RHIZOME);
+		odontopteris.setDrops(new BlockDrops(drop, 1, 1));
+		odontopteris.setCropDrops(new BlockDrops(drop, 1, 3));
+		odontopteris.setPickedStack(drop);
 		
 		// Neuropteridium
 		Genesis.proxy.registerBlock(neuropteridium, "neuropteridium", null);
-		neuropteridium.setDrops(new BlockDrops(GenesisItems.neuropteridium_rhizome, 1, 1));
-		neuropteridium.setCropDrops(new BlockDrops(GenesisItems.neuropteridium_rhizome, 1, 3));
-		neuropteridium.setPickedItem(GenesisItems.neuropteridium_rhizome);
-		GenesisItems.neuropteridium_rhizome.setCrop(neuropteridium);
+		drop = GenesisItems.seeds.getStack(EnumSeeds.NEUROPTERIDIUM_RHIZOME);
+		neuropteridium.setDrops(new BlockDrops(drop, 1, 1));
+		neuropteridium.setCropDrops(new BlockDrops(drop, 1, 3));
+		neuropteridium.setPickedStack(drop);
 		
 		// Programinis
 		Genesis.proxy.registerBlock(programinis, "programinis", null);
-		programinis.setDrops(new BlockDrops(GenesisItems.programinis_seeds, 0, 1));
+		drop = GenesisItems.seeds.getStack(EnumSeeds.PROGRAMINIS_SEEDS);
+		programinis.setDrops(new BlockDrops(drop, 0, 1));
 		programinis.setCropDrops(
 				new BlockDrops(
-					new BlockStackDrop(GenesisItems.programinis_seeds, 0, 3),
+					new BlockStackDrop(drop, 0, 3),
 					new BlockStackDrop(GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS), 1)));
-		programinis.setPickedItem(GenesisItems.programinis_seeds);
-		GenesisItems.programinis_seeds.setCrop(programinis);
+		programinis.setPickedStack(drop);
 		
 		// Zingiberopsis
 		Genesis.proxy.registerBlock(zingiberopsis, "zingiberopsis", null);
-		zingiberopsis.setDrops(new BlockDrops(GenesisItems.zingiberopsis_rhizome, 1, 1));
-		zingiberopsis.setCropDrops(new BlockDrops(GenesisItems.zingiberopsis_rhizome, 1, 3));
-		zingiberopsis.setPickedItem(GenesisItems.zingiberopsis_rhizome);
-		GenesisItems.zingiberopsis_rhizome.setCrop(zingiberopsis);
+		drop = GenesisItems.seeds.getStack(EnumSeeds.ZINGIBEROPSIS_RHIZOME);
+		zingiberopsis.setDrops(new BlockDrops(drop, 1, 1));
+		zingiberopsis.setCropDrops(new BlockDrops(drop, 1, 3));
+		zingiberopsis.setPickedStack(drop);
 		
 		// Flower pot
 		Genesis.proxy.registerBlock(flower_pot, "flower_pot", null);

@@ -41,14 +41,13 @@ public final class GenesisItems
 			.setUnlocalizedName(Unlocalized.EGG + "meganeura");
 	
 	/* Seeds */
-	public static final ItemGenesisSeeds programinis_seeds = (ItemGenesisSeeds) new ItemGenesisSeeds().setUnlocalizedName(Unlocalized.MATERIAL + "programinisSeeds");
+	public static final VariantsCombo<EnumSeeds, Block, ItemGenesisSeeds> seeds =
+			VariantsCombo.create(
+					ObjectType.createItem("seeds", ItemGenesisSeeds.class).setResourceName(""),
+					EnumSeeds.class, EnumSeeds.values());
+	//public static final ItemGenesisSeeds programinis_seeds = (ItemGenesisSeeds) new ItemGenesisSeeds().setUnlocalizedName(Unlocalized.MATERIAL + "programinisSeeds");
 	
 	/* Foods */
-	public static final ItemGenesisSeedFood araucarioxylon_seeds = (ItemGenesisSeedFood) new ItemGenesisSeedFood(1, 0.6F).setUnlocalizedName(Unlocalized.FOOD + "araucarioxylonSeeds");
-	public static final ItemGenesisSeedFood odontopteris_seeds = (ItemGenesisSeedFood) new ItemGenesisSeedFood(1, 0.8F).setUnlocalizedName(Unlocalized.FOOD + "odontopterisSeeds");
-	public static final ItemGenesisSeedFood neuropteridium_rhizome = (ItemGenesisSeedFood) new ItemGenesisSeedFood(2, 1.4F).setUnlocalizedName(Unlocalized.FOOD + "neuropteridiumRhizome");
-	public static final ItemGenesisSeedFood zingiberopsis_rhizome = (ItemGenesisSeedFood) new ItemGenesisSeedFood(2, 1.2F).setUnlocalizedName(Unlocalized.FOOD + "zingiberopsisRhizome");
-	
 	public static final FoodItems foods = new FoodItems();
 	
 	/* Tools */
@@ -96,19 +95,15 @@ public final class GenesisItems
 		// Random materials
 		GenesisBlocks.dungs.registerVariants(DungBlocksAndItems.DUNG);
 		
-		Genesis.proxy.registerItem(programinis_seeds, "programinis_seeds");
-		
 		materials.setUnlocalizedPrefix(Unlocalized.PREFIX);
 		materials.registerAll();
 		
 		Genesis.proxy.registerItem(meganeura_egg, "meganeura_egg");
 		
-		// --- Foods ---
-		Genesis.proxy.registerItem(araucarioxylon_seeds, "araucarioxylon_seeds");
-		Genesis.proxy.registerItem(odontopteris_seeds, "odontopteris_seeds");
-		Genesis.proxy.registerItem(neuropteridium_rhizome, "neuropteridium_rhizome");
-		Genesis.proxy.registerItem(zingiberopsis_rhizome, "zingiberopsis_rhizome");
+		seeds.setUnlocalizedPrefix(Unlocalized.PREFIX);
+		seeds.registerAll();
 		
+		// Foods
 		foods.registerAll();
 		
 		// --- Begin tools ---

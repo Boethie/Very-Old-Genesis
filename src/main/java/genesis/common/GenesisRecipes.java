@@ -246,7 +246,7 @@ public final class GenesisRecipes
 		FuelHandler.initialize();
 		
 		//Food
-		GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.araucarioxylon_seeds), GenesisItems.materials.getStack(EnumMaterial.ARAUCARIOXYLON_CONE));
+		GameRegistry.addShapelessRecipe(GenesisItems.seeds.getStack(EnumSeeds.ARAUCARIOXYLON_SEEDS), GenesisItems.materials.getStack(EnumMaterial.ARAUCARIOXYLON_CONE));
 		
 		//Torches
 		ItemStack resin = GenesisItems.materials.getStack(EnumMaterial.RESIN);

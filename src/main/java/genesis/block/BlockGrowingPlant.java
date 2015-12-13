@@ -235,7 +235,7 @@ public class BlockGrowingPlant extends BlockCrops
 
 	protected BlockDrops drops;
 	protected BlockDrops cropDrops;
-	protected Item pickedItem = null;
+	protected ItemStack pickedStack = null;
 	
 	IGrowingPlantCustoms customs = null;
 	
@@ -437,22 +437,22 @@ public class BlockGrowingPlant extends BlockCrops
 	/**
 	 * Sets the Item picked when the user middle clicks on the block in creative mode.
 	 */
-	public BlockGrowingPlant setPickedItem(Item item)
+	public BlockGrowingPlant setPickedStack(ItemStack stack)
 	{
-		pickedItem = item;
+		pickedStack = stack.copy();
 		
 		return this;
 	}
 	
 	@Override
-	public Item getItem(World world, BlockPos pos)
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player)
 	{
-		if (pickedItem != null)
+		if (pickedStack != null)
 		{
-			return pickedItem;
+			return pickedStack;
 		}
 
-		return Item.getItemFromBlock(this);
+		return super.getPickBlock(target, world, pos, player);
 	}
 
 	/**

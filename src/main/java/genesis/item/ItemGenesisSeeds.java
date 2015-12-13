@@ -1,64 +1,125 @@
 package genesis.item;
 
+import java.util.List;
+
 import genesis.common.GenesisCreativeTabs;
+import genesis.metadata.EnumSeeds;
+import genesis.metadata.VariantsCombo;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import genesis.metadata.ToolTypes.ToolType;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemSeeds;
+import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemSeedFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
-import net.minecraftforge.common.IPlantable;
 
-public class ItemGenesisSeeds extends ItemSeeds
+public class ItemGenesisSeeds extends ItemSeedFood
 {
-	IPlantable cropPlantable;
-	Block cropBlock;
+	public final VariantsCombo<EnumSeeds, Block, ItemGenesisSeeds> owner;
+	protected final ObjectType<Block, ItemGenesisSeeds> type;
+	protected final List<EnumSeeds> variants;
 	
-	public ItemGenesisSeeds()
+	public ItemGenesisSeeds(VariantsCombo<EnumSeeds, Block, ItemGenesisSeeds> owner, ObjectType<Block, ItemGenesisSeeds> type, List<EnumSeeds> variants, Class<ToolType> variantClass)
 	{
-		super(null, null);
+		super(0, 0, null, null);
 		
-		setCreativeTab(GenesisCreativeTabs.MATERIALS);
+		this.owner = owner;
+		this.type = type;
+		this.variants = variants;
+		
+		setHasSubtypes(true);
+		
+		setCreativeTab(GenesisCreativeTabs.FOOD);
 	}
 	
-	public ItemGenesisSeeds setCrop(IPlantable plantable)
+	protected boolean isFood(ItemStack stack)
 	{
-		cropPlantable = plantable;
-		cropBlock = (Block) plantable;
-		
-		return this;
+		return owner.getVariant(stack).getFoodAmount() > 0;
 	}
-
+	
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
+	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
+		EnumSeeds variant = owner.getVariant(stack);
 		BlockPos placePos = pos.offset(side);
+		IBlockState placeState = variant.getPlacedState();
 		
-		if (side == EnumFacing.UP &&
-				worldIn.isAirBlock(placePos) &&
-				playerIn.canPlayerEdit(placePos, side, stack) &&
-				cropBlock.canPlaceBlockOnSide(worldIn, placePos, side) &&
-				worldIn.canBlockBePlaced(cropBlock, placePos, false, side, null, stack))
+		if (placeState != null)
 		{
-			worldIn.setBlockState(placePos, cropBlock.getDefaultState());
-			stack.stackSize--;
+			Block placeBlock = placeState.getBlock();
 			
-			return true;
+			if (side == EnumFacing.UP &&
+					world.isAirBlock(placePos) &&
+					player.canPlayerEdit(placePos, side, stack) &&
+					placeBlock.canPlaceBlockOnSide(world, placePos, side) &&
+					world.canBlockBePlaced(placeBlock, placePos, false, side, null, stack))
+			{
+				world.setBlockState(placePos, placeState);
+				stack.stackSize--;
+				
+				return true;
+			}
 		}
 		
 		return false;
 	}
-
+	
 	@Override
-	public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos)
+	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
 	{
-		return null;
+		if (isFood(stack))
+		{
+			return super.onItemRightClick(stack, world, player);
+		}
+		
+		return stack;
+	}
+	
+	@Override
+	public EnumAction getItemUseAction(ItemStack stack)
+	{
+		return isFood(stack) ? EnumAction.EAT : EnumAction.NONE;
+	}
+	
+	@Override
+	public int getHealAmount(ItemStack stack)
+	{
+		return owner.getVariant(stack).getFoodAmount();
+	}
+	
+	@Override
+	public float getSaturationModifier(ItemStack stack)
+	{
+		return owner.getVariant(stack).getSaturationModifier();
+	}
+	
+	@Override
+	public String getUnlocalizedName(ItemStack stack)
+	{
+		return owner.getUnlocalizedName(stack, super.getUnlocalizedName(stack));
 	}
 
+	@Override
+	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> subItems)
+	{
+		owner.fillSubItems(type, variants, subItems);
+	}
+	
+	// Pointless IPlantable methods because they don't let us get the variant.
+	@Override
+	public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos)
+	{	// Return a default value so mods at least know that this is a seed still.
+		return EnumPlantType.Plains;
+	}
+	
 	@Override
 	public IBlockState getPlant(IBlockAccess world, BlockPos pos)
 	{

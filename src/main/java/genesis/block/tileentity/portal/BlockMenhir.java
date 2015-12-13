@@ -399,7 +399,7 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 	
 	public static EnumFacing getFacing(IBlockState state)
 	{
-		if (state.getProperties().containsKey(FACING))
+		if (state.getPropertyNames().contains(FACING))
 		{
 			return state.getValue(FACING);
 		}

@@ -2,6 +2,7 @@ package genesis.block;
 
 import genesis.common.GenesisItems;
 import genesis.metadata.EnumMaterial;
+import genesis.metadata.EnumSeeds;
 import genesis.util.random.drops.blocks.BlockDrops;
 
 import java.util.ArrayList;
@@ -27,11 +28,11 @@ public class BlockOdontopterisCustoms extends SurviveOnDirtCustoms
 	 * |  Fiddlehead |0-1|     1     |    0      |
 	 * |-----------------------------------------|
 	 */
-	static final BlockDrops seedsDropBottom1 = new BlockDrops(GenesisItems.odontopteris_seeds, 0, 1);
-	static final BlockDrops seedsDropBottom2Up = new BlockDrops(GenesisItems.odontopteris_seeds, 1, 1);
+	static final BlockDrops seedsDropBottom1 = new BlockDrops(GenesisItems.seeds.getStack(EnumSeeds.ODONTOPTERIS_SEEDS), 0, 1);
+	static final BlockDrops seedsDropBottom2Up = new BlockDrops(GenesisItems.seeds.getStack(EnumSeeds.ODONTOPTERIS_SEEDS), 1, 1);
 	
-	static final BlockDrops seedsDropTopBeforeMature = new BlockDrops(GenesisItems.odontopteris_seeds, 0, 1);
-	static final BlockDrops seedsDropTopMature = new BlockDrops(GenesisItems.odontopteris_seeds, 0, 2);
+	static final BlockDrops seedsDropTopBeforeMature = new BlockDrops(GenesisItems.seeds.getStack(EnumSeeds.ODONTOPTERIS_SEEDS), 0, 1);
+	static final BlockDrops seedsDropTopMature = new BlockDrops(GenesisItems.seeds.getStack(EnumSeeds.ODONTOPTERIS_SEEDS), 0, 2);
 
 	static final BlockDrops fiddleheadDrop1 = new BlockDrops(GenesisItems.materials.getStack(EnumMaterial.ODONTOPTERIS_FIDDLEHEAD), 0, 1);
 	static final BlockDrops fiddleheadDrop2To4 = new BlockDrops(GenesisItems.materials.getStack(EnumMaterial.ODONTOPTERIS_FIDDLEHEAD), 1, 1);
