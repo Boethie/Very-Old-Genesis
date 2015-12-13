@@ -31,10 +31,9 @@ public class MultiMetadataList implements List<MultiMetadata>
 			return variant.getUnlocalizedName();
 		}
 		
-		@SuppressWarnings("unchecked")
-		public <V extends IMetadata<?>> V getOriginal()
+		public IMetadata<?> getOriginal()
 		{
-			return (V) variant;
+			return variant;
 		}
 		
 		@Override public int compareTo(MultiMetadata o)

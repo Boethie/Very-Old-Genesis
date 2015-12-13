@@ -20,9 +20,9 @@ public class ItemGenesisFood<V extends IMetadata<V>> extends ItemFood
 	public final VariantsOfTypesCombo<V> owner;
 	
 	protected final List<V> variants;
-	protected final ObjectType<Block, ? extends ItemPorridge> type;
+	protected final ObjectType<Block, ? extends ItemDish> type;
 	
-	public ItemGenesisFood(VariantsOfTypesCombo<V> owner, ObjectType<Block, ? extends ItemPorridge> type, List<V> variants, Class<V> variantClass)
+	public ItemGenesisFood(VariantsOfTypesCombo<V> owner, ObjectType<Block, ? extends ItemDish> type, List<V> variants, Class<V> variantClass)
 	{
 		super(0, 0, false);
 		

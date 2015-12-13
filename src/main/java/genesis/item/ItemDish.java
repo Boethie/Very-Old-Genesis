@@ -14,9 +14,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ItemPorridge extends ItemGenesisFood<MultiMetadata>
+public class ItemDish extends ItemGenesisFood<MultiMetadata>
 {
-	public ItemPorridge(VariantsOfTypesCombo<MultiMetadata> owner, ObjectType<Block, ? extends ItemPorridge> type, List<MultiMetadata> variants, Class<MultiMetadata> variantClass)
+	public ItemDish(VariantsOfTypesCombo<MultiMetadata> owner, ObjectType<Block, ? extends ItemDish> type, List<MultiMetadata> variants, Class<MultiMetadata> variantClass)
 	{
 		super(owner, type, variants, variantClass);
 		
@@ -26,13 +26,13 @@ public class ItemPorridge extends ItemGenesisFood<MultiMetadata>
 	@Override
 	public int getHealAmount(ItemStack stack)
 	{
-		return ((EnumPorridge) owner.getVariant(stack).getOriginal()).getFoodAmount();
+		return ((EnumDish) owner.getVariant(stack).getOriginal()).getFoodAmount();
 	}
 	
 	@Override
 	public float getSaturationModifier(ItemStack stack)
 	{
-		return ((EnumPorridge) owner.getVariant(stack).getOriginal()).getSaturationModifier();
+		return ((EnumDish) owner.getVariant(stack).getOriginal()).getSaturationModifier();
 	}
 	
 	@Override

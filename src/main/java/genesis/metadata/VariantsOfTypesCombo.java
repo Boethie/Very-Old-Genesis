@@ -65,7 +65,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 		private final Class<? extends I> itemClass;
 		private Object[] itemArgs = {};
 		
-		protected Set<IMetadata<?>> variantExclusions;
+		protected Set<IMetadata<?>> excludeVariants;
 		protected Set<IMetadata<?>> onlyVariants;
 		protected boolean separateVariantJsons = true;
 		protected IProperty<?>[] stateMapIgnoredProperties;
@@ -81,7 +81,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 			this.name = name;
 			this.resourceName = name;
 			this.unlocalizedName = unlocalizedName;
-			this.variantExclusions = ImmutableSet.copyOf(variantExclusions);
+			this.excludeVariants = ImmutableSet.copyOf(variantExclusions);
 			
 			if (itemClass == null)
 			{
@@ -167,6 +167,13 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 			return itemClass;
 		}
 		
+		public ObjectType<B, I> setExcludedVariants(Collection<? extends IMetadata<?>> list)
+		{
+			excludeVariants = ImmutableSet.copyOf(list);
+			
+			return this;
+		}
+		
 		public ObjectType<B, I> setValidVariants(Collection<? extends IMetadata<?>> list)
 		{
 			onlyVariants = ImmutableSet.copyOf(list);
@@ -176,7 +183,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 
 		public <V extends IMetadata<V>> List<V> getValidVariants(List<V> list)
 		{
-			list.removeAll(variantExclusions);
+			list.removeAll(excludeVariants);
 			
 			if (onlyVariants != null)
 			{

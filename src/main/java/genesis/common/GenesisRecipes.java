@@ -625,18 +625,45 @@ public final class GenesisRecipes
 		
 		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.PINK), mabelia, new ItemStack(Items.dye, 1, EnumDyeColor.WHITE.getDyeDamage()));
 		
-		ItemStack[] porridgeBases = new ItemStack[]{GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS)};
-		
-		for (MultiMetadata variant : GenesisItems.bowls.getValidVariants(ItemsCeramicBowls.PORRIDGE))
+		// Dish cooking pot recipes
+		for (MultiMetadata variant : GenesisItems.bowls.getValidVariants(ItemsCeramicBowls.DISH))
 		{
-			EnumPorridge porridge = (EnumPorridge) variant.getOriginal();
-			ItemStack ingredient = porridge.getIngredient();
+			EnumDish dish = (EnumDish) variant.getOriginal();
+			ItemStack base = null;
 			
-			for (ItemStack porridgeBase : porridgeBases)
+			switch (dish)
 			{
-				ItemStack[] ingredients = ingredient == null ? new ItemStack[]{porridgeBase} : new ItemStack[]{porridgeBase, ingredient};
-				CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(porridge), ingredients);
+			case PORRIDGE:
+			case PORRIDGE_ARAUCARIOXYLON:
+			case PORRIDGE_ODONTOPTERIS:
+			case PORRIDGE_ZINGIBEROPSIS:
+			case PORRIDGE_ARCHAEOMARASMIUS:
+				base = GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS);
+				break;
 			}
+			
+			ItemStack ingredient = null;
+			
+			switch (dish)
+			{
+			case PORRIDGE:
+				break;
+			case PORRIDGE_ARAUCARIOXYLON:
+				ingredient = GenesisItems.seeds.getStack(EnumSeeds.ARAUCARIOXYLON_SEEDS);
+				break;
+			case PORRIDGE_ODONTOPTERIS:
+				ingredient = GenesisItems.seeds.getStack(EnumSeeds.ODONTOPTERIS_SEEDS);
+				break;
+			case PORRIDGE_ZINGIBEROPSIS:
+				ingredient = GenesisItems.seeds.getStack(EnumSeeds.ZINGIBEROPSIS_RHIZOME);
+				break;
+			case PORRIDGE_ARCHAEOMARASMIUS:
+				ingredient = new ItemStack(GenesisBlocks.archaeomarasmius);
+				break;
+			}
+			
+			ItemStack[] ingredients = ingredient == null ? new ItemStack[]{base} : new ItemStack[]{base, ingredient};
+			CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(dish), ingredients);
 		}
 		
 		// Dye cooking pot recipes

@@ -189,10 +189,11 @@ item.genesis.misc.menhirActivator.brokenCeremonialAxe.name=Broken Ceremonial Axe
 item.genesis.misc.menhirActivator.brokenSpiritMask.name=Broken Spirit Mask
 
 #Food
-item.genesis.food.araucarioxylonSeeds.name=Araucarioxylon Seeds
-item.genesis.food.odontopterisSeeds.name=Odontopteris Seeds
-item.genesis.food.neuropteridiumRhizome.name=Neuropteridium Rhizome
-item.genesis.food.zingiberopsisRhizome.name=Zingiberopsis Rhizome
+item.genesis.seeds.programinis.name=Programinis Seeds
+item.genesis.seeds.araucarioxylon.name=Araucarioxylon Seeds
+item.genesis.seeds.odontopteris.name=Odontopteris Seeds
+item.genesis.seeds.neuropteridiumRhizome.name=Neuropteridium Rhizome
+item.genesis.seeds.zingiberopsisRhizome.name=Zingiberopsis Rhizome
 
 item.genesis.food.spirifer.raw.name=Raw Spirifer
 item.genesis.food.spirifer.cooked.name=Cooked Spirifer
@@ -213,11 +214,11 @@ item.genesis.food.liopleurodon.cooked.name=Cooked Liopleurodon
 item.genesis.food.tyrannosaurus.raw.name=Raw Tyrannosaurus
 item.genesis.food.tyrannosaurus.cooked.name=Cooked Tyrannosaurus
 
-item.genesis.food.porridge.name=Porridge
-item.genesis.food.porridge.araucarioxylon.name=Porridge with Araucarioxylon
-item.genesis.food.porridge.odontopteris.name=Porridge with Odontopteris
-item.genesis.food.porridge.zingiberopsis.name=Porridge with Zingiberopsis
-item.genesis.food.porridge.archaeomarasmius.name=Porridge with Archaeomarasmius
+item.genesis.food.dish.porridge.base.name=Porridge
+item.genesis.food.dish.porridge.araucarioxylon.name=Porridge with Araucarioxylon
+item.genesis.food.dish.porridge.odontopteris.name=Porridge with Odontopteris
+item.genesis.food.dish.porridge.zingiberopsis.name=Porridge with Zingiberopsis
+item.genesis.food.dish.porridge.archaeomarasmius.name=Porridge with Archaeomarasmius
 
 #Tools
 item.genesis.tool.quality.chipped=§oChipped
@@ -408,7 +409,6 @@ item.genesis.material.araucarioxylonCone.name=Araucarioxylon Cone
 item.genesis.material.calamites.name=Calamites
 item.genesis.material.sphenophyllumFiber.name=Sphenophyllum Fiber
 item.genesis.material.odontopterisFiddlehead.name=Odontopteris Fiddlehead
-item.genesis.material.programinisSeeds.name=Programinis Seeds
 item.genesis.material.programinis.name=Programinis
 item.genesis.material.prototaxitesFlesh.name=Prototaxites Flesh
 item.genesis.material.dung.sauropoda.name=Sauropoda Dung
