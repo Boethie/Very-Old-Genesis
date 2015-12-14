@@ -640,6 +640,19 @@ public final class GenesisRecipes
 			case PORRIDGE_ARCHAEOMARASMIUS:
 				base = GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS);
 				break;
+			case MASHED_NEUROPTERIDIUM:
+			case STEW_ARCHAEOMARASMIUS:
+			case STEW_SPIRIFER:
+			case STEW_CLIMATIUS:
+			case STEW_MEGANEURA:
+			case STEW_APHTHOROBLATINNA:
+			case STEW_ERYOPS:
+			case STEW_GRYPHAEA:
+			case STEW_CERATITES:
+			case STEW_LIOPLEURODON:
+			case STEW_TYRANNOSAURUS:
+				base = GenesisItems.seeds.getStack(EnumSeeds.NEUROPTERIDIUM_RHIZOME);
+				break;
 			}
 			
 			ItemStack ingredient = null;
@@ -658,7 +671,37 @@ public final class GenesisRecipes
 				ingredient = GenesisItems.seeds.getStack(EnumSeeds.ZINGIBEROPSIS_RHIZOME);
 				break;
 			case PORRIDGE_ARCHAEOMARASMIUS:
+			case STEW_ARCHAEOMARASMIUS:
 				ingredient = new ItemStack(GenesisBlocks.archaeomarasmius);
+				break;
+			case MASHED_NEUROPTERIDIUM:
+				break;
+			case STEW_SPIRIFER:
+				ingredient = GenesisItems.foods.getCookedStack(EnumFood.SPIRIFER);
+				break;
+			case STEW_CLIMATIUS:
+				ingredient = GenesisItems.foods.getCookedStack(EnumFood.CLIMATIUS);
+				break;
+			case STEW_MEGANEURA:
+				ingredient = GenesisItems.foods.getCookedStack(EnumFood.MEGANEURA);
+				break;
+			case STEW_APHTHOROBLATINNA:
+				ingredient = GenesisItems.foods.getCookedStack(EnumFood.APHTHOROBLATINNA);
+				break;
+			case STEW_ERYOPS:
+				ingredient = GenesisItems.foods.getCookedStack(EnumFood.ERYOPS_LEG);
+				break;
+			case STEW_GRYPHAEA:
+				ingredient = GenesisItems.foods.getCookedStack(EnumFood.GRYPHAEA);
+				break;
+			case STEW_CERATITES:
+				ingredient = GenesisItems.foods.getCookedStack(EnumFood.CERATITES);
+				break;
+			case STEW_LIOPLEURODON:
+				ingredient = GenesisItems.foods.getCookedStack(EnumFood.LIOPLEURODON);
+				break;
+			case STEW_TYRANNOSAURUS:
+				ingredient = GenesisItems.foods.getCookedStack(EnumFood.TYRANNOSAURUS);
 				break;
 			}
 			

@@ -25,7 +25,7 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		setTemperatureRainfall(1.15F, 0.3F);
 		setHeight(0.0F, -0.01F);
 		
-		theBiomeDecorator.grassPerChunk = 2;
+		theBiomeDecorator.grassPerChunk = 3;
 		
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
@@ -44,7 +44,7 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 	@Override
 	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
 	{
-		return new WorldGenGrassMulti(GenesisBlocks.plants.getPlantBlockState(EnumPlant.ASTEROXYLON)).setVolume(64);
+		return new WorldGenGrassMulti(GenesisBlocks.plants.getPlantBlockState(EnumPlant.ASTEROXYLON)).setVolume(32);
 	}
 	
 	@Override

@@ -217,6 +217,17 @@ item.genesis.food.porridge.araucarioxylon.name=Bouillie à l'Araucarioxylon
 item.genesis.food.porridge.odontopteris.name=Bouillie à l'Odontopteris
 item.genesis.food.porridge.zingiberopsis.name=Bouillie au Zingiberopsis
 item.genesis.food.porridge.archaeomarasmius.name=Bouillie à l'Archaeomarasmius
+item.genesis.food.dish.mashed.neuropteridium.name=Purée de Neuropteridium
+item.genesis.food.dish.stew.archaeomarasmius.name=Ragoût à l'Archaeomarasmius
+item.genesis.food.dish.stew.spirifer.name=Ragoût au Spirifer
+item.genesis.food.dish.stew.climatius.name=Ragoût au Climatius
+item.genesis.food.dish.stew.meganeura.name=Ragoût au Meganeura
+item.genesis.food.dish.stew.aphthoroblattina.name=Ragoût à l'Aphthoroblattina
+item.genesis.food.dish.stew.eryops.name=Ragoût à l'Eryops
+item.genesis.food.dish.stew.gryphaea.name=Ragoût au Gryphaea
+item.genesis.food.dish.stew.ceratites.name=Ragoût au Ceratites
+item.genesis.food.dish.stew.liopleurodon.name=Ragoût au Liopleurodon
+item.genesis.food.dish.stew.tyrannosaurus.name=Ragoût au Tyrannosaurus
 
 #Tools
 item.genesis.tool.quality.chipped=§oTaillé

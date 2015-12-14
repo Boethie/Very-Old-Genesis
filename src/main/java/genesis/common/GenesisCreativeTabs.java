@@ -57,7 +57,7 @@ public final class GenesisCreativeTabs
 		@Override
 		public ItemStack getIconItemStack()
 		{
-			return GenesisItems.foods.getCookedStack(EnumFood.eryops_leg);
+			return GenesisItems.foods.getCookedStack(EnumFood.ERYOPS_LEG);
 		}
 	};
 	

@@ -219,6 +219,17 @@ item.genesis.food.dish.porridge.araucarioxylon.name=Porridge with Araucarioxylon
 item.genesis.food.dish.porridge.odontopteris.name=Porridge with Odontopteris
 item.genesis.food.dish.porridge.zingiberopsis.name=Porridge with Zingiberopsis
 item.genesis.food.dish.porridge.archaeomarasmius.name=Porridge with Archaeomarasmius
+item.genesis.food.dish.mashed.neuropteridium.name=Mashed Neuropteridium
+item.genesis.food.dish.stew.archaeomarasmius.name=Stew with Archaeomarasmius
+item.genesis.food.dish.stew.spirifer.name=Stew with Spirifer
+item.genesis.food.dish.stew.climatius.name=Stew with Climatius
+item.genesis.food.dish.stew.meganeura.name=Stew with Meganeura
+item.genesis.food.dish.stew.aphthoroblattina.name=Stew with Aphthoroblattina
+item.genesis.food.dish.stew.eryops.name=Stew with Eryops
+item.genesis.food.dish.stew.gryphaea.name=Stew with Gryphaea
+item.genesis.food.dish.stew.ceratites.name=Stew with Ceratites
+item.genesis.food.dish.stew.liopleurodon.name=Stew with Liopleurodon
+item.genesis.food.dish.stew.tyrannosaurus.name=Stew with Tyrannosaurus
 
 #Tools
 item.genesis.tool.quality.chipped=§oChipped
