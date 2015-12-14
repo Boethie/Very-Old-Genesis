@@ -145,7 +145,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 	{
 		super.dropFewItems(hitRecently, looting);
 		
-		entityDropItem(GenesisItems.foods.getRawStack(EnumFood.meganeura), 0);
+		entityDropItem(GenesisItems.foods.getRawStack(EnumFood.MEGANEURA), 0);
 	}
 	
 	public State getState()
