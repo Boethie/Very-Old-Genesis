@@ -188,10 +188,11 @@ item.genesis.misc.menhirActivator.brokenCeremonialAxe.name=Hache d'apparat bris�
 item.genesis.misc.menhirActivator.brokenSpiritMask.name=Masque d'esprit brisé
 
 #Food
-item.genesis.food.araucarioxylonSeeds.name=Graines d'Araucarioxylon
-item.genesis.food.odontopterisSeeds.name=Graines d'Odontopteris
-item.genesis.food.neuropteridiumRhizome.name=Rhizome de Neuropteridium
-item.genesis.food.zingiberopsisRhizome.name=Rhizome de Zingiberopsis
+item.genesis.seeds.programinis.name=Graines de Programinis
+item.genesis.seeds.araucarioxylon.name=Graines d'Araucarioxylon
+item.genesis.seeds.odontopteris.name=Graines d'Odontopteris
+item.genesis.seeds.neuropteridiumRhizome.name=Rhizome de Neuropteridium
+item.genesis.seeds.zingiberopsisRhizome.name=Rhizome de Zingiberopsis
 
 item.genesis.food.spirifer.raw.name=Spirifer cru
 item.genesis.food.spirifer.cooked.name=Spirifer cuit
@@ -212,11 +213,11 @@ item.genesis.food.liopleurodon.cooked.name=Liopleurodon cuit
 item.genesis.food.tyrannosaurus.raw.name=Tyrannosaurus cru
 item.genesis.food.tyrannosaurus.cooked.name=Tyrannosaurus cuit
 
-item.genesis.food.porridge.name=Bouillie
-item.genesis.food.porridge.araucarioxylon.name=Bouillie à l'Araucarioxylon
-item.genesis.food.porridge.odontopteris.name=Bouillie à l'Odontopteris
-item.genesis.food.porridge.zingiberopsis.name=Bouillie au Zingiberopsis
-item.genesis.food.porridge.archaeomarasmius.name=Bouillie à l'Archaeomarasmius
+item.genesis.food.dish.porridge.base.name=Bouillie
+item.genesis.food.dish.porridge.araucarioxylon.name=Bouillie à l'Araucarioxylon
+item.genesis.food.dish.porridge.odontopteris.name=Bouillie à l'Odontopteris
+item.genesis.food.dish.porridge.zingiberopsis.name=Bouillie au Zingiberopsis
+item.genesis.food.dish.porridge.archaeomarasmius.name=Bouillie à l'Archaeomarasmius
 item.genesis.food.dish.mashed.neuropteridium.name=Purée de Neuropteridium
 item.genesis.food.dish.stew.archaeomarasmius.name=Ragoût à l'Archaeomarasmius
 item.genesis.food.dish.stew.spirifer.name=Ragoût au Spirifer
@@ -418,7 +419,6 @@ item.genesis.material.araucarioxylonCone.name=Cône d'Araucarioxylon
 item.genesis.material.calamites.name=Calamites
 item.genesis.material.sphenophyllumFiber.name=Fibre de Sphenophyllum
 item.genesis.material.odontopterisFiddlehead.name=Crosse d'Odontopteris
-item.genesis.material.programinisSeeds.name=Graines de Programinis
 item.genesis.material.programinis.name=Programinis
 item.genesis.material.prototaxitesFlesh.name=Chair de Prototaxites
 item.genesis.material.dung.sauropoda.name=Crotte de sauropode
