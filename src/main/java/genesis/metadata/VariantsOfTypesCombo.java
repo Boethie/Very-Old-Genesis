@@ -1384,7 +1384,6 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	/**
 	 * Gets all sub-items for the {@link ObjectType}.
 	 */
-	@SafeVarargs
 	public final List<ItemStack> getSubItems(ObjectType<?, ?> objectType)
 	{
 		return getSubItems(objectType, Collections.<V>emptySet());
