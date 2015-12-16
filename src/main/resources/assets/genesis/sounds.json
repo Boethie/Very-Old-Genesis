@@ -67,6 +67,30 @@
 			"place/dung"
 		]
 	},
+	"dig.debris": {
+		"category": "block",
+		"sounds": [
+			"dig/debris1",
+			"dig/debris2",
+			"dig/debris3"
+		]
+	},
+	"step.debris": {
+		"category": "block",
+		"sounds": [
+			"step/debris1",
+			"step/debris2",
+			"step/debris3"
+		]
+	},
+	"place.debris": {
+		"category": "block",
+		"sounds": [
+			"place/debris1",
+			"place/debris2",
+			"place/debris3"
+		]
+	},
 	"dig.coral": {
 		"category": "block",
 		"sounds": [

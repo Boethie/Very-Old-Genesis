@@ -2,6 +2,7 @@ package genesis.block;
 
 import genesis.common.GenesisCreativeTabs;
 import genesis.common.GenesisItems;
+import genesis.common.GenesisSounds;
 import genesis.item.ItemBlockMulti;
 import genesis.metadata.DebrisBlocks;
 import genesis.metadata.EnumDebrisOther;
@@ -45,7 +46,7 @@ public class BlockGenesisDebris extends BlockGenesisVariants<MultiMetadata>
 		debrisOwner = owner;
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
-		setStepSound(soundTypeGrass);
+		setStepSound(GenesisSounds.DEBIRS);
 		Blocks.fire.setFireInfo(this, 60, 100);
 		
 		setBlockBounds(0, 0, 0, 1, 1/16F, 1);
