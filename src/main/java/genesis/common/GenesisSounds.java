@@ -76,7 +76,7 @@ public final class GenesisSounds
 	public static final GenesisSoundType OOZE = new GenesisSoundType("ooze", 1.5F, 1.5F, true);
 	public static final GenesisSoundType DEAD_LOG = new GenesisSoundType("dead_log", 1.5F, 1.5F, true);
 	public static final GenesisSoundType MUSHROOM = new GenesisSoundType("mushroom", 1.5F, 1.5F, true);
-	public static final GenesisSoundType DEBIRS = new GenesisSoundType("debris", 1.5F, 1.5F, true);
+	public static final GenesisSoundType DEBRIS = new GenesisSoundType("debris", 1.5F, 1.5F, true);
 	
 	public static class GenesisSoundType extends Block.SoundType
 	{

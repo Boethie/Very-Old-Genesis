@@ -46,7 +46,7 @@ public class BlockGenesisDebris extends BlockGenesisVariants<MultiMetadata>
 		debrisOwner = owner;
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
-		setStepSound(GenesisSounds.DEBIRS);
+		setStepSound(GenesisSounds.DEBRIS);
 		Blocks.fire.setFireInfo(this, 60, 100);
 		
 		setBlockBounds(0, 0, 0, 1, 1/16F, 1);
