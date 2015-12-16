@@ -19,7 +19,7 @@ public enum EnumGlyph implements IMetadata<EnumGlyph>
 			GenesisItems.menhir_activators.getStack(EnumMenhirActivator.BROKEN_CEREMONIAL_AXE),
 			GenesisItems.menhir_activators.getStack(EnumMenhirActivator.BROKEN_SPIRIT_MASK)),
 	COSMOS("cosmos",
-			GenesisItems.menhir_activators.getStack(EnumMenhirActivator.RUSTED_OCTAEDRITE_FRAGMENT));
+			GenesisItems.menhir_activators.getStack(EnumMenhirActivator.RUSTED_OCTAEDRITE_FLAKE));
 	
 	public static final EnumGlyph[] VALID = {VEGETAL, ANIMAL, HOMINID, COSMOS};
 	

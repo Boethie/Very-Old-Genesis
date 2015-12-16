@@ -2,6 +2,7 @@
 	"variants": {
 		"variant=zygopteris":  { "model": "genesis:zygopteris" },
 		"variant=phlebopteris":  { "model": "genesis:phlebopteris" },
+		"variant=todites":  { "model": "genesis:todites" },
 		"variant=ruffordia":  { "model": "genesis:ruffordia" },
 		"variant=astralopteris":  { "model": "genesis:astralopteris" },
 		"variant=matonidium":  { "model": "genesis:matonidium" }

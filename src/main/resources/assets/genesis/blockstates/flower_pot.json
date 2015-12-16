@@ -90,6 +90,11 @@
 					"plant": "genesis:blocks/fern_phlebopteris"
 				}
 			},
+			"todites": {
+				"textures": {
+					"plant": "genesis:blocks/fern_todites"
+				}
+			},
 			"ruffordia": {
 				"textures": {
 					"plant": "genesis:blocks/fern_ruffordia"

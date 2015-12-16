@@ -61,6 +61,7 @@ tile.genesis.log.psaronius.name=Psaronius Wood
 tile.genesis.log.bjuvia.name=Bjuvia Wood
 tile.genesis.log.voltzia.name=Voltzia Wood
 tile.genesis.log.araucarioxylon.name=Araucarioxylon Wood
+tile.genesis.log.metasequoia.name=Metasequoia Wood
 
 tile.genesis.calamitesBundle.name=Bundle of Calamites
 tile.genesis.programinisBundle.name=Bundle of Programinis
@@ -74,11 +75,13 @@ tile.genesis.log.dead.sigillaria.name=Dead Sigillaria Wood
 tile.genesis.log.dead.lepidodendron.name=Dead Lepidodendron Wood
 tile.genesis.log.dead.cordaites.name=Dead Cordaites Wood
 tile.genesis.log.dead.araucarioxylon.name=Dead Araucarioxylon Wood
+tile.genesis.log.dead.metasequoia.name=Dead Metasequoia Wood
 
 tile.genesis.debris.archaeopteris.name=Archaeopteris Leaf Debris
 tile.genesis.debris.sigillaria.name=Sigillaria Leaf Debris
 tile.genesis.debris.lepidodendron.name=Lepidodendron Leaf Debris
 tile.genesis.debris.araucarioxylon.name=Araucarioxylon Leaf Debris
+tile.genesis.debris.araucarioxylon.name=Metasequoia Leaf Debris
 tile.genesis.debris.calamites.name=Calamites Debris
 tile.genesis.debris.epidexipteryxFeather.name=Epidexipteryx Feather Debris
 
@@ -92,6 +95,7 @@ tile.genesis.leaves.psaronius.name=Psaronius Leaves
 tile.genesis.leaves.bjuvia.name=Bjuvia Leaves
 tile.genesis.leaves.voltzia.name=Voltzia Leaves
 tile.genesis.leaves.araucarioxylon.name=Araucarioxylon Leaves
+tile.genesis.leaves.metasequoia.name=Metasequoia Leaves
 
 tile.genesis.sapling.archaeopteris.name=Archaeopteris Sapling
 tile.genesis.sapling.sigillaria.name=Sigillaria Sapling
@@ -101,6 +105,7 @@ tile.genesis.sapling.psaronius.name=Psaronius Sapling
 tile.genesis.sapling.bjuvia.name=Bjuvia Sapling
 tile.genesis.sapling.voltzia.name=Voltzia Sapling
 tile.genesis.sapling.araucarioxylon.name=Araucarioxylon Sapling
+tile.genesis.sapling.metasequoia.name=Metasequoia Sapling
 
 tile.genesis.wattleFence.archaeopteris.name=Archaeopteris Wattle Fence
 tile.genesis.wattleFence.sigillaria.name=Sigillaria Wattle Fence
@@ -108,6 +113,7 @@ tile.genesis.wattleFence.lepidodendron.name=Lepidodendron Wattle Fence
 tile.genesis.wattleFence.cordaites.name=Cordaites Wattle Fence
 tile.genesis.wattleFence.voltzia.name=Voltzia Wattle Fence
 tile.genesis.wattleFence.araucarioxylon.name=Araucarioxylon Wattle Fence
+tile.genesis.wattleFence.metasequoia.name=Metasequoia Wattle Fence
 
 tile.genesis.calamitesTorch.name=Calamites Torch
 tile.genesis.calamitesTorch.tall.name=Calamites Tall Torch
@@ -134,6 +140,7 @@ tile.genesis.plant.calamites.name=Calamites
 tile.genesis.fern.double.rhacophyton.name=Rhacophyton
 tile.genesis.fern.zygopteris.name=Zygopteris
 tile.genesis.fern.phlebopteris.name=Phlebopteris
+tile.genesis.fern.todites.name=Todites
 tile.genesis.fern.ruffordia.name=Ruffordia
 tile.genesis.fern.astralopteris.name=Astralopteris
 tile.genesis.fern.matonidium.name=Matonidium
@@ -182,7 +189,7 @@ item.genesis.misc.ceramicBucketWater.name=Ceramic Water Bucket
 item.genesis.misc.ceramicBucketMilk.name=Ceramic Milk Bucket
 item.genesis.misc.bucketKomatiiticLava.name=Komatiitic Lava Bucket
 
-item.genesis.misc.menhirActivator.rustedOctaedriteFragment.name=Rusted Octaedrite Fragment
+item.genesis.misc.menhirActivator.rustedOctaedriteFlake.name=Rusted Octaedrite Flake
 item.genesis.misc.menhirActivator.ancientAmber.name=Ancient Amber
 item.genesis.misc.menhirActivator.fossilizedEgg.name=Fossilized Egg
 item.genesis.misc.menhirActivator.brokenCeremonialAxe.name=Broken Ceremonial Axe
@@ -413,6 +420,7 @@ item.genesis.material.billet.lepidodendron.name=Lepidodendron Wood Billet
 item.genesis.material.billet.cordaites.name=Cordaites Wood Billet
 item.genesis.material.billet.voltzia.name=Voltzia Wood Billet
 item.genesis.material.billet.araucarioxylon.name=Araucarioxylon Wood Billet
+item.genesis.material.billet.metasequoia.name=Metasequoia Wood Billet
 
 item.genesis.material.salt.name=Salt
 item.genesis.material.resin.name=Resin

@@ -1,7 +1,7 @@
 {
 	"parent": "builtin/generated",
 	"textures": {
-		"layer0": "genesis:items/rusted_octaedrite_fragment"
+		"layer0": "genesis:blocks/sapling_metasequoia"
 	},
 	"display": {
 		"thirdperson": {
