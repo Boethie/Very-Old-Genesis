@@ -84,6 +84,10 @@ public class GenLayerGenesisHills extends GenLayerGenesis
 					{
 						i2 = GenesisBiomes.auxForestHills.biomeID;
 					}
+					if (k1 == GenesisBiomes.metaForest.biomeID)
+					{
+						i2 = GenesisBiomes.metaForestHills.biomeID;
+					}
 					else if (k1 == GenesisBiomes.redDesert.biomeID)
 					{
 						i2 = GenesisBiomes.redDesertHills.biomeID;

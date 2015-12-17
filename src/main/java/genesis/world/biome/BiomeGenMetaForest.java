@@ -5,11 +5,13 @@ import java.util.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 import genesis.common.GenesisBlocks;
+import genesis.metadata.EnumTree;
 import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenPalaeoagaracites;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
 import genesis.world.biome.decorate.WorldGenRoots;
+import genesis.world.gen.feature.WorldGenDeadLog;
 
 public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 {
@@ -19,7 +21,7 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 		setBiomeName("Metasequoia Forest");
 		setTemperatureRainfall(1.1F, 0.9F);
 		
-		theBiomeDecorator.grassPerChunk = 5;
+		theBiomeDecorator.grassPerChunk = 3;
 		
 		addDecorations();
 		addTrees();
@@ -38,7 +40,7 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 	
 	protected void addTrees()
 	{
-		
+		addTree(new WorldGenDeadLog(4, 8, EnumTree.METASEQUOIA, true).setTreeCountPerChunk(2));
 	}
 	
 	@Override

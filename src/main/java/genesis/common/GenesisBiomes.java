@@ -1,5 +1,7 @@
 package genesis.common;
 
+import genesis.world.biome.BiomeGenMetaForest;
+import genesis.world.biome.BiomeGenMetaForestM;
 import genesis.world.biome.BiomeGenRedBeach;
 import genesis.world.biome.BiomeGenRedDesert;
 import genesis.world.biome.BiomeGenRedDesertM;
@@ -34,10 +36,11 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis rainforestHills;
 	public static BiomeGenBaseGenesis auxForest;
 	public static BiomeGenBaseGenesis auxForestM;
-	public static BiomeGenBaseGenesis auxForestEdge;
-	public static BiomeGenBaseGenesis auxForestEdgeM;
 	public static BiomeGenBaseGenesis auxForestHills;
 	public static BiomeGenBaseGenesis auxPlains;
+	public static BiomeGenBaseGenesis metaForest;
+	public static BiomeGenBaseGenesis metaForestM;
+	public static BiomeGenBaseGenesis metaForestHills;
 	public static BiomeGenBaseGenesis swampRainForest;
 	public static BiomeGenBaseGenesis marsh;
 	public static BiomeGenBaseGenesis floodplainsForest;
@@ -89,7 +92,17 @@ public final class GenesisBiomes
 		
 		auxPlains = new BiomeGenAuxPlains(GenesisConfig.auxPlainsId);
 		BiomeManagerGenesis.registerBiome(auxPlains, BiomeType.WARM, GenesisConfig.auxPlainsWeight);
-		BiomeDictionary.registerBiomeType(auxPlains, BiomeDictionary.Type.PLAINS);
+		BiomeDictionary.registerBiomeType(auxPlains, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.SPARSE);
+		
+		metaForest = new BiomeGenMetaForest(GenesisConfig.metaForestId);
+		BiomeManagerGenesis.registerBiome(metaForest, BiomeType.WARM, GenesisConfig.metaForestWeight);
+		BiomeDictionary.registerBiomeType(metaForest, BiomeDictionary.Type.FOREST);
+		
+		metaForestM = new BiomeGenMetaForestM(GenesisConfig.metaForestId+128);
+		BiomeDictionary.registerBiomeType(metaForestM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.MOUNTAIN);
+		
+		metaForestHills = new BiomeGenMetaForest(GenesisConfig.metaForestHillsId).setBiomeName("Metasequoia Forest Hills").setHeight(height_LowHills);
+		BiomeDictionary.registerBiomeType(auxForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST);
 		
 		swampRainForest = new BiomeGenSwampRainforest(GenesisConfig.swampRainForestId);
 		BiomeDictionary.registerBiomeType(swampRainForest, BiomeDictionary.Type.SWAMP, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
