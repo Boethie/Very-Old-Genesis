@@ -32,8 +32,6 @@ public class GenLayerGenesisShore extends GenLayerGenesis
 				if (
 						biomeID != GenesisBiomes.auxForest.biomeID 
 						&& biomeID != GenesisBiomes.auxForestM.biomeID 
-						&& biomeID != GenesisBiomes.auxForestEdge.biomeID 
-						&& biomeID != GenesisBiomes.auxForestEdgeM.biomeID 
 						&& biomeID != GenesisBiomes.auxForestHills.biomeID
 						&& biomeID != GenesisBiomes.rainforest.biomeID
 						&& biomeID != GenesisBiomes.rainforestM.biomeID

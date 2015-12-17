@@ -5,8 +5,6 @@ import genesis.world.biome.BiomeGenRedDesert;
 import genesis.world.biome.BiomeGenRedDesertM;
 import genesis.world.biome.BiomeGenFloodplainsForest;
 import genesis.world.biome.BiomeGenAuxForest;
-import genesis.world.biome.BiomeGenAuxForestEdge;
-import genesis.world.biome.BiomeGenAuxForestEdgeM;
 import genesis.world.biome.BiomeGenAuxForestM;
 import genesis.world.biome.BiomeGenAuxPlains;
 import genesis.world.biome.BiomeGenBaseGenesis;
@@ -85,12 +83,6 @@ public final class GenesisBiomes
 		
 		auxForestM = new BiomeGenAuxForestM(GenesisConfig.auxForestId+128);
 		BiomeDictionary.registerBiomeType(auxForestM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.MOUNTAIN);
-		
-		auxForestEdge = new BiomeGenAuxForestEdge(GenesisConfig.auxForestEdgeId);
-		BiomeDictionary.registerBiomeType(auxForestEdge, BiomeDictionary.Type.SPARSE);
-		
-		auxForestEdgeM = new BiomeGenAuxForestEdgeM(GenesisConfig.auxForestEdgeId+128);
-		BiomeDictionary.registerBiomeType(auxForestEdgeM, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.MOUNTAIN);
 		
 		auxForestHills = new BiomeGenAuxForest(GenesisConfig.auxForestHillsId).setBiomeName("Araucarioxylon Forest Hills").setHeight(height_LowHills);
 		BiomeDictionary.registerBiomeType(auxForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST);

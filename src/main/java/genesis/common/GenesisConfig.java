@@ -17,25 +17,24 @@ public final class GenesisConfig
 	public static int shallowOceanId = 53;
 	public static int auxForestId = 54;
 	public static int auxForestWeight = 10;
-	public static int auxForestEdgeId = 55;
-	public static int limestoneBeachId = 56;
-	public static int swampRainForestId = 57;
+	public static int limestoneBeachId = 55;
+	public static int swampRainForestId = 56;
 	public static int swampRainForestWeight = 10;
-	public static int floodplainsForestId = 58;
+	public static int floodplainsForestId = 57;
 	public static int floodplainsForestWeight = 10;
-	public static int auxPlainsId = 59;
+	public static int auxPlainsId = 58;
 	public static int auxPlainsWeight = 10;
-	public static int genesisBeachId = 61;
-	public static int rainforestHillsId = 62;
-	public static int auxForestHillsId = 63;
-	public static int deepOceanId = 65;
-	public static int marshId = 66;
+	public static int genesisBeachId = 59;
+	public static int rainforestHillsId = 60;
+	public static int auxForestHillsId = 61;
+	public static int deepOceanId = 62;
+	public static int marshId = 63;
 	public static int marshWeight = 10;
-	public static int oceanId = 67;
-	public static int redDesertId = 68;
+	public static int oceanId = 64;
+	public static int redDesertId = 65;
 	public static int redDesertWeight = 10;
-	public static int redDesertHillsId = 69;
-	public static int redBeachId = 70;
+	public static int redDesertHillsId = 66;
+	public static int redBeachId = 67;
 	
 	//Dimensions
 	public static int genesisDimId = 37;
@@ -77,7 +76,6 @@ public final class GenesisConfig
 		shallowOceanId = config.getInt("shallowOceanId", "biome", shallowOceanId, 0, 255, "Shallow Ocean Biome ID");
 		auxForestId = config.getInt("auxForestId", "biome", auxForestId, 0, 255, "Araucarioxylon Forest Biome ID");
 		auxForestWeight = config.getInt("auxForestWeight", "biome", auxForestWeight, 0, Integer.MAX_VALUE, "Araucarioxylon Forest Biome Weight");
-		auxForestEdgeId = config.getInt("auxForestEdgeId", "biome", auxForestEdgeId, 0, 255, "Araucarioxylon Forest Edge Biome ID");
 		redDesertId = config.getInt("redDesertId", "biome", redDesertId, 0, 255, "Red Desert Biome ID");
 		redDesertWeight = config.getInt("redDesertWeight", "biome", redDesertWeight, 0, Integer.MAX_VALUE, "Red Desert Biome Weight");
 		
