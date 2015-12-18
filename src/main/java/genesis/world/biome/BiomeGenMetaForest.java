@@ -24,6 +24,7 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 		super(id);
 		setBiomeName("Metasequoia Forest");
 		setTemperatureRainfall(1.1F, 0.9F);
+		setHeight(0.1F, 0.05F);
 		
 		theBiomeDecorator.grassPerChunk = 3;
 		
