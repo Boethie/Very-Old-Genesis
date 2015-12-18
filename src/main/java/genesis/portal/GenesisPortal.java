@@ -6,10 +6,12 @@ import genesis.block.tileentity.portal.BlockMenhir;
 import genesis.block.tileentity.portal.EnumGlyph;
 import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
+import genesis.common.GenesisConfig;
 import genesis.metadata.EnumMenhirPart;
 import genesis.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
@@ -453,7 +455,16 @@ public class GenesisPortal
 		
 		refresh();
 		updatePortalStatus(world);
+		generateCircle(world, world.provider.getDimensionId() == GenesisConfig.genesisDimId);
 		return true;
+	}
+	
+	private void generateCircle(World world, boolean isGenesis)
+	{
+		Block rock = isGenesis ? GenesisBlocks.granite : Blocks.cobblestone;
+		Block moss = isGenesis ? GenesisBlocks.mossy_granite : Blocks.mossy_cobblestone;
+		world.setBlockState(center, rock.getDefaultState());
+		world.setBlockState(center.down(), moss.getDefaultState());
 	}
 	
 	public void duplicatePortal(World world, GenesisPortal fromPortal)
@@ -488,6 +499,7 @@ public class GenesisPortal
 		
 		refresh();
 		updatePortalStatus(world);
+		generateCircle(world, world.provider.getDimensionId() == GenesisConfig.genesisDimId);
 	}
 	
 	@Override
