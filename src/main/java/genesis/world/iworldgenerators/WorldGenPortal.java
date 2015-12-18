@@ -1,7 +1,10 @@
-package genesis.world.overworld;
+package genesis.world.iworldgenerators;
 
+import genesis.common.GenesisBlocks;
 import genesis.common.GenesisConfig;
 import genesis.portal.GenesisPortal;
+import genesis.world.iworldgenerators.WorldGenHelper.RandomStates;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenTaiga;
@@ -10,11 +13,21 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 
 import java.util.Random;
 
+import static genesis.world.iworldgenerators.WorldGenHelper.findSurface;
+import static genesis.world.iworldgenerators.WorldGenHelper.isGround;
+
 /**
  * Created by Vorquel on 11/5/15.
  */
-public class GenesisPortalGenerator implements IWorldGenerator
+public class WorldGenPortal implements IWorldGenerator
 {
+	private static RandomStates genesisRocks = new RandomStates(
+			new WorldGenHelper.RandomState(GenesisBlocks.granite.getDefaultState(), 3),
+			new WorldGenHelper.RandomState(GenesisBlocks.mossy_granite.getDefaultState(), 1));
+	private static RandomStates vanillaRocks = new RandomStates(
+			new WorldGenHelper.RandomState(Blocks.cobblestone.getDefaultState(), 3),
+			new WorldGenHelper.RandomState(Blocks.mossy_cobblestone.getDefaultState(), 1));
+	
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider)
 	{
@@ -55,6 +68,18 @@ public class GenesisPortalGenerator implements IWorldGenerator
 		if (newPortal.setPlacementPosition(world))
 		{
 			newPortal.makePortal(world, random, false);
+		}
+	}
+	
+	public static void genStructure(World world, BlockPos center, boolean isNew)
+	{
+		RandomStates rocks = isNew ? genesisRocks : vanillaRocks;
+		
+		BlockPos next = findSurface(world, center.north(8));
+		BlockPos temp = next.down().west();
+		if (!isGround(world, temp))
+		{
+			world.setBlockState(next, rocks.getState(world.rand));
 		}
 	}
 }

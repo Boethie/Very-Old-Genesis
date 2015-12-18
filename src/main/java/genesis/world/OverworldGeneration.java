@@ -1,9 +1,9 @@
-package genesis.world.overworld;
+package genesis.world;
 
 import genesis.common.GenesisItems;
 import genesis.metadata.EnumMenhirActivator;
-import genesis.world.overworld.GenesisPortalGenerator;
-import genesis.world.overworld.WorldGenMenhirActivators;
+import genesis.world.iworldgenerators.WorldGenPortal;
+import genesis.world.iworldgenerators.WorldGenMenhirActivators;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -17,7 +17,7 @@ public class OverworldGeneration
 	
 	public static void register()
 	{
-		GameRegistry.registerWorldGenerator(new GenesisPortalGenerator(), 0);
+		GameRegistry.registerWorldGenerator(new WorldGenPortal(), 0);
 		GameRegistry.registerWorldGenerator(new WorldGenMenhirActivators(), 0);
 		
 		menhirHutChest = ChestGenHooks.getInfo("menhirHutChest");

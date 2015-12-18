@@ -3,7 +3,7 @@ package genesis.common;
 import genesis.command.CommandTPGenesis;
 import genesis.entity.extendedproperties.GenesisEntityData;
 import genesis.util.Constants;
-import genesis.world.overworld.OverworldGeneration;
+import genesis.world.OverworldGeneration;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
