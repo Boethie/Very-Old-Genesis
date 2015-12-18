@@ -96,7 +96,7 @@ public final class GenesisBlocks
 			.setPlantType(EnumPlantType.Plains)
 			.setGrowth(5, 1, 1, 1)
 			.setPlantSize(0, 0.2F, 0.75F)
-			.setCustoms(new BlockSphenophyllumCustoms())
+			.setCustoms(new BlockWaterSpreadingPlantCustoms(GenesisItems.materials.getStack(EnumMaterial.SPHENOPHYLLUM_FIBER)))
 			.setUnlocalizedName(Unlocalized.PLANT + "sphenophyllum");
 	public static final BlockGrowingPlant odontopteris = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true).setBreakAllTogether(true)
@@ -118,7 +118,7 @@ public final class GenesisBlocks
 			.setPlantType(EnumPlantType.Plains)
 			.setGrowth(5, 1, 1, 1)
 			.setPlantSize(0, 0.2F, 0.75F)
-			.setCustoms(new BlockSphenophyllumCustoms())
+			.setCustoms(new BlockWaterSpreadingPlantCustoms(GenesisItems.materials.getStack(EnumMaterial.CLADOPHLEBIS_FROND)))
 			.setUnlocalizedName(Unlocalized.PLANT + "cladophlebis")
 			.setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	public static final BlockGrowingPlant programinis = (BlockGrowingPlant) new BlockGrowingPlant(false, 7, 1).setTopPosition(1)
