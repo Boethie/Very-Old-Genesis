@@ -92,7 +92,7 @@ public final class GenesisBiomes
 		
 		auxPlains = new BiomeGenAuxPlains(GenesisConfig.auxPlainsId);
 		BiomeManagerGenesis.registerBiome(auxPlains, BiomeType.WARM, GenesisConfig.auxPlainsWeight);
-		BiomeDictionary.registerBiomeType(auxPlains, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.SPARSE);
+		BiomeDictionary.registerBiomeType(auxPlains, BiomeDictionary.Type.SAVANNA, BiomeDictionary.Type.SPARSE);
 		
 		metaForest = new BiomeGenMetaForest(GenesisConfig.metaForestId);
 		BiomeManagerGenesis.registerBiome(metaForest, BiomeType.WARM, GenesisConfig.metaForestWeight);
