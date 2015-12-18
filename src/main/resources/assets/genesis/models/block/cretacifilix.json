@@ -1,6 +1,6 @@
 {
 	"parent": "block/tallgrass",
 	"textures": {
-		"cross": "genesis:blocks/plant_cretacifilix"
+		"cross": "genesis:blocks/fern_cretacifilix"
 	}
 }
