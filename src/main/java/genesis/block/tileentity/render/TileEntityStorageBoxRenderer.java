@@ -1,5 +1,7 @@
 package genesis.block.tileentity.render;
 
+import org.lwjgl.opengl.GL11;
+
 import genesis.block.tileentity.BlockStorageBox;
 import genesis.block.tileentity.TileEntityStorageBox;
 import genesis.client.GenesisClient;
@@ -8,11 +10,15 @@ import genesis.util.*;
 import genesis.util.render.*;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
@@ -114,22 +120,38 @@ public class TileEntityStorageBoxRenderer extends TileEntitySpecialRenderer<Tile
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x, y, z);
 		
+		ModelHelpers.bindAtlasTexture();
+		
 		// If we're rendering a destroy stage, set the breaking texture.
 		if (destroyStage >= 0)
 		{
+			Tessellator tess = Tessellator.getInstance();
+			WorldRenderer wr = tess.getWorldRenderer();
+			
 			RenderHelper.disableStandardItemLighting();
+			Minecraft.getMinecraft().entityRenderer.disableLightmap();
+			
 			TextureAtlasSprite breakTexture = ModelHelpers.getDestroyBlockIcon(destroyStage);
-			model.lid.setTexture(breakTexture);
-			ModelHelpers.renderBakedModel(ModelHelpers.getRetexturedBakedModel(ModelHelpers.getBakedBlockModel(state, world, pos), breakTexture));
+			
+			wr.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
+			wr.markDirty();
+			wr.setTranslation(-pos.getX(), -pos.getY(), -pos.getZ());
+			ModelHelpers.getBlockRenderer().renderModelStandard(world,
+					ModelHelpers.getCubeProjectedBakedModel(ModelHelpers.getBakedBlockModel(state, world, pos), breakTexture),
+					state.getBlock(), pos, wr, true);
+			wr.setTranslation(0, 0, 0);
+			tess.draw();
+			
+			model.lid.setTextureNoColor(breakTexture);
 		}
 		
 		// Render model.
-		ModelHelpers.bindAtlasTexture();
 		model.renderAll();
 		
 		if (destroyStage >= 0)
 		{
 			RenderHelper.enableStandardItemLighting();
+			Minecraft.getMinecraft().entityRenderer.enableLightmap();
 		}
 		
 		// Pop the matrix to clear all our transforms in here.

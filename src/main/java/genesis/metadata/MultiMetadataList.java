@@ -43,7 +43,7 @@ public class MultiMetadataList implements List<MultiMetadata>
 		
 		@Override public String toString()
 		{
-			return MultiMetadata.class.getSimpleName() + "[" + variant.toString() + "]";
+			return variant.toString();
 		}
 	}
 	
