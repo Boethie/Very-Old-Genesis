@@ -80,7 +80,7 @@ tile.genesis.debris.archaeopteris.name=Débris de feuilles d'Archaeopteris
 tile.genesis.debris.sigillaria.name=Débris de feuilles de Sigillaria
 tile.genesis.debris.lepidodendron.name=Débris de feuilles de Lepidodendron
 tile.genesis.debris.araucarioxylon.name=Débris de feuilles d'Araucarioxylon
-tile.genesis.debris.araucarioxylon.name=Débris de feuilles de Metasequoia
+tile.genesis.debris.metasequoia.name=Débris de feuilles de Metasequoia
 tile.genesis.debris.calamites.name=Débris de Calamites
 tile.genesis.debris.epidexipteryxFeather.name=Débris de plume d'Epidexipteryx
 
@@ -134,6 +134,7 @@ tile.genesis.plant.asteroxylon.name=Asteroxylon
 tile.genesis.plant.double.asteroxylon.name=Grand Asteroxylon
 tile.genesis.plant.double.aethophyllum.name=Aethophyllum
 tile.genesis.plant.sphenophyllum.name=Sphenophyllum
+tile.genesis.plant.cladophlebis.name=Cladophlebis
 tile.genesis.plant.calamites.name=Calamites
 
 tile.genesis.fern.double.rhacophyton.name=Rhacophyton
@@ -427,6 +428,7 @@ item.genesis.material.araucarioxylonCone.name=Cône d'Araucarioxylon
 item.genesis.material.calamites.name=Calamites
 item.genesis.material.sphenophyllumFiber.name=Fibre de Sphenophyllum
 item.genesis.material.odontopterisFiddlehead.name=Crosse d'Odontopteris
+item.genesis.material.cladophlebisFrond.name=Fronde de Cladophlebis
 item.genesis.material.programinis.name=Programinis
 item.genesis.material.prototaxitesFlesh.name=Chair de Prototaxites
 item.genesis.material.dung.sauropoda.name=Crotte de sauropode

@@ -8,6 +8,7 @@ import genesis.metadata.EnumTree;
 import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrassMulti;
+import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
 import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.gen.feature.WorldGenDeadLog;
@@ -32,6 +33,8 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 	
 	protected void addDecorations()
 	{
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.cladophlebis).setPatchSize(4).setCountPerChunk(2));
+		
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(3));
 		addDecoration(new WorldGenDebris().setCountPerChunk(7));
 		addDecoration(new WorldGenRoots().setCountPerChunk(32));

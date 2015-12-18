@@ -7,6 +7,7 @@ public enum EnumMaterial implements IMetadata<EnumMaterial>
 	ARAUCARIOXYLON_CONE("araucarioxylon_cone", "araucarioxylonCone"),
 	SPHENOPHYLLUM_FIBER("sphenophyllum_fiber", "sphenophyllumFiber"),
 	ODONTOPTERIS_FIDDLEHEAD("odontopteris_fiddlehead", "odontopterisFiddlehead"),
+	CLADOPHLEBIS_FROND("cladophlebis_frond", "cladophlebisFrond"),
 	PROGRAMINIS("programinis"),
 	PROTOTAXITES_FLESH("prototaxites_flesh", "prototaxitesFlesh"),
 	ARTHROPLEURA_CHITIN("arthropleura_chitin", "arthropleuraChitin"),
