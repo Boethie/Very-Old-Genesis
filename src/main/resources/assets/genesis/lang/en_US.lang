@@ -129,6 +129,7 @@ tile.genesis.plant.rhynia.name=Rhynia
 tile.genesis.plant.apoldia.name=Apoldia
 tile.genesis.plant.isoetites.name=Isoetites
 tile.genesis.plant.archaeamphora.name=Archaeamphora
+tile.genesis.plant.micropetasos.name=Micropetasos
 tile.genesis.plant.mabelia.name=Mabelia
 tile.genesis.plant.palaeoaster.name=Palaeoaster
 tile.genesis.plant.asteroxylon.name=Asteroxylon
@@ -145,6 +146,7 @@ tile.genesis.fern.todites.name=Todites
 tile.genesis.fern.ruffordia.name=Ruffordia
 tile.genesis.fern.astralopteris.name=Astralopteris
 tile.genesis.fern.matonidium.name=Matonidium
+tile.genesis.fern.cretacifilix.name=Cretacifilix
 
 tile.genesis.crop.zingiberopsis.name=Zingiberopsis
 tile.genesis.crop.odontopteris.name=Odontopteris

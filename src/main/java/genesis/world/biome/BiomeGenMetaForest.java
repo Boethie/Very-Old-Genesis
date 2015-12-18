@@ -5,10 +5,14 @@ import java.util.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 import genesis.common.GenesisBlocks;
+import genesis.metadata.EnumPlant;
 import genesis.metadata.EnumTree;
 import genesis.world.biome.decorate.WorldGenDebris;
+import genesis.world.biome.decorate.WorldGenGrass;
+import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenPalaeoagaracites;
+import genesis.world.biome.decorate.WorldGenPlant;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
 import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.gen.feature.WorldGenDeadLog;
@@ -29,6 +33,7 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 	
 	protected void addDecorations()
 	{
+		addDecoration(new WorldGenPlant(EnumPlant.MICROPETASOS).setCountPerChunk(1));
 		addDecoration(new WorldGenPalaeoagaracites().setPatchSize(24).setCountPerChunk(128));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPatchSize(3).setCountPerChunk(2));
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(3));
@@ -41,6 +46,12 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 	protected void addTrees()
 	{
 		addTree(new WorldGenDeadLog(4, 8, EnumTree.METASEQUOIA, true).setTreeCountPerChunk(2));
+	}
+	
+	@Override
+	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
+	{
+		return new WorldGenGrassMulti(GenesisBlocks.plants.getPlantBlockState(EnumPlant.CRETACIFILIX)).setVolume(64);
 	}
 	
 	@Override

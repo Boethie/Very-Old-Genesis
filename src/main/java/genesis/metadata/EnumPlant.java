@@ -31,6 +31,7 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	APOLDIA("apoldia", plant().soil(Plains, Desert).biomeColor(true)),
 	ISOETITES("isoetites", plant().soil(Plains, Desert).water(2).biomeColor(true)),
 	ARCHAEAMPHORA("archaeamphora", plant()),
+	MICROPETASOS("micropetasos", plant()),
 	MABELIA("mabelia", plant()),
 	PALAEOASTER("palaeoaster", plant()),
 	ASTEROXYLON("asteroxylon", plant().soil(Plains, Desert).biomeColor(true)),
@@ -43,7 +44,8 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	TODITES("todites", fern()),
 	RUFFORDIA("ruffordia", fern()),
 	ASTRALOPTERIS("astralopteris", fern()),
-	MATONIDIUM("matonidium", fern());
+	MATONIDIUM("matonidium", fern()),
+	CRETACIFILIX("cretacifilix", fern());
 
 	public static final Set<EnumPlant> PLANTS;
 	public static final Set<EnumPlant> FERNS;

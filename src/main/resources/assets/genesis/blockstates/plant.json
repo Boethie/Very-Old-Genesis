@@ -11,6 +11,7 @@
 		"variant=apoldia":  { "model": "genesis:apoldia" },
 		"variant=isoetites":  { "model": "genesis:isoetites" },
 		"variant=archaeamphora":  { "model": "genesis:archaeamphora" },
+		"variant=micropetasos":  { "model": "genesis:micropetasos" },
 		"variant=mabelia":  { "model": "genesis:mabelia" },
 		"variant=palaeoaster":  { "model": "genesis:palaeoaster" },
 		"variant=asteroxylon":  { "model": "genesis:asteroxylon" }

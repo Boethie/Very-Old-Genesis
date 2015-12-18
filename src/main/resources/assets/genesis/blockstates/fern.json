@@ -5,6 +5,7 @@
 		"variant=todites":  { "model": "genesis:todites" },
 		"variant=ruffordia":  { "model": "genesis:ruffordia" },
 		"variant=astralopteris":  { "model": "genesis:astralopteris" },
-		"variant=matonidium":  { "model": "genesis:matonidium" }
+		"variant=matonidium":  { "model": "genesis:matonidium" },
+		"variant=cretacifilix":  { "model": "genesis:cretacifilix" }
 	}
 }
