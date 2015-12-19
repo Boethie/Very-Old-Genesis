@@ -1,7 +1,6 @@
 package genesis.world.layer;
 
-import static net.minecraftforge.common.BiomeManager.BiomeType.WARM;
-import static net.minecraftforge.common.BiomeManager.BiomeType.DESERT;
+import static net.minecraftforge.common.BiomeManager.BiomeType.*;
 import genesis.world.biome.BiomeManagerGenesis;
 
 import java.util.ArrayList;
@@ -54,51 +53,47 @@ public class GenLayerGenesisBiome extends GenLayerGenesis
 	@Override
 	public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight)
 	{
-		int[] aint = this.parent.getInts(areaX, areaY, areaWidth, areaHeight);
-		int[] aint1 = IntCache.getIntCache(areaWidth * areaHeight);
+		int[] randomTypes = this.parent.getInts(areaX, areaY, areaWidth, areaHeight);
+		int[] out = IntCache.getIntCache(areaWidth * areaHeight);
 		
-		for (int i1 = 0; i1 < areaHeight; ++i1)
+		for (int offY = 0; offY < areaHeight; ++offY)
 		{
-			for (int j1 = 0; j1 < areaWidth; ++j1)
+			for (int offX = 0; offX < areaWidth; ++offX)
 			{
-				this.initChunkSeed(j1 + areaX, i1 + areaY);
-				int k1 = aint[j1 + i1 * areaWidth];
+				this.initChunkSeed(offX + areaX, offY + areaY);
+				int type = randomTypes[offX + offY * areaWidth];
 				//int l1 = (k1 & 3840) >> 8;
-				k1 &= -3841;
+				type &= -3841;
 				
-				if (isBiomeOceanic(k1))
-					aint1[j1 + i1 * areaWidth] = k1;
+				if (isBiomeOceanic(type))
+					out[offX + offY * areaWidth] = type;
 				else
-					aint1[j1 + i1 * areaWidth] = getWeightedBiomeEntry(WARM).biome.biomeID;
+					out[offX + offY * areaWidth] = getWeightedBiomeEntry(WARM).biome.biomeID;
 				
 				BiomeEntry biome = null;
 				
-				if (k1 == 1)
+				switch (type)
+				{
+				case 1:
 					biome = getWeightedBiomeEntry(DESERT);
-				else if (k1 == 2)
+					break;
+				case 2:
 					biome = getWeightedBiomeEntry(WARM);
+					break;
+				case 3:
+					biome = getWeightedBiomeEntry(COOL);
+					break;
+				case 4:
+					biome = getWeightedBiomeEntry(ICY);
+					break;
+				}
 				
 				if (biome != null)
-					aint1[j1 + i1 * areaWidth] = biome.biome.biomeID;
-				
-				 /* else if (k1 == 3)
-				 * {
-				 * aint1[j1 + i1 * areaWidth] = getWeightedBiomeEntry(COOL).biome.biomeID;
-				 * }
-				 * else if (k1 == 4)
-				 * {
-				 * //Should be ICY, but we don't have any icy biomes
-				 * aint1[j1 + i1 * areaWidth] = getWeightedBiomeEntry(COOL).biome.biomeID;
-				 * }
-				 * else
-				 * {
-				 * aint1[j1 + i1 * areaWidth] = BiomeGenBase.mushroomIsland.biomeID;
-				 * }
-				 */
+					out[offX + offY * areaWidth] = biome.biome.biomeID;
 			}
 		}
 		
-		return aint1;
+		return out;
 	}
 	
 	protected BiomeEntry getWeightedBiomeEntry(BiomeManager.BiomeType type)
