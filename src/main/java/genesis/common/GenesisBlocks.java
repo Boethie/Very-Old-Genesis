@@ -115,6 +115,7 @@ public final class GenesisBlocks
 			.setUnlocalizedName(Unlocalized.CROP + "neuropteridium");
 	public static final BlockGrowingPlant cladophlebis = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true)
+			.setUseBiomeColor(true)
 			.setPlantType(EnumPlantType.Plains)
 			.setGrowth(5, 1, 1, 1)
 			.setPlantSize(0, 0.2F, 0.75F)
