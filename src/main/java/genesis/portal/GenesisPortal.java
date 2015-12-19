@@ -462,14 +462,6 @@ public class GenesisPortal
 		return true;
 	}
 	
-	private void generateCircle(World world, boolean isGenesis)
-	{
-		Block rock = isGenesis ? GenesisBlocks.granite : Blocks.cobblestone;
-		Block moss = isGenesis ? GenesisBlocks.mossy_granite : Blocks.mossy_cobblestone;
-		world.setBlockState(center, rock.getDefaultState());
-		world.setBlockState(center.down(), moss.getDefaultState());
-	}
-	
 	public void duplicatePortal(World world, GenesisPortal fromPortal)
 	{
 		Genesis.logger.info("Duplicating portal " + fromPortal + " to portal " + this + ".");
