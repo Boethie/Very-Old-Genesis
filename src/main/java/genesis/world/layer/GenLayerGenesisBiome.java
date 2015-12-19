@@ -67,22 +67,20 @@ public class GenLayerGenesisBiome extends GenLayerGenesis
 				k1 &= -3841;
 				
 				if (isBiomeOceanic(k1))
-				{
 					aint1[j1 + i1 * areaWidth] = k1;
-				}
 				else
-				{
-					aint1[j1 + i1 * areaWidth] = this.getWeightedBiomeEntry(WARM).biome.biomeID;
-				}
+					aint1[j1 + i1 * areaWidth] = getWeightedBiomeEntry(WARM).biome.biomeID;
+				
+				BiomeEntry biome = null;
 				
 				if (k1 == 1)
-				{
-					aint1[j1 + i1 * areaWidth] = getWeightedBiomeEntry(DESERT).biome.biomeID;
-				}
+					biome = getWeightedBiomeEntry(DESERT);
 				else if (k1 == 2)
-				{
-					aint1[j1 + i1 * areaWidth] = getWeightedBiomeEntry(WARM).biome.biomeID;
-				}
+					biome = getWeightedBiomeEntry(WARM);
+				
+				if (biome != null)
+					aint1[j1 + i1 * areaWidth] = biome.biome.biomeID;
+				
 				 /* else if (k1 == 3)
 				 * {
 				 * aint1[j1 + i1 * areaWidth] = getWeightedBiomeEntry(COOL).biome.biomeID;
@@ -106,6 +104,10 @@ public class GenLayerGenesisBiome extends GenLayerGenesis
 	protected BiomeEntry getWeightedBiomeEntry(BiomeManager.BiomeType type)
 	{
 		List<BiomeEntry> biomeList = this.allowedBiomes[type.ordinal()];
+		
+		if (biomeList.isEmpty())
+			return null;
+		
 		int totalWeight = WeightedRandom.getTotalWeight(biomeList);
 		int weight = BiomeManager.isTypeListModded(type) ? this.nextInt(totalWeight) : this.nextInt(totalWeight / 10) * 10;
 		return WeightedRandom.getRandomItem(biomeList, weight);
