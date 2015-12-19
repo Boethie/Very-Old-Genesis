@@ -18,12 +18,12 @@ import net.minecraft.block.BlockDirt;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.Vec3;
 
-public class BiomeGenRedDesert extends BiomeGenBaseGenesis
+public class BiomeGenRedLowlands extends BiomeGenBaseGenesis
 {
-	public BiomeGenRedDesert(int id)
+	public BiomeGenRedLowlands(int id)
 	{
 		super(id);
-		setBiomeName("Red Desert");
+		setBiomeName("Red Lowlands");
 		setTemperatureRainfall(2.0F, 0.0F);
 		setDisableRain();
 		setHeight(-0.1F, 0.2F);

@@ -59,7 +59,7 @@ public class GenLayerGenesisShore extends GenLayerGenesis
 						}
 						else
 						{
-							if (biomeID == GenesisBiomes.redDesert.biomeID || biomeID == GenesisBiomes.redDesertHills.biomeID || biomeID == GenesisBiomes.redDesertM.biomeID)
+							if (biomeID == GenesisBiomes.redLowlands.biomeID || biomeID == GenesisBiomes.redLowlandsHills.biomeID || biomeID == GenesisBiomes.redLowlandsM.biomeID)
 								aint1[x + y * areaWidth] = GenesisBiomes.redBeach.biomeID;
 							else
 								aint1[x + y * areaWidth] = GenesisBiomes.genesisBeach.biomeID;
