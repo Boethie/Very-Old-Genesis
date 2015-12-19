@@ -331,7 +331,6 @@ public final class GenesisBlocks
 		
 		// Cladophlebis
 		Genesis.proxy.registerBlock(cladophlebis, "cladophlebis");
-		drop = GenesisItems.materials.getStack(EnumMaterial.CLADOPHLEBIS_FROND);
 		
 		// Programinis
 		Genesis.proxy.registerBlock(programinis, "programinis", null);
