@@ -29,6 +29,7 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 	public static final int OPEN_DIRECTION_UPDATE_ID = 2;
 	
 	protected final ItemStack[] inventory;
+	protected final int[] inventorySlots;
 	private Axis axis = null;
 	private EnumMap<AxisDirection, Boolean> connections = new EnumMap<AxisDirection, Boolean>(AxisDirection.class);
 	
@@ -46,11 +47,12 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 		super();
 		
 		inventory = new ItemStack[getSlotsWidth() * getSlotsHeight()];
+		inventorySlots = new int[inventory.length];
+		for (int i = 0; i < inventorySlots.length; i++)
+			inventorySlots[i] = i;
 		
 		for (AxisDirection dir : AxisDirection.values())
-		{
 			connections.put(dir, false);
-		}
 	}
 	
 	@Override
@@ -555,19 +557,19 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 	@Override
 	public int[] getSlotsForFace(EnumFacing side)
 	{
-		return null;
+		return inventorySlots;
 	}
 	
 	@Override
 	public boolean canInsertItem(int slot, ItemStack stack, EnumFacing direction)
 	{
-		return false;
+		return true;
 	}
 	
 	@Override
 	public boolean canExtractItem(int slot, ItemStack stack, EnumFacing direction)
 	{
-		return false;
+		return true;
 	}
 	
 	@Override
