@@ -7,10 +7,8 @@ import genesis.common.GenesisBlocks;
 import genesis.common.GenesisConfig;
 import genesis.metadata.EnumMenhirPart;
 import genesis.util.WorldUtils;
-import genesis.world.iworldgenerators.WorldGenPortal;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
@@ -20,6 +18,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.*;
+
+import static genesis.portal.GenesisPortalCircle.genStructure;
 
 public class GenesisPortal
 {
@@ -458,7 +458,7 @@ public class GenesisPortal
 		
 		refresh();
 		updatePortalStatus(world);
-		WorldGenPortal.genStructure(world, center, world.provider.getDimensionId() == GenesisConfig.genesisDimId);
+		genStructure(world, center, world.provider.getDimensionId() == GenesisConfig.genesisDimId);
 		return true;
 	}
 	
@@ -494,7 +494,7 @@ public class GenesisPortal
 		
 		refresh();
 		updatePortalStatus(world);
-		WorldGenPortal.genStructure(world, center, world.provider.getDimensionId() == GenesisConfig.genesisDimId);
+		genStructure(world, center, world.provider.getDimensionId() == GenesisConfig.genesisDimId);
 	}
 	
 	@Override
