@@ -10,10 +10,11 @@ package genesis.util;
  * lattice point.
  * 
  * In this case the 3D function is implemented in a manner that uses a
- * fundamentally different lattice placement scheme, all functions are
- * implemented using a lookup scheme inspired by DigitalShadow's
- * optimized OpenSimplex implementation, and a permutation table of
- * size 1024 is used as opposed to the traditional 256.
+ * fundamentally different lattice placement scheme so that it does not
+ * use the 3D Simplex noise skew equation or any of its equivalents, all
+ * functions are implemented using a lookup scheme inspired by
+ * DigitalShadow's optimized OpenSimplex implementation, and a permutation
+ * table of size 1024 is used as opposed to the traditional 256.
  * 
  * Each gradient set is defined as the directions from the center to the
  * vertices of the normalized expanded vertex figure of the lattice for
@@ -23,7 +24,7 @@ package genesis.util;
  * 
  * Supports multi-evaluation with first derivatives.
  * 
- * Version 11/25/2015
+ * Version 12/21/2015
  */
 
 public class SuperSimplexNoise {
@@ -71,8 +72,8 @@ public class SuperSimplexNoise {
 		int a = (int)(xsi + ysi);
 		int index =
 			(a << 2) |
-			(int)(xsi - ysi / 2 + 1 - a) << 3 |
-			(int)(ysi - xsi / 2 + 1 - a) << 4;
+			(int)(xsi - ysi / 2 + 1 - a / 2.0) << 3 |
+			(int)(ysi - xsi / 2 + 1 - a / 2.0) << 4;
 		
 		double ssi = (xsi + ysi) * -0.211324865405187;
 		double xi = xsi + ssi, yi = ysi + ssi;
@@ -82,7 +83,7 @@ public class SuperSimplexNoise {
 			LatticePoint2D c = lookup2D[index + i];
 
 			double dx = xi + c.dx, dy = yi + c.dy;
-			double attn = 0.75 - dx * dx - dy * dy;
+			double attn = 2.0 / 3.0 - dx * dx - dy * dy;
 			if (attn <= 0) continue;
 
 			int pxm = (xsb + c.xsv) & 1023, pym = (ysb + c.ysv) & 1023;
@@ -172,8 +173,7 @@ public class SuperSimplexNoise {
 	 */
 	
 	//2D SuperSimplex noise (Multi-eval)
-	public static double eval(double x, double y, NoiseInstance2[] instances, double[] destination) {
-		double value = 0;
+	public static void eval(double x, double y, NoiseInstance2[] instances, double[] destination) {
 		
 		//Get points for A2* lattice
 		double s = 0.366025403784439 * (x + y);
@@ -187,8 +187,8 @@ public class SuperSimplexNoise {
 		int a = (int)(xsi + ysi);
 		int index =
 			(a << 2) |
-			(int)(xsi - ysi / 2 + 1 - a) << 3 |
-			(int)(ysi - xsi / 2 + 1 - a) << 4;
+			(int)(xsi - ysi / 2 + 1 - a / 2.0) << 3 |
+			(int)(ysi - xsi / 2 + 1 - a / 2.0) << 4;
 		
 		double ssi = (xsi + ysi) * -0.211324865405187;
 		double xi = xsi + ssi, yi = ysi + ssi;
@@ -198,7 +198,7 @@ public class SuperSimplexNoise {
 			LatticePoint2D c = lookup2D[index + i];
 
 			double dx = xi + c.dx, dy = yi + c.dy;
-			double attn = 0.75 - dx * dx - dy * dy;
+			double attn = 2.0 / 3.0 - dx * dx - dy * dy;
 			if (attn <= 0) continue;
 
 			int pxm = (xsb + c.xsv) & 1023, pym = (ysb + c.ysv) & 1023;
@@ -221,15 +221,12 @@ public class SuperSimplexNoise {
 				}
 			}
 		}
-		
-		return value;
 	}
 	
 	//3D SuperSimplex noise (Multi-eval / implemented using overlapping rotated cubic lattices)
-	public static double eval(double x, double y, double z, NoiseInstance3[] instances, double[] destination) {
-		double value = 0;
+	public static void eval(double x, double y, double z, NoiseInstance3[] instances, double[] destination) {
 		
-		//Get points for two overlapping rotated cubic lattices.
+		//Get points for two overlapping reflected cubic lattices.
 		double r = (2.0 / 3.0) * (x + y + z);
 		double xr = r - x, yr = r - y, zr = r - z;
 		double xr2 = xr + 512.5, yr2 = yr + 512.5, zr2 = zr + 512.5;
@@ -253,7 +250,6 @@ public class SuperSimplexNoise {
 				(- xr2i + yr2i + zr2i >= 0.5 ? 2*4 : 0) |
 				(+ xr2i - yr2i + zr2i >= 0.5 ? 4*4 : 0) |
 				(+ xr2i + yr2i - zr2i >= 0.5 ? 8*4 : 0);
-		
 		
 		//Point contributions for first lattice
 		for (int i = 0; i < 4; i++) {
@@ -318,8 +314,6 @@ public class SuperSimplexNoise {
 				}
 			}
 		}
-		
-		return value;
 	}
 	
 	/*
@@ -344,11 +338,11 @@ public class SuperSimplexNoise {
 		for (int i = 0; i < 8; i++) {
 			int i1, j1, i2, j2;
 			if ((i & 1) == 0) {
-				if ((i & 2) == 0) { i2 = -1; j2 = 0; } else { i2 = 1; j2 = 0; }
-				if ((i & 4) == 0) { i1 = 0; j1 = -1; } else { i1 = 0; j1 = 1; }
+				if ((i & 2) == 0) { i1 = -1; j1 = 0; } else { i1 = 1; j1 = 0; }
+				if ((i & 4) == 0) { i2 = 0; j2 = -1; } else { i2 = 0; j2 = 1; }
 			} else {
-				if ((i & 2) != 0) { i2 = 2; j2 = 1; } else { i2 = 0; j2 = 1; }
-				if ((i & 4) != 0) { i1 = 1; j1 = 2; } else { i1 = 1; j1 = 0; }
+				if ((i & 2) != 0) { i1 = 2; j1 = 1; } else { i1 = 0; j1 = 1; }
+				if ((i & 4) != 0) { i2 = 1; j2 = 2; } else { i2 = 1; j2 = 0; }
 			}
 			lookup2D[i * 4 + 0] = new LatticePoint2D(0, 0);
 			lookup2D[i * 4 + 1] = new LatticePoint2D(1, 1);
@@ -389,18 +383,19 @@ public class SuperSimplexNoise {
 	
 	//2D Gradients: Dodecagon
 	private static double[] gradients2D = new double[] {
-		                 0,   9.345794392523365,
-		 4.672897196261682,   8.093695362471388,
-		 8.093695362471388,   4.672897196261682,
-		 9.345794392523365,                   0,
-		 8.093695362471388,  -4.672897196261682,
-		 4.672897196261682,  -8.093695362471388,
-		                 0,  -9.345794392523365,
-		-4.672897196261682,  -8.093695362471388,
-		-8.093695362471388,  -4.672897196261682,
-		-9.345794392523365,                   0,
-		-8.093695362471388,   4.672897196261682,
-		-4.672897196261682,   8.093695362471388,
+		                  0,  18.518518518518519,
+		  9.259259259259260,  16.037507477489605,
+		 16.037507477489605,   9.259259259259260,
+		 18.518518518518519,                   0,
+		 16.037507477489605,  -9.259259259259260,
+		  9.259259259259260, -16.037507477489605,
+		                  0, -18.518518518518519,
+		 -9.259259259259260, -16.037507477489605,
+		-16.037507477489605,  -9.259259259259260,
+		-18.518518518518519,                   0,
+		-16.037507477489605,   9.259259259259260,
+		 -9.259259259259260,  16.037507477489605,
+		                  0,  18.518518518518519
 	};
 	
 	//3D Gradients: Normalized expanded Cuboctahedron / Rhombic Dodecahedron.
