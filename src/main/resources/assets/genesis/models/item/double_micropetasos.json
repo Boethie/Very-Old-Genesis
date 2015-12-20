@@ -1,7 +1,7 @@
 {
 	"parent": "builtin/generated",
 	"textures": {
-		"layer0": "genesis:blocks/plant_micropetasos"
+		"layer0": "genesis:blocks/double_micropetasos_top"
 	},
 	"display": {
 		"thirdperson": {

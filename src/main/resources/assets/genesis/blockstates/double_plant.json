@@ -3,6 +3,8 @@
 		"top=false,variant=asteroxylon": { "model": "genesis:double_asteroxylon_bottom" },
 		"top=true,variant=asteroxylon": { "model": "genesis:double_asteroxylon_top" },
 		"top=false,variant=aethophyllum": { "model": "genesis:double_aethophyllum_bottom" },
-		"top=true,variant=aethophyllum": { "model": "genesis:double_aethophyllum_top" }
+		"top=true,variant=aethophyllum": { "model": "genesis:double_aethophyllum_top" },
+		"top=false,variant=micropetasos": { "model": "genesis:double_micropetasos_bottom" },
+		"top=true,variant=micropetasos": { "model": "genesis:double_micropetasos_top" }
 	}
 }

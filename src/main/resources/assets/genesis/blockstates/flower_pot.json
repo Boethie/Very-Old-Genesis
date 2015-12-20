@@ -60,11 +60,6 @@
 					"plant": "genesis:blocks/plant_archaeamphora"
 				}
 			},
-			"micropetasos": {
-				"textures": {
-					"plant": "genesis:blocks/plant_micropetasos"
-				}
-			},
 			"mabelia": {
 				"textures": {
 					"plant": "genesis:blocks/plant_mabelia"
@@ -153,6 +148,11 @@
 			"araucarioxylon_sapling": {
 				"textures": {
 					"plant": "genesis:blocks/sapling_araucarioxylon"
+				}
+			}
+			"metasequoia_sapling": {
+				"textures": {
+					"plant": "genesis:blocks/sapling_metasequoia"
 				}
 			}
 		}

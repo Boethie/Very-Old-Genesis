@@ -75,9 +75,10 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 		Set<EnumPlant> singlesSet = EnumSet.allOf(EnumPlant.class);
 		singlesSet.remove(RHACOPHYTON);
 		singlesSet.remove(AETHOPHYLLUM);
+		singlesSet.remove(MICROPETASOS);
 		SINGLES = Sets.immutableEnumSet(singlesSet);
 		
-		DOUBLES = Sets.immutableEnumSet(ASTEROXYLON, RHACOPHYTON, AETHOPHYLLUM);
+		DOUBLES = Sets.immutableEnumSet(ASTEROXYLON, RHACOPHYTON, AETHOPHYLLUM, MICROPETASOS);
 	}
 	
 	final String name;
