@@ -5,12 +5,10 @@ import java.util.Random;
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumPlant;
 import genesis.metadata.EnumTree;
-import genesis.metadata.PlantBlocks;
 import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
-import genesis.world.biome.decorate.WorldGenPlant;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
 import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.gen.feature.WorldGenDeadLog;
@@ -40,7 +38,6 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(3));
 		addDecoration(new WorldGenDebris().setCountPerChunk(7));
 		addDecoration(new WorldGenRoots().setCountPerChunk(32));
-		addDecoration(new WorldGenPlant(PlantBlocks.FERN, EnumPlant.PHLEBOPTERIS).setPatchSize(3).setCountPerChunk(4));
 		
 		addDecoration(new WorldGenRockBoulders().setRarity(110).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 	}
@@ -48,7 +45,7 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 	protected void addTrees()
 	{
 		addTree(new WorldGenTreeAraucarioxylon(25, 30, true).setTreeCountPerChunk(5));
-		addTree(new WorldGenDeadLog(4, 8, EnumTree.ARAUCARIOXYLON, true).setTreeCountPerChunk(2));
+		addTree(new WorldGenDeadLog(4, 8, EnumTree.ARAUCARIOXYLON, true).setTreeCountPerChunk(1));
 	}
 	
 	@Override
