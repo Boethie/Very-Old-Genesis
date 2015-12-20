@@ -358,11 +358,18 @@ public class BlockGrowingPlant extends BlockCrops
 	public int colorMultiplier(IBlockAccess world, BlockPos pos, int renderPass)
 	{
 		if (useBiomeColor)
-		{
 			return BiomeColorHelper.getGrassColorAtPos(world, pos);
-		}
 		
-		return 16777215;
+		return 0xFFFFFF;
+	}
+	
+	@Override
+	public int getRenderColor(IBlockState state)
+	{
+		if (useBiomeColor)
+			return ColorizerGrass.getGrassColor(0.5, 1);
+		
+		return 0xFFFFFF;
 	}
 	
 	/**

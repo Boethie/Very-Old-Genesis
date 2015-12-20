@@ -22,6 +22,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemColored;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -330,7 +331,8 @@ public final class GenesisBlocks
 		neuropteridium.setPickedStack(drop);
 		
 		// Cladophlebis
-		Genesis.proxy.registerBlock(cladophlebis, "cladophlebis");
+		Genesis.proxy.registerBlockWithItem(cladophlebis, "cladophlebis", new ItemColored(cladophlebis, false));
+		Genesis.proxy.registerModel(cladophlebis, 0, "cladophlebis");
 		
 		// Programinis
 		Genesis.proxy.registerBlock(programinis, "programinis", null);
