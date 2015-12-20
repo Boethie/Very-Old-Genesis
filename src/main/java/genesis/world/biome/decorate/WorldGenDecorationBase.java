@@ -136,4 +136,3 @@ public class WorldGenDecorationBase extends WorldGenerator
 		return null;
 	}
 }
-
