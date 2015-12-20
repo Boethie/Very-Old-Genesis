@@ -2,8 +2,6 @@ package genesis.world.biome;
 
 import java.util.Random;
 
-import net.minecraft.world.World;
-import net.minecraft.world.chunk.ChunkPrimer;
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumPlant;
 import genesis.metadata.EnumTree;
@@ -16,6 +14,9 @@ import genesis.world.biome.decorate.WorldGenPlant;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
 import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.gen.feature.WorldGenDeadLog;
+import genesis.world.gen.feature.WorldGenTreeMetasequoia;
+import net.minecraft.world.World;
+import net.minecraft.world.chunk.ChunkPrimer;
 
 public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 {
@@ -46,6 +47,8 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 	
 	protected void addTrees()
 	{
+		addTree(new WorldGenTreeMetasequoia(22, 26, true).setTreeCountPerChunk(3));
+		addTree(new WorldGenTreeMetasequoia(22, 26, true).setType(1, 0, 0).setTreeCountPerChunk(3));
 		addTree(new WorldGenDeadLog(4, 8, EnumTree.METASEQUOIA, true).setTreeCountPerChunk(2));
 	}
 	

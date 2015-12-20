@@ -3,6 +3,7 @@ package genesis.block;
 import java.util.List;
 import java.util.Random;
 
+import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemBlockMulti;
 import genesis.metadata.EnumTree;
@@ -17,6 +18,7 @@ import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
 import genesis.world.gen.feature.WorldGenTreeBjuvia;
 import genesis.world.gen.feature.WorldGenTreeCordaites;
 import genesis.world.gen.feature.WorldGenTreeLepidodendron;
+import genesis.world.gen.feature.WorldGenTreeMetasequoia;
 import genesis.world.gen.feature.WorldGenTreePsaronius;
 import genesis.world.gen.feature.WorldGenTreeSigillaria;
 import genesis.world.gen.feature.WorldGenTreeVoltzia;
@@ -140,6 +142,26 @@ public class BlockGenesisSaplings extends BlockSapling
 		case VOLTZIA:
 			gen = new WorldGenTreeVoltzia(5, 8, true);
 			break;
+		case METASEQUOIA:
+			int treeType = 0;
+			int i = 0;
+			int j = 0;
+			
+			saplingCheck:
+			for (i = 0; i >= -1; --i)
+			{
+				for (j = 0; j >= -1; --j)
+				{
+					if (checkForSapling(world, pos.add(i, 0, j), EnumTree.METASEQUOIA))
+					{
+						treeType = 1;
+						break saplingCheck;
+					}
+				}
+			}
+			
+			gen = new WorldGenTreeMetasequoia(25, 30, true).setType(treeType, i, j);
+			break;
 		default:
 			break;
 		}
@@ -167,6 +189,15 @@ public class BlockGenesisSaplings extends BlockSapling
 				}
 			}
 		}
+	}
+	
+	private boolean checkForSapling(World world, BlockPos pos, EnumTree saplingType)
+	{
+		return 
+				GenesisBlocks.trees.isStateOf(world.getBlockState(pos), TreeBlocksAndItems.SAPLING, EnumTree.METASEQUOIA)
+				&& GenesisBlocks.trees.isStateOf(world.getBlockState(pos.add(1, 0, 0)), TreeBlocksAndItems.SAPLING, EnumTree.METASEQUOIA)
+				&& GenesisBlocks.trees.isStateOf(world.getBlockState(pos.add(0, 0, 1)), TreeBlocksAndItems.SAPLING, EnumTree.METASEQUOIA)
+				&& GenesisBlocks.trees.isStateOf(world.getBlockState(pos.add(1, 0, 1)), TreeBlocksAndItems.SAPLING, EnumTree.METASEQUOIA);
 	}
 	
 	@Override

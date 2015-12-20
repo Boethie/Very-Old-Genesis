@@ -108,7 +108,7 @@ public class WorldGenGenesisLakes extends WorldGenerator
 				{
 					if (aboolean[(j * 16 + k1) * 8 + k])
 					{
-						world.setBlockState(pos.add(j, k, k1), k >= 4 ? Blocks.air.getDefaultState() : this.field_150556_a.getDefaultState(), 2);
+						world.setBlockState(pos.add(j, k, k1), k >= 4 ? Blocks.air.getDefaultState() : this.field_150556_a.getBlockState().getBaseState(), 2);
 					}
 				}
 			}
