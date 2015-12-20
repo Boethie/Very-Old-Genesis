@@ -20,7 +20,6 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -97,7 +96,7 @@ public final class GenesisBlocks
 			.setPlantType(EnumPlantType.Plains)
 			.setGrowth(5, 1, 1, 1)
 			.setPlantSize(0, 0.2F, 0.75F)
-			.setCustoms(new BlockSphenophyllumCustoms())
+			.setCustoms(new BlockWaterSpreadingPlantCustoms(GenesisItems.materials.getStack(EnumMaterial.SPHENOPHYLLUM_FIBER)))
 			.setUnlocalizedName(Unlocalized.PLANT + "sphenophyllum");
 	public static final BlockGrowingPlant odontopteris = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true).setBreakAllTogether(true)
@@ -116,10 +115,11 @@ public final class GenesisBlocks
 			.setUnlocalizedName(Unlocalized.CROP + "neuropteridium");
 	public static final BlockGrowingPlant cladophlebis = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true)
+			.setUseBiomeColor(true)
 			.setPlantType(EnumPlantType.Plains)
 			.setGrowth(5, 1, 1, 1)
 			.setPlantSize(0, 0.2F, 0.75F)
-			.setCustoms(new BlockSphenophyllumCustoms())
+			.setCustoms(new BlockWaterSpreadingPlantCustoms(GenesisItems.materials.getStack(EnumMaterial.CLADOPHLEBIS_FROND)))
 			.setUnlocalizedName(Unlocalized.PLANT + "cladophlebis")
 			.setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	public static final BlockGrowingPlant programinis = (BlockGrowingPlant) new BlockGrowingPlant(false, 7, 1).setTopPosition(1)
@@ -331,7 +331,6 @@ public final class GenesisBlocks
 		
 		// Cladophlebis
 		Genesis.proxy.registerBlock(cladophlebis, "cladophlebis");
-		drop = GenesisItems.materials.getStack(EnumMaterial.CLADOPHLEBIS_FROND);
 		
 		// Programinis
 		Genesis.proxy.registerBlock(programinis, "programinis", null);

@@ -1,4 +1,4 @@
-package genesis.world.overworld;
+package genesis.world.iworldgenerators;
 
 import genesis.common.GenesisConfig;
 import genesis.portal.GenesisPortal;
@@ -11,9 +11,9 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 import java.util.Random;
 
 /**
- * Created by Vorquel on 11/5/15.
+ * Created by Vorquel on 11/5/15
  */
-public class GenesisPortalGenerator implements IWorldGenerator
+public class WorldGenPortal implements IWorldGenerator
 {
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider)

@@ -32,7 +32,6 @@ public final class GenesisSounds
 			public void client(GenesisClient client)
 			{
 				MinecraftForge.EVENT_BUS.register(INSTANCE);
-				FMLCommonHandler.instance().bus().register(INSTANCE);
 			}
 		});
 	}

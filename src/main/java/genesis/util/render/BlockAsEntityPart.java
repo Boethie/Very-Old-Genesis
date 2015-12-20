@@ -1,8 +1,5 @@
 package genesis.util.render;
 
-import java.util.*;
-
-import org.apache.commons.lang3.tuple.Pair;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.block.state.IBlockState;
@@ -21,24 +18,24 @@ import net.minecraft.world.IBlockAccess;
 public class BlockAsEntityPart extends CustomEntityPart
 {
 	// Values
-	public IBlockState state;
-	public IBlockAccess world;
-	public BlockPos pos;
+	private IBlockState state;
+	private IBlockAccess world;
+	private BlockPos pos;
 	
-	public boolean ambientOcclusion = true;
+	private boolean ambientOcclusion = true;
+	private boolean noColor;
 	
-	public TextureAtlasSprite texture = null;
+	private TextureAtlasSprite texture = null;
 	
 	// Defaults
-	public IBlockState stateDef;
-	public IBlockAccess worldDef;
-	public BlockPos posDef;
+	private IBlockState stateDef;
+	private IBlockAccess worldDef;
+	private BlockPos posDef;
 	
-	public boolean ambientOcclusionDef = true;
+	private boolean ambientOcclusionDef = true;
+	private boolean noColorDef;
 	
-	public TextureAtlasSprite textureDef = null;
-	
-	protected final Set<Pair<Class<? extends Exception>, String>> exceptionsCaught = new HashSet<Pair<Class<? extends Exception>, String>>();
+	private TextureAtlasSprite textureDef = null;
 	
 	public BlockAsEntityPart(ModelBase model)
 	{
@@ -59,6 +56,7 @@ public class BlockAsEntityPart extends CustomEntityPart
 		posDef = pos;
 		
 		ambientOcclusionDef = ambientOcclusion;
+		noColorDef = noColor;
 		
 		textureDef = texture;
 		
@@ -75,6 +73,7 @@ public class BlockAsEntityPart extends CustomEntityPart
 		pos = posDef;
 		
 		ambientOcclusion = ambientOcclusionDef;
+		noColor = noColorDef;
 		
 		texture = textureDef;
 	}
@@ -101,6 +100,19 @@ public class BlockAsEntityPart extends CustomEntityPart
 	public void setTexture(TextureAtlasSprite texture)
 	{
 		this.texture = texture;
+	}
+	
+	public void noColor(boolean noColor)
+	{
+		this.noColor = noColor;
+		if (noColor)
+			setAmbientOcclusion(false);
+	}
+	
+	public void setTextureNoColor(TextureAtlasSprite texture)
+	{
+		setTexture(texture);
+		noColor(true);
 	}
 	
 	@Override
@@ -133,34 +145,30 @@ public class BlockAsEntityPart extends CustomEntityPart
 			
 			if (texture != null)
 			{
-				model = ModelHelpers.getRetexturedBakedModel(model, texture);
+				model = ModelHelpers.getCubeProjectedBakedModel(model, texture);
 			}
 			
+			Tessellator tess = Tessellator.getInstance();
+			WorldRenderer wr = tess.getWorldRenderer();
+			
+			GlStateManager.pushMatrix();
+			GlStateManager.translate(-pos.getX(), -pos.getY(), -pos.getZ());
+			
+			RenderHelper.disableStandardItemLighting();
+			
+			wr.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
+			
+			if (noColor)
+				wr.markDirty();
+			
 			if (ambientOcclusion)
-			{
-				Tessellator tess = Tessellator.getInstance();
-				WorldRenderer wr = tess.getWorldRenderer();
-				
-				GlStateManager.pushMatrix();
-				GlStateManager.translate(-pos.getX(), -pos.getY(), -pos.getZ());
-				
-				RenderHelper.disableStandardItemLighting();
-				
-				wr.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
-				
-				ModelHelpers.getBlockRenderer().renderModel(world, model, state, pos, wr, false);
-				
-				tess.draw();
-				
-				GlStateManager.popMatrix();
-			}
+				ModelHelpers.getBlockRenderer().renderModelAmbientOcclusion(world, model, state.getBlock(), pos, wr, false);
 			else
-			{
-				GlStateManager.pushMatrix();
-				GlStateManager.rotate(-90, 0, 1, 0);	// Screwy vanilla methods. >.>
-				ModelHelpers.getBlockRenderer().renderModelBrightness(model, state, 1, true);
-				GlStateManager.popMatrix();
-			}
+				ModelHelpers.getBlockRenderer().renderModelStandard(world, model, state.getBlock(), pos, wr, false);
+			
+			tess.draw();
+			
+			GlStateManager.popMatrix();
 		}
 	}
 	

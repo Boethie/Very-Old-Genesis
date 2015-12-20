@@ -9,7 +9,6 @@
 		"variant=nothia":  { "model": "genesis:nothia" },
 		"variant=rhynia":  { "model": "genesis:rhynia" },
 		"variant=apoldia":  { "model": "genesis:apoldia" },
-		"variant=isoetites":  { "model": "genesis:isoetites" },
 		"variant=archaeamphora":  { "model": "genesis:archaeamphora" },
 		"variant=micropetasos":  { "model": "genesis:micropetasos" },
 		"variant=mabelia":  { "model": "genesis:mabelia" },

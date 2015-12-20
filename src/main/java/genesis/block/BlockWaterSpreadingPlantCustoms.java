@@ -2,8 +2,6 @@ package genesis.block;
 
 import genesis.block.BlockGrowingPlant.GrowingPlantProperties;
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
-import genesis.common.GenesisItems;
-import genesis.metadata.EnumMaterial;
 import genesis.util.WorldUtils;
 import genesis.util.random.IntRange;
 
@@ -17,8 +15,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockSphenophyllumCustoms implements IGrowingPlantCustoms
+public class BlockWaterSpreadingPlantCustoms implements IGrowingPlantCustoms
 {
+	protected final ItemStack drop;
+	
+	public BlockWaterSpreadingPlantCustoms(ItemStack drop)
+	{
+		this.drop = drop;
+	}
+	
 	@Override
 	public void managePlantMetaProperties(BlockGrowingPlant plant, ArrayList<IProperty<?>> metaProps)
 	{
@@ -27,8 +32,6 @@ public class BlockSphenophyllumCustoms implements IGrowingPlantCustoms
 	@Override
 	public List<ItemStack> getPlantDrops(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, int fortune, boolean firstBlock)
 	{
-		ItemStack stack = GenesisItems.materials.getStack(EnumMaterial.SPHENOPHYLLUM_FIBER);
-		
 		int age = state.getValue(plant.ageProp);
 		boolean top = state.getValue(plant.topProp);
 		IntRange range = null;
@@ -72,6 +75,7 @@ public class BlockSphenophyllumCustoms implements IGrowingPlantCustoms
 		
 		if (range != null)
 		{
+			ItemStack stack = drop.copy();
 			stack.stackSize = range.get(world.rand);
 			
 			if (stack.stackSize > 0)

@@ -3,8 +3,8 @@ package genesis.common;
 import genesis.world.biome.BiomeGenMetaForest;
 import genesis.world.biome.BiomeGenMetaForestM;
 import genesis.world.biome.BiomeGenRedBeach;
-import genesis.world.biome.BiomeGenRedDesert;
-import genesis.world.biome.BiomeGenRedDesertM;
+import genesis.world.biome.BiomeGenRedLowlands;
+import genesis.world.biome.BiomeGenRedLowlandsM;
 import genesis.world.biome.BiomeGenFloodplainsForest;
 import genesis.world.biome.BiomeGenAuxForest;
 import genesis.world.biome.BiomeGenAuxForestM;
@@ -44,9 +44,9 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis swampRainForest;
 	public static BiomeGenBaseGenesis marsh;
 	public static BiomeGenBaseGenesis floodplainsForest;
-	public static BiomeGenBaseGenesis redDesert;
-	public static BiomeGenBaseGenesis redDesertHills;
-	public static BiomeGenBaseGenesis redDesertM;
+	public static BiomeGenBaseGenesis redLowlands;
+	public static BiomeGenBaseGenesis redLowlandsHills;
+	public static BiomeGenBaseGenesis redLowlandsM;
 	public static BiomeGenBaseGenesis river;
 	public static BiomeGenBaseGenesis shallowOcean;
 	public static BiomeGenBaseGenesis ocean;
@@ -92,7 +92,7 @@ public final class GenesisBiomes
 		
 		auxPlains = new BiomeGenAuxPlains(GenesisConfig.auxPlainsId);
 		BiomeManagerGenesis.registerBiome(auxPlains, BiomeType.WARM, GenesisConfig.auxPlainsWeight);
-		BiomeDictionary.registerBiomeType(auxPlains, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.SPARSE);
+		BiomeDictionary.registerBiomeType(auxPlains, BiomeDictionary.Type.SAVANNA, BiomeDictionary.Type.SPARSE);
 		
 		metaForest = new BiomeGenMetaForest(GenesisConfig.metaForestId);
 		BiomeManagerGenesis.registerBiome(metaForest, BiomeType.WARM, GenesisConfig.metaForestWeight);
@@ -115,15 +115,15 @@ public final class GenesisBiomes
 		BiomeManagerGenesis.registerBiome(floodplainsForest, BiomeType.WARM, GenesisConfig.floodplainsForestWeight);
 		BiomeDictionary.registerBiomeType(floodplainsForest, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.DENSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
 		
-		redDesert = new BiomeGenRedDesert(GenesisConfig.redDesertId);
-		BiomeManagerGenesis.registerBiome(redDesert, BiomeType.DESERT, GenesisConfig.redDesertWeight);
-		BiomeDictionary.registerBiomeType(redDesert, BiomeDictionary.Type.SANDY, BiomeDictionary.Type.DRY);
+		redLowlands = new BiomeGenRedLowlands(GenesisConfig.redLowlandsId);
+		BiomeManagerGenesis.registerBiome(redLowlands, BiomeType.WARM, GenesisConfig.redLowlandsWeight);
+		BiomeDictionary.registerBiomeType(redLowlands, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.SANDY, BiomeDictionary.Type.DRY);
 		
-		redDesertHills = new BiomeGenRedDesert(GenesisConfig.redDesertHillsId).setBiomeName("Red Desert Hills").setHeight(height_LowHills);
-		BiomeDictionary.registerBiomeType(redDesertHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.SANDY, BiomeDictionary.Type.DRY);
+		redLowlandsHills = new BiomeGenRedLowlands(GenesisConfig.redLowlandsHillsId).setBiomeName("Red Lowlands Hills").setHeight(height_LowHills);
+		BiomeDictionary.registerBiomeType(redLowlandsHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.SANDY, BiomeDictionary.Type.DRY);
 		
-		redDesertM = new BiomeGenRedDesertM(GenesisConfig.redDesertId+128);
-		BiomeDictionary.registerBiomeType(redDesertM, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.SANDY, BiomeDictionary.Type.DRY);
+		redLowlandsM = new BiomeGenRedLowlandsM(GenesisConfig.redLowlandsId+128);
+		BiomeDictionary.registerBiomeType(redLowlandsM, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.SANDY, BiomeDictionary.Type.DRY);
 		
 		river = new BiomeGenRiver(GenesisConfig.riverId).setHeight(height_ShallowWaters);
 		BiomeDictionary.registerBiomeType(river, BiomeDictionary.Type.RIVER, BiomeDictionary.Type.WET);

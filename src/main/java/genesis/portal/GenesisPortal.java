@@ -1,20 +1,25 @@
 package genesis.portal;
 
-import java.util.*;
-
 import genesis.block.tileentity.portal.BlockMenhir;
 import genesis.block.tileentity.portal.EnumGlyph;
 import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
+import genesis.common.GenesisConfig;
 import genesis.metadata.EnumMenhirPart;
 import genesis.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumFacing.AxisDirection;
-import net.minecraft.world.*;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+
+import java.util.*;
+
+import static genesis.portal.GenesisPortalCircle.genStructure;
 
 public class GenesisPortal
 {
@@ -453,6 +458,7 @@ public class GenesisPortal
 		
 		refresh();
 		updatePortalStatus(world);
+		genStructure(world, center, world.provider.getDimensionId() == GenesisConfig.genesisDimId);
 		return true;
 	}
 	
@@ -488,6 +494,7 @@ public class GenesisPortal
 		
 		refresh();
 		updatePortalStatus(world);
+		genStructure(world, center, world.provider.getDimensionId() == GenesisConfig.genesisDimId);
 	}
 	
 	@Override

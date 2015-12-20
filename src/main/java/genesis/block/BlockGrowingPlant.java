@@ -444,6 +444,15 @@ public class BlockGrowingPlant extends BlockCrops
 		return this;
 	}
 	
+	/**
+	 * Used as the default when pickedStack is null.
+	 */
+	@Override
+	protected Item getSeed()
+	{
+		return Item.getItemFromBlock(this);
+	}
+	
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player)
 	{

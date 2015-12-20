@@ -1,4 +1,4 @@
-package genesis.world.overworld;
+package genesis.world.iworldgenerators;
 
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 import java.util.List;
 import java.util.Random;
 
-import static genesis.world.overworld.OverworldGeneration.menhirHutChest;
+import static genesis.world.OverworldGeneration.menhirHutChest;
 
 /**
  * Created by Vorquel on 10/27/15.

@@ -29,7 +29,6 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	NOTHIA("nothia", plant().soil(Plains, Desert)),
 	RHYNIA("rhynia", plant().soil(Plains, Desert)),
 	APOLDIA("apoldia", plant().soil(Plains, Desert).biomeColor(true)),
-	ISOETITES("isoetites", plant().soil(Plains, Desert).water(2).biomeColor(true)),
 	ARCHAEAMPHORA("archaeamphora", plant()),
 	MICROPETASOS("micropetasos", plant()),
 	MABELIA("mabelia", plant()),

@@ -55,11 +55,6 @@
 					"plant": "genesis:blocks/plant_apoldia"
 				}
 			},
-			"isoetites": {
-				"textures": {
-					"plant": "genesis:blocks/plant_isoetites"
-				}
-			},
 			"archaeamphora": {
 				"textures": {
 					"plant": "genesis:blocks/plant_archaeamphora"

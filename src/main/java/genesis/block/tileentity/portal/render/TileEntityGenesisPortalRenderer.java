@@ -48,6 +48,7 @@ public class TileEntityGenesisPortalRenderer extends TileEntitySpecialRenderer<T
 		model.portal.resetState();
 		model.portal.setModel(te.getWorld().getBlockState(te.getPos()), te.getWorld(), te.getPos());
 		model.portal.rotateAngleY = -GenesisMath.lerp(te.prevRotation, te.rotation, partialTick);
+		
 		model.renderAll();
 		
 		RenderHelper.enableStandardItemLighting();

@@ -261,12 +261,22 @@ public class ModelHelpers
 	}
 	
 	/**
-	 * @return A wrapper for the original baked model with all faces forced to use the provided sprite.
+	 * @return A duplicate of the original baked model with all faces mapped to the provided sprite,
+	 * each face projected from its cardinal direction.
 	 */
-	public static IBakedModel getRetexturedBakedModel(IBakedModel model, TextureAtlasSprite texture)
+	public static IBakedModel getCubeProjectedBakedModel(IBakedModel model, TextureAtlasSprite texture)
 	{
 		return new SimpleBakedModel.Builder(model, texture).makeBakedModel();
 	}
+	
+	/**
+	 * @return A duplicate of the original baked model with all faces mapped to the provided sprite,
+	 * using their original vertex UVs.
+	 */
+	/*public static IBakedModel getNormalizedCubeProjectedBakedModel(IBakedModel model, TextureAtlasSprite texture)
+	{
+		return new NormalizedCubeProjectedBakedModel(model, texture);
+	}*/
 	
 	/**
 	 * Renders a randomized block model for the provided state, world and position.

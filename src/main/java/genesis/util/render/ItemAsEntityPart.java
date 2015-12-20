@@ -9,8 +9,8 @@ import net.minecraft.item.*;
 @SuppressWarnings("deprecation")
 public class ItemAsEntityPart extends CustomEntityPart
 {
-	public ItemStack itemStack;
-	public ItemStack itemStackDef;
+	private ItemStack itemStack;
+	private ItemStack itemStackDef;
 	
 	public ItemAsEntityPart(ModelBase model)
 	{

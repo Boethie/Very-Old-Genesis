@@ -2,6 +2,8 @@ package genesis.block.tileentity.render;
 
 import java.util.*;
 
+import org.lwjgl.opengl.GL11;
+
 import genesis.block.tileentity.BlockCampfire;
 import genesis.block.tileentity.TileEntityCampfire;
 import genesis.client.GenesisClient;
@@ -11,9 +13,12 @@ import genesis.util.render.BlockAsEntityPart;
 import genesis.util.render.ItemAsEntityPart;
 import genesis.util.render.ModelHelpers;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.*;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.model.*;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -295,9 +300,44 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 			}
 		}
 		
-		// Render the model.
 		ModelHelpers.bindAtlasTexture();
+		
+		if (destroyStage >= 0)
+		{
+			Tessellator tess = Tessellator.getInstance();
+			WorldRenderer wr = tess.getWorldRenderer();
+			
+			RenderHelper.disableStandardItemLighting();
+			Minecraft.getMinecraft().entityRenderer.disableLightmap();
+			
+			TextureAtlasSprite breakTexture = ModelHelpers.getDestroyBlockIcon(destroyStage);
+			
+			
+			wr.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
+			wr.markDirty();
+			wr.setTranslation(-pos.getX(), -pos.getY(), -pos.getZ());
+			ModelHelpers.getBlockRenderer().renderModelStandard(world,
+					ModelHelpers.getCubeProjectedBakedModel(ModelHelpers.getBakedBlockModel(state, world, pos), breakTexture),
+					state.getBlock(), pos, wr, true);
+			wr.setTranslation(0, 0, 0);
+			GlStateManager.color(1, 1, 1, 0.0F);
+			tess.draw();
+			
+			model.fire.setTextureNoColor(breakTexture);
+			model.fuel.setTextureNoColor(breakTexture);
+			model.cookingItem.setTextureNoColor(breakTexture);
+			model.stick.setTextureNoColor(breakTexture);
+			model.cookingPot.setTextureNoColor(breakTexture);
+		}
+		
+		// Render the model.
 		model.renderAll();
+		
+		if (destroyStage >= 0)
+		{
+			RenderHelper.enableStandardItemLighting();
+			Minecraft.getMinecraft().entityRenderer.enableLightmap();
+		}
 		
 		GlStateManager.popMatrix();
 	}

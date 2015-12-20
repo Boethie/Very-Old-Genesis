@@ -18,15 +18,15 @@ import net.minecraft.block.BlockDirt;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.Vec3;
 
-public class BiomeGenRedDesert extends BiomeGenBaseGenesis
+public class BiomeGenRedLowlands extends BiomeGenBaseGenesis
 {
-	public BiomeGenRedDesert(int id)
+	public BiomeGenRedLowlands(int id)
 	{
 		super(id);
-		setBiomeName("Red Desert");
+		setBiomeName("Red Lowlands");
 		setTemperatureRainfall(2.0F, 0.0F);
 		setDisableRain();
-		setHeight(0.125F, 0.05F);
+		setHeight(-0.1F, 0.2F);
 		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
 		fillerBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
 		
@@ -42,13 +42,12 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 	{
 		addDecoration(new WorldGenPatch().addBlocks(Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT)).addAllowedBlocks(GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.RED_SILT).getBlockState()).setCountPerChunk(6));
 		addDecoration(new WorldGenMossStages().addAllowedBlocks(GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.RED_SILT).getBlockState(), Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT).getBlock().getBlockState()).setCountPerChunk(35));
-			
+		
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.neuropteridium).setNextToWater(true).setPatchSize(3).setCountPerChunk(2));
-		addDecoration(new WorldGenPlant(GenesisBlocks.plants, PlantBlocks.PLANT, EnumPlant.ISOETITES).setWaterProximity(2, 0).setNextToWater(true).setPatchSize(6).setCountPerChunk(48));
 		addDecoration(new WorldGenPlant(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.AETHOPHYLLUM).setCountPerChunk(2));
 		addDecoration(new WorldGenPlant(EnumPlant.APOLDIA).setCountPerChunk(7));
 		addDecoration(new WorldGenRoots().setCountPerChunk(32));
-			
+		
 		addDecoration(new WorldGenPebbles().setWaterRequired(false).setCountPerChunk(1));
 		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(4).setRarity(5).addBlocks(GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT)).setCountPerChunk(1));
 		addDecoration(new WorldGenRockBoulders().setRarity(110).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
