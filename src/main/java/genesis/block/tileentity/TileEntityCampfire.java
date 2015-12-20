@@ -82,6 +82,10 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	public static final int SLOT_OUTPUT = 2;
 	public static final int SLOT_INGREDIENT_1 = 3;
 	public static final int SLOT_INGREDIENT_2 = 4;
+	private static final int[] SLOTS_TOP = {SLOT_INPUT};
+	private static final int[] SLOTS_SIDE = {SLOT_INGREDIENT_1, SLOT_INGREDIENT_2};
+	private static final int[] SLOTS_FRONT = {SLOT_FUEL};
+	private static final int[] SLOTS_BOTTOM = {SLOT_OUTPUT};
 	
 	protected static final int WET_TIME = 200;
 	
@@ -832,19 +836,36 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	@Override
 	public int[] getSlotsForFace(EnumFacing side)
 	{
-		return null;
+		if (side.getAxis() != EnumFacing.Axis.Y && worldObj.getBlockState(pos).getValue(BlockCampfire.FACING) == EnumAxis.X)
+			side = side.rotateY();
+		
+		switch (side)
+		{
+		case NORTH:
+		case SOUTH:
+			return SLOTS_FRONT;
+		case EAST:
+		case WEST:
+			return SLOTS_SIDE;
+		case UP:
+			return SLOTS_TOP;
+		case DOWN:
+			return SLOTS_BOTTOM;
+		}
+		
+		throw new RuntimeException("Somehow TileEntityCampfire.getSlotsForFace got an EnumFacing that doesn't exist.");
 	}
 	
 	@Override
 	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction)
 	{
-		return false;
+		return true;
 	}
 	
 	@Override
 	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction)
 	{
-		return false;
+		return true;
 	}
 	
 	@Override
@@ -867,5 +888,11 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	@Override
 	public void closeInventory(EntityPlayer player)
 	{
+	}
+	
+	@Override
+	public boolean canRenderBreaking()
+	{
+		return false;
 	}
 }
