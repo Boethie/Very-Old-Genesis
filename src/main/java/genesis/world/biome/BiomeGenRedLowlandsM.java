@@ -14,6 +14,6 @@ public class BiomeGenRedLowlandsM extends BiomeGenRedLowlands
 	@Override
 	protected void addTrees()
 	{
-		addTree(new WorldGenTreeVoltzia(5, 8, true).setTreeCountPerChunk(1).setRarity(1));
+		addTree(new WorldGenTreeVoltzia(5, 8, true).setTreeCountPerChunk(2).setRarity(1));
 	}
 }
