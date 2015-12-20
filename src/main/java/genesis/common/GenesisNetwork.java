@@ -24,9 +24,9 @@ public class GenesisNetwork extends SimpleNetworkWrapper
 		super(channelName);
 	}
 	
-	public <Q extends IMessage, A extends IMessage> void registerMessage(IMessageHandler<? super Q, ? extends A> messageHandler, Class<Q> requestMessageType, Side side)
+	public <Q extends IMessage, A extends IMessage> void registerMessage(IMessageHandler<? super Q, ? extends A> messageHandler, Class<Q> requestMessageType, Side handlerSide)
 	{
-		registerMessage(messageHandler, requestMessageType, currentID++, side);
+		registerMessage(messageHandler, requestMessageType, currentID++, handlerSide);
 	}
 	
 	public void registerMessages()
