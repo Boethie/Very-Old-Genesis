@@ -3,6 +3,8 @@ package genesis.block;
 import java.util.List;
 import java.util.Random;
 
+import com.google.common.base.Objects;
+
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemBlockMulti;
@@ -29,6 +31,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
@@ -115,8 +118,9 @@ public class BlockGenesisSaplings extends BlockSapling
 	{
 		WorldGenAbstractTree gen = null;
 		BlockPos[] positions = {pos};
+		EnumTree variant = state.getValue(variantProp);
 		
-		switch (state.getValue(variantProp))
+		switch (variant)
 		{
 		case ARCHAEOPTERIS:
 			gen = new WorldGenTreeArchaeopteris(15, 20, true);
@@ -143,24 +147,9 @@ public class BlockGenesisSaplings extends BlockSapling
 			gen = new WorldGenTreeVoltzia(5, 8, true);
 			break;
 		case METASEQUOIA:
-			int treeType = 0;
-			int i = 0;
-			int j = 0;
-			
-			saplingCheck:
-			for (i = 0; i >= -1; --i)
-			{
-				for (j = 0; j >= -1; --j)
-				{
-					if (checkForSapling(world, pos.add(i, 0, j), EnumTree.METASEQUOIA))
-					{
-						treeType = 1;
-						break saplingCheck;
-					}
-				}
-			}
-			
-			gen = new WorldGenTreeMetasequoia(25, 30, true).setType(treeType, i, j);
+			positions = Objects.firstNonNull(findSaplings(world, pos, variant, 2), positions);
+			pos = positions[0];
+			gen = new WorldGenTreeMetasequoia(25, 30, true).setType(positions.length > 1 ? 1 : 0);
 			break;
 		default:
 			break;
@@ -174,30 +163,49 @@ public class BlockGenesisSaplings extends BlockSapling
 			for (BlockPos sapPos : positions)
 			{
 				states[i] = world.getBlockState(sapPos);
-				world.setBlockToAir(sapPos);
+				world.setBlockState(sapPos, Blocks.air.getDefaultState(), 0);
 				i++;
 			}
 			
-			if (!gen.generate(world, rand, pos))
+			boolean success = gen.generate(world, rand, pos);
+			i = 0;
+			
+			for (BlockPos sapPos : positions)
 			{
-				i = 0;
-				
-				for (BlockPos sapPos : positions)
-				{
-					world.setBlockState(sapPos, states[i]);
-					i++;
-				}
+				if (success)
+					world.markAndNotifyBlock(sapPos, world.getChunkFromBlockCoords(sapPos), states[i], world.getBlockState(sapPos), 3);
+				else
+					world.setBlockState(sapPos, states[i], 0);
+				i++;
 			}
 		}
 	}
 	
-	private boolean checkForSapling(World world, BlockPos pos, EnumTree saplingType)
+	protected BlockPos[] findSaplings(World world, BlockPos pos, EnumTree variant, int area)
 	{
-		return 
-				GenesisBlocks.trees.isStateOf(world.getBlockState(pos), TreeBlocksAndItems.SAPLING, EnumTree.METASEQUOIA)
-				&& GenesisBlocks.trees.isStateOf(world.getBlockState(pos.add(1, 0, 0)), TreeBlocksAndItems.SAPLING, EnumTree.METASEQUOIA)
-				&& GenesisBlocks.trees.isStateOf(world.getBlockState(pos.add(0, 0, 1)), TreeBlocksAndItems.SAPLING, EnumTree.METASEQUOIA)
-				&& GenesisBlocks.trees.isStateOf(world.getBlockState(pos.add(1, 0, 1)), TreeBlocksAndItems.SAPLING, EnumTree.METASEQUOIA);
+		for (BlockPos checkStart : BlockPos.getAllInBox(pos.add(-area + 1, 0, -area + 1), pos))
+		{
+			BlockPos[] positions = new BlockPos[area * area];
+			
+			areaCheck:
+			for (int x = 0; x < area; x++)
+			{
+				for (int z = 0; z < area; z++)
+				{
+					BlockPos check = checkStart.add(x, 0, z);
+					
+					if (GenesisBlocks.trees.isStateOf(world.getBlockState(check), type, variant))
+						positions[z * area + x] = check;
+					else
+						break areaCheck;
+				}
+			}
+			
+			if (positions[positions.length - 1] != null)
+				return positions;
+		}
+		
+		return null;
 	}
 	
 	@Override

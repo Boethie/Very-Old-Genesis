@@ -15,8 +15,6 @@ public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 {
 	private boolean generateRandomSaplings = true;
 	private int treeType = 0;
-	private int offsetX = 0;
-	private int offsetZ = 0;
 	
 	public WorldGenTreeMetasequoia(int minHeight, int maxHeight, boolean notify)
 	{
@@ -31,11 +29,9 @@ public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 		this.maxHeight = maxHeight;
 	}
 	
-	public WorldGenTreeMetasequoia setType(int type, int oX, int oZ)
+	public WorldGenTreeMetasequoia setType(int type)
 	{
 		treeType = type;
-		offsetX = oX;
-		offsetZ = oZ;
 		return this;
 	}
 	
@@ -52,10 +48,10 @@ public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 		
 		if (
 				(treeType == 1
-						&& (!canTreeGrow(world, pos.add(0 + offsetX, 0, 0 + offsetZ))
-								|| !canTreeGrow(world, pos.add(1 + offsetX, 0, 1 + offsetZ))
-								|| !canTreeGrow(world, pos.add(1 + offsetX, 0, 0 + offsetZ))
-								|| !canTreeGrow(world, pos.add(0 + offsetX, 0, 1 + offsetZ))))
+						&& (!canTreeGrow(world, pos.add(0, 0, 0))
+								|| !canTreeGrow(world, pos.add(1, 0, 1))
+								|| !canTreeGrow(world, pos.add(1, 0, 0))
+								|| !canTreeGrow(world, pos.add(0, 0, 1))))
 				|| (treeType == 0 && !canTreeGrow(world, pos)))
 			return false;
 		
@@ -71,20 +67,20 @@ public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 		
 		if (treeType == 1)
 		{
-			setBlockInWorld(world, pos.add(1 + offsetX, 0, 0 + offsetZ), wood, true);
-			setBlockInWorld(world, pos.add(0 + offsetX, 0, 1 + offsetZ), wood, true);
-			setBlockInWorld(world, pos.add(1 + offsetX, 0, 1 + offsetZ), wood, true);
-			setBlockInWorld(world, pos.add(0 + offsetX, 0, 0 + offsetZ), wood, true);
+			setBlockInWorld(world, pos.add(1, 0, 0), wood, true);
+			setBlockInWorld(world, pos.add(0, 0, 1), wood, true);
+			setBlockInWorld(world, pos.add(1, 0, 1), wood, true);
+			setBlockInWorld(world, pos.add(0, 0, 0), wood, true);
 		}
 		
 		for (int i = 0; i < treeHeight; i++)
 		{
 			if (treeType == 1)
 			{
-				setBlockInWorld(world, pos.up(i).add(1 + offsetX, 0, 0 + offsetZ), wood);
-				setBlockInWorld(world, pos.up(i).add(0 + offsetX, 0, 1 + offsetZ), wood);
-				setBlockInWorld(world, pos.up(i).add(1 + offsetX, 0, 1 + offsetZ), wood);
-				setBlockInWorld(world, pos.up(i).add(0 + offsetX, 0, 0 + offsetZ), wood);
+				setBlockInWorld(world, pos.up(i).add(1, 0, 0), wood);
+				setBlockInWorld(world, pos.up(i).add(0, 0, 1), wood);
+				setBlockInWorld(world, pos.up(i).add(1, 0, 1), wood);
+				setBlockInWorld(world, pos.up(i).add(0, 0, 0), wood);
 			}
 			else
 			{
@@ -104,10 +100,10 @@ public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 		switch (treeType)
 		{
 		case 1:
-			doPineTopLeaves(world, pos, branchPos.add(0 + offsetX, 0, 0 + offsetZ), treeHeight, leavesBase, rand, alternate, irregular, inverted);
-			doPineTopLeaves(world, pos, branchPos.add(1 + offsetX, 0, 1 + offsetZ), treeHeight, leavesBase, rand, alternate, irregular, inverted);
-			doPineTopLeaves(world, pos, branchPos.add(1 + offsetX, 0, 0 + offsetZ), treeHeight, leavesBase, rand, alternate, irregular, inverted);
-			doPineTopLeaves(world, pos, branchPos.add(0 + offsetX, 0, 1 + offsetZ), treeHeight, leavesBase, rand, alternate, irregular, inverted);
+			doPineTopLeaves(world, pos, branchPos.add(0, 0, 0), treeHeight, leavesBase, rand, alternate, irregular, inverted);
+			doPineTopLeaves(world, pos, branchPos.add(1, 0, 1), treeHeight, leavesBase, rand, alternate, irregular, inverted);
+			doPineTopLeaves(world, pos, branchPos.add(1, 0, 0), treeHeight, leavesBase, rand, alternate, irregular, inverted);
+			doPineTopLeaves(world, pos, branchPos.add(0, 0, 1), treeHeight, leavesBase, rand, alternate, irregular, inverted);
 			
 			break;
 		default:
