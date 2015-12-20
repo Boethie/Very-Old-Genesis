@@ -37,6 +37,11 @@ public class WorldGenPlant extends WorldGenDecorationBase
 		this(GenesisBlocks.plants, variant.getType() == EnumPlant.PlantType.FERN ? PlantBlocks.DOUBLE_FERN : PlantBlocks.PLANT, variant);
 	}
 	
+	public WorldGenPlant(ObjectType<? extends BlockPlant, ? extends Item> type, EnumPlant variant)
+	{
+		this(GenesisBlocks.plants, type, variant);
+	}
+	
 	public WorldGenPlant setNextToWater(boolean nextToWater)
 	{
 		this.nextToWater = nextToWater;

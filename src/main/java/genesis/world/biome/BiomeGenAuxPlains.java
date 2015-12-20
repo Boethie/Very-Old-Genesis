@@ -29,6 +29,7 @@ public class BiomeGenAuxPlains extends BiomeGenBaseGenesis
 		
 		theBiomeDecorator.grassPerChunk = 1;
 		theBiomeDecorator.sandPerChunk2 = 2;
+		theBiomeDecorator.sandPerChunk2 = 4;
 		
 		addDecoration(new WorldGenPatch().addBlocks(Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT)).addAllowedBlocks(GenesisBlocks.moss.getBlockState()).setCountPerChunk(4));
 		
@@ -39,7 +40,7 @@ public class BiomeGenAuxPlains extends BiomeGenBaseGenesis
 		
 		addDecoration(new WorldGenRockBoulders().setRarity(110).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 		
-		addTree(new WorldGenTreeAraucarioxylon(18, 22, true).setType(1).setRarity(5).setTreeCountPerChunk(2));
+		addTree(new WorldGenTreeAraucarioxylon(18, 22, true).setType(1).setGenerateRandomSaplings(false).setRarity(5).setTreeCountPerChunk(2));
 	}
 	
 	@Override
