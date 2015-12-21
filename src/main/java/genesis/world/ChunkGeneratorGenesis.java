@@ -73,30 +73,33 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 		long xSeed = rand.nextLong() / 2L * 2L + 1L;
 		long ySeed = rand.nextLong() / 2L * 2L + 1L;
 		rand.setSeed(chunkX * xSeed + chunkZ * ySeed ^ worldObj.getSeed());
-		boolean village = false;
+		boolean flag = false;
 		//ChunkCoordIntPair coords = new ChunkCoordIntPair(chunkX, chunkZ);
 		
-		MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(chunkProvider, worldObj, rand, chunkX, chunkZ, village));
+		MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(chunkProvider, worldObj, rand, chunkX, chunkZ, flag));
 		
 		int waterLakeChance = settings.waterLakeChance;
 		
 		if (biome.biomeID == GenesisBiomes.marsh.biomeID)
 			waterLakeChance = 1;
+		//if (biome.biomeID == GenesisBiomes.floodplains.biomeID)
+			//waterLakeChance = 2;
 		else if (biome.biomeID == GenesisBiomes.redLowlands.biomeID)
 			waterLakeChance = 2;
 		
-		if (settings.useWaterLakes 
-			&& !village 
-			&& rand.nextInt(waterLakeChance) == 0 
-			&& TerrainGen.populate(chunkProvider, worldObj, rand, chunkX, chunkZ, village, LAKE))
+		if (
+				settings.useWaterLakes 
+				&& !flag 
+				&& rand.nextInt(waterLakeChance) == 0 
+				&& TerrainGen.populate(chunkProvider, worldObj, rand, chunkX, chunkZ, flag, LAKE))
 		{
 			int x = rand.nextInt(16) + 8;
 			int y = rand.nextInt(256);
 			int z = rand.nextInt(16) + 8;
-			new WorldGenGenesisLakes(Blocks.water.getDefaultState()).generate(worldObj, rand, pos.add(x, y, z));
+			(new WorldGenGenesisLakes(Blocks.water)).generate(worldObj, rand, pos.add(x, y, z));
 		}
 		
-		if (TerrainGen.populate(chunkProvider, worldObj, rand, chunkX, chunkZ, village, LAVA) && !village && rand.nextInt(settings.lavaLakeChance / 10) == 0 && settings.useLavaLakes)
+		if (TerrainGen.populate(chunkProvider, worldObj, rand, chunkX, chunkZ, flag, LAVA) && !flag && rand.nextInt(settings.lavaLakeChance / 10) == 0 && settings.useLavaLakes)
 		{
 			int x = rand.nextInt(16) + 8;
 			int y = rand.nextInt(rand.nextInt(248) + 8);
@@ -104,13 +107,13 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 			
 			if (y < 63 || rand.nextInt(settings.lavaLakeChance / 8) == 0)
 			{
-				new WorldGenGenesisLakes(GenesisBlocks.komatiitic_lava.getDefaultState()).generate(worldObj, rand, pos.add(x, y, z));
+				(new WorldGenGenesisLakes(GenesisBlocks.komatiitic_lava)).generate(worldObj, rand, pos.add(x, y, z));
 			}
 		}
 		
 		if (settings.useDungeons)
 		{
-			boolean doGen = TerrainGen.populate(chunkProvider, worldObj, rand, chunkX, chunkZ, village, DUNGEON);
+			boolean doGen = TerrainGen.populate(chunkProvider, worldObj, rand, chunkX, chunkZ, flag, DUNGEON);
 			for (int x = 0; doGen && x < settings.dungeonChance; ++x)
 			{
 				int y = rand.nextInt(16) + 8;
@@ -121,14 +124,14 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 		}
 		
 		biome.decorate(worldObj, rand, new BlockPos(blockX, 0, blockZ));
-		if (TerrainGen.populate(chunkProvider, worldObj, rand, chunkX, chunkZ, village, ANIMALS))
+		if (TerrainGen.populate(chunkProvider, worldObj, rand, chunkX, chunkZ, flag, ANIMALS))
 		{
 			SpawnerAnimals.performWorldGenSpawning(worldObj, biome, blockX + 8, blockZ + 8, 16, 16, rand);
 		}
 		
 		pos = pos.add(8, 0, 8);
 		
-		boolean doGen = TerrainGen.populate(chunkProvider, worldObj, rand, chunkX, chunkZ, village, ICE);
+		boolean doGen = TerrainGen.populate(chunkProvider, worldObj, rand, chunkX, chunkZ, flag, ICE);
 		
 		for (int x = 0; doGen && x < 16; ++x)
 		{
@@ -149,7 +152,7 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 			}
 		}
 		
-		MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(chunkProvider, worldObj, rand, chunkX, chunkZ, village));
+		MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(chunkProvider, worldObj, rand, chunkX, chunkZ, flag));
 		
 		BlockFalling.fallInstantly = false;
 	}

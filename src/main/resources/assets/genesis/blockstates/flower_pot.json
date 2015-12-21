@@ -149,7 +149,7 @@
 				"textures": {
 					"plant": "genesis:blocks/sapling_araucarioxylon"
 				}
-			}
+			},
 			"metasequoia_sapling": {
 				"textures": {
 					"plant": "genesis:blocks/sapling_metasequoia"

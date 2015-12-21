@@ -1,22 +1,23 @@
 package genesis.common;
 
-import genesis.world.biome.BiomeGenAuxForest;
-import genesis.world.biome.BiomeGenAuxForestM;
-import genesis.world.biome.BiomeGenBaseGenesis;
-import genesis.world.biome.BiomeGenBeachGenesis;
-import genesis.world.biome.BiomeGenFloodplainsForest;
-import genesis.world.biome.BiomeGenLimestoneBeach;
-import genesis.world.biome.BiomeGenMarsh;
 import genesis.world.biome.BiomeGenMetaForest;
 import genesis.world.biome.BiomeGenMetaForestM;
+import genesis.world.biome.BiomeGenRedBeach;
+import genesis.world.biome.BiomeGenRedLowlands;
+import genesis.world.biome.BiomeGenRedLowlandsM;
+import genesis.world.biome.BiomeGenFloodplainsForest;
+import genesis.world.biome.BiomeGenAuxForest;
+import genesis.world.biome.BiomeGenAuxForestM;
+import genesis.world.biome.BiomeGenFloodplains;
+import genesis.world.biome.BiomeGenBaseGenesis;
+import genesis.world.biome.BiomeGenBeachGenesis;
+import genesis.world.biome.BiomeGenLimestoneBeach;
+import genesis.world.biome.BiomeGenMarsh;
 import genesis.world.biome.BiomeGenOceanGenesis;
 import genesis.world.biome.BiomeGenRainforest;
 import genesis.world.biome.BiomeGenRainforestEdge;
 import genesis.world.biome.BiomeGenRainforestEdgeM;
 import genesis.world.biome.BiomeGenRainforestM;
-import genesis.world.biome.BiomeGenRedBeach;
-import genesis.world.biome.BiomeGenRedLowlands;
-import genesis.world.biome.BiomeGenRedLowlandsM;
 import genesis.world.biome.BiomeGenRiver;
 import genesis.world.biome.BiomeGenShallowOcean;
 import genesis.world.biome.BiomeGenSwampRainforest;
@@ -36,7 +37,7 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis auxForest;
 	public static BiomeGenBaseGenesis auxForestM;
 	public static BiomeGenBaseGenesis auxForestHills;
-	//public static BiomeGenBaseGenesis auxPlains;
+	//public static BiomeGenBaseGenesis floodplains;
 	public static BiomeGenBaseGenesis metaForest;
 	public static BiomeGenBaseGenesis metaForestM;
 	public static BiomeGenBaseGenesis metaForestHills;
@@ -89,9 +90,9 @@ public final class GenesisBiomes
 		auxForestHills = new BiomeGenAuxForest(GenesisConfig.auxForestHillsId).setBiomeName("Araucarioxylon Forest Hills").setHeight(height_LowHills);
 		BiomeDictionary.registerBiomeType(auxForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST);
 		
-		//auxPlains = new BiomeGenAuxPlains(GenesisConfig.auxPlainsId);
-		//BiomeManagerGenesis.registerBiome(auxPlains, BiomeType.WARM, GenesisConfig.auxPlainsWeight);
-		//BiomeDictionary.registerBiomeType(auxPlains, BiomeDictionary.Type.SAVANNA, BiomeDictionary.Type.SPARSE);
+		//floodplains = new BiomeGenFloodplains(GenesisConfig.floodplainsId);
+		//BiomeManagerGenesis.registerBiome(floodplains, BiomeType.WARM, GenesisConfig.floodplainsWeight);
+		//BiomeDictionary.registerBiomeType(floodplains, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
 		
 		metaForest = new BiomeGenMetaForest(GenesisConfig.metaForestId);
 		BiomeManagerGenesis.registerBiome(metaForest, BiomeType.WARM, GenesisConfig.metaForestWeight);
