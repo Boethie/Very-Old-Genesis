@@ -20,7 +20,7 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 {
 	// Plants
 	COOKSONIA("cooksonia", plant().soil(Plains, Desert)),
-	BARAGWANATHIA("baragwanathia", plant().soil(Plains, Desert)),
+	BARAGWANATHIA("baragwanathia", plant().soil(Plains, Desert).biomeColor(true)),
 	SCIADOPHYTON("sciadophyton", plant().soil(Plains, Desert)),
 	PSILOPHYTON("psilophyton", plant().soil(Plains, Desert)),
 	HORNEOPHYTON("horneophyton", plant().soil(Plains, Desert)),
@@ -29,11 +29,11 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	RHYNIA("rhynia", plant().soil(Plains, Desert)),
 	APOLDIA("apoldia", plant().soil(Plains, Desert).biomeColor(true)),
 	ARCHAEAMPHORA("archaeamphora", plant()),
-	MICROPETASOS("micropetasos", plant().largeOnly()),
 	MABELIA("mabelia", plant()),
 	PALAEOASTER("palaeoaster", plant()),
 	ASTEROXYLON("asteroxylon", plant().soil(Plains, Desert).biomeColor(true).bothSizes()),
 	AETHOPHYLLUM("aethophyllum", plant().shearable(true).largeOnly()),
+	MICROPETASOS("micropetasos", plant().largeOnly()),
 	
 	// Ferns
 	RHACOPHYTON("rhacophyton", fern().largeOnly()),

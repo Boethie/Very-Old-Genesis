@@ -27,7 +27,7 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		
 		theBiomeDecorator.grassPerChunk = 3;
 		
-		addDecoration(new WorldGenPrototaxites().setCountPerChunk(2));
+		addDecoration(new WorldGenPrototaxites().setCountPerChunk(1));
 		
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
