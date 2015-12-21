@@ -117,7 +117,7 @@ public class BlockSilt extends BlockFalling
 	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
 	{
-		if (!world.isRemote && canSiltFallInto(world, pos.down()) && pos.getY() > 0)
+		if (!world.isRemote && canSiltFallInto(world, pos.down()) && pos.getY() >= 0)
 		{
 			int area = 32;
 			
@@ -134,10 +134,12 @@ public class BlockSilt extends BlockFalling
 				do
 				{
 					landPos = landPos.down();
-				} while (canSiltFallInto(world, landPos) && landPos.getY() > 0);
+				} while (canSiltFallInto(world, landPos) && landPos.getY() >= 0);
 				
 				world.setBlockToAir(pos);
-				world.setBlockState(landPos.up(), state);
+				
+				if (landPos.getY() >= 0)
+					world.setBlockState(landPos.up(), state);
 			}
 		}
 	}
