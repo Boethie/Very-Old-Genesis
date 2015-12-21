@@ -3,7 +3,6 @@ package genesis.metadata;
 import java.util.*;
 
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
@@ -30,14 +29,14 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	RHYNIA("rhynia", plant().soil(Plains, Desert)),
 	APOLDIA("apoldia", plant().soil(Plains, Desert).biomeColor(true)),
 	ARCHAEAMPHORA("archaeamphora", plant()),
-	MICROPETASOS("micropetasos", plant()),
+	MICROPETASOS("micropetasos", plant().largeOnly()),
 	MABELIA("mabelia", plant()),
 	PALAEOASTER("palaeoaster", plant()),
-	ASTEROXYLON("asteroxylon", plant().soil(Plains, Desert).biomeColor(true)),
-	AETHOPHYLLUM("aethophyllum", plant().shearable(true)),
+	ASTEROXYLON("asteroxylon", plant().soil(Plains, Desert).biomeColor(true).bothSizes()),
+	AETHOPHYLLUM("aethophyllum", plant().shearable(true).largeOnly()),
 	
 	// Ferns
-	RHACOPHYTON("rhacophyton", fern()),
+	RHACOPHYTON("rhacophyton", fern().largeOnly()),
 	ZYGOPTERIS("zygopteris", fern()),
 	PHLEBOPTERIS("phlebopteris", fern()),
 	TODITES("todites", fern()),
@@ -53,37 +52,49 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	
 	static
 	{
-		ImmutableSet.Builder<EnumPlant> plantsBuilder = ImmutableSet.builder();
-		ImmutableSet.Builder<EnumPlant> fernsBuilder = ImmutableSet.builder();
+		EnumSet<EnumPlant> plants = EnumSet.noneOf(EnumPlant.class);
+		EnumSet<EnumPlant> ferns = EnumSet.noneOf(EnumPlant.class);
+		EnumSet<EnumPlant> singles = EnumSet.noneOf(EnumPlant.class);
+		EnumSet<EnumPlant> doubles = EnumSet.noneOf(EnumPlant.class);
 		
 		for (EnumPlant plant : values())
 		{
 			switch (plant.getType())
 			{
 			case PLANT:
-				plantsBuilder.add(plant);
+				plants.add(plant);
 				break;
 			case FERN:
-				fernsBuilder.add(plant);
+				ferns.add(plant);
 				break;
 			}
+			
+			if (plant.hasSmall())
+				singles.add(plant);
+			
+			if (plant.hasLarge())
+				doubles.add(plant);
 		}
 		
-		PLANTS = plantsBuilder.build();
-		FERNS = fernsBuilder.build();
+		PLANTS = ImmutableSet.copyOf(plants);
+		FERNS = ImmutableSet.copyOf(ferns);
+		SINGLES = ImmutableSet.copyOf(singles);
+		DOUBLES = ImmutableSet.copyOf(doubles);
 		
-		Set<EnumPlant> singlesSet = EnumSet.allOf(EnumPlant.class);
+		/*Set<EnumPlant> singlesSet = EnumSet.allOf(EnumPlant.class);
 		singlesSet.remove(RHACOPHYTON);
 		singlesSet.remove(AETHOPHYLLUM);
 		singlesSet.remove(MICROPETASOS);
-		SINGLES = Sets.immutableEnumSet(singlesSet);
+		SINGLES = com.google.common.collect.Sets.immutableEnumSet(singlesSet);
 		
-		DOUBLES = Sets.immutableEnumSet(ASTEROXYLON, RHACOPHYTON, AETHOPHYLLUM, MICROPETASOS);
+		DOUBLES = com.google.common.collect.Sets.immutableEnumSet(ASTEROXYLON, RHACOPHYTON, AETHOPHYLLUM, MICROPETASOS);*/
 	}
 	
 	final String name;
 	final String unlocalizedName;
 	final PlantType type;
+	final boolean small;
+	final boolean large;
 	final boolean biomeColor;
 	final EnumPlantType[] soils;
 	final boolean shearable;
@@ -95,6 +106,8 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 		this.name = name;
 		this.unlocalizedName = unlocalizedName;
 		this.type = props.type;
+		this.small = props.small;
+		this.large = props.large;
 		this.biomeColor = props.biomeColor;
 		this.shearable = props.shearable;
 		this.replaceable = props.replaceable;
@@ -122,6 +135,16 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	public PlantType getType()
 	{
 		return type;
+	}
+	
+	public boolean hasSmall()
+	{
+		return small;
+	}
+	
+	public boolean hasLarge()
+	{
+		return large;
 	}
 	
 	public boolean shouldUseBiomeColor()
@@ -197,6 +220,8 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	private static class Props
 	{
 		PlantType type;
+		boolean small = true;
+		boolean large = false;
 		boolean biomeColor = false;
 		boolean shearable = false;
 		boolean replaceable = false;
@@ -212,6 +237,23 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 		{
 			this.soils = soils;
 			return this;
+		}
+		
+		private Props sizes(boolean small, boolean large)
+		{
+			this.small = small;
+			this.large = large;
+			return this;
+		}
+		
+		private Props largeOnly()
+		{
+			return sizes(false, true);
+		}
+		
+		private Props bothSizes()
+		{
+			return sizes(true, true);
 		}
 		
 		private Props water(int distance)
