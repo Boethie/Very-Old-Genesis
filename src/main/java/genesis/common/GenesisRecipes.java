@@ -569,7 +569,14 @@ public final class GenesisRecipes
 		// Dung storage
 		for (EnumDung variant : EnumDung.values())
 		{
-			GameRegistry.addRecipe(GenesisBlocks.dungs.getStack(DungBlocksAndItems.DUNG_BLOCK, variant), "CC", "CC", 'C', GenesisBlocks.dungs.getStack(DungBlocksAndItems.DUNG, variant));
+			ItemStack dungBlock = GenesisBlocks.dungs.getStack(DungBlocksAndItems.DUNG_BLOCK, variant);
+			ItemStack dungItems = GenesisBlocks.dungs.getStack(DungBlocksAndItems.DUNG, variant, 9);
+			GameRegistry.addRecipe(dungBlock,
+					"DDD",
+					"DDD",
+					"DDD",
+					'D', dungItems);
+			GameRegistry.addShapelessRecipe(dungItems, dungBlock);
 		}
 		
 		// Smelting
