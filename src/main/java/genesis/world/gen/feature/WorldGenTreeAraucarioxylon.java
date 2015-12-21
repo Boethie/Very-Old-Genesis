@@ -69,7 +69,7 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 		
 		int leavesBase = 0;
 		boolean alternate = true;
-		boolean irregular = true;
+		boolean irregular = false;
 		boolean inverted = false;
 		
 		switch (treeType)

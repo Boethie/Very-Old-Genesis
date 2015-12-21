@@ -27,7 +27,7 @@ public class WorldGenPrototaxites extends WorldGenDecorationBase
 		{
 			block = world.getBlockState(pos).getBlock();
 			
-			if (!block.isAir(world, pos) && !block.isLeaves(world, pos) /*&& !(block == Blocks.water)*/)
+			if (!block.isAir(world, pos) && !block.isLeaves(world, pos))
 			{
 				break;
 			}

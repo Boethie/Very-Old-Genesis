@@ -1,5 +1,7 @@
 package genesis.world.biome;
 
+import java.util.Random;
+
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumPlant;
 import genesis.metadata.PlantBlocks;
@@ -7,10 +9,8 @@ import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPlant;
+import genesis.world.biome.decorate.WorldGenPrototaxites;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
-
-import java.util.Random;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -26,6 +26,8 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		setHeight(0.0F, -0.01F);
 		
 		theBiomeDecorator.grassPerChunk = 3;
+		
+		addDecoration(new WorldGenPrototaxites().setCountPerChunk(2));
 		
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
