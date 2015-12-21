@@ -2,6 +2,7 @@ package genesis.world.biome.decorate;
 
 import genesis.common.GenesisBlocks;
 import genesis.metadata.SiltBlocks;
+import genesis.util.WorldUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +34,7 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 		if (!world.getBlockState(pos.up()).getBlock().isAir(world, pos))
 			return false;
 		
-		boolean waterExists = findBlockInRange(world, pos, Blocks.water.getDefaultState(), 1, 1, 1);
-		
-		if (!waterExists && waterRequired)
+		if (waterRequired && !WorldUtils.waterInRange(world, pos, 1, 1, 1))
 			return false;
 		
 		if (random.nextInt(rarity) != 0)

@@ -5,173 +5,178 @@ import genesis.common.GenesisBlocks;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
-import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class WorldGenGenesisLakes extends WorldGenerator
 {
-	private Block field_150556_a;
+	protected static final int SIZE_X = 15;
+	protected static final int SIZE_Y = 7;
+	protected static final int SIZE_Z = 15;
+	
+	protected IBlockState filler;
 
-	public WorldGenGenesisLakes(Block p_i45455_1_)
+	public WorldGenGenesisLakes(IBlockState filler)
 	{
-		this.field_150556_a = p_i45455_1_;
+		this.filler = filler;
 	}
-
-	@Override
-	public boolean generate(World world, Random p_180709_2_, BlockPos pos)
+	
+	protected static int index(int x, int y, int z)
 	{
-		for (pos = pos.add(-8, 0, -8); pos.getY() > 5 && world.isAirBlock(pos); pos = pos.down())
-		{
-			;
-		}
-
-		if (pos.getY() <= 4)
-		{
-			return false;
-		}
+		return (x << 7) | (z << 3) | y;
+	}
+	
+	protected static boolean is(boolean[] bools, int x, int y, int z)
+	{
+		return bools[index(x, y, z)];
+	}
+	
+	protected static boolean neighborIs(boolean[] bools, int x, int y, int z)
+	{
+		if (x < SIZE_X && bools[index(x + 1, y, z)])
+			return true;
+		if (x > 0 && bools[index(x - 1, y, z)])
+			return true;
+		if (y < SIZE_Y && bools[index(x, y + 1, z)])
+			return true;
+		if (y > 0 && bools[index(x, y - 1, z)])
+			return true;
+		if (z < SIZE_Z && bools[index(x, y, z + 1)])
+			return true;
+		if (z > 0 && bools[index(x, y, z - 1)])
+			return true;
 		
-		pos = pos.down(4);
-		boolean[] aboolean = new boolean[2048];
-		int i = p_180709_2_.nextInt(4) + 4;
-		int j;
-
-		for (j = 0; j < i; ++j)
+		return false;
+	}
+	
+	@Override
+	public boolean generate(World world, Random rand, BlockPos pos)
+	{
+		for (pos = pos.add(-SIZE_X / 2, 0, -SIZE_Z / 2); pos.getY() > 5 && world.isAirBlock(pos); pos = pos.down()) {}
+		byte top = 4;
+		pos = pos.down(top);
+		
+		boolean[] isLake = new boolean[2048];
+		int circles = 4 + rand.nextInt(4);
+		
+		// Calculate whether each position in the area should be part of a lake.
+		for (int i = 0; i < circles; i++)
 		{
-			double d0 = p_180709_2_.nextDouble() * 6.0D + 3.0D;
-			double d1 = p_180709_2_.nextDouble() * 4.0D + 2.0D;
-			double d2 = p_180709_2_.nextDouble() * 6.0D + 3.0D;
-			double d3 = p_180709_2_.nextDouble() * (16.0D - d0 - 2.0D) + 1.0D + d0 / 2.0D;
-			double d4 = p_180709_2_.nextDouble() * (8.0D - d1 - 4.0D) + 2.0D + d1 / 2.0D;
-			double d5 = p_180709_2_.nextDouble() * (16.0D - d2 - 2.0D) + 1.0D + d2 / 2.0D;
-
-			for (int l = 1; l < 15; ++l)
+			double sizeX = rand.nextDouble() * 6 + 3;
+			double sizeY = rand.nextDouble() * 4 + 2;
+			double sizeZ = rand.nextDouble() * 6 + 3;
+			double offX = rand.nextDouble() * (16 - sizeX - 2) + 1 + sizeX / 2;
+			double offY = rand.nextDouble() * (8 - sizeY - 4) + 2 + sizeY / 2;
+			double offZ = rand.nextDouble() * (16 - sizeZ - 2) + 1 + sizeZ / 2;
+			
+			for (int x = 1; x < SIZE_X; x++)
 			{
-				for (int i1 = 1; i1 < 15; ++i1)
+				for (int y = 1; y < SIZE_Y; y++)
 				{
-					for (int j1 = 1; j1 < 7; ++j1)
+					for (int z = 1; z < SIZE_Z; z++)
 					{
-						double d6 = (l - d3) / (d0 / 2.0D);
-						double d7 = (j1 - d4) / (d1 / 2.0D);
-						double d8 = (i1 - d5) / (d2 / 2.0D);
-						double d9 = d6 * d6 + d7 * d7 + d8 * d8;
-
-						if (d9 < 1.0D)
-						{
-							aboolean[(l * 16 + i1) * 8 + j1] = true;
-						}
-					}
-				}
-			}
-		}
-
-		int k;
-		int k1;
-		boolean flag;
-
-		for (j = 0; j < 16; ++j)
-		{
-			for (k1 = 0; k1 < 16; ++k1)
-			{
-				for (k = 0; k < 8; ++k)
-				{
-					flag = !aboolean[(j * 16 + k1) * 8 + k] && (j < 15 && aboolean[((j + 1) * 16 + k1) * 8 + k] || j > 0 && aboolean[((j - 1) * 16 + k1) * 8 + k] || k1 < 15 && aboolean[(j * 16 + k1 + 1) * 8 + k] || k1 > 0 && aboolean[(j * 16 + (k1 - 1)) * 8 + k] || k < 7 && aboolean[(j * 16 + k1) * 8 + k + 1] || k > 0 && aboolean[(j * 16 + k1) * 8 + (k - 1)]);
-
-					if (flag)
-					{
-						Material material = world.getBlockState(pos.add(j, k, k1)).getBlock().getMaterial();
-
-						if (k >= 4 && material.isLiquid())
-						{
-							return false;
-						}
-
-						if (k < 4 && !material.isSolid() && world.getBlockState(pos.add(j, k, k1)).getBlock() != this.field_150556_a)
-						{
-							return false;
-						}
-					}
-				}
-			}
-		}
-
-		for (j = 0; j < 16; ++j)
-		{
-			for (k1 = 0; k1 < 16; ++k1)
-			{
-				for (k = 0; k < 8; ++k)
-				{
-					if (aboolean[(j * 16 + k1) * 8 + k])
-					{
-						world.setBlockState(pos.add(j, k, k1), k >= 4 ? Blocks.air.getDefaultState() : this.field_150556_a.getBlockState().getBaseState(), 2);
-					}
-				}
-			}
-		}
-
-		for (j = 0; j < 16; ++j)
-		{
-			for (k1 = 0; k1 < 16; ++k1)
-			{
-				for (k = 4; k < 8; ++k)
-				{
-					if (aboolean[(j * 16 + k1) * 8 + k])
-					{
-						BlockPos blockpos1 = pos.add(j, k - 1, k1);
-
-						if (world.getBlockState(blockpos1).getBlock() == Blocks.dirt && world.getLightFor(EnumSkyBlock.SKY, pos.add(j, k, k1)) > 0)
-						{
-							BiomeGenBase biomegenbase = world.getBiomeGenForCoords(blockpos1);
-
-							if (biomegenbase.topBlock.getBlock() == Blocks.mycelium)
-							{
-								world.setBlockState(blockpos1, Blocks.mycelium.getDefaultState(), 2);
-							}
-							else
-							{
-								world.setBlockState(blockpos1, GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.STAGE, BlockMoss.STAGE_LAST), 2);
-							}
-						}
+						double dX = (x - offX) / (sizeX / 2);
+						double dY = (y - offY) / (sizeY / 2);
+						double dZ = (z - offZ) / (sizeZ / 2);
+						double dist = dX * dX + dY * dY + dZ * dZ;
+						
+						if (dist < 1)
+							isLake[index(x, y, z)] = true;
 					}
 				}
 			}
 		}
 		
-		if (this.field_150556_a == GenesisBlocks.komatiitic_lava)
+		int x, y, z;
+		
+		for (x = 0; x <= SIZE_X; x++)
 		{
-			for (j = 0; j < 16; ++j)
+			for (y = 0; y <= SIZE_Y; y++)
 			{
-				for (k1 = 0; k1 < 16; ++k1)
+				for (z = 0; z <= SIZE_Z; z++)
 				{
-					for (k = 0; k < 8; ++k)
+					if (!is(isLake, x, y, z) && neighborIs(isLake, x, y, z))
 					{
-						flag = !aboolean[(j * 16 + k1) * 8 + k] && (j < 15 && aboolean[((j + 1) * 16 + k1) * 8 + k] || j > 0 && aboolean[((j - 1) * 16 + k1) * 8 + k] || k1 < 15 && aboolean[(j * 16 + k1 + 1) * 8 + k] || k1 > 0 && aboolean[(j * 16 + (k1 - 1)) * 8 + k] || k < 7 && aboolean[(j * 16 + k1) * 8 + k + 1] || k > 0 && aboolean[(j * 16 + k1) * 8 + (k - 1)]);
-
-						if (flag && (k < 4 || p_180709_2_.nextInt(2) != 0) && world.getBlockState(pos.add(j, k, k1)).getBlock().getMaterial().isSolid())
+						Material material = world.getBlockState(pos.add(x, y, z)).getBlock().getMaterial();
+						
+						if (y >= top ?
+								material.isLiquid() :
+								!material.isSolid() && !filler.equals(world.getBlockState(pos.add(x, y, z))))
+							return false;
+					}
+				}
+			}
+		}
+		
+		for (x = 0; x <= SIZE_X; ++x)
+		{
+			for (y = 0; y < SIZE_Y; ++y)
+			{
+				for (z = 0; z < SIZE_Z; ++z)
+				{
+					if (is(isLake, x, y, z))
+					{
+						world.setBlockState(pos.add(x, y, z), y >= top ? Blocks.air.getDefaultState() : filler, 2);
+					}
+				}
+			}
+		}
+		
+		for (x = 0; x <= SIZE_X; ++x)
+		{
+			for (y = 4; y <= SIZE_Y; ++y)
+			{
+				for (z = 0; z <= SIZE_Z; ++z)
+				{
+					if (is(isLake, x, y, z))
+					{
+						BlockPos soilPos = pos.add(x, y - 1, z);
+						
+						if (world.getBlockState(soilPos).getBlock() == Blocks.dirt)
 						{
-							world.setBlockState(pos.add(j, k, k1), GenesisBlocks.komatiite.getDefaultState(), 2);
+							int stage = GenesisBlocks.moss.getTargetStage(GenesisBlocks.moss.getFertility(world, soilPos, true), rand);
+							
+							if (stage >= 0)
+								world.setBlockState(soilPos, GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.STAGE, stage), 2);
 						}
 					}
 				}
 			}
 		}
-
-		if (this.field_150556_a.getMaterial() == Material.water)
+		
+		if (filler.getBlock() == GenesisBlocks.komatiitic_lava)
 		{
-			for (j = 0; j < 16; ++j)
+			for (x = 0; x <= SIZE_X; x++)
 			{
-				for (k1 = 0; k1 < 16; ++k1)
+				for (y = 0; y <= SIZE_Y; y++)
 				{
-					byte b0 = 4;
-
-					if (world.canBlockFreezeNoWater(pos.add(j, b0, k1)))
+					for (z = 0; z <= SIZE_Z; z++)
 					{
-						world.setBlockState(pos.add(j, b0, k1), Blocks.ice.getDefaultState(), 2);
+						if (!is(isLake, x, y, z) && neighborIs(isLake, x, y, z))
+						{
+							BlockPos replacePos = pos.add(x, y, z);
+							
+							if ((y < top || rand.nextInt(2) != 0) && world.getBlockState(replacePos).getBlock().getMaterial().isSolid())
+								world.setBlockState(replacePos, GenesisBlocks.komatiite.getDefaultState(), 2);
+						}
+					}
+				}
+			}
+		}
+		
+		if (filler.getBlock().getMaterial() == Material.water)
+		{
+			for (x = 0; x <= SIZE_X; x++)
+			{
+				for (z = 0; z <= SIZE_Z; z++)
+				{
+					if (world.canBlockFreezeNoWater(pos.add(x, top, z)))
+					{
+						world.setBlockState(pos.add(x, top, z), Blocks.ice.getDefaultState(), 2);
 					}
 				}
 			}

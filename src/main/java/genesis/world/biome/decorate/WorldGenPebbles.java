@@ -7,6 +7,7 @@ import genesis.metadata.EnumSilt;
 import genesis.metadata.EnumToolMaterial;
 import genesis.metadata.SiltBlocks;
 import genesis.metadata.ToolItems;
+import genesis.util.WorldUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,9 +54,7 @@ public class WorldGenPebbles extends WorldGenDecorationBase
 		if (!world.getBlockState(pos.up()).getBlock().isAir(world, pos))
 			return false;
 		
-		boolean waterExists = findBlockInRange(world, pos, Blocks.water.getDefaultState(), 4, 3, 4);
-		
-		if (!waterExists && waterRequired)
+		if (waterRequired && !WorldUtils.waterInRange(world, pos, 4, 3, 4))
 			return false;
 		
 		populatePositions();
