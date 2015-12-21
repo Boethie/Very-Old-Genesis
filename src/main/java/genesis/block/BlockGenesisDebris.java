@@ -12,6 +12,7 @@ import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.random.drops.blocks.BlockDrop;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
@@ -23,11 +24,13 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
+import java.util.Random;
 
 public class BlockGenesisDebris extends BlockGenesisVariants<MultiMetadata>
 {
@@ -47,7 +50,9 @@ public class BlockGenesisDebris extends BlockGenesisVariants<MultiMetadata>
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		setStepSound(GenesisSounds.DEBRIS);
+		
 		Blocks.fire.setFireInfo(this, 60, 100);
+		setTickRandomly(true);
 		
 		setBlockBounds(0, 0, 0, 1, 1/16F, 1);
 		
@@ -91,6 +96,30 @@ public class BlockGenesisDebris extends BlockGenesisVariants<MultiMetadata>
 	public boolean isReplaceable(World world, BlockPos pos)
 	{
 		return !debrisOwner.isStateOf(world.getBlockState(pos), debrisOwner.getVariant(EnumDebrisOther.EPIDEXIPTERYX_FEATHER));
+	}
+	
+	public boolean canBlockStay(IBlockAccess world, BlockPos pos, IBlockState state)
+	{
+		return world.isSideSolid(pos.down(), EnumFacing.UP, false);
+	}
+	
+	public boolean checkAndDropBlock(World world, BlockPos pos, IBlockState state)
+	{
+		if (!canBlockStay(world, pos, state))
+			return world.destroyBlock(pos, true);
+		return false;
+	}
+	
+	@Override
+	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block neighbor)
+	{
+		checkAndDropBlock(world, pos, state);
+	}
+	
+	@Override
+	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
+	{
+		checkAndDropBlock(world, pos, state);
 	}
 	
 	@Override
