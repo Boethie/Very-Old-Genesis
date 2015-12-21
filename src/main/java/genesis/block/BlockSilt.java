@@ -7,17 +7,21 @@ import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.BlockStateToMetadata;
 
 import java.util.List;
+import java.util.Random;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.*;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.item.EntityFallingBlock;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 
 public class BlockSilt extends BlockFalling
@@ -89,6 +93,52 @@ public class BlockSilt extends BlockFalling
 			return true;
 		default:
 			return super.canSustainPlant(world, pos, direction, plant);
+		}
+	}
+	
+	protected boolean canSiltFallInto(IBlockAccess world, BlockPos pos)
+	{
+		if (world.isAirBlock(pos))
+			return true;
+		
+		Block block = world.getBlockState(pos).getBlock();
+		
+		if (block == Blocks.fire)
+			return true;
+		
+		Material material = block.getMaterial();
+		
+		if (material.isLiquid())
+			return true;
+		
+		return false;
+	}
+	
+	@Override
+	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
+	{
+		if (!world.isRemote && canSiltFallInto(world, pos.down()) && pos.getY() > 0)
+		{
+			int area = 32;
+			
+			if (!fallInstantly && world.isAreaLoaded(pos.add(-area, -area, -area), pos.add(area, area, area)))
+			{
+				EntityFallingBlock falling = new EntityFallingBlock(world, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, state);
+				onStartFalling(falling);
+				world.spawnEntityInWorld(falling);
+			}
+			else
+			{
+				BlockPos landPos = pos;
+				
+				do
+				{
+					landPos = landPos.down();
+				} while (canSiltFallInto(world, landPos) && landPos.getY() > 0);
+				
+				world.setBlockToAir(pos);
+				world.setBlockState(landPos.up(), state);
+			}
 		}
 	}
 }
