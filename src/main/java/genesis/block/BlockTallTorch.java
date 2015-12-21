@@ -151,7 +151,7 @@ public class BlockTallTorch extends Block
 	@Override
 	public boolean canPlaceBlockAt(World world, BlockPos pos)
 	{
-		return canPlaceTorchAt(world, pos, Part.BOTTOM) ||
+		return (canPlaceTorchAt(world, pos, Part.BOTTOM) && world.isBlockLoaded(pos.up())) ||
 				(world.getBlockState(pos.down()).getBlock().isReplaceable(world, pos.down()) && canPlaceTorchAt(world, pos.down(), Part.TOP));
 	}
 	

@@ -817,24 +817,28 @@ public class BlockGrowingPlant extends BlockCrops
 					if (props.getHeight() < maxHeight && age >= growthAge)
 					{
 						BlockPos above = pos.up();
-						IBlockState aboveState = world.getBlockState(above);
-						Block aboveBlock = aboveState.getBlock();
 						
-						if (aboveBlock != this && aboveBlock.isReplaceable(world, above))
+						if (world.isBlockLoaded(above))
 						{
-							changed = true;
+							Block aboveBlock = world.getBlockState(above).getBlock();
 							
-							if (!noChange)
+							if (aboveBlock != this && aboveBlock.isReplaceable(world, above))
 							{
-								world.setBlockState(above, getDefaultState());
+								changed = true;
 								
-								if (resetAge)
+								if (!noChange)
 								{
-									age = 0;
+									world.setBlockState(above, getDefaultState());
+									
+									if (resetAge)
+									{
+										age = 0;
+									}
 								}
 							}
 						}
-						else
+						
+						if (!changed)
 						{
 							age = growthAge - 1; // Reset the age to the growth age if it can't grow taller.
 						}
