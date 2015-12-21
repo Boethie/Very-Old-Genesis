@@ -404,6 +404,7 @@ item.genesis.material.chalcopyrite.name=Chalcopyrite
 item.genesis.material.malachite.name=Malachite
 item.genesis.material.azurite.name=Azurite
 item.genesis.material.olivine.name=Olivine
+item.genesis.material.amethyst.name=Améthyste
 item.genesis.material.nodule.brownFlint.name=Rognon de silex brun
 item.genesis.material.nodule.blackFlint.name=Rognon de silex noir
 item.genesis.material.nodule.marcasite.name=Rognon de marcassite

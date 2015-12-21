@@ -383,6 +383,7 @@ item.genesis.material.chalcopyrite.name=Chalcopyrite
 item.genesis.material.malachite.name=Malachite
 item.genesis.material.azurite.name=Azurite
 item.genesis.material.olivine.name=Olivine
+item.genesis.material.amethyst.name=Amethyst
 item.genesis.material.nodule.brownFlint.name=Brown Flint Nodule
 item.genesis.material.nodule.blackFlint.name=Black Flint Nodule
 item.genesis.material.nodule.marcasite.name=Marcasite Nodule

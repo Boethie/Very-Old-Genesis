@@ -1,18 +1,16 @@
 package genesis.metadata;
 
-import java.util.List;
-import java.util.Random;
-
 import com.google.common.collect.ImmutableSet;
-
+import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
 import genesis.util.random.IntRange;
-import genesis.util.random.drops.blocks.BlockDrops;
-import genesis.util.random.drops.blocks.BlockMultiDrop;
-import genesis.util.random.drops.blocks.BlockStackDrop;
-import genesis.util.random.drops.blocks.VariantDrop;
+import genesis.util.random.drops.blocks.*;
+import genesis.util.random.drops.blocks.BlockWeightedRandomDrop.WeightedRandomBlockDrop;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
+
+import java.util.List;
+import java.util.Random;
 
 public enum EnumOre implements IOreVariant<EnumOre>
 {
@@ -33,8 +31,10 @@ public enum EnumOre implements IOreVariant<EnumOre>
 				)
 			)),
 	MARCASITE("marcasite", 1, 1.5F, 4.35F, IntRange.create(0, 1), 0.05F,
-			new BlockDrops(GenesisItems.nodules.getStack(EnumNodule.MARCASITE), 1));
+			new BlockDrops(GenesisItems.nodules.getStack(EnumNodule.MARCASITE), 1)),
+	AMETHYST("amethyst", 0, 0, 0, IntRange.create(0), 0); //dummy values for a no-ore ore
 	
+	public static ImmutableSet<EnumOre> noOres = ImmutableSet.of(AMETHYST);
 	public static ImmutableSet<EnumOre> noDrops = ImmutableSet.of(FLINT, MARCASITE);
 	
 	/**
@@ -46,7 +46,20 @@ public enum EnumOre implements IOreVariant<EnumOre>
 		
 		for (EnumOre ore : values())
 		{
-			if (ore.drops == null)
+			if (noOres.contains(ore))
+			{
+				continue;
+			}
+			if (ore == QUARTZ)
+			{
+				ore.setDrops(new BlockDrops(
+						new BlockWeightedRandomDrop(
+								new WeightedRandomBlockDrop(VariantDrop.create(combo, OreBlocks.DROP, 1), 49),
+								new WeightedRandomBlockDrop(StaticVariantDrop.create(combo, OreBlocks.DROP, AMETHYST, 1), 1)
+						)
+				));
+			}
+			else if (ore.drops == null)
 			{
 				ore.setDrops(drops);
 			}
