@@ -341,7 +341,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 		@Override
 		public String toString()
 		{
-			return getName() + "[item=" + itemClass + ",block=" + blockClass + "]";
+			return getName() + "[name=" + getName() + ",item=" + getItemClass() + ",block=" + getBlockClass() + "]";
 		}
 		
 		// LOTS of create, createBlock and createItem methods for convenience.
