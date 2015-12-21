@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = Constants.MOD_ID, name = Constants.MOD_NAME, version = Constants.MOD_VERSION, dependencies = "required-after:Forge")
+@Mod(modid = Constants.MOD_ID, name = Constants.MOD_NAME, version = Constants.MOD_VERSION, updateJSON = Constants.UPDATE_JSON, dependencies = "required-after:Forge")
 public class Genesis
 {
 	@Mod.Instance(Constants.MOD_ID)
@@ -30,8 +30,6 @@ public class Genesis
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		logger = event.getModLog();
-		
-		GenesisVersion.startVersionCheck();
 		
 		GenesisConfig.readConfigValues(event.getSuggestedConfigurationFile());
 		

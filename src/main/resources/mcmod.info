@@ -3,7 +3,7 @@
 	"modid": "genesis",
 	"name": "Genesis",
 	"description": "Genesis is a dimension includes the time of the Precambrian until the end of the Cretaceous period. It consists of many unique biomes, realistic flora and a phenomenal diversity of animal species.",
-	"version": "1.8.8-0.0.1",
+	"version": "0.0.0.0",
 	"mcversion": "${mcversion}",
 	"url": "https://github.com/GenProject/GenProject",
 	"updateUrl": "",

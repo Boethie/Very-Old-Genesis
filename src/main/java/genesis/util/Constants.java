@@ -11,11 +11,10 @@ public final class Constants
 	public static final String MOD_ID = "genesis";
 	public static final String MOD_NAME = "Project Genesis";
 	public static final String MOD_VERSION = "@VERSION@";
-
+	public static final String UPDATE_JSON = "https://raw.githubusercontent.com/GenProject/GenProject/master/update.json";
+	
 	public static final String ASSETS_PREFIX = MOD_ID + ":";
-
-	public static final String VERSIONS_URL = "https://raw.githubusercontent.com/GenProject/GenProject/master/versions.json";
-
+	
 	public static final String PROXY_LOCATION = "genesis.common.GenesisProxy";
 	public static final String CLIENT_LOCATION = "genesis.client.GenesisClient";
 	
@@ -49,12 +48,12 @@ public final class Constants
 		
 		public static final String PREFIX = MOD_ID + ".";
 		public static final String ITEM_PREFIX = "item." + PREFIX;
-
+		
 		public static final String CONTAINER_BLOCK = PREFIX + "container.";
 		public static final String CONTAINER_UI = "container." + PREFIX;
 		
 		public static final String INVALID_METADATA = PREFIX + "multiItem.invalidMetadata";
-
+		
 		public static final String MATERIAL = PREFIX + Section.MATERIAL;
 		public static final String EGG = PREFIX + Section.EGG;
 		
