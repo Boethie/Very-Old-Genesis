@@ -110,7 +110,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 	{
 		ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
 		
-		Random rand = world instanceof World ? ((World) world).rand : RANDOM;
+		Random rand = WorldUtils.getWorldRandom(world, RANDOM);
 		
 		int chance = this.getSaplingDropChance(state);
 		
