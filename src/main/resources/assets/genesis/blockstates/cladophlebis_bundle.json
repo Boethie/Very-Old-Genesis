@@ -1,0 +1,7 @@
+{
+	"variants": {
+		"axis=y":  { "model": "genesis:cladophlebis_bundle" },
+		"axis=z":   { "model": "genesis:cladophlebis_bundle", "x": 90 },
+		"axis=x":   { "model": "genesis:cladophlebis_bundle", "x": 90, "y": 90 }
+	}
+}

@@ -144,6 +144,7 @@ public final class GenesisBlocks
 	/* Other Decorative */
 	public static final BlockGenesisFlowerPot flower_pot = (BlockGenesisFlowerPot) new BlockGenesisFlowerPot().setUnlocalizedName(Unlocalized.PREFIX + "flowerPot");
 	public static final Block calamites_bundle = new BlockCalamitesBundle().setUnlocalizedName(Unlocalized.PREFIX + "calamitesBundle");
+	public static final Block cladophlebis_bundle = new BlockPrograminisBundle().setUnlocalizedName(Unlocalized.PREFIX + "cladophlebisBundle");
 	public static final Block programinis_bundle = new BlockPrograminisBundle().setUnlocalizedName(Unlocalized.PREFIX + "programinisBundle");
 	public static final Block calamites_torch = new BlockCalamitesTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTorch");
 	public static final Block calamites_torch_tall = new BlockTallTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTorch.tall");
@@ -219,6 +220,7 @@ public final class GenesisBlocks
 		// - Full Block Woody -
 		trees.registerVariants(TreeBlocksAndItems.LOG);
 		Genesis.proxy.registerBlock(calamites_bundle, "calamites_bundle");
+		Genesis.proxy.registerBlock(cladophlebis_bundle, "cladophlebis_bundle");
 		Genesis.proxy.registerBlock(programinis_bundle, "programinis_bundle");
 		Genesis.proxy.registerBlock(prototaxites_mycelium, "prototaxites_mycelium");
 		
