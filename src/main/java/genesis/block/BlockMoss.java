@@ -219,9 +219,8 @@ public class BlockMoss extends BlockGrass
 					
 					if (generation)
 					{
-						int combined = world.getCombinedLight(pos, 0);
-						int block = combined >> 4 & 255;
-						int sky = combined >> 20 & 255;
+						int block = world.getLightFor(EnumSkyBlock.BLOCK, pos);
+						int sky = world.getLightFor(EnumSkyBlock.SKY, pos);
 						lightLevel = Math.min(block, sky);
 					}
 					else

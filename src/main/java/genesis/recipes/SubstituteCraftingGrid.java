@@ -22,12 +22,13 @@ public class SubstituteCraftingGrid extends InventoryCrafting
 	
 	protected ItemStack getSubstituted(ItemStack stack)
 	{
+		if (stack == null)
+			return null;
+		
 		ItemStack substitute = substitution.apply(stack);
 		
 		if (substitute != null)
-		{
 			return substitute.copy();
-		}
 		
 		return stack;
 	}

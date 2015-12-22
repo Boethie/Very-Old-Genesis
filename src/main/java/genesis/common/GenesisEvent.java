@@ -2,7 +2,9 @@ package genesis.common;
 
 import genesis.client.render.RenderFog;
 import genesis.command.CommandInterceptor;
+import genesis.event.GenesisEventHandler;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 
 public class GenesisEvent
@@ -16,6 +18,7 @@ public class GenesisEvent
 		
 		MinecraftForge.EVENT_BUS.register(GenesisBlocks.roots);
 		MinecraftForge.EVENT_BUS.register(new CommandInterceptor());
+		FMLCommonHandler.instance().bus().register(new GenesisEventHandler());
 	}
 	
 	private static void registerClientEvents()

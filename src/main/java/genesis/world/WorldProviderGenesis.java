@@ -70,6 +70,7 @@ public class WorldProviderGenesis extends WorldProvider
 	@Override
 	public float calculateCelestialAngle(long time, float partialTick)
 	{
+		time = worldObj.getWorldTime();
 		float angle = ((time + partialTick) % DAY_LENGTH) / DAY_LENGTH - 0.25F;
 		
 		if (angle < 0)
@@ -82,6 +83,7 @@ public class WorldProviderGenesis extends WorldProvider
 	@Override
 	public int getMoonPhase(long time)
 	{
+		time = worldObj.getWorldTime();
 		return (int) (time / DAY_LENGTH % 8 + 8) % 8;
 	}
 	
@@ -162,13 +164,15 @@ public class WorldProviderGenesis extends WorldProvider
 	@Override
 	public void setWorldTime(long time)
 	{
-		worldObj.getWorldInfo().setWorldTime(time);
+		//worldObj.getWorldInfo().setWorldTime(time);
+		GenesisWorldData.get(worldObj).setTime(time);
 	}
 	
 	@Override
 	public long getWorldTime()
 	{
-		return worldObj.getWorldInfo().getWorldTime();
+		//return worldObj.getWorldInfo().getWorldTime();
+		return GenesisWorldData.get(worldObj).getTime();
 	}
 	
 	@Override

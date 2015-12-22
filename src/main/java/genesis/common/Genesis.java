@@ -3,6 +3,7 @@ package genesis.common;
 import genesis.command.CommandTPGenesis;
 import genesis.entity.extendedproperties.GenesisEntityData;
 import genesis.util.Constants;
+import genesis.world.GenesisWorldData;
 import genesis.world.OverworldGeneration;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -35,6 +36,8 @@ public class Genesis
 		
 		network = new GenesisNetwork(Constants.MOD_ID);
 		network.registerMessages();
+		
+		GenesisWorldData.register();
 		
 		GenesisFluids.registerFluids();
 		GenesisBlocks.registerBlocks();
