@@ -147,7 +147,7 @@ public class WorldUtils
 		return blocks;
 	}
 	
-	public static enum DropType
+	public enum DropType
 	{
 		BLOCK(DoubleRange.create(-0.25, 0.25), 0, 0, true),
 		CONTAINER(DoubleRange.create(-0.4, 0.4), 0.05, 0.2, false);

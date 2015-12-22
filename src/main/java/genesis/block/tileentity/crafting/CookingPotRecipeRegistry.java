@@ -12,11 +12,11 @@ import net.minecraft.item.*;
 
 public class CookingPotRecipeRegistry
 {
-	public static interface CookingPotRecipe
+	public interface CookingPotRecipe
 	{
-		public boolean isRecipeIngredient(ItemStack stack, InventoryCookingPot cookingPot);
-		public boolean canCraft(InventoryCookingPot cookingPot);
-		public void craft(InventoryCookingPot cookingPot);
+		boolean isRecipeIngredient(ItemStack stack, InventoryCookingPot cookingPot);
+		boolean canCraft(InventoryCookingPot cookingPot);
+		void craft(InventoryCookingPot cookingPot);
 	}
 	
 	public static abstract class CookingPotRecipeBase implements CookingPotRecipe
@@ -166,22 +166,22 @@ public class CookingPotRecipeRegistry
 		}
 	}
 	
-	public static interface InventoryCookingPot
+	public interface InventoryCookingPot
 	{
-		public ItemStack getInput();
-		public void setInput(ItemStack stack);
+		ItemStack getInput();
+		void setInput(ItemStack stack);
 		
-		public ItemStack getIngredient(int slot);
-		public void setIngredient(int slot, ItemStack stack);
-		public int getIngredientSlotCount();
-		public List<? extends SlotModifier> getIngredients();
+		ItemStack getIngredient(int slot);
+		void setIngredient(int slot, ItemStack stack);
+		int getIngredientSlotCount();
+		List<? extends SlotModifier> getIngredients();
 		
-		public ItemStack getFuel();
-		public void setFuel(ItemStack stack);
+		ItemStack getFuel();
+		void setFuel(ItemStack stack);
 		
-		public ItemStack getOutput();
-		public boolean canOutputAccept(ItemStack stack);
-		public void setOutput(ItemStack stack);
+		ItemStack getOutput();
+		boolean canOutputAccept(ItemStack stack);
+		void setOutput(ItemStack stack);
 	}
 	
 	protected static ItemStack cookingPotItem = GenesisItems.bowls.getStack(EnumCeramicBowls.WATER_BOWL);

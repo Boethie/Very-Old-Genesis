@@ -31,7 +31,7 @@ public class BlockWattleFence extends BlockFence
 	}
 	
 	// Side connection properties.
-	public static enum EnumConnectState implements IStringSerializable
+	public enum EnumConnectState implements IStringSerializable
 	{
 		NONE, SIDE, SIDE_TOP, SIDE_BOTTOM, SIDE_TOP_BOTTOM;
 		

@@ -4,9 +4,9 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public interface EntityProperty<T>
 {
-	public String getName();
-	public void writeToNBT(T value, NBTTagCompound compound);
-	public T readFromNBT(NBTTagCompound compound);
-	public T getDefaultValue();
-	public boolean isValidValue(T value);
+	String getName();
+	void writeToNBT(T value, NBTTagCompound compound);
+	T readFromNBT(NBTTagCompound compound);
+	T getDefaultValue();
+	boolean isValidValue(T value);
 }

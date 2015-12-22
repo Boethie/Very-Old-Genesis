@@ -175,7 +175,7 @@ public class BlockGenesisPebble extends Block
 		maxZ = bb.maxZ;
 	}
 	
-	protected static enum Part
+	protected enum Part
 	{
 		NW(BlockGenesisPebble.NW, new AxisAlignedBB(0.0, 0.0, 0.0, 0.5, 0.25, 0.5)),
 		NE(BlockGenesisPebble.NE, new AxisAlignedBB(0.5, 0.0, 0.0, 1.0, 0.25, 0.5)),
@@ -185,7 +185,7 @@ public class BlockGenesisPebble extends Block
 		public final PropertyBool prop;
 		public final AxisAlignedBB bounds;
 		
-		private Part(PropertyBool prop, AxisAlignedBB bounds)
+		Part(PropertyBool prop, AxisAlignedBB bounds)
 		{
 			this.prop = prop;
 			this.bounds = bounds;

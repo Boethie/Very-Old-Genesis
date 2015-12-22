@@ -24,7 +24,7 @@ import net.minecraftforge.common.*;
 
 public class BlockGrowingPlant extends BlockCrops
 {
-	protected static interface IPerBlockCall
+	protected interface IPerBlockCall
 	{
 		void call(World world, BlockPos curPos, IBlockState curState, BlockPos startPos);
 	}
@@ -176,7 +176,7 @@ public class BlockGrowingPlant extends BlockCrops
 		}
 	}
 
-	public static interface IGrowingPlantCustoms
+	public interface IGrowingPlantCustoms
 	{
 		/**
 		 * Gets the items that should be dropped for this BlockGrowingPlant when it is broken at pos.
@@ -185,16 +185,16 @@ public class BlockGrowingPlant extends BlockCrops
 		 * @param firstBlock Whether the BlockPos pos is at the first position in the plant's height.
 		 * @return An ArrayList of ItemStacks to drop from this block's position.
 		 */
-		public List<ItemStack> getPlantDrops(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, int fortune, boolean firstBlock);
+		List<ItemStack> getPlantDrops(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, int fortune, boolean firstBlock);
 		
 		/**
 		 * Called after updateTick in a BlockGrowingPlant.
 		 * 
 		 * @param grew Whether the plant grew in this random block update.
 		 */
-		public void plantUpdateTick(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, Random rand, boolean grew);
+		void plantUpdateTick(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, Random rand, boolean grew);
 
-		public static enum CanStayOptions {
+		enum CanStayOptions {
 			YES,
 			YIELD,
 			NO
@@ -204,19 +204,19 @@ public class BlockGrowingPlant extends BlockCrops
 		 * @param placed Whether the block has been placed yet. To allow customs to prevent placing stacked plant blocks.
 		 * @return Whether the BlockGrowingPlant can grow at the specified BlockPos.
 		 */
-		public CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World world, BlockPos pos, boolean placed);
+		CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World world, BlockPos pos, boolean placed);
 
 		/**
 		 * For use in adding/removing IPropertys in a list of IPropertys that should be stored in metadata.
 		 * @param plant This BlockGrowingPlant.
 		 * @param metaProps The list whose contents must be stored in metadata.
 		 */
-		public void managePlantMetaProperties(BlockGrowingPlant plant, ArrayList<IProperty<?>> metaProps);
+		void managePlantMetaProperties(BlockGrowingPlant plant, ArrayList<IProperty<?>> metaProps);
 		
 		/**
 		 * @return Whether to consume and use bonemeal to grow the plant.
 		 */
-		public boolean shouldUseBonemeal(World world, BlockPos pos, IBlockState state);
+		boolean shouldUseBonemeal(World world, BlockPos pos, IBlockState state);
 	}
 	
 	public PropertyInteger ageProp;

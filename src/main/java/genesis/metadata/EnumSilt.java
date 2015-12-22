@@ -15,12 +15,12 @@ public enum EnumSilt implements IMetadata<EnumSilt>
 		this.toString = toString;
 	}
 	
-	private EnumSilt(String name, String unlocalizedName)
+	EnumSilt(String name, String unlocalizedName)
 	{
 		this(name, unlocalizedName, name);
 	}
 	
-	private EnumSilt(String name)
+	EnumSilt(String name)
 	{
 		this(name, name);
 	}

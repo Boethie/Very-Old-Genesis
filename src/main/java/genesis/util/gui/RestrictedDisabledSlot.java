@@ -4,9 +4,9 @@ import net.minecraft.inventory.*;
 
 public class RestrictedDisabledSlot extends RestrictedSlot
 {
-	public static interface IInventoryDisabledSlots extends IInventory
+	public interface IInventoryDisabledSlots extends IInventory
 	{
-		public boolean isSlotDisabled(int index);
+		boolean isSlotDisabled(int index);
 	}
 	
 	protected final IInventoryDisabledSlots disabledSlots;

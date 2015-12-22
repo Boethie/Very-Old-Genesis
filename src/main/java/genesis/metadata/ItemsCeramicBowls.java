@@ -15,7 +15,7 @@ import genesis.metadata.MultiMetadataList.MultiMetadata;
 
 public class ItemsCeramicBowls extends VariantsOfTypesCombo<MultiMetadata>
 {
-	public static enum EnumCeramicBowls implements IMetadata<EnumCeramicBowls>
+	public enum EnumCeramicBowls implements IMetadata<EnumCeramicBowls>
 	{
 		BOWL(""),
 		WATER_BOWL("water");
@@ -23,13 +23,13 @@ public class ItemsCeramicBowls extends VariantsOfTypesCombo<MultiMetadata>
 		protected String name;
 		protected String unlocalizedName;
 		
-		private EnumCeramicBowls(String name, String unlocalizedName)
+		EnumCeramicBowls(String name, String unlocalizedName)
 		{
 			this.name = name;
 			this.unlocalizedName = unlocalizedName;
 		}
 		
-		private EnumCeramicBowls(String name)
+		EnumCeramicBowls(String name)
 		{
 			this(name, name);
 		}

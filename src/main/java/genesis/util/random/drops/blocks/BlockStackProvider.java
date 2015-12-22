@@ -8,6 +8,6 @@ import net.minecraft.item.ItemStack;
 
 public interface BlockStackProvider extends StackProvider
 {
-	public ItemStack getStack(IBlockState state, Random rand);
-	public ItemStack getStack(IBlockState state, int size);
+	ItemStack getStack(IBlockState state, Random rand);
+	ItemStack getStack(IBlockState state, int size);
 }

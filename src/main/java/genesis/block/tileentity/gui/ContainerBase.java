@@ -392,7 +392,7 @@ public abstract class ContainerBase extends Container
 		return mergeItemStack(stack, slot.slotNumber, slot.slotNumber + 1, false);
 	}
 	
-	public static enum TransferResult
+	public enum TransferResult
 	{
 		SUCCESS, FAILURE, CONTINUE;
 	}

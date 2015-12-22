@@ -6,5 +6,5 @@ import net.minecraft.client.renderer.ItemMeshDefinition;
 
 public interface ListedItemMeshDefinition extends ItemMeshDefinition
 {
-	public Collection<String> getVariants();
+	Collection<String> getVariants();
 }

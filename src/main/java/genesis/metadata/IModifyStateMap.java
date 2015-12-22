@@ -4,5 +4,5 @@ import genesis.util.FlexibleStateMap;
 
 public interface IModifyStateMap
 {
-	public void customizeStateMap(FlexibleStateMap stateMap);
+	void customizeStateMap(FlexibleStateMap stateMap);
 }

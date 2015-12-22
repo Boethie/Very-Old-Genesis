@@ -5,13 +5,13 @@ import net.minecraft.item.ItemStack;
 
 public interface SlotModifier
 {
-	public int getSlot();
-	public ItemStack getStack();
-	public void modifySize(int amount);
-	public void setStack(ItemStack stack);
-	public void clearStack();
+	int getSlot();
+	ItemStack getStack();
+	void modifySize(int amount);
+	void setStack(ItemStack stack);
+	void clearStack();
 	
-	public static abstract class SlotModifierBase implements SlotModifier
+	abstract class SlotModifierBase implements SlotModifier
 	{
 		@Override
 		public void modifySize(int amount)
@@ -32,7 +32,7 @@ public interface SlotModifier
 		}
 	}
 	
-	public static class SlotModifierInventory extends SlotModifierBase
+	class SlotModifierInventory extends SlotModifierBase
 	{
 		final IInventory inventory;
 		final int slot;

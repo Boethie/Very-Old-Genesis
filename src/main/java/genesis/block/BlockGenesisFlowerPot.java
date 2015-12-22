@@ -29,9 +29,9 @@ import net.minecraftforge.fml.common.eventhandler.Event.*;
 
 public class BlockGenesisFlowerPot extends BlockFlowerPot
 {
-	public static interface IFlowerPotPlant
+	public interface IFlowerPotPlant
 	{
-		public int getColorMultiplier(ItemStack contents, IBlockAccess world, BlockPos pos);
+		int getColorMultiplier(ItemStack contents, IBlockAccess world, BlockPos pos);
 	}
 	
 	public static class PropertyContents extends PropertyHelper<ItemStackKey>

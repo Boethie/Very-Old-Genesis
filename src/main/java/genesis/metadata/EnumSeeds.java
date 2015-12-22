@@ -64,12 +64,12 @@ public enum EnumSeeds implements IMetadata<EnumSeeds>, IFood
 		this(name, unlocalizedName, 0, 0);
 	}
 	
-	private EnumSeeds(String name, int food, float saturation)
+	EnumSeeds(String name, int food, float saturation)
 	{
 		this(name, name, food, saturation);
 	}
 	
-	private EnumSeeds(String name)
+	EnumSeeds(String name)
 	{
 		this(name, name);
 	}

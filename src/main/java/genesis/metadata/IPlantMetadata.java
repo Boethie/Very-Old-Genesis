@@ -12,19 +12,19 @@ import net.minecraftforge.common.EnumPlantType;
 
 public interface IPlantMetadata<V> extends IMetadata<V>
 {
-	public int getColorMultiplier(IBlockAccess world, BlockPos pos);
+	int getColorMultiplier(IBlockAccess world, BlockPos pos);
 	
-	public int getRenderColor();
+	int getRenderColor();
 	
-	public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos);
+	boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos);
 	
-	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, List<ItemStack> normalDrop);
+	List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, List<ItemStack> normalDrop);
 	
-	public boolean isReplaceable(World world, BlockPos pos);
+	boolean isReplaceable(World world, BlockPos pos);
 	
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, Random rand, List<ItemStack> normalDrop);
+	List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, Random rand, List<ItemStack> normalDrop);
 	
-	public EnumPlantType[] getSoilTypes();
+	EnumPlantType[] getSoilTypes();
 	
-	public int getWaterDistance();
+	int getWaterDistance();
 }

@@ -15,7 +15,7 @@ public enum EnumAquaticPlant implements IMetadata<EnumAquaticPlant>
 		this(name, name);
 	}
 
-	private EnumAquaticPlant(String name, String unlocalizedName)
+	EnumAquaticPlant(String name, String unlocalizedName)
 	{
 		this.name = name;
 		this.unlocalizedName = unlocalizedName;

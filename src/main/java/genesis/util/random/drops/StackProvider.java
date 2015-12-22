@@ -7,6 +7,6 @@ import net.minecraft.item.ItemStack;
 
 public interface StackProvider extends Range<Integer>
 {
-	public ItemStack getStack(int size);
-	public ItemStack getStack(Random rand);
+	ItemStack getStack(int size);
+	ItemStack getStack(Random rand);
 }

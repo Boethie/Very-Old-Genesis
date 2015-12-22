@@ -16,13 +16,13 @@ public enum EnumAxis implements IMetadata<EnumAxis>
 	protected final String name;
 	protected final String unlocName;
 	
-	private EnumAxis(String name, String unlocName)
+	EnumAxis(String name, String unlocName)
 	{
 		this.name = name;
 		this.unlocName = unlocName;
 	}
 	
-	private EnumAxis(String name)
+	EnumAxis(String name)
 	{
 		this(name, name);
 	}

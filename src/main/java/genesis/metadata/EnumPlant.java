@@ -200,7 +200,7 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 		return waterDistance;
 	}
 	
-	public static enum PlantType
+	public enum PlantType
 	{
 		PLANT, FERN;
 	}

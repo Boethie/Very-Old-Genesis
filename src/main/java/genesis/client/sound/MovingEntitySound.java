@@ -5,11 +5,11 @@ import net.minecraft.util.*;
 
 public class MovingEntitySound extends RandomLoopingSound
 {
-	public static interface IMovingEntitySoundOwner
+	public interface IMovingEntitySoundOwner
 	{
-		public boolean shouldStopSound(MovingEntitySound sound);
-		public float getPitch(MovingEntitySound sound, float pitch);
-		public float getVolume(MovingEntitySound sound, float volume);
+		boolean shouldStopSound(MovingEntitySound sound);
+		float getPitch(MovingEntitySound sound, float pitch);
+		float getVolume(MovingEntitySound sound, float volume);
 	}
 	
 	protected final Entity entity;

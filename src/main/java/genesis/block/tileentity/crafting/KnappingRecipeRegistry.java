@@ -18,21 +18,21 @@ import net.minecraft.world.World;
 
 public class KnappingRecipeRegistry
 {
-	public static interface ISlotsKnapping
+	public interface ISlotsKnapping
 	{
-		public int getKnappingWidth();
-		public int getHeight();
-		public ItemStack getKnappingRecipeMaterial();
-		public ItemStack getKnappingRecipeTool();
-		public KnappingState getKnappingSlotState(int x, int y);
+		int getKnappingWidth();
+		int getHeight();
+		ItemStack getKnappingRecipeMaterial();
+		ItemStack getKnappingRecipeTool();
+		KnappingState getKnappingSlotState(int x, int y);
 	}
 	
-	public static interface IKnappingRecipe
+	public interface IKnappingRecipe
 	{
-		public boolean shouldShowKnapping(ISlotsKnapping slots, TileEntity te);
-		public boolean hasRecipe(ISlotsKnapping slots, TileEntity te);
-		public ItemStack getOutput(ISlotsKnapping slots, TileEntity te);
-		public void onOutputTaken(ISlotsKnapping slots, TileEntity te, EntityPlayer player);
+		boolean shouldShowKnapping(ISlotsKnapping slots, TileEntity te);
+		boolean hasRecipe(ISlotsKnapping slots, TileEntity te);
+		ItemStack getOutput(ISlotsKnapping slots, TileEntity te);
+		void onOutputTaken(ISlotsKnapping slots, TileEntity te, EntityPlayer player);
 	}
 	
 	public static abstract class KnappingRecipeBase implements IKnappingRecipe
@@ -147,9 +147,9 @@ public class KnappingRecipeRegistry
 		}
 	}
 	
-	public static interface IMaterialData
+	public interface IMaterialData
 	{
-		public static class Impl implements IMaterialData
+		class Impl implements IMaterialData
 		{
 			protected final int destroyTime;
 			protected final IntRange countUsed;
@@ -209,11 +209,11 @@ public class KnappingRecipeRegistry
 			}
 		}
 
-		public int getDestroyTime();
-		public int getCountUsed(Random rand);
-		public int getToolDamage(Random rand);
-		public ItemStack getWaste(Random rand);
-		public ISpriteUVs getTexture();
+		int getDestroyTime();
+		int getCountUsed(Random rand);
+		int getToolDamage(Random rand);
+		ItemStack getWaste(Random rand);
+		ISpriteUVs getTexture();
 	}
 	
 	protected static List<IKnappingRecipe> recipes = Lists.newArrayList();

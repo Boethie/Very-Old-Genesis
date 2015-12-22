@@ -32,17 +32,17 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 {
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target({ElementType.METHOD, ElementType.FIELD})
-	public static @interface BlockProperties {
+	public @interface BlockProperties {
 	}
 	
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.TYPE)
-	public static @interface ItemVariantCount
+	public @interface ItemVariantCount
 	{
-		public int value();
+		int value();
 	}
 	
-	public static enum TypeNamePosition {
+	public enum TypeNamePosition {
 		PREFIX, POSTFIX, NONE;
 	}
 	

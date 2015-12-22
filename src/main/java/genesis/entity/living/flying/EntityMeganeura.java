@@ -35,14 +35,14 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundOwner
 {
-	public static enum StateCategory
+	public enum StateCategory
 	{
 		AIR,
 		SLOW,
 		LANDED;
 	}
 	
-	public static enum State
+	public enum State
 	{
 		NONE(null),
 		FLYING(AIR),
