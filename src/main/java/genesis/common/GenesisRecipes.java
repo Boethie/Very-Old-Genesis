@@ -334,7 +334,7 @@ public final class GenesisRecipes
 		{
 			if (!EnumTree.NO_DEBRIS.contains(tree))
 			{
-				GameRegistry.addShapelessRecipe(GenesisBlocks.debris.getStack(tree),
+				GameRegistry.addShapelessRecipe(GenesisBlocks.debris.getStack(tree, 4),
 						GenesisBlocks.trees.getStack(TreeBlocksAndItems.LEAVES, tree));
 			}
 		}
