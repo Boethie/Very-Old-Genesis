@@ -1,6 +1,5 @@
 package genesis.block;
 
-
 import genesis.common.*;
 import genesis.metadata.EnumMaterial;
 import genesis.util.*;
@@ -14,6 +13,7 @@ import net.minecraft.block.material.*;
 import net.minecraft.block.state.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -92,7 +92,7 @@ public class BlockPrototaxites extends BlockGenesis
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
 	{
-		return super.canPlaceBlockAt(worldIn, pos) && canBlockStay(worldIn, pos);
+		return super.canPlaceBlockAt(worldIn, pos) ? canBlockStay(worldIn, pos) : false;
 	}
 	
 	@Override
@@ -107,6 +107,15 @@ public class BlockPrototaxites extends BlockGenesis
 	public boolean canBlockStay(World worldIn, BlockPos pos)
 	{
 		Block block = worldIn.getBlockState(pos.down()).getBlock();
+		
+		for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL)
+		{
+			if (worldIn.getBlockState(pos.offset(enumfacing)).getBlock() == GenesisBlocks.prototaxites)
+			{
+				return false;
+			}
+		}
+		
 		return (block == GenesisBlocks.prototaxites) || (block == GenesisBlocks.prototaxites_mycelium);
 	}
 }
