@@ -39,13 +39,9 @@ public class RenderFog
 	{
 		if (event.entity instanceof EntityPlayer)
 		{
-			EntityPlayer player = (EntityPlayer)event.entity;
+			EntityPlayer player = (EntityPlayer) event.entity;
 			World world = player.worldObj;
-			
-			int playerX = MathHelper.floor_double(player.posX);
-			int playerZ = MathHelper.floor_double(player.posZ);
-			
-			BiomeGenBase biome = world.getBiomeGenForCoords(new BlockPos(playerX, 60, playerZ));
+			BiomeGenBase biome = world.getBiomeGenForCoords(player.getPosition());
 			
 			if (biome instanceof IBiomeGenFog)
 			{
@@ -65,9 +61,9 @@ public class RenderFog
 				
 				float percent = getDayNightFactor(time, partialTicks);
 				
-				red = GenesisMath.lerp(red, nRed, 1.0f - percent);
-				green = GenesisMath.lerp(green, nGreen, 1.0f - percent);
-				blue = GenesisMath.lerp(blue, nBlue, 1.0f - percent);
+				red = GenesisMath.lerp(red, nRed, 1 - percent);
+				green = GenesisMath.lerp(green, nGreen, 1 - percent);
+				blue = GenesisMath.lerp(blue, nBlue, 1 - percent);
 				
 				if (!colorInit)
 				{
@@ -80,9 +76,9 @@ public class RenderFog
 				if (blockAtEyes.getMaterial() == Material.water)
 				{
 					int waterColorMultiplier = biome.getWaterColorMultiplier();
-					red = (waterColorMultiplier % 0xff0000) >> 16;
-					green = (waterColorMultiplier % 0x00ff00) >> 8;
-					blue = (waterColorMultiplier % 0x0000ff);
+					red = (waterColorMultiplier % 0xFF0000) >> 16;
+					green = (waterColorMultiplier % 0x00FF00) >> 8;
+					blue = (waterColorMultiplier % 0x0000FF);
 					
 					red *= 0.160784314D;
 					green *= 0.384313725D;

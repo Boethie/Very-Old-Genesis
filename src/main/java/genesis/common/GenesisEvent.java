@@ -1,6 +1,7 @@
 package genesis.common;
 
 import genesis.client.render.RenderFog;
+import genesis.command.CommandInterceptor;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.Side;
 
@@ -14,6 +15,7 @@ public class GenesisEvent
 		}
 		
 		MinecraftForge.EVENT_BUS.register(GenesisBlocks.roots);
+		MinecraftForge.EVENT_BUS.register(new CommandInterceptor());
 	}
 	
 	private static void registerClientEvents()

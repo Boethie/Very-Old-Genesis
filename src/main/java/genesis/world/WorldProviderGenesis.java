@@ -71,19 +71,12 @@ public class WorldProviderGenesis extends WorldProvider
 	@Override
 	public float calculateCelestialAngle(long time, float partialTick)
 	{
-		float dayTime = (time + partialTick) % DAY_LENGTH;
-		float angle = dayTime / DAY_LENGTH - 0.25F;
+		float angle = ((time + partialTick) % DAY_LENGTH) / DAY_LENGTH - 0.25F;
 		
 		if (angle < 0)
 			angle++;
 		
-		if (angle > 1)
-			System.out.println("this really shouldn't happen");
-			//angle--;
-		
-		float target = angle;
 		angle = 1 - (MathHelper.cos(angle * (float) Math.PI) + 1) / 2;
-		angle = GenesisMath.lerp(target, angle, 0.3333F);
 		return angle;
 	}
 	
