@@ -32,7 +32,7 @@ public class DungBlocksAndItems extends VariantsOfTypesCombo<EnumDung>
 					block.setStepSound(GenesisSounds.DUNG);
 					
 					block.clearDrops();
-					block.addDrop(DUNG, 4, 4);
+					block.addDrop(DUNG, 9, 9);
 					
 					Blocks.fire.setFireInfo(block, 5, 5);
 					
