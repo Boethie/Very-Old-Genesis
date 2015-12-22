@@ -75,7 +75,7 @@ public class WorldGenTreeLepidodendron extends WorldGenTreeBase
 	{
 		boolean generated = false;
 		
-		pos = pos.add((1 * dirX), 0, (1 * dirZ));
+		pos = pos.add((dirX), 0, (dirZ));
 		setBlockInWorld(world, pos, (leaveBranch)? leaves : wood);
 		doBranchLeaves(world, pos, random, false, leaveLength);
 		

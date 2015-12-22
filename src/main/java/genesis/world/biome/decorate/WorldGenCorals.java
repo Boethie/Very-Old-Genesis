@@ -169,7 +169,7 @@ public class WorldGenCorals extends WorldGenDecorationBase
 			if (random.nextInt(3) == 0)
 				placeTop = false;
 			
-			placePos = placePos.add(1 * dirX, 0, 1 * dirZ);
+			placePos = placePos.add(dirX, 0, dirZ);
 		}
 	}
 	

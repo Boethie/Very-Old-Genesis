@@ -67,7 +67,7 @@ public class WorldGenTreePsaronius extends WorldGenTreeBase
 	{
 		for (int i = 1; i <= length; ++ i)
 		{
-			pos = pos.add((1 * dirX), 0, (1 * dirZ));
+			pos = pos.add((dirX), 0, (dirZ));
 			
 			if (i == length)
 				pos = pos.add(0, -1, 0);

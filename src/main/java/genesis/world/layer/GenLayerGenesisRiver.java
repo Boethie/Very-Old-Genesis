@@ -26,9 +26,9 @@ public class GenLayerGenesisRiver extends GenLayerGenesis
 		{
 			for (int j2 = 0; j2 < areaWidth; ++j2)
 			{
-				int k2 = func_151630_c(aint[j2 + 0 + (i2 + 1) * k1]);
+				int k2 = func_151630_c(aint[j2 + (i2 + 1) * k1]);
 				int l2 = func_151630_c(aint[j2 + 2 + (i2 + 1) * k1]);
-				int i3 = func_151630_c(aint[j2 + 1 + (i2 + 0) * k1]);
+				int i3 = func_151630_c(aint[j2 + 1 + (i2) * k1]);
 				int j3 = func_151630_c(aint[j2 + 1 + (i2 + 2) * k1]);
 				int k3 = func_151630_c(aint[j2 + 1 + (i2 + 1) * k1]);
 				

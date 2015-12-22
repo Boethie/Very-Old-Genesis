@@ -28,11 +28,11 @@ public class BiomeGenOceanGenesis extends BiomeGenBaseGenesis
 	
 	public BiomeGenOceanGenesis addElements(int multiplier)
 	{
-		int[] rarityScale = {2 * multiplier, 2 * multiplier, 2 * multiplier, 1 * multiplier, 1 * multiplier};
+		int[] rarityScale = {2 * multiplier, 2 * multiplier, 2 * multiplier, multiplier, multiplier};
 		
-		addDecoration(new WorldGenCorals(2, 5, EnumCoral.HALYSITES).setRarity(4).setCountPerChunk(1 * multiplier));
-		addDecoration(new WorldGenCorals(2, 5, EnumCoral.HELIOLITES).setRarity(4).setCountPerChunk(1 * multiplier));
-		addDecoration(new WorldGenCorals(2, 5, EnumCoral.FAVOSITES).setRarity(4).setCountPerChunk(1 * multiplier));
+		addDecoration(new WorldGenCorals(2, 5, EnumCoral.HALYSITES).setRarity(4).setCountPerChunk(multiplier));
+		addDecoration(new WorldGenCorals(2, 5, EnumCoral.HELIOLITES).setRarity(4).setCountPerChunk(multiplier));
+		addDecoration(new WorldGenCorals(2, 5, EnumCoral.FAVOSITES).setRarity(4).setCountPerChunk(multiplier));
 		
 		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.HAZELLA).setCountPerChunk(rarityScale[0]));
 		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.DIAGONIELLA).setCountPerChunk(rarityScale[1]));

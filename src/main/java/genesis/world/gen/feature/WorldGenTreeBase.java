@@ -123,10 +123,10 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		BlockPos branchPos = pos;
 		int height = bBaseHeight + rand.nextInt(bGrowSize);
 		
-		branchPos = branchPos.add(1 * dirX, 0, 1 * dirZ);
+		branchPos = branchPos.add(dirX, 0, dirZ);
 		setBlockInWorld(world, branchPos, wood);
 		
-		branchPos = branchPos.add(1 * dirX, 1, 1 * dirZ);
+		branchPos = branchPos.add(dirX, 1, dirZ);
 		
 		for (int i = 0; i < height; ++i)
 		{
@@ -143,7 +143,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		EnumAxis axis;
 		int branchLength = 1 + rand.nextInt(maxLength);
 		
-		branchPos = branchPos.add(1 * dirX, 0, 1 * dirZ);
+		branchPos = branchPos.add(dirX, 0, dirZ);
 		
 		if (dirX != 0)
 			axis = EnumAxis.X;
@@ -157,7 +157,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		
 		for (int i = 1; i <= branchLength - 1; ++i)
 		{
-			branchPos = branchPos.add(1 * dirX, (rand.nextInt(3) - 1) * rand.nextInt(2), 1 * dirZ);
+			branchPos = branchPos.add(dirX, (rand.nextInt(3) - 1) * rand.nextInt(2), dirZ);
 			setBlockInWorld(world, branchPos, wood.withProperty(BlockLog.LOG_AXIS, axis));
 			generateHorizontalBranchLeaveS(world, branchPos, dirX, dirZ);
 			
@@ -169,7 +169,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 			}
 		}
 		
-		branchPos = branchPos.add(1 * dirX, 0, 1 * dirZ);
+		branchPos = branchPos.add(dirX, 0, dirZ);
 		setBlockInWorld(world, branchPos, leaves);
 	}
 	
@@ -177,8 +177,8 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	{
 		setBlockInWorld(world, pos.add(0, 1, 0), leaves);
 		setBlockInWorld(world, pos.add(0, -1, 0), leaves);
-		setBlockInWorld(world, pos.add(1 * ((dirX == 0)? 1 : 0), 0, 1 * ((dirZ == 0)? 1 : 0)), leaves);
-		setBlockInWorld(world, pos.add(1 * ((dirX == 0)? -1 : 0), 0, 1 * ((dirZ == 0)? -1 : 0)), leaves);
+		setBlockInWorld(world, pos.add(((dirX == 0) ? 1 : 0), 0, ((dirZ == 0) ? 1 : 0)), leaves);
+		setBlockInWorld(world, pos.add(((dirX == 0) ? -1 : 0), 0, ((dirZ == 0) ? -1 : 0)), leaves);
 	}
 	
 	protected void generateLeafLayerCircle(World world, Random random, double radius, int xo, int zo, int h)

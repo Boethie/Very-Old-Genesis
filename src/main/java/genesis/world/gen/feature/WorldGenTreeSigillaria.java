@@ -79,10 +79,10 @@ public class WorldGenTreeSigillaria extends WorldGenTreeBase
 	{
 		boolean generated = false;
 		
-		pos = pos.add((1 * dirX), 0, (1 * dirZ));
+		pos = pos.add((dirX), 0, (dirZ));
 		setBlockInWorld(world, pos, wood);
 		
-		pos = pos.add((1 * dirX), 1, (1 * dirZ));
+		pos = pos.add((dirX), 1, (dirZ));
 		setBlockInWorld(world, pos, wood);
 		
 		if (random.nextInt(2) == 0 || forceLongBranch)

@@ -41,7 +41,7 @@ public class SuperSimplexNoise {
 		for (short i = 0; i < 1024; i++)
 			source[i] = i;
 		for (int i = 1023; i >= 0; i--) {
-			seed = seed * 6364136223846793005l + 1442695040888963407l;
+			seed = seed * 6364136223846793005L + 1442695040888963407L;
 			int r = (int)((seed + 31) % (i + 1));
 			if (r < 0)
 				r += (i + 1);
@@ -115,14 +115,14 @@ public class SuperSimplexNoise {
 
 		//Index to point list for first lattice
 		int index1 =
-				(+ xri + yri + zri >= 1.5 ? 1*4 : 0) |
+				(+ xri + yri + zri >= 1.5 ? 4 : 0) |
 				(- xri + yri + zri >= 0.5 ? 2*4 : 0) |
 				(+ xri - yri + zri >= 0.5 ? 4*4 : 0) |
 				(+ xri + yri - zri >= 0.5 ? 8*4 : 0);
 
 		//Index to point list for second lattice
 		int index2 =
-				(+ xr2i + yr2i + zr2i >= 1.5 ? 1*4 : 0) |
+				(+ xr2i + yr2i + zr2i >= 1.5 ? 4 : 0) |
 				(- xr2i + yr2i + zr2i >= 0.5 ? 2*4 : 0) |
 				(+ xr2i - yr2i + zr2i >= 0.5 ? 4*4 : 0) |
 				(+ xr2i + yr2i - zr2i >= 0.5 ? 8*4 : 0);
@@ -206,7 +206,7 @@ public class SuperSimplexNoise {
 				NoiseInstance2 instance = instances[j];
 
 				int gi = instance.noise.perm2D[instance.noise.perm[pxm] ^ pym];
-				double gx = gradients2D[gi + 0], gy = gradients2D[gi + 1];
+				double gx = gradients2D[gi], gy = gradients2D[gi + 1];
 				double extrapolation = gx * dx + gy * dy;
 				double attnSq = attn * attn;
 				
@@ -239,14 +239,14 @@ public class SuperSimplexNoise {
 
 		//Index to point list for first lattice
 		int index1 =
-				(+ xri + yri + zri >= 1.5 ? 1*4 : 0) |
+				(+ xri + yri + zri >= 1.5 ? 4 : 0) |
 				(- xri + yri + zri >= 0.5 ? 2*4 : 0) |
 				(+ xri - yri + zri >= 0.5 ? 4*4 : 0) |
 				(+ xri + yri - zri >= 0.5 ? 8*4 : 0);
 
 		//Index to point list for second lattice
 		int index2 =
-				(+ xr2i + yr2i + zr2i >= 1.5 ? 1*4 : 0) |
+				(+ xr2i + yr2i + zr2i >= 1.5 ? 4 : 0) |
 				(- xr2i + yr2i + zr2i >= 0.5 ? 2*4 : 0) |
 				(+ xr2i - yr2i + zr2i >= 0.5 ? 4*4 : 0) |
 				(+ xr2i + yr2i - zr2i >= 0.5 ? 8*4 : 0);
@@ -264,7 +264,7 @@ public class SuperSimplexNoise {
 				NoiseInstance3 instance = instances[j];
 
 				int gi = instance.noise.perm3D[instance.noise.perm[instance.noise.perm[pxm] ^ pym] ^ pzm];
-				double gx = gradients3D[gi + 0], gy = gradients3D[gi + 1], gz = gradients3D[gi + 2];
+				double gx = gradients3D[gi], gy = gradients3D[gi + 1], gz = gradients3D[gi + 2];
 				double extrapolation = gx * dx + gy * dy + gz * dz;
 				double attnSq = attn * attn;
 				
@@ -296,7 +296,7 @@ public class SuperSimplexNoise {
 				NoiseInstance3 instance = instances[j];
 
 				int gi = instance.noise.perm3D[instance.noise.perm[instance.noise.perm[pym] ^ pzm] ^ pxm];
-				double gx = gradients3D[gi + 0], gy = gradients3D[gi + 1], gz = gradients3D[gi + 2];
+				double gx = gradients3D[gi], gy = gradients3D[gi + 1], gz = gradients3D[gi + 2];
 				double extrapolation = gx * dx + gy * dy + gz * dz;
 				double attnSq = attn * attn;
 				
@@ -344,7 +344,7 @@ public class SuperSimplexNoise {
 				if ((i & 2) != 0) { i1 = 2; j1 = 1; } else { i1 = 0; j1 = 1; }
 				if ((i & 4) != 0) { i2 = 1; j2 = 2; } else { i2 = 1; j2 = 0; }
 			}
-			lookup2D[i * 4 + 0] = new LatticePoint2D(0, 0);
+			lookup2D[i * 4] = new LatticePoint2D(0, 0);
 			lookup2D[i * 4 + 1] = new LatticePoint2D(1, 1);
 			lookup2D[i * 4 + 2] = new LatticePoint2D(i1, j1);
 			lookup2D[i * 4 + 3] = new LatticePoint2D(i2, j2);
@@ -356,7 +356,7 @@ public class SuperSimplexNoise {
 			if ((i & 2) != 0) { i2 = 0; j2 = k2 = 1; } else { i2 = 1; j2 = k2 = 0; }
 			if ((i & 4) != 0) { j3 = 0; i3 = k3 = 1; } else { j3 = 1; i3 = k3 = 0; }
 			if ((i & 8) != 0) { k4 = 0; i4 = j4 = 1; } else { k4 = 1; i4 = j4 = 0; }
-			lookup3D[i * 4 + 0] = new LatticePoint3D(i1, j1, k1);
+			lookup3D[i * 4] = new LatticePoint3D(i1, j1, k1);
 			lookup3D[i * 4 + 1] = new LatticePoint3D(i2, j2, k2);
 			lookup3D[i * 4 + 2] = new LatticePoint3D(i3, j3, k3);
 			lookup3D[i * 4 + 3] = new LatticePoint3D(i4, j4, k4);

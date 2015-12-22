@@ -140,7 +140,7 @@ public class WorldGenTreeCordaites extends WorldGenTreeBase
 	
 	private boolean doBranch(World world, BlockPos pos, int dirX, int dirZ, Random random, int leaveLength, boolean leaveBranch)
 	{
-		pos = pos.add((1 * dirX), 0, (1 * dirZ));
+		pos = pos.add((dirX), 0, (dirZ));
 		setBlockInWorld(world, pos, (leaveBranch)? leaves : wood);
 		doBranchLeaves(world, pos, random, false, leaveLength);
 		
