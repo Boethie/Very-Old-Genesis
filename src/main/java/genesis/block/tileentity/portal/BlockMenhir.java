@@ -4,7 +4,6 @@ import java.util.*;
 
 import com.google.common.collect.ImmutableList;
 
-import genesis.common.IRegistrationCallback;
 import genesis.block.BlockGenesis;
 import genesis.client.GenesisClient;
 import genesis.client.model.ListedItemMeshDefinition;

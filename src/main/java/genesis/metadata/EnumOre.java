@@ -1,7 +1,6 @@
 package genesis.metadata;
 
 import com.google.common.collect.ImmutableSet;
-import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
 import genesis.util.random.IntRange;
 import genesis.util.random.drops.blocks.*;

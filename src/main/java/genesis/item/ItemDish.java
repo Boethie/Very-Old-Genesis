@@ -6,7 +6,6 @@ import genesis.common.GenesisItems;
 import genesis.metadata.*;
 import genesis.metadata.ItemsCeramicBowls.*;
 import genesis.metadata.MultiMetadataList.MultiMetadata;
-import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 
 import net.minecraft.block.Block;
