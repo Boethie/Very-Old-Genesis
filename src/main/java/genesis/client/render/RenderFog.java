@@ -3,6 +3,7 @@ package genesis.client.render;
 import org.lwjgl.opengl.GL11;
 
 import genesis.util.GenesisMath;
+import genesis.world.WorldProviderGenesis;
 import genesis.world.biome.IBiomeGenFog;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -48,19 +49,21 @@ public class RenderFog
 			
 			if (biome instanceof IBiomeGenFog)
 			{
-				long time = world.getWorldTime()%34000;
+				IBiomeGenFog fogBiome = (IBiomeGenFog) biome;
+				long time = world.getWorldTime();
+				float partialTicks = (float) event.renderPartialTicks;
 				
-				double red = ((IBiomeGenFog)biome).getFogColor().xCoord;
-				double green = ((IBiomeGenFog)biome).getFogColor().yCoord;
-				double blue = ((IBiomeGenFog)biome).getFogColor().zCoord;
+				double red = fogBiome.getFogColor().xCoord;
+				double green = fogBiome.getFogColor().yCoord;
+				double blue = fogBiome.getFogColor().zCoord;
 				
-				double nRed = ((IBiomeGenFog)biome).getFogColorNight().xCoord;
-				double nGreen = ((IBiomeGenFog)biome).getFogColorNight().yCoord;
-				double nBlue = ((IBiomeGenFog)biome).getFogColorNight().zCoord;
+				double nRed = fogBiome.getFogColorNight().xCoord;
+				double nGreen = fogBiome.getFogColorNight().yCoord;
+				double nBlue = fogBiome.getFogColorNight().zCoord;
 				
-				Block blockAtEyes = ActiveRenderInfo.getBlockAtEntityViewpoint(world, event.entity, (float)event.renderPartialTicks);
+				Block blockAtEyes = ActiveRenderInfo.getBlockAtEntityViewpoint(world, event.entity, partialTicks);
 				
-				float percent = getDayNightFactor(time);
+				float percent = getDayNightFactor(time, partialTicks);
 				
 				red = GenesisMath.lerp(red, nRed, 1.0f - percent);
 				green = GenesisMath.lerp(green, nGreen, 1.0f - percent);
@@ -105,38 +108,36 @@ public class RenderFog
 				curGreen += (targetGreen - curGreen) * 0.01D;
 				curBlue += (targetBlue - curBlue) * 0.01D;
 				
-				event.red = (float)curRed;
-				event.green = (float)curGreen;
-				event.blue = (float)curBlue;
+				event.red = (float) curRed;
+				event.green = (float) curGreen;
+				event.blue = (float) curBlue;
 			}
 		}
 	}
 	
-	private static float getDayNightFactor(long time)
+	private static float getDayNightFactor(long time, float partialTicks)
 	{
-		float factor = 1.0F;
+		float timeF = (time + partialTicks) % WorldProviderGenesis.DAY_LENGTH / WorldProviderGenesis.DAY_LENGTH;
+		float factor = 1;
 		
-		//Night time
-		if (time > 20000 && time <= 31000)
-		{
+		if (timeF > WorldProviderGenesis.NIGHT_END)
+		{	// Sunrise
+			factor = ((timeF - WorldProviderGenesis.NIGHT_END) / WorldProviderGenesis.LATE_TWILIGHT_TIME);
+			if (factor > 1)
+				factor = 1;
+		}
+		else if (timeF > WorldProviderGenesis.NIGHT_START)
+		{	// Night
 			factor = 0;
 		}
-		//Sunset
-		else if (time > 17000 && time <= 20000)
-		{
-			factor = 1.0f - ((time - 17000) / 3000f);
-			if (factor < 0.0f)
-				factor = 0.0f;
-		}
-		//Sunrise
-		else if (time > 31000 && time <= 34000)
-		{
-			factor = ((time - 31000) / 3000F);
-			if (factor > 1.0f)
-				factor = 1.0f;
+		else if (time > WorldProviderGenesis.TWILIGHT_START)
+		{	// Sunset
+			factor = 1 - ((timeF - WorldProviderGenesis.TWILIGHT_START) / WorldProviderGenesis.EARLY_TWILIGHT_TIME);
+			if (factor < 0)
+				factor = 0;
 		}
 		
-		return factor;
+		return MathHelper.clamp_float(factor, 0, 1);
 	}
 	
 	@SubscribeEvent
@@ -145,7 +146,7 @@ public class RenderFog
 		Entity entity = event.entity;
 		World world = entity.worldObj;
 		
-		long time = world.getWorldTime()%34000;
+		long time = world.getWorldTime();
 		
 		int playerX = MathHelper.floor_double(entity.posX);
 		int playerY = MathHelper.floor_double(entity.posY);
@@ -168,12 +169,14 @@ public class RenderFog
 			for (int z = -distance; z <= distance; ++z)
 			{
 				BiomeGenBase biome = world.getBiomeGenForCoords(new BlockPos(playerX + x, 60, playerZ + z));
+				
 				if (biome instanceof IBiomeGenFog)
 				{
-					float distancePart = ((IBiomeGenFog)biome).getFogDensity(playerX + x, playerY, playerZ + z);
+					IBiomeGenFog fogBiome = (IBiomeGenFog) biome;
+					float distancePart = fogBiome.getFogDensity(playerX + x, playerY, playerZ + z);
 					float weightPart = 1;
 					
-					distancePart *= 1.0f - (((IBiomeGenFog)biome).getNightFogModifier() * (1.0f - getDayNightFactor(time)));
+					distancePart *= 1 - (fogBiome.getNightFogModifier() * (1 - getDayNightFactor(time, (float) event.renderPartialTicks)));
 					
 					if (x == -distance)
 					{
@@ -227,7 +230,7 @@ public class RenderFog
 	{
 		if (fogMode < 0)
 		{
-			GL11.glFogf(GL11.GL_FOG_START, 0.0F);
+			GL11.glFogf(GL11.GL_FOG_START, 0);
 			GL11.glFogf(GL11.GL_FOG_END, farPlaneDistance);
 		}
 		else

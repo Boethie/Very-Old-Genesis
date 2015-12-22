@@ -1,6 +1,7 @@
 package genesis.world;
 
 import genesis.common.GenesisBlocks;
+import genesis.util.GenesisMath;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumChatFormatting;
@@ -13,6 +14,16 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class WorldProviderGenesis extends WorldProvider
 {
+	public static final int DAY_LENGTH = 34000;
+	
+	public static final float TWILIGHT_START = 0.5F;
+	public static final float EARLY_TWILIGHT_TIME = 0.088F;
+	public static final float NIGHT_START = TWILIGHT_START + EARLY_TWILIGHT_TIME;
+	
+	public static final float TWILIGHT_END = 1F;
+	public static final float LATE_TWILIGHT_TIME = 0.088F;
+	public static final float NIGHT_END = TWILIGHT_END - LATE_TWILIGHT_TIME;
+	
 	protected float[] colorsSunriseSunset = new float[4];
 	
 	@Override
@@ -60,25 +71,26 @@ public class WorldProviderGenesis extends WorldProvider
 	@Override
 	public float calculateCelestialAngle(long time, float partialTick)
 	{
-		int dayTime = (int) (time % 34000L);
-		float angle = (dayTime + partialTick) / 34000.0F - 0.25F;
+		float dayTime = (time + partialTick) % DAY_LENGTH;
+		float angle = dayTime / DAY_LENGTH - 0.25F;
 		
 		if (angle < 0)
 			angle++;
 		
 		if (angle > 1)
-			angle--;
+			System.out.println("this really shouldn't happen");
+			//angle--;
 		
 		float target = angle;
-		angle = 1 - (float) ((Math.cos(angle * Math.PI) + 1) / 2);
-		angle = target + (angle - target) / 3;
+		angle = 1 - (MathHelper.cos(angle * (float) Math.PI) + 1) / 2;
+		angle = GenesisMath.lerp(target, angle, 0.3333F);
 		return angle;
 	}
 	
 	@Override
-	public int getMoonPhase(long par1)
+	public int getMoonPhase(long time)
 	{
-		return (int) (par1 / 34000L % 8L + 8L) % 8;
+		return (int) (time / DAY_LENGTH % 8 + 8) % 8;
 	}
 	
 	@Override
@@ -107,7 +119,7 @@ public class WorldProviderGenesis extends WorldProvider
 	@Override
 	public Vec3 getSkyColor(Entity cameraEntity, float partialTicks)
 	{
-		long time = worldObj.getWorldTime()%34000;
+		float time = (worldObj.getWorldTime() + partialTicks) % DAY_LENGTH / DAY_LENGTH;
 		
 		double red = 0.29411764705882352941176470588235D;
 		double green = 0.47450980392156862745098039215686D;
@@ -122,37 +134,34 @@ public class WorldProviderGenesis extends WorldProvider
 			blue = biome.getSkyColor().zCoord;
 		}
 		*/
-		if (time > 20000 && time <= 31000)
-		{
+		
+		if (time > NIGHT_END)
+		{	// Sunrise
+			float percent = ((time - NIGHT_END) / LATE_TWILIGHT_TIME);
+			
+			if (percent > 1)
+				percent = 1;
+			
+			red *= percent;
+			green *= percent;
+			blue *= percent;
+		}
+		else if (time > NIGHT_START)
+		{	// Night
 			red = 0;
 			green = 0;
 			blue = 0;
 		}
-		else
-		{
-			if (time > 17000 && time <= 20000)
-			{
-				float percent = 1.0F - ((time - 17000F) / 3000F);
-				
-				if (percent < 0.0F)
-					percent = 0.0F;
-				
-				red *= percent;
-				green *= percent;
-				blue *= percent;
-			}
+		else if (time > TWILIGHT_START)
+		{	// Sunset
+			float percent = 1 - ((time - TWILIGHT_START) / EARLY_TWILIGHT_TIME);
 			
-			if (time > 31000 && time <= 34000)
-			{
-				float percent = ((time - 31000F) / 3000F);
-				
-				if (percent > 1.0F)
-					percent = 1.0F;
-				
-				red *= percent;
-				green *= percent;
-				blue *= percent;
-			}
+			if (percent < 0)
+				percent = 0;
+			
+			red *= percent;
+			green *= percent;
+			blue *= percent;
 		}
 		
 		return new Vec3(red, green, blue);
