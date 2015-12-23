@@ -3,6 +3,7 @@ package genesis.client.render;
 import org.lwjgl.opengl.GL11;
 
 import genesis.util.GenesisMath;
+import genesis.util.WorldUtils;
 import genesis.world.WorldProviderGenesis;
 import genesis.world.biome.IBiomeGenFog;
 import net.minecraft.block.Block;
@@ -12,6 +13,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
@@ -23,16 +25,7 @@ public class RenderFog
 	private static double fogX = 0.0D;
 	private static double fogZ = 0.0D;
 	private static boolean densityInit = false;
-	private static boolean colorInit = false;
 	private static float planeDistance = 0.0F;
-	
-	public static double curRed = 0.0D;
-	public static double curGreen = 0.0D;
-	public static double curBlue = 0.0D;
-	
-	public static double targetRed = 0.0D;
-	public static double targetGreen = 0.0D;
-	public static double targetBlue = 0.0D;
 	
 	@SubscribeEvent
 	public void onGetFogColor(FogColors event)
@@ -41,13 +34,87 @@ public class RenderFog
 		{
 			EntityPlayer player = (EntityPlayer) event.entity;
 			World world = player.worldObj;
-			BiomeGenBase biome = world.getBiomeGenForCoords(player.getPosition());
+
+			float partialTicks = (float) event.renderPartialTicks;
+			Block blockAtEyes = ActiveRenderInfo.getBlockAtEntityViewpoint(world, event.entity, partialTicks);
+			
+			float red = 0;
+			float green = 0;
+			float blue = 0;
+			int samples = 0;
+			
+			if (blockAtEyes.getMaterial() == Material.lava)
+			{
+				event.red = 0.8F;
+				event.green = 0.482352941F;
+				event.blue = 0.17254902F;
+				samples = 1;
+			}
+			else
+			{
+				int areaSize = 10;
+				int supersamples = 1;
+				float sampleStep = 1 / (float) supersamples;
+				
+				for (float x = -areaSize; x <= areaSize; x += sampleStep)
+				{
+					for (float z = -areaSize; z <= areaSize; z += sampleStep)
+					{
+						if (x * x + z * z < areaSize * areaSize)
+						{
+							BlockPos samplePos = new BlockPos(player.posX + x, player.posY, player.posZ + z);
+							BiomeGenBase biome = world.getBiomeGenForCoords(samplePos);
+							
+							if (blockAtEyes.getMaterial() == Material.water)
+							{
+								int waterColorMultiplier = biome.getWaterColorMultiplier();
+								event.red = (waterColorMultiplier % 0xFF0000) >> 16;
+								event.green = (waterColorMultiplier % 0x00FF00) >> 8;
+								event.blue = (waterColorMultiplier % 0x0000FF);
+								
+								event.red *= 0.160784314F;
+								event.green *= 0.384313725F;
+								event.blue *= 0.749019608F;
+								
+								event.red *= 0.0008F;
+								event.green *= 0.0008F;
+								event.blue *= 0.0008F;
+							}
+							else if (biome instanceof IBiomeGenFog)
+							{
+								IBiomeGenFog fogBiome = (IBiomeGenFog) biome;
+								long time = world.getWorldTime();
+								
+								float percent = getDayNightFactor(time, partialTicks);
+								
+								Vec3 biomeColor = GenesisMath.lerp(fogBiome.getFogColor(), fogBiome.getFogColorNight(), 1 - percent);
+								red += (float) biomeColor.xCoord;
+								green += (float) biomeColor.yCoord;
+								blue += (float) biomeColor.zCoord;
+							}
+							else
+							{
+								red += event.red;
+								green += event.green;
+								blue += event.blue;
+							}
+							
+							samples++;
+						}
+					}
+				}
+			}
+			
+			event.red = red / samples;
+			event.green = green / samples;
+			event.blue = blue / samples;
+			
+			/*BiomeGenBase biome = world.getBiomeGenForCoords(player.getPosition());
 			
 			if (biome instanceof IBiomeGenFog)
 			{
 				IBiomeGenFog fogBiome = (IBiomeGenFog) biome;
 				long time = world.getWorldTime();
-				float partialTicks = (float) event.renderPartialTicks;
 				
 				double red = fogBiome.getFogColor().xCoord;
 				double green = fogBiome.getFogColor().yCoord;
@@ -57,13 +124,13 @@ public class RenderFog
 				double nGreen = fogBiome.getFogColorNight().yCoord;
 				double nBlue = fogBiome.getFogColorNight().zCoord;
 				
-				Block blockAtEyes = ActiveRenderInfo.getBlockAtEntityViewpoint(world, event.entity, partialTicks);
-				
 				float percent = getDayNightFactor(time, partialTicks);
 				
 				red = GenesisMath.lerp(red, nRed, 1 - percent);
 				green = GenesisMath.lerp(green, nGreen, 1 - percent);
 				blue = GenesisMath.lerp(blue, nBlue, 1 - percent);
+				
+				
 				
 				if (!colorInit)
 				{
@@ -72,42 +139,21 @@ public class RenderFog
 					curBlue = blue;
 					colorInit = true;
 				}
-				
-				if (blockAtEyes.getMaterial() == Material.water)
+				else
 				{
-					int waterColorMultiplier = biome.getWaterColorMultiplier();
-					red = (waterColorMultiplier % 0xFF0000) >> 16;
-					green = (waterColorMultiplier % 0x00FF00) >> 8;
-					blue = (waterColorMultiplier % 0x0000FF);
+					targetRed = red;
+					targetGreen = green;
+					targetBlue = blue;
 					
-					red *= 0.160784314D;
-					green *= 0.384313725D;
-					blue *= 0.749019608D;
+					curRed += (targetRed - curRed) * 0.01D;
+					curGreen += (targetGreen - curGreen) * 0.01D;
+					curBlue += (targetBlue - curBlue) * 0.01D;
 					
-					red *= 0.0008D;
-					green *= 0.0008D;
-					blue *= 0.0008D;
+					event.red = (float) curRed;
+					event.green = (float) curGreen;
+					event.blue = (float) curBlue;
 				}
-				
-				if (blockAtEyes.getMaterial() == Material.lava)
-				{
-					red = 0.8D;
-					green = 0.482352941D;
-					blue = 0.17254902D;
-				}
-				
-				targetRed = red;
-				targetGreen = green;
-				targetBlue = blue;
-				
-				curRed += (targetRed - curRed) * 0.01D;
-				curGreen += (targetGreen - curGreen) * 0.01D;
-				curBlue += (targetBlue - curBlue) * 0.01D;
-				
-				event.red = (float) curRed;
-				event.green = (float) curGreen;
-				event.blue = (float) curBlue;
-			}
+			}*/
 		}
 	}
 	
