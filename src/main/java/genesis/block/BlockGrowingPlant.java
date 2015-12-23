@@ -263,6 +263,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 		blockState = createOurBlockState();
 		
 		setTickRandomly(true);
+		setStepSound(soundTypeGrass);
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		
 		disableStats();
