@@ -59,11 +59,11 @@ public class ItemGenesisSeeds extends ItemSeedFood
 			if (side == EnumFacing.UP &&
 					world.isAirBlock(placePos) &&
 					player.canPlayerEdit(placePos, side, stack) &&
-					placeBlock.canPlaceBlockOnSide(world, placePos, side) &&
-					world.canBlockBePlaced(placeBlock, placePos, false, side, null, stack))
+					world.canBlockBePlaced(placeBlock, placePos, false, side, player, stack))
 			{
 				world.setBlockState(placePos, placeState);
 				stack.stackSize--;
+				placeBlock.onBlockPlacedBy(world, placePos, placeState, player, stack);
 				
 				return true;
 			}

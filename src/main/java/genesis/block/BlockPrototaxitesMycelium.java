@@ -11,10 +11,15 @@ import net.minecraft.block.BlockMycelium;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.EnumPlantType;
 
 public class BlockPrototaxitesMycelium extends BlockMycelium
 {
+	public static final EnumPlantType SOIL_TYPE = EnumPlantType.getPlantType("prototaxitesMycelium");
+	
 	public BlockPrototaxitesMycelium()
 	{
 		setHardness(0.6F);
@@ -52,5 +57,11 @@ public class BlockPrototaxitesMycelium extends BlockMycelium
 				}
 			}
 		}
+	}
+	
+	@Override
+	public boolean canSustainPlant(IBlockAccess world, BlockPos pos, EnumFacing direction, net.minecraftforge.common.IPlantable plantable)
+	{
+		return plantable.getPlantType(world, pos.offset(direction)) == SOIL_TYPE;
 	}
 }

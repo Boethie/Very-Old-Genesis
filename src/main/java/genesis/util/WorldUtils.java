@@ -12,7 +12,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.base.Function;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockBush;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
@@ -426,18 +425,5 @@ public class WorldUtils
 		}
 		
 		return false;
-	}
-	
-	/**
-	 * Returns whether a soil can sustain a block with multiple {@link EnumPlantType}s.
-	 */
-	public static boolean canSoilSustainTypes(World world, BlockPos pos, BlockBush plant, EnumPlantType... types)
-	{
-		if (world.getBlockState(pos).getBlock() != plant)
-		{
-			return plant.canBlockStay(world, pos, world.getBlockState(pos));
-		}
-		
-		return canSoilSustainTypes(world, pos, plant, types);
 	}
 }

@@ -629,7 +629,7 @@ public final class GenesisRecipes
 		ItemStack odontHead = GenesisItems.materials.getStack(EnumMaterial.ODONTOPTERIS_FIDDLEHEAD);
 		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(GenesisDye.get(EnumDyeColor.LIME)), odontHead, odontHead);
 		
-		ItemStack protoFlesh = GenesisItems.materials.getStack(EnumMaterial.PROTOTAXITES_FLESH);
+		ItemStack protoFlesh = GenesisItems.seeds.getStack(EnumSeeds.PROTOTAXITES_FLESH);
 		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(GenesisDye.get(EnumDyeColor.BROWN)), protoFlesh, protoFlesh);
 		
 		// Cooking pot recipes with vanilla items

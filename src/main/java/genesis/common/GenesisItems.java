@@ -45,7 +45,6 @@ public final class GenesisItems
 			VariantsCombo.create(
 					ObjectType.createItem("seeds", ItemGenesisSeeds.class).setResourceName(""),
 					EnumSeeds.class, EnumSeeds.values());
-	//public static final ItemGenesisSeeds programinis_seeds = (ItemGenesisSeeds) new ItemGenesisSeeds().setUnlocalizedName(Unlocalized.MATERIAL + "programinisSeeds");
 	
 	/* Foods */
 	public static final FoodItems foods = new FoodItems();

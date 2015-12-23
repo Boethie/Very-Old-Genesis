@@ -38,7 +38,7 @@ public class BlockOdontopterisCustoms extends SurviveOnDirtCustoms
 	static final BlockDrops fiddleheadDrop2To4 = new BlockDrops(GenesisItems.materials.getStack(EnumMaterial.ODONTOPTERIS_FIDDLEHEAD), 1, 1);
 
 	@Override
-	public ArrayList<ItemStack> getPlantDrops(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, int fortune, boolean firstBlock)
+	public ArrayList<ItemStack> getPlantDrops(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, int fortune)
 	{
 		ArrayList<ItemStack> out = new ArrayList<ItemStack>();
 		int age = state.getValue(plant.ageProp);

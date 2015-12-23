@@ -44,6 +44,14 @@ public enum EnumSeeds implements IMetadata<EnumSeeds>, IFood
 		{
 			return GenesisBlocks.zingiberopsis.getDefaultState();
 		}
+	},
+	PROTOTAXITES_FLESH("prototaxites_flesh", "prototaxitesFlesh", 1, 0.9F)
+	{
+		@Override
+		public IBlockState getPlacedState()
+		{
+			return GenesisBlocks.prototaxites.getDefaultState();
+		}
 	};
 	
 	final String name;

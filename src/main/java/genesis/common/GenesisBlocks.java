@@ -94,14 +94,14 @@ public final class GenesisBlocks
 	
 	public static final BlockGrowingPlant sphenophyllum = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true)
-			.setPlantType(EnumPlantType.Plains)
+			.setPlantSoilTypes(EnumPlantType.Plains)
 			.setGrowth(5, 1, 1, 1)
 			.setPlantSize(0, 0.2F, 0.75F)
 			.setCustoms(new BlockWaterSpreadingPlantCustoms(GenesisItems.materials.getStack(EnumMaterial.SPHENOPHYLLUM_FIBER)))
 			.setUnlocalizedName(Unlocalized.PLANT + "sphenophyllum");
 	public static final BlockGrowingPlant odontopteris = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true).setBreakAllTogether(true)
-			.setPlantType(EnumPlantType.Crop)
+			.setPlantSoilTypes(EnumPlantType.Crop)
 			.setGrowth(0.05F, 1.5F, 2.5F, 1.05F)
 			.setUseBiomeColor(true)
 			.setPlantSize(0, 0.2F, 0.75F)
@@ -110,21 +110,21 @@ public final class GenesisBlocks
 	public static final BlockGrowingPlant neuropteridium = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true).setBreakAllTogether(true)
 			.setPlantSize(0, 0.2F, 0.75F)
-			.setPlantType(EnumPlantType.Crop)
+			.setPlantSoilTypes(EnumPlantType.Crop)
 			.setGrowthOnFarmland(0.75F)
 			.setCustoms(surviveOnDirt)
 			.setUnlocalizedName(Unlocalized.CROP + "neuropteridium");
 	public static final BlockGrowingPlant cladophlebis = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true)
 			.setUseBiomeColor(true)
-			.setPlantType(EnumPlantType.Plains)
+			.setPlantSoilTypes(EnumPlantType.Plains)
 			.setGrowth(5, 1, 1, 1)
 			.setPlantSize(0, 0.2F, 0.75F)
 			.setCustoms(new BlockWaterSpreadingPlantCustoms(GenesisItems.materials.getStack(EnumMaterial.CLADOPHLEBIS_FROND)))
 			.setUnlocalizedName(Unlocalized.PLANT + "cladophlebis")
 			.setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	public static final BlockGrowingPlant programinis = (BlockGrowingPlant) new BlockGrowingPlant(false, 7, 1).setTopPosition(1)
-			.setPlantType(EnumPlantType.Crop)
+			.setPlantSoilTypes(EnumPlantType.Crop)
 			.setGrowthOnFarmland(0.75F)
 			.setUseBiomeColor(true)
 			.setPlantSize(0, 0.1F, 0.75F)
@@ -133,7 +133,7 @@ public final class GenesisBlocks
 	public static final BlockGrowingPlant zingiberopsis = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true).setBreakAllTogether(true)
 			.setPlantSize(0, 0.2F, 0.5F)
-			.setPlantType(EnumPlantType.Crop)
+			.setPlantSoilTypes(EnumPlantType.Crop)
 			.setGrowthOnFarmland(0.75F)
 			.setCustoms(surviveOnDirt)
 			.setUnlocalizedName(Unlocalized.CROP + "zingiberopsis");
@@ -160,7 +160,9 @@ public final class GenesisBlocks
 			.setBoundsSize(0.375F, 0.75F, 0)
 			.setGrowType(BlockGenesisMushroom.MushroomGrowType.GROW_TOP)
 			.setCreativeTab(GenesisCreativeTabs.DECORATIONS);
-	public static final Block prototaxites = new BlockPrototaxites().setUnlocalizedName(Unlocalized.PREFIX + "prototaxites");
+	public static final BlockPrototaxites prototaxites = (BlockPrototaxites) new BlockPrototaxites()
+			.setUnlocalizedName(Unlocalized.PREFIX + "prototaxites");
+	
 	@SuppressWarnings("unchecked")
 	public static final VariantsCombo<EnumCoral, BlockGenesisVariants<EnumCoral>, ItemBlockMulti<EnumCoral>> corals =
 			VariantsCombo.create(
@@ -376,6 +378,7 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(palaeoagaracites, "palaeoagaracites");
 		Genesis.proxy.registerBlock(archaeomarasmius, "archaeomarasmius");
 		Genesis.proxy.registerBlock(prototaxites, "prototaxites");
+		prototaxites.setHarvestLevel("axe", 0);
 		
 		// - Water Plants -
 		// Cobbania

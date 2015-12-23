@@ -15,7 +15,6 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
@@ -31,9 +30,10 @@ public class BlockCalamites extends BlockGrowingPlant implements IGrowingPlantCu
 		
 		setHardness(1);
 		setHarvestLevel("axe", 0);
+		enableStats = true;
 		
 		setPlantSize(1, 0, RADIUS * 2);
-		setCollisionBox(new AxisAlignedBB(0.5F - RADIUS, 0, 0.5F - RADIUS, 0.5F + RADIUS, 1, 0.5F + RADIUS));
+		setCollisionBox(RADIUS);
 		setStepSound(GenesisSounds.CALAMITES);
 		
 		setResetAgeOnGrowth(true);
@@ -57,7 +57,7 @@ public class BlockCalamites extends BlockGrowingPlant implements IGrowingPlantCu
 	}
 
 	@Override
-	public ArrayList<ItemStack> getPlantDrops(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, int fortune, boolean firstBlock)
+	public ArrayList<ItemStack> getPlantDrops(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, int fortune)
 	{
 		return null;
 	}

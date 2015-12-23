@@ -9,7 +9,6 @@ public enum EnumMaterial implements IMetadata<EnumMaterial>
 	ODONTOPTERIS_FIDDLEHEAD("odontopteris_fiddlehead", "odontopterisFiddlehead"),
 	CLADOPHLEBIS_FROND("cladophlebis_frond", "cladophlebisFrond"),
 	PROGRAMINIS("programinis"),
-	PROTOTAXITES_FLESH("prototaxites_flesh", "prototaxitesFlesh"),
 	ARTHROPLEURA_CHITIN("arthropleura_chitin", "arthropleuraChitin"),
 	LIOPLEURODON_TOOTH("liopleurodon_tooth", "liopleurodonTooth"),
 	TYRANNOSAURUS_SALIVA("tyrannosaurus_saliva", "tyrannosaurusSaliva"),

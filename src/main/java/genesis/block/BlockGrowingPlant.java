@@ -10,6 +10,7 @@ import java.util.*;
 import java.util.Map.Entry;
 
 import net.minecraft.block.*;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
 import net.minecraft.entity.EntityLivingBase;
@@ -22,7 +23,7 @@ import net.minecraft.world.*;
 import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.common.*;
 
-public class BlockGrowingPlant extends BlockCrops
+public class BlockGrowingPlant extends BlockBush implements IGrowable
 {
 	protected interface IPerBlockCall
 	{
@@ -74,7 +75,7 @@ public class BlockGrowingPlant extends BlockCrops
 			getBottom();
 			getHeight();
 		}
-
+		
 		/**
 		 * @return Distance to the top of the plant (inclusive of the starting BlockPos).
 		 */
@@ -182,10 +183,9 @@ public class BlockGrowingPlant extends BlockCrops
 		 * Gets the items that should be dropped for this BlockGrowingPlant when it is broken at pos.
 		 * 
 		 * @param plant The BlockGrowingPlant that is calling the method.
-		 * @param firstBlock Whether the BlockPos pos is at the first position in the plant's height.
 		 * @return An ArrayList of ItemStacks to drop from this block's position.
 		 */
-		List<ItemStack> getPlantDrops(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, int fortune, boolean firstBlock);
+		List<ItemStack> getPlantDrops(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, int fortune);
 		
 		/**
 		 * Called after updateTick in a BlockGrowingPlant.
@@ -222,9 +222,9 @@ public class BlockGrowingPlant extends BlockCrops
 	public PropertyInteger ageProp;
 	public PropertyBool topProp;
 	public IProperty<?>[] metaProperties;
-
-	protected final boolean hasTopProperty;
-
+	
+	protected final boolean topProperty;
+	
 	protected int growthAge;
 	protected int maxAge;
 	protected boolean growTogether = false;
@@ -232,49 +232,62 @@ public class BlockGrowingPlant extends BlockCrops
 	protected boolean resetAge = false;
 	protected boolean allowBonemeal = true;
 	protected boolean useBiomeColor = false;
-
+	protected boolean allowPlacingStacked = true;
+	
 	protected BlockDrops drops;
 	protected BlockDrops cropDrops;
 	protected ItemStack pickedStack = null;
 	
 	IGrowingPlantCustoms customs = null;
 	
-	EnumPlantType plantType = EnumPlantType.Plains;
-
+	EnumPlantType[] soilTypes = {EnumPlantType.Plains};
+	
 	protected int maxHeight;
 	protected int topBlockPos = -1;
-
+	
 	protected float baseHeight = 0.25F;
 	protected float heightPerStage = 0F;
 	protected float width = 1F;
 	protected AxisAlignedBB collisionBox = null;
-
-	public BlockGrowingPlant(boolean topPropertyIn, int maxAgeIn, int growthAgeIn, int height)
+	
+	public BlockGrowingPlant(Material material, boolean topProperty, int maxAge, int growthAge, int maxHeight)
 	{
-		super();
+		super(material);
 		
-		maxAge = maxAgeIn;
-		growthAge = growthAgeIn;
+		this.maxAge = maxAge;
+		this.growthAge = growthAge;
 		
-		hasTopProperty = topPropertyIn;
-		maxHeight = height;
+		this.topProperty = topProperty;
+		this.maxHeight = maxHeight;
 		
 		blockState = createOurBlockState();
 		
 		setTickRandomly(true);
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		
+		disableStats();
+		
 		if (this instanceof IGrowingPlantCustoms)
 		{
 			setCustoms((IGrowingPlantCustoms) this);
 		}
 	}
-
-	public BlockGrowingPlant(boolean topPropertyIn, int maxAgeIn, int height)
+	
+	public BlockGrowingPlant(Material material, boolean topProperty, int maxAge, int height)
 	{
-		this(topPropertyIn, maxAgeIn, maxAgeIn + 1, height);
+		this(material, topProperty, maxAge, maxAge + 1, height);
 	}
-
+	
+	public BlockGrowingPlant(boolean topProperty, int maxAge, int growthAge, int height)
+	{
+		this(Material.plants, topProperty, maxAge, growthAge, height);
+	}
+	
+	public BlockGrowingPlant(boolean topProperty, int maxAge, int height)
+	{
+		this(Material.plants, topProperty, maxAge, height);
+	}
+	
 	/**
 	 * Creates the BlockState for this BlockGrowingPlant. This was used to make the BlockState's properties depend on
 	 * values given to the BlockGrowingPlant in the constructor.
@@ -287,8 +300,8 @@ public class BlockGrowingPlant extends BlockCrops
 		BlockState state;
 		
 		ageProp = PropertyInteger.create("age", 0, maxAge);
-
-		if (hasTopProperty)
+		
+		if (topProperty)
 		{
 			topProp = PropertyBool.create("top");
 			state = new BlockState(this, ageProp, topProp);
@@ -303,7 +316,7 @@ public class BlockGrowingPlant extends BlockCrops
 		@SuppressWarnings("rawtypes")
 		ArrayList<IProperty<?>> metaProps = new ArrayList<IProperty<?>>((Collection) state.getProperties());
 		
-		if (hasTopProperty)
+		if (topProperty)
 		{
 			metaProps.remove(topProp);
 		}
@@ -330,7 +343,6 @@ public class BlockGrowingPlant extends BlockCrops
 	public BlockGrowingPlant setTopPosition(int topPos)
 	{
 		topBlockPos = topPos;
-		
 		return this;
 	}
 	
@@ -340,7 +352,6 @@ public class BlockGrowingPlant extends BlockCrops
 	public BlockGrowingPlant setGrowAllTogether(boolean growTogetherIn)
 	{
 		growTogether = growTogetherIn;
-		
 		return this;
 	}
 
@@ -350,26 +361,19 @@ public class BlockGrowingPlant extends BlockCrops
 	public BlockGrowingPlant setUseBiomeColor(boolean use)
 	{
 		useBiomeColor = use;
-		
 		return this;
 	}
 	
 	@Override
 	public int colorMultiplier(IBlockAccess world, BlockPos pos, int renderPass)
 	{
-		if (useBiomeColor)
-			return BiomeColorHelper.getGrassColorAtPos(world, pos);
-		
-		return 0xFFFFFF;
+		return useBiomeColor ? BiomeColorHelper.getGrassColorAtPos(world, pos) : 0xFFFFFF;
 	}
 	
 	@Override
 	public int getRenderColor(IBlockState state)
 	{
-		if (useBiomeColor)
-			return ColorizerGrass.getGrassColor(0.5, 1);
-		
-		return 0xFFFFFF;
+		return useBiomeColor ? ColorizerGrass.getGrassColor(0.5, 1) : 0xFFFFFF;
 	}
 	
 	/**
@@ -381,24 +385,24 @@ public class BlockGrowingPlant extends BlockCrops
 	public BlockGrowingPlant setBreakAllTogether(boolean breakTogetherIn)
 	{
 		breakTogether = breakTogetherIn;
-		
 		return this;
 	}
 	
 	/**
 	 * Sets the EnumPlantType that the plant block should grow on.
 	 */
-	public BlockGrowingPlant setPlantType(EnumPlantType plantTypeIn)
+	public BlockGrowingPlant setPlantSoilTypes(EnumPlantType... soilTypes)
 	{
-		plantType = plantTypeIn;
-		
+		this.soilTypes = soilTypes;
 		return this;
 	}
 	
-	@Override
-	public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos)
+	/**
+	 * Gets the soil types that this plant can survive on.
+	 */
+	public EnumPlantType[] getPlantSoilTypes()
 	{
-		return plantType;
+		return soilTypes;
 	}
 	
 	/**
@@ -407,7 +411,6 @@ public class BlockGrowingPlant extends BlockCrops
 	public BlockGrowingPlant setResetAgeOnGrowth(boolean resetAgeIn)
 	{
 		resetAge = resetAgeIn;
-		
 		return this;
 	}
 	
@@ -417,7 +420,6 @@ public class BlockGrowingPlant extends BlockCrops
 	public BlockGrowingPlant setAllowBonemealUse(boolean allow)
 	{
 		allowBonemeal = allow;
-		
 		return this;
 	}
 	
@@ -427,7 +429,6 @@ public class BlockGrowingPlant extends BlockCrops
 	public BlockGrowingPlant setDrops(BlockDrops dropsIn)
 	{
 		drops = dropsIn;
-		
 		return this;
 	}
 	
@@ -437,7 +438,6 @@ public class BlockGrowingPlant extends BlockCrops
 	public BlockGrowingPlant setCropDrops(BlockDrops dropsIn)
 	{
 		cropDrops = dropsIn;
-		
 		return this;
 	}
 	
@@ -447,7 +447,15 @@ public class BlockGrowingPlant extends BlockCrops
 	public BlockGrowingPlant setPickedStack(ItemStack stack)
 	{
 		pickedStack = stack.copy();
-		
+		return this;
+	}
+	
+	/**
+	 * Sets whether this plant can be placed on top of itself.
+	 */
+	public BlockGrowingPlant setAllowPlacingStacked(boolean allow)
+	{
+		allowPlacingStacked = allow;
 		return this;
 	}
 	
@@ -455,7 +463,7 @@ public class BlockGrowingPlant extends BlockCrops
 	 * Used as the default when pickedStack is null.
 	 */
 	@Override
-	protected Item getSeed()
+	public Item getItem(World world, BlockPos pos)
 	{
 		return Item.getItemFromBlock(this);
 	}
@@ -467,10 +475,10 @@ public class BlockGrowingPlant extends BlockCrops
 		{
 			return pickedStack;
 		}
-
+		
 		return super.getPickBlock(target, world, pos, player);
 	}
-
+	
 	/**
 	 * Sets the block bounds size of the plant.
 	 * 
@@ -484,7 +492,6 @@ public class BlockGrowingPlant extends BlockCrops
 		baseHeight = hBase;
 		heightPerStage = hPerStage;
 		width = w;
-		
 		return this;
 	}
 	
@@ -524,29 +531,33 @@ public class BlockGrowingPlant extends BlockCrops
 		
 		setBlockBounds(newBB);
 	}
-
+	
 	/**
 	 * Sets the collision bounds of the plant.
 	 * 
 	 * @param bb The AxisAlignedBB to use for entity collision.
-	 * @return
 	 */
 	public BlockGrowingPlant setCollisionBox(AxisAlignedBB bb)
 	{
 		collisionBox = bb;
-		
+		return this;
+	}
+	
+	/**
+	 * Sets the collision bounds of the plant to a cuboid reaching from the bottom of the block to the top.
+	 * 
+	 * @param radius The radius of the bounds.
+	 */
+	public BlockGrowingPlant setCollisionBox(double radius)
+	{
+		collisionBox = new AxisAlignedBB(0.5 - radius, 0, 0.5 - radius, 0.5 + radius, 1, 0.5 + radius);
 		return this;
 	}
 	
 	@Override
 	public AxisAlignedBB getCollisionBoundingBox(World world, BlockPos pos, IBlockState state)
 	{
-		if (collisionBox != null)
-		{
-			return collisionBox.offset(pos.getX(), pos.getY(), pos.getZ());
-		}
-		
-		return null;
+		return collisionBox == null ? null : collisionBox.offset(pos.getX(), pos.getY(), pos.getZ());
 	}
 	
 	/**
@@ -555,7 +566,6 @@ public class BlockGrowingPlant extends BlockCrops
 	public BlockGrowingPlant setCustoms(IGrowingPlantCustoms customsIn)
 	{
 		customs = customsIn;
-		
 		return this;
 	}
 	
@@ -586,9 +596,18 @@ public class BlockGrowingPlant extends BlockCrops
 	}
 	
 	@Override
-	public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
 	{
-		return super.onBlockPlaced(world, pos, facing, hitX, hitY, hitZ, meta, placer);
+		if (resetAge)
+		{
+			BlockPos below = pos.down();
+			IBlockState stateBelow = world.getBlockState(below);
+			
+			if (stateBelow.getBlock() == this)
+			{
+				world.setBlockState(below, stateBelow.withProperty(ageProp, 0));
+			}
+		}
 	}
 	
 	@Override
@@ -612,7 +631,7 @@ public class BlockGrowingPlant extends BlockCrops
 	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
-		if (hasTopProperty)
+		if (topProperty)
 		{
 			state = state.withProperty(topProp, isTop(world, pos));
 		}
@@ -635,7 +654,6 @@ public class BlockGrowingPlant extends BlockCrops
 		farmlandChanceMult = 1;
 		fertileChanceMult = 1;
 		neighborFertileChanceMult = 1;
-		
 		return this;
 	}
 	
@@ -667,7 +685,6 @@ public class BlockGrowingPlant extends BlockCrops
 	public BlockGrowingPlant setGrowthBase(float mult)
 	{
 		baseAgeChance = mult;
-		
 		return this;
 	}
 	
@@ -677,7 +694,6 @@ public class BlockGrowingPlant extends BlockCrops
 	public BlockGrowingPlant setGrowthOnFarmland(float mult)
 	{
 		farmlandChanceMult = mult;
-		
 		return this;
 	}
 	
@@ -687,7 +703,6 @@ public class BlockGrowingPlant extends BlockCrops
 	public BlockGrowingPlant setGrowthOnFertileFarmland(float mult)
 	{
 		fertileChanceMult = mult;
-		
 		return this;
 	}
 	
@@ -697,7 +712,6 @@ public class BlockGrowingPlant extends BlockCrops
 	public BlockGrowingPlant setGrowthForFertileNeighbors(float mult)
 	{
 		neighborFertileChanceMult = mult;
-		
 		return this;
 	}
 	
@@ -732,8 +746,8 @@ public class BlockGrowingPlant extends BlockCrops
 							BlockPos landPos = under.add(x, 0, z);
 							IBlockState landState = world.getBlockState(landPos);
 							Block landBlock = landState.getBlock();
-	
-							if (landBlock.canSustainPlant(world, landPos, EnumFacing.UP, (IPlantable) state.getBlock()) && landBlock.isFertile(world, landPos))
+							
+							if (canPlaceBlockOnSide(world, landPos, EnumFacing.UP) && landBlock.isFertile(world, landPos))
 							{
 								rate *= neighborFertileChanceMult;
 							}
@@ -877,7 +891,7 @@ public class BlockGrowingPlant extends BlockCrops
 	@Override
 	public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean isClient)
 	{
-		if (allowBonemeal && customs.shouldUseBonemeal(world, pos, state))
+		if (allowBonemeal && (customs == null || customs.shouldUseBonemeal(world, pos, state)))
 		{
 			BlockPos growOn = pos;
 			
@@ -965,7 +979,7 @@ public class BlockGrowingPlant extends BlockCrops
 			BlockPos below = pos.down();
 			IBlockState stateBelow = world.getBlockState(below);
 			
-			if (stateBelow.getBlock().canSustainPlant(world, pos, EnumFacing.UP, this))
+			if (WorldUtils.canSoilSustainTypes(world, pos, getPlantSoilTypes()))
 			{
 				return true;
 			}
@@ -1011,6 +1025,9 @@ public class BlockGrowingPlant extends BlockCrops
 	@Override
 	public boolean canPlaceBlockAt(World world, BlockPos pos)
 	{
+		if (!allowPlacingStacked && world.getBlockState(pos.down()).getBlock() == this)
+			return false;
+		
 		return world.getBlockState(pos).getBlock().isReplaceable(world, pos) && canPlantSurvive(world, pos, false);
 	}
 	
@@ -1135,7 +1152,7 @@ public class BlockGrowingPlant extends BlockCrops
 				
 				if (customs != null)
 				{
-					dropStacks = customs.getPlantDrops(this, world, pos, state, fortune, chance == -1);
+					dropStacks = customs.getPlantDrops(this, world, pos, state, fortune);
 				}
 				
 				if (dropStacks == null)

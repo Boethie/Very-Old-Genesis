@@ -30,7 +30,7 @@ public class BlockWaterSpreadingPlantCustoms implements IGrowingPlantCustoms
 	}
 	
 	@Override
-	public List<ItemStack> getPlantDrops(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, int fortune, boolean firstBlock)
+	public List<ItemStack> getPlantDrops(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, int fortune)
 	{
 		int age = state.getValue(plant.ageProp);
 		boolean top = state.getValue(plant.topProp);

@@ -1,121 +1,101 @@
 package genesis.block;
 
-import genesis.common.*;
-import genesis.metadata.EnumMaterial;
-import genesis.util.*;
-
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import net.minecraft.block.*;
+import genesis.block.BlockGrowingPlant.*;
+import genesis.common.*;
+import genesis.metadata.EnumSeeds;
+import genesis.util.WorldUtils;
 import net.minecraft.block.material.*;
-import net.minecraft.block.state.*;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.EnumPlantType;
 
-public class BlockPrototaxites extends BlockGenesis
+public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlantCustoms
 {
 	public BlockPrototaxites()
 	{
-		super(Material.wood);
+		super(Material.wood, false, 15, 8);
 		
-		setDefaultState(getBlockState().getBaseState());
+		setStepSound(GenesisSounds.MUSHROOM);
 		
 		setHardness(0.75F);
-		setTickRandomly(true);
-		setStepSound(GenesisSounds.MUSHROOM);
-		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		setHarvestLevel("axe", 0);
-	}
-	
-	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
-	{
-		return Collections.singletonList(GenesisItems.materials.getStack(EnumMaterial.PROTOTAXITES_FLESH));
-	}
-	
-	@Override
-	protected BlockState createBlockState()
-	{
-		return new BlockState(this, BlockCactus.AGE);
-	}
-	
-	@Override
-	public IBlockState getStateFromMeta(int meta)
-	{
-		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), meta);
-	}
-	
-	@Override
-	public int getMetaFromState(IBlockState state)
-	{
-		return state.getValue(BlockCactus.AGE).intValue();
-	}
-	
-	@Override
-	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
-	{
-		BlockPos topBlock = pos.up();
+		enableStats = true;
+		setPlantSize(1, 0, 1);
+		setCollisionBox(new AxisAlignedBB(0, 0, 0, 1, 1, 1));
 		
-		if (world.isAirBlock(topBlock))
-		{
-			int size = 1;
-			
-			while (world.getBlockState(pos.down(size)).getBlock() == this)
-			{
-				++size;
-			}
-			
-			if (size < 8)
-			{
-				int age = state.getValue(BlockCactus.AGE).intValue();
-				
-				if (age == 15)
-				{
-					world.setBlockState(topBlock, getDefaultState());
-					IBlockState ageReset = state.withProperty(BlockCactus.AGE, 0);
-					world.setBlockState(pos, ageReset, 4);
-					onNeighborBlockChange(world, topBlock, ageReset, this);
-				}
-				else if (rand.nextInt(4) > 0)
-				{
-					world.setBlockState(pos, state.withProperty(BlockCactus.AGE, age + 1), 4);
-				}
-			}
-		}
+		setPlantSoilTypes(EnumPlantType.Plains, BlockPrototaxitesMycelium.SOIL_TYPE);
+		setGrowth(0.75F, 1, 1, 1);
+		setResetAgeOnGrowth(true);
+		setAllowPlacingStacked(false);
 	}
 	
 	@Override
-	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
 	{
-		return super.canPlaceBlockAt(worldIn, pos) ? canBlockStay(worldIn, pos) : false;
+		BlockPos below = pos.down();
+		
+		if (WorldUtils.canSoilSustainTypes(world, pos, EnumPlantType.Plains))
+			world.setBlockState(below, GenesisBlocks.prototaxites_mycelium.getDefaultState());
+		
+		super.onBlockPlacedBy(world, pos, state, placer, stack);
 	}
 	
 	@Override
-	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+	public boolean canReplace(World world, BlockPos pos, EnumFacing side, ItemStack stack)
 	{
-		if (!canBlockStay(worldIn, pos))
-		{
-			worldIn.destroyBlock(pos, true);
-		}
+		BlockPos below = pos.down();
+		IBlockState stateBelow = world.getBlockState(below);
+		
+		if (stateBelow.getBlock() == this && !GenesisItems.seeds.isStackOf(stack, EnumSeeds.PROTOTAXITES_FLESH)
+				&& new GrowingPlantProperties(world, below).getHeight() < maxHeight)
+			return true;
+		
+		return super.canReplace(world, pos, side, stack);
 	}
 	
-	public boolean canBlockStay(World worldIn, BlockPos pos)
+	@Override
+	public List<ItemStack> getPlantDrops(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, int fortune)
 	{
-		Block block = worldIn.getBlockState(pos.down()).getBlock();
+		return Collections.singletonList(GenesisItems.seeds.getStack(EnumSeeds.PROTOTAXITES_FLESH, 1));
+	}
+	
+	@Override
+	public CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World world, BlockPos pos, boolean placed)
+	{
+		for (EnumFacing side : EnumFacing.HORIZONTALS)
+			if (world.getBlockState(pos.offset(side)).getBlock() == this)
+				return CanStayOptions.NO;
 		
-		for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL)
-		{
-			if (worldIn.getBlockState(pos.offset(enumfacing)).getBlock() == GenesisBlocks.prototaxites)
-			{
-				return false;
-			}
-		}
+		if (placed && WorldUtils.canSoilSustainTypes(world, pos, EnumPlantType.Plains))
+			return CanStayOptions.NO;
 		
-		return (block == GenesisBlocks.prototaxites) || (block == GenesisBlocks.prototaxites_mycelium);
+		return CanStayOptions.YIELD;
+	}
+	
+	@Override
+	public void plantUpdateTick(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, Random rand, boolean grew)
+	{
+	}
+	
+	@Override
+	public void managePlantMetaProperties(BlockGrowingPlant plant, ArrayList<IProperty<?>> metaProps)
+	{
+	}
+	
+	@Override
+	public boolean shouldUseBonemeal(World world, BlockPos pos, IBlockState state) 
+	{
+		return true;
 	}
 }

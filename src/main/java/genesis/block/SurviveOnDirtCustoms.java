@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 public class SurviveOnDirtCustoms implements IGrowingPlantCustoms
 {
 	@Override
-	public ArrayList<ItemStack> getPlantDrops(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, int fortune, boolean firstBlock)
+	public ArrayList<ItemStack> getPlantDrops(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, int fortune)
 	{
 		return null;
 	}
