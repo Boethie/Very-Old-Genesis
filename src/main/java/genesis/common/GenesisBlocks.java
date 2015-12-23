@@ -378,7 +378,6 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(palaeoagaracites, "palaeoagaracites");
 		Genesis.proxy.registerBlock(archaeomarasmius, "archaeomarasmius");
 		Genesis.proxy.registerBlock(prototaxites, "prototaxites");
-		prototaxites.setHarvestLevel("axe", 0);
 		
 		// - Water Plants -
 		// Cobbania
