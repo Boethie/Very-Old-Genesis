@@ -6,6 +6,7 @@ import genesis.common.GenesisCreativeTabs;
 import genesis.metadata.EnumSeeds;
 import genesis.metadata.VariantsCombo;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import genesis.util.RandomReflection;
 import genesis.metadata.ToolTypes.ToolType;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -15,6 +16,7 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemSeedFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
@@ -73,20 +75,46 @@ public class ItemGenesisSeeds extends ItemSeedFood
 	}
 	
 	@Override
+	public EnumAction getItemUseAction(ItemStack stack)
+	{
+		return isFood(stack) ? EnumAction.EAT : EnumAction.NONE;
+	}
+	
+	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
 	{
 		if (isFood(stack))
 		{
-			return super.onItemRightClick(stack, world, player);
+			boolean positive = false;
+			
+			for (PotionEffect effect : owner.getVariant(stack).getEffects())
+			{
+				if (!RandomReflection.isBadPotionEffect(effect))
+				{
+					positive = true;
+					break;
+				}
+			}
+			
+			if (player.canEat(positive))
+			{
+				player.setItemInUse(stack, getMaxItemUseDuration(stack));
+			}
 		}
 		
 		return stack;
 	}
 	
 	@Override
-	public EnumAction getItemUseAction(ItemStack stack)
+	protected void onFoodEaten(ItemStack stack, World world, EntityPlayer player)
 	{
-		return isFood(stack) ? EnumAction.EAT : EnumAction.NONE;
+		if (!world.isRemote)
+		{
+			for (PotionEffect effect : owner.getVariant(stack).getEffects())
+			{
+				player.addPotionEffect(new PotionEffect(effect));
+			}
+		}
 	}
 	
 	@Override

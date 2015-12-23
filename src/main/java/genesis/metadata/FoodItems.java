@@ -13,6 +13,7 @@ import genesis.metadata.FoodItems.*;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 
 public class FoodItems extends VariantsCombo<FoodWrapper, Block, ItemGenesisFood<FoodWrapper>>
 {
@@ -121,6 +122,12 @@ public class FoodItems extends VariantsCombo<FoodWrapper, Block, ItemGenesisFood
 		public int compareTo(FoodWrapper o)
 		{
 			return Integer.compare(ORDERED_VARIANTS.indexOf(this), ORDERED_VARIANTS.indexOf(o));
+		}
+
+		@Override
+		public Iterable<PotionEffect> getEffects()
+		{
+			return raw ? food.getRawEffects() : food.getCookedEffects();
 		}
 	}
 }

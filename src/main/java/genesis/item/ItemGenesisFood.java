@@ -7,12 +7,14 @@ import genesis.metadata.IFood;
 import genesis.metadata.IMetadata;
 import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import genesis.util.RandomReflection;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
 public class ItemGenesisFood<V extends IMetadata<V>> extends ItemFood
@@ -20,9 +22,9 @@ public class ItemGenesisFood<V extends IMetadata<V>> extends ItemFood
 	public final VariantsOfTypesCombo<V> owner;
 	
 	protected final List<V> variants;
-	protected final ObjectType<Block, ? extends ItemDish> type;
+	protected final ObjectType<Block, ? extends ItemGenesisFood<V>> type;
 	
-	public ItemGenesisFood(VariantsOfTypesCombo<V> owner, ObjectType<Block, ? extends ItemDish> type, List<V> variants, Class<V> variantClass)
+	public ItemGenesisFood(VariantsOfTypesCombo<V> owner, ObjectType<Block, ? extends ItemGenesisFood<V>> type, List<V> variants, Class<V> variantClass)
 	{
 		super(0, 0, false);
 		
@@ -59,19 +61,36 @@ public class ItemGenesisFood<V extends IMetadata<V>> extends ItemFood
 	}
 	
 	@Override
+	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+	{
+		boolean positive = false;
+		
+		for (PotionEffect effect : ((IFood) owner.getVariant(stack)).getEffects())
+		{
+			if (!RandomReflection.isBadPotionEffect(effect))
+			{
+				positive = true;
+				break;
+			}
+		}
+		
+		if (player.canEat(positive))
+		{
+			player.setItemInUse(stack, getMaxItemUseDuration(stack));
+		}
+		
+		return stack;
+	}
+	
+	@Override
 	protected void onFoodEaten(ItemStack stack, World world, EntityPlayer player)
 	{
 		if (!world.isRemote)
 		{
-			/*for (Pair<Float, PotionEffect> entry : effects)
+			for (PotionEffect effect : ((IFood) owner.getVariant(stack)).getEffects())
 			{
-				if ((entry.getValue().getPotionID() > 0) && (world.rand.nextFloat() < entry.getKey()))
-				{
-					// Defensive copying
-					PotionEffect effect = entry.getValue();
-					player.addPotionEffect(new PotionEffect(effect.getPotionID(), effect.getDuration(), effect.getAmplifier()));
-				}
-			}*/
+				player.addPotionEffect(new PotionEffect(effect));
+			}
 		}
 	}
 }

@@ -1,7 +1,13 @@
 package genesis.metadata;
 
+import java.util.List;
+
+import com.google.common.collect.ImmutableList;
+
 import genesis.common.GenesisBlocks;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 
 public enum EnumSeeds implements IMetadata<EnumSeeds>, IFood
 {
@@ -45,7 +51,10 @@ public enum EnumSeeds implements IMetadata<EnumSeeds>, IFood
 			return GenesisBlocks.zingiberopsis.getDefaultState();
 		}
 	},
-	PROTOTAXITES_FLESH("prototaxites_flesh", "prototaxitesFlesh", 1, 0.9F)
+	PROTOTAXITES_FLESH("prototaxites_flesh", "prototaxitesFlesh", 1, 0.9F,
+			new PotionEffect(Potion.hunger.id, 300),
+			new PotionEffect(Potion.confusion.id, 300),
+			new PotionEffect(Potion.poison.id, 300))
 	{
 		@Override
 		public IBlockState getPlacedState()
@@ -58,28 +67,30 @@ public enum EnumSeeds implements IMetadata<EnumSeeds>, IFood
 	final String unlocalizedName;
 	final int food;
 	final float saturation;
+	final List<PotionEffect> effects;
 	
-	EnumSeeds(String name, String unlocalizedName, int food, float saturation)
+	EnumSeeds(String name, String unlocalizedName, int food, float saturation, PotionEffect... effects)
 	{
 		this.name = name;
 		this.unlocalizedName = unlocalizedName;
 		this.food = food;
 		this.saturation = saturation;
+		this.effects = ImmutableList.copyOf(effects);
 	}
 	
-	EnumSeeds(String name, String unlocalizedName)
+	EnumSeeds(String name, String unlocalizedName, PotionEffect... effects)
 	{
-		this(name, unlocalizedName, 0, 0);
+		this(name, unlocalizedName, 0, 0, effects);
 	}
 	
-	EnumSeeds(String name, int food, float saturation)
+	EnumSeeds(String name, int food, float saturation, PotionEffect... effects)
 	{
-		this(name, name, food, saturation);
+		this(name, name, food, saturation, effects);
 	}
 	
-	EnumSeeds(String name)
+	EnumSeeds(String name, PotionEffect... effects)
 	{
-		this(name, name);
+		this(name, name, effects);
 	}
 	
 	@Override
@@ -95,12 +106,6 @@ public enum EnumSeeds implements IMetadata<EnumSeeds>, IFood
 	}
 	
 	@Override
-	public String toString()
-	{
-		return name;
-	}
-	
-	@Override
 	public int getFoodAmount()
 	{
 		return food;
@@ -112,5 +117,17 @@ public enum EnumSeeds implements IMetadata<EnumSeeds>, IFood
 		return saturation;
 	}
 	
+	@Override
+	public Iterable<PotionEffect> getEffects()
+	{
+		return effects;
+	}
+	
 	public abstract IBlockState getPlacedState();
+	
+	@Override
+	public String toString()
+	{
+		return name;
+	}
 }

@@ -1,81 +1,52 @@
 package genesis.metadata;
 
+import java.util.List;
+
+import com.google.common.collect.ImmutableList;
+
+import net.minecraft.potion.PotionEffect;
+
 public enum EnumFood implements IMetadata<EnumFood>
 {
-	SPIRIFER("spirifer",
-			2, 0.4F,
-			3, 1.0F),
-	CLIMATIUS("climatius",
-			2, 0.4F,
-			5, 6.0F),
-	MEGANEURA("meganeura",
-			2, 0.4F,
-			3, 1.0F),
-	APHTHOROBLATINNA("aphthoroblattina",
-			1, 0.2F,
-			2, 0.8F),
-	ERYOPS_LEG("eryops_leg", "eryopsLeg",
-			2, 0.8F,
-			5, 6.0F),
-	GRYPHAEA("gryphaea",
-			2, 0.4F,
-			3, 1.0F),
-	CERATITES("ceratites",
-			2, 0.4F,
-			4, 1.8F),
-	LIOPLEURODON("liopleurodon",
-			3, 2.8F,
-			10, 13.8F),
-	TYRANNOSAURUS("tyrannosaurus",
-			3, 2.8F,
-			10, 13.8F);
+	SPIRIFER("spirifer", raw(2, 0.4F).cooked(3, 1.0F)),
+	CLIMATIUS("climatius", raw(2, 0.4F).cooked(5, 6.0F)),
+	MEGANEURA("meganeura", raw(2, 0.4F).cooked(3, 1.0F)),
+	APHTHOROBLATINNA("aphthoroblattina", raw(1, 0.2F).cooked(2, 0.8F)),
+	ERYOPS_LEG("eryops_leg", "eryopsLeg", raw(2, 0.8F).cooked(5, 6.0F)),
+	GRYPHAEA("gryphaea", raw(2, 0.4F).cooked(3, 1.0F)),
+	CERATITES("ceratites", raw(2, 0.4F).cooked(4, 1.8F)),
+	LIOPLEURODON("liopleurodon", raw(3, 2.8F).cooked(10, 13.8F)),
+	TYRANNOSAURUS("tyrannosaurus", raw(3, 2.8F).cooked(10, 13.8F));
 	
 	final String name;
 	final String unlocalizedName;
 	final int rawFood;
 	final float rawSaturation;
+	final List<PotionEffect> rawEffects;
 	
 	final boolean hasCooked;
 	final int cookedFood;
 	final float cookedSaturation;
+	final List<PotionEffect> cookedEffects;
 	
-	EnumFood(String name, String unlocalizedName,
-			int rawFood, float rawSaturation,
-			boolean hasCooked, int cookedFood, float cookedSaturation)
+	EnumFood(String name, String unlocalizedName, Props props)
 	{
 		this.name = name;
 		this.unlocalizedName = unlocalizedName;
-		this.rawFood = rawFood;
-		this.rawSaturation = rawSaturation;
-		this.hasCooked = hasCooked;
-		this.cookedFood = cookedFood;
-		this.cookedSaturation = cookedSaturation;
+		
+		rawFood = props.rawFood;
+		rawSaturation = props.rawSaturation;
+		rawEffects = props.rawEffects;
+		
+		hasCooked = props.hasCooked;
+		cookedFood = props.cookedFood;
+		cookedSaturation = props.cookedSaturation;
+		cookedEffects = props.cookedEffects;
 	}
 	
-	EnumFood(String name, String unlocalizedName,
-			int rawFood, float rawSaturation,
-			int cookedFood, float cookedSaturation)
+	EnumFood(String name, Props props)
 	{
-		this(name, unlocalizedName, rawFood, rawSaturation, true, cookedFood, cookedSaturation);
-	}
-	
-	EnumFood(String name,
-			int rawFood, float rawSaturation,
-			int cookedFood, float cookedSaturation)
-	{
-		this(name, name, rawFood, rawSaturation, cookedFood, cookedSaturation);
-	}
-	
-	EnumFood(String name, String unlocalizedName,
-			int food, float saturation)
-	{
-		this(name, unlocalizedName, food, saturation, false, 0, 0);
-	}
-	
-	EnumFood(String name,
-			int food, float saturation)
-	{
-		this(name, name, food, saturation, false, 0, 0);
+		this(name, name, props);
 	}
 	
 	@Override
@@ -90,6 +61,7 @@ public enum EnumFood implements IMetadata<EnumFood>
 		return unlocalizedName;
 	}
 	
+	// Raw variant getters
 	public int getRawFoodAmount()
 	{
 		return rawFood;
@@ -100,6 +72,12 @@ public enum EnumFood implements IMetadata<EnumFood>
 		return rawSaturation;
 	}
 	
+	public Iterable<PotionEffect> getRawEffects()
+	{
+		return rawEffects;
+	}
+	
+	// Cooked variant getters
 	public boolean hasCookedVariant()
 	{
 		return hasCooked;
@@ -113,5 +91,43 @@ public enum EnumFood implements IMetadata<EnumFood>
 	public float getCookedSaturationModifier()
 	{
 		return cookedSaturation;
+	}
+	
+	public Iterable<PotionEffect> getCookedEffects()
+	{
+		return cookedEffects;
+	}
+	
+	private static Props raw(int food, float saturation, PotionEffect... effects)
+	{
+		return new Props(food, saturation, effects);
+	}
+	
+	private static final class Props
+	{
+		int rawFood;
+		float rawSaturation;
+		List<PotionEffect> rawEffects;
+		
+		boolean hasCooked = false;
+		int cookedFood;
+		float cookedSaturation;
+		List<PotionEffect> cookedEffects;
+		
+		private Props(int food, float saturation, PotionEffect... effects)
+		{
+			this.rawFood = food;
+			this.rawSaturation = saturation;
+			this.rawEffects = ImmutableList.copyOf(effects);
+		}
+		
+		private Props cooked(int food, float saturation, PotionEffect... effects)
+		{
+			this.hasCooked = true;
+			this.cookedFood = food;
+			this.cookedSaturation = saturation;
+			this.cookedEffects = ImmutableList.copyOf(effects);
+			return this;
+		}
 	}
 }

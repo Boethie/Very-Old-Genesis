@@ -80,14 +80,6 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 		FERNS = ImmutableSet.copyOf(ferns);
 		SINGLES = ImmutableSet.copyOf(singles);
 		DOUBLES = ImmutableSet.copyOf(doubles);
-		
-		/*Set<EnumPlant> singlesSet = EnumSet.allOf(EnumPlant.class);
-		singlesSet.remove(RHACOPHYTON);
-		singlesSet.remove(AETHOPHYLLUM);
-		singlesSet.remove(MICROPETASOS);
-		SINGLES = com.google.common.collect.Sets.immutableEnumSet(singlesSet);
-		
-		DOUBLES = com.google.common.collect.Sets.immutableEnumSet(ASTEROXYLON, RHACOPHYTON, AETHOPHYLLUM, MICROPETASOS);*/
 	}
 	
 	final String name;
@@ -217,7 +209,7 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	}
 	
 	@SuppressWarnings("unused")
-	private static class Props
+	private static final class Props
 	{
 		PlantType type;
 		boolean small = true;

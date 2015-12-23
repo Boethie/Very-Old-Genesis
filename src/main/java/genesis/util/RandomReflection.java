@@ -14,6 +14,8 @@ import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.audio.SoundManager;
 import net.minecraft.client.audio.SoundPoolEntry;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import paulscode.sound.SoundSystem;
 
@@ -43,6 +45,25 @@ public class RandomReflection
 		{
 			throw new RuntimeException(e);
 		}
+	}
+	
+	private static final Field potionIsBadEffect = ReflectionHelper.findField(Potion.class, "isBadEffect", "field_76418_K");
+	
+	public static boolean isBadPotion(Potion potion)
+	{
+		try
+		{
+			return potionIsBadEffect.getBoolean(potion);
+		}
+		catch (IllegalAccessException e)
+		{
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public static boolean isBadPotionEffect(PotionEffect effect)
+	{
+		return isBadPotion(Potion.potionTypes[effect.getPotionID()]);
 	}
 	
 	public static final class SoundReflection

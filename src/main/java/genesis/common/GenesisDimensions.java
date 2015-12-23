@@ -9,6 +9,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.S12PacketEntityVelocity;
+import net.minecraft.network.play.server.S1DPacketEntityEffect;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.ServerConfigurationManager;
 import net.minecraft.world.Teleporter;
@@ -118,32 +120,36 @@ public class GenesisDimensions
 					float pitch = player.rotationPitch;
 					
 					// Create a new player to reset all their stats and inventory.
-					EntityPlayerMP respawnedPlayer = manager.recreatePlayerEntity(player, id, false);
-					respawnedPlayer.playerNetServerHandler.playerEntity = respawnedPlayer;	// recreate doesn't set this.
+					EntityPlayerMP newPlayer = manager.recreatePlayerEntity(player, id, false);
+					newPlayer.playerNetServerHandler.playerEntity = newPlayer;	// recreate doesn't set this.
 					
-					entity = respawnedPlayer;
 					
 					if (restoreData != null)
 					{	// Restore the player's inventory from data saved when the player traveled from the dimension previously.
-						respawnedPlayer.readFromNBT(restoreData);
-						respawnedPlayer.dimension = id;
-						respawnedPlayer.capabilities.isFlying = player.capabilities.isFlying;	// Will be sent to client by setGameType.
-						respawnedPlayer.theItemInWorldManager.setGameType(player.theItemInWorldManager.getGameType());
+						newPlayer.readFromNBT(restoreData);
+						newPlayer.dimension = id;
+						newPlayer.capabilities.isFlying = player.capabilities.isFlying;	// Will be sent to client by setGameType.
+						newPlayer.theItemInWorldManager.setGameType(player.theItemInWorldManager.getGameType());
 					}
 					
-					respawnedPlayer.inventory.currentItem = player.inventory.currentItem;	// Keep the current selected hotbar item.
-					manager.syncPlayerInventory(respawnedPlayer);	// Send the player's inventory, stats and current item.
+					newPlayer.inventory.currentItem = player.inventory.currentItem;	// Keep the current selected hotbar item.
+					manager.syncPlayerInventory(newPlayer);	// Send the player's inventory, stats and current item.
 					
 					// Restore other relevant stuff.
-					respawnedPlayer.fallDistance = player.fallDistance;
+					newPlayer.fallDistance = player.fallDistance;
 					
 					// Save the old player's data for restoration later.
-					GenesisEntityData.setValue(respawnedPlayer, STORED_PLAYERS, dimensionPlayers);
+					GenesisEntityData.setValue(newPlayer, STORED_PLAYERS, dimensionPlayers);
 					
 					// Restore the player to the position of the portal.
-					respawnedPlayer.playerNetServerHandler.setPlayerLocation(x, y, z, yaw, pitch);
+					newPlayer.playerNetServerHandler.setPlayerLocation(x, y, z, yaw, pitch);
+					newPlayer.playerNetServerHandler.sendPacket(new S12PacketEntityVelocity(player));
 					
-					player = respawnedPlayer;
+					// Send the player's current potion effects.
+					for (PotionEffect effect : newPlayer.getActivePotionEffects())
+						newPlayer.playerNetServerHandler.sendPacket(new S1DPacketEntityEffect(newPlayer.getEntityId(), effect));
+					
+					entity = player = newPlayer;
 				}
 				
 				teleported = true;
@@ -168,7 +174,6 @@ public class GenesisDimensions
 			
 			if (player != null)
 			{
-				player.playerNetServerHandler.sendPacket(new S12PacketEntityVelocity(player));
 			}
 			
 			return teleported;

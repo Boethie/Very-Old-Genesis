@@ -1,5 +1,11 @@
 package genesis.metadata;
 
+import java.util.List;
+
+import com.google.common.collect.ImmutableList;
+
+import net.minecraft.potion.PotionEffect;
+
 public enum EnumDish implements IFood, IMetadata<EnumDish>
 {
 	PORRIDGE("porridge_base", "porridge.base", 4, 4.8F),
@@ -25,18 +31,20 @@ public enum EnumDish implements IFood, IMetadata<EnumDish>
 	final String unlocalizedName;
 	final int food;
 	final float saturation;
+	final List<PotionEffect> effects;
 	
-	EnumDish(String name, String unlocalizedName, int food, float saturation)
+	EnumDish(String name, String unlocalizedName, int food, float saturation, PotionEffect... effects)
 	{
 		this.name = name;
 		this.unlocalizedName = unlocalizedName;
 		this.food = food;
 		this.saturation = saturation;
+		this.effects = ImmutableList.copyOf(effects);
 	}
 	
-	EnumDish(String name, int food, float saturation)
+	EnumDish(String name, int food, float saturation, PotionEffect... effects)
 	{
-		this(name, name, food, saturation);
+		this(name, name, food, saturation, effects);
 	}
 	
 	@Override
@@ -50,16 +58,22 @@ public enum EnumDish implements IFood, IMetadata<EnumDish>
 	{
 		return unlocalizedName;
 	}
-
+	
 	@Override
 	public int getFoodAmount()
 	{
 		return food;
 	}
-
+	
 	@Override
 	public float getSaturationModifier()
 	{
 		return saturation;
+	}
+	
+	@Override
+	public Iterable<PotionEffect> getEffects()
+	{
+		return effects;
 	}
 }
