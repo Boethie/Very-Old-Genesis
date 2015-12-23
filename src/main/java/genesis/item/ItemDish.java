@@ -23,15 +23,9 @@ public class ItemDish extends ItemGenesisFood<MultiMetadata>
 	}
 	
 	@Override
-	public int getHealAmount(ItemStack stack)
+	protected IFood getFoodType(ItemStack stack)
 	{
-		return ((EnumDish) owner.getVariant(stack).getOriginal()).getFoodAmount();
-	}
-	
-	@Override
-	public float getSaturationModifier(ItemStack stack)
-	{
-		return ((EnumDish) owner.getVariant(stack).getOriginal()).getSaturationModifier();
+		return (EnumDish) owner.getVariant(stack).getOriginal();
 	}
 	
 	@Override

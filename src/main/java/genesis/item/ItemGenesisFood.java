@@ -48,16 +48,21 @@ public class ItemGenesisFood<V extends IMetadata<V>> extends ItemFood
 		owner.fillSubItems(type, variants, subItems);
 	}
 	
+	protected IFood getFoodType(ItemStack stack)
+	{
+		return (IFood) owner.getVariant(stack);
+	}
+	
 	@Override
 	public int getHealAmount(ItemStack stack)
 	{
-		return ((IFood) owner.getVariant(stack)).getFoodAmount();
+		return getFoodType(stack).getFoodAmount();
 	}
 	
 	@Override
 	public float getSaturationModifier(ItemStack stack)
 	{
-		return ((IFood) owner.getVariant(stack)).getSaturationModifier();
+		return getFoodType(stack).getSaturationModifier();
 	}
 	
 	@Override
@@ -65,7 +70,7 @@ public class ItemGenesisFood<V extends IMetadata<V>> extends ItemFood
 	{
 		boolean positive = false;
 		
-		for (PotionEffect effect : ((IFood) owner.getVariant(stack)).getEffects())
+		for (PotionEffect effect : getFoodType(stack).getEffects())
 		{
 			if (!RandomReflection.isBadPotionEffect(effect))
 			{
