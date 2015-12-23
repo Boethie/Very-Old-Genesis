@@ -204,6 +204,7 @@ item.genesis.seeds.araucarioxylon.name=Araucarioxylon Seeds
 item.genesis.seeds.odontopteris.name=Odontopteris Seeds
 item.genesis.seeds.neuropteridiumRhizome.name=Neuropteridium Rhizome
 item.genesis.seeds.zingiberopsisRhizome.name=Zingiberopsis Rhizome
+item.genesis.seeds.prototaxitesFlesh.name=Prototaxites Flesh
 
 item.genesis.food.spirifer.raw.name=Raw Spirifer
 item.genesis.food.spirifer.cooked.name=Cooked Spirifer
@@ -434,7 +435,6 @@ item.genesis.material.sphenophyllumFiber.name=Sphenophyllum Fiber
 item.genesis.material.odontopterisFiddlehead.name=Odontopteris Fiddlehead
 item.genesis.material.cladophlebisFrond.name=Cladophlebis Frond
 item.genesis.material.programinis.name=Programinis
-item.genesis.material.prototaxitesFlesh.name=Prototaxites Flesh
 item.genesis.material.dung.sauropoda.name=Sauropoda Dung
 item.genesis.material.dung.theropoda.name=Theropoda Dung
 item.genesis.material.arthropleuraChitin.name=Arthropleura Chitin
