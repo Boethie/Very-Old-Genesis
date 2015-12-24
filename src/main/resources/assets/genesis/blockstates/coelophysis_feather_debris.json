@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"normal": [
+			{ "model": "genesis:coelophysis_feather_debris" },
+			{ "model": "genesis:coelophysis_feather_debris", "y": 90 },
+			{ "model": "genesis:coelophysis_feather_debris", "y": 180 },
+			{ "model": "genesis:coelophysis_feather_debris", "y": 270 }
+		]
+	}
+}

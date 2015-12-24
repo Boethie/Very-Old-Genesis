@@ -10,10 +10,12 @@ public enum EnumMaterial implements IMetadata<EnumMaterial>
 	CLADOPHLEBIS_FROND("cladophlebis_frond", "cladophlebisFrond"),
 	PROGRAMINIS("programinis"),
 	ARTHROPLEURA_CHITIN("arthropleura_chitin", "arthropleuraChitin"),
+	COELOPHYSIS_FEATHER("coelophysis_feather", "coelophysisFeather"),
+	EPIDEXIPTERYX_FEATHER("epidexipteryx_feather", "epidexipteryxFeather"),
 	LIOPLEURODON_TOOTH("liopleurodon_tooth", "liopleurodonTooth"),
 	TYRANNOSAURUS_SALIVA("tyrannosaurus_saliva", "tyrannosaurusSaliva"),
-	TYRANNOSAURUS_TOOTH("tyrannosaurus_tooth", "tyrannosaurusTooth"),
-	EPIDEXIPTERYX_FEATHER("epidexipteryx_feather", "epidexipteryxFeather");
+	TYRANNOSAURUS_TOOTH("tyrannosaurus_tooth", "tyrannosaurusTooth");
+	
 	
 	final String name;
 	final String unlocalizedName;
