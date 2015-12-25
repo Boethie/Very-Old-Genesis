@@ -41,7 +41,7 @@ public class BiomeGenFloodplains extends BiomeGenBaseGenesis
 	}
 	
 	@Override
-	public float getFogDensity(int x, int y, int z)
+	public float getFogDensity()
 	{
 		return 0.75F;
 	}

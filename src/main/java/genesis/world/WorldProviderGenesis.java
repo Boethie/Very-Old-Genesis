@@ -1,7 +1,8 @@
 package genesis.world;
 
+import genesis.client.render.RenderFog;
 import genesis.common.GenesisBlocks;
-import net.minecraft.entity.Entity;
+import genesis.util.GenesisMath;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
@@ -68,6 +69,24 @@ public class WorldProviderGenesis extends WorldProvider
 	}
 	
 	@Override
+	public boolean canCoordinateBeSpawn(int x, int z)
+	{
+		return worldObj.getGroundAboveSeaLevel(new BlockPos(x, 0, z)) == GenesisBlocks.moss;
+	}
+	
+	@Override
+	public void setWorldTime(long time)
+	{
+		GenesisWorldData.get(worldObj).setTime(time);
+	}
+	
+	@Override
+	public long getWorldTime()
+	{
+		return GenesisWorldData.get(worldObj).getTime();
+	}
+	
+	@Override
 	public float calculateCelestialAngle(long time, float partialTick)
 	{
 		time = worldObj.getWorldTime();
@@ -84,7 +103,7 @@ public class WorldProviderGenesis extends WorldProvider
 	public int getMoonPhase(long time)
 	{
 		time = worldObj.getWorldTime();
-		return (int) (time / DAY_LENGTH % 8 + 8) % 8;
+		return (int) (time / DAY_LENGTH % 8);
 	}
 	
 	@Override
@@ -97,13 +116,13 @@ public class WorldProviderGenesis extends WorldProvider
 		
 		if (f3 >= f4 - f2 && f3 <= f4 + f2)
 		{
-			float f5 = (f3 - f4) / f2 * 0.5F + 0.5F;
-			float f6 = 1.0F - (1.0F - MathHelper.sin(f5 * (float) Math.PI)) * 0.99F;
-			f6 *= f6;
-			colorsSunriseSunset[0] = f5 * 0.3F + 0.7F;
-			colorsSunriseSunset[1] = f5 * f5 * 0.7F + 0.2F;
-			colorsSunriseSunset[2] = f5 * f5 * 0.0F + 0.2F;
-			colorsSunriseSunset[3] = f6;
+			float strength = (f3 - f4) / f2 * 0.5F + 0.5F;
+			float alpha = 1.0F - (1.0F - MathHelper.sin(strength * (float) Math.PI)) * 0.99F;
+			alpha *= alpha;
+			colorsSunriseSunset[0] = strength * 0.3F + 0.7F;
+			colorsSunriseSunset[1] = strength * strength * 0.7F + 0.2F;
+			colorsSunriseSunset[2] = strength * strength * 0.0F + 0.2F;
+			colorsSunriseSunset[3] = alpha;
 			return colorsSunriseSunset;
 		}
 		
@@ -111,73 +130,8 @@ public class WorldProviderGenesis extends WorldProvider
 	}
 	
 	@Override
-	public Vec3 getSkyColor(Entity cameraEntity, float partialTicks)
+	public Vec3 getFogColor(float angle, float partialTicks)
 	{
-		float time = (worldObj.getWorldTime() + partialTicks) % DAY_LENGTH / DAY_LENGTH;
-		
-		double red = 0.29411764705882352941176470588235D;
-		double green = 0.47450980392156862745098039215686D;
-		double blue = 0.1960784313725490196078431372549D;
-		//Green sky everywhere - To change if we ever need different color by biome
-		/*
-		if (getBiomeGenForCoords(new BlockPos(cameraEntity.posX, cameraEntity.posY, cameraEntity.posZ)) instanceof BiomeGenBaseGenesis)
-		{
-			BiomeGenBaseGenesis biome = (BiomeGenBaseGenesis)getBiomeGenForCoords(new BlockPos(cameraEntity.posX, cameraEntity.posY, cameraEntity.posZ));
-			red = biome.getSkyColor().xCoord;
-			green = biome.getSkyColor().yCoord;
-			blue = biome.getSkyColor().zCoord;
-		}
-		*/
-		
-		if (time > NIGHT_END)
-		{	// Sunrise
-			float percent = ((time - NIGHT_END) / LATE_TWILIGHT_TIME);
-			
-			if (percent > 1)
-				percent = 1;
-			
-			red *= percent;
-			green *= percent;
-			blue *= percent;
-		}
-		else if (time > NIGHT_START)
-		{	// Night
-			red = 0;
-			green = 0;
-			blue = 0;
-		}
-		else if (time > TWILIGHT_START)
-		{	// Sunset
-			float percent = 1 - ((time - TWILIGHT_START) / EARLY_TWILIGHT_TIME);
-			
-			if (percent < 0)
-				percent = 0;
-			
-			red *= percent;
-			green *= percent;
-			blue *= percent;
-		}
-		
-		return new Vec3(red, green, blue);
-	}
-	
-	@Override
-	public void setWorldTime(long time)
-	{
-		//worldObj.getWorldInfo().setWorldTime(time);
-		GenesisWorldData.get(worldObj).setTime(time);
-	}
-	
-	@Override
-	public long getWorldTime()
-	{
-		//return worldObj.getWorldInfo().getWorldTime();
-		return GenesisWorldData.get(worldObj).getTime();
-	}
-	
-	@Override
-	public boolean canCoordinateBeSpawn(int x, int z)
-	{
-		return worldObj.getGroundAboveSeaLevel(new BlockPos(x, 0, z)) == GenesisBlocks.moss;
+		return GenesisMath.lerp(RenderFog.INSTANCE.prevColor, RenderFog.INSTANCE.color, partialTicks);
 	}
 }

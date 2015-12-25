@@ -10,7 +10,7 @@ public class BiomeGenRainforestM extends BiomeGenRainforest
 	}
 	
 	@Override
-	public float getFogDensity(int x, int y, int z)
+	public float getFogDensity()
 	{
 		return 0.25F;
 	}

@@ -1,161 +1,38 @@
 package genesis.client.render;
 
-import org.lwjgl.opengl.GL11;
-
+import genesis.common.GenesisBlocks;
+import genesis.common.GenesisDimensions;
 import genesis.util.GenesisMath;
-import genesis.util.WorldUtils;
 import genesis.world.WorldProviderGenesis;
 import genesis.world.biome.IBiomeGenFog;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ActiveRenderInfo;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.EntityViewRenderEvent.FogColors;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
 public class RenderFog
 {
-	private static double fogX = 0.0D;
-	private static double fogZ = 0.0D;
-	private static boolean densityInit = false;
-	private static float planeDistance = 0.0F;
+	public static RenderFog INSTANCE = new RenderFog();
 	
-	@SubscribeEvent
-	public void onGetFogColor(FogColors event)
-	{
-		if (event.entity instanceof EntityPlayer)
-		{
-			EntityPlayer player = (EntityPlayer) event.entity;
-			World world = player.worldObj;
-
-			float partialTicks = (float) event.renderPartialTicks;
-			Block blockAtEyes = ActiveRenderInfo.getBlockAtEntityViewpoint(world, event.entity, partialTicks);
-			
-			float red = 0;
-			float green = 0;
-			float blue = 0;
-			int samples = 0;
-			
-			if (blockAtEyes.getMaterial() == Material.lava)
-			{
-				event.red = 0.8F;
-				event.green = 0.482352941F;
-				event.blue = 0.17254902F;
-				samples = 1;
-			}
-			else
-			{
-				int areaSize = 10;
-				int supersamples = 1;
-				float sampleStep = 1 / (float) supersamples;
-				
-				for (float x = -areaSize; x <= areaSize; x += sampleStep)
-				{
-					for (float z = -areaSize; z <= areaSize; z += sampleStep)
-					{
-						if (x * x + z * z < areaSize * areaSize)
-						{
-							BlockPos samplePos = new BlockPos(player.posX + x, player.posY, player.posZ + z);
-							BiomeGenBase biome = world.getBiomeGenForCoords(samplePos);
-							
-							if (blockAtEyes.getMaterial() == Material.water)
-							{
-								int waterColorMultiplier = biome.getWaterColorMultiplier();
-								event.red = (waterColorMultiplier % 0xFF0000) >> 16;
-								event.green = (waterColorMultiplier % 0x00FF00) >> 8;
-								event.blue = (waterColorMultiplier % 0x0000FF);
-								
-								event.red *= 0.160784314F;
-								event.green *= 0.384313725F;
-								event.blue *= 0.749019608F;
-								
-								event.red *= 0.0008F;
-								event.green *= 0.0008F;
-								event.blue *= 0.0008F;
-							}
-							else if (biome instanceof IBiomeGenFog)
-							{
-								IBiomeGenFog fogBiome = (IBiomeGenFog) biome;
-								long time = world.getWorldTime();
-								
-								float percent = getDayNightFactor(time, partialTicks);
-								
-								Vec3 biomeColor = GenesisMath.lerp(fogBiome.getFogColor(), fogBiome.getFogColorNight(), 1 - percent);
-								red += (float) biomeColor.xCoord;
-								green += (float) biomeColor.yCoord;
-								blue += (float) biomeColor.zCoord;
-							}
-							else
-							{
-								red += event.red;
-								green += event.green;
-								blue += event.blue;
-							}
-							
-							samples++;
-						}
-					}
-				}
-			}
-			
-			event.red = red / samples;
-			event.green = green / samples;
-			event.blue = blue / samples;
-			
-			/*BiomeGenBase biome = world.getBiomeGenForCoords(player.getPosition());
-			
-			if (biome instanceof IBiomeGenFog)
-			{
-				IBiomeGenFog fogBiome = (IBiomeGenFog) biome;
-				long time = world.getWorldTime();
-				
-				double red = fogBiome.getFogColor().xCoord;
-				double green = fogBiome.getFogColor().yCoord;
-				double blue = fogBiome.getFogColor().zCoord;
-				
-				double nRed = fogBiome.getFogColorNight().xCoord;
-				double nGreen = fogBiome.getFogColorNight().yCoord;
-				double nBlue = fogBiome.getFogColorNight().zCoord;
-				
-				float percent = getDayNightFactor(time, partialTicks);
-				
-				red = GenesisMath.lerp(red, nRed, 1 - percent);
-				green = GenesisMath.lerp(green, nGreen, 1 - percent);
-				blue = GenesisMath.lerp(blue, nBlue, 1 - percent);
-				
-				
-				
-				if (!colorInit)
-				{
-					curRed = red;
-					curGreen = green;
-					curBlue = blue;
-					colorInit = true;
-				}
-				else
-				{
-					targetRed = red;
-					targetGreen = green;
-					targetBlue = blue;
-					
-					curRed += (targetRed - curRed) * 0.01D;
-					curGreen += (targetGreen - curGreen) * 0.01D;
-					curBlue += (targetBlue - curBlue) * 0.01D;
-					
-					event.red = (float) curRed;
-					event.green = (float) curGreen;
-					event.blue = (float) curBlue;
-				}
-			}*/
-		}
-	}
+	public Vec3 color = new Vec3(0, 0, 0);
+	public Vec3 prevColor = color;
+	public float fogDensity = 0;
+	public float prevFogDensity = 0;
+	
+	public Vec3 lastVanillaColor = new Vec3(0, 0, 0);
 	
 	private static float getDayNightFactor(long time, float partialTicks)
 	{
@@ -164,121 +41,185 @@ public class RenderFog
 		
 		if (timeF > WorldProviderGenesis.NIGHT_END)
 		{	// Sunrise
-			factor = ((timeF - WorldProviderGenesis.NIGHT_END) / WorldProviderGenesis.LATE_TWILIGHT_TIME);
-			if (factor > 1)
-				factor = 1;
+			factor = (timeF - WorldProviderGenesis.NIGHT_END) / WorldProviderGenesis.LATE_TWILIGHT_TIME;
 		}
 		else if (timeF > WorldProviderGenesis.NIGHT_START)
 		{	// Night
 			factor = 0;
 		}
-		else if (time > WorldProviderGenesis.TWILIGHT_START)
+		else if (timeF > WorldProviderGenesis.TWILIGHT_START)
 		{	// Sunset
-			factor = 1 - ((timeF - WorldProviderGenesis.TWILIGHT_START) / WorldProviderGenesis.EARLY_TWILIGHT_TIME);
-			if (factor < 0)
-				factor = 0;
+			factor = 1 - (timeF - WorldProviderGenesis.TWILIGHT_START) / WorldProviderGenesis.EARLY_TWILIGHT_TIME;
 		}
 		
 		return MathHelper.clamp_float(factor, 0, 1);
 	}
 	
 	@SubscribeEvent
-	public void onRenderFog(EntityViewRenderEvent.RenderFogEvent event)
+	public void onTick(ClientTickEvent event)
 	{
-		Entity entity = event.entity;
-		World world = entity.worldObj;
-		
-		long time = world.getWorldTime();
-		
-		int playerX = MathHelper.floor_double(entity.posX);
-		int playerY = MathHelper.floor_double(entity.posY);
-		int playerZ = MathHelper.floor_double(entity.posZ);
-		
-		if (playerX == fogX && playerZ == fogZ && densityInit)
-		{
-			renderFog(event.fogMode, planeDistance, 0.75f);
+		if (event.side != Side.CLIENT)
 			return;
-		}
 		
-		densityInit = true;
+		Minecraft mc = Minecraft.getMinecraft();
+		if (mc.isGamePaused())
+			return;
 		
-		int distance = 20;
-		float fogDistance = 0F;
-		float fogDensity = 0;
+		Entity entity = mc.getRenderViewEntity();
+		if (entity == null)
+			return;
 		
-		for (int x = -distance; x <= distance; ++x)
+		World world = entity.worldObj;
+		if (!GenesisDimensions.isGenesis(world))
+			return;
+		
+		final float partialTicks = 1;
+		
+		float red = 0;
+		float green = 0;
+		float blue = 0;
+		float density = 0;
+		int samples = 0;
+		
+		Vec3 playerPos = ActiveRenderInfo.projectViewFromEntity(entity, partialTicks);
+		int areaSize = 10;
+		int supersamples = 8;
+		float sampleStep = 1 / (float) supersamples;
+		
+		for (float x = -areaSize; x <= areaSize; x += sampleStep)
 		{
-			for (int z = -distance; z <= distance; ++z)
+			for (float z = -areaSize; z <= areaSize; z += sampleStep)
 			{
-				BiomeGenBase biome = world.getBiomeGenForCoords(new BlockPos(playerX + x, 60, playerZ + z));
-				
-				if (biome instanceof IBiomeGenFog)
+				if (x * x + z * z < areaSize * areaSize)
 				{
-					IBiomeGenFog fogBiome = (IBiomeGenFog) biome;
-					float distancePart = fogBiome.getFogDensity(playerX + x, playerY, playerZ + z);
-					float weightPart = 1;
+					BlockPos samplePos = new BlockPos(playerPos.addVector(x, 0, z));
+					BiomeGenBase biome = world.getBiomeGenForCoords(samplePos);
+					Vec3 color = null;
 					
-					distancePart *= 1 - (fogBiome.getNightFogModifier() * (1 - getDayNightFactor(time, (float) event.renderPartialTicks)));
-					
-					if (x == -distance)
+					if (biome instanceof IBiomeGenFog)
 					{
-						double xDistance = 1 - (entity.posX - playerX);
-						distancePart *= xDistance;
-						weightPart *= xDistance;
+						IBiomeGenFog fogBiome = (IBiomeGenFog) biome;
+						long time = world.getWorldTime();
+						
+						float percent = getDayNightFactor(time, partialTicks);
+						
+						color = GenesisMath.lerp(fogBiome.getFogColor(), fogBiome.getFogColorNight(), 1 - percent);
+						
+						density += fogBiome.getFogDensity() * (1 - fogBiome.getNightFogModifier() * (1 - percent));
 					}
-					else if (x == distance)
+					else
 					{
-						double xDistance = (entity.posX - playerX);
-						distancePart *= xDistance;
-						weightPart *= xDistance;
-					}
-					
-					if (z == -distance)
-					{
-						double zDistance = 1 - (entity.posZ - playerZ);
-						distancePart *= zDistance;
-						weightPart *= zDistance;
-					}
-					else if (z == distance)
-					{
-						double zDistance = (entity.posZ - playerZ);
-						distancePart *= zDistance;
-						weightPart *= zDistance;
+						color = lastVanillaColor;
 					}
 					
-					fogDistance += distancePart;
-					fogDensity += weightPart;
+					red += (float) color.xCoord;
+					green += (float) color.yCoord;
+					blue += (float) color.zCoord;
+					
+					samples++;
 				}
 			}
 		}
 		
-		float weightMixed = (distance * 2) * (distance * 2);
-		float weightDefault = weightMixed - fogDensity;
+		red /= samples;
+		green /= samples;
+		blue /= samples;
+		density /= samples;
 		
-		float fogDistanceAvg = (fogDensity == 0) ? 0 : fogDistance / fogDensity;
+		/* Sunrise/set fog code, slightly different from vanilla, but it must be handled by vanilla when using WorldProviderGenesis.getFogColor.
+		if (mc.gameSettings.renderDistanceChunks >= 4)
+		{
+			float angle = world.getCelestialAngle(partialTicks);
+			Vec3 sunDirection = MathHelper.sin(angle * (float) Math.PI * 2) > 0 ? new Vec3(-1, 0, 0) : new Vec3(1, 0, 0);
+			float sunsetAmount = (float) entity.getLook(partialTicks).dotProduct(sunDirection);
+			final float negAmount = 0.5F;
+			sunsetAmount += negAmount;
+			sunsetAmount *= 1 / (1 + negAmount);
+			sunsetAmount = Math.max(sunsetAmount, 0.1F);
+			
+			float[] sunriseColor = world.provider.calcSunriseSunsetColors(angle, partialTicks);
+			
+			if (sunriseColor != null)
+			{
+				sunsetAmount = sunsetAmount * sunriseColor[3];
+				sunsetAmount = Math.max(sunsetAmount, 0);
+				
+				red = red * (1 - sunsetAmount) + sunriseColor[0] * sunsetAmount;
+				green = green * (1 - sunsetAmount) + sunriseColor[1] * sunsetAmount;
+				blue = blue * (1 - sunsetAmount) + sunriseColor[2] * sunsetAmount;
+			}
+		}*/
 		
-		float farPlaneDistance = (fogDistance * 240 + event.farPlaneDistance * weightDefault) / weightMixed;
-		float farPlaneDistanceScaleBiome = (0.1f * (1 - fogDistanceAvg) + 0.75f * fogDistanceAvg);
-		float farPlaneDistanceScale = (farPlaneDistanceScaleBiome * fogDensity + 0.75f * weightDefault) / weightMixed;
+		prevColor = color;
+		color = new Vec3(red, green, blue);
+		prevFogDensity = fogDensity;
+		fogDensity = Math.min(density * 0.75F, 0.75F);
+	}
+	
+	@SubscribeEvent
+	public void onGetFogColor(FogColors event)
+	{
+		lastVanillaColor = new Vec3(event.red, event.green, event.blue);
 		
-		fogX = entity.posX;
-		fogZ = entity.posZ;
-		planeDistance = Math.min(farPlaneDistance, event.farPlaneDistance);
+		Entity entity = event.entity;
+		World world = entity.worldObj;
 		
-		renderFog(event.fogMode, planeDistance, farPlaneDistanceScale);
+		float partialTicks = (float) event.renderPartialTicks;
+		Block blockAtEyes = ActiveRenderInfo.getBlockAtEntityViewpoint(world, event.entity, partialTicks);
+		
+		if (blockAtEyes == GenesisBlocks.komatiitic_lava)
+		{
+			event.red = 0.575F;
+			event.green = 0.3F;
+			event.blue = 0.05F;
+		}
+		
+		if (!GenesisDimensions.isGenesis(world))
+			return;
+		
+		if (blockAtEyes.getMaterial() == Material.water)
+		{
+			BlockPos eyePos = new BlockPos(ActiveRenderInfo.projectViewFromEntity(entity, partialTicks));
+			
+			int waterColorMultiplier = BiomeColorHelper.getWaterColorAtPos(world, eyePos);
+			event.red = (waterColorMultiplier & 0xFF0000) >> 16;
+			event.green = (waterColorMultiplier & 0x00FF00) >> 8;
+			event.blue = (waterColorMultiplier & 0x0000FF);
+			
+			event.red *= 0.160784314F;
+			event.green *= 0.384313725F;
+			event.blue *= 0.749019608F;
+			
+			event.red *= 0.0008F;
+			event.green *= 0.0008F;
+			event.blue *= 0.0008F;
+		}
+		
+		// TODO: Make night vision at night in Genesis not be pure white.
+	}
+	
+	@SubscribeEvent
+	public void onRenderFog(EntityViewRenderEvent.RenderFogEvent event)
+	{
+		if (!GenesisDimensions.isGenesis(event.entity.worldObj))
+			return;
+		
+		float density = GenesisMath.lerp(prevFogDensity, fogDensity, (float) event.renderPartialTicks);
+		renderFog(event.fogMode,
+				event.farPlaneDistance, density);
 	}
 	
 	private static void renderFog(int fogMode, float farPlaneDistance, float farPlaneDistanceScale)
 	{
 		if (fogMode < 0)
 		{
-			GL11.glFogf(GL11.GL_FOG_START, 0);
-			GL11.glFogf(GL11.GL_FOG_END, farPlaneDistance);
+			GlStateManager.setFogStart(0);
+			GlStateManager.setFogEnd(farPlaneDistance);
 		}
 		else
 		{
-			GL11.glFogf(GL11.GL_FOG_START, farPlaneDistance * farPlaneDistanceScale);
-			GL11.glFogf(GL11.GL_FOG_END, farPlaneDistance);
+			GlStateManager.setFogStart(farPlaneDistance * farPlaneDistanceScale);
+			GlStateManager.setFogEnd(farPlaneDistance);
 		}
 	}
 }

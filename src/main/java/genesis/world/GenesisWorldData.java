@@ -1,5 +1,6 @@
 package genesis.world;
 
+import genesis.common.GenesisDimensions;
 import genesis.util.Constants;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -21,7 +22,7 @@ public class GenesisWorldData extends WorldSavedData
 	
 	public static GenesisWorldData get(World world)
 	{
-		if (world.provider.getClass() != WorldProviderGenesis.class)
+		if (!GenesisDimensions.isGenesis(world))
 			return null;
 		
 		MapStorage storage = world.getPerWorldStorage();

@@ -14,6 +14,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.ServerConfigurationManager;
 import net.minecraft.world.Teleporter;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
 
@@ -29,6 +30,11 @@ public class GenesisDimensions
 		DimensionManager.registerDimension(GenesisConfig.genesisDimId, GenesisConfig.genesisProviderId);
 		
 		GenesisEntityData.registerProperty(EntityPlayerMP.class, STORED_PLAYERS);
+	}
+	
+	public static boolean isGenesis(World world)
+	{
+		return world.provider.getDimensionId() == GenesisConfig.genesisDimId;
 	}
 	
 	public static TeleporterGenesis getTeleporter(WorldServer world)

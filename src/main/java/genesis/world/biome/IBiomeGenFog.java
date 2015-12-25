@@ -4,7 +4,7 @@ import net.minecraft.util.Vec3;
 
 public interface IBiomeGenFog
 {
-	float getFogDensity(int x, int y, int z);
+	float getFogDensity();
 	float getNightFogModifier();
 	Vec3 getFogColor();
 	Vec3 getFogColorNight();

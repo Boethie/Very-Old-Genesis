@@ -1,5 +1,6 @@
 package genesis.command;
 
+import genesis.common.GenesisDimensions;
 import genesis.world.WorldProviderGenesis;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.CommandTime;
@@ -23,7 +24,7 @@ public class CommandInterceptor extends CommandTime
 		
 		try
 		{
-			if (sender.getEntityWorld().provider.getClass() == WorldProviderGenesis.class)
+			if (GenesisDimensions.isGenesis(sender.getEntityWorld()))
 			{
 				if (commandClass == CommandTime.class && args.length >= 2)
 				{
@@ -44,18 +45,16 @@ public class CommandInterceptor extends CommandTime
 						}
 						else
 						{
-							time = parseInt(value, 0);
+							time = parseInt(value);
 						}
 						
 						setTime(sender, time);
-						notifyOperators(sender, this, "commands.time.set", time);
 						event.setCanceled(true);
 					}
 					else if (mode.equals("add"))
 					{
 						int add = parseInt(value);
 						addTime(sender, add);
-						notifyOperators(sender, this, "commands.time.added", add);
 						event.setCanceled(true);
 					}
 				}
@@ -70,23 +69,46 @@ public class CommandInterceptor extends CommandTime
 		}
 	}
 	
+	protected int getDayLength(boolean genesis)
+	{
+		return genesis ? WorldProviderGenesis.DAY_LENGTH : 24000;
+	}
+	
 	@Override
 	protected void setTime(ICommandSender sender, int time)
 	{
-		boolean genesis = sender.getEntityWorld().provider.getClass() == WorldProviderGenesis.class;
+		boolean genesis = GenesisDimensions.isGenesis(sender.getEntityWorld());
+		
+		int dayLength = getDayLength(genesis);
+		time %= dayLength;
+		if (time < 0)
+			time += dayLength;
+		
+		notifyOperators(sender, this, "commands.time.set", time);
 		
 		for (WorldServer world : MinecraftServer.getServer().worldServers)
-			if (world.provider.getClass() == WorldProviderGenesis.class ? genesis : !genesis)
+			if (GenesisDimensions.isGenesis(world) ? genesis : !genesis)
 				world.setWorldTime(time);
 	}
 	
 	@Override
 	protected void addTime(ICommandSender sender, int time)
 	{
-		boolean genesis = sender.getEntityWorld().provider.getClass() == WorldProviderGenesis.class;
+		boolean genesis = GenesisDimensions.isGenesis(sender.getEntityWorld());
 		
 		for (WorldServer world : MinecraftServer.getServer().worldServers)
-			if (world.provider.getClass() == WorldProviderGenesis.class ? genesis : !genesis)
-				world.setWorldTime(world.getWorldTime() + time);
+		{
+			if (GenesisDimensions.isGenesis(world) ? genesis : !genesis)
+			{
+				long worldTime = world.getWorldTime() + time;
+				int dayLength = getDayLength(genesis);
+				if (worldTime < 0)
+					worldTime = (worldTime > -dayLength ? dayLength : 0) + (worldTime % dayLength);
+				
+				world.setWorldTime(worldTime);
+			}
+		}
+		
+		notifyOperators(sender, this, "commands.time.added", time);
 	}
 }

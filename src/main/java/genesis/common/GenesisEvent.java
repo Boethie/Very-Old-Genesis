@@ -23,6 +23,7 @@ public class GenesisEvent
 	
 	private static void registerClientEvents()
 	{
-		MinecraftForge.EVENT_BUS.register(new RenderFog());
+		MinecraftForge.EVENT_BUS.register(RenderFog.INSTANCE);
+		FMLCommonHandler.instance().bus().register(RenderFog.INSTANCE);
 	}
 }

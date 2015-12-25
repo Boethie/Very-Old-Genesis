@@ -113,9 +113,10 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 		return this;
 	}
 	
-	public Vec3 getSkyColor()
+	@Override
+	public int getSkyColorByTemp(float temperature)
 	{
-		return new Vec3(0.29411764705882352941176470588235D, 0.47450980392156862745098039215686D, 0.1960784313725490196078431372549D);
+		return 0x4B7932;
 	}
 	
 	@Override
@@ -233,7 +234,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 	}
 	
 	@Override
-	public float getFogDensity(int x, int y, int z)
+	public float getFogDensity()
 	{
 		return 1.0F;
 	}
