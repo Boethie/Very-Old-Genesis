@@ -107,8 +107,13 @@ public class BlockTallTorch extends Block
 	{
 		if (state.getValue(PART) == Part.TOP)
 		{
-			IBlockState stateBelow = world.getBlockState(pos.down());
-			return stateBelow.getBlock() == this && stateBelow.getValue(PART) == Part.BOTTOM;
+			BlockPos below = pos.down();
+			IBlockState stateBelow = world.getBlockState(below);
+			
+			if (placing)
+				return world.isBlockLoaded(below) && stateBelow.getBlock().isReplaceable(world, below);
+			else
+				return stateBelow.getBlock() == this && stateBelow.getValue(PART) == Part.BOTTOM;
 		}
 		
 		BlockPos above = pos.up();
@@ -117,17 +122,16 @@ public class BlockTallTorch extends Block
 		if (placing && stateAbove.getBlock().isReplaceable(world, above) ||
 			stateAbove.getBlock() == this && stateAbove.getValue(PART) == Part.TOP)
 		{
+			if (placing && !world.isBlockLoaded(pos.up()))
+				return false;
+			
 			EnumFacing facing = state.getValue(FACING);
 			
 			if (world.isSideSolid(pos.offset(facing.getOpposite()), facing, true))
-			{
 				return true;
-			}
 			
 			if (facing == EnumFacing.UP && world.getBlockState(pos.down()).getBlock().canPlaceTorchOnTop(world, pos))
-			{
 				return true;
-			}
 		}
 		
 		return false;
@@ -151,8 +155,8 @@ public class BlockTallTorch extends Block
 	@Override
 	public boolean canPlaceBlockAt(World world, BlockPos pos)
 	{
-		return (canPlaceTorchAt(world, pos, Part.BOTTOM) && world.isBlockLoaded(pos.up())) ||
-				(world.getBlockState(pos.down()).getBlock().isReplaceable(world, pos.down()) && canPlaceTorchAt(world, pos.down(), Part.TOP));
+		return canPlaceTorchAt(world, pos, Part.BOTTOM) ||
+				canPlaceTorchAt(world, pos.down(), Part.TOP);
 	}
 	
 	@Override
