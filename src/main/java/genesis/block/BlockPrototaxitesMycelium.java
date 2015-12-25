@@ -2,6 +2,7 @@ package genesis.block;
 
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
+import genesis.util.WorldUtils;
 
 import java.util.Random;
 
@@ -28,30 +29,48 @@ public class BlockPrototaxitesMycelium extends BlockMycelium
 	}
 
 	@Override
-	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
 	{
-		if (!worldIn.isRemote)
+		if (!world.isRemote)
 		{
-			int light = worldIn.getLightFromNeighbors(pos.up());
-			Block topBlock = worldIn.getBlockState(pos.up()).getBlock();
+			int light = world.getLightFromNeighbors(pos.up());
+			Block topBlock = world.getBlockState(pos.up()).getBlock();
 
-			if ((light < 4) && (topBlock.getLightOpacity(worldIn, pos.up()) > 2) && (topBlock != GenesisBlocks.prototaxites))
+			if ((light < 4) && (topBlock.getLightOpacity(world, pos.up()) > 2) && (topBlock != GenesisBlocks.prototaxites))
 			{
-				worldIn.setBlockState(pos, Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
+				world.setBlockState(pos, Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
 			}
 			else
 			{
+				int areaMycelium = 10;
+				
+				for (BlockPos areaPos : WorldUtils.getArea(pos, 10))
+				{
+					if (world.getBlockState(areaPos).getBlock() == this)
+					{
+						areaMycelium--;
+						
+						if (areaMycelium <= 0)
+							return;
+					}
+				}
+				
 				if (light >= 9)
 				{
 					for (int i = 0; i < 4; ++i)
 					{
 						BlockPos randPos = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
-						IBlockState randState = worldIn.getBlockState(randPos);
-						Block randBlock = worldIn.getBlockState(randPos.up()).getBlock();
-
-						if ((randState.getBlock() == Blocks.dirt) && (randState.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT) && (worldIn.getLightFromNeighbors(randPos.up()) >= 4) && (randBlock.getLightOpacity(worldIn, randPos.up()) <= 2))
+						IBlockState randState = world.getBlockState(randPos);
+						
+						BlockPos above = randPos.up();
+						Block aboveBlock = world.getBlockState(above).getBlock();
+						
+						if (randState.getBlock() == Blocks.dirt
+								&& randState.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT
+								&& world.getLightFromNeighbors(above) >= 4
+								&& aboveBlock.getLightOpacity(world, above) <= 2)
 						{
-							worldIn.setBlockState(randPos, getDefaultState());
+							world.setBlockState(randPos, getDefaultState());
 						}
 					}
 				}
@@ -62,6 +81,8 @@ public class BlockPrototaxitesMycelium extends BlockMycelium
 	@Override
 	public boolean canSustainPlant(IBlockAccess world, BlockPos pos, EnumFacing direction, net.minecraftforge.common.IPlantable plantable)
 	{
-		return plantable.getPlantType(world, pos.offset(direction)) == SOIL_TYPE;
+		EnumPlantType type = plantable.getPlantType(world, pos.offset(direction));
+		return type == SOIL_TYPE
+			|| type == EnumPlantType.Plains;
 	}
 }

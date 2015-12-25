@@ -45,7 +45,8 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 	{
 		BlockPos below = pos.down();
 		
-		if (WorldUtils.canSoilSustainTypes(world, pos, EnumPlantType.Plains))
+		if (WorldUtils.canSoilSustainTypes(world, pos, EnumPlantType.Plains)
+				&& !WorldUtils.canSoilSustainTypes(world, pos, BlockPrototaxitesMycelium.SOIL_TYPE))
 			world.setBlockState(below, GenesisBlocks.prototaxites_mycelium.getDefaultState());
 		
 		super.onBlockPlacedBy(world, pos, state, placer, stack);
@@ -74,10 +75,12 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 	public CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World world, BlockPos pos, boolean placed)
 	{
 		for (EnumFacing side : EnumFacing.HORIZONTALS)
-			if (world.getBlockState(pos.offset(side)).getBlock() == this)
+			if (world.isSideSolid(pos.offset(side), side.getOpposite()))
 				return CanStayOptions.NO;
 		
-		if (placed && WorldUtils.canSoilSustainTypes(world, pos, EnumPlantType.Plains))
+		if (placed
+				&& WorldUtils.canSoilSustainTypes(world, pos, EnumPlantType.Plains)
+				&& !WorldUtils.canSoilSustainTypes(world, pos, BlockPrototaxitesMycelium.SOIL_TYPE))
 			return CanStayOptions.NO;
 		
 		return CanStayOptions.YIELD;
