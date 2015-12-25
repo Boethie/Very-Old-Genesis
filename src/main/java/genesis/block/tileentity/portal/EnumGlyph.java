@@ -16,10 +16,10 @@ public enum EnumGlyph implements IMetadata<EnumGlyph>
 	ANIMAL("animal",
 			GenesisItems.menhir_activators.getStack(EnumMenhirActivator.FOSSILIZED_EGG)),
 	HOMINID("hominid",
-			GenesisItems.menhir_activators.getStack(EnumMenhirActivator.BROKEN_CEREMONIAL_AXE),
 			GenesisItems.menhir_activators.getStack(EnumMenhirActivator.BROKEN_SPIRIT_MASK)),
 	COSMOS("cosmos",
-			GenesisItems.menhir_activators.getStack(EnumMenhirActivator.RUSTED_OCTAEDRITE_FLAKE));
+			GenesisItems.menhir_activators.getStack(EnumMenhirActivator.RUSTED_OCTAEDRITE_FLAKE),
+			GenesisItems.menhir_activators.getStack(EnumMenhirActivator.PRIMITIVE_DUST));
 	
 	public static final EnumGlyph[] VALID = {VEGETAL, ANIMAL, HOMINID, COSMOS};
 	

@@ -1,7 +1,7 @@
 {
 	"parent": "builtin/generated",
 	"textures": {
-		"layer0": "genesis:items/broken_ceremonial_axe"
+		"layer0": "genesis:items/primitive_dust"
 	},
 	"display": {
 		"thirdperson": {

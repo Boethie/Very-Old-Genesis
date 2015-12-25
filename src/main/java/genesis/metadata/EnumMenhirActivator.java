@@ -2,11 +2,11 @@ package genesis.metadata;
 
 public enum EnumMenhirActivator implements IMetadata<EnumMenhirActivator>
 {
-	RUSTED_OCTAEDRITE_FLAKE("rusted_octaedrite_flake", "rustedOctaedriteFlake"),
 	ANCIENT_AMBER("ancient_amber", "ancientAmber"),
 	FOSSILIZED_EGG("fossilized_egg", "fossilizedEgg"),
-	BROKEN_CEREMONIAL_AXE("broken_ceremonial_axe", "brokenCeremonialAxe"),
-	BROKEN_SPIRIT_MASK("broken_spirit_mask", "brokenSpiritMask");
+	BROKEN_SPIRIT_MASK("broken_spirit_mask", "brokenSpiritMask"),
+	RUSTED_OCTAEDRITE_FLAKE("rusted_octaedrite_flake", "rustedOctaedriteFlake"),
+	PRIMITIVE_DUST("primitive_dust", "primitiveDust");
 	
 	final String name;
 	final String unlocalizedName;
