@@ -37,6 +37,10 @@ public class GenesisPortalCircle
 		for (BlockPos post : posts)
 		{
 			BlockPos ground = findSurface(world, center.add(post));
+			if (Math.abs(ground.getY() - center.getY()) > 5)
+			{
+				continue;
+			}
 			int height = ground.getY() + 3 - (isNew ? 0 : world.rand.nextInt(2));
 			while (ground.getY() < height)
 			{
