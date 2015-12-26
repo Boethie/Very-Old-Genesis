@@ -4,11 +4,12 @@ import genesis.block.tileentity.portal.BlockMenhir;
 import genesis.block.tileentity.portal.EnumGlyph;
 import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
-import genesis.common.GenesisConfig;
+import genesis.common.GenesisDimensions;
 import genesis.metadata.EnumMenhirPart;
 import genesis.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
@@ -410,10 +411,11 @@ public class GenesisPortal
 		}
 		
 		setCenterPosition(center.up());
+		IBlockState place = GenesisDimensions.isGenesis(world) ? GenesisBlocks.moss.getDefaultState() : Blocks.grass.getDefaultState();
 		
 		for (BlockPos pos : platform)
 		{
-			world.setBlockState(pos, GenesisBlocks.moss.getDefaultState());
+			world.setBlockState(pos, place);
 		}
 	}
 	
@@ -458,7 +460,7 @@ public class GenesisPortal
 		
 		refresh();
 		updatePortalStatus(world);
-		genStructure(world, center, world.provider.getDimensionId() == GenesisConfig.genesisDimId);
+		genStructure(world, center, GenesisDimensions.isGenesis(world));
 		return true;
 	}
 	
@@ -494,7 +496,7 @@ public class GenesisPortal
 		
 		refresh();
 		updatePortalStatus(world);
-		genStructure(world, center, world.provider.getDimensionId() == GenesisConfig.genesisDimId);
+		genStructure(world, center, GenesisDimensions.isGenesis(world));
 	}
 	
 	@Override

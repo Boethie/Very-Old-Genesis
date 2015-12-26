@@ -1,7 +1,7 @@
 package genesis.block;
 
-import genesis.common.GenesisConfig;
 import genesis.common.GenesisCreativeTabs;
+import genesis.common.GenesisDimensions;
 import genesis.item.ItemBlockMulti;
 import genesis.metadata.EnumTree;
 import genesis.metadata.PropertyIMetadata;
@@ -103,7 +103,7 @@ public class BlockGenesisLogs extends BlockLog
 	@Override
 	public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player)
 	{	// Prevent logs from dropping if the player isn't using the appropriate tool type.
-		if (world instanceof World && ((World) world).provider.getDimensionId() == GenesisConfig.genesisDimId)
+		if (world instanceof World && GenesisDimensions.isGenesis((World) world))
 		{
 			IBlockState state = getActualState(world.getBlockState(pos), world, pos);
 			ItemStack held = player.getHeldItem();

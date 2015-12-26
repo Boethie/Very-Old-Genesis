@@ -1,6 +1,6 @@
 package genesis.world.iworldgenerators;
 
-import genesis.common.GenesisConfig;
+import genesis.common.GenesisDimensions;
 import genesis.portal.GenesisPortal;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -18,14 +18,13 @@ public class WorldGenPortal implements IWorldGenerator
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider)
 	{
-		int dimension = world.provider.getDimensionId();
-		if (dimension == 0)
-		{
-			genPortal(random, chunkX, chunkZ, world, 5, true);
-		}
-		else if (dimension == GenesisConfig.genesisDimId)
+		if (GenesisDimensions.isGenesis(world))
 		{
 			genPortal(random, chunkX, chunkZ, world, 8, false);
+		}
+		else
+		{
+			genPortal(random, chunkX, chunkZ, world, 5, true);
 		}
 	}
 	

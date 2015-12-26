@@ -38,17 +38,17 @@ public class WorldUtils
 		return BlockPos.getAllInBox(start, end);
 	}
 	
-	public static Iterable<BlockPos> getAreaWithHeight(BlockPos pos, int area, int startY, int endY)
+	public static Iterable<BlockPos> getAreaWithHeight(BlockPos pos, int radius, int startY, int endY)
 	{
-		BlockPos start = new BlockPos(pos.getX() - area, startY, pos.getZ() - area);
-		BlockPos end = new BlockPos(pos.getX() + area, endY, pos.getZ() + area);
+		BlockPos start = new BlockPos(pos.getX() - radius, startY, pos.getZ() - radius);
+		BlockPos end = new BlockPos(pos.getX() + radius, endY, pos.getZ() + radius);
 		return getArea(start, end);
 	}
 	
-	public static Iterable<BlockPos> getArea(BlockPos pos, int area)
+	public static Iterable<BlockPos> getArea(BlockPos pos, int radius)
 	{
-		BlockPos start = pos.add(-area, -area, -area);
-		BlockPos end = pos.add(area, area, area);
+		BlockPos start = pos.add(-radius, -radius, -radius);
+		BlockPos end = pos.add(radius, radius, radius);
 		return getArea(start, end);
 	}
 	
