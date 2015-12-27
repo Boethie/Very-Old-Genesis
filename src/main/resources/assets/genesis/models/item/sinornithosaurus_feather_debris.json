@@ -1,7 +1,7 @@
 {
 	"parent": "builtin/generated",
 	"textures": {
-		"layer0": "genesis:items/sinosauropteryx_feather"
+		"layer0": "genesis:blocks/debris_sinornithosaurus_feather"
 	},
 	"display": {
 		"thirdperson": {

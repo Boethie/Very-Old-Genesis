@@ -86,7 +86,7 @@ tile.genesis.debris.metasequoia.name=Metasequoia Leaf Debris
 tile.genesis.debris.calamites.name=Calamites Debris
 tile.genesis.debris.coelophysisFeather.name=Coelophysis Feather Debris
 tile.genesis.debris.epidexipteryxFeather.name=Epidexipteryx Feather Debris
-tile.genesis.debris.sinosauropteryxFeather.name=Sinosauropteryx Feather Debris
+tile.genesis.debris.sinornithosaurusFeather.name=Sinornithosaurus Feather Debris
 
 tile.genesis.roots.name=Roots
 
@@ -444,7 +444,7 @@ item.genesis.material.arthropleuraChitin.name=Arthropleura Chitin
 item.genesis.material.coelophysisFeather.name=Coelophysis Feather
 item.genesis.material.epidexipteryxFeather.name=Epidexipteryx Feather
 item.genesis.material.liopleurodonTooth.name=Liopleurodon Tooth
-item.genesis.material.sinosauropteryxFeather.name=Sinosauropteryx Feather
+item.genesis.material.sinornithosaurusFeather.name=Sinornithosaurus Feather
 item.genesis.material.tyrannosaurusSaliva.name=Tyrannosaurus Saliva
 item.genesis.material.tyrannosaurusTooth.name=Tyrannosaurus Tooth
 item.genesis.material.egg.meganeura.name=Meganeura Egg
