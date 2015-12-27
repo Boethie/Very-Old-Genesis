@@ -20,11 +20,15 @@ public class GenesisEventHandler
 		if (event.phase == Phase.START)
 		{
 			World world = event.world;
-			GenesisWorldData data = GenesisWorldData.get(world);
 			
-			if (data != null)
+			if (world.getGameRules().getBoolean("doDaylightCycle"))
 			{
-				data.setTime(data.getTime() + 1);
+				GenesisWorldData data = GenesisWorldData.get(world);
+				
+				if (data != null)
+				{
+					data.setTime(data.getTime() + 1);
+				}
 			}
 		}
 	}
