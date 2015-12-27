@@ -13,9 +13,9 @@ public enum EnumMaterial implements IMetadata<EnumMaterial>
 	COELOPHYSIS_FEATHER("coelophysis_feather", "coelophysisFeather"),
 	EPIDEXIPTERYX_FEATHER("epidexipteryx_feather", "epidexipteryxFeather"),
 	LIOPLEURODON_TOOTH("liopleurodon_tooth", "liopleurodonTooth"),
+	SINOSAUROPTERYX_FEATHER("sinosauropteryx_feather", "sinosauropteryxFeather"),
 	TYRANNOSAURUS_SALIVA("tyrannosaurus_saliva", "tyrannosaurusSaliva"),
 	TYRANNOSAURUS_TOOTH("tyrannosaurus_tooth", "tyrannosaurusTooth");
-	
 	
 	final String name;
 	final String unlocalizedName;
