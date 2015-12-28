@@ -5,13 +5,15 @@ import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.Ev
 import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.ICE;
 import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.LAKE;
 import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.LAVA;
-import genesis.common.GenesisBiomes;
-import genesis.common.GenesisBlocks;
-import genesis.world.gen.MapGenCavesGenesis;
-import genesis.world.gen.feature.WorldGenGenesisLakes;
 
 import java.util.List;
 
+import genesis.common.GenesisBiomes;
+import genesis.common.GenesisBlocks;
+import genesis.world.biome.gen.feature.WorldGenGenesisSurfacePatch;
+import genesis.world.gen.MapGenCavesGenesis;
+import genesis.world.gen.feature.WorldGenGenesisLakes;
+import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
@@ -79,6 +81,15 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 		else if (biome.biomeID == GenesisBiomes.redLowlands.biomeID)
 			waterLakeChance = 2;
 		
+		if (biome.biomeID == GenesisBiomes.redLowlands.biomeID)
+		{
+			int x = rand.nextInt(8);
+			int z = rand.nextInt(8);
+			int y = 128;
+			
+			new WorldGenGenesisSurfacePatch(Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT)).generate(worldObj, rand, pos.add(x, y, z));
+		}
+		
 		if (settings.useWaterLakes 
 			&& !village 
 			&& rand.nextInt(waterLakeChance) == 0 
@@ -115,6 +126,7 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 		}
 		
 		biome.decorate(worldObj, rand, new BlockPos(blockX, 0, blockZ));
+		
 		if (TerrainGen.populate(chunkProvider, worldObj, rand, chunkX, chunkZ, village, ANIMALS))
 		{
 			SpawnerAnimals.performWorldGenSpawning(worldObj, biome, blockX + 8, blockZ + 8, 16, 16, rand);

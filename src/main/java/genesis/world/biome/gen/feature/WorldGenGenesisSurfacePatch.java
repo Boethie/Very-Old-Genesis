@@ -1,7 +1,8 @@
-package genesis.world.biome.decorate;
+package genesis.world.biome.gen.feature;
 
 import java.util.Random;
 
+import genesis.block.BlockMoss;
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumSilt;
 import genesis.metadata.SiltBlocks;
@@ -10,8 +11,9 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenGenesisSurfacePatch extends WorldGenDecorationBase
+public class WorldGenGenesisSurfacePatch extends WorldGenerator
 {
 	protected static final int SIZE_X = 15;
 	protected static final int SIZE_Y = 7;
@@ -105,6 +107,8 @@ public class WorldGenGenesisSurfacePatch extends WorldGenDecorationBase
 		
 		int x, y, z;
 		
+		IBlockState currentState = filler;
+		
 		for (x = 0; x <= SIZE_X; ++x)
 		{
 			for (y = 0; y < SIZE_Y; ++y)
@@ -117,8 +121,16 @@ public class WorldGenGenesisSurfacePatch extends WorldGenDecorationBase
 						{
 							block = world.getBlockState(pos.add(x, y, z)).getBlock();
 							
+							if (rand.nextInt(3) == 0)
+							{
+								if (currentState == filler)
+									currentState = GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.STAGE, rand.nextInt(3));
+								else
+									currentState = filler;
+							}
+							
 							if (block.getDefaultState() == GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT).getDefaultState())
-								world.setBlockState(pos.add(x, y, z), filler, 2);
+								world.setBlockState(pos.add(x, y, z), currentState, 2);
 						}
 					}
 				}

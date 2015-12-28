@@ -3,9 +3,7 @@ package genesis.world.gen.feature;
 import java.util.Random;
 
 import genesis.common.GenesisBlocks;
-import genesis.metadata.EnumSilt;
 import genesis.metadata.EnumTree;
-import genesis.metadata.SiltBlocks;
 import genesis.metadata.TreeBlocksAndItems;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockLog;
@@ -28,7 +26,7 @@ public class WorldGenTreeVoltzia extends WorldGenTreeBase
 		this.minHeight = minHeight;
 		this.maxHeight = maxHeight;
 		
-		this.addAllowedBlocks(GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT).getBlockState(), GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.RED_SILT).getBlockState(), Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT).getBlock().getBlockState());
+		this.addAllowedBlocks(GenesisBlocks.moss.getBlockState(), Blocks.dirt.getBlockState(), Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT).getBlock().getBlockState());
 	}
 	
 	@Override
