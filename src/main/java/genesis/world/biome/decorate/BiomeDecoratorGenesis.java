@@ -20,7 +20,6 @@ import genesis.world.gen.feature.WorldGenGenesisLiquids;
 import genesis.world.gen.feature.WorldGenGenesisSand;
 import genesis.world.gen.feature.WorldGenMinableGenesis;
 import genesis.world.gen.feature.WorldGenTreeBase;
-import genesis.world.gen.feature.WorldGenUndergroundColumns;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -100,21 +99,6 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	protected void genDecorations(BiomeGenBase biome)
 	{
 		MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(currentWorld, randomGenerator, field_180294_c));
-		
-		for (int i = 0; nextInt(10) > 2 && i < 8; ++i)
-		{
-			BlockPos pos = field_180294_c.add(nextInt(16) + 8, nextInt(nextInt(248) + 8), nextInt(16) + 8);
-			(new WorldGenUndergroundColumns(randomGenerator, 18)).generate(currentWorld, randomGenerator, pos);
-			(new WorldGenUndergroundColumns(randomGenerator, 7)).generate(currentWorld, randomGenerator, pos.add(1 + nextInt(2), 0, 1 + nextInt(2)));
-			(new WorldGenUndergroundColumns(randomGenerator, 7)).generate(currentWorld, randomGenerator, pos.add(1 + nextInt(2), 0, 1 + nextInt(2)));
-			(new WorldGenUndergroundColumns(randomGenerator, 7)).generate(currentWorld, randomGenerator, pos.add(1 + nextInt(2), 0, 1 + nextInt(2)));
-		}
-		
-		for (int i = 0; nextInt(3) == 0 && i < 4; ++i)
-		{
-			BlockPos pos = field_180294_c.add(nextInt(16) + 8, nextInt(nextInt(248) + 8), nextInt(16) + 8);
-			(new WorldGenUndergroundColumns(randomGenerator, 7)).generate(currentWorld, randomGenerator, pos);
-		}
 		
 		generateOres();
 
