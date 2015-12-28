@@ -8,8 +8,6 @@ import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.Ev
 import genesis.common.GenesisBiomes;
 import genesis.common.GenesisBlocks;
 import genesis.world.gen.MapGenCavesGenesis;
-import genesis.world.gen.MapGenRavineGenesis;
-import genesis.world.gen.MapGenUndergroundLavaLakes;
 import genesis.world.gen.feature.WorldGenGenesisLakes;
 
 import java.util.List;
@@ -37,15 +35,11 @@ import net.minecraftforge.fml.common.eventhandler.Event.Result;
 public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 {
 	private MapGenBase caveGenerator;
-	private MapGenBase ravineGenerator;
-	private MapGenBase underGroundLavaLakeGenerator;
 	
 	public ChunkGeneratorGenesis(World world, long seed, boolean mapFeaturesEnabled, String generatorOptions)
 	{
 		super(world, seed, mapFeaturesEnabled, generatorOptions);
 		caveGenerator = new MapGenCavesGenesis();
-		ravineGenerator = new MapGenRavineGenesis();
-		underGroundLavaLakeGenerator = new MapGenUndergroundLavaLakes();
 		
 		if (generatorOptions != null)
 		{
@@ -255,15 +249,6 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 		if (this.settings.useCaves)
 		{
 			this.caveGenerator.generate(this, this.worldObj, x, z, chunkprimer);
-		}
-		
-		if (this.settings.useRavines)
-		{
-			this.ravineGenerator.generate(this, this.worldObj, x, z, chunkprimer);
-		}
-		
-		{
-			this.underGroundLavaLakeGenerator.generate(this, this.worldObj, x, z, chunkprimer);
 		}
 		
 		if (this.settings.useMineShafts && this.mapFeaturesEnabled)
