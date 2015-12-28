@@ -55,6 +55,11 @@
 					"plant": "genesis:blocks/plant_apoldia"
 				}
 			},
+			"lepacyclotes": {
+				"textures": {
+					"plant": "genesis:blocks/plant_lepacyclotes"
+				}
+			},
 			"archaeamphora": {
 				"textures": {
 					"plant": "genesis:blocks/plant_archaeamphora"

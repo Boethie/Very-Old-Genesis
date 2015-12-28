@@ -632,6 +632,18 @@ public final class GenesisRecipes
 		ItemStack protoFlesh = GenesisItems.seeds.getStack(EnumSeeds.PROTOTAXITES_FLESH);
 		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(GenesisDye.get(EnumDyeColor.BROWN)), protoFlesh, protoFlesh);
 		
+		ItemStack lepacyclotes = GenesisBlocks.plants.getPlantStack(EnumPlant.LEPACYCLOTES);
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.materials.getStack(EnumMaterial.SALT), lepacyclotes, lepacyclotes);
+		
+		ItemStack spirifer = GenesisItems.foods.getRawStack(EnumFood.SPIRIFER);
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.foods.getCookedStack(EnumFood.SPIRIFER), spirifer, spirifer);
+		
+		ItemStack gryphaea = GenesisItems.foods.getRawStack(EnumFood.GRYPHAEA);
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.foods.getCookedStack(EnumFood.GRYPHAEA), gryphaea, gryphaea);
+		
+		ItemStack ceratites = GenesisItems.foods.getRawStack(EnumFood.CERATITES);
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.foods.getCookedStack(EnumFood.CERATITES), ceratites, ceratites);
+		
 		// Cooking pot recipes with vanilla items
 		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.ORANGE), calamites, new ItemStack(Items.dye, 1, EnumDyeColor.RED.getDyeDamage()));
 		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.ORANGE), mabelia, new ItemStack(Items.dye, 1, EnumDyeColor.YELLOW.getDyeDamage()));
@@ -690,31 +702,31 @@ public final class GenesisRecipes
 			case MASHED_NEUROPTERIDIUM:
 				break;
 			case STEW_SPIRIFER:
-				ingredient = GenesisItems.foods.getCookedStack(EnumFood.SPIRIFER);
+				ingredient = GenesisItems.foods.getRawStack(EnumFood.SPIRIFER);
 				break;
 			case STEW_CLIMATIUS:
-				ingredient = GenesisItems.foods.getCookedStack(EnumFood.CLIMATIUS);
+				ingredient = GenesisItems.foods.getRawStack(EnumFood.CLIMATIUS);
 				break;
 			case STEW_MEGANEURA:
-				ingredient = GenesisItems.foods.getCookedStack(EnumFood.MEGANEURA);
+				ingredient = GenesisItems.foods.getRawStack(EnumFood.MEGANEURA);
 				break;
 			case STEW_APHTHOROBLATINNA:
-				ingredient = GenesisItems.foods.getCookedStack(EnumFood.APHTHOROBLATINNA);
+				ingredient = GenesisItems.foods.getRawStack(EnumFood.APHTHOROBLATINNA);
 				break;
 			case STEW_ERYOPS:
-				ingredient = GenesisItems.foods.getCookedStack(EnumFood.ERYOPS_LEG);
+				ingredient = GenesisItems.foods.getRawStack(EnumFood.ERYOPS_LEG);
 				break;
 			case STEW_GRYPHAEA:
-				ingredient = GenesisItems.foods.getCookedStack(EnumFood.GRYPHAEA);
+				ingredient = GenesisItems.foods.getRawStack(EnumFood.GRYPHAEA);
 				break;
 			case STEW_CERATITES:
-				ingredient = GenesisItems.foods.getCookedStack(EnumFood.CERATITES);
+				ingredient = GenesisItems.foods.getRawStack(EnumFood.CERATITES);
 				break;
 			case STEW_LIOPLEURODON:
-				ingredient = GenesisItems.foods.getCookedStack(EnumFood.LIOPLEURODON);
+				ingredient = GenesisItems.foods.getRawStack(EnumFood.LIOPLEURODON);
 				break;
 			case STEW_TYRANNOSAURUS:
-				ingredient = GenesisItems.foods.getCookedStack(EnumFood.TYRANNOSAURUS);
+				ingredient = GenesisItems.foods.getRawStack(EnumFood.TYRANNOSAURUS);
 				break;
 			}
 			
