@@ -2,8 +2,10 @@ package genesis.world.biome;
 
 import net.minecraft.util.Vec3;
 import genesis.common.GenesisBlocks;
+import genesis.metadata.EnumPlant;
 import genesis.metadata.EnumSilt;
 import genesis.metadata.SiltBlocks;
+import genesis.world.biome.decorate.WorldGenPlant;
 
 public class BiomeGenRedBeach extends BiomeGenBeachGenesis
 {
@@ -17,6 +19,8 @@ public class BiomeGenRedBeach extends BiomeGenBeachGenesis
 		fillerBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
 		
 		waterColorMultiplier = 0x059044;
+		
+		addDecoration(new WorldGenPlant(EnumPlant.LEPACYCLOTES).setNextToWater(true).addAllowedBlocks(GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT), GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.RED_SILT)).setCountPerChunk(9).setPatchSize(6));
 	}
 	
 	@Override

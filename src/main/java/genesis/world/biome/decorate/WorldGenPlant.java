@@ -1,5 +1,7 @@
 package genesis.world.biome.decorate;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import genesis.block.BlockPlant;
@@ -21,6 +23,7 @@ public class WorldGenPlant extends WorldGenDecorationBase
 	protected final VariantsOfTypesCombo combo;
 	protected final ObjectType<? extends BlockPlant, ? extends Item> type;
 	protected final IPlantMetadata variant;
+	private final List<Block> allowedBlocks = new ArrayList<Block>();
 	private boolean nextToWater = false;
 	private int waterRadius = 1;
 	private int waterHeight = 1;
@@ -30,6 +33,9 @@ public class WorldGenPlant extends WorldGenDecorationBase
 		this.combo = combo;
 		this.type = type;
 		this.variant = variant;
+		
+		this.allowedBlocks.add(Blocks.dirt);
+		this.allowedBlocks.add(GenesisBlocks.moss);
 	}
 	
 	public WorldGenPlant(EnumPlant variant)
@@ -40,6 +46,14 @@ public class WorldGenPlant extends WorldGenDecorationBase
 	public WorldGenPlant(ObjectType<? extends BlockPlant, ? extends Item> type, EnumPlant variant)
 	{
 		this(GenesisBlocks.plants, type, variant);
+	}
+	
+	public WorldGenPlant addAllowedBlocks(Block... blocks)
+	{
+		for (int i = 0; i < blocks.length; ++i)
+			allowedBlocks.add(blocks[i]);
+		
+		return this;
 	}
 	
 	public WorldGenPlant setNextToWater(boolean nextToWater)
@@ -71,7 +85,7 @@ public class WorldGenPlant extends WorldGenDecorationBase
 		}
 		while (pos.getY() > 0);
 		
-		if (!(world.getBlockState(pos).getBlock() == GenesisBlocks.moss || world.getBlockState(pos).getBlock() == Blocks.dirt))
+		if (!(allowedBlocks.contains(world.getBlockState(pos).getBlock())))
 			return false;
 		
 		if (!world.getBlockState(pos.up()).getBlock().isAir(world, pos))
@@ -93,9 +107,8 @@ public class WorldGenPlant extends WorldGenDecorationBase
 		for (int i = 0; i <= additional; ++i)
 		{
 			secondPos = pos.add(random.nextInt(7) - 3, 0, random.nextInt(7) - 3);
-			if (
-					(world.getBlockState(secondPos).getBlock() == GenesisBlocks.moss
-					|| world.getBlockState(secondPos).getBlock() == Blocks.dirt))
+			
+			if (allowedBlocks.contains(world.getBlockState(secondPos).getBlock()))
 				placePlant(world, secondPos, random);
 		}
 		

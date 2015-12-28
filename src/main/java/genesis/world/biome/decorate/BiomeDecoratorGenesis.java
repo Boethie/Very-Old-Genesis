@@ -6,6 +6,11 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LAKE_WATER;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.SAND;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisConfig;
 import genesis.metadata.EnumOre;
@@ -16,11 +21,6 @@ import genesis.world.gen.feature.WorldGenGenesisSand;
 import genesis.world.gen.feature.WorldGenMinableGenesis;
 import genesis.world.gen.feature.WorldGenTreeBase;
 import genesis.world.gen.feature.WorldGenUndergroundColumns;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
