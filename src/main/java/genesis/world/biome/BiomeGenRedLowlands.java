@@ -32,6 +32,7 @@ public class BiomeGenRedLowlands extends BiomeGenBaseGenesis
 		this.theBiomeDecorator.grassPerChunk = 0;
 		this.theBiomeDecorator.sandPerChunk = 0;
 		this.theBiomeDecorator.sandPerChunk2 = 0;
+		this.theBiomeDecorator.clayPerChunk = 0;
 		
 		addDecorations();
 		addTrees();
