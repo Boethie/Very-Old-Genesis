@@ -7,14 +7,14 @@ import java.util.Random;
 import genesis.block.BlockMoss;
 import genesis.common.GenesisBlocks;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class WorldGenMossStages extends WorldGenDecorationBase
 {
-	private List<BlockState> allowedBlocks = new ArrayList<BlockState>();
+	private List<IBlockState> allowedBlocks = new ArrayList<IBlockState>();
 	
 	@Override
 	public boolean generate(World world, Random random, BlockPos pos)
@@ -34,7 +34,7 @@ public class WorldGenMossStages extends WorldGenDecorationBase
 		
 		if (
 				!(world.getBlockState(pos).getBlock() == GenesisBlocks.moss || world.getBlockState(pos).getBlock() == Blocks.dirt)
-				&& !(allowedBlocks.contains(world.getBlockState(pos).getBlock().getBlockState())))
+				&& !(allowedBlocks.contains(world.getBlockState(pos))))
 			return false;
 		
 		boolean generated = false;
@@ -66,11 +66,11 @@ public class WorldGenMossStages extends WorldGenDecorationBase
 		return true;
 	}
 	
-	public WorldGenMossStages addAllowedBlocks(BlockState... blocks)
+	public WorldGenMossStages addAllowedBlocks(IBlockState... states)
 	{
-		for (int i = 0; i < blocks.length; ++i)
+		for (int i = 0; i < states.length; ++i)
 		{
-			allowedBlocks.add(blocks[i]);
+			allowedBlocks.add(states[i]);
 		}
 		
 		return this;

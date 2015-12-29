@@ -83,11 +83,14 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 		
 		if (biome.biomeID == GenesisBiomes.redLowlands.biomeID)
 		{
-			int x = rand.nextInt(8);
-			int z = rand.nextInt(8);
-			int y = 128;
-			
-			new WorldGenGenesisSurfacePatch(Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT)).generate(worldObj, rand, pos.add(x, y, z));
+			for (int i = 0; i < 5; ++i)
+			{
+				int x = rand.nextInt(8) + 8;
+				int z = rand.nextInt(8) + 8;
+				int y = 128;
+				
+				new WorldGenGenesisSurfacePatch(Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT)).generate(worldObj, rand, pos.add(x, y, z));
+			}
 		}
 		
 		if (settings.useWaterLakes 
