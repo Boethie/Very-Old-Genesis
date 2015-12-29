@@ -24,7 +24,7 @@ package genesis.util;
  * 
  * Supports multi-evaluation with first derivatives.
  * 
- * Version 12/24/2015
+ * Version 12/28/2015
  */
 
 public class SuperSimplexNoise {
@@ -80,7 +80,7 @@ public class SuperSimplexNoise {
 
 		//Point contributions
 		for (int i = 0; i < 4; i++) {
-			LatticePoint2D c = lookup2D[index + i];
+			LatticePoint2D c = LOOKUP_2D[index + i];
 
 			double dx = xi + c.dx, dy = yi + c.dy;
 			double attn = 2.0 / 3.0 - dx * dx - dy * dy;
@@ -88,8 +88,8 @@ public class SuperSimplexNoise {
 
 			int pxm = (xsb + c.xsv) & 1023, pym = (ysb + c.ysv) & 1023;
 			int gi = perm2D[perm[pxm] ^ pym];
-			double extrapolation = gradients2D[gi] * dx
-					+ gradients2D[gi + 1] * dy;
+			double extrapolation = GRADIENTS_2D[gi] * dx
+					+ GRADIENTS_2D[gi + 1] * dy;
 			
 			attn *= attn;
 			value += attn * attn * extrapolation;
@@ -115,14 +115,14 @@ public class SuperSimplexNoise {
 
 		//Index to point list for first lattice
 		int index1 =
-				(+ xri + yri + zri >= 1.5 ? 4 : 0) |
+				(+ xri + yri + zri >= 1.5 ? 1*4 : 0) |
 				(- xri + yri + zri >= 0.5 ? 2*4 : 0) |
 				(+ xri - yri + zri >= 0.5 ? 4*4 : 0) |
 				(+ xri + yri - zri >= 0.5 ? 8*4 : 0);
 
 		//Index to point list for second lattice
 		int index2 =
-				(+ xr2i + yr2i + zr2i >= 1.5 ? 4 : 0) |
+				(+ xr2i + yr2i + zr2i >= 1.5 ? 1*4 : 0) |
 				(- xr2i + yr2i + zr2i >= 0.5 ? 2*4 : 0) |
 				(+ xr2i - yr2i + zr2i >= 0.5 ? 4*4 : 0) |
 				(+ xr2i + yr2i - zr2i >= 0.5 ? 8*4 : 0);
@@ -130,17 +130,17 @@ public class SuperSimplexNoise {
 		
 		//Point contributions for first lattice
 		for (int i = 0; i < 4; i++) {
-			LatticePoint3D c = lookup3D[index1 + i];
+			LatticePoint3D c = LOOKUP_3D[index1 + i];
 
-			double dx = xri - c.xrv, dy = yri - c.yrv, dz = zri - c.zrv;
-			double attn = 0.75 - dx * dx - dy * dy - dz * dz;
+			double dxr = xri - c.xrv, dyr = yri - c.yrv, dzr = zri - c.zrv;
+			double attn = 0.75 - dxr * dxr - dyr * dyr - dzr * dzr;
 			if (attn <= 0) continue;
 			
 			int pxm = (xrb + c.xrv) & 1023, pym = (yrb + c.yrv) & 1023, pzm = (zrb + c.zrv) & 1023;
 			int gi = perm3D[perm[perm[pxm] ^ pym] ^ pzm];
-			double extrapolation = gradients3D[gi] * dx
-					+ gradients3D[gi + 1] * dy
-					+ gradients3D[gi + 2] * dz;
+			double extrapolation = GRADIENTS_3D_R[gi] * dxr
+					+ GRADIENTS_3D_R[gi + 1] * dyr
+					+ GRADIENTS_3D_R[gi + 2] * dzr;
 			
 			attn *= attn;
 			value += attn * attn * extrapolation;
@@ -148,18 +148,18 @@ public class SuperSimplexNoise {
 
 		//Point contributions for second lattice
 		for (int i = 0; i < 4; i++) {
-			LatticePoint3D c = lookup3D[index2 + i];
+			LatticePoint3D c = LOOKUP_3D[index2 + i];
 
-			double dx = xr2i - c.xrv, dy = yr2i - c.yrv, dz = zr2i - c.zrv;
+			double dxr = xr2i - c.xrv, dyr = yr2i - c.yrv, dzr = zr2i - c.zrv;
 			
-			double attn = 0.75 - dx * dx - dy * dy - dz * dz;
+			double attn = 0.75 - dxr * dxr - dyr * dyr - dzr * dzr;
 			if (attn <= 0) continue;
 
 			int pxm = (xr2b + c.xrv) & 1023, pym = (yr2b + c.yrv) & 1023, pzm = (zr2b + c.zrv) & 1023;
 			int gi = perm3D[perm[perm[pym] ^ pzm] ^ pxm];
-			double extrapolation = gradients3D[gi] * dx
-					+ gradients3D[gi + 1] * dy
-					+ gradients3D[gi + 2] * dz;
+			double extrapolation = GRADIENTS_3D_R[gi] * dxr
+					+ GRADIENTS_3D_R[gi + 1] * dyr
+					+ GRADIENTS_3D_R[gi + 2] * dzr;
 			
 			attn *= attn;
 			value += attn * attn * extrapolation;
@@ -195,18 +195,16 @@ public class SuperSimplexNoise {
 
 		//Point contributions
 		for (int i = 0; i < 4; i++) {
-			LatticePoint2D c = lookup2D[index + i];
+			LatticePoint2D c = LOOKUP_2D[index + i];
 
 			double dx = xi + c.dx, dy = yi + c.dy;
 			double attn = 2.0 / 3.0 - dx * dx - dy * dy;
 			if (attn <= 0) continue;
 
 			int pxm = (xsb + c.xsv) & 1023, pym = (ysb + c.ysv) & 1023;
-			for (int j = 0; j < instances.length; j++) {
-				NoiseInstance2 instance = instances[j];
-
+			for (NoiseInstance2 instance: instances) {
 				int gi = instance.noise.perm2D[instance.noise.perm[pxm] ^ pym];
-				double gx = gradients2D[gi], gy = gradients2D[gi + 1];
+				double gx = GRADIENTS_2D[gi + 0], gy = GRADIENTS_2D[gi + 1];
 				double extrapolation = gx * dx + gy * dy;
 				double attnSq = attn * attn;
 				
@@ -239,84 +237,82 @@ public class SuperSimplexNoise {
 
 		//Index to point list for first lattice
 		int index1 =
-				(+ xri + yri + zri >= 1.5 ? 4 : 0) |
+				(+ xri + yri + zri >= 1.5 ? 1*4 : 0) |
 				(- xri + yri + zri >= 0.5 ? 2*4 : 0) |
 				(+ xri - yri + zri >= 0.5 ? 4*4 : 0) |
 				(+ xri + yri - zri >= 0.5 ? 8*4 : 0);
 
 		//Index to point list for second lattice
 		int index2 =
-				(+ xr2i + yr2i + zr2i >= 1.5 ? 4 : 0) |
+				(+ xr2i + yr2i + zr2i >= 1.5 ? 1*4 : 0) |
 				(- xr2i + yr2i + zr2i >= 0.5 ? 2*4 : 0) |
 				(+ xr2i - yr2i + zr2i >= 0.5 ? 4*4 : 0) |
 				(+ xr2i + yr2i - zr2i >= 0.5 ? 8*4 : 0);
 		
 		//Point contributions for first lattice
 		for (int i = 0; i < 4; i++) {
-			LatticePoint3D c = lookup3D[index1 + i];
+			LatticePoint3D c = LOOKUP_3D[index1 + i];
 
-			double dx = xri - c.xrv, dy = yri - c.yrv, dz = zri - c.zrv;
-			double attn = 0.75 - dx * dx - dy * dy - dz * dz;
+			double dxr = xri - c.xrv, dyr = yri - c.yrv, dzr = zri - c.zrv;
+			double attn = 0.75 - dxr * dxr - dyr * dyr - dzr * dzr;
 			if (attn <= 0) continue;
+			
+			double drr = (2.0 / 3.0) * (dxr + dyr + dzr);
+			double dx = drr - dxr, dy = drr - dyr, dz = drr - dzr;
 
 			int pxm = (xrb + c.xrv) & 1023, pym = (yrb + c.yrv) & 1023, pzm = (zrb + c.zrv) & 1023;
-			for (int j = 0; j < instances.length; j++) {
-				NoiseInstance3 instance = instances[j];
-
+			for (NoiseInstance3 instance : instances) {
 				int gi = instance.noise.perm3D[instance.noise.perm[instance.noise.perm[pxm] ^ pym] ^ pzm];
-				double gx = gradients3D[gi], gy = gradients3D[gi + 1], gz = gradients3D[gi + 2];
-				double extrapolation = gx * dx + gy * dy + gz * dz;
+				double gxr = GRADIENTS_3D_R[gi + 0], gyr = GRADIENTS_3D_R[gi + 1], gzr = GRADIENTS_3D_R[gi + 2];
+				double gx = GRADIENTS_3D[gi + 0], gy = GRADIENTS_3D[gi + 1], gz = GRADIENTS_3D[gi + 2];
+				double extrapolation = gxr * dxr + gyr * dyr + gzr * dzr;
 				double attnSq = attn * attn;
-				
+
 				if (instance.valueIndex >= 0) {
 					destination[instance.valueIndex] += attnSq * attnSq * extrapolation;
 				}
 				if (instance.ddxIndex >= 0) {
-					destination[instance.ddxIndex] += (((-1.0 / 3.0) * gx + (2.0 / 3.0) * (gy + gz)) * attn
-							- 8 * ((-1.0 / 3.0) * dx + (2.0 / 3.0) * (dy + dz)) * extrapolation) * attnSq * attn;
+					destination[instance.ddxIndex] += (gx * attn - 8 * dx * extrapolation) * attnSq * attn;
 				}
 				if (instance.ddyIndex >= 0) {
-					destination[instance.ddyIndex] += (((-1.0 / 3.0) * gy + (2.0 / 3.0) * (gx + gz)) * attn
-							- 8 * ((-1.0 / 3.0) * dy + (2.0 / 3.0) * (dx + dz)) * extrapolation) * attnSq * attn;
+					destination[instance.ddyIndex] += (gy * attn - 8 * dy * extrapolation) * attnSq * attn;
 				}
 				if (instance.ddzIndex >= 0) {
-					destination[instance.ddzIndex] += (((-1.0 / 3.0) * gz + (2.0 / 3.0) * (gx + gy)) * attn
-							- 8 * ((-1.0 / 3.0) * dz + (2.0 / 3.0) * (dx + dy)) * extrapolation) * attnSq * attn;
+					destination[instance.ddzIndex] += (gz * attn - 8 * dz * extrapolation) * attnSq * attn;
 				}
 			}
 		}
-
+		
 		//Point contributions for second lattice
 		for (int i = 0; i < 4; i++) {
-			LatticePoint3D c = lookup3D[index2 + i];
+			LatticePoint3D c = LOOKUP_3D[index2 + i];
 
-			double dx = xr2i - c.xrv, dy = yr2i - c.yrv, dz = zr2i - c.zrv;
-			double attn = 0.75 - dx * dx - dy * dy - dz * dz;
+			double dxr = xr2i - c.xrv, dyr = yr2i - c.yrv, dzr = zr2i - c.zrv;
+			double attn = 0.75 - dxr * dxr - dyr * dyr - dzr * dzr;
 			if (attn <= 0) continue;
+			
+			double drr = (2.0 / 3.0) * (dxr + dyr + dzr);
+			double dx = drr - dxr, dy = drr - dyr, dz = drr - dzr;
 
 			int pxm = (xr2b + c.xrv) & 1023, pym = (yr2b + c.yrv) & 1023, pzm = (zr2b + c.zrv) & 1023;
-			for (int j = 0; j < instances.length; j++) {
-				NoiseInstance3 instance = instances[j];
-
-				int gi = instance.noise.perm3D[instance.noise.perm[instance.noise.perm[pym] ^ pzm] ^ pxm];
-				double gx = gradients3D[gi], gy = gradients3D[gi + 1], gz = gradients3D[gi + 2];
-				double extrapolation = gx * dx + gy * dy + gz * dz;
+			for (NoiseInstance3 instance : instances) {
+				int gi = instance.noise.perm3D[instance.noise.perm[instance.noise.perm[pxm] ^ pym] ^ pzm];
+				double gxr = GRADIENTS_3D_R[gi + 0], gyr = GRADIENTS_3D_R[gi + 1], gzr = GRADIENTS_3D_R[gi + 2];
+				double gx = GRADIENTS_3D[gi + 0], gy = GRADIENTS_3D[gi + 1], gz = GRADIENTS_3D[gi + 2];
+				double extrapolation = gxr * dxr + gyr * dyr + gzr * dzr;
 				double attnSq = attn * attn;
-				
+
 				if (instance.valueIndex >= 0) {
 					destination[instance.valueIndex] += attnSq * attnSq * extrapolation;
 				}
 				if (instance.ddxIndex >= 0) {
-					destination[instance.ddxIndex] += (((-1.0 / 3.0) * gx + (2.0 / 3.0) * (gy + gz)) * attn
-							- 8 * ((-1.0 / 3.0) * dx + (2.0 / 3.0) * (dy + dz)) * extrapolation) * attnSq * attn;
+					destination[instance.ddxIndex] += (gx * attn - 8 * dx * extrapolation) * attnSq * attn;
 				}
 				if (instance.ddyIndex >= 0) {
-					destination[instance.ddyIndex] += (((-1.0 / 3.0) * gy + (2.0 / 3.0) * (gx + gz)) * attn
-							- 8 * ((-1.0 / 3.0) * dy + (2.0 / 3.0) * (dx + dz)) * extrapolation) * attnSq * attn;
+					destination[instance.ddyIndex] += (gy * attn - 8 * dy * extrapolation) * attnSq * attn;
 				}
 				if (instance.ddzIndex >= 0) {
-					destination[instance.ddzIndex] += (((-1.0 / 3.0) * gz + (2.0 / 3.0) * (gx + gy)) * attn
-							- 8 * ((-1.0 / 3.0) * dz + (2.0 / 3.0) * (dx + dy)) * extrapolation) * attnSq * attn;
+					destination[instance.ddzIndex] += (gz * attn - 8 * dz * extrapolation) * attnSq * attn;
 				}
 			}
 		}
@@ -335,11 +331,11 @@ public class SuperSimplexNoise {
 	 * Definitions
 	 */
 
-	private static LatticePoint2D[] lookup2D;
-	private static LatticePoint3D[] lookup3D;
+	private static final LatticePoint2D[] LOOKUP_2D;
+	private static final LatticePoint3D[] LOOKUP_3D;
 	static {
-		lookup2D = new LatticePoint2D[8 * 4];
-		lookup3D = new LatticePoint3D[16 * 4];
+		LOOKUP_2D = new LatticePoint2D[8 * 4];
+		LOOKUP_3D = new LatticePoint3D[16 * 4];
 		
 		for (int i = 0; i < 8; i++) {
 			int i1, j1, i2, j2;
@@ -350,10 +346,10 @@ public class SuperSimplexNoise {
 				if ((i & 2) != 0) { i1 = 2; j1 = 1; } else { i1 = 0; j1 = 1; }
 				if ((i & 4) != 0) { i2 = 1; j2 = 2; } else { i2 = 1; j2 = 0; }
 			}
-			lookup2D[i * 4] = new LatticePoint2D(0, 0);
-			lookup2D[i * 4 + 1] = new LatticePoint2D(1, 1);
-			lookup2D[i * 4 + 2] = new LatticePoint2D(i1, j1);
-			lookup2D[i * 4 + 3] = new LatticePoint2D(i2, j2);
+			LOOKUP_2D[i * 4 + 0] = new LatticePoint2D(0, 0);
+			LOOKUP_2D[i * 4 + 1] = new LatticePoint2D(1, 1);
+			LOOKUP_2D[i * 4 + 2] = new LatticePoint2D(i1, j1);
+			LOOKUP_2D[i * 4 + 3] = new LatticePoint2D(i2, j2);
 		}
 		
 		for (int i = 0; i < 16; i++) {
@@ -362,10 +358,10 @@ public class SuperSimplexNoise {
 			if ((i & 2) != 0) { i2 = 0; j2 = k2 = 1; } else { i2 = 1; j2 = k2 = 0; }
 			if ((i & 4) != 0) { j3 = 0; i3 = k3 = 1; } else { j3 = 1; i3 = k3 = 0; }
 			if ((i & 8) != 0) { k4 = 0; i4 = j4 = 1; } else { k4 = 1; i4 = j4 = 0; }
-			lookup3D[i * 4] = new LatticePoint3D(i1, j1, k1);
-			lookup3D[i * 4 + 1] = new LatticePoint3D(i2, j2, k2);
-			lookup3D[i * 4 + 2] = new LatticePoint3D(i3, j3, k3);
-			lookup3D[i * 4 + 3] = new LatticePoint3D(i4, j4, k4);
+			LOOKUP_3D[i * 4 + 0] = new LatticePoint3D(i1, j1, k1);
+			LOOKUP_3D[i * 4 + 1] = new LatticePoint3D(i2, j2, k2);
+			LOOKUP_3D[i * 4 + 2] = new LatticePoint3D(i3, j3, k3);
+			LOOKUP_3D[i * 4 + 3] = new LatticePoint3D(i4, j4, k4);
 		}
 	}
 	
@@ -388,7 +384,7 @@ public class SuperSimplexNoise {
 	}
 	
 	//2D Gradients: Dodecagon
-	private static double[] gradients2D = new double[] {
+	private static final double[] GRADIENTS_2D = new double[] {
 		                  0,  18.518518518518519,
 		  9.259259259259260,  16.037507477489605,
 		 16.037507477489605,   9.259259259259260,
@@ -405,7 +401,7 @@ public class SuperSimplexNoise {
 	};
 	
 	//3D Gradients: Normalized expanded Cuboctahedron / Rhombic Dodecahedron.
-	private static final double[] gradients3D = new double[] {
+	private static final double[] GRADIENTS_3D_R = new double[] {
 		 10.998199092175922,   4.177070890843320,                   0,
 		  4.177070890843320,  10.998199092175922,                   0,
 		  7.928086337400578,   7.928086337400578,   3.563593488561014,
@@ -455,6 +451,17 @@ public class SuperSimplexNoise {
 		  3.563593488561014,  -7.928086337400578,  -7.928086337400578,
 		 -3.563593488561014,  -7.928086337400578,  -7.928086337400578
 	};
+
+	private static final double[] GRADIENTS_3D;
+	static {
+		GRADIENTS_3D = new double[GRADIENTS_3D_R.length];
+		for (int i = 0; i < GRADIENTS_3D_R.length; i += 3) {
+			double gxr = GRADIENTS_3D_R[i + 0], gyr = GRADIENTS_3D_R[i + 1], gzr = GRADIENTS_3D_R[i + 2];			
+			double grr = (2.0 / 3.0) * (gxr + gyr + gzr);
+			double dx = grr - gxr, dy = grr - gyr, dz = grr - gzr;
+			GRADIENTS_3D[i + 0] = dx; GRADIENTS_3D[i + 1] = dy; GRADIENTS_3D[i + 2] = dz;
+		}
+	}
 	
 	public static class NoiseInstance2 {
 		public NoiseInstance2(SuperSimplexNoise noise, int valueIndex,
