@@ -24,7 +24,7 @@ package genesis.util;
  * 
  * Supports multi-evaluation with first derivatives.
  * 
- * Version 12/21/2015
+ * Version 12/24/2015
  */
 
 public class SuperSimplexNoise {
@@ -272,13 +272,16 @@ public class SuperSimplexNoise {
 					destination[instance.valueIndex] += attnSq * attnSq * extrapolation;
 				}
 				if (instance.ddxIndex >= 0) {
-					destination[instance.ddxIndex] += (gx * attn - 8 * dx * extrapolation) * attnSq * attn;
+					destination[instance.ddxIndex] += (((-1.0 / 3.0) * gx + (2.0 / 3.0) * (gy + gz)) * attn
+							- 8 * ((-1.0 / 3.0) * dx + (2.0 / 3.0) * (dy + dz)) * extrapolation) * attnSq * attn;
 				}
 				if (instance.ddyIndex >= 0) {
-					destination[instance.ddyIndex] += (gy * attn - 8 * dy * extrapolation) * attnSq * attn;
+					destination[instance.ddyIndex] += (((-1.0 / 3.0) * gy + (2.0 / 3.0) * (gx + gz)) * attn
+							- 8 * ((-1.0 / 3.0) * dy + (2.0 / 3.0) * (dx + dz)) * extrapolation) * attnSq * attn;
 				}
 				if (instance.ddzIndex >= 0) {
-					destination[instance.ddzIndex] += (gz * attn - 8 * dz * extrapolation) * attnSq * attn;
+					destination[instance.ddzIndex] += (((-1.0 / 3.0) * gz + (2.0 / 3.0) * (gx + gy)) * attn
+							- 8 * ((-1.0 / 3.0) * dz + (2.0 / 3.0) * (dx + dy)) * extrapolation) * attnSq * attn;
 				}
 			}
 		}
@@ -304,13 +307,16 @@ public class SuperSimplexNoise {
 					destination[instance.valueIndex] += attnSq * attnSq * extrapolation;
 				}
 				if (instance.ddxIndex >= 0) {
-					destination[instance.ddxIndex] += (gx * attn - 8 * dx * extrapolation) * attnSq * attn;
+					destination[instance.ddxIndex] += (((-1.0 / 3.0) * gx + (2.0 / 3.0) * (gy + gz)) * attn
+							- 8 * ((-1.0 / 3.0) * dx + (2.0 / 3.0) * (dy + dz)) * extrapolation) * attnSq * attn;
 				}
 				if (instance.ddyIndex >= 0) {
-					destination[instance.ddyIndex] += (gy * attn - 8 * dy * extrapolation) * attnSq * attn;
+					destination[instance.ddyIndex] += (((-1.0 / 3.0) * gy + (2.0 / 3.0) * (gx + gz)) * attn
+							- 8 * ((-1.0 / 3.0) * dy + (2.0 / 3.0) * (dx + dz)) * extrapolation) * attnSq * attn;
 				}
 				if (instance.ddzIndex >= 0) {
-					destination[instance.ddzIndex] += (gz * attn - 8 * dz * extrapolation) * attnSq * attn;
+					destination[instance.ddzIndex] += (((-1.0 / 3.0) * gz + (2.0 / 3.0) * (gx + gy)) * attn
+							- 8 * ((-1.0 / 3.0) * dz + (2.0 / 3.0) * (dx + dy)) * extrapolation) * attnSq * attn;
 				}
 			}
 		}
