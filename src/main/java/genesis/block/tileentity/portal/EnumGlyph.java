@@ -12,7 +12,8 @@ public enum EnumGlyph implements IMetadata<EnumGlyph>
 {
 	NONE("none"),
 	VEGETAL("vegetal",
-			GenesisItems.menhir_activators.getStack(EnumMenhirActivator.ANCIENT_AMBER)),
+			GenesisItems.menhir_activators.getStack(EnumMenhirActivator.ANCIENT_AMBER),
+			GenesisItems.menhir_activators.getStack(EnumMenhirActivator.SHIMMERING_TREE_STAR)),
 	ANIMAL("animal",
 			GenesisItems.menhir_activators.getStack(EnumMenhirActivator.FOSSILIZED_EGG)),
 	HOMINID("hominid",

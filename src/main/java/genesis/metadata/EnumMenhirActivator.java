@@ -6,6 +6,7 @@ public enum EnumMenhirActivator implements IMetadata<EnumMenhirActivator>
 	FOSSILIZED_EGG("fossilized_egg", "fossilizedEgg"),
 	BROKEN_SPIRIT_MASK("broken_spirit_mask", "brokenSpiritMask"),
 	RUSTED_OCTAEDRITE_FLAKE("rusted_octaedrite_flake", "rustedOctaedriteFlake"),
+	SHIMMERING_TREE_STAR("shimmering_tree_star", "shimmeringTreeStar"),
 	SCORCHED_RITUAL_STAFF("scorched_ritual_staff", "scorchedRitualStaff"),
 	PRIMITIVE_DUST("primitive_dust", "primitiveDust");
 	
