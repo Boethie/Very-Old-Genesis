@@ -7,8 +7,6 @@ import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumSilt;
 import genesis.metadata.SiltBlocks;
 import genesis.util.SuperSimplexNoise;
-import genesis.world.ChunkGeneratorGenesis;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;

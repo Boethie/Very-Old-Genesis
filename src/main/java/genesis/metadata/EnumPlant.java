@@ -210,7 +210,6 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 		return new Props(FERN).biomeColor(true).shearable(true).replaceable(true);
 	}
 	
-	@SuppressWarnings("unused")
 	private static final class Props
 	{
 		PlantType type;
