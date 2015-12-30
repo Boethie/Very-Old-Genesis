@@ -14,10 +14,10 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 import java.util.List;
 import java.util.Random;
 
-import static genesis.world.OverworldGeneration.menhirHutChest;
+import static genesis.world.WorldGenerators.menhirHutChest;
 
 /**
- * Created by Vorquel on 10/27/15.
+ * Created by Vorquel on 10/27/15
  */
 public class WorldGenMenhirActivators implements IWorldGenerator
 {
