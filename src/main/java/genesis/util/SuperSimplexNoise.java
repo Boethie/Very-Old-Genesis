@@ -127,7 +127,6 @@ public class SuperSimplexNoise {
 				(+ xr2i - yr2i + zr2i >= 0.5 ? 4*4 : 0) |
 				(+ xr2i + yr2i - zr2i >= 0.5 ? 8*4 : 0);
 		
-		
 		//Point contributions for first lattice
 		for (int i = 0; i < 4; i++) {
 			LatticePoint3D c = LOOKUP_3D[index1 + i];

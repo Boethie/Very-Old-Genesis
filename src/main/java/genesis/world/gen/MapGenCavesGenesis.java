@@ -25,7 +25,6 @@ public class MapGenCavesGenesis extends MapGenBase
 	private static final HashMap<IBlockState, IBlockState> ABOVE_BLOCK_REPLACEMENTS
 		= new HashMap<IBlockState, IBlockState>();
 	private static final IBlockState[] LEVEL_REPLACEMENT_BLOCKS = new IBlockState[256];
-	private static final double[] LEVEL_CAVE_THRESHOLDS = new double[256];
 	static {
 		DIGGABLE_BLOCKS.add(GenesisBlocks.granite);
 		DIGGABLE_BLOCKS.add(Blocks.dirt);
@@ -51,23 +50,19 @@ public class MapGenCavesGenesis extends MapGenBase
 			for (; y < 7; y++) LEVEL_REPLACEMENT_BLOCKS[y] = GenesisBlocks.komatiitic_lava.getDefaultState();
 			for (; y < 256; y++) LEVEL_REPLACEMENT_BLOCKS[y] = Blocks.air.getDefaultState();
 		}
-		
-		for (int y = 0; y < 256; y++) {
-			LEVEL_CAVE_THRESHOLDS[y] = (1.0 / (1.0 + Math.pow((y - 10)/20.0, 2))); 
-		}
 	}
 	
 	@Override
 	public void generate(IChunkProvider chunkProvider, World world, int chunkX, int chunkZ, ChunkPrimer data)
 	{		
-		//System.out.println("Geerating caves for chunk: " + chunkX + "," + chunkZ);
-		//long gStart = System.nanoTime();
-		SuperSimplexNoise noise = new SuperSimplexNoise(world.getSeed());
-		SuperSimplexNoise.NoiseInstance3[] instances = new SuperSimplexNoise.NoiseInstance3[] {
-				new SuperSimplexNoise.NoiseInstance3(noise, 0, 1, -1, 2)
+		System.out.println("Generating caves for chunk: " + chunkX + "," + chunkZ);
+		long gStart = System.nanoTime();
+		SuperSimplexNoise.NoiseInstance3[] noiseInstaces_64_96_64 = new SuperSimplexNoise.NoiseInstance3[] {
+				new SuperSimplexNoise.NoiseInstance3(new SuperSimplexNoise(world.getSeed() + 0), 0, 1, 2, 3),
+				new SuperSimplexNoise.NoiseInstance3(new SuperSimplexNoise(world.getSeed() + 1), 4, 5, 6, 7),
 		};
-		double[] values = new double[3];
-		SuperSimplexNoise noise6 = new SuperSimplexNoise(world.getSeed() + 5);
+		double[] values = new double[8];
+		SuperSimplexNoise lavaBoulderNoise = new SuperSimplexNoise(world.getSeed() + 2);
 		
 		for (int z = 0; z < 16; z++)
 		{
@@ -81,9 +76,9 @@ public class MapGenCavesGenesis extends MapGenBase
 				BiomeGenBase biome = world.getBiomeGenForCoords(new BlockPos(blockX, 0, blockZ));
 
 				//Use 2D noise for the lava boulders.
-				double lavaBoulderValue = noise6.eval(blockX / 16.0, blockZ / 16.0);
+				double lavaBoulderValue = lavaBoulderNoise.eval(blockX / 16.0, blockZ / 16.0);
 						
-				for (int y = 255; y >= 0; y--)
+				for (int y = 255; y >= 1; y--)
 				{
 					int blockY = y;
 					
@@ -96,36 +91,59 @@ public class MapGenCavesGenesis extends MapGenBase
 							&& thisBlock != biome.topBlock.getBlock()
 							&& thisBlock != biome.fillerBlock.getBlock()) continue;
 					
-					//Get first noise evaluation
-					values[0] = values[1] = values[2] = 0;
-					SuperSimplexNoise.eval(blockX / 64.0, blockY / 64.0, blockZ / 64.0, instances, values);
+					//Get noise values & derivatives
+					for (int i = 0; i < 8; i++) values[i] = 0;
+					SuperSimplexNoise.eval(blockX / 96.0, blockY / 64.0, blockZ / 96.0, noiseInstaces_64_96_64, values);
+					double F1 = values[0], F1x = values[1], F1y = values[2], F1z = values[3];
+					double F2 = values[4], F2x = values[5], F2y = values[6], F2z = values[7];
+
+					//Get noise derivative magnitudes
+					double F1dNormSq = F1x*F1x + F1y*F1y + F1z*F1z, F1dNorm = Math.sqrt(F1dNormSq);
+					double F2dNormSq = F2x*F2x + F2y*F2y + F2z*F2z, F2dNorm = Math.sqrt(F2dNormSq);
 					
-					//X and Y derivatives make tunnels
-					double tunnelValue = values[1] * values[1] + values[2] * values[2];
+					if (F1dNormSq == 0 || F2dNormSq == 0) continue;
 					
-					//Value determines the intensity of lava rooms.
-					double lavaRoomIntensity = values[0];
-					lavaRoomIntensity = (lavaRoomIntensity / 2 + 0.5);
-					lavaRoomIntensity *= lavaRoomIntensity;
-					lavaRoomIntensity = 1 - lavaRoomIntensity;
+					//Get unit dot product of derivatives
+					double dot = F1x*F2x + F1y*F2y + F1z*F2z;
+					double dotU = dot / F1dNorm / F2dNorm;
 					
-					//Interpolate between tunnels and lava rooms based on this.
-					double lavaroomInterp = LEVEL_CAVE_THRESHOLDS[y] * lavaRoomIntensity;
-					double tunnelInterp = 1 - lavaroomInterp;
+					if (dotU == 1 || dotU == -1) continue;
 					
-					//Decide if this block is part of a cave.
-					if (tunnelInterp * tunnelValue > 0.1) continue;
+					//Lava rooms
+					double threshold = 0.0075;
+					double lavaRoomDisp = (y - 7 + F1 * 2) / 17.0;
+					lavaRoomDisp *= lavaRoomDisp;
+					if (lavaRoomDisp < 1) {
+						lavaRoomDisp = 1 - lavaRoomDisp;
+						lavaRoomDisp *= lavaRoomDisp;
+						lavaRoomDisp *= lavaRoomDisp;
+						
+						//Vary the placement of the caves by re-using one of the cave noise values.
+						lavaRoomDisp *= F2 / 2 + .5;
+						
+						//Threshold gets bigger the more we want lava rooms here
+						threshold *= Math.pow(1 / threshold, lavaRoomDisp);
+						
+						//As we increase the threshold we need to decrease our cave-distortion-correction to avoid weird effects.
+						dotU *= (1 - lavaRoomDisp);
+						
+						//Lava boulders
+						double lavaBoulderMaxHeight = lavaRoomDisp * 16;
+						double lavaBoulderHeight = lavaBoulderMaxHeight * lavaBoulderValue;
+						if (lavaBoulderHeight >= y)
+							continue;
+					}
 					
-					//Now for the lava boulders. Factor in lavaroomInterp so they smoothly join with walls.
-					//double lavaBoulderValue = noise6.eval(blockX / 16.0, blockY / 64.0, blockZ / 16.0);
-					double thisLavaBoulderValue = lavaBoulderValue;
-					thisLavaBoulderValue *= lavaroomInterp;
-					thisLavaBoulderValue -= y / 12.0;
-					if (thisLavaBoulderValue > 0.0) continue;
+					//Approximate distance to nearest cave path (noise zero-surface intersection) using crazy math
+					//(but factoring in lava-room alterations)
+					double value = (F2 - F1*dotU) * (F2 - F1*dotU) / (1 - dotU * dotU) + F1 * F1;
+					
+					//Threshold
+					if (value > threshold) continue;
 					
 					//Replace blocks above and below if we should.
-					//TODO vary this 55 a bit with noise
-					if (y > 55)
+					//Vary the blocks' distribution by re-using one of the cave nosies.
+					if (y > 60 + 3 * F1)
 					{
 						//Block above
 						if (y != 255) {
@@ -143,11 +161,11 @@ public class MapGenCavesGenesis extends MapGenBase
 					
 					//Dig this block, it's part of a cave.
 					data.setBlockState(x, y, z, LEVEL_REPLACEMENT_BLOCKS[y]);
-					
 				}
+				
 			}
 		}
-		//long took = System.nanoTime() - gStart;
-		//System.out.println("Cave gen took " + (took / 1000000000.0d) + " seconds.");
+		long took = System.nanoTime() - gStart;
+		System.out.println("Cave gen took " + (took / 1000000000.0d) + " seconds.");
 	}
 }
