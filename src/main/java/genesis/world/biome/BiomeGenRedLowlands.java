@@ -25,14 +25,13 @@ public class BiomeGenRedLowlands extends BiomeGenBaseGenesis
 		setBiomeName("Red Lowlands");
 		setTemperatureRainfall(2.0F, 0.0F);
 		setDisableRain();
-		setHeight(-0.1F, 0.2F);
+		setHeight(0.065F, 0.125F);
 		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
 		fillerBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
 		
 		this.theBiomeDecorator.grassPerChunk = 0;
 		this.theBiomeDecorator.sandPerChunk = 0;
 		this.theBiomeDecorator.sandPerChunk2 = 0;
-		this.theBiomeDecorator.clayPerChunk = 0;
 		
 		addDecorations();
 		addTrees();

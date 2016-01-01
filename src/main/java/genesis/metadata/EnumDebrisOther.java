@@ -4,8 +4,7 @@ public enum EnumDebrisOther implements IMetadata<EnumDebrisOther>
 {
 	CALAMITES("calamites"),
 	COELOPHYSIS_FEATHER("coelophysis_feather", "coelophysisFeather"),
-	EPIDEXIPTERYX_FEATHER("epidexipteryx_feather", "epidexipteryxFeather"),
-	SINORNITHOSAURUS_FEATHER("sinornithosaurus_feather", "sinornithosaurusFeather");
+	EPIDEXIPTERYX_FEATHER("epidexipteryx_feather", "epidexipteryxFeather");
 	
 	final String name;
 	final String unlocalizedName;

@@ -92,7 +92,7 @@ public class ItemGenesisFood<V extends IMetadata<V>> extends ItemFood
 	{
 		if (!world.isRemote)
 		{
-			for (PotionEffect effect : ((IFood) owner.getVariant(stack)).getEffects())
+			for (PotionEffect effect : getFoodType(stack).getEffects())
 			{
 				player.addPotionEffect(new PotionEffect(effect));
 			}

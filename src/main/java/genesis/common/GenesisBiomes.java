@@ -81,13 +81,13 @@ public final class GenesisBiomes
 		
 		auxForest = new BiomeGenAuxForest(GenesisConfig.auxForestId);
 		BiomeManagerGenesis.registerBiome(auxForest, BiomeType.WARM, GenesisConfig.auxForestWeight);
-		BiomeDictionary.registerBiomeType(auxForest, BiomeDictionary.Type.FOREST);
+		BiomeDictionary.registerBiomeType(auxForest, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		auxForestM = new BiomeGenAuxForestM(GenesisConfig.auxForestId+128);
-		BiomeDictionary.registerBiomeType(auxForestM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.MOUNTAIN);
+		BiomeDictionary.registerBiomeType(auxForestM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		auxForestHills = new BiomeGenAuxForest(GenesisConfig.auxForestHillsId).setBiomeName("Araucarioxylon Forest Hills").setHeight(height_LowHills);
-		BiomeDictionary.registerBiomeType(auxForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST);
+		BiomeDictionary.registerBiomeType(auxForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		//floodplains = new BiomeGenFloodplains(GenesisConfig.floodplainsId);
 		//BiomeManagerGenesis.registerBiome(floodplains, BiomeType.WARM, GenesisConfig.floodplainsWeight);
@@ -95,13 +95,13 @@ public final class GenesisBiomes
 		
 		metaForest = new BiomeGenMetaForest(GenesisConfig.metaForestId);
 		BiomeManagerGenesis.registerBiome(metaForest, BiomeType.WARM, GenesisConfig.metaForestWeight);
-		BiomeDictionary.registerBiomeType(metaForest, BiomeDictionary.Type.FOREST);
+		BiomeDictionary.registerBiomeType(metaForest, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		metaForestM = new BiomeGenMetaForestM(GenesisConfig.metaForestId+128);
-		BiomeDictionary.registerBiomeType(metaForestM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.MOUNTAIN);
+		BiomeDictionary.registerBiomeType(metaForestM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		metaForestHills = new BiomeGenMetaForest(GenesisConfig.metaForestHillsId).setBiomeName("Metasequoia Forest Hills").setHeight(height_LowHills);
-		BiomeDictionary.registerBiomeType(auxForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST);
+		BiomeDictionary.registerBiomeType(auxForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		swampRainForest = new BiomeGenSwampRainforest(GenesisConfig.swampRainForestId);
 		BiomeDictionary.registerBiomeType(swampRainForest, BiomeDictionary.Type.SWAMP, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
@@ -116,7 +116,7 @@ public final class GenesisBiomes
 		
 		redLowlands = new BiomeGenRedLowlands(GenesisConfig.redLowlandsId);
 		BiomeManagerGenesis.registerBiome(redLowlands, BiomeType.WARM, GenesisConfig.redLowlandsWeight);
-		BiomeDictionary.registerBiomeType(redLowlands, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.SANDY, BiomeDictionary.Type.DRY);
+		BiomeDictionary.registerBiomeType(redLowlands, BiomeDictionary.Type.SANDY, BiomeDictionary.Type.DRY);
 		
 		redLowlandsHills = new BiomeGenRedLowlands(GenesisConfig.redLowlandsHillsId).setBiomeName("Red Lowlands Hills").setHeight(height_LowHills);
 		BiomeDictionary.registerBiomeType(redLowlandsHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.SANDY, BiomeDictionary.Type.DRY);

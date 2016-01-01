@@ -4,7 +4,7 @@ import genesis.command.CommandTPGenesis;
 import genesis.entity.extendedproperties.GenesisEntityData;
 import genesis.util.Constants;
 import genesis.world.GenesisWorldData;
-import genesis.world.OverworldGeneration;
+import genesis.world.WorldGenerators;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -53,7 +53,7 @@ public class Genesis
 		
 		GenesisBiomes.loadBiomes();
 		
-		OverworldGeneration.register();
+		WorldGenerators.register();
 		
 		GenesisEvent.init(event.getSide());
 		
