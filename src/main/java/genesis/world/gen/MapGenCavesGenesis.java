@@ -35,6 +35,9 @@ public class MapGenCavesGenesis extends MapGenBase
 		DIGGABLE_BLOCKS.add(Blocks.snow_layer);
 		DIGGABLE_BLOCKS.add(Blocks.sand);
 		DIGGABLE_BLOCKS.add(Blocks.gravel);
+		DIGGABLE_BLOCKS.addAll(GenesisBlocks.silt.getBlocks(SiltBlocks.SILT));
+		DIGGABLE_BLOCKS.addAll(GenesisBlocks.silt.getBlocks(SiltBlocks.SILTSTONE));
+		DIGGABLE_BLOCKS.add(GenesisBlocks.limestone);
 
 		ABOVE_BLOCK_REPLACEMENTS.put(
 				GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT),
