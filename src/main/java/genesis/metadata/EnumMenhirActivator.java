@@ -7,6 +7,7 @@ public enum EnumMenhirActivator implements IMetadata<EnumMenhirActivator>
 	BROKEN_SPIRIT_MASK("broken_spirit_mask", "brokenSpiritMask", true),
 	RUSTED_OCTAEDRITE_FLAKE("rusted_octaedrite_flake", "rustedOctaedriteFlake", true),
 	SHIMMERING_TREE_STAR("shimmering_tree_star", "shimmeringTreeStar", false),
+	SHADY_DRAGON_BONE("shady_dragon_bone", "shadyDragonBone", true),
 	LEGENDARY_SPECTRUM_EYE("legendary_spectrum_eye", "legendarySpectrumEye", false),
 	PRIMITIVE_DUST("primitive_dust", "primitiveDust", false);
 	
