@@ -13,21 +13,31 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  */
 public class WorldGenerators
 {
-	public static ChestGenHooks menhirHutChest;
+	public static ChestGenHooks menhirActivatorsChestAncient;
+	public static ChestGenHooks menhirActivatorsChestRecent; //todo: use this for genesis dimension activator generation
 	
 	public static void register()
 	{
 		GameRegistry.registerWorldGenerator(new WorldGenPortal(), 0);
 		GameRegistry.registerWorldGenerator(new WorldGenMenhirActivators(), 0);
 		
-		menhirHutChest = ChestGenHooks.getInfo("menhirHutChest");
-		menhirHutChest.setMin(2);
-		menhirHutChest.setMax(4);
+		menhirActivatorsChestAncient = ChestGenHooks.getInfo("menhirActivatorsChestAncient");
+		menhirActivatorsChestAncient.setMin(2);
+		menhirActivatorsChestAncient.setMax(4);
+		
+		menhirActivatorsChestRecent = ChestGenHooks.getInfo("menhirActivatorsChestRecent");
+		menhirActivatorsChestRecent.setMin(2);
+		menhirActivatorsChestRecent.setMax(4);
+		
 		for (EnumMenhirActivator activator : EnumMenhirActivator.values())
 		{
 			if (activator.isAncient())
 			{
-				menhirHutChest.addItem(new WeightedRandomChestContent(GenesisItems.menhir_activators.getStack(activator), 1, 1, 1));
+				menhirActivatorsChestAncient.addItem(new WeightedRandomChestContent(GenesisItems.menhir_activators.getStack(activator), 1, 1, 1));
+			}
+			else
+			{
+				menhirActivatorsChestRecent.addItem(new WeightedRandomChestContent(GenesisItems.menhir_activators.getStack(activator), 1, 1, 1));
 			}
 		}
 	}

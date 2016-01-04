@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 import java.util.List;
 import java.util.Random;
 
-import static genesis.world.WorldGenerators.menhirHutChest;
+import static genesis.world.WorldGenerators.menhirActivatorsChestAncient;
 
 /**
  * Created by Vorquel on 10/27/15
@@ -132,8 +132,8 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 		world.setBlockState(chestPos, Blocks.chest.getDefaultState());
 		IInventory inventory = (IInventory) world.getTileEntity(chestPos);
 		
-		List<WeightedRandomChestContent> loot = Lists.newArrayList(menhirHutChest.getItems(random));
-		int count = menhirHutChest.getCount(random);
+		List<WeightedRandomChestContent> loot = Lists.newArrayList(menhirActivatorsChestAncient.getItems(random));
+		int count = menhirActivatorsChestAncient.getCount(random);
 		while(loot.size() > count)
 			loot.remove(random.nextInt(loot.size()));
 		
