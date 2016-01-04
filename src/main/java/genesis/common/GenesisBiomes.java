@@ -11,8 +11,6 @@ import genesis.world.biome.BiomeGenMetaForest;
 import genesis.world.biome.BiomeGenMetaForestM;
 import genesis.world.biome.BiomeGenOceanGenesis;
 import genesis.world.biome.BiomeGenRainforest;
-import genesis.world.biome.BiomeGenRainforestEdge;
-import genesis.world.biome.BiomeGenRainforestEdgeM;
 import genesis.world.biome.BiomeGenRainforestM;
 import genesis.world.biome.BiomeGenRedBeach;
 import genesis.world.biome.BiomeGenRedLowlands;
@@ -27,11 +25,10 @@ import net.minecraftforge.common.BiomeManager.BiomeType;
 
 public final class GenesisBiomes
 {
-	
 	public static BiomeGenBaseGenesis rainforest;
 	public static BiomeGenBaseGenesis rainforestM;
-	public static BiomeGenBaseGenesis rainforestEdge;
-	public static BiomeGenBaseGenesis rainforestEdgeM;
+	//public static BiomeGenBaseGenesis rainforestEdge;
+	//public static BiomeGenBaseGenesis rainforestEdgeM;
 	public static BiomeGenBaseGenesis rainforestHills;
 	public static BiomeGenBaseGenesis auxForest;
 	public static BiomeGenBaseGenesis auxForestM;
@@ -69,13 +66,13 @@ public final class GenesisBiomes
 		
 		rainforestM = new BiomeGenRainforestM(GenesisConfig.rainforestId+128);
 		BiomeDictionary.registerBiomeType(rainforestM, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.MOUNTAIN);
-		
+		/*
 		rainforestEdge = new BiomeGenRainforestEdge(GenesisConfig.rainforestEdgeId);
 		BiomeDictionary.registerBiomeType(rainforestEdge, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		rainforestEdgeM = new BiomeGenRainforestEdgeM(GenesisConfig.rainforestEdgeId+128);
 		BiomeDictionary.registerBiomeType(rainforestEdgeM, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.MOUNTAIN);
-		
+		*/
 		rainforestHills = new BiomeGenRainforest(GenesisConfig.rainforestHillsId).setBiomeName("Rainforest Hills").setHeight(height_LowHills);
 		BiomeDictionary.registerBiomeType(rainforestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		

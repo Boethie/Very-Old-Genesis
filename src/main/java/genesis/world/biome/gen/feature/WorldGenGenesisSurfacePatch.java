@@ -132,7 +132,9 @@ public class WorldGenGenesisSurfacePatch extends WorldGenerator
 									currentState = filler;
 							}
 							
-							if (block.getDefaultState() == GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT).getDefaultState())
+							if (
+									block.getDefaultState() == GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT).getDefaultState()
+									&& !(world.getBlockState(pos.add(x, y, z).up()).getBlock() == Blocks.water))
 								world.setBlockState(pos.add(x, y, z), currentState, 2);
 						}
 					}

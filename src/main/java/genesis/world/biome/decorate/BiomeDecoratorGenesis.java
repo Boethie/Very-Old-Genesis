@@ -101,7 +101,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 		MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(currentWorld, randomGenerator, field_180294_c));
 		
 		generateOres();
-
+		
 		boolean doGen = TerrainGen.decorate(currentWorld, randomGenerator, field_180294_c, SAND);
 		
 		for (int i = 0; doGen && i < sandPerChunk2; ++i)
