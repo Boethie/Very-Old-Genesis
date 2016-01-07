@@ -69,6 +69,7 @@ tile.genesis.programinisBundle.name=Bundle of Programinis
 tile.genesis.prototaxitesMycelium.name=Prototaxites Mycelium
 tile.genesis.dung.sauropoda.name=Sauropoda Dung
 tile.genesis.dung.theropoda.name=Theropoda Dung
+tile.genesis.dungBrickBlock.name=Dung Brick
 
 #Decoration
 tile.genesis.log.dead.archaeopteris.name=Dead Archaeopteris Wood
@@ -443,6 +444,7 @@ item.genesis.material.cladophlebisFrond.name=Cladophlebis Frond
 item.genesis.material.programinis.name=Programinis
 item.genesis.material.dung.sauropoda.name=Sauropoda Dung
 item.genesis.material.dung.theropoda.name=Theropoda Dung
+item.genesis.material.dungBrick.name=Dung Brick
 item.genesis.material.arthropleuraChitin.name=Arthropleura Chitin
 item.genesis.material.coelophysisFeather.name=Coelophysis Feather
 item.genesis.material.epidexipteryxFeather.name=Epidexipteryx Feather

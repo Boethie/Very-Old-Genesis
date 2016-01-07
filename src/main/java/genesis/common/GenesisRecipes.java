@@ -585,6 +585,13 @@ public final class GenesisRecipes
 			GameRegistry.addShapelessRecipe(dungItems, dungBlock);
 		}
 		
+		// Dung brick
+		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.dung_brick_block),
+				"CCC",
+				"CCC",
+				"CCC",
+				'C', GenesisItems.dung_brick);
+		
 		// Smelting
 		for (EnumOre ore : GenesisBlocks.ores.getSharedValidVariants(OreBlocks.ORE, OreBlocks.DROP))
 		{

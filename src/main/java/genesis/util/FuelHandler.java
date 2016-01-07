@@ -28,13 +28,16 @@ public class FuelHandler implements IFuelHandler
 	{
 		GameRegistry.registerFuelHandler(INSTANCE);
 		
-		setBurnTime(GenesisBlocks.roots, TileEntityFurnace.getItemBurnTime(new ItemStack(Items.stick)), true);
 		setBurnTime(GenesisBlocks.peat, TileEntityFurnace.getItemBurnTime(new ItemStack(Items.coal)) / 4, false);
 		
-		setBurnTime(GenesisBlocks.calamites_bundle, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.log)), false);
 		setBurnTime(GenesisBlocks.calamites, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.sapling)), false);
+		setBurnTime(GenesisBlocks.calamites_bundle, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.log)), false);
+		
+		setBurnTime(GenesisBlocks.roots, TileEntityFurnace.getItemBurnTime(new ItemStack(Items.stick)), true);
 		
 		setBurnTime(GenesisItems.materials.getStack(EnumMaterial.ARAUCARIOXYLON_CONE), TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.sapling)), false);
+		
+		setBurnTime(GenesisItems.dung_brick, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.log)), true);
 		
 		setBurnTime(GenesisItems.bucket_komatiitic_lava, TileEntityFurnace.getItemBurnTime(new ItemStack(Items.lava_bucket)), false);
 	}

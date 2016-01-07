@@ -150,6 +150,7 @@ public final class GenesisBlocks
 	public static final Block calamites_torch_tall = new BlockTallTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTorch.tall");
 	public static final Block prototaxites_mycelium = new BlockPrototaxitesMycelium().setUnlocalizedName(Unlocalized.PREFIX + "prototaxitesMycelium");
 	public static final DungBlocksAndItems dungs = new DungBlocksAndItems();
+	public static final Block dung_brick_block = new BlockDungBrick().setUnlocalizedName(Unlocalized.PREFIX + "dungBrickBlock");
 	
 	/* Misc */
 	public static final Block palaeoagaracites = new BlockGenesisMushroom().setUnlocalizedName(Unlocalized.PREFIX + "palaeoagaracites")
@@ -228,6 +229,7 @@ public final class GenesisBlocks
 		
 		// - Dungs -
 		dungs.registerVariants(DungBlocksAndItems.DUNG_BLOCK);
+		Genesis.proxy.registerBlock(dung_brick_block, "dung_brick_block");
 		
 		// --- Decorative ---
 		menhirs.registerAll();

@@ -36,6 +36,8 @@ public final class GenesisItems
 					ObjectType.<EnumMaterial>createItem("material").setResourceName(""),
 					EnumMaterial.class, EnumMaterial.values());
 	
+	public static final Item dung_brick = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "dungBrick");
+	
 	/* Eggs */
 	public static final ItemGenesisEgg<EntityMeganeuraEgg> meganeura_egg = new ItemGenesisEgg<EntityMeganeuraEgg>(EntityMeganeuraEgg.class)
 			.setUnlocalizedName(Unlocalized.EGG + "meganeura");
@@ -96,6 +98,8 @@ public final class GenesisItems
 		
 		materials.setUnlocalizedPrefix(Unlocalized.PREFIX);
 		materials.registerAll();
+		
+		Genesis.proxy.registerItem(dung_brick, "dung_brick");
 		
 		Genesis.proxy.registerItem(meganeura_egg, "meganeura_egg");
 		

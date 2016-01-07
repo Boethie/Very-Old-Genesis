@@ -8,12 +8,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityFurnace;
 import genesis.block.*;
 import genesis.common.*;
 import genesis.item.*;
 import genesis.util.Constants.Unlocalized;
-import genesis.util.FuelHandler;
 import genesis.util.ReflectionUtils;
 
 public class DungBlocksAndItems extends VariantsOfTypesCombo<EnumDung>
@@ -33,11 +31,6 @@ public class DungBlocksAndItems extends VariantsOfTypesCombo<EnumDung>
 					
 					block.clearDrops();
 					block.addDrop(DUNG, 9, 9);
-					
-					Blocks.fire.setFireInfo(block, 5, 5);
-					
-					FuelHandler.setBurnTime(item,
-							TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.log)) * 4, true);
 				}
 			}.setUseSeparateVariantJsons(false).setBlockArguments(Material.ground);
 	public static final ObjectType<Block, ItemDung> DUNG = new ObjectType<Block, ItemDung>("dung", Unlocalized.Section.MATERIAL + "dung", null, ItemDung.class)
@@ -46,7 +39,6 @@ public class DungBlocksAndItems extends VariantsOfTypesCombo<EnumDung>
 				public <V extends IMetadata<V>> void afterConstructed(Block block, ItemDung item, List<V> variants)
 				{
 					super.afterConstructed(block, item, variants);
-					FuelHandler.setBurnTime(item, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.log)), true);
 				}
 			}
 			.setCreativeTab(GenesisCreativeTabs.MATERIALS);

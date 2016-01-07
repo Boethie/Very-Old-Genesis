@@ -68,6 +68,7 @@ tile.genesis.programinisBundle.name=Botte de Programinis
 tile.genesis.prototaxitesMycelium.name=Mycélium de Prototaxites
 tile.genesis.dung.sauropoda.name=Crotte de sauropode
 tile.genesis.dung.theropoda.name=Crotte de théropode
+tile.genesis.dungBrickBlock.name=Briques de crotte
 
 #Decoration
 tile.genesis.log.dead.archaeopteris.name=Bois mort d'Archaeopteris
@@ -442,6 +443,7 @@ item.genesis.material.cladophlebisFrond.name=Fronde de Cladophlebis
 item.genesis.material.programinis.name=Programinis
 item.genesis.material.dung.sauropoda.name=Crotte de sauropode
 item.genesis.material.dung.theropoda.name=Crotte de théropode
+item.genesis.material.dungBrick.name=Brique de crotte
 item.genesis.material.arthropleuraChitin.name=Chitine d'Arthropleura
 item.genesis.material.coelophysisFeather.name=Plume de Coelophysis
 item.genesis.material.epidexipteryxFeather.name=Plume d'Epidexipteryx
