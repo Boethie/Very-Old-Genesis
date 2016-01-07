@@ -159,7 +159,7 @@ public class BlockAsEntityPart extends CustomEntityPart
 			wr.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
 			
 			if (noColor)
-				wr.markDirty();
+				wr.noColor();
 			
 			if (ambientOcclusion)
 				ModelHelpers.getBlockRenderer().renderModelAmbientOcclusion(world, model, state.getBlock(), pos, wr, false);

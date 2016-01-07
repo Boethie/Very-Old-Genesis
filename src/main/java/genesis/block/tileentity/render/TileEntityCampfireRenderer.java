@@ -314,7 +314,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 			
 			
 			wr.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
-			wr.markDirty();
+			wr.noColor();
 			wr.setTranslation(-pos.getX(), -pos.getY(), -pos.getZ());
 			ModelHelpers.getBlockRenderer().renderModelStandard(world,
 					ModelHelpers.getCubeProjectedBakedModel(ModelHelpers.getBakedBlockModel(state, world, pos), breakTexture),
