@@ -2,6 +2,7 @@ package genesis.metadata;
 
 public enum EnumMaterial implements IMetadata<EnumMaterial>
 {
+	DUNG_BRICK("dung_brick", "dungBrick"),
 	SALT("salt"),
 	RESIN("resin"),
 	ARAUCARIOXYLON_CONE("araucarioxylon_cone", "araucarioxylonCone"),

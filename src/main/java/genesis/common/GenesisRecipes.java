@@ -590,7 +590,7 @@ public final class GenesisRecipes
 				"CCC",
 				"CCC",
 				"CCC",
-				'C', GenesisItems.dung_brick);
+				'C', GenesisItems.materials.getStack(EnumMaterial.DUNG_BRICK));
 		
 		// Smelting
 		for (EnumOre ore : GenesisBlocks.ores.getSharedValidVariants(OreBlocks.ORE, OreBlocks.DROP))

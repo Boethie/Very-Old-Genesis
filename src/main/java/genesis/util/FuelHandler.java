@@ -35,9 +35,9 @@ public class FuelHandler implements IFuelHandler
 		
 		setBurnTime(GenesisBlocks.roots, TileEntityFurnace.getItemBurnTime(new ItemStack(Items.stick)), true);
 		
-		setBurnTime(GenesisItems.materials.getStack(EnumMaterial.ARAUCARIOXYLON_CONE), TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.sapling)), false);
+		setBurnTime(GenesisItems.materials.getStack(EnumMaterial.DUNG_BRICK), TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.log)), true);
 		
-		setBurnTime(GenesisItems.dung_brick, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.log)), true);
+		setBurnTime(GenesisItems.materials.getStack(EnumMaterial.ARAUCARIOXYLON_CONE), TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.sapling)), false);
 		
 		setBurnTime(GenesisItems.bucket_komatiitic_lava, TileEntityFurnace.getItemBurnTime(new ItemStack(Items.lava_bucket)), false);
 	}
