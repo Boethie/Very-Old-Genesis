@@ -18,7 +18,7 @@ public class BiomeGenRedBeach extends BiomeGenBeachGenesis
 		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
 		fillerBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
 		
-		waterColorMultiplier = 0x059044;
+		//waterColorMultiplier = 0x059044;
 		
 		addDecoration(new WorldGenPlant(EnumPlant.LEPACYCLOTES).setNextToWater(true).addAllowedBlocks(GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT), GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.RED_SILT)).setCountPerChunk(12).setPatchSize(4));
 	}

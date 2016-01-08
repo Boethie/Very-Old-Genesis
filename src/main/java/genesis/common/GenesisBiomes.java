@@ -129,8 +129,8 @@ public final class GenesisBiomes
 		
 		ocean = new BiomeGenOceanGenesis(GenesisConfig.oceanId).addElements(1).setBiomeName("Ocean").setHeight(height_Oceans);
 		BiomeDictionary.registerBiomeType(ocean, BiomeDictionary.Type.OCEAN, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
-		
-		deepOcean = new BiomeGenOceanGenesis(GenesisConfig.deepOceanId).addElements(0).setWaterColor(0x01723c).setBiomeName("Deep Ocean").setHeight(height_DeepOceans);
+		//01723c
+		deepOcean = new BiomeGenOceanGenesis(GenesisConfig.deepOceanId).addElements(0).setWaterColor(0x876719).setBiomeName("Deep Ocean").setHeight(height_DeepOceans);
 		BiomeDictionary.registerBiomeType(deepOcean, BiomeDictionary.Type.OCEAN, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
 		
 		genesisBeach = new BiomeGenBeachGenesis(GenesisConfig.genesisBeachId).setHeight(height_Shore);

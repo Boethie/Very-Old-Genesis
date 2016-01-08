@@ -79,7 +79,10 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 		if (biome.biomeID == GenesisBiomes.marsh.biomeID)
 			waterLakeChance = 1;
 		
-		if (biome.biomeID == GenesisBiomes.redLowlands.biomeID)
+		if (
+				biome.biomeID == GenesisBiomes.redLowlands.biomeID
+				|| biome.biomeID == GenesisBiomes.redLowlandsM.biomeID
+				|| biome.biomeID == GenesisBiomes.redLowlandsHills.biomeID)
 		{
 			for (int i = 0; i < 5; ++i)
 			{

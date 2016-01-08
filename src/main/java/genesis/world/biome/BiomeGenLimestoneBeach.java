@@ -15,7 +15,7 @@ public class BiomeGenLimestoneBeach extends BiomeGenBaseGenesis
 		fillerBlock = GenesisBlocks.limestone.getDefaultState();
 		setHeight(0.05F, 0.1F);
 		
-		waterColorMultiplier = 0x059044;
+		//waterColorMultiplier = 0x059044;
 		
 		addDecoration(new WorldGenPebbles().setCountPerChunk(25));
 		

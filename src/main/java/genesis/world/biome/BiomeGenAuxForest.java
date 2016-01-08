@@ -3,6 +3,7 @@ package genesis.world.biome;
 import java.util.Random;
 
 import genesis.common.GenesisBlocks;
+import genesis.metadata.EnumDebrisOther;
 import genesis.metadata.EnumPlant;
 import genesis.metadata.EnumTree;
 import genesis.world.biome.decorate.WorldGenDebris;
@@ -36,7 +37,7 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.cladophlebis).setPatchSize(3).setCountPerChunk(2));
 		
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(3));
-		addDecoration(new WorldGenDebris().setCountPerChunk(7));
+		addDecoration(new WorldGenDebris().addAdditional(GenesisBlocks.debris.getBlockState(EnumDebrisOther.COELOPHYSIS_FEATHER)).setCountPerChunk(7));
 		addDecoration(new WorldGenRoots().setCountPerChunk(32));
 		
 		addDecoration(new WorldGenRockBoulders().setRarity(110).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));

@@ -26,8 +26,8 @@ public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
 		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);
 		setHeight(-0.7F, 0.0F);
 		
-		waterColorMultiplier = 0x059044;
-
+		setWaterColor(0x9f791f);
+		
 		theBiomeDecorator.grassPerChunk = 0;
 		
 		addDecoration(new WorldGenCorals(2, 5, EnumCoral.HALYSITES).setCountPerChunk(1));

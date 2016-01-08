@@ -1,5 +1,7 @@
 package genesis.world.biome.decorate;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import genesis.common.GenesisBlocks;
@@ -14,6 +16,16 @@ import net.minecraft.world.World;
 
 public class WorldGenDebris extends WorldGenDecorationBase
 {
+	private List<IBlockState> additionalDebris = new ArrayList<IBlockState>();
+	
+	public WorldGenDebris addAdditional(IBlockState... states)
+	{
+		for (int i = 0; i < states.length; ++ i)
+			additionalDebris.add(states[i]);
+		
+		return this;
+	}
+	
 	@Override
 	public boolean generate(World world, Random random, BlockPos pos)
 	{
@@ -39,7 +51,7 @@ public class WorldGenDebris extends WorldGenDecorationBase
 		
 		for (int i = 0; i < debrisCount; ++i)
 		{
-			if (generateDebris(world, pos.add(3 - random.nextInt(7), 0, 3 - random.nextInt(7)), 5, 3, 5))
+			if (generateDebris(world, random, pos.add(3 - random.nextInt(7), 0, 3 - random.nextInt(7)), 5, 3, 5))
 			{
 				willGenerate = true;
 			}
@@ -48,7 +60,7 @@ public class WorldGenDebris extends WorldGenDecorationBase
 		return willGenerate;
 	}
 	
-	private boolean generateDebris(World world, BlockPos pos, int distanceX, int distanceY, int distanceZ)
+	private boolean generateDebris(World world, Random rand, BlockPos pos, int distanceX, int distanceY, int distanceZ)
 	{
 		boolean willGenerate = false;
 		
@@ -101,6 +113,12 @@ public class WorldGenDebris extends WorldGenDecorationBase
 					}
 				}
 			}
+		
+		if (additionalDebris.size() > 0 && rand.nextInt(15) == 0)
+		{
+			debris = additionalDebris.get(rand.nextInt(additionalDebris.size()));
+			willGenerate = true;
+		}
 		
 		if (willGenerate && debris != null)
 		{
