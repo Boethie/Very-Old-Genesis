@@ -51,7 +51,7 @@ public class WorldGenDebris extends WorldGenDecorationBase
 		
 		for (int i = 0; i < debrisCount; ++i)
 		{
-			if (generateDebris(world, random, pos.add(3 - random.nextInt(7), 0, 3 - random.nextInt(7)), 5, 3, 5))
+			if (generateDebris(world, random, pos.add(3 - random.nextInt(7), 0, 3 - random.nextInt(7)), 5, 3, 5, (i == 0)))
 			{
 				willGenerate = true;
 			}
@@ -60,7 +60,7 @@ public class WorldGenDebris extends WorldGenDecorationBase
 		return willGenerate;
 	}
 	
-	private boolean generateDebris(World world, Random rand, BlockPos pos, int distanceX, int distanceY, int distanceZ)
+	private boolean generateDebris(World world, Random rand, BlockPos pos, int distanceX, int distanceY, int distanceZ, boolean generateAdditional)
 	{
 		boolean willGenerate = false;
 		
@@ -114,7 +114,7 @@ public class WorldGenDebris extends WorldGenDecorationBase
 				}
 			}
 		
-		if (additionalDebris.size() > 0 && rand.nextInt(15) == 0)
+		if (additionalDebris.size() > 0 && rand.nextInt(6) == 0 && generateAdditional)
 		{
 			debris = additionalDebris.get(rand.nextInt(additionalDebris.size()));
 			willGenerate = true;

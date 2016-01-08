@@ -42,7 +42,9 @@ public class WorldGenMossStages extends WorldGenDecorationBase
 		if (setMoss(world, pos, random))
 			generated = true;
 		
-		for (int i = 0; i < 64; ++i)
+		int mossCount = (this.getPatchSize() <= 1)? 64 : this.getPatchSize();
+		
+		for (int i = 0; i < mossCount; ++i)
 			setMoss(world, pos.add(random.nextInt(7) - 3, 0, random.nextInt(7) - 3), random);
 		
 		return generated;
