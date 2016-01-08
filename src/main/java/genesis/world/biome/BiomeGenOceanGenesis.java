@@ -22,7 +22,7 @@ public class BiomeGenOceanGenesis extends BiomeGenBaseGenesis
 		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);
 		fillerBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);
 		//setWaterColor(0x007D39);
-		setWaterColor(0x9f791f);
+		setWaterColor(0x9F791F);
 		theBiomeDecorator.grassPerChunk = 0;
 	}
 	
