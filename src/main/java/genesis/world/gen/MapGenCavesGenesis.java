@@ -55,9 +55,7 @@ public class MapGenCavesGenesis extends MapGenBase
 	
 	@Override
 	public void generate(IChunkProvider chunkProvider, World world, int chunkX, int chunkZ, ChunkPrimer data)
-	{		
-		System.out.println("Generating caves for chunk: " + chunkX + "," + chunkZ);
-		long gStart = System.nanoTime();
+	{
 		SuperSimplexNoise.NoiseInstance3[] noiseInstaces_64_96_64 = new SuperSimplexNoise.NoiseInstance3[] {
 				new SuperSimplexNoise.NoiseInstance3(new SuperSimplexNoise(world.getSeed() + 0), 0, 1, 2, 3),
 				new SuperSimplexNoise.NoiseInstance3(new SuperSimplexNoise(world.getSeed() + 1), 4, 5, 6, 7),
@@ -166,7 +164,5 @@ public class MapGenCavesGenesis extends MapGenBase
 				
 			}
 		}
-		long took = System.nanoTime() - gStart;
-		System.out.println("Cave gen took " + (took / 1000000000.0d) + " seconds.");
 	}
 }
