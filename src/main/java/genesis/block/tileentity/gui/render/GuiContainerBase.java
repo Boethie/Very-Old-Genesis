@@ -175,10 +175,10 @@ public class GuiContainerBase extends GuiContainer
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer renderer = tessellator.getWorldRenderer();
 		renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-		renderer.pos(x,		y + h,	zLevel).tex(minU, maxV);
-		renderer.pos(x + w,	y + h,	zLevel).tex(maxU, maxV);
-		renderer.pos(x + w,	y,		zLevel).tex(maxU, minV);
-		renderer.pos(x,		y,		zLevel).tex(minU, minV);
+		renderer.pos(x,		y + h,	zLevel).tex(minU, maxV).endVertex();
+		renderer.pos(x + w,	y + h,	zLevel).tex(maxU, maxV).endVertex();
+		renderer.pos(x + w,	y,		zLevel).tex(maxU, minV).endVertex();
+		renderer.pos(x,		y,		zLevel).tex(minU, minV).endVertex();
 		tessellator.draw();
 	}
 	
