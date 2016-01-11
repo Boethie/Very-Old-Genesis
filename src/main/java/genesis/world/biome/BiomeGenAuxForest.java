@@ -38,7 +38,7 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 		
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(3));
 		addDecoration(new WorldGenDebris().addAdditional(GenesisBlocks.debris.getBlockState(EnumDebrisOther.COELOPHYSIS_FEATHER)).setCountPerChunk(1));
-		addDecoration(new WorldGenRoots().setCountPerChunk(32));
+		addDecoration(new WorldGenRoots().setCountPerChunk(26));
 		
 		addDecoration(new WorldGenRockBoulders().setRarity(110).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 	}
