@@ -8,7 +8,7 @@
 	"url": "https://github.com/GenProject/GenProject",
 	"updateUrl": "",
 	"authorList": ["Anaghold"],
-	"credits": "The GenProject team: Anaghold, MrIbby, Zaggy1024, Expert700, superckl, WinterGrave, Vorquel, KdotJPG, tdriling, TheVoid, PixelTrixel, Elsweyr, TheDurpiDaedric, Sn0w, ZeeCount, Dilophoraptor, legnak",
+	"credits": "The GenProject team: Anaghold, MrIbby, Zaggy1024, WinterGrave, Vorquel, KdotJPG, tdriling, PixelTrixel, Verlest, kyctarniq, Sn0w, ZeeCount",
 	"logoFile": "assets/genesis/textures/gui/logo.png",
 	"screenshots": [],
 	"requiredMods": ["Forge"],

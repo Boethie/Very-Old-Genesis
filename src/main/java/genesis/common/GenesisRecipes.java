@@ -639,9 +639,6 @@ public final class GenesisRecipes
 		ItemStack protoFlesh = GenesisItems.seeds.getStack(EnumSeeds.PROTOTAXITES_FLESH);
 		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(GenesisDye.get(EnumDyeColor.BROWN)), protoFlesh, protoFlesh);
 		
-		ItemStack lepacyclotes = GenesisBlocks.plants.getPlantStack(EnumPlant.LEPACYCLOTES);
-		CookingPotRecipeRegistry.registerShapeless(GenesisItems.materials.getStack(EnumMaterial.SALT), lepacyclotes, lepacyclotes);
-		
 		ItemStack spirifer = GenesisItems.foods.getRawStack(EnumFood.SPIRIFER);
 		CookingPotRecipeRegistry.registerShapeless(GenesisItems.foods.getCookedStack(EnumFood.SPIRIFER), spirifer, spirifer);
 		
