@@ -140,6 +140,11 @@
 					"plant": "genesis:blocks/sapling_psaronius"
 				}
 			},
+			"ginkgo_sapling": {
+				"textures": {
+					"plant": "genesis:blocks/sapling_ginkgo"
+				}
+			},
 			"bjuvia_sapling": {
 				"textures": {
 					"plant": "genesis:blocks/sapling_bjuvia"
