@@ -213,6 +213,11 @@ public class CookingPotRecipeRegistry
 		registerRecipe(new CookingPotRecipeShapeless(output, ingredients));
 	}
 	
+	public static void registerShapeless(ItemStack output, Collection<ItemStack> ingredients)
+	{
+		registerShapeless(output, ingredients.toArray(new ItemStack[ingredients.size()]));
+	}
+	
 	public static boolean isRecipeIngredient(ItemStack stack, InventoryCookingPot cookingPot)
 	{
 		for (CookingPotRecipe recipe: recipes)

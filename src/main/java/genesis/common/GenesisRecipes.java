@@ -661,7 +661,7 @@ public final class GenesisRecipes
 		for (MultiMetadata variant : GenesisItems.bowls.getValidVariants(ItemsCeramicBowls.DISH))
 		{
 			EnumDish dish = (EnumDish) variant.getOriginal();
-			ItemStack base = null;
+			ArrayBuilder<ItemStack> ingredients = ArrayBuilder.create(new ItemStack[3]);
 			
 			switch (dish)
 			{
@@ -670,9 +670,8 @@ public final class GenesisRecipes
 			case PORRIDGE_ODONTOPTERIS:
 			case PORRIDGE_ZINGIBEROPSIS:
 			case PORRIDGE_ARCHAEOMARASMIUS:
-				base = GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS);
+				ingredients.add(GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS));
 				break;
-			case MASHED_NEUROPTERIDIUM:
 			case STEW_ARCHAEOMARASMIUS:
 			case STEW_SPIRIFER:
 			case STEW_CLIMATIUS:
@@ -683,62 +682,61 @@ public final class GenesisRecipes
 			case STEW_CERATITES:
 			case STEW_LIOPLEURODON:
 			case STEW_TYRANNOSAURUS:
-				base = GenesisItems.seeds.getStack(EnumSeeds.NEUROPTERIDIUM_RHIZOME);
+				ingredients.add(GenesisItems.materials.getStack(EnumMaterial.SALT));
+			case MASHED_NEUROPTERIDIUM:
+				ingredients.add(GenesisItems.seeds.getStack(EnumSeeds.NEUROPTERIDIUM_RHIZOME));
 				break;
 			}
-			
-			ItemStack ingredient = null;
 			
 			switch (dish)
 			{
 			case PORRIDGE:
 				break;
 			case PORRIDGE_ARAUCARIOXYLON:
-				ingredient = GenesisItems.seeds.getStack(EnumSeeds.ARAUCARIOXYLON_SEEDS);
+				ingredients.add(GenesisItems.seeds.getStack(EnumSeeds.ARAUCARIOXYLON_SEEDS));
 				break;
 			case PORRIDGE_ODONTOPTERIS:
-				ingredient = GenesisItems.seeds.getStack(EnumSeeds.ODONTOPTERIS_SEEDS);
+				ingredients.add(GenesisItems.seeds.getStack(EnumSeeds.ODONTOPTERIS_SEEDS));
 				break;
 			case PORRIDGE_ZINGIBEROPSIS:
-				ingredient = GenesisItems.seeds.getStack(EnumSeeds.ZINGIBEROPSIS_RHIZOME);
+				ingredients.add(GenesisItems.seeds.getStack(EnumSeeds.ZINGIBEROPSIS_RHIZOME));
 				break;
 			case PORRIDGE_ARCHAEOMARASMIUS:
 			case STEW_ARCHAEOMARASMIUS:
-				ingredient = new ItemStack(GenesisBlocks.archaeomarasmius);
+				ingredients.add(new ItemStack(GenesisBlocks.archaeomarasmius));
 				break;
 			case MASHED_NEUROPTERIDIUM:
 				break;
 			case STEW_SPIRIFER:
-				ingredient = GenesisItems.foods.getRawStack(EnumFood.SPIRIFER);
+				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.SPIRIFER));
 				break;
 			case STEW_CLIMATIUS:
-				ingredient = GenesisItems.foods.getRawStack(EnumFood.CLIMATIUS);
+				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.CLIMATIUS));
 				break;
 			case STEW_MEGANEURA:
-				ingredient = GenesisItems.foods.getRawStack(EnumFood.MEGANEURA);
+				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.MEGANEURA));
 				break;
 			case STEW_APHTHOROBLATINNA:
-				ingredient = GenesisItems.foods.getRawStack(EnumFood.APHTHOROBLATINNA);
+				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.APHTHOROBLATINNA));
 				break;
 			case STEW_ERYOPS:
-				ingredient = GenesisItems.foods.getRawStack(EnumFood.ERYOPS_LEG);
+				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.ERYOPS_LEG));
 				break;
 			case STEW_GRYPHAEA:
-				ingredient = GenesisItems.foods.getRawStack(EnumFood.GRYPHAEA);
+				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.GRYPHAEA));
 				break;
 			case STEW_CERATITES:
-				ingredient = GenesisItems.foods.getRawStack(EnumFood.CERATITES);
+				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.CERATITES));
 				break;
 			case STEW_LIOPLEURODON:
-				ingredient = GenesisItems.foods.getRawStack(EnumFood.LIOPLEURODON);
+				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.LIOPLEURODON));
 				break;
 			case STEW_TYRANNOSAURUS:
-				ingredient = GenesisItems.foods.getRawStack(EnumFood.TYRANNOSAURUS);
+				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.TYRANNOSAURUS));
 				break;
 			}
 			
-			ItemStack[] ingredients = ingredient == null ? new ItemStack[]{base} : new ItemStack[]{base, ingredient};
-			CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(dish), ingredients);
+			CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(dish), ingredients.toArray());
 		}
 		
 		// Dye cooking pot recipes

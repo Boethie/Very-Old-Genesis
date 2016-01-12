@@ -124,10 +124,6 @@ public class GuiContainerKnapper extends GuiContainerBase
 					.add(containerKnapper.knappingInputSlotLocked)
 					.add(containerKnapper.knappingToolSlotDamaged)
 					.build();
-		}
-		
-		if (rightSlots == null)
-		{
 			rightSlots = new ImmutableList.Builder<Slot>()
 					.addAll(containerKnapper.rightCraftingSlots)
 					.add(containerKnapper.outputSlotMain)

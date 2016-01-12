@@ -17,8 +17,9 @@ public class ContainerCampfire extends ContainerBase
 	public final RestrictedSlot input;
 	public final RestrictedSlot fuel;
 	public final SlotFurnaceOutput output;
-	public final RestrictedSlot ingredient1;
-	public final RestrictedSlot ingredient2;
+	public final RestrictedSlot[] ingredients;
+	//public final RestrictedSlot ingredient1;
+	//public final RestrictedSlot ingredient2;
 
 	public ContainerCampfire(EntityPlayer player, TileEntityCampfire te)
 	{
@@ -27,11 +28,19 @@ public class ContainerCampfire extends ContainerBase
 		campfire = te;
 		
 		int y = 0;
-		int ingSep = 32;
-		ingredient1 = addTopAlignedSlot(new RestrictedDisabledSlot(te, TileEntityCampfire.SLOT_INGREDIENT_1, 0, y));
-		ingredient2 = addTopAlignedSlot(new RestrictedDisabledSlot(te, TileEntityCampfire.SLOT_INGREDIENT_2, ingSep, y));
-		input = addTopAlignedSlot(new RestrictedSlot(te, TileEntityCampfire.SLOT_INPUT, ingSep / 2, y += slotH + 8));
-		fuel = addTopAlignedSlot(new RestrictedSlot(te, TileEntityCampfire.SLOT_FUEL, ingSep / 2, y += slotH * 2));
+		
+		int ingSep = slotW + 6;
+		ingredients = new RestrictedSlot[TileEntityCampfire.SLOTS_INGREDIENTS_COUNT];
+		
+		for (int i = 0; i < TileEntityCampfire.SLOTS_INGREDIENTS_COUNT; i++)
+			ingredients[i] = addTopAlignedSlot(new RestrictedDisabledSlot(te, TileEntityCampfire.SLOTS_INGREDIENTS_START + i, i * ingSep, y));
+		//ingredient1 = addTopAlignedSlot(new RestrictedDisabledSlot(te, TileEntityCampfire.SLOT_INGREDIENT_1, 0, y));
+		//ingredient2 = addTopAlignedSlot(new RestrictedDisabledSlot(te, TileEntityCampfire.SLOT_INGREDIENT_2, ingSep, y));
+		
+		int leftWidth = (TileEntityCampfire.SLOTS_INGREDIENTS_COUNT - 1) * ingSep;
+		
+		input = addTopAlignedSlot(new RestrictedSlot(te, TileEntityCampfire.SLOT_INPUT, leftWidth / 2, y += slotH + 8));
+		fuel = addTopAlignedSlot(new RestrictedSlot(te, TileEntityCampfire.SLOT_FUEL, leftWidth / 2, y += slotH * 2));
 		output = addBigTopAlignedSlot(new SlotFurnaceOutput(player, te, TileEntityCampfire.SLOT_OUTPUT, 112, y /= 2));
 		
 		setUpGUILayout();

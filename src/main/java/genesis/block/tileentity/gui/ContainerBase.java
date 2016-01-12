@@ -28,9 +28,9 @@ public abstract class ContainerBase extends Container
 	public int paddingY = 3;
 	public int textH = 10;
 	
-	protected List<Slot> playerSlots = new ArrayList<Slot>();
-	protected List<Slot> topSlots = new ArrayList<Slot>();
-	protected Set<Slot> bigSlots = new HashSet<Slot>();
+	public List<Slot> playerSlots = new ArrayList<Slot>();
+	public List<Slot> topSlots = new ArrayList<Slot>();
+	public Set<Slot> bigSlots = new HashSet<Slot>();
 
 	protected UIArea playerInvArea = null;
 	protected UIArea containerInvArea = null;

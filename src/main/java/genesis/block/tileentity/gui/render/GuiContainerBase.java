@@ -124,18 +124,15 @@ public class GuiContainerBase extends GuiContainer
 					slotV = 26;
 				}
 			}
+			else if (slot.canBeHovered())
+			{
+				slotU = 9;
+				slotV = 0;
+			}
 			else
 			{
-				if (slot.canBeHovered())
-				{
-					slotU = 9;
-					slotV = 0;
-				}
-				else
-				{
-					slotU = 9;
-					slotV = 18;
-				}
+				slotU = 9;
+				slotV = 18;
 			}
 
 			int offsetX = (slotW - 16) / 2;
@@ -201,6 +198,16 @@ public class GuiContainerBase extends GuiContainer
 		drawTextureUVSize(x, y, w, h, u * px, v * px, uvW * px, uvH * px);
 	}
 	
+	protected void drawTextureUVPx(int x, int y, int w, int h, int u, int v, int uvW, int uvH,
+			boolean centerX, boolean centerY)
+	{
+		if (centerX)
+			x -= centerX ? w / 2 : 0;
+		if (centerY)
+			y -= centerY ? h / 2 : 0;
+		drawTextureUVPx(x, y, w, h, u, v, uvW, uvH);
+	}
+	
 	protected void drawSprite(int x, int y, int w, int h, ISpriteUVs uvs)
 	{
 		bindTexture(uvs.getTexture());
@@ -209,20 +216,11 @@ public class GuiContainerBase extends GuiContainer
 	
 	protected void drawTexBetweenSlots(int x, int y, int w, int h, int u, int v, int uvW, int uvH, boolean centerX, boolean centerY, Collection<Slot> slots)
 	{
-		if (centerX || centerY)
-		{
-			x -= centerX ? w / 2 : 0;
-			y -= centerY ? h / 2 : 0;
-			drawTexBetweenSlots(x, y, w, h, u, v, uvW, uvH, false, false, slots);
-		}
-		else
-		{
-			UIArea area = container.getSlotsArea(slots);
-			x += (area.left + area.right) / 2;
-			y += (area.top + area.bottom) / 2;
-			
-			drawTextureUVPx(x, y, w, h, u, v, uvW, uvH);
-		}
+		UIArea area = container.getSlotsArea(slots);
+		x += (area.left + area.right) / 2;
+		y += (area.top + area.bottom) / 2;
+		
+		drawTextureUVPx(x, y, w, h, u, v, uvW, uvH, centerX, centerY);
 	}
 	
 	protected void drawTexBetweenSlots(int x, int y, int w, int h, int u, int v, int uvW, int uvH, boolean centerX, boolean centerY, Slot... slots)

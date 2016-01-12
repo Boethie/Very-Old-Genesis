@@ -76,16 +76,13 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		return allowedOutputs.contains(new ItemStackKey(output));
 	}
 	
-	public static final int SLOT_COUNT = 5;
 	public static final int SLOT_INPUT = 0;
-	public static final int SLOT_FUEL = 1;
-	public static final int SLOT_OUTPUT = 2;
-	public static final int SLOT_INGREDIENT_1 = 3;
-	public static final int SLOT_INGREDIENT_2 = 4;
-	private static final int[] SLOTS_TOP = {SLOT_INPUT};
-	private static final int[] SLOTS_SIDE = {SLOT_INGREDIENT_1, SLOT_INGREDIENT_2};
-	private static final int[] SLOTS_FRONT = {SLOT_FUEL};
-	private static final int[] SLOTS_BOTTOM = {SLOT_OUTPUT};
+	public static final int SLOT_FUEL = SLOT_INPUT + 1;
+	public static final int SLOT_OUTPUT = SLOT_FUEL + 1;
+	public static final int SLOTS_INGREDIENTS_START = SLOT_OUTPUT + 1;
+	public static final int SLOTS_INGREDIENTS_COUNT = 3;
+	public static final int SLOTS_INGREDIENTS_END = SLOTS_INGREDIENTS_START + SLOTS_INGREDIENTS_COUNT - 1;
+	public static final int SLOT_COUNT = SLOTS_INGREDIENTS_END + 1;
 	
 	protected static final int WET_TIME = 200;
 	
@@ -107,9 +104,22 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	protected int fireSoundTime = 30;
 	protected int fireSoundCounter;
 	
+	private final int[] SLOTS_TOP;
+	private final int[] SLOTS_SIDE;
+	private final int[] SLOTS_FRONT;
+	private final int[] SLOTS_BOTTOM;
+	
 	public TileEntityCampfire()
 	{
 		super();
+		
+		SLOTS_TOP = new int[]{SLOT_INPUT};
+		SLOTS_FRONT = new int[]{SLOT_FUEL};
+		SLOTS_BOTTOM = new int[]{SLOT_OUTPUT};
+		SLOTS_SIDE = new int[SLOTS_INGREDIENTS_END - SLOTS_INGREDIENTS_START + 1];
+		
+		for (int i = 0; i < SLOTS_SIDE.length; i++)
+			SLOTS_SIDE[i] = SLOTS_INGREDIENTS_START + i;
 	}
 	
 	@Override
@@ -505,10 +515,15 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		return inventory[slot];
 	}
 	
+	public boolean isIngredientSlot(int slot)
+	{
+		return slot >= SLOTS_INGREDIENTS_START || slot <= SLOTS_INGREDIENTS_END;
+	}
+	
 	@Override
 	public boolean isSlotDisabled(int index)
 	{
-		if (index == SLOT_INGREDIENT_1 || index == SLOT_INGREDIENT_2)
+		if (isIngredientSlot(index))
 		{
 			return hasCookingPot();
 		}
@@ -551,10 +566,12 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 			return false;
 		case SLOT_FUEL:
 			return TileEntityFurnace.isItemFuel(stack);
-		case SLOT_INGREDIENT_1:
-		case SLOT_INGREDIENT_2:
-			return hasCookingPot() && CookingPotRecipeRegistry.isRecipeIngredient(stack, this);
+		default:
+			break;
 		}
+		
+		if (isIngredientSlot(slot))
+			return hasCookingPot() && CookingPotRecipeRegistry.isRecipeIngredient(stack, this);
 		
 		return false;
 	}
@@ -781,9 +798,12 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	@Override
 	public List<? extends SlotModifier> getIngredients()
 	{
-		return ImmutableList.of(
-				new SlotModifierInventory(this, SLOT_INGREDIENT_1),
-				new SlotModifierInventory(this, SLOT_INGREDIENT_2));
+		ImmutableList.Builder<SlotModifier> builder = ImmutableList.builder();
+		
+		for (int i = 0; i < SLOTS_INGREDIENTS_COUNT; i++)
+			builder.add(new SlotModifierInventory(this, SLOTS_INGREDIENTS_START + i));
+		
+		return builder.build();
 	}
 	
 	@Override
