@@ -1,10 +1,9 @@
-package genesis.block;
+package genesis.block.tileentity;
 
 import java.util.*;
 
 import com.google.common.collect.*;
 
-import genesis.block.tileentity.TileEntityGenesisFlowerPot;
 import genesis.client.*;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;

@@ -1,8 +1,8 @@
 package genesis.common;
 
 import genesis.block.*;
-import genesis.block.BlockGenesisFlowerPot.IFlowerPotPlant;
 import genesis.block.tileentity.*;
+import genesis.block.tileentity.BlockGenesisFlowerPot.IFlowerPotPlant;
 import genesis.block.tileentity.portal.*;
 import genesis.block.tileentity.portal.render.TileEntityGenesisPortalRenderer;
 import genesis.block.tileentity.render.*;
