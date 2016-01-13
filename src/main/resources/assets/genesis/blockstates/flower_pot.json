@@ -164,6 +164,11 @@
 				"textures": {
 					"plant": "genesis:blocks/sapling_metasequoia"
 				}
+			},
+			"archaeomarasmius": {
+				"textures": {
+					"plant": "genesis:blocks/archaeomarasmius_potted"
+				}
 			}
 		}
 	}

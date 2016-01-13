@@ -361,21 +361,6 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(flower_pot, "flower_pot", null);
 		GameRegistry.registerTileEntity(TileEntityGenesisFlowerPot.class, Constants.ASSETS_PREFIX + "flower_pot");
 		
-		IFlowerPotPlant plantCustoms = new IFlowerPotPlant()
-		{
-			@Override
-			public int getColorMultiplier(ItemStack contents, IBlockAccess world, BlockPos pos)
-			{
-				EnumPlant variant = plants.getVariant(contents);
-				return variant.getColorMultiplier(world, pos);
-			}
-		};
-		
-		flower_pot.registerPlantsForPot(plants, PlantBlocks.PLANT, plantCustoms);
-		flower_pot.registerPlantsForPot(plants, PlantBlocks.FERN, plantCustoms);
-		flower_pot.registerPlantsForPot(trees, TreeBlocksAndItems.SAPLING, null);
-		flower_pot.afterAllRegistered();
-		
 		// - Mushrooms -
 		Genesis.proxy.registerBlock(palaeoagaracites, "palaeoagaracites");
 		Genesis.proxy.registerBlock(archaeomarasmius, "archaeomarasmius");
@@ -395,5 +380,22 @@ public final class GenesisBlocks
 		
 		// --- Liquids ---
 		Genesis.proxy.registerFluidBlock(komatiitic_lava, "komatiitic_lava");
+		
+		IFlowerPotPlant plantCustoms = new IFlowerPotPlant()
+		{
+			@Override
+			public int getColorMultiplier(ItemStack contents, IBlockAccess world, BlockPos pos)
+			{
+				EnumPlant variant = plants.getVariant(contents);
+				return variant.getColorMultiplier(world, pos);
+			}
+		};
+		
+		flower_pot.registerPlantsForPot(plants, PlantBlocks.PLANT, plantCustoms);
+		flower_pot.registerPlantsForPot(plants, PlantBlocks.FERN, plantCustoms);
+		flower_pot.registerPlantsForPot(trees, TreeBlocksAndItems.SAPLING, null);
+		
+		flower_pot.registerPlantForPot(new ItemStack(archaeomarasmius), "archaeomarasmius");
+		flower_pot.afterAllRegistered();
 	}
 }
