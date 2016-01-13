@@ -6,6 +6,7 @@ import com.google.common.collect.*;
 
 public class MiscUtils
 {
+	@SafeVarargs
 	public static <T> Iterable<T> iterable(final T... array)
 	{
 		return new Iterable<T>()

@@ -19,6 +19,7 @@ import net.minecraft.client.resources.*;
 import net.minecraft.client.resources.model.*;
 import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.fluids.BlockFluidBase;
@@ -188,7 +189,7 @@ public class GenesisClient extends GenesisProxy
 	
 	public void addVariantName(Item item, String name)
 	{
-		ModelBakery.addVariantName(item, Constants.ASSETS_PREFIX + name);
+		ModelBakery.registerItemVariants(item, new ResourceLocation(Constants.ASSETS_PREFIX + name));
 	}
 	
 	public <T extends TileEntity> void registerTileEntityRenderer(Class<T> teClass, TileEntitySpecialRenderer<T> renderer)

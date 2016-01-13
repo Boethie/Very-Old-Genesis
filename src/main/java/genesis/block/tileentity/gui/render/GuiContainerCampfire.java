@@ -2,7 +2,6 @@ package genesis.block.tileentity.gui.render;
 
 import genesis.block.tileentity.*;
 import genesis.block.tileentity.gui.*;
-import genesis.block.tileentity.gui.ContainerBase.UIArea;
 import genesis.util.Constants;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.*;

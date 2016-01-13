@@ -6,8 +6,6 @@ import com.google.common.collect.ImmutableList;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 import genesis.block.*;
 import genesis.common.*;
 import genesis.item.*;

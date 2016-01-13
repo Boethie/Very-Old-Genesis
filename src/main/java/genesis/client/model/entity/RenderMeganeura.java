@@ -4,10 +4,10 @@ import genesis.entity.living.flying.EntityMeganeura;
 import genesis.util.*;
 import genesis.util.render.*;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.*;
 import net.minecraft.util.*;
 
@@ -410,9 +410,9 @@ public class RenderMeganeura extends RenderLiving<EntityMeganeura>
 	
 	public static final ResourceLocation texture = new ResourceLocation(Constants.ASSETS_PREFIX + "textures/entity/meganeura/texture.png");
 	
-	public RenderMeganeura()
+	public RenderMeganeura(RenderManager manager)
 	{
-		super(Minecraft.getMinecraft().getRenderManager(), new Model(), 0.4F);
+		super(manager, new Model(), 0.4F);
 	}
 	
 	@Override
