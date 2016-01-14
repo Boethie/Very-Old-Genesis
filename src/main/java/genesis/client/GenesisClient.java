@@ -62,6 +62,8 @@ public class GenesisClient extends GenesisProxy
 			call.client(this);
 		}
 		
+		GenesisEntities.registerEntityRenderers();
+		
 		// This should be called as late as possible in preInit.
 		ModelHelpers.preInit();
 	}
@@ -79,8 +81,6 @@ public class GenesisClient extends GenesisProxy
 		{
 			entry.register();
 		}
-		
-		GenesisEntities.registerEntityRenderers();
 		
 		GenesisParticles.createParticles();
 	}

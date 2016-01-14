@@ -7,7 +7,6 @@ import genesis.util.Constants;
 import genesis.util.random.IntRange;
 import genesis.util.render.EntityPart;
 import genesis.util.render.RenderHelpers;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.*;
@@ -114,9 +113,9 @@ public class EntityMeganeuraEgg extends EntityEgg
 		public static final ResourceLocation texture = new ResourceLocation(Constants.ASSETS_PREFIX + "textures/entity/meganeura/egg.png");
 		protected Model model = new Model();
 		
-		public EggRender()
+		public EggRender(RenderManager manager)
 		{
-			super(Minecraft.getMinecraft().getRenderManager());
+			super(manager);
 			
 			shadowSize = 0;
 		}

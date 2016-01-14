@@ -13,12 +13,6 @@ public class GenesisEntities
 {
 	protected static int modID = 0;
 	
-	public static void registerEntities()
-	{
-		registerEntity(EntityMeganeura.class, "meganeura", 160, 1, true, 0xB5C457, 0x7E8B3A);
-		registerEntity(EntityMeganeuraEgg.class, "meganeuraEgg", 160, Integer.MAX_VALUE, false);
-	}
-	
 	protected static void registerEntity(Class<? extends Entity> clazz, String name, int trackRange, int trackFrequency, boolean trackVelocity)
 	{
 		EntityRegistry.registerModEntity(clazz, name, modID++, Genesis.instance, trackRange, trackFrequency, trackVelocity);
@@ -33,6 +27,12 @@ public class GenesisEntities
 	{
 		registerEntity(clazz, name, trackRange, trackFrequency, trackVelocity);
 		EntityRegistry.registerEgg(clazz, primaryColor, secondaryColor);
+	}
+	
+	public static void registerEntities()
+	{
+		registerEntity(EntityMeganeura.class, "meganeura", 160, 1, true, 0xB5C457, 0x7E8B3A);
+		registerEntity(EntityMeganeuraEgg.class, "meganeuraEgg", 160, Integer.MAX_VALUE, false);
 	}
 	
 	@SideOnly(Side.CLIENT)
