@@ -691,7 +691,7 @@ public final class GenesisRecipes
 			case PORRIDGE:
 				break;
 			case PORRIDGE_GINKGO:
-				ingredients.add(GenesisItems.seeds.getStack(EnumSeeds.GINKGO_NUT));
+				ingredients.add(GenesisItems.seeds.getStack(EnumSeeds.GINKGO_NUTS));
 				break;
 			case PORRIDGE_ARAUCARIOXYLON:
 				ingredients.add(GenesisItems.seeds.getStack(EnumSeeds.ARAUCARIOXYLON_SEEDS));

@@ -11,7 +11,7 @@ import net.minecraft.potion.PotionEffect;
 
 public enum EnumSeeds implements IMetadata<EnumSeeds>, IFood
 {
-	GINKGO_NUT("ginkgo_nut", "ginkgoNut", 1, 0.4F)
+	GINKGO_NUTS("ginkgo_nuts", "ginkgoNuts", 1, 0.4F)
 	{
 		@Override
 		public IBlockState getPlacedState()

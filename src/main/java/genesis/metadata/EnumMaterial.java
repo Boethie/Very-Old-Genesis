@@ -3,13 +3,13 @@ package genesis.metadata;
 public enum EnumMaterial implements IMetadata<EnumMaterial>
 {
 	DUNG_BRICK("dung_brick", "dungBrick"),
-	SALT("salt"),
 	RESIN("resin"),
 	ARAUCARIOXYLON_CONE("araucarioxylon_cone", "araucarioxylonCone"),
 	SPHENOPHYLLUM_FIBER("sphenophyllum_fiber", "sphenophyllumFiber"),
 	ODONTOPTERIS_FIDDLEHEAD("odontopteris_fiddlehead", "odontopterisFiddlehead"),
 	CLADOPHLEBIS_FROND("cladophlebis_frond", "cladophlebisFrond"),
 	PROGRAMINIS("programinis"),
+	SALT("salt"),
 	ARTHROPLEURA_CHITIN("arthropleura_chitin", "arthropleuraChitin"),
 	COELOPHYSIS_FEATHER("coelophysis_feather", "coelophysisFeather"),
 	EPIDEXIPTERYX_FEATHER("epidexipteryx_feather", "epidexipteryxFeather"),
