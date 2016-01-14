@@ -1,0 +1,30 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"textures": {
+			"particle": "genesis:blocks/wattle_and_daub",
+			"side": "genesis:blocks/wattle_and_daub",
+			"top": "genesis:blocks/wattle_and_daub"
+		},
+		"model": "genesis:wattle_and_daub/center",
+		"uvlock": true
+	},
+	"variants": {
+		"north": {
+			"true": {"submodel": "genesis:wattle_and_daub/side_connect", "y": 0},
+			"false": {"submodel": "genesis:wattle_and_daub/side", "y": 0}
+		},
+		"east": {
+			"true": {"submodel": "genesis:wattle_and_daub/side_connect", "y": 90},
+			"false": {"submodel": "genesis:wattle_and_daub/side", "y": 90}
+		},
+		"south": {
+			"true": {"submodel": "genesis:wattle_and_daub/side_connect", "y": 180},
+			"false": {"submodel": "genesis:wattle_and_daub/side", "y": 180}
+		},
+		"west": {
+			"true": {"submodel": "genesis:wattle_and_daub/side_connect", "y": 270},
+			"false": {"submodel": "genesis:wattle_and_daub/side", "y": 270}
+		}
+	}
+}

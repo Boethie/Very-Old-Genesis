@@ -21,6 +21,7 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemColored;
 import net.minecraft.item.ItemStack;
@@ -149,8 +150,13 @@ public final class GenesisBlocks
 	public static final Block calamites_torch = new BlockCalamitesTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTorch");
 	public static final Block calamites_torch_tall = new BlockTallTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTorch.tall");
 	public static final Block prototaxites_mycelium = new BlockPrototaxitesMycelium().setUnlocalizedName(Unlocalized.PREFIX + "prototaxitesMycelium");
+	
 	public static final DungBlocksAndItems dungs = new DungBlocksAndItems();
-	public static final Block dung_brick_block = new BlockDungBrick().setUnlocalizedName(Unlocalized.PREFIX + "dungBrickBlock");
+	public static final Block dung_brick_block = new BlockGenesis(Material.rock)
+			.setHardness(0.7F)
+			.setStepSound(Block.soundTypePiston)
+			.setUnlocalizedName(Unlocalized.PREFIX + "dungBrickBlock");
+	public static final BlockGenesisFence wattle_and_daub = (BlockGenesisFence) new BlockGenesisFence(Material.wood, 0.375F, 1.0F, -1).setUnlocalizedName(Unlocalized.PREFIX + "wattleAndDaub");
 	
 	/* Misc */
 	public static final Block palaeoagaracites = new BlockGenesisMushroom().setUnlocalizedName(Unlocalized.PREFIX + "palaeoagaracites")
@@ -229,7 +235,12 @@ public final class GenesisBlocks
 		
 		// - Dungs -
 		dungs.registerVariants(DungBlocksAndItems.DUNG_BLOCK);
+		
 		Genesis.proxy.registerBlock(dung_brick_block, "dung_brick_block");
+		dung_brick_block.setHarvestLevel("pickaxe", 0);
+		Blocks.fire.setFireInfo(dung_brick_block, 5, 5);
+		
+		Genesis.proxy.registerBlock(wattle_and_daub, "wattle_and_daub");
 		
 		// --- Decorative ---
 		menhirs.registerAll();

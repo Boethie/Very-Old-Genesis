@@ -68,9 +68,11 @@ tile.genesis.calamitesBundle.name=Bundle of Calamites
 tile.genesis.cladophlebisBundle.name=Bundle of Cladophlebis
 tile.genesis.programinisBundle.name=Bundle of Programinis
 tile.genesis.prototaxitesMycelium.name=Prototaxites Mycelium
+
 tile.genesis.dung.sauropoda.name=Sauropoda Dung
 tile.genesis.dung.theropoda.name=Theropoda Dung
 tile.genesis.dungBrickBlock.name=Dung Brick
+tile.genesis.wattleAndDaub.name=Wattle and Daub Wall
 
 #Decoration
 tile.genesis.log.dead.archaeopteris.name=Dead Archaeopteris Wood

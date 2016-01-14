@@ -7,22 +7,17 @@ import genesis.item.ItemBlockMulti;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockFence;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
-import net.minecraft.client.particle.EntityFX;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.*;
 import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockWattleFence extends BlockFence
+public class BlockWattleFence extends BlockGenesisFence
 {
 	@BlockProperties
 	public static IProperty<?>[] getProperties()
@@ -41,7 +36,7 @@ public class BlockWattleFence extends BlockFence
 			return name().toLowerCase();
 		}
 	}
-
+	
 	public static final PropertyEnum<EnumConnectState> NORTH = PropertyEnum.create("north", EnumConnectState.class);
 	public static final PropertyEnum<EnumConnectState> EAST = PropertyEnum.create("east", EnumConnectState.class);
 	public static final PropertyEnum<EnumConnectState> SOUTH = PropertyEnum.create("south", EnumConnectState.class);
@@ -56,7 +51,7 @@ public class BlockWattleFence extends BlockFence
 	
 	public BlockWattleFence(TreeBlocksAndItems owner, ObjectType<BlockWattleFence, ItemBlockMulti<EnumTree>> type, List<EnumTree> variants, Class<EnumTree> variantClass)
 	{
-		super(Material.wood);
+		super(Material.wood, 0.125F, 1.0F, 0.125F, 0.875F, 1.5F);
 		
 		setHardness(2);
 		setResistance(5);
@@ -122,25 +117,6 @@ public class BlockWattleFence extends BlockFence
 		return state.withProperty(property, sideState);
 	}
 	
-	public static boolean isSameVariant(IBlockState state1, IBlockState state2)
-	{
-		Block block1 = state1.getBlock();
-		
-		if (block1 != state2.getBlock())
-		{
-			return false;
-		}
-		
-		if (!(block1 instanceof BlockWattleFence))
-		{
-			return false;
-		}
-		
-		BlockWattleFence fence = (BlockWattleFence) block1;
-		
-		return state1.getValue(fence.variantProp) == state2.getValue(fence.variantProp);
-	}
-	
 	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
@@ -168,21 +144,5 @@ public class BlockWattleFence extends BlockFence
 	public EnumWorldBlockLayer getBlockLayer()
 	{
 		return EnumWorldBlockLayer.CUTOUT;
-	}
-	
-	@Override
-	public void addCollisionBoxesToList(World world, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
-	{
-		super.addCollisionBoxesToList(world, pos, state, mask, list, collidingEntity);
-		
-		if (world.isRemote && collidingEntity instanceof EntityFX)  // Make particles collide with the actual top of the fence, rather than the raised version.
-		{
-			for (int i = 0; i < list.size(); i++)
-			{
-				AxisAlignedBB bb = list.get(i);
-				bb = new AxisAlignedBB(bb.minX, bb.minY, bb.minZ, bb.maxX, bb.maxY - 0.5, bb.maxZ);
-				list.set(i, bb);
-			}
-		}
 	}
 }

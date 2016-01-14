@@ -62,7 +62,7 @@ public class BlockGenesisLogs extends BlockLog
 		
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 	}
-
+	
 	@Override
 	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list)
 	{
@@ -74,13 +74,13 @@ public class BlockGenesisLogs extends BlockLog
 	{
 		return BlockStateToMetadata.getMetaForBlockState(state, variantProp, LOG_AXIS);
 	}
-
+	
 	@Override
 	public IBlockState getStateFromMeta(int metadata)
 	{
 		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), metadata, variantProp, LOG_AXIS);
 	}
-
+	
 	@Override
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
 	{
@@ -93,7 +93,7 @@ public class BlockGenesisLogs extends BlockLog
 		
 		return state;
 	}
-
+	
 	@Override
 	public int damageDropped(IBlockState state)
 	{
