@@ -212,10 +212,11 @@ item.genesis.misc.menhirActivator.legendarySpectrumEye.name=Œil du spectre lég
 item.genesis.misc.menhirActivator.primitiveDust.name=Poussière pritimive
 
 #Food
-item.genesis.seeds.programinis.name=Graines de Programinis
+item.genesis.seeds.ginkgoNut.name=Noix de Ginkgo
 item.genesis.seeds.araucarioxylon.name=Graines d'Araucarioxylon
 item.genesis.seeds.odontopteris.name=Graines d'Odontopteris
 item.genesis.seeds.neuropteridiumRhizome.name=Rhizome de Neuropteridium
+item.genesis.seeds.programinis.name=Graines de Programinis
 item.genesis.seeds.zingiberopsisRhizome.name=Rhizome de Zingiberopsis
 item.genesis.seeds.prototaxitesFlesh.name=Chair de Prototaxites
 
@@ -239,6 +240,7 @@ item.genesis.food.tyrannosaurus.raw.name=Tyrannosaurus cru
 item.genesis.food.tyrannosaurus.cooked.name=Tyrannosaurus cuit
 
 item.genesis.food.dish.porridge.base.name=Bouillie
+item.genesis.food.dish.porridge.ginkgo.name=Bouille au Ginkgo
 item.genesis.food.dish.porridge.araucarioxylon.name=Bouillie à l'Araucarioxylon
 item.genesis.food.dish.porridge.odontopteris.name=Bouillie à l'Odontopteris
 item.genesis.food.dish.porridge.zingiberopsis.name=Bouillie au Zingiberopsis
@@ -441,7 +443,6 @@ item.genesis.material.billet.voltzia.name=Billette en bois de Voltzia
 item.genesis.material.billet.araucarioxylon.name=Billette en bois d'Araucarioxylon
 item.genesis.material.billet.metasequoia.name=Billette en bois de Metasequoia
 
-item.genesis.material.salt.name=Sel
 item.genesis.material.resin.name=Résine
 item.genesis.material.araucarioxylonCone.name=Cône d'Araucarioxylon
 item.genesis.material.calamites.name=Calamites
@@ -449,6 +450,7 @@ item.genesis.material.sphenophyllumFiber.name=Fibre de Sphenophyllum
 item.genesis.material.odontopterisFiddlehead.name=Crosse d'Odontopteris
 item.genesis.material.cladophlebisFrond.name=Fronde de Cladophlebis
 item.genesis.material.programinis.name=Programinis
+item.genesis.material.salt.name=Sel
 item.genesis.material.dung.sauropoda.name=Crotte de sauropode
 item.genesis.material.dung.theropoda.name=Crotte de théropode
 item.genesis.material.dungBrick.name=Brique de crotte

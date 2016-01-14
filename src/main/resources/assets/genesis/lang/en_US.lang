@@ -213,10 +213,11 @@ item.genesis.misc.menhirActivator.legendarySpectrumEye.name=Legendary Spectrum E
 item.genesis.misc.menhirActivator.primitiveDust.name=Primitive Dust
 
 #Food
-item.genesis.seeds.programinis.name=Programinis Seeds
+item.genesis.seeds.ginkgoNut.name=Ginkgo Nut
 item.genesis.seeds.araucarioxylon.name=Araucarioxylon Seeds
 item.genesis.seeds.odontopteris.name=Odontopteris Seeds
 item.genesis.seeds.neuropteridiumRhizome.name=Neuropteridium Rhizome
+item.genesis.seeds.programinis.name=Programinis Seeds
 item.genesis.seeds.zingiberopsisRhizome.name=Zingiberopsis Rhizome
 item.genesis.seeds.prototaxitesFlesh.name=Prototaxites Flesh
 
@@ -240,6 +241,7 @@ item.genesis.food.tyrannosaurus.raw.name=Raw Tyrannosaurus
 item.genesis.food.tyrannosaurus.cooked.name=Cooked Tyrannosaurus
 
 item.genesis.food.dish.porridge.base.name=Porridge
+item.genesis.food.dish.porridge.ginkgo.name=Porridge with Ginkgo
 item.genesis.food.dish.porridge.araucarioxylon.name=Porridge with Araucarioxylon
 item.genesis.food.dish.porridge.odontopteris.name=Porridge with Odontopteris
 item.genesis.food.dish.porridge.zingiberopsis.name=Porridge with Zingiberopsis
@@ -442,7 +444,6 @@ item.genesis.material.billet.voltzia.name=Voltzia Wood Billet
 item.genesis.material.billet.araucarioxylon.name=Araucarioxylon Wood Billet
 item.genesis.material.billet.metasequoia.name=Metasequoia Wood Billet
 
-item.genesis.material.salt.name=Salt
 item.genesis.material.resin.name=Resin
 item.genesis.material.araucarioxylonCone.name=Araucarioxylon Cone
 item.genesis.material.calamites.name=Calamites
@@ -450,6 +451,7 @@ item.genesis.material.sphenophyllumFiber.name=Sphenophyllum Fiber
 item.genesis.material.odontopterisFiddlehead.name=Odontopteris Fiddlehead
 item.genesis.material.cladophlebisFrond.name=Cladophlebis Frond
 item.genesis.material.programinis.name=Programinis
+item.genesis.material.salt.name=Salt
 item.genesis.material.dung.sauropoda.name=Sauropoda Dung
 item.genesis.material.dung.theropoda.name=Theropoda Dung
 item.genesis.material.dungBrick.name=Dung Brick

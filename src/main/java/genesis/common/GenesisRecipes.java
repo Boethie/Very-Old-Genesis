@@ -663,6 +663,7 @@ public final class GenesisRecipes
 			switch (dish)
 			{
 			case PORRIDGE:
+			case PORRIDGE_GINKGO:
 			case PORRIDGE_ARAUCARIOXYLON:
 			case PORRIDGE_ODONTOPTERIS:
 			case PORRIDGE_ZINGIBEROPSIS:
@@ -688,6 +689,9 @@ public final class GenesisRecipes
 			switch (dish)
 			{
 			case PORRIDGE:
+				break;
+			case PORRIDGE_GINKGO:
+				ingredients.add(GenesisItems.seeds.getStack(EnumSeeds.GINKGO_NUT));
 				break;
 			case PORRIDGE_ARAUCARIOXYLON:
 				ingredients.add(GenesisItems.seeds.getStack(EnumSeeds.ARAUCARIOXYLON_SEEDS));

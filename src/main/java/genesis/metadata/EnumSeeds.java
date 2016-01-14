@@ -11,6 +11,38 @@ import net.minecraft.potion.PotionEffect;
 
 public enum EnumSeeds implements IMetadata<EnumSeeds>, IFood
 {
+	GINKGO_NUT("ginkgo_nut", "ginkgoNut", 1, 0.4F)
+	{
+		@Override
+		public IBlockState getPlacedState()
+		{
+			return null;
+		}
+	},
+	ARAUCARIOXYLON_SEEDS("araucarioxylon_seeds", "araucarioxylon", 1, 0.2F)
+	{
+		@Override
+		public IBlockState getPlacedState()
+		{
+			return null;
+		}
+	},
+	ODONTOPTERIS_SEEDS("odontopteris_seeds", "odontopteris", 1, 0.4F)
+	{
+		@Override
+		public IBlockState getPlacedState()
+		{
+			return GenesisBlocks.odontopteris.getDefaultState();
+		}
+	},
+	NEUROPTERIDIUM_RHIZOME("neuropteridium_rhizome", "neuropteridiumRhizome", 2, 1.2F)
+	{
+		@Override
+		public IBlockState getPlacedState()
+		{
+			return GenesisBlocks.neuropteridium.getDefaultState();
+		}
+	},
 	PROGRAMINIS_SEEDS("programinis_seeds", "programinis")
 	{
 		@Override
@@ -19,31 +51,7 @@ public enum EnumSeeds implements IMetadata<EnumSeeds>, IFood
 			return GenesisBlocks.programinis.getDefaultState();
 		}
 	},
-	ARAUCARIOXYLON_SEEDS("araucarioxylon_seeds", "araucarioxylon", 1, 0.6F)
-	{
-		@Override
-		public IBlockState getPlacedState()
-		{
-			return null;
-		}
-	},
-	ODONTOPTERIS_SEEDS("odontopteris_seeds", "odontopteris", 1, 0.8F)
-	{
-		@Override
-		public IBlockState getPlacedState()
-		{
-			return GenesisBlocks.odontopteris.getDefaultState();
-		}
-	},
-	NEUROPTERIDIUM_RHIZOME("neuropteridium_rhizome", "neuropteridiumRhizome", 2, 1.4F)
-	{
-		@Override
-		public IBlockState getPlacedState()
-		{
-			return GenesisBlocks.neuropteridium.getDefaultState();
-		}
-	},
-	ZINGIBEROPSIS_RHIZOME("zingiberopsis_rhizome", "zingiberopsisRhizome", 2, 1.2F)
+	ZINGIBEROPSIS_RHIZOME("zingiberopsis_rhizome", "zingiberopsisRhizome", 2, 1.4F)
 	{
 		@Override
 		public IBlockState getPlacedState()
@@ -51,7 +59,7 @@ public enum EnumSeeds implements IMetadata<EnumSeeds>, IFood
 			return GenesisBlocks.zingiberopsis.getDefaultState();
 		}
 	},
-	PROTOTAXITES_FLESH("prototaxites_flesh", "prototaxitesFlesh", 1, 0.9F,
+	PROTOTAXITES_FLESH("prototaxites_flesh", "prototaxitesFlesh", 1, 0.8F,
 			new PotionEffect(Potion.hunger.id, 300),
 			new PotionEffect(Potion.confusion.id, 300),
 			new PotionEffect(Potion.poison.id, 300))

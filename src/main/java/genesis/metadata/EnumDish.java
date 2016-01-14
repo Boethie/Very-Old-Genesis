@@ -8,13 +8,14 @@ import net.minecraft.potion.PotionEffect;
 
 public enum EnumDish implements IFood, IMetadata<EnumDish>
 {
-	PORRIDGE("porridge_base", "porridge.base", 4, 4.8F),
-	PORRIDGE_ARAUCARIOXYLON("porridge_araucarioxylon", "porridge.araucarioxylon", 5, 5.3F),
-	PORRIDGE_ODONTOPTERIS("porridge_odontopteris", "porridge.odontopteris", 5, 5.4F),
-	PORRIDGE_ZINGIBEROPSIS("porridge_zingiberopsis", "porridge.zingiberopsis", 6, 5.8F),
-	PORRIDGE_ARCHAEOMARASMIUS("porridge_archaeomarasmius", "porridge.archaeomarasmius", 5, 5.5F),
+	PORRIDGE("porridge_base", "porridge.base", 4, 4.2F),
+	PORRIDGE_GINKGO("porridge_ginkgo", "porridge.ginkgo", 5, 4.8F),
+	PORRIDGE_ARAUCARIOXYLON("porridge_araucarioxylon", "porridge.araucarioxylon", 5, 4.6F),
+	PORRIDGE_ODONTOPTERIS("porridge_odontopteris", "porridge.odontopteris", 5, 4.8F),
+	PORRIDGE_ZINGIBEROPSIS("porridge_zingiberopsis", "porridge.zingiberopsis", 6, 5.6F),
+	PORRIDGE_ARCHAEOMARASMIUS("porridge_archaeomarasmius", "porridge.archaeomarasmius", 5, 4.8F),
 	
-	MASHED_NEUROPTERIDIUM("mashed_neuropteridium", "mashed.neuropteridium", 5, 5.7F),
+	MASHED_NEUROPTERIDIUM("mashed_neuropteridium", "mashed.neuropteridium", 5, 5.4F),
 	
 	STEW_ARCHAEOMARASMIUS("stew_archaeomarasmius", "stew.archaeomarasmius", 6, 6.4F),
 	STEW_SPIRIFER("stew_spirifer", "stew.spirifer", 8, 6.9F),
