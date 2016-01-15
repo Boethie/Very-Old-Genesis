@@ -2,7 +2,6 @@ package genesis.world.biome;
 
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.WorldGenPebbles;
-import genesis.world.biome.decorate.WorldGenRockBoulders;
 
 public class BiomeGenLimestoneBeach extends BiomeGenBaseGenesis
 {
@@ -18,8 +17,6 @@ public class BiomeGenLimestoneBeach extends BiomeGenBaseGenesis
 		theBiomeDecorator.grassPerChunk = 0;
 		
 		addDecoration(new WorldGenPebbles().setCountPerChunk(25));
-		
-		addDecoration(new WorldGenRockBoulders().setRarity(110).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 	}
 	
 	@Override

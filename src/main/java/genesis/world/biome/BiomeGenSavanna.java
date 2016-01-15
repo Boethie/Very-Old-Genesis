@@ -1,5 +1,7 @@
 package genesis.world.biome;
 
+import java.util.Random;
+
 import genesis.common.GenesisBlocks;
 import genesis.metadata.DungBlocksAndItems;
 import genesis.metadata.EnumDung;
@@ -8,11 +10,6 @@ import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
 import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
-
-import java.util.Random;
-
-import net.minecraft.block.BlockDirt;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 
@@ -36,10 +33,8 @@ public class BiomeGenSavanna extends BiomeGenBaseGenesis
 	{
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.cladophlebis).setPatchSize(4).setCountPerChunk(5));
 		addDecoration(new WorldGenRockBoulders().setRarity(8).setWaterRequired(false).setMaxHeight(3).addBlocks(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.SAUROPODA)).setCountPerChunk(1));
-		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
+		addDecoration(new WorldGenMossStages().setCountPerChunk(30).setPatchSize(12));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));
-		
-		addDecoration(new WorldGenRockBoulders().setRarity(110).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 	}
 	
 	protected void addTrees()

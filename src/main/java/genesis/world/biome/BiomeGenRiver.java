@@ -2,7 +2,6 @@ package genesis.world.biome;
 
 import java.util.Random;
 
-import genesis.common.GenesisBlocks;
 import genesis.entity.living.IEntityPreferredBiome;
 import genesis.metadata.EnumAquaticPlant;
 import genesis.world.biome.decorate.WorldGenAquaticPlants;
@@ -30,8 +29,6 @@ public class BiomeGenRiver extends BiomeGenBaseGenesis implements IEntityPreferr
 		addDecoration(new WorldGenAquaticPlants().setGenerateInGroup(true, 6).setPlantType(EnumAquaticPlant.BANGIOMORPHA).setCountPerChunk(rarityScale[2]));
 		addDecoration(new WorldGenAquaticPlants().setGenerateInGroup(true, 6).setPlantType(EnumAquaticPlant.MARPOLIA).setCountPerChunk(rarityScale[3]));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
-		
-		addDecoration(new WorldGenRockBoulders().setRarity(110).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 	}
 	
 	@Override

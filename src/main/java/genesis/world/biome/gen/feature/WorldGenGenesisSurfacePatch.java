@@ -4,8 +4,6 @@ import java.util.Random;
 
 import genesis.block.BlockMoss;
 import genesis.common.GenesisBlocks;
-import genesis.metadata.EnumSilt;
-import genesis.metadata.SiltBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -111,6 +109,7 @@ public class WorldGenGenesisSurfacePatch extends WorldGenerator
 		int x, y, z;
 		
 		IBlockState currentState = filler;
+		Block blockToReplace;
 		
 		for (x = 0; x <= SIZE_X; ++x)
 		{
@@ -123,6 +122,7 @@ public class WorldGenGenesisSurfacePatch extends WorldGenerator
 						if (world.isBlockLoaded(pos.add(x, y, z)))
 						{
 							block = world.getBlockState(pos.add(x, y, z)).getBlock();
+							blockToReplace = world.getBiomeGenForCoords(pos.add(x, y, z)).topBlock.getBlock();
 							
 							if (rand.nextInt(3) == 0)
 							{
@@ -133,7 +133,7 @@ public class WorldGenGenesisSurfacePatch extends WorldGenerator
 							}
 							
 							if (
-									block.getDefaultState() == GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT).getDefaultState()
+									block.getDefaultState() == blockToReplace.getDefaultState()
 									&& !(world.getBlockState(pos.add(x, y, z).up()).getBlock() == Blocks.water))
 								world.setBlockState(pos.add(x, y, z), currentState, 2);
 						}

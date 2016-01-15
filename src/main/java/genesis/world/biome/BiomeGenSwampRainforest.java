@@ -1,5 +1,7 @@
 package genesis.world.biome;
 
+import java.util.Random;
+
 import genesis.common.GenesisBlocks;
 import genesis.entity.living.IEntityPreferredBiome;
 import genesis.entity.living.flying.EntityMeganeura;
@@ -7,7 +9,6 @@ import genesis.metadata.EnumTree;
 import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenMossStages;
-import genesis.world.biome.decorate.WorldGenRockBoulders;
 import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.biome.decorate.WorldGenUnderWaterPatch;
 import genesis.world.gen.feature.WorldGenDeadLog;
@@ -15,9 +16,6 @@ import genesis.world.gen.feature.WorldGenTreeCordaites;
 import genesis.world.gen.feature.WorldGenTreeLepidodendron;
 import genesis.world.gen.feature.WorldGenTreePsaronius;
 import genesis.world.gen.feature.WorldGenTreeSigillaria;
-
-import java.util.Random;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
@@ -49,8 +47,6 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		addDecoration(new WorldGenDebris().setCountPerChunk(15));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));
-		
-		addDecoration(new WorldGenRockBoulders().setRarity(110).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 		
 		addTree(new WorldGenTreeLepidodendron(11, 15, true).setTreeCountPerChunk(6));
 		addTree(new WorldGenTreeSigillaria(9, 12, true).setTreeCountPerChunk(2));

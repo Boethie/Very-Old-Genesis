@@ -12,6 +12,7 @@ import genesis.world.biome.decorate.BiomeDecoratorGenesis;
 import genesis.world.biome.decorate.WorldGenDecorationBase;
 import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrassMulti;
+import genesis.world.biome.decorate.WorldGenRockBoulders;
 import genesis.world.gen.feature.WorldGenTreeBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -38,6 +39,8 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 		spawnableWaterCreatureList.clear();
 		waterColorMultiplier = 0xAA791E;
 		getGenesisDecorator().sandPerChunk2 = 1;
+		
+		addDecoration(new WorldGenRockBoulders().setRarity(110).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 	}
 	
 	public BiomeGenBaseGenesis setWaterColor(int color)

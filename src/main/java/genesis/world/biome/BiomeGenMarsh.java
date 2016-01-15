@@ -10,7 +10,6 @@ import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPlant;
 import genesis.world.biome.decorate.WorldGenPrototaxites;
-import genesis.world.biome.decorate.WorldGenRockBoulders;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -39,8 +38,6 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenPlant(EnumPlant.SCIADOPHYTON).setPatchSize(4).setCountPerChunk(4));
 		addDecoration(new WorldGenPlant(EnumPlant.PSILOPHYTON).setPatchSize(4).setCountPerChunk(2));
 		addDecoration(new WorldGenPlant(EnumPlant.BARAGWANATHIA).setPatchSize(4).setCountPerChunk(1));
-		
-		addDecoration(new WorldGenRockBoulders().setRarity(110).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 	}
 	
 	@Override

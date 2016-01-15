@@ -1,5 +1,7 @@
 package genesis.world.biome;
 
+import java.util.Random;
+
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumPlant;
 import genesis.metadata.EnumTree;
@@ -7,14 +9,10 @@ import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPlant;
-import genesis.world.biome.decorate.WorldGenRockBoulders;
 import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.biome.decorate.WorldGenUnderWaterPatch;
 import genesis.world.gen.feature.WorldGenDeadLog;
 import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
-
-import java.util.Random;
-
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -39,8 +37,6 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		addDecoration(new WorldGenDebris().setCountPerChunk(7));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));
-		
-		addDecoration(new WorldGenRockBoulders().setRarity(110).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 		
 		addTree(new WorldGenTreeArchaeopteris(15, 20, true).setTreeCountPerChunk(9));
 		

@@ -2,8 +2,6 @@ package genesis.world.biome;
 
 import java.util.Random;
 
-import net.minecraft.world.World;
-import net.minecraft.world.chunk.ChunkPrimer;
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumAquaticPlant;
 import genesis.metadata.EnumCoral;
@@ -11,7 +9,8 @@ import genesis.metadata.EnumSilt;
 import genesis.metadata.SiltBlocks;
 import genesis.world.biome.decorate.WorldGenAquaticPlants;
 import genesis.world.biome.decorate.WorldGenCorals;
-import genesis.world.biome.decorate.WorldGenRockBoulders;
+import net.minecraft.world.World;
+import net.minecraft.world.chunk.ChunkPrimer;
 
 public class BiomeGenOceanGenesis extends BiomeGenBaseGenesis
 {
@@ -51,8 +50,6 @@ public class BiomeGenOceanGenesis extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.DINOMISCHUS).setCountPerChunk(rarityScale[4]));
 		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.ECHMATOCRINUS).setCountPerChunk(rarityScale[4]));
 		addDecoration(new WorldGenAquaticPlants().setGenerateInGroup(true, 6).setPlantType(EnumAquaticPlant.GRYPANIA).setCountPerChunk(rarityScale[4]));
-		
-		addDecoration(new WorldGenRockBoulders().setRarity(110).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 		
 		return this;
 	}

@@ -81,6 +81,12 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 		return getChunkMeganeuraCount(world, pos) < SPAWN_LIMIT;
 	}
 	
+	@Override
+	public boolean getCanSpawnHere()
+	{
+		return this.posY > 60;
+	}
+	
 	public static final int STATE = 17;
 	
 	protected double speed = 1;

@@ -1,5 +1,7 @@
 package genesis.world.biome;
 
+import java.util.Random;
+
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumTree;
 import genesis.world.biome.decorate.WorldGenDebris;
@@ -11,9 +13,6 @@ import genesis.world.gen.feature.WorldGenDeadLog;
 import genesis.world.gen.feature.WorldGenTreeLepidodendron;
 import genesis.world.gen.feature.WorldGenTreePsaronius;
 import genesis.world.gen.feature.WorldGenTreeSigillaria;
-
-import java.util.Random;
-
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 
@@ -42,8 +41,6 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		addDecoration(new WorldGenDebris().setCountPerChunk(12));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));
-		
-		addDecoration(new WorldGenRockBoulders().setRarity(110).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 	}
 	
 	protected void addTrees()

@@ -1,5 +1,7 @@
 package genesis.world.biome;
 
+import java.util.Random;
+
 import genesis.common.GenesisBlocks;
 import genesis.metadata.EnumAquaticPlant;
 import genesis.metadata.EnumCoral;
@@ -9,10 +11,6 @@ import genesis.world.biome.decorate.WorldGenAquaticPlants;
 import genesis.world.biome.decorate.WorldGenCorals;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPebbles;
-import genesis.world.biome.decorate.WorldGenRockBoulders;
-
-import java.util.Random;
-
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 
@@ -55,8 +53,6 @@ public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.DINOMISCHUS).setCountPerChunk(rarityScale[4]));
 		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.ECHMATOCRINUS).setCountPerChunk(rarityScale[4]));
 		addDecoration(new WorldGenAquaticPlants().setGenerateInGroup(true, 6).setPlantType(EnumAquaticPlant.GRYPANIA).setCountPerChunk(rarityScale[4]));
-		
-		addDecoration(new WorldGenRockBoulders().setRarity(110).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 	}
 	
 	@Override
