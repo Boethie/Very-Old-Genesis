@@ -383,6 +383,12 @@ item.genesis.material.flake.blackFlint.name=Éclat de silex noir
 
 item.genesis.tool.flintAndMarcasite.name=Silex et marcassite
 
+#Armor
+item.genesis.armor.chitinHelmet.name=Casque en chitine
+item.genesis.armor.chitinChestplate.name=Plastron en chitine
+item.genesis.armor.chitinLeggings.name=Jambières en chitine
+item.genesis.armor.chitinBoots.name=Bottes en chitine
+
 #Materials
 item.genesis.material.pebble.dolerite.name=Galet de dolérite
 item.genesis.material.pebble.rhyolite.name=Galet de rhyolite

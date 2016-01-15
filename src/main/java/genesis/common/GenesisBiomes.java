@@ -4,6 +4,7 @@ import genesis.world.biome.BiomeGenAuxForest;
 import genesis.world.biome.BiomeGenAuxForestM;
 import genesis.world.biome.BiomeGenBaseGenesis;
 import genesis.world.biome.BiomeGenBeachGenesis;
+import genesis.world.biome.BiomeGenSavanna;
 import genesis.world.biome.BiomeGenFloodplainsForest;
 import genesis.world.biome.BiomeGenLimestoneBeach;
 import genesis.world.biome.BiomeGenMarsh;
@@ -16,6 +17,7 @@ import genesis.world.biome.BiomeGenRedBeach;
 import genesis.world.biome.BiomeGenRedLowlands;
 import genesis.world.biome.BiomeGenRedLowlandsM;
 import genesis.world.biome.BiomeGenRiver;
+import genesis.world.biome.BiomeGenSavannaM;
 import genesis.world.biome.BiomeGenShallowOcean;
 import genesis.world.biome.BiomeGenSwampRainforest;
 import genesis.world.biome.BiomeManagerGenesis;
@@ -33,7 +35,8 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis auxForest;
 	public static BiomeGenBaseGenesis auxForestM;
 	public static BiomeGenBaseGenesis auxForestHills;
-	//public static BiomeGenBaseGenesis floodplains;
+	public static BiomeGenBaseGenesis savanna;
+	public static BiomeGenBaseGenesis savannaM;
 	public static BiomeGenBaseGenesis metaForest;
 	public static BiomeGenBaseGenesis metaForestM;
 	public static BiomeGenBaseGenesis metaForestHills;
@@ -86,9 +89,12 @@ public final class GenesisBiomes
 		auxForestHills = new BiomeGenAuxForest(GenesisConfig.auxForestHillsId).setBiomeName("Araucarioxylon Forest Hills").setHeight(height_LowHills);
 		BiomeDictionary.registerBiomeType(auxForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
-		//floodplains = new BiomeGenFloodplains(GenesisConfig.floodplainsId);
-		//BiomeManagerGenesis.registerBiome(floodplains, BiomeType.WARM, GenesisConfig.floodplainsWeight);
-		//BiomeDictionary.registerBiomeType(floodplains, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
+		savanna = new BiomeGenSavanna(GenesisConfig.savannaId);
+		BiomeManagerGenesis.registerBiome(savanna, BiomeType.WARM, GenesisConfig.savannaWeight);
+		BiomeDictionary.registerBiomeType(savanna, BiomeDictionary.Type.SAVANNA, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.DRY);
+		
+		savannaM = new BiomeGenSavannaM(GenesisConfig.savannaId+128);
+		BiomeDictionary.registerBiomeType(savannaM, BiomeDictionary.Type.SAVANNA, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.DRY);
 		
 		metaForest = new BiomeGenMetaForest(GenesisConfig.metaForestId);
 		BiomeManagerGenesis.registerBiome(metaForest, BiomeType.WARM, GenesisConfig.metaForestWeight);

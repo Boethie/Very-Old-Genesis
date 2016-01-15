@@ -22,22 +22,22 @@ public final class GenesisConfig
 	public static int swampRainForestWeight = 10;
 	public static int floodplainsForestId = 57;
 	public static int floodplainsForestWeight = 10;
-	public static int floodplainsId = 58;
-	public static int floodplainsWeight = 10;
-	public static int genesisBeachId = 59;
-	public static int rainforestHillsId = 60;
-	public static int auxForestHillsId = 61;
-	public static int deepOceanId = 62;
-	public static int marshId = 63;
+	public static int genesisBeachId = 58;
+	public static int rainforestHillsId = 59;
+	public static int auxForestHillsId = 60;
+	public static int deepOceanId = 61;
+	public static int marshId = 62;
 	public static int marshWeight = 10;
-	public static int oceanId = 64;
-	public static int redLowlandsId = 65;
+	public static int oceanId = 63;
+	public static int redLowlandsId = 64;
 	public static int redLowlandsWeight = 10;
-	public static int redLowlandsHillsId = 66;
-	public static int redBeachId = 67;
-	public static int metaForestId = 68;
+	public static int redLowlandsHillsId = 65;
+	public static int redBeachId = 66;
+	public static int metaForestId = 67;
 	public static int metaForestWeight = 10;
-	public static int metaForestHillsId = 69;
+	public static int metaForestHillsId = 68;
+	public static int savannaId = 69;
+	public static int savannaWeight = 10;
 	
 	//Dimensions
 	public static int genesisDimId = 37;
@@ -83,6 +83,8 @@ public final class GenesisConfig
 		metaForestWeight = config.getInt("metaForestWeight", "biome", metaForestWeight, 0, Integer.MAX_VALUE, "Metasequoia Forest Biome Weight");
 		redLowlandsId = config.getInt("redLowlandsId", "biome", redLowlandsId, 0, 255, "Red Lowlands Biome ID");
 		redLowlandsWeight = config.getInt("redLowlandsWeight", "biome", redLowlandsWeight, 0, Integer.MAX_VALUE, "Red Lowlands Biome Weight");
+		savannaId = config.getInt("savannaId", "biome", savannaId, 0, 255, "Savanna Biome ID");
+		savannaWeight = config.getInt("savannaWeight", "biome", savannaWeight, 0, Integer.MAX_VALUE, "Savanna Biome Weight");
 		
 		//Dimension Id
 		genesisDimId = config.getInt("genesisDimId", "dimension", genesisDimId, Integer.MIN_VALUE, Integer.MAX_VALUE, "Genesis Dimension ID");
