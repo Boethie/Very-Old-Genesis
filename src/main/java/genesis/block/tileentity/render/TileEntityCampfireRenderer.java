@@ -47,11 +47,10 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 		
 		public ModelCampfire()
 		{
-			stick.offsetY = 1 + MathHelper.cos(45) * 0.0625F;
+			stick.rotationPointY = 1 + MathHelper.cos((float) Math.PI / 2) * 0.0625F;
 			stick.setAmbientOcclusion(false);
 			stick.setDefaultState();
 			
-			cookingPot.offsetY = -stick.offsetY;
 			cookingPot.setDefaultState();
 			
 			stick.addChild(cookingPot);
@@ -170,7 +169,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 	
 	@Override
 	public void renderTileEntityAt(TileEntityCampfire campfire, double x, double y, double z, float partialTick, int destroyStage)
-	{
+	{model = new ModelCampfire();
 		// Translate to the proper coordinates.
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x, y, z);
@@ -199,8 +198,6 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 		String properties = ModelHelpers.getPropertyString(state.getProperties());
 		ModelResourceLocation stickLoc = ModelHelpers.getLocationWithProperties(STICK, properties);
 		model.stick.setModel(stickLoc, world, pos);
-
-		boolean hasCookingPot = campfire.hasCookingPot();
 		
 		float stickRot = campfire.prevRot + (campfire.rot - campfire.prevRot) * partialTick;
 		model.stick.rotateAngleZ += stickRot;
@@ -232,7 +229,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 			}
 		}
 		
-		if (hasCookingPot)
+		if (campfire.hasCookingPot())
 		{
 			// Show only the cooking pot model.
 			model.stickItem.showModel = false;
