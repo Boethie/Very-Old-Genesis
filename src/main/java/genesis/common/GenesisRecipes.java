@@ -2,6 +2,8 @@ package genesis.common;
 
 import java.util.*;
 
+import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.world.World;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -742,6 +744,13 @@ public final class GenesisRecipes
 		
 		// Dye cooking pot recipes
 		CookingPotRecipeRegistry.registerRecipe(new DyeCookingRecipe());
+		
+		// Armor recipes
+		ItemStack chitin = GenesisItems.materials.getStack(EnumMaterial.ARTHROPLEURA_CHITIN);
+		GameRegistry.addRecipe(new ItemStack(GenesisItems.chitinHelmet), "xxx", "x x", 'x', chitin);
+		GameRegistry.addRecipe(new ItemStack(GenesisItems.chitinChestplate), "x x", "xxx", "xxx", 'x', chitin);
+		GameRegistry.addRecipe(new ItemStack(GenesisItems.chitinLeggings), "xxx", "x x", "x x", 'x', chitin);
+		GameRegistry.addRecipe(new ItemStack(GenesisItems.chitinBoots), "x x", "x x", 'x', chitin);
 	}
 	
 	/**

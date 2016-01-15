@@ -44,6 +44,7 @@ public final class Constants
 			
 			public static final String FOOD = "food.";
 			public static final String MISC = "misc.";
+			public static final String ARMOR = "armor.";
 		}
 		
 		public static final String PREFIX = MOD_ID + ".";
@@ -64,6 +65,7 @@ public final class Constants
 		
 		public static final String MISC = PREFIX + Section.MISC;
 		public static final String FOOD = PREFIX + Section.FOOD;
+		public static final String ARMOR = PREFIX + Section.ARMOR;
 	}
 	
 	public static final class Sounds

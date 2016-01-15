@@ -384,6 +384,12 @@ item.genesis.material.flake.blackFlint.name=Black Flint Flake
 
 item.genesis.tool.flintAndMarcasite.name=Flint and Marcasite
 
+#Armor
+item.genesis.armor.chitinHelmet.name=Chitin Helmet
+item.genesis.armor.chitinChestplate.name=Chitin Chestplate
+item.genesis.armor.chitinLeggings.name=Chitin Leggings
+item.genesis.armor.chitinBoots.name=Chitin Boots
+
 #Materials
 item.genesis.material.pebble.dolerite.name=Dolerite Pebble
 item.genesis.material.pebble.rhyolite.name=Rhyolite Pebble
