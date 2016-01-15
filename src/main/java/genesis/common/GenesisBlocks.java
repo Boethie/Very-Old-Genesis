@@ -156,7 +156,7 @@ public final class GenesisBlocks
 			.setHardness(0.7F)
 			.setStepSound(Block.soundTypePiston)
 			.setUnlocalizedName(Unlocalized.PREFIX + "dungBrickBlock");
-	public static final BlockGenesisFence wattle_and_daub = (BlockGenesisFence) new BlockGenesisFence(Material.wood, 0.375F, 1.0F, -1).setUnlocalizedName(Unlocalized.PREFIX + "wattleAndDaub");
+	public static final BlockGenesisWall wattle_and_daub = (BlockGenesisWall) new BlockGenesisWall(Material.wood, 0.375F, 1.0F, -1).setUnlocalizedName(Unlocalized.PREFIX + "wattleAndDaub");
 	
 	/* Misc */
 	public static final Block palaeoagaracites = new BlockGenesisMushroom().setUnlocalizedName(Unlocalized.PREFIX + "palaeoagaracites")
@@ -241,6 +241,8 @@ public final class GenesisBlocks
 		Blocks.fire.setFireInfo(dung_brick_block, 5, 5);
 		
 		Genesis.proxy.registerBlock(wattle_and_daub, "wattle_and_daub");
+		wattle_and_daub.setHarvestLevel("axe", 0);
+		wattle_and_daub.setHardness(3);
 		
 		// --- Decorative ---
 		menhirs.registerAll();

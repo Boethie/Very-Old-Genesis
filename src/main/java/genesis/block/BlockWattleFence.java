@@ -2,7 +2,6 @@ package genesis.block;
 
 import java.util.List;
 
-import genesis.common.*;
 import genesis.item.ItemBlockMulti;
 import genesis.metadata.*;
 import genesis.metadata.VariantsOfTypesCombo.*;
@@ -65,8 +64,6 @@ public class BlockWattleFence extends BlockGenesisFence
 		
 		blockState = new BlockState(this, variantProp, NORTH, EAST, SOUTH, WEST);
 		setDefaultState(getBlockState().getBaseState());
-		
-		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	}
 	
 	@Override

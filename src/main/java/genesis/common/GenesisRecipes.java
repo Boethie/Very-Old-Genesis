@@ -2,8 +2,6 @@ package genesis.common;
 
 import java.util.*;
 
-import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.world.World;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -579,11 +577,13 @@ public final class GenesisRecipes
 		{
 			ItemStack dungBlock = GenesisBlocks.dungs.getStack(DungBlocksAndItems.DUNG_BLOCK, variant);
 			ItemStack dungItems = GenesisBlocks.dungs.getStack(DungBlocksAndItems.DUNG, variant, 9);
+			// Storing
 			GameRegistry.addRecipe(dungBlock,
 					"DDD",
 					"DDD",
 					"DDD",
 					'D', dungItems);
+			// Breaking down
 			GameRegistry.addShapelessRecipe(dungItems, dungBlock);
 		}
 		
@@ -593,6 +593,21 @@ public final class GenesisRecipes
 				"CCC",
 				"CCC",
 				'C', GenesisItems.materials.getStack(EnumMaterial.DUNG_BRICK));
+		
+		// Wattle and daub
+		for (ItemDung dungItem : GenesisBlocks.dungs.getItems(DungBlocksAndItems.DUNG))
+		{
+			for (ItemBlockMulti<EnumTree> fenceItem : GenesisBlocks.trees.getItems(TreeBlocksAndItems.WATTLE_FENCE))
+			{
+				GameRegistry.addRecipe(new ItemStack(GenesisBlocks.wattle_and_daub),
+						"PDP",
+						"DWD",
+						"PDP",
+						'P', GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS),
+						'D', new ItemStack(dungItem, 1, OreDictionary.WILDCARD_VALUE),
+						'W', new ItemStack(fenceItem, 1, OreDictionary.WILDCARD_VALUE));
+			}
+		}
 		
 		// Smelting
 		for (EnumOre ore : GenesisBlocks.ores.getSharedValidVariants(OreBlocks.ORE, OreBlocks.DROP))

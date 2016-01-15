@@ -4,22 +4,21 @@ import java.util.List;
 
 import genesis.common.GenesisCreativeTabs;
 import genesis.util.AABBUtils;
-import net.minecraft.block.BlockFence;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockWall;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityFallingBlock;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemLead;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockGenesisFence extends BlockFence
+public class BlockGenesisWall extends BlockWall
 {
 	protected final float poleRadius;
 	protected final float poleHeight;
@@ -27,24 +26,59 @@ public class BlockGenesisFence extends BlockFence
 	protected final float sideHeight;
 	protected final float fakeHeight;
 	
-	public BlockGenesisFence(Material material, float poleRadius, float poleHeight, float sideRadius, float sideHeight, float fakeHeight)
+	public BlockGenesisWall(Material material, float poleRadius, float poleHeight, float sideRadius, float sideHeight, float fakeHeight)
 	{
-		super(material);
-		
-		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
+		super(new Block(material));
 		
 		this.poleRadius = poleRadius;
 		this.poleHeight = poleHeight;
 		this.sideRadius = sideRadius;
 		this.sideHeight = sideHeight;
 		this.fakeHeight = fakeHeight;
+		
+		this.blockState = new BlockState(this, NORTH, EAST, SOUTH, WEST);
+		setDefaultState(getBlockState().getBaseState()
+				.withProperty(NORTH, false)
+				.withProperty(EAST, false)
+				.withProperty(SOUTH, false)
+				.withProperty(WEST, false));
+		
+		setCreativeTab(GenesisCreativeTabs.BLOCK);
 	}
 	
-	public BlockGenesisFence(Material material, float radius, float height, float fakeHeight)
+	public BlockGenesisWall(Material material, float radius, float height, float fakeHeight)
 	{
 		this(material, radius, height, radius, height, fakeHeight);
 	}
 	
+	@Override
+	public IBlockState getStateFromMeta(int meta)
+	{
+		return getDefaultState();
+	}
+	
+	@Override
+	public int getMetaFromState(IBlockState state)
+	{
+		return 0;
+	}
+	
+	@Override
+	public int damageDropped(IBlockState state)
+	{
+		return 0;
+	}
+	
+	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos)
+	{
+		return state.withProperty(NORTH, canConnectTo(world, pos.north()))
+					.withProperty(EAST, canConnectTo(world, pos.east()))
+					.withProperty(SOUTH, canConnectTo(world, pos.south()))
+					.withProperty(WEST, canConnectTo(world, pos.west()));
+	}
+	
+	/* All code below this point is duplicated from BlockGenesisFence because leads are crap. -_- */
 	private static void addBox(List<AxisAlignedBB> list, AxisAlignedBB mask, AxisAlignedBB bb)
 	{
 		if (mask.intersectsWith(bb))
@@ -120,17 +154,5 @@ public class BlockGenesisFence extends BlockFence
 		this.maxX = bb.maxX;
 		this.maxY = bb.maxY;
 		this.maxZ = bb.maxZ;
-	}
-	
-	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player,
-			EnumFacing side, float hitX, float hitY, float hitZ)
-	{
-		ItemStack held = player.getHeldItem();
-		
-		if (held != null && held.getItem() instanceof ItemLead)
-			return world.isRemote ? true : ItemLead.attachToFence(player, world, pos);
-		
-		return false;
 	}
 }
