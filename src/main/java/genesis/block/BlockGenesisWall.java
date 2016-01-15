@@ -10,8 +10,11 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.particle.EntityFX;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityFallingBlock;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -76,6 +79,12 @@ public class BlockGenesisWall extends BlockWall
 					.withProperty(EAST, canConnectTo(world, pos.east()))
 					.withProperty(SOUTH, canConnectTo(world, pos.south()))
 					.withProperty(WEST, canConnectTo(world, pos.west()));
+	}
+	
+	@Override
+	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list)
+	{
+		list.add(new ItemStack(item));
 	}
 	
 	/* All code below this point is duplicated from BlockGenesisFence because leads are crap. -_- */
