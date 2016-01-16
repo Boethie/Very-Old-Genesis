@@ -9,6 +9,7 @@ import genesis.combo.variant.EnumPowder;
 import genesis.combo.variant.EnumSeeds;
 import genesis.entity.fixed.EntityMeganeuraEgg;
 import genesis.item.*;
+import genesis.util.Constants;
 import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -61,7 +62,7 @@ public final class GenesisItems
 	public static final ToolItems tools = new ToolItems();
 	
 	/* Armor */
-	private static final ItemArmor.ArmorMaterial chitin = EnumHelper.addArmorMaterial("Chitin", "genesis:chitin", 10, new int[]{2, 4, 3, 2}, 10);
+	private static final ItemArmor.ArmorMaterial chitin = EnumHelper.addArmorMaterial("Chitin", Constants.ASSETS_PREFIX + "chitin", 10, new int[]{2, 4, 3, 2}, 10);
 	public static final ItemArmor chitinHelmet = (ItemArmor) new ItemArmor(chitin, -1, 0).setUnlocalizedName(Unlocalized.ARMOR + "chitinHelmet").setCreativeTab(GenesisCreativeTabs.COMBAT);
 	public static final ItemArmor chitinChestplate = (ItemArmor) new ItemArmor(chitin, -1, 1).setUnlocalizedName(Unlocalized.ARMOR + "chitinChestplate").setCreativeTab(GenesisCreativeTabs.COMBAT);
 	public static final ItemArmor chitinLeggings = (ItemArmor) new ItemArmor(chitin, -1, 2).setUnlocalizedName(Unlocalized.ARMOR + "chitinLeggings").setCreativeTab(GenesisCreativeTabs.COMBAT);
