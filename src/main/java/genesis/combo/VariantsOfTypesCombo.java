@@ -44,7 +44,8 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 		int value();
 	}
 	
-	public enum TypeNamePosition {
+	public enum TypeNamePosition
+	{
 		PREFIX, POSTFIX, NONE;
 	}
 	
@@ -1400,7 +1401,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	 */
 	public String getUnlocalizedName(ItemStack stack, String base)
 	{
-		V variant = getVariant(stack.getItem(), stack.getMetadata());
+		V variant = getVariant(stack);
 		
 		if (variant == null)
 		{

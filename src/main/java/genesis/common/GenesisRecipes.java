@@ -13,22 +13,7 @@ import genesis.block.tileentity.crafting.*;
 import genesis.combo.*;
 import genesis.combo.ItemsCeramicBowls.EnumCeramicBowls;
 import genesis.combo.ToolItems.ToolObjectType;
-import genesis.combo.variant.EnumDebrisOther;
-import genesis.combo.variant.EnumDish;
-import genesis.combo.variant.EnumDung;
-import genesis.combo.variant.EnumFood;
-import genesis.combo.variant.EnumMaterial;
-import genesis.combo.variant.EnumNodule;
-import genesis.combo.variant.EnumOre;
-import genesis.combo.variant.EnumPlant;
-import genesis.combo.variant.EnumPowder;
-import genesis.combo.variant.EnumSeeds;
-import genesis.combo.variant.EnumSilt;
-import genesis.combo.variant.EnumToolMaterial;
-import genesis.combo.variant.EnumTree;
-import genesis.combo.variant.GenesisDye;
-import genesis.combo.variant.IMetadata;
-import genesis.combo.variant.ToolTypes;
+import genesis.combo.variant.*;
 import genesis.combo.variant.MultiMetadataList.MultiMetadata;
 import genesis.combo.variant.ToolTypes.ToolType;
 import genesis.item.*;
@@ -771,25 +756,39 @@ public final class GenesisRecipes
 		CookingPotRecipeRegistry.registerRecipe(new DyeCookingRecipe());
 		
 		// Armor recipes
-		/*ItemStack chitin = GenesisItems.materials.getStack(EnumMaterial.ARTHROPLEURA_CHITIN);
-		GameRegistry.addRecipe(new ItemStack(GenesisItems.chitinHelmet),
-				"xxx",
-				"x x",
-				'x', chitin);
-		GameRegistry.addRecipe(new ItemStack(GenesisItems.chitinChestplate),
-				"x x",
-				"xxx",
-				"xxx",
-				'x', chitin);
-		GameRegistry.addRecipe(new ItemStack(GenesisItems.chitinLeggings),
-				"xxx",
-				"x x",
-				"x x",
-				'x', chitin);
-		GameRegistry.addRecipe(new ItemStack(GenesisItems.chitinBoots),
-				"x x",
-				"x x",
-				'x', chitin);*/
+		for (EnumClothing clothing : EnumClothing.values())
+		{
+			ItemStack ingredient = null;
+			
+			switch (clothing)
+			{
+			case CHITIN:
+				ingredient = GenesisItems.materials.getStack(EnumMaterial.ARTHROPLEURA_CHITIN);
+				break;
+			}
+			
+			if (ingredient != null)
+			{
+				GameRegistry.addRecipe(GenesisItems.clothing.getStack(ClothingItems.HELMET, clothing),
+						"XXX",
+						"X X",
+						'X', ingredient);
+				GameRegistry.addRecipe(GenesisItems.clothing.getStack(ClothingItems.CHESTPLATE, clothing),
+						"X X",
+						"XXX",
+						"XXX",
+						'X', ingredient);
+				GameRegistry.addRecipe(GenesisItems.clothing.getStack(ClothingItems.LEGGINGS, clothing),
+						"XXX",
+						"X X",
+						"X X",
+						'X', ingredient);
+				GameRegistry.addRecipe(GenesisItems.clothing.getStack(ClothingItems.BOOTS, clothing),
+						"X X",
+						"X X",
+						'X', ingredient);
+			}
+		}
 	}
 	
 	/**

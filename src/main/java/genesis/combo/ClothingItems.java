@@ -4,7 +4,9 @@ import com.google.common.collect.ImmutableList;
 
 import genesis.combo.variant.EnumClothing;
 import genesis.item.ItemGenesisArmor;
+import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
 
 public class ClothingItems extends VariantsOfTypesCombo<EnumClothing>
 {
@@ -25,5 +27,13 @@ public class ClothingItems extends VariantsOfTypesCombo<EnumClothing>
 	{
 		super(ImmutableList.of(HELMET, CHESTPLATE, LEGGINGS, BOOTS),
 				EnumClothing.class, ImmutableList.copyOf(EnumClothing.values()));
+		
+		setUnlocalizedPrefix(Unlocalized.CLOTHING);
+	}
+	
+	@Override
+	public String getUnlocalizedName(ItemStack stack, String base)
+	{
+		return super.getUnlocalizedName(stack, "item." + getUnlocalizedPrefix()) + "." + base;
 	}
 }
