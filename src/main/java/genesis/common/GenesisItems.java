@@ -62,11 +62,12 @@ public final class GenesisItems
 	public static final ToolItems tools = new ToolItems();
 	
 	/* Armor */
-	private static final ItemArmor.ArmorMaterial chitin = EnumHelper.addArmorMaterial("Chitin", Constants.ASSETS_PREFIX + "chitin", 10, new int[]{2, 4, 3, 2}, 10);
+	/*private static final ItemArmor.ArmorMaterial chitin = EnumHelper.addArmorMaterial("Chitin", Constants.ASSETS_PREFIX + "chitin", 10, new int[]{2, 4, 3, 2}, 10);
 	public static final ItemArmor chitinHelmet = (ItemArmor) new ItemArmor(chitin, -1, 0).setUnlocalizedName(Unlocalized.ARMOR + "chitinHelmet").setCreativeTab(GenesisCreativeTabs.COMBAT);
 	public static final ItemArmor chitinChestplate = (ItemArmor) new ItemArmor(chitin, -1, 1).setUnlocalizedName(Unlocalized.ARMOR + "chitinChestplate").setCreativeTab(GenesisCreativeTabs.COMBAT);
 	public static final ItemArmor chitinLeggings = (ItemArmor) new ItemArmor(chitin, -1, 2).setUnlocalizedName(Unlocalized.ARMOR + "chitinLeggings").setCreativeTab(GenesisCreativeTabs.COMBAT);
-	public static final ItemArmor chitinBoots = (ItemArmor) new ItemArmor(chitin, -1, 3).setUnlocalizedName(Unlocalized.ARMOR + "chitinBoots").setCreativeTab(GenesisCreativeTabs.COMBAT);
+	public static final ItemArmor chitinBoots = (ItemArmor) new ItemArmor(chitin, -1, 3).setUnlocalizedName(Unlocalized.ARMOR + "chitinBoots").setCreativeTab(GenesisCreativeTabs.COMBAT);*/
+	public static final ClothingItems clothing = new ClothingItems();
 	
 	/* Misc */
 	public static final Item ceramic_bucket = new ItemGenesisBucket(Blocks.air).setUnlocalizedName(Unlocalized.MISC + "ceramicBucket");
@@ -127,10 +128,11 @@ public final class GenesisItems
 		tools.registerAll();
 		
 		// Armor
-		Genesis.proxy.registerItem(chitinHelmet, "chitin_helmet");
+		/*Genesis.proxy.registerItem(chitinHelmet, "chitin_helmet");
 		Genesis.proxy.registerItem(chitinChestplate, "chitin_chestplate");
 		Genesis.proxy.registerItem(chitinLeggings, "chitin_leggings");
-		Genesis.proxy.registerItem(chitinBoots, "chitin_boots");
+		Genesis.proxy.registerItem(chitinBoots, "chitin_boots");*/
+		clothing.registerAll();
 		
 		// --- Misc ---
 		Genesis.proxy.registerItem(ceramic_bucket, "ceramic_bucket");

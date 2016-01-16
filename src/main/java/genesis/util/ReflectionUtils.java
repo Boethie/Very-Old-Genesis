@@ -2,45 +2,49 @@ package genesis.util;
 
 import java.lang.reflect.Constructor;
 
+import org.apache.commons.lang3.ClassUtils;
+
 public class ReflectionUtils
 {
-	public static <T> Constructor<T> getConstructor(Class<T> clazz, Object[] args)
+	public static <T> Constructor<T> getConstructor(Class<T> clazz, Object[] invokeArgs)
 	{
 		for (Constructor<?> declared : clazz.getConstructors())
 		{
-			Constructor<T> actual = null;
+			Constructor<T> constructor = null;
 			
 			try
 			{
-				actual = clazz.getConstructor(declared.getParameterTypes());
+				constructor = clazz.getConstructor(declared.getParameterTypes());
 			}
 			catch (NoSuchMethodException e) {}
 			
-			if (actual != null)
+			if (constructor != null)
 			{
-				Class<?>[] parameterTypes = actual.getParameterTypes();
+				Class<?>[] constructorTypes = constructor.getParameterTypes();
 				
-				if (parameterTypes.length == args.length)
+				if (constructorTypes.length == invokeArgs.length)
 				{
 					boolean correct = true;
 					
-					for (int i = 0; i < args.length; i++)
+					for (int i = 0; i < invokeArgs.length; i++)
 					{
-						if (!parameterTypes[i].isAssignableFrom(args[i].getClass()))
+						Class<?> constructorClass = constructorTypes[i];
+						Class<?> invokeClass = invokeArgs[i].getClass();
+						
+						if (!ClassUtils.isAssignable(invokeClass, constructorClass))
 						{
 							correct = false;
+							break;
 						}
 					}
 					
 					if (correct)
-					{
-						return actual;
-					}
+						return constructor;
 				}
 			}
 		}
 		
-		throw new RuntimeException(new NoSuchMethodException(clazz.getName() + " has no constructor with parameters " + Stringify.stringifyArray(args) + "."));
+		throw new RuntimeException(new NoSuchMethodException(clazz.getName() + " has no constructor with parameters " + invokeArgs + "."));
 	}
 	
 	public static <T> T construct(Class<T> clazz, Object[] args)

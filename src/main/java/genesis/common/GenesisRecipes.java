@@ -771,11 +771,25 @@ public final class GenesisRecipes
 		CookingPotRecipeRegistry.registerRecipe(new DyeCookingRecipe());
 		
 		// Armor recipes
-		ItemStack chitin = GenesisItems.materials.getStack(EnumMaterial.ARTHROPLEURA_CHITIN);
-		GameRegistry.addRecipe(new ItemStack(GenesisItems.chitinHelmet), "xxx", "x x", 'x', chitin);
-		GameRegistry.addRecipe(new ItemStack(GenesisItems.chitinChestplate), "x x", "xxx", "xxx", 'x', chitin);
-		GameRegistry.addRecipe(new ItemStack(GenesisItems.chitinLeggings), "xxx", "x x", "x x", 'x', chitin);
-		GameRegistry.addRecipe(new ItemStack(GenesisItems.chitinBoots), "x x", "x x", 'x', chitin);
+		/*ItemStack chitin = GenesisItems.materials.getStack(EnumMaterial.ARTHROPLEURA_CHITIN);
+		GameRegistry.addRecipe(new ItemStack(GenesisItems.chitinHelmet),
+				"xxx",
+				"x x",
+				'x', chitin);
+		GameRegistry.addRecipe(new ItemStack(GenesisItems.chitinChestplate),
+				"x x",
+				"xxx",
+				"xxx",
+				'x', chitin);
+		GameRegistry.addRecipe(new ItemStack(GenesisItems.chitinLeggings),
+				"xxx",
+				"x x",
+				"x x",
+				'x', chitin);
+		GameRegistry.addRecipe(new ItemStack(GenesisItems.chitinBoots),
+				"x x",
+				"x x",
+				'x', chitin);*/
 	}
 	
 	/**
