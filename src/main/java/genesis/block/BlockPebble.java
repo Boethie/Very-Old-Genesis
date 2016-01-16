@@ -27,7 +27,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
 
-public class BlockGenesisPebble extends Block
+public class BlockPebble extends Block
 {
 	@BlockProperties
 	public static IProperty<?>[] getProperties()
@@ -41,13 +41,13 @@ public class BlockGenesisPebble extends Block
 	public static final PropertyBool SW = PropertyBool.create("sw");
 	
 	public final ToolItems owner;
-	public final ToolObjectType<BlockGenesisPebble, ItemPebble> type;
+	public final ToolObjectType<BlockPebble, ItemPebble> type;
 	
 	public final ToolType variant;
 	public final PropertyIMetadata<ToolType> variantProp;
 	public PropertyInteger randomProp;
 	
-	public BlockGenesisPebble(ToolItems owner, ToolObjectType<BlockGenesisPebble, ItemPebble> type, ToolType variant, Class<ToolType> variantClass)
+	public BlockPebble(ToolItems owner, ToolObjectType<BlockPebble, ItemPebble> type, ToolType variant, Class<ToolType> variantClass)
 	{
 		super(Material.rock);
 		
@@ -178,10 +178,10 @@ public class BlockGenesisPebble extends Block
 	
 	protected enum Part
 	{
-		NW(BlockGenesisPebble.NW, new AxisAlignedBB(0.0, 0.0, 0.0, 0.5, 0.25, 0.5)),
-		NE(BlockGenesisPebble.NE, new AxisAlignedBB(0.5, 0.0, 0.0, 1.0, 0.25, 0.5)),
-		SE(BlockGenesisPebble.SE, new AxisAlignedBB(0.5, 0.0, 0.5, 1.0, 0.25, 1.0)),
-		SW(BlockGenesisPebble.SW, new AxisAlignedBB(0.0, 0.0, 0.5, 0.5, 0.25, 1.0));
+		NW(BlockPebble.NW, new AxisAlignedBB(0.0, 0.0, 0.0, 0.5, 0.25, 0.5)),
+		NE(BlockPebble.NE, new AxisAlignedBB(0.5, 0.0, 0.0, 1.0, 0.25, 0.5)),
+		SE(BlockPebble.SE, new AxisAlignedBB(0.5, 0.0, 0.5, 1.0, 0.25, 1.0)),
+		SW(BlockPebble.SW, new AxisAlignedBB(0.0, 0.0, 0.5, 0.5, 0.25, 1.0));
 		
 		public final PropertyBool prop;
 		public final AxisAlignedBB bounds;
@@ -324,7 +324,7 @@ public class BlockGenesisPebble extends Block
 						
 						if (!block.isAir(world, message.pos))
 						{
-							BlockGenesisPebble pebble = (BlockGenesisPebble) block;
+							BlockPebble pebble = (BlockPebble) block;
 							pebble.removePebble(world, message.pos, message.part, player, message.harvest);
 						}
 					}

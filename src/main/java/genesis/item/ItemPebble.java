@@ -1,6 +1,6 @@
 package genesis.item;
 
-import genesis.block.BlockGenesisPebble;
+import genesis.block.BlockPebble;
 import genesis.combo.*;
 import genesis.combo.ToolItems.ToolObjectType;
 import genesis.combo.VariantsOfTypesCombo.*;
@@ -18,13 +18,13 @@ import net.minecraft.world.World;
 @ItemVariantCount(1)
 public class ItemPebble extends ItemGenesis
 {
-	public final BlockGenesisPebble block;
+	public final BlockPebble block;
 	public final ToolItems owner;
 	
 	protected final ToolType toolType;
-	protected final ToolObjectType<BlockGenesisPebble, ItemPebble> objType;
+	protected final ToolObjectType<BlockPebble, ItemPebble> objType;
 	
-	public ItemPebble(BlockGenesisPebble block, ToolItems owner, ToolObjectType<BlockGenesisPebble, ItemPebble> type, ToolType toolType, Class<ToolType> variantClass)
+	public ItemPebble(BlockPebble block, ToolItems owner, ToolObjectType<BlockPebble, ItemPebble> type, ToolType toolType, Class<ToolType> variantClass)
 	{
 		super();
 		

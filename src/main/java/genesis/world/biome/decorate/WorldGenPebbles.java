@@ -1,6 +1,6 @@
 package genesis.world.biome.decorate;
 
-import genesis.block.BlockGenesisPebble;
+import genesis.block.BlockPebble;
 import genesis.combo.SiltBlocks;
 import genesis.combo.ToolItems;
 import genesis.combo.variant.EnumSilt;
@@ -82,10 +82,10 @@ public class WorldGenPebbles extends WorldGenDecorationBase
 	{
 		pebblePositions = new ArrayList<PropertyBool>();
 		
-		pebblePositions.add(BlockGenesisPebble.NE);
-		pebblePositions.add(BlockGenesisPebble.NW);
-		pebblePositions.add(BlockGenesisPebble.SE);
-		pebblePositions.add(BlockGenesisPebble.SW);
+		pebblePositions.add(BlockPebble.NE);
+		pebblePositions.add(BlockPebble.NW);
+		pebblePositions.add(BlockPebble.SE);
+		pebblePositions.add(BlockPebble.SW);
 	}
 	
 	private PropertyBool getPosition(Random rand)

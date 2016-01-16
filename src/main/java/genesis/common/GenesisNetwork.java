@@ -2,7 +2,7 @@ package genesis.common;
 
 import java.util.*;
 
-import genesis.block.BlockGenesisPebble.PebbleBreakMessage;
+import genesis.block.BlockPebble.PebbleBreakMessage;
 import genesis.block.tileentity.TileEntityKnapper.KnappingSlotMessage;
 import genesis.common.GenesisSounds.MovingEntitySoundMessage;
 import genesis.entity.living.flying.EntityMeganeura.MeganeuraUpdateMessage;
