@@ -1,7 +1,0 @@
-{
-	"parent": "block/cube_column",
-	"textures": {
-		"end": "genesis:blocks/cladophlebis_bundle_top",
-		"side": "genesis:blocks/cladophlebis_bundle_side"
-	}
-}

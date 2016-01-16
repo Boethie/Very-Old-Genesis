@@ -40,7 +40,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 		waterColorMultiplier = 0xAA791E;
 		getGenesisDecorator().sandPerChunk2 = 1;
 		
-		addDecoration(new WorldGenRockBoulders().setRarity(110).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders().setRarity(128).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 	}
 	
 	public BiomeGenBaseGenesis setWaterColor(int color)

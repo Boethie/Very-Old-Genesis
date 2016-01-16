@@ -294,12 +294,6 @@ public final class GenesisRecipes
 				"CCC",
 				"CCC",
 				'C', GenesisBlocks.calamites);
-		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.cladophlebis_bundle),
-				"CCC",
-				"CCC",
-				"CCC",
-				'C', GenesisItems.materials.getStack(EnumMaterial.CLADOPHLEBIS_FROND));
-		GameRegistry.addShapelessRecipe(GenesisItems.materials.getStack(EnumMaterial.CLADOPHLEBIS_FROND, 9), GenesisBlocks.cladophlebis_bundle);
 		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.programinis_bundle),
 				"CCC",
 				"CCC",
