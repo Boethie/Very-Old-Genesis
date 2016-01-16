@@ -1,14 +1,13 @@
 package genesis.item;
 
-import genesis.metadata.*;
-import genesis.metadata.ToolItems.ToolObjectType;
-import genesis.metadata.ToolTypes.ToolType;
-import genesis.metadata.VariantsOfTypesCombo.ItemVariantCount;
-
 import java.util.List;
 
 import com.google.common.collect.Multimap;
 
+import genesis.combo.*;
+import genesis.combo.ToolItems.ToolObjectType;
+import genesis.combo.VariantsOfTypesCombo.ItemVariantCount;
+import genesis.combo.variant.ToolTypes.ToolType;
 import net.minecraft.block.Block;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;

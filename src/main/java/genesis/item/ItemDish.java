@@ -2,12 +2,13 @@ package genesis.item;
 
 import java.util.List;
 
+import genesis.combo.*;
+import genesis.combo.ItemsCeramicBowls.*;
+import genesis.combo.VariantsOfTypesCombo.ObjectType;
+import genesis.combo.variant.EnumDish;
+import genesis.combo.variant.IFood;
+import genesis.combo.variant.MultiMetadataList.MultiMetadata;
 import genesis.common.GenesisItems;
-import genesis.metadata.*;
-import genesis.metadata.ItemsCeramicBowls.*;
-import genesis.metadata.MultiMetadataList.MultiMetadata;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

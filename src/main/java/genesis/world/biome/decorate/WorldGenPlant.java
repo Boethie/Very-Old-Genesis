@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Random;
 
 import genesis.block.BlockPlant;
+import genesis.combo.PlantBlocks;
+import genesis.combo.VariantsOfTypesCombo;
+import genesis.combo.VariantsOfTypesCombo.ObjectType;
+import genesis.combo.variant.EnumPlant;
+import genesis.combo.variant.IPlantMetadata;
 import genesis.common.GenesisBlocks;
-import genesis.metadata.EnumPlant;
-import genesis.metadata.IPlantMetadata;
-import genesis.metadata.PlantBlocks;
-import genesis.metadata.VariantsOfTypesCombo;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;

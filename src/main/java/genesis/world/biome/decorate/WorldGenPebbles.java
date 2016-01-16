@@ -1,12 +1,12 @@
 package genesis.world.biome.decorate;
 
 import genesis.block.BlockGenesisPebble;
+import genesis.combo.SiltBlocks;
+import genesis.combo.ToolItems;
+import genesis.combo.variant.EnumSilt;
+import genesis.combo.variant.EnumToolMaterial;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
-import genesis.metadata.EnumSilt;
-import genesis.metadata.EnumToolMaterial;
-import genesis.metadata.SiltBlocks;
-import genesis.metadata.ToolItems;
 import genesis.util.WorldUtils;
 
 import java.util.ArrayList;

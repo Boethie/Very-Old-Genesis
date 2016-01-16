@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Random;
 
 import genesis.block.BlockGrowingPlant.*;
+import genesis.combo.variant.EnumSeeds;
 import genesis.common.*;
-import genesis.metadata.EnumSeeds;
 import genesis.util.WorldUtils;
 import net.minecraft.block.material.*;
 import net.minecraft.block.properties.IProperty;

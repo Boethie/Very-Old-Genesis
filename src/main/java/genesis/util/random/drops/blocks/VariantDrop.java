@@ -2,10 +2,11 @@ package genesis.util.random.drops.blocks;
 
 import java.util.Random;
 
+import genesis.combo.*;
+import genesis.combo.VariantsOfTypesCombo.ObjectType;
+import genesis.combo.variant.IMetadata;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
-import genesis.metadata.*;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 
 public class VariantDrop<V extends IMetadata<V>> extends BlockDrop
 {

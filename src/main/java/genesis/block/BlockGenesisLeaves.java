@@ -1,9 +1,11 @@
 package genesis.block;
 
+import genesis.combo.*;
+import genesis.combo.VariantsOfTypesCombo.*;
+import genesis.combo.variant.EnumTree;
+import genesis.combo.variant.PropertyIMetadata;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemBlockMulti;
-import genesis.metadata.*;
-import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
 
 import java.util.*;

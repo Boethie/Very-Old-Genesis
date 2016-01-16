@@ -1,8 +1,9 @@
 package genesis.block;
 
 import com.google.common.collect.Lists;
+
+import genesis.combo.TreeBlocksAndItems;
 import genesis.common.GenesisCreativeTabs;
-import genesis.metadata.TreeBlocksAndItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;

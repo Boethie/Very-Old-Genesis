@@ -2,9 +2,9 @@ package genesis.world.biome;
 
 import java.util.Random;
 
+import genesis.combo.PlantBlocks;
+import genesis.combo.variant.EnumPlant;
 import genesis.common.GenesisBlocks;
-import genesis.metadata.EnumPlant;
-import genesis.metadata.PlantBlocks;
 import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenMossStages;

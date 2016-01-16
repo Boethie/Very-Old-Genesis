@@ -1,15 +1,15 @@
 package genesis.block;
 
+import genesis.combo.DebrisBlocks;
+import genesis.combo.VariantsOfTypesCombo.BlockProperties;
+import genesis.combo.VariantsOfTypesCombo.ObjectType;
+import genesis.combo.variant.EnumDebrisOther;
+import genesis.combo.variant.EnumMaterial;
+import genesis.combo.variant.MultiMetadataList.MultiMetadata;
 import genesis.common.GenesisCreativeTabs;
 import genesis.common.GenesisItems;
 import genesis.common.GenesisSounds;
 import genesis.item.ItemBlockMulti;
-import genesis.metadata.DebrisBlocks;
-import genesis.metadata.EnumDebrisOther;
-import genesis.metadata.EnumMaterial;
-import genesis.metadata.MultiMetadataList.MultiMetadata;
-import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.random.drops.blocks.BlockDrop;
 import net.minecraft.block.Block;

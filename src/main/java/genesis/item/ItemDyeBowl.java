@@ -2,11 +2,11 @@ package genesis.item;
 
 import java.util.List;
 
-import genesis.metadata.GenesisDye;
-import genesis.metadata.ItemsCeramicBowls;
-import genesis.metadata.ItemsCeramicBowls.EnumCeramicBowls;
-import genesis.metadata.MultiMetadataList.MultiMetadata;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import genesis.combo.ItemsCeramicBowls;
+import genesis.combo.ItemsCeramicBowls.EnumCeramicBowls;
+import genesis.combo.VariantsOfTypesCombo.ObjectType;
+import genesis.combo.variant.GenesisDye;
+import genesis.combo.variant.MultiMetadataList.MultiMetadata;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntitySheep;

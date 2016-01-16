@@ -1,8 +1,8 @@
 package genesis.block;
 
+import genesis.combo.variant.EnumMaterial;
+import genesis.combo.variant.EnumSeeds;
 import genesis.common.GenesisItems;
-import genesis.metadata.EnumMaterial;
-import genesis.metadata.EnumSeeds;
 import genesis.util.random.drops.blocks.BlockDrops;
 
 import java.util.ArrayList;

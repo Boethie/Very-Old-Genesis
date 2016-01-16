@@ -1,7 +1,7 @@
 package genesis.block.tileentity.crafting;
 
+import genesis.combo.ItemsCeramicBowls.EnumCeramicBowls;
 import genesis.common.*;
-import genesis.metadata.ItemsCeramicBowls.EnumCeramicBowls;
 import genesis.util.*;
 
 import java.util.*;

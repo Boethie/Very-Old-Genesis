@@ -1,8 +1,8 @@
 package genesis.util;
 
+import genesis.combo.variant.EnumMaterial;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
-import genesis.metadata.EnumMaterial;
 
 import java.util.HashMap;
 

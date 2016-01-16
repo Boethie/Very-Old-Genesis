@@ -1,7 +1,7 @@
 package genesis.world.biome.decorate;
 
+import genesis.combo.SiltBlocks;
 import genesis.common.GenesisBlocks;
-import genesis.metadata.SiltBlocks;
 import genesis.util.WorldUtils;
 
 import java.util.ArrayList;

@@ -1,6 +1,7 @@
 package genesis.util;
 
-import genesis.metadata.*;
+import genesis.combo.*;
+import genesis.combo.variant.IMetadata;
 import net.minecraft.util.*;
 
 public enum EnumAxis implements IMetadata<EnumAxis>

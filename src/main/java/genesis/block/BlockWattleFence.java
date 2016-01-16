@@ -2,9 +2,11 @@ package genesis.block;
 
 import java.util.List;
 
+import genesis.combo.*;
+import genesis.combo.VariantsOfTypesCombo.*;
+import genesis.combo.variant.EnumTree;
+import genesis.combo.variant.PropertyIMetadata;
 import genesis.item.ItemBlockMulti;
-import genesis.metadata.*;
-import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.*;

@@ -5,10 +5,10 @@ import java.util.*;
 import com.google.common.collect.*;
 
 import genesis.block.tileentity.crafting.CookingPotRecipeRegistry.*;
+import genesis.combo.ItemsCeramicBowls;
+import genesis.combo.variant.EnumPowder;
+import genesis.combo.variant.GenesisDye;
 import genesis.common.GenesisItems;
-import genesis.metadata.EnumPowder;
-import genesis.metadata.GenesisDye;
-import genesis.metadata.ItemsCeramicBowls;
 import genesis.util.SlotModifier;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;

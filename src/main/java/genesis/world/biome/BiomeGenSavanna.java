@@ -2,9 +2,9 @@ package genesis.world.biome;
 
 import java.util.Random;
 
+import genesis.combo.DungBlocksAndItems;
+import genesis.combo.variant.EnumDung;
 import genesis.common.GenesisBlocks;
-import genesis.metadata.DungBlocksAndItems;
-import genesis.metadata.EnumDung;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenRockBoulders;

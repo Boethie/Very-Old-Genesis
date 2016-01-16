@@ -6,11 +6,13 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 
 import genesis.common.GenesisSounds;
+import genesis.combo.*;
+import genesis.combo.VariantsOfTypesCombo.*;
+import genesis.combo.variant.EnumAquaticPlant;
+import genesis.combo.variant.PropertyIMetadata;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemBlockMulti;
-import genesis.metadata.*;
-import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants;
 import genesis.util.FlexibleStateMap;

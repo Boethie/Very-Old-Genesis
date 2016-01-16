@@ -1,7 +1,7 @@
 package genesis.world.biome.decorate;
 
+import genesis.combo.variant.EnumCoral;
 import genesis.common.GenesisBlocks;
-import genesis.metadata.EnumCoral;
 
 import java.util.Random;
 

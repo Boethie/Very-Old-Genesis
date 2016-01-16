@@ -2,10 +2,10 @@ package genesis.portal;
 
 import genesis.block.tileentity.portal.BlockMenhir;
 import genesis.block.tileentity.portal.EnumGlyph;
+import genesis.combo.variant.EnumMenhirPart;
 import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisDimensions;
-import genesis.metadata.EnumMenhirPart;
 import genesis.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;

@@ -5,14 +5,14 @@ import java.util.Random;
 
 import com.google.common.base.Objects;
 
+import genesis.combo.TreeBlocksAndItems;
+import genesis.combo.VariantsOfTypesCombo.BlockProperties;
+import genesis.combo.VariantsOfTypesCombo.ObjectType;
+import genesis.combo.variant.EnumTree;
+import genesis.combo.variant.PropertyIMetadata;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemBlockMulti;
-import genesis.metadata.EnumTree;
-import genesis.metadata.PropertyIMetadata;
-import genesis.metadata.TreeBlocksAndItems;
-import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.WorldUtils;
 import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;

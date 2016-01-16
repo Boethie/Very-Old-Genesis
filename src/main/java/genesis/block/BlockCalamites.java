@@ -1,10 +1,10 @@
 package genesis.block;
 
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
+import genesis.combo.SiltBlocks;
+import genesis.combo.variant.EnumSilt;
 import genesis.common.GenesisSounds;
 import genesis.common.GenesisBlocks;
-import genesis.metadata.EnumSilt;
-import genesis.metadata.SiltBlocks;
 import genesis.util.WorldUtils;
 
 import java.util.ArrayList;

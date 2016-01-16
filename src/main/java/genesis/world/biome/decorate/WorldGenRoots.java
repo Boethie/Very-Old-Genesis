@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import genesis.combo.TreeBlocksAndItems;
+import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
-import genesis.metadata.EnumTree;
-import genesis.metadata.TreeBlocksAndItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.state.IBlockState;

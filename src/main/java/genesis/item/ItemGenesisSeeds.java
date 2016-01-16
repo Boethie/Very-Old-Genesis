@@ -2,12 +2,12 @@ package genesis.item;
 
 import java.util.List;
 
+import genesis.combo.VariantsCombo;
+import genesis.combo.VariantsOfTypesCombo.ObjectType;
+import genesis.combo.variant.EnumSeeds;
+import genesis.combo.variant.ToolTypes.ToolType;
 import genesis.common.GenesisCreativeTabs;
-import genesis.metadata.EnumSeeds;
-import genesis.metadata.VariantsCombo;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.RandomReflection;
-import genesis.metadata.ToolTypes.ToolType;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;

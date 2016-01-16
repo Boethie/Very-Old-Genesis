@@ -1,7 +1,7 @@
 package genesis.world;
 
+import genesis.combo.variant.EnumMenhirActivator;
 import genesis.common.GenesisItems;
-import genesis.metadata.EnumMenhirActivator;
 import genesis.world.iworldgenerators.WorldGenPortal;
 import genesis.world.iworldgenerators.WorldGenMenhirActivators;
 import net.minecraft.util.WeightedRandomChestContent;

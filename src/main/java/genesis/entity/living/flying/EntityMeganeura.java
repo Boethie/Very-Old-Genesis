@@ -6,13 +6,13 @@ import java.util.*;
 
 import genesis.client.sound.MovingEntitySound;
 import genesis.client.sound.MovingEntitySound.IMovingEntitySoundOwner;
+import genesis.combo.variant.EnumFood;
 import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
 import genesis.common.GenesisSounds;
 import genesis.entity.fixed.EntityMeganeuraEgg;
 import genesis.entity.living.IEntityPreferredBiome;
-import genesis.metadata.EnumFood;
 
 import static genesis.entity.living.flying.EntityMeganeura.State.*;
 import static genesis.entity.living.flying.EntityMeganeura.StateCategory.*;

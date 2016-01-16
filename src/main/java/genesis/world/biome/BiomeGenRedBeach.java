@@ -1,9 +1,9 @@
 package genesis.world.biome;
 
 import net.minecraft.util.Vec3;
+import genesis.combo.SiltBlocks;
+import genesis.combo.variant.EnumSilt;
 import genesis.common.GenesisBlocks;
-import genesis.metadata.EnumSilt;
-import genesis.metadata.SiltBlocks;
 
 public class BiomeGenRedBeach extends BiomeGenBeachGenesis
 {

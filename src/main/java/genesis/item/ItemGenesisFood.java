@@ -2,11 +2,11 @@ package genesis.item;
 
 import java.util.*;
 
+import genesis.combo.VariantsOfTypesCombo;
+import genesis.combo.VariantsOfTypesCombo.ObjectType;
+import genesis.combo.variant.IFood;
+import genesis.combo.variant.IMetadata;
 import genesis.common.GenesisCreativeTabs;
-import genesis.metadata.IFood;
-import genesis.metadata.IMetadata;
-import genesis.metadata.VariantsOfTypesCombo;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.RandomReflection;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;

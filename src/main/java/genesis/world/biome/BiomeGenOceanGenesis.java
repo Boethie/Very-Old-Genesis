@@ -2,11 +2,11 @@ package genesis.world.biome;
 
 import java.util.Random;
 
+import genesis.combo.SiltBlocks;
+import genesis.combo.variant.EnumAquaticPlant;
+import genesis.combo.variant.EnumCoral;
+import genesis.combo.variant.EnumSilt;
 import genesis.common.GenesisBlocks;
-import genesis.metadata.EnumAquaticPlant;
-import genesis.metadata.EnumCoral;
-import genesis.metadata.EnumSilt;
-import genesis.metadata.SiltBlocks;
 import genesis.world.biome.decorate.WorldGenAquaticPlants;
 import genesis.world.biome.decorate.WorldGenCorals;
 import net.minecraft.world.World;

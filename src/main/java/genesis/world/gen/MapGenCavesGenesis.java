@@ -3,9 +3,9 @@ package genesis.world.gen;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import genesis.combo.SiltBlocks;
+import genesis.combo.variant.EnumSilt;
 import genesis.common.GenesisBlocks;
-import genesis.metadata.EnumSilt;
-import genesis.metadata.SiltBlocks;
 import genesis.util.SuperSimplexNoise;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.Block;

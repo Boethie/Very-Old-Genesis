@@ -3,8 +3,8 @@ package genesis.portal;
 import java.util.Iterator;
 
 import genesis.block.tileentity.portal.BlockMenhir;
+import genesis.combo.variant.EnumMenhirPart;
 import genesis.common.GenesisBlocks;
-import genesis.metadata.EnumMenhirPart;
 import genesis.util.SimpleIterator;
 
 import net.minecraft.block.state.IBlockState;

@@ -1,12 +1,11 @@
 package genesis.item;
 
-import genesis.metadata.ToolItems;
-import genesis.metadata.ToolItems.ToolObjectType;
-import genesis.metadata.ToolTypes.ToolType;
-import genesis.metadata.VariantsOfTypesCombo.ItemVariantCount;
-
 import java.util.List;
 
+import genesis.combo.ToolItems;
+import genesis.combo.ToolItems.ToolObjectType;
+import genesis.combo.VariantsOfTypesCombo.ItemVariantCount;
+import genesis.combo.variant.ToolTypes.ToolType;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;

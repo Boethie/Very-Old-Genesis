@@ -3,9 +3,10 @@ package genesis.block;
 import java.util.Collections;
 import java.util.List;
 
+import genesis.combo.*;
+import genesis.combo.VariantsOfTypesCombo.*;
+import genesis.combo.variant.IPlantMetadata;
 import genesis.item.ItemBlockMulti;
-import genesis.metadata.*;
-import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.BlockStateToMetadata;
 import net.minecraft.block.*;
 import net.minecraft.block.properties.*;

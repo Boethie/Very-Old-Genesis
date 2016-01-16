@@ -1,9 +1,14 @@
 package genesis.common;
 
+import genesis.combo.*;
+import genesis.combo.VariantsOfTypesCombo.*;
+import genesis.combo.variant.EnumMaterial;
+import genesis.combo.variant.EnumMenhirActivator;
+import genesis.combo.variant.EnumNodule;
+import genesis.combo.variant.EnumPowder;
+import genesis.combo.variant.EnumSeeds;
 import genesis.entity.fixed.EntityMeganeuraEgg;
 import genesis.item.*;
-import genesis.metadata.*;
-import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;

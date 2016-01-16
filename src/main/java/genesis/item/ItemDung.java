@@ -1,11 +1,10 @@
 package genesis.item;
 
-import genesis.metadata.EnumDung;
-import genesis.metadata.VariantsOfTypesCombo;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
-
 import java.util.List;
 
+import genesis.combo.VariantsOfTypesCombo;
+import genesis.combo.VariantsOfTypesCombo.ObjectType;
+import genesis.combo.variant.EnumDung;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemDye;

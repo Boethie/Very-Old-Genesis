@@ -2,9 +2,11 @@ package genesis.block;
 
 import java.util.List;
 
+import genesis.combo.*;
+import genesis.combo.VariantsOfTypesCombo.*;
+import genesis.combo.variant.IOreVariant;
+import genesis.combo.variant.PropertyIMetadata;
 import genesis.common.GenesisCreativeTabs;
-import genesis.metadata.*;
-import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.WorldUtils;
 import net.minecraft.block.*;

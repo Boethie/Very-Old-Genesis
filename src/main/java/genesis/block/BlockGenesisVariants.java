@@ -2,9 +2,11 @@ package genesis.block;
 
 import java.util.*;
 
+import genesis.combo.*;
+import genesis.combo.VariantsOfTypesCombo.*;
+import genesis.combo.variant.IMetadata;
+import genesis.combo.variant.PropertyIMetadata;
 import genesis.common.GenesisCreativeTabs;
-import genesis.metadata.*;
-import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
 import genesis.util.random.drops.blocks.BlockDrop;
 import genesis.util.random.drops.blocks.VariantDrop;

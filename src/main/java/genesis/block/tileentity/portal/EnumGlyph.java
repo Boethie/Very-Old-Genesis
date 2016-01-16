@@ -2,9 +2,9 @@ package genesis.block.tileentity.portal;
 
 import java.util.*;
 
+import genesis.combo.variant.EnumMenhirActivator;
+import genesis.combo.variant.IMetadata;
 import genesis.common.GenesisItems;
-import genesis.metadata.EnumMenhirActivator;
-import genesis.metadata.IMetadata;
 import genesis.util.ItemStackKey;
 import net.minecraft.item.ItemStack;
 

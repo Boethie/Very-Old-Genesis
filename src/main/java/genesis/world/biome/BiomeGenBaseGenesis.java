@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Random;
 
 import genesis.block.BlockMoss;
+import genesis.combo.SiltBlocks;
+import genesis.combo.variant.EnumPlant;
 import genesis.common.GenesisBlocks;
-import genesis.metadata.EnumPlant;
-import genesis.metadata.SiltBlocks;
 import genesis.world.biome.decorate.BiomeDecoratorGenesis;
 import genesis.world.biome.decorate.WorldGenDecorationBase;
 import genesis.world.biome.decorate.WorldGenGrass;

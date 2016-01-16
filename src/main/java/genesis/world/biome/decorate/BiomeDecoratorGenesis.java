@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import genesis.combo.SiltBlocks;
+import genesis.combo.variant.EnumOre;
+import genesis.combo.variant.EnumSilt;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisConfig;
-import genesis.metadata.EnumOre;
-import genesis.metadata.EnumSilt;
-import genesis.metadata.SiltBlocks;
 import genesis.world.gen.feature.WorldGenGenesisLiquids;
 import genesis.world.gen.feature.WorldGenGenesisSand;
 import genesis.world.gen.feature.WorldGenMinableGenesis;

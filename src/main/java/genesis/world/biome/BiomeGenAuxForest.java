@@ -2,10 +2,10 @@ package genesis.world.biome;
 
 import java.util.Random;
 
+import genesis.combo.variant.EnumDebrisOther;
+import genesis.combo.variant.EnumPlant;
+import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
-import genesis.metadata.EnumDebrisOther;
-import genesis.metadata.EnumPlant;
-import genesis.metadata.EnumTree;
 import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrassMulti;

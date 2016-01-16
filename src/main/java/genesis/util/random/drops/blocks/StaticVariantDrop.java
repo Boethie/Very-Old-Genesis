@@ -1,7 +1,7 @@
 package genesis.util.random.drops.blocks;
 
-import genesis.metadata.IMetadata;
-import genesis.metadata.VariantsOfTypesCombo;
+import genesis.combo.VariantsOfTypesCombo;
+import genesis.combo.variant.IMetadata;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 

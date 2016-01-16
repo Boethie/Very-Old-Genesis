@@ -1,11 +1,11 @@
 package genesis.block;
 
+import genesis.combo.VariantsOfTypesCombo;
+import genesis.combo.VariantsOfTypesCombo.BlockProperties;
+import genesis.combo.VariantsOfTypesCombo.ObjectType;
+import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisSounds;
 import genesis.item.ItemBlockMulti;
-import genesis.metadata.EnumTree;
-import genesis.metadata.VariantsOfTypesCombo;
-import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 
 import java.util.*;
 

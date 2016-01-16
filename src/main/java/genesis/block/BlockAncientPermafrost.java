@@ -1,7 +1,7 @@
 package genesis.block;
 
+import genesis.combo.variant.EnumFood;
 import genesis.common.GenesisItems;
-import genesis.metadata.EnumFood;
 import genesis.util.WorldUtils;
 
 import java.util.Collections;

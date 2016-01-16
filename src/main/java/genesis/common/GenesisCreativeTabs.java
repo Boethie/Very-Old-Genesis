@@ -1,6 +1,11 @@
 package genesis.common;
 
-import genesis.metadata.*;
+import genesis.combo.*;
+import genesis.combo.variant.EnumFood;
+import genesis.combo.variant.EnumOre;
+import genesis.combo.variant.EnumToolMaterial;
+import genesis.combo.variant.EnumToolQuality;
+import genesis.combo.variant.EnumTree;
 import genesis.util.Constants.Unlocalized;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;

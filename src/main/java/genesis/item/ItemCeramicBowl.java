@@ -21,11 +21,11 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import genesis.client.GenesisClient;
+import genesis.combo.*;
+import genesis.combo.ItemsCeramicBowls.EnumCeramicBowls;
+import genesis.combo.VariantsOfTypesCombo.ObjectType;
+import genesis.combo.variant.MultiMetadataList.MultiMetadata;
 import genesis.common.GenesisItems;
-import genesis.metadata.*;
-import genesis.metadata.ItemsCeramicBowls.EnumCeramicBowls;
-import genesis.metadata.MultiMetadataList.MultiMetadata;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 
 public class ItemCeramicBowl extends ItemGenesis
 {

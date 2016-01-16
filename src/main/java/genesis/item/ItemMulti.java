@@ -1,11 +1,10 @@
 package genesis.item;
 
-import genesis.metadata.VariantsOfTypesCombo;
-import genesis.metadata.IMetadata;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
-
 import java.util.List;
 
+import genesis.combo.VariantsOfTypesCombo;
+import genesis.combo.VariantsOfTypesCombo.ObjectType;
+import genesis.combo.variant.IMetadata;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;

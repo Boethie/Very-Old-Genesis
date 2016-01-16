@@ -1,10 +1,10 @@
 package genesis.item;
 
+import genesis.combo.*;
+import genesis.combo.ToolItems.*;
+import genesis.combo.variant.ToolTypes.ToolType;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemGenesis;
-import genesis.metadata.ToolItems.*;
-import genesis.metadata.ToolTypes.ToolType;
-import genesis.metadata.*;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;

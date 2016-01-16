@@ -2,8 +2,8 @@ package genesis.world.biome;
 
 import java.util.Random;
 
+import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
-import genesis.metadata.EnumTree;
 import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenMossStages;

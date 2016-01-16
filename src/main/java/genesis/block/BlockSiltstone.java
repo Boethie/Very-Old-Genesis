@@ -1,12 +1,12 @@
 package genesis.block;
 
+import genesis.combo.SiltBlocks;
+import genesis.combo.VariantsOfTypesCombo.BlockProperties;
+import genesis.combo.VariantsOfTypesCombo.ObjectType;
+import genesis.combo.variant.EnumSilt;
+import genesis.combo.variant.PropertyIMetadata;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemBlockMulti;
-import genesis.metadata.EnumSilt;
-import genesis.metadata.PropertyIMetadata;
-import genesis.metadata.SiltBlocks;
-import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
-import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.BlockStateToMetadata;
 
 import java.util.List;

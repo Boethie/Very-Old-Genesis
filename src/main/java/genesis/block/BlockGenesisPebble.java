@@ -9,12 +9,13 @@ import org.apache.commons.lang3.tuple.Pair;
 import com.google.common.collect.Lists;
 
 import genesis.client.GenesisClient;
+import genesis.combo.*;
+import genesis.combo.ToolItems.*;
+import genesis.combo.VariantsOfTypesCombo.*;
+import genesis.combo.variant.PropertyIMetadata;
+import genesis.combo.variant.ToolTypes.ToolType;
 import genesis.common.*;
 import genesis.item.*;
-import genesis.metadata.*;
-import genesis.metadata.ToolTypes.ToolType;
-import genesis.metadata.ToolItems.*;
-import genesis.metadata.VariantsOfTypesCombo.*;
 import genesis.util.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

@@ -2,8 +2,8 @@ package genesis.world.biome;
 
 import java.util.Random;
 
+import genesis.combo.variant.EnumAquaticPlant;
 import genesis.entity.living.IEntityPreferredBiome;
-import genesis.metadata.EnumAquaticPlant;
 import genesis.world.biome.decorate.WorldGenAquaticPlants;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPebbles;

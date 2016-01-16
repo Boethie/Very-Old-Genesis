@@ -1,10 +1,10 @@
 package genesis.item;
 
 import genesis.block.BlockGenesisPebble;
-import genesis.metadata.*;
-import genesis.metadata.ToolItems.ToolObjectType;
-import genesis.metadata.ToolTypes.ToolType;
-import genesis.metadata.VariantsOfTypesCombo.*;
+import genesis.combo.*;
+import genesis.combo.ToolItems.ToolObjectType;
+import genesis.combo.VariantsOfTypesCombo.*;
+import genesis.combo.variant.ToolTypes.ToolType;
 import genesis.util.Constants;
 
 import net.minecraft.block.material.Material;

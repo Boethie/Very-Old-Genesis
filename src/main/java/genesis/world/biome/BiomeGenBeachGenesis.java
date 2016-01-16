@@ -1,9 +1,9 @@
 package genesis.world.biome;
 
+import genesis.combo.SiltBlocks;
+import genesis.combo.variant.EnumPlant;
+import genesis.combo.variant.EnumSilt;
 import genesis.common.GenesisBlocks;
-import genesis.metadata.EnumPlant;
-import genesis.metadata.EnumSilt;
-import genesis.metadata.SiltBlocks;
 import genesis.world.biome.decorate.WorldGenPebbles;
 import genesis.world.biome.decorate.WorldGenPlant;
 

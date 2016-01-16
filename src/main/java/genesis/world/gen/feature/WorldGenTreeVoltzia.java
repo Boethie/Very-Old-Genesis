@@ -2,9 +2,9 @@ package genesis.world.gen.feature;
 
 import java.util.Random;
 
+import genesis.combo.TreeBlocksAndItems;
+import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
-import genesis.metadata.EnumTree;
-import genesis.metadata.TreeBlocksAndItems;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
