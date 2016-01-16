@@ -769,21 +769,21 @@ public final class GenesisRecipes
 			
 			if (ingredient != null)
 			{
-				GameRegistry.addRecipe(GenesisItems.clothing.getStack(ClothingItems.HELMET, clothing),
+				GameRegistry.addRecipe(GenesisItems.clothing.getHelmet(clothing),
 						"XXX",
 						"X X",
 						'X', ingredient);
-				GameRegistry.addRecipe(GenesisItems.clothing.getStack(ClothingItems.CHESTPLATE, clothing),
+				GameRegistry.addRecipe(GenesisItems.clothing.getChestplate(clothing),
 						"X X",
 						"XXX",
 						"XXX",
 						'X', ingredient);
-				GameRegistry.addRecipe(GenesisItems.clothing.getStack(ClothingItems.LEGGINGS, clothing),
+				GameRegistry.addRecipe(GenesisItems.clothing.getLeggings(clothing),
 						"XXX",
 						"X X",
 						"X X",
 						'X', ingredient);
-				GameRegistry.addRecipe(GenesisItems.clothing.getStack(ClothingItems.BOOTS, clothing),
+				GameRegistry.addRecipe(GenesisItems.clothing.getBoots(clothing),
 						"X X",
 						"X X",
 						'X', ingredient);

@@ -36,4 +36,24 @@ public class ClothingItems extends VariantsOfTypesCombo<EnumClothing>
 	{
 		return super.getUnlocalizedName(stack, "item." + getUnlocalizedPrefix()) + "." + base;
 	}
+	
+	public ItemStack getHelmet(EnumClothing variant)
+	{
+		return getStack(HELMET, variant);
+	}
+	
+	public ItemStack getChestplate(EnumClothing variant)
+	{
+		return getStack(CHESTPLATE, variant);
+	}
+	
+	public ItemStack getLeggings(EnumClothing variant)
+	{
+		return getStack(LEGGINGS, variant);
+	}
+	
+	public ItemStack getBoots(EnumClothing variant)
+	{
+		return getStack(BOOTS, variant);
+	}
 }
