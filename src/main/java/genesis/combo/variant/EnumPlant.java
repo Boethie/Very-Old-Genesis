@@ -30,6 +30,7 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	APOLDIA("apoldia", plant().soil(Plains, Desert).biomeColor(true)),
 	LEPACYCLOTES("lepacyclotes", plant().soil(Plains, Desert)
 			.soil(EnumPlantType.Plains, EnumPlantType.Desert).water(2)),
+	SANMIGUELIA("sanmiguelia", plant()),
 	ARCHAEAMPHORA("archaeamphora", plant()),
 	MABELIA("mabelia", plant()),
 	PALAEOASTER("palaeoaster", plant()),

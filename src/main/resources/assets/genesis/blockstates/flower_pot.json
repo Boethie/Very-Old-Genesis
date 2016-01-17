@@ -60,6 +60,11 @@
 					"plant": "genesis:blocks/plant_lepacyclotes"
 				}
 			},
+			"sanmiguelia": {
+				"textures": {
+					"plant": "genesis:blocks/plant_sanmiguelia"
+				}
+			},
 			"archaeamphora": {
 				"textures": {
 					"plant": "genesis:blocks/plant_archaeamphora"
@@ -163,6 +168,11 @@
 			"metasequoia_sapling": {
 				"textures": {
 					"plant": "genesis:blocks/sapling_metasequoia"
+				}
+			},
+			"archaeanthus_sapling": {
+				"textures": {
+					"plant": "genesis:blocks/sapling_archaeanthus"
 				}
 			},
 			"archaeomarasmius": {
