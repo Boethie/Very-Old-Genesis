@@ -86,14 +86,15 @@ public class BlockWattleFence extends BlockGenesisFence
 		return owner.getItemMetadata(type, state.getValue(variantProp));
 	}
 	
-	protected IBlockState setSideState(IBlockAccess world, IBlockState state, BlockPos sidePos, PropertyEnum<EnumConnectState> property, boolean above, boolean below)
+	protected IBlockState setSideState(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side, PropertyEnum<EnumConnectState> property, boolean above, boolean below)
 	{
 		EnumConnectState sideState = EnumConnectState.NONE;
+		BlockPos sidePos = pos.offset(side);
 		
-		if (canConnectTo(world, sidePos))
+		if (canConnectTo(world, pos, side))
 		{
-			boolean up = above && canConnectTo(world, sidePos.up());
-			boolean down = below && canConnectTo(world, sidePos.down());
+			boolean up = above && owner.getBlocks(type).contains(world.getBlockState(sidePos.up()).getBlock());//canConnectTo(world, sidePos, EnumFacing.UP);
+			boolean down = below && owner.getBlocks(type).contains(world.getBlockState(sidePos.down()).getBlock());//canConnectTo(world, sidePos, EnumFacing.DOWN);
 			
 			if (up && down)
 			{
@@ -119,25 +120,23 @@ public class BlockWattleFence extends BlockGenesisFence
 	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
-		IBlockState above = world.getBlockState(pos.up());
-		boolean fenceAbove = (above.getBlock() == this && above.getValue(variantProp) == state.getValue(variantProp));
-		IBlockState below = world.getBlockState(pos.down());
-		boolean fenceBelow = (below.getBlock() == this && below.getValue(variantProp) == state.getValue(variantProp));
+		boolean fenceAbove = owner.getBlocks(type).contains(world.getBlockState(pos.up()).getBlock());
+		boolean fenceBelow = owner.getBlocks(type).contains(world.getBlockState(pos.down()).getBlock());
 		
-		state = setSideState(world, state, pos.north(), NORTH, fenceAbove, fenceBelow);
-		state = setSideState(world, state, pos.east(), EAST, fenceAbove, fenceBelow);
-		state = setSideState(world, state, pos.south(), SOUTH, fenceAbove, fenceBelow);
-		state = setSideState(world, state, pos.west(), WEST, fenceAbove, fenceBelow);
-		
+		state = setSideState(world, state, pos, EnumFacing.NORTH, NORTH, fenceAbove, fenceBelow);
+		state = setSideState(world, state, pos, EnumFacing.EAST, EAST, fenceAbove, fenceBelow);
+		state = setSideState(world, state, pos, EnumFacing.SOUTH, SOUTH, fenceAbove, fenceBelow);
+		state = setSideState(world, state, pos, EnumFacing.WEST, WEST, fenceAbove, fenceBelow);
+		// TODO: Create class to contain properties for each EnumFacing.
 		return state;
 	}
-
+	
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list)
 	{
 		owner.fillSubItems(type, variants, list);
 	}
-
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public EnumWorldBlockLayer getBlockLayer()

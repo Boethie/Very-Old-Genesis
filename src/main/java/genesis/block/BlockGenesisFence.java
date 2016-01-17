@@ -4,20 +4,16 @@ import java.util.List;
 
 import genesis.common.GenesisCreativeTabs;
 import genesis.util.AABBUtils;
-import net.minecraft.block.BlockFence;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemLead;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
 
 public class BlockGenesisFence extends BlockFence
 {
@@ -51,6 +47,30 @@ public class BlockGenesisFence extends BlockFence
 			list.add(bb);
 	}
 	
+	public boolean canConnectTo(IBlockAccess world, BlockPos fencePos, EnumFacing side)
+	{
+		BlockPos pos = fencePos.offset(side);
+		IBlockState state = world.getBlockState(pos);
+		Block block = state.getBlock();
+		
+		if (block instanceof BlockGenesisFence)
+			return true;
+		
+		if (block instanceof BlockGenesisWall)
+			return true;
+		
+		if (block instanceof BlockFenceGate)
+			return true;
+		
+		if (block.isSideSolid(world, pos, side.getOpposite()))
+			return true;
+		
+		//state = block.getActualState(state, world, pos);
+		
+		return false;
+	}
+	
+	// All code below is duplicated in BlockGenesisWall.
 	@Override
 	public void addCollisionBoxesToList(World world, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
 	{
@@ -68,7 +88,7 @@ public class BlockGenesisFence extends BlockFence
 		
 		for (EnumFacing facing : EnumFacing.HORIZONTALS)
 		{
-			if (canConnectTo(world, pos.offset(facing)))
+			if (canConnectTo(world, pos, facing))
 			{
 				AxisAlignedBB sideBB = AABBUtils.offset(base.addCoord(0, height, 0), facing, poleRadius);
 				sideBB = AABBUtils.extend(sideBB, facing, 0.5 - poleRadius);
@@ -87,7 +107,7 @@ public class BlockGenesisFence extends BlockFence
 		
 		for (EnumFacing facing : EnumFacing.HORIZONTALS)
 		{
-			if (canConnectTo(world, pos.offset(facing)))
+			if (canConnectTo(world, pos, facing))
 			{
 				if (!connected)
 				{
@@ -132,5 +152,28 @@ public class BlockGenesisFence extends BlockFence
 			return world.isRemote ? true : ItemLead.attachToFence(player, world, pos);
 		
 		return false;
+	}
+	
+	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos)
+	{
+		return state.withProperty(NORTH, canConnectTo(world, pos, EnumFacing.NORTH))
+				.withProperty(EAST, canConnectTo(world, pos, EnumFacing.EAST))
+				.withProperty(SOUTH, canConnectTo(world, pos, EnumFacing.SOUTH))
+				.withProperty(WEST, canConnectTo(world, pos, EnumFacing.WEST));
+	}
+	
+	@Override
+	public boolean shouldSideBeRendered(IBlockAccess world, BlockPos pos, EnumFacing side)
+	{
+		Block block = world.getBlockState(pos).getBlock();
+		
+		if (block.doesSideBlockRendering(world, pos, side))
+			return false;
+		
+		if (block == this)
+			return false;
+		
+		return true;
 	}
 }

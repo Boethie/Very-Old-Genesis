@@ -4,22 +4,17 @@ import java.util.List;
 
 import genesis.common.GenesisCreativeTabs;
 import genesis.util.AABBUtils;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockWall;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.BlockState;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.state.*;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
 
 public class BlockGenesisWall extends BlockWall
 {
@@ -73,18 +68,42 @@ public class BlockGenesisWall extends BlockWall
 	}
 	
 	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos)
-	{
-		return state.withProperty(NORTH, canConnectTo(world, pos.north()))
-					.withProperty(EAST, canConnectTo(world, pos.east()))
-					.withProperty(SOUTH, canConnectTo(world, pos.south()))
-					.withProperty(WEST, canConnectTo(world, pos.west()));
-	}
-	
-	@Override
 	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list)
 	{
 		list.add(new ItemStack(item));
+	}
+	
+	public boolean canConnectTo(IBlockAccess world, BlockPos fencePos, EnumFacing side)
+	{
+		BlockPos pos = fencePos.offset(side);
+		IBlockState state = world.getBlockState(pos);
+		Block block = state.getBlock();
+		
+		if (block instanceof BlockGenesisWall)
+			return true;
+		
+		if (block instanceof BlockGenesisFence)
+			return true;
+		
+		if (block instanceof BlockFenceGate)
+			return true;
+		
+		if (block.isSideSolid(world, pos, side.getOpposite()))
+			return true;
+		
+		state = block.getActualState(state, world, pos);
+		
+		if (block instanceof BlockDoor
+			&& state.getPropertyNames().contains(BlockDoor.FACING)
+			&& state.getValue(BlockDoor.FACING).rotateY().getAxis() == side.getAxis())
+			return true;
+		
+		/*if (block instanceof BlockStairs
+			&& state.getPropertyNames().contains(BlockStairs.FACING)
+			&& state.getValue(BlockStairs.FACING) != side)
+			return true;	// To connect to the sides*/
+		
+		return false;
 	}
 	
 	/* All code below this point is duplicated from BlockGenesisFence because leads are crap. -_- */
@@ -111,7 +130,7 @@ public class BlockGenesisWall extends BlockWall
 		
 		for (EnumFacing facing : EnumFacing.HORIZONTALS)
 		{
-			if (canConnectTo(world, pos.offset(facing)))
+			if (canConnectTo(world, pos, facing))
 			{
 				AxisAlignedBB sideBB = AABBUtils.offset(base.addCoord(0, height, 0), facing, poleRadius);
 				sideBB = AABBUtils.extend(sideBB, facing, 0.5 - poleRadius);
@@ -130,7 +149,7 @@ public class BlockGenesisWall extends BlockWall
 		
 		for (EnumFacing facing : EnumFacing.HORIZONTALS)
 		{
-			if (canConnectTo(world, pos.offset(facing)))
+			if (canConnectTo(world, pos, facing))
 			{
 				if (!connected)
 				{
@@ -163,5 +182,40 @@ public class BlockGenesisWall extends BlockWall
 		this.maxX = bb.maxX;
 		this.maxY = bb.maxY;
 		this.maxZ = bb.maxZ;
+	}
+	
+	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos)
+	{
+		return state.withProperty(NORTH, canConnectTo(world, pos, EnumFacing.NORTH))
+					.withProperty(EAST, canConnectTo(world, pos, EnumFacing.EAST))
+					.withProperty(SOUTH, canConnectTo(world, pos, EnumFacing.SOUTH))
+					.withProperty(WEST, canConnectTo(world, pos, EnumFacing.WEST));
+	}
+	
+	@Override
+	public boolean shouldSideBeRendered(IBlockAccess world, BlockPos pos, EnumFacing side)
+	{
+		Block block = world.getBlockState(pos).getBlock();
+		
+		if (block.doesSideBlockRendering(world, pos, side))
+			return false;
+		
+		if (block == this)
+		{
+			if (side.getAxis() != EnumFacing.Axis.Y)
+				return false;
+			
+			BlockPos origin = pos.offset(side.getOpposite());
+			
+			for (EnumFacing facing : EnumFacing.HORIZONTALS)
+				if (canConnectTo(world, origin, facing)
+					&& !canConnectTo(world, pos, facing))
+					return true;
+			
+			return false;
+		}
+		
+		return true;
 	}
 }
