@@ -1168,6 +1168,15 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	}
 	
 	/**
+	 * @return Whether the provided {@link ObjectType} contains the block state.
+	 */
+	public boolean containsBlockState(ObjectType<?, ?> type, IBlockState state)
+	{
+		SubsetData subset = getSubsetData(state.getBlock());
+		return subset != null && subset.type == type;
+	}
+	
+	/**
 	 * @return Whether the states have the same variant.
 	 */
 	public boolean areSameVariant(IBlockState state1, IBlockState state2)

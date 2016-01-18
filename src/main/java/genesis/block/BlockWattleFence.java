@@ -120,8 +120,8 @@ public class BlockWattleFence extends BlockGenesisFence
 	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
-		boolean fenceAbove = owner.getBlocks(type).contains(world.getBlockState(pos.up()).getBlock());
-		boolean fenceBelow = owner.getBlocks(type).contains(world.getBlockState(pos.down()).getBlock());
+		boolean fenceAbove = owner.containsBlockState(type, world.getBlockState(pos.up()));
+		boolean fenceBelow = owner.containsBlockState(type, world.getBlockState(pos.down()));
 		
 		state = setSideState(world, state, pos, EnumFacing.NORTH, NORTH, fenceAbove, fenceBelow);
 		state = setSideState(world, state, pos, EnumFacing.EAST, EAST, fenceAbove, fenceBelow);
