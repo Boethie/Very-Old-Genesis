@@ -8,7 +8,7 @@ public enum EnumTree implements IMetadata<EnumTree>
 {
 	ARCHAEOPTERIS("archaeopteris"), SIGILLARIA("sigillaria"), LEPIDODENDRON("lepidodendron"),
 	CORDAITES("cordaites"), PSARONIUS("psaronius"), GINKGO("ginkgo"), BJUVIA("bjuvia"), VOLTZIA("voltzia"),
-	ARAUCARIOXYLON("araucarioxylon"), METASEQUOIA("metasequoia"), ARCHAEANTHUS("archaeanthus");
+	ARAUCARIOXYLON("araucarioxylon"), METASEQUOIA("metasequoia"), ARCHAEANTHUS("archaeanthus"), DRYOPHYLLUM("dryophyllum");
 
 	public static final Set<EnumTree> NO_BILLET = ImmutableSet.of(PSARONIUS, BJUVIA);
 	public static final Set<EnumTree> NO_DEAD = ImmutableSet.of(PSARONIUS, GINKGO, BJUVIA, VOLTZIA, ARCHAEANTHUS);

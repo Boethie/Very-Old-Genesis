@@ -175,6 +175,11 @@
 					"plant": "genesis:blocks/sapling_archaeanthus"
 				}
 			},
+			"dryophyllum_sapling": {
+				"textures": {
+					"plant": "genesis:blocks/sapling_dryophyllum"
+				}
+			},
 			"archaeomarasmius": {
 				"textures": {
 					"plant": "genesis:blocks/archaeomarasmius_potted"
