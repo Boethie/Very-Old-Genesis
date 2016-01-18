@@ -1,26 +1,6 @@
 package genesis.common;
 
-import genesis.world.biome.BiomeGenAuxForest;
-import genesis.world.biome.BiomeGenAuxForestM;
-import genesis.world.biome.BiomeGenBaseGenesis;
-import genesis.world.biome.BiomeGenBeachGenesis;
-import genesis.world.biome.BiomeGenSavanna;
-import genesis.world.biome.BiomeGenFloodplainsForest;
-import genesis.world.biome.BiomeGenLimestoneBeach;
-import genesis.world.biome.BiomeGenMarsh;
-import genesis.world.biome.BiomeGenMetaForest;
-import genesis.world.biome.BiomeGenMetaForestM;
-import genesis.world.biome.BiomeGenOceanGenesis;
-import genesis.world.biome.BiomeGenRainforest;
-import genesis.world.biome.BiomeGenRainforestM;
-import genesis.world.biome.BiomeGenRedBeach;
-import genesis.world.biome.BiomeGenRedLowlands;
-import genesis.world.biome.BiomeGenRedLowlandsM;
-import genesis.world.biome.BiomeGenRiver;
-import genesis.world.biome.BiomeGenSavannaM;
-import genesis.world.biome.BiomeGenShallowOcean;
-import genesis.world.biome.BiomeGenSwampRainforest;
-import genesis.world.biome.BiomeManagerGenesis;
+import genesis.world.biome.*;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager.BiomeType;
