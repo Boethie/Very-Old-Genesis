@@ -1,0 +1,8 @@
+{
+	"variants": {
+		"axis=y":  { "model": "genesis:dryophyllum_log" },
+		"axis=z":   { "model": "genesis:dryophyllum_log", "x": 90 },
+		"axis=x":   { "model": "genesis:dryophyllum_log", "x": 90, "y": 90 },
+		"axis=none": { "model": "genesis:dryophyllum_bark" }
+	}
+}

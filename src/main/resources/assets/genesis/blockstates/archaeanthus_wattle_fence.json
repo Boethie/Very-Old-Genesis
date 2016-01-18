@@ -1,0 +1,41 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"textures": {
+			"particle": "genesis:blocks/log_archaeanthus",
+			"log": "genesis:blocks/log_archaeanthus",
+			"stick": "genesis:blocks/stick_archaeanthus"
+		},
+		"model": "genesis:wattle_fence_post"
+	},
+	"variants": {
+		"north": {
+			"side": {"submodel": "genesis:wattle_fence_connect", "y": 270, "uvlock": false},
+			"side_top": {"submodel": "genesis:wattle_fence_connect_bottom", "y": 270, "uvlock": false},
+			"side_bottom": {"submodel": "genesis:wattle_fence_connect_top", "y": 270, "uvlock": false},
+			"side_top_bottom": {"submodel": "genesis:wattle_fence_connect_full", "y": 270, "uvlock": false},
+			"none": {}
+		},
+		"east": {
+			"side": {"submodel": "genesis:wattle_fence_connect", "y": 0, "uvlock": false},
+			"side_top": {"submodel": "genesis:wattle_fence_connect_bottom", "y": 0, "uvlock": false},
+			"side_bottom": {"submodel": "genesis:wattle_fence_connect_top", "y": 0, "uvlock": false},
+			"side_top_bottom": {"submodel": "genesis:wattle_fence_connect_full", "y": 0, "uvlock": false},
+			"none": {}
+		},
+		"south": {
+			"side": {"submodel": "genesis:wattle_fence_connect", "y": 90, "uvlock": false},
+			"side_top": {"submodel": "genesis:wattle_fence_connect_bottom", "y": 90, "uvlock": false},
+			"side_bottom": {"submodel": "genesis:wattle_fence_connect_top", "y": 90, "uvlock": false},
+			"side_top_bottom": {"submodel": "genesis:wattle_fence_connect_full", "y": 90, "uvlock": false},
+			"none": {}
+		},
+		"west": {
+			"side": {"submodel": "genesis:wattle_fence_connect", "y": 180, "uvlock": false},
+			"side_top": {"submodel": "genesis:wattle_fence_connect_bottom", "y": 180, "uvlock": false},
+			"side_bottom": {"submodel": "genesis:wattle_fence_connect_top", "y": 180, "uvlock": false},
+			"side_top_bottom": {"submodel": "genesis:wattle_fence_connect_full", "y": 180, "uvlock": false},
+			"none": {}
+		}
+	}
+}

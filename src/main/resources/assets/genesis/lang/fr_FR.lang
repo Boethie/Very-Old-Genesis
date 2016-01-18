@@ -62,6 +62,8 @@ tile.genesis.log.bjuvia.name=Bois de Bjuvia
 tile.genesis.log.voltzia.name=Bois de Voltzia
 tile.genesis.log.araucarioxylon.name=Bois d'Araucarioxylon
 tile.genesis.log.metasequoia.name=Bois de Metasequoia
+tile.genesis.log.archaeanthus.name=Bois d'Archaeanthus
+tile.genesis.log.dryophyllum.name=Bois de Dryophyllum
 
 tile.genesis.calamitesBundle.name=Fagot de Calamites
 tile.genesis.programinisBundle.name=Botte de Programinis
@@ -70,7 +72,7 @@ tile.genesis.prototaxitesMycelium.name=Mycélium de Prototaxites
 tile.genesis.dung.sauropoda.name=Crotte de sauropode
 tile.genesis.dung.theropoda.name=Crotte de théropode
 tile.genesis.dungBrickBlock.name=Briques de crotte
-tile.genesis.wattleAndDaub.name=Torchis
+tile.genesis.wattleAndDaub.name=Mur en torchis
 
 #Decoration
 tile.genesis.log.dead.archaeopteris.name=Bois mort d'Archaeopteris
@@ -79,6 +81,7 @@ tile.genesis.log.dead.lepidodendron.name=Bois mort de Lepidodendron
 tile.genesis.log.dead.cordaites.name=Bois mort de Cordaites
 tile.genesis.log.dead.araucarioxylon.name=Bois mort d'Araucarioxylon
 tile.genesis.log.dead.metasequoia.name=Bois mort de Metasequoia
+tile.genesis.log.dead.dryophyllum.name=Bois mort de Dryophyllum
 
 tile.genesis.debris.archaeopteris.name=Débris de feuilles d'Archaeopteris
 tile.genesis.debris.sigillaria.name=Débris de feuilles de Sigillaria
@@ -86,6 +89,8 @@ tile.genesis.debris.lepidodendron.name=Débris de feuilles de Lepidodendron
 tile.genesis.debris.ginkgo.name=Débris de feuilles de Ginkgo
 tile.genesis.debris.araucarioxylon.name=Débris de feuilles d'Araucarioxylon
 tile.genesis.debris.metasequoia.name=Débris de feuilles de Metasequoia
+tile.genesis.debris.archaeanthus.name=Débris de feuilles d'Archaeanthus
+tile.genesis.debris.dryophyllum.name=Débris de feuilles de Dryophyllum
 tile.genesis.debris.calamites.name=Débris de Calamites
 tile.genesis.debris.coelophysisFeather.name=Débris de plume de Coelophysis
 tile.genesis.debris.epidexipteryxFeather.name=Débris de plume d'Epidexipteryx
@@ -103,6 +108,8 @@ tile.genesis.leaves.bjuvia.name=Feuilles de Bjuvia
 tile.genesis.leaves.voltzia.name=Feuilles de Voltzia
 tile.genesis.leaves.araucarioxylon.name=Feuilles d'Araucarioxylon
 tile.genesis.leaves.metasequoia.name=Feuilles de Metasequoia
+tile.genesis.leaves.archaeanthus.name=Feuilles d'Archaeanthus
+tile.genesis.leaves.dryophyllum.name=Feuilles de Dryophyllum
 
 tile.genesis.sapling.archaeopteris.name=Pousse d'Archaeopteris
 tile.genesis.sapling.sigillaria.name=Pousse de Sigillaria
@@ -114,6 +121,8 @@ tile.genesis.sapling.bjuvia.name=Pousse de Bjuvia
 tile.genesis.sapling.voltzia.name=Pousse de Voltzia
 tile.genesis.sapling.araucarioxylon.name=Pousse d'Araucarioxylon
 tile.genesis.sapling.metasequoia.name=Pousse de Metasequoia
+tile.genesis.sapling.archaeanthus.name=Pousse d'Archaeanthus
+tile.genesis.sapling.dryophyllum.name=Pousse de Dryophyllum
 
 tile.genesis.wattleFence.archaeopteris.name=Clayonnage en bois d'Archaeopteris
 tile.genesis.wattleFence.sigillaria.name=Clayonnage en bois de Sigillaria
@@ -123,6 +132,8 @@ tile.genesis.wattleFence.ginkgo.name=Clayonnage en bois de Ginkgo
 tile.genesis.wattleFence.voltzia.name=Clayonnage en bois de Voltzia
 tile.genesis.wattleFence.araucarioxylon.name=Clayonnage en bois d'Araucarioxylon
 tile.genesis.wattleFence.metasequoia.name=Clayonnage en bois de Metasequoia
+tile.genesis.wattleFence.archaeanthus.name=Clayonnage en bois d'Archaeanthus
+tile.genesis.wattleFence.dryophyllum.name=Clayonnage en bois de Dryophyllum
 
 tile.genesis.calamitesTorch.name=Torche en Calamites
 tile.genesis.calamitesTorch.tall.name=Grande torche en Calamites
@@ -137,6 +148,7 @@ tile.genesis.plant.nothia.name=Nothia
 tile.genesis.plant.rhynia.name=Rhynia
 tile.genesis.plant.apoldia.name=Apoldia
 tile.genesis.plant.lepacyclotes.name=Lepacyclotes
+tile.genesis.plant.sanmiguelia.name=Sanmiguelia
 tile.genesis.plant.archaeamphora.name=Archaeamphora
 tile.genesis.plant.mabelia.name=Mabelia
 tile.genesis.plant.palaeoaster.name=Palaeoaster
@@ -447,6 +459,8 @@ item.genesis.material.billet.ginkgo.name=Billette en bois de Ginkgo
 item.genesis.material.billet.voltzia.name=Billette en bois de Voltzia
 item.genesis.material.billet.araucarioxylon.name=Billette en bois d'Araucarioxylon
 item.genesis.material.billet.metasequoia.name=Billette en bois de Metasequoia
+item.genesis.material.billet.archaeanthus.name=Billette de bois d'Archaeanthus
+item.genesis.material.billet.dryophyllum.name=Billette de bois de Dryophyllum
 
 item.genesis.material.resin.name=Résine
 item.genesis.material.araucarioxylonCone.name=Cône d'Araucarioxylon

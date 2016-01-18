@@ -1,8 +1,0 @@
-{
-	"parent": "genesis:wattle_fence",
-	"textures": {
-		"particle": "genesis:blocks/log_sigillaria",
-		"log": "genesis:blocks/log_sigillaria",
-		"stick": "genesis:blocks/stick_sigillaria"
-	}
-}
