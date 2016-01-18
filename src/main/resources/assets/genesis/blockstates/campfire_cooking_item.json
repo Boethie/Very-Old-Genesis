@@ -81,7 +81,7 @@
 			{ "model": "genesis:campfire_cooking_billet", "y": 180, "textures": {"end": "genesis:blocks/log_araucarioxylon_top",  "side": "genesis:blocks/log_araucarioxylon"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 270, "textures": {"end": "genesis:blocks/log_araucarioxylon_top",  "side": "genesis:blocks/log_araucarioxylon"} }
 		],
-		// Other
+		// Containers
 		"item=genesis:red_clay_bowl": [
 			{ "model": "genesis:campfire_red_clay_bowl", "y": 0 },
 			{ "model": "genesis:campfire_red_clay_bowl", "y": 90 },
@@ -93,6 +93,15 @@
 			{ "model": "genesis:campfire_red_clay_bucket", "y": 90 },
 			{ "model": "genesis:campfire_red_clay_bucket", "y": 180 },
 			{ "model": "genesis:campfire_red_clay_bucket", "y": 270 }
+		],
+		// Dung bricks
+		"item=genesis:dung_sauropoda": [
+			{ "model": "genesis:campfire_dung_brick", "y": 0, "textures": {"dung": "genesis:blocks/dung_block_sauropoda"} },
+			{ "model": "genesis:campfire_dung_brick", "y": 180, "textures": {"dung": "genesis:blocks/dung_block_sauropoda"} }
+		],
+		"item=genesis:dung_theropoda": [
+			{ "model": "genesis:campfire_dung_brick", "y": 0, "textures": {"dung": "genesis:blocks/dung_block_theropoda"} },
+			{ "model": "genesis:campfire_dung_brick", "y": 180, "textures": {"dung": "genesis:blocks/dung_block_theropoda"} }
 		]
 	}
 }

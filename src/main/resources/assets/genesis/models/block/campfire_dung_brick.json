@@ -1,0 +1,18 @@
+{
+	"__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
+	"ambientocclusion": true,
+	"elements": [
+		{	"__comment": "Dung Brick",
+			"from": [ 12, 3, 5 ],
+			"to": [ 15, 5, 11 ],
+			"faces": {
+				"up": { "uv": [ 10, 0, 16, 3 ], "texture": "#dung", "rotation": 270 },
+				"down": { "uv": [ -0, 0, 6, 3 ], "texture": "#dung", "rotation": 90 },
+				"north": { "uv": [ 13, 12, 16, 14 ], "texture": "#dung", "rotation": 180 },
+				"south": { "uv": [ 13, 14, 16, 16 ], "texture": "#dung", "rotation": 0 },
+				"west": { "uv": [ 0, 14, 6, 16 ], "texture": "#dung", "rotation": 180 },
+				"east": { "uv": [ 0, 12, 6, 14 ], "texture": "#dung", "rotation": 0 }
+			}
+		}
+	]
+}

@@ -169,7 +169,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 	
 	@Override
 	public void renderTileEntityAt(TileEntityCampfire campfire, double x, double y, double z, float partialTick, int destroyStage)
-	{model = new ModelCampfire();
+	{
 		// Translate to the proper coordinates.
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x, y, z);
@@ -205,6 +205,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 		if (axis == EnumAxis.Z)
 		{
 			model.stick.rotateAngleY += 90;
+			model.cookingItem.rotateAngleY += 90;
 		}
 		
 		boolean burning = campfire.isBurning();

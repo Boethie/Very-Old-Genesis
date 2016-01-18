@@ -583,13 +583,16 @@ public final class GenesisRecipes
 		}
 		
 		// Dung brick
+		ItemStack dungBrick = GenesisItems.materials.getStack(EnumMaterial.DUNG_BRICK);
 		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.dung_brick_block),
 				"CCC",
 				"CCC",
 				"CCC",
-				'C', GenesisItems.materials.getStack(EnumMaterial.DUNG_BRICK));
+				'C', dungBrick);
 		
-		// Wattle and daub
+		// Dung recipes
+		TileEntityCampfire.registerAllowedOutput(dungBrick);
+		
 		for (ItemDung dungItem : GenesisBlocks.dungs.getItems(DungBlocksAndItems.DUNG))
 		{
 			for (ItemBlockMulti<EnumTree> fenceItem : GenesisBlocks.trees.getItems(TreeBlocksAndItems.WATTLE_FENCE))
@@ -602,6 +605,8 @@ public final class GenesisRecipes
 						'D', new ItemStack(dungItem, 1, OreDictionary.WILDCARD_VALUE),
 						'W', new ItemStack(fenceItem, 1, OreDictionary.WILDCARD_VALUE));
 			}
+			
+			GameRegistry.addSmelting(dungItem, dungBrick, 0.3F);
 		}
 		
 		// Smelting
