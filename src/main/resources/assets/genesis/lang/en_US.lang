@@ -65,6 +65,7 @@ tile.genesis.log.araucarioxylon.name=Araucarioxylon Wood
 tile.genesis.log.metasequoia.name=Metasequoia Wood
 tile.genesis.log.archaeanthus.name=Archaeanthus Wood
 tile.genesis.log.dryophyllum.name=Dryophyllum Wood
+tile.genesis.log.ficus.name=Ficus Wood
 
 tile.genesis.calamitesBundle.name=Bundle of Calamites
 tile.genesis.programinisBundle.name=Bundle of Programinis
@@ -111,6 +112,7 @@ tile.genesis.leaves.araucarioxylon.name=Araucarioxylon Leaves
 tile.genesis.leaves.metasequoia.name=Metasequoia Leaves
 tile.genesis.leaves.archaeanthus.name=Archaeanthus Leaves
 tile.genesis.leaves.dryophyllum.name=Dryophyllum Leaves
+tile.genesis.leaves.ficus.name=Ficus Leaves
 
 tile.genesis.sapling.archaeopteris.name=Archaeopteris Sapling
 tile.genesis.sapling.sigillaria.name=Sigillaria Sapling
@@ -124,6 +126,7 @@ tile.genesis.sapling.araucarioxylon.name=Araucarioxylon Sapling
 tile.genesis.sapling.metasequoia.name=Metasequoia Sapling
 tile.genesis.sapling.archaeanthus.name=Archaeanthus Sapling
 tile.genesis.sapling.dryophyllum.name=Dryophyllum Sapling
+tile.genesis.sapling.ficus.name=Ficus Sapling
 
 tile.genesis.wattleFence.archaeopteris.name=Archaeopteris Wattle Fence
 tile.genesis.wattleFence.sigillaria.name=Sigillaria Wattle Fence
@@ -135,6 +138,7 @@ tile.genesis.wattleFence.araucarioxylon.name=Araucarioxylon Wattle Fence
 tile.genesis.wattleFence.metasequoia.name=Metasequoia Wattle Fence
 tile.genesis.wattleFence.archaeanthus.name=Archaeanthus Wattle Fence
 tile.genesis.wattleFence.dryophyllum.name=Dryophyllum Wattle Fence
+tile.genesis.wattleFence.ficus.name=Ficus Wattle Fence
 
 tile.genesis.calamitesTorch.name=Calamites Torch
 tile.genesis.calamitesTorch.tall.name=Calamites Tall Torch
@@ -226,6 +230,7 @@ item.genesis.misc.menhirActivator.primitiveDust.name=Primitive Dust
 #Food
 item.genesis.seeds.ginkgoNuts.name=Ginkgo Nuts
 item.genesis.seeds.araucarioxylon.name=Araucarioxylon Seeds
+item.genesis.seeds.fig.name=Fig
 item.genesis.seeds.odontopteris.name=Odontopteris Seeds
 item.genesis.seeds.neuropteridiumRhizome.name=Neuropteridium Rhizome
 item.genesis.seeds.programinis.name=Programinis Seeds
@@ -254,6 +259,7 @@ item.genesis.food.tyrannosaurus.cooked.name=Cooked Tyrannosaurus
 item.genesis.food.dish.porridge.base.name=Porridge
 item.genesis.food.dish.porridge.ginkgo.name=Porridge with Ginkgo
 item.genesis.food.dish.porridge.araucarioxylon.name=Porridge with Araucarioxylon
+item.genesis.food.dish.porridge.fig.name=Porridge with Fig
 item.genesis.food.dish.porridge.odontopteris.name=Porridge with Odontopteris
 item.genesis.food.dish.porridge.zingiberopsis.name=Porridge with Zingiberopsis
 item.genesis.food.dish.porridge.archaeomarasmius.name=Porridge with Archaeomarasmius
@@ -466,6 +472,7 @@ item.genesis.material.billet.araucarioxylon.name=Araucarioxylon Wood Billet
 item.genesis.material.billet.metasequoia.name=Metasequoia Wood Billet
 item.genesis.material.billet.archaeanthus.name=Archaeanthus Wood Billet
 item.genesis.material.billet.dryophyllum.name=Dryophyllum Wood Billet
+item.genesis.material.billet.ficus.name=Ficus Wood Billet
 
 item.genesis.material.resin.name=Resin
 item.genesis.material.araucarioxylonCone.name=Araucarioxylon Cone

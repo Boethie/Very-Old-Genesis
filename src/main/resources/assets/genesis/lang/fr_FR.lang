@@ -64,6 +64,7 @@ tile.genesis.log.araucarioxylon.name=Bois d'Araucarioxylon
 tile.genesis.log.metasequoia.name=Bois de Metasequoia
 tile.genesis.log.archaeanthus.name=Bois d'Archaeanthus
 tile.genesis.log.dryophyllum.name=Bois de Dryophyllum
+tile.genesis.log.ficus.name=Bois de Ficus
 
 tile.genesis.calamitesBundle.name=Fagot de Calamites
 tile.genesis.programinisBundle.name=Botte de Programinis
@@ -110,6 +111,7 @@ tile.genesis.leaves.araucarioxylon.name=Feuilles d'Araucarioxylon
 tile.genesis.leaves.metasequoia.name=Feuilles de Metasequoia
 tile.genesis.leaves.archaeanthus.name=Feuilles d'Archaeanthus
 tile.genesis.leaves.dryophyllum.name=Feuilles de Dryophyllum
+tile.genesis.leaves.ficus.name=Feuilles de Ficus
 
 tile.genesis.sapling.archaeopteris.name=Pousse d'Archaeopteris
 tile.genesis.sapling.sigillaria.name=Pousse de Sigillaria
@@ -123,6 +125,7 @@ tile.genesis.sapling.araucarioxylon.name=Pousse d'Araucarioxylon
 tile.genesis.sapling.metasequoia.name=Pousse de Metasequoia
 tile.genesis.sapling.archaeanthus.name=Pousse d'Archaeanthus
 tile.genesis.sapling.dryophyllum.name=Pousse de Dryophyllum
+tile.genesis.sapling.ficus.name=Pousse de Ficus
 
 tile.genesis.wattleFence.archaeopteris.name=Clayonnage en bois d'Archaeopteris
 tile.genesis.wattleFence.sigillaria.name=Clayonnage en bois de Sigillaria
@@ -134,6 +137,7 @@ tile.genesis.wattleFence.araucarioxylon.name=Clayonnage en bois d'Araucarioxylon
 tile.genesis.wattleFence.metasequoia.name=Clayonnage en bois de Metasequoia
 tile.genesis.wattleFence.archaeanthus.name=Clayonnage en bois d'Archaeanthus
 tile.genesis.wattleFence.dryophyllum.name=Clayonnage en bois de Dryophyllum
+tile.genesis.wattleFence.ficus.name=Clayonnage en bois de Ficus
 
 tile.genesis.calamitesTorch.name=Torche en Calamites
 tile.genesis.calamitesTorch.tall.name=Grande torche en Calamites
@@ -225,6 +229,7 @@ item.genesis.misc.menhirActivator.primitiveDust.name=Poussière pritimive
 #Food
 item.genesis.seeds.ginkgoNuts.name=Noix de Ginkgo
 item.genesis.seeds.araucarioxylon.name=Graines d'Araucarioxylon
+item.genesis.seeds.fig.name=Figue
 item.genesis.seeds.odontopteris.name=Graines d'Odontopteris
 item.genesis.seeds.neuropteridiumRhizome.name=Rhizome de Neuropteridium
 item.genesis.seeds.programinis.name=Graines de Programinis
@@ -253,6 +258,7 @@ item.genesis.food.tyrannosaurus.cooked.name=Tyrannosaurus cuit
 item.genesis.food.dish.porridge.base.name=Bouillie
 item.genesis.food.dish.porridge.ginkgo.name=Bouille au Ginkgo
 item.genesis.food.dish.porridge.araucarioxylon.name=Bouillie à l'Araucarioxylon
+item.genesis.food.dish.porridge.fig.name=Bouillie au figue
 item.genesis.food.dish.porridge.odontopteris.name=Bouillie à l'Odontopteris
 item.genesis.food.dish.porridge.zingiberopsis.name=Bouillie au Zingiberopsis
 item.genesis.food.dish.porridge.archaeomarasmius.name=Bouillie à l'Archaeomarasmius
@@ -399,6 +405,10 @@ item.genesis.clothing.chitin.helmet.name=Casque en chitine
 item.genesis.clothing.chitin.chestplate.name=Plastron en chitine
 item.genesis.clothing.chitin.leggings.name=Jambières en chitine
 item.genesis.clothing.chitin.boots.name=Bottes en chitine
+item.genesis.clothing.camouflage.helmet.name=Chapeau en camouflage
+item.genesis.clothing.camouflage.chestplate.name=Tunique en camouflage
+item.genesis.clothing.camouflage.leggings.name=Pantalon en camouflage
+item.genesis.clothing.camouflage.boots.name=Bottes en camouflage
 
 #Materials
 item.genesis.material.pebble.dolerite.name=Galet de dolérite
@@ -461,6 +471,7 @@ item.genesis.material.billet.araucarioxylon.name=Billette en bois d'Araucarioxyl
 item.genesis.material.billet.metasequoia.name=Billette en bois de Metasequoia
 item.genesis.material.billet.archaeanthus.name=Billette de bois d'Archaeanthus
 item.genesis.material.billet.dryophyllum.name=Billette de bois de Dryophyllum
+item.genesis.material.billet.ficus.name=Billette de bois de Ficus
 
 item.genesis.material.resin.name=Résine
 item.genesis.material.araucarioxylonCone.name=Cône d'Araucarioxylon

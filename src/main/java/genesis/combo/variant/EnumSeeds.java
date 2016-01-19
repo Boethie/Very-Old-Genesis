@@ -27,6 +27,14 @@ public enum EnumSeeds implements IMetadata<EnumSeeds>, IFood
 			return null;
 		}
 	},
+	FIG("fig", 1, 1.2F)
+	{
+		@Override
+		public IBlockState getPlacedState()
+		{
+			return null;
+		}
+	},
 	ODONTOPTERIS_SEEDS("odontopteris_seeds", "odontopteris", 1, 0.4F)
 	{
 		@Override

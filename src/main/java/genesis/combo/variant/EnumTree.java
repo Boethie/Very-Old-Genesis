@@ -8,11 +8,12 @@ public enum EnumTree implements IMetadata<EnumTree>
 {
 	ARCHAEOPTERIS("archaeopteris"), SIGILLARIA("sigillaria"), LEPIDODENDRON("lepidodendron"),
 	CORDAITES("cordaites"), PSARONIUS("psaronius"), GINKGO("ginkgo"), BJUVIA("bjuvia"), VOLTZIA("voltzia"),
-	ARAUCARIOXYLON("araucarioxylon"), METASEQUOIA("metasequoia"), ARCHAEANTHUS("archaeanthus"), DRYOPHYLLUM("dryophyllum");
+	ARAUCARIOXYLON("araucarioxylon"), METASEQUOIA("metasequoia"), ARCHAEANTHUS("archaeanthus"),
+	DRYOPHYLLUM("dryophyllum"), FICUS("ficus");
 
 	public static final Set<EnumTree> NO_BILLET = ImmutableSet.of(PSARONIUS, BJUVIA);
-	public static final Set<EnumTree> NO_DEAD = ImmutableSet.of(PSARONIUS, GINKGO, BJUVIA, VOLTZIA, ARCHAEANTHUS);
-	public static final Set<EnumTree> NO_DEBRIS = ImmutableSet.of(CORDAITES, PSARONIUS, BJUVIA, VOLTZIA);
+	public static final Set<EnumTree> NO_DEAD = ImmutableSet.of(PSARONIUS, GINKGO, BJUVIA, VOLTZIA, ARCHAEANTHUS, FICUS);
+	public static final Set<EnumTree> NO_DEBRIS = ImmutableSet.of(CORDAITES, PSARONIUS, BJUVIA, VOLTZIA, FICUS);
 	
 	final String name;
 	final String unlocalizedName;
