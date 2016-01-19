@@ -35,16 +35,16 @@ public final class GenesisRecipes
 	{
 		List<IRecipe> recipes = CraftingManager.getInstance().getRecipeList();
 		ArrayList<IRecipe> replacedRecipes = new ArrayList<IRecipe>();
-
+		
 		for (IRecipe recipe : recipes)
 		{
 			ItemStack output = recipe.getRecipeOutput();
 			boolean outputOK = true;
-
+			
 			for (Object obj : outputExclusions)
 			{
 				ItemStack stack = null;
-
+				
 				if (obj instanceof ItemStack)
 				{
 					stack = (ItemStack) obj;
@@ -57,23 +57,23 @@ public final class GenesisRecipes
 				{
 					stack = new ItemStack((Block) obj);
 				}
-
+				
 				if (stack != null && stack.isItemEqual(output))
 				{
 					outputOK = false;
 				}
 			}
-
+			
 			if (outputOK)
 			{
 				if (recipe instanceof ShapedRecipes)
 				{
 					ShapedRecipes shapedRecipe = (ShapedRecipes) recipe;
-
+					
 					boolean replaced = false;
 					ItemStack[] replacedItems = new ItemStack[shapedRecipe.recipeItems.length];
 					int i = 0;
-
+					
 					for (ItemStack stack : shapedRecipe.recipeItems)
 					{
 						if (vanillaItem.isItemEqual(stack))
@@ -87,10 +87,10 @@ public final class GenesisRecipes
 						{
 							replacedItems[i] = stack;
 						}
-
+						
 						i++;
 					}
-
+					
 					if (replaced)
 					{
 						replacedRecipes.add(new ShapedRecipes(shapedRecipe.recipeWidth, shapedRecipe.recipeHeight, replacedItems, output));
@@ -99,19 +99,19 @@ public final class GenesisRecipes
 				else if (recipe instanceof ShapedOreRecipe)
 				{
 					ShapedOreRecipe shapedOreRecipe = (ShapedOreRecipe) recipe;
-
+					
 					Object[] input = shapedOreRecipe.getInput();
 					boolean replaced = false;
 					Object[] replacedInput = new Object[input.length];
-
+					
 					for (int i = 0; i < input.length; i++)
 					{
 						Object replaceObj = input[i];
-
+						
 						if (replaceObj instanceof ItemStack)
 						{
 							ItemStack stack = (ItemStack) replaceObj;
-
+							
 							if (vanillaItem.isItemEqual(stack))
 							{
 								ItemStack replacedStack = modItem.copy();
@@ -120,16 +120,16 @@ public final class GenesisRecipes
 								replaced = true;
 							}
 						}
-
+						
 						replacedInput[i] = replaceObj;
 					}
-
+					
 					if (replaced)
 					{
 						int width = ReflectionHelper.getPrivateValue(ShapedOreRecipe.class, shapedOreRecipe, "width");
 						int height = ReflectionHelper.getPrivateValue(ShapedOreRecipe.class, shapedOreRecipe, "height");
 						boolean mirrored = ReflectionHelper.getPrivateValue(ShapedOreRecipe.class, shapedOreRecipe, "mirrored");
-
+						
 						ShapedOreRecipe replacedRecipe = new ShapedOreRecipe(output, mirrored, "z", 'z', Items.apple);
 						ReflectionHelper.setPrivateValue(ShapedOreRecipe.class, replacedRecipe, width, "width");
 						ReflectionHelper.setPrivateValue(ShapedOreRecipe.class, replacedRecipe, height, "height");
@@ -140,7 +140,7 @@ public final class GenesisRecipes
 				else if (recipe instanceof ShapelessRecipes)
 				{
 					ShapelessRecipes shapelessRecipe = (ShapelessRecipes) recipe;
-
+					
 					boolean replaced = false;
 					ArrayList<ItemStack> replacedItems = new ArrayList<ItemStack>();
 					for (ItemStack stack : shapelessRecipe.recipeItems)
@@ -157,7 +157,7 @@ public final class GenesisRecipes
 							replacedItems.add(stack);
 						}
 					}
-
+					
 					if (replaced)
 					{
 						replacedRecipes.add(new ShapelessRecipes(output, replacedItems));
@@ -165,7 +165,7 @@ public final class GenesisRecipes
 				}
 			}
 		}
-
+		
 		recipes.addAll(replacedRecipes);
 	}
 	
@@ -212,7 +212,7 @@ public final class GenesisRecipes
 		
 		return null;
 	}
-
+	
 	protected static void addToolRecipe(ItemStack toolHead, ToolObjectType<?, ?> type, EnumToolMaterial material, Object... shape)
 	{
 		toolHead = toolHead.copy();
@@ -769,6 +769,9 @@ public final class GenesisRecipes
 			{
 			case CHITIN:
 				ingredient = GenesisItems.materials.getStack(EnumMaterial.ARTHROPLEURA_CHITIN);
+				break;
+			case CAMOUFLAGE:
+				ingredient = GenesisItems.materials.getStack(EnumMaterial.CLADOPHLEBIS_FROND);
 				break;
 			}
 			

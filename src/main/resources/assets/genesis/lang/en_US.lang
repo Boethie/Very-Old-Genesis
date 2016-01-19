@@ -400,6 +400,10 @@ item.genesis.clothing.chitin.helmet.name=Chitin Helmet
 item.genesis.clothing.chitin.chestplate.name=Chitin Chestplate
 item.genesis.clothing.chitin.leggings.name=Chitin Leggings
 item.genesis.clothing.chitin.boots.name=Chitin Boots
+item.genesis.clothing.camouflage.helmet.name=Camouflage Cap
+item.genesis.clothing.camouflage.chestplate.name=Camouflage Tunic
+item.genesis.clothing.camouflage.leggings.name=Camouflage Leggings
+item.genesis.clothing.camouflage.boots.name=Camouflage Boots
 
 #Materials
 item.genesis.material.pebble.dolerite.name=Dolerite Pebble

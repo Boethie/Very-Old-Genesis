@@ -6,7 +6,8 @@ import net.minecraftforge.common.util.EnumHelper;
 
 public enum EnumClothing implements IMetadata<EnumClothing>
 {
-	CHITIN("chitin", 10, new int[]{2, 4, 3, 2}, 10);
+	CHITIN("chitin", 10, new int[]{2, 4, 3, 2}, 10),
+	CAMOUFLAGE("camouflage", 5, new int[]{1, 2, 2, 1}, 5);
 	
 	final String name;
 	final String unlocalizedName;
