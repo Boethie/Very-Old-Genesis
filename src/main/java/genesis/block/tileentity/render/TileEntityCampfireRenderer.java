@@ -150,16 +150,12 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 	public String getVariantNameForCookingItem(ItemStack input)
 	{
 		if (input == null)
-		{
 			return null;
-		}
 		
 		ItemStack output = FurnaceRecipes.instance().getSmeltingResult(input);
 		
 		if (output == null)
-		{
 			return null;
-		}
 		
 		String[] fallbacks = output.getItem() == Items.coal ?
 				new String[]{"generic_wood"} : new String[]{};
@@ -195,7 +191,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 		model.fuel.resetState();
 		
 		// Construct the proper ModelResourceLocation from STICK_LOC and the variant string.
-		String properties = ModelHelpers.getPropertyString(state.getProperties());
+		String properties = ModelHelpers.getPropertyString(state);
 		ModelResourceLocation stickLoc = ModelHelpers.getLocationWithProperties(STICK, properties);
 		model.stick.setModel(stickLoc, world, pos);
 		
@@ -212,22 +208,16 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 		
 		// Set fire model location.
 		if (burning)
-		{
 			model.fire.setModel(ModelHelpers.getLocationWithProperties(FIRE, "fire=uncovered"), world, pos);
-		}
 		else if (campfire.isWet())
 		{
 			if (fireModels.contains("wet"))
-			{
 				model.fire.setModel(ModelHelpers.getLocationWithProperties(FIRE, "fire=wet"), world, pos);
-			}
 		}
 		else
 		{
 			if (fireModels.contains("none"))
-			{
 				model.fire.setModel(ModelHelpers.getLocationWithProperties(FIRE, "fire=none"), world, pos);
-			}
 		}
 		
 		if (campfire.hasCookingPot())

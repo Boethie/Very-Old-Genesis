@@ -33,7 +33,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import com.google.common.base.Charsets;
 import com.google.common.collect.*;
 
-@SuppressWarnings({"unchecked"})
 public class ModelHelpers
 {
 	public static final Block fakeBlock = new BlockAir(){}.setUnlocalizedName(Unlocalized.PREFIX + "dummyBlock");
@@ -63,6 +62,7 @@ public class ModelHelpers
 		addForcedModels();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static <T> Class<T> getModelLoaderClass(String name)
 	{
 		Class<?>[] classes = ModelLoader.class.getDeclaredClasses();
@@ -140,20 +140,29 @@ public class ModelHelpers
 		return modelMesher;
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public static String getPropertyString(Map<IProperty, Comparable> properties)
+	public static <T extends Comparable<T>> String getPropertyString(IProperty<T> property, T value)
+	{
+		return property.getName() + "=" + property.getName(value);
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static <T extends Comparable<T>> String getPropertyStringUnsafe(IProperty<?> property, Comparable<?> value)
+	{
+		return getPropertyString((IProperty<T>) property, (T) value);
+	}
+	
+	public static String getPropertyString(Map<IProperty<?>, Comparable<?>> properties)
 	{
 		String output = "";
 		
-		for (Map.Entry<IProperty, Comparable> entry : properties.entrySet())
+		for (Map.Entry<IProperty<?>, Comparable<?>> entry : properties.entrySet())
 		{
 			if (output.length() > 0)
 			{
 				output += ",";
 			}
 			
-			IProperty property = entry.getKey();
-			output += property.getName() + "=" + property.getName(entry.getValue());
+			output += getPropertyStringUnsafe(entry.getKey(), entry.getValue());
 		}
 		
 		if (output.length() <= 0)
@@ -162,6 +171,12 @@ public class ModelHelpers
 		}
 		
 		return output;
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public static String getPropertyString(IBlockState state)
+	{
+		return getPropertyString((Map) state.getProperties());
 	}
 	
 	public static ModelResourceLocation getLocationWithProperties(ResourceLocation loc, String properties)
@@ -381,21 +396,10 @@ public class ModelHelpers
 		return null;
 	}
 	
-	// TODO: @SuppressWarnings("unchecked")
 	public static Class<? extends IModel> getVanillaModelWrapper()
 	{
 		if (classVanillaModelWrapper == null)
-		{
-			Class<?>[] classes = ModelLoader.class.getDeclaredClasses();
-			
-			for (Class<?> clazz : classes)
-			{
-				if ("net.minecraftforge.client.model.ModelLoader$VanillaModelWrapper".equals(clazz.getName()))
-				{
-					classVanillaModelWrapper = (Class<? extends IModel>) clazz;
-				}
-			}
-		}
+			classVanillaModelWrapper = getModelLoaderClass("VanillaModelWrapper");
 		
 		return classVanillaModelWrapper;
 	}
@@ -445,6 +449,7 @@ public class ModelHelpers
 		return getModelBlock(getModel(loc));
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static Map<String, Variants> getModelBlockDefinitionMap(ModelBlockDefinition definition)
 	{
 		if (modelBlockDefinitionMap == null)
@@ -519,9 +524,8 @@ public class ModelHelpers
 			Genesis.logger.warn(new IllegalArgumentException("No states provided to force loading for model location '" + loc + "'."));
 			return;
 		}
-
-		@SuppressWarnings("rawtypes")
-		IProperty property = new IProperty()
+		
+		IProperty<String> property = new IProperty<String>()
 		{
 			@Override public String getName()
 			{
@@ -531,13 +535,13 @@ public class ModelHelpers
 			{
 				return states;
 			}
-			@Override public Class<? extends String> getValueClass()
+			@Override public Class<String> getValueClass()
 			{
 				return String.class;
 			}
-			@Override public String getName(Comparable value)
+			@Override public String getName(String value)
 			{
-				return (String) value;
+				return value;
 			}
 		};
 		
@@ -637,7 +641,7 @@ public class ModelHelpers
 				ResourceLocation locationNoVariant = entry.getValue();
 				ModelResourceLocation location =
 						new ModelResourceLocation(locationNoVariant.getResourceDomain() + ":" + locationNoVariant.getResourcePath(),
-						getPropertyString(fakeState.getProperties()));
+						getPropertyString(fakeState));
 				
 				actualToFakeState.put(actualState, fakeState);
 				locationToFakeState.put(location, fakeState);

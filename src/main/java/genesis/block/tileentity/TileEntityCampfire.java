@@ -450,7 +450,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		if (wasBurning && canSmelt())
 		{
 			cookTime++;
-
+			
 			if (cookTime >= 200)
 			{
 				cookTime = 0;
@@ -462,7 +462,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		{
 			cookTime = 0;
 		}
-
+		
 		if (updateBlock)
 		{
 			markDirty();

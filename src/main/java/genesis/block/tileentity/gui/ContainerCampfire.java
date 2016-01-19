@@ -34,8 +34,6 @@ public class ContainerCampfire extends ContainerBase
 		
 		for (int i = 0; i < TileEntityCampfire.SLOTS_INGREDIENTS_COUNT; i++)
 			ingredients[i] = addTopAlignedSlot(new RestrictedDisabledSlot(te, TileEntityCampfire.SLOTS_INGREDIENTS_START + i, i * ingSep, y));
-		//ingredient1 = addTopAlignedSlot(new RestrictedDisabledSlot(te, TileEntityCampfire.SLOT_INGREDIENT_1, 0, y));
-		//ingredient2 = addTopAlignedSlot(new RestrictedDisabledSlot(te, TileEntityCampfire.SLOT_INGREDIENT_2, ingSep, y));
 		
 		int leftWidth = (TileEntityCampfire.SLOTS_INGREDIENTS_COUNT - 1) * ingSep;
 		
