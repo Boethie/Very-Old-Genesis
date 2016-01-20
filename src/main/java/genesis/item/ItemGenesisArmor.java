@@ -1,5 +1,6 @@
 package genesis.item;
 
+import genesis.client.render.CamouflageColorEventHandler;
 import genesis.combo.ClothingItems;
 import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.EnumClothing;
@@ -34,5 +35,18 @@ public class ItemGenesisArmor extends ItemArmor
 	public String getUnlocalizedName(ItemStack stack)
 	{
 		return owner.getUnlocalizedName(stack, type.getUnlocalizedName());
+	}
+	
+	@Override
+	public int getColor(ItemStack stack)
+	{
+		if(((ItemGenesisArmor)stack.getItem()).getArmorMaterial() == EnumClothing.CAMOUFLAGE.getMaterial())
+		{
+			return CamouflageColorEventHandler.color;
+		}
+		else
+		{
+			return super.getColor(stack);
+		}
 	}
 }

@@ -2,6 +2,7 @@ package genesis.client;
 
 import genesis.client.model.FluidModelMapper;
 import genesis.client.model.ListedItemMeshDefinition;
+import genesis.client.render.CamouflageColorEventHandler;
 import genesis.common.*;
 import genesis.util.*;
 import genesis.util.render.ModelHelpers;
@@ -75,6 +76,8 @@ public class GenesisClient extends GenesisProxy
 		
 		//Music Event Handler
 		MinecraftForge.EVENT_BUS.register(new MusicEventHandler());
+		
+		MinecraftForge.EVENT_BUS.register(new CamouflageColorEventHandler());
 		
 		// Gotta register TESRs after Minecraft has initialized, otherwise the vanilla piston TESR crashes.
 		for (TESREntry<?> entry : tileEntityRenderers)
