@@ -1,6 +1,24 @@
 package genesis.common;
 
-import genesis.world.biome.*;
+import genesis.world.biome.BiomeGenAuxForest;
+import genesis.world.biome.BiomeGenAuxForestM;
+import genesis.world.biome.BiomeGenBaseGenesis;
+import genesis.world.biome.BiomeGenBeachGenesis;
+import genesis.world.biome.BiomeGenFloodplainsForest;
+import genesis.world.biome.BiomeGenLimestoneBeach;
+import genesis.world.biome.BiomeGenMarsh;
+import genesis.world.biome.BiomeGenMetaForest;
+import genesis.world.biome.BiomeGenMetaForestM;
+import genesis.world.biome.BiomeGenOceanGenesis;
+import genesis.world.biome.BiomeGenRainforest;
+import genesis.world.biome.BiomeGenRainforestM;
+import genesis.world.biome.BiomeGenRedBeach;
+import genesis.world.biome.BiomeGenRedLowlands;
+import genesis.world.biome.BiomeGenRedLowlandsM;
+import genesis.world.biome.BiomeGenRiver;
+import genesis.world.biome.BiomeGenShallowOcean;
+import genesis.world.biome.BiomeGenSwampRainforest;
+import genesis.world.biome.BiomeManagerGenesis;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager.BiomeType;
@@ -15,8 +33,8 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis auxForest;
 	public static BiomeGenBaseGenesis auxForestM;
 	public static BiomeGenBaseGenesis auxForestHills;
-	public static BiomeGenBaseGenesis savanna;
-	public static BiomeGenBaseGenesis savannaM;
+	//public static BiomeGenBaseGenesis savanna;
+	//public static BiomeGenBaseGenesis savannaM;
 	public static BiomeGenBaseGenesis metaForest;
 	public static BiomeGenBaseGenesis metaForestM;
 	public static BiomeGenBaseGenesis metaForestHills;
@@ -33,6 +51,9 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis genesisBeach;
 	public static BiomeGenBaseGenesis redBeach;
 	public static BiomeGenBaseGenesis limestoneBeach;
+	//public static BiomeGenBaseGenesis dryophyllumForest;
+	//public static BiomeGenBaseGenesis dryophyllumForestM;
+	//public static BiomeGenBaseGenesis dryophyllumForestHills;
 	
 	public static final BiomeGenBase.Height height_ShallowWaters = new BiomeGenBase.Height(-0.5F, 0.0F);
 	public static final BiomeGenBase.Height height_Oceans = new BiomeGenBase.Height(-1.0F, 0.1F);
@@ -69,6 +90,16 @@ public final class GenesisBiomes
 		auxForestHills = new BiomeGenAuxForest(GenesisConfig.auxForestHillsId).setBiomeName("Araucarioxylon Forest Hills").setHeight(height_LowHills);
 		BiomeDictionary.registerBiomeType(auxForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		/*
+		dryophyllumForest = new BiomeGenDryophyllumForest(GenesisConfig.dryophyllumForestId).setBiomeName("Dryophyllum Forest");
+		BiomeManagerGenesis.registerBiome(dryophyllumForest, BiomeType.WARM, GenesisConfig.dryophyllumForestWeight);
+		BiomeDictionary.registerBiomeType(dryophyllumForest, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		
+		dryophyllumForestM = new BiomeGenDryophyllumForestM(GenesisConfig.dryophyllumForestId+128).setBiomeName("Dryophyllum Forest M");
+		BiomeDictionary.registerBiomeType(dryophyllumForestM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		
+		dryophyllumForestHills = new BiomeGenDryophyllumForest(GenesisConfig.dryophyllumForestHillsId).setBiomeName("Dryophyllum Forest Hills").setHeight(height_LowHills);
+		BiomeDictionary.registerBiomeType(dryophyllumForestHills, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		
 		savanna = new BiomeGenSavanna(GenesisConfig.savannaId);
 		BiomeManagerGenesis.registerBiome(savanna, BiomeType.WARM, GenesisConfig.savannaWeight);
 		BiomeDictionary.registerBiomeType(savanna, BiomeDictionary.Type.SAVANNA, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.DRY);

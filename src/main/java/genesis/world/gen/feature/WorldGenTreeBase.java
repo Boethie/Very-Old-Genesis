@@ -207,6 +207,9 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	{
 		boolean place = true;
 		
+		if (!world.isBlockLoaded(pos))
+			return;
+		
 		if (
 				state == wood 
 				&& !(world.getBlockState(pos).getBlock().isAir(world, pos) 
@@ -225,7 +228,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 			place = false;
 		}
 		
-		if (place && world.isBlockLoaded(pos))
+		if (place)
 		{
 			if (notify)
 			{
