@@ -15,6 +15,8 @@ import genesis.world.biome.decorate.WorldGenPlant;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
 import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.gen.feature.WorldGenDeadLog;
+import genesis.world.gen.feature.WorldGenTreeFicus;
+import genesis.world.gen.feature.WorldGenTreeGinkgo;
 
 public class BiomeGenDryophyllumForest extends BiomeGenBaseGenesis
 {
@@ -44,6 +46,7 @@ public class BiomeGenDryophyllumForest extends BiomeGenBaseGenesis
 	
 	protected void addTrees()
 	{
+		addTree(new WorldGenTreeFicus(5, 10, true).setTreeCountPerChunk(1).setRarity(3));
 		addTree(new WorldGenDeadLog(4, 8, EnumTree.DRYOPHYLLUM, true).setTreeCountPerChunk(1));
 	}
 	
