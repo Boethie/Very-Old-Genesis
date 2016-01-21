@@ -41,7 +41,7 @@ public class BiomeGenSavanna extends BiomeGenBaseGenesis
 	protected void addTrees()
 	{
 		addTree(new WorldGenTreeAraucarioxylon(18, 22, true).setType(1).setGenerateRandomSaplings(false).setRarity(3).setTreeCountPerChunk(1));
-		addTree(new WorldGenTreeGinkgo(12, 17, false).setTreeCountPerChunk(1).setRarity(2));
+		addTree(new WorldGenTreeGinkgo(12, 17, false).setTreeCountPerChunk(1).setRarity(3));
 	}
 	
 	@Override

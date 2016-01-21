@@ -15,6 +15,7 @@ import genesis.world.biome.decorate.WorldGenRockBoulders;
 import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.gen.feature.WorldGenDeadLog;
 import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
+import genesis.world.gen.feature.WorldGenTreeGinkgo;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 
@@ -46,6 +47,7 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 	protected void addTrees()
 	{
 		addTree(new WorldGenTreeAraucarioxylon(25, 30, true).setTreeCountPerChunk(5));
+		addTree(new WorldGenTreeGinkgo(12, 17, true).setTreeCountPerChunk(1).setRarity(4));
 		addTree(new WorldGenDeadLog(4, 8, EnumTree.ARAUCARIOXYLON, true).setTreeCountPerChunk(1));
 	}
 	
