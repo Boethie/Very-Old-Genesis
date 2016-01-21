@@ -225,7 +225,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 			place = false;
 		}
 		
-		if (place)
+		if (place && world.isBlockLoaded(pos))
 		{
 			if (notify)
 			{
