@@ -19,6 +19,8 @@ import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
 import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
 import genesis.world.gen.feature.WorldGenTreeBjuvia;
 import genesis.world.gen.feature.WorldGenTreeCordaites;
+import genesis.world.gen.feature.WorldGenTreeFicus;
+import genesis.world.gen.feature.WorldGenTreeGinkgo;
 import genesis.world.gen.feature.WorldGenTreeLepidodendron;
 import genesis.world.gen.feature.WorldGenTreeMetasequoia;
 import genesis.world.gen.feature.WorldGenTreePsaronius;
@@ -150,6 +152,12 @@ public class BlockGenesisSaplings extends BlockSapling
 			positions = Objects.firstNonNull(findSaplings(world, pos, variant, 2), positions);
 			pos = positions[0];
 			gen = new WorldGenTreeMetasequoia(25, 30, true).setType(positions.length > 1 ? 1 : 0);
+			break;
+		case GINKGO:
+			gen = new WorldGenTreeGinkgo(12, 17, true);
+			break;
+		case FICUS:
+			gen = new WorldGenTreeFicus(5, 10, true);
 			break;
 		default:
 			break;

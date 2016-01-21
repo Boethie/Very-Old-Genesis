@@ -10,6 +10,7 @@ import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
 import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
+import genesis.world.gen.feature.WorldGenTreeGinkgo;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 
@@ -40,6 +41,7 @@ public class BiomeGenSavanna extends BiomeGenBaseGenesis
 	protected void addTrees()
 	{
 		addTree(new WorldGenTreeAraucarioxylon(18, 22, true).setType(1).setGenerateRandomSaplings(false).setRarity(3).setTreeCountPerChunk(1));
+		addTree(new WorldGenTreeGinkgo(12, 17, true).setTreeCountPerChunk(1).setRarity(2));
 	}
 	
 	@Override
