@@ -2,8 +2,6 @@ package genesis.world.biome;
 
 import java.util.Random;
 
-import net.minecraft.world.World;
-import net.minecraft.world.chunk.ChunkPrimer;
 import genesis.combo.DungBlocksAndItems;
 import genesis.combo.variant.EnumDung;
 import genesis.combo.variant.EnumPlant;
@@ -16,7 +14,8 @@ import genesis.world.biome.decorate.WorldGenRockBoulders;
 import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.gen.feature.WorldGenDeadLog;
 import genesis.world.gen.feature.WorldGenTreeFicus;
-import genesis.world.gen.feature.WorldGenTreeGinkgo;
+import net.minecraft.world.World;
+import net.minecraft.world.chunk.ChunkPrimer;
 
 public class BiomeGenDryophyllumForest extends BiomeGenBaseGenesis
 {
@@ -46,7 +45,7 @@ public class BiomeGenDryophyllumForest extends BiomeGenBaseGenesis
 	
 	protected void addTrees()
 	{
-		addTree(new WorldGenTreeFicus(5, 10, true).setTreeCountPerChunk(1).setRarity(3));
+		addTree(new WorldGenTreeFicus(5, 10, false).setTreeCountPerChunk(1).setRarity(3));
 		addTree(new WorldGenDeadLog(4, 8, EnumTree.DRYOPHYLLUM, true).setTreeCountPerChunk(1));
 	}
 	
