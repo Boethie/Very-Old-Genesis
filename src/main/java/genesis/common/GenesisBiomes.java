@@ -33,8 +33,6 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis auxForest;
 	public static BiomeGenBaseGenesis auxForestM;
 	public static BiomeGenBaseGenesis auxForestHills;
-	//public static BiomeGenBaseGenesis savanna;
-	//public static BiomeGenBaseGenesis savannaM;
 	public static BiomeGenBaseGenesis metaForest;
 	public static BiomeGenBaseGenesis metaForestM;
 	public static BiomeGenBaseGenesis metaForestHills;
@@ -51,10 +49,13 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis genesisBeach;
 	public static BiomeGenBaseGenesis redBeach;
 	public static BiomeGenBaseGenesis limestoneBeach;
-	//public static BiomeGenBaseGenesis dryophyllumForest;
-	//public static BiomeGenBaseGenesis dryophyllumForestM;
-	//public static BiomeGenBaseGenesis dryophyllumForestHills;
-	
+	/*
+	public static BiomeGenBaseGenesis savanna;
+	public static BiomeGenBaseGenesis savannaM;
+	public static BiomeGenBaseGenesis dryophyllumForest;
+	public static BiomeGenBaseGenesis dryophyllumForestM;
+	public static BiomeGenBaseGenesis dryophyllumForestHills;
+	*/
 	public static final BiomeGenBase.Height height_ShallowWaters = new BiomeGenBase.Height(-0.5F, 0.0F);
 	public static final BiomeGenBase.Height height_Oceans = new BiomeGenBase.Height(-1.0F, 0.1F);
 	public static final BiomeGenBase.Height height_DeepOceans = new BiomeGenBase.Height(-1.8F, 0.1F);

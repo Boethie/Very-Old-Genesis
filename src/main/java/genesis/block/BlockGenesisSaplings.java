@@ -16,9 +16,11 @@ import genesis.item.ItemBlockMulti;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.WorldUtils;
 import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
+import genesis.world.gen.feature.WorldGenTreeArchaeanthus;
 import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
 import genesis.world.gen.feature.WorldGenTreeBjuvia;
 import genesis.world.gen.feature.WorldGenTreeCordaites;
+import genesis.world.gen.feature.WorldGenTreeDryophyllum;
 import genesis.world.gen.feature.WorldGenTreeFicus;
 import genesis.world.gen.feature.WorldGenTreeGinkgo;
 import genesis.world.gen.feature.WorldGenTreeLepidodendron;
@@ -158,6 +160,12 @@ public class BlockGenesisSaplings extends BlockSapling
 			break;
 		case FICUS:
 			gen = new WorldGenTreeFicus(5, 10, true);
+			break;
+		case DRYOPHYLLUM:
+			gen = new WorldGenTreeDryophyllum(12, 20, true);
+			break;
+		case ARCHAEANTHUS:
+			gen = new WorldGenTreeArchaeanthus(15, 20, true);
 			break;
 		default:
 			break;

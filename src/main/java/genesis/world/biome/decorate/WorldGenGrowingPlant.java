@@ -1,10 +1,9 @@
 package genesis.world.biome.decorate;
 
-import genesis.block.BlockGrowingPlant;
-import genesis.common.GenesisBlocks;
-
 import java.util.Random;
 
+import genesis.block.BlockGrowingPlant;
+import genesis.common.GenesisBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;

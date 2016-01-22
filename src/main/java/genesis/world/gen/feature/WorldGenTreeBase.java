@@ -230,6 +230,11 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		
 		if (place)
 		{
+			if (state == leaves && world.rand.nextInt(6) == 0 && EnumTree.FRUIT.contains(GenesisBlocks.trees.getVariant(leaves)))
+			{
+				state = GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES_FRUIT, GenesisBlocks.trees.getVariant(leaves));
+			}
+			
 			if (notify)
 			{
 				world.setBlockState(pos, state, 3);

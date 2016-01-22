@@ -39,7 +39,7 @@ public class WorldGenTreeFicus extends WorldGenTreeBase
 		int treeHeight = minHeight + rand.nextInt(maxHeight - minHeight);
 		int base = 1 + rand.nextInt(3);
 		
-		if (!isCubeClear(world, pos.up(base), 3, treeHeight))
+		if (!isCubeClear(world, pos.up(base), 5, treeHeight))
 		{
 			return false;
 		}
@@ -56,13 +56,16 @@ public class WorldGenTreeFicus extends WorldGenTreeBase
 	{
 		int fallX = 1 - rand.nextInt(3);
 		int fallZ = 1 - rand.nextInt(3);
+		int fallCount = 0;
 		BlockPos upPos = pos.down();
 		EnumAxis woodAxis = EnumAxis.Y;
 		
 		for (int i = 0; i < height; i++)
 		{
-			if (rand.nextInt(2) == 0 && i > base)
+			if (rand.nextInt(2) == 0 && i > base && fallCount < 4)
 			{
+				fallCount++;
+				
 				upPos = upPos.add(fallX, 0, fallZ);
 				
 				if (fallX != 0)
@@ -77,6 +80,8 @@ public class WorldGenTreeFicus extends WorldGenTreeBase
 			}
 			else
 			{
+				fallCount = 0;
+				
 				woodAxis = EnumAxis.Y;
 				upPos = upPos.up();
 			}
