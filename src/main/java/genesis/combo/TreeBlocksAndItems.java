@@ -20,7 +20,8 @@ import net.minecraft.tileentity.TileEntityFurnace;
 public class TreeBlocksAndItems extends VariantsOfTypesCombo<EnumTree>
 {
 	public static final ObjectType<BlockGenesisLogs, ItemBlockMulti<EnumTree>> LOG = ObjectType.createBlock("log", BlockGenesisLogs.class);
-	public static final ObjectType<BlockGenesisSaplings, ItemBlockMulti<EnumTree>> SAPLING = new ObjectType<BlockGenesisSaplings, ItemBlockMulti<EnumTree>>("sapling", BlockGenesisSaplings.class, null)
+	public static final ObjectType<BlockGenesisSaplings, ItemBlockMulti<EnumTree>> SAPLING =
+			new ObjectType<BlockGenesisSaplings, ItemBlockMulti<EnumTree>>("sapling", BlockGenesisSaplings.class, null)
 			{
 				@Override
 				public <V extends IMetadata<V>> void afterConstructed(BlockGenesisSaplings block, ItemBlockMulti<EnumTree> item, List<V> variants)
@@ -28,11 +29,19 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo<EnumTree>
 					super.afterConstructed(block, item, variants);
 					FuelHandler.setBurnTime(item, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.sapling)), true);
 				}
-			}
-			.setIgnoredProperties(BlockSapling.STAGE);
-	public static final ObjectType<BlockGenesisLeaves, ItemBlockMulti<EnumTree>> LEAVES = new ObjectType<BlockGenesisLeaves, ItemBlockMulti<EnumTree>>("leaves", BlockGenesisLeaves.class, null)
-			.setIgnoredProperties(BlockLeaves.CHECK_DECAY, BlockLeaves.DECAYABLE);
-	public static final ObjectType<Block, ItemMulti<EnumTree>> BILLET = new ObjectType<Block, ItemMulti<EnumTree>>("billet", Unlocalized.Section.MATERIAL + "billet", null, null, EnumTree.NO_BILLET)
+			}.setIgnoredProperties(BlockSapling.STAGE);
+	public static final ObjectType<BlockGenesisLeaves, ItemBlockMulti<EnumTree>> LEAVES =
+			new ObjectType<BlockGenesisLeaves, ItemBlockMulti<EnumTree>>("leaves", BlockGenesisLeaves.class, null)
+					.setIgnoredProperties(BlockLeaves.CHECK_DECAY, BlockLeaves.DECAYABLE);
+	public static final ObjectType<BlockGenesisLeavesFruit, ItemBlockMulti<EnumTree>> LEAVES_FRUIT =
+			new ObjectType<BlockGenesisLeavesFruit, ItemBlockMulti<EnumTree>>("leaves_fruit", "leaves.fruit", BlockGenesisLeavesFruit.class, null)
+					.setIgnoredProperties(BlockLeaves.CHECK_DECAY, BlockLeaves.DECAYABLE)
+					.setValidVariants(EnumTree.FRUIT);
+	public static final ObjectType<Block, ItemGenesisFood<EnumTree>> FRUIT =
+			ObjectType.createItem("fruit", Unlocalized.Section.FOOD + "fruit", ReflectionUtils.<ItemGenesisFood<EnumTree>>convertClass(ItemGenesisFood.class))
+					.setValidVariants(EnumTree.FRUIT);
+	public static final ObjectType<Block, ItemMulti<EnumTree>> BILLET =
+			new ObjectType<Block, ItemMulti<EnumTree>>("billet", Unlocalized.Section.MATERIAL + "billet", null, null, EnumTree.NO_BILLET)
 			{
 				@Override
 				public <V extends IMetadata<V>> void afterConstructed(Block block, ItemMulti<EnumTree> item, List<V> variants)
@@ -41,11 +50,17 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo<EnumTree>
 					FuelHandler.setBurnTime(item, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.planks)), true);
 				}
 			};
-	public static final ObjectType<BlockWattleFence, ItemBlockMulti<EnumTree>> WATTLE_FENCE = new ObjectType<BlockWattleFence, ItemBlockMulti<EnumTree>>("wattle_fence", "wattleFence", BlockWattleFence.class, null, EnumTree.NO_BILLET);
-	public static final ObjectType<BlockGenesisDeadLogs, ItemBlockMulti<EnumTree>> DEAD_LOG = new ObjectType<BlockGenesisDeadLogs, ItemBlockMulti<EnumTree>>("dead_log", "log.dead", BlockGenesisDeadLogs.class, null, EnumTree.NO_DEAD)
-			.setCreativeTab(GenesisCreativeTabs.DECORATIONS);
+	public static final ObjectType<BlockWattleFence, ItemBlockMulti<EnumTree>> WATTLE_FENCE =
+			new ObjectType<BlockWattleFence, ItemBlockMulti<EnumTree>>("wattle_fence", "wattleFence", BlockWattleFence.class, null, EnumTree.NO_BILLET);
+	public static final ObjectType<BlockGenesisDeadLogs, ItemBlockMulti<EnumTree>> DEAD_LOG =
+			new ObjectType<BlockGenesisDeadLogs, ItemBlockMulti<EnumTree>>("dead_log", "log.dead", BlockGenesisDeadLogs.class, null, EnumTree.NO_DEAD)
+					.setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	
-	public static final ImmutableList<? extends ObjectType<?, ?>> TYPES = ImmutableList.of(LOG, SAPLING, LEAVES, BILLET, WATTLE_FENCE, DEAD_LOG);
+	public static final ImmutableList<? extends ObjectType<?, ?>> TYPES =
+			ImmutableList.of(
+					LOG, SAPLING, LEAVES, LEAVES_FRUIT,
+					BILLET, WATTLE_FENCE, FRUIT,
+					DEAD_LOG);
 	
 	static
 	{

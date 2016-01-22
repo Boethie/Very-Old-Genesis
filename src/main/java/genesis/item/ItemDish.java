@@ -14,7 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ItemDish extends ItemGenesisFood<MultiMetadata>
+public class ItemDish extends ItemGenesisEdible<MultiMetadata>
 {
 	public ItemDish(VariantsOfTypesCombo<MultiMetadata> owner, ObjectType<Block, ? extends ItemDish> type, List<MultiMetadata> variants, Class<MultiMetadata> variantClass)
 	{

@@ -27,14 +27,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockGenesisLeaves extends BlockLeaves
 {
-	/**
-	 * Used in BlocksAndItemsWithVariantsOfTypes.
-	 */
 	@BlockProperties
-	public static IProperty<?>[] getProperties()
-	{
-		return new IProperty[]{ CHECK_DECAY, DECAYABLE };
-	}
+	public static final IProperty<?>[] STORE_PROPERTIES = { CHECK_DECAY, DECAYABLE };
 	
 	public final TreeBlocksAndItems owner;
 	public final ObjectType<BlockGenesisLeaves, ItemBlockMulti<EnumTree>> type;
@@ -45,7 +39,9 @@ public class BlockGenesisLeaves extends BlockLeaves
 	private ItemStack rareDrop;
 	private double rareDropChance;
 	
-	public BlockGenesisLeaves(TreeBlocksAndItems owner, ObjectType<BlockGenesisLeaves, ItemBlockMulti<EnumTree>> type, List<EnumTree> variants, Class<EnumTree> variantClass)
+	public BlockGenesisLeaves(TreeBlocksAndItems owner,
+			ObjectType<BlockGenesisLeaves, ItemBlockMulti<EnumTree>> type,
+			List<EnumTree> variants, Class<EnumTree> variantClass)
 	{
 		super();
 		
@@ -97,9 +93,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 	@Override
 	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune)
 	{
-		ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
-		drops.add(owner.getStack(type, world.getBlockState(pos).getValue(variantProp)));
-		return drops;
+		return Collections.singletonList(owner.getStack(type, world.getBlockState(pos).getValue(variantProp)));
 	}
 	
 	protected ItemStack getSapling(IBlockAccess world, BlockPos pos, IBlockState state)
@@ -205,7 +199,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 	{
 		IBlockState state = world.getBlockState(pos);
 		
-		if (state.getValue(BlockLeaves.CHECK_DECAY) && world.isAreaLoaded(pos.add(-leafDistance, -leafDistance, -leafDistance), pos.add(leafDistance, leafDistance, leafDistance)))
+		if (state.getValue(BlockLeaves.DECAYABLE) && state.getValue(BlockLeaves.CHECK_DECAY) && world.isAreaLoaded(pos.add(-leafDistance, -leafDistance, -leafDistance), pos.add(leafDistance, leafDistance, leafDistance)))
 		{
 			if (isConnectedToLog(world, pos))
 			{
