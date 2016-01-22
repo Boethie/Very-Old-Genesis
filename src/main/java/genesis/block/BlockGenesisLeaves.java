@@ -165,7 +165,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 				{
 					return true;
 				}
-				else if (data.type == TreeBlocksAndItems.LEAVES)
+				else if (data.type == TreeBlocksAndItems.LEAVES || data.type == TreeBlocksAndItems.LEAVES_FRUIT)
 				{
 					Iterable<BlockPos> blocksAround = WorldUtils.getArea(curPos.add(-1, -1, -1), curPos.add(1, 1, 1));
 					
@@ -216,6 +216,35 @@ public class BlockGenesisLeaves extends BlockLeaves
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
 	{
 		checkAndDoDecay(world, pos);
+		
+		state = world.getBlockState(pos);
+		
+		if (state.getBlock() == this && state.getValue(DECAYABLE)
+			&& world.rand.nextInt(8) == 0)
+		{
+			EnumTree variant = state.getValue(variantProp);
+			
+			if (EnumTree.FRUIT.contains(variant))
+			{
+				int fruitCount = 4;
+				final int radius = 8;
+				
+				for (BlockPos checkPos : BlockPos.getAllInBoxMutable(pos.add(-radius, -radius, -radius), pos.add(radius, radius, radius)))
+				{
+					if (owner.isStateOf(world.getBlockState(checkPos), TreeBlocksAndItems.LEAVES_FRUIT, variant))
+					{
+						fruitCount--;
+						if (fruitCount <= 0)
+							break;
+					}
+				}
+				
+				if (fruitCount > 0)
+				{
+					world.setBlockState(pos, owner.getBlockState(TreeBlocksAndItems.LEAVES_FRUIT, variant));
+				}
+			}
+		}
 	}
 	
 	@Override

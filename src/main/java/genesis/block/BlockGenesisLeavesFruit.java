@@ -53,9 +53,9 @@ public class BlockGenesisLeavesFruit extends BlockGenesisLeaves
 		{
 			EnumTree variant = state.getValue(variantProp);
 			
-			final double offset = 0.05;
+			final double offset = 0.25;
 			Vec3 itemPos = new Vec3(pos.getX() + hitX, pos.getY() + hitY, pos.getZ() + hitZ);
-			itemPos.addVector(side.getFrontOffsetX() * offset, side.getFrontOffsetY() * offset, side.getFrontOffsetZ() * offset);
+			itemPos = itemPos.addVector(side.getFrontOffsetX() * offset, side.getFrontOffsetY() * offset, side.getFrontOffsetZ() * offset);
 			WorldUtils.spawnItemsAt(world, itemPos, DropType.BLOCK,
 					owner.getStack(TreeBlocksAndItems.FRUIT, variant));
 			
