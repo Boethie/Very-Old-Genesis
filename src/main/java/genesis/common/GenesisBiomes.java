@@ -4,6 +4,8 @@ import genesis.world.biome.BiomeGenAuxForest;
 import genesis.world.biome.BiomeGenAuxForestM;
 import genesis.world.biome.BiomeGenBaseGenesis;
 import genesis.world.biome.BiomeGenBeachGenesis;
+import genesis.world.biome.BiomeGenDryophyllumForest;
+import genesis.world.biome.BiomeGenDryophyllumForestM;
 import genesis.world.biome.BiomeGenFloodplainsForest;
 import genesis.world.biome.BiomeGenLimestoneBeach;
 import genesis.world.biome.BiomeGenMarsh;
@@ -52,10 +54,11 @@ public final class GenesisBiomes
 	/*
 	public static BiomeGenBaseGenesis savanna;
 	public static BiomeGenBaseGenesis savannaM;
+	*/
 	public static BiomeGenBaseGenesis dryophyllumForest;
 	public static BiomeGenBaseGenesis dryophyllumForestM;
 	public static BiomeGenBaseGenesis dryophyllumForestHills;
-	*/
+	
 	public static final BiomeGenBase.Height height_ShallowWaters = new BiomeGenBase.Height(-0.5F, 0.0F);
 	public static final BiomeGenBase.Height height_Oceans = new BiomeGenBase.Height(-1.0F, 0.1F);
 	public static final BiomeGenBase.Height height_DeepOceans = new BiomeGenBase.Height(-1.8F, 0.1F);
@@ -90,7 +93,7 @@ public final class GenesisBiomes
 		
 		auxForestHills = new BiomeGenAuxForest(GenesisConfig.auxForestHillsId).setBiomeName("Araucarioxylon Forest Hills").setHeight(height_LowHills);
 		BiomeDictionary.registerBiomeType(auxForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
-		/*
+		
 		dryophyllumForest = new BiomeGenDryophyllumForest(GenesisConfig.dryophyllumForestId).setBiomeName("Dryophyllum Forest");
 		BiomeManagerGenesis.registerBiome(dryophyllumForest, BiomeType.WARM, GenesisConfig.dryophyllumForestWeight);
 		BiomeDictionary.registerBiomeType(dryophyllumForest, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
@@ -100,7 +103,7 @@ public final class GenesisBiomes
 		
 		dryophyllumForestHills = new BiomeGenDryophyllumForest(GenesisConfig.dryophyllumForestHillsId).setBiomeName("Dryophyllum Forest Hills").setHeight(height_LowHills);
 		BiomeDictionary.registerBiomeType(dryophyllumForestHills, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
-		
+		/*
 		savanna = new BiomeGenSavanna(GenesisConfig.savannaId);
 		BiomeManagerGenesis.registerBiome(savanna, BiomeType.WARM, GenesisConfig.savannaWeight);
 		BiomeDictionary.registerBiomeType(savanna, BiomeDictionary.Type.SAVANNA, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.DRY);
