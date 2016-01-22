@@ -15,6 +15,7 @@ import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.gen.feature.WorldGenDeadLog;
 import genesis.world.gen.feature.WorldGenTreeDryophyllum;
 import genesis.world.gen.feature.WorldGenTreeFicus;
+import genesis.world.gen.feature.WorldGenTreeGinkgo;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 
@@ -48,8 +49,9 @@ public class BiomeGenDryophyllumForest extends BiomeGenBaseGenesis
 	protected void addTrees()
 	{
 		addTree(new WorldGenTreeFicus(5, 10, false).setTreeCountPerChunk(1).setRarity(3));
-		addTree(new WorldGenTreeDryophyllum(12, 20, false).setTreeCountPerChunk(2));
-		addTree(new WorldGenDeadLog(4, 8, EnumTree.DRYOPHYLLUM, true).setTreeCountPerChunk(1));
+		addTree(new WorldGenTreeGinkgo(12, 17, false).setTreeCountPerChunk(1).setRarity(6));
+		addTree(new WorldGenTreeDryophyllum(12, 20, false).setTreeCountPerChunk(8));
+		addTree(new WorldGenDeadLog(3, 6, EnumTree.DRYOPHYLLUM, true).setTreeCountPerChunk(1));
 	}
 	
 	@Override
