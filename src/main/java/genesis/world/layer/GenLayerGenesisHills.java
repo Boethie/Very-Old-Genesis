@@ -84,10 +84,10 @@ public class GenLayerGenesisHills extends GenLayerGenesis
 					{
 						i2 = GenesisBiomes.auxForestHills.biomeID;
 					}
-					/*if (k1 == GenesisBiomes.dryophyllumForest.biomeID)
+					if (k1 == GenesisBiomes.dryophyllumForest.biomeID)
 					{
 						i2 = GenesisBiomes.dryophyllumForestHills.biomeID;
-					}*/
+					}
 					if (k1 == GenesisBiomes.metaForest.biomeID)
 					{
 						i2 = GenesisBiomes.metaForestHills.biomeID;
@@ -156,5 +156,4 @@ public class GenLayerGenesisHills extends GenLayerGenesis
 		
 		return aint2;
 	}
-	
 }
