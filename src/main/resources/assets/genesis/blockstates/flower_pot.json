@@ -77,7 +77,7 @@
 			},
 			"palaeoaster": {
 				"textures": {
-					"plant": "genesis:blocks/plant_palaeoaster"
+					"plant": "genesis:blocks/plant_palaeoaster_potted"
 				}
 			},
 			"asteroxylon": {
