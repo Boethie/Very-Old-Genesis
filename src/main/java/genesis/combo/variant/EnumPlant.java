@@ -45,7 +45,8 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	RUFFORDIA("ruffordia", fern()),
 	ASTRALOPTERIS("astralopteris", fern()),
 	MATONIDIUM("matonidium", fern()),
-	CRETACIFILIX("cretacifilix", fern());
+	CRETACIFILIX("cretacifilix", fern()),
+	ONOCLEA("onoclea", fern());
 
 	public static final Set<EnumPlant> PLANTS;
 	public static final Set<EnumPlant> FERNS;
