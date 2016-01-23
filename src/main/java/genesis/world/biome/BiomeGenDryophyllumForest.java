@@ -16,6 +16,7 @@ import genesis.world.gen.feature.WorldGenDeadLog;
 import genesis.world.gen.feature.WorldGenTreeDryophyllum;
 import genesis.world.gen.feature.WorldGenTreeFicus;
 import genesis.world.gen.feature.WorldGenTreeGinkgo;
+import genesis.world.gen.feature.WorldGenTreeMetasequoia;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 
@@ -42,7 +43,7 @@ public class BiomeGenDryophyllumForest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(3));
 		addDecoration(new WorldGenRockBoulders().setRarity(10).setWaterRequired(false).setMaxHeight(3).addBlocks(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.THEROPODA)).setCountPerChunk(1));
 		addDecoration(new WorldGenDebris().setCountPerChunk(7));
-		//addDecoration(new WorldGenDebris().addAdditional(GenesisBlocks.debris.getBlockState(EnumDebrisOther.EPIDEXIPTERYX_FEATHER)).setCountPerChunk(7));
+		//addDecoration(new WorldGenDebris().addAdditional(GenesisBlocks.debris.getBlockState(EnumDebrisOther.TYRANNOSAURUS_FEATHER)).setCountPerChunk(7));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));
 	}
 	
@@ -50,7 +51,8 @@ public class BiomeGenDryophyllumForest extends BiomeGenBaseGenesis
 	{
 		addTree(new WorldGenTreeFicus(5, 10, false).setTreeCountPerChunk(1).setRarity(3));
 		addTree(new WorldGenTreeGinkgo(12, 17, false).setTreeCountPerChunk(1).setRarity(6));
-		addTree(new WorldGenTreeDryophyllum(12, 20, false).setTreeCountPerChunk(8));
+		addTree(new WorldGenTreeDryophyllum(12, 20, false).setTreeCountPerChunk(6));
+		addTree(new WorldGenTreeMetasequoia(12, 24, true).setTreeCountPerChunk(1));
 		addTree(new WorldGenDeadLog(3, 6, EnumTree.DRYOPHYLLUM, true).setTreeCountPerChunk(1));
 	}
 	
