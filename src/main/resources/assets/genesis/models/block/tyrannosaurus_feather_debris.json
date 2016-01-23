@@ -1,0 +1,6 @@
+{
+	"parent": "genesis:block/flat",
+	"textures": {
+		"all": "genesis:blocks/debris_tyrannosaurus_feather"
+	}
+}
