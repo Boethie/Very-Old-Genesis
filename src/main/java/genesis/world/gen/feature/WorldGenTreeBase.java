@@ -181,18 +181,18 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		setBlockInWorld(world, pos.add(((dirX == 0) ? -1 : 0), 0, ((dirZ == 0) ? -1 : 0)), leaves);
 	}
 	
-	protected void generateLeafLayerCircle(World world, Random random, double radius, int xo, int zo, int h)
+	protected void generateLeafLayerCircle(World world, Random random, double radius, BlockPos pos)
 	{
-		for (int x = (int) Math.ceil(xo - radius); x <= (int) Math.ceil(xo + radius); x++)
+		for (int x = (int) Math.ceil(pos.getX() - radius); x <= (int) Math.ceil(pos.getX() + radius); x++)
 		{
-			for (int z = (int) Math.ceil(zo - radius); z <= (int) Math.ceil(zo + radius); z++)
+			for (int z = (int) Math.ceil(pos.getZ() - radius); z <= (int) Math.ceil(pos.getZ() + radius); z++)
 			{
-				double xfr = z - zo;
-				double zfr = x - xo;
+				double xfr = z - pos.getZ();
+				double zfr = x - pos.getX();
 				
 				if (xfr * xfr + zfr * zfr <= radius * radius)
 				{
-					setBlockInWorld(world, new BlockPos(x, h, z), leaves);
+					setBlockInWorld(world, new BlockPos(x, pos.getY(), z), leaves);
 				}
 			}
 		}
