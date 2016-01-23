@@ -120,6 +120,11 @@
 					"plant": "genesis:blocks/fern_cretacifilix"
 				}
 			},
+			"onoclea": {
+				"textures": {
+					"plant": "genesis:blocks/fern_onoclea"
+				}
+			},
 			"archaeopteris_sapling": {
 				"textures": {
 					"plant": "genesis:blocks/sapling_archaeopteris"
