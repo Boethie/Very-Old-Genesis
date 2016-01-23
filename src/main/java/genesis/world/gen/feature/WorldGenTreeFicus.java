@@ -37,7 +37,7 @@ public class WorldGenTreeFicus extends WorldGenTreeBase
 			return false;
 		
 		int treeHeight = minHeight + rand.nextInt(maxHeight - minHeight);
-		int base = 1 + rand.nextInt(3);
+		int base = 3 + rand.nextInt(3);
 		
 		if (!isCubeClear(world, pos.up(base), 5, treeHeight))
 		{

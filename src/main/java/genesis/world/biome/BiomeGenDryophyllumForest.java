@@ -3,6 +3,7 @@ package genesis.world.biome;
 import java.util.Random;
 
 import genesis.combo.DungBlocksAndItems;
+import genesis.combo.variant.EnumDebrisOther;
 import genesis.combo.variant.EnumDung;
 import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.EnumTree;
@@ -43,7 +44,7 @@ public class BiomeGenDryophyllumForest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(4).setCountPerChunk(3));
 		addDecoration(new WorldGenRockBoulders().setRarity(10).setWaterRequired(false).setMaxHeight(3).addBlocks(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.THEROPODA)).setCountPerChunk(1));
 		addDecoration(new WorldGenDebris().setCountPerChunk(7));
-		//addDecoration(new WorldGenDebris().addAdditional(GenesisBlocks.debris.getBlockState(EnumDebrisOther.TYRANNOSAURUS_FEATHER)).setCountPerChunk(7));
+		addDecoration(new WorldGenDebris().addAdditional(GenesisBlocks.debris.getBlockState(EnumDebrisOther.TYRANNOSAURUS_FEATHER)).setCountPerChunk(7));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));
 	}
 	
