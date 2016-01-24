@@ -1,11 +1,11 @@
 package genesis.world.biome;
 
-public class BiomeGenDryophyllumForestM extends BiomeGenDryophyllumForest
+public class BiomeGenWoodlandsM extends BiomeGenWoodlands
 {
-	public BiomeGenDryophyllumForestM(int id)
+	public BiomeGenWoodlandsM(int id)
 	{
 		super(id);
-		setBiomeName("Dryophyllum Forest M");
+		setBiomeName("Woodlands M");
 		setHeight(0.4F, 0.7F);
 	}
 	

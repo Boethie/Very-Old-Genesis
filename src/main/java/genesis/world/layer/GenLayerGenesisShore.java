@@ -33,12 +33,11 @@ public class GenLayerGenesisShore extends GenLayerGenesis
 						biomeID != GenesisBiomes.auxForest.biomeID 
 						&& biomeID != GenesisBiomes.auxForestM.biomeID 
 						&& biomeID != GenesisBiomes.auxForestHills.biomeID
-						&& biomeID != GenesisBiomes.dryophyllumForestHills.biomeID
-						&& biomeID != GenesisBiomes.dryophyllumForestM.biomeID
+						&& biomeID != GenesisBiomes.woodlands.biomeID
+						&& biomeID != GenesisBiomes.woodlandsM.biomeID
+						&& biomeID != GenesisBiomes.woodlandsHills.biomeID
 						&& biomeID != GenesisBiomes.rainforest.biomeID
 						&& biomeID != GenesisBiomes.rainforestM.biomeID
-						//&& biomeID != GenesisBiomes.rainforestEdge.biomeID
-						//&& biomeID != GenesisBiomes.rainforestEdgeM.biomeID
 						&& biomeID != GenesisBiomes.rainforestHills.biomeID
 						&& biomeID != GenesisBiomes.metaForest.biomeID
 						&& biomeID != GenesisBiomes.metaForestM.biomeID 

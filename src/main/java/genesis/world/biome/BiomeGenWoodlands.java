@@ -9,6 +9,8 @@ import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.WorldGenDebris;
+import genesis.world.biome.decorate.WorldGenGrass;
+import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenPlant;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
@@ -21,16 +23,16 @@ import genesis.world.gen.feature.WorldGenTreeMetasequoia;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-public class BiomeGenDryophyllumForest extends BiomeGenBaseGenesis
+public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 {
-	public BiomeGenDryophyllumForest(int id)
+	public BiomeGenWoodlands(int id)
 	{
 		super(id);
-		setBiomeName("Dryophyllum Forest");
-		setTemperatureRainfall(0.8F, 0.9F);
+		setBiomeName("Woodlands");
+		setTemperatureRainfall(1.1F, 0.9F);
 		setHeight(0.05F, 0.15F);
 		
-		theBiomeDecorator.grassPerChunk = 0;
+		theBiomeDecorator.grassPerChunk = 3;
 		
 		addDecorations();
 		addTrees();
@@ -50,11 +52,17 @@ public class BiomeGenDryophyllumForest extends BiomeGenBaseGenesis
 	
 	protected void addTrees()
 	{
-		addTree(new WorldGenTreeFicus(5, 10, false).setTreeCountPerChunk(1).setRarity(3));
-		addTree(new WorldGenTreeGinkgo(12, 17, false).setTreeCountPerChunk(1).setRarity(6));
-		addTree(new WorldGenTreeDryophyllum(12, 20, false).setTreeCountPerChunk(6));
+		addTree(new WorldGenTreeFicus(5, 10, false).setTreeCountPerChunk(1).setRarity(4));
+		addTree(new WorldGenTreeGinkgo(12, 17, false).setTreeCountPerChunk(1).setRarity(8));
+		addTree(new WorldGenTreeDryophyllum(12, 17, false).setTreeCountPerChunk(5));
 		addTree(new WorldGenTreeMetasequoia(12, 24, true).setTreeCountPerChunk(1));
 		addTree(new WorldGenDeadLog(3, 6, EnumTree.DRYOPHYLLUM, true).setTreeCountPerChunk(1));
+	}
+	
+	@Override
+	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
+	{
+		return new WorldGenGrassMulti(GenesisBlocks.plants.getPlantBlockState(EnumPlant.ONOCLEA)).setVolume(64);
 	}
 	
 	@Override

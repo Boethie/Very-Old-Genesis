@@ -38,9 +38,9 @@ public final class GenesisConfig
 	public static int metaForestHillsId = 68;
 	public static int savannaId = 69;
 	public static int savannaWeight = 10;
-	public static int dryophyllumForestId = 70;
-	public static int dryophyllumForestHillsId = 71;
-	public static int dryophyllumForestWeight = 10;
+	public static int woodlandsId = 70;
+	public static int woodlandsWeight = 10;
+	public static int woodlandsHillsId = 71;
 	
 	//Dimensions
 	public static int genesisDimId = 37;
@@ -88,9 +88,8 @@ public final class GenesisConfig
 		redLowlandsWeight = config.getInt("redLowlandsWeight", "biome", redLowlandsWeight, 0, Integer.MAX_VALUE, "Red Lowlands Biome Weight");
 		savannaId = config.getInt("savannaId", "biome", savannaId, 0, 255, "Savanna Biome ID");
 		savannaWeight = config.getInt("savannaWeight", "biome", savannaWeight, 0, Integer.MAX_VALUE, "Savanna Biome Weight");
-		dryophyllumForestId = config.getInt("dryophillumForestId", "biome", dryophyllumForestId, 0, 255, "Dryophyllum Forest Biome Id");
-		dryophyllumForestHillsId = config.getInt("dryophillumForestHillsId", "biome", dryophyllumForestHillsId, 0, 255, "Dryophyllum Forest Hills Biome Id");
-		dryophyllumForestWeight = config.getInt("dryophillumForestWeight", "biome", dryophyllumForestWeight, 0, 255, "Dryophyllum Forest Weight");
+		woodlandsId = config.getInt("woodlandsId", "biome", woodlandsId, 0, 255, "Woodlands Biome Id");
+		woodlandsWeight = config.getInt("woodlandsWeight", "biome", woodlandsWeight, 0, 255, "Woodlands Weight");
 		
 		//Dimension Id
 		genesisDimId = config.getInt("genesisDimId", "dimension", genesisDimId, Integer.MIN_VALUE, Integer.MAX_VALUE, "Genesis Dimension ID");

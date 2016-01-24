@@ -4,8 +4,8 @@ import genesis.world.biome.BiomeGenAuxForest;
 import genesis.world.biome.BiomeGenAuxForestM;
 import genesis.world.biome.BiomeGenBaseGenesis;
 import genesis.world.biome.BiomeGenBeachGenesis;
-import genesis.world.biome.BiomeGenDryophyllumForest;
-import genesis.world.biome.BiomeGenDryophyllumForestM;
+import genesis.world.biome.BiomeGenWoodlands;
+import genesis.world.biome.BiomeGenWoodlandsM;
 import genesis.world.biome.BiomeGenFloodplainsForest;
 import genesis.world.biome.BiomeGenLimestoneBeach;
 import genesis.world.biome.BiomeGenMarsh;
@@ -38,9 +38,9 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis metaForest;
 	public static BiomeGenBaseGenesis metaForestM;
 	public static BiomeGenBaseGenesis metaForestHills;
-	public static BiomeGenBaseGenesis dryophyllumForest;
-	public static BiomeGenBaseGenesis dryophyllumForestM;
-	public static BiomeGenBaseGenesis dryophyllumForestHills;
+	public static BiomeGenBaseGenesis woodlands;
+	public static BiomeGenBaseGenesis woodlandsM;
+	public static BiomeGenBaseGenesis woodlandsHills;
 	public static BiomeGenBaseGenesis swampRainForest;
 	public static BiomeGenBaseGenesis marsh;
 	public static BiomeGenBaseGenesis floodplainsForest;
@@ -95,15 +95,15 @@ public final class GenesisBiomes
 		auxForestHills = new BiomeGenAuxForest(GenesisConfig.auxForestHillsId).setBiomeName("Araucarioxylon Forest Hills").setHeight(height_LowHills);
 		BiomeDictionary.registerBiomeType(auxForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
-		dryophyllumForest = new BiomeGenDryophyllumForest(GenesisConfig.dryophyllumForestId).setBiomeName("Dryophyllum Forest");
-		BiomeManagerGenesis.registerBiome(dryophyllumForest, BiomeType.WARM, GenesisConfig.dryophyllumForestWeight);
-		BiomeDictionary.registerBiomeType(dryophyllumForest, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		woodlands = new BiomeGenWoodlands(GenesisConfig.woodlandsId).setBiomeName("Woodlands");
+		BiomeManagerGenesis.registerBiome(woodlands, BiomeType.WARM, GenesisConfig.woodlandsWeight);
+		BiomeDictionary.registerBiomeType(woodlands, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
-		dryophyllumForestM = new BiomeGenDryophyllumForestM(GenesisConfig.dryophyllumForestId+128).setBiomeName("Dryophyllum Forest M");
-		BiomeDictionary.registerBiomeType(dryophyllumForestM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		woodlandsM = new BiomeGenWoodlandsM(GenesisConfig.woodlandsId+128).setBiomeName("Woodlands M");
+		BiomeDictionary.registerBiomeType(woodlandsM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
-		dryophyllumForestHills = new BiomeGenDryophyllumForest(GenesisConfig.dryophyllumForestHillsId).setBiomeName("Dryophyllum Forest Hills").setHeight(height_LowHills);
-		BiomeDictionary.registerBiomeType(dryophyllumForestHills, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		woodlandsHills = new BiomeGenWoodlands(GenesisConfig.woodlandsHillsId).setBiomeName("Woodlands Hills").setHeight(height_LowHills);
+		BiomeDictionary.registerBiomeType(woodlandsHills, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		/*
 		savanna = new BiomeGenSavanna(GenesisConfig.savannaId);
 		BiomeManagerGenesis.registerBiome(savanna, BiomeType.WARM, GenesisConfig.savannaWeight);
