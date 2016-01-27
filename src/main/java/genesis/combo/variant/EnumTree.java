@@ -28,14 +28,18 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	public static final Set<EnumTree> NO_BILLET;
 	public static final Set<EnumTree> NO_DEAD;
 	public static final Set<EnumTree> NO_DEBRIS;
-	public static final Set<EnumTree> FRUIT;
+	public static final Set<EnumTree> FRUIT_LEAVES;
+	public static final Set<EnumTree> FRUIT_HANGING;
+	public static final Set<EnumTree> FRUIT_ITEMS;
 	
 	static
 	{
 		ImmutableSet.Builder<EnumTree> noBillet = ImmutableSet.builder();
 		ImmutableSet.Builder<EnumTree> noDead = ImmutableSet.builder();
 		ImmutableSet.Builder<EnumTree> noDebris = ImmutableSet.builder();
-		ImmutableSet.Builder<EnumTree> fruit = ImmutableSet.builder();
+		ImmutableSet.Builder<EnumTree> fruitLeaves = ImmutableSet.builder();
+		ImmutableSet.Builder<EnumTree> fruitHanging = ImmutableSet.builder();
+		ImmutableSet.Builder<EnumTree> fruitItems = ImmutableSet.builder();
 		
 		for (EnumTree tree : values())
 		{
@@ -49,13 +53,27 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 				noDebris.add(tree);
 			
 			if (tree.getFruitType() != FruitType.NONE)
-				fruit.add(tree);
+				fruitItems.add(tree);
+			
+			switch (tree.getFruitType())
+			{
+			case LEAVES:
+				fruitLeaves.add(tree);
+				break;
+			case HANGING:
+				fruitHanging.add(tree);
+				break;
+			default:
+				break;
+			}
 		}
-
+		
 		NO_BILLET = noBillet.build();
 		NO_DEAD = noDead.build();
 		NO_DEBRIS = noDebris.build();
-		FRUIT = fruit.build();
+		FRUIT_LEAVES = fruitLeaves.build();
+		FRUIT_HANGING = fruitHanging.build();
+		FRUIT_ITEMS = fruitItems.build();
 	}
 	
 	public static enum FruitType

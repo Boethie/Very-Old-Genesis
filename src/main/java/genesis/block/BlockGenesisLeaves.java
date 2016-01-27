@@ -3,6 +3,7 @@ package genesis.block;
 import genesis.combo.*;
 import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.EnumTree;
+import genesis.combo.variant.EnumTree.FruitType;
 import genesis.combo.variant.PropertyIMetadata;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemBlockMulti;
@@ -224,14 +225,14 @@ public class BlockGenesisLeaves extends BlockLeaves
 		{
 			EnumTree variant = state.getValue(variantProp);
 			
-			if (EnumTree.FRUIT.contains(variant))
+			if (variant.getFruitType() == FruitType.LEAVES)
 			{
 				int fruitCount = 4;
 				final int radius = 8;
 				
 				for (BlockPos checkPos : BlockPos.getAllInBoxMutable(pos.add(-radius, -radius, -radius), pos.add(radius, radius, radius)))
 				{
-					if (owner.isStateOf(world.getBlockState(checkPos), TreeBlocksAndItems.LEAVES_FRUIT, variant))
+					if (owner.isStateOf(world.getBlockState(checkPos), variant, TreeBlocksAndItems.LEAVES_FRUIT))
 					{
 						fruitCount--;
 						if (fruitCount <= 0)

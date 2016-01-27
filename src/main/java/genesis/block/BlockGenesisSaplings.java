@@ -210,7 +210,7 @@ public class BlockGenesisSaplings extends BlockSapling
 				{
 					BlockPos check = checkStart.add(x, 0, z);
 					
-					if (GenesisBlocks.trees.isStateOf(world.getBlockState(check), type, variant))
+					if (GenesisBlocks.trees.isStateOf(world.getBlockState(check), variant, type))
 						positions[z * area + x] = check;
 					else
 						break areaCheck;

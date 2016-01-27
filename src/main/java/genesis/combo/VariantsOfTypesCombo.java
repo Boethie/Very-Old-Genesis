@@ -1192,20 +1192,45 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	public boolean isStackOf(ItemStack stack, ObjectType<?, ?> type)
 	{
 		if (stack == null)
-		{
 			return false;
-		}
 		
 		SubsetData data = getSubsetData(stack.getItem());
-		return data != null ? data.type == type : false;
+		
+		return data != null && data.type == type;
 	}
 	
 	/**
 	 * @return Whether the stack is of the specified {@link ObjectType} and variant.
 	 */
-	public boolean isStackOf(ItemStack stack, ObjectType<?, ?> type, V variant)
+	public boolean isStackOf(ItemStack stack, V variant, ObjectType<?, ?> type)
 	{
 		return isStackOf(stack, type) && getVariant(stack) == variant;
+	}
+	
+	/**
+	 * @return Whether the stack is of one of the specified {@link ObjectType}s.
+	 */
+	public boolean isStackOf(ItemStack stack, ObjectType<?, ?>... types)
+	{
+		if (stack == null)
+			return false;
+		
+		SubsetData data = getSubsetData(stack.getItem());
+		
+		if (data != null)
+			for (ObjectType<?, ?> type : types)
+				if (type == data.type)
+					return true;
+		
+		return false;
+	}
+	
+	/**
+	 * @return Whether the stack is of one of the specified {@link ObjectType}s and variant.
+	 */
+	public boolean isStackOf(ItemStack stack, V variant, ObjectType<?, ?>... types)
+	{
+		return isStackOf(stack, types) && getVariant(stack) == variant;
 	}
 	
 	/**
@@ -1218,11 +1243,34 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	}
 	
 	/**
-	 * @return Whether the state is of the specified {@link ObjectType} and variant.
+	 * @return Whether the state is of  the specified {@link ObjectType} and variant.
 	 */
-	public boolean isStateOf(IBlockState state, ObjectType<?, ?> type, V variant)
+	public boolean isStateOf(IBlockState state, V variant, ObjectType<?, ?> type)
 	{
 		return isStateOf(state, type) && getVariant(state) == variant;
+	}
+	
+	/**
+	 * @return Whether the state is of one of the specified {@link ObjectType}s.
+	 */
+	public boolean isStateOf(IBlockState state, ObjectType<?, ?>... types)
+	{
+		SubsetData data = getSubsetData(state.getBlock());
+		
+		if (data != null)
+			for (ObjectType<?, ?> type : types)
+				if (type == data.type)
+					return true;
+		
+		return false;
+	}
+	
+	/**
+	 * @return Whether the state is of one of the specified {@link ObjectType}s and variant.
+	 */
+	public boolean isStateOf(IBlockState state, V variant, ObjectType<?, ?>... types)
+	{
+		return isStateOf(state, types) && getVariant(state) == variant;
 	}
 	
 	/**

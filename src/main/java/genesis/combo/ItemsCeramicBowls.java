@@ -140,21 +140,21 @@ public class ItemsCeramicBowls extends VariantsOfTypesCombo<MultiMetadata>
 	// isStackOf
 	public boolean isStackOf(ItemStack stack, EnumCeramicBowls variant)
 	{
-		return super.isStackOf(stack, MAIN, getVariant(variant));
+		return super.isStackOf(stack, getVariant(variant), MAIN);
 	}
 	
 	public boolean isStackOf(ItemStack stack, GenesisDye variant)
 	{
-		return super.isStackOf(stack, DYE, getVariant(variant));
+		return super.isStackOf(stack, getVariant(variant), DYE);
 	}
 	
 	public boolean isStackOf(ItemStack stack, EnumDyeColor variant)
 	{
-		return super.isStackOf(stack, DYE, getVariant(variant));
+		return super.isStackOf(stack, getVariant(variant), DYE);
 	}
 	
 	public boolean isStackOf(ItemStack stack, EnumDish variant)
 	{
-		return super.isStackOf(stack, DISH, getVariant(variant));
+		return super.isStackOf(stack, getVariant(variant), DISH);
 	}
 }

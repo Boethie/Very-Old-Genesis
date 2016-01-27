@@ -82,12 +82,12 @@ public class DebrisBlocks extends VariantsCombo<MultiMetadata, BlockGenesisDebri
 	
 	public boolean isStackOf(ItemStack stack, EnumTree variant)
 	{
-		return super.isStackOf(stack, soleType, getVariant(variant));
+		return super.isStackOf(stack, getVariant(variant), soleType);
 	}
 	
 	public boolean isStateOf(IBlockState state, EnumTree variant)
 	{
-		return super.isStateOf(state, soleType, getVariant(variant));
+		return super.isStateOf(state, getVariant(variant), soleType);
 	}
 	
 	// Other
@@ -128,11 +128,11 @@ public class DebrisBlocks extends VariantsCombo<MultiMetadata, BlockGenesisDebri
 	
 	public boolean isStackOf(ItemStack stack, EnumDebrisOther variant)
 	{
-		return super.isStackOf(stack, soleType, getVariant(variant));
+		return super.isStackOf(stack, getVariant(variant), soleType);
 	}
 	
 	public boolean isStateOf(IBlockState state, EnumDebrisOther variant)
 	{
-		return super.isStateOf(state, soleType, getVariant(variant));
+		return super.isStateOf(state, getVariant(variant), soleType);
 	}
 }

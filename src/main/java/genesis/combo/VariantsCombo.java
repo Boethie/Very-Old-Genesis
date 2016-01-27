@@ -193,7 +193,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	 */
 	public boolean isStackOf(ItemStack stack, V variant)
 	{
-		return super.isStackOf(stack, soleType, variant);
+		return super.isStackOf(stack, variant, soleType);
 	}
 	
 	/**
@@ -209,7 +209,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	 */
 	public boolean isStateOf(IBlockState state, V variant)
 	{
-		return super.isStateOf(state, soleType, variant);
+		return super.isStateOf(state, variant, soleType);
 	}
 	
 	/**

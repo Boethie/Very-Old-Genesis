@@ -36,10 +36,13 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo<EnumTree>
 	public static final ObjectType<BlockGenesisLeavesFruit, ItemBlockMulti<EnumTree>> LEAVES_FRUIT =
 			new ObjectType<BlockGenesisLeavesFruit, ItemBlockMulti<EnumTree>>("leaves_fruit", "leaves.fruit", BlockGenesisLeavesFruit.class, null)
 					.setIgnoredProperties(BlockLeaves.CHECK_DECAY, BlockLeaves.DECAYABLE)
-					.setValidVariants(EnumTree.FRUIT);
+					.setValidVariants(EnumTree.FRUIT_LEAVES);
+	public static final ObjectType<BlockHangingFruit, Item> HANGING_FRUIT =
+			ObjectType.create("hanging_fruit", "hanging.fruit", BlockHangingFruit.class, null)
+					.setValidVariants(EnumTree.FRUIT_HANGING);
 	public static final ObjectType<Block, ItemGenesisFood<EnumTree>> FRUIT =
 			ObjectType.createItem("fruit", Unlocalized.Section.FOOD + "fruit", ReflectionUtils.<ItemGenesisFood<EnumTree>>convertClass(ItemGenesisFood.class))
-					.setValidVariants(EnumTree.FRUIT);
+					.setValidVariants(EnumTree.FRUIT_ITEMS);
 	public static final ObjectType<Block, ItemMulti<EnumTree>> BILLET =
 			new ObjectType<Block, ItemMulti<EnumTree>>("billet", Unlocalized.Section.MATERIAL + "billet", null, null, EnumTree.NO_BILLET)
 			{
@@ -58,7 +61,7 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo<EnumTree>
 	
 	public static final ImmutableList<? extends ObjectType<?, ?>> TYPES =
 			ImmutableList.of(
-					LOG, SAPLING, LEAVES, LEAVES_FRUIT,
+					LOG, SAPLING, LEAVES, LEAVES_FRUIT, HANGING_FRUIT,
 					BILLET, WATTLE_FENCE, FRUIT,
 					DEAD_LOG);
 	
