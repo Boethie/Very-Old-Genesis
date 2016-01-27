@@ -3,6 +3,7 @@ package genesis.block.tileentity.portal;
 import genesis.common.GenesisConfig;
 import genesis.common.GenesisDimensions;
 import genesis.portal.GenesisPortal;
+import genesis.util.Constants;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -13,6 +14,10 @@ import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.Random;
 
 public class BlockGenesisPortal extends Block
 {
@@ -106,5 +111,15 @@ public class BlockGenesisPortal extends Block
 	public MovingObjectPosition collisionRayTrace(World world, BlockPos pos, Vec3 start, Vec3 end)
 	{
 		return null;
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+	{
+		if (rand.nextInt(100) == 0)
+		{
+			worldIn.playSound((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, Constants.ASSETS_PREFIX + "portal.ambient", 0.5F, rand.nextFloat() * 0.4F + 0.8F, false);
+		}
 	}
 }
