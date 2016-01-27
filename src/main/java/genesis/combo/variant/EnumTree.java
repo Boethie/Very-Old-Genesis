@@ -19,7 +19,7 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	GINKGO("ginkgo", props().noDead().fruit(1, 1)),
 	BJUVIA("bjuvia", props().noBillet().noDead().noDebris()),
 	VOLTZIA("voltzia", props().noDead().noDebris()),
-	ARAUCARIOXYLON("araucarioxylon", props().fruit(1, 1)),
+	ARAUCARIOXYLON("araucarioxylon", props().hangingFruit()),
 	METASEQUOIA("metasequoia", props()),
 	ARCHAEANTHUS("archaeanthus", props().noDead()),
 	DRYOPHYLLUM("dryophyllum", props()),
@@ -39,16 +39,16 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 		
 		for (EnumTree tree : values())
 		{
-			if (tree.noBillet)
+			if (!tree.hasBillet())
 				noBillet.add(tree);
 			
-			if (tree.noDead)
+			if (!tree.hasDead())
 				noDead.add(tree);
 			
-			if (tree.noDebris)
+			if (!tree.hasDebris())
 				noDebris.add(tree);
 			
-			if (tree.food > 0)
+			if (tree.getFruitType() != FruitType.NONE)
 				fruit.add(tree);
 		}
 
@@ -58,13 +58,19 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 		FRUIT = fruit.build();
 	}
 	
+	public static enum FruitType
+	{
+		NONE, LEAVES, HANGING
+	}
+	
 	final String name;
 	final String unlocalizedName;
 	
-	final boolean noBillet;
-	final boolean noDebris;
-	final boolean noDead;
+	final boolean billet;
+	final boolean debris;
+	final boolean dead;
 	
+	final FruitType fruit;
 	final int food;
 	final float saturation;
 	final List<PotionEffect> effects;
@@ -74,10 +80,11 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 		this.name = name;
 		this.unlocalizedName = unlocalizedName;
 		
-		noBillet = props.noBillet;
-		noDebris = props.noDebris;
-		noDead = props.noDead;
+		billet = props.billet;
+		debris = props.debris;
+		dead = props.dead;
 		
+		fruit = props.fruit;
 		food = props.food;
 		saturation = props.saturation;
 		effects = props.effects;
@@ -106,6 +113,26 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 		return unlocalizedName;
 	}
 	
+	public boolean hasBillet()
+	{
+		return billet;
+	}
+	
+	public boolean hasDebris()
+	{
+		return debris;
+	}
+	
+	public boolean hasDead()
+	{
+		return dead;
+	}
+	
+	public FruitType getFruitType()
+	{
+		return fruit;
+	}
+	
 	@Override
 	public int getFoodAmount()
 	{
@@ -131,10 +158,11 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	
 	private static final class Props
 	{
-		boolean noBillet = false;
-		boolean noDebris = false;
-		boolean noDead = false;
+		boolean billet = true;
+		boolean debris = true;
+		boolean dead = true;
 		
+		FruitType fruit = FruitType.NONE;
 		int food = 0;
 		float saturation = 0;
 		List<PotionEffect> effects = Collections.emptyList();
@@ -145,28 +173,45 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 		
 		private Props noBillet()
 		{
-			noBillet = true;
+			billet = false;
 			return this;
 		}
 		
 		private Props noDebris()
 		{
-			noDebris = true;
+			debris = false;
 			return this;
 		}
 		
 		private Props noDead()
 		{
-			noDead = true;
+			dead = false;
+			return this;
+		}
+		
+		private Props fruit(FruitType fruit)
+		{
+			this.fruit = fruit;
+			return this;
+		}
+		
+		private Props hangingFruit()
+		{
+			return fruit(FruitType.HANGING);
+		}
+		
+		private Props fruit(FruitType fruit, int food, float saturation, PotionEffect... effects)
+		{
+			fruit(fruit);
+			this.food = food;
+			this.saturation = saturation;
+			this.effects = ImmutableList.copyOf(effects);
 			return this;
 		}
 		
 		private Props fruit(int food, float saturation, PotionEffect... effects)
 		{
-			this.food = food;
-			this.saturation = saturation;
-			this.effects = ImmutableList.copyOf(effects);
-			return this;
+			return fruit(FruitType.LEAVES, food, saturation, effects);
 		}
 	}
 }

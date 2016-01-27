@@ -18,19 +18,19 @@
 			"from": [ 0, 0, 0 ],
 			"to": [ 16, 16, 16 ],
 			"faces": {
-				"west": { "uv": [ 0, 0, 16, 16 ], "texture": "#fig_side_1" },
-				"north": { "uv": [ 0, 0, 16, 16 ], "texture": "#fig_side_2" },
-				"east": { "uv": [ 0, 0, 16, 16 ], "texture": "#fig_side_1" },
-				"south": { "uv": [ 0, 0, 16, 16 ], "texture": "#fig_side_2" },
-				"down": { "uv": [ 0, 0, 16, 16 ], "texture": "#fig_bottom" }
+				"west": { "uv": [ 0, 0, 16, 16 ], "texture": "#nuts_2" },
+				"north": { "uv": [ 0, 0, 16, 16 ], "texture": "#nuts_1" },
+				"east": { "uv": [ 0, 0, 16, 16 ], "texture": "#nuts_2" },
+				"south": { "uv": [ 0, 0, 16, 16 ], "texture": "#nuts_1" },
+				"down": { "uv": [ 0, 0, 16, 16 ], "texture": "#nuts_bottom" }
 			}
 		}
 	],
 	"textures": {
-		"leaves": "genesis:blocks/leaves_ficus",
-		"fig_side_1": "genesis:blocks/fruit_ficus_side_1",
-		"fig_side_2": "genesis:blocks/fruit_ficus_side_2",
-		"fig_bottom": "genesis:blocks/fruit_ficus_bottom",
-		"particle": "genesis:blocks/leaves_ficus"
+		"leaves": "genesis:blocks/leaves_ginkgo",
+		"nuts_2": "genesis:blocks/fruit_ginkgo_side_2",
+		"nuts_1": "genesis:blocks/fruit_ginkgo_side_1",
+		"nuts_bottom": "genesis:blocks/fruit_ginkgo_bottom",
+		"particle": "genesis:blocks/leaves_ginkgo"
 	}
 }

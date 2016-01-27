@@ -1,0 +1,29 @@
+{
+	"__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
+	"ambientocclusion": true,
+	"elements": [
+		{	"__comment": "Leaves",
+			"from": [ 0, 0, 0 ],
+			"to": [ 16, 16, 16 ],
+			"faces": {
+				"west": { "uv": [ 0, 0, 16, 16 ], "texture": "#leaves", "tintindex": 0, "cullface": "west" },
+				"north": { "uv": [ 0, 0, 16, 16 ], "texture": "#leaves", "tintindex": 0, "cullface": "north" },
+				"east": { "uv": [ -0, 0, 16, 16 ], "texture": "#leaves", "tintindex": 0, "cullface": "east" },
+				"south": { "uv": [ 0, 0, 16, 16 ], "texture": "#leaves", "tintindex": 0, "cullface": "south" },
+				"down": { "uv": [ 0, 0, 16, 16 ], "texture": "#leaves", "tintindex": 0, "cullface": "down" },
+				"up": { "uv": [ 0, 0, 16, 16 ], "texture": "#leaves", "tintindex": 0, "cullface": "up" }
+			}
+		},
+		{	"__comment": "Fruit",
+			"from": [ 0, 0, 0 ],
+			"to": [ 16, 16, 16 ],
+			"faces": {
+				"west": { "uv": [ 0, 0, 16, 16 ], "texture": "#fruit", "cullface": "west" },
+				"north": { "uv": [ 0, 0, 16, 16 ], "texture": "#fruit", "cullface": "north" },
+				"east": { "uv": [ 0, 0, 16, 16 ], "texture": "#fruit", "cullface": "east" },
+				"south": { "uv": [ 0, 0, 16, 16 ], "texture": "#fruit", "cullface": "south" },
+				"down": { "uv": [ 0, 0, 16, 16 ], "texture": "#fruit", "cullface": "down" }
+			}
+		}
+	]
+}

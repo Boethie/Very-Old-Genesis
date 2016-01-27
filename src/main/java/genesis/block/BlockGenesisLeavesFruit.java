@@ -7,6 +7,7 @@ import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.VariantsOfTypesCombo.BlockProperties;
 import genesis.combo.VariantsOfTypesCombo.ObjectType;
 import genesis.combo.variant.EnumTree;
+import genesis.combo.variant.EnumTree.FruitType;
 import genesis.item.ItemBlockMulti;
 import genesis.util.WorldUtils;
 import genesis.util.WorldUtils.DropType;
@@ -49,19 +50,26 @@ public class BlockGenesisLeavesFruit extends BlockGenesisLeaves
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player,
 			EnumFacing side, float hitX, float hitY, float hitZ)
 	{
-		if (!world.isRemote)
+		EnumTree variant = state.getValue(variantProp);
+		
+		if (variant.getFruitType() == FruitType.LEAVES)
 		{
-			EnumTree variant = state.getValue(variantProp);
+			if (!world.isRemote)
+			{
+				final double offset = 0.25;
+				Vec3 itemPos = new Vec3(pos.getX() + hitX, pos.getY() + hitY, pos.getZ() + hitZ);
+				itemPos = itemPos.addVector(side.getFrontOffsetX() * offset, side.getFrontOffsetY() * offset, side.getFrontOffsetZ() * offset);
+				WorldUtils.spawnItemsAt(world, itemPos, DropType.BLOCK,
+						owner.getStack(TreeBlocksAndItems.FRUIT, variant));
+				
+				world.setBlockState(pos,
+						owner.getBlockState(TreeBlocksAndItems.LEAVES, variant)
+								.withProperty(DECAYABLE, false));
+			}
 			
-			final double offset = 0.25;
-			Vec3 itemPos = new Vec3(pos.getX() + hitX, pos.getY() + hitY, pos.getZ() + hitZ);
-			itemPos = itemPos.addVector(side.getFrontOffsetX() * offset, side.getFrontOffsetY() * offset, side.getFrontOffsetZ() * offset);
-			WorldUtils.spawnItemsAt(world, itemPos, DropType.BLOCK,
-					owner.getStack(TreeBlocksAndItems.FRUIT, variant));
-			
-			world.setBlockState(pos, owner.getBlockState(TreeBlocksAndItems.LEAVES, variant));
+			return true;
 		}
 		
-		return true;
+		return false;
 	}
 }

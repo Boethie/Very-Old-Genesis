@@ -106,6 +106,7 @@ tile.genesis.leaves.lepidodendron.name=Lepidodendron Leaves
 tile.genesis.leaves.cordaites.name=Cordaites Leaves
 tile.genesis.leaves.psaronius.name=Psaronius Leaves
 tile.genesis.leaves.ginkgo.name=Ginkgo Leaves
+tile.genesis.leaves.fruit.ginkgo.name=Ginkgo Fruit Leaves
 tile.genesis.leaves.bjuvia.name=Bjuvia Leaves
 tile.genesis.leaves.voltzia.name=Voltzia Leaves
 tile.genesis.leaves.araucarioxylon.name=Araucarioxylon Leaves
@@ -113,6 +114,7 @@ tile.genesis.leaves.metasequoia.name=Metasequoia Leaves
 tile.genesis.leaves.archaeanthus.name=Archaeanthus Leaves
 tile.genesis.leaves.dryophyllum.name=Dryophyllum Leaves
 tile.genesis.leaves.ficus.name=Ficus Leaves
+tile.genesis.leaves.fruit.ficus.name=Ficus Fruit Leaves
 
 tile.genesis.sapling.archaeopteris.name=Archaeopteris Sapling
 tile.genesis.sapling.sigillaria.name=Sigillaria Sapling
