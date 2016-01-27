@@ -231,14 +231,16 @@ item.genesis.misc.menhirActivator.legendarySpectrumEye.name=Legendary Spectrum E
 item.genesis.misc.menhirActivator.primitiveDust.name=Primitive Dust
 
 #Food
-item.genesis.seeds.ginkgoNuts.name=Ginkgo Nuts
 item.genesis.seeds.araucarioxylon.name=Araucarioxylon Seeds
-item.genesis.seeds.fig.name=Fig
 item.genesis.seeds.odontopteris.name=Odontopteris Seeds
 item.genesis.seeds.neuropteridiumRhizome.name=Neuropteridium Rhizome
 item.genesis.seeds.programinis.name=Programinis Seeds
 item.genesis.seeds.zingiberopsisRhizome.name=Zingiberopsis Rhizome
 item.genesis.seeds.prototaxitesFlesh.name=Prototaxites Flesh
+
+item.genesis.food.fruit.ginkgo.name=Ginkgo Nuts
+item.genesis.food.fruit.araucarioxylon.name=Araucarioxylon Cone
+item.genesis.food.fruit.ficus.name=Fig
 
 item.genesis.food.spirifer.raw.name=Raw Spirifer
 item.genesis.food.spirifer.cooked.name=Cooked Spirifer
@@ -478,7 +480,6 @@ item.genesis.material.billet.dryophyllum.name=Dryophyllum Wood Billet
 item.genesis.material.billet.ficus.name=Ficus Wood Billet
 
 item.genesis.material.resin.name=Resin
-item.genesis.material.araucarioxylonCone.name=Araucarioxylon Cone
 item.genesis.material.calamites.name=Calamites
 item.genesis.material.sphenophyllumFiber.name=Sphenophyllum Fiber
 item.genesis.material.odontopterisFiddlehead.name=Odontopteris Fiddlehead

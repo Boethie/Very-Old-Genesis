@@ -105,6 +105,7 @@ tile.genesis.leaves.lepidodendron.name=Feuilles de Lepidodendron
 tile.genesis.leaves.cordaites.name=Feuilles de Cordaites
 tile.genesis.leaves.psaronius.name=Feuilles de Psaronius
 tile.genesis.leaves.ginkgo.name=Feuilles de Ginkgo
+tile.genesis.leaves.fruit.ginkgo.name=Feuilles à fruits de Ginkgo
 tile.genesis.leaves.bjuvia.name=Feuilles de Bjuvia
 tile.genesis.leaves.voltzia.name=Feuilles de Voltzia
 tile.genesis.leaves.araucarioxylon.name=Feuilles d'Araucarioxylon
@@ -112,6 +113,7 @@ tile.genesis.leaves.metasequoia.name=Feuilles de Metasequoia
 tile.genesis.leaves.archaeanthus.name=Feuilles d'Archaeanthus
 tile.genesis.leaves.dryophyllum.name=Feuilles de Dryophyllum
 tile.genesis.leaves.ficus.name=Feuilles de Ficus
+tile.genesis.leaves.fruit.ficus.name=Feuilles à fruits de Ficus
 
 tile.genesis.sapling.archaeopteris.name=Pousse d'Archaeopteris
 tile.genesis.sapling.sigillaria.name=Pousse de Sigillaria
@@ -228,14 +230,16 @@ item.genesis.misc.menhirActivator.legendarySpectrumEye.name=Œil du spectre lég
 item.genesis.misc.menhirActivator.primitiveDust.name=Poussière pritimive
 
 #Food
-item.genesis.seeds.ginkgoNuts.name=Noix de Ginkgo
 item.genesis.seeds.araucarioxylon.name=Graines d'Araucarioxylon
-item.genesis.seeds.fig.name=Figue
 item.genesis.seeds.odontopteris.name=Graines d'Odontopteris
 item.genesis.seeds.neuropteridiumRhizome.name=Rhizome de Neuropteridium
 item.genesis.seeds.programinis.name=Graines de Programinis
 item.genesis.seeds.zingiberopsisRhizome.name=Rhizome de Zingiberopsis
 item.genesis.seeds.prototaxitesFlesh.name=Chair de Prototaxites
+
+item.genesis.food.fruit.ginkgo.name=Noix de Ginkgo
+item.genesis.food.fruit.araucarioxylon.name=Cône d'Araucarioxylon
+item.genesis.food.fruit.ficus.name=Figue
 
 item.genesis.food.spirifer.raw.name=Spirifer cru
 item.genesis.food.spirifer.cooked.name=Spirifer cuit
@@ -475,7 +479,6 @@ item.genesis.material.billet.dryophyllum.name=Billette de bois de Dryophyllum
 item.genesis.material.billet.ficus.name=Billette de bois de Ficus
 
 item.genesis.material.resin.name=Résine
-item.genesis.material.araucarioxylonCone.name=Cône d'Araucarioxylon
 item.genesis.material.calamites.name=Calamites
 item.genesis.material.sphenophyllumFiber.name=Fibre de Sphenophyllum
 item.genesis.material.odontopterisFiddlehead.name=Crosse d'Odontopteris

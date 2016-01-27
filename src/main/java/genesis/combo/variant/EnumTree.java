@@ -16,14 +16,14 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	LEPIDODENDRON("lepidodendron", props()),
 	CORDAITES("cordaites", props().noDebris()),
 	PSARONIUS("psaronius", props().noBillet().noDead().noDebris()),
-	GINKGO("ginkgo", props().noDead().fruit(1, 1)),
+	GINKGO("ginkgo", props().noDead().fruit(1, 0.4F)),
 	BJUVIA("bjuvia", props().noBillet().noDead().noDebris()),
 	VOLTZIA("voltzia", props().noDead().noDebris()),
 	ARAUCARIOXYLON("araucarioxylon", props().hangingFruit()),
 	METASEQUOIA("metasequoia", props()),
 	ARCHAEANTHUS("archaeanthus", props().noDead()),
 	DRYOPHYLLUM("dryophyllum", props()),
-	FICUS("ficus", props().noDead().fruit(1, 1));
+	FICUS("ficus", props().noDead().fruit(1, 1.2F));
 	
 	public static final Set<EnumTree> NO_BILLET;
 	public static final Set<EnumTree> NO_DEAD;
