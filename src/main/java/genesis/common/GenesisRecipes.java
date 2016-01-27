@@ -327,10 +327,32 @@ public final class GenesisRecipes
 		// All debris recipes
 		for (EnumTree tree : EnumTree.values())
 		{
-			if (!EnumTree.NO_DEBRIS.contains(tree))
-			{
+			if (tree.hasDebris())
 				GameRegistry.addShapelessRecipe(GenesisBlocks.debris.getStack(tree, 4),
 						GenesisBlocks.trees.getStack(TreeBlocksAndItems.LEAVES, tree));
+			
+			ItemStack porridge = null;
+			
+			switch (tree)
+			{
+			case FICUS:
+				porridge = GenesisItems.bowls.getStack(EnumDish.PORRIDGE_FIG);
+				break;
+			case GINKGO:
+				porridge = GenesisItems.bowls.getStack(EnumDish.PORRIDGE_GINKGO);
+				break;
+			case ARAUCARIOXYLON:
+				porridge = GenesisItems.bowls.getStack(EnumDish.PORRIDGE_ARAUCARIOXYLON);
+				break;
+			default:
+				break;
+			}
+			
+			if (porridge != null)
+			{
+				CookingPotRecipeRegistry.registerShapeless(porridge,
+						GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS),
+						GenesisBlocks.trees.getStack(TreeBlocksAndItems.FRUIT, tree));
 			}
 		}
 		
