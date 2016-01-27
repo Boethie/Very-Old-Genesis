@@ -247,7 +247,7 @@ public final class GenesisRecipes
 		FuelHandler.initialize();
 		
 		//Food
-		GameRegistry.addShapelessRecipe(GenesisItems.seeds.getStack(EnumSeeds.ARAUCARIOXYLON_SEEDS), GenesisItems.materials.getStack(EnumMaterial.ARAUCARIOXYLON_CONE));
+		GameRegistry.addShapelessRecipe(GenesisItems.seeds.getStack(EnumSeeds.ARAUCARIOXYLON_SEEDS), GenesisBlocks.trees.getStack(TreeBlocksAndItems.FRUIT, EnumTree.ARAUCARIOXYLON));
 		
 		//Torches
 		ItemStack resin = GenesisItems.materials.getStack(EnumMaterial.RESIN);
@@ -340,9 +340,6 @@ public final class GenesisRecipes
 				break;
 			case GINKGO:
 				porridge = GenesisItems.bowls.getStack(EnumDish.PORRIDGE_GINKGO);
-				break;
-			case ARAUCARIOXYLON:
-				porridge = GenesisItems.bowls.getStack(EnumDish.PORRIDGE_ARAUCARIOXYLON);
 				break;
 			default:
 				break;
@@ -702,9 +699,7 @@ public final class GenesisRecipes
 			switch (dish)
 			{
 			case PORRIDGE:
-			case PORRIDGE_GINKGO:
 			case PORRIDGE_ARAUCARIOXYLON:
-			case PORRIDGE_FIG:
 			case PORRIDGE_ODONTOPTERIS:
 			case PORRIDGE_ZINGIBEROPSIS:
 			case PORRIDGE_ARCHAEOMARASMIUS:
@@ -730,14 +725,8 @@ public final class GenesisRecipes
 			{
 			case PORRIDGE:
 				break;
-			case PORRIDGE_GINKGO:
-				ingredients.add(GenesisItems.seeds.getStack(EnumSeeds.GINKGO_NUTS));
-				break;
 			case PORRIDGE_ARAUCARIOXYLON:
 				ingredients.add(GenesisItems.seeds.getStack(EnumSeeds.ARAUCARIOXYLON_SEEDS));
-				break;
-			case PORRIDGE_FIG:
-				ingredients.add(GenesisItems.seeds.getStack(EnumSeeds.FIG));
 				break;
 			case PORRIDGE_ODONTOPTERIS:
 				ingredients.add(GenesisItems.seeds.getStack(EnumSeeds.ODONTOPTERIS_SEEDS));

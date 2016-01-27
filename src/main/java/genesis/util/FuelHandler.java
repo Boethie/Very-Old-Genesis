@@ -1,6 +1,8 @@
 package genesis.util;
 
+import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumMaterial;
+import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
 
@@ -37,7 +39,7 @@ public class FuelHandler implements IFuelHandler
 		
 		setBurnTime(GenesisItems.materials.getStack(EnumMaterial.DUNG_BRICK), TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.log)), true);
 		
-		setBurnTime(GenesisItems.materials.getStack(EnumMaterial.ARAUCARIOXYLON_CONE), TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.sapling)), false);
+		setBurnTime(GenesisBlocks.trees.getStack(TreeBlocksAndItems.FRUIT, EnumTree.ARAUCARIOXYLON), TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.sapling)), false);
 		
 		setBurnTime(GenesisItems.bucket_komatiitic_lava, TileEntityFurnace.getItemBurnTime(new ItemStack(Items.lava_bucket)), false);
 	}

@@ -4,7 +4,6 @@ public enum EnumMaterial implements IMetadata<EnumMaterial>
 {
 	DUNG_BRICK("dung_brick", "dungBrick"),
 	RESIN("resin"),
-	ARAUCARIOXYLON_CONE("araucarioxylon_cone", "araucarioxylonCone"),
 	SPHENOPHYLLUM_FIBER("sphenophyllum_fiber", "sphenophyllumFiber"),
 	ODONTOPTERIS_FIDDLEHEAD("odontopteris_fiddlehead", "odontopterisFiddlehead"),
 	CLADOPHLEBIS_FROND("cladophlebis_frond", "cladophlebisFrond"),
