@@ -23,7 +23,7 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	METASEQUOIA("metasequoia", props()),
 	ARCHAEANTHUS("archaeanthus", props().noDead()),
 	DRYOPHYLLUM("dryophyllum", props()),
-	FICUS("ficus", props().noDead().fruit(1, 1.2F));
+	FICUS("ficus", props().noDead().noDebris().fruit(1, 1.2F));
 	
 	public static final Set<EnumTree> NO_BILLET;
 	public static final Set<EnumTree> NO_DEAD;

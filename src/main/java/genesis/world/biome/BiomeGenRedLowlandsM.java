@@ -17,7 +17,7 @@ public class BiomeGenRedLowlandsM extends BiomeGenRedLowlands
 	{
 		super(id);
 		setBiomeName("Red Lowlands M");
-		setHeight(0.4F, 0.6F);
+		setHeight(0.4F, 0.5F);
 	}
 	
 	protected void addDecorations()
@@ -30,6 +30,6 @@ public class BiomeGenRedLowlandsM extends BiomeGenRedLowlands
 	@Override
 	protected void addTrees()
 	{
-		addTree(new WorldGenTreeVoltzia(5, 10, true).setTreeCountPerChunk(5).setRarity(1));
+		addTree(new WorldGenTreeVoltzia(5, 10, true).setTreeCountPerChunk(10).setRarity(2));
 	}
 }

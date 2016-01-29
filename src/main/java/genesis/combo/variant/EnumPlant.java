@@ -40,6 +40,7 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	// Ferns
 	RHACOPHYTON("rhacophyton", fern().largeOnly()),
 	ZYGOPTERIS("zygopteris", fern()),
+	WACHTLERIA("wachtleria", fern()),
 	PHLEBOPTERIS("phlebopteris", fern()),
 	TODITES("todites", fern()),
 	RUFFORDIA("ruffordia", fern()),
