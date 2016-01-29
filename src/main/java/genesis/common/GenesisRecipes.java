@@ -719,6 +719,8 @@ public final class GenesisRecipes
 			case MASHED_NEUROPTERIDIUM:
 				ingredients.add(GenesisItems.seeds.getStack(EnumSeeds.NEUROPTERIDIUM_RHIZOME));
 				break;
+			default:
+				continue;
 			}
 			
 			switch (dish)
@@ -767,9 +769,11 @@ public final class GenesisRecipes
 			case STEW_TYRANNOSAURUS:
 				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.TYRANNOSAURUS));
 				break;
+			default:
+				break;
 			}
 			
-			CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(dish), ingredients.toArray());
+			CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(dish), ingredients.build());
 		}
 		
 		// Dye cooking pot recipes

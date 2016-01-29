@@ -63,6 +63,9 @@ public class CookingPotRecipeRegistry
 		{
 			this.ingredients = Maps.newHashMap();
 			
+			if (ingredients.length < 1)
+				throw new IllegalArgumentException("CookingPotRecipeShapeless was provided an empty array of ingredients.");
+			
 			for (ItemStack stack : ingredients)
 			{
 				ItemStack copy = stack.copy();

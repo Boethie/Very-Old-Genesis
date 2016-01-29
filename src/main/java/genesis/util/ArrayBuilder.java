@@ -44,7 +44,7 @@ public class ArrayBuilder<T>
 		array[size++] = value;
 	}
 	
-	public T[] toArray()
+	public T[] build()
 	{
 		return Arrays.copyOf(array, size);
 	}
