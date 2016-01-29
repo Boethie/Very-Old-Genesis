@@ -136,7 +136,7 @@ public class BlockGenesisSaplings extends BlockSapling
 			gen = new WorldGenTreeLepidodendron(14, 18, true);
 			break;
 		case CORDAITES:
-			gen = new WorldGenTreeCordaites(15, 20, true);
+			gen = new WorldGenTreeCordaites(12, 17, true);
 			break;
 		case PSARONIUS:
 			gen = new WorldGenTreePsaronius(5, 8, true);
@@ -148,7 +148,7 @@ public class BlockGenesisSaplings extends BlockSapling
 			gen = new WorldGenTreeBjuvia(4, 6, true);
 			break;
 		case VOLTZIA:
-			gen = new WorldGenTreeVoltzia(5, 8, true);
+			gen = new WorldGenTreeVoltzia(5, 10, true);
 			break;
 		case METASEQUOIA:
 			positions = Objects.firstNonNull(findSaplings(world, pos, variant, 2), positions);
@@ -162,7 +162,7 @@ public class BlockGenesisSaplings extends BlockSapling
 			gen = new WorldGenTreeFicus(5, 10, true);
 			break;
 		case DRYOPHYLLUM:
-			gen = new WorldGenTreeDryophyllum(12, 20, true);
+			gen = new WorldGenTreeDryophyllum(12, 17, true);
 			break;
 		case ARCHAEANTHUS:
 			gen = new WorldGenTreeArchaeanthus(15, 20, true);
