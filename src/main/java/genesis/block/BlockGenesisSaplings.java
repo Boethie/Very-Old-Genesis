@@ -153,7 +153,10 @@ public class BlockGenesisSaplings extends BlockSapling
 		case METASEQUOIA:
 			positions = Objects.firstNonNull(findSaplings(world, pos, variant, 2), positions);
 			pos = positions[0];
-			gen = new WorldGenTreeMetasequoia(25, 30, true).setType(positions.length > 1 ? 1 : 0);
+			int treeType = (positions.length > 1)? 1 : 0;
+			int minHeight = (treeType == 1)? 23 : 20;
+			int maxHeight = (treeType == 1)? 27 : 24;
+			gen = new WorldGenTreeMetasequoia(minHeight, maxHeight, true).setType(treeType);
 			break;
 		case GINKGO:
 			gen = new WorldGenTreeGinkgo(12, 17, true);

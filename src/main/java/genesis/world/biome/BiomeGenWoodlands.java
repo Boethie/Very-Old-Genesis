@@ -8,6 +8,7 @@ import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.WorldGenDebris;
+import genesis.world.biome.decorate.WorldGenDecorationOnBlock;
 import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
@@ -19,6 +20,7 @@ import genesis.world.gen.feature.WorldGenTreeDryophyllum;
 import genesis.world.gen.feature.WorldGenTreeFicus;
 import genesis.world.gen.feature.WorldGenTreeGinkgo;
 import genesis.world.gen.feature.WorldGenTreeMetasequoia;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 
@@ -47,6 +49,7 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenDebris().setCountPerChunk(7));
 		//addDecoration(new WorldGenDebris().addAdditional(GenesisBlocks.debris.getBlockState(EnumDebrisOther.TYRANNOSAURUS_FEATHER)).setCountPerChunk(7));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));
+		addDecoration(new WorldGenDecorationOnBlock(GenesisBlocks.cobbania.getDefaultState()).setBaseBlocks(Blocks.water.getDefaultState()).setCountPerChunk(15));
 	}
 	
 	protected void addTrees()
