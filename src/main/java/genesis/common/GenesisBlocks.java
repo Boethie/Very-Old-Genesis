@@ -361,7 +361,7 @@ public final class GenesisBlocks
 		// Programinis
 		Genesis.proxy.registerBlock(programinis, "programinis", null);
 		drop = GenesisItems.seeds.getStack(EnumSeeds.PROGRAMINIS_SEEDS);
-		programinis.setDrops(new BlockDrops(drop, 0, 1));
+		programinis.setDrops(new BlockDrops(drop, 1, 1));
 		programinis.setCropDrops(
 				new BlockDrops(
 					new BlockStackDrop(drop, 0, 3),
