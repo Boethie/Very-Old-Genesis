@@ -84,6 +84,12 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 		return true;
 	}
 	
+	public WorldGenRockBoulders setInGround(boolean in)
+	{
+		inGround = in;
+		return this;
+	}
+	
 	public WorldGenRockBoulders setMaxHeight(int mxHeight)
 	{
 		maxHeight = mxHeight;

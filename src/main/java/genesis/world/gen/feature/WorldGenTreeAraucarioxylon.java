@@ -124,7 +124,6 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 	{
 		int fallX = 1;
 		int fallZ = 1;
-		int fallCount = 0;
 		BlockPos upPos = pos.down();
 		EnumAxis woodAxis = EnumAxis.Y;
 		
@@ -174,10 +173,8 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			if (upPos.getY() < groundLevel + 3)
 				return;
 			
-			if (rand.nextInt(3) == 0 || fallCount > 3)
+			if (rand.nextInt(3) == 0)
 			{
-				fallCount = 0;
-				
 				upPos = upPos.add(fallX, 0, fallZ);
 				
 				if (fallX != 0)
@@ -192,8 +189,6 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			}
 			else
 			{
-				fallCount++;
-				
 				woodAxis = EnumAxis.Y;
 				upPos = upPos.down();
 			}
