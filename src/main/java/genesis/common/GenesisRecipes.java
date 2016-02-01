@@ -716,11 +716,8 @@ public final class GenesisRecipes
 			case STEW_LIOPLEURODON:
 			case STEW_TYRANNOSAURUS:
 				ingredients.add(GenesisItems.materials.getStack(EnumMaterial.SALT));
-			case MASHED_NEUROPTERIDIUM:
-				ingredients.add(GenesisItems.seeds.getStack(EnumSeeds.NEUROPTERIDIUM_RHIZOME));
-				break;
 			default:
-				continue;
+				break;
 			}
 			
 			switch (dish)
@@ -739,8 +736,6 @@ public final class GenesisRecipes
 			case PORRIDGE_ARCHAEOMARASMIUS:
 			case STEW_ARCHAEOMARASMIUS:
 				ingredients.add(new ItemStack(GenesisBlocks.archaeomarasmius));
-				break;
-			case MASHED_NEUROPTERIDIUM:
 				break;
 			case STEW_SPIRIFER:
 				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.SPIRIFER));
@@ -769,11 +764,18 @@ public final class GenesisRecipes
 			case STEW_TYRANNOSAURUS:
 				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.TYRANNOSAURUS));
 				break;
+			case MASHED_NEUROPTERIDIUM:
+				ItemStack rhizome = GenesisItems.seeds.getStack(EnumSeeds.NEUROPTERIDIUM_RHIZOME);
+				ingredients.add(rhizome);
+				ingredients.add(rhizome);
+				ingredients.add(GenesisItems.materials.getStack(EnumMaterial.SALT));
+				break;
 			default:
 				break;
 			}
 			
-			CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(dish), ingredients.build());
+			if (ingredients.size() > 0)
+				CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(dish), ingredients.build());
 		}
 		
 		// Dye cooking pot recipes
