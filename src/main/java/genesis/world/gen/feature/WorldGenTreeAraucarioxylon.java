@@ -85,6 +85,18 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			break;
 		}
 		
+		int base = 4 + rand.nextInt(4);
+		int direction = 0;
+		
+		for (int i = base; i < treeHeight && treeType == 0; ++i)
+		{
+			++direction;
+			if (direction > 7)
+				direction = 0;
+			
+			branchDown(world, pos.up(i), rand, pos.getY(), direction + 1);
+		}
+		
 		doPineTopLeaves(world, pos, branchPos, treeHeight, leavesBase, rand, alternate, irregular, inverted);
 		
 		if (generateRandomSaplings && rand.nextInt(10) > 3)
@@ -106,5 +118,92 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 		}
 		
 		return true;
+	}
+	
+	private void branchDown(World world, BlockPos pos, Random rand, int groundLevel, int direction)
+	{
+		int fallX = 1;
+		int fallZ = 1;
+		int fallCount = 0;
+		BlockPos upPos = pos.down();
+		EnumAxis woodAxis = EnumAxis.Y;
+		
+		int fallDistance = 5 + rand.nextInt(2);
+		
+		switch(direction)
+		{
+		case 0:
+			fallX = 0;
+			fallZ = 0;
+			break;
+		case 1:
+			fallX = 0;
+			fallZ = 1;
+			break;
+		case 2:
+			fallX = 1;
+			fallZ = 1;
+			break;
+		case 3:
+			fallX = 1;
+			fallZ = 0;
+			break;
+		case 4:
+			fallX = 1;
+			fallZ = -1;
+			break;
+		case 5:
+			fallX = 0;
+			fallZ = -1;
+			break;
+		case 6:
+			fallX = -1;
+			fallZ = -1;
+			break;
+		case 7:
+			fallX = -1;
+			fallZ = 0;
+		case 8:
+			fallX = -1;
+			fallZ = 1;
+			break;
+		}
+		
+		for (int i = 0; i < fallDistance; i++)
+		{
+			if (upPos.getY() < groundLevel + 3)
+				return;
+			
+			if (rand.nextInt(3) == 0 || fallCount > 3)
+			{
+				fallCount = 0;
+				
+				upPos = upPos.add(fallX, 0, fallZ);
+				
+				if (fallX != 0)
+					woodAxis = EnumAxis.X;
+				else if (fallZ != 0)
+					woodAxis = EnumAxis.Z;
+				else
+					woodAxis = EnumAxis.Y;
+				
+				if (rand.nextInt(3) == 0 || (fallX == 0 && fallZ == 0))
+					upPos = upPos.down();
+			}
+			else
+			{
+				fallCount++;
+				
+				woodAxis = EnumAxis.Y;
+				upPos = upPos.down();
+			}
+			
+			setBlockInWorld(world, upPos, wood.withProperty(BlockLog.LOG_AXIS, woodAxis));
+			
+			doBranchLeaves(world, upPos, rand, true, 2, true);
+			
+			if (i == fallDistance - 1)
+				doBranchLeaves(world, upPos.down(), rand, false, 1, true);
+		}
 	}
 }

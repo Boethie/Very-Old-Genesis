@@ -8,10 +8,13 @@ import genesis.common.GenesisBlocks;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 public class WorldGenTreeDryophyllum extends WorldGenTreeBase
 {
+	private boolean generateRandomSaplings = true;
+	
 	public WorldGenTreeDryophyllum(int minHeight, int maxHeight, boolean notify)
 	{
 		super(
@@ -23,6 +26,12 @@ public class WorldGenTreeDryophyllum extends WorldGenTreeBase
 		
 		this.minHeight = minHeight;
 		this.maxHeight = maxHeight;
+	}
+	
+	public WorldGenTreeBase setGenerateRandomSaplings(boolean generate)
+	{
+		generateRandomSaplings = generate;
+		return this;
 	}
 	
 	@Override
@@ -50,6 +59,24 @@ public class WorldGenTreeDryophyllum extends WorldGenTreeBase
 		{
 			base = 4 + rand.nextInt(10);
 			branchUp(world, pos, rand, treeHeight, base);
+		}
+		
+		if (generateRandomSaplings && rand.nextInt(10) > 3)
+		{
+			int saplingCount = rand.nextInt(5);
+			BlockPos posSapling;
+			for (int si = 1; si <= saplingCount; ++si)
+			{
+				posSapling = pos.add(rand.nextInt(9) - 4, 0, rand.nextInt(9) - 4);
+				
+				if (
+						posSapling != null
+						&& world.getBlockState(posSapling.up()).getBlock().isAir(world, posSapling)
+						&& world.getBlockState(posSapling).getBlock().canSustainPlant(world, posSapling, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.DRYOPHYLLUM)))
+				{
+					setBlockInWorld(world, posSapling.up(), GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.SAPLING, EnumTree.DRYOPHYLLUM));
+				}
+			}
 		}
 		
 		return true;
