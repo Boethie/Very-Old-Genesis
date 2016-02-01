@@ -694,7 +694,7 @@ public final class GenesisRecipes
 		for (MultiMetadata variant : GenesisItems.bowls.getValidVariants(ItemsCeramicBowls.DISH))
 		{
 			EnumDish dish = (EnumDish) variant.getOriginal();
-			ArrayBuilder<ItemStack> ingredients = ArrayBuilder.create(new ItemStack[3]);
+			ArrayBuilder<ItemStack> ingredients = ArrayBuilder.create(new ItemStack[2]);
 			
 			switch (dish)
 			{
@@ -716,6 +716,7 @@ public final class GenesisRecipes
 			case STEW_LIOPLEURODON:
 			case STEW_TYRANNOSAURUS:
 				ingredients.add(GenesisItems.materials.getStack(EnumMaterial.SALT));
+				break;
 			default:
 				break;
 			}
@@ -765,10 +766,8 @@ public final class GenesisRecipes
 				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.TYRANNOSAURUS));
 				break;
 			case MASHED_NEUROPTERIDIUM:
-				ItemStack rhizome = GenesisItems.seeds.getStack(EnumSeeds.NEUROPTERIDIUM_RHIZOME);
-				ingredients.add(rhizome);
-				ingredients.add(rhizome);
-				ingredients.add(GenesisItems.materials.getStack(EnumMaterial.SALT));
+				ingredients.addAll(GenesisItems.seeds.getStack(EnumSeeds.NEUROPTERIDIUM_RHIZOME, 2),
+									GenesisItems.materials.getStack(EnumMaterial.SALT));
 				break;
 			default:
 				break;

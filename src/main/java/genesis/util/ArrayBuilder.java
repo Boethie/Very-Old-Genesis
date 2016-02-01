@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class ArrayBuilder<T>
 {
-	private static final int INITIAL_SIZE = 4;
+	private static final int INITIAL_SIZE = 0;
 	
 	public static <T> ArrayBuilder<T> create(T[] array)
 	{
@@ -16,30 +16,32 @@ public class ArrayBuilder<T>
 	
 	public ArrayBuilder(T[] array)
 	{
-		int initSize = Math.max(array.length, INITIAL_SIZE);
-		
-		if (array.length > 0)
-			initSize = Math.max(initSize, new BitMask(array.length).bits);
-		
-		this.array = Arrays.copyOf(array, initSize);
+		this.array = Arrays.copyOf(array, Math.max(array.length, INITIAL_SIZE));
 	}
 	
-	private void ensureCapacity(int capacity)
+	private int grow(int capacity)
 	{
+		int oldSize = size;
+		size = capacity;
+		
 		if (array.length < capacity)
-			array = Arrays.copyOf(array, Math.max(capacity, array.length + array.length >> 1));	// Expands to approximately 1.5x length.
+		{
+			capacity = Math.max(capacity, array.length);
+			capacity = capacity + (capacity >> 1);	// Expands to approximately 1.5x length.
+			array = Arrays.copyOf(array, capacity);
+		}
+		
+		return oldSize;
 	}
 	
 	public void add(T value)
 	{
-		ensureCapacity(size + 1);
-		array[size++] = value;
+		array[grow(size + 1)] = value;
 	}
 	
 	public void addAll(T... values)
 	{
-		ensureCapacity(size + values.length);
-		System.arraycopy(values, 0, array, size, values.length);
+		System.arraycopy(values, 0, array, grow(size + values.length), values.length);
 	}
 	
 	public int size()
