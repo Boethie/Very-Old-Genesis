@@ -69,7 +69,7 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 		
 		int leavesBase = 0;
 		boolean alternate = true;
-		boolean irregular = false;
+		boolean irregular = true;
 		boolean inverted = false;
 		
 		switch (treeType)
@@ -168,13 +168,20 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			break;
 		}
 		
+		boolean leaves = true;
+		int vertCount = 0;
+		int horzCount = 0;
+		
 		for (int i = 0; i < fallDistance; i++)
 		{
 			if (upPos.getY() < groundLevel + 3)
 				return;
 			
-			if (rand.nextInt(3) == 0)
+			if (horzCount < 2 && rand.nextInt(3) == 0 || vertCount > 2)
 			{
+				++horzCount;
+				vertCount = 0;
+				
 				upPos = upPos.add(fallX, 0, fallZ);
 				
 				if (fallX != 0)
@@ -189,13 +196,19 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			}
 			else
 			{
+				++vertCount;
+				horzCount = 0;
+				
 				woodAxis = EnumAxis.Y;
 				upPos = upPos.down();
 			}
 			
 			setBlockInWorld(world, upPos, wood.withProperty(BlockLog.LOG_AXIS, woodAxis));
 			
-			doBranchLeaves(world, upPos, rand, true, 2, true);
+			if (leaves && rand.nextInt(2) == 0)
+				doBranchLeaves(world, upPos, rand, true, 2, true);
+			
+			leaves = !leaves;
 			
 			if (i == fallDistance - 1)
 				doBranchLeaves(world, upPos.down(), rand, false, 1, true);
