@@ -84,6 +84,7 @@ public final class GenesisBlocks
 	public static final BlockKnapper workbench = (BlockKnapper) new BlockKnapper().setUnlocalizedName(Unlocalized.CONTAINER_BLOCK + "workbench");
 	public static final BlockCampfire campfire = (BlockCampfire) new BlockCampfire().setUnlocalizedName(Unlocalized.CONTAINER_BLOCK + "campfire");
 	public static final BlockStorageBox storage_box = (BlockStorageBox) new BlockStorageBox().setUnlocalizedName(Unlocalized.CONTAINER_BLOCK + "storageBox");
+	public static final BlockRottenStorageBox rotten_storage_box = (BlockRottenStorageBox) new BlockRottenStorageBox().setUnlocalizedName(Unlocalized.CONTAINER_BLOCK + "rottenStorageBox");
 	
 	/* Plants */
 	public static final PlantBlocks plants = new PlantBlocks();
@@ -316,6 +317,9 @@ public final class GenesisBlocks
 						client.registerTileEntityRenderer(TileEntityStorageBox.class, new TileEntityStorageBoxRenderer(storage_box));
 				}
 		});
+		
+		Genesis.proxy.registerBlock(rotten_storage_box, "rotten_storage_box");
+		GameRegistry.registerTileEntity(TileEntityRottenStorageBox.class, Constants.ASSETS_PREFIX + "rotten_storage_box");
 		
 		// - Torches -
 		Genesis.proxy.registerBlock(calamites_torch, "calamites_torch");

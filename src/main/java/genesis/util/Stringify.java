@@ -37,20 +37,17 @@ public class Stringify
 	
 	public static String stringify(Object obj)
 	{
+		if (obj == null)
+			return "null";
+		
 		if (obj instanceof Object[])
-		{
 			return stringifyArray((Object[]) obj);
-		}
 		
 		if (obj instanceof Iterable<?>)
-		{
 			return stringifyIterable((Iterable<?>) obj);
-		}
 		
 		if (obj instanceof IStringSerializable)
-		{
 			return ((IStringSerializable) obj).getName();
-		}
 		
 		String data = "";
 		
