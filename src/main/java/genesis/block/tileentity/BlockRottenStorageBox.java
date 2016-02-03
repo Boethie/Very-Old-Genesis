@@ -2,16 +2,11 @@ package genesis.block.tileentity;
 
 import java.util.Random;
 
-import genesis.combo.variant.EnumMenhirActivator;
 import genesis.common.Genesis;
 import genesis.common.GenesisCreativeTabs;
-import genesis.common.GenesisItems;
-import genesis.util.Stringify;
 import genesis.util.WorldUtils;
 import gnu.trove.list.TIntList;
 import gnu.trove.list.array.TIntArrayList;
-import gnu.trove.set.TIntSet;
-import gnu.trove.set.hash.TIntHashSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockState;
@@ -41,17 +36,18 @@ public class BlockRottenStorageBox extends Block
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
 	{
-		/*if (!world.isRemote)
-		{
-			placeWithItems(world, pos, GenesisItems.menhir_activators.getStack(EnumMenhirActivator.FOSSILIZED_EGG));
-			if (getTileEntity(world, pos) != null)
-				System.out.println(Stringify.stringify(getTileEntity(world, pos).inventory));
-		}*/
+		/*placeWithItems(world, pos, genesis.common.GenesisItems.menhir_activators.getStack(genesis.combo.variant.EnumMenhirActivator.FOSSILIZED_EGG));
+		if (getTileEntity(world, pos) != null)
+			System.out.println(genesis.util.Stringify.stringify(getTileEntity(world, pos).inventory));*/
 	}
 	
 	public void placeWithItems(World world, BlockPos pos, ItemStack... stacks)
 	{
 		world.setBlockState(pos, getDefaultState());
+		
+		if (world.isRemote)
+			return;
+		
 		TileEntityRottenStorageBox box = getTileEntity(world, pos);
 		
 		if (box == null)

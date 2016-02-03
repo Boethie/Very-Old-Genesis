@@ -17,6 +17,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.*;
 import net.minecraft.util.EnumFacing.*;
+import net.minecraftforge.common.util.Constants.NBT;
 
 public class TileEntityStorageBox extends TileEntityLockable implements ISidedInventory, ITickable
 {
@@ -373,7 +374,7 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 	{
 		setAxis(FacingHelpers.getAxis(compound.getString("axis")));
 		
-		NBTTagList list = compound.getTagList("connections", 10);
+		NBTTagList list = compound.getTagList("connections", NBT.TAG_COMPOUND);
 		
 		for (int i = 0; i < list.tagCount(); i++)
 		{
@@ -415,7 +416,7 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 			if (stack != null)
 			{
 				NBTTagCompound itemComp = new NBTTagCompound();
-				itemComp.setByte("slot", (byte)i);
+				itemComp.setByte("slot", (byte) i);
 				stack.writeToNBT(itemComp);
 				
 				itemList.appendTag(itemComp);
@@ -439,9 +440,9 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 	{
 		super.readFromNBT(compound);
 		
-		NBTTagList tagList = compound.getTagList("items", 10);
+		NBTTagList tagList = compound.getTagList("items", NBT.TAG_COMPOUND);
 		
-		for (int i = 0; i < tagList.tagCount(); ++i)
+		for (int i = 0; i < tagList.tagCount(); i++)
 		{
 			NBTTagCompound itemCompound = (NBTTagCompound) tagList.get(i);
 			byte slot = itemCompound.getByte("slot");
