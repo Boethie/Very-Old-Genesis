@@ -3,9 +3,8 @@
 	"defaults": {
 		"textures": {
 			"particle": "#side",
-			"side": "genesis:blocks/storage_box/side",
-			"top_single": "genesis:blocks/storage_box/top_single",
-			"top_connect": "genesis:blocks/storage_box/top_connect"
+			"side": "genesis:blocks/storage_box/rotted_side",
+			"top_connect": "genesis:blocks/storage_box/rotted_top_connect"
 		},
 		"model": "genesis:storage_box/rotten_box_single"
 	},

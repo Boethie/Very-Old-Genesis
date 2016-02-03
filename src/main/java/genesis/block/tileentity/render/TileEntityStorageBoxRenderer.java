@@ -65,7 +65,7 @@ public class TileEntityStorageBoxRenderer extends TileEntitySpecialRenderer<Tile
 		// Get data about the block in the world.
 		World world = box.getWorld();
 		BlockPos pos = box.getPos();
-		IBlockState state = world.getBlockState(pos);
+		IBlockState state = box.getBlockType().getActualState(world.getBlockState(pos), world, pos);
 		
 		float px = 0.0625F;
 		
