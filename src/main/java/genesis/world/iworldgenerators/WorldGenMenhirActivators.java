@@ -1,20 +1,21 @@
 package genesis.world.iworldgenerators;
 
 import com.google.common.collect.Lists;
+import genesis.common.GenesisBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenTaiga;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static genesis.world.WorldGenerators.menhirActivatorsChestAncient;
+import static genesis.world.WorldGenerators.menhirActivatorsAncient;
 
 /**
  * Created by Vorquel on 10/27/15
@@ -29,22 +30,22 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 		MenhirStructure hut = new MenhirStructure();
 		
 		List<BlockPos> rubble = Lists.newArrayList();
-		for(int x = -7; x <= 7; ++x)
-			for(int z = -7; z <= 7; ++ z)
-				if(x * x + z * z < 64)
+		for (int x = -7; x <= 7; ++x)
+			for (int z = -7; z <= 7; ++ z)
+				if (x * x + z * z < 64)
 					rubble.add(new BlockPos(x, 0, z));
 		hut.add(rubble, StructureType.RUBBLE, 1d/4d);
 		
 		List<BlockPos> air = Lists.newArrayList();
 		List<BlockPos> gestalt = Lists.newArrayList();
-		for(int y = -1; y <= 3; ++y)
-			for(int x = -3; x <= 3; ++x)
-				for(int z = -3; z <= 3; ++z)
+		for (int y = -1; y <= 3; ++y)
+			for (int x = -3; x <= 3; ++x)
+				for (int z = -3; z <= 3; ++z)
 				{
 					int d2 = x * x + y * y + z * z;
-					if(d2 < 8 || x == 3 && y <= 0 && z == 0)
+					if (d2 < 8 || x == 3 && y <= 0 && z == 0)
 						air.add(new BlockPos(x, y + 2, z));
-					else if(d2 < 12)
+					else if (d2 < 12)
 						gestalt.add(new BlockPos(x, y + 2, z));
 				}
 		hut.add(air, StructureType.AIR, 1d);
@@ -55,19 +56,19 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 		MenhirStructure tumulus = new MenhirStructure();
 		
 		rubble = Lists.newArrayList();
-		for(int x = -5; x <= 5; ++x)
-			for(int z = -5; z <= 5; ++ z)
+		for (int x = -5; x <= 5; ++x)
+			for (int z = -5; z <= 5; ++ z)
 			{
 				int d2 = x * x + z * z;
-				if(d2 < 27 && d2 > 18)
+				if (d2 < 27 && d2 > 18)
 					rubble.add(new BlockPos(x, 1, z));
 			}
 		tumulus.add(rubble, StructureType.RUBBLE, 1d/2d);
 		
 		rubble = Lists.newArrayList();
-		for(int x = -5; x <= 5; ++x)
-			for(int z = -5; z <= 5; ++ z)
-				if(x * x + z * z < 27)
+		for (int x = -5; x <= 5; ++x)
+			for (int z = -5; z <= 5; ++ z)
+				if (x * x + z * z < 27)
 					rubble.add(new BlockPos(x, 0, z));
 		tumulus.add(rubble, StructureType.RUBBLE, 1d/4d);
 		
@@ -96,7 +97,7 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 		BlockPos chunkPos = new BlockPos(chunkX << 4, 0, chunkZ << 4);
 		
 		int menhirHutChance = 300;
-		if(random.nextInt(menhirHutChance) == 0 && world.getBiomeGenForCoords(chunkPos.add(8, 0, 8)) instanceof BiomeGenTaiga)
+		if (random.nextInt(menhirHutChance) == 0 && world.getBiomeGenForCoords(chunkPos.add(8, 0, 8)) instanceof BiomeGenTaiga)
 			generateHut(random, world, chunkPos);
 	}
 	
@@ -104,10 +105,10 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 	{
 		MenhirStructure structure = structures.get(random.nextInt(structures.size()));
 		BlockPos center = getValidPos(structure, random, world, chunkPos);
-		if(center == null)
+		if (center == null)
 			return;
 		
-		for(BlockPos offset : structure.get(random, StructureType.RUBBLE))
+		for (BlockPos offset : structure.get(random, StructureType.RUBBLE))
 		{
 			BlockPos pos = getRealHeight(world, center.add(offset), topBlocks).up(offset.getY());
 			if (random.nextInt(4) == 0)
@@ -116,7 +117,7 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 				world.setBlockState(pos, Blocks.cobblestone.getDefaultState());
 		}
 		
-		for(BlockPos offset : structure.get(random, StructureType.GESTALT))
+		for (BlockPos offset : structure.get(random, StructureType.GESTALT))
 		{
 			BlockPos pos = center.add(offset);
 			if (random.nextInt(4) == 0)
@@ -125,40 +126,32 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 				world.setBlockState(pos, Blocks.cobblestone.getDefaultState());
 		}
 		
-		for(BlockPos offset : structure.get(random, StructureType.AIR))
+		for (BlockPos offset : structure.get(random, StructureType.AIR))
 			world.setBlockToAir(center.add(offset));
 		
-		BlockPos chestPos = center.add(0, -1, 0);
-		world.setBlockState(chestPos, Blocks.chest.getDefaultState());
-		IInventory inventory = (IInventory) world.getTileEntity(chestPos);
+		ArrayList<ItemStack> loot = new ArrayList<ItemStack>();
+		for (ItemStack stack : menhirActivatorsAncient)
+			loot.add(stack.copy());
 		
-		List<WeightedRandomChestContent> loot = Lists.newArrayList(menhirActivatorsChestAncient.getItems(random));
-		int count = menhirActivatorsChestAncient.getCount(random);
-		while(loot.size() > count)
+		int count = 2 + random.nextInt(2);
+		while (loot.size() > count)
 			loot.remove(random.nextInt(loot.size()));
 		
-		for(WeightedRandomChestContent stack : loot)
-		{
-			int nextPos;
-			do
-			{
-				nextPos = random.nextInt(inventory.getSizeInventory());
-			}
-			while(inventory.getStackInSlot(nextPos) != null);
-			inventory.setInventorySlotContents(nextPos, stack.theItemId);
-		}
+		BlockPos chestPos = center.add(0, -1, 0);
+		//noinspection ToArrayCallWithZeroLengthArrayArgument
+		GenesisBlocks.rotten_storage_box.placeWithItems(world, chestPos, loot.toArray(new ItemStack[0]));
 	}
 	
 	protected BlockPos getValidPos(MenhirStructure structure, Random random, World world, BlockPos chunkPos)
 	{
 		chunkPos = new BlockPos(chunkPos.getX(), 0, chunkPos.getZ());
 		BlockPos candidate;
-		for(int i=0; i<20; ++i)
+		for (int i=0; i<20; ++i)
 		{
 			candidate = chunkPos.add(random.nextInt(16), 0, random.nextInt(16));
 			int min = 255;
 			int max = 0;
-			for(BlockPos offset : structure.getFoundation())
+			for (BlockPos offset : structure.getFoundation())
 			{
 				int lo = getRealHeight(world, candidate.add(offset), topBlocks).getY();
 				min = lo < min ? lo : min;
@@ -166,7 +159,7 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 				max = hi > max ? hi : max;
 			}
 			candidate = candidate.add(0, min, 0);
-			if(max <= min)
+			if (max <= min)
 				return candidate;
 		}
 		return null;
@@ -177,10 +170,10 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 		int top = world.getChunkFromBlockCoords(blockPos).getTopFilledSegment() + 15;
 		int x = blockPos.getX();
 		int z = blockPos.getZ();
-		for(int y = top; y > 0; --y)
+		for (int y = top; y > 0; --y)
 		{
 			BlockPos temp = new BlockPos(x, y, z);
-			if(blockList.contains(world.getBlockState(temp).getBlock()))
+			if (blockList.contains(world.getBlockState(temp).getBlock()))
 				return temp;
 		}
 		return new BlockPos(x, 0, z);
@@ -204,12 +197,12 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 		List<BlockPos> get(Random random, StructureType type)
 		{
 			List<BlockPos> posList = Lists.newArrayList();
-			for(int i = 0; i < types.size(); ++i)
-				if(types.get(i) == type)
-					for(BlockPos pos : structures.get(i))
+			for (int i = 0; i < types.size(); ++i)
+				if (types.get(i) == type)
+					for (BlockPos pos : structures.get(i))
 					{
 						double chance = chances.get(i);
-						if(random.nextDouble() < chance)
+						if (random.nextDouble() < chance)
 							posList.add(pos);
 					}
 			return posList;
@@ -217,13 +210,13 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 		
 		List<BlockPos> getFoundation()
 		{
-			if(foundation == null)
+			if (foundation == null)
 			{
 				foundation = Lists.newArrayList();
-				for(int i = 0; i < types.size(); ++i)
-					if(types.get(i) == StructureType.GESTALT)
-						for(BlockPos pos : structures.get(i))
-							if(pos.getY() == 1)
+				for (int i = 0; i < types.size(); ++i)
+					if (types.get(i) == StructureType.GESTALT)
+						for (BlockPos pos : structures.get(i))
+							if (pos.getY() == 1)
 								foundation.add(pos);
 			}
 			return foundation;
