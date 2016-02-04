@@ -88,15 +88,23 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 		int base = 4 + rand.nextInt(4);
 		int direction = rand.nextInt(8);
 		
+		int lFactor;
+		
 		for (int i = base; i < treeHeight && treeType == 0; ++i)
 		{
-			if (rand.nextInt(2) == 0)
+			++direction;
+			if (direction > 7)
+				direction = 0;
+			
+			lFactor = (int)(12.0f * ((((float)treeHeight - (float)i) / (float)treeHeight)));
+			
+			branchDown(world, pos.up(i), rand, pos.getY(), direction + 1, lFactor);
+			
+			if (rand.nextInt(6) == 0)
 			{
 				++direction;
 				if (direction > 7)
 					direction = 0;
-				
-				int lFactor = (int)(6.0f * ((float)treeHeight - 1.0f) / (float)treeHeight);
 				
 				branchDown(world, pos.up(i), rand, pos.getY(), direction + 1, lFactor);
 			}
@@ -132,7 +140,7 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 		BlockPos upPos = pos.down();
 		EnumAxis woodAxis = EnumAxis.Y;
 		
-		int fallDistance = 4 + rand.nextInt(lengthModifier);
+		int fallDistance = lengthModifier;
 		
 		switch(direction)
 		{
@@ -174,7 +182,6 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 		}
 		
 		boolean leaves = true;
-		int vertCount = 0;
 		int horzCount = 0;
 		
 		for (int i = 0; i < fallDistance; i++)
@@ -182,10 +189,9 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			if (upPos.getY() < groundLevel + 3)
 				return;
 			
-			if (horzCount < 1 && rand.nextInt(3) == 0 || vertCount > 1)
+			if (horzCount < 1)
 			{
 				++horzCount;
-				vertCount = 0;
 				
 				upPos = upPos.add(fallX, 0, fallZ);
 				
@@ -201,7 +207,6 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			}
 			else
 			{
-				++vertCount;
 				horzCount = 0;
 				
 				woodAxis = EnumAxis.Y;
@@ -210,7 +215,7 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			
 			setBlockInWorld(world, upPos, wood.withProperty(BlockLog.LOG_AXIS, woodAxis));
 			
-			if (leaves && rand.nextInt(2) == 0)
+			if (leaves && rand.nextInt(3) == 0)
 				doBranchLeaves(world, upPos, rand, true, 2, true);
 			
 			leaves = !leaves;
