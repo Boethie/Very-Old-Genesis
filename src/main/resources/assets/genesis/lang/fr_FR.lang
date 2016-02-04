@@ -8,6 +8,7 @@ tile.genesis.komatiiticLava.name=Lave komatiitique
 tile.genesis.container.workbench.name=Établi
 tile.genesis.container.campfire.name=Feu de camp
 tile.genesis.container.storageBox.name=Caisse de stockage
+tile.genesis.container.rottenStorageBox.name=Caisse de stockage pourrie
 
 tile.genesis.menhir.glyph.none.name=Base du menhir
 tile.genesis.menhir.glyph.vegetal.name=Base du menhir avec pétroglyphe végétal
