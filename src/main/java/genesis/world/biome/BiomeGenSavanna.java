@@ -33,7 +33,7 @@ public class BiomeGenSavanna extends BiomeGenBaseGenesis
 	protected void addDecorations()
 	{
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.cladophlebis).setPatchSize(4).setCountPerChunk(5));
-		addDecoration(new WorldGenRockBoulders().setInGround(false).setRarity(8).setWaterRequired(false).setMaxHeight(3).addBlocks(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.SAUROPODA)).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders().setInGround(false).setRarity(8).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.SAUROPODA)).setCountPerChunk(1));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30).setPatchSize(12));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));
 	}

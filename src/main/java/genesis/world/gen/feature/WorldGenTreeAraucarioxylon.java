@@ -81,20 +81,25 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			irregular = false;
 			break;
 		default:
-			leavesBase = pos.getY() + 6;
+			leavesBase = pos.getY() + 4;
 			break;
 		}
 		
 		int base = 4 + rand.nextInt(4);
-		int direction = 0;
+		int direction = rand.nextInt(8);
 		
 		for (int i = base; i < treeHeight && treeType == 0; ++i)
 		{
-			++direction;
-			if (direction > 7)
-				direction = 0;
-			
-			branchDown(world, pos.up(i), rand, pos.getY(), direction + 1);
+			if (rand.nextInt(2) == 0)
+			{
+				++direction;
+				if (direction > 7)
+					direction = 0;
+				
+				int lFactor = (int)(6.0f * ((float)treeHeight - 1.0f) / (float)treeHeight);
+				
+				branchDown(world, pos.up(i), rand, pos.getY(), direction + 1, lFactor);
+			}
 		}
 		
 		doPineTopLeaves(world, pos, branchPos, treeHeight, leavesBase, rand, alternate, irregular, inverted);
@@ -120,20 +125,20 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 		return true;
 	}
 	
-	private void branchDown(World world, BlockPos pos, Random rand, int groundLevel, int direction)
+	private void branchDown(World world, BlockPos pos, Random rand, int groundLevel, int direction, int lengthModifier)
 	{
 		int fallX = 1;
 		int fallZ = 1;
 		BlockPos upPos = pos.down();
 		EnumAxis woodAxis = EnumAxis.Y;
 		
-		int fallDistance = 5 + rand.nextInt(2);
+		int fallDistance = 4 + rand.nextInt(lengthModifier);
 		
 		switch(direction)
 		{
 		case 0:
-			fallX = 0;
-			fallZ = 0;
+			fallX = 1;
+			fallZ = 1;
 			break;
 		case 1:
 			fallX = 0;
@@ -177,7 +182,7 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			if (upPos.getY() < groundLevel + 3)
 				return;
 			
-			if (horzCount < 2 && rand.nextInt(3) == 0 || vertCount > 2)
+			if (horzCount < 1 && rand.nextInt(3) == 0 || vertCount > 1)
 			{
 				++horzCount;
 				vertCount = 0;
