@@ -98,7 +98,7 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 				int z = rand.nextInt(8) + 8;
 				int y = 128;
 				
-				new WorldGenGenesisSurfacePatch(Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT)).generate(worldObj, rand, pos.add(x, y, z));
+				new WorldGenGenesisSurfacePatch(Blocks.dirt.getDefaultState()).generate(worldObj, rand, pos.add(x, y, z));
 			}
 		}
 		
