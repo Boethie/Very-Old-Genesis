@@ -49,7 +49,7 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 	{
 		addTree(new WorldGenTreeMetasequoia(12, 24, true).setTreeCountPerChunk(4));
 		addTree(new WorldGenTreeMetasequoia(23, 27, true).setType(1).setTreeCountPerChunk(2));
-		addTree(new WorldGenTreeArchaeanthus(15, 20, false).setTreeCountPerChunk(1).setRarity(4));
+		addTree(new WorldGenTreeArchaeanthus(15, 20, false).setTreeCountPerChunk(1).setRarity(5));
 		addTree(new WorldGenDeadLog(4, 8, EnumTree.METASEQUOIA, true).setTreeCountPerChunk(1));
 	}
 	
