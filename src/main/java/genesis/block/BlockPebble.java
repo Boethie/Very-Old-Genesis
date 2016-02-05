@@ -141,27 +141,15 @@ public class BlockPebble extends Block
 		boolean east = hitX > 0.5F;
 		
 		if (north)
-		{
 			if (east)
-			{
 				state = state.withProperty(NE, true);
-			}
 			else
-			{
 				state = state.withProperty(NW, true);
-			}
-		}
 		else
-		{
 			if (east)
-			{
 				state = state.withProperty(SE, true);
-			}
 			else
-			{
 				state = state.withProperty(SW, true);
-			}
-		}
 		
 		return state;
 	}

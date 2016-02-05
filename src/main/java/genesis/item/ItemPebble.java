@@ -150,11 +150,14 @@ public class ItemPebble extends ItemGenesis
 			if (world.getBlockState(pos).getBlock() == block || world.canBlockBePlaced(block, pos, false, side, player, stack))
 			{
 				state = block.onBlockPlaced(world, pos, side, hitX, hitY, hitZ, stack.getMetadata(), player);
-				boolean changed = world.setBlockState(pos, state);
 				
-				if (changed && !player.capabilities.isCreativeMode && --stack.stackSize <= 0)
+				if (world.setBlockState(pos, state))
 				{
-					player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+					world.playSoundEffect(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+							block.stepSound.getPlaceSound(), (block.stepSound.getVolume() + 1F) / 2F, block.stepSound.getFrequency() * 0.8F);
+					
+					if (!player.capabilities.isCreativeMode && --stack.stackSize <= 0)
+						player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
 				}
 				
 				return true;
