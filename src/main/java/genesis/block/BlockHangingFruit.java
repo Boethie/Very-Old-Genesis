@@ -57,7 +57,7 @@ public class BlockHangingFruit extends BlockGenesis
 		blockState = new BlockState(this, variantProp);
 		setDefaultState(getBlockState().getBaseState());
 		
-		setStepSound(soundTypeGrass);
+		setStepSound(soundTypeWood);
 		setHardness(0.25F);
 	}
 	
