@@ -1,0 +1,12 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "genesis:araucarioxylon_cone"
+	},
+	"variants": {
+		"inventory": [{
+			"transform": "forge:default-block"
+		}],
+		"normal": [{}, {"y": 90}, {"y": 180}, {"y": 270}]
+	}
+}

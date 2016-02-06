@@ -1,5 +1,6 @@
 package genesis.block;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -26,6 +27,7 @@ import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.pipeline.BlockInfo;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -101,6 +103,34 @@ public class BlockHangingFruit extends BlockGenesis
 	}
 	
 	@Override
+	public void setBlockBoundsBasedOnState(IBlockAccess world, BlockPos pos)
+	{
+		EnumTree variant = world.getBlockState(pos).getValue(variantProp);
+		float radius = variant.getFruitWidth() / 2;
+		float height = variant.getFruitHeight();
+		
+		float x = 0.5F;
+		float y = 1;
+		float z = 0.5F;
+		
+		BlockInfo offsetCalc = new BlockInfo();
+		offsetCalc.setBlock(this);
+		offsetCalc.setBlockPos(pos);
+		offsetCalc.updateShift();
+		x += offsetCalc.getShx();
+		y += offsetCalc.getShy();
+		z += offsetCalc.getShz();
+		
+		setBlockBounds(x - radius, y - height, z - radius, x + radius, y, z + radius);
+	}
+	
+	@Override
+	public EnumOffsetType getOffsetType()
+	{
+		return EnumOffsetType.XZ;
+	}
+	
+	@Override
 	public IBlockState getStateFromMeta(int meta)
 	{
 		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), meta);
@@ -113,21 +143,21 @@ public class BlockHangingFruit extends BlockGenesis
 	}
 	
 	@Override
-	public int damageDropped(IBlockState state)
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
 	{
-		return owner.getItemMetadata(type, state.getValue(variantProp));
+		return Collections.singletonList(owner.getStack(TreeBlocksAndItems.FRUIT, state.getValue(variantProp)));
 	}
 	
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player)
 	{
-		return owner.getStack(type, world.getBlockState(pos).getValue(variantProp));
+		return owner.getStack(TreeBlocksAndItems.FRUIT, world.getBlockState(pos).getValue(variantProp));
 	}
 	
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list)
 	{
-		owner.fillSubItems(type, variants, list);
+		//owner.fillSubItems(type, variants, list);
 	}
 	
 	@Override

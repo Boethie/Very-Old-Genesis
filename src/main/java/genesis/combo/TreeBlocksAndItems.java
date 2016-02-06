@@ -40,8 +40,8 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo<EnumTree>
 	public static final ObjectType<BlockHangingFruit, Item> HANGING_FRUIT =
 			ObjectType.create("hanging_fruit", "hanging.fruit", BlockHangingFruit.class, null)
 					.setValidVariants(EnumTree.FRUIT_HANGING);
-	public static final ObjectType<Block, ItemGenesisFood<EnumTree>> FRUIT =
-			ObjectType.createItem("fruit", Unlocalized.Section.FOOD + "fruit", ReflectionUtils.<ItemGenesisFood<EnumTree>>convertClass(ItemGenesisFood.class))
+	public static final ObjectType<Block, ItemFruit> FRUIT =
+			ObjectType.createItem("fruit", Unlocalized.Section.FOOD + "fruit", ItemFruit.class)
 					.setValidVariants(EnumTree.FRUIT_ITEMS);
 	public static final ObjectType<Block, ItemMulti<EnumTree>> BILLET =
 			new ObjectType<Block, ItemMulti<EnumTree>>("billet", Unlocalized.Section.MATERIAL + "billet", null, null, EnumTree.NO_BILLET)

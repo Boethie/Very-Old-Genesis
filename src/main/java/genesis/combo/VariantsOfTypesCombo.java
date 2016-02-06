@@ -988,7 +988,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	/**
 	 * Gets the property named "variant" from a Block for use in registering a StateMap for the Block.
 	 */
-	protected IProperty<V> getVariantProperty(Block block)
+	public IProperty<V> getVariantProperty(Block block)
 	{
 		SubsetData subset = getSubsetData(block);
 		return subset != null ? subset.variantProperty : null;

@@ -19,7 +19,7 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	GINKGO("ginkgo", props().noDead().fruit(1, 0.4F)),
 	BJUVIA("bjuvia", props().noBillet().noDead().noDebris()),
 	VOLTZIA("voltzia", props().noDead().noDebris()),
-	ARAUCARIOXYLON("araucarioxylon", props().hangingFruit()),
+	ARAUCARIOXYLON("araucarioxylon", props().hangingFruit().fruitSize(6, 7)),
 	METASEQUOIA("metasequoia", props()),
 	ARCHAEANTHUS("archaeanthus", props().noDead()),
 	DRYOPHYLLUM("dryophyllum", props()),
@@ -89,9 +89,13 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	final boolean dead;
 	
 	final FruitType fruit;
+	
 	final int food;
 	final float saturation;
 	final List<PotionEffect> effects;
+	
+	final float fruitWidth;
+	final float fruitHeight;
 	
 	EnumTree(String name, String unlocalizedName, Props props)
 	{
@@ -106,6 +110,9 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 		food = props.food;
 		saturation = props.saturation;
 		effects = props.effects;
+		
+		fruitWidth = props.fruitWidth;
+		fruitHeight = props.fruitHeight;
 	}
 	
 	EnumTree(String name, Props props)
@@ -169,6 +176,16 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 		return effects;
 	}
 	
+	public float getFruitWidth()
+	{
+		return fruitWidth;
+	}
+	
+	public float getFruitHeight()
+	{
+		return fruitHeight;
+	}
+	
 	private static Props props()
 	{
 		return new Props();
@@ -181,9 +198,13 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 		boolean dead = true;
 		
 		FruitType fruit = FruitType.NONE;
+		
 		int food = 0;
 		float saturation = 0;
 		List<PotionEffect> effects = Collections.emptyList();
+		
+		float fruitWidth = 0.25F;
+		float fruitHeight = 0.5F;
 		
 		private Props()
 		{
@@ -211,6 +232,18 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 		{
 			this.fruit = fruit;
 			return this;
+		}
+		
+		private Props fruitSize(float width, float height)
+		{
+			fruitWidth = width;
+			fruitHeight = height;
+			return this;
+		}
+		
+		private Props fruitSize(int width, int height)
+		{
+			return fruitSize(width / 16F, height / 16F);
 		}
 		
 		private Props hangingFruit()
