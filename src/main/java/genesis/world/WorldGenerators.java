@@ -6,8 +6,6 @@ import genesis.common.GenesisItems;
 import genesis.world.iworldgenerators.WorldGenPortal;
 import genesis.world.iworldgenerators.WorldGenMenhirActivators;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.WeightedRandomChestContent;
-import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.ArrayList;

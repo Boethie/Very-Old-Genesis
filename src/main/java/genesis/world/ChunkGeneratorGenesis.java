@@ -13,7 +13,6 @@ import genesis.common.GenesisBlocks;
 import genesis.world.biome.gen.feature.WorldGenGenesisSurfacePatch;
 import genesis.world.gen.MapGenCavesGenesis;
 import genesis.world.gen.feature.WorldGenGenesisLakes;
-import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
