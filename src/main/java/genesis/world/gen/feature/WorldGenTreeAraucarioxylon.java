@@ -71,6 +71,7 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 		boolean alternate = true;
 		boolean irregular = true;
 		boolean inverted = false;
+		int maxLeavesLength = 3;
 		
 		switch (treeType)
 		{
@@ -79,9 +80,15 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			alternate = false;
 			inverted = true;
 			irregular = false;
+			maxLeavesLength = 4;
 			break;
 		default:
-			leavesBase = pos.getY() + 4;
+			maxLeavesLength = 2;
+			
+			leavesBase = branchPos.getY() - 2 - rand.nextInt(2);
+			
+			if (rand.nextInt(10) == 0)
+				leavesBase = branchPos.getY() + 2;
 			break;
 		}
 		
@@ -96,11 +103,11 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			if (direction > 7)
 				direction = 0;
 			
-			lFactor = (int)(12.0f * ((((float)treeHeight - (float)i) / (float)treeHeight)));
+			lFactor = (int)(6.0f * ((((float)treeHeight - (float)i) / (float)treeHeight)));
 			
 			branchDown(world, pos.up(i), rand, pos.getY(), direction + 1, lFactor);
 			
-			if (rand.nextInt(6) == 0)
+			if (rand.nextInt(8) == 0)
 			{
 				++direction;
 				if (direction > 7)
@@ -110,7 +117,7 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			}
 		}
 		
-		doPineTopLeaves(world, pos, branchPos, treeHeight, leavesBase, rand, alternate, irregular, inverted);
+		doPineTopLeaves(world, pos, branchPos, treeHeight, leavesBase, rand, alternate, maxLeavesLength, irregular, inverted);
 		
 		if (generateRandomSaplings && rand.nextInt(10) > 3)
 		{
@@ -189,7 +196,7 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			if (upPos.getY() < groundLevel + 3)
 				return;
 			
-			if (horzCount < 1)
+			if (horzCount < 1 + rand.nextInt(3))
 			{
 				++horzCount;
 				
@@ -215,13 +222,13 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			
 			setBlockInWorld(world, upPos, wood.withProperty(BlockLog.LOG_AXIS, woodAxis));
 			
-			if (leaves && rand.nextInt(3) == 0)
+			if (leaves && rand.nextInt(10) == 0)
 				doBranchLeaves(world, upPos, rand, true, 2, true);
 			
 			leaves = !leaves;
 			
 			if (i == fallDistance - 1)
-				doBranchLeaves(world, upPos.down(), rand, false, 1, true);
+				doBranchLeaves(world, upPos.down(), rand, false, 1 + rand.nextInt(2), true);
 		}
 	}
 }

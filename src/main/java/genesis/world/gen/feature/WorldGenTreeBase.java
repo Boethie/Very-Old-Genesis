@@ -335,6 +335,9 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		float percent;
 		int leaves;
 		
+		if (leavesBase > branchPos.getY())
+			return;
+		
 		doBranchLeaves(world, branchPos, rand, true, 1);
 		
 		while (branchPos.getY() > leavesBase)
