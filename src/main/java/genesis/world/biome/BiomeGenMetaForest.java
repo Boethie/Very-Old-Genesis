@@ -38,7 +38,7 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 	protected void addDecorations()
 	{
 		addDecoration(new WorldGenPalaeoagaracites().setPatchSize(24).setCountPerChunk(128));
-		addDecoration(new WorldGenPlant(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.MICROPETASOS).setCountPerChunk(1));
+		//addDecoration(new WorldGenPlant(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.MICROPETASOS).setCountPerChunk(1));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPatchSize(3).setCountPerChunk(3));
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(3).setCountPerChunk(3));
 		addDecoration(new WorldGenDebris().setCountPerChunk(7));
@@ -47,9 +47,9 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 	
 	protected void addTrees()
 	{
+		addTree(new WorldGenTreeArchaeanthus(15, 20, false).setTreeCountPerChunk(1).setRarity(8));
 		addTree(new WorldGenTreeMetasequoia(12, 24, true).setTreeCountPerChunk(4));
 		addTree(new WorldGenTreeMetasequoia(23, 27, true).setType(1).setTreeCountPerChunk(2));
-		addTree(new WorldGenTreeArchaeanthus(15, 20, false).setTreeCountPerChunk(1).setRarity(6));
 		addTree(new WorldGenDeadLog(4, 8, EnumTree.METASEQUOIA, true).setTreeCountPerChunk(1));
 	}
 	

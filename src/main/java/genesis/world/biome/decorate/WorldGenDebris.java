@@ -104,6 +104,7 @@ public class WorldGenDebris extends WorldGenDecorationBase
 									|| variant == EnumTree.LEPIDODENDRON
 									|| variant == EnumTree.ARAUCARIOXYLON
 									|| variant == EnumTree.METASEQUOIA
+									|| variant == EnumTree.ARCHAEANTHUS
 									|| variant == EnumTree.DRYOPHYLLUM)
 							{
 								debris = GenesisBlocks.debris.getBlockState(variant);
