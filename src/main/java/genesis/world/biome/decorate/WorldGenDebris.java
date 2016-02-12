@@ -102,6 +102,7 @@ public class WorldGenDebris extends WorldGenDecorationBase
 									variant == EnumTree.ARCHAEOPTERIS
 									|| variant == EnumTree.SIGILLARIA
 									|| variant == EnumTree.LEPIDODENDRON
+									|| variant == EnumTree.CORDAITES
 									|| variant == EnumTree.ARAUCARIOXYLON
 									|| variant == EnumTree.METASEQUOIA
 									|| variant == EnumTree.ARCHAEANTHUS
