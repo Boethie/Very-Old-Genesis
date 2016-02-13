@@ -295,21 +295,21 @@ item.genesis.tool.choppingTool.quartz.name=Quartz Chopping Tool
 item.genesis.tool.choppingTool.brownFlint.name=Brown Flint Chopping Tool
 item.genesis.tool.choppingTool.blackFlint.name=Black Flint Chopping Tool
 
-item.genesis.material.toolHead.spade.octaedrite.name=Octaedrite Shovel Head
-item.genesis.material.toolHead.spade.dolerite.name=Dolerite Shovel Head
-item.genesis.material.toolHead.spade.rhyolite.name=Rhyolite Shovel Head
-item.genesis.material.toolHead.spade.granite.name=Granite Shovel Head
-item.genesis.material.toolHead.spade.quartz.name=Quartz Shovel Head
-item.genesis.material.toolHead.spade.brownFlint.name=Brown Flint Shovel Head
-item.genesis.material.toolHead.spade.blackFlint.name=Black Flint Shovel Head
+item.genesis.material.toolHead.shovel.octaedrite.name=Octaedrite Shovel Head
+item.genesis.material.toolHead.shovel.dolerite.name=Dolerite Shovel Head
+item.genesis.material.toolHead.shovel.rhyolite.name=Rhyolite Shovel Head
+item.genesis.material.toolHead.shovel.granite.name=Granite Shovel Head
+item.genesis.material.toolHead.shovel.quartz.name=Quartz Shovel Head
+item.genesis.material.toolHead.shovel.brownFlint.name=Brown Flint Shovel Head
+item.genesis.material.toolHead.shovel.blackFlint.name=Black Flint Shovel Head
 
-item.genesis.tool.spade.octaedrite.name=Octaedrite Shovel
-item.genesis.tool.spade.dolerite.name=Dolerite Shovel
-item.genesis.tool.spade.rhyolite.name=Rhyolite Shovel
-item.genesis.tool.spade.granite.name=Granite Shovel
-item.genesis.tool.spade.quartz.name=Quartz Shovel
-item.genesis.tool.spade.brownFlint.name=Brown Flint Shovel
-item.genesis.tool.spade.blackFlint.name=Black Flint Shovel
+item.genesis.tool.shovel.octaedrite.name=Octaedrite Shovel
+item.genesis.tool.shovel.dolerite.name=Dolerite Shovel
+item.genesis.tool.shovel.rhyolite.name=Rhyolite Shovel
+item.genesis.tool.shovel.granite.name=Granite Shovel
+item.genesis.tool.shovel.quartz.name=Quartz Shovel
+item.genesis.tool.shovel.brownFlint.name=Brown Flint Shovel
+item.genesis.tool.shovel.blackFlint.name=Black Flint Shovel
 
 item.genesis.material.toolHead.pick.octaedrite.name=Octaedrite Pickaxe Head
 item.genesis.material.toolHead.pick.dolerite.name=Dolerite Pickaxe Head

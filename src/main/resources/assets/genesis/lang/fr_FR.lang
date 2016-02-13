@@ -294,21 +294,21 @@ item.genesis.tool.choppingTool.quartz.name=Chopping tool en quartz
 item.genesis.tool.choppingTool.brownFlint.name=Chopping tool en silex brun
 item.genesis.tool.choppingTool.blackFlint.name=Chopping tool en silex noir
 
-item.genesis.material.toolHead.spade.octaedrite.name=Tête de pelle en octaédrite
-item.genesis.material.toolHead.spade.dolerite.name=Tête de pelle en dolérite
-item.genesis.material.toolHead.spade.rhyolite.name=Tête de pelle en rhyolite
-item.genesis.material.toolHead.spade.granite.name=Tête de pelle en granite
-item.genesis.material.toolHead.spade.quartz.name=Tête de pelle en quartz
-item.genesis.material.toolHead.spade.brownFlint.name=Tête de pelle en silex brun
-item.genesis.material.toolHead.spade.blackFlint.name=Tête de pelle en silex noir
+item.genesis.material.toolHead.shovel.octaedrite.name=Tête de pelle en octaédrite
+item.genesis.material.toolHead.shovel.dolerite.name=Tête de pelle en dolérite
+item.genesis.material.toolHead.shovel.rhyolite.name=Tête de pelle en rhyolite
+item.genesis.material.toolHead.shovel.granite.name=Tête de pelle en granite
+item.genesis.material.toolHead.shovel.quartz.name=Tête de pelle en quartz
+item.genesis.material.toolHead.shovel.brownFlint.name=Tête de pelle en silex brun
+item.genesis.material.toolHead.shovel.blackFlint.name=Tête de pelle en silex noir
 
-item.genesis.tool.spade.octaedrite.name=Pelle en octaédrite
-item.genesis.tool.spade.dolerite.name=Pelle en dolérite
-item.genesis.tool.spade.rhyolite.name=Pelle en rhyolite
-item.genesis.tool.spade.granite.name=Pelle en granite
-item.genesis.tool.spade.quartz.name=Pelle en quartz
-item.genesis.tool.spade.brownFlint.name=Pelle en silex brun
-item.genesis.tool.spade.blackFlint.name=Pelle en silex noir
+item.genesis.tool.shovel.octaedrite.name=Pelle en octaédrite
+item.genesis.tool.shovel.dolerite.name=Pelle en dolérite
+item.genesis.tool.shovel.rhyolite.name=Pelle en rhyolite
+item.genesis.tool.shovel.granite.name=Pelle en granite
+item.genesis.tool.shovel.quartz.name=Pelle en quartz
+item.genesis.tool.shovel.brownFlint.name=Pelle en silex brun
+item.genesis.tool.shovel.blackFlint.name=Pelle en silex noir
 
 item.genesis.material.toolHead.pick.octaedrite.name=Tête de pioche en octaédrite
 item.genesis.material.toolHead.pick.dolerite.name=Tête de pioche en dolérite
