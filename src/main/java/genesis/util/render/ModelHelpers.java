@@ -50,7 +50,8 @@ public class ModelHelpers
 	public static Map<IBlockState, ModelResourceLocation> blockResourceMap;
 	public static Class<? extends IModel> classVanillaModelWrapper;
 	public static Field vanillaModelWrapperModelBlock;
-	public static IdentityHashMap<Item, TIntObjectHashMap<ModelResourceLocation>> itemModelLocations;
+	public static Map<Item, TIntObjectHashMap<ModelResourceLocation>> itemModelLocations;
+	public static Map<Item, ItemMeshDefinition> itemModelDefinitions;
 	public static Field modelBlockDefinitionMap;
 	public static Field destroyBlockIcons;
 	
@@ -198,11 +199,11 @@ public class ModelHelpers
 			return false;
 		}
 		
-		if (!loc.getResourcePath().startsWith("item/"))
+		/*if (!loc.getResourcePath().startsWith("item/"))
 		{
 			loc = new ModelResourceLocation(loc.getResourceDomain() + ":item/" + loc.getResourcePath(), loc.getVariant());
-		}
-
+		}*/
+		
 		final ResourceLocation generated = new ResourceLocation("minecraft:builtin/generated");
 		
 		ModelBlock itemModel = ModelHelpers.getModelBlock(loc);
@@ -324,7 +325,7 @@ public class ModelHelpers
 		return getStateToModelLocationMap().get(state);
 	}
 	
-	public static IdentityHashMap<Item, TIntObjectHashMap<ModelResourceLocation>> getItemModelLocationMap()
+	public static Map<Item, TIntObjectHashMap<ModelResourceLocation>> getItemModelLocationMap()
 	{
 		if (itemModelLocations == null)
 		{
@@ -332,6 +333,16 @@ public class ModelHelpers
 		}
 		
 		return itemModelLocations;
+	}
+	
+	public static Map<Item, ItemMeshDefinition> getItemModelDefinitions()
+	{
+		if (itemModelDefinitions == null)
+		{
+			itemModelDefinitions = ReflectionHelper.getPrivateValue(ItemModelMesher.class, getModelMesher(), "shapers", "field_178092_c");
+		}
+		
+		return itemModelDefinitions;
 	}
 	
 	public static ModelResourceLocation getMissingModelLocation()
@@ -351,10 +362,16 @@ public class ModelHelpers
 			getItemModelLocationMap();
 			ModelResourceLocation loc = itemModelLocations.get(stack.getItem()).get(stack.getMetadata());
 			
-			if (loc != null)
+			if (loc == null)
 			{
-				return loc;
+				ItemMeshDefinition def = getItemModelDefinitions().get(stack.getItem());
+				
+				if (def != null)
+					loc = def.getModelLocation(stack);
 			}
+			
+			if (loc != null)
+				return loc;
 		}
 		
 		return getMissingModelLocation();

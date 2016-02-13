@@ -78,9 +78,9 @@ public abstract class CustomEntityPart extends EntityPart
 	{
 		if (childModels != null)
 		{
-			for (Object childModelObj : childModels)
+			for (ModelRenderer childModel : childModels)
 			{
-				((ModelRenderer) childModelObj).render(pxSize);
+				childModel.render(pxSize);
 			}
 		}
 	}

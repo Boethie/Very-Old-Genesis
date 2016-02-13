@@ -47,14 +47,16 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 		
 		public ModelCampfire()
 		{
-			stick.rotationPointY = 1 + MathHelper.cos((float) Math.PI / 2) * 0.0625F;
+			stick.rotationPointY = 1 + MathHelper.cos((float) Math.PI / 4) * 0.0625F;
 			stick.setAmbientOcclusion(false);
-			stick.setDefaultState();
-			
-			cookingPot.setDefaultState();
-			
 			stick.addChild(cookingPot);
 			stick.addChild(stickItem);
+			stick.setDefaultState();
+			
+			stickItem.offsetY = stick.rotationPointY;
+			stickItem.setDefaultState();
+			
+			cookingPot.setDefaultState();
 		}
 
 		public void renderAll()
@@ -165,7 +167,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 	
 	@Override
 	public void renderTileEntityAt(TileEntityCampfire campfire, double x, double y, double z, float partialTick, int destroyStage)
-	{
+	{model = new ModelCampfire();
 		// Translate to the proper coordinates.
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x, y, z);
@@ -195,8 +197,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 		ModelResourceLocation stickLoc = ModelHelpers.getLocationWithProperties(STICK, properties);
 		model.stick.setModel(stickLoc, world, pos);
 		
-		float stickRot = campfire.prevRot + (campfire.rot - campfire.prevRot) * partialTick;
-		model.stick.rotateAngleZ += stickRot;
+		model.stick.rotateAngleZ += GenesisMath.lerp(campfire.prevRot, campfire.rot, partialTick);
 		
 		if (axis == EnumAxis.Z)
 		{
@@ -208,7 +209,9 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 		
 		// Set fire model location.
 		if (burning)
+		{
 			model.fire.setModel(ModelHelpers.getLocationWithProperties(FIRE, "fire=uncovered"), world, pos);
+		}
 		else if (campfire.isWet())
 		{
 			if (fireModels.contains("wet"))
