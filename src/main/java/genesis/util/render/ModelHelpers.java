@@ -199,11 +199,6 @@ public class ModelHelpers
 			return false;
 		}
 		
-		/*if (!loc.getResourcePath().startsWith("item/"))
-		{
-			loc = new ModelResourceLocation(loc.getResourceDomain() + ":item/" + loc.getResourcePath(), loc.getVariant());
-		}*/
-		
 		final ResourceLocation generated = new ResourceLocation("minecraft:builtin/generated");
 		
 		ModelBlock itemModel = ModelHelpers.getModelBlock(loc);

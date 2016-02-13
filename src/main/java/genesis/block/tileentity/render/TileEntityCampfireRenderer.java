@@ -167,7 +167,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 	
 	@Override
 	public void renderTileEntityAt(TileEntityCampfire campfire, double x, double y, double z, float partialTick, int destroyStage)
-	{model = new ModelCampfire();
+	{
 		// Translate to the proper coordinates.
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x, y, z);
@@ -263,7 +263,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 					if (ModelHelpers.isGeneratedItemModel(input))
 					{
 						// Offset the item to prevent Z-fighting.
-						model.stickItem.offsetX -= 0.0001F;
+						model.stickItem.offsetX -= 0.001F;
 						
 						// Scale the item to half size.
 						model.stickItem.scaleX *= 0.5F;
