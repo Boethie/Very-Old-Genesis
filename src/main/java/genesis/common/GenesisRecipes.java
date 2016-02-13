@@ -495,6 +495,9 @@ public final class GenesisRecipes
 			ItemStack axeHead = GenesisItems.tools.getBadStack(ToolItems.AXE_HEAD, material, 1);
 			addToolRecipe(axeHead, ToolItems.AXE, material);
 			
+			ItemStack shovelHead = GenesisItems.tools.getBadStack(ToolItems.SHOVEL_HEAD, material, 1);
+			addToolRecipe(shovelHead, ToolItems.SHOVEL, material);
+			
 			ItemStack pickHead = GenesisItems.tools.getBadStack(ToolItems.PICK_HEAD, material, 1);
 			addToolRecipe(pickHead, ToolItems.PICK, material);
 			
@@ -527,6 +530,16 @@ public final class GenesisRecipes
 						true,	false,	false,
 						true,	true,	true,
 						true,	false,	false);
+				
+				// Shovel
+				shovelHead = shovelHead.copy();
+				shovelHead.stackSize = stackSize;
+				KnappingRecipeRegistry.registerRecipe(shovelHead,
+						2, 3,
+						matStack, xp,
+						true,	true,
+						true,	true,
+						true,	true);
 				
 				// Pickaxe
 				pickHead = pickHead.copy();
