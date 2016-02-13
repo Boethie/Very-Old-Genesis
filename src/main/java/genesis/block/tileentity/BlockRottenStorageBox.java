@@ -12,6 +12,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntitySilverfish;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -70,6 +71,17 @@ public class BlockRottenStorageBox extends Block
 			int slot = slots.get(world.rand.nextInt(slots.size()));
 			box.inventory[slot] = stack;
 			slots.remove(slot);
+		}
+	}
+	
+	public void dropBlockAsItemWithChance(World world, BlockPos pos, IBlockState state, float chance, int fortune)
+	{
+		if (!world.isRemote && world.provider.getDimensionId() == 0 && world.getGameRules().getBoolean("doTileDrops"))
+		{
+			EntitySilverfish silverfish = new EntitySilverfish(world);
+			silverfish.setLocationAndAngles(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 0, 0);
+			world.spawnEntityInWorld(silverfish);
+			silverfish.spawnExplosionParticle();
 		}
 	}
 	
