@@ -1,7 +1,7 @@
 {
 	"parent": "builtin/generated",
 	"textures": {
-		"layer0": "genesis:items/head_spade_chipped_black_flint"
+		"layer0": "genesis:items/head_shovel_chipped_quartz"
 	},
 	"display": {
 		"thirdperson": {

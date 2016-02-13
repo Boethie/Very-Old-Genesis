@@ -4,12 +4,14 @@ import java.util.List;
 
 import genesis.combo.ToolItems;
 import genesis.combo.ToolItems.ToolObjectType;
+import genesis.combo.VariantsOfTypesCombo.ItemVariantCount;
 import genesis.combo.variant.ToolTypes.ToolType;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 
+@ItemVariantCount(1)
 public class ItemGenesisSpade extends ItemSpade
 {
 	public final ToolItems owner;

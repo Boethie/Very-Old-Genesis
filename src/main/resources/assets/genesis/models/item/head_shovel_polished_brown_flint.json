@@ -1,7 +1,7 @@
 {
 	"parent": "builtin/generated",
 	"textures": {
-		"layer0": "genesis:items/head_spade_polished_dolerite"
+		"layer0": "genesis:items/head_shovel_polished_brown_flint"
 	},
 	"display": {
 		"thirdperson": {

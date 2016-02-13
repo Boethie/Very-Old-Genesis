@@ -25,6 +25,144 @@ import genesis.util.Constants.Unlocalized.Section;
 
 public class ToolItems extends VariantsOfTypesCombo<ToolType>
 {
+	public static final EnumToolQuality BAD_QUALITY = EnumToolQuality.CHIPPED;
+	public static final EnumToolQuality GOOD_TOOL_QUALITY = EnumToolQuality.POLISHED;
+	public static final EnumToolQuality GOOD_WEAPON_QUALITY = EnumToolQuality.SHARPENED;
+	public static final EnumToolQuality[] TOOL_QUALITIES = new EnumToolQuality[]{BAD_QUALITY, GOOD_TOOL_QUALITY};
+	public static final EnumToolQuality[] WEAPON_QUALITIES = new EnumToolQuality[]{BAD_QUALITY, GOOD_WEAPON_QUALITY};
+	
+	public static final ToolObjectTypeSoleQuality<BlockPebble, ItemPebble> PEBBLE = (ToolObjectTypeSoleQuality<BlockPebble, ItemPebble>) new ToolObjectTypeSoleQuality<BlockPebble, ItemPebble>("pebble", Section.MATERIAL + "pebble", BlockPebble.class, ItemPebble.class, EnumToolQuality.WEAK, EnumToolMaterial.OCTAEDRITE).setUseSeparateVariantJsons(false);
+	public static final ToolObjectTypeSoleQuality<Block, ItemChoppingTool> CHOPPING_TOOL = new ToolObjectTypeSoleQuality<Block, ItemChoppingTool>("chopping_tool", Section.TOOL + "choppingTool", null, ItemChoppingTool.class, EnumToolQuality.WEAK, EnumToolMaterial.OCTAEDRITE).setCreativeTab(GenesisCreativeTabs.TOOLS).setUseVariantAsRegistryName(true);
+	public static final ToolObjectType<Block, ItemToolHead> SHOVEL_HEAD = new ToolObjectType<Block, ItemToolHead>("head_shovel", Section.TOOL_HEAD + "shovel", null, ItemToolHead.class, TOOL_QUALITIES);
+	public static final ToolObjectType<Block, ItemGenesisSpade> SHOVEL = new ToolObjectType<Block, ItemGenesisSpade>("shovel", Section.TOOL + "shovel", null, ItemGenesisSpade.class, TOOL_QUALITIES).setCreativeTab(GenesisCreativeTabs.TOOLS);
+	public static final ToolObjectType<Block, ItemToolHead> PICK_HEAD = new ToolObjectType<Block, ItemToolHead>("head_pick", Section.TOOL_HEAD + "pick", null, ItemToolHead.class, TOOL_QUALITIES);
+	public static final ToolObjectType<Block, ItemGenesisPick> PICK = new ToolObjectType<Block, ItemGenesisPick>("pick", Section.TOOL + "pick", null, ItemGenesisPick.class, TOOL_QUALITIES).setCreativeTab(GenesisCreativeTabs.TOOLS);
+	public static final ToolObjectType<Block, ItemToolHead> AXE_HEAD = new ToolObjectType<Block, ItemToolHead>("head_axe", Section.TOOL_HEAD + "axe", null, ItemToolHead.class, TOOL_QUALITIES);
+	public static final ToolObjectType<Block, ItemGenesisAxe> AXE = new ToolObjectType<Block, ItemGenesisAxe>("axe", Section.TOOL + "axe", null, ItemGenesisAxe.class, TOOL_QUALITIES).setCreativeTab(GenesisCreativeTabs.TOOLS);
+	public static final ToolObjectType<Block, ItemToolHead> HOE_HEAD = new ToolObjectType<Block, ItemToolHead>("head_hoe", Section.TOOL_HEAD + "hoe", null, ItemToolHead.class, TOOL_QUALITIES);
+	public static final ToolObjectType<Block, ItemGenesisHoe> HOE = new ToolObjectType<Block, ItemGenesisHoe>("hoe", Section.TOOL + "hoe", null, ItemGenesisHoe.class, TOOL_QUALITIES).setCreativeTab(GenesisCreativeTabs.TOOLS);
+	public static final ToolObjectType<Block, ItemToolHead> KNIFE_HEAD = new ToolObjectType<Block, ItemToolHead>("head_knife", Section.TOOL_HEAD + "knife", null, ItemToolHead.class, WEAPON_QUALITIES);
+	public static final ToolObjectType<Block, ItemGenesisKnife> KNIFE = new ToolObjectType<Block, ItemGenesisKnife>("knife", Section.TOOL + "knife", null, ItemGenesisKnife.class, WEAPON_QUALITIES).setCreativeTab(GenesisCreativeTabs.TOOLS);
+	public static final ToolObjectType<Block, ItemToolHead> CLUB_HEAD = new ToolObjectType<Block, ItemToolHead>("head_club", Section.TOOL_HEAD + "club", null, ItemToolHead.class, TOOL_QUALITIES).setCreativeTab(GenesisCreativeTabs.COMBAT);
+	public static final ToolObjectType<Block, ItemGenesisClub> CLUB = new ToolObjectType<Block, ItemGenesisClub>("club", Section.WEAPON + "club", null, ItemGenesisClub.class, TOOL_QUALITIES).setCreativeTab(GenesisCreativeTabs.COMBAT);
+	public static final ToolObjectType<Block, ItemToolHead> SPEAR_HEAD = new ToolObjectType<Block, ItemToolHead>("head_spear", Section.TOOL_HEAD + "spear", null, ItemToolHead.class, WEAPON_QUALITIES).setCreativeTab(GenesisCreativeTabs.COMBAT);
+	public static final ToolObjectType<Block, ItemGenesisSpear> SPEAR = new ToolObjectType<Block, ItemGenesisSpear>("spear", Section.WEAPON + "spear", null, ItemGenesisSpear.class, WEAPON_QUALITIES).setCreativeTab(GenesisCreativeTabs.COMBAT);
+	public static final ToolObjectType<Block, ItemToolHead> ARROW_HEAD = new ToolObjectType<Block, ItemToolHead>("head_arrow", Section.TOOL_HEAD + "arrow", null, ItemToolHead.class, WEAPON_QUALITIES).setCreativeTab(GenesisCreativeTabs.COMBAT);
+	public static final ToolObjectTypeSoleQuality<Block, ItemMulti<ToolType>> FLAKE = new ToolObjectTypeSoleQuality<Block, ItemMulti<ToolType>>("flake", Section.MATERIAL + "flake", null, null, EnumToolQuality.NONE);
+	
+	public ToolItems()
+	{
+		super(ImmutableList.<ObjectType<?, ?>>of(
+						PEBBLE, CHOPPING_TOOL,
+						SHOVEL_HEAD, SHOVEL,
+						PICK_HEAD, PICK,
+						AXE_HEAD, AXE,
+						HOE_HEAD, HOE,
+						KNIFE_HEAD, KNIFE,
+						CLUB_HEAD, CLUB,
+						SPEAR_HEAD, SPEAR,
+						FLAKE, ARROW_HEAD),
+				ToolType.class, ToolTypes.getAll());
+		
+		setUnlocalizedPrefix(Unlocalized.PREFIX);
+	}
+	
+	/**
+	 * Get an item stack containing the tool item of the specified {@link ToolObjectType}, material and quality.
+	 */
+	public ItemStack getStack(ToolObjectType<?, ?> type, EnumToolMaterial material, EnumToolQuality quality, int stackSize)
+	{
+		return getStack(type, ToolTypes.getToolHead(material, quality), stackSize);
+	}
+	
+	/**
+	 * Get an item stack containing the tool item of the specified {@link ToolObjectType}, material and quality with a stack size of 1.
+	 */
+	public ItemStack getStack(ToolObjectType<?, ?> type, EnumToolMaterial material, EnumToolQuality quality)
+	{
+		return getStack(type, material, quality, 1);
+	}
+	
+	/**
+	 * Gets a bad quality item of the specified {@link ToolObjectType} and material.
+	 */
+	public ItemStack getBadStack(ToolObjectType<?, ?> type, EnumToolMaterial material, int stackSize)
+	{
+		return getStack(type, material, type.badQuality, stackSize);
+	}
+	
+	/**
+	 * Gets a bad quality item of the specified {@link ToolObjectType} and material.
+	 */
+	public ItemStack getBadStack(ToolObjectType<?, ?> type, EnumToolMaterial material)
+	{
+		return getBadStack(type, material, 1);
+	}
+	
+	/**
+	 * Gets a good quality item of the specified {@link ToolObjectType} and material.
+	 */
+	public ItemStack getGoodStack(ToolObjectType<?, ?> type, EnumToolMaterial material, int stackSize)
+	{
+		return getStack(type, material, type.goodQuality, stackSize);
+	}
+	
+	/**
+	 * Gets a good quality item of the specified {@link ToolObjectType} and material.
+	 */
+	public ItemStack getGoodStack(ToolObjectType<?, ?> type, EnumToolMaterial material)
+	{
+		return getGoodStack(type, material, 1);
+	}
+
+	/**
+	 * Get an item stack containing the tool item with the specified {@link ToolObjectTypeSoleQuality}, and the tool material.
+	 */
+	public ItemStack getStack(ToolObjectTypeSoleQuality<?, ?> type, EnumToolMaterial material, int stackSize)
+	{
+		return getStack(type, material, type.getSoleQuality(), stackSize);
+	}
+	
+	/**
+	 * Get an item stack containing the tool item with the specified {@link ToolObjectTypeSoleQuality}, and the tool material, with a stack size of 1.
+	 */
+	public ItemStack getStack(ToolObjectTypeSoleQuality<?, ?> type, EnumToolMaterial material)
+	{
+		return getStack(type, material, 1);
+	}
+	
+	/**
+	 * Adds the information about the {@link ToolType} for this stack.
+	 */
+	public void addToolInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced)
+	{
+		ToolType type = getVariant(stack);
+		
+		if (type != null && type.quality.hasUnlocalizedName())
+		{
+			tooltip.add(StatCollector.translateToLocal(type.quality.getUnlocalizedName()));
+		}
+	}
+	
+	/**
+	 * Gets a block state from the specified {@link ToolObjectType}, with the quality level and material specified.
+	 */
+	public IBlockState getBlockState(ToolObjectTypeSoleQuality<?, ?> type, EnumToolMaterial material, EnumToolQuality quality)
+	{
+		return getBlockState(type, ToolTypes.getToolHead(material, quality));
+	}
+	
+	/**
+	 * Gets a block state from the specified {@link ToolObjectTypeSoleQuality}, with the material specified.
+	 */
+	public IBlockState getBlockState(ToolObjectTypeSoleQuality<?, ?> type, EnumToolMaterial material)
+	{
+		return getBlockState(type, material, type.getSoleQuality());
+	}
+	
+	/**
+	 * An {@link ObjectType} with only two tool quality levels.
+	 */
 	public static class ToolObjectType<B extends Block, I extends Item> extends ObjectType<B, I>
 	{
 		public final HashSet<EnumToolQuality> validQualities;
@@ -143,136 +281,5 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 			return this;
 		}
 	}
-
-	public static final EnumToolQuality BAD_QUALITY = EnumToolQuality.CHIPPED;
-	public static final EnumToolQuality GOOD_TOOL_QUALITY = EnumToolQuality.POLISHED;
-	public static final EnumToolQuality GOOD_WEAPON_QUALITY = EnumToolQuality.SHARPENED;
-	public static final EnumToolQuality[] TOOL_QUALITIES = new EnumToolQuality[]{BAD_QUALITY, GOOD_TOOL_QUALITY};
-	public static final EnumToolQuality[] WEAPON_QUALITIES = new EnumToolQuality[]{BAD_QUALITY, GOOD_WEAPON_QUALITY};
 	
-	public static final ToolObjectTypeSoleQuality<BlockPebble, ItemPebble> PEBBLE = (ToolObjectTypeSoleQuality<BlockPebble, ItemPebble>) new ToolObjectTypeSoleQuality<BlockPebble, ItemPebble>("pebble", Section.MATERIAL + "pebble", BlockPebble.class, ItemPebble.class, EnumToolQuality.WEAK, EnumToolMaterial.OCTAEDRITE).setUseSeparateVariantJsons(false);
-	public static final ToolObjectTypeSoleQuality<Block, ItemChoppingTool> CHOPPING_TOOL = new ToolObjectTypeSoleQuality<Block, ItemChoppingTool>("chopping_tool", Section.TOOL + "choppingTool", null, ItemChoppingTool.class, EnumToolQuality.WEAK, EnumToolMaterial.OCTAEDRITE).setCreativeTab(GenesisCreativeTabs.TOOLS).setUseVariantAsRegistryName(true);
-	public static final ToolObjectType<Block, ItemToolHead> PICK_HEAD = new ToolObjectType<Block, ItemToolHead>("head_pick", Section.TOOL_HEAD + "pick", null, ItemToolHead.class, TOOL_QUALITIES);
-	public static final ToolObjectType<Block, ItemGenesisPick> PICK = new ToolObjectType<Block, ItemGenesisPick>("pick", Section.TOOL + "pick", null, ItemGenesisPick.class, TOOL_QUALITIES).setCreativeTab(GenesisCreativeTabs.TOOLS);
-	public static final ToolObjectType<Block, ItemToolHead> AXE_HEAD = new ToolObjectType<Block, ItemToolHead>("head_axe", Section.TOOL_HEAD + "axe", null, ItemToolHead.class, TOOL_QUALITIES);
-	public static final ToolObjectType<Block, ItemGenesisAxe> AXE = new ToolObjectType<Block, ItemGenesisAxe>("axe", Section.TOOL + "axe", null, ItemGenesisAxe.class, TOOL_QUALITIES).setCreativeTab(GenesisCreativeTabs.TOOLS);
-	public static final ToolObjectType<Block, ItemToolHead> HOE_HEAD = new ToolObjectType<Block, ItemToolHead>("head_hoe", Section.TOOL_HEAD + "hoe", null, ItemToolHead.class, TOOL_QUALITIES);
-	public static final ToolObjectType<Block, ItemGenesisHoe> HOE = new ToolObjectType<Block, ItemGenesisHoe>("hoe", Section.TOOL + "hoe", null, ItemGenesisHoe.class, TOOL_QUALITIES).setCreativeTab(GenesisCreativeTabs.TOOLS);
-	public static final ToolObjectType<Block, ItemToolHead> KNIFE_HEAD = new ToolObjectType<Block, ItemToolHead>("head_knife", Section.TOOL_HEAD + "knife", null, ItemToolHead.class, WEAPON_QUALITIES);
-	public static final ToolObjectType<Block, ItemGenesisKnife> KNIFE = new ToolObjectType<Block, ItemGenesisKnife>("knife", Section.TOOL + "knife", null, ItemGenesisKnife.class, WEAPON_QUALITIES).setCreativeTab(GenesisCreativeTabs.TOOLS);
-	public static final ToolObjectType<Block, ItemToolHead> CLUB_HEAD = new ToolObjectType<Block, ItemToolHead>("head_club", Section.TOOL_HEAD + "club", null, ItemToolHead.class, TOOL_QUALITIES).setCreativeTab(GenesisCreativeTabs.COMBAT);
-	public static final ToolObjectType<Block, ItemGenesisClub> CLUB = new ToolObjectType<Block, ItemGenesisClub>("club", Section.WEAPON + "club", null, ItemGenesisClub.class, TOOL_QUALITIES).setCreativeTab(GenesisCreativeTabs.COMBAT);
-	public static final ToolObjectType<Block, ItemToolHead> SPEAR_HEAD = new ToolObjectType<Block, ItemToolHead>("head_spear", Section.TOOL_HEAD + "spear", null, ItemToolHead.class, WEAPON_QUALITIES).setCreativeTab(GenesisCreativeTabs.COMBAT);
-	public static final ToolObjectType<Block, ItemGenesisSpear> SPEAR = new ToolObjectType<Block, ItemGenesisSpear>("spear", Section.WEAPON + "spear", null, ItemGenesisSpear.class, WEAPON_QUALITIES).setCreativeTab(GenesisCreativeTabs.COMBAT);
-	public static final ToolObjectType<Block, ItemToolHead> ARROW_HEAD = new ToolObjectType<Block, ItemToolHead>("head_arrow", Section.TOOL_HEAD + "arrow", null, ItemToolHead.class, WEAPON_QUALITIES).setCreativeTab(GenesisCreativeTabs.COMBAT);
-	public static final ToolObjectTypeSoleQuality<Block, ItemMulti<ToolType>> FLAKE = new ToolObjectTypeSoleQuality<Block, ItemMulti<ToolType>>("flake", Section.MATERIAL + "flake", null, null, EnumToolQuality.NONE);
-	
-	public ToolItems()
-	{
-		super(ImmutableList.<ObjectType<?, ?>>of(
-						PEBBLE, CHOPPING_TOOL,
-						PICK_HEAD, PICK,
-						AXE_HEAD, AXE,
-						HOE_HEAD, HOE,
-						KNIFE_HEAD, KNIFE,
-						CLUB_HEAD, CLUB,
-						SPEAR_HEAD, SPEAR,
-						FLAKE, ARROW_HEAD),
-				ToolType.class, ToolTypes.getAll());
-		
-		setUnlocalizedPrefix(Unlocalized.PREFIX);
-	}
-	
-	/**
-	 * Get an item stack containing the tool item of the specified {@link ToolObjectType}, material and quality.
-	 */
-	public ItemStack getStack(ToolObjectType<?, ?> type, EnumToolMaterial material, EnumToolQuality quality, int stackSize)
-	{
-		return getStack(type, ToolTypes.getToolHead(material, quality), stackSize);
-	}
-	
-	/**
-	 * Get an item stack containing the tool item of the specified {@link ToolObjectType}, material and quality with a stack size of 1.
-	 */
-	public ItemStack getStack(ToolObjectType<?, ?> type, EnumToolMaterial material, EnumToolQuality quality)
-	{
-		return getStack(type, material, quality, 1);
-	}
-	
-	/**
-	 * Gets a bad quality item of the specified {@link ToolObjectType} and material.
-	 */
-	public ItemStack getBadStack(ToolObjectType<?, ?> type, EnumToolMaterial material, int stackSize)
-	{
-		return getStack(type, material, type.badQuality, stackSize);
-	}
-	
-	/**
-	 * Gets a bad quality item of the specified {@link ToolObjectType} and material.
-	 */
-	public ItemStack getBadStack(ToolObjectType<?, ?> type, EnumToolMaterial material)
-	{
-		return getBadStack(type, material, 1);
-	}
-	
-	/**
-	 * Gets a good quality item of the specified {@link ToolObjectType} and material.
-	 */
-	public ItemStack getGoodStack(ToolObjectType<?, ?> type, EnumToolMaterial material, int stackSize)
-	{
-		return getStack(type, material, type.goodQuality, stackSize);
-	}
-	
-	/**
-	 * Gets a good quality item of the specified {@link ToolObjectType} and material.
-	 */
-	public ItemStack getGoodStack(ToolObjectType<?, ?> type, EnumToolMaterial material)
-	{
-		return getGoodStack(type, material, 1);
-	}
-
-	/**
-	 * Get an item stack containing the tool item with the specified {@link ToolObjectTypeSoleQuality}, and the tool material.
-	 */
-	public ItemStack getStack(ToolObjectTypeSoleQuality<?, ?> type, EnumToolMaterial material, int stackSize)
-	{
-		return getStack(type, material, type.getSoleQuality(), stackSize);
-	}
-	
-	/**
-	 * Get an item stack containing the tool item with the specified {@link ToolObjectTypeSoleQuality}, and the tool material, with a stack size of 1.
-	 */
-	public ItemStack getStack(ToolObjectTypeSoleQuality<?, ?> type, EnumToolMaterial material)
-	{
-		return getStack(type, material, 1);
-	}
-	
-	/**
-	 * Adds the information about the {@link ToolType} for this stack.
-	 */
-	public void addToolInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced)
-	{
-		ToolType type = getVariant(stack);
-		
-		if (type != null && type.quality.hasUnlocalizedName())
-		{
-			tooltip.add(StatCollector.translateToLocal(type.quality.getUnlocalizedName()));
-		}
-	}
-	
-	/**
-	 * Gets a block state from the specified {@link ToolObjectType}, with the quality level and material specified.
-	 */
-	public IBlockState getBlockState(ToolObjectTypeSoleQuality<?, ?> type, EnumToolMaterial material, EnumToolQuality quality)
-	{
-		return getBlockState(type, ToolTypes.getToolHead(material, quality));
-	}
-	
-	/**
-	 * Gets a block state from the specified {@link ToolObjectTypeSoleQuality}, with the material specified.
-	 */
-	public IBlockState getBlockState(ToolObjectTypeSoleQuality<?, ?> type, EnumToolMaterial material)
-	{
-		return getBlockState(type, material, type.getSoleQuality());
-	}
 }
