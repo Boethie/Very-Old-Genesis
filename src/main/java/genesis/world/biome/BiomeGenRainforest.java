@@ -2,6 +2,8 @@ package genesis.world.biome;
 
 import java.util.Random;
 
+import genesis.combo.SiltBlocks;
+import genesis.combo.variant.EnumSilt;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.WorldGenDebris;
@@ -37,7 +39,9 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchSize(3).setCountPerChunk(2));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(2));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(2, 0).setNextToWater(true).setPatchSize(4).setCountPerChunk(8));
-		addDecoration(new WorldGenRockBoulders().setMaxHeight(3).setCountPerChunk(10));
+		
+		addDecoration(new WorldGenRockBoulders().setMaxHeight(3).setCountPerChunk(8));
+		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(4).setCountPerChunk(1));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		addDecoration(new WorldGenDebris().setCountPerChunk(12));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));

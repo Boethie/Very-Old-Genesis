@@ -1,5 +1,8 @@
 package genesis.world.biome;
 
+import genesis.common.GenesisBlocks;
+import genesis.world.biome.decorate.WorldGenRockBoulders;
+
 public class BiomeGenAuxForestM extends BiomeGenAuxForest
 {
 	public BiomeGenAuxForestM(int id)
@@ -7,6 +10,11 @@ public class BiomeGenAuxForestM extends BiomeGenAuxForest
 		super(id);
 		setBiomeName("Araucarioxylon Forest M");
 		setHeight(0.4F, 0.7F);
+	}
+	
+	protected void addDecorations()
+	{
+		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(4).setCountPerChunk(1));
 	}
 	
 	@Override

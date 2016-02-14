@@ -1,5 +1,7 @@
 package genesis.world.biome;
 
+import genesis.world.biome.decorate.WorldGenRockBoulders;
+
 public class BiomeGenWoodlandsM extends BiomeGenWoodlands
 {
 	public BiomeGenWoodlandsM(int id)
@@ -7,6 +9,11 @@ public class BiomeGenWoodlandsM extends BiomeGenWoodlands
 		super(id);
 		setBiomeName("Woodlands M");
 		setHeight(0.4F, 0.7F);
+	}
+	
+	protected void addDecorations()
+	{
+		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(4).setCountPerChunk(1));
 	}
 	
 	@Override

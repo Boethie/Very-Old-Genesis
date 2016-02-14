@@ -40,6 +40,7 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenPlant(EnumPlant.SANMIGUELIA).setNextToWater(true).setPatchSize(4).setCountPerChunk(16));
 		
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(3).setCountPerChunk(3));
+		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(5).setCountPerChunk(1));
 		addDecoration(new WorldGenDebris().addAdditional(GenesisBlocks.debris.getBlockState(EnumDebrisOther.COELOPHYSIS_FEATHER)).setCountPerChunk(7));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));
 	}
