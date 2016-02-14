@@ -30,17 +30,14 @@ public class GenLayerGenesisShore extends GenLayerGenesis
 				int k2;
 				
 				if (
-						biomeID != GenesisBiomes.auxForest.biomeID 
-						&& biomeID != GenesisBiomes.auxForestM.biomeID 
+						biomeID != GenesisBiomes.auxForestM.biomeID 
 						&& biomeID != GenesisBiomes.auxForestHills.biomeID
-						&& biomeID != GenesisBiomes.woodlands.biomeID
 						&& biomeID != GenesisBiomes.woodlandsM.biomeID
 						&& biomeID != GenesisBiomes.woodlandsHills.biomeID
-						&& biomeID != GenesisBiomes.rainforest.biomeID
 						&& biomeID != GenesisBiomes.rainforestM.biomeID
 						&& biomeID != GenesisBiomes.rainforestHills.biomeID
 						&& biomeID != GenesisBiomes.metaForest.biomeID
-						&& biomeID != GenesisBiomes.metaForestM.biomeID 
+						&& biomeID != GenesisBiomes.metaForestM.biomeID
 						&& biomeID != GenesisBiomes.metaForestHills.biomeID)
 				{
 					if (!isBiomeOceanic(biomeID) && biomeID != GenesisBiomes.swampRainForest.biomeID)
