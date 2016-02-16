@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static genesis.world.WorldGenerators.menhirActivatorsAncient;
+import static genesis.world.WorldGenerators.menhirActivatorsOverworld;
 
 /**
  * Created by Vorquel on 10/27/15
@@ -130,7 +130,7 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 			world.setBlockToAir(center.add(offset));
 		
 		ArrayList<ItemStack> loot = new ArrayList<ItemStack>();
-		for (ItemStack stack : menhirActivatorsAncient)
+		for (ItemStack stack : menhirActivatorsOverworld)
 			loot.add(stack.copy());
 		
 		int count = 2 + random.nextInt(2);

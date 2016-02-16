@@ -15,8 +15,8 @@ import java.util.ArrayList;
  */
 public class WorldGenerators
 {
-	public static ArrayList<ItemStack> menhirActivatorsAncient = Lists.newArrayList();
-	public static ArrayList<ItemStack> menhirActivatorsRecent = Lists.newArrayList(); //todo: use this for genesis dimension activator generation
+	public static ArrayList<ItemStack> menhirActivatorsOverworld = Lists.newArrayList();
+	public static ArrayList<ItemStack> menhirActivatorsGenesis = Lists.newArrayList(); //todo: use this for genesis dimension activator generation
 	
 	public static void register()
 	{
@@ -25,13 +25,13 @@ public class WorldGenerators
 		
 		for (EnumMenhirActivator activator : EnumMenhirActivator.values())
 		{
-			if (activator.isAncient())
+			if (activator.isForOverworld())
 			{
-				menhirActivatorsAncient.add(GenesisItems.menhir_activators.getStack(activator));
+				menhirActivatorsOverworld.add(GenesisItems.menhir_activators.getStack(activator));
 			}
 			else
 			{
-				menhirActivatorsRecent.add(GenesisItems.menhir_activators.getStack(activator));
+				menhirActivatorsGenesis.add(GenesisItems.menhir_activators.getStack(activator));
 			}
 		}
 	}
