@@ -28,6 +28,8 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 		
 		this.minHeight = minHeight;
 		this.maxHeight = maxHeight;
+		
+		this.hangingFruit = GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.HANGING_FRUIT, EnumTree.ARAUCARIOXYLON);
 	}
 	
 	public WorldGenTreeAraucarioxylon setType(int type)
@@ -84,11 +86,7 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			break;
 		default:
 			maxLeavesLength = 2;
-			
 			leavesBase = branchPos.getY() - 2 - rand.nextInt(2);
-			
-			if (rand.nextInt(10) == 0)
-				leavesBase = branchPos.getY() + 2;
 			break;
 		}
 		
@@ -223,12 +221,15 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			setBlockInWorld(world, upPos, wood.withProperty(BlockLog.LOG_AXIS, woodAxis));
 			
 			if (leaves && rand.nextInt(10) == 0)
-				doBranchLeaves(world, upPos, rand, true, 2, true);
+			{
+				doBranchLeaves(world, upPos, rand, true, 3, true);
+				doBranchLeaves(world, upPos.down(), rand, true, 2, true);
+			}
 			
 			leaves = !leaves;
 			
 			if (i == fallDistance - 1)
-				doBranchLeaves(world, upPos.down(), rand, false, 1 + rand.nextInt(2), true);
+				doBranchLeaves(world, upPos, rand, false, 1 + rand.nextInt(2), true);
 		}
 	}
 }

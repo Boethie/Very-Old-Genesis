@@ -55,30 +55,30 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 		
 		if (random.nextInt(100) > 15)
 		{
-			generateRockColumn(world, pos.add(1, 0, 0), random, 1 + random.nextInt(maxHeight - 1));
+			generateRockColumn(world, pos.add(1, 0, 0), random, 1 + random.nextInt(maxHeight - random.nextInt(2)));
 			if (random.nextInt(10) > 5)
-				generateRockColumn(world, pos.add(1, 0, 1), random, 1 + random.nextInt(maxHeight - 1));
+				generateRockColumn(world, pos.add(1, 0, 1), random, 1 + random.nextInt(maxHeight - random.nextInt(2)));
 		}
 		
 		if (random.nextInt(100) > 15)
 		{
-			generateRockColumn(world, pos.add(-1, 0, 0), random, 1 + random.nextInt(maxHeight - 1));
+			generateRockColumn(world, pos.add(-1, 0, 0), random, 1 + random.nextInt(maxHeight - random.nextInt(2)));
 			if (random.nextInt(10) > 5)
-				generateRockColumn(world, pos.add(-1, 0, -1), random, 1 + random.nextInt(maxHeight - 1));
+				generateRockColumn(world, pos.add(-1, 0, -1), random, 1 + random.nextInt(maxHeight - random.nextInt(2)));
 		}
 		
 		if (random.nextInt(100) > 15)
 		{
-			generateRockColumn(world, pos.add(0, 0, 1), random, 1 + random.nextInt(maxHeight - 1));
+			generateRockColumn(world, pos.add(0, 0, 1), random, 1 + random.nextInt(maxHeight - random.nextInt(2)));
 			if (random.nextInt(10) > 5)
-				generateRockColumn(world, pos.add(-1, 0, 1), random, 1 + random.nextInt(maxHeight - 1));
+				generateRockColumn(world, pos.add(-1, 0, 1), random, 1 + random.nextInt(maxHeight - random.nextInt(2)));
 		}
 		
 		if (random.nextInt(100) > 15)
 		{
-			generateRockColumn(world, pos.add(0, 0, -1), random, 1 + random.nextInt(maxHeight - 1));
+			generateRockColumn(world, pos.add(0, 0, -1), random, 1 + random.nextInt(maxHeight - random.nextInt(2)));
 			if (random.nextInt(10) > 5)
-				generateRockColumn(world, pos.add(1, 0, -1), random, 1 + random.nextInt(maxHeight - 1));
+				generateRockColumn(world, pos.add(1, 0, -1), random, 1 + random.nextInt(maxHeight - random.nextInt(2)));
 		}
 		
 		return true;

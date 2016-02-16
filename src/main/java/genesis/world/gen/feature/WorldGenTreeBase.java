@@ -23,6 +23,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 {
 	public IBlockState wood;
 	public IBlockState leaves;
+	public IBlockState hangingFruit;
 	public Block treeSoil;
 	public int rarity = 1;
 	
@@ -223,7 +224,8 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		if (
 				state == leaves 
 				&& !world.getBlockState(pos).getBlock().isAir(world, pos)
-				&& !force)
+				&& !force
+				&& !(world.getBlockState(pos) == this.hangingFruit))
 		{
 			place = false;
 		}
@@ -235,6 +237,11 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 				state = GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES_FRUIT, GenesisBlocks.trees.getVariant(leaves));
 			}
 			
+			if (world.getBlockState(pos.down()) == this.hangingFruit)
+			{
+				world.setBlockState(pos.down(), Blocks.air.getDefaultState());
+			}
+			
 			if (notify)
 			{
 				world.setBlockState(pos, state, 3);
@@ -242,6 +249,14 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 			else
 			{
 				world.setBlockState(pos, state, 2);
+			}
+			
+			if (this.hangingFruit != null && state == leaves)
+			{
+				if (world.getBlockState(pos.down()).getBlock().isAir(world, pos.down()) && world.rand.nextInt(10) == 0)
+				{
+					world.setBlockState(pos.down(), this.hangingFruit);
+				}
 			}
 		}
 	}
