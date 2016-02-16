@@ -2,8 +2,6 @@ package genesis.world.biome;
 
 import java.util.Random;
 
-import genesis.combo.SiltBlocks;
-import genesis.combo.variant.EnumSilt;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.WorldGenDebris;
