@@ -251,8 +251,9 @@ public class BlockPlant<V extends IPlantMetadata<V>> extends BlockBush implement
 	@Override
 	public boolean canReplace(World world, BlockPos pos, EnumFacing side, ItemStack stack)
 	{
-		return WorldUtils.canSoilSustainTypes(world, pos, owner.getVariant(stack).getSoilTypes())
-				&& waterInRange(world, pos, owner.getVariant(stack).getWaterDistance());
+		V variant = owner.getVariant(stack);
+		return WorldUtils.canSoilSustainTypes(world, pos, variant.getSoilTypes())
+				&& waterInRange(world, pos, variant.getWaterDistance());
 	}
 	
 	@Override
