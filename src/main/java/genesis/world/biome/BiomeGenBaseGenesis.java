@@ -7,6 +7,7 @@ import java.util.Random;
 import genesis.block.BlockMoss;
 import genesis.combo.SiltBlocks;
 import genesis.combo.variant.EnumPlant;
+import genesis.common.GenesisBiomes;
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.BiomeDecoratorGenesis;
 import genesis.world.biome.decorate.WorldGenDecorationBase;
@@ -40,7 +41,11 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 		waterColorMultiplier = 0xAA791E;
 		getGenesisDecorator().sandPerChunk2 = 1;
 		
-		addDecoration(new WorldGenRockBoulders().setRarity(128).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
+		if (
+				id != GenesisBiomes.auxForest.biomeID
+				&& id != GenesisBiomes.auxForestM.biomeID
+				&& id != GenesisBiomes.auxForestHills.biomeID)
+			addDecoration(new WorldGenRockBoulders().setRarity(128).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 	}
 	
 	public BiomeGenBaseGenesis setWaterColor(int color)

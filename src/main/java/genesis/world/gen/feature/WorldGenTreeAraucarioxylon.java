@@ -194,18 +194,18 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			if (upPos.getY() < groundLevel + 3)
 				return;
 			
+			upPos = upPos.add(fallX, 0, fallZ);
+			
+			if (fallX != 0)
+				woodAxis = EnumAxis.X;
+			else if (fallZ != 0)
+				woodAxis = EnumAxis.Z;
+			else
+				woodAxis = EnumAxis.Y;
+			
 			if (horzCount < 1 + rand.nextInt(3))
 			{
 				++horzCount;
-				
-				upPos = upPos.add(fallX, 0, fallZ);
-				
-				if (fallX != 0)
-					woodAxis = EnumAxis.X;
-				else if (fallZ != 0)
-					woodAxis = EnumAxis.Z;
-				else
-					woodAxis = EnumAxis.Y;
 				
 				if (rand.nextInt(3) == 0 || (fallX == 0 && fallZ == 0))
 					upPos = upPos.down();
@@ -220,7 +220,7 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			
 			setBlockInWorld(world, upPos, wood.withProperty(BlockLog.LOG_AXIS, woodAxis));
 			
-			if (leaves && rand.nextInt(10) == 0)
+			if (leaves && rand.nextInt(3) == 0)
 			{
 				doBranchLeaves(world, upPos, rand, true, 3, true);
 				doBranchLeaves(world, upPos.down(), rand, true, 2, true);
