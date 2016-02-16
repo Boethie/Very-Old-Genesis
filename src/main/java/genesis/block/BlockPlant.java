@@ -2,6 +2,7 @@ package genesis.block;
 
 import genesis.combo.*;
 import genesis.combo.VariantsOfTypesCombo.*;
+import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.IPlantMetadata;
 import genesis.combo.variant.PropertyIMetadata;
 import genesis.common.*;
@@ -9,6 +10,8 @@ import genesis.item.ItemBlockMulti;
 import genesis.util.*;
 
 import java.util.*;
+
+import com.google.common.collect.Lists;
 
 import net.minecraft.block.*;
 import net.minecraft.block.properties.*;
@@ -168,6 +171,45 @@ public class BlockPlant<V extends IPlantMetadata<V>> extends BlockBush implement
 		}
 		
 		return false;
+	}
+	
+	@Override
+	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
+	{
+		super.updateTick(world, pos, state, rand);
+		
+		V variant = state.getValue(variantProp);
+		state = world.getBlockState(pos);
+		
+		if (state.getBlock() == this && state.getValue(variantProp) == variant)
+		{
+			if (variant == EnumPlant.LEPACYCLOTES)
+			{
+				int plants = 6;
+				
+				for (BlockPos checkPos : BlockPos.getAllInBoxMutable(pos.add(-3, -1, -3), pos.add(3, 1, 3)))
+					if (world.getBlockState(checkPos) == state && --plants <= 0)
+						break;
+				
+				if (plants > 0)
+				{
+					int tries = 4;
+					ArrayList<BlockPos> toList = Lists.newArrayList(WorldUtils.getArea(pos.add(-1, 0, -1), pos.add(1, 1, 1)));
+					
+					do
+					{
+						BlockPos to = toList.remove(rand.nextInt(toList.size()));
+						
+						if (world.isAirBlock(to) && canBlockStay(world, to, state))
+						{
+							world.setBlockState(to, state);
+							break;
+						}
+					}
+					while (--tries > 0 && !toList.isEmpty());
+				}
+			}
+		}
 	}
 	
 	@Override

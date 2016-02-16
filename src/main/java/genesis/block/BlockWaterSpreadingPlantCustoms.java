@@ -114,31 +114,23 @@ public class BlockWaterSpreadingPlantCustoms implements IGrowingPlantCustoms
 				}
 			}
 			
-			ArrayList<BlockPos> spreadToList = Lists.newArrayList(WorldUtils.getArea(pos.add(-1, 0, -1), pos.add(1, 1, 1)));
+			ArrayList<BlockPos> toList = Lists.newArrayList(WorldUtils.getArea(pos.add(-1, 0, -1), pos.add(1, 1, 1)));
 			
 			if (plantsLeft > 0)
 			{
-				BlockPos spreadPos;
 				int tries = 5;
 				
 				do
 				{
-					spreadPos = spreadToList.get(rand.nextInt(spreadToList.size()));
-					spreadToList.remove(spreadPos);
+					BlockPos to = toList.remove(rand.nextInt(toList.size()));
 					
-					if (world.isAirBlock(spreadPos) && plant.canPlaceBlockAt(world, spreadPos) && WorldUtils.waterInRange(world, spreadPos.down(), 3, 1))
+					if (world.isAirBlock(to) && plant.canPlaceBlockAt(world, to) && WorldUtils.waterInRange(world, to.down(), 3, 1))
 					{
+						world.setBlockState(to, plant.getDefaultState());
 						break;
 					}
-					
-					tries--;
 				}
-				while (tries > 0);
-				
-				if (tries > 0)
-				{
-					world.setBlockState(spreadPos, plant.getDefaultState());
-				}
+				while (--tries > 0);
 			}
 		}
 	}
