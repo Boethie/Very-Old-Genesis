@@ -220,7 +220,7 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			
 			setBlockInWorld(world, upPos, wood.withProperty(BlockLog.LOG_AXIS, woodAxis));
 			
-			if (leaves && rand.nextInt(3) == 0)
+			if (leaves && rand.nextInt(6) == 0)
 			{
 				doBranchLeaves(world, upPos, rand, true, 3, true);
 				doBranchLeaves(world, upPos.down(), rand, true, 2, true);
