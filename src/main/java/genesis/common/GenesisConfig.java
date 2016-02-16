@@ -60,7 +60,7 @@ public final class GenesisConfig
 	public static int hematiteCount = 1;
 	public static int manganeseCount = 4;
 	public static int chalcopyriteCount = 4;
-	public static int malachiteCount = 2;
+	public static int malachiteCount = 3;
 	public static int azuriteCount = 2;
 	public static int olivineCount = 1;
 	public static int flintCount = 34;

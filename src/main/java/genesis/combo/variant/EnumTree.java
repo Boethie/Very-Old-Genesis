@@ -15,7 +15,7 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	SIGILLARIA("sigillaria", props()),
 	LEPIDODENDRON("lepidodendron", props()),
 	CORDAITES("cordaites", props()),
-	PSARONIUS("psaronius", props().noBillet().noDead().noDebris()),
+	PSARONIUS("psaronius", props().noBillet().noDead()),
 	GINKGO("ginkgo", props().noDead().noDebris().fruit(1, 0.4F)),
 	BJUVIA("bjuvia", props().noBillet().noDead().noDebris()),
 	VOLTZIA("voltzia", props().noDead().noDebris()),

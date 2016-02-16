@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"normal": [
+			{ "model": "genesis:psaronius_debris" },
+			{ "model": "genesis:psaronius_debris", "y": 90 },
+			{ "model": "genesis:psaronius_debris", "y": 180 },
+			{ "model": "genesis:psaronius_debris", "y": 270 }
+		]
+	}
+}
