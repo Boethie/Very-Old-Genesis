@@ -7,8 +7,8 @@ import java.util.Random;
 import genesis.block.BlockMoss;
 import genesis.combo.SiltBlocks;
 import genesis.combo.variant.EnumPlant;
-import genesis.common.GenesisBiomes;
 import genesis.common.GenesisBlocks;
+import genesis.common.GenesisConfig;
 import genesis.world.biome.decorate.BiomeDecoratorGenesis;
 import genesis.world.biome.decorate.WorldGenDecorationBase;
 import genesis.world.biome.decorate.WorldGenGrass;
@@ -42,9 +42,9 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 		getGenesisDecorator().sandPerChunk2 = 1;
 		
 		if (
-				id != GenesisBiomes.auxForest.biomeID
-				&& id != GenesisBiomes.auxForestM.biomeID
-				&& id != GenesisBiomes.auxForestHills.biomeID)
+				id != GenesisConfig.auxForestId
+				&& id != GenesisConfig.auxForestId + 128
+				&& id != GenesisConfig.auxForestHillsId)
 			addDecoration(new WorldGenRockBoulders().setRarity(128).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.octaedrite.getDefaultState()).setCountPerChunk(1));
 	}
 	
