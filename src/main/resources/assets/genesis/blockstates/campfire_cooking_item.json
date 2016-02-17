@@ -102,6 +102,11 @@
 		"item=genesis:dung_theropoda": [
 			{ "model": "genesis:campfire_dung_brick", "y": 0, "textures": {"dung": "genesis:blocks/dung_block_theropoda"} },
 			{ "model": "genesis:campfire_dung_brick", "y": 180, "textures": {"dung": "genesis:blocks/dung_block_theropoda"} }
+		],
+		// Piles
+		"item=genesis:lepacyclotes": [
+			{ "model": "genesis:campfire_item_pile", "y": 0, "textures": {"pile": "genesis:blocks/lepacyclotes_pile"} },
+			{ "model": "genesis:campfire_item_pile", "y": 180, "textures": {"pile": "genesis:blocks/lepacyclotes_pile"} }
 		]
 	}
 }

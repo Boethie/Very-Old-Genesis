@@ -36,9 +36,9 @@ public final class GenesisItems
 					ObjectType.<EnumPowder>createItem("powder"),
 					EnumPowder.class, EnumPowder.values());
 	
-	public static final VariantsCombo<EnumMaterial, Block, ItemMulti<EnumMaterial>> materials =
+	public static final VariantsCombo<EnumMaterial, Block, ItemMaterial> materials =
 			VariantsCombo.create(
-					ObjectType.<EnumMaterial>createItem("material").setResourceName(""),
+					ObjectType.createItem("material", ItemMaterial.class).setResourceName(""),
 					EnumMaterial.class, EnumMaterial.values());
 	
 	/* Eggs */

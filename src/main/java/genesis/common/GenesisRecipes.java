@@ -660,6 +660,10 @@ public final class GenesisRecipes
 			}
 		}
 		
+		ItemStack ash = GenesisItems.materials.getStack(EnumMaterial.VEGETAL_ASH);
+		TileEntityCampfire.registerAllowedOutput(ash);
+		GameRegistry.addSmelting(GenesisBlocks.plants.getPlantStack(EnumPlant.LEPACYCLOTES), ash, 0.15F);
+		
 		// Pottery
 		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.red_clay), "CC", "CC", 'C', GenesisItems.red_clay_ball);
 		GameRegistry.addSmelting(GenesisBlocks.red_clay, new ItemStack(Blocks.stained_hardened_clay, 1, EnumDyeColor.WHITE.getMetadata()), 0.3F);
