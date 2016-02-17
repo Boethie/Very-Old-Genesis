@@ -17,7 +17,7 @@ public class BiomeGenRedLowlandsM extends BiomeGenRedLowlands
 	{
 		super(id);
 		setBiomeName("Red Lowlands M");
-		setHeight(0.4F, 0.5F);
+		setHeight(0.45F, 0.45F);
 	}
 	
 	protected void addDecorations()

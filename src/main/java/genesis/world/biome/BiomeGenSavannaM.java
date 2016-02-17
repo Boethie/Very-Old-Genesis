@@ -6,7 +6,7 @@ public class BiomeGenSavannaM extends BiomeGenSavanna
 	{
 		super(id);
 		setBiomeName("Savanna M");
-		setHeight(0.4F, 0.7F);
+		setHeight(0.45F, 0.45F);
 	}
 	
 	@Override

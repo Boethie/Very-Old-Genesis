@@ -9,14 +9,14 @@ public class BiomeGenAuxForestM extends BiomeGenAuxForest
 	{
 		super(id);
 		setBiomeName("Araucarioxylon Forest M");
-		setHeight(0.4F, 0.7F);
+		setHeight(0.45F, 0.45F);
 	}
 	
 	protected void addDecorations()
 	{
 		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(2).setCountPerChunk(1));
-		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(6).addBlocks(GenesisBlocks.rhyolite.getDefaultState()).setCountPerChunk(1));
-		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(6).addBlocks(GenesisBlocks.dolerite.getDefaultState()).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(7).addBlocks(GenesisBlocks.rhyolite.getDefaultState()).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(7).addBlocks(GenesisBlocks.dolerite.getDefaultState()).setCountPerChunk(1));
 	}
 	
 	@Override
