@@ -95,13 +95,13 @@
 			{ "model": "genesis:campfire_red_clay_bucket", "y": 270 }
 		],
 		// Dung bricks
-		"item=genesis:dung_sauropoda": [
-			{ "model": "genesis:campfire_dung_brick", "y": 0, "textures": {"dung": "genesis:blocks/dung_block_sauropoda"} },
-			{ "model": "genesis:campfire_dung_brick", "y": 180, "textures": {"dung": "genesis:blocks/dung_block_sauropoda"} }
+		"item=genesis:dung_herbivore": [
+			{ "model": "genesis:campfire_dung_brick", "y": 0, "textures": {"dung": "genesis:blocks/dung_block_herbivore"} },
+			{ "model": "genesis:campfire_dung_brick", "y": 180, "textures": {"dung": "genesis:blocks/dung_block_herbivore"} }
 		],
-		"item=genesis:dung_theropoda": [
-			{ "model": "genesis:campfire_dung_brick", "y": 0, "textures": {"dung": "genesis:blocks/dung_block_theropoda"} },
-			{ "model": "genesis:campfire_dung_brick", "y": 180, "textures": {"dung": "genesis:blocks/dung_block_theropoda"} }
+		"item=genesis:dung_carnivore": [
+			{ "model": "genesis:campfire_dung_brick", "y": 0, "textures": {"dung": "genesis:blocks/dung_block_carnivore"} },
+			{ "model": "genesis:campfire_dung_brick", "y": 180, "textures": {"dung": "genesis:blocks/dung_block_carnivore"} }
 		],
 		// Piles
 		"item=genesis:lepacyclotes": [
