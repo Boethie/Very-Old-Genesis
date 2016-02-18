@@ -16,6 +16,7 @@ import java.util.Random;
 public enum EnumOre implements IOreVariant<EnumOre>
 {
 	QUARTZ("quartz", 1, 4.2F, 5.0F, IntRange.create(0, 1), 0.05F),
+	AMETHYST("amethyst", 0, 0, 0, IntRange.create(0), 0), //dummy values for a no-ore ore
 	ZIRCON("zircon", 1, 4.2F, 5.0F, IntRange.create(0, 2), 0.1F),
 	GARNET("garnet", 1, 4.2F, 5.0F, IntRange.create(0, 2), 0.1F),
 	HEMATITE("hematite", 1, 4.2F, 5.0F, IntRange.create(0, 1), 0.05F),
@@ -32,8 +33,7 @@ public enum EnumOre implements IOreVariant<EnumOre>
 				)
 			)),
 	MARCASITE("marcasite", 1, 1.5F, 4.35F, IntRange.create(0, 1), 0.05F,
-			new BlockDrops(GenesisItems.nodules.getStack(EnumNodule.MARCASITE), 1)),
-	AMETHYST("amethyst", 0, 0, 0, IntRange.create(0), 0); //dummy values for a no-ore ore
+			new BlockDrops(GenesisItems.nodules.getStack(EnumNodule.MARCASITE), 1));
 	
 	public static ImmutableSet<EnumOre> noOres = ImmutableSet.of(AMETHYST);
 	public static ImmutableSet<EnumOre> noDrops = ImmutableSet.of(FLINT, MARCASITE);

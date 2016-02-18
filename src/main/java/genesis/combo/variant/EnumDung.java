@@ -2,7 +2,7 @@ package genesis.combo.variant;
 
 public enum EnumDung implements IMetadata<EnumDung>
 {
-	SAUROPODA("sauropoda"), THEROPODA("theropoda");
+	HERBIVORE("herbivore"), CARNIVORE("carnivore");
 	
 	final String name;
 	final String unlocalizedName;
