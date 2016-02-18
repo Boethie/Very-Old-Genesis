@@ -26,7 +26,7 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 		super(id);
 		setBiomeName("Metasequoia Forest");
 		setTemperatureRainfall(1.1F, 0.9F);
-		setHeight(0.125F, 0.1F);
+		setHeight(0.105F, 0.08F);
 		
 		theBiomeDecorator.grassPerChunk = 3;
 		
@@ -49,7 +49,7 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 	protected void addTrees()
 	{
 		addTree(new WorldGenTreeArchaeanthus(7, 20, false).setTreeCountPerChunk(1).setRarity(8));
-		addTree(new WorldGenTreeMetasequoia(12, 24, true).setTreeCountPerChunk(4));
+		addTree(new WorldGenTreeMetasequoia(12, 24, true).setTreeCountPerChunk(5));
 		addTree(new WorldGenTreeMetasequoia(23, 27, true).setType(1).setTreeCountPerChunk(2));
 		addTree(new WorldGenTreeGinkgo(6, 17, false).setTreeCountPerChunk(1).setRarity(10));
 		addTree(new WorldGenDeadLog(4, 8, EnumTree.METASEQUOIA, true).setTreeCountPerChunk(1));
