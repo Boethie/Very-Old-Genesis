@@ -39,7 +39,6 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 	protected void addDecorations()
 	{
 		addDecoration(new WorldGenPalaeoagaracites().setPatchSize(24).setCountPerChunk(128));
-		//addDecoration(new WorldGenPlant(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.MICROPETASOS).setCountPerChunk(1));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPatchSize(3).setCountPerChunk(3));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.cladophlebis).setPatchSize(9).setCountPerChunk(1));
 		

@@ -1,6 +1,0 @@
-{
-	"parent": "block/tallgrass",
-	"textures": {
-		"cross": "genesis:blocks/double_micropetasos_top"
-	}
-}
