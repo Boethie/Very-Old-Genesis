@@ -107,7 +107,7 @@
 		"item=genesis:lepacyclotes": [
 			{ "model": "genesis:campfire_item_pile", "y": 0, "textures": {"pile": "genesis:blocks/pile_lepacyclotes"} },
 			{ "model": "genesis:campfire_item_pile", "y": 180, "textures": {"pile": "genesis:blocks/pile_lepacyclotes"} }
-		]
+		],
 		"item=genesis:cordaites_sapling": [
 			{ "model": "genesis:campfire_item_pile", "y": 0, "textures": {"pile": "genesis:blocks/pile_cordaites"} },
 			{ "model": "genesis:campfire_item_pile", "y": 180, "textures": {"pile": "genesis:blocks/pile_cordaites"} }
