@@ -24,6 +24,7 @@ public enum EnumOre implements IOreVariant<EnumOre>
 	MALACHITE("malachite", 1, 4.2F, 5.0F, IntRange.create(1, 2), 0.2F),
 	AZURITE("azurite", 1, 4.2F, 5.0F, IntRange.create(1, 2), 0.2F),
 	OLIVINE("olivine", 1, 4.2F, 5.0F, IntRange.create(1, 3), 0.3F),
+	BLACK_DIAMOND("black_diamond", "blackDiamond", 1, 4.2F, 5.0F, IntRange.create(0, 1), 0.3F),
 	FLINT("flint", 1, 1.5F, 4.35F, IntRange.create(0, 1), 0,
 			new BlockDrops(
 				new BlockMultiDrop(

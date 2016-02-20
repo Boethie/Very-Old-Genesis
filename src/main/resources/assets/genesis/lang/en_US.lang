@@ -42,8 +42,6 @@ tile.genesis.peat.name=Peat
 tile.genesis.permafrost.name=Permafrost
 tile.genesis.ancientPermafrost.name=Ancient Permafrost
 
-tile.genesis.ore.flint.name=Flint Inclusion
-tile.genesis.ore.marcasite.name=Marcasite Ore
 tile.genesis.ore.quartz.name=Quartz Ore
 tile.genesis.ore.zircon.name=Zircon Ore
 tile.genesis.ore.garnet.name=Garnet Ore
@@ -52,6 +50,9 @@ tile.genesis.ore.manganese.name=Manganese Ore
 tile.genesis.ore.malachite.name=Malachite Ore
 tile.genesis.ore.azurite.name=Azurite Ore
 tile.genesis.ore.olivine.name=Olivine Ore
+tile.genesis.ore.blackDiamond.name=Black Diamond Ore
+tile.genesis.ore.flint.name=Flint Inclusion
+tile.genesis.ore.marcasite.name=Marcasite Ore
 
 tile.genesis.log.archaeopteris.name=Archaeopteris Wood
 tile.genesis.log.sigillaria.name=Sigillaria Wood
@@ -224,7 +225,7 @@ item.genesis.misc.bucketKomatiiticLava.name=Komatiitic Lava Bucket
 item.genesis.misc.menhirActivator.ancientAmber.name=Ancient Amber
 item.genesis.misc.menhirActivator.fossilizedEgg.name=Fossilized Egg
 item.genesis.misc.menhirActivator.brokenSpiritMask.name=Broken Spirit Mask
-item.genesis.misc.menhirActivator.rustedOctaedriteFlake.name=Rusted Octaedrite Flake
+item.genesis.misc.menhirActivator.rustedOctaedriteFlake.name=Rusted Meteoric Iron Flake
 item.genesis.misc.menhirActivator.shimmeringTreeStar.name=Shimmering Tree Star
 item.genesis.misc.menhirActivator.shadyDragonBone.name=Shady Dragon Bone
 item.genesis.misc.menhirActivator.legendarySpectrumEye.name=Legendary Spectrum Eye
@@ -292,7 +293,7 @@ item.genesis.tool.choppingTool.quartz.name=Quartz Chopping Tool
 item.genesis.tool.choppingTool.brownFlint.name=Brown Flint Chopping Tool
 item.genesis.tool.choppingTool.blackFlint.name=Black Flint Chopping Tool
 
-item.genesis.material.toolHead.shovel.octaedrite.name=Octaedrite Shovel Head
+item.genesis.material.toolHead.shovel.octaedrite.name=Meteoric Iron Shovel Head
 item.genesis.material.toolHead.shovel.dolerite.name=Dolerite Shovel Head
 item.genesis.material.toolHead.shovel.rhyolite.name=Rhyolite Shovel Head
 item.genesis.material.toolHead.shovel.granite.name=Granite Shovel Head
@@ -300,7 +301,7 @@ item.genesis.material.toolHead.shovel.quartz.name=Quartz Shovel Head
 item.genesis.material.toolHead.shovel.brownFlint.name=Brown Flint Shovel Head
 item.genesis.material.toolHead.shovel.blackFlint.name=Black Flint Shovel Head
 
-item.genesis.tool.shovel.octaedrite.name=Octaedrite Shovel
+item.genesis.tool.shovel.octaedrite.name=Meteoric Iron Shovel
 item.genesis.tool.shovel.dolerite.name=Dolerite Shovel
 item.genesis.tool.shovel.rhyolite.name=Rhyolite Shovel
 item.genesis.tool.shovel.granite.name=Granite Shovel
@@ -308,7 +309,7 @@ item.genesis.tool.shovel.quartz.name=Quartz Shovel
 item.genesis.tool.shovel.brownFlint.name=Brown Flint Shovel
 item.genesis.tool.shovel.blackFlint.name=Black Flint Shovel
 
-item.genesis.material.toolHead.pick.octaedrite.name=Octaedrite Pickaxe Head
+item.genesis.material.toolHead.pick.octaedrite.name=Meteoric Iron Pickaxe Head
 item.genesis.material.toolHead.pick.dolerite.name=Dolerite Pickaxe Head
 item.genesis.material.toolHead.pick.rhyolite.name=Rhyolite Pickaxe Head
 item.genesis.material.toolHead.pick.granite.name=Granite Pickaxe Head
@@ -316,7 +317,7 @@ item.genesis.material.toolHead.pick.quartz.name=Quartz Pickaxe Head
 item.genesis.material.toolHead.pick.brownFlint.name=Brown Flint Pickaxe Head
 item.genesis.material.toolHead.pick.blackFlint.name=Black Flint Pickaxe Head
 
-item.genesis.tool.pick.octaedrite.name=Octaedrite Pickaxe
+item.genesis.tool.pick.octaedrite.name=Meteoric Iron Pickaxe
 item.genesis.tool.pick.dolerite.name=Dolerite Pickaxe
 item.genesis.tool.pick.rhyolite.name=Rhyolite Pickaxe
 item.genesis.tool.pick.granite.name=Granite Pickaxe
@@ -324,7 +325,7 @@ item.genesis.tool.pick.quartz.name=Quartz Pickaxe
 item.genesis.tool.pick.brownFlint.name=Brown Flint Pickaxe
 item.genesis.tool.pick.blackFlint.name=Black Flint Pickaxe
 
-item.genesis.material.toolHead.axe.octaedrite.name=Octaedrite Axe Head
+item.genesis.material.toolHead.axe.octaedrite.name=Meteoric Iron Axe Head
 item.genesis.material.toolHead.axe.dolerite.name=Dolerite Axe Head
 item.genesis.material.toolHead.axe.rhyolite.name=Rhyolite Axe Head
 item.genesis.material.toolHead.axe.granite.name=Granite Axe Head
@@ -332,7 +333,7 @@ item.genesis.material.toolHead.axe.quartz.name=Quartz Axe Head
 item.genesis.material.toolHead.axe.brownFlint.name=Brown Flint Axe Head
 item.genesis.material.toolHead.axe.blackFlint.name=Black Flint Axe Head
 
-item.genesis.tool.axe.octaedrite.name=Octaedrite Axe
+item.genesis.tool.axe.octaedrite.name=Meteoric Iron Axe
 item.genesis.tool.axe.dolerite.name=Dolerite Axe
 item.genesis.tool.axe.rhyolite.name=Rhyolite Axe
 item.genesis.tool.axe.granite.name=Granite Axe
@@ -340,7 +341,7 @@ item.genesis.tool.axe.quartz.name=Quartz Axe
 item.genesis.tool.axe.brownFlint.name=Brown Flint Axe
 item.genesis.tool.axe.blackFlint.name=Black Flint Axe
 
-item.genesis.material.toolHead.hoe.octaedrite.name=Octaedrite Hoe Head
+item.genesis.material.toolHead.hoe.octaedrite.name=Meteoric Iron Hoe Head
 item.genesis.material.toolHead.hoe.dolerite.name=Dolerite Hoe Head
 item.genesis.material.toolHead.hoe.rhyolite.name=Rhyolite Hoe Head
 item.genesis.material.toolHead.hoe.granite.name=Granite Hoe Head
@@ -348,7 +349,7 @@ item.genesis.material.toolHead.hoe.quartz.name=Quartz Hoe Head
 item.genesis.material.toolHead.hoe.brownFlint.name=Brown Flint Hoe Head
 item.genesis.material.toolHead.hoe.blackFlint.name=Black Flint Hoe Head
 
-item.genesis.tool.hoe.octaedrite.name=Octaedrite Hoe
+item.genesis.tool.hoe.octaedrite.name=Meteoric Iron Hoe
 item.genesis.tool.hoe.dolerite.name=Dolerite Hoe
 item.genesis.tool.hoe.rhyolite.name=Rhyolite Hoe
 item.genesis.tool.hoe.granite.name=Granite Hoe
@@ -356,7 +357,7 @@ item.genesis.tool.hoe.quartz.name=Quartz Hoe
 item.genesis.tool.hoe.brownFlint.name=Brown Flint Hoe
 item.genesis.tool.hoe.blackFlint.name=Black Flint Hoe
 
-item.genesis.material.toolHead.knife.octaedrite.name=Octaedrite Knife Head
+item.genesis.material.toolHead.knife.octaedrite.name=Meteoric Iron Knife Head
 item.genesis.material.toolHead.knife.dolerite.name=Dolerite Knife Head
 item.genesis.material.toolHead.knife.rhyolite.name=Rhyolite Knife Head
 item.genesis.material.toolHead.knife.granite.name=Granite Knife Head
@@ -364,7 +365,7 @@ item.genesis.material.toolHead.knife.quartz.name=Quartz Knife Head
 item.genesis.material.toolHead.knife.brownFlint.name=Brown Flint Knife Head
 item.genesis.material.toolHead.knife.blackFlint.name=Black Flint Knife Head
 
-item.genesis.tool.knife.octaedrite.name=Octaedrite Knife
+item.genesis.tool.knife.octaedrite.name=Meteoric Iron Knife
 item.genesis.tool.knife.dolerite.name=Dolerite Knife
 item.genesis.tool.knife.rhyolite.name=Rhyolite Knife
 item.genesis.tool.knife.granite.name=Granite Knife
@@ -372,7 +373,7 @@ item.genesis.tool.knife.quartz.name=Quartz Knife
 item.genesis.tool.knife.brownFlint.name=Brown Flint Knife
 item.genesis.tool.knife.blackFlint.name=Black Flint Knife
 
-item.genesis.material.toolHead.club.octaedrite.name=Octaedrite Club Head
+item.genesis.material.toolHead.club.octaedrite.name=Meteoric Iron Club Head
 item.genesis.material.toolHead.club.dolerite.name=Dolerite Club Head
 item.genesis.material.toolHead.club.rhyolite.name=Rhyolite Spear Head
 item.genesis.material.toolHead.club.granite.name=Granite Club Head
@@ -380,7 +381,7 @@ item.genesis.material.toolHead.club.quartz.name=Quartz Club Head
 item.genesis.material.toolHead.club.brownFlint.name=Brown Flint Club Head
 item.genesis.material.toolHead.club.blackFlint.name=Black Flint Club Head
 
-item.genesis.weapon.club.octaedrite.name=Octaedrite Club
+item.genesis.weapon.club.octaedrite.name=Meteoric Iron Club
 item.genesis.weapon.club.dolerite.name=Dolerite Club
 item.genesis.weapon.club.rhyolite.name=Rhyolite Club
 item.genesis.weapon.club.granite.name=Granite Club
@@ -388,7 +389,7 @@ item.genesis.weapon.club.quartz.name=Quartz Club
 item.genesis.weapon.club.brownFlint.name=Brown Flint Club
 item.genesis.weapon.club.blackFlint.name=Black Flint Club
 
-item.genesis.material.toolHead.spear.octaedrite.name=Octaedrite Spear Head
+item.genesis.material.toolHead.spear.octaedrite.name=Meteoric Iron Spear Head
 item.genesis.material.toolHead.spear.dolerite.name=Dolerite Spear Head
 item.genesis.material.toolHead.spear.rhyolite.name=Rhyolite Spear Head
 item.genesis.material.toolHead.spear.granite.name=Granite Spear Head
@@ -396,7 +397,7 @@ item.genesis.material.toolHead.spear.quartz.name=Quartz Spear Head
 item.genesis.material.toolHead.spear.brownFlint.name=Brown Flint Spear Head
 item.genesis.material.toolHead.spear.blackFlint.name=Black Flint Spear Head
 
-item.genesis.weapon.spear.octaedrite.name=Octaedrite Spear
+item.genesis.weapon.spear.octaedrite.name=Meteoric Iron Spear
 item.genesis.weapon.spear.dolerite.name=Dolerite Spear
 item.genesis.weapon.spear.rhyolite.name=Rhyolite Spear
 item.genesis.weapon.spear.granite.name=Granite Spear
@@ -404,7 +405,7 @@ item.genesis.weapon.spear.quartz.name=Quartz Spear
 item.genesis.weapon.spear.brownFlint.name=Brown Flint Spear
 item.genesis.weapon.spear.blackFlint.name=Black Flint Spear
 
-item.genesis.material.toolHead.arrow.octaedrite.name=Octaedrite Arrow Head
+item.genesis.material.toolHead.arrow.octaedrite.name=Meteoric Iron Arrow Head
 item.genesis.material.toolHead.arrow.dolerite.name=Dolerite Arrow Head
 item.genesis.material.toolHead.arrow.rhyolite.name=Rhyolite Arrow Head
 item.genesis.material.toolHead.arrow.granite.name=Granite Arrow Head
@@ -412,7 +413,7 @@ item.genesis.material.toolHead.arrow.quartz.name=Quartz Arrow Head
 item.genesis.material.toolHead.arrow.brownFlint.name=Brown Flint Arrow Head
 item.genesis.material.toolHead.arrow.blackFlint.name=Black Flint Arrow Head
 
-item.genesis.material.flake.octaedrite.name=Octaedrite Flake
+item.genesis.material.flake.octaedrite.name=Meteoric Iron Flake
 item.genesis.material.flake.dolerite.name=Dolerite Flake
 item.genesis.material.flake.rhyolite.name=Rhyolite Flake
 item.genesis.material.flake.granite.name=Granite Flake
@@ -441,6 +442,7 @@ item.genesis.material.pebble.brownFlint.name=Brown Flint Pebble
 item.genesis.material.pebble.blackFlint.name=Black Flint Pebble
 
 item.genesis.material.quartz.name=Quartz
+item.genesis.material.amethyst.name=Amethyst
 item.genesis.material.zircon.name=Zircon
 item.genesis.material.garnet.name=Garnet
 item.genesis.material.hematite.name=Hematite
@@ -448,7 +450,7 @@ item.genesis.material.manganese.name=Manganese
 item.genesis.material.malachite.name=Malachite
 item.genesis.material.azurite.name=Azurite
 item.genesis.material.olivine.name=Olivine
-item.genesis.material.amethyst.name=Amethyst
+item.genesis.material.blackDiamond.name=Black Diamond
 item.genesis.material.nodule.brownFlint.name=Brown Flint Nodule
 item.genesis.material.nodule.blackFlint.name=Black Flint Nodule
 item.genesis.material.nodule.marcasite.name=Marcasite Nodule

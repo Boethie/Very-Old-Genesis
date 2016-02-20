@@ -1,0 +1,6 @@
+{
+	"parent": "block/cube_all",
+	"textures": {
+		"all": "genesis:blocks/black_diamond_ore"
+	}
+}
