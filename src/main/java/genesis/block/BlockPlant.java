@@ -183,7 +183,7 @@ public class BlockPlant<V extends IPlantMetadata<V>> extends BlockBush implement
 		
 		if (state.getBlock() == this && state.getValue(variantProp) == variant)
 		{
-			if (variant == EnumPlant.LEPACYCLOTES)
+			if (variant == EnumPlant.LEPACYCLOTES && world.rand.nextInt(3) == 0)
 			{
 				int plants = 6;
 				
