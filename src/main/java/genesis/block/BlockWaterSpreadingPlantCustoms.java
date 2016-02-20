@@ -18,10 +18,17 @@ import net.minecraft.world.World;
 public class BlockWaterSpreadingPlantCustoms implements IGrowingPlantCustoms
 {
 	protected final ItemStack drop;
+	protected final int spreadRate;
+	
+	public BlockWaterSpreadingPlantCustoms(ItemStack drop, int spreadRate)
+	{
+		this.drop = drop;
+		this.spreadRate = spreadRate;
+	}
 	
 	public BlockWaterSpreadingPlantCustoms(ItemStack drop)
 	{
-		this.drop = drop;
+		this(drop, 35);
 	}
 	
 	@Override
@@ -92,7 +99,7 @@ public class BlockWaterSpreadingPlantCustoms implements IGrowingPlantCustoms
 	{
 		int age = state.getValue(plant.ageProp);
 		
-		if (age >= plant.maxAge && rand.nextInt(35) == 0)
+		if (age >= plant.maxAge && rand.nextInt(spreadRate) == 0)
 		{
 			GrowingPlantProperties props = new GrowingPlantProperties(world, pos);
 			pos = props.getBottom();
