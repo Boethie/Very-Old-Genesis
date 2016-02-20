@@ -104,7 +104,7 @@ public final class GenesisBlocks
 	public static final BlockGrowingPlant sphenophyllum = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true)
 			.setPlantSoilTypes(EnumPlantType.Plains)
-			.setGrowth(5, 1, 1, 1)
+			.setGrowth(0.05F, 1, 3, 1.5F)
 			.setPlantSize(0, 0.2F, 0.75F)
 			.setCustoms(new BlockWaterSpreadingPlantCustoms(GenesisItems.materials.getStack(EnumMaterial.SPHENOPHYLLUM_FIBER)))
 			.setUnlocalizedName(Unlocalized.PLANT + "sphenophyllum");
@@ -120,6 +120,7 @@ public final class GenesisBlocks
 			.setGrowAllTogether(true).setBreakAllTogether(true)
 			.setPlantSize(0, 0.2F, 0.75F)
 			.setPlantSoilTypes(EnumPlantType.Crop)
+			.setGrowth(0.05F, 1.5F, 2.5F, 1.05F)
 			.setGrowthOnFarmland(0.75F)
 			.setCustoms(surviveOnDirt)
 			.setUnlocalizedName(Unlocalized.CROP + "neuropteridium");
@@ -127,7 +128,7 @@ public final class GenesisBlocks
 			.setGrowAllTogether(true)
 			.setUseBiomeColor(true)
 			.setPlantSoilTypes(EnumPlantType.Plains)
-			.setGrowth(5, 1, 1, 1)
+			.setGrowth(0.05F, 1, 2.5F, 1.05F)
 			.setPlantSize(0, 0.2F, 0.75F)
 			.setCustoms(new BlockWaterSpreadingPlantCustoms(GenesisItems.materials.getStack(EnumMaterial.CLADOPHLEBIS_FROND)))
 			.setUnlocalizedName(Unlocalized.PLANT + "cladophlebis")
