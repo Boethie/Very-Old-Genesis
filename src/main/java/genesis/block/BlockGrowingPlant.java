@@ -748,7 +748,8 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 							IBlockState landState = world.getBlockState(landPos);
 							Block landBlock = landState.getBlock();
 							
-							if (canPlaceBlockOnSide(world, landPos, EnumFacing.UP) && landBlock.isFertile(world, landPos))
+							if ((canPlaceBlockOnSide(world, landPos, EnumFacing.UP) && landBlock.isFertile(world, landPos)) ||
+								landBlock.getMaterial() == Material.water)
 							{
 								rate *= neighborFertileChanceMult;
 							}
