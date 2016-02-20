@@ -21,7 +21,6 @@ public enum EnumOre implements IOreVariant<EnumOre>
 	GARNET("garnet", 1, 4.2F, 5.0F, IntRange.create(0, 2), 0.1F),
 	HEMATITE("hematite", 1, 4.2F, 5.0F, IntRange.create(0, 1), 0.05F),
 	MANGANESE("manganese", 1, 4.2F, 5.0F, IntRange.create(0, 1), 0.05F),
-	CHALCOPYRITE("chalcopyrite", 1, 4.2F, 5.0F, IntRange.create(1, 2), 0.2F),
 	MALACHITE("malachite", 1, 4.2F, 5.0F, IntRange.create(1, 2), 0.2F),
 	AZURITE("azurite", 1, 4.2F, 5.0F, IntRange.create(1, 2), 0.2F),
 	OLIVINE("olivine", 1, 4.2F, 5.0F, IntRange.create(1, 3), 0.3F),

@@ -48,7 +48,6 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	public WorldGenerator garnetGen;
 	public WorldGenerator hematiteGen;
 	public WorldGenerator manganeseGen;
-	public WorldGenerator chalcopyriteGen;
 	public WorldGenerator malachiteGen;
 	public WorldGenerator azuriteGen;
 	public WorldGenerator olivineGen;
@@ -84,7 +83,6 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 		garnetGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.GARNET), 1, 4);
 		hematiteGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.HEMATITE), 4, 8);
 		manganeseGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.MANGANESE), 1, 3);
-		chalcopyriteGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.CHALCOPYRITE), 2, 4);
 		malachiteGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.MALACHITE), 2, 4);
 		azuriteGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.AZURITE), 2, 4);
 		olivineGen = new WorldGenMinableGenesis(GenesisBlocks.ores.getOreState(EnumOre.OLIVINE), 1, 4);
@@ -201,7 +199,6 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 		genStandardOreByLayers(garnetGen, GenesisConfig.garnetCount, 5, 55, 128, 131);
 		genStandardOreByLayers(hematiteGen, GenesisConfig.hematiteCount, 35, 68, 128, 131);
 		genStandardOreByLayers(manganeseGen, GenesisConfig.manganeseCount, 35, 68, 128, 131);
-		genStandardOreByLayers(chalcopyriteGen, GenesisConfig.chalcopyriteCount, 35, 68, 128, 131);
 		genStandardOreByLayers(malachiteGen, GenesisConfig.malachiteCount, 35, 68, 128, 131);
 		genStandardOreByLayers(azuriteGen, GenesisConfig.azuriteCount, 35, 68, 128, 131);
 		genStandardOreByLayers(olivineGen, GenesisConfig.olivineCount, 5, 13, 13, 15);

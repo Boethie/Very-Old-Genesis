@@ -24,20 +24,19 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		setTemperatureRainfall(1.15F, 0.3F);
 		setHeight(0.0F, -0.01F);
 		
-		theBiomeDecorator.grassPerChunk = 3;
+		theBiomeDecorator.grassPerChunk = 5;
 		
 		addDecoration(new WorldGenPrototaxites().setCountPerChunk(1));
 		
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
-		addDecoration(new WorldGenPlant(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.ASTEROXYLON).setCountPerChunk(3));
-		addDecoration(new WorldGenPlant(EnumPlant.RHYNIA).setPatchSize(6).setCountPerChunk(7));
-		addDecoration(new WorldGenPlant(EnumPlant.NOTHIA).setPatchSize(6).setCountPerChunk(6));
-		addDecoration(new WorldGenPlant(EnumPlant.HORNEOPHYTON).setPatchSize(6).setCountPerChunk(6));
-		addDecoration(new WorldGenPlant(EnumPlant.AGLAOPHYTON).setPatchSize(6).setCountPerChunk(6));
-		addDecoration(new WorldGenPlant(EnumPlant.SCIADOPHYTON).setPatchSize(4).setCountPerChunk(4));
-		addDecoration(new WorldGenPlant(EnumPlant.PSILOPHYTON).setPatchSize(4).setCountPerChunk(2));
+		addDecoration(new WorldGenPlant(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.ASTEROXYLON).setCountPerChunk(5));
+		addDecoration(new WorldGenPlant(EnumPlant.RHYNIA).setPatchSize(6).setCountPerChunk(8));
+		addDecoration(new WorldGenPlant(EnumPlant.NOTHIA).setPatchSize(6).setCountPerChunk(7));
+		addDecoration(new WorldGenPlant(EnumPlant.SCIADOPHYTON).setPatchSize(4).setCountPerChunk(5));
+		addDecoration(new WorldGenPlant(EnumPlant.PSILOPHYTON).setPatchSize(4).setCountPerChunk(3));
 		addDecoration(new WorldGenPlant(EnumPlant.BARAGWANATHIA).setPatchSize(4).setCountPerChunk(1));
+		addDecoration(new WorldGenPlant(EnumPlant.COOKSONIA).setPatchSize(4).setCountPerChunk(1));
 	}
 	
 	@Override

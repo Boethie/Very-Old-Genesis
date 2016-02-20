@@ -23,8 +23,6 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	BARAGWANATHIA("baragwanathia", plant().soil(Plains, Desert).biomeColor(true)),
 	SCIADOPHYTON("sciadophyton", plant().soil(Plains, Desert)),
 	PSILOPHYTON("psilophyton", plant().soil(Plains, Desert)),
-	HORNEOPHYTON("horneophyton", plant().soil(Plains, Desert)),
-	AGLAOPHYTON("aglaophyton", plant().soil(Plains, Desert)),
 	NOTHIA("nothia", plant().soil(Plains, Desert)),
 	RHYNIA("rhynia", plant().soil(Plains, Desert)),
 	APOLDIA("apoldia", plant().soil(Plains, Desert).biomeColor(true)),
