@@ -2,9 +2,12 @@ package genesis.world.biome;
 
 import java.util.Random;
 
+import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.WorldGenDebris;
+import genesis.world.biome.decorate.WorldGenGrass;
+import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
@@ -53,6 +56,12 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 		
 		addTree(new WorldGenDeadLog(3, 6, EnumTree.LEPIDODENDRON, true).setTreeCountPerChunk(6));
 		addTree(new WorldGenDeadLog(3, 6, EnumTree.SIGILLARIA, true).setTreeCountPerChunk(5));
+	}
+	
+	@Override
+	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
+	{
+		return new WorldGenGrassMulti(GenesisBlocks.plants.getPlantBlockState(EnumPlant.ZYGOPTERIS)).setVolume(96);
 	}
 	
 	@Override
