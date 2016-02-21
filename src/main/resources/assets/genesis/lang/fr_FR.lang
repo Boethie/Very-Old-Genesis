@@ -47,7 +47,7 @@ tile.genesis.ore.garnet.name=Minerai de grenat
 tile.genesis.ore.hematite.name=Minerai d'hématite
 tile.genesis.ore.manganese.name=Minerai de manganèse
 tile.genesis.ore.malachite.name=Minerai de malachite
-tile.genesis.ore.malachite.name=Minerai d'azurite
+tile.genesis.ore.azurite.name=Minerai d'azurite
 tile.genesis.ore.olivine.name=Minerai d'olivine
 tile.genesis.ore.blackDiamond.name=Minerai de diamant noir
 tile.genesis.ore.flint.name=Accident de silex
@@ -225,9 +225,7 @@ item.genesis.misc.menhirActivator.ancientAmber.name=Ambre ancien
 item.genesis.misc.menhirActivator.fossilizedEgg.name=Œuf fossilisé
 item.genesis.misc.menhirActivator.brokenSpiritMask.name=Masque d'esprit brisé
 item.genesis.misc.menhirActivator.rustedOctaedriteFlake.name=Éclat de fer météorique rouillé
-item.genesis.misc.menhirActivator.shimmeringTreeStar.name=Étoile d'arbre miroitante
-item.genesis.misc.menhirActivator.shadyDragonBone.name=Os de dragon douteux
-item.genesis.misc.menhirActivator.legendarySpectrumEye.name=Œil du spectre légendaire
+item.genesis.misc.menhirActivator.sacredTreeStar.name=Étoile d'arbre sacré
 item.genesis.misc.menhirActivator.primitiveDust.name=Poussière pritimive
 
 #Food
