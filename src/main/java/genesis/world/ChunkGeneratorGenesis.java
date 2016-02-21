@@ -107,7 +107,7 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 				|| biome.biomeID == GenesisBiomes.auxForestM.biomeID
 				|| biome.biomeID == GenesisBiomes.auxForestHills.biomeID)
 		{
-			if (rand.nextInt(6) == 0)
+			if (rand.nextInt(24) == 0)
 			{
 				int x = rand.nextInt(8) + 8;
 				int z = rand.nextInt(8) + 8;

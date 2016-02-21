@@ -4,6 +4,7 @@ import java.util.Random;
 
 import genesis.common.GenesisBlocks;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
@@ -12,12 +13,12 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class WorldGenCrater extends WorldGenerator
 {
-	protected static final int SIZE_X = 10;
+	protected static final int SIZE_X = 13;
 	protected static final int SIZE_Y = 6;
-	protected static final int SIZE_Z = 10;
+	protected static final int SIZE_Z = 13;
 	
 	protected IBlockState filler;
-
+	
 	public WorldGenCrater()
 	{
 		this.filler = Blocks.air.getDefaultState();
@@ -109,15 +110,20 @@ public class WorldGenCrater extends WorldGenerator
 		
 		int x, y, z;
 		
-		for (x = 0; x <= SIZE_X; ++x)
+		for (x = 0; x <= SIZE_X; x++)
 		{
-			for (y = 0; y < SIZE_Y; ++y)
+			for (y = 0; y <= SIZE_Y; y++)
 			{
-				for (z = 0; z < SIZE_Z; ++z)
+				for (z = 0; z <= SIZE_Z; z++)
 				{
-					if (is(isLake, x, y, z))
+					if (!is(isLake, x, y, z) && neighborIs(isLake, x, y, z))
 					{
-						world.setBlockState(pos.add(x, y, z), filler, 2);
+						Material material = world.getBlockState(pos.add(x, y, z)).getBlock().getMaterial();
+						
+						if (y >= top ?
+								material.isLiquid() :
+								!material.isSolid() && !filler.equals(world.getBlockState(pos.add(x, y, z))))
+							return false;
 					}
 				}
 			}
@@ -131,15 +137,32 @@ public class WorldGenCrater extends WorldGenerator
 				{
 					if (is(isLake, x, y, z))
 					{
-						if (world.getBlockState(pos.add(x, y, z).down()).getBlock().getMaterial().isSolid())
+						world.setBlockState(pos.add(x, y, z), y >= top ? Blocks.air.getDefaultState() : filler, 2);
+					}
+				}
+			}
+		}
+		
+		for (x = 0; x <= SIZE_X; x++)
+		{
+			for (y = 0; y <= SIZE_Y; y++)
+			{
+				for (z = 0; z <= SIZE_Z; z++)
+				{
+					if (!is(isLake, x, y, z) && neighborIs(isLake, x, y, z))
+					{
+						BlockPos replacePos = pos.add(x, y, z);
+						
+						if ((y < top || rand.nextInt(2) != 0) && world.getBlockState(replacePos).getBlock().getMaterial().isSolid() && !(rand.nextInt(12) == 0))
 						{
-							IBlockState state;
-							if (world.rand.nextInt(2) == 0)
-								state = GenesisBlocks.octaedrite.getDefaultState();
-							else
-								state = GenesisBlocks.granite.getDefaultState();
+							IBlockState craterBottom;
 							
-							world.setBlockState(pos.add(x, y, z).down(), state, 2);
+							if (rand.nextInt(3) > 0)
+								craterBottom = GenesisBlocks.octaedrite.getDefaultState();
+							else
+								craterBottom = GenesisBlocks.granite.getDefaultState();
+							
+							world.setBlockState(replacePos, craterBottom, 2);
 						}
 					}
 				}
