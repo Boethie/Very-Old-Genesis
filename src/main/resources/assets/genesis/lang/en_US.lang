@@ -504,6 +504,7 @@ item.genesis.material.salt.name=Salt
 item.genesis.material.dung.herbivore.name=Herbivore Dung
 item.genesis.material.dung.carnivore.name=Carnivore Dung
 item.genesis.material.dungBrick.name=Dung Brick
+item.genesis.material.eldoniaTentacle.name=Eldonia Tentacle
 item.genesis.material.arthropleuraChitin.name=Arthropleura Chitin
 item.genesis.material.coelophysisFeather.name=Coelophysis Feather
 item.genesis.material.epidexipteryxFeather.name=Epidexipteryx Feather

@@ -84,13 +84,11 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 			waterLakeChance = 2;
 		if (biome.biomeID == GenesisBiomes.rainforestM.biomeID)
 			waterLakeChance = 2;
-		
+		/*
 		if (
 				biome.biomeID == GenesisBiomes.redLowlands.biomeID
 				|| biome.biomeID == GenesisBiomes.redLowlandsM.biomeID
 				|| biome.biomeID == GenesisBiomes.redLowlandsHills.biomeID)
-				//|| biome.biomeID == GenesisBiomes.savanna.biomeID
-				//|| biome.biomeID == GenesisBiomes.savannaM.biomeID)
 		{
 			for (int i = 0; i < 5; ++i)
 			{
@@ -101,7 +99,7 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 				new WorldGenGenesisSurfacePatch(Blocks.dirt.getDefaultState()).generate(worldObj, rand, pos.add(x, y, z));
 			}
 		}
-		
+		*/
 		if (
 				biome.biomeID == GenesisBiomes.auxForest.biomeID
 				|| biome.biomeID == GenesisBiomes.auxForestM.biomeID

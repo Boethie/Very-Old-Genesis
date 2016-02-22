@@ -42,7 +42,7 @@ public class BiomeGenRedLowlands extends BiomeGenBaseGenesis
 	
 	protected void addDecorations()
 	{
-		addDecoration(new WorldGenMossStages().addAllowedBlocks(GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT), GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT), Blocks.dirt.getDefaultState()).setCountPerChunk(53).setPatchSize(27));
+		//addDecoration(new WorldGenMossStages().addAllowedBlocks(GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT), GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT), Blocks.dirt.getDefaultState()).setCountPerChunk(53).setPatchSize(27));
 		
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.neuropteridium).setNextToWater(true).setPatchSize(3).setCountPerChunk(5));
 		addDecoration(new WorldGenPlant(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.AETHOPHYLLUM).setCountPerChunk(3));
