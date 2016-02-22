@@ -36,11 +36,9 @@ public final class GenesisConfig
 	public static int metaForestId = 67;
 	public static int metaForestWeight = 10;
 	public static int metaForestHillsId = 68;
-	public static int savannaId = 69;
-	public static int savannaWeight = 10;
-	public static int woodlandsId = 70;
+	public static int woodlandsId = 69;
 	public static int woodlandsWeight = 10;
-	public static int woodlandsHillsId = 71;
+	public static int woodlandsHillsId = 70;
 	
 	//Dimensions
 	public static int genesisDimId = 37;
@@ -85,8 +83,6 @@ public final class GenesisConfig
 		metaForestWeight = config.getInt("metaForestWeight", "biome", metaForestWeight, 0, Integer.MAX_VALUE, "Metasequoia Forest Biome Weight");
 		redLowlandsId = config.getInt("redLowlandsId", "biome", redLowlandsId, 0, 255, "Red Lowlands Biome ID");
 		redLowlandsWeight = config.getInt("redLowlandsWeight", "biome", redLowlandsWeight, 0, Integer.MAX_VALUE, "Red Lowlands Biome Weight");
-		savannaId = config.getInt("savannaId", "biome", savannaId, 0, 255, "Savanna Biome ID");
-		savannaWeight = config.getInt("savannaWeight", "biome", savannaWeight, 0, Integer.MAX_VALUE, "Savanna Biome Weight");
 		woodlandsId = config.getInt("woodlandsId", "biome", woodlandsId, 0, 255, "Woodlands Biome Id");
 		woodlandsWeight = config.getInt("woodlandsWeight", "biome", woodlandsWeight, 0, 255, "Woodlands Weight");
 		
