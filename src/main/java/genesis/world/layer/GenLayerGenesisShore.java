@@ -37,7 +37,9 @@ public class GenLayerGenesisShore extends GenLayerGenesis
 						&& biomeID != GenesisBiomes.rainforestM.biomeID
 						&& biomeID != GenesisBiomes.rainforestHills.biomeID
 						&& biomeID != GenesisBiomes.metaForestM.biomeID
-						&& biomeID != GenesisBiomes.metaForestHills.biomeID)
+						&& biomeID != GenesisBiomes.metaForestHills.biomeID
+						&& biomeID != GenesisBiomes.redLowlandsHills.biomeID
+						&& biomeID != GenesisBiomes.redLowlandsM.biomeID)
 				{
 					if (!isBiomeOceanic(biomeID) && biomeID != GenesisBiomes.swampRainForest.biomeID)
 					{

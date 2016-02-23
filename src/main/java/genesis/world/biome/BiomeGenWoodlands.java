@@ -34,7 +34,7 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		setTemperatureRainfall(1.1F, 0.9F);
 		setHeight(0.05F, 0.15F);
 		
-		theBiomeDecorator.grassPerChunk = 4;
+		theBiomeDecorator.grassPerChunk = 3;
 		
 		addDecorations();
 		addTrees();

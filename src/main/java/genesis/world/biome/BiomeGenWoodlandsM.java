@@ -9,7 +9,7 @@ public class BiomeGenWoodlandsM extends BiomeGenWoodlands
 	{
 		super(id);
 		setBiomeName("Woodlands M");
-		setHeight(0.45F, 0.45F);
+		setHeight(2.2F, 0.4F);
 	}
 	
 	protected void addDecorations()

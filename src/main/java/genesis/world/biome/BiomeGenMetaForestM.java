@@ -9,7 +9,7 @@ public class BiomeGenMetaForestM extends BiomeGenMetaForest
 	{
 		super(id);
 		setBiomeName("Metasequoia Forest M");
-		setHeight(0.45F, 0.45F);
+		setHeight(2.2F, 0.4F);
 	}
 	
 	protected void addDecorations()
