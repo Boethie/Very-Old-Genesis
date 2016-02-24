@@ -45,7 +45,7 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(2, 0).setNextToWater(true).setPatchSize(4).setCountPerChunk(10));
 		addDecoration(new WorldGenUnderWaterPatch(Blocks.water, GenesisBlocks.peat.getDefaultState()).setCountPerChunk(10));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
-		addDecoration(new WorldGenDebris().setCountPerChunk(15));
+		addDecoration(new WorldGenDebris().setCountPerChunk(105));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));
 		
 		addTree(new WorldGenTreeLepidodendron(11, 15, true).setTreeCountPerChunk(6));

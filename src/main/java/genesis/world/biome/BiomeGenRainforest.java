@@ -44,7 +44,7 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(3).setCountPerChunk(8));
 		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(4).setCountPerChunk(1));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
-		addDecoration(new WorldGenDebris().setCountPerChunk(12));
+		addDecoration(new WorldGenDebris().setCountPerChunk(95));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));
 	}
 	

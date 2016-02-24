@@ -47,7 +47,7 @@ public class WorldGenDebris extends WorldGenDecorationBase
 		int debrisCount = this.getPatchSize();
 		
 		if (debrisCount <= 1)
-			debrisCount = 25;
+			debrisCount = 3;
 		
 		for (int i = 0; i < debrisCount; ++i)
 		{
