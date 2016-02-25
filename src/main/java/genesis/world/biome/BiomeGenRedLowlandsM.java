@@ -6,7 +6,6 @@ import genesis.combo.SiltBlocks;
 import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.EnumSilt;
 import genesis.common.GenesisBlocks;
-import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPlant;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
 import genesis.world.gen.feature.WorldGenTreeVoltzia;
@@ -22,8 +21,6 @@ public class BiomeGenRedLowlandsM extends BiomeGenRedLowlands
 	
 	protected void addDecorations()
 	{
-		addDecoration(new WorldGenMossStages().addAllowedBlocks(GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT), GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT), Blocks.dirt.getDefaultState()).setCountPerChunk(53).setPatchSize(27));
-		
 		addDecoration(new WorldGenPlant(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.AETHOPHYLLUM).setCountPerChunk(1));
 		addDecoration(new WorldGenPlant(EnumPlant.APOLDIA).addAllowedBlocks(GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT), GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.RED_SILT)).setCountPerChunk(1));
 		
@@ -33,6 +30,6 @@ public class BiomeGenRedLowlandsM extends BiomeGenRedLowlands
 	@Override
 	protected void addTrees()
 	{
-		addTree(new WorldGenTreeVoltzia(5, 10, true).setTreeCountPerChunk(12).setRarity(2));
+		addTree(new WorldGenTreeVoltzia(5, 10, true).setTreeCountPerChunk(10));
 	}
 }

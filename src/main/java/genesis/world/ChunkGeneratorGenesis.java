@@ -14,6 +14,7 @@ import genesis.world.biome.gen.feature.WorldGenGenesisSurfacePatch;
 import genesis.world.gen.MapGenCavesGenesis;
 import genesis.world.gen.feature.WorldGenCrater;
 import genesis.world.gen.feature.WorldGenGenesisLakes;
+import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
@@ -90,13 +91,13 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 				|| biome.biomeID == GenesisBiomes.redLowlandsM.biomeID
 				|| biome.biomeID == GenesisBiomes.redLowlandsHills.biomeID)
 		{
-			for (int i = 0; i < 5; ++i)
+			for (int i = 0; i < 24; ++i)
 			{
 				int x = rand.nextInt(8) + 8;
 				int z = rand.nextInt(8) + 8;
 				int y = 128;
 				
-				new WorldGenGenesisSurfacePatch(Blocks.dirt.getDefaultState()).generate(worldObj, rand, pos.add(x, y, z));
+				new WorldGenGenesisSurfacePatch(Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT)).generate(worldObj, rand, pos.add(x, y, z));
 			}
 		}
 		

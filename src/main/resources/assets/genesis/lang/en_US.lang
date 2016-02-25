@@ -225,9 +225,8 @@ item.genesis.misc.bucketKomatiiticLava.name=Komatiitic Lava Bucket
 item.genesis.misc.menhirActivator.ancientAmber.name=Ancient Amber
 item.genesis.misc.menhirActivator.fossilizedEgg.name=Fossilized Egg
 item.genesis.misc.menhirActivator.brokenSpiritMask.name=Broken Spirit Mask
-item.genesis.misc.menhirActivator.rustedOctaedriteFlake.name=Rusted Meteoric Iron Flake
-item.genesis.misc.menhirActivator.sacredTreeStar.name=Sacred Tree Star
 item.genesis.misc.menhirActivator.primitiveDust.name=Primitive Dust
+item.genesis.misc.menhirActivator.sacredTreeStar.name=Sacred Tree Star
 
 #Food
 item.genesis.seeds.araucarioxylon.name=Araucarioxylon Seeds

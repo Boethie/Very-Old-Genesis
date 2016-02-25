@@ -9,7 +9,6 @@ import genesis.combo.variant.EnumSilt;
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrassMulti;
-import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPebbles;
 import genesis.world.biome.decorate.WorldGenPlant;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
@@ -31,7 +30,7 @@ public class BiomeGenRedLowlands extends BiomeGenBaseGenesis
 		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
 		fillerBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
 		
-		theBiomeDecorator.grassPerChunk = 6;
+		theBiomeDecorator.grassPerChunk = 8;
 		theBiomeDecorator.sandPerChunk = 0;
 		theBiomeDecorator.sandPerChunk2 = 0;
 		
@@ -41,8 +40,6 @@ public class BiomeGenRedLowlands extends BiomeGenBaseGenesis
 	
 	protected void addDecorations()
 	{
-		//addDecoration(new WorldGenMossStages().addAllowedBlocks(GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT), GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT), Blocks.dirt.getDefaultState()).setCountPerChunk(53).setPatchSize(27));
-		
 		addDecoration(new WorldGenPlant(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.AETHOPHYLLUM).setCountPerChunk(3));
 		addDecoration(new WorldGenPlant(EnumPlant.APOLDIA).addAllowedBlocks(GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT), GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.RED_SILT)).setCountPerChunk(2));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));
@@ -54,7 +51,7 @@ public class BiomeGenRedLowlands extends BiomeGenBaseGenesis
 	protected void addTrees()
 	{
 		addTree(new WorldGenTreeBjuvia(4, 6, true).setTreeCountPerChunk(2).setRarity(10));
-		addTree(new WorldGenTreeVoltzia(5, 10, true).setTreeCountPerChunk(12).setRarity(2));
+		addTree(new WorldGenTreeVoltzia(5, 10, true).setTreeCountPerChunk(10));
 	}
 	
 	@Override

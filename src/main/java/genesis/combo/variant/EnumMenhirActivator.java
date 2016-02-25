@@ -5,9 +5,8 @@ public enum EnumMenhirActivator implements IMetadata<EnumMenhirActivator>
 	ANCIENT_AMBER("ancient_amber", "ancientAmber", true),
 	FOSSILIZED_EGG("fossilized_egg", "fossilizedEgg", true),
 	BROKEN_SPIRIT_MASK("broken_spirit_mask", "brokenSpiritMask", true),
-	RUSTED_OCTAEDRITE_FLAKE("rusted_octaedrite_flake", "rustedOctaedriteFlake", true),
-	SACRED_TREE_STAR("sacred_tree_star", "sacredTreeStar", false),
-	PRIMITIVE_DUST("primitive_dust", "primitiveDust", false);
+	PRIMITIVE_DUST("primitive_dust", "primitiveDust", true),
+	SACRED_TREE_STAR("sacred_tree_star", "sacredTreeStar", false);
 	
 	final String name;
 	final String unlocalizedName;
