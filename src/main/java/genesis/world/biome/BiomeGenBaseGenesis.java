@@ -151,7 +151,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 		IBlockState top = getTopBlock(rand);
 		IBlockState filler = fillerBlock;
 		int k = -1;
-		int l = (int)(d / 3.0D + 5.0D + rand.nextDouble() * 0.25D);
+		int l = (int)(d / 3.0D + 3.0D + rand.nextDouble() * 0.25D);
 		int chunkX = blockX & 15;
 		int chunkZ = blockZ & 15;
 		

@@ -84,7 +84,7 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 			waterLakeChance = 2;
 		if (biome.biomeID == GenesisBiomes.rainforestM.biomeID)
 			waterLakeChance = 2;
-		/*
+		
 		if (
 				biome.biomeID == GenesisBiomes.redLowlands.biomeID
 				|| biome.biomeID == GenesisBiomes.redLowlandsM.biomeID
@@ -99,20 +99,14 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 				new WorldGenGenesisSurfacePatch(Blocks.dirt.getDefaultState()).generate(worldObj, rand, pos.add(x, y, z));
 			}
 		}
-		*/
-		if (
-				biome.biomeID == GenesisBiomes.auxForest.biomeID
-				|| biome.biomeID == GenesisBiomes.auxForestM.biomeID
-				|| biome.biomeID == GenesisBiomes.auxForestHills.biomeID)
+		
+		if (rand.nextInt(48) == 0)
 		{
-			if (rand.nextInt(24) == 0)
-			{
-				int x = rand.nextInt(8) + 8;
-				int z = rand.nextInt(8) + 8;
-				int y = 128;
-				
-				new WorldGenCrater().generate(worldObj, rand, pos.add(x, y, z));
-			}
+			int x = rand.nextInt(8) + 8;
+			int z = rand.nextInt(8) + 8;
+			int y = 128;
+			
+			new WorldGenCrater().generate(worldObj, rand, pos.add(x, y, z));
 		}
 		
 		if (settings.useWaterLakes 
