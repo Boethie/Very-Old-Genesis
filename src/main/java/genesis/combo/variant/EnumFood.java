@@ -8,12 +8,12 @@ import net.minecraft.potion.PotionEffect;
 
 public enum EnumFood implements IMetadata<EnumFood>
 {
-	SPIRIFER("spirifer", raw(2, 0.4F).cooked(3, 1.0F)),
-	CLIMATIUS("climatius", raw(2, 0.4F).cooked(5, 6.0F)),
-	MEGANEURA("meganeura", raw(2, 0.4F).cooked(3, 1.0F)),
+	SPIRIFER("spirifer", raw(2, 0.4F).cooked(3, 1)),
+	CLIMATIUS("climatius", raw(2, 0.4F).cooked(5, 6)),
+	MEGANEURA("meganeura", raw(2, 0.4F).cooked(3, 1)),
 	APHTHOROBLATINNA("aphthoroblattina", raw(1, 0.2F).cooked(2, 0.8F)),
-	ERYOPS_LEG("eryops_leg", "eryopsLeg", raw(2, 0.8F).cooked(5, 6.0F)),
-	GRYPHAEA("gryphaea", raw(2, 0.4F).cooked(3, 1.0F)),
+	ERYOPS_LEG("eryops_leg", "eryopsLeg", raw(2, 0.8F).cooked(5, 6)),
+	GRYPHAEA("gryphaea", raw(2, 0.4F).cooked(3, 1)),
 	CERATITES("ceratites", raw(2, 0.4F).cooked(4, 1.8F)),
 	LIOPLEURODON("liopleurodon", raw(3, 2.8F).cooked(10, 13.8F)),
 	TYRANNOSAURUS("tyrannosaurus", raw(3, 2.8F).cooked(10, 13.8F));

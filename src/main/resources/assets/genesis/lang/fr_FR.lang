@@ -231,7 +231,6 @@ item.genesis.misc.menhirActivator.primitiveDust.name=Poussière pritimive
 #Food
 item.genesis.seeds.araucarioxylon.name=Graines d'Araucarioxylon
 item.genesis.seeds.odontopteris.name=Graines d'Odontopteris
-item.genesis.seeds.neuropteridiumRhizome.name=Rhizome de Neuropteridium
 item.genesis.seeds.programinis.name=Graines de Programinis
 item.genesis.seeds.zingiberopsisRhizome.name=Rhizome de Zingiberopsis
 item.genesis.seeds.prototaxitesFlesh.name=Chair de Prototaxites
@@ -266,7 +265,7 @@ item.genesis.food.dish.porridge.fig.name=Bouillie au figue
 item.genesis.food.dish.porridge.odontopteris.name=Bouillie à l'Odontopteris
 item.genesis.food.dish.porridge.zingiberopsis.name=Bouillie au Zingiberopsis
 item.genesis.food.dish.porridge.archaeomarasmius.name=Bouillie à l'Archaeomarasmius
-item.genesis.food.dish.mashed.neuropteridium.name=Purée de Neuropteridium
+item.genesis.food.dish.mashed.zingiberopsis.name=Purée de Zingiberopsis
 item.genesis.food.dish.stew.archaeomarasmius.name=Ragoût à l'Archaeomarasmius
 item.genesis.food.dish.stew.spirifer.name=Ragoût au Spirifer
 item.genesis.food.dish.stew.climatius.name=Ragoût au Climatius

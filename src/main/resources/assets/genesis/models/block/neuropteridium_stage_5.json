@@ -1,6 +1,0 @@
-{
-	"parent": "block/cross",
-	"textures": {
-		"cross": "genesis:blocks/neuropteridium_stage_5"
-	}
-}

@@ -27,14 +27,6 @@ public enum EnumSeeds implements IMetadata<EnumSeeds>, IFood
 			return GenesisBlocks.odontopteris.getDefaultState();
 		}
 	},
-	NEUROPTERIDIUM_RHIZOME("neuropteridium_rhizome", "neuropteridiumRhizome", 2, 1.2F)
-	{
-		@Override
-		public IBlockState getPlacedState()
-		{
-			return GenesisBlocks.neuropteridium.getDefaultState();
-		}
-	},
 	PROGRAMINIS_SEEDS("programinis_seeds", "programinis")
 	{
 		@Override

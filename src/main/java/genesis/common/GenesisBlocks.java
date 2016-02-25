@@ -116,14 +116,6 @@ public final class GenesisBlocks
 			.setPlantSize(0, 0.2F, 0.75F)
 			.setCustoms(new BlockOdontopterisCustoms())
 			.setUnlocalizedName(Unlocalized.CROP + "odontopteris");
-	public static final BlockGrowingPlant neuropteridium = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
-			.setGrowAllTogether(true).setBreakAllTogether(true)
-			.setPlantSize(0, 0.2F, 0.75F)
-			.setPlantSoilTypes(EnumPlantType.Crop)
-			.setGrowth(0.05F, 1.5F, 2.5F, 1.05F)
-			.setGrowthOnFarmland(0.75F)
-			.setCustoms(surviveOnDirt)
-			.setUnlocalizedName(Unlocalized.CROP + "neuropteridium");
 	public static final BlockGrowingPlant cladophlebis = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true)
 			.setUseBiomeColor(true)
@@ -351,13 +343,6 @@ public final class GenesisBlocks
 		odontopteris.setDrops(new BlockDrops(drop, 1, 1));
 		odontopteris.setCropDrops(new BlockDrops(drop, 1, 3));
 		odontopteris.setPickedStack(drop);
-		
-		// Neuropteridium
-		Genesis.proxy.registerBlock(neuropteridium, "neuropteridium", null);
-		drop = GenesisItems.seeds.getStack(EnumSeeds.NEUROPTERIDIUM_RHIZOME);
-		neuropteridium.setDrops(new BlockDrops(drop, 1, 1));
-		neuropteridium.setCropDrops(new BlockDrops(drop, 1, 3));
-		neuropteridium.setPickedStack(drop);
 		
 		// Cladophlebis
 		Genesis.proxy.registerBlockWithItem(cladophlebis, "cladophlebis", new ItemColored(cladophlebis, false));

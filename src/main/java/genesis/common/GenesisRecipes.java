@@ -784,8 +784,8 @@ public final class GenesisRecipes
 			case STEW_TYRANNOSAURUS:
 				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.TYRANNOSAURUS));
 				break;
-			case MASHED_NEUROPTERIDIUM:
-				ingredients.addAll(GenesisItems.seeds.getStack(EnumSeeds.NEUROPTERIDIUM_RHIZOME, 2),
+			case MASHED_ZINGIBEROPSIS:
+				ingredients.addAll(GenesisItems.seeds.getStack(EnumSeeds.ZINGIBEROPSIS_RHIZOME, 2),
 									GenesisItems.materials.getStack(EnumMaterial.SALT));
 				break;
 			default:
