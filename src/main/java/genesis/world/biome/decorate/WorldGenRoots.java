@@ -44,7 +44,7 @@ public class WorldGenRoots extends WorldGenDecorationBase
 		
 		boolean generated = false;
 		
-		int radius = 5;
+		int radius = 4;
 		int depth = 2;
 		int length = 1 + random.nextInt(2);
 		

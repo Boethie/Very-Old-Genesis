@@ -87,7 +87,7 @@ public class WorldGenDebris extends WorldGenDecorationBase
 						
 						if (wood == GenesisBlocks.calamites.getDefaultState())
 						{
-							if (Math.abs(distanceX) > 3 || Math.abs(distanceY) > 3)
+							if (Math.abs(distanceX) > 2 || Math.abs(distanceY) > 2)
 								return false;
 							
 							debris = GenesisBlocks.debris.getBlockState(EnumDebrisOther.CALAMITES);
@@ -103,6 +103,7 @@ public class WorldGenDebris extends WorldGenDecorationBase
 									|| variant == EnumTree.SIGILLARIA
 									|| variant == EnumTree.LEPIDODENDRON
 									|| variant == EnumTree.CORDAITES
+									|| variant == EnumTree.PSARONIUS
 									|| variant == EnumTree.ARAUCARIOXYLON
 									|| variant == EnumTree.METASEQUOIA
 									|| variant == EnumTree.ARCHAEANTHUS

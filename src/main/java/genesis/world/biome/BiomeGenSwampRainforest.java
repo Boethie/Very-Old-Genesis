@@ -48,10 +48,10 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 		addDecoration(new WorldGenDebris().setCountPerChunk(105));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));
 		
-		addTree(new WorldGenTreeLepidodendron(11, 15, true).setTreeCountPerChunk(6));
 		addTree(new WorldGenTreeSigillaria(9, 12, true).setTreeCountPerChunk(2));
-		addTree(new WorldGenTreeCordaites(12, 17, true).setTreeCountPerChunk(5));
 		addTree(new WorldGenTreePsaronius(5, 6, true).setTreeCountPerChunk(2));
+		addTree(new WorldGenTreeCordaites(12, 17, true).setTreeCountPerChunk(5));
+		addTree(new WorldGenTreeLepidodendron(11, 15, true).setTreeCountPerChunk(6));
 		
 		addTree(new WorldGenDeadLog(3, 6, EnumTree.LEPIDODENDRON, true).setTreeCountPerChunk(8));
 		addTree(new WorldGenDeadLog(3, 6, EnumTree.SIGILLARIA, true).setTreeCountPerChunk(4));

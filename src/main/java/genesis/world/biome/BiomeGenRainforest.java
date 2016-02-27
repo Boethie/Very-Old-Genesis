@@ -50,9 +50,9 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 	
 	protected void addTrees()
 	{
-		addTree(new WorldGenTreeLepidodendron(14, 18, true).setTreeCountPerChunk(10));
 		addTree(new WorldGenTreeSigillaria(10, 15, true).setTreeCountPerChunk(7));
 		addTree(new WorldGenTreePsaronius(5, 8, true).setTreeCountPerChunk(3));
+		addTree(new WorldGenTreeLepidodendron(14, 18, true).setTreeCountPerChunk(10));
 		
 		addTree(new WorldGenDeadLog(3, 6, EnumTree.LEPIDODENDRON, true).setTreeCountPerChunk(6));
 		addTree(new WorldGenDeadLog(3, 6, EnumTree.SIGILLARIA, true).setTreeCountPerChunk(5));
