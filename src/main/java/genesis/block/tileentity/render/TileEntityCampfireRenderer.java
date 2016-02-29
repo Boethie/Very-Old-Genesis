@@ -233,7 +233,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 		}
 		else
 		{
-			ItemStack input = campfire.getInput();
+			ItemStack input = campfire.getInput().getStack();
 			
 			if (input != null)
 			{
@@ -279,7 +279,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 		
 		// Render a fuel model in the campfire (with possibility for custom models for individual items).
 		// Will try to fall back to variant "item=generic_fuel" if no model definition is found.
-		ItemStack fuel = campfire.getFuel();
+		ItemStack fuel = campfire.getFuel().getStack();
 		
 		if (fuel != null)
 		{

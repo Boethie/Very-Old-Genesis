@@ -137,7 +137,7 @@ public class BlockCampfire extends Block
 				world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y, z, 0, 0, 0);
 			}
 			
-			ItemStack input = campfire.getInput();
+			ItemStack input = campfire.getInput().getStack();
 			
 			if (input != null && !TileEntityCampfireRenderer.hasCookingItemModel(input))
 			{

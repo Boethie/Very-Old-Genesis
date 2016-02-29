@@ -35,19 +35,13 @@ public class CookingPotRecipeRegistry
 		@Override
 		public void craft(InventoryCookingPot cookingPot)
 		{
-			ItemStack invOutput = cookingPot.getOutput();
+			SlotModifier invOutput = cookingPot.getOutput();
 			ItemStack recipeOutput = getOutput(cookingPot);
 			
-			if (invOutput == null)
-			{
-				invOutput = recipeOutput.copy();
-			}
+			if (invOutput.getStack() == null)
+				invOutput.set(recipeOutput.copy());
 			else
-			{
-				invOutput.stackSize += recipeOutput.stackSize;
-			}
-			
-			cookingPot.setOutput(invOutput);
+				invOutput.incrementSize(recipeOutput.stackSize);
 			
 			// Remove ingredients
 			removeConsumed(cookingPot, recipeOutput.stackSize);
@@ -89,46 +83,26 @@ public class CookingPotRecipeRegistry
 		@Override
 		public ItemStack getOutput(InventoryCookingPot cookingPot)
 		{
-			Set<ItemStackKey> ingredientKeySet = Sets.newHashSet();
+			if (ingredients.size() != FluentIterable.from(cookingPot.getIngredients()).filter(s -> s.getStack() != null).size())
+				return null;
 			
 			for (SlotModifier ingSlot : cookingPot.getIngredients())
 			{
-				ItemStack ingStack = ingSlot.getStack();
-				
-				if (ingStack != null)
-				{
-					ingredientKeySet.add(new ItemStackKey(ingStack));
-				}
+				ItemStack stack = ingSlot.getStack();
+				if (stack != null && !ingredients.containsKey(new ItemStackKey(stack)))
+					return null;
 			}
 			
-			if (ingredientKeySet.equals(ingredients.keySet()))
-			{
-				return output;
-			}
-			
-			return null;
+			return output;
 		}
-
+		
 		@Override
 		public void removeConsumed(InventoryCookingPot cookingPot, int countCrafted)
 		{
-			ItemStack invInput = cookingPot.getInput();
-			
-			if (invInput.stackSize > 1)
-			{
-				invInput.stackSize--;
-			}
-			else
-			{
-				invInput = null;
-			}
-			
-			cookingPot.setInput(invInput);
-			
-			//ItemStack[] invIngredients = cookingPot.getIngredients();
+			cookingPot.getInput().incrementSize(-1);
 			
 			// Get the number of stacks for each ingredient type.
-			Map<ItemStackKey, Integer> countMap = new HashMap<ItemStackKey, Integer>(cookingPot.getIngredientSlotCount());
+			Map<ItemStackKey, Integer> countMap = new HashMap<ItemStackKey, Integer>(cookingPot.getIngredients().size());
 			Map<ItemStackKey, Integer> sizeLeftMap = new HashMap<ItemStackKey, Integer>(ingredients.size());
 			
 			for (Map.Entry<ItemStackKey, ItemStack> entry : ingredients.entrySet())
@@ -160,7 +134,7 @@ public class CookingPotRecipeRegistry
 					int count = countMap.get(key);
 					int size = left / count;
 					
-					ingSlot.modifySize(-size);
+					ingSlot.incrementSize(-size);
 					
 					sizeLeftMap.put(key, left - size);
 					countMap.put(key, count - 1);
@@ -171,20 +145,23 @@ public class CookingPotRecipeRegistry
 	
 	public interface InventoryCookingPot
 	{
-		ItemStack getInput();
-		void setInput(ItemStack stack);
+		//ItemStack getInput();
+		//void setInput(ItemStack stack);
+		SlotModifier getInput();
 		
-		ItemStack getIngredient(int slot);
-		void setIngredient(int slot, ItemStack stack);
-		int getIngredientSlotCount();
+		
 		List<? extends SlotModifier> getIngredients();
 		
-		ItemStack getFuel();
-		void setFuel(ItemStack stack);
+		//ItemStack getFuel();
+		//void setFuel(ItemStack stack);
+		SlotModifier getFuel();
 		
-		ItemStack getOutput();
+		//ItemStack getOutput();
+		//boolean canOutputAccept(ItemStack stack);
+		//void setOutput(ItemStack stack);
+		SlotModifier getOutput();
+		
 		boolean canOutputAccept(ItemStack stack);
-		void setOutput(ItemStack stack);
 	}
 	
 	protected static ItemStack cookingPotItem = GenesisItems.bowls.getStack(EnumCeramicBowls.WATER_BOWL);
@@ -244,17 +221,10 @@ public class CookingPotRecipeRegistry
 			{
 				if (output != null)
 				{
-					ItemStack[] ingredients = new ItemStack[cookingPot.getIngredientSlotCount()];
-					
-					for (int i = 0; i < ingredients.length; i++)
-					{
-						ingredients[i] = cookingPot.getIngredient(i);
-					}
-					
 					Genesis.logger.warn("CookingPotRecipeRegistry.getRecipe found multiple valid recipes for this cooking pot:");
-					Genesis.logger.warn("Input stack: " + cookingPot.getInput());
-					Genesis.logger.warn("Ingredient stacks: " + Stringify.stringifyArray(ingredients));
-					Genesis.logger.warn("Output stack: " + cookingPot.getOutput());
+					Genesis.logger.warn("Input: " + cookingPot.getInput());
+					Genesis.logger.warn("Ingredients: " + cookingPot.getIngredients());
+					Genesis.logger.warn("Output: " + cookingPot.getOutput());
 				}
 				else
 				{

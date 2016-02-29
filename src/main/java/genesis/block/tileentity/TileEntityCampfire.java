@@ -10,7 +10,6 @@ import genesis.block.tileentity.gui.ContainerCampfire;
 import genesis.block.tileentity.render.TileEntityCampfireRenderer;
 import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
-import genesis.util.SlotModifier.SlotModifierInventory;
 import genesis.util.gui.RestrictedDisabledSlot.IInventoryDisabledSlots;
 import genesis.util.random.FloatRange;
 import net.minecraft.block.*;
@@ -75,9 +74,10 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		
 		return allowedOutputs.contains(new ItemStackKey(output));
 	}
-	
+
 	public static final int SLOT_INPUT = 0;
-	public static final int SLOT_FUEL = SLOT_INPUT + 1;
+	public static final int SLOT_INPUT_WASTE = SLOT_INPUT + 1;
+	public static final int SLOT_FUEL = SLOT_INPUT_WASTE + 1;
 	public static final int SLOT_OUTPUT = SLOT_FUEL + 1;
 	public static final int SLOTS_INGREDIENTS_START = SLOT_OUTPUT + 1;
 	public static final int SLOTS_INGREDIENTS_COUNT = 3;
@@ -109,6 +109,11 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	private final int[] SLOTS_FRONT;
 	private final int[] SLOTS_BOTTOM;
 	
+	private final SlotModifier input = SlotModifier.from(this, SLOT_INPUT);
+	private final List<SlotModifier> ingredients;
+	private final SlotModifier fuel = SlotModifier.from(this, SLOT_FUEL);
+	private final SlotModifier output = SlotModifier.from(this, SLOT_OUTPUT);
+	
 	public TileEntityCampfire()
 	{
 		super();
@@ -120,6 +125,13 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		
 		for (int i = 0; i < SLOTS_SIDE.length; i++)
 			SLOTS_SIDE[i] = SLOTS_INGREDIENTS_START + i;
+		
+		ImmutableList.Builder<SlotModifier> builder = ImmutableList.builder();
+		
+		for (int i = 0; i < SLOTS_INGREDIENTS_COUNT; i++)
+			builder.add(SlotModifier.from(this, SLOTS_INGREDIENTS_START + i));
+		
+		ingredients = builder.build();
 	}
 	
 	@Override
@@ -130,7 +142,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	
 	public boolean hasCookingPot()
 	{
-		return isCookingPot(getInput());
+		return isCookingPot(getInput().getStack());
 	}
 	
 	public boolean canSmeltItemType(ItemStack stack)
@@ -179,7 +191,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 			return false;
 		}
 		
-		ItemStack output = getOutput();
+		ItemStack output = getOutput().getStack();
 		
 		if (output == null)
 		{
@@ -198,7 +210,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	
 	public boolean canSmelt()
 	{
-		ItemStack smeltingItem = getInput();
+		ItemStack smeltingItem = getInput().getStack();
 		
 		if (!canSmeltItemType(smeltingItem) && !hasCookingPot())
 		{
@@ -217,8 +229,8 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	{
 		if (canSmelt())
 		{
-			ItemStack smeltingItem = getInput();
-			ItemStack outputItem = getOutput();
+			ItemStack smeltingItem = getInput().getStack();
+			ItemStack outputItem = getOutput().getStack();
 			
 			if (CookingPotRecipeRegistry.hasRecipe(this))
 			{
@@ -239,7 +251,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 				
 				smeltingItem.stackSize--;
 				
-				setOutput(outputItem);
+				getOutput().set(outputItem);
 			}
 			
 			for (int i = 0; i < inventory.length; i++)
@@ -310,28 +322,21 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	{
 		if (!isBurning() && !isWet())
 		{
-			ItemStack burningItem = getFuel();
+			ItemStack burningItem = getFuel().getStack();
 			totalBurnTime = burnTime = getItemBurnTime(burningItem);
 			
-			if (burnTime > 0)
+			if (burnTime > 0 && burningItem != null)
 			{
-				if (burningItem != null)
-				{
-					--burningItem.stackSize;
-					ItemStack container = burningItem.getItem().getContainerItem(burningItem);
-					
-					if (burningItem.stackSize <= 0)
-					{
-						setFuel(container);
-					}
-					else
-					{
-						WorldUtils.spawnItemsAt(worldObj, pos, WorldUtils.DropType.CONTAINER, container);
-					}
-					
-					updateBurningValue();
-					return true;
-				}
+				ItemStack container = burningItem.getItem().getContainerItem(burningItem);
+				burningItem = getFuel().incrementSize(-1);
+				
+				if (burningItem == null)
+					getFuel().set(container);
+				else
+					WorldUtils.spawnItemsAt(worldObj, pos, WorldUtils.DropType.CONTAINER, container);
+				
+				updateBurningValue();
+				return true;
 			}
 		}
 		
@@ -344,7 +349,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		// Get the block type for use in the update method.
 		getBlockType();
 		
-		if (worldObj.isRemote && !TileEntityCampfireRenderer.hasCookingItemModel(getInput()))
+		if (worldObj.isRemote && !TileEntityCampfireRenderer.hasCookingItemModel(getInput().getStack()))
 		{
 			final int fullAngle = 360;
 			final int increments = 360;
@@ -565,6 +570,9 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 			
 			return false;
 		case SLOT_FUEL:
+			if (stack == null)
+				return true;
+			
 			return TileEntityFurnace.isItemFuel(stack);
 		default:
 			break;
@@ -649,14 +657,14 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		compound.setInteger("burnTime", burnTime);
 		compound.setBoolean("waterAround", waterAround);
 		
-		ItemStack input = getInput();
+		ItemStack input = getInput().getStack();
 		
 		if (input != null)
 		{
 			compound.setTag("input", input.writeToNBT(new NBTTagCompound()));
 		}
 		
-		ItemStack fuel = getFuel();
+		ItemStack fuel = getFuel().getStack();
 		
 		if (fuel != null)
 		{
@@ -673,23 +681,9 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		burnTime = compound.getInteger("burnTime");
 		waterAround = compound.getBoolean("waterAround");
 		
-		if (compound.hasKey("input"))
-		{
-			setInput(ItemStack.loadItemStackFromNBT(compound.getCompoundTag("input")));
-		}
-		else
-		{
-			setInput(null);
-		}
+		getInput().set(compound.hasKey("input") ? ItemStack.loadItemStackFromNBT(compound.getCompoundTag("input")) : null);
 		
-		if (compound.hasKey("fuel"))
-		{
-			setFuel(ItemStack.loadItemStackFromNBT(compound.getCompoundTag("fuel")));
-		}
-		else
-		{
-			setFuel(null);
-		}
+		getFuel().set(compound.hasKey("fuel") ? ItemStack.loadItemStackFromNBT(compound.getCompoundTag("fuel")) : null);
 	}
 	
 	@Override
@@ -765,69 +759,27 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 				pos.getX() + 1.25, pos.getY() + 1.25, pos.getZ() + 1.25);
 	}
 	
-	@Override
-	public ItemStack getInput()
+	public SlotModifier getInput()
 	{
-		return getStackInSlot(SLOT_INPUT);
-	}
-	
-	@Override
-	public void setInput(ItemStack stack)
-	{
-		setInventorySlotContents(SLOT_INPUT, stack);
-	}
-	
-	@Override
-	public ItemStack getIngredient(int slot)
-	{
-		return getStackInSlot(slot);
-	}
-	
-	@Override
-	public void setIngredient(int slot, ItemStack stack)
-	{
-		setInventorySlotContents(slot, stack);
-	}
-	
-	@Override
-	public int getIngredientSlotCount()
-	{
-		return 2;
+		return input;
 	}
 	
 	@Override
 	public List<? extends SlotModifier> getIngredients()
 	{
-		ImmutableList.Builder<SlotModifier> builder = ImmutableList.builder();
-		
-		for (int i = 0; i < SLOTS_INGREDIENTS_COUNT; i++)
-			builder.add(new SlotModifierInventory(this, SLOTS_INGREDIENTS_START + i));
-		
-		return builder.build();
+		return ingredients;
 	}
 	
 	@Override
-	public ItemStack getFuel()
+	public SlotModifier getFuel()
 	{
-		return getStackInSlot(SLOT_FUEL);
+		return fuel;
 	}
 	
 	@Override
-	public void setFuel(ItemStack stack)
+	public SlotModifier getOutput()
 	{
-		setInventorySlotContents(SLOT_FUEL, stack);
-	}
-	
-	@Override
-	public ItemStack getOutput()
-	{
-		return getStackInSlot(SLOT_OUTPUT);
-	}
-	
-	@Override
-	public void setOutput(ItemStack stack)
-	{
-		setInventorySlotContents(SLOT_OUTPUT, stack);
+		return output;
 	}
 	
 	@Override

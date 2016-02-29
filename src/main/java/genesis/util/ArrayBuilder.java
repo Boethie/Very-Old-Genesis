@@ -2,7 +2,7 @@ package genesis.util;
 
 import java.util.Arrays;
 
-public class ArrayBuilder<T>
+public final class ArrayBuilder<T>
 {
 	private static final int INITIAL_SIZE = 0;
 	
@@ -39,7 +39,8 @@ public class ArrayBuilder<T>
 		array[grow(size + 1)] = value;
 	}
 	
-	public void addAll(T... values)
+	@SafeVarargs
+	public final void addAll(T... values)
 	{
 		System.arraycopy(values, 0, array, grow(size + values.length), values.length);
 	}

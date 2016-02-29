@@ -5,30 +5,41 @@ import net.minecraft.item.ItemStack;
 
 public interface SlotModifier
 {
-	int getSlot();
-	ItemStack getStack();
-	void modifySize(int amount);
-	void setStack(ItemStack stack);
-	void clearStack();
+	public static SlotModifier from(IInventory inventory, int slot)
+	{
+		return new SlotModifierInventory(inventory, slot);
+	}
+	
+	public ItemStack getStack();
+	
+	public boolean isValid(ItemStack stack);
+	public void set(ItemStack stack);
+	
+	public default ItemStack incrementSize(int amount)
+	{
+		ItemStack stack = getStack();
+		
+		if (stack == null)
+			throw new RuntimeException("Stack is null, cannot increment size.");
+		
+		stack.stackSize += amount;
+		
+		if (stack.stackSize <= 0)
+			stack = null;
+		
+		set(stack);
+		return getStack();
+	}
 	
 	abstract class SlotModifierBase implements SlotModifier
 	{
 		@Override
-		public void modifySize(int amount)
+		public String toString()
 		{
-			ItemStack stack = getStack();
+			if (getStack() == null)
+				return "null";
 			
-			if (stack != null)
-			{
-				stack.stackSize += amount;
-				setStack(stack);
-			}
-		}
-		
-		@Override
-		public void clearStack()
-		{
-			setStack(null);
+			return getStack().toString();
 		}
 	}
 	
@@ -37,16 +48,10 @@ public interface SlotModifier
 		final IInventory inventory;
 		final int slot;
 		
-		public SlotModifierInventory(IInventory inventory, int slot)
+		private SlotModifierInventory(IInventory inventory, int slot)
 		{
 			this.inventory = inventory;
 			this.slot = slot;
-		}
-		
-		@Override
-		public int getSlot()
-		{
-			return slot;
 		}
 		
 		@Override
@@ -56,7 +61,13 @@ public interface SlotModifier
 		}
 		
 		@Override
-		public void setStack(ItemStack stack)
+		public boolean isValid(ItemStack stack)
+		{
+			return inventory.isItemValidForSlot(slot, stack);
+		}
+		
+		@Override
+		public void set(ItemStack stack)
 		{
 			inventory.setInventorySlotContents(slot, stack);
 		}

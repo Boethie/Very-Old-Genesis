@@ -765,7 +765,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 			
 			return rate;
 		}
-
+		
 		return baseAgeChance;
 	}
 	

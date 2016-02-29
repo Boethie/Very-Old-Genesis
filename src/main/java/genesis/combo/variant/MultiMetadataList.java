@@ -68,6 +68,7 @@ public class MultiMetadataList implements List<MultiMetadata>
 		this(Arrays.asList(array));
 	}
 	
+	@SafeVarargs
 	private static List<IMetadata<?>> getSorted(final Iterable<? extends IMetadata<?>>... iters)
 	{
 		List<IMetadata<?>> list = Lists.newArrayList();
@@ -106,6 +107,7 @@ public class MultiMetadataList implements List<MultiMetadata>
 		return list;
 	}
 	
+	@SafeVarargs
 	public MultiMetadataList(final Iterable<? extends IMetadata<?>>... iters)
 	{
 		this(getSorted(iters));

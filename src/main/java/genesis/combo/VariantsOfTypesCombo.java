@@ -425,6 +425,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 		/**
 		 * Default ItemBlock, varargs exclusion.
 		 */
+		@SafeVarargs
 		public static <B extends Block, V extends IMetadata<V>> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, String unlocalizedName, Class<? extends B> blockClass, V... variantExclusions)
 		{
 			return create(name, unlocalizedName, blockClass, ReflectionUtils.<ItemBlockMulti<V>>convertClass(ItemBlockMulti.class), variantExclusions);
@@ -441,6 +442,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 		/**
 		 * Default item, varargs exclusion.
 		 */
+		@SafeVarargs
 		public static <V extends IMetadata<V>> ObjectType<Block, ItemMulti<V>> createItem(String name, String unlocalizedName, V... variantExclusions)
 		{
 			return create(name, unlocalizedName, null, null, variantExclusions);
@@ -458,6 +460,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 		/**
 		 * Default ItemBlock, same name for registry and unlocalized, with varargs exclusion.
 		 */
+		@SafeVarargs
 		public static <B extends Block, V extends IMetadata<V>> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, Class<? extends B> blockClass, V... variantExclusions)
 		{
 			return create(name, blockClass, ReflectionUtils.<ItemBlockMulti<V>>convertClass(ItemBlockMulti.class), variantExclusions);
@@ -474,6 +477,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 		/**
 		 * Default item, same name for registry and unlocalized, with varargs exclusion.
 		 */
+		@SafeVarargs
 		public static <V extends IMetadata<V>> ObjectType<Block, ItemMulti<V>> createItem(String name, V... variantExclusions)
 		{
 			return create(name, null, null, variantExclusions);
