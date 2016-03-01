@@ -15,24 +15,24 @@ import java.util.Random;
 
 public enum EnumOre implements IOreVariant<EnumOre>
 {
-	QUARTZ("quartz", 1, 4.2F, 5.0F, IntRange.create(0, 1), 0.05F),
+	QUARTZ("quartz", 1, 4.2F, 15, IntRange.create(0, 2), 0.2F),
 	AMETHYST("amethyst", 0, 0, 0, IntRange.create(0), 0), //dummy values for a no-ore ore
-	ZIRCON("zircon", 1, 4.2F, 5.0F, IntRange.create(0, 2), 0.1F),
-	GARNET("garnet", 1, 4.2F, 5.0F, IntRange.create(0, 2), 0.1F),
-	HEMATITE("hematite", 1, 4.2F, 5.0F, IntRange.create(0, 1), 0.05F),
-	MANGANESE("manganese", 1, 4.2F, 5.0F, IntRange.create(0, 1), 0.05F),
-	MALACHITE("malachite", 1, 4.2F, 5.0F, IntRange.create(1, 2), 0.2F),
-	AZURITE("azurite", 1, 4.2F, 5.0F, IntRange.create(1, 2), 0.2F),
-	OLIVINE("olivine", 1, 4.2F, 5.0F, IntRange.create(1, 3), 0.3F),
-	BLACK_DIAMOND("black_diamond", "blackDiamond", 1, 4.2F, 5.0F, IntRange.create(0, 1), 0.3F),
-	FLINT("flint", 1, 1.5F, 4.35F, IntRange.create(0, 1), 0,
+	ZIRCON("zircon", 1, 4.2F, 15, IntRange.create(0, 2), 0.2F),
+	GARNET("garnet", 1, 4.2F, 15, IntRange.create(0, 2), 0.2F),
+	HEMATITE("hematite", 1, 4.2F, 15, IntRange.create(0, 2), 0.7F),
+	MANGANESE("manganese", 1, 4.2F, 15, IntRange.create(1, 5), 0.2F),
+	MALACHITE("malachite", 1, 4.2F, 15, IntRange.create(2, 5), 0.2F),
+	AZURITE("azurite", 1, 4.2F, 15, IntRange.create(2, 5), 0.2F),
+	OLIVINE("olivine", 1, 4.2F, 15, IntRange.create(3, 7), 1),
+	BLACK_DIAMOND("black_diamond", "blackDiamond", 1, 2, 15, IntRange.create(3, 7), 1),
+	FLINT("flint", 1, 1.5F, 13.05F, IntRange.create(0, 1), 0,
 			new BlockDrops(
 				new BlockMultiDrop(
 					new BlockStackDrop(GenesisItems.nodules.getStack(EnumNodule.BROWN_FLINT), 1),
 					new BlockStackDrop(GenesisItems.nodules.getStack(EnumNodule.BLACK_FLINT), 1)
 				)
 			)),
-	MARCASITE("marcasite", 1, 1.5F, 4.35F, IntRange.create(0, 1), 0.05F,
+	MARCASITE("marcasite", 1, 1.5F, 4.35F, IntRange.create(0, 1), 0.1F,
 			new BlockDrops(GenesisItems.nodules.getStack(EnumNodule.MARCASITE), 1));
 	
 	public static ImmutableSet<EnumOre> noOres = ImmutableSet.of(AMETHYST);
