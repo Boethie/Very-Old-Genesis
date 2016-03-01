@@ -32,7 +32,7 @@ public enum EnumOre implements IOreVariant<EnumOre>
 					new BlockStackDrop(GenesisItems.nodules.getStack(EnumNodule.BLACK_FLINT), 1)
 				)
 			)),
-	MARCASITE("marcasite", 1, 1.5F, 4.35F, IntRange.create(0, 1), 0.1F,
+	MARCASITE("marcasite", 1, 1.5F, 13.05F, IntRange.create(0, 1), 0.1F,
 			new BlockDrops(GenesisItems.nodules.getStack(EnumNodule.MARCASITE), 1));
 	
 	public static final ImmutableSet<EnumOre> NO_ORES = ImmutableSet.of(AMETHYST);
