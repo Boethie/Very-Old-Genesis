@@ -35,8 +35,8 @@ public enum EnumOre implements IOreVariant<EnumOre>
 	MARCASITE("marcasite", 1, 1.5F, 4.35F, IntRange.create(0, 1), 0.1F,
 			new BlockDrops(GenesisItems.nodules.getStack(EnumNodule.MARCASITE), 1));
 	
-	public static ImmutableSet<EnumOre> noOres = ImmutableSet.of(AMETHYST);
-	public static ImmutableSet<EnumOre> noDrops = ImmutableSet.of(FLINT, MARCASITE);
+	public static final ImmutableSet<EnumOre> NO_ORES = ImmutableSet.of(AMETHYST);
+	public static final ImmutableSet<EnumOre> NO_DROPS = ImmutableSet.of(FLINT, MARCASITE);
 	
 	/**
 	 * Called from the combo that owns these variants, because otherwise the reference loop (Combo -> Enum -> Combo...) will cause a runtime error.
@@ -47,10 +47,9 @@ public enum EnumOre implements IOreVariant<EnumOre>
 		
 		for (EnumOre ore : values())
 		{
-			if (noOres.contains(ore))
-			{
+			if (NO_ORES.contains(ore))
 				continue;
-			}
+			
 			if (ore == QUARTZ)
 			{
 				ore.setDrops(new BlockDrops(

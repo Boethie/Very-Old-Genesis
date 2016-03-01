@@ -15,11 +15,10 @@ public class ContainerCampfire extends ContainerBase
 	protected int lastItemBurnTime;
 	
 	public final RestrictedSlot input;
+	public final RestrictedSlot inputWaste;
 	public final RestrictedSlot fuel;
 	public final SlotFurnaceOutput output;
 	public final RestrictedSlot[] ingredients;
-	//public final RestrictedSlot ingredient1;
-	//public final RestrictedSlot ingredient2;
 
 	public ContainerCampfire(EntityPlayer player, TileEntityCampfire te)
 	{
@@ -29,17 +28,20 @@ public class ContainerCampfire extends ContainerBase
 		
 		int y = 0;
 		
-		int ingSep = slotW + 6;
+		int sep = slotW + 6;
 		ingredients = new RestrictedSlot[TileEntityCampfire.SLOTS_INGREDIENTS_COUNT];
 		
 		for (int i = 0; i < TileEntityCampfire.SLOTS_INGREDIENTS_COUNT; i++)
-			ingredients[i] = addTopAlignedSlot(new RestrictedDisabledSlot(te, TileEntityCampfire.SLOTS_INGREDIENTS_START + i, i * ingSep, y));
+			ingredients[i] = addTopAlignedSlot(new RestrictedDisabledSlot(te, TileEntityCampfire.SLOTS_INGREDIENTS_START + i, i * sep, y));
 		
-		int leftWidth = (TileEntityCampfire.SLOTS_INGREDIENTS_COUNT - 1) * ingSep;
+		int leftWidth = (TileEntityCampfire.SLOTS_INGREDIENTS_COUNT - 1) * sep;
 		
 		input = addTopAlignedSlot(new RestrictedSlot(te, TileEntityCampfire.SLOT_INPUT, leftWidth / 2, y += slotH + 8));
 		fuel = addTopAlignedSlot(new RestrictedSlot(te, TileEntityCampfire.SLOT_FUEL, leftWidth / 2, y += slotH * 2));
-		output = addBigTopAlignedSlot(new SlotFurnaceOutput(player, te, TileEntityCampfire.SLOT_OUTPUT, 112, y /= 2));
+		
+		sep = slotW + 12;
+		output = addBigTopAlignedSlot(new SlotFurnaceOutput(player, te, TileEntityCampfire.SLOT_OUTPUT, 112, (y - sep) / 2));
+		inputWaste = addBigTopAlignedSlot(new RestrictedSlot(te, TileEntityCampfire.SLOT_INPUT_WASTE, 112, (y + sep) / 2));
 		
 		setUpGUILayout();
 	}

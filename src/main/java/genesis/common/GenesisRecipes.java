@@ -664,7 +664,7 @@ public final class GenesisRecipes
 		TileEntityCampfire.registerAllowedOutput(ash);
 		GameRegistry.addSmelting(GenesisBlocks.plants.getPlantStack(EnumPlant.LEPACYCLOTES), ash, 0.15F);
 		GameRegistry.addSmelting(GenesisBlocks.trees.getStack(TreeBlocksAndItems.SAPLING, EnumTree.CORDAITES), ash, 0.15F);
-		CookingPotRecipeRegistry.registerShapeless(GenesisItems.materials.getStack(EnumMaterial.SALT), ash);
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.materials.getStack(EnumMaterial.SALT), true, ash);
 		
 		// Pottery
 		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.red_clay), "CC", "CC", 'C', GenesisItems.red_clay_ball);

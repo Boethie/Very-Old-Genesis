@@ -51,7 +51,6 @@ public class ItemsCeramicBowls extends VariantsOfTypesCombo<MultiMetadata>
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static final MultiMetadataList ALL_VARIANTS = new MultiMetadataList(MiscUtils.iterable(EnumCeramicBowls.values()), GenesisDye.valueList(), MiscUtils.iterable(EnumDish.values()));
 	
 	public static final ObjectType<Block, ItemCeramicBowl> MAIN = new ObjectType<Block, ItemCeramicBowl>("ceramic_bowl", Unlocalized.Section.MATERIAL + "ceramicBowl", null, ItemCeramicBowl.class)

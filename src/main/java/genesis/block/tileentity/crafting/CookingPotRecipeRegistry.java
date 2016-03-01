@@ -35,27 +35,23 @@ public class CookingPotRecipeRegistry
 		@Override
 		public void craft(InventoryCookingPot cookingPot)
 		{
-			SlotModifier invOutput = cookingPot.getOutput();
-			ItemStack recipeOutput = getOutput(cookingPot);
-			
-			if (invOutput.getStack() == null)
-				invOutput.set(recipeOutput.copy());
-			else
-				invOutput.incrementSize(recipeOutput.stackSize);
+			ItemStack output = getOutput(cookingPot);
 			
 			// Remove ingredients
-			removeConsumed(cookingPot, recipeOutput.stackSize);
+			if (cookingPot.getOutput().put(output))
+				removeConsumed(cookingPot, output.stackSize);
 		}
 	}
 	
 	public static class CookingPotRecipeShapeless extends CookingPotRecipeBase
 	{
-		protected Map<ItemStackKey, ItemStack> ingredients;
-		protected ItemStack output;
+		protected final Map<ItemStackKey, ItemStack> ingredients;
+		protected final boolean keepBowl;
+		protected final ItemStack output;
 		
-		public CookingPotRecipeShapeless(ItemStack output, ItemStack... ingredients)
+		public CookingPotRecipeShapeless(ItemStack output, boolean keepBowl, ItemStack... ingredients)
 		{
-			this.ingredients = Maps.newHashMap();
+			Map<ItemStackKey, ItemStack> ingBuilder = Maps.newHashMap();
 			
 			if (ingredients.length < 1)
 				throw new IllegalArgumentException("CookingPotRecipeShapeless was provided an empty array of ingredients.");
@@ -63,14 +59,14 @@ public class CookingPotRecipeRegistry
 			for (ItemStack stack : ingredients)
 			{
 				ItemStack copy = stack.copy();
-				ItemStack oldStack = this.ingredients.put(new ItemStackKey(copy), copy);
+				ItemStack oldStack = ingBuilder.put(new ItemStackKey(copy), copy);
 				
 				if (oldStack != null)	// Combine stacks of the same item.
-				{
 					copy.stackSize += oldStack.stackSize;
-				}
 			}
 			
+			this.ingredients = ImmutableMap.copyOf(ingBuilder);
+			this.keepBowl = keepBowl;
 			this.output = output;
 		}
 		
@@ -99,7 +95,10 @@ public class CookingPotRecipeRegistry
 		@Override
 		public void removeConsumed(InventoryCookingPot cookingPot, int countCrafted)
 		{
-			cookingPot.getInput().incrementSize(-1);
+			ItemStack consumed = cookingPot.getInput().consume(1);
+			
+			if (keepBowl)
+				cookingPot.getInputWaste().put(consumed.getItem().getContainerItem(consumed));
 			
 			// Get the number of stacks for each ingredient type.
 			Map<ItemStackKey, Integer> countMap = new HashMap<ItemStackKey, Integer>(cookingPot.getIngredients().size());
@@ -134,7 +133,7 @@ public class CookingPotRecipeRegistry
 					int count = countMap.get(key);
 					int size = left / count;
 					
-					ingSlot.incrementSize(-size);
+					ingSlot.consume(size);
 					
 					sizeLeftMap.put(key, left - size);
 					countMap.put(key, count - 1);
@@ -148,7 +147,7 @@ public class CookingPotRecipeRegistry
 		//ItemStack getInput();
 		//void setInput(ItemStack stack);
 		SlotModifier getInput();
-		
+		SlotModifier getInputWaste();
 		
 		List<? extends SlotModifier> getIngredients();
 		
@@ -188,14 +187,24 @@ public class CookingPotRecipeRegistry
 		recipes.add(recipe);
 	}
 	
+	public static void registerShapeless(ItemStack output, boolean keepBowl, ItemStack... ingredients)
+	{
+		registerRecipe(new CookingPotRecipeShapeless(output, keepBowl, ingredients));
+	}
+	
 	public static void registerShapeless(ItemStack output, ItemStack... ingredients)
 	{
-		registerRecipe(new CookingPotRecipeShapeless(output, ingredients));
+		registerShapeless(output, false, ingredients);
+	}
+	
+	public static void registerShapeless(ItemStack output, boolean keepBowl, Collection<ItemStack> ingredients)
+	{
+		registerShapeless(output, keepBowl, ingredients.toArray(new ItemStack[ingredients.size()]));
 	}
 	
 	public static void registerShapeless(ItemStack output, Collection<ItemStack> ingredients)
 	{
-		registerShapeless(output, ingredients.toArray(new ItemStack[ingredients.size()]));
+		registerShapeless(output, false, ingredients);
 	}
 	
 	public static boolean isRecipeIngredient(ItemStack stack, InventoryCookingPot cookingPot)

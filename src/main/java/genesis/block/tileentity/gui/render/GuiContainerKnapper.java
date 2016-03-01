@@ -73,6 +73,21 @@ public class GuiContainerKnapper extends GuiContainerBase
 	protected List<Slot> leftSlots = null;
 	protected List<Slot> rightSlots = null;
 	
+	private static final int TOOL_U = 0;
+	private static final int TOOL_V = 31;
+	private static final int TOOL_W = 16;
+	private static final int TOOL_H = 16;
+	
+	private static final int ARROW_W = 22;
+	private static final int ARROW_H = 15;
+	private static final int ARROW_U = 0;
+	private static final int ARROW_V = 16;
+	
+	private static final int WASTE_U = 16;
+	private static final int WASTE_V = 31;
+	private static final int WASTE_W = 16;
+	private static final int WASTE_H = 16;
+	
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTick, int mouseX, int mouseY)
 	{
@@ -85,36 +100,24 @@ public class GuiContainerKnapper extends GuiContainerBase
 		bindTexture(KNAPPER_TEX);
 		
 		// Backgrounds
-		final int toolU = 0;
-		final int toolV = 31;
-		final int toolW = 16;
-		final int toolH = 16;
 		
 		// Tool slot
 		final Slot toolSlot = containerKnapper.knappingToolSlot;
 		
 		if (!toolSlot.getHasStack())
-		{
-			drawTexturedModalRect(toolSlot.xDisplayPosition, toolSlot.yDisplayPosition, toolU, toolV, toolW, toolH);
-		}
+			drawTexturedModalRect(toolSlot.xDisplayPosition, toolSlot.yDisplayPosition, TOOL_U, TOOL_V, TOOL_W, TOOL_H);
 		
 		// Damaged tool slot
 		final Slot toolSlotDamaged = containerKnapper.knappingToolSlotDamaged;
 		
 		if (!toolSlotDamaged.getHasStack())
-		{
-			drawTexturedModalRect(toolSlotDamaged.xDisplayPosition, toolSlotDamaged.yDisplayPosition, toolU, toolV, toolW, toolH);
-		}
+			drawTexturedModalRect(toolSlotDamaged.xDisplayPosition, toolSlotDamaged.yDisplayPosition, TOOL_U, TOOL_V, TOOL_W, TOOL_H);
 		
 		// Output waste slot
 		if (!containerKnapper.outputSlotWaste.getHasStack())
 		{
-			final int wasteU = 16;
-			final int wasteV = 31;
-			final int wasteW = 16;
-			final int wasteH = 16;
 			final Slot wasteSlot = containerKnapper.outputSlotWaste;
-			drawTexturedModalRect(wasteSlot.xDisplayPosition, wasteSlot.yDisplayPosition, wasteU, wasteV, wasteW, wasteH);
+			drawTexturedModalRect(wasteSlot.xDisplayPosition, wasteSlot.yDisplayPosition, WASTE_U, WASTE_V, WASTE_W, WASTE_H);
 		}
 		
 		if (leftSlots == null)
@@ -132,12 +135,8 @@ public class GuiContainerKnapper extends GuiContainerBase
 		}
 		
 		// Arrows
-		int arrowW = 22;
-		int arrowH = 15;
-		int arrowU = 0;
-		int arrowV = 16;
-		drawTexBetweenSlots(0, 0, arrowW, arrowH, arrowU, arrowV, arrowW, arrowH, true, true, leftSlots);
-		drawTexBetweenSlots(0, 0, arrowW, arrowH, arrowU, arrowV, arrowW, arrowH, true, true, rightSlots);
+		drawTexBetweenSlots(0, 0, ARROW_W, ARROW_H, ARROW_U, ARROW_V, ARROW_W, ARROW_H, true, true, leftSlots);
+		drawTexBetweenSlots(0, 0, ARROW_W, ARROW_H, ARROW_U, ARROW_V, ARROW_W, ARROW_H, true, true, rightSlots);
 		
 		if (isKnapping())
 		{

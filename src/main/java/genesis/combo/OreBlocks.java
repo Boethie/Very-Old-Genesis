@@ -15,8 +15,8 @@ import genesis.util.ReflectionUtils;
 
 public class OreBlocks extends VariantsOfTypesCombo<EnumOre>
 {
-	public static final ObjectType<BlockMultiOre<EnumOre>, ItemBlockMulti<EnumOre>> ORE = ObjectType.createBlock("ore", ReflectionUtils.<BlockMultiOre<EnumOre>>convertClass(BlockMultiOre.class), EnumOre.noOres);
-	public static final ObjectType<Block, ItemMulti<EnumOre>> DROP = ObjectType.createItem("ore_drop", Unlocalized.Section.MATERIAL, EnumOre.noDrops);
+	public static final ObjectType<BlockMultiOre<EnumOre>, ItemBlockMulti<EnumOre>> ORE = ObjectType.createBlock("ore", ReflectionUtils.<BlockMultiOre<EnumOre>>convertClass(BlockMultiOre.class), EnumOre.NO_ORES);
+	public static final ObjectType<Block, ItemMulti<EnumOre>> DROP = ObjectType.createItem("ore_drop", Unlocalized.Section.MATERIAL, EnumOre.NO_DROPS);
 	
 	static
 	{

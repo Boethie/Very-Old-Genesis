@@ -74,17 +74,18 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		
 		return allowedOutputs.contains(new ItemStackKey(output));
 	}
-
+	
 	public static final int SLOT_INPUT = 0;
-	public static final int SLOT_INPUT_WASTE = SLOT_INPUT + 1;
-	public static final int SLOT_FUEL = SLOT_INPUT_WASTE + 1;
+	public static final int SLOT_FUEL = SLOT_INPUT + 1;
 	public static final int SLOT_OUTPUT = SLOT_FUEL + 1;
 	public static final int SLOTS_INGREDIENTS_START = SLOT_OUTPUT + 1;
 	public static final int SLOTS_INGREDIENTS_COUNT = 3;
 	public static final int SLOTS_INGREDIENTS_END = SLOTS_INGREDIENTS_START + SLOTS_INGREDIENTS_COUNT - 1;
-	public static final int SLOT_COUNT = SLOTS_INGREDIENTS_END + 1;
+	public static final int SLOT_INPUT_WASTE = SLOTS_INGREDIENTS_END + 1;
+	public static final int SLOT_COUNT = SLOT_INPUT_WASTE + 1;
 	
 	protected static final int WET_TIME = 200;
+	protected static final int COOK_TIME = 200;
 	
 	protected final ItemStack[] inventory = new ItemStack[SLOT_COUNT];
 	
@@ -108,8 +109,9 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	private final int[] SLOTS_SIDE;
 	private final int[] SLOTS_FRONT;
 	private final int[] SLOTS_BOTTOM;
-	
+
 	private final SlotModifier input = SlotModifier.from(this, SLOT_INPUT);
+	private final SlotModifier inputWaste = SlotModifier.from(this, SLOT_INPUT_WASTE);
 	private final List<SlotModifier> ingredients;
 	private final SlotModifier fuel = SlotModifier.from(this, SLOT_FUEL);
 	private final SlotModifier output = SlotModifier.from(this, SLOT_OUTPUT);
@@ -328,7 +330,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 			if (burnTime > 0 && burningItem != null)
 			{
 				ItemStack container = burningItem.getItem().getContainerItem(burningItem);
-				burningItem = getFuel().incrementSize(-1);
+				burningItem = getFuel().consume(1);
 				
 				if (burningItem == null)
 					getFuel().set(container);
@@ -456,7 +458,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		{
 			cookTime++;
 			
-			if (cookTime >= 200)
+			if (cookTime >= COOK_TIME)
 			{
 				cookTime = 0;
 				smeltItem();
@@ -494,7 +496,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	
 	public int getCookProgressScaled(int pixels)
 	{
-		return Math.round((cookTime / 200F) * pixels);
+		return Math.round((cookTime / (float) COOK_TIME) * pixels);
 	}
 	
 	/*@Override
@@ -522,7 +524,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	
 	public boolean isIngredientSlot(int slot)
 	{
-		return slot >= SLOTS_INGREDIENTS_START || slot <= SLOTS_INGREDIENTS_END;
+		return slot >= SLOTS_INGREDIENTS_START && slot <= SLOTS_INGREDIENTS_END;
 	}
 	
 	@Override
@@ -555,6 +557,9 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack stack)
 	{
+		if (stack == null)
+			return true;
+		
 		switch (slot)
 		{
 		case SLOT_INPUT:
@@ -570,9 +575,6 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 			
 			return false;
 		case SLOT_FUEL:
-			if (stack == null)
-				return true;
-			
 			return TileEntityFurnace.isItemFuel(stack);
 		default:
 			break;
@@ -759,9 +761,16 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 				pos.getX() + 1.25, pos.getY() + 1.25, pos.getZ() + 1.25);
 	}
 	
+	@Override
 	public SlotModifier getInput()
 	{
 		return input;
+	}
+	
+	@Override
+	public SlotModifier getInputWaste()
+	{
+		return inputWaste;
 	}
 	
 	@Override

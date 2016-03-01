@@ -1,6 +1,5 @@
 package genesis.world.biome;
 
-import net.minecraft.init.Blocks;
 import genesis.combo.PlantBlocks;
 import genesis.combo.SiltBlocks;
 import genesis.combo.variant.EnumPlant;

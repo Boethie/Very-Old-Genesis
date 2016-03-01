@@ -15,20 +15,48 @@ public interface SlotModifier
 	public boolean isValid(ItemStack stack);
 	public void set(ItemStack stack);
 	
-	public default ItemStack incrementSize(int amount)
+	public default boolean put(ItemStack stack)
 	{
+		if (stack == null)
+			return true;
+		
+		ItemStack ourStack = getStack();
+		
+		if (ourStack == null)
+		{
+			set(stack.copy());
+			return true;
+		}
+		
+		if (!ourStack.isItemEqual(stack) || !ItemStack.areItemStackTagsEqual(ourStack, stack))
+			return false;
+		
+		ourStack.stackSize += stack.stackSize;
+		set(ourStack);
+		return true;
+	}
+	
+	/**
+	 * @param amount The amount to consume from the slot.
+	 * @return The stack split off from this slot's stack.
+	 */
+	public default ItemStack consume(int amount)
+	{
+		if (amount < 0)
+			throw new IllegalArgumentException("Cannot consume " + amount + " items, that would increase stack size.");
+		
 		ItemStack stack = getStack();
 		
 		if (stack == null)
 			throw new RuntimeException("Stack is null, cannot increment size.");
 		
-		stack.stackSize += amount;
+		ItemStack split = stack.splitStack(amount);
 		
 		if (stack.stackSize <= 0)
 			stack = null;
 		
 		set(stack);
-		return getStack();
+		return split;
 	}
 	
 	abstract class SlotModifierBase implements SlotModifier

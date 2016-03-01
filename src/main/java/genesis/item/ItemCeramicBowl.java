@@ -63,6 +63,15 @@ public class ItemCeramicBowl extends ItemGenesis
 	}
 	
 	@Override
+	public ItemStack getContainerItem(ItemStack stack)
+	{
+		if (owner.getVariant(stack).getOriginal() == EnumCeramicBowls.WATER_BOWL)
+			return owner.getStack(EnumCeramicBowls.BOWL);
+		
+		return null;
+	}
+	
+	@Override
 	public int getMaxItemUseDuration(ItemStack stack)
 	{
 		return 32;
@@ -71,7 +80,10 @@ public class ItemCeramicBowl extends ItemGenesis
 	@Override
 	public EnumAction getItemUseAction(ItemStack stack)
 	{
-		return EnumAction.DRINK;
+		if (owner.getVariant(stack).getOriginal() == EnumCeramicBowls.WATER_BOWL)
+			return EnumAction.DRINK;
+		
+		return EnumAction.NONE;
 	}
 	
 	@Override
@@ -130,7 +142,7 @@ public class ItemCeramicBowl extends ItemGenesis
 		switch (variant)
 		{
 		case WATER_BOWL:
-			ItemStack empty = owner.getStack(EnumCeramicBowls.BOWL);
+			ItemStack empty = getContainerItem(stack);
 			
 			if (--stack.stackSize <= 0)
 			{

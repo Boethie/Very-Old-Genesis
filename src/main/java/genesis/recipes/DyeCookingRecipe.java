@@ -162,11 +162,11 @@ public class DyeCookingRecipe extends CookingPotRecipeBase
 	@Override
 	public void removeConsumed(InventoryCookingPot cookingPot, int countCrafted)
 	{
-		cookingPot.getInput().incrementSize(-countCrafted);
+		cookingPot.getInput().consume(countCrafted);
 		
 		for (SlotModifier slot : cookingPot.getIngredients())
 		{
-			slot.incrementSize(-1);
+			slot.consume(1);
 		}
 	}
 }
