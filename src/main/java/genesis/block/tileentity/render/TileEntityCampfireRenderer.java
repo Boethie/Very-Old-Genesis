@@ -48,7 +48,6 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 		public ModelCampfire()
 		{
 			stick.rotationPointY = 1 + MathHelper.cos((float) Math.PI / 4) * 0.0625F;
-			stick.setAmbientOcclusion(false);
 			stick.addChild(cookingPot);
 			stick.addChild(stickItem);
 			stick.setDefaultState();
@@ -58,7 +57,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 			
 			cookingPot.setDefaultState();
 		}
-
+		
 		public void renderAll()
 		{
 			RenderHelper.disableStandardItemLighting();

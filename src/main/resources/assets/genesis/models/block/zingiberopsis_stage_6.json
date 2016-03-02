@@ -1,6 +1,0 @@
-{
-	"parent": "block/cross",
-	"textures": {
-		"cross": "genesis:blocks/zingiberopsis_stage_6"
-	}
-}
