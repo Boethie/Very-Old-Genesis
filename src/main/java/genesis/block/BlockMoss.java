@@ -53,9 +53,9 @@ public class BlockMoss extends BlockGrass
 	}
 
 	@Override
-	public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)
+	public void grow(World world, Random rand, BlockPos pos, IBlockState state)
 	{
-		BiomeGenBase biome = worldIn.getBiomeGenForCoords(pos);
+		BiomeGenBase biome = world.getBiomeGenForCoords(pos);
 		BiomeGenBaseGenesis biomeGenesis = null;
 		List<IBlockState> genesisPlants = null;
 		
@@ -65,42 +65,36 @@ public class BlockMoss extends BlockGrass
 			genesisPlants = biomeGenesis.getSpawnablePlants(rand);
 		}
 		
-		BlockPos origTopBlock = pos.up();
+		BlockPos aboveCenter = pos.up();
 		int loops = 0;
 
 		while (loops < 128)
 		{
-			BlockPos topBlock = origTopBlock;
+			BlockPos plantPos = aboveCenter;
 			int i = 0;
 
 			while (true)
 			{
-				if (i < (loops / 16))
+				if (i < loops / 16)
 				{
-					topBlock = topBlock.add(rand.nextInt(3) - 1, ((rand.nextInt(3) - 1) * rand.nextInt(3)) / 2, rand.nextInt(3) - 1);
+					plantPos = plantPos.add(rand.nextInt(3) - 1, ((rand.nextInt(3) - 1) * rand.nextInt(3)) / 2, rand.nextInt(3) - 1);
 
-					if ((worldIn.getBlockState(topBlock.down()).getBlock() == this) && !worldIn.getBlockState(topBlock).getBlock().isNormalCube())
+					if ((world.getBlockState(plantPos.down()).getBlock() == this) && !world.getBlockState(plantPos).getBlock().isNormalCube())
 					{
-						++i;
+						i++;
 						continue;
 					}
 				}
-				else if (worldIn.isAirBlock(topBlock))
+				else if (world.isAirBlock(plantPos))
 				{
 					IBlockState randPlant = null;
 
 					if (rand.nextInt(8) == 0)
 					{
-						// Plant Flower
-						if (genesisPlants != null)
-						{
+						if (genesisPlants != null)	// Plant Flower
 							randPlant = !genesisPlants.isEmpty() ? genesisPlants.get(rand.nextInt(genesisPlants.size())) : null;
-						}
-						else
-						{
-							// Vanilla
-							worldIn.getBiomeGenForCoords(topBlock).plantFlower(worldIn, rand, topBlock);
-						}
+						else	// Vanilla
+							world.getBiomeGenForCoords(plantPos).plantFlower(world, rand, plantPos);
 					}
 					else
 					{
@@ -114,28 +108,25 @@ public class BlockMoss extends BlockGrass
 							// Vanilla
 							IBlockState tallgrass = Blocks.tallgrass.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS);
 							
-							if (Blocks.tallgrass.canBlockStay(worldIn, topBlock, tallgrass))
-							{
-								worldIn.setBlockState(topBlock, tallgrass, 3);
-							}
+							if (Blocks.tallgrass.canBlockStay(world, plantPos, tallgrass))
+								world.setBlockState(plantPos, tallgrass, 3);
 						}
 					}
 					
 					if (randPlant != null)
 					{
-						Block block = randPlant.getBlock();
+						/*Block block = randPlant.getBlock();
 						boolean isBush = block instanceof BlockBush;
-						boolean canBushStay = isBush && ((BlockBush) block).canBlockStay(worldIn, topBlock, randPlant);
-						boolean canPlaceBlock = !isBush && block.canPlaceBlockAt(worldIn, topBlock);
+						boolean canBushStay = isBush && ((BlockBush) block).canBlockStay(world, topBlock, randPlant);
+						boolean canPlaceBlock = !isBush && block.canPlaceBlockAt(world, topBlock);
 						
-						if (canBushStay || canPlaceBlock)
-						{
-							worldIn.setBlockState(topBlock, randPlant, 3);
-						}
+						if (canBushStay || canPlaceBlock)*/
+						if (randPlant.getBlock().canPlaceBlockAt(world, plantPos))
+							world.setBlockState(plantPos, randPlant, 3);
 					}
 				}
-
-				++loops;
+				
+				loops++;
 				break;
 			}
 		}
@@ -320,18 +311,12 @@ public class BlockMoss extends BlockGrass
 					{
 						BlockPos randPos = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
 						IBlockState randState = world.getBlockState(randPos);
-						Block randBlock = randState.getBlock();
 						
-						if (randBlock == Blocks.dirt || randBlock == Blocks.grass)
+						if (randState == Blocks.dirt.getDefaultState() || randState.getBlock() == Blocks.grass)
 						{
-							if (rand.nextFloat() >= getGrowthChance(world, randPos, false))
-							{
+							if (getGrowthChance(world, randPos, false) < rand.nextFloat() ||
+									getTargetStage(getFertility(world, randPos), world.rand) < 0)
 								continue;
-							}
-							else if (getTargetStage(getFertility(world, randPos), world.rand) < 0)
-							{
-								continue;
-							}
 							
 							world.setBlockState(randPos, getDefaultState());
 						}
