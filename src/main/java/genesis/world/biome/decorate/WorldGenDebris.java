@@ -51,7 +51,7 @@ public class WorldGenDebris extends WorldGenDecorationBase
 		
 		for (int i = 0; i < debrisCount; ++i)
 		{
-			if (generateDebris(world, random, pos.add(3 - random.nextInt(7), 0, 3 - random.nextInt(7)), 5, 3, 5, (i == 0)))
+			if (generateDebris(world, random, pos.add(2 - random.nextInt(5), 0, 2 - random.nextInt(5)), 5, 3, 5, (i == 0)))
 			{
 				willGenerate = true;
 			}
