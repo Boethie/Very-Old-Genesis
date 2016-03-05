@@ -1,7 +1,7 @@
 {
 	"parent": "builtin/generated",
 	"textures": {
-		"layer0": "genesis:items/pick_chipped_rhyolite"
+		"layer0": "genesis:items/pickaxe_polished_black_flint"
 	},
 	"display": {
 		"thirdperson": {

@@ -304,21 +304,21 @@ item.genesis.tool.shovel.quartz.name=Pelle en quartz
 item.genesis.tool.shovel.brownFlint.name=Pelle en silex brun
 item.genesis.tool.shovel.blackFlint.name=Pelle en silex noir
 
-item.genesis.material.toolHead.pick.octaedrite.name=Tête de pioche en fer météorique
-item.genesis.material.toolHead.pick.dolerite.name=Tête de pioche en dolérite
-item.genesis.material.toolHead.pick.rhyolite.name=Tête de pioche en rhyolite
-item.genesis.material.toolHead.pick.granite.name=Tête de pioche en granite
-item.genesis.material.toolHead.pick.quartz.name=Tête de pioche en quartz
-item.genesis.material.toolHead.pick.brownFlint.name=Tête de pioche en silex brun
-item.genesis.material.toolHead.pick.blackFlint.name=Tête de pioche en silex noir
+item.genesis.material.toolHead.pickaxe.octaedrite.name=Tête de pioche en fer météorique
+item.genesis.material.toolHead.pickaxe.dolerite.name=Tête de pioche en dolérite
+item.genesis.material.toolHead.pickaxe.rhyolite.name=Tête de pioche en rhyolite
+item.genesis.material.toolHead.pickaxe.granite.name=Tête de pioche en granite
+item.genesis.material.toolHead.pickaxe.quartz.name=Tête de pioche en quartz
+item.genesis.material.toolHead.pickaxe.brownFlint.name=Tête de pioche en silex brun
+item.genesis.material.toolHead.pickaxe.blackFlint.name=Tête de pioche en silex noir
 
-item.genesis.tool.pick.octaedrite.name=Pioche en fer météorique
-item.genesis.tool.pick.dolerite.name=Pioche en dolérite
-item.genesis.tool.pick.rhyolite.name=Pioche en rhyolite
-item.genesis.tool.pick.granite.name=Pioche en granite
-item.genesis.tool.pick.quartz.name=Pioche en quartz
-item.genesis.tool.pick.brownFlint.name=Pioche en silex brun
-item.genesis.tool.pick.blackFlint.name=Pioche en silex noir
+item.genesis.tool.pickaxe.octaedrite.name=Pioche en fer météorique
+item.genesis.tool.pickaxepick.dolerite.name=Pioche en dolérite
+item.genesis.tool.pickaxe.rhyolite.name=Pioche en rhyolite
+item.genesis.tool.pickaxe.granite.name=Pioche en granite
+item.genesis.tool.pickaxe.quartz.name=Pioche en quartz
+item.genesis.tool.pickaxe.brownFlint.name=Pioche en silex brun
+item.genesis.tool.pickaxe.blackFlint.name=Pioche en silex noir
 
 item.genesis.material.toolHead.axe.octaedrite.name=Tête de hache en fer météorique
 item.genesis.material.toolHead.axe.dolerite.name=Tête de hache en dolérite

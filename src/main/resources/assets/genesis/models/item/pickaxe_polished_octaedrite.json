@@ -1,7 +1,7 @@
 {
 	"parent": "builtin/generated",
 	"textures": {
-		"layer0": "genesis:items/pick_chipped_octaedrite"
+		"layer0": "genesis:items/pickaxe_polished_octaedrite"
 	},
 	"display": {
 		"thirdperson": {

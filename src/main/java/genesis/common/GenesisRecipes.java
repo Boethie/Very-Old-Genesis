@@ -498,8 +498,8 @@ public final class GenesisRecipes
 			ItemStack shovelHead = GenesisItems.tools.getBadStack(ToolItems.SHOVEL_HEAD, material, 1);
 			addToolRecipe(shovelHead, ToolItems.SHOVEL, material);
 			
-			ItemStack pickHead = GenesisItems.tools.getBadStack(ToolItems.PICK_HEAD, material, 1);
-			addToolRecipe(pickHead, ToolItems.PICK, material);
+			ItemStack pickHead = GenesisItems.tools.getBadStack(ToolItems.PICKAXE_HEAD, material, 1);
+			addToolRecipe(pickHead, ToolItems.PICKAXE, material);
 			
 			ItemStack hoeHead = GenesisItems.tools.getBadStack(ToolItems.HOE_HEAD, material, 1);
 			addToolRecipe(hoeHead, ToolItems.HOE, material);

@@ -35,8 +35,8 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 	public static final ToolObjectTypeSoleQuality<Block, ItemChoppingTool> CHOPPING_TOOL = new ToolObjectTypeSoleQuality<Block, ItemChoppingTool>("chopping_tool", Section.TOOL + "choppingTool", null, ItemChoppingTool.class, EnumToolQuality.WEAK, EnumToolMaterial.OCTAEDRITE).setCreativeTab(GenesisCreativeTabs.TOOLS).setUseVariantAsRegistryName(true);
 	public static final ToolObjectType<Block, ItemToolHead> SHOVEL_HEAD = new ToolObjectType<Block, ItemToolHead>("head_shovel", Section.TOOL_HEAD + "shovel", null, ItemToolHead.class, TOOL_QUALITIES);
 	public static final ToolObjectType<Block, ItemGenesisSpade> SHOVEL = new ToolObjectType<Block, ItemGenesisSpade>("shovel", Section.TOOL + "shovel", null, ItemGenesisSpade.class, TOOL_QUALITIES).setCreativeTab(GenesisCreativeTabs.TOOLS);
-	public static final ToolObjectType<Block, ItemToolHead> PICK_HEAD = new ToolObjectType<Block, ItemToolHead>("head_pick", Section.TOOL_HEAD + "pick", null, ItemToolHead.class, TOOL_QUALITIES);
-	public static final ToolObjectType<Block, ItemGenesisPick> PICK = new ToolObjectType<Block, ItemGenesisPick>("pick", Section.TOOL + "pick", null, ItemGenesisPick.class, TOOL_QUALITIES).setCreativeTab(GenesisCreativeTabs.TOOLS);
+	public static final ToolObjectType<Block, ItemToolHead> PICKAXE_HEAD = new ToolObjectType<Block, ItemToolHead>("head_pickaxe", Section.TOOL_HEAD + "pickaxe", null, ItemToolHead.class, TOOL_QUALITIES);
+	public static final ToolObjectType<Block, ItemGenesisPickaxe> PICKAXE = new ToolObjectType<Block, ItemGenesisPickaxe>("pickaxe", Section.TOOL + "pickaxe", null, ItemGenesisPickaxe.class, TOOL_QUALITIES).setCreativeTab(GenesisCreativeTabs.TOOLS);
 	public static final ToolObjectType<Block, ItemToolHead> AXE_HEAD = new ToolObjectType<Block, ItemToolHead>("head_axe", Section.TOOL_HEAD + "axe", null, ItemToolHead.class, TOOL_QUALITIES);
 	public static final ToolObjectType<Block, ItemGenesisAxe> AXE = new ToolObjectType<Block, ItemGenesisAxe>("axe", Section.TOOL + "axe", null, ItemGenesisAxe.class, TOOL_QUALITIES).setCreativeTab(GenesisCreativeTabs.TOOLS);
 	public static final ToolObjectType<Block, ItemToolHead> HOE_HEAD = new ToolObjectType<Block, ItemToolHead>("head_hoe", Section.TOOL_HEAD + "hoe", null, ItemToolHead.class, TOOL_QUALITIES);
@@ -55,7 +55,7 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 		super(ImmutableList.<ObjectType<?, ?>>of(
 						PEBBLE, CHOPPING_TOOL,
 						SHOVEL_HEAD, SHOVEL,
-						PICK_HEAD, PICK,
+						PICKAXE_HEAD, PICKAXE,
 						AXE_HEAD, AXE,
 						HOE_HEAD, HOE,
 						KNIFE_HEAD, KNIFE,

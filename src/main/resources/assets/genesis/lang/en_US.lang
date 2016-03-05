@@ -305,21 +305,21 @@ item.genesis.tool.shovel.quartz.name=Quartz Shovel
 item.genesis.tool.shovel.brownFlint.name=Brown Flint Shovel
 item.genesis.tool.shovel.blackFlint.name=Black Flint Shovel
 
-item.genesis.material.toolHead.pick.octaedrite.name=Meteoric Iron Pickaxe Head
-item.genesis.material.toolHead.pick.dolerite.name=Dolerite Pickaxe Head
-item.genesis.material.toolHead.pick.rhyolite.name=Rhyolite Pickaxe Head
-item.genesis.material.toolHead.pick.granite.name=Granite Pickaxe Head
-item.genesis.material.toolHead.pick.quartz.name=Quartz Pickaxe Head
-item.genesis.material.toolHead.pick.brownFlint.name=Brown Flint Pickaxe Head
-item.genesis.material.toolHead.pick.blackFlint.name=Black Flint Pickaxe Head
+item.genesis.material.toolHead.pickaxe.octaedrite.name=Meteoric Iron Pickaxe Head
+item.genesis.material.toolHead.pickaxe.dolerite.name=Dolerite Pickaxe Head
+item.genesis.material.toolHead.pickaxe.rhyolite.name=Rhyolite Pickaxe Head
+item.genesis.material.toolHead.pickaxe.granite.name=Granite Pickaxe Head
+item.genesis.material.toolHead.pickaxe.quartz.name=Quartz Pickaxe Head
+item.genesis.material.toolHead.pickaxe.brownFlint.name=Brown Flint Pickaxe Head
+item.genesis.material.toolHead.pickaxe.blackFlint.name=Black Flint Pickaxe Head
 
-item.genesis.tool.pick.octaedrite.name=Meteoric Iron Pickaxe
-item.genesis.tool.pick.dolerite.name=Dolerite Pickaxe
-item.genesis.tool.pick.rhyolite.name=Rhyolite Pickaxe
-item.genesis.tool.pick.granite.name=Granite Pickaxe
-item.genesis.tool.pick.quartz.name=Quartz Pickaxe
-item.genesis.tool.pick.brownFlint.name=Brown Flint Pickaxe
-item.genesis.tool.pick.blackFlint.name=Black Flint Pickaxe
+item.genesis.tool.pickaxe.octaedrite.name=Meteoric Iron Pickaxe
+item.genesis.tool.pickaxe.dolerite.name=Dolerite Pickaxe
+item.genesis.tool.pickaxe.rhyolite.name=Rhyolite Pickaxe
+item.genesis.tool.pickaxe.granite.name=Granite Pickaxe
+item.genesis.tool.pickaxe.quartz.name=Quartz Pickaxe
+item.genesis.tool.pickaxe.brownFlint.name=Brown Flint Pickaxe
+item.genesis.tool.pickaxe.blackFlint.name=Black Flint Pickaxe
 
 item.genesis.material.toolHead.axe.octaedrite.name=Meteoric Iron Axe Head
 item.genesis.material.toolHead.axe.dolerite.name=Dolerite Axe Head

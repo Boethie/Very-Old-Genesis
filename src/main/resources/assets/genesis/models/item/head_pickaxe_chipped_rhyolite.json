@@ -1,7 +1,7 @@
 {
 	"parent": "builtin/generated",
 	"textures": {
-		"layer0": "genesis:items/head_pick_polished_octaedrite"
+		"layer0": "genesis:items/head_pickaxe_chipped_rhyolite"
 	},
 	"display": {
 		"thirdperson": {

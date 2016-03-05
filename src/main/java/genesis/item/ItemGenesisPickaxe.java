@@ -11,14 +11,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 
 @ItemVariantCount(1)
-public class ItemGenesisPick extends ItemPickaxe
+public class ItemGenesisPickaxe extends ItemPickaxe
 {
 	public final ToolItems owner;
 	
 	protected final ToolType type;
-	protected final ToolObjectType<Block, ItemGenesisPick> objType;
+	protected final ToolObjectType<Block, ItemGenesisPickaxe> objType;
 	
-	public ItemGenesisPick(ToolItems owner, ToolObjectType<Block, ItemGenesisPick> objType, ToolType type, Class<ToolType> variantClass)
+	public ItemGenesisPickaxe(ToolItems owner, ToolObjectType<Block, ItemGenesisPickaxe> objType, ToolType type, Class<ToolType> variantClass)
 	{
 		super(type.toolMaterial);
 		
