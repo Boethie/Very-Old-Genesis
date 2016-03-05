@@ -110,11 +110,6 @@
 					"plant": "genesis:blocks/fern_matonidium"
 				}
 			},
-			"cretacifilix": {
-				"textures": {
-					"plant": "genesis:blocks/fern_cretacifilix"
-				}
-			},
 			"onoclea": {
 				"textures": {
 					"plant": "genesis:blocks/fern_onoclea"

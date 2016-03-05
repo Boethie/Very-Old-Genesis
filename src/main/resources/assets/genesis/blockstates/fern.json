@@ -7,7 +7,6 @@
 		"variant=ruffordia":  { "model": "genesis:ruffordia" },
 		"variant=astralopteris":  { "model": "genesis:astralopteris" },
 		"variant=matonidium":  { "model": "genesis:matonidium" },
-		"variant=cretacifilix":  { "model": "genesis:cretacifilix" },
 		"variant=onoclea":  { "model": "genesis:onoclea" }
 	}
 }
