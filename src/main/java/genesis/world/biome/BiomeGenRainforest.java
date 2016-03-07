@@ -29,7 +29,7 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 		setHeight(0.15F, 0.05F);
 		waterColorMultiplier = 0x725113;
 		
-		theBiomeDecorator.grassPerChunk = 6;
+		theBiomeDecorator.grassPerChunk = 8;
 		
 		addDecorations();
 		addTrees();
@@ -37,8 +37,8 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 	
 	protected void addDecorations()
 	{
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchSize(3).setCountPerChunk(2));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(2));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchSize(3).setCountPerChunk(3));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(3));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(2, 0).setNextToWater(true).setPatchSize(4).setCountPerChunk(8));
 		
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(3).setCountPerChunk(8));

@@ -28,7 +28,7 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 		setTemperatureRainfall(1.1F, 0.9F);
 		setHeight(0.05F, 0.15F);
 		
-		theBiomeDecorator.grassPerChunk = 4;
+		theBiomeDecorator.grassPerChunk = 7;
 		
 		addDecorations();
 		addTrees();
@@ -47,7 +47,7 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 	
 	protected void addTrees()
 	{
-		addTree(new WorldGenTreeAraucarioxylon(25, 30, true).setTreeCountPerChunk(3));
+		addTree(new WorldGenTreeAraucarioxylon(25, 30, true).setTreeCountPerChunk(4));
 		addTree(new WorldGenTreeGinkgo(6, 17, false).setTreeCountPerChunk(1).setRarity(6));
 		addTree(new WorldGenDeadLog(4, 8, EnumTree.ARAUCARIOXYLON, true).setTreeCountPerChunk(1));
 	}

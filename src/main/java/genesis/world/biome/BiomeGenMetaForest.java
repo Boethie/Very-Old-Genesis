@@ -30,7 +30,7 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 		setTemperatureRainfall(1.1F, 0.9F);
 		setHeight(0.105F, 0.08F);
 		
-		theBiomeDecorator.grassPerChunk = 4;
+		theBiomeDecorator.grassPerChunk = 5;
 		
 		addDecorations();
 		addTrees();
