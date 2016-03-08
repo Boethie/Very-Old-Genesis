@@ -1,6 +1,8 @@
 package genesis.world.biome;
 
+import genesis.combo.variant.EnumDebrisOther;
 import genesis.common.GenesisBlocks;
+import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
 
 public class BiomeGenWoodlandsM extends BiomeGenWoodlands
@@ -17,6 +19,7 @@ public class BiomeGenWoodlandsM extends BiomeGenWoodlands
 		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(4).setCountPerChunk(1));
 		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(9).addBlocks(GenesisBlocks.rhyolite.getDefaultState()).setCountPerChunk(1));
 		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(9).addBlocks(GenesisBlocks.dolerite.getDefaultState()).setCountPerChunk(1));
+		addDecoration(new WorldGenDebris().addAdditional(GenesisBlocks.debris.getBlockState(EnumDebrisOther.TYRANNOSAURUS_FEATHER)).setCountPerChunk(20));
 	}
 	
 	@Override
