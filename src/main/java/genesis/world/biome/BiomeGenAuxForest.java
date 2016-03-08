@@ -55,7 +55,7 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 	@Override
 	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
 	{
-		return new WorldGenGrassMulti(GenesisBlocks.plants.getPlantBlockState(EnumPlant.TODITES)).setVolume(64);
+		return new WorldGenGrassMulti(GenesisBlocks.plants.getPlantBlockState(EnumPlant.TODITES), GenesisBlocks.plants.getPlantBlockState(EnumPlant.PHLEBOPTERIS)).setVolume(64);
 	}
 	
 	@Override
