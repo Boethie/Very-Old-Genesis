@@ -42,8 +42,9 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 	
 	protected void addDecorations()
 	{
-		//addDecoration(new WorldGenPlant(EnumPlant.PALAEOASTER).setCountPerChunk(1));
+		//addDecoration(WorldGenPlant.create(EnumPlant.PALAEOASTER).setCountPerChunk(1));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setPatchSize(3).setCountPerChunk(1));
+		addGrassFlowers();
 		
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(3).setCountPerChunk(3));
 		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(5).setCountPerChunk(1));

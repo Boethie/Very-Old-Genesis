@@ -146,14 +146,14 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 		
 		doGen = true;//TODO
 		
-		for (int i = 0; i < decorations.size(); ++ i)
+		for (WorldGenDecorationBase gen : decorations)
 		{
-			for (int j = 0; doGen && j < decorations.get(i).getCountPerChunk(); ++j)
+			for (int j = 0; doGen && j < gen.getCountPerChunk(); ++j)
 			{
 				int x = nextInt(16) + 8;
 				int z = nextInt(16) + 8;
 				int y = nextInt(currentWorld.getHeight(field_180294_c.add(x, 0, z)).getY() * 2);
-				decorations.get(i).generate(currentWorld, randomGenerator, field_180294_c.add(x, y, z));
+				gen.generate(currentWorld, randomGenerator, field_180294_c.add(x, y, z));
 			}
 		}
 		

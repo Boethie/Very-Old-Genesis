@@ -17,18 +17,53 @@ import net.minecraft.item.Item;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
-public class WorldGenPlant extends WorldGenDecorationBase
+public class WorldGenPlant<V extends IPlantMetadata<V>> extends WorldGenDecorationBase implements PlantGenerator
 {
-	protected final VariantsOfTypesCombo combo;
-	protected final ObjectType<? extends BlockPlant, ? extends Item> type;
-	protected final IPlantMetadata variant;
+	public static <V extends IPlantMetadata<V>> WorldGenPlant<V> create(VariantsOfTypesCombo<V> combo, ObjectType<? extends BlockPlant<V>, ? extends Item> type, V variant)
+	{
+		return new WorldGenPlant<V>(combo, type, variant);
+	}
+	
+	public static WorldGenPlant<EnumPlant> create(ObjectType<? extends BlockPlant<EnumPlant>, ? extends Item> type, EnumPlant variant)
+	{
+		return create(GenesisBlocks.plants, type, variant);
+	}
+	
+	public static WorldGenPlant<EnumPlant> create(EnumPlant variant)
+	{
+		ObjectType<? extends BlockPlant<EnumPlant>, ? extends Item> type = null;
+		
+		switch (variant.getType())
+		{
+		case PLANT:
+			if (variant.hasLarge())
+				type = PlantBlocks.DOUBLE_PLANT;
+			else
+				type = PlantBlocks.PLANT;
+			break;
+		case FERN:
+			if (variant.hasLarge())
+				type = PlantBlocks.DOUBLE_FERN;
+			else
+				type = PlantBlocks.FERN;
+			break;
+		}
+		
+		if (type == null)
+			throw new IllegalArgumentException("Unexpected variant passed to create a new WorldGenPlant: " + variant);
+		
+		return create(type, variant);
+	}
+	
+	protected final VariantsOfTypesCombo<V> combo;
+	protected final ObjectType<? extends BlockPlant<V>, ? extends Item> type;
+	protected final V variant;
 	private final List<Block> allowedBlocks = new ArrayList<Block>();
 	private boolean nextToWater = false;
 	private int waterRadius = 1;
 	private int waterHeight = 1;
 	
-	public WorldGenPlant(VariantsOfTypesCombo combo, ObjectType<? extends BlockPlant, ? extends Item> type, IPlantMetadata variant)
+	public WorldGenPlant(VariantsOfTypesCombo<V> combo, ObjectType<? extends BlockPlant<V>, ? extends Item> type, V variant)
 	{
 		this.combo = combo;
 		this.type = type;
@@ -38,17 +73,7 @@ public class WorldGenPlant extends WorldGenDecorationBase
 		this.allowedBlocks.add(GenesisBlocks.moss);
 	}
 	
-	public WorldGenPlant(EnumPlant variant)
-	{	// TODO: This should be changed to make less assumptions. Use EnumPlant.getType(), SINGLES, DOUBLES, etc as necessary.
-		this(GenesisBlocks.plants, variant.getType() == EnumPlant.PlantType.FERN ? PlantBlocks.DOUBLE_FERN : PlantBlocks.PLANT, variant);
-	}
-	
-	public WorldGenPlant(ObjectType<? extends BlockPlant, ? extends Item> type, EnumPlant variant)
-	{
-		this(GenesisBlocks.plants, type, variant);
-	}
-	
-	public WorldGenPlant addAllowedBlocks(Block... blocks)
+	public WorldGenPlant<V> addAllowedBlocks(Block... blocks)
 	{
 		for (int i = 0; i < blocks.length; ++i)
 			allowedBlocks.add(blocks[i]);
@@ -56,13 +81,13 @@ public class WorldGenPlant extends WorldGenDecorationBase
 		return this;
 	}
 	
-	public WorldGenPlant setNextToWater(boolean nextToWater)
+	public WorldGenPlant<V> setNextToWater(boolean nextToWater)
 	{
 		this.nextToWater = nextToWater;
 		return this;
 	}
 	
-	public WorldGenPlant setWaterProximity(int radius, int height)
+	public WorldGenPlant<V> setWaterProximity(int radius, int height)
 	{
 		this.waterRadius = radius;
 		this.waterHeight = height;
@@ -115,8 +140,9 @@ public class WorldGenPlant extends WorldGenDecorationBase
 		return true;
 	}
 	
-	protected void placePlant(World world, BlockPos pos, Random random)
+	@Override
+	public void placePlant(World world, BlockPos pos, Random random)
 	{
-		((BlockPlant) combo.getBlock(type, variant)).placeAt(world, pos, variant, 2);
+		combo.getBlock(type, variant).placeAt(world, pos, variant, 2);
 	}
 }

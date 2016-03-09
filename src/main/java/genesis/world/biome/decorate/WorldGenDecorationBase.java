@@ -87,52 +87,23 @@ public class WorldGenDecorationBase extends WorldGenerator
 	
 	public boolean findBlockInRange(World world, BlockPos pos, Block findWhat, int distanceX, int distanceY, int distanceZ)
 	{
-		boolean blockExists = false;
-		
-		found:
-		for (int x = -distanceX; x <= distanceX; ++x)
-		{
-			for (int z = -distanceZ; z <= distanceZ; ++z)
-			{
-				for (int y = -distanceY; y <= distanceY; ++y)
-				{
+		for (int x = -distanceX; x <= distanceX; x++)
+			for (int z = -distanceZ; z <= distanceZ; z++)
+				for (int y = -distanceY; y <= distanceY; y++)
 					if (world.getBlockState(pos.add(x, y, z)).getBlock() == findWhat)
-					{
-						blockExists = true;
-						break found;
-					}
-				}
-			}
-		}
+						return true;
 		
-		return blockExists;
+		return false;
 	}
 	
 	public boolean findBlockInRange(World world, BlockPos pos, IBlockState findWhat, int distanceX, int distanceY, int distanceZ)
 	{
-		boolean blockExists = false;
-		
-		found:
-		for (int x = -distanceX; x <= distanceX; ++x)
-		{
-			for (int z = -distanceZ; z <= distanceZ; ++z)
-			{
-				for (int y = -distanceY; y <= distanceY; ++y)
-				{
+		for (int x = -distanceX; x <= distanceX; x++)
+			for (int z = -distanceZ; z <= distanceZ; z++)
+				for (int y = -distanceY; y <= distanceY; y++)
 					if (world.getBlockState(pos.add(x, y, z)) == findWhat)
-					{
-						blockExists = true;
-						break found;
-					}
-				}
-			}
-		}
+						return true;
 		
-		return blockExists;
-	}
-	
-	public IBlockState getSpawnablePlant(Random rand)
-	{
-		return null;
+		return false;
 	}
 }

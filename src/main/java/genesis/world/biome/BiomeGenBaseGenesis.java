@@ -1,35 +1,53 @@
 package genesis.world.biome;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+
+import com.google.common.collect.FluentIterable;
+import com.google.common.collect.Lists;
 
 import genesis.block.BlockMoss;
-import genesis.combo.SiltBlocks;
+import genesis.combo.*;
 import genesis.combo.variant.EnumPlant;
-import genesis.common.GenesisBlocks;
-import genesis.world.biome.decorate.BiomeDecoratorGenesis;
-import genesis.world.biome.decorate.WorldGenDecorationBase;
-import genesis.world.biome.decorate.WorldGenGrass;
-import genesis.world.biome.decorate.WorldGenGrassMulti;
+import genesis.common.*;
+import genesis.world.biome.decorate.*;
 import genesis.world.gen.feature.WorldGenTreeBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiomeGenFog
 {
+	public static class FlowerGeneratorEntry extends WeightedRandom.Item
+	{
+		private final PlantGenerator gen;
+		
+		public FlowerGeneratorEntry(PlantGenerator gen, int weight)
+		{
+			super(weight);
+			
+			this.gen = gen;
+		}
+		
+		public PlantGenerator getGenerator()
+		{
+			return gen;
+		}
+	}
+	
 	public IBlockState oceanFloor = GenesisBlocks.ooze.getDefaultState();
 	public int[] mossStages = new int[0];
+	
+	private List<FlowerGeneratorEntry> plants = Lists.newArrayList();
+	private int plantsWeight = 0;
 	
 	public BiomeGenBaseGenesis(int id)
 	{
 		super(id);
+		
 		theBiomeDecorator.clayPerChunk = 1;
 		topBlock = GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.STAGE, BlockMoss.STAGE_LAST);
 		spawnableCaveCreatureList.clear();
@@ -46,7 +64,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 		return this;
 	}
 	
-	public List<IBlockState> getSpawnablePlants(Random rand)
+	/*public List<IBlockState> getSpawnablePlants(Random rand)
 	{
 		List<IBlockState> spawnablePlants = new ArrayList<IBlockState>();
 		
@@ -61,6 +79,43 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 		}
 		
 		return spawnablePlants;
+	}*/
+	
+	/*public List<PlantGenerator> getSpawnablePlants(Random rand)
+	{
+		return FluentIterable.from(getGenesisDecorator().decorations).filter(PlantGenerator.class).toList();
+	}*/
+	
+	public void addGrassFlower(PlantGenerator gen, int weight)
+	{
+		plants.add(new FlowerGeneratorEntry(gen, weight));
+		plantsWeight += weight;
+	}
+	
+	public void addGrassFlowers(int defaultWeight)
+	{
+		for (PlantGenerator gen : FluentIterable.from(getGenesisDecorator().decorations).filter(PlantGenerator.class))
+		{
+			addGrassFlower(gen, defaultWeight);
+		}
+	}
+	
+	public void addGrassFlowers()
+	{
+		addGrassFlowers(25);
+	}
+	
+	public void clearGrassFlowers()
+	{
+		plants.clear();
+		plantsWeight = 0;
+	}
+	
+	@Override
+	public void plantFlower(World world, Random rand, BlockPos pos)
+	{
+		if (plantsWeight > 0)
+			WeightedRandom.getRandomItem(rand, plants, plantsWeight).getGenerator().placePlant(world, pos, rand);
 	}
 	
 	protected void addDecoration(WorldGenDecorationBase decoration)

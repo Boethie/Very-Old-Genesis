@@ -57,12 +57,10 @@ public class BlockMoss extends BlockGrass
 	{
 		BiomeGenBase biome = world.getBiomeGenForCoords(pos);
 		BiomeGenBaseGenesis biomeGenesis = null;
-		List<IBlockState> genesisPlants = null;
 		
 		if (biome instanceof BiomeGenBaseGenesis)
 		{
 			biomeGenesis = (BiomeGenBaseGenesis) biome;
-			genesisPlants = biomeGenesis.getSpawnablePlants(rand);
 		}
 		
 		BlockPos aboveCenter = pos.up();
@@ -88,13 +86,10 @@ public class BlockMoss extends BlockGrass
 				else if (world.isAirBlock(plantPos))
 				{
 					IBlockState randPlant = null;
-
+					
 					if (rand.nextInt(8) == 0)
 					{
-						if (genesisPlants != null)	// Plant Flower
-							randPlant = !genesisPlants.isEmpty() ? genesisPlants.get(rand.nextInt(genesisPlants.size())) : null;
-						else	// Vanilla
-							world.getBiomeGenForCoords(plantPos).plantFlower(world, rand, plantPos);
+						world.getBiomeGenForCoords(plantPos).plantFlower(world, rand, plantPos);
 					}
 					else
 					{
@@ -109,21 +104,12 @@ public class BlockMoss extends BlockGrass
 							IBlockState tallgrass = Blocks.tallgrass.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS);
 							
 							if (Blocks.tallgrass.canBlockStay(world, plantPos, tallgrass))
-								world.setBlockState(plantPos, tallgrass, 3);
+								world.setBlockState(plantPos, tallgrass);
 						}
 					}
 					
-					if (randPlant != null)
-					{
-						/*Block block = randPlant.getBlock();
-						boolean isBush = block instanceof BlockBush;
-						boolean canBushStay = isBush && ((BlockBush) block).canBlockStay(world, topBlock, randPlant);
-						boolean canPlaceBlock = !isBush && block.canPlaceBlockAt(world, topBlock);
-						
-						if (canBushStay || canPlaceBlock)*/
-						if (randPlant.getBlock().canPlaceBlockAt(world, plantPos))
-							world.setBlockState(plantPos, randPlant, 3);
-					}
+					if (randPlant != null && randPlant.getBlock().canPlaceBlockAt(world, plantPos))
+						world.setBlockState(plantPos, randPlant);
 				}
 				
 				loops++;

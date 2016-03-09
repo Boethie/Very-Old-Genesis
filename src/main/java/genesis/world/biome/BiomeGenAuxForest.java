@@ -37,7 +37,8 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 	protected void addDecorations()
 	{
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.cladophlebis).setPatchSize(9).setCountPerChunk(2));
-		addDecoration(new WorldGenPlant(EnumPlant.SANMIGUELIA).setNextToWater(true).setPatchSize(4).setCountPerChunk(16));
+		addDecoration(WorldGenPlant.create(EnumPlant.SANMIGUELIA).setNextToWater(true).setPatchSize(4).setCountPerChunk(16));
+		addGrassFlowers();
 		
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(3).setCountPerChunk(3));
 		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(3).setCountPerChunk(1));

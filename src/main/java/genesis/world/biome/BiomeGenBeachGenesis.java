@@ -25,7 +25,8 @@ public class BiomeGenBeachGenesis extends BiomeGenBaseGenesis
 		{
 			addDecoration(new WorldGenPebbles().setCountPerChunk(25));
 			
-			addDecoration(new WorldGenPlant(EnumPlant.LEPACYCLOTES).setNextToWater(true).addAllowedBlocks(GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT), GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT)).setCountPerChunk(12).setPatchSize(4));
+			addDecoration(WorldGenPlant.create(EnumPlant.LEPACYCLOTES).setNextToWater(true).addAllowedBlocks(GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT), GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT)).setCountPerChunk(12).setPatchSize(4));
+			addGrassFlowers();
 		}
 	
 	@Override
