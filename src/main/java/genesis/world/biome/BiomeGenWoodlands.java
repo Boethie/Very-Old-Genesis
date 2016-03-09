@@ -32,9 +32,9 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		super(id);
 		setBiomeName("Woodlands");
 		setTemperatureRainfall(1.1F, 0.9F);
-		setHeight(0.05F, 0.15F);
+		setHeight(-0.05F, 0.05F);
 		
-		theBiomeDecorator.grassPerChunk = 3;
+		theBiomeDecorator.grassPerChunk = 4;
 		
 		addDecorations();
 		addTrees();
@@ -42,7 +42,7 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 	
 	protected void addDecorations()
 	{
-		addDecoration(new WorldGenPlant(EnumPlant.PALAEOASTER).setCountPerChunk(1));
+		//addDecoration(new WorldGenPlant(EnumPlant.PALAEOASTER).setCountPerChunk(1));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setPatchSize(3).setCountPerChunk(1));
 		
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(3).setCountPerChunk(3));
@@ -57,7 +57,7 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 	{
 		addTree(new WorldGenTreeFicus(5, 10, false).setTreeCountPerChunk(1).setRarity(4));
 		addTree(new WorldGenTreeGinkgo(6, 17, false).setTreeCountPerChunk(1).setRarity(8));
-		addTree(new WorldGenTreeDryophyllum(12, 17, false).setTreeCountPerChunk(5));
+		addTree(new WorldGenTreeDryophyllum(12, 17, false).setTreeCountPerChunk(7));
 		addTree(new WorldGenTreeMetasequoia(12, 24, true).setTreeCountPerChunk(1));
 		addTree(new WorldGenDeadLog(3, 6, EnumTree.DRYOPHYLLUM, true).setTreeCountPerChunk(1));
 	}

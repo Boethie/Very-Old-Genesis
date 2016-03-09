@@ -118,7 +118,7 @@ public class WorldGenDebris extends WorldGenDecorationBase
 				}
 			}
 		
-		if (additionalDebris.size() > 0 && rand.nextInt(38) == 0 && generateAdditional)
+		if (additionalDebris.size() > 0 && rand.nextInt(118) == 0 && generateAdditional)
 		{
 			debris = additionalDebris.get(rand.nextInt(additionalDebris.size()));
 			willGenerate = true;

@@ -91,13 +91,13 @@ public final class GenesisBiomes
 		
 		woodlands = new BiomeGenWoodlands(GenesisConfig.woodlandsId);
 		BiomeManagerGenesis.registerBiome(woodlands, BiomeType.WARM, GenesisConfig.woodlandsWeight);
-		BiomeDictionary.registerBiomeType(woodlands, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		BiomeDictionary.registerBiomeType(woodlands, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		woodlandsM = new BiomeGenWoodlandsM(GenesisConfig.woodlandsId+128).setBiomeName("Woodlands M");
-		BiomeDictionary.registerBiomeType(woodlandsM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		BiomeDictionary.registerBiomeType(woodlandsM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		woodlandsHills = new BiomeGenWoodlands(GenesisConfig.woodlandsHillsId).setBiomeName("Woodlands Hills").setHeight(0.425F, 0.275F);
-		BiomeDictionary.registerBiomeType(woodlandsHills, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		BiomeDictionary.registerBiomeType(woodlandsHills, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		metaForest = new BiomeGenMetaForest(GenesisConfig.metaForestId);
 		BiomeManagerGenesis.registerBiome(metaForest, BiomeType.WARM, GenesisConfig.metaForestWeight);
