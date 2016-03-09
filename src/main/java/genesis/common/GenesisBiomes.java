@@ -89,7 +89,7 @@ public final class GenesisBiomes
 		auxForestHills = new BiomeGenAuxForest(GenesisConfig.auxForestHillsId).setBiomeName("Araucarioxylon Forest Hills").setHeight(0.425F, 0.275F);
 		BiomeDictionary.registerBiomeType(auxForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
-		woodlands = new BiomeGenWoodlands(GenesisConfig.woodlandsId).setBiomeName("Woodlands");
+		woodlands = new BiomeGenWoodlands(GenesisConfig.woodlandsId);
 		BiomeManagerGenesis.registerBiome(woodlands, BiomeType.WARM, GenesisConfig.woodlandsWeight);
 		BiomeDictionary.registerBiomeType(woodlands, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
