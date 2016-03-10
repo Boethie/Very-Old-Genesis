@@ -289,6 +289,8 @@ public final class GenesisRecipes
 		
 		GameRegistry.addShapelessRecipe(new ItemStack(GenesisBlocks.calamites, 9), GenesisBlocks.calamites_bundle);
 		
+		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.trap_floor), "xxx", "///", 'x', GenesisItems.materials.getStack(EnumMaterial.CLADOPHLEBIS_FROND), '/', GenesisBlocks.calamites);
+		
 		// Bundles
 		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.calamites_bundle),
 				"CCC",
