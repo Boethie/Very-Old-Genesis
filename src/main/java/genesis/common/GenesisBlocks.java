@@ -157,6 +157,7 @@ public final class GenesisBlocks
 			.setStepSound(Block.soundTypePiston)
 			.setUnlocalizedName(Unlocalized.PREFIX + "dungBrickBlock");
 	public static final BlockGenesisWall wattle_and_daub = (BlockGenesisWall) new BlockGenesisWall(Material.wood, 0.375F, 1.0F, -1).setUnlocalizedName(Unlocalized.PREFIX + "wattleAndDaub");
+	public static final BlockTrapFloor trap_floor = (BlockTrapFloor) new BlockTrapFloor().setUnlocalizedName(Unlocalized.PREFIX + "trapFloor");
 	
 	/* Misc */
 	public static final Block palaeoagaracites = new BlockGenesisMushroom().setUnlocalizedName(Unlocalized.PREFIX + "palaeoagaracites")
@@ -242,6 +243,8 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(wattle_and_daub, "wattle_and_daub");
 		wattle_and_daub.setHarvestLevel("axe", 0);
 		wattle_and_daub.setHardness(3);
+		
+		Genesis.proxy.registerBlock(trap_floor, "trap_floor");
 		
 		// --- Decorative ---
 		menhirs.registerAll();
