@@ -244,7 +244,8 @@ public final class GenesisBlocks
 		wattle_and_daub.setHarvestLevel("axe", 0);
 		wattle_and_daub.setHardness(3);
 		
-		Genesis.proxy.registerBlock(trap_floor, "trap_floor");
+		Genesis.proxy.registerBlockWithItem(trap_floor, "trap_floor", new ItemColored(trap_floor, false));
+		Genesis.proxy.registerModel(trap_floor, 0, "trap_floor");
 		
 		// --- Decorative ---
 		menhirs.registerAll();
