@@ -32,7 +32,7 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		super(id);
 		setBiomeName("Woodlands");
 		setTemperatureRainfall(1.1F, 0.9F);
-		setHeight(-0.05F, 0.05F);
+		setHeight(0.035F, 0.135F);
 		
 		theBiomeDecorator.grassPerChunk = 4;
 		
@@ -42,7 +42,7 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 	
 	protected void addDecorations()
 	{
-		//addDecoration(WorldGenPlant.create(EnumPlant.PALAEOASTER).setCountPerChunk(1));
+		addDecoration(WorldGenPlant.create(EnumPlant.PALAEOASTER).setCountPerChunk(1));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setPatchSize(3).setCountPerChunk(1));
 		addGrassFlowers();
 		
@@ -51,7 +51,7 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenRockBoulders().setInGround(false).setRarity(10).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.CARNIVORE)).setCountPerChunk(1));
 		addDecoration(new WorldGenDebris().addAdditional(GenesisBlocks.debris.getBlockState(EnumDebrisOther.TYRANNOSAURUS_FEATHER)).setCountPerChunk(20));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));
-		addDecoration(new WorldGenDecorationOnBlock(GenesisBlocks.cobbania.getDefaultState()).setBaseBlocks(Blocks.water.getDefaultState()).setCountPerChunk(7));
+		addDecoration(new WorldGenDecorationOnBlock(GenesisBlocks.cobbania.getDefaultState()).setBaseBlocks(Blocks.water.getDefaultState()).setCountPerChunk(10));
 	}
 	
 	protected void addTrees()
@@ -60,6 +60,7 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		addTree(new WorldGenTreeGinkgo(6, 17, false).setTreeCountPerChunk(1).setRarity(8));
 		addTree(new WorldGenTreeDryophyllum(12, 17, false).setTreeCountPerChunk(7));
 		addTree(new WorldGenTreeMetasequoia(12, 24, true).setTreeCountPerChunk(1));
+		
 		addTree(new WorldGenDeadLog(3, 6, EnumTree.DRYOPHYLLUM, true).setTreeCountPerChunk(1));
 	}
 	
