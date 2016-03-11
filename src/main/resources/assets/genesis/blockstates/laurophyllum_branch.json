@@ -1,0 +1,46 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"textures": {
+			"end": "genesis:blocks/log_laurophyllum_top",
+			"side": "genesis:blocks/log_laurophyllum",
+			"leaves": "genesis:blocks/leaves_laurophyllum",
+			"particle": "#side"
+		},
+		"uvlock": true,
+		"transform": "forge:default-block"
+	},
+	"variants": {
+		"up": {
+			"true": { "submodel": "genesis:branch_connect" },
+			"false": { "submodel": "genesis:branch_none" }
+		},
+		"down": {
+			"true": { "submodel": "genesis:branch_connect", "x": 180 },
+			"false": { "submodel": "genesis:branch_none", "x": 180 }
+		},
+		"north": {
+			"true": { "submodel": "genesis:branch_connect", "x": 90 },
+			"false": { "submodel": "genesis:branch_none", "x": 90 }
+		},
+		"east": {
+			"true": { "submodel": "genesis:branch_connect", "x": 90, "y": 90 },
+			"false": { "submodel": "genesis:branch_none", "x": 90, "y": 90 }
+		},
+		"south": {
+			"true": { "submodel": "genesis:branch_connect", "x": 90, "y": 180 },
+			"false": { "submodel": "genesis:branch_none", "x": 90, "y": 180 }
+		},
+		"west": {
+			"true": { "submodel": "genesis:branch_connect", "x": 90, "y": 270 },
+			"false": { "submodel": "genesis:branch_none", "x": 90, "y": 270 }
+		},
+		"leaves": {
+			"true": {
+				"model": "genesis:leaves_tint1"
+			},
+			"false": {}
+		},
+		"inventory": [{ "model": "genesis:branch_item" }]
+	}
+}

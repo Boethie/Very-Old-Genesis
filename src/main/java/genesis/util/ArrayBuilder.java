@@ -34,15 +34,17 @@ public final class ArrayBuilder<T>
 		return oldSize;
 	}
 	
-	public void add(T value)
+	public ArrayBuilder<T> add(T value)
 	{
 		array[grow(size + 1)] = value;
+		return this;
 	}
 	
 	@SafeVarargs
-	public final void addAll(T... values)
+	public final ArrayBuilder<T> addAll(T... values)
 	{
 		System.arraycopy(values, 0, array, grow(size + values.length), values.length);
+		return this;
 	}
 	
 	public int size()

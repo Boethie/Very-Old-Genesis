@@ -37,9 +37,6 @@ public class BlockGenesisLeaves extends BlockLeaves
 	public final List<EnumTree> variants;
 	public final PropertyIMetadata<EnumTree> variantProp;
 	
-	private ItemStack rareDrop;
-	private double rareDropChance;
-	
 	public BlockGenesisLeaves(TreeBlocksAndItems owner,
 			ObjectType<BlockGenesisLeaves, ItemBlockMulti<EnumTree>> type,
 			List<EnumTree> variants, Class<EnumTree> variantClass)
@@ -109,7 +106,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 		
 		Random rand = WorldUtils.getWorldRandom(world, RANDOM);
 		
-		int chance = this.getSaplingDropChance(state);
+		int chance = getSaplingDropChance(state);
 		
 		if (fortune > 0)
 		{
@@ -121,18 +118,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 			ret.add(getSapling(world, pos, state));
 		}
 		
-		if (rand.nextDouble() < rareDropChance)
-		{
-			ret.add(rareDrop.copy());
-		}
-		
 		return ret;
-	}
-	
-	public void setRareDrop(ItemStack stack, double chance)
-	{
-		rareDrop = stack.copy();
-		rareDropChance = chance;
 	}
 	
 	@Override
@@ -162,7 +148,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 			
 			if (data != null && data.variant == treeType)
 			{
-				if (data.type == TreeBlocksAndItems.LOG)
+				if (data.type == TreeBlocksAndItems.LOG || data.type == TreeBlocksAndItems.BRANCH)
 				{
 					return true;
 				}
@@ -200,11 +186,11 @@ public class BlockGenesisLeaves extends BlockLeaves
 	{
 		IBlockState state = world.getBlockState(pos);
 		
-		if (state.getValue(BlockLeaves.DECAYABLE) && state.getValue(BlockLeaves.CHECK_DECAY) && world.isAreaLoaded(pos.add(-leafDistance, -leafDistance, -leafDistance), pos.add(leafDistance, leafDistance, leafDistance)))
+		if (state.getValue(DECAYABLE) && state.getValue(CHECK_DECAY) && world.isAreaLoaded(pos.add(-leafDistance, -leafDistance, -leafDistance), pos.add(leafDistance, leafDistance, leafDistance)))
 		{
 			if (isConnectedToLog(world, pos))
 			{
-				world.setBlockState(pos, state.withProperty(BlockLeaves.CHECK_DECAY, false), 4);
+				world.setBlockState(pos, state.withProperty(CHECK_DECAY, false), 4);
 			}
 			else
 			{
@@ -242,7 +228,9 @@ public class BlockGenesisLeaves extends BlockLeaves
 				
 				if (fruitCount > 0)
 				{
-					world.setBlockState(pos, owner.getBlockState(TreeBlocksAndItems.LEAVES_FRUIT, variant));
+					world.setBlockState(pos, owner.getBlockState(TreeBlocksAndItems.LEAVES_FRUIT, variant)
+							.withProperty(DECAYABLE, state.getValue(DECAYABLE))
+							.withProperty(CHECK_DECAY, state.getValue(CHECK_DECAY)));
 				}
 			}
 		}

@@ -38,10 +38,11 @@ public class ItemFruit extends ItemGenesisFood<EnumTree>
 			return false;
 		
 		EnumTree variant = owner.getVariant(stack);
-		VariantsOfTypesCombo<EnumTree>.VariantData data = owner.getVariantData(TreeBlocksAndItems.HANGING_FRUIT, variant);
 		
-		if (data == null)
+		if (!owner.containsVariant(TreeBlocksAndItems.HANGING_FRUIT, variant))
 			return false;
+		
+		VariantsOfTypesCombo<EnumTree>.VariantData data = owner.getVariantData(TreeBlocksAndItems.HANGING_FRUIT, variant);
 		
 		IBlockState state = data.block.getDefaultState().withProperty(owner.getVariantProperty(data.block), variant);
 		Block block = state.getBlock();

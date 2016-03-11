@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
@@ -11,20 +12,22 @@ import net.minecraft.potion.PotionEffect;
 
 public enum EnumTree implements IMetadata<EnumTree>, IFood
 {
-	ARCHAEOPTERIS("archaeopteris", props()),
-	SIGILLARIA("sigillaria", props()),
-	LEPIDODENDRON("lepidodendron", props()),
-	CORDAITES("cordaites", props()),
-	PSARONIUS("psaronius", props().noBillet().noDead()),
-	GINKGO("ginkgo", props().noDead().noDebris().fruit(1, 1)),
-	BJUVIA("bjuvia", props().noBillet().noDead().noDebris()),
-	VOLTZIA("voltzia", props().noDead().noDebris()),
-	ARAUCARIOXYLON("araucarioxylon", props().hangingFruit().fruitSize(6, 7)),
-	METASEQUOIA("metasequoia", props()),
-	ARCHAEANTHUS("archaeanthus", props().noDead()),
-	DRYOPHYLLUM("dryophyllum", props()),
-	FICUS("ficus", props().noDead().noDebris().fruit(1, 1.2F));
+	ARCHAEOPTERIS("archaeopteris", tree()),
+	SIGILLARIA("sigillaria", tree()),
+	LEPIDODENDRON("lepidodendron", tree()),
+	CORDAITES("cordaites", tree()),
+	PSARONIUS("psaronius", tree().noBillet().noDead()),
+	GINKGO("ginkgo", tree().noDead().noDebris().fruit(1, 1)),
+	BJUVIA("bjuvia", tree().noBillet().noDead().noDebris()),
+	VOLTZIA("voltzia", tree().noDead().noDebris()),
+	ARAUCARIOXYLON("araucarioxylon", tree().hangingFruit().fruitSize(6, 7)),
+	METASEQUOIA("metasequoia", tree()),
+	ARCHAEANTHUS("archaeanthus", tree().noDead()),
+	DRYOPHYLLUM("dryophyllum", tree()),
+	FICUS("ficus", tree().noDead().noDebris().fruit(1, 1.2F)),
+	LAUROPHYLLUM("laurophyllum", bush().noDead().noDebris().fruit(1, 1.2F));
 	
+	public static final Set<EnumTree> BUSHES;
 	public static final Set<EnumTree> NO_BILLET;
 	public static final Set<EnumTree> NO_DEAD;
 	public static final Set<EnumTree> NO_DEBRIS;
@@ -34,46 +37,14 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	
 	static
 	{
-		ImmutableSet.Builder<EnumTree> noBillet = ImmutableSet.builder();
-		ImmutableSet.Builder<EnumTree> noDead = ImmutableSet.builder();
-		ImmutableSet.Builder<EnumTree> noDebris = ImmutableSet.builder();
-		ImmutableSet.Builder<EnumTree> fruitLeaves = ImmutableSet.builder();
-		ImmutableSet.Builder<EnumTree> fruitHanging = ImmutableSet.builder();
-		ImmutableSet.Builder<EnumTree> fruitItems = ImmutableSet.builder();
-		
-		for (EnumTree tree : values())
-		{
-			if (!tree.hasBillet())
-				noBillet.add(tree);
-			
-			if (!tree.hasDead())
-				noDead.add(tree);
-			
-			if (!tree.hasDebris())
-				noDebris.add(tree);
-			
-			if (tree.getFruitType() != FruitType.NONE)
-				fruitItems.add(tree);
-			
-			switch (tree.getFruitType())
-			{
-			case LEAVES:
-				fruitLeaves.add(tree);
-				break;
-			case HANGING:
-				fruitHanging.add(tree);
-				break;
-			default:
-				break;
-			}
-		}
-		
-		NO_BILLET = noBillet.build();
-		NO_DEAD = noDead.build();
-		NO_DEBRIS = noDebris.build();
-		FRUIT_LEAVES = fruitLeaves.build();
-		FRUIT_HANGING = fruitHanging.build();
-		FRUIT_ITEMS = fruitItems.build();
+		FluentIterable<EnumTree> base = FluentIterable.from(ImmutableSet.copyOf(values()));
+		BUSHES = base.filter((t) -> t.isBush()).toSet();
+		NO_BILLET = base.filter((t) -> !t.hasBillet()).toSet();
+		NO_DEAD = base.filter((t) -> !t.hasDead()).toSet();
+		NO_DEBRIS = base.filter((t) -> !t.hasDebris()).toSet();
+		FRUIT_LEAVES = base.filter((t) -> t.getFruitType() == FruitType.LEAVES).toSet();
+		FRUIT_HANGING = base.filter((t) -> t.getFruitType() == FruitType.HANGING).toSet();
+		FRUIT_ITEMS = base.filter((t) -> t.getFruitType() != FruitType.NONE).toSet();
 	}
 	
 	public static enum FruitType
@@ -84,6 +55,7 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	final String name;
 	final String unlocalizedName;
 	
+	final boolean bush;
 	final boolean billet;
 	final boolean debris;
 	final boolean dead;
@@ -102,6 +74,7 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 		this.name = name;
 		this.unlocalizedName = unlocalizedName;
 		
+		bush = props.bush;
 		billet = props.billet;
 		debris = props.debris;
 		dead = props.dead;
@@ -136,6 +109,11 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	public String getUnlocalizedName()
 	{
 		return unlocalizedName;
+	}
+	
+	public boolean isBush()
+	{
+		return bush;
 	}
 	
 	public boolean hasBillet()
@@ -186,13 +164,19 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 		return fruitHeight;
 	}
 	
-	private static Props props()
+	private static Props tree()
 	{
 		return new Props();
 	}
 	
+	private static Props bush()
+	{
+		return new Props().bush();
+	}
+	
 	private static final class Props
 	{
+		boolean bush = false;
 		boolean billet = true;
 		boolean debris = true;
 		boolean dead = true;
@@ -208,6 +192,12 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 		
 		private Props()
 		{
+		}
+		
+		private Props bush()
+		{
+			bush = true;
+			return this;
 		}
 		
 		private Props noBillet()

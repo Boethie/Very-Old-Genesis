@@ -57,16 +57,34 @@ public class BlockGenesisLogs extends BlockLog
 		blockState = new BlockState(this, variantProp, LOG_AXIS);
 		setDefaultState(getBlockState().getBaseState().withProperty(LOG_AXIS, EnumAxis.NONE));
 		
-		setHarvestLevel("axe", 0);
 		Blocks.fire.setFireInfo(this, 5, 5);
 		
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 	}
 	
 	@Override
-	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list)
+	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
 	{
-		owner.fillSubItems(type, variants, list);
+		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
+		
+		if (placer.isSneaking())
+		{
+			state = state.withProperty(LOG_AXIS, EnumAxis.NONE);
+		}
+		
+		return state;
+	}
+	
+	@Override
+	public String getHarvestTool(IBlockState state)
+	{
+		return "axe";
+	}
+	
+	@Override
+	public int getHarvestLevel(IBlockState state)
+	{
+		return 0;
 	}
 	
 	@Override
@@ -82,16 +100,9 @@ public class BlockGenesisLogs extends BlockLog
 	}
 	
 	@Override
-	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list)
 	{
-		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
-		
-		if (placer.isSneaking())
-		{
-			state = state.withProperty(LOG_AXIS, EnumAxis.NONE);
-		}
-		
-		return state;
+		owner.fillSubItems(type, variants, list);
 	}
 	
 	@Override

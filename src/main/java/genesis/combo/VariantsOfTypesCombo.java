@@ -1005,13 +1005,13 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		return "This " + getClass().getSimpleName() + " contains " + ObjectType.class.getSimpleName() + "s " + Stringify.stringifyIterable(types) + " and variants " + Stringify.stringifyIterable(variants) + ".";
 	}
-
+	
 	/**
 	 * Gets the VariantEntry.Value containing the all the information about this variant and its Block and Item.
 	 */
 	public VariantData getVariantData(ObjectType<?, ?> type, V variant)
 	{
-		if (!variantDataTable.contains(type, variant))
+		if (!containsVariant(type, variant))
 		{
 			throw new RuntimeException("Attempted to get a variant entry for type " + type + " and variant " + variant + " from a " + VariantsOfTypesCombo.class.getSimpleName() + " that does not contain that cell.\n" +
 					getIdentification());
@@ -1169,6 +1169,14 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 		}
 		
 		return null;
+	}
+	
+	/**
+	 * @return Whether the provided {@link ObjectType} contains the provided variant.
+	 */
+	public boolean containsVariant(ObjectType<?, ?> type, V variant)
+	{
+		return variantDataTable.contains(type, variant);
 	}
 	
 	/**

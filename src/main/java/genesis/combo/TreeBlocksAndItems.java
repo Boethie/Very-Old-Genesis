@@ -19,7 +19,10 @@ import net.minecraft.tileentity.TileEntityFurnace;
 
 public class TreeBlocksAndItems extends VariantsOfTypesCombo<EnumTree>
 {
-	public static final ObjectType<BlockGenesisLogs, ItemBlockMulti<EnumTree>> LOG = ObjectType.createBlock("log", BlockGenesisLogs.class);
+	public static final ObjectType<BlockGenesisLogs, ItemBlockMulti<EnumTree>> LOG = ObjectType.createBlock("log", BlockGenesisLogs.class, EnumTree.BUSHES);
+	public static final ObjectType<BlockBranch, ItemBlockMulti<EnumTree>> BRANCH =
+			ObjectType.<BlockBranch, EnumTree>createBlock("branch", BlockBranch.class)
+					.setValidVariants(EnumTree.BUSHES);
 	public static final ObjectType<BlockGenesisSaplings, ItemBlockMulti<EnumTree>> SAPLING =
 			new ObjectType<BlockGenesisSaplings, ItemBlockMulti<EnumTree>>("sapling", BlockGenesisSaplings.class, null)
 			{
@@ -61,7 +64,7 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo<EnumTree>
 	
 	public static final ImmutableList<? extends ObjectType<?, ?>> TYPES =
 			ImmutableList.of(
-					LOG, SAPLING, LEAVES, LEAVES_FRUIT, HANGING_FRUIT,
+					LOG, BRANCH, SAPLING, LEAVES, LEAVES_FRUIT, HANGING_FRUIT,
 					BILLET, WATTLE_FENCE, FRUIT,
 					DEAD_LOG);
 	

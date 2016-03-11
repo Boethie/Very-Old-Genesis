@@ -41,12 +41,6 @@ public class BlockGenesisFence extends BlockFence
 		this(material, radius, height, radius, height, fakeHeight);
 	}
 	
-	private static void addBox(List<AxisAlignedBB> list, AxisAlignedBB mask, AxisAlignedBB bb)
-	{
-		if (mask.intersectsWith(bb))
-			list.add(bb);
-	}
-	
 	public boolean canConnectTo(IBlockAccess world, BlockPos fencePos, EnumFacing side)
 	{
 		BlockPos pos = fencePos.offset(side);
@@ -82,7 +76,7 @@ public class BlockGenesisFence extends BlockFence
 		AxisAlignedBB base = new AxisAlignedBB(0.5, 0, 0.5, 0.5, 0, 0.5)
 				.offset(pos.getX(), pos.getY(), pos.getZ());
 		
-		addBox(list, mask, base.addCoord(0, realHeight ? poleHeight : fakeHeight, 0).expand(poleRadius, 0, poleRadius));
+		AABBUtils.addIfIntersects(list, mask, base.addCoord(0, realHeight ? poleHeight : fakeHeight, 0).expand(poleRadius, 0, poleRadius));
 		
 		double height = realHeight ? sideHeight : fakeHeight;
 		
@@ -93,7 +87,7 @@ public class BlockGenesisFence extends BlockFence
 				AxisAlignedBB sideBB = AABBUtils.offset(base.addCoord(0, height, 0), facing, poleRadius);
 				sideBB = AABBUtils.extend(sideBB, facing, 0.5 - poleRadius);
 				sideBB = AABBUtils.expand(sideBB, facing.rotateY(), sideRadius);
-				addBox(list, mask, sideBB);
+				AABBUtils.addIfIntersects(list, mask, sideBB);
 			}
 		}
 	}

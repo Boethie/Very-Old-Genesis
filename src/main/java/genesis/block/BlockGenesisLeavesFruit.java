@@ -64,7 +64,8 @@ public class BlockGenesisLeavesFruit extends BlockGenesisLeaves
 				
 				world.setBlockState(pos,
 						owner.getBlockState(TreeBlocksAndItems.LEAVES, variant)
-								.withProperty(DECAYABLE, false));
+								.withProperty(DECAYABLE, state.getValue(DECAYABLE))
+								.withProperty(CHECK_DECAY, state.getValue(CHECK_DECAY)));
 			}
 			
 			return true;

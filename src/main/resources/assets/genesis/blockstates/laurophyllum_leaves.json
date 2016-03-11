@@ -1,0 +1,14 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"textures": {
+			"all": "genesis:blocks/leaves_laurophyllum"
+		},
+		"model": "leaves",
+		"transform": "forge:default-block"
+	},
+	"variants": {
+		"normal": [{}],
+		"inventory": [{}]
+	}
+}
