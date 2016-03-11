@@ -67,6 +67,8 @@ tile.genesis.log.archaeanthus.name=Bois d'Archaeanthus
 tile.genesis.log.dryophyllum.name=Bois de Dryophyllum
 tile.genesis.log.ficus.name=Bois de Ficus
 
+tile.genesis.branch.laurophyllum.name=Branche de Laurophyllum
+
 tile.genesis.calamitesBundle.name=Fagot de Calamites
 tile.genesis.programinisBundle.name=Botte de Programinis
 tile.genesis.prototaxitesMycelium.name=Mycélium de Prototaxites
@@ -75,6 +77,7 @@ tile.genesis.dung.herbivore.name=Crotte d'herbivore
 tile.genesis.dung.carnivore.name=Crotte de carnivore
 tile.genesis.dungBrickBlock.name=Briques de crotte
 tile.genesis.wattleAndDaub.name=Mur en torchis
+tile.genesis.trapFloor.name=Sol piégé
 
 #Decoration
 tile.genesis.log.dead.archaeopteris.name=Bois mort d'Archaeopteris
@@ -131,6 +134,7 @@ tile.genesis.sapling.metasequoia.name=Pousse de Metasequoia
 tile.genesis.sapling.archaeanthus.name=Pousse d'Archaeanthus
 tile.genesis.sapling.dryophyllum.name=Pousse de Dryophyllum
 tile.genesis.sapling.ficus.name=Pousse de Ficus
+tile.genesis.sapling.laurophyllum.name=Pousse de Laurophyllum
 
 tile.genesis.wattleFence.archaeopteris.name=Clayonnage en bois d'Archaeopteris
 tile.genesis.wattleFence.sigillaria.name=Clayonnage en bois de Sigillaria
@@ -143,6 +147,7 @@ tile.genesis.wattleFence.metasequoia.name=Clayonnage en bois de Metasequoia
 tile.genesis.wattleFence.archaeanthus.name=Clayonnage en bois d'Archaeanthus
 tile.genesis.wattleFence.dryophyllum.name=Clayonnage en bois de Dryophyllum
 tile.genesis.wattleFence.ficus.name=Clayonnage en bois de Ficus
+tile.genesis.wattleFence.laurophyllum.name=Clayonnage en bois de Laurophyllum
 
 tile.genesis.calamitesTorch.name=Torche en Calamites
 tile.genesis.calamitesTorch.tall.name=Grande torche en Calamites
@@ -488,6 +493,7 @@ item.genesis.material.billet.metasequoia.name=Billette en bois de Metasequoia
 item.genesis.material.billet.archaeanthus.name=Billette de bois d'Archaeanthus
 item.genesis.material.billet.dryophyllum.name=Billette de bois de Dryophyllum
 item.genesis.material.billet.ficus.name=Billette de bois de Ficus
+item.genesis.material.billet.laurophyllum.name=Billette de bois de Laurophyllum
 
 item.genesis.material.resin.name=Résine
 item.genesis.material.calamites.name=Calamites
