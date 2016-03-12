@@ -337,11 +337,14 @@ public final class GenesisRecipes
 			
 			switch (tree)
 			{
+			case GINKGO:
+				porridge = GenesisItems.bowls.getStack(EnumDish.PORRIDGE_GINKGO);
+				break;
 			case FICUS:
 				porridge = GenesisItems.bowls.getStack(EnumDish.PORRIDGE_FIG);
 				break;
-			case GINKGO:
-				porridge = GenesisItems.bowls.getStack(EnumDish.PORRIDGE_GINKGO);
+			case LAUROPHYLLUM:
+				porridge = GenesisItems.bowls.getStack(EnumDish.PORRIDGE_LAUROPHYLLUM);
 				break;
 			default:
 				break;

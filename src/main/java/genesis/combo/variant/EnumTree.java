@@ -25,7 +25,7 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	ARCHAEANTHUS("archaeanthus", tree().noDead()),
 	DRYOPHYLLUM("dryophyllum", tree()),
 	FICUS("ficus", tree().noDead().noDebris().fruit(1, 1.2F)),
-	LAUROPHYLLUM("laurophyllum", bush().noDead().noDebris().fruit(1, 1.2F));
+	LAUROPHYLLUM("laurophyllum", bush().noDead().noDebris().fruit(1, 0.4F));
 	
 	public static final Set<EnumTree> BUSHES;
 	public static final Set<EnumTree> NO_BILLET;

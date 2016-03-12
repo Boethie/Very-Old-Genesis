@@ -15,6 +15,7 @@ public enum EnumDish implements IFood, IMetadata<EnumDish>
 	PORRIDGE_ODONTOPTERIS("porridge_odontopteris", "porridge.odontopteris", 5, 4.8F),
 	PORRIDGE_ZINGIBEROPSIS("porridge_zingiberopsis", "porridge.zingiberopsis", 6, 5.6F),
 	PORRIDGE_ARCHAEOMARASMIUS("porridge_archaeomarasmius", "porridge.archaeomarasmius", 5, 4.8F),
+	PORRIDGE_LAUROPHYLLUM("porridge_laurophyllum", "porridge.laurophyllum", 5, 4.8F),
 	
 	MASHED_ZINGIBEROPSIS("mashed_zingiberopsis", "mashed.zingiberopsis", 5, 5.8F),
 	
