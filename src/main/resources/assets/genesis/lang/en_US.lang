@@ -242,6 +242,7 @@ item.genesis.seeds.prototaxitesFlesh.name=Prototaxites Flesh
 item.genesis.food.fruit.ginkgo.name=Ginkgo Nuts
 item.genesis.food.fruit.araucarioxylon.name=Araucarioxylon Cone
 item.genesis.food.fruit.ficus.name=Fig
+item.genesis.food.fruit.laurophyllum.name=Laurophyllum Berries
 
 item.genesis.food.spirifer.raw.name=Raw Spirifer
 item.genesis.food.spirifer.cooked.name=Cooked Spirifer
@@ -269,6 +270,7 @@ item.genesis.food.dish.porridge.fig.name=Porridge with Fig
 item.genesis.food.dish.porridge.odontopteris.name=Porridge with Odontopteris
 item.genesis.food.dish.porridge.zingiberopsis.name=Porridge with Zingiberopsis
 item.genesis.food.dish.porridge.archaeomarasmius.name=Porridge with Archaeomarasmius
+item.genesis.food.dish.porridge.laurophyllum.name=Porridge with Laurophyllum
 item.genesis.food.dish.mashed.zingiberopsis.name=Mashed Zingiberopsis
 item.genesis.food.dish.stew.archaeomarasmius.name=Stew with Archaeomarasmius
 item.genesis.food.dish.stew.spirifer.name=Stew with Spirifer
