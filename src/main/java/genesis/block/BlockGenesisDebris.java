@@ -4,14 +4,13 @@ import genesis.combo.DebrisBlocks;
 import genesis.combo.VariantsOfTypesCombo.BlockProperties;
 import genesis.combo.VariantsOfTypesCombo.ObjectType;
 import genesis.combo.variant.EnumDebrisOther;
-import genesis.combo.variant.EnumMaterial;
 import genesis.combo.variant.MultiMetadataList.MultiMetadata;
 import genesis.common.GenesisCreativeTabs;
-import genesis.common.GenesisItems;
 import genesis.common.GenesisSounds;
 import genesis.item.ItemBlockMulti;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.random.drops.blocks.BlockDrop;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -63,13 +62,12 @@ public class BlockGenesisDebris extends BlockGenesisVariants<MultiMetadata>
 			public ItemStack getStack(IBlockState state, int size)
 			{
 				MultiMetadata variant = debrisOwner.getVariant(state);
+				ItemStack original = debrisOwner.getStack(variant);
 				
-				if (variant.getOriginal() == EnumDebrisOther.EPIDEXIPTERYX_FEATHER)
-				{
-					return GenesisItems.materials.getStack(EnumMaterial.EPIDEXIPTERYX_FEATHER);
-				}
+				if (variant.getOriginal() instanceof EnumDebrisOther)
+					return (((EnumDebrisOther) variant.getOriginal()).getDrop(original));
 				
-				return debrisOwner.getStack(variant);
+				return original;
 			}
 		});
 	}

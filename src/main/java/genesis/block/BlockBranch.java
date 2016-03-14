@@ -1,7 +1,5 @@
 package genesis.block;
 
-import static genesis.block.BlockGenesisMushroom.MushroomGrowType.GROW_SIDE;
-
 import java.util.List;
 
 import genesis.combo.TreeBlocksAndItems;
