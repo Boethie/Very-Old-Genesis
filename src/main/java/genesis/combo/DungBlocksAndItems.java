@@ -16,13 +16,13 @@ import genesis.util.ReflectionUtils;
 
 public class DungBlocksAndItems extends VariantsOfTypesCombo<EnumDung>
 {
-	private static final Class<BlockGenesisVariants<EnumDung>> DUNG_CLASS = ReflectionUtils.convertClass(BlockGenesisVariants.class);
+	private static final Class<BlockGenesisDung> DUNG_CLASS = BlockGenesisDung.class;
 	
-	public static final ObjectType<BlockGenesisVariants<EnumDung>, ItemBlockMulti<EnumDung>> DUNG_BLOCK =
-			new ObjectType<BlockGenesisVariants<EnumDung>, ItemBlockMulti<EnumDung>>("dung_block", "dung", DUNG_CLASS, null)
+	public static final ObjectType<BlockGenesisDung, ItemBlockMulti<EnumDung>> DUNG_BLOCK =
+			new ObjectType<BlockGenesisDung, ItemBlockMulti<EnumDung>>("dung_block", "dung", DUNG_CLASS, null)
 			{
 				@Override
-				public <V extends IMetadata<V>> void afterConstructed(BlockGenesisVariants<EnumDung> block, ItemBlockMulti<EnumDung> item, List<V> variants)
+				public <V extends IMetadata<V>> void afterConstructed(BlockGenesisDung block, ItemBlockMulti<EnumDung> item, List<V> variants)
 				{
 					super.afterConstructed(block, item, variants);
 					
