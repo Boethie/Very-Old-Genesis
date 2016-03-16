@@ -10,6 +10,7 @@ public enum EnumFood implements IMetadata<EnumFood>
 {
 	SPIRIFER("spirifer", raw(2, 0.4F).cooked(3, 1)),
 	CLIMATIUS("climatius", raw(2, 0.4F).cooked(5, 6)),
+	CHEIROLEPIS("cheirolepis", raw(2, 0.8F).cooked(5, 6.4F)),
 	MEGANEURA("meganeura", raw(2, 0.4F).cooked(3, 1)),
 	APHTHOROBLATINNA("aphthoroblattina", raw(1, 0.2F).cooked(2, 0.8F)),
 	ERYOPS_LEG("eryops_leg", "eryopsLeg", raw(2, 0.8F).cooked(5, 6)),

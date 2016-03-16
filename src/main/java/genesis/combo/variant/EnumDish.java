@@ -20,12 +20,11 @@ public enum EnumDish implements IFood, IMetadata<EnumDish>
 	MASHED_ZINGIBEROPSIS("mashed_zingiberopsis", "mashed.zingiberopsis", 5, 5.8F),
 	
 	STEW_ARCHAEOMARASMIUS("stew_archaeomarasmius", "stew.archaeomarasmius", 6, 6.2F),
-	STEW_SPIRIFER("stew_spirifer", "stew.spirifer", 8, 6.7F),
-	STEW_CLIMATIUS("stew_climatius", "stew.climatius", 10, 12.7F),
-	STEW_MEGANEURA("stew_meganeura", "stew.meganeura", 8, 6.7F),
+	STEW_CLIMATIUS("stew_climatius", "stew.climatius", 10, 12.6F),
+	STEW_CHEIROLEPIS("stew_cheirolepis", "stew.cheirolepis", 10, 13),
+	STEW_MEGANEURA("stew_meganeura", "stew.meganeura", 8, 6.6F),
 	STEW_APHTHOROBLATINNA("stew_aphthoroblattina", "stew.aphthoroblattina", 7, 6.4F),
-	STEW_ERYOPS("stew_eryops", "stew.eryops", 10, 12.7F),
-	STEW_GRYPHAEA("stew_gryphaea", "stew.gryphaea", 8, 6.7F),
+	STEW_ERYOPS("stew_eryops", "stew.eryops", 10, 12.6F),
 	STEW_CERATITES("stew_ceratites", "stew.ceratites", 9, 7.2F),
 	STEW_LIOPLEURODON("stew_liopleurodon", "stew.liopleurodon", 15, 16),
 	STEW_TYRANNOSAURUS("stew_tyrannosaurus", "stew.tyrannosaurus", 15, 16);

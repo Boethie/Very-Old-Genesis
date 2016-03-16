@@ -730,12 +730,11 @@ public final class GenesisRecipes
 				ingredients.add(GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS));
 				break;
 			case STEW_ARCHAEOMARASMIUS:
-			case STEW_SPIRIFER:
 			case STEW_CLIMATIUS:
+			case STEW_CHEIROLEPIS:
 			case STEW_MEGANEURA:
 			case STEW_APHTHOROBLATINNA:
 			case STEW_ERYOPS:
-			case STEW_GRYPHAEA:
 			case STEW_CERATITES:
 			case STEW_LIOPLEURODON:
 			case STEW_TYRANNOSAURUS:
@@ -762,11 +761,11 @@ public final class GenesisRecipes
 			case STEW_ARCHAEOMARASMIUS:
 				ingredients.add(new ItemStack(GenesisBlocks.archaeomarasmius));
 				break;
-			case STEW_SPIRIFER:
-				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.SPIRIFER));
-				break;
 			case STEW_CLIMATIUS:
 				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.CLIMATIUS));
+				break;
+			case STEW_CHEIROLEPIS:
+				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.CHEIROLEPIS));
 				break;
 			case STEW_MEGANEURA:
 				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.MEGANEURA));
@@ -776,9 +775,6 @@ public final class GenesisRecipes
 				break;
 			case STEW_ERYOPS:
 				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.ERYOPS_LEG));
-				break;
-			case STEW_GRYPHAEA:
-				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.GRYPHAEA));
 				break;
 			case STEW_CERATITES:
 				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.CERATITES));

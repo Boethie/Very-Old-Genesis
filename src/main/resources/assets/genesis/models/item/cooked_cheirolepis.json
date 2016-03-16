@@ -1,7 +1,7 @@
 {
 	"parent": "builtin/generated",
 	"textures": {
-		"layer0": "genesis:items/stew_spirifer"
+		"layer0": "genesis:items/cheirolepis_cooked"
 	},
 	"display": {
 		"thirdperson": {
