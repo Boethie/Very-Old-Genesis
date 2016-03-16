@@ -647,14 +647,7 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 	
 	public Iterable<TileEntityStorageBox> iterableFromThisToMain()
 	{
-		return new Iterable<TileEntityStorageBox>()
-		{
-			@Override
-			public Iterator<TileEntityStorageBox> iterator()
-			{
-				return iteratorFromThisToMain();
-			}
-		};
+		return this::iteratorFromThisToMain;
 	}
 	
 	protected TileEntityStorageBox getMainBox()
@@ -676,14 +669,7 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 	
 	public Iterable<TileEntityStorageBox> iterableFromThisToEnd()
 	{
-		return new Iterable<TileEntityStorageBox>()
-		{
-			@Override
-			public Iterator<TileEntityStorageBox> iterator()
-			{
-				return iteratorFromThisToEnd();
-			}
-		};
+		return this::iteratorFromThisToEnd;
 	}
 	
 	public PeekingIterator<TileEntityStorageBox> iteratorOrderless()
@@ -732,13 +718,6 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 	
 	public Iterable<TileEntityStorageBox> iterableFromMainToEnd()
 	{
-		return new Iterable<TileEntityStorageBox>()
-		{
-			@Override
-			public Iterator<TileEntityStorageBox> iterator()
-			{
-				return iteratorFromMainToEnd();
-			}
-		};
+		return this::iteratorFromMainToEnd;
 	}
 }

@@ -12,7 +12,6 @@ import genesis.combo.variant.IMetadata;
 import genesis.common.*;
 import genesis.item.*;
 import genesis.util.Constants.Unlocalized;
-import genesis.util.ReflectionUtils;
 
 public class DungBlocksAndItems extends VariantsOfTypesCombo<EnumDung>
 {
