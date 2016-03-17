@@ -43,7 +43,7 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 		
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(3).setCountPerChunk(3));
 		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(5).setCountPerChunk(1));
-		addDecoration(new WorldGenRockBoulders().setInGround(false).setRarity(12).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.HERBIVORE)).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders().setInGround(false).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.HERBIVORE)).setRarity(12).setCountPerChunk(1));
 		addDecoration(new WorldGenDebris().setCountPerChunk(7));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));
 	}

@@ -42,6 +42,9 @@ public class WorldGenRoots extends WorldGenDecorationBase
 		}
 		while (pos.getY() > 55);
 		
+		if (random.nextInt(rarity) != 0)
+			return false;
+		
 		boolean generated = false;
 		
 		int radius = 4;

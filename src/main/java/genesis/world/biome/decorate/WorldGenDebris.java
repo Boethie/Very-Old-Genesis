@@ -42,6 +42,9 @@ public class WorldGenDebris extends WorldGenDecorationBase
 		}
 		while (pos.getY() > 0);
 		
+		if (random.nextInt(rarity) != 0)
+			return false;
+		
 		boolean willGenerate = false;
 		
 		int debrisCount = this.getPatchSize();

@@ -13,6 +13,8 @@ public class WorldGenDecorationBase extends WorldGenerator
 	private int countPerChunk = 0;
 	private int patchSize = 0;
 	
+	protected int rarity = 1;
+	
 	@Override
 	public boolean generate(World world, Random random, BlockPos pos)
 	{
@@ -39,6 +41,17 @@ public class WorldGenDecorationBase extends WorldGenerator
 	public int getPatchSize()
 	{
 		return (patchSize == 0)? 1 : patchSize;
+	}
+	
+	public WorldGenDecorationBase setRarity(int rarity)
+	{
+		this.rarity = rarity;
+		return this;
+	}
+	
+	public int getRarity()
+	{
+		return this.rarity;
 	}
 	
 	public BlockPos getPosition(World world, BlockPos pos)

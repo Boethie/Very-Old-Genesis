@@ -34,6 +34,9 @@ public class WorldGenAquaticPlants extends WorldGenDecorationBase
 		}
 		while (pos.getY() > 0);
 		
+		if (random.nextInt(rarity) != 0)
+			return false;
+		
 		if (plantType == null)
 			plantType = EnumAquaticPlant.BANGIOMORPHA;
 		

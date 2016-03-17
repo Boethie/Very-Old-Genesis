@@ -30,6 +30,9 @@ public class WorldGenPalaeoagaracites extends WorldGenDecorationBase
 		}
 		while (pos.getY() > 0);
 		
+		if (random.nextInt(rarity) != 0)
+			return false;
+		
 		if (!(world.getBlockState(pos).getBlock() == GenesisBlocks.moss || world.getBlockState(pos).getBlock() == Blocks.dirt))
 			return false;
 		

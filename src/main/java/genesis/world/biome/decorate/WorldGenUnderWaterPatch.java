@@ -49,6 +49,9 @@ public class WorldGenUnderWaterPatch extends WorldGenDecorationBase
 		}
 		while (pos.getY() > 0);
 		
+		if (random.nextInt(rarity) != 0)
+			return false;
+		
 		boolean placedSome = false;
 		
 		if(placeSmallPatch(world, pos, random))

@@ -45,7 +45,7 @@ public class BiomeGenRedLowlands extends BiomeGenBaseGenesis
 		addGrassFlowers();
 		
 		addDecoration(new WorldGenPebbles().setWaterRequired(false).setCountPerChunk(1));
-		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(4).addBlocks(GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT)).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).addBlocks(GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT)).setRarity(4).setCountPerChunk(1));
 	}
 	
 	protected void addTrees()

@@ -32,6 +32,9 @@ public class WorldGenArchaeomarasmius extends WorldGenDecorationBase
 		if (random.nextInt(rarity) != 0)
 			return false;
 		
+		if (random.nextInt(rarity) != 0)
+			return false;
+		
 		int plantsPlaced = 0;
 		
 		int patch = random.nextInt(getPatchSize());

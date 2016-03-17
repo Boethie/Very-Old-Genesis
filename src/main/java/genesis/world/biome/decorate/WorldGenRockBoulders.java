@@ -18,7 +18,6 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 	private List<IBlockState> blocks = new ArrayList<IBlockState>();
 	private boolean waterRequired = true;
 	private boolean inGround = true;
-	private int rarity = 1;
 	private int maxHeight = 5;
 	
 	@Override
@@ -93,12 +92,6 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 	public WorldGenRockBoulders setMaxHeight(int mxHeight)
 	{
 		maxHeight = mxHeight;
-		return this;
-	}
-	
-	public WorldGenRockBoulders setRarity(int rarity)
-	{
-		this.rarity = rarity;
 		return this;
 	}
 	

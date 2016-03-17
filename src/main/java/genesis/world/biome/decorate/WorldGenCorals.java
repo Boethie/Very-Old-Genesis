@@ -50,6 +50,9 @@ public class WorldGenCorals extends WorldGenDecorationBase
 		}
 		while (pos.getY() > 0);
 		
+		if (random.nextInt(rarity) != 0)
+			return false;
+		
 		if (coralType == null)
 			coralType = EnumCoral.FAVOSITES;
 		

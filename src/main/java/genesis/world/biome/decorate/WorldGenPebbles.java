@@ -57,6 +57,9 @@ public class WorldGenPebbles extends WorldGenDecorationBase
 		if (waterRequired && !WorldUtils.waterInRange(world, pos, 4, 3, 4))
 			return false;
 		
+		if (random.nextInt(rarity) != 0)
+			return false;
+		
 		populatePositions();
 		
 		int maxPebbles = random.nextInt(2) + random.nextInt(2) + random.nextInt(2);

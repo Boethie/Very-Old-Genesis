@@ -48,6 +48,9 @@ public class WorldGenDecorationOnBlock
 		}
 		while (pos.getY() > 0);
 		
+		if (random.nextInt(rarity) != 0)
+			return false;
+		
 		if (!world.getBlockState(pos.up()).getBlock().isAir(world, pos.up()))
 			return false;
 		

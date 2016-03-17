@@ -31,6 +31,9 @@ public class WorldGenPatch extends WorldGenDecorationBase
 		}
 		while (pos.getY() > 0);
 		
+		if (random.nextInt(rarity) != 0)
+			return false;
+		
 		if (!(allowedBlocks.contains(world.getBlockState(pos).getBlock().getBlockState())))
 			return false;
 		

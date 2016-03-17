@@ -110,6 +110,9 @@ public class WorldGenPlant<V extends IPlantMetadata<V>> extends WorldGenDecorati
 		}
 		while (pos.getY() > 0);
 		
+		if (random.nextInt(rarity) != 0)
+			return false;
+		
 		if (!(allowedBlocks.contains(world.getBlockState(pos).getBlock())))
 			return false;
 		

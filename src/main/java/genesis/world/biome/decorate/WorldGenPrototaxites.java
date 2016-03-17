@@ -35,6 +35,9 @@ public class WorldGenPrototaxites extends WorldGenDecorationBase
 		}
 		while (pos.getY() > 0);
 		
+		if (random.nextInt(rarity) != 0)
+			return false;
+		
 		boolean placedSome = false;
 		
 		if (placeMycelliumBase(world, pos, random))
