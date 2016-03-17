@@ -100,7 +100,7 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 				new WorldGenGenesisSurfacePatch(Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT)).generate(worldObj, rand, pos.add(x, y, z));
 			}
 		}
-		
+		/*
 		if (rand.nextInt(48) == 0)
 		{
 			int x = rand.nextInt(8) + 8;
@@ -109,7 +109,7 @@ public class ChunkGeneratorGenesis extends ChunkProviderGenerate
 			
 			new WorldGenCrater().generate(worldObj, rand, pos.add(x, y, z));
 		}
-		
+		*/
 		if (settings.useWaterLakes 
 			&& !village 
 			&& rand.nextInt(waterLakeChance) == 0 
