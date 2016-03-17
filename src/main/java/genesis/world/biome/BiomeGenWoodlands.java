@@ -20,7 +20,7 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		setTemperatureRainfall(1.1F, 0.9F);
 		setHeight(0.035F, 0.135F);
 		
-		theBiomeDecorator.grassPerChunk = 4;
+		theBiomeDecorator.grassPerChunk = 5;
 		
 		addDecorations();
 		addTrees();
@@ -28,8 +28,8 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 	
 	protected void addDecorations()
 	{
-		addDecoration(WorldGenPlant.create(EnumPlant.PALAEOASTER).setCountPerChunk(1));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setPatchSize(3).setCountPerChunk(1));
+		addDecoration(WorldGenPlant.create(EnumPlant.PALAEOASTER).setRarity(7).setPatchSize(12).setCountPerChunk(1));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setRarity(7).setPatchSize(3).setCountPerChunk(1));
 		addGrassFlowers();
 		
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(3).setCountPerChunk(3));
