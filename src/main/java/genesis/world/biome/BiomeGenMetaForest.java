@@ -30,7 +30,7 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 		setTemperatureRainfall(1.1F, 0.9F);
 		setHeight(0.105F, 0.08F);
 		
-		theBiomeDecorator.grassPerChunk = 5;
+		theBiomeDecorator.grassPerChunk = 8;
 		
 		addDecorations();
 		addTrees();
@@ -39,7 +39,7 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 	protected void addDecorations()
 	{
 		addDecoration(new WorldGenPalaeoagaracites().setPatchSize(24).setCountPerChunk(128));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPatchSize(3).setCountPerChunk(3));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPatchSize(3).setCountPerChunk(4));
 		
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(3).setCountPerChunk(3));
 		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(5).setCountPerChunk(1));
