@@ -1,6 +1,20 @@
 {
 	"variants": {
-		"variant=herbivore":  { "model": "genesis:dung_block_herbivore" },
-		"variant=carnivore":  { "model": "genesis:dung_block_carnivore" }
+		"height=1,variant=herbivore":  { "model": "genesis:dung_block_herbivore_1" },
+		"height=2,variant=herbivore":  { "model": "genesis:dung_block_herbivore_2" },
+		"height=3,variant=herbivore":  { "model": "genesis:dung_block_herbivore_3" },
+		"height=4,variant=herbivore":  { "model": "genesis:dung_block_herbivore_4" },
+		"height=5,variant=herbivore":  { "model": "genesis:dung_block_herbivore_5" },
+		"height=6,variant=herbivore":  { "model": "genesis:dung_block_herbivore_6" },
+		"height=7,variant=herbivore":  { "model": "genesis:dung_block_herbivore_7" },
+		"height=8,variant=herbivore":  { "model": "genesis:dung_block_herbivore" },
+		"height=1,variant=carnivore":  { "model": "genesis:dung_block_carnivore_1" },
+		"height=2,variant=carnivore":  { "model": "genesis:dung_block_carnivore_2" },
+		"height=3,variant=carnivore":  { "model": "genesis:dung_block_carnivore_3" },
+		"height=4,variant=carnivore":  { "model": "genesis:dung_block_carnivore_4" },
+		"height=5,variant=carnivore":  { "model": "genesis:dung_block_carnivore_5" },
+		"height=6,variant=carnivore":  { "model": "genesis:dung_block_carnivore_6" },
+		"height=7,variant=carnivore":  { "model": "genesis:dung_block_carnivore_7" },
+		"height=8,variant=carnivore":  { "model": "genesis:dung_block_carnivore" }
 	}
 }
