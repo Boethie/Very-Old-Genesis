@@ -383,7 +383,8 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(prototaxites, "prototaxites");
 		
 		// Ankyropteris
-		Genesis.proxy.registerBlock(ankyropteris, "ankyropteris");
+		Genesis.proxy.registerBlockWithItem(ankyropteris, "ankyropteris", new ItemColored(ankyropteris, false));
+		Genesis.proxy.registerModel(ankyropteris, 0, "ankyropteris");
 		
 		// - Water Plants -
 		// Cobbania
