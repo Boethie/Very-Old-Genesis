@@ -10,6 +10,7 @@ import genesis.combo.VariantsOfTypesCombo;
 import genesis.combo.VariantsOfTypesCombo.ObjectType;
 import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.IPlantMetadata;
+import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -130,14 +131,26 @@ public class WorldGenPlant<V extends IPlantMetadata<V>> extends WorldGenDecorati
 			return true;
 		
 		BlockPos secondPos;
-		int additional = random.nextInt(getPatchSize() - 1);
+		int additional = random.nextInt(getPatchSize() + 1);
 		
-		for (int i = 0; i <= additional; ++i)
+		if (variant == EnumPlant.PALAEOASTER)
+		{
+			Genesis.logger.info("a:" + additional);
+		}
+		
+		for (int i = 0; i < additional; ++i)
 		{
 			secondPos = pos.add(random.nextInt(7) - 3, 0, random.nextInt(7) - 3);
 			
 			if (allowedBlocks.contains(world.getBlockState(secondPos).getBlock()))
-				placePlant(world, secondPos, random);
+			{
+				placePlant(world, secondPos.up(), random);
+			}
+			else
+			{
+				if(variant == EnumPlant.PALAEOASTER)
+					Genesis.logger.info("wasnt placed on " + world.getBlockState(secondPos).getBlock().getLocalizedName());
+			}
 		}
 		
 		return true;
