@@ -28,7 +28,7 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 	
 	protected void addDecorations()
 	{
-		addDecoration(WorldGenPlant.create(EnumPlant.PALAEOASTER).setRarity(7).setPatchSize(12).setCountPerChunk(1));
+		addDecoration(WorldGenPlant.create(EnumPlant.PALAEOASTER).setRarity(5).setPatchSize(20).setCountPerChunk(1));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setRarity(7).setPatchSize(3).setCountPerChunk(1));
 		addGrassFlowers();
 		
