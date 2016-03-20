@@ -61,7 +61,7 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 	@Override
 	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
 	{
-		return new WorldGenGrassMulti(GenesisBlocks.plants.getPlantBlockState(EnumPlant.MATONIDIUM)).setVolume(64);
+		return new WorldGenGrassMulti(GenesisBlocks.plants.getPlantBlockState(EnumPlant.ASTRALOPTERIS)).setVolume(64);
 	}
 	
 	@Override
