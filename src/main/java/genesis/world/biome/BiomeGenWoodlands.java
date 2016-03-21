@@ -28,13 +28,13 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 	
 	protected void addDecorations()
 	{
-		addDecoration(WorldGenPlant.create(EnumPlant.PALAEOASTER).setRarity(7).setPatchSize(12).setCountPerChunk(1));
+		addDecoration(WorldGenPlant.create(EnumPlant.PALAEOASTER).setRarity(5).setPatchSize(20).setCountPerChunk(1));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setRarity(7).setPatchSize(3).setCountPerChunk(1));
 		addGrassFlowers();
 		
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(3).setCountPerChunk(3));
 		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(5).setCountPerChunk(1));
-		addDecoration(new WorldGenRockBoulders().setInGround(false).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.CARNIVORE)).setRarity(10).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders().setInGround(false).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.CARNIVORE)).setRarity(12).setCountPerChunk(1));
 		addDecoration(new WorldGenDebris().addAdditional(GenesisBlocks.debris.getBlockState(EnumDebrisOther.TYRANNOSAURUS_FEATHER)).setCountPerChunk(20));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));
 		addDecoration(new WorldGenDecorationOnBlock(GenesisBlocks.cobbania.getDefaultState()).setBaseBlocks(Blocks.water.getDefaultState()).setCountPerChunk(10));

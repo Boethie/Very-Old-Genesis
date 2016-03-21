@@ -94,5 +94,3 @@ jar {
         attributes 'FMLAT': 'genesis_at.cfg'
     }
 }
-
-idea.module.inheritOutputDirs = true

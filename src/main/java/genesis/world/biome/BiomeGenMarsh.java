@@ -31,10 +31,10 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
 		addDecoration(WorldGenPlant.create(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.ASTEROXYLON).setCountPerChunk(5));
-		addDecoration(WorldGenPlant.create(EnumPlant.RHYNIA).setPatchSize(6).setCountPerChunk(8));
-		addDecoration(WorldGenPlant.create(EnumPlant.NOTHIA).setPatchSize(6).setCountPerChunk(7));
-		addDecoration(WorldGenPlant.create(EnumPlant.SCIADOPHYTON).setPatchSize(4).setCountPerChunk(5));
-		addDecoration(WorldGenPlant.create(EnumPlant.PSILOPHYTON).setPatchSize(4).setCountPerChunk(3));
+		addDecoration(WorldGenPlant.create(EnumPlant.RHYNIA).setPatchSize(4).setCountPerChunk(6));
+		addDecoration(WorldGenPlant.create(EnumPlant.NOTHIA).setPatchSize(4).setCountPerChunk(5));
+		addDecoration(WorldGenPlant.create(EnumPlant.SCIADOPHYTON).setPatchSize(4).setCountPerChunk(3));
+		addDecoration(WorldGenPlant.create(EnumPlant.PSILOPHYTON).setPatchSize(4).setCountPerChunk(2));
 		addDecoration(WorldGenPlant.create(EnumPlant.BARAGWANATHIA).setPatchSize(4).setCountPerChunk(1));
 		addDecoration(WorldGenPlant.create(EnumPlant.COOKSONIA).setPatchSize(4).setCountPerChunk(1));
 		

@@ -26,6 +26,7 @@ import genesis.util.random.drops.blocks.BlockStackDrop;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockVine;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -37,6 +38,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.*;
+
+import static net.minecraft.block.Block.soundTypeGrass;
 
 public final class GenesisBlocks
 {
@@ -97,6 +100,7 @@ public final class GenesisBlocks
 					new ObjectType<BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>>("aquatic_plant", "aquaticPlant", BlockAquaticPlant.class, null)
 							.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE),
 					EnumAquaticPlant.class, EnumAquaticPlant.values());
+	public static final BlockAnkyropteris ankyropteris = (BlockAnkyropteris) new BlockAnkyropteris().setUnlocalizedName(Unlocalized.PREFIX + "ankyropteris");
 	
 	/* Crops */
 	protected static final SurviveOnDirtCustoms surviveOnDirt = new SurviveOnDirtCustoms();
@@ -377,6 +381,10 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(palaeoagaracites, "palaeoagaracites");
 		Genesis.proxy.registerBlock(archaeomarasmius, "archaeomarasmius");
 		Genesis.proxy.registerBlock(prototaxites, "prototaxites");
+		
+		// Ankyropteris
+		Genesis.proxy.registerBlockWithItem(ankyropteris, "ankyropteris", new ItemColored(ankyropteris, false));
+		Genesis.proxy.registerModel(ankyropteris, 0, "ankyropteris");
 		
 		// - Water Plants -
 		// Cobbania
