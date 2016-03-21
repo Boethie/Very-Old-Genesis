@@ -19,9 +19,9 @@ public final class ArrayBuilder<T>
 		this.array = Arrays.copyOf(array, Math.max(array.length, INITIAL_SIZE));
 	}
 	
-	private int grow(int capacity)
+	private int  grow(int capacity)
 	{
-		int oldSize = size;
+		int index = size;
 		size = capacity;
 		
 		if (array.length < capacity)
@@ -31,19 +31,21 @@ public final class ArrayBuilder<T>
 			array = Arrays.copyOf(array, capacity);
 		}
 		
-		return oldSize;
+		return index;
 	}
 	
 	public ArrayBuilder<T> add(T value)
 	{
-		array[grow(size + 1)] = value;
+		int index = grow(size + 1);
+		array[index] = value;
 		return this;
 	}
 	
 	@SafeVarargs
 	public final ArrayBuilder<T> addAll(T... values)
 	{
-		System.arraycopy(values, 0, array, grow(size + values.length), values.length);
+		int index = grow(size + values.length);
+		System.arraycopy(values, 0, array, index, values.length);
 		return this;
 	}
 	
