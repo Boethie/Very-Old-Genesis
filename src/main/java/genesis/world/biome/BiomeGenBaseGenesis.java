@@ -64,28 +64,6 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 		return this;
 	}
 	
-	/*public List<IBlockState> getSpawnablePlants(Random rand)
-	{
-		List<IBlockState> spawnablePlants = new ArrayList<IBlockState>();
-		
-		for (WorldGenDecorationBase decoration : getGenesisDecorator().decorations)
-		{
-			IBlockState plant = decoration.getSpawnablePlant(rand);
-			
-			if (plant != null)
-			{
-				spawnablePlants.add(plant);
-			}
-		}
-		
-		return spawnablePlants;
-	}*/
-	
-	/*public List<PlantGenerator> getSpawnablePlants(Random rand)
-	{
-		return FluentIterable.from(getGenesisDecorator().decorations).filter(PlantGenerator.class).toList();
-	}*/
-	
 	public void addGrassFlower(PlantGenerator gen, int weight)
 	{
 		plants.add(new FlowerGeneratorEntry(gen, weight));

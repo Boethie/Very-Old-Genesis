@@ -1,38 +1,27 @@
 package genesis.world;
 
-import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.ANIMALS;
-import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.DUNGEON;
-import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.ICE;
-import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.LAKE;
-import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.LAVA;
+import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.*;
 
 import java.util.List;
 
-import genesis.common.GenesisBiomes;
-import genesis.common.GenesisBlocks;
+import genesis.common.*;
 import genesis.world.biome.gen.feature.WorldGenGenesisSurfacePatch;
-import genesis.world.gen.MapGenCavesGenesis;
-import genesis.world.gen.feature.WorldGenCrater;
-import genesis.world.gen.feature.WorldGenGenesisLakes;
-import net.minecraft.block.BlockDirt;
-import net.minecraft.block.BlockFalling;
+import genesis.world.gen.*;
+import genesis.world.gen.feature.*;
+
+import net.minecraft.block.*;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.SpawnerAnimals;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.gen.ChunkProviderGenerate;
-import net.minecraft.world.gen.ChunkProviderSettings;
-import net.minecraft.world.gen.MapGenBase;
-import net.minecraft.world.gen.feature.WorldGenDungeons;
+import net.minecraft.world.chunk.*;
+import net.minecraft.world.gen.*;
+import net.minecraft.world.gen.feature.*;
+
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.terraingen.ChunkProviderEvent;
-import net.minecraftforge.event.terraingen.PopulateChunkEvent;
-import net.minecraftforge.event.terraingen.TerrainGen;
+import net.minecraftforge.event.terraingen.*;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 
 public class ChunkGeneratorGenesis extends ChunkProviderGenerate
