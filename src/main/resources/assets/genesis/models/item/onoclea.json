@@ -1,7 +1,7 @@
 {
 	"parent": "builtin/generated",
 	"textures": {
-		"layer0": "genesis:blocks/fern_onoclea"
+		"layer0": "genesis:blocks/fern_onoclea_1"
 	},
 	"display": {
 		"thirdperson": {
