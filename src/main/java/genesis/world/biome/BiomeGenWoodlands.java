@@ -34,7 +34,7 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(3).setCountPerChunk(3));
 		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(5).setCountPerChunk(1));
-		addDecoration(new WorldGenRockBoulders().setInGround(false).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.CARNIVORE)).setRarity(10).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders().setInGround(false).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.CARNIVORE)).setRarity(12).setCountPerChunk(1));
 		addDecoration(new WorldGenDebris().addAdditional(GenesisBlocks.debris.getBlockState(EnumDebrisOther.TYRANNOSAURUS_FEATHER)).setCountPerChunk(20));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));
 		addDecoration(new WorldGenDecorationOnBlock(GenesisBlocks.cobbania.getDefaultState()).setBaseBlocks(Blocks.water.getDefaultState()).setCountPerChunk(10));

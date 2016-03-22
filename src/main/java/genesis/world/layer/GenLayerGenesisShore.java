@@ -37,9 +37,9 @@ public class GenLayerGenesisShore extends GenLayerGenesis
 						&& biomeID != GenesisBiomes.rainforestM.biomeID
 						&& biomeID != GenesisBiomes.rainforestHills.biomeID
 						&& biomeID != GenesisBiomes.metaForestM.biomeID
-						&& biomeID != GenesisBiomes.metaForestHills.biomeID
-						&& biomeID != GenesisBiomes.redLowlandsHills.biomeID
-						&& biomeID != GenesisBiomes.redLowlandsM.biomeID)
+						&& biomeID != GenesisBiomes.metaForestHills.biomeID)
+						//&& biomeID != GenesisBiomes.redLowlandsHills.biomeID
+						//&& biomeID != GenesisBiomes.redLowlandsM.biomeID)
 				{
 					if (!isBiomeOceanic(biomeID) && biomeID != GenesisBiomes.swampRainForest.biomeID)
 					{
@@ -58,9 +58,9 @@ public class GenLayerGenesisShore extends GenLayerGenesis
 						}
 						else
 						{
-							if (biomeID == GenesisBiomes.redLowlands.biomeID || biomeID == GenesisBiomes.redLowlandsHills.biomeID || biomeID == GenesisBiomes.redLowlandsM.biomeID)
-								aint1[x + y * areaWidth] = GenesisBiomes.redBeach.biomeID;
-							else
+							/*if (biomeID == GenesisBiomes.redLowlands.biomeID || biomeID == GenesisBiomes.redLowlandsHills.biomeID || biomeID == GenesisBiomes.redLowlandsM.biomeID)
+								//aint1[x + y * areaWidth] = GenesisBiomes.redBeach.biomeID;
+							else*/
 								aint1[x + y * areaWidth] = GenesisBiomes.genesisBeach.biomeID;
 						}
 					}

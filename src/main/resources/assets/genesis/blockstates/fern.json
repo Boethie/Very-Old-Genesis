@@ -1,12 +1,20 @@
 {
+	"forge_marker": 1,
+	"defaults": {
+		"model": "tallgrass",
+		"transforms": "forge:default-block"
+	},
 	"variants": {
-		"variant=zygopteris":  { "model": "genesis:zygopteris" },
-		"variant=wachtleria":  { "model": "genesis:wachtleria" },
-		"variant=phlebopteris":  { "model": "genesis:phlebopteris" },
-		"variant=todites":  { "model": "genesis:todites" },
-		"variant=ruffordia":  { "model": "genesis:ruffordia" },
-		"variant=astralopteris":  { "model": "genesis:astralopteris" },
-		"variant=matonidium":  { "model": "genesis:matonidium" },
-		"variant=onoclea":  { "model": "genesis:onoclea" }
+		"variant=zygopteris":  [ { "textures": { "cross": "genesis:blocks/fern_zygopteris" } } ],
+		"variant=wachtleria":  [ { "textures": { "cross": "genesis:blocks/fern_wachtleria" } } ],
+		"variant=phlebopteris":  [ { "textures": { "cross": "genesis:blocks/fern_phlebopteris" } } ],
+		"variant=todites":  [ { "textures": { "cross": "genesis:blocks/fern_todites" } } ],
+		"variant=ruffordia":  [ { "textures": { "cross": "genesis:blocks/fern_ruffordia" } } ],
+		"variant=astralopteris":  [ { "textures": { "cross": "genesis:blocks/fern_astralopteris" } } ],
+		"variant=matonidium":  [ { "textures": { "cross": "genesis:blocks/fern_matonidium" } } ],
+		"variant=onoclea":  [
+			{ "textures": { "cross": "genesis:blocks/fern_onoclea_1" } },
+			{ "textures": { "cross": "genesis:blocks/fern_onoclea_2" } }
+		]
 	}
 }

@@ -35,8 +35,8 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		addDecoration(WorldGenPlant.create(EnumPlant.NOTHIA).setPatchSize(4).setCountPerChunk(5));
 		addDecoration(WorldGenPlant.create(EnumPlant.SCIADOPHYTON).setPatchSize(4).setCountPerChunk(3));
 		addDecoration(WorldGenPlant.create(EnumPlant.PSILOPHYTON).setPatchSize(4).setCountPerChunk(2));
-		addDecoration(WorldGenPlant.create(EnumPlant.BARAGWANATHIA).setRarity(3).setPatchSize(4).setCountPerChunk(1));
-		addDecoration(WorldGenPlant.create(EnumPlant.COOKSONIA).setRarity(3).setPatchSize(4).setCountPerChunk(1));
+		addDecoration(WorldGenPlant.create(EnumPlant.BARAGWANATHIA).setPatchSize(4).setCountPerChunk(1));
+		addDecoration(WorldGenPlant.create(EnumPlant.COOKSONIA).setPatchSize(4).setCountPerChunk(1));
 		
 		addGrassFlowers();
 	}

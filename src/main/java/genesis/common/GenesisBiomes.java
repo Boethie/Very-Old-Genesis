@@ -44,9 +44,9 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis swampRainForest;
 	public static BiomeGenBaseGenesis marsh;
 	public static BiomeGenBaseGenesis floodplainsForest;
-	public static BiomeGenBaseGenesis redLowlands;
-	public static BiomeGenBaseGenesis redLowlandsHills;
-	public static BiomeGenBaseGenesis redLowlandsM;
+	//public static BiomeGenBaseGenesis redLowlands;
+	//public static BiomeGenBaseGenesis redLowlandsHills;
+	//public static BiomeGenBaseGenesis redLowlandsM;
 	public static BiomeGenBaseGenesis river;
 	public static BiomeGenBaseGenesis shallowOcean;
 	public static BiomeGenBaseGenesis ocean;
@@ -65,10 +65,10 @@ public final class GenesisBiomes
 	{
 		rainforest = new BiomeGenRainforest(GenesisConfig.rainforestId);
 		BiomeManagerGenesis.registerBiome(rainforest, BiomeType.WARM, GenesisConfig.rainforestWeight);
-		BiomeDictionary.registerBiomeType(rainforest, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		BiomeDictionary.registerBiomeType(rainforest, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.DENSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		rainforestM = new BiomeGenRainforestM(GenesisConfig.rainforestId+128);
-		BiomeDictionary.registerBiomeType(rainforestM, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.MOUNTAIN);
+		BiomeDictionary.registerBiomeType(rainforestM, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.DENSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.MOUNTAIN);
 		/*
 		rainforestEdge = new BiomeGenRainforestEdge(GenesisConfig.rainforestEdgeId);
 		BiomeDictionary.registerBiomeType(rainforestEdge, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
@@ -77,7 +77,7 @@ public final class GenesisBiomes
 		BiomeDictionary.registerBiomeType(rainforestEdgeM, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.MOUNTAIN);
 		*/
 		rainforestHills = new BiomeGenRainforest(GenesisConfig.rainforestHillsId).setBiomeName("Rainforest Hills").setHeight(0.425F, 0.275F);
-		BiomeDictionary.registerBiomeType(rainforestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		BiomeDictionary.registerBiomeType(rainforestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.DENSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		auxForest = new BiomeGenAuxForest(GenesisConfig.auxForestId);
 		BiomeManagerGenesis.registerBiome(auxForest, BiomeType.WARM, GenesisConfig.auxForestWeight);
@@ -119,7 +119,7 @@ public final class GenesisBiomes
 		floodplainsForest = new BiomeGenFloodplainsForest(GenesisConfig.floodplainsForestId);
 		BiomeManagerGenesis.registerBiome(floodplainsForest, BiomeType.WARM, GenesisConfig.floodplainsForestWeight);
 		BiomeDictionary.registerBiomeType(floodplainsForest, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.DENSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
-		
+		/*
 		redLowlands = new BiomeGenRedLowlands(GenesisConfig.redLowlandsId);
 		BiomeManagerGenesis.registerBiome(redLowlands, BiomeType.WARM, GenesisConfig.redLowlandsWeight);
 		BiomeDictionary.registerBiomeType(redLowlands, BiomeDictionary.Type.SANDY, BiomeDictionary.Type.DRY);
@@ -129,7 +129,7 @@ public final class GenesisBiomes
 		
 		redLowlandsM = new BiomeGenRedLowlandsM(GenesisConfig.redLowlandsId+128);
 		BiomeDictionary.registerBiomeType(redLowlandsM, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.SANDY, BiomeDictionary.Type.DRY);
-		
+		*/
 		river = new BiomeGenRiver(GenesisConfig.riverId).setHeight(height_ShallowWaters);
 		BiomeDictionary.registerBiomeType(river, BiomeDictionary.Type.RIVER, BiomeDictionary.Type.WET);
 		

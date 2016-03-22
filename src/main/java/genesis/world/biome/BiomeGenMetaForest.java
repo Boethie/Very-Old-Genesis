@@ -29,7 +29,7 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 		super(id);
 		setBiomeName("Metasequoia Forest");
 		setTemperatureRainfall(1.1F, 0.9F);
-		setHeight(0.105F, 0.08F);
+		setHeight(0.04F, 0.165F);
 		
 		theBiomeDecorator.grassPerChunk = 5;
 		
@@ -40,18 +40,18 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 	protected void addDecorations()
 	{
 		addDecoration(new WorldGenPalaeoagaracites().setPatchSize(24).setCountPerChunk(128));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPatchSize(3).setCountPerChunk(3));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPatchSize(5).setCountPerChunk(3));
 		
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(3).setCountPerChunk(3));
-		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(5).setCountPerChunk(1));
-		addDecoration(new WorldGenRockBoulders().setInGround(false).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.HERBIVORE)).setRarity(12).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(4).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders().setInGround(false).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.HERBIVORE)).setRarity(14).setCountPerChunk(1));
 		addDecoration(new WorldGenDebris().setCountPerChunk(7));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));
 	}
 	
 	protected void addTrees()
 	{
-		addTree(new WorldGenTreeArchaeanthus(7, 20, false).setTreeCountPerChunk(1).setRarity(8));
+		addTree(new WorldGenTreeArchaeanthus(7, 20, false).setTreeCountPerChunk(1).setRarity(7));
 		addTree(new WorldGenTreeMetasequoia(12, 24, true).setTreeCountPerChunk(5));
 		addTree(new WorldGenTreeMetasequoia(23, 27, true).setType(1).setTreeCountPerChunk(2));
 		addTree(new WorldGenTreeGinkgo(6, 17, false).setTreeCountPerChunk(1).setRarity(10));
@@ -64,7 +64,7 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 	@Override
 	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
 	{
-		return new WorldGenGrassMulti(GenesisBlocks.plants.getPlantBlockState(EnumPlant.ASTRALOPTERIS), GenesisBlocks.plants.getPlantBlockState(EnumPlant.MATONIDIUM)).setVolume(64);
+		return new WorldGenGrassMulti(GenesisBlocks.plants.getPlantBlockState(EnumPlant.ASTRALOPTERIS)).setVolume(64);
 	}
 	
 	@Override
