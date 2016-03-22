@@ -101,10 +101,7 @@ public class BlockMoss extends BlockGrass
 						else
 						{
 							// Vanilla
-							IBlockState tallgrass = Blocks.tallgrass.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS);
-							
-							if (Blocks.tallgrass.canBlockStay(world, plantPos, tallgrass))
-								world.setBlockState(plantPos, tallgrass);
+							randPlant = Blocks.tallgrass.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS);
 						}
 					}
 					
