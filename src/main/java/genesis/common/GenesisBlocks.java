@@ -94,13 +94,13 @@ public final class GenesisBlocks
 	public static final BlockCalamites calamites = (BlockCalamites) new BlockCalamites(true, 15, 7)
 			.setGrowth(6, 1, 1, 1)
 			.setUnlocalizedName(Unlocalized.PLANT + "calamites");
+	public static final BlockAnkyropteris ankyropteris = (BlockAnkyropteris) new BlockAnkyropteris().setUnlocalizedName(Unlocalized.PREFIX + "ankyropteris");
 	public static final Block cobbania = new BlockCobbania().setUnlocalizedName(Unlocalized.PREFIX + "cobbania");
 	public static final VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>> aquatic_plants =
 			new VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>>(
 					new ObjectType<BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>>("aquatic_plant", "aquaticPlant", BlockAquaticPlant.class, null)
 							.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE),
 					EnumAquaticPlant.class, EnumAquaticPlant.values());
-	public static final BlockAnkyropteris ankyropteris = (BlockAnkyropteris) new BlockAnkyropteris().setUnlocalizedName(Unlocalized.PREFIX + "ankyropteris");
 	
 	/* Crops */
 	protected static final SurviveOnDirtCustoms surviveOnDirt = new SurviveOnDirtCustoms();
@@ -373,6 +373,10 @@ public final class GenesisBlocks
 		zingiberopsis.setCropDrops(new BlockDrops(drop, 1, 3));
 		zingiberopsis.setPickedStack(drop);
 		
+		// Ankyropteris
+		Genesis.proxy.registerBlockWithItem(ankyropteris, "ankyropteris", new ItemColored(ankyropteris, false));
+		Genesis.proxy.registerModel(ankyropteris, 0, "ankyropteris");
+		
 		// Flower pot
 		Genesis.proxy.registerBlock(flower_pot, "flower_pot", null);
 		GameRegistry.registerTileEntity(TileEntityGenesisFlowerPot.class, Constants.ASSETS_PREFIX + "flower_pot");
@@ -381,10 +385,6 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(palaeoagaracites, "palaeoagaracites");
 		Genesis.proxy.registerBlock(archaeomarasmius, "archaeomarasmius");
 		Genesis.proxy.registerBlock(prototaxites, "prototaxites");
-		
-		// Ankyropteris
-		Genesis.proxy.registerBlockWithItem(ankyropteris, "ankyropteris", new ItemColored(ankyropteris, false));
-		Genesis.proxy.registerModel(ankyropteris, 0, "ankyropteris");
 		
 		// - Water Plants -
 		// Cobbania
