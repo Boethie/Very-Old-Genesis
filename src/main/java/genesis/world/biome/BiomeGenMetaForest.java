@@ -17,6 +17,7 @@ import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.gen.feature.WorldGenDeadLog;
 import genesis.world.gen.feature.WorldGenTreeArchaeanthus;
 import genesis.world.gen.feature.WorldGenTreeGinkgo;
+import genesis.world.gen.feature.WorldGenTreeLaurophyllum;
 import genesis.world.gen.feature.WorldGenTreeMetasequoia;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -54,7 +55,10 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 		addTree(new WorldGenTreeMetasequoia(12, 24, true).setTreeCountPerChunk(5));
 		addTree(new WorldGenTreeMetasequoia(23, 27, true).setType(1).setTreeCountPerChunk(2));
 		addTree(new WorldGenTreeGinkgo(6, 17, false).setTreeCountPerChunk(1).setRarity(10));
+		addTree(new WorldGenTreeLaurophyllum(3, 4, false).setTreeCountPerChunk(3));
+		
 		addTree(new WorldGenDeadLog(4, 8, EnumTree.METASEQUOIA, true).setTreeCountPerChunk(1));
+		addTree(new WorldGenDeadLog(4, 8, EnumTree.METASEQUOIA, true).setType(1).setTreeCountPerChunk(1));
 	}
 	
 	@Override

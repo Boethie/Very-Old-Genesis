@@ -17,6 +17,7 @@ import net.minecraft.world.World;
 public class WorldGenDeadLog extends WorldGenTreeBase
 {
 	private List<IBlockState> topDecorations = new ArrayList<IBlockState>();
+	private int treeType = 0;
 	
 	public WorldGenDeadLog(int minLength, int maxLength, EnumTree treeType, boolean notify)
 	{
@@ -29,6 +30,12 @@ public class WorldGenDeadLog extends WorldGenTreeBase
 		
 		this.minHeight = minLength;
 		this.maxHeight = maxLength;
+	}
+	
+	public WorldGenDeadLog setType(int type)
+	{
+		treeType = type;
+		return this;
 	}
 	
 	public WorldGenTreeBase addTopDecoration(IBlockState block)
@@ -63,6 +70,13 @@ public class WorldGenDeadLog extends WorldGenTreeBase
 				for (int i = 0; i < length; ++i)
 				{
 					setBlockInWorld(world, logPos, wood.withProperty(BlockLog.LOG_AXIS, EnumAxis.X));
+					
+					if (treeType == 1)
+					{
+						setBlockInWorld(world, logPos.add(0, 1, 0), wood.withProperty(BlockLog.LOG_AXIS, EnumAxis.X));
+						setBlockInWorld(world, logPos.add(0, 1, 1), wood.withProperty(BlockLog.LOG_AXIS, EnumAxis.X));
+						setBlockInWorld(world, logPos.add(0, 0, 1), wood.withProperty(BlockLog.LOG_AXIS, EnumAxis.X));
+					}
 					
 					if (rand.nextInt(100) > 96 && topDecorations.size() > 0)
 					{
