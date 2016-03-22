@@ -739,6 +739,7 @@ public final class GenesisRecipes
 			case STEW_LIOPLEURODON:
 			case STEW_TYRANNOSAURUS:
 				ingredients.add(GenesisItems.materials.getStack(EnumMaterial.SALT));
+				ingredients.add(GenesisItems.seeds.getStack(EnumSeeds.ZINGIBEROPSIS_RHIZOME));
 				break;
 			default:
 				break;
