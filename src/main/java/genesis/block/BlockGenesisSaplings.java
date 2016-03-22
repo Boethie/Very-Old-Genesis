@@ -23,6 +23,7 @@ import genesis.world.gen.feature.WorldGenTreeCordaites;
 import genesis.world.gen.feature.WorldGenTreeDryophyllum;
 import genesis.world.gen.feature.WorldGenTreeFicus;
 import genesis.world.gen.feature.WorldGenTreeGinkgo;
+import genesis.world.gen.feature.WorldGenTreeLaurophyllum;
 import genesis.world.gen.feature.WorldGenTreeLepidodendron;
 import genesis.world.gen.feature.WorldGenTreeMetasequoia;
 import genesis.world.gen.feature.WorldGenTreePsaronius;
@@ -169,6 +170,9 @@ public class BlockGenesisSaplings extends BlockSapling
 			break;
 		case ARCHAEANTHUS:
 			gen = new WorldGenTreeArchaeanthus(15, 20, true);
+			break;
+		case LAUROPHYLLUM:
+			gen = new WorldGenTreeLaurophyllum(3, 4, true);
 			break;
 		default:
 			break;

@@ -31,7 +31,7 @@ public class WorldGenTreeLaurophyllum extends WorldGenTreeBase
 		if (!canTreeGrow(world, pos))
 			return false;
 		
-		int treeHeight = minHeight + rand.nextInt(maxHeight - minHeight) - 5;
+		int treeHeight = minHeight + rand.nextInt(maxHeight - minHeight);
 		
 		if (!isCubeClear(world, pos.up(), 1, treeHeight))
 		{
@@ -41,6 +41,24 @@ public class WorldGenTreeLaurophyllum extends WorldGenTreeBase
 		for (int i = 0; i < treeHeight; i++)
 		{
 			setBlockInWorld(world, pos.up(i), wood);
+			
+			if (i > 0 && i < treeHeight - 1)
+			{
+				if (rand.nextInt(3) == 0)
+					setBlockInWorld(world, pos.up(i).add(rand.nextInt(3) - 1, 0, rand.nextInt(3) - 1), wood);
+				if (rand.nextInt(3) == 0)
+					setBlockInWorld(world, pos.up(i).add(rand.nextInt(3) - 1, 0, rand.nextInt(3) - 1), wood);
+				if (rand.nextInt(3) == 0)
+					setBlockInWorld(world, pos.up(i).add(rand.nextInt(3) - 1, 0, rand.nextInt(3) - 1), wood);
+				if (rand.nextInt(3) == 0)
+					setBlockInWorld(world, pos.up(i).add(rand.nextInt(3) - 1, 0, rand.nextInt(3) - 1), wood);
+				
+				super.doBranchLeaves(world, pos.up(i), rand, true, i, true);
+			}
+			/*
+			if (i > 0)
+				super.doBranchLeaves(world, pos.up(i), rand, false, i, true);
+			*/
 		}
 		
 		return true;
