@@ -5,7 +5,6 @@ import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.Ev
 import java.util.List;
 
 import genesis.common.*;
-import genesis.world.biome.gen.feature.WorldGenGenesisSurfacePatch;
 import genesis.world.gen.*;
 import genesis.world.gen.feature.*;
 
