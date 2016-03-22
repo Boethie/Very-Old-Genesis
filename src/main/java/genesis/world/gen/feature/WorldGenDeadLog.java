@@ -18,44 +18,42 @@ public class WorldGenDeadLog extends WorldGenTreeBase
 {
 	private List<IBlockState> topDecorations = new ArrayList<IBlockState>();
 	private int treeType = 0;
-	
+
 	public WorldGenDeadLog(int minLength, int maxLength, EnumTree treeType, boolean notify)
 	{
-		super(
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.DEAD_LOG, treeType),
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES, treeType),
-				notify);
-		
+		super(GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.DEAD_LOG, treeType),
+				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES, treeType), notify);
+
 		this.notify = notify;
-		
+
 		this.minHeight = minLength;
 		this.maxHeight = maxLength;
 	}
-	
+
 	public WorldGenDeadLog setType(int type)
 	{
 		treeType = type;
 		return this;
 	}
-	
+
 	public WorldGenTreeBase addTopDecoration(IBlockState block)
 	{
 		topDecorations.add(block);
 		return this;
 	}
-	
+
 	@Override
 	public boolean generate(World world, Random rand, BlockPos pos)
 	{
 		try
 		{
 			pos = getTreePos(world, pos);
-			
+
 			if (!canTreeGrow(world, pos))
 				return false;
-			
+
 			int length = minHeight + rand.nextInt(maxHeight);
-			
+
 			if (!isCubeClear(world, pos.up(), length, 1))
 			{
 				return false;
@@ -63,15 +61,15 @@ public class WorldGenDeadLog extends WorldGenTreeBase
 			
 			switch (treeType)
 			{
-			case 0:
-				generateSingleLogs(world, rand, pos);
-			case 1:
-				generateMultiLogs(world, rand, pos, 2, 2);
-				break;
-
-			default:
-				generateSingleLogs(world, rand, pos);
-				break;
+				case 0:
+					generateLogs(world, rand, pos, 1, 1);
+					break;
+				case 1:
+					generateLogs(world, rand, pos, 2, 2);
+					break;
+				default:
+					generateLogs(world, rand, pos, 1, 1);
+					break;
 			}
 			return true;
 		}
@@ -80,8 +78,8 @@ public class WorldGenDeadLog extends WorldGenTreeBase
 			return false;
 		}
 	}
-		
-	private void generateMultiLogs(World world, Random rand, BlockPos pos, int logWidth, int logHeight)
+	
+	private void generateLogs(World world, Random rand, BlockPos pos, int logWidth, int logHeight)
 	{
 		int length = minHeight + rand.nextInt(maxHeight);
 		int lengthTop = rand.nextInt(maxHeight) / 2 + 1;
@@ -100,82 +98,60 @@ public class WorldGenDeadLog extends WorldGenTreeBase
 					for (int i = 0; i < currentLogLength; ++i)
 					{
 						setBlockInWorld(world, logPos, wood.withProperty(BlockLog.LOG_AXIS, EnumAxis.X));
-						
+
 						if (rand.nextInt(100) > 96 && topDecorations.size() > 0)
 						{
 							setBlockInWorld(world, logPos.up(),
 									topDecorations.get(rand.nextInt(topDecorations.size())));
 						}
-						
+
 						logPos = logPos.add(1, 0, 0);
 						
 					}
-					logPos = logPos.add(-currentLogLength, 1, 0);
+					logPos = logPos.add(-currentLogLength + rand.nextInt(minHeight), 1, 0);
 					currentLogLength = lengthTop;
 				}
-				logPos = logPos.add(-currentLogLength + 5, -2, 1);
+				logPos = logPos.add(-currentLogLength + logOffset, -logHeight, 1);
 				currentLogLength = length;
 				
-				// Random 2nd log
+				// Random nth log
 				length = minHeight + rand.nextInt(maxHeight);
 				lengthTop = rand.nextInt(maxHeight) / 2 + 1;
+				logOffset = rand.nextInt(minHeight) + 2;
 			}
 		}
 		else
 		{
 			// Still need to do Z
 			logPos = pos.add(0, 0, (length / 2) * -1);
-			
-			for (int i = 0; i < length; ++i)
+			for (int k = 0; k < logWidth; ++k)
 			{
-				setBlockInWorld(world, logPos, wood.withProperty(BlockLog.LOG_AXIS, EnumAxis.Z));
-				
-				if (rand.nextInt(10) > 7 && topDecorations.size() > 0)
+				for (int j = 0; j < logHeight; ++j)
 				{
-					setBlockInWorld(world, logPos.up(), topDecorations.get(rand.nextInt(topDecorations.size())));
+					for (int i = 0; i < currentLogLength; ++i)
+					{
+						setBlockInWorld(world, logPos, wood.withProperty(BlockLog.LOG_AXIS, EnumAxis.Z));
+						
+						if (rand.nextInt(10) > 7 && topDecorations.size() > 0)
+						{
+							setBlockInWorld(world, logPos.up(), topDecorations.get(rand.nextInt(topDecorations.size())));
+						}
+						
+						logPos = logPos.add(0, 0, 1);
+						
+					}
+					logPos = logPos.add(0, 1, -currentLogLength + rand.nextInt(minHeight));
+					currentLogLength = lengthTop;
 				}
+				logPos = logPos.add(1, -logHeight, -currentLogLength + logOffset);
+				currentLogLength = length;
 				
-				logPos = logPos.add(0, 0, 1);
+				// Random nth log
+				length = minHeight + rand.nextInt(maxHeight);
+				lengthTop = rand.nextInt(maxHeight) / 2 + 1;
+				logOffset = rand.nextInt(minHeight) + 2;
 			}
 		}
 	}
 	
-	private void generateSingleLogs(World world, Random rand, BlockPos pos)
-	{
-		int currentLogLength = minHeight + rand.nextInt(maxHeight);
-		BlockPos logPos;
-		if (rand.nextInt(2) == 0)
-		{
-			logPos = pos.add((currentLogLength / 2) * -1, 0, 0);
-			for (int i = 0; i < currentLogLength; ++i)
-			{
-				setBlockInWorld(world, logPos, wood.withProperty(BlockLog.LOG_AXIS, EnumAxis.X));
-				
-				if (rand.nextInt(100) > 96 && topDecorations.size() > 0)
-				{
-					setBlockInWorld(world, logPos.up(), topDecorations.get(rand.nextInt(topDecorations.size())));
-				}
-				
-				logPos = logPos.add(1, 0, 0);
-				
-			}
-			
-		}
-		else
-		{
-			logPos = pos.add(0, 0, (currentLogLength / 2) * -1);
-			
-			for (int i = 0; i < currentLogLength; ++i)
-			{
-				setBlockInWorld(world, logPos, wood.withProperty(BlockLog.LOG_AXIS, EnumAxis.Z));
-				
-				if (rand.nextInt(10) > 7 && topDecorations.size() > 0)
-				{
-					setBlockInWorld(world, logPos.up(), topDecorations.get(rand.nextInt(topDecorations.size())));
-				}
-				
-				logPos = logPos.add(0, 0, 1);
-			}
-		}
-	}	
 }
