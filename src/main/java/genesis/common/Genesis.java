@@ -2,6 +2,7 @@ package genesis.common;
 
 import genesis.command.CommandTPGenesis;
 import genesis.entity.extendedproperties.GenesisEntityData;
+import genesis.stats.GenesisAchievementList;
 import genesis.util.Constants;
 import genesis.world.GenesisWorldData;
 import genesis.world.WorldGenerators;
@@ -56,6 +57,9 @@ public class Genesis
 		WorldGenerators.register();
 		
 		GenesisEvent.init(event.getSide());
+		
+		GenesisAchievementList.initAchievements();
+		GenesisAchievementList.registerAchievements();
 		
 		proxy.preInit();
 	}
