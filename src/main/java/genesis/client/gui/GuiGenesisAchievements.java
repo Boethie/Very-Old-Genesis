@@ -332,6 +332,14 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 		java.util.List<Achievement> achievementList = (currentPage == -1 ? minecraftAchievements
 				: AchievementPage.getAchievementPage(currentPage).getAchievements());
 		this.mc.getTextureManager().bindTexture(GENESIS_ACHIEVEMENT_BACKGROUND);
+		
+		int showMaxSubAchievements = 4;
+
+		if (AchievementPage.getTitle(currentPage).equals(Constants.MOD_ID))
+			showMaxSubAchievements = achievementList.size();
+		
+		System.out.println(showMaxSubAchievements);
+		
 		for (int j5 = 0; j5 < achievementList.size(); ++j5)
 		{
 			Achievement achievement1 = achievementList.get(j5);
@@ -346,7 +354,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 				boolean achCanUnlock = this.statFileWriter.canUnlockAchievement(achievement1);
 				int k4 = this.statFileWriter.func_150874_c(achievement1);
 
-				if (k4 <= 4)
+				if (k4 <= showMaxSubAchievements)
 				{
 					int lineColour = -16777216;
 
@@ -425,10 +433,8 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 				}
 				else
 				{
-					if (l7 != 4)
-					{
+					if (l7 != showMaxSubAchievements && !AchievementPage.getTitle(currentPage).equals(Constants.MOD_ID))
 						continue;
-					}
 
 					float f9 = 0.1F;
 					GlStateManager.color(f9, f9, f9, 1.0F);
