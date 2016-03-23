@@ -160,15 +160,7 @@ public final class GenesisSounds
 			public IMessage onMessage(final MovingEntitySoundMessage message, final MessageContext ctx)
 			{
 				final Minecraft mc = Minecraft.getMinecraft();
-				mc.addScheduledTask(new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						Entity entity = mc.theWorld.getEntityByID(message.entityID);
-						playMovingEntitySound(message.sound, message.loop, entity, message.volume, message.pitch);
-					}
-				});
+				mc.addScheduledTask(() -> playMovingEntitySound(message.sound, message.loop, mc.theWorld.getEntityByID(message.entityID), message.volume, message.pitch));
 				return null;
 			}
 		}

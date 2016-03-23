@@ -303,18 +303,14 @@ public class BlockPebble extends Block
 			{
 				final EntityPlayer player = ctx.getServerHandler().playerEntity;
 				final WorldServer world = (WorldServer) player.worldObj;
-				world.addScheduledTask(new Runnable()
+				world.addScheduledTask(() ->
 				{
-					@Override
-					public void run()
+					Block block = world.getBlockState(message.pos).getBlock();
+					
+					if (!block.isAir(world, message.pos))
 					{
-						Block block = world.getBlockState(message.pos).getBlock();
-						
-						if (!block.isAir(world, message.pos))
-						{
-							BlockPebble pebble = (BlockPebble) block;
-							pebble.removePebble(world, message.pos, message.part, player, message.harvest);
-						}
+						BlockPebble pebble = (BlockPebble) block;
+						pebble.removePebble(world, message.pos, message.part, player, message.harvest);
 					}
 				});
 				

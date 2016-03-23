@@ -501,61 +501,57 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 			public IMessage onMessage(final MeganeuraUpdateMessage message, final MessageContext ctx)
 			{
 				final Minecraft mc = Minecraft.getMinecraft();
-				mc.addScheduledTask(new Runnable()
+				mc.addScheduledTask(() ->
 				{
-					@Override
-					public void run()
+					World world = mc.theWorld;
+					Entity entity = world.getEntityByID(message.entityID);
+					
+					if (entity instanceof EntityMeganeura)
 					{
-						World world = mc.theWorld;
-						Entity entity = world.getEntityByID(message.entityID);
+						EntityMeganeura meganeura = (EntityMeganeura) entity;
 						
-						if (entity instanceof EntityMeganeura)
+						if (message.eggPlaceTimer == 1)	// Set the timer directly when starting it, so it doesn't interpolate.
 						{
-							EntityMeganeura meganeura = (EntityMeganeura) entity;
-							
-							if (message.eggPlaceTimer == 1)	// Set the timer directly when starting it, so it doesn't interpolate.
-							{
-								meganeura.prevEggPlaceTimer = meganeura.eggPlaceTimer = message.eggPlaceTimer;
-							}
-							else
-							{
-								meganeura.newEggPlaceTimer = message.eggPlaceTimer;
-							}
-							
-							Vec3 p = message.position;
-							
-							if (p != null)
-							{
-								meganeura.setPositionAndRotation2(p.xCoord, p.yCoord, p.zCoord, message.yaw, meganeura.rotationPitch, 2, false);
-								meganeura.serverPosX = (int) (p.xCoord * 32);
-								meganeura.serverPosY = (int) (p.yCoord * 32);
-								meganeura.serverPosZ = (int) (p.zCoord * 32);
-							}
-							
-							Vec3 v = message.velocity;
-							
-							if (v != null)
-							{
-								meganeura.setVelocity(v.xCoord, v.yCoord, v.zCoord);
-							}
-							
-							meganeura.setTargetLocation(message.targetLocation);
+							meganeura.prevEggPlaceTimer = meganeura.eggPlaceTimer = message.eggPlaceTimer;
 						}
 						else
 						{
-							Genesis.logger.warn("Client received a MeganeuraUpdateMessage with an entity ID that points to another type of entity.");
-							
-							if (entity != null)
-							{
-								Genesis.logger.warn("entity: " + entity + ", entityID: " + message.entityID + " (entity says " + entity.getEntityId() + ")");
-							}
-							else
-							{
-								Genesis.logger.warn("entity: " + entity + ", entityID: " + message.entityID);
-							}
-							
-							Thread.dumpStack();
+							meganeura.newEggPlaceTimer = message.eggPlaceTimer;
 						}
+						
+						Vec3 p = message.position;
+						
+						if (p != null)
+						{
+							meganeura.setPositionAndRotation2(p.xCoord, p.yCoord, p.zCoord, message.yaw, meganeura.rotationPitch, 2, false);
+							meganeura.serverPosX = (int) (p.xCoord * 32);
+							meganeura.serverPosY = (int) (p.yCoord * 32);
+							meganeura.serverPosZ = (int) (p.zCoord * 32);
+						}
+						
+						Vec3 v = message.velocity;
+						
+						if (v != null)
+						{
+							meganeura.setVelocity(v.xCoord, v.yCoord, v.zCoord);
+						}
+						
+						meganeura.setTargetLocation(message.targetLocation);
+					}
+					else
+					{
+						Genesis.logger.warn("Client received a MeganeuraUpdateMessage with an entity ID that points to another type of entity.");
+						
+						if (entity != null)
+						{
+							Genesis.logger.warn("entity: " + entity + ", entityID: " + message.entityID + " (entity says " + entity.getEntityId() + ")");
+						}
+						else
+						{
+							Genesis.logger.warn("entity: " + entity + ", entityID: " + message.entityID);
+						}
+						
+						Thread.dumpStack();
 					}
 				});
 				return null;
