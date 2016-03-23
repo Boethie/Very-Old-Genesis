@@ -9,14 +9,18 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;
 
-public class GenesisAchievementList
+public class GenesisAchievements
 {
+	static AchievementPage genesisAchievementPage;
 	private static List<Achievement> genesisAchievements = new ArrayList<Achievement>();
+	
 	public static Achievement enterGenesis;
 	
 	public static void initAchievements()
 	{
 		enterGenesis = createAchievement("enter", 0, 0, new ItemStack(GenesisBlocks.portal), null, true, true);
+		
+		registerAchievements();
 	}
 	
 	private static Achievement createAchievement(String name, int coloum, int row, ItemStack icon, Achievement parent, boolean special, boolean independent)
@@ -30,12 +34,12 @@ public class GenesisAchievementList
 		return create;
 	}
 	
-	public static void registerAchievements()
+	private static void registerAchievements()
 	{
 		Achievement[] achievements = new Achievement[genesisAchievements.size()];
 		achievements = genesisAchievements.toArray(achievements);
 		
-		AchievementPage genesisAchievementPage = new AchievementPage("Genesis", achievements);
+		genesisAchievementPage = new AchievementPage("Genesis", achievements);
 		AchievementPage.registerAchievementPage(genesisAchievementPage);
 	}
 	

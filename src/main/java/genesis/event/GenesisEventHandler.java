@@ -1,7 +1,13 @@
 package genesis.event;
 
+import genesis.common.Genesis;
+import genesis.common.GenesisGuiHandler;
 import genesis.world.GenesisWorldData;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.achievement.GuiAchievements;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
@@ -30,6 +36,23 @@ public class GenesisEventHandler
 					data.setTime(data.getTime() + 1);
 				}
 			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void onGuiOpen(GuiOpenEvent event) 
+	{
+		if (event.gui == null) 
+		{
+			return;
+		}
+		
+		if (event.gui.getClass() == GuiAchievements.class) 
+		{
+			event.setCanceled(true);
+			EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+			player.openGui(Genesis.instance, GenesisGuiHandler.GENESIS_ACHIEVEMENT_ID, player.worldObj, player.getPosition().getX(),
+					player.getPosition().getY(), player.getPosition().getZ());
 		}
 	}
 }
