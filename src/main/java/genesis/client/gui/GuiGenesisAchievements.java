@@ -338,8 +338,6 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 		if (AchievementPage.getTitle(currentPage).equals(Constants.MOD_ID))
 			showMaxSubAchievements = achievementList.size();
 		
-		System.out.println(showMaxSubAchievements);
-		
 		for (int j5 = 0; j5 < achievementList.size(); ++j5)
 		{
 			Achievement achievement1 = achievementList.get(j5);

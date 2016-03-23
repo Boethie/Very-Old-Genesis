@@ -3,6 +3,10 @@ package genesis.stats;
 import java.util.ArrayList;
 import java.util.List;
 
+import genesis.combo.ToolItems;
+import genesis.combo.TreeBlocksAndItems;
+import genesis.combo.variant.EnumToolMaterial;
+import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
 import genesis.util.Constants;
@@ -17,36 +21,25 @@ public class GenesisAchievements
 	
 	public static Achievement enterGenesis;
 	public static Achievement gettingPebble;
+	public static Achievement gettingChoppingTool;
+	public static Achievement gettingLog;
 	public static Achievement workbench;
 	public static Achievement campfire;
-	public static Achievement campfireCeramicBowl;
-	public static Achievement campfirePorridge;
-	public static Achievement hoeHeadChipped;
-	public static Achievement pickaxeHeadChipped;
-	public static Achievement pickaxeHeadChippedOctaedrite;
-	public static Achievement pickaxeHeadChippedBlackDiamond;
-	public static Achievement spearHeadChipped;
+	public static Achievement knappingPickaxe;
 	
 	public static void initAchievements()
 	{
 		enterGenesis = createAchievement("enter", 0, 0, new ItemStack(GenesisBlocks.portal), null, true);
 		
-		gettingPebble = createAchievement("pebble", 2, 1, new ItemStack(GenesisBlocks.ancient_permafrost), enterGenesis, false);
+		gettingPebble = createAchievement("pebble", 2, 1, GenesisItems.tools.getStack(ToolItems.PEBBLE, EnumToolMaterial.GRANITE), enterGenesis, false);
 		
-		workbench = createAchievement("workbench", -2, 1, new ItemStack(GenesisBlocks.workbench), enterGenesis, false);
+		gettingChoppingTool = createAchievement("choppingtool", 4, 1, GenesisItems.tools.getStack(ToolItems.CHOPPING_TOOL, EnumToolMaterial.GRANITE), gettingPebble, false);
 		
-		campfire = createAchievement("campfire", 0, 3, new ItemStack(GenesisBlocks.campfire), enterGenesis, true);
-		campfireCeramicBowl = createAchievement("ceramicbowl", 2, 3, new ItemStack(GenesisItems.red_clay_bowl), campfire, false);
-		campfirePorridge = createAchievement("porridge", 3, 4, new ItemStack(GenesisItems.red_clay_bowl), campfireCeramicBowl, false);
+		gettingLog = createAchievement("log", 6, 1, GenesisBlocks.trees.getStack(TreeBlocksAndItems.LOG, EnumTree.SIGILLARIA), gettingChoppingTool, false);
 		
-		hoeHeadChipped = createAchievement("hoeheadchipped", -3, 3, new ItemStack(GenesisItems.ceramic_bucket), workbench, false);
+		workbench = createAchievement("workbench", 8, -1, new ItemStack(GenesisBlocks.workbench), gettingLog, false);
 		
-		pickaxeHeadChipped = createAchievement("pickaxeheadchipped", -4, 5, new ItemStack(GenesisBlocks.portal), workbench, true);
-		pickaxeHeadChippedOctaedrite = createAchievement("pickaxeheadchippedoctaedrite", -5, 6, new ItemStack(GenesisBlocks.portal), pickaxeHeadChipped, false);
-		pickaxeHeadChippedBlackDiamond = createAchievement("pickaxeheadchippedblackdiamond", -5, 8, new ItemStack(GenesisBlocks.portal), pickaxeHeadChippedOctaedrite, false);
-		
-		spearHeadChipped = createAchievement("spearheadchipped", -2, -2, new ItemStack(GenesisBlocks.portal), workbench,
-				false);
+		campfire = createAchievement("campfire", 10, -1, new ItemStack(GenesisBlocks.campfire), workbench, false);
 		
 		registerAchievements();
 	}
@@ -71,5 +64,4 @@ public class GenesisAchievements
 		genesisAchievementPage = new AchievementPage(Constants.MOD_ID, achievements);
 		AchievementPage.registerAchievementPage(genesisAchievementPage);
 	}
-	
 }
