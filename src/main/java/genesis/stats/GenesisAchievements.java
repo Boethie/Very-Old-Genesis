@@ -57,6 +57,7 @@ public class GenesisAchievements
 			create = create.setSpecial();
 		if(independent)
 			create = create.initIndependentStat();
+		create.registerStat();
 		genesisAchievements.add(create);
 		return create;
 	}
