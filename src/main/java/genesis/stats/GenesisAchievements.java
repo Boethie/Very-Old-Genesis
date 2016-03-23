@@ -5,6 +5,7 @@ import java.util.List;
 
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
+import genesis.util.Constants;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
@@ -43,7 +44,7 @@ public class GenesisAchievements
 		
 		pickaxeHeadChipped = createAchievement("pickaxeheadchipped", -4, 5, new ItemStack(GenesisBlocks.portal), workbench, true, false);
 		pickaxeHeadChippedOctaedrite = createAchievement("pickaxeheadchippedoctaedrite", -5, 6, new ItemStack(GenesisBlocks.portal), pickaxeHeadChipped, false, false);
-		pickaxeHeadChippedBlackDiamond = createAchievement("pickaxeheadchippedblackdiamond", -5, 7, new ItemStack(GenesisBlocks.portal), pickaxeHeadChippedOctaedrite, false, false);
+		pickaxeHeadChippedBlackDiamond = createAchievement("pickaxeheadchippedblackdiamond", -5, 8, new ItemStack(GenesisBlocks.portal), pickaxeHeadChippedOctaedrite, false, false);
 		
 		spearHeadChipped = createAchievement("spearheadchipped", -2, -2, new ItemStack(GenesisBlocks.portal), workbench, false, false);
 		
@@ -67,7 +68,7 @@ public class GenesisAchievements
 		Achievement[] achievements = new Achievement[genesisAchievements.size()];
 		achievements = genesisAchievements.toArray(achievements);
 		
-		genesisAchievementPage = new AchievementPage("Genesis", achievements);
+		genesisAchievementPage = new AchievementPage(Constants.MOD_ID, achievements);
 		AchievementPage.registerAchievementPage(genesisAchievementPage);
 	}
 	
