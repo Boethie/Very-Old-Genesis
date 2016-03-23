@@ -61,7 +61,7 @@ public class GenesisAchievements
 		Achievement[] achievements = new Achievement[genesisAchievements.size()];
 		achievements = genesisAchievements.toArray(achievements);
 		
-		genesisAchievementPage = new AchievementPage(Constants.MOD_ID, achievements);
+		genesisAchievementPage = new AchievementPage("Genesis", achievements);
 		AchievementPage.registerAchievementPage(genesisAchievementPage);
 	}
 }

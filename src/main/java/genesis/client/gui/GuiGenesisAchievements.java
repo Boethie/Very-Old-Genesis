@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.io.IOException;
 import java.util.Random;
 
+import org.lwjgl.Sys;
 import org.lwjgl.input.Mouse;
 
 import genesis.combo.OreBlocks;
@@ -30,7 +31,7 @@ import net.minecraft.stats.StatFileWriter;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
-
+import net.minecraft.world.World;
 import net.minecraftforge.common.AchievementPage;
 
 public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
@@ -41,7 +42,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 	private static final int maxDisplayRow = AchievementList.maxDisplayRow * 24 - 77;
 
 	private static final ResourceLocation GENESIS_ACHIEVEMENT_BACKGROUND = new ResourceLocation(
-			Constants.MOD_ID + ":textures/gui/achievement.png");
+			"Genesis" + ":textures/gui/achievement.png");
 	private static final ResourceLocation DEFAULT_ACHIEVEMENT_BACKGROUND = new ResourceLocation(
 			"textures/gui/achievement/achievement_background.png");
 
@@ -67,7 +68,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 
 	private java.util.LinkedList<Achievement> minecraftAchievements = new java.util.LinkedList<Achievement>();
 
-	public GuiGenesisAchievements(GuiScreen parentScreenIn, StatFileWriter statFileWriterIn)
+	public GuiGenesisAchievements(GuiScreen parentScreenIn, StatFileWriter statFileWriterIn, World worldObj)
 	{
 		this.parentScreen = parentScreenIn;
 		this.statFileWriter = statFileWriterIn;
@@ -80,6 +81,17 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 			if (!AchievementPage.isAchievementInPages(achievement))
 			{
 				minecraftAchievements.add(achievement);
+			}
+		}
+
+		if (worldObj.provider.getDimensionName().equals("Genesis"))
+		{
+			for (int i = 0; i < AchievementPage.getAchievementPages().size(); i++)
+			{
+				if (AchievementPage.getAchievementPage(i).getName().equals("Genesis"))
+				{
+					currentPage = i;
+				}
 			}
 		}
 	}
@@ -269,7 +281,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 	protected void drawTitle()
 	{
 		int colour = 4210752;
-		if (AchievementPage.getTitle(currentPage).equals(Constants.MOD_ID))
+		if (AchievementPage.getTitle(currentPage).equals("Genesis"))
 			colour = Constants.TITLE_COLOUR;
 		int i = (this.width - this.guiWidth) / 2;
 		int j = (this.height - this.guiHeight) / 2;
@@ -318,7 +330,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.enableColorMaterial();
 
-		if (AchievementPage.getTitle(currentPage).equals(Constants.MOD_ID))
+		if (AchievementPage.getTitle(currentPage).equals("Genesis"))
 		{
 			generateGenesisBackgroundBlocks(i, j);
 		}
@@ -332,12 +344,12 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 		java.util.List<Achievement> achievementList = (currentPage == -1 ? minecraftAchievements
 				: AchievementPage.getAchievementPage(currentPage).getAchievements());
 		this.mc.getTextureManager().bindTexture(GENESIS_ACHIEVEMENT_BACKGROUND);
-		
+
 		int showMaxSubAchievements = 4;
 
-		if (AchievementPage.getTitle(currentPage).equals(Constants.MOD_ID))
+		if (AchievementPage.getTitle(currentPage).equals("Genesis"))
 			showMaxSubAchievements = achievementList.size();
-		
+
 		for (int j5 = 0; j5 < achievementList.size(); ++j5)
 		{
 			Achievement achievement1 = achievementList.get(j5);
@@ -356,7 +368,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 				{
 					int lineColour = -16777216;
 
-					if (AchievementPage.getTitle(currentPage).equals(Constants.MOD_ID))
+					if (AchievementPage.getTitle(currentPage).equals("Genesis"))
 						lineColour = Color.RED.getRGB();
 
 					if (achUnlocked)
@@ -431,14 +443,14 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 				}
 				else
 				{
-					if (l7 != showMaxSubAchievements && !AchievementPage.getTitle(currentPage).equals(Constants.MOD_ID))
+					if (l7 != showMaxSubAchievements && !AchievementPage.getTitle(currentPage).equals("Genesis"))
 						continue;
 
 					float f9 = 0.1F;
 					GlStateManager.color(f9, f9, f9, 1.0F);
 				}
 
-				if (AchievementPage.getTitle(currentPage).equals(Constants.MOD_ID))
+				if (AchievementPage.getTitle(currentPage).equals("Genesis"))
 				{
 					this.mc.getTextureManager().bindTexture(GENESIS_ACHIEVEMENT_BACKGROUND);
 				}
@@ -490,7 +502,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 		GlStateManager.enableBlend();
 		GlStateManager.popMatrix();
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		if (AchievementPage.getTitle(currentPage).equals(Constants.MOD_ID))
+		if (AchievementPage.getTitle(currentPage).equals("Genesis"))
 		{
 			this.mc.getTextureManager().bindTexture(GENESIS_ACHIEVEMENT_BACKGROUND);
 		}

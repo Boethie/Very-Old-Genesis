@@ -51,7 +51,7 @@ public class GenesisGuiHandler implements IGuiHandler
 		case STORAGE_BOX_ID:
 			return new GuiContainerStorageBox(player, (TileEntityStorageBox) world.getTileEntity(pos));
 		case GENESIS_ACHIEVEMENT_ID:
-			return new GuiGenesisAchievements(new GuiIngameMenu(), Minecraft.getMinecraft().thePlayer.getStatFileWriter());
+			return new GuiGenesisAchievements(new GuiIngameMenu(), Minecraft.getMinecraft().thePlayer.getStatFileWriter(), world);
 		}
 		
 		return null;
