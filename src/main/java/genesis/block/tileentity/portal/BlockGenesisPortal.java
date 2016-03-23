@@ -35,8 +35,6 @@ public class BlockGenesisPortal extends Block
 	{
 		if (!world.isRemote)
 		{
-			if(entity instanceof EntityPlayer)
-				((EntityPlayer)entity).addStat(GenesisAchievements.enterGenesis, 1);
 			GenesisPortal portal = GenesisPortal.fromPortalBlock(world, pos);
 			portal.updatePortalStatus(world);	// TODO: Make this check if the portal is active instead of disabling it.
 			// So that map authors can use the attraction force creatively without it randomly being removed.
@@ -60,9 +58,10 @@ public class BlockGenesisPortal extends Block
 					{
 						entity.timeUntilPortal = GenesisPortal.COOLDOWN;
 					}
-					else
+					else if (GenesisDimensions.teleportToDimension(entity, portal, dimension, false))
 					{
-						GenesisDimensions.teleportToDimension(entity, portal, dimension, false);
+						if (dimension == GenesisConfig.genesisDimId && entity instanceof EntityPlayer)
+							((EntityPlayer)entity).addStat(GenesisAchievements.enterGenesis, 1);
 					}
 				}
 			}
