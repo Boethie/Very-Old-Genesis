@@ -1,5 +1,6 @@
 package genesis.client.gui;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.util.Random;
 
@@ -275,9 +276,12 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 
 	protected void drawTitle()
 	{
+		int colour = 4210752;
+		if (net.minecraftforge.common.AchievementPage.getTitle(currentPage) == "Genesis")
+			colour = Color.WHITE.getRGB();
 		int i = (this.width - this.guiWidth) / 2;
 		int j = (this.height - this.guiHeight) / 2;
-		this.fontRendererObj.drawString(I18n.format("gui.achievements", new Object[0]), i + 15, j + 5, 4210752);
+		this.fontRendererObj.drawString(I18n.format("gui.achievements", new Object[0]), i + 15, j + 5, colour);
 	}
 
 	protected void drawAchievementScreen(int p_146552_1_, int p_146552_2_, float p_146552_3_)
@@ -333,10 +337,9 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 			generateDefaultBackgroundBlocks(i, j);
 		}
 		
-
+		
 		GlStateManager.enableDepth();
 		GlStateManager.depthFunc(515);
-
 		java.util.List<Achievement> achievementList = (currentPage == -1 ? minecraftAchievements
 				: net.minecraftforge.common.AchievementPage.getAchievementPage(currentPage).getAchievements());
 		this.mc.getTextureManager().bindTexture(DEFAULT_ACHIEVEMENT_BACKGROUND);
@@ -346,45 +349,48 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 
 			if (achievement1.parentAchievement != null && achievementList.contains(achievement1.parentAchievement))
 			{
-				int k5 = achievement1.displayColumn * 24 - i + 11;
-				int l5 = achievement1.displayRow * 24 - j + 11;
-				int j6 = achievement1.parentAchievement.displayColumn * 24 - i + 11;
-				int k6 = achievement1.parentAchievement.displayRow * 24 - j + 11;
-				boolean flag = this.statFileWriter.hasAchievementUnlocked(achievement1);
-				boolean flag1 = this.statFileWriter.canUnlockAchievement(achievement1);
+				int achXPos = achievement1.displayColumn * 24 - i + 11;
+				int achYPos = achievement1.displayRow * 24 - j + 11;
+				int achXEndPos = achievement1.parentAchievement.displayColumn * 24 - i + 11;
+				int achYEndPos = achievement1.parentAchievement.displayRow * 24 - j + 11;
+				boolean achUnlocked = this.statFileWriter.hasAchievementUnlocked(achievement1);
+				boolean achCanUnlock = this.statFileWriter.canUnlockAchievement(achievement1);
 				int k4 = this.statFileWriter.func_150874_c(achievement1);
 
 				if (k4 <= 4)
 				{
-					int l4 = -16777216;
+					int lineColour = -16777216;
 
-					if (flag)
+					if (net.minecraftforge.common.AchievementPage.getTitle(currentPage) == "Genesis")
+						lineColour = Color.RED.getRGB();
+					
+					if (achUnlocked)
 					{
-						l4 = -6250336;
+						lineColour = -16711936;
 					}
-					else if (flag1)
+					else if (achCanUnlock)
 					{
-						l4 = -16711936;
+						lineColour = -6250336;
 					}
 
-					this.drawHorizontalLine(k5, j6, l5, l4);
-					this.drawVerticalLine(j6, l5, k6, l4);
+					this.drawHorizontalLine(achXPos, achXEndPos, achYPos, lineColour);
+					this.drawVerticalLine(achXEndPos, achYPos, achYEndPos, lineColour);
 
-					if (k5 > j6)
+					if (achXPos > achXEndPos)
 					{
-						this.drawTexturedModalRect(k5 - 11 - 7, l5 - 5, 114, 234, 7, 11);
+						this.drawTexturedModalRect(achXPos - 11 - 7, achYPos - 5, 114, 234, 7, 11);
 					}
-					else if (k5 < j6)
+					else if (achXPos < achXEndPos)
 					{
-						this.drawTexturedModalRect(k5 + 11, l5 - 5, 107, 234, 7, 11);
+						this.drawTexturedModalRect(achXPos + 11, achYPos - 5, 107, 234, 7, 11);
 					}
-					else if (l5 > k6)
+					else if (achYPos > achYEndPos)
 					{
-						this.drawTexturedModalRect(k5 - 5, l5 - 11 - 7, 96, 234, 11, 7);
+						this.drawTexturedModalRect(achXPos - 5, achYPos - 11 - 7, 96, 234, 11, 7);
 					}
-					else if (l5 < k6)
+					else if (achYPos < achYEndPos)
 					{
-						this.drawTexturedModalRect(k5 - 5, l5 + 11, 96, 241, 11, 7);
+						this.drawTexturedModalRect(achXPos - 5, achYPos + 11, 96, 241, 11, 7);
 					}
 				}
 			}
