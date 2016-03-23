@@ -12,7 +12,6 @@ import genesis.common.GenesisBlocks;
 import genesis.util.Constants;
 import genesis.util.blocks.BlockTexture;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiOptionButton;
@@ -55,8 +54,8 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 
 	protected float guiZoom = 1.0F;
 
-	protected double achivementOffsetX;
-	protected double achivementOffsetY;
+	protected double achivementOffsetX = 0.0D;
+	protected double achivementOffsetY = 0.0D;
 
 	private boolean clicked;
 
@@ -73,8 +72,8 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 		this.parentScreen = parentScreenIn;
 		this.statFileWriter = statFileWriterIn;
 
-		this.achivementOffsetX = (double) (AchievementList.openInventory.displayColumn * 24 - 141 / 2 - 12);
-		this.achivementOffsetY = (double) (AchievementList.openInventory.displayRow * 24 - 141 / 2);
+		this.achivementOffsetX = (AchievementList.openInventory.displayColumn * 24 - 141 / 2 - 12);
+		this.achivementOffsetY = (AchievementList.openInventory.displayRow * 24 - 141 / 2);
 		minecraftAchievements.clear();
 		for (Achievement achievement : AchievementList.achievementList)
 		{
@@ -85,6 +84,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 		}
 	}
 
+	@Override
 	public void initGui()
 	{
 		this.mc.getNetHandler()
@@ -96,6 +96,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 				AchievementPage.getTitle(currentPage)));
 	}
 
+	@Override
 	protected void actionPerformed(GuiButton button) throws IOException
 	{
 		if (!this.loadingAchievements)
@@ -118,12 +119,13 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 				modName += AchievementPage.getTitle(currentPage).substring(1, modNameLength);
 				this.button.displayString = modName;
 				this.guiZoom = 1.0F;
-				this.achivementOffsetX = (double) (AchievementList.openInventory.displayColumn * 24 - 141 / 2 - 12);
-				this.achivementOffsetY = (double) (AchievementList.openInventory.displayRow * 24 - 141 / 2);
+				this.achivementOffsetX = (AchievementList.openInventory.displayColumn * 24 - 141 / 2 - 12);
+				this.achivementOffsetY = (AchievementList.openInventory.displayRow * 24 - 141 / 2);
 			}
 		}
 	}
 
+	@Override
 	protected void keyTyped(char typedChar, int keyCode) throws IOException
 	{
 		if (keyCode == this.mc.gameSettings.keyBindInventory.getKeyCode())
@@ -137,6 +139,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 		}
 	}
 
+	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks)
 	{
 		if (this.loadingAchievements)
@@ -145,8 +148,8 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 			this.drawCenteredString(this.fontRendererObj, I18n.format("multiplayer.downloadingStats", new Object[0]),
 					this.width / 2, this.height / 2, 16777215);
 			this.drawCenteredString(this.fontRendererObj,
-					lanSearchStates[(int) (Minecraft.getSystemTime() / 150L % (long) lanSearchStates.length)],
-					this.width / 2, this.height / 2 + this.fontRendererObj.FONT_HEIGHT * 2, 16777215);
+					lanSearchStates[(int) (Minecraft.getSystemTime() / 150L % lanSearchStates.length)], this.width / 2,
+					this.height / 2 + this.fontRendererObj.FONT_HEIGHT * 2, 16777215);
 		}
 		else
 		{
@@ -166,8 +169,8 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 					}
 					else
 					{
-						this.achivementOffsetX -= (double) ((float) (mouseX - this.mouseX) * this.guiZoom);
-						this.achivementOffsetY -= (double) ((float) (mouseY - this.mouseY) * this.guiZoom);
+						this.achivementOffsetX -= ((mouseX - this.mouseX) * this.guiZoom);
+						this.achivementOffsetY -= ((mouseY - this.mouseY) * this.guiZoom);
 					}
 
 					this.mouseX = mouseX;
@@ -195,32 +198,32 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 
 			if (this.guiZoom != f3)
 			{
-				float f4 = f3 * (float) this.guiWidth;
-				float f = f3 * (float) this.guiHeight;
-				float f1 = this.guiZoom * (float) this.guiWidth;
-				float f2 = this.guiZoom * (float) this.guiHeight;
-				this.achivementOffsetX -= (double) ((f1 - f4) * 0.5F);
-				this.achivementOffsetY -= (double) ((f2 - f) * 0.5F);
+				float f4 = f3 * this.guiWidth;
+				float f = f3 * this.guiHeight;
+				float f1 = this.guiZoom * this.guiWidth;
+				float f2 = this.guiZoom * this.guiHeight;
+				this.achivementOffsetX -= (f1 - f4) * 0.5F;
+				this.achivementOffsetY -= (f2 - f) * 0.5F;
 			}
 
-			if (this.achivementOffsetX < (double) minDisplayColum)
+			if (this.achivementOffsetX < minDisplayColum)
 			{
-				this.achivementOffsetX = (double) minDisplayColum;
+				this.achivementOffsetX = minDisplayColum;
 			}
 
-			if (this.achivementOffsetY < (double) minDisplayRow)
+			if (this.achivementOffsetY < minDisplayRow)
 			{
-				this.achivementOffsetY = (double) minDisplayRow;
+				this.achivementOffsetY = minDisplayRow;
 			}
 
-			if (this.achivementOffsetX >= (double) maxDisplayColumn)
+			if (this.achivementOffsetX >= maxDisplayColumn)
 			{
-				this.achivementOffsetX = (double) (maxDisplayColumn - 1);
+				this.achivementOffsetX = maxDisplayColumn - 1;
 			}
 
-			if (this.achivementOffsetY >= (double) maxDisplayRow)
+			if (this.achivementOffsetY >= maxDisplayRow)
 			{
-				this.achivementOffsetY = (double) (maxDisplayRow - 1);
+				this.achivementOffsetY = maxDisplayRow - 1;
 			}
 
 			this.drawDefaultBackground();
@@ -233,6 +236,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 		}
 	}
 
+	@Override
 	public void doneLoading()
 	{
 		if (this.loadingAchievements)
@@ -241,6 +245,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 		}
 	}
 
+	@Override
 	public void updateScreen()
 	{
 		if (!this.loadingAchievements)
@@ -273,10 +278,10 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 
 	protected void drawAchievementScreen(int p_146552_1_, int p_146552_2_, float p_146552_3_)
 	{
-		int i = MathHelper.floor_double(
-				this.achivementOffsetX + (this.achivementOffsetX - this.achivementOffsetX) * (double) p_146552_3_);
-		int j = MathHelper.floor_double(
-				this.achivementOffsetY + (this.achivementOffsetY - this.achivementOffsetY) * (double) p_146552_3_);
+		int i = MathHelper
+				.floor_double(this.achivementOffsetX + (this.achivementOffsetX - this.achivementOffsetX) * p_146552_3_);
+		int j = MathHelper
+				.floor_double(this.achivementOffsetY + (this.achivementOffsetY - this.achivementOffsetY) * p_146552_3_);
 
 		if (i < minDisplayColum)
 		{
@@ -305,7 +310,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 		this.zLevel = 0.0F;
 		GlStateManager.depthFunc(518);
 		GlStateManager.pushMatrix();
-		GlStateManager.translate((float) i1, (float) j1, -200.0F);
+		GlStateManager.translate(i1, j1, -200.0F);
 
 		GlStateManager.scale(1.0F / this.guiZoom, 1.0F / this.guiZoom, 1.0F);
 		GlStateManager.enableTexture2D();
@@ -381,8 +386,8 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 		}
 
 		Achievement achievement = null;
-		float f3 = (float) (p_146552_1_ - i1) * this.guiZoom;
-		float f4 = (float) (p_146552_2_ - j1) * this.guiZoom;
+		float f3 = (p_146552_1_ - i1) * this.guiZoom;
+		float f4 = (p_146552_2_ - j1) * this.guiZoom;
 		RenderHelper.enableGUIStandardItemLighting();
 		GlStateManager.disableLighting();
 		GlStateManager.enableRescaleNormal();
@@ -394,7 +399,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 			int l6 = achievement2.displayColumn * 24 - i;
 			int j7 = achievement2.displayRow * 24 - j;
 
-			if (l6 >= -24 && j7 >= -24 && (float) l6 <= 224.0F * this.guiZoom && (float) j7 <= 155.0F * this.guiZoom)
+			if (l6 >= -24 && j7 >= -24 && l6 <= 224.0F * this.guiZoom && j7 <= 155.0F * this.guiZoom)
 			{
 				int l7 = this.statFileWriter.func_150874_c(achievement2);
 
@@ -470,7 +475,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 
 				GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
-				if (f3 >= (float) l6 && f3 <= (float) (l6 + 22) && f4 >= (float) j7 && f4 <= (float) (j7 + 22))
+				if (f3 >= l6 && f3 <= (l6 + 22) && f4 >= j7 && f4 <= (j7 + 22))
 				{
 					achievement = achievement2;
 				}
@@ -519,8 +524,8 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 
 				if (this.statFileWriter.hasAchievementUnlocked(achievement))
 				{
-					this.fontRendererObj.drawStringWithShadow(I18n.format("achievement.taken", new Object[0]),
-							(float) i7, (float) (k7 + i9 + 4), -7302913);
+					this.fontRendererObj.drawStringWithShadow(I18n.format("achievement.taken", new Object[0]), i7,
+							(k7 + i9 + 4), -7302913);
 				}
 			}
 			else if (i8 == 3)
@@ -549,7 +554,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 
 			if (s != null)
 			{
-				this.fontRendererObj.drawStringWithShadow(s, (float) i7, (float) k7,
+				this.fontRendererObj.drawStringWithShadow(s, i7, k7,
 						this.statFileWriter.canUnlockAchievement(achievement) ? (achievement.getSpecial() ? -128 : -1)
 								: (achievement.getSpecial() ? -8355776 : -8355712));
 			}
@@ -560,6 +565,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 		RenderHelper.disableStandardItemLighting();
 	}
 
+	@Override
 	public boolean doesGuiPauseGame()
 	{
 		return !this.loadingAchievements;
@@ -574,14 +580,14 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 		Random random = new Random();
 		float f = 16.0F / this.guiZoom;
 		float f1 = 16.0F / this.guiZoom;
-		for (int l3 = 0; (float) l3 * f - (float) j2 < 155.0F; ++l3)
+		for (int l3 = 0; l3 * f - j2 < 155.0F; ++l3)
 		{
-			float f2 = 0.6F - (float) (l1 + l3) / 25.0F * 0.3F;
+			float f2 = 0.6F - (l1 + l3) / 25.0F * 0.3F;
 			GlStateManager.color(f2, f2, f2, 1.0F);
 
-			for (int i4 = 0; (float) i4 * f1 - (float) i2 < 224.0F; ++i4)
+			for (int i4 = 0; i4 * f1 - i2 < 224.0F; ++i4)
 			{
-				random.setSeed((long) (this.mc.getSession().getPlayerID().hashCode() + k1 + i4 + (l1 + l3) * 16));
+				random.setSeed((this.mc.getSession().getPlayerID().hashCode() + k1 + i4 + (l1 + l3) * 16));
 				int j4 = random.nextInt(1 + l1 + l3) + (l1 + l3) / 2;
 				TextureAtlasSprite textureatlassprite = BlockTexture.getTextureFromBlock(Blocks.sand);
 
@@ -636,14 +642,14 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 		Random random = new Random();
 		float f = 16.0F / this.guiZoom;
 		float f1 = 16.0F / this.guiZoom;
-		for (int l3 = 0; (float) l3 * f - (float) j2 < 155.0F; ++l3)
+		for (int l3 = 0; l3 * f - j2 < 155.0F; ++l3)
 		{
-			float f2 = 0.6F - (float) (l1 + l3) / 25.0F * 0.3F;
+			float f2 = 0.6F - (l1 + l3) / 25.0F * 0.3F;
 			GlStateManager.color(f2, f2, f2, 1.0F);
 
-			for (int i4 = 0; (float) i4 * f1 - (float) i2 < 224.0F; ++i4)
+			for (int i4 = 0; i4 * f1 - i2 < 224.0F; ++i4)
 			{
-				random.setSeed((long) (this.mc.getSession().getPlayerID().hashCode() + k1 + i4 + (l1 + l3) * 16));
+				random.setSeed((this.mc.getSession().getPlayerID().hashCode() + k1 + i4 + (l1 + l3) * 16));
 				int j4 = random.nextInt(1 + l1 + l3) + (l1 + l3) / 2;
 				TextureAtlasSprite textureatlassprite = BlockTexture.getTextureFromBlock(Blocks.sand);
 
@@ -674,8 +680,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 					}
 					else if (j4 > 4)
 					{
-						textureatlassprite = BlockTexture
-								.getTextureFromBlock(GenesisBlocks.granite.getDefaultState());
+						textureatlassprite = BlockTexture.getTextureFromBlock(GenesisBlocks.granite.getDefaultState());
 					}
 					else if (j4 > 0)
 					{

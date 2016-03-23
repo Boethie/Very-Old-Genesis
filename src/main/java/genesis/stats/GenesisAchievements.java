@@ -6,7 +6,6 @@ import java.util.List;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
 import genesis.util.Constants;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;
