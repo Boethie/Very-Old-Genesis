@@ -265,7 +265,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 	{
 		int colour = 4210752;
 		if (AchievementPage.getTitle(currentPage).equals(Constants.MOD_ID))
-			colour = Constants.GUI_TITLE_COLOUR;
+			colour = Constants.TITLE_COLOUR;
 		int i = (this.width - this.guiWidth) / 2;
 		int j = (this.height - this.guiHeight) / 2;
 		this.fontRendererObj.drawString(I18n.format("gui.achievements", new Object[0]), i + 15, j + 5, colour);

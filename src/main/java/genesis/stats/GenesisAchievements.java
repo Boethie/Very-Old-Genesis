@@ -30,33 +30,34 @@ public class GenesisAchievements
 	
 	public static void initAchievements()
 	{
-		enterGenesis = createAchievement("enter", 0, 0, new ItemStack(GenesisBlocks.portal), null, true, true);
+		enterGenesis = createAchievement("enter", 0, 0, new ItemStack(GenesisBlocks.portal), null, true);
 		
-		gettingPebble = createAchievement("pebble", 2, 1, new ItemStack(GenesisBlocks.ancient_permafrost), enterGenesis, false, false);
+		gettingPebble = createAchievement("pebble", 2, 1, new ItemStack(GenesisBlocks.ancient_permafrost), enterGenesis, false);
 		
-		workbench = createAchievement("workbench", -2, 1, new ItemStack(GenesisBlocks.workbench), enterGenesis, false, false);
+		workbench = createAchievement("workbench", -2, 1, new ItemStack(GenesisBlocks.workbench), enterGenesis, false);
 		
-		campfire = createAchievement("campfire", 0, 3, new ItemStack(GenesisBlocks.campfire), enterGenesis, true, false);
-		campfireCeramicBowl = createAchievement("ceramicbowl", 2, 3, new ItemStack(GenesisItems.red_clay_bowl), campfire, false, false);
-		campfirePorridge = createAchievement("porridge", 3, 4, new ItemStack(GenesisItems.red_clay_bowl), campfireCeramicBowl, false, false);
+		campfire = createAchievement("campfire", 0, 3, new ItemStack(GenesisBlocks.campfire), enterGenesis, true);
+		campfireCeramicBowl = createAchievement("ceramicbowl", 2, 3, new ItemStack(GenesisItems.red_clay_bowl), campfire, false);
+		campfirePorridge = createAchievement("porridge", 3, 4, new ItemStack(GenesisItems.red_clay_bowl), campfireCeramicBowl, false);
 		
-		hoeHeadChipped = createAchievement("hoeheadchipped", -3, 3, new ItemStack(GenesisItems.ceramic_bucket), workbench, false, false);
+		hoeHeadChipped = createAchievement("hoeheadchipped", -3, 3, new ItemStack(GenesisItems.ceramic_bucket), workbench, false);
 		
-		pickaxeHeadChipped = createAchievement("pickaxeheadchipped", -4, 5, new ItemStack(GenesisBlocks.portal), workbench, true, false);
-		pickaxeHeadChippedOctaedrite = createAchievement("pickaxeheadchippedoctaedrite", -5, 6, new ItemStack(GenesisBlocks.portal), pickaxeHeadChipped, false, false);
-		pickaxeHeadChippedBlackDiamond = createAchievement("pickaxeheadchippedblackdiamond", -5, 8, new ItemStack(GenesisBlocks.portal), pickaxeHeadChippedOctaedrite, false, false);
+		pickaxeHeadChipped = createAchievement("pickaxeheadchipped", -4, 5, new ItemStack(GenesisBlocks.portal), workbench, true);
+		pickaxeHeadChippedOctaedrite = createAchievement("pickaxeheadchippedoctaedrite", -5, 6, new ItemStack(GenesisBlocks.portal), pickaxeHeadChipped, false);
+		pickaxeHeadChippedBlackDiamond = createAchievement("pickaxeheadchippedblackdiamond", -5, 8, new ItemStack(GenesisBlocks.portal), pickaxeHeadChippedOctaedrite, false);
 		
-		spearHeadChipped = createAchievement("spearheadchipped", -2, -2, new ItemStack(GenesisBlocks.portal), workbench, false, false);
+		spearHeadChipped = createAchievement("spearheadchipped", -2, -2, new ItemStack(GenesisBlocks.portal), workbench,
+				false);
 		
 		registerAchievements();
 	}
 	
-	private static Achievement createAchievement(String name, int coloum, int row, ItemStack icon, Achievement parent, boolean special, boolean independent)
+	private static Achievement createAchievement(String name, int coloum, int row, ItemStack icon, Achievement parent, boolean special)
 	{
-		Achievement create = new Achievement("achievement.genesis."+name, "genesis."+name, coloum, row, icon , parent);
-		if(special)
+		Achievement create = new Achievement("achievement.genesis." + name, "genesis." + name, coloum, row, icon, parent);
+		if (special)
 			create = create.setSpecial();
-		if(independent)
+		if (parent == null)
 			create = create.initIndependentStat();
 		create.registerStat();
 		genesisAchievements.add(create);
