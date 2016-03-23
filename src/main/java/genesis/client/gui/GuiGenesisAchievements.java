@@ -10,6 +10,7 @@ import genesis.combo.OreBlocks;
 import genesis.combo.variant.EnumOre;
 import genesis.common.GenesisBlocks;
 import genesis.util.Constants;
+import genesis.util.blocks.BlockTexture;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -32,8 +33,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 import net.minecraftforge.common.AchievementPage;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import scala.collection.immutable.Stream.Cons;
 
 public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 {
@@ -118,7 +117,6 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 				int modNameLength = AchievementPage.getTitle(currentPage).length();
 				modName += AchievementPage.getTitle(currentPage).substring(1, modNameLength);
 				this.button.displayString = modName;
-
 				this.guiZoom = 1.0F;
 				this.achivementOffsetX = (double) (AchievementList.openInventory.displayColumn * 24 - 141 / 2 - 12);
 				this.achivementOffsetY = (double) (AchievementList.openInventory.displayRow * 24 - 141 / 2);
@@ -267,12 +265,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 	{
 		int colour = 4210752;
 		if (AchievementPage.getTitle(currentPage).equals(Constants.MOD_ID))
-		{
-			final int r = 43;
-			final int g = 39;
-			final int b = 15;
-			colour = (r << 16) | (g << 8) | b;
-		}
+			colour = Constants.GUI_TITLE_COLOUR;
 		int i = (this.width - this.guiWidth) / 2;
 		int j = (this.height - this.guiHeight) / 2;
 		this.fontRendererObj.drawString(I18n.format("gui.achievements", new Object[0]), i + 15, j + 5, colour);
@@ -567,11 +560,6 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 		RenderHelper.disableStandardItemLighting();
 	}
 
-	private TextureAtlasSprite getTextureFromBlock(IBlockState p_175371_1_)
-	{
-		return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getTexture(p_175371_1_);
-	}
-
 	public boolean doesGuiPauseGame()
 	{
 		return !this.loadingAchievements;
@@ -595,7 +583,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 			{
 				random.setSeed((long) (this.mc.getSession().getPlayerID().hashCode() + k1 + i4 + (l1 + l3) * 16));
 				int j4 = random.nextInt(1 + l1 + l3) + (l1 + l3) / 2;
-				TextureAtlasSprite textureatlassprite = this.getTextureFromBlock(Blocks.sand.getDefaultState());
+				TextureAtlasSprite textureatlassprite = BlockTexture.getTextureFromBlock(Blocks.sand);
 
 				if (j4 <= 37 && l1 + l3 != 35)
 				{
@@ -603,34 +591,34 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 					{
 						if (random.nextInt(2) == 0)
 						{
-							textureatlassprite = this.getTextureFromBlock(Blocks.diamond_ore.getDefaultState());
+							textureatlassprite = BlockTexture.getTextureFromBlock(Blocks.diamond_ore);
 						}
 						else
 						{
-							textureatlassprite = this.getTextureFromBlock(Blocks.redstone_ore.getDefaultState());
+							textureatlassprite = BlockTexture.getTextureFromBlock(Blocks.redstone_ore);
 						}
 					}
 					else if (j4 == 10)
 					{
-						textureatlassprite = this.getTextureFromBlock(Blocks.iron_ore.getDefaultState());
+						textureatlassprite = BlockTexture.getTextureFromBlock(Blocks.iron_ore);
 					}
 					else if (j4 == 8)
 					{
-						textureatlassprite = this.getTextureFromBlock(Blocks.coal_ore.getDefaultState());
+						textureatlassprite = BlockTexture.getTextureFromBlock(Blocks.coal_ore);
 					}
 					else if (j4 > 4)
 					{
-						textureatlassprite = this.getTextureFromBlock(Blocks.stone.getDefaultState());
+						textureatlassprite = BlockTexture.getTextureFromBlock(Blocks.stone);
 					}
 					else if (j4 > 0)
 					{
-						textureatlassprite = this.getTextureFromBlock(Blocks.dirt.getDefaultState());
+						textureatlassprite = BlockTexture.getTextureFromBlock(Blocks.dirt);
 					}
 				}
 				else
 				{
 					Block block = Blocks.bedrock;
-					textureatlassprite = this.getTextureFromBlock(block.getDefaultState());
+					textureatlassprite = BlockTexture.getTextureFromBlock(block);
 				}
 
 				this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
@@ -657,8 +645,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 			{
 				random.setSeed((long) (this.mc.getSession().getPlayerID().hashCode() + k1 + i4 + (l1 + l3) * 16));
 				int j4 = random.nextInt(1 + l1 + l3) + (l1 + l3) / 2;
-				TextureAtlasSprite textureatlassprite = null;// =
-																// this.getTextureFromBlock(Blocks.sand);
+				TextureAtlasSprite textureatlassprite = BlockTexture.getTextureFromBlock(Blocks.sand);
 
 				if (j4 <= 37 && l1 + l3 != 35)
 				{
@@ -666,40 +653,39 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 					{
 						if (random.nextInt(2) == 0)
 						{
-							textureatlassprite = this.getTextureFromBlock(
+							textureatlassprite = BlockTexture.getTextureFromBlock(
 									GenesisBlocks.ores.getBlockState(OreBlocks.ORE, EnumOre.OLIVINE));
 						}
 						else
 						{
-							textureatlassprite = this.getTextureFromBlock(
+							textureatlassprite = BlockTexture.getTextureFromBlock(
 									GenesisBlocks.ores.getBlockState(OreBlocks.ORE, EnumOre.GARNET));
 						}
 					}
 					else if (j4 == 10)
 					{
-						textureatlassprite = this.getTextureFromBlock(
-								GenesisBlocks.ores.getBlockState(OreBlocks.ORE, EnumOre.ZIRCON));
+						textureatlassprite = BlockTexture
+								.getTextureFromBlock(GenesisBlocks.ores.getBlockState(OreBlocks.ORE, EnumOre.ZIRCON));
 					}
 					else if (j4 == 8)
 					{
-						textureatlassprite = this.getTextureFromBlock(
-								GenesisBlocks.ores.getBlockState(OreBlocks.ORE, EnumOre.QUARTZ));
+						textureatlassprite = BlockTexture
+								.getTextureFromBlock(GenesisBlocks.ores.getBlockState(OreBlocks.ORE, EnumOre.QUARTZ));
 					}
 					else if (j4 > 4)
 					{
-						textureatlassprite = this.getTextureFromBlock(
-								GenesisBlocks.granite.getDefaultState());
+						textureatlassprite = BlockTexture
+								.getTextureFromBlock(GenesisBlocks.granite.getDefaultState());
 					}
 					else if (j4 > 0)
 					{
-						textureatlassprite = this.getTextureFromBlock(
-								Blocks.dirt.getDefaultState());
+						textureatlassprite = BlockTexture.getTextureFromBlock(Blocks.dirt);
 					}
 				}
 				else
 				{
 					Block block = Blocks.bedrock;
-					textureatlassprite = this.getTextureFromBlock(block.getDefaultState());
+					textureatlassprite = BlockTexture.getTextureFromBlock(block.getDefaultState());
 				}
 
 				this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
