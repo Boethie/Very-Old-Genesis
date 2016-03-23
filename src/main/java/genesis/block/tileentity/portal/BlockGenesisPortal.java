@@ -123,7 +123,8 @@ public class BlockGenesisPortal extends Block
 	{
 		if (rand.nextInt(100) == 0)
 		{
-			worldIn.playSound((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, Constants.ASSETS_PREFIX + "portal.ambient", 0.5F, rand.nextFloat() * 0.4F + 0.8F, false);
+			worldIn.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+					Constants.ASSETS_PREFIX + "portal.ambient", 0.5F, rand.nextFloat() * 0.4F + 0.8F, false);
 		}
 	}
 }

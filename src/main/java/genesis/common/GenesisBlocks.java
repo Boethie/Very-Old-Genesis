@@ -26,7 +26,6 @@ import genesis.util.random.drops.blocks.BlockStackDrop;
 import java.util.List;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockVine;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -38,8 +37,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.*;
-
-import static net.minecraft.block.Block.soundTypeGrass;
 
 public final class GenesisBlocks
 {
@@ -149,8 +146,12 @@ public final class GenesisBlocks
 	
 	/* Other Decorative */
 	public static final BlockGenesisFlowerPot flower_pot = (BlockGenesisFlowerPot) new BlockGenesisFlowerPot().setUnlocalizedName(Unlocalized.PREFIX + "flowerPot");
+	
 	public static final Block calamites_bundle = new BlockCalamitesBundle().setUnlocalizedName(Unlocalized.PREFIX + "calamitesBundle");
+	public static final Block calamites_roof = new BlockGenesisStairs(calamites_bundle.getDefaultState()).setUnlocalizedName(Unlocalized.PREFIX + "calamitesRoof");
 	public static final Block programinis_bundle = new BlockPrograminisBundle().setUnlocalizedName(Unlocalized.PREFIX + "programinisBundle");
+	public static final Block programinis_roof = new BlockGenesisStairs(programinis_bundle.getDefaultState()).setUnlocalizedName(Unlocalized.PREFIX + "programinisRoof");
+	
 	public static final Block calamites_torch = new BlockCalamitesTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTorch");
 	public static final Block calamites_torch_tall = new BlockTallTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTorch.tall");
 	public static final Block prototaxites_mycelium = new BlockPrototaxitesMycelium().setUnlocalizedName(Unlocalized.PREFIX + "prototaxitesMycelium");
@@ -233,8 +234,12 @@ public final class GenesisBlocks
 		
 		// - Full Block Woody -
 		trees.registerVariants(TreeBlocksAndItems.LOG);
+
 		Genesis.proxy.registerBlock(calamites_bundle, "calamites_bundle");
+		Genesis.proxy.registerBlock(calamites_roof, "calamites_roof");
 		Genesis.proxy.registerBlock(programinis_bundle, "programinis_bundle");
+		Genesis.proxy.registerBlock(programinis_roof, "programinis_roof");
+		
 		Genesis.proxy.registerBlock(prototaxites_mycelium, "prototaxites_mycelium");
 		
 		// - Dungs -

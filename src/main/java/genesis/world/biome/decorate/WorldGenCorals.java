@@ -25,6 +25,7 @@ public class WorldGenCorals extends WorldGenDecorationBase
 		this.coralType = coralType;
 	}
 	
+	@Override
 	public WorldGenCorals setRarity(int r)
 	{
 		rarity = r;

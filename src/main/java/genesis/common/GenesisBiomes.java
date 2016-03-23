@@ -15,8 +15,6 @@ import genesis.world.biome.BiomeGenOceanGenesis;
 import genesis.world.biome.BiomeGenRainforest;
 import genesis.world.biome.BiomeGenRainforestM;
 import genesis.world.biome.BiomeGenRedBeach;
-import genesis.world.biome.BiomeGenRedLowlands;
-import genesis.world.biome.BiomeGenRedLowlandsM;
 import genesis.world.biome.BiomeGenRiver;
 import genesis.world.biome.BiomeGenShallowOcean;
 import genesis.world.biome.BiomeGenSwampRainforest;

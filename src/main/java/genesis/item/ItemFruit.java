@@ -25,6 +25,7 @@ public class ItemFruit extends ItemGenesisFood<EnumTree>
 		super(owner, type, variants, variantClass);
 	}
 	
+	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player,
 			World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
 	{

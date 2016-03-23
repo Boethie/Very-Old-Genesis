@@ -47,6 +47,7 @@ public class BlockGenesisLeavesFruit extends BlockGenesisLeaves
 		return Collections.singletonList(owner.getStack(TreeBlocksAndItems.LEAVES, world.getBlockState(pos).getValue(variantProp)));
 	}
 	
+	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player,
 			EnumFacing side, float hitX, float hitY, float hitZ)
 	{
