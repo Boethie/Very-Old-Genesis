@@ -119,6 +119,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 				modName += AchievementPage.getTitle(currentPage).substring(1, modNameLength);
 				this.button.displayString = modName;
 
+				this.guiZoom = 1.0F;
 				this.achivementOffsetX = (double) (AchievementList.openInventory.displayColumn * 24 - 141 / 2 - 12);
 				this.achivementOffsetY = (double) (AchievementList.openInventory.displayRow * 24 - 141 / 2);
 			}
@@ -666,33 +667,33 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 						if (random.nextInt(2) == 0)
 						{
 							textureatlassprite = this.getTextureFromBlock(
-									GenesisBlocks.ores.getBlockState(OreBlocks.ORE, EnumOre.BLACK_DIAMOND));
+									GenesisBlocks.ores.getBlockState(OreBlocks.ORE, EnumOre.OLIVINE));
 						}
 						else
 						{
 							textureatlassprite = this.getTextureFromBlock(
-									GenesisBlocks.ores.getBlockState(OreBlocks.ORE, EnumOre.QUARTZ));
+									GenesisBlocks.ores.getBlockState(OreBlocks.ORE, EnumOre.GARNET));
 						}
 					}
 					else if (j4 == 10)
 					{
 						textureatlassprite = this.getTextureFromBlock(
-								GenesisBlocks.ores.getBlockState(OreBlocks.ORE, EnumOre.BLACK_DIAMOND));
+								GenesisBlocks.ores.getBlockState(OreBlocks.ORE, EnumOre.ZIRCON));
 					}
 					else if (j4 == 8)
 					{
 						textureatlassprite = this.getTextureFromBlock(
-								GenesisBlocks.ores.getBlockState(OreBlocks.ORE, EnumOre.BLACK_DIAMOND));
+								GenesisBlocks.ores.getBlockState(OreBlocks.ORE, EnumOre.QUARTZ));
 					}
 					else if (j4 > 4)
 					{
 						textureatlassprite = this.getTextureFromBlock(
-								GenesisBlocks.ores.getBlockState(OreBlocks.ORE, EnumOre.BLACK_DIAMOND));
+								GenesisBlocks.granite.getDefaultState());
 					}
 					else if (j4 > 0)
 					{
 						textureatlassprite = this.getTextureFromBlock(
-								GenesisBlocks.ores.getBlockState(OreBlocks.ORE, EnumOre.BLACK_DIAMOND));
+								Blocks.dirt.getDefaultState());
 					}
 				}
 				else

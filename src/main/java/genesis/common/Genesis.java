@@ -88,5 +88,4 @@ public class Genesis
 	public void onServerStarting(FMLServerStartingEvent event){
 		event.registerServerCommand(new CommandTPGenesis());
 	}
-	
 }

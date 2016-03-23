@@ -152,5 +152,4 @@ public class WorldGenDeadLog extends WorldGenTreeBase
 			}
 		}
 	}
-	
 }
