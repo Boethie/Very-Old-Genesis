@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.io.IOException;
 import java.util.Random;
 
-import org.lwjgl.Sys;
 import org.lwjgl.input.Mouse;
 
 import genesis.combo.OreBlocks;
@@ -125,11 +124,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 				{
 					currentPage = -1;
 				}
-				// Converts fist letter to Uppercase.
-				String modName = AchievementPage.getTitle(currentPage).substring(0, 1).toUpperCase();
-				int modNameLength = AchievementPage.getTitle(currentPage).length();
-				modName += AchievementPage.getTitle(currentPage).substring(1, modNameLength);
-				this.button.displayString = modName;
+				this.button.displayString = AchievementPage.getTitle(currentPage);;
 				this.guiZoom = 1.0F;
 				this.achivementOffsetX = (AchievementList.openInventory.displayColumn * 24 - 141 / 2 - 12);
 				this.achivementOffsetY = (AchievementList.openInventory.displayRow * 24 - 141 / 2);
