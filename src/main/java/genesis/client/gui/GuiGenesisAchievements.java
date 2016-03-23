@@ -200,7 +200,6 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 
 			if (this.field_146570_r != f3)
 			{
-				float f5 = f3 - this.field_146570_r;
 				float f4 = f3 * (float) this.guiWidth;
 				float f = f3 * (float) this.guiHeight;
 				float f1 = this.field_146570_r * (float) this.guiWidth;
@@ -597,11 +596,6 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 		int l1 = j + 288 >> 4;
 		int i2 = (i + 288) % 16;
 		int j2 = (j + 288) % 16;
-		int k2 = 4;
-		int l2 = 8;
-		int i3 = 10;
-		int j3 = 22;
-		int k3 = 37;
 		Random random = new Random();
 		float f = 16.0F / this.field_146570_r;
 		float f1 = 16.0F / this.field_146570_r;
@@ -664,11 +658,6 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 		int l1 = j + 288 >> 4;
 		int i2 = (i + 288) % 16;
 		int j2 = (j + 288) % 16;
-		int k2 = 4;
-		int l2 = 8;
-		int i3 = 10;
-		int j3 = 22;
-		int k3 = 37;
 		Random random = new Random();
 		float f = 16.0F / this.field_146570_r;
 		float f1 = 16.0F / this.field_146570_r;
