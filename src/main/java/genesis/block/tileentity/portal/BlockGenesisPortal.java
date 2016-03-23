@@ -3,11 +3,13 @@ package genesis.block.tileentity.portal;
 import genesis.common.GenesisConfig;
 import genesis.common.GenesisDimensions;
 import genesis.portal.GenesisPortal;
+import genesis.stats.GenesisAchievements;
 import genesis.util.Constants;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumWorldBlockLayer;
@@ -33,6 +35,8 @@ public class BlockGenesisPortal extends Block
 	{
 		if (!world.isRemote)
 		{
+			if(entity instanceof EntityPlayer)
+				((EntityPlayer)entity).addStat(GenesisAchievements.enterGenesis, 1);
 			GenesisPortal portal = GenesisPortal.fromPortalBlock(world, pos);
 			portal.updatePortalStatus(world);	// TODO: Make this check if the portal is active instead of disabling it.
 			// So that map authors can use the attraction force creatively without it randomly being removed.
