@@ -9,12 +9,15 @@ import genesis.combo.variant.EnumToolMaterial;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 
 public class GenesisAchievements
 {
@@ -62,25 +65,38 @@ public class GenesisAchievements
 	
 	private static void registerAchievements()
 	{
-		Achievement[] achievements = new Achievement[genesisAchievements.size()];
-		achievements = genesisAchievements.toArray(achievements);
-		
-		genesisAchievementPage = new AchievementPage("Genesis", achievements);
+		genesisAchievementPage = new AchievementPage("Genesis",
+				genesisAchievements.toArray(new Achievement[genesisAchievements.size()]));
 		AchievementPage.registerAchievementPage(genesisAchievementPage);
 	}
 	
 	public static class Handler
 	{
+		private static void doItemAchievement(ItemStack stack, EntityPlayer player)
+		{
+			if (GenesisItems.tools.isStackOf(stack, ToolItems.PEBBLE))
+				player.addStat(gettingPebble, 1);
+			
+			if (GenesisBlocks.trees.isStackOf(stack, TreeBlocksAndItems.LOG))
+				player.addStat(gettingLog, 1);
+			
+			if (stack.getItem() == Item.getItemFromBlock(GenesisBlocks.workbench))
+				player.addStat(workbench, 1);
+			
+			if (stack.getItem() == Item.getItemFromBlock(GenesisBlocks.campfire))
+				player.addStat(campfire, 1);
+		}
+		
 		@SubscribeEvent
 		public void onItemPickup(EntityItemPickupEvent event)
 		{
-			if (event.entityPlayer != null)
-			{
-				ItemStack stack = event.item.getEntityItem();
-				
-				if (GenesisItems.tools.isStackOf(stack, ToolItems.PEBBLE))
-					event.entityPlayer.addStat(gettingPebble, 1);
-			}
+			doItemAchievement(event.item.getEntityItem(), event.entityPlayer);
+		}
+		
+		@SubscribeEvent
+		public void onItemCrafted(ItemCraftedEvent event)
+		{
+			doItemAchievement(event.crafting, event.player);
 		}
 	}
 }
