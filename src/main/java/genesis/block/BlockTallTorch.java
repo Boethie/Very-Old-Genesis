@@ -111,7 +111,8 @@ public class BlockTallTorch extends Block
 			IBlockState stateBelow = world.getBlockState(below);
 			
 			if (placing)
-				return world.isBlockLoaded(below) && stateBelow.getBlock().isReplaceable(world, below);
+				return world.isBlockLoaded(below) && stateBelow.getBlock().isReplaceable(world, below)
+						&& canTorchStay(world, below, state.withProperty(PART, Part.BOTTOM), true);
 			else
 				return stateBelow.getBlock() == this && stateBelow.getValue(PART) == Part.BOTTOM;
 		}
