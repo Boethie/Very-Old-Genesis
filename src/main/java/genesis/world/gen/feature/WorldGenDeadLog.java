@@ -18,42 +18,45 @@ public class WorldGenDeadLog extends WorldGenTreeBase
 {
 	private List<IBlockState> topDecorations = new ArrayList<IBlockState>();
 	private int treeType = 0;
-
+	
 	public WorldGenDeadLog(int minLength, int maxLength, EnumTree treeType, boolean notify)
 	{
 		super(GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.DEAD_LOG, treeType),
 				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES, treeType), notify);
-
+		
 		this.notify = notify;
-
+		
 		this.minHeight = minLength;
 		this.maxHeight = maxLength;
 	}
-
+	
 	public WorldGenDeadLog setType(int type)
 	{
 		treeType = type;
 		return this;
 	}
-
+	
 	public WorldGenTreeBase addTopDecoration(IBlockState block)
 	{
 		topDecorations.add(block);
 		return this;
 	}
-
+	
 	@Override
 	public boolean generate(World world, Random rand, BlockPos pos)
 	{
 		try
 		{
 			pos = getTreePos(world, pos);
-
+			
 			if (!canTreeGrow(world, pos))
 				return false;
-
+			
+			if (rand.nextInt(rarity) != 0)
+				return false;
+			
 			int length = minHeight + rand.nextInt(maxHeight);
-
+			
 			if (!isCubeClear(world, pos.up(), length, 1))
 			{
 				return false;
@@ -98,7 +101,7 @@ public class WorldGenDeadLog extends WorldGenTreeBase
 					for (int i = 0; i < currentLogLength; ++i)
 					{
 						setBlockInWorld(world, logPos, wood.withProperty(BlockLog.LOG_AXIS, EnumAxis.X));
-
+						
 						if (rand.nextInt(100) > 96 && topDecorations.size() > 0)
 						{
 							setBlockInWorld(world, logPos.up(),

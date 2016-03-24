@@ -25,10 +25,9 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	public IBlockState leaves;
 	public IBlockState hangingFruit;
 	public Block treeSoil;
-	public int rarity = 1;
 	
 	protected boolean notify;
-	
+	protected int rarity = 1;
 	protected int minHeight;
 	protected int maxHeight;
 	

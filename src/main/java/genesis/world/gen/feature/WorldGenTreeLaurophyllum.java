@@ -31,6 +31,9 @@ public class WorldGenTreeLaurophyllum extends WorldGenTreeBase
 		if (!canTreeGrow(world, pos))
 			return false;
 		
+		if (rand.nextInt(rarity) != 0)
+			return false;
+		
 		int treeHeight = minHeight + rand.nextInt(maxHeight - minHeight);
 		
 		if (!isCubeClear(world, pos.up(), 1, treeHeight))
@@ -55,10 +58,6 @@ public class WorldGenTreeLaurophyllum extends WorldGenTreeBase
 				
 				super.doBranchLeaves(world, pos.up(i), rand, true, i, true);
 			}
-			/*
-			if (i > 0)
-				super.doBranchLeaves(world, pos.up(i), rand, false, i, true);
-			*/
 		}
 		
 		return true;
