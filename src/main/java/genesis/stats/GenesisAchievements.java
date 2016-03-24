@@ -9,10 +9,12 @@ import genesis.combo.variant.EnumToolMaterial;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
-import genesis.util.Constants;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class GenesisAchievements
 {
@@ -42,6 +44,8 @@ public class GenesisAchievements
 		campfire = createAchievement("campfire", 10, -1, new ItemStack(GenesisBlocks.campfire), workbench, false);
 		
 		registerAchievements();
+		
+		MinecraftForge.EVENT_BUS.register(new Handler());
 	}
 	
 	private static Achievement createAchievement(String name, int coloum, int row, ItemStack icon, Achievement parent, boolean special)
@@ -63,5 +67,20 @@ public class GenesisAchievements
 		
 		genesisAchievementPage = new AchievementPage("Genesis", achievements);
 		AchievementPage.registerAchievementPage(genesisAchievementPage);
+	}
+	
+	public static class Handler
+	{
+		@SubscribeEvent
+		public void onItemPickup(EntityItemPickupEvent event)
+		{
+			if (event.entityPlayer != null)
+			{
+				ItemStack stack = event.item.getEntityItem();
+				
+				if (GenesisItems.tools.isStackOf(stack, ToolItems.PEBBLE))
+					event.entityPlayer.addStat(gettingPebble, 1);
+			}
+		}
 	}
 }
