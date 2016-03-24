@@ -512,9 +512,7 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		public BlockPos pos;
 		public int index;
 		
-		public KnappingSlotMessage()
-		{
-		}
+		public KnappingSlotMessage() {}
 		
 		public KnappingSlotMessage(BlockPos pos, int index)
 		{
@@ -547,15 +545,7 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 			{
 				final EntityPlayerMP player = ctx.getServerHandler().playerEntity;
 				final WorldServer world = (WorldServer) player.worldObj;
-				world.addScheduledTask(new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						TileEntityKnapper te = (TileEntityKnapper) world.getTileEntity(message.pos);
-						te.switchBreakingSlot(player, message.index);
-					}
-				});
+				world.addScheduledTask(() -> BlockKnapper.getTileEntity(world, message.pos).switchBreakingSlot(player, message.index));
 				
 				return null;
 			}

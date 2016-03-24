@@ -14,6 +14,7 @@ public class BiomeGenWoodlandsM extends BiomeGenWoodlands
 		setHeight(2.2F, 0.4F);
 	}
 	
+	@Override
 	protected void addDecorations()
 	{
 		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(4).setCountPerChunk(1));

@@ -4,6 +4,7 @@ import genesis.combo.DebrisBlocks;
 import genesis.combo.VariantsOfTypesCombo.BlockProperties;
 import genesis.combo.VariantsOfTypesCombo.ObjectType;
 import genesis.combo.variant.EnumDebrisOther;
+import genesis.combo.variant.IMetadata;
 import genesis.combo.variant.MultiMetadataList.MultiMetadata;
 import genesis.common.GenesisCreativeTabs;
 import genesis.common.GenesisSounds;
@@ -93,7 +94,13 @@ public class BlockGenesisDebris extends BlockGenesisVariants<MultiMetadata>
 	@Override
 	public boolean isReplaceable(World world, BlockPos pos)
 	{
-		return !debrisOwner.isStateOf(world.getBlockState(pos), debrisOwner.getVariant(EnumDebrisOther.EPIDEXIPTERYX_FEATHER));
+		//return !debrisOwner.isStateOf(world.getBlockState(pos), debrisOwner.getVariant(EnumDebrisOther.EPIDEXIPTERYX_FEATHER));
+		IMetadata<?> variant = world.getBlockState(pos).getValue(variantProp).getOriginal();
+		
+		if (variant instanceof EnumDebrisOther)
+			return ((EnumDebrisOther) variant).getDrop(null) == null;
+		
+		return true;
 	}
 	
 	public boolean canBlockStay(IBlockAccess world, BlockPos pos, IBlockState state)

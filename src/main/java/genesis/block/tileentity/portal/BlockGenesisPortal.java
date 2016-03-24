@@ -3,11 +3,13 @@ package genesis.block.tileentity.portal;
 import genesis.common.GenesisConfig;
 import genesis.common.GenesisDimensions;
 import genesis.portal.GenesisPortal;
+import genesis.stats.GenesisAchievements;
 import genesis.util.Constants;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumWorldBlockLayer;
@@ -119,7 +121,8 @@ public class BlockGenesisPortal extends Block
 	{
 		if (rand.nextInt(100) == 0)
 		{
-			worldIn.playSound((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, Constants.ASSETS_PREFIX + "portal.ambient", 0.5F, rand.nextFloat() * 0.4F + 0.8F, false);
+			worldIn.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+					Constants.ASSETS_PREFIX + "portal.ambient", 0.5F, rand.nextFloat() * 0.4F + 0.8F, false);
 		}
 	}
 }

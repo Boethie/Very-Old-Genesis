@@ -44,13 +44,8 @@ public class GuiContainerBase extends GuiContainer
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
 	{
-		final int r = 43;
-		final int g = 39;
-		final int b = 15;
-		final int color = (r << 16) | (g << 8) | b;
-		
-		drawDisplayName(color);
-		fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), container.getPlayerInventoryArea().left, container.getPlayerInventoryTextY(), color);
+		drawDisplayName(Constants.TITLE_COLOUR);
+		fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), container.getPlayerInventoryArea().left, container.getPlayerInventoryTextY(), Constants.TITLE_COLOUR);
 	}
 	
 	protected void drawDisplayName(int color)

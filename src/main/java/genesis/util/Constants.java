@@ -20,6 +20,11 @@ public final class Constants
 	
 	public static final DamageSource CHANCELLORIA_DMG = new DamageSource("chancelloria");
 	
+	final static int r = 43;
+	final static int g = 39;
+	final static int b = 15;
+	public static final int TITLE_COLOUR = (r << 16) | (g << 8) | b;
+	
 	public static final class Unlocalized
 	{
 		public static final class Section

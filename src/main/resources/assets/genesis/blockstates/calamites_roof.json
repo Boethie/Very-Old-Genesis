@@ -1,0 +1,68 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"textures": {
+			"side": "genesis:blocks/calamites_bundle_side",
+			"end": "genesis:blocks/calamites_bundle",
+			"particle": "#end"
+		}
+	},
+	"variants": {
+		"facing=east,half=bottom,shape=straight":	{ "model": "genesis:roof", "y": 90 },
+		"facing=west,half=bottom,shape=straight":	{ "model": "genesis:roof", "y": 270 },
+		"facing=south,half=bottom,shape=straight": { "model": "genesis:roof", "y": 180 },
+		"facing=north,half=bottom,shape=straight": { "model": "genesis:roof", "y": 0 },
+		"facing=east,half=bottom,shape=outer_right":	{ "model": "genesis:roof_outer", "y": 90 },
+		"facing=west,half=bottom,shape=outer_right":	{ "model": "genesis:roof_outer", "y": 270 },
+		"facing=south,half=bottom,shape=outer_right": { "model": "genesis:roof_outer", "y": 180 },
+		"facing=north,half=bottom,shape=outer_right": { "model": "genesis:roof_outer", "y": 0 },
+		"facing=east,half=bottom,shape=outer_left":	{ "model": "genesis:roof_outer", "y": 0 },
+		"facing=west,half=bottom,shape=outer_left":	{ "model": "genesis:roof_outer", "y": 180 },
+		"facing=south,half=bottom,shape=outer_left": { "model": "genesis:roof_outer", "y": 90 },
+		"facing=north,half=bottom,shape=outer_left": { "model": "genesis:roof_outer", "y": 270 },
+		"facing=east,half=bottom,shape=inner_right":	{ "model": "genesis:roof_inner", "y": 90 },
+		"facing=west,half=bottom,shape=inner_right":	{ "model": "genesis:roof_inner", "y": 270 },
+		"facing=south,half=bottom,shape=inner_right": { "model": "genesis:roof_inner", "y": 180 },
+		"facing=north,half=bottom,shape=inner_right": { "model": "genesis:roof_inner", "y": 0 },
+		"facing=east,half=bottom,shape=inner_left":	{ "model": "genesis:roof_inner", "y": 0 },
+		"facing=west,half=bottom,shape=inner_left":	{ "model": "genesis:roof_inner", "y": 180 },
+		"facing=south,half=bottom,shape=inner_left": { "model": "genesis:roof_inner", "y": 90 },
+		"facing=north,half=bottom,shape=inner_left": { "model": "genesis:roof_inner", "y": 270 },
+		"facing=east,half=top,shape=straight":	{ "model": "genesis:roof", "x": 180, "y": 90 },
+		"facing=west,half=top,shape=straight":	{ "model": "genesis:roof", "x": 180, "y": 270 },
+		"facing=south,half=top,shape=straight": { "model": "genesis:roof", "x": 180, "y": 180 },
+		"facing=north,half=top,shape=straight": { "model": "genesis:roof", "x": 180, "y": 0 },
+		"facing=east,half=top,shape=outer_right":	{ "model": "genesis:roof_outer", "x": 180 },
+		"facing=west,half=top,shape=outer_right":	{ "model": "genesis:roof_outer", "x": 180, "y": 270 },
+		"facing=south,half=top,shape=outer_right": { "model": "genesis:roof_outer", "x": 180, "y": 180 },
+		"facing=north,half=top,shape=outer_right": { "model": "genesis:roof_outer", "x": 180, "y": 0 },
+		"facing=east,half=top,shape=outer_left":	{ "model": "genesis:roof_outer", "x": 180, "y": 180 },
+		"facing=west,half=top,shape=outer_left":	{ "model": "genesis:roof_outer", "x": 180, "y": 0 },
+		"facing=south,half=top,shape=outer_left": { "model": "genesis:roof_outer", "x": 180, "y": 270 },
+		"facing=north,half=top,shape=outer_left": { "model": "genesis:roof_outer", "x": 180 },
+		"facing=east,half=top,shape=inner_right":	{ "model": "genesis:roof_inner", "x": 180 },
+		"facing=west,half=top,shape=inner_right":	{ "model": "genesis:roof_inner", "x": 180, "y": 270 },
+		"facing=south,half=top,shape=inner_right": { "model": "genesis:roof_inner", "x": 180, "y": 180 },
+		"facing=north,half=top,shape=inner_right": { "model": "genesis:roof_inner", "x": 180, "y": 0 },
+		"facing=east,half=top,shape=inner_left":	{ "model": "genesis:roof_inner", "x": 180, "y": 180 },
+		"facing=west,half=top,shape=inner_left":	{ "model": "genesis:roof_inner", "x": 180, "y": 0 },
+		"facing=south,half=top,shape=inner_left": { "model": "genesis:roof_inner", "x": 180, "y": 270 },
+		"facing=north,half=top,shape=inner_left": { "model": "genesis:roof_inner", "x": 180, "y": 90 },
+		"inventory": [{
+			"model": "genesis:roof",
+			"transform": {
+				"firstperson": {
+					"rotation": [ {"y": 90} ]
+				},
+				"thirdperson": {
+					"rotation": [ {"x": 10}, {"y": 45}, {"z": 170} ],
+					"translation": [ 0.171875, 0.09375, 0 ],
+					"scale": [ 0.375, 0.375, 0.375 ]
+				},
+				"gui": {
+					"rotation": { "y": 90 }
+				}
+			}
+		}]
+	}
+}

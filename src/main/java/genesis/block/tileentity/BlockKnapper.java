@@ -26,9 +26,9 @@ public class BlockKnapper extends Block
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	}
 	
-	public TileEntityKnapper getTileEntity(IBlockAccess worldIn, BlockPos pos)
+	public static TileEntityKnapper getTileEntity(IBlockAccess world, BlockPos pos)
 	{
-		TileEntity tileEnt = worldIn.getTileEntity(pos);
+		TileEntity tileEnt = world.getTileEntity(pos);
 		
 		if (tileEnt instanceof TileEntityKnapper)
 		{

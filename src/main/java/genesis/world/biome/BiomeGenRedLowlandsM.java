@@ -18,6 +18,7 @@ public class BiomeGenRedLowlandsM extends BiomeGenRedLowlands
 		setHeight(2.2F, 0.4F);
 	}
 	
+	@Override
 	protected void addDecorations()
 	{
 		addDecoration(WorldGenPlant.create(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.AETHOPHYLLUM).setCountPerChunk(1));

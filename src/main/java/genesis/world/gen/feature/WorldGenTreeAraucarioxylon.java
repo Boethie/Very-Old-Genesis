@@ -101,7 +101,7 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			if (direction > 7)
 				direction = 0;
 			
-			lFactor = (int)(6.0f * ((((float)treeHeight - (float)i) / (float)treeHeight)));
+			lFactor = (int)(6.0f * (((treeHeight - i) / (float) treeHeight)));
 			
 			branchDown(world, pos.up(i), rand, pos.getY(), direction + 1, lFactor);
 			

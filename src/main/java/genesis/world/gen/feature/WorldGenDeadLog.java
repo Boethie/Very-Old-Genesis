@@ -86,7 +86,7 @@ public class WorldGenDeadLog extends WorldGenTreeBase
 	{
 		int length = minHeight + rand.nextInt(maxHeight);
 		int lengthTop = rand.nextInt(maxHeight) / 2 + 1;
-		int logOffset = rand.nextInt(minHeight) + 2;
+		int logOffset = rand.nextInt(3);
 		int currentLogLength = length;
 		
 		BlockPos logPos;
@@ -120,12 +120,11 @@ public class WorldGenDeadLog extends WorldGenTreeBase
 				// Random nth log
 				length = minHeight + rand.nextInt(maxHeight);
 				lengthTop = rand.nextInt(maxHeight) / 2 + 1;
-				logOffset = rand.nextInt(minHeight) + 2;
+				logOffset = rand.nextInt(3);
 			}
 		}
 		else
 		{
-			// Still need to do Z
 			logPos = pos.add(0, 0, (length / 2) * -1);
 			for (int k = 0; k < logWidth; ++k)
 			{
@@ -156,5 +155,4 @@ public class WorldGenDeadLog extends WorldGenTreeBase
 			}
 		}
 	}
-	
 }

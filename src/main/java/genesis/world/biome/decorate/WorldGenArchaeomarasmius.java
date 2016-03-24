@@ -54,6 +54,7 @@ public class WorldGenArchaeomarasmius extends WorldGenDecorationBase
 		return true;
 	}
 	
+	@Override
 	public WorldGenArchaeomarasmius setRarity(int rarity)
 	{
 		this.rarity = rarity;

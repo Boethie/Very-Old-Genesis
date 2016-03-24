@@ -74,6 +74,7 @@ public class BlockRottenStorageBox extends Block
 		}
 	}
 	
+	@Override
 	public void dropBlockAsItemWithChance(World world, BlockPos pos, IBlockState state, float chance, int fortune)
 	{
 		if (!world.isRemote && world.provider.getDimensionId() == 0 && world.getGameRules().getBoolean("doTileDrops"))

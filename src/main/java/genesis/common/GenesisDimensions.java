@@ -1,15 +1,14 @@
 package genesis.common;
 
-import genesis.entity.extendedproperties.GenesisEntityData;
-import genesis.entity.extendedproperties.NBTEntityProperty;
+import genesis.entity.extendedproperties.*;
 import genesis.portal.GenesisPortal;
-import genesis.world.TeleporterGenesis;
-import genesis.world.WorldProviderGenesis;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayerMP;
+import genesis.stats.GenesisAchievements;
+import genesis.world.*;
+
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.play.server.S12PacketEntityVelocity;
-import net.minecraft.network.play.server.S1DPacketEntityEffect;
+import net.minecraft.network.play.server.*;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.ServerConfigurationManager;
@@ -180,6 +179,8 @@ public class GenesisDimensions
 			
 			if (player != null)
 			{
+				if (id == GenesisConfig.genesisDimId)
+					player.addStat(GenesisAchievements.enterGenesis, 1);
 			}
 			
 			return teleported;
