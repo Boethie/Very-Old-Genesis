@@ -6,6 +6,7 @@ import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class WorldGenTreeLaurophyllum extends WorldGenTreeBase
@@ -45,7 +46,7 @@ public class WorldGenTreeLaurophyllum extends WorldGenTreeBase
 		{
 			setBlockInWorld(world, pos.up(i), wood);
 			
-			if (i > 0 && i < treeHeight - 1)
+			if (i < treeHeight)
 			{
 				if (rand.nextInt(3) == 0)
 					setBlockInWorld(world, pos.up(i).add(rand.nextInt(3) - 1, 0, rand.nextInt(3) - 1), wood);
@@ -56,7 +57,7 @@ public class WorldGenTreeLaurophyllum extends WorldGenTreeBase
 				if (rand.nextInt(3) == 0)
 					setBlockInWorld(world, pos.up(i).add(rand.nextInt(3) - 1, 0, rand.nextInt(3) - 1), wood);
 				
-				super.doBranchLeaves(world, pos.up(i), rand, true, i, true);
+				super.doBranchLeaves(world, pos.up(i), rand, true, MathHelper.clamp_int(i+1, 0, 2), true);
 			}
 		}
 		

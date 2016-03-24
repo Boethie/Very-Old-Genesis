@@ -118,12 +118,12 @@ public class WorldGenTreeDryophyllum extends WorldGenTreeBase
 			
 			setBlockInWorld(world, upPos, wood.withProperty(BlockLog.LOG_AXIS, woodAxis));
 			
-			if (i == base)
+			if (i == base - 1)
 				doBranchLeaves(world, upPos, rand, false, 2, true);
 			
-			if (i > base)
+			if (i > base - 1)
 			{
-				doBranchLeaves(world, upPos, rand, (i >= height - 1), 4, true);
+				doBranchLeaves(world, upPos, rand, (i >= height - 3), 4, true);
 			}
 		}
 	}
