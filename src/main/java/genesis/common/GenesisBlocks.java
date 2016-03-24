@@ -236,6 +236,7 @@ public final class GenesisBlocks
 		
 		// - Full Block Woody -
 		trees.registerVariants(TreeBlocksAndItems.LOG);
+		trees.registerVariants(TreeBlocksAndItems.BRANCH);
 
 		Genesis.proxy.registerBlock(calamites_bundle, "calamites_bundle");
 		Genesis.proxy.registerBlock(calamites_roof, "calamites_roof");
