@@ -10,6 +10,6 @@ public class BlockGenesisStairs extends BlockStairs
 	{
 		super(modelState);
 		
-		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
+		setCreativeTab(GenesisCreativeTabs.BLOCK);
 	}
 }

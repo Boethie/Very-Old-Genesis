@@ -1,5 +1,6 @@
 package genesis.block;
 
+import genesis.common.GenesisCreativeTabs;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockPos;
@@ -16,6 +17,7 @@ public class BlockTrapFloor extends BlockGenesis
 	public BlockTrapFloor()
 	{
 		super(Material.grass);
+		setCreativeTab(GenesisCreativeTabs.MECHANISMS);
 		setBlockBounds(0, 9/16F, 0, 1, 1, 1);
 		setStepSound(soundTypeGrass);
 		useNeighborBrightness = true;

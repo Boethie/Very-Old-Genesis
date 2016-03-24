@@ -71,14 +71,15 @@ tile.genesis.log.ficus.name=Ficus Wood
 tile.genesis.branch.laurophyllum.name=Laurophyllum Branch
 
 tile.genesis.calamitesBundle.name=Bundle of Calamites
+tile.genesis.calamitesRoof.name=Calamites Roof
 tile.genesis.programinisBundle.name=Bundle of Programinis
-tile.genesis.prototaxitesMycelium.name=Prototaxites Mycelium
+tile.genesis.programinisRoof.name=Programinis Roof
 
+tile.genesis.prototaxitesMycelium.name=Prototaxites Mycelium
 tile.genesis.dung.herbivore.name=Herbivore Dung
 tile.genesis.dung.carnivore.name=Carnivore Dung
 tile.genesis.dungBrickBlock.name=Dung Brick
 tile.genesis.wattleAndDaub.name=Wattle and Daub Wall
-tile.genesis.trapFloor.name=Trap Floor
 
 #Decoration
 tile.genesis.log.dead.archaeopteris.name=Dead Archaeopteris Wood
@@ -188,14 +189,14 @@ tile.genesis.crop.zingiberopsis.name=Zingiberopsis
 tile.genesis.crop.odontopteris.name=Odontopteris
 tile.genesis.crop.programinis.name=Programinis
 
+tile.genesis.ankyropteris.name=Ankyropteris
+
 tile.genesis.palaeoagaracites.name=Palaeoagaracites
 tile.genesis.archaeomarasmius.name=Archaeomarasmius
 
 tile.genesis.prototaxites.name=Prototaxites
 
 tile.genesis.cobbania.name=Cobbania
-
-tile.genesis.ankyropteris.name=Ankyropteris
 
 tile.genesis.aquaticPlant.grypania.name=Grypania
 tile.genesis.aquaticPlant.bangiomorpha.name=Bangiomorpha
@@ -220,6 +221,9 @@ tile.genesis.aquaticPlant.thaumaptilon.name=Thaumaptilon
 tile.genesis.coral.favosites.name=Favosites
 tile.genesis.coral.heliolites.name=Heliolites
 tile.genesis.coral.halysites.name=Halysites
+
+#Mechanisms
+tile.genesis.trapFloor.name=Trap Floor
 
 #------------- Items -------------
 #Misc
@@ -538,6 +542,7 @@ container.genesis.storageBox.large=Large Storage Box
 #------------- Creative Tabs -------------
 itemGroup.genesis.buildingBlocks=Genesis Building Blocks
 itemGroup.genesis.decorations=Genesis Decoration Blocks
+itemGroup.genesis.mechanisms=Genesis Mechanisms
 itemGroup.genesis.misc=Genesis Miscellaneous
 itemGroup.genesis.food=Genesis Foodstuffs
 itemGroup.genesis.tools=Genesis Tools

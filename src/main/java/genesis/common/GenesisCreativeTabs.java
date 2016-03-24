@@ -48,6 +48,15 @@ public final class GenesisCreativeTabs
 		}
 	};
 	
+	public static final CreativeTabs MECHANISMS = new CreativeTabs(Unlocalized.PREFIX + "mechanisms")
+	{
+		@Override
+		public Item getTabIconItem()
+		{
+			return Item.getItemFromBlock(GenesisBlocks.trap_floor);
+		}
+	};
+	
 	public static final CreativeTabs MISC = new CreativeTabs(Unlocalized.PREFIX + "misc")
 	{
 		@Override

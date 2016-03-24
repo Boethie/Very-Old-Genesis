@@ -162,6 +162,8 @@ public final class GenesisBlocks
 			.setStepSound(Block.soundTypePiston)
 			.setUnlocalizedName(Unlocalized.PREFIX + "dungBrickBlock");
 	public static final BlockGenesisWall wattle_and_daub = (BlockGenesisWall) new BlockGenesisWall(Material.wood, 0.375F, 1.0F, -1).setUnlocalizedName(Unlocalized.PREFIX + "wattleAndDaub");
+	
+	/* Mechanisms */
 	public static final BlockTrapFloor trap_floor = (BlockTrapFloor) new BlockTrapFloor().setUnlocalizedName(Unlocalized.PREFIX + "trapFloor");
 	
 	/* Misc */
@@ -253,6 +255,7 @@ public final class GenesisBlocks
 		wattle_and_daub.setHarvestLevel("axe", 0);
 		wattle_and_daub.setHardness(3);
 		
+		// --- Mechanisms ---
 		Genesis.proxy.registerBlockWithItem(trap_floor, "trap_floor", new ItemColored(trap_floor, false));
 		Genesis.proxy.registerModel(trap_floor, 0, "trap_floor");
 		
@@ -311,7 +314,7 @@ public final class GenesisBlocks
 				}
 		});
 		
-		// Storage box
+		// Storage boxes
 		Genesis.proxy.registerBlock(storage_box, "storage_box");
 		GameRegistry.registerTileEntity(TileEntityStorageBox.class, Constants.ASSETS_PREFIX + "storage_box");
 		Genesis.proxy.callSided(new SidedFunction()
