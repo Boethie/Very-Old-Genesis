@@ -11,5 +11,6 @@ public class BlockGenesisStairs extends BlockStairs
 		super(modelState);
 		
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
+		useNeighborBrightness = true;
 	}
 }

@@ -1,82 +1,80 @@
 {
 	"__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
+	"ambientocclusion": true,
 	"elements": [
 		{	"__comment": "Cube",
-			"from": [ 4, 4, 12 ],
-			"to": [ 16, 8, 16 ],
+			"from": [ -0, 4, 4 ],
+			"to": [ 4, 8, 16 ],
 			"faces": {
-				"north": { "uv": [ 0, 8, 12, 12 ], "texture": "#side" },
-				"east": { "uv": [ 4, 0, 8, 4 ], "texture": "#side", "cullface": "east" },
-				"south": { "uv": [ 0, 4, 12, 8 ], "texture": "#end", "rotation": 180, "cullface": "south" },
-				"west": { "uv": [ 4, 12, 8, 16 ], "texture": "#side", "rotation": 270 },
-				"up": { "uv": [ 12, 0, 16, 12 ], "texture": "#side", "rotation": 90 }
+				"south": { "uv": [ 4, 0, 8, 4 ], "texture": "#side", "cullface": "south" },
+				"west": { "uv": [ 0, 4, 12, 8 ], "texture": "#end", "rotation": 180, "cullface": "west" },
+				"north": { "uv": [ 4, 12, 8, 16 ], "texture": "#side", "rotation": 270 },
+				"up": { "uv": [ 12, 0, 16, 12 ], "texture": "#side", "rotation": 180 }
 			}
 		},
 		{	"__comment": "Cube",
-			"from": [ 8, 8, 8 ],
-			"to": [ 16, 12, 16 ],
+			"from": [ -0, 8, 8 ],
+			"to": [ 8, 12, 16 ],
 			"faces": {
-				"north": { "uv": [ 0, 4, 8, 8 ], "texture": "#side" },
-				"east": { "uv": [ 8, 0, 12, 8 ], "texture": "#side", "rotation": 270, "cullface": "east" },
-				"south": { "uv": [ 0, 8, 8, 12 ], "texture": "#end", "rotation": 180, "cullface": "south" },
-				"west": { "uv": [ 8, 8, 12, 16 ], "texture": "#side", "rotation": 270 },
-				"up": { "uv": [ 8, 0, 16, 8 ], "texture": "#side", "rotation": 90 }
+				"south": { "uv": [ 8, 0, 12, 8 ], "texture": "#side", "rotation": 270, "cullface": "south" },
+				"west": { "uv": [ 0, 8, 8, 12 ], "texture": "#end", "rotation": 180, "cullface": "west" },
+				"north": { "uv": [ 8, 8, 12, 16 ], "texture": "#side", "rotation": 270 },
+				"up": { "uv": [ 8, 0, 16, 8 ], "texture": "#side", "rotation": 180 }
 			}
 		},
 		{	"__comment": "Cube",
-			"from": [ 12, 12, 4 ],
-			"to": [ 16, 16, 16 ],
+			"from": [ -0, 12, 12 ],
+			"to": [ 12, 16, 16 ],
 			"faces": {
-				"north": { "uv": [ 0, 0, 4, 4 ], "texture": "#side" },
-				"east": { "uv": [ 12, 0, 16, 12 ], "texture": "#side", "rotation": 270, "cullface": "east" },
-				"south": { "uv": [ 0, 12, 4, 16 ], "texture": "#end", "rotation": 180, "cullface": "south" },
-				"west": { "uv": [ 12, 4, 16, 16 ], "texture": "#side", "rotation": 270 },
-				"up": { "uv": [ 4, 0, 16, 4 ], "texture": "#side", "rotation": 90, "cullface": "up" }
+				"south": { "uv": [ 12, 0, 16, 12 ], "texture": "#side", "rotation": 270, "cullface": "south" },
+				"west": { "uv": [ 0, 12, 4, 16 ], "texture": "#end", "rotation": 180, "cullface": "west" },
+				"north": { "uv": [ 12, 4, 16, 16 ], "texture": "#side", "rotation": 270 },
+				"up": { "uv": [ 4, 0, 16, 4 ], "texture": "#side", "rotation": 180, "cullface": "up" }
 			}
 		},
 		{	"__comment": "Cube",
 			"from": [ 0, 0, 0 ],
 			"to": [ 16, 4, 16 ],
 			"faces": {
-				"west": { "uv": [ 0, 12, 16, 16 ], "texture": "#end", "cullface": "west" },
-				"north": { "uv": [ 12, 0, 16, 16 ], "texture": "#side", "rotation": 90, "cullface": "north" },
-				"east": { "uv": [ -0, 0, 4, 16 ], "texture": "#side", "rotation": 270, "cullface": "east" },
-				"south": { "uv": [ 0, 0, 16, 4 ], "texture": "#end", "rotation": 180, "cullface": "south" },
-				"down": { "uv": [ -0, 0, 16, 16 ], "texture": "#side", "rotation": 270, "cullface": "down" },
-				"up": { "uv": [ -0, 0, 16, 16 ], "texture": "#side", "rotation": 90 }
+				"east": { "uv": [ 0, 12, 16, 16 ], "texture": "#end", "cullface": "east" },
+				"south": { "uv": [ 12, 0, 16, 16 ], "texture": "#side", "rotation": 90, "cullface": "south" },
+				"west": { "uv": [ -0, 0, 4, 16 ], "texture": "#side", "rotation": 270, "cullface": "west" },
+				"north": { "uv": [ 0, 0, 16, 4 ], "texture": "#end", "rotation": 180, "cullface": "north" },
+				"down": { "uv": [ -0, 0, 16, 16 ], "texture": "#side", "rotation": 90, "cullface": "down" },
+				"up": { "uv": [ -0, 0, 16, 16 ], "texture": "#side", "rotation": 270 }
 			}
 		},
 		{	"__comment": "Cube",
-			"from": [ 0, 4, 0 ],
-			"to": [ 16, 8, 12 ],
+			"from": [ 4, 4, 0 ],
+			"to": [ 16, 8, 16 ],
 			"faces": {
-				"west": { "uv": [ 0, 8, 12, 12 ], "texture": "#end", "cullface": "west" },
-				"north": { "uv": [ 8, 0, 12, 16 ], "texture": "#side", "rotation": 90, "cullface": "north" },
-				"east": { "uv": [ 4, 4, 8, 16 ], "texture": "#side", "rotation": 270, "cullface": "east" },
-				"south": { "uv": [ 4, 0, 8, 16 ], "texture": "#side", "rotation": 270 },
-				"up": { "uv": [ -0, 0, 12, 16 ], "texture": "#side", "rotation": 90 }
+				"north": { "uv": [ 0, 8, 12, 12 ], "texture": "#end", "cullface": "north" },
+				"east": { "uv": [ 8, 0, 12, 16 ], "texture": "#side", "rotation": 90, "cullface": "east" },
+				"south": { "uv": [ 4, 4, 8, 16 ], "texture": "#side", "rotation": 270, "cullface": "south" },
+				"west": { "uv": [ 4, 0, 8, 16 ], "texture": "#side", "rotation": 270 },
+				"up": { "uv": [ -0, 0, 12, 16 ], "texture": "#side", "rotation": 180 }
 			}
 		},
 		{	"__comment": "Cube",
-			"from": [ 0, 8, 0 ],
-			"to": [ 16, 12, 8 ],
+			"from": [ 8, 8, 0 ],
+			"to": [ 16, 12, 16 ],
 			"faces": {
-				"west": { "uv": [ 0, 4, 8, 8 ], "texture": "#end", "cullface": "west" },
-				"north": { "uv": [ 4, 0, 8, 16 ], "texture": "#side", "rotation": 90, "cullface": "north" },
-				"east": { "uv": [ 8, 8, 12, 16 ], "texture": "#side", "rotation": 270, "cullface": "east" },
-				"south": { "uv": [ 8, 0, 12, 16 ], "texture": "#side", "rotation": 270 },
-				"up": { "uv": [ -0, 0, 8, 16 ], "texture": "#side", "rotation": 90 }
+				"north": { "uv": [ 0, 4, 8, 8 ], "texture": "#end", "cullface": "north" },
+				"east": { "uv": [ 4, 0, 8, 16 ], "texture": "#side", "rotation": 90, "cullface": "east" },
+				"south": { "uv": [ 8, 8, 12, 16 ], "texture": "#side", "rotation": 270, "cullface": "south" },
+				"west": { "uv": [ 8, 0, 12, 16 ], "texture": "#side", "rotation": 270 },
+				"up": { "uv": [ -0, 0, 8, 16 ], "texture": "#side", "rotation": 180 }
 			}
 		},
 		{	"__comment": "Cube",
-			"from": [ 0, 12, 0 ],
-			"to": [ 16, 16, 4 ],
+			"from": [ 12, 12, 0 ],
+			"to": [ 16, 16, 16 ],
 			"faces": {
-				"west": { "uv": [ 0, 0, 4, 4 ], "texture": "#end", "cullface": "west" },
-				"north": { "uv": [ -0, 0, 4, 16 ], "texture": "#side", "rotation": 90, "cullface": "north" },
-				"east": { "uv": [ 12, 12, 16, 16 ], "texture": "#side", "rotation": 270, "cullface": "east" },
-				"south": { "uv": [ 12, 0, 16, 16 ], "texture": "#side", "rotation": 270 },
-				"up": { "uv": [ -0, 0, 4, 16 ], "texture": "#side", "rotation": 90, "cullface": "up" }
+				"north": { "uv": [ 0, 0, 4, 4 ], "texture": "#end", "cullface": "north" },
+				"east": { "uv": [ -0, 0, 4, 16 ], "texture": "#side", "rotation": 90, "cullface": "east" },
+				"south": { "uv": [ 12, 12, 16, 16 ], "texture": "#side", "rotation": 270, "cullface": "south" },
+				"west": { "uv": [ 12, 0, 16, 16 ], "texture": "#side", "rotation": 270 },
+				"up": { "uv": [ -0, 0, 4, 16 ], "texture": "#side", "rotation": 180, "cullface": "up" }
 			}
 		}
 	]
