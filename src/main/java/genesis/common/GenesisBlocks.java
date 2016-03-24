@@ -288,8 +288,6 @@ public final class GenesisBlocks
 		});
 		
 		trees.registerAll();
-		//trees.getBlock(TreeBlocksAndItems.LEAVES, EnumTree.ARAUCARIOXYLON).setRareDrop(new ItemStack(GenesisItems.materials.getStack(EnumMaterial.ARAUCARIOXYLON_CONE)), .015);
-		// The above code does not work, all leaves contained by the block instance containing araucarioxylon leaves will drop cones.
 		
 		debris.registerAll();
 		
