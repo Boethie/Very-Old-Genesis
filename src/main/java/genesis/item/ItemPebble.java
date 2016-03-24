@@ -5,6 +5,7 @@ import genesis.combo.*;
 import genesis.combo.ToolItems.ToolObjectType;
 import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.ToolTypes.ToolType;
+import genesis.stats.GenesisAchievements;
 import genesis.util.Constants;
 
 import net.minecraft.block.material.Material;
@@ -91,6 +92,8 @@ public class ItemPebble extends ItemGenesis
 				{	// Add to inventory or drop as EntityItem.
 					player.dropPlayerItemWithRandomChoice(choppingTool, false);
 				}
+				
+				player.addStat(GenesisAchievements.gettingChoppingTool, 1);
 			}
 			
 			return true;
@@ -142,7 +145,7 @@ public class ItemPebble extends ItemGenesis
 				}
 			}
 			
-			if (offset && !block.isReplaceable(world, pos))
+			if (offset && !state.getBlock().isReplaceable(world, pos))
 			{
 				pos = pos.offset(side);
 			}

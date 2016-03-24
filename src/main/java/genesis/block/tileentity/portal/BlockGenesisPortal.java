@@ -58,10 +58,9 @@ public class BlockGenesisPortal extends Block
 					{
 						entity.timeUntilPortal = GenesisPortal.COOLDOWN;
 					}
-					else if (GenesisDimensions.teleportToDimension(entity, portal, dimension, false))
+					else
 					{
-						if (dimension == GenesisConfig.genesisDimId && entity instanceof EntityPlayer)
-							((EntityPlayer)entity).addStat(GenesisAchievements.enterGenesis, 1);
+						GenesisDimensions.teleportToDimension(entity, portal, dimension, false);
 					}
 				}
 			}
