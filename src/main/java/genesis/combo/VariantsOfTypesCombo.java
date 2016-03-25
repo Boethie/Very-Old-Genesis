@@ -209,7 +209,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 				}
 				
 				int typeVariantsCount = typeVariants.size();
-				int subsets = (int) Math.ceil(typeVariantsCount / (float) maxSubsetSize);
+				int subsets = GenesisMath.ceilDiv(typeVariantsCount, maxSubsetSize);
 				
 				for (int subset = 0; subset < subsets; subset++)
 				{

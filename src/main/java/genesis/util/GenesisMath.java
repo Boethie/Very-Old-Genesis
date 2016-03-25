@@ -45,4 +45,9 @@ public class GenesisMath
 						lerp(a.yCoord, b.yCoord, v),
 						lerp(a.zCoord, b.zCoord, v));
 	}
+	
+	public static int ceilDiv(int a, int b)
+	{
+		return (a + b - 1) / b;
+	}
 }
