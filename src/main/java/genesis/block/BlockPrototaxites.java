@@ -75,8 +75,14 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 	public CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World world, BlockPos pos, boolean placed)
 	{
 		for (EnumFacing side : EnumFacing.HORIZONTALS)
-			if (world.isSideSolid(pos.offset(side), side.getOpposite()))
+		{
+			BlockPos sidePos = pos.offset(side);
+			IBlockState sideState = world.getBlockState(sidePos);
+			
+			if (sideState.getBlock() == this
+					|| sideState.getBlock().isSideSolid(world, sidePos, side.getOpposite()))
 				return CanStayOptions.NO;
+		}
 		
 		if (placed
 				&& WorldUtils.canSoilSustainTypes(world, pos, EnumPlantType.Plains)
