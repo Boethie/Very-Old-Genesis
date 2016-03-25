@@ -3,9 +3,9 @@ package genesis.block;
 import java.util.Collections;
 import java.util.List;
 
+import genesis.combo.ObjectType;
 import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.VariantsOfTypesCombo.BlockProperties;
-import genesis.combo.VariantsOfTypesCombo.ObjectType;
 import genesis.combo.variant.EnumTree;
 import genesis.combo.variant.EnumTree.FruitType;
 import genesis.item.ItemBlockMulti;

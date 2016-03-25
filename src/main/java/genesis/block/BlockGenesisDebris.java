@@ -1,8 +1,8 @@
 package genesis.block;
 
 import genesis.combo.DebrisBlocks;
+import genesis.combo.ObjectType;
 import genesis.combo.VariantsOfTypesCombo.BlockProperties;
-import genesis.combo.VariantsOfTypesCombo.ObjectType;
 import genesis.combo.variant.EnumDebrisOther;
 import genesis.combo.variant.IMetadata;
 import genesis.combo.variant.MultiMetadataList.MultiMetadata;

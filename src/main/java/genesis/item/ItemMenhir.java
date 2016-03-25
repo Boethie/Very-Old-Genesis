@@ -5,7 +5,6 @@ import java.util.List;
 import genesis.block.tileentity.portal.BlockMenhir;
 import genesis.block.tileentity.portal.TileEntityMenhirGlyph;
 import genesis.combo.*;
-import genesis.combo.VariantsOfTypesCombo.ObjectType;
 import genesis.combo.variant.EnumMenhirPart;
 import genesis.block.tileentity.portal.EnumGlyph;
 import net.minecraft.item.*;

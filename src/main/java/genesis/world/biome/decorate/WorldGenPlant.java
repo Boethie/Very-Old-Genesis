@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Random;
 
 import genesis.block.BlockPlant;
+import genesis.combo.ObjectType;
 import genesis.combo.PlantBlocks;
 import genesis.combo.VariantsOfTypesCombo;
-import genesis.combo.VariantsOfTypesCombo.ObjectType;
 import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.IPlantMetadata;
 import genesis.common.*;

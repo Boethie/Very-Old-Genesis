@@ -2,8 +2,8 @@ package genesis.item;
 
 import java.util.List;
 
+import genesis.combo.ObjectType;
 import genesis.combo.VariantsOfTypesCombo;
-import genesis.combo.VariantsOfTypesCombo.ObjectType;
 import genesis.combo.variant.EnumMaterial;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;

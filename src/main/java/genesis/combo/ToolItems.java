@@ -6,7 +6,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Sets;
 
 import genesis.block.*;
-import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.EnumToolMaterial;
 import genesis.combo.variant.EnumToolQuality;
 import genesis.combo.variant.IMetadata;

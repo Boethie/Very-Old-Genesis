@@ -4,7 +4,6 @@ import java.util.List;
 
 import genesis.combo.*;
 import genesis.combo.ItemsCeramicBowls.*;
-import genesis.combo.VariantsOfTypesCombo.ObjectType;
 import genesis.combo.variant.EnumDish;
 import genesis.combo.variant.IFood;
 import genesis.combo.variant.MultiMetadataList.MultiMetadata;

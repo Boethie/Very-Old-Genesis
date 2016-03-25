@@ -4,7 +4,6 @@ import java.util.*;
 
 import com.google.common.collect.ImmutableList;
 
-import genesis.combo.VariantsOfTypesCombo.ObjectType;
 import genesis.combo.variant.IMetadata;
 import net.minecraft.block.*;
 import net.minecraft.block.state.*;

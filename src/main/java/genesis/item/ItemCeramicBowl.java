@@ -23,7 +23,6 @@ import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import genesis.client.GenesisClient;
 import genesis.combo.*;
 import genesis.combo.ItemsCeramicBowls.EnumCeramicBowls;
-import genesis.combo.VariantsOfTypesCombo.ObjectType;
 import genesis.combo.variant.MultiMetadataList.MultiMetadata;
 import genesis.common.GenesisItems;
 

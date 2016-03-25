@@ -2,6 +2,7 @@ package genesis.item;
 
 import genesis.client.render.CamouflageColorEventHandler;
 import genesis.combo.ClothingItems;
+import genesis.combo.ObjectType;
 import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.EnumClothing;
 import genesis.common.GenesisCreativeTabs;

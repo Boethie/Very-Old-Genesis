@@ -4,9 +4,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import genesis.combo.ObjectType;
 import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.VariantsOfTypesCombo.BlockProperties;
-import genesis.combo.VariantsOfTypesCombo.ObjectType;
 import genesis.combo.variant.EnumTree;
 import genesis.combo.variant.PropertyIMetadata;
 import genesis.item.ItemBlockMulti;

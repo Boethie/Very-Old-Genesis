@@ -5,9 +5,9 @@ import java.util.Random;
 
 import com.google.common.base.Objects;
 
+import genesis.combo.ObjectType;
 import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.VariantsOfTypesCombo.BlockProperties;
-import genesis.combo.VariantsOfTypesCombo.ObjectType;
 import genesis.combo.variant.EnumTree;
 import genesis.combo.variant.PropertyIMetadata;
 import genesis.common.GenesisBlocks;

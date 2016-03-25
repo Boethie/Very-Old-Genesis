@@ -1,5 +1,6 @@
 package genesis.block;
 
+import genesis.combo.ObjectType;
 import genesis.combo.VariantsOfTypesCombo;
 import genesis.combo.VariantsOfTypesCombo.BlockProperties;
 import genesis.combo.variant.EnumDung;
@@ -24,7 +25,7 @@ public class BlockGenesisDung extends BlockGenesisVariants<EnumDung>
 		return new IProperty[]{ HEIGHT };
 	}
 	
-	public BlockGenesisDung(VariantsOfTypesCombo<EnumDung> owner, VariantsOfTypesCombo.ObjectType<? extends BlockGenesisVariants<EnumDung>, ? extends Item> type, List<EnumDung> variants, Class<EnumDung> variantClass, Material material)
+	public BlockGenesisDung(VariantsOfTypesCombo<EnumDung> owner, ObjectType<? extends BlockGenesisVariants<EnumDung>, ? extends Item> type, List<EnumDung> variants, Class<EnumDung> variantClass, Material material)
 	{
 		super(owner, type, variants, variantClass, material);
 		blockState = new BlockState(this, variantProp, HEIGHT);

@@ -2,6 +2,7 @@ package genesis.item;
 
 import java.util.*;
 
+import genesis.combo.ObjectType;
 import genesis.combo.VariantsOfTypesCombo;
 import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.*;

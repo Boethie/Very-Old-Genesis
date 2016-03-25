@@ -1,8 +1,8 @@
 package genesis.block;
 
+import genesis.combo.ObjectType;
 import genesis.combo.VariantsOfTypesCombo;
 import genesis.combo.VariantsOfTypesCombo.BlockProperties;
-import genesis.combo.VariantsOfTypesCombo.ObjectType;
 import genesis.combo.variant.EnumTree;
 import genesis.combo.variant.PropertyIMetadata;
 import genesis.common.GenesisCreativeTabs;

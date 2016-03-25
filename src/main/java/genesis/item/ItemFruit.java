@@ -2,9 +2,9 @@ package genesis.item;
 
 import java.util.List;
 
+import genesis.combo.ObjectType;
 import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.VariantsOfTypesCombo;
-import genesis.combo.VariantsOfTypesCombo.ObjectType;
 import genesis.combo.variant.EnumTree;
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.SoundType;

@@ -4,7 +4,7 @@ import java.util.List;
 
 import genesis.combo.ItemsCeramicBowls;
 import genesis.combo.ItemsCeramicBowls.EnumCeramicBowls;
-import genesis.combo.VariantsOfTypesCombo.ObjectType;
+import genesis.combo.ObjectType;
 import genesis.combo.variant.GenesisDye;
 import genesis.combo.variant.MultiMetadataList.MultiMetadata;
 import net.minecraft.block.Block;

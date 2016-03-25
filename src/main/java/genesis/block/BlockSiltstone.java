@@ -1,8 +1,8 @@
 package genesis.block;
 
+import genesis.combo.ObjectType;
 import genesis.combo.SiltBlocks;
 import genesis.combo.VariantsOfTypesCombo.BlockProperties;
-import genesis.combo.VariantsOfTypesCombo.ObjectType;
 import genesis.combo.variant.EnumSilt;
 import genesis.combo.variant.PropertyIMetadata;
 import genesis.common.GenesisCreativeTabs;

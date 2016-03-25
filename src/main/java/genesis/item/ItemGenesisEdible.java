@@ -2,8 +2,8 @@ package genesis.item;
 
 import java.util.List;
 
+import genesis.combo.ObjectType;
 import genesis.combo.VariantsOfTypesCombo;
-import genesis.combo.VariantsOfTypesCombo.ObjectType;
 import genesis.combo.variant.IFood;
 import genesis.combo.variant.IMetadata;
 import genesis.common.GenesisCreativeTabs;

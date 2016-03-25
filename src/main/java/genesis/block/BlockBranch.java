@@ -2,6 +2,7 @@ package genesis.block;
 
 import java.util.List;
 
+import genesis.combo.ObjectType;
 import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.EnumTree;

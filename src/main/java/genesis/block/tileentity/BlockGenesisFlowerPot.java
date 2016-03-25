@@ -6,7 +6,6 @@ import com.google.common.collect.*;
 
 import genesis.client.*;
 import genesis.combo.*;
-import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.IMetadata;
 import genesis.util.ItemStackKey;
 import net.minecraft.block.*;
