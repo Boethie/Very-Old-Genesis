@@ -2,6 +2,7 @@ package genesis.combo.variant;
 
 import java.util.List;
 
+import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableList;
 
 import genesis.common.GenesisBlocks;
@@ -11,78 +12,49 @@ import net.minecraft.potion.PotionEffect;
 
 public enum EnumSeeds implements IMetadata<EnumSeeds>, IFood
 {
-	ARAUCARIOXYLON_SEEDS("araucarioxylon_seeds", "araucarioxylon", 1, 0.2F)
-	{
-		@Override
-		public IBlockState getPlacedState()
-		{
-			return null;
-		}
-	},
-	ODONTOPTERIS_SEEDS("odontopteris_seeds", "odontopteris", 1, 0.4F)
-	{
-		@Override
-		public IBlockState getPlacedState()
-		{
-			return GenesisBlocks.odontopteris.getDefaultState();
-		}
-	},
-	PROGRAMINIS_SEEDS("programinis_seeds", "programinis")
-	{
-		@Override
-		public IBlockState getPlacedState()
-		{
-			return GenesisBlocks.programinis.getDefaultState();
-		}
-	},
-	ZINGIBEROPSIS_RHIZOME("zingiberopsis_rhizome", "zingiberopsisRhizome", 2, 1.4F)
-	{
-		@Override
-		public IBlockState getPlacedState()
-		{
-			return GenesisBlocks.zingiberopsis.getDefaultState();
-		}
-	},
+	ARAUCARIOXYLON_SEEDS("araucarioxylon_seeds", "araucarioxylon", 1, 0.2F, () -> null),
+	ODONTOPTERIS_SEEDS("odontopteris_seeds", "odontopteris", 1, 0.4F,
+			() -> GenesisBlocks.odontopteris.getDefaultState()),
+	PROGRAMINIS_SEEDS("programinis_seeds", "programinis",
+			() -> GenesisBlocks.programinis.getDefaultState()),
+	ZINGIBEROPSIS_RHIZOME("zingiberopsis_rhizome", "zingiberopsisRhizome", 2, 1.4F,
+			() -> GenesisBlocks.zingiberopsis.getDefaultState()),
 	PROTOTAXITES_FLESH("prototaxites_flesh", "prototaxitesFlesh", 1, 0.8F,
+			() -> GenesisBlocks.prototaxites.getDefaultState(),
 			new PotionEffect(Potion.hunger.id, 300),
 			new PotionEffect(Potion.confusion.id, 300),
-			new PotionEffect(Potion.poison.id, 300))
-	{
-		@Override
-		public IBlockState getPlacedState()
-		{
-			return GenesisBlocks.prototaxites.getDefaultState();
-		}
-	};
+			new PotionEffect(Potion.poison.id, 300));
 	
 	final String name;
 	final String unlocalizedName;
 	final int food;
 	final float saturation;
+	final Supplier<IBlockState> placed;
 	final List<PotionEffect> effects;
 	
-	EnumSeeds(String name, String unlocalizedName, int food, float saturation, PotionEffect... effects)
+	EnumSeeds(String name, String unlocalizedName, int food, float saturation, Supplier<IBlockState> placed, PotionEffect... effects)
 	{
 		this.name = name;
 		this.unlocalizedName = unlocalizedName;
 		this.food = food;
 		this.saturation = saturation;
+		this.placed = placed;
 		this.effects = ImmutableList.copyOf(effects);
 	}
 	
-	EnumSeeds(String name, String unlocalizedName, PotionEffect... effects)
+	EnumSeeds(String name, String unlocalizedName, Supplier<IBlockState> placed, PotionEffect... effects)
 	{
-		this(name, unlocalizedName, 0, 0, effects);
+		this(name, unlocalizedName, 0, 0, placed, effects);
 	}
 	
-	EnumSeeds(String name, int food, float saturation, PotionEffect... effects)
+	EnumSeeds(String name, int food, float saturation, Supplier<IBlockState> placed, PotionEffect... effects)
 	{
-		this(name, name, food, saturation, effects);
+		this(name, name, food, saturation, placed, effects);
 	}
 	
-	EnumSeeds(String name, PotionEffect... effects)
+	EnumSeeds(String name, Supplier<IBlockState> placed, PotionEffect... effects)
 	{
-		this(name, name, effects);
+		this(name, name, placed, effects);
 	}
 	
 	@Override
@@ -115,7 +87,10 @@ public enum EnumSeeds implements IMetadata<EnumSeeds>, IFood
 		return effects;
 	}
 	
-	public abstract IBlockState getPlacedState();
+	public IBlockState getPlacedState()
+	{
+		return placed.get();
+	}
 	
 	@Override
 	public String toString()
