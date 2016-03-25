@@ -81,43 +81,27 @@ public class DyeCookingRecipe extends CookingPotRecipeBase
 		return CRAFTING_MAP.get(colors);
 	}
 	
+	protected static EnumDyeColor getOutputColorFromColors(Iterable<EnumDyeColor> colors)
+	{
+		return getOutputColorFromColors(
+				FluentIterable.from(colors)
+						.filter((c) -> c != null)
+						.toSet());
+	}
+	
 	protected static EnumDyeColor getOutputColorFromColors(EnumDyeColor... colors)
 	{
-		return CRAFTING_MAP.get(MiscUtils.fluentIterable(colors).filter((c) -> c != null).toSet());
+		return getOutputColorFromColors(MiscUtils.iterable(colors));
 	}
 	
 	protected static EnumDyeColor getOutputColorFromStacks(Iterable<ItemStack> stacks)
 	{
-		Set<EnumDyeColor> colorSet = Sets.newHashSet();
-		
-		for (ItemStack stack : stacks)
-		{
-			EnumDyeColor color = getColor(stack);
-			
-			if (color != null)
-			{
-				colorSet.add(color);
-			}
-		}
-		
-		return getOutputColorFromColors(colorSet);
+		return getOutputColorFromColors(FluentIterable.from(stacks).transform((s) -> getColor(s)));
 	}
 	
 	protected static EnumDyeColor getOutputColorFromSlots(Iterable<? extends SlotModifier> slots)
 	{
-		Set<EnumDyeColor> colorSet = Sets.newHashSet();
-		
-		for (SlotModifier slot : slots)
-		{
-			EnumDyeColor color = getColor(slot.getStack());
-			
-			if (color != null)
-			{
-				colorSet.add(color);
-			}
-		}
-		
-		return getOutputColorFromColors(colorSet);
+		return getOutputColorFromStacks(FluentIterable.from(slots).transform((s) -> s.getStack()));
 	}
 	
 	@Override
