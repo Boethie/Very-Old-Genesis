@@ -1,19 +1,11 @@
 package genesis.stats;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-import genesis.combo.OreBlocks;
-import genesis.combo.ToolItems;
-import genesis.combo.TreeBlocksAndItems;
-import genesis.combo.variant.EnumDish;
-import genesis.combo.variant.EnumMenhirActivator;
-import genesis.combo.variant.EnumOre;
-import genesis.combo.variant.EnumToolMaterial;
-import genesis.combo.variant.EnumToolQuality;
-import genesis.combo.variant.EnumTree;
-import genesis.common.GenesisBlocks;
-import genesis.common.GenesisItems;
+import genesis.combo.*;
+import genesis.combo.variant.*;
+import genesis.common.*;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
