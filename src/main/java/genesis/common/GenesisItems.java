@@ -1,7 +1,6 @@
 package genesis.common;
 
 import genesis.combo.*;
-import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.EnumMaterial;
 import genesis.combo.variant.EnumMenhirActivator;
 import genesis.combo.variant.EnumNodule;

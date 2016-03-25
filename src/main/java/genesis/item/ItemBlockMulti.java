@@ -1,7 +1,6 @@
 package genesis.item;
 
 import genesis.combo.*;
-import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.IMetadata;
 import genesis.common.GenesisCreativeTabs;
 

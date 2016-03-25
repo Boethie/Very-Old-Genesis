@@ -125,7 +125,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	public final ImmutableList<ObjectType<?, ?>> types;
 	public final ImmutableList<V> variants;
 	public final Class<V> variantClass;
-	public final HashSet<ObjectType<?, ?>> registeredTypes = new HashSet<ObjectType<?, ?>>();
+	private final HashSet<ObjectType<?, ?>> registeredTypes = new HashSet<ObjectType<?, ?>>();
 	protected String unlocalizedPrefix = "";
 	
 	/**
