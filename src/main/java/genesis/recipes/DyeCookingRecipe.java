@@ -9,6 +9,7 @@ import genesis.combo.ItemsCeramicBowls;
 import genesis.combo.variant.EnumPowder;
 import genesis.combo.variant.GenesisDye;
 import genesis.common.GenesisItems;
+import genesis.util.MiscUtils;
 import genesis.util.SlotModifier;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
@@ -82,17 +83,7 @@ public class DyeCookingRecipe extends CookingPotRecipeBase
 	
 	protected static EnumDyeColor getOutputColorFromColors(EnumDyeColor... colors)
 	{
-		Set<EnumDyeColor> colorSet = Sets.newHashSet();
-		
-		for (EnumDyeColor color : colors)
-		{
-			if (color != null)
-			{
-				colorSet.add(color);
-			}
-		}
-		
-		return CRAFTING_MAP.get(colorSet);
+		return CRAFTING_MAP.get(MiscUtils.fluentIterable(colors).filter((c) -> c != null).toSet());
 	}
 	
 	protected static EnumDyeColor getOutputColorFromStacks(Iterable<ItemStack> stacks)
