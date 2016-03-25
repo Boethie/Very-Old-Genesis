@@ -48,7 +48,7 @@ public interface SlotModifier
 		ItemStack stack = getStack();
 		
 		if (stack == null)
-			throw new RuntimeException("Stack is null, cannot increment size.");
+			return null;
 		
 		ItemStack split = stack.splitStack(amount);
 		
