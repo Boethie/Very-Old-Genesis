@@ -550,13 +550,23 @@ itemGroup.genesis.combat=Genesis Combat
 itemGroup.genesis.materials=Genesis Materials
 
 #------------- Achievements -----
+achievement.genesis.menhirActivator=Aspiring Archaeologist
+achievement.genesis.menhirActivator.desc=Use these ancient items on menhirs.
 achievement.genesis.enter=Back in the Past
 achievement.genesis.enter.desc=Take the portal to reach Genesis.
-achievement.genesis.pebble=Time to Create the First Tool!
+achievement.genesis.pebble=Make your First Tool
 achievement.genesis.pebble.desc=Hit the pebble against a hard rock.
-achievement.genesis.choppingtool=Time to Cut Trees!
-achievement.genesis.choppingtool.desc=Use this primitive tool to get wood.
+achievement.genesis.choppingTool=Time to Cut Trees!
+achievement.genesis.choppingTool.desc=Use this primitive tool to get wood.
 achievement.genesis.workbench=Crafting and Knapping
 achievement.genesis.workbench.desc=Craft a workbench with a log and a pebble.
 achievement.genesis.campfire=Prehistoric Cooking
 achievement.genesis.campfire.desc=Craft a campfire with wood billets and pebbles.
+achievement.genesis.chippedHoe=Time to Farm!
+achievement.genesis.chippedHoe.desc=Use wood billets, sphenophyllum fibers and hoe head to craft a hoe.
+achievement.genesis.chippedPickaxe=Time to Mine!
+achievement.genesis.chippedPickaxe.desc=Use wood billets, sphenophyllum fibers and pickaxe head to craft a pickaxe.
+achievement.genesis.octaedrite=
+achievement.genesis.octaedrite.desc=
+achievement.genesis.blackDiamond=Cosmic Power!
+achievement.genesis.blackDiamond.desc=Give to cosmic Christ.

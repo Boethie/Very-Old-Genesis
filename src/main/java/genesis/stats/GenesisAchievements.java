@@ -3,9 +3,14 @@ package genesis.stats;
 import java.util.ArrayList;
 import java.util.List;
 
+import genesis.combo.OreBlocks;
 import genesis.combo.ToolItems;
 import genesis.combo.TreeBlocksAndItems;
+import genesis.combo.variant.EnumDish;
+import genesis.combo.variant.EnumMenhirActivator;
+import genesis.combo.variant.EnumOre;
 import genesis.combo.variant.EnumToolMaterial;
+import genesis.combo.variant.EnumToolQuality;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
@@ -24,27 +29,47 @@ public class GenesisAchievements
 	static AchievementPage genesisAchievementPage;
 	private static List<Achievement> genesisAchievements = new ArrayList<Achievement>();
 	
+	public static Achievement menhirActivator;
 	public static Achievement enterGenesis;
 	public static Achievement gettingPebble;
 	public static Achievement gettingChoppingTool;
 	public static Achievement gettingLog;
 	public static Achievement workbench;
 	public static Achievement campfire;
+	public static Achievement knappingHoe;
+	public static Achievement polishingHoe;
 	public static Achievement knappingPickaxe;
+	public static Achievement polishingPickaxe;
+	public static Achievement octaedrite;
+	public static Achievement blackDiamond;
 	
 	public static void initAchievements()
 	{
-		enterGenesis = createAchievement("enter", 0, 0, new ItemStack(GenesisBlocks.portal), null, true);
+		menhirActivator = createAchievement("menhirActivator", 0, 0, GenesisItems.menhir_activators.getStack(EnumMenhirActivator.ANCIENT_AMBER), null, false);
 		
-		gettingPebble = createAchievement("pebble", 2, 1, GenesisItems.tools.getStack(ToolItems.PEBBLE, EnumToolMaterial.GRANITE), enterGenesis, false);
+		enterGenesis = createAchievement("enter", 2, 0, new ItemStack(GenesisBlocks.portal), menhirActivator, true);
 		
-		gettingChoppingTool = createAchievement("choppingtool", 4, 1, GenesisItems.tools.getStack(ToolItems.CHOPPING_TOOL, EnumToolMaterial.GRANITE), gettingPebble, false);
+		gettingPebble = createAchievement("pebble", 4, 1, GenesisItems.tools.getStack(ToolItems.PEBBLE, EnumToolMaterial.GRANITE), enterGenesis, false);
 		
-		gettingLog = createAchievement("log", 6, 1, GenesisBlocks.trees.getStack(TreeBlocksAndItems.LOG, EnumTree.SIGILLARIA), gettingChoppingTool, false);
+		gettingChoppingTool = createAchievement("choppingTool", 6, 1, GenesisItems.tools.getStack(ToolItems.CHOPPING_TOOL, EnumToolMaterial.GRANITE), gettingPebble, false);
 		
-		workbench = createAchievement("workbench", 8, -1, new ItemStack(GenesisBlocks.workbench), gettingLog, false);
+		gettingLog = createAchievement("log", 8, 1, GenesisBlocks.trees.getStack(TreeBlocksAndItems.LOG, EnumTree.SIGILLARIA), gettingChoppingTool, false);
 		
-		campfire = createAchievement("campfire", 10, -1, new ItemStack(GenesisBlocks.campfire), workbench, false);
+		workbench = createAchievement("workbench", 10, -1, new ItemStack(GenesisBlocks.workbench), gettingLog, false);
+		
+		campfire = createAchievement("campfire", 12, -1, new ItemStack(GenesisBlocks.campfire), workbench, false);
+		
+		knappingHoe = createAchievement("chippedHoe", 8, -3, GenesisItems.tools.getStack(ToolItems.HOE, EnumToolMaterial.GRANITE, EnumToolQuality.CHIPPED), workbench, false);
+		
+		polishingHoe = createAchievement("polishedHoe", 8, -5, GenesisItems.tools.getStack(ToolItems.HOE, EnumToolMaterial.GRANITE, EnumToolQuality.POLISHED), knappingHoe, false);
+		
+		knappingPickaxe = createAchievement("chippedPickaxe", 10, 2, GenesisItems.tools.getStack(ToolItems.PICKAXE, EnumToolMaterial.GRANITE, EnumToolQuality.CHIPPED), workbench, false);
+		
+		polishingPickaxe = createAchievement("polishedPickaxe", 12, 2, GenesisItems.tools.getStack(ToolItems.PICKAXE, EnumToolMaterial.GRANITE, EnumToolQuality.POLISHED), knappingPickaxe, false);
+		
+		octaedrite = createAchievement("octaedrite", 9, 4, new ItemStack(GenesisBlocks.octaedrite), knappingPickaxe, false);
+		
+		blackDiamond = createAchievement("blackDiamond", 7, 4, GenesisBlocks.ores.getStack(OreBlocks.DROP, EnumOre.BLACK_DIAMOND), octaedrite, false);
 		
 		registerAchievements();
 		
