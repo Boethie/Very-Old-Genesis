@@ -23,7 +23,6 @@ public class GenesisAchievements
 	
 	public static Achievement menhirActivator;
 	public static Achievement enterGenesis;
-	public static Achievement gettingPebble;
 	public static Achievement gettingChoppingTool;
 	public static Achievement gettingLog;
 	public static Achievement workbench;
@@ -41,27 +40,25 @@ public class GenesisAchievements
 		
 		enterGenesis = createAchievement("enter", 2, 0, new ItemStack(GenesisBlocks.portal), menhirActivator, true);
 		
-		gettingPebble = createAchievement("pebble", 4, 1, GenesisItems.tools.getStack(ToolItems.PEBBLE, EnumToolMaterial.GRANITE), enterGenesis, false);
+		gettingChoppingTool = createAchievement("choppingTool", 4, 1, GenesisItems.tools.getStack(ToolItems.CHOPPING_TOOL, EnumToolMaterial.GRANITE), enterGenesis, false);
 		
-		gettingChoppingTool = createAchievement("choppingTool", 6, 1, GenesisItems.tools.getStack(ToolItems.CHOPPING_TOOL, EnumToolMaterial.GRANITE), gettingPebble, false);
+		gettingLog = createAchievement("log", 6, 1, GenesisBlocks.trees.getStack(TreeBlocksAndItems.LOG, EnumTree.SIGILLARIA), gettingChoppingTool, false);
 		
-		gettingLog = createAchievement("log", 8, 1, GenesisBlocks.trees.getStack(TreeBlocksAndItems.LOG, EnumTree.SIGILLARIA), gettingChoppingTool, false);
+		workbench = createAchievement("workbench", 8, -1, new ItemStack(GenesisBlocks.workbench), gettingLog, false);
 		
-		workbench = createAchievement("workbench", 10, -1, new ItemStack(GenesisBlocks.workbench), gettingLog, false);
+		campfire = createAchievement("campfire", 10, -1, new ItemStack(GenesisBlocks.campfire), workbench, false);
 		
-		campfire = createAchievement("campfire", 12, -1, new ItemStack(GenesisBlocks.campfire), workbench, false);
+		knappingHoe = createAchievement("chippedHoe", 6, -3, GenesisItems.tools.getStack(ToolItems.HOE, EnumToolMaterial.GRANITE, EnumToolQuality.CHIPPED), workbench, false);
 		
-		knappingHoe = createAchievement("chippedHoe", 8, -3, GenesisItems.tools.getStack(ToolItems.HOE, EnumToolMaterial.GRANITE, EnumToolQuality.CHIPPED), workbench, false);
+		polishingHoe = createAchievement("polishedHoe", 6, -5, GenesisItems.tools.getStack(ToolItems.HOE, EnumToolMaterial.GRANITE, EnumToolQuality.POLISHED), knappingHoe, false);
 		
-		polishingHoe = createAchievement("polishedHoe", 8, -5, GenesisItems.tools.getStack(ToolItems.HOE, EnumToolMaterial.GRANITE, EnumToolQuality.POLISHED), knappingHoe, false);
+		knappingPickaxe = createAchievement("chippedPickaxe", 8, 2, GenesisItems.tools.getStack(ToolItems.PICKAXE, EnumToolMaterial.GRANITE, EnumToolQuality.CHIPPED), workbench, false);
 		
-		knappingPickaxe = createAchievement("chippedPickaxe", 10, 2, GenesisItems.tools.getStack(ToolItems.PICKAXE, EnumToolMaterial.GRANITE, EnumToolQuality.CHIPPED), workbench, false);
+		polishingPickaxe = createAchievement("polishedPickaxe", 10, 2, GenesisItems.tools.getStack(ToolItems.PICKAXE, EnumToolMaterial.GRANITE, EnumToolQuality.POLISHED), knappingPickaxe, false);
 		
-		polishingPickaxe = createAchievement("polishedPickaxe", 12, 2, GenesisItems.tools.getStack(ToolItems.PICKAXE, EnumToolMaterial.GRANITE, EnumToolQuality.POLISHED), knappingPickaxe, false);
+		octaedrite = createAchievement("octaedrite", 8, 4, new ItemStack(GenesisBlocks.octaedrite), knappingPickaxe, false);
 		
-		octaedrite = createAchievement("octaedrite", 9, 4, new ItemStack(GenesisBlocks.octaedrite), knappingPickaxe, false);
-		
-		blackDiamond = createAchievement("blackDiamond", 7, 4, GenesisBlocks.ores.getStack(OreBlocks.DROP, EnumOre.BLACK_DIAMOND), octaedrite, false);
+		blackDiamond = createAchievement("blackDiamond", 6, 4, GenesisBlocks.ores.getStack(OreBlocks.DROP, EnumOre.BLACK_DIAMOND), octaedrite, false);
 		
 		registerAchievements();
 		
@@ -91,9 +88,6 @@ public class GenesisAchievements
 	{
 		private static void doItemAchievement(ItemStack stack, EntityPlayer player)
 		{
-			if (GenesisItems.tools.isStackOf(stack, ToolItems.PEBBLE))
-				player.addStat(gettingPebble, 1);
-			
 			if (GenesisBlocks.trees.isStackOf(stack, TreeBlocksAndItems.LOG))
 				player.addStat(gettingLog, 1);
 			
