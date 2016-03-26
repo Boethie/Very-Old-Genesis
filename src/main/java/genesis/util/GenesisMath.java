@@ -2,9 +2,9 @@ package genesis.util;
 
 import net.minecraft.util.Vec3;
 
-public class GenesisMath
+public final class GenesisMath
 {
-	public static double lerp(double a, double b, double v)
+	public static final double lerp(double a, double b, double v)
 	{
 		if (v == 0)
 			return a;
@@ -14,7 +14,7 @@ public class GenesisMath
 		return a + (b - a) * v;
 	}
 	
-	public static float lerp(float a, float b, float v)
+	public static final float lerp(float a, float b, float v)
 	{
 		if (v == 0)
 			return a;
@@ -24,7 +24,7 @@ public class GenesisMath
 		return a + (b - a) * v;
 	}
 	
-	public static int lerp(int a, int b, float v)
+	public static final int lerp(int a, int b, float v)
 	{
 		if (v == 0)
 			return a;
@@ -34,7 +34,7 @@ public class GenesisMath
 		return a + Math.round((b - a) * v);
 	}
 	
-	public static Vec3 lerp(Vec3 a, Vec3 b, double v)
+	public static final Vec3 lerp(Vec3 a, Vec3 b, double v)
 	{
 		if (v == 0)
 			return a;
@@ -46,7 +46,7 @@ public class GenesisMath
 						lerp(a.zCoord, b.zCoord, v));
 	}
 	
-	public static int ceilDiv(int a, int b)
+	public static final int ceilDiv(int a, int b)
 	{
 		return (a + b - 1) / b;
 	}
