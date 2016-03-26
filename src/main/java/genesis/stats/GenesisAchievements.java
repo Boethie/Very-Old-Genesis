@@ -5,7 +5,7 @@ import java.util.*;
 import genesis.combo.*;
 import genesis.combo.variant.*;
 import genesis.common.*;
-
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -86,16 +86,57 @@ public class GenesisAchievements
 	
 	public static class Handler
 	{
+		private static boolean isBlock(ItemStack stack, Block block)
+		{
+			return stack.getItem() == Item.getItemFromBlock(block);
+		}
+		
 		private static void doItemAchievement(ItemStack stack, EntityPlayer player)
 		{
+			if (GenesisItems.menhir_activators.isStackOf(stack))
+				player.addStat(menhirActivator, 1);
+			
 			if (GenesisBlocks.trees.isStackOf(stack, TreeBlocksAndItems.LOG))
 				player.addStat(gettingLog, 1);
 			
-			if (stack.getItem() == Item.getItemFromBlock(GenesisBlocks.workbench))
+			if (isBlock(stack, GenesisBlocks.workbench))
 				player.addStat(workbench, 1);
 			
-			if (stack.getItem() == Item.getItemFromBlock(GenesisBlocks.campfire))
+			if (isBlock(stack, GenesisBlocks.campfire))
 				player.addStat(campfire, 1);
+			
+			if (GenesisItems.tools.isStackOf(stack, ToolItems.HOE))
+			{
+				switch (GenesisItems.tools.getVariant(stack).quality)
+				{
+				case CHIPPED:
+					player.addStat(knappingHoe, 1);
+					break;
+				case POLISHED:
+					player.addStat(polishingHoe, 1);
+					break;
+				default:
+					break;
+				}
+			}
+			
+			if (GenesisItems.tools.isStackOf(stack, ToolItems.PICKAXE))
+			{
+				switch (GenesisItems.tools.getVariant(stack).quality)
+				{
+				case CHIPPED:
+					player.addStat(knappingPickaxe, 1);
+					break;
+				case POLISHED:
+					player.addStat(polishingPickaxe, 1);
+					break;
+				default:
+					break;
+				}
+			}
+			
+			if (isBlock(stack, GenesisBlocks.octaedrite))
+				player.addStat(octaedrite, 1);
 		}
 		
 		@SubscribeEvent

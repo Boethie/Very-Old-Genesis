@@ -188,7 +188,15 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	}
 	
 	/**
-	 * @return Whether the state is contained by this combo.
+	 * @return Whether the stack is contained in this combo.
+	 */
+	public boolean isStackOf(ItemStack stack)
+	{
+		return super.isStackOf(stack, soleType);
+	}
+	
+	/**
+	 * @return Whether the stack is of the specified variant in this combo.
 	 */
 	public boolean isStackOf(ItemStack stack, V variant)
 	{
