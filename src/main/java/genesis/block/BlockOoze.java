@@ -11,6 +11,7 @@ public class BlockOoze extends BlockGenesis
 		super(Material.clay, GenesisSounds.OOZE);
 		
 		slipperiness = 0.88F;
+		setSoundType(GenesisSounds.OOZE);
 		setHarvestLevel("shovel", 0);
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 		setHardness(1.0F);

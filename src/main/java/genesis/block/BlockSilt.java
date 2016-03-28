@@ -57,7 +57,7 @@ public class BlockSilt extends BlockFalling
 		setDefaultState(blockState.getBaseState());
 		
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
-		setStepSound(SoundType.SAND);
+		setSoundType(SoundType.SAND);
 		setHardness(0.5F);
 	}
 	

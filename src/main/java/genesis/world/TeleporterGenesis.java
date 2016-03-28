@@ -10,6 +10,7 @@ import genesis.portal.GenesisPortal;
 import genesis.util.WorldUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.*;
 
 public class TeleporterGenesis extends Teleporter
@@ -92,7 +93,7 @@ public class TeleporterGenesis extends Teleporter
 			cache.put(center, new PortalPosition(portalPos, world.getTotalWorldTime()));
 			Genesis.logger.info("Caching portal position from location " + center + " to " + portalPos);
 			
-			Vec3 to = new Vec3(portalPos.getX() + 0.5, portalPos.getY(), portalPos.getZ() + 0.5);
+			Vec3d to = new Vec3d(portalPos.getX() + 0.5, portalPos.getY(), portalPos.getZ() + 0.5);
 			
 			if (!world.getBlockState(portalPos.down()).getBlock().isVisuallyOpaque())
 			{

@@ -35,7 +35,7 @@ public class PlantBlocks extends VariantsOfTypesCombo<EnumPlant>
 	// Ferns
 	private static void afterFernConstructed(Block block, ItemBlockMulti<EnumPlant> item, List<? extends IMetadata<?>> variants)
 	{
-		block.setStepSound(GenesisSounds.FERN);
+		block.setSoundType(GenesisSounds.FERN);
 	}
 	
 	public static final ObjectType<BlockPlant<EnumPlant>, ItemBlockMulti<EnumPlant>> FERN = new ObjectType<BlockPlant<EnumPlant>, ItemBlockMulti<EnumPlant>>("fern", Unlocalized.Section.FERN, SINGLE, null)

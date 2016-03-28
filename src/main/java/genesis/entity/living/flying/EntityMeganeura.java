@@ -26,7 +26,11 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.*;
 import net.minecraft.util.*;
-import net.minecraft.util.MovingObjectPosition.MovingObjectType;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.RayTraceResult.Type;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -66,7 +70,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 	
 	public static final int SPAWN_LIMIT = 2;
 	
-	public static int getChunkMeganeuraCount(World world, Vec3 pos)
+	public static int getChunkMeganeuraCount(World world, Vec3d pos)
 	{
 		double radius = 8;
 		AxisAlignedBB bb = new AxisAlignedBB(pos.xCoord, pos.yCoord, pos.zCoord, pos.xCoord, pos.yCoord, pos.zCoord).expand(radius, radius, radius);
@@ -76,7 +80,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 		return meganeura.size() + eggs.size();
 	}
 	
-	public static boolean canSpawnMeganeura(World world, Vec3 pos)
+	public static boolean canSpawnMeganeura(World world, Vec3d pos)
 	{
 		return getChunkMeganeuraCount(world, pos) < SPAWN_LIMIT;
 	}
@@ -91,7 +95,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 	
 	protected double speed = 1;
 	
-	private Vec3 targetLocation;
+	private Vec3d targetLocation;
 	
 	protected int takeoffSoundTimer = 0;
 
@@ -225,12 +229,12 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 		return false;
 	}
 	
-	public void setTargetLocation(Vec3 location)
+	public void setTargetLocation(Vec3d location)
 	{
 		targetLocation = location;
 	}
 	
-	public Vec3 getTargetLocation()
+	public Vec3d getTargetLocation()
 	{
 		return targetLocation;
 	}
@@ -297,9 +301,9 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 			double diffY = posY - prevPosY;
 			double diffZ = posZ - prevPosZ;
 			
-			Vec3 posDiff = new Vec3(diffX, diffY, diffZ);
+			Vec3d posDiff = new Vec3d(diffX, diffY, diffZ);
 			double rads = Math.toRadians(rotationYaw);
-			Vec3 forward = new Vec3(Math.cos(rads), 0, Math.sin(rads));
+			Vec3d forward = new Vec3d(Math.cos(rads), 0, Math.sin(rads));
 			double dotSpeed = MathHelper.sqrt_double(posDiff.dotProduct(forward));
 			double maxSpeed = speed * (2 / 3.0F);
 			
@@ -406,16 +410,16 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 	{
 		public int entityID;
 		public float eggPlaceTimer;
-		public Vec3 position;
-		public Vec3 velocity;
+		public Vec3d position;
+		public Vec3d velocity;
 		public float yaw;
-		public Vec3 targetLocation;
+		public Vec3d targetLocation;
 		
 		public MeganeuraUpdateMessage()
 		{
 		}
 		
-		public MeganeuraUpdateMessage(int entityID, Vec3 position, Vec3 velocity, float yaw, Vec3 targetLocation, float eggPlaceTimer)
+		public MeganeuraUpdateMessage(int entityID, Vec3d position, Vec3d velocity, float yaw, Vec3d targetLocation, float eggPlaceTimer)
 		{
 			this.entityID = entityID;
 			this.eggPlaceTimer = eggPlaceTimer;
@@ -427,7 +431,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 		
 		public MeganeuraUpdateMessage(EntityMeganeura entity)
 		{
-			this(entity.getEntityId(), entity.getPositionVector(), new Vec3(entity.motionX, entity.motionY, entity.motionZ), entity.rotationYaw, entity.getTargetLocation(), entity.eggPlaceTimer);
+			this(entity.getEntityId(), entity.getPositionVector(), new Vec3d(entity.motionX, entity.motionY, entity.motionZ), entity.rotationYaw, entity.getTargetLocation(), entity.eggPlaceTimer);
 		}
 		
 		@Override
@@ -479,19 +483,19 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 			
 			if (buf.readBoolean())
 			{
-				position = new Vec3(buf.readDouble(), buf.readDouble(), buf.readDouble());
+				position = new Vec3d(buf.readDouble(), buf.readDouble(), buf.readDouble());
 			}
 			
 			if (buf.readBoolean())
 			{
-				velocity = new Vec3(buf.readDouble(), buf.readDouble(), buf.readDouble());
+				velocity = new Vec3d(buf.readDouble(), buf.readDouble(), buf.readDouble());
 			}
 			
 			yaw = buf.readFloat();
 			
 			if (buf.readBoolean())
 			{
-				targetLocation = new Vec3(buf.readDouble(), buf.readDouble(), buf.readDouble());
+				targetLocation = new Vec3d(buf.readDouble(), buf.readDouble(), buf.readDouble());
 			}
 		}
 		
@@ -519,7 +523,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 							meganeura.newEggPlaceTimer = message.eggPlaceTimer;
 						}
 						
-						Vec3 p = message.position;
+						Vec3d p = message.position;
 						
 						if (p != null)
 						{
@@ -529,7 +533,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 							meganeura.serverPosZ = (int) (p.zCoord * 32);
 						}
 						
-						Vec3 v = message.velocity;
+						Vec3d v = message.velocity;
 						
 						if (v != null)
 						{
@@ -570,10 +574,10 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 	{
 		super.updateAITasks();
 		
-		Vec3 ourPos = getPositionVector();
+		Vec3d ourPos = getPositionVector();
 		State ourState = getState();
-		Vec3 ourOldTarget = getTargetLocation();
-		Vec3 ourNewTarget = ourOldTarget;
+		Vec3d ourOldTarget = getTargetLocation();
+		Vec3d ourNewTarget = ourOldTarget;
 		
 		if (ourNewTarget == null)
 		{
@@ -614,11 +618,11 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 				{
 					DoubleRange horizRange = DoubleRange.create(-1, 1);
 					DoubleRange vertRange = DoubleRange.create(-1, 0.25);
-					Vec3 random = new Vec3(horizRange.get(rand), vertRange.get(rand), horizRange.get(rand)).normalize();
-					Vec3 to = ourPos.addVector(random.xCoord * distance, random.yCoord * distance, random.zCoord * distance);
-					MovingObjectPosition hit = worldObj.rayTraceBlocks(ourPos, to, true, false, false);
+					Vec3d random = new Vec3d(horizRange.get(rand), vertRange.get(rand), horizRange.get(rand)).normalize();
+					Vec3d to = ourPos.addVector(random.xCoord * distance, random.yCoord * distance, random.zCoord * distance);
+					RayTraceResult hit = worldObj.rayTraceBlocks(ourPos, to, true, false, false);
 					
-					if (hit != null && hit.typeOfHit == MovingObjectType.BLOCK)
+					if (hit != null && hit.typeOfHit == Type.BLOCK)
 					{
 						BlockPos checkPos = hit.getBlockPos();
 						Block checkBlock = worldObj.getBlockState(checkPos).getBlock();
@@ -639,9 +643,9 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 							case WEST:
 								// Check whether the position has enough room to hold onto the block, because otherwise it will look strange.
 								double offset = 0.0625 * 4;
-								MovingObjectPosition aboveHit = worldObj.rayTraceBlocks(ourPos.addVector(0, offset, 0), to.addVector(0, offset, 0), true, false, false);
+								RayTraceResult aboveHit = worldObj.rayTraceBlocks(ourPos.addVector(0, offset, 0), to.addVector(0, offset, 0), true, false, false);
 								
-								if (aboveHit != null && aboveHit.typeOfHit == MovingObjectType.BLOCK &&
+								if (aboveHit != null && aboveHit.typeOfHit == Type.BLOCK &&
 									aboveHit.sideHit == hit.sideHit &&
 									(aboveHit.getBlockPos().equals(hit.getBlockPos()) || aboveHit.getBlockPos().equals(hit.getBlockPos().up())))
 								{
@@ -688,13 +692,13 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 			}
 			else
 			{
-				Vec3 forward = ourNewTarget.subtract(ourPos);
+				Vec3d forward = ourNewTarget.subtract(ourPos);
 				forward = forward.normalize();
 				double epsilon = 0.01D;
 				forward = forward.addVector(forward.xCoord * epsilon, forward.yCoord * epsilon, forward.zCoord * epsilon).add(ourPos);
-				MovingObjectPosition hit = worldObj.rayTraceBlocks(ourPos, forward, true, false, false);
+				RayTraceResult hit = worldObj.rayTraceBlocks(ourPos, forward, true, false, false);
 				
-				if (hit == null || hit.typeOfHit != MovingObjectType.BLOCK)
+				if (hit == null || hit.typeOfHit != Type.BLOCK)
 				{
 					fly = true;
 				}
@@ -712,7 +716,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 			{
 				if (calamites && canSpawnMeganeura(worldObj, ourPos))
 				{
-					ourNewTarget = new Vec3(targetPos.getX() + 0.5, ourNewTarget.yCoord, targetPos.getZ() + 0.5);
+					ourNewTarget = new Vec3d(targetPos.getX() + 0.5, ourNewTarget.yCoord, targetPos.getZ() + 0.5);
 					setState(PLACING_EGG);
 					eggPlaceTimer = 1;
 					sendUpdateMessage();
@@ -725,9 +729,9 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 			}
 			else
 			{
-				MovingObjectPosition hit = worldObj.rayTraceBlocks(ourPos, ourNewTarget, false, false, true);
+				RayTraceResult hit = worldObj.rayTraceBlocks(ourPos, ourNewTarget, false, false, true);
 				
-				if (hit != null && hit.typeOfHit == MovingObjectType.BLOCK)
+				if (hit != null && hit.typeOfHit == Type.BLOCK)
 				{
 					EnumFacing side = hit.sideHit;
 					
@@ -757,7 +761,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 				}
 				else if (!placedEgg && eggPlaceTimer <= 0.1F)
 				{
-					MovingObjectPosition hit = worldObj.rayTraceBlocks(ourPos, ourNewTarget, false, false, false);
+					RayTraceResult hit = worldObj.rayTraceBlocks(ourPos, ourNewTarget, false, false, false);
 					
 					if (hit != null)
 					{
@@ -792,15 +796,15 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 			{
 				ourNewTarget = null;
 			}
-			else if (ourState == FLYING && entityAge % 20 == 0 && new Vec3(motionX, motionY, motionZ).squareDistanceTo(new Vec3(0, 0, 0)) < 0.01)
+			else if (ourState == FLYING && entityAge % 20 == 0 && new Vec3d(motionX, motionY, motionZ).squareDistanceTo(new Vec3d(0, 0, 0)) < 0.01)
 			{
 				ourNewTarget = null;
 			}
 			else
 			{
-				MovingObjectPosition hit = worldObj.rayTraceBlocks(ourPos, ourNewTarget, false, false, true);
+				RayTraceResult hit = worldObj.rayTraceBlocks(ourPos, ourNewTarget, false, false, true);
 				
-				if (hit != null && hit.typeOfHit == MovingObjectType.BLOCK)
+				if (hit != null && hit.typeOfHit == Type.BLOCK)
 				{
 					if (ourState != LANDING_SIDE)
 					{
@@ -836,8 +840,8 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 			if (!isInWater())
 			{
 				// Start finding ground level
-				Vec3 to = new Vec3(posX, 0, posZ);
-				MovingObjectPosition hit = worldObj.rayTraceBlocks(ourPos, to, true, false, true);
+				Vec3d to = new Vec3d(posX, 0, posZ);
+				RayTraceResult hit = worldObj.rayTraceBlocks(ourPos, to, true, false, true);
 				
 				double ground = 0;
 				
@@ -848,7 +852,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 				
 				vertMove += ground;
 				
-				to = new Vec3(posX, posY + vertMove, posZ);
+				to = new Vec3d(posX, posY + vertMove, posZ);
 				hit = worldObj.rayTraceBlocks(ourPos, to, true, false, true);
 				
 				if (hit != null)
@@ -860,11 +864,11 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 			}
 			
 			DoubleRange horiz = DoubleRange.create(-1, 1);
-			Vec3 random = new Vec3(horiz.get(rand), 0, horiz.get(rand)).normalize();
+			Vec3d random = new Vec3d(horiz.get(rand), 0, horiz.get(rand)).normalize();
 			
 			DoubleRange distRange = DoubleRange.create(5, 10);
 			double distance = distRange.get(rand);
-			random = new Vec3(random.xCoord * distance, random.yCoord * distance, random.zCoord * distance);
+			random = new Vec3d(random.xCoord * distance, random.yCoord * distance, random.zCoord * distance);
 			random = random.addVector(0, vertMove, 0);
 			
 			setState(FLYING);
@@ -876,7 +880,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 		
 		if (inAir || strafe)
 		{
-			Vec3 moveVec = ourNewTarget.subtract(ourPos).normalize();
+			Vec3d moveVec = ourNewTarget.subtract(ourPos).normalize();
 			float targetYaw = (float) (Math.toDegrees(Math.atan2(moveVec.zCoord, moveVec.xCoord)));
 			float diffYaw = MathHelper.wrapAngleTo180_float(targetYaw - rotationYaw);
 			
@@ -965,7 +969,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 		
 		if (targetComp.hasKey("x") && targetComp.hasKey("y") && targetComp.hasKey("z"))
 		{
-			setTargetLocation(new Vec3(targetComp.getDouble("x"), targetComp.getDouble("y"), targetComp.getDouble("z")));
+			setTargetLocation(new Vec3d(targetComp.getDouble("x"), targetComp.getDouble("y"), targetComp.getDouble("z")));
 		}
 	}
 
@@ -975,7 +979,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 		super.writeEntityToNBT(compound);
 		
 		compound.setString("state", getState().toString());
-		Vec3 target = getTargetLocation();
+		Vec3d target = getTargetLocation();
 		
 		if (target != null)
 		{

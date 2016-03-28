@@ -10,7 +10,7 @@ public class BlockPrograminisBundle extends BlockHay
 	public BlockPrograminisBundle()
 	{
 		setHardness(0.5F);
-		setStepSound(SoundType.PLANT);
+		setSoundType(SoundType.PLANT);
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 		Blocks.fire.setFireInfo(this, 60, 20);
 	}

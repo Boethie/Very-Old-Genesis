@@ -14,10 +14,11 @@ import com.google.common.collect.Lists;
 
 import net.minecraft.block.*;
 import net.minecraft.client.*;
+import net.minecraft.client.renderer.block.model.ModelBakery;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.*;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.resources.*;
-import net.minecraft.client.resources.model.*;
 import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;

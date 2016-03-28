@@ -37,7 +37,7 @@ public class BlockGenesisMushroom extends BlockBush
 	{
 		super();
 		
-		setStepSound(GenesisSounds.MUSHROOM);
+		setSoundType(GenesisSounds.MUSHROOM);
 	}
 	
 	public BlockGenesisMushroom setGrowType(MushroomGrowType type)

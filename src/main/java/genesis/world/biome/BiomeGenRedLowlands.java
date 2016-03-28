@@ -15,7 +15,7 @@ import genesis.world.biome.decorate.WorldGenRockBoulders;
 import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.gen.feature.WorldGenTreeBjuvia;
 import genesis.world.gen.feature.WorldGenTreeVoltzia;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 
 public class BiomeGenRedLowlands extends BiomeGenBaseGenesis
 {
@@ -67,13 +67,13 @@ public class BiomeGenRedLowlands extends BiomeGenBaseGenesis
 	}
 	
 	@Override
-	public Vec3 getFogColor()
+	public Vec3d getFogColor()
 	{
 		float red = 0.917647059F;
 		float green = 0.650980392F;
 		float blue = 0.309803922F;
 		
-		return new Vec3(red, green, blue);
+		return new Vec3d(red, green, blue);
 	}
 	
 	@Override

@@ -9,7 +9,7 @@ public class BlockCalamitesBundle extends BlockHay
 {
 	public BlockCalamitesBundle()
 	{
-		setStepSound(GenesisSounds.CALAMITES);
+		setSoundType(GenesisSounds.CALAMITES);
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 
 		setHardness(1);

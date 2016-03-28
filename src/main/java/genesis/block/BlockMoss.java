@@ -30,7 +30,7 @@ public class BlockMoss extends BlockGrass
 	{
 		setDefaultState(blockState.getBaseState().withProperty(STAGE, 0).withProperty(SNOWY, false));
 		setHardness(0.6F);
-		setStepSound(GenesisSounds.MOSS);
+		setSoundType(GenesisSounds.MOSS);
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 		setHarvestLevel("shovel", 0);
 	}

@@ -10,7 +10,7 @@ import net.minecraft.item.ItemLilyPad;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -25,9 +25,9 @@ public class ItemBlockCobbania extends ItemLilyPad
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
 	{
-		MovingObjectPosition hit = getMovingObjectPositionFromPlayer(world, player, true);
+		RayTraceResult hit = getRayTraceResultFromPlayer(world, player, true);
 
-		if (hit != null && hit.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
+		if (hit != null && hit.typeOfHit == RayTraceResult.Type.BLOCK)
 		{
 			BlockPos hitPos = hit.getBlockPos();
 

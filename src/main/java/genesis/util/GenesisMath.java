@@ -1,6 +1,6 @@
 package genesis.util;
 
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 
 public final class GenesisMath
 {
@@ -34,14 +34,14 @@ public final class GenesisMath
 		return a + Math.round((b - a) * v);
 	}
 	
-	public static final Vec3 lerp(Vec3 a, Vec3 b, double v)
+	public static final Vec3d lerp(Vec3d a, Vec3d b, double v)
 	{
 		if (v == 0)
 			return a;
 		else if (v == 1)
 			return b;
 		
-		return new Vec3(lerp(a.xCoord, b.xCoord, v),
+		return new Vec3d(lerp(a.xCoord, b.xCoord, v),
 						lerp(a.yCoord, b.yCoord, v),
 						lerp(a.zCoord, b.zCoord, v));
 	}

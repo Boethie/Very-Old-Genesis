@@ -32,7 +32,7 @@ public class BlockStorageBox extends Block
 	{
 		super(Material.wood);
 		
-		setStepSound(SoundType.WOOD);
+		setSoundType(SoundType.WOOD);
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		

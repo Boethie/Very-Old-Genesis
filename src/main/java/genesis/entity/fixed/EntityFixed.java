@@ -8,6 +8,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public abstract class EntityFixed extends Entity
@@ -19,7 +21,7 @@ public abstract class EntityFixed extends Entity
 		super(world);
 	}
 	
-	public EntityFixed(World world, Vec3 position)
+	public EntityFixed(World world, Vec3d position)
 	{
 		this(world);
 		

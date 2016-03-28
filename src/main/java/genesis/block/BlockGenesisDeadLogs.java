@@ -27,7 +27,7 @@ public class BlockGenesisDeadLogs extends BlockGenesisLogs implements IGenesisMu
 	{
 		super(owner, type, variants, variantClass);
 		
-		setStepSound(GenesisSounds.DEAD_LOG);
+		setSoundType(GenesisSounds.DEAD_LOG);
 	}
 	
 	@Override

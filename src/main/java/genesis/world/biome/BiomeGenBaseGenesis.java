@@ -273,23 +273,23 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 	}
 	
 	@Override
-	public Vec3 getFogColor()
+	public Vec3d getFogColor()
 	{
 		float red = 0.533333333F;
 		float green = 0.647058824F;
 		float blue = 0.474509804F;
 		
-		return new Vec3(red, green, blue);
+		return new Vec3d(red, green, blue);
 	}
 	
 	@Override
-	public Vec3 getFogColorNight()
+	public Vec3d getFogColorNight()
 	{
 		float red = 0.070941176F;
 		float green = 0.070941176F;
 		float blue = 0.070941176F;
 		
-		return new Vec3(red, green, blue);
+		return new Vec3d(red, green, blue);
 	}
 	
 	@Override

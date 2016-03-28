@@ -72,7 +72,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		
 		setHardness(0.0F);
-		setStepSound(GenesisSounds.AQUATICPLANT);
+		setSoundType(GenesisSounds.AQUATICPLANT);
 		setTickRandomly(true);
 	}
 	

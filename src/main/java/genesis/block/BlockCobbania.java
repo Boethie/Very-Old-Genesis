@@ -17,7 +17,7 @@ public class BlockCobbania extends BlockLilyPad
 	public BlockCobbania()
 	{
 		setHardness(0.0F);
-		setStepSound(SoundType.PLANT);
+		setSoundType(SoundType.PLANT);
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	}
 	

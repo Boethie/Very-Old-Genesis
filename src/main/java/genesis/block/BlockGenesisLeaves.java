@@ -55,7 +55,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 		setDefaultState(getBlockState().getBaseState().withProperty(DECAYABLE, true).withProperty(CHECK_DECAY, false));
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
-		setStepSound(SoundType.PLANT);
+		setSoundType(SoundType.PLANT);
 		
 		Blocks.fire.setFireInfo(this, 30, 60);
 	}

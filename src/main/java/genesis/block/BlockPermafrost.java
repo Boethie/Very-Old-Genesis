@@ -10,8 +10,8 @@ public class BlockPermafrost extends BlockGenesis
 		super(Material.rock, GenesisSounds.PERMAFROST);
 		
 		slipperiness = 0.98F;
-		
 		setHardness(0.5F);
+		setSoundType(GenesisSounds.PERMAFROST);
 		setHarvestLevel("pickaxe", 0);
 	}
 }

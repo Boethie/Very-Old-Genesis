@@ -3,7 +3,7 @@ package genesis.util;
 import java.util.Random;
 
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 
 import net.minecraft.util.EnumFacing.Axis;
 import static net.minecraft.util.EnumFacing.Axis.*;

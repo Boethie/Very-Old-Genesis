@@ -9,7 +9,7 @@ import genesis.entity.living.flying.EntityMeganeura.MeganeuraUpdateMessage;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.*;
 import net.minecraftforge.fml.common.network.NetworkRegistry.*;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
@@ -42,7 +42,7 @@ public class GenesisNetwork extends SimpleNetworkWrapper
 		sendToAllAround(message, new TargetPoint(world.provider.getDimensionId(), x, y, z, range));
 	}
 	
-	public void sendToAllAround(IMessage message, World world, Vec3 vec, double range)
+	public void sendToAllAround(IMessage message, World world, Vec3d vec, double range)
 	{
 		sendToAllAround(message, world, vec.xCoord, vec.yCoord, vec.zCoord, range);
 	}

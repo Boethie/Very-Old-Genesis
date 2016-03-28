@@ -51,7 +51,7 @@ public class BlockPlant<V extends IPlantMetadata<V>> extends BlockBush implement
 	
 	public BlockPlant(VariantsOfTypesCombo<V> owner, ObjectType<? extends BlockPlant<V>, ? extends ItemBlockMulti<V>> type, List<V> variants, Class<V> variantClass, ObjectType<? extends BlockGenesisDoublePlant<V>, ? extends ItemBlockMulti<V>> doubleType)
 	{
-		setStepSound(SoundType.PLANT);
+		setSoundType(SoundType.PLANT);
 		
 		setHardness(0);
 		

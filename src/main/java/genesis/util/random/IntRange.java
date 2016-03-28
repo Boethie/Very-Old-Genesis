@@ -2,7 +2,7 @@ package genesis.util.random;
 
 import java.util.Random;
 
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 
 public abstract class IntRange implements Range<Integer>
 {

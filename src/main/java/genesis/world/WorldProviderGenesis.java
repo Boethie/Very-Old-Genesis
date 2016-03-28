@@ -5,8 +5,8 @@ import genesis.common.GenesisBlocks;
 import genesis.util.GenesisMath;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.fml.relauncher.Side;
@@ -130,7 +130,7 @@ public class WorldProviderGenesis extends WorldProvider
 	}
 	
 	@Override
-	public Vec3 getFogColor(float angle, float partialTicks)
+	public Vec3d getFogColor(float angle, float partialTicks)
 	{
 		return GenesisMath.lerp(RenderFog.INSTANCE.prevColor, RenderFog.INSTANCE.color, partialTicks);
 	}
