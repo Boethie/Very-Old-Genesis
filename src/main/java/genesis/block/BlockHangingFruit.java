@@ -12,19 +12,19 @@ import genesis.combo.variant.PropertyIMetadata;
 import genesis.item.ItemBlockMulti;
 import genesis.util.BlockStateToMetadata;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.pipeline.BlockInfo;
@@ -46,7 +46,7 @@ public class BlockHangingFruit extends BlockGenesis
 			ObjectType<BlockHangingFruit, ItemBlockMulti<EnumTree>> type,
 			List<EnumTree> variants, Class<EnumTree> variantClass)
 	{
-		super(Material.wood);
+		super(Material.wood, SoundType.WOOD);
 		
 		this.owner = owner;
 		this.type = type;
@@ -54,10 +54,9 @@ public class BlockHangingFruit extends BlockGenesis
 		this.variants = variants;
 		variantProp = new PropertyIMetadata<EnumTree>("variant", variants, variantClass);
 		
-		blockState = new BlockState(this, variantProp);
+		blockState = new BlockStateContainer(this, variantProp);
 		setDefaultState(getBlockState().getBaseState());
 		
-		setStepSound(soundTypeWood);
 		setHardness(0.25F);
 	}
 	
@@ -102,8 +101,9 @@ public class BlockHangingFruit extends BlockGenesis
 		checkAndDropBlock(world, pos, state);
 	}
 	
+	@SideOnly(Side.CLIENT)
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess world, BlockPos pos)
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
 		EnumTree variant = world.getBlockState(pos).getValue(variantProp);
 		float radius = variant.getFruitWidth() / 2;
@@ -113,15 +113,15 @@ public class BlockHangingFruit extends BlockGenesis
 		float y = 1;
 		float z = 0.5F;
 		
-		BlockInfo offsetCalc = new BlockInfo();
-		offsetCalc.setBlock(this);
+		BlockInfo offsetCalc = new BlockInfo(Minecraft.getMinecraft().getBlockColors());
+		offsetCalc.setState(state);
 		offsetCalc.setBlockPos(pos);
 		offsetCalc.updateShift();
 		x += offsetCalc.getShx();
 		y += offsetCalc.getShy();
 		z += offsetCalc.getShz();
 		
-		setBlockBounds(x - radius, y - height, z - radius, x + radius, y, z + radius);
+		return new AxisAlignedBB(x - radius, y - height, z - radius, x + radius, y, z + radius);
 	}
 	
 	@Override
@@ -149,7 +149,7 @@ public class BlockHangingFruit extends BlockGenesis
 	}
 	
 	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player)
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player)
 	{
 		return owner.getStack(TreeBlocksAndItems.FRUIT, world.getBlockState(pos).getValue(variantProp));
 	}
@@ -161,27 +161,27 @@ public class BlockHangingFruit extends BlockGenesis
 	}
 	
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(World world, BlockPos pos, IBlockState state)
+	public void addCollisionBoxToList(IBlockState state, World world, BlockPos pos,
+			AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
 	{
-		return null;
 	}
 	
 	@Override
-	public boolean isOpaqueCube()
+	public boolean isOpaqueCube(IBlockState state)
 	{
 		return false;
 	}
 	
 	@Override
-	public boolean isFullCube()
+	public boolean isFullCube(IBlockState state)
 	{
 		return false;
 	}
 	
 	@SideOnly(Side.CLIENT)
 	@Override
-	public EnumWorldBlockLayer getBlockLayer()
+	public BlockRenderLayer getBlockLayer()
 	{
-		return EnumWorldBlockLayer.CUTOUT;
+		return BlockRenderLayer.CUTOUT;
 	}
 }

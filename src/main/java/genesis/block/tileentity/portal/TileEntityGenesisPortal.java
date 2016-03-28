@@ -7,8 +7,8 @@ import genesis.portal.GenesisPortal;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-
-import net.minecraft.util.*;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.math.*;
 
 public class TileEntityGenesisPortal extends TileEntityBase implements ITickable
 {
@@ -19,7 +19,7 @@ public class TileEntityGenesisPortal extends TileEntityBase implements ITickable
 	public float rotation = 0;
 	
 	//Cached
-	protected Vec3 center = null;
+	protected Vec3d center = null;
 	protected AxisAlignedBB bounds = null;
 	
 	public TileEntityGenesisPortal()
@@ -31,7 +31,7 @@ public class TileEntityGenesisPortal extends TileEntityBase implements ITickable
 	{
 		super.setPos(pos);
 		
-		center = new Vec3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+		center = new Vec3d(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 		bounds = new AxisAlignedBB(center.xCoord - radius, center.yCoord - radius, center.zCoord - radius,
 									center.xCoord + radius, center.yCoord + radius, center.zCoord + radius);
 	}

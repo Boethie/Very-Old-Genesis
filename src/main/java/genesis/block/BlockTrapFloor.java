@@ -1,11 +1,11 @@
 package genesis.block;
 
 import genesis.common.GenesisCreativeTabs;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.biome.BiomeColorHelper;
@@ -14,23 +14,31 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockTrapFloor extends BlockGenesis
 {
+	protected static final AxisAlignedBB BB = new AxisAlignedBB(0, 0.5625, 0, 1, 1, 1);
+	
 	public BlockTrapFloor()
 	{
-		super(Material.grass);
+		super(Material.grass, SoundType.PLANT);
+		
 		setCreativeTab(GenesisCreativeTabs.MECHANISMS);
-		setBlockBounds(0, 9/16F, 0, 1, 1, 1);
-		setStepSound(soundTypeGrass);
+		
 		useNeighborBrightness = true;
 	}
 	
 	@Override
-	public boolean isFullCube()
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
+	{
+		return BB;
+	}
+	
+	@Override
+	public boolean isFullCube(IBlockState state)
 	{
 		return false;
 	}
 	
 	@Override
-	public boolean isOpaqueCube()
+	public boolean isOpaqueCube(IBlockState state)
 	{
 		return false;
 	}
@@ -41,7 +49,7 @@ public class BlockTrapFloor extends BlockGenesis
 		return 30;
 	}
 	
-	@Override
+	/*@Override
 	@SideOnly(Side.CLIENT)
 	public int getBlockColor()
 	{
@@ -60,12 +68,12 @@ public class BlockTrapFloor extends BlockGenesis
 	public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass)
 	{
 		return BiomeColorHelper.getGrassColorAtPos(worldIn, pos);
-	}
+	}*/
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public EnumWorldBlockLayer getBlockLayer()
+	public BlockRenderLayer getBlockLayer()
 	{
-		return EnumWorldBlockLayer.CUTOUT_MIPPED;
+		return BlockRenderLayer.CUTOUT_MIPPED;
 	}
 }

@@ -24,6 +24,7 @@ import net.minecraft.network.*;
 import net.minecraft.network.play.server.*;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 import net.minecraftforge.fluids.*;
 
@@ -273,7 +274,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	
 	protected boolean isRainingOn()
 	{
-		return worldObj.getRainStrength(1) >= 0.9F && worldObj.canLightningStrike(pos.up());
+		return worldObj.getRainStrength(1) >= 0.9F && worldObj.isRainingAt(pos.up());
 	}
 	
 	public void setWaterAround(boolean water)
@@ -295,7 +296,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	
 	public void setWet()
 	{
-		getBlockType().randomDisplayTick(worldObj, pos, worldObj.getBlockState(pos), worldObj.rand);
+		getBlockType().randomDisplayTick(worldObj.getBlockState(pos), worldObj, pos, worldObj.rand);
 		
 		if (isBurning())
 		{
@@ -434,13 +435,14 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 				{
 					FloatRange volumeRange = FloatRange.create(1, 2);
 					FloatRange pitchRange = FloatRange.create(0.3F, 0.7F);
-					worldObj.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, "fire.fire",
+					worldObj.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+							SoundEvents.block_fire_ambient, SoundCategory.BLOCKS,
 							volumeRange.get(worldObj.rand), pitchRange.get(worldObj.rand), false);
 					
 					if (hasCookingPot() && canSmelt())
 					{
-						worldObj.playSound(pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, Constants.ASSETS_PREFIX + "ambient.cookingpot",
-								volumeRange.get(worldObj.rand), pitchRange.get(worldObj.rand), false);
+						/*worldObj.playSound(pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, Constants.ASSETS_PREFIX + "ambient.cookingpot",
+								volumeRange.get(worldObj.rand), pitchRange.get(worldObj.rand), false);*/
 					}
 					
 					fireSoundCounter = fireSoundTime;
@@ -649,11 +651,12 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	
 	protected void sendDescriptionPacket()
 	{
-		worldObj.markBlockForUpdate(pos);
+		IBlockState state = worldObj.getBlockState(pos);
+		worldObj.notifyBlockUpdate(pos, state, state, 0b1000);
 	}
 	
 	@Override
-	public S35PacketUpdateTileEntity getDescriptionPacket()
+	public Packet<?> getDescriptionPacket()
 	{
 		NBTTagCompound compound = new NBTTagCompound();
 		compound.setInteger("burnTime", burnTime);
@@ -673,11 +676,11 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 			compound.setTag("fuel", fuel.writeToNBT(new NBTTagCompound()));
 		}
 		
-		return new S35PacketUpdateTileEntity(pos, 0, compound);
+		return new SPacketUpdateTileEntity(pos, 0, compound);
 	}
 	
 	@Override
-	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet)
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet)
 	{
 		NBTTagCompound compound = packet.getNbtCompound();
 		burnTime = compound.getInteger("burnTime");

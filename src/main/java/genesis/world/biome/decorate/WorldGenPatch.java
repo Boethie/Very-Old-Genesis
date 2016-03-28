@@ -5,15 +5,15 @@ import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class WorldGenPatch extends WorldGenDecorationBase
 {
 	private List<IBlockState> blockCollection = new ArrayList<IBlockState>();
-	private List<BlockState> allowedBlocks = new ArrayList<BlockState>();
+	private List<BlockStateContainer> allowedBlocks = new ArrayList<BlockStateContainer>();
 	
 	@Override
 	public boolean generate(World world, Random random, BlockPos pos)
@@ -71,7 +71,7 @@ public class WorldGenPatch extends WorldGenDecorationBase
 		return this;
 	}
 	
-	public WorldGenPatch addAllowedBlocks(BlockState... blocks)
+	public WorldGenPatch addAllowedBlocks(BlockStateContainer... blocks)
 	{
 		for (int i = 0; i < blocks.length; ++i)
 		{

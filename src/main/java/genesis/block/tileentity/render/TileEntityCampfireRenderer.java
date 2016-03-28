@@ -16,15 +16,14 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.*;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.resources.model.*;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 
 public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEntityCampfire>
@@ -295,7 +294,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 		if (destroyStage >= 0)
 		{
 			Tessellator tess = Tessellator.getInstance();
-			WorldRenderer wr = tess.getWorldRenderer();
+			VertexBuffer buff = tess.getBuffer();
 			
 			RenderHelper.disableStandardItemLighting();
 			Minecraft.getMinecraft().entityRenderer.disableLightmap();
@@ -303,13 +302,13 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 			TextureAtlasSprite breakTexture = ModelHelpers.getDestroyBlockIcon(destroyStage);
 			
 			
-			wr.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
-			wr.noColor();
-			wr.setTranslation(-pos.getX(), -pos.getY(), -pos.getZ());
-			ModelHelpers.getBlockRenderer().renderModelStandard(world,
-					ModelHelpers.getCubeProjectedBakedModel(ModelHelpers.getBakedBlockModel(state, world, pos), breakTexture),
-					state.getBlock(), pos, wr, true);
-			wr.setTranslation(0, 0, 0);
+			buff.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
+			buff.noColor();
+			buff.setTranslation(-pos.getX(), -pos.getY(), -pos.getZ());
+			ModelHelpers.getBlockRenderer().renderModelFlat(world,
+					ModelHelpers.getCubeProjectedBakedModel(state, ModelHelpers.getBakedBlockModel(state, world, pos), breakTexture, pos),
+					state, pos, buff, true, MathHelper.getPositionRandom(pos));
+			buff.setTranslation(0, 0, 0);
 			GlStateManager.color(1, 1, 1, 0.0F);
 			tess.draw();
 			

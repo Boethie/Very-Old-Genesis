@@ -10,10 +10,10 @@ import genesis.common.GenesisBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -33,7 +33,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	
 	private int treeCountPerChunk = 0;
 	private boolean canGrowInWater = false;
-	private List<BlockState> allowedBlocks = new ArrayList<BlockState>();
+	private List<BlockStateContainer> allowedBlocks = new ArrayList<BlockStateContainer>();
 	
 	public WorldGenTreeBase(IBlockState wood, IBlockState leaves, boolean notify)
 	{
@@ -67,7 +67,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		return this;
 	}
 	
-	public void addAllowedBlocks(BlockState... blocks)
+	public void addAllowedBlocks(BlockStateContainer... blocks)
 	{
 		for (int i = 0; i < blocks.length; ++i)
 		{

@@ -1,22 +1,19 @@
 package genesis.block;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import genesis.block.BlockGrowingPlant.*;
 import genesis.combo.variant.EnumSeeds;
 import genesis.common.*;
 import genesis.util.WorldUtils;
+
 import net.minecraft.block.material.*;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 
@@ -32,7 +29,7 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 		setHarvestLevel("axe", 0);
 		enableStats = true;
 		setPlantSize(1, 0, 1);
-		setCollisionBox(new AxisAlignedBB(0, 0, 0, 1, 1, 1));
+		setCollisionBox(new net.minecraft.util.math.AxisAlignedBB(0, 0, 0, 1, 1, 1));
 		
 		setPlantSoilTypes(EnumPlantType.Plains, BlockPrototaxitesMycelium.SOIL_TYPE);
 		setGrowth(0.75F, 1, 1, 1);
@@ -80,7 +77,7 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 			IBlockState sideState = world.getBlockState(sidePos);
 			
 			if (sideState.getBlock() == this
-					|| sideState.getBlock().isSideSolid(world, sidePos, side.getOpposite()))
+					|| sideState.isSideSolid(world, sidePos, side.getOpposite()))
 				return CanStayOptions.NO;
 		}
 		

@@ -3,9 +3,10 @@ package genesis.block.tileentity;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public abstract class TileEntityBase extends TileEntity
@@ -14,7 +15,8 @@ public abstract class TileEntityBase extends TileEntity
 	{
 		if (worldObj != null)
 		{
-			worldObj.markBlockForUpdate(pos);
+			IBlockState state = worldObj.getBlockState(pos);
+			worldObj.notifyBlockUpdate(pos, state, state, 0b1000);
 		}
 	}
 	
@@ -23,15 +25,15 @@ public abstract class TileEntityBase extends TileEntity
 	protected abstract void readVisualData(NBTTagCompound compound, boolean save);
 	
 	@Override
-	public S35PacketUpdateTileEntity getDescriptionPacket()
+	public Packet<?> getDescriptionPacket()
 	{
 		NBTTagCompound compound = new NBTTagCompound();
 		writeVisualData(compound, false);
-		return new S35PacketUpdateTileEntity(pos, 0, compound);
+		return new SPacketUpdateTileEntity(pos, 0, compound);
 	}
 	
 	@Override
-	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet)
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet)
 	{
 		readVisualData(packet.getNbtCompound(), false);
 	}

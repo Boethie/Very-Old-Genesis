@@ -9,8 +9,7 @@ import java.util.List;
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.*;
 import net.minecraft.world.IBlockAccess;
 
 public class BlockGenesisOre extends BlockOre
@@ -36,7 +35,7 @@ public class BlockGenesisOre extends BlockOre
 	}
 	
 	@Override
-	public int getExpDrop(IBlockAccess world, BlockPos pos, int fortune)
+	public int getExpDrop(IBlockState state, IBlockAccess world, BlockPos pos, int fortune)
 	{
 		return MathHelper.getRandomIntegerInRange(WorldUtils.getWorldRandom(world, RANDOM), minExp, maxExp);
 	}

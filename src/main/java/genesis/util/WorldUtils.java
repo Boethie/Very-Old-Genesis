@@ -11,25 +11,18 @@ import java.util.Random;
 import com.google.common.collect.ImmutableList;
 import com.google.common.base.Function;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.item.EntityXPOrb;
+import net.minecraft.entity.item.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldType;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraftforge.common.EnumPlantType;
-import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.*;
 
 public class WorldUtils
 {
@@ -57,7 +50,7 @@ public class WorldUtils
 	 */
 	public static boolean isWater(IBlockAccess world, BlockPos pos)
 	{
-		return world.getBlockState(pos).getBlock().getMaterial() == Material.water;
+		return world.getBlockState(pos).getMaterial() == Material.water;
 	}
 	
 	/**
@@ -220,7 +213,7 @@ public class WorldUtils
 		return Collections.emptyList();
 	}
 	
-	public static List<EntityItem> spawnItemsAt(World world, Vec3 pos, DropType dropType, ItemStack stack)
+	public static List<EntityItem> spawnItemsAt(World world, Vec3d pos, DropType dropType, ItemStack stack)
 	{
 		return spawnItemsAt(world, pos.xCoord, pos.yCoord, pos.zCoord, dropType, stack);
 	}
@@ -310,18 +303,18 @@ public class WorldUtils
 			
 			@Override public boolean isAirBlock(BlockPos pos)
 			{
-				return getBlockState(pos).getBlock().isAir(this, pos);
+				return getBlockState(pos).getBlock().isAir(getBlockState(pos), this, pos);
 			}
 			
 			@Override public int getStrongPower(BlockPos pos, EnumFacing direction)
 			{
 				IBlockState state = getBlockState(pos);
-				return state.getBlock().getStrongPower(this, pos, state, direction);
+				return state.getStrongPower(this, pos, direction);
 			}
 			
 			@Override public boolean isSideSolid(BlockPos pos, EnumFacing side, boolean _default)
 			{
-				return getBlockState(pos).getBlock().isSideSolid(this, pos, side);
+				return getBlockState(pos).isSideSolid(this, pos, side);
 			}
 			
 			@Override public BiomeGenBase getBiomeGenForCoords(BlockPos pos) { return base.getBiomeGenForCoords(pos); }
@@ -350,10 +343,7 @@ public class WorldUtils
 	 */
 	public static IBlockAccess getFakeWorld(IBlockAccess base, Function<BlockPos, IBlockState> stateGetter)
 	{
-		return getFakeWorld(base, stateGetter, new Function<BlockPos, TileEntity>()
-		{
-			@Override public TileEntity apply(BlockPos pos) { return null; }
-		});
+		return getFakeWorld(base, stateGetter, (p) -> null);
 	}
 	
 	/**
@@ -399,7 +389,7 @@ public class WorldUtils
 	public static boolean canSoilSustainTypes(IBlockAccess world, BlockPos pos, EnumPlantType... types)
 	{
 		final BlockPos soilPos = pos.down();
-		final Block soil = world.getBlockState(soilPos).getBlock();
+		final IBlockState soil = world.getBlockState(soilPos);
 		
 		for (final EnumPlantType type : types)
 		{
@@ -418,7 +408,7 @@ public class WorldUtils
 				}
 			};
 			
-			if (soil.canSustainPlant(world, soilPos, EnumFacing.UP, plantable))
+			if (soil.getBlock().canSustainPlant(soil, world, soilPos, EnumFacing.UP, plantable))
 			{
 				return true;
 			}

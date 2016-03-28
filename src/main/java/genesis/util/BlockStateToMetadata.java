@@ -59,10 +59,9 @@ public class BlockStateToMetadata
 		return output;
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static List<IProperty<?>> getSortedPropertiesDumb(Collection<IProperty> properties)
+	public static List<IProperty<?>> getSortedPropertiesDumb(Collection<IProperty<?>> properties)
 	{
-		return getSortedProperties((Collection) properties);
+		return getSortedProperties(properties);
 	}
 	
 	public static <T extends Comparable<T>> void setSorter(Collection<T> values, Comparator<T> sorter)
@@ -223,10 +222,9 @@ public class BlockStateToMetadata
 	 * @param metadata The metadata to restore to an IBlockState.
 	 * @return The restored IBlockState.
 	 */
-	@SuppressWarnings("cast")
 	public static IBlockState getBlockStateFromMeta(IBlockState state, int metadata)
 	{
-		return getBlockStateFromMeta(state, metadata, (IProperty<?>[]) getSortedPropertiesDumb(state.getProperties().keySet()).toArray(new IProperty<?>[0]));
+		return getBlockStateFromMeta(state, metadata, getSortedPropertiesDumb(state.getProperties().keySet()).toArray(new IProperty<?>[0]));
 	}
 	
 	/**

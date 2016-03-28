@@ -10,20 +10,25 @@ import java.util.*;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
+import net.minecraft.block.material.EnumPushReaction;
+import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.model.*;
-import net.minecraft.client.renderer.block.model.ModelBlockDefinition.Variants;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.client.renderer.texture.*;
 import net.minecraft.client.resources.*;
-import net.minecraft.client.resources.model.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.client.ItemModelMesherForge;
 import net.minecraftforge.client.model.*;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
@@ -31,6 +36,7 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.google.common.base.Charsets;
+import com.google.common.base.Optional;
 import com.google.common.collect.*;
 
 public class ModelHelpers
@@ -55,7 +61,7 @@ public class ModelHelpers
 	public static Field modelBlockDefinitionMap;
 	public static Field destroyBlockIcons;
 	
-	protected static List<Pair<BlockState, ResourceLocation>> forcedModels = Lists.newArrayList();
+	protected static List<Pair<BlockStateContainer, ResourceLocation>> forcedModels = Lists.newArrayList();
 	protected static boolean doInit = true;
 	
 	public static void preInit()
@@ -252,7 +258,7 @@ public class ModelHelpers
 			return getModelManager().getModel(getMissingModelLocation());
 		}
 		
-		return getBlockDispatcher().getModelFromBlockState(state, world, pos);
+		return getBlockDispatcher().getModelForState(state);
 	}
 	
 	/**
@@ -275,9 +281,9 @@ public class ModelHelpers
 	 * @return A duplicate of the original baked model with all faces mapped to the provided sprite,
 	 * each face projected from its cardinal direction.
 	 */
-	public static IBakedModel getCubeProjectedBakedModel(IBakedModel model, TextureAtlasSprite texture)
+	public static IBakedModel getCubeProjectedBakedModel(IBlockState state, IBakedModel model, TextureAtlasSprite texture, BlockPos pos)
 	{
-		return new SimpleBakedModel.Builder(model, texture).makeBakedModel();
+		return new SimpleBakedModel.Builder(state, model, texture, pos).makeBakedModel();
 	}
 	
 	/**
@@ -462,7 +468,7 @@ public class ModelHelpers
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static Map<String, Variants> getModelBlockDefinitionMap(ModelBlockDefinition definition)
+	public static Map<String, VariantList> getModelBlockDefinitionMap(ModelBlockDefinition definition)
 	{
 		if (modelBlockDefinitionMap == null)
 		{
@@ -471,7 +477,7 @@ public class ModelHelpers
 		
 		try
 		{
-			return (Map<String, Variants>) modelBlockDefinitionMap.get(definition);
+			return (Map<String, VariantList>) modelBlockDefinitionMap.get(definition);
 		}
 		catch (IllegalAccessException e)
 		{
@@ -479,7 +485,7 @@ public class ModelHelpers
 		}
 	}
 	
-	public static Map<String, Variants> getBlockstatesVariants(ResourceLocation loc)
+	public static Map<String, VariantList> getBlockstatesVariants(ResourceLocation loc)
 	{
 		ResourceLocation blockstatesLocation = new ResourceLocation(loc.getResourceDomain(), "blockstates/" + loc.getResourcePath() + ".json");
 		List<IResource> resources = null;
@@ -493,7 +499,7 @@ public class ModelHelpers
 			Genesis.logger.warn("Encountered an IO exception while getting the IResources for location " + blockstatesLocation, e);
 		}
 		
-		Map<String, Variants> output = new HashMap<String, Variants>();
+		Map<String, VariantList> output = new HashMap<String, VariantList>();
 		
 		try
 		{
@@ -524,7 +530,7 @@ public class ModelHelpers
 		return getDestroyBlockIcon(index);
 	}
 	
-	public static void forceModelLoading(BlockState state, ResourceLocation loc)
+	public static void forceModelLoading(BlockStateContainer state, ResourceLocation loc)
 	{
 		forcedModels.add(Pair.of(state, loc));
 	}
@@ -555,15 +561,21 @@ public class ModelHelpers
 			{
 				return value;
 			}
+			@Override public Optional<String> parseValue(String value)
+			{
+				if (getAllowedValues().contains(value))
+					return Optional.of(value);
+				return Optional.absent();
+			}
 		};
 		
 		try
 		{
-			forceModelLoading(new BlockState(null, property), loc);
+			forceModelLoading(new BlockStateContainer(null, property), loc);
 		}
 		catch (RuntimeException e)
 		{
-			Genesis.logger.warn("An error occurred constructing a fake BlockState object to force loading of '" + loc + "'.");
+			Genesis.logger.warn("An error occurred constructing a fake BlockStateContainer object to force loading of '" + loc + "'.");
 		}
 	}
 	
@@ -613,39 +625,226 @@ public class ModelHelpers
 		
 		final Map<IBlockState, IBlockState> actualToFakeState = Maps.newHashMap();
 		
-		for (Pair<BlockState, ResourceLocation> entry : forcedModels)
+		for (Pair<BlockStateContainer, ResourceLocation> entry : forcedModels)
 		{
 			for (final IBlockState actualState : entry.getKey().getValidStates())
 			{
+				@SuppressWarnings("deprecation")
 				IBlockState fakeState = new IBlockState()
 				{
-					@SuppressWarnings("rawtypes")
-					@Override public Collection<IProperty> getPropertyNames()
+					@Override
+					public Collection<IProperty<?>> getPropertyNames()
 					{
 						return actualState.getPropertyNames();
 					}
-					@Override public <T extends Comparable<T>> T getValue(IProperty<T> property)
+					@Override
+					public <T extends Comparable<T>> T getValue(IProperty<T> property)
 					{
 						return actualState.getValue(property);
 					}
-					@Override public <T extends Comparable<T>, V extends T> IBlockState withProperty(IProperty<T> property, V value)
+					@Override
+					public <T extends Comparable<T>, V extends T> IBlockState withProperty(IProperty<T> property, V value)
 					{
 						return actualToFakeState.get(actualState.withProperty(property, value));
 					}
-					@Override public <T extends Comparable<T>> IBlockState cycleProperty(IProperty<T> property)
+					@Override
+					public <T extends Comparable<T>> IBlockState cycleProperty(IProperty<T> property)
 					{
 						return actualToFakeState.get(actualState.cycleProperty(property));
 					}
-					@SuppressWarnings("rawtypes")
-					@Override public ImmutableMap<IProperty, Comparable> getProperties()
+					@Override
+					public ImmutableMap<IProperty<?>, Comparable<?>> getProperties()
 					{
 						return actualState.getProperties();
 					}
-					@Override public Block getBlock()
+					@Override
+					public Block getBlock()
 					{
 						return fakeBlock;
 					}
-					@Override public String toString()
+					@Override
+					public Material getMaterial()
+					{
+						return actualState.getMaterial();
+					}
+					@Override
+					public boolean isFullBlock()
+					{
+						return actualState.isFullBlock();
+					}
+					@Override
+					public int getLightOpacity()
+					{
+						return actualState.getLightOpacity();
+					}
+					@Override
+					public int getLightOpacity(IBlockAccess world, BlockPos pos)
+					{
+						return actualState.getLightOpacity(world, pos);
+					}
+					@Override
+					public int getlightValue()
+					{
+						return actualState.getlightValue();
+					}
+					@Override
+					public int getLightValue(IBlockAccess world, BlockPos pos)
+					{
+						return actualState.getLightValue(world, pos);
+					}
+					@Override
+					public boolean isTranslucent()
+					{
+						return actualState.isTranslucent();
+					}
+					@Override
+					public boolean useNeighborBrightness()
+					{
+						return actualState.useNeighborBrightness();
+					}
+					@Override
+					public MapColor getMapColor()
+					{
+						return actualState.getMapColor();
+					}
+					@Override
+					public IBlockState withRotation(Rotation rot)
+					{
+						return actualState.withRotation(rot);
+					}
+					@Override
+					public IBlockState withMirror(Mirror mirror)
+					{
+						return actualState.withMirror(mirror);
+					}
+					@Override
+					public boolean isFullCube()
+					{
+						return actualState.isFullCube();
+					}
+					@Override
+					public EnumBlockRenderType getRenderType()
+					{
+						return actualState.getRenderType();
+					}
+					@Override
+					public int getPackedLightmapCoords(IBlockAccess world, BlockPos pos)
+					{
+						return actualState.getPackedLightmapCoords(world, pos);
+					}
+					@Override
+					public float getAmbientOcclusionLightValue()
+					{
+						return actualState.getAmbientOcclusionLightValue();
+					}
+					@Override
+					public boolean isBlockNormalCube()
+					{
+						return actualState.isBlockNormalCube();
+					}
+					@Override
+					public boolean isNormalCube()
+					{
+						return actualState.isNormalCube();
+					}
+					@Override
+					public boolean canProvidePower()
+					{
+						return actualState.canProvidePower();
+					}
+					@Override
+					public int getWeakPower(IBlockAccess world, BlockPos pos, EnumFacing side)
+					{
+						return actualState.getWeakPower(world, pos, side);
+					}
+					@Override
+					public boolean hasComparatorInputOverride()
+					{
+						return actualState.hasComparatorInputOverride();
+					}
+					@Override
+					public int getComparatorInputOverride(World world, BlockPos pos)
+					{
+						return actualState.getComparatorInputOverride(world, pos);
+					}
+					@Override
+					public float getBlockHardness(World world, BlockPos pos)
+					{
+						return actualState.getBlockHardness(world, pos);
+					}
+					@Override
+					public float getPlayerRelativeBlockHardness(EntityPlayer player, World world, BlockPos pos)
+					{
+						return actualState.getPlayerRelativeBlockHardness(player, world, pos);
+					}
+					@Override
+					public int getStrongPower(IBlockAccess world, BlockPos pos, EnumFacing side)
+					{
+						return actualState.getStrongPower(world, pos, side);
+					}
+					@Override
+					public EnumPushReaction getMobilityFlag()
+					{
+						return actualState.getMobilityFlag();
+					}
+					@Override
+					public IBlockState getActualState(IBlockAccess world, BlockPos pos)
+					{
+						return actualState.getActualState(world, pos);
+					}
+					@Override
+					public AxisAlignedBB getSelectedBoundingBox(World world, BlockPos pos)
+					{
+						return actualState.getSelectedBoundingBox(world, pos);
+					}
+					@Override
+					public boolean shouldSideBeRendered(IBlockAccess world, BlockPos pos, EnumFacing facing)
+					{
+						return actualState.shouldSideBeRendered(world, pos, facing);
+					}
+					@Override
+					public boolean isOpaqueCube()
+					{
+						return actualState.isOpaqueCube();
+					}
+					@Override
+					public AxisAlignedBB getCollisionBoundingBox(World world, BlockPos pos)
+					{
+						return actualState.getCollisionBoundingBox(world, pos);
+					}
+					@Override
+					public void addCollisionBoxToList(World world, BlockPos pos,
+							AxisAlignedBB mask, List<AxisAlignedBB> list, Entity entity)
+					{
+						actualState.addCollisionBoxToList(world, pos, mask, list, entity);
+					}
+					@Override
+					public AxisAlignedBB getBoundingBox(IBlockAccess world, BlockPos pos)
+					{
+						return actualState.getBoundingBox(world, pos);
+					}
+					@Override
+					public RayTraceResult collisionRayTrace(World world, BlockPos pos, Vec3d start, Vec3d end)
+					{
+						return actualState.collisionRayTrace(world, pos, start, end);
+					}
+					@Override
+					public boolean isFullyOpaque()
+					{
+						return actualState.isFullyOpaque();
+					}
+					@Override
+					public boolean doesSideBlockRendering(IBlockAccess world, BlockPos pos, EnumFacing side)
+					{
+						return actualState.doesSideBlockRendering(world, pos, side);
+					}
+					@Override
+					public boolean isSideSolid(IBlockAccess world, BlockPos pos, EnumFacing side)
+					{
+						return actualState.isSideSolid(world, pos, side);
+					}
+					@Override
+					public String toString()
 					{
 						return actualState.toString() + "(fake)";
 					}

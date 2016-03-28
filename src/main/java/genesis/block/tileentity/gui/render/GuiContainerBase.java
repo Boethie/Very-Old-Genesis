@@ -13,6 +13,7 @@ import genesis.util.render.ISpriteUVs;
 import net.minecraft.client.gui.inventory.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
@@ -45,7 +46,7 @@ public class GuiContainerBase extends GuiContainer
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
 	{
 		drawDisplayName(Constants.TITLE_COLOUR);
-		fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), container.getPlayerInventoryArea().left, container.getPlayerInventoryTextY(), Constants.TITLE_COLOUR);
+		fontRendererObj.drawString(I18n.format("container.inventory"), container.getPlayerInventoryArea().left, container.getPlayerInventoryTextY(), Constants.TITLE_COLOUR);
 	}
 	
 	protected void drawDisplayName(int color)
@@ -164,26 +165,26 @@ public class GuiContainerBase extends GuiContainer
 	
 	protected void drawTextureUVs(int x, int y, int w, int h, float minU, float minV, float maxU, float maxV)
 	{
-		Tessellator tessellator = Tessellator.getInstance();
-		WorldRenderer renderer = tessellator.getWorldRenderer();
-		renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-		renderer.pos(x,		y + h,	zLevel).tex(minU, maxV).endVertex();
-		renderer.pos(x + w,	y + h,	zLevel).tex(maxU, maxV).endVertex();
-		renderer.pos(x + w,	y,		zLevel).tex(maxU, minV).endVertex();
-		renderer.pos(x,		y,		zLevel).tex(minU, minV).endVertex();
-		tessellator.draw();
+		Tessellator tess = Tessellator.getInstance();
+		VertexBuffer buff = tess.getBuffer();
+		buff.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+		buff.pos(x,		y + h,	zLevel).tex(minU, maxV).endVertex();
+		buff.pos(x + w,	y + h,	zLevel).tex(maxU, maxV).endVertex();
+		buff.pos(x + w,	y,		zLevel).tex(maxU, minV).endVertex();
+		buff.pos(x,		y,		zLevel).tex(minU, minV).endVertex();
+		tess.draw();
 	}
 	
 	protected void drawTextureUVSize(int x, int y, int w, int h, float u, float v, float uvW, float uvH)
 	{
-		Tessellator tessellator = Tessellator.getInstance();
-		WorldRenderer renderer = tessellator.getWorldRenderer();
-		renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-		renderer.pos(x,		y + h,	zLevel).tex(u,			v + uvH).endVertex();
-		renderer.pos(x + w,	y + h,	zLevel).tex(u + uvW,	v + uvH).endVertex();
-		renderer.pos(x + w,	y,		zLevel).tex(u + uvW,	v).endVertex();
-		renderer.pos(x,		y,		zLevel).tex(u,			v).endVertex();
-		tessellator.draw();
+		Tessellator tess = Tessellator.getInstance();
+		VertexBuffer buff = tess.getBuffer();
+		buff.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+		buff.pos(x,		y + h,	zLevel).tex(u,			v + uvH).endVertex();
+		buff.pos(x + w,	y + h,	zLevel).tex(u + uvW,	v + uvH).endVertex();
+		buff.pos(x + w,	y,		zLevel).tex(u + uvW,	v).endVertex();
+		buff.pos(x,		y,		zLevel).tex(u,			v).endVertex();
+		tess.draw();
 	}
 	
 	protected void drawTextureUVPx(int x, int y, int w, int h, int u, int v, int uvW, int uvH)

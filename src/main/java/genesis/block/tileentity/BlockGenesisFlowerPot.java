@@ -2,6 +2,7 @@ package genesis.block.tileentity;
 
 import java.util.*;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.*;
 
 import genesis.client.*;
@@ -17,9 +18,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.*;
 import net.minecraft.item.*;
 import net.minecraft.network.Packet;
-import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
+import net.minecraft.network.play.client.CPacketPlayerBlockPlacement;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.event.entity.player.*;
@@ -35,9 +37,9 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 	
 	public static class PropertyContents extends PropertyHelper<ItemStackKey>
 	{
-		protected final Map<ItemStackKey, String> values;
+		protected final BiMap<ItemStackKey, String> values;
 		
-		public PropertyContents(String name, Map<ItemStackKey, String> values)
+		public PropertyContents(String name, BiMap<ItemStackKey, String> values)
 		{
 			super(name, ItemStackKey.class);
 			
@@ -56,12 +58,21 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		{
 			return values.get(value);
 		}
+
+		@Override
+		public Optional<ItemStackKey> parseValue(String value)
+		{
+			if (values.containsValue(value))
+				return Optional.of(values.inverse().get(value));
+			
+			return Optional.absent();
+		}
 	}
 	
 	private static final Map<ItemStackKey, ItemStackKey> PAIR_MAP = Maps.newHashMap();
 	
 	/**
-	 * Used to get the same exact instance of ItemStackKey for an ItemStack, because BlockState$StateImplementation doesn't handle new instances for default property values in withProperty.
+	 * Used to get the same exact instance of ItemStackKey for an ItemStack, because BlockStateContainer$StateImplementation doesn't handle new instances for default property values in withProperty.
 	 */
 	public static ItemStackKey getStackKey(ItemStack stack)
 	{
@@ -81,7 +92,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		return newKey;
 	}
 	
-	private final Map<ItemStackKey, String> stacksToNames = new LinkedHashMap<ItemStackKey, String>();
+	private final BiMap<ItemStackKey, String> stacksToNames = HashBiMap.create();//new LinkedHashMap<ItemStackKey, String>();
 	private final Map<ItemStackKey, IFlowerPotPlant> stacksToCustoms = new HashMap<ItemStackKey, IFlowerPotPlant>();
 	
 	protected PropertyContents contentsProp;
@@ -145,7 +156,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 	public void afterAllRegistered()
 	{
 		contentsProp = new PropertyContents("contents", stacksToNames);
-		blockState = new BlockState(this, contentsProp);
+		blockState = new BlockStateContainer(this, contentsProp);
 		setDefaultState(blockState.getBaseState());
 	}
 	
@@ -191,7 +202,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		return state;
 	}
 	
-	@Override
+	/*@Override
 	public int colorMultiplier(IBlockAccess world, BlockPos pos, int renderPass)
 	{
 		TileEntityGenesisFlowerPot pot = getTileEntity(world, pos);
@@ -207,17 +218,18 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		}
 		
 		return super.colorMultiplier(world, pos, renderPass);
-	}
+	}*/
 	
 	@SubscribeEvent
 	public void onBlockInteracted(PlayerInteractEvent event)
 	{
-		if (event.action != PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK)
+		/* TODO: Figure out how this works with dual wielding.
+		if (event.getAction() != PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK)
 		{
 			return;
 		}
 		
-		ItemStack stack = event.entityPlayer.getCurrentEquippedItem();
+		ItemStack stack = event.getEntityPlayer().getCurrentEquippedItem();
 		
 		if (stack == null)
 		{
@@ -284,6 +296,6 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 			{
 				world.setBlockState(pos, state);
 			}
-		}
+		}*/
 	}
 }

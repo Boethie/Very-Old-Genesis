@@ -2,8 +2,7 @@ package genesis.util;
 
 import java.util.List;
 
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.*;
 import net.minecraft.util.EnumFacing;
 
 public class AABBUtils
@@ -44,14 +43,9 @@ public class AABBUtils
 		throw new IllegalArgumentException("Unknown axis " + facing.getAxis());
 	}
 	
-	public static void addIfIntersects(List<AxisAlignedBB> list, AxisAlignedBB mask, AxisAlignedBB bb)
+	public static AxisAlignedBB rotate90(AxisAlignedBB bb)
 	{
-		if (mask.intersectsWith(bb))
-			list.add(bb);
-	}
-	
-	public static void addBlockBounds(List<AxisAlignedBB> list, AxisAlignedBB mask, AxisAlignedBB bb, BlockPos pos)
-	{
-		addIfIntersects(list, mask, bb.offset(pos.getX(), pos.getY(), pos.getZ()));
+		return new AxisAlignedBB(bb.minZ, bb.minY, -bb.minX,
+								bb.maxZ, bb.maxY, -bb.maxX);
 	}
 }

@@ -5,33 +5,20 @@ import java.util.Random;
 
 import com.google.common.base.Objects;
 
-import genesis.combo.ObjectType;
-import genesis.combo.TreeBlocksAndItems;
+import genesis.combo.*;
 import genesis.combo.VariantsOfTypesCombo.BlockProperties;
-import genesis.combo.variant.EnumTree;
-import genesis.combo.variant.PropertyIMetadata;
+import genesis.combo.variant.*;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemBlockMulti;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.WorldUtils;
-import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
-import genesis.world.gen.feature.WorldGenTreeArchaeanthus;
-import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
-import genesis.world.gen.feature.WorldGenTreeBjuvia;
-import genesis.world.gen.feature.WorldGenTreeCordaites;
-import genesis.world.gen.feature.WorldGenTreeDryophyllum;
-import genesis.world.gen.feature.WorldGenTreeFicus;
-import genesis.world.gen.feature.WorldGenTreeGinkgo;
-import genesis.world.gen.feature.WorldGenTreeLaurophyllum;
-import genesis.world.gen.feature.WorldGenTreeLepidodendron;
-import genesis.world.gen.feature.WorldGenTreeMetasequoia;
-import genesis.world.gen.feature.WorldGenTreePsaronius;
-import genesis.world.gen.feature.WorldGenTreeSigillaria;
-import genesis.world.gen.feature.WorldGenTreeVoltzia;
+import genesis.world.gen.feature.*;
+
 import net.minecraft.block.BlockSapling;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -39,9 +26,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraftforge.common.EnumPlantType;
@@ -73,11 +59,11 @@ public class BlockGenesisSaplings extends BlockSapling
 		this.variants = variants;
 		variantProp = new PropertyIMetadata<EnumTree>("variant", variants, variantClass);
 		
-		blockState = new BlockState(this, variantProp, STAGE);
+		blockState = new BlockStateContainer(this, variantProp, STAGE);
 		setDefaultState(getBlockState().getBaseState());
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
-		setStepSound(soundTypeGrass);
+		setStepSound(SoundType.PLANT);
 	}
 	
 	@Override
@@ -113,7 +99,7 @@ public class BlockGenesisSaplings extends BlockSapling
 	}
 	
 	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player)
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player)
 	{
 		return owner.getStack(type, world.getBlockState(pos).getValue(variantProp));
 	}

@@ -15,7 +15,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.*;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -33,25 +34,21 @@ public class BlockGenesisDoublePlant<V extends IPlantMetadata<V>> extends BlockP
 	
 	public static final PropertyBool TOP = PropertyBool.create("top");
 	
+	private static final AxisAlignedBB BB_TOP =
+			BB.setMaxY(0.75);
+	
 	public BlockGenesisDoublePlant(VariantsOfTypesCombo<V> owner, ObjectType<? extends BlockGenesisDoublePlant<V>, ? extends ItemBlockMulti<V>> type, List<V> variants, Class<V> variantClass)
 	{
 		super(owner, type, variants, variantClass, null);
 		
-		blockState = new BlockState(this, variantProp, TOP);
+		blockState = new BlockStateContainer(this, variantProp, TOP);
 		setDefaultState(getBlockState().getBaseState().withProperty(TOP, false));
 	}
 	
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess world, BlockPos pos)
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
-		boolean top = world.getBlockState(pos).getValue(TOP);
-		float inset = 0.0625F * 2;
-		setBlockBounds(inset, 0, inset, 1 - inset, 1, 1 - inset);
-		
-		if (top)
-		{
-			maxY = 0.75;
-		}
+		return world.getBlockState(pos).getValue(TOP) ? BB_TOP : BB;
 	}
 	
 	@Override
@@ -138,7 +135,7 @@ public class BlockGenesisDoublePlant<V extends IPlantMetadata<V>> extends BlockP
 	}
 	
 	@Override
-	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest)
+	public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest)
 	{
 		boolean top = world.getBlockState(pos).getValue(TOP);
 		BlockPos other = top ? pos.down() : pos.up();
@@ -157,7 +154,7 @@ public class BlockGenesisDoublePlant<V extends IPlantMetadata<V>> extends BlockP
 			world.setBlockToAir(other);
 		}
 		
-		return super.removedByPlayer(world, pos, player, willHarvest);
+		return super.removedByPlayer(state, world, pos, player, willHarvest);
 	}
 	
 	@Override

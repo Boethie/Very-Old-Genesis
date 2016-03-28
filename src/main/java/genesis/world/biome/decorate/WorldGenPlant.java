@@ -14,7 +14,7 @@ import genesis.common.*;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class WorldGenPlant<V extends IPlantMetadata<V>> extends WorldGenDecorationBase implements PlantGenerator

@@ -3,7 +3,7 @@ package genesis.world;
 import genesis.client.render.RenderFog;
 import genesis.common.GenesisBlocks;
 import genesis.util.GenesisMath;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;

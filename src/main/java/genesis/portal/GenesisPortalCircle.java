@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import genesis.common.GenesisBlocks;
 import genesis.world.iworldgenerators.WorldGenHelper;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;

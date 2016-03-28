@@ -20,7 +20,7 @@ import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -53,11 +53,11 @@ public class BlockSilt extends BlockFalling
 		this.variants = variants;
 		this.variantProp = new PropertyIMetadata<EnumSilt>("variant", variants, variantClass);
 		
-		blockState = new BlockState(this, variantProp);
+		blockState = new BlockStateContainer(this, variantProp);
 		setDefaultState(blockState.getBaseState());
 		
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
-		setStepSound(soundTypeSand);
+		setStepSound(SoundType.SAND);
 		setHardness(0.5F);
 	}
 	
@@ -86,7 +86,7 @@ public class BlockSilt extends BlockFalling
 	}
 	
 	@Override
-	public boolean canSustainPlant(IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plant)
+	public boolean canSustainPlant(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plant)
 	{
 		switch (plant.getPlantType(world, pos))
 		{
@@ -94,23 +94,21 @@ public class BlockSilt extends BlockFalling
 		case Desert:
 			return true;
 		default:
-			return super.canSustainPlant(world, pos, direction, plant);
+			return super.canSustainPlant(state, world, pos, direction, plant);
 		}
 	}
 	
 	protected boolean canSiltFallInto(IBlockAccess world, BlockPos pos)
 	{
-		if (world.isAirBlock(pos))
+		IBlockState state = world.getBlockState(pos);
+		
+		if (state.getBlock().isAir(state, world, pos))
 			return true;
 		
-		Block block = world.getBlockState(pos).getBlock();
-		
-		if (block == Blocks.fire)
+		if (state.getBlock() == Blocks.fire)
 			return true;
 		
-		Material material = block.getMaterial();
-		
-		if (material.isLiquid())
+		if (state.getMaterial().isLiquid())
 			return true;
 		
 		return false;

@@ -6,7 +6,7 @@ import genesis.block.BlockGrowingPlant;
 import genesis.common.GenesisBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class WorldGenGrowingPlant extends WorldGenDecorationBase

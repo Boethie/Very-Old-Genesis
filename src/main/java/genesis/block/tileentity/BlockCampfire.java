@@ -8,6 +8,7 @@ import genesis.util.random.DoubleRange;
 import genesis.client.*;
 import genesis.common.*;
 import genesis.block.tileentity.render.TileEntityCampfireRenderer;
+
 import net.minecraft.block.*;
 import net.minecraft.block.material.*;
 import net.minecraft.block.properties.*;
@@ -19,6 +20,7 @@ import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -30,6 +32,17 @@ public class BlockCampfire extends Block
 	public static final PropertyEnum<EnumAxis> FACING = PropertyEnum.create("facing", EnumAxis.class, EnumAxis.HORIZ);
 	public static final PropertyBool FIRE = PropertyBool.create("fire");
 	
+	protected static final AxisAlignedBB BASE_BB = new AxisAlignedBB(0, 0, 0,
+																	 1, 0.1875, 1);
+	protected static final double STICK_SIZE = 0.125;
+	protected static final double HALF_STICK_SIZE = STICK_SIZE / 2;
+	protected static final AxisAlignedBB STICK_0 = new AxisAlignedBB(0.5 - HALF_STICK_SIZE, 0, 0,
+																	 0.5 + HALF_STICK_SIZE, 1, STICK_SIZE);
+	protected static final AxisAlignedBB STICK_0_R = AABBUtils.rotate90(STICK_0);
+	protected static final AxisAlignedBB STICK_1 = new AxisAlignedBB(0.5 - HALF_STICK_SIZE, 0, 1 - STICK_SIZE,
+																	 0.5 + HALF_STICK_SIZE, 1, 1);
+	protected static final AxisAlignedBB STICK_1_R = AABBUtils.rotate90(STICK_1);
+	
 	public BlockCampfire()
 	{
 		super(Material.wood);
@@ -39,9 +52,9 @@ public class BlockCampfire extends Block
 	}
 	
 	@Override
-	protected BlockState createBlockState()
+	protected BlockStateContainer createBlockState()
 	{
-		return new BlockState(this, FACING, FIRE);
+		return new BlockStateContainer(this, FACING, FIRE);
 	}
 	
 	@Override
@@ -72,7 +85,7 @@ public class BlockCampfire extends Block
 	
 	public boolean canBlockStay(World world, BlockPos pos)
 	{
-		return World.doesBlockHaveSolidTopSurface(world, pos.down());
+		return world.isSideSolid(pos.down(), EnumFacing.UP);
 	}
 	
 	@Override
@@ -100,7 +113,7 @@ public class BlockCampfire extends Block
 				
 				for (BlockPos waterPos : aWaterPos)
 				{
-					if (world.getBlockState(waterPos).getBlock().getMaterial() == Material.water)
+					if (world.getBlockState(waterPos).getMaterial() == Material.water)
 					{
 						water = true;
 						break;
@@ -113,13 +126,13 @@ public class BlockCampfire extends Block
 	}
 	
 	@Override
-	public int getRenderType()
+	public EnumBlockRenderType getRenderType(IBlockState state)
 	{
-		return 3;
+		return EnumBlockRenderType.MODEL;
 	}
 	
 	@Override
-	public void randomDisplayTick(World world, BlockPos pos, IBlockState state, Random rand)
+	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand)
 	{
 		TileEntityCampfire campfire = getTileEntity(world, pos);
 
@@ -156,56 +169,29 @@ public class BlockCampfire extends Block
 		}
 	}
 	
-	protected void addIfIntersects(AxisAlignedBB aabb, AxisAlignedBB mask, List<AxisAlignedBB> list)
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
-		if (aabb != null && aabb.intersectsWith(mask))
-		{
-			list.add(aabb);
-		}
-	}
-	
-	protected AxisAlignedBB reverseBB(BlockPos pos, AxisAlignedBB bb)
-	{
-		return new AxisAlignedBB(bb.minZ - pos.getZ() + pos.getX(), bb.minY, -(bb.minX - pos.getX() - 0.5) + pos.getZ() + 0.5,
-								bb.maxZ - pos.getZ() + pos.getX(), bb.maxY, -(bb.maxX - pos.getX() - 0.5) + pos.getZ() + 0.5);
+		return BASE_BB;
 	}
 	
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(World world, BlockPos pos, IBlockState state)
-	{
-		int x = pos.getX();
-		int y = pos.getY();
-		int z = pos.getZ();
-		return new AxisAlignedBB(x, y, z, x + 1, y + 0.1875, z + 1);
-	}
-	
-	@Override
-	public void addCollisionBoxesToList(World world, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
+	public void addCollisionBoxToList(IBlockState state, World world, BlockPos pos,
+			AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
 	{
 		// Make collision boxes for the two sticks and the base of the campfire.
-		EnumAxis facing = state.getValue(FACING);
+		addCollisionBoxToList(pos, mask, list, getBoundingBox(state, world, pos));
 		
-		addIfIntersects(getCollisionBoundingBox(world, pos, state), mask, list);
-		
-		int x = pos.getX();
-		int y = pos.getY();
-		int z = pos.getZ();
-		double stickSize = 0.125;
-		double halfStickSize = stickSize / 2;
-		
-		AxisAlignedBB stick0 = new AxisAlignedBB(x + 0.5 - halfStickSize, y, z,
-					x + 0.5 + halfStickSize, y + 1, z + stickSize);
-		AxisAlignedBB stick1 = new AxisAlignedBB(x + 0.5 - halfStickSize, y, z + 1 - stickSize,
-					x + 0.5 + halfStickSize, y + 1, z + 1);
-		
-		if (facing == EnumAxis.Z)
+		if (state.getValue(FACING) == EnumAxis.X)
 		{
-			stick0 = reverseBB(pos, stick0);
-			stick1 = reverseBB(pos, stick1);
+			addCollisionBoxToList(pos, mask, list, STICK_0);
+			addCollisionBoxToList(pos, mask, list, STICK_1);
 		}
-		
-		addIfIntersects(stick0, mask, list);
-		addIfIntersects(stick1, mask, list);
+		else
+		{
+			addCollisionBoxToList(pos, mask, list, STICK_0_R);
+			addCollisionBoxToList(pos, mask, list, STICK_1_R);
+		}
 	}
 	
 	@Override
@@ -229,7 +215,7 @@ public class BlockCampfire extends Block
 														pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5);
 				fireBB = fireBB.expand(dist, 0, dist);
 				
-				Vec3 vec = new Vec3(posX, posY, posZ);
+				Vec3d vec = new Vec3d(posX, posY, posZ);
 				
 				if (fireBB.isVecInside(vec))
 				{
@@ -252,22 +238,22 @@ public class BlockCampfire extends Block
 	}
 	
 	@Override
-	public boolean isOpaqueCube()
+	public boolean isOpaqueCube(IBlockState state)
 	{
 		return false;
 	}
 	
 	@Override
-	public boolean isFullCube()
+	public boolean isFullCube(IBlockState state)
 	{
 		return false;
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public EnumWorldBlockLayer getBlockLayer()
+	public BlockRenderLayer getBlockLayer()
 	{
-		return EnumWorldBlockLayer.CUTOUT;
+		return BlockRenderLayer.CUTOUT;
 	}
 	
 	public void setBurning(World world, BlockPos pos, boolean burning)
@@ -276,9 +262,9 @@ public class BlockCampfire extends Block
 	}
 	
 	@SuppressWarnings("serial")
-	protected final Map<ItemStackKey, String> lighterItems = new HashMap<ItemStackKey, String>(){{
-		put(new ItemStackKey(Items.flint_and_steel), "fire.ignite");
-		put(new ItemStackKey(GenesisItems.flint_and_marcasite), Sounds.IGNITE_FIRE);
+	protected final Map<ItemStackKey, SoundEvent> lighterItems = new HashMap<ItemStackKey, SoundEvent>(){{
+		put(new ItemStackKey(Items.flint_and_steel), SoundEvents.item_flintandsteel_use);
+		//TODO: put(new ItemStackKey(GenesisItems.flint_and_marcasite), Sounds.IGNITE_FIRE);
 	}};
 	
 	/**
@@ -286,7 +272,7 @@ public class BlockCampfire extends Block
 	 * @param key The {@link ItemStackKey} to match the ItemStack to use to light the campfire.
 	 * @param sound The sound to play when the fire has been lit.
 	 */
-	public void registerLighterItem(ItemStackKey key, String sound)
+	public void registerLighterItem(ItemStackKey key, SoundEvent sound)
 	{
 		lighterItems.put(key, sound);
 	}
@@ -296,7 +282,7 @@ public class BlockCampfire extends Block
 	 * @param stack The {@link ItemStack} to match when right clicking to light the campfire.
 	 * @param sound The sound to play when the fire has been lit.
 	 */
-	public void registerLighterItem(ItemStack stack, String sound)
+	public void registerLighterItem(ItemStack stack, SoundEvent sound)
 	{
 		registerLighterItem(new ItemStackKey(stack), sound);
 	}
@@ -306,78 +292,76 @@ public class BlockCampfire extends Block
 	 * @param item The {@link Item} to match when right clicking to light the campfire.
 	 * @param sound The sound to play when the fire has been lit.
 	 */
-	public void registerLighterItem(Item item, String sound)
+	public void registerLighterItem(Item item, SoundEvent sound)
 	{
 		registerLighterItem(new ItemStackKey(item), sound);
 	}
 	
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state,
+			EntityPlayer player, EnumHand hand, ItemStack held,
+			EnumFacing side, float hitX, float hitY, float hitZ)
 	{
 		TileEntityCampfire campfire = getTileEntity(world, pos);
 		
-		if (campfire != null)
+		if (campfire != null && held != null)
 		{
-			ItemStack heldStack = player.getHeldItem();
+			ItemStackKey key = new ItemStackKey(held);
 			
-			if (heldStack != null)
+			if (lighterItems.containsKey(key))
 			{
-				ItemStackKey key = new ItemStackKey(heldStack);
+				if (campfire.burnFuelIfNotBurning())
+				{
+					world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+							lighterItems.get(key), SoundCategory.BLOCKS, 1, world.rand.nextFloat() * 0.4F + 0.8F);
+					
+					held.damageItem(1, player);
+				}
 				
-				if (lighterItems.containsKey(key))
+				return true;
+			}
+			else if (FluidContainerRegistry.containsFluid(held, new FluidStack(FluidRegistry.getFluid("water"), 250)))
+			{
+				boolean burning = campfire.isBurning();
+				Random rand = world.rand;
+				
+				DoubleRange rangeXZ = DoubleRange.create(0.25, 0.75);
+				DoubleRange rangeY = DoubleRange.create(0.0, 0.25);
+				DoubleRange speedXZ = DoubleRange.create(-0.08, 0.08);
+				DoubleRange speedY = DoubleRange.create(0.1, 0.3);
+				
+				final int bigSmokeCount = 1;
+				final int smokeCount = 25;
+				final int waterCount = 50;
+				final int maxCount = Math.max(bigSmokeCount, Math.max(smokeCount, waterCount));
+				
+				for (int i = 0; i < maxCount; i++)
 				{
-					if (campfire.burnFuelIfNotBurning())
+					double x = pos.getX() + rangeXZ.get(rand);
+					double y = pos.getY() + rangeY.get(rand);
+					double z = pos.getZ() + rangeXZ.get(rand);
+					
+					if (burning)
 					{
-						world.playSoundEffect(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, lighterItems.get(key), 1, world.rand.nextFloat() * 0.4F + 0.8F);
-						
-						heldStack.damageItem(1, player);
-					}
-					
-					return true;
-				}
-				else if (FluidContainerRegistry.containsFluid(heldStack, new FluidStack(FluidRegistry.getFluid("water"), 250)))
-				{
-					boolean burning = campfire.isBurning();
-					Random rand = world.rand;
-					
-					DoubleRange rangeXZ = DoubleRange.create(0.25, 0.75);
-					DoubleRange rangeY = DoubleRange.create(0.0, 0.25);
-					DoubleRange speedXZ = DoubleRange.create(-0.08, 0.08);
-					DoubleRange speedY = DoubleRange.create(0.1, 0.3);
-					
-					final int bigSmokeCount = 1;
-					final int smokeCount = 25;
-					final int waterCount = 50;
-					final int maxCount = Math.max(bigSmokeCount, Math.max(smokeCount, waterCount));
-					
-					for (int i = 0; i < maxCount; i++)
-					{
-						double x = pos.getX() + rangeXZ.get(rand);
-						double y = pos.getY() + rangeY.get(rand);
-						double z = pos.getZ() + rangeXZ.get(rand);
-						
-						if (burning)
+						if (i < bigSmokeCount)
 						{
-							if (i < bigSmokeCount)
-							{
-								world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, x, y, z, 0, 0, 0);
-							}
-							if (i < smokeCount)
-							{
-								world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y, z, 0, 0, 0);
-							}
+							world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, x, y, z, 0, 0, 0);
 						}
-						if (i < waterCount)
+						if (i < smokeCount)
 						{
-							world.spawnParticle(GenesisParticles.WATER_SPLASH, x, y, z,
-									speedXZ.get(rand), speedY.get(rand), speedXZ.get(rand));
+							world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y, z, 0, 0, 0);
 						}
 					}
-					
-					campfire.setWet();
-					
-					return true;
+					if (i < waterCount)
+					{
+						world.spawnParticle(GenesisParticles.WATER_SPLASH, x, y, z,
+								speedXZ.get(rand), speedY.get(rand), speedXZ.get(rand));
+					}
 				}
+				
+				campfire.setWet();
+				
+				return true;
 			}
 			
 			player.openGui(Genesis.instance, GenesisGuiHandler.CAMPFIRE_ID, world, pos.getX(), pos.getY(), pos.getZ());
@@ -429,13 +413,11 @@ public class BlockCampfire extends Block
 	}
 	
 	@Override
-	public int getLightValue(IBlockAccess world, BlockPos pos)
+	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
-		int lightVal = super.getLightValue(world, pos);
+		int lightVal = super.getLightValue(state, world, pos);
 		
-		IBlockState state = world.getBlockState(pos);
-		
-		if (state.getBlock() == this && state.getValue(FIRE))
+		if (state.getValue(FIRE))
 		{
 			lightVal = Math.max(lightVal, 15);
 		}

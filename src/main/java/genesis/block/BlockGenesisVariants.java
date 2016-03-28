@@ -11,12 +11,13 @@ import genesis.util.*;
 import genesis.util.random.drops.blocks.BlockDrop;
 import genesis.util.random.drops.blocks.VariantDrop;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.*;
-import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.*;
 
 public class BlockGenesisVariants<V extends IMetadata<V>> extends Block
@@ -40,7 +41,9 @@ public class BlockGenesisVariants<V extends IMetadata<V>> extends Block
 	
 	protected final List<BlockDrop> drops = new ArrayList<BlockDrop>();
 	
-	public BlockGenesisVariants(VariantsOfTypesCombo<V> owner, ObjectType<? extends BlockGenesisVariants<V>, ? extends Item> type, List<V> variants, Class<V> variantClass, Material material)
+	public BlockGenesisVariants(VariantsOfTypesCombo<V> owner, ObjectType<? extends BlockGenesisVariants<V>, ? extends Item> type,
+			List<V> variants, Class<V> variantClass,
+			Material material, SoundType sound)
 	{
 		super(material);
 		
@@ -50,8 +53,10 @@ public class BlockGenesisVariants<V extends IMetadata<V>> extends Block
 		this.variants = variants;
 		variantProp = new PropertyIMetadata<V>("variant", variants, variantClass);
 		
-		blockState = new BlockState(this, variantProp);
+		blockState = new BlockStateContainer(this, variantProp);
 		setDefaultState(getBlockState().getBaseState());
+		
+		setStepSound(sound);
 		
 		addDrop(type);
 		

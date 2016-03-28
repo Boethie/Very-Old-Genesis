@@ -1,7 +1,6 @@
 package genesis.block;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import genesis.combo.ObjectType;
 import genesis.combo.TreeBlocksAndItems;
@@ -15,11 +14,9 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.Vec3;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
 
 public class BlockGenesisLeavesFruit extends BlockGenesisLeaves
 {
@@ -48,7 +45,8 @@ public class BlockGenesisLeavesFruit extends BlockGenesisLeaves
 	}
 	
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player,
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state,
+			EntityPlayer player, EnumHand hand, ItemStack held,
 			EnumFacing side, float hitX, float hitY, float hitZ)
 	{
 		EnumTree variant = state.getValue(variantProp);
@@ -58,7 +56,7 @@ public class BlockGenesisLeavesFruit extends BlockGenesisLeaves
 			if (!world.isRemote)
 			{
 				final double offset = 0.25;
-				Vec3 itemPos = new Vec3(pos.getX() + hitX, pos.getY() + hitY, pos.getZ() + hitZ);
+				Vec3d itemPos = new Vec3d(pos.getX() + hitX, pos.getY() + hitY, pos.getZ() + hitZ);
 				itemPos = itemPos.addVector(side.getFrontOffsetX() * offset, side.getFrontOffsetY() * offset, side.getFrontOffsetZ() * offset);
 				WorldUtils.spawnItemsAt(world, itemPos, DropType.BLOCK,
 						owner.getStack(TreeBlocksAndItems.FRUIT, variant));

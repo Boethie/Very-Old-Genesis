@@ -9,17 +9,16 @@ import genesis.client.GenesisClient;
 import genesis.client.model.ListedItemMeshDefinition;
 import genesis.combo.*;
 import genesis.combo.VariantsOfTypesCombo.*;
-import genesis.combo.variant.EnumMenhirPart;
-import genesis.combo.variant.PropertyIMetadata;
+import genesis.combo.variant.*;
 import genesis.common.*;
 import genesis.item.ItemBlockMulti;
-import genesis.portal.GenesisPortal;
-import genesis.portal.MenhirData;
+import genesis.portal.*;
 import genesis.util.*;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -28,6 +27,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 import net.minecraftforge.fml.relauncher.*;
 
@@ -54,7 +54,7 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 	
 	public BlockMenhir(VariantsCombo<EnumMenhirPart, BlockMenhir, ItemBlockMulti<EnumMenhirPart>> owner, ObjectType<BlockMenhir, ItemBlockMulti<EnumMenhirPart>> type, List<EnumMenhirPart> variants, Class<EnumMenhirPart> variantClass)
 	{
-		super(Material.rock);
+		super(Material.rock, SoundType.STONE);
 		
 		this.owner = owner;
 		this.type = type;
@@ -62,7 +62,7 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 		this.variants = variants;
 		variantProp = new PropertyIMetadata<EnumMenhirPart>("variant", variants, variantClass);
 		
-		blockState = new BlockState(this, variantProp, FACING, GLYPH, ACTIVE);
+		blockState = new BlockStateContainer(this, variantProp, FACING, GLYPH, ACTIVE);
 		setDefaultState(getBlockState().getBaseState().withProperty(GLYPH, EnumGlyph.NONE).withProperty(ACTIVE, false));
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
@@ -218,7 +218,9 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 	}
 	
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state,
+			EntityPlayer player, EnumHand hand, ItemStack held,
+			EnumFacing side, float hitX, float hitY, float hitZ)
 	{
 		EnumMenhirPart part = world.getBlockState(pos).getValue(variantProp);
 		
@@ -228,32 +230,28 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 			MenhirData menhir = new MenhirData(world, pos);
 			TileEntityMenhirReceptacle recepTE = getReceptacleTileEntity(world, pos);
 			
-			if (recepTE != null && !recepTE.isReceptacleActive() &&
-				menhir.getGlyph() != EnumGlyph.NONE)
+			if (recepTE != null && !recepTE.isReceptacleActive()
+				&& menhir.getGlyph() != EnumGlyph.NONE
+				&& held != null && menhir.getGlyph().isActivator(held))
 			{
-				ItemStack heldStack = player.getHeldItem();
+				ItemStack addStack;
 				
-				if (heldStack != null && menhir.getGlyph().isActivator(heldStack))
+				if (player.capabilities.isCreativeMode)
 				{
-					ItemStack addStack;
-					
-					if (player.capabilities.isCreativeMode)
-					{
-						addStack = heldStack.copy();
-						addStack.stackSize = Math.min(addStack.stackSize, 1);
-					}
-					else
-					{
-						addStack = heldStack.splitStack(1);
-					}
-					
-					if (!world.isRemote)
-					{
-						recepTE.setContainedItem(addStack);
-					}
-					
-					return true;
+					addStack = held.copy();
+					addStack.stackSize = Math.min(addStack.stackSize, 1);
 				}
+				else
+				{
+					addStack = held.splitStack(1);
+				}
+				
+				if (!world.isRemote)
+				{
+					recepTE.setContainedItem(addStack);
+				}
+				
+				return true;
 			}
 		default:
 			return false;
@@ -276,7 +274,7 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 	}
 	
 	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player)
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player)
 	{
 		return getStack(world, pos);
 	}
@@ -284,10 +282,10 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 	protected TileEntity brokenTE = null;
 	
 	@Override
-	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest)
+	public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest)
 	{
 		brokenTE = world.getTileEntity(pos);
-		boolean removed = super.removedByPlayer(world, pos, player, willHarvest);
+		boolean removed = super.removedByPlayer(state, world, pos, player, willHarvest);
 		
 		if (!willHarvest || !removed)
 		{
@@ -374,7 +372,7 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 	}
 	
 	@Override
-	public int getLightValue(IBlockAccess world, BlockPos pos)
+	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
 		MenhirData menhir = new MenhirData(world, pos);
 		
@@ -383,17 +381,17 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 			return 8;
 		}
 		
-		return super.getLightValue(world, pos);
+		return super.getLightValue(state, world, pos);
 	}
 	
 	@Override
-	public boolean isFullCube()
+	public boolean isFullCube(IBlockState state)
 	{
 		return false;
 	}
 	
 	@Override
-	public boolean isOpaqueCube()
+	public boolean isOpaqueCube(IBlockState state)
 	{
 		return false;
 	}

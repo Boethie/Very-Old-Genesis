@@ -6,16 +6,15 @@ import genesis.util.WorldUtils;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockDirt;
-import net.minecraft.block.BlockMycelium;
+import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
+import net.minecraftforge.common.IPlantable;
 
 public class BlockPrototaxitesMycelium extends BlockMycelium
 {
@@ -24,7 +23,7 @@ public class BlockPrototaxitesMycelium extends BlockMycelium
 	public BlockPrototaxitesMycelium()
 	{
 		setHardness(0.6F);
-		setStepSound(soundTypeGrass);
+		setStepSound(SoundType.PLANT);
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 	}
 
@@ -34,9 +33,11 @@ public class BlockPrototaxitesMycelium extends BlockMycelium
 		if (!world.isRemote)
 		{
 			int light = world.getLightFromNeighbors(pos.up());
-			Block topBlock = world.getBlockState(pos.up()).getBlock();
-
-			if ((light < 4) && (topBlock.getLightOpacity(world, pos.up()) > 2) && (topBlock != GenesisBlocks.prototaxites))
+			IBlockState topState = world.getBlockState(pos.up());
+			
+			if ((light < 4)
+					&& (topState.getLightOpacity(world, pos.up()) > 2)
+					&& (topState.getBlock() != GenesisBlocks.prototaxites))
 			{
 				world.setBlockState(pos, Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
 			}
@@ -63,12 +64,11 @@ public class BlockPrototaxitesMycelium extends BlockMycelium
 						IBlockState randState = world.getBlockState(randPos);
 						
 						BlockPos above = randPos.up();
-						Block aboveBlock = world.getBlockState(above).getBlock();
 						
 						if (randState.getBlock() == Blocks.dirt
 								&& randState.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT
 								&& world.getLightFromNeighbors(above) >= 4
-								&& aboveBlock.getLightOpacity(world, above) <= 2)
+								&& world.getBlockState(above).getLightOpacity(world, above) <= 2)
 						{
 							world.setBlockState(randPos, getDefaultState());
 						}
@@ -79,7 +79,7 @@ public class BlockPrototaxitesMycelium extends BlockMycelium
 	}
 	
 	@Override
-	public boolean canSustainPlant(IBlockAccess world, BlockPos pos, EnumFacing direction, net.minecraftforge.common.IPlantable plantable)
+	public boolean canSustainPlant(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable)
 	{
 		EnumPlantType type = plantable.getPlantType(world, pos.offset(direction));
 		return type == SOIL_TYPE

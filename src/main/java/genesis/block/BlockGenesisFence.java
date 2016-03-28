@@ -7,12 +7,13 @@ import genesis.util.AABBUtils;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.particle.EntityFX;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 
 public class BlockGenesisFence extends BlockFence
@@ -25,7 +26,7 @@ public class BlockGenesisFence extends BlockFence
 	
 	public BlockGenesisFence(Material material, float poleRadius, float poleHeight, float sideRadius, float sideHeight, float fakeHeight)
 	{
-		super(material);
+		super(material, material.getMaterialMapColor());
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		
@@ -56,7 +57,7 @@ public class BlockGenesisFence extends BlockFence
 		if (block instanceof BlockFenceGate)
 			return true;
 		
-		if (block.isSideSolid(world, pos, side.getOpposite()))
+		if (state.isSideSolid(world, pos, side.getOpposite()))
 			return true;
 		
 		//state = block.getActualState(state, world, pos);
@@ -66,17 +67,18 @@ public class BlockGenesisFence extends BlockFence
 	
 	// All code below is duplicated in BlockGenesisWall.
 	@Override
-	public void addCollisionBoxesToList(World world, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
+	public void addCollisionBoxToList(IBlockState state, World world, BlockPos pos, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
 	{
 		// Make particles collide with the actual top of the fence, rather than the raised version.
 		boolean realHeight = fakeHeight <= 0
-							|| collidingEntity instanceof EntityFX
+							|| collidingEntity == null
 							|| collidingEntity instanceof EntityFallingBlock;
 		
 		AxisAlignedBB base = new AxisAlignedBB(0.5, 0, 0.5, 0.5, 0, 0.5)
 				.offset(pos.getX(), pos.getY(), pos.getZ());
 		
-		AABBUtils.addIfIntersects(list, mask, base.addCoord(0, realHeight ? poleHeight : fakeHeight, 0).expand(poleRadius, 0, poleRadius));
+		addCollisionBoxToList(pos, mask, list,
+				base.addCoord(0, realHeight ? poleHeight : fakeHeight, 0).expand(poleRadius, 0, poleRadius));
 		
 		double height = realHeight ? sideHeight : fakeHeight;
 		
@@ -87,13 +89,13 @@ public class BlockGenesisFence extends BlockFence
 				AxisAlignedBB sideBB = AABBUtils.offset(base.addCoord(0, height, 0), facing, poleRadius);
 				sideBB = AABBUtils.extend(sideBB, facing, 0.5 - poleRadius);
 				sideBB = AABBUtils.expand(sideBB, facing.rotateY(), sideRadius);
-				AABBUtils.addIfIntersects(list, mask, sideBB);
+				addCollisionBoxToList(pos, mask, list, sideBB);
 			}
 		}
 	}
 	
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess world, BlockPos pos)
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
 		AxisAlignedBB bb = new AxisAlignedBB(0.5, 0, 0.5, 0.5, poleHeight, 0.5)
 				.expand(poleRadius, 0, poleRadius);
@@ -128,25 +130,31 @@ public class BlockGenesisFence extends BlockFence
 			}
 		}
 		
-		this.minX = bb.minX;
-		this.minY = bb.minY;
-		this.minZ = bb.minZ;
-		this.maxX = bb.maxX;
-		this.maxY = bb.maxY;
-		this.maxZ = bb.maxZ;
+		return bb;
 	}
 	
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player,
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state,
+			EntityPlayer player, EnumHand hand, ItemStack held,
 			EnumFacing side, float hitX, float hitY, float hitZ)
 	{
-		ItemStack held = player.getHeldItem();
-		
 		if (held != null && held.getItem() instanceof ItemLead)
 			return world.isRemote ? true : ItemLead.attachToFence(player, world, pos);
 		
 		return false;
 	}
+	
+	/*@Override
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player,
+			EnumFacing side, float hitX, float hitY, float hitZ)
+	{
+		ItemStack held = player.getHeldItem(EnumHand.MAIN_HAND);
+		
+		if (held != null && held.getItem() instanceof ItemLead)
+			return world.isRemote ? true : ItemLead.attachToFence(player, world, pos);
+		
+		return false;
+	}*/
 	
 	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos)
@@ -158,14 +166,12 @@ public class BlockGenesisFence extends BlockFence
 	}
 	
 	@Override
-	public boolean shouldSideBeRendered(IBlockAccess world, BlockPos pos, EnumFacing side)
+	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side)
 	{
-		Block block = world.getBlockState(pos).getBlock();
-		
-		if (block.doesSideBlockRendering(world, pos, side))
+		if (state.doesSideBlockRendering(world, pos, side))
 			return false;
 		
-		if (block == this)
+		if (state.getBlock() == this)
 			return false;
 		
 		return true;

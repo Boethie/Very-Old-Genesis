@@ -4,9 +4,9 @@ import java.util.*;
 
 import com.google.common.collect.ImmutableList;
 
-import net.minecraft.block.properties.*;
+import genesis.util.SimpleProperty;
 
-public class PropertyIMetadata<T extends IMetadata<T>> extends PropertyHelper<T>
+public class PropertyIMetadata<T extends IMetadata<T>> extends SimpleProperty<T>
 {
 	protected final ImmutableList<T> values;
 	

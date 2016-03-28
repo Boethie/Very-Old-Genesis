@@ -21,17 +21,16 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockState;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.state.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -67,7 +66,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 		this.variants = variants;
 		variantProp = new PropertyIMetadata<EnumAquaticPlant>("variant", variants, variantClass);
 		
-		blockState = new BlockState(this, variantProp, BlockLiquid.LEVEL);
+		blockState = new BlockStateContainer(this, variantProp, BlockLiquid.LEVEL);
 		setDefaultState(getBlockState().getBaseState());
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
@@ -118,31 +117,31 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 	{
 		return owner.getItemMetadata(state.getValue(variantProp));
 	}
-
+	
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
+	public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World world, BlockPos pos)
 	{
 		return null;
 	}
-
+	
 	@Override
-	public boolean isOpaqueCube()
+	public boolean isOpaqueCube(IBlockState state)
 	{
 		return false;
 	}
-
+	
 	@Override
-	public boolean isFullCube()
+	public boolean isFullCube(IBlockState state)
 	{
 		return false;
 	}
-
+	
 	@Override
-	public boolean isReplaceable(World worldIn, BlockPos pos)
+	public boolean isReplaceable(IBlockAccess world, BlockPos pos)
 	{
 		return false;
 	}
-
+	
 	@Override
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
 	{
@@ -151,20 +150,20 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 			entityIn.attackEntityFrom(Constants.CHANCELLORIA_DMG, 0.5F);
 		}
 	}
-
+	
 	@Override
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
 	{
 		this.checkAndDropBlock(worldIn, pos, state);
 	}
-
+	
 	@Override
 	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
 	{
 		super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
 		this.checkAndDropBlock(worldIn, pos, state);
 	}
-
+	
 	protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state)
 	{
 		if (!this.canBlockStay(worldIn, pos, state))
@@ -173,14 +172,14 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 			worldIn.destroyBlock(pos, true);
 		}
 	}
-
+	
 	@Override
 	public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
 	{
 		super.onBlockDestroyedByPlayer(worldIn, pos, state);
 		this.breakPlant(worldIn, pos, state);
 	}
-
+	
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
 	{
@@ -190,13 +189,13 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 			worldIn.setBlockState(pos.up(), getDefaultState().withProperty(variantProp, EnumAquaticPlant.CHARNIA_TOP), 3);
 		}
 	}
-
+	
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
 	{
 		return this.canBlockStay(worldIn, pos, this.getDefaultState());
 	}
-
+	
 	private void breakPlant(World world, BlockPos pos, IBlockState state)
 	{
 		world.setBlockState(pos, Blocks.water.getStateFromMeta(0), 3);
@@ -221,7 +220,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 			}
 		}
 	}
-
+	
 	public boolean canBlockStay(World world, BlockPos pos, IBlockState state)
 	{
 		if (validGround == null)
@@ -277,11 +276,11 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 		
 		IBlockState above = world.getBlockState(pos.up());
 		
-		if (above.getBlock().getMaterial() != Material.water)
+		if (above.getMaterial() != Material.water)
 		{
 			return false;
 		}
-		if (variant == EnumAquaticPlant.CHARNIA && world.getBlockState(pos.up(2)).getBlock().getMaterial() != Material.water)
+		if (variant == EnumAquaticPlant.CHARNIA && world.getBlockState(pos.up(2)).getMaterial() != Material.water)
 		{
 			return false;
 		}
@@ -311,19 +310,19 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 		
 		return false;
 	}
-
+	
 	private boolean isWaterish(Block block)
 	{
 		return (block == Blocks.water) || block == Blocks.flowing_water || (block == this);
 	}
-
+	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public EnumWorldBlockLayer getBlockLayer()
+	public BlockRenderLayer getBlockLayer()
 	{
-		return EnumWorldBlockLayer.CUTOUT;
+		return BlockRenderLayer.CUTOUT;
 	}
-
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Block.EnumOffsetType getOffsetType()

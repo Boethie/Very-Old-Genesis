@@ -21,6 +21,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.*;
@@ -44,12 +45,14 @@ public class BlockPlant<V extends IPlantMetadata<V>> extends BlockBush implement
 	
 	public final ObjectType<? extends BlockGenesisDoublePlant<V>, ?> doubleType;
 	
+	protected static final float BB_INSET = 0.0625F * 2;
+	protected static final AxisAlignedBB BB =
+			new AxisAlignedBB(BB_INSET, 0, BB_INSET, 1 - BB_INSET, 1, 1 - BB_INSET);
+	
 	public BlockPlant(VariantsOfTypesCombo<V> owner, ObjectType<? extends BlockPlant<V>, ? extends ItemBlockMulti<V>> type, List<V> variants, Class<V> variantClass, ObjectType<? extends BlockGenesisDoublePlant<V>, ? extends ItemBlockMulti<V>> doubleType)
 	{
-		setStepSound(soundTypeGrass);
+		setStepSound(SoundType.PLANT);
 		
-		final float size = 0.4F;
-		setBlockBounds(0.5F - size, 0, 0.5F - size, 0.5F + size, size * 2, 0.5F + size);
 		setHardness(0);
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
@@ -60,16 +63,16 @@ public class BlockPlant<V extends IPlantMetadata<V>> extends BlockBush implement
 		variantProp = new PropertyIMetadata<V>("variant", variants, variantClass);
 		this.variants = variants;
 		
-		blockState = new BlockState(this, variantProp);
+		blockState = new BlockStateContainer(this, variantProp);
 		setDefaultState(getBlockState().getBaseState());
 		
 		this.doubleType = doubleType;
 	}
 	
 	@Override
-	protected boolean canPlaceBlockOn(Block ground)
+	protected boolean func_185514_i(IBlockState ground)
 	{
-		return (ground == GenesisBlocks.moss) || super.canPlaceBlockOn(ground);
+		return (ground == GenesisBlocks.moss) || super.func_185514_i(ground);
 	}
 	
 	@Override
@@ -109,7 +112,7 @@ public class BlockPlant<V extends IPlantMetadata<V>> extends BlockBush implement
 		return 60;
 	}
 	
-	@Override
+	/*@Override
 	public int colorMultiplier(IBlockAccess world, BlockPos pos, int renderPass)
 	{
 		IBlockState state = world.getBlockState(pos);
@@ -126,7 +129,7 @@ public class BlockPlant<V extends IPlantMetadata<V>> extends BlockBush implement
 	public int getRenderColor(IBlockState state)
 	{
 		return state.getValue(variantProp).getRenderColor();
-	}
+	}*/
 	
 	@Override
 	public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean isClient)
@@ -231,7 +234,7 @@ public class BlockPlant<V extends IPlantMetadata<V>> extends BlockBush implement
 	}
 	
 	@Override
-	public boolean isReplaceable(World world, BlockPos pos)
+	public boolean isReplaceable(IBlockAccess world, BlockPos pos)
 	{
 		return world.getBlockState(pos).getValue(variantProp).isReplaceable(world, pos);
 	}
@@ -267,5 +270,11 @@ public class BlockPlant<V extends IPlantMetadata<V>> extends BlockBush implement
 	protected boolean waterInRange(World world, BlockPos pos, int waterDistance)
 	{
 		return waterDistance < 0 || WorldUtils.waterInRange(world, pos.down(), waterDistance, 1);
+	}
+	
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
+	{
+		return BB;
 	}
 }

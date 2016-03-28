@@ -3,7 +3,7 @@ package genesis.portal;
 import java.util.Map;
 
 import genesis.combo.variant.EnumMenhirPart;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 
 public class MenhirEntry extends BlockPos implements Map.Entry<BlockPos, EnumMenhirPart>
 {

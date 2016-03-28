@@ -22,8 +22,8 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.*;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.ITickable;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -193,7 +193,8 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 					
 					if (time % 5 == 0)
 					{
-						player.playSound(Constants.ASSETS_PREFIX + "crafting.knapping_hit", 2, 0.9F + worldObj.rand.nextFloat() * 0.2F);
+						/*player.playSound(Constants.ASSETS_PREFIX + "crafting.knapping_hit",
+								2, 0.9F + worldObj.rand.nextFloat() * 0.2F);*/
 					}
 					
 					GenesisEntityData.setValue(player, KNAPPING_TIME, time + 1);
@@ -236,7 +237,9 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 						if (usingTool != null && usingTool.attemptDamageItem(1, worldObj.rand))
 						{
 							setKnappingToolDamaged(null);
-							worldObj.playSoundEffect(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, Constants.ASSETS_PREFIX + "crafting.knapping_tool_break", 2, 0.8F + worldObj.rand.nextFloat() * 0.4F);
+							/*worldObj.playSoundEffect(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5,
+									Constants.ASSETS_PREFIX + "crafting.knapping_tool_break",
+									2, 0.8F + worldObj.rand.nextFloat() * 0.4F);*/
 						}
 						
 						// Add waste items to the output waste slot.
@@ -781,7 +784,7 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		}
 		
 		@Override
-		public IChatComponent getDisplayName()
+		public ITextComponent getDisplayName()
 		{
 			return TileEntityKnapper.this.getDisplayName();
 		}
@@ -906,7 +909,7 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		}
 		
 		@Override
-		public IChatComponent getDisplayName()
+		public ITextComponent getDisplayName()
 		{
 			return TileEntityKnapper.this.getDisplayName();
 		}

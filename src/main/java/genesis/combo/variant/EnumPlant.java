@@ -6,10 +6,8 @@ import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.ColorizerGrass;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.*;
 import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.common.EnumPlantType;
 
@@ -175,7 +173,7 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	}
 	
 	@Override
-	public boolean isReplaceable(World world, BlockPos pos)
+	public boolean isReplaceable(IBlockAccess world, BlockPos pos)
 	{
 		return replaceable;
 	}

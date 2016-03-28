@@ -7,12 +7,14 @@ import genesis.util.SidedFunction;
 import io.netty.buffer.ByteBuf;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.*;
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
@@ -76,7 +78,7 @@ public final class GenesisSounds
 	public static final GenesisSoundType MUSHROOM = new GenesisSoundType("mushroom", 1.5F, 1.5F, true);
 	public static final GenesisSoundType DEBRIS = new GenesisSoundType("debris", 1.5F, 1.5F, true);
 	
-	public static class GenesisSoundType extends Block.SoundType
+	public static class GenesisSoundType extends SoundType
 	{
 		private final boolean hasCustomPlaceSound;
 		
@@ -196,7 +198,7 @@ public final class GenesisSounds
 	{
 		Entity viewEntity = Minecraft.getMinecraft().getRenderViewEntity();
 		
-		Vec3 renderOff = ActiveRenderInfo.getPosition();
+		Vec3d renderOff = ActiveRenderInfo.getPosition();
 		
 		// Dot product of the difference between camera position and the entity, and the relative motion of the entity.
 		float relative = (float) (

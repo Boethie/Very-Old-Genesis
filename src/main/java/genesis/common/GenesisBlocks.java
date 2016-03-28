@@ -26,13 +26,14 @@ import genesis.util.random.drops.blocks.BlockStackDrop;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemColored;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -157,9 +158,8 @@ public final class GenesisBlocks
 	public static final Block prototaxites_mycelium = new BlockPrototaxitesMycelium().setUnlocalizedName(Unlocalized.PREFIX + "prototaxitesMycelium");
 	
 	public static final DungBlocksAndItems dungs = new DungBlocksAndItems();
-	public static final Block dung_brick_block = new BlockGenesis(Material.rock)
+	public static final Block dung_brick_block = new BlockGenesis(Material.rock, SoundType.STONE)
 			.setHardness(0.7F)
-			.setStepSound(Block.soundTypePiston)
 			.setUnlocalizedName(Unlocalized.PREFIX + "dungBrickBlock");
 	public static final BlockGenesisWall wattle_and_daub = (BlockGenesisWall) new BlockGenesisWall(Material.wood, 0.375F, 1.0F, -1).setUnlocalizedName(Unlocalized.PREFIX + "wattleAndDaub");
 	
@@ -190,11 +190,10 @@ public final class GenesisBlocks
 									
 									block.setHardness(0.75F);
 									block.setResistance(8.5F);
-									block.setStepSound(GenesisSounds.CORAL);
 								}
 							}.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE)
 							.setCreativeTab(GenesisCreativeTabs.DECORATIONS)
-							.setBlockArguments(Material.coral),
+							.setBlockArguments(Material.coral, GenesisSounds.CORAL),
 					EnumCoral.class, EnumCoral.values());
 	
 	public static void registerBlocks()
