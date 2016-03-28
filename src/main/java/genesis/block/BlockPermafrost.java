@@ -7,10 +7,11 @@ public class BlockPermafrost extends BlockGenesis
 {
 	public BlockPermafrost()
 	{
-		super(Material.rock);
+		super(Material.rock, GenesisSounds.PERMAFROST);
+		
 		slipperiness = 0.98F;
+		
 		setHardness(0.5F);
-		setStepSound(GenesisSounds.PERMAFROST);
 		setHarvestLevel("pickaxe", 0);
 	}
 }

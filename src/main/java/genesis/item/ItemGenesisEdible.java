@@ -7,14 +7,14 @@ import genesis.combo.VariantsOfTypesCombo;
 import genesis.combo.variant.IFood;
 import genesis.combo.variant.IMetadata;
 import genesis.common.GenesisCreativeTabs;
-import genesis.util.RandomReflection;
+import genesis.util.Actions;
+
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemFood;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 
 public abstract class ItemGenesisEdible<V extends IMetadata<V>> extends ItemFood
@@ -68,13 +68,13 @@ public abstract class ItemGenesisEdible<V extends IMetadata<V>> extends ItemFood
 	}
 	
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
 	{
 		boolean positive = false;
 		
 		for (PotionEffect effect : getFoodType(stack).getEffects())
 		{
-			if (!RandomReflection.isBadPotionEffect(effect))
+			if (!effect.getPotion().isBadEffect())
 			{
 				positive = true;
 				break;
@@ -83,10 +83,11 @@ public abstract class ItemGenesisEdible<V extends IMetadata<V>> extends ItemFood
 		
 		if (player.canEat(positive))
 		{
-			player.setItemInUse(stack, getMaxItemUseDuration(stack));
+			player.setActiveHand(hand);
+			return Actions.success(stack);
 		}
-		
-		return stack;
+
+		return Actions.fail(stack);
 	}
 	
 	@Override

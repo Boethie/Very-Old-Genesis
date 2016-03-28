@@ -47,25 +47,6 @@ public class RandomReflection
 		}
 	}
 	
-	private static final Field potionIsBadEffect = ReflectionHelper.findField(Potion.class, "isBadEffect", "field_76418_K");
-	
-	public static boolean isBadPotion(Potion potion)
-	{
-		try
-		{
-			return potionIsBadEffect.getBoolean(potion);
-		}
-		catch (IllegalAccessException e)
-		{
-			throw new RuntimeException(e);
-		}
-	}
-	
-	public static boolean isBadPotionEffect(PotionEffect effect)
-	{
-		return isBadPotion(Potion.potionTypes[effect.getPotionID()]);
-	}
-	
 	public static final class SoundReflection
 	{
 		private static SoundManager soundManager;
