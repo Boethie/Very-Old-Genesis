@@ -5,7 +5,7 @@ import java.util.*;
 import com.google.common.collect.ImmutableMap;
 
 import genesis.util.ItemStackKey;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
 
 public class MappedItemMeshDefinition implements ListedItemMeshDefinition

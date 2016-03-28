@@ -1,6 +1,5 @@
 package genesis.block;
 
-import genesis.client.*;
 import genesis.common.*;
 import genesis.util.*;
 import genesis.util.random.*;
@@ -336,7 +335,7 @@ public class BlockMoss extends BlockGrass
 				double x = pos.getX() + 0.5F;
 				double y = pos.getY() + 0.5F;
 				double z = pos.getZ() + 0.5F;
-				SoundType sound = newState.getBlock().getStepSound();
+				SoundType sound = newState.getBlock().getSoundType();
 				
 				world.playSound(null, x, y, z,
 						sound.getStepSound(), SoundCategory.BLOCKS,
