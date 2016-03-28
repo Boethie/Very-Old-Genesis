@@ -2,13 +2,8 @@ package genesis.util;
 
 import java.util.Random;
 
-<<<<<<< HEAD
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
-=======
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.MathHelper;
->>>>>>> 42f95eebab2528f3063287944eac4a0fb674ae28
 
 import net.minecraft.util.EnumFacing.*;
 import static net.minecraft.util.EnumFacing.Axis.*;
