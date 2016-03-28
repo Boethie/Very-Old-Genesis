@@ -1,7 +1,7 @@
 package genesis.entity.fixed;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public abstract class EntityEgg extends EntityFixed
@@ -16,7 +16,7 @@ public abstract class EntityEgg extends EntityFixed
 		setMaxAge();
 	}
 	
-	public EntityEgg(World world, Vec3 position)
+	public EntityEgg(World world, Vec3d position)
 	{
 		super(world, position);
 		

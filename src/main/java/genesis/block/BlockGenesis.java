@@ -13,6 +13,6 @@ public class BlockGenesis extends Block
 		super(material);
 		
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
-		setStepSound(sound);
+		setSoundType(sound);
 	}
 }

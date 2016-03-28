@@ -9,6 +9,6 @@ public class BlockAnkyropteris extends BlockVine
 	public BlockAnkyropteris() {
 		setHardness(0.2F);
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
-		setStepSound(SoundType.PLANT);
+		setSoundType(SoundType.PLANT);
 	}
 }

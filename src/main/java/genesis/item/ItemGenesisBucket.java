@@ -16,8 +16,8 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -75,7 +75,7 @@ public class ItemGenesisBucket extends ItemBucket
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
 	{
 		boolean empty = isEmpty();
-		MovingObjectPosition hit = getMovingObjectPositionFromPlayer(world, player, empty);
+		RayTraceResult hit = getRayTraceResultFromPlayer(world, player, empty);
 		
 		if (hit == null)
 		{
@@ -89,7 +89,7 @@ public class ItemGenesisBucket extends ItemBucket
 			return eventOutput;
 		}
 		
-		if (hit.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
+		if (hit.typeOfHit == RayTraceResult.Type.BLOCK)
 		{
 			BlockPos hitPos = hit.getBlockPos();
 			
@@ -209,7 +209,7 @@ public class ItemGenesisBucket extends ItemBucket
 						
 						if (spPlayer == player)
 						{
-							Vec3 hitVec = mc.objectMouseOver.hitVec;
+							Vec3d hitVec = mc.objectMouseOver.hitVec;
 							hitVec = hitVec.subtract(pos.getX(), pos.getY(), pos.getZ());
 							Packet<?> packet = new C08PacketPlayerBlockPlacement(pos, event.face.getIndex(), stack, (float) hitVec.xCoord, (float) hitVec.yCoord, (float) hitVec.zCoord);
 							spPlayer.sendQueue.addToSendQueue(packet);

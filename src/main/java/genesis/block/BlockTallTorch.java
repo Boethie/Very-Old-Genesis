@@ -65,7 +65,7 @@ public class BlockTallTorch extends Block
 		
 		setLightLevel(0.9375F);
 		
-		setStepSound(SoundType.WOOD);
+		setSoundType(SoundType.WOOD);
 		
 		setTickRandomly(true);
 	}

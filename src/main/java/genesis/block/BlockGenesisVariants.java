@@ -56,7 +56,7 @@ public class BlockGenesisVariants<V extends IMetadata<V>> extends Block
 		blockState = new BlockStateContainer(this, variantProp);
 		setDefaultState(getBlockState().getBaseState());
 		
-		setStepSound(sound);
+		setSoundType(sound);
 		
 		addDrop(type);
 		

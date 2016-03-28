@@ -34,7 +34,7 @@ public class BlockCalamites extends BlockGrowingPlant implements IGrowingPlantCu
 		
 		setPlantSize(1, 0, RADIUS * 2);
 		setCollisionBox(RADIUS);
-		setStepSound(GenesisSounds.CALAMITES);
+		setSoundType(GenesisSounds.CALAMITES);
 		
 		setResetAgeOnGrowth(true);
 	}

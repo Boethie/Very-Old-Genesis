@@ -93,9 +93,9 @@ public class ItemCeramicBowl extends ItemGenesis
 		switch (variant)
 		{
 		case BOWL:
-			MovingObjectPosition hit = getMovingObjectPositionFromPlayer(world, player, true);
+			RayTraceResult hit = getRayTraceResultFromPlayer(world, player, true);
 	
-			if (hit != null && hit.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
+			if (hit != null && hit.typeOfHit == RayTraceResult.Type.BLOCK)
 			{
 				BlockPos hitPos = hit.getBlockPos();
 				
@@ -213,7 +213,7 @@ public class ItemCeramicBowl extends ItemGenesis
 						
 						if (spPlayer == player)
 						{
-							Vec3 hitVec = mc.objectMouseOver.hitVec;
+							Vec3d hitVec = mc.objectMouseOver.hitVec;
 							hitVec = hitVec.subtract(pos.getX(), pos.getY(), pos.getZ());
 							Packet<?> packet = new C08PacketPlayerBlockPlacement(pos, event.face.getIndex(), stack, (float) hitVec.xCoord, (float) hitVec.yCoord, (float) hitVec.zCoord);
 							spPlayer.sendQueue.addToSendQueue(packet);

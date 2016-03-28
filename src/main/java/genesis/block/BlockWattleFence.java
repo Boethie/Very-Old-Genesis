@@ -58,7 +58,7 @@ public class BlockWattleFence extends BlockGenesisFence
 		
 		setHardness(2);
 		setResistance(5);
-		setStepSound(SoundType.WOOD);
+		setSoundType(SoundType.WOOD);
 		
 		this.owner = owner;
 		this.type = type;

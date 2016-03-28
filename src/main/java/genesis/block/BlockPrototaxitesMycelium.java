@@ -23,7 +23,7 @@ public class BlockPrototaxitesMycelium extends BlockMycelium
 	public BlockPrototaxitesMycelium()
 	{
 		setHardness(0.6F);
-		setStepSound(SoundType.PLANT);
+		setSoundType(SoundType.PLANT);
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 	}
 

@@ -63,7 +63,7 @@ public class BlockGenesisSaplings extends BlockSapling
 		setDefaultState(getBlockState().getBaseState());
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
-		setStepSound(SoundType.PLANT);
+		setSoundType(SoundType.PLANT);
 	}
 	
 	@Override

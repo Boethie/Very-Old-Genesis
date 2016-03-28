@@ -12,6 +12,6 @@ public class BlockCalamitesTorch extends BlockTorch
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		setLightLevel(.9375F);
 		setHardness(0.0F);
-		setStepSound(SoundType.WOOD);
+		setSoundType(SoundType.WOOD);
 	}
 }

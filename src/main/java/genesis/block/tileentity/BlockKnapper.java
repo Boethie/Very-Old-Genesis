@@ -22,7 +22,7 @@ public class BlockKnapper extends Block
 		
 		setDefaultState(getBlockState().getBaseState());
 		
-		setStepSound(SoundType.WOOD);
+		setSoundType(SoundType.WOOD);
 		setHardness(2.5F);
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);

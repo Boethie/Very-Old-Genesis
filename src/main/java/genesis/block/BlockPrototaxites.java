@@ -23,7 +23,7 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 	{
 		super(Material.wood, false, 15, 5);
 		
-		setStepSound(GenesisSounds.MUSHROOM);
+		setSoundType(GenesisSounds.MUSHROOM);
 		
 		setHardness(0.75F);
 		setHarvestLevel("axe", 0);
