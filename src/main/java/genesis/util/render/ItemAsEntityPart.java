@@ -6,7 +6,6 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.item.*;
 
-@SuppressWarnings("deprecation")
 public class ItemAsEntityPart extends CustomEntityPart
 {
 	private ItemStack itemStack;

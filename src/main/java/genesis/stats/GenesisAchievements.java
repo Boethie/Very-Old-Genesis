@@ -142,7 +142,7 @@ public class GenesisAchievements
 		@SubscribeEvent
 		public void onItemPickup(EntityItemPickupEvent event)
 		{
-			doItemAchievement(event.item.getEntityItem(), event.entityPlayer);
+			doItemAchievement(event.getItem().getEntityItem(), event.getEntityPlayer());
 		}
 		
 		@SubscribeEvent

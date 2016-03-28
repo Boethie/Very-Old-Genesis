@@ -1,13 +1,10 @@
 package genesis.portal;
 
-import genesis.block.tileentity.portal.BlockMenhir;
-import genesis.block.tileentity.portal.EnumGlyph;
+import genesis.block.tileentity.portal.*;
 import genesis.combo.variant.EnumMenhirPart;
-import genesis.common.Genesis;
-import genesis.common.GenesisBlocks;
-import genesis.common.GenesisDimensions;
+import genesis.common.*;
 import genesis.util.WorldUtils;
-import net.minecraft.block.Block;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
@@ -36,7 +33,7 @@ public class GenesisPortal
 	
 	public static boolean isBlockingPortal(IBlockAccess world, BlockPos pos, IBlockState state)
 	{
-		return GenesisBlocks.menhirs.containsState(state) || state.getBlock().getLightOpacity(world, pos) >= 15;
+		return GenesisBlocks.menhirs.containsState(state) || state.getLightOpacity(world, pos) >= 15;
 	}
 	
 	public static boolean isBlockingPortal(IBlockAccess world, BlockPos pos)
@@ -329,7 +326,7 @@ public class GenesisPortal
 					for (int h = -1; h <= PORTAL_HEIGHT; h++)
 					{
 						BlockPos checkPos = checkCenter.offset(dir, r).up(h);
-						Block checkBlock = world.getBlockState(checkPos).getBlock();
+						IBlockState checkState = world.getBlockState(checkPos);
 						
 						if (r < menhirDistance)
 						{	// Check line to menhir
@@ -345,12 +342,12 @@ public class GenesisPortal
 						{	// Check menhir position
 							if (h == -1)
 							{
-								if (!World.doesBlockHaveSolidTopSurface(world, checkPos))
+								if (!world.isSideSolid(checkPos, EnumFacing.UP))
 								{	// Block below menhir.
 									continue nextCenter;
 								}
 							}
-							else if (checkBlock.getMaterial().isLiquid() || !checkBlock.isReplaceable(world, checkPos))
+							else if (checkState.getMaterial().isLiquid() || !checkState.getBlock().isReplaceable(world, checkPos))
 							{	// Blocks in the way of the menhir
 								continue nextCenter;
 							}
@@ -477,19 +474,20 @@ public class GenesisPortal
 				for (BlockPos from : new MenhirIterator(fromWorld, menhir.getBottomPos(), true))
 				{
 					BlockPos newPos = from.add(posDiff);
-					world.setBlockState(newPos, fromWorld.getBlockState(from));
+					IBlockState fromState = fromWorld.getBlockState(from);
+					world.setBlockState(newPos, fromState);
 					TileEntity te = fromWorld.getTileEntity(from);
 					
 					if (te != null)
 					{
 						NBTTagCompound compound = new NBTTagCompound();
 						te.writeToNBT(compound);
-						TileEntity newTE = TileEntity.createAndLoadEntity(compound);
+						TileEntity newTE = TileEntity.createTileEntity(null, compound);
 						world.removeTileEntity(newPos);
 						world.setTileEntity(newPos, newTE);
 					}
 					
-					world.markBlockForUpdate(newPos);
+					world.notifyBlockUpdate(newPos, fromState, fromState, 0b1000);
 				}
 			}
 		}

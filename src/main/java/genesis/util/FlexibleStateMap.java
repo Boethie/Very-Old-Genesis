@@ -8,8 +8,8 @@ import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.*;
 
@@ -18,8 +18,7 @@ public class FlexibleStateMap extends StateMapperBase
 {
 	protected String prefix = "";
 	protected String prefixSeparator = "";
-	@SuppressWarnings("rawtypes")
-	protected IProperty nameProperty = null;
+	protected IProperty<?> nameProperty = null;
 	protected String postfixSeparator = "";
 	protected String postfix = "";
 	protected Function<String, String> nameFunction = null;
@@ -71,8 +70,18 @@ public class FlexibleStateMap extends StateMapperBase
 		
 		return this;
 	}
-
-	@SuppressWarnings({"rawtypes", "unchecked"})
+	
+	private static <T extends Comparable<T>> String getName(IProperty<T> property, T value)
+	{
+		return property.getName(value);
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static <T extends Comparable<T>> String getNameUnsafe(IProperty<?> property, Comparable<?> value)
+	{
+		return getName((IProperty<T>) property, (T) value);
+	}
+	
 	@Override
 	protected ModelResourceLocation getModelResourceLocation(IBlockState state)
 	{
@@ -83,22 +92,19 @@ public class FlexibleStateMap extends StateMapperBase
 		String outPrefix = prefix;
 		
 		String outMain = "";
-		Map<IProperty, Comparable> propertyMap = new LinkedHashMap<IProperty, Comparable>(state.getProperties());
+		Map<IProperty<?>, Comparable<?>> propertyMap = new LinkedHashMap<>(state.getProperties());
 		
 		// Set main name section.
 		if (nameProperty != null)
 		{
-			outMain = nameProperty.getName(propertyMap.remove(nameProperty));
+			outMain = getNameUnsafe(nameProperty, propertyMap.remove(nameProperty));
 		}
 		
 		// Set prefix name section.
 		String outPostfix = postfix;
 		
 		// Remove ignored properties.
-		for (IProperty property : ignoreProperties)
-		{
-			propertyMap.remove(property);
-		}
+		propertyMap.keySet().removeAll(ignoreProperties);
 		
 		// Begin constructing complete output name, with separators added according to what's a non-empty string.
 		String output = outPrefix;

@@ -180,10 +180,9 @@ public class ModelHelpers
 		return output;
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static String getPropertyString(IBlockState state)
 	{
-		return getPropertyString((Map) state.getProperties());
+		return getPropertyString(state.getProperties());
 	}
 	
 	public static ModelResourceLocation getLocationWithProperties(ResourceLocation loc, String properties)

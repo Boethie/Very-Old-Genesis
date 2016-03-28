@@ -1,7 +1,7 @@
 package genesis.util.render;
 
 import net.minecraft.client.model.*;
-import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.VertexBuffer;
 
 public abstract class CustomModelElement extends ModelBox
 {
@@ -16,5 +16,5 @@ public abstract class CustomModelElement extends ModelBox
 	}
 	
 	@Override
-	public abstract void render(WorldRenderer renderer, float scale);
+	public abstract void render(VertexBuffer buffer, float scale);
 }

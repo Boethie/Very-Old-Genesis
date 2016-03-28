@@ -1,12 +1,10 @@
 package genesis.util.render;
 
 import genesis.util.EnumAxis;
-import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.model.PositionTextureVertex;
-import net.minecraft.client.model.TexturedQuad;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.WorldRenderer;
-import net.minecraft.util.Vec3;
+
+import net.minecraft.client.model.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.util.math.*;
 
 public class ModelPlane extends CustomModelElement
 {
@@ -17,9 +15,9 @@ public class ModelPlane extends CustomModelElement
 	{
 		super(part);
 		
-		Vec3 start = new Vec3(x, y, z);
-		Vec3 localW = null;
-		Vec3 localH = null;
+		Vec3d start = new Vec3d(x, y, z);
+		Vec3d localW = null;
+		Vec3d localH = null;
 		
 		float texW = part.textureWidth;
 		float texH = part.textureHeight;
@@ -30,19 +28,19 @@ public class ModelPlane extends CustomModelElement
 		switch (facingAxis)
 		{
 		case X:
-			localW = new Vec3(0, 0, w);
-			localH = new Vec3(0, h, 0);
+			localW = new Vec3d(0, 0, w);
+			localH = new Vec3d(0, h, 0);
 			break;
 		case Y:
-			localW = new Vec3(h, 0, 0);
-			localH = new Vec3(0, 0, w);
+			localW = new Vec3d(h, 0, 0);
+			localH = new Vec3d(0, 0, w);
 			
 			uW = h / texW;
 			uH = w / texH;
 			break;
 		case Z:
-			localW = new Vec3(w, 0, 0);
-			localH = new Vec3(0, h, 0);
+			localW = new Vec3d(w, 0, 0);
+			localH = new Vec3d(0, h, 0);
 			break;
 		default:
 			throw new IllegalArgumentException(facingAxis + " is not a valid axis for a ModelPlane.");
@@ -81,11 +79,11 @@ public class ModelPlane extends CustomModelElement
 	}
 	
 	@Override
-	public void render(WorldRenderer renderer, float scale)
+	public void render(VertexBuffer buffer, float scale)
 	{
 		GlStateManager.enableCull();
-		quadUp.draw(renderer, scale);
-		quadDown.draw(renderer, scale);
+		quadUp.draw(buffer, scale);
+		quadDown.draw(buffer, scale);
 		GlStateManager.disableCull();
 	}
 }
