@@ -4,6 +4,7 @@ import genesis.common.GenesisConfig;
 import genesis.common.GenesisDimensions;
 import genesis.portal.GenesisPortal;
 import genesis.util.Constants;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

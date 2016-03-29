@@ -253,7 +253,7 @@ public class ContainerKnapper extends ContainerBase
 	}
 	
 	@Override
-	public ItemStack slotClick(int slotID, int button, int mode, EntityPlayer player)
+	public ItemStack slotClick(int slotID, int button, ClickType type, EntityPlayer player)
 	{
 		if (slotID >= 0)
 		{
@@ -273,7 +273,7 @@ public class ContainerKnapper extends ContainerBase
 				}
 				
 				ItemStack old = slot.getStack().copy();
-				ItemStack out = super.slotClick(slotID, button, mode, player);
+				ItemStack out = super.slotClick(slotID, button, type, player);
 				
 				if (slot == outputSlotMain)
 				{
@@ -301,7 +301,7 @@ public class ContainerKnapper extends ContainerBase
 			}
 		}
 		
-		return super.slotClick(slotID, button, mode, player);
+		return super.slotClick(slotID, button, type, player);
 	}
 	
 	@Override
