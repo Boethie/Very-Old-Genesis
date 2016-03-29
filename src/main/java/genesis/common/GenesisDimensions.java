@@ -3,6 +3,7 @@ package genesis.common;
 import genesis.entity.extendedproperties.*;
 import genesis.portal.GenesisPortal;
 import genesis.stats.GenesisAchievements;
+import genesis.util.Constants;
 import genesis.world.*;
 
 import net.minecraft.entity.*;
@@ -12,6 +13,7 @@ import net.minecraft.network.play.server.*;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.PlayerList;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.Teleporter;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -24,10 +26,12 @@ public class GenesisDimensions
 	public static final String GENESIS_PLAYER_DATA = "genesis";
 	public static final String OTHER_PLAYER_DATA = "other";
 	
+	public static final DimensionType GENESIS_TYPE = DimensionType.register(Constants.MOD_ID, "_genesis",
+			GenesisConfig.genesisDimId, WorldProviderGenesis.class, false);
+	
 	public static void register()
 	{
-		DimensionManager.registerProviderType(GenesisConfig.genesisProviderId, WorldProviderGenesis.class, true);
-		DimensionManager.registerDimension(GenesisConfig.genesisDimId, GenesisConfig.genesisProviderId);
+		DimensionManager.registerDimension(GenesisConfig.genesisDimId, GENESIS_TYPE);
 		
 		GenesisEntityData.registerProperty(EntityPlayerMP.class, STORED_PLAYERS);
 	}

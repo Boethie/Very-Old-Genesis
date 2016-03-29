@@ -2,12 +2,12 @@ package genesis.world;
 
 import genesis.world.layer.GenLayerGenesis;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.WorldChunkManager;
+import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.gen.layer.GenLayer;
 
-public class WorldChunkManagerGenesis extends WorldChunkManager
+public class BiomeProviderGenesis extends BiomeProvider
 {
-	public WorldChunkManagerGenesis(long seed)
+	public BiomeProviderGenesis(long seed)
 	{
 		super();
 		GenLayer[] agenlayer = GenLayerGenesis.initializeAllBiomeGenerators(seed);
@@ -15,7 +15,7 @@ public class WorldChunkManagerGenesis extends WorldChunkManager
 		this.biomeIndexLayer = agenlayer[1];
 	}
 	
-	public WorldChunkManagerGenesis(World worldIn)
+	public BiomeProviderGenesis(World worldIn)
 	{
 		this(worldIn.getSeed());
 	}

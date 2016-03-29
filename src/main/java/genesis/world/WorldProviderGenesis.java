@@ -2,13 +2,17 @@ package genesis.world;
 
 import genesis.client.render.RenderFog;
 import genesis.common.GenesisBlocks;
+import genesis.common.GenesisDimensions;
 import genesis.util.GenesisMath;
+
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldProvider;
-import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.chunk.IChunkGenerator;
+
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -39,31 +43,19 @@ public class WorldProviderGenesis extends WorldProvider
 	}
 	
 	@Override
-	public String getDimensionName()
-	{
-		return "Genesis";
-	}
-	
-	@Override
-	public String getInternalNameSuffix()
-	{
-		return "";
-	}
-	
-	@Override
 	public String getWelcomeMessage()
 	{
-		return EnumChatFormatting.ITALIC + "You feel yourself forgetting your knowledge of crafting...";
+		return TextFormatting.ITALIC + "You feel yourself forgetting your knowledge of crafting...";
 	}
 	
 	@Override
 	protected void registerWorldChunkManager()
 	{
-		this.worldChunkMgr = new WorldChunkManagerGenesis(this.worldObj);
+		this.biomeProvider = new BiomeProviderGenesis(this.worldObj);
 	}
 	
 	@Override
-	public IChunkProvider createChunkGenerator()
+	public IChunkGenerator createChunkGenerator()
 	{
 		return new ChunkGeneratorGenesis(this.worldObj, this.worldObj.getSeed(), this.worldObj.getWorldInfo().isMapFeaturesEnabled(), this.worldObj.getWorldInfo().getGeneratorOptions());
 	}
@@ -133,5 +125,11 @@ public class WorldProviderGenesis extends WorldProvider
 	public Vec3d getFogColor(float angle, float partialTicks)
 	{
 		return GenesisMath.lerp(RenderFog.INSTANCE.prevColor, RenderFog.INSTANCE.color, partialTicks);
+	}
+	
+	@Override
+	public DimensionType getDimensionType()
+	{
+		return GenesisDimensions.GENESIS_TYPE;
 	}
 }
