@@ -7,8 +7,8 @@ import net.minecraft.command.CommandTime;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.CommandEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -18,9 +18,9 @@ public class CommandInterceptor extends CommandTime
 	@SubscribeEvent
 	public void onCommand(CommandEvent event)
 	{
-		ICommandSender sender = event.sender;
-		Class<? extends ICommand> commandClass = event.command.getClass();
-		String[] args = event.parameters;
+		ICommandSender sender = event.getSender();
+		Class<? extends ICommand> commandClass = event.getCommand().getClass();
+		String[] args = event.getParameters();
 		
 		try
 		{
@@ -62,8 +62,8 @@ public class CommandInterceptor extends CommandTime
 		}
 		catch (CommandException ex)
 		{
-			ChatComponentTranslation message = new ChatComponentTranslation(ex.getMessage(), ex.getErrorObjects());
-			message.getChatStyle().setColor(EnumChatFormatting.RED);
+			TextComponentTranslation message = new TextComponentTranslation(ex.getMessage(), ex.getErrorObjects());
+			message.getStyle().setColor(TextFormatting.RED);
 			sender.addChatMessage(message);
 			event.setCanceled(true);
 		}
