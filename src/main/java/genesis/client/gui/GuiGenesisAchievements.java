@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.io.IOException;
 import java.util.Random;
 
+import net.minecraft.network.play.client.CPacketClientStatus;
+import net.minecraft.util.text.TextComponentTranslation;
 import org.lwjgl.input.Mouse;
 
 import genesis.combo.OreBlocks;
@@ -23,11 +25,9 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
-import net.minecraft.network.play.client.C16PacketClientStatus;
 import net.minecraft.stats.Achievement;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.stats.StatFileWriter;
-import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -75,7 +75,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 		this.achivementOffsetX = (AchievementList.openInventory.displayColumn * 24 - 141 / 2 - 12);
 		this.achivementOffsetY = (AchievementList.openInventory.displayRow * 24 - 141 / 2);
 		minecraftAchievements.clear();
-		for (Achievement achievement : AchievementList.achievementList)
+		for (Achievement achievement : AchievementList.ACHIEVEMENTS)
 		{
 			if (!AchievementPage.isAchievementInPages(achievement))
 			{
@@ -83,7 +83,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 			}
 		}
 
-		if (worldObj.provider.getDimensionName().equals("Genesis"))
+		if (worldObj.provider.getDimensionType().getName().equals("Genesis"))
 		{
 			for (int i = 0; i < AchievementPage.getAchievementPages().size(); i++)
 			{
@@ -99,7 +99,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 	public void initGui()
 	{
 		this.mc.getNetHandler()
-				.addToSendQueue(new C16PacketClientStatus(C16PacketClientStatus.EnumState.REQUEST_STATS));
+				.addToSendQueue(new CPacketClientStatus(CPacketClientStatus.State.REQUEST_STATS));
 		this.buttonList.clear();
 		this.buttonList.add(new GuiOptionButton(1, this.width / 2 + 24, this.height / 2 + 74, 80, 20,
 				I18n.format("gui.done", new Object[0])));
@@ -470,7 +470,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 				{
 					float f10 = 0.1F;
 					GlStateManager.color(f10, f10, f10, 1.0F);
-					this.itemRender.func_175039_a(false);
+					this.itemRender.isNotRenderingEffectsInGUI(false);
 				}
 
 				GlStateManager.disableLighting();
@@ -481,7 +481,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 
 				if (!this.statFileWriter.canUnlockAchievement(achievement2))
 				{
-					this.itemRender.func_175039_a(true);
+					this.itemRender.isNotRenderingEffectsInGUI(true);
 				}
 
 				GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -543,7 +543,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 			{
 				s = I18n.format("achievement.unknown", new Object[0]);
 				int k8 = Math.max(this.fontRendererObj.getStringWidth(s), 120);
-				String s2 = (new ChatComponentTranslation("achievement.requires", new Object[]
+				String s2 = (new TextComponentTranslation("achievement.requires", new Object[]
 				{ achievement.parentAchievement.getStatName() })).getUnformattedText();
 				int i5 = this.fontRendererObj.splitStringWidth(s2, k8);
 				this.drawGradientRect(i7 - 3, k7 - 3, i7 + k8 + 3, k7 + i5 + 12 + 3, -1073741824, -1073741824);
@@ -552,7 +552,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 			else if (i8 < 3)
 			{
 				int l8 = Math.max(this.fontRendererObj.getStringWidth(s), 120);
-				String s3 = (new ChatComponentTranslation("achievement.requires", new Object[]
+				String s3 = (new TextComponentTranslation("achievement.requires", new Object[]
 				{ achievement.parentAchievement.getStatName() })).getUnformattedText();
 				int j9 = this.fontRendererObj.splitStringWidth(s3, l8);
 				this.drawGradientRect(i7 - 3, k7 - 3, i7 + l8 + 3, k7 + j9 + 12 + 3, -1073741824, -1073741824);

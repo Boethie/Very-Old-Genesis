@@ -25,7 +25,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.*;
-import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.common.*;
 
 public class BlockGrowingPlant extends BlockBush implements IGrowable
@@ -1003,7 +1002,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 	}
 	
 	@Override
-	protected boolean func_185514_i(IBlockState ground)
+	protected boolean canSustainBush(IBlockState ground)
 	{
 		// Return false so that canSustainPlant checks the plant type instead of BlockBush.canPlaceBlockOn().
 		return false;

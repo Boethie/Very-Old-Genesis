@@ -5,8 +5,8 @@ import genesis.common.GenesisDimensions;
 import genesis.util.GenesisMath;
 import genesis.world.WorldProviderGenesis;
 import genesis.world.biome.IBiomeGenFog;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.GlStateManager;
@@ -159,19 +159,19 @@ public class RenderFog
 	@SubscribeEvent
 	public void onGetFogColor(FogColors event)
 	{
-		lastVanillaColor = new Vec3d(event.red, event.green, event.blue);
+		lastVanillaColor = new Vec3d(event.getRed(), event.getGreen(), event.getBlue());
 		
-		Entity entity = event.entity;
+		Entity entity = event.getEntity();
 		World world = entity.worldObj;
 		
-		float partialTicks = (float) event.renderPartialTicks;
-		Block blockAtEyes = ActiveRenderInfo.getBlockAtEntityViewpoint(world, event.entity, partialTicks);
+		float partialTicks = (float) event.getRenderPartialTicks();
+		IBlockState blockAtEyes = ActiveRenderInfo.getBlockStateAtEntityViewpoint(world, event.getEntity(), partialTicks);
 		
 		if (blockAtEyes == GenesisBlocks.komatiitic_lava)
 		{
-			event.red = 0.575F;
-			event.green = 0.3F;
-			event.blue = 0.05F;
+			event.setRed(0.575F);
+			event.setGreen(0.3F);
+			event.setBlue(0.05F);
 		}
 		
 		if (!GenesisDimensions.isGenesis(world))
@@ -182,17 +182,21 @@ public class RenderFog
 			BlockPos eyePos = new BlockPos(ActiveRenderInfo.projectViewFromEntity(entity, partialTicks));
 			
 			int waterColorMultiplier = BiomeColorHelper.getWaterColorAtPos(world, eyePos);
-			event.red = (waterColorMultiplier & 0xFF0000) >> 16;
-			event.green = (waterColorMultiplier & 0x00FF00) >> 8;
-			event.blue = (waterColorMultiplier & 0x0000FF);
+			float red = (waterColorMultiplier & 0xFF0000) >> 16;
+			float green = (waterColorMultiplier & 0x00FF00) >> 8;
+			float blue = (waterColorMultiplier & 0x0000FF);
 			
-			event.red *= 0.160784314F;
-			event.green *= 0.384313725F;
-			event.blue *= 0.749019608F;
+			red *= 0.160784314F;
+			green *= 0.384313725F;
+			blue *= 0.749019608F;
 			
-			event.red *= 0.0008F;
-			event.green *= 0.0008F;
-			event.blue *= 0.0008F;
+			red *= 0.0008F;
+			green *= 0.0008F;
+			blue *= 0.0008F;
+			
+			event.setRed(red);
+			event.setGreen(green);
+			event.setBlue(blue);
 		}
 		
 		// TODO: Make night vision at night in Genesis not be pure white.
@@ -201,12 +205,12 @@ public class RenderFog
 	@SubscribeEvent
 	public void onRenderFog(EntityViewRenderEvent.RenderFogEvent event)
 	{
-		if (!GenesisDimensions.isGenesis(event.entity.worldObj))
+		if (!GenesisDimensions.isGenesis(event.getEntity().worldObj))
 			return;
 		
-		float density = GenesisMath.lerp(prevFogDensity, fogDensity, (float) event.renderPartialTicks);
-		renderFog(event.fogMode,
-				event.farPlaneDistance, density);
+		float density = GenesisMath.lerp(prevFogDensity, fogDensity, (float) event.getRenderPartialTicks());
+		renderFog(event.getFogMode(),
+				event.getFarPlaneDistance(), density);
 	}
 	
 	private static void renderFog(int fogMode, float farPlaneDistance, float farPlaneDistanceScale)

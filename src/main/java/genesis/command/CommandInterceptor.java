@@ -65,7 +65,7 @@ public class CommandInterceptor extends CommandTime
 		catch (CommandException ex)
 		{
 			TextComponentTranslation message = new TextComponentTranslation(ex.getMessage(), ex.getErrorObjects());
-			message.getChatStyle().setColor(TextFormatting.RED);
+			message.getStyle().setColor(TextFormatting.RED);
 			sender.addChatMessage(message);
 			event.setCanceled(true);
 		}

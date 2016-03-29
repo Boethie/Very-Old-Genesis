@@ -10,6 +10,7 @@ import com.google.common.collect.Multimap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.*;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
+import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import paulscode.sound.SoundSystem;
 
