@@ -8,7 +8,6 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import com.google.common.collect.Lists;
 
-import genesis.client.GenesisClient;
 import genesis.combo.*;
 import genesis.combo.ToolItems.*;
 import genesis.combo.VariantsOfTypesCombo.*;
@@ -17,6 +16,7 @@ import genesis.combo.variant.ToolTypes.ToolType;
 import genesis.common.*;
 import genesis.item.*;
 import genesis.util.*;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.*;
@@ -61,23 +61,15 @@ public class BlockPebble extends Block
 		variantProp = new PropertyIMetadata<ToolType>("variant", Collections.singletonList(variant), variantClass);
 		
 		final String randomName = "zrandom";
-		Genesis.proxy.callClient(new ClientFunction()
+		Genesis.proxy.callClient((c) ->
 		{
-			@Override
-			public void apply(GenesisClient client)
-			{
-				// TODO: Random variants
-				//Set<String> variants = ModelHelpers.getBlockstatesVariants(new ResourceLocation("genesis:pebble")).keySet();
-				
-				randomProp = PropertyInteger.create(randomName, 0, 1);
-			}
+			// TODO: Random variants
+			//Set<String> variants = ModelHelpers.getBlockstatesVariants(new ResourceLocation("genesis:pebble")).keySet();
 			
-			@Override
-			public void server(GenesisProxy server)
-			{
-				randomProp = PropertyInteger.create(randomName, 0, 1);
-			}
+			randomProp = PropertyInteger.create(randomName, 0, 1);
 		});
+		
+		Genesis.proxy.callClient((s) -> randomProp = PropertyInteger.create(randomName, 0, 1));
 		
 		blockState = new BlockStateContainer(this, variantProp, randomProp, NW, NE, SE, SW);
 		setDefaultState(getBlockState().getBaseState().withProperty(randomProp, 0).withProperty(NW, false).withProperty(NE, false).withProperty(SE, false).withProperty(SW, false));
