@@ -1,15 +1,15 @@
 package genesis.client.sound;
 
 import net.minecraft.client.audio.MovingSound;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 
 public abstract class RandomLoopingSound extends MovingSound
 {
 	protected boolean forceStop = false;
 	
-	protected RandomLoopingSound(ResourceLocation sound, boolean repeat)
+	protected RandomLoopingSound(SoundEvent sound, SoundCategory category, boolean repeat)
 	{
-		super(sound);
+		super(sound, category);
 		
 		this.repeat = repeat;
 	}

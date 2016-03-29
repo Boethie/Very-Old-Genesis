@@ -2,8 +2,8 @@ package genesis.common;
 
 import genesis.client.GenesisClient;
 import genesis.client.sound.MovingEntitySound;
-import genesis.util.Constants;
-import genesis.util.SidedFunction;
+import genesis.util.*;
+
 import io.netty.buffer.ByteBuf;
 
 import net.minecraft.block.Block;
@@ -13,10 +13,11 @@ import net.minecraft.client.audio.*;
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3d;
+
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
 import net.minecraftforge.fml.relauncher.*;
 
@@ -26,15 +27,7 @@ public final class GenesisSounds
 	
 	public static void register()
 	{
-		Genesis.proxy.callSided(new SidedFunction()
-		{
-			@SideOnly(Side.CLIENT)
-			@Override
-			public void client(GenesisClient client)
-			{
-				MinecraftForge.EVENT_BUS.register(INSTANCE);
-			}
-		});
+		Genesis.proxy.callClient((c) -> MinecraftForge.EVENT_BUS.register(INSTANCE));
 	}
 	
 	public static final GenesisSoundType MOSS = new GenesisSoundType("moss", 10.0F, 1.0F);
@@ -114,7 +107,8 @@ public final class GenesisSounds
 	
 	public static class MovingEntitySoundMessage implements IMessage
 	{
-		public ResourceLocation sound;
+		public SoundEvent sound;
+		public SoundCategory category;
 		public int entityID;
 		public float volume;
 		public float pitch;
@@ -122,38 +116,42 @@ public final class GenesisSounds
 		
 		public MovingEntitySoundMessage() {}
 		
-		public MovingEntitySoundMessage(ResourceLocation sound, boolean loop, int entityID, float volume, float pitch)
+		public MovingEntitySoundMessage(SoundEvent sound, SoundCategory category, boolean loop, int entityID, float volume, float pitch)
 		{
 			this.sound = sound;
+			this.category = category;
 			this.loop = loop;
 			this.entityID = entityID;
 			this.volume = volume;
 			this.pitch = pitch;
 		}
 		
-		public MovingEntitySoundMessage(ResourceLocation sound, boolean loop, Entity entity, float volume, float pitch)
+		public MovingEntitySoundMessage(SoundEvent sound, SoundCategory category, boolean loop, Entity entity, float volume, float pitch)
 		{
-			this(sound, loop, entity.getEntityId(), volume, pitch);
-		}
-		
-		@Override
-		public void fromBytes(ByteBuf buf)
-		{
-			sound = new ResourceLocation(ByteBufUtils.readUTF8String(buf));
-			entityID = buf.readInt();
-			volume = buf.readFloat();
-			pitch = buf.readFloat();
-			loop = buf.readBoolean();
+			this(sound, category, loop, entity.getEntityId(), volume, pitch);
 		}
 		
 		@Override
 		public void toBytes(ByteBuf buf)
 		{
-			ByteBufUtils.writeUTF8String(buf, sound.toString());
+			buf.writeInt(SoundEvent.soundEventRegistry.getIDForObject(sound));
+			GenesisByteBufUtils.writeEnum(buf, category);
 			buf.writeInt(entityID);
 			buf.writeFloat(volume);
 			buf.writeFloat(pitch);
 			buf.writeBoolean(loop);
+		}
+		
+		@Override
+		public void fromBytes(ByteBuf buf)
+		{
+			//sound = new SoundEvent(new ResourceLocation(ByteBufUtils.readUTF8String(buf)));
+			sound = SoundEvent.soundEventRegistry.getObjectById(buf.readInt());
+			category = GenesisByteBufUtils.readEnum(buf, SoundCategory.class);
+			entityID = buf.readInt();
+			volume = buf.readFloat();
+			pitch = buf.readFloat();
+			loop = buf.readBoolean();
 		}
 		
 		public static class Handler implements IMessageHandler<MovingEntitySoundMessage, IMessage>
@@ -162,28 +160,21 @@ public final class GenesisSounds
 			public IMessage onMessage(final MovingEntitySoundMessage message, final MessageContext ctx)
 			{
 				final Minecraft mc = Minecraft.getMinecraft();
-				mc.addScheduledTask(() -> playMovingEntitySound(message.sound, message.loop, mc.theWorld.getEntityByID(message.entityID), message.volume, message.pitch));
+				mc.addScheduledTask(() -> playMovingEntitySound(message.sound, message.category, message.loop, mc.theWorld.getEntityByID(message.entityID), message.volume, message.pitch));
 				return null;
 			}
 		}
 	}
 	
-	public static void playMovingEntitySound(final ResourceLocation soundLoc, final boolean loop, final Entity entity, final float volume, final float pitch)
+	public static void playMovingEntitySound(SoundEvent sound, SoundCategory category, final boolean loop, final Entity entity, final float volume, final float pitch)
 	{
 		if (entity.worldObj.isRemote)
 		{
-			Genesis.proxy.callSided(new SidedFunction()
-			{
-				@Override
-				public void client(GenesisClient client)
-				{
-					playSound(new MovingEntitySound(soundLoc, loop, entity, volume, pitch));
-				}
-			});
+			Genesis.proxy.callClient((c) -> playSound(new MovingEntitySound(sound, category, loop, entity, volume, pitch)));
 		}
 		else
 		{
-			Genesis.network.sendToAllTracking(new MovingEntitySoundMessage(soundLoc, loop, entity, volume, pitch), entity);
+			Genesis.network.sendToAllTracking(new MovingEntitySoundMessage(sound, category, loop, entity, volume, pitch), entity);
 		}
 	}
 	

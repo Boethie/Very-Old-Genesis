@@ -61,10 +61,10 @@ public class BlockPebble extends Block
 		variantProp = new PropertyIMetadata<ToolType>("variant", Collections.singletonList(variant), variantClass);
 		
 		final String randomName = "zrandom";
-		Genesis.proxy.callSided(new SidedFunction()
+		Genesis.proxy.callClient(new ClientFunction()
 		{
 			@Override
-			public void client(GenesisClient client)
+			public void apply(GenesisClient client)
 			{
 				// TODO: Random variants
 				//Set<String> variants = ModelHelpers.getBlockstatesVariants(new ResourceLocation("genesis:pebble")).keySet();

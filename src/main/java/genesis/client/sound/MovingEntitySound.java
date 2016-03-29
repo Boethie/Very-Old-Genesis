@@ -14,9 +14,9 @@ public class MovingEntitySound extends RandomLoopingSound
 	
 	protected final Entity entity;
 	
-	public MovingEntitySound(ResourceLocation sound, boolean repeat, Entity entity, float volume, float pitch)
+	public MovingEntitySound(SoundEvent sound, SoundCategory category, boolean repeat, Entity entity, float volume, float pitch)
 	{
-		super(sound, repeat);
+		super(sound, category, repeat);
 		
 		this.entity = entity;
 		this.volume = volume;

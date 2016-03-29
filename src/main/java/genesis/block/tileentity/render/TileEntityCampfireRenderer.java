@@ -6,12 +6,12 @@ import org.lwjgl.opengl.GL11;
 
 import genesis.block.tileentity.BlockCampfire;
 import genesis.block.tileentity.TileEntityCampfire;
-import genesis.client.GenesisClient;
 import genesis.common.Genesis;
 import genesis.util.*;
 import genesis.util.render.BlockAsEntityPart;
 import genesis.util.render.ItemAsEntityPart;
 import genesis.util.render.ModelHelpers;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
@@ -85,65 +85,61 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 	{
 		INSTANCE = this;
 		
-		Genesis.proxy.registerPreInitCall(new SidedFunction()
+		Genesis.proxy.clientPreInitCall((c) ->
 		{
-			@Override
-			public void client(GenesisClient client)
+			// Get defined variants of the fire model.
+			Set<String> old = ModelHelpers.getBlockstatesVariants(FIRE).keySet();
+			fireModels = new HashSet<String>();
+			String key = "fire";
+			
+			for (String str : old)
 			{
-				// Get defined variants of the fire model.
-				Set<String> old = ModelHelpers.getBlockstatesVariants(FIRE).keySet();
-				fireModels = new HashSet<String>();
-				String key = "fire";
-				
-				for (String str : old)
+				if (!str.startsWith(key + "="))
 				{
-					if (!str.startsWith(key + "="))
-					{
-						throw new RuntimeException("Invalid property name in " + FUEL.toString() + " blockstates json. The property name must be \"fire\".");
-					}
-					
-					fireModels.add(str.substring(key.length() + 1));
-				}
-				fireModels.add("covered");	// Force loading of actual fire models so that attempting to render it doesn't crash the game.
-				fireModels.add("uncovered");
-				ModelHelpers.forceModelLoading(key, fireModels, FIRE);
-				
-				// Force loading of fuel models.
-				old = ModelHelpers.getBlockstatesVariants(FUEL).keySet();
-				fuelModels = new HashSet<String>();
-				key = "item";
-				
-				for (String str : old)
-				{
-					if (!str.startsWith(key + "="))
-					{
-						throw new RuntimeException("Invalid property name in " + FUEL.toString() + " blockstates json.");
-					}
-					
-					fuelModels.add(str.substring(key.length() + 1));
+					throw new RuntimeException("Invalid property name in " + FUEL.toString() + " blockstates json. The property name must be \"fire\".");
 				}
 				
-				ModelHelpers.forceModelLoading(key, fuelModels, FUEL);
-				
-				// Force loading of cooking item models.
-				old = ModelHelpers.getBlockstatesVariants(COOKING_ITEM).keySet();
-				cookingItemModels = new HashSet<String>();
-				
-				for (String str : old)
-				{
-					if (!str.startsWith(key + "="))
-					{
-						throw new RuntimeException("Invalid property name in " + FUEL.toString() + " blockstates json.");
-					}
-					
-					cookingItemModels.add(str.substring(key.length() + 1));
-				}
-				
-				ModelHelpers.forceModelLoading(key, cookingItemModels, COOKING_ITEM);
-				
-				ModelHelpers.forceModelLoading(block, STICK);
-				ModelHelpers.forceModelLoading(block, COOKING_POT);
+				fireModels.add(str.substring(key.length() + 1));
 			}
+			fireModels.add("covered");	// Force loading of actual fire models so that attempting to render it doesn't crash the game.
+			fireModels.add("uncovered");
+			ModelHelpers.forceModelLoading(key, fireModels, FIRE);
+			
+			// Force loading of fuel models.
+			old = ModelHelpers.getBlockstatesVariants(FUEL).keySet();
+			fuelModels = new HashSet<String>();
+			key = "item";
+			
+			for (String str : old)
+			{
+				if (!str.startsWith(key + "="))
+				{
+					throw new RuntimeException("Invalid property name in " + FUEL.toString() + " blockstates json.");
+				}
+				
+				fuelModels.add(str.substring(key.length() + 1));
+			}
+			
+			ModelHelpers.forceModelLoading(key, fuelModels, FUEL);
+			
+			// Force loading of cooking item models.
+			old = ModelHelpers.getBlockstatesVariants(COOKING_ITEM).keySet();
+			cookingItemModels = new HashSet<String>();
+			
+			for (String str : old)
+			{
+				if (!str.startsWith(key + "="))
+				{
+					throw new RuntimeException("Invalid property name in " + FUEL.toString() + " blockstates json.");
+				}
+				
+				cookingItemModels.add(str.substring(key.length() + 1));
+			}
+			
+			ModelHelpers.forceModelLoading(key, cookingItemModels, COOKING_ITEM);
+			
+			ModelHelpers.forceModelLoading(block, STICK);
+			ModelHelpers.forceModelLoading(block, COOKING_POT);
 		});
 	}
 	

@@ -86,11 +86,11 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 	@Override
 	public void onRegistered()
 	{
-		Genesis.proxy.callSided(new SidedFunction()
+		Genesis.proxy.callClient(new ClientFunction()
 		{
 			@SideOnly(Side.CLIENT)
 			@Override
-			public void client(GenesisClient client)
+			public void apply(GenesisClient client)
 			{
 				client.registerModel(Item.getItemFromBlock(BlockMenhir.this),
 						new ListedItemMeshDefinition()

@@ -405,11 +405,11 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 				block.setUnlocalizedName(unlocName);
 				
 				// Register resource locations for the block.
-				Genesis.proxy.callSided(new SidedFunction()
+				Genesis.proxy.callClient(new ClientFunction()
 				{
 					@Override
 					@SideOnly(Side.CLIENT)
-					public void client(GenesisClient client)
+					public void apply(GenesisClient client)
 					{
 						FlexibleStateMap mapper = new FlexibleStateMap();
 						

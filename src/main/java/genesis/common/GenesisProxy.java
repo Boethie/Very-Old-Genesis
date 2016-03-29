@@ -12,18 +12,22 @@ import net.minecraftforge.fml.common.registry.*;
 
 public class GenesisProxy
 {
-	protected List<SidedFunction> preInitCalls = new ArrayList<SidedFunction>();
+	private List<ServerFunction> preInitServerCalls = new ArrayList<>();
 	
-	public void registerPreInitCall(SidedFunction call)
+	public void serverPreInitCall(ServerFunction call)
 	{
-		preInitCalls.add(call);
+		preInitServerCalls.add(call);
+	}
+	
+	public void clientPreInitCall(ClientFunction call)
+	{
 	}
 	
 	public void preInit()
 	{
-		for (SidedFunction call : preInitCalls)
+		for (ServerFunction call : preInitServerCalls)
 		{
-			call.server(this);
+			call.apply(this);
 		}
 	}
 	
@@ -111,8 +115,12 @@ public class GenesisProxy
 	{
 	}
 	
-	public void callSided(SidedFunction sidedFunction)
+	public void callClient(ClientFunction function)
 	{
-		sidedFunction.server(this);
+	}
+	
+	public void callServer(ServerFunction function)
+	{
+		function.apply(this);
 	}
 }

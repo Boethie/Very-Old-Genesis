@@ -265,22 +265,22 @@ public final class GenesisBlocks
 		GameRegistry.registerTileEntity(TileEntityMenhirReceptacle.class, Constants.ASSETS_PREFIX + "menhir_receptacle");
 		
 		Genesis.proxy.registerBlock(portal, "portal", false);
-		Genesis.proxy.callSided(new SidedFunction()
+		Genesis.proxy.callClient(new ClientFunction()
 		{
 			@SideOnly(Side.CLIENT)
 			@Override
-			public void client(GenesisClient client)
+			public void apply(GenesisClient client)
 			{
 				client.registerModelStateMap(portal, new FlexibleStateMap().setPrefix("portal/portal", ""));
 			}
 		});
 		Genesis.proxy.registerModel(portal, 0, "portal/portal");
 		GameRegistry.registerTileEntity(TileEntityGenesisPortal.class, Constants.ASSETS_PREFIX + "portal");
-		Genesis.proxy.callSided(new SidedFunction()
+		Genesis.proxy.callClient(new ClientFunction()
 		{
 				@SideOnly(Side.CLIENT)
 				@Override
-				public void client(GenesisClient client)
+				public void apply(GenesisClient client)
 				{
 					client.registerTileEntityRenderer(TileEntityGenesisPortal.class, new TileEntityGenesisPortalRenderer());
 				}
@@ -302,11 +302,11 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(campfire, "campfire");
 		Item.getItemFromBlock(campfire).setMaxStackSize(1);
 		GameRegistry.registerTileEntity(TileEntityCampfire.class, Constants.ASSETS_PREFIX + "campfire");
-		Genesis.proxy.callSided(new SidedFunction()
+		Genesis.proxy.callClient(new ClientFunction()
 		{
 				@SideOnly(Side.CLIENT)
 				@Override
-				public void client(GenesisClient client)
+				public void apply(GenesisClient client)
 				{
 						client.registerTileEntityRenderer(TileEntityCampfire.class, new TileEntityCampfireRenderer(campfire));
 				}
@@ -315,11 +315,11 @@ public final class GenesisBlocks
 		// Storage boxes
 		Genesis.proxy.registerBlock(storage_box, "storage_box");
 		GameRegistry.registerTileEntity(TileEntityStorageBox.class, Constants.ASSETS_PREFIX + "storage_box");
-		Genesis.proxy.callSided(new SidedFunction()
+		Genesis.proxy.callClient(new ClientFunction()
 		{
 				@SideOnly(Side.CLIENT)
 				@Override
-				public void client(GenesisClient client)
+				public void apply(GenesisClient client)
 				{
 						client.registerTileEntityRenderer(TileEntityStorageBox.class, new TileEntityStorageBoxRenderer(storage_box));
 				}

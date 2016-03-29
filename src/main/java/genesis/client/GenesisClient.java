@@ -10,8 +10,6 @@ import genesis.client.sound.music.MusicEventHandler;
 
 import java.util.*;
 
-import com.google.common.collect.Lists;
-
 import net.minecraft.block.*;
 import net.minecraft.client.*;
 import net.minecraft.client.renderer.block.model.ModelBakery;
@@ -49,7 +47,9 @@ public class GenesisClient extends GenesisProxy
 		}
 	}
 	
-	protected List<TESREntry<?>> tileEntityRenderers = Lists.newArrayList();
+	protected List<TESREntry<?>> tileEntityRenderers = new ArrayList<>();
+	
+	private List<ClientFunction> preInitClientCalls = new ArrayList<>();
 	
 	public static Minecraft getMC()
 	{
@@ -57,11 +57,17 @@ public class GenesisClient extends GenesisProxy
 	}
 	
 	@Override
+	public void clientPreInitCall(ClientFunction function)
+	{
+		preInitClientCalls.add(function);
+	}
+	
+	@Override
 	public void preInit()
 	{
-		for (SidedFunction call : preInitCalls)
+		for (ClientFunction call : preInitClientCalls)
 		{
-			call.client(this);
+			call.apply(this);
 		}
 		
 		GenesisEntities.registerEntityRenderers();
@@ -115,9 +121,14 @@ public class GenesisClient extends GenesisProxy
 	}
 	
 	@Override
-	public void callSided(SidedFunction sidedFunction)
+	public void callClient(ClientFunction function)
 	{
-		sidedFunction.client(this);
+		function.apply(this);
+	}
+	
+	@Override
+	public void callServer(ServerFunction function)
+	{
 	}
 	
 	@Override

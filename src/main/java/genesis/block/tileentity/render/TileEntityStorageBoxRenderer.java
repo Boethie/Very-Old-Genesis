@@ -4,7 +4,6 @@ import org.lwjgl.opengl.GL11;
 
 import genesis.block.tileentity.BlockStorageBox;
 import genesis.block.tileentity.TileEntityStorageBox;
-import genesis.client.GenesisClient;
 import genesis.common.Genesis;
 import genesis.util.*;
 import genesis.util.render.*;
@@ -49,14 +48,7 @@ public class TileEntityStorageBoxRenderer extends TileEntitySpecialRenderer<Tile
 	
 	public TileEntityStorageBoxRenderer(final BlockStorageBox block)
 	{
-		Genesis.proxy.registerPreInitCall(new SidedFunction()
-		{
-			@Override
-			public void client(GenesisClient client)
-			{
-				ModelHelpers.forceModelLoading(block, LID);
-			}
-		});
+		Genesis.proxy.clientPreInitCall((c) -> ModelHelpers.forceModelLoading(block, LID));
 	}
 	
 	@Override
