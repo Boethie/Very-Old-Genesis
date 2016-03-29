@@ -299,7 +299,6 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 	 * 
 	 * @return Returns the BlockStateContainer containing all properties used by this block.
 	 */
-	@SuppressWarnings("unchecked")
 	protected BlockStateContainer createOurBlockState()
 	{
 		BlockStateContainer state;
@@ -318,8 +317,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 			setDefaultState(state.getBaseState().withProperty(ageProp, 0));
 		}
 		
-		@SuppressWarnings("rawtypes")
-		ArrayList<IProperty<?>> metaProps = new ArrayList<IProperty<?>>((Collection) state.getProperties());
+		ArrayList<IProperty<?>> metaProps = new ArrayList<>(state.getProperties());
 		
 		if (topProperty)
 		{

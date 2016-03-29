@@ -178,7 +178,7 @@ public class BlockGenesisMushroom extends BlockBush
 	}
 	
 	@Override
-	protected boolean func_185514_i(IBlockState ground)
+	protected boolean canSustainBush(IBlockState ground)
 	{
 		if (growType == GROW_TOP)
 			return ground.isFullBlock();

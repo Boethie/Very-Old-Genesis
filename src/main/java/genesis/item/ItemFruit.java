@@ -54,7 +54,7 @@ public class ItemFruit extends ItemGenesisFood<EnumTree>
 		
 		if (world.canBlockBePlaced(block, pos, false, side, null, stack) && world.setBlockState(pos, state))
 		{
-			SoundType sound = block.getStepSound();
+			SoundType sound = block.getSoundType();
 			world.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
 					sound.getPlaceSound(), SoundCategory.BLOCKS,
 					(sound.getVolume() + 1F) / 2F, sound.getPitch() * 0.8F, false);

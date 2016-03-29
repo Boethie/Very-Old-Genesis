@@ -52,7 +52,7 @@ public final class GenesisSounds
 		@Override
 		public String getStepSound()
 		{
-			return Block.soundTypeGrass.getStepSound();
+			return Block.soundTypeGrass.getSoundType();
 		}
 		
 		@Override
@@ -67,7 +67,7 @@ public final class GenesisSounds
 		@Override
 		public String getStepSound()
 		{
-			return Block.soundTypeGrass.getStepSound();
+			return Block.soundTypeGrass.getSoundType();
 		}
 	};
 	

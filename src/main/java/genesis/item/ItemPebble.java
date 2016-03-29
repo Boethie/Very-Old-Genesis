@@ -161,8 +161,8 @@ public class ItemPebble extends ItemGenesis
 				if (world.setBlockState(pos, state))
 				{
 					world.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
-							block.getStepSound().getPlaceSound(), SoundCategory.BLOCKS,
-							(block.getStepSound().getVolume() + 1F) / 2F, block.getStepSound().getPitch() * 0.8F, false);
+							block.getSoundType().getPlaceSound(), SoundCategory.BLOCKS,
+							(block.getSoundType().getVolume() + 1F) / 2F, block.getSoundType().getPitch() * 0.8F, false);
 					
 					if (!player.capabilities.isCreativeMode && --stack.stackSize <= 0)
 						player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
