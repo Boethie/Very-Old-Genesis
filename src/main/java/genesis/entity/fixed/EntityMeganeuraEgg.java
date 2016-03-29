@@ -69,9 +69,10 @@ public class EntityMeganeuraEgg extends EntityEgg
 	}
 	
 	@Override
-	public String getBreakSound()
+	public SoundEvent getBreakSound()
 	{
-		return Constants.ASSETS_PREFIX + "dig.egg";
+		//return Constants.ASSETS_PREFIX + "dig.egg";
+		return null;
 	}
 	
 	@SideOnly(Side.CLIENT)

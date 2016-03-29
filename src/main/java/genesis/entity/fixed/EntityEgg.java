@@ -3,6 +3,8 @@ package genesis.entity.fixed;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class EntityEgg extends EntityFixed
 {
@@ -30,7 +32,6 @@ public abstract class EntityEgg extends EntityFixed
 		
 		float size = 0.0625F;
 		setSize(size, size);
-		renderDistanceWeight = 8;
 	}
 	
 	protected abstract void setMaxAge();
@@ -81,5 +82,13 @@ public abstract class EntityEgg extends EntityFixed
 	public boolean canBeCollidedWith()
 	{
 		return true;
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@Override
+	public boolean isInRangeToRenderDist(double distance)
+	{
+		double renderDistance = 16 * 64 * getRenderDistanceWeight();
+		return distance < renderDistance * renderDistance;
 	}
 }

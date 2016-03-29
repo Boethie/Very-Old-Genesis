@@ -7,35 +7,28 @@ import java.util.*;
 import genesis.client.sound.MovingEntitySound;
 import genesis.client.sound.MovingEntitySound.IMovingEntitySoundOwner;
 import genesis.combo.variant.EnumFood;
-import genesis.common.Genesis;
-import genesis.common.GenesisBlocks;
-import genesis.common.GenesisItems;
-import genesis.common.GenesisSounds;
+import genesis.common.*;
 import genesis.entity.fixed.EntityMeganeuraEgg;
 import genesis.entity.living.IEntityPreferredBiome;
-
-import static genesis.entity.living.flying.EntityMeganeura.State.*;
-import static genesis.entity.living.flying.EntityMeganeura.StateCategory.*;
 import genesis.util.*;
 import genesis.util.random.DoubleRange;
 
-import net.minecraft.block.Block;
+import static genesis.entity.living.flying.EntityMeganeura.State.*;
+import static genesis.entity.living.flying.EntityMeganeura.StateCategory.*;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.*;
+import net.minecraft.network.datasync.*;
 import net.minecraft.util.*;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.*;
 import net.minecraft.util.math.RayTraceResult.Type;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+
+import net.minecraftforge.fml.common.network.simpleimpl.*;
 
 public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundOwner
 {
@@ -91,7 +84,8 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 		return this.posY > 60;
 	}
 	
-	public static final int STATE = 17;
+	public static final DataParameter<State> STATE =
+			EntityDataManager.createKey(EntityMeganeura.class, GenesisDataSerializers.createEnum(State.class));
 	
 	protected double speed = 1;
 	
@@ -134,7 +128,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 	{
 		super.entityInit();
 		
-		dataWatcher.addObject(STATE, (byte) NONE.ordinal());
+		dataManager.register(STATE, NONE);
 	}
 	
 	@Override
@@ -158,20 +152,16 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 		entityDropItem(GenesisItems.foods.getRawStack(EnumFood.MEGANEURA), 0);
 	}
 	
-	public State getState()
-	{
-		return State.values()[dataWatcher.getWatchableObjectByte(STATE)];
-	}
-
-	public static final ResourceLocation FLY_SOUND = new ResourceLocation(Constants.ASSETS_PREFIX + "mob.meganeura.fly");
-	public static final ResourceLocation LAND_SOUND = new ResourceLocation(Constants.ASSETS_PREFIX + "mob.meganeura.land");
-	public static final ResourceLocation TAKEOFF_SOUND = new ResourceLocation(Constants.ASSETS_PREFIX + "mob.meganeura.takeoff");
+	// TODO: Move to GenesisSoundEvents
+	public static final SoundEvent FLY_SOUND = new SoundEvent(new ResourceLocation(Constants.ASSETS_PREFIX + "mob.meganeura.fly"));
+	public static final SoundEvent LAND_SOUND = new SoundEvent(new ResourceLocation(Constants.ASSETS_PREFIX + "mob.meganeura.land"));
+	public static final SoundEvent TAKEOFF_SOUND = new SoundEvent(new ResourceLocation(Constants.ASSETS_PREFIX + "mob.meganeura.takeoff"));
 	
 	public void setState(State state)
 	{
 		if (!isDead)
 		{
-			State oldState = getState();
+			State oldState = dataManager.get(STATE);
 			
 			if (oldState != FLYING && state == FLYING)
 			{
@@ -189,13 +179,13 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 				playMovingSound(LAND_SOUND, true);
 			}
 			
-			dataWatcher.updateObject(STATE, (byte) state.ordinal());
+			dataManager.set(STATE, state);
 		}
 	}
 	
-	protected void playMovingSound(ResourceLocation sound, boolean loop)
+	protected void playMovingSound(SoundEvent sound, boolean loop)
 	{
-		GenesisSounds.playMovingEntitySound(sound, loop, this, getSoundVolume(), getSoundPitch());
+		GenesisSounds.playMovingEntitySound(sound, getSoundCategory(), loop, this, getSoundVolume(), getSoundPitch());
 	}
 	
 	@Override
@@ -214,7 +204,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 	public boolean shouldStopSound(MovingEntitySound sound)
 	{
 		ResourceLocation loc = sound.getSoundLocation();
-		State state = getState();
+		State state = dataManager.get(STATE);
 		
 		if ((loc.equals(FLY_SOUND) || loc.equals(TAKEOFF_SOUND)) && state.category != AIR)
 		{
@@ -244,7 +234,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 	{
 		super.applyEntityAttributes();
 		
-		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(4);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4);
 	}
 	
 	protected void sendUpdateMessage()
@@ -260,7 +250,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 	{
 		super.onUpdate();
 		
-		State state = getState();
+		State state = dataManager.get(STATE);
 		boolean idle = state.category == LANDED;
 		
 		prevEggPlaceTimer = eggPlaceTimer;
@@ -402,7 +392,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 		float oldRotationPitch = rotationPitch;
 		float oldPrevRotationPitch = prevRotationPitch;
 		super.setPositionAndRotation2(x, y, z, yaw, pitch, increments, unknown);
-		newRotationPitch = rotationPitch = oldRotationPitch;
+		/*newRotationPitch = */rotationPitch = oldRotationPitch;
 		prevRotationPitch = oldPrevRotationPitch;
 	}
 	
@@ -575,7 +565,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 		super.updateAITasks();
 		
 		Vec3d ourPos = getPositionVector();
-		State ourState = getState();
+		State ourState = dataManager.get(STATE);
 		Vec3d ourOldTarget = getTargetLocation();
 		Vec3d ourNewTarget = ourOldTarget;
 		
@@ -595,8 +585,6 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 		far *= far;
 		boolean reachedClose = targetDistance <= close;
 		boolean reachedFar = targetDistance <= far;
-		
-		ourState = getState();
 		
 		// Update our state according to whether we've reached our destination.
 		switch (ourState)
@@ -625,9 +613,9 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 					if (hit != null && hit.typeOfHit == Type.BLOCK)
 					{
 						BlockPos checkPos = hit.getBlockPos();
-						Block checkBlock = worldObj.getBlockState(checkPos).getBlock();
+						IBlockState checkState = worldObj.getBlockState(checkPos);
 						
-						if (!checkBlock.getMaterial().isLiquid())
+						if (!checkState.getMaterial().isLiquid())
 						{
 							boolean setTarget = false;
 							
@@ -784,7 +772,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 			break;
 		}
 		
-		ourState = getState();
+		ourState = dataManager.get(STATE);
 		
 		boolean slowing = ourState.category == SLOW;
 		boolean inAir = ourState.category == AIR || slowing;
@@ -930,15 +918,15 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 	}
 	
 	@Override
-	protected String getHurtSound()
+	protected SoundEvent getHurtSound()
 	{
-		return Constants.ASSETS_PREFIX + "mob.meganeura.hurt";
+		return new SoundEvent(new ResourceLocation(Constants.ASSETS_PREFIX + "mob.meganeura.hurt"));
 	}
 	
 	@Override
-	protected String getDeathSound()
+	protected SoundEvent getDeathSound()
 	{
-		return Constants.ASSETS_PREFIX + "mob.meganeura.die";
+		return new SoundEvent(new ResourceLocation(Constants.ASSETS_PREFIX + "mob.meganeura.die"));
 	}
 	
 	@Override
@@ -978,7 +966,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 	{
 		super.writeEntityToNBT(compound);
 		
-		compound.setString("state", getState().toString());
+		compound.setString("state", dataManager.get(STATE).toString());
 		Vec3d target = getTargetLocation();
 		
 		if (target != null)

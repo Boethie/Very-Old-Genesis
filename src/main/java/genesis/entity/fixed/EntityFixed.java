@@ -53,15 +53,15 @@ public abstract class EntityFixed extends Entity
 		WorldUtils.spawnItemsAt(worldObj, posX, posY, posZ, null, getDroppedItem());
 	}
 	
-	public abstract String getBreakSound();
+	public abstract SoundEvent getBreakSound();
 	
 	protected void playBreakingSound()
 	{
-		String breakSound = getBreakSound();
+		SoundEvent breakSound = getBreakSound();
 		
 		if (breakSound != null)
 		{
-			worldObj.playSoundAtEntity(this, breakSound, 0.8F + rand.nextFloat() * 0.4F, 0.9F + rand.nextFloat() * 0.2F);
+			playSound(breakSound, 0.8F + rand.nextFloat() * 0.4F, 0.9F + rand.nextFloat() * 0.2F);
 		}
 	}
 	

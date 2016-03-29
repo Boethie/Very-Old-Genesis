@@ -31,15 +31,15 @@ public class EntitySplashInsideBlockFX extends EntityFX
 		// Keep EntityFX's random velocity if no velocity is specified.
 		if (xVel != 0 || yVel != 0 || zVel != 0)
 		{
-			motionX = xVel;
-			motionY = yVel;
-			motionZ = zVel;
+			xSpeed = xVel;
+			ySpeed = yVel;
+			zSpeed = zVel;
 		}
 		else
 		{
-			motionX = RANGE_XZ.get(rand);
-			motionY = RANGE_Y.get(rand);
-			motionZ = RANGE_XZ.get(rand);
+			xSpeed = RANGE_XZ.get(rand);
+			ySpeed = RANGE_Y.get(rand);
+			zSpeed = RANGE_XZ.get(rand);
 		}
 	}
 	
@@ -50,7 +50,7 @@ public class EntitySplashInsideBlockFX extends EntityFX
 		
 		if (isCollided)
 		{
-			setDead();
+			setExpired();
 		}
 	}
 }
