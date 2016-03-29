@@ -12,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.*;
 
 @ItemVariantCount(1)
@@ -32,12 +33,12 @@ public class ItemChoppingTool extends ItemAxe
 	}
 	
 	@Override
-	public Multimap<String, AttributeModifier> getItemAttributeModifiers()
+	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack)
 	{
-		Multimap<String, AttributeModifier> map = super.getItemAttributeModifiers();
-		String key = SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName();
+		Multimap<String, AttributeModifier> map = super.getAttributeModifiers(slot, stack);
+		String key = SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName();
 		map.removeAll(key);
-		map.put(key, new AttributeModifier(itemModifierUUID, "Tool modifier", 1 + getToolMaterial().getDamageVsEntity(), 0));
+		map.put(key, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Tool modifier", 1 + getToolMaterial().getDamageVsEntity(), 0));
 		return map;
 	}
 	

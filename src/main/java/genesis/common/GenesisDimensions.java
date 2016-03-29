@@ -11,11 +11,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.*;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.management.ServerConfigurationManager;
+import net.minecraft.server.management.PlayerList;
 import net.minecraft.world.Teleporter;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class GenesisDimensions
 {
@@ -33,7 +34,7 @@ public class GenesisDimensions
 	
 	public static boolean isGenesis(World world)
 	{
-		return world.provider.getDimensionId() == GenesisConfig.genesisDimId;
+		return world.provider.getDimension() == GenesisConfig.genesisDimId;
 	}
 	
 	public static TeleporterGenesis getTeleporter(WorldServer world)
@@ -64,8 +65,8 @@ public class GenesisDimensions
 				player = (EntityPlayerMP) entity;
 			}
 			
-			MinecraftServer server = MinecraftServer.getServer();
-			ServerConfigurationManager manager = server.getConfigurationManager();
+			MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
+			PlayerList manager = server.getPlayerList();
 			
 			WorldServer newWorld = server.worldServerForDimension(id);
 			
@@ -134,7 +135,7 @@ public class GenesisDimensions
 						newPlayer.readFromNBT(restoreData);
 						newPlayer.dimension = id;
 						newPlayer.capabilities.isFlying = player.capabilities.isFlying;	// Will be sent to client by setGameType.
-						newPlayer.theItemInWorldManager.setGameType(player.theItemInWorldManager.getGameType());
+						newPlayer.interactionManager.setGameType(player.interactionManager.getGameType());
 					}
 					
 					newPlayer.inventory.currentItem = player.inventory.currentItem;	// Keep the current selected hotbar item.
@@ -148,11 +149,11 @@ public class GenesisDimensions
 					
 					// Restore the player to the position of the portal.
 					newPlayer.playerNetServerHandler.setPlayerLocation(x, y, z, yaw, pitch);
-					newPlayer.playerNetServerHandler.sendPacket(new S12PacketEntityVelocity(player));
+					newPlayer.playerNetServerHandler.sendPacket(new SPacketEntityVelocity(player));
 					
 					// Send the player's current potion effects.
 					for (PotionEffect effect : newPlayer.getActivePotionEffects())
-						newPlayer.playerNetServerHandler.sendPacket(new S1DPacketEntityEffect(newPlayer.getEntityId(), effect));
+						newPlayer.playerNetServerHandler.sendPacket(new SPacketEntityEffect(newPlayer.getEntityId(), effect));
 					
 					entity = player = newPlayer;
 				}

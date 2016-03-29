@@ -7,7 +7,7 @@ import genesis.client.gui.GuiGenesisAchievements;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngameMenu;
 import net.minecraft.entity.player.*;
-import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 
 import net.minecraftforge.fml.common.network.*;

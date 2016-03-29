@@ -42,12 +42,7 @@ public class GenesisEventHandler
 	@SubscribeEvent
 	public void onGuiOpen(GuiOpenEvent event) 
 	{
-		if (event.gui == null) 
-		{
-			return;
-		}
-		
-		if (event.gui.getClass() == GuiAchievements.class) 
+		if (event.getGui() != null && event.getGui().getClass() == GuiAchievements.class) 
 		{
 			event.setCanceled(true);
 			EntityPlayer player = Minecraft.getMinecraft().thePlayer;

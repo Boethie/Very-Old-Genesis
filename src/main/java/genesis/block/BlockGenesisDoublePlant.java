@@ -37,9 +37,11 @@ public class BlockGenesisDoublePlant<V extends IPlantMetadata<V>> extends BlockP
 	private static final AxisAlignedBB BB_TOP =
 			BB.setMaxY(0.75);
 	
-	public BlockGenesisDoublePlant(VariantsOfTypesCombo<V> owner, ObjectType<? extends BlockGenesisDoublePlant<V>, ? extends ItemBlockMulti<V>> type, List<V> variants, Class<V> variantClass)
+	public BlockGenesisDoublePlant(VariantsOfTypesCombo<V> owner, ObjectType<? extends BlockGenesisDoublePlant<V>, ? extends ItemBlockMulti<V>> type,
+			List<V> variants, Class<V> variantClass,
+			SoundType sound)
 	{
-		super(owner, type, variants, variantClass, null);
+		super(owner, type, variants, variantClass, null, sound);
 		
 		blockState = new BlockStateContainer(this, variantProp, TOP);
 		setDefaultState(getBlockState().getBaseState().withProperty(TOP, false));

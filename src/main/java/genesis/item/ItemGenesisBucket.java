@@ -1,38 +1,37 @@
 package genesis.item;
 
-import genesis.client.GenesisClient;
 import genesis.common.*;
+import genesis.util.Actions;
+
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
 import net.minecraft.stats.StatList;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ItemGenesisBucket extends ItemBucket
 {
-	protected Block containedBlock;
+	protected IBlockState containedState;
 	
-	public ItemGenesisBucket(Block block)
+	public ItemGenesisBucket(IBlockState state)
 	{
-		super(block);
+		super(state.getBlock());
 		
-		containedBlock = block;
+		containedState = state;
 		
 		if (isEmpty())
 		{
@@ -41,7 +40,7 @@ public class ItemGenesisBucket extends ItemBucket
 		
 		setCreativeTab(GenesisCreativeTabs.MISC);
 		
-		if (!isEmpty() && containedBlock.getMaterial() == Material.water)
+		if (!isEmpty() && containedState.getMaterial() == Material.water)
 		{
 			MinecraftForge.EVENT_BUS.register(this);
 		}
@@ -49,7 +48,7 @@ public class ItemGenesisBucket extends ItemBucket
 	
 	public boolean isEmpty()
 	{
-		return containedBlock == Blocks.air;
+		return containedState.getBlock() == Blocks.air;
 	}
 
 	protected ItemStack fillBucket(ItemStack emptyBucket, EntityPlayer player, Item fullItem)
@@ -72,47 +71,38 @@ public class ItemGenesisBucket extends ItemBucket
 	}
 	
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
 	{
 		boolean empty = isEmpty();
-		RayTraceResult hit = getRayTraceResultFromPlayer(world, player, empty);
+		RayTraceResult hit = getMovingObjectPositionFromPlayer(world, player, empty);
 		
 		if (hit == null)
-		{
-			return stack;
-		}
+			return Actions.fail(stack);
 		
-		ItemStack eventOutput = net.minecraftforge.event.ForgeEventFactory.onBucketUse(player, world, stack, hit);
+		ActionResult<ItemStack> event = ForgeEventFactory.onBucketUse(player, world, stack, hit);
 		
-		if (eventOutput != null)
-		{
-			return eventOutput;
-		}
+		if (event != null)
+			return event;
 		
 		if (hit.typeOfHit == RayTraceResult.Type.BLOCK)
 		{
 			BlockPos hitPos = hit.getBlockPos();
 			
 			if (!world.isBlockModifiable(player, hitPos))
-			{
-				return stack;
-			}
+				return Actions.fail(stack);
 			
 			IBlockState hitState = world.getBlockState(hitPos);
-			Block hitBlock = hitState.getBlock();
 			
 			if (empty)
 			{
 				if (!player.canPlayerEdit(hitPos.offset(hit.sideHit), hit.sideHit, stack))
-				{
-					return stack;
-				}
+					return Actions.fail(stack);
 				
-				if (hitBlock.getMaterial() == Material.water && hitState.getValue(BlockLiquid.LEVEL).intValue() == 0)
+				if (hitState.getMaterial() == Material.water && hitState.getValue(BlockLiquid.LEVEL).intValue() == 0)
 				{
 					world.setBlockToAir(hitPos);
-					player.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
-					return fillBucket(stack, player, GenesisItems.ceramic_bucket_water);
+					player.addStat(StatList.getObjectUseStats(this));
+					return Actions.success(fillBucket(stack, player, GenesisItems.ceramic_bucket_water));
 				}
 			}
 			else
@@ -121,22 +111,22 @@ public class ItemGenesisBucket extends ItemBucket
 				
 				if (!player.canPlayerEdit(placePos, hit.sideHit, stack))
 				{
-					return stack;
+					return Actions.fail(stack);
 				}
 				
-				if (tryPlaceContainedLiquid(world, placePos) && !player.capabilities.isCreativeMode)
+				if (tryPlaceContainedLiquid(player, world, placePos) && !player.capabilities.isCreativeMode)
 				{
-					player.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
-					return new ItemStack(GenesisItems.ceramic_bucket);
+					player.addStat(StatList.getObjectUseStats(this));
+					return Actions.success(new ItemStack(GenesisItems.ceramic_bucket));
 				}
 			}
 		}
 		
-		return stack;
+		return Actions.fail(stack);
 	}
 	
 	@Override
-	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target)
+	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase target, EnumHand hand)
 	{
 		if (isEmpty() && target instanceof EntityCow)
 		{
@@ -147,7 +137,7 @@ public class ItemGenesisBucket extends ItemBucket
 			else
 			{
 				stack.stackSize--;
-				playerIn.inventory.addItemStackToInventory(new ItemStack(GenesisItems.ceramic_bucket_milk));
+				player.inventory.addItemStackToInventory(new ItemStack(GenesisItems.ceramic_bucket_milk));
 			}
 		}
 		
@@ -159,14 +149,15 @@ public class ItemGenesisBucket extends ItemBucket
 	@SubscribeEvent
 	public void onBlockInteracted(PlayerInteractEvent event)
 	{
-		EntityPlayer player = event.entityPlayer;
+		/* TODO: Adapt to dual wielding.
+		EntityPlayer player = event.getEntityPlayer();
 		
-		World world = event.world;
-		BlockPos pos = event.pos;
+		World world = event.getWorld();
+		BlockPos pos = event.getPos();
 		
 		ItemStack stack = player.getHeldItem();
 		
-		switch (event.action)
+		switch (event.getAction())
 		{
 		case RIGHT_CLICK_BLOCK:
 			IBlockState state = world.getBlockState(pos);
@@ -232,6 +223,6 @@ public class ItemGenesisBucket extends ItemBucket
 			break;
 		case LEFT_CLICK_BLOCK:
 			break;
-		}
+		}*/
 	}
 }

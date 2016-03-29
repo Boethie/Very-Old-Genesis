@@ -2,29 +2,33 @@ package genesis.item;
 
 import java.util.*;
 
+import genesis.client.GenesisClient;
+import genesis.combo.*;
+import genesis.combo.ItemsCeramicBowls.EnumCeramicBowls;
+import genesis.combo.variant.MultiMetadataList.MultiMetadata;
+import genesis.common.GenesisItems;
+import genesis.util.Actions;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.creativetab.*;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.*;
 import net.minecraft.item.*;
 import net.minecraft.network.Packet;
-import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
+import net.minecraft.network.play.client.CPacketPlayerBlockPlacement;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.world.World;
+
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
-import genesis.client.GenesisClient;
-import genesis.combo.*;
-import genesis.combo.ItemsCeramicBowls.EnumCeramicBowls;
-import genesis.combo.variant.MultiMetadataList.MultiMetadata;
-import genesis.common.GenesisItems;
 
 public class ItemCeramicBowl extends ItemGenesis
 {
@@ -86,14 +90,14 @@ public class ItemCeramicBowl extends ItemGenesis
 	}
 	
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
 	{
 		EnumCeramicBowls variant = (EnumCeramicBowls) owner.getVariant(stack).getOriginal();
 		
 		switch (variant)
 		{
 		case BOWL:
-			RayTraceResult hit = getRayTraceResultFromPlayer(world, player, true);
+			RayTraceResult hit = getMovingObjectPositionFromPlayer(world, player, true);
 	
 			if (hit != null && hit.typeOfHit == RayTraceResult.Type.BLOCK)
 			{
@@ -101,23 +105,24 @@ public class ItemCeramicBowl extends ItemGenesis
 				
 				if (world.isBlockModifiable(player, hitPos) && player.canPlayerEdit(hitPos.offset(hit.sideHit), hit.sideHit, stack))
 				{
-					if (world.getBlockState(hitPos).getBlock().getMaterial() == Material.water)
+					if (world.getBlockState(hitPos).getMaterial() == Material.water)
 					{
-						player.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
+						player.addStat(StatList.getObjectUseStats(this));
 						
-						player.swingItem();
 						ItemStack newStack = GenesisItems.bowls.getStack(EnumCeramicBowls.WATER_BOWL);
 						stack.stackSize--;
 						
 						if (stack.stackSize <= 0)
 						{
-							return newStack;
+							return Actions.success(newStack);
 						}
 						
 						if (!player.inventory.addItemStackToInventory(newStack))
 						{
 							player.dropPlayerItemWithRandomChoice(newStack, false);
 						}
+						
+						return Actions.success(stack);
 					}
 				}
 			}
@@ -125,16 +130,17 @@ public class ItemCeramicBowl extends ItemGenesis
 		case WATER_BOWL:
 			if (!player.capabilities.isCreativeMode)
 			{
-				player.setItemInUse(stack, getMaxItemUseDuration(stack));
+				player.setActiveHand(hand);
+				return Actions.success(stack);
 			}
 			break;
 		}
 		
-		return stack;
+		return Actions.fail(stack);
 	}
 	
 	@Override
-	public ItemStack onItemUseFinish(ItemStack stack, World world, EntityPlayer player)
+	public ItemStack onItemUseFinish(ItemStack stack, World world, EntityLivingBase entity)
 	{
 		EnumCeramicBowls variant = (EnumCeramicBowls) owner.getVariant(stack).getOriginal();
 		
@@ -148,7 +154,9 @@ public class ItemCeramicBowl extends ItemGenesis
 				return empty;
 			}
 			
-			if (!player.inventory.addItemStackToInventory(empty))
+			EntityPlayer player = entity instanceof EntityPlayer ? (EntityPlayer) entity : null;
+			
+			if (player != null && !player.inventory.addItemStackToInventory(empty))
 			{
 				player.dropPlayerItemWithRandomChoice(empty, false);
 			}
@@ -164,14 +172,15 @@ public class ItemCeramicBowl extends ItemGenesis
 	@SubscribeEvent
 	public void onBlockInteracted(PlayerInteractEvent event)
 	{
-		EntityPlayer player = event.entityPlayer;
+		/* TODO: Adapt to dual-wielding.
+		EntityPlayer player = event.getEntityPlayer();
 		
-		World world = event.world;
-		BlockPos pos = event.pos;
+		World world = event.getWorld();
+		BlockPos pos = event.getPos();
 		
 		ItemStack stack = player.getHeldItem();
 		
-		switch (event.action)
+		switch (event.getAction())
 		{
 		case RIGHT_CLICK_BLOCK:
 			IBlockState state = world.getBlockState(pos);
@@ -179,7 +188,7 @@ public class ItemCeramicBowl extends ItemGenesis
 			
 			if (owner.isStackOf(stack, EnumCeramicBowls.BOWL) && block == Blocks.cauldron)
 			{
-				event.useBlock = Result.DENY;
+				event.setUseBlock(Result.DENY);
 				
 				int cauldronLevel = state.getValue(BlockCauldron.LEVEL);
 				
@@ -204,7 +213,7 @@ public class ItemCeramicBowl extends ItemGenesis
 						}
 					}
 					
-					event.useItem = Result.DENY;
+					event.setUseItem(Result.DENY);
 					
 					if (world.isRemote)	// We must send a packet to the server telling it that the player right clicked or else it won't fill the cauldron server side.
 					{
@@ -215,10 +224,11 @@ public class ItemCeramicBowl extends ItemGenesis
 						{
 							Vec3d hitVec = mc.objectMouseOver.hitVec;
 							hitVec = hitVec.subtract(pos.getX(), pos.getY(), pos.getZ());
-							Packet<?> packet = new C08PacketPlayerBlockPlacement(pos, event.face.getIndex(), stack, (float) hitVec.xCoord, (float) hitVec.yCoord, (float) hitVec.zCoord);
+							Packet<?> packet = 
+									new CPacketPlayerBlockPlacement(hand);
 							spPlayer.sendQueue.addToSendQueue(packet);
 							
-							spPlayer.swingItem();
+							//spPlayer.swingItem();	TODO: ???
 							event.setCanceled(true);
 						}
 					}
@@ -230,6 +240,6 @@ public class ItemCeramicBowl extends ItemGenesis
 			break;
 		case LEFT_CLICK_BLOCK:
 			break;
-		}
+		}*/
 	}
 }

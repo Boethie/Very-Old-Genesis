@@ -61,8 +61,8 @@ public final class GenesisItems
 	public static final ClothingItems clothing = new ClothingItems();
 	
 	/* Misc */
-	public static final Item ceramic_bucket = new ItemGenesisBucket(Blocks.air).setUnlocalizedName(Unlocalized.MISC + "ceramicBucket");
-	public static final Item ceramic_bucket_water = new ItemGenesisBucket(Blocks.flowing_water).setUnlocalizedName(Unlocalized.MISC + "ceramicBucketWater").setContainerItem(ceramic_bucket);
+	public static final Item ceramic_bucket = new ItemGenesisBucket(Blocks.air.getDefaultState()).setUnlocalizedName(Unlocalized.MISC + "ceramicBucket");
+	public static final Item ceramic_bucket_water = new ItemGenesisBucket(Blocks.flowing_water.getDefaultState()).setUnlocalizedName(Unlocalized.MISC + "ceramicBucketWater").setContainerItem(ceramic_bucket);
 	public static final Item ceramic_bucket_milk = new ItemGenesisBucketMilk().setUnlocalizedName(Unlocalized.MISC + "ceramicBucketMilk").setContainerItem(ceramic_bucket);
 	public static Item bucket_komatiitic_lava;
 	
@@ -132,7 +132,7 @@ public final class GenesisItems
 				new ItemStack(ceramic_bucket_water), new ItemStack(ceramic_bucket));
 		Genesis.proxy.registerItem(ceramic_bucket_milk, "ceramic_bucket_milk");
 		
-		bucket_komatiitic_lava = new ItemGenesisBucket(GenesisBlocks.komatiitic_lava).setUnlocalizedName(Unlocalized.MISC + "bucketKomatiiticLava");
+		bucket_komatiitic_lava = new ItemGenesisBucket(GenesisBlocks.komatiitic_lava.getDefaultState()).setUnlocalizedName(Unlocalized.MISC + "bucketKomatiiticLava");
 		Genesis.proxy.registerItem(bucket_komatiitic_lava, "bucket_komatiitic_lava");
 		
 		menhir_activators.registerAll();

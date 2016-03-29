@@ -6,11 +6,14 @@ import genesis.combo.ToolItems;
 import genesis.combo.ToolItems.ToolObjectType;
 import genesis.combo.VariantsOfTypesCombo.ItemVariantCount;
 import genesis.combo.variant.ToolTypes.ToolType;
+
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.*;
 import net.minecraft.item.*;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -24,7 +27,7 @@ public class ItemGenesisKnife extends ItemTool
 	
 	public ItemGenesisKnife(ToolItems owner, ToolObjectType<Block, ItemGenesisKnife> objType, ToolType type, Class<ToolType> variantClass)
 	{
-		super(3, type.toolMaterial, Collections.<Block>emptySet());
+		super(3F, -1F, type.toolMaterial, Collections.emptySet());
 		
 		this.owner = owner;
 		this.type = type;
@@ -45,27 +48,27 @@ public class ItemGenesisKnife extends ItemTool
 	}
 	
 	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EntityLivingBase playerIn)
+	public boolean onBlockDestroyed(ItemStack stack, World world, IBlockState state, BlockPos pos, EntityLivingBase entity)
 	{
-		return Items.shears.onBlockDestroyed(stack, worldIn, blockIn, pos, playerIn);
+		return Items.shears.onBlockDestroyed(stack, world, state, pos, entity);
 	}
 	
 	@Override
-	public boolean canHarvestBlock(Block block)
+	public boolean canHarvestBlock(IBlockState state)
 	{
-		return Items.shears.canHarvestBlock(block);
+		return Items.shears.canHarvestBlock(state);
 	}
 
 	@Override
-	public float getStrVsBlock(ItemStack stack, Block block)
+	public float getStrVsBlock(ItemStack stack, IBlockState state)
 	{
-		return Items.shears.getStrVsBlock(stack, block);
+		return Items.shears.getStrVsBlock(stack, state);
 	}
 	
 	@Override
-	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity)
+	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity, EnumHand hand)
 	{
-		return Items.shears.itemInteractionForEntity(stack, player, entity);
+		return Items.shears.itemInteractionForEntity(stack, player, entity, hand);
 	}
 	
 	@Override

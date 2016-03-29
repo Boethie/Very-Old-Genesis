@@ -7,10 +7,11 @@ import net.minecraft.command.CommandTime;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.CommandEvent;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class CommandInterceptor extends CommandTime
@@ -18,9 +19,10 @@ public class CommandInterceptor extends CommandTime
 	@SubscribeEvent
 	public void onCommand(CommandEvent event)
 	{
-		ICommandSender sender = event.sender;
-		Class<? extends ICommand> commandClass = event.command.getClass();
-		String[] args = event.parameters;
+		MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
+		ICommandSender sender = event.getSender();
+		Class<? extends ICommand> commandClass = event.getCommand().getClass();
+		String[] args = event.getParameters();
 		
 		try
 		{
@@ -48,13 +50,13 @@ public class CommandInterceptor extends CommandTime
 							time = parseInt(value);
 						}
 						
-						setTime(sender, time);
+						setAllWorldTimes(server, sender, time);
 						event.setCanceled(true);
 					}
 					else if (mode.equals("add"))
 					{
 						int add = parseInt(value);
-						addTime(sender, add);
+						addTime(server, sender, add);
 						event.setCanceled(true);
 					}
 				}
@@ -62,8 +64,8 @@ public class CommandInterceptor extends CommandTime
 		}
 		catch (CommandException ex)
 		{
-			ChatComponentTranslation message = new ChatComponentTranslation(ex.getMessage(), ex.getErrorObjects());
-			message.getChatStyle().setColor(EnumChatFormatting.RED);
+			TextComponentTranslation message = new TextComponentTranslation(ex.getMessage(), ex.getErrorObjects());
+			message.getChatStyle().setColor(TextFormatting.RED);
 			sender.addChatMessage(message);
 			event.setCanceled(true);
 		}
@@ -74,8 +76,7 @@ public class CommandInterceptor extends CommandTime
 		return genesis ? WorldProviderGenesis.DAY_LENGTH : 24000;
 	}
 	
-	@Override
-	protected void setTime(ICommandSender sender, int time)
+	protected void setAllWorldTimes(MinecraftServer server, ICommandSender sender, int time)
 	{
 		boolean genesis = GenesisDimensions.isGenesis(sender.getEntityWorld());
 		
@@ -86,17 +87,16 @@ public class CommandInterceptor extends CommandTime
 		
 		notifyOperators(sender, this, "commands.time.set", time);
 		
-		for (WorldServer world : MinecraftServer.getServer().worldServers)
+		for (WorldServer world : server.worldServers)
 			if (GenesisDimensions.isGenesis(world) ? genesis : !genesis)
 				world.setWorldTime(time);
 	}
 	
-	@Override
-	protected void addTime(ICommandSender sender, int time)
+	protected void addTime(MinecraftServer server, ICommandSender sender, int time)
 	{
 		boolean genesis = GenesisDimensions.isGenesis(sender.getEntityWorld());
 		
-		for (WorldServer world : MinecraftServer.getServer().worldServers)
+		for (WorldServer world : server.worldServers)
 		{
 			if (GenesisDimensions.isGenesis(world) ? genesis : !genesis)
 			{

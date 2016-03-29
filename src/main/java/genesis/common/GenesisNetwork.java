@@ -39,7 +39,7 @@ public class GenesisNetwork extends SimpleNetworkWrapper
 	
 	public void sendToAllAround(IMessage message, World world, double x, double y, double z, double range)
 	{
-		sendToAllAround(message, new TargetPoint(world.provider.getDimensionId(), x, y, z, range));
+		sendToAllAround(message, new TargetPoint(world.provider.getDimension(), x, y, z, range));
 	}
 	
 	public void sendToAllAround(IMessage message, World world, Vec3d vec, double range)

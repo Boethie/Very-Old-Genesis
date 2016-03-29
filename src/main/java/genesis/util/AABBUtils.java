@@ -1,7 +1,5 @@
 package genesis.util;
 
-import java.util.List;
-
 import net.minecraft.util.math.*;
 import net.minecraft.util.EnumFacing;
 

@@ -2,13 +2,15 @@ package genesis.item;
 
 import genesis.common.GenesisConfig;
 import genesis.common.GenesisCreativeTabs;
-import genesis.util.Constants.Sounds;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemFlintAndSteel;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 
 public class ItemFlintAndMarcasite extends ItemFlintAndSteel
@@ -20,21 +22,20 @@ public class ItemFlintAndMarcasite extends ItemFlintAndSteel
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player,
+			World world, BlockPos pos, EnumHand hand, EnumFacing side,
+			float hitX, float hitY, float hitZ)
 	{
 		pos = pos.offset(side);
-
-		if (!player.canPlayerEdit(pos, side, stack))
+		
+		if (player.canPlayerEdit(pos, side, stack) && world.isAirBlock(pos))
 		{
-			return false;
-		}
-		else if (world.isAirBlock(pos))
-		{
-			world.playSoundEffect(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, Sounds.IGNITE_FIRE, 1, world.rand.nextFloat() * 0.4F + 0.8F);
+			//world.playSoundEffect(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, Sounds.IGNITE_FIRE, 1, world.rand.nextFloat() * 0.4F + 0.8F);
 			world.setBlockState(pos, Blocks.fire.getDefaultState());
+			stack.damageItem(1, player);
+			return EnumActionResult.SUCCESS;
 		}
 		
-		stack.damageItem(1, player);
-		return true;
+		return EnumActionResult.FAIL;
 	}
 }

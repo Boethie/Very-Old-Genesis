@@ -14,6 +14,7 @@ import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumHand;
 import net.minecraftforge.event.ForgeEventFactory;
 
 public class ItemDyeBowl extends ItemMulti<MultiMetadata>
@@ -40,7 +41,7 @@ public class ItemDyeBowl extends ItemMulti<MultiMetadata>
 	}
 	
 	@Override
-	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase target)
+	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase target, EnumHand hand)
 	{
 		boolean consume = false;
 		EnumDyeColor color = ((GenesisDye) bowlsOwner.getVariant(stack).getOriginal()).getColor();
@@ -77,7 +78,7 @@ public class ItemDyeBowl extends ItemMulti<MultiMetadata>
 			
 			if (--stack.stackSize <= 0)
 			{
-				ForgeEventFactory.onPlayerDestroyItem(player, stack);
+				ForgeEventFactory.onPlayerDestroyItem(player, stack, hand);
 				stack.stackSize = 1;	// Hack to make the code calling this ignore that the stack has been destroyed.
 				player.inventory.setInventorySlotContents(player.inventory.currentItem, empty);
 			}

@@ -2,25 +2,22 @@ package genesis.combo;
 
 import java.util.*;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Sets;
+import com.google.common.collect.*;
 
 import genesis.block.*;
-import genesis.combo.variant.EnumToolMaterial;
-import genesis.combo.variant.EnumToolQuality;
-import genesis.combo.variant.IMetadata;
-import genesis.combo.variant.ToolTypes;
+import genesis.combo.variant.*;
 import genesis.combo.variant.ToolTypes.ToolType;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.*;
+import genesis.util.Constants.Unlocalized;
+import genesis.util.Constants.Unlocalized.Section;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
-import net.minecraft.util.StatCollector;
-import genesis.util.Constants.Unlocalized;
-import genesis.util.Constants.Unlocalized.Section;
 
 public class ToolItems extends VariantsOfTypesCombo<ToolType>
 {
@@ -139,7 +136,7 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 		
 		if (type != null && type.quality.hasUnlocalizedName())
 		{
-			tooltip.add(StatCollector.translateToLocal(type.quality.getUnlocalizedName()));
+			tooltip.add(I18n.format(type.quality.getUnlocalizedName()));
 		}
 	}
 	

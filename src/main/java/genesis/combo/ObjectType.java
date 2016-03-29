@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import com.google.common.base.Function;
 import com.google.common.collect.ImmutableSet;
 
 import genesis.combo.VariantsOfTypesCombo.TypeNamePosition;
@@ -46,6 +47,8 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	
 	protected boolean variantAsName = true;
 	protected boolean registerVariantModels = true;
+	
+	protected Function<IMetadata<?>, String> variantNameFunction = null;
 	
 	protected CreativeTabs tab = null;
 	
@@ -285,8 +288,17 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 		}
 	}
 	
-	public String getVariantName(IMetadata<?> variant)
+	public ObjectType<B, I> setVariantNameFunction(Function<IMetadata<?>, String> function)
 	{
+		variantNameFunction = function;
+		return this;
+	}
+	
+	public final String getVariantName(IMetadata<?> variant)
+	{
+		if (variantNameFunction != null)
+			return variantNameFunction.apply(variant);
+		
 		String resource = variant.getName();
 		
 		if ("".equals(resource))

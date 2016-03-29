@@ -9,6 +9,7 @@ import genesis.combo.variant.IFood;
 import genesis.combo.variant.MultiMetadataList.MultiMetadata;
 import genesis.common.GenesisItems;
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -29,25 +30,33 @@ public class ItemDish extends ItemGenesisEdible<MultiMetadata>
 	}
 	
 	@Override
-	public ItemStack onItemUseFinish(ItemStack stack, World world, EntityPlayer player)
+	public ItemStack onItemUseFinish(ItemStack stack, World world, EntityLivingBase entity)
 	{
-		ItemStack out = super.onItemUseFinish(stack, world, player);
+		ItemStack out = super.onItemUseFinish(stack, world, entity);
 		
+		EntityPlayer player = entity instanceof EntityPlayer ? (EntityPlayer) entity : null;
 		ItemStack bowl = GenesisItems.bowls.getStack(EnumCeramicBowls.BOWL);
 		
-		if (stack.stackSize == 0)
+		if (player != null)
 		{
-			for (int i = 0; i < player.inventory.getSizeInventory(); i++)
+			if (stack.stackSize == 0)
 			{
-				if (player.inventory.getStackInSlot(i) == stack)
+				for (int i = 0; i < player.inventory.getSizeInventory(); i++)
 				{
-					return bowl;
+					if (player.inventory.getStackInSlot(i) == stack)
+					{
+						return bowl;
+					}
 				}
 			}
+			else if (!player.inventory.addItemStackToInventory(bowl))
+			{
+				player.dropItem(bowl, false, true);
+			}
 		}
-		else if (!player.inventory.addItemStackToInventory(bowl))
+		else
 		{
-			player.dropItem(bowl, false, true);
+			return bowl;
 		}
 		
 		return out;
