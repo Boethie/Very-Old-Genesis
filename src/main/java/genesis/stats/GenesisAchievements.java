@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 
 public class GenesisAchievements
 {
-	static AchievementPage genesisAchievementPage;
+	public static AchievementPage genesisAchievementPage;
 	private static List<Achievement> genesisAchievements = new ArrayList<Achievement>();
 	
 	public static Achievement menhirActivator;

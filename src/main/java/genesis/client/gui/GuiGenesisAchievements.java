@@ -11,6 +11,8 @@ import org.lwjgl.input.Mouse;
 import genesis.combo.OreBlocks;
 import genesis.combo.variant.EnumOre;
 import genesis.common.GenesisBlocks;
+import genesis.common.GenesisDimensions;
+import genesis.stats.GenesisAchievements;
 import genesis.util.Constants;
 import genesis.util.blocks.BlockTexture;
 import net.minecraft.block.Block;
@@ -82,12 +84,12 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 				minecraftAchievements.add(achievement);
 			}
 		}
-
-		if (worldObj.provider.getDimensionType().getName().equals("Genesis"))
+		
+		if (worldObj.provider.getDimensionType() == GenesisDimensions.GENESIS_DIMENSION)
 		{
 			for (int i = 0; i < AchievementPage.getAchievementPages().size(); i++)
 			{
-				if (AchievementPage.getAchievementPage(i).getName().equals("Genesis"))
+				if (AchievementPage.getAchievementPage(i) == GenesisAchievements.genesisAchievementPage)
 				{
 					currentPage = i;
 				}

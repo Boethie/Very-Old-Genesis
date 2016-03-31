@@ -128,6 +128,6 @@ public class WorldProviderGenesis extends WorldProvider
 	@Override
 	public DimensionType getDimensionType()
 	{
-		return GenesisDimensions.GENESIS_TYPE;
+		return GenesisDimensions.GENESIS_DIMENSION;
 	}
 }

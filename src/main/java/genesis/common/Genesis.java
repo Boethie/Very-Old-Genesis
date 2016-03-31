@@ -1,7 +1,7 @@
 package genesis.common;
 
+import genesis.capabilities.GenesisCapabilities;
 import genesis.command.CommandTPGenesis;
-import genesis.entity.extendedproperties.GenesisEntityData;
 import genesis.stats.GenesisAchievements;
 import genesis.util.Constants;
 import genesis.world.GenesisWorldData;
@@ -43,7 +43,9 @@ public class Genesis
 		GenesisFluids.registerFluids();
 		GenesisBlocks.registerBlocks();
 		GenesisItems.registerItems();
-		GenesisEntityData.register();
+		
+		GenesisCapabilities.register();
+		
 		GenesisSounds.register();
 		
 		GenesisEntities.registerEntities();
