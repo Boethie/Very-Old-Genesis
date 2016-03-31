@@ -4,7 +4,6 @@ import genesis.client.render.RenderFog;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisDimensions;
 import genesis.util.GenesisMath;
-
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -12,7 +11,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.chunk.IChunkGenerator;
-
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -49,7 +47,7 @@ public class WorldProviderGenesis extends WorldProvider
 	}
 	
 	@Override
-	protected void registerWorldChunkManager()
+	protected void createBiomeProvider()
 	{
 		this.biomeProvider = new BiomeProviderGenesis(this.worldObj);
 	}

@@ -1,6 +1,8 @@
 package genesis.world;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Random;
 
 import com.google.common.collect.Maps;
 
@@ -9,9 +11,10 @@ import genesis.common.GenesisBlocks;
 import genesis.portal.GenesisPortal;
 import genesis.util.WorldUtils;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.*;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.Teleporter;
+import net.minecraft.world.WorldServer;
 
 public class TeleporterGenesis extends Teleporter
 {

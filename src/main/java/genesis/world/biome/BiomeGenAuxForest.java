@@ -17,16 +17,17 @@ import genesis.world.gen.feature.WorldGenDeadLog;
 import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
 import genesis.world.gen.feature.WorldGenTreeGinkgo;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 {
-	public BiomeGenAuxForest(int id)
+	public BiomeGenAuxForest(BiomeGenBase.BiomeProperties properties)
 	{
-		super(id);
-		setBiomeName("Araucarioxylon Forest");
-		setTemperatureRainfall(1.1F, 0.9F);
-		setHeight(0.05F, 0.15F);
+		super(properties);
+		//setBiomeName("Araucarioxylon Forest");
+		//setTemperatureRainfall(1.1F, 0.9F);
+		//setHeight(0.05F, 0.15F);
 		
 		theBiomeDecorator.grassPerChunk = 7;
 		

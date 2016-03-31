@@ -19,16 +19,14 @@ import genesis.world.gen.feature.WorldGenTreeArchaeanthus;
 import genesis.world.gen.feature.WorldGenTreeGinkgo;
 import genesis.world.gen.feature.WorldGenTreeMetasequoia;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 {
-	public BiomeGenMetaForest(int id)
+	public BiomeGenMetaForest(BiomeGenBase.BiomeProperties properties)
 	{
-		super(id);
-		setBiomeName("Metasequoia Forest");
-		setTemperatureRainfall(1.1F, 0.9F);
-		setHeight(0.04F, 0.165F);
+		super(properties);
 		
 		theBiomeDecorator.grassPerChunk = 5;
 		

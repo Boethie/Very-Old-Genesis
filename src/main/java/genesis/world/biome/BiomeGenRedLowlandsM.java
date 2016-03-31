@@ -8,14 +8,15 @@ import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.WorldGenPlant;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
 import genesis.world.gen.feature.WorldGenTreeVoltzia;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class BiomeGenRedLowlandsM extends BiomeGenRedLowlands
 {
-	public BiomeGenRedLowlandsM(int id)
+	public BiomeGenRedLowlandsM(BiomeGenBase.BiomeProperties properties)
 	{
-		super(id);
-		setBiomeName("Red Lowlands M");
-		setHeight(2.2F, 0.4F);
+		super(properties);
+		//setBiomeName("Red Lowlands M");
+		//setHeight(2.2F, 0.4F);
 	}
 	
 	@Override

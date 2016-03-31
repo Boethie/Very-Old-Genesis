@@ -16,16 +16,17 @@ import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.gen.feature.WorldGenTreeBjuvia;
 import genesis.world.gen.feature.WorldGenTreeVoltzia;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class BiomeGenRedLowlands extends BiomeGenBaseGenesis
 {
-	public BiomeGenRedLowlands(int id)
+	public BiomeGenRedLowlands(BiomeGenBase.BiomeProperties properties)
 	{
-		super(id);
-		setBiomeName("Red Lowlands");
-		setTemperatureRainfall(2.0F, 0.0F);
-		setDisableRain();
-		setHeight(0.001F, 0.125F);
+		super(properties);
+		//setBiomeName("Red Lowlands");
+		//setTemperatureRainfall(2.0F, 0.0F);
+		//setDisableRain();
+		//setHeight(0.001F, 0.125F);
 		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
 		fillerBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
 		

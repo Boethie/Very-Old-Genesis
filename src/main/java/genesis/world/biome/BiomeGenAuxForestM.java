@@ -4,14 +4,13 @@ import genesis.combo.variant.EnumDebrisOther;
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class BiomeGenAuxForestM extends BiomeGenAuxForest
 {
-	public BiomeGenAuxForestM(int id)
+	public BiomeGenAuxForestM(BiomeGenBase.BiomeProperties properties)
 	{
-		super(id);
-		setBiomeName("Araucarioxylon Forest M");
-		setHeight(2.2F, 0.4F);
+		super(properties);
 	}
 	
 	@Override

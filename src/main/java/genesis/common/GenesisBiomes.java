@@ -4,8 +4,6 @@ import genesis.world.biome.BiomeGenAuxForest;
 import genesis.world.biome.BiomeGenAuxForestM;
 import genesis.world.biome.BiomeGenBaseGenesis;
 import genesis.world.biome.BiomeGenBeachGenesis;
-import genesis.world.biome.BiomeGenWoodlands;
-import genesis.world.biome.BiomeGenWoodlandsM;
 import genesis.world.biome.BiomeGenFloodplainsForest;
 import genesis.world.biome.BiomeGenLimestoneBeach;
 import genesis.world.biome.BiomeGenMarsh;
@@ -18,6 +16,8 @@ import genesis.world.biome.BiomeGenRedBeach;
 import genesis.world.biome.BiomeGenRiver;
 import genesis.world.biome.BiomeGenShallowOcean;
 import genesis.world.biome.BiomeGenSwampRainforest;
+import genesis.world.biome.BiomeGenWoodlands;
+import genesis.world.biome.BiomeGenWoodlandsM;
 import genesis.world.biome.BiomeManagerGenesis;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
@@ -27,8 +27,6 @@ public final class GenesisBiomes
 {
 	public static BiomeGenBaseGenesis rainforest;
 	public static BiomeGenBaseGenesis rainforestM;
-	//public static BiomeGenBaseGenesis rainforestEdge;
-	//public static BiomeGenBaseGenesis rainforestEdgeM;
 	public static BiomeGenBaseGenesis rainforestHills;
 	public static BiomeGenBaseGenesis auxForest;
 	public static BiomeGenBaseGenesis auxForestM;
@@ -52,71 +50,173 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis genesisBeach;
 	public static BiomeGenBaseGenesis redBeach;
 	public static BiomeGenBaseGenesis limestoneBeach;
-	
+	/*
 	public static final BiomeGenBase.Height height_ShallowWaters = new BiomeGenBase.Height(-0.5F, 0.0F);
 	public static final BiomeGenBase.Height height_Oceans = new BiomeGenBase.Height(-1.0F, 0.1F);
 	public static final BiomeGenBase.Height height_DeepOceans = new BiomeGenBase.Height(-1.8F, 0.1F);
 	public static final BiomeGenBase.Height height_EmergingHills = new BiomeGenBase.Height(0.0F, 0.1F);
 	public static final BiomeGenBase.Height height_Shore = new BiomeGenBase.Height(0.0F, 0.025F);
-	
+	*/
 	public static void loadBiomes()
 	{
-		rainforest = new BiomeGenRainforest(GenesisConfig.rainforestId);
+		BiomeGenBase.BiomeProperties prop;
+		
+		prop = new BiomeGenBase.BiomeProperties("Rainforest");
+		prop.setTemperature(0.95F);
+		prop.setRainfall(1.4F);
+		prop.setBaseHeight(0.15F);
+		prop.setHeightVariation(0.05F);
+		prop.setWaterColor(0x725113);
+		
+		rainforest = new BiomeGenRainforest(prop);
 		BiomeManagerGenesis.registerBiome(rainforest, BiomeType.WARM, GenesisConfig.rainforestWeight);
 		BiomeDictionary.registerBiomeType(rainforest, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.DENSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
-		rainforestM = new BiomeGenRainforestM(GenesisConfig.rainforestId+128);
-		BiomeDictionary.registerBiomeType(rainforestM, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.DENSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.MOUNTAIN);
-		/*
-		rainforestEdge = new BiomeGenRainforestEdge(GenesisConfig.rainforestEdgeId);
-		BiomeDictionary.registerBiomeType(rainforestEdge, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		prop = new BiomeGenBase.BiomeProperties("Rainforest M");
+		prop.setTemperature(0.95F);
+		prop.setRainfall(1.4F);
+		prop.setBaseHeight(2.2F);
+		prop.setHeightVariation(0.4F);
+		prop.setWaterColor(0x725113);
 		
-		rainforestEdgeM = new BiomeGenRainforestEdgeM(GenesisConfig.rainforestEdgeId+128);
-		BiomeDictionary.registerBiomeType(rainforestEdgeM, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.MOUNTAIN);
-		*/
-		rainforestHills = new BiomeGenRainforest(GenesisConfig.rainforestHillsId).setBiomeName("Rainforest Hills").setHeight(0.425F, 0.275F);
+		rainforestM = new BiomeGenRainforestM(prop);
+		BiomeDictionary.registerBiomeType(rainforestM, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.DENSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.MOUNTAIN);
+		
+		prop = new BiomeGenBase.BiomeProperties("Rainforest Hills");
+		prop.setTemperature(0.95F);
+		prop.setRainfall(1.4F);
+		prop.setBaseHeight(0.425F);
+		prop.setHeightVariation(0.275F);
+		prop.setWaterColor(0x725113);
+		
+		rainforestHills = new BiomeGenRainforest(prop);
 		BiomeDictionary.registerBiomeType(rainforestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.DENSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
-		auxForest = new BiomeGenAuxForest(GenesisConfig.auxForestId);
+		prop = new BiomeGenBase.BiomeProperties("Araucarioxylon Forest");
+		prop.setTemperature(1.1F);
+		prop.setRainfall(0.9F);
+		prop.setBaseHeight(0.05F);
+		prop.setHeightVariation(0.15F);
+		prop.setWaterColor(0x725113);
+		
+		auxForest = new BiomeGenAuxForest(prop);
 		BiomeManagerGenesis.registerBiome(auxForest, BiomeType.WARM, GenesisConfig.auxForestWeight);
 		BiomeDictionary.registerBiomeType(auxForest, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
-		auxForestM = new BiomeGenAuxForestM(GenesisConfig.auxForestId+128);
+		prop = new BiomeGenBase.BiomeProperties("Araucarioxylon Forest M");
+		prop.setTemperature(1.1F);
+		prop.setRainfall(0.9F);
+		prop.setBaseHeight(2.2F);
+		prop.setHeightVariation(0.4F);
+		prop.setWaterColor(0x725113);
+		
+		auxForestM = new BiomeGenAuxForestM(prop);
 		BiomeDictionary.registerBiomeType(auxForestM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
-		auxForestHills = new BiomeGenAuxForest(GenesisConfig.auxForestHillsId).setBiomeName("Araucarioxylon Forest Hills").setHeight(0.425F, 0.275F);
+		prop = new BiomeGenBase.BiomeProperties("Araucarioxylon Forest Hills");
+		prop.setTemperature(1.1F);
+		prop.setRainfall(0.9F);
+		prop.setBaseHeight(0.425F);
+		prop.setHeightVariation(0.275F);
+		prop.setWaterColor(0x725113);
+		
+		auxForestHills = new BiomeGenAuxForest(prop);
 		BiomeDictionary.registerBiomeType(auxForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
-		woodlands = new BiomeGenWoodlands(GenesisConfig.woodlandsId);
+		prop = new BiomeGenBase.BiomeProperties("Woodlands");
+		prop.setTemperature(1.1F);
+		prop.setRainfall(0.9F);
+		prop.setBaseHeight(0.035F);
+		prop.setHeightVariation(0.135F);
+		prop.setWaterColor(0x725113);
+		
+		woodlands = new BiomeGenWoodlands(prop);
 		BiomeManagerGenesis.registerBiome(woodlands, BiomeType.WARM, GenesisConfig.woodlandsWeight);
 		BiomeDictionary.registerBiomeType(woodlands, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
-		woodlandsM = new BiomeGenWoodlandsM(GenesisConfig.woodlandsId+128).setBiomeName("Woodlands M");
+		prop = new BiomeGenBase.BiomeProperties("Woodlands M");
+		prop.setTemperature(1.1F);
+		prop.setRainfall(0.9F);
+		prop.setBaseHeight(2.2F);
+		prop.setHeightVariation(0.4F);
+		prop.setWaterColor(0x725113);
+		
+		woodlandsM = new BiomeGenWoodlandsM(prop);
 		BiomeDictionary.registerBiomeType(woodlandsM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
-		woodlandsHills = new BiomeGenWoodlands(GenesisConfig.woodlandsHillsId).setBiomeName("Woodlands Hills").setHeight(0.425F, 0.275F);
+		prop = new BiomeGenBase.BiomeProperties("Woodlands Hills");
+		prop.setTemperature(1.1F);
+		prop.setRainfall(0.9F);
+		prop.setBaseHeight(0.425F);
+		prop.setHeightVariation(0.275F);
+		prop.setWaterColor(0x725113);
+		
+		woodlandsHills = new BiomeGenWoodlands(prop);
 		BiomeDictionary.registerBiomeType(woodlandsHills, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
-		metaForest = new BiomeGenMetaForest(GenesisConfig.metaForestId);
+		prop = new BiomeGenBase.BiomeProperties("Metasequoia Forest");
+		prop.setTemperature(1.1F);
+		prop.setRainfall(0.9F);
+		prop.setBaseHeight(0.04F);
+		prop.setHeightVariation(0.165F);
+		prop.setWaterColor(0x725113);
+		
+		metaForest = new BiomeGenMetaForest(prop);
 		BiomeManagerGenesis.registerBiome(metaForest, BiomeType.WARM, GenesisConfig.metaForestWeight);
 		BiomeDictionary.registerBiomeType(metaForest, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
-		metaForestM = new BiomeGenMetaForestM(GenesisConfig.metaForestId+128);
+		prop = new BiomeGenBase.BiomeProperties("Metasequoia Forest M");
+		prop.setTemperature(1.1F);
+		prop.setRainfall(0.9F);
+		prop.setBaseHeight(2.2F);
+		prop.setHeightVariation(0.4F);
+		prop.setWaterColor(0x725113);
+		
+		metaForestM = new BiomeGenMetaForestM(prop);
 		BiomeDictionary.registerBiomeType(metaForestM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
-		metaForestHills = new BiomeGenMetaForest(GenesisConfig.metaForestHillsId).setBiomeName("Metasequoia Forest Hills").setHeight(0.425F, 0.275F);
+		prop = new BiomeGenBase.BiomeProperties("Metasequoia Forest Hills");
+		prop.setTemperature(1.1F);
+		prop.setRainfall(0.9F);
+		prop.setBaseHeight(0.425F);
+		prop.setHeightVariation(0.275F);
+		prop.setWaterColor(0x725113);
+		
+		metaForestHills = new BiomeGenMetaForest(prop);
 		BiomeDictionary.registerBiomeType(auxForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
-		swampRainForest = new BiomeGenSwampRainforest(GenesisConfig.swampRainForestId);
+		prop = new BiomeGenBase.BiomeProperties("Swamp Rainforest");
+		prop.setTemperature(0.95F);
+		prop.setRainfall(1.4F);
+		prop.setBaseHeight(-0.2F);
+		prop.setHeightVariation(0.03F);
+		prop.setWaterColor(0x725113);
+		
+		swampRainForest = new BiomeGenSwampRainforest(prop);
 		BiomeDictionary.registerBiomeType(swampRainForest, BiomeDictionary.Type.SWAMP, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
-		marsh = new BiomeGenMarsh(GenesisConfig.marshId);
+		prop = new BiomeGenBase.BiomeProperties("Marsh");
+		prop.setTemperature(1.15F);
+		prop.setRainfall(0.3F);
+		prop.setBaseHeight(0.0F);
+		prop.setHeightVariation(-0.01F);
+		prop.setWaterColor(0x725113);
+		
+		marsh = new BiomeGenMarsh(prop);
 		BiomeManagerGenesis.registerBiome(marsh, BiomeType.WARM, GenesisConfig.marshWeight);
 		BiomeDictionary.registerBiomeType(marsh, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
 		
-		floodplainsForest = new BiomeGenFloodplainsForest(GenesisConfig.floodplainsForestId);
+		prop = new BiomeGenBase.BiomeProperties("Floodplains Forest");
+		prop.setTemperature(1.15F);
+		prop.setRainfall(1.0F);
+		prop.setBaseHeight(-0.2F);
+		prop.setHeightVariation(0.1F);
+		prop.setWaterColor(0x725113);
+		
+		floodplainsForest = new BiomeGenFloodplainsForest(prop);
 		BiomeManagerGenesis.registerBiome(floodplainsForest, BiomeType.WARM, GenesisConfig.floodplainsForestWeight);
 		BiomeDictionary.registerBiomeType(floodplainsForest, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.DENSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
+		
 		/*
 		redLowlands = new BiomeGenRedLowlands(GenesisConfig.redLowlandsId);
 		BiomeManagerGenesis.registerBiome(redLowlands, BiomeType.WARM, GenesisConfig.redLowlandsWeight);
@@ -128,25 +228,76 @@ public final class GenesisBiomes
 		redLowlandsM = new BiomeGenRedLowlandsM(GenesisConfig.redLowlandsId+128);
 		BiomeDictionary.registerBiomeType(redLowlandsM, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.SANDY, BiomeDictionary.Type.DRY);
 		*/
-		river = new BiomeGenRiver(GenesisConfig.riverId).setHeight(height_ShallowWaters);
+		
+		prop = new BiomeGenBase.BiomeProperties("River");
+		prop.setTemperature(0.5F);
+		prop.setRainfall(0.4F);
+		prop.setBaseHeight(-0.5F);
+		prop.setHeightVariation(0.0F);
+		prop.setWaterColor(0x725113);
+		
+		river = new BiomeGenRiver(prop);
 		BiomeDictionary.registerBiomeType(river, BiomeDictionary.Type.RIVER, BiomeDictionary.Type.WET);
 		
-		shallowOcean = new BiomeGenShallowOcean(GenesisConfig.shallowOceanId);
+		prop = new BiomeGenBase.BiomeProperties("Shallow Ocean");
+		prop.setTemperature(0.5F);
+		prop.setRainfall(0.4F);
+		prop.setBaseHeight(-0.7F);
+		prop.setHeightVariation(0.0F);
+		prop.setWaterColor(0x9F791F);
+		
+		shallowOcean = new BiomeGenShallowOcean(prop);
 		BiomeDictionary.registerBiomeType(shallowOcean, BiomeDictionary.Type.OCEAN, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
 		
-		ocean = new BiomeGenOceanGenesis(GenesisConfig.oceanId).addElements(1).setBiomeName("Ocean").setHeight(height_Oceans);
+		prop = new BiomeGenBase.BiomeProperties("Ocean");
+		prop.setTemperature(0.5F);
+		prop.setRainfall(0.4F);
+		prop.setBaseHeight(-1.0F);
+		prop.setHeightVariation(0.1F);
+		prop.setWaterColor(0x9F791F);
+		
+		ocean = new BiomeGenOceanGenesis(prop).addElements(1);
 		BiomeDictionary.registerBiomeType(ocean, BiomeDictionary.Type.OCEAN, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
 		
-		deepOcean = new BiomeGenOceanGenesis(GenesisConfig.deepOceanId).addElements(0).setWaterColor(0x876719).setBiomeName("Deep Ocean").setHeight(height_DeepOceans);
+		prop = new BiomeGenBase.BiomeProperties("Deep Ocean");
+		prop.setTemperature(0.5F);
+		prop.setRainfall(0.4F);
+		prop.setBaseHeight(-1.8F);
+		prop.setHeightVariation(0.1F);
+		prop.setWaterColor(0x876719);
+		
+		deepOcean = new BiomeGenOceanGenesis(prop).addElements(0);
 		BiomeDictionary.registerBiomeType(deepOcean, BiomeDictionary.Type.OCEAN, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
 		
-		genesisBeach = new BiomeGenBeachGenesis(GenesisConfig.genesisBeachId).setHeight(height_Shore);
+		prop = new BiomeGenBase.BiomeProperties("Beach");
+		prop.setTemperature(1.15F);
+		prop.setRainfall(1.0F);
+		prop.setBaseHeight(0.0F);
+		prop.setHeightVariation(0.025F);
+		prop.setWaterColor(0x725113);
+		
+		genesisBeach = new BiomeGenBeachGenesis(prop);
 		BiomeDictionary.registerBiomeType(genesisBeach, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.WET);
 		
-		redBeach = new BiomeGenRedBeach(GenesisConfig.redBeachId).setHeight(height_Shore);
+		prop = new BiomeGenBase.BiomeProperties("Red Beach");
+		prop.setTemperature(2.0F);
+		prop.setRainfall(0.0F);
+		prop.setRainDisabled();
+		prop.setBaseHeight(0.0F);
+		prop.setHeightVariation(0.025F);
+		prop.setWaterColor(0x725113);
+		
+		redBeach = new BiomeGenRedBeach(prop);
 		BiomeDictionary.registerBiomeType(redBeach, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.WET);
 		
-		limestoneBeach = new BiomeGenLimestoneBeach(GenesisConfig.limestoneBeachId);
+		prop = new BiomeGenBase.BiomeProperties("Limestone Beach");
+		prop.setTemperature(0.8F);
+		prop.setRainfall(0.4F);
+		prop.setBaseHeight(0.05F);
+		prop.setHeightVariation(0.1F);
+		prop.setWaterColor(0x725113);
+		
+		limestoneBeach = new BiomeGenLimestoneBeach(prop);
 		BiomeDictionary.registerBiomeType(limestoneBeach, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.WET);
 	}
 }

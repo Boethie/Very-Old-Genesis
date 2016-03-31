@@ -15,16 +15,14 @@ import genesis.world.gen.feature.WorldGenDeadLog;
 import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 {
-	public BiomeGenFloodplainsForest(int id)
+	public BiomeGenFloodplainsForest(BiomeGenBase.BiomeProperties properties)
 	{
-		super(id);
-		setBiomeName("Floodplains Forest");
-		setTemperatureRainfall(1.15F, 1.0F);
-		setHeight(-0.2F, 0.1F);
+		super(properties);
 		
 		theBiomeDecorator.clayPerChunk = 4;
 		theBiomeDecorator.sandPerChunk2 = 2;

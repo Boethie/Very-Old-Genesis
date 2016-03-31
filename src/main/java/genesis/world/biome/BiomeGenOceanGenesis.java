@@ -10,18 +10,17 @@ import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.WorldGenAquaticPlants;
 import genesis.world.biome.decorate.WorldGenCorals;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 public class BiomeGenOceanGenesis extends BiomeGenBaseGenesis
 {
-	public BiomeGenOceanGenesis(int id)
+	public BiomeGenOceanGenesis(BiomeGenBase.BiomeProperties properties)
 	{
-		super(id);
-		setTemperatureRainfall(0.5F, 0.4F);
+		super(properties);
+		
 		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);
 		fillerBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);
-		
-		setWaterColor(0x9F791F);
 		
 		theBiomeDecorator.grassPerChunk = 0;
 	}

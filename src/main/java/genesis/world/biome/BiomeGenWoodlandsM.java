@@ -4,14 +4,13 @@ import genesis.combo.variant.EnumDebrisOther;
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class BiomeGenWoodlandsM extends BiomeGenWoodlands
 {
-	public BiomeGenWoodlandsM(int id)
+	public BiomeGenWoodlandsM(BiomeGenBase.BiomeProperties properties)
 	{
-		super(id);
-		setBiomeName("Woodlands M");
-		setHeight(2.2F, 0.4F);
+		super(properties);
 	}
 	
 	@Override

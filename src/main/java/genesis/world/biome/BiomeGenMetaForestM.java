@@ -3,14 +3,13 @@ package genesis.world.biome;
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class BiomeGenMetaForestM extends BiomeGenMetaForest
 {
-	public BiomeGenMetaForestM(int id)
+	public BiomeGenMetaForestM(BiomeGenBase.BiomeProperties properties)
 	{
-		super(id);
-		setBiomeName("Metasequoia Forest M");
-		setHeight(2.2F, 0.4F);
+		super(properties);
 	}
 	
 	@Override

@@ -11,18 +11,17 @@ import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPlant;
 import genesis.world.biome.decorate.WorldGenPrototaxites;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 public class BiomeGenMarsh extends BiomeGenBaseGenesis
 {
-	public BiomeGenMarsh(int id)
+	public BiomeGenMarsh(BiomeGenBase.BiomeProperties properties)
 	{
-		super(id);
-		setBiomeName("Marsh");
-		setTemperatureRainfall(1.15F, 0.3F);
-		setHeight(0.0F, -0.01F);
+		super(properties);
 		
 		theBiomeDecorator.grassPerChunk = 5;
 		
@@ -48,22 +47,24 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 	}
 	
 	@Override
-	public void genTerrainBlocks(World world, Random rand, ChunkPrimer p_180622_3_, int p_180622_4_, int p_180622_5_, double p_180622_6_)
+	public void genTerrainBlocks(World world, Random rand, ChunkPrimer chunkPrimer, int chunkX, int chunkZ, double d)
 	{
-		double d1 = GRASS_COLOR_NOISE.func_151601_a(p_180622_4_ * 0.25D, p_180622_5_ * 0.25D);
+		double d1 = GRASS_COLOR_NOISE.func_151601_a(chunkX * 0.25D, chunkZ * 0.25D);
 		
 		if (d1 > -0.2D)
 		{
-			int k = p_180622_4_ & 15;
-			int l = p_180622_5_ & 15;
+			int k = chunkX & 15;
+			int l = chunkZ & 15;
 			
 			for (int i1 = 255; i1 >= 0; --i1)
 			{
-				if (p_180622_3_.getBlockState(l, i1, k).getBlock().getMaterial() != Material.air)
+				IBlockState state = chunkPrimer.getBlockState(l, i1, k);
+				
+				if (state.getBlock().getMaterial(state) != Material.air)
 				{
-					if (i1 == 62 && p_180622_3_.getBlockState(l, i1, k).getBlock() != Blocks.water)
+					if (i1 == 62 && chunkPrimer.getBlockState(l, i1, k).getBlock() != Blocks.water)
 					{
-						p_180622_3_.setBlockState(l, i1, k, Blocks.water.getDefaultState());
+						chunkPrimer.setBlockState(l, i1, k, Blocks.water.getDefaultState());
 					}
 					
 					break;
@@ -71,7 +72,7 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 			}
 		}
 		
-		generateBiomeTerrain(world, rand, p_180622_3_, p_180622_4_, p_180622_5_, p_180622_6_);
+		generateBiomeTerrain(world, rand, chunkPrimer, chunkX, chunkZ, d);
 	}
 	
 	@Override

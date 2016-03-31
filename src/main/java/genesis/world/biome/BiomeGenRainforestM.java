@@ -3,14 +3,13 @@ package genesis.world.biome;
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class BiomeGenRainforestM extends BiomeGenRainforest
 {
-	public BiomeGenRainforestM(int id)
+	public BiomeGenRainforestM(BiomeGenBase.BiomeProperties properties)
 	{
-		super(id);
-		setBiomeName("Rainforest M");
-		setHeight(2.2F, 0.4F);
+		super(properties);
 	}
 	
 	@Override

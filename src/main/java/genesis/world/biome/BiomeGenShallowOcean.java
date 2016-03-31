@@ -12,19 +12,15 @@ import genesis.world.biome.decorate.WorldGenCorals;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPebbles;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
 {
-	public BiomeGenShallowOcean(int id)
+	public BiomeGenShallowOcean(BiomeGenBase.BiomeProperties properties)
 	{
-		super(id);
-		setBiomeName("Shallow Ocean");
-		setTemperatureRainfall(0.5F, 0.4F);
+		super(properties);
 		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);
-		setHeight(-0.7F, 0.0F);
-		
-		setWaterColor(0x9F791F);
 		
 		theBiomeDecorator.grassPerChunk = 0;
 		

@@ -17,17 +17,14 @@ import genesis.world.gen.feature.WorldGenTreeLepidodendron;
 import genesis.world.gen.feature.WorldGenTreePsaronius;
 import genesis.world.gen.feature.WorldGenTreeSigillaria;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 public class BiomeGenRainforest extends BiomeGenBaseGenesis
 {
-	public BiomeGenRainforest(int id)
+	public BiomeGenRainforest(BiomeGenBase.BiomeProperties properties)
 	{
-		super(id);
-		setBiomeName("Rainforest");
-		setTemperatureRainfall(0.95F, 1.4F);
-		setHeight(0.15F, 0.05F);
-		waterColorMultiplier = 0x725113;
+		super(properties);
 		
 		theBiomeDecorator.grassPerChunk = 8;
 		

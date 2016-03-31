@@ -1,18 +1,16 @@
 package genesis.world.biome;
 
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.biome.BiomeGenBase;
 import genesis.combo.SiltBlocks;
 import genesis.combo.variant.EnumSilt;
 import genesis.common.GenesisBlocks;
 
 public class BiomeGenRedBeach extends BiomeGenBeachGenesis
 {
-	public BiomeGenRedBeach(int id)
+	public BiomeGenRedBeach(BiomeGenBase.BiomeProperties properties)
 	{
-		super(id);
-		setBiomeName("Red Beach");
-		setTemperatureRainfall(2.0F, 0.0F);
-		setDisableRain();
+		super(properties);
 		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
 		fillerBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
 	}

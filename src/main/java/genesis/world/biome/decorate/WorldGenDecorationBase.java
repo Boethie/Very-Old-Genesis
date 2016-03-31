@@ -61,7 +61,8 @@ public class WorldGenDecorationBase extends WorldGenerator
 		do
 		{
 			block = world.getBlockState(pos).getBlock();
-			if (!block.isAir(world, pos) && !block.isLeaves(world, pos))
+			
+			if (!world.isAirBlock(pos) && !block.isLeaves(block.getDefaultState(), world, pos))
 			{
 				break;
 			}
@@ -83,7 +84,7 @@ public class WorldGenDecorationBase extends WorldGenerator
 		
 		try
 		{
-			if (!(world.getBlockState(pos).getBlock().isAir(world, pos)) && !force)
+			if (!(world.isAirBlock(pos)) && !force)
 			{
 				place = false;
 			}

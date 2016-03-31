@@ -9,16 +9,14 @@ import genesis.world.biome.decorate.*;
 import genesis.world.gen.feature.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 {
-	public BiomeGenWoodlands(int id)
+	public BiomeGenWoodlands(BiomeGenBase.BiomeProperties properties)
 	{
-		super(id);
-		setBiomeName("Woodlands");
-		setTemperatureRainfall(1.1F, 0.9F);
-		setHeight(0.035F, 0.135F);
+		super(properties);
 		
 		theBiomeDecorator.grassPerChunk = 5;
 		

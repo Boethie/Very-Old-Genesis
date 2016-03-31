@@ -6,13 +6,14 @@ import genesis.combo.variant.EnumSilt;
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.WorldGenPebbles;
 import genesis.world.biome.decorate.WorldGenPlant;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class BiomeGenBeachGenesis extends BiomeGenBaseGenesis
 {
-	public BiomeGenBeachGenesis (int id)
+	public BiomeGenBeachGenesis (BiomeGenBase.BiomeProperties properties)
 	{
-		super(id);
-		setBiomeName("Beach");
+		super(properties);
+		
 		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);
 		fillerBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);
 		

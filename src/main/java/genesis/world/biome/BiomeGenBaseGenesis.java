@@ -1,20 +1,27 @@
 package genesis.world.biome;
 
-import java.util.*;
+import java.util.List;
+import java.util.Random;
 
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.Lists;
 
 import genesis.block.BlockMoss;
-import genesis.combo.*;
+import genesis.combo.SiltBlocks;
 import genesis.combo.variant.EnumPlant;
-import genesis.common.*;
-import genesis.world.biome.decorate.*;
+import genesis.common.GenesisBlocks;
+import genesis.world.biome.decorate.BiomeDecoratorGenesis;
+import genesis.world.biome.decorate.PlantGenerator;
+import genesis.world.biome.decorate.WorldGenDecorationBase;
+import genesis.world.biome.decorate.WorldGenGrass;
+import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.gen.feature.WorldGenTreeBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.*;
+import net.minecraft.util.WeightedRandom;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -44,9 +51,9 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 	private List<FlowerGeneratorEntry> plants = Lists.newArrayList();
 	private int plantsWeight = 0;
 	
-	public BiomeGenBaseGenesis(int id)
+	public BiomeGenBaseGenesis(BiomeGenBase.BiomeProperties properties)
 	{
-		super(id);
+		super(properties);
 		
 		theBiomeDecorator.clayPerChunk = 1;
 		topBlock = GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.STAGE, BlockMoss.STAGE_LAST);
@@ -54,14 +61,10 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 		spawnableCreatureList.clear();
 		spawnableMonsterList.clear();
 		spawnableWaterCreatureList.clear();
-		waterColorMultiplier = 0xAA791E;
+		
+		//properties.setWaterColor(0xAA791E);
+		
 		getGenesisDecorator().sandPerChunk2 = 1;
-	}
-	
-	public BiomeGenBaseGenesis setWaterColor(int color)
-	{
-		waterColorMultiplier = color;
-		return this;
 	}
 	
 	public void addGrassFlower(PlantGenerator gen, int weight)
@@ -119,34 +122,6 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 	}
 	
 	@Override
-	public BiomeGenBaseGenesis setColor(int color)
-	{
-		super.setColor(color);
-		return this;
-	}
-	
-	@Override
-	public BiomeGenBaseGenesis setBiomeName(String name)
-	{
-		super.setBiomeName(name);
-		return this;
-	}
-	
-	@Override
-	public BiomeGenBaseGenesis setHeight(BiomeGenBase.Height height)
-	{
-		super.setHeight(height);
-		return this;
-	}
-	
-	public BiomeGenBaseGenesis setHeight(float minHeight, float maxHeight)
-	{
-		this.minHeight = minHeight;
-		this.maxHeight = maxHeight;
-		return this;
-	}
-	
-	@Override
 	public int getSkyColorByTemp(float temperature)
 	{
 		return 0x4B7932;
@@ -190,7 +165,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 			{
 				IBlockState state = primer.getBlockState(chunkZ, y, chunkX);
 				
-				if (state.getBlock().getMaterial() == Material.air)
+				if (state.getBlock().getMaterial(state) == Material.air)
 				{
 					k = -1;
 				}
@@ -209,7 +184,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 							filler = fillerBlock;
 						}
 						
-						if (y < 63 && (top == null || top.getBlock().getMaterial() == Material.air))
+						if (y < 63 && (top == null || top.getBlock().getMaterial(top) == Material.air))
 						{
 							if (getFloatTemperature(new BlockPos(blockX, y, blockZ)) < 0.15F)
 							{

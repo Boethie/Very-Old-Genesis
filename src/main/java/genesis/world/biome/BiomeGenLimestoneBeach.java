@@ -2,17 +2,15 @@ package genesis.world.biome;
 
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.WorldGenPebbles;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class BiomeGenLimestoneBeach extends BiomeGenBaseGenesis
 {
-	public BiomeGenLimestoneBeach (int id)
+	public BiomeGenLimestoneBeach (BiomeGenBase.BiomeProperties properties)
 	{
-		super(id);
-		setBiomeName("Limestone Beach");
-		setTemperatureRainfall(0.8F, 0.4F);
+		super(properties);
 		topBlock = GenesisBlocks.limestone.getDefaultState();
 		fillerBlock = GenesisBlocks.limestone.getDefaultState();
-		setHeight(0.05F, 0.1F);
 		
 		theBiomeDecorator.grassPerChunk = 0;
 		
