@@ -1,9 +1,7 @@
 package genesis.block.tileentity.portal;
 
-import genesis.common.GenesisConfig;
 import genesis.common.GenesisDimensions;
 import genesis.portal.GenesisPortal;
-import genesis.util.Constants;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -12,6 +10,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.math.*;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -21,6 +20,8 @@ import java.util.Random;
 
 public class BlockGenesisPortal extends Block
 {
+	public static final float RANGE = 1.25F;
+	
 	public BlockGenesisPortal()
 	{
 		super(Material.air);
@@ -39,18 +40,17 @@ public class BlockGenesisPortal extends Block
 			
 			if ((state = world.getBlockState(pos)).getBlock() == this)
 			{
-				int dimension = GenesisConfig.genesisDimId;
+				DimensionType dimension = GenesisDimensions.GENESIS_DIMENSION;
 				
-				if (entity.dimension == dimension)
+				if (entity.dimension == dimension.getId())
 				{
-					dimension = 0;
+					dimension = DimensionType.OVERWORLD;
 				}
 				
-				final float tpDist = 1.25F;
 				Vec3d entityCenter = entity.getPositionVector().addVector(0, entity.getEyeHeight() / 2, 0);
 				Vec3d blockCenter = new Vec3d(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 				
-				if (entityCenter.squareDistanceTo(blockCenter) <= tpDist * tpDist)
+				if (entityCenter.squareDistanceTo(blockCenter) <= RANGE * RANGE)
 				{
 					if (entity.timeUntilPortal > 0)
 					{
