@@ -353,7 +353,7 @@ public class RenderMeganeura extends RenderLiving<EntityMeganeura>
 			legRearRightLower.rotateAngleX += -legBotRot;
 			
 			// Laying egg animation.
-			if (meganeura.getState() == EntityMeganeura.State.PLACING_EGG)
+			if (meganeura.getDataManager().get(EntityMeganeura.STATE) == EntityMeganeura.State.PLACING_EGG)
 			{
 				float eggTimer = meganeura.prevEggPlaceTimer + (meganeura.eggPlaceTimer - meganeura.prevEggPlaceTimer) * partialTick;
 				eggTimer = MathHelper.clamp_float(eggTimer, 0, 1);
