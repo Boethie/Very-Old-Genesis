@@ -28,6 +28,8 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiomeGenFog
 {
+	public int biomeID;
+	
 	public static class FlowerGeneratorEntry extends WeightedRandom.Item
 	{
 		private final PlantGenerator gen;
@@ -65,6 +67,11 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 		//properties.setWaterColor(0xAA791E);
 		
 		getGenesisDecorator().sandPerChunk2 = 1;
+	}
+	
+	public void setBiomeId(int id)
+	{
+		biomeID = id;
 	}
 	
 	public void addGrassFlower(PlantGenerator gen, int weight)
