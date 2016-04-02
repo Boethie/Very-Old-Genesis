@@ -322,7 +322,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 				}
 			}
 			
-			rotationPitch += MathHelper.wrapAngleTo180_float(pitchTarget - rotationPitch) * tiltSpeed;
+			rotationPitch += MathHelper.wrapDegrees(pitchTarget - rotationPitch) * tiltSpeed;
 			
 			// Calculate new roll for banking.
 			prevRoll = roll;
@@ -870,7 +870,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 		{
 			Vec3d moveVec = ourNewTarget.subtract(ourPos).normalize();
 			float targetYaw = (float) (Math.toDegrees(Math.atan2(moveVec.zCoord, moveVec.xCoord)));
-			float diffYaw = MathHelper.wrapAngleTo180_float(targetYaw - rotationYaw);
+			float diffYaw = MathHelper.wrapDegrees(targetYaw - rotationYaw);
 			
 			final double maneuverability = 0.75;
 			final double maxTurn = 30;
