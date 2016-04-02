@@ -1,6 +1,7 @@
 package genesis.block;
 
 import genesis.common.*;
+import genesis.sounds.GenesisSoundTypes;
 import genesis.util.*;
 import genesis.util.random.*;
 import genesis.world.biome.BiomeGenBaseGenesis;
@@ -29,7 +30,7 @@ public class BlockMoss extends BlockGrass
 	{
 		setDefaultState(blockState.getBaseState().withProperty(STAGE, 0).withProperty(SNOWY, false));
 		setHardness(0.6F);
-		setSoundType(GenesisSounds.MOSS);
+		setSoundType(GenesisSoundTypes.MOSS);
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 		setHarvestLevel("shovel", 0);
 	}

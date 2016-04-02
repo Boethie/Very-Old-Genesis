@@ -10,8 +10,10 @@ import genesis.combo.variant.EnumFood;
 import genesis.common.*;
 import genesis.entity.fixed.EntityMeganeuraEgg;
 import genesis.entity.living.IEntityPreferredBiome;
+import genesis.sounds.GenesisSoundEvents;
 import genesis.util.*;
 import genesis.util.random.DoubleRange;
+import genesis.util.sound.SoundUtils;
 
 import static genesis.entity.living.flying.EntityMeganeura.State.*;
 import static genesis.entity.living.flying.EntityMeganeura.StateCategory.*;
@@ -152,11 +154,6 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 		entityDropItem(GenesisItems.foods.getRawStack(EnumFood.MEGANEURA), 0);
 	}
 	
-	// TODO: Move to GenesisSoundEvents
-	public static final SoundEvent FLY_SOUND = new SoundEvent(new ResourceLocation(Constants.ASSETS_PREFIX + "mob.meganeura.fly"));
-	public static final SoundEvent LAND_SOUND = new SoundEvent(new ResourceLocation(Constants.ASSETS_PREFIX + "mob.meganeura.land"));
-	public static final SoundEvent TAKEOFF_SOUND = new SoundEvent(new ResourceLocation(Constants.ASSETS_PREFIX + "mob.meganeura.takeoff"));
-	
 	public void setState(State state)
 	{
 		if (!isDead)
@@ -171,12 +168,12 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 			
 			if ((oldState == NONE || oldState.category == LANDED || oldState.category == SLOW) && state.category == AIR)
 			{
-				playMovingSound(TAKEOFF_SOUND, false);
+				playMovingSound(GenesisSoundEvents.mob_meganeura_takeoff, false);
 				takeoffSoundTimer = 15;	// Start timer to play looping flight sound when takeoff is done.
 			}
 			else if ((oldState == NONE || oldState.category == AIR) && state.category == SLOW)
 			{
-				playMovingSound(LAND_SOUND, true);
+				playMovingSound(GenesisSoundEvents.mob_meganeura_land, true);
 			}
 			
 			dataManager.set(STATE, state);
@@ -185,7 +182,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 	
 	protected void playMovingSound(SoundEvent sound, boolean loop)
 	{
-		GenesisSounds.playMovingEntitySound(sound, getSoundCategory(), loop, this, getSoundVolume(), getSoundPitch());
+		SoundUtils.playMovingEntitySound(sound, getSoundCategory(), loop, this, getSoundVolume(), getSoundPitch());
 	}
 	
 	@Override
@@ -206,12 +203,15 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 		ResourceLocation loc = sound.getSoundLocation();
 		State state = dataManager.get(STATE);
 		
-		if ((loc.equals(FLY_SOUND) || loc.equals(TAKEOFF_SOUND)) && state.category != AIR)
+		if (state.category != AIR
+				&& (loc.equals(GenesisSoundEvents.mob_meganeura_fly.getSoundName())
+				|| loc.equals(GenesisSoundEvents.mob_meganeura_takeoff.getSoundName())))
 		{
 			return true;
 		}
 		
-		if (loc.equals(LAND_SOUND) && state.category != SLOW)
+		if (state.category != SLOW
+				&& loc.equals(GenesisSoundEvents.mob_meganeura_land.getSoundName()))
 		{
 			return true;
 		}
@@ -278,14 +278,14 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 			
 			if (takeoffSoundTimer == 0)
 			{
-				playMovingSound(FLY_SOUND, true);
+				playMovingSound(GenesisSoundEvents.mob_meganeura_fly, true);
 				takeoffSoundTimer = -1;
 			}
 		}
 		
 		if (worldObj.isRemote)
 		{
-			dopplerPitch = GenesisSounds.getDopplerEffect(this, 0.03F);
+			dopplerPitch = SoundUtils.getDopplerEffect(this, 0.03F);
 			
 			double diffX = posX - prevPosX;
 			double diffY = posY - prevPosY;

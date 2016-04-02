@@ -1,7 +1,7 @@
 package genesis.block;
 
-import genesis.common.GenesisSounds;
 import genesis.common.GenesisCreativeTabs;
+import genesis.sounds.GenesisSoundTypes;
 import net.minecraft.block.BlockHay;
 import net.minecraft.init.Blocks;
 
@@ -9,7 +9,7 @@ public class BlockCalamitesBundle extends BlockHay
 {
 	public BlockCalamitesBundle()
 	{
-		setSoundType(GenesisSounds.CALAMITES);
+		setSoundType(GenesisSoundTypes.CALAMITES);
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 
 		setHardness(1);

@@ -4,7 +4,7 @@ import genesis.combo.ObjectType;
 import genesis.combo.VariantsOfTypesCombo;
 import genesis.combo.VariantsOfTypesCombo.BlockProperties;
 import genesis.combo.variant.EnumDung;
-import genesis.common.GenesisSounds;
+import genesis.sounds.GenesisSoundTypes;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
@@ -42,7 +42,7 @@ public class BlockDung extends BlockGenesisVariants<EnumDung>
 	
 	public BlockDung(VariantsOfTypesCombo<EnumDung> owner, ObjectType<? extends BlockGenesisVariants<EnumDung>, ? extends Item> type, List<EnumDung> variants, Class<EnumDung> variantClass)
 	{
-		super(owner, type, variants, variantClass, Material.ground, GenesisSounds.DUNG);
+		super(owner, type, variants, variantClass, Material.ground, GenesisSoundTypes.DUNG);
 		
 		blockState = new BlockStateContainer(this, variantProp, HEIGHT);
 		setDefaultState(blockState.getBaseState().withProperty(HEIGHT, 8));

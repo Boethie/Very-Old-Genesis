@@ -3,8 +3,8 @@ package genesis.block;
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
 import genesis.combo.SiltBlocks;
 import genesis.combo.variant.EnumSilt;
-import genesis.common.GenesisSounds;
 import genesis.common.GenesisBlocks;
+import genesis.sounds.GenesisSoundTypes;
 import genesis.util.WorldUtils;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class BlockCalamites extends BlockGrowingPlant implements IGrowingPlantCu
 		
 		setPlantSize(1, 0, RADIUS * 2);
 		setCollisionBox(RADIUS);
-		setSoundType(GenesisSounds.CALAMITES);
+		setSoundType(GenesisSoundTypes.CALAMITES);
 		
 		setResetAgeOnGrowth(true);
 	}
