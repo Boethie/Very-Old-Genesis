@@ -5,7 +5,7 @@ import java.util.*;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
+
 import genesis.block.*;
 import genesis.combo.variant.EnumDung;
 import genesis.combo.variant.IMetadata;
