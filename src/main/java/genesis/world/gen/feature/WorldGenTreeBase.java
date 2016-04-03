@@ -1,47 +1,73 @@
 package genesis.world.gen.feature;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
+
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
 
 import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
+import genesis.util.random.i.*;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
-import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
+import net.minecraftforge.common.IPlantable;
+
 public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 {
-	public IBlockState wood;
-	public IBlockState leaves;
-	public IBlockState hangingFruit;
-	public Block treeSoil;
+	public final IBlockState sapling;
+	public final IBlockState wood;
+	public final IBlockState leaves;
+	public final IBlockState hangingFruit;
 	
-	protected boolean notify;
+	protected final boolean notify;
 	protected int rarity = 1;
-	protected int minHeight;
-	protected int maxHeight;
+	
+	protected RandomIntProvider heightProvider;
 	
 	private int treeCountPerChunk = 0;
 	private boolean canGrowInWater = false;
-	private List<BlockStateContainer> allowedBlocks = new ArrayList<BlockStateContainer>();
+	private Predicate<IBlockState> soilPredicate = Predicates.alwaysTrue();
 	
-	public WorldGenTreeBase(IBlockState wood, IBlockState leaves, boolean notify)
+	protected RandomIntProvider saplingCountProvider = null;
+	
+	public WorldGenTreeBase(IBlockState sapling, IBlockState wood, IBlockState leaves, IBlockState hangingFruit,
+			RandomIntProvider heightProvider, boolean notify)
 	{
 		super(notify);
 		
+		this.sapling = sapling;
 		this.wood = wood;
 		this.leaves = leaves;
+		this.hangingFruit = hangingFruit;
+		
+		this.heightProvider = heightProvider;
+		
 		this.notify = notify;
+	}
+	
+	public WorldGenTreeBase(EnumTree variant, RandomIntProvider heightProvider, boolean notify)
+	{
+		this(GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.SAPLING, variant),
+				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LOG, variant).withProperty(BlockLog.LOG_AXIS, EnumAxis.Y),
+				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES, variant),
+				GenesisBlocks.trees.containsVariant(TreeBlocksAndItems.HANGING_FRUIT, variant)
+						? GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.HANGING_FRUIT, variant)
+						: null,
+				heightProvider,
+				notify);
 	}
 	
 	public WorldGenTreeBase setRarity(int r)
@@ -67,55 +93,95 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		return this;
 	}
 	
-	public void addAllowedBlocks(BlockStateContainer... blocks)
+	public void setSoilPredicate(Predicate<IBlockState> predicate)
 	{
-		for (int i = 0; i < blocks.length; ++i)
-		{
-			allowedBlocks.add(blocks[i]);
-		}
+		soilPredicate = predicate;
 	}
 	
-	@Override
-	public abstract boolean generate(World world, Random rand, BlockPos pos);
-	
-	public BlockPos getTreePos(World world, BlockPos pos)
+	public WorldGenTreeBase noSaplings()
 	{
-		BlockPos treePos = pos;
+		saplingCountProvider = null;
+		return this;
+	}
+	
+	protected abstract boolean doGenerate(World world, Random rand, BlockPos pos);
+	
+	@Override
+	public final boolean generate(World world, Random rand, BlockPos pos)
+	{
+		pos = getTreePos(world, pos);
+		
+		if (pos == null)
+			return false;
+		
+		if (rand.nextInt(rarity) != 0)
+			return false;
+		
+		if (doGenerate(world, rand, pos))
+		{
+			int saplingCount = saplingCountProvider != null ? saplingCountProvider.get(rand) : 0;
+			
+			for (int i = 0; i < saplingCount; i++)
+			{
+				BlockPos posSapling = pos.add(rand.nextInt(9) - 4, 0, rand.nextInt(9) - 4);
+				
+				if (posSapling == null)
+					continue;
+				
+				IBlockState checkState = world.getBlockState(posSapling.up());
+				
+				if (!checkState.getBlock().isAir(checkState, world, posSapling))
+					continue;
+				
+				checkState = world.getBlockState(posSapling.up());
+				
+				if (!checkState.getBlock().canSustainPlant(checkState, world, posSapling, EnumFacing.UP, (IPlantable) sapling.getBlock()))
+					continue;
+				
+				setBlockInWorld(world, posSapling.up(), sapling);
+			}
+			
+			return true;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * @return The position the sapling would be at above the soil, or null if the tree cannot grow there.
+	 */
+	public BlockPos getTreePos(IBlockAccess world, BlockPos pos)
+	{
+		BlockPos soilPos = pos;
+		IBlockState checkState;
 		
 		do
 		{
-			treeSoil = world.getBlockState(treePos).getBlock();
-			if (
-					!treeSoil.isAir(world, treePos) 
-					&& !treeSoil.isLeaves(world, treePos)
-					&& !(treeSoil == Blocks.water && canGrowInWater)
-			)
-			{
+			checkState = world.getBlockState(soilPos);
+			
+			if (!checkState.getBlock().isAir(checkState, world, soilPos) 
+					&& !checkState.getBlock().isLeaves(checkState, world, soilPos)
+					&& checkState.getMaterial() != Material.water)
 				break;
-			}
-			treePos = treePos.down();
+			
+			soilPos = soilPos.down();
 		}
-		while (treePos.getY() > 0);
+		while (soilPos.getY() > 0);
 		
-		return treePos.up();
-	}
-	
-	public boolean canTreeGrow(World world, BlockPos pos)
-	{
-		Block upBlock = world.getBlockState(pos.up()).getBlock();
+		// Begin checking whether tree can grow here.
+		BlockPos saplingPos = soilPos.up();
 		
-		if (
-				(treeSoil == null 
-				|| (
-						!treeSoil.canSustainPlant(world, pos, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.LEPIDODENDRON))
-						&& !allowedBlocks.contains(treeSoil.getBlockState())))
-				|| (!upBlock.isAir(world, pos.up()) && !(canGrowInWater && upBlock == Blocks.water))
-		)
-		{
-			return false;
-		}
+		if (!soilPredicate.apply(checkState)
+				&& !checkState.getBlock().canSustainPlant(checkState, world, pos, EnumFacing.UP, (IPlantable) sapling.getBlock()))
+			return null;
 		
-		return true;
+		IBlockState replacing = world.getBlockState(saplingPos);
+		
+		if (!replacing.getBlock().isReplaceable(world, saplingPos)
+				|| (!canGrowInWater && replacing.getMaterial() == Material.water))
+			return null;
+		
+		return saplingPos;
 	}
 	
 	protected void generateBranchSideup(World world, BlockPos pos, Random rand, int dirX, int dirZ, int bBaseHeight, int bGrowSize, int leavesLength)
@@ -210,11 +276,12 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		if (!world.isBlockLoaded(pos))
 			return;
 		
-		if (
-				state == wood 
-				&& !(world.getBlockState(pos).getBlock().isAir(world, pos) 
-						|| world.getBlockState(pos).getBlock().getMaterial().isReplaceable()
-						|| world.getBlockState(pos).getBlock().isLeaves(world, pos))
+		IBlockState currentState = world.getBlockState(pos);
+		
+		if (state == wood 
+				&& !(currentState.getBlock().isAir(currentState, world, pos) 
+						|| currentState.getBlock().isReplaceable(world, pos)
+						|| currentState.getBlock().isLeaves(currentState, world, pos))
 				&& !force)
 		{
 			place = false;
@@ -222,51 +289,48 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		
 		if (
 				state == leaves 
-				&& !world.getBlockState(pos).getBlock().isAir(world, pos)
+				&& !currentState.getBlock().isAir(currentState, world, pos)
 				&& !force
-				&& !(world.getBlockState(pos) == this.hangingFruit))
+				&& !(currentState == hangingFruit))
 		{
 			place = false;
 		}
 		
 		if (place)
 		{
-			if (state == leaves && world.rand.nextInt(6) == 0 && GenesisBlocks.trees.getVariant(leaves).getFruitType() == EnumTree.FruitType.LEAVES)
-			{
+			if (state == leaves
+					&& world.rand.nextInt(6) == 0
+					&& GenesisBlocks.trees.getVariant(leaves).getFruitType() == EnumTree.FruitType.LEAVES)
 				state = GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES_FRUIT, GenesisBlocks.trees.getVariant(leaves));
-			}
 			
-			if (world.getBlockState(pos.down()) == this.hangingFruit)
-			{
-				world.setBlockState(pos.down(), Blocks.air.getDefaultState());
-			}
+			BlockPos below = pos.down();
+			IBlockState stateBelow = world.getBlockState(below);
+			
+			if (stateBelow == hangingFruit)
+				world.setBlockState(below, Blocks.air.getDefaultState());
 			
 			if (notify)
-			{
 				world.setBlockState(pos, state, 3);
-			}
 			else
-			{
 				world.setBlockState(pos, state, 2);
-			}
 			
-			if (this.hangingFruit != null && state == leaves)
-			{
-				if (world.getBlockState(pos.down()).getBlock().isAir(world, pos.down()) && world.rand.nextInt(10) == 0)
-				{
-					world.setBlockState(pos.down(), this.hangingFruit);
-				}
-			}
+			if (hangingFruit != null && state == leaves
+					&& world.rand.nextInt(10) == 0
+					&& stateBelow.getBlock().isAir(stateBelow, world, below))
+				world.setBlockState(below, hangingFruit);
 		}
 	}
 	
-	protected boolean isCubeClear(World world, BlockPos pos, int radius, int height)
+	protected boolean isCubeClear(IBlockAccess world, BlockPos pos, int radius, int height)
 	{
 		Iterable<BlockPos> posList = BlockPos.getAllInBox(pos.add(-radius, 0, -radius), pos.add(radius, height, radius));
 		
 		for (BlockPos checkPos : posList)
 		{
-			if (!world.isAirBlock(checkPos) && !world.getBlockState(checkPos).getBlock().isLeaves(world, pos))
+			IBlockState checkState = world.getBlockState(checkPos);
+			
+			if (!checkState.getBlock().isAir(checkState, world, checkPos)
+					&& !checkState.getBlock().isLeaves(checkState, world, pos))
 			{
 				return false;
 			}
@@ -376,8 +440,8 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	}
 	
 	@Override
-	protected boolean func_150523_a(Block block)
+	protected boolean canGrowInto(Block block)
 	{
-		return block == GenesisBlocks.moss || super.func_150523_a(block);
+		return block == GenesisBlocks.moss || super.canGrowInto(block);
 	}
 }

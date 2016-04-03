@@ -1,10 +1,10 @@
-package genesis.util.random;
+package genesis.util.random.d;
 
 import java.util.Random;
 
 import net.minecraft.util.math.MathHelper;
 
-public abstract class DoubleRange implements Range<Double>
+public interface DoubleRange
 {
 	public static DoubleRange create(double value)
 	{
@@ -21,7 +21,11 @@ public abstract class DoubleRange implements Range<Double>
 		return new Range(min, max);
 	}
 	
-	protected static class Range extends DoubleRange
+	public double get(Random rand);
+	public double getMin();
+	public double getMax();
+	
+	static class Range implements DoubleRange
 	{
 		public final double min;
 		public final double max;
@@ -33,25 +37,25 @@ public abstract class DoubleRange implements Range<Double>
 		}
 		
 		@Override
-		public Double get(Random rand)
+		public double get(Random rand)
 		{
 			return MathHelper.getRandomDoubleInRange(rand, min, max);
 		}
 		
 		@Override
-		public Double getMin()
+		public double getMin()
 		{
 			return min;
 		}
 		
 		@Override
-		public Double getMax()
+		public double getMax()
 		{
 			return max;
 		}
 	}
 	
-	protected static class Value extends DoubleRange
+	static class Value implements DoubleRange
 	{
 		public final double value;
 		
@@ -61,19 +65,19 @@ public abstract class DoubleRange implements Range<Double>
 		}
 		
 		@Override
-		public Double get(Random rand)
+		public double get(Random rand)
 		{
 			return value;
 		}
 		
 		@Override
-		public Double getMin()
+		public double getMin()
 		{
 			return value;
 		}
 		
 		@Override
-		public Double getMax()
+		public double getMax()
 		{
 			return value;
 		}

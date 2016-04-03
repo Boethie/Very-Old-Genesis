@@ -1,10 +1,10 @@
-package genesis.util.random;
+package genesis.util.random.i;
 
 import java.util.Random;
 
 import net.minecraft.util.math.MathHelper;
 
-public abstract class IntRange implements Range<Integer>
+public abstract class IntRange implements RandomIntProvider
 {
 	public static IntRange create(int value)
 	{
@@ -21,7 +21,10 @@ public abstract class IntRange implements Range<Integer>
 		return new Range(min, max);
 	}
 	
-	protected static class Range extends IntRange
+	public abstract int getMin();
+	public abstract int getMax();
+	
+	private static class Range extends IntRange
 	{
 		private final int min;
 		private final int max;
@@ -33,25 +36,25 @@ public abstract class IntRange implements Range<Integer>
 		}
 		
 		@Override
-		public Integer get(Random rand)
+		public int get(Random rand)
 		{
 			return MathHelper.getRandomIntegerInRange(rand, min, max);
 		}
 		
 		@Override
-		public Integer getMin()
+		public int getMin()
 		{
 			return min;
 		}
 		
 		@Override
-		public Integer getMax()
+		public int getMax()
 		{
 			return max;
 		}
 	}
 	
-	protected static class Value extends IntRange
+	private static class Value extends IntRange
 	{
 		public final int value;
 		
@@ -61,19 +64,19 @@ public abstract class IntRange implements Range<Integer>
 		}
 		
 		@Override
-		public Integer get(Random rand)
+		public int get(Random rand)
 		{
 			return value;
 		}
 		
 		@Override
-		public Integer getMin()
+		public int getMin()
 		{
 			return value;
 		}
 		
 		@Override
-		public Integer getMax()
+		public int getMax()
 		{
 			return value;
 		}

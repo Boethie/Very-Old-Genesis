@@ -11,7 +11,7 @@ import genesis.block.tileentity.render.TileEntityCampfireRenderer;
 import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
 import genesis.util.gui.RestrictedDisabledSlot.IInventoryDisabledSlots;
-import genesis.util.random.FloatRange;
+import genesis.util.random.f.FloatRange;
 import net.minecraft.block.*;
 import net.minecraft.block.state.*;
 import net.minecraft.entity.player.*;

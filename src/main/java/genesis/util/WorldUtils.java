@@ -1,7 +1,7 @@
 package genesis.util;
 
-import genesis.util.random.DoubleRange;
-import genesis.util.random.IntRange;
+import genesis.util.random.d.DoubleRange;
+import genesis.util.random.i.IntRange;
 
 import java.util.ArrayList;
 import java.util.Collections;

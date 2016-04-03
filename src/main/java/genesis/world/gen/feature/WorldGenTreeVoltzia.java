@@ -2,12 +2,14 @@ package genesis.world.gen.feature;
 
 import java.util.Random;
 
-import genesis.combo.TreeBlocksAndItems;
+import com.google.common.base.Predicates;
+
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
+import genesis.util.random.i.IntRange;
+
 import net.minecraft.block.BlockDirt;
-import net.minecraft.block.BlockLog;
-import net.minecraft.block.BlockLog.EnumAxis;
+import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -16,45 +18,30 @@ public class WorldGenTreeVoltzia extends WorldGenTreeBase
 {
 	public WorldGenTreeVoltzia (int minHeight, int maxHeight, boolean notify)
 	{
-		super(
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LOG, EnumTree.VOLTZIA).withProperty(BlockLog.LOG_AXIS, EnumAxis.Y),
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES, EnumTree.VOLTZIA),
-				notify);
+		super(EnumTree.VOLTZIA, IntRange.create(minHeight, maxHeight), notify);
 		
-		this.notify = notify;
-		
-		this.minHeight = minHeight;
-		this.maxHeight = maxHeight;
-		
-		this.addAllowedBlocks(GenesisBlocks.moss.getBlockState(), Blocks.dirt.getBlockState(), Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT).getBlock().getBlockState());
+		setSoilPredicate(Predicates.and(BlockStateMatcher.forBlock(GenesisBlocks.moss),
+				BlockStateMatcher.forBlock(Blocks.dirt)
+						.where(BlockDirt.VARIANT, (v) -> v == BlockDirt.DirtType.DIRT || v == BlockDirt.DirtType.COARSE_DIRT)));
 	}
 	
 	@Override
-	public boolean generate(World world, Random rand, BlockPos pos)
+	public boolean doGenerate(World world, Random rand, BlockPos pos)
 	{
-		pos = getTreePos(world, pos);
+		int height = heightProvider.get(rand);
 		
-		if (!canTreeGrow(world, pos))
+		if (!isCubeClear(world, pos, 1, height))
 			return false;
 		
-		if (rand.nextInt(rarity) != 0)
-			return false;
 		
-		int treeHeight = minHeight + rand.nextInt(maxHeight - minHeight);
-		
-		if (!isCubeClear(world, pos.up(), 1, treeHeight))
-		{
-			return false;
-		}
-		
-		for (int i = 0; i < treeHeight; i++)
+		for (int i = 0; i < height; i++)
 		{
 			setBlockInWorld(world, pos.up(i), wood);
 		}
 		
-		BlockPos branchPos = pos.up(treeHeight - 2);
+		BlockPos branchPos = pos.up(height - 2);
 		
-		doPineTopLeaves(world, pos, branchPos, treeHeight, pos.getY() + 1, rand, false, 2, true, false);
+		doPineTopLeaves(world, pos, branchPos, height, pos.getY() + 1, rand, false, 2, true, false);
 		
 		return true;
 	}

@@ -5,31 +5,29 @@ import java.util.Random;
 import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
-import net.minecraft.block.BlockLog;
-import net.minecraft.block.BlockLog.EnumAxis;
+import genesis.util.random.i.IntRange;
+
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 {
+	public static enum MetasequoiaType
+	{
+		SIZE_1, SIZE_2;
+	}
+	
 	private boolean generateRandomSaplings = true;
-	private int treeType = 0;
+	private MetasequoiaType treeType = MetasequoiaType.SIZE_1;
 	
 	public WorldGenTreeMetasequoia(int minHeight, int maxHeight, boolean notify)
 	{
-		super(
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LOG, EnumTree.METASEQUOIA).withProperty(BlockLog.LOG_AXIS, EnumAxis.Y),
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES, EnumTree.METASEQUOIA),
-				notify);
-		
-		this.notify = notify;
-		
-		this.minHeight = minHeight;
-		this.maxHeight = maxHeight;
+		super(EnumTree.METASEQUOIA, IntRange.create(minHeight, maxHeight), notify);
 	}
 	
-	public WorldGenTreeMetasequoia setType(int type)
+	public WorldGenTreeMetasequoia setType(MetasequoiaType type)
 	{
 		treeType = type;
 		return this;
@@ -42,53 +40,38 @@ public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 	}
 	
 	@Override
-	public boolean generate(World world, Random rand, BlockPos pos)
+	public boolean doGenerate(World world, Random rand, BlockPos pos)
 	{
-		pos = getTreePos(world, pos);
+		int height = heightProvider.get(rand);
 		
-		if (
-				(treeType == 1
-						&& (!canTreeGrow(world, pos.add(0, 0, 0))
-								|| !canTreeGrow(world, pos.add(1, 0, 1))
-								|| !canTreeGrow(world, pos.add(1, 0, 0))
-								|| !canTreeGrow(world, pos.add(0, 0, 1))))
-				|| (treeType == 0 && !canTreeGrow(world, pos)))
+		if (!isCubeClear(world, pos, treeType == MetasequoiaType.SIZE_1 ? 2 : 3, height))
 			return false;
 		
-		if (rand.nextInt(rarity) != 0)
+		BlockPos checkPos = pos;
+		
+		if (treeType == MetasequoiaType.SIZE_2
+				&& (getTreePos(world, checkPos = checkPos.east()) == null
+					|| getTreePos(world, checkPos = checkPos.south()) == null)
+					|| getTreePos(world, checkPos = checkPos.west()) == null)
 			return false;
 		
-		int treeHeight = minHeight + rand.nextInt(maxHeight - minHeight);
-		
-		if (!isCubeClear(world, pos.up(), (treeType == 0)? 2 : 3, treeHeight))
+		for (int i = 0; i < height; i++)
 		{
-			return false;
-		}
-		
-		if (treeType == 1)
-		{
-			setBlockInWorld(world, pos.add(1, 0, 0), wood, true);
-			setBlockInWorld(world, pos.add(0, 0, 1), wood, true);
-			setBlockInWorld(world, pos.add(1, 0, 1), wood, true);
-			setBlockInWorld(world, pos.add(0, 0, 0), wood, true);
-		}
-		
-		for (int i = 0; i < treeHeight; i++)
-		{
-			if (treeType == 1)
+			switch (treeType)
 			{
-				setBlockInWorld(world, pos.up(i).add(1, 0, 0), wood);
-				setBlockInWorld(world, pos.up(i).add(0, 0, 1), wood);
-				setBlockInWorld(world, pos.up(i).add(1, 0, 1), wood);
-				setBlockInWorld(world, pos.up(i).add(0, 0, 0), wood);
-			}
-			else
-			{
+			case SIZE_1:
 				setBlockInWorld(world, pos.up(i), wood);
+				break;
+			case SIZE_2:
+				setBlockInWorld(world, pos.add(1, i, 0), wood);
+				setBlockInWorld(world, pos.add(0, i, 1), wood);
+				setBlockInWorld(world, pos.add(1, i, 1), wood);
+				setBlockInWorld(world, pos.add(0, i, 0), wood);
+				break;
 			}
 		}
 		
-		BlockPos branchPos = pos.up(treeHeight - 1);
+		BlockPos branchPos = pos.up(height - 1);
 		
 		int leavesBase = 0;
 		boolean alternate = false;
@@ -99,15 +82,14 @@ public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 		
 		switch (treeType)
 		{
-		case 1:
-			doPineTopLeaves(world, pos, branchPos.add(0, 0, 0), treeHeight, leavesBase, rand, alternate, irregular, inverted);
-			doPineTopLeaves(world, pos, branchPos.add(1, 0, 1), treeHeight, leavesBase, rand, alternate, irregular, inverted);
-			doPineTopLeaves(world, pos, branchPos.add(1, 0, 0), treeHeight, leavesBase, rand, alternate, irregular, inverted);
-			doPineTopLeaves(world, pos, branchPos.add(0, 0, 1), treeHeight, leavesBase, rand, alternate, irregular, inverted);
-			
+		case SIZE_1:
+			doPineTopLeaves(world, pos, branchPos, height, leavesBase, rand, alternate, irregular, inverted);
 			break;
-		default:
-			doPineTopLeaves(world, pos, branchPos, treeHeight, leavesBase, rand, alternate, irregular, inverted);
+		case SIZE_2:
+			doPineTopLeaves(world, pos, branchPos.add(0, 0, 0), height, leavesBase, rand, alternate, irregular, inverted);
+			doPineTopLeaves(world, pos, branchPos.add(1, 0, 1), height, leavesBase, rand, alternate, irregular, inverted);
+			doPineTopLeaves(world, pos, branchPos.add(1, 0, 0), height, leavesBase, rand, alternate, irregular, inverted);
+			doPineTopLeaves(world, pos, branchPos.add(0, 0, 1), height, leavesBase, rand, alternate, irregular, inverted);
 			break;
 		}
 		
@@ -115,17 +97,23 @@ public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 		{
 			int saplingCount = rand.nextInt(5);
 			BlockPos posSapling;
-			for (int si = 1; si <= saplingCount; ++si)
+			
+			for (int i = 1; i <= saplingCount; ++i)
 			{
 				posSapling = pos.add(rand.nextInt(9) - 4, 0, rand.nextInt(9) - 4);
 				
-				if (
-						posSapling != null
-						&& world.getBlockState(posSapling.up()).getBlock().isAir(world, posSapling)
-						&& world.getBlockState(posSapling).getBlock().canSustainPlant(world, posSapling, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.METASEQUOIA)))
-				{
-					setBlockInWorld(world, posSapling.up(), GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.SAPLING, EnumTree.METASEQUOIA));
-				}
+				IBlockState checkState = world.getBlockState(posSapling);
+				
+				if (!checkState.getBlock().canSustainPlant(checkState, world, posSapling, EnumFacing.UP,
+							GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.METASEQUOIA)))
+					continue;
+				
+				checkState = world.getBlockState(posSapling.up());
+				
+				if (!checkState.getBlock().isAir(checkState, world, posSapling.up()))
+					continue;
+				
+				setBlockInWorld(world, posSapling.up(), GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.SAPLING, EnumTree.METASEQUOIA));
 			}
 		}
 		

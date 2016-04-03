@@ -1,6 +1,6 @@
 package genesis.entity.effect;
 
-import genesis.util.random.DoubleRange;
+import genesis.util.random.d.DoubleRange;
 import net.minecraft.client.particle.*;
 import net.minecraft.world.World;
 

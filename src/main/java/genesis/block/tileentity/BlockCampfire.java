@@ -3,7 +3,7 @@ package genesis.block.tileentity;
 import java.util.*;
 
 import genesis.util.*;
-import genesis.util.random.DoubleRange;
+import genesis.util.random.d.DoubleRange;
 import genesis.client.*;
 import genesis.common.*;
 import genesis.sounds.GenesisSoundEvents;

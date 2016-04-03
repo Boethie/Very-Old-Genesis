@@ -101,7 +101,7 @@ public class WorldGenGenesisLakes extends WorldGenerator
 				{
 					if (!is(isLake, x, y, z) && neighborIs(isLake, x, y, z))
 					{
-						Material material = world.getBlockState(pos.add(x, y, z)).getBlock().getMaterial();
+						Material material = world.getBlockState(pos.add(x, y, z)).getMaterial();
 						
 						if (y >= top ?
 								material.isLiquid() :
@@ -160,7 +160,7 @@ public class WorldGenGenesisLakes extends WorldGenerator
 						{
 							BlockPos replacePos = pos.add(x, y, z);
 							
-							if ((y < top || rand.nextInt(2) != 0) && world.getBlockState(replacePos).getBlock().getMaterial().isSolid())
+							if ((y < top || rand.nextInt(2) != 0) && world.getBlockState(replacePos).getMaterial().isSolid())
 								world.setBlockState(replacePos, GenesisBlocks.komatiite.getDefaultState(), 2);
 						}
 					}
@@ -168,7 +168,7 @@ public class WorldGenGenesisLakes extends WorldGenerator
 			}
 		}
 		
-		if (filler.getBlock().getMaterial() == Material.water)
+		if (filler.getMaterial() == Material.water)
 		{
 			for (x = 0; x <= SIZE_X; x++)
 			{

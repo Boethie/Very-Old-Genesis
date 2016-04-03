@@ -14,6 +14,7 @@ import genesis.item.ItemBlockMulti;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.WorldUtils;
 import genesis.world.gen.feature.*;
+import genesis.world.gen.feature.WorldGenTreeMetasequoia.MetasequoiaType;
 
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.SoundType;
@@ -29,7 +30,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
+
 import net.minecraftforge.common.EnumPlantType;
 
 public class BlockGenesisSaplings extends BlockSapling
@@ -107,7 +108,7 @@ public class BlockGenesisSaplings extends BlockSapling
 	@Override
 	public void generateTree(World world, BlockPos pos, IBlockState state, Random rand)
 	{
-		WorldGenAbstractTree gen = null;
+		WorldGenTreeBase gen = null;
 		BlockPos[] positions = {pos};
 		EnumTree variant = state.getValue(variantProp);
 		
@@ -129,7 +130,7 @@ public class BlockGenesisSaplings extends BlockSapling
 			gen = new WorldGenTreePsaronius(5, 8, true);
 			break;
 		case ARAUCARIOXYLON:
-			gen = new WorldGenTreeAraucarioxylon(25, 30, true).setGenerateRandomSaplings(false);
+			gen = new WorldGenTreeAraucarioxylon(25, 30, true);
 			break;
 		case BJUVIA:
 			gen = new WorldGenTreeBjuvia(4, 6, true);
@@ -143,7 +144,7 @@ public class BlockGenesisSaplings extends BlockSapling
 			int treeType = (positions.length > 1)? 1 : 0;
 			int minHeight = (treeType == 1)? 23 : 20;
 			int maxHeight = (treeType == 1)? 27 : 24;
-			gen = new WorldGenTreeMetasequoia(minHeight, maxHeight, true).setType(treeType);
+			gen = new WorldGenTreeMetasequoia(minHeight, maxHeight, true).setType(MetasequoiaType.SIZE_2);
 			break;
 		case GINKGO:
 			gen = new WorldGenTreeGinkgo(12, 17, true);
@@ -163,6 +164,8 @@ public class BlockGenesisSaplings extends BlockSapling
 		default:
 			break;
 		}
+		
+		gen.noSaplings();	// Make the generator not place saplings around the tree.
 		
 		if (gen != null)
 		{

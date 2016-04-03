@@ -2,9 +2,9 @@ package genesis.world.gen.feature;
 
 import java.util.Random;
 
-import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumTree;
-import genesis.common.GenesisBlocks;
+import genesis.util.random.i.IntRange;
+
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.util.math.BlockPos;
@@ -14,40 +14,22 @@ public class WorldGenTreeFicus extends WorldGenTreeBase
 {
 	public WorldGenTreeFicus(int minHeight, int maxHeight, boolean notify)
 	{
-		super(
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LOG, EnumTree.FICUS).withProperty(BlockLog.LOG_AXIS, EnumAxis.Y),
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES, EnumTree.FICUS),
-				notify);
-		
-		this.notify = notify;
-		
-		this.minHeight = minHeight;
-		this.maxHeight = maxHeight;
+		super(EnumTree.FICUS, IntRange.create(minHeight, maxHeight), notify);
 	}
 	
 	@Override
-	public boolean generate(World world, Random rand, BlockPos pos)
+	protected boolean doGenerate(World world, Random rand, BlockPos pos)
 	{
-		pos = getTreePos(world, pos);
-		
-		if (!canTreeGrow(world, pos))
-			return false;
-		
-		if (rand.nextInt(rarity) != 0)
-			return false;
-		
-		int treeHeight = minHeight + rand.nextInt(maxHeight - minHeight);
+		int height = heightProvider.get(rand);
 		int base = 3 + rand.nextInt(3);
 		
-		if (!isCubeClear(world, pos.up(base), 5, treeHeight))
-		{
+		if (!isCubeClear(world, pos.up(base), 5, height))
 			return false;
-		}
 		
 		int mainBranches = 1 + rand.nextInt(8);
 		
 		for (int i = 0; i < mainBranches; ++i)
-			branchUp(world, pos, rand, treeHeight, base);
+			branchUp(world, pos, rand, height, base);
 		
 		return true;
 	}

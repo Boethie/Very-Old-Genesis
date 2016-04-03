@@ -25,7 +25,7 @@ public class WorldGenGenesisSand extends WorldGenerator
 	@Override
 	public boolean generate(World world, Random rand, BlockPos position)
 	{
-		if (world.getBlockState(position).getBlock().getMaterial() != Material.water)
+		if (world.getBlockState(position).getMaterial() != Material.water)
 		{
 			return false;
 		}

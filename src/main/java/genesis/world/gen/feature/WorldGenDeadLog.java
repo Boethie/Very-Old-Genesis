@@ -3,6 +3,7 @@ package genesis.world.gen.feature;
 import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
+import genesis.util.random.i.IntRange;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,12 +20,16 @@ public class WorldGenDeadLog extends WorldGenTreeBase
 	private List<IBlockState> topDecorations = new ArrayList<IBlockState>();
 	private int treeType = 0;
 	
+	private int minHeight;
+	private int maxHeight;
+	
 	public WorldGenDeadLog(int minLength, int maxLength, EnumTree treeType, boolean notify)
 	{
-		super(GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.DEAD_LOG, treeType),
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES, treeType), notify);
-		
-		this.notify = notify;
+		super(GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.SAPLING, treeType),
+				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.DEAD_LOG, treeType),
+				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES, treeType),
+				null,
+				IntRange.create(minLength, maxLength), notify);
 		
 		this.minHeight = minLength;
 		this.maxHeight = maxLength;
@@ -43,48 +48,32 @@ public class WorldGenDeadLog extends WorldGenTreeBase
 	}
 	
 	@Override
-	public boolean generate(World world, Random rand, BlockPos pos)
+	public boolean doGenerate(World world, Random rand, BlockPos pos)
 	{
-		try
-		{
-			pos = getTreePos(world, pos);
-			
-			if (!canTreeGrow(world, pos))
-				return false;
-			
-			if (rand.nextInt(rarity) != 0)
-				return false;
-			
-			int length = minHeight + rand.nextInt(maxHeight);
-			
-			if (!isCubeClear(world, pos.up(), length, 1))
-			{
-				return false;
-			}
-			
-			switch (treeType)
-			{
-				case 0:
-					generateLogs(world, rand, pos, 1, 1);
-					break;
-				case 1:
-					generateLogs(world, rand, pos, 2, 2);
-					break;
-				default:
-					generateLogs(world, rand, pos, 1, 1);
-					break;
-			}
-			return true;
-		}
-		catch (Exception e)
-		{
+		int length = heightProvider.get(rand);
+		
+		if (!isCubeClear(world, pos, length, 1))
 			return false;
+		
+		switch (treeType)
+		{
+			case 0:
+				generateLogs(world, rand, pos, 1, 1);
+				break;
+			case 1:
+				generateLogs(world, rand, pos, 2, 2);
+				break;
+			default:
+				generateLogs(world, rand, pos, 1, 1);
+				break;
 		}
+		
+		return true;
 	}
 	
 	private void generateLogs(World world, Random rand, BlockPos pos, int logWidth, int logHeight)
 	{
-		int length = minHeight + rand.nextInt(maxHeight);
+		int length = minHeight + rand.nextInt(maxHeight);	// TODO: Update to use length parameter from doGenerate?
 		int lengthTop = rand.nextInt(maxHeight) / 2 + 1;
 		int logOffset = rand.nextInt(3);
 		int currentLogLength = length;

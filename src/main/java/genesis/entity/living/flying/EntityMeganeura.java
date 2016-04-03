@@ -12,7 +12,7 @@ import genesis.entity.fixed.EntityMeganeuraEgg;
 import genesis.entity.living.IEntityPreferredBiome;
 import genesis.sounds.GenesisSoundEvents;
 import genesis.util.*;
-import genesis.util.random.DoubleRange;
+import genesis.util.random.d.DoubleRange;
 import genesis.util.sound.SoundUtils;
 
 import static genesis.entity.living.flying.EntityMeganeura.State.*;
