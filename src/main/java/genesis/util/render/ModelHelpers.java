@@ -682,9 +682,9 @@ public class ModelHelpers
 						return actualState.getLightOpacity(world, pos);
 					}
 					@Override
-					public int getlightValue()
+					public int getLightValue()
 					{
-						return actualState.getlightValue();
+						return actualState.getLightValue();
 					}
 					@Override
 					public int getLightValue(IBlockAccess world, BlockPos pos)
