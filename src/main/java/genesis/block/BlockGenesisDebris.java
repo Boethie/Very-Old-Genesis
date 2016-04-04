@@ -7,8 +7,8 @@ import genesis.combo.variant.EnumDebrisOther;
 import genesis.combo.variant.IMetadata;
 import genesis.combo.variant.MultiMetadataList.MultiMetadata;
 import genesis.common.GenesisCreativeTabs;
-import genesis.common.GenesisSounds;
 import genesis.item.ItemBlockMulti;
+import genesis.sounds.GenesisSoundTypes;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.random.drops.blocks.BlockDrop;
 
@@ -47,7 +47,7 @@ public class BlockGenesisDebris extends BlockGenesisVariants<MultiMetadata>
 	public BlockGenesisDebris(DebrisBlocks owner, ObjectType<BlockGenesisDebris, ItemBlockMulti<MultiMetadata>> type,
 			List<MultiMetadata> variants, Class<MultiMetadata> variantClass)
 	{
-		super(owner, type, variants, variantClass, Material.vine, GenesisSounds.DEBRIS);
+		super(owner, type, variants, variantClass, Material.vine, GenesisSoundTypes.DEBRIS);
 		
 		debrisOwner = owner;
 		

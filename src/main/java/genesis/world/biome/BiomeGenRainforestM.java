@@ -16,8 +16,8 @@ public class BiomeGenRainforestM extends BiomeGenRainforest
 	protected void addDecorations()
 	{
 		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(4).setCountPerChunk(1));
-		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).addBlocks(GenesisBlocks.rhyolite.getDefaultState()).setRarity(9).setCountPerChunk(1));
-		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).addBlocks(GenesisBlocks.dolerite.getDefaultState()).setRarity(9).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders(GenesisBlocks.rhyolite.getDefaultState()).setWaterRequired(false).setMaxHeight(3).setRarity(9).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders(GenesisBlocks.dolerite.getDefaultState()).setWaterRequired(false).setMaxHeight(3).setRarity(9).setCountPerChunk(1));
 		addDecoration(new WorldGenDebris().setCountPerChunk(28));
 	}
 	

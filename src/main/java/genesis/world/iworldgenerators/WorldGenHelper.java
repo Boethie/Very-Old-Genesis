@@ -26,13 +26,14 @@ public class WorldGenHelper
 	
 	public static boolean isGround(World world, BlockPos pos)
 	{
-		Block block = world.getBlockState(pos).getBlock();
-		return !(block.isReplaceable(world, pos) || !block.isFullCube() || block.isWood(world, pos) || block.isLeaves(world, pos));
+		IBlockState state = world.getBlockState(pos);
+		Block block = state.getBlock();
+		return !(block.isReplaceable(world, pos) || !block.isFullCube(state) || block.isWood(world, pos) || block.isLeaves(state, world, pos));
 	}
 	
 	public static class RandomStates
 	{
-		private ArrayList<RandomState> blocks = new ArrayList<RandomState>();
+		private ArrayList<RandomState> blocks = new ArrayList<>();
 		
 		public RandomStates(RandomState... blocks)
 		{

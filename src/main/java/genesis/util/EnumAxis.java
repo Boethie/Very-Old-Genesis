@@ -48,7 +48,7 @@ public enum EnumAxis implements IMetadata<EnumAxis>
 	
 	public static EnumAxis getForAngle(float rotationYaw)
 	{
-		rotationYaw = MathHelper.wrapAngleTo180_float(rotationYaw);
+		rotationYaw = MathHelper.wrapDegrees(rotationYaw);
 		
 		if (rotationYaw < 0)
 		{

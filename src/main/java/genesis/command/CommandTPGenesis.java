@@ -1,6 +1,5 @@
 package genesis.command;
 
-import genesis.common.GenesisConfig;
 import genesis.common.GenesisDimensions;
 
 import java.util.List;
@@ -11,6 +10,7 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.DimensionType;
 
 import com.google.common.collect.Lists;
 
@@ -40,11 +40,11 @@ public class CommandTPGenesis implements ICommand
 		if (sender instanceof Entity)
 		{
 			Entity entity = (Entity) sender;
-			int dimension = GenesisConfig.genesisDimId;
+			DimensionType dimension = GenesisDimensions.GENESIS_DIMENSION;
 			
-			if (entity.dimension == dimension)
+			if (entity.dimension == dimension.getId())
 			{
-				dimension = 0;
+				dimension = DimensionType.OVERWORLD;
 			}
 			
 			GenesisDimensions.teleportToDimension(entity, null, dimension, true);

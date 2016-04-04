@@ -156,8 +156,7 @@ public class BlockRoots extends BlockGenesis
 	}
 	
 	private IBlockState getCorrectState(World world, BlockPos pos)
-	{
-		IBlockState state = world.getBlockState(pos);
+	{	// TODO: Needs to be changed to getActualState because we shouldn't be storing any properties for this block.
 		return getDefaultState().withProperty(END, !world.isSideSolid(pos, EnumFacing.UP));
 	}
 	

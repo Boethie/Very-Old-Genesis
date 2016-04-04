@@ -4,8 +4,8 @@ import genesis.combo.ObjectType;
 import genesis.combo.VariantsOfTypesCombo;
 import genesis.combo.VariantsOfTypesCombo.BlockProperties;
 import genesis.combo.variant.EnumTree;
-import genesis.common.GenesisSounds;
 import genesis.item.ItemBlockMulti;
+import genesis.sounds.GenesisSoundTypes;
 
 import java.util.*;
 
@@ -27,7 +27,7 @@ public class BlockGenesisDeadLogs extends BlockGenesisLogs implements IGenesisMu
 	{
 		super(owner, type, variants, variantClass);
 		
-		setSoundType(GenesisSounds.DEAD_LOG);
+		setSoundType(GenesisSoundTypes.DEAD_LOG);
 	}
 	
 	@Override

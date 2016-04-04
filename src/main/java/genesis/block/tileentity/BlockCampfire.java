@@ -3,10 +3,10 @@ package genesis.block.tileentity;
 import java.util.*;
 
 import genesis.util.*;
-import genesis.util.Constants.Sounds;
-import genesis.util.random.DoubleRange;
+import genesis.util.random.d.DoubleRange;
 import genesis.client.*;
 import genesis.common.*;
+import genesis.sounds.GenesisSoundEvents;
 import genesis.block.tileentity.render.TileEntityCampfireRenderer;
 
 import net.minecraft.block.*;
@@ -264,7 +264,7 @@ public class BlockCampfire extends Block
 	@SuppressWarnings("serial")
 	protected final Map<ItemStackKey, SoundEvent> lighterItems = new HashMap<ItemStackKey, SoundEvent>(){{
 		put(new ItemStackKey(Items.flint_and_steel), SoundEvents.item_flintandsteel_use);
-		//TODO: put(new ItemStackKey(GenesisItems.flint_and_marcasite), Sounds.IGNITE_FIRE);
+		put(new ItemStackKey(GenesisItems.flint_and_marcasite), GenesisSoundEvents.item_flintandmarcasite_use);
 	}};
 	
 	/**

@@ -3,8 +3,8 @@ package genesis.world.biome.gen.feature;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -53,22 +53,18 @@ public class WorldGenGenesisSurfacePatch extends WorldGenerator
 	@Override
 	public boolean generate(World world, Random rand, BlockPos pos)
 	{
-		Block block;
-		
 		do
 		{
-			block = world.getBlockState(pos).getBlock();
+			IBlockState state = world.getBlockState(pos);
 			
-			if (block == Blocks.water)
+			if (state.getMaterial() == Material.water)
 				return false;
 			
-			if (
-					!world.isAirBlock(pos)
-					&& !block.isLeaves(world.getBlockState(pos), world, pos)
-			)
-			{
+			if (!state.getBlock().isAir(state, world, pos)
+					&& !state.getBlock().isLeaves(state, world, pos))
+				
 				break;
-			}
+			
 			pos = pos.down();
 		}
 		while (pos.getY() > 0);
@@ -107,7 +103,6 @@ public class WorldGenGenesisSurfacePatch extends WorldGenerator
 		int x, y, z;
 		
 		IBlockState currentState = filler;
-		Block blockToReplace;
 		
 		for (x = 0; x <= SIZE_X; ++x)
 		{
@@ -119,8 +114,8 @@ public class WorldGenGenesisSurfacePatch extends WorldGenerator
 					{
 						if (world.isBlockLoaded(pos.add(x, y, z)))
 						{
-							block = world.getBlockState(pos.add(x, y, z)).getBlock();
-							blockToReplace = world.getBiomeGenForCoords(pos.add(x, y, z)).topBlock.getBlock();
+							IBlockState state = world.getBlockState(pos.add(x, y, z));
+							Block blockToReplace = world.getBiomeGenForCoords(pos.add(x, y, z)).topBlock.getBlock();
 							/*
 							if (rand.nextInt(3) == 0)
 							{
@@ -130,9 +125,8 @@ public class WorldGenGenesisSurfacePatch extends WorldGenerator
 									currentState = filler;
 							}
 							*/
-							if (
-									block.getDefaultState() == blockToReplace.getDefaultState()
-									&& !(world.getBlockState(pos.add(x, y, z).up()).getBlock() == Blocks.water))
+							if (state.getBlock() == blockToReplace
+									&& world.getBlockState(pos.add(x, y, z).up()).getMaterial() != Material.water)
 								world.setBlockState(pos.add(x, y, z), currentState, 2);
 						}
 					}

@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenTaiga;
+import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
@@ -17,9 +18,6 @@ import java.util.Random;
 
 import static genesis.world.WorldGenerators.menhirActivatorsOverworld;
 
-/**
- * Created by Vorquel on 10/27/15
- */
 public class WorldGenMenhirActivators implements IWorldGenerator
 {
 	private List<MenhirStructure> structures = Lists.newArrayList();
@@ -92,7 +90,7 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 	}
 	
 	@Override
-	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider)
+	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider)
 	{
 		BlockPos chunkPos = new BlockPos(chunkX << 4, 0, chunkZ << 4);
 		
@@ -129,7 +127,7 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 		for (BlockPos offset : structure.get(random, StructureType.AIR))
 			world.setBlockToAir(center.add(offset));
 		
-		ArrayList<ItemStack> loot = new ArrayList<ItemStack>();
+		ArrayList<ItemStack> loot = new ArrayList<>();
 		for (ItemStack stack : menhirActivatorsOverworld)
 			loot.add(stack.copy());
 		

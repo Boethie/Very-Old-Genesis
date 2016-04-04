@@ -16,9 +16,9 @@ public class DecimalStackProvider extends AbstractStackProvider
 	}
 	
 	@Override
-	public Integer get(Random rand)
+	public int get(Random rand)
 	{
-		int out = getMin();
+		int out = (int) Math.floor(stackSize);
 		
 		if (rand.nextFloat() <= stackSize - out)
 		{
@@ -26,17 +26,5 @@ public class DecimalStackProvider extends AbstractStackProvider
 		}
 		
 		return out;
-	}
-	
-	@Override
-	public Integer getMin()
-	{
-		return (int) Math.floor(stackSize);
-	}
-	
-	@Override
-	public Integer getMax()
-	{
-		return stackSize % 0 == 0 ? getMin() : getMin() + 1;
 	}
 }

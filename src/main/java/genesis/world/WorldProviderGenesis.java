@@ -31,12 +31,10 @@ public class WorldProviderGenesis extends WorldProvider
 	@Override
 	protected void generateLightBrightnessTable()
 	{
-		float f = 0.0F;
-		
 		for (int i = 0; i <= 15; ++i)
 		{
-			float f1 = 1 - i / 15F;
-			this.lightBrightnessTable[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * (1.0F - f) + f;
+			float levelF = 1 - i / 15F;
+			lightBrightnessTable[i] = (1 - levelF) / (levelF * 3 + 1);
 		}
 	}
 	
@@ -49,13 +47,16 @@ public class WorldProviderGenesis extends WorldProvider
 	@Override
 	protected void createBiomeProvider()
 	{
-		this.biomeProvider = new BiomeProviderGenesis(this.worldObj);
+		biomeProvider = new BiomeProviderGenesis(worldObj);
 	}
 	
 	@Override
 	public IChunkGenerator createChunkGenerator()
 	{
-		return new ChunkGeneratorGenesis(this.worldObj, this.worldObj.getSeed(), this.worldObj.getWorldInfo().isMapFeaturesEnabled(), this.worldObj.getWorldInfo().getGeneratorOptions());
+		return new ChunkGeneratorGenesis(worldObj,
+				worldObj.getSeed(),
+				worldObj.getWorldInfo().isMapFeaturesEnabled(),
+				worldObj.getWorldInfo().getGeneratorOptions());
 	}
 	
 	@Override

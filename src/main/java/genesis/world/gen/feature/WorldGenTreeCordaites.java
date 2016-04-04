@@ -1,54 +1,37 @@
 package genesis.world.gen.feature;
 
-import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumTree;
-import genesis.common.GenesisBlocks;
+import genesis.util.random.i.IntRange;
 
 import java.util.Random;
 
-import net.minecraft.block.BlockLog;
-import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class WorldGenTreeCordaites extends WorldGenTreeBase
 {
+	private int leavesStart;
+	
 	public WorldGenTreeCordaites(int minHeight, int maxHeight, boolean notify)
 	{
-		super(
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LOG, EnumTree.CORDAITES).withProperty(BlockLog.LOG_AXIS, EnumAxis.Y),
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES, EnumTree.CORDAITES),
-				notify);
+		super(EnumTree.CORDAITES, IntRange.create(minHeight, maxHeight), notify);
 		
-		this.notify = notify;
-		
-		this.minHeight = minHeight;
-		this.maxHeight = maxHeight;
+		leavesStart = minHeight - 5;
 		
 		setCanGrowInWater(true);
 	}
 	
 	@Override
-	public boolean generate(World world, Random rand, BlockPos pos)
+	protected boolean doGenerate(World world, Random rand, BlockPos pos)
 	{
-		pos = getTreePos(world, pos);
+		int height = heightProvider.get(rand);
 		
-		if (!canTreeGrow(world, pos))
+		if (!isCubeClear(world, pos, 1, height))
 			return false;
-		
-		if (rand.nextInt(rarity) != 0)
-			return false;
-		
-		int treeHeight = minHeight + rand.nextInt(maxHeight - minHeight);
-		
-		if (!isCubeClear(world, pos.up(), 1, treeHeight))
-		{
-			return false;
-		}
 		
 		int baseHeight = 2 + rand.nextInt(2);
 		
-		for (int i = baseHeight; i < treeHeight; i++)
+		for (int i = baseHeight; i < height; i++)
 		{
 			setBlockInWorld(world, pos.up(i), wood);
 		}
@@ -59,17 +42,17 @@ public class WorldGenTreeCordaites extends WorldGenTreeBase
 		generateBaseBranch(world, basePos, rand, baseHeight, 0, 1);
 		generateBaseBranch(world, basePos, rand, baseHeight, 0, -1);
 		
-		BlockPos branchPos = pos.up(treeHeight - 1);
+		BlockPos branchPos = pos.up(height - 1);
 		
-		int leavesLevel = ((pos.getY() + this.minHeight - 5) < basePos.getY())? basePos.getY() + 2 : pos.getY() + this.minHeight - 5;
+		int leavesLevel = Math.max(basePos.getY() + 2, pos.getY() + leavesStart);
 		
 		leavesLevel += rand.nextInt(3);
 		
-		branchPos = pos.up(treeHeight - 3);
+		branchPos = pos.up(height - 3);
 		
 		branchPos = branchPos.up(2);
 		
-		doPineTopLeaves(world, pos, branchPos, treeHeight, leavesLevel, rand, false, 3, false, false);
+		doPineTopLeaves(world, pos, branchPos, height, leavesLevel, rand, false, 3, false, false);
 		branchPos = new BlockPos(pos.getX(), leavesLevel, pos.getZ());
 		
 		int leaves = 1 + rand.nextInt(2);

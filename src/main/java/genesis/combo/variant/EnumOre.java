@@ -4,9 +4,9 @@ import com.google.common.collect.ImmutableSet;
 
 import genesis.combo.OreBlocks;
 import genesis.common.GenesisItems;
-import genesis.util.random.IntRange;
 import genesis.util.random.drops.blocks.*;
 import genesis.util.random.drops.blocks.BlockWeightedRandomDrop.WeightedRandomBlockDrop;
+import genesis.util.random.i.IntRange;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 

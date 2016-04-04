@@ -21,14 +21,14 @@ public class BiomeGenBeachGenesis extends BiomeGenBaseGenesis
 		
 		addDecorations();
 	}
+	
+	protected void addDecorations()
+	{
+		addDecoration(new WorldGenPebbles().setCountPerChunk(25));
 		
-		protected void addDecorations()
-		{
-			addDecoration(new WorldGenPebbles().setCountPerChunk(25));
-			
-			addDecoration(WorldGenPlant.create(EnumPlant.LEPACYCLOTES).setNextToWater(true).addAllowedBlocks(GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT), GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT)).setCountPerChunk(10).setPatchSize(4));
-			addGrassFlowers();
-		}
+		addDecoration(WorldGenPlant.create(EnumPlant.LEPACYCLOTES).setNextToWater(true).setCountPerChunk(10).setPatchSize(4));
+		addGrassFlowers();
+	}
 	
 	@Override
 	public float getNightFogModifier()

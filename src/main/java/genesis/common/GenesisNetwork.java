@@ -4,16 +4,18 @@ import java.util.*;
 
 import genesis.block.BlockPebble.PebbleBreakMessage;
 import genesis.block.tileentity.TileEntityKnapper.KnappingSlotMessage;
-import genesis.common.GenesisSounds.MovingEntitySoundMessage;
 import genesis.entity.living.flying.EntityMeganeura.MeganeuraUpdateMessage;
+import genesis.util.sound.SoundUtils;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.*;
+
 import net.minecraftforge.fml.common.network.NetworkRegistry.*;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.*;
 
 public class GenesisNetwork extends SimpleNetworkWrapper
 {
@@ -31,7 +33,7 @@ public class GenesisNetwork extends SimpleNetworkWrapper
 	
 	public void registerMessages()
 	{
-		registerMessage(new MovingEntitySoundMessage.Handler(), MovingEntitySoundMessage.class, Side.CLIENT);
+		registerMessage(new SoundUtils.MovingEntitySoundMessage.Handler(), SoundUtils.MovingEntitySoundMessage.class, Side.CLIENT);
 		registerMessage(new PebbleBreakMessage.Handler(), PebbleBreakMessage.class, Side.SERVER);
 		registerMessage(new MeganeuraUpdateMessage.Handler(), MeganeuraUpdateMessage.class, Side.CLIENT);
 		registerMessage(new KnappingSlotMessage.Handler(), KnappingSlotMessage.class, Side.SERVER);

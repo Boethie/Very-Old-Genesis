@@ -3,12 +3,10 @@ package genesis.world.gen.feature;
 import java.util.Random;
 
 import genesis.combo.SiltBlocks;
-import genesis.combo.TreeBlocksAndItems;
-import genesis.combo.variant.EnumSilt;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
-import net.minecraft.block.BlockLog;
-import net.minecraft.block.BlockLog.EnumAxis;
+import genesis.util.random.i.IntRange;
+
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -16,43 +14,25 @@ public class WorldGenTreeBjuvia extends WorldGenTreeBase
 {
 	public WorldGenTreeBjuvia(int minHeight, int maxHeight, boolean notify)
 	{
-		super(
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LOG, EnumTree.BJUVIA).withProperty(BlockLog.LOG_AXIS, EnumAxis.Y),
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES, EnumTree.BJUVIA),
-				notify);
+		super(EnumTree.BJUVIA, IntRange.create(minHeight, maxHeight), notify);
 		
-		this.notify = notify;
-		
-		this.minHeight = minHeight;
-		this.maxHeight = maxHeight;
-		
-		this.addAllowedBlocks(GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT).getBlockState(), GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.RED_SILT).getBlockState());
+		setSoilPredicate((s) -> GenesisBlocks.silt.isStateOf(s, SiltBlocks.SILT));
 	}
 	
 	@Override
-	public boolean generate(World world, Random rand, BlockPos pos)
+	protected boolean doGenerate(World world, Random rand, BlockPos pos)
 	{
-		pos = getTreePos(world, pos);
+		int height = heightProvider.get(rand);
 		
-		if (!canTreeGrow(world, pos))
+		if (!isCubeClear(world, pos, 1, height))
 			return false;
 		
-		if (rand.nextInt(rarity) != 0)
-			return false;
-		
-		int treeHeight = minHeight + rand.nextInt(maxHeight - minHeight) - 1;
-		
-		if (!isCubeClear(world, pos.up(), 1, treeHeight))
-		{
-			return false;
-		}
-		
-		for (int i = 0; i < treeHeight; i++)
+		for (int i = 0; i < height; i++)
 		{
 			setBlockInWorld(world, pos.up(i), wood);
 		}
 		
-		BlockPos branchPos = pos.up(treeHeight);
+		BlockPos branchPos = pos.up(height);
 		
 		//setBlockInWorld(world, branchPos, leaves);
 		
@@ -73,7 +53,7 @@ public class WorldGenTreeBjuvia extends WorldGenTreeBase
 	{
 		for (int i = 1; i <= length; ++ i)
 		{
-			pos = pos.add((dirX), 0, (dirZ));
+			pos = pos.add(dirX, 0, dirZ);
 			
 			if (i == length)
 				pos = pos.add(0, -1, 0);

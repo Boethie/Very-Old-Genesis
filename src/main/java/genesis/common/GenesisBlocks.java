@@ -9,32 +9,22 @@ import genesis.block.tileentity.render.*;
 import genesis.client.*;
 import genesis.combo.*;
 import genesis.combo.VariantsOfTypesCombo.*;
-import genesis.combo.variant.EnumAquaticPlant;
-import genesis.combo.variant.EnumCoral;
-import genesis.combo.variant.EnumMaterial;
-import genesis.combo.variant.EnumMenhirPart;
-import genesis.combo.variant.EnumPlant;
-import genesis.combo.variant.EnumSeeds;
-import genesis.combo.variant.IMetadata;
-import genesis.entity.extendedproperties.GenesisEntityData;
+import genesis.combo.variant.*;
 import genesis.item.*;
+import genesis.sounds.GenesisSoundTypes;
 import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
-import genesis.util.random.drops.blocks.BlockDrops;
-import genesis.util.random.drops.blocks.BlockStackDrop;
+import genesis.util.random.drops.blocks.*;
 
 import java.util.List;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemColored;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.*;
@@ -193,7 +183,7 @@ public final class GenesisBlocks
 								}
 							}.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE)
 							.setCreativeTab(GenesisCreativeTabs.DECORATIONS)
-							.setBlockArguments(Material.coral, GenesisSounds.CORAL),
+							.setBlockArguments(Material.coral, GenesisSoundTypes.CORAL),
 					EnumCoral.class, EnumCoral.values());
 	
 	public static void registerBlocks()
@@ -296,7 +286,6 @@ public final class GenesisBlocks
 		// Workbench
 		Genesis.proxy.registerBlock(workbench, "workbench");
 		GameRegistry.registerTileEntity(TileEntityKnapper.class, Constants.ASSETS_PREFIX + "workbench");
-		GenesisEntityData.registerProperty(EntityPlayer.class, TileEntityKnapper.KNAPPING_TIME);
 		
 		// Campfire
 		Genesis.proxy.registerBlock(campfire, "campfire");

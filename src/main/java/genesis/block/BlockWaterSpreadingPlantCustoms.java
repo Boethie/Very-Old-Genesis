@@ -3,7 +3,7 @@ package genesis.block;
 import genesis.block.BlockGrowingPlant.GrowingPlantProperties;
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
 import genesis.util.WorldUtils;
-import genesis.util.random.IntRange;
+import genesis.util.random.i.IntRange;
 
 import java.util.*;
 

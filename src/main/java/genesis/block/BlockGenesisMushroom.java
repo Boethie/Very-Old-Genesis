@@ -1,8 +1,9 @@
 package genesis.block;
 
 import static genesis.block.BlockGenesisMushroom.MushroomGrowType.*;
-import genesis.common.GenesisSounds;
+
 import genesis.common.GenesisBlocks;
+import genesis.sounds.GenesisSoundTypes;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.WorldUtils;
 
@@ -37,7 +38,7 @@ public class BlockGenesisMushroom extends BlockBush
 	{
 		super();
 		
-		setSoundType(GenesisSounds.MUSHROOM);
+		setSoundType(GenesisSoundTypes.MUSHROOM);
 	}
 	
 	public BlockGenesisMushroom setGrowType(MushroomGrowType type)

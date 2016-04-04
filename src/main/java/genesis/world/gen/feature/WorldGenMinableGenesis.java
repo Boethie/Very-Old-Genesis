@@ -3,10 +3,10 @@ package genesis.world.gen.feature;
 import java.util.Random;
 
 import genesis.common.GenesisBlocks;
-import genesis.util.random.IntRange;
+import genesis.util.random.i.IntRange;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.state.pattern.BlockHelper;
+import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -27,7 +27,7 @@ public class WorldGenMinableGenesis extends WorldGenMinable
 	
 	public WorldGenMinableGenesis(IBlockState ore, int minCount, int maxCount, Block targetBlock)
 	{
-		this(ore, minCount, maxCount, BlockHelper.forBlock(targetBlock));
+		this(ore, minCount, maxCount, BlockStateMatcher.forBlock(targetBlock));
 	}
 	
 	public WorldGenMinableGenesis(IBlockState ore, int minCount, int maxCount, Predicate<IBlockState> target)
@@ -95,8 +95,9 @@ public class WorldGenMinableGenesis extends WorldGenMinable
 								if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D)
 								{
 									BlockPos blockpos1 = new BlockPos(x, y, z);
+									IBlockState state = world.getBlockState(blockpos1);
 									
-									if (world.getBlockState(blockpos1).getBlock().isReplaceableOreGen(world, blockpos1, target))
+									if (state.getBlock().isReplaceableOreGen(state, world, blockpos1, target))
 									{
 										world.setBlockState(blockpos1, ore, 2);
 									}

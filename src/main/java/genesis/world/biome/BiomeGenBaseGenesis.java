@@ -153,7 +153,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 	}
 	
 	@Override
-	public void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
+	public void genTerrainBlocks(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
 	{
 		IBlockState top = getTopBlock(rand);
 		IBlockState filler = fillerBlock;

@@ -5,6 +5,7 @@ import java.util.*;
 import genesis.block.BlockGrowingPlant.*;
 import genesis.combo.variant.EnumSeeds;
 import genesis.common.*;
+import genesis.sounds.GenesisSoundTypes;
 import genesis.util.WorldUtils;
 
 import net.minecraft.block.material.*;
@@ -23,7 +24,7 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 	{
 		super(Material.wood, false, 15, 5);
 		
-		setSoundType(GenesisSounds.MUSHROOM);
+		setSoundType(GenesisSoundTypes.MUSHROOM);
 		
 		setHardness(0.75F);
 		setHarvestLevel("axe", 0);

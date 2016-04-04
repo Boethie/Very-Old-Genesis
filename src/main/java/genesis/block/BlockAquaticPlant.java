@@ -5,7 +5,6 @@ import java.util.*;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 
-import genesis.common.GenesisSounds;
 import genesis.combo.*;
 import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.EnumAquaticPlant;
@@ -13,6 +12,7 @@ import genesis.combo.variant.PropertyIMetadata;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemBlockMulti;
+import genesis.sounds.GenesisSoundTypes;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants;
 import genesis.util.FlexibleStateMap;
@@ -72,7 +72,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		
 		setHardness(0.0F);
-		setSoundType(GenesisSounds.AQUATICPLANT);
+		setSoundType(GenesisSoundTypes.AQUATICPLANT);
 		setTickRandomly(true);
 	}
 	
@@ -221,7 +221,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 		}
 	}
 	
-	public boolean canBlockStay(World world, BlockPos pos, IBlockState state)
+	public boolean canBlockStay(IBlockAccess world, BlockPos pos, IBlockState state)
 	{
 		if (validGround == null)
 		{

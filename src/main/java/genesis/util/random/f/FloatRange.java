@@ -1,8 +1,8 @@
-package genesis.util.random;
+package genesis.util.random.f;
 
 import java.util.Random;
 
-public abstract class FloatRange implements Range<Float>
+public interface FloatRange
 {
 	public static FloatRange create(float value)
 	{
@@ -19,7 +19,11 @@ public abstract class FloatRange implements Range<Float>
 		return new Range(min, max);
 	}
 	
-	protected static class Range extends FloatRange
+	public float get(Random rand);
+	public float getMin();
+	public float getMax();
+	
+	static class Range implements FloatRange
 	{
 		private final float min;
 		private final float max;
@@ -31,25 +35,25 @@ public abstract class FloatRange implements Range<Float>
 		}
 		
 		@Override
-		public Float get(Random rand)
+		public float get(Random rand)
 		{
 			return min + rand.nextFloat() * (max - min);
 		}
 		
 		@Override
-		public Float getMin()
+		public float getMin()
 		{
 			return min;
 		}
 		
 		@Override
-		public Float getMax()
+		public float getMax()
 		{
 			return max;
 		}
 	}
 	
-	protected static class Value extends FloatRange
+	static class Value implements FloatRange
 	{
 		private final float value;
 		
@@ -59,19 +63,19 @@ public abstract class FloatRange implements Range<Float>
 		}
 		
 		@Override
-		public Float get(Random rand)
+		public float get(Random rand)
 		{
 			return value;
 		}
 		
 		@Override
-		public Float getMin()
+		public float getMin()
 		{
 			return value;
 		}
 		
 		@Override
-		public Float getMax()
+		public float getMax()
 		{
 			return value;
 		}

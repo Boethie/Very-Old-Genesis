@@ -1,12 +1,12 @@
 package genesis.world.biome.decorate;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
+
+import com.google.common.base.Predicate;
 
 import genesis.block.BlockMoss;
 import genesis.common.GenesisBlocks;
-import net.minecraft.block.Block;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -14,51 +14,51 @@ import net.minecraft.world.World;
 
 public class WorldGenMossStages extends WorldGenDecorationBase
 {
-	private List<IBlockState> allowedBlocks = new ArrayList<IBlockState>();
+	protected final Predicate<IBlockState> soilPredicate;
+	
+	public WorldGenMossStages(Predicate<IBlockState> soilPredicate)
+	{
+		this.soilPredicate = soilPredicate;
+	}
+	
+	public WorldGenMossStages()
+	{
+		this((s) -> s.getBlock() == Blocks.dirt || s.getBlock() == GenesisBlocks.moss);
+	}
 	
 	@Override
-	public boolean generate(World world, Random random, BlockPos pos)
+	protected boolean doGenerate(World world, Random random, BlockPos pos)
 	{
-		Block block;
-		
 		do
 		{
-			block = world.getBlockState(pos).getBlock();
-			if (!block.isAir(world, pos) && !block.isLeaves(world, pos))
-			{
+			IBlockState state = world.getBlockState(pos);
+			
+			if (!state.getBlock().isAir(state, world, pos) && !state.getBlock().isLeaves(state, world, pos))
 				break;
-			}
+			
 			pos = pos.down();
 		}
 		while (pos.getY() > 0);
-		
-		if (random.nextInt(rarity) != 0)
-			return false;
-		
-		if (
-				!(world.getBlockState(pos).getBlock() == GenesisBlocks.moss || world.getBlockState(pos).getBlock() == Blocks.dirt)
-				&& !(allowedBlocks.contains(world.getBlockState(pos))))
-			return false;
 		
 		boolean generated = false;
 		
 		if (setMoss(world, pos, random))
 			generated = true;
 		
-		int mossCount = (this.getPatchSize() <= 1)? 64 : this.getPatchSize();
+		int mossCount = getPatchSize();
 		
 		for (int i = 0; i < mossCount; ++i)
-			setMoss(world, pos.add(random.nextInt(7) - 3, 0, random.nextInt(7) - 3), random);
+			if (setMoss(world, pos.add(random.nextInt(7) - 3, 0, random.nextInt(7) - 3), random))
+				generated = true;
 		
 		return generated;
 	}
 	
 	private boolean setMoss(World world, BlockPos pos, Random rand)
 	{
-		if (
-				world.getBlockState(pos).getBlock() != GenesisBlocks.moss 
-				&& world.getBlockState(pos).getBlock() != Blocks.dirt 
-				&& !(allowedBlocks.contains(world.getBlockState(pos))))
+		IBlockState state = world.getBlockState(pos);
+		
+		if (!soilPredicate.apply(state))
 			return false;
 		
 		int stage = GenesisBlocks.moss.getTargetStage(GenesisBlocks.moss.getFertility(world, pos, true), rand);
@@ -69,15 +69,5 @@ public class WorldGenMossStages extends WorldGenDecorationBase
 		}
 		
 		return true;
-	}
-	
-	public WorldGenMossStages addAllowedBlocks(IBlockState... states)
-	{
-		for (int i = 0; i < states.length; ++i)
-		{
-			allowedBlocks.add(states[i]);
-		}
-		
-		return this;
 	}
 }

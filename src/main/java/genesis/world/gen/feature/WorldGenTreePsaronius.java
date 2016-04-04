@@ -1,13 +1,10 @@
 package genesis.world.gen.feature;
 
-import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumTree;
-import genesis.common.GenesisBlocks;
+import genesis.util.random.i.IntRange;
 
 import java.util.Random;
 
-import net.minecraft.block.BlockLog;
-import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -15,41 +12,23 @@ public class WorldGenTreePsaronius extends WorldGenTreeBase
 {
 	public WorldGenTreePsaronius(int minHeight, int maxHeight, boolean notify)
 	{
-		super(
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LOG, EnumTree.PSARONIUS).withProperty(BlockLog.LOG_AXIS, EnumAxis.Y),
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES, EnumTree.PSARONIUS),
-				notify);
-		
-		this.notify = notify;
-		
-		this.minHeight = minHeight;
-		this.maxHeight = maxHeight;
+		super(EnumTree.PSARONIUS, IntRange.create(minHeight, maxHeight), notify);
 	}
 	
 	@Override
-	public boolean generate(World world, Random rand, BlockPos pos)
+	public boolean doGenerate(World world, Random rand, BlockPos pos)
 	{
-		pos = getTreePos(world, pos);
+		int height = heightProvider.get(rand);
 		
-		if (!canTreeGrow(world, pos))
+		if (!isCubeClear(world, pos.up(), 1, height))
 			return false;
 		
-		if (rand.nextInt(rarity) != 0)
-			return false;
-		
-		int treeHeight = minHeight + rand.nextInt(maxHeight - minHeight) - 1;
-		
-		if (!isCubeClear(world, pos.up(), 1, treeHeight))
-		{
-			return false;
-		}
-		
-		for (int i = 0; i < treeHeight; i++)
+		for (int i = 0; i < height; i++)
 		{
 			setBlockInWorld(world, pos.up(i), wood);
 		}
 		
-		BlockPos branchPos = pos.up(treeHeight);
+		BlockPos branchPos = pos.up(height);
 		
 		setBlockInWorld(world, branchPos, leaves);
 		

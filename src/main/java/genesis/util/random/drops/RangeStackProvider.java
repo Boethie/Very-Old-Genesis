@@ -2,7 +2,7 @@ package genesis.util.random.drops;
 
 import java.util.Random;
 
-import genesis.util.random.IntRange;
+import genesis.util.random.i.IntRange;
 import net.minecraft.item.ItemStack;
 
 public class RangeStackProvider extends AbstractStackProvider
@@ -22,20 +22,8 @@ public class RangeStackProvider extends AbstractStackProvider
 	}
 	
 	@Override
-	public Integer get(Random rand)
+	public int get(Random rand)
 	{
 		return range.get(rand);
-	}
-	
-	@Override
-	public Integer getMin()
-	{
-		return range.getMin();
-	}
-	
-	@Override
-	public Integer getMax()
-	{
-		return range.getMax();
 	}
 }

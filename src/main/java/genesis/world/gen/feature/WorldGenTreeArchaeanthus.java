@@ -2,9 +2,9 @@ package genesis.world.gen.feature;
 
 import java.util.Random;
 
-import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumTree;
-import genesis.common.GenesisBlocks;
+import genesis.util.random.i.IntRange;
+
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.util.math.BlockPos;
@@ -14,32 +14,16 @@ public class WorldGenTreeArchaeanthus extends WorldGenTreeBase
 {
 	public WorldGenTreeArchaeanthus(int minHeight, int maxHeight, boolean notify)
 	{
-		super(
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LOG, EnumTree.ARCHAEANTHUS).withProperty(BlockLog.LOG_AXIS, EnumAxis.Y),
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES, EnumTree.ARCHAEANTHUS),
-				notify);
-		
-		this.notify = notify;
-		
-		this.minHeight = minHeight;
-		this.maxHeight = maxHeight;
+		super(EnumTree.ARCHAEANTHUS, IntRange.create(minHeight, maxHeight), notify);
 	}
 	
 	@Override
-	public boolean generate(World world, Random rand, BlockPos pos)
+	protected boolean doGenerate(World world, Random rand, BlockPos pos)
 	{
-		pos = getTreePos(world, pos);
-		
-		if (!canTreeGrow(world, pos))
-			return false;
-		
-		if (rand.nextInt(rarity) != 0)
-			return false;
-		
-		int treeHeight = minHeight + rand.nextInt(maxHeight - minHeight);
+		int height = heightProvider.get(rand);
 		int base = 2 + rand.nextInt(3);
 		
-		if (!isCubeClear(world, pos.up(base), 3, treeHeight))
+		if (!isCubeClear(world, pos.up(base), 3, height))
 		{
 			return false;
 		}
@@ -49,7 +33,7 @@ public class WorldGenTreeArchaeanthus extends WorldGenTreeBase
 		int upCount = 0;
 		int step = rand.nextInt(8);
 		
-		for (int i = 0; i < treeHeight; i++)
+		for (int i = 0; i < height; i++)
 		{
 			setBlockInWorld(world, pos.up(i), wood);
 			
@@ -59,8 +43,8 @@ public class WorldGenTreeArchaeanthus extends WorldGenTreeBase
 			{
 				int fallX = 0;
 				int fallZ = 0;
-				float hProp = (1.0f - ((float)i / (float)treeHeight));
-				int branchLength = (int)(5.0f * hProp);
+				float hProp = (1 - (i / (float) height));
+				int branchLength = (int) (5 * hProp);
 				BlockPos branchPos = pos.up(i);
 				
 				EnumAxis woodAxis = EnumAxis.Y;
@@ -122,12 +106,12 @@ public class WorldGenTreeArchaeanthus extends WorldGenTreeBase
 					setBlockInWorld(world, branchPos.add(j * fallX, 0, j * fallZ), wood.withProperty(BlockLog.LOG_AXIS, woodAxis));
 					
 					doBranchLeaves(world, branchPos.add(j * fallX, 0, j * fallZ).up(), rand, true, 2, true);
-					doBranchLeaves(world, branchPos.add(j * fallX, 0, j * fallZ), rand, false, (int)Math.ceil(4.0f * hProp), true);
+					doBranchLeaves(world, branchPos.add(j * fallX, 0, j * fallZ), rand, false, (int) Math.ceil(4 * hProp), true);
 					doBranchLeaves(world, branchPos.add(j * fallX, 0, j * fallZ).down(), rand, false, 2, true);
 				}
 			}
 			
-			this.doPineTopLeaves(world, pos, pos.up(treeHeight - 1), treeHeight, pos.up(treeHeight).getY() - 5, rand, true, true);
+			doPineTopLeaves(world, pos, pos.up(height - 1), height, pos.up(height).getY() - 5, rand, true, true);
 		}
 		
 		return true;
