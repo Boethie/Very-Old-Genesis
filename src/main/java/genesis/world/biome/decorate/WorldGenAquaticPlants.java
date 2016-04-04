@@ -1,11 +1,13 @@
 package genesis.world.biome.decorate;
 
+import genesis.block.BlockAquaticPlant;
 import genesis.combo.variant.EnumAquaticPlant;
 import genesis.common.GenesisBlocks;
+import genesis.util.WorldBlockMatcher;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -13,41 +15,57 @@ import net.minecraft.world.World;
 
 public class WorldGenAquaticPlants extends WorldGenDecorationBase
 {
-	private EnumAquaticPlant plantType;
-	private EnumAquaticPlant plantTypeTop;
+	protected final EnumAquaticPlant bottom;
+	protected final EnumAquaticPlant top;
 	private boolean generateInGroup = false;
 	private int groupSize = 1;
 	
-	@Override
-	public boolean generate(World world, Random random, BlockPos pos)
+	public WorldGenAquaticPlants(EnumAquaticPlant bottom, EnumAquaticPlant top)
 	{
-		Block block;
+		super(WorldBlockMatcher.AIR_WATER, (s, w, p) -> true);
 		
-		do
-		{
-			block = world.getBlockState(pos).getBlock();
-			if (!block.isAir(world, pos) && !(block == Blocks.water))
-			{
-				break;
-			}
-			pos = pos.down();
-		}
-		while (pos.getY() > 0);
+		this.bottom = bottom;
+		this.top = top;
+	}
+	
+	public WorldGenAquaticPlants(EnumAquaticPlant bottom)
+	{
+		this(bottom, null);
+	}
+	
+	protected boolean tryPlace(World world, BlockPos pos)
+	{
+		IBlockState bottomState = GenesisBlocks.aquatic_plants.getBlockState(bottom);
 		
-		if (random.nextInt(rarity) != 0)
+		BlockPos checkPos = pos;
+		
+		// Check plant bottom position.
+		if (world.getBlockState(checkPos).getBlock() != Blocks.water)
 			return false;
 		
-		if (plantType == null)
-			plantType = EnumAquaticPlant.BANGIOMORPHA;
-		
-		IBlockState plant = GenesisBlocks.aquatic_plants.getBlockState(plantType);
-		
-		if (!canPlantBePlaced(world, pos, plant))
+		// Check plant top position if the plant has a top.
+		if (top != null && world.getBlockState(checkPos = checkPos.up()).getBlock() != Blocks.water)
 			return false;
 		
-		setBlockInWorld(world, pos.up(), plant, true);
-		if (plantTypeTop != null)
-			setBlockInWorld(world, pos.up().up(), GenesisBlocks.aquatic_plants.getBlockState(plantTypeTop), true);
+		// Check for water above the plant.
+		if (world.getBlockState(checkPos = checkPos.up()).getMaterial() != Material.water)
+			return false;
+		
+		if (!((BlockAquaticPlant) bottomState.getBlock()).canBlockStay(world, pos, bottomState))
+			return false;
+		
+		setBlockInWorld(world, pos, bottomState);
+		
+		if (top != null)
+			setBlockInWorld(world, pos.up(), GenesisBlocks.aquatic_plants.getBlockState(top));
+		
+		return true;
+	}
+	
+	@Override
+	protected boolean doGenerate(World world, Random random, BlockPos pos)
+	{
+		boolean success = tryPlace(world, pos);
 		
 		BlockPos additionalPos;
 		
@@ -56,46 +74,12 @@ public class WorldGenAquaticPlants extends WorldGenDecorationBase
 			for (int i = 1; i <= groupSize - 1; ++i)
 			{
 				additionalPos = pos.add(random.nextInt(7) - 3, 0, random.nextInt(7) - 3);
-				if (canPlantBePlaced(world, additionalPos, plant))
-				{
-					setBlockInWorld(world, additionalPos.up(), plant, true);
-					if (plantTypeTop != null)
-						setBlockInWorld(world, additionalPos.up().up(), GenesisBlocks.aquatic_plants.getBlockState(plantTypeTop), true);
-				}
+				if (tryPlace(world, additionalPos))
+					success = true;
 			}
 		}
 		
-		return true;
-	}
-	
-	private boolean canPlantBePlaced(World world, BlockPos pos, IBlockState state)
-	{
-		if (!GenesisBlocks.aquatic_plants.getBlock(plantType).canBlockStay(world, pos.up(), state))
-			return false;
-		
-		if (
-				!(world.getBlockState(pos.up()).getBlock() == Blocks.water)
-				&& !(world.getBlockState(pos.up().up()).getBlock() == Blocks.water))
-			return false;
-		
-		if (
-				plantTypeTop != null
-				&& !(world.getBlockState(pos.up().up().up()).getBlock() == Blocks.water))
-			return false;
-		
-		return true;
-	}
-	
-	public WorldGenDecorationBase setPlantType(EnumAquaticPlant type)
-	{
-		return setPlantType(type, null);
-	}
-	
-	public WorldGenDecorationBase setPlantType(EnumAquaticPlant type, EnumAquaticPlant typeTop)
-	{
-		plantType = type;
-		plantTypeTop = typeTop;
-		return this;
+		return success;
 	}
 	
 	public WorldGenAquaticPlants setGenerateInGroup(boolean group, int size)

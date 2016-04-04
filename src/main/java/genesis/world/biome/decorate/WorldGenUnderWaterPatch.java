@@ -1,10 +1,11 @@
 package genesis.world.biome.decorate;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-import net.minecraft.block.Block;
+import com.google.common.collect.ImmutableList;
+
+import genesis.util.WorldBlockMatcher;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -12,19 +13,14 @@ import net.minecraft.world.World;
 
 public class WorldGenUnderWaterPatch extends WorldGenDecorationBase
 {
-	private final Block upperBlock;
-	
-	private List<IBlockState> blocks = new ArrayList<IBlockState>();
+	protected final ImmutableList<IBlockState> blocks;
 	private boolean setInBlock = true;
 	
-	public WorldGenUnderWaterPatch(Block upper, IBlockState... block)
+	public WorldGenUnderWaterPatch(IBlockState... blocks)
 	{
-		this.upperBlock = upper;
+		super(WorldBlockMatcher.AIR_WATER, WorldBlockMatcher.TRUE);
 		
-		for (int i = 0; i < block.length; ++i)
-		{
-			blocks.add(block[i]);
-		}
+		this.blocks = ImmutableList.copyOf(blocks);
 	}
 	
 	public WorldGenUnderWaterPatch mustSetInBlock(boolean inBlock)
@@ -34,27 +30,11 @@ public class WorldGenUnderWaterPatch extends WorldGenDecorationBase
 	}
 	
 	@Override
-	public boolean generate(World world, Random random, BlockPos pos)
+	protected boolean doGenerate(World world, Random random, BlockPos pos)
 	{
-		Block block;
-		
-		do
-		{
-			block = world.getBlockState(pos).getBlock();
-			if (!block.isAir(world, pos) && !block.isLeaves(world, pos) && !(block == this.upperBlock))
-			{
-				break;
-			}
-			pos = pos.down();
-		}
-		while (pos.getY() > 0);
-		
-		if (random.nextInt(rarity) != 0)
-			return false;
-		
 		boolean placedSome = false;
 		
-		if(placeSmallPatch(world, pos, random))
+		if (placeSmallPatch(world, pos, random))
 			placedSome = true;
 		
 		if (random.nextInt(2) == 0)
@@ -79,8 +59,8 @@ public class WorldGenUnderWaterPatch extends WorldGenDecorationBase
 	private boolean placeSmallPatch(World world, BlockPos pos, Random random)
 	{
 		if (!(
-				world.getBlockState(pos.up()).getBlock() == this.upperBlock
-				&& (world.getBlockState(pos).getBlock() != this.upperBlock || !this.setInBlock)))
+				world.getBlockState(pos.up()).getMaterial() == Material.water
+				&& (world.getBlockState(pos).getMaterial() != Material.water || !setInBlock)))
 			return false;
 		
 		setBlockInWorld(world, pos, blocks.get(random.nextInt(blocks.size())), true);

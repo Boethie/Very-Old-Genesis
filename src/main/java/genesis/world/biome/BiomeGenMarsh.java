@@ -5,11 +5,8 @@ import java.util.Random;
 import genesis.combo.PlantBlocks;
 import genesis.combo.variant.EnumPlant;
 import genesis.common.GenesisBlocks;
-import genesis.world.biome.decorate.WorldGenGrass;
-import genesis.world.biome.decorate.WorldGenGrassMulti;
-import genesis.world.biome.decorate.WorldGenMossStages;
-import genesis.world.biome.decorate.WorldGenPlant;
-import genesis.world.biome.decorate.WorldGenPrototaxites;
+import genesis.world.biome.decorate.*;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -25,7 +22,7 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		
 		theBiomeDecorator.grassPerChunk = 5;
 		
-		addDecoration(new WorldGenPrototaxites().setCountPerChunk(1));
+		addDecoration(new WorldGenPrototaxites().setCountPerChunk(1).setRarity(4));
 		
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		
@@ -72,15 +69,10 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 			}
 		}
 		
-		generateBiomeTerrain(world, rand, chunkPrimer, chunkX, chunkZ, d);
-	}
-	
-	@Override
-	public void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
-	{
 		mossStages = new int[2];
 		mossStages[0] = 0;
 		mossStages[1] = 1;
-		super.generateBiomeTerrain(world, rand, primer, blockX, blockZ, d);
+		
+		super.genTerrainBlocks(world, rand, chunkPrimer, chunkX, chunkZ, d);
 	}
 }

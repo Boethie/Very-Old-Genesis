@@ -7,6 +7,7 @@ import genesis.common.GenesisBlocks;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -15,31 +16,28 @@ import net.minecraft.world.World;
 public class WorldGenPalaeoagaracites extends WorldGenDecorationBase
 {
 	@Override
-	public boolean generate(World world, Random random, BlockPos pos)
+	protected boolean doGenerate(World world, Random random, BlockPos pos)
 	{
-		Block block;
-		
 		do
 		{
-			block = world.getBlockState(pos).getBlock();
-			if (!block.isAir(world, pos) && !block.isLeaves(world, pos))
-			{
+			IBlockState state = world.getBlockState(pos);
+			
+			if (!state.getBlock().isAir(state, world, pos) && !state.getBlock().isLeaves(state, world, pos))
 				break;
-			}
+			
 			pos = pos.down();
 		}
 		while (pos.getY() > 0);
 		
-		if (random.nextInt(rarity) != 0)
-			return false;
+		IBlockState state = world.getBlockState(pos);
 		
-		if (!(world.getBlockState(pos).getBlock() == GenesisBlocks.moss || world.getBlockState(pos).getBlock() == Blocks.dirt))
+		if (state.getBlock() != GenesisBlocks.moss && state.getBlock() != Blocks.dirt)
 			return false;
 		
 		boolean placedSome = false;
 		
 		for (int i = 0; i < this.getPatchSize(); ++i)
-			if(placeMushroom(world, pos, random))
+			if (placeMushroom(world, pos, random))
 				placedSome = true;
 		
 		return placedSome;
@@ -55,7 +53,7 @@ public class WorldGenPalaeoagaracites extends WorldGenDecorationBase
 			EnumFacing facing = EnumFacing.HORIZONTALS[rand.nextInt(EnumFacing.HORIZONTALS.length)];
 			mushroomPos = mushroomPos.offset(facing);
 			
-			if (!world.getBlockState(mushroomPos).getBlock().isAir(world, mushroomPos))
+			if (!world.isAirBlock(mushroomPos))
 				return false;
 			
 			setBlockInWorld(world, mushroomPos, GenesisBlocks.palaeoagaracites.getDefaultState().withProperty(BlockGenesisMushroom.FACING, facing.getOpposite()));

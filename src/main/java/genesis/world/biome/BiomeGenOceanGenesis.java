@@ -33,22 +33,22 @@ public class BiomeGenOceanGenesis extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenCorals(2, 5, EnumCoral.HELIOLITES).setRarity(4).setCountPerChunk(multiplier));
 		addDecoration(new WorldGenCorals(2, 5, EnumCoral.FAVOSITES).setRarity(4).setCountPerChunk(multiplier));
 		
-		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.HAZELLA).setCountPerChunk(rarityScale[0]));
-		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.DIAGONIELLA).setCountPerChunk(rarityScale[1]));
-		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.CHANCELLORIA).setCountPerChunk(rarityScale[1]));
-		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.VETULOCYSTIS).setCountPerChunk(rarityScale[1]));
-		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.PIRANIA).setCountPerChunk(rarityScale[2]));
-		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.VAUXIA).setCountPerChunk(rarityScale[2]));
-		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.PTERIDINIUM).setCountPerChunk(rarityScale[2]));
-		addDecoration(new WorldGenAquaticPlants().setGenerateInGroup(true, 9).setPlantType(EnumAquaticPlant.BANGIOMORPHA).setCountPerChunk(rarityScale[2]));
-		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.CHARNIA, EnumAquaticPlant.CHARNIA_TOP).setCountPerChunk(rarityScale[2]));
-		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.ERNIETTA).setCountPerChunk(rarityScale[2]));
-		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.WAPKIA).setCountPerChunk(rarityScale[3]));
-		addDecoration(new WorldGenAquaticPlants().setGenerateInGroup(true, 9).setPlantType(EnumAquaticPlant.MARPOLIA).setCountPerChunk(rarityScale[3]));
-		addDecoration(new WorldGenAquaticPlants().setGenerateInGroup(true, 9).setPlantType(EnumAquaticPlant.MARGERETIA).setCountPerChunk(rarityScale[3]));
-		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.DINOMISCHUS).setCountPerChunk(rarityScale[4]));
-		addDecoration(new WorldGenAquaticPlants().setPlantType(EnumAquaticPlant.ECHMATOCRINUS).setCountPerChunk(rarityScale[4]));
-		addDecoration(new WorldGenAquaticPlants().setGenerateInGroup(true, 9).setPlantType(EnumAquaticPlant.GRYPANIA).setCountPerChunk(rarityScale[4]));
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.HAZELLA).setCountPerChunk(rarityScale[0]));
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.DIAGONIELLA).setCountPerChunk(rarityScale[1]));
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.CHANCELLORIA).setCountPerChunk(rarityScale[1]));
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.VETULOCYSTIS).setCountPerChunk(rarityScale[1]));
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.PIRANIA).setCountPerChunk(rarityScale[2]));
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.VAUXIA).setCountPerChunk(rarityScale[2]));
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.PTERIDINIUM).setCountPerChunk(rarityScale[2]));
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.BANGIOMORPHA).setGenerateInGroup(true, 9).setCountPerChunk(rarityScale[2]));
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.CHARNIA, EnumAquaticPlant.CHARNIA_TOP).setCountPerChunk(rarityScale[2]));
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.ERNIETTA).setCountPerChunk(rarityScale[2]));
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.WAPKIA).setCountPerChunk(rarityScale[3]));
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.MARPOLIA).setGenerateInGroup(true, 9).setCountPerChunk(rarityScale[3]));
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.MARGERETIA).setGenerateInGroup(true, 9).setCountPerChunk(rarityScale[3]));
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.DINOMISCHUS).setCountPerChunk(rarityScale[4]));
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.ECHMATOCRINUS).setCountPerChunk(rarityScale[4]));
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.GRYPANIA).setGenerateInGroup(true, 9).setCountPerChunk(rarityScale[4]));
 		
 		return this;
 	}
@@ -60,11 +60,11 @@ public class BiomeGenOceanGenesis extends BiomeGenBaseGenesis
 	}
 	
 	@Override
-	public void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
+	public void genTerrainBlocks(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
 	{
 		mossStages = new int[2];
 		mossStages[0] = 1;
 		mossStages[1] = 2;
-		super.generateBiomeTerrain(world, rand, primer, blockX, blockZ, d);
+		super.genTerrainBlocks(world, rand, primer, blockX, blockZ, d);
 	}
 }

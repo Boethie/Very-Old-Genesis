@@ -221,7 +221,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 		}
 	}
 	
-	public boolean canBlockStay(World world, BlockPos pos, IBlockState state)
+	public boolean canBlockStay(IBlockAccess world, BlockPos pos, IBlockState state)
 	{
 		if (validGround == null)
 		{

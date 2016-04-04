@@ -6,6 +6,7 @@ import genesis.common.GenesisBlocks;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -33,26 +34,18 @@ public class WorldGenCorals extends WorldGenDecorationBase
 	}
 	
 	@Override
-	public boolean generate(World world, Random random, BlockPos pos)
+	protected boolean doGenerate(World world, Random random, BlockPos pos)
 	{
-		Block block;
-		
-		if (random.nextInt(rarity) != 0)
-			return false;
-		
 		do
 		{
-			block = world.getBlockState(pos).getBlock();
-			if (!block.isAir(world, pos) && !(block == Blocks.water))
-			{
+			IBlockState state = world.getBlockState(pos);
+			
+			if (!state.getBlock().isAir(state, world, pos) && state.getMaterial() == Material.water)
 				break;
-			}
+			
 			pos = pos.down();
 		}
 		while (pos.getY() > 0);
-		
-		if (random.nextInt(rarity) != 0)
-			return false;
 		
 		if (coralType == null)
 			coralType = EnumCoral.FAVOSITES;
@@ -179,11 +172,10 @@ public class WorldGenCorals extends WorldGenDecorationBase
 	
 	protected boolean isPositionSuitable(World world, BlockPos pos, int height)
 	{
-		Block block = world.getBlockState(pos).getBlock();
+		IBlockState state = world.getBlockState(pos);
 		
-		if (
-				block == Blocks.water
-				|| block.isAir(world, pos))
+		if (state.getMaterial() == Material.water
+				|| state.getBlock().isAir(state, world, pos))
 			return false;
 		
 		for (int i = 1; i <= height + 2; ++i)

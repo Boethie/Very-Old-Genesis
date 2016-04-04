@@ -2,22 +2,76 @@ package genesis.world.biome.decorate;
 
 import java.util.Random;
 
+import genesis.util.WorldBlockMatcher;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenDecorationBase extends WorldGenerator
+public abstract class WorldGenDecorationBase extends WorldGenerator
 {
 	private int countPerChunk = 0;
 	private int patchSize = 0;
 	
 	protected int rarity = 1;
 	
-	@Override
-	public boolean generate(World world, Random random, BlockPos pos)
+	protected final WorldBlockMatcher airMatcher;
+	protected final WorldBlockMatcher groundMatcher;
+	
+	/**
+	 * @param airMatcher Matcher to tell whether the generator should continue searching
+	 * downward for the ground.
+	 * @param groundMatcher Matcher to check whether the ground that is encountered
+	 * is suitable for the generator.
+	 */
+	protected WorldGenDecorationBase(WorldBlockMatcher airMatcher, WorldBlockMatcher groundMatcher)
 	{
+		this.airMatcher = airMatcher;
+		this.groundMatcher = groundMatcher;
+	}
+	
+	/**
+	 * Creates a generator that does not search for the ground below it.
+	 */
+	protected WorldGenDecorationBase()
+	{
+		this(null, null);
+	}
+	
+	protected BlockPos findGround(IBlockAccess world, BlockPos pos)
+	{
+		if (airMatcher != null)
+		{
+			do
+			{
+				if (!airMatcher.apply(world, pos))
+					break;
+			} while ((pos = pos.down()).getY() >= 0);
+		}
+		
+		if (groundMatcher != null && !groundMatcher.apply(world, pos))
+			return null;
+		
+		return pos;
+	}
+	
+	protected abstract boolean doGenerate(World world, Random rand, BlockPos pos);
+	
+	@Override
+	public final boolean generate(World world, Random rand, BlockPos pos)
+	{
+		pos = findGround(world, pos);
+		
+		if (pos == null || rand.nextInt(rarity) != 0)
+			return false;
+		
+		if (doGenerate(world, rand, pos.up()))
+		{
+			return true;
+		}
+		
 		return false;
 	}
 	
@@ -40,7 +94,7 @@ public class WorldGenDecorationBase extends WorldGenerator
 	
 	public int getPatchSize()
 	{
-		return (patchSize == 0)? 1 : patchSize;
+		return Math.max(patchSize, 1);
 	}
 	
 	public WorldGenDecorationBase setRarity(int rarity)
@@ -52,25 +106,6 @@ public class WorldGenDecorationBase extends WorldGenerator
 	public int getRarity()
 	{
 		return this.rarity;
-	}
-	
-	public BlockPos getPosition(World world, BlockPos pos)
-	{
-		Block block;
-		
-		do
-		{
-			block = world.getBlockState(pos).getBlock();
-			
-			if (!world.isAirBlock(pos) && !block.isLeaves(block.getDefaultState(), world, pos))
-			{
-				break;
-			}
-			pos = pos.down();
-		}
-		while (pos.getY() > 0);
-		
-		return pos;
 	}
 	
 	protected void setBlockInWorld(World world, BlockPos pos, IBlockState state)

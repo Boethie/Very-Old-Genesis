@@ -39,7 +39,7 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchSize(3).setCountPerChunk(3));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(5));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setWaterProximity(2, 0).setNextToWater(true).setPatchSize(4).setCountPerChunk(10));
-		addDecoration(new WorldGenUnderWaterPatch(Blocks.water, GenesisBlocks.peat.getDefaultState()).setCountPerChunk(10));
+		addDecoration(new WorldGenUnderWaterPatch(GenesisBlocks.peat.getDefaultState()).setCountPerChunk(10));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		addDecoration(new WorldGenDebris().setCountPerChunk(33));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));
@@ -94,16 +94,10 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 			}
 		}
 		
-		generateBiomeTerrain(world, rand, chunkPrimer, chunkX, chunkZ, d);
-	}
-	
-	@Override
-	public void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
-	{
 		mossStages = new int[2];
 		mossStages[0] = 0;
 		mossStages[1] = 1;
-		super.generateBiomeTerrain(world, rand, primer, blockX, blockZ, d);
+		super.genTerrainBlocks(world, rand, chunkPrimer, chunkX, chunkZ, d);
 	}
 
 	@Override

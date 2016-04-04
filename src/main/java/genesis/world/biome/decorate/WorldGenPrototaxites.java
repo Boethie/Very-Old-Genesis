@@ -1,12 +1,13 @@
 package genesis.world.biome.decorate;
 
 import genesis.common.GenesisBlocks;
+import genesis.util.WorldBlockMatcher;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -15,29 +16,14 @@ public class WorldGenPrototaxites extends WorldGenDecorationBase
 	private IBlockState baseBlock = GenesisBlocks.prototaxites_mycelium.getDefaultState();
 	private IBlockState bodyBlock = GenesisBlocks.prototaxites.getDefaultState();
 	
-	@Override
-	public boolean generate(World world, Random random, BlockPos pos)
+	public WorldGenPrototaxites()
 	{
-		if (random.nextInt(4) != 0)
-			return false;
-		
-		Block block;
-		
-		do
-		{
-			block = world.getBlockState(pos).getBlock();
-			
-			if (!block.isAir(world, pos) && !block.isLeaves(world, pos))
-			{
-				break;
-			}
-			pos = pos.down();
-		}
-		while (pos.getY() > 0);
-		
-		if (random.nextInt(rarity) != 0)
-			return false;
-		
+		super(WorldBlockMatcher.AIR, WorldBlockMatcher.TRUE);
+	}
+	
+	@Override
+	protected boolean doGenerate(World world, Random random, BlockPos pos)
+	{
 		boolean placedSome = false;
 		
 		if (placeMycelliumBase(world, pos, random))
@@ -66,19 +52,18 @@ public class WorldGenPrototaxites extends WorldGenDecorationBase
 		if (!(
 				world.getBlockState(pos).getBlock() == Blocks.dirt
 				|| world.getBlockState(pos).getBlock() == GenesisBlocks.moss)
-			|| !(world.getBlockState(pos.up()).getBlock().isAir(world, pos)))
+			|| !(world.isAirBlock(pos.up())))
 			return false;
 		
 		setBlockInWorld(world, pos, baseBlock, true);
 		
-		if (!world.getBlockState(pos.north()).getBlock().isAir(world, pos) && rand.nextInt(2) == 0)
-			setBlockInWorld(world, pos.north(), baseBlock, true);
-		if (!world.getBlockState(pos.south()).getBlock().isAir(world, pos) && rand.nextInt(2) == 0)
-			setBlockInWorld(world, pos.south(), baseBlock, true);
-		if (!world.getBlockState(pos.east()).getBlock().isAir(world, pos) && rand.nextInt(2) == 0)
-			setBlockInWorld(world, pos.east(), baseBlock, true);
-		if (!world.getBlockState(pos.west()).getBlock().isAir(world, pos) && rand.nextInt(2) == 0)
-			setBlockInWorld(world, pos.west(), baseBlock, true);
+		for (EnumFacing side : EnumFacing.HORIZONTALS)
+		{
+			BlockPos sidePos = pos.offset(side);
+			
+			if (!world.isAirBlock(sidePos) && rand.nextInt(2) == 0)
+				setBlockInWorld(world, sidePos, baseBlock, true);
+		}
 		
 		return true;
 	}

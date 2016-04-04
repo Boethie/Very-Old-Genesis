@@ -4,36 +4,26 @@ import genesis.common.GenesisBlocks;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class WorldGenArchaeomarasmius extends WorldGenDecorationBase
 {
-	private int rarity = 1;
-	
 	@Override
-	public boolean generate(World world, Random random, BlockPos pos)
+	protected boolean doGenerate(World world, Random random, BlockPos pos)
 	{
-		Block block;
-		
 		do
 		{
-			block = world.getBlockState(pos).getBlock();
-			if (!block.isAir(world, pos) && !block.isLeaves(world, pos))
-			{
+			IBlockState state = world.getBlockState(pos);
+			
+			if (!state.getBlock().isAir(state, world, pos) && !state.getBlock().isLeaves(state, world, pos))
 				break;
-			}
+			
 			pos = pos.down();
 		}
 		while (pos.getY() > 0);
-		
-		if (random.nextInt(rarity) != 0)
-			return false;
-		
-		if (random.nextInt(rarity) != 0)
-			return false;
 		
 		int plantsPlaced = 0;
 		
@@ -52,13 +42,6 @@ public class WorldGenArchaeomarasmius extends WorldGenDecorationBase
 			return false;
 		
 		return true;
-	}
-	
-	@Override
-	public WorldGenArchaeomarasmius setRarity(int rarity)
-	{
-		this.rarity = rarity;
-		return this;
 	}
 	
 	private boolean placePlant(World world, BlockPos pos)

@@ -69,11 +69,11 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 	}
 	
 	@Override
-	public void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
+	public void genTerrainBlocks(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
 	{
 		mossStages = new int[2];
 		mossStages[0] = 1;
 		mossStages[1] = 2;
-		super.generateBiomeTerrain(world, rand, primer, blockX, blockZ, d);
+		super.genTerrainBlocks(world, rand, primer, blockX, blockZ, d);
 	}
 }

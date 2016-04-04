@@ -8,7 +8,7 @@ import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumDebrisOther;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
-import net.minecraft.block.Block;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -27,23 +27,18 @@ public class WorldGenDebris extends WorldGenDecorationBase
 	}
 	
 	@Override
-	public boolean generate(World world, Random random, BlockPos pos)
+	protected boolean doGenerate(World world, Random random, BlockPos pos)
 	{
-		Block block;
-		
 		do
 		{
-			block = world.getBlockState(pos).getBlock();
-			if (!block.isAir(world, pos) && !block.isLeaves(world, pos))
-			{
+			IBlockState state = world.getBlockState(pos);
+			
+			if (!state.getBlock().isAir(state, world, pos) && !state.getBlock().isLeaves(state, world, pos))
 				break;
-			}
+			
 			pos = pos.down();
 		}
 		while (pos.getY() > 0);
-		
-		if (random.nextInt(rarity) != 0)
-			return false;
 		
 		boolean willGenerate = false;
 		
@@ -70,7 +65,9 @@ public class WorldGenDebris extends WorldGenDecorationBase
 		if (!(world.getBlockState(pos).getBlock() == GenesisBlocks.moss || world.getBlockState(pos).getBlock() == Blocks.dirt))
 			return false;
 		
-		if (!world.getBlockState(pos.up()).getBlock().isAir(world, pos))
+		IBlockState stateAbove = world.getBlockState(pos.up());
+		
+		if (!stateAbove.getBlock().isAir(stateAbove, world, pos))
 			return false;
 		
 		IBlockState wood;
@@ -101,16 +98,7 @@ public class WorldGenDebris extends WorldGenDecorationBase
 						{
 							variant = GenesisBlocks.trees.getVariant(wood);
 							
-							if (
-									variant == EnumTree.ARCHAEOPTERIS
-									|| variant == EnumTree.SIGILLARIA
-									|| variant == EnumTree.LEPIDODENDRON
-									|| variant == EnumTree.CORDAITES
-									|| variant == EnumTree.PSARONIUS
-									|| variant == EnumTree.ARAUCARIOXYLON
-									|| variant == EnumTree.METASEQUOIA
-									|| variant == EnumTree.ARCHAEANTHUS
-									|| variant == EnumTree.DRYOPHYLLUM)
+							if (variant.hasDebris())
 							{
 								debris = GenesisBlocks.debris.getBlockState(variant);
 								willGenerate = true;

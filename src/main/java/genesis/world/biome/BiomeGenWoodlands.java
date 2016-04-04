@@ -7,7 +7,8 @@ import genesis.combo.variant.*;
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.*;
 import genesis.world.gen.feature.*;
-import net.minecraft.init.Blocks;
+
+import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -32,10 +33,10 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(3).setCountPerChunk(3));
 		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(5).setCountPerChunk(1));
-		addDecoration(new WorldGenRockBoulders().setInGround(false).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.CARNIVORE)).setRarity(12).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.CARNIVORE)).setInGround(false).setWaterRequired(false).setMaxHeight(2).setRarity(12).setCountPerChunk(1));
 		addDecoration(new WorldGenDebris().addAdditional(GenesisBlocks.debris.getBlockState(EnumDebrisOther.TYRANNOSAURUS_FEATHER)).setCountPerChunk(20));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));
-		addDecoration(new WorldGenDecorationOnBlock(GenesisBlocks.cobbania.getDefaultState()).setBaseBlocks(Blocks.water.getDefaultState()).setCountPerChunk(10));
+		addDecoration(new WorldGenDecorationOnBlock((s) -> s.getMaterial() == Material.water, GenesisBlocks.cobbania.getDefaultState()).setCountPerChunk(10));
 	}
 	
 	protected void addTrees()
@@ -62,11 +63,11 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 	}
 	
 	@Override
-	public void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
+	public void genTerrainBlocks(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
 	{
 		mossStages = new int[2];
 		mossStages[0] = 1;
 		mossStages[1] = 2;
-		super.generateBiomeTerrain(world, rand, primer, blockX, blockZ, d);
+		super.genTerrainBlocks(world, rand, primer, blockX, blockZ, d);
 	}
 }

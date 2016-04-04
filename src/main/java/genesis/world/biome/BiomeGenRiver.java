@@ -25,18 +25,18 @@ public class BiomeGenRiver extends BiomeGenBaseGenesis implements IEntityPreferr
 		
 		addDecoration(new WorldGenPebbles().setCountPerChunk(40));
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(3).setCountPerChunk(8));
-		addDecoration(new WorldGenAquaticPlants().setGenerateInGroup(true, 6).setPlantType(EnumAquaticPlant.BANGIOMORPHA).setCountPerChunk(rarityScale[2]));
-		addDecoration(new WorldGenAquaticPlants().setGenerateInGroup(true, 6).setPlantType(EnumAquaticPlant.MARPOLIA).setCountPerChunk(rarityScale[3]));
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.BANGIOMORPHA).setGenerateInGroup(true, 6).setCountPerChunk(rarityScale[2]));
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.MARPOLIA).setGenerateInGroup(true, 6).setCountPerChunk(rarityScale[3]));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 	}
 	
 	@Override
-	public void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
+	public void genTerrainBlocks(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
 	{
 		mossStages = new int[2];
 		mossStages[0] = 1;
 		mossStages[1] = 2;
-		super.generateBiomeTerrain(world, rand, primer, blockX, blockZ, d);
+		super.genTerrainBlocks(world, rand, primer, blockX, blockZ, d);
 	}
 
 	@Override

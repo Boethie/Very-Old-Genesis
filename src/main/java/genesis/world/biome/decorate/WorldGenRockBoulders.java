@@ -2,82 +2,64 @@ package genesis.world.biome.decorate;
 
 import genesis.combo.SiltBlocks;
 import genesis.common.GenesisBlocks;
+import genesis.util.WorldBlockMatcher;
 import genesis.util.WorldUtils;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
+
+import com.google.common.collect.ImmutableList;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class WorldGenRockBoulders extends WorldGenDecorationBase
 {
-	private List<IBlockState> blocks = new ArrayList<IBlockState>();
+	protected final ImmutableList<IBlockState> blocks;
 	private boolean waterRequired = true;
 	private boolean inGround = true;
 	private int maxHeight = 5;
 	
-	@Override
-	public boolean generate(World world, Random random, BlockPos pos)
+	public WorldGenRockBoulders(IBlockState... blocks)
 	{
-		pos = getPosition(world, pos);
+		super(WorldBlockMatcher.AIR,
+				(s, w, p) -> s.getBlock() == Blocks.dirt
+						|| s.getBlock() == GenesisBlocks.moss
+						|| GenesisBlocks.silt.isStateOf(s, SiltBlocks.SILT));
 		
-		if (!(
-				world.getBlockState(pos).getBlock() == GenesisBlocks.moss 
-				|| world.getBlockState(pos).getBlock() == Blocks.dirt
-				|| GenesisBlocks.silt.isStateOf(world.getBlockState(pos), SiltBlocks.SILT)))
-			return false;
-		
-		if (!world.getBlockState(pos.up()).getBlock().isAir(world, pos))
-			return false;
-		
+		this.blocks = ImmutableList.copyOf(blocks);
+	}
+	
+	public WorldGenRockBoulders()
+	{
+		this(GenesisBlocks.granite.getDefaultState(), GenesisBlocks.mossy_granite.getDefaultState());
+	}
+	
+	@Override
+	protected boolean doGenerate(World world, Random random, BlockPos pos)
+	{
 		if (waterRequired && !WorldUtils.waterInRange(world, pos, 1, 1, 1))
 			return false;
 		
-		if (random.nextInt(rarity) != 0)
-			return false;
-		
-		if (blocks.size() == 0)
-		{
-			addBlocks(GenesisBlocks.granite.getDefaultState(), GenesisBlocks.mossy_granite.getDefaultState());
-		}
-		
-		if (!inGround)
-			pos = pos.up();
+		if (inGround)
+			pos = pos.down();
 		
 		int maxHeight = 2 + random.nextInt(this.maxHeight - 1);
 		
 		generateRockColumn(world, pos, random, maxHeight);
 		
-		if (random.nextInt(100) > 15)
+		for (EnumFacing side : EnumFacing.HORIZONTALS)
 		{
-			generateRockColumn(world, pos.add(1, 0, 0), random, 1 + random.nextInt(maxHeight - random.nextInt(2)));
-			if (random.nextInt(10) > 5)
-				generateRockColumn(world, pos.add(1, 0, 1), random, 1 + random.nextInt(maxHeight - random.nextInt(2)));
-		}
-		
-		if (random.nextInt(100) > 15)
-		{
-			generateRockColumn(world, pos.add(-1, 0, 0), random, 1 + random.nextInt(maxHeight - random.nextInt(2)));
-			if (random.nextInt(10) > 5)
-				generateRockColumn(world, pos.add(-1, 0, -1), random, 1 + random.nextInt(maxHeight - random.nextInt(2)));
-		}
-		
-		if (random.nextInt(100) > 15)
-		{
-			generateRockColumn(world, pos.add(0, 0, 1), random, 1 + random.nextInt(maxHeight - random.nextInt(2)));
-			if (random.nextInt(10) > 5)
-				generateRockColumn(world, pos.add(-1, 0, 1), random, 1 + random.nextInt(maxHeight - random.nextInt(2)));
-		}
-		
-		if (random.nextInt(100) > 15)
-		{
-			generateRockColumn(world, pos.add(0, 0, -1), random, 1 + random.nextInt(maxHeight - random.nextInt(2)));
-			if (random.nextInt(10) > 5)
-				generateRockColumn(world, pos.add(1, 0, -1), random, 1 + random.nextInt(maxHeight - random.nextInt(2)));
+			if (random.nextInt(100) > 15)
+			{
+				BlockPos sidePos = pos.offset(side);
+				generateRockColumn(world, sidePos, random, 1 + random.nextInt(maxHeight - random.nextInt(2)));
+				
+				if (random.nextInt(10) > 5)
+					generateRockColumn(world, sidePos.offset(side.rotateY()), random, 1 + random.nextInt(maxHeight - random.nextInt(2)));
+			}
 		}
 		
 		return true;
@@ -98,16 +80,6 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 	public WorldGenRockBoulders setWaterRequired(boolean required)
 	{
 		waterRequired = required;
-		return this;
-	}
-	
-	public WorldGenDecorationBase addBlocks(IBlockState... blockTypes)
-	{
-		for (int i = 0; i < blockTypes.length; ++i)
-		{
-			blocks.add(blockTypes[i]);
-		}
-		
 		return this;
 	}
 	

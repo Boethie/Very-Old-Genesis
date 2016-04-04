@@ -66,7 +66,7 @@ public class WorldUtils
 	 */
 	public static boolean waterInRange(IBlockAccess world, BlockPos pos, int dNegX, int dPosX, int dNegZ, int dPosZ, int dNegY, int dPosY)
 	{
-		Iterable<BlockPos> checkArea = BlockPos.getAllInBox(pos.add(-dNegX, -dNegY, -dNegZ), pos.add(dPosX, dPosY, dPosZ));
+		Iterable<? extends BlockPos> checkArea = BlockPos.getAllInBoxMutable(pos.add(-dNegX, -dNegY, -dNegZ), pos.add(dPosX, dPosY, dPosZ));
 		
 		for (BlockPos checkPos : checkArea)
 		{
@@ -99,12 +99,12 @@ public class WorldUtils
 	 * @param dY The vertical distance to check from the starting block position.
 	 * @return Whether there is water in range.
 	 */
-	public static boolean waterInRange(World worldIn, BlockPos pos, int dXZ, int dY)
+	public static boolean waterInRange(IBlockAccess worldIn, BlockPos pos, int dXZ, int dY)
 	{
 		return waterInRange(worldIn, pos, dXZ, dXZ, dY);
 	}
 	
-	public static List<IBlockState> getBlocksAround(final World world, final BlockPos pos)
+	public static List<IBlockState> getBlocksAround(final IBlockAccess world, final BlockPos pos)
 	{
 		final List<IBlockState> blocks = new ArrayList<IBlockState>();
 
