@@ -2,25 +2,13 @@ package genesis.combo.variant;
 
 import java.util.*;
 
-import com.google.common.collect.ImmutableList;
-
 import genesis.util.SimpleProperty;
 
 public class PropertyIMetadata<T extends IMetadata<T>> extends SimpleProperty<T>
 {
-	protected final ImmutableList<T> values;
-	
 	public PropertyIMetadata(String name, List<T> values, Class<T> clazz)
 	{
-		super(name, clazz);
-		
-		this.values = ImmutableList.copyOf(values);
-	}
-	
-	@Override
-	public Collection<T> getAllowedValues()
-	{
-		return values;
+		super(name, values, clazz);
 	}
 	
 	@Override

@@ -8,107 +8,107 @@
 			{ "model": "genesis:campfire_cooking_billet", "y": 270, "textures": {"end": "blocks/log_oak_top",  "side": "blocks/log_oak"} }
 		],
 		// Vanilla logs.
-		"item=minecraft:oak_log": [
+		"item=minecraft__oak_log": [
 			{ "model": "genesis:campfire_cooking_billet", "y": 0, "textures": {"end": "blocks/log_oak_top",  "side": "blocks/log_oak"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 90, "textures": {"end": "blocks/log_oak_top",  "side": "blocks/log_oak"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 180, "textures": {"end": "blocks/log_oak_top",  "side": "blocks/log_oak"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 270, "textures": {"end": "blocks/log_oak_top",  "side": "blocks/log_oak"} }
 		],
-		"item=minecraft:acacia_log": [
+		"item=minecraft__acacia_log": [
 			{ "model": "genesis:campfire_cooking_billet", "y": 0, "textures": {"end": "blocks/log_acacia_top",  "side": "blocks/log_acacia"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 90, "textures": {"end": "blocks/log_acacia_top",  "side": "blocks/log_acacia"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 180, "textures": {"end": "blocks/log_acacia_top",  "side": "blocks/log_acacia"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 270, "textures": {"end": "blocks/log_acacia_top",  "side": "blocks/log_acacia"} }
 		],
-		"item=minecraft:jungle_log": [
+		"item=minecraft__jungle_log": [
 			{ "model": "genesis:campfire_cooking_billet", "y": 0, "textures": {"end": "blocks/log_jungle_top",  "side": "blocks/log_jungle"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 90, "textures": {"end": "blocks/log_jungle_top",  "side": "blocks/log_jungle"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 180, "textures": {"end": "blocks/log_jungle_top",  "side": "blocks/log_jungle"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 270, "textures": {"end": "blocks/log_jungle_top",  "side": "blocks/log_jungle"} }
 		],
-		"item=minecraft:dark_oak_log": [
+		"item=minecraft__dark_oak_log": [
 			{ "model": "genesis:campfire_cooking_billet", "y": 0, "textures": {"end": "blocks/log_big_oak_top",  "side": "blocks/log_big_oak"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 90, "textures": {"end": "blocks/log_big_oak_top",  "side": "blocks/log_big_oak"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 180, "textures": {"end": "blocks/log_big_oak_top",  "side": "blocks/log_big_oak"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 270, "textures": {"end": "blocks/log_big_oak_top",  "side": "blocks/log_big_oak"} }
 		],
-		"item=minecraft:spruce_log": [
+		"item=minecraft__spruce_log": [
 			{ "model": "genesis:campfire_cooking_billet", "y": 0, "textures": {"end": "blocks/log_spruce_top",  "side": "blocks/log_spruce"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 90, "textures": {"end": "blocks/log_spruce_top",  "side": "blocks/log_spruce"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 180, "textures": {"end": "blocks/log_spruce_top",  "side": "blocks/log_spruce"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 270, "textures": {"end": "blocks/log_spruce_top",  "side": "blocks/log_spruce"} }
 		],
-		"item=minecraft:birch_log": [
+		"item=minecraft__birch_log": [
 			{ "model": "genesis:campfire_cooking_billet", "y": 0, "textures": {"end": "blocks/log_birch_top",  "side": "blocks/log_birch"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 90, "textures": {"end": "blocks/log_birch_top",  "side": "blocks/log_birch"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 180, "textures": {"end": "blocks/log_birch_top",  "side": "blocks/log_birch"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 270, "textures": {"end": "blocks/log_birch_top",  "side": "blocks/log_birch"} }
 		],
 		// Genesis logs.
-		"item=genesis:archaeopteris_log": [
+		"item=genesis__archaeopteris_log": [
 			{ "model": "genesis:campfire_cooking_billet", "y": 0, "textures": {"end": "genesis:blocks/log_archaeopteris_top",  "side": "genesis:blocks/log_archaeopteris"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 90, "textures": {"end": "genesis:blocks/log_archaeopteris_top",  "side": "genesis:blocks/log_archaeopteris"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 180, "textures": {"end": "genesis:blocks/log_archaeopteris_top",  "side": "genesis:blocks/log_archaeopteris"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 270, "textures": {"end": "genesis:blocks/log_archaeopteris_top",  "side": "genesis:blocks/log_archaeopteris"} }
 		],
-		"item=genesis:sigillaria_log": [
+		"item=genesis__sigillaria_log": [
 			{ "model": "genesis:campfire_cooking_billet", "y": 0, "textures": {"end": "genesis:blocks/log_sigillaria_top",  "side": "genesis:blocks/log_sigillaria"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 90, "textures": {"end": "genesis:blocks/log_sigillaria_top",  "side": "genesis:blocks/log_sigillaria"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 180, "textures": {"end": "genesis:blocks/log_sigillaria_top",  "side": "genesis:blocks/log_sigillaria"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 270, "textures": {"end": "genesis:blocks/log_sigillaria_top",  "side": "genesis:blocks/log_sigillaria"} }
 		],
-		"item=genesis:lepidodendron_log": [
+		"item=genesis__lepidodendron_log": [
 			{ "model": "genesis:campfire_cooking_billet", "y": 0, "textures": {"end": "genesis:blocks/log_lepidodendron_top",  "side": "genesis:blocks/log_lepidodendron"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 90, "textures": {"end": "genesis:blocks/log_lepidodendron_top",  "side": "genesis:blocks/log_lepidodendron"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 180, "textures": {"end": "genesis:blocks/log_lepidodendron_top",  "side": "genesis:blocks/log_lepidodendron"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 270, "textures": {"end": "genesis:blocks/log_lepidodendron_top",  "side": "genesis:blocks/log_lepidodendron"} }
 		],
-		"item=genesis:cordaites_log": [
+		"item=genesis__cordaites_log": [
 			{ "model": "genesis:campfire_cooking_billet", "y": 0, "textures": {"end": "genesis:blocks/log_cordaites_top",  "side": "genesis:blocks/log_cordaites"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 90, "textures": {"end": "genesis:blocks/log_cordaites_top",  "side": "genesis:blocks/log_cordaites"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 180, "textures": {"end": "genesis:blocks/log_cordaites_top",  "side": "genesis:blocks/log_cordaites"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 270, "textures": {"end": "genesis:blocks/log_cordaites_top",  "side": "genesis:blocks/log_cordaites"} }
 		],
-		"item=genesis:psaronius_log": [
+		"item=genesis__psaronius_log": [
 			{ "model": "genesis:campfire_cooking_billet", "y": 0, "textures": {"end": "genesis:blocks/log_psaronius_top",  "side": "genesis:blocks/log_psaronius"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 90, "textures": {"end": "genesis:blocks/log_psaronius_top",  "side": "genesis:blocks/log_psaronius"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 180, "textures": {"end": "genesis:blocks/log_psaronius_top",  "side": "genesis:blocks/log_psaronius"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 270, "textures": {"end": "genesis:blocks/log_psaronius_top",  "side": "genesis:blocks/log_psaronius"} }
 		],
-		"item=genesis:araucarioxylon_log": [
+		"item=genesis__araucarioxylon_log": [
 			{ "model": "genesis:campfire_cooking_billet", "y": 0, "textures": {"end": "genesis:blocks/log_araucarioxylon_top",  "side": "genesis:blocks/log_araucarioxylon"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 90, "textures": {"end": "genesis:blocks/log_araucarioxylon_top",  "side": "genesis:blocks/log_araucarioxylon"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 180, "textures": {"end": "genesis:blocks/log_araucarioxylon_top",  "side": "genesis:blocks/log_araucarioxylon"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 270, "textures": {"end": "genesis:blocks/log_araucarioxylon_top",  "side": "genesis:blocks/log_araucarioxylon"} }
 		],
 		// Containers
-		"item=genesis:red_clay_bowl": [
+		"item=genesis__red_clay_bowl": [
 			{ "model": "genesis:campfire_red_clay_bowl", "y": 0 },
 			{ "model": "genesis:campfire_red_clay_bowl", "y": 90 },
 			{ "model": "genesis:campfire_red_clay_bowl", "y": 180 },
 			{ "model": "genesis:campfire_red_clay_bowl", "y": 270 }
 		],
-		"item=genesis:red_clay_bucket": [
+		"item=genesis__red_clay_bucket": [
 			{ "model": "genesis:campfire_red_clay_bucket", "y": 0 },
 			{ "model": "genesis:campfire_red_clay_bucket", "y": 90 },
 			{ "model": "genesis:campfire_red_clay_bucket", "y": 180 },
 			{ "model": "genesis:campfire_red_clay_bucket", "y": 270 }
 		],
 		// Dung bricks
-		"item=genesis:dung_herbivore": [
+		"item=genesis__dung_herbivore": [
 			{ "model": "genesis:campfire_dung_brick", "y": 0, "textures": {"dung": "genesis:blocks/dung_block_herbivore"} },
 			{ "model": "genesis:campfire_dung_brick", "y": 180, "textures": {"dung": "genesis:blocks/dung_block_herbivore"} }
 		],
-		"item=genesis:dung_carnivore": [
+		"item=genesis__dung_carnivore": [
 			{ "model": "genesis:campfire_dung_brick", "y": 0, "textures": {"dung": "genesis:blocks/dung_block_carnivore"} },
 			{ "model": "genesis:campfire_dung_brick", "y": 180, "textures": {"dung": "genesis:blocks/dung_block_carnivore"} }
 		],
 		// Piles
-		"item=genesis:lepacyclotes": [
+		"item=genesis__lepacyclotes": [
 			{ "model": "genesis:campfire_item_pile", "y": 0, "textures": {"pile": "genesis:blocks/pile_lepacyclotes"} },
 			{ "model": "genesis:campfire_item_pile", "y": 180, "textures": {"pile": "genesis:blocks/pile_lepacyclotes"} }
 		],
-		"item=genesis:cordaites_sapling": [
+		"item=genesis__cordaites_sapling": [
 			{ "model": "genesis:campfire_item_pile", "y": 0, "textures": {"pile": "genesis:blocks/pile_cordaites"} },
 			{ "model": "genesis:campfire_item_pile", "y": 180, "textures": {"pile": "genesis:blocks/pile_cordaites"} }
 		]

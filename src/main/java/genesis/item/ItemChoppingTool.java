@@ -9,6 +9,8 @@ import genesis.combo.ToolItems.ToolObjectType;
 import genesis.combo.VariantsOfTypesCombo.ItemVariantCount;
 import genesis.combo.variant.ToolTypes.ToolType;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,20 +18,25 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.*;
 
 @ItemVariantCount(1)
-public class ItemChoppingTool extends ItemAxe
+public class ItemChoppingTool extends ItemGenesisAxe
 {
-	public final ToolItems owner;
-	
-	protected final ToolType type;
-	protected final ToolObjectType<Block, ItemChoppingTool> objType;
-	
-	public ItemChoppingTool(ToolItems owner, ToolObjectType<Block, ItemChoppingTool> objType, ToolType type, Class<ToolType> variantClass)
+	public ItemChoppingTool(ToolItems owner, ToolObjectType<Block, ? extends ItemChoppingTool> objType,
+			ToolType type, Class<ToolType> variantClass)
 	{
-		super(type.toolMaterial);
+		super(owner, objType, type, variantClass);
+	}
+	
+	@Override
+	public float getStrVsBlock(ItemStack stack, IBlockState state)
+	{
+		Material material = state.getMaterial();
 		
-		this.owner = owner;
-		this.type = type;
-		this.objType = objType;
+		if (material == Material.wood
+				|| material == Material.plants
+				|| material == Material.vine)
+			return efficiencyOnProperMaterial;
+		
+		return super.getStrVsBlock(stack, state);
 	}
 	
 	@Override

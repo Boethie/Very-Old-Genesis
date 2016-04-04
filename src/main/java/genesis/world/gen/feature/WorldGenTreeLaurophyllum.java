@@ -2,7 +2,9 @@ package genesis.world.gen.feature;
 
 import java.util.Random;
 
+import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumTree;
+import genesis.common.GenesisBlocks;
 import genesis.util.random.i.IntRange;
 
 import net.minecraft.util.math.BlockPos;
@@ -13,7 +15,11 @@ public class WorldGenTreeLaurophyllum extends WorldGenTreeBase
 {
 	public WorldGenTreeLaurophyllum(int minHeight, int maxHeight, boolean notify)
 	{
-		super(EnumTree.LAUROPHYLLUM, IntRange.create(minHeight, maxHeight), notify);
+		super(GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.SAPLING, EnumTree.LAUROPHYLLUM),
+				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.BRANCH, EnumTree.LAUROPHYLLUM),
+				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES, EnumTree.LAUROPHYLLUM),
+				null,
+				IntRange.create(minHeight, maxHeight), notify);
 	}
 	
 	@Override
@@ -24,23 +30,16 @@ public class WorldGenTreeLaurophyllum extends WorldGenTreeBase
 		if (!isCubeClear(world, pos.up(), 1, height))
 			return false;
 		
-		for (int i = 0; i < height; i++)
+		for (int y = 0; y < height; y++)
 		{
-			setBlockInWorld(world, pos.up(i), wood);
+			BlockPos branchPos = pos.up(y);
 			
-			if (i < height)
-			{
-				if (rand.nextInt(3) == 0)
-					setBlockInWorld(world, pos.add(rand.nextInt(3) - 1, i, rand.nextInt(3) - 1), wood);
-				if (rand.nextInt(3) == 0)
-					setBlockInWorld(world, pos.add(rand.nextInt(3) - 1, i, rand.nextInt(3) - 1), wood);
-				if (rand.nextInt(3) == 0)
-					setBlockInWorld(world, pos.add(rand.nextInt(3) - 1, i, rand.nextInt(3) - 1), wood);
-				if (rand.nextInt(3) == 0)
-					setBlockInWorld(world, pos.add(rand.nextInt(3) - 1, i, rand.nextInt(3) - 1), wood);
-				
-				super.doBranchLeaves(world, pos.up(i), rand, true, MathHelper.clamp_int(i + 1, 0, 2), true);
-			}
+			setBlockInWorld(world, branchPos, wood);
+			
+			for (int i = 0; i < 4; i++)
+				setBlockInWorld(world, branchPos.add(rand.nextInt(3) - 1, 0, rand.nextInt(3) - 1), wood);
+			
+			super.doBranchLeaves(world, branchPos, rand, true, MathHelper.clamp_int(y + 1, 0, 2), true);
 		}
 		
 		return true;

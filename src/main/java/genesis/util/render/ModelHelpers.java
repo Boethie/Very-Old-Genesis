@@ -389,8 +389,9 @@ public class ModelHelpers
 				return stackModel;
 			}
 			
-			String regID = Item.itemRegistry.getNameForObject(stack.getItem()).toString();
-			String regStackID = regID + "@" + stack.getMetadata();
+			ResourceLocation regLoc = Item.itemRegistry.getNameForObject(stack.getItem());
+			String regID = regLoc.getResourceDomain() + "__" + regLoc.getResourcePath();
+			String regStackID = regID + "__meta__" + stack.getMetadata();
 			
 			if (set.contains(regStackID))
 			{

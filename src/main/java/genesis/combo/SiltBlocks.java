@@ -12,6 +12,12 @@ public class SiltBlocks extends VariantsOfTypesCombo<EnumSilt>
 	public static final ObjectType<BlockSilt, ItemBlockMulti<EnumSilt>> SILT = ObjectType.createBlock("silt", BlockSilt.class);
 	public static final ObjectType<BlockSiltstone, ItemBlockMulti<EnumSilt>> SILTSTONE = ObjectType.createBlock("siltstone", "rock.siltstone", BlockSiltstone.class);
 	
+	static
+	{
+		SILT.setVariantNameFunction((v) -> v == EnumSilt.SILT ? SILT.getName() : SILT.getName() + "_red");
+		SILTSTONE.setVariantNameFunction((v) -> v == EnumSilt.SILT ? SILTSTONE.getName() : SILTSTONE.getName() + "_red");
+	}
+	
 	public SiltBlocks()
 	{
 		super(ImmutableList.of(SILT, SILTSTONE), EnumSilt.class, ImmutableList.copyOf(EnumSilt.values()));
