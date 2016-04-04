@@ -63,8 +63,8 @@ public class WorldGenGenesisSurfacePatch extends WorldGenerator
 				return false;
 			
 			if (
-					!block.isAir(world, pos) 
-					&& !block.isLeaves(world, pos)
+					!world.isAirBlock(pos)
+					&& !block.isLeaves(world.getBlockState(pos), world, pos)
 			)
 			{
 				break;
