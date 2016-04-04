@@ -11,8 +11,11 @@ import net.minecraft.world.World;
 
 public abstract class TileEntityBase extends TileEntity
 {
-	public void sendDescriptionPacket()
+	@Override
+	public void markDirty()
 	{
+		super.markDirty();
+		
 		if (worldObj != null)
 		{
 			IBlockState state = worldObj.getBlockState(pos);

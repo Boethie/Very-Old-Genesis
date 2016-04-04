@@ -1,8 +1,9 @@
 {
 	"__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
+	"parent": "block/block",
 	"ambientocclusion": true,
 	"elements": [
-		{   "__comment": "top",
+		{	"__comment": "top",
 			"from": [ 4, 0, 2 ],
 			"to": [ 12, 12, 14 ],
 			"faces": {

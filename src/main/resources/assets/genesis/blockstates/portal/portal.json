@@ -12,19 +12,19 @@
 		],
 		"inventory": [{
 			"transform": {
-				"thirdperson": {
-					"translation": [0, 0.09375, -0.171875],
-					"rotation": [{"x": 10}, {"y": -45}, {"z": 170}],
+				"gui": {
+					"translation": [0, 0, 0],
+					"rotation": [{"x": 30}, {"y": 225}, {"z": 0}],
 					"scale": [1, 1, 1]
 				},
-				"firstperson": {
+				"firstperson_righthand": {
 					"translation": [0, 0, 0],
 					"rotation": [{"x": 0}, {"y": 0}, {"z": 0}],
 					"scale": [2, 2, 2]
 				},
-				"gui": {
-					"translation": [0, 0, 0],
-					"rotation": [{"x": 0}, {"y": 0}, {"z": 0}],
+				"thirdperson_righthand": {
+					"translation": [0, 0.09375, -0.171875],
+					"rotation": [{"x": 10}, {"y": -45}, {"z": 170}],
 					"scale": [1, 1, 1]
 				}
 			}

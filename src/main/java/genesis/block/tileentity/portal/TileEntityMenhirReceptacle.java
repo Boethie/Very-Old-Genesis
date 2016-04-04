@@ -21,7 +21,7 @@ public class TileEntityMenhirReceptacle extends TileEntityBase implements ITicka
 	public void setContainedItem(ItemStack stack)
 	{
 		containedItem = stack;
-		sendDescriptionPacket();
+		markDirty();
 		GenesisPortal.fromMenhirBlock(worldObj, pos).updatePortalStatus(worldObj);
 	}
 	

@@ -114,9 +114,7 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 									
 									if (compound != null && compound.hasKey("BlockEntityTag", 10))
 									{
-										TileEntityMenhirGlyph glyphTE = new TileEntityMenhirGlyph();
-										glyphTE.readFromNBT(compound.getCompoundTag("BlockEntityTag"));
-										glyph = glyphTE.getGlyph();
+										glyph = TileEntityMenhirGlyph.getGlyph(compound.getCompoundTag("BlockEntityTag"));
 									}
 								}
 								
@@ -215,6 +213,11 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
 	{
 		super.onBlockPlacedBy(world, pos, state, placer, stack);
+		
+		TileEntity te = world.getTileEntity(pos);
+		
+		if (te instanceof TileEntityMenhirGlyph)
+			((TileEntityMenhirGlyph) te).markDirty();
 	}
 	
 	@Override
