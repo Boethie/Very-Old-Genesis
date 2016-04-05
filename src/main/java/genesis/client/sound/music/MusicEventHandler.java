@@ -5,6 +5,7 @@ import genesis.common.GenesisDimensions;
 import genesis.sounds.GenesisSoundEvents;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.util.SoundCategory;
 
@@ -22,9 +23,11 @@ public class MusicEventHandler
 		if (GenesisConfig.playDimensionMusic
 				&& event.getSound().getCategory() == SoundCategory.MUSIC
 				&& mc.theWorld != null
-				&& GenesisDimensions.isGenesis(mc.theWorld)) 
+				&& GenesisDimensions.isGenesis(mc.theWorld))
 		{
-			event.setResultSound(PositionedSoundRecord.getMusicRecord(GenesisSoundEvents.music_genesis));
+			ISound sound = PositionedSoundRecord.getMusicRecord(GenesisSoundEvents.music_genesis);
+			sound.createAccessor(event.getManager().sndHandler);
+			event.setResultSound(sound);
 		}
 	}
 }
