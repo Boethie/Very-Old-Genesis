@@ -81,6 +81,7 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 		scaleNoiseGen = new NoiseGeneratorOctaves(rand, 10);
 		depthNoiseGen = new NoiseGeneratorOctaves(rand, 16);
 		forestNoiseGen = new NoiseGeneratorOctaves(rand, 8);
+		heightmap = new double[825];
 		
 		InitNoiseGensEvent.ContextOverworld ctx =
 				new InitNoiseGensEvent.ContextOverworld(

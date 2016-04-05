@@ -31,7 +31,8 @@ public class GenesisDimensions
 	
 	public static boolean isGenesis(World world)
 	{
-		return world.provider.getDimension() == GenesisConfig.genesisDimId;
+		//return world.provider.getDimension() == GenesisConfig.genesisDimId;
+		return world.provider.getDimensionType() == GENESIS_DIMENSION;
 	}
 	
 	public static TeleporterGenesis getTeleporter(WorldServer world)

@@ -105,7 +105,7 @@ public class BlockHangingFruit extends BlockGenesis
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
-		EnumTree variant = world.getBlockState(pos).getValue(variantProp);
+		EnumTree variant = state.getValue(variantProp);
 		float radius = variant.getFruitWidth() / 2;
 		float height = variant.getFruitHeight();
 		

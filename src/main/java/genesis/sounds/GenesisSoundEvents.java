@@ -84,6 +84,9 @@ public class GenesisSoundEvents
 	/* Player */
 	public static SoundEvent player_knapping_hit;
 	
+	/* Music */
+	public static SoundEvent music_genesis;
+	
 	private static int currentID = -1;
 	
 	private static int getLastID()
@@ -195,6 +198,9 @@ public class GenesisSoundEvents
 		
 		/* Player */
 		player_knapping_hit = registerSound("player.knapping.hit");
+		
+		/* Music */
+		music_genesis = registerSound("music.genesis");
 		
 		currentID = -1;
 	}

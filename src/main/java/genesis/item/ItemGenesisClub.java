@@ -49,8 +49,15 @@ public class ItemGenesisClub extends ItemSword
 	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack)
 	{
 		Multimap<String, AttributeModifier> modifiers = super.getAttributeModifiers(slot, stack);
-		modifiers.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(),
-				new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 3.5F + type.toolMaterial.getDamageVsEntity(), 0));
+		
+		if (slot == EntityEquipmentSlot.MAINHAND)
+		{
+			String key = SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName();
+			modifiers.removeAll(key);
+			modifiers.put(key,
+					new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 3.5F + type.toolMaterial.getDamageVsEntity(), 0));
+		}
+		
 		return modifiers;
 	}
 }

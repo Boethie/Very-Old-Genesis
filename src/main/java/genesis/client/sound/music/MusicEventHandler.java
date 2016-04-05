@@ -2,19 +2,19 @@ package genesis.client.sound.music;
 
 import genesis.common.GenesisConfig;
 import genesis.common.GenesisDimensions;
+import genesis.sounds.GenesisSoundEvents;
+
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
+
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class MusicEventHandler 
 {
-
 	@SubscribeEvent
-	public void onMusicPlay (PlaySoundEvent event)
+	public void onMusicPlay(PlaySoundEvent event)
 	{
 		Minecraft mc = Minecraft.getMinecraft();
 		
@@ -24,8 +24,7 @@ public class MusicEventHandler
 				&& mc.theWorld != null
 				&& GenesisDimensions.isGenesis(mc.theWorld)) 
 		{
-			event.setResultSound(new PositionedSoundRecord(new ResourceLocation("genesis:music.genesis"), SoundCategory.MUSIC, 1.0F, 1.0F, false, 0, ISound.AttenuationType.NONE, 0.0F, 0.0F, 0.0F));
+			event.setResultSound(PositionedSoundRecord.getMusicRecord(GenesisSoundEvents.music_genesis));
 		}
 	}
-	
 }
