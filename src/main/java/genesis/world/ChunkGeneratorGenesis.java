@@ -448,12 +448,15 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 	public Chunk provideChunk(int x, int z)
 	{
 		rand.setSeed(x * 341873128712L + z * 132897987541L);
-		ChunkPrimer chunkprimer = new ChunkPrimer();
-		setBlocksInChunk(x, z, chunkprimer);
+		ChunkPrimer primer = new ChunkPrimer();
+		setBlocksInChunk(x, z, primer);
 		biomes = world.getBiomeProvider().loadBlockGeneratorData(biomes, x * 16, z * 16, 16, 16);
-		replaceBiomeBlocks(x, z, chunkprimer, biomes);
+		replaceBiomeBlocks(x, z, primer, biomes);
 		
-		Chunk chunk = new Chunk(world, chunkprimer, x, z);
+		if (settings.useCaves)
+			caveGen.generate(world, x, z, primer);
+		
+		Chunk chunk = new Chunk(world, primer, x, z);
 		byte[] abyte = chunk.getBiomeArray();
 		
 		for (int k = 0; k < abyte.length; ++k)
