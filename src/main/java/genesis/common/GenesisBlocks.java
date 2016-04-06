@@ -6,7 +6,6 @@ import genesis.block.tileentity.BlockGenesisFlowerPot.IFlowerPotPlant;
 import genesis.block.tileentity.portal.*;
 import genesis.block.tileentity.portal.render.TileEntityGenesisPortalRenderer;
 import genesis.block.tileentity.render.*;
-import genesis.client.*;
 import genesis.combo.*;
 import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.*;
@@ -27,7 +26,6 @@ import net.minecraft.world.IBlockAccess;
 
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.*;
 
 public final class GenesisBlocks
 {
@@ -256,26 +254,12 @@ public final class GenesisBlocks
 		GameRegistry.registerTileEntity(TileEntityMenhirReceptacle.class, Constants.ASSETS_PREFIX + "menhir_receptacle");
 		
 		Genesis.proxy.registerBlock(portal, "portal", false);
-		Genesis.proxy.callClient(new ClientFunction()
-		{
-			@SideOnly(Side.CLIENT)
-			@Override
-			public void apply(GenesisClient client)
-			{
-				client.registerModelStateMap(portal, new FlexibleStateMap().setPrefix("portal/portal", ""));
-			}
-		});
+		Genesis.proxy.callClient((c) ->
+				c.registerModelStateMap(portal, new FlexibleStateMap().setPrefix("portal/portal", "")));
 		Genesis.proxy.registerModel(portal, 0, "portal/portal");
 		GameRegistry.registerTileEntity(TileEntityGenesisPortal.class, Constants.ASSETS_PREFIX + "portal");
-		Genesis.proxy.callClient(new ClientFunction()
-		{
-				@SideOnly(Side.CLIENT)
-				@Override
-				public void apply(GenesisClient client)
-				{
-					client.registerTileEntityRenderer(TileEntityGenesisPortal.class, new TileEntityGenesisPortalRenderer());
-				}
-		});
+		Genesis.proxy.callClient((c) ->
+				c.registerTileEntityRenderer(TileEntityGenesisPortal.class, new TileEntityGenesisPortalRenderer()));
 		
 		trees.registerAll();
 		
@@ -292,46 +276,24 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(campfire, "campfire");
 		Item.getItemFromBlock(campfire).setMaxStackSize(1);
 		GameRegistry.registerTileEntity(TileEntityCampfire.class, Constants.ASSETS_PREFIX + "campfire");
-		Genesis.proxy.callClient(new ClientFunction()
-		{
-				@SideOnly(Side.CLIENT)
-				@Override
-				public void apply(GenesisClient client)
-				{
-						client.registerTileEntityRenderer(TileEntityCampfire.class, new TileEntityCampfireRenderer(campfire));
-				}
-		});
+		Genesis.proxy.callClient((c) -> 
+						c.registerTileEntityRenderer(TileEntityCampfire.class, new TileEntityCampfireRenderer(campfire)));
 		
 		// Storage boxes
 		Genesis.proxy.registerBlock(storage_box, "storage_box");
 		GameRegistry.registerTileEntity(TileEntityStorageBox.class, Constants.ASSETS_PREFIX + "storage_box");
-		Genesis.proxy.callClient(new ClientFunction()
-		{
-				@SideOnly(Side.CLIENT)
-				@Override
-				public void apply(GenesisClient client)
-				{
-						client.registerTileEntityRenderer(TileEntityStorageBox.class, new TileEntityStorageBoxRenderer(storage_box));
-				}
-		});
-
+		Genesis.proxy.callClient((c) ->
+				c.registerTileEntityRenderer(TileEntityStorageBox.class, new TileEntityStorageBoxRenderer(storage_box)));
+		
 		Genesis.proxy.registerBlock(rotten_storage_box, "rotten_storage_box");
 		GameRegistry.registerTileEntity(TileEntityRottenStorageBox.class, Constants.ASSETS_PREFIX + "rotten_storage_box");
-
-
+		
 		// Rack
 		Genesis.proxy.registerBlock(rack, "rack");
 		GameRegistry.registerTileEntity(TileEntityRack.class, Constants.ASSETS_PREFIX + "rack");
-		Genesis.proxy.callClient(new ClientFunction()
-		{
-			@SideOnly(Side.CLIENT)
-			@Override
-			public void apply(GenesisClient client)
-			{
-				client.registerTileEntityRenderer(TileEntityRack.class, new TileEntityRackRenderer(rack));
-			}
-		});
-
+		Genesis.proxy.callClient((c) ->
+				c.registerTileEntityRenderer(TileEntityRack.class, new TileEntityRackRenderer(rack)));
+		
 		// - Torches -
 		Genesis.proxy.registerBlock(calamites_torch, "calamites_torch");
 		Genesis.proxy.registerBlock(calamites_torch_tall, "calamites_torch_tall");
