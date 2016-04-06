@@ -60,43 +60,24 @@ public class GenLayerGenesisHills extends GenLayerGenesis
 				{
 					int i2 = k1;
 					int j2;
-					/*
-					if (k1 == BiomeGenBase.deepOcean.biomeID && this.nextInt(3) == 0)
-					{
-						j2 = this.nextInt(2);
-						
-						if (j2 == 0)
-						{
-							i2 = GenesisBiomes.rainforest.biomeID;
-						}
-						else
-						{	// TODO some other biome here
-							i2 = GenesisBiomes.auxForest.biomeID;
-						}
-					}
-					*/
 					
-					if (k1 == GenesisBiomes.rainforest.biomeID)
+					if (k1 == BiomeGenBase.getIdForBiome(GenesisBiomes.rainforest))
 					{
-						i2 = GenesisBiomes.rainforestHills.biomeID;
+						i2 = BiomeGenBase.getIdForBiome(GenesisBiomes.rainforestHills);
 					}
-					if (k1 == GenesisBiomes.auxForest.biomeID)
+					if (k1 == BiomeGenBase.getIdForBiome(GenesisBiomes.auxForest))
 					{
-						i2 = GenesisBiomes.auxForestHills.biomeID;
+						i2 = BiomeGenBase.getIdForBiome(GenesisBiomes.auxForestHills);
 					}
-					if (k1 == GenesisBiomes.woodlands.biomeID)
+					if (k1 == BiomeGenBase.getIdForBiome(GenesisBiomes.woodlands))
 					{
-						i2 = GenesisBiomes.woodlandsHills.biomeID;
+						i2 = BiomeGenBase.getIdForBiome(GenesisBiomes.woodlandsHills);
 					}
-					else if (k1 == GenesisBiomes.metaForest.biomeID)
+					else if (k1 == BiomeGenBase.getIdForBiome(GenesisBiomes.metaForest))
 					{
-						i2 = GenesisBiomes.metaForestHills.biomeID;
+						i2 = BiomeGenBase.getIdForBiome(GenesisBiomes.metaForestHills);
 					}
-					/*else if (k1 == GenesisBiomes.redLowlands.biomeID)
-					{
-						i2 = GenesisBiomes.redLowlandsHills.biomeID;
-					}
-					*/
+
 					if (flag && i2 != k1)
 					{
 						if (BiomeGenBase.getBiome(i2 + 128) != null)

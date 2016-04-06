@@ -74,7 +74,7 @@ public class WorldGenPebbles extends WorldGenDecorationBase
 	{
 		int index = rand.nextInt(pebblePositions.size());
 		PropertyBool pos = pebblePositions.get(index);
-		pebblePositions.remove(index);
+		//pebblePositions.remove(index);
 		return pos;
 	}
 }
