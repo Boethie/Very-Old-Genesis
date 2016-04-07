@@ -47,6 +47,6 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 		mossStages = new int[2];
 		mossStages[0] = 1;
 		mossStages[1] = 2;
-		super.generateBiomeTerrain(world, rand, primer, blockX, blockZ, d);
+		super.genTerrainBlocks(world, rand, primer, blockX, blockZ, d);
 	}
 }

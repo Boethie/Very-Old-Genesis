@@ -214,7 +214,7 @@ public final class GenesisBiomes
 		prop.setWaterColor(0x725113);
 		
 		floodplainsForest = new BiomeGenFloodplainsForest(prop);
-		BiomeManagerGenesis.registerBiome(floodplainsForest, GenesisConfig.marshId, BiomeType.WARM, GenesisConfig.floodplainsForestWeight);
+		BiomeManagerGenesis.registerBiome(floodplainsForest, GenesisConfig.floodplainsForestId, BiomeType.WARM, GenesisConfig.floodplainsForestWeight);
 		BiomeDictionary.registerBiomeType(floodplainsForest, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.DENSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
 		
 		prop = new BiomeGenBase.BiomeProperties("River");

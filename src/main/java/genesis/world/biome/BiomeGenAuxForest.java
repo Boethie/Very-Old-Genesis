@@ -25,9 +25,6 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 	public BiomeGenAuxForest(BiomeGenBase.BiomeProperties properties)
 	{
 		super(properties);
-		//setBiomeName("Araucarioxylon Forest");
-		//setTemperatureRainfall(1.1F, 0.9F);
-		//setHeight(0.05F, 0.15F);
 		
 		theBiomeDecorator.grassPerChunk = 7;
 		
