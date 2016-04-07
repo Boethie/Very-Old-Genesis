@@ -44,6 +44,9 @@ public abstract class WorldGenDecorationBase extends WorldGenerator
 	{
 		if (airMatcher != null)
 		{
+			if (!airMatcher.apply(world, pos.up()))
+				return null;
+			
 			do
 			{
 				if (!airMatcher.apply(world, pos))

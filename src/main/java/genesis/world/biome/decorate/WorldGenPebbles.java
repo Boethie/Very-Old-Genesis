@@ -48,9 +48,6 @@ public class WorldGenPebbles extends WorldGenDecorationBase
 		if (waterRequired && !WorldUtils.waterInRange(world, pos, 4, 3, 4))
 			return false;
 		
-		if (rand.nextInt(rarity) != 0)
-			return false;
-		
 		int maxPebbles = rand.nextInt(2) + rand.nextInt(2) + rand.nextInt(2);
 		IBlockState pebble = GenesisItems.tools.getBlockState(ToolItems.PEBBLE, pebbleTypes.get(rand.nextInt(pebbleTypes.size()))).withProperty(getPosition(rand), true);
 		
@@ -59,7 +56,7 @@ public class WorldGenPebbles extends WorldGenDecorationBase
 			pebble = pebble.withProperty(getPosition(rand), true);
 		}
 		
-		setBlockInWorld(world, pos.up(), pebble);
+		setBlockInWorld(world, pos, pebble);
 		
 		return true;
 	}
