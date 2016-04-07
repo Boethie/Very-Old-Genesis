@@ -63,7 +63,7 @@ public class WorldGenPlant<V extends IPlantMetadata<V>> extends WorldGenDecorati
 	
 	public WorldGenPlant(VariantsOfTypesCombo<V> combo, ObjectType<? extends BlockPlant<V>, ? extends Item> type, V variant)
 	{
-		super(WorldBlockMatcher.AIR_LEAVES, (s, w, p) -> combo.getBlock(type, variant).canBlockStay(w, p.up(), combo.getBlockState(type, variant)));
+		super(WorldBlockMatcher.AIR_LEAVES, WorldBlockMatcher.TRUE);
 		
 		this.combo = combo;
 		this.type = type;
@@ -89,28 +89,28 @@ public class WorldGenPlant<V extends IPlantMetadata<V>> extends WorldGenDecorati
 		if (nextToWater && !WorldUtils.waterInRange(world, pos, waterRadius, waterHeight))
 			return false;
 		
-		placePlant(world, pos, random);
+		boolean success = placePlant(world, pos, random);
 		
 		if (getPatchSize() == 1)
 			return true;
 		
 		BlockPos secondPos;
-		int additional = random.nextInt(getPatchSize() + 1);
+		int additional = random.nextInt(getPatchSize() - 1);
 		
 		for (int i = 0; i < additional; ++i)
 		{
 			secondPos = pos.add(random.nextInt(7) - 3, 0, random.nextInt(7) - 3);
 			
 			if (groundMatcher.apply(world, secondPos.down()))
-				placePlant(world, secondPos, random);
+				success |= placePlant(world, secondPos, random);
 		}
 		
-		return true;
+		return success;
 	}
 	
 	@Override
-	public void placePlant(World world, BlockPos pos, Random random)
+	public boolean placePlant(World world, BlockPos pos, Random random)
 	{
-		combo.getBlock(type, variant).placeAt(world, pos, variant, 2);
+		return combo.getBlock(type, variant).placeAt(world, pos, variant, 2);
 	}
 }

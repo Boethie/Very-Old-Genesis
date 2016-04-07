@@ -76,7 +76,7 @@ public class GenesisSoundEvents
 	/* Items */
 	public static SoundEvent item_flintandmarcasite_use;
 	
-	/* Entities */
+	/* Mobs */
 	public static SoundEvent mob_meganeura_fly;
 	public static SoundEvent mob_meganeura_land;
 	public static SoundEvent mob_meganeura_takeoff;
@@ -191,7 +191,7 @@ public class GenesisSoundEvents
 		/* Items */
 		item_flintandmarcasite_use = registerSound("item.flintandmarcasite.use");
 		
-		/* Entities */
+		/* Mobs */
 		mob_meganeura_fly = registerSound("mob.meganeura.fly");
 		mob_meganeura_land = registerSound("mob.meganeura.land");
 		mob_meganeura_takeoff = registerSound("mob.meganeura.takeoff");

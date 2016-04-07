@@ -15,6 +15,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.*;
@@ -60,20 +61,21 @@ public class BlockGenesisDoublePlant<V extends IPlantMetadata<V>> extends BlockP
 	}
 	
 	@Override
-	public boolean canBlockStay(World world, BlockPos pos, IBlockState state)
+	public boolean canBlockStay(IBlockAccess world, BlockPos pos, IBlockState state)
 	{
-		if (state.getBlock() != this)
-		{	// TODO: Make sure Paul uses canPlaceBlockAt instead, so we can remove this.
-			return super.canBlockStay(world, pos, state); //Forge: This function is called during world gen and placement, before this block is set, so if we are not 'here' then assume it's the pre-check.
-		}
-		else if (state.getValue(TOP))
-		{
-			return world.getBlockState(pos.down()).getBlock() == this;
-		}
-		else
-		{
+		boolean top = state.getValue(TOP);
+		IBlockState checkState = top ?
+				world.getBlockState(pos.down())
+				: world.getBlockState(pos.up());
+		
+		if (!owner.isStateOf(checkState, state.getValue(variantProp), type)
+				|| checkState.getValue(TOP) == top)
+			return false;
+		
+		if (!top)
 			return super.canBlockStay(world, pos, state);
-		}
+		
+		return true;
 	}
 	
 	@Override
@@ -118,6 +120,9 @@ public class BlockGenesisDoublePlant<V extends IPlantMetadata<V>> extends BlockP
 	@Override
 	public boolean placeAt(World world, BlockPos bottom, V variant, int flags)
 	{
+		if (!canReplace(world, bottom, EnumFacing.UP, owner.getStack(type, variant)))
+			return false;
+		
 		IBlockState state = owner.getBlockState(type, variant);
 		
 		if (world.isAirBlock(bottom) && world.isAirBlock(bottom.up()))

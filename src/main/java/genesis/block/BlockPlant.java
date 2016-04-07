@@ -168,17 +168,6 @@ public class BlockPlant<V extends IPlantMetadata<V>> extends BlockBush implement
 		return owner.getBlockState(type, owner.getVariant(this, meta));
 	}
 	
-	public boolean placeAt(World world, BlockPos bottom, V variant, int flags)
-	{
-		if (world.isAirBlock(bottom))
-		{
-			world.setBlockState(bottom, owner.getBlockState(type, variant), flags);
-			return true;
-		}
-		
-		return false;
-	}
-	
 	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
 	{
@@ -262,6 +251,20 @@ public class BlockPlant<V extends IPlantMetadata<V>> extends BlockBush implement
 				&& waterInRange(world, pos, variant.getWaterDistance());
 	}
 	
+	public boolean placeAt(World world, BlockPos bottom, V variant, int flags)
+	{
+		if (!canReplace(world, bottom, EnumFacing.UP, owner.getStack(type, variant)))
+			return false;
+		
+		if (world.isAirBlock(bottom))
+		{
+			world.setBlockState(bottom, owner.getBlockState(type, variant), flags);
+			return true;
+		}
+		
+		return false;
+	}
+	
 	public boolean canBlockStay(IBlockAccess world, BlockPos pos, IBlockState state)
 	{
 		V variant = state.getValue(variantProp);
@@ -270,7 +273,7 @@ public class BlockPlant<V extends IPlantMetadata<V>> extends BlockBush implement
 	}
 	
 	@Override
-	public boolean canBlockStay(World world, BlockPos pos, IBlockState state)
+	public final boolean canBlockStay(World world, BlockPos pos, IBlockState state)
 	{
 		return canBlockStay((IBlockAccess) world, pos, state);
 	}

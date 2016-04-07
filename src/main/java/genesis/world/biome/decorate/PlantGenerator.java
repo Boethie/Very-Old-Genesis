@@ -7,5 +7,5 @@ import net.minecraft.world.World;
 
 public interface PlantGenerator
 {
-	public void placePlant(World world, BlockPos pos, Random rand);
+	public boolean placePlant(World world, BlockPos pos, Random rand);
 }
