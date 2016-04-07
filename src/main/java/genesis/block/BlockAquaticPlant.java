@@ -119,7 +119,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 	}
 	
 	@Override
-	public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World world, BlockPos pos)
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, World world, BlockPos pos)
 	{
 		return null;
 	}
