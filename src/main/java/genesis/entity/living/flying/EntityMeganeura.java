@@ -394,6 +394,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 		super.setPositionAndRotation2(x, y, z, yaw, pitch, increments, unknown);
 		/*newRotationPitch = */rotationPitch = oldRotationPitch;
 		prevRotationPitch = oldPrevRotationPitch;
+		super.setPositionAndRotation2(x, y, z, yaw, pitch, increments, unknown);
 	}
 	
 	public static class MeganeuraUpdateMessage implements IMessage
@@ -518,9 +519,9 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 						if (p != null)
 						{
 							meganeura.setPositionAndRotation2(p.xCoord, p.yCoord, p.zCoord, message.yaw, meganeura.rotationPitch, 2, false);
-							meganeura.serverPosX = (int) (p.xCoord * 32);
-							meganeura.serverPosY = (int) (p.yCoord * 32);
-							meganeura.serverPosZ = (int) (p.zCoord * 32);
+							meganeura.serverPosX = (int) (p.xCoord * 4096);
+							meganeura.serverPosY = (int) (p.yCoord * 4096);
+							meganeura.serverPosZ = (int) (p.zCoord * 4096);
 						}
 						
 						Vec3d v = message.velocity;
