@@ -4,6 +4,7 @@ import java.util.Random;
 
 import genesis.block.BlockGrowingPlant;
 import genesis.common.GenesisBlocks;
+import genesis.util.WorldBlockMatcher;
 import genesis.util.WorldUtils;
 
 import net.minecraft.block.state.IBlockState;
@@ -20,6 +21,8 @@ public class WorldGenGrowingPlant extends WorldGenDecorationBase
 	
 	public WorldGenGrowingPlant(BlockGrowingPlant plant)
 	{
+		super(WorldBlockMatcher.AIR_LEAVES, WorldBlockMatcher.TRUE);
+		
 		this.plant = plant;
 	}
 	
@@ -39,31 +42,13 @@ public class WorldGenGrowingPlant extends WorldGenDecorationBase
 	@Override
 	protected boolean doGenerate(World world, Random random, BlockPos pos)
 	{
-		do
-		{
-			IBlockState state = world.getBlockState(pos);
-			
-			if (!state.getBlock().isAir(state, world, pos) && !state.getBlock().isLeaves(state, world, pos))
-				break;
-			
-			pos = pos.down();
-		}
-		while (pos.getY() > 0);
-		
-		IBlockState state = world.getBlockState(pos);
-		
-		if (state.getBlock() != GenesisBlocks.moss && state.getBlock() != Blocks.dirt)
-			return false;
-		
 		if (nextToWater && !WorldUtils.waterInRange(world, pos, waterRadius, waterRadius, waterHeight))
 			return false;
-		
-		pos = pos.up();
 		
 		if (!world.isAirBlock(pos))
 			return false;
 		
-		placeRandomPlant(world, pos, random);
+		boolean success = placeRandomPlant(world, pos, random);
 		
 		BlockPos secondPos;
 		
@@ -72,22 +57,16 @@ public class WorldGenGrowingPlant extends WorldGenDecorationBase
 		for (int i = 0; i <= additional; ++i)
 		{
 			secondPos = pos.add(random.nextInt(7) - 3, 0, random.nextInt(7) - 3);
-			if (
-					(world.getBlockState(secondPos).getBlock() == GenesisBlocks.moss
-					|| world.getBlockState(secondPos).getBlock() == Blocks.dirt)
-					&& (
-							findBlockInRange(world, secondPos, Blocks.water.getDefaultState(), waterRadius, waterHeight, waterRadius)
-							|| !nextToWater))
-				placeRandomPlant(world, secondPos, random);
+			
+			if (!nextToWater || WorldUtils.waterInRange(world, pos, waterRadius, waterRadius, waterHeight))
+				success |= placeRandomPlant(world, secondPos, random);
 		}
 		
-		return true;
+		return success;
 	}
 	
 	protected boolean placeRandomPlant(World world, BlockPos pos, Random random)
 	{
-		plant.placeRandomAgePlant(world, pos, random);
-		
-		return true;
+		return plant.placeRandomAgePlant(world, pos, random);
 	}
 }

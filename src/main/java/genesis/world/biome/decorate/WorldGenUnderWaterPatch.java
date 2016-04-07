@@ -18,7 +18,7 @@ public class WorldGenUnderWaterPatch extends WorldGenDecorationBase
 	
 	public WorldGenUnderWaterPatch(IBlockState... blocks)
 	{
-		super(WorldBlockMatcher.AIR_WATER, WorldBlockMatcher.TRUE);
+		super(WorldBlockMatcher.AIR_WATER_LEAVES, WorldBlockMatcher.TRUE);
 		
 		this.blocks = ImmutableList.copyOf(blocks);
 	}

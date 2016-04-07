@@ -20,6 +20,7 @@ public interface WorldBlockMatcher
 	
 	public static final WorldBlockMatcher WATER = (s, w, p) -> s.getMaterial() == Material.water;
 	public static final WorldBlockMatcher AIR_WATER = or(AIR, WATER);
+	public static final WorldBlockMatcher AIR_WATER_LEAVES = or(AIR, WATER, LEAVES);
 	
 	public static final WorldBlockMatcher SOLID_TOP = solidSide(EnumFacing.UP);
 	

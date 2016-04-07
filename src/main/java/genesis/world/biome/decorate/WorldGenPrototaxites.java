@@ -18,7 +18,7 @@ public class WorldGenPrototaxites extends WorldGenDecorationBase
 	
 	public WorldGenPrototaxites()
 	{
-		super(WorldBlockMatcher.AIR, WorldBlockMatcher.TRUE);
+		super(WorldBlockMatcher.AIR_LEAVES, WorldBlockMatcher.TRUE);
 	}
 	
 	@Override
