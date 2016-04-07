@@ -5,6 +5,7 @@ import java.util.Random;
 import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
+import genesis.util.MiscUtils;
 import genesis.util.random.i.IntRange;
 
 import net.minecraft.block.state.IBlockState;
@@ -54,6 +55,19 @@ public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 					|| getTreePos(world, checkPos = checkPos.south()) == null)
 					|| getTreePos(world, checkPos = checkPos.west()) == null)
 			return false;
+		
+		for (BlockPos cornerPos : BlockPos.getAllInBoxMutable(pos, pos.add(1, 0, 1)))
+		{
+			if (cornerPos.equals(pos))
+				continue;
+			
+			BlockPos groundPos = getTreePos(world, cornerPos);
+			
+			if (groundPos == null)
+				return false;
+			
+			pos = new BlockPos(pos.getX(), Math.min(pos.getY(), groundPos.getY()), pos.getZ());
+		}
 		
 		for (int i = 0; i < height; i++)
 		{

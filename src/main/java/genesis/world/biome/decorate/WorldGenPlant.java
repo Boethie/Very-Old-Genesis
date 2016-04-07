@@ -89,7 +89,7 @@ public class WorldGenPlant<V extends IPlantMetadata<V>> extends WorldGenDecorati
 		if (nextToWater && !WorldUtils.waterInRange(world, pos, waterRadius, waterHeight))
 			return false;
 		
-		placePlant(world, pos.up(), random);
+		placePlant(world, pos, random);
 		
 		if (getPatchSize() == 1)
 			return true;

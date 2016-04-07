@@ -172,7 +172,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		BlockPos saplingPos = soilPos.up();
 		
 		if (!soilPredicate.apply(checkState)
-				&& !checkState.getBlock().canSustainPlant(checkState, world, pos, EnumFacing.UP, (IPlantable) sapling.getBlock()))
+				&& !checkState.getBlock().canSustainPlant(checkState, world, saplingPos, EnumFacing.UP, (IPlantable) sapling.getBlock()))
 			return null;
 		
 		IBlockState replacing = world.getBlockState(saplingPos);
