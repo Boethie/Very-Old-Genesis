@@ -14,8 +14,10 @@ public class SiltBlocks extends VariantsOfTypesCombo<EnumSilt>
 	
 	static
 	{
-		SILT.setVariantNameFunction((v) -> v == EnumSilt.SILT ? SILT.getName() : SILT.getName() + "_" + v.getName());
-		SILTSTONE.setVariantNameFunction((v) -> v == EnumSilt.SILT ? SILTSTONE.getName() : SILTSTONE.getName() + "_" + v.getName());
+		SILT.setVariantNameFunction((v) -> v == EnumSilt.SILT ? SILT.getName() : SILT.getName() + "_" + v.getName())
+				.setUseSeparateVariantJsons(false);
+		SILTSTONE.setVariantNameFunction((v) -> v == EnumSilt.SILT ? SILTSTONE.getName() : SILTSTONE.getName() + "_" + v.getName())
+				.setUseSeparateVariantJsons(false);
 	}
 	
 	public SiltBlocks()
