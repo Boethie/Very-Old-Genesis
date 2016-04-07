@@ -22,7 +22,7 @@ public class WorldGenTreeBjuvia extends WorldGenTreeBase
 	@Override
 	protected boolean doGenerate(World world, Random rand, BlockPos pos)
 	{
-		int height = heightProvider.get(rand);
+		int height = heightProvider.get(rand) - 1;
 		
 		if (!isCubeClear(world, pos, 1, height))
 			return false;

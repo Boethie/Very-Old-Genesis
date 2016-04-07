@@ -1,10 +1,9 @@
 package genesis.world.gen.feature;
 
-import genesis.combo.variant.EnumTree;
-import genesis.util.random.i.IntRange;
-
 import java.util.Random;
 
+import genesis.combo.variant.EnumTree;
+import genesis.util.random.i.IntRange;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -18,7 +17,7 @@ public class WorldGenTreeLepidodendron extends WorldGenTreeBase
 	@Override
 	public boolean doGenerate(World world, Random rand, BlockPos pos)
 	{
-		int height = heightProvider.get(rand);
+		int height = heightProvider.get(rand) - 5;
 		
 		if (!isCubeClear(world, pos.up(), 1, height))
 		{

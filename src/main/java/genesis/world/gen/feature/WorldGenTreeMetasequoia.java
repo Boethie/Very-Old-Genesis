@@ -5,12 +5,10 @@ import java.util.Random;
 import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
-import genesis.util.MiscUtils;
 import genesis.util.random.i.IntRange;
-
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class WorldGenTreeMetasequoia extends WorldGenTreeBase

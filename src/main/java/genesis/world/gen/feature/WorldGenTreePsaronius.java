@@ -18,7 +18,7 @@ public class WorldGenTreePsaronius extends WorldGenTreeBase
 	@Override
 	public boolean doGenerate(World world, Random rand, BlockPos pos)
 	{
-		int height = heightProvider.get(rand);
+		int height = heightProvider.get(rand) - 1;
 		
 		if (!isCubeClear(world, pos.up(), 1, height))
 			return false;

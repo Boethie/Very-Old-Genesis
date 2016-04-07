@@ -18,7 +18,7 @@ public class WorldGenTreeSigillaria extends WorldGenTreeBase
 	@Override
 	public boolean doGenerate(World world, Random rand, BlockPos pos)
 	{
-		int height = heightProvider.get(rand);
+		int height = heightProvider.get(rand) - 5;
 		
 		if (!isCubeClear(world, pos, 1, height))
 			return false;
