@@ -3,7 +3,6 @@ package genesis.block;
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms.CanStayOptions;
 import genesis.common.GenesisCreativeTabs;
 import genesis.util.*;
-import genesis.util.random.*;
 import genesis.util.random.drops.blocks.BlockDrops;
 import genesis.util.random.i.IntRange;
 
@@ -1210,12 +1209,9 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 	public boolean placeRandomAgePlant(World world, BlockPos pos, Random rand)
 	{
 		if (!canPlantSurvive(world, pos, true))
-		{
 			return false;
-		}
 		
-		IntRange heightRange = IntRange.create(1, maxHeight);
-		int targetHeight = heightRange.get(rand);
+		int targetHeight = IntRange.create(1, maxHeight).get(rand);
 		
 		for (int i = 0; i < targetHeight; i++)
 		{
