@@ -2,8 +2,6 @@ package genesis.util.random.i;
 
 import java.util.Random;
 
-import net.minecraft.util.math.MathHelper;
-
 public abstract class IntRange implements RandomIntProvider
 {
 	public static IntRange create(int value)
@@ -38,7 +36,7 @@ public abstract class IntRange implements RandomIntProvider
 		@Override
 		public int get(Random rand)
 		{
-			return MathHelper.getRandomIntegerInRange(rand, min, max);
+			return rand.nextInt(max - min) + min;
 		}
 		
 		@Override
