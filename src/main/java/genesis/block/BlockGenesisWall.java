@@ -192,19 +192,20 @@ public class BlockGenesisWall extends BlockWall
 	@Override
 	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side)
 	{
-		if (state.doesSideBlockRendering(world, pos, side))
+		BlockPos sidePos = pos.offset(side);
+		IBlockState sideState = world.getBlockState(sidePos);
+		
+		if (sideState.doesSideBlockRendering(world, sidePos, side))
 			return false;
 		
-		if (state.getBlock() == this)
+		if (sideState.getBlock() == this)
 		{
 			if (side.getAxis() != EnumFacing.Axis.Y)
 				return false;
 			
-			BlockPos origin = pos.offset(side.getOpposite());
-			
 			for (EnumFacing facing : EnumFacing.HORIZONTALS)
-				if (canConnectTo(world, origin, facing)
-					&& !canConnectTo(world, pos, facing))
+				if (canConnectTo(world, pos, facing)
+					&& !canConnectTo(world, sidePos, facing))
 					return true;
 			
 			return false;

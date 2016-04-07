@@ -168,10 +168,13 @@ public class BlockGenesisFence extends BlockFence
 	@Override
 	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side)
 	{
-		if (state.doesSideBlockRendering(world, pos, side))
+		BlockPos sidePos = pos.offset(side);
+		IBlockState sideState = world.getBlockState(sidePos);
+		
+		if (sideState.doesSideBlockRendering(world, sidePos, side))
 			return false;
 		
-		if (state.getBlock() == this)
+		if (sideState.getBlock() == this)
 			return false;
 		
 		return true;
