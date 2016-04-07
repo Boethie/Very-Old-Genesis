@@ -58,7 +58,6 @@ public class SoundUtils
 		@Override
 		public void fromBytes(ByteBuf buf)
 		{
-			//sound = new SoundEvent(new ResourceLocation(ByteBufUtils.readUTF8String(buf)));
 			sound = SoundEvent.soundEventRegistry.getObjectById(buf.readInt());
 			category = GenesisByteBufUtils.readEnum(buf, SoundCategory.class);
 			entityID = buf.readInt();
