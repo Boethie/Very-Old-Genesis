@@ -180,6 +180,11 @@
 					"plant": "genesis:blocks/sapling_ficus"
 				}
 			},
+			"laurophyllum_sapling": {
+				"textures": {
+					"plant": "genesis:blocks/sapling_laurophyllum"
+				}
+			},
 			"archaeomarasmius": {
 				"textures": {
 					"plant": "genesis:blocks/archaeomarasmius_potted"
