@@ -157,7 +157,7 @@ public final class GenesisBiomes
 		BiomeDictionary.registerBiomeType(woodlandsHills, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		prop = new BiomeGenBase.BiomeProperties("Deciduous Forest");
-		prop.setTemperature(0.7F);
+		prop.setTemperature(0.6F);
 		prop.setRainfall(0.8F);
 		prop.setBaseHeight(0.075F);
 		prop.setHeightVariation(0.05F);
@@ -168,7 +168,7 @@ public final class GenesisBiomes
 		BiomeDictionary.registerBiomeType(deciduousForest, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.DENSE);
 		
 		prop = new BiomeGenBase.BiomeProperties("Deciduous Forest M");
-		prop.setTemperature(0.7F);
+		prop.setTemperature(0.6F);
 		prop.setRainfall(0.8F);
 		prop.setBaseHeight(2.2F);
 		prop.setHeightVariation(0.4F);
@@ -179,7 +179,7 @@ public final class GenesisBiomes
 		BiomeDictionary.registerBiomeType(deciduousForestM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.DENSE, BiomeDictionary.Type.MOUNTAIN);
 		
 		prop = new BiomeGenBase.BiomeProperties("Deciduous Forest Hills");
-		prop.setTemperature(0.7F);
+		prop.setTemperature(0.6F);
 		prop.setRainfall(0.8F);
 		prop.setBaseHeight(0.425F);
 		prop.setHeightVariation(0.275F);
