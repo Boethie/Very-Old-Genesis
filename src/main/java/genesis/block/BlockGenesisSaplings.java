@@ -172,7 +172,7 @@ public class BlockGenesisSaplings extends BlockSapling
 			gen = new WorldGenTreeFicus(5, 10, true);
 			break;
 		case DRYOPHYLLUM:
-			treeType = (rand.nextInt(6) == 0)? TreeTypes.TYPE_1 : TreeTypes.TYPE_1;
+			treeType = (rand.nextInt(6) == 0)? TreeTypes.TYPE_2 : TreeTypes.TYPE_1;
 			minHeight = (treeType == TreeTypes.TYPE_2)? 12 : 10;
 			maxHeight = (treeType == TreeTypes.TYPE_2)? 17 : 15;
 			gen = new WorldGenTreeDryophyllum(12, 17, true).setType(treeType);
