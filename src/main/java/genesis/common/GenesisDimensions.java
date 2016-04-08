@@ -21,7 +21,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class GenesisDimensions
 {
-	public static final DimensionType GENESIS_DIMENSION = DimensionType.register(Constants.MOD_ID, "_genesis",
+	public static final DimensionType GENESIS_DIMENSION = DimensionType.register(Constants.MOD_NAME, "_genesis",
 			GenesisConfig.genesisDimId, WorldProviderGenesis.class, false);
 	
 	public static void register()
@@ -31,7 +31,6 @@ public class GenesisDimensions
 	
 	public static boolean isGenesis(World world)
 	{
-		//return world.provider.getDimension() == GenesisConfig.genesisDimId;
 		return world.provider.getDimensionType() == GENESIS_DIMENSION;
 	}
 	
