@@ -166,7 +166,10 @@ public class BlockGenesisSaplings extends BlockSapling
 			gen = new WorldGenTreeMetasequoia(minHeight, maxHeight, true).setType(treeType);
 			break;
 		case GINKGO:
-			gen = new WorldGenTreeGinkgo(12, 17, true).setType((rand.nextInt(6) == 0)? TreeTypes.TYPE_2 : TreeTypes.TYPE_1);
+			treeType = (rand.nextInt(6) == 0)? TreeTypes.TYPE_2 : TreeTypes.TYPE_1;
+			minHeight = (treeType == TreeTypes.TYPE_2)? 12 : 8;
+			maxHeight = (treeType == TreeTypes.TYPE_2)? 17 : 10;
+			gen = new WorldGenTreeGinkgo(minHeight, maxHeight, true).setType(treeType);
 			break;
 		case FICUS:
 			gen = new WorldGenTreeFicus(5, 10, true);
@@ -175,7 +178,7 @@ public class BlockGenesisSaplings extends BlockSapling
 			treeType = (rand.nextInt(6) == 0)? TreeTypes.TYPE_2 : TreeTypes.TYPE_1;
 			minHeight = (treeType == TreeTypes.TYPE_2)? 12 : 10;
 			maxHeight = (treeType == TreeTypes.TYPE_2)? 17 : 15;
-			gen = new WorldGenTreeDryophyllum(12, 17, true).setType(treeType);
+			gen = new WorldGenTreeDryophyllum(minHeight, maxHeight, true).setType(treeType);
 			break;
 		case ARCHAEANTHUS:
 			gen = new WorldGenTreeArchaeanthus(15, 20, true);

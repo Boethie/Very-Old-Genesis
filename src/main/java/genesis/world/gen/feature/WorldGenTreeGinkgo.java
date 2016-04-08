@@ -26,12 +26,12 @@ public class WorldGenTreeGinkgo extends WorldGenTreeBase
 		if (!isCubeClear(world, pos.up(base), 4, height))
 			return false;
 		
-		int mainBranches = 3 + rand.nextInt(6);
+		int mainBranches = (treeType == TreeTypes.TYPE_1)? 2 + rand.nextInt(2) : 3 + rand.nextInt(6);
 		
 		for (int i = 0; i < mainBranches; ++i)
 		{
 			base = 2 + rand.nextInt(4);
-			branchUp(world, pos, rand, height, base);
+			branchUp(world, pos, rand, height, (base >= height)? base - 5 : base);
 		}
 		
 		return true;
@@ -84,7 +84,7 @@ public class WorldGenTreeGinkgo extends WorldGenTreeBase
 				if (i > base + 1)
 					doBranchLeaves(world, upPos.down(), rand, false, 3, true);
 				
-				doBranchLeaves(world, upPos, rand, (i >= height - 1), 4, true);
+				doBranchLeaves(world, upPos, rand, true, 4, true);
 			}
 		}
 	}
