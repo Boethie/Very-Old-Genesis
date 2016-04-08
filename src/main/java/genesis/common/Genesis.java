@@ -41,7 +41,7 @@ public class Genesis
 		GenesisSoundEvents.registerAll();
 		
 		GenesisFluids.registerFluids();
-		GenesisBlocks.registerBlocks();
+		GenesisBlocks.preInitCommon();
 		GenesisItems.registerItems();
 		
 		GenesisCapabilities.register();

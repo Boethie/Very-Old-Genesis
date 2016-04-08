@@ -18,6 +18,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
 import net.minecraft.item.*;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.*;
 
 /**
@@ -251,7 +252,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 					final Object[] args = ArrayUtils.addAll(itemArgs, type.getItemArguments());
 					item = ReflectionUtils.construct(itemClass, args);
 					
-					type.afterConstructedPass(block, item, subVariants);
+					type.afterConstructed(block, item, subVariants);
 					
 					BitMask mask;
 					
@@ -446,7 +447,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 							((IModifyStateMap) block).customizeStateMap(mapper);
 						}
 						
-						client.registerModelStateMap(block, mapper);
+						ModelLoader.setCustomStateMapper(block, mapper);
 					}
 				});
 				// End registering block resource locations.
@@ -469,7 +470,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 			// Set unlocalized name.
 			item.setUnlocalizedName(unlocName);
 			
-			type.afterRegisteredPass(block, item);
+			type.afterRegistered(block, item);
 		}
 	}
 	
@@ -520,7 +521,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	 */
 	public <B extends Block> B getBlock(ObjectType<B, ? extends Item> type, V variant)
 	{
-		return ReflectionUtils.safeCast(type.getBlockClass(), getVariantData(type, variant).block);
+		return ReflectionUtils.nullSafeCast(type.getBlockClass(), getVariantData(type, variant).block);
 	}
 	
 	/**
@@ -528,7 +529,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	 */
 	public <B extends Block> Collection<B> getBlocks(ObjectType<B, ? extends Item> type)
 	{
-		HashSet<B> out = new HashSet<B>();
+		HashSet<B> out = new HashSet<>();
 		
 		for (V variant : getValidVariants(type))
 		{
@@ -539,11 +540,25 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	}
 	
 	/**
+	 * Returns a list of all the constructed Blocks for the listed {@link ObjectType}s.
+	 */
+	@SafeVarargs
+	public final <B extends Block> Collection<B> getBlocks(ObjectType<? extends B, ? extends Item>... types)
+	{
+		HashSet<B> out = new HashSet<>();
+		
+		for (ObjectType<? extends B, ?> type : types)
+			out.addAll(getBlocks(type));
+		
+		return out;
+	}
+	
+	/**
 	 * Returns the Item for this {@link ObjectType} and variant, casted to the ObjectType's item generic type.
 	 */
 	public <I extends Item> I getItem(ObjectType<? extends Block, I> type, V variant)
 	{
-		return ReflectionUtils.safeCast(type.getItemClass(), getVariantData(type, variant).item);
+		return ReflectionUtils.nullSafeCast(type.getItemClass(), getVariantData(type, variant).item);
 	}
 	
 	/**

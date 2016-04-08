@@ -35,9 +35,9 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	protected String unlocalizedName;
 	protected VariantsOfTypesCombo.TypeNamePosition typeNamePosition = TypeNamePosition.PREFIX;
 	
-	private final Class<? extends B> blockClass;
+	private final Class<B> blockClass;
 	private Object[] blockArgs = {};
-	private final Class<? extends I> itemClass;
+	private final Class<I> itemClass;
 	private Object[] itemArgs = {};
 	
 	protected Set<IMetadata<?>> excludeVariants;
@@ -49,11 +49,13 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	protected boolean registerVariantModels = true;
 	
 	protected Function<IMetadata<?>, String> variantNameFunction = null;
+	protected ObjectFunction<? super B, ? super I> afterConstructed;
+	protected ObjectFunction<? super B, ? super I> afterRegistered;
 	
 	protected CreativeTabs tab = null;
 	
 	@SuppressWarnings("unchecked")
-	public ObjectType(String name, String unlocalizedName, Class<? extends B> blockClass, Class<? extends I> itemClass, Collection<? extends IMetadata<?>> variantExclusions)
+	public ObjectType(String name, String unlocalizedName, Class<B> blockClass, Class<I> itemClass, Collection<? extends IMetadata<?>> variantExclusions)
 	{
 		this.name = name;
 		this.resourceName = name;
@@ -64,11 +66,11 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 		{
 			if (blockClass != null)
 			{
-				itemClass = (Class<? extends I>) ItemBlockMulti.class;
+				itemClass = (Class<I>) ItemBlockMulti.class;
 			}
 			else
 			{
-				itemClass = (Class<? extends I>) ItemMulti.class;
+				itemClass = (Class<I>) ItemMulti.class;
 			}
 		}
 		
@@ -76,17 +78,17 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 		this.itemClass = itemClass;
 	}
 	
-	public ObjectType(String name, Class<? extends B> blockClass, Class<? extends I> itemClass, Collection<? extends IMetadata<?>> variantExclusions)
+	public ObjectType(String name, Class<B> blockClass, Class<I> itemClass, Collection<? extends IMetadata<?>> variantExclusions)
 	{
 		this(name, name, blockClass, itemClass, variantExclusions);
 	}
 	
-	public ObjectType(String name, String unlocalizedName, Class<? extends B> blockClass, Class<? extends I> itemClass, IMetadata<?>... variantExclusions)
+	public ObjectType(String name, String unlocalizedName, Class<B> blockClass, Class<I> itemClass, IMetadata<?>... variantExclusions)
 	{
 		this(name, unlocalizedName, blockClass, itemClass, Arrays.asList(variantExclusions));
 	}
 	
-	public ObjectType(String name, Class<? extends B> blockClass, Class<? extends I> itemClass, IMetadata<?>... variantExclusions)
+	public ObjectType(String name, Class<B> blockClass, Class<I> itemClass, IMetadata<?>... variantExclusions)
 	{
 		this(name, name, blockClass, itemClass, variantExclusions);
 	}
@@ -242,34 +244,36 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 		return this;
 	}
 	
-	public <V extends IMetadata<V>> void afterConstructed(B block, I item, List<V> variants)
+	public ObjectType<B, I> setConstructedFunction(ObjectFunction<? super B, ? super I> function)
+	{
+		afterConstructed = function;
+		return this;
+	}
+	
+	public <V extends IMetadata<V>> void afterConstructed(Block block, Item item, List<V> variants)
 	{
 		if (tab != null)
 		{
 			if (block != null)
-			{
 				block.setCreativeTab(tab);
-			}
-			
 			if (item != null)
-			{
 				item.setCreativeTab(tab);
-			}
 		}
+		
+		if (afterConstructed != null)
+			afterConstructed.apply(ReflectionUtils.nullSafeCast(blockClass, block), ReflectionUtils.nullSafeCast(itemClass, item));
 	}
 	
-	public <V extends IMetadata<V>> void afterConstructedPass(Block block, Item item, List<V> variants)
+	public ObjectType<B, I> setRegisteredFunction(ObjectFunction<? super B, ? super I> function)
 	{
-		afterConstructed(ReflectionUtils.safeCast(blockClass, block), ReflectionUtils.safeCast(itemClass, item), variants);
+		afterRegistered = function;
+		return this;
 	}
 	
-	protected void afterRegistered(B block, I item)
+	public final void afterRegistered(Block block, Item item)
 	{
-	}
-	
-	public final void afterRegisteredPass(Block block, Item item)
-	{
-		afterRegistered(ReflectionUtils.safeCast(blockClass, block), ReflectionUtils.safeCast(itemClass, item));
+		if (afterRegistered != null)
+			afterRegistered.apply(ReflectionUtils.nullSafeCast(blockClass, block), ReflectionUtils.nullSafeCast(itemClass, item));
 	}
 	
 	public ObjectType<B, I> setIgnoredProperties(IProperty<?>... properties)
@@ -334,7 +338,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	/**
 	 * Full parameters.
 	 */
-	public static <B extends Block, I extends Item> ObjectType<B, I> create(String name, String unlocalizedName, Class<? extends B> blockClass, Class<? extends I> itemClass, Collection<? extends IMetadata<?>> variantExclusions)
+	public static <B extends Block, I extends Item> ObjectType<B, I> create(String name, String unlocalizedName, Class<B> blockClass, Class<I> itemClass, Collection<? extends IMetadata<?>> variantExclusions)
 	{
 		return new ObjectType<B, I>(name, unlocalizedName, blockClass, itemClass, variantExclusions);
 	}
@@ -342,7 +346,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	/**
 	 * Full parameters, default ItemBlock.
 	 */
-	public static <B extends Block, V extends IMetadata<V>> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, String unlocalizedName, Class<? extends B> blockClass, Collection<? extends IMetadata<V>> variantExclusions)
+	public static <B extends Block, V extends IMetadata<V>> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, String unlocalizedName, Class<B> blockClass, Collection<? extends IMetadata<V>> variantExclusions)
 	{
 		return create(name, unlocalizedName, blockClass, ReflectionUtils.<ItemBlockMulti<V>>convertClass(ItemBlockMulti.class), variantExclusions);
 	}
@@ -350,7 +354,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	/**
 	 * Full parameters, no block.
 	 */
-	public static <I extends Item> ObjectType<Block, I> createItem(String name, String unlocalizedName, Class<? extends I> itemClass, Collection<? extends IMetadata<?>> variantExclusions)
+	public static <I extends Item> ObjectType<Block, I> createItem(String name, String unlocalizedName, Class<I> itemClass, Collection<? extends IMetadata<?>> variantExclusions)
 	{
 		return create(name, unlocalizedName, null, itemClass, variantExclusions);
 	}
@@ -367,7 +371,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	/**
 	 * Same name for registry and unlocalized, all other parameters.
 	 */
-	public static <B extends Block, I extends Item> ObjectType<B, I> create(String name, Class<? extends B> blockClass, Class<? extends I> itemClass, Collection<? extends IMetadata<?>> variantExclusions)
+	public static <B extends Block, I extends Item> ObjectType<B, I> create(String name, Class<B> blockClass, Class<I> itemClass, Collection<? extends IMetadata<?>> variantExclusions)
 	{
 		return new ObjectType<B, I>(name, blockClass, itemClass, variantExclusions);
 	}
@@ -375,7 +379,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	/**
 	 * Same name for registry and unlocalized, default ItemBlock.
 	 */
-	public static <B extends Block, V extends IMetadata<V>> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, Class<? extends B> blockClass, Collection<? extends IMetadata<V>> variantExclusions)
+	public static <B extends Block, V extends IMetadata<V>> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, Class<B> blockClass, Collection<? extends IMetadata<V>> variantExclusions)
 	{
 		return create(name, blockClass, ReflectionUtils.<ItemBlockMulti<V>>convertClass(ItemBlockMulti.class), variantExclusions);
 	}
@@ -383,7 +387,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	/**
 	 * Same name for registry and unlocalized, no block.
 	 */
-	public static <I extends Item> ObjectType<Block, I> createItem(String name, Class<? extends I> itemClass, Collection<? extends IMetadata<?>> variantExclusions)
+	public static <I extends Item> ObjectType<Block, I> createItem(String name, Class<I> itemClass, Collection<? extends IMetadata<?>> variantExclusions)
 	{
 		return create(name, null, itemClass, variantExclusions);
 	}
@@ -400,7 +404,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	/**
 	 * Varargs exclusion.
 	 */
-	public static <B extends Block, I extends Item> ObjectType<B, I> create(String name, String unlocalizedName, Class<? extends B> blockClass, Class<? extends I> itemClass, IMetadata<?>... variantExclusions)
+	public static <B extends Block, I extends Item> ObjectType<B, I> create(String name, String unlocalizedName, Class<B> blockClass, Class<I> itemClass, IMetadata<?>... variantExclusions)
 	{
 		return new ObjectType<B, I>(name, unlocalizedName, blockClass, itemClass, variantExclusions);
 	}
@@ -409,7 +413,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	 * Default ItemBlock, varargs exclusion.
 	 */
 	@SafeVarargs
-	public static <B extends Block, V extends IMetadata<V>> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, String unlocalizedName, Class<? extends B> blockClass, V... variantExclusions)
+	public static <B extends Block, V extends IMetadata<V>> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, String unlocalizedName, Class<B> blockClass, V... variantExclusions)
 	{
 		return create(name, unlocalizedName, blockClass, ReflectionUtils.<ItemBlockMulti<V>>convertClass(ItemBlockMulti.class), variantExclusions);
 	}
@@ -417,7 +421,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	/**
 	 * No block, varargs exclusion.
 	 */
-	public static <I extends Item> ObjectType<Block, I> createItem(String name, String unlocalizedName, Class<? extends I> itemClass, IMetadata<?>... variantExclusions)
+	public static <I extends Item> ObjectType<Block, I> createItem(String name, String unlocalizedName, Class<I> itemClass, IMetadata<?>... variantExclusions)
 	{
 		return new ObjectType<Block, I>(name, unlocalizedName, null, itemClass, variantExclusions);
 	}
@@ -435,7 +439,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	/**
 	 * Same name for registry and unlocalized, varargs exclusion.
 	 */
-	public static <B extends Block, I extends Item> ObjectType<B, I> create(String name, Class<? extends B> blockClass, Class<? extends I> itemClass, IMetadata<?>... variantExclusions)
+	public static <B extends Block, I extends Item> ObjectType<B, I> create(String name, Class<B> blockClass, Class<I> itemClass, IMetadata<?>... variantExclusions)
 	{
 		return new ObjectType<B, I>(name, name, blockClass, itemClass, variantExclusions);
 	}
@@ -444,7 +448,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	 * Default ItemBlock, same name for registry and unlocalized, with varargs exclusion.
 	 */
 	@SafeVarargs
-	public static <B extends Block, V extends IMetadata<V>> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, Class<? extends B> blockClass, V... variantExclusions)
+	public static <B extends Block, V extends IMetadata<V>> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, Class<B> blockClass, V... variantExclusions)
 	{
 		return create(name, blockClass, ReflectionUtils.<ItemBlockMulti<V>>convertClass(ItemBlockMulti.class), variantExclusions);
 	}
@@ -452,7 +456,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	/**
 	 * No block, same name for registry and unlocalized, with varargs exclusion.
 	 */
-	public static <I extends Item> ObjectType<Block, I> createItem(String name, Class<? extends I> itemClass, IMetadata<?>... variantExclusions)
+	public static <I extends Item> ObjectType<Block, I> createItem(String name, Class<I> itemClass, IMetadata<?>... variantExclusions)
 	{
 		return new ObjectType<Block, I>(name, name, null, itemClass, variantExclusions);
 	}
@@ -470,7 +474,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	/**
 	 * No exclusion.
 	 */
-	public static <B extends Block, I extends Item> ObjectType<B, I> create(String name, String unlocalizedName, Class<? extends B> blockClass, Class<? extends I> itemClass)
+	public static <B extends Block, I extends Item> ObjectType<B, I> create(String name, String unlocalizedName, Class<B> blockClass, Class<I> itemClass)
 	{
 		return new ObjectType<B, I>(name, unlocalizedName, blockClass, itemClass, Collections.<IMetadata<?>>emptySet());
 	}
@@ -478,7 +482,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	/**
 	 * Default ItemBlock, no exclusion.
 	 */
-	public static <B extends Block, V extends IMetadata<V>> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, String unlocalizedName, Class<? extends B> blockClass)
+	public static <B extends Block, V extends IMetadata<V>> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, String unlocalizedName, Class<B> blockClass)
 	{
 		return create(name, unlocalizedName, blockClass, ReflectionUtils.<ItemBlockMulti<V>>convertClass(ItemBlockMulti.class), Collections.<IMetadata<?>>emptySet());
 	}
@@ -486,7 +490,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	/**
 	 * No block, no exclusion.
 	 */
-	public static <I extends Item> ObjectType<Block, I> createItem(String name, String unlocalizedName, Class<? extends I> itemClass)
+	public static <I extends Item> ObjectType<Block, I> createItem(String name, String unlocalizedName, Class<I> itemClass)
 	{
 		return new ObjectType<Block, I>(name, unlocalizedName, null, itemClass, Collections.<IMetadata<?>>emptySet());
 	}
@@ -503,7 +507,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	/**
 	 * Same name for registry and unlocalized, no exclusion.
 	 */
-	public static <B extends Block, I extends Item> ObjectType<B, I> create(String name, Class<? extends B> blockClass, Class<? extends I> itemClass)
+	public static <B extends Block, I extends Item> ObjectType<B, I> create(String name, Class<B> blockClass, Class<I> itemClass)
 	{
 		return new ObjectType<B, I>(name, name, blockClass, itemClass, Collections.<IMetadata<?>>emptySet());
 	}
@@ -511,7 +515,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	/**
 	 * Default ItemBlock, same name for registry and unlocalized, with no exclusion.
 	 */
-	public static <B extends Block, V extends IMetadata<V>> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, Class<? extends B> blockClass)
+	public static <B extends Block, V extends IMetadata<V>> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, Class<B> blockClass)
 	{
 		return create(name, blockClass, ReflectionUtils.<ItemBlockMulti<V>>convertClass(ItemBlockMulti.class), Collections.<IMetadata<?>>emptySet());
 	}
@@ -519,7 +523,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	/**
 	 * No block, same name for registry and unlocalized, with no exclusion.
 	 */
-	public static <I extends Item> ObjectType<Block, I> createItem(String name, Class<? extends I> itemClass)
+	public static <I extends Item> ObjectType<Block, I> createItem(String name, Class<I> itemClass)
 	{
 		return new ObjectType<Block, I>(name, name, null, itemClass, Collections.<IMetadata<?>>emptySet());
 	}

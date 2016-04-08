@@ -6,6 +6,7 @@ import genesis.block.tileentity.BlockGenesisFlowerPot.IFlowerPotPlant;
 import genesis.block.tileentity.portal.*;
 import genesis.block.tileentity.portal.render.TileEntityGenesisPortalRenderer;
 import genesis.block.tileentity.render.*;
+import genesis.client.Colorizers;
 import genesis.combo.*;
 import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.*;
@@ -15,17 +16,20 @@ import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
 import genesis.util.random.drops.blocks.*;
 
-import java.util.List;
-
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.color.BlockColors;
+import net.minecraft.client.renderer.color.IBlockColor;
+import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.EnumPlantType;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.*;
 
 public final class GenesisBlocks
 {
@@ -34,8 +38,7 @@ public final class GenesisBlocks
 			new VariantsCombo<EnumMenhirPart, BlockMenhir, ItemMenhir>(
 					new ObjectType<BlockMenhir, ItemMenhir>("menhir", Unlocalized.PREFIX + "menhir", BlockMenhir.class, ItemMenhir.class)
 							.setUseSeparateVariantJsons(false).setShouldRegisterVariantModels(false),
-					EnumMenhirPart.class, EnumMenhirPart.values()
-			);
+					EnumMenhirPart.class, EnumMenhirPart.values());
 	public static final BlockGenesisPortal portal = (BlockGenesisPortal) new BlockGenesisPortal().setUnlocalizedName(Unlocalized.MISC + "portal");
 	
 	/* Moss */
@@ -167,25 +170,16 @@ public final class GenesisBlocks
 	public static final BlockPrototaxites prototaxites = (BlockPrototaxites) new BlockPrototaxites()
 			.setUnlocalizedName(Unlocalized.PREFIX + "prototaxites");
 	
-	@SuppressWarnings("unchecked")
 	public static final VariantsCombo<EnumCoral, BlockGenesisVariants<EnumCoral>, ItemBlockMulti<EnumCoral>> corals =
 			VariantsCombo.create(
-					new ObjectType<BlockGenesisVariants<EnumCoral>, ItemBlockMulti<EnumCoral>>("coral", (Class<BlockGenesisVariants<EnumCoral>>) ((Class<?>) BlockGenesisVariants.class), null)
-							{
-								@Override
-								public <V extends IMetadata<V>> void afterConstructed(BlockGenesisVariants<EnumCoral> block, ItemBlockMulti<EnumCoral> item, List<V> variants)
-								{
-									super.afterConstructed(block, item, variants);
-									
-									block.setHardness(0.75F);
-									block.setResistance(8.5F);
-								}
-							}.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE)
+					new ObjectType<BlockGenesisVariants<EnumCoral>, ItemBlockMulti<EnumCoral>>("coral", ReflectionUtils.convertClass(BlockGenesisVariants.class), null)
+							.setConstructedFunction((b, i) -> b.setHardness(0.75F).setResistance(8.5F))
+							.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE)
 							.setCreativeTab(GenesisCreativeTabs.DECORATIONS)
 							.setBlockArguments(Material.coral, GenesisSoundTypes.CORAL),
 					EnumCoral.class, EnumCoral.values());
 	
-	public static void registerBlocks()
+	public static void preInitCommon()
 	{
 		// --- Building blocks ---
 		// - Surface -
@@ -254,12 +248,8 @@ public final class GenesisBlocks
 		GameRegistry.registerTileEntity(TileEntityMenhirReceptacle.class, Constants.ASSETS_PREFIX + "menhir_receptacle");
 		
 		Genesis.proxy.registerBlock(portal, "portal", false);
-		Genesis.proxy.callClient((c) ->
-				c.registerModelStateMap(portal, new FlexibleStateMap().setPrefix("portal/portal", "")));
 		Genesis.proxy.registerModel(portal, 0, "portal/portal");
 		GameRegistry.registerTileEntity(TileEntityGenesisPortal.class, Constants.ASSETS_PREFIX + "portal");
-		Genesis.proxy.callClient((c) ->
-				c.registerTileEntityRenderer(TileEntityGenesisPortal.class, new TileEntityGenesisPortalRenderer()));
 		
 		trees.registerAll();
 		
@@ -276,14 +266,10 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(campfire, "campfire");
 		Item.getItemFromBlock(campfire).setMaxStackSize(1);
 		GameRegistry.registerTileEntity(TileEntityCampfire.class, Constants.ASSETS_PREFIX + "campfire");
-		Genesis.proxy.callClient((c) -> 
-						c.registerTileEntityRenderer(TileEntityCampfire.class, new TileEntityCampfireRenderer(campfire)));
 		
 		// Storage boxes
 		Genesis.proxy.registerBlock(storage_box, "storage_box");
 		GameRegistry.registerTileEntity(TileEntityStorageBox.class, Constants.ASSETS_PREFIX + "storage_box");
-		Genesis.proxy.callClient((c) ->
-				c.registerTileEntityRenderer(TileEntityStorageBox.class, new TileEntityStorageBoxRenderer(storage_box)));
 		
 		Genesis.proxy.registerBlock(rotten_storage_box, "rotten_storage_box");
 		GameRegistry.registerTileEntity(TileEntityRottenStorageBox.class, Constants.ASSETS_PREFIX + "rotten_storage_box");
@@ -291,8 +277,6 @@ public final class GenesisBlocks
 		// Rack
 		Genesis.proxy.registerBlock(rack, "rack");
 		GameRegistry.registerTileEntity(TileEntityRack.class, Constants.ASSETS_PREFIX + "rack");
-		Genesis.proxy.callClient((c) ->
-				c.registerTileEntityRenderer(TileEntityRack.class, new TileEntityRackRenderer(rack)));
 		
 		// - Torches -
 		Genesis.proxy.registerBlock(calamites_torch, "calamites_torch");
@@ -373,15 +357,7 @@ public final class GenesisBlocks
 		// --- Liquids ---
 		Genesis.proxy.registerFluidBlock(komatiitic_lava, "komatiitic_lava");
 		
-		IFlowerPotPlant plantCustoms = new IFlowerPotPlant()
-		{
-			@Override
-			public int getColorMultiplier(ItemStack contents, IBlockAccess world, BlockPos pos)
-			{
-				EnumPlant variant = plants.getVariant(contents);
-				return variant.getColorMultiplier(world, pos);
-			}
-		};
+		IFlowerPotPlant plantCustoms = (c, w, p) -> plants.getVariant(c).getColorMultiplier(w, p);
 		
 		flower_pot.registerPlantsForPot(plants, PlantBlocks.PLANT, plantCustoms);
 		flower_pot.registerPlantsForPot(plants, PlantBlocks.FERN, plantCustoms);
@@ -389,5 +365,37 @@ public final class GenesisBlocks
 		
 		flower_pot.registerPlantForPot(new ItemStack(archaeomarasmius), "archaeomarasmius");
 		flower_pot.afterAllRegistered();
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public static void preInitClient()
+	{
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRack.class, new TileEntityRackRenderer(rack));
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGenesisPortal.class, new TileEntityGenesisPortalRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCampfire.class, new TileEntityCampfireRenderer(campfire));
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityStorageBox.class, new TileEntityStorageBoxRenderer(storage_box));
+		
+		ModelLoader.setCustomStateMapper(portal, new FlexibleStateMap().setPrefix("portal/portal", ""));
+	}
+	
+	private static void registerColors(BlockColors blockColors, ItemColors itemColors, IBlockColor color, Block... blocks)
+	{
+		blockColors.registerBlockColorHandler(color, blocks);
+		itemColors.registerItemColorHandler(
+				(s, t) -> color.colorMultiplier(Block.getBlockFromItem(s.getItem()).getDefaultState(), null, null, t),
+				blocks);
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public static void initClient()
+	{
+		BlockColors blockCol = Minecraft.getMinecraft().getBlockColors();
+		ItemColors itemCol = Minecraft.getMinecraft().getItemColors();
+		
+		registerColors(blockCol, itemCol, Colorizers.MOSS_BLOCK, moss);
+		
+		BlockGenesisLeaves[] leaves = trees.getBlocks(TreeBlocksAndItems.LEAVES, TreeBlocksAndItems.LEAVES_FRUIT).toArray(new BlockGenesisLeaves[0]);
+		blockCol.registerBlockColorHandler(Colorizers.LEAVES_BLOCK, leaves);
+		itemCol.registerItemColorHandler(Colorizers.LEAVES_ITEM, leaves);
 	}
 }

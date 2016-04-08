@@ -10,46 +10,28 @@ import genesis.client.sound.music.MusicEventHandler;
 
 import java.util.*;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import net.minecraft.block.*;
 import net.minecraft.client.*;
-import net.minecraft.client.renderer.block.model.ModelBakery;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.block.statemap.*;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.block.model.*;
+import net.minecraft.client.renderer.color.*;
 import net.minecraft.client.resources.*;
 import net.minecraft.item.*;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fml.client.*;
-import net.minecraftforge.fml.client.registry.*;
 
 public class GenesisClient extends GenesisProxy
 {
 	private static final Minecraft MC = FMLClientHandler.instance().getClient();
 	
-	private static final class TESREntry<T extends TileEntity>
-	{
-		final Class<T> type;
-		final TileEntitySpecialRenderer<T> renderer;
-		
-		private TESREntry(Class<T> type, TileEntitySpecialRenderer<T> renderer)
-		{
-			this.type = type;
-			this.renderer = renderer;
-		}
-		
-		private void register()
-		{
-			ClientRegistry.bindTileEntitySpecialRenderer(type, renderer);
-		}
-	}
-	
-	protected List<TESREntry<?>> tileEntityRenderers = new ArrayList<>();
-	
 	private List<ClientFunction> preInitClientCalls = new ArrayList<>();
+
+	private List<Pair<IBlockColor, Block[]>> blockColorsList = new ArrayList<>();
+	private List<Pair<IItemColor, Item[]>> itemColorsList = new ArrayList<>();
 	
 	public static Minecraft getMC()
 	{
@@ -70,6 +52,7 @@ public class GenesisClient extends GenesisProxy
 			call.apply(this);
 		}
 		
+		GenesisBlocks.preInitClient();
 		GenesisEntities.registerEntityRenderers();
 		
 		// This should be called as late as possible in preInit.
@@ -79,20 +62,16 @@ public class GenesisClient extends GenesisProxy
 	@Override
 	public void init()
 	{
-		((IReloadableResourceManager) MC.getResourceManager()).registerReloadListener(new ColorizerDryMoss());
-		
 		//Music Event Handler
 		MinecraftForge.EVENT_BUS.register(new MusicEventHandler());
 		
 		MinecraftForge.EVENT_BUS.register(new CamouflageColorEventHandler());
 		
-		// Gotta register TESRs after Minecraft has initialized, otherwise the vanilla piston TESR crashes.
-		for (TESREntry<?> entry : tileEntityRenderers)
-		{
-			entry.register();
-		}
-		
 		GenesisParticles.createParticles();
+		
+		((IReloadableResourceManager) MC.getResourceManager()).registerReloadListener(new ColorizerDryMoss());
+		
+		GenesisBlocks.initClient();
 	}
 	
 	@Override
@@ -187,16 +166,6 @@ public class GenesisClient extends GenesisProxy
 		}
 	}
 	
-	public void registerModelStateMap(Block block, IStateMapper map)
-	{
-		if (map instanceof StateMap)
-		{
-			map = new GenesisStateMap((StateMap) map);
-		}
-		
-		ModelLoader.setCustomStateMapper(block, map);
-	}
-	
 	public void addVariantName(Block block, String name)
 	{
 		addVariantName(Item.getItemFromBlock(block), name);
@@ -207,8 +176,13 @@ public class GenesisClient extends GenesisProxy
 		ModelBakery.registerItemVariants(item, new ResourceLocation(Constants.ASSETS_PREFIX + name));
 	}
 	
-	public <T extends TileEntity> void registerTileEntityRenderer(Class<T> teClass, TileEntitySpecialRenderer<T> renderer)
+	public void registerColorer(IBlockColor colorer, Block... blocks)
 	{
-		tileEntityRenderers.add(new TESREntry<T>(teClass, renderer));
+		blockColorsList.add(Pair.of(colorer, blocks));
+	}
+	
+	public void registerColorer(IItemColor colorer, Item... blocks)
+	{
+		itemColorsList.add(Pair.of(colorer, blocks));
 	}
 }

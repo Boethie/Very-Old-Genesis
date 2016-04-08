@@ -166,7 +166,7 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 		public final EnumToolQuality goodQuality;
 		public final HashSet<EnumToolMaterial> materialExclusions;
 		
-		public ToolObjectType(String name, String unlocalizedName, Class<? extends B> blockClass, Class<? extends I> itemClass, EnumToolQuality[] qualities, EnumToolQuality badQuality, EnumToolQuality goodQuality, EnumToolMaterial... materialExclusions)
+		public ToolObjectType(String name, String unlocalizedName, Class<B> blockClass, Class<I> itemClass, EnumToolQuality[] qualities, EnumToolQuality badQuality, EnumToolQuality goodQuality, EnumToolMaterial... materialExclusions)
 		{
 			super(name, unlocalizedName, blockClass, itemClass);
 			
@@ -176,17 +176,17 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 			this.materialExclusions = Sets.newHashSet(materialExclusions);
 		}
 
-		public ToolObjectType(String name, String unlocalizedName, Class<? extends B> blockClass, Class<? extends I> itemClass, EnumToolQuality[] qualities, EnumToolMaterial... materialExclusions)
+		public ToolObjectType(String name, String unlocalizedName, Class<B> blockClass, Class<I> itemClass, EnumToolQuality[] qualities, EnumToolMaterial... materialExclusions)
 		{
 			this(name, unlocalizedName, blockClass, itemClass, qualities, qualities[0], qualities[qualities.length - 1], materialExclusions);
 		}
 		
-		public ToolObjectType(String name, Class<? extends B> blockClass, Class<? extends I> itemClass, EnumToolQuality[] qualities, EnumToolQuality badQuality, EnumToolQuality goodQuality, EnumToolMaterial... materialExclusions)
+		public ToolObjectType(String name, Class<B> blockClass, Class<I> itemClass, EnumToolQuality[] qualities, EnumToolQuality badQuality, EnumToolQuality goodQuality, EnumToolMaterial... materialExclusions)
 		{
 			this(name, name, blockClass, itemClass, qualities, badQuality, goodQuality, materialExclusions);
 		}
 
-		public ToolObjectType(String name, Class<? extends B> blockClass, Class<? extends I> itemClass, EnumToolQuality[] qualities, EnumToolMaterial... materialExclusions)
+		public ToolObjectType(String name, Class<B> blockClass, Class<I> itemClass, EnumToolQuality[] qualities, EnumToolMaterial... materialExclusions)
 		{
 			this(name, blockClass, itemClass, qualities, qualities[0], qualities[qualities.length - 1], materialExclusions);
 		}
@@ -239,14 +239,14 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 	{
 		protected final EnumToolQuality soleQuality;
 		
-		public ToolObjectTypeSoleQuality(String name, String unlocalizedName, Class<? extends B> blockClass, Class<? extends I> itemClass, EnumToolQuality quality, EnumToolMaterial... materialExclusions)
+		public ToolObjectTypeSoleQuality(String name, String unlocalizedName, Class<B> blockClass, Class<I> itemClass, EnumToolQuality quality, EnumToolMaterial... materialExclusions)
 		{
 			super(name, unlocalizedName, blockClass, itemClass, new EnumToolQuality[]{quality}, quality, quality, materialExclusions);
 			
 			this.soleQuality = quality;
 		}
 		
-		public ToolObjectTypeSoleQuality(String name, Class<? extends B> blockClass, Class<? extends I> itemClass, EnumToolQuality quality, EnumToolMaterial... materialExclusions)
+		public ToolObjectTypeSoleQuality(String name, Class<B> blockClass, Class<I> itemClass, EnumToolQuality quality, EnumToolMaterial... materialExclusions)
 		{
 			this(name, name, blockClass, itemClass, quality, materialExclusions);
 		}

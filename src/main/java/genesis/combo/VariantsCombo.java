@@ -58,7 +58,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	 * @param blockClass The Block class to initialize for each variant.
 	 * @param itemClass the Item class to initialize for each variant.
 	 */
-	public VariantsCombo(String name, String unlocalizedName, Class<? extends B> blockClass, Class<? extends I> itemClass, Class<V> variantClass, V[] variants)
+	public VariantsCombo(String name, String unlocalizedName, Class<B> blockClass, Class<I> itemClass, Class<V> variantClass, V[] variants)
 	{
 		this(new ObjectType<B, I>(name, unlocalizedName, blockClass, itemClass), variantClass, variants);
 	}
@@ -70,7 +70,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	 * @param blockClass The Block class to initialize for each variant.
 	 * @param itemClass the Item class to initialize for each variant.
 	 */
-	public VariantsCombo(String name, Class<? extends B> blockClass, Class<? extends I> itemClass, Class<V> variantClass, V[] variants)
+	public VariantsCombo(String name, Class<B> blockClass, Class<I> itemClass, Class<V> variantClass, V[] variants)
 	{
 		this(name, name, blockClass, itemClass, variantClass, variants);
 	}
