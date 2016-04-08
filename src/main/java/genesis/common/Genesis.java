@@ -42,7 +42,7 @@ public class Genesis
 		
 		GenesisFluids.registerFluids();
 		GenesisBlocks.preInitCommon();
-		GenesisItems.registerItems();
+		GenesisItems.preInitCommon();
 		
 		GenesisCapabilities.register();
 		

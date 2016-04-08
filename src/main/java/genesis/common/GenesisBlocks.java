@@ -393,7 +393,7 @@ public final class GenesisBlocks
 		ItemColors itemCol = Minecraft.getMinecraft().getItemColors();
 		
 		// Moss
-		registerColors(blockCol, itemCol, Colorizers.MOSS_BLOCK, moss);
+		registerColors(blockCol, itemCol, Colorizers.BLOCK_MOSS, moss);
 		
 		// Leaves
 		Block[] leaves =
@@ -402,8 +402,8 @@ public final class GenesisBlocks
 						TreeBlocksAndItems.LEAVES_FRUIT,
 						TreeBlocksAndItems.BRANCH)
 				.toArray(new Block[0]);
-		registerColors(blockCol, itemCol, Colorizers.LEAVES_BLOCK, leaves);
-		registerColors(blockCol, itemCol, Colorizers.LEAVES_BLOCK, trap_floor);
+		registerColors(blockCol, itemCol, Colorizers.BLOCK_LEAVES, leaves);
+		registerColors(blockCol, itemCol, Colorizers.BLOCK_LEAVES, trap_floor);
 		
 		// Plants
 		BlockPlant<?>[] plantsArray =
@@ -418,7 +418,10 @@ public final class GenesisBlocks
 				plantsArray);
 		itemCol.registerItemColorHandler((s, t) -> plants.getVariant(s).getColorMultiplier(null, null), plantsArray);
 		
-		blockCol.registerBlockColorHandler(Colorizers.GRASS_BLOCK,
-				cobbania, programinis);
+		registerColors(blockCol, itemCol, Colorizers.BLOCK_GRASS,
+				cobbania, cladophlebis);
+		
+		blockCol.registerBlockColorHandler(Colorizers.BLOCK_GRASS,
+				odontopteris, programinis);
 	}
 }

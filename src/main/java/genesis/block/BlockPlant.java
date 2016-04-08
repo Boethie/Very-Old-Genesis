@@ -47,7 +47,7 @@ public class BlockPlant<V extends IPlantMetadata<V>> extends BlockBush implement
 	
 	protected static final float BB_INSET = 0.0625F * 2;
 	protected static final AxisAlignedBB BB =
-			new AxisAlignedBB(BB_INSET, 0, BB_INSET, 1 - BB_INSET, 1, 1 - BB_INSET);
+			new AxisAlignedBB(BB_INSET, 0, BB_INSET, 1 - BB_INSET, 1 - BB_INSET, 1 - BB_INSET);
 	
 	public BlockPlant(VariantsOfTypesCombo<V> owner, ObjectType<? extends BlockPlant<V>, ? extends ItemBlockMulti<V>> type,
 			List<V> variants, Class<V> variantClass,

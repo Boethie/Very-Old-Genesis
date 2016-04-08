@@ -9,6 +9,7 @@ import genesis.util.WorldUtils;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.color.*;
+import net.minecraft.item.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 import net.minecraft.world.biome.*;
@@ -16,17 +17,17 @@ import net.minecraft.world.biome.*;
 public class Colorizers
 {
 	/* ======================== Blocks ======================== */
-	public static final IBlockColor GRASS_BLOCK = (s, w, p, t) ->
+	public static final IBlockColor BLOCK_GRASS = (s, w, p, t) ->
 			w != null && p != null
 					? BiomeColorHelper.getGrassColorAtPos(w, p)
 					: ColorizerGrass.getGrassColor(0.5, 1);
 	
-	public static final IBlockColor LEAVES_BLOCK = (s, w, p, t) ->
+	public static final IBlockColor BLOCK_LEAVES = (s, w, p, t) ->
 			w != null && p != null
 					? BiomeColorHelper.getFoliageColorAtPos(w, p)
 					: ColorizerFoliage.getFoliageColorBasic();
 	
-	public static final IBlockColor MOSS_BLOCK = (state, world, pos, renderPass) ->
+	public static final IBlockColor BLOCK_MOSS = (state, world, pos, renderPass) ->
 	{
 		if (world == null || pos == null || renderPass != 1)
 			if (renderPass == 1)
@@ -80,7 +81,7 @@ public class Colorizers
 		return grassColor;
 	};
 	
-	public static final IBlockColor FLOWER_POT_BLOCK = (s, w, p, t) ->
+	public static final IBlockColor BLOCK_FLOWER_POT = (s, w, p, t) ->
 	{
 		TileEntityGenesisFlowerPot pot = BlockGenesisFlowerPot.getTileEntity(w, p);
 		
@@ -96,4 +97,5 @@ public class Colorizers
 	};
 	
 	/* ======================== Items ======================== */
+	public static final IItemColor ITEM_ARMOR = (s, t) -> ((ItemArmor) s.getItem()).getColor(s);
 }

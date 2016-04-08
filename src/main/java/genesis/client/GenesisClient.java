@@ -51,8 +51,10 @@ public class GenesisClient extends GenesisProxy
 		{
 			call.apply(this);
 		}
-		
+
 		GenesisBlocks.preInitClient();
+		GenesisItems.preInitClient();
+		
 		GenesisEntities.registerEntityRenderers();
 		
 		// This should be called as late as possible in preInit.
@@ -70,8 +72,9 @@ public class GenesisClient extends GenesisProxy
 		GenesisParticles.createParticles();
 		
 		((IReloadableResourceManager) MC.getResourceManager()).registerReloadListener(new ColorizerDryMoss());
-		
+
 		GenesisBlocks.initClient();
+		GenesisItems.initClient();
 	}
 	
 	@Override

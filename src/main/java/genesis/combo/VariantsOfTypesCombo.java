@@ -519,7 +519,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	/**
 	 * Returns the Block for this {@link ObjectType} and variant, casted to the ObjectType's block's generic type.
 	 */
-	public <B extends Block> B getBlock(ObjectType<B, ? extends Item> type, V variant)
+	public <B extends Block> B getBlock(ObjectType<B, ?> type, V variant)
 	{
 		return ReflectionUtils.nullSafeCast(type.getBlockClass(), getVariantData(type, variant).block);
 	}
@@ -527,14 +527,12 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	/**
 	 * Returns a list of all the constructed Blocks for the specified {@link ObjectType}.
 	 */
-	public <B extends Block> Collection<B> getBlocks(ObjectType<B, ? extends Item> type)
+	public <B extends Block> Collection<B> getBlocks(ObjectType<B, ?> type)
 	{
 		HashSet<B> out = new HashSet<>();
 		
 		for (V variant : getValidVariants(type))
-		{
 			out.add(getBlock(type, variant));
-		}
 		
 		return out;
 	}
@@ -543,7 +541,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	 * Returns a list of all the constructed Blocks for the listed {@link ObjectType}s.
 	 */
 	@SafeVarargs
-	public final <B extends Block> Collection<B> getBlocks(ObjectType<? extends B, ? extends Item>... types)
+	public final <B extends Block> Collection<B> getBlocks(ObjectType<? extends B, ?>... types)
 	{
 		HashSet<B> out = new HashSet<>();
 		
@@ -556,7 +554,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	/**
 	 * Returns the Item for this {@link ObjectType} and variant, casted to the ObjectType's item generic type.
 	 */
-	public <I extends Item> I getItem(ObjectType<? extends Block, I> type, V variant)
+	public <I extends Item> I getItem(ObjectType<?, I> type, V variant)
 	{
 		return ReflectionUtils.nullSafeCast(type.getItemClass(), getVariantData(type, variant).item);
 	}
@@ -564,14 +562,26 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	/**
 	 * Returns a list of all the constructed Items for the specified {@link ObjectType}.
 	 */
-	public <I extends Item> Collection<I> getItems(ObjectType<? extends Block, I> type)
+	public <I extends Item> Collection<I> getItems(ObjectType<?, ? extends I> type)
 	{
-		HashSet<I> out = new HashSet<I>();
+		HashSet<I> out = new HashSet<>();
 		
 		for (V variant : getValidVariants(type))
-		{
 			out.add(getItem(type, variant));
-		}
+		
+		return out;
+	}
+
+	/**
+	 * Returns a list of all the constructed Items for the listed {@link ObjectType}s.
+	 */
+	@SafeVarargs
+	public final <I extends Item> Collection<I> getItems(ObjectType<?, ? extends I>... types)
+	{
+		HashSet<I> out = new HashSet<>();
+		
+		for (ObjectType<?, ? extends I> type : types)
+			out.addAll(getItems(type));
 		
 		return out;
 	}

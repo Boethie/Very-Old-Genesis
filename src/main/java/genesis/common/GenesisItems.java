@@ -1,5 +1,7 @@
 package genesis.common;
 
+import genesis.client.Colorizers;
+import genesis.client.GenesisClient;
 import genesis.combo.*;
 import genesis.combo.variant.EnumMaterial;
 import genesis.combo.variant.EnumMenhirActivator;
@@ -10,6 +12,7 @@ import genesis.entity.fixed.EntityMeganeuraEgg;
 import genesis.item.*;
 import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -73,7 +76,7 @@ public final class GenesisItems
 							.setResourceName(""),
 					EnumMenhirActivator.class, EnumMenhirActivator.values());
 	
-	public static void registerItems()
+	public static void preInitCommon()
 	{
 		// --- Materials ---
 		// Tool materials
@@ -119,10 +122,6 @@ public final class GenesisItems
 		tools.registerAll();
 		
 		// Armor
-		/*Genesis.proxy.registerItem(chitinHelmet, "chitin_helmet");
-		Genesis.proxy.registerItem(chitinChestplate, "chitin_chestplate");
-		Genesis.proxy.registerItem(chitinLeggings, "chitin_leggings");
-		Genesis.proxy.registerItem(chitinBoots, "chitin_boots");*/
 		clothing.registerAll();
 		
 		// --- Misc ---
@@ -136,5 +135,23 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(bucket_komatiitic_lava, "bucket_komatiitic_lava");
 		
 		menhir_activators.registerAll();
+	}
+	
+	public static void preInitClient()
+	{
+		
+	}
+	
+	public static void initClient()
+	{
+		ItemColors colors = GenesisClient.getMC().getItemColors();
+		
+		colors.registerItemColorHandler(Colorizers.ITEM_ARMOR,
+				clothing.getItems(
+						ClothingItems.HELMET,
+						ClothingItems.CHESTPLATE,
+						ClothingItems.LEGGINGS,
+						ClothingItems.BOOTS)
+						.toArray(new Item[0]));
 	}
 }
