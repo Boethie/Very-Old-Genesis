@@ -5,17 +5,32 @@ import java.util.Random;
 
 import com.google.common.base.Objects;
 
-import genesis.combo.*;
+import genesis.combo.ObjectType;
+import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.VariantsOfTypesCombo.BlockProperties;
-import genesis.combo.variant.*;
+import genesis.combo.variant.EnumTree;
+import genesis.combo.variant.PropertyIMetadata;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemBlockMulti;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.WorldUtils;
-import genesis.world.gen.feature.*;
-import genesis.world.gen.feature.WorldGenTreeMetasequoia.MetasequoiaType;
-
+import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
+import genesis.world.gen.feature.WorldGenTreeArchaeanthus;
+import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
+import genesis.world.gen.feature.WorldGenTreeBase;
+import genesis.world.gen.feature.WorldGenTreeBase.TreeTypes;
+import genesis.world.gen.feature.WorldGenTreeBjuvia;
+import genesis.world.gen.feature.WorldGenTreeCordaites;
+import genesis.world.gen.feature.WorldGenTreeDryophyllum;
+import genesis.world.gen.feature.WorldGenTreeFicus;
+import genesis.world.gen.feature.WorldGenTreeGinkgo;
+import genesis.world.gen.feature.WorldGenTreeLaurophyllum;
+import genesis.world.gen.feature.WorldGenTreeLepidodendron;
+import genesis.world.gen.feature.WorldGenTreeMetasequoia;
+import genesis.world.gen.feature.WorldGenTreePsaronius;
+import genesis.world.gen.feature.WorldGenTreeSigillaria;
+import genesis.world.gen.feature.WorldGenTreeVoltzia;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.IProperty;
@@ -28,9 +43,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-
 import net.minecraftforge.common.EnumPlantType;
 
 public class BlockGenesisSaplings extends BlockSapling
@@ -144,7 +159,7 @@ public class BlockGenesisSaplings extends BlockSapling
 			int treeType = (positions.length > 1)? 1 : 0;
 			int minHeight = (treeType == 1)? 23 : 20;
 			int maxHeight = (treeType == 1)? 27 : 24;
-			gen = new WorldGenTreeMetasequoia(minHeight, maxHeight, true).setType(MetasequoiaType.SIZE_2);
+			gen = new WorldGenTreeMetasequoia(minHeight, maxHeight, true).setType(TreeTypes.TYPE_2);
 			break;
 		case GINKGO:
 			gen = new WorldGenTreeGinkgo(12, 17, true);
