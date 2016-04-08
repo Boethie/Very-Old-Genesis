@@ -7,7 +7,7 @@ import genesis.combo.variant.*;
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.*;
 import genesis.world.gen.feature.*;
-
+import genesis.world.gen.feature.WorldGenTreeBase.TreeTypes;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -43,8 +43,10 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 	{
 		addTree(new WorldGenTreeLaurophyllum(3, 4, false).setTreeCountPerChunk(1).setRarity(2));
 		addTree(new WorldGenTreeFicus(5, 10, false).setTreeCountPerChunk(1).setRarity(4));
-		addTree(new WorldGenTreeGinkgo(6, 17, false).setTreeCountPerChunk(1).setRarity(8));
-		addTree(new WorldGenTreeDryophyllum(12, 17, false).setTreeCountPerChunk(7));
+		//addTree(new WorldGenTreeGinkgo(6, 17, false).setTreeCountPerChunk(1).setRarity(8));
+		addTree(new WorldGenTreeGinkgo(6, 17, false).setType(TreeTypes.TYPE_2).setTreeCountPerChunk(1).setRarity(22));
+		//addTree(new WorldGenTreeDryophyllum(12, 17, false).setTreeCountPerChunk(7));
+		addTree(new WorldGenTreeDryophyllum(12, 17, false).setType(TreeTypes.TYPE_2).setTreeCountPerChunk(20));
 		addTree(new WorldGenTreeMetasequoia(12, 24, true).setTreeCountPerChunk(1));
 		
 		addTree(new WorldGenDeadLog(3, 6, EnumTree.DRYOPHYLLUM, true).setTreeCountPerChunk(1));

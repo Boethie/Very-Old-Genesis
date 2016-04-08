@@ -42,6 +42,12 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	private Predicate<IBlockState> soilPredicate = Predicates.alwaysTrue();
 	
 	protected RandomIntProvider saplingCountProvider = null;
+	protected TreeTypes treeType = TreeTypes.TYPE_1;
+	
+	public static enum TreeTypes
+	{
+		TYPE_1, TYPE_2
+	}
 	
 	public WorldGenTreeBase(IBlockState sapling, IBlockState wood, IBlockState leaves, IBlockState hangingFruit,
 			RandomIntProvider heightProvider, boolean notify)
@@ -68,6 +74,12 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 						: null,
 				heightProvider,
 				notify);
+	}
+	
+	public WorldGenTreeBase setType(TreeTypes type)
+	{
+		this.treeType = type;
+		return this;
 	}
 	
 	public WorldGenTreeBase setRarity(int r)

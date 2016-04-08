@@ -13,23 +13,11 @@ import net.minecraft.world.World;
 
 public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 {
-	public static enum MetasequoiaType
-	{
-		SIZE_1, SIZE_2;
-	}
-	
 	private boolean generateRandomSaplings = true;
-	private MetasequoiaType treeType = MetasequoiaType.SIZE_1;
 	
 	public WorldGenTreeMetasequoia(int minHeight, int maxHeight, boolean notify)
 	{
 		super(EnumTree.METASEQUOIA, IntRange.create(minHeight, maxHeight), notify);
-	}
-	
-	public WorldGenTreeMetasequoia setType(MetasequoiaType type)
-	{
-		treeType = type;
-		return this;
 	}
 	
 	public WorldGenTreeBase setGenerateRandomSaplings(boolean generate)
@@ -43,12 +31,12 @@ public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 	{
 		int height = heightProvider.get(rand);
 		
-		if (!isCubeClear(world, pos, treeType == MetasequoiaType.SIZE_1 ? 2 : 3, height))
+		if (!isCubeClear(world, pos, treeType == TreeTypes.TYPE_1 ? 2 : 3, height))
 			return false;
 		
 		BlockPos checkPos = pos;
 		
-		if (treeType == MetasequoiaType.SIZE_2
+		if (treeType == TreeTypes.TYPE_2
 				&& (getTreePos(world, checkPos = checkPos.east()) == null
 					|| getTreePos(world, checkPos = checkPos.south()) == null)
 					|| getTreePos(world, checkPos = checkPos.west()) == null)
@@ -71,10 +59,10 @@ public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 		{
 			switch (treeType)
 			{
-			case SIZE_1:
+			case TYPE_1:
 				setBlockInWorld(world, pos.up(i), wood);
 				break;
-			case SIZE_2:
+			case TYPE_2:
 				setBlockInWorld(world, pos.add(1, i, 0), wood);
 				setBlockInWorld(world, pos.add(0, i, 1), wood);
 				setBlockInWorld(world, pos.add(1, i, 1), wood);
@@ -94,10 +82,10 @@ public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 		
 		switch (treeType)
 		{
-		case SIZE_1:
+		case TYPE_1:
 			doPineTopLeaves(world, pos, branchPos, height, leavesBase, rand, alternate, irregular, inverted);
 			break;
-		case SIZE_2:
+		case TYPE_2:
 			doPineTopLeaves(world, pos, branchPos.add(0, 0, 0), height, leavesBase, rand, alternate, irregular, inverted);
 			doPineTopLeaves(world, pos, branchPos.add(1, 0, 1), height, leavesBase, rand, alternate, irregular, inverted);
 			doPineTopLeaves(world, pos, branchPos.add(1, 0, 0), height, leavesBase, rand, alternate, irregular, inverted);

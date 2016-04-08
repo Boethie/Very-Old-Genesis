@@ -1,6 +1,5 @@
 package genesis.world.biome;
 
-import genesis.combo.variant.EnumDebrisOther;
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenRockBoulders;

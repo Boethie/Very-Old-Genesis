@@ -13,6 +13,7 @@ import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
 import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.gen.feature.WorldGenDeadLog;
+import genesis.world.gen.feature.WorldGenTreeBase.TreeTypes;
 import genesis.world.gen.feature.WorldGenTreeDryophyllum;
 import genesis.world.gen.feature.WorldGenTreeGinkgo;
 import genesis.world.gen.feature.WorldGenTreeLaurophyllum;
@@ -41,7 +42,8 @@ public class BiomeGenDeciduousForest extends BiomeGenBaseGenesis
 	protected void addTrees()
 	{
 		addTree(new WorldGenTreeLaurophyllum(3, 4, false).setTreeCountPerChunk(3));
-		addTree(new WorldGenTreeGinkgo(6, 17, false).setTreeCountPerChunk(1).setRarity(4));
+		//addTree(new WorldGenTreeGinkgo(6, 17, false).setTreeCountPerChunk(1).setRarity(4));
+		addTree(new WorldGenTreeGinkgo(6, 17, false).setType(TreeTypes.TYPE_2).setTreeCountPerChunk(1).setRarity(15));
 		addTree(new WorldGenTreeDryophyllum(12, 17, false).setTreeCountPerChunk(14));
 		addTree(new WorldGenTreeMetasequoia(12, 24, true).setTreeCountPerChunk(4));
 		addTree(new WorldGenDeadLog(4, 8, EnumTree.DRYOPHYLLUM, true).setTreeCountPerChunk(8));
