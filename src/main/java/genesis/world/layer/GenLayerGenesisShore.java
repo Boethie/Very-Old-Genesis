@@ -35,6 +35,8 @@ public class GenLayerGenesisShore extends GenLayerGenesis
 						&& biomeID != BiomeGenBase.getIdForBiome(GenesisBiomes.auxForestHills)
 						&& biomeID != BiomeGenBase.getIdForBiome(GenesisBiomes.woodlandsM)
 						&& biomeID != BiomeGenBase.getIdForBiome(GenesisBiomes.woodlandsHills)
+						&& biomeID != BiomeGenBase.getIdForBiome(GenesisBiomes.deciduousForestM)
+						&& biomeID != BiomeGenBase.getIdForBiome(GenesisBiomes.deciduousForestHills)
 						&& biomeID != BiomeGenBase.getIdForBiome(GenesisBiomes.rainforestM)
 						&& biomeID != BiomeGenBase.getIdForBiome(GenesisBiomes.rainforestHills)
 						&& biomeID != BiomeGenBase.getIdForBiome(GenesisBiomes.metaForestM)
