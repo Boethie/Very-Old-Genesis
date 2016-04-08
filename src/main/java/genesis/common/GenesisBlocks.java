@@ -359,11 +359,11 @@ public final class GenesisBlocks
 		
 		IFlowerPotPlant plantCustoms = (c, w, p) -> plants.getVariant(c).getColorMultiplier(w, p);
 		
-		flower_pot.registerPlantsForPot(plants, PlantBlocks.PLANT, plantCustoms);
-		flower_pot.registerPlantsForPot(plants, PlantBlocks.FERN, plantCustoms);
-		flower_pot.registerPlantsForPot(trees, TreeBlocksAndItems.SAPLING, null);
+		BlockGenesisFlowerPot.registerPlantsForPot(plants, PlantBlocks.PLANT, plantCustoms);
+		BlockGenesisFlowerPot.registerPlantsForPot(plants, PlantBlocks.FERN, plantCustoms);
+		BlockGenesisFlowerPot.registerPlantsForPot(trees, TreeBlocksAndItems.SAPLING, null);
 		
-		flower_pot.registerPlantForPot(new ItemStack(archaeomarasmius), "archaeomarasmius");
+		BlockGenesisFlowerPot.registerPlantForPot(new ItemStack(archaeomarasmius), "archaeomarasmius");
 		flower_pot.afterAllRegistered();
 	}
 	
@@ -392,10 +392,33 @@ public final class GenesisBlocks
 		BlockColors blockCol = Minecraft.getMinecraft().getBlockColors();
 		ItemColors itemCol = Minecraft.getMinecraft().getItemColors();
 		
+		// Moss
 		registerColors(blockCol, itemCol, Colorizers.MOSS_BLOCK, moss);
 		
-		BlockGenesisLeaves[] leaves = trees.getBlocks(TreeBlocksAndItems.LEAVES, TreeBlocksAndItems.LEAVES_FRUIT).toArray(new BlockGenesisLeaves[0]);
-		blockCol.registerBlockColorHandler(Colorizers.LEAVES_BLOCK, leaves);
-		itemCol.registerItemColorHandler(Colorizers.LEAVES_ITEM, leaves);
+		// Leaves
+		Block[] leaves =
+				trees.getBlocks(
+						TreeBlocksAndItems.LEAVES,
+						TreeBlocksAndItems.LEAVES_FRUIT,
+						TreeBlocksAndItems.BRANCH)
+				.toArray(new Block[0]);
+		registerColors(blockCol, itemCol, Colorizers.LEAVES_BLOCK, leaves);
+		registerColors(blockCol, itemCol, Colorizers.LEAVES_BLOCK, trap_floor);
+		
+		// Plants
+		BlockPlant<?>[] plantsArray =
+				plants.getBlocks(
+						PlantBlocks.PLANT,
+						PlantBlocks.DOUBLE_PLANT,
+						PlantBlocks.FERN,
+						PlantBlocks.DOUBLE_FERN)
+				.toArray(new BlockPlant<?>[0]);
+		blockCol.registerBlockColorHandler(
+				(s, w, p, t) -> plants.getVariant(s).getColorMultiplier(w, p),
+				plantsArray);
+		itemCol.registerItemColorHandler((s, t) -> plants.getVariant(s).getColorMultiplier(null, null), plantsArray);
+		
+		blockCol.registerBlockColorHandler(Colorizers.GRASS_BLOCK,
+				cobbania, programinis);
 	}
 }

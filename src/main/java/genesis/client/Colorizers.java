@@ -4,6 +4,7 @@ import genesis.block.BlockMoss;
 import genesis.block.tileentity.BlockGenesisFlowerPot;
 import genesis.block.tileentity.BlockGenesisFlowerPot.IFlowerPotPlant;
 import genesis.block.tileentity.TileEntityGenesisFlowerPot;
+import genesis.util.GenesisMath;
 import genesis.util.WorldUtils;
 
 import net.minecraft.block.state.IBlockState;
@@ -33,11 +34,11 @@ public class Colorizers
 			else
 				return 0xFFFFFF;
 		
-		int color = BiomeColorHelper.getGrassColorAtPos(world, pos);
+		int grassColor = BiomeColorHelper.getGrassColorAtPos(world, pos);
 		
-		int r = (color & 16711680) >> 16;
-		int g = (color & 65280) >> 8;
-		int b = color & 255;
+		int grassR = (grassColor >> 16) & 0xFF;
+		int grassG = (grassColor >> 8) & 0xFF;
+		int grassB = grassColor & 0xFF;
 		
 		float avgStage = 0;
 		float stageSamples = 0;
@@ -46,7 +47,7 @@ public class Colorizers
 		{
 			IBlockState checkState = world.getBlockState(checkPos);
 			
-			if (checkState.getBlock() == state.getBlock())
+			if (checkState.getPropertyNames().contains(BlockMoss.STAGE))
 			{
 				avgStage += checkState.getValue(BlockMoss.STAGE);
 				stageSamples++;
@@ -62,21 +63,21 @@ public class Colorizers
 		float humidity = MathHelper.clamp_float(biome.getRainfall(), 0, 1);
 		
 		int dryColor = biome.getModdedBiomeGrassColor(ColorizerDryMoss.getColor(temperature, humidity));
-		int toR = (dryColor & 16711680) >> 16;
-		int toG = (dryColor & 65280) >> 8;
-		int toB = dryColor & 255;
+		int dryR = (dryColor >> 16) & 0xFF;
+		int dryG = (dryColor >> 8) & 0xFF;
+		int dryB = dryColor & 0xFF;
 		
 		float amount = 1 - avgStage;
 		
-		r = r + (int) ((toR - r) * amount);	// Interpolate between the two color textures.
-		g = g + (int) ((toG - g) * amount);
-		b = b + (int) ((toB - b) * amount);
+		grassR = GenesisMath.lerp(grassR, dryR, amount);
+		grassG = GenesisMath.lerp(grassG, dryG, amount);
+		grassB = GenesisMath.lerp(grassB, dryB, amount);
 		
-		color = ((r & 255) << 16) |
-				((g & 255) << 8) |
-				(b & 255);
+		grassColor = (grassR << 16) |
+					(grassG << 8) |
+					grassB;
 		
-		return color;
+		return grassColor;
 	};
 	
 	public static final IBlockColor FLOWER_POT_BLOCK = (s, w, p, t) ->
@@ -95,6 +96,4 @@ public class Colorizers
 	};
 	
 	/* ======================== Items ======================== */
-	public static final IItemColor GRASS_ITEM = (s, t) -> ColorizerGrass.getGrassColor(0.5, 1);
-	public static final IItemColor LEAVES_ITEM = (s, t) -> ColorizerGrass.getGrassColor(0.5, 1);
 }

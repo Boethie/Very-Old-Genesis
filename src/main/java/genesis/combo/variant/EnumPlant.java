@@ -145,13 +145,13 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	@Override
 	public int getColorMultiplier(IBlockAccess world, BlockPos pos)
 	{
-		return shouldUseBiomeColor() ? BiomeColorHelper.getGrassColorAtPos(world, pos) : 0xFFFFFF;
-	}
-	
-	@Override
-	public int getRenderColor()
-	{
-		return shouldUseBiomeColor() ? ColorizerGrass.getGrassColor(0.5, 1) : 0xFFFFFF;
+		if (!shouldUseBiomeColor())
+			return 0xFFFFFF;
+		
+		if (world == null || pos == null)
+			return ColorizerGrass.getGrassColor(0.5, 1);
+		
+		return BiomeColorHelper.getGrassColorAtPos(world, pos);
 	}
 	
 	@Override

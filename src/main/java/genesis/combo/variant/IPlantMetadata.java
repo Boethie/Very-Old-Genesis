@@ -13,8 +13,6 @@ public interface IPlantMetadata<V> extends IMetadata<V>
 {
 	int getColorMultiplier(IBlockAccess world, BlockPos pos);
 	
-	int getRenderColor();
-	
 	boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos);
 	
 	List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, List<ItemStack> normalDrop);
