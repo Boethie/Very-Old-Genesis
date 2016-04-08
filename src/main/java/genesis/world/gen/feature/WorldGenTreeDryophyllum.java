@@ -34,12 +34,12 @@ public class WorldGenTreeDryophyllum extends WorldGenTreeBase
 			return false;
 		}
 		
-		int mainBranches = 4 + rand.nextInt(8);
+		int mainBranches = (treeType == TreeTypes.TYPE_1)? 2 + rand.nextInt(2) : 4 + rand.nextInt(8);
 		
 		for (int i = 0; i < mainBranches; ++i)
 		{
 			base = 4 + rand.nextInt(10);
-			branchUp(world, pos, rand, height, base);
+			branchUp(world, pos, rand, height, (base >= height)? base - 5: base);
 		}
 		
 		return true;
@@ -86,7 +86,7 @@ public class WorldGenTreeDryophyllum extends WorldGenTreeBase
 			
 			if (i > base - 1)
 			{
-				doBranchLeaves(world, upPos, rand, (i >= height - 3), 4, true);
+				doBranchLeaves(world, upPos, rand, true, 4, true);
 			}
 		}
 	}
