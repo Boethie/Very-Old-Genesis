@@ -6,7 +6,7 @@ import genesis.combo.VariantsOfTypesCombo.BlockProperties;
 import genesis.combo.variant.EnumDung;
 import genesis.sounds.GenesisSoundTypes;
 import genesis.util.BlockStateToMetadata;
-import genesis.util.GenesisMath;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
@@ -41,12 +41,16 @@ public class BlockDung extends BlockGenesisVariants<EnumDung>
 		}
 	}
 	
+	private boolean ready = false;
+	
 	public BlockDung(VariantsOfTypesCombo<EnumDung> owner, ObjectType<? extends BlockGenesisVariants<EnumDung>, ? extends Item> type, List<EnumDung> variants, Class<EnumDung> variantClass)
 	{
 		super(owner, type, variants, variantClass, Material.ground, GenesisSoundTypes.DUNG);
 		
 		blockState = new BlockStateContainer(this, variantProp, HEIGHT);
 		setDefaultState(blockState.getBaseState().withProperty(HEIGHT, 8));
+		
+		ready = true;
 	}
 	
 	@Override
@@ -87,7 +91,10 @@ public class BlockDung extends BlockGenesisVariants<EnumDung>
 	@Override
 	public boolean isFullCube(IBlockState state)
 	{
-		return state.getValue(HEIGHT) >= MAX_HEIGHT;
+		if (ready)
+			return state.getValue(HEIGHT) >= MAX_HEIGHT;
+		
+		return false;
 	}
 	
 	@Override
