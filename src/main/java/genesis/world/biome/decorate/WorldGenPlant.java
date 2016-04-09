@@ -99,7 +99,7 @@ public class WorldGenPlant<V extends IPlantMetadata<V>> extends WorldGenDecorati
 		
 		for (int i = 0; i < additional; ++i)
 		{
-			secondPos = pos.add(random.nextInt(7) - 3, 0, random.nextInt(7) - 3);
+			secondPos = pos.add(random.nextInt(19) - 9, 0, random.nextInt(19) - 9);
 			
 			if (groundMatcher.apply(world, secondPos.down()))
 				success |= placePlant(world, secondPos, random);

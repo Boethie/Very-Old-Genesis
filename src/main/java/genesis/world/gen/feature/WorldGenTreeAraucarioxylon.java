@@ -14,8 +14,6 @@ import net.minecraft.world.World;
 
 public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 {
-	private int treeType = 0;
-	
 	public WorldGenTreeAraucarioxylon(int minHeight, int maxHeight, boolean notify)
 	{
 		super(EnumTree.ARAUCARIOXYLON, IntRange.create(minHeight, maxHeight), notify);
@@ -23,12 +21,6 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 		this.saplingCountProvider = new WeightedIntProvider(
 				WeightedIntItem.of(4, 0),
 				WeightedIntItem.of(6, IntRange.create(0, 5)));
-	}
-	
-	public WorldGenTreeAraucarioxylon setType(int type)
-	{
-		treeType = type;
-		return this;
 	}
 	
 	@Override
@@ -54,7 +46,7 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 		
 		switch (treeType)
 		{
-		case 1:
+		case TYPE_2:
 			leavesBase = branchPos.getY() - 4 - rand.nextInt(6);
 			alternate = false;
 			inverted = true;
@@ -72,7 +64,7 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 		
 		int lFactor;
 		
-		for (int i = base; i < height && treeType == 0; ++i)
+		for (int i = base; i < height && treeType == TreeTypes.TYPE_1; ++i)
 		{
 			++direction;
 			if (direction > 7)

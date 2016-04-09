@@ -44,9 +44,9 @@ public class BiomeGenDeciduousForest extends BiomeGenBaseGenesis
 		addTree(new WorldGenTreeLaurophyllum(3, 4, false).setTreeCountPerChunk(3));
 		addTree(new WorldGenTreeGinkgo(6, 10, false).setTreeCountPerChunk(1).setRarity(4));
 		addTree(new WorldGenTreeGinkgo(6, 17, false).setType(TreeTypes.TYPE_2).setTreeCountPerChunk(1).setRarity(15));
-		addTree(new WorldGenTreeDryophyllum(10, 15, false).setTreeCountPerChunk(12));
-		addTree(new WorldGenTreeDryophyllum(12, 17, false).setType(TreeTypes.TYPE_2).setTreeCountPerChunk(1).setRarity(15));
-		addTree(new WorldGenTreeMetasequoia(12, 24, true).setTreeCountPerChunk(4));
+		addTree(new WorldGenTreeDryophyllum(10, 15, false).setGenerateRandomSaplings(true).setTreeCountPerChunk(12));
+		addTree(new WorldGenTreeDryophyllum(12, 17, false).setGenerateRandomSaplings(true).setType(TreeTypes.TYPE_2).setTreeCountPerChunk(1).setRarity(15));
+		addTree(new WorldGenTreeMetasequoia(12, 24, true).setGenerateRandomSaplings(true).setTreeCountPerChunk(4));
 		addTree(new WorldGenDeadLog(4, 8, EnumTree.DRYOPHYLLUM, true).setTreeCountPerChunk(8));
 		addTree(new WorldGenDeadLog(4, 8, EnumTree.METASEQUOIA, true).setTreeCountPerChunk(1));
 	}

@@ -50,8 +50,8 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 	protected void addTrees()
 	{
 		addTree(new WorldGenTreeArchaeanthus(7, 20, false).setTreeCountPerChunk(1).setRarity(7));
-		addTree(new WorldGenTreeMetasequoia(12, 24, true).setTreeCountPerChunk(5));
-		addTree(new WorldGenTreeMetasequoia(23, 27, true).setType(TreeTypes.TYPE_2).setTreeCountPerChunk(2));
+		addTree(new WorldGenTreeMetasequoia(12, 24, true).setGenerateRandomSaplings(true).setTreeCountPerChunk(5));
+		addTree(new WorldGenTreeMetasequoia(23, 27, true).setGenerateRandomSaplings(true).setType(TreeTypes.TYPE_2).setTreeCountPerChunk(2));
 		addTree(new WorldGenTreeGinkgo(6, 10, false).setTreeCountPerChunk(1).setRarity(10));
 		addTree(new WorldGenTreeGinkgo(6, 17, false).setType(TreeTypes.TYPE_2).setTreeCountPerChunk(1).setRarity(20));
 		

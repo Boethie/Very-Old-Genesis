@@ -2,28 +2,16 @@ package genesis.world.gen.feature;
 
 import java.util.Random;
 
-import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumTree;
-import genesis.common.GenesisBlocks;
 import genesis.util.random.i.IntRange;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 {
-	private boolean generateRandomSaplings = true;
-	
 	public WorldGenTreeMetasequoia(int minHeight, int maxHeight, boolean notify)
 	{
 		super(EnumTree.METASEQUOIA, IntRange.create(minHeight, maxHeight), notify);
-	}
-	
-	public WorldGenTreeBase setGenerateRandomSaplings(boolean generate)
-	{
-		generateRandomSaplings = generate;
-		return this;
 	}
 	
 	@Override
@@ -92,7 +80,7 @@ public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 			doPineTopLeaves(world, pos, branchPos.add(0, 0, 1), height, leavesBase, rand, alternate, irregular, inverted);
 			break;
 		}
-		
+		/*
 		if (generateRandomSaplings && rand.nextInt(10) > 3)
 		{
 			int saplingCount = rand.nextInt(5);
@@ -116,7 +104,7 @@ public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 				setBlockInWorld(world, posSapling.up(), GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.SAPLING, EnumTree.METASEQUOIA));
 			}
 		}
-		
+		*/
 		return true;
 	}
 }

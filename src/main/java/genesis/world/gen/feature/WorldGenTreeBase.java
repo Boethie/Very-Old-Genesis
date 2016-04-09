@@ -43,6 +43,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	
 	protected RandomIntProvider saplingCountProvider = null;
 	protected TreeTypes treeType = TreeTypes.TYPE_1;
+	protected boolean generateRandomSaplings = false;
 	
 	public static enum TreeTypes
 	{
@@ -79,6 +80,12 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	public WorldGenTreeBase setType(TreeTypes type)
 	{
 		this.treeType = type;
+		return this;
+	}
+	
+	public WorldGenTreeBase setGenerateRandomSaplings(boolean generate)
+	{
+		generateRandomSaplings = generate;
 		return this;
 	}
 	
@@ -131,7 +138,8 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		
 		if (doGenerate(world, rand, pos))
 		{
-			int saplingCount = saplingCountProvider != null ? saplingCountProvider.get(rand) : 0;
+			//int saplingCount = saplingCountProvider != null ? saplingCountProvider.get(rand) : 0;
+			int saplingCount = (generateRandomSaplings)? ((rand.nextInt(10) > 3)? 1 + rand.nextInt(5) : 0) : 0;
 			
 			for (int i = 0; i < saplingCount; i++)
 			{
@@ -140,12 +148,15 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 				if (posSapling == null)
 					continue;
 				
-				IBlockState checkState = world.getBlockState(posSapling.up());
-				
-				if (!checkState.getBlock().isAir(checkState, world, posSapling))
+				if (!world.isAirBlock(posSapling.up()))
 					continue;
 				
-				checkState = world.getBlockState(posSapling.up());
+				IBlockState checkState = world.getBlockState(posSapling);
+				
+				//if (!checkState.getBlock().isAir(checkState, world, posSapling.up()))
+				//	continue;
+				
+				//checkState = world.getBlockState(posSapling.up());
 				
 				if (!checkState.getBlock().canSustainPlant(checkState, world, posSapling, EnumFacing.UP, (IPlantable) sapling.getBlock()))
 					continue;
