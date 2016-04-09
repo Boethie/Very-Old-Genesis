@@ -27,7 +27,7 @@ public class WorldGenPebbles extends WorldGenDecorationBase
 	
 	public WorldGenPebbles()
 	{
-		super(WorldBlockMatcher.AIR_LEAVES, WorldBlockMatcher.SOLID_TOP);
+		super(WorldBlockMatcher.REPLACEABLE_LEAVES, WorldBlockMatcher.SOLID_TOP);
 		
 		pebbleTypes.add(EnumToolMaterial.DOLERITE);
 		pebbleTypes.add(EnumToolMaterial.RHYOLITE);

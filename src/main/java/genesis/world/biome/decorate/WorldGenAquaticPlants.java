@@ -22,7 +22,7 @@ public class WorldGenAquaticPlants extends WorldGenDecorationBase
 	
 	public WorldGenAquaticPlants(EnumAquaticPlant bottom, EnumAquaticPlant top)
 	{
-		super(WorldBlockMatcher.AIR_WATER_LEAVES, WorldBlockMatcher.TRUE);
+		super(WorldBlockMatcher.REPLACEABLE_LEAVES, WorldBlockMatcher.TRUE);
 		
 		this.bottom = bottom;
 		this.top = top;

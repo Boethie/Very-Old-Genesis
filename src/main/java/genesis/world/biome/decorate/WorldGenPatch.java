@@ -17,7 +17,7 @@ public class WorldGenPatch extends WorldGenDecorationBase
 	
 	public WorldGenPatch(Predicate<IBlockState> replacePredicate, IBlockState... states)
 	{
-		super(WorldBlockMatcher.AIR_LEAVES, WorldBlockMatcher.state(replacePredicate));
+		super(WorldBlockMatcher.REPLACEABLE_LEAVES, WorldBlockMatcher.state(replacePredicate));
 		
 		this.states = ImmutableList.copyOf(states);
 	}
