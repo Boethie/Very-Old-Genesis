@@ -220,18 +220,18 @@ public class BlockPebble extends Block
 	}
 	
 	@Override
+	public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World world, BlockPos pos)
+	{
+		return bounds.offset(pos);
+	}
+	
+	@Override
 	public void addCollisionBoxToList(IBlockState state, World world, BlockPos pos,
 			AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
 	{
 		for (Part part : Part.values())
-		{
-			AxisAlignedBB bb = part.bounds.offset(pos.getX(), pos.getY(), pos.getZ());
-			
-			if (state.getValue(part.prop) && mask.intersectsWith(bb))
-			{
-				list.add(bb);
-			}
-		}
+			if (state.getValue(part.prop))
+				Block.addCollisionBoxToList(pos, mask, list, part.bounds);
 	}
 	
 	protected boolean dropAll = true;
