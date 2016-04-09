@@ -14,6 +14,7 @@ import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
@@ -322,7 +323,7 @@ public class BlockMoss extends BlockGrass
 			EntityPlayer player, EnumHand hand, ItemStack held,
 			EnumFacing side, float hitX, float hitY, float hitZ)
 	{
-		if ((held != null) && (held.getItem() instanceof ItemHoe))
+		if (held != null && (held.getItem() instanceof ItemHoe))
 		{
 			if (!player.canPlayerEdit(pos.offset(side), side, held))
 			{
@@ -336,11 +337,8 @@ public class BlockMoss extends BlockGrass
 				double x = pos.getX() + 0.5F;
 				double y = pos.getY() + 0.5F;
 				double z = pos.getZ() + 0.5F;
-				SoundType sound = newState.getBlock().getSoundType();
 				
-				world.playSound(null, x, y, z,
-						sound.getStepSound(), SoundCategory.BLOCKS,
-						(sound.getVolume() + 1F) / 2F, sound.getPitch() * 0.8F);
+				world.playSound(player, x, y, z, SoundEvents.item_hoe_till, SoundCategory.BLOCKS, 1, 1);
 				
 				if (!world.isRemote)
 				{
