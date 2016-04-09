@@ -63,7 +63,7 @@ public class WorldGenPlant<V extends IPlantMetadata<V>> extends WorldGenDecorati
 	
 	public WorldGenPlant(VariantsOfTypesCombo<V> combo, ObjectType<? extends BlockPlant<V>, ? extends Item> type, V variant)
 	{
-		super(WorldBlockMatcher.REPLACEABLE_LEAVES, WorldBlockMatcher.TRUE);
+		super(WorldBlockMatcher.STANDARD_AIR, WorldBlockMatcher.TRUE);
 		
 		this.combo = combo;
 		this.type = type;

@@ -18,7 +18,7 @@ public class WorldGenGrowingPlant extends WorldGenDecorationBase
 	
 	public WorldGenGrowingPlant(BlockGrowingPlant plant)
 	{
-		super(WorldBlockMatcher.REPLACEABLE_LEAVES, WorldBlockMatcher.TRUE);
+		super(WorldBlockMatcher.STANDARD_AIR, WorldBlockMatcher.TRUE);
 		
 		this.plant = plant;
 	}

@@ -24,7 +24,7 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 	
 	public WorldGenRockBoulders(IBlockState... blocks)
 	{
-		super(WorldBlockMatcher.REPLACEABLE_LEAVES,
+		super(WorldBlockMatcher.STANDARD_AIR_WATER,
 				(s, w, p) -> s.getBlock() == Blocks.dirt
 						|| s.getBlock() == GenesisBlocks.moss
 						|| GenesisBlocks.silt.isStateOf(s, SiltBlocks.SILT));

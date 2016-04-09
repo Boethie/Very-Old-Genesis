@@ -12,19 +12,24 @@ import net.minecraft.world.IBlockAccess;
 public interface WorldBlockMatcher
 {
 	public static final WorldBlockMatcher TRUE = (s, w, p) -> true;
-	
+
 	public static final WorldBlockMatcher REPLACEABLE = (s, w, p) -> s.getBlock().isReplaceable(w, p);
-	
 	public static final WorldBlockMatcher LEAVES = (s, w, p) -> s.getBlock().isLeaves(s, w, p);
-	public static final WorldBlockMatcher REPLACEABLE_LEAVES = or(REPLACEABLE, LEAVES);
-	
 	public static final WorldBlockMatcher WATER = (s, w, p) -> s.getMaterial() == Material.water;
+	
+	public static final WorldBlockMatcher STANDARD_AIR_WATER = or(REPLACEABLE, LEAVES);
+	public static final WorldBlockMatcher STANDARD_AIR = and(STANDARD_AIR_WATER, not(WATER));
 	
 	public static final WorldBlockMatcher SOLID_TOP = solidSide(EnumFacing.UP);
 	
 	public static WorldBlockMatcher state(Predicate<IBlockState> predicate)
 	{
 		return (s, w, p) -> predicate.apply(s);
+	}
+	
+	public static WorldBlockMatcher not(WorldBlockMatcher matcher)
+	{
+		return (s, w, p) -> !matcher.apply(s, w, p);
 	}
 	
 	public static WorldBlockMatcher and(WorldBlockMatcher... matchers)
