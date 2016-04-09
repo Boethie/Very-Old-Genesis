@@ -183,7 +183,7 @@ public final class GenesisBlocks
 	{
 		// --- Building blocks ---
 		// - Surface -
-		Genesis.proxy.registerBlock(moss, "moss", ItemMoss.class, false);
+		Genesis.proxy.registerBlock(moss, "moss", false);
 		
 		for (int mossStage = 0; mossStage <= BlockMoss.STAGE_LAST; mossStage++)
 		{
