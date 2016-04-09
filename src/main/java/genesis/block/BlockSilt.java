@@ -7,6 +7,7 @@ import genesis.combo.variant.PropertyIMetadata;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemBlockMulti;
 import genesis.util.BlockStateToMetadata;
+import genesis.util.WorldUtils;
 
 import java.util.List;
 import java.util.Random;
@@ -91,6 +92,11 @@ public class BlockSilt extends BlockFalling
 		switch (plant.getPlantType(world, pos))
 		{
 		case Beach:
+			for (EnumFacing side : EnumFacing.HORIZONTALS)
+				if (WorldUtils.isWater(world, pos.offset(side)))
+					return true;
+			
+			return false;
 		case Desert:
 			return true;
 		default:
