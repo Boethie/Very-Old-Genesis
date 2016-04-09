@@ -574,3 +574,11 @@ achievement.genesis.octaedrite=
 achievement.genesis.octaedrite.desc=
 achievement.genesis.blackDiamond=Cosmic Power!
 achievement.genesis.blackDiamond.desc=
+
+#------------- Subtitles -------------
+#Items
+subtitles.genesis.item.flintAndMarcasite.use=Flint and marcasite click
+subtitles.genesis.item.pebble.hit=Pebble whacked on stone
+
+#Player
+subtitles.genesis.player.knapping.hit=Pebble knapped

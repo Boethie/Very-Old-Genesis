@@ -12,6 +12,7 @@ import net.minecraft.block.material.*;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
@@ -88,6 +89,47 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 			return CanStayOptions.NO;
 		
 		return CanStayOptions.YIELD;
+	}
+	
+	protected void placeMycelium(World world, BlockPos pos, Random rand)
+	{
+		for (int i = 0; i < 2; i++)
+		{
+			BlockPos soilPos = pos.down(i);
+			IBlockState soilState = world.getBlockState(soilPos);
+			
+			if (soilState.getBlock() == Blocks.dirt
+					|| soilState.getBlock() == GenesisBlocks.moss)
+			{
+				world.setBlockState(pos, GenesisBlocks.prototaxites_mycelium.getDefaultState());
+				return;
+			}
+		}
+	}
+	
+	protected void placeAreaMycelium(World world, BlockPos pos, Random rand)
+	{
+		if (rand.nextInt(5) <= 3)
+		{
+			placeMycelium(world, pos, rand);
+			
+			for (EnumFacing side : EnumFacing.HORIZONTALS)
+				if (rand.nextInt(3) == 0)
+					placeMycelium(world, pos.offset(side), rand);
+		}
+	}
+	
+	@Override
+	public boolean placeRandomAgePlant(World world, BlockPos pos, Random rand)
+	{
+		BlockPos soil = pos.down();
+		
+		placeMycelium(world, soil, rand);
+		
+		for (EnumFacing side : EnumFacing.HORIZONTALS)
+			placeAreaMycelium(world, soil.offset(side), rand);
+		
+		return super.placeRandomAgePlant(world, pos, rand);
 	}
 	
 	@Override

@@ -36,8 +36,6 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		private final Set<EntityPlayer> knappingPlayers = new HashSet<>();
 		private int progress;
 		
-		private final TObjectIntHashMap<EntityPlayer> soundTimers = new TObjectIntHashMap<>();
-		
 		public KnappingState()
 		{
 			reset();
@@ -66,32 +64,17 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		
 		public boolean addKnappingPlayer(EntityPlayer player)
 		{
-			if (!soundTimers.containsKey(player))
-				soundTimers.put(player, 0);
-			
 			return knappingPlayers.add(player);
 		}
 		
 		public boolean removeKnappingPlayer(EntityPlayer player)
 		{
-			soundTimers.remove(player);
 			return knappingPlayers.remove(player);
 		}
 		
 		public void removeKnappingPlayers()
 		{
 			knappingPlayers.clear();
-			soundTimers.clear();
-		}
-		
-		public void incrementTimer(EntityPlayer player)
-		{
-			soundTimers.put(player, soundTimers.get(player) + 1);
-		}
-		
-		public int getTimer(EntityPlayer player)
-		{
-			return soundTimers.get(player);
 		}
 		
 		public int getMaxProgress()
@@ -167,13 +150,14 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 	public static final int SLOT_OUTPUT_WASTE = 14;
 	public static final int SLOT_COUNT = SLOTS_CRAFTING_COUNT + 6;
 	
-	public static final int KNAPPING_TIME = 0;
+	public static final int SOUND_TIME = 5;
 	
 	protected ItemStack[] inventory = new ItemStack[SLOT_COUNT];
 	
 	protected KnappingState[] knappingStates = new KnappingState[SLOTS_CRAFTING_COUNT];
-	protected EntityPlayer knappingPlayer = null;
 	protected boolean knappingLocked = false;
+	
+	protected TObjectIntHashMap<EntityPlayer> soundTimers = new TObjectIntHashMap<>();
 	
 	public String customName;
 	
@@ -194,6 +178,20 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		return (BlockKnapper) blockType;
 	}
 	
+	protected boolean incrementTimer(EntityPlayer player)
+	{
+		int value = soundTimers.get(player) - 1;
+		
+		if (value <= 0)
+		{
+			soundTimers.put(player, SOUND_TIME);
+			return true;
+		}
+		
+		soundTimers.put(player, value);
+		return false;
+	}
+	
 	@Override
 	public void update()
 	{
@@ -204,15 +202,9 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 			if (state.isKnapping())
 			{
 				for (EntityPlayer player : state.getKnappingPlayers())
-				{
-					if (state.getTimer(player) % 5 == 0)
-					{
+					if (incrementTimer(player))
 						player.playSound(GenesisSoundEvents.player_knapping_hit,
 								2, 0.9F + worldObj.rand.nextFloat() * 0.2F);
-					}
-					
-					state.incrementTimer(player);
-				}
 				
 				if (state.iterateProgress())
 				{	// Has been knapped.
@@ -569,19 +561,15 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		}
 	}
 	
-	public int stopKnapping(EntityPlayer player)
+	public Collection<KnappingState> stopKnapping(EntityPlayer player)
 	{
-		int out = 0;
+		List<KnappingState> states = new ArrayList<>();
 		
 		for (KnappingState state : knappingStates)
-		{
 			if (state.removeKnappingPlayer(player))
-			{
-				out++;
-			}
-		}
+				states.add(state);
 		
-		return out;
+		return states;
 	}
 	
 	public boolean switchBreakingSlot(EntityPlayer player, int index)
@@ -644,26 +632,26 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		KnappingState state = index == -1 ? null : getKnappingSlotState(index);
 		boolean wasKnapping = state != null && state.isPlayerKnapping(player);
 		
-		int amtStopped = stopKnapping(player);
+		int stopped = stopKnapping(player).size();
 		
 		// Check if the player is changing knapping slots so we can sync this to the server.
-		if (amtStopped >= 2)
-		{
-			changed = true;
-		}
-		else if (amtStopped == 1)
-		{
-			changed = !wasKnapping;
-		}
-		else
+		if (stopped == 0)
 		{
 			changed = state != null;
 		}
+		else
+		{
+			if (stopped >= 2)
+				changed = true;
+			else if (stopped == 1)
+				changed = !wasKnapping;
+			
+			if (state == null)
+				soundTimers.put(player, 0);
+		}
 		
 		if (state != null)
-		{
 			state.addKnappingPlayer(player);
-		}
 		
 		if (changed && worldObj.isRemote)
 		{

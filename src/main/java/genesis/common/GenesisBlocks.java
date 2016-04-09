@@ -183,7 +183,7 @@ public final class GenesisBlocks
 	{
 		// --- Building blocks ---
 		// - Surface -
-		Genesis.proxy.registerBlock(moss, "moss", ItemMoss.class, false);
+		Genesis.proxy.registerBlock(moss, "moss", false);
 		
 		for (int mossStage = 0; mossStage <= BlockMoss.STAGE_LAST; mossStage++)
 		{
@@ -303,7 +303,7 @@ public final class GenesisBlocks
 		
 		// Odontopteris
 		Genesis.proxy.registerBlock(odontopteris, "odontopteris", null);
-		ItemStack drop = GenesisItems.seeds.getStack(EnumSeeds.ZINGIBEROPSIS_RHIZOME);
+		ItemStack drop = GenesisItems.seeds.getStack(EnumSeeds.ODONTOPTERIS_SEEDS);
 		odontopteris.setDrops(new BlockDrops(drop, 1, 1));
 		odontopteris.setCropDrops(new BlockDrops(drop, 1, 3));
 		odontopteris.setPickedStack(drop);

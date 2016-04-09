@@ -57,11 +57,11 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 	protected void addTrees()
 	{
 		addTree(new WorldGenTreeLaurophyllum(3, 4, false).setTreeCountPerChunk(2));
-		addTree(new WorldGenTreeFicus(5, 10, false).setTreeCountPerChunk(1).setRarity(8));
-		addTree(new WorldGenTreeGinkgo(6, 10, false).setTreeCountPerChunk(1).setRarity(6));
-		addTree(new WorldGenTreeGinkgo(6, 17, false).setType(TreeTypes.TYPE_2).setTreeCountPerChunk(1).setRarity(22));
-		addTree(new WorldGenTreeDryophyllum(10, 15, false).setGenerateRandomSaplings(true).setTreeCountPerChunk(6));
-		addTree(new WorldGenTreeDryophyllum(12, 17, false).setGenerateRandomSaplings(true).setType(TreeTypes.TYPE_2).setTreeCountPerChunk(1).setRarity(10));
+		addTree(new WorldGenTreeFicus(4, 8, false).setTreeCountPerChunk(1).setRarity(8));
+		addTree(new WorldGenTreeGinkgo(8, 13, false).setTreeCountPerChunk(1).setRarity(6));
+		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2).setTreeCountPerChunk(1).setRarity(22));
+		addTree(new WorldGenTreeDryophyllum(11, 15, false).setGenerateRandomSaplings(true).setTreeCountPerChunk(6));
+		addTree(new WorldGenTreeDryophyllum(13, 17, false).setGenerateRandomSaplings(true).setType(TreeTypes.TYPE_2).setTreeCountPerChunk(1).setRarity(10));
 		addTree(new WorldGenTreeMetasequoia(12, 24, true).setGenerateRandomSaplings(true).setTreeCountPerChunk(1));
 		
 		addTree(new WorldGenDeadLog(3, 6, EnumTree.DRYOPHYLLUM, true).setTreeCountPerChunk(2));

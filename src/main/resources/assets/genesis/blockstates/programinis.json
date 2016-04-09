@@ -1,7 +1,8 @@
 {
 	"forge_marker": 1,
 	"defaults": {
-		"model": "genesis:crop_cross"
+		"model": "genesis:crop_cross",
+		"smooth_lighting": false
 	},
 	"variants": {
 		"age=0": [{ "textures": { "cross": "genesis:blocks/programinis_stage_0" } }],

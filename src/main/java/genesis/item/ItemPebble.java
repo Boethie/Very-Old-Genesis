@@ -5,6 +5,7 @@ import genesis.combo.*;
 import genesis.combo.ToolItems.ToolObjectType;
 import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.ToolTypes.ToolType;
+import genesis.sounds.GenesisSoundEvents;
 import genesis.stats.GenesisAchievements;
 
 import net.minecraft.block.material.Material;
@@ -78,7 +79,7 @@ public class ItemPebble extends ItemGenesis
 				player.dropItem(undamaged, false, true);
 			}
 			
-			//player.playSound(Constants.ASSETS_PREFIX + "crafting.pebble_hit", 2, 0.9F + world.rand.nextFloat() * 0.2F);
+			player.playSound(GenesisSoundEvents.item_pebble_hit, 2, 0.9F + world.rand.nextFloat() * 0.2F);
 			
 			// If the pebble was destroyed
 			if (stack.getItemDamage() > stack.getMaxDamage() || player.capabilities.isCreativeMode)

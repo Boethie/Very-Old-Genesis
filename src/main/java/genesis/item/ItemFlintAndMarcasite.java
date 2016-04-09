@@ -2,6 +2,7 @@ package genesis.item;
 
 import genesis.common.GenesisConfig;
 import genesis.common.GenesisCreativeTabs;
+import genesis.sounds.GenesisSoundEvents;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -11,6 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 
 public class ItemFlintAndMarcasite extends ItemFlintAndSteel
@@ -30,9 +32,13 @@ public class ItemFlintAndMarcasite extends ItemFlintAndSteel
 		
 		if (player.canPlayerEdit(pos, side, stack) && world.isAirBlock(pos))
 		{
-			//world.playSoundEffect(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, Sounds.IGNITE_FIRE, 1, world.rand.nextFloat() * 0.4F + 0.8F);
+			world.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+					GenesisSoundEvents.item_flintAndMarcasite_use, SoundCategory.BLOCKS,
+					1, world.rand.nextFloat() * 0.4F + 0.8F, false);
+			
 			world.setBlockState(pos, Blocks.fire.getDefaultState());
 			stack.damageItem(1, player);
+			
 			return EnumActionResult.SUCCESS;
 		}
 		

@@ -41,11 +41,11 @@ public final class GenesisSoundTypes
 			GenesisSoundEvents.block_coral_hit,
 			GenesisSoundEvents.block_coral_fall);
 	public static final SoundType AQUATICPLANT = new SoundType(10F, 1F,
-			GenesisSoundEvents.block_aquaticplant_break,
-			GenesisSoundEvents.block_aquaticplant_step,
-			GenesisSoundEvents.block_aquaticplant_place,
-			GenesisSoundEvents.block_aquaticplant_hit,
-			GenesisSoundEvents.block_aquaticplant_fall);
+			GenesisSoundEvents.block_aquaticPlant_break,
+			GenesisSoundEvents.block_aquaticPlant_step,
+			GenesisSoundEvents.block_aquaticPlant_place,
+			GenesisSoundEvents.block_aquaticPlant_hit,
+			GenesisSoundEvents.block_aquaticPlant_fall);
 	public static final SoundType OOZE = new SoundType(1.5F, 1.5F,
 			GenesisSoundEvents.block_ooze_break,
 			GenesisSoundEvents.block_ooze_step,
