@@ -42,9 +42,9 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 	protected void addTrees()
 	{
 		addTree(new WorldGenTreeLaurophyllum(3, 4, false).setTreeCountPerChunk(2));
-		addTree(new WorldGenTreeFicus(5, 10, false).setTreeCountPerChunk(1).setRarity(8));
-		addTree(new WorldGenTreeGinkgo(6, 10, false).setTreeCountPerChunk(1).setRarity(6));
-		addTree(new WorldGenTreeGinkgo(6, 17, false).setType(TreeTypes.TYPE_2).setTreeCountPerChunk(1).setRarity(22));
+		addTree(new WorldGenTreeFicus(4, 8, false).setTreeCountPerChunk(1).setRarity(8));
+		addTree(new WorldGenTreeGinkgo(8, 13, false).setTreeCountPerChunk(1).setRarity(6));
+		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2).setTreeCountPerChunk(1).setRarity(22));
 		addTree(new WorldGenTreeDryophyllum(11, 15, false).setTreeCountPerChunk(9));
 		addTree(new WorldGenTreeDryophyllum(13, 17, false).setType(TreeTypes.TYPE_2).setTreeCountPerChunk(1).setRarity(8));
 		addTree(new WorldGenTreeMetasequoia(12, 24, true).setTreeCountPerChunk(2));
