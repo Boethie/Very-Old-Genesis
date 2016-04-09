@@ -1,7 +1,8 @@
 {
 	"forge_marker": 1,
 	"defaults": {
-		"model": "genesis:crop_cross"
+		"model": "genesis:crop_cross",
+		"smooth_lighting": false
 	},
 	"variants": {
 		"age=0,top=false": [{ "textures": { "cross": "genesis:blocks/sphenophyllum_stage_0" } }],
