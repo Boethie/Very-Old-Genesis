@@ -5,19 +5,29 @@ import java.util.*;
 import com.google.common.base.Optional;
 import com.google.common.collect.*;
 
+import genesis.client.GenesisClient;
 import genesis.combo.*;
 import genesis.combo.variant.IMetadata;
 import genesis.util.ItemStackKey;
+
 import net.minecraft.block.*;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.client.CPacketPlayerBlockPlacement;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 import net.minecraftforge.common.*;
+
 import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.fml.common.eventhandler.*;
+import net.minecraftforge.fml.common.eventhandler.Event.Result;
 
 public class BlockGenesisFlowerPot extends BlockFlowerPot
 {
@@ -190,23 +200,18 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 			return;
 		}
 		
-		ItemStack stack = event.getEntityPlayer().getCurrentEquippedItem();
+		ItemStack stack = event.getEntityPlayer().getHeldItemMainhand();
 		
 		if (stack == null)
-		{
 			return;
-		}
 		
-		World world = event.world;
-		BlockPos pos = event.pos;
+		World world = event.getWorld();
+		BlockPos pos = event.getPos();
 		
 		IBlockState state = world.getBlockState(pos);
-		Block block = state.getBlock();
 		
-		if (block != Blocks.flower_pot)
-		{
+		if (state.getBlock() != Blocks.flower_pot)
 			return;
-		}
 		
 		state = Blocks.flower_pot.getActualState(state, world, pos);
 		EnumFlowerType contents = state.getValue(BlockFlowerPot.CONTENTS);
@@ -226,10 +231,10 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 			{
 				pot.setContents(stack);
 				
-				event.useBlock = Result.DENY;
-				event.useItem = Result.DENY;
+				event.setUseBlock(Result.DENY);
+				event.setUseItem(Result.DENY);
 				
-				EntityPlayer player = event.entityPlayer;
+				EntityPlayer player = event.getEntityPlayer();
 				
 				if (world.isRemote)	// We must send a packet to the server telling it that the player right clicked or else it won't place the plant in the flower pot.
 				{
@@ -240,10 +245,9 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 					{
 						Vec3d hitVec = mc.objectMouseOver.hitVec;
 						hitVec = hitVec.subtract(pos.getX(), pos.getY(), pos.getZ());
-						Packet<?> packet = new C08PacketPlayerBlockPlacement(pos, event.face.getIndex(), stack, (float) hitVec.xCoord, (float) hitVec.yCoord, (float) hitVec.zCoord);
+						Packet<?> packet = new CPacketPlayerBlockPlacement(pos, event.getFace().getIndex(), stack, (float) hitVec.xCoord, (float) hitVec.yCoord, (float) hitVec.zCoord);
 						spPlayer.sendQueue.addToSendQueue(packet);
 						
-						spPlayer.swingItem();
 						event.setCanceled(true);
 					}
 				}

@@ -264,7 +264,7 @@ public class BlockCampfire extends Block
 	@SuppressWarnings("serial")
 	protected final Map<ItemStackKey, SoundEvent> lighterItems = new HashMap<ItemStackKey, SoundEvent>(){{
 		put(new ItemStackKey(Items.flint_and_steel), SoundEvents.item_flintandsteel_use);
-		put(new ItemStackKey(GenesisItems.flint_and_marcasite), GenesisSoundEvents.item_flintandmarcasite_use);
+		put(new ItemStackKey(GenesisItems.flint_and_marcasite), GenesisSoundEvents.item_flintAndMarcasite_use);
 	}};
 	
 	/**

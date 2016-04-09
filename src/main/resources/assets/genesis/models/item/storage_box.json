@@ -1,5 +1,6 @@
 {
 	"__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
+	"parent": "block/block",
 	"ambientocclusion": true,
 	"textures": {
 		"side": "genesis:blocks/storage_box/side",
