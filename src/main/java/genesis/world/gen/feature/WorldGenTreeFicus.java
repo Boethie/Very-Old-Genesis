@@ -38,16 +38,14 @@ public class WorldGenTreeFicus extends WorldGenTreeBase
 	{
 		int fallX = 1 - rand.nextInt(3);
 		int fallZ = 1 - rand.nextInt(3);
-		int fallCount = 0;
+		
 		BlockPos upPos = pos.down();
 		EnumAxis woodAxis = EnumAxis.Y;
 		
 		for (int i = 0; i < height; i++)
 		{
-			if (rand.nextInt(2) == 0 && i > base && fallCount < 4)
+			if (i > base)
 			{
-				fallCount++;
-				
 				upPos = upPos.add(fallX, 0, fallZ);
 				
 				if (fallX != 0)
@@ -56,22 +54,14 @@ public class WorldGenTreeFicus extends WorldGenTreeBase
 					woodAxis = EnumAxis.Z;
 				else
 					woodAxis = EnumAxis.Y;
-				
-				if (rand.nextInt(3) == 0 || (fallX == 0 && fallZ == 0))
-					upPos = upPos.up();
 			}
-			else
-			{
-				fallCount = 0;
-				
-				woodAxis = EnumAxis.Y;
-				upPos = upPos.up();
-			}
+			
+			upPos = upPos.up();
 			
 			setBlockInWorld(world, upPos, wood.withProperty(BlockLog.LOG_AXIS, woodAxis));
 			
-			if (i > height - (3 + rand.nextInt(3)))
-				doBranchLeaves(world, upPos, rand, (i >= height - 1), 4, true);
+			if (i > base - (2 + rand.nextInt(2)))
+				doBranchLeaves(world, upPos, rand, (i >= height - 1), 3 + rand.nextInt(2), true);
 		}
 	}
 }

@@ -28,8 +28,6 @@ public class WorldGenTreeArchaeanthus extends WorldGenTreeBase
 			return false;
 		}
 		
-		//this.generateLeafLayerCircle(world, rand, 4, pos.up(4).getX(), pos.up(4).getZ(), pos.up(4).getY());
-		
 		int upCount = 0;
 		int step = rand.nextInt(8);
 		
