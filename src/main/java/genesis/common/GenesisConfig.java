@@ -39,9 +39,6 @@ public final class GenesisConfig
 	public static int woodlandsId = 70;
 	public static int woodlandsWeight = 10;
 	public static int woodlandsHillsId = 71;
-	public static int deciduousForestId = 72;
-	public static int deciduousForestWeight = 10;
-	public static int deciduousForestHillsId = 73;
 	
 	//Dimensions
 	public static int genesisDimId = 37;
@@ -88,8 +85,6 @@ public final class GenesisConfig
 		redLowlandsWeight = config.getInt("redLowlandsWeight", "biome", redLowlandsWeight, 0, Integer.MAX_VALUE, "Red Lowlands Biome Weight");
 		woodlandsId = config.getInt("woodlandsId", "biome", woodlandsId, 0, 255, "Woodlands Biome ID");
 		woodlandsWeight = config.getInt("woodlandsWeight", "biome", woodlandsWeight, 0, 255, "Woodlands Biome Weight");
-		deciduousForestId = config.getInt("deciduousForestId", "biome", deciduousForestId, 0, 255, "Deciduous Forest Biome ID");
-		deciduousForestWeight = config.getInt("deciduousForestWeight", "biome", deciduousForestWeight, 0, 255, "Deciduous Forest Biome Weight");
 		
 		//Dimension Id
 		genesisDimId = config.getInt("genesisDimId", "dimension", genesisDimId, Integer.MIN_VALUE, Integer.MAX_VALUE, "Genesis Dimension ID");
