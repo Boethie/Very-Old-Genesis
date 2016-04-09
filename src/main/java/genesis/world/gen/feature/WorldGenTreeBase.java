@@ -153,11 +153,6 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 				
 				IBlockState checkState = world.getBlockState(posSapling);
 				
-				//if (!checkState.getBlock().isAir(checkState, world, posSapling.up()))
-				//	continue;
-				
-				//checkState = world.getBlockState(posSapling.up());
-				
 				if (!checkState.getBlock().canSustainPlant(checkState, world, posSapling, EnumFacing.UP, (IPlantable) sapling.getBlock()))
 					continue;
 				

@@ -39,7 +39,7 @@ public class WorldGenTreeDryophyllum extends WorldGenTreeBase
 		for (int i = 0; i < mainBranches; ++i)
 		{
 			base = 4 + rand.nextInt(10);
-			branchUp(world, pos, rand, height, (base >= height)? base - 5: base);
+			branchUp(world, pos, rand, height, (base >= height - 2)? height - 5: base);
 		}
 		
 		return true;
