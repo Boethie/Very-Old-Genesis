@@ -39,9 +39,9 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis woodlands;
 	public static BiomeGenBaseGenesis woodlandsM;
 	public static BiomeGenBaseGenesis woodlandsHills;
-	public static BiomeGenBaseGenesis deciduousForest;
-	public static BiomeGenBaseGenesis deciduousForestM;
-	public static BiomeGenBaseGenesis deciduousForestHills;
+	//public static BiomeGenBaseGenesis deciduousForest;
+	//public static BiomeGenBaseGenesis deciduousForestM;
+	//public static BiomeGenBaseGenesis deciduousForestHills;
 	public static BiomeGenBaseGenesis swampRainForest;
 	public static BiomeGenBaseGenesis marsh;
 	public static BiomeGenBaseGenesis floodplainsForest;
@@ -162,7 +162,7 @@ public final class GenesisBiomes
 		prop.setBaseHeight(0.075F);
 		prop.setHeightVariation(0.05F);
 		prop.setWaterColor(0x725113);
-		
+		/*
 		deciduousForest = new BiomeGenDeciduousForest(prop);
 		BiomeManagerGenesis.registerBiome(deciduousForest, GenesisConfig.deciduousForestId, BiomeType.COOL, GenesisConfig.deciduousForestWeight);
 		BiomeDictionary.registerBiomeType(deciduousForest, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.DENSE);
@@ -188,7 +188,7 @@ public final class GenesisBiomes
 		deciduousForestHills = new BiomeGenDeciduousForest(prop);
 		BiomeGenBase.registerBiome(GenesisConfig.deciduousForestHillsId, deciduousForestHills.getBiomeName(), deciduousForestHills);
 		BiomeDictionary.registerBiomeType(woodlandsHills, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.DENSE, BiomeDictionary.Type.HILLS);
-		
+		*/
 		prop = new BiomeGenBase.BiomeProperties("Metasequoia Forest");
 		prop.setTemperature(1.1F);
 		prop.setRainfall(0.9F);

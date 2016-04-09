@@ -19,7 +19,7 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 	{
 		super(properties);
 		
-		theBiomeDecorator.grassPerChunk = 5;
+		theBiomeDecorator.grassPerChunk = 12;
 		
 		addDecorations();
 		addTrees();
@@ -27,12 +27,12 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 	
 	protected void addDecorations()
 	{
-		addDecoration(WorldGenPlant.create(EnumPlant.PALAEOASTER).setRarity(5).setPatchSize(20).setCountPerChunk(1));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setRarity(7).setPatchSize(3).setCountPerChunk(1));
+		addDecoration(WorldGenPlant.create(EnumPlant.PALAEOASTER).setRarity(4).setPatchSize(48).setCountPerChunk(1));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setRarity(4).setPatchSize(3).setCountPerChunk(1));
 		addGrassFlowers();
 		
 		addDecoration(new WorldGenRockBoulders().setMaxHeight(3).setCountPerChunk(3));
-		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(5).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(2).setCountPerChunk(1));
 		addDecoration(new WorldGenRockBoulders(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.CARNIVORE)).setInGround(false).setWaterRequired(false).setMaxHeight(2).setRarity(12).setCountPerChunk(1));
 		addDecoration(new WorldGenDebris().addAdditional(GenesisBlocks.debris.getBlockState(EnumDebrisOther.TYRANNOSAURUS_FEATHER)).setCountPerChunk(20));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));
@@ -41,15 +41,16 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 	
 	protected void addTrees()
 	{
-		addTree(new WorldGenTreeLaurophyllum(3, 4, false).setTreeCountPerChunk(1).setRarity(2));
-		addTree(new WorldGenTreeFicus(5, 10, false).setTreeCountPerChunk(1).setRarity(4));
-		addTree(new WorldGenTreeGinkgo(6, 10, false).setTreeCountPerChunk(1).setRarity(8));
+		addTree(new WorldGenTreeLaurophyllum(3, 4, false).setTreeCountPerChunk(2));
+		addTree(new WorldGenTreeFicus(5, 10, false).setTreeCountPerChunk(1).setRarity(8));
+		addTree(new WorldGenTreeGinkgo(6, 10, false).setTreeCountPerChunk(1).setRarity(6));
 		addTree(new WorldGenTreeGinkgo(6, 17, false).setType(TreeTypes.TYPE_2).setTreeCountPerChunk(1).setRarity(22));
-		addTree(new WorldGenTreeDryophyllum(10, 15, false).setTreeCountPerChunk(6));
-		addTree(new WorldGenTreeDryophyllum(12, 17, false).setType(TreeTypes.TYPE_2).setTreeCountPerChunk(1).setRarity(10));
-		addTree(new WorldGenTreeMetasequoia(12, 24, true).setTreeCountPerChunk(1));
+		addTree(new WorldGenTreeDryophyllum(11, 15, false).setTreeCountPerChunk(9));
+		addTree(new WorldGenTreeDryophyllum(13, 17, false).setType(TreeTypes.TYPE_2).setTreeCountPerChunk(1).setRarity(8));
+		addTree(new WorldGenTreeMetasequoia(12, 24, true).setTreeCountPerChunk(2));
 		
-		addTree(new WorldGenDeadLog(3, 6, EnumTree.DRYOPHYLLUM, true).setTreeCountPerChunk(1));
+		addTree(new WorldGenDeadLog(3, 6, EnumTree.DRYOPHYLLUM, true).setTreeCountPerChunk(2));
+		addTree(new WorldGenDeadLog(3, 6, EnumTree.METASEQUOIA, true).setTreeCountPerChunk(1).setRarity(4));
 	}
 	
 	@Override
