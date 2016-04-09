@@ -39,7 +39,7 @@ public class WorldGenGrowingPlant extends WorldGenDecorationBase
 	@Override
 	protected boolean doGenerate(World world, Random random, BlockPos pos)
 	{
-		if (nextToWater && !WorldUtils.waterInRange(world, pos, waterRadius, waterRadius, waterHeight))
+		if (nextToWater && !WorldUtils.waterInRange(world, pos.down(), waterRadius, waterRadius, waterHeight))
 			return false;
 		
 		if (!world.isAirBlock(pos))
