@@ -91,9 +91,9 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 		return CanStayOptions.YIELD;
 	}
 	
-	protected void placeMycelium(World world, BlockPos pos, Random rand)
+	protected void placeMycelium(World world, BlockPos pos, Random rand, int down)
 	{
-		for (int i = 0; i < 2; i++)
+		for (int i = 0; i <= down; i++)
 		{
 			BlockPos soilPos = pos.down(i);
 			IBlockState soilState = world.getBlockState(soilPos);
@@ -101,7 +101,7 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 			if (soilState.getBlock() == Blocks.dirt
 					|| soilState.getBlock() == GenesisBlocks.moss)
 			{
-				world.setBlockState(pos, GenesisBlocks.prototaxites_mycelium.getDefaultState());
+				world.setBlockState(soilPos, GenesisBlocks.prototaxites_mycelium.getDefaultState());
 				return;
 			}
 		}
@@ -111,11 +111,11 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 	{
 		if (rand.nextInt(5) <= 3)
 		{
-			placeMycelium(world, pos, rand);
+			placeMycelium(world, pos, rand, 1);
 			
 			for (EnumFacing side : EnumFacing.HORIZONTALS)
 				if (rand.nextInt(3) == 0)
-					placeMycelium(world, pos.offset(side), rand);
+					placeMycelium(world, pos.offset(side), rand, 1);
 		}
 	}
 	
@@ -124,7 +124,20 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 	{
 		BlockPos soil = pos.down();
 		
-		placeMycelium(world, soil, rand);
+		if (!world.getBlockState(pos).getBlock().isReplaceable(world, pos))
+			return false;
+		
+		for (EnumFacing side : EnumFacing.HORIZONTALS)
+		{
+			BlockPos sidePos = pos.offset(side);
+			IBlockState sideState = world.getBlockState(sidePos);
+			
+			if (sideState.getBlock() == this
+					|| sideState.isSideSolid(world, sidePos, side.getOpposite()))
+				return false;
+		}
+		
+		placeMycelium(world, soil, rand, 0);
 		
 		for (EnumFacing side : EnumFacing.HORIZONTALS)
 			placeAreaMycelium(world, soil.offset(side), rand);
