@@ -20,7 +20,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
-import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.fml.relauncher.*;
 
 public class BlockBranch extends BlockGenesisLogs
@@ -104,31 +103,6 @@ public class BlockBranch extends BlockGenesisLogs
 		return ret;
 	}
 	
-	/*@Override
-	@SideOnly(Side.CLIENT)
-	public int colorMultiplier(IBlockAccess world, BlockPos pos, int renderPass)
-	{
-		if (renderPass == 1)
-			return BiomeColorHelper.getFoliageColorAtPos(world, pos);
-		
-		return 0xFFFFFF;
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public int getRenderColor(IBlockState state)
-	{
-		return ColorizerFoliage.getFoliageColorBasic();
-	}*/
-	
-	/*@Override
-	@SideOnly(Side.CLIENT)
-	public AxisAlignedBB getSelectedBoundingBox(World world, BlockPos pos)
-	{
-		setBlockBoundsBasedOnState(world, pos);
-		return super.getSelectedBoundingBox(world, pos);
-	}*/
-	
 	@Override
 	public void addCollisionBoxToList(IBlockState state, World world, BlockPos pos,
 			AxisAlignedBB mask, List<AxisAlignedBB> list, Entity entity)
@@ -162,7 +136,7 @@ public class BlockBranch extends BlockGenesisLogs
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
-		//TODO: IBlockState state = getActualState(world.getBlockState(pos), world, pos);
+		state = state.getActualState(world, pos);
 		
 		AxisAlignedBB bb = new AxisAlignedBB(0, 0, 0, 1, 1, 1);
 		
