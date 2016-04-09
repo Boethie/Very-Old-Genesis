@@ -13,7 +13,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 public abstract class WorldGenDecorationBase extends WorldGenerator
 {
 	private int countPerChunk = 0;
-	private int patchSize = 0;
+	private int patchSize = 1;
 	
 	protected int rarity = 1;
 	

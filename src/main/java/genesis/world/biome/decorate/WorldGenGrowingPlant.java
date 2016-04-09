@@ -46,14 +46,17 @@ public class WorldGenGrowingPlant extends WorldGenDecorationBase
 		
 		BlockPos secondPos;
 		
-		int additional = random.nextInt(getPatchSize() - 1);
-		
-		for (int i = 0; i <= additional; ++i)
+		if (getPatchSize() > 1)
 		{
-			secondPos = pos.add(random.nextInt(7) - 3, 0, random.nextInt(7) - 3);
+			int additional = random.nextInt(getPatchSize() - 1);
 			
-			if (!nextToWater || WorldUtils.waterInRange(world, pos, waterRadius, waterRadius, waterHeight))
-				success |= placeRandomPlant(world, secondPos, random);
+			for (int i = 0; i <= additional; ++i)
+			{
+				secondPos = pos.add(random.nextInt(7) - 3, 0, random.nextInt(7) - 3);
+				
+				if (!nextToWater || WorldUtils.waterInRange(world, pos, waterRadius, waterRadius, waterHeight))
+					success |= placeRandomPlant(world, secondPos, random);
+			}
 		}
 		
 		return success;

@@ -3,6 +3,7 @@ package genesis.item;
 import genesis.common.GenesisConfig;
 import genesis.common.GenesisCreativeTabs;
 import genesis.sounds.GenesisSoundEvents;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemFlintAndSteel;
@@ -37,6 +38,7 @@ public class ItemFlintAndMarcasite extends ItemFlintAndSteel
 			
 			world.setBlockState(pos, Blocks.fire.getDefaultState());
 			stack.damageItem(1, player);
+			
 			return EnumActionResult.SUCCESS;
 		}
 		
