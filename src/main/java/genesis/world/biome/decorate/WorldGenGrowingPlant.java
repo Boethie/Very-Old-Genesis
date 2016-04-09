@@ -42,9 +42,6 @@ public class WorldGenGrowingPlant extends WorldGenDecorationBase
 		if (nextToWater && !WorldUtils.waterInRange(world, pos.down(), waterRadius, waterRadius, waterHeight))
 			return false;
 		
-		if (!world.isAirBlock(pos))
-			return false;
-		
 		boolean success = placeRandomPlant(world, pos, random);
 		
 		BlockPos secondPos;
