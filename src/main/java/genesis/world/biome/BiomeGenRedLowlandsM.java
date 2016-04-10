@@ -26,7 +26,7 @@ public class BiomeGenRedLowlandsM extends BiomeGenRedLowlands
 		addDecoration(WorldGenPlant.create(EnumPlant.APOLDIA).setCountPerChunk(1));
 		addGrassFlowers();
 		
-		addDecoration(new WorldGenRockBoulders(GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT)).setWaterRequired(false).setMaxHeight(3).setRarity(3).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders(GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT)).setWaterRequired(false).setRadius(3).setRarity(3).setCountPerChunk(1));
 	}
 	
 	@Override

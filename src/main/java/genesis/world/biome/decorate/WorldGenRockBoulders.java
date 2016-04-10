@@ -26,13 +26,13 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 	private boolean waterRequired = true;
 	private boolean inGround = true;
 	
-	private FloatRange largeProvider = FloatRange.create(1F, 1.25F);
+	private FloatRange largeProvider;
 	
 	private RandomIntProvider smallCountProvider = IntRange.create(1, 3);
-	private FloatRange smallProvider = FloatRange.create(0.5F, 1F);
+	private FloatRange smallProvider;
 	
-	private FloatRange horizStretch = FloatRange.create(0.75F, 1.25F);
-	private FloatRange vertStretch = FloatRange.create(0.75F, 1.25F);
+	private FloatRange horizStretch;
+	private FloatRange vertStretch;
 	
 	public WorldGenRockBoulders(IBlockState dry, IBlockState wet)
 	{
@@ -41,6 +41,9 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 						|| s.getBlock() == Blocks.grass
 						|| s.getBlock() == GenesisBlocks.moss
 						|| GenesisBlocks.silt.isStateOf(s, SiltBlocks.SILT));
+		
+		setRadius(1.25F);
+		setStretch(1.25F);
 		
 		this.dry = dry;
 		this.wet = wet;
@@ -69,14 +72,11 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 				pos.getZ() + rand.nextDouble());
 		placeSphere(world, center, rand, radius);
 		
-		System.out.println("radius " + radius);
-		
 		for (int i = smallCountProvider.get(rand); i > 0; i--)
 		{
 			Vec3d offset = new Vec3d(rand.nextDouble() - 0.5, (rand.nextDouble() - 0.5) * 0.5, rand.nextDouble() - 0.5).normalize();
 			
 			float smallRadius = smallProvider.get(rand);
-			System.out.println("small " + smallRadius);
 			
 			offset = offset.scale((radius + smallRadius) * MathHelper.getRandomDoubleInRange(rand, 0.5, 1) - 0.5);
 			
@@ -84,24 +84,6 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 		}
 		
 		return true;
-	}
-	
-	public WorldGenRockBoulders setInGround(boolean in)
-	{
-		inGround = in;
-		return this;
-	}
-	
-	public WorldGenRockBoulders setMaxHeight(float height)
-	{
-		largeProvider = FloatRange.create(1, height);
-		return this;
-	}
-	
-	public WorldGenRockBoulders setWaterRequired(boolean required)
-	{
-		waterRequired = required;
-		return this;
 	}
 	
 	protected void placeRock(World world, BlockPos pos, Random rand)
@@ -179,5 +161,51 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 				placeRockAndDryAround(world, rockPos, rand);
 			}
 		}
+	}
+	
+	public WorldGenRockBoulders setInGround(boolean in)
+	{
+		inGround = in;
+		return this;
+	}
+	
+	public WorldGenRockBoulders setRadius(FloatRange large, FloatRange small)
+	{
+		largeProvider = large;
+		smallProvider = small;
+		return this;
+	}
+	
+	public WorldGenRockBoulders setRadius(float large, float small)
+	{
+		return setRadius(FloatRange.create(1, large), FloatRange.create(0.5F, small));
+	}
+	
+	public WorldGenRockBoulders setRadius(float radius)
+	{
+		return setRadius(radius, radius - 0.5F);
+	}
+	
+	public WorldGenRockBoulders setStretch(FloatRange horizontal, FloatRange vertical)
+	{
+		horizStretch = horizontal;
+		vertStretch = vertical;
+		return this;
+	}
+	
+	public WorldGenRockBoulders setStretch(float horizontal, float vertical)
+	{
+		return setStretch(FloatRange.create(horizontal - 0.5F, horizontal), FloatRange.create(vertical - 0.5F, vertical));
+	}
+	
+	public WorldGenRockBoulders setStretch(float stretch)
+	{
+		return setStretch(stretch, stretch);
+	}
+	
+	public WorldGenRockBoulders setWaterRequired(boolean required)
+	{
+		waterRequired = required;
+		return this;
 	}
 }
