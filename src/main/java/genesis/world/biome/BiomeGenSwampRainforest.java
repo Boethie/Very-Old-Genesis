@@ -6,16 +6,9 @@ import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
 import genesis.entity.living.IEntityPreferredBiome;
 import genesis.entity.living.flying.EntityMeganeura;
-import genesis.world.biome.decorate.WorldGenDebris;
-import genesis.world.biome.decorate.WorldGenGrowingPlant;
-import genesis.world.biome.decorate.WorldGenMossStages;
-import genesis.world.biome.decorate.WorldGenRoots;
-import genesis.world.biome.decorate.WorldGenUnderWaterPatch;
-import genesis.world.gen.feature.WorldGenDeadLog;
-import genesis.world.gen.feature.WorldGenTreeCordaites;
-import genesis.world.gen.feature.WorldGenTreeLepidodendron;
-import genesis.world.gen.feature.WorldGenTreePsaronius;
-import genesis.world.gen.feature.WorldGenTreeSigillaria;
+import genesis.world.biome.decorate.*;
+import genesis.world.gen.feature.*;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -39,7 +32,7 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setPatchSize(3).setCountPerChunk(3));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(5));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setPatchSize(4).setCountPerChunk(10));
-		addDecoration(new WorldGenUnderWaterPatch(GenesisBlocks.peat.getDefaultState()).setCountPerChunk(10));
+		addDecoration(WorldGenCircleReplacement.getPeatGen().setCountPerChunk(10));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		addDecoration(new WorldGenDebris().setCountPerChunk(33));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));

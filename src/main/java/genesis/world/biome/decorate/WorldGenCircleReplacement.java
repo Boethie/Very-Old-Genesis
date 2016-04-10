@@ -4,27 +4,39 @@ import java.util.Random;
 
 import com.google.common.base.Predicate;
 
-import genesis.util.random.i.IntRange;
-import genesis.util.random.i.RandomIntProvider;
-
+import genesis.common.GenesisBlocks;
+import genesis.util.WorldBlockMatcher;
+import genesis.util.random.f.FloatRange;
+import genesis.util.random.i.*;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenCircleReplacement extends WorldGenerator
+public class WorldGenCircleReplacement extends WorldGenDecorationBase
 {
+	public static WorldGenCircleReplacement getPeatGen()
+	{
+		return new WorldGenCircleReplacement((s) -> s.getMaterial() == Material.water,
+				FloatRange.create(2, 3), IntRange.create(1),
+				(s) -> s.getBlock() == Blocks.dirt, GenesisBlocks.peat.getDefaultState());
+	}
+	
 	protected final Predicate<IBlockState> centerPredicate;
-	protected final RandomIntProvider radiusProvider;
+	protected final FloatRange radiusProvider;
 	protected final RandomIntProvider heightProvider;
 	protected final Predicate<IBlockState> replacePredicate;
 	protected final IBlockState replacement;
 	
 	public WorldGenCircleReplacement(Predicate<IBlockState> centerPredicate,
-			RandomIntProvider radiusProvider, RandomIntProvider heightProvider,
+			FloatRange radiusProvider, RandomIntProvider heightProvider,
 			Predicate<IBlockState> replacePredicate,
 			IBlockState replacement)
 	{
+		super(WorldBlockMatcher.STANDARD_AIR_WATER, WorldBlockMatcher.TRUE);
+		
 		this.centerPredicate = centerPredicate;
 		this.radiusProvider = radiusProvider;
 		this.heightProvider = heightProvider;
@@ -33,24 +45,28 @@ public class WorldGenCircleReplacement extends WorldGenerator
 	}
 	
 	public WorldGenCircleReplacement(Predicate<IBlockState> centerPredicate,
-			int radius, int height,
+			float radius, int height,
 			Predicate<IBlockState> replacePredicate, IBlockState replacement)
 	{
-		this(centerPredicate, IntRange.create(radius - 2, radius), IntRange.create(height), replacePredicate, replacement);
+		this(centerPredicate, FloatRange.create(radius - 2, radius), IntRange.create(height), replacePredicate, replacement);
 	}
 	
 	@Override
-	public boolean generate(World world, Random rand, BlockPos pos)
+	public boolean doGenerate(World world, Random rand, BlockPos pos)
 	{
-		if (centerPredicate.apply(world.getBlockState(pos)))
+		if (!centerPredicate.apply(world.getBlockState(pos)))
 			return false;
 		
-		int radius = radiusProvider.get(rand);
+		float radius = radiusProvider.get(rand);
 		int height = heightProvider.get(rand);
 		
-		for (int x = pos.getX() - radius; x <= pos.getX() + radius; x++)
+		pos = pos.down();
+		
+		int horizArea = MathHelper.ceiling_float_int(radius);
+		
+		for (int x = pos.getX() - horizArea; x <= pos.getX() + horizArea; x++)
 		{
-			for (int z = pos.getZ() - radius; z <= pos.getZ() + radius; z++)
+			for (int z = pos.getZ() - horizArea; z <= pos.getZ() + horizArea; z++)
 			{
 				int dX = x - pos.getX();
 				int dZ = z - pos.getZ();
@@ -62,7 +78,7 @@ public class WorldGenCircleReplacement extends WorldGenerator
 						BlockPos replacePos = new BlockPos(x, y, z);
 						
 						if (replacePredicate.apply(world.getBlockState(replacePos)))
-							world.setBlockState(replacePos, replacement, 2);
+							world.setBlockState(replacePos, replacement, 3);
 					}
 				}
 			}

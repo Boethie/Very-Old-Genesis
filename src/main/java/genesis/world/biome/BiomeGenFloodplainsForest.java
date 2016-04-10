@@ -5,8 +5,7 @@ import java.util.Random;
 import genesis.combo.variant.*;
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.*;
-import genesis.world.gen.feature.WorldGenDeadLog;
-import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
+import genesis.world.gen.feature.*;
 
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -25,7 +24,7 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 		addDecoration(WorldGenPlant.create(EnumPlant.RHACOPHYTON).setCountPerChunk(44));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(3));
 		addDecoration(WorldGenPlant.create(EnumPlant.PSILOPHYTON).setPatchSize(8).setCountPerChunk(3));
-		addDecoration(new WorldGenUnderWaterPatch(GenesisBlocks.peat.getDefaultState()).setCountPerChunk(1));
+		addDecoration(WorldGenCircleReplacement.getPeatGen().setCountPerChunk(1));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		addDecoration(new WorldGenDebris().setCountPerChunk(26));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));
