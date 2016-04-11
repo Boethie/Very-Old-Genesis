@@ -46,9 +46,9 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setRarity(4).setPatchSize(3).setCountPerChunk(1));
 		addGrassFlowers();
 		
-		addDecoration(new WorldGenRockBoulders().setRadius(3).setCountPerChunk(4));
-		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(3).setRarity(2).setCountPerChunk(1));
-		addDecoration(new WorldGenRockBoulders(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.CARNIVORE)).setInGround(false).setWaterRequired(false).setRadius(2).setRarity(12).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders().setCountPerChunk(2));
+		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(2).setStretch(2).setRarity(5).setCountPerChunk(1));
+		//addDecoration(new WorldGenRockBoulders(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.CARNIVORE)).setInGround(false).setWaterRequired(false).setRadius(2).setRarity(12).setCountPerChunk(1));
 		addDecoration(new WorldGenDebris().addAdditional(GenesisBlocks.debris.getBlockState(EnumDebrisOther.TYRANNOSAURUS_FEATHER)).setCountPerChunk(20));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));
 		addDecoration(new WorldGenDecorationOnBlock((s) -> s.getMaterial() == Material.water, GenesisBlocks.cobbania.getDefaultState()).setCountPerChunk(10));
@@ -62,7 +62,7 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2).setTreeCountPerChunk(1).setRarity(22));
 		addTree(new WorldGenTreeDryophyllum(11, 15, false).setGenerateRandomSaplings(true).setTreeCountPerChunk(6));
 		addTree(new WorldGenTreeDryophyllum(13, 17, false).setGenerateRandomSaplings(true).setType(TreeTypes.TYPE_2).setTreeCountPerChunk(1).setRarity(10));
-		addTree(new WorldGenTreeMetasequoia(12, 24, true).setGenerateRandomSaplings(true).setTreeCountPerChunk(1));
+		addTree(new WorldGenTreeMetasequoia(12, 24, true).setGenerateRandomSaplings(true).setTreeCountPerChunk(2));
 		
 		addTree(new WorldGenDeadLog(3, 6, EnumTree.DRYOPHYLLUM, true).setTreeCountPerChunk(2));
 		addTree(new WorldGenDeadLog(3, 6, EnumTree.METASEQUOIA, true).setTreeCountPerChunk(1).setRarity(4));

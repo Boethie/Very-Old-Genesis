@@ -16,9 +16,9 @@ public class BiomeGenAuxForestM extends BiomeGenAuxForest
 	@Override
 	protected void addDecorations()
 	{
-		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(3).setRarity(2).setCountPerChunk(1));
-		addDecoration(new WorldGenRockBoulders(GenesisBlocks.rhyolite.getDefaultState()).setWaterRequired(false).setRadius(3).setRarity(8).setCountPerChunk(1));
-		addDecoration(new WorldGenRockBoulders(GenesisBlocks.dolerite.getDefaultState()).setWaterRequired(false).setRadius(3).setRarity(8).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(2).setStretch(2).setRarity(4).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders(GenesisBlocks.rhyolite.getDefaultState()).setWaterRequired(false).setRadius(2).setStretch(2).setRarity(8).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders(GenesisBlocks.dolerite.getDefaultState()).setWaterRequired(false).setRadius(2).setStretch(2).setRarity(8).setCountPerChunk(1));
 		addDecoration(new WorldGenDebris().addAdditional(GenesisBlocks.debris.getBlockState(EnumDebrisOther.COELOPHYSIS_FEATHER)).setCountPerChunk(20));
 	}
 	
