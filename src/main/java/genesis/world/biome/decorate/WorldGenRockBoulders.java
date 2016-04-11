@@ -152,9 +152,9 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 		
 		for (BlockPos rockPos : BlockPos.getAllInBoxMutable(pos.add(-area, -area, -area), pos.add(area, area, area)))
 		{
-			double dX = (rockPos.getX() + 0.5 - center.xCoord) * scaleX;
-			double dY = (rockPos.getY() + 0.5 - center.yCoord) * scaleY;
-			double dZ = (rockPos.getZ() + 0.5 - center.zCoord) * scaleZ;
+			double dX = (rockPos.getX() + 0.5 - center.xCoord) / scaleX;
+			double dY = (rockPos.getY() + 0.5 - center.yCoord) / scaleY;
+			double dZ = (rockPos.getZ() + 0.5 - center.zCoord) / scaleZ;
 			
 			if (dX * dX + dY * dY + dZ * dZ <= radius)
 			{
