@@ -7,6 +7,7 @@ import genesis.combo.variant.EnumDung;
 import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
+import genesis.util.random.f.FloatRange;
 import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrassMulti;
@@ -40,8 +41,8 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenPalaeoagaracites().setPatchSize(24).setCountPerChunk(96));
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPatchSize(5).setCountPerChunk(3));
 		
-		addDecoration(new WorldGenRockBoulders().setCountPerChunk(2));
-		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(2).setStretch(2).setRarity(7).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders().setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)).setCountPerChunk(2));
+		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)).setRarity(4).setCountPerChunk(1));
 		//addDecoration(new WorldGenRockBoulders(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.HERBIVORE)).setInGround(false).setWaterRequired(false).setRadius(2).setRarity(14).setCountPerChunk(1));
 		addDecoration(new WorldGenDebris().setCountPerChunk(7));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));

@@ -5,6 +5,7 @@ import java.util.Random;
 import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
+import genesis.util.random.f.FloatRange;
 import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrassMulti;
@@ -39,8 +40,8 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setPatchSize(4).setCountPerChunk(8));
 		addGrassFlowers();
 		
-		addDecoration(new WorldGenRockBoulders().setCountPerChunk(6));
-		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(2).setStretch(2).setRarity(4).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders().setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)).setCountPerChunk(6));
+		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)).setRarity(3).setCountPerChunk(1));
 		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
 		addDecoration(new WorldGenDebris().setCountPerChunk(28));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));

@@ -7,6 +7,7 @@ import genesis.combo.SiltBlocks;
 import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.EnumSilt;
 import genesis.common.GenesisBlocks;
+import genesis.util.random.f.FloatRange;
 import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrassMulti;
 import genesis.world.biome.decorate.WorldGenPebbles;
@@ -46,7 +47,7 @@ public class BiomeGenRedLowlands extends BiomeGenBaseGenesis
 		addGrassFlowers();
 		
 		addDecoration(new WorldGenPebbles().setWaterRequired(false).setCountPerChunk(1));
-		addDecoration(new WorldGenRockBoulders(GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT)).setWaterRequired(false).setRadius(2).setStretch(2).setRarity(4).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders(GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT)).setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1F)).setRarity(4).setCountPerChunk(1));
 	}
 	
 	protected void addTrees()

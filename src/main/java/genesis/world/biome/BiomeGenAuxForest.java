@@ -6,6 +6,7 @@ import genesis.combo.variant.EnumDebrisOther;
 import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
+import genesis.util.random.f.FloatRange;
 import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenGrass;
 import genesis.world.biome.decorate.WorldGenGrassMulti;
@@ -39,8 +40,8 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 		addDecoration(WorldGenPlant.create(EnumPlant.SANMIGUELIA).setNextToWater(true).setPatchSize(4).setCountPerChunk(16));
 		addGrassFlowers();
 		
-		addDecoration(new WorldGenRockBoulders().setCountPerChunk(2));
-		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(2).setStretch(2).setRarity(5).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders().setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)).setCountPerChunk(2));
+		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)).setRarity(3).setCountPerChunk(1));
 		addDecoration(new WorldGenDebris().addAdditional(GenesisBlocks.debris.getBlockState(EnumDebrisOther.COELOPHYSIS_FEATHER)).setCountPerChunk(20));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));
 	}

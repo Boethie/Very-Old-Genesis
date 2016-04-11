@@ -8,6 +8,7 @@ import genesis.combo.variant.EnumDung;
 import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
+import genesis.util.random.f.FloatRange;
 import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenDecorationOnBlock;
 import genesis.world.biome.decorate.WorldGenGrass;
@@ -46,8 +47,8 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setRarity(4).setPatchSize(3).setCountPerChunk(1));
 		addGrassFlowers();
 		
-		addDecoration(new WorldGenRockBoulders().setCountPerChunk(2));
-		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(2).setStretch(2).setRarity(5).setCountPerChunk(1));
+		addDecoration(new WorldGenRockBoulders().setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)).setCountPerChunk(2));
+		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)).setRarity(2).setCountPerChunk(1));
 		//addDecoration(new WorldGenRockBoulders(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.CARNIVORE)).setInGround(false).setWaterRequired(false).setRadius(2).setRarity(12).setCountPerChunk(1));
 		addDecoration(new WorldGenDebris().addAdditional(GenesisBlocks.debris.getBlockState(EnumDebrisOther.TYRANNOSAURUS_FEATHER)).setCountPerChunk(20));
 		addDecoration(new WorldGenRoots().setCountPerChunk(26));
