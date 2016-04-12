@@ -1216,8 +1216,9 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 		for (int i = 0; i < targetHeight; i++)
 		{
 			BlockPos checkPos = pos.up(i);
+			IBlockState checkState = world.getBlockState(checkPos);
 			
-			if (!world.getBlockState(checkPos).getBlock().isReplaceable(world, checkPos))
+			if (!checkState.getBlock().isAir(checkState, world, checkPos))
 			{
 				targetHeight = i;
 				break;
