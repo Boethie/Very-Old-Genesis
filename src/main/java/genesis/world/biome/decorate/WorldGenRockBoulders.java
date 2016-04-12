@@ -60,7 +60,7 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 	}
 	
 	@Override
-	protected boolean doGenerate(World world, Random rand, BlockPos pos)
+	public boolean place(World world, Random rand, BlockPos pos)
 	{
 		if (waterRequired && !WorldUtils.waterInRange(world, pos, 1, 1, 1))
 			return false;
@@ -110,17 +110,20 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 		BlockPos abovePos = pos.up();
 		IBlockState above = world.getBlockState(abovePos);
 		
-		if (water > 0
-				&& !WorldUtils.isWater(world, pos.up())
-				&& above.getMaterial() != Material.water
-				&& !above.getBlock().isSideSolid(above, world, abovePos, EnumFacing.DOWN))
-			state = wet;
-		else if (solid + water < 4 && rand.nextInt(4) <= 2)	// 75% chance for moss.
-			state = wet;
+		if (wet != null)
+		{
+			if (water > 0
+					&& !WorldUtils.isWater(world, pos.up())
+					&& above.getMaterial() != Material.water
+					&& !above.getBlock().isSideSolid(above, world, abovePos, EnumFacing.DOWN))
+				state = wet;
+			else if (solid + water < 4 && rand.nextInt(4) <= 2)	// 75% chance for moss.
+				state = wet;
+		}
 		
 		setBlockInWorld(world, pos, state, inGround);
 		
-		world.notifyBlockUpdate(pos, Blocks.air.getDefaultState(), dry, 3);	// For testing it with item right click.
+		//world.notifyBlockUpdate(pos, Blocks.air.getDefaultState(), dry, 3);	// For testing it with item right click.
 	}
 	
 	protected void placeRockAndDryAround(World world, BlockPos pos, Random rand)

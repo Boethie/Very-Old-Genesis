@@ -12,9 +12,9 @@ public class BiomeGenLimestoneBeach extends BiomeGenBaseGenesis
 		topBlock = GenesisBlocks.limestone.getDefaultState();
 		fillerBlock = GenesisBlocks.limestone.getDefaultState();
 		
-		theBiomeDecorator.grassPerChunk = 0;
+		getDecorator().setGrassCount(0);
 		
-		addDecoration(new WorldGenPebbles().setCountPerChunk(25));
+		addDecoration(new WorldGenPebbles(), 25);
 	}
 	
 	@Override

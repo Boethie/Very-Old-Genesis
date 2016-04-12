@@ -2,22 +2,13 @@ package genesis.world.biome;
 
 import java.util.Random;
 
-import genesis.combo.variant.EnumDebrisOther;
-import genesis.combo.variant.EnumPlant;
-import genesis.combo.variant.EnumTree;
+import genesis.combo.variant.*;
 import genesis.common.GenesisBlocks;
 import genesis.util.random.f.FloatRange;
-import genesis.world.biome.decorate.WorldGenDebris;
-import genesis.world.biome.decorate.WorldGenGrass;
-import genesis.world.biome.decorate.WorldGenGrassMulti;
-import genesis.world.biome.decorate.WorldGenGrowingPlant;
-import genesis.world.biome.decorate.WorldGenPlant;
-import genesis.world.biome.decorate.WorldGenRockBoulders;
-import genesis.world.biome.decorate.WorldGenRoots;
-import genesis.world.gen.feature.WorldGenDeadLog;
-import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
-import genesis.world.gen.feature.WorldGenTreeGinkgo;
+import genesis.world.biome.decorate.*;
+import genesis.world.gen.feature.*;
 import genesis.world.gen.feature.WorldGenTreeBase.TreeTypes;
+
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -28,37 +19,35 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 	{
 		super(properties);
 		
-		theBiomeDecorator.grassPerChunk = 7;
-		
 		addDecorations();
 		addTrees();
 	}
 	
 	protected void addDecorations()
 	{
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.cladophlebis).setPatchSize(9).setCountPerChunk(2));
-		addDecoration(WorldGenPlant.create(EnumPlant.SANMIGUELIA).setNextToWater(true).setPatchSize(4).setCountPerChunk(16));
-		addGrassFlowers();
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.cladophlebis).setPatchCount(9), 1);
 		
-		addDecoration(new WorldGenRockBoulders().setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)).setCountPerChunk(2));
-		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)).setRarity(3).setCountPerChunk(1));
-		addDecoration(new WorldGenDebris().addAdditional(GenesisBlocks.debris.getBlockState(EnumDebrisOther.COELOPHYSIS_FEATHER)).setCountPerChunk(20));
-		addDecoration(new WorldGenRoots().setCountPerChunk(26));
+		addDecoration(new WorldGenRockBoulders().setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 2);
+		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.333F);
+		addDecoration(new WorldGenDebris(EnumDebrisOther.COELOPHYSIS_FEATHER), 20);
+		addDecoration(new WorldGenRoots(), 26);
+		
+		getDecorator().setGrassCount(7);
+		addGrass(WorldGenPlant.create(EnumPlant.TODITES).setPatchCount(9), 1);
+		
+		getDecorator().setFlowerCount(2);
+		addFlower(WorldGenPlant.create(EnumPlant.SANMIGUELIA).setNextToWater(true).setPatchCount(4), 2);
 	}
 	
 	protected void addTrees()
 	{
-		addTree(new WorldGenTreeAraucarioxylon(25, 30, true).setGenerateRandomSaplings(true).setTreeCountPerChunk(4));
-		addTree(new WorldGenTreeGinkgo(8, 13, false).setTreeCountPerChunk(1).setRarity(6));
-		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2).setTreeCountPerChunk(1).setRarity(20));
+		getDecorator().setTreeCount(5.15F);
 		
-		addTree(new WorldGenDeadLog(4, 8, EnumTree.ARAUCARIOXYLON, true).setTreeCountPerChunk(1));
-	}
-	
-	@Override
-	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
-	{
-		return new WorldGenGrassMulti(GenesisBlocks.plants.getPlantBlockState(EnumPlant.TODITES)).setVolume(64);
+		addTree(new WorldGenTreeAraucarioxylon(25, 30, true), 80);
+		addTree(new WorldGenTreeGinkgo(8, 13, false), 3);
+		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 1);
+		
+		addTree(new WorldGenDeadLog(4, 8, EnumTree.ARAUCARIOXYLON, true), 20);
 	}
 	
 	@Override

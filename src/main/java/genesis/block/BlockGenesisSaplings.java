@@ -190,30 +190,27 @@ public class BlockGenesisSaplings extends BlockSapling
 			break;
 		}
 		
-		gen.noSaplings();	// Make the generator not place saplings around the tree.
-		
 		if (gen != null)
 		{
 			IBlockState[] states = new IBlockState[positions.length];
-			int i = 0;
 			
-			for (BlockPos sapPos : positions)
+			for (int i = 0; i < positions.length; i++)
 			{
+				BlockPos sapPos = positions[i];
 				states[i] = world.getBlockState(sapPos);
 				world.setBlockState(sapPos, Blocks.air.getDefaultState(), 0);
-				i++;
 			}
 			
 			boolean success = gen.generate(world, rand, pos);
-			i = 0;
-			
-			for (BlockPos sapPos : positions)
+
+			for (int i = 0; i < positions.length; i++)
 			{
+				BlockPos sapPos = positions[i];
+				
 				if (success)
 					world.markAndNotifyBlock(sapPos, world.getChunkFromBlockCoords(sapPos), states[i], world.getBlockState(sapPos), 3);
 				else
 					world.setBlockState(sapPos, states[i], 0);
-				i++;
 			}
 		}
 	}

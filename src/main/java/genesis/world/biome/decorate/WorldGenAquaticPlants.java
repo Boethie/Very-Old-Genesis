@@ -17,8 +17,6 @@ public class WorldGenAquaticPlants extends WorldGenDecorationBase
 {
 	protected final EnumAquaticPlant bottom;
 	protected final EnumAquaticPlant top;
-	private boolean generateInGroup = false;
-	private int groupSize = 1;
 	
 	public WorldGenAquaticPlants(EnumAquaticPlant bottom, EnumAquaticPlant top)
 	{
@@ -33,7 +31,8 @@ public class WorldGenAquaticPlants extends WorldGenDecorationBase
 		this(bottom, null);
 	}
 	
-	protected boolean tryPlace(World world, BlockPos pos)
+	@Override
+	public boolean place(World world, Random random, BlockPos pos)
 	{
 		IBlockState bottomState = GenesisBlocks.aquatic_plants.getBlockState(bottom);
 		
@@ -60,32 +59,5 @@ public class WorldGenAquaticPlants extends WorldGenDecorationBase
 			setBlockInWorld(world, pos.up(), GenesisBlocks.aquatic_plants.getBlockState(top));
 		
 		return true;
-	}
-	
-	@Override
-	protected boolean doGenerate(World world, Random random, BlockPos pos)
-	{
-		boolean success = tryPlace(world, pos);
-		
-		BlockPos additionalPos;
-		
-		if (generateInGroup)
-		{
-			for (int i = 1; i <= groupSize - 1; ++i)
-			{
-				additionalPos = pos.add(random.nextInt(7) - 3, 0, random.nextInt(7) - 3);
-				if (tryPlace(world, additionalPos))
-					success = true;
-			}
-		}
-		
-		return success;
-	}
-	
-	public WorldGenAquaticPlants setGenerateInGroup(boolean group, int size)
-	{
-		generateInGroup = group;
-		groupSize = size;
-		return this;
 	}
 }

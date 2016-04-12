@@ -37,33 +37,11 @@ public class WorldGenGrowingPlant extends WorldGenDecorationBase
 	}
 	
 	@Override
-	protected boolean doGenerate(World world, Random random, BlockPos pos)
+	public boolean place(World world, Random random, BlockPos pos)
 	{
 		if (nextToWater && !WorldUtils.waterInRange(world, pos.down(), waterRadius, waterRadius, waterHeight))
 			return false;
 		
-		boolean success = placeRandomPlant(world, pos, random);
-		
-		BlockPos secondPos;
-		
-		if (getPatchSize() > 1)
-		{
-			int additional = random.nextInt(getPatchSize() - 1);
-			
-			for (int i = 0; i <= additional; ++i)
-			{
-				secondPos = pos.add(random.nextInt(7) - 3, 0, random.nextInt(7) - 3);
-				
-				if (!nextToWater || WorldUtils.waterInRange(world, pos, waterRadius, waterRadius, waterHeight))
-					success |= placeRandomPlant(world, secondPos, random);
-			}
-		}
-		
-		return success;
-	}
-	
-	protected boolean placeRandomPlant(World world, BlockPos pos, Random random)
-	{
 		return plant.placeRandomAgePlant(world, pos, random);
 	}
 }

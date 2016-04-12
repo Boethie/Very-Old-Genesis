@@ -20,27 +20,20 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 	{
 		super(properties);
 		
-		theBiomeDecorator.grassPerChunk = 5;
+		getDecorator().setGrassCount(5);
+		addGrass(WorldGenPlant.create(PlantBlocks.PLANT, EnumPlant.ASTEROXYLON).setPatchCount(5), 1);
 		
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.prototaxites).setPatchSize(3).setCountPerChunk(1).setRarity(6));
+		getDecorator().setFlowerCount(22);
+		addFlower(WorldGenPlant.create(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.ASTEROXYLON), 5);
+		addFlower(WorldGenPlant.create(EnumPlant.RHYNIA).setPatchCount(4), 6);
+		addFlower(WorldGenPlant.create(EnumPlant.NOTHIA).setPatchCount(4), 5);
+		addFlower(WorldGenPlant.create(EnumPlant.SCIADOPHYTON).setPatchCount(4), 3);
+		addFlower(WorldGenPlant.create(EnumPlant.PSILOPHYTON).setPatchCount(4), 2);
+		addFlower(WorldGenPlant.create(EnumPlant.BARAGWANATHIA).setPatchCount(4), 1);
+		addFlower(WorldGenPlant.create(EnumPlant.COOKSONIA).setPatchCount(4), 1);
 		
-		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
-		
-		addDecoration(WorldGenPlant.create(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.ASTEROXYLON).setCountPerChunk(5));
-		addDecoration(WorldGenPlant.create(EnumPlant.RHYNIA).setPatchSize(4).setCountPerChunk(6));
-		addDecoration(WorldGenPlant.create(EnumPlant.NOTHIA).setPatchSize(4).setCountPerChunk(5));
-		addDecoration(WorldGenPlant.create(EnumPlant.SCIADOPHYTON).setPatchSize(4).setCountPerChunk(3));
-		addDecoration(WorldGenPlant.create(EnumPlant.PSILOPHYTON).setPatchSize(4).setCountPerChunk(2));
-		addDecoration(WorldGenPlant.create(EnumPlant.BARAGWANATHIA).setPatchSize(4).setCountPerChunk(1));
-		addDecoration(WorldGenPlant.create(EnumPlant.COOKSONIA).setPatchSize(4).setCountPerChunk(1));
-		
-		addGrassFlowers();
-	}
-	
-	@Override
-	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
-	{
-		return new WorldGenGrassMulti(GenesisBlocks.plants.getPlantBlockState(EnumPlant.ASTEROXYLON)).setVolume(32);
+		addDecoration(new WorldGenMossStages(), 30);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.prototaxites).setPatchCount(3), 0.166F);
 	}
 	
 	@Override

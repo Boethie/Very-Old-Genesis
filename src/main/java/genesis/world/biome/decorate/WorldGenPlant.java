@@ -16,7 +16,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class WorldGenPlant<V extends IPlantMetadata<V>> extends WorldGenDecorationBase implements PlantGenerator
+public class WorldGenPlant<V extends IPlantMetadata<V>> extends WorldGenDecorationBase
 {
 	public static <V extends IPlantMetadata<V>> WorldGenPlant<V> create(VariantsOfTypesCombo<V> combo, ObjectType<? extends BlockPlant<V>, ? extends Item> type, V variant)
 	{
@@ -68,6 +68,8 @@ public class WorldGenPlant<V extends IPlantMetadata<V>> extends WorldGenDecorati
 		this.combo = combo;
 		this.type = type;
 		this.variant = variant;
+		
+		setPatchRadius(9);
 	}
 	
 	public WorldGenPlant<V> setNextToWater(boolean nextToWater)
@@ -84,33 +86,11 @@ public class WorldGenPlant<V extends IPlantMetadata<V>> extends WorldGenDecorati
 	}
 	
 	@Override
-	protected boolean doGenerate(World world, Random random, BlockPos pos)
+	public boolean place(World world, Random random, BlockPos pos)
 	{
 		if (nextToWater && !WorldUtils.waterInRange(world, pos, waterRadius, waterHeight))
 			return false;
 		
-		boolean success = placePlant(world, pos, random);
-		
-		if (getPatchSize() == 1)
-			return true;
-		
-		BlockPos secondPos;
-		int additional = random.nextInt(getPatchSize() - 1);
-		
-		for (int i = 0; i < additional; ++i)
-		{
-			secondPos = pos.add(random.nextInt(19) - 9, 0, random.nextInt(19) - 9);
-			
-			if (groundMatcher.apply(world, secondPos.down()))
-				success |= placePlant(world, secondPos, random);
-		}
-		
-		return success;
-	}
-	
-	@Override
-	public boolean placePlant(World world, BlockPos pos, Random random)
-	{
 		return combo.getBlock(type, variant).placeAt(world, pos, variant, 2);
 	}
 }

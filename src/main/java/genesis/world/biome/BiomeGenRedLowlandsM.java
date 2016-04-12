@@ -23,16 +23,21 @@ public class BiomeGenRedLowlandsM extends BiomeGenRedLowlands
 	@Override
 	protected void addDecorations()
 	{
-		addDecoration(WorldGenPlant.create(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.AETHOPHYLLUM).setCountPerChunk(1));
-		addDecoration(WorldGenPlant.create(EnumPlant.APOLDIA).setCountPerChunk(1));
-		addGrassFlowers();
+		getDecorator().setFlowerCount(2);
+		addFlower(WorldGenPlant.create(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.AETHOPHYLLUM), 1);
+		addFlower(WorldGenPlant.create(EnumPlant.APOLDIA), 1);
 		
-		addDecoration(new WorldGenRockBoulders(GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT)).setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)).setRarity(3).setCountPerChunk(1));
+		addDecoration(
+				new WorldGenRockBoulders(GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT))
+						.setWaterRequired(false)
+						.setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)),
+				0.333F);
 	}
 	
 	@Override
 	protected void addTrees()
 	{
-		addTree(new WorldGenTreeVoltzia(5, 10, true).setTreeCountPerChunk(10));
+		getDecorator().setTreeCount(10);
+		addTree(new WorldGenTreeVoltzia(5, 10, true), 1);
 	}
 }

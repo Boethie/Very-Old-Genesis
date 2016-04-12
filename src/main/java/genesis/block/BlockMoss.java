@@ -72,13 +72,13 @@ public class BlockMoss extends BlockGrass
 		{
 			BlockPos plantPos = aboveCenter;
 			int i = 0;
-
+			
 			while (true)
 			{
 				if (i < loops / 16)
 				{
 					plantPos = plantPos.add(rand.nextInt(3) - 1, ((rand.nextInt(3) - 1) * rand.nextInt(3)) / 2, rand.nextInt(3) - 1);
-
+					
 					if ((world.getBlockState(plantPos.down()).getBlock() == this) && !world.getBlockState(plantPos).isNormalCube())
 					{
 						i++;
@@ -87,8 +87,6 @@ public class BlockMoss extends BlockGrass
 				}
 				else if (world.isAirBlock(plantPos))
 				{
-					IBlockState randPlant = null;
-					
 					if (rand.nextInt(8) == 0)
 					{
 						world.getBiomeGenForCoords(plantPos).plantFlower(world, rand, plantPos);
@@ -98,17 +96,14 @@ public class BlockMoss extends BlockGrass
 						// Plant Grass
 						if (biomeGenesis != null)
 						{
-							randPlant = biomeGenesis.getRandomWorldGenForGrass(rand).getSpawnablePlant(rand);
+							biomeGenesis.getRandomWorldGenForGrass(rand).place(world, rand, plantPos);
 						}
 						else
 						{
 							// Vanilla
-							randPlant = Blocks.tallgrass.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS);
+							world.setBlockState(plantPos, Blocks.tallgrass.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS));
 						}
 					}
-					
-					if (randPlant != null && randPlant.getBlock().canPlaceBlockAt(world, plantPos))
-						world.setBlockState(plantPos, randPlant);
 				}
 				
 				loops++;

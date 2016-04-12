@@ -1,6 +1,7 @@
 package genesis.world.biome.decorate;
 
 import genesis.common.GenesisBlocks;
+import genesis.util.WorldBlockMatcher;
 
 import java.util.Random;
 
@@ -11,44 +12,17 @@ import net.minecraft.world.World;
 
 public class WorldGenArchaeomarasmius extends WorldGenDecorationBase
 {
-	@Override
-	protected boolean doGenerate(World world, Random random, BlockPos pos)
+	public WorldGenArchaeomarasmius()
 	{
-		do
-		{
-			IBlockState state = world.getBlockState(pos);
-			
-			if (!state.getBlock().isAir(state, world, pos) && !state.getBlock().isLeaves(state, world, pos))
-				break;
-			
-			pos = pos.down();
-		}
-		while (pos.getY() > 0);
-		
-		int plantsPlaced = 0;
-		
-		int patch = random.nextInt(getPatchSize());
-		
-		if (patch == 0)
-			patch = 1;
-		
-		for (int i = 1; i <= patch; ++i)
-		{
-			if (placePlant(world, pos.add(random.nextInt(7) - 3, 0, random.nextInt(7) -3)))
-				++plantsPlaced;
-		}
-		
-		if (plantsPlaced == 0)
-			return false;
-		
-		return true;
+		super(WorldBlockMatcher.STANDARD_AIR, WorldBlockMatcher.TRUE);
 	}
 	
-	private boolean placePlant(World world, BlockPos pos)
+	@Override
+	public boolean place(World world, Random random, BlockPos pos)
 	{
-		if (
-				world.getBlockState(pos) == null
-				|| !(world.getBlockState(pos).getBlock() == GenesisBlocks.moss || world.getBlockState(pos).getBlock() == Blocks.dirt)
+		IBlockState stateAt = world.getBlockState(pos);
+		
+		if ((stateAt.getBlock() != GenesisBlocks.moss && stateAt.getBlock() != Blocks.dirt)
 				|| world.getLight(pos.up()) > 14)
 			return false;
 		

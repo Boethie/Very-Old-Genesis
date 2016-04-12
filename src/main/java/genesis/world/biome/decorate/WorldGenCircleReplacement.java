@@ -52,7 +52,7 @@ public class WorldGenCircleReplacement extends WorldGenDecorationBase
 	}
 	
 	@Override
-	public boolean doGenerate(World world, Random rand, BlockPos pos)
+	public boolean place(World world, Random rand, BlockPos pos)
 	{
 		if (!centerPredicate.apply(world.getBlockState(pos)))
 			return false;

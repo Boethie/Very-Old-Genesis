@@ -12,6 +12,7 @@ import java.util.*;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
@@ -37,7 +38,7 @@ public class BlockGenesisDeadLogs extends BlockGenesisLogs implements IGenesisMu
 	}
 	
 	@Override
-	public boolean canSustainMushroom(IBlockAccess world, BlockPos pos, IBlockState state)
+	public boolean canSustainMushroom(IBlockAccess world, BlockPos pos, EnumFacing side, IBlockState mushroomState)
 	{
 		return true;
 	}

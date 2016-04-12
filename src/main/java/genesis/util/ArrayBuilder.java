@@ -2,24 +2,24 @@ package genesis.util;
 
 import java.util.Arrays;
 
-public final class ArrayBuilder<T>
+public class ArrayBuilder<E>
 {
-	private static final int INITIAL_SIZE = 0;
+	private static final int INITIAL_SIZE = 2;
 	
 	public static <T> ArrayBuilder<T> create(T[] array)
 	{
 		return new ArrayBuilder<T>(array);
 	}
 	
-	private T[] array;
+	private E[] array;
 	private int size = 0;
 	
-	public ArrayBuilder(T[] array)
+	public ArrayBuilder(E[] array)
 	{
 		this.array = Arrays.copyOf(array, Math.max(array.length, INITIAL_SIZE));
 	}
 	
-	private int  grow(int capacity)
+	private int grow(int capacity)
 	{
 		int index = size;
 		size = capacity;
@@ -34,7 +34,7 @@ public final class ArrayBuilder<T>
 		return index;
 	}
 	
-	public ArrayBuilder<T> add(T value)
+	public ArrayBuilder<E> add(E value)
 	{
 		int index = grow(size + 1);
 		array[index] = value;
@@ -42,7 +42,7 @@ public final class ArrayBuilder<T>
 	}
 	
 	@SafeVarargs
-	public final ArrayBuilder<T> addAll(T... values)
+	public final ArrayBuilder<E> addAll(E... values)
 	{
 		int index = grow(size + values.length);
 		System.arraycopy(values, 0, array, index, values.length);
@@ -54,7 +54,7 @@ public final class ArrayBuilder<T>
 		return size;
 	}
 	
-	public T[] build()
+	public E[] build()
 	{
 		return Arrays.copyOf(array, size);
 	}

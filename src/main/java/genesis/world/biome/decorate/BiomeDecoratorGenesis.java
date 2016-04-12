@@ -1,42 +1,32 @@
 package genesis.world.biome.decorate;
 
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.CLAY;
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.GRASS;
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LAKE_LAVA;
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LAKE_WATER;
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.SAND;
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-import genesis.combo.SiltBlocks;
-import genesis.combo.variant.EnumOre;
-import genesis.combo.variant.EnumSilt;
-import genesis.common.GenesisBlocks;
-import genesis.common.GenesisConfig;
-import genesis.world.gen.feature.WorldGenGenesisLiquids;
-import genesis.world.gen.feature.WorldGenGenesisSand;
-import genesis.world.gen.feature.WorldGenMinableGenesis;
-import genesis.world.gen.feature.WorldGenTreeBase;
+import genesis.combo.*;
+import genesis.combo.variant.*;
+import genesis.common.*;
+import genesis.util.random.i.*;
+import genesis.world.biome.BiomeGenBaseGenesis;
+import genesis.world.biome.DecorationEntry;
+import genesis.world.gen.feature.*;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeDecorator;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraft.world.biome.*;
+import net.minecraft.world.gen.feature.*;
+
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
-import net.minecraftforge.event.terraingen.OreGenEvent;
-import net.minecraftforge.event.terraingen.TerrainGen;
+import net.minecraftforge.event.terraingen.*;
 
 public class BiomeDecoratorGenesis extends BiomeDecorator
 {
-	public List<WorldGenTreeBase> trees = new ArrayList<WorldGenTreeBase>();
-	public List<WorldGenDecorationBase> decorations = new ArrayList<WorldGenDecorationBase>();
+	private static final IntRange RANGE = IntRange.create(8, 23);
+	
 	public WorldGenerator gneissGen;
 	public WorldGenerator komatiiteGen;
 	public WorldGenerator rhyoliteGen;
@@ -54,6 +44,10 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	public WorldGenerator olivineGen;
 	public WorldGenerator flintGen;
 	public WorldGenerator marcasiteGen;
+
+	public RandomIntProvider grassCountProvider;
+	public RandomIntProvider flowerCountProvider;
+	public RandomIntProvider treeCountProvider;
 	
 	public BiomeDecoratorGenesis()
 	{
@@ -86,92 +80,111 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 		genDecorations(biome, world, rand);
 	}
 	
+	protected BlockPos getPos(World world, Random rand, int topStart)
+	{
+		return world.getHeight(field_180294_c.add(RANGE.get(rand), 0, RANGE.get(rand))).up(topStart);
+	}
+	
+	protected BlockPos getPos(World world, Random rand)
+	{
+		return getPos(world, rand, 0);
+	}
+	
 	@Override
 	protected void genDecorations(BiomeGenBase biome, World world, Random rand)
 	{
 		MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(world, rand, field_180294_c));
 		
+		BiomeGenBaseGenesis biomeGenesis = biome instanceof BiomeGenBaseGenesis ? (BiomeGenBaseGenesis) biome : null;
+		
 		generateOres(world, rand);
 		
-		boolean doGen = TerrainGen.decorate(world, rand, field_180294_c, SAND);
-		
-		for (int i = 0; doGen && i < sandPerChunk2; ++i)
+		if (TerrainGen.decorate(world, rand, field_180294_c, SAND))
 		{
-			int x = rand.nextInt(16) + 8;
-			int z = rand.nextInt(16) + 8;
-			sandGen.generate(world, rand, world.getTopSolidOrLiquidBlock(field_180294_c.add(x, 0, z)));
-		}
-		
-		doGen = TerrainGen.decorate(world, rand, field_180294_c, CLAY);
-		
-		for (int i = 0; doGen && i < clayPerChunk; ++i)
-		{
-			int x = rand.nextInt(16) + 8;
-			int z = rand.nextInt(16) + 8;
-			clayGen.generate(world, rand, world.getTopSolidOrLiquidBlock(field_180294_c.add(x, 0, z)));
-		}
-		
-		doGen = TerrainGen.decorate(world, rand, field_180294_c, TREE);
-		
-		for (int i = 0; doGen && i < trees.size(); ++i)
-		{
-			int count = trees.get(i).getTreeCountPerChunk();
-			if (rand.nextInt(10) == 0) ++count;
-			
-			for (int j = 0; j < count; ++j)
+			for (int i = 0; i < sandPerChunk2; i++)
 			{
-				int x = rand.nextInt(16) + 8;
-				int z = rand.nextInt(16) + 8;
-				int y = rand.nextInt(world.getHeight(field_180294_c.add(x, 0, z)).getY() * 2);
-				trees.get(i).generate(world, rand, field_180294_c.add(x, y, z));
+				sandGen.generate(world, rand, getPos(world, rand));
 			}
 		}
 		
-		doGen = TerrainGen.decorate(world, rand, field_180294_c, GRASS);
-		
-		for (int i = 0; doGen && i < grassPerChunk; ++i)
+		if (TerrainGen.decorate(world, rand, field_180294_c, CLAY))
 		{
-			int x = rand.nextInt(16) + 8;
-			int z = rand.nextInt(16) + 8;
-			int y = rand.nextInt(world.getHeight(field_180294_c.add(x, 0, z)).getY() * 2);
-			biome.getRandomWorldGenForGrass(rand).generate(world, rand, field_180294_c.add(x, y, z));
+			for (int i = 0; i < clayPerChunk; i++)
+			{
+				clayGen.generate(world, rand, getPos(world, rand));
+			}
 		}
 		
-		doGen = true;//TODO
-		
-		for (WorldGenDecorationBase gen : decorations)
+		if (TerrainGen.decorate(world, rand, field_180294_c, TREE) && treeCountProvider != null)
 		{
-			for (int j = 0; doGen && j < gen.getCountPerChunk(); ++j)
+			for (int i = treeCountProvider.get(rand); i > 0; i--)
 			{
-				int x = rand.nextInt(16) + 8;
-				int z = rand.nextInt(16) + 8;
-				int y = rand.nextInt(world.getHeight(field_180294_c.add(x, 0, z)).getY() * 2);
-				gen.generate(world, rand, field_180294_c.add(x, y, z));
+				BlockPos pos = getPos(world, rand);
+				WorldGenAbstractTree tree = biome.genBigTreeChance(rand);
+				tree.func_175904_e();
+				
+				if (tree.generate(world, rand, pos))
+				{
+					tree.func_180711_a(world, rand, pos);	// Allows tree gen to place saplings.
+				}
+			}
+		}
+		
+		if (TerrainGen.decorate(world, rand, field_180294_c, GRASS) && grassCountProvider != null)
+		{
+			for (int i = grassCountProvider.get(rand); i > 0; i--)
+			{
+				WorldGenerator gen = biome.getRandomWorldGenForGrass(rand);
+				
+				if (gen != null)
+					gen.generate(world, rand, getPos(world, rand));
+			}
+		}
+		
+		if (TerrainGen.decorate(world, rand, field_180294_c, FLOWERS)
+				&& biomeGenesis != null && flowerCountProvider != null)
+		{
+			for (int i = flowerCountProvider.get(rand); i > 0; i--)
+			{
+				WorldGenerator gen = biomeGenesis.getRandomFlower(rand);
+				
+				if (gen != null)
+					gen.generate(world, rand, getPos(world, rand));
+			}
+		}
+		
+		for (DecorationEntry genEntry : biomeGenesis.getDecorations())
+		{
+			for (int i = genEntry.getCountPerChunk(rand); i > 0; i--)
+			{
+				genEntry.getGenerator().generate(world, rand, getPos(world, rand));
 			}
 		}
 		
 		if (generateLakes)
 		{
-			doGen = TerrainGen.decorate(world, rand, field_180294_c, LAKE_WATER);
-			
-			for (int i = 0; doGen && i < 50; ++i)
+			if (TerrainGen.decorate(world, rand, field_180294_c, LAKE_WATER))
 			{
-				BlockPos pos = field_180294_c.add(
-						rand.nextInt(16) + 8,
-						rand.nextInt(rand.nextInt(248) + 8),
-						rand.nextInt(16) + 8);
-				(new WorldGenGenesisLiquids(Blocks.flowing_water)).generate(world, rand, pos);
+				for (int i = 0; i < 50; ++i)
+				{
+					BlockPos pos = field_180294_c.add(
+							rand.nextInt(16) + 8,
+							rand.nextInt(rand.nextInt(rand.nextInt(247) + 8) + 1),
+							rand.nextInt(16) + 8);
+					new WorldGenGenesisLiquids(Blocks.flowing_water).generate(world, rand, pos);
+				}
 			}
 			
-			doGen = TerrainGen.decorate(world, rand, field_180294_c, LAKE_LAVA);
-			
-			for (int i = 0; doGen && i < 20; ++i)
+			if (TerrainGen.decorate(world, rand, field_180294_c, LAKE_LAVA))
 			{
-				BlockPos pos = field_180294_c.add(
-						rand.nextInt(16) + 8,
-						rand.nextInt(rand.nextInt(rand.nextInt(240) + 8) + 8),
-						rand.nextInt(16) + 8);
-				(new WorldGenGenesisLiquids(GenesisBlocks.komatiitic_lava)).generate(world, rand, pos);
+				for (int i = 0; i < 20; ++i)
+				{
+					BlockPos pos = field_180294_c.add(
+							rand.nextInt(16) + 8,
+							rand.nextInt(rand.nextInt(rand.nextInt(240) + 8) + 8),
+							rand.nextInt(16) + 8);
+					new WorldGenGenesisLiquids(GenesisBlocks.komatiitic_lava).generate(world, rand, pos);
+				}
 			}
 		}
 		
@@ -219,4 +232,64 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	{
 		return i <= 1 ? 0 : rand.nextInt(i);
 	}*/
+	
+	public void setGrassCount(RandomIntProvider provider)
+	{
+		this.grassCountProvider = provider;
+	}
+	
+	public void setGrassCount(int min, int max)
+	{
+		setGrassCount(IntRange.create(min, max));
+	}
+	
+	public void setGrassCount(float count)
+	{
+		setGrassCount(new IntFromFloat(count));
+	}
+	
+	public void setGrassCount(int count)
+	{
+		setGrassCount(IntRange.create(count));
+	}
+	
+	public void setFlowerCount(RandomIntProvider provider)
+	{
+		this.flowerCountProvider = provider;
+	}
+	
+	public void setFlowerCount(int min, int max)
+	{
+		setFlowerCount(IntRange.create(min, max));
+	}
+	
+	public void setFlowerCount(float count)
+	{
+		setFlowerCount(new IntFromFloat(count));
+	}
+	
+	public void setFlowerCount(int count)
+	{
+		setFlowerCount(IntRange.create(count));
+	}
+	
+	public void setTreeCount(RandomIntProvider provider)
+	{
+		this.treeCountProvider = provider;
+	}
+	
+	public void setTreeCount(int min, int max)
+	{
+		setTreeCount(IntRange.create(min, max));
+	}
+	
+	public void setTreeCount(float count)
+	{
+		setTreeCount(new IntFromFloat(count));
+	}
+	
+	public void setTreeCount(int count)
+	{
+		setTreeCount(count + 0.1F);	// 10% chance of having one extra tree in a chunk.
+	}
 }

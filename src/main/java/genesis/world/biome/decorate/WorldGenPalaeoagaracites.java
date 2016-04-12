@@ -3,61 +3,41 @@ package genesis.world.biome.decorate;
 import genesis.block.BlockGenesisMushroom;
 import genesis.block.IGenesisMushroomBase;
 import genesis.common.GenesisBlocks;
+import genesis.util.WorldBlockMatcher;
 
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 public class WorldGenPalaeoagaracites extends WorldGenDecorationBase
 {
-	@Override
-	protected boolean doGenerate(World world, Random random, BlockPos pos)
+	public WorldGenPalaeoagaracites()
 	{
-		do
-		{
-			IBlockState state = world.getBlockState(pos);
-			
-			if (!state.getBlock().isAir(state, world, pos) && !state.getBlock().isLeaves(state, world, pos))
-				break;
-			
-			pos = pos.down();
-		}
-		while (pos.getY() > 0);
+		super(WorldBlockMatcher.STANDARD_AIR, WorldBlockMatcher.TRUE);
 		
-		IBlockState state = world.getBlockState(pos);
-		
-		if (state.getBlock() != GenesisBlocks.moss && state.getBlock() != Blocks.dirt)
-			return false;
-		
-		boolean placedSome = false;
-		
-		for (int i = 0; i < this.getPatchSize(); ++i)
-			if (placeMushroom(world, pos, random))
-				placedSome = true;
-		
-		return placedSome;
+		setPatchRadius(8);
 	}
 	
-	protected boolean placeMushroom(World world, BlockPos pos, Random rand)
+	@Override
+	public boolean place(World world, Random rand, BlockPos pos)
 	{
-		BlockPos mushroomPos = pos.add(rand.nextInt(17) - 8, rand.nextInt(21), rand.nextInt(17) - 8);
-		Block block = world.getBlockState(mushroomPos).getBlock();
+		BlockPos logPos = pos.up(rand.nextInt(3) - 1);
+		Block block = world.getBlockState(logPos).getBlock();
 		
 		if (block instanceof IGenesisMushroomBase)
 		{
-			EnumFacing facing = EnumFacing.HORIZONTALS[rand.nextInt(EnumFacing.HORIZONTALS.length)];
-			mushroomPos = mushroomPos.offset(facing);
+			EnumFacing side = EnumFacing.HORIZONTALS[rand.nextInt(EnumFacing.HORIZONTALS.length)];
+			IBlockState placedState = GenesisBlocks.palaeoagaracites.getDefaultState()
+					.withProperty(BlockGenesisMushroom.FACING, side.getOpposite());
 			
-			if (!world.isAirBlock(mushroomPos))
+			if (!((IGenesisMushroomBase) block).canSustainMushroom(world, logPos, side, placedState))
 				return false;
 			
-			setBlockInWorld(world, mushroomPos, GenesisBlocks.palaeoagaracites.getDefaultState().withProperty(BlockGenesisMushroom.FACING, facing.getOpposite()));
-			return true;
+			return setBlockInWorld(world, logPos.offset(side), placedState);
 		}
 		
 		return false;

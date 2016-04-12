@@ -20,33 +20,17 @@ public class WorldGenPatch extends WorldGenDecorationBase
 		super(WorldBlockMatcher.STANDARD_AIR_WATER, WorldBlockMatcher.state(replacePredicate));
 		
 		this.states = ImmutableList.copyOf(states);
+		
+		setPatchRadius(3);
+		setPatchCount(64);
 	}
 	
 	@Override
-	protected boolean doGenerate(World world, Random random, BlockPos pos)
-	{
-		boolean generated = false;
-		
-		if (setBlock(world, pos, random))
-			generated = true;
-		
-		for (int i = 0; i < 64; ++i)
-			if (setBlock(world, pos.add(random.nextInt(7) - 3, 0, random.nextInt(7) - 3), random))
-				generated = true;
-		
-		return generated;
-	}
-	
-	private boolean setBlock(World world, BlockPos pos, Random rand)
+	public boolean place(World world, Random rand, BlockPos pos)
 	{
 		if (states.size() == 0)
 			return false;
 		
-		if (!groundMatcher.apply(world, pos))
-			return false;
-		
-		setBlockInWorld(world, pos, states.get(rand.nextInt(states.size())), true);
-		
-		return true;
+		return setBlockInWorld(world, pos.down(), states.get(rand.nextInt(states.size())), true);
 	}
 }

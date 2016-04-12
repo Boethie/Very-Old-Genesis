@@ -34,7 +34,7 @@ public class WorldGenCorals extends WorldGenDecorationBase
 	}
 	
 	@Override
-	protected boolean doGenerate(World world, Random random, BlockPos pos)
+	public boolean place(World world, Random random, BlockPos pos)
 	{
 		do
 		{

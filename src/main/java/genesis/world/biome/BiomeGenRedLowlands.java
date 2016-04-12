@@ -1,21 +1,12 @@
 package genesis.world.biome;
 
-import java.util.Random;
-
-import genesis.combo.PlantBlocks;
-import genesis.combo.SiltBlocks;
-import genesis.combo.variant.EnumPlant;
-import genesis.combo.variant.EnumSilt;
+import genesis.combo.*;
+import genesis.combo.variant.*;
 import genesis.common.GenesisBlocks;
 import genesis.util.random.f.FloatRange;
-import genesis.world.biome.decorate.WorldGenGrass;
-import genesis.world.biome.decorate.WorldGenGrassMulti;
-import genesis.world.biome.decorate.WorldGenPebbles;
-import genesis.world.biome.decorate.WorldGenPlant;
-import genesis.world.biome.decorate.WorldGenRockBoulders;
-import genesis.world.biome.decorate.WorldGenRoots;
-import genesis.world.gen.feature.WorldGenTreeBjuvia;
-import genesis.world.gen.feature.WorldGenTreeVoltzia;
+import genesis.world.biome.decorate.*;
+import genesis.world.gen.feature.*;
+
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.biome.BiomeGenBase;
 
@@ -31,7 +22,6 @@ public class BiomeGenRedLowlands extends BiomeGenBaseGenesis
 		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
 		fillerBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
 		
-		theBiomeDecorator.grassPerChunk = 8;
 		theBiomeDecorator.sandPerChunk = 0;
 		theBiomeDecorator.sandPerChunk2 = 0;
 		
@@ -41,25 +31,23 @@ public class BiomeGenRedLowlands extends BiomeGenBaseGenesis
 	
 	protected void addDecorations()
 	{
-		addDecoration(WorldGenPlant.create(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.AETHOPHYLLUM).setCountPerChunk(3));
-		addDecoration(WorldGenPlant.create(EnumPlant.APOLDIA).setCountPerChunk(2));
-		addDecoration(new WorldGenRoots().setCountPerChunk(26));
-		addGrassFlowers();
+		getDecorator().setGrassCount(8);
+		addGrass(WorldGenPlant.create(EnumPlant.WACHTLERIA).setPatchCount(4), 1);
 		
-		addDecoration(new WorldGenPebbles().setWaterRequired(false).setCountPerChunk(1));
-		addDecoration(new WorldGenRockBoulders(GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT)).setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1F)).setRarity(4).setCountPerChunk(1));
+		getDecorator().setFlowerCount(5);
+		addFlower(WorldGenPlant.create(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.AETHOPHYLLUM), 3);
+		addFlower(WorldGenPlant.create(EnumPlant.APOLDIA), 2);
+		
+		addDecoration(new WorldGenRoots(), 5);
+		addDecoration(new WorldGenPebbles().setWaterRequired(false), 1);
+		addDecoration(new WorldGenRockBoulders(GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT)).setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1F)), 0.25F);
 	}
 	
 	protected void addTrees()
 	{
-		addTree(new WorldGenTreeBjuvia(4, 6, true).setTreeCountPerChunk(2).setRarity(10));
-		addTree(new WorldGenTreeVoltzia(5, 10, true).setTreeCountPerChunk(10));
-	}
-	
-	@Override
-	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
-	{
-		return new WorldGenGrassMulti(GenesisBlocks.plants.getPlantBlockState(EnumPlant.WACHTLERIA)).setVolume(24);
+		getDecorator().setTreeCount(10.3F);
+		addTree(new WorldGenTreeBjuvia(4, 6, true), 2);
+		addTree(new WorldGenTreeVoltzia(5, 10, true), 100);
 	}
 	
 	@Override

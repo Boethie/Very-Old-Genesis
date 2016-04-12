@@ -22,7 +22,7 @@ public class WorldGenPebbles extends WorldGenDecorationBase
 {
 	public List<EnumToolMaterial> pebbleTypes = new ArrayList<EnumToolMaterial>();
 	
-	protected List<PropertyBool> pebblePositions = ImmutableList.of(BlockPebble.NE, BlockPebble.SE, BlockPebble.SW, BlockPebble.NW);
+	protected List<PropertyBool> pebbleProperties = ImmutableList.of(BlockPebble.NE, BlockPebble.SE, BlockPebble.SW, BlockPebble.NW);
 	private boolean waterRequired = true;
 	
 	public WorldGenPebbles()
@@ -38,7 +38,7 @@ public class WorldGenPebbles extends WorldGenDecorationBase
 	}
 	
 	@Override
-	protected boolean doGenerate(World world, Random rand, BlockPos pos)
+	public boolean place(World world, Random rand, BlockPos pos)
 	{
 		IBlockState state = world.getBlockState(pos);
 		
@@ -48,12 +48,13 @@ public class WorldGenPebbles extends WorldGenDecorationBase
 		if (waterRequired && !WorldUtils.waterInRange(world, pos, 4, 3, 4))
 			return false;
 		
-		int maxPebbles = rand.nextInt(2) + rand.nextInt(2) + rand.nextInt(2);
-		IBlockState pebble = GenesisItems.tools.getBlockState(ToolItems.PEBBLE, pebbleTypes.get(rand.nextInt(pebbleTypes.size()))).withProperty(getPosition(rand), true);
+		int maxPebbles = 1 + rand.nextInt(3);
+		IBlockState pebble = GenesisItems.tools.getBlockState(ToolItems.PEBBLE, pebbleTypes.get(rand.nextInt(pebbleTypes.size())));
+		List<PropertyBool> pebbles = new ArrayList<>(pebbleProperties);
 		
 		for (int i = 1; i <= maxPebbles; ++i)
 		{
-			pebble = pebble.withProperty(getPosition(rand), true);
+			pebble = pebble.withProperty(getPosition(pebbles, rand), true);
 		}
 		
 		setBlockInWorld(world, pos, pebble);
@@ -67,11 +68,11 @@ public class WorldGenPebbles extends WorldGenDecorationBase
 		return this;
 	}
 	
-	private PropertyBool getPosition(Random rand)
+	protected PropertyBool getPosition(List<PropertyBool> pebbles, Random rand)
 	{
-		int index = rand.nextInt(pebblePositions.size());
-		PropertyBool pos = pebblePositions.get(index);
-		//pebblePositions.remove(index);
+		int index = rand.nextInt(pebbles.size());
+		PropertyBool pos = pebbles.get(index);
+		pebbles.remove(index);
 		return pos;
 	}
 }

@@ -19,19 +19,20 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 		
 		theBiomeDecorator.clayPerChunk = 4;
 		theBiomeDecorator.sandPerChunk2 = 2;
-		theBiomeDecorator.grassPerChunk = 0;
 		
-		addDecoration(WorldGenPlant.create(EnumPlant.RHACOPHYTON).setCountPerChunk(44));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(3));
-		addDecoration(WorldGenPlant.create(EnumPlant.PSILOPHYTON).setPatchSize(8).setCountPerChunk(3));
-		addDecoration(WorldGenCircleReplacement.getPeatGen().setCountPerChunk(1));
-		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
-		addDecoration(new WorldGenDebris().setCountPerChunk(26));
-		addDecoration(new WorldGenRoots().setCountPerChunk(26));
+		getDecorator().setGrassCount(47);
+		addGrass(WorldGenPlant.create(EnumPlant.RHACOPHYTON), 15);
+		addGrass(WorldGenPlant.create(EnumPlant.PSILOPHYTON).setPatchCount(8), 1);
 		
-		addTree(new WorldGenTreeArchaeopteris(15, 20, true).setTreeCountPerChunk(9));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchCount(4), 3);
+		addDecoration(WorldGenCircleReplacement.getPeatGen(), 1);
+		addDecoration(new WorldGenMossStages(), 30);
+		addDecoration(new WorldGenDebris(), 26);
+		addDecoration(new WorldGenRoots(), 26);
 		
-		addTree(new WorldGenDeadLog(3, 6, EnumTree.ARCHAEOPTERIS, true).setTreeCountPerChunk(6));
+		addTree(new WorldGenTreeArchaeopteris(15, 20, true), 9);
+		
+		addTree(new WorldGenDeadLog(3, 6, EnumTree.ARCHAEOPTERIS, true), 6);
 	}
 	
 	@Override

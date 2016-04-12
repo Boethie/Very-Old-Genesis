@@ -223,7 +223,7 @@ public class BlockGenesisMushroom extends BlockBush
 				}
 				else if (blockBelow instanceof IGenesisMushroomBase)
 				{
-					return ((IGenesisMushroomBase) blockBelow).canSustainMushroom(world, pos, state);
+					return ((IGenesisMushroomBase) blockBelow).canSustainMushroom(world, pos, EnumFacing.UP, state);
 				}
 			}
 		}
@@ -240,7 +240,8 @@ public class BlockGenesisMushroom extends BlockBush
 		
 		Block block = state.getBlock();
 		
-		if (block instanceof IGenesisMushroomBase && ((IGenesisMushroomBase) block).canSustainMushroom(world, pos, state))
+		if (block instanceof IGenesisMushroomBase
+				&& ((IGenesisMushroomBase) block).canSustainMushroom(world, pos, state.getValue(FACING).getOpposite(), state))
 		{
 			return true;
 		}

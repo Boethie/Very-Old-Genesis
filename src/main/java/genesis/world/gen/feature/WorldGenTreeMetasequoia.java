@@ -25,9 +25,9 @@ public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 		BlockPos checkPos = pos;
 		
 		if (treeType == TreeTypes.TYPE_2
-				&& (getTreePos(world, checkPos = checkPos.east()) == null
-					|| getTreePos(world, checkPos = checkPos.south()) == null)
-					|| getTreePos(world, checkPos = checkPos.west()) == null)
+				&& (getTreePos(world, checkPos = checkPos.east(), 1) == null
+					|| getTreePos(world, checkPos = checkPos.south(), 1) == null)
+					|| getTreePos(world, checkPos = checkPos.west(), 1) == null)
 			return false;
 		
 		for (BlockPos cornerPos : BlockPos.getAllInBoxMutable(pos, pos.add(1, 0, 1)))

@@ -2,7 +2,7 @@ package genesis.world.biome;
 
 import java.util.Random;
 
-import genesis.combo.variant.EnumTree;
+import genesis.combo.variant.*;
 import genesis.common.GenesisBlocks;
 import genesis.entity.living.IEntityPreferredBiome;
 import genesis.entity.living.flying.EntityMeganeura;
@@ -25,27 +25,29 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 		
 		theBiomeDecorator.clayPerChunk = 4;
 		theBiomeDecorator.sandPerChunk2 = 2;
-		theBiomeDecorator.grassPerChunk = 6;
 		
 		spawnableCreatureList.add(new BiomeGenBase.SpawnListEntry(EntityMeganeura.class, 8, 4, 8));
 		
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setPatchSize(3).setCountPerChunk(3));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(5));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setPatchSize(4).setCountPerChunk(10));
-		addDecoration(WorldGenCircleReplacement.getPeatGen().setCountPerChunk(10));
-		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
-		addDecoration(new WorldGenDebris().setCountPerChunk(33));
-		addDecoration(new WorldGenRoots().setCountPerChunk(26));
-		addGrassFlowers();
+		getDecorator().setGrassCount(6);
+		addGrass(WorldGenPlant.create(EnumPlant.ZYGOPTERIS).setPatchCount(9), 1);
 		
-		addTree(new WorldGenTreeSigillaria(9, 12, true).setTreeCountPerChunk(2));
-		addTree(new WorldGenTreePsaronius(5, 6, true).setTreeCountPerChunk(2));
-		addTree(new WorldGenTreeCordaites(12, 17, true).setTreeCountPerChunk(5));
-		addTree(new WorldGenTreeLepidodendron(11, 15, true).setTreeCountPerChunk(6));
+		addDecoration(new WorldGenMossStages(), 30);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setPatchCount(3), 3);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchCount(4), 5);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setPatchCount(4), 10);
+		addDecoration(new WorldGenDebris(), 33);
+		addDecoration(new WorldGenRoots(), 26);
+		addDecoration(WorldGenCircleReplacement.getPeatGen(), 10);
 		
-		addTree(new WorldGenDeadLog(3, 6, EnumTree.LEPIDODENDRON, true).setTreeCountPerChunk(8));
-		addTree(new WorldGenDeadLog(3, 6, EnumTree.SIGILLARIA, true).setTreeCountPerChunk(4));
-		addTree(new WorldGenDeadLog(3, 6, EnumTree.CORDAITES, true).setCanGrowInWater(true).setTreeCountPerChunk(8));
+		getDecorator().setTreeCount(35);
+		addTree(new WorldGenTreeSigillaria(9, 12, true), 2);
+		addTree(new WorldGenTreePsaronius(5, 6, true), 2);
+		addTree(new WorldGenTreeCordaites(12, 17, true), 5);
+		addTree(new WorldGenTreeLepidodendron(11, 15, true), 6);
+		
+		addTree(new WorldGenDeadLog(3, 6, EnumTree.LEPIDODENDRON, true), 8);
+		addTree(new WorldGenDeadLog(3, 6, EnumTree.SIGILLARIA, true), 4);
+		addTree(new WorldGenDeadLog(3, 6, EnumTree.CORDAITES, true).setCanGrowInWater(true), 8);
 	}
 	
 	@Override

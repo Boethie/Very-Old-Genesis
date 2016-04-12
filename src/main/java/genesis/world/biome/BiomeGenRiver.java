@@ -20,15 +20,13 @@ public class BiomeGenRiver extends BiomeGenBaseGenesis implements IEntityPreferr
 	{
 		super(properties);
 		
-		theBiomeDecorator.grassPerChunk = 0;
-		
 		int[] rarityScale = {30, 20, 10, 5, 2};
 		
-		addDecoration(new WorldGenPebbles().setCountPerChunk(40));
-		addDecoration(new WorldGenRockBoulders().setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)).setCountPerChunk(6));
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.BANGIOMORPHA).setGenerateInGroup(true, 6).setCountPerChunk(rarityScale[2]));
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.MARPOLIA).setGenerateInGroup(true, 6).setCountPerChunk(rarityScale[3]));
-		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
+		addDecoration(new WorldGenPebbles(), 40);
+		addDecoration(new WorldGenRockBoulders().setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 8);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.BANGIOMORPHA).setPatchCount(6), rarityScale[2]);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.MARPOLIA).setPatchCount(6), rarityScale[3]);
+		addDecoration(new WorldGenMossStages(), 30);
 	}
 	
 	@Override

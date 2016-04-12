@@ -20,7 +20,7 @@ public class WorldGenTreeDryophyllum extends WorldGenTreeBase
 		
 		this.saplingCountProvider = new WeightedIntProvider(
 				WeightedIntItem.of(4, 0),
-				WeightedIntItem.of(6, IntRange.create(0, 5)));
+				WeightedIntItem.of(6, IntRange.create(2, 5)));
 	}
 	
 	@Override

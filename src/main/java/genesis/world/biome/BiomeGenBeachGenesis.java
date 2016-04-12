@@ -10,24 +10,22 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class BiomeGenBeachGenesis extends BiomeGenBaseGenesis
 {
-	public BiomeGenBeachGenesis (BiomeGenBase.BiomeProperties properties)
+	public BiomeGenBeachGenesis(BiomeGenBase.BiomeProperties properties)
 	{
 		super(properties);
 		
 		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);
 		fillerBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);
 		
-		theBiomeDecorator.grassPerChunk = 0;
-		
 		addDecorations();
 	}
 	
 	protected void addDecorations()
 	{
-		addDecoration(new WorldGenPebbles().setCountPerChunk(25));
+		addDecoration(new WorldGenPebbles(), 25);
 		
-		addDecoration(WorldGenPlant.create(EnumPlant.LEPACYCLOTES).setNextToWater(true).setCountPerChunk(10).setPatchSize(4));
-		addGrassFlowers();
+		getDecorator().setFlowerCount(10);
+		addFlower(WorldGenPlant.create(EnumPlant.LEPACYCLOTES).setNextToWater(true).setPatchCount(4), 10);
 	}
 	
 	@Override

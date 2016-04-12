@@ -37,13 +37,12 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	
 	protected RandomIntProvider heightProvider;
 	
-	private int treeCountPerChunk = 0;
 	private boolean canGrowInWater = false;
 	private Predicate<IBlockState> soilPredicate = Predicates.alwaysTrue();
 	
 	protected RandomIntProvider saplingCountProvider = null;
+	
 	protected TreeTypes treeType = TreeTypes.TYPE_1;
-	protected boolean generateRandomSaplings = false;
 	
 	public static enum TreeTypes
 	{
@@ -83,27 +82,10 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		return this;
 	}
 	
-	public WorldGenTreeBase setGenerateRandomSaplings(boolean generate)
-	{
-		generateRandomSaplings = generate;
-		return this;
-	}
-	
 	public WorldGenTreeBase setRarity(int r)
 	{
 		rarity = r;
 		return this;
-	}
-	
-	public WorldGenTreeBase setTreeCountPerChunk(int count)
-	{
-		treeCountPerChunk = count;
-		return this;
-	}
-	
-	public int getTreeCountPerChunk()
-	{
-		return treeCountPerChunk;
 	}
 	
 	public WorldGenTreeBase setCanGrowInWater(boolean canGrow)
@@ -117,18 +99,12 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		soilPredicate = predicate;
 	}
 	
-	public WorldGenTreeBase noSaplings()
-	{
-		saplingCountProvider = null;
-		return this;
-	}
-	
 	protected abstract boolean doGenerate(World world, Random rand, BlockPos pos);
 	
 	@Override
 	public final boolean generate(World world, Random rand, BlockPos pos)
 	{
-		pos = getTreePos(world, pos);
+		pos = getTreePos(world, pos, -1);
 		
 		if (pos == null)
 			return false;
@@ -136,45 +112,45 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		if (rand.nextInt(rarity) != 0)
 			return false;
 		
-		if (doGenerate(world, rand, pos))
-		{
-			//int saplingCount = saplingCountProvider != null ? saplingCountProvider.get(rand) : 0;
-			int saplingCount = (generateRandomSaplings)? ((rand.nextInt(10) > 3)? 1 + rand.nextInt(5) : 0) : 0;
-			
-			for (int i = 0; i < saplingCount; i++)
-			{
-				BlockPos posSapling = pos.add(rand.nextInt(9) - 4, 0, rand.nextInt(9) - 4);
-				
-				if (posSapling == null)
-					continue;
-				
-				if (!world.isAirBlock(posSapling.up()))
-					continue;
-				
-				IBlockState checkState = world.getBlockState(posSapling);
-				
-				if (!checkState.getBlock().canSustainPlant(checkState, world, posSapling, EnumFacing.UP, (IPlantable) sapling.getBlock()))
-					continue;
-				
-				setBlockInWorld(world, posSapling.up(), sapling);
-			}
-			
-			return true;
-		}
+		return doGenerate(world, rand, pos);
+	}
+	
+	@Override
+	public void func_180711_a(World world, Random rand, BlockPos pos)
+	{
+		int saplingCount = saplingCountProvider != null ? saplingCountProvider.get(rand) : 0;
 		
-		return false;
+		for (int i = 0; i < saplingCount; i++)
+		{
+			BlockPos plantPos = pos.add(rand.nextInt(9) - 4, 1, rand.nextInt(9) - 4);
+			plantPos = getTreePos(world, plantPos, 3);
+			
+			if (plantPos == null)
+				continue;
+			
+			BlockPos soilPos = plantPos.down();
+			IBlockState soilState = world.getBlockState(soilPos);
+			
+			if (!soilState.getBlock().canSustainPlant(soilState, world, soilPos, EnumFacing.UP, (IPlantable) sapling.getBlock()))
+				continue;
+			
+			setBlockInWorld(world, plantPos, sapling);
+		}
 	}
 	
 	/**
 	 * @return The position the sapling would be at above the soil, or null if the tree cannot grow there.
 	 */
-	public BlockPos getTreePos(IBlockAccess world, BlockPos pos)
+	public BlockPos getTreePos(IBlockAccess world, BlockPos pos, int distance)
 	{
 		BlockPos soilPos = pos;
 		IBlockState checkState;
 		
 		do
 		{
+			if (distance != -1 && pos.getY() - soilPos.getY() >= distance)
+				return null;
+			
 			checkState = world.getBlockState(soilPos);
 			
 			if (!checkState.getBlock().isAir(checkState, world, soilPos) 
@@ -200,6 +176,11 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 			return null;
 		
 		return saplingPos;
+	}
+	
+	public BlockPos getTreePos(IBlockAccess world, BlockPos pos)
+	{
+		return getTreePos(world, pos, -1);
 	}
 	
 	protected void generateBranchSideup(World world, BlockPos pos, Random rand, int dirX, int dirZ, int bBaseHeight, int bGrowSize, int leavesLength)
@@ -289,65 +270,59 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	
 	protected void setBlockInWorld(World world, BlockPos pos, IBlockState state, boolean force)
 	{
-		boolean place = true;
-		
 		if (!world.isBlockLoaded(pos))
 			return;
 		
 		IBlockState currentState = world.getBlockState(pos);
 		
-		if (state == wood 
-				&& !(currentState.getBlock().isAir(currentState, world, pos) 
-						|| currentState.getBlock().isReplaceable(world, pos)
-						|| currentState.getBlock().isLeaves(currentState, world, pos))
-				&& !force)
+		if (state == wood)
 		{
-			place = false;
+			if (!(currentState.getBlock().isAir(currentState, world, pos) 
+							|| currentState.getBlock().isReplaceable(world, pos)
+							|| currentState.getBlock().isLeaves(currentState, world, pos))
+					&& !force)
+			return;
 		}
-		
-		if (
-				state == leaves 
-				&& !currentState.getBlock().isAir(currentState, world, pos)
-				&& !force
-				&& !(currentState == hangingFruit))
+		else if (state == leaves)
 		{
-			place = false;
-		}
-		
-		if (place)
-		{
-			if (state == leaves
-					&& world.rand.nextInt(6) == 0
-					&& GenesisBlocks.trees.getVariant(leaves).getFruitType() == EnumTree.FruitType.LEAVES)
+			if (!currentState.getBlock().isAir(currentState, world, pos)
+					&& !force
+					&& !(currentState == hangingFruit))
+				return;
+			
+			if (GenesisBlocks.trees.getVariant(leaves).getFruitType() == EnumTree.FruitType.LEAVES
+					&& world.rand.nextInt(6) == 0)
 				state = GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES_FRUIT, GenesisBlocks.trees.getVariant(leaves));
-			
-			BlockPos below = pos.down();
-			IBlockState stateBelow = world.getBlockState(below);
-			
-			if (stateBelow == hangingFruit)
-				world.setBlockState(below, Blocks.air.getDefaultState());
-			
-			if (notify)
-				world.setBlockState(pos, state, 3);
-			else
-				world.setBlockState(pos, state, 2);
-			
-			if (hangingFruit != null && state == leaves
-					&& world.rand.nextInt(10) == 0
-					&& stateBelow.getBlock().isAir(stateBelow, world, below))
-				world.setBlockState(below, hangingFruit);
 		}
+		else if (!force && !currentState.getBlock().isAir(currentState, world, pos))
+		{
+			return;
+		}
+		
+		BlockPos below = pos.down();
+		IBlockState stateBelow = world.getBlockState(below);
+		
+		if (stateBelow == hangingFruit)
+			world.setBlockState(below, Blocks.air.getDefaultState());
+		
+		if (notify)
+			world.setBlockState(pos, state, 3);
+		else
+			world.setBlockState(pos, state, 2);
+		
+		if (hangingFruit != null && state == leaves
+				&& world.rand.nextInt(10) == 0
+				&& stateBelow.getBlock().isAir(stateBelow, world, below))
+			world.setBlockState(below, hangingFruit);
 	}
 	
 	protected boolean isCubeClear(IBlockAccess world, BlockPos pos, int radius, int height)
 	{
-		Iterable<BlockPos> posList = BlockPos.getAllInBox(pos.add(-radius, 0, -radius), pos.add(radius, height, radius));
-		
-		for (BlockPos checkPos : posList)
+		for (BlockPos checkPos : BlockPos.getAllInBox(pos.add(-radius, 0, -radius), pos.add(radius, height, radius)))
 		{
 			IBlockState checkState = world.getBlockState(checkPos);
 			
-			if (!checkState.getBlock().isAir(checkState, world, checkPos)
+			if (!checkState.getBlock().isReplaceable(world, checkPos)
 					&& !checkState.getBlock().isLeaves(checkState, world, pos))
 			{
 				return false;

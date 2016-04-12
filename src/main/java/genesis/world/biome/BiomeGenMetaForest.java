@@ -2,24 +2,13 @@ package genesis.world.biome;
 
 import java.util.Random;
 
-import genesis.combo.DungBlocksAndItems;
-import genesis.combo.variant.EnumDung;
-import genesis.combo.variant.EnumPlant;
-import genesis.combo.variant.EnumTree;
+import genesis.combo.variant.*;
 import genesis.common.GenesisBlocks;
 import genesis.util.random.f.FloatRange;
-import genesis.world.biome.decorate.WorldGenDebris;
-import genesis.world.biome.decorate.WorldGenGrass;
-import genesis.world.biome.decorate.WorldGenGrassMulti;
-import genesis.world.biome.decorate.WorldGenGrowingPlant;
-import genesis.world.biome.decorate.WorldGenPalaeoagaracites;
-import genesis.world.biome.decorate.WorldGenRockBoulders;
-import genesis.world.biome.decorate.WorldGenRoots;
-import genesis.world.gen.feature.WorldGenDeadLog;
-import genesis.world.gen.feature.WorldGenTreeArchaeanthus;
+import genesis.world.biome.decorate.*;
+import genesis.world.gen.feature.*;
 import genesis.world.gen.feature.WorldGenTreeBase.TreeTypes;
-import genesis.world.gen.feature.WorldGenTreeGinkgo;
-import genesis.world.gen.feature.WorldGenTreeMetasequoia;
+
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -30,40 +19,43 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 	{
 		super(properties);
 		
-		theBiomeDecorator.grassPerChunk = 5;
-		
 		addDecorations();
 		addTrees();
 	}
 	
 	protected void addDecorations()
 	{
-		addDecoration(new WorldGenPalaeoagaracites().setPatchSize(24).setCountPerChunk(96));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPatchSize(5).setCountPerChunk(3));
+		//TODO: WorldGenPaleogaracites should be instead called/moved inside the dead log generation.
+		addDecoration(new WorldGenPalaeoagaracites().setPatchCount(24), 96);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPatchCount(5), 3);
 		
-		addDecoration(new WorldGenRockBoulders().setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)).setCountPerChunk(2));
-		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)).setRarity(4).setCountPerChunk(1));
-		//addDecoration(new WorldGenRockBoulders(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.HERBIVORE)).setInGround(false).setWaterRequired(false).setRadius(2).setRarity(14).setCountPerChunk(1));
-		addDecoration(new WorldGenDebris().setCountPerChunk(7));
-		addDecoration(new WorldGenRoots().setCountPerChunk(26));
+		addDecoration(new WorldGenRockBoulders().setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 2);
+		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.25F);
+		/*addDecoration(
+				new WorldGenRockBoulders(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.HERBIVORE))
+						.setInGround(false)
+						.setWaterRequired(false)
+						.setRadius(2),
+				0.0714F);*/
+		addDecoration(new WorldGenDebris(), 7);
+		addDecoration(new WorldGenRoots(), 26);
+		
+		getDecorator().setGrassCount(5);
+		addGrass(WorldGenPlant.create(EnumPlant.ASTRALOPTERIS).setPatchCount(9), 1);
 	}
 	
 	protected void addTrees()
 	{
-		addTree(new WorldGenTreeArchaeanthus(7, 20, false).setTreeCountPerChunk(1).setRarity(7));
-		addTree(new WorldGenTreeMetasequoia(12, 24, true).setGenerateRandomSaplings(true).setTreeCountPerChunk(5));
-		addTree(new WorldGenTreeMetasequoia(23, 27, true).setGenerateRandomSaplings(true).setType(TreeTypes.TYPE_2).setTreeCountPerChunk(2));
-		addTree(new WorldGenTreeGinkgo(8, 13, false).setTreeCountPerChunk(1).setRarity(10));
-		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2).setTreeCountPerChunk(1).setRarity(20));
+		getDecorator().setTreeCount(9.5F);
 		
-		addTree(new WorldGenDeadLog(4, 8, EnumTree.METASEQUOIA, true).setRarity(1).setTreeCountPerChunk(1));
-		addTree(new WorldGenDeadLog(4, 8, EnumTree.METASEQUOIA, true).setType(1).setRarity(4).setTreeCountPerChunk(1));
-	}
-	
-	@Override
-	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
-	{
-		return new WorldGenGrassMulti(GenesisBlocks.plants.getPlantBlockState(EnumPlant.ASTRALOPTERIS)).setVolume(64);
+		addTree(new WorldGenTreeArchaeanthus(7, 20, false).setRarity(7), 20);
+		addTree(new WorldGenTreeMetasequoia(12, 24, true), 100);
+		addTree(new WorldGenTreeMetasequoia(23, 27, true).setType(TreeTypes.TYPE_2), 40);
+		addTree(new WorldGenTreeGinkgo(8, 13, false), 2);
+		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 1);
+		
+		addTree(new WorldGenDeadLog(4, 8, EnumTree.METASEQUOIA, true), 20);
+		addTree(new WorldGenDeadLog(4, 8, EnumTree.METASEQUOIA, true).setType(1), 5);
 	}
 	
 	@Override

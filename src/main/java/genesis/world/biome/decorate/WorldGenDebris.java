@@ -1,64 +1,114 @@
 package genesis.world.biome.decorate;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
-import genesis.combo.TreeBlocksAndItems;
-import genesis.combo.variant.EnumDebrisOther;
-import genesis.combo.variant.EnumTree;
+import com.google.common.collect.*;
+
+import genesis.combo.*;
+import genesis.combo.variant.*;
 import genesis.common.GenesisBlocks;
+import genesis.util.MiscUtils;
+import genesis.util.WorldBlockMatcher;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class WorldGenDebris extends WorldGenDecorationBase
 {
-	private List<IBlockState> additionalDebris = new ArrayList<IBlockState>();
+	private final List<IBlockState> randomDebris;
 	
-	public WorldGenDebris addAdditional(IBlockState... states)
+	public WorldGenDebris(ImmutableList<IBlockState> randomDebris)
 	{
-		for (int i = 0; i < states.length; ++ i)
-			additionalDebris.add(states[i]);
+		super(WorldBlockMatcher.STANDARD_AIR,
+				(s, w, p) -> s.getBlock().isSideSolid(s, w, p, EnumFacing.UP));
 		
-		return this;
+		setPatchCount(8);
+		
+		this.randomDebris = randomDebris;
+	}
+	
+	public WorldGenDebris(IBlockState... randomDebris)
+	{
+		this(ImmutableList.copyOf(randomDebris));
+	}
+	
+	public WorldGenDebris(EnumDebrisOther... randomDebris)
+	{
+		this(MiscUtils.fluentIterable(randomDebris).transform((v) -> GenesisBlocks.debris.getBlockState(v)).toList());
+	}
+	
+	public WorldGenDebris()
+	{
+		this(ImmutableList.of());
+	}
+	
+	protected int hArea = 5;
+	protected int vArea = 3;
+	protected IBlockState[] placingStates;
+	
+	private static void add(List<IBlockState> states, IBlockState state)
+	{
+		if (!states.contains(state))
+			states.add(state);
 	}
 	
 	@Override
-	protected boolean doGenerate(World world, Random random, BlockPos pos)
+	public boolean generate(World world, Random rand, BlockPos pos)
 	{
-		do
+		ArrayList<IBlockState> states = new ArrayList<>();
+		
+		for (BlockPos checkPos
+				: BlockPos.getAllInBoxMutable(
+						pos.add(-hArea, -vArea, -hArea),
+						pos.add(hArea, vArea, hArea)))
 		{
-			IBlockState state = world.getBlockState(pos);
+			IBlockState checkState = world.getBlockState(checkPos);
 			
-			if (!state.getBlock().isAir(state, world, pos) && !state.getBlock().isLeaves(state, world, pos))
-				break;
-			
-			pos = pos.down();
-		}
-		while (pos.getY() > 0);
-		
-		boolean willGenerate = false;
-		
-		int debrisCount = this.getPatchSize();
-		
-		if (debrisCount <= 1)
-			debrisCount = 10;
-		
-		for (int i = 0; i < debrisCount; ++i)
-		{
-			if (generateDebris(world, random, pos.add(2 - random.nextInt(5), 0, 2 - random.nextInt(5)), 5, 3, 5, (i == 0)))
+			if (checkState.getBlock() == GenesisBlocks.calamites)
 			{
-				willGenerate = true;
+				add(states, GenesisBlocks.debris.getBlockState(EnumDebrisOther.CALAMITES));
+			}
+			else
+			{
+				TreeBlocksAndItems.SubsetData data = GenesisBlocks.trees.getSubsetData(checkState.getBlock());
+				
+				if (data != null)
+				{
+					EnumTree variant = checkState.getValue(data.variantProperty);
+					
+					if (variant.hasDebris())
+						add(states, GenesisBlocks.debris.getBlockState(variant));
+				}
 			}
 		}
 		
-		return willGenerate;
+		if (states.isEmpty() && !randomDebris.isEmpty())
+		{
+			add(states, randomDebris.get(rand.nextInt(randomDebris.size())));
+		}
+		
+		placingStates = states.toArray(new IBlockState[0]);
+		boolean success = false;
+		
+		if (placingStates.length > 0)
+			success = super.generate(world, rand, pos);
+		
+		placingStates = null;
+		return success;
 	}
 	
-	private boolean generateDebris(World world, Random rand, BlockPos pos, int distanceX, int distanceY, int distanceZ, boolean generateAdditional)
+	@Override
+	public boolean place(World world, Random rand, BlockPos pos)
+	{
+		if (placingStates == null)
+			return generate(world, rand, pos);
+		
+		return setBlockInWorld(world, pos, placingStates[rand.nextInt(placingStates.length)]);
+	}
+	
+	/*private boolean generateDebris(World world, Random rand, BlockPos pos, int distanceX, int distanceY, int distanceZ, boolean generateAdditional)
 	{
 		boolean willGenerate = false;
 		
@@ -109,17 +159,16 @@ public class WorldGenDebris extends WorldGenDecorationBase
 				}
 			}
 		
-		if (additionalDebris.size() > 0 && rand.nextInt(118) == 0 && generateAdditional)
+		if (randomDebris.size() > 0 && rand.nextInt(118) == 0 && generateAdditional)
 		{
-			debris = additionalDebris.get(rand.nextInt(additionalDebris.size()));
+			debris = randomDebris.get(rand.nextInt(randomDebris.size()));
 			willGenerate = true;
 		}
 		
 		if (willGenerate && debris != null)
 		{
-			setBlockInWorld(world, debrisPos, debris);
 		}
 		
 		return willGenerate;
-	}
+	}*/
 }

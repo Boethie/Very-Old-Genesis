@@ -16,8 +16,13 @@ import net.minecraft.world.World;
 
 public class WorldGenRoots extends WorldGenDecorationBase
 {
+	public WorldGenRoots()
+	{
+		setPatchCount(8);
+	}
+	
 	@Override
-	protected boolean doGenerate(World world, Random random, BlockPos pos)
+	public boolean place(World world, Random random, BlockPos pos)
 	{
 		pos = new BlockPos(pos.getX(), 80, pos.getZ());
 		
