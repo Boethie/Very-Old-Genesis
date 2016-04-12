@@ -120,7 +120,7 @@ public class WorldGenGenesisLakes extends WorldGenerator
 				{
 					if (is(isLake, x, y, z))
 					{
-						world.setBlockState(pos.add(x, y, z), y >= top ? Blocks.air.getDefaultState() : filler, 2);
+						world.setBlockState(pos.add(x, y, z), y >= top ? Blocks.air.getDefaultState() : filler, 3);
 					}
 				}
 			}
