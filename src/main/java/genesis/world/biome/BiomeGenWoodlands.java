@@ -8,7 +8,6 @@ import genesis.util.random.f.FloatRange;
 import genesis.world.biome.decorate.*;
 import genesis.world.gen.feature.*;
 import genesis.world.gen.feature.WorldGenTreeBase.TreeTypes;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -35,6 +34,7 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		addFlower(WorldGenPlant.create(EnumPlant.PALAEOASTER).setRarity(4).setPatchCount(48), 1);	// TODO: Patch count 48?!?!
 		
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setRarity(4).setPatchCount(3), 1);
+		addDecoration(WorldGenCircleReplacement.getPeatGen(), 1);
 		addDecoration(new WorldGenDebris(), 20);
 		addDecoration(new WorldGenDebris(EnumDebrisOther.TYRANNOSAURUS_FEATHER).setPatchCount(1, 2), 0.1F);
 		addDecoration(new WorldGenRockBoulders().setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 2);
@@ -53,6 +53,7 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 	protected void addTrees()
 	{
 		getDecorator().setTreeCount(12.8F);
+		
 		addTree(new WorldGenTreeLaurophyllum(3, 4, false), 2000);
 		addTree(new WorldGenTreeFicus(4, 8, false), 125);
 		addTree(new WorldGenTreeGinkgo(8, 13, false), 166);

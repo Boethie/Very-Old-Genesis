@@ -18,20 +18,18 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 	{
 		super(properties);
 		
-		
 		addDecorations();
 		addTrees();
 	}
 	
 	protected void addDecorations()
 	{
-		addFlower(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchCount(3), 3);
-		addFlower(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchCount(4), 3);
-		addFlower(new WorldGenGrowingPlant(GenesisBlocks.calamites).setPatchCount(4), 8);
-		
 		getDecorator().setGrassCount(8);
 		addGrass(WorldGenPlant.create(EnumPlant.ZYGOPTERIS).setPatchCount(14), 1);
 		
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchCount(3), 2);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchCount(4), 2);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setPatchCount(4), 4);
 		addDecoration(new WorldGenRockBoulders().setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 6);
 		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.333F);
 		addDecoration(new WorldGenMossStages(), 30);
@@ -41,7 +39,7 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 	
 	protected void addTrees()
 	{
-		getDecorator().setTreeCount(32);
+		getDecorator().setTreeCount(27);
 		
 		addTree(new WorldGenTreeSigillaria(10, 15, true), 7);
 		addTree(new WorldGenTreePsaronius(5, 8, true), 4);
