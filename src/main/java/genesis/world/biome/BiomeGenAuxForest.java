@@ -31,7 +31,7 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenDebris(EnumDebrisOther.COELOPHYSIS_FEATHER).setPatchCount(1, 2), 0.1F);
 		addDecoration(new WorldGenRockBoulders().setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 2);
 		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.333F);
-		addDecoration(new WorldGenRoots(), 26);
+		addDecoration(new WorldGenRoots(), 15);
 		
 		getDecorator().setGrassCount(7);
 		addGrass(WorldGenPlant.create(EnumPlant.TODITES).setPatchCount(9), 1);

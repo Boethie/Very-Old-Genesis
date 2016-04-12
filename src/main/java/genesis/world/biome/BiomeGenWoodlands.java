@@ -31,9 +31,9 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		addGrass(WorldGenPlant.create(EnumPlant.ONOCLEA).setPatchCount(9), 1);
 		
 		getDecorator().setFlowerCount(1);
-		addFlower(WorldGenPlant.create(EnumPlant.PALAEOASTER).setRarity(4).setPatchCount(48), 1);	// TODO: Patch count 48?!?!
+		addFlower(WorldGenPlant.create(EnumPlant.PALAEOASTER).setRarity(5).setPatchCount(37), 1);	// TODO: Patch count 48?!?!
 		
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setRarity(4).setPatchCount(3), 1);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setRarity(6).setPatchCount(3), 1);
 		addDecoration(WorldGenCircleReplacement.getPeatGen(), 1);
 		addDecoration(new WorldGenDebris(), 20);
 		addDecoration(new WorldGenDebris(EnumDebrisOther.TYRANNOSAURUS_FEATHER).setPatchCount(1, 2), 0.1F);
@@ -46,13 +46,13 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 								.setWaterRequired(false)
 								.setRadius(2),
 						0.085F);*/
-		addDecoration(new WorldGenRoots(), 26);
+		addDecoration(new WorldGenRoots(), 15);
 		addDecoration(new WorldGenDecorationOnBlock((s) -> s.getMaterial() == Material.water, GenesisBlocks.cobbania.getDefaultState()), 10);
 	}
 	
 	protected void addTrees()
 	{
-		getDecorator().setTreeCount(12.8F);
+		getDecorator().setTreeCount(8.8F);
 		
 		addTree(new WorldGenTreeLaurophyllum(3, 4, false), 2000);
 		addTree(new WorldGenTreeFicus(4, 8, false), 125);
@@ -60,7 +60,7 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 45);
 		addTree(new WorldGenTreeDryophyllum(11, 15, false), 6000);
 		addTree(new WorldGenTreeDryophyllum(13, 17, false).setType(TreeTypes.TYPE_2), 100);
-		addTree(new WorldGenTreeMetasequoia(12, 24, true), 2000);
+		addTree(new WorldGenTreeMetasequoia(12, 24, true), 1000);
 		
 		addTree(new WorldGenDeadLog(3, 6, EnumTree.DRYOPHYLLUM, true), 2000);
 		addTree(new WorldGenDeadLog(3, 6, EnumTree.METASEQUOIA, true), 250);
