@@ -26,11 +26,11 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 	protected void addDecorations()
 	{
 		//TODO: WorldGenPaleogaracites should be instead called/moved inside the dead log generation.
-		addDecoration(new WorldGenPalaeoagaracites().setPatchCount(24), 96);
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPatchCount(5), 3);
+		addDecoration(new WorldGenPalaeoagaracites().setPatchCount(24), 14);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPatchCount(5), 1.75F);
 		
 		addDecoration(new WorldGenRockBoulders().setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 2);
-		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.25F);
+		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.142F);
 		/*addDecoration(
 				new WorldGenRockBoulders(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.HERBIVORE))
 						.setInGround(false)
@@ -46,7 +46,7 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 	
 	protected void addTrees()
 	{
-		getDecorator().setTreeCount(9.5F);
+		getDecorator().setTreeCount(5.7F);
 		
 		addTree(new WorldGenTreeArchaeanthus(7, 20, false).setRarity(7), 20);
 		addTree(new WorldGenTreeMetasequoia(12, 24, true), 100);

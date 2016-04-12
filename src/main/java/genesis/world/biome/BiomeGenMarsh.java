@@ -23,7 +23,7 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		getDecorator().setGrassCount(5);
 		addGrass(WorldGenPlant.create(PlantBlocks.PLANT, EnumPlant.ASTEROXYLON).setPatchCount(5), 1);
 		
-		getDecorator().setFlowerCount(22);
+		getDecorator().setFlowerCount(10);
 		addFlower(WorldGenPlant.create(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.ASTEROXYLON), 5);
 		addFlower(WorldGenPlant.create(EnumPlant.RHYNIA).setPatchCount(4), 6);
 		addFlower(WorldGenPlant.create(EnumPlant.NOTHIA).setPatchCount(4), 5);

@@ -4,6 +4,8 @@ import java.util.Random;
 
 import genesis.combo.variant.EnumTree;
 import genesis.util.random.i.IntRange;
+import genesis.util.random.i.WeightedIntItem;
+import genesis.util.random.i.WeightedIntProvider;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -12,6 +14,10 @@ public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 	public WorldGenTreeMetasequoia(int minHeight, int maxHeight, boolean notify)
 	{
 		super(EnumTree.METASEQUOIA, IntRange.create(minHeight, maxHeight), notify);
+		
+		this.saplingCountProvider = new WeightedIntProvider(
+				WeightedIntItem.of(4, 0),
+				WeightedIntItem.of(6, IntRange.create(2, 5)));
 	}
 	
 	@Override
