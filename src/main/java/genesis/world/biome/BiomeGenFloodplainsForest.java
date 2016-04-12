@@ -20,17 +20,17 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 		theBiomeDecorator.clayPerChunk = 4;
 		theBiomeDecorator.sandPerChunk2 = 2;
 		
-		getDecorator().setGrassCount(47);
+		getDecorator().setGrassCount(36);
 		addGrass(WorldGenPlant.create(EnumPlant.RHACOPHYTON), 15);
-		addGrass(WorldGenPlant.create(EnumPlant.PSILOPHYTON).setPatchCount(8), 1);
+		addGrass(WorldGenPlant.create(EnumPlant.PSILOPHYTON).setPatchCount(6), 1);
 		
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchCount(4), 3);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchCount(4), 2);
 		addDecoration(WorldGenCircleReplacement.getPeatGen(), 1);
 		addDecoration(new WorldGenMossStages(), 30);
 		addDecoration(new WorldGenDebris(), 26);
-		addDecoration(new WorldGenRoots(), 26);
+		addDecoration(new WorldGenRoots(), 22);
 		
-		getDecorator().setTreeCount(15);
+		getDecorator().setTreeCount(10);
 		addTree(new WorldGenTreeArchaeopteris(15, 20, true), 9);
 		
 		addTree(new WorldGenDeadLog(3, 6, EnumTree.ARCHAEOPTERIS, true), 6);
