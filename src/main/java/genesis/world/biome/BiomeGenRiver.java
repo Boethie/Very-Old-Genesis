@@ -23,7 +23,7 @@ public class BiomeGenRiver extends BiomeGenBaseGenesis implements IEntityPreferr
 		int[] rarityScale = {30, 20, 10, 5, 2};
 		
 		addDecoration(new WorldGenPebbles(), 40);
-		addDecoration(new WorldGenRockBoulders().setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 8);
+		addDecoration(new WorldGenRockBoulders().setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 6);
 		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.BANGIOMORPHA).setPatchCount(6), rarityScale[2]);
 		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.MARPOLIA).setPatchCount(6), rarityScale[3]);
 		addDecoration(new WorldGenMossStages(), 30);

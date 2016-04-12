@@ -28,21 +28,21 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.cladophlebis).setPatchCount(9), 1);
 		
 		addDecoration(new WorldGenDebris(), 20);
-		addDecoration(new WorldGenDebris(EnumDebrisOther.COELOPHYSIS_FEATHER).setPatchCount(1, 2), 5);
+		addDecoration(new WorldGenDebris(EnumDebrisOther.COELOPHYSIS_FEATHER).setPatchCount(1, 2), 0.1F);
 		addDecoration(new WorldGenRockBoulders().setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 2);
-		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.333F);
+		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.5F);
 		addDecoration(new WorldGenRoots(), 26);
 		
 		getDecorator().setGrassCount(7);
 		addGrass(WorldGenPlant.create(EnumPlant.TODITES).setPatchCount(9), 1);
 		
-		getDecorator().setFlowerCount(2);
+		getDecorator().setFlowerCount(5);
 		addFlower(WorldGenPlant.create(EnumPlant.SANMIGUELIA).setNextToWater(true).setPatchCount(4), 2);
 	}
 	
 	protected void addTrees()
 	{
-		getDecorator().setTreeCount(5.15F);
+		getDecorator().setTreeCount(4.15F);
 		
 		addTree(new WorldGenTreeAraucarioxylon(25, 30, true), 80);
 		addTree(new WorldGenTreeGinkgo(8, 13, false), 3);
