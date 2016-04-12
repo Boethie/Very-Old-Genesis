@@ -142,7 +142,7 @@ public abstract class WorldGenDecorationBase extends WorldGenerator
 	{
 		IBlockState stateAt = world.getBlockState(pos);
 		
-		if (force || stateAt.getBlock().isReplaceable(world, pos))
+		if (force || stateAt.getBlock().isAir(stateAt, world, pos))
 		{
 			setBlockAndNotifyAdequately(world, pos, state);
 			return true;
