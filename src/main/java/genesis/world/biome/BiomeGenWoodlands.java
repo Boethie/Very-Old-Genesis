@@ -35,6 +35,8 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		addFlower(WorldGenPlant.create(EnumPlant.PALAEOASTER).setRarity(4).setPatchCount(48), 1);	// TODO: Patch count 48?!?!
 		
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setRarity(4).setPatchCount(3), 1);
+		addDecoration(new WorldGenDebris(), 20);
+		addDecoration(new WorldGenDebris(EnumDebrisOther.TYRANNOSAURUS_FEATHER).setPatchCount(1, 2), 5);
 		addDecoration(new WorldGenRockBoulders().setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 2);
 		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.5F);
 		/*addDecoration(
@@ -44,7 +46,6 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 								.setWaterRequired(false)
 								.setRadius(2),
 						0.085F);*/
-		addDecoration(new WorldGenDebris(EnumDebrisOther.TYRANNOSAURUS_FEATHER), 20);
 		addDecoration(new WorldGenRoots(), 26);
 		addDecoration(new WorldGenDecorationOnBlock((s) -> s.getMaterial() == Material.water, GenesisBlocks.cobbania.getDefaultState()), 10);
 	}

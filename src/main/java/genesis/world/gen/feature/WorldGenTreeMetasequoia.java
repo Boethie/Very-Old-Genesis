@@ -19,7 +19,13 @@ public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 	{
 		int height = heightProvider.get(rand);
 		
-		if (!isCubeClear(world, pos, treeType == TreeTypes.TYPE_1 ? 2 : 3, height))
+		int trunkHeight = 6;
+		int leavesBase = pos.getY() + trunkHeight;
+		
+		if (!isCubeClear(world, pos, treeType == TreeTypes.TYPE_1 ? 0 : 1, trunkHeight))
+			return false;
+		
+		if (!isCubeClear(world, pos.up(trunkHeight + 1), treeType == TreeTypes.TYPE_1 ? 2 : 3, height - trunkHeight))
 			return false;
 		
 		BlockPos checkPos = pos;
@@ -61,12 +67,9 @@ public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 		
 		BlockPos branchPos = pos.up(height - 1);
 		
-		int leavesBase = 0;
 		boolean alternate = false;
 		boolean irregular = true;
 		boolean inverted = false;
-		
-		leavesBase = pos.getY() + 6;
 		
 		switch (treeType)
 		{

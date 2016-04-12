@@ -71,7 +71,8 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 	@Override
 	public void plantFlower(World world, Random rand, BlockPos pos)
 	{
-		plants.get(rand).place(world, rand, pos);
+		if (plants.has())
+			plants.get(rand).place(world, rand, pos);
 	}
 	
 	public WorldGenerator getRandomFlower(Random rand)

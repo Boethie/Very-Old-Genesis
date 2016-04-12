@@ -17,10 +17,11 @@ public class BiomeGenWoodlandsM extends BiomeGenWoodlands
 	@Override
 	protected void addDecorations()
 	{
+		addDecoration(new WorldGenDebris(), 20);
+		addDecoration(new WorldGenDebris(EnumDebrisOther.TYRANNOSAURUS_FEATHER).setPatchCount(1, 2), 5);
 		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 1);
 		addDecoration(new WorldGenRockBoulders(GenesisBlocks.rhyolite.getDefaultState()).setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.125F);
 		addDecoration(new WorldGenRockBoulders(GenesisBlocks.dolerite.getDefaultState()).setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.125F);
-		addDecoration(new WorldGenDebris(EnumDebrisOther.TYRANNOSAURUS_FEATHER), 20);
 	}
 	
 	@Override

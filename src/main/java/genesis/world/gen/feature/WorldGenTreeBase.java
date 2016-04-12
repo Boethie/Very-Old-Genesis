@@ -148,7 +148,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		
 		do
 		{
-			if (distance != -1 && pos.getY() - soilPos.getY() >= distance)
+			if (distance != -1 && pos.getY() - soilPos.getY() > distance)
 				return null;
 			
 			checkState = world.getBlockState(soilPos);
