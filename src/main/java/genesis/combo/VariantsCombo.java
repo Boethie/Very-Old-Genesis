@@ -99,6 +99,13 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 		this(name, name, variantClass, variants);
 	}
 	
+	@Override
+	public VariantsCombo<V, B, I> setNames(String domain, String unloc)
+	{
+		super.setNames(domain, unloc);
+		return this;
+	}
+	
 	/**
 	 * Gets a stack of the specified Item in this combo.
 	 */

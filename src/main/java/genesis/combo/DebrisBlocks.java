@@ -12,6 +12,7 @@ import genesis.combo.variant.IMetadata;
 import genesis.combo.variant.MultiMetadataList;
 import genesis.combo.variant.MultiMetadataList.MultiMetadata;
 import genesis.item.ItemBlockMulti;
+import genesis.util.Constants;
 import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
@@ -39,7 +40,7 @@ public class DebrisBlocks extends VariantsCombo<MultiMetadata, BlockGenesisDebri
 	{
 		super(ObjectType.<BlockGenesisDebris, MultiMetadata>createBlock("debris", BlockGenesisDebris.class), MultiMetadata.class, VARIANTS);
 		
-		setUnlocalizedPrefix(Unlocalized.PREFIX);
+		setNames(Constants.MOD_ID, Unlocalized.PREFIX);
 		
 		soleType.setTypeNamePosition(TypeNamePosition.POSTFIX);
 	}

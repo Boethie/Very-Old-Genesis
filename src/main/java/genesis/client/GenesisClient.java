@@ -78,9 +78,9 @@ public class GenesisClient extends GenesisProxy
 	}
 	
 	@Override
-	public void registerBlock(Block block, String name, Class<? extends ItemBlock> clazz, boolean doModel)
+	public void registerBlock(Block block, Item item, ResourceLocation name, boolean doModel)
 	{
-		super.registerBlock(block, name, clazz, doModel);
+		super.registerBlock(block, item, name, doModel);
 		
 		if (doModel)
 		{
@@ -89,13 +89,7 @@ public class GenesisClient extends GenesisProxy
 	}
 	
 	@Override
-	public void registerBlockWithItem(Block block, String name, Item item)
-	{
-		super.registerBlockWithItem(block, name, item);
-	}
-	
-	@Override
-	public void registerFluidBlock(BlockFluidBase block, String name)
+	public void registerFluidBlock(BlockFluidBase block, ResourceLocation name)
 	{
 		super.registerFluidBlock(block, name);
 		
@@ -114,7 +108,7 @@ public class GenesisClient extends GenesisProxy
 	}
 	
 	@Override
-	public void registerItem(Item item, String name, boolean doModel)
+	public void registerItem(Item item, ResourceLocation name, boolean doModel)
 	{
 		super.registerItem(item, name, doModel);
 		
@@ -124,31 +118,30 @@ public class GenesisClient extends GenesisProxy
 		}
 	}
 	
-	public void registerModel(Block block, String variantName)
+	public void registerModel(Block block, ResourceLocation variantName)
 	{
 		registerModel(block, 0, variantName);
 	}
 	
-	@Override
-	public ModelResourceLocation getItemModelLocation(String variantName)
+	public ModelResourceLocation getItemModelLocation(ResourceLocation variantName)
 	{
-		return new ModelResourceLocation(Constants.ASSETS_PREFIX + variantName, "inventory");
+		return new ModelResourceLocation(variantName, "inventory");
 	}
 	
 	@Override
-	public void registerModel(Item item, int metadata, String variantName)
+	public void registerModel(Item item, int metadata, ResourceLocation variantName)
 	{
 		ModelLoader.setCustomModelResourceLocation(item, metadata, getItemModelLocation(variantName));
 		addVariantName(item, variantName);
 	}
 	
-	private void registerModel(Item item, String variantName)
+	private void registerModel(Item item, ResourceLocation variantName)
 	{
 		registerModel(item, 0, variantName);
 	}
 	
 	@Override
-	public void registerModel(Block block, int metadata, String variantName)
+	public void registerModel(Block block, int metadata, ResourceLocation variantName)
 	{
 		Item item = Item.getItemFromBlock(block);
 		
@@ -163,20 +156,20 @@ public class GenesisClient extends GenesisProxy
 	{
 		ModelLoader.setCustomMeshDefinition(item, definition);
 		
-		for (String variant : definition.getVariants())
+		for (ResourceLocation variant : definition.getVariants())
 		{
 			addVariantName(item, variant);
 		}
 	}
 	
-	public void addVariantName(Block block, String name)
+	public void addVariantName(Block block, ResourceLocation name)
 	{
 		addVariantName(Item.getItemFromBlock(block), name);
 	}
 	
-	public void addVariantName(Item item, String name)
+	public void addVariantName(Item item, ResourceLocation name)
 	{
-		ModelBakery.registerItemVariants(item, new ResourceLocation(Constants.ASSETS_PREFIX + name));
+		ModelBakery.registerItemVariants(item, name);
 	}
 	
 	public void registerColorer(IBlockColor colorer, Block... blocks)

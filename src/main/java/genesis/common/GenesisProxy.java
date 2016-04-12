@@ -47,67 +47,52 @@ public class GenesisProxy
 		}
 	}
 	
-	public void registerBlock(Block block, String name, boolean doModel)
+	public void registerItem(Item item, ResourceLocation name, boolean doModel)
 	{
-		registerBlock(block, name, ItemBlock.class, doModel);
-	}
-	
-	public void registerBlock(Block block, String name)
-	{
-		registerBlock(block, name, true);
-	}
-	
-	public void registerBlock(Block block, String name, Class<? extends ItemBlock> clazz, boolean doModel)
-	{
-		GameRegistry.registerBlock(block, clazz, name);
-		doRegistrationCallback(block);
-	}
-	
-	public void registerBlock(Block block, String name, Class<? extends ItemBlock> clazz)
-	{
-		registerBlock(block, name, clazz, true);
-	}
-	
-	public void registerFluidBlock(BlockFluidBase block, String name)
-	{
-		registerBlock(block, name, null);
-	}
-	
-	/**
-	 * Registers a Block to an instance of an ItemBlock.
-	 * (To bypass Object... args in GameRegistry.registerBlocks which only works if the passed arguments' types are not
-	 * subclasses to the constructor's parameter types.
-	 * This method does not register an item model.
-	 */
-	public void registerBlockWithItem(Block block, String name, Item item)
-	{
-		GameRegistry.registerBlock(block, null, name);
-		GameRegistry.registerItem(item, name);
-		GameData.getBlockItemMap().put(block, item);
-		doRegistrationCallback(block);
-	}
-	
-	public void registerItem(Item item, String name, boolean doModel)
-	{
-		GameRegistry.registerItem(item, name);
+		GameRegistry.register(item, name);
 		doRegistrationCallback(item);
 	}
 	
-	public void registerItem(Item item, String name)
+	public void registerItem(Item item, ResourceLocation name)
 	{
 		registerItem(item, name, true);
 	}
 	
-	public ResourceLocation getItemModelLocation(String textureName)
+	public void registerBlock(Block block, Item item, ResourceLocation name, boolean doModel)
 	{
-		return null;
+		GameRegistry.register(block, name);
+		
+		if (item != null)
+			registerItem(item, name);
+		
+		doRegistrationCallback(block);
 	}
 	
-	public void registerModel(Item item, int metadata, String textureName)
+	public void registerBlock(Block block, ResourceLocation name, boolean doModel)
+	{
+		registerBlock(block, new ItemBlock(block), name, doModel);
+	}
+	
+	public void registerBlock(Block block, ResourceLocation name)
+	{
+		registerBlock(block, name, true);
+	}
+	
+	public void registerBlock(Block block, Item item, ResourceLocation name)
+	{
+		registerBlock(block, item, name, true);
+	}
+	
+	public void registerFluidBlock(BlockFluidBase block, ResourceLocation name)
+	{
+		registerBlock(block, null, name);
+	}
+	
+	public void registerModel(Item item, int metadata, ResourceLocation textureName)
 	{
 	}
 	
-	public void registerModel(Block item, int metadata, String textureName)
+	public void registerModel(Block item, int metadata, ResourceLocation textureName)
 	{
 	}
 	

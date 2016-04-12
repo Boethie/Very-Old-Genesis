@@ -8,6 +8,7 @@ import genesis.block.*;
 import genesis.combo.variant.EnumDung;
 import genesis.common.*;
 import genesis.item.*;
+import genesis.util.Constants;
 import genesis.util.Constants.Unlocalized;
 
 public class DungBlocksAndItems extends VariantsOfTypesCombo<EnumDung>
@@ -30,6 +31,6 @@ public class DungBlocksAndItems extends VariantsOfTypesCombo<EnumDung>
 	{
 		super(ImmutableList.of(DUNG_BLOCK, DUNG), EnumDung.class, ImmutableList.copyOf(EnumDung.values()));
 		
-		setUnlocalizedPrefix(Unlocalized.PREFIX);
+		setNames(Constants.MOD_ID, Unlocalized.PREFIX);
 	}
 }

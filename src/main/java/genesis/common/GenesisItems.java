@@ -10,12 +10,14 @@ import genesis.combo.variant.EnumPowder;
 import genesis.combo.variant.EnumSeeds;
 import genesis.entity.fixed.EntityMeganeuraEgg;
 import genesis.item.*;
+import genesis.util.Constants;
 import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 
@@ -76,6 +78,11 @@ public final class GenesisItems
 							.setResourceName(""),
 					EnumMenhirActivator.class, EnumMenhirActivator.values());
 	
+	private static ResourceLocation name(String path)
+	{
+		return new ResourceLocation(Constants.MOD_ID, path);
+	}
+	
 	public static void preInitCommon()
 	{
 		// --- Materials ---
@@ -84,18 +91,18 @@ public final class GenesisItems
 		tools.registerVariants(ToolItems.FLAKE);
 		
 		// Clay
-		Genesis.proxy.registerItem(red_clay_ball, "red_clay_ball");
-		Genesis.proxy.registerItem(red_clay_bowl, "red_clay_bowl");
+		Genesis.proxy.registerItem(red_clay_ball, name("red_clay_ball"));
+		Genesis.proxy.registerItem(red_clay_bowl, name("red_clay_bowl"));
 		bowls.registerAll();
-		Genesis.proxy.registerItem(red_clay_bucket, "red_clay_bucket");
+		Genesis.proxy.registerItem(red_clay_bucket, name("red_clay_bucket"));
 		
 		// Ores
 		GenesisBlocks.ores.registerVariants(OreBlocks.DROP);
 		
-		powders.setUnlocalizedPrefix(Unlocalized.MATERIAL);
+		powders.setNames(Constants.MOD_ID, Unlocalized.MATERIAL);
 		powders.registerAll();
 		
-		nodules.setUnlocalizedPrefix(Unlocalized.MATERIAL);
+		nodules.setNames(Constants.MOD_ID, Unlocalized.MATERIAL);
 		nodules.registerAll();
 		
 		// Billets
@@ -104,19 +111,19 @@ public final class GenesisItems
 		// Random materials
 		GenesisBlocks.dungs.registerVariants(DungBlocksAndItems.DUNG);
 		
-		materials.setUnlocalizedPrefix(Unlocalized.PREFIX);
+		materials.setNames(Constants.MOD_ID, Unlocalized.PREFIX);
 		materials.registerAll();
 		
-		Genesis.proxy.registerItem(meganeura_egg, "meganeura_egg");
+		Genesis.proxy.registerItem(meganeura_egg, name("meganeura_egg"));
 		
-		seeds.setUnlocalizedPrefix(Unlocalized.PREFIX);
+		seeds.setNames(Constants.MOD_ID, Unlocalized.PREFIX);
 		seeds.registerAll();
 		
 		// Foods
 		foods.registerAll();
 		
 		// --- Begin tools ---
-		Genesis.proxy.registerItem(flint_and_marcasite, "flint_and_marcasite");
+		Genesis.proxy.registerItem(flint_and_marcasite, name("flint_and_marcasite"));
 		
 		// All tools
 		tools.registerAll();
@@ -125,14 +132,14 @@ public final class GenesisItems
 		clothing.registerAll();
 		
 		// --- Misc ---
-		Genesis.proxy.registerItem(ceramic_bucket, "ceramic_bucket");
-		Genesis.proxy.registerItem(ceramic_bucket_water, "ceramic_bucket_water");
+		Genesis.proxy.registerItem(ceramic_bucket, name("ceramic_bucket"));
+		Genesis.proxy.registerItem(ceramic_bucket_water, name("ceramic_bucket_water"));
 		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluid("water"),
 				new ItemStack(ceramic_bucket_water), new ItemStack(ceramic_bucket));
-		Genesis.proxy.registerItem(ceramic_bucket_milk, "ceramic_bucket_milk");
+		Genesis.proxy.registerItem(ceramic_bucket_milk, name("ceramic_bucket_milk"));
 		
 		bucket_komatiitic_lava = new ItemGenesisBucket(GenesisBlocks.komatiitic_lava.getDefaultState()).setUnlocalizedName(Unlocalized.MISC + "bucketKomatiiticLava");
-		Genesis.proxy.registerItem(bucket_komatiitic_lava, "bucket_komatiitic_lava");
+		Genesis.proxy.registerItem(bucket_komatiitic_lava, name("bucket_komatiitic_lava"));
 		
 		menhir_activators.registerAll();
 	}

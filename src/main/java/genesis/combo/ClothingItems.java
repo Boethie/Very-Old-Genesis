@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 
 import genesis.combo.variant.EnumClothing;
 import genesis.item.ItemGenesisArmor;
+import genesis.util.Constants;
 import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -29,7 +30,7 @@ public class ClothingItems extends VariantsOfTypesCombo<EnumClothing>
 		super(ImmutableList.of(HELMET, CHESTPLATE, LEGGINGS, BOOTS),
 				EnumClothing.class, ImmutableList.copyOf(EnumClothing.values()));
 		
-		setUnlocalizedPrefix(Unlocalized.CLOTHING);
+		setNames(Constants.MOD_ID, Unlocalized.CLOTHING);
 	}
 	
 	@Override

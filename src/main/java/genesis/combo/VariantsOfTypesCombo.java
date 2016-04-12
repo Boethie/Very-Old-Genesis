@@ -18,6 +18,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
 import net.minecraft.item.*;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.*;
 
@@ -127,6 +128,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	public final ImmutableList<V> variants;
 	public final Class<V> variantClass;
 	private final HashSet<ObjectType<?, ?>> registeredTypes = new HashSet<ObjectType<?, ?>>();
+	protected String resourceDomain = "";
 	protected String unlocalizedPrefix = "";
 	
 	/**
@@ -356,15 +358,27 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 		}
 	}
 	
-	public VariantsOfTypesCombo<V> setUnlocalizedPrefix(String prefix)
+	public VariantsOfTypesCombo<V> setNames(String domain, String unloc)
 	{
-		unlocalizedPrefix = prefix;
+		resourceDomain = domain;
+		unlocalizedPrefix = unloc;
 		return this;
 	}
 	
 	public String getUnlocalizedPrefix()
 	{
 		return unlocalizedPrefix;
+	}
+	
+	public VariantsOfTypesCombo<V> setResourceDomain(String domain)
+	{
+		resourceDomain = domain;
+		return this;
+	}
+	
+	public String getResourceDomain()
+	{
+		return resourceDomain;
 	}
 	
 	/**
@@ -386,23 +400,24 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 			final Block block = subset.block;
 			final Item item = subset.item;
 			
-			String registryName;
+			String registryPath;
 			
 			if (subset.maxSize == 1 && type.usesVariantAsRegistryName())
 			{
-				registryName = type.getVariantName(getVariant(item, 0));
+				registryPath = type.getVariantName(getVariant(item, 0));
 			}
 			else
 			{
 				String name = type.getName();
-				registryName = name + (name.equals("") ? "" : "_") + subsetID;
+				registryPath = name + (name.equals("") ? "" : "_") + subsetID;
 			}
 			
+			ResourceLocation registryName = new ResourceLocation(getResourceDomain(), registryPath);
 			String unlocName = getUnlocalizedPrefix() + type.getUnlocalizedName();
 			
 			if (block != null)
 			{
-				Genesis.proxy.registerBlockWithItem(block, registryName, item);
+				Genesis.proxy.registerBlock(block, item, registryName);
 				block.setUnlocalizedName(unlocName);
 				
 				// Register resource locations for the block.
@@ -463,7 +478,10 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 				for (V variant : subset.variants.values())
 				{
 					VariantData data = getVariantData(type, variant);
-					Genesis.proxy.registerModel(data.item, data.itemMetadata, type.getVariantName(variant));
+					Genesis.proxy.registerModel(
+							data.item,
+							data.itemMetadata,
+							new ResourceLocation(getResourceDomain(), type.getVariantName(variant)));
 				}
 			}
 			

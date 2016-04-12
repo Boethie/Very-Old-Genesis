@@ -95,9 +95,13 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 				client.registerModel(Item.getItemFromBlock(BlockMenhir.this),
 						new ListedItemMeshDefinition()
 						{
-							public String getName(EnumMenhirPart part, EnumGlyph glyph)
+							public ResourceLocation getName(EnumMenhirPart part, EnumGlyph glyph)
 							{
-								return "portal/" + part.getName() + (glyph != null ? "_" + glyph.getName() : "");
+								return new ResourceLocation(
+										Constants.ASSETS_PREFIX
+										+ "portal/"
+										+ part.getName()
+										+ (glyph != null ? "_" + glyph.getName() : ""));
 							}
 							
 							@Override
@@ -118,13 +122,13 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 									}
 								}
 								
-								return (ModelResourceLocation) Genesis.proxy.getItemModelLocation(getName(part, glyph));
+								return new ModelResourceLocation(getName(part, glyph), "inventory");
 							}
 							
 							@Override
-							public Collection<String> getVariants()
+							public Collection<ResourceLocation> getVariants()
 							{
-								ArrayList<String> variants = new ArrayList<String>();
+								ArrayList<ResourceLocation> variants = new ArrayList<>();
 								
 								for (EnumMenhirPart part : EnumMenhirPart.ORDERED)
 								{

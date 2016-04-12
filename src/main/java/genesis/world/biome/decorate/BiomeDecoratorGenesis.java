@@ -130,6 +130,14 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			}
 		}
 		
+		for (DecorationEntry genEntry : biomeGenesis.getDecorations())
+		{
+			for (int i = genEntry.getCountPerChunk(rand); i > 0; i--)
+			{
+				genEntry.getGenerator().generate(world, rand, getPos(world, rand));
+			}
+		}
+		
 		if (TerrainGen.decorate(world, rand, field_180294_c, GRASS) && grassCountProvider != null)
 		{
 			for (int i = grassCountProvider.get(rand); i > 0; i--)
@@ -150,14 +158,6 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 				
 				if (gen != null)
 					gen.generate(world, rand, getPos(world, rand));
-			}
-		}
-		
-		for (DecorationEntry genEntry : biomeGenesis.getDecorations())
-		{
-			for (int i = genEntry.getCountPerChunk(rand); i > 0; i--)
-			{
-				genEntry.getGenerator().generate(world, rand, getPos(world, rand));
 			}
 		}
 		

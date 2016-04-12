@@ -29,7 +29,7 @@ public class OreBlocks extends VariantsOfTypesCombo<EnumOre>
 		super(ImmutableList.of(ORE, DROP), EnumOre.class, ImmutableList.copyOf(EnumOre.values()));
 		
 		EnumOre.setDrops(this);
-		setUnlocalizedPrefix(Constants.Unlocalized.PREFIX);
+		setNames(Constants.MOD_ID, Constants.Unlocalized.PREFIX);
 	}
 	
 	public IBlockState getOreState(EnumOre ore)

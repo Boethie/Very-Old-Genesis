@@ -9,6 +9,7 @@ import genesis.combo.variant.*;
 import genesis.combo.variant.ToolTypes.ToolType;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.*;
+import genesis.util.Constants;
 import genesis.util.Constants.Unlocalized;
 import genesis.util.Constants.Unlocalized.Section;
 
@@ -60,7 +61,7 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 						FLAKE, ARROW_HEAD),
 				ToolType.class, ToolTypes.getAll());
 		
-		setUnlocalizedPrefix(Unlocalized.PREFIX);
+		setNames(Constants.MOD_ID, Unlocalized.PREFIX);
 	}
 	
 	/**

@@ -24,6 +24,6 @@ public class SiltBlocks extends VariantsOfTypesCombo<EnumSilt>
 	{
 		super(ImmutableList.of(SILT, SILTSTONE), EnumSilt.class, ImmutableList.copyOf(EnumSilt.values()));
 		
-		setUnlocalizedPrefix(Constants.Unlocalized.PREFIX);
+		setNames(Constants.MOD_ID, Constants.Unlocalized.PREFIX);
 	}
 }

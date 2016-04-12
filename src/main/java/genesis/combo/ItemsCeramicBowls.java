@@ -1,5 +1,6 @@
 package genesis.combo;
 
+import genesis.util.Constants;
 import genesis.util.MiscUtils;
 import genesis.util.Constants.Unlocalized;
 
@@ -71,7 +72,7 @@ public class ItemsCeramicBowls extends VariantsOfTypesCombo<MultiMetadata>
 	{
 		super(ALL_OBJECT_TYPES, MultiMetadata.class, ALL_VARIANTS);
 		
-		setUnlocalizedPrefix(Unlocalized.PREFIX);
+		setNames(Constants.MOD_ID, Unlocalized.PREFIX);
 	}
 	
 	// Variants

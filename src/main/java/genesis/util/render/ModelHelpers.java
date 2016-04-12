@@ -1,6 +1,7 @@
 package genesis.util.render;
 
 import genesis.common.Genesis;
+import genesis.util.Constants;
 import genesis.util.Constants.Unlocalized;
 import gnu.trove.map.hash.TIntObjectHashMap;
 
@@ -621,7 +622,7 @@ public class ModelHelpers
 	
 	protected static void addForcedModels()
 	{
-		Genesis.proxy.registerBlock(fakeBlock, "dummy_block", null);
+		Genesis.proxy.registerBlock(fakeBlock, null, new ResourceLocation(Constants.MOD_ID, "dummy_block"));
 		
 		final Map<IBlockState, IBlockState> actualToFakeState = Maps.newHashMap();
 		

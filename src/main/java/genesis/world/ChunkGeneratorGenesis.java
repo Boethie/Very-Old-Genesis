@@ -189,16 +189,16 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 		if (settings.useDungeons)
 		{
 			boolean doGen = TerrainGen.populate(this, world, rand, chunkX, chunkZ, village, DUNGEON);
-			for (int x = 0; doGen && x < settings.dungeonChance; ++x)
+			for (int i = 0; doGen && i < settings.dungeonChance; ++i)
 			{
-				int y = rand.nextInt(16) + 8;
-				int z = rand.nextInt(256);
-				int j2 = rand.nextInt(16) + 8;
-				(new WorldGenDungeons()).generate(world, rand, pos.add(y, z, j2));
+				int x = rand.nextInt(16) + 8;
+				int y = rand.nextInt(256);
+				int z = rand.nextInt(16) + 8;
+				(new WorldGenDungeons()).generate(world, rand, pos.add(x, y, z));
 			}
 		}
 		
-		biome.decorate(world, rand, new BlockPos(blockX, 0, blockZ));
+		biome.decorate(world, rand, pos);
 		
 		if (TerrainGen.populate(this, world, rand, chunkX, chunkZ, village, ANIMALS))
 		{
