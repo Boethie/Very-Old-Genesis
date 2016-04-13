@@ -25,7 +25,7 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 	
 	protected void addDecorations()
 	{
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.cladophlebis).setPatchCount(9), 1);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.cladophlebis).setPatchCount(9), 0.75F);
 		
 		addDecoration(new WorldGenDebris(), 20);
 		addDecoration(new WorldGenDebris(EnumDebrisOther.COELOPHYSIS_FEATHER).setPatchCount(1, 2), 0.1F);
