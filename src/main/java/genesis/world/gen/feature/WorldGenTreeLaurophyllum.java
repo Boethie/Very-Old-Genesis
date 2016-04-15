@@ -36,8 +36,16 @@ public class WorldGenTreeLaurophyllum extends WorldGenTreeBase
 			
 			setBlockInWorld(world, branchPos, wood);
 			
-			for (int i = 0; i < 4; i++)
-				setBlockInWorld(world, branchPos.add(rand.nextInt(3) - 1, 0, rand.nextInt(3) - 1), wood);
+			if (y > 0 && rand.nextInt(6) == 0)
+			{
+				for (int i = 0; i < 4; i++)
+					if (rand.nextInt(3) == 0)
+						setBlockInWorld(world, branchPos.add(rand.nextInt(3) - 1, 0, 0), wood);
+				
+				for (int i = 0; i < 4; i++)
+					if (rand.nextInt(3) == 0)
+						setBlockInWorld(world, branchPos.add(0, 0, rand.nextInt(3) - 1), wood);
+			}
 			
 			super.doBranchLeaves(world, branchPos, rand, true, MathHelper.clamp_int(y + 1, 0, 2), true);
 		}
