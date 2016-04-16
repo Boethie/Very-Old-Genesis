@@ -22,7 +22,9 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 		
 		getDecorator().setGrassCount(36);
 		addGrass(WorldGenPlant.create(EnumPlant.RHACOPHYTON), 15);
-		addGrass(WorldGenPlant.create(EnumPlant.PSILOPHYTON).setPatchCount(6), 1);
+		
+		getDecorator().setFlowerCount(1);
+		addFlower(WorldGenPlant.create(EnumPlant.PSILOPHYTON).setPatchCount(6), 1);
 		
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchCount(4), 2);
 		addDecoration(WorldGenCircleReplacement.getPeatGen(), 1);
