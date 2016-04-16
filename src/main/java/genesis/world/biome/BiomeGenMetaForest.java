@@ -41,7 +41,8 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenRoots(), 15);
 		
 		getDecorator().setGrassCount(5);
-		addGrass(WorldGenPlant.create(EnumPlant.ASTRALOPTERIS).setPatchCount(9), 1);
+		addGrass(WorldGenPlant.create(EnumPlant.ASTRALOPTERIS).setPatchCount(9), 3);
+		addGrass(WorldGenPlant.create(EnumPlant.MATONIDIUM).setPatchCount(9), 1);
 	}
 	
 	protected void addTrees()

@@ -19,8 +19,8 @@ public class WorldGenTreeDryophyllum extends WorldGenTreeBase
 		super(EnumTree.DRYOPHYLLUM, IntRange.create(minHeight, maxHeight), notify);
 		
 		this.saplingCountProvider = new WeightedIntProvider(
-				WeightedIntItem.of(4, 0),
-				WeightedIntItem.of(6, IntRange.create(2, 5)));
+				WeightedIntItem.of(104, 0),
+				WeightedIntItem.of(6, IntRange.create(1, 3)));
 	}
 	
 	@Override

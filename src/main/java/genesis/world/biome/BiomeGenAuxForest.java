@@ -34,7 +34,8 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenRoots(), 15);
 		
 		getDecorator().setGrassCount(7);
-		addGrass(WorldGenPlant.create(EnumPlant.TODITES).setPatchCount(9), 1);
+		addGrass(WorldGenPlant.create(EnumPlant.TODITES).setPatchCount(9), 3);
+		addGrass(WorldGenPlant.create(EnumPlant.PHLEBOPTERIS).setPatchCount(9), 1);
 		
 		getDecorator().setFlowerCount(5);
 		addFlower(WorldGenPlant.create(EnumPlant.SANMIGUELIA).setNextToWater(true).setPatchCount(4), 2);
