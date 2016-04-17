@@ -46,7 +46,7 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 								.setWaterRequired(false)
 								.setRadius(2),
 						0.085F);*/
-		addDecoration(new WorldGenRoots(), 15);
+		addDecoration(new WorldGenRoots(), 13);
 		addDecoration(new WorldGenDecorationOnBlock((s) -> s.getMaterial() == Material.water, GenesisBlocks.cobbania.getDefaultState()), 2.8F);
 	}
 	

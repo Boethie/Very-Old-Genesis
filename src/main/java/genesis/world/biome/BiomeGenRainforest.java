@@ -34,7 +34,7 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.333F);
 		addDecoration(new WorldGenMossStages(), 30);
 		addDecoration(new WorldGenDebris(), 28);
-		addDecoration(new WorldGenRoots(), 15);
+		addDecoration(new WorldGenRoots(), 13);
 	}
 	
 	protected void addTrees()
