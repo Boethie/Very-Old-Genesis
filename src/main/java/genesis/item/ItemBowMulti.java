@@ -162,7 +162,7 @@ public class ItemBowMulti<V extends IBowMetadata<V>> extends ItemBow implements 
 					if (!world.isRemote)
 					{
 						ItemArrow arrowItem = (ItemArrow) (arrowStack.getItem() instanceof ItemArrow ? arrowStack.getItem() : Items.arrow);
-						EntityArrow arrowEntity = arrowItem.makeTippedArrow(world, arrowStack, player);
+						EntityArrow arrowEntity = arrowItem.createArrow(world, arrowStack, player);
 						arrowEntity.func_184547_a(player,
 								player.rotationPitch, player.rotationYaw,
 								0, velocity * 3 * variant.getVelocity(), variant.getSpread());
