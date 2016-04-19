@@ -4,6 +4,7 @@ import java.util.List;
 
 import genesis.combo.*;
 import genesis.combo.variant.IBowMetadata;
+import genesis.common.GenesisCreativeTabs;
 import genesis.util.BitMask;
 
 import net.minecraft.creativetab.CreativeTabs;
@@ -61,6 +62,8 @@ public class ItemBowMulti<V extends IBowMetadata<V>> extends ItemBow implements 
 				(s, w, e) -> e == null ? 0 : (s.getMaxItemUseDuration() - e.getItemInUseCount()) / (float) owner.getVariant(s).getDraw());
 		
 		setHasSubtypes(true);
+		
+		setCreativeTab(GenesisCreativeTabs.COMBAT);
 	}
 	
 	@Override
