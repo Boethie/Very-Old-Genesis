@@ -6,26 +6,26 @@ public enum EnumBowType implements IBowMetadata<EnumBowType>
 	
 	private final String name;
 	private final String unloc;
-	private final int health;
+	private final int durability;
 	private final int draw;
 	private final float velocity;
 	private final float damage;
 	private final float spread;
 	
-	EnumBowType(String name, String unloc, int health, int draw, float velocity, float damage, float spread)
+	EnumBowType(String name, String unloc, int durability, int draw, float velocity, float damage, float spread)
 	{
 		this.name = name;
 		this.unloc = unloc;
-		this.health = health;
+		this.durability = durability;
 		this.draw = draw;
 		this.velocity = velocity;
 		this.damage = damage;
 		this.spread = spread;
 	}
 	
-	EnumBowType(String name, int health, int draw, float velocity, float damage, float spread)
+	EnumBowType(String name, int durability, int draw, float velocity, float damage, float spread)
 	{
-		this(name, name, health, draw, velocity, damage, spread);
+		this(name, name, durability, draw, velocity, damage, spread);
 	}
 	
 	@Override
@@ -43,7 +43,7 @@ public enum EnumBowType implements IBowMetadata<EnumBowType>
 	@Override
 	public int getDurability()
 	{
-		return health;
+		return durability;
 	}
 	
 	@Override
