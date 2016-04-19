@@ -27,26 +27,6 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	FICUS("ficus", tree().noDead().noDebris().fruit(1, 1.2F)),
 	LAUROPHYLLUM("laurophyllum", bush().noDead().noDebris().fruit(1, 0.4F));
 	
-	public static final Set<EnumTree> BUSHES;
-	public static final Set<EnumTree> NO_BILLET;
-	public static final Set<EnumTree> NO_DEAD;
-	public static final Set<EnumTree> FRUIT_LEAVES;
-	public static final Set<EnumTree> FRUIT_HANGING;
-	
-	public static final Set<EnumTree> FRUIT_ITEMS;
-	
-	static
-	{
-		FluentIterable<EnumTree> base = FluentIterable.from(ImmutableSet.copyOf(values()));
-		BUSHES = base.filter((t) -> t.isBush()).toSet();
-		NO_BILLET = base.filter((t) -> !t.hasBillet()).toSet();
-		NO_DEAD = base.filter((t) -> !t.hasDead()).toSet();
-		FRUIT_LEAVES = base.filter((t) -> t.getFruitType() == FruitType.LEAVES).toSet();
-		FRUIT_HANGING = base.filter((t) -> t.getFruitType() == FruitType.HANGING).toSet();
-		
-		FRUIT_ITEMS = base.filter((t) -> t.getFruitType() != FruitType.NONE).toSet();
-	}
-	
 	public static enum FruitType
 	{
 		NONE, LEAVES, HANGING
