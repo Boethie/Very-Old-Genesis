@@ -48,7 +48,7 @@ public class TileEntityStorageBoxRenderer extends TileEntitySpecialRenderer<Tile
 	
 	public TileEntityStorageBoxRenderer(final BlockStorageBox block)
 	{
-		Genesis.proxy.clientPreInitCall((c) -> ModelHelpers.forceModelLoading(block, LID));
+		ModelHelpers.forceModelLoading(block, LID);
 	}
 	
 	@Override
