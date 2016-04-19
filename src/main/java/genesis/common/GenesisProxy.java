@@ -1,7 +1,5 @@
 package genesis.common;
 
-import java.util.*;
-
 import genesis.client.model.ListedItemMeshDefinition;
 import genesis.util.*;
 import net.minecraft.block.*;
@@ -12,23 +10,8 @@ import net.minecraftforge.fml.common.registry.*;
 
 public class GenesisProxy
 {
-	private List<ServerFunction> preInitServerCalls = new ArrayList<>();
-	
-	public void serverPreInitCall(ServerFunction call)
-	{
-		preInitServerCalls.add(call);
-	}
-	
-	public void clientPreInitCall(ClientFunction call)
-	{
-	}
-	
 	public void preInit()
 	{
-		for (ServerFunction call : preInitServerCalls)
-		{
-			call.apply(this);
-		}
 	}
 	
 	public void init()

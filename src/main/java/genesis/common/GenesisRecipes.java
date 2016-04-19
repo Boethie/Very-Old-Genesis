@@ -15,11 +15,11 @@ import genesis.combo.ItemsCeramicBowls.EnumCeramicBowls;
 import genesis.combo.ToolItems.ToolObjectType;
 import genesis.combo.variant.*;
 import genesis.combo.variant.MultiMetadataList.MultiMetadata;
-import genesis.combo.variant.ToolTypes.ToolType;
 import genesis.item.*;
 import genesis.recipes.*;
 import genesis.util.*;
 import genesis.util.render.*;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.*;
 import net.minecraft.item.*;
@@ -440,7 +440,6 @@ public final class GenesisRecipes
 		
 		// Register knapping materials.
 		Multimap<EnumToolMaterial, Pair<ItemStack, Integer>> materials = HashMultimap.create();
-		List<ToolType> validPebbles = GenesisItems.tools.getValidVariants(ToolItems.PEBBLE);
 		
 		for (EnumToolMaterial material : EnumToolMaterial.values())
 		{
@@ -450,7 +449,7 @@ public final class GenesisRecipes
 			ItemStack flake = GenesisItems.tools.getStack(ToolItems.FLAKE, material);
 			
 			// Pebble
-			if (validPebbles.contains(ToolTypes.getToolHead(material, ToolItems.PEBBLE.getSoleQuality())))
+			if (GenesisItems.tools.containsVariant(ToolItems.PEBBLE, material))
 			{
 				stack = GenesisItems.tools.getStack(ToolItems.PEBBLE, material);
 				

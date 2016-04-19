@@ -133,7 +133,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 	
 	public static <V extends IMetadata<V>> void registerPlantsForPot(VariantsCombo<V, ?, ?> combo, IFlowerPotPlant customs)
 	{
-		registerPlantsForPot(combo, combo.soleType, customs);
+		registerPlantsForPot(combo, combo.getObjectType(), customs);
 	}
 	
 	protected PropertyContents contentsProp;

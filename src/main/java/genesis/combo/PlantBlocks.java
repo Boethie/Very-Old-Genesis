@@ -15,19 +15,21 @@ import net.minecraft.item.ItemStack;
 
 public class PlantBlocks extends VariantsOfTypesCombo<EnumPlant>
 {
-	private static final Class<BlockPlant<EnumPlant>> SINGLE = ReflectionUtils.convertClass(BlockPlant.class);
-	private static final Class<BlockGenesisDoublePlant<EnumPlant>> DOUBLE = ReflectionUtils.convertClass(BlockGenesisDoublePlant.class);
-	
 	// Plants
-	public static final ObjectType<BlockPlant<EnumPlant>, ItemBlockMulti<EnumPlant>> PLANT = new ObjectType<>("plant", Unlocalized.Section.PLANT, SINGLE, null);
-	public static final ObjectType<BlockGenesisDoublePlant<EnumPlant>, ItemBlockMulti<EnumPlant>> DOUBLE_PLANT = new ObjectType<>("double_plant", Unlocalized.Section.PLANT_DOUBLE, DOUBLE, null);
+	public static final ObjectType<BlockPlant<EnumPlant>, ItemBlockMulti<EnumPlant>> PLANT;
+	public static final ObjectType<BlockGenesisDoublePlant<EnumPlant>, ItemBlockMulti<EnumPlant>> DOUBLE_PLANT;
 	
 	// Ferns
-	public static final ObjectType<BlockPlant<EnumPlant>, ItemBlockMulti<EnumPlant>> FERN = new ObjectType<>("fern", Unlocalized.Section.FERN, SINGLE, null);
-	public static final ObjectType<BlockGenesisDoublePlant<EnumPlant>, ItemBlockMulti<EnumPlant>> DOUBLE_FERN = new ObjectType<>("double_fern", Unlocalized.Section.FERN_DOUBLE, DOUBLE, null);
+	public static final ObjectType<BlockPlant<EnumPlant>, ItemBlockMulti<EnumPlant>> FERN;
+	public static final ObjectType<BlockGenesisDoublePlant<EnumPlant>, ItemBlockMulti<EnumPlant>> DOUBLE_FERN;
 	
 	static
 	{
+		Class<BlockPlant<EnumPlant>> singleClass = ReflectionUtils.convertClass(BlockPlant.class);
+		Class<BlockGenesisDoublePlant<EnumPlant>> doubleClass = ReflectionUtils.convertClass(BlockGenesisDoublePlant.class);
+		
+		PLANT = new ObjectType<>("plant", Unlocalized.Section.PLANT, singleClass, null);
+		DOUBLE_PLANT = new ObjectType<>("double_plant", Unlocalized.Section.PLANT_DOUBLE, doubleClass, null);
 		PLANT.setBlockArguments(DOUBLE_PLANT, SoundType.PLANT)
 				.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE)
 				.setValidVariants(Sets.intersection(EnumPlant.PLANTS, EnumPlant.SINGLES));
@@ -36,6 +38,8 @@ public class PlantBlocks extends VariantsOfTypesCombo<EnumPlant>
 				.setValidVariants(Sets.intersection(EnumPlant.PLANTS, EnumPlant.DOUBLES))
 				.setVariantNameFunction((v) -> "double_" + v.getName());
 		
+		FERN = new ObjectType<>("fern", Unlocalized.Section.FERN, singleClass, null);
+		DOUBLE_FERN = new ObjectType<>("double_fern", Unlocalized.Section.FERN_DOUBLE, doubleClass, null);
 		FERN.setBlockArguments(DOUBLE_FERN, SoundType.PLANT)
 				.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE)
 				.setValidVariants(Sets.intersection(EnumPlant.FERNS, EnumPlant.SINGLES));

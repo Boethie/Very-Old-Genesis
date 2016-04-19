@@ -3,9 +3,8 @@ package genesis.util;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.commons.lang3.tuple.Pair;
-
 import com.google.common.base.Optional;
+import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
@@ -21,7 +20,7 @@ public abstract class SimpleProperty<T extends Comparable<T>> extends PropertyHe
 		super(name, valueClass);
 		
 		this.values = ImmutableList.copyOf(values);
-		parseMap = FluentIterableUtils.toMap(values, (v) -> Pair.of(getName(v), v));
+		parseMap = FluentIterable.from(values).uniqueIndex((v) -> getName(v));
 	}
 	
 	@Override

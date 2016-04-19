@@ -1,5 +1,5 @@
 package genesis.combo.variant;
 
-public interface IMetadata<V> extends IVariant, Comparable<V>
+public interface IMetadata<T> extends IVariant, Comparable<T>
 {
 }

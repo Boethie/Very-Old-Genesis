@@ -15,8 +15,8 @@ public class BitMask
 		return forValueCount(values, 0);
 	}
 	
-	protected final int shift;
 	protected final int mask;
+	protected final int shift;
 	protected final int bits;
 	
 	/**
@@ -89,6 +89,11 @@ public class BitMask
 	public int decode(int value)
 	{
 		return (value >> shift) & mask;
+	}
+	
+	public BitMask shiftTo(int shift)
+	{
+		return new BitMask(mask, shift - bits);
 	}
 	
 	/*// Unit tests

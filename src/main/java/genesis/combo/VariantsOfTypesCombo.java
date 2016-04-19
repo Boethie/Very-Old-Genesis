@@ -120,7 +120,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	/**
 	 * Map of Block/Item types to a map of variants to the block/item itself.
 	 */
-	protected final ImmutableTable<ObjectType<?, ?>, V, VariantData> variantDataTable;
+	protected final ImmutableTable<ObjectType<?, ?>, V, VariantData> variantDataTable;	// TODO: Revisit access modifiers.
 	protected final ImmutableTable<ObjectType<?, ?>, Integer, SubsetData> subsetDataTable;
 	protected final ImmutableMap<Block, SubsetData> blockMap;
 	protected final ImmutableMap<Item, SubsetData> itemMap;

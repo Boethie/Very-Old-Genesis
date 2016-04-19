@@ -31,7 +31,7 @@ public class WorldGenDebris extends WorldGenDecorationBase
 	
 	public WorldGenDebris(EnumDebrisOther... randomDebris)
 	{
-		this(MiscUtils.fluentIterable(randomDebris).transform((v) -> GenesisBlocks.debris.getBlockState(v)).toArray(IBlockState.class));
+		this(MiscUtils.iterable(randomDebris).transform((v) -> GenesisBlocks.debris.getBlockState(v)).toArray(IBlockState.class));
 	}
 	
 	public WorldGenDebris()

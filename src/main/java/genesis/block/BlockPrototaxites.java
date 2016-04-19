@@ -160,4 +160,10 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 	{
 		return true;
 	}
+	
+	@Override
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, World world, BlockPos pos)
+	{
+		return getBoundingBox(state, world, pos);
+	}
 }

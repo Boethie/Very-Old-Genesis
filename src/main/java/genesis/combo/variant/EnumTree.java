@@ -23,16 +23,16 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	ARAUCARIOXYLON("araucarioxylon", tree().hangingFruit().fruitSize(6, 7)),
 	METASEQUOIA("metasequoia", tree()),
 	ARCHAEANTHUS("archaeanthus", tree().noDead()),
-	DRYOPHYLLUM("dryophyllum", tree()),
+	DRYOPHYLLUM("dryophyllum", tree().bow(1, 1)),
 	FICUS("ficus", tree().noDead().noDebris().fruit(1, 1.2F)),
 	LAUROPHYLLUM("laurophyllum", bush().noDead().noDebris().fruit(1, 0.4F));
 	
 	public static final Set<EnumTree> BUSHES;
 	public static final Set<EnumTree> NO_BILLET;
 	public static final Set<EnumTree> NO_DEAD;
-	public static final Set<EnumTree> NO_DEBRIS;
 	public static final Set<EnumTree> FRUIT_LEAVES;
 	public static final Set<EnumTree> FRUIT_HANGING;
+	
 	public static final Set<EnumTree> FRUIT_ITEMS;
 	
 	static
@@ -41,9 +41,9 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 		BUSHES = base.filter((t) -> t.isBush()).toSet();
 		NO_BILLET = base.filter((t) -> !t.hasBillet()).toSet();
 		NO_DEAD = base.filter((t) -> !t.hasDead()).toSet();
-		NO_DEBRIS = base.filter((t) -> !t.hasDebris()).toSet();
 		FRUIT_LEAVES = base.filter((t) -> t.getFruitType() == FruitType.LEAVES).toSet();
 		FRUIT_HANGING = base.filter((t) -> t.getFruitType() == FruitType.HANGING).toSet();
+		
 		FRUIT_ITEMS = base.filter((t) -> t.getFruitType() != FruitType.NONE).toSet();
 	}
 	
@@ -69,6 +69,12 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	final float fruitWidth;
 	final float fruitHeight;
 	
+	final float bowDurability;
+	final float bowDraw;
+	final float bowVelocity;
+	final float bowDamage;
+	final float bowSpread;
+	
 	EnumTree(String name, String unlocalizedName, Props props)
 	{
 		this.name = name;
@@ -86,6 +92,12 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 		
 		fruitWidth = props.fruitWidth;
 		fruitHeight = props.fruitHeight;
+		
+		bowDurability = props.bowDurability;
+		bowDraw = props.bowDraw;
+		bowVelocity = props.bowVelocity;
+		bowDamage = props.bowDamage;
+		bowSpread = props.bowSpread;
 	}
 	
 	EnumTree(String name, Props props)
@@ -164,6 +176,36 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 		return fruitHeight;
 	}
 	
+	public float getBowDurability()
+	{
+		return bowDurability;
+	}
+	
+	public boolean hasBow()
+	{
+		return getBowDurability() > 0;
+	}
+	
+	public float getBowDraw()
+	{
+		return bowDraw;
+	}
+	
+	public float getBowVelocity()
+	{
+		return bowVelocity;
+	}
+	
+	public float getBowDamage()
+	{
+		return bowDamage;
+	}
+	
+	public float getBowSpread()
+	{
+		return bowSpread;
+	}
+	
 	private static Props tree()
 	{
 		return new Props();
@@ -189,6 +231,12 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 		
 		float fruitWidth = 0.25F;
 		float fruitHeight = 0.5F;
+		
+		float bowDurability;
+		float bowDraw;
+		float bowVelocity;
+		float bowDamage;
+		float bowSpread;
 		
 		private Props()
 		{
@@ -253,6 +301,21 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 		private Props fruit(int food, float saturation, PotionEffect... effects)
 		{
 			return fruit(FruitType.LEAVES, food, saturation, effects);
+		}
+		
+		private Props bow(float durability, float draw, float velocity, float damage, float spread)
+		{
+			this.bowDurability = durability;
+			this.bowDraw = draw;
+			this.bowVelocity = velocity;
+			this.bowDamage = damage;
+			this.bowSpread = spread;
+			return this;
+		}
+		
+		private Props bow(float durability, float draw)
+		{
+			return bow(durability, draw, 1, 1, 1);
 		}
 	}
 }

@@ -158,6 +158,14 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 	}
 	
 	/**
+	 * @return Whether the provided tool type with a sole quality level is allowed to use the specified material.
+	 */
+	public boolean containsVariant(ToolObjectTypeSoleQuality<?, ?> type, EnumToolMaterial material)
+	{
+		return containsVariant(type, ToolTypes.getToolHead(material, type.getSoleQuality()));
+	}
+	
+	/**
 	 * An {@link ObjectType} with only two tool quality levels.
 	 */
 	public static class ToolObjectType<B extends Block, I extends Item> extends ObjectType<B, I>

@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.EnumPlantType;
 
-public interface IPlantMetadata<V> extends IMetadata<V>
+public interface IPlantMetadata<T extends IPlantMetadata<T>> extends IMetadata<T>
 {
 	int getColorMultiplier(IBlockAccess world, BlockPos pos);
 	

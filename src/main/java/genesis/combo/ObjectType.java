@@ -136,12 +136,12 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 		return this;
 	}
 	
-	public Class<? extends B> getBlockClass()
+	public Class<B> getBlockClass()
 	{
 		return blockClass;
 	}
 	
-	public Class<? extends I> getItemClass()
+	public Class<I> getItemClass()
 	{
 		return itemClass;
 	}
@@ -348,7 +348,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	 */
 	public static <B extends Block, V extends IMetadata<V>> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, String unlocalizedName, Class<B> blockClass, Collection<? extends IMetadata<V>> variantExclusions)
 	{
-		return create(name, unlocalizedName, blockClass, ReflectionUtils.<ItemBlockMulti<V>>convertClass(ItemBlockMulti.class), variantExclusions);
+		return create(name, unlocalizedName, blockClass, ReflectionUtils.convertClass(ItemBlockMulti.class), variantExclusions);
 	}
 	
 	/**
@@ -381,7 +381,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	 */
 	public static <B extends Block, V extends IMetadata<V>> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, Class<B> blockClass, Collection<? extends IMetadata<V>> variantExclusions)
 	{
-		return create(name, blockClass, ReflectionUtils.<ItemBlockMulti<V>>convertClass(ItemBlockMulti.class), variantExclusions);
+		return create(name, blockClass, ReflectionUtils.convertClass(ItemBlockMulti.class), variantExclusions);
 	}
 	
 	/**
@@ -415,7 +415,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	@SafeVarargs
 	public static <B extends Block, V extends IMetadata<V>> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, String unlocalizedName, Class<B> blockClass, V... variantExclusions)
 	{
-		return create(name, unlocalizedName, blockClass, ReflectionUtils.<ItemBlockMulti<V>>convertClass(ItemBlockMulti.class), variantExclusions);
+		return create(name, unlocalizedName, blockClass, ReflectionUtils.convertClass(ItemBlockMulti.class), variantExclusions);
 	}
 	
 	/**
@@ -450,7 +450,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	@SafeVarargs
 	public static <B extends Block, V extends IMetadata<V>> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, Class<B> blockClass, V... variantExclusions)
 	{
-		return create(name, blockClass, ReflectionUtils.<ItemBlockMulti<V>>convertClass(ItemBlockMulti.class), variantExclusions);
+		return create(name, blockClass, ReflectionUtils.convertClass(ItemBlockMulti.class), variantExclusions);
 	}
 	
 	/**
@@ -476,7 +476,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	 */
 	public static <B extends Block, I extends Item> ObjectType<B, I> create(String name, String unlocalizedName, Class<B> blockClass, Class<I> itemClass)
 	{
-		return new ObjectType<B, I>(name, unlocalizedName, blockClass, itemClass, Collections.<IMetadata<?>>emptySet());
+		return new ObjectType<B, I>(name, unlocalizedName, blockClass, itemClass, Collections.emptySet());
 	}
 	
 	/**
@@ -484,7 +484,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	 */
 	public static <B extends Block, V extends IMetadata<V>> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, String unlocalizedName, Class<B> blockClass)
 	{
-		return create(name, unlocalizedName, blockClass, ReflectionUtils.<ItemBlockMulti<V>>convertClass(ItemBlockMulti.class), Collections.<IMetadata<?>>emptySet());
+		return create(name, unlocalizedName, blockClass, ReflectionUtils.convertClass(ItemBlockMulti.class), Collections.emptySet());
 	}
 	
 	/**
@@ -492,7 +492,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	 */
 	public static <I extends Item> ObjectType<Block, I> createItem(String name, String unlocalizedName, Class<I> itemClass)
 	{
-		return new ObjectType<Block, I>(name, unlocalizedName, null, itemClass, Collections.<IMetadata<?>>emptySet());
+		return new ObjectType<Block, I>(name, unlocalizedName, null, itemClass, Collections.emptySet());
 	}
 	
 	/**
@@ -500,7 +500,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	 */
 	public static <V extends IMetadata<V>> ObjectType<Block, ItemMulti<V>> createItem(String name, String unlocalizedName)
 	{
-		return create(name, unlocalizedName, null, null, Collections.<IMetadata<?>>emptySet());
+		return create(name, unlocalizedName, null, null, Collections.emptySet());
 	}
 	
 	
@@ -509,7 +509,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	 */
 	public static <B extends Block, I extends Item> ObjectType<B, I> create(String name, Class<B> blockClass, Class<I> itemClass)
 	{
-		return new ObjectType<B, I>(name, name, blockClass, itemClass, Collections.<IMetadata<?>>emptySet());
+		return new ObjectType<B, I>(name, name, blockClass, itemClass, Collections.emptySet());
 	}
 	
 	/**
@@ -517,7 +517,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	 */
 	public static <B extends Block, V extends IMetadata<V>> ObjectType<B, ItemBlockMulti<V>> createBlock(String name, Class<B> blockClass)
 	{
-		return create(name, blockClass, ReflectionUtils.<ItemBlockMulti<V>>convertClass(ItemBlockMulti.class), Collections.<IMetadata<?>>emptySet());
+		return create(name, blockClass, ReflectionUtils.convertClass(ItemBlockMulti.class), Collections.emptySet());
 	}
 	
 	/**
@@ -525,7 +525,7 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	 */
 	public static <I extends Item> ObjectType<Block, I> createItem(String name, Class<I> itemClass)
 	{
-		return new ObjectType<Block, I>(name, name, null, itemClass, Collections.<IMetadata<?>>emptySet());
+		return new ObjectType<Block, I>(name, name, null, itemClass, Collections.emptySet());
 	}
 	
 	/**
@@ -533,6 +533,6 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 	 */
 	public static <V extends IMetadata<V>> ObjectType<Block, ItemMulti<V>> createItem(String name)
 	{
-		return create(name, null, null, Collections.<IMetadata<?>>emptySet());
+		return create(name, null, null, Collections.emptySet());
 	}
 }

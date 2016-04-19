@@ -7,7 +7,6 @@ import com.google.common.collect.ImmutableMap;
 import genesis.util.ItemStackKey;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 
 public class MappedItemMeshDefinition implements ListedItemMeshDefinition
 {
@@ -25,13 +24,13 @@ public class MappedItemMeshDefinition implements ListedItemMeshDefinition
 	}
 	
 	@Override
-	public Collection<ResourceLocation> getVariants()
+	public Collection<ModelResourceLocation> getVariants()
 	{
-		Set<ResourceLocation> variants = new HashSet<>();
+		Set<ModelResourceLocation> variants = new HashSet<>();
 		
 		for (ModelResourceLocation location : map.values())
 		{
-			variants.add(new ResourceLocation(location.getResourceDomain(), location.getResourcePath()));
+			variants.add(new ModelResourceLocation(location.getResourceDomain() + ":" + location.getResourcePath(), "inventory"));
 		}
 		
 		return variants;

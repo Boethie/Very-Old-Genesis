@@ -27,8 +27,6 @@ import net.minecraftforge.fml.client.*;
 public class GenesisClient extends GenesisProxy
 {
 	private static final Minecraft MC = FMLClientHandler.instance().getClient();
-	
-	private List<ClientFunction> preInitClientCalls = new ArrayList<>();
 
 	private List<Pair<IBlockColor, Block[]>> blockColorsList = new ArrayList<>();
 	private List<Pair<IItemColor, Item[]>> itemColorsList = new ArrayList<>();
@@ -39,19 +37,8 @@ public class GenesisClient extends GenesisProxy
 	}
 	
 	@Override
-	public void clientPreInitCall(ClientFunction function)
-	{
-		preInitClientCalls.add(function);
-	}
-	
-	@Override
 	public void preInit()
 	{
-		for (ClientFunction call : preInitClientCalls)
-		{
-			call.apply(this);
-		}
-
 		GenesisBlocks.preInitClient();
 		GenesisItems.preInitClient();
 		

@@ -1,6 +1,5 @@
 package genesis.combo;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.*;
 
 import java.util.*;
@@ -24,14 +23,7 @@ public class DebrisBlocks extends VariantsCombo<MultiMetadata, BlockGenesisDebri
 	static
 	{
 		ArrayList<IMetadata<?>> list = new ArrayList<IMetadata<?>>();
-		Iterables.addAll(list, Iterables.filter(Arrays.asList(EnumTree.values()), new Predicate<EnumTree>()
-		{
-			@Override
-			public boolean apply(EnumTree input)
-			{
-				return !EnumTree.NO_DEBRIS.contains(input);
-			}
-		}));
+		Iterables.addAll(list, Iterables.filter(Arrays.asList(EnumTree.values()), (v) -> v.hasDebris()));
 		Collections.addAll(list, EnumDebrisOther.values());
 		VARIANTS = new MultiMetadataList(list);
 	}
@@ -42,7 +34,7 @@ public class DebrisBlocks extends VariantsCombo<MultiMetadata, BlockGenesisDebri
 		
 		setNames(Constants.MOD_ID, Unlocalized.PREFIX);
 		
-		soleType.setTypeNamePosition(TypeNamePosition.POSTFIX);
+		getObjectType().setTypeNamePosition(TypeNamePosition.POSTFIX);
 	}
 	
 	// Trees
@@ -53,7 +45,7 @@ public class DebrisBlocks extends VariantsCombo<MultiMetadata, BlockGenesisDebri
 	
 	public ItemStack getStack(EnumTree variant, int stackSize)
 	{
-		return getStack(soleType, getVariant(variant), stackSize);
+		return super.getStack(getVariant(variant), stackSize);
 	}
 	
 	public ItemStack getStack(EnumTree variant)
@@ -63,32 +55,32 @@ public class DebrisBlocks extends VariantsCombo<MultiMetadata, BlockGenesisDebri
 	
 	public int getItemMetadata(EnumTree variant)
 	{
-		return getItemMetadata(soleType, getVariant(variant));
+		return super.getItemMetadata(getVariant(variant));
 	}
 	
 	public IBlockState getBlockState(EnumTree variant)
 	{
-		return super.getBlockState(soleType, getVariant(variant));
+		return super.getBlockState(getVariant(variant));
 	}
 	
 	public BlockGenesisDebris getBlock(EnumTree variant)
 	{
-		return super.getBlock(soleType, getVariant(variant));
+		return super.getBlock(getVariant(variant));
 	}
 	
 	public ItemBlockMulti<MultiMetadata> getItem(EnumTree variant)
 	{
-		return super.getItem(soleType, getVariant(variant));
+		return super.getItem(getVariant(variant));
 	}
 	
 	public boolean isStackOf(ItemStack stack, EnumTree variant)
 	{
-		return super.isStackOf(stack, getVariant(variant), soleType);
+		return super.isStackOf(stack, getVariant(variant));
 	}
 	
 	public boolean isStateOf(IBlockState state, EnumTree variant)
 	{
-		return super.isStateOf(state, getVariant(variant), soleType);
+		return super.isStateOf(state, getVariant(variant));
 	}
 	
 	// Other
@@ -99,7 +91,7 @@ public class DebrisBlocks extends VariantsCombo<MultiMetadata, BlockGenesisDebri
 	
 	public ItemStack getStack(EnumDebrisOther variant, int stackSize)
 	{
-		return getStack(soleType, getVariant(variant), stackSize);
+		return super.getStack(getVariant(variant), stackSize);
 	}
 	
 	public ItemStack getStack(EnumDebrisOther variant)
@@ -109,31 +101,31 @@ public class DebrisBlocks extends VariantsCombo<MultiMetadata, BlockGenesisDebri
 	
 	public int getItemMetadata(EnumDebrisOther variant)
 	{
-		return getItemMetadata(soleType, getVariant(variant));
+		return super.getItemMetadata(getVariant(variant));
 	}
 	
 	public IBlockState getBlockState(EnumDebrisOther variant)
 	{
-		return super.getBlockState(soleType, getVariant(variant));
+		return super.getBlockState(getVariant(variant));
 	}
 	
 	public BlockGenesisDebris getBlock(EnumDebrisOther variant)
 	{
-		return super.getBlock(soleType, getVariant(variant));
+		return super.getBlock(getVariant(variant));
 	}
 	
 	public ItemBlockMulti<MultiMetadata> getItem(EnumDebrisOther variant)
 	{
-		return super.getItem(soleType, getVariant(variant));
+		return super.getItem(getVariant(variant));
 	}
 	
 	public boolean isStackOf(ItemStack stack, EnumDebrisOther variant)
 	{
-		return super.isStackOf(stack, getVariant(variant), soleType);
+		return super.isStackOf(stack, getVariant(variant));
 	}
 	
 	public boolean isStateOf(IBlockState state, EnumDebrisOther variant)
 	{
-		return super.isStateOf(state, getVariant(variant), soleType);
+		return super.isStateOf(state, getVariant(variant));
 	}
 }

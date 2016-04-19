@@ -44,6 +44,7 @@ public final class Constants
 			public static final String TOOL_QUALITY = TOOL + "quality.";
 			public static final String WEAPON = "weapon.";
 			public static final String TOOL_HEAD = MATERIAL + "toolHead.";
+			public static final String BOW = "bow.";
 			
 			public static final String EGG = MATERIAL + "egg.";
 			
