@@ -95,8 +95,8 @@ public class BlockWattleFence extends BlockGenesisFence
 		
 		if (canConnectTo(world, pos, side))
 		{
-			boolean up = above && owner.getBlocks(type).contains(world.getBlockState(sidePos.up()).getBlock());//canConnectTo(world, sidePos, EnumFacing.UP);
-			boolean down = below && owner.getBlocks(type).contains(world.getBlockState(sidePos.down()).getBlock());//canConnectTo(world, sidePos, EnumFacing.DOWN);
+			boolean up = above && owner.containsBlockState(type, world.getBlockState(sidePos.up()));//canConnectTo(world, sidePos, EnumFacing.UP);
+			boolean down = below && owner.containsBlockState(type, world.getBlockState(sidePos.down()));//canConnectTo(world, sidePos, EnumFacing.DOWN);
 			
 			if (up && down)
 			{
