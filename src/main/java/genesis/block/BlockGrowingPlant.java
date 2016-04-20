@@ -46,17 +46,21 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 		protected BlockPos top = null;
 		protected BlockPos bottom = null;
 		
-		public GrowingPlantProperties(IBlockAccess world, BlockPos startPos)
-		{
-			this.world = world;
-			this.startPos = startPos;
-		}
-		
 		public GrowingPlantProperties(IBlockAccess world, BlockPos startPos, BlockGrowingPlant plant)
 		{
 			this.world = world;
 			this.startPos = startPos;
 			this.plant = plant;
+		}
+		
+		public GrowingPlantProperties(IBlockAccess world, BlockPos startPos, IBlockState startState)
+		{
+			this(world, startPos, (BlockGrowingPlant) startState.getBlock());
+		}
+		
+		public GrowingPlantProperties(IBlockAccess world, BlockPos startPos)
+		{
+			this(world, startPos, world.getBlockState(startPos));
 		}
 		
 		public BlockGrowingPlant getPlant()
@@ -122,7 +126,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 			
 			return toBottom;
 		}
-
+		
 		/**
 		 * @return Height of the plant.
 		 */
@@ -135,7 +139,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 			
 			return height;
 		}
-
+		
 		/**
 		 * @return The BlockPos at the bottom of the plant.
 		 */
@@ -148,7 +152,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 			
 			return bottom;
 		}
-
+		
 		/**
 		 * @return The BlockPos at the top of the plant.
 		 */
@@ -161,7 +165,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 			
 			return top;
 		}
-
+		
 		/**
 		 * @param pos Position to check.
 		 * @return Whether the position is at the top of the plant.
@@ -170,7 +174,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 		{
 			return pos.equals(getTop());
 		}
-
+		
 		/**
 		 * @param pos Position to check.
 		 * @return Whether the position is at the bottom of the plant.
@@ -197,7 +201,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 		 * @param grew Whether the plant grew in this random block update.
 		 */
 		void plantUpdateTick(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, Random rand, boolean grew);
-
+		
 		enum CanStayOptions {
 			YES,
 			YIELD,
@@ -209,7 +213,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 		 * @return Whether the BlockGrowingPlant can grow at the specified BlockPos.
 		 */
 		CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World world, BlockPos pos, boolean placed);
-
+		
 		/**
 		 * For use in adding/removing IPropertys in a list of IPropertys that should be stored in metadata.
 		 * @param plant This BlockGrowingPlant.
@@ -492,21 +496,24 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
-		GrowingPlantProperties props = new GrowingPlantProperties(world, pos);
+		GrowingPlantProperties props = new GrowingPlantProperties(world, pos, state);
 		float w2 = width / 2;
 		
 		AxisAlignedBB newBB = new AxisAlignedBB(0.5 - w2, 0, 0.5 - w2, 0.5 + w2, 0, 0.5 + w2);
 		
 		if (props.isTop(pos))
 		{
-			int stage = world.getBlockState(pos).getValue(ageProp);
+			newBB = newBB.addCoord(0, baseHeight, 0);
 			
-			if (props.getToBottom() > 1)
+			if (heightPerStage > 0)
 			{
-				stage -= growthAge;
+				int stage = state.getValue(ageProp);
+				
+				if (props.getToBottom() > 1)
+					stage -= growthAge;
+				
+				newBB.addCoord(0, (stage + 1) * heightPerStage, 0);
 			}
-			
-			newBB = newBB.addCoord(0, baseHeight + ((stage + 1) * heightPerStage), 0);
 		}
 		else
 		{
@@ -1082,7 +1089,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 				boolean isBase = props.isBottom(breakPos);
 				dropBlockAsItemWithChance(world, breakPos, oldState, (isBase ? -1 : -2), 0);
 			}
-
+			
 			world.setBlockState(breakPos, Blocks.air.getDefaultState(), 2);
 		}
 		
