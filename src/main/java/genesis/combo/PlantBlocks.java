@@ -28,8 +28,8 @@ public class PlantBlocks extends VariantsOfTypesCombo<EnumPlant>
 		Class<BlockPlant<EnumPlant>> singleClass = ReflectionUtils.convertClass(BlockPlant.class);
 		Class<BlockGenesisDoublePlant<EnumPlant>> doubleClass = ReflectionUtils.convertClass(BlockGenesisDoublePlant.class);
 		
-		PLANT = new ObjectType<>("plant", Unlocalized.Section.PLANT, singleClass, null);
-		DOUBLE_PLANT = new ObjectType<>("double_plant", Unlocalized.Section.PLANT_DOUBLE, doubleClass, null);
+		PLANT = ObjectType.createBlock("plant", Unlocalized.Section.PLANT, singleClass);
+		DOUBLE_PLANT = ObjectType.createBlock("double_plant", Unlocalized.Section.PLANT_DOUBLE, doubleClass);
 		PLANT.setBlockArguments(DOUBLE_PLANT, SoundType.PLANT)
 				.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE)
 				.setValidVariants(Sets.intersection(EnumPlant.PLANTS, EnumPlant.SINGLES));
@@ -38,8 +38,8 @@ public class PlantBlocks extends VariantsOfTypesCombo<EnumPlant>
 				.setValidVariants(Sets.intersection(EnumPlant.PLANTS, EnumPlant.DOUBLES))
 				.setVariantNameFunction((v) -> "double_" + v.getName());
 		
-		FERN = new ObjectType<>("fern", Unlocalized.Section.FERN, singleClass, null);
-		DOUBLE_FERN = new ObjectType<>("double_fern", Unlocalized.Section.FERN_DOUBLE, doubleClass, null);
+		FERN = ObjectType.createBlock("fern", Unlocalized.Section.FERN, singleClass);
+		DOUBLE_FERN = ObjectType.createBlock("double_fern", Unlocalized.Section.FERN_DOUBLE, doubleClass);
 		FERN.setBlockArguments(DOUBLE_FERN, SoundType.PLANT)
 				.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE)
 				.setValidVariants(Sets.intersection(EnumPlant.FERNS, EnumPlant.SINGLES));
