@@ -39,9 +39,9 @@ public abstract class EntityFixed extends Entity
 	}
 	
 	@Override
-	public void setPositionAndUpdate(double x, double y, double z)
+	public void setLocationAndAngles(double x, double y, double z, float yaw, float pitch)
 	{
-		super.setPositionAndUpdate(x, y, z);
+		super.setLocationAndAngles(x, y, z, yaw, pitch);
 		// Set the fixedTo position, as this is what gets called to set the position on spawn.
 		setFixedTo(new BlockPos(posX, posY, posZ));
 	}
@@ -159,7 +159,7 @@ public abstract class EntityFixed extends Entity
 		posX = compound.getDouble("x");
 		posY = compound.getDouble("y");
 		posZ = compound.getDouble("z");
-		setPositionAndUpdate(posX, posY, posZ);
+		setFixedTo(new BlockPos(posX, posY, posZ));
 		
 		if (compound.hasKey("blockX") && compound.hasKey("blockY") && compound.hasKey("blockZ"))
 		{

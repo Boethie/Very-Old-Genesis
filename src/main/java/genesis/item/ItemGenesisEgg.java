@@ -67,11 +67,12 @@ public class ItemGenesisEgg<T extends EntityFixed> extends ItemGenesis
 						throw new RuntimeException("Could not construct egg entity from class " + entityClass + " to spawn.", e);
 					}
 					
-					entity.setPositionAndUpdate(pos.getX() + hitX, pos.getY() + hitY, pos.getZ() + hitZ);
+					entity.setLocationAndAngles(pos.getX() + hitX, pos.getY() + hitY, pos.getZ() + hitZ, 0, 0);
 					entity.setFixedTo(pos);
 					setData(entity, stack, player, world, pos, side, hitX, hitY, hitZ);
 					
 					world.spawnEntityInWorld(entity);
+					
 					stack.stackSize--;
 				}
 				
