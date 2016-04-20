@@ -2,7 +2,7 @@ package genesis.combo.variant;
 
 public enum EnumBowType implements IBowMetadata<EnumBowType>
 {
-	SELF("self", 20, 20, 1.25F, 1.2F, 1F), COMPOSITE("composite", 30, 12, 0.75F, 1F, 2F);
+	SELF("self", 334, 20, 1.25F, 1.2F, 1), COMPOSITE("composite", 400, 12, 0.75F, 1, 2);
 	
 	private final String name;
 	private final String unloc;

@@ -1,0 +1,6 @@
+{
+	"parent": "item/bow",
+	"textures": {
+		"layer0": "genesis:items/metasequoia_self_bow_pulling_1"
+	}
+}

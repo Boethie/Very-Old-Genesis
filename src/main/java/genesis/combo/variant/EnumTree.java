@@ -21,11 +21,31 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	BJUVIA("bjuvia", tree().noBillet().noDead().noDebris()),
 	VOLTZIA("voltzia", tree().noDead().noDebris()),
 	ARAUCARIOXYLON("araucarioxylon", tree().hangingFruit().fruitSize(6, 7)),
-	METASEQUOIA("metasequoia", tree()),
-	ARCHAEANTHUS("archaeanthus", tree().noDead()),
-	DRYOPHYLLUM("dryophyllum", tree().bow(1, 1)),
+	METASEQUOIA("metasequoia", tree().bow(0.6F, 1)),
+	ARCHAEANTHUS("archaeanthus", tree().noDead().bow(0.8F, 1.3F)),
+	DRYOPHYLLUM("dryophyllum", tree().bow(1.2F, 1.8F)),
 	FICUS("ficus", tree().noDead().noDebris().fruit(1, 1.2F)),
-	LAUROPHYLLUM("laurophyllum", bush().noDead().noDebris().fruit(1, 0.4F));
+	LAUROPHYLLUM("laurophyllum", bush().noDead().noDebris().fruit(1, 0.4F).bow(0.7F, 1.1F));
+	
+	public static final Set<EnumTree> BUSHES;
+	public static final Set<EnumTree> NO_BILLET;
+	public static final Set<EnumTree> NO_DEAD;
+	public static final Set<EnumTree> FRUIT_LEAVES;
+	public static final Set<EnumTree> FRUIT_HANGING;
+	
+	public static final Set<EnumTree> FRUIT_ITEMS;
+	
+	static
+	{
+		FluentIterable<EnumTree> base = FluentIterable.from(ImmutableSet.copyOf(values()));
+		BUSHES = base.filter((t) -> t.isBush()).toSet();
+		NO_BILLET = base.filter((t) -> !t.hasBillet()).toSet();
+		NO_DEAD = base.filter((t) -> !t.hasDead()).toSet();
+		FRUIT_LEAVES = base.filter((t) -> t.getFruitType() == FruitType.LEAVES).toSet();
+		FRUIT_HANGING = base.filter((t) -> t.getFruitType() == FruitType.HANGING).toSet();
+		
+		FRUIT_ITEMS = base.filter((t) -> t.getFruitType() != FruitType.NONE).toSet();
+	}
 	
 	public static enum FruitType
 	{

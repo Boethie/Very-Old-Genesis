@@ -1,0 +1,6 @@
+{
+	"parent": "item/bow",
+	"textures": {
+		"layer0": "genesis:items/laurophyllum_composite_bow_pulling_0"
+	}
+}

@@ -434,6 +434,16 @@ item.genesis.material.flake.blackFlint.name=Black Flint Flake
 
 item.genesis.tool.flintAndMarcasite.name=Flint and Marcasite
 
+item.genesis.bow.bow.self.metasequoia.name=Metasequoia Self Bow
+item.genesis.bow.bow.self.archaeanthus.name=Archaeanthus Self Bow
+item.genesis.bow.bow.self.dryophyllum.name=Dryophyllum Self Bow
+item.genesis.bow.bow.self.laurophyllum.name=Laurophyllum Self Bow
+
+item.genesis.bow.bow.composite.metasequoia.name=Metasequoia Composite Bow
+item.genesis.bow.bow.composite.archaeanthus.name=Archaeanthus Composite Bow
+item.genesis.bow.bow.composite.dryophyllum.name=Dryophyllum Composite Bow
+item.genesis.bow.bow.composite.laurophyllum.name=Laurophyllum Composite Bow
+
 #Clothing
 item.genesis.clothing.chitin.helmet.name=Chitin Helmet
 item.genesis.clothing.chitin.chestplate.name=Chitin Chestplate

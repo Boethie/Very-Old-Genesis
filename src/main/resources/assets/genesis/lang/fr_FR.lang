@@ -433,6 +433,16 @@ item.genesis.material.flake.blackFlint.name=Éclat de silex noir
 
 item.genesis.tool.flintAndMarcasite.name=Silex et marcassite
 
+item.genesis.bow.bow.self.metasequoia.name=Arc simple en Metasequoia
+item.genesis.bow.bow.self.archaeanthus.name=Arc simple en Archaeanthus
+item.genesis.bow.bow.self.dryophyllum.name=Arc simple en Dryophyllum
+item.genesis.bow.bow.self.laurophyllum.name=Arc simple en Laurophyllum
+
+item.genesis.bow.bow.composite.metasequoia.name=Arc composite en Metasequoia
+item.genesis.bow.bow.composite.archaeanthus.name=Arc composite en Archaeanthus
+item.genesis.bow.bow.composite.dryophyllum.name=Arc composite en Dryophyllum
+item.genesis.bow.bow.composite.laurophyllum.name=Arc composite en Laurophyllum
+
 #Clothing
 item.genesis.clothing.chitin.helmet.name=Casque en chitine
 item.genesis.clothing.chitin.chestplate.name=Plastron en chitine
