@@ -1,11 +1,10 @@
 package genesis.world.gen.feature;
 
-import genesis.common.GenesisBlocks;
-
 import java.util.Random;
 
+import genesis.common.GenesisBlocks;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -25,7 +24,16 @@ public class WorldGenGenesisSand extends WorldGenerator
 	@Override
 	public boolean generate(World world, Random rand, BlockPos position)
 	{
-		if (world.getBlockState(position).getMaterial() != Material.water)
+		IBlockState state;
+		
+		position = new BlockPos(position.getX(), 100, position.getZ());
+		
+		do {
+			position = position.down();
+			state = world.getBlockState(position);
+		} while (state == Blocks.air.getDefaultState() || state == Blocks.water.getDefaultState());
+		
+		if (world.getBlockState(position.up()) != Blocks.water.getDefaultState())
 		{
 			return false;
 		}

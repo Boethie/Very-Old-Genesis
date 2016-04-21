@@ -171,11 +171,11 @@ public class GenesisSoundEvents
 		block_ooze_hit = registerSound("block.ooze.hit");
 		block_ooze_fall = registerSound("block.ooze.fall");
 		
-		block_dead_log_break = registerSound("block.dead_log.break");
-		block_dead_log_step = registerSound("block.dead_log.step");
-		block_dead_log_place = registerSound("block.dead_log.place");
-		block_dead_log_hit = registerSound("block.dead_log.hit");
-		block_dead_log_fall = registerSound("block.dead_log.fall");
+		block_dead_log_break = registerSound("block.dead.break_log");
+		block_dead_log_step = registerSound("block.dead.step_log");
+		block_dead_log_place = registerSound("block.dead.place_log");
+		block_dead_log_hit = registerSound("block.dead.hit_log");
+		block_dead_log_fall = registerSound("block.dead.fall_log");
 		
 		block_mushroom_break = registerSound("block.mushroom.break");
 		block_mushroom_step = registerSound("block.mushroom.step");
