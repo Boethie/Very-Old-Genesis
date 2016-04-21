@@ -1,6 +1,6 @@
 {
 	"parent": "item/bow",
 	"textures": {
-		"layer0": "genesis:items/archaeanthus_self_bow_pulling_1"
+		"layer0": "genesis:items/archaeanthus_composite_bow_pulling_1"
 	}
 }
