@@ -72,7 +72,10 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 			new ToolObjectTypeSoleQuality<>("flake", Section.MATERIAL + "flake", null, null, EnumToolQuality.NONE);
 	public static final ToolObjectType<Block, ItemToolHead> ARROW_HEAD =
 			new ToolObjectType<>("head_arrow", Section.TOOL_HEAD + "arrow", null, ItemToolHead.class, WEAPON_QUALITIES);
-
+	
+	private static final ImmutableList<ObjectType<?, ?>> MATERIALS =
+			ImmutableList.of(
+					PEBBLE);
 	private static final ImmutableList<ObjectType<?, ?>> TOOLS =
 			ImmutableList.of(
 					PEBBLE, CHOPPING_TOOL,
@@ -92,6 +95,9 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 		PEBBLE.setUseSeparateVariantJsons(false);
 		CHOPPING_TOOL.setUseVariantAsRegistryName(true);
 		
+		for (ObjectType<?, ?> type: MATERIALS)
+			type.setCreativeTab(GenesisCreativeTabs.MATERIALS);
+		
 		for (ObjectType<?, ?> type : TOOLS)
 			type.setCreativeTab(GenesisCreativeTabs.TOOLS);
 		
@@ -101,7 +107,7 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 	
 	public ToolItems()
 	{
-		super(new ImmutableList.Builder<ObjectType<?, ?>>().addAll(TOOLS).addAll(WEAPONS).build(),
+		super(new ImmutableList.Builder<ObjectType<?, ?>>().addAll(MATERIALS).addAll(TOOLS).addAll(WEAPONS).build(),
 				ToolType.class, ToolTypes.getAll());
 		
 		setNames(Constants.MOD_ID, Unlocalized.PREFIX);
