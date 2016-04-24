@@ -26,11 +26,12 @@ public class GenesisAchievements
 	public static Achievement gettingChoppingTool;
 	public static Achievement gettingLog;
 	public static Achievement workbench;
-	public static Achievement campfire;
 	public static Achievement knappingHoe;
-	public static Achievement polishingHoe;
+	public static Achievement knappingSpear;
+	//public static Achievement selfBow;
 	public static Achievement knappingPickaxe;
 	public static Achievement polishingPickaxe;
+	public static Achievement flintAndMarcasite;
 	public static Achievement octaedrite;
 	public static Achievement blackDiamond;
 	
@@ -46,15 +47,17 @@ public class GenesisAchievements
 		
 		workbench = createAchievement("workbench", 8, -1, new ItemStack(GenesisBlocks.workbench), gettingLog, false);
 		
-		campfire = createAchievement("campfire", 10, -1, new ItemStack(GenesisBlocks.campfire), workbench, false);
-		
 		knappingHoe = createAchievement("chippedHoe", 6, -3, GenesisItems.tools.getStack(ToolItems.HOE, EnumToolMaterial.GRANITE, EnumToolQuality.CHIPPED), workbench, false);
 		
-		polishingHoe = createAchievement("polishedHoe", 6, -5, GenesisItems.tools.getStack(ToolItems.HOE, EnumToolMaterial.GRANITE, EnumToolQuality.POLISHED), knappingHoe, false);
+		knappingSpear = createAchievement("chippedSpear", 10, -1, GenesisItems.tools.getStack(ToolItems.SPEAR, EnumToolMaterial.GRANITE, EnumToolQuality.CHIPPED), workbench, false);
+		
+		//selfBow = createAchievement("selfBow", 10, -1, GenesisItems.bows.getStack, knappingSpear, false);
 		
 		knappingPickaxe = createAchievement("chippedPickaxe", 8, 2, GenesisItems.tools.getStack(ToolItems.PICKAXE, EnumToolMaterial.GRANITE, EnumToolQuality.CHIPPED), workbench, false);
 		
 		polishingPickaxe = createAchievement("polishedPickaxe", 10, 2, GenesisItems.tools.getStack(ToolItems.PICKAXE, EnumToolMaterial.GRANITE, EnumToolQuality.POLISHED), knappingPickaxe, false);
+		
+		flintAndMarcasite = createAchievement("flintAndMarcasite", 6, 2, new ItemStack (GenesisItems.flint_and_marcasite), knappingPickaxe, false);
 		
 		octaedrite = createAchievement("octaedrite", 8, 4, new ItemStack(GenesisBlocks.octaedrite), knappingPickaxe, false);
 		
@@ -102,9 +105,6 @@ public class GenesisAchievements
 			if (isBlock(stack, GenesisBlocks.workbench))
 				player.addStat(workbench, 1);
 			
-			if (isBlock(stack, GenesisBlocks.campfire))
-				player.addStat(campfire, 1);
-			
 			if (GenesisItems.tools.isStackOf(stack, ToolItems.HOE))
 			{
 				switch (GenesisItems.tools.getVariant(stack).quality)
@@ -112,8 +112,17 @@ public class GenesisAchievements
 				case CHIPPED:
 					player.addStat(knappingHoe, 1);
 					break;
-				case POLISHED:
-					player.addStat(polishingHoe, 1);
+				default:
+					break;
+				}
+			}
+			
+			if (GenesisItems.tools.isStackOf(stack, ToolItems.SPEAR))
+			{
+				switch (GenesisItems.tools.getVariant(stack).quality)
+				{
+				case CHIPPED:
+					player.addStat(knappingSpear, 1);
 					break;
 				default:
 					break;
