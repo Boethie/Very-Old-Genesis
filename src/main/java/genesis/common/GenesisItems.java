@@ -79,7 +79,7 @@ public final class GenesisItems
 							.setCreativeTab(GenesisCreativeTabs.MISC)
 							.setResourceName(""),
 					EnumMenhirActivator.class, EnumMenhirActivator.values())
-			.setNames(Constants.MOD_ID, Unlocalized.PREFIX);
+			.setNames(Constants.MOD_ID, "");
 	
 	public static final BowItems bows = new BowItems();
 	
