@@ -567,24 +567,24 @@ achievement.genesis.enter=Back to the Past
 achievement.genesis.enter.desc=Take the portal to reach Genesis.
 achievement.genesis.choppingTool=Make the First Tool
 achievement.genesis.choppingTool.desc=Hit the pebble against a hard rock.
-achievement.genesis.log=Woodsman
-achievement.genesis.log.desc=Obtain a log without bleeding from your knuckles.
+achievement.genesis.gettingLog=Woodsman
+achievement.genesis.gettingLog.desc=Obtain a log without bleeding from your knuckles.
 achievement.genesis.workbench=
 achievement.genesis.workbench.desc=Craft a workbench with a log and a pebble.
 achievement.genesis.knappingHoe=Ready to Sow!
 achievement.genesis.knappingHoe.desc=
-achievement.genesis.chippedSpear=
-achievement.genesis.chippedSpear.desc=
-achievement.genesis.chippedPickaxe=
-achievement.genesis.chippedPickaxe.desc=
+achievement.genesis.knappingSpear=
+achievement.genesis.knappingSpear.desc=
+achievement.genesis.shootingBow=
+achievement.genesis.shootingBow.desc=Kill a Meganeura in flight with an arrow.
+achievement.genesis.knappingPickaxe=
+achievement.genesis.knappingPickaxe.desc=
 achievement.genesis.polishingPickaxe=
 achievement.genesis.polishingPickaxe.desc=
-achievement.genesis.flintAndMarcasite=Fireproof
+achievement.genesis.flintAndMarcasite=
 achievement.genesis.flintAndMarcasite.desc=Kindle the campfire.
-achievement.genesis.octaedrite=
-achievement.genesis.octaedrite.desc=
-achievement.genesis.blackDiamond=Cosmic Power!
-achievement.genesis.blackDiamond.desc=
+achievement.genesis.miningBlackDiamond=
+achievement.genesis.miningBlackDiamond.desc=Mine a black diamond ore.
 
 #------------- Subtitles -------------
 #Items

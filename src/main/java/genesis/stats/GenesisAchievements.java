@@ -28,12 +28,11 @@ public class GenesisAchievements
 	public static Achievement workbench;
 	public static Achievement knappingHoe;
 	public static Achievement knappingSpear;
-	//public static Achievement selfBow;
+	public static Achievement shootingBow;
 	public static Achievement knappingPickaxe;
 	public static Achievement polishingPickaxe;
 	public static Achievement flintAndMarcasite;
-	public static Achievement octaedrite;
-	public static Achievement blackDiamond;
+	public static Achievement miningBlackDiamond;
 	
 	public static void initAchievements()
 	{
@@ -51,7 +50,7 @@ public class GenesisAchievements
 		
 		knappingSpear = createAchievement("chippedSpear", 10, -1, GenesisItems.tools.getStack(ToolItems.SPEAR, EnumToolMaterial.GRANITE, EnumToolQuality.CHIPPED), workbench, false);
 		
-		//selfBow = createAchievement("selfBow", 10, -1, GenesisItems.bows.getStack, knappingSpear, false);
+		shootingBow = createAchievement("bow", 12, -1, GenesisItems.bows.getStack(EnumBowType.SELF, EnumTree.DRYOPHYLLUM), knappingSpear, true);
 		
 		knappingPickaxe = createAchievement("chippedPickaxe", 8, 2, GenesisItems.tools.getStack(ToolItems.PICKAXE, EnumToolMaterial.GRANITE, EnumToolQuality.CHIPPED), workbench, false);
 		
@@ -59,9 +58,7 @@ public class GenesisAchievements
 		
 		flintAndMarcasite = createAchievement("flintAndMarcasite", 6, 2, new ItemStack (GenesisItems.flint_and_marcasite), knappingPickaxe, false);
 		
-		octaedrite = createAchievement("octaedrite", 8, 4, new ItemStack(GenesisBlocks.octaedrite), knappingPickaxe, false);
-		
-		blackDiamond = createAchievement("blackDiamond", 6, 4, GenesisBlocks.ores.getStack(OreBlocks.DROP, EnumOre.BLACK_DIAMOND), octaedrite, false);
+		miningBlackDiamond = createAchievement("blackDiamondOre", 8, 4, GenesisBlocks.ores.getOreStack(EnumOre.BLACK_DIAMOND), knappingPickaxe, false);
 		
 		registerAchievements();
 		
@@ -129,6 +126,9 @@ public class GenesisAchievements
 				}
 			}
 			
+			if (GenesisItems.bows.isStackOf(stack))
+				player.addStat(shootingBow, 1);
+			
 			if (GenesisItems.tools.isStackOf(stack, ToolItems.PICKAXE))
 			{
 				switch (GenesisItems.tools.getVariant(stack).quality)
@@ -143,9 +143,6 @@ public class GenesisAchievements
 					break;
 				}
 			}
-			
-			if (isBlock(stack, GenesisBlocks.octaedrite))
-				player.addStat(octaedrite, 1);
 		}
 		
 		@SubscribeEvent
