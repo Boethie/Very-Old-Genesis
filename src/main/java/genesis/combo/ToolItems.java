@@ -78,7 +78,7 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 					PEBBLE);
 	private static final ImmutableList<ObjectType<?, ?>> TOOLS =
 			ImmutableList.of(
-					PEBBLE, CHOPPING_TOOL,
+					CHOPPING_TOOL,
 					SHOVEL_HEAD, SHOVEL,
 					PICKAXE_HEAD, PICKAXE,
 					AXE_HEAD, AXE,
