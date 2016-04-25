@@ -26,7 +26,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 		return new VariantsCombo<V, B, I>(objectType, variantClass, variants);
 	}
 	
-	public final ObjectType<B, I> type;
+	private final ObjectType<B, I> type;
 	
 	/**
 	 * Constructs a BlocksAndItemsWithVariantsOfTypes with one ObjectType for simple one-type combos.

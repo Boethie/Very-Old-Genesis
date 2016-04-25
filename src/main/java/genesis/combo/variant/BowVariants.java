@@ -19,6 +19,16 @@ public class BowVariants
 			this.variant = variant;
 		}
 		
+		public EnumBowType getBowType()
+		{
+			return type;
+		}
+		
+		public EnumTree getVariant()
+		{
+			return variant;
+		}
+		
 		@Override
 		public String getName()
 		{
