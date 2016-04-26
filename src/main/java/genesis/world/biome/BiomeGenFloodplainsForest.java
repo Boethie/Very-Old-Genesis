@@ -17,8 +17,8 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 	{
 		super(properties);
 		
-		theBiomeDecorator.clayPerChunk = 4;
-		theBiomeDecorator.sandPerChunk2 = 2;
+		theBiomeDecorator.clayPerChunk = 1;
+		theBiomeDecorator.sandPerChunk2 = 3;
 		
 		getDecorator().setGrassCount(36);
 		addGrass(WorldGenPlant.create(EnumPlant.RHACOPHYTON), 15);
