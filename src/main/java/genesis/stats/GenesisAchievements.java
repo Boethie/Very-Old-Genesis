@@ -31,8 +31,8 @@ public class GenesisAchievements
 	public static Achievement shootingBow;
 	public static Achievement knappingPickaxe;
 	public static Achievement polishingPickaxe;
-	public static Achievement flintAndMarcasite;
-	public static Achievement miningBlackDiamond;
+	public static Achievement firelighting;
+	public static Achievement miningOre;
 	
 	public static void initAchievements()
 	{
@@ -56,9 +56,9 @@ public class GenesisAchievements
 		
 		polishingPickaxe = createAchievement("polishedPickaxe", 10, 2, GenesisItems.tools.getStack(ToolItems.PICKAXE, EnumToolMaterial.GRANITE, EnumToolQuality.POLISHED), knappingPickaxe, false);
 		
-		flintAndMarcasite = createAchievement("flintAndMarcasite", 6, 2, new ItemStack (GenesisItems.flint_and_marcasite), knappingPickaxe, false);
+		firelighting = createAchievement("fire", 6, 2, new ItemStack (GenesisItems.flint_and_marcasite), knappingPickaxe, false);
 		
-		miningBlackDiamond = createAchievement("blackDiamondOre", 8, 4, GenesisBlocks.ores.getOreStack(EnumOre.BLACK_DIAMOND), knappingPickaxe, false);
+		miningOre = createAchievement("ore", 8, 4, GenesisBlocks.ores.getOreStack(EnumOre.BLACK_DIAMOND), knappingPickaxe, false);
 		
 		registerAchievements();
 		

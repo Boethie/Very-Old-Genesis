@@ -575,16 +575,16 @@ achievement.genesis.knappingHoe=Ready to Sow!
 achievement.genesis.knappingHoe.desc=
 achievement.genesis.knappingSpear=
 achievement.genesis.knappingSpear.desc=
-achievement.genesis.shootingBow=
+achievement.genesis.shootingBow=Cold Blood
 achievement.genesis.shootingBow.desc=Kill a Meganeura in flight with an arrow.
 achievement.genesis.knappingPickaxe=
 achievement.genesis.knappingPickaxe.desc=
-achievement.genesis.polishingPickaxe=
-achievement.genesis.polishingPickaxe.desc=
-achievement.genesis.flintAndMarcasite=
-achievement.genesis.flintAndMarcasite.desc=Kindle the campfire.
-achievement.genesis.miningBlackDiamond=
-achievement.genesis.miningBlackDiamond.desc=Mine a black diamond ore.
+achievement.genesis.polishingPickaxe=Pickaxe Upgrade
+achievement.genesis.polishingPickaxe.desc=Polish your pickaxe with a polissoir.
+achievement.genesis.firelighting=Mastery of Fire
+achievement.genesis.firelighting.desc=Kindle the campfire.
+achievement.genesis.miningOre=Treasure from Space
+achievement.genesis.miningOre.desc=Mine a black diamond ore.
 
 #------------- Subtitles -------------
 #Items

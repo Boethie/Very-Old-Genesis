@@ -574,16 +574,16 @@ achievement.genesis.knappingHoe=Prêt à semer!
 achievement.genesis.knappingHoe.desc=
 achievement.genesis.knappingSpear=
 achievement.genesis.knappingSpear.desc=
-achievement.genesis.shootingBow=
+achievement.genesis.shootingBow=Sang-froid
 achievement.genesis.shootingBow.desc=Tuez un Meganeura en vol avec une flèche.
 achievement.genesis.knappingPickaxe=
 achievement.genesis.knappingPickaxe.desc=
-achievement.genesis.polishingPickaxe=
-achievement.genesis.polishingPickaxe.desc=
-achievement.genesis.flintAndMarcasite=
-achievement.genesis.flintAndMarcasite.desc=Allumez le feu de camp.
-achievement.genesis.miningBlackDiamond=
-achievement.genesis.miningBlackDiamond.desc=Minez un minerai de diamant noir.
+achievement.genesis.polishingPickaxe=Pioche améliorée
+achievement.genesis.polishingPickaxe.desc=Polissez votre pioche avec un polissoir.
+achievement.genesis.firelighting=Maîtrise du feu
+achievement.genesis.firelighting.desc=Allumez le feu de camp.
+achievement.genesis.miningOre=Trésor de l'espace
+achievement.genesis.miningOre.desc=Minez un minerai de diamant noir.
 
 #------------- Subtitles -------------
 #Items
