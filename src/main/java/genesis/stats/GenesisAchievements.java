@@ -32,7 +32,7 @@ public class GenesisAchievements
 	public static Achievement knappingPickaxe;
 	public static Achievement polishingPickaxe;
 	public static Achievement firelighting;
-	public static Achievement miningOre;
+	public static Achievement gettingBlackDiamond;
 	
 	public static void initAchievements()
 	{
@@ -58,7 +58,7 @@ public class GenesisAchievements
 		
 		firelighting = createAchievement("fire", 6, 2, new ItemStack (GenesisItems.flint_and_marcasite), knappingPickaxe, false);
 		
-		miningOre = createAchievement("ore", 8, 4, GenesisBlocks.ores.getOreStack(EnumOre.BLACK_DIAMOND), knappingPickaxe, false);
+		gettingBlackDiamond = createAchievement("blackDiamond", 8, 4, GenesisBlocks.ores.getOreStack(EnumOre.BLACK_DIAMOND), knappingPickaxe, false);
 		
 		registerAchievements();
 		
