@@ -27,18 +27,18 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 	
 	protected void addDecorations()
 	{
-		getDecorator().setGrassCount(12);
+		getDecorator().setGrassCount(7);
 		addGrass(WorldGenPlant.create(EnumPlant.ONOCLEA).setPatchCount(9), 1);
 		
-		getDecorator().setFlowerCount(1);
-		addFlower(WorldGenPlant.create(EnumPlant.PALAEOASTER).setRarity(5).setPatchCount(37), 1);	// TODO: Patch count 48?!?!
+		getDecorator().setFlowerCount(0.15F);
+		addFlower(WorldGenPlant.create(EnumPlant.PALAEOASTER).setPatchCount(6), 1);
 		
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setRarity(6).setPatchCount(3), 1);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setPatchCount(3), 0.15F);
 		addDecoration(WorldGenCircleReplacement.getPeatGen(), 1);
 		addDecoration(new WorldGenDebris(), 20);
 		addDecoration(new WorldGenDebris(EnumDebrisOther.TYRANNOSAURUS_FEATHER).setPatchCount(1, 2), 0.1F);
 		addDecoration(new WorldGenRockBoulders().setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 2);
-		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.5F);
+		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.333F);
 		/*addDecoration(
 				new WorldGenRockBoulders(
 						GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.CARNIVORE))
@@ -52,9 +52,9 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 	
 	protected void addTrees()
 	{
-		getDecorator().setTreeCount(8.8F);
+		getDecorator().setTreeCount(8.1F);
 		
-		addTree(new WorldGenTreeLaurophyllum(3, 4, false), 2000);
+		addTree(new WorldGenTreeLaurophyllum(3, 4, false), 1500);
 		addTree(new WorldGenTreeFicus(4, 8, false), 125);
 		addTree(new WorldGenTreeGinkgo(8, 13, false), 166);
 		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 45);
@@ -62,8 +62,8 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		addTree(new WorldGenTreeDryophyllum(13, 17, false).setType(TreeTypes.TYPE_2), 100);
 		addTree(new WorldGenTreeMetasequoia(12, 24, true), 1000);
 		
-		addTree(new WorldGenDeadLog(3, 6, EnumTree.DRYOPHYLLUM, true), 2000);
-		addTree(new WorldGenDeadLog(3, 6, EnumTree.METASEQUOIA, true), 250);
+		addTree(new WorldGenDeadLog(3, 6, EnumTree.DRYOPHYLLUM, true), 1200);
+		addTree(new WorldGenDeadLog(3, 6, EnumTree.METASEQUOIA, true), 200);
 	}
 	
 	@Override
