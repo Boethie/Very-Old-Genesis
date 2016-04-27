@@ -1,6 +1,6 @@
 package genesis.util;
 
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 
 public class BoundingBoxHelpers
 {

@@ -5,36 +5,35 @@ import java.util.*;
 import com.google.common.collect.ImmutableSet;
 
 import io.netty.buffer.ByteBuf;
+
 import genesis.common.Genesis;
-import genesis.entity.extendedproperties.GenesisEntityData;
-import genesis.entity.extendedproperties.IntegerEntityProperty;
+import genesis.sounds.GenesisSoundEvents;
 import genesis.block.tileentity.crafting.*;
 import genesis.block.tileentity.crafting.KnappingRecipeRegistry.*;
 import genesis.block.tileentity.gui.ContainerKnapper;
-import genesis.util.Constants;
-import genesis.util.Stringify;
-import genesis.util.WorldUtils;
+import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
+
+import gnu.trove.map.hash.TObjectIntHashMap;
+
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.*;
 import net.minecraft.tileentity.*;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.IChatComponent;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.WorldServer;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+
+import net.minecraftforge.fml.common.network.simpleimpl.*;
 
 public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapping, ITickable
 {
 	public class KnappingState
 	{
-		private final Set<EntityPlayer> knappingPlayers = new HashSet<EntityPlayer>();
+		private final Set<EntityPlayer> knappingPlayers = new HashSet<>();
 		private int progress;
 		
 		public KnappingState()
@@ -112,7 +111,7 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 				return true;
 			}
 			
-			setProgress(getProgress() + 1);
+			setProgress(getProgress() + getKnappingPlayers().size());
 			return isKnapped();
 		}
 		
@@ -151,13 +150,14 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 	public static final int SLOT_OUTPUT_WASTE = 14;
 	public static final int SLOT_COUNT = SLOTS_CRAFTING_COUNT + 6;
 	
-	public static final IntegerEntityProperty KNAPPING_TIME = new IntegerEntityProperty("knappingTime", 0, false);
+	public static final int SOUND_TIME = 5;
 	
 	protected ItemStack[] inventory = new ItemStack[SLOT_COUNT];
 	
 	protected KnappingState[] knappingStates = new KnappingState[SLOTS_CRAFTING_COUNT];
-	protected EntityPlayer knappingPlayer = null;
 	protected boolean knappingLocked = false;
+	
+	protected TObjectIntHashMap<EntityPlayer> soundTimers = new TObjectIntHashMap<>();
 	
 	public String customName;
 	
@@ -178,6 +178,20 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		return (BlockKnapper) blockType;
 	}
 	
+	protected boolean incrementTimer(EntityPlayer player)
+	{
+		int value = soundTimers.get(player) - 1;
+		
+		if (value <= 0)
+		{
+			soundTimers.put(player, SOUND_TIME);
+			return true;
+		}
+		
+		soundTimers.put(player, value);
+		return false;
+	}
+	
 	@Override
 	public void update()
 	{
@@ -188,16 +202,9 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 			if (state.isKnapping())
 			{
 				for (EntityPlayer player : state.getKnappingPlayers())
-				{
-					int time = GenesisEntityData.getValue(player, KNAPPING_TIME);
-					
-					if (time % 5 == 0)
-					{
-						player.playSound(Constants.ASSETS_PREFIX + "crafting.knapping_hit", 2, 0.9F + worldObj.rand.nextFloat() * 0.2F);
-					}
-					
-					GenesisEntityData.setValue(player, KNAPPING_TIME, time + 1);
-				}
+					if (incrementTimer(player))
+						player.playSound(GenesisSoundEvents.player_knapping_hit,
+								2, 0.9F + worldObj.rand.nextFloat() * 0.2F);
 				
 				if (state.iterateProgress())
 				{	// Has been knapped.
@@ -236,7 +243,9 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 						if (usingTool != null && usingTool.attemptDamageItem(1, worldObj.rand))
 						{
 							setKnappingToolDamaged(null);
-							worldObj.playSoundEffect(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, Constants.ASSETS_PREFIX + "crafting.knapping_tool_break", 2, 0.8F + worldObj.rand.nextFloat() * 0.4F);
+							/*worldObj.playSoundEffect(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5,
+									Constants.ASSETS_PREFIX + "crafting.knapping_tool_break",
+									2, 0.8F + worldObj.rand.nextFloat() * 0.4F);*/
 						}
 						
 						// Add waste items to the output waste slot.
@@ -552,19 +561,15 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		}
 	}
 	
-	public int stopKnapping(EntityPlayer player)
+	public Collection<KnappingState> stopKnapping(EntityPlayer player)
 	{
-		int out = 0;
+		List<KnappingState> states = new ArrayList<>();
 		
 		for (KnappingState state : knappingStates)
-		{
 			if (state.removeKnappingPlayer(player))
-			{
-				out++;
-			}
-		}
+				states.add(state);
 		
-		return out;
+		return states;
 	}
 	
 	public boolean switchBreakingSlot(EntityPlayer player, int index)
@@ -627,30 +632,26 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		KnappingState state = index == -1 ? null : getKnappingSlotState(index);
 		boolean wasKnapping = state != null && state.isPlayerKnapping(player);
 		
-		int amtStopped = stopKnapping(player);
+		int stopped = stopKnapping(player).size();
 		
 		// Check if the player is changing knapping slots so we can sync this to the server.
-		if (amtStopped >= 2)
-		{
-			changed = true;
-		}
-		else if (amtStopped == 1)
-		{
-			changed = !wasKnapping;
-		}
-		else
+		if (stopped == 0)
 		{
 			changed = state != null;
 		}
-		
-		if (state != null)
-		{
-			state.addKnappingPlayer(player);
-		}
 		else
 		{
-			GenesisEntityData.setValue(player, KNAPPING_TIME, 0);
+			if (stopped >= 2)
+				changed = true;
+			else if (stopped == 1)
+				changed = !wasKnapping;
+			
+			if (state == null)
+				soundTimers.put(player, 0);
 		}
+		
+		if (state != null)
+			state.addKnappingPlayer(player);
 		
 		if (changed && worldObj.isRemote)
 		{
@@ -781,7 +782,7 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		}
 		
 		@Override
-		public IChatComponent getDisplayName()
+		public ITextComponent getDisplayName()
 		{
 			return TileEntityKnapper.this.getDisplayName();
 		}
@@ -906,7 +907,7 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		}
 		
 		@Override
-		public IChatComponent getDisplayName()
+		public ITextComponent getDisplayName()
 		{
 			return TileEntityKnapper.this.getDisplayName();
 		}

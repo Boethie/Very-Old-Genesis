@@ -44,7 +44,7 @@ public class ReflectionUtils
 			}
 		}
 		
-		throw new RuntimeException(new NoSuchMethodException(clazz.getName() + " has no constructor with parameters " + invokeArgs + "."));
+		throw new RuntimeException(new NoSuchMethodException(clazz.getName() + " has no constructor with parameters " + Stringify.stringifyArray(invokeArgs) + "."));
 	}
 	
 	public static <T> T construct(Class<T> clazz, Object[] args)
@@ -65,7 +65,7 @@ public class ReflectionUtils
 		return (Class<T>) clazz;
 	}
 	
-	public static <T> T safeCast(Class<T> clazz, Object value)
+	public static <T> T nullSafeCast(Class<T> clazz, Object value)
 	{
 		return clazz == null ? null : clazz.cast(value);
 	}

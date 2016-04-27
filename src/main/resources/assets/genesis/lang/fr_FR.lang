@@ -13,7 +13,7 @@ tile.genesis.container.rottenStorageBox.name=Caisse de stockage pourrie
 tile.genesis.menhir.glyph.none.name=Base du menhir
 tile.genesis.menhir.glyph.vegetal.name=Base du menhir avec pétroglyphe végétal
 tile.genesis.menhir.glyph.animal.name=Base du menhir avec pétroglyphe animal
-tile.genesis.menhir.glyph.hominid.name=Base du menhir avec pétroglyphe hominidé
+tile.genesis.menhir.glyph.ether.name=Base du menhir avec pétroglyphe d'éther
 tile.genesis.menhir.glyph.cosmos.name=Base du menhir avec pétroglyphe cosmos
 tile.genesis.menhir.receptacle.name=Réceptacle du menhir
 tile.genesis.menhir.top.name=Sommet du menhir
@@ -433,6 +433,16 @@ item.genesis.material.flake.blackFlint.name=Éclat de silex noir
 
 item.genesis.tool.flintAndMarcasite.name=Silex et marcassite
 
+item.genesis.bow.bow.self.metasequoia.name=Arc simple en Metasequoia
+item.genesis.bow.bow.self.archaeanthus.name=Arc simple en Archaeanthus
+item.genesis.bow.bow.self.dryophyllum.name=Arc simple en Dryophyllum
+item.genesis.bow.bow.self.laurophyllum.name=Arc simple en Laurophyllum
+
+item.genesis.bow.bow.composite.metasequoia.name=Arc composite en Metasequoia
+item.genesis.bow.bow.composite.archaeanthus.name=Arc composite en Archaeanthus
+item.genesis.bow.bow.composite.dryophyllum.name=Arc composite en Dryophyllum
+item.genesis.bow.bow.composite.laurophyllum.name=Arc composite en Laurophyllum
+
 #Clothing
 item.genesis.clothing.chitin.helmet.name=Casque en chitine
 item.genesis.clothing.chitin.chestplate.name=Plastron en chitine
@@ -514,6 +524,7 @@ item.genesis.material.cladophlebisFrond.name=Fronde de Cladophlebis
 item.genesis.material.programinis.name=Programinis
 item.genesis.material.vegetalAsh.name=Cendre végétale
 item.genesis.material.salt.name=Sel
+item.genesis.material.astralJelly.name=Gelée astral
 item.genesis.material.dung.herbivore.name=Crotte d'herbivore
 item.genesis.material.dung.carnivore.name=Crotte de carnivore
 item.genesis.material.dungBrick.name=Brique de crotte
@@ -559,17 +570,25 @@ achievement.genesis.log=Homme des bois
 achievement.genesis.log.desc=Obtenez du bois sans saignement aux doigts.
 achievement.genesis.workbench=
 achievement.genesis.workbench.desc=Fabriquez un établi avec du bois et un galet.
-achievement.genesis.campfire=Épreuve du feu
-achievement.genesis.campfire.desc=Fabriquez un feu de camp avec des billettes de bois et des galets.
-achievement.genesis.knappingHoe=Prêt à semer!
-achievement.genesis.knappingHoe.desc=
-achievement.genesis.polishingHoe=
-achievement.genesis.polishingHoe.desc=
-achievement.genesis.knappingPickaxe=
-achievement.genesis.knappingPickaxe.desc=
-achievement.genesis.polishingPickaxe=
-achievement.genesis.polishingPickaxe.desc=
-achievement.genesis.octaedrite=
-achievement.genesis.octaedrite.desc=
-achievement.genesis.blackDiamond=Pouvoir cosmique!
-achievement.genesis.blackDiamond.desc=
+achievement.genesis.chippedHoe=Prêt à semer!
+achievement.genesis.chippedHoe.desc=
+achievement.genesis.chippedSpear=
+achievement.genesis.chippedSpear.desc=
+achievement.genesis.bow=Sang-froid
+achievement.genesis.bow.desc=Tuez un Meganeura en vol avec une flèche.
+achievement.genesis.chippedPickaxe=
+achievement.genesis.chippedPickaxe.desc=
+achievement.genesis.polishedPickaxe=Pioche améliorée
+achievement.genesis.polishedPickaxe.desc=Polissez votre pioche avec un polissoir.
+achievement.genesis.fire=Maîtrise du feu
+achievement.genesis.fire.desc=Allumez le feu de camp.
+achievement.genesis.blackDiamond=Trésor de l'espace
+achievement.genesis.blackDiamond.desc=Minez un minerai de diamant noir.
+
+#------------- Subtitles -------------
+#Items
+subtitles.genesis.item.flintAndMarcasite.use=Flint and marcasite click
+subtitles.genesis.item.pebble.hit=Pebble whacked on stone
+
+#Player
+subtitles.genesis.player.knapping.hit=Pebble knapped

@@ -4,27 +4,22 @@ import java.util.*;
 
 import org.lwjgl.opengl.GL11;
 
-import genesis.block.tileentity.BlockCampfire;
-import genesis.block.tileentity.TileEntityCampfire;
-import genesis.client.GenesisClient;
-import genesis.common.Genesis;
+import genesis.block.tileentity.*;
 import genesis.util.*;
-import genesis.util.render.BlockAsEntityPart;
-import genesis.util.render.ItemAsEntityPart;
-import genesis.util.render.ModelHelpers;
+import genesis.util.render.*;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.*;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.resources.model.*;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 
 public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEntityCampfire>
@@ -86,66 +81,59 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 	{
 		INSTANCE = this;
 		
-		Genesis.proxy.registerPreInitCall(new SidedFunction()
+		// Get defined variants of the fire model.
+		Set<String> old = ModelHelpers.getBlockstatesVariants(FIRE).keySet();
+		fireModels = new HashSet<String>();
+		String key = "fire";
+		
+		for (String str : old)
 		{
-			@Override
-			public void client(GenesisClient client)
+			if (!str.startsWith(key + "="))
 			{
-				// Get defined variants of the fire model.
-				Set<String> old = ModelHelpers.getBlockstatesVariants(FIRE).keySet();
-				fireModels = new HashSet<String>();
-				String key = "fire";
-				
-				for (String str : old)
-				{
-					if (!str.startsWith(key + "="))
-					{
-						throw new RuntimeException("Invalid property name in " + FUEL.toString() + " blockstates json. The property name must be \"fire\".");
-					}
-					
-					fireModels.add(str.substring(key.length() + 1));
-				}
-				fireModels.add("covered");	// Force loading of actual fire models so that attempting to render it doesn't crash the game.
-				fireModels.add("uncovered");
-				ModelHelpers.forceModelLoading(key, fireModels, FIRE);
-				
-				// Force loading of fuel models.
-				old = ModelHelpers.getBlockstatesVariants(FUEL).keySet();
-				fuelModels = new HashSet<String>();
-				key = "item";
-				
-				for (String str : old)
-				{
-					if (!str.startsWith(key + "="))
-					{
-						throw new RuntimeException("Invalid property name in " + FUEL.toString() + " blockstates json.");
-					}
-					
-					fuelModels.add(str.substring(key.length() + 1));
-				}
-				
-				ModelHelpers.forceModelLoading(key, fuelModels, FUEL);
-				
-				// Force loading of cooking item models.
-				old = ModelHelpers.getBlockstatesVariants(COOKING_ITEM).keySet();
-				cookingItemModels = new HashSet<String>();
-				
-				for (String str : old)
-				{
-					if (!str.startsWith(key + "="))
-					{
-						throw new RuntimeException("Invalid property name in " + FUEL.toString() + " blockstates json.");
-					}
-					
-					cookingItemModels.add(str.substring(key.length() + 1));
-				}
-				
-				ModelHelpers.forceModelLoading(key, cookingItemModels, COOKING_ITEM);
-				
-				ModelHelpers.forceModelLoading(block, STICK);
-				ModelHelpers.forceModelLoading(block, COOKING_POT);
+				throw new RuntimeException("Invalid property name in " + FUEL.toString() + " blockstates json. The property name must be \"fire\".");
 			}
-		});
+			
+			fireModels.add(str.substring(key.length() + 1));
+		}
+		fireModels.add("covered");	// Force loading of actual fire models so that attempting to render it doesn't crash the game.
+		fireModels.add("uncovered");
+		ModelHelpers.forceModelLoading(key, fireModels, FIRE);
+		
+		// Force loading of fuel models.
+		old = ModelHelpers.getBlockstatesVariants(FUEL).keySet();
+		fuelModels = new HashSet<String>();
+		key = "item";
+		
+		for (String str : old)
+		{
+			if (!str.startsWith(key + "="))
+			{
+				throw new RuntimeException("Invalid property name in " + FUEL.toString() + " blockstates json.");
+			}
+			
+			fuelModels.add(str.substring(key.length() + 1));
+		}
+		
+		ModelHelpers.forceModelLoading(key, fuelModels, FUEL);
+		
+		// Force loading of cooking item models.
+		old = ModelHelpers.getBlockstatesVariants(COOKING_ITEM).keySet();
+		cookingItemModels = new HashSet<String>();
+		
+		for (String str : old)
+		{
+			if (!str.startsWith(key + "="))
+			{
+				throw new RuntimeException("Invalid property name in " + FUEL.toString() + " blockstates json.");
+			}
+			
+			cookingItemModels.add(str.substring(key.length() + 1));
+		}
+		
+		ModelHelpers.forceModelLoading(key, cookingItemModels, COOKING_ITEM);
+		
+		ModelHelpers.forceModelLoading(block, STICK);
+		ModelHelpers.forceModelLoading(block, COOKING_POT);
 	}
 	
 	public String getVariantNameForCookingItem(ItemStack input)
@@ -295,7 +283,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 		if (destroyStage >= 0)
 		{
 			Tessellator tess = Tessellator.getInstance();
-			WorldRenderer wr = tess.getWorldRenderer();
+			VertexBuffer buff = tess.getBuffer();
 			
 			RenderHelper.disableStandardItemLighting();
 			Minecraft.getMinecraft().entityRenderer.disableLightmap();
@@ -303,13 +291,13 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 			TextureAtlasSprite breakTexture = ModelHelpers.getDestroyBlockIcon(destroyStage);
 			
 			
-			wr.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
-			wr.noColor();
-			wr.setTranslation(-pos.getX(), -pos.getY(), -pos.getZ());
-			ModelHelpers.getBlockRenderer().renderModelStandard(world,
-					ModelHelpers.getCubeProjectedBakedModel(ModelHelpers.getBakedBlockModel(state, world, pos), breakTexture),
-					state.getBlock(), pos, wr, true);
-			wr.setTranslation(0, 0, 0);
+			buff.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
+			buff.noColor();
+			buff.setTranslation(-pos.getX(), -pos.getY(), -pos.getZ());
+			ModelHelpers.getBlockRenderer().renderModelFlat(world,
+					ModelHelpers.getCubeProjectedBakedModel(state, ModelHelpers.getBakedBlockModel(state, world, pos), breakTexture, pos),
+					state, pos, buff, true, MathHelper.getPositionRandom(pos));
+			buff.setTranslation(0, 0, 0);
 			GlStateManager.color(1, 1, 1, 0.0F);
 			tess.draw();
 			

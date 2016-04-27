@@ -7,8 +7,8 @@ import com.google.common.collect.ImmutableList;
 
 import genesis.common.GenesisBlocks;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.init.MobEffects;
+import net.minecraft.potion.*;
 
 public enum EnumSeeds implements IMetadata<EnumSeeds>, IFood
 {
@@ -21,9 +21,9 @@ public enum EnumSeeds implements IMetadata<EnumSeeds>, IFood
 			() -> GenesisBlocks.zingiberopsis.getDefaultState()),
 	PROTOTAXITES_FLESH("prototaxites_flesh", "prototaxitesFlesh", 1, 0.8F,
 			() -> GenesisBlocks.prototaxites.getDefaultState(),
-			new PotionEffect(Potion.hunger.id, 300),
-			new PotionEffect(Potion.confusion.id, 300),
-			new PotionEffect(Potion.poison.id, 300));
+			new PotionEffect(MobEffects.hunger, 300),
+			new PotionEffect(MobEffects.confusion, 300),
+			new PotionEffect(MobEffects.poison, 300));
 	
 	final String name;
 	final String unlocalizedName;

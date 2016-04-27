@@ -2,7 +2,7 @@ package genesis.combo.variant;
 
 import java.util.*;
 
-import genesis.util.random.IntRange;
+import genesis.util.random.i.IntRange;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 

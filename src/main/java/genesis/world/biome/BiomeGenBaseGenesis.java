@@ -2,51 +2,35 @@ package genesis.world.biome;
 
 import java.util.*;
 
-import com.google.common.collect.FluentIterable;
-import com.google.common.collect.Lists;
-
 import genesis.block.BlockMoss;
-import genesis.combo.*;
-import genesis.combo.variant.EnumPlant;
-import genesis.common.*;
+import genesis.combo.SiltBlocks;
+import genesis.common.GenesisBlocks;
+import genesis.util.WeightedRandomList;
+import genesis.util.random.i.*;
 import genesis.world.biome.decorate.*;
-import genesis.world.gen.feature.WorldGenTreeBase;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.*;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.init.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
+import net.minecraft.world.biome.*;
 import net.minecraft.world.chunk.ChunkPrimer;
+import net.minecraft.world.gen.feature.*;
 
 public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiomeGenFog
 {
-	public static class FlowerGeneratorEntry extends WeightedRandom.Item
-	{
-		private final PlantGenerator gen;
-		
-		public FlowerGeneratorEntry(PlantGenerator gen, int weight)
-		{
-			super(weight);
-			
-			this.gen = gen;
-		}
-		
-		public PlantGenerator getGenerator()
-		{
-			return gen;
-		}
-	}
-	
 	public IBlockState oceanFloor = GenesisBlocks.ooze.getDefaultState();
 	public int[] mossStages = new int[0];
 	
-	private List<FlowerGeneratorEntry> plants = Lists.newArrayList();
-	private int plantsWeight = 0;
+	private WeightedRandomList<WorldGenDecorationBase> grass = new WeightedRandomList<>();
+	private WeightedRandomList<WorldGenDecorationBase> plants = new WeightedRandomList<>();
+	private WeightedRandomList<WorldGenAbstractTree> trees = new WeightedRandomList<>();
+	private List<DecorationEntry> decor = new ArrayList<>();
 	
-	public BiomeGenBaseGenesis(int id)
+	public BiomeGenBaseGenesis(BiomeGenBase.BiomeProperties properties)
 	{
-		super(id);
+		super(properties);
 		
 		theBiomeDecorator.clayPerChunk = 1;
 		topBlock = GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.STAGE, BlockMoss.STAGE_LAST);
@@ -54,59 +38,80 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 		spawnableCreatureList.clear();
 		spawnableMonsterList.clear();
 		spawnableWaterCreatureList.clear();
-		waterColorMultiplier = 0xAA791E;
-		getGenesisDecorator().sandPerChunk2 = 1;
+		
+		getDecorator().sandPerChunk2 = 1;
 	}
 	
-	public BiomeGenBaseGenesis setWaterColor(int color)
+	public void addGrass(WorldGenDecorationBase gen, int weight)
 	{
-		waterColorMultiplier = color;
-		return this;
+		grass.add(gen, weight);
 	}
 	
-	public void addGrassFlower(PlantGenerator gen, int weight)
+	public void clearGrass()
 	{
-		plants.add(new FlowerGeneratorEntry(gen, weight));
-		plantsWeight += weight;
+		grass.clear();
 	}
 	
-	public void addGrassFlowers(int defaultWeight)
+	@Override
+	public WorldGenDecorationBase getRandomWorldGenForGrass(Random rand)
 	{
-		for (PlantGenerator gen : FluentIterable.from(getGenesisDecorator().decorations).filter(PlantGenerator.class))
-		{
-			addGrassFlower(gen, defaultWeight);
-		}
+		return grass.get(rand);
 	}
 	
-	public void addGrassFlowers()
+	public void addFlower(WorldGenDecorationBase gen, int weight)
 	{
-		addGrassFlowers(25);
+		plants.add(gen, weight);
 	}
 	
-	public void clearGrassFlowers()
+	public void clearFlowers()
 	{
 		plants.clear();
-		plantsWeight = 0;
 	}
 	
 	@Override
 	public void plantFlower(World world, Random rand, BlockPos pos)
 	{
-		if (plantsWeight > 0)
-			WeightedRandom.getRandomItem(rand, plants, plantsWeight).getGenerator().placePlant(world, pos, rand);
+		if (plants.has())
+			plants.get(rand).place(world, rand, pos);
 	}
 	
-	protected void addDecoration(WorldGenDecorationBase decoration)
+	public WorldGenerator getRandomFlower(Random rand)
 	{
-		getGenesisDecorator().decorations.add(decoration);
+		return plants.get(rand);
 	}
 	
-	protected void addTree(WorldGenTreeBase tree)
+	protected void addTree(WorldGenAbstractTree tree, int weight)
 	{
-		getGenesisDecorator().trees.add(tree);
+		trees.add(tree, weight);
 	}
 	
-	public BiomeDecoratorGenesis getGenesisDecorator()
+	@Override
+	public WorldGenAbstractTree genBigTreeChance(Random rand)
+	{
+		return trees.get(rand);
+	}
+	
+	protected void addDecoration(WorldGenDecorationBase decoration, RandomIntProvider chunkCount)
+	{
+		decor.add(new DecorationEntry(decoration, chunkCount));
+	}
+	
+	protected void addDecoration(WorldGenDecorationBase decoration, int chunkCount)
+	{
+		addDecoration(decoration, IntRange.create(chunkCount));
+	}
+	
+	protected void addDecoration(WorldGenDecorationBase decoration, float chunkCount)
+	{
+		addDecoration(decoration, new IntFromFloat(chunkCount));
+	}
+	
+	public List<DecorationEntry> getDecorations()
+	{
+		return decor;
+	}
+	
+	public BiomeDecoratorGenesis getDecorator()
 	{
 		return (BiomeDecoratorGenesis) theBiomeDecorator;
 	}
@@ -119,43 +124,9 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 	}
 	
 	@Override
-	public BiomeGenBaseGenesis setColor(int color)
-	{
-		super.setColor(color);
-		return this;
-	}
-	
-	@Override
-	public BiomeGenBaseGenesis setBiomeName(String name)
-	{
-		super.setBiomeName(name);
-		return this;
-	}
-	
-	@Override
-	public BiomeGenBaseGenesis setHeight(BiomeGenBase.Height height)
-	{
-		super.setHeight(height);
-		return this;
-	}
-	
-	public BiomeGenBaseGenesis setHeight(float minHeight, float maxHeight)
-	{
-		this.minHeight = minHeight;
-		this.maxHeight = maxHeight;
-		return this;
-	}
-	
-	@Override
 	public int getSkyColorByTemp(float temperature)
 	{
 		return 0x4B7932;
-	}
-	
-	@Override
-	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
-	{
-		return new WorldGenGrassMulti(GenesisBlocks.plants.getPlantBlockState(EnumPlant.ZYGOPTERIS)).setVolume(64);
 	}
 	
 	private IBlockState getTopBlock(Random rand)
@@ -171,7 +142,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 	}
 	
 	@Override
-	public void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
+	public void genTerrainBlocks(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
 	{
 		IBlockState top = getTopBlock(rand);
 		IBlockState filler = fillerBlock;
@@ -190,7 +161,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 			{
 				IBlockState state = primer.getBlockState(chunkZ, y, chunkX);
 				
-				if (state.getBlock().getMaterial() == Material.air)
+				if (state.getBlock().getMaterial(state) == Material.air)
 				{
 					k = -1;
 				}
@@ -209,7 +180,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 							filler = fillerBlock;
 						}
 						
-						if (y < 63 && (top == null || top.getBlock().getMaterial() == Material.air))
+						if (y < 63 && (top == null || top.getBlock().getMaterial(top) == Material.air))
 						{
 							if (getFloatTemperature(new BlockPos(blockX, y, blockZ)) < 0.15F)
 							{
@@ -273,23 +244,23 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 	}
 	
 	@Override
-	public Vec3 getFogColor()
+	public Vec3d getFogColor()
 	{
 		float red = 0.533333333F;
 		float green = 0.647058824F;
 		float blue = 0.474509804F;
 		
-		return new Vec3(red, green, blue);
+		return new Vec3d(red, green, blue);
 	}
 	
 	@Override
-	public Vec3 getFogColorNight()
+	public Vec3d getFogColorNight()
 	{
 		float red = 0.070941176F;
 		float green = 0.070941176F;
 		float blue = 0.070941176F;
 		
-		return new Vec3(red, green, blue);
+		return new Vec3d(red, green, blue);
 	}
 	
 	@Override

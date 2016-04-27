@@ -3,7 +3,7 @@ package genesis.block;
 import genesis.block.BlockGrowingPlant.GrowingPlantProperties;
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
 import genesis.util.WorldUtils;
-import genesis.util.random.IntRange;
+import genesis.util.random.i.IntRange;
 
 import java.util.*;
 
@@ -12,7 +12,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class BlockWaterSpreadingPlantCustoms implements IGrowingPlantCustoms

@@ -2,54 +2,36 @@ package genesis.world.gen.feature;
 
 import java.util.Random;
 
-import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumTree;
-import genesis.common.GenesisBlocks;
+import genesis.util.random.i.IntRange;
+
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class WorldGenTreeGinkgo extends WorldGenTreeBase
 {
 	public WorldGenTreeGinkgo(int minHeight, int maxHeight, boolean notify)
 	{
-		super(
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LOG, EnumTree.GINKGO).withProperty(BlockLog.LOG_AXIS, EnumAxis.Y),
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES, EnumTree.GINKGO),
-				notify);
-		
-		this.notify = notify;
-		
-		this.minHeight = minHeight;
-		this.maxHeight = maxHeight;
+		super(EnumTree.GINKGO, IntRange.create(minHeight, maxHeight), notify);
 	}
 	
 	@Override
-	public boolean generate(World world, Random rand, BlockPos pos)
+	public boolean doGenerate(World world, Random rand, BlockPos pos)
 	{
-		pos = getTreePos(world, pos);
-		
-		if (!canTreeGrow(world, pos))
-			return false;
-		
-		if (rand.nextInt(rarity) != 0)
-			return false;
-		
-		int treeHeight = minHeight + rand.nextInt(maxHeight - minHeight);
+		int height = heightProvider.get(rand);
 		int base = 2 + rand.nextInt(4);
 		
-		if (!isCubeClear(world, pos.up(base), 4, treeHeight))
-		{
+		if (!isCubeClear(world, pos.up(base), 4, height))
 			return false;
-		}
 		
-		int mainBranches = 3 + rand.nextInt(6);
+		int mainBranches = (treeType == TreeTypes.TYPE_1)? 2 + rand.nextInt(2) : 3 + rand.nextInt(6);
 		
 		for (int i = 0; i < mainBranches; ++i)
 		{
 			base = 2 + rand.nextInt(4);
-			branchUp(world, pos, rand, treeHeight, base);
+			branchUp(world, pos, rand, height, (base >= height - 2)? height - 5 : base);
 		}
 		
 		return true;
@@ -102,7 +84,7 @@ public class WorldGenTreeGinkgo extends WorldGenTreeBase
 				if (i > base + 1)
 					doBranchLeaves(world, upPos.down(), rand, false, 3, true);
 				
-				doBranchLeaves(world, upPos, rand, (i >= height - 1), 4, true);
+				doBranchLeaves(world, upPos, rand, true, 4, true);
 			}
 		}
 	}

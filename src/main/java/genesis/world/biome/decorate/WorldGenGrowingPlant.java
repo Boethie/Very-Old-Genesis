@@ -3,10 +3,10 @@ package genesis.world.biome.decorate;
 import java.util.Random;
 
 import genesis.block.BlockGrowingPlant;
-import genesis.common.GenesisBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import genesis.util.WorldBlockMatcher;
+import genesis.util.WorldUtils;
+
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class WorldGenGrowingPlant extends WorldGenDecorationBase
@@ -18,6 +18,8 @@ public class WorldGenGrowingPlant extends WorldGenDecorationBase
 	
 	public WorldGenGrowingPlant(BlockGrowingPlant plant)
 	{
+		super(WorldBlockMatcher.STANDARD_AIR, WorldBlockMatcher.TRUE);
+		
 		this.plant = plant;
 	}
 	
@@ -35,63 +37,11 @@ public class WorldGenGrowingPlant extends WorldGenDecorationBase
 	}
 	
 	@Override
-	public boolean generate(World world, Random random, BlockPos pos)
+	public boolean place(World world, Random random, BlockPos pos)
 	{
-		Block block;
-		
-		do
-		{
-			block = world.getBlockState(pos).getBlock();
-			if (!block.isAir(world, pos) && !block.isLeaves(world, pos))
-			{
-				break;
-			}
-			pos = pos.down();
-		}
-		while (pos.getY() > 0);
-		
-		if (random.nextInt(rarity) != 0)
+		if (nextToWater && !WorldUtils.waterInRange(world, pos.down(), waterRadius, waterRadius, waterHeight))
 			return false;
 		
-		if (!(world.getBlockState(pos).getBlock() == GenesisBlocks.moss || world.getBlockState(pos).getBlock() == Blocks.dirt))
-			return false;
-		
-		boolean water_exists = findBlockInRange(world, pos, Blocks.water.getDefaultState(), waterRadius, waterHeight, waterRadius);
-		
-		if (!water_exists && nextToWater)
-			return false;
-		
-		if (!world.getBlockState(pos.up()).getBlock().isAir(world, pos))
-			return false;
-		
-		placeRandomPlant(world, pos, random);
-		
-		BlockPos secondPos;
-		
-		int additional = random.nextInt(getPatchSize() - 1);
-		
-		for (int i = 0; i <= additional; ++i)
-		{
-			secondPos = pos.add(random.nextInt(7) - 3, 0, random.nextInt(7) - 3);
-			if (
-					(world.getBlockState(secondPos).getBlock() == GenesisBlocks.moss
-					|| world.getBlockState(secondPos).getBlock() == Blocks.dirt)
-					&& (
-							findBlockInRange(world, secondPos, Blocks.water.getDefaultState(), waterRadius, waterHeight, waterRadius)
-							|| !nextToWater))
-				placeRandomPlant(world, secondPos, random);
-		}
-		
-		return true;
-	}
-	
-	private boolean placeRandomPlant(World world, BlockPos pos, Random random)
-	{
-		if (!(world.getBlockState(pos).getBlock() == GenesisBlocks.moss || world.getBlockState(pos).getBlock() == Blocks.dirt))
-			return false;
-		
-		plant.placeRandomAgePlant(world, pos.up(), random);
-		
-		return true;
+		return plant.placeRandomAgePlant(world, pos, random);
 	}
 }

@@ -1,5 +1,6 @@
 package genesis.combo;
 
+import genesis.util.Constants;
 import genesis.util.MiscUtils;
 import genesis.util.Constants.Unlocalized;
 
@@ -53,13 +54,16 @@ public class ItemsCeramicBowls extends VariantsOfTypesCombo<MultiMetadata>
 	
 	public static final MultiMetadataList ALL_VARIANTS = new MultiMetadataList(MiscUtils.iterable(EnumCeramicBowls.values()), GenesisDye.valueList(), MiscUtils.iterable(EnumDish.values()));
 	
-	public static final ObjectType<Block, ItemCeramicBowl> MAIN = new ObjectType<Block, ItemCeramicBowl>("ceramic_bowl", Unlocalized.Section.MATERIAL + "ceramicBowl", null, ItemCeramicBowl.class)
-			.setValidVariants(ALL_VARIANTS.getMultiVariants(EnumCeramicBowls.values()));
-	public static final ObjectType<Block, ItemDyeBowl> DYE = new ObjectType<Block, ItemDyeBowl>("dye", Unlocalized.Section.MATERIAL + "dye", null, ItemDyeBowl.class)
-			.setValidVariants(ALL_VARIANTS.getMultiVariants(GenesisDye.valueList()));
-	public static final ObjectType<Block, ItemDish> DISH = new ObjectType<Block, ItemDish>("dish", Unlocalized.Section.FOOD + "dish", null, ItemDish.class)
-			.setValidVariants(ALL_VARIANTS.getMultiVariants(EnumDish.values()))
-			.setResourceName("");
+	public static final ObjectType<Block, ItemCeramicBowl> MAIN =
+			ObjectType.createItem("ceramic_bowl", Unlocalized.Section.MATERIAL + "ceramicBowl", ItemCeramicBowl.class)
+					.setValidVariants(ALL_VARIANTS.getMultiVariants(EnumCeramicBowls.values()));
+	public static final ObjectType<Block, ItemDyeBowl> DYE =
+			ObjectType.createItem("dye", Unlocalized.Section.MATERIAL + "dye", ItemDyeBowl.class)
+					.setValidVariants(ALL_VARIANTS.getMultiVariants(GenesisDye.valueList()));
+	public static final ObjectType<Block, ItemDish> DISH =
+			ObjectType.createItem("dish", Unlocalized.Section.FOOD + "dish", ItemDish.class)
+					.setValidVariants(ALL_VARIANTS.getMultiVariants(EnumDish.values()))
+						.setResourceName("");
 	
 	public static final List<ObjectType<?, ?>> ALL_OBJECT_TYPES = new ImmutableList.Builder<ObjectType<?, ?>>()
 		.add(MAIN)
@@ -71,7 +75,7 @@ public class ItemsCeramicBowls extends VariantsOfTypesCombo<MultiMetadata>
 	{
 		super(ALL_OBJECT_TYPES, MultiMetadata.class, ALL_VARIANTS);
 		
-		setUnlocalizedPrefix(Unlocalized.PREFIX);
+		setNames(Constants.MOD_ID, Unlocalized.PREFIX);
 	}
 	
 	// Variants

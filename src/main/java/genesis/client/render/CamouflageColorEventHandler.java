@@ -1,7 +1,7 @@
 package genesis.client.render;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -13,8 +13,8 @@ public class CamouflageColorEventHandler
 	@SubscribeEvent
 	public void onRenderPlayer(RenderPlayerEvent.Pre event)
 	{
-		EntityPlayer player = event.entityPlayer;
+		EntityPlayer player = event.getEntityPlayer();
 		BlockPos pos = new BlockPos(player.posX, player.posY, player.posZ);
-		color = BiomeColorHelper.getGrassColorAtPos(event.entityPlayer.worldObj, pos);
+		color = BiomeColorHelper.getGrassColorAtPos(player.worldObj, pos);
 	}
 }

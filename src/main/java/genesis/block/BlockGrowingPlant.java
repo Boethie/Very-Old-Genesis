@@ -3,8 +3,8 @@ package genesis.block;
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms.CanStayOptions;
 import genesis.common.GenesisCreativeTabs;
 import genesis.util.*;
-import genesis.util.random.*;
 import genesis.util.random.drops.blocks.BlockDrops;
+import genesis.util.random.i.IntRange;
 
 import java.util.*;
 import java.util.Map.Entry;
@@ -13,14 +13,18 @@ import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.*;
-import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.common.*;
 
 public class BlockGrowingPlant extends BlockBush implements IGrowable
@@ -42,17 +46,21 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 		protected BlockPos top = null;
 		protected BlockPos bottom = null;
 		
-		public GrowingPlantProperties(IBlockAccess world, BlockPos startPos)
-		{
-			this.world = world;
-			this.startPos = startPos;
-		}
-		
 		public GrowingPlantProperties(IBlockAccess world, BlockPos startPos, BlockGrowingPlant plant)
 		{
 			this.world = world;
 			this.startPos = startPos;
 			this.plant = plant;
+		}
+		
+		public GrowingPlantProperties(IBlockAccess world, BlockPos startPos, IBlockState startState)
+		{
+			this(world, startPos, (BlockGrowingPlant) startState.getBlock());
+		}
+		
+		public GrowingPlantProperties(IBlockAccess world, BlockPos startPos)
+		{
+			this(world, startPos, world.getBlockState(startPos));
 		}
 		
 		public BlockGrowingPlant getPlant()
@@ -118,7 +126,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 			
 			return toBottom;
 		}
-
+		
 		/**
 		 * @return Height of the plant.
 		 */
@@ -131,7 +139,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 			
 			return height;
 		}
-
+		
 		/**
 		 * @return The BlockPos at the bottom of the plant.
 		 */
@@ -144,7 +152,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 			
 			return bottom;
 		}
-
+		
 		/**
 		 * @return The BlockPos at the top of the plant.
 		 */
@@ -157,7 +165,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 			
 			return top;
 		}
-
+		
 		/**
 		 * @param pos Position to check.
 		 * @return Whether the position is at the top of the plant.
@@ -166,7 +174,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 		{
 			return pos.equals(getTop());
 		}
-
+		
 		/**
 		 * @param pos Position to check.
 		 * @return Whether the position is at the bottom of the plant.
@@ -193,7 +201,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 		 * @param grew Whether the plant grew in this random block update.
 		 */
 		void plantUpdateTick(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, Random rand, boolean grew);
-
+		
 		enum CanStayOptions {
 			YES,
 			YIELD,
@@ -205,7 +213,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 		 * @return Whether the BlockGrowingPlant can grow at the specified BlockPos.
 		 */
 		CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World world, BlockPos pos, boolean placed);
-
+		
 		/**
 		 * For use in adding/removing IPropertys in a list of IPropertys that should be stored in metadata.
 		 * @param plant This BlockGrowingPlant.
@@ -263,7 +271,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 		blockState = createOurBlockState();
 		
 		setTickRandomly(true);
-		setStepSound(soundTypeGrass);
+		setSoundType(SoundType.PLANT);
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		
 		disableStats();
@@ -290,32 +298,30 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 	}
 	
 	/**
-	 * Creates the BlockState for this BlockGrowingPlant. This was used to make the BlockState's properties depend on
+	 * Creates the BlockStateContainer for this BlockGrowingPlant. This was used to make the BlockStateContainer's properties depend on
 	 * values given to the BlockGrowingPlant in the constructor.
 	 * 
-	 * @return Returns the BlockState containing all properties used by this block.
+	 * @return Returns the BlockStateContainer containing all properties used by this block.
 	 */
-	@SuppressWarnings("unchecked")
-	protected BlockState createOurBlockState()
+	protected BlockStateContainer createOurBlockState()
 	{
-		BlockState state;
+		BlockStateContainer state;
 		
 		ageProp = PropertyInteger.create("age", 0, maxAge);
 		
 		if (topProperty)
 		{
 			topProp = PropertyBool.create("top");
-			state = new BlockState(this, ageProp, topProp);
+			state = new BlockStateContainer(this, ageProp, topProp);
 			setDefaultState(state.getBaseState().withProperty(ageProp, 0).withProperty(topProp, false));
 		}
 		else
 		{
-			state = new BlockState(this, ageProp);
+			state = new BlockStateContainer(this, ageProp);
 			setDefaultState(state.getBaseState().withProperty(ageProp, 0));
 		}
 		
-		@SuppressWarnings("rawtypes")
-		ArrayList<IProperty<?>> metaProps = new ArrayList<IProperty<?>>((Collection) state.getProperties());
+		ArrayList<IProperty<?>> metaProps = new ArrayList<>(state.getProperties());
 		
 		if (topProperty)
 		{
@@ -365,8 +371,8 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 		return this;
 	}
 	
-	@Override
-	public int colorMultiplier(IBlockAccess world, BlockPos pos, int renderPass)
+	/*@Override
+	public int colorMultiplier(IBlockState state, IBlockAccess world, BlockPos pos, int renderPass)
 	{
 		return useBiomeColor ? BiomeColorHelper.getGrassColorAtPos(world, pos) : 0xFFFFFF;
 	}
@@ -375,7 +381,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 	public int getRenderColor(IBlockState state)
 	{
 		return useBiomeColor ? ColorizerGrass.getGrassColor(0.5, 1) : 0xFFFFFF;
-	}
+	}*/
 	
 	/**
 	 * Sets a property to cause the entire plant column to break at once and drop only the first block's
@@ -460,24 +466,15 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 		return this;
 	}
 	
-	/**
-	 * Used as the default when pickedStack is null.
-	 */
 	@Override
-	public Item getItem(World world, BlockPos pos)
-	{
-		return Item.getItemFromBlock(this);
-	}
-	
-	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player)
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player)
 	{
 		if (pickedStack != null)
 		{
 			return pickedStack;
 		}
 		
-		return super.getPickBlock(target, world, pos, player);
+		return new ItemStack(this);
 	}
 	
 	/**
@@ -496,41 +493,34 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 		return this;
 	}
 	
-	protected void setBlockBounds(AxisAlignedBB bb)
-	{
-		this.minX = bb.minX;
-		this.minY = bb.minY;
-		this.minZ = bb.minZ;
-		this.maxX = bb.maxX;
-		this.maxY = bb.maxY;
-		this.maxZ = bb.maxZ;
-	}
-	
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess world, BlockPos pos)
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
-		GrowingPlantProperties props = new GrowingPlantProperties(world, pos);
+		GrowingPlantProperties props = new GrowingPlantProperties(world, pos, state);
 		float w2 = width / 2;
 		
 		AxisAlignedBB newBB = new AxisAlignedBB(0.5 - w2, 0, 0.5 - w2, 0.5 + w2, 0, 0.5 + w2);
 		
 		if (props.isTop(pos))
 		{
-			int stage = world.getBlockState(pos).getValue(ageProp);
+			newBB = newBB.addCoord(0, baseHeight, 0);
 			
-			if (props.getToBottom() > 1)
+			if (heightPerStage > 0)
 			{
-				stage -= growthAge;
+				int stage = state.getValue(ageProp);
+				
+				if (props.getToBottom() > 1)
+					stage -= growthAge;
+				
+				newBB.addCoord(0, (stage + 1) * heightPerStage, 0);
 			}
-			
-			newBB = newBB.addCoord(0, baseHeight + ((stage + 1) * heightPerStage), 0);
 		}
 		else
 		{
 			newBB = newBB.addCoord(0, 1, 0);
 		}
 		
-		setBlockBounds(newBB);
+		return newBB;
 	}
 	
 	/**
@@ -551,14 +541,14 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 	 */
 	public BlockGrowingPlant setCollisionBox(double radius)
 	{
-		collisionBox = new AxisAlignedBB(0.5 - radius, 0, 0.5 - radius, 0.5 + radius, 1, 0.5 + radius);
-		return this;
+		return setCollisionBox(new AxisAlignedBB(0.5 - radius, 0, 0.5 - radius, 0.5 + radius, 1, 0.5 + radius));
 	}
 	
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(World world, BlockPos pos, IBlockState state)
+	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity entity)
 	{
-		return collisionBox == null ? null : collisionBox.offset(pos.getX(), pos.getY(), pos.getZ());
+		if (collisionBox != null)
+			addCollisionBoxToList(pos, mask, list, collisionBox);
 	}
 	
 	/**
@@ -746,10 +736,9 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 						{
 							BlockPos landPos = under.add(x, 0, z);
 							IBlockState landState = world.getBlockState(landPos);
-							Block landBlock = landState.getBlock();
 							
-							if ((canPlaceBlockOnSide(world, landPos, EnumFacing.UP) && landBlock.isFertile(world, landPos)) ||
-								landBlock.getMaterial() == Material.water)
+							if ((canPlaceBlockOnSide(world, landPos, EnumFacing.UP) && landState.getBlock().isFertile(world, landPos)) ||
+								landState.getMaterial() == Material.water)
 							{
 								rate *= neighborFertileChanceMult;
 							}
@@ -1018,7 +1007,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 	}
 	
 	@Override
-	protected boolean canPlaceBlockOn(Block ground)
+	protected boolean canSustainBush(IBlockState ground)
 	{
 		// Return false so that canSustainPlant checks the plant type instead of BlockBush.canPlaceBlockOn().
 		return false;
@@ -1036,7 +1025,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 	/**
 	 * Handles removal of a plant block.
 	 * If breakTogether is true, it removes all plant blocks of this type in a column that they should grow in, optionally dropping items.
-	 * Otherwise, it will handle setting the BlockState to acceptable values for this type of plant.
+	 * Otherwise, it will handle setting the BlockStateContainer to acceptable values for this type of plant.
 	 */
 	protected void destroyPlant(World world, BlockPos pos, EntityPlayer breaker, boolean drop, boolean noBreakTogether)
 	{
@@ -1100,7 +1089,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 				boolean isBase = props.isBottom(breakPos);
 				dropBlockAsItemWithChance(world, breakPos, oldState, (isBase ? -1 : -2), 0);
 			}
-
+			
 			world.setBlockState(breakPos, Blocks.air.getDefaultState(), 2);
 		}
 		
@@ -1208,13 +1197,13 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 	}
 	
 	@Override
-	public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te)
+	public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack)
 	{
-		super.harvestBlock(world, player, pos, state, te);
+		super.harvestBlock(world, player, pos, state, te, stack);
 	}
 	
 	@Override
-	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest)
+	public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest)
 	{
 		destroyPlant(world, pos, player, !player.capabilities.isCreativeMode, false);
 		
@@ -1227,18 +1216,16 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 	public boolean placeRandomAgePlant(World world, BlockPos pos, Random rand)
 	{
 		if (!canPlantSurvive(world, pos, true))
-		{
 			return false;
-		}
 		
-		IntRange heightRange = IntRange.create(1, maxHeight);
-		int targetHeight = heightRange.get(rand);
+		int targetHeight = IntRange.create(1, maxHeight).get(rand);
 		
 		for (int i = 0; i < targetHeight; i++)
 		{
 			BlockPos checkPos = pos.up(i);
+			IBlockState checkState = world.getBlockState(checkPos);
 			
-			if (!world.getBlockState(checkPos).getBlock().isReplaceable(world, checkPos))
+			if (!checkState.getBlock().isAir(checkState, world, checkPos))
 			{
 				targetHeight = i;
 				break;

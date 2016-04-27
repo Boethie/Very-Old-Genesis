@@ -1,6 +1,5 @@
 package genesis.command;
 
-import genesis.common.GenesisConfig;
 import genesis.common.GenesisDimensions;
 
 import java.util.List;
@@ -9,7 +8,9 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.DimensionType;
 
 import com.google.common.collect.Lists;
 
@@ -34,16 +35,16 @@ public class CommandTPGenesis implements ICommand
 	}
 	
 	@Override
-	public void processCommand(ICommandSender sender, String[] args) throws CommandException
+	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException
 	{
 		if (sender instanceof Entity)
 		{
 			Entity entity = (Entity) sender;
-			int dimension = GenesisConfig.genesisDimId;
+			DimensionType dimension = GenesisDimensions.GENESIS_DIMENSION;
 			
-			if (entity.dimension == dimension)
+			if (entity.dimension == dimension.getId())
 			{
-				dimension = 0;
+				dimension = DimensionType.OVERWORLD;
 			}
 			
 			GenesisDimensions.teleportToDimension(entity, null, dimension, true);
@@ -53,13 +54,13 @@ public class CommandTPGenesis implements ICommand
 	}
 	
 	@Override
-	public boolean canCommandSenderUseCommand(ICommandSender sender)
+	public boolean checkPermission(MinecraftServer server, ICommandSender sender)
 	{
 		return true;
 	}
 	
 	@Override
-	public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
+	public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos)
 	{
 		return null;
 	}

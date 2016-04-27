@@ -2,85 +2,168 @@ package genesis.world.biome.decorate;
 
 import genesis.combo.SiltBlocks;
 import genesis.common.GenesisBlocks;
+import genesis.util.WorldBlockMatcher;
 import genesis.util.WorldUtils;
+import genesis.util.random.f.FloatRange;
+import genesis.util.random.i.IntRange;
+import genesis.util.random.i.RandomIntProvider;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class WorldGenRockBoulders extends WorldGenDecorationBase
 {
-	private List<IBlockState> blocks = new ArrayList<IBlockState>();
+	protected final IBlockState dry;
+	protected final IBlockState wet;
 	private boolean waterRequired = true;
 	private boolean inGround = true;
-	private int maxHeight = 5;
+	
+	private FloatRange largeProvider;
+	
+	private RandomIntProvider smallCountProvider = IntRange.create(1, 3);
+	private FloatRange smallProvider;
+	
+	private FloatRange horizStretch;
+	private FloatRange vertStretch;
+	
+	public WorldGenRockBoulders(IBlockState dry, IBlockState wet)
+	{
+		super(WorldBlockMatcher.STANDARD_AIR_WATER,
+				(s, w, p) -> s.getBlock() == Blocks.dirt
+						|| s.getBlock() == Blocks.grass
+						|| s.getBlock() == GenesisBlocks.moss
+						|| GenesisBlocks.silt.isStateOf(s, SiltBlocks.SILT));
+		
+		setRadius(1.25F);
+		setStretch(1.25F);
+		
+		this.dry = dry;
+		this.wet = wet;
+	}
+	
+	public WorldGenRockBoulders(IBlockState dry)
+	{
+		this(dry, null);
+	}
+	
+	public WorldGenRockBoulders()
+	{
+		this(GenesisBlocks.granite.getDefaultState(), GenesisBlocks.mossy_granite.getDefaultState());
+	}
 	
 	@Override
-	public boolean generate(World world, Random random, BlockPos pos)
+	public boolean place(World world, Random rand, BlockPos pos)
 	{
-		pos = getPosition(world, pos);
-		
-		if (!(
-				world.getBlockState(pos).getBlock() == GenesisBlocks.moss 
-				|| world.getBlockState(pos).getBlock() == Blocks.dirt
-				|| GenesisBlocks.silt.isStateOf(world.getBlockState(pos), SiltBlocks.SILT)))
-			return false;
-		
-		if (!world.getBlockState(pos.up()).getBlock().isAir(world, pos))
-			return false;
-		
 		if (waterRequired && !WorldUtils.waterInRange(world, pos, 1, 1, 1))
 			return false;
 		
-		if (random.nextInt(rarity) != 0)
-			return false;
+		float radius = largeProvider.get(rand);
+		Vec3d center = new Vec3d(
+				pos.getX() + rand.nextDouble(),
+				pos.getY() + rand.nextDouble() + radius - 1,
+				pos.getZ() + rand.nextDouble());
+		placeSphere(world, center, rand, radius);
 		
-		if (blocks.size() == 0)
+		for (int i = smallCountProvider.get(rand); i > 0; i--)
 		{
-			addBlocks(GenesisBlocks.granite.getDefaultState(), GenesisBlocks.mossy_granite.getDefaultState());
-		}
-		
-		if (!inGround)
-			pos = pos.up();
-		
-		int maxHeight = 2 + random.nextInt(this.maxHeight - 1);
-		
-		generateRockColumn(world, pos, random, maxHeight);
-		
-		if (random.nextInt(100) > 15)
-		{
-			generateRockColumn(world, pos.add(1, 0, 0), random, 1 + random.nextInt(maxHeight - random.nextInt(2)));
-			if (random.nextInt(10) > 5)
-				generateRockColumn(world, pos.add(1, 0, 1), random, 1 + random.nextInt(maxHeight - random.nextInt(2)));
-		}
-		
-		if (random.nextInt(100) > 15)
-		{
-			generateRockColumn(world, pos.add(-1, 0, 0), random, 1 + random.nextInt(maxHeight - random.nextInt(2)));
-			if (random.nextInt(10) > 5)
-				generateRockColumn(world, pos.add(-1, 0, -1), random, 1 + random.nextInt(maxHeight - random.nextInt(2)));
-		}
-		
-		if (random.nextInt(100) > 15)
-		{
-			generateRockColumn(world, pos.add(0, 0, 1), random, 1 + random.nextInt(maxHeight - random.nextInt(2)));
-			if (random.nextInt(10) > 5)
-				generateRockColumn(world, pos.add(-1, 0, 1), random, 1 + random.nextInt(maxHeight - random.nextInt(2)));
-		}
-		
-		if (random.nextInt(100) > 15)
-		{
-			generateRockColumn(world, pos.add(0, 0, -1), random, 1 + random.nextInt(maxHeight - random.nextInt(2)));
-			if (random.nextInt(10) > 5)
-				generateRockColumn(world, pos.add(1, 0, -1), random, 1 + random.nextInt(maxHeight - random.nextInt(2)));
+			Vec3d offset = new Vec3d(rand.nextDouble() - 0.5, (rand.nextDouble() - 0.5) * 0.5, rand.nextDouble() - 0.5).normalize();
+			
+			float smallRadius = smallProvider.get(rand);
+			
+			offset = offset.scale((radius + smallRadius) * MathHelper.getRandomDoubleInRange(rand, 0.5, 1) - 0.5);
+			
+			placeSphere(world, center.add(offset).addVector(0, smallRadius - 0.5, 0), rand, smallRadius);
 		}
 		
 		return true;
+	}
+	
+	protected void placeRock(World world, BlockPos pos, Random rand)
+	{
+		int water = 0;
+		int solid = 0;
+		
+		if (wet != null)
+		{
+			for (EnumFacing side : EnumFacing.HORIZONTALS)
+			{
+				BlockPos sidePos = pos.offset(side);
+				IBlockState state = world.getBlockState(sidePos);
+				
+				if (state.getMaterial() == Material.water)
+					water++;
+				else if (state.getBlock().isSideSolid(state, world, sidePos, side.getOpposite()))
+					solid++;
+			}
+		}
+		
+		IBlockState state = dry;
+		
+		BlockPos abovePos = pos.up();
+		IBlockState above = world.getBlockState(abovePos);
+		
+		if (wet != null)
+		{
+			if (water > 0
+					&& !WorldUtils.isWater(world, pos.up())
+					&& above.getMaterial() != Material.water
+					&& !above.getBlock().isSideSolid(above, world, abovePos, EnumFacing.DOWN))
+				state = wet;
+			else if (solid + water < 4 && rand.nextInt(4) <= 2)	// 75% chance for moss.
+				state = wet;
+		}
+		
+		setBlockInWorld(world, pos, state, inGround);
+		
+		//world.notifyBlockUpdate(pos, Blocks.air.getDefaultState(), dry, 3);	// For testing it with item right click.
+	}
+	
+	protected void placeRockAndDryAround(World world, BlockPos pos, Random rand)
+	{
+		placeRock(world, pos, rand);
+		
+		if (wet != null)
+		{
+			for (EnumFacing side : EnumFacing.HORIZONTALS)
+			{
+				BlockPos sidePos = pos.offset(side);
+				
+				if (world.getBlockState(sidePos) == wet)
+					placeRock(world, sidePos, rand);
+			}
+		}
+	}
+	
+	protected void placeSphere(World world, Vec3d center, Random rand, float radius)
+	{
+		BlockPos pos = new BlockPos(center);
+		int area = MathHelper.ceiling_float_int(radius);
+		
+		radius *= radius;
+		
+		float scaleX = horizStretch.get(rand);
+		float scaleY = vertStretch.get(rand);
+		float scaleZ = horizStretch.get(rand);
+		
+		for (BlockPos rockPos : BlockPos.getAllInBoxMutable(pos.add(-area, -area, -area), pos.add(area, area, area)))
+		{
+			double dX = (rockPos.getX() + 0.5 - center.xCoord) / scaleX;
+			double dY = (rockPos.getY() + 0.5 - center.yCoord) / scaleY;
+			double dZ = (rockPos.getZ() + 0.5 - center.zCoord) / scaleZ;
+			
+			if (dX * dX + dY * dY + dZ * dZ <= radius)
+			{
+				placeRockAndDryAround(world, rockPos, rand);
+			}
+		}
 	}
 	
 	public WorldGenRockBoulders setInGround(boolean in)
@@ -89,36 +172,43 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 		return this;
 	}
 	
-	public WorldGenRockBoulders setMaxHeight(int mxHeight)
+	public WorldGenRockBoulders setRadius(FloatRange large, FloatRange small)
 	{
-		maxHeight = mxHeight;
+		largeProvider = large;
+		smallProvider = small;
 		return this;
+	}
+	
+	public WorldGenRockBoulders setRadius(float large, float small)
+	{
+		return setRadius(FloatRange.create(1, large), FloatRange.create(0.5F, small));
+	}
+	
+	public WorldGenRockBoulders setRadius(float radius)
+	{
+		return setRadius(radius, radius - 0.5F);
+	}
+	
+	public WorldGenRockBoulders setStretch(FloatRange horizontal, FloatRange vertical)
+	{
+		horizStretch = horizontal;
+		vertStretch = vertical;
+		return this;
+	}
+	
+	public WorldGenRockBoulders setStretch(float horizontal, float vertical)
+	{
+		return setStretch(FloatRange.create(horizontal - 0.5F, horizontal), FloatRange.create(vertical - 0.5F, vertical));
+	}
+	
+	public WorldGenRockBoulders setStretch(float stretch)
+	{
+		return setStretch(stretch, stretch);
 	}
 	
 	public WorldGenRockBoulders setWaterRequired(boolean required)
 	{
 		waterRequired = required;
 		return this;
-	}
-	
-	public WorldGenDecorationBase addBlocks(IBlockState... blockTypes)
-	{
-		for (int i = 0; i < blockTypes.length; ++i)
-		{
-			blocks.add(blockTypes[i]);
-		}
-		
-		return this;
-	}
-	
-	private void generateRockColumn(World world, BlockPos pos, Random rand, int height)
-	{
-		BlockPos rockPos = pos;
-		
-		for (int i = 1; i <= height; ++i)
-		{
-			setBlockInWorld(world, rockPos, blocks.get(rand.nextInt(blocks.size())), true);
-			rockPos = rockPos.up();
-		}
 	}
 }

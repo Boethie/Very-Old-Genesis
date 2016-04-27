@@ -18,11 +18,12 @@ public class GenLayerReplaceOcean extends GenLayerGenesis
 	public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight)
 	{
 		int[] aint = this.parent.getInts(areaX, areaY, areaWidth, areaHeight);
+		
 		for (int i = 0; i < aint.length; i++)
 		{
-			if (aint[i] == BiomeGenBase.ocean.biomeID)
+			if (aint[i] == 0)
 			{
-				aint[i] = GenesisBiomes.shallowOcean.biomeID;
+				aint[i] = BiomeGenBase.getIdForBiome(GenesisBiomes.shallowOcean);
 			}
 		}
 		return aint;

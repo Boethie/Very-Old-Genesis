@@ -2,7 +2,7 @@ package genesis.combo.variant;
 
 public enum EnumSilt implements IMetadata<EnumSilt>
 {
-	SILT("", "", "normal"), RED_SILT("red");
+	SILT("normal", "", "normal"), RED_SILT("red");
 	
 	final String name;
 	final String unlocalizedName;

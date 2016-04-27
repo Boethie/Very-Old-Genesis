@@ -1,6 +1,7 @@
 package genesis.world.layer;
 
 import genesis.common.GenesisBiomes;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.GenLayerAddIsland;
 import net.minecraft.world.gen.layer.GenLayerAddSnow;
@@ -89,12 +90,12 @@ public abstract class GenLayerGenesis extends GenLayer
 	}
 	
 	protected static boolean isBiomeOceanic(int biomeId)
-	{	// TODO: Use BiomeDictionary?
+	{
 		if (
-				biomeId == GenesisBiomes.shallowOcean.biomeID
-				|| biomeId == GenesisBiomes.ocean.biomeID
-				|| biomeId == GenesisBiomes.deepOcean.biomeID
-				|| biomeId == GenesisBiomes.swampRainForest.biomeID)
+				biomeId == BiomeGenBase.getIdForBiome(GenesisBiomes.shallowOcean)
+				|| biomeId == BiomeGenBase.getIdForBiome(GenesisBiomes.ocean)
+				|| biomeId == BiomeGenBase.getIdForBiome(GenesisBiomes.deepOcean)
+				|| biomeId == BiomeGenBase.getIdForBiome(GenesisBiomes.swampRainForest))
 		{
 			return true;
 		}

@@ -1,39 +1,37 @@
 package genesis.common;
 
-import genesis.entity.extendedproperties.*;
+import genesis.capabilities.GenesisCapabilities;
+import genesis.capabilities.IDimensionPlayers;
 import genesis.portal.GenesisPortal;
 import genesis.stats.GenesisAchievements;
+import genesis.util.Constants;
+import genesis.util.PlayerWorldState;
 import genesis.world.*;
 
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.*;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.play.server.*;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.management.ServerConfigurationManager;
+import net.minecraft.server.management.PlayerList;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.Teleporter;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class GenesisDimensions
 {
-	public static final NBTEntityProperty STORED_PLAYERS = new NBTEntityProperty("dimensionPlayers", new NBTTagCompound(), true);
-	public static final String GENESIS_PLAYER_DATA = "genesis";
-	public static final String OTHER_PLAYER_DATA = "other";
+	public static final DimensionType GENESIS_DIMENSION = DimensionType.register(Constants.MOD_NAME, "_genesis",
+			GenesisConfig.genesisDimId, WorldProviderGenesis.class, false);
 	
 	public static void register()
 	{
-		DimensionManager.registerProviderType(GenesisConfig.genesisProviderId, WorldProviderGenesis.class, true);
-		DimensionManager.registerDimension(GenesisConfig.genesisDimId, GenesisConfig.genesisProviderId);
-		
-		GenesisEntityData.registerProperty(EntityPlayerMP.class, STORED_PLAYERS);
+		DimensionManager.registerDimension(GenesisConfig.genesisDimId, GENESIS_DIMENSION);
 	}
 	
 	public static boolean isGenesis(World world)
 	{
-		return world.provider.getDimensionId() == GenesisConfig.genesisDimId;
+		return world.provider.getDimensionType() == GENESIS_DIMENSION;
 	}
 	
 	public static TeleporterGenesis getTeleporter(WorldServer world)
@@ -49,10 +47,12 @@ public class GenesisDimensions
 		return new TeleporterGenesis(world);
 	}
 	
-	public static boolean teleportToDimension(Entity entity, GenesisPortal portal, int id, boolean force)
+	public static boolean teleportToDimension(Entity entity, GenesisPortal portal, DimensionType dim, boolean force)
 	{
 		if (!entity.worldObj.isRemote)
 		{
+			int dimID = dim.getId();
+			
 			double motionX = entity.motionX;
 			double motionY = entity.motionY;
 			double motionZ = entity.motionZ;
@@ -64,10 +64,10 @@ public class GenesisDimensions
 				player = (EntityPlayerMP) entity;
 			}
 			
-			MinecraftServer server = MinecraftServer.getServer();
-			ServerConfigurationManager manager = server.getConfigurationManager();
+			MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
+			PlayerList manager = server.getPlayerList();
 			
-			WorldServer newWorld = server.worldServerForDimension(id);
+			WorldServer newWorld = server.worldServerForDimension(dimID);
 			
 			TeleporterGenesis teleporter = getTeleporter(newWorld);
 			teleporter.setOriginatingPortal(portal);
@@ -76,16 +76,18 @@ public class GenesisDimensions
 			
 			if (player != null)
 			{
-				NBTTagCompound dimensionPlayers = null;
-				NBTTagCompound restoreData = null;
+				//NBTTagCompound dimensionPlayers = null;
+				//NBTTagCompound restoreData = null;
+				IDimensionPlayers dimPlayers = null;
+				boolean respawn = !force && !player.capabilities.isCreativeMode;
 				
-				if (!force && !player.capabilities.isCreativeMode)
+				if (respawn)
 				{
-					String storingName = null;
+					/*String storingName = null;
 					String restoreName = null;
 					
 					// Set the names that will be loaded from and saved to in the extended entity property.
-					if (id == GenesisConfig.genesisDimId)
+					if (dim == GENESIS_DIMENSION)
 					{
 						storingName = OTHER_PLAYER_DATA;
 						restoreName = GENESIS_PLAYER_DATA;
@@ -94,65 +96,44 @@ public class GenesisDimensions
 					{
 						storingName = GENESIS_PLAYER_DATA;
 						restoreName = OTHER_PLAYER_DATA;
-					}
+					}*/
 					
 					// Get the stored players from both sides.
-					dimensionPlayers = GenesisEntityData.getValue(player, STORED_PLAYERS);
+					//dimensionPlayers = GenesisEntityData.getValue(player, STORED_PLAYERS);
 					
 					// Get the player to restore.
-					restoreData = dimensionPlayers.getCompoundTag(restoreName);	
-					dimensionPlayers.removeTag(restoreName);	// Remove the stored player so that no duplication occurs.
+					//restoreData = dimensionPlayers.getCompoundTag(restoreName);	
+					//dimensionPlayers.removeTag(restoreName);	// Remove the stored player so that no duplication occurs.
 					
-					// Write the current player.
-					NBTTagCompound storingData = new NBTTagCompound();
-					player.writeToNBT(storingData);	// Write the current player to the compound.
-					storingData.getCompoundTag(GenesisEntityData.COMPOUND_KEY).removeTag(STORED_PLAYERS.getName());
+					dimPlayers = player.getCapability(GenesisCapabilities.DIMENSION_PLAYERS, null);
+					
+					if (dimPlayers != null)
+						dimPlayers.storePlayer(DimensionType.getById(player.dimension));
 					
 					// Save the current player to the data.
-					dimensionPlayers.setTag(storingName, storingData);
+					//dimensionPlayers.setTag(storingName, storingData);
 				}
 				
 				// Transfer the original player.
-				manager.transferPlayerToDimension(player, id, teleporter);
+				manager.transferPlayerToDimension(player, dimID, teleporter);
 				
-				if (dimensionPlayers != null)
+				if (respawn)
 				{
-					// Save player position.
-					double x = player.posX;
-					double y = player.posY;
-					double z = player.posZ;
-					float yaw = player.rotationYaw;
-					float pitch = player.rotationPitch;
+					PlayerWorldState playerState = new PlayerWorldState(player);
 					
 					// Create a new player to reset all their stats and inventory.
-					EntityPlayerMP newPlayer = manager.recreatePlayerEntity(player, id, false);
+					EntityPlayerMP newPlayer = manager.recreatePlayerEntity(player, dimID, false);
 					newPlayer.playerNetServerHandler.playerEntity = newPlayer;	// recreate doesn't set this.
 					
-					
-					if (restoreData != null)
+					if (dimPlayers != null)
 					{	// Restore the player's inventory from data saved when the player traveled from the dimension previously.
-						newPlayer.readFromNBT(restoreData);
-						newPlayer.dimension = id;
-						newPlayer.capabilities.isFlying = player.capabilities.isFlying;	// Will be sent to client by setGameType.
-						newPlayer.theItemInWorldManager.setGameType(player.theItemInWorldManager.getGameType());
+						dimPlayers.restorePlayer(dim, newPlayer);
 					}
 					
-					newPlayer.inventory.currentItem = player.inventory.currentItem;	// Keep the current selected hotbar item.
-					manager.syncPlayerInventory(newPlayer);	// Send the player's inventory, stats and current item.
+					// Restore the player's state in the world.
+					playerState.restore(newPlayer);
 					
-					// Restore other relevant stuff.
-					newPlayer.fallDistance = player.fallDistance;
-					
-					// Save the old player's data for restoration later.
-					GenesisEntityData.setValue(newPlayer, STORED_PLAYERS, dimensionPlayers);
-					
-					// Restore the player to the position of the portal.
-					newPlayer.playerNetServerHandler.setPlayerLocation(x, y, z, yaw, pitch);
-					newPlayer.playerNetServerHandler.sendPacket(new S12PacketEntityVelocity(player));
-					
-					// Send the player's current potion effects.
-					for (PotionEffect effect : newPlayer.getActivePotionEffects())
-						newPlayer.playerNetServerHandler.sendPacket(new S1DPacketEntityEffect(newPlayer.getEntityId(), effect));
+					// TODO: Save the old player's data for restoration later.
 					
 					entity = player = newPlayer;
 				}
@@ -179,7 +160,7 @@ public class GenesisDimensions
 			
 			if (player != null)
 			{
-				if (id == GenesisConfig.genesisDimId)
+				if (dim == GENESIS_DIMENSION)
 					player.addStat(GenesisAchievements.enterGenesis, 1);
 			}
 			

@@ -7,8 +7,8 @@ import genesis.combo.variant.EnumDebrisOther;
 import genesis.combo.variant.IMetadata;
 import genesis.combo.variant.MultiMetadataList.MultiMetadata;
 import genesis.common.GenesisCreativeTabs;
-import genesis.common.GenesisSounds;
 import genesis.item.ItemBlockMulti;
+import genesis.sounds.GenesisSoundTypes;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.random.drops.blocks.BlockDrop;
 
@@ -17,13 +17,13 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.*;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -40,21 +40,21 @@ public class BlockGenesisDebris extends BlockGenesisVariants<MultiMetadata>
 		return new IProperty[]{};
 	}
 	
+	private static final AxisAlignedBB BB = new AxisAlignedBB(0, 0, 0, 1, 0.0625, 1);
+	
 	protected final DebrisBlocks debrisOwner;
 	
-	public BlockGenesisDebris(DebrisBlocks owner, ObjectType<BlockGenesisDebris, ItemBlockMulti<MultiMetadata>> type, List<MultiMetadata> variants, Class<MultiMetadata> variantClass)
+	public BlockGenesisDebris(DebrisBlocks owner, ObjectType<BlockGenesisDebris, ItemBlockMulti<MultiMetadata>> type,
+			List<MultiMetadata> variants, Class<MultiMetadata> variantClass)
 	{
-		super(owner, type, variants, variantClass, Material.vine);
+		super(owner, type, variants, variantClass, Material.vine, GenesisSoundTypes.DEBRIS);
 		
 		debrisOwner = owner;
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
-		setStepSound(GenesisSounds.DEBRIS);
 		
 		Blocks.fire.setFireInfo(this, 60, 100);
 		setTickRandomly(true);
-		
-		setBlockBounds(0, 0, 0, 1, 1/16F, 1);
 		
 		clearDrops();
 		addDrop(new BlockDrop(1)
@@ -92,7 +92,7 @@ public class BlockGenesisDebris extends BlockGenesisVariants<MultiMetadata>
 	}
 	
 	@Override
-	public boolean isReplaceable(World world, BlockPos pos)
+	public boolean isReplaceable(IBlockAccess world, BlockPos pos)
 	{
 		//return !debrisOwner.isStateOf(world.getBlockState(pos), debrisOwner.getVariant(EnumDebrisOther.EPIDEXIPTERYX_FEATHER));
 		IMetadata<?> variant = world.getBlockState(pos).getValue(variantProp).getOriginal();
@@ -134,27 +134,33 @@ public class BlockGenesisDebris extends BlockGenesisVariants<MultiMetadata>
 	}
 	
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
-		return null;
+		return BB;
 	}
 	
 	@Override
-	public boolean isOpaqueCube()
+	public void addCollisionBoxToList(IBlockState state, World world, BlockPos pos,
+			AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
+	{
+	}
+	
+	@Override
+	public boolean isOpaqueCube(IBlockState state)
 	{
 		return false;
 	}
 	
 	@Override
-	public boolean isFullCube()
+	public boolean isFullCube(IBlockState state)
 	{
 		return false;
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public EnumWorldBlockLayer getBlockLayer()
+	public BlockRenderLayer getBlockLayer()
 	{
-		return EnumWorldBlockLayer.CUTOUT;
+		return BlockRenderLayer.CUTOUT;
 	}
 }

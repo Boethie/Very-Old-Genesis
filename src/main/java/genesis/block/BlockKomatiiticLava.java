@@ -8,9 +8,12 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
@@ -41,23 +44,25 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 	}
 	
 	@Override
-	public void randomDisplayTick(World world, BlockPos pos, IBlockState state, Random rand)
+	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand)
 	{
 		if (rand.nextInt(500) == 0)
 		{
-			world.playSound(pos.getX(), pos.getY(), pos.getZ(), "liquid.lavapop", 1.0F, 1.2F / (rand.nextFloat() * 0.2F + 0.9F), true);
-			world.spawnParticle(EnumParticleTypes.LAVA, pos.getX(), pos.getY(), pos.getZ(), 0.0D, 1.2D, 0.0D, 1);
+			world.playSound(pos.getX(), pos.getY(), pos.getZ(),
+					SoundEvents.block_lava_pop, SoundCategory.BLOCKS,
+					1, 1.2F / (rand.nextFloat() * 0.2F + 0.9F), false);
+			world.spawnParticle(EnumParticleTypes.LAVA, pos.getX(), pos.getY(), pos.getZ(), 0, 0, 0);
 		}
 	}
 	
 	@Override
-	public int getLightValue(IBlockAccess world, BlockPos pos)
+	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
 		Block block = world.getBlockState(pos).getBlock();
 		
 		if (block != this)
 		{
-			return block.getLightValue(world, pos);
+			return block.getLightValue(state, world, pos);
 		}
 		
 		float levelF = world.getBlockState(pos).getValue(LEVEL) / quantaPerBlockFloat;
@@ -73,7 +78,7 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 		{
 			for (EnumFacing side : sides)
 			{
-				if (side != EnumFacing.DOWN && world.getBlockState(pos.offset(side)).getBlock().getMaterial() == Material.water)
+				if (side != EnumFacing.DOWN && world.getBlockState(pos.offset(side)).getMaterial() == Material.water)
 				{
 					mix = true;
 					break;
@@ -105,11 +110,13 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 		double x = pos.getX();
 		double y = pos.getY();
 		double z = pos.getZ();
-		world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "random.fizz", 0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);
-
-		for (int i = 0; i < 8; ++i)
+		world.playSound(null, x + 0.5D, y + 0.5D, z + 0.5D,
+				SoundEvents.block_lava_extinguish, SoundCategory.BLOCKS,
+				0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);
+		
+		for (int i = 0; i < 8; i++)
 		{
-			world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, x + Math.random(), y + 1.2D, z + Math.random(), 0.0D, 0.0D, 0.0D);
+			world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, x + Math.random(), y + 1.2D, z + Math.random(), 0, 0, 0);
 		}
 	}
 	
@@ -129,9 +136,8 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 				for (int j = 0; j < i; ++j)
 				{
 					randPos = randPos.add(rand.nextInt(3) - 1, 1, rand.nextInt(3) - 1);
-					Block randBlock = world.getBlockState(randPos).getBlock();
 					
-					if (randBlock.getMaterial() == Material.air)
+					if (world.isAirBlock(randPos))
 					{
 						if (isSurroundingBlockFlammable(world, randPos))
 						{
@@ -139,7 +145,7 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 							return;
 						}
 					}
-					else if (randBlock.getMaterial().blocksMovement())
+					else if (world.getBlockState(randPos).getMaterial().blocksMovement())
 					{
 						return;
 					}
@@ -173,8 +179,14 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 		return false;
 	}
 	
-	private static boolean getCanBlockBurn(World world, BlockPos pos)
+	protected static boolean getCanBlockBurn(World world, BlockPos pos)
 	{
-		return world.getBlockState(pos).getBlock().getMaterial().getCanBurn();
+		return world.getBlockState(pos).getMaterial().getCanBurn();
+	}
+	
+	@Override
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, World world, BlockPos pos)
+	{
+		return null;
 	}
 }

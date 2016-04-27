@@ -5,15 +5,18 @@ import genesis.combo.*;
 import genesis.combo.ToolItems.ToolObjectType;
 import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.ToolTypes.ToolType;
+import genesis.sounds.GenesisSoundEvents;
 import genesis.stats.GenesisAchievements;
-import genesis.util.Constants;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 
 @ItemVariantCount(1)
@@ -52,13 +55,15 @@ public class ItemPebble extends ItemGenesis
 	}
 	
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world,
+			BlockPos pos, EnumHand hand, EnumFacing side,
+			float hitX, float hitY, float hitZ)
 	{
 		IBlockState state = world.getBlockState(pos);
 		
-		if (!player.isSneaking() && state.getBlock().getMaterial() == Material.rock && state.getBlock().getBlockHardness(world, pos) >= 1)
+		if (!player.isSneaking() && state.getMaterial() == Material.rock && state.getBlockHardness(world, pos) >= 1)
 		{
-			player.swingItem();
+			//player.swingItem();
 			
 			ItemStack undamaged = null;
 			
@@ -74,7 +79,7 @@ public class ItemPebble extends ItemGenesis
 				player.dropItem(undamaged, false, true);
 			}
 			
-			player.playSound(Constants.ASSETS_PREFIX + "crafting.pebble_hit", 2, 0.9F + world.rand.nextFloat() * 0.2F);
+			player.playSound(GenesisSoundEvents.item_pebble_hit, 2, 0.9F + world.rand.nextFloat() * 0.2F);
 			
 			// If the pebble was destroyed
 			if (stack.getItemDamage() > stack.getMaxDamage() || player.capabilities.isCreativeMode)
@@ -96,7 +101,7 @@ public class ItemPebble extends ItemGenesis
 				player.addStat(GenesisAchievements.gettingChoppingTool, 1);
 			}
 			
-			return true;
+			return EnumActionResult.SUCCESS;
 		}
 		else if (stack.getItemDamage() <= 0)
 		{
@@ -156,18 +161,19 @@ public class ItemPebble extends ItemGenesis
 				
 				if (world.setBlockState(pos, state))
 				{
-					world.playSoundEffect(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
-							block.stepSound.getPlaceSound(), (block.stepSound.getVolume() + 1F) / 2F, block.stepSound.getFrequency() * 0.8F);
+					world.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+							block.getSoundType().getPlaceSound(), SoundCategory.BLOCKS,
+							(block.getSoundType().getVolume() + 1F) / 2F, block.getSoundType().getPitch() * 0.8F, false);
 					
 					if (!player.capabilities.isCreativeMode && --stack.stackSize <= 0)
 						player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
 				}
 				
-				return true;
+				return EnumActionResult.SUCCESS;
 			}
 		}
 		
-		return false;
+		return EnumActionResult.FAIL;
 	}
 	
 	@Override

@@ -1,9 +1,9 @@
 package genesis.block;
 
-import genesis.client.*;
 import genesis.common.*;
+import genesis.sounds.GenesisSoundTypes;
 import genesis.util.*;
-import genesis.util.random.*;
+import genesis.util.random.i.IntRange;
 import genesis.world.biome.BiomeGenBaseGenesis;
 
 import java.util.*;
@@ -14,8 +14,10 @@ import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.*;
 import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.IPlantable;
@@ -29,15 +31,15 @@ public class BlockMoss extends BlockGrass
 	{
 		setDefaultState(blockState.getBaseState().withProperty(STAGE, 0).withProperty(SNOWY, false));
 		setHardness(0.6F);
-		setStepSound(GenesisSounds.MOSS);
+		setSoundType(GenesisSoundTypes.MOSS);
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 		setHarvestLevel("shovel", 0);
 	}
 	
 	@Override
-	public BlockState createBlockState()
+	public BlockStateContainer createBlockState()
 	{
-		return new BlockState(this, STAGE, SNOWY);
+		return new BlockStateContainer(this, STAGE, SNOWY);
 	}
 
 	@Override
@@ -70,14 +72,14 @@ public class BlockMoss extends BlockGrass
 		{
 			BlockPos plantPos = aboveCenter;
 			int i = 0;
-
+			
 			while (true)
 			{
 				if (i < loops / 16)
 				{
 					plantPos = plantPos.add(rand.nextInt(3) - 1, ((rand.nextInt(3) - 1) * rand.nextInt(3)) / 2, rand.nextInt(3) - 1);
-
-					if ((world.getBlockState(plantPos.down()).getBlock() == this) && !world.getBlockState(plantPos).getBlock().isNormalCube())
+					
+					if ((world.getBlockState(plantPos.down()).getBlock() == this) && !world.getBlockState(plantPos).isNormalCube())
 					{
 						i++;
 						continue;
@@ -85,8 +87,6 @@ public class BlockMoss extends BlockGrass
 				}
 				else if (world.isAirBlock(plantPos))
 				{
-					IBlockState randPlant = null;
-					
 					if (rand.nextInt(8) == 0)
 					{
 						world.getBiomeGenForCoords(plantPos).plantFlower(world, rand, plantPos);
@@ -96,17 +96,14 @@ public class BlockMoss extends BlockGrass
 						// Plant Grass
 						if (biomeGenesis != null)
 						{
-							randPlant = biomeGenesis.getRandomWorldGenForGrass(rand).getSpawnablePlant(rand);
+							biomeGenesis.getRandomWorldGenForGrass(rand).place(world, rand, plantPos);
 						}
 						else
 						{
 							// Vanilla
-							randPlant = Blocks.tallgrass.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS);
+							world.setBlockState(plantPos, Blocks.tallgrass.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS));
 						}
 					}
-					
-					if (randPlant != null && randPlant.getBlock().canPlaceBlockAt(world, plantPos))
-						world.setBlockState(plantPos, randPlant);
 				}
 				
 				loops++;
@@ -116,7 +113,7 @@ public class BlockMoss extends BlockGrass
 	}
 
 	@Override
-	public boolean canSustainPlant(IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable)
+	public boolean canSustainPlant(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable)
 	{
 		switch (plantable.getPlantType(world, pos.up()))
 		{
@@ -130,14 +127,14 @@ public class BlockMoss extends BlockGrass
 					WorldUtils.isWater(world, pos.north()) ||
 					WorldUtils.isWater(world, pos.south());
 		default:
-			return super.canSustainPlant(world, pos, direction, plantable);
+			return super.canSustainPlant(state, world, pos, direction, plantable);
 		}
 	}
 	
 	@Override
-	public void onPlantGrow(World world, BlockPos pos, BlockPos source)
+	public void onPlantGrow(IBlockState state, World world, BlockPos pos, BlockPos source)
 	{
-		world.setBlockState(pos, net.minecraft.init.Blocks.dirt.getDefaultState(), 2);
+		world.setBlockState(pos, Blocks.dirt.getDefaultState(), 2);
 	}
 	
 	protected final float[] lightFertility = {
@@ -170,7 +167,7 @@ public class BlockMoss extends BlockGrass
 		
 		IBlockState stateAbove = world.getBlockState(above);
 		
-		if (stateAbove.getBlock().getMaterial() == Material.water)
+		if (stateAbove.getMaterial() == Material.water)
 		{
 			return 0;
 		}
@@ -213,7 +210,7 @@ public class BlockMoss extends BlockGrass
 		
 		for (BlockPos sample : WorldUtils.getArea(pos.add(-rad, -rad, -rad), pos.add(rad, rad, rad)))
 		{
-			if (sample.distanceSq(pos) <= rad * rad && world.getBlockState(sample).getBlock().getMaterial() == Material.water)
+			if (sample.distanceSq(pos) <= rad * rad && world.getBlockState(sample).getMaterial() == Material.water)
 			{
 				water++;
 			}
@@ -259,7 +256,7 @@ public class BlockMoss extends BlockGrass
 	
 	public float getGrowthChance(World world, BlockPos pos, boolean dying)
 	{
-		float humidity = world.getBiomeGenForCoords(pos).rainfall;
+		float humidity = world.getBiomeGenForCoords(pos).getRainfall();
 		float chance = 1 - growthChanceHumidityEffect + (humidity * growthChanceHumidityEffect * (dying ? -2 : 1));
 		
 		return chance * growthChanceMult;
@@ -317,13 +314,13 @@ public class BlockMoss extends BlockGrass
 	 * @see ItemHoe#useHoe(ItemStack, EntityPlayer, World, BlockPos, IBlockState)
 	 */
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state,
+			EntityPlayer player, EnumHand hand, ItemStack held,
+			EnumFacing side, float hitX, float hitY, float hitZ)
 	{
-		ItemStack stack = player.getCurrentEquippedItem();
-		
-		if ((stack != null) && (stack.getItem() instanceof ItemHoe))
+		if (held != null && (held.getItem() instanceof ItemHoe))
 		{
-			if (!player.canPlayerEdit(pos.offset(side), side, stack))
+			if (!player.canPlayerEdit(pos.offset(side), side, held))
 			{
 				return false;
 			}
@@ -335,16 +332,13 @@ public class BlockMoss extends BlockGrass
 				double x = pos.getX() + 0.5F;
 				double y = pos.getY() + 0.5F;
 				double z = pos.getZ() + 0.5F;
-				String soundName = newState.getBlock().stepSound.getStepSound();
-				float volume = (newState.getBlock().stepSound.getVolume() + 1F) / 2F;
-				float pitch = newState.getBlock().stepSound.getFrequency() * 0.8F;
 				
-				world.playSoundEffect(x, y, z, soundName, volume, pitch);
+				world.playSound(player, x, y, z, SoundEvents.item_hoe_till, SoundCategory.BLOCKS, 1, 1);
 				
 				if (!world.isRemote)
 				{
 					world.setBlockState(pos, newState);
-					stack.damageItem(1, player);
+					held.damageItem(1, player);
 				}
 				
 				return true;
@@ -352,66 +346,5 @@ public class BlockMoss extends BlockGrass
 		}
 		
 		return false;
-	}
-	
-	@Override
-	public int colorMultiplier(IBlockAccess world, BlockPos pos, int renderPass)
-	{
-		if (renderPass == 1)
-		{
-			int color = super.colorMultiplier(world, pos, renderPass);
-			
-			int r = (color & 16711680) >> 16;
-			int g = (color & 65280) >> 8;
-			int b = color & 255;
-			
-			float avgStage = 0;
-			float stageSamples = 0;
-			
-			for (BlockPos checkPos : WorldUtils.getArea(pos.add(-1, -1, -1), pos.add(1, 1, 1)))
-			{
-				IBlockState checkState = world.getBlockState(checkPos);
-				Block checkBlock = checkState.getBlock();
-				
-				if (checkBlock == this)
-				{
-					avgStage += checkState.getValue(STAGE);
-					stageSamples++;
-				}
-			}
-			
-			avgStage /= stageSamples;
-			avgStage /= STAGE_LAST;
-			avgStage = MathHelper.clamp_float(avgStage, 0, 1);
-			
-			BiomeGenBase biome = world.getBiomeGenForCoords(pos);
-			float temperature = MathHelper.clamp_float(biome.getFloatTemperature(pos), 0, 1);
-			float humidity = MathHelper.clamp_float(biome.rainfall, 0, 1);
-			
-			int dryColor = biome.getModdedBiomeGrassColor(ColorizerDryMoss.getColor(temperature, humidity));
-			int toR = (dryColor & 16711680) >> 16;
-			int toG = (dryColor & 65280) >> 8;
-			int toB = dryColor & 255;
-			
-			float amount = 1 - avgStage;
-			
-			r = r + (int) ((toR - r) * amount);	// Interpolate between the two color textures.
-			g = g + (int) ((toG - g) * amount);
-			b = b + (int) ((toB - b) * amount);
-			
-			color = ((r & 255) << 16) |
-					((g & 255) << 8) |
-					(b & 255);
-			
-			return color;
-		}
-		
-		return getRenderColor(world.getBlockState(pos));
-	}
-	
-	@Override
-	public int getRenderColor(IBlockState state)
-	{
-		return 16777215;
 	}
 }

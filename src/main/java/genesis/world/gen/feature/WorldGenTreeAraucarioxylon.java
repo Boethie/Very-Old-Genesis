@@ -1,73 +1,42 @@
 package genesis.world.gen.feature;
 
-import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumTree;
-import genesis.common.GenesisBlocks;
+import genesis.util.random.i.WeightedIntItem;
+import genesis.util.random.i.IntRange;
+import genesis.util.random.i.WeightedIntProvider;
 
 import java.util.Random;
 
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 {
-	private boolean generateRandomSaplings = true;
-	private int treeType = 0;
-	
 	public WorldGenTreeAraucarioxylon(int minHeight, int maxHeight, boolean notify)
 	{
-		super(
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LOG, EnumTree.ARAUCARIOXYLON).withProperty(BlockLog.LOG_AXIS, EnumAxis.Y),
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES, EnumTree.ARAUCARIOXYLON),
-				notify);
+		super(EnumTree.ARAUCARIOXYLON, IntRange.create(minHeight, maxHeight), notify);
 		
-		this.notify = notify;
-		
-		this.minHeight = minHeight;
-		this.maxHeight = maxHeight;
-		
-		this.hangingFruit = GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.HANGING_FRUIT, EnumTree.ARAUCARIOXYLON);
-	}
-	
-	public WorldGenTreeAraucarioxylon setType(int type)
-	{
-		treeType = type;
-		return this;
-	}
-	
-	public WorldGenTreeBase setGenerateRandomSaplings(boolean generate)
-	{
-		generateRandomSaplings = generate;
-		return this;
+		this.saplingCountProvider = new WeightedIntProvider(
+				WeightedIntItem.of(88, 0),
+				WeightedIntItem.of(6, IntRange.create(1, 3)));
 	}
 	
 	@Override
-	public boolean generate(World world, Random rand, BlockPos pos)
+	protected boolean doGenerate(World world, Random rand, BlockPos pos)
 	{
-		pos = getTreePos(world, pos);
+		int height = heightProvider.get(rand);
 		
-		if (!canTreeGrow(world, pos))
+		if (!isCubeClear(world, pos, 1, height))
 			return false;
 		
-		if (rand.nextInt(rarity) != 0)
-			return false;
-		
-		int treeHeight = minHeight + rand.nextInt(maxHeight - minHeight);
-		
-		if (!isCubeClear(world, pos.up(), 1, treeHeight))
-		{
-			return false;
-		}
-		
-		for (int i = 0; i < treeHeight; i++)
+		for (int i = 0; i < height; i++)
 		{
 			setBlockInWorld(world, pos.up(i), wood);
 		}
 		
-		BlockPos branchPos = pos.up(treeHeight - 1);
+		BlockPos branchPos = pos.up(height - 1);
 		
 		int leavesBase = 0;
 		boolean alternate = true;
@@ -77,7 +46,7 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 		
 		switch (treeType)
 		{
-		case 1:
+		case TYPE_2:
 			leavesBase = branchPos.getY() - 4 - rand.nextInt(6);
 			alternate = false;
 			inverted = true;
@@ -95,13 +64,13 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 		
 		int lFactor;
 		
-		for (int i = base; i < treeHeight && treeType == 0; ++i)
+		for (int i = base; i < height && treeType == TreeTypes.TYPE_1; ++i)
 		{
 			++direction;
 			if (direction > 7)
 				direction = 0;
 			
-			lFactor = (int)(6.0f * (((treeHeight - i) / (float) treeHeight)));
+			lFactor = (int)(6 * (((height - i) / (float) height)));
 			
 			branchDown(world, pos.up(i), rand, pos.getY(), direction + 1, lFactor);
 			
@@ -115,25 +84,7 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			}
 		}
 		
-		doPineTopLeaves(world, pos, branchPos, treeHeight, leavesBase, rand, alternate, maxLeavesLength, irregular, inverted);
-		
-		if (generateRandomSaplings && rand.nextInt(10) > 3)
-		{
-			int saplingCount = rand.nextInt(5);
-			BlockPos posSapling;
-			for (int si = 1; si <= saplingCount; ++si)
-			{
-				posSapling = pos.add(rand.nextInt(9) - 4, 0, rand.nextInt(9) - 4);
-				
-				if (
-						posSapling != null
-						&& world.getBlockState(posSapling.up()).getBlock().isAir(world, posSapling)
-						&& world.getBlockState(posSapling).getBlock().canSustainPlant(world, posSapling, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.ARAUCARIOXYLON)))
-				{
-					setBlockInWorld(world, posSapling.up(), GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.SAPLING, EnumTree.ARAUCARIOXYLON));
-				}
-			}
-		}
+		doPineTopLeaves(world, pos, branchPos, height, leavesBase, rand, alternate, maxLeavesLength, irregular, inverted);
 		
 		return true;
 	}

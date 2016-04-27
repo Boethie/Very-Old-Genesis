@@ -4,7 +4,7 @@ import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
 import genesis.entity.living.flying.EntityMeganeura;
 import genesis.util.Constants;
-import genesis.util.random.IntRange;
+import genesis.util.random.i.IntRange;
 import genesis.util.render.EntityPart;
 import genesis.util.render.RenderHelpers;
 import net.minecraft.client.model.ModelBase;
@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.entity.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.*;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -24,7 +25,7 @@ public class EntityMeganeuraEgg extends EntityEgg
 		super(world);
 	}
 	
-	public EntityMeganeuraEgg(World world, Vec3 position)
+	public EntityMeganeuraEgg(World world, Vec3d position)
 	{
 		super(world, position);
 	}
@@ -41,10 +42,10 @@ public class EntityMeganeuraEgg extends EntityEgg
 	{
 		EntityMeganeura meganeura = new EntityMeganeura(worldObj);
 		
-		Vec3 center = new Vec3(fixedTo.getX() + 0.5, posY, fixedTo.getZ() + 0.5);
-		Vec3 normal = getPositionVector().subtract(center).normalize();
+		Vec3d center = new Vec3d(fixedTo.getX() + 0.5, posY, fixedTo.getZ() + 0.5);
+		Vec3d normal = getPositionVector().subtract(center).normalize();
 		float w = meganeura.width;	// Offset the meganeura out of the calamites.
-		Vec3 spawnLoc = getPositionVector().addVector(normal.xCoord * w, normal.yCoord * w, normal.zCoord * w);
+		Vec3d spawnLoc = getPositionVector().addVector(normal.xCoord * w, normal.yCoord * w, normal.zCoord * w);
 		
 		float yaw = (float) (Math.toDegrees(Math.atan2(-normal.zCoord, -normal.xCoord)));
 		
@@ -68,9 +69,10 @@ public class EntityMeganeuraEgg extends EntityEgg
 	}
 	
 	@Override
-	public String getBreakSound()
+	public SoundEvent getBreakSound()
 	{
-		return Constants.ASSETS_PREFIX + "dig.egg";
+		//return Constants.ASSETS_PREFIX + "dig.egg";
+		return null;
 	}
 	
 	@SideOnly(Side.CLIENT)

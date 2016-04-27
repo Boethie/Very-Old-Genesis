@@ -8,7 +8,6 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import com.google.common.collect.Lists;
 
-import genesis.client.GenesisClient;
 import genesis.combo.*;
 import genesis.combo.ToolItems.*;
 import genesis.combo.VariantsOfTypesCombo.*;
@@ -17,6 +16,7 @@ import genesis.combo.variant.ToolTypes.ToolType;
 import genesis.common.*;
 import genesis.item.*;
 import genesis.util.*;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.*;
@@ -24,6 +24,7 @@ import net.minecraft.block.state.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
 
@@ -47,6 +48,8 @@ public class BlockPebble extends Block
 	public final PropertyIMetadata<ToolType> variantProp;
 	public PropertyInteger randomProp;
 	
+	protected AxisAlignedBB bounds = FULL_BLOCK_AABB;
+	
 	public BlockPebble(ToolItems owner, ToolObjectType<BlockPebble, ItemPebble> type, ToolType variant, Class<ToolType> variantClass)
 	{
 		super(Material.rock);
@@ -58,25 +61,17 @@ public class BlockPebble extends Block
 		variantProp = new PropertyIMetadata<ToolType>("variant", Collections.singletonList(variant), variantClass);
 		
 		final String randomName = "zrandom";
-		Genesis.proxy.callSided(new SidedFunction()
+		Genesis.proxy.callClient((c) ->
 		{
-			@Override
-			public void client(GenesisClient client)
-			{
-				// TODO: Random variants
-				//Set<String> variants = ModelHelpers.getBlockstatesVariants(new ResourceLocation("genesis:pebble")).keySet();
-				
-				randomProp = PropertyInteger.create(randomName, 0, 1);
-			}
+			// TODO: Random variants
+			//Set<String> variants = ModelHelpers.getBlockstatesVariants(new ResourceLocation("genesis:pebble")).keySet();
 			
-			@Override
-			public void server(GenesisProxy server)
-			{
-				randomProp = PropertyInteger.create(randomName, 0, 1);
-			}
+			randomProp = PropertyInteger.create(randomName, 0, 1);
 		});
 		
-		blockState = new BlockState(this, variantProp, randomProp, NW, NE, SE, SW);
+		Genesis.proxy.callClient((s) -> randomProp = PropertyInteger.create(randomName, 0, 1));
+		
+		blockState = new BlockStateContainer(this, variantProp, randomProp, NW, NE, SE, SW);
 		setDefaultState(getBlockState().getBaseState().withProperty(randomProp, 0).withProperty(NW, false).withProperty(NE, false).withProperty(SE, false).withProperty(SW, false));
 	}
 
@@ -116,19 +111,21 @@ public class BlockPebble extends Block
 	}
 
 	@Override
-	public boolean isOpaqueCube()
+	public boolean isOpaqueCube(IBlockState state)
 	{
 		return false;
 	}
 	
 	@Override
-	public boolean isFullCube()
+	public boolean isFullCube(IBlockState state)
 	{
 		return false;
 	}
 	
 	@Override
-	public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+	public IBlockState onBlockPlaced(World world, BlockPos pos,
+			EnumFacing facing, float hitX, float hitY, float hitZ,
+			int meta, EntityLivingBase placer)
 	{
 		IBlockState state = world.getBlockState(pos);
 		
@@ -154,16 +151,6 @@ public class BlockPebble extends Block
 		return state;
 	}
 	
-	protected void setBlockBounds(AxisAlignedBB bb)
-	{
-		minX = bb.minX;
-		minY = bb.minY;
-		minZ = bb.minZ;
-		maxX = bb.maxX;
-		maxY = bb.maxY;
-		maxZ = bb.maxZ;
-	}
-	
 	protected enum Part
 	{
 		NW(BlockPebble.NW, new AxisAlignedBB(0.0, 0.0, 0.0, 0.5, 0.25, 0.5)),
@@ -182,11 +169,10 @@ public class BlockPebble extends Block
 	}
 	
 	@Override
-	public MovingObjectPosition collisionRayTrace(World world, BlockPos pos, Vec3 start, Vec3 end)
+	public RayTraceResult collisionRayTrace(IBlockState state, World world, BlockPos pos, Vec3d start, Vec3d end)
 	{
-		ArrayList<Pair<AxisAlignedBB, MovingObjectPosition>> hits = Lists.newArrayList();
+		ArrayList<Pair<AxisAlignedBB, RayTraceResult>> hits = Lists.newArrayList();
 		
-		IBlockState state = world.getBlockState(pos);
 		boolean hasPebble = false;
 		
 		for (Part part : Part.values())
@@ -194,8 +180,7 @@ public class BlockPebble extends Block
 			if (state.getValue(part.prop))
 			{
 				hasPebble = true;
-				setBlockBounds(part.bounds);
-				MovingObjectPosition hit = super.collisionRayTrace(world, pos, start, end);
+				RayTraceResult hit = rayTrace(pos, start, end, part.bounds);
 				
 				if (hit != null)
 				{
@@ -206,9 +191,9 @@ public class BlockPebble extends Block
 		}
 		
 		double lastDistSqr = -1;
-		Pair<AxisAlignedBB, MovingObjectPosition> hit = null;
+		Pair<AxisAlignedBB, RayTraceResult> hit = null;
 		
-		for (Pair<AxisAlignedBB, MovingObjectPosition> checkHit : hits)
+		for (Pair<AxisAlignedBB, RayTraceResult> checkHit : hits)
 		{
 			double distSqr = checkHit.getRight().hitVec.squareDistanceTo(start);
 			
@@ -221,31 +206,32 @@ public class BlockPebble extends Block
 		
 		if (hit != null)
 		{
-			setBlockBounds(hit.getLeft());
+			bounds = hit.getLeft();
 			return hit.getRight();
 		}
 		
 		if (!hasPebble)
 		{
-			setBlockBounds(0, 0, 0, 1, 1, 1);
-			return super.collisionRayTrace(world, pos, start, end);
+			bounds = FULL_BLOCK_AABB;
+			return super.collisionRayTrace(state, world, pos, start, end);
 		}
 		
 		return null;
 	}
 	
 	@Override
-	public void addCollisionBoxesToList(World world, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
+	public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World world, BlockPos pos)
+	{
+		return bounds.offset(pos);
+	}
+	
+	@Override
+	public void addCollisionBoxToList(IBlockState state, World world, BlockPos pos,
+			AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
 	{
 		for (Part part : Part.values())
-		{
-			AxisAlignedBB bb = part.bounds.offset(pos.getX(), pos.getY(), pos.getZ());
-			
-			if (state.getValue(part.prop) && mask.intersectsWith(bb))
-			{
-				list.add(bb);
-			}
-		}
+			if (state.getValue(part.prop))
+				Block.addCollisionBoxToList(pos, mask, list, part.bounds);
 	}
 	
 	protected boolean dropAll = true;
@@ -305,12 +291,10 @@ public class BlockPebble extends Block
 				final WorldServer world = (WorldServer) player.worldObj;
 				world.addScheduledTask(() ->
 				{
-					Block block = world.getBlockState(message.pos).getBlock();
-					
-					if (!block.isAir(world, message.pos))
+					if (!world.isAirBlock(message.pos))
 					{
-						BlockPebble pebble = (BlockPebble) block;
-						pebble.removePebble(world, message.pos, message.part, player, message.harvest);
+						IBlockState state = world.getBlockState(message.pos);
+						((BlockPebble) state.getBlock()).removePebble(state, world, message.pos, message.part, player, message.harvest);
 					}
 				});
 				
@@ -319,9 +303,9 @@ public class BlockPebble extends Block
 		}
 	}
 	
-	protected boolean removePebble(World world, BlockPos pos, Part pebble, EntityPlayer player, boolean harvest)
+	protected boolean removePebble(IBlockState state, World world, BlockPos pos, Part pebble, EntityPlayer player, boolean harvest)
 	{
-		IBlockState state = world.getBlockState(pos);
+		//IBlockState state = world.getBlockState(pos);
 		
 		if (state.getBlock() == this)
 		{
@@ -356,7 +340,7 @@ public class BlockPebble extends Block
 			}
 			else if (!hasPebble)
 			{
-				return super.removedByPlayer(world, pos, player, harvest);
+				return super.removedByPlayer(state, world, pos, player, harvest);
 			}
 		}
 		
@@ -364,11 +348,11 @@ public class BlockPebble extends Block
 	}
 	
 	@Override
-	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean harvest)
+	public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean harvest)
 	{
 		if (world.isRemote)
 		{
-			MovingObjectPosition hit = player.rayTrace(15, 1);
+			RayTraceResult hit = player.rayTrace(15, 1);	// distance, partialTick (not magic)
 			
 			if (pos.equals(hit.getBlockPos()))
 			{
@@ -380,7 +364,7 @@ public class BlockPebble extends Block
 				}
 				
 				Genesis.network.sendToServer(new PebbleBreakMessage(pos, part, harvest));
-				return removePebble(world, pos, part, player, harvest);
+				return removePebble(state, world, pos, part, player, harvest);
 			}
 		}
 		

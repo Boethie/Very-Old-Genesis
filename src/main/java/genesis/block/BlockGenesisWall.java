@@ -7,13 +7,13 @@ import genesis.util.AABBUtils;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.*;
-import net.minecraft.client.particle.EntityFX;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 
 public class BlockGenesisWall extends BlockWall
@@ -34,7 +34,7 @@ public class BlockGenesisWall extends BlockWall
 		this.sideHeight = sideHeight;
 		this.fakeHeight = fakeHeight;
 		
-		this.blockState = new BlockState(this, NORTH, EAST, SOUTH, WEST);
+		this.blockState = new BlockStateContainer(this, NORTH, EAST, SOUTH, WEST);
 		setDefaultState(getBlockState().getBaseState()
 				.withProperty(NORTH, false)
 				.withProperty(EAST, false)
@@ -88,7 +88,7 @@ public class BlockGenesisWall extends BlockWall
 		if (block instanceof BlockFenceGate)
 			return true;
 		
-		if (block.isSideSolid(world, pos, side.getOpposite()))
+		if (state.isSideSolid(world, pos, side.getOpposite()))
 			return true;
 		
 		state = block.getActualState(state, world, pos);
@@ -114,11 +114,12 @@ public class BlockGenesisWall extends BlockWall
 	}
 	
 	@Override
-	public void addCollisionBoxesToList(World world, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
+	public void addCollisionBoxToList(IBlockState state, World world, BlockPos pos,
+			AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
 	{
 		// Make particles collide with the actual top of the fence, rather than the raised version.
 		boolean realHeight = fakeHeight <= 0
-							|| collidingEntity instanceof EntityFX
+							|| collidingEntity == null
 							|| collidingEntity instanceof EntityFallingBlock;
 		
 		AxisAlignedBB base = new AxisAlignedBB(0.5, 0, 0.5, 0.5, 0, 0.5)
@@ -141,7 +142,7 @@ public class BlockGenesisWall extends BlockWall
 	}
 	
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess world, BlockPos pos)
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
 		AxisAlignedBB bb = new AxisAlignedBB(0.5, 0, 0.5, 0.5, poleHeight, 0.5)
 				.expand(poleRadius, 0, poleRadius);
@@ -176,12 +177,7 @@ public class BlockGenesisWall extends BlockWall
 			}
 		}
 		
-		this.minX = bb.minX;
-		this.minY = bb.minY;
-		this.minZ = bb.minZ;
-		this.maxX = bb.maxX;
-		this.maxY = bb.maxY;
-		this.maxZ = bb.maxZ;
+		return bb;
 	}
 	
 	@Override
@@ -194,23 +190,22 @@ public class BlockGenesisWall extends BlockWall
 	}
 	
 	@Override
-	public boolean shouldSideBeRendered(IBlockAccess world, BlockPos pos, EnumFacing side)
+	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side)
 	{
-		Block block = world.getBlockState(pos).getBlock();
+		BlockPos sidePos = pos.offset(side);
+		IBlockState sideState = world.getBlockState(sidePos);
 		
-		if (block.doesSideBlockRendering(world, pos, side))
+		if (sideState.doesSideBlockRendering(world, sidePos, side))
 			return false;
 		
-		if (block == this)
+		if (sideState.getBlock() == this)
 		{
 			if (side.getAxis() != EnumFacing.Axis.Y)
 				return false;
 			
-			BlockPos origin = pos.offset(side.getOpposite());
-			
 			for (EnumFacing facing : EnumFacing.HORIZONTALS)
-				if (canConnectTo(world, origin, facing)
-					&& !canConnectTo(world, pos, facing))
+				if (canConnectTo(world, pos, facing)
+					&& !canConnectTo(world, sidePos, facing))
 					return true;
 			
 			return false;

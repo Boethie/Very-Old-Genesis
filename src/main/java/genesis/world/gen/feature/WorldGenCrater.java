@@ -3,11 +3,11 @@ package genesis.world.gen.feature;
 import java.util.Random;
 
 import genesis.common.GenesisBlocks;
-import net.minecraft.block.Block;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -55,22 +55,17 @@ public class WorldGenCrater extends WorldGenerator
 	@Override
 	public boolean generate(World world, Random rand, BlockPos pos)
 	{
-		Block block;
-		
 		do
 		{
-			block = world.getBlockState(pos).getBlock();
+			IBlockState state = world.getBlockState(pos);
 			
-			if (block == Blocks.water)
+			if (state.getBlock() == Blocks.water)
 				return false;
 			
-			if (
-					!block.isAir(world, pos) 
-					&& !block.isLeaves(world, pos)
-			)
-			{
+			if (!state.getBlock().isAir(state, world, pos) 
+					&& !state.getBlock().isLeaves(state, world, pos))
 				break;
-			}
+			
 			pos = pos.down();
 		}
 		while (pos.getY() > 0);
@@ -118,7 +113,7 @@ public class WorldGenCrater extends WorldGenerator
 				{
 					if (!is(isLake, x, y, z) && neighborIs(isLake, x, y, z))
 					{
-						Material material = world.getBlockState(pos.add(x, y, z)).getBlock().getMaterial();
+						Material material = world.getBlockState(pos.add(x, y, z)).getMaterial();
 						
 						if (y >= top ?
 								material.isLiquid() :
@@ -153,7 +148,7 @@ public class WorldGenCrater extends WorldGenerator
 					{
 						BlockPos replacePos = pos.add(x, y, z);
 						
-						if ((y < top || rand.nextInt(2) != 0) && world.getBlockState(replacePos).getBlock().getMaterial().isSolid() && !(rand.nextInt(12) == 0))
+						if ((y < top || rand.nextInt(2) != 0) && world.getBlockState(replacePos).getMaterial().isSolid() && !(rand.nextInt(12) == 0))
 						{
 							IBlockState craterBottom;
 							

@@ -8,6 +8,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public abstract class EntityFixed extends Entity
@@ -19,7 +21,7 @@ public abstract class EntityFixed extends Entity
 		super(world);
 	}
 	
-	public EntityFixed(World world, Vec3 position)
+	public EntityFixed(World world, Vec3d position)
 	{
 		this(world);
 		
@@ -37,9 +39,9 @@ public abstract class EntityFixed extends Entity
 	}
 	
 	@Override
-	public void setPositionAndUpdate(double x, double y, double z)
+	public void setLocationAndAngles(double x, double y, double z, float yaw, float pitch)
 	{
-		super.setPositionAndUpdate(x, y, z);
+		super.setLocationAndAngles(x, y, z, yaw, pitch);
 		// Set the fixedTo position, as this is what gets called to set the position on spawn.
 		setFixedTo(new BlockPos(posX, posY, posZ));
 	}
@@ -51,15 +53,15 @@ public abstract class EntityFixed extends Entity
 		WorldUtils.spawnItemsAt(worldObj, posX, posY, posZ, null, getDroppedItem());
 	}
 	
-	public abstract String getBreakSound();
+	public abstract SoundEvent getBreakSound();
 	
 	protected void playBreakingSound()
 	{
-		String breakSound = getBreakSound();
+		SoundEvent breakSound = getBreakSound();
 		
 		if (breakSound != null)
 		{
-			worldObj.playSoundAtEntity(this, breakSound, 0.8F + rand.nextFloat() * 0.4F, 0.9F + rand.nextFloat() * 0.2F);
+			playSound(breakSound, 0.8F + rand.nextFloat() * 0.4F, 0.9F + rand.nextFloat() * 0.2F);
 		}
 	}
 	
@@ -157,7 +159,7 @@ public abstract class EntityFixed extends Entity
 		posX = compound.getDouble("x");
 		posY = compound.getDouble("y");
 		posZ = compound.getDouble("z");
-		setPositionAndUpdate(posX, posY, posZ);
+		setFixedTo(new BlockPos(posX, posY, posZ));
 		
 		if (compound.hasKey("blockX") && compound.hasKey("blockY") && compound.hasKey("blockZ"))
 		{

@@ -75,53 +75,42 @@ public class ToolTypes
 		@Override
 		public int compareTo(ToolType o)
 		{
-			ToolType other = o;
-			int materialCompare = material.compareTo(other.material);
+			int materialCompare = material.compareTo(o.material);
 			
 			if (materialCompare != 0)
 			{
 				return materialCompare;
 			}
 			
-			return quality.compareTo(other.quality);
+			return quality.compareTo(o.quality);
 		}
 	}
 	
-	// Comparator to sort the table to the correct order.
-	private static final Comparator<Enum<?>> sorter = new Comparator<Enum<?>>()
-			{
-				@Override
-				public int compare(Enum<?> m1, Enum<?> m2)
-				{
-					return Integer.valueOf(m1.ordinal()).compareTo(Integer.valueOf(m2.ordinal()));
-				}
-			};
-	protected static final TreeBasedTable<EnumToolMaterial, EnumToolQuality, ToolType> table = TreeBasedTable.create(sorter, sorter);
+	protected static final ImmutableTable<EnumToolMaterial, EnumToolQuality, ToolType> TABLE;
 	
 	static
 	{
+		ImmutableTable.Builder<EnumToolMaterial, EnumToolQuality, ToolType> builder = ImmutableTable.builder();
+		
 		for (EnumToolMaterial material : EnumToolMaterial.values())
 		{
 			for (EnumToolQuality quality : EnumToolQuality.values())
 			{
 				ToolType toolType = new ToolType(material, quality);
-				table.put(material, quality, toolType);
+				builder.put(material, quality, toolType);
 			}
 		}
+		
+		TABLE = builder.build();
 	}
 	
 	public static ToolType getToolHead(EnumToolMaterial material, EnumToolQuality quality)
 	{
-		return table.get(material, quality);
+		return TABLE.get(material, quality);
 	}
 	
 	public static List<ToolType> getAll()
 	{
-		return ImmutableList.copyOf(table.values());
-	}
-	
-	public static Collection<ToolType> getToolTypes(EnumToolQuality quality)
-	{
-		return table.column(quality).values();
+		return ImmutableList.copyOf(TABLE.values());
 	}
 }

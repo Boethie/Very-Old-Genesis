@@ -7,14 +7,13 @@ import genesis.combo.SiltBlocks;
 import genesis.combo.variant.EnumSilt;
 import genesis.common.GenesisBlocks;
 import genesis.util.SuperSimplexNoise;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.MapGenBase;
 
 public class MapGenCavesGenesis extends MapGenBase
@@ -54,7 +53,7 @@ public class MapGenCavesGenesis extends MapGenBase
 	}
 	
 	@Override
-	public void generate(IChunkProvider chunkProvider, World world, int chunkX, int chunkZ, ChunkPrimer data)
+	public void generate(World world, int chunkX, int chunkZ, ChunkPrimer data)
 	{
 		SuperSimplexNoise.NoiseInstance3[] noiseInstaces_64_96_64 = new SuperSimplexNoise.NoiseInstance3[] {
 				new SuperSimplexNoise.NoiseInstance3(new SuperSimplexNoise(world.getSeed() + 0), 0, 1, 2, 3),

@@ -2,13 +2,15 @@ package genesis.world;
 
 import genesis.client.render.RenderFog;
 import genesis.common.GenesisBlocks;
+import genesis.common.GenesisDimensions;
 import genesis.util.GenesisMath;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldProvider;
-import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -29,43 +31,32 @@ public class WorldProviderGenesis extends WorldProvider
 	@Override
 	protected void generateLightBrightnessTable()
 	{
-		float f = 0.0F;
-		
 		for (int i = 0; i <= 15; ++i)
 		{
-			float f1 = 1 - i / 15F;
-			this.lightBrightnessTable[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * (1.0F - f) + f;
+			float levelF = 1 - i / 15F;
+			lightBrightnessTable[i] = (1 - levelF) / (levelF * 3 + 1);
 		}
-	}
-	
-	@Override
-	public String getDimensionName()
-	{
-		return "Genesis";
-	}
-	
-	@Override
-	public String getInternalNameSuffix()
-	{
-		return "";
 	}
 	
 	@Override
 	public String getWelcomeMessage()
 	{
-		return EnumChatFormatting.ITALIC + "You feel yourself forgetting your knowledge of crafting...";
+		return TextFormatting.ITALIC + "You feel yourself forgetting your knowledge of crafting...";
 	}
 	
 	@Override
-	protected void registerWorldChunkManager()
+	protected void createBiomeProvider()
 	{
-		this.worldChunkMgr = new WorldChunkManagerGenesis(this.worldObj);
+		biomeProvider = new BiomeProviderGenesis(worldObj);
 	}
 	
 	@Override
-	public IChunkProvider createChunkGenerator()
+	public IChunkGenerator createChunkGenerator()
 	{
-		return new ChunkGeneratorGenesis(this.worldObj, this.worldObj.getSeed(), this.worldObj.getWorldInfo().isMapFeaturesEnabled(), this.worldObj.getWorldInfo().getGeneratorOptions());
+		return new ChunkGeneratorGenesis(worldObj,
+				worldObj.getSeed(),
+				worldObj.getWorldInfo().isMapFeaturesEnabled(),
+				worldObj.getWorldInfo().getGeneratorOptions());
 	}
 	
 	@Override
@@ -130,8 +121,14 @@ public class WorldProviderGenesis extends WorldProvider
 	}
 	
 	@Override
-	public Vec3 getFogColor(float angle, float partialTicks)
+	public Vec3d getFogColor(float angle, float partialTicks)
 	{
 		return GenesisMath.lerp(RenderFog.INSTANCE.prevColor, RenderFog.INSTANCE.color, partialTicks);
+	}
+	
+	@Override
+	public DimensionType getDimensionType()
+	{
+		return GenesisDimensions.GENESIS_DIMENSION;
 	}
 }

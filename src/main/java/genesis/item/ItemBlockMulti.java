@@ -37,11 +37,11 @@ public class ItemBlockMulti<V extends IMetadata<V>> extends ItemBlock
 		super.getSubItems(item, tab, subItems);
 	}
 	
-	@Override
+	/*@Override
 	public int getColorFromItemStack(ItemStack stack, int renderPass)
 	{
 		return getBlock().getRenderColor(owner.getBlockState(type, owner.getVariant(stack)));
-	}
+	}*/
 	
 	@Override
 	public String getUnlocalizedName(ItemStack stack)

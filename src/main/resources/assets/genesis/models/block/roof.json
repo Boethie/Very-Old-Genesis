@@ -1,5 +1,6 @@
 {
 	"__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
+	"parent": "genesis:block/stairs_base",
 	"ambientocclusion": true,
 	"elements": [
 		{	"__comment": "Cube",

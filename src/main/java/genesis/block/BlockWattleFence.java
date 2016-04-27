@@ -8,12 +8,14 @@ import genesis.combo.variant.EnumTree;
 import genesis.combo.variant.PropertyIMetadata;
 import genesis.item.ItemBlockMulti;
 import genesis.util.*;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.*;
 import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -56,7 +58,7 @@ public class BlockWattleFence extends BlockGenesisFence
 		
 		setHardness(2);
 		setResistance(5);
-		setStepSound(soundTypeWood);
+		setSoundType(SoundType.WOOD);
 		
 		this.owner = owner;
 		this.type = type;
@@ -64,7 +66,7 @@ public class BlockWattleFence extends BlockGenesisFence
 		variantProp = new PropertyIMetadata<EnumTree>("variant", variants, variantClass);
 		this.variants = variants;
 		
-		blockState = new BlockState(this, variantProp, NORTH, EAST, SOUTH, WEST);
+		blockState = new BlockStateContainer(this, variantProp, NORTH, EAST, SOUTH, WEST);
 		setDefaultState(getBlockState().getBaseState());
 	}
 	
@@ -93,8 +95,8 @@ public class BlockWattleFence extends BlockGenesisFence
 		
 		if (canConnectTo(world, pos, side))
 		{
-			boolean up = above && owner.getBlocks(type).contains(world.getBlockState(sidePos.up()).getBlock());//canConnectTo(world, sidePos, EnumFacing.UP);
-			boolean down = below && owner.getBlocks(type).contains(world.getBlockState(sidePos.down()).getBlock());//canConnectTo(world, sidePos, EnumFacing.DOWN);
+			boolean up = above && owner.containsBlockState(type, world.getBlockState(sidePos.up()));//canConnectTo(world, sidePos, EnumFacing.UP);
+			boolean down = below && owner.containsBlockState(type, world.getBlockState(sidePos.down()));//canConnectTo(world, sidePos, EnumFacing.DOWN);
 			
 			if (up && down)
 			{
@@ -139,8 +141,8 @@ public class BlockWattleFence extends BlockGenesisFence
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public EnumWorldBlockLayer getBlockLayer()
+	public BlockRenderLayer getBlockLayer()
 	{
-		return EnumWorldBlockLayer.CUTOUT;
+		return BlockRenderLayer.CUTOUT;
 	}
 }

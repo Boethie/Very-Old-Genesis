@@ -1,5 +1,6 @@
 {
 	"__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
+	"parent": "block/block",
 	"ambientocclusion": true,
 	"textures": {
 		"side": "genesis:blocks/storage_box/side",
@@ -29,12 +30,5 @@
 				"west": { "uv": [ 1, 0, 2, 16 ], "texture": "#top_connect", "rotation": 270, "cullface": "west" }
 			}
 		}
-	],
-	"display": {
-		"thirdperson": {
-			"rotation": [ 10, -45, 170 ],
-			"translation": [ 0, 1.5, -2.75 ],
-			"scale": [ 0.375, 0.375, 0.375 ]
-		}
-	}
+	]
 }

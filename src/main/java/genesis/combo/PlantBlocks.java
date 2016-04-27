@@ -1,79 +1,52 @@
 package genesis.combo;
 
-import java.util.List;
-
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Sets;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.ItemStack;
 import genesis.block.*;
 import genesis.combo.variant.EnumPlant;
-import genesis.combo.variant.IMetadata;
-import genesis.common.GenesisSounds;
 import genesis.item.*;
 import genesis.util.ReflectionUtils;
 import genesis.util.Constants.Unlocalized;
 
+import net.minecraft.block.SoundType;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.ItemStack;
+
 public class PlantBlocks extends VariantsOfTypesCombo<EnumPlant>
 {
-	private static final Class<BlockPlant<EnumPlant>> SINGLE = ReflectionUtils.convertClass(BlockPlant.class);
-	private static final Class<BlockGenesisDoublePlant<EnumPlant>> DOUBLE = ReflectionUtils.convertClass(BlockGenesisDoublePlant.class);
-	
 	// Plants
-	public static final ObjectType<BlockPlant<EnumPlant>, ItemBlockMulti<EnumPlant>> PLANT = ObjectType.create("plant", Unlocalized.Section.PLANT, SINGLE, null);
-	public static final ObjectType<BlockGenesisDoublePlant<EnumPlant>, ItemBlockMulti<EnumPlant>> DOUBLE_PLANT = new ObjectType<BlockGenesisDoublePlant<EnumPlant>, ItemBlockMulti<EnumPlant>>("double_plant", Unlocalized.Section.PLANT_DOUBLE, DOUBLE, null)
-	{
-		@Override
-		public String getVariantName(IMetadata<?> variant)
-		{
-			return "double_" + variant.getName();
-		}
-	};
+	public static final ObjectType<BlockPlant<EnumPlant>, ItemBlockMulti<EnumPlant>> PLANT;
+	public static final ObjectType<BlockGenesisDoublePlant<EnumPlant>, ItemBlockMulti<EnumPlant>> DOUBLE_PLANT;
 	
 	// Ferns
-	private static void afterFernConstructed(Block block, ItemBlockMulti<EnumPlant> item, List<? extends IMetadata<?>> variants)
-	{
-		block.setStepSound(GenesisSounds.FERN);
-	}
-	
-	public static final ObjectType<BlockPlant<EnumPlant>, ItemBlockMulti<EnumPlant>> FERN = new ObjectType<BlockPlant<EnumPlant>, ItemBlockMulti<EnumPlant>>("fern", Unlocalized.Section.FERN, SINGLE, null)
-	{
-		@Override
-		public  <V extends IMetadata<V>> void afterConstructed(BlockPlant<EnumPlant> block, ItemBlockMulti<EnumPlant> item, List<V> variants)
-		{
-			afterFernConstructed(block, item, variants);
-		}
-	};
-	public static final ObjectType<BlockGenesisDoublePlant<EnumPlant>, ItemBlockMulti<EnumPlant>> DOUBLE_FERN = new ObjectType<BlockGenesisDoublePlant<EnumPlant>, ItemBlockMulti<EnumPlant>>("double_fern", Unlocalized.Section.FERN_DOUBLE, DOUBLE, null)
-	{
-		@Override
-		public  <V extends IMetadata<V>> void afterConstructed(BlockGenesisDoublePlant<EnumPlant> block, ItemBlockMulti<EnumPlant> item, List<V> variants)
-		{
-			afterFernConstructed(block, item, variants);
-		}
-		
-		@Override
-		public String getVariantName(IMetadata<?> variant)
-		{
-			return "double_" + variant.getName();
-		}
-	}.setValidVariants(EnumPlant.FERNS);
+	public static final ObjectType<BlockPlant<EnumPlant>, ItemBlockMulti<EnumPlant>> FERN;
+	public static final ObjectType<BlockGenesisDoublePlant<EnumPlant>, ItemBlockMulti<EnumPlant>> DOUBLE_FERN;
 	
 	static
 	{
-		PLANT.setBlockArguments(DOUBLE_PLANT)
+		Class<BlockPlant<EnumPlant>> singleClass = ReflectionUtils.convertClass(BlockPlant.class);
+		Class<BlockGenesisDoublePlant<EnumPlant>> doubleClass = ReflectionUtils.convertClass(BlockGenesisDoublePlant.class);
+		
+		PLANT = ObjectType.createBlock("plant", Unlocalized.Section.PLANT, singleClass);
+		DOUBLE_PLANT = ObjectType.createBlock("double_plant", Unlocalized.Section.PLANT_DOUBLE, doubleClass);
+		PLANT.setBlockArguments(DOUBLE_PLANT, SoundType.PLANT)
 				.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE)
 				.setValidVariants(Sets.intersection(EnumPlant.PLANTS, EnumPlant.SINGLES));
-		DOUBLE_PLANT.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE)
-				.setValidVariants(Sets.intersection(EnumPlant.PLANTS, EnumPlant.DOUBLES));
+		DOUBLE_PLANT.setBlockArguments(SoundType.PLANT)
+				.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE)
+				.setValidVariants(Sets.intersection(EnumPlant.PLANTS, EnumPlant.DOUBLES))
+				.setVariantNameFunction((v) -> "double_" + v.getName());
 		
-		FERN.setBlockArguments(DOUBLE_FERN)
+		FERN = ObjectType.createBlock("fern", Unlocalized.Section.FERN, singleClass);
+		DOUBLE_FERN = ObjectType.createBlock("double_fern", Unlocalized.Section.FERN_DOUBLE, doubleClass);
+		FERN.setBlockArguments(DOUBLE_FERN, SoundType.PLANT)
 				.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE)
 				.setValidVariants(Sets.intersection(EnumPlant.FERNS, EnumPlant.SINGLES));
-		DOUBLE_FERN.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE)
-				.setValidVariants(Sets.intersection(EnumPlant.FERNS, EnumPlant.DOUBLES));
+		DOUBLE_FERN.setBlockArguments(SoundType.PLANT)
+				.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE)
+				.setValidVariants(Sets.intersection(EnumPlant.FERNS, EnumPlant.DOUBLES))
+				.setVariantNameFunction((v) -> "double_" + v.getName());
 	}
 	
 	public PlantBlocks()

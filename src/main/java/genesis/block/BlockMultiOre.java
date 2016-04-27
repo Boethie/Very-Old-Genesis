@@ -16,7 +16,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -39,7 +39,7 @@ public class BlockMultiOre<V extends IOreVariant<V>> extends BlockOre
 		this.type = type;
 		
 		variantProp = new PropertyIMetadata<V>("variant", variants, variantClass);
-		blockState = new BlockState(this, variantProp);
+		blockState = new BlockStateContainer(this, variantProp);
 		setDefaultState(blockState.getBaseState());
 		
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
@@ -89,10 +89,10 @@ public class BlockMultiOre<V extends IOreVariant<V>> extends BlockOre
 	}
 	
 	@Override
-	public float getBlockHardness(World world, BlockPos pos)
+	public float getBlockHardness(IBlockState state, World world, BlockPos pos)
 	{
 		IOreVariant<V> variant = getVariant(world, pos);
-		return variant != null ? variant.getHardness() : super.getBlockHardness(world, pos);
+		return variant != null ? variant.getHardness() : super.getBlockHardness(state, world, pos);
 	}
 	
 	@Override
@@ -115,7 +115,7 @@ public class BlockMultiOre<V extends IOreVariant<V>> extends BlockOre
 	}
 	
 	@Override
-	public int getExpDrop(IBlockAccess world, BlockPos pos, int fortune)
+	public int getExpDrop(IBlockState state, IBlockAccess world, BlockPos pos, int fortune)
 	{
 		return getVariant(world, pos).getDropExperience().get(WorldUtils.getWorldRandom(world, RANDOM));
 	}
@@ -124,11 +124,5 @@ public class BlockMultiOre<V extends IOreVariant<V>> extends BlockOre
 	public int damageDropped(IBlockState state)
 	{
 		return owner.getItemMetadata(type, state.getValue(variantProp));
-	}
-	
-	@Override
-	public int getDamageValue(World world, BlockPos pos)
-	{
-		return damageDropped(world.getBlockState(pos));
 	}
 }

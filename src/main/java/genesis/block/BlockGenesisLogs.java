@@ -14,7 +14,7 @@ import java.util.List;
 
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -22,8 +22,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -54,7 +55,7 @@ public class BlockGenesisLogs extends BlockLog
 		this.variants = variants;
 		variantProp = new PropertyIMetadata<EnumTree>("variant", variants, variantClass);
 		
-		blockState = new BlockState(this, variantProp, LOG_AXIS);
+		blockState = new BlockStateContainer(this, variantProp, LOG_AXIS);
 		setDefaultState(getBlockState().getBaseState().withProperty(LOG_AXIS, EnumAxis.NONE));
 		
 		Blocks.fire.setFireInfo(this, 5, 5);
@@ -117,7 +118,7 @@ public class BlockGenesisLogs extends BlockLog
 		if (world instanceof World && GenesisDimensions.isGenesis((World) world))
 		{
 			IBlockState state = getActualState(world.getBlockState(pos), world, pos);
-			ItemStack held = player.getHeldItem();
+			ItemStack held = player.getHeldItem(EnumHand.MAIN_HAND);
 			
 			if (held == null || held.getItem().getHarvestLevel(held, getHarvestTool(state)) < 0)
 			{

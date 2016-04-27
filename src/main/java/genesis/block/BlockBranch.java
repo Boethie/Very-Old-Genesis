@@ -18,8 +18,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.world.*;
-import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.fml.relauncher.*;
 
 public class BlockBranch extends BlockGenesisLogs
@@ -43,7 +43,7 @@ public class BlockBranch extends BlockGenesisLogs
 		
 		this.type = type;
 		
-		blockState = new BlockState(this, CONNECTIONS.toArrayWith(LEAVES, variantProp));
+		blockState = new BlockStateContainer(this, CONNECTIONS.toArrayWith(LEAVES, variantProp));
 		setDefaultState(CONNECTIONS.stateWith(getBlockState().getBaseState(), false).withProperty(LEAVES, false));
 		
 		Blocks.fire.setFireInfo(this, 30, 60);
@@ -85,7 +85,7 @@ public class BlockBranch extends BlockGenesisLogs
 						return true;
 					
 					if (f == EnumFacing.DOWN && !(sideState.getBlock() instanceof BlockBranch) &&
-							sideState.getBlock().isSideSolid(world, sidePos, f.getOpposite()))
+							sideState.getBlock().isSideSolid(sideState, world, sidePos, f.getOpposite()))
 						return true;
 					
 					return false;
@@ -104,45 +104,19 @@ public class BlockBranch extends BlockGenesisLogs
 	}
 	
 	@Override
-	@SideOnly(Side.CLIENT)
-	public int colorMultiplier(IBlockAccess world, BlockPos pos, int renderPass)
-	{
-		if (renderPass == 1)
-			return BiomeColorHelper.getFoliageColorAtPos(world, pos);
-		
-		return 0xFFFFFF;
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public int getRenderColor(IBlockState state)
-	{
-		return ColorizerFoliage.getFoliageColorBasic();
-	}
-	
-	/*@Override
-	@SideOnly(Side.CLIENT)
-	public AxisAlignedBB getSelectedBoundingBox(World world, BlockPos pos)
-	{
-		setBlockBoundsBasedOnState(world, pos);
-		return super.getSelectedBoundingBox(world, pos);
-	}*/
-	
-	@Override
-	public void addCollisionBoxesToList(World world, BlockPos pos, IBlockState state,
+	public void addCollisionBoxToList(IBlockState state, World world, BlockPos pos,
 			AxisAlignedBB mask, List<AxisAlignedBB> list, Entity entity)
 	{
 		state = getActualState(state, world, pos);
 		
 		if (state.getValue(LEAVES))
 		{
-			AABBUtils.addBlockBounds(list, mask, new AxisAlignedBB(0, 0, 0, 1, 1, 1), pos);
+			addCollisionBoxToList(pos, mask, list, FULL_BLOCK_AABB);
 		}
 		else
 		{
-			AABBUtils.addBlockBounds(list, mask,
-					new AxisAlignedBB(0.5 - RADIUS, 0.5 - RADIUS, 0.5 - RADIUS, 0.5 + RADIUS, 0.5 + RADIUS, 0.5 + RADIUS),
-					pos);
+			addCollisionBoxToList(pos, mask, list,
+					new AxisAlignedBB(0.5 - RADIUS, 0.5 - RADIUS, 0.5 - RADIUS, 0.5 + RADIUS, 0.5 + RADIUS, 0.5 + RADIUS));
 			
 			AxisAlignedBB sideBase = new AxisAlignedBB(0.5, 0.5, 0.5, 0.5, 0.5, 0.5);
 			
@@ -153,16 +127,16 @@ public class BlockBranch extends BlockGenesisLogs
 					AxisAlignedBB sideBB = AABBUtils.offset(sideBase, entry.facing, RADIUS);
 					sideBB = AABBUtils.extend(sideBB, entry.facing, 0.5 - RADIUS);
 					sideBB = AABBUtils.expandSides(sideBB, entry.facing, RADIUS);
-					AABBUtils.addBlockBounds(list, mask, sideBB, pos);
+					addCollisionBoxToList(pos, mask, list, sideBB);
 				}
 			}
 		}
 	}
 	
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess world, BlockPos pos)
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
-		IBlockState state = getActualState(world.getBlockState(pos), world, pos);
+		state = state.getActualState(world, pos);
 		
 		AxisAlignedBB bb = new AxisAlignedBB(0, 0, 0, 1, 1, 1);
 		
@@ -182,12 +156,7 @@ public class BlockBranch extends BlockGenesisLogs
 			}
 		}
 		
-		minX = bb.minX;
-		minY = bb.minY;
-		minZ = bb.minZ;
-		maxX = bb.maxX;
-		maxY = bb.maxY;
-		maxZ = bb.maxZ;
+		return bb;
 	}
 	
 	@Override
@@ -204,25 +173,25 @@ public class BlockBranch extends BlockGenesisLogs
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public EnumWorldBlockLayer getBlockLayer()
+	public BlockRenderLayer getBlockLayer()
 	{
-		return EnumWorldBlockLayer.CUTOUT_MIPPED;
+		return BlockRenderLayer.CUTOUT_MIPPED;
 	}
 	
 	@Override
-	public boolean isOpaqueCube()
+	public boolean isOpaqueCube(IBlockState state)
+	{
+		return false;
+	}
+	
+	@Override
+	public boolean isFullCube(IBlockState state)
 	{
 		return false;
 	}
 	
 	@Override
 	public boolean isVisuallyOpaque()
-	{
-		return false;
-	}
-	
-	@Override
-	public boolean isFullCube()
 	{
 		return false;
 	}

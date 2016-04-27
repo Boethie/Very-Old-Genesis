@@ -7,6 +7,7 @@ import genesis.common.GenesisCreativeTabs;
 import genesis.common.GenesisGuiHandler;
 import genesis.util.FacingHelpers;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
@@ -16,7 +17,8 @@ import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
-import net.minecraft.util.EnumFacing.Axis;
+import net.minecraft.util.math.*;
+import net.minecraft.util.EnumFacing.*;
 import net.minecraft.world.*;
 
 public class BlockStorageBox extends Block
@@ -30,7 +32,7 @@ public class BlockStorageBox extends Block
 	{
 		super(Material.wood);
 		
-		setStepSound(soundTypeWood);
+		setSoundType(SoundType.WOOD);
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		
@@ -38,9 +40,9 @@ public class BlockStorageBox extends Block
 	}
 	
 	@Override
-	public BlockState createBlockState()
+	public BlockStateContainer createBlockState()
 	{
-		return new BlockState(this, FACING, LEFT, RIGHT);
+		return new BlockStateContainer(this, FACING, LEFT, RIGHT);
 	}
 	
 	@Override
@@ -121,9 +123,9 @@ public class BlockStorageBox extends Block
 	}
 	
 	@Override
-	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest)
+	public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest)
 	{
-		boolean out = super.removedByPlayer(world, pos, player, willHarvest);
+		boolean out = super.removedByPlayer(state, world, pos, player, willHarvest);
 		connectBoxes(world, pos);
 		return out;
 	}
@@ -170,7 +172,9 @@ public class BlockStorageBox extends Block
 	}
 	
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state,
+			EntityPlayer player, EnumHand hand, ItemStack held,
+			EnumFacing side, float hitX, float hitY, float hitZ)
 	{
 		if (!world.isAirBlock(pos.up()))
 		{
@@ -234,13 +238,13 @@ public class BlockStorageBox extends Block
 	}
 	
 	@Override
-	public boolean isOpaqueCube()
+	public boolean isOpaqueCube(IBlockState state)
 	{
 		return false;
 	}
 	
 	@Override
-	public boolean isFullCube()
+	public boolean isFullCube(IBlockState state)
 	{
 		return false;
 	}

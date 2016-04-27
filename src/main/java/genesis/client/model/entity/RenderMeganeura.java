@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.*;
 import net.minecraft.util.*;
+import net.minecraft.util.math.MathHelper;
 
 public class RenderMeganeura extends RenderLiving<EntityMeganeura>
 {
@@ -352,7 +353,7 @@ public class RenderMeganeura extends RenderLiving<EntityMeganeura>
 			legRearRightLower.rotateAngleX += -legBotRot;
 			
 			// Laying egg animation.
-			if (meganeura.getState() == EntityMeganeura.State.PLACING_EGG)
+			if (meganeura.getDataManager().get(EntityMeganeura.STATE) == EntityMeganeura.State.PLACING_EGG)
 			{
 				float eggTimer = meganeura.prevEggPlaceTimer + (meganeura.eggPlaceTimer - meganeura.prevEggPlaceTimer) * partialTick;
 				eggTimer = MathHelper.clamp_float(eggTimer, 0, 1);
@@ -428,11 +429,11 @@ public class RenderMeganeura extends RenderLiving<EntityMeganeura>
 		
 		if (meganeura.getTargetLocation() != null)
 		{
-			Vec3 pos = meganeura.getPositionEyes(partialTicks).subtract(0, meganeura.getEyeHeight(), 0);
-			Vec3 renderPos = new Vec3(x, y, z);
+			Vec3d pos = meganeura.getPositionEyes(partialTicks).subtract(0, meganeura.getEyeHeight(), 0);
+			Vec3d renderPos = new Vec3d(x, y, z);
 			
-			Vec3 offset = renderPos.subtract(pos);
-			Vec3 target = meganeura.getTargetLocation().add(offset);
+			Vec3d offset = renderPos.subtract(pos);
+			Vec3d target = meganeura.getTargetLocation().add(offset);
 			
 			super.doRender(entity, target.xCoord, target.yCoord, target.zCoord, yaw, partialTicks);
 		}*/

@@ -1,7 +1,8 @@
 package genesis.util;
 
 import genesis.combo.variant.IMetadata;
-import net.minecraft.util.*;
+
+import net.minecraft.util.math.MathHelper;
 
 public enum EnumAxis implements IMetadata<EnumAxis>
 {
@@ -47,7 +48,7 @@ public enum EnumAxis implements IMetadata<EnumAxis>
 	
 	public static EnumAxis getForAngle(float rotationYaw)
 	{
-		rotationYaw = MathHelper.wrapAngleTo180_float(rotationYaw);
+		rotationYaw = MathHelper.wrapDegrees(rotationYaw);
 		
 		if (rotationYaw < 0)
 		{

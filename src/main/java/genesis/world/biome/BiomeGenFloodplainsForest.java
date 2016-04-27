@@ -2,45 +2,40 @@ package genesis.world.biome;
 
 import java.util.Random;
 
-import genesis.combo.variant.EnumPlant;
-import genesis.combo.variant.EnumTree;
+import genesis.combo.variant.*;
 import genesis.common.GenesisBlocks;
-import genesis.world.biome.decorate.WorldGenDebris;
-import genesis.world.biome.decorate.WorldGenGrowingPlant;
-import genesis.world.biome.decorate.WorldGenMossStages;
-import genesis.world.biome.decorate.WorldGenPlant;
-import genesis.world.biome.decorate.WorldGenRoots;
-import genesis.world.biome.decorate.WorldGenUnderWaterPatch;
-import genesis.world.gen.feature.WorldGenDeadLog;
-import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
-import net.minecraft.init.Blocks;
+import genesis.world.biome.decorate.*;
+import genesis.world.gen.feature.*;
+
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 {
-	public BiomeGenFloodplainsForest(int id)
+	public BiomeGenFloodplainsForest(BiomeGenBase.BiomeProperties properties)
 	{
-		super(id);
-		setBiomeName("Floodplains Forest");
-		setTemperatureRainfall(1.15F, 1.0F);
-		setHeight(-0.2F, 0.1F);
+		super(properties);
 		
-		theBiomeDecorator.clayPerChunk = 4;
-		theBiomeDecorator.sandPerChunk2 = 2;
-		theBiomeDecorator.grassPerChunk = 0;
+		theBiomeDecorator.clayPerChunk = 1;
+		theBiomeDecorator.sandPerChunk2 = 3;
 		
-		addDecoration(WorldGenPlant.create(EnumPlant.RHACOPHYTON).setCountPerChunk(44));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchSize(4).setCountPerChunk(3));
-		addDecoration(WorldGenPlant.create(EnumPlant.PSILOPHYTON).setPatchSize(8).setCountPerChunk(3));
-		addDecoration(new WorldGenUnderWaterPatch(Blocks.water, GenesisBlocks.peat.getDefaultState()).setCountPerChunk(1));
-		addDecoration(new WorldGenMossStages().setCountPerChunk(30));
-		addDecoration(new WorldGenDebris().setCountPerChunk(26));
-		addDecoration(new WorldGenRoots().setCountPerChunk(26));
+		getDecorator().setGrassCount(36);
+		addGrass(WorldGenPlant.create(EnumPlant.RHACOPHYTON), 15);
 		
-		addTree(new WorldGenTreeArchaeopteris(15, 20, true).setTreeCountPerChunk(9));
+		getDecorator().setFlowerCount(1);
+		addFlower(WorldGenPlant.create(EnumPlant.PSILOPHYTON).setPatchCount(6), 1);
 		
-		addTree(new WorldGenDeadLog(3, 6, EnumTree.ARCHAEOPTERIS, true).setTreeCountPerChunk(6));
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchCount(4), 2);
+		addDecoration(WorldGenCircleReplacement.getPeatGen(), 1);
+		addDecoration(new WorldGenMossStages(), 30);
+		addDecoration(new WorldGenDebris(), 26);
+		addDecoration(new WorldGenRoots(), 13);
+		
+		getDecorator().setTreeCount(10);
+		addTree(new WorldGenTreeArchaeopteris(15, 20, true), 9);
+		
+		addTree(new WorldGenDeadLog(3, 6, EnumTree.ARCHAEOPTERIS, true), 6);
 	}
 	
 	@Override
@@ -50,11 +45,11 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 	}
 	
 	@Override
-	public void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
+	public void genTerrainBlocks(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
 	{
 		mossStages = new int[2];
 		mossStages[0] = 1;
 		mossStages[1] = 2;
-		super.generateBiomeTerrain(world, rand, primer, blockX, blockZ, d);
+		super.genTerrainBlocks(world, rand, primer, blockX, blockZ, d);
 	}
 }

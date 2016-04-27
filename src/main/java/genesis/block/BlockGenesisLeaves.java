@@ -14,6 +14,7 @@ import java.util.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockPlanks.EnumType;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.*;
 import net.minecraft.creativetab.CreativeTabs;
@@ -22,6 +23,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -49,11 +51,11 @@ public class BlockGenesisLeaves extends BlockLeaves
 		this.variants = variants;
 		variantProp = new PropertyIMetadata<EnumTree>("variant", variants, variantClass);
 		
-		blockState = new BlockState(this, variantProp, CHECK_DECAY, DECAYABLE);
+		blockState = new BlockStateContainer(this, variantProp, CHECK_DECAY, DECAYABLE);
 		setDefaultState(getBlockState().getBaseState().withProperty(DECAYABLE, true).withProperty(CHECK_DECAY, false));
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
-		setStepSound(soundTypeGrass);
+		setSoundType(SoundType.PLANT);
 		
 		Blocks.fire.setFireInfo(this, 30, 60);
 	}
@@ -77,9 +79,9 @@ public class BlockGenesisLeaves extends BlockLeaves
 	}
 	
 	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player)
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player)
 	{
-		return owner.getStack(type, world.getBlockState(pos).getValue(variantProp));
+		return owner.getStack(type, state.getValue(variantProp));
 	}
 	
 	@Override
@@ -244,22 +246,25 @@ public class BlockGenesisLeaves extends BlockLeaves
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public EnumWorldBlockLayer getBlockLayer()
+	public BlockRenderLayer getBlockLayer()
 	{
-		return Minecraft.isFancyGraphicsEnabled() ? EnumWorldBlockLayer.CUTOUT_MIPPED : EnumWorldBlockLayer.SOLID;
+		return Minecraft.isFancyGraphicsEnabled() ? BlockRenderLayer.CUTOUT_MIPPED : BlockRenderLayer.SOLID;
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public boolean isOpaqueCube()
+	public boolean isOpaqueCube(IBlockState state)
 	{
 		return !Minecraft.isFancyGraphicsEnabled();
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side)
+	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side)
 	{
-		return !Minecraft.isFancyGraphicsEnabled() && worldIn.getBlockState(pos).getBlock() == this ? false : super.shouldSideBeRendered(worldIn, pos, side);
+		if (!Minecraft.isFancyGraphicsEnabled())
+			return !world.getBlockState(pos.offset(side)).doesSideBlockRendering(world, pos.offset(side), side.getOpposite());
+		
+		return true;
 	}
 }

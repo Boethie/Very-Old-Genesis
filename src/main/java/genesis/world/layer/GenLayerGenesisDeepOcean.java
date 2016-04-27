@@ -1,6 +1,7 @@
 package genesis.world.layer;
 
 import genesis.common.GenesisBiomes;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 
@@ -55,19 +56,19 @@ public class GenLayerGenesisDeepOcean extends GenLayerGenesis
 				
 				if (k3 == 0 && l3 > 3 && j3 == 0)
 				{
-					aint1[j2 + i2 * areaWidth] = GenesisBiomes.deepOcean.biomeID;
+					aint1[j2 + i2 * areaWidth] = BiomeGenBase.getIdForBiome(GenesisBiomes.deepOcean);
 				}
 				else if (k3 == 0 && l3 > 2 && i3 == 0)
 				{
-					aint1[j2 + i2 * areaWidth] = GenesisBiomes.ocean.biomeID;
+					aint1[j2 + i2 * areaWidth] = BiomeGenBase.getIdForBiome(GenesisBiomes.ocean);
 				}
 				else if (k3 == 0 && l3 > 1)
 				{
-					aint1[j2 + i2 * areaWidth] = GenesisBiomes.shallowOcean.biomeID;
+					aint1[j2 + i2 * areaWidth] = BiomeGenBase.getIdForBiome(GenesisBiomes.shallowOcean);
 				}
 				else if (k3 == 0 && l3 > 0)
 				{
-					aint1[j2 + i2 * areaWidth] = GenesisBiomes.swampRainForest.biomeID;
+					aint1[j2 + i2 * areaWidth] = BiomeGenBase.getIdForBiome(GenesisBiomes.swampRainForest);
 				}
 				else
 				{

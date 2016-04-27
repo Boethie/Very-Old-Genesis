@@ -2,45 +2,129 @@ package genesis.world.biome.decorate;
 
 import java.util.Random;
 
+import genesis.util.WorldBlockMatcher;
+import genesis.util.random.i.IntRange;
+import genesis.util.random.i.RandomIntProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenDecorationBase extends WorldGenerator
+public abstract class WorldGenDecorationBase extends WorldGenerator
 {
-	private int countPerChunk = 0;
-	private int patchSize = 0;
-	
 	protected int rarity = 1;
 	
+	protected final WorldBlockMatcher airMatcher;
+	protected final WorldBlockMatcher groundMatcher;
+	
+	private RandomIntProvider patchCountProvider = IntRange.create(1);
+	private double patchMaxRadius = 3;
+	private int patchStartHeight = 1;
+	
+	/**
+	 * @param airMatcher Matcher to tell whether the generator should continue searching
+	 * downward for the ground.
+	 * @param groundMatcher Matcher to check whether the ground that is encountered
+	 * is suitable for the generator.
+	 */
+	protected WorldGenDecorationBase(WorldBlockMatcher airMatcher, WorldBlockMatcher groundMatcher)
+	{
+		super(false);
+		
+		this.airMatcher = airMatcher;
+		this.groundMatcher = groundMatcher;
+	}
+	
+	/**
+	 * Creates a generator that does not search for the ground below it.
+	 */
+	protected WorldGenDecorationBase()
+	{
+		this(null, null);
+	}
+	
+	protected BlockPos findGround(IBlockAccess world, BlockPos pos, int distance)
+	{
+		if (airMatcher != null)
+		{
+			if (!airMatcher.apply(world, pos.up()))
+				return null;
+			
+			int down = 0;
+			
+			do
+			{
+				if (!airMatcher.apply(world, pos))
+					break;
+				
+				if (distance != -1 && ++down >= distance)
+					return null;
+			} while ((pos = pos.down()).getY() >= 0);
+		}
+		
+		if (groundMatcher != null && !groundMatcher.apply(world, pos))
+			return null;
+		
+		return pos;
+	}
+	
+	public abstract boolean place(World world, Random rand, BlockPos pos);
+	
 	@Override
-	public boolean generate(World world, Random random, BlockPos pos)
+	public boolean generate(World world, Random rand, BlockPos pos)
 	{
-		return false;
+		pos = findGround(world, pos, -1);
+		
+		if (pos == null || rand.nextInt(rarity) != 0)
+			return false;
+		
+		boolean success = false;
+		int count = patchCountProvider.get(rand);
+		
+		for (int i = 0; i < count; i++)
+		{
+			BlockPos genPos = pos;
+			
+			if (i != 0)
+			{
+				Vec3d offset = new Vec3d(rand.nextDouble() - 0.5, 0, rand.nextDouble() - 0.5)
+						.normalize()
+						.scale(rand.nextDouble() * patchMaxRadius);
+				genPos = findGround(world,
+						pos.add(offset.xCoord, offset.yCoord + patchStartHeight, offset.zCoord),
+						patchStartHeight * 2 + 1);
+			}
+			
+			if (genPos != null && place(world, rand, genPos.up()))
+				success = true;
+		}
+		
+		return success;
 	}
 	
-	public WorldGenDecorationBase setCountPerChunk(int count)
+	public WorldGenDecorationBase setPatchCount(RandomIntProvider count)
 	{
-		countPerChunk = count;
+		patchCountProvider = count;
 		return this;
 	}
 	
-	public int getCountPerChunk()
+	public WorldGenDecorationBase setPatchCount(int min, int max)
 	{
-		return countPerChunk;
+		return setPatchCount(IntRange.create(min, max));
 	}
 	
-	public WorldGenDecorationBase setPatchSize(int size)
+	public WorldGenDecorationBase setPatchCount(int count)
 	{
-		patchSize = size;
+		return setPatchCount(count / 2, count);
+	}
+	
+	public WorldGenDecorationBase setPatchRadius(double radius)
+	{
+		patchMaxRadius = radius;
 		return this;
-	}
-	
-	public int getPatchSize()
-	{
-		return (patchSize == 0)? 1 : patchSize;
 	}
 	
 	public WorldGenDecorationBase setRarity(int rarity)
@@ -54,48 +138,22 @@ public class WorldGenDecorationBase extends WorldGenerator
 		return this.rarity;
 	}
 	
-	public BlockPos getPosition(World world, BlockPos pos)
+	protected boolean setBlockInWorld(World world, BlockPos pos, IBlockState state, boolean force)
 	{
-		Block block;
+		IBlockState stateAt = world.getBlockState(pos);
 		
-		do
+		if (force || stateAt.getBlock().isAir(stateAt, world, pos))
 		{
-			block = world.getBlockState(pos).getBlock();
-			if (!block.isAir(world, pos) && !block.isLeaves(world, pos))
-			{
-				break;
-			}
-			pos = pos.down();
+			setBlockAndNotifyAdequately(world, pos, state);
+			return true;
 		}
-		while (pos.getY() > 0);
 		
-		return pos;
+		return false;
 	}
 	
-	protected void setBlockInWorld(World world, BlockPos pos, IBlockState state)
+	protected boolean setBlockInWorld(World world, BlockPos pos, IBlockState state)
 	{
-		setBlockInWorld(world, pos, state, false);
-	}
-	
-	protected void setBlockInWorld(World world, BlockPos pos, IBlockState state, boolean force)
-	{
-		boolean place = true;
-		
-		try
-		{
-			if (!(world.getBlockState(pos).getBlock().isAir(world, pos)) && !force)
-			{
-				place = false;
-			}
-			
-			if (place)
-			{
-				world.setBlockState(pos, state, 3);
-			}
-		}
-		catch(Exception e)
-		{
-		}
+		return setBlockInWorld(world, pos, state, false);
 	}
 	
 	public boolean findBlockInRange(World world, BlockPos pos, Block findWhat, int distanceX, int distanceY, int distanceZ)

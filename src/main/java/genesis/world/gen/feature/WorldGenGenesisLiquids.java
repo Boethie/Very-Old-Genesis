@@ -6,7 +6,9 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.util.BlockPos;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -27,73 +29,39 @@ public class WorldGenGenesisLiquids extends WorldGenerator
 	}
 	
 	@Override
-	public boolean generate(World worldIn, Random rand, BlockPos position)
+	public boolean generate(World world, Random rand, BlockPos pos)
 	{
-		if (worldIn.getBlockState(position.up()).getBlock() != stone)
-		{
+		if (world.getBlockState(pos.up()).getBlock() != stone)
 			return false;
-		}
-		else if (worldIn.getBlockState(position.down()).getBlock() != stone)
-		{
+		
+		if (world.getBlockState(pos.down()).getBlock() != stone)
 			return false;
-		}
-		else if (worldIn.getBlockState(position).getBlock().getMaterial() != Material.air && worldIn.getBlockState(position).getBlock() != stone)
-		{
+		
+		IBlockState state = world.getBlockState(pos);
+		
+		if (state.getMaterial() != Material.air && state.getBlock() != stone)
 			return false;
-		}
-		else
+		
+		int stoneCount = 0;
+		int airCount = 0;
+		
+		for (EnumFacing facing : EnumFacing.HORIZONTALS)
 		{
-			int i = 0;
-
-			if (worldIn.getBlockState(position.west()).getBlock() == stone)
-			{
-				++i;
-			}
-
-			if (worldIn.getBlockState(position.east()).getBlock() == stone)
-			{
-				++i;
-			}
-
-			if (worldIn.getBlockState(position.north()).getBlock() == stone)
-			{
-				++i;
-			}
-
-			if (worldIn.getBlockState(position.south()).getBlock() == stone)
-			{
-				++i;
-			}
-
-			int j = 0;
-
-			if (worldIn.isAirBlock(position.west()))
-			{
-				++j;
-			}
-
-			if (worldIn.isAirBlock(position.east()))
-			{
-				++j;
-			}
-
-			if (worldIn.isAirBlock(position.north()))
-			{
-				++j;
-			}
-
-			if (worldIn.isAirBlock(position.south()))
-			{
-				++j;
-			}
-
-			if (i == 3 && j == 1)
-			{
-				worldIn.setBlockState(position, liquid.getDefaultState(), 2);
-				worldIn.forceBlockUpdateTick(liquid, position, rand);
-			}
-
-			return true;
+			BlockPos sidePos = pos.offset(facing);
+			IBlockState sideState = world.getBlockState(sidePos);
+			
+			if (sideState.getBlock() == stone)
+				stoneCount++;
+			else if (sideState.getBlock().isAir(sideState, world, sidePos))
+				airCount++;
 		}
+		
+		if (stoneCount == 3 && airCount == 1)
+		{
+			world.setBlockState(pos, liquid.getDefaultState(), 2);
+			world.forceBlockUpdateTick(liquid, pos, rand);
+		}
+		
+		return true;
 	}
 }

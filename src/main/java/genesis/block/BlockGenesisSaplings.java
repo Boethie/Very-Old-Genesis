@@ -18,6 +18,8 @@ import genesis.util.WorldUtils;
 import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
 import genesis.world.gen.feature.WorldGenTreeArchaeanthus;
 import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
+import genesis.world.gen.feature.WorldGenTreeBase;
+import genesis.world.gen.feature.WorldGenTreeBase.TreeTypes;
 import genesis.world.gen.feature.WorldGenTreeBjuvia;
 import genesis.world.gen.feature.WorldGenTreeCordaites;
 import genesis.world.gen.feature.WorldGenTreeDryophyllum;
@@ -30,8 +32,9 @@ import genesis.world.gen.feature.WorldGenTreePsaronius;
 import genesis.world.gen.feature.WorldGenTreeSigillaria;
 import genesis.world.gen.feature.WorldGenTreeVoltzia;
 import net.minecraft.block.BlockSapling;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -39,11 +42,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraftforge.common.EnumPlantType;
 
 public class BlockGenesisSaplings extends BlockSapling
@@ -73,11 +75,11 @@ public class BlockGenesisSaplings extends BlockSapling
 		this.variants = variants;
 		variantProp = new PropertyIMetadata<EnumTree>("variant", variants, variantClass);
 		
-		blockState = new BlockState(this, variantProp, STAGE);
+		blockState = new BlockStateContainer(this, variantProp, STAGE);
 		setDefaultState(getBlockState().getBaseState());
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
-		setStepSound(soundTypeGrass);
+		setSoundType(SoundType.PLANT);
 	}
 	
 	@Override
@@ -113,7 +115,7 @@ public class BlockGenesisSaplings extends BlockSapling
 	}
 	
 	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player)
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player)
 	{
 		return owner.getStack(type, world.getBlockState(pos).getValue(variantProp));
 	}
@@ -121,9 +123,13 @@ public class BlockGenesisSaplings extends BlockSapling
 	@Override
 	public void generateTree(World world, BlockPos pos, IBlockState state, Random rand)
 	{
-		WorldGenAbstractTree gen = null;
+		WorldGenTreeBase gen = null;
 		BlockPos[] positions = {pos};
 		EnumTree variant = state.getValue(variantProp);
+		
+		TreeTypes treeType;
+		int minHeight;
+		int maxHeight;
 		
 		switch (variant)
 		{
@@ -143,7 +149,7 @@ public class BlockGenesisSaplings extends BlockSapling
 			gen = new WorldGenTreePsaronius(5, 8, true);
 			break;
 		case ARAUCARIOXYLON:
-			gen = new WorldGenTreeAraucarioxylon(25, 30, true).setGenerateRandomSaplings(false);
+			gen = new WorldGenTreeAraucarioxylon(25, 30, true);
 			break;
 		case BJUVIA:
 			gen = new WorldGenTreeBjuvia(4, 6, true);
@@ -154,19 +160,25 @@ public class BlockGenesisSaplings extends BlockSapling
 		case METASEQUOIA:
 			positions = Objects.firstNonNull(findSaplings(world, pos, variant, 2), positions);
 			pos = positions[0];
-			int treeType = (positions.length > 1)? 1 : 0;
-			int minHeight = (treeType == 1)? 23 : 20;
-			int maxHeight = (treeType == 1)? 27 : 24;
+			treeType = (positions.length > 1)? TreeTypes.TYPE_2 : TreeTypes.TYPE_1;
+			minHeight = (treeType == TreeTypes.TYPE_2)? 23 : 20;
+			maxHeight = (treeType == TreeTypes.TYPE_2)? 27 : 24;
 			gen = new WorldGenTreeMetasequoia(minHeight, maxHeight, true).setType(treeType);
 			break;
 		case GINKGO:
-			gen = new WorldGenTreeGinkgo(12, 17, true);
+			treeType = (rand.nextInt(6) == 0)? TreeTypes.TYPE_2 : TreeTypes.TYPE_1;
+			minHeight = (treeType == TreeTypes.TYPE_2)? 12 : 8;
+			maxHeight = (treeType == TreeTypes.TYPE_2)? 17 : 13;
+			gen = new WorldGenTreeGinkgo(minHeight, maxHeight, true).setType(treeType);
 			break;
 		case FICUS:
-			gen = new WorldGenTreeFicus(5, 10, true);
+			gen = new WorldGenTreeFicus(4, 8, true);
 			break;
 		case DRYOPHYLLUM:
-			gen = new WorldGenTreeDryophyllum(12, 17, true);
+			treeType = (rand.nextInt(6) == 0)? TreeTypes.TYPE_2 : TreeTypes.TYPE_1;
+			minHeight = (treeType == TreeTypes.TYPE_2)? 12 : 11;
+			maxHeight = (treeType == TreeTypes.TYPE_2)? 17 : 15;
+			gen = new WorldGenTreeDryophyllum(minHeight, maxHeight, true).setType(treeType);
 			break;
 		case ARCHAEANTHUS:
 			gen = new WorldGenTreeArchaeanthus(15, 20, true);
@@ -181,25 +193,24 @@ public class BlockGenesisSaplings extends BlockSapling
 		if (gen != null)
 		{
 			IBlockState[] states = new IBlockState[positions.length];
-			int i = 0;
 			
-			for (BlockPos sapPos : positions)
+			for (int i = 0; i < positions.length; i++)
 			{
+				BlockPos sapPos = positions[i];
 				states[i] = world.getBlockState(sapPos);
 				world.setBlockState(sapPos, Blocks.air.getDefaultState(), 0);
-				i++;
 			}
 			
 			boolean success = gen.generate(world, rand, pos);
-			i = 0;
-			
-			for (BlockPos sapPos : positions)
+
+			for (int i = 0; i < positions.length; i++)
 			{
+				BlockPos sapPos = positions[i];
+				
 				if (success)
 					world.markAndNotifyBlock(sapPos, world.getChunkFromBlockCoords(sapPos), states[i], world.getBlockState(sapPos), 3);
 				else
 					world.setBlockState(sapPos, states[i], 0);
-				i++;
 			}
 		}
 	}

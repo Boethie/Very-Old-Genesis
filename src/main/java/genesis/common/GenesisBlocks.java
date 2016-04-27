@@ -6,35 +6,28 @@ import genesis.block.tileentity.BlockGenesisFlowerPot.IFlowerPotPlant;
 import genesis.block.tileentity.portal.*;
 import genesis.block.tileentity.portal.render.TileEntityGenesisPortalRenderer;
 import genesis.block.tileentity.render.*;
-import genesis.client.*;
+import genesis.client.Colorizers;
 import genesis.combo.*;
 import genesis.combo.VariantsOfTypesCombo.*;
-import genesis.combo.variant.EnumAquaticPlant;
-import genesis.combo.variant.EnumCoral;
-import genesis.combo.variant.EnumMaterial;
-import genesis.combo.variant.EnumMenhirPart;
-import genesis.combo.variant.EnumPlant;
-import genesis.combo.variant.EnumSeeds;
-import genesis.combo.variant.IMetadata;
-import genesis.entity.extendedproperties.GenesisEntityData;
+import genesis.combo.variant.*;
 import genesis.item.*;
+import genesis.sounds.GenesisSoundTypes;
 import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
-import genesis.util.random.drops.blocks.BlockDrops;
-import genesis.util.random.drops.blocks.BlockStackDrop;
+import genesis.util.random.drops.blocks.*;
 
-import java.util.List;
-
-import net.minecraft.block.Block;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.color.BlockColors;
+import net.minecraft.client.renderer.color.IBlockColor;
+import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemColored;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.item.*;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.EnumPlantType;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.*;
 
@@ -42,11 +35,11 @@ public final class GenesisBlocks
 {
 	/* Portal */
 	public static final VariantsCombo<EnumMenhirPart, BlockMenhir, ItemMenhir> menhirs =
-			new VariantsCombo<EnumMenhirPart, BlockMenhir, ItemMenhir>(
-					new ObjectType<BlockMenhir, ItemMenhir>("menhir", Unlocalized.PREFIX + "menhir", BlockMenhir.class, ItemMenhir.class)
+			new VariantsCombo<>(
+					new ObjectType<>("menhir", "menhir", BlockMenhir.class, ItemMenhir.class)
 							.setUseSeparateVariantJsons(false).setShouldRegisterVariantModels(false),
-					EnumMenhirPart.class, EnumMenhirPart.values()
-			);
+					EnumMenhirPart.class, EnumMenhirPart.values())
+			.setNames(Constants.MOD_ID, Unlocalized.PREFIX);
 	public static final BlockGenesisPortal portal = (BlockGenesisPortal) new BlockGenesisPortal().setUnlocalizedName(Unlocalized.MISC + "portal");
 	
 	/* Moss */
@@ -85,7 +78,8 @@ public final class GenesisBlocks
 	public static final BlockCampfire campfire = (BlockCampfire) new BlockCampfire().setUnlocalizedName(Unlocalized.CONTAINER_BLOCK + "campfire");
 	public static final BlockStorageBox storage_box = (BlockStorageBox) new BlockStorageBox().setUnlocalizedName(Unlocalized.CONTAINER_BLOCK + "storageBox");
 	public static final BlockRottenStorageBox rotten_storage_box = (BlockRottenStorageBox) new BlockRottenStorageBox().setUnlocalizedName(Unlocalized.CONTAINER_BLOCK + "rottenStorageBox");
-	
+	public static final BlockRack rack = (BlockRack) new BlockRack().setUnlocalizedName(Unlocalized.PREFIX + "rack");
+
 	/* Plants */
 	public static final PlantBlocks plants = new PlantBlocks();
 	public static final BlockCalamites calamites = (BlockCalamites) new BlockCalamites(true, 15, 7)
@@ -157,9 +151,8 @@ public final class GenesisBlocks
 	public static final Block prototaxites_mycelium = new BlockPrototaxitesMycelium().setUnlocalizedName(Unlocalized.PREFIX + "prototaxitesMycelium");
 	
 	public static final DungBlocksAndItems dungs = new DungBlocksAndItems();
-	public static final Block dung_brick_block = new BlockGenesis(Material.rock)
+	public static final Block dung_brick_block = new BlockGenesis(Material.rock, SoundType.STONE)
 			.setHardness(0.7F)
-			.setStepSound(Block.soundTypePiston)
 			.setUnlocalizedName(Unlocalized.PREFIX + "dungBrickBlock");
 	public static final BlockGenesisWall wattle_and_daub = (BlockGenesisWall) new BlockGenesisWall(Material.wood, 0.375F, 1.0F, -1).setUnlocalizedName(Unlocalized.PREFIX + "wattleAndDaub");
 	
@@ -178,58 +171,53 @@ public final class GenesisBlocks
 	public static final BlockPrototaxites prototaxites = (BlockPrototaxites) new BlockPrototaxites()
 			.setUnlocalizedName(Unlocalized.PREFIX + "prototaxites");
 	
-	@SuppressWarnings("unchecked")
 	public static final VariantsCombo<EnumCoral, BlockGenesisVariants<EnumCoral>, ItemBlockMulti<EnumCoral>> corals =
 			VariantsCombo.create(
-					new ObjectType<BlockGenesisVariants<EnumCoral>, ItemBlockMulti<EnumCoral>>("coral", (Class<BlockGenesisVariants<EnumCoral>>) ((Class<?>) BlockGenesisVariants.class), null)
-							{
-								@Override
-								public <V extends IMetadata<V>> void afterConstructed(BlockGenesisVariants<EnumCoral> block, ItemBlockMulti<EnumCoral> item, List<V> variants)
-								{
-									super.afterConstructed(block, item, variants);
-									
-									block.setHardness(0.75F);
-									block.setResistance(8.5F);
-									block.setStepSound(GenesisSounds.CORAL);
-								}
-							}.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE)
+					new ObjectType<BlockGenesisVariants<EnumCoral>, ItemBlockMulti<EnumCoral>>("coral", ReflectionUtils.convertClass(BlockGenesisVariants.class), null)
+							.setConstructedFunction((b, i) -> b.setHardness(0.75F).setResistance(8.5F))
+							.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE)
 							.setCreativeTab(GenesisCreativeTabs.DECORATIONS)
-							.setBlockArguments(Material.coral),
+							.setBlockArguments(Material.coral, GenesisSoundTypes.CORAL),
 					EnumCoral.class, EnumCoral.values());
 	
-	public static void registerBlocks()
+	private static ResourceLocation name(String path)
+	{
+		return new ResourceLocation(Constants.MOD_ID, path);
+	}
+	
+	public static void preInitCommon()
 	{
 		// --- Building blocks ---
 		// - Surface -
-		Genesis.proxy.registerBlock(moss, "moss", ItemMoss.class, false);
+		Genesis.proxy.registerBlock(moss, name("moss"), false);
 		
 		for (int mossStage = 0; mossStage <= BlockMoss.STAGE_LAST; mossStage++)
 		{
-			Genesis.proxy.registerModel(moss, mossStage, "moss_" + mossStage);
+			Genesis.proxy.registerModel(moss, mossStage, name("moss_" + mossStage));
 		}
 		
 		// - Stone -
-		Genesis.proxy.registerBlock(granite, "granite");
-		Genesis.proxy.registerBlock(mossy_granite, "mossy_granite");
-		Genesis.proxy.registerBlock(rhyolite, "rhyolite");
-		Genesis.proxy.registerBlock(dolerite, "dolerite");
-		Genesis.proxy.registerBlock(komatiite, "komatiite");
-		Genesis.proxy.registerBlock(anorthosite, "anorthosite");
-		Genesis.proxy.registerBlock(trondhjemite, "trondhjemite");
-		Genesis.proxy.registerBlock(faux_amphibolite, "faux_amphibolite");
-		Genesis.proxy.registerBlock(gneiss, "gneiss");
-		Genesis.proxy.registerBlock(limestone, "limestone");
-		Genesis.proxy.registerBlock(octaedrite, "octaedrite");
+		Genesis.proxy.registerBlock(granite, name("granite"));
+		Genesis.proxy.registerBlock(mossy_granite, name("mossy_granite"));
+		Genesis.proxy.registerBlock(rhyolite, name("rhyolite"));
+		Genesis.proxy.registerBlock(dolerite, name("dolerite"));
+		Genesis.proxy.registerBlock(komatiite, name("komatiite"));
+		Genesis.proxy.registerBlock(anorthosite, name("anorthosite"));
+		Genesis.proxy.registerBlock(trondhjemite, name("trondhjemite"));
+		Genesis.proxy.registerBlock(faux_amphibolite, name("faux_amphibolite"));
+		Genesis.proxy.registerBlock(gneiss, name("gneiss"));
+		Genesis.proxy.registerBlock(limestone, name("limestone"));
+		Genesis.proxy.registerBlock(octaedrite, name("octaedrite"));
 		
 		// - Soft -
-		Genesis.proxy.registerBlock(red_clay, "red_clay");
-		Genesis.proxy.registerBlock(ooze, "ooze");
-		Genesis.proxy.registerBlock(peat, "peat");
+		Genesis.proxy.registerBlock(red_clay, name("red_clay"));
+		Genesis.proxy.registerBlock(ooze, name("ooze"));
+		Genesis.proxy.registerBlock(peat, name("peat"));
 		silt.registerAll();
 		
 		// - Permafrost -
-		Genesis.proxy.registerBlock(permafrost, "permafrost");
-		Genesis.proxy.registerBlock(ancient_permafrost, "ancient_permafrost");
+		Genesis.proxy.registerBlock(permafrost, name("permafrost"));
+		Genesis.proxy.registerBlock(ancient_permafrost, name("ancient_permafrost"));
 		
 		// - Ores -
 		ores.registerVariants(OreBlocks.ORE);
@@ -238,108 +226,75 @@ public final class GenesisBlocks
 		trees.registerVariants(TreeBlocksAndItems.LOG);
 		trees.registerVariants(TreeBlocksAndItems.BRANCH);
 
-		Genesis.proxy.registerBlock(calamites_bundle, "calamites_bundle");
-		Genesis.proxy.registerBlock(calamites_roof, "calamites_roof");
-		Genesis.proxy.registerBlock(programinis_bundle, "programinis_bundle");
-		Genesis.proxy.registerBlock(programinis_roof, "programinis_roof");
+		Genesis.proxy.registerBlock(calamites_bundle, name("calamites_bundle"));
+		Genesis.proxy.registerBlock(calamites_roof, name("calamites_roof"));
+		Genesis.proxy.registerBlock(programinis_bundle, name("programinis_bundle"));
+		Genesis.proxy.registerBlock(programinis_roof, name("programinis_roof"));
 		
-		Genesis.proxy.registerBlock(prototaxites_mycelium, "prototaxites_mycelium");
+		Genesis.proxy.registerBlock(prototaxites_mycelium, name("prototaxites_mycelium"));
 		
 		// - Dungs -
 		dungs.registerVariants(DungBlocksAndItems.DUNG_BLOCK);
 		
-		Genesis.proxy.registerBlock(dung_brick_block, "dung_brick_block");
+		Genesis.proxy.registerBlock(dung_brick_block, name("dung_brick_block"));
 		dung_brick_block.setHarvestLevel("pickaxe", 0);
 		Blocks.fire.setFireInfo(dung_brick_block, 5, 5);
 		
-		Genesis.proxy.registerBlock(wattle_and_daub, "wattle_and_daub");
+		Genesis.proxy.registerBlock(wattle_and_daub, name("wattle_and_daub"));
 		wattle_and_daub.setHarvestLevel("axe", 0);
 		wattle_and_daub.setHardness(3);
 		
 		// --- Mechanisms ---
-		Genesis.proxy.registerBlockWithItem(trap_floor, "trap_floor", new ItemColored(trap_floor, false));
-		Genesis.proxy.registerModel(trap_floor, 0, "trap_floor");
+		Genesis.proxy.registerBlock(trap_floor, new ItemColored(trap_floor, false), name("trap_floor"));
+		Genesis.proxy.registerModel(trap_floor, 0, name("trap_floor"));
 		
 		// --- Decorative ---
 		menhirs.registerAll();
 		GameRegistry.registerTileEntity(TileEntityMenhirGlyph.class, Constants.ASSETS_PREFIX + "menhir_glyph");
 		GameRegistry.registerTileEntity(TileEntityMenhirReceptacle.class, Constants.ASSETS_PREFIX + "menhir_receptacle");
 		
-		Genesis.proxy.registerBlock(portal, "portal", false);
-		Genesis.proxy.callSided(new SidedFunction()
-		{
-			@SideOnly(Side.CLIENT)
-			@Override
-			public void client(GenesisClient client)
-			{
-				client.registerModelStateMap(portal, new FlexibleStateMap().setPrefix("portal/portal", ""));
-			}
-		});
-		Genesis.proxy.registerModel(portal, 0, "portal/portal");
+		Genesis.proxy.registerBlock(portal, name("portal"), false);
+		Genesis.proxy.registerModel(portal, 0, name("portal/portal"));
 		GameRegistry.registerTileEntity(TileEntityGenesisPortal.class, Constants.ASSETS_PREFIX + "portal");
-		Genesis.proxy.callSided(new SidedFunction()
-		{
-				@SideOnly(Side.CLIENT)
-				@Override
-				public void client(GenesisClient client)
-				{
-					client.registerTileEntityRenderer(TileEntityGenesisPortal.class, new TileEntityGenesisPortalRenderer());
-				}
-		});
 		
 		trees.registerAll();
 		
 		debris.registerAll();
 		
-		Genesis.proxy.registerBlock(roots, "roots");
+		Genesis.proxy.registerBlock(roots, name("roots"));
 		
 		// - Containers -
 		// Workbench
-		Genesis.proxy.registerBlock(workbench, "workbench");
+		Genesis.proxy.registerBlock(workbench, name("workbench"));
 		GameRegistry.registerTileEntity(TileEntityKnapper.class, Constants.ASSETS_PREFIX + "workbench");
-		GenesisEntityData.registerProperty(EntityPlayer.class, TileEntityKnapper.KNAPPING_TIME);
 		
 		// Campfire
-		Genesis.proxy.registerBlock(campfire, "campfire");
+		Genesis.proxy.registerBlock(campfire, name("campfire"));
 		Item.getItemFromBlock(campfire).setMaxStackSize(1);
 		GameRegistry.registerTileEntity(TileEntityCampfire.class, Constants.ASSETS_PREFIX + "campfire");
-		Genesis.proxy.callSided(new SidedFunction()
-		{
-				@SideOnly(Side.CLIENT)
-				@Override
-				public void client(GenesisClient client)
-				{
-						client.registerTileEntityRenderer(TileEntityCampfire.class, new TileEntityCampfireRenderer(campfire));
-				}
-		});
 		
 		// Storage boxes
-		Genesis.proxy.registerBlock(storage_box, "storage_box");
+		Genesis.proxy.registerBlock(storage_box, name("storage_box"));
 		GameRegistry.registerTileEntity(TileEntityStorageBox.class, Constants.ASSETS_PREFIX + "storage_box");
-		Genesis.proxy.callSided(new SidedFunction()
-		{
-				@SideOnly(Side.CLIENT)
-				@Override
-				public void client(GenesisClient client)
-				{
-						client.registerTileEntityRenderer(TileEntityStorageBox.class, new TileEntityStorageBoxRenderer(storage_box));
-				}
-		});
 		
-		Genesis.proxy.registerBlock(rotten_storage_box, "rotten_storage_box");
+		Genesis.proxy.registerBlock(rotten_storage_box, name("rotten_storage_box"));
 		GameRegistry.registerTileEntity(TileEntityRottenStorageBox.class, Constants.ASSETS_PREFIX + "rotten_storage_box");
 		
+		// Rack
+		Genesis.proxy.registerBlock(rack, name("rack"));
+		GameRegistry.registerTileEntity(TileEntityRack.class, Constants.ASSETS_PREFIX + "rack");
+		
 		// - Torches -
-		Genesis.proxy.registerBlock(calamites_torch, "calamites_torch");
-		Genesis.proxy.registerBlock(calamites_torch_tall, "calamites_torch_tall");
+		Genesis.proxy.registerBlock(calamites_torch, name("calamites_torch"));
+		Genesis.proxy.registerBlock(calamites_torch_tall, name("calamites_torch_tall"));
 		
 		// - Plants -
-		plants.setUnlocalizedPrefix(Constants.Unlocalized.PREFIX);
+		plants.setNames(Constants.MOD_ID, Constants.Unlocalized.PREFIX);
 		plants.registerVariants(PlantBlocks.PLANT);
 		plants.registerVariants(PlantBlocks.DOUBLE_PLANT);
 		
 		// Calamites
-		Genesis.proxy.registerBlock(calamites, "calamites");
+		Genesis.proxy.registerBlock(calamites, name("calamites"));
 		calamites.setDrops(new BlockDrops(calamites, 1));
 		calamites.setCropDrops(new BlockDrops(calamites, 1));
 		
@@ -350,21 +305,21 @@ public final class GenesisBlocks
 		// - Growing Plants -
 		
 		// Sphenophyllum
-		Genesis.proxy.registerBlock(sphenophyllum, "sphenophyllum");
+		Genesis.proxy.registerBlock(sphenophyllum, name("sphenophyllum"));
 		
 		// Odontopteris
-		Genesis.proxy.registerBlock(odontopteris, "odontopteris", null);
-		ItemStack drop = GenesisItems.seeds.getStack(EnumSeeds.ZINGIBEROPSIS_RHIZOME);
+		Genesis.proxy.registerBlock(odontopteris, null, name("odontopteris"));
+		ItemStack drop = GenesisItems.seeds.getStack(EnumSeeds.ODONTOPTERIS_SEEDS);
 		odontopteris.setDrops(new BlockDrops(drop, 1, 1));
 		odontopteris.setCropDrops(new BlockDrops(drop, 1, 3));
 		odontopteris.setPickedStack(drop);
 		
 		// Cladophlebis
-		Genesis.proxy.registerBlockWithItem(cladophlebis, "cladophlebis", new ItemColored(cladophlebis, false));
-		Genesis.proxy.registerModel(cladophlebis, 0, "cladophlebis");
+		Genesis.proxy.registerBlock(cladophlebis, new ItemColored(cladophlebis, false), name("cladophlebis"));
+		Genesis.proxy.registerModel(cladophlebis, 0, name("cladophlebis"));
 		
 		// Programinis
-		Genesis.proxy.registerBlock(programinis, "programinis", null);
+		Genesis.proxy.registerBlock(programinis, null, name("programinis"));
 		drop = GenesisItems.seeds.getStack(EnumSeeds.PROGRAMINIS_SEEDS);
 		programinis.setDrops(new BlockDrops(drop, 1, 1));
 		programinis.setCropDrops(
@@ -374,55 +329,105 @@ public final class GenesisBlocks
 		programinis.setPickedStack(drop);
 		
 		// Zingiberopsis
-		Genesis.proxy.registerBlock(zingiberopsis, "zingiberopsis", null);
+		Genesis.proxy.registerBlock(zingiberopsis, null, name("zingiberopsis"));
 		drop = GenesisItems.seeds.getStack(EnumSeeds.ZINGIBEROPSIS_RHIZOME);
 		zingiberopsis.setDrops(new BlockDrops(drop, 1, 1));
 		zingiberopsis.setCropDrops(new BlockDrops(drop, 1, 3));
 		zingiberopsis.setPickedStack(drop);
 		
 		// Ankyropteris
-		Genesis.proxy.registerBlockWithItem(ankyropteris, "ankyropteris", new ItemColored(ankyropteris, false));
-		Genesis.proxy.registerModel(ankyropteris, 0, "ankyropteris");
+		Genesis.proxy.registerBlock(ankyropteris, new ItemColored(ankyropteris, false), name("ankyropteris"));
+		Genesis.proxy.registerModel(ankyropteris, 0, name("ankyropteris"));
 		
 		// Flower pot
-		Genesis.proxy.registerBlock(flower_pot, "flower_pot", null);
+		Genesis.proxy.registerBlock(flower_pot, null, name("flower_pot"));
 		GameRegistry.registerTileEntity(TileEntityGenesisFlowerPot.class, Constants.ASSETS_PREFIX + "flower_pot");
 		
 		// - Mushrooms -
-		Genesis.proxy.registerBlock(palaeoagaracites, "palaeoagaracites");
-		Genesis.proxy.registerBlock(archaeomarasmius, "archaeomarasmius");
-		Genesis.proxy.registerBlock(prototaxites, "prototaxites");
+		Genesis.proxy.registerBlock(palaeoagaracites, name("palaeoagaracites"));
+		Genesis.proxy.registerBlock(archaeomarasmius, name("archaeomarasmius"));
+		Genesis.proxy.registerBlock(prototaxites, name("prototaxites"));
 		
 		// - Water Plants -
 		// Cobbania
-		Genesis.proxy.registerBlock(cobbania, "cobbania", ItemBlockCobbania.class);
+		Genesis.proxy.registerBlock(cobbania, new ItemBlockCobbania(cobbania), name("cobbania"));
 		
 		// Aquatic plants
-		aquatic_plants.setUnlocalizedPrefix(Constants.Unlocalized.PREFIX);
+		aquatic_plants.setNames(Constants.MOD_ID, Constants.Unlocalized.PREFIX);
 		aquatic_plants.registerAll();
 		
 		// Corals
-		corals.setUnlocalizedPrefix(Constants.Unlocalized.PREFIX);
+		corals.setNames(Constants.MOD_ID, Constants.Unlocalized.PREFIX);
 		corals.registerAll();
 		
 		// --- Liquids ---
-		Genesis.proxy.registerFluidBlock(komatiitic_lava, "komatiitic_lava");
+		Genesis.proxy.registerFluidBlock(komatiitic_lava, name("komatiitic_lava"));
 		
-		IFlowerPotPlant plantCustoms = new IFlowerPotPlant()
-		{
-			@Override
-			public int getColorMultiplier(ItemStack contents, IBlockAccess world, BlockPos pos)
-			{
-				EnumPlant variant = plants.getVariant(contents);
-				return variant.getColorMultiplier(world, pos);
-			}
-		};
+		IFlowerPotPlant plantCustoms = (c, w, p) -> plants.getVariant(c).getColorMultiplier(w, p);
 		
-		flower_pot.registerPlantsForPot(plants, PlantBlocks.PLANT, plantCustoms);
-		flower_pot.registerPlantsForPot(plants, PlantBlocks.FERN, plantCustoms);
-		flower_pot.registerPlantsForPot(trees, TreeBlocksAndItems.SAPLING, null);
+		BlockGenesisFlowerPot.registerPlantsForPot(plants, PlantBlocks.PLANT, plantCustoms);
+		BlockGenesisFlowerPot.registerPlantsForPot(plants, PlantBlocks.FERN, plantCustoms);
+		BlockGenesisFlowerPot.registerPlantsForPot(trees, TreeBlocksAndItems.SAPLING, null);
 		
-		flower_pot.registerPlantForPot(new ItemStack(archaeomarasmius), "archaeomarasmius");
+		BlockGenesisFlowerPot.registerPlantForPot(new ItemStack(archaeomarasmius), "archaeomarasmius");
 		flower_pot.afterAllRegistered();
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public static void preInitClient()
+	{
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRack.class, new TileEntityRackRenderer(rack));
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGenesisPortal.class, new TileEntityGenesisPortalRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCampfire.class, new TileEntityCampfireRenderer(campfire));
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityStorageBox.class, new TileEntityStorageBoxRenderer(storage_box));
+		
+		ModelLoader.setCustomStateMapper(portal, new FlexibleStateMap().setPrefix("portal/portal", ""));
+	}
+	
+	private static void registerColors(BlockColors blockColors, ItemColors itemColors, IBlockColor color, Block... blocks)
+	{
+		blockColors.registerBlockColorHandler(color, blocks);
+		itemColors.registerItemColorHandler(
+				(s, t) -> color.colorMultiplier(Block.getBlockFromItem(s.getItem()).getDefaultState(), null, null, t),
+				blocks);
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public static void initClient()
+	{
+		BlockColors blockCol = Minecraft.getMinecraft().getBlockColors();
+		ItemColors itemCol = Minecraft.getMinecraft().getItemColors();
+		
+		// Moss
+		registerColors(blockCol, itemCol, Colorizers.BLOCK_MOSS, moss);
+		
+		// Leaves
+		Block[] leaves =
+				trees.getBlocks(
+						TreeBlocksAndItems.LEAVES,
+						TreeBlocksAndItems.LEAVES_FRUIT,
+						TreeBlocksAndItems.BRANCH)
+				.toArray(new Block[0]);
+		registerColors(blockCol, itemCol, Colorizers.BLOCK_LEAVES, leaves);
+		registerColors(blockCol, itemCol, Colorizers.BLOCK_LEAVES, trap_floor);
+		
+		// Plants
+		BlockPlant<?>[] plantsArray =
+				plants.getBlocks(
+						PlantBlocks.PLANT,
+						PlantBlocks.DOUBLE_PLANT,
+						PlantBlocks.FERN,
+						PlantBlocks.DOUBLE_FERN)
+				.toArray(new BlockPlant<?>[0]);
+		blockCol.registerBlockColorHandler(
+				(s, w, p, t) -> plants.getVariant(s).getColorMultiplier(w, p),
+				plantsArray);
+		itemCol.registerItemColorHandler((s, t) -> plants.getVariant(s).getColorMultiplier(null, null), plantsArray);
+		
+		registerColors(blockCol, itemCol, Colorizers.BLOCK_GRASS,
+				cobbania, cladophlebis);
+		
+		blockCol.registerBlockColorHandler(Colorizers.BLOCK_GRASS,
+				odontopteris, programinis);
 	}
 }

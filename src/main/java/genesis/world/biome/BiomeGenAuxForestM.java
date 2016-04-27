@@ -2,25 +2,26 @@ package genesis.world.biome;
 
 import genesis.combo.variant.EnumDebrisOther;
 import genesis.common.GenesisBlocks;
+import genesis.util.random.f.FloatRange;
 import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenRockBoulders;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class BiomeGenAuxForestM extends BiomeGenAuxForest
 {
-	public BiomeGenAuxForestM(int id)
+	public BiomeGenAuxForestM(BiomeGenBase.BiomeProperties properties)
 	{
-		super(id);
-		setBiomeName("Araucarioxylon Forest M");
-		setHeight(2.2F, 0.4F);
+		super(properties);
 	}
 	
 	@Override
 	protected void addDecorations()
 	{
-		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(2).setCountPerChunk(1));
-		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).addBlocks(GenesisBlocks.rhyolite.getDefaultState()).setRarity(7).setCountPerChunk(1));
-		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).addBlocks(GenesisBlocks.dolerite.getDefaultState()).setRarity(7).setCountPerChunk(1));
-		addDecoration(new WorldGenDebris().addAdditional(GenesisBlocks.debris.getBlockState(EnumDebrisOther.COELOPHYSIS_FEATHER)).setCountPerChunk(20));
+		addDecoration(new WorldGenDebris(), 20);
+		addDecoration(new WorldGenDebris(EnumDebrisOther.COELOPHYSIS_FEATHER).setPatchCount(1, 2), 0.1F);
+		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.4F);
+		addDecoration(new WorldGenRockBoulders(GenesisBlocks.rhyolite.getDefaultState()).setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.1F);
+		addDecoration(new WorldGenRockBoulders(GenesisBlocks.dolerite.getDefaultState()).setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.1F);
 	}
 	
 	@Override

@@ -1,8 +1,9 @@
 package genesis.block;
 
 import static genesis.block.BlockGenesisMushroom.MushroomGrowType.*;
-import genesis.common.GenesisSounds;
+
 import genesis.common.GenesisBlocks;
+import genesis.sounds.GenesisSoundTypes;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.WorldUtils;
 
@@ -15,6 +16,7 @@ import net.minecraft.block.state.*;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 import net.minecraftforge.fml.relauncher.*;
 
@@ -36,7 +38,7 @@ public class BlockGenesisMushroom extends BlockBush
 	{
 		super();
 		
-		setStepSound(GenesisSounds.MUSHROOM);
+		setSoundType(GenesisSoundTypes.MUSHROOM);
 	}
 	
 	public BlockGenesisMushroom setGrowType(MushroomGrowType type)
@@ -46,10 +48,10 @@ public class BlockGenesisMushroom extends BlockBush
 		switch (growType)
 		{
 		case GROW_TOP:
-			blockState = new BlockState(this);
+			blockState = new BlockStateContainer(this);
 			break;
 		case GROW_SIDE:
-			blockState = new BlockState(this, FACING);
+			blockState = new BlockStateContainer(this, FACING);
 			break;
 		}
 		
@@ -95,7 +97,7 @@ public class BlockGenesisMushroom extends BlockBush
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void setBlockBoundsBasedOnState(IBlockAccess world, BlockPos pos)
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
 		float radius = getRadius();
 		float height = getHeight();
@@ -104,7 +106,6 @@ public class BlockGenesisMushroom extends BlockBush
 		
 		if (getGrowType() == GROW_SIDE)
 		{
-			IBlockState state = world.getBlockState(pos);
 			EnumFacing facing = state.getValue(FACING);
 			
 			double offsetAmount = 0.5 - radius;
@@ -113,12 +114,7 @@ public class BlockGenesisMushroom extends BlockBush
 						facing.getFrontOffsetZ() * offsetAmount);
 		}
 		
-		minX = bb.minX;
-		minY = bb.minY;
-		minZ = bb.minZ;
-		maxX = bb.maxX;
-		maxY = bb.maxY;
-		maxZ = bb.maxZ;
+		return bb;
 	}
 
 	@Override
@@ -181,9 +177,9 @@ public class BlockGenesisMushroom extends BlockBush
 		
 		return false;
 	}
-
+	
 	@Override
-	protected boolean canPlaceBlockOn(Block ground)
+	protected boolean canSustainBush(IBlockState ground)
 	{
 		if (growType == GROW_TOP)
 			return ground.isFullBlock();
@@ -221,13 +217,13 @@ public class BlockGenesisMushroom extends BlockBush
 					return true;
 				}
 				else if (world.getLightFromNeighbors(pos) < 13 &&
-						blockBelow.canSustainPlant(world, pos.down(), EnumFacing.UP, this))
+						blockBelow.canSustainPlant(below, world, pos.down(), EnumFacing.UP, this))
 				{
 					return true;
 				}
 				else if (blockBelow instanceof IGenesisMushroomBase)
 				{
-					return ((IGenesisMushroomBase) blockBelow).canSustainMushroom(world, pos, state);
+					return ((IGenesisMushroomBase) blockBelow).canSustainMushroom(world, pos, EnumFacing.UP, state);
 				}
 			}
 		}
@@ -237,14 +233,15 @@ public class BlockGenesisMushroom extends BlockBush
 	
 	protected boolean checkBlockIsBase(IBlockAccess world, BlockPos pos, IBlockState state)
 	{
-		Block block = state.getBlock();
-		
-		if (block.getMaterial() == Material.wood)
+		if (state.getMaterial() == Material.wood)
 		{
 			return true;
 		}
 		
-		if (block instanceof IGenesisMushroomBase && ((IGenesisMushroomBase) block).canSustainMushroom(world, pos, state))
+		Block block = state.getBlock();
+		
+		if (block instanceof IGenesisMushroomBase
+				&& ((IGenesisMushroomBase) block).canSustainMushroom(world, pos, state.getValue(FACING).getOpposite(), state))
 		{
 			return true;
 		}

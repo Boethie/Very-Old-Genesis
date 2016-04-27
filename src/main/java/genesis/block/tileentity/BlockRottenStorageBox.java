@@ -8,8 +8,9 @@ import genesis.util.WorldUtils;
 import gnu.trove.list.TIntList;
 import gnu.trove.list.array.TIntArrayList;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntitySilverfish;
@@ -17,6 +18,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 
 import static genesis.block.tileentity.BlockStorageBox.*;
@@ -27,7 +29,7 @@ public class BlockRottenStorageBox extends Block
 	{
 		super(Material.wood);
 		
-		setStepSound(soundTypeWood);
+		setSoundType(SoundType.WOOD);
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		
@@ -77,7 +79,7 @@ public class BlockRottenStorageBox extends Block
 	@Override
 	public void dropBlockAsItemWithChance(World world, BlockPos pos, IBlockState state, float chance, int fortune)
 	{
-		if (!world.isRemote && world.provider.getDimensionId() == 0 && world.getGameRules().getBoolean("doTileDrops"))
+		if (!world.isRemote && world.provider.getDimension() == 0 && world.getGameRules().getBoolean("doTileDrops"))
 		{
 			EntitySilverfish silverfish = new EntitySilverfish(world);
 			silverfish.setLocationAndAngles(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 0, 0);
@@ -98,7 +100,8 @@ public class BlockRottenStorageBox extends Block
 	
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state,
-			EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ)
+			EntityPlayer player, EnumHand hand, ItemStack held,
+			EnumFacing side, float hitX, float hitY, float hitZ)
 	{
 		if (!player.capabilities.isCreativeMode)
 			dropBlockAsItem(world, pos, state, 0);
@@ -110,9 +113,9 @@ public class BlockRottenStorageBox extends Block
 	}
 	
 	@Override
-	public BlockState createBlockState()
+	public BlockStateContainer createBlockState()
 	{
-		return new BlockState(this, FACING);
+		return new BlockStateContainer(this, FACING);
 	}
 	
 	@Override
@@ -157,13 +160,13 @@ public class BlockRottenStorageBox extends Block
 	}
 	
 	@Override
-	public boolean isOpaqueCube()
+	public boolean isOpaqueCube(IBlockState state)
 	{
 		return false;
 	}
 	
 	@Override
-	public boolean isFullCube()
+	public boolean isFullCube(IBlockState state)
 	{
 		return false;
 	}

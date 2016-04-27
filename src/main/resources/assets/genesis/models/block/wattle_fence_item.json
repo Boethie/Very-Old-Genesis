@@ -1,5 +1,6 @@
 {
 	"__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
+	"parent": "block/block",
 	"elements": [
 		{   "__comment": "Post",
 			"from": [ 6, 0, -2 ],

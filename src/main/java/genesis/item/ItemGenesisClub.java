@@ -12,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.*;
 
 @ItemVariantCount(1)
@@ -45,11 +46,18 @@ public class ItemGenesisClub extends ItemSword
 	}
 	
 	@Override
-	public Multimap<String, AttributeModifier> getAttributeModifiers(ItemStack stack)
+	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack)
 	{
-		Multimap<String, AttributeModifier> modifiers = super.getItemAttributeModifiers();
-		modifiers.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(),
-				new AttributeModifier(itemModifierUUID, "Weapon modifier", 3.5F + type.toolMaterial.getDamageVsEntity(), 0));
+		Multimap<String, AttributeModifier> modifiers = super.getAttributeModifiers(slot, stack);
+		
+		if (slot == EntityEquipmentSlot.MAINHAND)
+		{
+			String key = SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName();
+			modifiers.removeAll(key);
+			modifiers.put(key,
+					new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 3.5F + type.toolMaterial.getDamageVsEntity(), 0));
+		}
+		
 		return modifiers;
 	}
 }

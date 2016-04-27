@@ -6,28 +6,27 @@ import genesis.combo.variant.EnumSilt;
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.WorldGenPebbles;
 import genesis.world.biome.decorate.WorldGenPlant;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class BiomeGenBeachGenesis extends BiomeGenBaseGenesis
 {
-	public BiomeGenBeachGenesis (int id)
+	public BiomeGenBeachGenesis(BiomeGenBase.BiomeProperties properties)
 	{
-		super(id);
-		setBiomeName("Beach");
+		super(properties);
+		
 		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);
 		fillerBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);
 		
-		theBiomeDecorator.grassPerChunk = 0;
-		
 		addDecorations();
 	}
+	
+	protected void addDecorations()
+	{
+		addDecoration(new WorldGenPebbles(), 25);
 		
-		protected void addDecorations()
-		{
-			addDecoration(new WorldGenPebbles().setCountPerChunk(25));
-			
-			addDecoration(WorldGenPlant.create(EnumPlant.LEPACYCLOTES).setNextToWater(true).addAllowedBlocks(GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT), GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT)).setCountPerChunk(10).setPatchSize(4));
-			addGrassFlowers();
-		}
+		getDecorator().setFlowerCount(4);
+		addFlower(WorldGenPlant.create(EnumPlant.LEPACYCLOTES).setNextToWater(true).setPatchCount(4), 10);
+	}
 	
 	@Override
 	public float getNightFogModifier()

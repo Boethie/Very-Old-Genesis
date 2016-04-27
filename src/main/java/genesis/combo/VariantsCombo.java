@@ -26,7 +26,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 		return new VariantsCombo<V, B, I>(objectType, variantClass, variants);
 	}
 	
-	public final ObjectType<B, I> soleType;
+	private final ObjectType<B, I> type;
 	
 	/**
 	 * Constructs a BlocksAndItemsWithVariantsOfTypes with one ObjectType for simple one-type combos.
@@ -37,7 +37,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	{
 		super(ImmutableList.of(objectType), variantClass, variants);
 		
-		soleType = objectType;
+		type = objectType;
 	}
 	
 	/**
@@ -58,7 +58,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	 * @param blockClass The Block class to initialize for each variant.
 	 * @param itemClass the Item class to initialize for each variant.
 	 */
-	public VariantsCombo(String name, String unlocalizedName, Class<? extends B> blockClass, Class<? extends I> itemClass, Class<V> variantClass, V[] variants)
+	public VariantsCombo(String name, String unlocalizedName, Class<B> blockClass, Class<I> itemClass, Class<V> variantClass, V[] variants)
 	{
 		this(new ObjectType<B, I>(name, unlocalizedName, blockClass, itemClass), variantClass, variants);
 	}
@@ -70,7 +70,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	 * @param blockClass The Block class to initialize for each variant.
 	 * @param itemClass the Item class to initialize for each variant.
 	 */
-	public VariantsCombo(String name, Class<? extends B> blockClass, Class<? extends I> itemClass, Class<V> variantClass, V[] variants)
+	public VariantsCombo(String name, Class<B> blockClass, Class<I> itemClass, Class<V> variantClass, V[] variants)
 	{
 		this(name, name, blockClass, itemClass, variantClass, variants);
 	}
@@ -99,12 +99,24 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 		this(name, name, variantClass, variants);
 	}
 	
+	public ObjectType<B, I> getObjectType()
+	{
+		return type;
+	}
+	
+	@Override
+	public VariantsCombo<V, B, I> setNames(String domain, String unloc)
+	{
+		super.setNames(domain, unloc);
+		return this;
+	}
+	
 	/**
 	 * Gets a stack of the specified Item in this combo.
 	 */
 	public ItemStack getStack(V variant, int stackSize)
 	{
-		return getStack(soleType, variant, stackSize);
+		return getStack(type, variant, stackSize);
 	}
 	
 	/**
@@ -120,7 +132,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	 */
 	public int getItemMetadata(V variant)
 	{
-		return getItemMetadata(soleType, variant);
+		return getItemMetadata(type, variant);
 	}
 	
 	/**
@@ -128,7 +140,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	 */
 	public IBlockState getBlockState(V variant)
 	{
-		return super.getBlockState(soleType, variant);
+		return super.getBlockState(type, variant);
 	}
 	
 	/**
@@ -136,7 +148,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	 */
 	public IBlockState getRandomBlockState(Random rand)
 	{
-		return getRandomBlockState(soleType, rand);
+		return getRandomBlockState(type, rand);
 	}
 	
 	/**
@@ -144,7 +156,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	 */
 	public List<V> getValidVariants()
 	{
-		return getValidVariants(soleType);
+		return getValidVariants(type);
 	}
 	
 	/**
@@ -152,7 +164,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	 */
 	public B getBlock(V variant)
 	{
-		return super.getBlock(soleType, variant);
+		return super.getBlock(type, variant);
 	}
 	
 	/**
@@ -160,7 +172,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	 */
 	public Collection<B> getBlocks()
 	{
-		return super.getBlocks(soleType);
+		return super.getBlocks(type);
 	}
 	
 	/**
@@ -168,7 +180,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	 */
 	public I getItem(V variant)
 	{
-		return super.getItem(soleType, variant);
+		return super.getItem(type, variant);
 	}
 	
 	/**
@@ -176,7 +188,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	 */
 	public Collection<I> getItems()
 	{
-		return super.getItems(soleType);
+		return super.getItems(type);
 	}
 	
 	/**
@@ -184,7 +196,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	 */
 	public boolean containsStack(ItemStack stack)
 	{
-		return super.isStackOf(stack, soleType);
+		return super.isStackOf(stack, type);
 	}
 	
 	/**
@@ -192,7 +204,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	 */
 	public boolean isStackOf(ItemStack stack)
 	{
-		return super.isStackOf(stack, soleType);
+		return super.isStackOf(stack, type);
 	}
 	
 	/**
@@ -200,7 +212,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	 */
 	public boolean isStackOf(ItemStack stack, V variant)
 	{
-		return super.isStackOf(stack, variant, soleType);
+		return super.isStackOf(stack, variant, type);
 	}
 	
 	/**
@@ -208,7 +220,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	 */
 	public boolean containsState(IBlockState state)
 	{
-		return super.isStateOf(state, soleType);
+		return super.isStateOf(state, type);
 	}
 	
 	/**
@@ -216,7 +228,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	 */
 	public boolean isStateOf(IBlockState state, V variant)
 	{
-		return super.isStateOf(state, variant, soleType);
+		return super.isStateOf(state, variant, type);
 	}
 	
 	/**
@@ -224,7 +236,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	 */
 	public List<ItemStack> fillSubItems(List<V> variants, List<ItemStack> listToFill, Collection<V> noDrops)
 	{
-		return super.fillSubItems(soleType, variants, listToFill, noDrops);
+		return super.fillSubItems(type, variants, listToFill, noDrops);
 	}
 	
 	/**
@@ -233,7 +245,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	@SafeVarargs
 	public final List<ItemStack> fillSubItems(List<V> variants, List<ItemStack> listToFill, V... noDrops)
 	{
-		return super.fillSubItems(soleType, variants, listToFill, noDrops);
+		return super.fillSubItems(type, variants, listToFill, noDrops);
 	}
 	
 	/**
@@ -241,7 +253,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	 */
 	public List<ItemStack> getSubItems(List<V> variants, Collection<V> noDrops)
 	{
-		return super.getSubItems(soleType, variants, noDrops);
+		return super.getSubItems(type, variants, noDrops);
 	}
 	
 	/**
@@ -250,6 +262,6 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	@SafeVarargs
 	public final List<ItemStack> getSubItems(List<V> variants, V... noDrops)
 	{
-		return super.getSubItems(soleType, variants, noDrops);
+		return super.getSubItems(type, variants, noDrops);
 	}
 }

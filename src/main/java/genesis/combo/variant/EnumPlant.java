@@ -6,10 +6,8 @@ import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.ColorizerGrass;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.*;
 import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.common.EnumPlantType;
 
@@ -147,13 +145,13 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	@Override
 	public int getColorMultiplier(IBlockAccess world, BlockPos pos)
 	{
-		return shouldUseBiomeColor() ? BiomeColorHelper.getGrassColorAtPos(world, pos) : 0xFFFFFF;
-	}
-	
-	@Override
-	public int getRenderColor()
-	{
-		return shouldUseBiomeColor() ? ColorizerGrass.getGrassColor(0.5, 1) : 0xFFFFFF;
+		if (!shouldUseBiomeColor())
+			return 0xFFFFFF;
+		
+		if (world == null || pos == null)
+			return ColorizerGrass.getGrassColor(0.5, 1);
+		
+		return BiomeColorHelper.getGrassColorAtPos(world, pos);
 	}
 	
 	@Override
@@ -175,7 +173,7 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	}
 	
 	@Override
-	public boolean isReplaceable(World world, BlockPos pos)
+	public boolean isReplaceable(IBlockAccess world, BlockPos pos)
 	{
 		return replaceable;
 	}

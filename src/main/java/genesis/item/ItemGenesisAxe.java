@@ -6,6 +6,7 @@ import genesis.combo.ToolItems;
 import genesis.combo.ToolItems.ToolObjectType;
 import genesis.combo.VariantsOfTypesCombo.ItemVariantCount;
 import genesis.combo.variant.ToolTypes.ToolType;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemAxe;
@@ -14,18 +15,26 @@ import net.minecraft.item.ItemStack;
 @ItemVariantCount(1)
 public class ItemGenesisAxe extends ItemAxe
 {
+	public static final ToolMaterial PLACEHOLDER_MATERIAL = ToolMaterial.WOOD;
+	
 	public final ToolItems owner;
 	
 	protected final ToolType type;
-	protected final ToolObjectType<Block, ItemGenesisAxe> objType;
+	protected final ToolObjectType<Block, ? extends ItemGenesisAxe> objType;
 	
-	public ItemGenesisAxe(ToolItems owner, ToolObjectType<Block, ItemGenesisAxe> objType, ToolType type, Class<ToolType> variantClass)
+	public ItemGenesisAxe(ToolItems owner, ToolObjectType<Block, ? extends ItemGenesisAxe> objType,
+			ToolType type, Class<ToolType> variantClass)
 	{
-		super(type.toolMaterial);
+		super(PLACEHOLDER_MATERIAL);
 		
 		this.owner = owner;
 		this.type = type;
 		this.objType = objType;
+		
+		toolMaterial = type.toolMaterial;
+		setMaxDamage(toolMaterial.getMaxUses());
+		efficiencyOnProperMaterial = toolMaterial.getEfficiencyOnProperMaterial();
+		damageVsEntity = toolMaterial.getDamageVsEntity();
 	}
 	
 	@Override

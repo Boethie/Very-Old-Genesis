@@ -2,81 +2,44 @@ package genesis.world.gen.feature;
 
 import java.util.Random;
 
-import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumTree;
-import genesis.common.GenesisBlocks;
+import genesis.util.random.i.WeightedIntItem;
+import genesis.util.random.i.IntRange;
+import genesis.util.random.i.WeightedIntProvider;
+
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class WorldGenTreeDryophyllum extends WorldGenTreeBase
 {
-	private boolean generateRandomSaplings = true;
-	
 	public WorldGenTreeDryophyllum(int minHeight, int maxHeight, boolean notify)
 	{
-		super(
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LOG, EnumTree.DRYOPHYLLUM).withProperty(BlockLog.LOG_AXIS, EnumAxis.Y),
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES, EnumTree.DRYOPHYLLUM),
-				notify);
+		super(EnumTree.DRYOPHYLLUM, IntRange.create(minHeight, maxHeight), notify);
 		
-		this.notify = notify;
-		
-		this.minHeight = minHeight;
-		this.maxHeight = maxHeight;
-	}
-	
-	public WorldGenTreeBase setGenerateRandomSaplings(boolean generate)
-	{
-		generateRandomSaplings = generate;
-		return this;
+		this.saplingCountProvider = new WeightedIntProvider(
+				WeightedIntItem.of(104, 0),
+				WeightedIntItem.of(6, IntRange.create(1, 3)));
 	}
 	
 	@Override
-	public boolean generate(World world, Random rand, BlockPos pos)
+	protected boolean doGenerate(World world, Random rand, BlockPos pos)
 	{
-		pos = getTreePos(world, pos);
-		
-		if (!canTreeGrow(world, pos))
-			return false;
-		
-		if (rand.nextInt(rarity) != 0)
-			return false;
-		
-		int treeHeight = minHeight + rand.nextInt(maxHeight - minHeight);
+		int height = heightProvider.get(rand);
 		int base = 4 + rand.nextInt(4);
 		
-		if (!isCubeClear(world, pos.up(base), 3, treeHeight))
+		if (!isCubeClear(world, pos.up(base), 3, height))
 		{
 			return false;
 		}
 		
-		int mainBranches = 4 + rand.nextInt(8);
+		int mainBranches = (treeType == TreeTypes.TYPE_1)? 2 + rand.nextInt(2) : 4 + rand.nextInt(8);
 		
 		for (int i = 0; i < mainBranches; ++i)
 		{
-			base = 4 + rand.nextInt(10);
-			branchUp(world, pos, rand, treeHeight, base);
-		}
-		
-		if (generateRandomSaplings && rand.nextInt(10) > 3)
-		{
-			int saplingCount = rand.nextInt(5);
-			BlockPos posSapling;
-			for (int si = 1; si <= saplingCount; ++si)
-			{
-				posSapling = pos.add(rand.nextInt(9) - 4, 0, rand.nextInt(9) - 4);
-				
-				if (
-						posSapling != null
-						&& world.getBlockState(posSapling.up()).getBlock().isAir(world, posSapling)
-						&& world.getBlockState(posSapling).getBlock().canSustainPlant(world, posSapling, EnumFacing.UP, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.SAPLING, EnumTree.DRYOPHYLLUM)))
-				{
-					setBlockInWorld(world, posSapling.up(), GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.SAPLING, EnumTree.DRYOPHYLLUM));
-				}
-			}
+			base = 4 + rand.nextInt(6);
+			branchUp(world, pos, rand, height, (base >= height - 2)? height - 5: base);
 		}
 		
 		return true;
@@ -123,7 +86,7 @@ public class WorldGenTreeDryophyllum extends WorldGenTreeBase
 			
 			if (i > base - 1)
 			{
-				doBranchLeaves(world, upPos, rand, (i >= height - 3), 4, true);
+				doBranchLeaves(world, upPos, rand, true, 4, true);
 			}
 		}
 	}

@@ -4,7 +4,6 @@ import org.lwjgl.opengl.GL11;
 
 import genesis.block.tileentity.BlockStorageBox;
 import genesis.block.tileentity.TileEntityStorageBox;
-import genesis.client.GenesisClient;
 import genesis.common.Genesis;
 import genesis.util.*;
 import genesis.util.render.*;
@@ -15,13 +14,13 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
@@ -49,14 +48,7 @@ public class TileEntityStorageBoxRenderer extends TileEntitySpecialRenderer<Tile
 	
 	public TileEntityStorageBoxRenderer(final BlockStorageBox block)
 	{
-		Genesis.proxy.registerPreInitCall(new SidedFunction()
-		{
-			@Override
-			public void client(GenesisClient client)
-			{
-				ModelHelpers.forceModelLoading(block, LID);
-			}
-		});
+		ModelHelpers.forceModelLoading(block, LID);
 	}
 	
 	@Override
@@ -126,20 +118,20 @@ public class TileEntityStorageBoxRenderer extends TileEntitySpecialRenderer<Tile
 		if (destroyStage >= 0)
 		{
 			Tessellator tess = Tessellator.getInstance();
-			WorldRenderer wr = tess.getWorldRenderer();
+			VertexBuffer buff = tess.getBuffer();
 			
 			RenderHelper.disableStandardItemLighting();
 			Minecraft.getMinecraft().entityRenderer.disableLightmap();
 			
 			TextureAtlasSprite breakTexture = ModelHelpers.getDestroyBlockIcon(destroyStage);
 			
-			wr.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
-			wr.noColor();
-			wr.setTranslation(-pos.getX(), -pos.getY(), -pos.getZ());
-			ModelHelpers.getBlockRenderer().renderModelStandard(world,
-					ModelHelpers.getCubeProjectedBakedModel(ModelHelpers.getBakedBlockModel(state, world, pos), breakTexture),
-					state.getBlock(), pos, wr, true);
-			wr.setTranslation(0, 0, 0);
+			buff.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
+			buff.noColor();
+			buff.setTranslation(-pos.getX(), -pos.getY(), -pos.getZ());
+			ModelHelpers.getBlockRenderer().renderModelFlat(world,
+					ModelHelpers.getCubeProjectedBakedModel(state, ModelHelpers.getBakedBlockModel(state, world, pos), breakTexture, pos),
+					state, pos, buff, true, MathHelper.getPositionRandom(pos));
+			buff.setTranslation(0, 0, 0);
 			tess.draw();
 			
 			model.lid.setTextureNoColor(breakTexture);

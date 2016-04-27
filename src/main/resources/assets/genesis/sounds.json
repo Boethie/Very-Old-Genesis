@@ -1,324 +1,315 @@
 {
-	"dig.moss": {
-		"category": "block",
+	"block.moss.break": {
 		"sounds": [
-			"dig/moss1",
-			"dig/moss2",
-			"dig/moss3",
-			"dig/moss4"
+			"genesis:dig/moss1",
+			"genesis:dig/moss2",
+			"genesis:dig/moss3",
+			"genesis:dig/moss4"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.moss.step": {
+		"sounds": [
+			"genesis:step/moss1",
+			"genesis:step/moss2",
+			"genesis:step/moss3",
+			"genesis:step/moss4"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
+	"block.moss.place": {
+		"sounds": [
+			"genesis:dig/moss1",
+			"genesis:dig/moss2",
+			"genesis:dig/moss3",
+			"genesis:dig/moss4"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.moss.hit": {
+		"sounds": [
+			"genesis:step/moss1",
+			"genesis:step/moss2",
+			"genesis:step/moss3",
+			"genesis:step/moss4"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.moss.fall": {
+		"sounds": [
+			"genesis:step/moss1",
+			"genesis:step/moss2",
+			"genesis:step/moss3",
+			"genesis:step/moss4"
 		]
 	},
-	"step.moss": {
-		"category": "neutral",
+	"block.permafrost.break": {
 		"sounds": [
-			"step/moss1",
-			"step/moss2",
-			"step/moss3",
-			"step/moss4"
+			"genesis:dig/permafrost1",
+			"genesis:dig/permafrost2",
+			"genesis:dig/permafrost3",
+			"genesis:dig/permafrost4"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.permafrost.step": {
+		"sounds": [
+			"genesis:step/permafrost1",
+			"genesis:step/permafrost2",
+			"genesis:step/permafrost3",
+			"genesis:step/permafrost4"
 		]
 	},
-	"dig.permafrost": {
-		"category": "block",
+	"block.calamites.break": {
 		"sounds": [
-			"dig/permafrost1",
-			"dig/permafrost2",
-			"dig/permafrost3",
-			"dig/permafrost4"
+			"genesis:dig/calamites1",
+			"genesis:dig/calamites2",
+			"genesis:dig/calamites3"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.dung.break": {
+		"sounds": [
+			"genesis:dig/dung1",
+			"genesis:dig/dung2",
+			"genesis:dig/dung3",
+			"genesis:dig/dung4"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.dung.step": {
+		"sounds": [
+			"genesis:step/dung1",
+			"genesis:step/dung2",
+			"genesis:step/dung3",
+			"genesis:step/dung4"
 		]
 	},
-	"step.permafrost": {
-		"category": "neutral",
+	"block.dung.place": {
 		"sounds": [
-			"step/permafrost1",
-			"step/permafrost2",
-			"step/permafrost3",
-			"step/permafrost4"
+			"genesis:place/dung"
 		]
 	},
-	"dig.calamites": {
-		"category": "block",
+	"block.debris.break": {
 		"sounds": [
-			"dig/calamites1",
-			"dig/calamites2",
-			"dig/calamites3"
+			"genesis:dig/debris1",
+			"genesis:dig/debris2",
+			"genesis:dig/debris3"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.debris.step": {
+		"sounds": [
+			"genesis:step/debris1",
+			"genesis:step/debris2",
+			"genesis:step/debris3"
 		]
 	},
-	"dig.dung": {
-		"category": "block",
+	"block.debris.place": {
 		"sounds": [
-			"dig/dung1",
-			"dig/dung2",
-			"dig/dung3",
-			"dig/dung4"
+			"genesis:place/debris1",
+			"genesis:place/debris2",
+			"genesis:place/debris3"
 		]
 	},
-	"step.dung": {
-		"category": "neutral",
+	"block.coral.break": {
 		"sounds": [
-			"step/dung1",
-			"step/dung2",
-			"step/dung3",
-			"step/dung4"
+			"genesis:dig/coral1",
+			"genesis:dig/coral2"
 		]
 	},
-	"place.dung": {
-		"category": "block",
+	"block.coral.step": {
 		"sounds": [
-			"place/dung"
+			"genesis:step/coral1",
+			"genesis:step/coral2",
+			"genesis:step/coral3",
+			"genesis:step/coral4"
 		]
 	},
-	"dig.debris": {
-		"category": "block",
+	"block.coral.place": {
 		"sounds": [
-			"dig/debris1",
-			"dig/debris2",
-			"dig/debris3"
+			"genesis:place/coral1",
+			"genesis:place/coral2"
 		]
 	},
-	"step.debris": {
-		"category": "block",
+	"block.ooze.break": {
 		"sounds": [
-			"step/debris1",
-			"step/debris2",
-			"step/debris3"
+			"genesis:dig/ooze1",
+			"genesis:dig/ooze2"
 		]
 	},
-	"place.debris": {
-		"category": "block",
+	"block.ooze.step": {
 		"sounds": [
-			"place/debris1",
-			"place/debris2",
-			"place/debris3"
+			"genesis:step/ooze1",
+			"genesis:step/ooze2"
 		]
 	},
-	"dig.coral": {
-		"category": "block",
+	"block.ooze.place": {
 		"sounds": [
-			"dig/coral1",
-			"dig/coral2"
+			"genesis:place/ooze1",
+			"genesis:place/ooze2"
 		]
 	},
-	"step.coral": {
-		"category": "neutral",
+	"block.dead.break_log": {
 		"sounds": [
-			"step/coral1",
-			"step/coral2",
-			"step/coral3",
-			"step/coral4"
+			"genesis:dig/dead_log1"
 		]
 	},
-	"place.coral": {
-		"category": "block",
+	"block.dead.step_log": {
 		"sounds": [
-			"place/coral1",
-			"place/coral2"
+			"genesis:step/dead_log1",
+			"genesis:step/dead_log2",
+			"genesis:step/dead_log3",
+			"genesis:step/dead_log4"
 		]
 	},
-	"dig.ooze": {
-		"category": "block",
+	"block.dead.place_log": {
 		"sounds": [
-			"dig/ooze1",
-			"dig/ooze2"
+			"genesis:place/dead_log1",
+			"genesis:place/dead_log2"
 		]
 	},
-	"step.ooze": {
-		"category": "neutral",
+	"item.flintAndMarcasite.use": {
 		"sounds": [
-			"step/ooze1",
-			"step/ooze2"
+			"genesis:item/flintAndMarcasite_use"
+		],
+		"subtitle": "subtitles.genesis.item.flintAndMarcasite.use"
+	},
+	"block.aquaticplant.break": {
+		"sounds": [
+			"genesis:dig/aquaticplant1",
+			"genesis:dig/aquaticplant2"
 		]
 	},
-	"place.ooze": {
-		"category": "block",
+	"block.aquaticplant.step": {
 		"sounds": [
-			"place/ooze1",
-			"place/ooze2"
-		]
-	},
-	"dig.dead_log": {
-		"category": "block",
-		"sounds": [
-			"dig/dead_log1"
-		]
-	},
-	"step.dead_log": {
-		"category": "neutral",
-		"sounds": [
-			"step/dead_log1",
-			"step/dead_log2",
-			"step/dead_log3",
-			"step/dead_log4"
-		]
-	},
-	"place.dead_log": {
-		"category": "block",
-		"sounds": [
-			"place/dead_log1",
-			"place/dead_log2"
-		]
-	},
-	"fire.ignite": {
-		"category": "block",
-		"sounds": [
-			"fire/ignite"
-		]
-	},
-	"dig.aquaticplant": {
-		"category": "block",
-		"sounds": [
-			"dig/aquaticplant1",
-			"dig/aquaticplant2"
-		]
-	},
-	"step.aquaticplant": {
-		"category": "block",
-		"sounds": [
-			"step/aquaticplant1",
-			"step/aquaticplant2"
+			"genesis:step/aquaticplant1",
+			"genesis:step/aquaticplant2"
 		]
 	},
 	"ambient.cookingpot": {
-		"category": "block",
 		"sounds": [
-			"ambient/cookingpot1",
-			"ambient/cookingpot2",
-			"ambient/cookingpot3",
-			"ambient/cookingpot4"
+			"genesis:ambient/cookingpot1",
+			"genesis:ambient/cookingpot2",
+			"genesis:ambient/cookingpot3",
+			"genesis:ambient/cookingpot4"
 		]
 	},
 	"interact.storage_box_open": {
-		"category": "block",
 		"sounds": [
-			"interact/storage_box_open"
+			"genesis:interact/storage_box_open"
 		]
 	},
 	"interact.storage_box_close": {
-		"category": "block",
 		"sounds": [
-			"interact/storage_box_close"
+			"genesis:interact/storage_box_close"
 		]
 	},
-	"crafting.pebble_hit": {
-		"category": "block",
+	"item.pebble.hit": {
 		"sounds": [
-			"crafting/pebble_hit1",
-			"crafting/pebble_hit2",
-			"crafting/pebble_hit3",
-			"crafting/pebble_hit4",
-			"crafting/pebble_hit5"
-		]
+			"genesis:crafting/pebble_hit1",
+			"genesis:crafting/pebble_hit2",
+			"genesis:crafting/pebble_hit3",
+			"genesis:crafting/pebble_hit4",
+			"genesis:crafting/pebble_hit5"
+		],
+		"subtitle": "subtitles.genesis.item.pebble.hit"
 	},
-	"crafting.knapping_hit": {
-		"category": "block",
+	"player.knapping.hit": {
 		"sounds": [
-			"crafting/pebble_hit1",
-			"crafting/pebble_hit2",
-			"crafting/pebble_hit3",
-			"crafting/pebble_hit4",
-			"crafting/pebble_hit5"
+			"genesis:crafting/pebble_hit1",
+			"genesis:crafting/pebble_hit2",
+			"genesis:crafting/pebble_hit3",
+			"genesis:crafting/pebble_hit4",
+			"genesis:crafting/pebble_hit5"
 		]
 	},
 	"crafting.knapping_tool_break": {
-		"category": "block",
 		"sounds": [
-			"crafting/knapping_tool_break"
+			"genesis:crafting/knapping_tool_break"
 		]
 	},
-	"dig.mushroom": {
-		"category": "block",
+	"block.mushroom.break": {
 		"sounds": [
-			"dig/mushroom1",
-			"dig/mushroom2",
-			"dig/mushroom3"
+			"genesis:dig/mushroom1",
+			"genesis:dig/mushroom2",
+			"genesis:dig/mushroom3"
 		]
 	},
-	"step.mushroom": {
-		"category": "block",
+	"block.mushroom.step": {
 		"sounds": [
-			"step/mushroom1",
-			"step/mushroom2",
-			"step/mushroom3"
+			"genesis:step/mushroom1",
+			"genesis:step/mushroom2",
+			"genesis:step/mushroom3"
 		]
 	},
-	"place.mushroom": {
-		"category": "block",
+	"block.mushroom.place": {
 		"sounds": [
-			"step/mushroom1",
-			"step/mushroom2",
-			"step/mushroom3"
+			"genesis:step/mushroom1",
+			"genesis:step/mushroom2",
+			"genesis:step/mushroom3"
 		]
 	},
 	"mob.meganeura.fly": {
-		"category": "neutral",
 		"sounds": [
-			"entity/meganeura/fly1",
-			"entity/meganeura/fly2",
-			"entity/meganeura/fly3"
+			"genesis:entity/meganeura/fly1",
+			"genesis:entity/meganeura/fly2",
+			"genesis:entity/meganeura/fly3"
 		]
 	},
 	"mob.meganeura.hurt": {
-		"category": "neutral",
 		"sounds": [
-			"entity/meganeura/hurt1",
-			"entity/meganeura/hurt2",
-			"entity/meganeura/hurt3"
+			"genesis:entity/meganeura/hurt1",
+			"genesis:entity/meganeura/hurt2",
+			"genesis:entity/meganeura/hurt3"
 		]
 	},
 	"mob.meganeura.land": {
-		"category": "neutral",
 		"sounds": [
-			"entity/meganeura/land"
+			"genesis:entity/meganeura/land"
 		]
 	},
 	"mob.meganeura.takeoff": {
-		"category": "neutral",
 		"sounds": [
-			"entity/meganeura/takeoff"
+			"genesis:entity/meganeura/takeoff"
 		]
 	},
 	"mob.meganeura.die": {
-		"category": "neutral",
 		"sounds": [
-			"entity/meganeura/die"
+			"genesis:entity/meganeura/die"
 		]
 	},
-	"dig.egg": {
-		"category": "block",
+	"block.egg.break": {
 		"sounds": [
-			"dig/egg"
+			"genesis:dig/egg"
 		]
 	},
 	"music.genesis": {
-		"category": "music",
 		"sounds": [
 			{
-				"stream": true,
-				"name": "music/dawn_of_a_new_day"
+				"name": "genesis:music/dawn_of_a_new_day",
+				"stream": true
 			}
 		]
 	},
 	"portal.activate": {
-		"category": "block",
 		"sounds": [
-			"portal/activate"
+			"genesis:portal/activate"
 		]
 	},
 	"portal.ambient": {
-		"category": "block",
 		"sounds": [
-			"portal/ambient"
+			"genesis:portal/ambient"
 		]
 	},
 	"portal.enter": {
-		"category": "block",
 		"sounds": [
-			"portal/enter"
+			"genesis:portal/enter"
 		]
 	},
 	"portal.exit": {
-		"category": "block",
 		"sounds": [
-			"portal/exit"
+			"genesis:portal/exit"
 		]
 	}
 }

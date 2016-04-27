@@ -7,12 +7,13 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.resources.model.IBakedModel;
-import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 
 public class BlockAsEntityPart extends CustomEntityPart
@@ -141,30 +142,29 @@ public class BlockAsEntityPart extends CustomEntityPart
 			GlStateManager.scale(scale, scale, scale);
 			
 			IBakedModel model = ModelHelpers.getBakedBlockModel(state, world, pos);
-			IBlockState state = world.getBlockState(pos);
 			
 			if (texture != null)
 			{
-				model = ModelHelpers.getCubeProjectedBakedModel(model, texture);
+				model = ModelHelpers.getCubeProjectedBakedModel(state, model, texture, pos);
 			}
 			
 			Tessellator tess = Tessellator.getInstance();
-			WorldRenderer wr = tess.getWorldRenderer();
+			VertexBuffer buff = tess.getBuffer();
 			
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(-pos.getX(), -pos.getY(), -pos.getZ());
 			
 			RenderHelper.disableStandardItemLighting();
 			
-			wr.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
+			buff.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
 			
 			if (noColor)
-				wr.noColor();
+				buff.noColor();
 			
 			if (ambientOcclusion)
-				ModelHelpers.getBlockRenderer().renderModelAmbientOcclusion(world, model, state.getBlock(), pos, wr, false);
+				ModelHelpers.getBlockRenderer().renderModelSmooth(world, model, state, pos, buff, false, MathHelper.getPositionRandom(pos));
 			else
-				ModelHelpers.getBlockRenderer().renderModelStandard(world, model, state.getBlock(), pos, wr, false);
+				ModelHelpers.getBlockRenderer().renderModelFlat(world, model, state, pos, buff, false, MathHelper.getPositionRandom(pos));
 			
 			tess.draw();
 			

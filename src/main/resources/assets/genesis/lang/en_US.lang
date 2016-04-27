@@ -13,7 +13,7 @@ tile.genesis.container.rottenStorageBox.name=Rotten Storage Box
 tile.genesis.menhir.glyph.none.name=Menhir Base
 tile.genesis.menhir.glyph.vegetal.name=Menhir Base with Vegetal Petroglyph
 tile.genesis.menhir.glyph.animal.name=Menhir Base with Animal Petroglyph
-tile.genesis.menhir.glyph.hominid.name=Menhir Base with Hominid Petroglyph
+tile.genesis.menhir.glyph.ether.name=Menhir Base with Ether Petroglyph
 tile.genesis.menhir.glyph.cosmos.name=Menhir Base with Cosmos Petroglyph
 tile.genesis.menhir.receptacle.name=Menhir Receptacle
 tile.genesis.menhir.top.name=Menhir Top
@@ -434,6 +434,16 @@ item.genesis.material.flake.blackFlint.name=Black Flint Flake
 
 item.genesis.tool.flintAndMarcasite.name=Flint and Marcasite
 
+item.genesis.bow.bow.self.metasequoia.name=Metasequoia Self Bow
+item.genesis.bow.bow.self.archaeanthus.name=Archaeanthus Self Bow
+item.genesis.bow.bow.self.dryophyllum.name=Dryophyllum Self Bow
+item.genesis.bow.bow.self.laurophyllum.name=Laurophyllum Self Bow
+
+item.genesis.bow.bow.composite.metasequoia.name=Metasequoia Composite Bow
+item.genesis.bow.bow.composite.archaeanthus.name=Archaeanthus Composite Bow
+item.genesis.bow.bow.composite.dryophyllum.name=Dryophyllum Composite Bow
+item.genesis.bow.bow.composite.laurophyllum.name=Laurophyllum Composite Bow
+
 #Clothing
 item.genesis.clothing.chitin.helmet.name=Chitin Helmet
 item.genesis.clothing.chitin.chestplate.name=Chitin Chestplate
@@ -515,6 +525,7 @@ item.genesis.material.cladophlebisFrond.name=Cladophlebis Frond
 item.genesis.material.programinis.name=Programinis
 item.genesis.material.vegetalAsh.name=Vegetal Ash
 item.genesis.material.salt.name=Salt
+item.genesis.material.astralJelly.name=Astral Jelly
 item.genesis.material.dung.herbivore.name=Herbivore Dung
 item.genesis.material.dung.carnivore.name=Carnivore Dung
 item.genesis.material.dungBrick.name=Dung Brick
@@ -560,17 +571,25 @@ achievement.genesis.log=Woodsman
 achievement.genesis.log.desc=Obtain a log without bleeding from your knuckles.
 achievement.genesis.workbench=
 achievement.genesis.workbench.desc=Craft a workbench with a log and a pebble.
-achievement.genesis.campfire=Fireproof
-achievement.genesis.campfire.desc=Craft a campfire with wood billets and pebbles.
-achievement.genesis.knappingHoe=Ready to Sow!
-achievement.genesis.knappingHoe.desc=
-achievement.genesis.polishingHoe=
-achievement.genesis.polishingHoe.desc=
+achievement.genesis.chippedHoe=Ready to Sow!
+achievement.genesis.chippedHoe.desc=
+achievement.genesis.chippedSpear=
+achievement.genesis.chippedSpear.desc=
+achievement.genesis.bow=Cold Blood
+achievement.genesis.bow.desc=Kill a Meganeura in flight with an arrow.
 achievement.genesis.chippedPickaxe=
 achievement.genesis.chippedPickaxe.desc=
-achievement.genesis.polishingPickaxe=
-achievement.genesis.polishingPickaxe.desc=
-achievement.genesis.octaedrite=
-achievement.genesis.octaedrite.desc=
-achievement.genesis.blackDiamond=Cosmic Power!
-achievement.genesis.blackDiamond.desc=
+achievement.genesis.polishedPickaxe=Pickaxe Upgrade
+achievement.genesis.polishedPickaxe.desc=Polish your pickaxe with a polissoir.
+achievement.genesis.fire=Mastery of Fire
+achievement.genesis.fire.desc=Kindle the campfire.
+achievement.genesis.blackDiamond=Treasure from Space
+achievement.genesis.blackDiamond.desc=Mine a black diamond ore.
+
+#------------- Subtitles -------------
+#Items
+subtitles.genesis.item.flintAndMarcasite.use=Flint and marcasite click
+subtitles.genesis.item.pebble.hit=Pebble whacked on stone
+
+#Player
+subtitles.genesis.player.knapping.hit=Pebble knapped

@@ -1,32 +1,24 @@
 package genesis.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockTorch;
+import genesis.common.GenesisCreativeTabs;
+import genesis.util.*;
+
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.properties.*;
+import net.minecraft.block.state.*;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.EnumWorldBlockLayer;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-import genesis.common.GenesisCreativeTabs;
-import genesis.util.BlockStateToMetadata;
-import genesis.util.BoundingBoxHelpers;
+import net.minecraft.init.Enchantments;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
 
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -73,16 +65,15 @@ public class BlockTallTorch extends Block
 		
 		setLightLevel(0.9375F);
 		
-		setBlockBounds(0.4F, 0, 0.4F, 0.6F, 1, 0.6F);
-		setStepSound(soundTypeWood);
+		setSoundType(SoundType.WOOD);
 		
 		setTickRandomly(true);
 	}
 	
 	@Override
-	protected BlockState createBlockState()
+	protected BlockStateContainer createBlockState()
 	{
-		return new BlockState(this, PART, FACING);
+		return new BlockStateContainer(this, PART, FACING);
 	}
 	
 	@Override
@@ -105,11 +96,11 @@ public class BlockTallTorch extends Block
 	
 	public boolean canTorchStay(World world, BlockPos pos, IBlockState state, boolean placing)
 	{
+		BlockPos below = pos.down();
+		IBlockState stateBelow = world.getBlockState(below);
+		
 		if (state.getValue(PART) == Part.TOP)
 		{
-			BlockPos below = pos.down();
-			IBlockState stateBelow = world.getBlockState(below);
-			
 			if (placing)
 				return world.isBlockLoaded(below) && stateBelow.getBlock().isReplaceable(world, below)
 						&& canTorchStay(world, below, state.withProperty(PART, Part.BOTTOM), true);
@@ -131,7 +122,7 @@ public class BlockTallTorch extends Block
 			if (world.isSideSolid(pos.offset(facing.getOpposite()), facing, true))
 				return true;
 			
-			if (facing == EnumFacing.UP && world.getBlockState(pos.down()).getBlock().canPlaceTorchOnTop(world, pos))
+			if (facing == EnumFacing.UP && stateBelow.getBlock().canPlaceTorchOnTop(stateBelow, world, pos))
 				return true;
 		}
 		
@@ -251,7 +242,7 @@ public class BlockTallTorch extends Block
 	}
 	
 	@Override
-	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest)
+	public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest)
 	{
 		BlockPos other = getOther(world, pos);
 		IBlockState otherState = other != null ? world.getBlockState(other) : null;
@@ -262,13 +253,14 @@ public class BlockTallTorch extends Block
 			
 			if (willHarvest && !player.capabilities.isCreativeMode)
 			{
-				dropBlockAsItem(world, other, otherState, EnchantmentHelper.getFortuneModifier(player));
+				dropBlockAsItem(world, other, otherState,
+						EnchantmentHelper.getEnchantmentLevel(Enchantments.fortune, player.getHeldItemMainhand()));
 			}
 			
 			world.setBlockState(other, Blocks.air.getDefaultState(), 2);
 		}
 		
-		boolean out = super.removedByPlayer(world, pos, player, willHarvest);
+		boolean out = super.removedByPlayer(state, world, pos, player, willHarvest);
 		
 		if (other != null)
 		{
@@ -279,13 +271,11 @@ public class BlockTallTorch extends Block
 	}
 	
 	@Override
-	public MovingObjectPosition collisionRayTrace(World world, BlockPos pos, Vec3 start, Vec3 end)
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
 		double radius = 0.1;
 		double height = 1.6;
 		AxisAlignedBB bb = new AxisAlignedBB(0.5 - radius, 0, 0.5 - radius, 0.5 + radius, height, 0.5 + radius);
-		
-		IBlockState state = world.getBlockState(pos);
 		
 		double topDown = 0.0625;
 		double toOuter = 0.5F - radius;
@@ -297,7 +287,7 @@ public class BlockTallTorch extends Block
 		case WEST:
 		case SOUTH:
 		case NORTH:
-			bb = bb.contract(0, 0.1875, 0);
+			bb = bb.expand(0, -0.1875, 0);
 			bb = bb.addCoord(toOuter * -facing.getFrontOffsetX(),
 							toOuter * -facing.getFrontOffsetY(),
 							toOuter * -facing.getFrontOffsetZ());
@@ -311,31 +301,23 @@ public class BlockTallTorch extends Block
 			bb = bb.offset(0, -1, 0);
 		}
 		
-		minX = bb.minX;
-		minY = bb.minY;
-		minZ = bb.minZ;
-		
-		maxX = bb.maxX;
-		maxY = bb.maxY;
-		maxZ = bb.maxZ;
-		
-		return super.collisionRayTrace(world, pos, start, end);
+		return bb;
 	}
 	
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(World world, BlockPos pos, IBlockState state)
+	public void addCollisionBoxToList(IBlockState state, World world, BlockPos pos,
+			AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
 	{
-		return null;
 	}
 	
 	@Override
-	public EnumWorldBlockLayer getBlockLayer()
+	public BlockRenderLayer getBlockLayer()
 	{
-		return EnumWorldBlockLayer.CUTOUT;
+		return BlockRenderLayer.CUTOUT;
 	}
 	
 	@Override
-	public void randomDisplayTick(World world, BlockPos pos, IBlockState state, Random rand)
+	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand)
 	{
 		if (state.getValue(PART) == Part.TOP)
 		{
@@ -356,7 +338,7 @@ public class BlockTallTorch extends Block
 	}
 	
 	@Override
-	public boolean isOpaqueCube()
+	public boolean isOpaqueCube(IBlockState state)
 	{
 		return false;
 	}
@@ -368,7 +350,7 @@ public class BlockTallTorch extends Block
 	}
 	
 	@Override
-	public boolean isFullCube()
+	public boolean isFullCube(IBlockState state)
 	{
 		return false;
 	}

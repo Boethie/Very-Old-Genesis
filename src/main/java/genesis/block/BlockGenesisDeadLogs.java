@@ -4,15 +4,16 @@ import genesis.combo.ObjectType;
 import genesis.combo.VariantsOfTypesCombo;
 import genesis.combo.VariantsOfTypesCombo.BlockProperties;
 import genesis.combo.variant.EnumTree;
-import genesis.common.GenesisSounds;
 import genesis.item.ItemBlockMulti;
+import genesis.sounds.GenesisSoundTypes;
 
 import java.util.*;
 
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
 public class BlockGenesisDeadLogs extends BlockGenesisLogs implements IGenesisMushroomBase
@@ -27,7 +28,7 @@ public class BlockGenesisDeadLogs extends BlockGenesisLogs implements IGenesisMu
 	{
 		super(owner, type, variants, variantClass);
 		
-		setStepSound(GenesisSounds.DEAD_LOG);
+		setSoundType(GenesisSoundTypes.DEAD_LOG);
 	}
 	
 	@Override
@@ -37,7 +38,7 @@ public class BlockGenesisDeadLogs extends BlockGenesisLogs implements IGenesisMu
 	}
 	
 	@Override
-	public boolean canSustainMushroom(IBlockAccess world, BlockPos pos, IBlockState state)
+	public boolean canSustainMushroom(IBlockAccess world, BlockPos pos, EnumFacing side, IBlockState mushroomState)
 	{
 		return true;
 	}

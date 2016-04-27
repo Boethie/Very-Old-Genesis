@@ -2,29 +2,32 @@ package genesis.block.tileentity;
 
 import java.util.*;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.*;
 
-import genesis.client.*;
+import genesis.client.GenesisClient;
 import genesis.combo.*;
 import genesis.combo.variant.IMetadata;
 import genesis.util.ItemStackKey;
+
 import net.minecraft.block.*;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.*;
+import net.minecraft.client.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.network.Packet;
-import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
+import net.minecraft.network.play.client.CPacketPlayerBlockPlacement;
 import net.minecraft.tileentity.*;
-import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 import net.minecraftforge.common.*;
+
 import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.fml.common.eventhandler.*;
-import net.minecraftforge.fml.common.eventhandler.Event.*;
+import net.minecraftforge.fml.common.eventhandler.Event.Result;
 
 public class BlockGenesisFlowerPot extends BlockFlowerPot
 {
@@ -35,9 +38,9 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 	
 	public static class PropertyContents extends PropertyHelper<ItemStackKey>
 	{
-		protected final Map<ItemStackKey, String> values;
+		protected final BiMap<ItemStackKey, String> values;
 		
-		public PropertyContents(String name, Map<ItemStackKey, String> values)
+		public PropertyContents(String name, BiMap<ItemStackKey, String> values)
 		{
 			super(name, ItemStackKey.class);
 			
@@ -56,12 +59,21 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		{
 			return values.get(value);
 		}
+
+		@Override
+		public Optional<ItemStackKey> parseValue(String value)
+		{
+			if (values.containsValue(value))
+				return Optional.of(values.inverse().get(value));
+			
+			return Optional.absent();
+		}
 	}
 	
 	private static final Map<ItemStackKey, ItemStackKey> PAIR_MAP = Maps.newHashMap();
 	
 	/**
-	 * Used to get the same exact instance of ItemStackKey for an ItemStack, because BlockState$StateImplementation doesn't handle new instances for default property values in withProperty.
+	 * Used to get the same exact instance of ItemStackKey for an ItemStack, because BlockStateContainer$StateImplementation doesn't handle new instances for default property values in withProperty.
 	 */
 	public static ItemStackKey getStackKey(ItemStack stack)
 	{
@@ -81,44 +93,35 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		return newKey;
 	}
 	
-	private final Map<ItemStackKey, String> stacksToNames = new LinkedHashMap<ItemStackKey, String>();
-	private final Map<ItemStackKey, IFlowerPotPlant> stacksToCustoms = new HashMap<ItemStackKey, IFlowerPotPlant>();
+	private static final BiMap<ItemStackKey, String> stacksToNames = HashBiMap.create();//new LinkedHashMap<ItemStackKey, String>();
+	private static final Map<ItemStackKey, IFlowerPotPlant> stacksToCustoms = new HashMap<ItemStackKey, IFlowerPotPlant>();
 	
-	protected PropertyContents contentsProp;
-	
-	public BlockGenesisFlowerPot()
-	{
-		super();
-		
-		MinecraftForge.EVENT_BUS.register(this);
-	}
-	
-	public void registerPlantForPot(ItemStack stack, String name)
+	public static void registerPlantForPot(ItemStack stack, String name)
 	{
 		stacksToNames.put(getStackKey(stack), name);
 	}
 	
-	public String getPlantName(ItemStack stack)
+	public static String getPlantName(ItemStack stack)
 	{
 		return stacksToNames.get(getStackKey(stack));
 	}
 	
-	public boolean isPlantRegistered(ItemStack stack)
+	public static boolean isPlantRegistered(ItemStack stack)
 	{
 		return getPlantName(stack) != null;
 	}
 	
-	public void registerPlantCustoms(ItemStack stack, IFlowerPotPlant customs)
+	public static void registerPlantCustoms(ItemStack stack, IFlowerPotPlant customs)
 	{
 		stacksToCustoms.put(getStackKey(stack), customs);
 	}
 	
-	public IFlowerPotPlant getPlantCustoms(ItemStack stack)
+	public static IFlowerPotPlant getPlantCustoms(ItemStack stack)
 	{
 		return stacksToCustoms.get(getStackKey(stack));
 	}
 	
-	public <O extends ObjectType<?, ?>, V extends IMetadata<V>> void registerPlantsForPot(VariantsOfTypesCombo<V> combo, O type, IFlowerPotPlant customs)
+	public static <V extends IMetadata<V>> void registerPlantsForPot(VariantsOfTypesCombo<V> combo, ObjectType<?, ?> type, IFlowerPotPlant customs)
 	{
 		for (V variant : combo.getValidVariants(type))
 		{
@@ -128,9 +131,18 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		}
 	}
 	
-	public <V extends IMetadata<V>, B extends Block, I extends Item> void registerPlantsForPot(VariantsCombo<V, B, I> combo, IFlowerPotPlant customs)
+	public static <V extends IMetadata<V>> void registerPlantsForPot(VariantsCombo<V, ?, ?> combo, IFlowerPotPlant customs)
 	{
-		registerPlantsForPot(combo, combo.soleType, customs);
+		registerPlantsForPot(combo, combo.getObjectType(), customs);
+	}
+	
+	protected PropertyContents contentsProp;
+	
+	public BlockGenesisFlowerPot()
+	{
+		super();
+		
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 	
 	@Override
@@ -145,7 +157,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 	public void afterAllRegistered()
 	{
 		contentsProp = new PropertyContents("contents", stacksToNames);
-		blockState = new BlockState(this, contentsProp);
+		blockState = new BlockStateContainer(this, contentsProp);
 		setDefaultState(blockState.getBaseState());
 	}
 	
@@ -159,18 +171,6 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 	public IBlockState getStateFromMeta(int metadata)
 	{
 		return getDefaultState();
-	}
-	
-	public TileEntityGenesisFlowerPot getTileEntity(IBlockAccess world, BlockPos pos)
-	{
-		TileEntity te = world.getTileEntity(pos);
-		
-		if (te instanceof TileEntityGenesisFlowerPot)
-		{
-			return (TileEntityGenesisFlowerPot) te;
-		}
-		
-		return null;
 	}
 	
 	@Override
@@ -191,49 +191,27 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		return state;
 	}
 	
-	@Override
-	public int colorMultiplier(IBlockAccess world, BlockPos pos, int renderPass)
-	{
-		TileEntityGenesisFlowerPot pot = getTileEntity(world, pos);
-		
-		if (pot != null)
-		{
-			IFlowerPotPlant customs = getPlantCustoms(pot.getContents());
-			
-			if (customs != null)
-			{
-				return customs.getColorMultiplier(pot.getContents(), world, pos);
-			}
-		}
-		
-		return super.colorMultiplier(world, pos, renderPass);
-	}
-	
 	@SubscribeEvent
 	public void onBlockInteracted(PlayerInteractEvent event)
 	{
-		if (event.action != PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK)
+		/* TODO: Figure out how this works with dual wielding.
+		if (event.getAction() != PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK)
 		{
 			return;
 		}
 		
-		ItemStack stack = event.entityPlayer.getCurrentEquippedItem();
+		ItemStack stack = event.getEntityPlayer().getHeldItemMainhand();
 		
 		if (stack == null)
-		{
 			return;
-		}
 		
-		World world = event.world;
-		BlockPos pos = event.pos;
+		World world = event.getWorld();
+		BlockPos pos = event.getPos();
 		
 		IBlockState state = world.getBlockState(pos);
-		Block block = state.getBlock();
 		
-		if (block != Blocks.flower_pot)
-		{
+		if (state.getBlock() != Blocks.flower_pot)
 			return;
-		}
 		
 		state = Blocks.flower_pot.getActualState(state, world, pos);
 		EnumFlowerType contents = state.getValue(BlockFlowerPot.CONTENTS);
@@ -253,10 +231,10 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 			{
 				pot.setContents(stack);
 				
-				event.useBlock = Result.DENY;
-				event.useItem = Result.DENY;
+				event.setUseBlock(Result.DENY);
+				event.setUseItem(Result.DENY);
 				
-				EntityPlayer player = event.entityPlayer;
+				EntityPlayer player = event.getEntityPlayer();
 				
 				if (world.isRemote)	// We must send a packet to the server telling it that the player right clicked or else it won't place the plant in the flower pot.
 				{
@@ -265,12 +243,11 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 					
 					if (spPlayer == player)
 					{
-						Vec3 hitVec = mc.objectMouseOver.hitVec;
+						Vec3d hitVec = mc.objectMouseOver.hitVec;
 						hitVec = hitVec.subtract(pos.getX(), pos.getY(), pos.getZ());
-						Packet<?> packet = new C08PacketPlayerBlockPlacement(pos, event.face.getIndex(), stack, (float) hitVec.xCoord, (float) hitVec.yCoord, (float) hitVec.zCoord);
+						Packet<?> packet = new CPacketPlayerBlockPlacement(pos, event.getFace().getIndex(), stack, (float) hitVec.xCoord, (float) hitVec.yCoord, (float) hitVec.zCoord);
 						spPlayer.sendQueue.addToSendQueue(packet);
 						
-						spPlayer.swingItem();
 						event.setCanceled(true);
 					}
 				}
@@ -284,6 +261,18 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 			{
 				world.setBlockState(pos, state);
 			}
+		}*/
+	}
+	
+	public static TileEntityGenesisFlowerPot getTileEntity(IBlockAccess world, BlockPos pos)
+	{
+		TileEntity te = world.getTileEntity(pos);
+		
+		if (te instanceof TileEntityGenesisFlowerPot)
+		{
+			return (TileEntityGenesisFlowerPot) te;
 		}
+		
+		return null;
 	}
 }

@@ -8,15 +8,17 @@ import java.util.*;
 import com.google.common.collect.PeekingIterator;
 
 import genesis.util.Constants.Unlocalized;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import net.minecraft.network.*;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.*;
 import net.minecraft.util.EnumFacing.*;
+import net.minecraft.util.math.*;
 import net.minecraftforge.common.util.Constants.NBT;
 
 public class TileEntityStorageBox extends TileEntityLockable implements ISidedInventory, ITickable
@@ -66,7 +68,9 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 	{
 		if (worldObj != null)
 		{
-			worldObj.markBlockForUpdate(pos);
+			//worldObj.markBlockForUpdate(pos);
+			IBlockState state = worldObj.getBlockState(pos);
+			worldObj.notifyBlockUpdate(pos, state, state, 0b1000);
 		}
 	}
 	
@@ -237,7 +241,7 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 				centerY /= boxes;
 				centerZ /= boxes;
 				
-				worldObj.playSoundEffect(centerX, centerY, centerZ, sound, 1 + worldObj.rand.nextFloat() * 0.2F, 0.9F + worldObj.rand.nextFloat() * 0.1F);
+				//worldObj.playSoundEffect(centerX, centerY, centerZ, sound, 1 + worldObj.rand.nextFloat() * 0.2F, 0.9F + worldObj.rand.nextFloat() * 0.1F);
 			}
 			
 			float target = getUserCount() > 0 ? 1 : 0;
@@ -372,6 +376,8 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 	
 	protected void readVisualData(NBTTagCompound compound)
 	{
+		IBlockState oldState = worldObj.getBlockState(pos);
+		
 		setAxis(FacingHelpers.getAxis(compound.getString("axis")));
 		
 		NBTTagList list = compound.getTagList("connections", NBT.TAG_COMPOUND);
@@ -384,20 +390,21 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 		
 		if (worldObj != null)
 		{
-			worldObj.markBlockForUpdate(pos);
+			IBlockState newState = worldObj.getBlockState(pos);
+			worldObj.notifyBlockUpdate(pos, oldState, newState, 0b1000);
 		}
 	}
 	
 	@Override
-	public S35PacketUpdateTileEntity getDescriptionPacket()
+	public Packet<?> getDescriptionPacket()
 	{
 		NBTTagCompound compound = new NBTTagCompound();
 		writeVisualData(compound);
-		return new S35PacketUpdateTileEntity(pos, 0, compound);
+		return new SPacketUpdateTileEntity(pos, 0, compound);
 	}
 	
 	@Override
-	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet)
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet)
 	{
 		NBTTagCompound compound = packet.getNbtCompound();
 		readVisualData(compound);

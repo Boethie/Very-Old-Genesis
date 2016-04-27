@@ -18,6 +18,8 @@ import net.minecraft.block.*;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
 import net.minecraft.item.*;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.*;
 
 /**
@@ -118,7 +120,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	/**
 	 * Map of Block/Item types to a map of variants to the block/item itself.
 	 */
-	protected final ImmutableTable<ObjectType<?, ?>, V, VariantData> variantDataTable;
+	protected final ImmutableTable<ObjectType<?, ?>, V, VariantData> variantDataTable;	// TODO: Revisit access modifiers.
 	protected final ImmutableTable<ObjectType<?, ?>, Integer, SubsetData> subsetDataTable;
 	protected final ImmutableMap<Block, SubsetData> blockMap;
 	protected final ImmutableMap<Item, SubsetData> itemMap;
@@ -126,6 +128,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	public final ImmutableList<V> variants;
 	public final Class<V> variantClass;
 	private final HashSet<ObjectType<?, ?>> registeredTypes = new HashSet<ObjectType<?, ?>>();
+	protected String resourceDomain = "";
 	protected String unlocalizedPrefix = "";
 	
 	/**
@@ -251,7 +254,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 					final Object[] args = ArrayUtils.addAll(itemArgs, type.getItemArguments());
 					item = ReflectionUtils.construct(itemClass, args);
 					
-					type.afterConstructedPass(block, item, subVariants);
+					type.afterConstructed(block, item, subVariants);
 					
 					BitMask mask;
 					
@@ -355,15 +358,27 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 		}
 	}
 	
-	public VariantsOfTypesCombo<V> setUnlocalizedPrefix(String prefix)
+	public VariantsOfTypesCombo<V> setNames(String domain, String unloc)
 	{
-		unlocalizedPrefix = prefix;
+		resourceDomain = domain;
+		unlocalizedPrefix = unloc;
 		return this;
 	}
 	
 	public String getUnlocalizedPrefix()
 	{
 		return unlocalizedPrefix;
+	}
+	
+	public VariantsOfTypesCombo<V> setResourceDomain(String domain)
+	{
+		resourceDomain = domain;
+		return this;
+	}
+	
+	public String getResourceDomain()
+	{
+		return resourceDomain;
 	}
 	
 	/**
@@ -385,31 +400,32 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 			final Block block = subset.block;
 			final Item item = subset.item;
 			
-			String registryName;
+			String registryPath;
 			
 			if (subset.maxSize == 1 && type.usesVariantAsRegistryName())
 			{
-				registryName = type.getVariantName(getVariant(item, 0));
+				registryPath = type.getVariantName(getVariant(item, 0));
 			}
 			else
 			{
 				String name = type.getName();
-				registryName = name + (name.equals("") ? "" : "_") + subsetID;
+				registryPath = name + (name.equals("") ? "" : "_") + subsetID;
 			}
 			
+			ResourceLocation registryName = new ResourceLocation(getResourceDomain(), registryPath);
 			String unlocName = getUnlocalizedPrefix() + type.getUnlocalizedName();
 			
 			if (block != null)
 			{
-				Genesis.proxy.registerBlockWithItem(block, registryName, item);
+				Genesis.proxy.registerBlock(block, item, registryName);
 				block.setUnlocalizedName(unlocName);
 				
 				// Register resource locations for the block.
-				Genesis.proxy.callSided(new SidedFunction()
+				Genesis.proxy.callClient(new ClientFunction()
 				{
 					@Override
 					@SideOnly(Side.CLIENT)
-					public void client(GenesisClient client)
+					public void apply(GenesisClient client)
 					{
 						FlexibleStateMap mapper = new FlexibleStateMap();
 						
@@ -446,7 +462,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 							((IModifyStateMap) block).customizeStateMap(mapper);
 						}
 						
-						client.registerModelStateMap(block, mapper);
+						ModelLoader.setCustomStateMapper(block, mapper);
 					}
 				});
 				// End registering block resource locations.
@@ -462,14 +478,17 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 				for (V variant : subset.variants.values())
 				{
 					VariantData data = getVariantData(type, variant);
-					Genesis.proxy.registerModel(data.item, data.itemMetadata, type.getVariantName(variant));
+					Genesis.proxy.registerModel(
+							data.item,
+							data.itemMetadata,
+							new ResourceLocation(getResourceDomain(), type.getVariantName(variant)));
 				}
 			}
 			
 			// Set unlocalized name.
 			item.setUnlocalizedName(unlocName);
 			
-			type.afterRegisteredPass(block, item);
+			type.afterRegistered(block, item);
 		}
 	}
 	
@@ -518,22 +537,34 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	/**
 	 * Returns the Block for this {@link ObjectType} and variant, casted to the ObjectType's block's generic type.
 	 */
-	public <B extends Block> B getBlock(ObjectType<B, ? extends Item> type, V variant)
+	public <B extends Block> B getBlock(ObjectType<B, ?> type, V variant)
 	{
-		return ReflectionUtils.safeCast(type.getBlockClass(), getVariantData(type, variant).block);
+		return ReflectionUtils.nullSafeCast(type.getBlockClass(), getVariantData(type, variant).block);
 	}
 	
 	/**
 	 * Returns a list of all the constructed Blocks for the specified {@link ObjectType}.
 	 */
-	public <B extends Block> Collection<B> getBlocks(ObjectType<B, ? extends Item> type)
+	public <B extends Block> Collection<B> getBlocks(ObjectType<B, ?> type)
 	{
-		HashSet<B> out = new HashSet<B>();
+		HashSet<B> out = new HashSet<>();
 		
 		for (V variant : getValidVariants(type))
-		{
 			out.add(getBlock(type, variant));
-		}
+		
+		return out;
+	}
+	
+	/**
+	 * Returns a list of all the constructed Blocks for the listed {@link ObjectType}s.
+	 */
+	@SafeVarargs
+	public final <B extends Block> Collection<B> getBlocks(ObjectType<? extends B, ?>... types)
+	{
+		HashSet<B> out = new HashSet<>();
+		
+		for (ObjectType<? extends B, ?> type : types)
+			out.addAll(getBlocks(type));
 		
 		return out;
 	}
@@ -541,22 +572,34 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	/**
 	 * Returns the Item for this {@link ObjectType} and variant, casted to the ObjectType's item generic type.
 	 */
-	public <I extends Item> I getItem(ObjectType<? extends Block, I> type, V variant)
+	public <I extends Item> I getItem(ObjectType<?, I> type, V variant)
 	{
-		return ReflectionUtils.safeCast(type.getItemClass(), getVariantData(type, variant).item);
+		return ReflectionUtils.nullSafeCast(type.getItemClass(), getVariantData(type, variant).item);
 	}
 	
 	/**
 	 * Returns a list of all the constructed Items for the specified {@link ObjectType}.
 	 */
-	public <I extends Item> Collection<I> getItems(ObjectType<? extends Block, I> type)
+	public <I extends Item> Collection<I> getItems(ObjectType<?, ? extends I> type)
 	{
-		HashSet<I> out = new HashSet<I>();
+		HashSet<I> out = new HashSet<>();
 		
 		for (V variant : getValidVariants(type))
-		{
 			out.add(getItem(type, variant));
-		}
+		
+		return out;
+	}
+
+	/**
+	 * Returns a list of all the constructed Items for the listed {@link ObjectType}s.
+	 */
+	@SafeVarargs
+	public final <I extends Item> Collection<I> getItems(ObjectType<?, ? extends I>... types)
+	{
+		HashSet<I> out = new HashSet<>();
+		
+		for (ObjectType<?, ? extends I> type : types)
+			out.addAll(getItems(type));
 		
 		return out;
 	}

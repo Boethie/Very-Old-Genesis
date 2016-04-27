@@ -5,6 +5,7 @@ import genesis.client.model.entity.RenderMeganeura;
 import genesis.entity.fixed.EntityMeganeuraEgg;
 import genesis.entity.living.flying.*;
 import net.minecraft.entity.*;
+import net.minecraft.network.datasync.DataSerializers;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.relauncher.*;
@@ -32,6 +33,7 @@ public class GenesisEntities
 	public static void registerEntities()
 	{
 		registerEntity(EntityMeganeura.class, "meganeura", 160, 1, true, 0xB5C457, 0x7E8B3A);
+		DataSerializers.registerSerializer(EntityMeganeura.STATE.getSerializer());
 		registerEntity(EntityMeganeuraEgg.class, "meganeuraEgg", 160, Integer.MAX_VALUE, false);
 	}
 	

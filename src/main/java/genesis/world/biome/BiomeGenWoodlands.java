@@ -2,25 +2,24 @@ package genesis.world.biome;
 
 import java.util.Random;
 
-import genesis.combo.DungBlocksAndItems;
 import genesis.combo.variant.*;
 import genesis.common.GenesisBlocks;
+import genesis.util.random.f.FloatRange;
 import genesis.world.biome.decorate.*;
 import genesis.world.gen.feature.*;
-import net.minecraft.init.Blocks;
+import genesis.world.gen.feature.WorldGenTreeBase.TreeTypes;
+import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 {
-	public BiomeGenWoodlands(int id)
+	public BiomeGenWoodlands(BiomeGenBase.BiomeProperties properties)
 	{
-		super(id);
-		setBiomeName("Woodlands");
-		setTemperatureRainfall(1.1F, 0.9F);
-		setHeight(0.035F, 0.135F);
+		super(properties);
 		
-		theBiomeDecorator.grassPerChunk = 5;
+		getDecorator().setGrassCount(12);
 		
 		addDecorations();
 		addTrees();
@@ -28,33 +27,43 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 	
 	protected void addDecorations()
 	{
-		addDecoration(WorldGenPlant.create(EnumPlant.PALAEOASTER).setRarity(5).setPatchSize(20).setCountPerChunk(1));
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setRarity(7).setPatchSize(3).setCountPerChunk(1));
-		addGrassFlowers();
+		getDecorator().setGrassCount(7);
+		addGrass(WorldGenPlant.create(EnumPlant.ONOCLEA).setPatchCount(9), 1);
 		
-		addDecoration(new WorldGenRockBoulders().setMaxHeight(3).setCountPerChunk(3));
-		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setMaxHeight(3).setRarity(5).setCountPerChunk(1));
-		addDecoration(new WorldGenRockBoulders().setInGround(false).setWaterRequired(false).setMaxHeight(2).addBlocks(GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.CARNIVORE)).setRarity(12).setCountPerChunk(1));
-		addDecoration(new WorldGenDebris().addAdditional(GenesisBlocks.debris.getBlockState(EnumDebrisOther.TYRANNOSAURUS_FEATHER)).setCountPerChunk(20));
-		addDecoration(new WorldGenRoots().setCountPerChunk(26));
-		addDecoration(new WorldGenDecorationOnBlock(GenesisBlocks.cobbania.getDefaultState()).setBaseBlocks(Blocks.water.getDefaultState()).setCountPerChunk(10));
+		getDecorator().setFlowerCount(0.15F);
+		addFlower(WorldGenPlant.create(EnumPlant.PALAEOASTER).setPatchCount(6), 1);
+		
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setPatchCount(3), 0.15F);
+		addDecoration(WorldGenCircleReplacement.getPeatGen(), 1);
+		addDecoration(new WorldGenDebris(), 20);
+		addDecoration(new WorldGenDebris(EnumDebrisOther.TYRANNOSAURUS_FEATHER).setPatchCount(1, 2), 0.1F);
+		addDecoration(new WorldGenRockBoulders().setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 2);
+		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.333F);
+		/*addDecoration(
+				new WorldGenRockBoulders(
+						GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.CARNIVORE))
+								.setInGround(false)
+								.setWaterRequired(false)
+								.setRadius(2),
+						0.085F);*/
+		addDecoration(new WorldGenRoots(), 13);
+		addDecoration(new WorldGenDecorationOnBlock((s) -> s.getMaterial() == Material.water, GenesisBlocks.cobbania.getDefaultState()), 2.8F);
 	}
 	
 	protected void addTrees()
 	{
-		addTree(new WorldGenTreeLaurophyllum(3, 4, false).setTreeCountPerChunk(1).setRarity(2));
-		addTree(new WorldGenTreeFicus(5, 10, false).setTreeCountPerChunk(1).setRarity(4));
-		addTree(new WorldGenTreeGinkgo(6, 17, false).setTreeCountPerChunk(1).setRarity(8));
-		addTree(new WorldGenTreeDryophyllum(12, 17, false).setTreeCountPerChunk(7));
-		addTree(new WorldGenTreeMetasequoia(12, 24, true).setTreeCountPerChunk(1));
+		getDecorator().setTreeCount(8.1F);
 		
-		addTree(new WorldGenDeadLog(3, 6, EnumTree.DRYOPHYLLUM, true).setTreeCountPerChunk(1));
-	}
-	
-	@Override
-	public WorldGenGrass getRandomWorldGenForGrass(Random rand)
-	{
-		return new WorldGenGrassMulti(GenesisBlocks.plants.getPlantBlockState(EnumPlant.ONOCLEA)).setVolume(64);
+		addTree(new WorldGenTreeLaurophyllum(3, 4, false), 1500);
+		addTree(new WorldGenTreeFicus(4, 8, false), 125);
+		addTree(new WorldGenTreeGinkgo(8, 13, false), 166);
+		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 45);
+		addTree(new WorldGenTreeDryophyllum(11, 15, false), 6000);
+		addTree(new WorldGenTreeDryophyllum(13, 17, false).setType(TreeTypes.TYPE_2), 100);
+		addTree(new WorldGenTreeMetasequoia(12, 24, true), 1000);
+		
+		addTree(new WorldGenDeadLog(3, 6, EnumTree.DRYOPHYLLUM, true), 1200);
+		addTree(new WorldGenDeadLog(3, 6, EnumTree.METASEQUOIA, true), 200);
 	}
 	
 	@Override
@@ -64,11 +73,11 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 	}
 	
 	@Override
-	public void generateBiomeTerrain(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
+	public void genTerrainBlocks(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
 	{
 		mossStages = new int[2];
 		mossStages[0] = 1;
 		mossStages[1] = 2;
-		super.generateBiomeTerrain(world, rand, primer, blockX, blockZ, d);
+		super.genTerrainBlocks(world, rand, primer, blockX, blockZ, d);
 	}
 }

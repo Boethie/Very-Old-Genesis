@@ -11,9 +11,10 @@ import genesis.util.BlockStateToMetadata;
 
 import java.util.List;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -38,7 +39,7 @@ public class BlockSiltstone extends BlockGenesis
 	
 	public BlockSiltstone(SiltBlocks owner, ObjectType<BlockSiltstone, ItemBlockMulti<EnumSilt>> type, List<EnumSilt> variants, Class<EnumSilt> variantClass)
 	{
-		super(Material.rock);
+		super(Material.rock, SoundType.STONE);
 		
 		this.owner = owner;
 		this.type = type;
@@ -46,12 +47,11 @@ public class BlockSiltstone extends BlockGenesis
 		this.variants = variants;
 		this.variantProp = new PropertyIMetadata<EnumSilt>("variant", variants, variantClass);
 		
-		blockState = new BlockState(this, variantProp);
+		blockState = new BlockStateContainer(this, variantProp);
 		setDefaultState(blockState.getBaseState());
 		
 		setHardness(0.9F);
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
-		setStepSound(soundTypePiston);
 	}
 	
 	@Override

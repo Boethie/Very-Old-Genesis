@@ -7,7 +7,8 @@ import genesis.combo.VariantsCombo;
 import genesis.combo.variant.EnumSeeds;
 import genesis.combo.variant.ToolTypes.ToolType;
 import genesis.common.GenesisCreativeTabs;
-import genesis.util.RandomReflection;
+import genesis.util.Actions;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -17,10 +18,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemSeedFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
+
 import net.minecraftforge.common.EnumPlantType;
 
 public class ItemGenesisSeeds extends ItemSeedFood
@@ -48,7 +49,9 @@ public class ItemGenesisSeeds extends ItemSeedFood
 	}
 	
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player,
+			World world, BlockPos pos, EnumHand hand,
+			EnumFacing side, float hitX, float hitY, float hitZ)
 	{
 		EnumSeeds variant = owner.getVariant(stack);
 		BlockPos placePos = pos.offset(side);
@@ -67,11 +70,11 @@ public class ItemGenesisSeeds extends ItemSeedFood
 				stack.stackSize--;
 				placeBlock.onBlockPlacedBy(world, placePos, placeState, player, stack);
 				
-				return true;
+				return EnumActionResult.PASS;
 			}
 		}
 		
-		return false;
+		return EnumActionResult.FAIL;
 	}
 	
 	@Override
@@ -81,7 +84,7 @@ public class ItemGenesisSeeds extends ItemSeedFood
 	}
 	
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
 	{
 		if (isFood(stack))
 		{
@@ -89,7 +92,7 @@ public class ItemGenesisSeeds extends ItemSeedFood
 			
 			for (PotionEffect effect : owner.getVariant(stack).getEffects())
 			{
-				if (!RandomReflection.isBadPotionEffect(effect))
+				if (!effect.getPotion().isBadEffect())
 				{
 					positive = true;
 					break;
@@ -98,11 +101,12 @@ public class ItemGenesisSeeds extends ItemSeedFood
 			
 			if (player.canEat(positive))
 			{
-				player.setItemInUse(stack, getMaxItemUseDuration(stack));
+				player.setActiveHand(hand);
+				return Actions.success(stack);
 			}
 		}
 		
-		return stack;
+		return Actions.fail(stack);
 	}
 	
 	@Override

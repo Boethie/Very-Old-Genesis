@@ -1,6 +1,6 @@
 {
-  "homepage": "https://github.com/GenProject/GenProject",
-  "versions": {
-    "1.8": "0.0.0.2"
-  }
+	"homepage": "https://github.com/GenProject/Genesis",
+	"versions": {
+		"1.9": "0.0.0.2"
+	}
 }

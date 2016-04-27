@@ -49,17 +49,7 @@
 		"facing=south,half=top,shape=inner_left":		{ "model": "genesis:roof_inner", "x": 180, "y": 180 },
 		"facing=north,half=top,shape=inner_left":		{ "model": "genesis:roof_inner", "x": 180 },
 		"inventory": [{
-			"model": "genesis:roof",
-			"transform": {
-				"thirdperson": {
-					"rotation": [ {"x": 10}, {"y": -45}, {"z": 170} ],
-					"translation": [ 0, 0.09375, -0.171875 ],
-					"scale": [ 0.375, 0.375, 0.375 ]
-				},
-				"gui": {
-					"rotation": { "y": 180 }
-				}
-			}
+			"model": "genesis:roof"
 		}]
 	}
 }

@@ -4,23 +4,25 @@ import com.google.common.collect.ImmutableList;
 
 import genesis.combo.variant.EnumClothing;
 import genesis.item.ItemGenesisArmor;
+import genesis.util.Constants;
 import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.Block;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 
 public class ClothingItems extends VariantsOfTypesCombo<EnumClothing>
 {
 	public static final ObjectType<Block, ItemGenesisArmor> HELMET = ObjectType.createItem("helmet", ItemGenesisArmor.class)
-			.setItemArguments(0)
+			.setItemArguments(EntityEquipmentSlot.HEAD)
 			.setTypeNamePosition(TypeNamePosition.POSTFIX);
 	public static final ObjectType<Block, ItemGenesisArmor> CHESTPLATE = ObjectType.createItem("chestplate", ItemGenesisArmor.class)
-			.setItemArguments(1)
+			.setItemArguments(EntityEquipmentSlot.CHEST)
 			.setTypeNamePosition(TypeNamePosition.POSTFIX);
 	public static final ObjectType<Block, ItemGenesisArmor> LEGGINGS = ObjectType.createItem("leggings", ItemGenesisArmor.class)
-			.setItemArguments(2)
+			.setItemArguments(EntityEquipmentSlot.LEGS)
 			.setTypeNamePosition(TypeNamePosition.POSTFIX);
 	public static final ObjectType<Block, ItemGenesisArmor> BOOTS = ObjectType.createItem("boots", ItemGenesisArmor.class)
-			.setItemArguments(3)
+			.setItemArguments(EntityEquipmentSlot.FEET)
 			.setTypeNamePosition(TypeNamePosition.POSTFIX);
 	
 	public ClothingItems()
@@ -28,7 +30,7 @@ public class ClothingItems extends VariantsOfTypesCombo<EnumClothing>
 		super(ImmutableList.of(HELMET, CHESTPLATE, LEGGINGS, BOOTS),
 				EnumClothing.class, ImmutableList.copyOf(EnumClothing.values()));
 		
-		setUnlocalizedPrefix(Unlocalized.CLOTHING);
+		setNames(Constants.MOD_ID, Unlocalized.CLOTHING);
 	}
 	
 	@Override

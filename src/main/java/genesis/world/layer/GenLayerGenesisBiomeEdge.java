@@ -26,9 +26,7 @@ public class GenLayerGenesisBiomeEdge extends GenLayerGenesis
 				this.initChunkSeed(j1 + areaX, i1 + areaY);
 				int k1 = aint[j1 + 1 + (i1 + 1) * (areaWidth + 2)];
 				
-				if (/*!this.replaceBiomeEdge(aint, aint1, j1, i1, areaWidth, k1, GenesisBiomes.rainforest.biomeID, GenesisBiomes.rainforestEdge.biomeID)
-						&& !this.replaceBiomeEdgeIfNecessary(aint, aint1, j1, i1, areaWidth, k1, GenesisBiomes.rainforestM.biomeID, GenesisBiomes.rainforestEdgeM.biomeID)
-						&& */!this.replaceBiomeEdge(aint, aint1, j1, i1, areaWidth, k1, GenesisBiomes.deepOcean.biomeID, GenesisBiomes.ocean.biomeID))
+				if (!this.replaceBiomeEdge(aint, aint1, j1, i1, areaWidth, k1, BiomeGenBase.getIdForBiome(GenesisBiomes.deepOcean), BiomeGenBase.getIdForBiome(GenesisBiomes.ocean)))
 				{
 					aint1[j1 + i1 * areaWidth] = k1;
 				}
@@ -38,26 +36,26 @@ public class GenLayerGenesisBiomeEdge extends GenLayerGenesis
 		return aint1;
 	}
 	
-	protected boolean replaceBiomeEdgeIfNecessary(int[] p_151636_1_, int[] p_151636_2_, int p_151636_3_, int p_151636_4_, int p_151636_5_, int p_151636_6_, int p_151636_7_, int p_151636_8_)
+	protected boolean replaceBiomeEdgeIfNecessary(int[] group1, int[] group2, int coordX, int coordY , int zoom, int biomeId1, int biomeId2, int defaultId)
 	{
-		if (!biomesEqualOrMesaPlateau(p_151636_6_, p_151636_7_))
+		if (!biomesEqualOrMesaPlateau(biomeId1, biomeId2))
 		{
 			return false;
 		}
 		
-		int k1 = p_151636_1_[p_151636_3_ + 1 + (p_151636_4_ + 1 - 1) * (p_151636_5_ + 2)];
-		int l1 = p_151636_1_[p_151636_3_ + 1 + 1 + (p_151636_4_ + 1) * (p_151636_5_ + 2)];
-		int i2 = p_151636_1_[p_151636_3_ + 1 - 1 + (p_151636_4_ + 1) * (p_151636_5_ + 2)];
-		int j2 = p_151636_1_[p_151636_3_ + 1 + (p_151636_4_ + 1 + 1) * (p_151636_5_ + 2)];
+		int k1 = group1[coordX + 1 + (coordY + 1 - 1) * (zoom + 2)];
+		int l1 = group1[coordX + 1 + 1 + (coordY + 1) * (zoom + 2)];
+		int i2 = group1[coordX + 1 - 1 + (coordY + 1) * (zoom + 2)];
+		int j2 = group1[coordX + 1 + (coordY + 1 + 1) * (zoom + 2)];
 		
-		if (this.canBiomesBeNeighbors(k1, p_151636_7_) && this.canBiomesBeNeighbors(l1, p_151636_7_)
-				&& this.canBiomesBeNeighbors(i2, p_151636_7_) && this.canBiomesBeNeighbors(j2, p_151636_7_))
+		if (this.canBiomesBeNeighbors(k1, biomeId2) && this.canBiomesBeNeighbors(l1, biomeId2)
+				&& this.canBiomesBeNeighbors(i2, biomeId2) && this.canBiomesBeNeighbors(j2, biomeId2))
 		{
-			p_151636_2_[p_151636_3_ + p_151636_4_ * p_151636_5_] = p_151636_6_;
+			group2[coordX + coordY * zoom] = biomeId1;
 		}
 		else
 		{
-			p_151636_2_[p_151636_3_ + p_151636_4_ * p_151636_5_] = p_151636_8_;
+			group2[coordX + coordY * zoom] = defaultId;
 		}
 		
 		return true;

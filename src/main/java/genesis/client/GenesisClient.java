@@ -10,45 +10,26 @@ import genesis.client.sound.music.MusicEventHandler;
 
 import java.util.*;
 
-import com.google.common.collect.Lists;
+import org.apache.commons.lang3.tuple.Pair;
 
 import net.minecraft.block.*;
 import net.minecraft.client.*;
-import net.minecraft.client.renderer.block.statemap.*;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.block.model.*;
+import net.minecraft.client.renderer.color.*;
 import net.minecraft.client.resources.*;
-import net.minecraft.client.resources.model.*;
 import net.minecraft.item.*;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fml.client.*;
-import net.minecraftforge.fml.client.registry.*;
 
 public class GenesisClient extends GenesisProxy
 {
 	private static final Minecraft MC = FMLClientHandler.instance().getClient();
-	
-	private static final class TESREntry<T extends TileEntity>
-	{
-		final Class<T> type;
-		final TileEntitySpecialRenderer<T> renderer;
-		
-		private TESREntry(Class<T> type, TileEntitySpecialRenderer<T> renderer)
-		{
-			this.type = type;
-			this.renderer = renderer;
-		}
-		
-		private void register()
-		{
-			ClientRegistry.bindTileEntitySpecialRenderer(type, renderer);
-		}
-	}
-	
-	protected List<TESREntry<?>> tileEntityRenderers = Lists.newArrayList();
+
+	private List<Pair<IBlockColor, Block[]>> blockColorsList = new ArrayList<>();
+	private List<Pair<IItemColor, Item[]>> itemColorsList = new ArrayList<>();
 	
 	public static Minecraft getMC()
 	{
@@ -58,10 +39,8 @@ public class GenesisClient extends GenesisProxy
 	@Override
 	public void preInit()
 	{
-		for (SidedFunction call : preInitCalls)
-		{
-			call.client(this);
-		}
+		GenesisBlocks.preInitClient();
+		GenesisItems.preInitClient();
 		
 		GenesisEntities.registerEntityRenderers();
 		
@@ -72,26 +51,23 @@ public class GenesisClient extends GenesisProxy
 	@Override
 	public void init()
 	{
-		((IReloadableResourceManager) MC.getResourceManager()).registerReloadListener(new ColorizerDryMoss());
-		
 		//Music Event Handler
 		MinecraftForge.EVENT_BUS.register(new MusicEventHandler());
 		
 		MinecraftForge.EVENT_BUS.register(new CamouflageColorEventHandler());
 		
-		// Gotta register TESRs after Minecraft has initialized, otherwise the vanilla piston TESR crashes.
-		for (TESREntry<?> entry : tileEntityRenderers)
-		{
-			entry.register();
-		}
-		
 		GenesisParticles.createParticles();
+		
+		((IReloadableResourceManager) MC.getResourceManager()).registerReloadListener(new ColorizerDryMoss());
+
+		GenesisBlocks.initClient();
+		GenesisItems.initClient();
 	}
 	
 	@Override
-	public void registerBlock(Block block, String name, Class<? extends ItemBlock> clazz, boolean doModel)
+	public void registerBlock(Block block, Item item, ResourceLocation name, boolean doModel)
 	{
-		super.registerBlock(block, name, clazz, doModel);
+		super.registerBlock(block, item, name, doModel);
 		
 		if (doModel)
 		{
@@ -100,13 +76,7 @@ public class GenesisClient extends GenesisProxy
 	}
 	
 	@Override
-	public void registerBlockWithItem(Block block, String name, Item item)
-	{
-		super.registerBlockWithItem(block, name, item);
-	}
-	
-	@Override
-	public void registerFluidBlock(BlockFluidBase block, String name)
+	public void registerFluidBlock(BlockFluidBase block, ResourceLocation name)
 	{
 		super.registerFluidBlock(block, name);
 		
@@ -114,13 +84,18 @@ public class GenesisClient extends GenesisProxy
 	}
 	
 	@Override
-	public void callSided(SidedFunction sidedFunction)
+	public void callClient(ClientFunction function)
 	{
-		sidedFunction.client(this);
+		function.apply(this);
 	}
 	
 	@Override
-	public void registerItem(Item item, String name, boolean doModel)
+	public void callServer(ServerFunction function)
+	{
+	}
+	
+	@Override
+	public void registerItem(Item item, ResourceLocation name, boolean doModel)
 	{
 		super.registerItem(item, name, doModel);
 		
@@ -130,31 +105,30 @@ public class GenesisClient extends GenesisProxy
 		}
 	}
 	
-	public void registerModel(Block block, String variantName)
+	public void registerModel(Block block, ResourceLocation variantName)
 	{
 		registerModel(block, 0, variantName);
 	}
 	
-	@Override
-	public ModelResourceLocation getItemModelLocation(String variantName)
+	public ModelResourceLocation getItemModelLocation(ResourceLocation variantName)
 	{
-		return new ModelResourceLocation(Constants.ASSETS_PREFIX + variantName, "inventory");
+		return new ModelResourceLocation(variantName, "inventory");
 	}
 	
 	@Override
-	public void registerModel(Item item, int metadata, String variantName)
+	public void registerModel(Item item, int metadata, ResourceLocation variantName)
 	{
 		ModelLoader.setCustomModelResourceLocation(item, metadata, getItemModelLocation(variantName));
 		addVariantName(item, variantName);
 	}
 	
-	private void registerModel(Item item, String variantName)
+	private void registerModel(Item item, ResourceLocation variantName)
 	{
 		registerModel(item, 0, variantName);
 	}
 	
 	@Override
-	public void registerModel(Block block, int metadata, String variantName)
+	public void registerModel(Block block, int metadata, ResourceLocation variantName)
 	{
 		Item item = Item.getItemFromBlock(block);
 		
@@ -169,34 +143,29 @@ public class GenesisClient extends GenesisProxy
 	{
 		ModelLoader.setCustomMeshDefinition(item, definition);
 		
-		for (String variant : definition.getVariants())
+		for (ResourceLocation variant : definition.getVariants())
 		{
 			addVariantName(item, variant);
 		}
 	}
 	
-	public void registerModelStateMap(Block block, IStateMapper map)
-	{
-		if (map instanceof StateMap)
-		{
-			map = new GenesisStateMap((StateMap) map);
-		}
-		
-		ModelLoader.setCustomStateMapper(block, map);
-	}
-	
-	public void addVariantName(Block block, String name)
+	public void addVariantName(Block block, ResourceLocation name)
 	{
 		addVariantName(Item.getItemFromBlock(block), name);
 	}
 	
-	public void addVariantName(Item item, String name)
+	public void addVariantName(Item item, ResourceLocation name)
 	{
-		ModelBakery.registerItemVariants(item, new ResourceLocation(Constants.ASSETS_PREFIX + name));
+		ModelBakery.registerItemVariants(item, name);
 	}
 	
-	public <T extends TileEntity> void registerTileEntityRenderer(Class<T> teClass, TileEntitySpecialRenderer<T> renderer)
+	public void registerColorer(IBlockColor colorer, Block... blocks)
 	{
-		tileEntityRenderers.add(new TESREntry<T>(teClass, renderer));
+		blockColorsList.add(Pair.of(colorer, blocks));
+	}
+	
+	public void registerColorer(IItemColor colorer, Item... blocks)
+	{
+		itemColorsList.add(Pair.of(colorer, blocks));
 	}
 }

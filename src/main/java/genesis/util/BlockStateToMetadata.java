@@ -15,7 +15,7 @@ import com.google.common.collect.*;
 /**
  * @author Zaggy1024
  * 
- * Utilities pertaining to storage of block states and stuff.
+ * Utilities to convert block states to metadata and the reverse.
  */
 public class BlockStateToMetadata
 {
@@ -59,10 +59,9 @@ public class BlockStateToMetadata
 		return output;
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static List<IProperty<?>> getSortedPropertiesDumb(Collection<IProperty> properties)
+	public static List<IProperty<?>> getSortedPropertiesDumb(Collection<IProperty<?>> properties)
 	{
-		return getSortedProperties((Collection) properties);
+		return getSortedProperties(properties);
 	}
 	
 	public static <T extends Comparable<T>> void setSorter(Collection<T> values, Comparator<T> sorter)
@@ -164,10 +163,9 @@ public class BlockStateToMetadata
 	 * @param state The state to convert to metadata.
 	 * @return The metadata to represent the IBlockState.
 	 */
-	@SuppressWarnings("cast")
 	public static int getMetaForBlockState(IBlockState state)
 	{
-		return getMetaForBlockState(state, (IProperty<?>[]) getSortedPropertiesDumb(state.getProperties().keySet()).toArray(new IProperty<?>[0]));
+		return getMetaForBlockState(state, getSortedPropertiesDumb(state.getProperties().keySet()).toArray(new IProperty<?>[0]));
 	}
 	
 	/**
@@ -223,10 +221,9 @@ public class BlockStateToMetadata
 	 * @param metadata The metadata to restore to an IBlockState.
 	 * @return The restored IBlockState.
 	 */
-	@SuppressWarnings("cast")
 	public static IBlockState getBlockStateFromMeta(IBlockState state, int metadata)
 	{
-		return getBlockStateFromMeta(state, metadata, (IProperty<?>[]) getSortedPropertiesDumb(state.getProperties().keySet()).toArray(new IProperty<?>[0]));
+		return getBlockStateFromMeta(state, metadata, getSortedPropertiesDumb(state.getProperties().keySet()).toArray(new IProperty<?>[0]));
 	}
 	
 	/**

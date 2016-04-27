@@ -12,6 +12,7 @@ import genesis.combo.variant.IFood;
 import genesis.combo.variant.IMetadata;
 import genesis.item.ItemGenesisFood;
 import genesis.util.Constants.Unlocalized;
+import genesis.util.Constants;
 import genesis.util.ReflectionUtils;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -58,11 +59,11 @@ public class FoodItems extends VariantsCombo<FoodWrapper, Block, ItemGenesisFood
 	
 	public FoodItems()
 	{
-		super(ObjectType.createItem("food", ReflectionUtils.<ItemGenesisFood<FoodWrapper>>convertClass(ItemGenesisFood.class)), FoodWrapper.class, ORDERED_VARIANTS);
+		super(ObjectType.createItem("food", ReflectionUtils.convertClass(ItemGenesisFood.class)), FoodWrapper.class, ORDERED_VARIANTS);
 		
-		setUnlocalizedPrefix(Unlocalized.PREFIX);
+		setNames(Constants.MOD_ID, Unlocalized.PREFIX);
 		
-		soleType.setResourceName("");
+		getObjectType().setResourceName("");
 	}
 	
 	public ItemStack getRawStack(EnumFood variant)

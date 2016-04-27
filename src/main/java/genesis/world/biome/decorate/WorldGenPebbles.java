@@ -1,34 +1,33 @@
 package genesis.world.biome.decorate;
 
 import genesis.block.BlockPebble;
-import genesis.combo.SiltBlocks;
 import genesis.combo.ToolItems;
-import genesis.combo.variant.EnumSilt;
 import genesis.combo.variant.EnumToolMaterial;
-import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
+import genesis.util.WorldBlockMatcher;
 import genesis.util.WorldUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import net.minecraft.block.Block;
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class WorldGenPebbles extends WorldGenDecorationBase
 {
 	public List<EnumToolMaterial> pebbleTypes = new ArrayList<EnumToolMaterial>();
 	
+	protected List<PropertyBool> pebbleProperties = ImmutableList.of(BlockPebble.NE, BlockPebble.SE, BlockPebble.SW, BlockPebble.NW);
 	private boolean waterRequired = true;
-	private List<PropertyBool> pebblePositions;
 	
 	public WorldGenPebbles()
 	{
+		super(WorldBlockMatcher.STANDARD_AIR, WorldBlockMatcher.SOLID_TOP);
 		
 		pebbleTypes.add(EnumToolMaterial.DOLERITE);
 		pebbleTypes.add(EnumToolMaterial.RHYOLITE);
@@ -39,38 +38,26 @@ public class WorldGenPebbles extends WorldGenDecorationBase
 	}
 	
 	@Override
-	public boolean generate(World world, Random random, BlockPos pos)
+	public boolean place(World world, Random rand, BlockPos pos)
 	{
-		pos = getPosition(world, pos);
-		Block block = world.getBlockState(pos).getBlock();
+		IBlockState state = world.getBlockState(pos);
 		
-		if (
-				!(block == GenesisBlocks.moss 
-				|| block == Blocks.dirt
-				|| block == GenesisBlocks.limestone
-				|| block == GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT)))
-			return false;
-		
-		if (!world.getBlockState(pos.up()).getBlock().isAir(world, pos))
+		if (!state.getBlock().isAir(state, world, pos))
 			return false;
 		
 		if (waterRequired && !WorldUtils.waterInRange(world, pos, 4, 3, 4))
 			return false;
 		
-		if (random.nextInt(rarity) != 0)
-			return false;
-		
-		populatePositions();
-		
-		int maxPebbles = random.nextInt(2) + random.nextInt(2) + random.nextInt(2);
-		IBlockState pebble = GenesisItems.tools.getBlockState(ToolItems.PEBBLE, pebbleTypes.get(random.nextInt(pebbleTypes.size()))).withProperty(getPosition(random), true);
+		int maxPebbles = 1 + rand.nextInt(3);
+		IBlockState pebble = GenesisItems.tools.getBlockState(ToolItems.PEBBLE, pebbleTypes.get(rand.nextInt(pebbleTypes.size())));
+		List<PropertyBool> pebbles = new ArrayList<>(pebbleProperties);
 		
 		for (int i = 1; i <= maxPebbles; ++i)
 		{
-			pebble = pebble.withProperty(getPosition(random), true);
+			pebble = pebble.withProperty(getPosition(pebbles, rand), true);
 		}
 		
-		setBlockInWorld(world, pos.up(), pebble);
+		setBlockInWorld(world, pos, pebble);
 		
 		return true;
 	}
@@ -81,21 +68,11 @@ public class WorldGenPebbles extends WorldGenDecorationBase
 		return this;
 	}
 	
-	private void populatePositions()
+	protected PropertyBool getPosition(List<PropertyBool> pebbles, Random rand)
 	{
-		pebblePositions = new ArrayList<PropertyBool>();
-		
-		pebblePositions.add(BlockPebble.NE);
-		pebblePositions.add(BlockPebble.NW);
-		pebblePositions.add(BlockPebble.SE);
-		pebblePositions.add(BlockPebble.SW);
-	}
-	
-	private PropertyBool getPosition(Random rand)
-	{
-		int index = rand.nextInt(pebblePositions.size());
-		PropertyBool pos = pebblePositions.get(index);
-		pebblePositions.remove(index);
+		int index = rand.nextInt(pebbles.size());
+		PropertyBool pos = pebbles.get(index);
+		pebbles.remove(index);
 		return pos;
 	}
 }

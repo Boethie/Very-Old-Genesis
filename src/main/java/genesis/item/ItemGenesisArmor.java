@@ -7,6 +7,7 @@ import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.EnumClothing;
 import genesis.common.GenesisCreativeTabs;
 import net.minecraft.block.Block;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 
@@ -20,9 +21,9 @@ public class ItemGenesisArmor extends ItemArmor
 	
 	public ItemGenesisArmor(ClothingItems owner, ObjectType<Block, ItemGenesisArmor> type,
 			EnumClothing variant, Class<EnumClothing> variantClass,
-			int armorType)
+			EntityEquipmentSlot slot)
 	{
-		super(variant.getMaterial(), -1, armorType);
+		super(variant.getMaterial(), -1, slot);
 		
 		this.owner = owner;
 		this.type = type;

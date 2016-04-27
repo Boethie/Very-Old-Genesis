@@ -4,8 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.MovingObjectPosition.MovingObjectType;
+import net.minecraft.util.math.RayTraceResult;
 
 import org.lwjgl.opengl.GL11;
 
@@ -18,9 +17,9 @@ public class RenderHelpers
 		if (!mc.gameSettings.hideGUI)
 		{
 			// Render bounding box around entity if it is being looked at.
-			MovingObjectPosition lookingAt = mc.objectMouseOver;
+			RayTraceResult lookingAt = mc.objectMouseOver;
 			
-			if (lookingAt != null && lookingAt.typeOfHit == MovingObjectType.ENTITY && lookingAt.entityHit == entity)
+			if (lookingAt != null && lookingAt.typeOfHit == RayTraceResult.Type.ENTITY && lookingAt.entityHit == entity)
 			{
 				GL11.glPushAttrib(GL11.GL_CURRENT_BIT);
 				

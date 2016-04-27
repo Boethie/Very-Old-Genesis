@@ -1,22 +1,21 @@
 package genesis.block;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import genesis.block.BlockGrowingPlant.*;
 import genesis.combo.variant.EnumSeeds;
 import genesis.common.*;
+import genesis.sounds.GenesisSoundTypes;
 import genesis.util.WorldUtils;
+
 import net.minecraft.block.material.*;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 
@@ -26,13 +25,13 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 	{
 		super(Material.wood, false, 15, 5);
 		
-		setStepSound(GenesisSounds.MUSHROOM);
+		setSoundType(GenesisSoundTypes.MUSHROOM);
 		
 		setHardness(0.75F);
 		setHarvestLevel("axe", 0);
 		enableStats = true;
 		setPlantSize(1, 0, 1);
-		setCollisionBox(new AxisAlignedBB(0, 0, 0, 1, 1, 1));
+		setCollisionBox(new net.minecraft.util.math.AxisAlignedBB(0, 0, 0, 1, 1, 1));
 		
 		setPlantSoilTypes(EnumPlantType.Plains, BlockPrototaxitesMycelium.SOIL_TYPE);
 		setGrowth(0.75F, 1, 1, 1);
@@ -80,7 +79,7 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 			IBlockState sideState = world.getBlockState(sidePos);
 			
 			if (sideState.getBlock() == this
-					|| sideState.getBlock().isSideSolid(world, sidePos, side.getOpposite()))
+					|| sideState.isSideSolid(world, sidePos, side.getOpposite()))
 				return CanStayOptions.NO;
 		}
 		
@@ -90,6 +89,60 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 			return CanStayOptions.NO;
 		
 		return CanStayOptions.YIELD;
+	}
+	
+	protected void placeMycelium(World world, BlockPos pos, Random rand, int down)
+	{
+		for (int i = 0; i <= down; i++)
+		{
+			BlockPos soilPos = pos.down(i);
+			IBlockState soilState = world.getBlockState(soilPos);
+			
+			if (soilState.getBlock() == Blocks.dirt
+					|| soilState.getBlock() == GenesisBlocks.moss)
+			{
+				world.setBlockState(soilPos, GenesisBlocks.prototaxites_mycelium.getDefaultState());
+				return;
+			}
+		}
+	}
+	
+	protected void placeAreaMycelium(World world, BlockPos pos, Random rand)
+	{
+		if (rand.nextInt(5) <= 3)
+		{
+			placeMycelium(world, pos, rand, 1);
+			
+			for (EnumFacing side : EnumFacing.HORIZONTALS)
+				if (rand.nextInt(3) == 0)
+					placeMycelium(world, pos.offset(side), rand, 1);
+		}
+	}
+	
+	@Override
+	public boolean placeRandomAgePlant(World world, BlockPos pos, Random rand)
+	{
+		BlockPos soil = pos.down();
+		
+		if (!world.getBlockState(pos).getBlock().isReplaceable(world, pos))
+			return false;
+		
+		for (EnumFacing side : EnumFacing.HORIZONTALS)
+		{
+			BlockPos sidePos = pos.offset(side);
+			IBlockState sideState = world.getBlockState(sidePos);
+			
+			if (sideState.getBlock() == this
+					|| sideState.isSideSolid(world, sidePos, side.getOpposite()))
+				return false;
+		}
+		
+		placeMycelium(world, soil, rand, 0);
+		
+		for (EnumFacing side : EnumFacing.HORIZONTALS)
+			placeAreaMycelium(world, soil.offset(side), rand);
+		
+		return super.placeRandomAgePlant(world, pos, rand);
 	}
 	
 	@Override
@@ -106,5 +159,11 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 	public boolean shouldUseBonemeal(World world, BlockPos pos, IBlockState state) 
 	{
 		return true;
+	}
+	
+	@Override
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, World world, BlockPos pos)
+	{
+		return getBoundingBox(state, world, pos);
 	}
 }

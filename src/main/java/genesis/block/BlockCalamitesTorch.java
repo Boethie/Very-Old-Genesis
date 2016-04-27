@@ -2,6 +2,7 @@ package genesis.block;
 
 import genesis.common.GenesisCreativeTabs;
 import net.minecraft.block.BlockTorch;
+import net.minecraft.block.SoundType;
 
 public class BlockCalamitesTorch extends BlockTorch
 {
@@ -11,6 +12,6 @@ public class BlockCalamitesTorch extends BlockTorch
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		setLightLevel(.9375F);
 		setHardness(0.0F);
-		setStepSound(soundTypeWood);
+		setSoundType(SoundType.WOOD);
 	}
 }
