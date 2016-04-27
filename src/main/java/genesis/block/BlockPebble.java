@@ -69,7 +69,7 @@ public class BlockPebble extends Block
 			randomProp = PropertyInteger.create(randomName, 0, 1);
 		});
 		
-		Genesis.proxy.callClient((s) -> randomProp = PropertyInteger.create(randomName, 0, 1));
+		Genesis.proxy.callServer((s) -> randomProp = PropertyInteger.create(randomName, 0, 1));
 		
 		blockState = new BlockStateContainer(this, variantProp, randomProp, NW, NE, SE, SW);
 		setDefaultState(getBlockState().getBaseState().withProperty(randomProp, 0).withProperty(NW, false).withProperty(NE, false).withProperty(SE, false).withProperty(SW, false));
@@ -129,7 +129,7 @@ public class BlockPebble extends Block
 	{
 		IBlockState state = world.getBlockState(pos);
 		
-		if (state.getBlock() != this)
+		if (owner.isStateOf(state, variant, type))
 		{
 			state = owner.getBlockState(type, variant);
 		}
