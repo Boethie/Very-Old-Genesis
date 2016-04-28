@@ -189,6 +189,11 @@
 				"textures": {
 					"plant": "genesis:blocks/archaeomarasmius_potted"
 				}
+			},
+			"stemonitis": {
+				"textures": {
+					"plant": "genesis:blocks/stemonitis"
+				}
 			}
 		}
 	}

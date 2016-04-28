@@ -168,6 +168,10 @@ public final class GenesisBlocks
 			.setBoundsSize(0.375F, 0.75F, 0)
 			.setGrowType(BlockGenesisMushroom.MushroomGrowType.GROW_TOP)
 			.setCreativeTab(GenesisCreativeTabs.DECORATIONS);
+	public static final Block stemonitis = new BlockGenesisMushroom().setUnlocalizedName(Unlocalized.PREFIX + "stemonitis")
+			.setBoundsSize(0.375F, 0.75F, 0)
+			.setGrowType(BlockGenesisMushroom.MushroomGrowType.GROW_TOP)
+			.setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	public static final BlockPrototaxites prototaxites = (BlockPrototaxites) new BlockPrototaxites()
 			.setUnlocalizedName(Unlocalized.PREFIX + "prototaxites");
 	
@@ -346,6 +350,7 @@ public final class GenesisBlocks
 		// - Mushrooms -
 		Genesis.proxy.registerBlock(palaeoagaracites, name("palaeoagaracites"));
 		Genesis.proxy.registerBlock(archaeomarasmius, name("archaeomarasmius"));
+		Genesis.proxy.registerBlock(stemonitis, name("stemonitis"));
 		Genesis.proxy.registerBlock(prototaxites, name("prototaxites"));
 		
 		// - Water Plants -

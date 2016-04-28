@@ -1,0 +1,9 @@
+{
+	"variants": {
+		"facing=north": { "model": "genesis:stemonitis" },
+		"facing=south": { "model": "genesis:stemonitis" },
+		"facing=east": { "model": "genesis:stemonitis" },
+		"facing=west": { "model": "genesis:stemonitis" },
+		"normal": { "model": "genesis:stemonitis" }
+	}
+}
