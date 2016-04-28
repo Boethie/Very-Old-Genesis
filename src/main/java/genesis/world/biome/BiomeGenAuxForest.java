@@ -49,7 +49,7 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 		addTree(new WorldGenTreeGinkgo(8, 13, false), 3);
 		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 1);
 		
-		addTree(new WorldGenDeadLog(4, 8, EnumTree.ARAUCARIOXYLON, true), 20);
+		addTree(new WorldGenDeadLog(4, 8, EnumTree.ARAUCARIOXYLON, true), 16);
 	}
 	
 	@Override

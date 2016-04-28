@@ -46,7 +46,7 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 		addTree(new WorldGenTreeLepidodendron(14, 18, true), 10);
 		
 		addTree(new WorldGenDeadLog(3, 6, EnumTree.LEPIDODENDRON, true), 6);
-		addTree(new WorldGenDeadLog(3, 6, EnumTree.SIGILLARIA, true), 5);
+		addTree(new WorldGenDeadLog(3, 6, EnumTree.SIGILLARIA, true), 4);
 	}
 	
 	@Override
