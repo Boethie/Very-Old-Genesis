@@ -6,8 +6,7 @@ import genesis.combo.ToolItems.ToolObjectType;
 import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.ToolTypes.ToolType;
 import genesis.sounds.GenesisSoundEvents;
-import genesis.stats.GenesisAchievements;
-
+import genesis.util.WorldUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,9 +19,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 
 @ItemVariantCount(1)
-public class ItemPebble extends ItemGenesis
+public class ItemPebble extends ItemBlock
 {
-	public final BlockPebble block;
 	public final ToolItems owner;
 	
 	protected final ToolType toolType;
@@ -30,9 +28,8 @@ public class ItemPebble extends ItemGenesis
 	
 	public ItemPebble(BlockPebble block, ToolItems owner, ToolObjectType<BlockPebble, ItemPebble> type, ToolType toolType, Class<ToolType> variantClass)
 	{
-		super();
+		super(block);
 		
-		this.block = block;
 		this.owner = owner;
 		
 		this.toolType = toolType;
@@ -52,6 +49,12 @@ public class ItemPebble extends ItemGenesis
 	public ToolType getToolType()
 	{
 		return toolType;
+	}
+	
+	@Override
+	public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing side, EntityPlayer player, ItemStack stack)
+	{
+		return true;
 	}
 	
 	@Override
@@ -97,21 +100,18 @@ public class ItemPebble extends ItemGenesis
 				{	// Add to inventory or drop as EntityItem.
 					player.dropPlayerItemWithRandomChoice(choppingTool, false);
 				}
-				
-				player.addStat(GenesisAchievements.gettingChoppingTool, 1);
 			}
 			
 			return EnumActionResult.SUCCESS;
 		}
 		else if (stack.getItemDamage() <= 0)
 		{
-			boolean offset = true;
+			boolean replacing = owner.isStateOf(state, toolType, objType) && side != EnumFacing.UP;
 			
-			if (state.getBlock() == block && side != EnumFacing.UP)
+			if (replacing)
 			{
 				final float epsilon = 0.0005F;
 				
-				offset = false;
 				hitX += side.getFrontOffsetX() * epsilon;
 				hitY += side.getFrontOffsetY() * epsilon;
 				hitZ += side.getFrontOffsetZ() * epsilon;
@@ -149,17 +149,16 @@ public class ItemPebble extends ItemGenesis
 					pos = pos.add(0, 0, 1);
 				}
 			}
-			
-			if (offset && !state.getBlock().isReplaceable(world, pos))
+			else if (!state.getBlock().isReplaceable(world, pos))
 			{
 				pos = pos.offset(side);
 			}
 			
-			if (world.getBlockState(pos).getBlock() == block || world.canBlockBePlaced(block, pos, false, side, player, stack))
+			IBlockState placing = block.onBlockPlaced(world, pos, side, hitX, hitY, hitZ, stack.getMetadata(), player);
+			
+			if (replacing || WorldUtils.canBlockBePlaced(world, placing, pos, side, player, stack))
 			{
-				state = block.onBlockPlaced(world, pos, side, hitX, hitY, hitZ, stack.getMetadata(), player);
-				
-				if (world.setBlockState(pos, state))
+				if (world.setBlockState(pos, placing))
 				{
 					world.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
 							block.getSoundType().getPlaceSound(), SoundCategory.BLOCKS,

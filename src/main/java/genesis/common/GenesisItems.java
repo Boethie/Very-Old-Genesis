@@ -14,7 +14,6 @@ import genesis.item.*;
 import genesis.util.Constants;
 import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;

@@ -11,9 +11,11 @@ import java.util.Random;
 import com.google.common.collect.ImmutableList;
 import com.google.common.base.Function;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -415,5 +417,15 @@ public class WorldUtils
 		}
 		
 		return false;
+	}
+	
+	public static boolean canBlockBePlaced(World world, IBlockState state, BlockPos pos, EnumFacing side, Entity entity, ItemStack stack)
+	{
+		AxisAlignedBB bounds = state.getCollisionBoundingBox(world, pos);
+		
+		if (bounds != Block.NULL_AABB && !world.checkNoEntityCollision(bounds.offset(pos), entity))
+			return false;
+		
+		return world.getBlockState(pos).getBlock().isReplaceable(world, pos) && state.getBlock().canReplace(world, pos, side, stack);
 	}
 }

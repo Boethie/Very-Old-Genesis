@@ -78,7 +78,6 @@ public final class GenesisBlocks
 	public static final BlockCampfire campfire = (BlockCampfire) new BlockCampfire().setUnlocalizedName(Unlocalized.CONTAINER_BLOCK + "campfire");
 	public static final BlockStorageBox storage_box = (BlockStorageBox) new BlockStorageBox().setUnlocalizedName(Unlocalized.CONTAINER_BLOCK + "storageBox");
 	public static final BlockRottenStorageBox rotten_storage_box = (BlockRottenStorageBox) new BlockRottenStorageBox().setUnlocalizedName(Unlocalized.CONTAINER_BLOCK + "rottenStorageBox");
-	public static final BlockRack rack = (BlockRack) new BlockRack().setUnlocalizedName(Unlocalized.PREFIX + "rack");
 
 	/* Plants */
 	public static final PlantBlocks plants = new PlantBlocks();
@@ -285,7 +284,6 @@ public final class GenesisBlocks
 		GameRegistry.registerTileEntity(TileEntityRottenStorageBox.class, Constants.ASSETS_PREFIX + "rotten_storage_box");
 		
 		// Rack
-		Genesis.proxy.registerBlock(rack, name("rack"));
 		GameRegistry.registerTileEntity(TileEntityRack.class, Constants.ASSETS_PREFIX + "rack");
 		
 		// - Torches -
@@ -381,7 +379,7 @@ public final class GenesisBlocks
 	@SideOnly(Side.CLIENT)
 	public static void preInitClient()
 	{
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRack.class, new TileEntityRackRenderer(rack));
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRack.class, new TileEntityRackRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGenesisPortal.class, new TileEntityGenesisPortalRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCampfire.class, new TileEntityCampfireRenderer(campfire));
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityStorageBox.class, new TileEntityStorageBoxRenderer(storage_box));

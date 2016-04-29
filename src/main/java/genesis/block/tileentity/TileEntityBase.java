@@ -14,12 +14,13 @@ public abstract class TileEntityBase extends TileEntity
 	@Override
 	public void markDirty()
 	{
-		super.markDirty();
-		
 		if (worldObj != null)
 		{
-			IBlockState state = worldObj.getBlockState(pos);
-			worldObj.notifyBlockUpdate(pos, state, state, 0b1000);
+			IBlockState oldState = getBlockType().getStateFromMeta(getBlockMetadata());
+			
+			super.markDirty();
+			
+			worldObj.notifyBlockUpdate(pos, oldState, worldObj.getBlockState(pos), 0b1000);
 		}
 	}
 	

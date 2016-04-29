@@ -252,13 +252,8 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 						// Offset the item to prevent Z-fighting.
 						model.stickItem.offsetX -= 0.001F;
 						
-						// Scale the item to half size.
-						model.stickItem.scaleX *= 0.5F;
-						model.stickItem.scaleY *= 0.5F;
-						model.stickItem.scaleZ *= 0.5F;
-						
-						// Scale the item to be thicker, and actually appear to be impaled.
-						model.stickItem.scaleZ *= 3;
+						// Scale the item to half size but thicker, to actually appear to be impaled.
+						model.stickItem.setScale(0.5F, 0.5F, 1.5F);
 					}
 				}
 			}

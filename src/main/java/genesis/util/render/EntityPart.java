@@ -9,23 +9,23 @@ public class EntityPart extends ModelRenderer
 	public float scaleY = 1;
 	public float scaleZ = 1;
 	
-	protected boolean showModelDef = true;
-	protected boolean isHiddenDef = false;
-	protected float offsetXDef = 0;
-	protected float offsetYDef = 0;
-	protected float offsetZDef = 0;
-	protected float rotationPointXDef = 0;
-	protected float rotationPointYDef = 0;
-	protected float rotationPointZDef = 0;
-	protected float rotateAngleXDef = 0;
-	protected float rotateAngleYDef = 0;
-	protected float rotateAngleZDef = 0;
-	protected float scaleXDef = 1;
-	protected float scaleYDef = 1;
-	protected float scaleZDef = 1;
+	private boolean showModelDef = true;
+	private boolean isHiddenDef = false;
+	private float offsetXDef = 0;
+	private float offsetYDef = 0;
+	private float offsetZDef = 0;
+	private float rotationPointXDef = 0;
+	private float rotationPointYDef = 0;
+	private float rotationPointZDef = 0;
+	private float rotateAngleXDef = 0;
+	private float rotateAngleYDef = 0;
+	private float rotateAngleZDef = 0;
+	private float scaleXDef = 1;
+	private float scaleYDef = 1;
+	private float scaleZDef = 1;
 
-	protected int textureOffsetX = 0;
-	protected int textureOffsetY = 0;
+	private int textureOffsetX = 0;
+	private int textureOffsetY = 0;
 	
 	public EntityPart(ModelBase model)
 	{
@@ -129,6 +129,15 @@ public class EntityPart extends ModelRenderer
 		rotateAngleX = x;
 		rotateAngleY = y;
 		rotateAngleZ = z;
+		
+		return this;
+	}
+	
+	public EntityPart setScale(float x, float y, float z)
+	{
+		scaleX = x;
+		scaleY = y;
+		scaleZ = z;
 		
 		return this;
 	}

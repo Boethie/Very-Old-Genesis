@@ -797,6 +797,9 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	 */
 	public boolean isStateOf(IBlockState state, V variant, ObjectType<?, ?> type)
 	{
+		if (variant == null)
+			throw new NullPointerException("Parameter 'variant' was null.");
+		
 		return isStateOf(state, type) && getVariant(state) == variant;
 	}
 	

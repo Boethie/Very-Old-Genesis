@@ -1,6 +1,7 @@
 package genesis.combo;
 
 import genesis.block.*;
+import genesis.block.tileentity.BlockRack;
 import genesis.combo.variant.EnumTree;
 import genesis.combo.variant.EnumTree.FruitType;
 import genesis.common.GenesisCreativeTabs;
@@ -37,6 +38,8 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo<EnumTree>
 	public static final ObjectType<Block, ItemMulti<EnumTree>> BILLET;
 	
 	public static final ObjectType<BlockWattleFence, ItemBlockMulti<EnumTree>> WATTLE_FENCE;
+	
+	public static final ObjectType<BlockRack, ItemRack> RACK;
 	
 	public static final ObjectType<BlockGenesisDeadLogs, ItemBlockMulti<EnumTree>> DEAD_LOG;
 	
@@ -79,6 +82,11 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo<EnumTree>
 		WATTLE_FENCE = ObjectType.createBlock("wattle_fence", "wattleFence", BlockWattleFence.class);
 		WATTLE_FENCE.setValidVariants(billets);
 		
+		RACK = ObjectType.create("rack", BlockRack.class, ItemRack.class);
+		RACK.setCreativeTab(GenesisCreativeTabs.DECORATIONS)
+				.setUseSeparateVariantJsons(false)
+				.setValidVariants(billets);
+		
 		DEAD_LOG = ObjectType.createBlock("dead_log", "log.dead", BlockGenesisDeadLogs.class);
 		DEAD_LOG.setCreativeTab(GenesisCreativeTabs.DECORATIONS)
 				.setValidVariants(base.filter((v) -> v.hasDead()).toList());
@@ -86,14 +94,17 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo<EnumTree>
 		TYPES = ImmutableList.of(
 						LOG, BRANCH,
 						SAPLING,
-						LEAVES, LEAVES_FRUIT, HANGING_FRUIT,
-						BILLET, WATTLE_FENCE, FRUIT,
+						LEAVES, LEAVES_FRUIT,
+						HANGING_FRUIT, FRUIT,
+						BILLET, WATTLE_FENCE, RACK,
 						DEAD_LOG);
 		
 		for (ObjectType<?, ?> type : TYPES)
 		{
 			type.setTypeNamePosition(TypeNamePosition.POSTFIX);
 		}
+		
+		RACK.setTypeNamePosition(TypeNamePosition.PREFIX);
 	}
 	
 	public TreeBlocksAndItems()

@@ -110,7 +110,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	private final int[] SLOTS_SIDE;
 	private final int[] SLOTS_FRONT;
 	private final int[] SLOTS_BOTTOM;
-
+	
 	private final SlotModifier input = SlotModifier.from(this, SLOT_INPUT);
 	private final SlotModifier inputWaste = SlotModifier.from(this, SLOT_INPUT_WASTE);
 	private final List<SlotModifier> ingredients;

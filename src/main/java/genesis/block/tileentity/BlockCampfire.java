@@ -38,10 +38,10 @@ public class BlockCampfire extends Block
 	protected static final double HALF_STICK_SIZE = STICK_SIZE / 2;
 	protected static final AxisAlignedBB STICK_0 = new AxisAlignedBB(0.5 - HALF_STICK_SIZE, 0, 0,
 																	 0.5 + HALF_STICK_SIZE, 1, STICK_SIZE);
-	protected static final AxisAlignedBB STICK_0_R = AABBUtils.rotate90(STICK_0);
+	protected static final AxisAlignedBB STICK_0_R = AABBUtils.rotate(STICK_0, Rotation.CLOCKWISE_90);
 	protected static final AxisAlignedBB STICK_1 = new AxisAlignedBB(0.5 - HALF_STICK_SIZE, 0, 1 - STICK_SIZE,
 																	 0.5 + HALF_STICK_SIZE, 1, 1);
-	protected static final AxisAlignedBB STICK_1_R = AABBUtils.rotate90(STICK_1);
+	protected static final AxisAlignedBB STICK_1_R = AABBUtils.rotate(STICK_1, Rotation.CLOCKWISE_90);
 	
 	public BlockCampfire()
 	{

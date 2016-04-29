@@ -1,81 +1,80 @@
 package genesis.block.tileentity.render;
 
-import genesis.block.tileentity.BlockRack;
-import genesis.block.tileentity.TileEntityRack;
-import genesis.common.Genesis;
-import genesis.util.Constants;
-import genesis.util.render.ModelHelpers;
+import java.util.Map;
 
-import net.minecraft.client.Minecraft;
+import com.google.common.collect.ImmutableMap;
+
+import genesis.block.tileentity.TileEntityRack;
+import genesis.util.render.ItemAsEntityPart;
+
+import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.EnumFacing;
 
 public class TileEntityRackRenderer extends TileEntitySpecialRenderer<TileEntityRack>
 {
 	//public static final ResourceLocation LID = new ResourceLocation(Constants.ASSETS_PREFIX + "rack");
 	
-	public TileEntityRackRenderer(final BlockRack block)
+	public static class Model extends ModelBase
 	{
-		//Genesis.proxy.clientPreInitCall((c) -> ModelHelpers.forceModelLoading(block, LID));
+		private static final float ITEM_OFFSET = 0.5F - (1.5F / 16);
+		
+		public final Map<EnumFacing, ItemAsEntityPart> items;
+		
+		public Model()
+		{
+			ImmutableMap.Builder<EnumFacing, ItemAsEntityPart> builder = ImmutableMap.builder();
+			
+			for (EnumFacing side : EnumFacing.HORIZONTALS)
+			{
+				ItemAsEntityPart item = new ItemAsEntityPart(this);
+				
+				item.setRotation(0, side.getHorizontalAngle(), 0);
+				item.setOffset(side.getFrontOffsetX() * ITEM_OFFSET,
+								side.getFrontOffsetY() * ITEM_OFFSET + 0.3125F,
+								side.getFrontOffsetZ() * ITEM_OFFSET);
+				item.setDefaultState();
+				
+				builder.put(side, item);
+			}
+			
+			items = builder.build();
+		}
+		
+		public void renderAll()
+		{
+			for (ItemAsEntityPart item : items.values())
+			{
+				item.render(0.0625F);
+			}
+		}
+	}
+	
+	private Model model = new Model();
+	
+	public TileEntityRackRenderer()
+	{
 	}
 	
 	@Override
 	public void renderTileEntityAt(TileEntityRack te, double x, double y, double z, float partialTicks, int destroyStage)
-	{
-		if (te.getStackInSlot(0) != null)
+	{model = new Model();
+		GlStateManager.disableLighting();
+		
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(x + 0.5, y, z + 0.5);
+		
+		for (EnumFacing side : EnumFacing.HORIZONTALS)
 		{
-			ItemStack item = te.getStackInSlot(0).copy();
-			
-			float rot = 0.0F;
-			
-			GlStateManager.pushMatrix();
-			GlStateManager.disableLighting();
-			float scale = 2F;
-			
-			float pixel = 1.0F / 16;
-			
-			switch (te.getDirection())
-			{
-				case 0:
-					GlStateManager.translate(x + (24 * pixel), y + (24 * pixel), z + (2.5 * pixel));
-					GlStateManager.rotate(-180, 0, 0, 1);
-					GlStateManager.rotate(rot, 1, 1, 0);
-					GlStateManager.translate(1, 0, 0);
-					break;
-				case 1:
-					GlStateManager.translate(x + (13.5 * pixel), y + (8 * pixel), z + (8 * pixel));
-					GlStateManager.rotate(-180, 1, 0, 1);
-					GlStateManager.rotate(rot, 1, 1, 0);
-					GlStateManager.translate(0, -1, 0);
-					break;
-				case 2:
-					GlStateManager.translate(x + (24 * pixel), y + (24 * pixel), z + (13.5 * pixel));
-					GlStateManager.rotate(-180, 0, 0, 1);
-					GlStateManager.rotate(rot, 1, 1, 0);
-					GlStateManager.translate(1, 0, 0);
-					break;
-				case 3:
-					GlStateManager.translate(x + (2.5 * pixel), y + (8 * pixel), z + (8 * pixel));
-					GlStateManager.rotate(-180, 1, 0, 1);
-					GlStateManager.rotate(rot, 1, 1, 0);
-					GlStateManager.translate(0, -1, 0);
-					break;
-			}
-			
-			GlStateManager.scale(scale, scale, scale);
-			
-			EntityItem entityItem = new EntityItem(Minecraft.getMinecraft().theWorld, 0, 0, 0, item);
-			entityItem.hoverStart = 0;	// TODO: This is inefficient.
-			
-			Minecraft.getMinecraft().getRenderManager().doRenderEntity(entityItem, 0, 0, 0, 0, 0,
-					true);
-			
-			GlStateManager.enableLighting();
-			
-			GlStateManager.popMatrix();
+			ItemStack stack = te.getStackInSide(side);
+			model.items.get(side).setStack(stack);
 		}
+		
+		model.renderAll();
+		
+		GlStateManager.popMatrix();
+		GlStateManager.enableLighting();
 	}
 }

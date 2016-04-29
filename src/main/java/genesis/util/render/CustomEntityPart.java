@@ -5,14 +5,6 @@ import net.minecraft.client.renderer.*;
 
 public abstract class CustomEntityPart extends EntityPart
 {
-	protected float scaleXDef = 1;
-	protected float scaleYDef = 1;
-	protected float scaleZDef = 1;
-	
-	public float scaleX = 1;
-	public float scaleY = 1;
-	public float scaleZ = 1;
-	
 	public CustomEntityPart(ModelBase model)
 	{
 		super(model);
@@ -25,10 +17,6 @@ public abstract class CustomEntityPart extends EntityPart
 	{
 		super.setDefaultState();
 		
-		scaleXDef = scaleX;
-		scaleYDef = scaleY;
-		scaleZDef = scaleZ;
-		
 		return this;
 	}
 	
@@ -36,12 +24,8 @@ public abstract class CustomEntityPart extends EntityPart
 	public void resetState()
 	{
 		super.resetState();
-		
-		scaleX = scaleXDef;
-		scaleY = scaleYDef;
-		scaleZ = scaleZDef;
 	}
-
+	
 	@Override
 	public EntityPart setTextureOffset(int x, int y)
 	{

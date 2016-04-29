@@ -28,7 +28,7 @@ public class BlockBranch extends BlockGenesisLogs
 	public static final IProperty<?>[] STORE_PROPERTIES = {};
 	
 	public static final FacingProperties<Boolean> CONNECTIONS =
-			FacingProperties.create((f) -> PropertyBool.create(f.getName()), EnumFacing.values());
+			FacingProperties.create((f) -> PropertyBool.create(f.getName()));
 	public static final PropertyBool LEAVES = PropertyBool.create("leaves");
 	
 	public static final float RADIUS = 0.0625F * 3;

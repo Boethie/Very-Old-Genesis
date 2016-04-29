@@ -1,7 +1,5 @@
 package genesis.block;
 
-import io.netty.buffer.ByteBuf;
-
 import java.util.*;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -15,6 +13,7 @@ import genesis.combo.variant.PropertyIMetadata;
 import genesis.combo.variant.ToolTypes.ToolType;
 import genesis.common.*;
 import genesis.item.*;
+import genesis.network.client.*;
 import genesis.util.*;
 
 import net.minecraft.block.Block;
@@ -23,12 +22,12 @@ import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
-import net.minecraftforge.fml.common.network.simpleimpl.*;
 
-public class BlockPebble extends Block
+public class BlockPebble extends Block implements MultiPartBlock
 {
 	@BlockProperties
 	public static IProperty<?>[] getProperties()
@@ -72,7 +71,12 @@ public class BlockPebble extends Block
 		Genesis.proxy.callServer((s) -> randomProp = PropertyInteger.create(randomName, 0, 1));
 		
 		blockState = new BlockStateContainer(this, variantProp, randomProp, NW, NE, SE, SW);
-		setDefaultState(getBlockState().getBaseState().withProperty(randomProp, 0).withProperty(NW, false).withProperty(NE, false).withProperty(SE, false).withProperty(SW, false));
+		setDefaultState(getBlockState().getBaseState()
+				.withProperty(randomProp, 0)
+				.withProperty(NW, false)
+				.withProperty(NE, false)
+				.withProperty(SE, false)
+				.withProperty(SW, false));
 	}
 
 	@Override
@@ -236,115 +240,50 @@ public class BlockPebble extends Block
 	
 	protected boolean dropAll = true;
 	
-	public static class PebbleBreakMessage implements IMessage
+	public boolean removePart(IBlockState state,
+			World world, BlockPos pos, Part part,
+			EntityPlayer player, boolean harvest)
 	{
-		public BlockPos pos;
-		public Part part;
-		public boolean harvest;
+		if (world.isRemote)
+			Genesis.network.sendToServer(new MultiPartBreakMessage(pos, part.ordinal()));
 		
-		public PebbleBreakMessage() { }
+		state = state.withProperty(part.prop, false);
 		
-		public PebbleBreakMessage(BlockPos pos, Part part, boolean harvest)
+		boolean hasPebble = false;
+		
+		for (Part checkPart : Part.values())
 		{
-			this.pos = pos;
-			this.part = part;
-			this.harvest = harvest;
-		}
-		
-		@Override
-		public void fromBytes(ByteBuf buf)
-		{
-			pos = new BlockPos(buf.readInt(), buf.readInt(), buf.readInt());
-			
-			short partI = buf.readShort();
-			
-			if (partI >= 0)
+			if (state.getValue(checkPart.prop))
 			{
-				part = Part.values()[partI];
-			}
-			else
-			{
-				part = null;
-			}
-			
-			harvest = buf.readBoolean();
-		}
-		
-		@Override
-		public void toBytes(ByteBuf buf)
-		{
-			buf.writeInt(pos.getX());
-			buf.writeInt(pos.getY());
-			buf.writeInt(pos.getZ());
-			
-			buf.writeShort(part == null ? -1 : part.ordinal());
-			
-			buf.writeBoolean(harvest);
-		}
-		
-		public static class Handler implements IMessageHandler<PebbleBreakMessage, IMessage>
-		{
-			@Override
-			public IMessage onMessage(final PebbleBreakMessage message, final MessageContext ctx)
-			{
-				final EntityPlayer player = ctx.getServerHandler().playerEntity;
-				final WorldServer world = (WorldServer) player.worldObj;
-				world.addScheduledTask(() ->
-				{
-					if (!world.isAirBlock(message.pos))
-					{
-						IBlockState state = world.getBlockState(message.pos);
-						((BlockPebble) state.getBlock()).removePebble(state, world, message.pos, message.part, player, message.harvest);
-					}
-				});
-				
-				return null;
+				hasPebble = true;
+				break;
 			}
 		}
+		
+		world.setBlockState(pos, state);
+		
+		if (player == null || !player.capabilities.isCreativeMode)
+		{
+			dropAll = false;
+			dropBlockAsItem(world, pos, state, 0);
+			dropAll = true;
+		}
+		
+		if (hasPebble)
+			return true;
+		else
+			return super.removedByPlayer(state, world, pos, player, harvest);
 	}
 	
-	protected boolean removePebble(IBlockState state, World world, BlockPos pos, Part pebble, EntityPlayer player, boolean harvest)
+	@Override
+	public boolean removePart(IBlockState state,
+			World world, BlockPos pos, int part,
+			EntityPlayer player, boolean harvest)
 	{
-		//IBlockState state = world.getBlockState(pos);
+		if (part < 0 || part >= Part.values().length)
+			return false;
 		
-		if (state.getBlock() == this)
-		{
-			if (pebble != null)
-			{
-				state = state.withProperty(pebble.prop, false);
-			}
-			
-			boolean hasPebble = false;
-			
-			for (Part part : Part.values())
-			{
-				if (state.getValue(part.prop))
-				{
-					hasPebble = true;
-					break;
-				}
-			}
-			
-			world.setBlockState(pos, state);
-			
-			if (player == null || !player.capabilities.isCreativeMode)
-			{
-				dropAll = false;
-				dropBlockAsItem(world, pos, state, 0);
-				dropAll = true;
-			}
-			
-			if (pebble != null && hasPebble)
-			{
-				return true;
-			}
-			else if (!hasPebble)
-			{
-				return super.removedByPlayer(state, world, pos, player, harvest);
-			}
-		}
-		
-		return false;
+		return removePart(state, world, pos, Part.values()[part], player, harvest);
 	}
 	
 	@Override
@@ -352,22 +291,20 @@ public class BlockPebble extends Block
 	{
 		if (world.isRemote)
 		{
-			RayTraceResult hit = player.rayTrace(15, 1);	// distance, partialTick (not magic)
+			RayTraceResult hit = player.rayTrace(15, 1);
 			
 			if (pos.equals(hit.getBlockPos()))
-			{
-				Part part = null;
-				
-				if (hit.subHit >= 0)
-				{
-					part = Part.values()[hit.subHit];
-				}
-				
-				Genesis.network.sendToServer(new PebbleBreakMessage(pos, part, harvest));
-				return removePebble(state, world, pos, part, player, harvest);
-			}
+				return removePart(state, world, pos, hit.subHit, player, harvest);
 		}
 		
+		return false;
+	}
+	
+	@Override
+	public boolean activate(IBlockState state,
+			World world, BlockPos pos, int part,
+			EntityPlayer player, ItemStack stack, EnumHand hand)
+	{
 		return false;
 	}
 	

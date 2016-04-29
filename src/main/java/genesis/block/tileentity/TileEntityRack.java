@@ -1,5 +1,6 @@
 package genesis.block.tileentity;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
@@ -7,19 +8,18 @@ import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class TileEntityRack extends TileEntity implements IInventory
+public class TileEntityRack extends TileEntityBase implements IInventory
 {
-	private ItemStack[] inventory = new ItemStack[1];
+	private ItemStack[] inventory = new ItemStack[EnumFacing.HORIZONTALS.length];
 	
 	public static boolean isItemValid(ItemStack stack)
 	{
@@ -37,62 +37,6 @@ public class TileEntityRack extends TileEntity implements IInventory
 		}
 		
 		return false;
-	}
-	
-	@Override
-	public Packet<?> getDescriptionPacket()
-	{
-		NBTTagCompound data = new NBTTagCompound();
-		writeToNBT(data);
-		return new SPacketUpdateTileEntity(pos, 1, data);
-	}
-	
-	@Override
-	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet)
-	{
-		readFromNBT(packet.getNbtCompound());
-		this.markDirty();
-	}
-	
-	@Override
-	public void readFromNBT(NBTTagCompound compound)
-	{
-		super.readFromNBT(compound);
-		
-		NBTTagList list = compound.getTagList("items", 10);
-		inventory = new ItemStack[getSizeInventory()];
-		
-		for (int i = 0; i < list.tagCount(); ++i)
-		{
-			NBTTagCompound itemCompound = list.getCompoundTagAt(i);
-			int slot = itemCompound.getByte("slot");
-			
-			if (slot >= 0 && slot < inventory.length)
-			{
-				inventory[slot] = ItemStack.loadItemStackFromNBT(itemCompound);
-			}
-		}
-	}
-	
-	@Override
-	public void writeToNBT(NBTTagCompound compound)
-	{
-		super.writeToNBT(compound);
-		
-		NBTTagList list = new NBTTagList();
-		
-		for (int i = 0; i < inventory.length; ++i)
-		{
-			if (inventory[i] != null)
-			{
-				NBTTagCompound itemCompound = new NBTTagCompound();
-				itemCompound.setByte("slot", (byte) i);
-				inventory[i].writeToNBT(itemCompound);
-				list.appendTag(itemCompound);
-			}
-		}
-		
-		compound.setTag("items", list);
 	}
 	
 	@Override
@@ -146,11 +90,6 @@ public class TileEntityRack extends TileEntity implements IInventory
 		return inventory[index];
 	}
 	
-	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction)
-	{
-		return isItemValidForSlot(index, itemStackIn);
-	}
-	
 	@Override
 	public ItemStack decrStackSize(int index, int count)
 	{
@@ -163,15 +102,84 @@ public class TileEntityRack extends TileEntity implements IInventory
 		return ItemStackHelper.getAndRemove(inventory, index);
 	}
 	
+	public boolean hasRack(EnumFacing facing)
+	{
+		return worldObj.getBlockState(pos).getValue(BlockRack.RACKS.get(facing));
+	}
+	
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack)
 	{
-		inventory[index] = stack;
-		
-		if (stack != null && stack.stackSize > getInventoryStackLimit())
+		if (stack != null)
 		{
-			stack.stackSize = getInventoryStackLimit();
+			stack.stackSize = Math.min(stack.stackSize, getInventoryStackLimit());
+			
+			// Check whether there's a rack where the item is being placed.
+			if (!hasRack(EnumFacing.getHorizontal(index)))
+				stack = null;
 		}
+		
+		inventory[index] = stack;
+		markDirty();
+	}
+	
+	public ItemStack getStackInSide(EnumFacing facing)
+	{
+		return getStackInSlot(facing.getHorizontalIndex());
+	}
+	
+	public void setStackInSide(EnumFacing facing, ItemStack stack)
+	{
+		setInventorySlotContents(facing.getHorizontalIndex(), stack);
+	}
+	
+	@Override
+	public boolean isItemValidForSlot(int index, ItemStack stack)
+	{
+		return stack != null && isItemValid(stack);
+	}
+	
+	@Override
+	protected void writeVisualData(NBTTagCompound compound, boolean save)
+	{
+		NBTTagList list = new NBTTagList();
+		
+		for (int i = 0; i < inventory.length; ++i)
+		{
+			if (inventory[i] != null)
+			{
+				NBTTagCompound itemCompound = new NBTTagCompound();
+				itemCompound.setByte("slot", (byte) i);
+				inventory[i].writeToNBT(itemCompound);
+				list.appendTag(itemCompound);
+			}
+		}
+		
+		compound.setTag("items", list);
+	}
+	
+	@Override
+	protected void readVisualData(NBTTagCompound compound, boolean save)
+	{
+		NBTTagList list = compound.getTagList("items", NBT.TAG_COMPOUND);
+		inventory = new ItemStack[getSizeInventory()];
+		
+		for (int i = 0; i < list.tagCount(); ++i)
+		{
+			NBTTagCompound itemCompound = list.getCompoundTagAt(i);
+			int slot = itemCompound.getByte("slot");
+			
+			if (slot >= 0 && slot < inventory.length)
+			{
+				inventory[slot] = ItemStack.loadItemStackFromNBT(itemCompound);
+			}
+		}
+	}
+	
+	@Override
+	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState)
+	{
+		return oldState.getBlock() != newState.getBlock();
 	}
 	
 	@Override
@@ -183,19 +191,11 @@ public class TileEntityRack extends TileEntity implements IInventory
 	@Override
 	public void openInventory(EntityPlayer player)
 	{
-
 	}
 	
 	@Override
 	public void closeInventory(EntityPlayer player)
 	{
-
-	}
-	
-	@Override
-	public boolean isItemValidForSlot(int index, ItemStack stack)
-	{
-		return stack != null && isItemValid(stack);
 	}
 	
 	@Override
@@ -218,10 +218,5 @@ public class TileEntityRack extends TileEntity implements IInventory
 	@Override
 	public void clear()
 	{
-	}
-	
-	public int getDirection()
-	{
-		return this.getBlockMetadata();
 	}
 }

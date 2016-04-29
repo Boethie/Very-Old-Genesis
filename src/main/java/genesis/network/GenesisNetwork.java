@@ -1,10 +1,11 @@
-package genesis.common;
+package genesis.network;
 
 import java.util.*;
 
-import genesis.block.BlockPebble.PebbleBreakMessage;
 import genesis.block.tileentity.TileEntityKnapper.KnappingSlotMessage;
+import genesis.common.Genesis;
 import genesis.entity.living.flying.EntityMeganeura.MeganeuraUpdateMessage;
+import genesis.network.client.*;
 import genesis.util.sound.SoundUtils;
 
 import net.minecraft.entity.Entity;
@@ -34,7 +35,8 @@ public class GenesisNetwork extends SimpleNetworkWrapper
 	public void registerMessages()
 	{
 		registerMessage(new SoundUtils.MovingEntitySoundMessage.Handler(), SoundUtils.MovingEntitySoundMessage.class, Side.CLIENT);
-		registerMessage(new PebbleBreakMessage.Handler(), PebbleBreakMessage.class, Side.SERVER);
+		registerMessage(new MultiPartBreakMessage.Handler(), MultiPartBreakMessage.class, Side.SERVER);
+		registerMessage(new MultiPartActivateMessage.Handler(), MultiPartActivateMessage.class, Side.SERVER);
 		registerMessage(new MeganeuraUpdateMessage.Handler(), MeganeuraUpdateMessage.class, Side.CLIENT);
 		registerMessage(new KnappingSlotMessage.Handler(), KnappingSlotMessage.class, Side.SERVER);
 	}

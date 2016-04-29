@@ -11,15 +11,22 @@ import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Mirror;
+import net.minecraft.util.Rotation;
 
 public class FacingProperties<V extends Comparable<V>> implements Iterable<FacingProperties.Entry<V>>
 {
-	public static <V extends Comparable<V>> FacingProperties<V> create(Function<EnumFacing, IProperty<V>> propertyFunc, EnumFacing... facings)
+	public static <V extends Comparable<V>> FacingProperties<V> create(Function<EnumFacing, IProperty<V>> function)
 	{
-		return new FacingProperties<V>(propertyFunc, facings);
+		return new FacingProperties<V>(function);
 	}
 	
-	public final Map<EnumFacing, IProperty<V>> map;
+	public static <V extends Comparable<V>> FacingProperties<V> createHorizontal(Function<EnumFacing, IProperty<V>> function)
+	{
+		return new FacingProperties<V>((f) -> f.getAxis() != EnumFacing.Axis.Y ? function.apply(f) : null);
+	}
+	
+	private final Map<EnumFacing, IProperty<V>> map;
 	
 	public final IProperty<V> up;
 	public final IProperty<V> down;
@@ -28,17 +35,20 @@ public class FacingProperties<V extends Comparable<V>> implements Iterable<Facin
 	public final IProperty<V> east;
 	public final IProperty<V> west;
 	
-	private FacingProperties(Function<EnumFacing, IProperty<V>> propertyFunc, EnumFacing... facings)
+	private FacingProperties(Function<EnumFacing, IProperty<V>> propertyFunc)
 	{
 		ImmutableMap.Builder<EnumFacing, IProperty<V>> builder = ImmutableMap.builder();
 		
-		for (EnumFacing facing : facings)
+		for (EnumFacing facing : EnumFacing.values())
 		{
-			builder.put(facing, propertyFunc.apply(facing));
+			IProperty<V> property = propertyFunc.apply(facing);
+			
+			if (property != null)
+				builder.put(facing, property);
 		}
 		
 		map = builder.build();
-
+		
 		up = map.get(EnumFacing.UP);
 		down = map.get(EnumFacing.DOWN);
 		north = map.get(EnumFacing.NORTH);
@@ -75,6 +85,29 @@ public class FacingProperties<V extends Comparable<V>> implements Iterable<Facin
 	public IBlockState stateWith(IBlockState state, V value)
 	{
 		return stateWith(state, (f) -> value);
+	}
+	
+	public IBlockState rotate(IBlockState state, Rotation rotation)
+	{
+		IBlockState out = state;
+		
+		for (Entry<V> entry : this)
+			out = out.withProperty(get(rotation.rotate(entry.facing)), state.getValue(entry.property));
+		
+		return out;
+	}
+	
+	public IBlockState mirror(IBlockState state, Mirror mirror)
+	{
+		switch (mirror)
+		{
+		case LEFT_RIGHT:
+			return state.withProperty(north, state.getValue(south)).withProperty(south, state.getValue(north));
+		case FRONT_BACK:
+			return state.withProperty(east, state.getValue(west)).withProperty(west, state.getValue(east));
+		default:
+			return state;
+		}
 	}
 	
 	public Set<EnumFacing> facings()
