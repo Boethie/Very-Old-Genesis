@@ -512,7 +512,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 				if (props.getToBottom() > 1)
 					stage -= growthAge;
 				
-				newBB.addCoord(0, (stage + 1) * heightPerStage, 0);
+				newBB = newBB.addCoord(0, (stage + 1) * heightPerStage, 0);
 			}
 		}
 		else
