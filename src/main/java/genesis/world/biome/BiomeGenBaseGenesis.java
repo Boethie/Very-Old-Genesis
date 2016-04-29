@@ -39,7 +39,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 		spawnableMonsterList.clear();
 		spawnableWaterCreatureList.clear();
 		
-		getDecorator().sandPerChunk2 = 1;
+		getDecorator().sandPerChunk2 = 2;
 	}
 	
 	public void addGrass(WorldGenDecorationBase gen, int weight)
