@@ -10,6 +10,7 @@
 			"voltzia": { "textures": { "all": "genesis:blocks/log_voltzia" } },
 			"araucarioxylon": { "textures": { "all": "genesis:blocks/log_araucarioxylon" } },
 			"metasequoia": { "textures": { "all": "genesis:blocks/log_metasequoia" } },
+			"archaeanthus": { "textures": { "all": "genesis:blocks/log_archaeanthus" } },
 			"dryophyllum": { "textures": { "all": "genesis:blocks/log_dryophyllum" } },
 			"ficus": { "textures": { "all": "genesis:blocks/log_ficus" } },
 			"laurophyllum": { "textures": { "all": "genesis:blocks/log_laurophyllum" } }

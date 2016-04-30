@@ -152,6 +152,19 @@ tile.genesis.wattleFence.dryophyllum.name=Clayonnage en bois de Dryophyllum
 tile.genesis.wattleFence.ficus.name=Clayonnage en bois de Ficus
 tile.genesis.wattleFence.laurophyllum.name=Clayonnage en bois de Laurophyllum
 
+tile.genesis.rack.archaeopteris.name=Rack d'Archaeopteris
+tile.genesis.rack.sigillaria.name=Rack de Sigillaria
+tile.genesis.rack.lepidodendron.name=Rack de Lepidodendron
+tile.genesis.rack.cordaites.name=Rack de Cordaites
+tile.genesis.rack.ginkgo.name=Rack de Ginkgo
+tile.genesis.rack.voltzia.name=Rack de Voltzia
+tile.genesis.rack.araucarioxylon.name=Rack d'Araucarioxylon
+tile.genesis.rack.metasequoia.name=Rack de Metasequoia
+tile.genesis.rack.archaeanthus.name=Rack d'Archaeanthus
+tile.genesis.rack.dryophyllum.name=Rack de Dryophyllum
+tile.genesis.rack.ficus.name=Rack de Ficus
+tile.genesis.rack.laurophyllum.name=Rack de Laurophyllum
+
 tile.genesis.calamitesTorch.name=Torche en Calamites
 tile.genesis.calamitesTorch.tall.name=Grande torche en Calamites
 
@@ -525,7 +538,7 @@ item.genesis.material.cladophlebisFrond.name=Fronde de Cladophlebis
 item.genesis.material.programinis.name=Programinis
 item.genesis.material.vegetalAsh.name=Cendre végétale
 item.genesis.material.salt.name=Sel
-item.genesis.material.astralJelly.name=Gelée astral
+item.genesis.material.strangeJelly.name=Gelée étrange
 item.genesis.material.dung.herbivore.name=Crotte d'herbivore
 item.genesis.material.dung.carnivore.name=Crotte de carnivore
 item.genesis.material.dungBrick.name=Brique de crotte

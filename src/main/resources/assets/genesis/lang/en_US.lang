@@ -153,6 +153,19 @@ tile.genesis.wattleFence.dryophyllum.name=Dryophyllum Wattle Fence
 tile.genesis.wattleFence.ficus.name=Ficus Wattle Fence
 tile.genesis.wattleFence.laurophyllum.name=Laurophyllum Wattle Fence
 
+tile.genesis.rack.archaeopteris.name=Archaeopteris Rack
+tile.genesis.rack.sigillaria.name=Sigillaria Rack
+tile.genesis.rack.lepidodendron.name=Lepidodendron Rack
+tile.genesis.rack.cordaites.name=Cordaites Rack
+tile.genesis.rack.ginkgo.name=Ginkgo Rack
+tile.genesis.rack.voltzia.name=Voltzia Rack
+tile.genesis.rack.araucarioxylon.name=Araucarioxylon Rack
+tile.genesis.rack.metasequoia.name=Metasequoia Rack
+tile.genesis.rack.archaeanthus.name=Archaeanthus Rack
+tile.genesis.rack.dryophyllum.name=Dryophyllum Rack
+tile.genesis.rack.ficus.name=Ficus Rack
+tile.genesis.rack.laurophyllum.name=Laurophyllum Rack
+
 tile.genesis.calamitesTorch.name=Calamites Torch
 tile.genesis.calamitesTorch.tall.name=Calamites Tall Torch
 
@@ -526,7 +539,7 @@ item.genesis.material.cladophlebisFrond.name=Cladophlebis Frond
 item.genesis.material.programinis.name=Programinis
 item.genesis.material.vegetalAsh.name=Vegetal Ash
 item.genesis.material.salt.name=Salt
-item.genesis.material.astralJelly.name=Astral Jelly
+item.genesis.material.strangeJelly.name=Strange Jelly
 item.genesis.material.dung.herbivore.name=Herbivore Dung
 item.genesis.material.dung.carnivore.name=Carnivore Dung
 item.genesis.material.dungBrick.name=Dung Brick
