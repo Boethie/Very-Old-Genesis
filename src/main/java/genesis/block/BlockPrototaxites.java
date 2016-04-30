@@ -7,6 +7,7 @@ import genesis.combo.variant.EnumSeeds;
 import genesis.common.*;
 import genesis.sounds.GenesisSoundTypes;
 import genesis.util.WorldUtils;
+import genesis.util.random.i.RandomIntProvider;
 
 import net.minecraft.block.material.*;
 import net.minecraft.block.properties.IProperty;
@@ -31,7 +32,7 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 		setHarvestLevel("axe", 0);
 		enableStats = true;
 		setPlantSize(1, 0, 1);
-		setCollisionBox(new net.minecraft.util.math.AxisAlignedBB(0, 0, 0, 1, 1, 1));
+		setCollisionBox(new AxisAlignedBB(0, 0, 0, 1, 1, 1));
 		
 		setPlantSoilTypes(EnumPlantType.Plains, BlockPrototaxitesMycelium.SOIL_TYPE);
 		setGrowth(0.75F, 1, 1, 1);
@@ -91,7 +92,7 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 		return CanStayOptions.YIELD;
 	}
 	
-	protected void placeMycelium(World world, BlockPos pos, Random rand, int down)
+	protected void placeMycelium(World world, BlockPos pos, Random rand, int down, int flags)
 	{
 		for (int i = 0; i <= down; i++)
 		{
@@ -101,48 +102,44 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 			if (soilState.getBlock() == Blocks.dirt
 					|| soilState.getBlock() == GenesisBlocks.moss)
 			{
-				world.setBlockState(soilPos, GenesisBlocks.prototaxites_mycelium.getDefaultState());
+				world.setBlockState(soilPos, GenesisBlocks.prototaxites_mycelium.getDefaultState(), flags);
 				return;
 			}
 		}
 	}
 	
-	protected void placeAreaMycelium(World world, BlockPos pos, Random rand)
+	protected void placeAreaMycelium(World world, BlockPos pos, Random rand, int flags)
 	{
 		if (rand.nextInt(5) <= 3)
 		{
-			placeMycelium(world, pos, rand, 1);
+			placeMycelium(world, pos, rand, 1, flags);
 			
 			for (EnumFacing side : EnumFacing.HORIZONTALS)
 				if (rand.nextInt(3) == 0)
-					placeMycelium(world, pos.offset(side), rand, 1);
+					placeMycelium(world, pos.offset(side), rand, 1, flags);
 		}
 	}
 	
 	@Override
-	public boolean placeRandomAgePlant(World world, BlockPos pos, Random rand)
+	public void placePlant(World world, BlockPos pos, Random rand, int height, RandomIntProvider age, int flags)
 	{
 		BlockPos soil = pos.down();
 		
-		if (!world.getBlockState(pos).getBlock().isReplaceable(world, pos))
+		placeMycelium(world, soil, rand, 0, flags);
+		
+		for (EnumFacing side : EnumFacing.HORIZONTALS)
+			placeAreaMycelium(world, soil.offset(side), rand, flags);
+		
+		super.placePlant(world, pos, rand, height, age, flags);
+	}
+	
+	@Override
+	public boolean placeRandomAgePlant(World world, BlockPos pos, Random rand, int flags)
+	{
+		if (!world.isAirBlock(pos))
 			return false;
 		
-		for (EnumFacing side : EnumFacing.HORIZONTALS)
-		{
-			BlockPos sidePos = pos.offset(side);
-			IBlockState sideState = world.getBlockState(sidePos);
-			
-			if (sideState.getBlock() == this
-					|| sideState.isSideSolid(world, sidePos, side.getOpposite()))
-				return false;
-		}
-		
-		placeMycelium(world, soil, rand, 0);
-		
-		for (EnumFacing side : EnumFacing.HORIZONTALS)
-			placeAreaMycelium(world, soil.offset(side), rand);
-		
-		return super.placeRandomAgePlant(world, pos, rand);
+		return super.placeRandomAgePlant(world, pos, rand, flags);
 	}
 	
 	@Override

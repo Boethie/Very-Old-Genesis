@@ -339,7 +339,6 @@ public final class GenesisBlocks
 		
 		// Ankyropteris
 		Genesis.proxy.registerBlock(ankyropteris, new ItemColored(ankyropteris, false), name("ankyropteris"));
-		Genesis.proxy.registerModel(ankyropteris, 0, name("ankyropteris"));
 		
 		// Flower pot
 		Genesis.proxy.registerBlock(flower_pot, null, name("flower_pot"));
@@ -428,7 +427,7 @@ public final class GenesisBlocks
 		itemCol.registerItemColorHandler((s, t) -> plants.getVariant(s).getColorMultiplier(null, null), plantsArray);
 		
 		registerColors(blockCol, itemCol, Colorizers.BLOCK_GRASS,
-				cobbania, cladophlebis);
+				cobbania, cladophlebis, ankyropteris);
 		
 		blockCol.registerBlockColorHandler(Colorizers.BLOCK_GRASS,
 				odontopteris, programinis);

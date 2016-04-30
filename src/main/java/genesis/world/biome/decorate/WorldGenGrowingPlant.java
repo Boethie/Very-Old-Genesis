@@ -42,6 +42,6 @@ public class WorldGenGrowingPlant extends WorldGenDecorationBase
 		if (nextToWater && !WorldUtils.waterInRange(world, pos.down(), waterRadius, waterRadius, waterHeight))
 			return false;
 		
-		return plant.placeRandomAgePlant(world, pos, random);
+		return plant.placeRandomAgePlant(world, pos, random, shouldNotify() ? 3 : 2);
 	}
 }

@@ -5,6 +5,7 @@ import genesis.common.GenesisCreativeTabs;
 import genesis.util.*;
 import genesis.util.random.drops.blocks.BlockDrops;
 import genesis.util.random.i.IntRange;
+import genesis.util.random.i.RandomIntProvider;
 
 import java.util.*;
 import java.util.Map.Entry;
@@ -1210,36 +1211,46 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 		return true;
 	}
 	
+	public void placePlant(World world, BlockPos pos, Random rand, int height, RandomIntProvider age, int flags)
+	{
+		for (int y = 0; y < height; y++)
+		{
+			world.setBlockState(pos.up(y),
+					getDefaultState().withProperty(ageProp, (growTogether || y == height - 1) ? age.get(rand) : maxAge),
+					flags);
+		}
+	}
+	
 	/**
 	 * Places a plant with a random height and age value.
 	 */
-	public boolean placeRandomAgePlant(World world, BlockPos pos, Random rand)
+	public boolean placeRandomAgePlant(World world, BlockPos pos, Random rand, int flags)
 	{
-		if (!canPlantSurvive(world, pos, true))
+		if (!canPlantSurvive(world, pos, false))
 			return false;
 		
-		int targetHeight = IntRange.create(1, maxHeight).get(rand);
+		int height = IntRange.create(1, maxHeight).get(rand);
 		
-		for (int i = 0; i < targetHeight; i++)
+		for (int i = 0; i < height; i++)
 		{
 			BlockPos checkPos = pos.up(i);
 			IBlockState checkState = world.getBlockState(checkPos);
 			
 			if (!checkState.getBlock().isAir(checkState, world, checkPos))
 			{
-				targetHeight = i;
+				height = i;
 				break;
 			}
 		}
 		
-		if (targetHeight > 0)
+		if (height > 0)
 		{
 			IntRange ageRange;
 			
 			if (growTogether)
 			{
-				int min = Math.min((targetHeight - 1) * growthAge, maxAge);
-				int max = Math.min(targetHeight * growthAge - 1, maxAge);
+				int min = Math.min((height - 1) * growthAge, maxAge);
+				int max = Math.min(height * growthAge - 1, maxAge);
 				ageRange = IntRange.create(min, max);
 				ageRange = IntRange.create(ageRange.get(rand));
 			}
@@ -1248,17 +1259,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 				ageRange = IntRange.create(0, maxAge);
 			}
 			
-			for (int i = 0; i < targetHeight; i++)
-			{
-				int age = maxAge;
-				
-				if (growTogether || i == targetHeight - 1)
-				{
-					age = ageRange.get(rand);
-				}
-				
-				world.setBlockState(pos.up(i), getDefaultState().withProperty(ageProp, age), 2);
-			}
+			placePlant(world, pos, rand, height, ageRange, flags);
 			
 			return true;
 		}

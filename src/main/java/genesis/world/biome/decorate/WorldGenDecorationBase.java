@@ -15,7 +15,9 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public abstract class WorldGenDecorationBase extends WorldGenerator
 {
-	protected int rarity = 1;
+	private final boolean notify;
+	
+	private int rarity = 1;
 	
 	protected final WorldBlockMatcher airMatcher;
 	protected final WorldBlockMatcher groundMatcher;
@@ -30,12 +32,26 @@ public abstract class WorldGenDecorationBase extends WorldGenerator
 	 * @param groundMatcher Matcher to check whether the ground that is encountered
 	 * is suitable for the generator.
 	 */
-	protected WorldGenDecorationBase(WorldBlockMatcher airMatcher, WorldBlockMatcher groundMatcher)
+	protected WorldGenDecorationBase(WorldBlockMatcher airMatcher, WorldBlockMatcher groundMatcher, boolean notify)
 	{
-		super(false);
+		super(notify);
 		
 		this.airMatcher = airMatcher;
 		this.groundMatcher = groundMatcher;
+		this.notify = notify;
+	}
+	
+	protected WorldGenDecorationBase(WorldBlockMatcher airMatcher, WorldBlockMatcher groundMatcher)
+	{
+		this(airMatcher, groundMatcher, false);
+	}
+	
+	/**
+	 * Creates a generator that does not search for the ground below it.
+	 */
+	protected WorldGenDecorationBase(boolean notify)
+	{
+		this(null, null, notify);
 	}
 	
 	/**
@@ -43,7 +59,12 @@ public abstract class WorldGenDecorationBase extends WorldGenerator
 	 */
 	protected WorldGenDecorationBase()
 	{
-		this(null, null);
+		this(false);
+	}
+	
+	protected boolean shouldNotify()
+	{
+		return notify;
 	}
 	
 	protected BlockPos findGround(IBlockAccess world, BlockPos pos, int distance)

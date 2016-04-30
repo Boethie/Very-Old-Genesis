@@ -57,7 +57,7 @@ public class BlockPebble extends Block implements MultiPartBlock
 		this.type = type;
 		
 		this.variant = variant;
-		variantProp = new PropertyIMetadata<ToolType>("variant", Collections.singletonList(variant), variantClass);
+		variantProp = new PropertyIMetadata<>("variant", Collections.singletonList(variant), variantClass);
 		
 		final String randomName = "zrandom";
 		Genesis.proxy.callClient((c) ->
