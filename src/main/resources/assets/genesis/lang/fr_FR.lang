@@ -600,9 +600,13 @@ achievement.genesis.blackDiamond=Trésor de l'espace
 achievement.genesis.blackDiamond.desc=Minez un minerai de diamant noir.
 
 #------------- Subtitles -------------
+#Blocks
+subtitles.genesis.block.egg.place=Œuf placé
+subtitles.genesis.block.egg.break=Œuf brisé
+
 #Items
-subtitles.genesis.item.flintAndMarcasite.use=Flint and marcasite click
-subtitles.genesis.item.pebble.hit=Pebble whacked on stone
+subtitles.genesis.item.flintAndMarcasite.use=Silex et marcasite frappés
+subtitles.genesis.item.pebble.hit=Galet frappé sur la pierre
 
 #Player
-subtitles.genesis.player.knapping.hit=Pebble knapped
+subtitles.genesis.player.knapping.hit=Galet débité
