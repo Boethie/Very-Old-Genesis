@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 
 public class ItemFruit extends ItemGenesisFood<EnumTree>
 {
-	public ItemFruit(VariantsOfTypesCombo<EnumTree> owner,
+	public ItemFruit(TreeBlocksAndItems owner,
 			ObjectType<Block, ? extends ItemGenesisEdible<EnumTree>> type,
 			List<EnumTree> variants, Class<EnumTree> variantClass)
 	{
@@ -47,7 +47,7 @@ public class ItemFruit extends ItemGenesisFood<EnumTree>
 		if (!owner.containsVariant(TreeBlocksAndItems.HANGING_FRUIT, variant))
 			return EnumActionResult.FAIL;
 		
-		VariantsOfTypesCombo<EnumTree>.VariantData data = owner.getVariantData(TreeBlocksAndItems.HANGING_FRUIT, variant);
+		TreeBlocksAndItems.VariantData data = owner.getVariantData(TreeBlocksAndItems.HANGING_FRUIT, variant);
 		
 		IBlockState state = data.block.getDefaultState().withProperty(owner.getVariantProperty(data.block), variant);
 		Block block = state.getBlock();
@@ -58,7 +58,9 @@ public class ItemFruit extends ItemGenesisFood<EnumTree>
 			world.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
 					sound.getPlaceSound(), SoundCategory.BLOCKS,
 					(sound.getVolume() + 1F) / 2F, sound.getPitch() * 0.8F, false);
+			
 			stack.stackSize--;
+			
 			ItemBlock.setTileEntityNBT(world, player, pos, stack);
 			state.getBlock().onBlockPlacedBy(world, pos, state, player, stack);
 			

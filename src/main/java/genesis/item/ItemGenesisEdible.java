@@ -81,7 +81,8 @@ public abstract class ItemGenesisEdible<V extends IMetadata<V>> extends ItemFood
 			}
 		}
 		
-		if (player.canEat(positive))
+		if (player.canEat(positive)
+				&& (positive || getHealAmount(stack) > 0))
 		{
 			player.setActiveHand(hand);
 			return Actions.success(stack);
