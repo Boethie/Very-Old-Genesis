@@ -1,4 +1,4 @@
-package genesis.sounds;
+package genesis.common.sounds;
 
 import genesis.util.Constants;
 import net.minecraft.util.ResourceLocation;

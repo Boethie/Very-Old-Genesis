@@ -4,8 +4,8 @@ import genesis.combo.ObjectType;
 import genesis.combo.VariantsOfTypesCombo;
 import genesis.combo.VariantsOfTypesCombo.BlockProperties;
 import genesis.combo.variant.EnumTree;
+import genesis.common.sounds.GenesisSoundTypes;
 import genesis.item.ItemBlockMulti;
-import genesis.sounds.GenesisSoundTypes;
 
 import java.util.*;
 

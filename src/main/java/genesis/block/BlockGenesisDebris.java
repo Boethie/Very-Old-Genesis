@@ -7,8 +7,8 @@ import genesis.combo.variant.EnumDebrisOther;
 import genesis.combo.variant.IMetadata;
 import genesis.combo.variant.MultiMetadataList.MultiMetadata;
 import genesis.common.GenesisCreativeTabs;
+import genesis.common.sounds.GenesisSoundTypes;
 import genesis.item.ItemBlockMulti;
-import genesis.sounds.GenesisSoundTypes;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.random.drops.blocks.BlockDrop;
 

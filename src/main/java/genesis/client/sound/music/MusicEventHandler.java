@@ -2,8 +2,7 @@ package genesis.client.sound.music;
 
 import genesis.common.GenesisConfig;
 import genesis.common.GenesisDimensions;
-import genesis.sounds.GenesisSoundEvents;
-
+import genesis.common.sounds.GenesisSoundEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;

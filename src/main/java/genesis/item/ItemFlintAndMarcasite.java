@@ -2,8 +2,7 @@ package genesis.item;
 
 import genesis.common.GenesisConfig;
 import genesis.common.GenesisCreativeTabs;
-import genesis.sounds.GenesisSoundEvents;
-
+import genesis.common.sounds.GenesisSoundEvents;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemFlintAndSteel;
@@ -22,7 +21,7 @@ public class ItemFlintAndMarcasite extends ItemFlintAndSteel
 		setMaxDamage(GenesisConfig.flintAndMarcasiteMaxDamage);
 		setCreativeTab(GenesisCreativeTabs.TOOLS);
 	}
-
+	
 	@Override
 	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player,
 			World world, BlockPos pos, EnumHand hand, EnumFacing side,

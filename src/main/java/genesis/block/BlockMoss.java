@@ -1,7 +1,7 @@
 package genesis.block;
 
 import genesis.common.*;
-import genesis.sounds.GenesisSoundTypes;
+import genesis.common.sounds.GenesisSoundTypes;
 import genesis.util.*;
 import genesis.util.random.i.IntRange;
 import genesis.world.biome.BiomeGenBaseGenesis;

@@ -1,7 +1,7 @@
 package genesis.block;
 
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
-import genesis.sounds.GenesisSoundTypes;
+import genesis.common.sounds.GenesisSoundTypes;
 import genesis.util.WorldUtils;
 
 import java.util.ArrayList;

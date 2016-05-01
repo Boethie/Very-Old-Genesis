@@ -2,8 +2,8 @@ package genesis.common;
 
 import genesis.capabilities.GenesisCapabilities;
 import genesis.command.CommandTPGenesis;
+import genesis.common.sounds.GenesisSoundEvents;
 import genesis.network.GenesisNetwork;
-import genesis.sounds.GenesisSoundEvents;
 import genesis.stats.GenesisAchievements;
 import genesis.util.Constants;
 import genesis.world.GenesisWorldData;

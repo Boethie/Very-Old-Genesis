@@ -5,7 +5,7 @@ import java.util.*;
 import genesis.block.BlockGrowingPlant.*;
 import genesis.combo.variant.EnumSeeds;
 import genesis.common.*;
-import genesis.sounds.GenesisSoundTypes;
+import genesis.common.sounds.GenesisSoundTypes;
 import genesis.util.WorldUtils;
 import genesis.util.random.i.RandomIntProvider;
 

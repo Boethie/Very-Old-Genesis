@@ -6,7 +6,7 @@ import genesis.util.*;
 import genesis.util.random.d.DoubleRange;
 import genesis.client.*;
 import genesis.common.*;
-import genesis.sounds.GenesisSoundEvents;
+import genesis.common.sounds.GenesisSoundEvents;
 import genesis.block.tileentity.render.TileEntityCampfireRenderer;
 
 import net.minecraft.block.*;

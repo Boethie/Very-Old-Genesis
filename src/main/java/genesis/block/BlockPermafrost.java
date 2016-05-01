@@ -1,6 +1,6 @@
 package genesis.block;
 
-import genesis.sounds.GenesisSoundTypes;
+import genesis.common.sounds.GenesisSoundTypes;
 import net.minecraft.block.material.Material;
 
 public class BlockPermafrost extends BlockGenesis

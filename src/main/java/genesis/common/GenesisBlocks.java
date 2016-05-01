@@ -10,8 +10,8 @@ import genesis.client.Colorizers;
 import genesis.combo.*;
 import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.*;
+import genesis.common.sounds.GenesisSoundTypes;
 import genesis.item.*;
-import genesis.sounds.GenesisSoundTypes;
 import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
 import genesis.util.random.drops.blocks.*;
@@ -85,7 +85,7 @@ public final class GenesisBlocks
 			.setGrowth(6, 1, 1, 1)
 			.setUnlocalizedName(Unlocalized.PLANT + "calamites");
 	public static final BlockAnkyropteris ankyropteris = (BlockAnkyropteris) new BlockAnkyropteris().setUnlocalizedName(Unlocalized.PREFIX + "ankyropteris");
-	public static final Block cobbania = new BlockCobbania().setUnlocalizedName(Unlocalized.PREFIX + "cobbania");
+	public static final BlockCobbania cobbania = (BlockCobbania) new BlockCobbania().setUnlocalizedName(Unlocalized.PREFIX + "cobbania");
 	public static final VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>> aquatic_plants =
 			new VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>>(
 					new ObjectType<BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>>("aquatic_plant", "aquaticPlant", BlockAquaticPlant.class, null)
@@ -352,7 +352,7 @@ public final class GenesisBlocks
 		
 		// - Water Plants -
 		// Cobbania
-		Genesis.proxy.registerBlock(cobbania, new ItemBlockCobbania(cobbania), name("cobbania"));
+		Genesis.proxy.registerBlock(cobbania, new ItemBlockFloating(cobbania), name("cobbania"));
 		
 		// Aquatic plants
 		aquatic_plants.setNames(Constants.MOD_ID, Constants.Unlocalized.PREFIX);

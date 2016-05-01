@@ -3,7 +3,7 @@ package genesis.block;
 import static genesis.block.BlockGenesisMushroom.MushroomGrowType.*;
 
 import genesis.common.GenesisBlocks;
-import genesis.sounds.GenesisSoundTypes;
+import genesis.common.sounds.GenesisSoundTypes;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.WorldUtils;
 

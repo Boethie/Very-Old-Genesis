@@ -1,7 +1,7 @@
 package genesis.block;
 
 import genesis.common.GenesisCreativeTabs;
-import genesis.sounds.GenesisSoundTypes;
+import genesis.common.sounds.GenesisSoundTypes;
 import net.minecraft.block.material.Material;
 
 public class BlockOoze extends BlockGenesis

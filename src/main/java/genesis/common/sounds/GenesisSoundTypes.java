@@ -1,4 +1,4 @@
-package genesis.sounds;
+package genesis.common.sounds;
 
 import net.minecraft.block.SoundType;
 

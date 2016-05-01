@@ -5,7 +5,7 @@ import genesis.combo.*;
 import genesis.combo.ToolItems.ToolObjectType;
 import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.ToolTypes.ToolType;
-import genesis.sounds.GenesisSoundEvents;
+import genesis.common.sounds.GenesisSoundEvents;
 import genesis.util.WorldUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

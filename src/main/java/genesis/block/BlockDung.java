@@ -4,7 +4,7 @@ import genesis.combo.ObjectType;
 import genesis.combo.VariantsOfTypesCombo;
 import genesis.combo.VariantsOfTypesCombo.BlockProperties;
 import genesis.combo.variant.EnumDung;
-import genesis.sounds.GenesisSoundTypes;
+import genesis.common.sounds.GenesisSoundTypes;
 import genesis.util.BlockStateToMetadata;
 
 import net.minecraft.block.material.Material;
