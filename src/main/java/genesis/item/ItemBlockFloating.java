@@ -22,12 +22,12 @@ public class ItemBlockFloating extends ItemBlock
 	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
 	{
 		RayTraceResult hit = getMovingObjectPositionFromPlayer(world, player, true);
-		float x = (float) hit.hitVec.xCoord;
-		float y = (float) hit.hitVec.yCoord;
-		float z = (float) hit.hitVec.zCoord;
 		
 		if (hit != null && hit.typeOfHit == RayTraceResult.Type.BLOCK)
 		{
+			float x = (float) hit.hitVec.xCoord;
+			float y = (float) hit.hitVec.yCoord;
+			float z = (float) hit.hitVec.zCoord;
 			BlockPos hitPos = hit.getBlockPos().up();
 			
 			if (world.isBlockModifiable(player, hitPos)
