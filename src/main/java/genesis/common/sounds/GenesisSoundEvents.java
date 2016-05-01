@@ -73,6 +73,9 @@ public class GenesisSoundEvents
 	public static SoundEvent block_debris_hit;
 	public static SoundEvent block_debris_fall;
 	
+	public static SoundEvent block_egg_meganeura_break;
+	public static SoundEvent block_egg_meganeura_place;
+	
 	/* Items */
 	public static SoundEvent item_flintAndMarcasite_use;
 	
@@ -188,6 +191,9 @@ public class GenesisSoundEvents
 		block_debris_place = registerSound("block.debris.place");
 		block_debris_hit = registerSound("block.debris.hit");
 		block_debris_fall = registerSound("block.debris.fall");
+
+		block_egg_meganeura_break = registerSound("block.egg.meganeura.break");
+		block_egg_meganeura_place = registerSound("block.egg.meganeura.place");
 		
 		/* Items */
 		item_flintAndMarcasite_use = registerSound("item.flintAndMarcasite.use");

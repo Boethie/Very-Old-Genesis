@@ -39,11 +39,17 @@ public abstract class EntityFixed extends Entity
 	}
 	
 	@Override
-	public void setLocationAndAngles(double x, double y, double z, float yaw, float pitch)
+	public void setPosition(double x, double y, double z)
 	{
-		super.setLocationAndAngles(x, y, z, yaw, pitch);
+		super.setPosition(x, y, z);
 		// Set the fixedTo position, as this is what gets called to set the position on spawn.
 		setFixedTo(new BlockPos(posX, posY, posZ));
+	}
+	
+	@Override
+	public float getCollisionBorderSize()
+	{
+		return 0.0625F;
 	}
 	
 	public abstract ItemStack getDroppedItem();
@@ -53,31 +59,46 @@ public abstract class EntityFixed extends Entity
 		WorldUtils.spawnItemsAt(worldObj, posX, posY, posZ, null, getDroppedItem());
 	}
 	
-	public abstract SoundEvent getBreakSound();
+	protected abstract SoundEvent getPlaceSound();
 	
-	protected void playBreakingSound()
+	public void playPlacingSound()
 	{
-		SoundEvent breakSound = getBreakSound();
+		SoundEvent sound = getPlaceSound();
 		
-		if (breakSound != null)
+		if (sound != null && !isSilent())
+			playSound(sound, 0.8F + rand.nextFloat() * 0.4F, 0.9F + rand.nextFloat() * 0.2F);
+	}
+	
+	protected abstract SoundEvent getBreakSound();
+	
+	public void playBreakingSound(EntityPlayer source)
+	{
+		SoundEvent sound = getBreakSound();
+		
+		if (sound != null && !isSilent())
 		{
-			playSound(breakSound, 0.8F + rand.nextFloat() * 0.4F, 0.9F + rand.nextFloat() * 0.2F);
+			worldObj.playSound(source,
+					posX, posY, posZ,
+					sound, getSoundCategory(),
+					0.8F + rand.nextFloat() * 0.4F, 0.9F + rand.nextFloat() * 0.2F);
 		}
 	}
 	
-	public void setDeadAndDrop()
+	public void setDeadAndDrop(EntityPlayer source)
 	{
 		if (!isDead)
 		{
 			dropItem();
 		}
 		
-		if (!worldObj.isRemote)
-		{
-			playBreakingSound();
-		}
+		playBreakingSound(source);
 		
 		setDead();
+	}
+	
+	public void setDeadAndDrop()
+	{
+		setDeadAndDrop(null);
 	}
 	
 	protected abstract boolean isValid();
@@ -96,31 +117,34 @@ public abstract class EntityFixed extends Entity
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount)
 	{
-		if (amount > 0)
+		if (source instanceof EntityDamageSource
+				&& source.getEntity() instanceof EntityPlayer)
 		{
-			if (source instanceof EntityDamageSource)
+			EntityPlayer player = (EntityPlayer) source.getEntity();
+			
+			if (worldObj.isRemote && player == Minecraft.getMinecraft().thePlayer)
 			{
-				Entity sourceEntity = source.getEntity();
-				
-				if (sourceEntity instanceof EntityPlayer)
-				{
-					EntityPlayer player = (EntityPlayer) sourceEntity;
-					
-					if (worldObj.isRemote && player == Minecraft.getMinecraft().thePlayer)
-					{
-						RandomReflection.setBlockHitDelay(5);
-					}
-					
-					if (player.capabilities.isCreativeMode)
-					{	// Stop items dropping the player attacking is in creative mode.
-						setDead();
-					}
-				}
+				RandomReflection.setBlockHitDelay(5);
 			}
 			
-			setDeadAndDrop();
+			if (player.capabilities.isCreativeMode)
+			{	// Stop items dropping the player attacking is in creative mode.
+				setDead();
+			}
+			
+			setDeadAndDrop(player);
 			return true;
 		}
+		
+		setDeadAndDrop();
+		return true;
+	}
+	
+	@Override
+	public boolean hitByEntity(Entity entity)
+	{
+		if (entity instanceof EntityPlayer)
+			return attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) entity), 0);
 		
 		return false;
 	}

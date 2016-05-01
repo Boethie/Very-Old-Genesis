@@ -755,7 +755,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 					if (hit != null)
 					{
 						EntityMeganeuraEgg egg = new EntityMeganeuraEgg(worldObj);
-						egg.setLocationAndAngles(hit.hitVec.xCoord, hit.hitVec.yCoord - 0.45, hit.hitVec.zCoord, 0, 0);
+						egg.setPositionAndRotation(hit.hitVec.xCoord, hit.hitVec.yCoord - 0.45, hit.hitVec.zCoord, 0, 0);
 						egg.setFixedTo(targetPos);
 						worldObj.spawnEntityInWorld(egg);
 					}

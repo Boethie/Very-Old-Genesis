@@ -2,6 +2,7 @@ package genesis.entity.fixed;
 
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisItems;
+import genesis.common.sounds.GenesisSoundEvents;
 import genesis.entity.living.flying.EntityMeganeura;
 import genesis.util.Constants;
 import genesis.util.random.i.IntRange;
@@ -20,6 +21,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityMeganeuraEgg extends EntityEgg
 {
+	private static final IntRange AGE_RANGE = IntRange.create(1200, 1600);
+	
 	public EntityMeganeuraEgg(World world)
 	{
 		super(world);
@@ -33,8 +36,7 @@ public class EntityMeganeuraEgg extends EntityEgg
 	@Override
 	protected void setMaxAge()
 	{
-		IntRange range = IntRange.create(1200, 1600);
-		maxAge = range.get(rand);
+		maxAge = AGE_RANGE.get(rand);
 	}
 	
 	@Override
@@ -69,10 +71,15 @@ public class EntityMeganeuraEgg extends EntityEgg
 	}
 	
 	@Override
+	public SoundEvent getPlaceSound()
+	{
+		return GenesisSoundEvents.block_egg_meganeura_place;
+	}
+	
+	@Override
 	public SoundEvent getBreakSound()
 	{
-		//return Constants.ASSETS_PREFIX + "dig.egg";
-		return null;
+		return GenesisSoundEvents.block_egg_meganeura_break;
 	}
 	
 	@SideOnly(Side.CLIENT)

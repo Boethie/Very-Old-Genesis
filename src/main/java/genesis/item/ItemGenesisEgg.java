@@ -39,7 +39,8 @@ public class ItemGenesisEgg<T extends EntityFixed> extends ItemGenesis
 	}
 	
 	protected void setData(T entity, ItemStack stack, EntityPlayer player, World world,
-			BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
+			BlockPos pos, EnumFacing side,
+			float hitX, float hitY, float hitZ)
 	{
 	}
 	
@@ -67,11 +68,16 @@ public class ItemGenesisEgg<T extends EntityFixed> extends ItemGenesis
 						throw new RuntimeException("Could not construct egg entity from class " + entityClass + " to spawn.", e);
 					}
 					
-					entity.setLocationAndAngles(pos.getX() + hitX, pos.getY() + hitY, pos.getZ() + hitZ, 0, 0);
+					entity.setPositionAndRotation(pos.getX() + hitX,
+												pos.getY() + hitY - (entity.height / 2),
+												pos.getZ() + hitZ,
+												0, 0);
 					entity.setFixedTo(pos);
 					setData(entity, stack, player, world, pos, side, hitX, hitY, hitZ);
 					
 					world.spawnEntityInWorld(entity);
+					
+					entity.playPlacingSound();
 					
 					stack.stackSize--;
 				}

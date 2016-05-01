@@ -601,6 +601,10 @@ achievement.genesis.blackDiamond=Treasure from Space
 achievement.genesis.blackDiamond.desc=Mine a black diamond ore.
 
 #------------- Subtitles -------------
+#Blocks
+subtitles.genesis.block.egg.place=Egg placed
+subtitles.genesis.block.egg.break=Egg cracks
+
 #Items
 subtitles.genesis.item.flintAndMarcasite.use=Flint and marcasite click
 subtitles.genesis.item.pebble.hit=Pebble whacked on stone
