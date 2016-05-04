@@ -17,7 +17,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -140,9 +139,9 @@ public class BlockGenesisDebris extends BlockGenesisVariants<MultiMetadata>
 	}
 	
 	@Override
-	public void addCollisionBoxToList(IBlockState state, World world, BlockPos pos,
-			AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, World world, BlockPos pos)
 	{
+		return NULL_AABB;
 	}
 	
 	@Override

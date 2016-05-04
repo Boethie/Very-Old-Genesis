@@ -152,6 +152,9 @@ public class ItemPebble extends ItemBlock
 			else if (!state.getBlock().isReplaceable(world, pos))
 			{
 				pos = pos.offset(side);
+				hitX -= side.getFrontOffsetX();
+				hitY -= side.getFrontOffsetY();
+				hitZ -= side.getFrontOffsetZ();
 			}
 			
 			IBlockState placing = block.onBlockPlaced(world, pos, side, hitX, hitY, hitZ, stack.getMetadata(), player);

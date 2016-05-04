@@ -421,11 +421,14 @@ public class WorldUtils
 	
 	public static boolean canBlockBePlaced(World world, IBlockState state, BlockPos pos, EnumFacing side, Entity entity, ItemStack stack)
 	{
-		AxisAlignedBB bounds = state.getCollisionBoundingBox(world, pos);
+		List<AxisAlignedBB> bbs = new ArrayList<>();
+		state.addCollisionBoxToList(world, pos,
+				Block.FULL_BLOCK_AABB.offset(pos), bbs, entity);
 		
-		if (bounds != Block.NULL_AABB && !world.checkNoEntityCollision(bounds.offset(pos), entity))
-			return false;
+		for (AxisAlignedBB bb : bbs)
+			if (!world.checkNoEntityCollision(bb))
+				return false;
 		
-		return world.getBlockState(pos).getBlock().isReplaceable(world, pos) && state.getBlock().canReplace(world, pos, side, stack);
+		return state.getBlock().canReplace(world, pos, side, stack);
 	}
 }

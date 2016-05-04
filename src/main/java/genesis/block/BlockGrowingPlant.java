@@ -14,7 +14,6 @@ import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -546,10 +545,12 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 	}
 	
 	@Override
-	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity entity)
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, World world, BlockPos pos)
 	{
 		if (collisionBox != null)
-			addCollisionBoxToList(pos, mask, list, collisionBox);
+			return collisionBox;
+		
+		return NULL_AABB;
 	}
 	
 	/**

@@ -15,7 +15,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
 import java.util.Random;
 
 public class BlockGenesisPortal extends Block
@@ -102,9 +101,9 @@ public class BlockGenesisPortal extends Block
 	}
 	
 	@Override
-	public void addCollisionBoxToList(IBlockState state, World world, BlockPos pos,
-			AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, World world, BlockPos pos)
 	{
+		return NULL_AABB;
 	}
 	
 	@Override

@@ -172,7 +172,7 @@ public class BlockCampfire extends Block
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
-		return BASE_BB;
+		return FULL_BLOCK_AABB;
 	}
 	
 	@Override
@@ -180,7 +180,7 @@ public class BlockCampfire extends Block
 			AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
 	{
 		// Make collision boxes for the two sticks and the base of the campfire.
-		addCollisionBoxToList(pos, mask, list, getBoundingBox(state, world, pos));
+		addCollisionBoxToList(pos, mask, list, BASE_BB);
 		
 		if (state.getValue(FACING) == EnumAxis.X)
 		{

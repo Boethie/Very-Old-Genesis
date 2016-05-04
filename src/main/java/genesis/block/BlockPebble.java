@@ -133,7 +133,7 @@ public class BlockPebble extends Block implements MultiPartBlock
 	{
 		IBlockState state = world.getBlockState(pos);
 		
-		if (owner.isStateOf(state, variant, type))
+		if (!owner.isStateOf(state, variant, type))
 		{
 			state = owner.getBlockState(type, variant);
 		}
@@ -337,8 +337,7 @@ public class BlockPebble extends Block implements MultiPartBlock
 	
 	protected boolean canBlockStay(World world, BlockPos pos, IBlockState state)
 	{
-		pos = pos.down();
-		return world.isSideSolid(pos, EnumFacing.UP);
+		return world.isSideSolid(pos.down(), EnumFacing.UP);
 	}
 	
 	@Override

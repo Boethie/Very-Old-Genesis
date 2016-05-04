@@ -265,6 +265,18 @@ public class BlockRack extends BlockContainer implements MultiPartBlock
 	}
 	
 	@Override
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, World world, BlockPos pos)
+	{
+		AxisAlignedBB bb = new AxisAlignedBB(0.5, 0.5, 0.5, 0.5, 0.5, 0.5);
+
+		for (FacingProperties.Entry<Boolean> entry : RACKS)
+			if (state.getValue(entry.property))
+				bb = bb.union(BAKED_BOUNDS.get(entry.facing));
+		
+		return bb;
+	}
+	
+	@Override
 	public void addCollisionBoxToList(IBlockState state, World world, BlockPos pos,
 			AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
 	{

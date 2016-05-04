@@ -104,6 +104,32 @@ public class BlockBranch extends BlockGenesisLogs
 	}
 	
 	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
+	{
+		state = state.getActualState(world, pos);
+		
+		AxisAlignedBB bb = new AxisAlignedBB(0, 0, 0, 1, 1, 1);
+		
+		if (!state.getValue(LEAVES))
+		{
+			bb = new AxisAlignedBB(0.5 - RADIUS, 0.5 - RADIUS, 0.5 - RADIUS, 0.5 + RADIUS, 0.5 + RADIUS, 0.5 + RADIUS);
+			double add = 0.5 - RADIUS;
+			
+			for (FacingProperties.Entry<Boolean> entry : CONNECTIONS)
+			{
+				if (state.getValue(entry.property))
+				{
+					bb = bb.addCoord(entry.facing.getFrontOffsetX() * add,
+								entry.facing.getFrontOffsetY() * add,
+								entry.facing.getFrontOffsetZ() * add);
+				}
+			}
+		}
+		
+		return bb;
+	}
+	
+	@Override
 	public void addCollisionBoxToList(IBlockState state, World world, BlockPos pos,
 			AxisAlignedBB mask, List<AxisAlignedBB> list, Entity entity)
 	{
@@ -131,32 +157,6 @@ public class BlockBranch extends BlockGenesisLogs
 				}
 			}
 		}
-	}
-	
-	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
-	{
-		state = state.getActualState(world, pos);
-		
-		AxisAlignedBB bb = new AxisAlignedBB(0, 0, 0, 1, 1, 1);
-		
-		if (!state.getValue(LEAVES))
-		{
-			bb = new AxisAlignedBB(0.5 - RADIUS, 0.5 - RADIUS, 0.5 - RADIUS, 0.5 + RADIUS, 0.5 + RADIUS, 0.5 + RADIUS);
-			double add = 0.5 - RADIUS;
-			
-			for (FacingProperties.Entry<Boolean> entry : CONNECTIONS)
-			{
-				if (state.getValue(entry.property))
-				{
-					bb = bb.addCoord(entry.facing.getFrontOffsetX() * add,
-								entry.facing.getFrontOffsetY() * add,
-								entry.facing.getFrontOffsetZ() * add);
-				}
-			}
-		}
-		
-		return bb;
 	}
 	
 	@Override

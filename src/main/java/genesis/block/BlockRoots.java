@@ -9,7 +9,6 @@ import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.*;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
@@ -87,9 +86,9 @@ public class BlockRoots extends BlockGenesis
 	}
 	
 	@Override
-	public void addCollisionBoxToList(IBlockState state, World world, BlockPos pos,
-			AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, World world, BlockPos pos)
 	{
+		return NULL_AABB;
 	}
 	
 	@Override
