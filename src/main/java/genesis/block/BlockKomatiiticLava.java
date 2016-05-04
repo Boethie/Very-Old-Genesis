@@ -58,7 +58,7 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 	@Override
 	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
-		Block block = world.getBlockState(pos).getBlock();
+		/*Block block = world.getBlockState(pos).getBlock();
 		
 		if (block != this)
 		{
@@ -66,7 +66,8 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 		}
 		
 		float levelF = world.getBlockState(pos).getValue(LEVEL) / quantaPerBlockFloat;
-		return Math.round((1 - levelF) * maxScaledLight);
+		return Math.round((1 - levelF) * maxScaledLight);*/
+		return maxScaledLight;
 	}
 	
 	public boolean checkForMixing(World world, BlockPos pos, IBlockState state)
