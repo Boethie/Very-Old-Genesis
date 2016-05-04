@@ -41,7 +41,8 @@
 			"genesis:step/moss2",
 			"genesis:step/moss3",
 			"genesis:step/moss4"
-		]
+		],
+		"subtitle": "subtitles.block.generic.fall"
 	},
 	"block.permafrost.break": {
 		"sounds": [
@@ -58,7 +59,35 @@
 			"genesis:step/permafrost2",
 			"genesis:step/permafrost3",
 			"genesis:step/permafrost4"
-		]
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
+	"block.permafrost.place": {
+		"sounds": [
+			"genesis:dig/permafrost1",
+			"genesis:dig/permafrost2",
+			"genesis:dig/permafrost3",
+			"genesis:dig/permafrost4"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.permafrost.hit": {
+		"sounds": [
+			"genesis:step/permafrost1",
+			"genesis:step/permafrost2",
+			"genesis:step/permafrost3",
+			"genesis:step/permafrost4"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.permafrost.fall": {
+		"sounds": [
+			"genesis:step/permafrost1",
+			"genesis:step/permafrost2",
+			"genesis:step/permafrost3",
+			"genesis:step/permafrost4"
+		],
+		"subtitle": "subtitles.block.generic.fall"
 	},
 	"block.calamites.break": {
 		"sounds": [
@@ -67,6 +96,38 @@
 			"genesis:dig/calamites3"
 		],
 		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.calamites.step": {
+		"sounds": [
+			"genesis:dig/calamites1",
+			"genesis:dig/calamites2",
+			"genesis:dig/calamites3"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
+	"block.calamites.place": {
+		"sounds": [
+			"genesis:dig/calamites1",
+			"genesis:dig/calamites2",
+			"genesis:dig/calamites3"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.calamites.hit": {
+		"sounds": [
+			"genesis:dig/calamites1",
+			"genesis:dig/calamites2",
+			"genesis:dig/calamites3"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.calamites.fall": {
+		"sounds": [
+			"genesis:dig/calamites1",
+			"genesis:dig/calamites2",
+			"genesis:dig/calamites3"
+		],
+		"subtitle": "subtitles.block.generic.fall"
 	},
 	"block.dung.break": {
 		"sounds": [
@@ -83,12 +144,75 @@
 			"genesis:step/dung2",
 			"genesis:step/dung3",
 			"genesis:step/dung4"
-		]
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
 	},
 	"block.dung.place": {
 		"sounds": [
 			"genesis:place/dung"
-		]
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.dung.hit": {
+		"sounds": [
+			"genesis:step/dung1",
+			"genesis:step/dung2",
+			"genesis:step/dung3",
+			"genesis:step/dung4"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.dung.fall": {
+		"sounds": [
+			"genesis:step/dung1",
+			"genesis:step/dung2",
+			"genesis:step/dung3",
+			"genesis:step/dung4"
+		],
+		"subtitle": "subtitles.block.generic.fall"
+	},
+	"block.fern.break": {
+		"sounds": [
+			"genesis:step/fern1",
+			"genesis:step/fern2",
+			"genesis:step/fern3",
+			"genesis:step/fern4"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.fern.step": {
+		"sounds": [
+			"genesis:step/fern1",
+			"genesis:step/fern2",
+			"genesis:step/fern3",
+			"genesis:step/fern4"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
+	"block.fern.place": {
+		"sounds": [
+			"genesis:step/fern3",
+			"genesis:step/fern4"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.fern.hit": {
+		"sounds": [
+			"genesis:step/fern1",
+			"genesis:step/fern2",
+			"genesis:step/fern3",
+			"genesis:step/fern4"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.fern.fall": {
+		"sounds": [
+			"genesis:step/fern1",
+			"genesis:step/fern2",
+			"genesis:step/fern3",
+			"genesis:step/fern4"
+		],
+		"subtitle": "subtitles.block.generic.fall"
 	},
 	"block.debris.break": {
 		"sounds": [
@@ -103,20 +227,39 @@
 			"genesis:step/debris1",
 			"genesis:step/debris2",
 			"genesis:step/debris3"
-		]
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
 	},
 	"block.debris.place": {
 		"sounds": [
 			"genesis:place/debris1",
 			"genesis:place/debris2",
 			"genesis:place/debris3"
-		]
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.debris.hit": {
+		"sounds": [
+			"genesis:step/debris1",
+			"genesis:step/debris2",
+			"genesis:step/debris3"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.debris.fall": {
+		"sounds": [
+			"genesis:step/debris1",
+			"genesis:step/debris2",
+			"genesis:step/debris3"
+		],
+		"subtitle": "subtitles.block.generic.fall"
 	},
 	"block.coral.break": {
 		"sounds": [
 			"genesis:dig/coral1",
 			"genesis:dig/coral2"
-		]
+		],
+		"subtitle": "subtitles.block.generic.break"
 	},
 	"block.coral.step": {
 		"sounds": [
@@ -124,75 +267,156 @@
 			"genesis:step/coral2",
 			"genesis:step/coral3",
 			"genesis:step/coral4"
-		]
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
 	},
 	"block.coral.place": {
 		"sounds": [
 			"genesis:place/coral1",
 			"genesis:place/coral2"
-		]
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.coral.hit": {
+		"sounds": [
+			"genesis:step/coral1",
+			"genesis:step/coral2",
+			"genesis:step/coral3",
+			"genesis:step/coral4"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.coral.fall": {
+		"sounds": [
+			"genesis:step/coral1",
+			"genesis:step/coral2",
+			"genesis:step/coral3",
+			"genesis:step/coral4"
+		],
+		"subtitle": "subtitles.block.generic.fall"
 	},
 	"block.ooze.break": {
 		"sounds": [
 			"genesis:dig/ooze1",
 			"genesis:dig/ooze2"
-		]
+		],
+		"subtitle": "subtitles.block.generic.break"
 	},
 	"block.ooze.step": {
 		"sounds": [
 			"genesis:step/ooze1",
 			"genesis:step/ooze2"
-		]
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
 	},
 	"block.ooze.place": {
 		"sounds": [
 			"genesis:place/ooze1",
 			"genesis:place/ooze2"
-		]
+		],
+		"subtitle": "subtitles.block.generic.place"
 	},
-	"block.dead.break_log": {
+	"block.ooze.hit": {
+		"sounds": [
+			"genesis:step/ooze1",
+			"genesis:step/ooze2"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.ooze.fall": {
+		"sounds": [
+			"genesis:step/ooze1",
+			"genesis:step/ooze2"
+		],
+		"subtitle": "subtitles.block.generic.fall"
+	},
+	"block.dead_log.break": {
 		"sounds": [
 			"genesis:dig/dead_log1"
-		]
+		],
+		"subtitle": "subtitles.block.generic.break"
 	},
-	"block.dead.step_log": {
+	"block.dead_log.step": {
 		"sounds": [
 			"genesis:step/dead_log1",
 			"genesis:step/dead_log2",
 			"genesis:step/dead_log3",
 			"genesis:step/dead_log4"
-		]
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
 	},
-	"block.dead.place_log": {
+	"block.dead_log.place": {
 		"sounds": [
 			"genesis:place/dead_log1",
 			"genesis:place/dead_log2"
-		]
-	},
-	"item.flintAndMarcasite.use": {
-		"sounds": [
-			"genesis:item/flintAndMarcasite_use"
 		],
-		"subtitle": "subtitles.genesis.item.flintAndMarcasite.use"
+		"subtitle": "subtitles.block.generic.place"
 	},
-	"block.aquaticplant.break": {
+	"block.dead_log.hit": {
 		"sounds": [
-			"genesis:dig/aquaticplant1",
-			"genesis:dig/aquaticplant2"
-		]
+			"genesis:step/dead_log1",
+			"genesis:step/dead_log2",
+			"genesis:step/dead_log3",
+			"genesis:step/dead_log4"
+		],
+		"subtitle": "subtitles.block.generic.hit"
 	},
-	"block.aquaticplant.step": {
+	"block.dead_log.fall": {
 		"sounds": [
-			"genesis:step/aquaticplant1",
-			"genesis:step/aquaticplant2"
-		]
+			"genesis:step/dead_log1",
+			"genesis:step/dead_log2",
+			"genesis:step/dead_log3",
+			"genesis:step/dead_log4"
+		],
+		"subtitle": "subtitles.block.generic.fall"
 	},
-	"ambient.cookingpot": {
+	"item.flint_and_marcasite.use": {
 		"sounds": [
-			"genesis:ambient/cookingpot1",
-			"genesis:ambient/cookingpot2",
-			"genesis:ambient/cookingpot3",
-			"genesis:ambient/cookingpot4"
+			"genesis:item/flint_and_marcasite_use"
+		],
+		"subtitle": "subtitles.genesis.item.flint_and_marcasite.use"
+	},
+	"block.aquatic_plant.break": {
+		"sounds": [
+			"genesis:dig/aquatic_plant1",
+			"genesis:dig/aquatic_plant2"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.aquatic_plant.step": {
+		"sounds": [
+			"genesis:step/aquatic_plant1",
+			"genesis:step/aquatic_plant2"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
+	"block.aquatic_plant.place": {
+		"sounds": [
+			"genesis:dig/aquatic_plant1",
+			"genesis:dig/aquatic_plant2"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.aquatic_plant.hit": {
+		"sounds": [
+			"genesis:step/aquatic_plant1",
+			"genesis:step/aquatic_plant2"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.aquatic_plant.fall": {
+		"sounds": [
+			"genesis:step/aquatic_plant1",
+			"genesis:step/aquatic_plant2"
+		],
+		"subtitle": "subtitles.block.generic.fall"
+	},
+	"ambient.cooking_pot": {
+		"sounds": [
+			"genesis:ambient/cooking_pot1",
+			"genesis:ambient/cooking_pot2",
+			"genesis:ambient/cooking_pot3",
+			"genesis:ambient/cooking_pot4"
 		]
 	},
 	"interact.storage_box_open": {
@@ -234,21 +458,40 @@
 			"genesis:dig/mushroom1",
 			"genesis:dig/mushroom2",
 			"genesis:dig/mushroom3"
-		]
+		],
+		"subtitle": "subtitles.block.generic.break"
 	},
 	"block.mushroom.step": {
 		"sounds": [
 			"genesis:step/mushroom1",
 			"genesis:step/mushroom2",
 			"genesis:step/mushroom3"
-		]
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
 	},
 	"block.mushroom.place": {
+		"sounds": [
+			"genesis:dig/mushroom1",
+			"genesis:dig/mushroom2",
+			"genesis:dig/mushroom3"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.mushroom.hit": {
 		"sounds": [
 			"genesis:step/mushroom1",
 			"genesis:step/mushroom2",
 			"genesis:step/mushroom3"
-		]
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.mushroom.fall": {
+		"sounds": [
+			"genesis:step/mushroom1",
+			"genesis:step/mushroom2",
+			"genesis:step/mushroom3"
+		],
+		"subtitle": "subtitles.block.generic.fall"
 	},
 	"mob.meganeura.fly": {
 		"sounds": [

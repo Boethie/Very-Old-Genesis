@@ -43,11 +43,11 @@ public class GenesisSoundEvents
 	public static SoundEvent block_coral_hit;
 	public static SoundEvent block_coral_fall;
 	
-	public static SoundEvent block_aquaticPlant_break;
-	public static SoundEvent block_aquaticPlant_step;
-	public static SoundEvent block_aquaticPlant_place;
-	public static SoundEvent block_aquaticPlant_hit;
-	public static SoundEvent block_aquaticPlant_fall;
+	public static SoundEvent block_aquatic_plant_break;
+	public static SoundEvent block_aquatic_plant_step;
+	public static SoundEvent block_aquatic_plant_place;
+	public static SoundEvent block_aquatic_plant_hit;
+	public static SoundEvent block_aquatic_plant_fall;
 	
 	public static SoundEvent block_ooze_break;
 	public static SoundEvent block_ooze_step;
@@ -77,7 +77,7 @@ public class GenesisSoundEvents
 	public static SoundEvent block_egg_meganeura_place;
 	
 	/* Items */
-	public static SoundEvent item_flintAndMarcasite_use;
+	public static SoundEvent item_flint_and_marcasite_use;
 	
 	/* Mobs */
 	public static SoundEvent mob_meganeura_fly;
@@ -162,11 +162,11 @@ public class GenesisSoundEvents
 		block_coral_hit = registerSound("block.coral.hit");
 		block_coral_fall = registerSound("block.coral.fall");
 		
-		block_aquaticPlant_break = registerSound("block.aquaticPlant.break");
-		block_aquaticPlant_step = registerSound("block.aquaticPlant.step");
-		block_aquaticPlant_place = registerSound("block.aquaticPlant.place");
-		block_aquaticPlant_hit = registerSound("block.aquaticPlant.hit");
-		block_aquaticPlant_fall = registerSound("block.aquaticPlant.fall");
+		block_aquatic_plant_break = registerSound("block.aquatic_plant.break");
+		block_aquatic_plant_step = registerSound("block.aquatic_plant.step");
+		block_aquatic_plant_place = registerSound("block.aquatic_plant.place");
+		block_aquatic_plant_hit = registerSound("block.aquatic_plant.hit");
+		block_aquatic_plant_fall = registerSound("block.aquatic_plant.fall");
 		
 		block_ooze_break = registerSound("block.ooze.break");
 		block_ooze_step = registerSound("block.ooze.step");
@@ -174,11 +174,11 @@ public class GenesisSoundEvents
 		block_ooze_hit = registerSound("block.ooze.hit");
 		block_ooze_fall = registerSound("block.ooze.fall");
 		
-		block_dead_log_break = registerSound("block.dead.break_log");
-		block_dead_log_step = registerSound("block.dead.step_log");
-		block_dead_log_place = registerSound("block.dead.place_log");
-		block_dead_log_hit = registerSound("block.dead.hit_log");
-		block_dead_log_fall = registerSound("block.dead.fall_log");
+		block_dead_log_break = registerSound("block.dead_log.break");
+		block_dead_log_step = registerSound("block.dead_log.step");
+		block_dead_log_place = registerSound("block.dead_log.place");
+		block_dead_log_hit = registerSound("block.dead_log.hit");
+		block_dead_log_fall = registerSound("block.dead_log.fall");
 		
 		block_mushroom_break = registerSound("block.mushroom.break");
 		block_mushroom_step = registerSound("block.mushroom.step");
@@ -196,7 +196,7 @@ public class GenesisSoundEvents
 		block_egg_meganeura_place = registerSound("block.egg.meganeura.place");
 		
 		/* Items */
-		item_flintAndMarcasite_use = registerSound("item.flintAndMarcasite.use");
+		item_flint_and_marcasite_use = registerSound("item.flint_and_marcasite.use");
 		item_pebble_hit = registerSound("item.pebble.hit");
 		
 		/* Mobs */
