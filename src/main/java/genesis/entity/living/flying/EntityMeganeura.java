@@ -675,9 +675,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 			else if (ourState == IDLE_GROUND)
 			{
 				if (!onGround)
-				{
 					fly = true;
-				}
 			}
 			else
 			{

@@ -37,6 +37,11 @@ public class BlockStorageBox extends Block
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		
 		setHardness(2.5F);
+		
+		setDefaultState(getBlockState().getBaseState()
+				.withProperty(FACING, EnumFacing.NORTH)
+				.withProperty(LEFT, false)
+				.withProperty(RIGHT, false));
 	}
 	
 	@Override

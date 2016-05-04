@@ -376,7 +376,10 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 	
 	protected void readVisualData(NBTTagCompound compound)
 	{
-		IBlockState oldState = worldObj.getBlockState(pos);
+		IBlockState oldState = null;
+		
+		if (worldObj != null)
+			oldState = worldObj.getBlockState(pos);
 		
 		setAxis(FacingHelpers.getAxis(compound.getString("axis")));
 		
