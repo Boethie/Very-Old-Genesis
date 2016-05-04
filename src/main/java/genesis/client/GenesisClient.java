@@ -1,7 +1,7 @@
 package genesis.client;
 
-import genesis.client.model.FluidModelMapper;
-import genesis.client.model.ListedItemMeshDefinition;
+import genesis.client.debug.GenesisDebugOverlay;
+import genesis.client.model.*;
 import genesis.client.render.CamouflageColorEventHandler;
 import genesis.common.*;
 import genesis.util.*;
@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.color.*;
 import net.minecraft.client.resources.*;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
+
 import net.minecraftforge.client.model.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.fluids.BlockFluidBase;
@@ -59,9 +60,11 @@ public class GenesisClient extends GenesisProxy
 		GenesisParticles.createParticles();
 		
 		((IReloadableResourceManager) MC.getResourceManager()).registerReloadListener(new ColorizerDryMoss());
-
+		
 		GenesisBlocks.initClient();
 		GenesisItems.initClient();
+		
+		GenesisDebugOverlay.register();
 	}
 	
 	@Override
