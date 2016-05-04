@@ -22,7 +22,7 @@ public class BiomeGenBeachGenesis extends BiomeGenBaseGenesis
 	
 	protected void addDecorations()
 	{
-		addDecoration(new WorldGenPebbles(), 25);
+		addDecoration(new WorldGenPebbles(), 20);
 		
 		getDecorator().setFlowerCount(4);
 		addFlower(WorldGenPlant.create(EnumPlant.LEPACYCLOTES).setNextToWater(true).setPatchCount(4), 10);
