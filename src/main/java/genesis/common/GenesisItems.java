@@ -1,7 +1,6 @@
 package genesis.common;
 
 import genesis.client.Colorizers;
-import genesis.client.GenesisClient;
 import genesis.client.model.MetadataModelDefinition;
 import genesis.combo.*;
 import genesis.combo.variant.EnumMaterial;
@@ -14,6 +13,7 @@ import genesis.item.*;
 import genesis.util.Constants;
 import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -158,7 +158,7 @@ public final class GenesisItems
 	
 	public static void initClient()
 	{
-		ItemColors colors = GenesisClient.getMC().getItemColors();
+		ItemColors colors = Minecraft.getMinecraft().getItemColors();
 		
 		colors.registerItemColorHandler(Colorizers.ITEM_ARMOR,
 				clothing.getItems(

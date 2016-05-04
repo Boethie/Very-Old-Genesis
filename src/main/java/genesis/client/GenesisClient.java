@@ -8,14 +8,9 @@ import genesis.util.*;
 import genesis.util.render.ModelHelpers;
 import genesis.client.sound.music.MusicEventHandler;
 
-import java.util.*;
-
-import org.apache.commons.lang3.tuple.Pair;
-
 import net.minecraft.block.*;
 import net.minecraft.client.*;
 import net.minecraft.client.renderer.block.model.*;
-import net.minecraft.client.renderer.color.*;
 import net.minecraft.client.resources.*;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
@@ -27,16 +22,6 @@ import net.minecraftforge.fml.client.*;
 
 public class GenesisClient extends GenesisProxy
 {
-	private static final Minecraft MC = FMLClientHandler.instance().getClient();
-
-	private List<Pair<IBlockColor, Block[]>> blockColorsList = new ArrayList<>();
-	private List<Pair<IItemColor, Item[]>> itemColorsList = new ArrayList<>();
-	
-	public static Minecraft getMC()
-	{
-		return MC;
-	}
-	
 	@Override
 	public void preInit()
 	{
@@ -59,7 +44,7 @@ public class GenesisClient extends GenesisProxy
 		
 		GenesisParticles.createParticles();
 		
-		((IReloadableResourceManager) MC.getResourceManager()).registerReloadListener(new ColorizerDryMoss());
+		((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(new ColorizerDryMoss());
 		
 		GenesisBlocks.initClient();
 		GenesisItems.initClient();
@@ -160,15 +145,5 @@ public class GenesisClient extends GenesisProxy
 	public void addVariantName(Item item, ResourceLocation name)
 	{
 		ModelBakery.registerItemVariants(item, name);
-	}
-	
-	public void registerColorer(IBlockColor colorer, Block... blocks)
-	{
-		blockColorsList.add(Pair.of(colorer, blocks));
-	}
-	
-	public void registerColorer(IItemColor colorer, Item... blocks)
-	{
-		itemColorsList.add(Pair.of(colorer, blocks));
 	}
 }
