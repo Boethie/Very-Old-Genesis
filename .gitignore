@@ -1,4 +1,4 @@
-### USE WHITTELIST ###
+### USE WHITELIST ###
 
 # Ignore everything
 *
@@ -10,7 +10,8 @@
 # Recursively add everything from these directories
 !/gradle/**
 !/src/**
-# Except in this subdirectory
+!/setup/eclipse/**
+# Except in these subdirectories
 /src/api/
 
 ### FILES ###

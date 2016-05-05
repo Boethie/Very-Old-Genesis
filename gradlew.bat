@@ -69,6 +69,12 @@ set CMD_LINE_ARGS=%$
 :execute
 @rem Setup the command line
 
+@rem Copy basic eclipse folder for setup
+if not exist eclipse (
+	echo "Copying a basic eclipse project to \eclipse\ for setup."
+	xcopy /S ".\setup\eclipse" ".\eclipse\"
+)
+
 set CLASSPATH=%APP_HOME%\gradle\wrapper\gradle-wrapper.jar
 
 @rem Execute Gradle
