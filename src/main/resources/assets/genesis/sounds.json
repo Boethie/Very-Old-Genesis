@@ -107,9 +107,7 @@
 	},
 	"block.calamites.place": {
 		"sounds": [
-			"genesis:dig/calamites1",
-			"genesis:dig/calamites2",
-			"genesis:dig/calamites3"
+			"genesis:dig/calamites1"
 		],
 		"subtitle": "subtitles.block.generic.place"
 	},
