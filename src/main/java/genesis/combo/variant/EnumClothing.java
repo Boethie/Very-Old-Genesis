@@ -8,7 +8,7 @@ import net.minecraftforge.common.util.EnumHelper;
 
 public enum EnumClothing implements IMetadata<EnumClothing>
 {
-	CHITIN("chitin", 10, new int[]{2, 4, 3, 2}, 10, SoundEvents.item_armor_equip_iron),	// TODO: Change to original sounds.
+	CHITIN("chitin", 10, new int[]{1, 3, 4, 2}, 10, SoundEvents.item_armor_equip_iron),	// TODO: Change to original sounds.
 	CAMOUFLAGE("camouflage", 5, new int[]{0, 0, 0, 0}, 0, SoundEvents.item_armor_equip_leather);
 	
 	final String name;
