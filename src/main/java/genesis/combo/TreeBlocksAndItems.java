@@ -3,16 +3,15 @@ package genesis.combo;
 import genesis.block.*;
 import genesis.block.tileentity.BlockRack;
 import genesis.combo.variant.EnumTree;
-import genesis.combo.variant.EnumTree.FruitType;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.*;
 import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
 
 import java.util.*;
+import java.util.stream.Stream;
 
-import com.google.common.collect.FluentIterable;
-import com.google.common.collect.ImmutableList;
+import com.google.common.collect.*;
 
 import net.minecraft.block.*;
 import net.minecraft.init.Blocks;
@@ -47,9 +46,45 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo<EnumTree>
 	
 	static
 	{
-		FluentIterable<EnumTree> base = MiscUtils.iterable(EnumTree.values());
-		List<EnumTree> billets = base.filter((v) -> v.hasBillet()).toList();
-		List<EnumTree> branches = base.filter((v) -> v.isBush()).toList();
+		ImmutableSet.Builder<EnumTree> billetsB = ImmutableSet.builder();
+		ImmutableSet.Builder<EnumTree> branchesB = ImmutableSet.builder();
+		
+		ImmutableSet.Builder<EnumTree> fruitLeavesB = ImmutableSet.builder();
+		ImmutableSet.Builder<EnumTree> fruitHangingB = ImmutableSet.builder();
+		
+		ImmutableSet.Builder<EnumTree> deadB = ImmutableSet.builder();
+		
+		for (EnumTree variant : EnumTree.values())
+		{
+			if (variant.hasBillet())
+				billetsB.add(variant);
+			
+			if (variant.isBush())
+				branchesB.add(variant);
+			
+			switch (variant.getFruitType())
+			{
+			case LEAVES:
+				fruitLeavesB.add(variant);
+				break;
+			case HANGING:
+				fruitHangingB.add(variant);
+				break;
+			case NONE:
+				break;
+			}
+			
+			if (variant.hasDead())
+				deadB.add(variant);
+		}
+		
+		Set<EnumTree> billets = billetsB.build();
+		Set<EnumTree> branches = branchesB.build();
+		
+		Set<EnumTree> fruitLeaves = fruitLeavesB.build();
+		Set<EnumTree> fruitHanging = fruitHangingB.build();
+		
+		Set<EnumTree> dead = deadB.build();
 		
 		LOG = ObjectType.createBlock("log", BlockGenesisLogs.class, branches);
 		
@@ -66,13 +101,13 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo<EnumTree>
 		
 		LEAVES_FRUIT = ObjectType.createBlock("leaves_fruit", "leaves.fruit", BlockGenesisLeavesFruit.class);
 		LEAVES_FRUIT.setIgnoredProperties(BlockLeaves.CHECK_DECAY, BlockLeaves.DECAYABLE)
-				.setValidVariants(base.filter((v) -> v.getFruitType() == FruitType.LEAVES).toList());
+				.setValidVariants(fruitLeaves);
 		
 		HANGING_FRUIT = ObjectType.create("hanging_fruit", "hanging.fruit", BlockHangingFruit.class, null);
-		HANGING_FRUIT.setValidVariants(base.filter((v) -> v.getFruitType() == FruitType.HANGING).toList());
+		HANGING_FRUIT.setValidVariants(fruitHanging);
 		
 		FRUIT = ObjectType.createItem("fruit", Unlocalized.Section.FOOD + "fruit", ItemFruit.class);
-		FRUIT.setValidVariants(base.filter((v) -> v.getFruitType() != FruitType.NONE).toList());
+		FRUIT.setValidVariants(Stream.concat(fruitLeaves.stream(), fruitHanging.stream()).collect(StreamUtils.toImmList()));
 		
 		BILLET = ObjectType.createItem("billet", Unlocalized.Section.MATERIAL + "billet");
 		BILLET.setConstructedFunction((b, i) ->
@@ -89,7 +124,7 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo<EnumTree>
 		
 		DEAD_LOG = ObjectType.createBlock("dead_log", "log.dead", BlockGenesisDeadLogs.class);
 		DEAD_LOG.setCreativeTab(GenesisCreativeTabs.DECORATIONS)
-				.setValidVariants(base.filter((v) -> v.hasDead()).toList());
+				.setValidVariants(dead);
 		
 		TYPES = ImmutableList.of(
 						LOG, BRANCH,

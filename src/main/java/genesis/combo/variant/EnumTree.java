@@ -1,12 +1,8 @@
 package genesis.combo.variant;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.potion.PotionEffect;
 
@@ -26,26 +22,6 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	DRYOPHYLLUM("dryophyllum", tree().bow(1.2F, 1.8F)),
 	FICUS("ficus", tree().noDead().noDebris().fruit(1, 1.2F)),
 	LAUROPHYLLUM("laurophyllum", bush().noDead().noDebris().fruit(1, 0.4F).bow(0.7F, 1.1F));
-	
-	public static final Set<EnumTree> BUSHES;
-	public static final Set<EnumTree> NO_BILLET;
-	public static final Set<EnumTree> NO_DEAD;
-	public static final Set<EnumTree> FRUIT_LEAVES;
-	public static final Set<EnumTree> FRUIT_HANGING;
-	
-	public static final Set<EnumTree> FRUIT_ITEMS;
-	
-	static
-	{
-		FluentIterable<EnumTree> base = FluentIterable.from(ImmutableSet.copyOf(values()));
-		BUSHES = base.filter((t) -> t.isBush()).toSet();
-		NO_BILLET = base.filter((t) -> !t.hasBillet()).toSet();
-		NO_DEAD = base.filter((t) -> !t.hasDead()).toSet();
-		FRUIT_LEAVES = base.filter((t) -> t.getFruitType() == FruitType.LEAVES).toSet();
-		FRUIT_HANGING = base.filter((t) -> t.getFruitType() == FruitType.HANGING).toSet();
-		
-		FRUIT_ITEMS = base.filter((t) -> t.getFruitType() != FruitType.NONE).toSet();
-	}
 	
 	public static enum FruitType
 	{
@@ -110,13 +86,13 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	{
 		return name;
 	}
-
+	
 	@Override
 	public String getName()
 	{
 		return name;
 	}
-
+	
 	@Override
 	public String getUnlocalizedName()
 	{

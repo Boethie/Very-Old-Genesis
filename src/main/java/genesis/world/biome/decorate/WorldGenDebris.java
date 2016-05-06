@@ -5,7 +5,6 @@ import java.util.*;
 import genesis.combo.*;
 import genesis.combo.variant.*;
 import genesis.common.GenesisBlocks;
-import genesis.util.MiscUtils;
 import genesis.util.WorldBlockMatcher;
 
 import net.minecraft.block.state.IBlockState;
@@ -31,7 +30,9 @@ public class WorldGenDebris extends WorldGenDecorationBase
 	
 	public WorldGenDebris(EnumDebrisOther... randomDebris)
 	{
-		this(MiscUtils.iterable(randomDebris).transform((v) -> GenesisBlocks.debris.getBlockState(v)).toArray(IBlockState.class));
+		this(Arrays.stream(randomDebris)
+				.map((v) -> GenesisBlocks.debris.getBlockState(v))
+				.toArray((i) -> new IBlockState[i]));
 	}
 	
 	public WorldGenDebris()

@@ -1,12 +1,9 @@
 package genesis.util;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import com.google.common.base.Optional;
-import com.google.common.collect.FluentIterable;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.*;
 
 import net.minecraft.block.properties.PropertyHelper;
 
@@ -20,7 +17,7 @@ public abstract class SimpleProperty<T extends Comparable<T>> extends PropertyHe
 		super(name, valueClass);
 		
 		this.values = ImmutableList.copyOf(values);
-		parseMap = FluentIterable.from(values).uniqueIndex((v) -> getName(v));
+		parseMap = values.stream().collect(StreamUtils.toImmMap((v) -> getName(v), (v) -> v));
 	}
 	
 	@Override

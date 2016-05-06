@@ -5,7 +5,6 @@ import java.util.*;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.google.common.base.*;
-import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.block.properties.IProperty;
@@ -110,6 +109,11 @@ public class FacingProperties<V extends Comparable<V>> implements Iterable<Facin
 		}
 	}
 	
+	public Collection<IProperty<V>> properties()
+	{
+		return map.values();
+	}
+	
 	public Set<EnumFacing> facings()
 	{
 		return map.keySet();
@@ -118,17 +122,13 @@ public class FacingProperties<V extends Comparable<V>> implements Iterable<Facin
 	@Override
 	public Iterator<Entry<V>> iterator()
 	{
-		return FluentIterable.from(map.entrySet()).transform((e) -> new Entry<V>(e.getKey(), e.getValue())).iterator();
+		return map.entrySet().stream().map((e) -> new Entry<>(e.getKey(), e.getValue())).iterator();
 	}
 	
-	public IProperty<V>[] toArray(IProperty<V>[] array)
+	@SafeVarargs
+	public final IProperty<V>[] toArray(IProperty<V>... array)
 	{
-		return map.values().toArray(array);
-	}
-	
-	public IProperty<?>[] toArray()
-	{
-		return map.values().toArray(new IProperty<?>[map.size()]);
+		return properties().toArray(array);
 	}
 	
 	public IProperty<?>[] toArrayWith(IProperty<?>... properties)

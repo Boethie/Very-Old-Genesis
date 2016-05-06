@@ -51,7 +51,7 @@ public class CookingPotRecipeRegistry
 		
 		public CookingPotRecipeShapeless(ItemStack output, boolean keepBowl, ItemStack... ingredients)
 		{
-			Map<ItemStackKey, ItemStack> ingBuilder = Maps.newHashMap();
+			Map<ItemStackKey, ItemStack> ingBuilder = new HashMap<>();
 			
 			if (ingredients.length < 1)
 				throw new IllegalArgumentException("CookingPotRecipeShapeless was provided an empty array of ingredients.");
@@ -79,7 +79,7 @@ public class CookingPotRecipeRegistry
 		@Override
 		public ItemStack getOutput(InventoryCookingPot cookingPot)
 		{
-			if (ingredients.size() != FluentIterable.from(cookingPot.getIngredients()).filter(s -> s.getStack() != null).size())
+			if (ingredients.size() != cookingPot.getIngredients().stream().filter(s -> s.getStack() != null).count())
 				return null;
 			
 			for (SlotModifier ingSlot : cookingPot.getIngredients())
@@ -101,8 +101,8 @@ public class CookingPotRecipeRegistry
 				cookingPot.getInputWaste().put(consumed.getItem().getContainerItem(consumed));
 			
 			// Get the number of stacks for each ingredient type.
-			Map<ItemStackKey, Integer> countMap = new HashMap<ItemStackKey, Integer>(cookingPot.getIngredients().size());
-			Map<ItemStackKey, Integer> sizeLeftMap = new HashMap<ItemStackKey, Integer>(ingredients.size());
+			Map<ItemStackKey, Integer> countMap = new HashMap<>(cookingPot.getIngredients().size());
+			Map<ItemStackKey, Integer> sizeLeftMap = new HashMap<>(ingredients.size());
 			
 			for (Map.Entry<ItemStackKey, ItemStack> entry : ingredients.entrySet())
 			{
@@ -175,7 +175,7 @@ public class CookingPotRecipeRegistry
 		return new ItemStackKey(cookingPotItem).equals(new ItemStackKey(stack));
 	}
 	
-	protected static List<CookingPotRecipe> recipes = Lists.newArrayList();
+	protected static List<CookingPotRecipe> recipes = new ArrayList<>();
 	
 	public static void registerRecipe(CookingPotRecipe recipe)
 	{

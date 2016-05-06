@@ -52,17 +52,21 @@ public class ItemsCeramicBowls extends VariantsOfTypesCombo<MultiMetadata>
 		}
 	}
 	
-	public static final MultiMetadataList ALL_VARIANTS = new MultiMetadataList(MiscUtils.iterable(EnumCeramicBowls.values()), GenesisDye.valueList(), MiscUtils.iterable(EnumDish.values()));
+	public static final MultiMetadataList ALL_VARIANTS =
+			new MultiMetadataList(
+					MiscUtils.iterable(EnumCeramicBowls.values()),
+					GenesisDye.valueList(),
+					MiscUtils.iterable(EnumDish.values()));
 	
 	public static final ObjectType<Block, ItemCeramicBowl> MAIN =
 			ObjectType.createItem("ceramic_bowl", Unlocalized.Section.MATERIAL + "ceramicBowl", ItemCeramicBowl.class)
-					.setValidVariants(ALL_VARIANTS.getMultiVariants(EnumCeramicBowls.values()));
+					.setValidVariants(ALL_VARIANTS.getVariants(EnumCeramicBowls.values()));
 	public static final ObjectType<Block, ItemDyeBowl> DYE =
 			ObjectType.createItem("dye", Unlocalized.Section.MATERIAL + "dye", ItemDyeBowl.class)
-					.setValidVariants(ALL_VARIANTS.getMultiVariants(GenesisDye.valueList()));
+					.setValidVariants(ALL_VARIANTS.getVariants(GenesisDye.valueList()));
 	public static final ObjectType<Block, ItemDish> DISH =
 			ObjectType.createItem("dish", Unlocalized.Section.FOOD + "dish", ItemDish.class)
-					.setValidVariants(ALL_VARIANTS.getMultiVariants(EnumDish.values()))
+					.setValidVariants(ALL_VARIANTS.getVariants(EnumDish.values()))
 						.setResourceName("");
 	
 	public static final List<ObjectType<?, ?>> ALL_OBJECT_TYPES = new ImmutableList.Builder<ObjectType<?, ?>>()
@@ -81,22 +85,22 @@ public class ItemsCeramicBowls extends VariantsOfTypesCombo<MultiMetadata>
 	// Variants
 	public MultiMetadata getVariant(EnumCeramicBowls variant)
 	{
-		return ALL_VARIANTS.getMultiVariant(variant);
+		return ALL_VARIANTS.getVariant(variant);
 	}
 	
 	public MultiMetadata getVariant(GenesisDye variant)
 	{
-		return ALL_VARIANTS.getMultiVariant(variant);
+		return ALL_VARIANTS.getVariant(variant);
 	}
 	
 	public MultiMetadata getVariant(EnumDyeColor variant)
 	{
-		return ALL_VARIANTS.getMultiVariant(GenesisDye.get(variant));
+		return ALL_VARIANTS.getVariant(GenesisDye.get(variant));
 	}
 	
 	public MultiMetadata getVariant(EnumDish variant)
 	{
-		return ALL_VARIANTS.getMultiVariant(variant);
+		return ALL_VARIANTS.getVariant(variant);
 	}
 	
 	// getStack

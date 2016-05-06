@@ -45,9 +45,9 @@ public class BlockRack extends BlockContainer implements MultiPartBlock
 		AxisAlignedBB base = new AxisAlignedBB(0, 0.75, 0,
 												1, 1, 0.125);
 		
-		BAKED_BOUNDS = MiscUtils.iterable(EnumFacing.values())
-				.filter((f) -> RACKS.has(f))
-				.toMap((f) -> AABBUtils.rotateTo(base, f));
+		BAKED_BOUNDS = Arrays.stream(EnumFacing.values())
+				.filter(RACKS::has)
+				.collect(StreamUtils.toImmMap((f) -> f, (f) -> AABBUtils.rotateTo(base, f)));
 	}
 	
 	public final TreeBlocksAndItems owner;

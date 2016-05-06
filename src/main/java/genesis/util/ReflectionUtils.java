@@ -65,6 +65,13 @@ public class ReflectionUtils
 		return (Class<T>) clazz;
 	}
 	
+	@SuppressWarnings("unchecked")
+	@SafeVarargs
+	public static <T> Class<T> getClass(T... array)
+	{
+		return (Class<T>) array.getClass().getComponentType();
+	}
+	
 	public static <T> T nullSafeCast(Class<T> clazz, Object value)
 	{
 		return clazz == null ? null : clazz.cast(value);

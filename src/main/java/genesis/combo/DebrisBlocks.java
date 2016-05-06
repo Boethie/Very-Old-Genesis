@@ -40,7 +40,7 @@ public class DebrisBlocks extends VariantsCombo<MultiMetadata, BlockGenesisDebri
 	// Trees
 	public MultiMetadata getVariant(EnumTree variant)
 	{
-		return VARIANTS.getMultiVariant(variant);
+		return VARIANTS.getVariant(variant);
 	}
 	
 	public ItemStack getStack(EnumTree variant, int stackSize)
@@ -86,7 +86,7 @@ public class DebrisBlocks extends VariantsCombo<MultiMetadata, BlockGenesisDebri
 	// Other
 	public MultiMetadata getVariant(EnumDebrisOther variant)
 	{
-		return VARIANTS.getMultiVariant(variant);
+		return VARIANTS.getVariant(variant);
 	}
 	
 	public ItemStack getStack(EnumDebrisOther variant, int stackSize)

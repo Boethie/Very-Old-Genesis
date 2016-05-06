@@ -12,7 +12,7 @@ import net.minecraft.world.IBlockAccess;
 public interface WorldBlockMatcher
 {
 	public static final WorldBlockMatcher TRUE = (s, w, p) -> true;
-
+	
 	public static final WorldBlockMatcher REPLACEABLE = (s, w, p) -> s.getBlock().isReplaceable(w, p);
 	public static final WorldBlockMatcher LEAVES = (s, w, p) -> s.getBlock().isLeaves(s, w, p);
 	public static final WorldBlockMatcher WATER = (s, w, p) -> s.getMaterial() == Material.water;

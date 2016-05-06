@@ -10,6 +10,7 @@ import genesis.client.Colorizers;
 import genesis.combo.*;
 import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.*;
+import genesis.common.sounds.GenesisSoundEvents;
 import genesis.common.sounds.GenesisSoundTypes;
 import genesis.item.*;
 import genesis.util.*;
@@ -23,6 +24,8 @@ import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
@@ -275,6 +278,9 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(campfire, name("campfire"));
 		Item.getItemFromBlock(campfire).setMaxStackSize(1);
 		GameRegistry.registerTileEntity(TileEntityCampfire.class, Constants.ASSETS_PREFIX + "campfire");
+		// Lighter items
+		campfire.registerLighterItem(Items.flint_and_steel, SoundEvents.item_flintandsteel_use);
+		campfire.registerLighterItem(GenesisItems.flint_and_marcasite, GenesisSoundEvents.item_flint_and_marcasite_use);
 		
 		// Storage boxes
 		Genesis.proxy.registerBlock(storage_box, name("storage_box"));

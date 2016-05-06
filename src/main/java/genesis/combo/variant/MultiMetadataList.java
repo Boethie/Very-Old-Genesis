@@ -1,6 +1,8 @@
 package genesis.combo.variant;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import genesis.combo.variant.MultiMetadataList.*;
 import genesis.util.MiscUtils;
@@ -133,26 +135,24 @@ public class MultiMetadataList implements List<MultiMetadata>
 		this(getIterables(variantArrays));
 	}
 	
-	public MultiMetadata getMultiVariant(IMetadata<?> variant)
+	public MultiMetadata getVariant(IMetadata<?> variant)
 	{
 		return map.get(variant);
 	}
 	
-	public List<MultiMetadata> getMultiVariants(Iterable<? extends IMetadata<?>> variants)
+	public List<MultiMetadata> getVariants(Stream<? extends IMetadata<?>> variants)
 	{
-		ImmutableList.Builder<MultiMetadata> builder = ImmutableList.builder();
-		
-		for (IMetadata<?> variant : variants)
-		{
-			builder.add(getMultiVariant(variant));
-		}
-		
-		return builder.build();
+		return variants.map((v) -> getVariant(v)).collect(Collectors.toList());
 	}
 	
-	public List<MultiMetadata> getMultiVariants(IMetadata<?>... variants)
+	public List<MultiMetadata> getVariants(Collection<? extends IMetadata<?>> variants)
 	{
-		return getMultiVariants(MiscUtils.iterable(variants));
+		return getVariants(variants.stream());
+	}
+	
+	public List<MultiMetadata> getVariants(IMetadata<?>... variants)
+	{
+		return getVariants(Arrays.stream(variants));
 	}
 	
 	@Override public int size() { return variants.size(); }

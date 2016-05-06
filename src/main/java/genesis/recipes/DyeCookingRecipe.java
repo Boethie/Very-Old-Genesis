@@ -1,16 +1,14 @@
 package genesis.recipes;
 
 import java.util.*;
-
 import com.google.common.collect.*;
 
 import genesis.block.tileentity.crafting.CookingPotRecipeRegistry.*;
 import genesis.combo.ItemsCeramicBowls;
-import genesis.combo.variant.EnumPowder;
-import genesis.combo.variant.GenesisDye;
+import genesis.combo.variant.*;
 import genesis.common.GenesisItems;
-import genesis.util.MiscUtils;
-import genesis.util.SlotModifier;
+import genesis.util.*;
+
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -28,17 +26,17 @@ public class DyeCookingRecipe extends CookingPotRecipeBase
 			builder.put(Collections.singleton(color), color);
 		}
 		
-		builder.put(ImmutableSet.of(EnumDyeColor.WHITE, EnumDyeColor.RED), EnumDyeColor.PINK);
-		builder.put(ImmutableSet.of(EnumDyeColor.PURPLE, EnumDyeColor.PINK), EnumDyeColor.MAGENTA);
-		builder.put(ImmutableSet.of(EnumDyeColor.BLUE, EnumDyeColor.RED), EnumDyeColor.PURPLE);
-		builder.put(ImmutableSet.of(EnumDyeColor.WHITE, EnumDyeColor.BLUE), EnumDyeColor.LIGHT_BLUE);
-		builder.put(ImmutableSet.of(EnumDyeColor.GREEN, EnumDyeColor.BLUE), EnumDyeColor.CYAN);
-		builder.put(ImmutableSet.of(EnumDyeColor.WHITE, EnumDyeColor.GREEN), EnumDyeColor.LIME);
-		builder.put(ImmutableSet.of(EnumDyeColor.RED, EnumDyeColor.YELLOW), EnumDyeColor.ORANGE);
-		builder.put(ImmutableSet.of(EnumDyeColor.BLUE, EnumDyeColor.ORANGE), EnumDyeColor.BROWN);
-		builder.put(ImmutableSet.of(EnumDyeColor.GREEN, EnumDyeColor.RED), EnumDyeColor.BROWN);
-		builder.put(ImmutableSet.of(EnumDyeColor.WHITE, EnumDyeColor.BLACK), EnumDyeColor.GRAY);
-		builder.put(ImmutableSet.of(EnumDyeColor.WHITE, EnumDyeColor.GRAY), EnumDyeColor.SILVER);
+		builder.put(MiscUtils.unmodifiableSet(EnumDyeColor.WHITE, EnumDyeColor.RED), EnumDyeColor.PINK);
+		builder.put(MiscUtils.unmodifiableSet(EnumDyeColor.PURPLE, EnumDyeColor.PINK), EnumDyeColor.MAGENTA);
+		builder.put(MiscUtils.unmodifiableSet(EnumDyeColor.BLUE, EnumDyeColor.RED), EnumDyeColor.PURPLE);
+		builder.put(MiscUtils.unmodifiableSet(EnumDyeColor.WHITE, EnumDyeColor.BLUE), EnumDyeColor.LIGHT_BLUE);
+		builder.put(MiscUtils.unmodifiableSet(EnumDyeColor.GREEN, EnumDyeColor.BLUE), EnumDyeColor.CYAN);
+		builder.put(MiscUtils.unmodifiableSet(EnumDyeColor.WHITE, EnumDyeColor.GREEN), EnumDyeColor.LIME);
+		builder.put(MiscUtils.unmodifiableSet(EnumDyeColor.RED, EnumDyeColor.YELLOW), EnumDyeColor.ORANGE);
+		builder.put(MiscUtils.unmodifiableSet(EnumDyeColor.BLUE, EnumDyeColor.ORANGE), EnumDyeColor.BROWN);
+		builder.put(MiscUtils.unmodifiableSet(EnumDyeColor.GREEN, EnumDyeColor.RED), EnumDyeColor.BROWN);
+		builder.put(MiscUtils.unmodifiableSet(EnumDyeColor.WHITE, EnumDyeColor.BLACK), EnumDyeColor.GRAY);
+		builder.put(MiscUtils.unmodifiableSet(EnumDyeColor.WHITE, EnumDyeColor.GRAY), EnumDyeColor.SILVER);
 		
 		CRAFTING_MAP = builder.build();
 	}
@@ -81,27 +79,12 @@ public class DyeCookingRecipe extends CookingPotRecipeBase
 		return CRAFTING_MAP.get(colors);
 	}
 	
-	protected static EnumDyeColor getOutputColorFromColors(Iterable<EnumDyeColor> colors)
+	protected static EnumDyeColor getOutputColorFromSlots(Collection<? extends SlotModifier> slots)
 	{
 		return getOutputColorFromColors(
-				FluentIterable.from(colors)
-						.filter((c) -> c != null)
-						.toSet());
-	}
-	
-	protected static EnumDyeColor getOutputColorFromColors(EnumDyeColor... colors)
-	{
-		return getOutputColorFromColors(MiscUtils.iterable(colors));
-	}
-	
-	protected static EnumDyeColor getOutputColorFromStacks(Iterable<ItemStack> stacks)
-	{
-		return getOutputColorFromColors(FluentIterable.from(stacks).transform((s) -> getColor(s)));
-	}
-	
-	protected static EnumDyeColor getOutputColorFromSlots(Iterable<? extends SlotModifier> slots)
-	{
-		return getOutputColorFromStacks(FluentIterable.from(slots).transform((s) -> s.getStack()));
+				slots.stream()
+						.map((s) -> getColor(s.getStack()))
+						.collect(StreamUtils.toImmSet()));
 	}
 	
 	@Override

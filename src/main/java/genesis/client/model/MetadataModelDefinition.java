@@ -5,8 +5,8 @@ import java.util.Collection;
 import java.util.List;
 
 import com.google.common.base.Function;
-import com.google.common.collect.FluentIterable;
 
+import genesis.util.StreamUtils;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -45,7 +45,7 @@ public abstract class MetadataModelDefinition implements ListedItemMeshDefinitio
 	{
 		List<ItemStack> stacks = new ArrayList<>();
 		item.getSubItems(item, item.getCreativeTab(), stacks);
-		return FluentIterable.from(stacks).transform((s) -> getName(s)).toSet();
+		return stacks.stream().map((s) -> getName(s)).collect(StreamUtils.toImmSet());
 	}
 	
 	@Override

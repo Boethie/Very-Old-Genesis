@@ -1,28 +1,25 @@
 package genesis.util;
 
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.Set;
+
 import com.google.common.collect.*;
 
-public class MiscUtils
+public final class MiscUtils
 {
 	@SafeVarargs
-	public static <T> FluentIterable<T> iterable(final T... array)
+	public static <T> Iterable<T> iterable(final T... array)
 	{
-		return FluentIterable.from(() -> Iterators.forArray(array));
+		return () -> Iterators.forArray(array);
 	}
 	
-	public static FluentIterable<Integer> range(int min, int max)
+	@SafeVarargs
+	public static <T extends Enum<T>> Set<T> unmodifiableSet(T... values)
 	{
-		return FluentIterable.from(() -> new SimpleIterator<Integer>()
-		{
-			@Override
-			protected Integer computeNext()
-			{
-				if (getCurrent() == null)
-					return min;
-				if (getCurrent() >= max)
-					return null;
-				return getCurrent() + 1;
-			}
-		});
+		Set<T> out = EnumSet.noneOf(ReflectionUtils.getClass(values));
+		for (T value : values)
+			out.add(value);
+		return Collections.unmodifiableSet(out);
 	}
 }

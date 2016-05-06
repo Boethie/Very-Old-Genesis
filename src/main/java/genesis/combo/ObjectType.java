@@ -146,16 +146,16 @@ public class ObjectType<B extends Block, I extends Item> implements IVariant
 		return itemClass;
 	}
 	
-	public ObjectType<B, I> setExcludedVariants(Collection<? extends IMetadata<?>> list)
+	public ObjectType<B, I> setExcludedVariants(Collection<? extends IMetadata<?>> collection)
 	{
-		excludeVariants = ImmutableSet.copyOf(list);
+		excludeVariants = ImmutableSet.copyOf(collection);
 		
 		return this;
 	}
 	
-	public ObjectType<B, I> setValidVariants(Collection<? extends IMetadata<?>> list)
+	public ObjectType<B, I> setValidVariants(Collection<? extends IMetadata<?>> collection)
 	{
-		onlyVariants = ImmutableSet.copyOf(list);
+		onlyVariants = ImmutableSet.copyOf(collection);
 		
 		return this;
 	}

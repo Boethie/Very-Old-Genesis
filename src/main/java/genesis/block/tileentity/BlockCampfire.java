@@ -43,6 +43,8 @@ public class BlockCampfire extends Block
 																	 0.5 + HALF_STICK_SIZE, 1, 1);
 	protected static final AxisAlignedBB STICK_1_R = AABBUtils.rotate(STICK_1, Rotation.CLOCKWISE_90);
 	
+	protected final Map<ItemStackKey, SoundEvent> lighterItems = new HashMap<>();
+	
 	public BlockCampfire()
 	{
 		super(Material.wood);
@@ -260,12 +262,6 @@ public class BlockCampfire extends Block
 	{
 		WorldUtils.setProperty(world, pos, FIRE, burning);
 	}
-	
-	@SuppressWarnings("serial")
-	protected final Map<ItemStackKey, SoundEvent> lighterItems = new HashMap<ItemStackKey, SoundEvent>(){{
-		put(new ItemStackKey(Items.flint_and_steel), SoundEvents.item_flintandsteel_use);
-		put(new ItemStackKey(GenesisItems.flint_and_marcasite), GenesisSoundEvents.item_flint_and_marcasite_use);
-	}};
 	
 	/**
 	 * Registers a item to light this campfire.
