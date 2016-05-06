@@ -22,10 +22,10 @@ public abstract class ItemGenesisEdible<V extends IMetadata<V>> extends ItemFood
 	public final VariantsOfTypesCombo<V> owner;
 	
 	protected final List<V> variants;
-	protected final ObjectType<Block, ? extends ItemGenesisEdible<V>> type;
+	protected final ObjectType<V, Block, ? extends ItemGenesisEdible<V>> type;
 	
 	public ItemGenesisEdible(VariantsOfTypesCombo<V> owner,
-			ObjectType<Block, ? extends ItemGenesisEdible<V>> type,
+			ObjectType<V, Block, ? extends ItemGenesisEdible<V>> type,
 			List<V> variants, Class<V> variantClass)
 	{
 		super(0, 0, false);

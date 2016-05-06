@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 public class ItemMaterial extends ItemMulti<EnumMaterial>
 {
 	public ItemMaterial(VariantsOfTypesCombo<EnumMaterial> owner,
-			ObjectType<? extends Block, ? extends ItemMulti<EnumMaterial>> type,
+			ObjectType<EnumMaterial, ? extends Block, ? extends ItemMulti<EnumMaterial>> type,
 			List<EnumMaterial> variants, Class<EnumMaterial> variantClass)
 	{
 		super(owner, type, variants, variantClass);

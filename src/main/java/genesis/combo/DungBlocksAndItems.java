@@ -13,13 +13,13 @@ import genesis.util.Constants.Unlocalized;
 
 public class DungBlocksAndItems extends VariantsOfTypesCombo<EnumDung>
 {
-	public static final ObjectType<BlockDung, ItemBlockMulti<EnumDung>> DUNG_BLOCK;
-	public static final ObjectType<Block, ItemDung> DUNG;
+	public static final ObjectType<EnumDung, BlockDung, ItemBlockMulti<EnumDung>> DUNG_BLOCK;
+	public static final ObjectType<EnumDung, Block, ItemDung> DUNG;
 	
 	static
 	{
-		DUNG_BLOCK = ObjectType.createBlock("dung_block", "dung", BlockDung.class);
-		DUNG = ObjectType.createItem("dung", Unlocalized.Section.MATERIAL + "dung", ItemDung.class);
+		DUNG_BLOCK = ObjectType.createBlock(EnumDung.class, "dung_block", "dung", BlockDung.class);
+		DUNG = ObjectType.createItem(EnumDung.class, "dung", Unlocalized.Section.MATERIAL + "dung", ItemDung.class);
 		
 		DUNG_BLOCK.setUseSeparateVariantJsons(false)
 				.setConstructedFunction((b, i) -> b.clearDrops().addDrop(DUNG, 9, 9).setHardness(0.5F));

@@ -9,20 +9,22 @@ import net.minecraft.item.ItemStack;
 
 public class VariantDrop<V extends IMetadata<V>> extends BlockDrop
 {
-	public static <V extends IMetadata<V>> VariantDrop<V> create(VariantsOfTypesCombo<V> combo, ObjectType<?, ?> type, int min, int max)
+	public static <V extends IMetadata<V>>
+	VariantDrop<V> create(VariantsOfTypesCombo<V> combo, ObjectType<V, ?, ?> type, int min, int max)
 	{
 		return new VariantDrop<V>(combo, type, min, max);
 	}
 	
-	public static <V extends IMetadata<V>> VariantDrop<V> create(VariantsOfTypesCombo<V> combo, ObjectType<?, ?> type, int size)
+	public static <V extends IMetadata<V>>
+	VariantDrop<V> create(VariantsOfTypesCombo<V> combo, ObjectType<V, ?, ?> type, int size)
 	{
 		return new VariantDrop<V>(combo, type, size);
 	}
 	
 	public VariantsOfTypesCombo<V> combo;
-	public ObjectType<?, ?> type;
+	public ObjectType<V, ?, ?> type;
 	
-	public VariantDrop(VariantsOfTypesCombo<V> combo, ObjectType<?, ?> type, int min, int max)
+	public VariantDrop(VariantsOfTypesCombo<V> combo, ObjectType<V, ?, ?> type, int min, int max)
 	{
 		super(min, max);
 		
@@ -30,7 +32,7 @@ public class VariantDrop<V extends IMetadata<V>> extends BlockDrop
 		this.type = type;
 	}
 	
-	public VariantDrop(VariantsOfTypesCombo<V> combo, ObjectType<?, ?> type, int size)
+	public VariantDrop(VariantsOfTypesCombo<V> combo, ObjectType<V, ?, ?> type, int size)
 	{
 		this(combo, type, size, size);
 	}

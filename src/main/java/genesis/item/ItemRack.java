@@ -21,11 +21,11 @@ public class ItemRack extends ItemBlock
 	public final TreeBlocksAndItems owner;
 	
 	protected final EnumTree variant;
-	protected final ObjectType<? extends BlockRack, ? extends ItemRack> type;
+	protected final ObjectType<EnumTree, ? extends BlockRack, ? extends ItemRack> type;
 	
 	public ItemRack(BlockRack block,
 			TreeBlocksAndItems owner,
-			ObjectType<? extends BlockRack, ? extends ItemRack> type,
+			ObjectType<EnumTree, ? extends BlockRack, ? extends ItemRack> type,
 			EnumTree variant, Class<EnumTree> variantClass)
 	{
 		super(block);

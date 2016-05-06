@@ -17,7 +17,9 @@ import net.minecraft.world.World;
 
 public class ItemDung extends ItemMulti<EnumDung>
 {
-	public ItemDung(VariantsOfTypesCombo<EnumDung> owner, ObjectType<Block, ItemDung> type, List<EnumDung> variants, Class<EnumDung> variantClass)
+	public ItemDung(VariantsOfTypesCombo<EnumDung> owner,
+			ObjectType<EnumDung, Block, ItemDung> type,
+			List<EnumDung> variants, Class<EnumDung> variantClass)
 	{
 		super(owner, type, variants, variantClass);
 	}

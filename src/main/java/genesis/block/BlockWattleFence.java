@@ -47,12 +47,14 @@ public class BlockWattleFence extends BlockGenesisFence
 	
 	// Fields specific to this instance.
 	public final TreeBlocksAndItems owner;
-	public final ObjectType<BlockWattleFence, ItemBlockMulti<EnumTree>> type;
+	public final ObjectType<EnumTree, BlockWattleFence, ItemBlockMulti<EnumTree>> type;
 	
 	public final PropertyIMetadata<EnumTree> variantProp;
 	public final List<EnumTree> variants;
 	
-	public BlockWattleFence(TreeBlocksAndItems owner, ObjectType<BlockWattleFence, ItemBlockMulti<EnumTree>> type, List<EnumTree> variants, Class<EnumTree> variantClass)
+	public BlockWattleFence(TreeBlocksAndItems owner,
+			ObjectType<EnumTree, BlockWattleFence, ItemBlockMulti<EnumTree>> type,
+			List<EnumTree> variants, Class<EnumTree> variantClass)
 	{
 		super(Material.wood, 0.125F, 1.0F, 0.125F, 0.875F, 1.5F);
 		

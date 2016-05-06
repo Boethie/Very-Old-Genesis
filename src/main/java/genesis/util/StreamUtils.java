@@ -3,6 +3,7 @@ package genesis.util;
 import java.util.Set;
 import java.util.function.*;
 import java.util.stream.Collector;
+import java.util.stream.Stream;
 
 import com.google.common.collect.*;
 
@@ -133,5 +134,14 @@ public final class StreamUtils
 			Function<? super T, ? extends V> valueMapper)
 	{
 		return new ImmutableMapCollector<>(ImmutableMap::builder, keyMapper, valueMapper);
+	}
+	
+	/**
+	 * @param clazz The class to filter to.
+	 * @return A function to be used in {@link Stream#flatMap}.
+	 */
+	public static <T, R> Function<T, Stream<R>> instances(Class<R> clazz)
+	{
+		return (t) -> clazz.isInstance(t) ? Stream.of(clazz.cast(t)) : Stream.empty();
 	}
 }

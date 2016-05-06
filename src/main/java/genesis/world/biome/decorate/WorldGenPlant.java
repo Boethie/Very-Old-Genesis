@@ -18,19 +18,19 @@ import net.minecraft.world.World;
 
 public class WorldGenPlant<V extends IPlantMetadata<V>> extends WorldGenDecorationBase
 {
-	public static <V extends IPlantMetadata<V>> WorldGenPlant<V> create(VariantsOfTypesCombo<V> combo, ObjectType<? extends BlockPlant<V>, ? extends Item> type, V variant)
+	public static <V extends IPlantMetadata<V>> WorldGenPlant<V> create(VariantsOfTypesCombo<V> combo, ObjectType<V, ? extends BlockPlant<V>, ? extends Item> type, V variant)
 	{
 		return new WorldGenPlant<V>(combo, type, variant);
 	}
 	
-	public static WorldGenPlant<EnumPlant> create(ObjectType<? extends BlockPlant<EnumPlant>, ? extends Item> type, EnumPlant variant)
+	public static WorldGenPlant<EnumPlant> create(ObjectType<EnumPlant, ? extends BlockPlant<EnumPlant>, ? extends Item> type, EnumPlant variant)
 	{
 		return create(GenesisBlocks.plants, type, variant);
 	}
 	
 	public static WorldGenPlant<EnumPlant> create(EnumPlant variant)
 	{
-		ObjectType<? extends BlockPlant<EnumPlant>, ? extends Item> type = null;
+		ObjectType<EnumPlant, ? extends BlockPlant<EnumPlant>, ? extends Item> type = null;
 		
 		switch (variant.getType())
 		{
@@ -55,13 +55,13 @@ public class WorldGenPlant<V extends IPlantMetadata<V>> extends WorldGenDecorati
 	}
 	
 	protected final VariantsOfTypesCombo<V> combo;
-	protected final ObjectType<? extends BlockPlant<V>, ? extends Item> type;
+	protected final ObjectType<V, ? extends BlockPlant<V>, ? extends Item> type;
 	protected final V variant;
 	private boolean nextToWater = false;
 	private int waterRadius = 1;
 	private int waterHeight = 1;
 	
-	public WorldGenPlant(VariantsOfTypesCombo<V> combo, ObjectType<? extends BlockPlant<V>, ? extends Item> type, V variant)
+	public WorldGenPlant(VariantsOfTypesCombo<V> combo, ObjectType<V, ? extends BlockPlant<V>, ? extends Item> type, V variant)
 	{
 		super(WorldBlockMatcher.STANDARD_AIR, WorldBlockMatcher.TRUE);
 		

@@ -37,13 +37,13 @@ public class BlockHangingFruit extends BlockGenesis
 	public static final IProperty<?>[] STORE_PROPERTIES = {};
 	
 	public final TreeBlocksAndItems owner;
-	public final ObjectType<BlockHangingFruit, ItemBlockMulti<EnumTree>> type;
+	public final ObjectType<EnumTree, BlockHangingFruit, ItemBlockMulti<EnumTree>> type;
 	
 	public final List<EnumTree> variants;
 	public final PropertyIMetadata<EnumTree> variantProp;
 	
 	public BlockHangingFruit(TreeBlocksAndItems owner,
-			ObjectType<BlockHangingFruit, ItemBlockMulti<EnumTree>> type,
+			ObjectType<EnumTree, BlockHangingFruit, ItemBlockMulti<EnumTree>> type,
 			List<EnumTree> variants, Class<EnumTree> variantClass)
 	{
 		super(Material.wood, SoundType.WOOD);

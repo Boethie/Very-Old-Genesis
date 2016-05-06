@@ -21,7 +21,9 @@ public class ItemDyeBowl extends ItemMulti<MultiMetadata>
 {
 	protected final ItemsCeramicBowls bowlsOwner;
 	
-	public ItemDyeBowl(ItemsCeramicBowls owner, ObjectType<Block, ItemDyeBowl> type, List<MultiMetadata> variants, Class<MultiMetadata> variantClass)
+	public ItemDyeBowl(ItemsCeramicBowls owner,
+			ObjectType<MultiMetadata, Block, ItemDyeBowl> type,
+			List<MultiMetadata> variants, Class<MultiMetadata> variantClass)
 	{
 		super(owner, type, variants, variantClass);
 		

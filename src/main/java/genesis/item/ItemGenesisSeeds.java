@@ -27,10 +27,12 @@ import net.minecraftforge.common.EnumPlantType;
 public class ItemGenesisSeeds extends ItemSeedFood
 {
 	public final VariantsCombo<EnumSeeds, Block, ItemGenesisSeeds> owner;
-	protected final ObjectType<Block, ItemGenesisSeeds> type;
+	protected final ObjectType<EnumSeeds, Block, ItemGenesisSeeds> type;
 	protected final List<EnumSeeds> variants;
 	
-	public ItemGenesisSeeds(VariantsCombo<EnumSeeds, Block, ItemGenesisSeeds> owner, ObjectType<Block, ItemGenesisSeeds> type, List<EnumSeeds> variants, Class<ToolType> variantClass)
+	public ItemGenesisSeeds(VariantsCombo<EnumSeeds, Block, ItemGenesisSeeds> owner,
+			ObjectType<EnumSeeds, Block, ItemGenesisSeeds> type,
+			List<EnumSeeds> variants, Class<ToolType> variantClass)
 	{
 		super(0, 0, null, null);
 		

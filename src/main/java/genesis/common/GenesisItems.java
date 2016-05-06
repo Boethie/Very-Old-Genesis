@@ -34,16 +34,16 @@ public final class GenesisItems
 	
 	public static final VariantsCombo<EnumNodule, Block, ItemMulti<EnumNodule>> nodules =
 			VariantsCombo.create(
-					ObjectType.<EnumNodule>createItem("nodule"),
+					ObjectType.createItem(EnumNodule.class, "nodule"),
 					EnumNodule.class, EnumNodule.values());
 	public static final VariantsCombo<EnumPowder, Block, ItemMulti<EnumPowder>> powders =
 			VariantsCombo.create(
-					ObjectType.<EnumPowder>createItem("powder"),
+					ObjectType.<EnumPowder>createItem(EnumPowder.class, "powder"),
 					EnumPowder.class, EnumPowder.values());
 	
 	public static final VariantsCombo<EnumMaterial, Block, ItemMaterial> materials =
 			VariantsCombo.create(
-					ObjectType.createItem("material", ItemMaterial.class).setResourceName(""),
+					ObjectType.createItem(EnumMaterial.class, "material", ItemMaterial.class).setResourceName(""),
 					EnumMaterial.class, EnumMaterial.values());
 	
 	/* Eggs */
@@ -53,7 +53,7 @@ public final class GenesisItems
 	/* Seeds */
 	public static final VariantsCombo<EnumSeeds, Block, ItemGenesisSeeds> seeds =
 			VariantsCombo.create(
-					ObjectType.createItem("seeds", ItemGenesisSeeds.class).setResourceName(""),
+					ObjectType.createItem(EnumSeeds.class, "seeds", ItemGenesisSeeds.class).setResourceName(""),
 					EnumSeeds.class, EnumSeeds.values());
 	
 	/* Foods */
@@ -74,7 +74,7 @@ public final class GenesisItems
 	
 	public static final VariantsCombo<EnumMenhirActivator, Block, ItemMulti<EnumMenhirActivator>> menhir_activators =
 			new VariantsCombo<EnumMenhirActivator, Block, ItemMulti<EnumMenhirActivator>>(
-					new ObjectType<Block, ItemMulti<EnumMenhirActivator>>("menhir_activator", Unlocalized.MISC + "menhirActivator", null, null)
+					new ObjectType<EnumMenhirActivator, Block, ItemMulti<EnumMenhirActivator>>(EnumMenhirActivator.class, "menhir_activator", Unlocalized.MISC + "menhirActivator", null, null)
 							.setCreativeTab(GenesisCreativeTabs.MISC)
 							.setResourceName(""),
 					EnumMenhirActivator.class, EnumMenhirActivator.values())

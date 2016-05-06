@@ -60,12 +60,14 @@ public class BlockGenesisSaplings extends BlockSapling
 	}
 	
 	public final TreeBlocksAndItems owner;
-	public final ObjectType<BlockGenesisSaplings, ItemBlockMulti<EnumTree>> type;
+	public final ObjectType<EnumTree, BlockGenesisSaplings, ItemBlockMulti<EnumTree>> type;
 	
 	public final List<EnumTree> variants;
 	public final PropertyIMetadata<EnumTree> variantProp;
 	
-	public BlockGenesisSaplings(TreeBlocksAndItems owner, ObjectType<BlockGenesisSaplings, ItemBlockMulti<EnumTree>> type, List<EnumTree> variants, Class<EnumTree> variantClass)
+	public BlockGenesisSaplings(TreeBlocksAndItems owner,
+			ObjectType<EnumTree, BlockGenesisSaplings, ItemBlockMulti<EnumTree>> type,
+			List<EnumTree> variants, Class<EnumTree> variantClass)
 	{
 		super();
 		

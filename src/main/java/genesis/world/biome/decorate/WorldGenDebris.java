@@ -31,8 +31,8 @@ public class WorldGenDebris extends WorldGenDecorationBase
 	public WorldGenDebris(EnumDebrisOther... randomDebris)
 	{
 		this(Arrays.stream(randomDebris)
-				.map(GenesisBlocks.debris::getBlockState)
-				.toArray(IBlockState[]::new));
+				.map((v) -> GenesisBlocks.debris.getBlockState(v))
+				.toArray((i) -> new IBlockState[i]));
 	}
 	
 	public WorldGenDebris()

@@ -31,7 +31,7 @@ public class ItemBowMulti<V extends IBowMetadata<V>> extends ItemBow implements 
 	public static final ResourceLocation PULL = new ResourceLocation("pull");
 	
 	protected final VariantsOfTypesCombo<V> owner;
-	protected final ObjectType<?, ? extends ItemBowMulti<V>> type;
+	protected final ObjectType<V, ?, ? extends ItemBowMulti<V>> type;
 	
 	protected final List<V> variants;
 	protected final Class<V> variantClass;
@@ -40,7 +40,7 @@ public class ItemBowMulti<V extends IBowMetadata<V>> extends ItemBow implements 
 	private final BitMask variantMask;
 	
 	public ItemBowMulti(VariantsOfTypesCombo<V> owner,
-			ObjectType<?, ? extends ItemBowMulti<V>> type,
+			ObjectType<V, ?, ? extends ItemBowMulti<V>> type,
 			List<V> variants, Class<V> variantClass)
 	{
 		this.owner = owner;

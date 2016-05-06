@@ -47,12 +47,14 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 	public static final PropertyBool ACTIVE = PropertyBool.create("active");
 	
 	public VariantsCombo<EnumMenhirPart, BlockMenhir, ItemBlockMulti<EnumMenhirPart>> owner;
-	public ObjectType<BlockMenhir, ItemBlockMulti<EnumMenhirPart>> type;
+	public ObjectType<EnumMenhirPart, BlockMenhir, ItemBlockMulti<EnumMenhirPart>> type;
 	
 	public List<EnumMenhirPart> variants;
 	public PropertyIMetadata<EnumMenhirPart> variantProp;
 	
-	public BlockMenhir(VariantsCombo<EnumMenhirPart, BlockMenhir, ItemBlockMulti<EnumMenhirPart>> owner, ObjectType<BlockMenhir, ItemBlockMulti<EnumMenhirPart>> type, List<EnumMenhirPart> variants, Class<EnumMenhirPart> variantClass)
+	public BlockMenhir(VariantsCombo<EnumMenhirPart, BlockMenhir, ItemBlockMulti<EnumMenhirPart>> owner,
+			ObjectType<EnumMenhirPart, BlockMenhir, ItemBlockMulti<EnumMenhirPart>> type,
+			List<EnumMenhirPart> variants, Class<EnumMenhirPart> variantClass)
 	{
 		super(Material.rock, SoundType.STONE);
 		

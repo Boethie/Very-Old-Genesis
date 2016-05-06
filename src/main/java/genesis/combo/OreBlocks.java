@@ -15,15 +15,17 @@ import genesis.util.ReflectionUtils;
 
 public class OreBlocks extends VariantsOfTypesCombo<EnumOre>
 {
-	public static final ObjectType<BlockMultiOre<EnumOre>, ItemBlockMulti<EnumOre>> ORE =
-			ObjectType.createBlock("ore", ReflectionUtils.convertClass(BlockMultiOre.class), EnumOre.NO_ORES);
-	public static final ObjectType<Block, ItemMulti<EnumOre>> DROP =
-			ObjectType.createItem("ore_drop", Unlocalized.Section.MATERIAL, EnumOre.NO_DROPS);
+	public static final ObjectType<EnumOre, BlockMultiOre<EnumOre>, ItemBlockMulti<EnumOre>> ORE =
+			ObjectType.createBlock(EnumOre.class, "ore", ReflectionUtils.convertClass(BlockMultiOre.class));
+	public static final ObjectType<EnumOre, Block, ItemMulti<EnumOre>> DROP =
+			ObjectType.createItem(EnumOre.class, "ore_drop", Unlocalized.Section.MATERIAL);
 	
 	static
 	{
-		ORE.setTypeNamePosition(TypeNamePosition.POSTFIX);
-		DROP.setResourceName("").setTypeNamePosition(TypeNamePosition.POSTFIX);
+		ORE.setVariantFilter((v) -> v.hasOre())
+				.setTypeNamePosition(TypeNamePosition.POSTFIX);
+		DROP.setVariantFilter((v) -> v.hasDrop())
+				.setResourceName("").setTypeNamePosition(TypeNamePosition.POSTFIX);
 	}
 	
 	public OreBlocks()

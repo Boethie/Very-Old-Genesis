@@ -13,11 +13,13 @@ import net.minecraft.nbt.NBTTagCompound;
 public class ItemMenhir extends ItemBlock
 {
 	public final VariantsOfTypesCombo<EnumMenhirPart> owner;
-	public final ObjectType<BlockMenhir, ItemMenhir> type;
+	public final ObjectType<EnumMenhirPart, BlockMenhir, ItemMenhir> type;
 	
 	protected final List<EnumMenhirPart> variants;
 
-	public ItemMenhir(BlockMenhir block, VariantsOfTypesCombo<EnumMenhirPart> owner, ObjectType<BlockMenhir, ItemMenhir> type, List<EnumMenhirPart> variants, Class<EnumMenhirPart> variantClass)
+	public ItemMenhir(BlockMenhir block, VariantsOfTypesCombo<EnumMenhirPart> owner,
+			ObjectType<EnumMenhirPart, BlockMenhir, ItemMenhir> type,
+			List<EnumMenhirPart> variants, Class<EnumMenhirPart> variantClass)
 	{
 		super(block);
 		

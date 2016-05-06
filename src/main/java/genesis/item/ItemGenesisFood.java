@@ -10,7 +10,7 @@ import net.minecraft.block.Block;
 public class ItemGenesisFood<V extends IMetadata<V> & IFood> extends ItemGenesisEdible<V>
 {
 	public ItemGenesisFood(VariantsOfTypesCombo<V> owner,
-			ObjectType<Block, ? extends ItemGenesisEdible<V>> type,
+			ObjectType<V, Block, ? extends ItemGenesisEdible<V>> type,
 			List<V> variants, Class<V> variantClass)
 	{
 		super(owner, type, variants, variantClass);

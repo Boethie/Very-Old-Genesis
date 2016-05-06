@@ -12,18 +12,22 @@ import net.minecraft.item.ItemStack;
 
 public class ClothingItems extends VariantsOfTypesCombo<EnumClothing>
 {
-	public static final ObjectType<Block, ItemGenesisArmor> HELMET = ObjectType.createItem("helmet", ItemGenesisArmor.class)
+	public static final ObjectType<EnumClothing, Block, ItemGenesisArmor> HELMET =
+			ObjectType.createItem(EnumClothing.class, "helmet", ItemGenesisArmor.class)
 			.setItemArguments(EntityEquipmentSlot.HEAD)
 			.setTypeNamePosition(TypeNamePosition.POSTFIX);
-	public static final ObjectType<Block, ItemGenesisArmor> CHESTPLATE = ObjectType.createItem("chestplate", ItemGenesisArmor.class)
-			.setItemArguments(EntityEquipmentSlot.CHEST)
-			.setTypeNamePosition(TypeNamePosition.POSTFIX);
-	public static final ObjectType<Block, ItemGenesisArmor> LEGGINGS = ObjectType.createItem("leggings", ItemGenesisArmor.class)
-			.setItemArguments(EntityEquipmentSlot.LEGS)
-			.setTypeNamePosition(TypeNamePosition.POSTFIX);
-	public static final ObjectType<Block, ItemGenesisArmor> BOOTS = ObjectType.createItem("boots", ItemGenesisArmor.class)
-			.setItemArguments(EntityEquipmentSlot.FEET)
-			.setTypeNamePosition(TypeNamePosition.POSTFIX);
+	public static final ObjectType<EnumClothing, Block, ItemGenesisArmor> CHESTPLATE =
+			ObjectType.createItem(EnumClothing.class, "chestplate", ItemGenesisArmor.class)
+					.setItemArguments(EntityEquipmentSlot.CHEST)
+					.setTypeNamePosition(TypeNamePosition.POSTFIX);
+	public static final ObjectType<EnumClothing, Block, ItemGenesisArmor> LEGGINGS =
+			ObjectType.createItem(EnumClothing.class, "leggings", ItemGenesisArmor.class)
+					.setItemArguments(EntityEquipmentSlot.LEGS)
+					.setTypeNamePosition(TypeNamePosition.POSTFIX);
+	public static final ObjectType<EnumClothing, Block, ItemGenesisArmor> BOOTS =
+			ObjectType.createItem(EnumClothing.class, "boots", ItemGenesisArmor.class)
+					.setItemArguments(EntityEquipmentSlot.FEET)
+					.setTypeNamePosition(TypeNamePosition.POSTFIX);
 	
 	public ClothingItems()
 	{

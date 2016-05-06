@@ -32,7 +32,7 @@ public class BlockGenesisVariants<V extends IMetadata<V>> extends Block
 	}
 	
 	public final VariantsOfTypesCombo<V> owner;
-	public final ObjectType<? extends BlockGenesisVariants<V>, ? extends Item> type;
+	public final ObjectType<V, ? extends BlockGenesisVariants<V>, ? extends Item> type;
 	
 	public final List<V> variants;
 	public final PropertyIMetadata<V> variantProp;
@@ -41,7 +41,8 @@ public class BlockGenesisVariants<V extends IMetadata<V>> extends Block
 	
 	protected final List<BlockDrop> drops = new ArrayList<BlockDrop>();
 	
-	public BlockGenesisVariants(VariantsOfTypesCombo<V> owner, ObjectType<? extends BlockGenesisVariants<V>, ? extends Item> type,
+	public BlockGenesisVariants(VariantsOfTypesCombo<V> owner,
+			ObjectType<V, ? extends BlockGenesisVariants<V>, ? extends Item> type,
 			List<V> variants, Class<V> variantClass,
 			Material material, SoundType sound)
 	{
@@ -109,12 +110,12 @@ public class BlockGenesisVariants<V extends IMetadata<V>> extends Block
 		return this;
 	}
 	
-	public BlockGenesisVariants<V> addDrop(ObjectType<?, ?> type, int min, int max)
+	public BlockGenesisVariants<V> addDrop(ObjectType<V, ?, ?> type, int min, int max)
 	{
 		return addDrop(new VariantDrop<V>(owner, type, min, max));
 	}
 	
-	public BlockGenesisVariants<V> addDrop(ObjectType<?, ?> type)
+	public BlockGenesisVariants<V> addDrop(ObjectType<V, ?, ?> type)
 	{
 		return addDrop(type, 1, 1);
 	}

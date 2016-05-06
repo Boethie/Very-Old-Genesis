@@ -15,11 +15,12 @@ import net.minecraft.item.ItemStack;
 public class ItemGenesisArmor extends ItemArmor
 {
 	protected final ClothingItems owner;
-	protected final ObjectType<Block, ItemGenesisArmor> type;
+	protected final ObjectType<EnumClothing, Block, ItemGenesisArmor> type;
 	
 	protected final EnumClothing variant;
 	
-	public ItemGenesisArmor(ClothingItems owner, ObjectType<Block, ItemGenesisArmor> type,
+	public ItemGenesisArmor(ClothingItems owner,
+			ObjectType<EnumClothing, Block, ItemGenesisArmor> type,
 			EnumClothing variant, Class<EnumClothing> variantClass,
 			EntityEquipmentSlot slot)
 	{

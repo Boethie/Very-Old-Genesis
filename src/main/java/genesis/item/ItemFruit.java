@@ -4,8 +4,8 @@ import java.util.List;
 
 import genesis.combo.ObjectType;
 import genesis.combo.TreeBlocksAndItems;
-import genesis.combo.VariantsOfTypesCombo;
 import genesis.combo.variant.EnumTree;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 public class ItemFruit extends ItemGenesisFood<EnumTree>
 {
 	public ItemFruit(TreeBlocksAndItems owner,
-			ObjectType<Block, ? extends ItemGenesisEdible<EnumTree>> type,
+			ObjectType<EnumTree, Block, ? extends ItemGenesisEdible<EnumTree>> type,
 			List<EnumTree> variants, Class<EnumTree> variantClass)
 	{
 		super(owner, type, variants, variantClass);

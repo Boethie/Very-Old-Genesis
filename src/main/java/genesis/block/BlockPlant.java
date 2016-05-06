@@ -38,20 +38,21 @@ public class BlockPlant<V extends IPlantMetadata<V>> extends BlockBush implement
 	}
 	
 	public final VariantsOfTypesCombo<V> owner;
-	public final ObjectType<? extends BlockPlant<V>, ?> type;
+	public final ObjectType<V, ? extends BlockPlant<V>, ?> type;
 	
 	public final List<V> variants;
 	public final PropertyIMetadata<V> variantProp;
 	
-	public final ObjectType<? extends BlockGenesisDoublePlant<V>, ?> doubleType;
+	public final ObjectType<V, ? extends BlockGenesisDoublePlant<V>, ?> doubleType;
 	
 	protected static final float BB_INSET = 0.0625F * 2;
 	protected static final AxisAlignedBB BB =
 			new AxisAlignedBB(BB_INSET, 0, BB_INSET, 1 - BB_INSET, 1 - BB_INSET, 1 - BB_INSET);
 	
-	public BlockPlant(VariantsOfTypesCombo<V> owner, ObjectType<? extends BlockPlant<V>, ? extends ItemBlockMulti<V>> type,
+	public BlockPlant(VariantsOfTypesCombo<V> owner,
+			ObjectType<V, ? extends BlockPlant<V>, ? extends ItemBlockMulti<V>> type,
 			List<V> variants, Class<V> variantClass,
-			ObjectType<? extends BlockGenesisDoublePlant<V>, ? extends ItemBlockMulti<V>> doubleType,
+			ObjectType<V, ? extends BlockGenesisDoublePlant<V>, ? extends ItemBlockMulti<V>> doubleType,
 			SoundType sound)
 	{
 		setSoundType(sound);
@@ -137,7 +138,7 @@ public class BlockPlant<V extends IPlantMetadata<V>> extends BlockBush implement
 	@Override
 	public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean isClient)
 	{
-		return doubleType != null && owner.getValidVariants(doubleType).contains(state.getValue(variantProp));
+		return doubleType != null && owner.isStateOf(state, doubleType);
 	}
 	
 	@Override

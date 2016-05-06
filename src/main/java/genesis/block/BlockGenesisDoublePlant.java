@@ -38,7 +38,8 @@ public class BlockGenesisDoublePlant<V extends IPlantMetadata<V>> extends BlockP
 	private static final AxisAlignedBB BB_TOP =
 			BB.setMaxY(0.75);
 	
-	public BlockGenesisDoublePlant(VariantsOfTypesCombo<V> owner, ObjectType<? extends BlockGenesisDoublePlant<V>, ? extends ItemBlockMulti<V>> type,
+	public BlockGenesisDoublePlant(VariantsOfTypesCombo<V> owner,
+			ObjectType<V, ? extends BlockGenesisDoublePlant<V>, ? extends ItemBlockMulti<V>> type,
 			List<V> variants, Class<V> variantClass,
 			SoundType sound)
 	{

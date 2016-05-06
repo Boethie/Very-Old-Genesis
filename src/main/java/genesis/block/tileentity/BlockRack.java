@@ -51,7 +51,7 @@ public class BlockRack extends BlockContainer implements MultiPartBlock
 	}
 	
 	public final TreeBlocksAndItems owner;
-	public final ObjectType<? extends BlockRack, ? extends ItemRack> type;
+	public final ObjectType<EnumTree, ? extends BlockRack, ? extends ItemRack> type;
 	
 	public final PropertyIMetadata<EnumTree> variantProp;
 	public final EnumTree variant;
@@ -59,7 +59,7 @@ public class BlockRack extends BlockContainer implements MultiPartBlock
 	private AxisAlignedBB bounds;
 	
 	public BlockRack(TreeBlocksAndItems owner,
-			ObjectType<BlockRack, ItemRack> type,
+			ObjectType<EnumTree, BlockRack, ItemRack> type,
 			EnumTree variant, Class<EnumTree> variantClass)
 	{
 		super(Material.wood);

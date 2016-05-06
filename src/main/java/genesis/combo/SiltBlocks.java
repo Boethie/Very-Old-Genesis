@@ -9,8 +9,10 @@ import genesis.util.Constants;
 
 public class SiltBlocks extends VariantsOfTypesCombo<EnumSilt>
 {
-	public static final ObjectType<BlockSilt, ItemBlockMulti<EnumSilt>> SILT = ObjectType.createBlock("silt", BlockSilt.class);
-	public static final ObjectType<BlockSiltstone, ItemBlockMulti<EnumSilt>> SILTSTONE = ObjectType.createBlock("siltstone", "rock.siltstone", BlockSiltstone.class);
+	public static final ObjectType<EnumSilt, BlockSilt, ItemBlockMulti<EnumSilt>> SILT =
+			ObjectType.createBlock(EnumSilt.class, "silt", BlockSilt.class);
+	public static final ObjectType<EnumSilt, BlockSiltstone, ItemBlockMulti<EnumSilt>> SILTSTONE =
+			ObjectType.createBlock(EnumSilt.class, "siltstone", "rock.siltstone", BlockSiltstone.class);
 	
 	static
 	{

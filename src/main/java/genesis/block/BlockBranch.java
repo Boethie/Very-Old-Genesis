@@ -33,10 +33,10 @@ public class BlockBranch extends BlockGenesisLogs
 	
 	public static final float RADIUS = 0.0625F * 3;
 	
-	public final ObjectType<BlockBranch, ItemBlockMulti<EnumTree>> type;
+	public final ObjectType<EnumTree, BlockBranch, ItemBlockMulti<EnumTree>> type;
 	
 	public BlockBranch(TreeBlocksAndItems owner,
-			ObjectType<BlockBranch, ItemBlockMulti<EnumTree>> type,
+			ObjectType<EnumTree, BlockBranch, ItemBlockMulti<EnumTree>> type,
 			List<EnumTree> variants, Class<EnumTree> variantClass)
 	{
 		super(owner, type, variants, variantClass);

@@ -13,11 +13,13 @@ import net.minecraft.item.*;
 public class ItemBlockMulti<V extends IMetadata<V>> extends ItemBlock
 {
 	public final VariantsOfTypesCombo<V> owner;
-	public final ObjectType<? extends Block, ? extends ItemBlockMulti<V>> type;
+	public final ObjectType<V, ? extends Block, ? extends ItemBlockMulti<V>> type;
 	
 	protected final List<V> variants;
 	
-	public ItemBlockMulti(Block block, VariantsOfTypesCombo<V> owner, ObjectType<? extends Block, ? extends ItemBlockMulti<V>> type, List<V> variants, Class<V> variantClass)
+	public ItemBlockMulti(Block block, VariantsOfTypesCombo<V> owner,
+			ObjectType<V, ? extends Block, ? extends ItemBlockMulti<V>> type,
+			List<V> variants, Class<V> variantClass)
 	{
 		super(block);
 		

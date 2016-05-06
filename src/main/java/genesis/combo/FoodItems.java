@@ -59,7 +59,8 @@ public class FoodItems extends VariantsCombo<FoodWrapper, Block, ItemGenesisFood
 	
 	public FoodItems()
 	{
-		super(ObjectType.createItem("food", ReflectionUtils.convertClass(ItemGenesisFood.class)), FoodWrapper.class, ORDERED_VARIANTS);
+		super(ObjectType.createItem(FoodWrapper.class, "food", ReflectionUtils.convertClass(ItemGenesisFood.class)),
+				FoodWrapper.class, ORDERED_VARIANTS);
 		
 		setNames(Constants.MOD_ID, Unlocalized.PREFIX);
 		

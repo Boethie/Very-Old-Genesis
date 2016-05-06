@@ -16,7 +16,9 @@ import net.minecraft.world.World;
 
 public class ItemDish extends ItemGenesisEdible<MultiMetadata>
 {
-	public ItemDish(VariantsOfTypesCombo<MultiMetadata> owner, ObjectType<Block, ? extends ItemDish> type, List<MultiMetadata> variants, Class<MultiMetadata> variantClass)
+	public ItemDish(VariantsOfTypesCombo<MultiMetadata> owner,
+			ObjectType<MultiMetadata, Block, ? extends ItemDish> type,
+			List<MultiMetadata> variants, Class<MultiMetadata> variantClass)
 	{
 		super(owner, type, variants, variantClass);
 		

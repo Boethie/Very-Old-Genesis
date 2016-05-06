@@ -27,12 +27,12 @@ public class BlockMultiOre<V extends IOreVariant<V>> extends BlockOre
 	public static IProperty<?>[] properties = {};
 	
 	public VariantsOfTypesCombo<V> owner;
-	public ObjectType<? extends BlockMultiOre<V>, ?> type;
+	public ObjectType<V, ? extends BlockMultiOre<V>, ?> type;
 	public List<V> variants;
 	
 	public PropertyIMetadata<V> variantProp;
 	
-	public BlockMultiOre(VariantsOfTypesCombo<V> owner, ObjectType<? extends BlockMultiOre<V>, ?> type, List<V> variants, Class<V> variantClass)
+	public BlockMultiOre(VariantsOfTypesCombo<V> owner, ObjectType<V, ? extends BlockMultiOre<V>, ?> type, List<V> variants, Class<V> variantClass)
 	{
 		this.variants = variants;
 		this.owner = owner;

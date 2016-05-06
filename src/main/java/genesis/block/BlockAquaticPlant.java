@@ -48,7 +48,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 	}
 	
 	public final VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>> owner;
-	public final ObjectType<BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>> type;
+	public final ObjectType<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>> type;
 	
 	public final List<EnumAquaticPlant> variants;
 	public final PropertyIMetadata<EnumAquaticPlant> variantProp;
@@ -56,7 +56,9 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 	protected Set<Block> validGround;
 	protected final Set<EnumAquaticPlant> noDrops = ImmutableSet.of(EnumAquaticPlant.CHARNIA);
 	
-	public BlockAquaticPlant(VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>> owner, ObjectType<BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>> type, List<EnumAquaticPlant> variants, Class<EnumAquaticPlant> variantClass)
+	public BlockAquaticPlant(VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>> owner,
+			ObjectType<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>> type,
+			List<EnumAquaticPlant> variants, Class<EnumAquaticPlant> variantClass)
 	{
 		super(Material.water);
 		

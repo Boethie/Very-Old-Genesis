@@ -3,13 +3,13 @@ package genesis.combo;
 import genesis.block.*;
 import genesis.block.tileentity.BlockRack;
 import genesis.combo.variant.EnumTree;
+import genesis.combo.variant.EnumTree.FruitType;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.*;
 import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
 
-import java.util.*;
-import java.util.stream.Stream;
+import java.util.function.Predicate;
 
 import com.google.common.collect.*;
 
@@ -20,111 +20,74 @@ import net.minecraft.tileentity.TileEntityFurnace;
 
 public class TreeBlocksAndItems extends VariantsOfTypesCombo<EnumTree>
 {
-	public static final ObjectType<BlockGenesisLogs, ItemBlockMulti<EnumTree>> LOG;
+	public static final ObjectType<EnumTree, BlockGenesisLogs, ItemBlockMulti<EnumTree>> LOG;
 	
-	public static final ObjectType<BlockBranch, ItemBlockMulti<EnumTree>> BRANCH;
+	public static final ObjectType<EnumTree, BlockBranch, ItemBlockMulti<EnumTree>> BRANCH;
 	
-	public static final ObjectType<BlockGenesisSaplings, ItemBlockMulti<EnumTree>> SAPLING;
+	public static final ObjectType<EnumTree, BlockGenesisSaplings, ItemBlockMulti<EnumTree>> SAPLING;
 	
-	public static final ObjectType<BlockGenesisLeaves, ItemBlockMulti<EnumTree>> LEAVES;
+	public static final ObjectType<EnumTree, BlockGenesisLeaves, ItemBlockMulti<EnumTree>> LEAVES;
 	
-	public static final ObjectType<BlockGenesisLeavesFruit, ItemBlockMulti<EnumTree>> LEAVES_FRUIT;
+	public static final ObjectType<EnumTree, BlockGenesisLeavesFruit, ItemBlockMulti<EnumTree>> LEAVES_FRUIT;
 	
-	public static final ObjectType<BlockHangingFruit, Item> HANGING_FRUIT;
+	public static final ObjectType<EnumTree, BlockHangingFruit, Item> HANGING_FRUIT;
 	
-	public static final ObjectType<Block, ItemFruit> FRUIT;
+	public static final ObjectType<EnumTree, Block, ItemFruit> FRUIT;
 	
-	public static final ObjectType<Block, ItemMulti<EnumTree>> BILLET;
+	public static final ObjectType<EnumTree, Block, ItemMulti<EnumTree>> BILLET;
 	
-	public static final ObjectType<BlockWattleFence, ItemBlockMulti<EnumTree>> WATTLE_FENCE;
+	public static final ObjectType<EnumTree, BlockWattleFence, ItemBlockMulti<EnumTree>> WATTLE_FENCE;
 	
-	public static final ObjectType<BlockRack, ItemRack> RACK;
+	public static final ObjectType<EnumTree, BlockRack, ItemRack> RACK;
 	
-	public static final ObjectType<BlockGenesisDeadLogs, ItemBlockMulti<EnumTree>> DEAD_LOG;
+	public static final ObjectType<EnumTree, BlockGenesisDeadLogs, ItemBlockMulti<EnumTree>> DEAD_LOG;
 	
-	public static final ImmutableList<? extends ObjectType<?, ?>> TYPES;
+	public static final ImmutableList<? extends ObjectType<EnumTree, ?, ?>> TYPES;
 	
 	static
 	{
-		ImmutableSet.Builder<EnumTree> billetsB = ImmutableSet.builder();
-		ImmutableSet.Builder<EnumTree> branchesB = ImmutableSet.builder();
+		Predicate<EnumTree> billet = (v) -> v.hasBillet();
 		
-		ImmutableSet.Builder<EnumTree> fruitLeavesB = ImmutableSet.builder();
-		ImmutableSet.Builder<EnumTree> fruitHangingB = ImmutableSet.builder();
+		LOG = ObjectType.createBlock(EnumTree.class, "log", BlockGenesisLogs.class);
+		LOG.setVariantFilter((v) -> !v.isBush());
 		
-		ImmutableSet.Builder<EnumTree> deadB = ImmutableSet.builder();
+		BRANCH = ObjectType.createBlock(EnumTree.class, "branch", BlockBranch.class);
+		BRANCH.setVariantFilter((v) -> v.isBush());
 		
-		for (EnumTree variant : EnumTree.values())
-		{
-			if (variant.hasBillet())
-				billetsB.add(variant);
-			
-			if (variant.isBush())
-				branchesB.add(variant);
-			
-			switch (variant.getFruitType())
-			{
-			case LEAVES:
-				fruitLeavesB.add(variant);
-				break;
-			case HANGING:
-				fruitHangingB.add(variant);
-				break;
-			case NONE:
-				break;
-			}
-			
-			if (variant.hasDead())
-				deadB.add(variant);
-		}
-		
-		Set<EnumTree> billets = billetsB.build();
-		Set<EnumTree> branches = branchesB.build();
-		
-		Set<EnumTree> fruitLeaves = fruitLeavesB.build();
-		Set<EnumTree> fruitHanging = fruitHangingB.build();
-		
-		Set<EnumTree> dead = deadB.build();
-		
-		LOG = ObjectType.createBlock("log", BlockGenesisLogs.class, branches);
-		
-		BRANCH = ObjectType.createBlock("branch", BlockBranch.class);
-		BRANCH.setValidVariants(branches);
-		
-		SAPLING = ObjectType.createBlock("sapling", BlockGenesisSaplings.class);
+		SAPLING = ObjectType.createBlock(EnumTree.class, "sapling", BlockGenesisSaplings.class);
 		SAPLING.setConstructedFunction((b, i) ->
 						FuelHandler.setBurnTime(i, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.sapling)), true))
 				.setIgnoredProperties(BlockSapling.STAGE);
 		
-		LEAVES = ObjectType.createBlock("leaves", BlockGenesisLeaves.class);
+		LEAVES = ObjectType.createBlock(EnumTree.class, "leaves", BlockGenesisLeaves.class);
 		LEAVES.setIgnoredProperties(BlockLeaves.CHECK_DECAY, BlockLeaves.DECAYABLE);
 		
-		LEAVES_FRUIT = ObjectType.createBlock("leaves_fruit", "leaves.fruit", BlockGenesisLeavesFruit.class);
-		LEAVES_FRUIT.setIgnoredProperties(BlockLeaves.CHECK_DECAY, BlockLeaves.DECAYABLE)
-				.setValidVariants(fruitLeaves);
+		LEAVES_FRUIT = ObjectType.createBlock(EnumTree.class, "leaves_fruit", "leaves.fruit", BlockGenesisLeavesFruit.class);
+		LEAVES_FRUIT.setVariantFilter((v) -> v.getFruitType() == FruitType.LEAVES)
+				.setIgnoredProperties(BlockLeaves.CHECK_DECAY, BlockLeaves.DECAYABLE);
 		
-		HANGING_FRUIT = ObjectType.create("hanging_fruit", "hanging.fruit", BlockHangingFruit.class, null);
-		HANGING_FRUIT.setValidVariants(fruitHanging);
+		HANGING_FRUIT = ObjectType.create(EnumTree.class, "hanging_fruit", "hanging.fruit", BlockHangingFruit.class, null);
+		HANGING_FRUIT.setVariantFilter((v) -> v.getFruitType() == FruitType.HANGING);
 		
-		FRUIT = ObjectType.createItem("fruit", Unlocalized.Section.FOOD + "fruit", ItemFruit.class);
-		FRUIT.setValidVariants(Stream.concat(fruitLeaves.stream(), fruitHanging.stream()).collect(StreamUtils.toImmList()));
+		FRUIT = ObjectType.createItem(EnumTree.class, "fruit", Unlocalized.Section.FOOD + "fruit", ItemFruit.class);
+		FRUIT.setVariantFilter((v) -> v.getFruitType() != FruitType.NONE);
 		
-		BILLET = ObjectType.createItem("billet", Unlocalized.Section.MATERIAL + "billet");
-		BILLET.setConstructedFunction((b, i) ->
-						FuelHandler.setBurnTime(i, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.planks)), true))
-				.setValidVariants(billets);
+		BILLET = ObjectType.createItem(EnumTree.class, "billet", Unlocalized.Section.MATERIAL + "billet");
+		BILLET.setVariantFilter(billet)
+				.setConstructedFunction((b, i) ->
+						FuelHandler.setBurnTime(i, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.planks)), true));
 		
-		WATTLE_FENCE = ObjectType.createBlock("wattle_fence", "wattleFence", BlockWattleFence.class);
-		WATTLE_FENCE.setValidVariants(billets);
+		WATTLE_FENCE = ObjectType.createBlock(EnumTree.class, "wattle_fence", "wattleFence", BlockWattleFence.class);
+		WATTLE_FENCE.setVariantFilter(billet);
 		
-		RACK = ObjectType.create("rack", BlockRack.class, ItemRack.class);
-		RACK.setCreativeTab(GenesisCreativeTabs.DECORATIONS)
-				.setUseSeparateVariantJsons(false)
-				.setValidVariants(billets);
+		RACK = ObjectType.create(EnumTree.class, "rack", BlockRack.class, ItemRack.class);
+		RACK.setVariantFilter(billet)
+				.setCreativeTab(GenesisCreativeTabs.DECORATIONS)
+				.setUseSeparateVariantJsons(false);
 		
-		DEAD_LOG = ObjectType.createBlock("dead_log", "log.dead", BlockGenesisDeadLogs.class);
+		DEAD_LOG = ObjectType.createBlock(EnumTree.class, "dead_log", "log.dead", BlockGenesisDeadLogs.class);
 		DEAD_LOG.setCreativeTab(GenesisCreativeTabs.DECORATIONS)
-				.setValidVariants(dead);
+				.setVariantFilter((v) -> v.hasDead());
 		
 		TYPES = ImmutableList.of(
 						LOG, BRANCH,
@@ -134,7 +97,7 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo<EnumTree>
 						BILLET, WATTLE_FENCE, RACK,
 						DEAD_LOG);
 		
-		for (ObjectType<?, ?> type : TYPES)
+		for (ObjectType<EnumTree, ?, ?> type : TYPES)
 		{
 			type.setTypeNamePosition(TypeNamePosition.POSTFIX);
 		}

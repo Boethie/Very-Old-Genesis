@@ -24,7 +24,7 @@ public class BlockGenesisLeavesFruit extends BlockGenesisLeaves
 	public static final IProperty<?>[] STORE_PROPERTIES = BlockGenesisLeaves.STORE_PROPERTIES;
 	
 	public BlockGenesisLeavesFruit(TreeBlocksAndItems owner,
-			ObjectType<BlockGenesisLeaves, ItemBlockMulti<EnumTree>> type,
+			ObjectType<EnumTree, BlockGenesisLeaves, ItemBlockMulti<EnumTree>> type,
 			List<EnumTree> variants, Class<EnumTree> variantClass)
 	{
 		super(owner, type, variants, variantClass);

@@ -5,7 +5,6 @@ import java.util.*;
 import com.google.common.base.Optional;
 import com.google.common.collect.*;
 
-import genesis.client.GenesisClient;
 import genesis.combo.*;
 import genesis.combo.variant.IMetadata;
 import genesis.util.ItemStackKey;
@@ -13,13 +12,7 @@ import genesis.util.ItemStackKey;
 import net.minecraft.block.*;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.client.CPacketPlayerBlockPlacement;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
@@ -27,7 +20,6 @@ import net.minecraftforge.common.*;
 
 import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.fml.common.eventhandler.*;
-import net.minecraftforge.fml.common.eventhandler.Event.Result;
 
 public class BlockGenesisFlowerPot extends BlockFlowerPot
 {
@@ -121,7 +113,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		return stacksToCustoms.get(getStackKey(stack));
 	}
 	
-	public static <V extends IMetadata<V>> void registerPlantsForPot(VariantsOfTypesCombo<V> combo, ObjectType<?, ?> type, IFlowerPotPlant customs)
+	public static <V extends IMetadata<V>> void registerPlantsForPot(VariantsOfTypesCombo<V> combo, ObjectType<V, ?, ?> type, IFlowerPotPlant customs)
 	{
 		for (V variant : combo.getValidVariants(type))
 		{

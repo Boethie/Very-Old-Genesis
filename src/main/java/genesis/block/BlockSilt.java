@@ -39,12 +39,14 @@ public class BlockSilt extends BlockFalling
 	}
 	
 	public final SiltBlocks owner;
-	public final ObjectType<BlockSilt, ItemBlockMulti<EnumSilt>> type;
+	public final ObjectType<EnumSilt, BlockSilt, ItemBlockMulti<EnumSilt>> type;
 	
 	public final PropertyIMetadata<EnumSilt> variantProp;
 	public final List<EnumSilt> variants;
 	
-	public BlockSilt(SiltBlocks owner, ObjectType<BlockSilt, ItemBlockMulti<EnumSilt>> type, List<EnumSilt> variants, Class<EnumSilt> variantClass)
+	public BlockSilt(SiltBlocks owner,
+			ObjectType<EnumSilt, BlockSilt, ItemBlockMulti<EnumSilt>> type,
+			List<EnumSilt> variants, Class<EnumSilt> variantClass)
 	{
 		super(Material.sand);
 		

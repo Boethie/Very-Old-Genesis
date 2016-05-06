@@ -35,9 +35,11 @@ public class ItemCeramicBowl extends ItemGenesis
 	public final ItemsCeramicBowls owner;
 	
 	protected final List<MultiMetadata> variants;
-	protected final ObjectType<Block, ItemCeramicBowl> type;
+	protected final ObjectType<MultiMetadata, Block, ItemCeramicBowl> type;
 	
-	public ItemCeramicBowl(ItemsCeramicBowls owner, ObjectType<Block, ItemCeramicBowl> type, List<MultiMetadata> variants, Class<MultiMetadata> variantClass)
+	public ItemCeramicBowl(ItemsCeramicBowls owner,
+			ObjectType<MultiMetadata, Block, ItemCeramicBowl> type,
+			List<MultiMetadata> variants, Class<MultiMetadata> variantClass)
 	{
 		super();
 		

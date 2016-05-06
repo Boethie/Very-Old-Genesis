@@ -40,12 +40,14 @@ public class BlockGenesisLogs extends BlockLog
 	}
 	
 	public final VariantsOfTypesCombo<EnumTree> owner;
-	public final ObjectType<? extends BlockGenesisLogs, ? extends ItemBlockMulti<EnumTree>> type;
+	public final ObjectType<EnumTree, ? extends BlockGenesisLogs, ? extends ItemBlockMulti<EnumTree>> type;
 	
 	public final List<EnumTree> variants;
 	public final PropertyIMetadata<EnumTree> variantProp;
 	
-	public BlockGenesisLogs(VariantsOfTypesCombo<EnumTree> owner, ObjectType<? extends BlockGenesisLogs, ? extends ItemBlockMulti<EnumTree>> type, List<EnumTree> variants, Class<EnumTree> variantClass)
+	public BlockGenesisLogs(VariantsOfTypesCombo<EnumTree> owner,
+			ObjectType<EnumTree, ? extends BlockGenesisLogs, ? extends ItemBlockMulti<EnumTree>> type,
+			List<EnumTree> variants, Class<EnumTree> variantClass)
 	{
 		super();
 		

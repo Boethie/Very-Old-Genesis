@@ -15,9 +15,11 @@ public class ItemMulti<V extends IMetadata<V>> extends ItemGenesis
 	public final VariantsOfTypesCombo<V> owner;
 	
 	protected final List<V> variants;
-	protected final ObjectType<? extends Block, ? extends ItemMulti<V>> type;
+	protected final ObjectType<V, ? extends Block, ? extends ItemMulti<V>> type;
 	
-	public ItemMulti(VariantsOfTypesCombo<V> owner, ObjectType<? extends Block, ? extends ItemMulti<V>> type, List<V> variants, Class<V> variantClass)
+	public ItemMulti(VariantsOfTypesCombo<V> owner,
+			ObjectType<V, ? extends Block, ? extends ItemMulti<V>> type,
+			List<V> variants, Class<V> variantClass)
 	{
 		super();
 		

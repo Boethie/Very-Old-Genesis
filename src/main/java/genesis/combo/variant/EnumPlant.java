@@ -2,8 +2,6 @@ package genesis.combo.variant;
 
 import java.util.*;
 
-import com.google.common.collect.ImmutableSet;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -42,43 +40,6 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	ASTRALOPTERIS("astralopteris", fern()),
 	MATONIDIUM("matonidium", fern()),
 	ONOCLEA("onoclea", fern());
-	
-	public static final Set<EnumPlant> PLANTS;
-	public static final Set<EnumPlant> FERNS;
-	public static final Set<EnumPlant> SINGLES;
-	public static final Set<EnumPlant> DOUBLES;
-	
-	static
-	{
-		EnumSet<EnumPlant> plants = EnumSet.noneOf(EnumPlant.class);
-		EnumSet<EnumPlant> ferns = EnumSet.noneOf(EnumPlant.class);
-		EnumSet<EnumPlant> singles = EnumSet.noneOf(EnumPlant.class);
-		EnumSet<EnumPlant> doubles = EnumSet.noneOf(EnumPlant.class);
-		
-		for (EnumPlant plant : values())
-		{
-			switch (plant.getType())
-			{
-			case PLANT:
-				plants.add(plant);
-				break;
-			case FERN:
-				ferns.add(plant);
-				break;
-			}
-			
-			if (plant.hasSmall())
-				singles.add(plant);
-			
-			if (plant.hasLarge())
-				doubles.add(plant);
-		}
-		
-		PLANTS = ImmutableSet.copyOf(plants);
-		FERNS = ImmutableSet.copyOf(ferns);
-		SINGLES = ImmutableSet.copyOf(singles);
-		DOUBLES = ImmutableSet.copyOf(doubles);
-	}
 	
 	final String name;
 	final String unlocalizedName;

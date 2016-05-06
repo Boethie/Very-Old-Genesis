@@ -4,8 +4,6 @@ import genesis.util.Constants;
 import genesis.util.MiscUtils;
 import genesis.util.Constants.Unlocalized;
 
-import java.util.*;
-
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.block.Block;
@@ -58,26 +56,22 @@ public class ItemsCeramicBowls extends VariantsOfTypesCombo<MultiMetadata>
 					GenesisDye.valueList(),
 					MiscUtils.iterable(EnumDish.values()));
 	
-	public static final ObjectType<Block, ItemCeramicBowl> MAIN =
-			ObjectType.createItem("ceramic_bowl", Unlocalized.Section.MATERIAL + "ceramicBowl", ItemCeramicBowl.class)
-					.setValidVariants(ALL_VARIANTS.getVariants(EnumCeramicBowls.values()));
-	public static final ObjectType<Block, ItemDyeBowl> DYE =
-			ObjectType.createItem("dye", Unlocalized.Section.MATERIAL + "dye", ItemDyeBowl.class)
-					.setValidVariants(ALL_VARIANTS.getVariants(GenesisDye.valueList()));
-	public static final ObjectType<Block, ItemDish> DISH =
-			ObjectType.createItem("dish", Unlocalized.Section.FOOD + "dish", ItemDish.class)
-					.setValidVariants(ALL_VARIANTS.getVariants(EnumDish.values()))
-						.setResourceName("");
+	public static final ObjectType<MultiMetadata, Block, ItemCeramicBowl> MAIN =
+			ObjectType.createItem(MultiMetadata.class, "ceramic_bowl", Unlocalized.Section.MATERIAL + "ceramicBowl", ItemCeramicBowl.class)
+					.setVariantFilter(MultiMetadataList.filter(EnumCeramicBowls.class));
 	
-	public static final List<ObjectType<?, ?>> ALL_OBJECT_TYPES = new ImmutableList.Builder<ObjectType<?, ?>>()
-		.add(MAIN)
-		.add(DYE)
-		.add(DISH)
-		.build();
+	public static final ObjectType<MultiMetadata, Block, ItemDyeBowl> DYE =
+			ObjectType.createItem(MultiMetadata.class, "dye", Unlocalized.Section.MATERIAL + "dye", ItemDyeBowl.class)
+					.setVariantFilter(MultiMetadataList.filter(GenesisDye.class));
+	
+	public static final ObjectType<MultiMetadata, Block, ItemDish> DISH =
+			ObjectType.createItem(MultiMetadata.class, "dish", Unlocalized.Section.FOOD + "dish", ItemDish.class)
+					.setVariantFilter(MultiMetadataList.filter(EnumDish.class))
+					.setResourceName("");
 	
 	public ItemsCeramicBowls()
 	{
-		super(ALL_OBJECT_TYPES, MultiMetadata.class, ALL_VARIANTS);
+		super(ImmutableList.of(MAIN, DYE, DISH), MultiMetadata.class, ALL_VARIANTS);
 		
 		setNames(Constants.MOD_ID, Unlocalized.PREFIX);
 	}

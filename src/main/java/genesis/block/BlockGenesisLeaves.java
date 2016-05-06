@@ -34,13 +34,13 @@ public class BlockGenesisLeaves extends BlockLeaves
 	public static final IProperty<?>[] STORE_PROPERTIES = { CHECK_DECAY, DECAYABLE };
 	
 	public final TreeBlocksAndItems owner;
-	public final ObjectType<BlockGenesisLeaves, ItemBlockMulti<EnumTree>> type;
+	public final ObjectType<EnumTree, BlockGenesisLeaves, ItemBlockMulti<EnumTree>> type;
 	
 	public final List<EnumTree> variants;
 	public final PropertyIMetadata<EnumTree> variantProp;
 	
 	public BlockGenesisLeaves(TreeBlocksAndItems owner,
-			ObjectType<BlockGenesisLeaves, ItemBlockMulti<EnumTree>> type,
+			ObjectType<EnumTree, BlockGenesisLeaves, ItemBlockMulti<EnumTree>> type,
 			List<EnumTree> variants, Class<EnumTree> variantClass)
 	{
 		super();

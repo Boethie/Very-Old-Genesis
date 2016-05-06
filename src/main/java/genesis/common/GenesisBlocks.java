@@ -39,7 +39,7 @@ public final class GenesisBlocks
 	/* Portal */
 	public static final VariantsCombo<EnumMenhirPart, BlockMenhir, ItemMenhir> menhirs =
 			new VariantsCombo<>(
-					new ObjectType<>("menhir", "menhir", BlockMenhir.class, ItemMenhir.class)
+					new ObjectType<>(EnumMenhirPart.class, "menhir", "menhir", BlockMenhir.class, ItemMenhir.class)
 							.setUseSeparateVariantJsons(false).setShouldRegisterVariantModels(false),
 					EnumMenhirPart.class, EnumMenhirPart.values())
 			.setNames(Constants.MOD_ID, Unlocalized.PREFIX);
@@ -91,7 +91,7 @@ public final class GenesisBlocks
 	public static final BlockCobbania cobbania = (BlockCobbania) new BlockCobbania().setUnlocalizedName(Unlocalized.PREFIX + "cobbania");
 	public static final VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>> aquatic_plants =
 			new VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>>(
-					new ObjectType<BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>>("aquatic_plant", "aquaticPlant", BlockAquaticPlant.class, null)
+					new ObjectType<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>>(EnumAquaticPlant.class, "aquatic_plant", "aquaticPlant", BlockAquaticPlant.class, null)
 							.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE),
 					EnumAquaticPlant.class, EnumAquaticPlant.values());
 	
@@ -179,7 +179,7 @@ public final class GenesisBlocks
 	
 	public static final VariantsCombo<EnumCoral, BlockGenesisVariants<EnumCoral>, ItemBlockMulti<EnumCoral>> corals =
 			VariantsCombo.create(
-					new ObjectType<BlockGenesisVariants<EnumCoral>, ItemBlockMulti<EnumCoral>>("coral", ReflectionUtils.convertClass(BlockGenesisVariants.class), null)
+					new ObjectType<EnumCoral, BlockGenesisVariants<EnumCoral>, ItemBlockMulti<EnumCoral>>(EnumCoral.class, "coral", ReflectionUtils.convertClass(BlockGenesisVariants.class), null)
 							.setConstructedFunction((b, i) -> b.setHardness(0.75F).setResistance(8.5F))
 							.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE)
 							.setCreativeTab(GenesisCreativeTabs.DECORATIONS)

@@ -43,7 +43,8 @@ public class BlockGenesisDebris extends BlockGenesisVariants<MultiMetadata>
 	
 	protected final DebrisBlocks debrisOwner;
 	
-	public BlockGenesisDebris(DebrisBlocks owner, ObjectType<BlockGenesisDebris, ItemBlockMulti<MultiMetadata>> type,
+	public BlockGenesisDebris(DebrisBlocks owner,
+			ObjectType<MultiMetadata, BlockGenesisDebris, ItemBlockMulti<MultiMetadata>> type,
 			List<MultiMetadata> variants, Class<MultiMetadata> variantClass)
 	{
 		super(owner, type, variants, variantClass, Material.vine, GenesisSoundTypes.DEBRIS);

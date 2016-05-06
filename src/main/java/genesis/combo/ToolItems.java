@@ -1,6 +1,7 @@
 package genesis.combo;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.google.common.collect.*;
 
@@ -73,10 +74,10 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 	public static final ToolObjectType<Block, ItemToolHead> ARROW_HEAD =
 			new ToolObjectType<>("head_arrow", Section.TOOL_HEAD + "arrow", null, ItemToolHead.class, WEAPON_QUALITIES);
 	
-	private static final ImmutableList<ObjectType<?, ?>> MATERIALS =
+	private static final ImmutableList<ObjectType<ToolType, ?, ?>> MATERIALS =
 			ImmutableList.of(
 					PEBBLE);
-	private static final ImmutableList<ObjectType<?, ?>> TOOLS =
+	private static final ImmutableList<ObjectType<ToolType, ?, ?>> TOOLS =
 			ImmutableList.of(
 					CHOPPING_TOOL,
 					SHOVEL_HEAD, SHOVEL,
@@ -84,7 +85,7 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 					AXE_HEAD, AXE,
 					HOE_HEAD, HOE,
 					KNIFE_HEAD, KNIFE);
-	private static final ImmutableList<ObjectType<?, ?>> WEAPONS =
+	private static final ImmutableList<ObjectType<ToolType, ?, ?>> WEAPONS =
 			ImmutableList.of(
 					CLUB_HEAD, CLUB,
 					SPEAR_HEAD, SPEAR,
@@ -95,19 +96,24 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 		PEBBLE.setUseSeparateVariantJsons(false);
 		CHOPPING_TOOL.setUseVariantAsRegistryName(true);
 		
-		for (ObjectType<?, ?> type: MATERIALS)
+		for (ObjectType<ToolType, ?, ?> type: MATERIALS)
 			type.setCreativeTab(GenesisCreativeTabs.MATERIALS);
 		
-		for (ObjectType<?, ?> type : TOOLS)
+		for (ObjectType<ToolType, ?, ?> type : TOOLS)
 			type.setCreativeTab(GenesisCreativeTabs.TOOLS);
 		
-		for (ObjectType<?, ?> type : WEAPONS)
+		for (ObjectType<ToolType, ?, ?> type : WEAPONS)
 			type.setCreativeTab(GenesisCreativeTabs.COMBAT);
 	}
 	
 	public ToolItems()
 	{
-		super(new ImmutableList.Builder<ObjectType<?, ?>>().addAll(MATERIALS).addAll(TOOLS).addAll(WEAPONS).build(),
+		super(
+				ImmutableList.<ObjectType<ToolType, ?, ?>>builder()
+						.addAll(MATERIALS)
+						.addAll(TOOLS)
+						.addAll(WEAPONS)
+						.build(),
 				ToolType.class, ToolTypes.getAll());
 		
 		setNames(Constants.MOD_ID, Unlocalized.PREFIX);
@@ -217,7 +223,7 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 	/**
 	 * An {@link ObjectType} with only two tool quality levels.
 	 */
-	public static class ToolObjectType<B extends Block, I extends Item> extends ObjectType<B, I>
+	public static class ToolObjectType<B extends Block, I extends Item> extends ObjectType<ToolType, B, I>
 	{
 		public final HashSet<EnumToolQuality> validQualities;
 		public final EnumToolQuality badQuality;
@@ -226,7 +232,7 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 		
 		public ToolObjectType(String name, String unlocalizedName, Class<B> blockClass, Class<I> itemClass, EnumToolQuality[] qualities, EnumToolQuality badQuality, EnumToolQuality goodQuality, EnumToolMaterial... materialExclusions)
 		{
-			super(name, unlocalizedName, blockClass, itemClass);
+			super(ToolType.class, name, unlocalizedName, blockClass, itemClass);
 			
 			this.validQualities = Sets.newHashSet(qualities);
 			this.badQuality = badQuality;
@@ -250,22 +256,11 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 		}
 		
 		@Override
-		public <V extends IMetadata<V>> List<V> getValidVariants(List<V> list)
+		public List<ToolType> getValidVariants(List<ToolType> list)
 		{
-			Iterator<V> iter = list.iterator();
-			
-			while (iter.hasNext())
-			{
-				ToolType type = (ToolType) iter.next();
-				
-				if (!validQualities.contains(type.quality) ||
-						materialExclusions.contains(type.material))
-				{
-					iter.remove();
-				}
-			}
-			
-			return list;
+			return list.stream()
+					.filter((v) -> validQualities.contains(v.quality) && !materialExclusions.contains(v.material))
+					.collect(Collectors.toList());
 		}
 		
 		@Override

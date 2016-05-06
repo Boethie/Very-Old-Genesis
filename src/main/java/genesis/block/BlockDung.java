@@ -43,7 +43,9 @@ public class BlockDung extends BlockGenesisVariants<EnumDung>
 	
 	private boolean ready = false;
 	
-	public BlockDung(VariantsOfTypesCombo<EnumDung> owner, ObjectType<? extends BlockGenesisVariants<EnumDung>, ? extends Item> type, List<EnumDung> variants, Class<EnumDung> variantClass)
+	public BlockDung(VariantsOfTypesCombo<EnumDung> owner,
+			ObjectType<EnumDung, ? extends BlockGenesisVariants<EnumDung>, ? extends Item> type,
+			List<EnumDung> variants, Class<EnumDung> variantClass)
 	{
 		super(owner, type, variants, variantClass, Material.ground, GenesisSoundTypes.DUNG);
 		

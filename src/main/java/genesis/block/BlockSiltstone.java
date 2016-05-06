@@ -32,12 +32,14 @@ public class BlockSiltstone extends BlockGenesis
 	}
 	
 	public final SiltBlocks owner;
-	public final ObjectType<BlockSiltstone, ItemBlockMulti<EnumSilt>> type;
+	public final ObjectType<EnumSilt, BlockSiltstone, ItemBlockMulti<EnumSilt>> type;
 	
 	public final PropertyIMetadata<EnumSilt> variantProp;
 	public final List<EnumSilt> variants;
 	
-	public BlockSiltstone(SiltBlocks owner, ObjectType<BlockSiltstone, ItemBlockMulti<EnumSilt>> type, List<EnumSilt> variants, Class<EnumSilt> variantClass)
+	public BlockSiltstone(SiltBlocks owner,
+			ObjectType<EnumSilt, BlockSiltstone, ItemBlockMulti<EnumSilt>> type,
+			List<EnumSilt> variants, Class<EnumSilt> variantClass)
 	{
 		super(Material.rock, SoundType.STONE);
 		
