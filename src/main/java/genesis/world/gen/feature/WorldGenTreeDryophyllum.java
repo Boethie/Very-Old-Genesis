@@ -27,7 +27,7 @@ public class WorldGenTreeDryophyllum extends WorldGenTreeBase
 	protected boolean doGenerate(World world, Random rand, BlockPos pos)
 	{
 		int height = heightProvider.get(rand);
-		int base = 4 + rand.nextInt(4);
+		int base = 5 + rand.nextInt(4);
 		
 		if (!isCubeClear(world, pos.up(base), 3, height))
 		{

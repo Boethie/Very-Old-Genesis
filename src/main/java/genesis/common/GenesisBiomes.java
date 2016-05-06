@@ -122,12 +122,12 @@ public final class GenesisBiomes
 		prop.setTemperature(1.1F);
 		prop.setRainfall(0.9F);
 		prop.setBaseHeight(0.035F);
-		prop.setHeightVariation(0.135F);
+		prop.setHeightVariation(0.1F);
 		prop.setWaterColor(0x725113);
 		
 		woodlands = new BiomeGenWoodlands(prop);
 		BiomeManagerGenesis.registerBiome(woodlands, GenesisConfig.woodlandsId, BiomeType.WARM, GenesisConfig.woodlandsWeight);
-		BiomeDictionary.registerBiomeType(woodlands, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		BiomeDictionary.registerBiomeType(woodlands, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		prop = new BiomeGenBase.BiomeProperties("Woodlands M");
 		prop.setTemperature(1.1F);
@@ -138,7 +138,7 @@ public final class GenesisBiomes
 		
 		woodlandsM = new BiomeGenWoodlandsM(prop);
 		BiomeGenBase.registerBiome(GenesisConfig.woodlandsId + 128, woodlandsM.getBiomeName(), woodlandsM);
-		BiomeDictionary.registerBiomeType(woodlandsM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		BiomeDictionary.registerBiomeType(woodlandsM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		prop = new BiomeGenBase.BiomeProperties("Woodlands Hills");
 		prop.setTemperature(1.1F);
@@ -149,7 +149,7 @@ public final class GenesisBiomes
 		
 		woodlandsHills = new BiomeGenWoodlands(prop);
 		BiomeGenBase.registerBiome(GenesisConfig.woodlandsHillsId, woodlandsHills.getBiomeName(), woodlandsHills);
-		BiomeDictionary.registerBiomeType(woodlandsHills, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		BiomeDictionary.registerBiomeType(woodlandsHills, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		prop = new BiomeGenBase.BiomeProperties("Metasequoia Forest");
 		prop.setTemperature(1.1F);

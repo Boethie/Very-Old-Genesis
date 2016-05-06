@@ -31,7 +31,7 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		addGrass(WorldGenPlant.create(EnumPlant.ONOCLEA).setPatchCount(9), 1);
 		
 		getDecorator().setFlowerCount(0.15F);
-		addFlower(WorldGenPlant.create(EnumPlant.PALAEOASTER).setPatchCount(6), 1);
+		addFlower(WorldGenPlant.create(EnumPlant.PALAEOASTER).setPatchCount(9), 1);
 		
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setPatchCount(3), 0.15F);
 		addDecoration(WorldGenCircleReplacement.getPeatGen(), 1);
@@ -52,18 +52,18 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 	
 	protected void addTrees()
 	{
-		getDecorator().setTreeCount(8.1F);
+		getDecorator().setTreeCount(6.9F);
 		
-		addTree(new WorldGenTreeLaurophyllum(3, 4, false), 1500);
-		addTree(new WorldGenTreeFicus(4, 8, false), 125);
-		addTree(new WorldGenTreeGinkgo(8, 13, false), 166);
-		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 45);
-		addTree(new WorldGenTreeDryophyllum(11, 15, false), 6000);
-		addTree(new WorldGenTreeDryophyllum(13, 17, false).setType(TreeTypes.TYPE_2), 100);
-		addTree(new WorldGenTreeMetasequoia(12, 24, true), 1000);
+		addTree(new WorldGenTreeLaurophyllum(3, 4, false), 100);
+		addTree(new WorldGenTreeFicus(4, 8, false), 30);
+		addTree(new WorldGenTreeGinkgo(8, 13, false), 11);
+		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 3);
+		addTree(new WorldGenTreeDryophyllum(11, 15, false), 600);
+		addTree(new WorldGenTreeDryophyllum(13, 17, false).setType(TreeTypes.TYPE_2), 10);
+		addTree(new WorldGenTreeMetasequoia(12, 24, true), 100);
 		
-		addTree(new WorldGenDeadLog(3, 6, EnumTree.DRYOPHYLLUM, true), 1200);
-		addTree(new WorldGenDeadLog(3, 6, EnumTree.METASEQUOIA, true), 200);
+		addTree(new WorldGenDeadLog(3, 6, EnumTree.DRYOPHYLLUM, true), 120);
+		addTree(new WorldGenDeadLog(3, 6, EnumTree.METASEQUOIA, true), 20);
 	}
 	
 	@Override
