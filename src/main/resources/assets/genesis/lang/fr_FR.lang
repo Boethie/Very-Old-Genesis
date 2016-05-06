@@ -468,12 +468,12 @@ item.genesis.clothing.camouflage.leggings.name=Pantalon en camouflage
 item.genesis.clothing.camouflage.boots.name=Bottes en camouflage
 
 #Materials
-item.genesis.material.pebble.dolerite.name=Galet de dolérite
-item.genesis.material.pebble.rhyolite.name=Galet de rhyolite
-item.genesis.material.pebble.granite.name=Galet de granite
-item.genesis.material.pebble.quartz.name=Galet de quartz
-item.genesis.material.pebble.brownFlint.name=Galet de silex brun
-item.genesis.material.pebble.blackFlint.name=Galet de silex noir
+tile.genesis.material.pebble.dolerite.name=Galet de dolérite
+tile.genesis.material.pebble.rhyolite.name=Galet de rhyolite
+tile.genesis.material.pebble.granite.name=Galet de granite
+tile.genesis.material.pebble.quartz.name=Galet de quartz
+tile.genesis.material.pebble.brownFlint.name=Galet de silex brun
+tile.genesis.material.pebble.blackFlint.name=Galet de silex noir
 
 item.genesis.material.redClay.name=Argile rouge
 item.genesis.material.redClayBowl.name=Bol en argile rouge

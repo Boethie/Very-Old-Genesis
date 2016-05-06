@@ -469,12 +469,12 @@ item.genesis.clothing.camouflage.leggings.name=Camouflage Leggings
 item.genesis.clothing.camouflage.boots.name=Camouflage Boots
 
 #Materials
-item.genesis.material.pebble.dolerite.name=Dolerite Pebble
-item.genesis.material.pebble.rhyolite.name=Rhyolite Pebble
-item.genesis.material.pebble.granite.name=Granite Pebble
-item.genesis.material.pebble.quartz.name=Quartz Pebble
-item.genesis.material.pebble.brownFlint.name=Brown Flint Pebble
-item.genesis.material.pebble.blackFlint.name=Black Flint Pebble
+tile.genesis.material.pebble.dolerite.name=Dolerite Pebble
+tile.genesis.material.pebble.rhyolite.name=Rhyolite Pebble
+tile.genesis.material.pebble.granite.name=Granite Pebble
+tile.genesis.material.pebble.quartz.name=Quartz Pebble
+tile.genesis.material.pebble.brownFlint.name=Brown Flint Pebble
+tile.genesis.material.pebble.blackFlint.name=Black Flint Pebble
 
 item.genesis.material.quartz.name=Quartz
 item.genesis.material.amethyst.name=Amethyst

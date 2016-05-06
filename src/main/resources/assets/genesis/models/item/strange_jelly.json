@@ -1,6 +1,6 @@
 {
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "genesis:items/astral_jelly"
+		"layer0": "genesis:items/strange_jelly"
 	}
 }
