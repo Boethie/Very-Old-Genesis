@@ -8,7 +8,7 @@ import com.google.common.collect.*;
 import genesis.combo.*;
 import genesis.combo.variant.IMetadata;
 import genesis.util.ItemStackKey;
-
+import genesis.util.StreamUtils;
 import net.minecraft.block.*;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
@@ -22,7 +22,6 @@ import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 import net.minecraftforge.common.*;
 
-import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.fml.common.eventhandler.*;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
@@ -36,13 +35,15 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 	
 	public static class PropertyContents extends PropertyHelper<ItemStackKey>
 	{
-		protected final BiMap<ItemStackKey, String> values;
+		protected final Map<ItemStackKey, String> values;
+		protected final Map<String, ItemStackKey> parse;
 		
-		public PropertyContents(String name, BiMap<ItemStackKey, String> values)
+		public PropertyContents(String name, Map<ItemStackKey, String> values)
 		{
 			super(name, ItemStackKey.class);
 			
-			this.values = values;
+			this.values = ImmutableMap.copyOf(values);
+			this.parse = this.values.entrySet().stream().collect(StreamUtils.toImmMap((e) -> e.getValue(), (e) -> e.getKey()));
 		}
 		
 		@Override
@@ -62,7 +63,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		public Optional<ItemStackKey> parseValue(String value)
 		{
 			if (values.containsValue(value))
-				return Optional.of(values.inverse().get(value));
+				return Optional.of(parse.get(value));
 			
 			return Optional.absent();
 		}
@@ -91,7 +92,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		return newKey;
 	}
 	
-	private static final BiMap<ItemStackKey, String> stacksToNames = HashBiMap.create();//new LinkedHashMap<ItemStackKey, String>();
+	private static final Map<ItemStackKey, String> stacksToNames = new LinkedHashMap<ItemStackKey, String>();
 	private static final Map<ItemStackKey, IFlowerPotPlant> stacksToCustoms = new HashMap<ItemStackKey, IFlowerPotPlant>();
 	
 	public static void registerPlantForPot(ItemStack stack, String name)
