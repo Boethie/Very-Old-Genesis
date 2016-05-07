@@ -6,7 +6,8 @@
 			"flowerpot": "blocks/flower_pot",
 			"dirt": "blocks/dirt"
 		},
-		"model": "flower_pot_fern"
+		"model": "flower_pot_fern",
+		"smooth_lighting": false
 	},
 	"variants": {
 		"contents": {

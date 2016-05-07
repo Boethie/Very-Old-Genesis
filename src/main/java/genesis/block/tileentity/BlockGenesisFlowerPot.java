@@ -12,14 +12,20 @@ import genesis.util.ItemStackKey;
 import net.minecraft.block.*;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.tileentity.*;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 import net.minecraftforge.common.*;
 
 import net.minecraftforge.event.entity.player.*;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.fml.common.eventhandler.*;
+import net.minecraftforge.fml.common.eventhandler.Event.Result;
 
 public class BlockGenesisFlowerPot extends BlockFlowerPot
 {
@@ -51,7 +57,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		{
 			return values.get(value);
 		}
-
+		
 		@Override
 		public Optional<ItemStackKey> parseValue(String value)
 		{
@@ -184,17 +190,14 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 	}
 	
 	@SubscribeEvent
-	public void onBlockInteracted(PlayerInteractEvent event)
+	public void onBlockInteracted(RightClickBlock event)
 	{
-		/* TODO: Figure out how this works with dual wielding.
-		if (event.getAction() != PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK)
-		{
-			return;
-		}
-		
-		ItemStack stack = event.getEntityPlayer().getHeldItemMainhand();
+		ItemStack stack = event.getItemStack();
 		
 		if (stack == null)
+			return;
+		
+		if (event.getEntityPlayer().isSneaking())
 			return;
 		
 		World world = event.getWorld();
@@ -206,54 +209,60 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 			return;
 		
 		state = Blocks.flower_pot.getActualState(state, world, pos);
-		EnumFlowerType contents = state.getValue(BlockFlowerPot.CONTENTS);
 		
-		if (contents != EnumFlowerType.EMPTY)
-		{
+		if (state.getValue(BlockFlowerPot.CONTENTS) != EnumFlowerType.EMPTY)
 			return;
-		}
 		
 		if (isPlantRegistered(stack))
 		{
 			world.setBlockState(pos, getDefaultState());
+			event.setUseItem(Result.DENY);
 			
-			TileEntityGenesisFlowerPot pot = getTileEntity(world, pos);
+			//TODO: Hopefully in future we can set the contents in here so the plant doesn't flicker.
+		}
+	}
+	
+	@Override
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state,
+			EntityPlayer player, EnumHand hand, ItemStack heldStack,
+			EnumFacing side, float hitX, float hitY, float hitZ)
+	{
+		if (isPlantRegistered(heldStack))
+		{
+			TileEntityGenesisFlowerPot pot = getOrCreateTileEntity(world, pos);
 			
-			if (pot != null)
+			if (pot.getContents() != null)
+				return false;
+			
+			ItemStack potStack;
+			
+			if (player.capabilities.isCreativeMode)
 			{
-				pot.setContents(stack);
-				
-				event.setUseBlock(Result.DENY);
-				event.setUseItem(Result.DENY);
-				
-				EntityPlayer player = event.getEntityPlayer();
-				
-				if (world.isRemote)	// We must send a packet to the server telling it that the player right clicked or else it won't place the plant in the flower pot.
-				{
-					Minecraft mc = GenesisClient.getMC();
-					EntityPlayerSP spPlayer = mc.thePlayer;
-					
-					if (spPlayer == player)
-					{
-						Vec3d hitVec = mc.objectMouseOver.hitVec;
-						hitVec = hitVec.subtract(pos.getX(), pos.getY(), pos.getZ());
-						Packet<?> packet = new CPacketPlayerBlockPlacement(pos, event.getFace().getIndex(), stack, (float) hitVec.xCoord, (float) hitVec.yCoord, (float) hitVec.zCoord);
-						spPlayer.sendQueue.addToSendQueue(packet);
-						
-						event.setCanceled(true);
-					}
-				}
-				
-				if (!player.capabilities.isCreativeMode)
-				{
-					stack.stackSize--;
-				}
+				potStack = heldStack.copy();
+				potStack.stackSize = 1;
 			}
 			else
 			{
-				world.setBlockState(pos, state);
+				potStack = heldStack.splitStack(1);
 			}
-		}*/
+			
+			pot.setContents(potStack);
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public TileEntityGenesisFlowerPot getOrCreateTileEntity(World world, BlockPos pos)
+	{
+		TileEntityGenesisFlowerPot pot = getTileEntity(world, pos);
+		
+		if (pot != null)
+			return pot;
+		
+		pot = createTileEntity(world, world.getBlockState(pos));
+		world.setTileEntity(pos, pot);
+		return pot;
 	}
 	
 	public static TileEntityGenesisFlowerPot getTileEntity(IBlockAccess world, BlockPos pos)

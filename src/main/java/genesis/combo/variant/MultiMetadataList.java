@@ -1,6 +1,7 @@
 package genesis.combo.variant;
 
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -11,6 +12,11 @@ import com.google.common.collect.*;
 
 public class MultiMetadataList implements List<MultiMetadata>
 {
+	public static <V extends IMetadata<V>> Predicate<MultiMetadata> filter(Class<V> clazz)
+	{
+		return (v) -> clazz.isInstance(v.getOriginal());
+	}
+	
 	private final List<MultiMetadata> variants;
 	private final Map<IMetadata<?>, MultiMetadata> map;
 	
