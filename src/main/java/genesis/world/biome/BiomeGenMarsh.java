@@ -33,7 +33,7 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		addFlower(WorldGenPlant.create(EnumPlant.COOKSONIA).setPatchCount(4), 1);
 		
 		addDecoration(new WorldGenMossStages(), 30);
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.prototaxites).setPatchCount(3), 0.166F);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.prototaxites).setPatchCount(3), 0.142F);
 	}
 	
 	@Override
