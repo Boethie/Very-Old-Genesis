@@ -55,7 +55,8 @@ public class PlantBlocks extends VariantsOfTypesCombo<EnumPlant>
 	
 	public PlantBlocks()
 	{
-		super(ImmutableList.of(PLANT, DOUBLE_PLANT, FERN, DOUBLE_FERN), EnumPlant.class, ImmutableList.copyOf(EnumPlant.values()));
+		super("plants", ImmutableList.of(PLANT, DOUBLE_PLANT, FERN, DOUBLE_FERN),
+				EnumPlant.class, ImmutableList.copyOf(EnumPlant.values()));
 	}
 	
 	public ObjectType<EnumPlant, BlockPlant<EnumPlant>, ItemBlockMulti<EnumPlant>> getType(EnumPlant variant)

@@ -28,7 +28,8 @@ public class DungBlocksAndItems extends VariantsOfTypesCombo<EnumDung>
 	
 	public DungBlocksAndItems()
 	{
-		super(ImmutableList.of(DUNG_BLOCK, DUNG), EnumDung.class, ImmutableList.copyOf(EnumDung.values()));
+		super("dungs", ImmutableList.of(DUNG_BLOCK, DUNG),
+				EnumDung.class, ImmutableList.copyOf(EnumDung.values()));
 		
 		setNames(Constants.MOD_ID, Unlocalized.PREFIX);
 	}

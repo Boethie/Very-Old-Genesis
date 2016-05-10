@@ -52,7 +52,7 @@ public class WorldGenCorals extends WorldGenDecorationBase
 		
 		int height = minHeight + random.nextInt(maxHeight);
 		
-		IBlockState coralBlock = GenesisBlocks.corals.getBlockState(coralType);
+		IBlockState coralBlock = GenesisBlocks.coral.getBlockState(coralType);
 		
 		if (random.nextInt(2) == 0)
 		{

@@ -120,19 +120,20 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	/**
 	 * Map of Block/Item types to a map of variants to the block/item itself.
 	 */
-	public final ImmutableList<ObjectType<V, ?, ?>> types;
-	public final ImmutableList<V> variants;
-	public final Class<V> variantClass;
+	private final String name;
+	private final ImmutableList<ObjectType<V, ?, ?>> types;
+	private final ImmutableList<V> variants;
+	private final Class<V> variantClass;
 	
-	protected final ImmutableTable<ObjectType<V, ?, ?>, V, VariantData> variantDataTable;	// TODO: Revisit access modifiers.
-	protected final ImmutableTable<ObjectType<V, ?, ?>, Integer, SubsetData> subsetDataTable;
-	protected final ImmutableMap<Block, SubsetData> blockMap;
-	protected final ImmutableMap<Item, SubsetData> itemMap;
+	private final ImmutableTable<ObjectType<V, ?, ?>, V, VariantData> variantDataTable;	// TODO: Revisit access modifiers.
+	private final ImmutableTable<ObjectType<V, ?, ?>, Integer, SubsetData> subsetDataTable;
+	private final ImmutableMap<Block, SubsetData> blockMap;
+	private final ImmutableMap<Item, SubsetData> itemMap;
 	
 	private final HashSet<ObjectType<V, ?, ?>> registeredTypes = new HashSet<>();
 	
-	protected String resourceDomain = "";
-	protected String unlocalizedPrefix = "";
+	private String resourceDomain = "";
+	private String unlocalizedPrefix = "";
 	
 	/**
 	 * Creates a {@link #VariantsOfTypesCombo} with each {@link Block}/{@link Item} represented by the list of {@link ObjectType},
@@ -152,9 +153,11 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	 * @param variants The {@link IMetadata} representations of the variants to store for each Block/Item.
 	 */
 	@SuppressWarnings("unchecked")
-	public VariantsOfTypesCombo(List<? extends ObjectType<V, ?, ?>> types,
+	public VariantsOfTypesCombo(String id,
+			List<? extends ObjectType<V, ?, ?>> types,
 			Class<V> variantClass, List<? extends V> variants)
 	{
+		this.name = id;
 		this.types = ImmutableList.copyOf(types);
 		this.variants = ImmutableList.copyOf(variants);
 		this.variantClass = variantClass;
@@ -362,6 +365,26 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 		}
 	}
 	
+	public String getName()
+	{
+		return name;
+	}
+	
+	public List<ObjectType<V, ?, ?>> getTypes()
+	{
+		return types;
+	}
+	
+	public List<V> getVariants()
+	{
+		return variants;
+	}
+	
+	public Class<V> getVariantClass()
+	{
+		return variantClass;
+	}
+	
 	public VariantsOfTypesCombo<V> setNames(String domain, String unloc)
 	{
 		resourceDomain = domain;
@@ -514,14 +537,6 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		SubsetData subset = getSubsetData(block);
 		return subset != null ? subset.variantProperty : null;
-	}
-	
-	/**
-	 * @return A String to help identifying which combo is causing an error.
-	 */
-	public String getIdentification()
-	{
-		return "This " + getClass().getSimpleName() + " contains " + ObjectType.class.getSimpleName() + "s " + Stringify.stringifyIterable(types) + " and variants " + Stringify.stringifyIterable(variants) + ".";
 	}
 	
 	/**
@@ -1040,7 +1055,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	/**
 	 * @return The internal Table containing the mappings of {@link ObjectType} and variant to {@link VariantData}
 	 */
-	public Table<ObjectType<V, ?, ?>, V, VariantData> getVariants()
+	public Table<ObjectType<V, ?, ?>, V, VariantData> getVariantTable()
 	{
 		return variantDataTable;
 	}
@@ -1048,8 +1063,22 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	/**
 	 * @return The internal Table containing the mappings of {@link ObjectType} and subset ID to {@link SubsetData}
 	 */
-	public Table<ObjectType<V, ?, ?>, Integer, SubsetData> getSubsets()
+	public Table<ObjectType<V, ?, ?>, Integer, SubsetData> getSubsetTable()
 	{
 		return subsetDataTable;
+	}
+	
+	/**
+	 * @return A String to help identifying which combo is causing an error.
+	 */
+	public String getIdentification()
+	{
+		return "This " + getClass().getSimpleName() + " named " + getName() + " contains " + ObjectType.class.getSimpleName() + "s " + Stringify.stringifyIterable(types) + " and variants " + Stringify.stringifyIterable(variants) + ".";
+	}
+	
+	@Override
+	public String toString()
+	{
+		return getName() + "[types=" + getTypes() + ",variantClass" + getVariantClass() + "]";
 	}
 }

@@ -31,7 +31,7 @@ public class ClothingItems extends VariantsOfTypesCombo<EnumClothing>
 	
 	public ClothingItems()
 	{
-		super(ImmutableList.of(HELMET, CHESTPLATE, LEGGINGS, BOOTS),
+		super("clothing", ImmutableList.of(HELMET, CHESTPLATE, LEGGINGS, BOOTS),
 				EnumClothing.class, ImmutableList.copyOf(EnumClothing.values()));
 		
 		setNames(Constants.MOD_ID, Unlocalized.CLOTHING);

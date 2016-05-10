@@ -30,7 +30,9 @@ public class DebrisBlocks extends VariantsCombo<MultiMetadata, BlockGenesisDebri
 	
 	public DebrisBlocks()
 	{
-		super(ObjectType.createBlock(MultiMetadata.class, "debris", BlockGenesisDebris.class), MultiMetadata.class, VARIANTS);
+		super("debris",
+				ObjectType.createBlock(MultiMetadata.class, "debris", BlockGenesisDebris.class),
+				MultiMetadata.class, VARIANTS);
 		
 		setNames(Constants.MOD_ID, Unlocalized.PREFIX);
 		

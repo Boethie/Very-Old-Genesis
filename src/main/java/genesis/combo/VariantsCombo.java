@@ -16,14 +16,16 @@ import net.minecraft.item.*;
  */
 public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends Item> extends VariantsOfTypesCombo<V>
 {
-	public static <V extends IMetadata<V>, B extends Block, I extends Item> VariantsCombo<V, B, I> create(ObjectType<V, B, I> objectType, Class<V> variantClass, List<V> variants)
+	public static <V extends IMetadata<V>, B extends Block, I extends Item>
+	VariantsCombo<V, B, I> create(String name, ObjectType<V, B, I> type, Class<V> variantClass, List<V> variants)
 	{
-		return new VariantsCombo<V, B, I>(objectType, variantClass, variants);
+		return new VariantsCombo<V, B, I>(name, type, variantClass, variants);
 	}
 	
-	public static <V extends IMetadata<V>, B extends Block, I extends Item> VariantsCombo<V, B, I> create(ObjectType<V, B, I> objectType, Class<V> variantClass, V[] variants)
+	public static <V extends IMetadata<V>, B extends Block, I extends Item>
+	VariantsCombo<V, B, I> create(String name, ObjectType<V, B, I> objectType, Class<V> variantClass, V[] variants)
 	{
-		return new VariantsCombo<V, B, I>(objectType, variantClass, variants);
+		return new VariantsCombo<V, B, I>(name, objectType, variantClass, variants);
 	}
 	
 	private final ObjectType<V, B, I> type;
@@ -33,9 +35,9 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	 *  
 	 * @param objectType The sole ObjectType that this VariantsCombo will use.
 	 */
-	public VariantsCombo(final ObjectType<V, B, I> objectType, Class<V> variantClass, List<V> variants)
+	public VariantsCombo(String name, ObjectType<V, B, I> objectType, Class<V> variantClass, List<V> variants)
 	{
-		super(ImmutableList.of(objectType), variantClass, variants);
+		super(name, ImmutableList.of(objectType), variantClass, variants);
 		
 		type = objectType;
 	}
@@ -45,9 +47,9 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	 *  
 	 * @param objectType The sole ObjectType that this VariantsCombo will use.
 	 */
-	public VariantsCombo(ObjectType<V, B, I> objectType, Class<V> variantClass, V[] variants)
+	public VariantsCombo(String name, ObjectType<V, B, I> objectType, Class<V> variantClass, V[] variants)
 	{
-		this(objectType, variantClass, Arrays.asList(variants));
+		this(name, objectType, variantClass, ImmutableList.copyOf(variants));
 	}
 	
 	/**
@@ -58,10 +60,10 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	 * @param blockClass The Block class to initialize for each variant.
 	 * @param itemClass the Item class to initialize for each variant.
 	 */
-	public VariantsCombo(String name, String unlocalizedName, Class<B> blockClass, Class<I> itemClass,
+	public VariantsCombo(String name, String typeName, String typeUnlocalizedName, Class<B> blockClass, Class<I> itemClass,
 			Class<V> variantClass, V[] variants)
 	{
-		this(new ObjectType<V, B, I>(variantClass, name, unlocalizedName, blockClass, itemClass),
+		this(name, new ObjectType<V, B, I>(variantClass, typeName, typeUnlocalizedName, blockClass, itemClass),
 				variantClass, variants);
 	}
 	
@@ -72,9 +74,10 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	 * @param blockClass The Block class to initialize for each variant.
 	 * @param itemClass the Item class to initialize for each variant.
 	 */
-	public VariantsCombo(String name, Class<B> blockClass, Class<I> itemClass, Class<V> variantClass, V[] variants)
+	public VariantsCombo(String name, String typeName, Class<B> blockClass, Class<I> itemClass,
+			Class<V> variantClass, V[] variants)
 	{
-		this(name, name, blockClass, itemClass, variantClass, variants);
+		this(name, typeName, typeName, blockClass, itemClass, variantClass, variants);
 	}
 	
 	/**
@@ -84,9 +87,9 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	 *  
 	 * @param name The name to attach to each variant (i.e. "ore", to result in "variant_ore").
 	 */
-	public VariantsCombo(String name, String unlocalizedName, Class<V> variantClass, V[] variants)
+	public VariantsCombo(String name, String typeName, String typeUnlocalizedName, Class<V> variantClass, V[] variants)
 	{
-		this(name, unlocalizedName, null, null, variantClass, variants);
+		this(name, typeName, typeUnlocalizedName, null, null, variantClass, variants);
 	}
 	
 	/**
@@ -96,9 +99,9 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	 *  
 	 * @param name The name to attach to each variant (i.e. "ore", to result in "variant_ore").
 	 */
-	public VariantsCombo(String name, Class<V> variantClass, V[] variants)
+	public VariantsCombo(String name, String typeName, Class<V> variantClass, V[] variants)
 	{
-		this(name, name, variantClass, variants);
+		this(name, typeName, typeName, variantClass, variants);
 	}
 	
 	public ObjectType<V, B, I> getObjectType()

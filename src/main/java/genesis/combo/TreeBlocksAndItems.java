@@ -107,7 +107,8 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo<EnumTree>
 	
 	public TreeBlocksAndItems()
 	{
-		super(TYPES, EnumTree.class, ImmutableList.copyOf(EnumTree.values()));
+		super("trees", TYPES,
+				EnumTree.class, ImmutableList.copyOf(EnumTree.values()));
 		
 		setNames(Constants.MOD_ID, Constants.Unlocalized.PREFIX);
 	}

@@ -262,7 +262,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 				validGround.add(block);
 			}
 			
-			validGround.addAll(GenesisBlocks.corals.getBlocks());
+			validGround.addAll(GenesisBlocks.coral.getBlocks());
 		}
 		
 		IBlockState below = world.getBlockState(pos.down());

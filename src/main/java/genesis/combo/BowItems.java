@@ -14,7 +14,8 @@ public class BowItems extends VariantsCombo<BowVariant, Block, ItemBowMulti<BowV
 {
 	public BowItems()
 	{
-		super(ObjectType.createItem(BowVariant.class, "bow", ReflectionUtils.convertClass(ItemBowMulti.class)),
+		super("bows",
+				ObjectType.createItem(BowVariant.class, "bow", ReflectionUtils.convertClass(ItemBowMulti.class)),
 				BowVariant.class, BowVariants.getAll());
 		
 		setNames(Constants.MOD_ID, Unlocalized.PREFIX);

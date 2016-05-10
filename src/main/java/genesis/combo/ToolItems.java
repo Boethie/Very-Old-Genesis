@@ -108,7 +108,7 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 	
 	public ToolItems()
 	{
-		super(
+		super("tools",
 				ImmutableList.<ObjectType<ToolType, ?, ?>>builder()
 						.addAll(MATERIALS)
 						.addAll(TOOLS)

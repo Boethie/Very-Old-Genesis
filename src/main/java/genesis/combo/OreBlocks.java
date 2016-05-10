@@ -30,7 +30,8 @@ public class OreBlocks extends VariantsOfTypesCombo<EnumOre>
 	
 	public OreBlocks()
 	{
-		super(ImmutableList.of(ORE, DROP), EnumOre.class, ImmutableList.copyOf(EnumOre.values()));
+		super("ores", ImmutableList.of(ORE, DROP),
+				EnumOre.class, ImmutableList.copyOf(EnumOre.values()));
 		
 		EnumOre.setDrops(this);
 		setNames(Constants.MOD_ID, Constants.Unlocalized.PREFIX);

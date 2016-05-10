@@ -34,15 +34,18 @@ public final class GenesisItems
 	
 	public static final VariantsCombo<EnumNodule, Block, ItemMulti<EnumNodule>> nodules =
 			VariantsCombo.create(
+					"nodules",
 					ObjectType.createItem(EnumNodule.class, "nodule"),
 					EnumNodule.class, EnumNodule.values());
 	public static final VariantsCombo<EnumPowder, Block, ItemMulti<EnumPowder>> powders =
 			VariantsCombo.create(
+					"powders",
 					ObjectType.<EnumPowder>createItem(EnumPowder.class, "powder"),
 					EnumPowder.class, EnumPowder.values());
 	
 	public static final VariantsCombo<EnumMaterial, Block, ItemMaterial> materials =
 			VariantsCombo.create(
+					"materials",
 					ObjectType.createItem(EnumMaterial.class, "material", ItemMaterial.class).setResourceName(""),
 					EnumMaterial.class, EnumMaterial.values());
 	
@@ -53,7 +56,8 @@ public final class GenesisItems
 	/* Seeds */
 	public static final VariantsCombo<EnumSeeds, Block, ItemGenesisSeeds> seeds =
 			VariantsCombo.create(
-					ObjectType.createItem(EnumSeeds.class, "seeds", ItemGenesisSeeds.class).setResourceName(""),
+					"seeds",
+					ObjectType.createItem(EnumSeeds.class, "seed", ItemGenesisSeeds.class).setResourceName(""),
 					EnumSeeds.class, EnumSeeds.values());
 	
 	/* Foods */
@@ -74,6 +78,7 @@ public final class GenesisItems
 	
 	public static final VariantsCombo<EnumMenhirActivator, Block, ItemMulti<EnumMenhirActivator>> menhir_activators =
 			new VariantsCombo<EnumMenhirActivator, Block, ItemMulti<EnumMenhirActivator>>(
+					"menhir_activators",
 					new ObjectType<EnumMenhirActivator, Block, ItemMulti<EnumMenhirActivator>>(EnumMenhirActivator.class, "menhir_activator", Unlocalized.MISC + "menhirActivator", null, null)
 							.setCreativeTab(GenesisCreativeTabs.MISC)
 							.setResourceName(""),
