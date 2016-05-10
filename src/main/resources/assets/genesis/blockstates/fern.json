@@ -13,9 +13,6 @@
 		"variant=ruffordia":  [ { "textures": { "cross": "genesis:blocks/fern_ruffordia" } } ],
 		"variant=astralopteris":  [ { "textures": { "cross": "genesis:blocks/fern_astralopteris" } } ],
 		"variant=matonidium":  [ { "textures": { "cross": "genesis:blocks/fern_matonidium" } } ],
-		"variant=onoclea":  [
-			{ "textures": { "cross": "genesis:blocks/fern_onoclea_1" } },
-			{ "textures": { "cross": "genesis:blocks/fern_onoclea_2" } }
-		]
+		"variant=onoclea":  [ { "textures": { "cross": "genesis:blocks/fern_onoclea" } } ]
 	}
 }

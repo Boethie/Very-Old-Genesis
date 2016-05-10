@@ -19,8 +19,6 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 	{
 		super(properties);
 		
-		getDecorator().setGrassCount(12);
-		
 		addDecorations();
 		addTrees();
 	}
