@@ -3,7 +3,7 @@
 	"variants": {
 		"komatiitic_lava": {
 			"model": "forge:fluid",
-			"custom": { "fluid": "genesis:komatiitic_lava" }
+			"custom": { "fluid": "komatiitic_lava" }
 		}
 	}
 }
