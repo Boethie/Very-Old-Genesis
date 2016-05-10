@@ -65,7 +65,7 @@ public class BlockCalamites extends BlockGrowingPlant implements IGrowingPlantCu
 	}
 	
 	@Override
-	public CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World world, BlockPos pos, boolean placed)
+	public CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World world, BlockPos pos, PlantState plantState)
 	{
 		BlockPos under = pos.down();
 		

@@ -72,7 +72,7 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 	}
 	
 	@Override
-	public CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World world, BlockPos pos, boolean placed)
+	public CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World world, BlockPos pos, PlantState plantState)
 	{
 		for (EnumFacing side : EnumFacing.HORIZONTALS)
 		{
@@ -84,7 +84,7 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 				return CanStayOptions.NO;
 		}
 		
-		if (placed
+		if (plantState != PlantState.IN_WORLD
 				&& WorldUtils.canSoilSustainTypes(world, pos, EnumPlantType.Plains)
 				&& !WorldUtils.canSoilSustainTypes(world, pos, BlockPrototaxitesMycelium.SOIL_TYPE))
 			return CanStayOptions.NO;

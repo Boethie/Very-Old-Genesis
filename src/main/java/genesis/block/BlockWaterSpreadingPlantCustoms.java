@@ -2,6 +2,7 @@ package genesis.block;
 
 import genesis.block.BlockGrowingPlant.GrowingPlantProperties;
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
+import genesis.block.BlockGrowingPlant.PlantState;
 import genesis.util.WorldUtils;
 import genesis.util.random.i.IntRange;
 
@@ -93,7 +94,7 @@ public class BlockWaterSpreadingPlantCustoms implements IGrowingPlantCustoms
 		
 		return Collections.emptyList();
 	}
-
+	
 	@Override
 	public void plantUpdateTick(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, Random rand, boolean grew)
 	{
@@ -113,7 +114,7 @@ public class BlockWaterSpreadingPlantCustoms implements IGrowingPlantCustoms
 				if (world.getBlockState(plantCheck).getBlock() == plant && new GrowingPlantProperties(world, plantCheck).isBottom(plantCheck))
 				{
 					plantsLeft--;
-
+					
 					if (plantsLeft <= 0)
 					{
 						break;
@@ -141,13 +142,13 @@ public class BlockWaterSpreadingPlantCustoms implements IGrowingPlantCustoms
 			}
 		}
 	}
-
+	
 	@Override
-	public CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World worldIn, BlockPos pos, boolean placed)
+	public CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World worldIn, BlockPos pos, PlantState plantState)
 	{
 		return CanStayOptions.YIELD;
 	}
-
+	
 	@Override
 	public boolean shouldUseBonemeal(World world, BlockPos pos, IBlockState state)
 	{

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
+import genesis.block.BlockGrowingPlant.PlantState;
 import genesis.common.GenesisBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
@@ -32,9 +33,9 @@ public class SurviveOnDirtCustoms implements IGrowingPlantCustoms
 	}
 	
 	@Override
-	public CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World world, BlockPos pos, boolean placed)
+	public CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World world, BlockPos pos, PlantState plantState)
 	{
-		if (placed)
+		if (plantState != PlantState.PLACING)
 		{
 			Block block = world.getBlockState(pos.down()).getBlock();
 			

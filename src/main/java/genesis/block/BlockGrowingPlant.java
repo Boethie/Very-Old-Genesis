@@ -184,7 +184,12 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 			return pos.equals(getBottom());
 		}
 	}
-
+	
+	public static enum PlantState
+	{
+		PLACING, GENERATING, IN_WORLD;
+	}
+	
 	public interface IGrowingPlantCustoms
 	{
 		/**
@@ -212,7 +217,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 		 * @param placed Whether the block has been placed yet. To allow customs to prevent placing stacked plant blocks.
 		 * @return Whether the BlockGrowingPlant can grow at the specified BlockPos.
 		 */
-		CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World world, BlockPos pos, boolean placed);
+		CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World world, BlockPos pos, PlantState plantState);
 		
 		/**
 		 * For use in adding/removing IPropertys in a list of IPropertys that should be stored in metadata.
@@ -953,13 +958,13 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 	/**
 	 * @return Whether the plant can survive at this location in the world.
 	 */
-	public boolean canPlantSurvive(World world, BlockPos pos, boolean placed)
+	public boolean canPlantSurvive(World world, BlockPos pos, PlantState plantState)
 	{
 		CanStayOptions stay = CanStayOptions.YIELD;
 		
 		if (customs != null)
 		{
-			stay = customs.canPlantStayAt(this, world, pos, placed);
+			stay = customs.canPlantStayAt(this, world, pos, plantState);
 		}
 		
 		switch (stay)
@@ -996,7 +1001,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 	@Override
 	public boolean canBlockStay(World world, BlockPos pos, IBlockState state)
 	{
-		return canPlantSurvive(world, pos, true);
+		return canPlantSurvive(world, pos, PlantState.IN_WORLD);
 	}
 	
 	@Override
@@ -1021,7 +1026,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 		if (!allowPlacingStacked && world.getBlockState(pos.down()).getBlock() == this)
 			return false;
 		
-		return world.getBlockState(pos).getBlock().isReplaceable(world, pos) && canPlantSurvive(world, pos, false);
+		return world.getBlockState(pos).getBlock().isReplaceable(world, pos) && canPlantSurvive(world, pos, PlantState.PLACING);
 	}
 	
 	/**
@@ -1227,7 +1232,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 	 */
 	public boolean placeRandomAgePlant(World world, BlockPos pos, Random rand, int flags)
 	{
-		if (!canPlantSurvive(world, pos, false))
+		if (!canPlantSurvive(world, pos, PlantState.GENERATING))
 			return false;
 		
 		int height = IntRange.create(1, maxHeight).get(rand);
