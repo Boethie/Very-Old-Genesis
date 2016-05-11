@@ -346,7 +346,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 	@Override
 	public BlockGrowingPlant setSoundType(SoundType soundType)
 	{
-		this.soundType = soundType;
+		this.blockSoundType = soundType;
 		return this;
 	}
 	
