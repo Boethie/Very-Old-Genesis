@@ -343,6 +343,13 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 		return state;
 	}
 	
+	@Override
+	public BlockGrowingPlant setSoundType(SoundType soundType)
+	{
+		this.soundType = soundType;
+		return this;
+	}
+	
 	public int getGrowthAge()
 	{
 		return growthAge;
