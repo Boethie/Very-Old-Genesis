@@ -55,6 +55,12 @@ public class GenesisSoundEvents
 	public static SoundEvent block_ooze_hit;
 	public static SoundEvent block_ooze_fall;
 	
+	public static SoundEvent block_cone_break;
+	public static SoundEvent block_cone_step;
+	public static SoundEvent block_cone_place;
+	public static SoundEvent block_cone_hit;
+	public static SoundEvent block_cone_fall;
+	
 	public static SoundEvent block_dead_log_break;
 	public static SoundEvent block_dead_log_step;
 	public static SoundEvent block_dead_log_place;
@@ -173,6 +179,12 @@ public class GenesisSoundEvents
 		block_ooze_place = registerSound("block.ooze.place");
 		block_ooze_hit = registerSound("block.ooze.hit");
 		block_ooze_fall = registerSound("block.ooze.fall");
+		
+		block_cone_break = registerSound("block.cone.break");
+		block_cone_step = registerSound("block.cone.step");
+		block_cone_place = registerSound("block.cone.place");
+		block_cone_hit = registerSound("block.cone.hit");
+		block_cone_fall = registerSound("block.cone.fall");
 		
 		block_dead_log_break = registerSound("block.dead_log.break");
 		block_dead_log_step = registerSound("block.dead_log.step");

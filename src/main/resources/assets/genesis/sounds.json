@@ -328,6 +328,46 @@
 		],
 		"subtitle": "subtitles.block.generic.fall"
 	},
+	"block.cone.break": {
+		"sounds": [
+			"genesis:dig/cone1",
+			"genesis:dig/cone2",
+			"genesis:dig/cone3"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.cone.step": {
+		"sounds": [
+			"genesis:step/cone1",
+			"genesis:step/cone2",
+			"genesis:step/cone3"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
+	"block.cone.place": {
+		"sounds": [
+			"genesis:dig/cone1",
+			"genesis:dig/cone2",
+			"genesis:dig/cone3"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.cone.hit": {
+		"sounds": [
+			"genesis:step/cone1",
+			"genesis:step/cone2",
+			"genesis:step/cone3"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.cone.fall": {
+		"sounds": [
+			"genesis:step/cone1",
+			"genesis:step/cone2",
+			"genesis:step/cone3"
+		],
+		"subtitle": "subtitles.block.generic.fall"
+	},
 	"block.dead_log.break": {
 		"sounds": [
 			"genesis:dig/dead_log1"

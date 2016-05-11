@@ -9,6 +9,7 @@ import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.VariantsOfTypesCombo.BlockProperties;
 import genesis.combo.variant.EnumTree;
 import genesis.combo.variant.PropertyIMetadata;
+import genesis.common.sounds.GenesisSoundTypes;
 import genesis.item.ItemBlockMulti;
 import genesis.util.BlockStateToMetadata;
 
@@ -46,13 +47,13 @@ public class BlockHangingFruit extends BlockGenesis
 			ObjectType<EnumTree, BlockHangingFruit, ItemBlockMulti<EnumTree>> type,
 			List<EnumTree> variants, Class<EnumTree> variantClass)
 	{
-		super(Material.wood, SoundType.WOOD);
+		super(Material.wood, GenesisSoundTypes.CONE);
 		
 		this.owner = owner;
 		this.type = type;
 		
 		this.variants = variants;
-		variantProp = new PropertyIMetadata<EnumTree>("variant", variants, variantClass);
+		variantProp = new PropertyIMetadata<>("variant", variants, variantClass);
 		
 		blockState = new BlockStateContainer(this, variantProp);
 		setDefaultState(getBlockState().getBaseState());

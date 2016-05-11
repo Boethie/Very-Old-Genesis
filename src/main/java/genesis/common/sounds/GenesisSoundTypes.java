@@ -52,7 +52,13 @@ public final class GenesisSoundTypes
 			GenesisSoundEvents.block_ooze_place,
 			GenesisSoundEvents.block_ooze_hit,
 			GenesisSoundEvents.block_ooze_fall);
-	public static final SoundType DEAD_LOG = new SoundType(1.5F, 1.5F,
+	public static final SoundType CONE = new SoundType(1, 1,
+			GenesisSoundEvents.block_cone_break,
+			GenesisSoundEvents.block_cone_step,
+			GenesisSoundEvents.block_cone_place,
+			GenesisSoundEvents.block_cone_hit,
+			GenesisSoundEvents.block_cone_fall);
+	public static final SoundType DEAD_LOG = new SoundType(1, 1,
 			GenesisSoundEvents.block_dead_log_break,
 			GenesisSoundEvents.block_dead_log_step,
 			GenesisSoundEvents.block_dead_log_place,
