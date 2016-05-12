@@ -65,6 +65,9 @@ public class RenderFog
 		if (mc.isGamePaused())
 			return;
 		
+		mc.mcProfiler.startSection("genesisFog");
+		
+		mc.mcProfiler.startSection("prepare");
 		Entity entity = mc.getRenderViewEntity();
 		if (entity == null)
 			return;
@@ -83,9 +86,10 @@ public class RenderFog
 		
 		Vec3d playerPos = ActiveRenderInfo.projectViewFromEntity(entity, partialTicks);
 		int areaSize = 10;
-		int supersamples = 8;
+		int supersamples = 1;
 		float sampleStep = 1 / (float) supersamples;
 		
+		mc.mcProfiler.endStartSection("areaSamples");
 		for (float x = -areaSize; x <= areaSize; x += sampleStep)
 		{
 			for (float z = -areaSize; z <= areaSize; z += sampleStep)
@@ -121,6 +125,8 @@ public class RenderFog
 			}
 		}
 		
+		mc.mcProfiler.endStartSection("finish");
+		
 		red /= samples;
 		green /= samples;
 		blue /= samples;
@@ -154,6 +160,9 @@ public class RenderFog
 		color = new Vec3d(red, green, blue);
 		prevFogDensity = fogDensity;
 		fogDensity = Math.min(density * 0.75F, 0.75F);
+		
+		mc.mcProfiler.endSection();
+		mc.mcProfiler.endSection();
 	}
 	
 	@SubscribeEvent
