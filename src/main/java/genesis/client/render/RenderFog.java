@@ -64,10 +64,6 @@ public class RenderFog
 		Minecraft mc = Minecraft.getMinecraft();
 		if (mc.isGamePaused())
 			return;
-		
-		mc.mcProfiler.startSection("genesisFog");
-		
-		mc.mcProfiler.startSection("prepare");
 		Entity entity = mc.getRenderViewEntity();
 		if (entity == null)
 			return;
@@ -75,6 +71,9 @@ public class RenderFog
 		World world = entity.worldObj;
 		if (!GenesisDimensions.isGenesis(world))
 			return;
+		
+		mc.mcProfiler.startSection("genesisFog");
+		mc.mcProfiler.startSection("prepare");
 		
 		final float partialTicks = 1;
 		
