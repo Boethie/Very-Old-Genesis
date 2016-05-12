@@ -20,7 +20,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.EntityViewRenderEvent.FogColors;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.*;
 import net.minecraftforge.fml.relauncher.Side;
 
 public class RenderFog
@@ -58,7 +58,7 @@ public class RenderFog
 	@SubscribeEvent
 	public void onTick(ClientTickEvent event)
 	{
-		if (event.side != Side.CLIENT)
+		if (event.side != Side.CLIENT || event.phase != Phase.START)
 			return;
 		
 		Minecraft mc = Minecraft.getMinecraft();
