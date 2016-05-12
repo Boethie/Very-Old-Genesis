@@ -178,8 +178,8 @@ public class BlockGenesisSaplings extends BlockSapling
 			break;
 		case DRYOPHYLLUM:
 			treeType = (rand.nextInt(6) == 0)? TreeTypes.TYPE_2 : TreeTypes.TYPE_1;
-			minHeight = (treeType == TreeTypes.TYPE_2)? 12 : 11;
-			maxHeight = (treeType == TreeTypes.TYPE_2)? 17 : 15;
+			minHeight = (treeType == TreeTypes.TYPE_2)? 15 : 11;
+			maxHeight = (treeType == TreeTypes.TYPE_2)? 22 : 18;
 			gen = new WorldGenTreeDryophyllum(minHeight, maxHeight, true).setType(treeType);
 			break;
 		case ARCHAEANTHUS:

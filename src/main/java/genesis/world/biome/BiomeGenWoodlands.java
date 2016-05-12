@@ -25,8 +25,9 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 	
 	protected void addDecorations()
 	{
+		//TODO: Todites will be replaced by another fern.
 		getDecorator().setGrassCount(7);
-		addGrass(WorldGenPlant.create(EnumPlant.ONOCLEA).setPatchCount(9), 1);
+		addGrass(WorldGenPlant.create(EnumPlant.TODITES).setPatchCount(9), 1);
 		
 		getDecorator().setFlowerCount(0.15F);
 		addFlower(WorldGenPlant.create(EnumPlant.PALAEOASTER).setPatchCount(9), 1);
@@ -50,14 +51,14 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 	
 	protected void addTrees()
 	{
-		getDecorator().setTreeCount(6.9F);
+		getDecorator().setTreeCount(4.9F);
 		
 		addTree(new WorldGenTreeLaurophyllum(3, 4, false), 100);
 		addTree(new WorldGenTreeFicus(4, 8, false), 30);
 		addTree(new WorldGenTreeGinkgo(8, 13, false), 11);
 		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 3);
-		addTree(new WorldGenTreeDryophyllum(11, 15, false), 600);
-		addTree(new WorldGenTreeDryophyllum(13, 17, false).setType(TreeTypes.TYPE_2), 10);
+		addTree(new WorldGenTreeDryophyllum(8, 13, false), 600);
+		addTree(new WorldGenTreeDryophyllum(18, 22, false).setType(TreeTypes.TYPE_2), 50);
 		addTree(new WorldGenTreeMetasequoia(12, 24, true), 100);
 		
 		addTree(new WorldGenDeadLog(3, 6, EnumTree.DRYOPHYLLUM, true), 120);
