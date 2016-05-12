@@ -254,11 +254,11 @@ item.genesis.misc.menhirActivator.primitiveDust.name=Poussière pritimive
 item.genesis.misc.menhirActivator.sacredTreeStar.name=Étoile d'arbre sacré
 
 #Food
-item.genesis.seeds.araucarioxylon.name=Graines d'Araucarioxylon
-item.genesis.seeds.odontopteris.name=Graines d'Odontopteris
-item.genesis.seeds.programinis.name=Graines de Programinis
-item.genesis.seeds.zingiberopsisRhizome.name=Rhizome de Zingiberopsis
-item.genesis.seeds.prototaxitesFlesh.name=Chair de Prototaxites
+item.genesis.seed.araucarioxylon.name=Graines d'Araucarioxylon
+item.genesis.seed.odontopteris.name=Graines d'Odontopteris
+item.genesis.seed.programinis.name=Graines de Programinis
+item.genesis.seed.zingiberopsisRhizome.name=Rhizome de Zingiberopsis
+item.genesis.seed.prototaxitesFlesh.name=Chair de Prototaxites
 
 item.genesis.food.fruit.ginkgo.name=Noix de Ginkgo
 item.genesis.food.fruit.araucarioxylon.name=Cône d'Araucarioxylon

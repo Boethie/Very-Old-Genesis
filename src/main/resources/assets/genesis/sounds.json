@@ -171,10 +171,9 @@
 	},
 	"block.fern.break": {
 		"sounds": [
-			"genesis:step/fern1",
-			"genesis:step/fern2",
-			"genesis:step/fern3",
-			"genesis:step/fern4"
+			"genesis:dig/fern1",
+			"genesis:dig/fern2",
+			"genesis:dig/fern3"
 		],
 		"subtitle": "subtitles.block.generic.break"
 	},

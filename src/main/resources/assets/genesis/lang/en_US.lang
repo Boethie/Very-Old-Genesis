@@ -255,11 +255,11 @@ item.genesis.misc.menhirActivator.primitiveDust.name=Primitive Dust
 item.genesis.misc.menhirActivator.sacredTreeStar.name=Sacred Tree Star
 
 #Food
-item.genesis.seeds.araucarioxylon.name=Araucarioxylon Seeds
-item.genesis.seeds.odontopteris.name=Odontopteris Seeds
-item.genesis.seeds.programinis.name=Programinis Seeds
-item.genesis.seeds.zingiberopsisRhizome.name=Zingiberopsis Rhizome
-item.genesis.seeds.prototaxitesFlesh.name=Prototaxites Flesh
+item.genesis.seed.araucarioxylon.name=Araucarioxylon Seeds
+item.genesis.seed.odontopteris.name=Odontopteris Seeds
+item.genesis.seed.programinis.name=Programinis Seeds
+item.genesis.seed.zingiberopsisRhizome.name=Zingiberopsis Rhizome
+item.genesis.seed.prototaxitesFlesh.name=Prototaxites Flesh
 
 item.genesis.food.fruit.ginkgo.name=Ginkgo Nuts
 item.genesis.food.fruit.araucarioxylon.name=Araucarioxylon Cone

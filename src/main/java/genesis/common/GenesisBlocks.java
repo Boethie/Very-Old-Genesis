@@ -114,6 +114,7 @@ public final class GenesisBlocks
 			.setUseBiomeColor(true)
 			.setPlantSize(0, 0.2F, 0.75F)
 			.setCustoms(new BlockOdontopterisCustoms())
+			.setSoundType(GenesisSoundTypes.FERN)
 			.setUnlocalizedName(Unlocalized.CROP + "odontopteris");
 	public static final BlockGrowingPlant cladophlebis = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true)
@@ -122,6 +123,7 @@ public final class GenesisBlocks
 			.setGrowth(0.05F, 1, 2.5F, 1.05F)
 			.setPlantSize(0, 0.2F, 0.75F)
 			.setCustoms(new BlockWaterSpreadingPlantCustoms(GenesisItems.materials.getStack(EnumMaterial.CLADOPHLEBIS_FROND)))
+			.setSoundType(GenesisSoundTypes.FERN)
 			.setUnlocalizedName(Unlocalized.PLANT + "cladophlebis")
 			.setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	public static final BlockGrowingPlant programinis = (BlockGrowingPlant) new BlockGrowingPlant(false, 7, 1).setTopPosition(1)
