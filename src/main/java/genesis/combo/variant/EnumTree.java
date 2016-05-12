@@ -21,6 +21,7 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	ARCHAEANTHUS("archaeanthus", tree().noDead().bow(0.8F, 1.3F)),
 	DRYOPHYLLUM("dryophyllum", tree().bow(1.2F, 1.8F)),
 	FICUS("ficus", tree().noDead().noDebris().fruit(1, 1.2F)),
+	ANNONA("annona", tree().noDead().noDebris().fruit(1, 1.4F)),
 	LAUROPHYLLUM("laurophyllum", bush().noDead().noDebris().fruit(1, 0.4F).bow(0.7F, 1.1F));
 	
 	public static enum FruitType

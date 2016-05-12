@@ -1,6 +1,0 @@
-{
-	"parent": "genesis:block/flat",
-	"textures": {
-		"all": "genesis:blocks/debris_ginkgo"
-	}
-}

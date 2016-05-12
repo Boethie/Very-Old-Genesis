@@ -1,6 +1,6 @@
 {
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "genesis:blocks/debris_ginkgo"
+		"layer0": "genesis:items/billet_annona"
 	}
 }

@@ -15,7 +15,7 @@
 				"up": { "uv": [ 0, 0, 16, 16 ], "texture": "#leaves", "tintindex": 0 }
 			}
 		},
-		{	"__comment": "Fig Sides",
+		{	"__comment": "Ginkgo Sides",
 			"from": [ 0, 0, 0 ],
 			"to": [ 16, 16, 16 ],
 			"faces": {
