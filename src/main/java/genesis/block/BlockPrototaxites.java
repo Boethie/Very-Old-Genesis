@@ -84,7 +84,7 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 				return CanStayOptions.NO;
 		}
 		
-		if (plantState != PlantState.IN_WORLD
+		if (plantState == PlantState.IN_WORLD
 				&& WorldUtils.canSoilSustainTypes(world, pos, EnumPlantType.Plains)
 				&& !WorldUtils.canSoilSustainTypes(world, pos, BlockPrototaxitesMycelium.SOIL_TYPE))
 			return CanStayOptions.NO;
