@@ -7,6 +7,7 @@ import java.util.Random;
 import net.minecraft.network.play.client.CPacketClientStatus;
 import net.minecraft.util.text.TextComponentTranslation;
 import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
 
 import genesis.combo.OreBlocks;
 import genesis.combo.variant.EnumOre;
@@ -317,7 +318,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 		int i1 = k + 16;
 		int j1 = l + 17;
 		this.zLevel = 0.0F;
-		GlStateManager.depthFunc(518);
+		GlStateManager.depthFunc(GL11.GL_GEQUAL);
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(i1, j1, -200.0F);
 
@@ -337,7 +338,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 		}
 
 		GlStateManager.enableDepth();
-		GlStateManager.depthFunc(515);
+		GlStateManager.depthFunc(GL11.GL_LEQUAL);
 		java.util.List<Achievement> achievementList = (currentPage == -1 ? minecraftAchievements
 				: AchievementPage.getAchievementPage(currentPage).getAchievements());
 		this.mc.getTextureManager().bindTexture(GENESIS_ACHIEVEMENT_BACKGROUND);
