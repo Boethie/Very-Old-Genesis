@@ -81,6 +81,9 @@ public class GenesisSoundEvents
 	
 	public static SoundEvent block_egg_meganeura_break;
 	public static SoundEvent block_egg_meganeura_place;
+
+	public static SoundEvent block_storage_box_open;
+	public static SoundEvent block_storage_box_close;
 	
 	/* Items */
 	public static SoundEvent item_flint_and_marcasite_use;
@@ -206,6 +209,9 @@ public class GenesisSoundEvents
 
 		block_egg_meganeura_break = registerSound("block.egg.meganeura.break");
 		block_egg_meganeura_place = registerSound("block.egg.meganeura.place");
+
+		block_storage_box_open = registerSound("block.storage_box.open");
+		block_storage_box_close = registerSound("block.storage_box.close");
 		
 		/* Items */
 		item_flint_and_marcasite_use = registerSound("item.flint_and_marcasite.use");

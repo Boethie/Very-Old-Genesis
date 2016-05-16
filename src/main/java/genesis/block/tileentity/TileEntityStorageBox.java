@@ -1,6 +1,7 @@
 package genesis.block.tileentity;
 
 import genesis.block.tileentity.gui.ContainerStorageBox;
+import genesis.common.sounds.GenesisSoundEvents;
 import genesis.util.*;
 
 import java.util.*;
@@ -207,17 +208,17 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 			
 			// Play sound for opening and closing.
 			// Also contains debug code for looping animation.
-			String sound = null;
+			SoundEvent sound = null;
 			
 			if (openAnimation <= epsilon && users > 0)
 			{
-				sound = Constants.ASSETS_PREFIX + "interact.storage_box_open";
+				sound = GenesisSoundEvents.block_storage_box_open;
 				
 				setUserCount(1, 1);
 			}
 			else if (openAnimation >= 1 - epsilon && users <= 0)
 			{
-				sound = Constants.ASSETS_PREFIX + "interact.storage_box_close";
+				sound = GenesisSoundEvents.block_storage_box_close;
 				
 				setUserCount(0, 0);
 			}

@@ -37,8 +37,8 @@ public class WorldGenPortal implements IWorldGenerator
 		
 		int zoneX = chunkX >> bits;
 		int zoneZ = chunkZ >> bits;
-		int localX = (int) Math.floor((Math.sin(zoneX * 1017 + zoneZ * 8808) + 1) * (1 << bits - 1));
-		int localZ = (int) Math.floor((Math.sin(zoneX * 4594 + zoneZ * 9628) + 1) * (1 << bits - 1));
+		int localX = (int) ((Math.sin(zoneX * 1017 + zoneZ * 8808) + 1) * (1 << bits - 1));
+		int localZ = (int) ((Math.sin(zoneX * 4594 + zoneZ * 9628) + 1) * (1 << bits - 1));
 		int nearX = (zoneX << bits) + localX;
 		int nearZ = (zoneZ << bits) + localZ;
 		
