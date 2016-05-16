@@ -242,7 +242,9 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 				centerY /= boxes;
 				centerZ /= boxes;
 				
-				//worldObj.playSoundEffect(centerX, centerY, centerZ, sound, 1 + worldObj.rand.nextFloat() * 0.2F, 0.9F + worldObj.rand.nextFloat() * 0.1F);
+				worldObj.playSound(centerX, centerY, centerZ,
+						sound, SoundCategory.BLOCKS,
+						1 + worldObj.rand.nextFloat() * 0.2F, 0.9F + worldObj.rand.nextFloat() * 0.1F, false);
 			}
 			
 			float target = getUserCount() > 0 ? 1 : 0;
