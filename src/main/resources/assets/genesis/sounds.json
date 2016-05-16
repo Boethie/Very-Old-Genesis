@@ -407,89 +407,6 @@
 		],
 		"subtitle": "subtitles.block.generic.fall"
 	},
-	"item.flint_and_marcasite.use": {
-		"sounds": [
-			"genesis:item/flint_and_marcasite_use"
-		],
-		"subtitle": "subtitles.genesis.item.flint_and_marcasite.use"
-	},
-	"block.aquatic_plant.break": {
-		"sounds": [
-			"genesis:dig/aquatic_plant1",
-			"genesis:dig/aquatic_plant2"
-		],
-		"subtitle": "subtitles.block.generic.break"
-	},
-	"block.aquatic_plant.step": {
-		"sounds": [
-			"genesis:step/aquatic_plant1",
-			"genesis:step/aquatic_plant2"
-		],
-		"subtitle": "subtitles.block.generic.footsteps"
-	},
-	"block.aquatic_plant.place": {
-		"sounds": [
-			"genesis:dig/aquatic_plant1",
-			"genesis:dig/aquatic_plant2"
-		],
-		"subtitle": "subtitles.block.generic.place"
-	},
-	"block.aquatic_plant.hit": {
-		"sounds": [
-			"genesis:step/aquatic_plant1",
-			"genesis:step/aquatic_plant2"
-		],
-		"subtitle": "subtitles.block.generic.hit"
-	},
-	"block.aquatic_plant.fall": {
-		"sounds": [
-			"genesis:step/aquatic_plant1",
-			"genesis:step/aquatic_plant2"
-		],
-		"subtitle": "subtitles.block.generic.fall"
-	},
-	"ambient.cooking_pot": {
-		"sounds": [
-			"genesis:ambient/cooking_pot1",
-			"genesis:ambient/cooking_pot2",
-			"genesis:ambient/cooking_pot3",
-			"genesis:ambient/cooking_pot4"
-		]
-	},
-	"interact.storage_box_open": {
-		"sounds": [
-			"genesis:interact/storage_box_open"
-		]
-	},
-	"interact.storage_box_close": {
-		"sounds": [
-			"genesis:interact/storage_box_close"
-		]
-	},
-	"item.pebble.hit": {
-		"sounds": [
-			"genesis:crafting/pebble_hit1",
-			"genesis:crafting/pebble_hit2",
-			"genesis:crafting/pebble_hit3",
-			"genesis:crafting/pebble_hit4",
-			"genesis:crafting/pebble_hit5"
-		],
-		"subtitle": "subtitles.genesis.item.pebble.hit"
-	},
-	"player.knapping.hit": {
-		"sounds": [
-			"genesis:crafting/pebble_hit1",
-			"genesis:crafting/pebble_hit2",
-			"genesis:crafting/pebble_hit3",
-			"genesis:crafting/pebble_hit4",
-			"genesis:crafting/pebble_hit5"
-		]
-	},
-	"crafting.knapping_tool_break": {
-		"sounds": [
-			"genesis:crafting/knapping_tool_break"
-		]
-	},
 	"block.mushroom.break": {
 		"sounds": [
 			"genesis:dig/mushroom1",
@@ -529,6 +446,91 @@
 			"genesis:step/mushroom3"
 		],
 		"subtitle": "subtitles.block.generic.fall"
+	},
+	"block.aquatic_plant.break": {
+		"sounds": [
+			"genesis:dig/aquatic_plant1",
+			"genesis:dig/aquatic_plant2"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.aquatic_plant.step": {
+		"sounds": [
+			"genesis:step/aquatic_plant1",
+			"genesis:step/aquatic_plant2"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
+	"block.aquatic_plant.place": {
+		"sounds": [
+			"genesis:dig/aquatic_plant1",
+			"genesis:dig/aquatic_plant2"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.aquatic_plant.hit": {
+		"sounds": [
+			"genesis:step/aquatic_plant1",
+			"genesis:step/aquatic_plant2"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.aquatic_plant.fall": {
+		"sounds": [
+			"genesis:step/aquatic_plant1",
+			"genesis:step/aquatic_plant2"
+		],
+		"subtitle": "subtitles.block.generic.fall"
+	},
+	"item.flint_and_marcasite.use": {
+		"sounds": [
+			"genesis:item/flint_and_marcasite_use"
+		],
+		"subtitle": "subtitles.genesis.item.flint_and_marcasite.use"
+	},
+	"ambient.cooking_pot": {
+		"sounds": [
+			"genesis:ambient/cooking_pot1",
+			"genesis:ambient/cooking_pot2",
+			"genesis:ambient/cooking_pot3",
+			"genesis:ambient/cooking_pot4"
+		]
+	},
+	"block.storage_box.open": {
+		"sounds": [
+			"genesis:interact/storage_box_open"
+		],
+		"subtitle": "subtitles.genesis.block.storage_box_open"
+	},
+	"block.storage_box.close": {
+		"sounds": [
+			"genesis:interact/storage_box_close"
+		],
+		"subtitle": "subtitles.genesis.block.storage_box_close"
+	},
+	"item.pebble.hit": {
+		"sounds": [
+			"genesis:crafting/pebble_hit1",
+			"genesis:crafting/pebble_hit2",
+			"genesis:crafting/pebble_hit3",
+			"genesis:crafting/pebble_hit4",
+			"genesis:crafting/pebble_hit5"
+		],
+		"subtitle": "subtitles.genesis.item.pebble.hit"
+	},
+	"player.knapping.hit": {
+		"sounds": [
+			"genesis:crafting/pebble_hit1",
+			"genesis:crafting/pebble_hit2",
+			"genesis:crafting/pebble_hit3",
+			"genesis:crafting/pebble_hit4",
+			"genesis:crafting/pebble_hit5"
+		]
+	},
+	"crafting.knapping_tool_break": {
+		"sounds": [
+			"genesis:crafting/knapping_tool_break"
+		]
 	},
 	"mob.meganeura.fly": {
 		"sounds": [

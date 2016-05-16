@@ -181,6 +181,11 @@
 					"plant": "genesis:blocks/sapling_ficus"
 				}
 			},
+			"annona_sapling": {
+				"textures": {
+					"plant": "genesis:blocks/sapling_annona"
+				}
+			},
 			"laurophyllum_sapling": {
 				"textures": {
 					"plant": "genesis:blocks/sapling_laurophyllum"
