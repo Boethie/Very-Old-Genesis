@@ -12,33 +12,31 @@ public final class GenesisConfig
 	//Biomes
 	public static int rainforestId = 50;
 	public static int rainforestWeight = 10;
-	public static int rainforestEdgeId = 51;
+	public static int rainforestHillsId = 51;
 	public static int riverId = 52;
 	public static int shallowOceanId = 53;
 	public static int auxForestId = 54;
 	public static int auxForestWeight = 10;
-	public static int limestoneBeachId = 55;
-	public static int swampRainForestId = 56;
+	public static int auxForestHillsId = 55;
+	public static int limestoneBeachId = 56;
+	public static int swampRainForestId = 57;
 	public static int swampRainForestWeight = 10;
-	public static int floodplainsForestId = 57;
+	public static int floodplainsForestId = 58;
 	public static int floodplainsForestWeight = 10;
-	public static int genesisBeachId = 58;
-	public static int rainforestHillsId = 59;
-	public static int auxForestHillsId = 60;
-	public static int deepOceanId = 61;
-	public static int marshId = 62;
+	public static int genesisBeachId = 59;
+	public static int deepOceanId = 60;
+	public static int marshId = 61;
 	public static int marshWeight = 10;
-	public static int oceanId = 63;
-	public static int redLowlandsId = 64;
-	public static int redLowlandsWeight = 10;
-	public static int redLowlandsHillsId = 65;
-	public static int redBeachId = 66;
-	public static int metaForestId = 67;
+	public static int oceanId = 62;
+	public static int redBeachId = 63;
+	public static int metaForestId = 64;
 	public static int metaForestWeight = 10;
-	public static int metaForestHillsId = 68;
-	public static int woodlandsId = 70;
+	public static int metaForestHillsId = 65;
+	public static int woodlandsId = 66;
 	public static int woodlandsWeight = 10;
-	public static int woodlandsHillsId = 71;
+	public static int woodlandsHillsId = 67;
+	public static int redDesertId = 68;
+	public static int redDesertWeight = 10;
 	
 	//Dimensions
 	public static int genesisDimId = 37;
@@ -74,15 +72,12 @@ public final class GenesisConfig
 		//Biome Ids
 		rainforestId = config.getInt("rainforestId", "biome", rainforestId, 0, 255, "Rainforest Biome ID");
 		rainforestWeight = config.getInt("rainforestWeight", "biome", rainforestWeight, 0, Integer.MAX_VALUE, "Rainforest Biome Weight");
-		rainforestEdgeId = config.getInt("rainforestEdgeId", "biome", rainforestEdgeId, 0, 255, "Rainforest Edge Biome ID");
 		riverId = config.getInt("riverId", "biome", riverId, 0, 255, "River Biome ID");
 		shallowOceanId = config.getInt("shallowOceanId", "biome", shallowOceanId, 0, 255, "Shallow Ocean Biome ID");
 		auxForestId = config.getInt("auxForestId", "biome", auxForestId, 0, 255, "Araucarioxylon Forest Biome ID");
 		auxForestWeight = config.getInt("auxForestWeight", "biome", auxForestWeight, 0, Integer.MAX_VALUE, "Araucarioxylon Forest Biome Weight");
 		metaForestId = config.getInt("metaForestId", "biome", metaForestId, 0, 255, "Metasequoia Forest Biome ID");
 		metaForestWeight = config.getInt("metaForestWeight", "biome", metaForestWeight, 0, Integer.MAX_VALUE, "Metasequoia Forest Biome Weight");
-		redLowlandsId = config.getInt("redLowlandsId", "biome", redLowlandsId, 0, 255, "Red Lowlands Biome ID");
-		redLowlandsWeight = config.getInt("redLowlandsWeight", "biome", redLowlandsWeight, 0, Integer.MAX_VALUE, "Red Lowlands Biome Weight");
 		woodlandsId = config.getInt("woodlandsId", "biome", woodlandsId, 0, 255, "Woodlands Biome ID");
 		woodlandsWeight = config.getInt("woodlandsWeight", "biome", woodlandsWeight, 0, 255, "Woodlands Biome Weight");
 		

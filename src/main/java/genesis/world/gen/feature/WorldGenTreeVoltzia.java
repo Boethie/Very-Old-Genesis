@@ -7,7 +7,8 @@ import com.google.common.base.Predicates;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
 import genesis.util.random.i.IntRange;
-
+import genesis.util.random.i.WeightedIntItem;
+import genesis.util.random.i.WeightedIntProvider;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.init.Blocks;
@@ -19,10 +20,6 @@ public class WorldGenTreeVoltzia extends WorldGenTreeBase
 	public WorldGenTreeVoltzia (int minHeight, int maxHeight, boolean notify)
 	{
 		super(EnumTree.VOLTZIA, IntRange.create(minHeight, maxHeight), notify);
-		
-		setSoilPredicate(Predicates.and(BlockStateMatcher.forBlock(GenesisBlocks.moss),
-				BlockStateMatcher.forBlock(Blocks.dirt)
-						.where(BlockDirt.VARIANT, (v) -> v == BlockDirt.DirtType.DIRT || v == BlockDirt.DirtType.COARSE_DIRT)));
 	}
 	
 	@Override

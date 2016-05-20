@@ -13,6 +13,7 @@ import genesis.world.biome.BiomeGenOceanGenesis;
 import genesis.world.biome.BiomeGenRainforest;
 import genesis.world.biome.BiomeGenRainforestM;
 import genesis.world.biome.BiomeGenRedBeach;
+import genesis.world.biome.BiomeGenRedDesert;
 import genesis.world.biome.BiomeGenRiver;
 import genesis.world.biome.BiomeGenShallowOcean;
 import genesis.world.biome.BiomeGenSwampRainforest;
@@ -47,6 +48,7 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis genesisBeach;
 	public static BiomeGenBaseGenesis redBeach;
 	public static BiomeGenBaseGenesis limestoneBeach;
+	public static BiomeGenBaseGenesis redDesert;
 	
 	public static void loadBiomes()
 	{
@@ -294,5 +296,17 @@ public final class GenesisBiomes
 		limestoneBeach = new BiomeGenLimestoneBeach(prop);
 		BiomeGenBase.registerBiome(GenesisConfig.limestoneBeachId, limestoneBeach.getBiomeName(), limestoneBeach);
 		BiomeDictionary.registerBiomeType(limestoneBeach, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.WET);
+		
+		prop = new BiomeGenBase.BiomeProperties("Red Desert");
+		prop.setTemperature(2.0F);
+		prop.setRainfall(0.0F);
+		prop.setRainDisabled();
+		prop.setBaseHeight(0.15F);
+		prop.setHeightVariation(0.35F);
+		prop.setWaterColor(0x725113);
+		
+		redDesert = new BiomeGenRedDesert(prop);
+		BiomeManagerGenesis.registerBiome(redDesert, GenesisConfig.redDesertId, BiomeType.DESERT, GenesisConfig.redDesertWeight);
+		BiomeDictionary.registerBiomeType(redDesert, BiomeDictionary.Type.DRY, BiomeDictionary.Type.MESA, BiomeDictionary.Type.SANDY);
 	}
 }

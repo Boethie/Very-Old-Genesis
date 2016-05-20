@@ -57,7 +57,11 @@ public class GenLayerGenesisShore extends GenLayerGenesis
 						}
 						else
 						{
-							aint1[x + y * areaWidth] = BiomeGenBase.getIdForBiome(GenesisBiomes.genesisBeach);
+							if (
+									biomeID != BiomeGenBase.getIdForBiome(GenesisBiomes.redDesert))
+								aint1[x + y * areaWidth] = BiomeGenBase.getIdForBiome(GenesisBiomes.redBeach);
+							else
+								aint1[x + y * areaWidth] = BiomeGenBase.getIdForBiome(GenesisBiomes.genesisBeach);
 						}
 					}
 					else
