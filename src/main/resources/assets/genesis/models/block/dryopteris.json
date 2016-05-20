@@ -1,6 +1,6 @@
 {
 	"parent": "block/tinted_cross",
 	"textures": {
-		"cross": "genesis:blocks/fern_onoclea"
+		"cross": "genesis:blocks/fern_dryopteris"
 	}
 }

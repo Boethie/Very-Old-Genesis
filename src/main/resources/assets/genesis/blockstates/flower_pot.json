@@ -111,9 +111,9 @@
 					"plant": "genesis:blocks/fern_matonidium"
 				}
 			},
-			"onoclea": {
+			"dryopteris": {
 				"textures": {
-					"plant": "genesis:blocks/fern_onoclea"
+					"plant": "genesis:blocks/fern_dryopteris"
 				}
 			},
 			"archaeopteris_sapling": {

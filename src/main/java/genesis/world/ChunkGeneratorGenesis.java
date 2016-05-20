@@ -138,30 +138,6 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 			waterLakeChance = 2;
 		if (biome == GenesisBiomes.rainforestM)
 			waterLakeChance = 2;
-		/*
-		if (
-				biome == GenesisBiomes.redLowlands
-				|| biome == GenesisBiomes.redLowlandsM
-				|| biome == GenesisBiomes.redLowlandsHills)
-		{
-			for (int i = 0; i < 24; ++i)
-			{
-				int x = rand.nextInt(8) + 8;
-				int z = rand.nextInt(8) + 8;
-				int y = 128;
-				
-				new WorldGenGenesisSurfacePatch(Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT)).generate(world, rand, pos.add(x, y, z));
-			}
-		}
-		/*
-		if (rand.nextInt(48) == 0)
-		{
-			int x = rand.nextInt(8) + 8;
-			int z = rand.nextInt(8) + 8;
-			int y = 128;
-			
-			new WorldGenCrater().generate(world, rand, pos.add(x, y, z));
-		}*/
 		
 		if (settings.useWaterLakes 
 			&& !village 

@@ -28,18 +28,18 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	MABELIA("mabelia", plant()),
 	PALAEOASTER("palaeoaster", plant()),
 	ASTEROXYLON("asteroxylon", plant().soil(Plains, Desert).biomeColor(true).bothSizes()),
-	AETHOPHYLLUM("aethophyllum", plant().shearable(true).largeOnly()),
+	AETHOPHYLLUM("aethophyllum", plant().soil(Plains, Desert).shearable(true).largeOnly()),
 	
 	// Ferns
 	RHACOPHYTON("rhacophyton", fern().largeOnly()),
 	ZYGOPTERIS("zygopteris", fern()),
-	WACHTLERIA("wachtleria", fern()),
+	WACHTLERIA("wachtleria", fern().soil(Plains, Desert)),
 	PHLEBOPTERIS("phlebopteris", fern()),
 	TODITES("todites", fern()),
 	RUFFORDIA("ruffordia", fern()),
 	ASTRALOPTERIS("astralopteris", fern()),
 	MATONIDIUM("matonidium", fern()),
-	ONOCLEA("onoclea", fern());
+	DRYOPTERIS("dryopteris", fern());
 	
 	final String name;
 	final String unlocalizedName;

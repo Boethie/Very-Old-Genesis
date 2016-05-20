@@ -22,12 +22,12 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 		theBiomeDecorator.sandPerChunk = 0;
 		theBiomeDecorator.sandPerChunk2 = 0;
 		
-		getDecorator().setGrassCount(8);
+		getDecorator().setGrassCount(0.25F);
 		addGrass(WorldGenPlant.create(EnumPlant.WACHTLERIA).setPatchCount(4), 1);
 		
-		getDecorator().setFlowerCount(3);
-		addFlower(WorldGenPlant.create(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.AETHOPHYLLUM), 3);
-		addFlower(WorldGenPlant.create(EnumPlant.APOLDIA), 2);
+		getDecorator().setFlowerCount(0.75F);
+		addFlower(WorldGenPlant.create(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.AETHOPHYLLUM), 1);
+		addFlower(WorldGenPlant.create(EnumPlant.APOLDIA), 5);
 		
 		addDecoration(new WorldGenRoots(), 5);
 		addDecoration(new WorldGenPebbles().setWaterRequired(false), 5);
