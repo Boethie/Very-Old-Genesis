@@ -5,6 +5,8 @@ import genesis.client.model.*;
 import genesis.client.render.CamouflageColorEventHandler;
 import genesis.common.*;
 import genesis.util.*;
+import genesis.util.functional.ClientFunction;
+import genesis.util.functional.ServerFunction;
 import genesis.util.render.ModelHelpers;
 import genesis.client.sound.music.MusicEventHandler;
 

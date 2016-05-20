@@ -3,9 +3,8 @@ package genesis.world.biome.decorate;
 import java.util.Random;
 
 import genesis.block.BlockGrowingPlant;
-import genesis.util.WorldBlockMatcher;
 import genesis.util.WorldUtils;
-
+import genesis.util.functional.WorldBlockMatcher;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 

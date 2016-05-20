@@ -9,9 +9,8 @@ import genesis.combo.VariantsOfTypesCombo;
 import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.IPlantMetadata;
 import genesis.common.*;
-import genesis.util.WorldBlockMatcher;
 import genesis.util.WorldUtils;
-
+import genesis.util.functional.WorldBlockMatcher;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;

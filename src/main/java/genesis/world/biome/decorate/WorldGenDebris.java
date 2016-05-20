@@ -5,8 +5,7 @@ import java.util.*;
 import genesis.combo.*;
 import genesis.combo.variant.*;
 import genesis.common.GenesisBlocks;
-import genesis.util.WorldBlockMatcher;
-
+import genesis.util.functional.WorldBlockMatcher;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;

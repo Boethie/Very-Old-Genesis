@@ -2,8 +2,8 @@ package genesis.world.biome.decorate;
 
 import genesis.combo.SiltBlocks;
 import genesis.common.GenesisBlocks;
-import genesis.util.WorldBlockMatcher;
 import genesis.util.WorldUtils;
+import genesis.util.functional.WorldBlockMatcher;
 import genesis.util.random.f.FloatRange;
 import genesis.util.random.i.IntRange;
 import genesis.util.random.i.RandomIntProvider;

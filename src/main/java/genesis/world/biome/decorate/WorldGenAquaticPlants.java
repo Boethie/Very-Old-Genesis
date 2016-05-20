@@ -3,7 +3,7 @@ package genesis.world.biome.decorate;
 import genesis.block.BlockAquaticPlant;
 import genesis.combo.variant.EnumAquaticPlant;
 import genesis.common.GenesisBlocks;
-import genesis.util.WorldBlockMatcher;
+import genesis.util.functional.WorldBlockMatcher;
 
 import java.util.Random;
 

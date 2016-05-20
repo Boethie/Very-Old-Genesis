@@ -5,6 +5,7 @@ import genesis.combo.variant.IMetadata;
 import genesis.common.*;
 import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
+import genesis.util.functional.ClientFunction;
 
 import java.lang.annotation.*;
 import java.lang.reflect.*;

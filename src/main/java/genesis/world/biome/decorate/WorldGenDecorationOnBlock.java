@@ -6,7 +6,7 @@ import java.util.Random;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 
-import genesis.util.WorldBlockMatcher;
+import genesis.util.functional.WorldBlockMatcher;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;

@@ -4,8 +4,8 @@ import genesis.block.BlockPebble;
 import genesis.combo.ToolItems;
 import genesis.combo.variant.EnumToolMaterial;
 import genesis.common.GenesisItems;
-import genesis.util.WorldBlockMatcher;
 import genesis.util.WorldUtils;
+import genesis.util.functional.WorldBlockMatcher;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -5,7 +5,7 @@ import java.util.Random;
 import com.google.common.base.Predicate;
 
 import genesis.common.GenesisBlocks;
-import genesis.util.WorldBlockMatcher;
+import genesis.util.functional.WorldBlockMatcher;
 import genesis.util.random.f.FloatRange;
 import genesis.util.random.i.*;
 import net.minecraft.block.material.Material;

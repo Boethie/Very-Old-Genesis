@@ -1,4 +1,4 @@
-package genesis.util;
+package genesis.util.functional;
 
 import com.google.common.base.Predicate;
 

@@ -14,6 +14,7 @@ import genesis.common.*;
 import genesis.item.ItemBlockMulti;
 import genesis.portal.*;
 import genesis.util.*;
+import genesis.util.functional.ClientFunction;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.*;

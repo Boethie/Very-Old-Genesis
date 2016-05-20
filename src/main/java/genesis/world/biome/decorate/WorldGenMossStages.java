@@ -4,8 +4,7 @@ import java.util.Random;
 
 import genesis.block.BlockMoss;
 import genesis.common.GenesisBlocks;
-import genesis.util.WorldBlockMatcher;
-
+import genesis.util.functional.WorldBlockMatcher;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;

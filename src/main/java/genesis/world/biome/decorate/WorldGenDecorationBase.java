@@ -2,7 +2,7 @@ package genesis.world.biome.decorate;
 
 import java.util.Random;
 
-import genesis.util.WorldBlockMatcher;
+import genesis.util.functional.WorldBlockMatcher;
 import genesis.util.random.i.IntRange;
 import genesis.util.random.i.RandomIntProvider;
 import net.minecraft.block.Block;

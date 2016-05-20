@@ -1,7 +1,7 @@
 package genesis.world.biome.decorate;
 
 import genesis.common.GenesisBlocks;
-import genesis.util.WorldBlockMatcher;
+import genesis.util.functional.WorldBlockMatcher;
 
 import java.util.Random;
 
