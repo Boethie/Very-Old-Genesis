@@ -4,6 +4,7 @@ import genesis.world.biome.BiomeGenAuxForest;
 import genesis.world.biome.BiomeGenAuxForestM;
 import genesis.world.biome.BiomeGenBaseGenesis;
 import genesis.world.biome.BiomeGenBeachGenesis;
+import genesis.world.biome.BiomeGenDeepOceanGenesis;
 import genesis.world.biome.BiomeGenFloodplainsForest;
 import genesis.world.biome.BiomeGenLimestoneBeach;
 import genesis.world.biome.BiomeGenMarsh;
@@ -259,7 +260,7 @@ public final class GenesisBiomes
 		prop.setHeightVariation(0.1F);
 		prop.setWaterColor(0x876719);
 		
-		deepOcean = new BiomeGenOceanGenesis(prop).addElements(0);
+		deepOcean = new BiomeGenDeepOceanGenesis(prop);
 		BiomeGenBase.registerBiome(GenesisConfig.deepOceanId, deepOcean.getBiomeName(), deepOcean);
 		BiomeDictionary.registerBiomeType(deepOcean, BiomeDictionary.Type.OCEAN, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
 		
