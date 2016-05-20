@@ -22,10 +22,10 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 		theBiomeDecorator.sandPerChunk = 0;
 		theBiomeDecorator.sandPerChunk2 = 0;
 		
-		getDecorator().setGrassCount(0.25F);
+		getDecorator().setGrassCount(0.15F);
 		addGrass(WorldGenPlant.create(EnumPlant.WACHTLERIA).setPatchCount(4), 1);
 		
-		getDecorator().setFlowerCount(0.75F);
+		getDecorator().setFlowerCount(0.5F);
 		addFlower(WorldGenPlant.create(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.AETHOPHYLLUM), 1);
 		addFlower(WorldGenPlant.create(EnumPlant.APOLDIA), 5);
 		
@@ -33,9 +33,9 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenPebbles().setWaterRequired(false), 5);
 		addDecoration(new WorldGenRockBoulders(GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT)).setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1F)), 0.4F);
 
-		getDecorator().setTreeCount(10.3F);
-		addTree(new WorldGenTreeBjuvia(4, 6, true), 2);
-		addTree(new WorldGenTreeVoltzia(5, 10, true), 100);
+		getDecorator().setTreeCount(0.4F);
+		addTree(new WorldGenTreeBjuvia(4, 6, true), 16);
+		addTree(new WorldGenTreeVoltzia(4, 8, true), 52);
 	}
 	
 	@Override

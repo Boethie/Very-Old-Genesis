@@ -8,6 +8,7 @@ import genesis.combo.variant.EnumSilt;
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.WorldGenPebbles;
 import genesis.world.biome.decorate.WorldGenPlant;
+import genesis.world.gen.feature.WorldGenTreeBjuvia;
 
 public class BiomeGenRedBeach extends BiomeGenBeachGenesis
 {
@@ -19,12 +20,15 @@ public class BiomeGenRedBeach extends BiomeGenBeachGenesis
 	}
 	
 	protected void addDecorations()
-	{	
+	{
 		getDecorator().setFlowerCount(5);
 		addFlower(WorldGenPlant.create(EnumPlant.LEPACYCLOTES).setNextToWater(true).setPatchCount(4), 10);
+		
+		getDecorator().setTreeCount(0.5F);
+		addTree(new WorldGenTreeBjuvia(4, 6, true), 1);
 	}
 	
-	@Override
+	/*@Override
 	public Vec3d getFogColor()
 	{
 		float red = 0.917647059F;
@@ -32,7 +36,7 @@ public class BiomeGenRedBeach extends BiomeGenBeachGenesis
 		float blue = 0.309803922F;
 		
 		return new Vec3d(red, green, blue);
-	}
+	}*/
 	
 	@Override
 	public float getNightFogModifier()

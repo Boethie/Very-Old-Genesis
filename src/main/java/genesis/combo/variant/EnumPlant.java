@@ -31,7 +31,7 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	AETHOPHYLLUM("aethophyllum", plant().soil(Plains, Desert).shearable(true).largeOnly()),
 	
 	// Ferns
-	RHACOPHYTON("rhacophyton", fern().largeOnly()),
+	RHACOPHYTON("rhacophyton", fern().soil(Plains, Desert).largeOnly()),
 	ZYGOPTERIS("zygopteris", fern()),
 	WACHTLERIA("wachtleria", fern().soil(Plains, Desert)),
 	PHLEBOPTERIS("phlebopteris", fern()),
