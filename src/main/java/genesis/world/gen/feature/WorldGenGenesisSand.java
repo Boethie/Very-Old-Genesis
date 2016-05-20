@@ -12,10 +12,10 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class WorldGenGenesisSand extends WorldGenerator
 {
-	private final Block sand;
+	private final IBlockState sand;
 	private final int radius;
 
-	public WorldGenGenesisSand(Block sand, int radius)
+	public WorldGenGenesisSand(IBlockState sand, int radius)
 	{
 		this.sand = sand;
 		this.radius = radius;
@@ -57,7 +57,7 @@ public class WorldGenGenesisSand extends WorldGenerator
 
 						if (block == Blocks.dirt || block == GenesisBlocks.moss)
 						{
-							world.setBlockState(pos, sand.getDefaultState(), 2);
+							world.setBlockState(pos, sand, 2);
 						}
 					}
 				}

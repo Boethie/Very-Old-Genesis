@@ -9,6 +9,7 @@ import com.google.common.base.Predicates;
 import genesis.combo.*;
 import genesis.combo.variant.*;
 import genesis.common.*;
+import genesis.util.functional.StateMatcher;
 import genesis.util.random.i.*;
 import genesis.world.biome.BiomeGenBaseGenesis;
 import genesis.world.biome.DecorationEntry;
@@ -55,11 +56,10 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	{
 		clayGen = new WorldGenCircleReplacement((s) -> s.getMaterial() == Material.water,
 				4, 1,
-				Predicates.or(
-						BlockStateMatcher.forBlock(Blocks.dirt),
-						BlockStateMatcher.forBlock(GenesisBlocks.ooze)),
+				Predicates.or(StateMatcher.forBlocks(Blocks.dirt, GenesisBlocks.ooze),
+						StateMatcher.forBlocks(GenesisBlocks.silt.getBlocks(SiltBlocks.SILT))),
 				GenesisBlocks.red_clay.getDefaultState());
-		sandGen = new WorldGenGenesisSand(GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT), 7);
+		sandGen = new WorldGenGenesisSand(GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT), 7);
 	}
 	
 	@Override
