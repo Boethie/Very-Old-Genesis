@@ -11,6 +11,7 @@ import genesis.common.GenesisBlocks;
 import genesis.util.random.i.*;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.material.Material;
@@ -141,7 +142,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	/**
 	 * @return The position the sapling would be at above the soil, or null if the tree cannot grow there.
 	 */
-	public BlockPos getTreePos(IBlockAccess world, BlockPos pos, int distance)
+	public BlockPos getTreePos(World world, BlockPos pos, int distance)
 	{
 		BlockPos soilPos = pos;
 		IBlockState checkState;
@@ -166,7 +167,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		BlockPos saplingPos = soilPos.up();
 		
 		if (!soilPredicate.apply(checkState)
-				|| !checkState.getBlock().canSustainPlant(checkState, world, saplingPos, EnumFacing.UP, (IPlantable) sapling.getBlock()))
+				|| !((BlockBush) sapling.getBlock()).canBlockStay(world, saplingPos, sapling))
 			return null;
 		
 		IBlockState replacing = world.getBlockState(saplingPos);
@@ -178,7 +179,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		return saplingPos;
 	}
 	
-	public BlockPos getTreePos(IBlockAccess world, BlockPos pos)
+	public BlockPos getTreePos(World world, BlockPos pos)
 	{
 		return getTreePos(world, pos, -1);
 	}

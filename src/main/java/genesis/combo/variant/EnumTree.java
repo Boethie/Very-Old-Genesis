@@ -5,6 +5,7 @@ import java.util.*;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.potion.PotionEffect;
+import net.minecraftforge.common.EnumPlantType;
 
 public enum EnumTree implements IMetadata<EnumTree>, IFood
 {
@@ -14,8 +15,8 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	CORDAITES("cordaites", tree()),
 	PSARONIUS("psaronius", tree().noBillet().noDead()),
 	GINKGO("ginkgo", tree().noDead().noDebris().fruit(1, 1)),
-	BJUVIA("bjuvia", tree().noBillet().noDead().noDebris()),
-	VOLTZIA("voltzia", tree().noDead().noDebris()),
+	BJUVIA("bjuvia", tree().soils(EnumPlantType.Plains, EnumPlantType.Desert).noBillet().noDead().noDebris()),
+	VOLTZIA("voltzia", tree().soils(EnumPlantType.Plains, EnumPlantType.Desert).noDead().noDebris()),
 	ARAUCARIOXYLON("araucarioxylon", tree().hangingFruit().fruitSize(6, 7)),
 	METASEQUOIA("metasequoia", tree().bow(0.6F, 1)),
 	ARCHAEANTHUS("archaeanthus", tree().noDead().bow(0.8F, 1.3F)),
@@ -36,6 +37,8 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	final boolean billet;
 	final boolean debris;
 	final boolean dead;
+	
+	final EnumPlantType[] soils;
 	
 	final FruitType fruit;
 	
@@ -61,6 +64,8 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 		billet = props.billet;
 		debris = props.debris;
 		dead = props.dead;
+		
+		soils = props.soils;
 		
 		fruit = props.fruit;
 		food = props.food;
@@ -118,6 +123,11 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	public boolean hasDead()
 	{
 		return dead;
+	}
+	
+	public EnumPlantType[] getSoils()
+	{
+		return soils;
 	}
 	
 	public FruitType getFruitType()
@@ -200,6 +210,8 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 		boolean debris = true;
 		boolean dead = true;
 		
+		EnumPlantType[] soils = { EnumPlantType.Plains };
+		
 		FruitType fruit = FruitType.NONE;
 		
 		int food = 0;
@@ -217,6 +229,12 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 		
 		private Props()
 		{
+		}
+		
+		private Props soils(EnumPlantType... soils)
+		{
+			this.soils = soils;
+			return this;
 		}
 		
 		private Props bush()

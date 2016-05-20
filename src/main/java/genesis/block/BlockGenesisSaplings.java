@@ -247,30 +247,13 @@ public class BlockGenesisSaplings extends BlockSapling
 	@Override
 	public boolean canReplace(World world, BlockPos pos, EnumFacing side, ItemStack stack)
 	{
-		EnumTree variant = owner.getVariant(stack);
-		
-		switch (variant)
-		{
-		case BJUVIA:
-			return WorldUtils.canSoilSustainTypes(world, pos, EnumPlantType.Plains, EnumPlantType.Desert);
-		default:
-			break;
-		}
-		
-		return super.canReplace(world, pos, side, stack);
+		return world.getBlockState(pos).getBlock().isReplaceable(world, pos)
+				&& WorldUtils.canSoilSustainTypes(world, pos, owner.getVariant(stack).getSoils());
 	}
 	
 	@Override
 	public boolean canBlockStay(World world, BlockPos pos, IBlockState state)
 	{
-		EnumTree variant = owner.getVariant(state);
-		
-		switch (variant)
-		{
-		case BJUVIA:
-			return WorldUtils.canSoilSustainTypes(world, pos, EnumPlantType.Plains, EnumPlantType.Desert);
-		default:
-			return super.canBlockStay(world, pos, state);
-		}
+		return WorldUtils.canSoilSustainTypes(world, pos, owner.getVariant(state).getSoils());
 	}
 }

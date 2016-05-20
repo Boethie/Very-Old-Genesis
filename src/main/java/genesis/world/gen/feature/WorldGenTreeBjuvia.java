@@ -15,8 +15,6 @@ public class WorldGenTreeBjuvia extends WorldGenTreeBase
 	public WorldGenTreeBjuvia(int minHeight, int maxHeight, boolean notify)
 	{
 		super(EnumTree.BJUVIA, IntRange.create(minHeight, maxHeight), notify);
-		
-		setSoilPredicate((s) -> GenesisBlocks.silt.isStateOf(s, SiltBlocks.SILT));
 	}
 	
 	@Override

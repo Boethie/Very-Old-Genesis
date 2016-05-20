@@ -2,16 +2,8 @@ package genesis.world.gen.feature;
 
 import java.util.Random;
 
-import com.google.common.base.Predicates;
-
 import genesis.combo.variant.EnumTree;
-import genesis.common.GenesisBlocks;
 import genesis.util.random.i.IntRange;
-import genesis.util.random.i.WeightedIntItem;
-import genesis.util.random.i.WeightedIntProvider;
-import net.minecraft.block.BlockDirt;
-import net.minecraft.block.state.pattern.BlockStateMatcher;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
