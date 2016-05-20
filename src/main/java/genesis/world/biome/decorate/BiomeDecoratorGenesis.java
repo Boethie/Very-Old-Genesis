@@ -4,6 +4,8 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 import java.util.Random;
 
+import com.google.common.base.Predicates;
+
 import genesis.combo.*;
 import genesis.combo.variant.*;
 import genesis.common.*;
@@ -52,7 +54,11 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	public BiomeDecoratorGenesis()
 	{
 		clayGen = new WorldGenCircleReplacement((s) -> s.getMaterial() == Material.water,
-				4, 1, BlockStateMatcher.forBlock(Blocks.dirt), GenesisBlocks.red_clay.getDefaultState());
+				4, 1,
+				Predicates.or(
+						BlockStateMatcher.forBlock(Blocks.dirt),
+						BlockStateMatcher.forBlock(GenesisBlocks.ooze)),
+				GenesisBlocks.red_clay.getDefaultState());
 		sandGen = new WorldGenGenesisSand(GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT), 7);
 	}
 	
