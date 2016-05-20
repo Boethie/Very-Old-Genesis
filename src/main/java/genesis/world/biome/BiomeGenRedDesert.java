@@ -18,7 +18,6 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
 		fillerBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
 		
-		theBiomeDecorator.clayPerChunk = 2;
 		theBiomeDecorator.sandPerChunk = 0;
 		theBiomeDecorator.sandPerChunk2 = 0;
 		
@@ -27,7 +26,7 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 		
 		getDecorator().setFlowerCount(0.5F);
 		addFlower(WorldGenPlant.create(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.AETHOPHYLLUM), 1);
-		addFlower(WorldGenPlant.create(EnumPlant.APOLDIA), 5);
+		addFlower(WorldGenPlant.create(EnumPlant.APOLDIA), 4);
 		
 		addDecoration(new WorldGenRoots(), 5);
 		addDecoration(new WorldGenPebbles().setWaterRequired(false), 5);
