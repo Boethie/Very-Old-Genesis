@@ -194,6 +194,8 @@ public class BlockGenesisSaplings extends BlockSapling
 		
 		if (gen != null)
 		{
+			gen.plantedWithSapling = true;
+			
 			IBlockState[] states = new IBlockState[positions.length];
 			
 			for (int i = 0; i < positions.length; i++)

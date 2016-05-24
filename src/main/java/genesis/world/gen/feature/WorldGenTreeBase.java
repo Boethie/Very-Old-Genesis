@@ -5,6 +5,7 @@ import java.util.Random;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 
+import genesis.block.BlockResin;
 import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
@@ -44,6 +45,8 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	protected RandomIntProvider saplingCountProvider = null;
 	
 	protected TreeTypes treeType = TreeTypes.TYPE_1;
+	
+	public boolean plantedWithSapling = false;
 	
 	public static enum TreeTypes
 	{
@@ -283,6 +286,19 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 							|| currentState.getBlock().isLeaves(currentState, world, pos))
 					&& !force)
 			return;
+			
+			boolean flag = false;
+			
+			for(EnumTree t : BlockResin.allowedLogs)
+				if(GenesisBlocks.trees.getVariant(state) == t)
+					flag=true;
+			
+			if(flag)
+			for (EnumFacing enumfacing : EnumFacing.HORIZONTALS)
+	        {
+				if(world.rand.nextInt(!plantedWithSapling ? 200+world.rand.nextInt(10) : 600) == 0)
+				setBlockInWorld(world, pos.offset(enumfacing),GenesisBlocks.resinB.getDefaultState().withProperty(BlockResin.FACING, enumfacing).withProperty(BlockResin.LAYERS, world.rand.nextInt(4)), false);
+	        }
 		}
 		else if (state == leaves)
 		{

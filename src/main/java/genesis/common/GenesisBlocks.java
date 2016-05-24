@@ -141,6 +141,8 @@ public final class GenesisBlocks
 			.setCustoms(surviveOnDirt)
 			.setUnlocalizedName(Unlocalized.CROP + "zingiberopsis");
 	
+	public static final Block resinB = new BlockResin().setUnlocalizedName(Unlocalized.PREFIX+"resinB");
+	
 	/* Fluids */
 	public static final BlockKomatiiticLava komatiitic_lava = (BlockKomatiiticLava) new BlockKomatiiticLava(GenesisFluids.KOMATIITIC_LAVA).setUnlocalizedName(Unlocalized.PREFIX + "komatiiticLava");
 	
@@ -360,6 +362,9 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(archaeomarasmius, name("archaeomarasmius"));
 		Genesis.proxy.registerBlock(stemonitis, name("stemonitis"));
 		Genesis.proxy.registerBlock(prototaxites, name("prototaxites"));
+		
+		//Resin
+		Genesis.proxy.registerBlock(resinB, name("resinB"));
 		
 		// - Water Plants -
 		// Cobbania
