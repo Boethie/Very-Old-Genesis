@@ -2,12 +2,18 @@ package genesis.world.iworldgenerators;
 
 import java.util.Random;
 
+import genesis.block.tileentity.BlockRack;
 import genesis.block.tileentity.BlockStorageBox;
+import genesis.block.tileentity.TileEntityRack;
+import genesis.combo.ToolItems;
 import genesis.combo.TreeBlocksAndItems;
+import genesis.combo.variant.EnumClothing;
+import genesis.combo.variant.EnumToolMaterial;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisConfig;
 import genesis.common.GenesisDimensions;
+import genesis.common.GenesisItems;
 import genesis.world.biome.BiomeGenRainforest;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
@@ -76,6 +82,26 @@ public class WorldGenHut implements IWorldGenerator {
 						world.setBlockState(pos, bs);
 					}
 				}
+		
+		BlockPos legsPos[] = new BlockPos[]{start.add(1, 0, 1), start.add(1, 0, 6), start.add(4, 0, 1), start.add(4, 0, 6)};
+		
+		for(BlockPos bp : legsPos)
+		{
+			while(!WorldGenHelper.isGround(world, bp.down()))
+			{
+				bp = bp.down();
+				world.setBlockState(bp, WGHDB.wattle);
+			}
+		}
+		
+		TileEntityRack rack1 = BlockRack.getTileEntity(world, start.add(2, 4, 5));
+		TileEntityRack rack2 = BlockRack.getTileEntity(world, start.add(3, 4, 5));
+		
+		if(rack1 != null && rack2 != null)
+		{
+			rack1.setStackInSide(EnumFacing.SOUTH, GenesisItems.clothing.getHelmet(EnumClothing.CHITIN));
+			rack2.setStackInSide(EnumFacing.SOUTH, GenesisItems.tools.getBadStack(ToolItems.KNIFE, EnumToolMaterial.QUARTZ));
+		}
 		
 		System.out.println("Hut has been generated at "+start.toString());
 	}

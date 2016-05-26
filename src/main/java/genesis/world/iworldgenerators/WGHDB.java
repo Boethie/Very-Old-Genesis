@@ -1,5 +1,6 @@
 package genesis.world.iworldgenerators;
 
+import genesis.block.tileentity.BlockRack;
 import genesis.block.tileentity.BlockStorageBox;
 import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumTree;
@@ -33,6 +34,8 @@ public class WGHDB {
 			
 	static IBlockState bundle = GenesisBlocks.calamites_bundle.getDefaultState();
 	
+	static IBlockState rack = GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.RACK, EnumTree.SIGILLARIA).withProperty(BlockRack.RACKS.south, true);
+	
 	//The main building matrix
 	
 					 					//y x z
@@ -58,7 +61,7 @@ public class WGHDB {
 		{null, baseY, bundle.withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), bundle.withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), bundle.withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), bundle.withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), baseY, null},
 		{null, bundle.withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), GenesisBlocks.storage_box.getDefaultState().withProperty(BlockStorageBox.FACING, EnumFacing.EAST),null, null, null, bundle.withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), null},
 		{null, bundle.withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), null,null,null, GenesisBlocks.workbench.getDefaultState(), bundle.withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), null},
-		{null, baseY, bundle.withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), null, baseY, baseY, baseY, null},
+		{null, baseY, baseY, null, baseY, bundle.withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), baseY, null},
 		nullRow
 	},
 	{
@@ -72,8 +75,8 @@ public class WGHDB {
 	{
 		{rf[2],rf[2],rf[2],rf[2],rf[2],rf[2],rf[2],rf[2]},
 		{rf[3], baseZ, baseZ, baseZ, baseZ, baseZ, baseZ, rf[3]},
-		{null, base, null,null,null, /*TODO Add a rack*/null, base, null},
-		{null, base, null,null,null, /*TODO Add a rack*/null, base, null},
+		{null, base, null,null,null, rack, base, null},
+		{null, base, null,null,null, rack, base, null},
 		{rf[1], baseZ, baseZ, baseZ, baseZ, baseZ, baseZ, rf[1]},
 		{rf[0],rf[0],rf[0],rf[0],rf[0],rf[0],rf[0],rf[0]}
 	},
