@@ -24,7 +24,7 @@ public class WorldGenerators
 	{
 		GameRegistry.registerWorldGenerator(new WorldGenPortal(), 0);
 		GameRegistry.registerWorldGenerator(new WorldGenMenhirActivators(), 0);
-		GameRegistry.registerWorldGenerator(new WorldGenHut(), 48);
+		GameRegistry.registerWorldGenerator(new WorldGenHut(), 5);
 		
 		for (EnumMenhirActivator activator : EnumMenhirActivator.values())
 		{

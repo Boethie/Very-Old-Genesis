@@ -61,6 +61,9 @@ public final class GenesisConfig
 	public static int flintCount = 34;
 	public static int marcasiteCount = 86;
 	
+	//Structures
+	public static float hutChance = 0.02F;
+	
 	//Dimension music
 	public static boolean playDimensionMusic = true;
 	
@@ -106,6 +109,9 @@ public final class GenesisConfig
 		olivineCount = config.getInt("olivine", "oregen", olivineCount, 0, 255, "Generation count for olivine");
 		flintCount = config.getInt("flint", "oregen", flintCount, 0, 255, "Generation count for flint");
 		marcasiteCount = config.getInt("marcaiste", "oregen", marcasiteCount, 0, 255, "Generation count for marcaiste");
+		
+		//Structures
+		hutChance = config.getFloat("hutChance", "structures", 0.02F, 0, 1F, "Hut spawning chance");
 		
 		playDimensionMusic = config.getBoolean("dimensionMusic", "music", true, "If true, new music will play in the dimension.");
 		
