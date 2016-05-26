@@ -108,7 +108,7 @@ public final class GenesisConfig
 		azuriteCount = config.getInt("azurite", "oregen", azuriteCount, 0, 255, "Generation count for azurite");
 		olivineCount = config.getInt("olivine", "oregen", olivineCount, 0, 255, "Generation count for olivine");
 		flintCount = config.getInt("flint", "oregen", flintCount, 0, 255, "Generation count for flint");
-		marcasiteCount = config.getInt("marcaiste", "oregen", marcasiteCount, 0, 255, "Generation count for marcaiste");
+		marcasiteCount = config.getInt("marcasite", "oregen", marcasiteCount, 0, 255, "Generation count for marcasite");
 		
 		//Structures
 		hutChance = config.getFloat("hutChance", "structures", 0.01F, 0, 1F, "Hut spawning chance");
