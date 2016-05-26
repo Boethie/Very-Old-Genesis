@@ -2,8 +2,10 @@ package genesis.world;
 
 import com.google.common.collect.Lists;
 import genesis.combo.variant.EnumMenhirActivator;
+import genesis.common.Genesis;
 import genesis.common.GenesisItems;
 import genesis.world.iworldgenerators.WorldGenPortal;
+import genesis.world.iworldgenerators.WorldGenHut;
 import genesis.world.iworldgenerators.WorldGenMenhirActivators;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -22,6 +24,7 @@ public class WorldGenerators
 	{
 		GameRegistry.registerWorldGenerator(new WorldGenPortal(), 0);
 		GameRegistry.registerWorldGenerator(new WorldGenMenhirActivators(), 0);
+		GameRegistry.registerWorldGenerator(new WorldGenHut(), 48);
 		
 		for (EnumMenhirActivator activator : EnumMenhirActivator.values())
 		{
