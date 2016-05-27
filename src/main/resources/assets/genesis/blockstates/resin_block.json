@@ -1,0 +1,21 @@
+{
+	"forge_marker": 1,
+    "variants": {
+        "facing=east,layers=0":  { "model": "genesis:resin", "uvlock": true, "x": 90, "y": 90 },
+        "facing=west,layers=0":  { "model": "genesis:resin", "uvlock": true, "x": 90, "y": 270 },
+        "facing=south,layers=0": { "model": "genesis:resin", "uvlock": true, "x": 90, "y": 180 },
+        "facing=north,layers=0": { "model": "genesis:resin", "uvlock": true, "x": 90 },
+        "facing=east,layers=1":  { "model": "genesis:resin_1", "uvlock": true, "x": 90, "y": 90 },
+        "facing=west,layers=1":  { "model": "genesis:resin_1", "uvlock": true, "x": 90, "y": 270 },
+        "facing=south,layers=1": { "model": "genesis:resin_1", "uvlock": true, "x": 90, "y": 180 },
+        "facing=north,layers=1": { "model": "genesis:resin_1", "uvlock": true, "x": 90 },
+        "facing=east,layers=2":  { "model": "genesis:resin_2", "uvlock": true, "x": 90, "y": 90 },
+        "facing=west,layers=2":  { "model": "genesis:resin_2", "uvlock": true, "x": 90, "y": 270 },
+        "facing=south,layers=2": { "model": "genesis:resin_2", "uvlock": true, "x": 90, "y": 180 },
+        "facing=north,layers=2": { "model": "genesis:resin_2", "uvlock": true, "x": 90 },
+        "facing=east,layers=3":  { "model": "genesis:resin_3", "uvlock": true, "x": 90, "y": 90 },
+        "facing=west,layers=3":  { "model": "genesis:resin_3", "uvlock": true, "x": 90, "y": 270 },
+        "facing=south,layers=3": { "model": "genesis:resin_3", "uvlock": true, "x": 90, "y": 180 },
+        "facing=north,layers=3": { "model": "genesis:resin_3", "uvlock": true, "x": 90 }
+    }
+}

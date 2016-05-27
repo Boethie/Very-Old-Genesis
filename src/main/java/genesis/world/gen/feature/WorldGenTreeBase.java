@@ -297,7 +297,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 			for (EnumFacing enumfacing : EnumFacing.HORIZONTALS)
 	        {
 				if(world.rand.nextInt(!plantedWithSapling ? 200+world.rand.nextInt(10) : 600) == 0)
-				setBlockInWorld(world, pos.offset(enumfacing),GenesisBlocks.resinB.getDefaultState().withProperty(BlockResin.FACING, enumfacing).withProperty(BlockResin.LAYERS, world.rand.nextInt(4)), false);
+				setBlockInWorld(world, pos.offset(enumfacing),GenesisBlocks.resin_block.getDefaultState().withProperty(BlockResin.FACING, enumfacing).withProperty(BlockResin.LAYERS, world.rand.nextInt(4)), false);
 	        }
 		}
 		else if (state == leaves)

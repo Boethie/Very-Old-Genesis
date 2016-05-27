@@ -55,10 +55,9 @@ public class BlockResin extends BlockGenesis implements IGrowable {
 	public static EnumTree[] allowedLogs = new EnumTree[]{EnumTree.CORDAITES, EnumTree.VOLTZIA, EnumTree.ARAUCARIOXYLON, EnumTree.METASEQUOIA};
 	
 	public BlockResin() {
-		super(Material.wood, SoundType.SLIME);
+		super(Material.wood, SoundType.WOOD);
 		this.setTickRandomly(true);
-        this.setCreativeTab(GenesisCreativeTabs.BLOCK);
-        this.setHardness(3.0F);
+        this.setCreativeTab(GenesisCreativeTabs.DECORATIONS);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(LAYERS, 3));
 	}
 

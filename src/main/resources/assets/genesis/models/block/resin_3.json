@@ -1,8 +1,7 @@
 {
-    "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
     "textures": {
-        "particle": "genesis:blocks/resinB",
-        "0": "genesis:blocks/resinB"
+        "particle": "genesis:blocks/resin_block",
+        "0": "genesis:blocks/resin_block"
     },
     "elements": [
         {
