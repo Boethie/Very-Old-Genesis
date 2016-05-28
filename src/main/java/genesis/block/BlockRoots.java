@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 
 import genesis.combo.TreeBlocksAndItems;
 import genesis.common.GenesisCreativeTabs;
-
+import genesis.common.sounds.GenesisSoundTypes;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -30,7 +30,7 @@ public class BlockRoots extends BlockGenesis
 	
 	public BlockRoots()
 	{
-		super(Material.vine, SoundType.WOOD);
+		super(Material.vine, GenesisSoundTypes.ROOTS);
 		
 		setDefaultState(blockState.getBaseState().withProperty(END, true));
 		

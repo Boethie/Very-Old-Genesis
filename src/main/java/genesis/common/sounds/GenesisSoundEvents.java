@@ -37,6 +37,12 @@ public class GenesisSoundEvents
 	public static SoundEvent block_calamites_hit;
 	public static SoundEvent block_calamites_fall;
 	
+	public static SoundEvent block_roots_break;
+	public static SoundEvent block_roots_step;
+	public static SoundEvent block_roots_place;
+	public static SoundEvent block_roots_hit;
+	public static SoundEvent block_roots_fall;
+	
 	public static SoundEvent block_coral_break;
 	public static SoundEvent block_coral_step;
 	public static SoundEvent block_coral_place;
@@ -164,6 +170,12 @@ public class GenesisSoundEvents
 		block_calamites_place = registerSound("block.calamites.place");
 		block_calamites_hit = registerSound("block.calamites.hit");
 		block_calamites_fall = registerSound("block.calamites.fall");
+		
+		block_roots_break = registerSound("block.roots.break");
+		block_roots_step = registerSound("block.roots.step");
+		block_roots_place = registerSound("block.roots.place");
+		block_roots_hit = registerSound("block.roots.hit");
+		block_roots_fall = registerSound("block.roots.fall");
 		
 		block_coral_break = registerSound("block.coral.break");
 		block_coral_step = registerSound("block.coral.step");

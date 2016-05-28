@@ -34,6 +34,12 @@ public final class GenesisSoundTypes
 			GenesisSoundEvents.block_calamites_place,
 			GenesisSoundEvents.block_calamites_hit,
 			GenesisSoundEvents.block_calamites_fall);
+	public static final SoundType ROOTS = new SoundType(1, 1,
+			GenesisSoundEvents.block_roots_break,
+			GenesisSoundEvents.block_roots_step,
+			GenesisSoundEvents.block_roots_place,
+			GenesisSoundEvents.block_roots_hit,
+			GenesisSoundEvents.block_roots_fall);
 	public static final SoundType CORAL = new SoundType(1, 1,
 			GenesisSoundEvents.block_coral_break,
 			GenesisSoundEvents.block_coral_step,

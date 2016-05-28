@@ -127,6 +127,41 @@
 		],
 		"subtitle": "subtitles.block.generic.fall"
 	},
+	"block.roots.break": {
+		"sounds": [
+			"genesis:dig/roots1",
+			"genesis:dig/roots2",
+			"genesis:dig/roots3"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.roots.step": {
+		"sounds": [
+			"genesis:dig/roots1",
+			"genesis:dig/roots2"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
+	"block.roots.place": {
+		"sounds": [
+			"genesis:dig/roots1",
+			"genesis:dig/roots2"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.roots.hit": {
+		"sounds": [
+			"genesis:dig/roots1",
+			"genesis:dig/roots2"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.roots.fall": {
+		"sounds": [
+			"genesis:dig/roots3"
+		],
+		"subtitle": "subtitles.block.generic.fall"
+	},
 	"block.dung.break": {
 		"sounds": [
 			"genesis:dig/dung1",
