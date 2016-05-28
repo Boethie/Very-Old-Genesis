@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "genesis:blocks/ankyropteris_mid"
+        "layer0": "genesis:blocks/ankyropteris_middle"
     }
 }

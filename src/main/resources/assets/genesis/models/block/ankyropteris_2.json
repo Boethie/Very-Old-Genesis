@@ -1,8 +1,8 @@
 {
     "ambientocclusion": false,
     "textures": {
-        "particle": "genesis:blocks/ankyropteris_mid",
-        "ankyropteris": "genesis:blocks/ankyropteris_mid"
+        "particle": "genesis:blocks/ankyropteris_middle",
+        "ankyropteris": "genesis:blocks/ankyropteris_middle"
     },
     "elements": [
         {   "from": [ 0, 0, 0.8 ],

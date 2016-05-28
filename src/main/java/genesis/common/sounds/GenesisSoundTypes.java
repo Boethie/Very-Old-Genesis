@@ -82,4 +82,10 @@ public final class GenesisSoundTypes
 			GenesisSoundEvents.block_debris_place,
 			GenesisSoundEvents.block_debris_hit,
 			GenesisSoundEvents.block_debris_fall);
+	public static final SoundType PEBBLE = new SoundType(1, 1,
+			GenesisSoundEvents.block_pebble_break,
+			GenesisSoundEvents.block_pebble_step,
+			GenesisSoundEvents.block_pebble_place,
+			GenesisSoundEvents.block_pebble_hit,
+			GenesisSoundEvents.block_pebble_fall);
 }

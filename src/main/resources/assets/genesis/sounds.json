@@ -286,6 +286,46 @@
 		],
 		"subtitle": "subtitles.block.generic.fall"
 	},
+	"block.pebble.break": {
+		"sounds": [
+			"genesis:dig/pebble1",
+			"genesis:dig/pebble2",
+			"genesis:dig/pebble3"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.pebble.step": {
+		"sounds": [
+			"genesis:dig/pebble1",
+			"genesis:dig/pebble2",
+			"genesis:dig/pebble3"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
+	"block.pebble.place": {
+		"sounds": [
+			"genesis:dig/pebble1",
+			"genesis:dig/pebble2",
+			"genesis:dig/pebble3"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.pebble.hit": {
+		"sounds": [
+			"genesis:dig/pebble1",
+			"genesis:dig/pebble2",
+			"genesis:dig/pebble3"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.pebble.fall": {
+		"sounds": [
+			"genesis:dig/pebble1",
+			"genesis:dig/pebble2",
+			"genesis:dig/pebble3"
+		],
+		"subtitle": "subtitles.block.generic.fall"
+	},
 	"block.coral.break": {
 		"sounds": [
 			"genesis:dig/coral1",

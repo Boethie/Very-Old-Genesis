@@ -12,6 +12,7 @@ import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.PropertyIMetadata;
 import genesis.combo.variant.ToolTypes.ToolType;
 import genesis.common.*;
+import genesis.common.sounds.GenesisSoundTypes;
 import genesis.item.*;
 import genesis.network.client.*;
 import genesis.util.*;
@@ -52,6 +53,7 @@ public class BlockPebble extends Block implements MultiPartBlock
 	public BlockPebble(ToolItems owner, ToolObjectType<BlockPebble, ItemPebble> type, ToolType variant, Class<ToolType> variantClass)
 	{
 		super(Material.rock);
+		setSoundType(GenesisSoundTypes.PEBBLE);
 		
 		this.owner = owner;
 		this.type = type;
