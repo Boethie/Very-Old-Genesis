@@ -1,7 +1,8 @@
 {
-	"parent": "block/cube_top",
+	"parent": "block/cube_bottom_top",
 	"textures": {
 		"side": "genesis:blocks/workbench_side",
-		"top": "genesis:blocks/workbench_top"
+		"top": "genesis:blocks/workbench_top",
+		"bottom": "genesis:blocks/workbench_bottom"
 	}
 }
