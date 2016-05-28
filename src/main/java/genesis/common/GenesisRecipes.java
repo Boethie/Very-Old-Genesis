@@ -245,13 +245,23 @@ public final class GenesisRecipes
 	public static void addRecipes()
 	{
 		FuelHandler.initialize();
+
+		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.trap_floor),
+				"xxx",
+				"///",
+				'x', GenesisItems.materials.getStack(EnumMaterial.CLADOPHLEBIS_FROND),
+				'/', GenesisBlocks.calamites);
 		
 		//Food
 		GameRegistry.addShapelessRecipe(GenesisItems.seeds.getStack(EnumSeeds.ARAUCARIOXYLON_SEEDS), GenesisBlocks.trees.getStack(TreeBlocksAndItems.FRUIT, EnumTree.ARAUCARIOXYLON));
 		
 		//Torches
 		ItemStack resin = GenesisItems.materials.getStack(EnumMaterial.RESIN);
-		
+		GameRegistry.addShapedRecipe(new ItemStack(Blocks.torch, 4),
+				"o",
+				"|",
+				'o', resin, '|', Items.stick);
+
 		// Calamites torch
 		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4),
 				"o",
@@ -282,14 +292,6 @@ public final class GenesisRecipes
 				"|",
 				"|",
 				'o', resin, '|', GenesisBlocks.calamites);
-		GameRegistry.addShapedRecipe(new ItemStack(Blocks.torch, 4),
-				"o",
-				"|",
-				'o', resin, '|', Items.stick);
-		
-		GameRegistry.addShapelessRecipe(new ItemStack(GenesisBlocks.calamites, 9), GenesisBlocks.calamites_bundle);
-		
-		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.trap_floor), "xxx", "///", 'x', GenesisItems.materials.getStack(EnumMaterial.CLADOPHLEBIS_FROND), '/', GenesisBlocks.calamites);
 		
 		// Bundles
 		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.calamites_bundle),
@@ -297,12 +299,35 @@ public final class GenesisRecipes
 				"CCC",
 				"CCC",
 				'C', GenesisBlocks.calamites);
+		GameRegistry.addShapelessRecipe(new ItemStack(GenesisBlocks.calamites, 9), GenesisBlocks.calamites_bundle);
 		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.programinis_bundle),
 				"CCC",
 				"CCC",
 				"CCC",
 				'C', GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS));
 		GameRegistry.addShapelessRecipe(GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS, 9), GenesisBlocks.programinis_bundle);
+
+		// Roofs
+		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.calamites_roof, 4),
+				"#  ",
+				"## ",
+				"###",
+				'#', GenesisBlocks.calamites);
+		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.calamites_roof, 4),
+				"  #",
+				" ##",
+				"###",
+				'#', GenesisBlocks.calamites);
+		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.programinis_roof, 4),
+				"#  ",
+				"## ",
+				"###",
+				'#', GenesisBlocks.programinis);
+		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.programinis_roof, 4),
+				"  #",
+				" ##",
+				"###",
+				'#', GenesisBlocks.programinis);
 		
 		EnumToolMaterial[] flintMaterials = {EnumToolMaterial.BLACK_FLINT, EnumToolMaterial.BROWN_FLINT};
 		
