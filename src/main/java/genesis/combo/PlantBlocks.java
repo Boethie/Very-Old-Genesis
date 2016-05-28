@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableList;
 import genesis.block.*;
 import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.EnumPlant.PlantType;
+import genesis.common.sounds.GenesisSoundTypes;
 import genesis.item.*;
 import genesis.util.ReflectionUtils;
 import genesis.util.Constants.Unlocalized;
@@ -43,7 +44,7 @@ public class PlantBlocks extends VariantsOfTypesCombo<EnumPlant>
 		FERN = ObjectType.createBlock(EnumPlant.class, "fern", Unlocalized.Section.FERN, singleClass);
 		DOUBLE_FERN = ObjectType.createBlock(EnumPlant.class, "double_fern", Unlocalized.Section.FERN_DOUBLE, doubleClass);
 		
-		FERN.setBlockArguments(DOUBLE_FERN, SoundType.PLANT)
+		FERN.setBlockArguments(DOUBLE_FERN, GenesisSoundTypes.FERN)
 				.setVariantFilter((v) -> v.getType() == PlantType.FERN && v.hasSmall())
 				.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE);
 		
