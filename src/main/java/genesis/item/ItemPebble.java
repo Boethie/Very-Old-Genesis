@@ -114,19 +114,19 @@ public class ItemPebble extends ItemBlock
 			
 			if (replacing)
 			{
-				final float offset = 0.25F;
+				final float offset = 0.125F;
 				hitX += side.getFrontOffsetX() * offset;
 				hitY += side.getFrontOffsetY() * offset;
 				hitZ += side.getFrontOffsetZ() * offset;
 				
 				Vec3i blockOffset = new Vec3i(Math.round(hitX - 0.5F), Math.round(hitY - 0.5F), Math.round(hitZ - 0.5F));
-				hitX -= blockOffset.getX();
-				hitY -= blockOffset.getY();
-				hitZ -= blockOffset.getZ();
 				
-				if (!blockOffset.equals(new Vec3i(0, 0, 0)))
+				if (blockOffset.getX() != 0 || blockOffset.getY() != 0 || blockOffset.getZ() != 0)
 				{
 					pos = pos.add(blockOffset);
+					hitX -= blockOffset.getX();
+					hitY -= blockOffset.getY();
+					hitZ -= blockOffset.getZ();
 					replacing = false;
 				}
 			}
