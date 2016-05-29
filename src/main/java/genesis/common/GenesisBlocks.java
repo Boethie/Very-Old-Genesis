@@ -240,7 +240,6 @@ public final class GenesisBlocks
 		trees.registerVariants(TreeBlocksAndItems.LOG);
 		trees.registerVariants(TreeBlocksAndItems.BRANCH);
 
-		Genesis.proxy.registerBlock(rope_ladder, name("rope_ladder"));
 		Genesis.proxy.registerBlock(calamites_bundle, name("calamites_bundle"));
 		Genesis.proxy.registerBlock(calamites_roof, name("calamites_roof"));
 		Genesis.proxy.registerBlock(programinis_bundle, name("programinis_bundle"));
@@ -278,6 +277,9 @@ public final class GenesisBlocks
 		
 		Genesis.proxy.registerBlock(roots, name("roots"));
 		
+		//Resin
+		Genesis.proxy.registerBlock(resin_block, name("resin_block"));
+		
 		// - Containers -
 		// Workbench
 		Genesis.proxy.registerBlock(workbench, name("workbench"));
@@ -300,6 +302,9 @@ public final class GenesisBlocks
 		
 		// Rack
 		GameRegistry.registerTileEntity(TileEntityRack.class, Constants.ASSETS_PREFIX + "rack");
+		
+		// - Rope ladder -
+		Genesis.proxy.registerBlock(rope_ladder, name("rope_ladder"));
 		
 		// - Torches -
 		Genesis.proxy.registerBlock(calamites_torch, name("calamites_torch"));
@@ -364,9 +369,6 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(archaeomarasmius, name("archaeomarasmius"));
 		Genesis.proxy.registerBlock(stemonitis, name("stemonitis"));
 		Genesis.proxy.registerBlock(prototaxites, name("prototaxites"));
-		
-		//Resin
-		Genesis.proxy.registerBlock(resin_block, name("resin_block"));
 		
 		// - Water Plants -
 		// Cobbania
