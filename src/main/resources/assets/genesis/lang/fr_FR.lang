@@ -241,6 +241,8 @@ tile.genesis.coral.favosites.name=Favosites
 tile.genesis.coral.heliolites.name=Heliolites
 tile.genesis.coral.halysites.name=Halysites
 
+tile.genesis.ropeLadder.name=Échelle de corde
+
 #Mechanisms
 tile.genesis.trapFloor.name=Sol piégé
 

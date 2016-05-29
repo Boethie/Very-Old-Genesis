@@ -148,12 +148,13 @@ public final class GenesisBlocks
 	
 	/* Other Decorative */
 	public static final BlockGenesisFlowerPot flower_pot = (BlockGenesisFlowerPot) new BlockGenesisFlowerPot().setUnlocalizedName(Unlocalized.PREFIX + "flowerPot");
-	
+
 	public static final Block calamites_bundle = new BlockCalamitesBundle().setUnlocalizedName(Unlocalized.PREFIX + "calamitesBundle");
 	public static final Block calamites_roof = new BlockGenesisStairs(calamites_bundle.getDefaultState()).setUnlocalizedName(Unlocalized.PREFIX + "calamitesRoof");
 	public static final Block programinis_bundle = new BlockPrograminisBundle().setUnlocalizedName(Unlocalized.PREFIX + "programinisBundle");
 	public static final Block programinis_roof = new BlockGenesisStairs(programinis_bundle.getDefaultState()).setUnlocalizedName(Unlocalized.PREFIX + "programinisRoof");
 	
+	public static final Block rope_ladder = new BlockRopeLadder().setUnlocalizedName(Unlocalized.PREFIX + "ropeLadder");
 	public static final Block calamites_torch = new BlockCalamitesTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTorch");
 	public static final Block calamites_torch_tall = new BlockTallTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTorch.tall");
 	public static final Block prototaxites_mycelium = new BlockPrototaxitesMycelium().setUnlocalizedName(Unlocalized.PREFIX + "prototaxitesMycelium");
@@ -239,6 +240,7 @@ public final class GenesisBlocks
 		trees.registerVariants(TreeBlocksAndItems.LOG);
 		trees.registerVariants(TreeBlocksAndItems.BRANCH);
 
+		Genesis.proxy.registerBlock(rope_ladder, name("rope_ladder"));
 		Genesis.proxy.registerBlock(calamites_bundle, name("calamites_bundle"));
 		Genesis.proxy.registerBlock(calamites_roof, name("calamites_roof"));
 		Genesis.proxy.registerBlock(programinis_bundle, name("programinis_bundle"));

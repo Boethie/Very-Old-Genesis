@@ -246,6 +246,12 @@ public final class GenesisRecipes
 	{
 		FuelHandler.initialize();
 
+		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.rope_ladder),
+				"S S",
+				"S-S",
+				"S S",
+				'S', GenesisItems.materials.getStack(EnumMaterial.SPHENOPHYLLUM_FIBER),
+				'-', Items.stick);
 		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.trap_floor),
 				"xxx",
 				"///",
