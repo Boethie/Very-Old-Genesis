@@ -7,15 +7,19 @@ import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.ToolTypes.ToolType;
 import genesis.common.sounds.GenesisSoundEvents;
 import genesis.util.WorldUtils;
+import genesis.util.math.Vec3f;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.EnumFacing.AxisDirection;
 import net.minecraft.world.World;
 
 @ItemVariantCount(1)
@@ -110,43 +114,20 @@ public class ItemPebble extends ItemBlock
 			
 			if (replacing)
 			{
-				final float epsilon = 0.0005F;
+				final float offset = 0.25F;
+				hitX += side.getFrontOffsetX() * offset;
+				hitY += side.getFrontOffsetY() * offset;
+				hitZ += side.getFrontOffsetZ() * offset;
 				
-				hitX += side.getFrontOffsetX() * epsilon;
-				hitY += side.getFrontOffsetY() * epsilon;
-				hitZ += side.getFrontOffsetZ() * epsilon;
+				Vec3i blockOffset = new Vec3i(Math.round(hitX - 0.5F), Math.round(hitY - 0.5F), Math.round(hitZ - 0.5F));
+				hitX -= blockOffset.getX();
+				hitY -= blockOffset.getY();
+				hitZ -= blockOffset.getZ();
 				
-				if (hitX < 0)
+				if (!blockOffset.equals(new Vec3i(0, 0, 0)))
 				{
-					hitX += 1;
-					pos = pos.add(-1, 0, 0);
-				}
-				else if (hitX > 1)
-				{
-					hitX -= 1;
-					pos = pos.add(1, 0, 0);
-				}
-				
-				if (hitY < 0)
-				{
-					hitY += 1;
-					pos = pos.add(0, -1, 0);
-				}
-				else if (hitY > 1)
-				{
-					hitY -= 1;
-					pos = pos.add(0, 1, 0);
-				}
-	
-				if (hitZ < 0)
-				{
-					hitZ += 1;
-					pos = pos.add(0, 0, -1);
-				}
-				else if (hitZ > 1)
-				{
-					hitZ -= 1;
-					pos = pos.add(0, 0, 1);
+					pos = pos.add(blockOffset);
+					replacing = false;
 				}
 			}
 			else if (!state.getBlock().isReplaceable(world, pos))
@@ -159,7 +140,8 @@ public class ItemPebble extends ItemBlock
 			
 			IBlockState placing = block.onBlockPlaced(world, pos, side, hitX, hitY, hitZ, stack.getMetadata(), player);
 			
-			if (replacing || WorldUtils.canBlockBePlaced(world, placing, pos, side, player, stack))
+			if ((replacing && owner.isStateOf(world.getBlockState(pos), toolType, objType))
+					|| WorldUtils.canBlockBePlaced(world, placing, pos, side, player, stack))
 			{
 				if (world.setBlockState(pos, placing))
 				{
