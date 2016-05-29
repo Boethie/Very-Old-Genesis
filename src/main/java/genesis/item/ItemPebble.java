@@ -7,19 +7,16 @@ import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.ToolTypes.ToolType;
 import genesis.common.sounds.GenesisSoundEvents;
 import genesis.util.WorldUtils;
-import genesis.util.math.Vec3f;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.EnumFacing.AxisDirection;
 import net.minecraft.world.World;
 
 @ItemVariantCount(1)
