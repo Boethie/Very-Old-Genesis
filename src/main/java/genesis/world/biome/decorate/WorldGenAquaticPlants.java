@@ -34,8 +34,6 @@ public class WorldGenAquaticPlants extends WorldGenDecorationBase
 	@Override
 	public boolean place(World world, Random random, BlockPos pos)
 	{
-		IBlockState bottomState = GenesisBlocks.aquatic_plants.getBlockState(bottom);
-		
 		BlockPos checkPos = pos;
 		
 		// Check plant bottom position.
@@ -50,13 +48,15 @@ public class WorldGenAquaticPlants extends WorldGenDecorationBase
 		if (world.getBlockState(checkPos = checkPos.up()).getMaterial() != Material.water)
 			return false;
 		
+		IBlockState bottomState = GenesisBlocks.aquatic_plants.getBlockState(bottom);
+		
 		if (!((BlockAquaticPlant) bottomState.getBlock()).canBlockStay(world, pos, bottomState))
 			return false;
 		
-		setBlockInWorld(world, pos, bottomState);
+		setBlock(world, pos, bottomState);
 		
 		if (top != null)
-			setBlockInWorld(world, pos.up(), GenesisBlocks.aquatic_plants.getBlockState(top));
+			setReplaceableBlock(world, pos.up(), GenesisBlocks.aquatic_plants.getBlockState(top));
 		
 		return true;
 	}

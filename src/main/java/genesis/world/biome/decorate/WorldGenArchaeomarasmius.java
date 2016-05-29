@@ -26,7 +26,7 @@ public class WorldGenArchaeomarasmius extends WorldGenDecorationBase
 				|| world.getLight(pos.up()) > 14)
 			return false;
 		
-		setBlockInWorld(world, pos.up(), GenesisBlocks.archaeomarasmius.getDefaultState());
+		setAirBlock(world, pos.up(), GenesisBlocks.archaeomarasmius.getDefaultState());
 		
 		return true;
 	}

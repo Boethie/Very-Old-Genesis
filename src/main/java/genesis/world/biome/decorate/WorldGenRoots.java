@@ -72,7 +72,7 @@ public class WorldGenRoots extends WorldGenDecorationBase
 			
 			if (replacing.getBlock().isAir(replacing, world, rootPos))
 			{
-				setBlockInWorld(world, rootPos, GenesisBlocks.roots.getDefaultState());
+				setAirBlock(world, rootPos, GenesisBlocks.roots.getDefaultState());
 				generated = true;
 			}
 			else

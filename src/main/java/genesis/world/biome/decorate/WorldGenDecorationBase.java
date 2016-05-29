@@ -159,22 +159,33 @@ public abstract class WorldGenDecorationBase extends WorldGenerator
 		return this.rarity;
 	}
 	
-	protected boolean setBlockInWorld(World world, BlockPos pos, IBlockState state, boolean force)
+	protected void setBlock(World world, BlockPos pos, IBlockState state)
+	{
+		setBlockAndNotifyAdequately(world, pos, state);
+	}
+	
+	protected boolean setAirBlock(World world, BlockPos pos, IBlockState state)
 	{
 		IBlockState stateAt = world.getBlockState(pos);
 		
-		if (force || stateAt.getBlock().isAir(stateAt, world, pos))
+		if (stateAt.getBlock().isAir(stateAt, world, pos))
 		{
-			setBlockAndNotifyAdequately(world, pos, state);
+			setBlock(world, pos, state);
 			return true;
 		}
 		
 		return false;
 	}
 	
-	protected boolean setBlockInWorld(World world, BlockPos pos, IBlockState state)
+	protected boolean setReplaceableBlock(World world, BlockPos pos, IBlockState state)
 	{
-		return setBlockInWorld(world, pos, state, false);
+		if (world.getBlockState(pos).getBlock().isReplaceable(world, pos))
+		{
+			setBlock(world, pos, state);
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public boolean findBlockInRange(World world, BlockPos pos, Block findWhat, int distanceX, int distanceY, int distanceZ)

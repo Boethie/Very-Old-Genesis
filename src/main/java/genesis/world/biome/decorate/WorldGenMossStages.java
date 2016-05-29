@@ -21,8 +21,11 @@ public class WorldGenMossStages extends WorldGenDecorationBase
 	{
 		pos = pos.down();
 		int stage = GenesisBlocks.moss.getTargetStage(GenesisBlocks.moss.getFertility(world, pos, true), rand);
-		return setBlockInWorld(world, pos,
-				stage >= 0 ? GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.STAGE, stage) : Blocks.dirt.getDefaultState(),
-				true);
+		
+		if (stage >= 0)
+			setBlock(world, pos, GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.STAGE, stage));
+		else
+			setBlock(world, pos, Blocks.dirt.getDefaultState());
+		return true;
 	}
 }

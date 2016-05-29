@@ -37,7 +37,7 @@ public class WorldGenPalaeoagaracites extends WorldGenDecorationBase
 			if (!((IGenesisMushroomBase) block).canSustainMushroom(world, logPos, side, placedState))
 				return false;
 			
-			return setBlockInWorld(world, logPos.offset(side), placedState);
+			return setAirBlock(world, logPos.offset(side), placedState);
 		}
 		
 		return false;

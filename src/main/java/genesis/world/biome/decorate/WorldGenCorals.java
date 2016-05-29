@@ -98,7 +98,7 @@ public class WorldGenCorals extends WorldGenDecorationBase
 	private void placeCoralColumn(World world, BlockPos pos, IBlockState coralBlock, int height)
 	{
 		for (int i = 0; i < height; ++i)
-			setBlockInWorld(world, pos.add(0, i, 0), coralBlock, true);
+			setReplaceableBlock(world, pos.add(0, i, 0), coralBlock);
 	}
 	
 	private boolean placeCoralFormationHorizontal(World world, BlockPos pos, IBlockState coralBlock, Random random, int length)
@@ -154,14 +154,14 @@ public class WorldGenCorals extends WorldGenDecorationBase
 				break;
 			}
 			
-			setBlockInWorld(world, placePos, coralBlock, true);
-			setBlockInWorld(world, placePos.north(), coralBlock, true);
-			setBlockInWorld(world, placePos.south(), coralBlock, true);
-			setBlockInWorld(world, placePos.east(), coralBlock, true);
-			setBlockInWorld(world, placePos.west(), coralBlock, true);
+			setReplaceableBlock(world, placePos, coralBlock);
+			setReplaceableBlock(world, placePos.north(), coralBlock);
+			setReplaceableBlock(world, placePos.south(), coralBlock);
+			setReplaceableBlock(world, placePos.east(), coralBlock);
+			setReplaceableBlock(world, placePos.west(), coralBlock);
 			
 			if (placeTop)
-				setBlockInWorld(world, placePos.up(), coralBlock, true);
+				setReplaceableBlock(world, placePos.up(), coralBlock);
 			
 			if (random.nextInt(3) == 0)
 				placeTop = false;

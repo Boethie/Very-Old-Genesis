@@ -18,7 +18,7 @@ public interface WorldBlockMatcher
 	public static final WorldBlockMatcher WATER = (s, w, p) -> s.getMaterial() == Material.water;
 	
 	public static final WorldBlockMatcher STANDARD_AIR_WATER = or(REPLACEABLE, LEAVES);
-	public static final WorldBlockMatcher STANDARD_AIR = and(STANDARD_AIR_WATER, not(WATER));
+	public static final WorldBlockMatcher STANDARD_AIR = and(STANDARD_AIR_WATER, not(WATER));	// REPLACEABLE includes WATER.
 	
 	public static final WorldBlockMatcher SOLID_TOP = solidSide(EnumFacing.UP);
 	

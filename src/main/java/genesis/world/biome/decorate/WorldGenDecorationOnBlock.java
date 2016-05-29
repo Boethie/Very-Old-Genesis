@@ -27,6 +27,6 @@ public class WorldGenDecorationOnBlock extends WorldGenDecorationBase
 	@Override
 	public boolean place(World world, Random random, BlockPos pos)
 	{
-		return setBlockInWorld(world, pos, states.get(random.nextInt(states.size())));
+		return setAirBlock(world, pos, states.get(random.nextInt(states.size())));
 	}
 }

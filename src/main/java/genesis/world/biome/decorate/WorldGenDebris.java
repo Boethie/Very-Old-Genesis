@@ -103,7 +103,7 @@ public class WorldGenDebris extends WorldGenDecorationBase
 		if (states == null)
 			return generate(world, rand, pos);
 		
-		return setBlockInWorld(world, pos, states[rand.nextInt(states.length)]);
+		return setAirBlock(world, pos, states[rand.nextInt(states.length)]);
 	}
 	
 	/*private boolean generateDebris(World world, Random rand, BlockPos pos, int distanceX, int distanceY, int distanceZ, boolean generateAdditional)

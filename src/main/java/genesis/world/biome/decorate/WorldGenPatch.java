@@ -31,6 +31,7 @@ public class WorldGenPatch extends WorldGenDecorationBase
 		if (states.size() == 0)
 			return false;
 		
-		return setBlockInWorld(world, pos.down(), states.get(rand.nextInt(states.size())), true);
+		setBlock(world, pos.down(), states.get(rand.nextInt(states.size())));
+		return true;
 	}
 }

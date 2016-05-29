@@ -129,7 +129,10 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 				state = wet;
 		}
 		
-		setBlockInWorld(world, pos, state, inGround);
+		if (inGround)
+			setBlock(world, pos, state);
+		else
+			setAirBlock(world, pos, state);
 		
 		//world.notifyBlockUpdate(pos, Blocks.air.getDefaultState(), dry, 3);	// For testing it with item right click.
 	}

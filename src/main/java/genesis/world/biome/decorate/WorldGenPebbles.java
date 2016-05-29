@@ -57,7 +57,7 @@ public class WorldGenPebbles extends WorldGenDecorationBase
 			pebble = pebble.withProperty(getPosition(pebbles, rand), true);
 		}
 		
-		setBlockInWorld(world, pos, pebble);
+		setAirBlock(world, pos, pebble);
 		
 		return true;
 	}
