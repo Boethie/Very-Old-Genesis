@@ -60,6 +60,7 @@ public final class GenesisBlocks
 	public static final Block faux_amphibolite = new BlockGenesisRock(1.5F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "fauxAmphibolite");
 	public static final Block gneiss = new BlockGenesisRock(1.65F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "gneiss");
 	public static final Block limestone = new BlockGenesisRock(0.75F, 8.7F).setUnlocalizedName(Unlocalized.ROCK + "limestone");
+	public static final Block smooth_limestone = new BlockGenesisRock(0.75F, 8.7F).setUnlocalizedName(Unlocalized.ROCK + "smoothLimestone");
 	public static final Block octaedrite = new BlockGenesisRock(1.0F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "octaedrite");
 	public static final Block red_clay = new BlockRedClay().setUnlocalizedName(Unlocalized.PREFIX + "redClay");
 	public static final Block ooze = new BlockOoze().setUnlocalizedName(Unlocalized.PREFIX + "ooze");
@@ -221,6 +222,7 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(faux_amphibolite, name("faux_amphibolite"));
 		Genesis.proxy.registerBlock(gneiss, name("gneiss"));
 		Genesis.proxy.registerBlock(limestone, name("limestone"));
+		Genesis.proxy.registerBlock(smooth_limestone, name("smooth_limestone"));
 		Genesis.proxy.registerBlock(octaedrite, name("octaedrite"));
 		
 		// - Soft -

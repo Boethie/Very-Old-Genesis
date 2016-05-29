@@ -30,6 +30,7 @@ tile.genesis.rock.trondhjemite.name=Trondhjemite
 tile.genesis.rock.fauxAmphibolite.name=Faux-Amphibolite
 tile.genesis.rock.gneiss.name=Gneiss
 tile.genesis.rock.limestone.name=Limestone
+tile.genesis.rock.smoothLimestone.name=Smooth Limestone
 tile.genesis.rock.siltstone.name=Siltstone
 tile.genesis.rock.siltstone.red.name=Red Siltstone
 tile.genesis.rock.octaedrite.name=Octaedrite

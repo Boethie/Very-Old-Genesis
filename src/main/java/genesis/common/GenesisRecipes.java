@@ -246,6 +246,10 @@ public final class GenesisRecipes
 	{
 		FuelHandler.initialize();
 
+		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.smooth_limestone, 4),
+				"LL",
+				"LL",
+				'L', GenesisBlocks.limestone);
 		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.rope_ladder),
 				"S S",
 				"S-S",
