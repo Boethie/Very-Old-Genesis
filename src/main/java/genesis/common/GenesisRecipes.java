@@ -456,6 +456,14 @@ public final class GenesisRecipes
 					"XX",
 					'X', billetStack);
 		}
+
+		for (EnumTree variant : GenesisBlocks.trees.getSharedValidVariants(TreeBlocksAndItems.BRANCH, TreeBlocksAndItems.BILLET)) {
+			ItemStack branchStack = GenesisBlocks.trees.getStack(TreeBlocksAndItems.BRANCH, variant, 1);
+			ItemStack billetStack = GenesisBlocks.trees.getStack(TreeBlocksAndItems.BILLET, variant, 1);
+
+			// Branch -> billet
+			GameRegistry.addShapelessRecipe(billetStack, branchStack);
+		}
 		
 		// Register knapping tools and
 		// Register workbench recipes.
