@@ -444,6 +444,11 @@ public final class GenesisRecipes
 						'I', billetStack,
 						'o', pebble);
 			}
+			
+			//Rack
+			GameRegistry.addShapedRecipe(GenesisBlocks.trees.getStack(TreeBlocksAndItems.RACK, variant), 
+					"XX",
+					'X', billetStack);
 		}
 		
 		// Register knapping tools and
