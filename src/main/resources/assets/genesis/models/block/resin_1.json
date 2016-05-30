@@ -1,33 +1,31 @@
 {
     "textures": {
         "particle": "genesis:blocks/resin_block",
-        "0": "genesis:blocks/resin_block"
+        "resin": "genesis:blocks/resin_block"
     },
     "elements": [
         {
-            "name": "Element",
             "from": [ 6.0, 0.0, 7.0 ], 
             "to": [ 10.0, 1.0, 9.0 ], 
             "faces": {
-                "north": { "texture": "#0", "uv": [ 5.0, 14.0, 11.0, 16.0 ] },
-                "east": { "texture": "#0", "uv": [ 6.0, 14.0, 8.0, 15.0 ] },
-                "south": { "texture": "#0", "uv": [ 5.0, 14.0, 11.0, 16.0 ] },
-                "west": { "texture": "#0", "uv": [ 6.0, 14.0, 10.0, 16.0 ] },
-                "up": { "texture": "#0", "uv": [ 5.0, 10.0, 11.0, 6.0 ] },
-                "down": { "texture": "#0", "uv": [ 5.0, 6.0, 11.0, 10.0 ], "cullface": "down" }
+                "north": { "texture": "#resin", "uv": [ 5.0, 14.0, 11.0, 16.0 ] },
+                "east": { "texture": "#resin", "uv": [ 6.0, 14.0, 8.0, 15.0 ] },
+                "south": { "texture": "#resin", "uv": [ 5.0, 14.0, 11.0, 16.0 ] },
+                "west": { "texture": "#resin", "uv": [ 6.0, 14.0, 10.0, 16.0 ] },
+                "up": { "texture": "#resin", "uv": [ 5.0, 10.0, 11.0, 6.0 ] },
+                "down": { "texture": "#resin", "uv": [ 5.0, 6.0, 11.0, 10.0 ], "cullface": "down" }
             }
         },
         {
-            "name": "Cube",
             "from": [ 7.0, 0.0, 9.0 ], 
             "to": [ 9.0, 1.0, 10.0 ], 
             "faces": {
-                "north": { "texture": "#0", "uv": [ 0.0, 0.0, 2.0, 1.0 ] },
-                "east": { "texture": "#0", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
-                "south": { "texture": "#0", "uv": [ 0.0, 0.0, 2.0, 1.0 ] },
-                "west": { "texture": "#0", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
-                "up": { "texture": "#0", "uv": [ 0.0, 0.0, 2.0, 1.0 ] },
-                "down": { "texture": "#0", "uv": [ 0.0, 0.0, 2.0, 1.0 ] }
+                "north": { "texture": "#resin", "uv": [ 0.0, 0.0, 2.0, 1.0 ] },
+                "east": { "texture": "#resin", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
+                "south": { "texture": "#resin", "uv": [ 0.0, 0.0, 2.0, 1.0 ] },
+                "west": { "texture": "#resin", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
+                "up": { "texture": "#resin", "uv": [ 0.0, 0.0, 2.0, 1.0 ] },
+                "down": { "texture": "#resin", "uv": [ 0.0, 0.0, 2.0, 1.0 ] }
             }
         }
     ]

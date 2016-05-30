@@ -143,7 +143,7 @@ public final class GenesisBlocks
 			.setCustoms(surviveOnDirt)
 			.setUnlocalizedName(Unlocalized.CROP + "zingiberopsis");
 	
-	public static final Block resin_block = new BlockResin().setUnlocalizedName(Unlocalized.PREFIX+"resinBlock");
+	public static final Block resin_block = new BlockResin().setUnlocalizedName(Unlocalized.PREFIX + "resinBlock");
 	
 	/* Fluids */
 	public static final BlockKomatiiticLava komatiitic_lava = (BlockKomatiiticLava) new BlockKomatiiticLava(GenesisFluids.KOMATIITIC_LAVA).setUnlocalizedName(Unlocalized.PREFIX + "komatiiticLava");

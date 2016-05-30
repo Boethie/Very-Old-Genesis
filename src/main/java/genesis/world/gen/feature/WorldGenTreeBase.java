@@ -286,19 +286,22 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 							|| currentState.getBlock().isLeaves(currentState, world, pos))
 					&& !force)
 			return;
-			
-			boolean flag = false;
-			
-			for(EnumTree t : BlockResin.allowedLogs)
-				if(GenesisBlocks.trees.getVariant(state) == t)
-					flag=true;
-			
-			if(flag)
-			for (EnumFacing enumfacing : EnumFacing.HORIZONTALS)
-	        {
-				if(world.rand.nextInt(!plantedWithSapling ? 200+world.rand.nextInt(10) : 600) == 0)
-				setBlockInWorld(world, pos.offset(enumfacing),GenesisBlocks.resin_block.getDefaultState().withProperty(BlockResin.FACING, enumfacing).withProperty(BlockResin.LAYERS, world.rand.nextInt(4)), false);
-	        }
+
+			if(GenesisBlocks.trees.getVariant(state).hasResin())
+			{
+				for (EnumFacing facing : EnumFacing.HORIZONTALS)
+				{
+					if (world.rand.nextInt(!plantedWithSapling ? 200 + world.rand.nextInt(10) : 600) == 0)
+					{
+						setBlockInWorld(world,
+								pos.offset(facing),
+								GenesisBlocks.resin_block.getDefaultState()
+										.withProperty(BlockResin.FACING, facing)
+										.withProperty(BlockResin.LAYERS, world.rand.nextInt(4)),
+								false);
+					}
+				}
+			}
 		}
 		else if (state == leaves)
 		{

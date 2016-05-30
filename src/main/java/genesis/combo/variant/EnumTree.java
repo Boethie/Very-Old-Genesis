@@ -12,13 +12,13 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	ARCHAEOPTERIS("archaeopteris", tree()),
 	SIGILLARIA("sigillaria", tree()),
 	LEPIDODENDRON("lepidodendron", tree()),
-	CORDAITES("cordaites", tree()),
+	CORDAITES("cordaites", tree().resin()),
 	PSARONIUS("psaronius", tree().noBillet().noDead()),
 	GINKGO("ginkgo", tree().noDead().noDebris().fruit(1, 1)),
 	BJUVIA("bjuvia", tree().soils(EnumPlantType.Plains, EnumPlantType.Desert).noBillet().noDead().noDebris()),
-	VOLTZIA("voltzia", tree().soils(EnumPlantType.Plains, EnumPlantType.Desert).noDead().noDebris()),
-	ARAUCARIOXYLON("araucarioxylon", tree().hangingFruit().fruitSize(6, 7)),
-	METASEQUOIA("metasequoia", tree().bow(0.6F, 1)),
+	VOLTZIA("voltzia", tree().soils(EnumPlantType.Plains, EnumPlantType.Desert).noDead().noDebris().resin()),
+	ARAUCARIOXYLON("araucarioxylon", tree().hangingFruit().fruitSize(6, 7).resin()),
+	METASEQUOIA("metasequoia", tree().bow(0.6F, 1).resin()),
 	ARCHAEANTHUS("archaeanthus", tree().noDead().bow(0.8F, 1.3F)),
 	DRYOPHYLLUM("dryophyllum", tree().bow(1.2F, 1.8F)),
 	FICUS("ficus", tree().noDead().noDebris().fruit(1, 1.2F)),
@@ -37,6 +37,7 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	final boolean billet;
 	final boolean debris;
 	final boolean dead;
+	final boolean resin;
 	
 	final EnumPlantType[] soils;
 	
@@ -64,6 +65,7 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 		billet = props.billet;
 		debris = props.debris;
 		dead = props.dead;
+		resin = props.resin;
 		
 		soils = props.soils;
 		
@@ -123,6 +125,11 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	public boolean hasDead()
 	{
 		return dead;
+	}
+
+	public boolean hasResin()
+	{
+		return resin;
 	}
 	
 	public EnumPlantType[] getSoils()
@@ -209,6 +216,7 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 		boolean billet = true;
 		boolean debris = true;
 		boolean dead = true;
+		boolean resin = false;
 		
 		EnumPlantType[] soils = { EnumPlantType.Plains };
 		
@@ -258,6 +266,12 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 		private Props noDead()
 		{
 			dead = false;
+			return this;
+		}
+
+		private Props resin()
+		{
+			resin = true;
 			return this;
 		}
 		
