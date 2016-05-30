@@ -74,6 +74,8 @@ public final class Constants
 		
 		public static final String FOOD = PREFIX + Section.FOOD;
 		public static final String MISC = PREFIX + Section.MISC;
+
+		public static final String EFFECT = "effect." + PREFIX;
 	}
 	
 	public static final class Sounds

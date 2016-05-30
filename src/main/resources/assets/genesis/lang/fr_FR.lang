@@ -625,3 +625,6 @@ subtitles.genesis.item.pebble.hit=Galet frappé sur la pierre
 
 #Player
 subtitles.genesis.player.knapping.hit=Galet débité
+
+#------------ Potions ----------------
+effect.genesis.radiation=Radiation

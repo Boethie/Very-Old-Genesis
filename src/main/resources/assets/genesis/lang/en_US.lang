@@ -630,4 +630,4 @@ subtitles.genesis.item.pebble.hit=Pebble whacked on stone
 subtitles.genesis.player.knapping.hit=Pebble knapped
 
 #------------ Potions ----------------
-potion.radiation=Radiation
+effect.genesis.radiation=Radiation

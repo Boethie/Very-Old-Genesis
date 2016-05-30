@@ -7,6 +7,21 @@ import net.minecraft.util.Rotation;
 
 public class AABBUtils
 {
+	public static AxisAlignedBB create(Vec3i pos)
+	{
+		return create((double) pos.getX(), (double) pos.getY(), (double) pos.getZ());
+	}
+
+	public static AxisAlignedBB create(Vec3d pos)
+	{
+		return create(pos.xCoord, pos.yCoord, pos.zCoord);
+	}
+
+	public static AxisAlignedBB create(double x, double y, double z)
+	{
+		return new AxisAlignedBB(x, y, z, x, y, z);
+	}
+
 	public static AxisAlignedBB offset(AxisAlignedBB bb, EnumFacing facing, double distance)
 	{
 		return bb.offset(facing.getFrontOffsetX() * distance,
