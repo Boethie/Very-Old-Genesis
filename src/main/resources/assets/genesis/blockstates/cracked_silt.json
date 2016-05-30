@@ -1,0 +1,29 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "cube_all",
+		"transforms": "forge:default-block"
+	},
+	"variants": {
+		"variant": {
+			"normal": {
+				"textures": { "all": "genesis:blocks/cracked_silt" }
+			},
+			"red": {
+				"textures": { "all": "genesis:blocks/cracked_silt_red" }
+			}
+		},
+		"variant=normal": [
+			{ "y": 0 },
+			{ "y": 90 },
+			{ "y": 180 },
+			{ "y": 270 }
+		],
+		"variant=red": [
+			{ "y": 0 },
+			{ "y": 90 },
+			{ "y": 180 },
+			{ "y": 270 }
+		]
+	}
+}

@@ -37,6 +37,8 @@ tile.genesis.rock.octaedrite.name=Octaedrite
 tile.genesis.redClay.name=Red Clay
 tile.genesis.silt.name=Silt
 tile.genesis.silt.red.name=Red Silt
+tile.genesis.cracked_silt.name=Cracked Silt
+tile.genesis.cracked_silt.red.name=Red Cracked Silt
 tile.genesis.ooze.name=Ooze
 tile.genesis.peat.name=Peat
 
