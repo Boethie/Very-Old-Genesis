@@ -39,6 +39,12 @@ public class MapGenCavesGenesis extends MapGenBase
 		ABOVE_BLOCK_REPLACEMENTS.put(
 				GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT),
 				GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT));
+		ABOVE_BLOCK_REPLACEMENTS.put(
+				GenesisBlocks.silt.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.SILT),
+				GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.SILT));
+		ABOVE_BLOCK_REPLACEMENTS.put(
+				GenesisBlocks.silt.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.RED_SILT),
+				GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT));
 		
 		{
 			int y = 0;
