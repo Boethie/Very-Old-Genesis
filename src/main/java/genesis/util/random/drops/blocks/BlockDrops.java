@@ -66,7 +66,12 @@ public class BlockDrops
 		
 		for (BlockDrop drop : getDrops())
 		{
-			out.add(drop.getStack(state, rand));
+			ItemStack stack = drop.getStack(state, rand);
+
+			if (stack != null)
+			{
+				out.add(stack);
+			}
 		}
 		
 		return out;

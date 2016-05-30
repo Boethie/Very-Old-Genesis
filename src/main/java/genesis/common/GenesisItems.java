@@ -16,8 +16,11 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -59,6 +62,10 @@ public final class GenesisItems
 					"seeds",
 					ObjectType.createItem(EnumSeeds.class, "seed", ItemGenesisSeeds.class).setResourceName(""),
 					EnumSeeds.class, EnumSeeds.values());
+	public static final Item rotten_zingiberopsis_rhizome = new ItemFood(1, 0.7F, false)
+			.setPotionEffect(new PotionEffect(MobEffects.poison, 100, 0), 0.6F)
+			.setUnlocalizedName(Unlocalized.FOOD + "rottenZingiberopsisRhizome")
+			.setCreativeTab(GenesisCreativeTabs.FOOD);
 	
 	/* Foods */
 	public static final FoodItems foods = new FoodItems();
@@ -127,6 +134,7 @@ public final class GenesisItems
 		
 		seeds.setNames(Constants.MOD_ID, Unlocalized.PREFIX);
 		seeds.registerAll();
+		Genesis.proxy.registerItem(rotten_zingiberopsis_rhizome, name("rotten_zingiberopsis_rhizome"));
 		
 		// Foods
 		foods.registerAll();

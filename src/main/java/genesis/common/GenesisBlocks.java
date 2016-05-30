@@ -356,7 +356,10 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(zingiberopsis, null, name("zingiberopsis"));
 		drop = GenesisItems.seeds.getStack(EnumSeeds.ZINGIBEROPSIS_RHIZOME);
 		zingiberopsis.setDrops(new BlockDrops(drop, 1, 1));
-		zingiberopsis.setCropDrops(new BlockDrops(drop, 1, 3));
+		zingiberopsis.setCropDrops(new BlockDrops(
+				new BlockStackDrop(drop, 1, 3),
+				new BlockRandomDrop(new BlockStackDrop(GenesisItems.rotten_zingiberopsis_rhizome, 1), 0.02D)
+			));
 		zingiberopsis.setPickedStack(drop);
 		
 		// Ankyropteris
