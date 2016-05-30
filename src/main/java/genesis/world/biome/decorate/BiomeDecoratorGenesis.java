@@ -30,8 +30,9 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 {
 	private static final IntRange RANGE = IntRange.create(8, 23);
 	
-	public WorldGenerator gneissGen;
+	public WorldGenerator radioactiveGen;
 	public WorldGenerator komatiiteGen;
+	public WorldGenerator gneissGen;
 	public WorldGenerator rhyoliteGen;
 	public WorldGenerator doleriteGen;
 	public WorldGenerator trondhjemiteGen;
@@ -66,6 +67,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	public void decorate(World world, Random rand, BiomeGenBase biome, BlockPos chunkStart)
 	{
 		field_180294_c = chunkStart;
+		radioactiveGen = new WorldGenMinableGenesis(GenesisBlocks.radioactive_granite.getDefaultState(), 4, 8);
 		komatiiteGen = new WorldGenMinableGenesis(GenesisBlocks.komatiite.getDefaultState(), 18, 36);
 		gneissGen = new WorldGenMinableGenesis(GenesisBlocks.gneiss.getDefaultState(), 14, 28);
 		rhyoliteGen = new WorldGenMinableGenesis(GenesisBlocks.rhyolite.getDefaultState(), 10, 20);
@@ -204,6 +206,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 		
 		//if (TerrainGen.generateOre(currentWorld, randomGenerator, quartzGen, field_180294_c, QUARTZ))
 		
+		genStandardOre1(world, rand, 28, radioactiveGen, 0, 64);
 		genStandardOre1(world, rand, 62, komatiiteGen, 0, 16);
 		genStandardOre1(world, rand, 20, gneissGen, 0, 64);
 		genStandardOre1(world, rand, 11, rhyoliteGen, 64, 128);
