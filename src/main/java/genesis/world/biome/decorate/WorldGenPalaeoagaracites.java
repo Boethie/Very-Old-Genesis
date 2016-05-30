@@ -1,7 +1,7 @@
 package genesis.world.biome.decorate;
 
 import genesis.block.BlockGenesisMushroom;
-import genesis.block.IGenesisMushroomBase;
+import genesis.block.IMushroomBase;
 import genesis.common.GenesisBlocks;
 import genesis.util.functional.WorldBlockMatcher;
 
@@ -28,13 +28,14 @@ public class WorldGenPalaeoagaracites extends WorldGenDecorationBase
 		BlockPos logPos = pos.up(rand.nextInt(3) - 1);
 		Block block = world.getBlockState(logPos).getBlock();
 		
-		if (block instanceof IGenesisMushroomBase)
+		if (block instanceof IMushroomBase)
 		{
+			IMushroomBase base = (IMushroomBase) block;
 			EnumFacing side = EnumFacing.HORIZONTALS[rand.nextInt(EnumFacing.HORIZONTALS.length)];
 			IBlockState placedState = GenesisBlocks.palaeoagaracites.getDefaultState()
 					.withProperty(BlockGenesisMushroom.FACING, side.getOpposite());
 			
-			if (!((IGenesisMushroomBase) block).canSustainMushroom(world, logPos, side, placedState))
+			if (!base.canSustainMushroom(world, logPos, side, placedState))
 				return false;
 			
 			return setAirBlock(world, logPos.offset(side), placedState);

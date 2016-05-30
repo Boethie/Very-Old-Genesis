@@ -5,7 +5,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
-public interface IGenesisMushroomBase
+public interface IMushroomBase
 {
 	boolean canSustainMushroom(IBlockAccess world, BlockPos pos, EnumFacing side, IBlockState mushroomState);
 }

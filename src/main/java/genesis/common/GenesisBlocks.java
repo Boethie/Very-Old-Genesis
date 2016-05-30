@@ -171,20 +171,16 @@ public final class GenesisBlocks
 	public static final BlockTrapFloor trap_floor = (BlockTrapFloor) new BlockTrapFloor().setUnlocalizedName(Unlocalized.PREFIX + "trapFloor");
 	
 	/* Misc */
-	public static final Block palaeoagaracites = new BlockGenesisMushroom().setUnlocalizedName(Unlocalized.PREFIX + "palaeoagaracites")
-			.setGrowType(BlockGenesisMushroom.MushroomGrowType.GROW_SIDE)
+	public static final Block palaeoagaracites = new BlockGenesisMushroom(BlockGenesisMushroom.MushroomGrowType.GROW_SIDE)
 			.setBoundsSize(0.3125F, 0.5625F, 0.1875F)
-			.setCreativeTab(GenesisCreativeTabs.DECORATIONS);
-	public static final Block archaeomarasmius = new BlockGenesisMushroom().setUnlocalizedName(Unlocalized.PREFIX + "archaeomarasmius")
+			.setCreativeTab(GenesisCreativeTabs.DECORATIONS)
+			.setUnlocalizedName(Unlocalized.PREFIX + "palaeoagaracites");
+	public static final Block archaeomarasmius = new BlockGenesisMushroom(BlockGenesisMushroom.MushroomGrowType.GROW_TOP)
 			.setBoundsSize(0.375F, 0.75F, 0)
-			.setGrowType(BlockGenesisMushroom.MushroomGrowType.GROW_TOP)
-			.setCreativeTab(GenesisCreativeTabs.DECORATIONS);
-	public static final Block stemonitis = new BlockGenesisMushroom().setUnlocalizedName(Unlocalized.PREFIX + "stemonitis")
-			.setBoundsSize(0.375F, 0.75F, 0)
-			.setGrowType(BlockGenesisMushroom.MushroomGrowType.GROW_TOP)
-			.setCreativeTab(GenesisCreativeTabs.DECORATIONS);
-	public static final BlockPrototaxites prototaxites = (BlockPrototaxites) new BlockPrototaxites()
-			.setUnlocalizedName(Unlocalized.PREFIX + "prototaxites");
+			.setCreativeTab(GenesisCreativeTabs.DECORATIONS)
+			.setUnlocalizedName(Unlocalized.PREFIX + "archaeomarasmius");
+	public static final Block stemonitis = new BlockStemonitis().setUnlocalizedName(Unlocalized.PREFIX + "stemonitis");
+	public static final BlockPrototaxites prototaxites = (BlockPrototaxites) new BlockPrototaxites().setUnlocalizedName(Unlocalized.PREFIX + "prototaxites");
 	
 	public static final VariantsCombo<EnumCoral, BlockGenesisVariants<EnumCoral>, ItemBlockMulti<EnumCoral>> coral =
 			VariantsCombo.create(
