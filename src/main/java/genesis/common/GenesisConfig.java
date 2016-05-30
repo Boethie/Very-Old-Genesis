@@ -60,6 +60,7 @@ public final class GenesisConfig
 	public static int olivineCount = 1;
 	public static int flintCount = 34;
 	public static int marcasiteCount = 86;
+	public static int radioactive_granite_chance = 100000;
 	
 	//Structures
 	public static float hutChance = 0.01F;
@@ -109,6 +110,7 @@ public final class GenesisConfig
 		olivineCount = config.getInt("olivine", "oregen", olivineCount, 0, 255, "Generation count for olivine");
 		flintCount = config.getInt("flint", "oregen", flintCount, 0, 255, "Generation count for flint");
 		marcasiteCount = config.getInt("marcasite", "oregen", marcasiteCount, 0, 255, "Generation count for marcasite");
+		radioactive_granite_chance = Math.round(1/config.getFloat("radioactive_granite", "oregen", 0.00001F, 0F, 1F, "Chance of spawn of the radioactive granite"));
 		
 		//Structures
 		hutChance = config.getFloat("hutChance", "structures", 0.01F, 0, 1F, "Hut spawning chance");

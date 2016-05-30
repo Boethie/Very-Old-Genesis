@@ -239,7 +239,7 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 							{
 								if ((d15 += d16) > 0.0D)
 								{
-									primer.setBlockState(k * 4 + i3, k2 * 8 + l2, j1 * 4 + j3, GenesisBlocks.granite.getDefaultState());
+									primer.setBlockState(k * 4 + i3, k2 * 8 + l2, j1 * 4 + j3, rand.nextInt(GenesisConfig.radioactive_granite_chance)==0 ? GenesisBlocks.radioactive_granite.getDefaultState() : GenesisBlocks.granite.getDefaultState());
 								}
 								else if (k2 * 8 + l2 < settings.seaLevel)
 								{

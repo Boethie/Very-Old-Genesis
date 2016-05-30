@@ -24,6 +24,7 @@ public class MapGenCavesGenesis extends MapGenBase
 	private static final IBlockState[] LEVEL_REPLACEMENT_BLOCKS = new IBlockState[256];
 	static {
 		DIGGABLE_BLOCKS.add(GenesisBlocks.granite);
+		DIGGABLE_BLOCKS.add(GenesisBlocks.radioactive_granite);
 		DIGGABLE_BLOCKS.add(Blocks.dirt);
 		DIGGABLE_BLOCKS.add(GenesisBlocks.moss);
 		DIGGABLE_BLOCKS.add(Blocks.hardened_clay);

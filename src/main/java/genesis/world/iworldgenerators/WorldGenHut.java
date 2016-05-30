@@ -5,6 +5,7 @@ import java.util.Random;
 import genesis.block.tileentity.BlockRack;
 import genesis.block.tileentity.BlockStorageBox;
 import genesis.block.tileentity.TileEntityRack;
+import genesis.combo.ClothingItems;
 import genesis.combo.ToolItems;
 import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumClothing;
@@ -22,6 +23,7 @@ import net.minecraft.block.BlockStairs;
 import net.minecraft.block.BlockStairs.EnumHalf;
 import net.minecraft.block.BlockStairs.EnumShape;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -105,5 +107,4 @@ public class WorldGenHut implements IWorldGenerator {
 		
 		System.out.println("Hut has been generated at "+start.toString());
 	}
-
 }

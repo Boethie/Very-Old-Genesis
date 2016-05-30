@@ -21,6 +21,7 @@ tile.genesis.menhir.top.name=Menhir Top
 #Building blocks
 tile.genesis.moss.name=Moss
 tile.genesis.rock.granite.name=Granite
+tile.genesis.rock.radioactiveGranite.name=Radioactive Granite
 tile.genesis.rock.mossyGranite.name=Mossy Granite
 tile.genesis.rock.rhyolite.name=Rhyolite
 tile.genesis.rock.dolerite.name=Dolerite
@@ -627,3 +628,6 @@ subtitles.genesis.item.pebble.hit=Pebble whacked on stone
 
 #Player
 subtitles.genesis.player.knapping.hit=Pebble knapped
+
+#------------ Potions ----------------
+potion.radiation=Radiation
