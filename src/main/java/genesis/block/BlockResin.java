@@ -1,5 +1,6 @@
 package genesis.block;
 
+import genesis.util.AABBUtils;
 import java.util.Random;
 
 import genesis.combo.variant.EnumMaterial;
@@ -36,10 +37,11 @@ public class BlockResin extends BlockHorizontal implements IGrowable
 
 	static
 	{
-		BBS[EnumFacing.NORTH.getHorizontalIndex()] = new AxisAlignedBB(0.3125D, 0.375D, 0.875D, 0.6875D, 0.625D, 1.0D);
-		BBS[EnumFacing.SOUTH.getHorizontalIndex()] = new AxisAlignedBB(0.3125D, 0.375D, 0.0D, 0.6875D, 0.625D, 0.125D);
-		BBS[EnumFacing.WEST.getHorizontalIndex()] = new AxisAlignedBB(0.875D, 0.375D, 0.3125D, 1.0D, 0.625D, 0.6875D);
-		BBS[EnumFacing.EAST.getHorizontalIndex()] = new AxisAlignedBB(0.0D, 0.375D, 0.3125D, 0.125D, 0.625D, 0.6875D);
+		AxisAlignedBB bb = new AxisAlignedBB(0.3125D, 0.375D, 0.0D, 0.6875D, 0.625D, 0.125D);
+		for (EnumFacing facing : EnumFacing.HORIZONTALS)
+		{
+			BBS[facing.getHorizontalIndex()] = AABBUtils.rotateTo(bb, facing);
+		}
 	}
 
 	public BlockResin()
@@ -73,7 +75,7 @@ public class BlockResin extends BlockHorizontal implements IGrowable
 	{
 		IBlockState state = world.getBlockState(pos.offset(facing));
 		EnumTree variant = GenesisBlocks.trees.getVariant(state);
-		return facing.getHorizontalIndex() != -1 && variant.hasResin();
+		return facing.getHorizontalIndex() != -1 && variant != null && variant.hasResin();
 	}
 
 	@Override
