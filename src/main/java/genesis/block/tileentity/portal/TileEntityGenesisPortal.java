@@ -1,5 +1,6 @@
 package genesis.block.tileentity.portal;
 
+import genesis.util.AABBUtils;
 import java.util.List;
 
 import genesis.block.tileentity.TileEntityBase;
@@ -32,8 +33,7 @@ public class TileEntityGenesisPortal extends TileEntityBase implements ITickable
 		super.setPos(pos);
 		
 		center = new Vec3d(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-		bounds = new AxisAlignedBB(center.xCoord - radius, center.yCoord - radius, center.zCoord - radius,
-									center.xCoord + radius, center.yCoord + radius, center.zCoord + radius);
+		bounds = AABBUtils.create(center).expandXyz(radius);
 	}
 	
 	@Override

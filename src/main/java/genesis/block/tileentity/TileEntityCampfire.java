@@ -760,8 +760,8 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	@Override
 	public AxisAlignedBB getRenderBoundingBox()
 	{
-		return new AxisAlignedBB(pos.getX() - 0.25, pos.getY(), pos.getZ() - 0.25,
-				pos.getX() + 1.25, pos.getY() + 1.25, pos.getZ() + 1.25);
+		double radius = 0.25;
+		return AABBUtils.create(pos).addCoord(1, 1 + radius, 1).expand(radius, 0, radius);
 	}
 	
 	@Override

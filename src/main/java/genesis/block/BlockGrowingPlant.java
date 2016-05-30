@@ -511,7 +511,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 		GrowingPlantProperties props = new GrowingPlantProperties(world, pos, state);
 		float w2 = width / 2;
 		
-		AxisAlignedBB newBB = new AxisAlignedBB(0.5 - w2, 0, 0.5 - w2, 0.5 + w2, 0, 0.5 + w2);
+		AxisAlignedBB newBB = AABBUtils.create(0.5, 0, 0.5).expand(w2, 0, w2);
 		
 		if (props.isTop(pos))
 		{
@@ -553,7 +553,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 	 */
 	public BlockGrowingPlant setCollisionBox(double radius)
 	{
-		return setCollisionBox(new AxisAlignedBB(0.5 - radius, 0, 0.5 - radius, 0.5 + radius, 1, 0.5 + radius));
+		return setCollisionBox(AABBUtils.create(0.5, 1, 0.5).expand(radius, 0, radius));
 	}
 	
 	@Override

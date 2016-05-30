@@ -275,7 +275,7 @@ public class BlockTallTorch extends Block
 	{
 		double radius = 0.1;
 		double height = 1.6;
-		AxisAlignedBB bb = new AxisAlignedBB(0.5 - radius, 0, 0.5 - radius, 0.5 + radius, height, 0.5 + radius);
+		AxisAlignedBB bb = AABBUtils.create(0.5, height, 0.5).expand(radius, 0, radius);
 		
 		double topDown = 0.0625;
 		double toOuter = 0.5F - radius;
@@ -288,10 +288,8 @@ public class BlockTallTorch extends Block
 		case SOUTH:
 		case NORTH:
 			bb = bb.expand(0, -0.1875, 0);
-			bb = bb.addCoord(toOuter * -facing.getFrontOffsetX(),
-							toOuter * -facing.getFrontOffsetY(),
-							toOuter * -facing.getFrontOffsetZ());
-			bb = BoundingBoxHelpers.subCoord(bb, 0, -topDown, 0);
+			bb = AABBUtils.extend(bb, facing.getOpposite(), toOuter);
+			bb = bb.addCoord(0, topDown, 0);
 		default:
 			break;
 		}

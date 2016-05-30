@@ -2,6 +2,7 @@ package genesis.block;
 
 import genesis.common.GenesisBlocks;
 import genesis.common.sounds.GenesisSoundTypes;
+import genesis.util.AABBUtils;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.WorldUtils;
 
@@ -98,19 +99,16 @@ public class BlockGenesisMushroom extends BlockBush
 		float radius = getBoundsRadius();
 		float height = getBoundsHeight();
 		float bottom = getBoundsBottom();
-		AxisAlignedBB aabb = new AxisAlignedBB(0.5 - radius, bottom, 0.5 - radius, 0.5 + radius, bottom + height, 0.5 + radius);
+		AxisAlignedBB bb = AABBUtils.create(0.5, bottom + height, 0.5).expand(radius, 0, radius);
 		
 		if (getGrowType().isSide())
 		{
 			EnumFacing facing = state.getValue(FACING);
-			
 			double offsetAmount = 0.5 - radius;
-			aabb = aabb.offset(facing.getFrontOffsetX() * offsetAmount,
-						facing.getFrontOffsetY() * offsetAmount,
-						facing.getFrontOffsetZ() * offsetAmount);
+			bb = AABBUtils.offset(bb, facing, offsetAmount);
 		}
 		
-		return aabb;
+		return bb;
 	}
 	
 	@Override

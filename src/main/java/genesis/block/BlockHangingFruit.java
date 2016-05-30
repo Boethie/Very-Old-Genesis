@@ -1,5 +1,6 @@
 package genesis.block;
 
+import genesis.util.AABBUtils;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -122,7 +123,7 @@ public class BlockHangingFruit extends BlockGenesis
 		y += offsetCalc.getShy();
 		z += offsetCalc.getShz();
 		
-		return new AxisAlignedBB(x - radius, y - height, z - radius, x + radius, y, z + radius);
+		return AABBUtils.create(x, y - height, z).expand(radius, 0, radius);
 	}
 	
 	@Override

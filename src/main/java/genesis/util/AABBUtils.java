@@ -22,11 +22,36 @@ public class AABBUtils
 		return new AxisAlignedBB(x, y, z, x, y, z);
 	}
 
+	public static AxisAlignedBB offset(AxisAlignedBB bb, Vec3d pos)
+	{
+		return bb.offset(pos.xCoord, pos.yCoord, pos.zCoord);
+	}
+
 	public static AxisAlignedBB offset(AxisAlignedBB bb, EnumFacing facing, double distance)
 	{
 		return bb.offset(facing.getFrontOffsetX() * distance,
 						facing.getFrontOffsetY() * distance,
 						facing.getFrontOffsetZ() * distance);
+	}
+
+	public static AxisAlignedBB offset(AxisAlignedBB bb, EnumFacing.Plane plane, double distance)
+	{
+		for (EnumFacing facing : plane.facings())
+		{
+			bb = offset(bb, facing, distance);
+		}
+
+		return bb;
+	}
+
+	public static AxisAlignedBB extend(AxisAlignedBB bb, Vec3i pos)
+	{
+		return bb.addCoord((double) pos.getX(), (double) pos.getY(), (double) pos.getZ());
+	}
+
+	public static AxisAlignedBB extend(AxisAlignedBB bb, Vec3d pos)
+	{
+		return bb.addCoord(pos.xCoord, pos.yCoord, pos.zCoord);
 	}
 	
 	public static AxisAlignedBB extend(AxisAlignedBB bb, EnumFacing facing, double distance)
@@ -35,17 +60,47 @@ public class AABBUtils
 							facing.getFrontOffsetY() * distance,
 							facing.getFrontOffsetZ() * distance);
 	}
-	
+
+	public static AxisAlignedBB extend(AxisAlignedBB bb, EnumFacing.Plane plane, double distance)
+	{
+		for (EnumFacing facing : plane.facings())
+		{
+			bb = extend(bb, facing, distance);
+		}
+
+		return bb;
+	}
+
+	public static AxisAlignedBB expand(AxisAlignedBB bb, Vec3i pos)
+	{
+		return bb.expand((double) pos.getX(), (double) pos.getY(), (double) pos.getZ());
+	}
+
+	public static AxisAlignedBB expand(AxisAlignedBB bb, Vec3d pos)
+	{
+		return bb.expand(pos.xCoord, pos.yCoord, pos.zCoord);
+	}
+
 	public static AxisAlignedBB expand(AxisAlignedBB bb, EnumFacing facing, double distance)
 	{
-		return bb.expand(Math.abs(facing.getFrontOffsetX() * distance),
-						Math.abs(facing.getFrontOffsetY() * distance),
-						Math.abs(facing.getFrontOffsetZ() * distance));
+		return bb.expand(facing.getFrontOffsetX() * distance,
+						facing.getFrontOffsetY() * distance,
+						facing.getFrontOffsetZ() * distance);
 	}
-	
-	public static AxisAlignedBB expandSides(AxisAlignedBB bb, EnumFacing facing, double distance)
+
+	public static AxisAlignedBB expand(AxisAlignedBB bb, EnumFacing.Plane plane, double distance)
 	{
-		switch (facing.getAxis())
+		for (EnumFacing facing : plane.facings())
+		{
+			bb = expand(bb, facing, distance);
+		}
+
+		return bb;
+	}
+
+	public static AxisAlignedBB expandSides(AxisAlignedBB bb, EnumFacing.Axis axis, double distance)
+	{
+		switch (axis)
 		{
 		case X:
 			return bb.expand(0, distance, distance);
@@ -55,7 +110,87 @@ public class AABBUtils
 			return bb.expand(distance, distance, 0);
 		}
 		
-		throw new IllegalArgumentException("Unknown axis " + facing.getAxis());
+		throw new IllegalArgumentException("Unknown axis " + axis);
+	}
+
+	public static AxisAlignedBB shrink(AxisAlignedBB bb, double x, double y, double z)
+	{
+		double minX = bb.minX;
+		double minY = bb.minY;
+		double minZ = bb.minZ;
+		double maxX = bb.maxX;
+		double maxY = bb.maxY;
+		double maxZ = bb.maxZ;
+
+		if (x < 0.0D) minX -= x;
+		if (x > 0.0D) maxX -= x;
+
+		if (y < 0.0D) minY -= y;
+		if (y > 0.0D) maxY -= y;
+
+		if (z < 0.0D) minZ -= z;
+		if (z > 0.0D) maxZ -= z;
+
+		return new AxisAlignedBB(minX, minY, minZ, maxX, maxY, maxZ);
+	}
+
+	public static AxisAlignedBB shrink(AxisAlignedBB bb, Vec3i pos)
+	{
+		return shrink(bb, (double) pos.getX(), (double) pos.getY(), (double) pos.getZ());
+	}
+
+	public static AxisAlignedBB shrink(AxisAlignedBB bb, Vec3d pos)
+	{
+		return shrink(bb, pos.xCoord, pos.yCoord, pos.zCoord);
+	}
+
+	public static AxisAlignedBB shrink(AxisAlignedBB bb, EnumFacing facing, double distance)
+	{
+		return shrink(bb, facing.getFrontOffsetX() * distance,
+				facing.getFrontOffsetY() * distance,
+				facing.getFrontOffsetZ() * distance);
+	}
+
+	public static AxisAlignedBB shrink(AxisAlignedBB bb, EnumFacing.Plane plane, double distance)
+	{
+		for (EnumFacing facing : plane.facings())
+		{
+			bb = shrink(bb, facing, distance);
+		}
+
+		return bb;
+	}
+
+	public static AxisAlignedBB contract(AxisAlignedBB bb, double x, double y, double z)
+	{
+		return bb.expand(-x, -y, -z);
+	}
+
+	public static AxisAlignedBB contract(AxisAlignedBB bb, Vec3i pos)
+	{
+		return contract(bb, (double) pos.getX(), (double) pos.getY(), (double) pos.getZ());
+	}
+
+	public static AxisAlignedBB contract(AxisAlignedBB bb, Vec3d pos)
+	{
+		return contract(bb, pos.xCoord, pos.yCoord, pos.zCoord);
+	}
+
+	public static AxisAlignedBB contract(AxisAlignedBB bb, EnumFacing facing, double distance)
+	{
+		return contract(bb, facing.getFrontOffsetX() * distance,
+				facing.getFrontOffsetY() * distance,
+				facing.getFrontOffsetZ() * distance);
+	}
+
+	public static AxisAlignedBB contract(AxisAlignedBB bb, EnumFacing.Plane plane, double distance)
+	{
+		for (EnumFacing facing : plane.facings())
+		{
+			bb = contract(bb, facing, distance);
+		}
+
+		return bb;
 	}
 	
 	public static AxisAlignedBB rotate(AxisAlignedBB bb, Rotation rot)

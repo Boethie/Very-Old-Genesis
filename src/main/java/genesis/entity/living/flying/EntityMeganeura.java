@@ -68,7 +68,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 	public static int getChunkMeganeuraCount(World world, Vec3d pos)
 	{
 		double radius = 8;
-		AxisAlignedBB bb = new AxisAlignedBB(pos.xCoord, pos.yCoord, pos.zCoord, pos.xCoord, pos.yCoord, pos.zCoord).expand(radius, radius, radius);
+		AxisAlignedBB bb = AABBUtils.create(pos).expandXyz(radius);
 		List<EntityMeganeura> meganeura = world.getEntitiesWithinAABB(EntityMeganeura.class, bb);
 		List<EntityMeganeuraEgg> eggs = world.getEntitiesWithinAABB(EntityMeganeuraEgg.class, bb);
 		
