@@ -22,7 +22,9 @@ public class MusicEventHandler
 		if (GenesisConfig.playDimensionMusic
 				&& event.getSound().getCategory() == SoundCategory.MUSIC
 				&& mc.theWorld != null
-				&& GenesisDimensions.isGenesis(mc.theWorld))
+				&& GenesisDimensions.isGenesis(mc.theWorld)
+				&& mc.gameSettings.getSoundLevel(SoundCategory.MUSIC) > 0
+				&& mc.gameSettings.getSoundLevel(SoundCategory.MASTER) > 0)
 		{
 			ISound sound = PositionedSoundRecord.getMusicRecord(GenesisSoundEvents.music_genesis);
 			sound.createAccessor(event.getManager().sndHandler);
