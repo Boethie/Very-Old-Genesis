@@ -3,6 +3,7 @@ genesis.multiItem.invalidMetadata.name=§4Invalid Sub-Item Metadata!
 #------------- Blocks -------------
 tile.genesis.dummyBlock.name=§4Useless Dummy Block!
 tile.genesis.komatiiticLava.name=Komatiitic Lava
+tile.genesis.resin.name=Resin
 
 #Interactive blocks
 tile.genesis.container.workbench.name=Workbench
@@ -83,7 +84,7 @@ tile.genesis.programinisRoof.name=Programinis Roof
 tile.genesis.prototaxitesMycelium.name=Prototaxites Mycelium
 tile.genesis.dung.herbivore.name=Herbivore Dung
 tile.genesis.dung.carnivore.name=Carnivore Dung
-tile.genesis.dungBrickBlock.name=Dung Brick
+tile.genesis.dungBrick.name=Dung Brick
 tile.genesis.wattleAndDaub.name=Wattle and Daub Wall
 
 #Decoration

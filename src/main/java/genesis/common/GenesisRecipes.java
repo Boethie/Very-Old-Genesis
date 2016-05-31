@@ -668,7 +668,7 @@ public final class GenesisRecipes
 		
 		// Dung brick
 		ItemStack dungBrick = GenesisItems.materials.getStack(EnumMaterial.DUNG_BRICK);
-		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.dung_brick_block),
+		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.dung_brick),
 				"CCC",
 				"CCC",
 				"CCC",

@@ -1,6 +1,7 @@
 package genesis.block;
 
 import genesis.util.AABBUtils;
+import java.util.Arrays;
 import java.util.Random;
 
 import genesis.combo.variant.EnumMaterial;
@@ -33,15 +34,16 @@ import net.minecraft.world.World;
 public class BlockResin extends BlockHorizontal implements IGrowable
 {
 	public static final PropertyInteger LAYERS = PropertyInteger.create("layers", 0, 3);
-	private static final AxisAlignedBB[] BBS = new AxisAlignedBB[4];
+	private static final AxisAlignedBB[] BBS;
 
 	static
 	{
-		AxisAlignedBB bb = new AxisAlignedBB(0.3125D, 0.375D, 0.0D, 0.6875D, 0.625D, 0.125D);
-		for (EnumFacing facing : EnumFacing.HORIZONTALS)
-		{
-			BBS[facing.getHorizontalIndex()] = AABBUtils.rotateTo(bb, facing);
-		}
+		AxisAlignedBB base = new AxisAlignedBB(0.3125D, 0.375D, 0.875D,
+												0.6875D, 0.625D, 1.0D);
+
+		BBS = Arrays.stream(EnumFacing.HORIZONTALS)
+				.map((f) -> AABBUtils.rotateTo(base, f))
+				.toArray(AxisAlignedBB[]::new);
 	}
 
 	public BlockResin()
@@ -68,7 +70,7 @@ public class BlockResin extends BlockHorizontal implements IGrowable
 	@Override
 	public void grow(World world, Random rand, BlockPos pos, IBlockState state)
 	{
-		world.setBlockState(pos, state.withProperty(FACING, state.getValue(FACING)).withProperty(LAYERS, state.getValue(LAYERS) + 1), 2);
+		world.setBlockState(pos, state.withProperty(LAYERS, state.getValue(LAYERS) + 1), 2);
 	}
 
 	protected static boolean canPlaceResin(World world, BlockPos pos, EnumFacing facing)
@@ -113,7 +115,7 @@ public class BlockResin extends BlockHorizontal implements IGrowable
 	@Override
 	public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
 	{
-		return getStateFromMeta(meta);
+		return getDefaultState().withProperty(FACING, facing);
 	}
 
 	@Override
@@ -135,7 +137,7 @@ public class BlockResin extends BlockHorizontal implements IGrowable
 		
 		if (layers > 0)
 		{
-			world.setBlockState(pos, getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(LAYERS, layers - 1), 2);
+			world.setBlockState(pos, state.withProperty(LAYERS, layers - 1), 2);
 		}
 	}
 

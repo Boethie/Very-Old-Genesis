@@ -82,7 +82,7 @@ tile.genesis.programinisRoof.name=Toit de Programinis
 tile.genesis.prototaxitesMycelium.name=Mycélium de Prototaxites
 tile.genesis.dung.herbivore.name=Crotte d'herbivore
 tile.genesis.dung.carnivore.name=Crotte de carnivore
-tile.genesis.dungBrickBlock.name=Briques de crotte
+tile.genesis.dungBrick.name=Briques de crotte
 tile.genesis.wattleAndDaub.name=Mur en torchis
 
 #Decoration

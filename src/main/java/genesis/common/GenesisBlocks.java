@@ -143,7 +143,7 @@ public final class GenesisBlocks
 			.setCustoms(surviveOnDirt)
 			.setUnlocalizedName(Unlocalized.CROP + "zingiberopsis");
 	
-	public static final Block resin_block = new BlockResin().setUnlocalizedName(Unlocalized.PREFIX + "resinBlock");
+	public static final Block resin = new BlockResin().setUnlocalizedName(Unlocalized.PREFIX + "resin");
 	
 	/* Fluids */
 	public static final BlockKomatiiticLava komatiitic_lava = (BlockKomatiiticLava) new BlockKomatiiticLava(GenesisFluids.KOMATIITIC_LAVA).setUnlocalizedName(Unlocalized.PREFIX + "komatiiticLava");
@@ -162,9 +162,9 @@ public final class GenesisBlocks
 	public static final Block prototaxites_mycelium = new BlockPrototaxitesMycelium().setUnlocalizedName(Unlocalized.PREFIX + "prototaxitesMycelium");
 	
 	public static final DungBlocksAndItems dungs = new DungBlocksAndItems();
-	public static final Block dung_brick_block = new BlockGenesis(Material.rock, SoundType.STONE)
+	public static final Block dung_brick = new BlockGenesis(Material.rock, SoundType.STONE)
 			.setHardness(0.7F)
-			.setUnlocalizedName(Unlocalized.PREFIX + "dungBrickBlock");
+			.setUnlocalizedName(Unlocalized.PREFIX + "dungBrick");
 	public static final BlockGenesisWall wattle_and_daub = (BlockGenesisWall) new BlockGenesisWall(Material.wood, 0.375F, 1.0F, -1).setUnlocalizedName(Unlocalized.PREFIX + "wattleAndDaub");
 	
 	/* Mechanisms */
@@ -250,9 +250,9 @@ public final class GenesisBlocks
 		// - Dungs -
 		dungs.registerVariants(DungBlocksAndItems.DUNG_BLOCK);
 		
-		Genesis.proxy.registerBlock(dung_brick_block, name("dung_brick_block"));
-		dung_brick_block.setHarvestLevel("pickaxe", 0);
-		Blocks.fire.setFireInfo(dung_brick_block, 5, 5);
+		Genesis.proxy.registerBlock(dung_brick, name("dung_brick_block"));
+		dung_brick.setHarvestLevel("pickaxe", 0);
+		Blocks.fire.setFireInfo(dung_brick, 5, 5);
 		
 		Genesis.proxy.registerBlock(wattle_and_daub, name("wattle_and_daub"));
 		wattle_and_daub.setHarvestLevel("axe", 0);
@@ -278,7 +278,7 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(roots, name("roots"));
 		
 		//Resin
-		Genesis.proxy.registerBlock(resin_block, name("resin_block"));
+		Genesis.proxy.registerBlock(resin, name("resin_block"));
 		
 		// - Containers -
 		// Workbench

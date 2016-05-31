@@ -295,7 +295,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 					{
 						setBlockInWorld(world,
 								pos.offset(facing),
-								GenesisBlocks.resin_block.getDefaultState()
+								GenesisBlocks.resin.getDefaultState()
 										.withProperty(BlockResin.FACING, facing)
 										.withProperty(BlockResin.LAYERS, world.rand.nextInt(4)),
 								false);
