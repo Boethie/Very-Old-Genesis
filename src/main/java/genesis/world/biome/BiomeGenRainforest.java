@@ -39,7 +39,7 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 	
 	protected void addTrees()
 	{
-		getDecorator().setTreeCount(27);
+		getDecorator().setTreeCount(26.7F);
 		
 		addTree(new WorldGenTreeSigillaria(10, 15, true), 7);
 		addTree(new WorldGenTreePsaronius(5, 8, true), 4);
