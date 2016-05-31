@@ -71,6 +71,8 @@ public class WorldGenTreeCordaites extends WorldGenTreeBase
 			doBranch(world, branchPos, -1, 1, rand, leaves, true);
 			doBranch(world, branchPos, 1, -1, rand, leaves, true);
 		}
+
+		generateResin(world, pos, height, baseHeight);
 		
 		return true;
 	}

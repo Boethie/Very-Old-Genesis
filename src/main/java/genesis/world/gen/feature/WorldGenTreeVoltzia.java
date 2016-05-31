@@ -31,6 +31,8 @@ public class WorldGenTreeVoltzia extends WorldGenTreeBase
 		BlockPos branchPos = pos.up(height - 2);
 		
 		doPineTopLeaves(world, pos, branchPos, height, pos.getY() + 1, rand, false, 2, true, false);
+
+		generateResin(world, pos, height);
 		
 		return true;
 	}

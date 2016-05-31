@@ -1,5 +1,6 @@
 package genesis.block;
 
+import genesis.combo.TreeBlocksAndItems;
 import genesis.util.AABBUtils;
 import java.util.Arrays;
 import java.util.Random;
@@ -76,8 +77,9 @@ public class BlockResin extends BlockHorizontal implements IGrowable
 	protected static boolean canPlaceResin(World world, BlockPos pos, EnumFacing facing)
 	{
 		IBlockState state = world.getBlockState(pos.offset(facing));
-		EnumTree variant = GenesisBlocks.trees.getVariant(state);
-		return facing.getHorizontalIndex() != -1 && variant != null && variant.hasResin();
+		return facing.getHorizontalIndex() != -1
+				&& GenesisBlocks.trees.isStateOf(state, TreeBlocksAndItems.LOG)
+				&& GenesisBlocks.trees.getVariant(state).hasResin();
 	}
 
 	@Override

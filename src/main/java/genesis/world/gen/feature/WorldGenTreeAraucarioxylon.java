@@ -85,6 +85,8 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 		}
 		
 		doPineTopLeaves(world, pos, branchPos, height, leavesBase, rand, alternate, maxLeavesLength, irregular, inverted);
+
+		generateResin(world, pos, height);
 		
 		return true;
 	}

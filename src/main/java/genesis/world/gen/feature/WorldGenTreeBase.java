@@ -266,6 +266,29 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 			}
 		}
 	}
+
+	protected void generateResin(World world, BlockPos pos, int height)
+	{
+		generateResin(world, pos, height, 0);
+	}
+
+	protected void generateResin(World world, BlockPos pos, int height, int baseHeight)
+	{
+		for (int i = baseHeight; i < height; i++)
+		{
+			for (EnumFacing facing : EnumFacing.HORIZONTALS)
+			{
+				if (world.rand.nextInt(!plantedWithSapling ? 200 + world.rand.nextInt(10) : 600) == 0)
+				{
+					setBlockInWorld(world,
+							pos.up(i).offset(facing),
+							GenesisBlocks.resin.getDefaultState()
+									.withProperty(BlockResin.FACING, facing)
+									.withProperty(BlockResin.LAYERS, world.rand.nextInt(4)));
+				}
+			}
+		}
+	}
 	
 	protected void setBlockInWorld(World world, BlockPos pos, IBlockState state)
 	{
@@ -286,22 +309,6 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 							|| currentState.getBlock().isLeaves(currentState, world, pos))
 					&& !force)
 			return;
-
-			if(GenesisBlocks.trees.getVariant(state).hasResin())
-			{
-				for (EnumFacing facing : EnumFacing.HORIZONTALS)
-				{
-					if (world.rand.nextInt(!plantedWithSapling ? 200 + world.rand.nextInt(10) : 600) == 0)
-					{
-						setBlockInWorld(world,
-								pos.offset(facing),
-								GenesisBlocks.resin.getDefaultState()
-										.withProperty(BlockResin.FACING, facing)
-										.withProperty(BlockResin.LAYERS, world.rand.nextInt(4)),
-								false);
-					}
-				}
-			}
 		}
 		else if (state == leaves)
 		{

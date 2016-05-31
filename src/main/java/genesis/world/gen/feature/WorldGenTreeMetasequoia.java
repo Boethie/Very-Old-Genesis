@@ -114,6 +114,20 @@ public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 			}
 		}
 		*/
+
+		switch (treeType)
+		{
+		case TYPE_1:
+			generateResin(world, pos, height);
+			break;
+		case TYPE_2:
+			generateResin(world, pos.add(1, 0, 0), height);
+			generateResin(world, pos.add(0, 0, 1), height);
+			generateResin(world, pos.add(1, 0, 1), height);
+			generateResin(world, pos.add(0, 0, 0), height);
+			break;
+		}
+
 		return true;
 	}
 }
