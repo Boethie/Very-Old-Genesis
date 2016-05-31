@@ -32,6 +32,7 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		getDecorator().setFlowerCount(0.15F);
 		addFlower(WorldGenPlant.create(EnumPlant.PALAEOASTER).setPatchCount(9), 1);
 		
+		addDecoration(new WorldGenStemonitis().setPatchCount(18), 11);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setPatchCount(3), 0.15F);
 		addDecoration(WorldGenCircleReplacement.getPeatGen(), 1);
 		addDecoration(new WorldGenDebris(), 14);
