@@ -250,12 +250,6 @@ public final class GenesisRecipes
 				"LL",
 				"LL",
 				'L', GenesisBlocks.limestone);
-		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.rope_ladder),
-				"S S",
-				"S-S",
-				"S S",
-				'S', GenesisItems.materials.getStack(EnumMaterial.SPHENOPHYLLUM_FIBER),
-				'-', Items.stick);
 		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.trap_floor),
 				"xxx",
 				"///",
@@ -267,6 +261,7 @@ public final class GenesisRecipes
 		
 		//Torches
 		ItemStack resin = GenesisItems.materials.getStack(EnumMaterial.RESIN);
+
 		GameRegistry.addShapedRecipe(new ItemStack(Blocks.torch, 4),
 				"o",
 				"|",
@@ -339,8 +334,6 @@ public final class GenesisRecipes
 				"###",
 				'#', GenesisBlocks.programinis);
 		
-		EnumToolMaterial[] flintMaterials = {EnumToolMaterial.BLACK_FLINT, EnumToolMaterial.BROWN_FLINT};
-		
 		// Silt to siltstone recipes
 		for (EnumSilt mat: EnumSilt.values())
 		{
@@ -351,6 +344,8 @@ public final class GenesisRecipes
 		}
 		
 		// Flint and marcasite recipe
+		EnumToolMaterial[] flintMaterials = {EnumToolMaterial.BLACK_FLINT, EnumToolMaterial.BROWN_FLINT};
+
 		for (EnumToolMaterial mat : flintMaterials)
 		{
 			GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite),
@@ -459,6 +454,14 @@ public final class GenesisRecipes
 			GameRegistry.addShapedRecipe(GenesisBlocks.trees.getStack(TreeBlocksAndItems.RACK, variant), 
 					"XX",
 					'X', billetStack);
+
+			// Rope ladder
+			GameRegistry.addRecipe(new ItemStack(GenesisBlocks.rope_ladder, 3),
+					"S S",
+					"BBB",
+					"S S",
+					'S', GenesisItems.materials.getStack(EnumMaterial.SPHENOPHYLLUM_FIBER),
+					'B', billetStack);
 		}
 
 		for (EnumTree variant : GenesisBlocks.trees.getSharedValidVariants(TreeBlocksAndItems.BRANCH, TreeBlocksAndItems.BILLET)) {
