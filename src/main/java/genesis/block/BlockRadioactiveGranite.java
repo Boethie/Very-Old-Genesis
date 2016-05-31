@@ -20,7 +20,7 @@ public class BlockRadioactiveGranite extends BlockGenesisRock
 {
 	public BlockRadioactiveGranite()
 	{
-		super(2.7F, 7.0F, 2);
+		super(4.2F, 15);
 		setLightLevel(0.1F);
 		setTickRandomly(true);
 	}

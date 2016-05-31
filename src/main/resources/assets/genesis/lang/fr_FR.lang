@@ -3,6 +3,7 @@ genesis.multiItem.invalidMetadata.name=§4Invalid Sub-Item Metadata!
 #------------- Blocks -------------
 tile.genesis.dummyBlock.name=§4Useless Dummy Block!
 tile.genesis.komatiiticLava.name=Lave komatiitique
+tile.genesis.resin.name=Résine
 
 #Interactive blocks
 tile.genesis.container.workbench.name=Établi
@@ -271,6 +272,8 @@ item.genesis.seed.odontopteris.name=Graines d'Odontopteris
 item.genesis.seed.programinis.name=Graines de Programinis
 item.genesis.seed.zingiberopsisRhizome.name=Rhizome de Zingiberopsis
 item.genesis.seed.prototaxitesFlesh.name=Chair de Prototaxites
+
+item.genesis.food.rottenZingiberopsisRhizome.name=Rhizome de Zingiberopsis pourri
 
 item.genesis.food.fruit.ginkgo.name=Noix de Ginkgo
 item.genesis.food.fruit.araucarioxylon.name=Cône d'Araucarioxylon
