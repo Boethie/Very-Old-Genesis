@@ -32,7 +32,7 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenDebris(), 24);
 		addDecoration(new WorldGenRoots(), 13);
 		
-		getDecorator().setTreeCount(9.7F);
+		getDecorator().setTreeCount(9.6F);
 		addTree(new WorldGenTreeArchaeopteris(15, 19, true), 9);
 		
 		addTree(new WorldGenDeadLog(3, 6, EnumTree.ARCHAEOPTERIS, true), 2);
