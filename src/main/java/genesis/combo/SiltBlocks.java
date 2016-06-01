@@ -15,7 +15,7 @@ public class SiltBlocks extends VariantsOfTypesCombo<EnumSilt>
 	public static final ObjectType<EnumSilt, BlockSilt, ItemBlockMulti<EnumSilt>> SILT =
 			ObjectType.createBlock(EnumSilt.class, "silt", BlockSilt.class);
 	public static final ObjectType<EnumSilt, BlockGenesisVariants<EnumSilt>, ItemBlockMulti<EnumSilt>> CRACKED_SILT =
-			new ObjectType<>(EnumSilt.class, "cracked_silt", "silt.cracked", ReflectionUtils.convertClass(BlockGenesisVariants.class), null);
+			new ObjectType<>(EnumSilt.class, "cracked_silt", "cracked.silt", ReflectionUtils.convertClass(BlockGenesisVariants.class), null);
 	public static final ObjectType<EnumSilt, BlockSiltstone, ItemBlockMulti<EnumSilt>> SILTSTONE =
 			ObjectType.createBlock(EnumSilt.class, "siltstone", "rock.siltstone", BlockSiltstone.class);
 	

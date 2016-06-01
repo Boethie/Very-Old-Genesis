@@ -7,10 +7,10 @@
 	"variants": {
 		"variant": {
 			"normal": {
-				"textures": { "all": "genesis:blocks/silt_cracked" }
+				"textures": { "all": "genesis:blocks/cracked_silt" }
 			},
 			"red": {
-				"textures": { "all": "genesis:blocks/silt_cracked_red" }
+				"textures": { "all": "genesis:blocks/cracked_silt_red" }
 			}
 		},
 		"variant=normal": [
