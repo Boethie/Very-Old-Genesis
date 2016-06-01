@@ -123,7 +123,7 @@ public class BlockHangingFruit extends BlockGenesis
 		y += offsetCalc.getShy();
 		z += offsetCalc.getShz();
 		
-		return AABBUtils.create(x, y - height, z).expand(radius, 0, radius);
+		return AABBUtils.createExpansion(x, y - height, z, EnumFacing.Plane.HORIZONTAL, radius);
 	}
 	
 	@Override

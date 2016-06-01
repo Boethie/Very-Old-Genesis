@@ -47,7 +47,7 @@ public class BlockPlant<V extends IPlantMetadata<V>> extends BlockBush implement
 	
 	protected static final float BB_INSET = 0.0625F * 2;
 	protected static final AxisAlignedBB BB =
-			AABBUtils.contract(AABBUtils.shrink(new AxisAlignedBB(0, 0, 0, 1, 1, 1), 0, BB_INSET, 0), BB_INSET, 0, BB_INSET);
+			AABBUtils.contract(AABBUtils.shrink(new AxisAlignedBB(0, 0, 0, 1, 1, 1), EnumFacing.Plane.VERTICAL, BB_INSET), EnumFacing.Plane.HORIZONTAL, BB_INSET);
 	
 	public BlockPlant(VariantsOfTypesCombo<V> owner,
 			ObjectType<V, ? extends BlockPlant<V>, ? extends ItemBlockMulti<V>> type,

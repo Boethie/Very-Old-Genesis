@@ -761,7 +761,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	public AxisAlignedBB getRenderBoundingBox()
 	{
 		double radius = 0.25;
-		return AABBUtils.create(pos).addCoord(1, 1 + radius, 1).expand(radius, 0, radius);
+		return AABBUtils.createExpansion(pos, EnumFacing.Plane.HORIZONTAL, radius).addCoord(1, 1 + radius, 1);
 	}
 	
 	@Override

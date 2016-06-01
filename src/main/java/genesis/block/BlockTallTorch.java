@@ -275,7 +275,7 @@ public class BlockTallTorch extends Block
 	{
 		double radius = 0.1;
 		double height = 1.6;
-		AxisAlignedBB bb = AABBUtils.create(0.5, height, 0.5).expand(radius, 0, radius);
+		AxisAlignedBB bb = AABBUtils.createExpansion(0.5, height, 0.5, EnumFacing.Plane.HORIZONTAL, radius);
 		
 		double topDown = 0.0625;
 		double toOuter = 0.5F - radius;

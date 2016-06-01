@@ -27,7 +27,7 @@ public class BlockRoots extends BlockGenesis
 	private List<IBlockState> blockStateSupportList = Lists.newArrayList();
 	
 	protected static final double RADIUS = 0.375;
-	protected static final AxisAlignedBB BB = AABBUtils.create(0.5, 1, 0.5).expand(RADIUS, 0, RADIUS);
+	protected static final AxisAlignedBB BB = AABBUtils.createExpansion(0.5, 1, 0.5, EnumFacing.Plane.HORIZONTAL, RADIUS);
 	
 	public BlockRoots()
 	{

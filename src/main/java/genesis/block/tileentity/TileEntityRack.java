@@ -52,7 +52,7 @@ public class TileEntityRack extends TileEntityBase implements IInventory
 	public AxisAlignedBB getRenderBoundingBox()
 	{
 		double radius = 0.5;
-		return AABBUtils.create(pos).addCoord(1, 1 + radius, 1).addCoord(radius, 0, radius);
+		return AABBUtils.createExpansion(pos, EnumFacing.Plane.HORIZONTAL, radius).addCoord(1, 1 + radius, 1);
 	}
 	
 	@Override

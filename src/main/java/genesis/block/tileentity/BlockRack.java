@@ -267,7 +267,7 @@ public class BlockRack extends BlockContainer implements MultiPartBlock
 	@Override
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, World world, BlockPos pos)
 	{
-		AxisAlignedBB bb = new AxisAlignedBB(0.5, 0.5, 0.5, 0.5, 0.5, 0.5);
+		AxisAlignedBB bb = AABBUtils.createCenter();
 
 		for (FacingProperties.Entry<Boolean> entry : RACKS)
 			if (state.getValue(entry.property))

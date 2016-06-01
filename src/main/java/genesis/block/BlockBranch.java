@@ -112,7 +112,7 @@ public class BlockBranch extends BlockGenesisLogs
 		
 		if (!state.getValue(LEAVES))
 		{
-			bb = AABBUtils.create(0.5, 0.5, 0.5).expandXyz(RADIUS);
+			bb = AABBUtils.createCenterExpansion(RADIUS);
 			double add = 0.5 - RADIUS;
 			
 			for (FacingProperties.Entry<Boolean> entry : CONNECTIONS)
@@ -139,9 +139,9 @@ public class BlockBranch extends BlockGenesisLogs
 		}
 		else
 		{
-			addCollisionBoxToList(pos, mask, list, AABBUtils.create(0.5, 0.5, 0.5).expandXyz(RADIUS));
+			addCollisionBoxToList(pos, mask, list, AABBUtils.createCenterExpansion(RADIUS));
 			
-			AxisAlignedBB sideBase = AABBUtils.create(0.5, 0.5, 0.5);
+			AxisAlignedBB sideBase = AABBUtils.createCenter();
 			
 			for (FacingProperties.Entry<Boolean> entry : CONNECTIONS)
 			{

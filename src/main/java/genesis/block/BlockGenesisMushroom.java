@@ -99,7 +99,7 @@ public class BlockGenesisMushroom extends BlockBush
 		float radius = getBoundsRadius();
 		float height = getBoundsHeight();
 		float bottom = getBoundsBottom();
-		AxisAlignedBB bb = AABBUtils.create(0.5, bottom + height, 0.5).expand(radius, 0, radius);
+		AxisAlignedBB bb = AABBUtils.createExpansion(0.5, bottom + height, 0.5, EnumFacing.Plane.HORIZONTAL, radius);
 		
 		if (getGrowType().isSide())
 		{
