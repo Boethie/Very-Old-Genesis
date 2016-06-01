@@ -38,8 +38,8 @@ tile.genesis.rock.octaedrite.name=Octaédrite
 tile.genesis.redClay.name=Argile rouge
 tile.genesis.silt.name=Limon
 tile.genesis.silt.red.name=Limon rouge
-tile.genesis.cracked.silt.name=Limon fissuré
-tile.genesis.cracked.silt.red.name=Limon rouge fissuré
+tile.genesis.crackedSilt.name=Limon fissuré
+tile.genesis.crackedSilt.red.name=Limon rouge fissuré
 tile.genesis.ooze.name=Boue
 tile.genesis.peat.name=Tourbe
 
