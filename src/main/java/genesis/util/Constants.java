@@ -37,6 +37,7 @@ public final class Constants
 			public static final String FERN = "fern.";
 			public static final String FERN_DOUBLE = FERN + DOUBLE;
 			public static final String CROP = "crop.";
+			public static final String SLAB = "slab.";
 			
 			public static final String MATERIAL = "material.";
 			

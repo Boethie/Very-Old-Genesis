@@ -3,11 +3,7 @@ package genesis.common;
 import genesis.client.Colorizers;
 import genesis.client.model.MetadataModelDefinition;
 import genesis.combo.*;
-import genesis.combo.variant.EnumMaterial;
-import genesis.combo.variant.EnumMenhirActivator;
-import genesis.combo.variant.EnumNodule;
-import genesis.combo.variant.EnumPowder;
-import genesis.combo.variant.EnumSeeds;
+import genesis.combo.variant.*;
 import genesis.entity.fixed.EntityMeganeuraEgg;
 import genesis.item.*;
 import genesis.util.Constants;
@@ -93,6 +89,12 @@ public final class GenesisItems
 			.setNames(Constants.MOD_ID, "");
 	
 	public static final BowItems bows = new BowItems();
+
+	public static final VariantsCombo<EnumSlabMaterial, Block, ItemGenesisSlab> slabs =
+			VariantsCombo.create(
+					"slabs",
+					new ObjectType<EnumSlabMaterial, Block, ItemGenesisSlab>(EnumSlabMaterial.class, "slab", null, ItemGenesisSlab.class),
+					EnumSlabMaterial.class, EnumSlabMaterial.values());
 	
 	private static ResourceLocation name(String path)
 	{
@@ -161,6 +163,9 @@ public final class GenesisItems
 		menhir_activators.registerAll();
 		
 		bows.registerAll();
+
+		slabs.setNames(Constants.MOD_ID, Unlocalized.PREFIX);
+		slabs.registerAll();
 	}
 	
 	public static void preInitClient()

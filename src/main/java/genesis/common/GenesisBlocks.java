@@ -10,6 +10,7 @@ import genesis.client.Colorizers;
 import genesis.combo.*;
 import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.*;
+import genesis.combo.variant.SlabTypes.SlabType;
 import genesis.common.sounds.GenesisSoundEvents;
 import genesis.common.sounds.GenesisSoundTypes;
 import genesis.item.*;
@@ -191,6 +192,9 @@ public final class GenesisBlocks
 							.setCreativeTab(GenesisCreativeTabs.DECORATIONS)
 							.setBlockArguments(Material.coral, GenesisSoundTypes.CORAL),
 					EnumCoral.class, EnumCoral.values());
+
+	/* Slabs */
+	public static final SlabBlocks slabs = new SlabBlocks();
 	
 	private static ResourceLocation name(String path)
 	{
@@ -384,6 +388,10 @@ public final class GenesisBlocks
 		// Corals
 		coral.setNames(Constants.MOD_ID, Constants.Unlocalized.PREFIX);
 		coral.registerAll();
+
+		// Slabs
+		slabs.setNames(Constants.MOD_ID, Constants.Unlocalized.PREFIX);
+		slabs.registerAll();
 		
 		// --- Liquids ---
 		Genesis.proxy.registerFluidBlock(komatiitic_lava, name("komatiitic_lava"));
