@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class GenesisPotions
 {
 	public static final Potion radiation = new PotionGenesis(true, 0x00FF00)
-			.setIcon(new ResourceLocation(Constants.MOD_ID, "textures/potion/radiation.png"))
+			.setIcon(new ResourceLocation(Constants.MOD_ID, "textures/gui/radiation.png"))
 			.setEffectiveness(0.25D)
 			.setPotionName(Unlocalized.EFFECT + "radiation");
 
