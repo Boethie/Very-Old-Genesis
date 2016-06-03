@@ -72,7 +72,7 @@ public class ItemGenesisSlab extends ItemSlab
 		
 		if (variant == stateVariant && canFillEmptyHalf(state.getValue(BlockGenesisSlab.HALF), facing))
 		{
-			IBlockState doubleSlabState = owner.getDoubleSlabState(type, stateVariant);
+			IBlockState doubleSlabState = owner.getBlockState(type, stateVariant).withProperty(BlockGenesisSlab.HALF, EnumHalf.BOTH);
 			AxisAlignedBB collisionBB = doubleSlabState.getCollisionBoundingBox(world, pos);
 
 			if (collisionBB != Block.NULL_AABB && world.checkNoEntityCollision(collisionBB.offset(pos)) && world.setBlockState(pos, doubleSlabState, 11))
@@ -124,9 +124,9 @@ public class ItemGenesisSlab extends ItemSlab
 		IBlockState state = world.getBlockState(pos);
 		EnumSlab stateVariant = owner.getVariant(state);
 
-		if (variant == stateVariant && state.getValue(BlockGenesisSlab.HALF).isSingle())
+		if (variant == stateVariant && state.getValue(BlockGenesisSlab.HALF) != EnumHalf.BOTH)
 		{
-			IBlockState doubleSlabState = owner.getDoubleSlabState(type, variant);
+			IBlockState doubleSlabState = owner.getBlockState(type, variant).withProperty(BlockGenesisSlab.HALF, EnumHalf.BOTH);
 			AxisAlignedBB collisionBB = doubleSlabState.getCollisionBoundingBox(world, pos);
 
 			if (collisionBB != Block.NULL_AABB && world.checkNoEntityCollision(collisionBB.offset(pos)) && world.setBlockState(pos, doubleSlabState, 11))
@@ -159,7 +159,7 @@ public class ItemGenesisSlab extends ItemSlab
 		IBlockState sideState = world.getBlockState(sidePos);
 		EnumSlab sideVariant = owner.getVariant(sideState);
 
-		if (variant == sideVariant && sideState.getValue(BlockGenesisSlab.HALF).isSingle())
+		if (variant == sideVariant && sideState.getValue(BlockGenesisSlab.HALF) != EnumHalf.BOTH)
 		{
 			return true;
 		}
@@ -182,6 +182,14 @@ public class ItemGenesisSlab extends ItemSlab
 
 	private boolean canFillEmptyHalf(EnumHalf blockHalf, EnumFacing facing)
 	{
-		return facing == EnumFacing.UP && blockHalf.isBottom() || facing == EnumFacing.DOWN && blockHalf.isTop();
+		switch (blockHalf)
+		{
+		case BOTTOM:
+			return facing == EnumFacing.UP;
+		case TOP:
+			return facing == EnumFacing.DOWN;
+		default:
+			return false;
+		}
 	}
 }

@@ -34,32 +34,12 @@ public class BlockGenesisSlab extends BlockSlab
 
 	public enum EnumHalf implements IStringSerializable
 	{
-		BOTH, TOP, BOTTOM;
+		BOTTOM, TOP, BOTH;
 
 		@Override
 		public String getName()
 		{
 			return name().toLowerCase();
-		}
-
-		public boolean isDouble()
-		{
-			return this == BOTH;
-		}
-
-		public boolean isSingle()
-		{
-			return isTop() || isBottom();
-		}
-
-		public boolean isTop()
-		{
-			return this == TOP;
-		}
-
-		public boolean isBottom()
-		{
-			return this == BOTTOM;
 		}
 	}
 
@@ -119,42 +99,71 @@ public class BlockGenesisSlab extends BlockSlab
 	@Override
 	public boolean isFullBlock(IBlockState state)
 	{
-		return state.getValue(HALF).isDouble();
+		return state.getValue(HALF) == EnumHalf.BOTH;
 	}
 
 	@Override
 	public boolean getUseNeighborBrightness(IBlockState state)
 	{
-		return state.getValue(HALF).isSingle();
+		switch (state.getValue(HALF))
+		{
+		case BOTH:
+			return false;
+		case TOP:
+		case BOTTOM:
+		default:
+			return true;
+		}
 	}
 
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
-		EnumHalf half = state.getValue(HALF);
-		return half.isDouble() ? FULL_BLOCK_AABB : half.isTop() ? AABB_TOP_HALF : AABB_BOTTOM_HALF;
+		switch (state.getValue(HALF))
+		{
+		case BOTH:
+			return FULL_BLOCK_AABB;
+		case TOP:
+			return AABB_TOP_HALF;
+		case BOTTOM:
+		default:
+			return AABB_BOTTOM_HALF;
+		}
 	}
 
 	@Override
 	public boolean isFullyOpaque(IBlockState state)
 	{
-		EnumHalf half = state.getValue(HALF);
-		return half.isDouble() || half.isTop();
+		switch (state.getValue(HALF))
+		{
+		case BOTH:
+		case TOP:
+			return true;
+		case BOTTOM:
+		default:
+			return false;
+		}
 	}
 
 	@Override
 	public boolean isOpaqueCube(IBlockState state)
 	{
-		return state.getValue(HALF).isDouble();
+		return state.getValue(HALF) == EnumHalf.BOTH;
 	}
 
 	@Override
 	public boolean doesSideBlockRendering(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing face)
 	{
-		EnumHalf half = state.getValue(HALF);
-		return state.isOpaqueCube()
-				|| (half.isTop() && face == EnumFacing.UP)
-				|| (half.isBottom() && face == EnumFacing.DOWN);
+		switch (state.getValue(HALF))
+		{
+		case BOTH:
+			return true;
+		case TOP:
+			return face == EnumFacing.UP;
+		case BOTTOM:
+		default:
+			return face == EnumFacing.DOWN;
+		}
 	}
 
 	@Override
@@ -163,30 +172,38 @@ public class BlockGenesisSlab extends BlockSlab
 		IBlockState state = getStateFromMeta(meta);
 		EnumSlab variant = owner.getVariant(state);
 
-		if (state.getValue(HALF).isDouble())
+		if (state.getValue(HALF) == EnumHalf.BOTH)
 		{
-			return owner.getBottomSlabState(type, variant);
+			return owner.getBlockState(type, variant).withProperty(HALF, EnumHalf.BOTTOM);
 		}
 		else if (facing != EnumFacing.DOWN && (facing == EnumFacing.UP || (double) hitY <= 0.5D))
 		{
-			return owner.getBottomSlabState(type, variant);
+			return owner.getBlockState(type, variant).withProperty(HALF, EnumHalf.BOTTOM);
 		}
 		else
 		{
-			return owner.getTopSlabState(type, variant);
+			return owner.getBlockState(type, variant).withProperty(HALF, EnumHalf.TOP);
 		}
 	}
 
 	@Override
 	public int quantityDropped(IBlockState state, int fortune, Random random)
 	{
-		return state.getValue(HALF).isDouble() ? 2 : 1;
+		switch (state.getValue(HALF))
+		{
+		case BOTH:
+			return 2;
+		case TOP:
+		case BOTTOM:
+		default:
+			return 1;
+		}
 	}
 
 	@Override
 	public boolean isFullCube(IBlockState state)
 	{
-		return state.getValue(HALF).isDouble();
+		return state.getValue(HALF) == EnumHalf.BOTH;
 	}
 
 	@Override
@@ -195,7 +212,7 @@ public class BlockGenesisSlab extends BlockSlab
 	{
 		boolean shouldSideBeRendered = super.shouldSideBeRendered(state, world, pos, side);
 
-		if (state.getValue(HALF).isDouble())
+		if (state.getValue(HALF) == EnumHalf.BOTH)
 		{
 			return shouldSideBeRendered;
 		}
