@@ -1,14 +1,10 @@
 package genesis.item;
 
+import genesis.block.BlockGenesisSlab;
 import genesis.block.BlockGenesisSlab.EnumHalf;
-import genesis.combo.ObjectType;
+import genesis.combo.SlabBlocks;
 import genesis.combo.SlabBlocks.SlabObjectType;
-import genesis.combo.VariantsCombo;
-import genesis.combo.variant.EnumSlabMaterial;
-import genesis.combo.variant.SlabTypes;
-import genesis.combo.variant.SlabTypes.SlabType;
-import genesis.common.GenesisBlocks;
-import genesis.common.GenesisCreativeTabs;
+import genesis.combo.variant.EnumSlab;
 import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -16,6 +12,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemSlab;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -27,42 +24,25 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemGenesisSlab extends Item
+public class ItemGenesisSlab extends ItemSlab
 {
-	public final VariantsCombo<EnumSlabMaterial, Block, ItemGenesisSlab> owner;
-	public final ObjectType<EnumSlabMaterial, Block, ItemGenesisSlab> type;
+	public final SlabBlocks owner;
+	public final SlabObjectType type;
 
-	public final List<EnumSlabMaterial> variants;
+	public final List<EnumSlab> variants;
 
-	public ItemGenesisSlab(VariantsCombo<EnumSlabMaterial, Block, ItemGenesisSlab> owner,
-			ObjectType<EnumSlabMaterial, Block, ItemGenesisSlab> type,
-			List<EnumSlabMaterial> variants, Class<EnumSlabMaterial> variantClass)
+	public ItemGenesisSlab(BlockGenesisSlab slabBlock, SlabBlocks owner,
+						   SlabObjectType type,
+						   List<EnumSlab> variants, Class<EnumSlab> variantClass)
 	{
+		super(slabBlock, slabBlock, slabBlock);
+
 		this.owner = owner;
 		this.type = type;
 
 		this.variants = variants;
 
 		setHasSubtypes(true);
-		setCreativeTab(GenesisCreativeTabs.BLOCK);
-	}
-
-	@Override
-	public int getMetadata(int damage)
-	{
-		EnumSlabMaterial material = owner.getVariant(this, damage);
-		SlabType variant = getSlabVariant(material);
-		SlabObjectType objectType = GenesisBlocks.slabs.getObjectType(variant);
-		IBlockState state = GenesisBlocks.slabs.getBlockState(objectType, variant);
-		return state.getBlock().getMetaFromState(state);
-	}
-
-	@Override
-	public String getUnlocalizedName(ItemStack stack)
-	{
-		EnumSlabMaterial material = owner.getVariant(stack);
-		SlabType variant = getSlabVariant(material);
-		return getSlabBlock(variant).getUnlocalizedName() + variant.getUnlocalizedName();
 	}
 
 	@Override
@@ -73,6 +53,12 @@ public class ItemGenesisSlab extends Item
 	}
 
 	@Override
+	public String getUnlocalizedName(ItemStack stack)
+	{
+		return owner.getUnlocalizedName(stack, block.getUnlocalizedName());
+	}
+
+	@Override
 	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
 	{
 		if (stack.stackSize == 0 || !player.canPlayerEdit(pos.offset(facing), facing, stack))
@@ -80,56 +66,52 @@ public class ItemGenesisSlab extends Item
 			return EnumActionResult.FAIL;
 		}
 		
-		EnumSlabMaterial itemMaterial = owner.getVariant(stack);
-		IBlockState worldState = world.getBlockState(pos);
-		SlabType worldVariant = GenesisBlocks.slabs.getVariant(worldState);
+		EnumSlab variant = owner.getVariant(stack);
+		IBlockState state = world.getBlockState(pos);
+		EnumSlab stateVariant = owner.getVariant(state);
 		
-		if (worldVariant != null && worldVariant.material == itemMaterial && canFillEmptyHalf(worldVariant.half, facing))
+		if (variant == stateVariant && canFillEmptyHalf(state.getValue(BlockGenesisSlab.HALF), facing))
 		{
-			IBlockState doubleSlabState = getDoubleSlabState(worldVariant);
+			IBlockState doubleSlabState = owner.getDoubleSlabState(type, stateVariant);
 			AxisAlignedBB collisionBB = doubleSlabState.getCollisionBoundingBox(world, pos);
-			
+
 			if (collisionBB != Block.NULL_AABB && world.checkNoEntityCollision(collisionBB.offset(pos)) && world.setBlockState(pos, doubleSlabState, 11))
 			{
 				SoundType sound = doubleSlabState.getBlock().getSoundType();
 				world.playSound(player, pos, sound.getPlaceSound(), SoundCategory.BLOCKS, (sound.getVolume() + 1.0F) / 2.0F, sound.getPitch() * 0.8F);
 				--stack.stackSize;
 			}
-			
+
 			return EnumActionResult.SUCCESS;
 		}
 		
-		if (tryPlace(player, stack, world, pos.offset(facing), itemMaterial))
+		if (tryPlace(player, stack, world, pos.offset(facing), variant))
 		{
 			return EnumActionResult.SUCCESS;
 		}
 		
-		return onItemUse(stack, itemMaterial, player, worldState, world, pos, facing, hitX, hitY, hitZ);
+		return onItemBlockUse(stack, variant, player, state, world, pos, facing, hitX, hitY, hitZ);
 	}
 
-	private EnumActionResult onItemUse(ItemStack stack, EnumSlabMaterial material, EntityPlayer player, IBlockState state, World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ)
+	private EnumActionResult onItemBlockUse(ItemStack stack, EnumSlab material, EntityPlayer player, IBlockState oldState, World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ)
 	{
-		if (!state.getBlock().isReplaceable(world, pos))
+		if (!oldState.getBlock().isReplaceable(world, pos))
 		{
 			pos = pos.offset(facing);
 		}
 
-		SlabType slabVariant = getSlabVariant(material);
-		SlabObjectType slabObjectType = GenesisBlocks.slabs.getObjectType(slabVariant);
-		IBlockState slabState = GenesisBlocks.slabs.getBlockState(slabObjectType, slabVariant);
-		Block slabBlock = slabState.getBlock();
-
-		if (!world.canBlockBePlaced(slabBlock, pos, false, facing, null, stack))
+		if (!world.canBlockBePlaced(block, pos, false, facing, null, stack))
 		{
 			return EnumActionResult.FAIL;
 		}
 
-		int slabMeta = slabBlock.getMetaFromState(slabState);
-		slabState = slabBlock.onBlockPlaced(world, pos, facing, hitX, hitY, hitZ, slabMeta, player);
+		IBlockState state = owner.getBlockState(type, material);
+		int meta = block.getMetaFromState(state);
+		state = block.onBlockPlaced(world, pos, facing, hitX, hitY, hitZ, meta, player);
 
-		if (placeBlockAt(stack, player, world, pos, facing, hitX, hitY, hitZ, slabState))
+		if (placeBlockAt(stack, player, world, pos, facing, hitX, hitY, hitZ, state))
 		{
-			SoundType sound = slabBlock.getSoundType();
+			SoundType sound = block.getSoundType();
 			world.playSound(player, pos, sound.getPlaceSound(), SoundCategory.BLOCKS, (sound.getVolume() + 1.0F) / 2.0F, sound.getPitch() * 0.8F);
 			--stack.stackSize;
 		}
@@ -137,19 +119,19 @@ public class ItemGenesisSlab extends Item
 		return EnumActionResult.SUCCESS;
 	}
 
-	private boolean tryPlace(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumSlabMaterial material)
+	private boolean tryPlace(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumSlab variant)
 	{
 		IBlockState state = world.getBlockState(pos);
-		SlabType variant = GenesisBlocks.slabs.getVariant(state);
+		EnumSlab stateVariant = owner.getVariant(state);
 
-		if (variant != null && variant.material == material && variant.half.isSingle())
+		if (variant == stateVariant && state.getValue(BlockGenesisSlab.HALF).isSingle())
 		{
-			IBlockState doubleSlab = getDoubleSlabState(variant);
-			AxisAlignedBB collisionBB = doubleSlab.getCollisionBoundingBox(world, pos);
+			IBlockState doubleSlabState = owner.getDoubleSlabState(type, variant);
+			AxisAlignedBB collisionBB = doubleSlabState.getCollisionBoundingBox(world, pos);
 
-			if (collisionBB != Block.NULL_AABB && world.checkNoEntityCollision(collisionBB.offset(pos)) && world.setBlockState(pos, doubleSlab, 11))
+			if (collisionBB != Block.NULL_AABB && world.checkNoEntityCollision(collisionBB.offset(pos)) && world.setBlockState(pos, doubleSlabState, 11))
 			{
-				SoundType sound = doubleSlab.getBlock().getSoundType();
+				SoundType sound = doubleSlabState.getBlock().getSoundType();
 				world.playSound(player, pos, sound.getPlaceSound(), SoundCategory.BLOCKS, (sound.getVolume() + 1.0F) / 2.0F, sound.getPitch() * 0.8F);
 				--stack.stackSize;
 			}
@@ -160,41 +142,46 @@ public class ItemGenesisSlab extends Item
 		return false;
 	}
 
-	private boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, IBlockState newState)
+	@Override
+	@SideOnly(Side.CLIENT)
+	public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing facing, EntityPlayer player, ItemStack stack)
 	{
-		if (!world.setBlockState(pos, newState, 3)) return false;
-
+		EnumSlab variant = owner.getVariant(stack);
 		IBlockState state = world.getBlockState(pos);
-		EnumSlabMaterial material = owner.getVariant(stack);
-		SlabType variant = getSlabVariant(material);
-		Block slabBlock = getSlabBlock(variant);
+		EnumSlab stateVariant = owner.getVariant(state);
 
-		if (state.getBlock() == slabBlock)
+		if (variant == stateVariant && canFillEmptyHalf(state.getValue(BlockGenesisSlab.HALF), facing))
 		{
-			slabBlock.onBlockPlacedBy(world, pos, state, player, stack);
+			return true;
 		}
 
-		return true;
+		BlockPos sidePos = pos.offset(facing);
+		IBlockState sideState = world.getBlockState(sidePos);
+		EnumSlab sideVariant = owner.getVariant(sideState);
+
+		if (variant == sideVariant && sideState.getValue(BlockGenesisSlab.HALF).isSingle())
+		{
+			return true;
+		}
+
+		return canPlaceItemBlockOnSide(world, pos, facing, player, stack);
 	}
 
-	private SlabType getSlabVariant(EnumSlabMaterial material)
+	@SideOnly(Side.CLIENT)
+	private boolean canPlaceItemBlockOnSide(World world, BlockPos pos, EnumFacing side, EntityPlayer player, ItemStack stack)
 	{
-		return SlabTypes.getSlabType(material, EnumHalf.BOTTOM);
-	}
+		Block block = world.getBlockState(pos).getBlock();
 
-	private Block getSlabBlock(SlabType variant)
-	{
-		SlabObjectType objectType = GenesisBlocks.slabs.getObjectType(variant);
-		return GenesisBlocks.slabs.getBlock(objectType, variant);
+		if (!block.isReplaceable(world, pos))
+		{
+			pos = pos.offset(side);
+		}
+
+		return world.canBlockBePlaced(this.block, pos, false, side, null, stack);
 	}
 
 	private boolean canFillEmptyHalf(EnumHalf blockHalf, EnumFacing facing)
 	{
 		return facing == EnumFacing.UP && blockHalf.isBottom() || facing == EnumFacing.DOWN && blockHalf.isTop();
-	}
-
-	private IBlockState getDoubleSlabState(SlabType variant)
-	{
-		return GenesisBlocks.slabs.getDoubleSlabState(GenesisBlocks.slabs.getObjectType(variant), variant.material);
 	}
 }

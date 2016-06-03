@@ -2,17 +2,13 @@ package genesis.block;
 
 import genesis.combo.SlabBlocks;
 import genesis.combo.SlabBlocks.SlabObjectType;
-import genesis.combo.VariantsCombo;
 import genesis.combo.VariantsOfTypesCombo.BlockProperties;
-import genesis.combo.variant.EnumSlabMaterial;
+import genesis.combo.variant.EnumSlab;
 import genesis.combo.variant.PropertyIMetadata;
-import genesis.combo.variant.SlabTypes.SlabType;
 import genesis.common.GenesisCreativeTabs;
-import genesis.common.GenesisItems;
 import genesis.util.BlockStateToMetadata;
 import java.util.List;
 import java.util.Random;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
@@ -22,15 +18,11 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemSlab;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -77,13 +69,13 @@ public class BlockGenesisSlab extends BlockSlab
 	public final SlabBlocks owner;
 	public final SlabObjectType type;
 
-	public final PropertyIMetadata<SlabType> variantProp;
-	public final List<SlabType> variants;
+	public final PropertyIMetadata<EnumSlab> variantProp;
+	public final List<EnumSlab> variants;
 
 	public BlockGenesisSlab(SlabBlocks owner,
-			SlabObjectType type,
-			List<SlabType> variants, Class<SlabType> variantClass,
-			Material material, SoundType sound)
+							SlabObjectType type,
+							List<EnumSlab> variants, Class<EnumSlab> variantClass,
+							Material material, SoundType sound)
 	{
 		super(material);
 		
@@ -91,24 +83,13 @@ public class BlockGenesisSlab extends BlockSlab
 		this.type = type;
 		
 		this.variants = variants;
-		this.variantProp = new PropertyIMetadata<SlabType>("variant", variants, variantClass);
+		this.variantProp = new PropertyIMetadata<EnumSlab>("variant", variants, variantClass);
 
 		blockState = new BlockStateContainer(this, variantProp, HALF);
 		setDefaultState(blockState.getBaseState().withProperty(HALF, EnumHalf.BOTTOM));
 
 		setSoundType(sound);
-	}
-
-	@Override
-	public Item getItemDropped(IBlockState state, Random rand, int fortune)
-	{
-		return GenesisItems.slabs.getItem(owner.getVariant(state).material);
-	}
-
-	@Override
-	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player)
-	{
-		return GenesisItems.slabs.getStack(owner.getVariant(state).material);
+		setCreativeTab(GenesisCreativeTabs.BLOCK);
 	}
 
 	@Override
@@ -126,13 +107,13 @@ public class BlockGenesisSlab extends BlockSlab
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return GenesisItems.slabs.getItemMetadata(owner.getVariant(state).material);
+		return owner.getItemMetadata(type, owner.getVariant(state));
 	}
 
 	@Override
 	public MapColor getMapColor(IBlockState state)
 	{
-		return owner.getVariant(state).material.getBaseState().getMapColor();
+		return owner.getVariant(state).getBaseState().getMapColor();
 	}
 
 	@Override
@@ -179,20 +160,20 @@ public class BlockGenesisSlab extends BlockSlab
 	@Override
 	public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
 	{
-		SlabType variant = owner.getVariant(this, meta);
-		EnumSlabMaterial material = variant.material;
+		IBlockState state = getStateFromMeta(meta);
+		EnumSlab variant = owner.getVariant(state);
 
-		if (variant.half.isDouble())
+		if (state.getValue(HALF).isDouble())
 		{
-			return owner.getBottomSlabState(type, material);
+			return owner.getBottomSlabState(type, variant);
 		}
 		else if (facing != EnumFacing.DOWN && (facing == EnumFacing.UP || (double) hitY <= 0.5D))
 		{
-			return owner.getBottomSlabState(type, material);
+			return owner.getBottomSlabState(type, variant);
 		}
 		else
 		{
-			return owner.getTopSlabState(type, material);
+			return owner.getTopSlabState(type, variant);
 		}
 	}
 
@@ -242,13 +223,13 @@ public class BlockGenesisSlab extends BlockSlab
 	}
 
 	@Override
-	public PropertyIMetadata<SlabType> getVariantProperty()
+	public PropertyIMetadata<EnumSlab> getVariantProperty()
 	{
 		return variantProp;
 	}
 
 	@Override
-	public SlabType getTypeForItem(ItemStack stack)
+	public EnumSlab getTypeForItem(ItemStack stack)
 	{
 		return owner.getVariant(stack);
 	}

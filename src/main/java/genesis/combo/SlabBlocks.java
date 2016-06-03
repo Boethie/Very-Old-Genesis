@@ -3,22 +3,17 @@ package genesis.combo;
 import com.google.common.collect.ImmutableList;
 import genesis.block.BlockGenesisSlab;
 import genesis.block.BlockGenesisSlab.EnumHalf;
-import genesis.combo.variant.EnumSlabMaterial;
-import genesis.combo.variant.SlabTypes;
-import genesis.combo.variant.SlabTypes.SlabType;
-import genesis.util.Constants.Unlocalized.Section;
+import genesis.combo.variant.EnumSlab;
+import genesis.item.ItemGenesisSlab;
+import genesis.util.Constants;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemSlab;
 
-public class SlabBlocks extends VariantsOfTypesCombo<SlabType>
+public class SlabBlocks extends VariantsOfTypesCombo<EnumSlab>
 {
 	public static final SlabObjectType ROCK =
-			new SlabObjectType("rock_slab", Section.SLAB + Section.ROCK, Material.rock, SoundType.STONE);
-
-	private static final ImmutableList<SlabObjectType> TYPES = ImmutableList.of(ROCK);
+			new SlabObjectType("rock_slab", "slab.rock", Material.rock, SoundType.STONE);
 
 	static
 	{
@@ -27,92 +22,49 @@ public class SlabBlocks extends VariantsOfTypesCombo<SlabType>
 
 	public SlabBlocks()
 	{
-		super("slabs", TYPES, SlabType.class, SlabTypes.getAll());
-	}
+		super("slabs", ImmutableList.of(ROCK),
+				EnumSlab.class, ImmutableList.copyOf(EnumSlab.values()));
 
-	public SlabObjectType getObjectType(SlabType variant)
-	{
-		for (SlabObjectType type : TYPES)
-		{
-			if (containsVariant(type, variant))
-			{
-				return type;
-			}
-		}
-
-		throw new IllegalArgumentException("Unknown SlabType " + variant);
+		setNames(Constants.MOD_ID, Constants.Unlocalized.PREFIX);
 	}
 	
 	/**
-	 * Gets a slab block state from the specified {@link SlabObjectType}, with the material and half specified.
+	 * Gets a double slab block state from the specified {@link SlabObjectType}, with the variant specified.
 	 */
-	public IBlockState getSlabState(SlabObjectType type, EnumSlabMaterial material, EnumHalf half)
+	public IBlockState getDoubleSlabState(SlabObjectType type, EnumSlab variant)
 	{
-		return getBlockState(type, SlabTypes.getSlabType(material, half));
-	}
-	
-	/**
-	 * Gets a double slab block state from the specified {@link SlabObjectType}, with the material specified.
-	 */
-	public IBlockState getDoubleSlabState(SlabObjectType type, EnumSlabMaterial material)
-	{
-		return getSlabState(type, material, EnumHalf.BOTH);
+		return getBlockState(type, variant).withProperty(BlockGenesisSlab.HALF, EnumHalf.BOTH);
 	}
 
 	/**
-	 * Gets a top slab block state from the specified {@link SlabObjectType}, with the material specified.
+	 * Gets a top slab block state from the specified {@link SlabObjectType}, with the variant specified.
 	 */
-	public IBlockState getTopSlabState(SlabObjectType type, EnumSlabMaterial material)
+	public IBlockState getTopSlabState(SlabObjectType type, EnumSlab variant)
 	{
-		return getSlabState(type, material, EnumHalf.TOP);
+		return getBlockState(type, variant).withProperty(BlockGenesisSlab.HALF, EnumHalf.TOP);
 	}
 
 	/**
-	 * Gets a bottom slab block state from the specified {@link SlabObjectType}, with the material specified.
+	 * Gets a bottom slab block state from the specified {@link SlabObjectType}, with the variant specified.
 	 */
-	public IBlockState getBottomSlabState(SlabObjectType type, EnumSlabMaterial material)
+	public IBlockState getBottomSlabState(SlabObjectType type, EnumSlab variant)
 	{
-		return getSlabState(type, material, EnumHalf.BOTTOM);
+		return getBlockState(type, variant).withProperty(BlockGenesisSlab.HALF, EnumHalf.BOTTOM);
 	}
-	
-	public static class SlabObjectType extends ObjectType<SlabType, BlockGenesisSlab, ItemSlab>
-	{
-		public final Material material;
 
+	public static class SlabObjectType extends ObjectType<EnumSlab, BlockGenesisSlab, ItemGenesisSlab>
+	{
 		public SlabObjectType(String name, String unlocalizedName, Material material, SoundType sound)
 		{
-			super(SlabType.class, name, unlocalizedName, BlockGenesisSlab.class, null);
-
-			this.material = material;
+			super(EnumSlab.class, name, unlocalizedName, BlockGenesisSlab.class, ItemGenesisSlab.class);
 
 			setBlockArguments(material, sound);
-			setVariantFilter((v) -> material == v.material.getBaseState().getMaterial());
+			setVariantFilter((v) -> material == v.getBaseState().getMaterial());
 		}
-		
+
 		public SlabObjectType(String name, Material material, SoundType sound)
 		{
 			this(name, name, material, sound);
-		}
-		
-		@Override
-		public SlabObjectType setTypeNamePosition(TypeNamePosition namePosition)
-		{
-			super.setTypeNamePosition(namePosition);
-			return this;
-		}
-		
-		@Override
-		public SlabObjectType setCreativeTab(CreativeTabs tab)
-		{
-			super.setCreativeTab(tab);
-			return this;
-		}
-		
-		@Override
-		public SlabObjectType setUseVariantAsRegistryName(boolean use)
-		{
-			super.setUseVariantAsRegistryName(use);
-			return this;
 		}
 	}
 }

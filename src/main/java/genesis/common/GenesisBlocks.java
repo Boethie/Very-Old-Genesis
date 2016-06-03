@@ -10,7 +10,6 @@ import genesis.client.Colorizers;
 import genesis.combo.*;
 import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.*;
-import genesis.combo.variant.SlabTypes.SlabType;
 import genesis.common.sounds.GenesisSoundEvents;
 import genesis.common.sounds.GenesisSoundTypes;
 import genesis.item.*;
@@ -390,7 +389,6 @@ public final class GenesisBlocks
 		coral.registerAll();
 
 		// Slabs
-		slabs.setNames(Constants.MOD_ID, Constants.Unlocalized.PREFIX);
 		slabs.registerAll();
 		
 		// --- Liquids ---

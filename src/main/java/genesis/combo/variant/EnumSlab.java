@@ -5,7 +5,7 @@ import genesis.common.GenesisBlocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 
-public enum EnumSlabMaterial implements IMetadata<EnumSlabMaterial>
+public enum EnumSlab implements IMetadata<EnumSlab>
 {
 	LIMESTONE("limestone", () -> GenesisBlocks.limestone.getDefaultState());
 
@@ -13,14 +13,14 @@ public enum EnumSlabMaterial implements IMetadata<EnumSlabMaterial>
 	final String unlocalizedName;
 	final Supplier<IBlockState> base;
 
-	EnumSlabMaterial(String name, String unlocalizedName, Supplier<IBlockState> base)
+	EnumSlab(String name, String unlocalizedName, Supplier<IBlockState> base)
 	{
 		this.name = name;
 		this.unlocalizedName = unlocalizedName;
 		this.base = base;
 	}
 
-	EnumSlabMaterial(String name, Supplier<IBlockState> base)
+	EnumSlab(String name, Supplier<IBlockState> base)
 	{
 		this(name, name, base);
 	}

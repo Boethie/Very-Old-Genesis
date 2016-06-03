@@ -89,12 +89,6 @@ public final class GenesisItems
 			.setNames(Constants.MOD_ID, "");
 	
 	public static final BowItems bows = new BowItems();
-
-	public static final VariantsCombo<EnumSlabMaterial, Block, ItemGenesisSlab> slabs =
-			VariantsCombo.create(
-					"slabs",
-					new ObjectType<EnumSlabMaterial, Block, ItemGenesisSlab>(EnumSlabMaterial.class, "slab", null, ItemGenesisSlab.class),
-					EnumSlabMaterial.class, EnumSlabMaterial.values());
 	
 	private static ResourceLocation name(String path)
 	{
@@ -163,9 +157,6 @@ public final class GenesisItems
 		menhir_activators.registerAll();
 		
 		bows.registerAll();
-
-		slabs.setNames(Constants.MOD_ID, Unlocalized.PREFIX);
-		slabs.registerAll();
 	}
 	
 	public static void preInitClient()
