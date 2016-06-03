@@ -471,6 +471,17 @@ public final class GenesisRecipes
 			// Branch -> billet
 			GameRegistry.addShapelessRecipe(billetStack, branchStack);
 		}
+
+		// All slab recipes
+		for (ObjectType<EnumSlab, ?, ?> type : GenesisBlocks.slabs.getTypes())
+		{
+			for (EnumSlab variant : GenesisBlocks.slabs.getValidVariants(type))
+			{
+				ItemStack slabStack = GenesisBlocks.slabs.getStack(type, variant, 6);
+				ItemStack modelStack = variant.getModelStack();
+				GameRegistry.addRecipe(slabStack, "SSS", 'S', modelStack);
+			}
+		}
 		
 		// Register knapping tools and
 		// Register workbench recipes.

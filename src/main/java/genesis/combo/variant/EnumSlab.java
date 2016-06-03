@@ -4,28 +4,37 @@ import com.google.common.base.Supplier;
 import genesis.common.GenesisBlocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.ItemStack;
 
 public enum EnumSlab implements IMetadata<EnumSlab>
 {
 	LIMESTONE("limestone", Material.rock,
-			() -> GenesisBlocks.limestone.getDefaultState());
+			() -> GenesisBlocks.limestone.getDefaultState(),
+			() -> new ItemStack(GenesisBlocks.limestone));
 
 	final String name;
 	final String unlocalizedName;
 	final Material material;
 	final Supplier<IBlockState> model;
+	final Supplier<ItemStack> modelStack;
 
-	EnumSlab(String name, String unlocalizedName, Material material, Supplier<IBlockState> model)
+	EnumSlab(String name, String unlocalizedName, Material material, Supplier<IBlockState> model, Supplier<ItemStack> modelStack)
 	{
 		this.name = name;
 		this.unlocalizedName = unlocalizedName;
 		this.material = material;
 		this.model = model;
+		this.modelStack = modelStack;
 	}
 
-	EnumSlab(String name, Material material, Supplier<IBlockState> model)
+	EnumSlab(String name, Material material, Supplier<IBlockState> model, Supplier<ItemStack> modelStack)
 	{
-		this(name, name, material, model);
+		this(name, name, material, model, modelStack);
+	}
+
+	public ItemStack getModelStack()
+	{
+		return modelStack.get();
 	}
 
 	public IBlockState getModelState()
