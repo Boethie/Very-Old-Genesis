@@ -24,6 +24,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import static genesis.block.BlockGenesisSlab.EnumHalf.*;
+
 public class ItemGenesisSlab extends ItemSlab
 {
 	public final SlabBlocks owner;
@@ -72,7 +74,7 @@ public class ItemGenesisSlab extends ItemSlab
 		
 		if (variant == stateVariant && canFillEmptyHalf(state.getValue(BlockGenesisSlab.HALF), facing))
 		{
-			IBlockState doubleSlabState = owner.getBlockState(type, stateVariant).withProperty(BlockGenesisSlab.HALF, EnumHalf.BOTH);
+			IBlockState doubleSlabState = owner.getBlockState(type, stateVariant).withProperty(BlockGenesisSlab.HALF, BOTH);
 			AxisAlignedBB collisionBB = doubleSlabState.getCollisionBoundingBox(world, pos);
 
 			if (collisionBB != Block.NULL_AABB && world.checkNoEntityCollision(collisionBB.offset(pos)) && world.setBlockState(pos, doubleSlabState, 11))
@@ -124,9 +126,9 @@ public class ItemGenesisSlab extends ItemSlab
 		IBlockState state = world.getBlockState(pos);
 		EnumSlab stateVariant = owner.getVariant(state);
 
-		if (variant == stateVariant && state.getValue(BlockGenesisSlab.HALF) != EnumHalf.BOTH)
+		if (variant == stateVariant && state.getValue(BlockGenesisSlab.HALF) != BOTH)
 		{
-			IBlockState doubleSlabState = owner.getBlockState(type, variant).withProperty(BlockGenesisSlab.HALF, EnumHalf.BOTH);
+			IBlockState doubleSlabState = owner.getBlockState(type, variant).withProperty(BlockGenesisSlab.HALF, BOTH);
 			AxisAlignedBB collisionBB = doubleSlabState.getCollisionBoundingBox(world, pos);
 
 			if (collisionBB != Block.NULL_AABB && world.checkNoEntityCollision(collisionBB.offset(pos)) && world.setBlockState(pos, doubleSlabState, 11))
@@ -159,7 +161,7 @@ public class ItemGenesisSlab extends ItemSlab
 		IBlockState sideState = world.getBlockState(sidePos);
 		EnumSlab sideVariant = owner.getVariant(sideState);
 
-		if (variant == sideVariant && sideState.getValue(BlockGenesisSlab.HALF) != EnumHalf.BOTH)
+		if (variant == sideVariant && sideState.getValue(BlockGenesisSlab.HALF) != BOTH)
 		{
 			return true;
 		}

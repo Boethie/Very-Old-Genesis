@@ -28,6 +28,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import static genesis.block.BlockGenesisSlab.EnumHalf.*;
+
 public class BlockGenesisSlab extends BlockSlab
 {
 	public static final PropertyEnum<EnumHalf> HALF = PropertyEnum.create("half", EnumHalf.class);
@@ -66,7 +68,7 @@ public class BlockGenesisSlab extends BlockSlab
 		this.variantProp = new PropertyIMetadata<EnumSlab>("variant", variants, variantClass);
 
 		blockState = new BlockStateContainer(this, variantProp, HALF);
-		setDefaultState(blockState.getBaseState().withProperty(HALF, EnumHalf.BOTTOM));
+		setDefaultState(blockState.getBaseState().withProperty(HALF, BOTTOM));
 
 		setSoundType(sound);
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
@@ -99,7 +101,7 @@ public class BlockGenesisSlab extends BlockSlab
 	@Override
 	public boolean isFullBlock(IBlockState state)
 	{
-		return state.getValue(HALF) == EnumHalf.BOTH;
+		return state.getValue(HALF) == BOTH;
 	}
 
 	@Override
@@ -148,7 +150,7 @@ public class BlockGenesisSlab extends BlockSlab
 	@Override
 	public boolean isOpaqueCube(IBlockState state)
 	{
-		return state.getValue(HALF) == EnumHalf.BOTH;
+		return state.getValue(HALF) == BOTH;
 	}
 
 	@Override
@@ -172,17 +174,17 @@ public class BlockGenesisSlab extends BlockSlab
 		IBlockState state = getStateFromMeta(meta);
 		EnumSlab variant = owner.getVariant(state);
 
-		if (state.getValue(HALF) == EnumHalf.BOTH)
+		if (state.getValue(HALF) == BOTH)
 		{
-			return owner.getBlockState(type, variant).withProperty(HALF, EnumHalf.BOTTOM);
+			return owner.getBlockState(type, variant).withProperty(HALF, BOTTOM);
 		}
 		else if (facing != EnumFacing.DOWN && (facing == EnumFacing.UP || (double) hitY <= 0.5D))
 		{
-			return owner.getBlockState(type, variant).withProperty(HALF, EnumHalf.BOTTOM);
+			return owner.getBlockState(type, variant).withProperty(HALF, BOTTOM);
 		}
 		else
 		{
-			return owner.getBlockState(type, variant).withProperty(HALF, EnumHalf.TOP);
+			return owner.getBlockState(type, variant).withProperty(HALF, TOP);
 		}
 	}
 
@@ -203,7 +205,7 @@ public class BlockGenesisSlab extends BlockSlab
 	@Override
 	public boolean isFullCube(IBlockState state)
 	{
-		return state.getValue(HALF) == EnumHalf.BOTH;
+		return state.getValue(HALF) == BOTH;
 	}
 
 	@Override
@@ -212,7 +214,7 @@ public class BlockGenesisSlab extends BlockSlab
 	{
 		boolean shouldSideBeRendered = super.shouldSideBeRendered(state, world, pos, side);
 
-		if (state.getValue(HALF) == EnumHalf.BOTH)
+		if (state.getValue(HALF) == BOTH)
 		{
 			return shouldSideBeRendered;
 		}
