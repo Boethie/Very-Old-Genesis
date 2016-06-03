@@ -14,8 +14,8 @@ public class GenesisPotions
 			.setIcon(new ResourceLocation(Constants.MOD_ID, "textures/gui/radiation.png"))
 			.setEffectiveness(0.25D)
 			.setPotionName(Unlocalized.EFFECT + "radiation")
-			.registerPotionAttributeModifier(SharedMonsterAttributes.MAX_HEALTH, "5D6F0BA2-1186-46AC-B896-C61C5CEE99CC", -5.0D, 0)
-			.registerPotionAttributeModifier(SharedMonsterAttributes.LUCK, "CC5AF142-2BD2-4215-B636-2605AED11727", -5.0D, 0);
+			.registerPotionAttributeModifier(SharedMonsterAttributes.MAX_HEALTH, "F6956859-8345-4763-B99B-DD5021DB8E1A", -5.0D, 0)
+			.registerPotionAttributeModifier(SharedMonsterAttributes.LUCK, "B556E666-6D13-49FA-9DB8-4F25D2566CFB", -5.0D, 0);
 
 	private static ResourceLocation name(String path)
 	{
