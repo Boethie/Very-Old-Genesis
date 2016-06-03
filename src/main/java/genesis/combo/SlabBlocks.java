@@ -6,6 +6,7 @@ import genesis.block.BlockGenesisSlab.EnumHalf;
 import genesis.combo.variant.EnumSlab;
 import genesis.item.ItemGenesisSlab;
 import genesis.util.Constants;
+import genesis.util.Constants.Unlocalized.Section;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -13,7 +14,7 @@ import net.minecraft.block.state.IBlockState;
 public class SlabBlocks extends VariantsOfTypesCombo<EnumSlab>
 {
 	public static final SlabObjectType ROCK =
-			new SlabObjectType("rock_slab", "slab.rock", Material.rock, SoundType.STONE);
+			new SlabObjectType("rock_slab", Section.SLAB + Section.ROCK, Material.rock, SoundType.STONE);
 
 	static
 	{
@@ -59,7 +60,7 @@ public class SlabBlocks extends VariantsOfTypesCombo<EnumSlab>
 			super(EnumSlab.class, name, unlocalizedName, BlockGenesisSlab.class, ItemGenesisSlab.class);
 
 			setBlockArguments(material, sound);
-			setVariantFilter((v) -> material == v.getBaseState().getMaterial());
+			setVariantFilter((v) -> material == v.getMaterial());
 		}
 
 		public SlabObjectType(String name, Material material, SoundType sound)

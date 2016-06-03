@@ -7,32 +7,35 @@ import net.minecraft.block.state.IBlockState;
 
 public enum EnumSlab implements IMetadata<EnumSlab>
 {
-	LIMESTONE("limestone", () -> GenesisBlocks.limestone.getDefaultState());
+	LIMESTONE("limestone", Material.rock,
+			() -> GenesisBlocks.limestone.getDefaultState());
 
 	final String name;
 	final String unlocalizedName;
-	final Supplier<IBlockState> base;
+	final Material material;
+	final Supplier<IBlockState> model;
 
-	EnumSlab(String name, String unlocalizedName, Supplier<IBlockState> base)
+	EnumSlab(String name, String unlocalizedName, Material material, Supplier<IBlockState> model)
 	{
 		this.name = name;
 		this.unlocalizedName = unlocalizedName;
-		this.base = base;
+		this.material = material;
+		this.model = model;
 	}
 
-	EnumSlab(String name, Supplier<IBlockState> base)
+	EnumSlab(String name, Material material, Supplier<IBlockState> model)
 	{
-		this(name, name, base);
+		this(name, name, material, model);
 	}
 
-	public IBlockState getBaseState()
+	public IBlockState getModelState()
 	{
-		return base.get();
+		return model.get();
 	}
 
 	public Material getMaterial()
 	{
-		return getBaseState().getMaterial();
+		return material;
 	}
 
 	@Override

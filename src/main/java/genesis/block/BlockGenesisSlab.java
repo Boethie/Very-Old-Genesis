@@ -113,7 +113,7 @@ public class BlockGenesisSlab extends BlockSlab
 	@Override
 	public MapColor getMapColor(IBlockState state)
 	{
-		return owner.getVariant(state).getBaseState().getMapColor();
+		return owner.getVariant(state).getModelState().getMapColor();
 	}
 
 	@Override
