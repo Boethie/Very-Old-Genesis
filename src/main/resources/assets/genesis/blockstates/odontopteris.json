@@ -19,8 +19,26 @@
 		"age=2,top=true": [{ "textures": { "cross": "genesis:blocks/invalid" } }],
 		"age=3,top=true": [{ "textures": { "cross": "genesis:blocks/invalid" } }],
 		"age=4,top=true": [{ "textures": { "cross": "genesis:blocks/invalid" } }],
-		"age=5,top=true": [{ "textures": { "cross": "genesis:blocks/odontopteris_stage_5_top" } }],
-		"age=6,top=true": [{ "textures": { "cross": "genesis:blocks/odontopteris_stage_6_top" } }],
-		"age=7,top=true": [{ "textures": { "cross": "genesis:blocks/odontopteris_stage_7_top" } }]
+		"age=5,top=true": [{
+			"model": "genesis:crop_cross_overlay",
+			"textures": {
+				"cross": "genesis:blocks/odontopteris_stage_5_top",
+				"overlay": "genesis:blocks/odontopteris_stage_5_top_seed"
+			}
+		}],
+		"age=6,top=true": [{
+			"model": "genesis:crop_cross_overlay",
+			"textures": {
+				"cross": "genesis:blocks/odontopteris_stage_6_top",
+				"overlay": "genesis:blocks/odontopteris_stage_6_top_seed"
+			}
+		}],
+		"age=7,top=true": [{
+			"model": "genesis:crop_cross_overlay",
+			"textures": {
+				"cross": "genesis:blocks/odontopteris_stage_7_top",
+				"overlay": "genesis:blocks/odontopteris_stage_7_top_seed"
+			}
+		}]
 	}
 }
