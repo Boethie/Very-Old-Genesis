@@ -59,12 +59,11 @@ public class RenderHelpers
 	
 	public static void drawTextureWithTessellator(int x, int y, int zLevel, int sizeX, int sizeY, ResourceLocation texture, float alpha)
 	{
+		GlStateManager.pushMatrix();
+		
 		Tessellator tess = Tessellator.getInstance();
 		
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
-		
-		if(alpha >= 0)
-			GlStateManager.alphaFunc(GL11.GL_ALPHA, alpha);
 		
 		VertexBuffer vb = tess.getBuffer();
 		
@@ -79,5 +78,7 @@ public class RenderHelpers
 		vb.pos(x, y, 1).tex(0, 0).endVertex();
 		
 		tess.draw();
+		
+		GlStateManager.popMatrix();
 	}
 }
