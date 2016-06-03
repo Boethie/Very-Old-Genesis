@@ -58,8 +58,6 @@ public class TileEntityStorageBox extends TileEntityLockableLoot implements ISid
 		
 		for (AxisDirection dir : AxisDirection.values())
 			connections.put(dir, false);
-		
-		this.lootTable = null;
 	}
 	
 	@Override
@@ -424,23 +422,23 @@ public class TileEntityStorageBox extends TileEntityLockableLoot implements ISid
 	{
 		super.writeToNBT(compound);
 		
-		if(!this.checkLootAndWrite(compound))
+		if(!checkLootAndWrite(compound))
 		{
 			NBTTagList itemList = new NBTTagList();
-			int i = 0;
+			int slot = 0;
 		
 			for (ItemStack stack : inventory)
 			{
 				if (stack != null)
 				{
 					NBTTagCompound itemComp = new NBTTagCompound();
-					itemComp.setByte("slot", (byte) i);
+					itemComp.setByte("slot", (byte) slot);
 					stack.writeToNBT(itemComp);
 				
 					itemList.appendTag(itemComp);
 				}
 			
-				i++;
+				slot++;
 			}
 	
 			compound.setTag("items", itemList);
@@ -491,14 +489,14 @@ public class TileEntityStorageBox extends TileEntityLockableLoot implements ISid
 	@Override
 	public ItemStack getStackInSlot(int slot)
 	{
-		this.fillWithLoot((EntityPlayer)null);
+		fillWithLoot(null);
 		return inventory[slot];
 	}
 	
 	@Override
 	public ItemStack decrStackSize(int slot, int amount)
 	{
-		this.fillWithLoot((EntityPlayer)null);
+		fillWithLoot(null);
 		ItemStack stack = getStackInSlot(slot);
 		
 		if (stack != null)
@@ -524,7 +522,7 @@ public class TileEntityStorageBox extends TileEntityLockableLoot implements ISid
 	@Override
 	public ItemStack removeStackFromSlot(int slot)
 	{
-		this.fillWithLoot((EntityPlayer)null);
+		fillWithLoot(null);
 		ItemStack stack = getStackInSlot(slot);
 		
 		if (stack != null)
@@ -538,7 +536,7 @@ public class TileEntityStorageBox extends TileEntityLockableLoot implements ISid
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack stack)
 	{
-		this.fillWithLoot((EntityPlayer)null);
+		fillWithLoot(null);
 		inventory[slot] = stack;
 	}
 	
@@ -557,7 +555,7 @@ public class TileEntityStorageBox extends TileEntityLockableLoot implements ISid
 	@Override
 	public void clear()
 	{
-		this.fillWithLoot((EntityPlayer)null);
+		fillWithLoot(null);
 		
 		for (int i = 0; i < inventory.length; ++i)
 		{
@@ -618,7 +616,7 @@ public class TileEntityStorageBox extends TileEntityLockableLoot implements ISid
 	@Override
 	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer player)
 	{
-		this.fillWithLoot(player);
+		fillWithLoot(player);
 		return new ContainerStorageBox(player, this);
 	}
 	
@@ -749,16 +747,16 @@ public class TileEntityStorageBox extends TileEntityLockableLoot implements ISid
 		return this::iteratorFromMainToEnd;
 	}
 	
-	public void setLoot(ResourceLocation lootTableIn, long lootSeedIn)
+	public void setLoot(ResourceLocation lootTable, long lootSeed)
     {
-        this.lootTable = lootTableIn;
-        this.lootTableSeed = lootSeedIn;
+        this.lootTable = lootTable;
+        this.lootTableSeed = lootSeed;
     }
 	
 	@Override
 	protected void fillWithLoot(EntityPlayer player)
     {
-		if(this.worldObj != null && !this.worldObj.isRemote && this.worldObj.getLootTableManager() != null)
+		if(worldObj != null && !worldObj.isRemote && worldObj.getLootTableManager() != null)
 			super.fillWithLoot(player);
     }
 }
