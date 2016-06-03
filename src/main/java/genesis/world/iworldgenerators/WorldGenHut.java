@@ -93,7 +93,7 @@ public class WorldGenHut implements IWorldGenerator {
 			world.setBlockState(basePos, WGHDB.baseY);
 		}
 		
-		BlockPos ladderPos = start.add(5, 1, 3);
+		BlockPos ladderPos = start.add(5, 2, 3);
 		
 		while(!WorldGenHelper.isGround(world, ladderPos.down()))
 		{
