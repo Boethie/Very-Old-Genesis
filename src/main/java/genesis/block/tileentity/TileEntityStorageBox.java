@@ -1,6 +1,7 @@
 package genesis.block.tileentity;
 
 import genesis.block.tileentity.gui.ContainerStorageBox;
+import genesis.common.GenesisLoot;
 import genesis.common.sounds.GenesisSoundEvents;
 import genesis.util.*;
 
@@ -22,7 +23,7 @@ import net.minecraft.util.EnumFacing.*;
 import net.minecraft.util.math.*;
 import net.minecraftforge.common.util.Constants.NBT;
 
-public class TileEntityStorageBox extends TileEntityLockable implements ISidedInventory, ITickable
+public class TileEntityStorageBox extends TileEntityLockableLoot implements ISidedInventory, ITickable, IInventory
 {
 	public static final AxisDirection MAIN_DIR = AxisDirection.NEGATIVE;
 	
@@ -57,6 +58,8 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 		
 		for (AxisDirection dir : AxisDirection.values())
 			connections.put(dir, false);
+		
+		this.lootTable = null;
 	}
 	
 	@Override
@@ -421,24 +424,27 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 	{
 		super.writeToNBT(compound);
 		
-		NBTTagList itemList = new NBTTagList();
-		int i = 0;
-		
-		for (ItemStack stack : inventory)
+		if(!this.checkLootAndWrite(compound))
 		{
-			if (stack != null)
-			{
-				NBTTagCompound itemComp = new NBTTagCompound();
-				itemComp.setByte("slot", (byte) i);
-				stack.writeToNBT(itemComp);
-				
-				itemList.appendTag(itemComp);
-			}
-			
-			i++;
-		}
+			NBTTagList itemList = new NBTTagList();
+			int i = 0;
 		
-		compound.setTag("items", itemList);
+			for (ItemStack stack : inventory)
+			{
+				if (stack != null)
+				{
+					NBTTagCompound itemComp = new NBTTagCompound();
+					itemComp.setByte("slot", (byte) i);
+					stack.writeToNBT(itemComp);
+				
+					itemList.appendTag(itemComp);
+				}
+			
+				i++;
+			}
+	
+			compound.setTag("items", itemList);
+		}
 		
 		writeVisualData(compound);
 		
@@ -453,19 +459,21 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 	{
 		super.readFromNBT(compound);
 		
-		NBTTagList tagList = compound.getTagList("items", NBT.TAG_COMPOUND);
-		
-		for (int i = 0; i < tagList.tagCount(); i++)
+		if(!checkLootAndRead(compound))
 		{
-			NBTTagCompound itemCompound = (NBTTagCompound) tagList.get(i);
-			byte slot = itemCompound.getByte("slot");
-			
-			if (slot >= 0 && slot < inventory.length)
+			NBTTagList tagList = compound.getTagList("items", NBT.TAG_COMPOUND);
+		
+			for (int i = 0; i < tagList.tagCount(); i++)
 			{
-				inventory[slot] = ItemStack.loadItemStackFromNBT(itemCompound);
+				NBTTagCompound itemCompound = (NBTTagCompound) tagList.get(i);
+				byte slot = itemCompound.getByte("slot");
+			
+				if (slot >= 0 && slot < inventory.length)
+				{
+					inventory[slot] = ItemStack.loadItemStackFromNBT(itemCompound);
+				}
 			}
 		}
-		
 		readVisualData(compound);
 		
 		if (compound.hasKey("customName"))
@@ -483,12 +491,14 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 	@Override
 	public ItemStack getStackInSlot(int slot)
 	{
+		this.fillWithLoot((EntityPlayer)null);
 		return inventory[slot];
 	}
 	
 	@Override
 	public ItemStack decrStackSize(int slot, int amount)
 	{
+		this.fillWithLoot((EntityPlayer)null);
 		ItemStack stack = getStackInSlot(slot);
 		
 		if (stack != null)
@@ -514,6 +524,7 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 	@Override
 	public ItemStack removeStackFromSlot(int slot)
 	{
+		this.fillWithLoot((EntityPlayer)null);
 		ItemStack stack = getStackInSlot(slot);
 		
 		if (stack != null)
@@ -527,6 +538,7 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack stack)
 	{
+		this.fillWithLoot((EntityPlayer)null);
 		inventory[slot] = stack;
 	}
 	
@@ -545,6 +557,8 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 	@Override
 	public void clear()
 	{
+		this.fillWithLoot((EntityPlayer)null);
+		
 		for (int i = 0; i < inventory.length; ++i)
 		{
 			inventory[i] = null;
@@ -604,6 +618,7 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 	@Override
 	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer player)
 	{
+		this.fillWithLoot(player);
 		return new ContainerStorageBox(player, this);
 	}
 	
@@ -733,4 +748,17 @@ public class TileEntityStorageBox extends TileEntityLockable implements ISidedIn
 	{
 		return this::iteratorFromMainToEnd;
 	}
+	
+	public void setLoot(ResourceLocation lootTableIn, long lootSeedIn)
+    {
+        this.lootTable = lootTableIn;
+        this.lootTableSeed = lootSeedIn;
+    }
+	
+	@Override
+	protected void fillWithLoot(EntityPlayer player)
+    {
+		if(this.worldObj != null && !this.worldObj.isRemote && this.worldObj.getLootTableManager() != null)
+			super.fillWithLoot(player);
+    }
 }
