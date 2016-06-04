@@ -16,32 +16,32 @@ public class PotionGenesis extends Potion
 	{
 		super(isBadEffect, liquidColor);
 	}
-
+	
 	@Override
 	public PotionGenesis setIconIndex(int column, int row)
 	{
 		super.setIconIndex(column, row);
 		return this;
 	}
-
+	
 	@Override
 	public PotionGenesis setEffectiveness(double effectiveness)
 	{
 		super.setEffectiveness(effectiveness);
 		return this;
 	}
-
+	
 	public ResourceLocation getIcon()
 	{
 		return icon;
 	}
-
+	
 	public PotionGenesis setIcon(ResourceLocation icon)
 	{
 		this.icon = icon;
 		return this;
 	}
-
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void renderInventoryEffect(int x, int y, PotionEffect effect, Minecraft mc)
@@ -54,7 +54,7 @@ public class PotionGenesis extends Potion
 			RenderHelpers.drawTextureWithTessellator(x, y, 1, 16, 16, icon, -1);
 		}
 	}
-
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void renderHUDEffect(int x, int y, PotionEffect effect, Minecraft mc, float alpha)

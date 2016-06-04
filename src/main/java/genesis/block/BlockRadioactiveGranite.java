@@ -5,16 +5,19 @@ import java.util.Random;
 
 import genesis.common.GenesisPotions;
 import genesis.util.AABBUtils;
+import genesis.util.FacingHelpers;
+
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockRadioactiveGranite extends BlockGenesisRock
 {
@@ -30,7 +33,7 @@ public class BlockRadioactiveGranite extends BlockGenesisRock
 	{
 		if (!world.isRemote)
 		{
-			AxisAlignedBB bb = AABBUtils.create(pos).expandXyz(3.0D);
+			AxisAlignedBB bb = AABBUtils.create(pos).expandXyz(3);
 			List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, bb);
 			
 			for(EntityLivingBase entity : entities)
@@ -48,76 +51,56 @@ public class BlockRadioactiveGranite extends BlockGenesisRock
 		return 0;
 	}
 	
-	@SideOnly(Side.CLIENT)
+	@Override
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand)
 	{
-		if(rand.nextBoolean())
-			spawnParticles(world, pos);
+		if (rand.nextInt(2) == 0)
+		{
+			spawnParticles(world, pos, rand, 1);
+		}
 	}
 	
-	private void spawnParticles(World world, BlockPos pos)
+	private static void spawnParticles(World world, BlockPos pos, Random rand, int count)
 	{
-		Random random = world.rand;
-		double x = (double) pos.getX();
-		double y = (double) pos.getY();
-		double z = (double) pos.getZ();
-		double d0 = 0.0625D;
+		Vec3d center = new Vec3d(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+		double outset = 0.5625;
 		
-		for (int i = 0; i < 6; ++i)
+		for (EnumFacing face : EnumFacing.VALUES)
 		{
-			double particleX = (double) ((float) x + random.nextFloat());
-			double particleY = (double) ((float) y + random.nextFloat());
-			double particleZ = (double) ((float) z + random.nextFloat());
-			
-			if (i == 0 && !world.getBlockState(pos.up()).isOpaqueCube())
+			if (!world.getBlockState(pos.offset(face)).isOpaqueCube())
 			{
-				particleY = y + d0 + 1.0D;
-			}
-			
-			if (i == 1 && !world.getBlockState(pos.down()).isOpaqueCube())
-			{
-				particleY = y - d0;
-			}
-			
-			if (i == 2 && !world.getBlockState(pos.south()).isOpaqueCube())
-			{
-				particleZ = z + d0 + 1.0D;
-			}
-			
-			if (i == 3 && !world.getBlockState(pos.north()).isOpaqueCube())
-			{
-				particleZ = z - d0;
-			}
-			
-			if (i == 4 && !world.getBlockState(pos.east()).isOpaqueCube())
-			{
-				particleX = x + d0 + 1.0D;
-			}
-			
-			if (i == 5 && !world.getBlockState(pos.west()).isOpaqueCube())
-			{
-				particleX = x - d0;
-			}
-			
-			if (particleX < x || particleX > x + 1.0D || particleY < 0.0D || particleY > y + 1.0D || particleZ < z || particleZ > z + 1.0D)
-			{
-				world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, particleX, particleY, particleZ, 0.0D, 0.0D, 0.0D);
+				Vec3d sideCoord = center
+						.add(new Vec3d(face.getDirectionVec()).scale(outset));
+				Vec3d u = new Vec3d(FacingHelpers.getU(face));
+				Vec3d v = new Vec3d(FacingHelpers.getV(face));
+				
+				for (int i = 0; i < count; i++)
+				{
+					Vec3d particle = sideCoord
+							.add(u.scale(rand.nextDouble() - 0.5))
+							.add(v.scale(rand.nextDouble() - 0.5));
+					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, particle.xCoord, particle.yCoord, particle.zCoord, 0, 0, 0);
+				}
 			}
 		}
 	}
 	
 	@Override
+	public boolean addDestroyEffects(World world, BlockPos pos, EffectRenderer effectRenderer)
+	{
+		spawnParticles(world, pos, world.rand, 2);
+		return false;
+	}
+	
+	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state)
 	{
-		spawnParticles(world, pos);
-		spawnParticles(world, pos);
-		
 		if (!world.isRemote)
 		{
-			AxisAlignedBB bb = AABBUtils.create(pos).expandXyz(5.0D);
+			AxisAlignedBB bb = AABBUtils.create(pos).expandXyz(5);
 			List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, bb);
 			
-			for(EntityLivingBase entity : entities)
+			for (EntityLivingBase entity : entities)
 			{
 				int duration = MathHelper.getRandomIntegerInRange(world.rand, 250, 400);
 				int amplifier = 1;

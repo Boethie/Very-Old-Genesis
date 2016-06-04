@@ -249,7 +249,7 @@ public final class GenesisBiomes
 		prop.setHeightVariation(0.1F);
 		prop.setWaterColor(0x9F791F);
 		
-		ocean = new BiomeGenOceanGenesis(prop).addElements(1);
+		ocean = new BiomeGenOceanGenesis(prop);
 		BiomeGenBase.registerBiome(GenesisConfig.oceanId, ocean.getBiomeName(), ocean);
 		BiomeDictionary.registerBiomeType(ocean, BiomeDictionary.Type.OCEAN, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
 		

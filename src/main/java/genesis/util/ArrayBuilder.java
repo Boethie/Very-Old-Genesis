@@ -2,19 +2,15 @@ package genesis.util;
 
 import java.util.Arrays;
 
-public class ArrayBuilder<E>
+public final class ArrayBuilder<E>
 {
 	private static final int INITIAL_SIZE = 2;
-	
-	public static <T> ArrayBuilder<T> create(T[] array)
-	{
-		return new ArrayBuilder<T>(array);
-	}
 	
 	private E[] array;
 	private int size = 0;
 	
-	public ArrayBuilder(E[] array)
+	@SafeVarargs
+	public ArrayBuilder(E... array)
 	{
 		this.array = Arrays.copyOf(array, Math.max(array.length, INITIAL_SIZE));
 	}

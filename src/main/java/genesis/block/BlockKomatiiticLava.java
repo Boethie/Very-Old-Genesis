@@ -73,11 +73,10 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 	public boolean checkForMixing(World world, BlockPos pos, IBlockState state)
 	{
 		boolean mix = false;
-		EnumFacing[] sides = EnumFacing.values();
 		
 		try
 		{
-			for (EnumFacing side : sides)
+			for (EnumFacing side : EnumFacing.VALUES)
 			{
 				if (side != EnumFacing.DOWN && world.getBlockState(pos.offset(side)).getMaterial() == Material.water)
 				{
@@ -169,7 +168,7 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 	
 	protected boolean isSurroundingBlockFlammable(World world, BlockPos pos)
 	{
-		for (EnumFacing side : EnumFacing.values())
+		for (EnumFacing side : EnumFacing.VALUES)
 		{
 			if (getCanBlockBurn(world, pos.offset(side)))
 			{

@@ -38,7 +38,7 @@ public class FacingProperties<V extends Comparable<V>> implements Iterable<Facin
 	{
 		ImmutableMap.Builder<EnumFacing, IProperty<V>> builder = ImmutableMap.builder();
 		
-		for (EnumFacing facing : EnumFacing.values())
+		for (EnumFacing facing : EnumFacing.VALUES)
 		{
 			IProperty<V> property = propertyFunc.apply(facing);
 			

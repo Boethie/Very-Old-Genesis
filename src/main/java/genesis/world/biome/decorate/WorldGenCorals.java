@@ -17,20 +17,12 @@ public class WorldGenCorals extends WorldGenDecorationBase
 	private EnumCoral coralType;
 	private int minHeight;
 	private int maxHeight;
-	public int rarity = 1;
 	
 	public WorldGenCorals(int minHeight, int maxHeight, EnumCoral coralType)
 	{
 		this.minHeight = minHeight;
 		this.maxHeight = maxHeight;
 		this.coralType = coralType;
-	}
-	
-	@Override
-	public WorldGenCorals setRarity(int r)
-	{
-		rarity = r;
-		return this;
 	}
 	
 	@Override

@@ -759,7 +759,7 @@ public final class GenesisRecipes
 		
 		ItemStack protoFlesh = GenesisItems.seeds.getStack(EnumSeeds.PROTOTAXITES_FLESH);
 		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(GenesisDye.get(EnumDyeColor.BROWN)), protoFlesh, protoFlesh);
-
+		
 		ItemStack lauroBerry = GenesisBlocks.trees.getStack(TreeBlocksAndItems.FRUIT, EnumTree.LAUROPHYLLUM);
 		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(GenesisDye.get(EnumDyeColor.MAGENTA)), lauroBerry, lauroBerry);
 		
@@ -782,7 +782,7 @@ public final class GenesisRecipes
 		for (MultiMetadata variant : GenesisItems.bowls.getValidVariants(ItemsCeramicBowls.DISH))
 		{
 			EnumDish dish = (EnumDish) variant.getOriginal();
-			ArrayBuilder<ItemStack> ingredients = ArrayBuilder.create(new ItemStack[2]);
+			ArrayBuilder<ItemStack> ingredients = new ArrayBuilder<>(new ItemStack[2]);
 			
 			switch (dish)
 			{

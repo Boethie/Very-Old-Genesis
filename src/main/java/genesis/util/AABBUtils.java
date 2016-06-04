@@ -9,7 +9,7 @@ public class AABBUtils
 {
 	public static AxisAlignedBB create(Vec3i pos)
 	{
-		return create((double) pos.getX(), (double) pos.getY(), (double) pos.getZ());
+		return create(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 	}
 
 	public static AxisAlignedBB create(Vec3d pos)

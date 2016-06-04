@@ -1,16 +1,16 @@
 package genesis.block;
 
-import genesis.combo.TreeBlocksAndItems;
-import genesis.util.AABBUtils;
 import java.util.Arrays;
 import java.util.Random;
 
+import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumMaterial;
-import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.common.GenesisItems;
+import genesis.util.AABBUtils;
 import genesis.util.BlockStateToMetadata;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.IGrowable;
@@ -32,24 +32,22 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockResin extends BlockHorizontal implements IGrowable
 {
 	public static final PropertyInteger LAYERS = PropertyInteger.create("layers", 0, 3);
 	private static final AxisAlignedBB[] BBS;
-
+	
 	static
 	{
 		AxisAlignedBB base = new AxisAlignedBB(0.3125D, 0.375D, 0.875D,
 												0.6875D, 0.625D, 1.0D);
-
+		
 		BBS = Arrays.stream(EnumFacing.HORIZONTALS)
 				.map((f) -> AABBUtils.rotateTo(base, f))
 				.toArray(AxisAlignedBB[]::new);
 	}
-
+	
 	public BlockResin()
 	{
 		super(Material.wood);
@@ -58,7 +56,7 @@ public class BlockResin extends BlockHorizontal implements IGrowable
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(LAYERS, 3));
 	}
-
+	
 	@Override
 	public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean isClient)
 	{
@@ -200,7 +198,7 @@ public class BlockResin extends BlockHorizontal implements IGrowable
 		return NULL_AABB;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@Override
 	public BlockRenderLayer getBlockLayer()
 	{
 		return BlockRenderLayer.TRANSLUCENT;

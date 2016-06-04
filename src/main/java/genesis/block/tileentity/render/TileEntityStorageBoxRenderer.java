@@ -4,7 +4,6 @@ import org.lwjgl.opengl.GL11;
 
 import genesis.block.tileentity.BlockStorageBox;
 import genesis.block.tileentity.TileEntityStorageBox;
-import genesis.common.Genesis;
 import genesis.util.*;
 import genesis.util.render.*;
 

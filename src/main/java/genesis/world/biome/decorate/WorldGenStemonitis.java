@@ -5,7 +5,7 @@ import java.util.Random;
 import genesis.block.IMushroomBase;
 import genesis.common.GenesisBlocks;
 import genesis.util.functional.WorldBlockMatcher;
-import net.minecraft.block.Block;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -13,27 +13,21 @@ import net.minecraft.world.World;
 
 public class WorldGenStemonitis extends WorldGenDecorationBase
 {
+	private static final IBlockState STATE = GenesisBlocks.stemonitis.getDefaultState();
+	
 	public WorldGenStemonitis()
 	{
-		super(WorldBlockMatcher.STANDARD_AIR, WorldBlockMatcher.TRUE);
+		super(WorldBlockMatcher.STANDARD_AIR,
+				(state, world, pos) -> {
+					if (state.getBlock() instanceof IMushroomBase)
+						return ((IMushroomBase) state.getBlock()).canSustainMushroom(world, pos, EnumFacing.UP, STATE);
+					return false;
+				});
 	}
 	
 	@Override
 	public boolean place(World world, Random random, BlockPos pos)
 	{
-		Block block = world.getBlockState(pos.down()).getBlock();
-		
-		if (block instanceof IMushroomBase)
-		{
-			IMushroomBase base = (IMushroomBase) block;
-			IBlockState placedState = GenesisBlocks.stemonitis.getDefaultState();
-			
-			if (!base.canSustainMushroom(world, pos, EnumFacing.UP, placedState))
-				return false;
-			
-			return setAirBlock(world, pos, placedState);
-		}
-		
-		return false;
+		return setAirBlock(world, pos, STATE);
 	}
 }

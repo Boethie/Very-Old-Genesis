@@ -44,7 +44,7 @@ public class DyeCookingRecipe extends CookingPotRecipeBase
 	protected static EnumDyeColor getColor(ItemStack stack)
 	{
 		if (stack == null || stack.stackSize <= 0 ||
-			GenesisItems.bowls.isStackOf(stack, ItemsCeramicBowls.DYE))
+				GenesisItems.bowls.isStackOf(stack, ItemsCeramicBowls.DYE))
 		{
 			return null;
 		}

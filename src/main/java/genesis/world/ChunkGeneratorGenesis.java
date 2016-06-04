@@ -18,7 +18,6 @@ import net.minecraft.world.*;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.*;
 import net.minecraft.world.gen.*;
-import net.minecraft.world.gen.feature.*;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeEventFactory;
@@ -440,14 +439,13 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 	}
 
 	@Override
-	public boolean generateStructures(Chunk chunkIn, int x, int z) {
-		// TODO Auto-generated method stub
+	public boolean generateStructures(Chunk chunkIn, int x, int z)
+	{
 		return false;
 	}
-
+	
 	@Override
-	public void recreateStructures(Chunk chunkIn, int x, int z) {
-		// TODO Auto-generated method stub
-		
+	public void recreateStructures(Chunk chunkIn, int x, int z)
+	{
 	}
 }

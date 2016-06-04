@@ -1,9 +1,9 @@
 package genesis.common;
 
 import genesis.client.model.ListedItemMeshDefinition;
-import genesis.util.*;
 import genesis.util.functional.ClientFunction;
 import genesis.util.functional.ServerFunction;
+
 import net.minecraft.block.*;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;

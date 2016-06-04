@@ -6,7 +6,6 @@ import genesis.util.*;
 import genesis.util.random.d.DoubleRange;
 import genesis.client.*;
 import genesis.common.*;
-import genesis.common.sounds.GenesisSoundEvents;
 import genesis.block.tileentity.render.TileEntityCampfireRenderer;
 
 import net.minecraft.block.*;
@@ -15,13 +14,13 @@ import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.*;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
+
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;

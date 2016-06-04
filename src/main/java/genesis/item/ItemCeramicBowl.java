@@ -2,24 +2,18 @@ package genesis.item;
 
 import java.util.*;
 
-import genesis.client.GenesisClient;
 import genesis.combo.*;
 import genesis.combo.ItemsCeramicBowls.EnumCeramicBowls;
 import genesis.combo.variant.MultiMetadataList.MultiMetadata;
 import genesis.common.GenesisItems;
 import genesis.util.Actions;
+
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.creativetab.*;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.*;
 import net.minecraft.item.*;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.client.CPacketPlayerBlockPlacement;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
@@ -28,7 +22,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.eventhandler.Event.Result;
 
 public class ItemCeramicBowl extends ItemGenesis
 {

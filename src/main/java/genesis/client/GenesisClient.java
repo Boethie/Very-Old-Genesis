@@ -4,7 +4,6 @@ import genesis.client.debug.GenesisDebugOverlay;
 import genesis.client.model.*;
 import genesis.client.render.CamouflageColorEventHandler;
 import genesis.common.*;
-import genesis.util.*;
 import genesis.util.functional.ClientFunction;
 import genesis.util.functional.ServerFunction;
 import genesis.util.render.ModelHelpers;
@@ -20,7 +19,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.fluids.BlockFluidBase;
-import net.minecraftforge.fml.client.*;
 
 public class GenesisClient extends GenesisProxy
 {

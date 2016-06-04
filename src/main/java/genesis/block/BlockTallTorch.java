@@ -133,7 +133,7 @@ public class BlockTallTorch extends Block
 	{
 		IBlockState state = getDefaultState().withProperty(PART, part);
 		
-		for (EnumFacing facing : EnumFacing.values())
+		for (EnumFacing facing : EnumFacing.VALUES)
 		{
 			if (FACING.getAllowedValues().contains(facing) && canTorchStay(world, pos, state.withProperty(FACING, facing), true))
 			{

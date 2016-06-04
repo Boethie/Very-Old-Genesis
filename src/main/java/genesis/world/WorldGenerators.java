@@ -1,24 +1,21 @@
 package genesis.world;
 
-import com.google.common.collect.Lists;
 import genesis.combo.variant.EnumMenhirActivator;
-import genesis.common.Genesis;
 import genesis.common.GenesisItems;
-import genesis.world.iworldgenerators.WorldGenPortal;
-import genesis.world.iworldgenerators.WorldGenHut;
-import genesis.world.iworldgenerators.WorldGenMenhirActivators;
+import genesis.world.iworldgenerators.*;
+
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Created by Vorquel on 10/27/15
  */
 public class WorldGenerators
 {
-	public static ArrayList<ItemStack> menhirActivatorsOverworld = Lists.newArrayList();
-	public static ArrayList<ItemStack> menhirActivatorsGenesis = Lists.newArrayList(); //todo: use this for genesis dimension activator generation
+	public static List<ItemStack> menhirActivatorsOverworld = new ArrayList<>();
+	public static List<ItemStack> menhirActivatorsGenesis = new ArrayList<>(); //todo: use this for genesis dimension activator generation
 	
 	public static void register()
 	{
