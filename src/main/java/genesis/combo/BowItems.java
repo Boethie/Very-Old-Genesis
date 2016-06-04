@@ -24,7 +24,7 @@ public class BowItems extends VariantsCombo<BowVariant, Block, ItemBowMulti<BowV
 	}
 	
 	/**
-	 * Get an item stack containing the tool item of the specified {@link ToolObjectType}, material and quality.
+	 * Get an item stack containing the tool item of the specified bow type and tree variant.
 	 */
 	public ItemStack getStack(EnumBowType bowType, EnumTree variant, int stackSize)
 	{
@@ -32,7 +32,7 @@ public class BowItems extends VariantsCombo<BowVariant, Block, ItemBowMulti<BowV
 	}
 	
 	/**
-	 * Get an item stack containing the tool item of the specified {@link ToolObjectType}, material and quality with a stack size of 1.
+	 * Get an item stack containing the tool item of the specified bow type and tree variant with a stack size of 1.
 	 */
 	public ItemStack getStack(EnumBowType bowType, EnumTree variant)
 	{

@@ -355,13 +355,14 @@ public final class GenesisRecipes
 					GenesisItems.nodules.getStack(EnumNodule.fromToolMaterial(mat)));	// Nodule
 		}
 		
-		// All debris recipes
 		for (EnumTree tree : EnumTree.values())
 		{
+			// Debris
 			if (tree.hasDebris())
 				GameRegistry.addShapelessRecipe(GenesisBlocks.debris.getStack(tree, 4),
 						GenesisBlocks.trees.getStack(TreeBlocksAndItems.LEAVES, tree));
 			
+			// Porridge
 			ItemStack porridge = null;
 			
 			switch (tree)
@@ -395,7 +396,7 @@ public final class GenesisRecipes
 			GameRegistry.addSmelting(new ItemStack(log, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.coal, 1, 1), 0.15F);
 		}
 		
-		// All recipes involving billets.
+		// Logs -> billets
 		for (EnumTree variant : GenesisBlocks.trees.getSharedValidVariants(TreeBlocksAndItems.LOG, TreeBlocksAndItems.BILLET))
 		{
 			ItemStack logStack = GenesisBlocks.trees.getStack(TreeBlocksAndItems.LOG, variant, 1);
@@ -406,12 +407,22 @@ public final class GenesisRecipes
 				billetStack.stackSize = 1;
 			}
 			
-			// Logs -> billets
 			GameRegistry.addShapelessRecipe(billetStack, logStack);
-			
-			// All recipes after this point use 1 billet.
-			billetStack = GenesisBlocks.trees.getStack(TreeBlocksAndItems.BILLET, variant, 1);
-			
+		}
+
+		// Branch -> billet
+		for (EnumTree variant : GenesisBlocks.trees.getSharedValidVariants(TreeBlocksAndItems.BRANCH, TreeBlocksAndItems.BILLET)) {
+			ItemStack branchStack = GenesisBlocks.trees.getStack(TreeBlocksAndItems.BRANCH, variant, 1);
+			ItemStack billetStack = GenesisBlocks.trees.getStack(TreeBlocksAndItems.BILLET, variant, 1);
+
+			GameRegistry.addShapelessRecipe(billetStack, branchStack);
+		}
+		
+		// All recipes involving billets.
+		for (EnumTree variant : GenesisBlocks.trees.getValidVariants(TreeBlocksAndItems.BILLET))
+		{
+			ItemStack billetStack = GenesisBlocks.trees.getStack(TreeBlocksAndItems.BILLET, variant, 1);
+
 			// Storage box
 			GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.storage_box),
 					"BBB",
@@ -450,7 +461,7 @@ public final class GenesisRecipes
 			}
 			
 			//Rack
-			GameRegistry.addShapedRecipe(GenesisBlocks.trees.getStack(TreeBlocksAndItems.RACK, variant), 
+			GameRegistry.addShapedRecipe(GenesisBlocks.trees.getStack(TreeBlocksAndItems.RACK, variant),
 					"XX",
 					'X', billetStack);
 
@@ -461,14 +472,23 @@ public final class GenesisRecipes
 					"S S",
 					'S', GenesisItems.materials.getStack(EnumMaterial.SPHENOPHYLLUM_FIBER),
 					'B', billetStack);
-		}
 
-		for (EnumTree variant : GenesisBlocks.trees.getSharedValidVariants(TreeBlocksAndItems.BRANCH, TreeBlocksAndItems.BILLET)) {
-			ItemStack branchStack = GenesisBlocks.trees.getStack(TreeBlocksAndItems.BRANCH, variant, 1);
-			ItemStack billetStack = GenesisBlocks.trees.getStack(TreeBlocksAndItems.BILLET, variant, 1);
-
-			// Branch -> billet
-			GameRegistry.addShapelessRecipe(billetStack, branchStack);
+			// Bow
+			if (variant.hasBow())
+			{
+				GameRegistry.addRecipe(GenesisItems.bows.getStack(EnumBowType.SELF, variant),
+						" S",
+						"BS",
+						" S",
+						'S', GenesisItems.materials.getStack(EnumMaterial.SPHENOPHYLLUM_FIBER),
+						'B', billetStack);
+				GameRegistry.addRecipe(GenesisItems.bows.getStack(EnumBowType.SELF, variant),
+						"S ",
+						"SB",
+						"S ",
+						'S', GenesisItems.materials.getStack(EnumMaterial.SPHENOPHYLLUM_FIBER),
+						'B', billetStack);
+			}
 		}
 
 		// All slab recipes
