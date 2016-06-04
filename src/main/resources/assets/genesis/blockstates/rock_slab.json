@@ -15,9 +15,11 @@
 			"bottom": { "model": "half_slab" }
 		},
 		"variant": {
-			"smooth_limestone": {
-				"textures": { "slab": "genesis:blocks/smooth_limestone" }
-			}
+			"smooth_limestone": { "textures": { "slab": "genesis:blocks/smooth_limestone" } },
+			"granite_rubble": { "textures": { "slab": "genesis:blocks/rubble_granite" } },
+			"mossy_granite_rubble": { "textures": { "slab": "genesis:blocks/rubble_mossy_granite" } },
+			"rhyolite_rubble": { "textures": { "slab": "genesis:blocks/rubble_rhyolite" } },
+			"dolerite_rubble": { "textures": { "slab": "genesis:blocks/rubble_dolerite" } }
 		}
 	}
 }

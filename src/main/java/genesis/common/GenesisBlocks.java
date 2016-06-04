@@ -55,6 +55,7 @@ public final class GenesisBlocks
 	public static final Block radioactive_granite = new BlockRadioactiveGranite().setUnlocalizedName(Unlocalized.ROCK + "radioactiveGranite");
 	public static final Block rhyolite = new BlockGenesisRock(1.65F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "rhyolite");
 	public static final Block dolerite = new BlockGenesisRock(1.2F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "dolerite");
+	public static final RubbleBlocks rubble = new RubbleBlocks();
 	public static final Block komatiite = new BlockGenesisRock(1.95F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "komatiite");
 	public static final Block anorthosite = new BlockGenesisRock(1.2F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "anorthosite");
 	public static final Block trondhjemite = new BlockGenesisRock(1.5F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "trondhjemite");
@@ -218,6 +219,7 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(radioactive_granite, name("radioactive_granite"));
 		Genesis.proxy.registerBlock(rhyolite, name("rhyolite"));
 		Genesis.proxy.registerBlock(dolerite, name("dolerite"));
+		rubble.registerVariants(RubbleBlocks.RUBBLE);
 		Genesis.proxy.registerBlock(komatiite, name("komatiite"));
 		Genesis.proxy.registerBlock(anorthosite, name("anorthosite"));
 		Genesis.proxy.registerBlock(trondhjemite, name("trondhjemite"));

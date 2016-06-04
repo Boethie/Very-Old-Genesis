@@ -26,6 +26,10 @@ tile.genesis.rock.radioactiveGranite.name=Radioactive Granite
 tile.genesis.rock.mossyGranite.name=Mossy Granite
 tile.genesis.rock.rhyolite.name=Rhyolite
 tile.genesis.rock.dolerite.name=Dolerite
+tile.genesis.rock.rubble.granite.name=Granite Rubble
+tile.genesis.rock.rubble.mossyGranite.name=Mossy Granite Rubble
+tile.genesis.rock.rubble.rhyolite.name=Rhyolite Rubble
+tile.genesis.rock.rubble.dolerite.name=Dolerite Rubble
 tile.genesis.rock.komatiite.name=Komatiite
 tile.genesis.rock.anorthosite.name=Anorthosite
 tile.genesis.rock.trondhjemite.name=Trondhjemite
@@ -88,6 +92,10 @@ tile.genesis.dungBrick.name=Dung Brick
 tile.genesis.wattleAndDaub.name=Wattle and Daub Wall
 
 tile.genesis.slab.rock.smoothLimestone.name=Smooth Limestone Slab
+tile.genesis.slab.rock.rubble.granite.name=Granite Rubble Slab
+tile.genesis.slab.rock.rubble.mossyGranite.name=Mossy Granite Rubble Slab
+tile.genesis.slab.rock.rubble.rhyolite.name=Rhyolite Rubble Slab
+tile.genesis.slab.rock.rubble.dolerite.name=Dolerite Rubble Slab
 
 #Decoration
 tile.genesis.log.dead.archaeopteris.name=Dead Archaeopteris Wood

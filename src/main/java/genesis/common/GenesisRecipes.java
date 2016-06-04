@@ -491,6 +491,14 @@ public final class GenesisRecipes
 			}
 		}
 
+		// All rubble recipes
+		for (EnumRubble variant : EnumRubble.values())
+		{
+			ItemStack rubbleStack = GenesisBlocks.rubble.getStack(RubbleBlocks.RUBBLE, variant);
+			ItemStack modelStack = variant.getModelStack();
+			GameRegistry.addShapelessRecipe(rubbleStack, modelStack);
+		}
+
 		// All slab recipes
 		for (ObjectType<EnumSlab, ?, ?> type : GenesisBlocks.slabs.getTypes())
 		{

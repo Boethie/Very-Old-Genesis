@@ -1,0 +1,11 @@
+{
+	"forge_marker": 1,
+	"variants": {
+		"variant": {
+			"granite":  { "model": "genesis:rubble_granite" },
+			"mossy_granite":  { "model": "genesis:rubble_mossy_granite" },
+			"rhyolite":  { "model": "genesis:rubble_rhyolite" },
+			"dolerite":  { "model": "genesis:rubble_dolerite" }
+		}
+	}
+}

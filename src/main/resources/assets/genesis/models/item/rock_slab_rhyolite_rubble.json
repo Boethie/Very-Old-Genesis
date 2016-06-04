@@ -1,6 +1,6 @@
 {
     "parent": "genesis:item/slab",
     "textures": {
-        "slab": "genesis:blocks/smooth_limestone"
+        "slab": "genesis:blocks/rubble_rhyolite"
     }
 }
