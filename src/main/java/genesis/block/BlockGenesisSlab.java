@@ -190,7 +190,7 @@ public class BlockGenesisSlab extends BlockGenesis
 		{
 			return owner.getBlockState(type, variant).withProperty(HALF, BOTTOM);
 		}
-		else if (facing != EnumFacing.DOWN && (facing == EnumFacing.UP || (double) hitY <= 0.5D))
+		else if (facing != EnumFacing.DOWN && (facing == EnumFacing.UP || hitY <= 0.5D))
 		{
 			return owner.getBlockState(type, variant).withProperty(HALF, BOTTOM);
 		}
