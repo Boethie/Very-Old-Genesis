@@ -1,8 +1,0 @@
-{
-    "parent": "block/half_slab",
-    "textures": {
-        "bottom": "genesis:blocks/limestone",
-        "top": "genesis:blocks/limestone",
-        "side": "genesis:blocks/limestone"
-    }
-}

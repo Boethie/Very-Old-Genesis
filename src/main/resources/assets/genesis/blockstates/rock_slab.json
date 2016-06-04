@@ -15,8 +15,8 @@
 			"bottom": { "model": "half_slab" }
 		},
 		"variant": {
-			"limestone": {
-				"textures": { "slab": "genesis:blocks/limestone" }
+			"smooth_limestone": {
+				"textures": { "slab": "genesis:blocks/smooth_limestone" }
 			}
 		}
 	}
