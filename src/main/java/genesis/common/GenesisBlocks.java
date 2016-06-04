@@ -407,6 +407,26 @@ public final class GenesisBlocks
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityStorageBox.class, new TileEntityStorageBoxRenderer(storage_box));
 		
 		ModelLoader.setCustomStateMapper(portal, new FlexibleStateMap().setPrefix("portal/portal", ""));
+
+		for (EnumMenhirPart part : EnumMenhirPart.ORDERED)
+		{
+			ItemStack stack = menhirs.getStack(part);
+
+			if (part == EnumMenhirPart.GLYPH)
+			{
+				BlockMenhir block = menhirs.getBlock(part);
+
+				for (EnumGlyph glyph : EnumGlyph.values())
+				{
+					ItemStack glyphStack = block.getGlyphStack(glyph);
+					Genesis.proxy.registerModel(glyphStack.getItem(), glyphStack.getMetadata(), name("portal/glyph_" + glyph.getName()));
+				}
+			}
+			else
+			{
+				Genesis.proxy.registerModel(stack.getItem(), stack.getMetadata(), name("portal/" + part.getName()));
+			}
+		}
 	}
 	
 	private static void registerColors(BlockColors blockColors, ItemColors itemColors, IBlockColor color, Block... blocks)
