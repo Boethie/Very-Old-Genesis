@@ -21,6 +21,8 @@ public class BiomeGenOceanGenesis extends BiomeGenBaseGenesis
 		
 		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);
 		fillerBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);
+		
+		addDecorations();
 	}
 	
 	protected BiomeGenOceanGenesis addDecorations()
