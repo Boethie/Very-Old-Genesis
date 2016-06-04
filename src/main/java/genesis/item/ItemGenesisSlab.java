@@ -9,10 +9,7 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemSlab;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -26,7 +23,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import static genesis.block.BlockGenesisSlab.EnumHalf.*;
 
-public class ItemGenesisSlab extends ItemSlab
+public class ItemGenesisSlab extends ItemBlockMulti<EnumSlab>
 {
 	public final SlabBlocks owner;
 	public final SlabObjectType type;
@@ -34,10 +31,10 @@ public class ItemGenesisSlab extends ItemSlab
 	public final List<EnumSlab> variants;
 
 	public ItemGenesisSlab(BlockGenesisSlab slabBlock, SlabBlocks owner,
-						   SlabObjectType type,
-						   List<EnumSlab> variants, Class<EnumSlab> variantClass)
+			SlabObjectType type,
+			List<EnumSlab> variants, Class<EnumSlab> variantClass)
 	{
-		super(slabBlock, slabBlock, slabBlock);
+		super(slabBlock, owner, type, variants, variantClass);
 
 		this.owner = owner;
 		this.type = type;
@@ -45,19 +42,6 @@ public class ItemGenesisSlab extends ItemSlab
 		this.variants = variants;
 
 		setHasSubtypes(true);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list)
-	{
-		owner.fillSubItems(type, variants, list);
-	}
-
-	@Override
-	public String getUnlocalizedName(ItemStack stack)
-	{
-		return owner.getUnlocalizedName(stack, block.getUnlocalizedName());
 	}
 
 	@Override

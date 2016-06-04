@@ -5,11 +5,9 @@ import genesis.combo.SlabBlocks.SlabObjectType;
 import genesis.combo.VariantsOfTypesCombo.BlockProperties;
 import genesis.combo.variant.EnumSlab;
 import genesis.combo.variant.PropertyIMetadata;
-import genesis.common.GenesisCreativeTabs;
 import genesis.util.BlockStateToMetadata;
 import java.util.List;
 import java.util.Random;
-import net.minecraft.block.BlockSlab;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -17,7 +15,9 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
@@ -30,7 +30,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import static genesis.block.BlockGenesisSlab.EnumHalf.*;
 
-public class BlockGenesisSlab extends BlockSlab
+public class BlockGenesisSlab extends BlockGenesis
 {
 	public static final PropertyEnum<EnumHalf> HALF = PropertyEnum.create("half", EnumHalf.class);
 
@@ -48,6 +48,9 @@ public class BlockGenesisSlab extends BlockSlab
 	@BlockProperties
 	public static IProperty<?>[] properties = { HALF };
 
+	protected static final AxisAlignedBB AABB_BOTTOM_HALF = new AxisAlignedBB(0, 0, 0, 1, 0.5, 1);
+	protected static final AxisAlignedBB AABB_TOP_HALF = new AxisAlignedBB(0, 0.5, 0, 1, 1, 1);
+
 	public final SlabBlocks owner;
 	public final SlabObjectType type;
 
@@ -59,7 +62,7 @@ public class BlockGenesisSlab extends BlockSlab
 							List<EnumSlab> variants, Class<EnumSlab> variantClass,
 							Material material, SoundType sound)
 	{
-		super(material);
+		super(material, sound);
 		
 		this.owner = owner;
 		this.type = type;
@@ -69,9 +72,6 @@ public class BlockGenesisSlab extends BlockSlab
 
 		blockState = new BlockStateContainer(this, variantProp, HALF);
 		setDefaultState(blockState.getBaseState().withProperty(HALF, BOTTOM));
-
-		setSoundType(sound);
-		setCreativeTab(GenesisCreativeTabs.BLOCK);
 	}
 
 	@Override
@@ -107,44 +107,53 @@ public class BlockGenesisSlab extends BlockSlab
 	@Override
 	public boolean getUseNeighborBrightness(IBlockState state)
 	{
-		switch (state.getValue(HALF))
+		EnumHalf half = state.getValue(HALF);
+		
+		switch (half)
 		{
 		case BOTH:
 			return false;
 		case TOP:
 		case BOTTOM:
-		default:
 			return true;
 		}
+		
+		throw new IllegalArgumentException("Unknown half " + half);
 	}
 
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
-		switch (state.getValue(HALF))
+		EnumHalf half = state.getValue(HALF);
+		
+		switch (half)
 		{
 		case BOTH:
 			return FULL_BLOCK_AABB;
 		case TOP:
 			return AABB_TOP_HALF;
 		case BOTTOM:
-		default:
 			return AABB_BOTTOM_HALF;
 		}
+		
+		throw new IllegalArgumentException("Unknown half " + half);
 	}
 
 	@Override
 	public boolean isFullyOpaque(IBlockState state)
 	{
-		switch (state.getValue(HALF))
+		EnumHalf half = state.getValue(HALF);
+		
+		switch (half)
 		{
 		case BOTH:
 		case TOP:
 			return true;
 		case BOTTOM:
-		default:
 			return false;
 		}
+		
+		throw new IllegalArgumentException("Unknown half " + half);
 	}
 
 	@Override
@@ -156,16 +165,19 @@ public class BlockGenesisSlab extends BlockSlab
 	@Override
 	public boolean doesSideBlockRendering(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing face)
 	{
-		switch (state.getValue(HALF))
+		EnumHalf half = state.getValue(HALF);
+		
+		switch (half)
 		{
 		case BOTH:
 			return true;
 		case TOP:
 			return face == EnumFacing.UP;
 		case BOTTOM:
-		default:
 			return face == EnumFacing.DOWN;
 		}
+		
+		throw new IllegalArgumentException("Unknown half " + half);
 	}
 
 	@Override
@@ -191,15 +203,18 @@ public class BlockGenesisSlab extends BlockSlab
 	@Override
 	public int quantityDropped(IBlockState state, int fortune, Random random)
 	{
-		switch (state.getValue(HALF))
+		EnumHalf half = state.getValue(HALF);
+		
+		switch (half)
 		{
 		case BOTH:
 			return 2;
 		case TOP:
 		case BOTTOM:
-		default:
 			return 1;
 		}
+		
+		throw new IllegalArgumentException("Unknown half " + half);
 	}
 
 	@Override
@@ -229,28 +244,10 @@ public class BlockGenesisSlab extends BlockSlab
 	}
 
 	@Override
-	public boolean isDouble()
+	@SideOnly(Side.CLIENT)
+	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list)
 	{
-		// must be true to call super.super.shouldSideBeRendered(...)
-		return true;
-	}
-
-	@Override
-	public String getUnlocalizedName(int meta)
-	{
-		return owner.getUnlocalizedName(owner.getStack(type, owner.getVariant(this, meta)), getUnlocalizedName());
-	}
-
-	@Override
-	public PropertyIMetadata<EnumSlab> getVariantProperty()
-	{
-		return variantProp;
-	}
-
-	@Override
-	public EnumSlab getTypeForItem(ItemStack stack)
-	{
-		return owner.getVariant(stack);
+		owner.fillSubItems(type, variants, list);
 	}
 
 	@Override
