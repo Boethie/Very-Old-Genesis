@@ -86,6 +86,8 @@ tile.genesis.dung.carnivore.name=Crotte de carnivore
 tile.genesis.dungBrick.name=Briques de crotte
 tile.genesis.wattleAndDaub.name=Mur en torchis
 
+tile.genesis.slab.rock.smoothLimestone.name=Dalle de calcaire lisse
+
 #Decoration
 tile.genesis.log.dead.archaeopteris.name=Bois mort d'Archaeopteris
 tile.genesis.log.dead.sigillaria.name=Bois mort de Sigillaria
@@ -207,6 +209,7 @@ tile.genesis.fern.ruffordia.name=Ruffordia
 tile.genesis.fern.astralopteris.name=Astralopteris
 tile.genesis.fern.matonidium.name=Matonidium
 tile.genesis.fern.dryopteris.name=Dryopteris
+tile.genesis.fern.asplenium.name=Asplenium
 
 tile.genesis.crop.zingiberopsis.name=Zingiberopsis
 tile.genesis.crop.odontopteris.name=Odontopteris
