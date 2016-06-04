@@ -73,7 +73,7 @@ public class WorldGenDeadLog extends WorldGenTreeBase
 	
 	private void generateLogs(World world, Random rand, BlockPos pos, int logWidth, int logHeight)
 	{
-		int length = minHeight + (rand.nextInt(maxHeight) - minHeight);	// TODO: Update to use length parameter from doGenerate?
+		int length = minHeight + (rand.nextInt(maxHeight - minHeight));	// TODO: Update to use length parameter from doGenerate?
 		int lengthTop = rand.nextInt(maxHeight) / 2 + 1;
 		int logOffset = rand.nextInt(3);
 		int currentLogLength = length;
@@ -107,7 +107,7 @@ public class WorldGenDeadLog extends WorldGenTreeBase
 				currentLogLength = length;
 				
 				// Random nth log
-				length = minHeight + (rand.nextInt(maxHeight) - minHeight);
+				length = minHeight + (rand.nextInt(maxHeight - minHeight));
 				lengthTop = rand.nextInt(maxHeight) / 2 + 1;
 				logOffset = rand.nextInt(3);
 			}
@@ -138,7 +138,7 @@ public class WorldGenDeadLog extends WorldGenTreeBase
 				currentLogLength = length;
 				
 				// Random nth log
-				length = minHeight + rand.nextInt(maxHeight);
+				length = minHeight + rand.nextInt(maxHeight - minHeight);
 				lengthTop = rand.nextInt(maxHeight) / 2 + 1;
 				logOffset = rand.nextInt(minHeight) + 2;
 			}

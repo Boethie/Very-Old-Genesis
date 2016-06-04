@@ -33,6 +33,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	
 	protected final boolean notify;
 	protected int rarity = 1;
+	protected int vineRarity = 6;
 	
 	protected RandomIntProvider heightProvider;
 	
@@ -78,9 +79,10 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 				notify);
 	}
 	
-	public WorldGenTreeBase generateVine()
+	public WorldGenTreeBase generateVine(int vineRarity)
 	{
 		this.generateVine = true;
+		this.vineRarity = vineRarity;
 		return this;
 	}
 	
@@ -343,7 +345,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		else
 			world.setBlockState(pos, state, 2);
 		
-		if (generateVine && world.rand.nextInt(3) == 0)
+		if (generateVine && world.rand.nextInt(vineRarity) == 0)
 		{
 			BlockPos north = pos.north();
 			BlockPos south = pos.south();
