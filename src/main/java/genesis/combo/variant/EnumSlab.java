@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 
 public enum EnumSlab implements IMetadata<EnumSlab>
 {
-	SMOOTH_LIMESTONE("smooth_limestone", Material.rock,
+	SMOOTH_LIMESTONE("smooth_limestone", "smoothLimestone", Material.rock,
 			() -> GenesisBlocks.smooth_limestone.getDefaultState(),
 			() -> new ItemStack(GenesisBlocks.smooth_limestone));
 
