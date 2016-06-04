@@ -1,6 +1,7 @@
 package genesis.block;
 
 import genesis.common.GenesisCreativeTabs;
+import genesis.common.sounds.GenesisSoundTypes;
 import genesis.util.BlockStateToMetadata;
 import java.util.Collections;
 import java.util.List;
@@ -31,6 +32,7 @@ public class BlockAsplenium extends BlockBush implements IShearable
 		blockState = new BlockStateContainer(this, FACING);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
+		setSoundType(GenesisSoundTypes.FERN);
 	}
 
 	public static boolean canSustainAsplenum(IBlockState state)
