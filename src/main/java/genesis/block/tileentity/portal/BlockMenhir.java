@@ -5,8 +5,6 @@ import java.util.*;
 import com.google.common.collect.ImmutableList;
 
 import genesis.block.BlockGenesis;
-import genesis.client.GenesisClient;
-import genesis.client.model.ListedItemMeshDefinition;
 import genesis.combo.*;
 import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.*;
@@ -14,12 +12,10 @@ import genesis.common.*;
 import genesis.item.ItemBlockMulti;
 import genesis.portal.*;
 import genesis.util.*;
-import genesis.util.functional.ClientFunction;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,9 +26,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
-import net.minecraftforge.fml.relauncher.*;
 
-public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
+public class BlockMenhir extends BlockGenesis
 {
 	/**
 	 * Used in {@link VariantsOfTypesCombo}.
@@ -84,76 +79,6 @@ public class BlockMenhir extends BlockGenesis implements IRegistrationCallback
 	public IBlockState getStateFromMeta(int metadata)
 	{
 		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), metadata, variantProp, FACING);
-	}
-	
-	@Override
-	public void onRegistered()
-	{
-		Genesis.proxy.callClient(new ClientFunction()
-		{
-			@SideOnly(Side.CLIENT)
-			@Override
-			public void apply(GenesisClient client)
-			{
-				client.registerModel(Item.getItemFromBlock(BlockMenhir.this),
-						new ListedItemMeshDefinition()
-						{
-							public ModelResourceLocation getName(EnumMenhirPart part, EnumGlyph glyph)
-							{
-								return new ModelResourceLocation(
-										Constants.ASSETS_PREFIX
-										+ "portal/"
-										+ part.getName()
-										+ (glyph != null ? "_" + glyph.getName() : ""),
-										"inventory");
-							}
-							
-							@Override
-							public ModelResourceLocation getModelLocation(ItemStack stack)
-							{
-								EnumMenhirPart part = owner.getVariant(stack);
-								EnumGlyph glyph = null;
-								
-								if (part == EnumMenhirPart.GLYPH)
-								{
-									glyph = EnumGlyph.NONE;
-									
-									NBTTagCompound compound = stack.getTagCompound();
-									
-									if (compound != null && compound.hasKey("BlockEntityTag", 10))
-									{
-										glyph = TileEntityMenhirGlyph.getGlyph(compound.getCompoundTag("BlockEntityTag"));
-									}
-								}
-								
-								return new ModelResourceLocation(getName(part, glyph), "inventory");
-							}
-							
-							@Override
-							public Collection<ModelResourceLocation> getVariants()
-							{
-								ArrayList<ModelResourceLocation> variants = new ArrayList<>();
-								
-								for (EnumMenhirPart part : EnumMenhirPart.ORDERED)
-								{
-									if (part == EnumMenhirPart.GLYPH)
-									{
-										for (EnumGlyph glyph : EnumGlyph.values())
-										{
-											variants.add(getName(part, glyph));
-										}
-									}
-									else
-									{
-										variants.add(getName(part, null));
-									}
-								}
-								
-								return variants;
-							}
-						});
-			}
-		});
 	}
 	
 	@Override

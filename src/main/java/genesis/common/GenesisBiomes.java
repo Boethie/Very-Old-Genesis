@@ -58,8 +58,8 @@ public final class GenesisBiomes
 		prop = new BiomeGenBase.BiomeProperties("Rainforest");
 		prop.setTemperature(0.95F);
 		prop.setRainfall(1.4F);
-		prop.setBaseHeight(0.15F);
-		prop.setHeightVariation(0.05F);
+		prop.setBaseHeight(0.35F);
+		prop.setHeightVariation(0.2F);
 		prop.setWaterColor(0x725113);
 		
 		rainforest = new BiomeGenRainforest(prop);
@@ -218,7 +218,7 @@ public final class GenesisBiomes
 		
 		floodplainsForest = new BiomeGenFloodplainsForest(prop);
 		BiomeManagerGenesis.registerBiome(floodplainsForest, GenesisConfig.floodplainsForestId, BiomeType.WARM, GenesisConfig.floodplainsForestWeight);
-		BiomeDictionary.registerBiomeType(floodplainsForest, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.DENSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
+		BiomeDictionary.registerBiomeType(floodplainsForest, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
 		
 		prop = new BiomeGenBase.BiomeProperties("River");
 		prop.setTemperature(0.5F);

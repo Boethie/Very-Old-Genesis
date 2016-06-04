@@ -80,7 +80,7 @@ public class BlockResin extends BlockHorizontal implements IGrowable
 	protected static boolean canPlaceResin(World world, BlockPos pos, EnumFacing facing)
 	{
 		IBlockState state = world.getBlockState(pos.offset(facing));
-		return facing.getHorizontalIndex() != -1
+		return facing.getAxis().isHorizontal()
 				&& GenesisBlocks.trees.isStateOf(state, TreeBlocksAndItems.LOG)
 				&& GenesisBlocks.trees.getVariant(state).hasResin();
 	}

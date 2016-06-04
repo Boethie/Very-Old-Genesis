@@ -73,11 +73,11 @@ public class GenesisProxy
 		registerBlock(block, null, name);
 	}
 	
-	public void registerModel(Item item, int metadata, ResourceLocation textureName)
+	public void registerModel(Item item, int metadata, ResourceLocation variantName)
 	{
 	}
 	
-	public void registerModel(Block item, int metadata, ResourceLocation textureName)
+	public void registerModel(Block item, int metadata, ResourceLocation variantName)
 	{
 	}
 	

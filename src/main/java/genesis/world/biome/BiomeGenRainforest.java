@@ -24,7 +24,7 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 	
 	protected void addDecorations()
 	{
-		getDecorator().setGrassCount(8);
+		getDecorator().setGrassCount(9);
 		addGrass(WorldGenPlant.create(EnumPlant.ZYGOPTERIS).setPatchCount(14), 1);
 		
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchCount(3), 2);
@@ -39,13 +39,13 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 	
 	protected void addTrees()
 	{
-		getDecorator().setTreeCount(26.7F);
+		getDecorator().setTreeCount(25.4F);
 		
 		addTree(new WorldGenTreeSigillaria(10, 15, true).generateVine(), 7);
 		addTree(new WorldGenTreePsaronius(5, 8, true).generateVine(), 4);
-		addTree(new WorldGenTreeLepidodendron(14, 18, true).generateVine(), 10);
+		addTree(new WorldGenTreeLepidodendron(14, 20, true).generateVine(), 10);
 		
-		addTree(new WorldGenDeadLog(3, 6, EnumTree.LEPIDODENDRON, true), 6);
+		addTree(new WorldGenDeadLog(3, 6, EnumTree.LEPIDODENDRON, true), 5);
 		addTree(new WorldGenDeadLog(3, 6, EnumTree.SIGILLARIA, true), 4);
 	}
 	

@@ -48,7 +48,7 @@ public class PlantBlocks extends VariantsOfTypesCombo<EnumPlant>
 				.setVariantFilter((v) -> v.getType() == PlantType.FERN && v.hasSmall())
 				.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE);
 		
-		DOUBLE_FERN.setBlockArguments(SoundType.PLANT)
+		DOUBLE_FERN.setBlockArguments(GenesisSoundTypes.FERN)
 				.setVariantFilter((v) -> v.getType() == PlantType.FERN && v.hasLarge())
 				.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE)
 				.setVariantNameFunction((v) -> "double_" + v.getName());

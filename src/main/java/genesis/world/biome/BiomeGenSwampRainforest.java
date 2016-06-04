@@ -45,9 +45,9 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 		addTree(new WorldGenTreeCordaites(12, 17, true).generateVine(), 5);
 		addTree(new WorldGenTreeLepidodendron(11, 15, true).generateVine(), 7);
 		
-		addTree(new WorldGenDeadLog(3, 6, EnumTree.LEPIDODENDRON, true), 7);
-		addTree(new WorldGenDeadLog(3, 6, EnumTree.SIGILLARIA, true), 2);
-		addTree(new WorldGenDeadLog(3, 6, EnumTree.CORDAITES, true).setCanGrowInWater(true), 7);
+		addTree(new WorldGenDeadLog(3, 6, EnumTree.LEPIDODENDRON, true), 6);
+		addTree(new WorldGenDeadLog(3, 6, EnumTree.SIGILLARIA, true), 1);
+		addTree(new WorldGenDeadLog(3, 6, EnumTree.CORDAITES, true).setCanGrowInWater(true), 6);
 	}
 	
 	@Override

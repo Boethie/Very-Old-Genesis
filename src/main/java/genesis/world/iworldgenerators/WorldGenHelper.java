@@ -3,24 +3,25 @@ package genesis.world.iworldgenerators;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.WeightedRandom;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.List;
 import java.util.Random;
+
+import com.google.common.collect.ImmutableList;
 
 public class WorldGenHelper
 {
-	public static BlockPos findSurface(World world, BlockPos pos) {
+	public static BlockPos findSurface(World world, BlockPos pos)
+	{
 		while (isGround(world, pos))
-		{
 			pos = pos.up();
-		}
+		
 		while (!isGround(world, pos.down()))
-		{
 			pos = pos.down();
-		}
+		
 		return pos;
 	}
 	
@@ -28,27 +29,44 @@ public class WorldGenHelper
 	{
 		IBlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
-		return !(block.isReplaceable(world, pos) || !block.isFullCube(state) || block.isWood(world, pos) || block.isLeaves(state, world, pos));
+		
+		if (block.isReplaceable(world, pos))
+			return false;
+		if (!state.isSideSolid(world, pos, EnumFacing.UP))
+			return false;
+		if (block.isWood(world, pos))
+			return false;
+		if (block.isLeaves(state, world, pos))
+			return false;
+		
+		return true;
 	}
 	
 	public static class RandomStates
 	{
-		private ArrayList<RandomState> blocks = new ArrayList<>();
+		private final List<RandomState> states;
+		private final int total;
 		
-		public RandomStates(RandomState... blocks)
+		public RandomStates(List<RandomState> states)
 		{
-			Collections.addAll(this.blocks, blocks);
+			this.states = ImmutableList.copyOf(states);
+			total = WeightedRandom.getTotalWeight(states);
+		}
+		
+		public RandomStates(RandomState... states)
+		{
+			this(ImmutableList.copyOf(states));
 		}
 		
 		public IBlockState getState(Random random)
 		{
-			return WeightedRandom.getRandomItem(random, blocks).state;
+			return WeightedRandom.getRandomItem(random, states, total).state;
 		}
 	}
 	
 	public static class RandomState extends WeightedRandom.Item
 	{
-		private IBlockState state;
+		public final IBlockState state;
 		
 		public RandomState(IBlockState state, int weight)
 		{

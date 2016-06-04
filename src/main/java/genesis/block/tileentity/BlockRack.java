@@ -138,14 +138,14 @@ public class BlockRack extends BlockContainer implements MultiPartBlock
 						if (heldStack.stackSize <= 0)
 							player.setHeldItem(hand, null);
 						
-						System.out.println("add " + world.isRemote + " " + te.getStackInSide(side));
+						Genesis.logger.debug("add " + world.isRemote + " " + te.getStackInSide(side));
 						
 						return true;
 					}
 				}
 				else
 				{
-					System.out.println("remove " + world.isRemote + " " + displayStack);
+					Genesis.logger.debug("remove " + world.isRemote + " " + displayStack);
 					WorldUtils.spawnItemsAt(world, pos, DropType.CONTAINER, displayStack);
 					te.setStackInSide(side, null);
 					return true;

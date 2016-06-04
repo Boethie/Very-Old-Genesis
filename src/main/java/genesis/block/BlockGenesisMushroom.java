@@ -164,7 +164,7 @@ public class BlockGenesisMushroom extends BlockBush
 			return super.canPlaceBlockAt(world, pos) && canBlockStay(world, pos, getDefaultState());
 		case GROW_SIDE:
 			EnumFacing facingSide = side.getOpposite();
-			return facingSide.getHorizontalIndex() != -1 && canBlockStay(world, pos, getDefaultState().withProperty(FACING, facingSide));
+			return facingSide.getAxis().isHorizontal() && canBlockStay(world, pos, getDefaultState().withProperty(FACING, facingSide));
 		}
 		
 		return false;

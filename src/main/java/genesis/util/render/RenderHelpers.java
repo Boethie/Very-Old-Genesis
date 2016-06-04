@@ -3,7 +3,11 @@ package genesis.util.render;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderGlobal;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.RayTraceResult;
 
 import org.lwjgl.opengl.GL11;
@@ -50,6 +54,31 @@ public class RenderHelpers
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x, y, z);
 		renderEntityBounds(entity, partialTick);
+		GlStateManager.popMatrix();
+	}
+	
+	public static void drawTextureWithTessellator(int x, int y, int zLevel, int sizeX, int sizeY, ResourceLocation texture, float alpha)
+	{
+		GlStateManager.pushMatrix();
+		
+		Tessellator tess = Tessellator.getInstance();
+		
+		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
+		
+		VertexBuffer vb = tess.getBuffer();
+		
+		vb.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+		
+		vb.pos(x, y+sizeY, 1).tex(0, 1).endVertex();
+		
+		vb.pos(x+sizeX, y+sizeY, 1).tex(1, 1).endVertex();
+		
+		vb.pos(x+sizeX, y, 1).tex(1, 0).endVertex();
+		
+		vb.pos(x, y, 1).tex(0, 0).endVertex();
+		
+		tess.draw();
+		
 		GlStateManager.popMatrix();
 	}
 }

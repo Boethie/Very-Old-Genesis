@@ -1028,6 +1028,22 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	}
 	
 	/**
+	 * @param variant The variant to get the name for.
+	 * @param base The base string to add the variant's unlocalized name onto (i.e. "tile.genesis.material.pebble").
+	 * This will usually be gotten through <code>super.getUnlocalizedName(stack)</code>.
+	 * @return The unlocalized name for the stack.<br>
+	 */
+	public String getUnlocalizedName(V variant, String base)
+	{
+		String variantName = variant.getUnlocalizedName();
+		
+		if (!variantName.isEmpty() && base.charAt(base.length() - 1) != '.')
+			return base + "." + variantName;
+		
+		return base + variantName;
+	}
+	
+	/**
 	 * @param stack The stack to get the name for.
 	 * @param base The base string to add the variant's unlocalized name onto (i.e. "tile.genesis.material.pebble").
 	 * This will usually be gotten through <code>super.getUnlocalizedName(stack)</code>.
@@ -1039,18 +1055,9 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 		V variant = getVariant(stack);
 		
 		if (variant == null)
-		{
 			return Unlocalized.INVALID_METADATA;
-		}
 		
-		String variantName = variant.getUnlocalizedName();
-		
-		if (!"".equals(variantName) && !base.substring(base.length() - 1).equals("."))
-		{
-			variantName = "." + variantName;
-		}
-		
-		return base + variantName;
+		return getUnlocalizedName(variant, base);
 	}
 	
 	/**

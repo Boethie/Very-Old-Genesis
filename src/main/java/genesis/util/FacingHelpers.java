@@ -13,12 +13,10 @@ public class FacingHelpers
 {
 	public static EnumFacing getFacing(Axis axis, AxisDirection dir)
 	{
-		for (EnumFacing facing : EnumFacing.values())
+		for (EnumFacing facing : EnumFacing.VALUES)
 		{
 			if (facing.getAxis() == axis && facing.getAxisDirection() == dir)
-			{
 				return facing;
-			}
 		}
 		
 		return null;
@@ -26,23 +24,21 @@ public class FacingHelpers
 	
 	public static EnumFacing getRandomFacing(Axis axis, Random random)
 	{
-		return getFacing(axis, AxisDirection.values()[random.nextInt(AxisDirection.values().length)]);
+		return getFacing(axis, random.nextBoolean() ? AxisDirection.POSITIVE : AxisDirection.NEGATIVE);
 	}
 	
 	public static EnumFacing getFacingAlongAxis(Axis axis, float angle)
 	{
 		angle = (float) Math.toRadians(angle + 90);
 		AxisDirection dir = NEGATIVE;
-		double x = MathHelper.cos(angle);
-		double z = MathHelper.sin(angle);
 		
 		switch (axis)
 		{
 		case X:
-			dir = x > 0 ? POSITIVE : NEGATIVE;
+			dir = MathHelper.cos(angle) > 0 ? POSITIVE : NEGATIVE;
 			break;
 		case Z:
-			dir = z > 0 ? POSITIVE : NEGATIVE;
+			dir = MathHelper.sin(angle) > 0 ? POSITIVE : NEGATIVE;
 			break;
 		default:
 			break;
@@ -56,9 +52,7 @@ public class FacingHelpers
 		for (Axis axis : Axis.values())
 		{
 			if (name.equalsIgnoreCase(axis.getName()))
-			{
 				return axis;
-			}
 		}
 		
 		return null;
@@ -75,16 +69,6 @@ public class FacingHelpers
 		}
 		
 		return null;
-	}
-	
-	public static EnumFacing getPositiveFacing(Axis axis)
-	{
-		return getFacing(axis, POSITIVE);
-	}
-	
-	public static EnumFacing getNegativeFacing(Axis axis)
-	{
-		return getFacing(axis, NEGATIVE);
 	}
 	
 	private static <T> T throwFor(Axis axis) throws IllegalArgumentException
@@ -128,5 +112,40 @@ public class FacingHelpers
 		default:
 			return throwFor(axis);
 		}
+	}
+	
+	private static final Vec3i[] U_VECS;
+	private static final Vec3i[] V_VECS;
+	
+	static
+	{
+		U_VECS = new Vec3i[EnumFacing.VALUES.length];
+		V_VECS = new Vec3i[EnumFacing.VALUES.length];
+		int i;
+		
+		i = EnumFacing.UP.getIndex();
+		U_VECS[i] = EnumFacing.EAST.getDirectionVec();
+		V_VECS[i] = EnumFacing.SOUTH.getDirectionVec();
+		
+		i = EnumFacing.DOWN.getIndex();
+		U_VECS[i] = EnumFacing.WEST.getDirectionVec();
+		V_VECS[i] = EnumFacing.NORTH.getDirectionVec();
+		
+		for (EnumFacing facing : EnumFacing.Plane.HORIZONTAL.facings())
+		{
+			i = facing.getIndex();
+			U_VECS[i] = facing.rotateY().getDirectionVec();
+			V_VECS[i] = facing.getDirectionVec().crossProduct(U_VECS[i]);
+		}
+	}
+	
+	public static Vec3i getU(EnumFacing facing)
+	{
+		return U_VECS[facing.getIndex()];
+	}
+	
+	public static Vec3i getV(EnumFacing facing)
+	{
+		return V_VECS[facing.getIndex()];
 	}
 }
