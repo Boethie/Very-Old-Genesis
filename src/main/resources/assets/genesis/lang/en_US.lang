@@ -87,6 +87,8 @@ tile.genesis.dung.carnivore.name=Carnivore Dung
 tile.genesis.dungBrick.name=Dung Brick
 tile.genesis.wattleAndDaub.name=Wattle and Daub Wall
 
+tile.genesis.slab.rock.limestone.name=Limestone Slab
+
 #Decoration
 tile.genesis.log.dead.archaeopteris.name=Dead Archaeopteris Wood
 tile.genesis.log.dead.sigillaria.name=Dead Sigillaria Wood
