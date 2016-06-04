@@ -33,7 +33,7 @@ public class WorldGenHut implements IWorldGenerator {
 		if(world.isRemote)
 			return;
 		
-		if(world.rand.nextInt(Math.round(1 / GenesisConfig.hutChance)) != 0)
+		if(world.rand.nextInt(GenesisConfig.hutChance) != 0)
 			return;
 		
 		if (!GenesisDimensions.isGenesis(world))
@@ -45,7 +45,7 @@ public class WorldGenHut implements IWorldGenerator {
 			return;
 		
 		start = WorldGenHelper.findSurface(world, start);
-
+		
 		//Starting generation
 		
 		Genesis.logger.debug("Starting generation of the hut at " + start.toString());

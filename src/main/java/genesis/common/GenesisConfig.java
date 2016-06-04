@@ -63,7 +63,7 @@ public final class GenesisConfig
 	public static int marcasiteCount = 86;
 	
 	//Structures
-	public static float hutChance = 0.01F;
+	public static int hutChance = 100;
 	
 	//Dimension music
 	public static boolean playDimensionMusic = true;
@@ -113,7 +113,7 @@ public final class GenesisConfig
 		marcasiteCount = config.getInt("marcasite", "oregen", marcasiteCount, 0, 255, "Generation count for marcasite");
 		
 		//Structures
-		hutChance = config.getFloat("hutChance", "structures", 0.01F, 0, 1F, "Hut spawning chance");
+		hutChance = config.getInt("hutChance", "structures", hutChance, 1, Integer.MAX_VALUE, "Hut spawning chance");
 		
 		playDimensionMusic = config.getBoolean("dimensionMusic", "music", true, "If true, new music will play in the dimension.");
 		
