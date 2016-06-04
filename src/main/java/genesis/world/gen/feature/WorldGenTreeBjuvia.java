@@ -2,11 +2,8 @@ package genesis.world.gen.feature;
 
 import java.util.Random;
 
-import genesis.combo.SiltBlocks;
 import genesis.combo.variant.EnumTree;
-import genesis.common.GenesisBlocks;
 import genesis.util.random.i.IntRange;
-
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 

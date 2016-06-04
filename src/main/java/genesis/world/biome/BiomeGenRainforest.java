@@ -41,9 +41,9 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 	{
 		getDecorator().setTreeCount(26.7F);
 		
-		addTree(new WorldGenTreeSigillaria(10, 15, true), 7);
-		addTree(new WorldGenTreePsaronius(5, 8, true), 4);
-		addTree(new WorldGenTreeLepidodendron(14, 18, true), 10);
+		addTree(new WorldGenTreeSigillaria(10, 15, true).generateVine(), 7);
+		addTree(new WorldGenTreePsaronius(5, 8, true).generateVine(), 4);
+		addTree(new WorldGenTreeLepidodendron(14, 18, true).generateVine(), 10);
 		
 		addTree(new WorldGenDeadLog(3, 6, EnumTree.LEPIDODENDRON, true), 6);
 		addTree(new WorldGenDeadLog(3, 6, EnumTree.SIGILLARIA, true), 4);

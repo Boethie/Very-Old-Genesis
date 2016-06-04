@@ -3,7 +3,6 @@ package genesis.block;
 import genesis.common.GenesisCreativeTabs;
 import genesis.common.sounds.GenesisSoundTypes;
 import net.minecraft.block.BlockVine;
-import net.minecraft.block.SoundType;
 
 public class BlockAnkyropteris extends BlockVine
 {

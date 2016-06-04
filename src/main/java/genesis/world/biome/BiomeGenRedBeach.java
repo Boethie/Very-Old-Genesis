@@ -1,14 +1,12 @@
 package genesis.world.biome;
 
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.biome.BiomeGenBase;
 import genesis.combo.SiltBlocks;
 import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.EnumSilt;
 import genesis.common.GenesisBlocks;
-import genesis.world.biome.decorate.WorldGenPebbles;
 import genesis.world.biome.decorate.WorldGenPlant;
 import genesis.world.gen.feature.WorldGenTreeBjuvia;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class BiomeGenRedBeach extends BiomeGenBeachGenesis
 {

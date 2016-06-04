@@ -1,13 +1,17 @@
 package genesis.world.biome;
 
-import genesis.combo.*;
-import genesis.combo.variant.*;
+import genesis.combo.PlantBlocks;
+import genesis.combo.SiltBlocks;
+import genesis.combo.variant.EnumPlant;
+import genesis.combo.variant.EnumSilt;
 import genesis.common.GenesisBlocks;
 import genesis.util.random.f.FloatRange;
-import genesis.world.biome.decorate.*;
-import genesis.world.gen.feature.*;
-
-import net.minecraft.util.math.Vec3d;
+import genesis.world.biome.decorate.WorldGenPebbles;
+import genesis.world.biome.decorate.WorldGenPlant;
+import genesis.world.biome.decorate.WorldGenRockBoulders;
+import genesis.world.biome.decorate.WorldGenRoots;
+import genesis.world.gen.feature.WorldGenTreeBjuvia;
+import genesis.world.gen.feature.WorldGenTreeVoltzia;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class BiomeGenRedDesert extends BiomeGenBaseGenesis

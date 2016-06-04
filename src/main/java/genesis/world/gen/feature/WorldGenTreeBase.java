@@ -5,12 +5,12 @@ import java.util.Random;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 
+import genesis.block.BlockAnkyropteris;
 import genesis.block.BlockResin;
 import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
-import genesis.util.random.i.*;
-
+import genesis.util.random.i.RandomIntProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLog;
@@ -18,13 +18,12 @@ import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-
 import net.minecraftforge.common.IPlantable;
 
 public abstract class WorldGenTreeBase extends WorldGenAbstractTree
@@ -40,6 +39,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	protected RandomIntProvider heightProvider;
 	
 	private boolean canGrowInWater = false;
+	private boolean generateVine = false;
 	private Predicate<IBlockState> soilPredicate = Predicates.alwaysTrue();
 	
 	protected RandomIntProvider saplingCountProvider = null;
@@ -78,6 +78,12 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 						: null,
 				heightProvider,
 				notify);
+	}
+	
+	public WorldGenTreeBase generateVine()
+	{
+		this.generateVine = true;
+		return this;
 	}
 	
 	public WorldGenTreeBase setType(TreeTypes type)
@@ -307,14 +313,16 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 			if (!(currentState.getBlock().isAir(currentState, world, pos) 
 							|| currentState.getBlock().isReplaceable(world, pos)
 							|| currentState.getBlock().isLeaves(currentState, world, pos))
-					&& !force)
+					&& !force
+					&& !(currentState.getBlock() == GenesisBlocks.ankyropteris))
 			return;
 		}
 		else if (state == leaves)
 		{
 			if (!currentState.getBlock().isAir(currentState, world, pos)
 					&& !force
-					&& !(currentState == hangingFruit))
+					&& !(currentState == hangingFruit)
+					&& !(currentState.getBlock() == GenesisBlocks.ankyropteris))
 				return;
 			
 			if (GenesisBlocks.trees.getVariant(leaves).getFruitType() == EnumTree.FruitType.LEAVES
@@ -337,6 +345,61 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		else
 			world.setBlockState(pos, state, 2);
 		
+		if (generateVine && world.rand.nextInt(3) == 0)
+		{
+			BlockPos north = pos.north();
+			BlockPos south = pos.south();
+			BlockPos east = pos.east();
+			BlockPos west = pos.west();
+			
+			IBlockState stateNorth = world.getBlockState(north);
+			IBlockState stateSouth = world.getBlockState(south);
+			IBlockState stateEast = world.getBlockState(east);
+			IBlockState stateWest = world.getBlockState(west);
+			
+			int vineLength = 0;
+			
+			if (
+					world.rand.nextInt(2) == 0 
+					&& stateNorth.getBlock().isAir(stateNorth, world, north))
+			{
+				vineLength = world.rand.nextInt(8) + 1;
+				for (int vi = 0; vi < vineLength; ++vi)
+					if (world.isAirBlock(north.add(0, -vi, 0)))
+						world.setBlockState(north.add(0, -vi, 0), GenesisBlocks.ankyropteris.getDefaultState().withProperty(BlockAnkyropteris.SOUTH, true));
+			}
+			
+			if (
+					world.rand.nextInt(2) == 0 
+					&& stateSouth.getBlock().isAir(stateSouth, world, south))
+			{
+				vineLength = world.rand.nextInt(8) + 1;
+				for (int vi = 0; vi < vineLength; ++vi)
+					if (world.isAirBlock(south.add(0, -vi, 0)))
+						world.setBlockState(south.add(0, -vi, 0), GenesisBlocks.ankyropteris.getDefaultState().withProperty(BlockAnkyropteris.NORTH, true));
+			}
+			
+			if (
+					world.rand.nextInt(2) == 0 
+					&& stateEast.getBlock().isAir(stateEast, world, east))
+			{
+				vineLength = world.rand.nextInt(8) + 1;
+				for (int vi = 0; vi < vineLength; ++vi)
+					if (world.isAirBlock(east.add(0, -vi, 0)))
+						world.setBlockState(east.add(0, -vi, 0), GenesisBlocks.ankyropteris.getDefaultState().withProperty(BlockAnkyropteris.WEST, true));
+			}
+			
+			if (
+					world.rand.nextInt(2) == 0 
+					&& stateWest.getBlock().isAir(stateWest, world, west))
+			{
+				vineLength = world.rand.nextInt(8) + 1;
+				for (int vi = 0; vi < vineLength; ++vi)
+					if (world.isAirBlock(west.add(0, -vi, 0)))
+						world.setBlockState(west.add(0, -vi, 0), GenesisBlocks.ankyropteris.getDefaultState().withProperty(BlockAnkyropteris.EAST, true));
+			}
+		}
+		
 		if (hangingFruit != null && state == leaves
 				&& world.rand.nextInt(10) == 0
 				&& stateBelow.getBlock().isAir(stateBelow, world, below))
@@ -350,7 +413,8 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 			IBlockState checkState = world.getBlockState(checkPos);
 			
 			if (!checkState.getBlock().isReplaceable(world, checkPos)
-					&& !checkState.getBlock().isLeaves(checkState, world, pos))
+					&& !checkState.getBlock().isLeaves(checkState, world, pos)
+					&& (!(checkState.getBlock().getMaterial(checkState) == Material.water) && canGrowInWater))
 			{
 				return false;
 			}
