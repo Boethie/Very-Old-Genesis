@@ -87,6 +87,7 @@ public final class GenesisBlocks
 
 	/* Plants */
 	public static final PlantBlocks plants = new PlantBlocks();
+	public static final Block asplenium = new BlockAsplenium().setUnlocalizedName(Unlocalized.PREFIX + "fern.asplenium");
 	public static final BlockCalamites calamites = (BlockCalamites) new BlockCalamites(true, 15, 7)
 			.setGrowth(6, 1, 1, 1)
 			.setUnlocalizedName(Unlocalized.PLANT + "calamites");
@@ -322,6 +323,7 @@ public final class GenesisBlocks
 		
 		// Ferns
 		plants.registerVariants(PlantBlocks.FERN);
+		Genesis.proxy.registerBlock(asplenium, new ItemColored(asplenium, false), name("asplenium"));
 		plants.registerVariants(PlantBlocks.DOUBLE_FERN);
 		
 		// - Growing Plants -
@@ -470,7 +472,7 @@ public final class GenesisBlocks
 		itemCol.registerItemColorHandler((s, t) -> plants.getVariant(s).getColorMultiplier(null, null), plantsArray);
 		
 		registerColors(blockCol, itemCol, Colorizers.BLOCK_GRASS,
-				cobbania, cladophlebis, ankyropteris);
+				cobbania, cladophlebis, ankyropteris, asplenium);
 		
 		blockCol.registerBlockColorHandler(Colorizers.BLOCK_GRASS,
 				odontopteris, programinis);

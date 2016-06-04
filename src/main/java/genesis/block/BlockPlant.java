@@ -45,8 +45,8 @@ public class BlockPlant<V extends IPlantMetadata<V>> extends BlockBush implement
 	
 	public final ObjectType<V, ? extends BlockGenesisDoublePlant<V>, ?> doubleType;
 	
-	protected static final float BB_INSET = 0.0625F * 2;
-	protected static final AxisAlignedBB BB =
+	public static final float BB_INSET = 0.0625F * 2;
+	public static final AxisAlignedBB BB =
 			new AxisAlignedBB(BB_INSET, 0, BB_INSET, 1 - BB_INSET, 1 - BB_INSET, 1 - BB_INSET);
 	
 	public BlockPlant(VariantsOfTypesCombo<V> owner,
