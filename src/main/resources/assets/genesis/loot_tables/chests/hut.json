@@ -21,12 +21,77 @@
 				{ 
 					"type": "item",
 					"name": "genesis:dishe_0",
-                    "weight": 20
+                    "weight": 20,
+					"functions": [
+                        {
+                            "function": "set_data",
+                            "data": 5
+                        }
+					]
                 },
 				{ 
 					"type": "item",
 					"name": "genesis:food_0",
+                    "weight": 20,
+					"functions": [
+                        {
+                            "function": "set_data",
+                            "data": 4
+                        }
+					]
+                }
+			]
+		},
+		{
+			"name": "fiberTorchAndBucket",
+			"rolls": {
+                "min": 1,
+                "max": 5
+            },
+			"entries": [
+                { 
+					"type": "item",
+					"name": "genesis:material_0",
+                    "weight": 20,
+					"functions": [
+                        {
+                            "function": "set_data",
+                            "data": 2
+                        }
+					]
+                },
+				{ 
+					"type": "item",
+					"name": "genesis:ceramic_bucket",
                     "weight": 20
+                },
+				{ 
+					"type": "item",
+					"name": "genesis:calamites_torch",
+                    "weight": 20
+                }
+			]
+		},
+		{
+			"name": "billets",
+			"rolls": {
+                "min": 1,
+                "max": 4
+            },
+			"entries": [
+                { 
+					"type": "item",
+					"name": "genesis:billet_0",
+                    "weight": 20,
+					"functions": [
+                        {
+                            "function": "set_data",
+                            "data": {
+                                "min": 1,
+                                "max": 2
+                            }
+                        }
+					]
                 }
 			]
 		},
