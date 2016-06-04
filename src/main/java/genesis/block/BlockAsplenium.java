@@ -33,9 +33,20 @@ public class BlockAsplenium extends BlockBush implements IShearable
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	}
 
+	public static boolean canSustainAsplenum(IBlockState state)
+	{
+		return state.getMaterial() == Material.rock;
+	}
+
+	@Override
+	protected boolean canSustainBush(IBlockState state)
+	{
+		return canSustainAsplenum(state);
+	}
+
 	public boolean canBlockStay(IBlockAccess world, BlockPos pos, EnumFacing facing)
 	{
-		return facing.getAxis().isHorizontal() && world.getBlockState(pos.offset(facing)).getMaterial() == Material.rock;
+		return facing.getAxis().isHorizontal() && canSustainBush(world.getBlockState(pos.offset(facing)));
 	}
 
 	@Override

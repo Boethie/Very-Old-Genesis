@@ -142,10 +142,20 @@ public abstract class WorldGenDecorationBase extends WorldGenerator
 		return setPatchCount(count / 2, count);
 	}
 	
+	protected RandomIntProvider getPatchCountProvider()
+	{
+		return patchCountProvider;
+	}
+
 	public WorldGenDecorationBase setPatchRadius(double radius)
 	{
 		patchMaxRadius = radius;
 		return this;
+	}
+
+	protected double getPatchMaxRadius()
+	{
+		return patchMaxRadius;
 	}
 
 	public WorldGenDecorationBase setPatchHeight(int height)
@@ -154,6 +164,11 @@ public abstract class WorldGenDecorationBase extends WorldGenerator
 		return this;
 	}
 	
+	protected int getPatchStartHeight()
+	{
+		return patchStartHeight;
+	}
+
 	public WorldGenDecorationBase setRarity(int rarity)
 	{
 		this.rarity = rarity;
