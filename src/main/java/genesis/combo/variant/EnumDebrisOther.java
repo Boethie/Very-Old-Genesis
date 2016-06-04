@@ -1,8 +1,7 @@
 package genesis.combo.variant;
 
-import com.google.common.base.Supplier;
-
 import genesis.common.GenesisItems;
+import java.util.function.Supplier;
 import net.minecraft.item.ItemStack;
 
 public enum EnumDebrisOther implements IMetadata<EnumDebrisOther>

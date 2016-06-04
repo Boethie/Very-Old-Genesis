@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 
 public class WorldGenGrassMulti extends WorldGenGrass
 {
-	private final List<IBlockState> states = new ArrayList<IBlockState>();
+	private final List<IBlockState> states = new ArrayList<>();
 	private int volume = 128;
 	
 	public WorldGenGrassMulti(IBlockState... blockStates)

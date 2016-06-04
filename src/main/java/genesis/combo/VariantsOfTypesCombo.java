@@ -240,7 +240,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 					}
 					
 					Block block = null;
-					Item item = null;
+					Item item;
 					Object[] itemArgs;
 					
 					if (blockClass != null)
@@ -419,7 +419,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 			return;
 		}
 		
-		List<Integer> subsets = new ArrayList<Integer>(subsetDataTable.row(type).keySet());
+		List<Integer> subsets = new ArrayList<>(subsetDataTable.row(type).keySet());
 		Collections.sort(subsets);
 		
 		for (int subsetID : subsets)
@@ -974,7 +974,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	 */
 	public List<ItemStack> fillSubItems(ObjectType<V, ?, ?> objectType, List<V> variants, List<ItemStack> listToFill)
 	{
-		return fillSubItems(objectType, variants, listToFill, Collections.<V>emptySet());
+		return fillSubItems(objectType, variants, listToFill, Collections.emptySet());
 	}
 	
 	/**
@@ -982,7 +982,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	 */
 	public final List<ItemStack> getSubItems(ObjectType<V, ?, ?> objectType, List<V> variants, Collection<V> exclude)
 	{
-		return fillSubItems(objectType, variants, new ArrayList<ItemStack>(), exclude);
+		return fillSubItems(objectType, variants, new ArrayList<>(), exclude);
 	}
 	
 	/**
@@ -999,7 +999,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	 */
 	public final List<ItemStack> getSubItems(ObjectType<V, ?, ?> objectType, List<V> variants)
 	{
-		return getSubItems(objectType, variants, Collections.<V>emptySet());
+		return getSubItems(objectType, variants, Collections.emptySet());
 	}
 	
 	/**
@@ -1024,7 +1024,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	 */
 	public final List<ItemStack> getSubItems(ObjectType<V, ?, ?> objectType)
 	{
-		return getSubItems(objectType, Collections.<V>emptySet());
+		return getSubItems(objectType, Collections.emptySet());
 	}
 	
 	/**

@@ -38,7 +38,7 @@ public class BlockMultiOre<V extends IOreVariant<V>> extends BlockOre
 		this.owner = owner;
 		this.type = type;
 		
-		variantProp = new PropertyIMetadata<V>("variant", variants, variantClass);
+		variantProp = new PropertyIMetadata<>("variant", variants, variantClass);
 		blockState = new BlockStateContainer(this, variantProp);
 		setDefaultState(blockState.getBaseState());
 		

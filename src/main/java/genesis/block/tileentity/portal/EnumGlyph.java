@@ -25,7 +25,7 @@ public enum EnumGlyph implements IMetadata<EnumGlyph>
 	
 	final String name;
 	final String unlocalizedName;
-	final List<ItemStackKey> activators = new ArrayList<ItemStackKey>();
+	final List<ItemStackKey> activators = new ArrayList<>();
 	
 	EnumGlyph(String name, String unlocalizedName, Object... activators)
 	{

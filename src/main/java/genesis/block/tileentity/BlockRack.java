@@ -71,7 +71,7 @@ public class BlockRack extends BlockContainer implements MultiPartBlock
 		this.owner = owner;
 		this.type = type;
 		
-		variantProp = new PropertyIMetadata<EnumTree>("variant", Collections.singletonList(variant), variantClass);
+		variantProp = new PropertyIMetadata<>("variant", Collections.singletonList(variant), variantClass);
 		this.variant = variant;
 		
 		blockState = new BlockStateContainer(this, RACKS.toArrayWith(variantProp));

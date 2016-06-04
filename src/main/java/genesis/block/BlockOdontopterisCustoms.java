@@ -40,7 +40,7 @@ public class BlockOdontopterisCustoms extends SurviveOnDirtCustoms
 	@Override
 	public ArrayList<ItemStack> getPlantDrops(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, int fortune)
 	{
-		ArrayList<ItemStack> out = new ArrayList<ItemStack>();
+		ArrayList<ItemStack> out = new ArrayList<>();
 		int age = state.getValue(plant.ageProp);
 		boolean top = state.getValue(plant.topProp);
 		

@@ -9,7 +9,7 @@ public class ClassRenderFactory<T extends Entity> implements IRenderFactory<T>
 {
 	public static <T extends Entity> ClassRenderFactory<T> create(Class<? extends Render<? super T>> renderClass)
 	{
-		return new ClassRenderFactory<T>(renderClass);
+		return new ClassRenderFactory<>(renderClass);
 	}
 	
 	public final Class<? extends Render<? super T>> renderClass;

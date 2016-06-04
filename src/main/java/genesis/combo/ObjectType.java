@@ -311,7 +311,7 @@ public class ObjectType<V extends IMetadata<V>, B extends Block, I extends Item>
 	public static <V extends IMetadata<V>, B extends Block, I extends Item>
 	ObjectType<V, B, I> create(Class<V> variantClass, String name, String unlocalizedName, Class<B> blockClass, Class<I> itemClass)
 	{
-		return new ObjectType<V, B, I>(variantClass, name, unlocalizedName, blockClass, itemClass);
+		return new ObjectType<>(variantClass, name, unlocalizedName, blockClass, itemClass);
 	}
 	
 	/**

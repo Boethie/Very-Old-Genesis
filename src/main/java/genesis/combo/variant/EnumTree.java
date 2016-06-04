@@ -25,7 +25,7 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	ANNONA("annona", tree().noDead().noDebris().fruit(1, 1.4F)),
 	LAUROPHYLLUM("laurophyllum", bush().noDead().noDebris().fruit(1, 0.4F).bow(0.7F, 1.1F));
 	
-	public static enum FruitType
+	public enum FruitType
 	{
 		NONE, LEAVES, HANGING
 	}

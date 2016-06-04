@@ -49,7 +49,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 		this.type = type;
 		
 		this.variants = variants;
-		variantProp = new PropertyIMetadata<EnumTree>("variant", variants, variantClass);
+		variantProp = new PropertyIMetadata<>("variant", variants, variantClass);
 		
 		blockState = new BlockStateContainer(this, variantProp, CHECK_DECAY, DECAYABLE);
 		setDefaultState(getBlockState().getBaseState().withProperty(DECAYABLE, true).withProperty(CHECK_DECAY, false));
@@ -104,7 +104,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
 	{
-		ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
+		ArrayList<ItemStack> ret = new ArrayList<>();
 		
 		Random rand = WorldUtils.getWorldRandom(world, RANDOM);
 		

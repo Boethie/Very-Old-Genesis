@@ -6,12 +6,12 @@ import net.minecraft.util.math.MathHelper;
 
 public interface DoubleRange
 {
-	public static DoubleRange create(double value)
+	static DoubleRange create(double value)
 	{
 		return new Value(value);
 	}
 	
-	public static DoubleRange create(double min, double max)
+	static DoubleRange create(double min, double max)
 	{
 		if (min == max)
 		{
@@ -21,11 +21,11 @@ public interface DoubleRange
 		return new Range(min, max);
 	}
 	
-	public double get(Random rand);
-	public double getMin();
-	public double getMax();
+	double get(Random rand);
+	double getMin();
+	double getMax();
 	
-	static class Range implements DoubleRange
+	class Range implements DoubleRange
 	{
 		public final double min;
 		public final double max;
@@ -55,7 +55,7 @@ public interface DoubleRange
 		}
 	}
 	
-	static class Value implements DoubleRange
+	class Value implements DoubleRange
 	{
 		public final double value;
 		

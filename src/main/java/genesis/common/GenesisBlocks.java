@@ -52,7 +52,7 @@ public final class GenesisBlocks
 	/* Rocks */
 	public static final Block granite = new BlockGenesisRock(2.1F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "granite");
 	public static final Block mossy_granite = new BlockGenesisRock(2.1F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "mossyGranite");
-	public static final Block radioactive_granite = new BlockRadioactiveGranite().setUnlocalizedName(Unlocalized.ROCK + "radioactiveGranite");;
+	public static final Block radioactive_granite = new BlockRadioactiveGranite().setUnlocalizedName(Unlocalized.ROCK + "radioactiveGranite");
 	public static final Block rhyolite = new BlockGenesisRock(1.65F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "rhyolite");
 	public static final Block dolerite = new BlockGenesisRock(1.2F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "dolerite");
 	public static final Block komatiite = new BlockGenesisRock(1.95F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "komatiite");

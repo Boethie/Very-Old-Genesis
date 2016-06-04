@@ -49,8 +49,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		@Override
 		public Collection<ItemStackKey> getAllowedValues()
 		{
-			Set<ItemStackKey> keySet = values.keySet();
-			return keySet;
+			return values.keySet();
 		}
 		
 		@Override
@@ -69,7 +68,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		}
 	}
 	
-	private static final Map<ItemStackKey, ItemStackKey> PAIR_MAP = Maps.newHashMap();
+	private static final Map<ItemStackKey, ItemStackKey> PAIR_MAP = new HashMap<>();
 	
 	/**
 	 * Used to get the same exact instance of ItemStackKey for an ItemStack, because BlockStateContainer$StateImplementation doesn't handle new instances for default property values in withProperty.
@@ -92,8 +91,8 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		return newKey;
 	}
 	
-	private static final Map<ItemStackKey, String> stacksToNames = new LinkedHashMap<ItemStackKey, String>();
-	private static final Map<ItemStackKey, IFlowerPotPlant> stacksToCustoms = new HashMap<ItemStackKey, IFlowerPotPlant>();
+	private static final Map<ItemStackKey, String> stacksToNames = new LinkedHashMap<>();
+	private static final Map<ItemStackKey, IFlowerPotPlant> stacksToCustoms = new HashMap<>();
 	
 	public static void registerPlantForPot(ItemStack stack, String name)
 	{

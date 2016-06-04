@@ -42,6 +42,7 @@ public class WorldGenTreeCordaites extends WorldGenTreeBase
 		generateBaseBranch(world, basePos, rand, baseHeight, 0, 1);
 		generateBaseBranch(world, basePos, rand, baseHeight, 0, -1);
 		
+		//TODO cordaites gen branchPos bug?
 		BlockPos branchPos = pos.up(height - 1);
 		
 		int leavesLevel = Math.max(basePos.getY() + 2, pos.getY() + leavesStart);

@@ -1,7 +1,7 @@
 package genesis.combo.variant;
 
-import com.google.common.base.Supplier;
 import genesis.common.GenesisBlocks;
+import java.util.function.Supplier;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;

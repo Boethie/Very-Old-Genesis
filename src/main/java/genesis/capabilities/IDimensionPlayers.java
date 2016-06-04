@@ -26,7 +26,7 @@ public interface IDimensionPlayers
 	NBTTagCompound getData(DimensionType dim);
 	void setData(DimensionType dim, NBTTagCompound data);
 	
-	public static class Storage implements IStorage<IDimensionPlayers>
+	class Storage implements IStorage<IDimensionPlayers>
 	{
 		@Override
 		public NBTBase writeNBT(Capability<IDimensionPlayers> capability, IDimensionPlayers instance, EnumFacing side)
@@ -53,7 +53,7 @@ public interface IDimensionPlayers
 		}
 	}
 	
-	public static class Impl implements IDimensionPlayers
+	class Impl implements IDimensionPlayers
 	{
 		private EntityPlayerMP player;
 		private Map<DimensionType, NBTTagCompound> map = new EnumMap<>(DimensionType.class);

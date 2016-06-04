@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 
 public class WorldGenDeadLog extends WorldGenTreeBase
 {
-	private List<IBlockState> topDecorations = new ArrayList<IBlockState>();
+	private List<IBlockState> topDecorations = new ArrayList<>();
 	private int treeType = 0;
 	
 	private int minHeight;

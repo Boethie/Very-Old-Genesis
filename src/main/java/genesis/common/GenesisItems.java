@@ -39,7 +39,7 @@ public final class GenesisItems
 	public static final VariantsCombo<EnumPowder, Block, ItemMulti<EnumPowder>> powders =
 			VariantsCombo.create(
 					"powders",
-					ObjectType.<EnumPowder>createItem(EnumPowder.class, "powder"),
+					ObjectType.createItem(EnumPowder.class, "powder"),
 					EnumPowder.class, EnumPowder.values());
 	
 	public static final VariantsCombo<EnumMaterial, Block, ItemMaterial> materials =
@@ -49,7 +49,7 @@ public final class GenesisItems
 					EnumMaterial.class, EnumMaterial.values());
 	
 	/* Eggs */
-	public static final ItemGenesisEgg<EntityMeganeuraEgg> meganeura_egg = new ItemGenesisEgg<EntityMeganeuraEgg>(EntityMeganeuraEgg.class)
+	public static final ItemGenesisEgg<EntityMeganeuraEgg> meganeura_egg = new ItemGenesisEgg<>(EntityMeganeuraEgg.class)
 			.setUnlocalizedName(Unlocalized.EGG + "meganeura");
 	
 	/* Seeds */

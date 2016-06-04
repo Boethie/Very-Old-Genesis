@@ -2,8 +2,8 @@ package genesis.world.biome.decorate;
 
 import java.util.List;
 import java.util.Random;
+import java.util.function.Predicate;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 
 import genesis.util.functional.WorldBlockMatcher;

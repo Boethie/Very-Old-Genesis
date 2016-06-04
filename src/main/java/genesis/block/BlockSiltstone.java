@@ -47,7 +47,7 @@ public class BlockSiltstone extends BlockGenesis
 		this.type = type;
 		
 		this.variants = variants;
-		this.variantProp = new PropertyIMetadata<EnumSilt>("variant", variants, variantClass);
+		this.variantProp = new PropertyIMetadata<>("variant", variants, variantClass);
 		
 		blockState = new BlockStateContainer(this, variantProp);
 		setDefaultState(blockState.getBaseState());

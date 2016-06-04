@@ -69,7 +69,7 @@ public class BlockHangingFruit extends BlockGenesis
 	
 	protected boolean canBlockStay(IBlockAccess world, BlockPos pos)
 	{
-		return canBlockStay(world, pos);
+		return canBlockStay(world, pos, world.getBlockState(pos));
 	}
 	
 	@Override

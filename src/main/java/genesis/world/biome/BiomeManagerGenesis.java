@@ -1,19 +1,14 @@
 package genesis.world.biome;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeManager.BiomeEntry;
 import net.minecraftforge.common.BiomeManager.BiomeType;
 
-import com.google.common.collect.Maps;
-
 public class BiomeManagerGenesis
 {
-	private static final Map<BiomeType, List<BiomeEntry>> biomes = Maps.newHashMap();
+	private static final Map<BiomeType, List<BiomeEntry>> biomes = new HashMap<>();
 	
 	public static boolean registerBiome(BiomeGenBaseGenesis biome, int id, BiomeType type, int weight)
 	{
@@ -31,7 +26,7 @@ public class BiomeManagerGenesis
 	{
 		if (!biomes.containsKey(type))
 		{
-			biomes.put(type, new ArrayList<BiomeEntry>());
+			biomes.put(type, new ArrayList<>());
 		}
 		
 		return biomes.get(type);

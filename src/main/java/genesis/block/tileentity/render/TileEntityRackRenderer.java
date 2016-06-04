@@ -17,13 +17,13 @@ public class TileEntityRackRenderer extends TileEntitySpecialRenderer<TileEntity
 {
 	//public static final ResourceLocation LID = new ResourceLocation(Constants.ASSETS_PREFIX + "rack");
 	
-	public static class Model extends ModelBase
+	public static class ModelRack extends ModelBase
 	{
 		private static final float ITEM_OFFSET = 0.5F - (1.5F / 16);
 		
 		public final Map<EnumFacing, ItemAsEntityPart> items;
 		
-		public Model()
+		public ModelRack()
 		{
 			ImmutableMap.Builder<EnumFacing, ItemAsEntityPart> builder = ImmutableMap.builder();
 			
@@ -52,7 +52,7 @@ public class TileEntityRackRenderer extends TileEntitySpecialRenderer<TileEntity
 		}
 	}
 	
-	private Model model = new Model();
+	protected ModelRack model = new ModelRack();
 	
 	public TileEntityRackRenderer()
 	{
@@ -60,7 +60,7 @@ public class TileEntityRackRenderer extends TileEntitySpecialRenderer<TileEntity
 	
 	@Override
 	public void renderTileEntityAt(TileEntityRack te, double x, double y, double z, float partialTicks, int destroyStage)
-	{model = new Model();
+	{
 		GlStateManager.disableLighting();
 		
 		GlStateManager.pushMatrix();

@@ -64,7 +64,7 @@ public class BlockPlant<V extends IPlantMetadata<V>> extends BlockBush implement
 		this.owner = owner;
 		this.type = type;
 		
-		variantProp = new PropertyIMetadata<V>("variant", variants, variantClass);
+		variantProp = new PropertyIMetadata<>("variant", variants, variantClass);
 		this.variants = variants;
 		
 		blockState = new BlockStateContainer(this, variantProp);

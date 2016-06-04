@@ -20,7 +20,7 @@ import net.minecraft.world.World;
 
 public class WorldGenPebbles extends WorldGenDecorationBase
 {
-	public List<EnumToolMaterial> pebbleTypes = new ArrayList<EnumToolMaterial>();
+	public List<EnumToolMaterial> pebbleTypes = new ArrayList<>();
 	
 	protected List<PropertyBool> pebbleProperties = ImmutableList.of(BlockPebble.NE, BlockPebble.SE, BlockPebble.SW, BlockPebble.NW);
 	private boolean waterRequired = true;

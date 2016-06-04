@@ -65,7 +65,7 @@ public class BlockWattleFence extends BlockGenesisFence
 		this.owner = owner;
 		this.type = type;
 		
-		variantProp = new PropertyIMetadata<EnumTree>("variant", variants, variantClass);
+		variantProp = new PropertyIMetadata<>("variant", variants, variantClass);
 		this.variants = variants;
 		
 		blockState = new BlockStateContainer(this, variantProp, NORTH, EAST, SOUTH, WEST);

@@ -124,13 +124,13 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	@Override
 	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, List<ItemStack> normalDrop)
 	{
-		return shearable ? normalDrop : Collections.<ItemStack>emptyList();
+		return shearable ? normalDrop : Collections.emptyList();
 	}
 	
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, Random rand, List<ItemStack> normalDrop)
 	{
-		return shearable ? Collections.<ItemStack>emptyList() : normalDrop;
+		return shearable ? Collections.emptyList() : normalDrop;
 	}
 	
 	@Override

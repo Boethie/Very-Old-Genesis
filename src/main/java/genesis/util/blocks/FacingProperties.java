@@ -1,10 +1,10 @@
 package genesis.util.blocks;
 
 import java.util.*;
+import java.util.function.Function;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import com.google.common.base.*;
 import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.block.properties.IProperty;
@@ -17,12 +17,12 @@ public class FacingProperties<V extends Comparable<V>> implements Iterable<Facin
 {
 	public static <V extends Comparable<V>> FacingProperties<V> create(Function<EnumFacing, IProperty<V>> function)
 	{
-		return new FacingProperties<V>(function);
+		return new FacingProperties<>(function);
 	}
 	
 	public static <V extends Comparable<V>> FacingProperties<V> createHorizontal(Function<EnumFacing, IProperty<V>> function)
 	{
-		return new FacingProperties<V>((f) -> f.getAxis() != EnumFacing.Axis.Y ? function.apply(f) : null);
+		return new FacingProperties<>((f) -> f.getAxis() != EnumFacing.Axis.Y ? function.apply(f) : null);
 	}
 	
 	private final Map<EnumFacing, IProperty<V>> map;

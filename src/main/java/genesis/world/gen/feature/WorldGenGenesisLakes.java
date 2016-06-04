@@ -56,7 +56,12 @@ public class WorldGenGenesisLakes extends WorldGenerator
 	@Override
 	public boolean generate(World world, Random rand, BlockPos pos)
 	{
-		for (pos = pos.add(-SIZE_X / 2, 0, -SIZE_Z / 2); pos.getY() > 5 && world.isAirBlock(pos); pos = pos.down()) {}
+		pos = pos.add(-SIZE_X / 2, 0, -SIZE_Z / 2);
+		while (pos.getY() > 5 && world.isAirBlock(pos))
+		{
+			pos = pos.down();
+		}
+
 		byte top = 4;
 		pos = pos.down(top);
 		

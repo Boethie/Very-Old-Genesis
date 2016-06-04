@@ -12,13 +12,13 @@ public class VariantDrop<V extends IMetadata<V>> extends BlockDrop
 	public static <V extends IMetadata<V>>
 	VariantDrop<V> create(VariantsOfTypesCombo<V> combo, ObjectType<V, ?, ?> type, int min, int max)
 	{
-		return new VariantDrop<V>(combo, type, min, max);
+		return new VariantDrop<>(combo, type, min, max);
 	}
 	
 	public static <V extends IMetadata<V>>
 	VariantDrop<V> create(VariantsOfTypesCombo<V> combo, ObjectType<V, ?, ?> type, int size)
 	{
-		return new VariantDrop<V>(combo, type, size);
+		return new VariantDrop<>(combo, type, size);
 	}
 	
 	public VariantsOfTypesCombo<V> combo;

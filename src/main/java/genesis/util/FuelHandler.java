@@ -8,8 +8,6 @@ import genesis.common.GenesisItems;
 
 import java.util.HashMap;
 
-import com.google.common.collect.Maps;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -24,7 +22,7 @@ public class FuelHandler implements IFuelHandler
 {
 	protected static final FuelHandler INSTANCE = new FuelHandler();
 	
-	protected HashMap<ItemStackKey, Integer> fuels = Maps.newHashMap();
+	protected HashMap<ItemStackKey, Integer> fuels = new HashMap<>();
 	
 	public static void initialize()
 	{

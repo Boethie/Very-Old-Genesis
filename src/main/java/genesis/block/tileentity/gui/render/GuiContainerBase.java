@@ -99,8 +99,8 @@ public class GuiContainerBase extends GuiContainer
 		
 		for (Slot slot : inventorySlots.inventorySlots)
 		{
-			int slotU = -1;
-			int slotV = -1;
+			int slotU;
+			int slotV;
 			int slotW = container.slotW;
 			int slotH = container.slotH;
 			
@@ -198,9 +198,9 @@ public class GuiContainerBase extends GuiContainer
 			boolean centerX, boolean centerY)
 	{
 		if (centerX)
-			x -= centerX ? w / 2 : 0;
+			x -= w / 2;
 		if (centerY)
-			y -= centerY ? h / 2 : 0;
+			y -= h / 2;
 		drawTextureUVPx(x, y, w, h, u, v, uvW, uvH);
 	}
 	

@@ -3,7 +3,6 @@ package genesis.block;
 import java.util.*;
 
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
 
 import genesis.combo.*;
 import genesis.combo.VariantsOfTypesCombo.*;
@@ -66,7 +65,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 		this.type = type;
 		
 		this.variants = variants;
-		variantProp = new PropertyIMetadata<EnumAquaticPlant>("variant", variants, variantClass);
+		variantProp = new PropertyIMetadata<>("variant", variants, variantClass);
 		
 		blockState = new BlockStateContainer(this, variantProp, BlockLiquid.LEVEL);
 		setDefaultState(getBlockState().getBaseState());
@@ -227,7 +226,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 	{
 		if (validGround == null)
 		{
-			validGround = Sets.newIdentityHashSet();
+			validGround = new HashSet<>();
 			validGround.add(Blocks.dirt);
 			validGround.add(Blocks.sand);
 			validGround.add(Blocks.gravel);
@@ -270,7 +269,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 		EnumAquaticPlant variant = state.getValue(variantProp);
 		
 		if (!validGround.contains(blockBelow)
-				&& blockBelow instanceof BlockGenesisRock == false
+				&& !(blockBelow instanceof BlockGenesisRock)
 				&& (variant != EnumAquaticPlant.CHARNIA_TOP || blockBelow != this || below.getValue(variantProp) != EnumAquaticPlant.CHARNIA))
 		{
 			return false;

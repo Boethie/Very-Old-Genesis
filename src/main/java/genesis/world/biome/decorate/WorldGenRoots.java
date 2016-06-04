@@ -26,7 +26,7 @@ public class WorldGenRoots extends WorldGenDecorationBase
 	{
 		pos = new BlockPos(pos.getX(), 80, pos.getZ());
 		
-		List<IBlockState> allowedBlocks = new ArrayList<IBlockState>();
+		List<IBlockState> allowedBlocks = new ArrayList<>();
 		
 		allowedBlocks.add(Blocks.dirt.getDefaultState());
 		allowedBlocks.add(Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT));

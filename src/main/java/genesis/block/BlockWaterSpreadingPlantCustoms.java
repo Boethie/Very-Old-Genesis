@@ -73,8 +73,10 @@ public class BlockWaterSpreadingPlantCustoms implements IGrowingPlantCustoms
 			{
 			case 5:
 				range = IntRange.create(0, 1);
+				break;
 			case 6:
 				range = IntRange.create(1);
+				break;
 			case 7:
 				range = IntRange.create(1, 2);
 				break;

@@ -18,9 +18,8 @@ import net.minecraft.world.gen.MapGenBase;
 
 public class MapGenCavesGenesis extends MapGenBase
 {	
-	private static final HashSet<Block> DIGGABLE_BLOCKS = new HashSet<Block>();
-	private static final HashMap<IBlockState, IBlockState> ABOVE_BLOCK_REPLACEMENTS
-		= new HashMap<IBlockState, IBlockState>();
+	private static final HashSet<Block> DIGGABLE_BLOCKS = new HashSet<>();
+	private static final HashMap<IBlockState, IBlockState> ABOVE_BLOCK_REPLACEMENTS = new HashMap<>();
 	private static final IBlockState[] LEVEL_REPLACEMENT_BLOCKS = new IBlockState[256];
 	static {
 		DIGGABLE_BLOCKS.add(GenesisBlocks.granite);

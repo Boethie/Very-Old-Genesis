@@ -16,8 +16,8 @@ public class ModelPlane extends CustomModelElement
 		super(part);
 		
 		Vec3d start = new Vec3d(x, y, z);
-		Vec3d localW = null;
-		Vec3d localH = null;
+		Vec3d localW;
+		Vec3d localH;
 		
 		float texW = part.textureWidth;
 		float texH = part.textureHeight;

@@ -1,8 +1,8 @@
 package genesis.util;
 
 import java.util.*;
+import java.util.function.Function;
 
-import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
 import net.minecraft.block.Block;

@@ -13,7 +13,7 @@ public class ContainerStorageBox extends ContainerBase
 		int boxCount = 0;
 		int yPos = 0;
 		int xPosBase = 0;
-		int xPos = 0;
+		int xPos;
 		
 		for (TileEntityStorageBox addBox : box.iterableFromMainToEnd())
 		{

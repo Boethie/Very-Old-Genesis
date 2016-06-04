@@ -1,10 +1,9 @@
 package genesis.block;
 
-import com.google.common.collect.Lists;
-
 import genesis.combo.TreeBlocksAndItems;
 import genesis.common.GenesisCreativeTabs;
 import genesis.common.sounds.GenesisSoundTypes;
+import java.util.ArrayList;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -23,7 +22,7 @@ public class BlockRoots extends BlockGenesis
 	public static final PropertyBool END = PropertyBool.create("end");
 	
 	private boolean unInit = true;
-	private List<IBlockState> blockStateSupportList = Lists.newArrayList();
+	private List<IBlockState> blockStateSupportList = new ArrayList<>();
 	
 	protected static final double RADIUS = 0.375;
 	protected static final AxisAlignedBB BB = new AxisAlignedBB(0.5 - RADIUS, 0, 0.5 - RADIUS, 0.5 + RADIUS, 1, 0.5 + RADIUS);

@@ -1,7 +1,6 @@
 package genesis.recipes;
 
-import com.google.common.base.Function;
-
+import java.util.function.Function;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;

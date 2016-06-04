@@ -19,13 +19,13 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	public static <V extends IMetadata<V>, B extends Block, I extends Item>
 	VariantsCombo<V, B, I> create(String name, ObjectType<V, B, I> type, Class<V> variantClass, List<V> variants)
 	{
-		return new VariantsCombo<V, B, I>(name, type, variantClass, variants);
+		return new VariantsCombo<>(name, type, variantClass, variants);
 	}
 	
 	public static <V extends IMetadata<V>, B extends Block, I extends Item>
 	VariantsCombo<V, B, I> create(String name, ObjectType<V, B, I> objectType, Class<V> variantClass, V[] variants)
 	{
-		return new VariantsCombo<V, B, I>(name, objectType, variantClass, variants);
+		return new VariantsCombo<>(name, objectType, variantClass, variants);
 	}
 	
 	private final ObjectType<V, B, I> type;
@@ -63,7 +63,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	public VariantsCombo(String name, String typeName, String typeUnlocalizedName, Class<B> blockClass, Class<I> itemClass,
 			Class<V> variantClass, V[] variants)
 	{
-		this(name, new ObjectType<V, B, I>(variantClass, typeName, typeUnlocalizedName, blockClass, itemClass),
+		this(name, new ObjectType<>(variantClass, typeName, typeUnlocalizedName, blockClass, itemClass),
 				variantClass, variants);
 	}
 	

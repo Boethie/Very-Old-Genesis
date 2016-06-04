@@ -4,8 +4,6 @@ import java.util.*;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import com.google.common.collect.Lists;
-
 import genesis.combo.*;
 import genesis.combo.ToolItems.*;
 import genesis.combo.VariantsOfTypesCombo.*;
@@ -177,7 +175,7 @@ public class BlockPebble extends Block implements MultiPartBlock
 	@Override
 	public RayTraceResult collisionRayTrace(IBlockState state, World world, BlockPos pos, Vec3d start, Vec3d end)
 	{
-		ArrayList<Pair<AxisAlignedBB, RayTraceResult>> hits = Lists.newArrayList();
+		ArrayList<Pair<AxisAlignedBB, RayTraceResult>> hits = new ArrayList<>();
 		
 		boolean hasPebble = false;
 		

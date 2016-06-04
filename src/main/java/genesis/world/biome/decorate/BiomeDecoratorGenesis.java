@@ -4,8 +4,6 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 import java.util.Random;
 
-import com.google.common.base.Predicates;
-
 import genesis.combo.*;
 import genesis.combo.variant.*;
 import genesis.common.*;
@@ -57,8 +55,8 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	{
 		clayGen = new WorldGenCircleReplacement((s) -> s.getMaterial() == Material.water,
 				4, 1,
-				Predicates.or(StateMatcher.forBlocks(Blocks.dirt, GenesisBlocks.ooze),
-						StateMatcher.forBlocks(GenesisBlocks.silt.getBlocks(SiltBlocks.SILT))),
+				StateMatcher.forBlocks(Blocks.dirt, GenesisBlocks.ooze)
+						.or(StateMatcher.forBlocks(GenesisBlocks.silt.getBlocks(SiltBlocks.SILT))),
 				GenesisBlocks.red_clay.getDefaultState());
 		sandGen = new WorldGenGenesisSand(GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT), 7);
 	}
@@ -138,11 +136,14 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			}
 		}
 		
-		for (DecorationEntry genEntry : biomeGenesis.getDecorations())
+		if (biomeGenesis != null)
 		{
-			for (int i = genEntry.getCountPerChunk(rand); i > 0; i--)
+			for (DecorationEntry genEntry : biomeGenesis.getDecorations())
 			{
-				genEntry.getGenerator().generate(world, rand, getPos(world, rand));
+				for (int i = genEntry.getCountPerChunk(rand); i > 0; i--)
+				{
+					genEntry.getGenerator().generate(world, rand, getPos(world, rand));
+				}
 			}
 		}
 		

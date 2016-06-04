@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Function;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.base.Function;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -108,7 +108,7 @@ public class WorldUtils
 	
 	public static List<IBlockState> getBlocksAround(final IBlockAccess world, final BlockPos pos)
 	{
-		final List<IBlockState> blocks = new ArrayList<IBlockState>();
+		final List<IBlockState> blocks = new ArrayList<>();
 
 		BlockPos shift = pos.north();
 		blocks.add(world.getBlockState(shift));
@@ -358,17 +358,11 @@ public class WorldUtils
 	 * @param te The faked {@link TileEntity} to return for that position.
 	 * @return An {@link IBlockAccess} for use in a call to some method.
 	 */
-	public static IBlockAccess getFakeWorld(IBlockAccess base, final BlockPos pos, final IBlockState state, final TileEntity te)
+	public static IBlockAccess getFakeWorld(IBlockAccess base, BlockPos pos, IBlockState state, TileEntity te)
 	{
 		return getFakeWorld(base,
-				new Function<BlockPos, IBlockState>()
-				{
-					@Override public IBlockState apply(BlockPos input) { return input.equals(pos) ? state : null; }
-				},
-				new Function<BlockPos, TileEntity>()
-				{
-					@Override public TileEntity apply(BlockPos input) { return input.equals(pos) ? te : null; }
-				});
+				(p) -> p.equals(pos) ? state : null,
+				(p) -> p.equals(pos) ? te : null);
 	}
 	
 	/**

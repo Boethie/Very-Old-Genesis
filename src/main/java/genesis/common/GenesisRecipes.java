@@ -5,7 +5,6 @@ import java.util.*;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
-import com.google.common.base.Function;
 import com.google.common.collect.*;
 
 import genesis.block.tileentity.*;
@@ -34,7 +33,7 @@ public final class GenesisRecipes
 	public static void makeSubstituteCraftingItem(ItemStack vanillaItem, ItemStack modItem, Object... outputExclusions)
 	{
 		List<IRecipe> recipes = CraftingManager.getInstance().getRecipeList();
-		ArrayList<IRecipe> replacedRecipes = new ArrayList<IRecipe>();
+		ArrayList<IRecipe> replacedRecipes = new ArrayList<>();
 		
 		for (IRecipe recipe : recipes)
 		{
@@ -142,7 +141,7 @@ public final class GenesisRecipes
 					ShapelessRecipes shapelessRecipe = (ShapelessRecipes) recipe;
 					
 					boolean replaced = false;
-					ArrayList<ItemStack> replacedItems = new ArrayList<ItemStack>();
+					ArrayList<ItemStack> replacedItems = new ArrayList<>();
 					for (ItemStack stack : shapelessRecipe.recipeItems)
 					{
 						if (stack.isItemEqual(vanillaItem))
@@ -919,14 +918,9 @@ public final class GenesisRecipes
 		
 		// Dyes
 		GameRegistry.addRecipe(new SubstituteRecipe(RecipesArmorDyes.class,
-				new Function<ItemStack, ItemStack>()
-				{
-					@Override
-					public ItemStack apply(ItemStack input)
-					{
-						IMetadata<?> variant = GenesisItems.bowls.getVariant(input).getOriginal();
-						return variant instanceof GenesisDye ? new ItemStack(Items.dye, input.stackSize, ((GenesisDye) variant).getColor().getDyeDamage()) : null;
-					}
+				(s) -> {
+					IMetadata<?> variant = GenesisItems.bowls.getVariant(s).getOriginal();
+					return variant instanceof GenesisDye ? new ItemStack(Items.dye, s.stackSize, ((GenesisDye) variant).getColor().getDyeDamage()) : null;
 				}));
 		
 		for (ItemDyeBowl item : GenesisItems.bowls.getItems(ItemsCeramicBowls.DYE))

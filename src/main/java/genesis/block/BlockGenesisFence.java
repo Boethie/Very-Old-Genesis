@@ -139,7 +139,7 @@ public class BlockGenesisFence extends BlockFence
 			EnumFacing side, float hitX, float hitY, float hitZ)
 	{
 		if (held != null && held.getItem() instanceof ItemLead)
-			return world.isRemote ? true : ItemLead.attachToFence(player, world, pos);
+			return world.isRemote || ItemLead.attachToFence(player, world, pos);
 		
 		return false;
 	}

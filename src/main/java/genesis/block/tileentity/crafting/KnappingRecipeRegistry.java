@@ -9,8 +9,6 @@ import genesis.util.render.ISpriteUVs;
 
 import java.util.*;
 
-import com.google.common.collect.*;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -77,12 +75,7 @@ public class KnappingRecipeRegistry
 		@Override
 		public boolean shouldShowKnapping(ISlotsKnapping slots, TileEntity te)
 		{
-			if (material.equalsStack(slots.getKnappingRecipeMaterial()))
-			{
-				return true;
-			}
-			
-			return false;
+			return material.equalsStack(slots.getKnappingRecipeMaterial());
 		}
 		
 		@Override
@@ -120,7 +113,7 @@ public class KnappingRecipeRegistry
 										target = states[indexY * w + indexX];
 									}
 										
-									if (!slots.getKnappingSlotState(x, y).isKnapped() != target)
+									if (slots.getKnappingSlotState(x, y).isKnapped() == target)
 									{
 										matches = false;
 										break gridCheck;
@@ -216,9 +209,9 @@ public class KnappingRecipeRegistry
 		ISpriteUVs getTexture();
 	}
 	
-	protected static List<IKnappingRecipe> recipes = Lists.newArrayList();
-	protected static Set<ItemStackKey> tools = Sets.newHashSet();
-	protected static Map<ItemStackKey, IMaterialData> materialData = Maps.newHashMap();
+	protected static List<IKnappingRecipe> recipes = new ArrayList<>();
+	protected static Set<ItemStackKey> tools = new HashSet<>();
+	protected static Map<ItemStackKey, IMaterialData> materialData = new HashMap<>();
 	
 	public static IKnappingRecipe registerRecipe(IKnappingRecipe recipe)
 	{

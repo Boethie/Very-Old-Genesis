@@ -8,5 +8,5 @@ import net.minecraftforge.fml.relauncher.*;
 public interface ClientFunction
 {
 	@SideOnly(Side.CLIENT)
-	public void apply(GenesisClient client);
+	void apply(GenesisClient client);
 }

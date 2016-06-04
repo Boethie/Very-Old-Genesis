@@ -7,6 +7,7 @@ import gnu.trove.map.hash.TIntObjectHashMap;
 
 import java.io.*;
 import java.lang.reflect.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 import net.minecraft.block.Block;
@@ -36,7 +37,6 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import com.google.common.base.Charsets;
 import com.google.common.base.Optional;
 import com.google.common.collect.*;
 
@@ -62,7 +62,7 @@ public class ModelHelpers
 	public static Field modelBlockDefinitionMap;
 	public static Field destroyBlockIcons;
 	
-	protected static List<Pair<BlockStateContainer, ResourceLocation>> forcedModels = Lists.newArrayList();
+	protected static List<Pair<BlockStateContainer, ResourceLocation>> forcedModels = new ArrayList<>();
 	protected static boolean doInit = true;
 	
 	public static void preInit()
@@ -500,13 +500,13 @@ public class ModelHelpers
 			Genesis.logger.warn("Encountered an IO exception while getting the IResources for location " + blockstatesLocation, e);
 		}
 		
-		Map<String, VariantList> output = new HashMap<String, VariantList>();
+		Map<String, VariantList> output = new HashMap<>();
 		
 		try
 		{
 			for (IResource resource : resources)
 			{
-				InputStreamReader reader = new InputStreamReader(resource.getInputStream(), Charsets.UTF_8);
+				InputStreamReader reader = new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8);
 				ModelBlockDefinition definition = ModelBlockDefinition.parseFromReader(reader);
 				output.putAll(getModelBlockDefinitionMap(definition));
 			}
@@ -583,7 +583,7 @@ public class ModelHelpers
 	public static void forceModelLoading(Collection<String> variants, ResourceLocation loc)
 	{
 		String sharedPropertyName = null;
-		List<String> newVariants = new ArrayList<String>(variants.size());
+		List<String> newVariants = new ArrayList<>(variants.size());
 		
 		for (String variant : variants)
 		{
@@ -624,7 +624,7 @@ public class ModelHelpers
 	{
 		Genesis.proxy.registerBlock(fakeBlock, null, new ResourceLocation(Constants.MOD_ID, "dummy_block"));
 		
-		final Map<IBlockState, IBlockState> actualToFakeState = Maps.newHashMap();
+		final Map<IBlockState, IBlockState> actualToFakeState = new HashMap<>();
 		
 		for (Pair<BlockStateContainer, ResourceLocation> entry : forcedModels)
 		{

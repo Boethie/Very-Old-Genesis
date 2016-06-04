@@ -21,10 +21,10 @@ public class BlockStateToMetadata
 {
 	public static final BitMask MAXMETAVALUE = BitMask.forValueCount(16);
 	
-	private static final Map<Collection<IProperty<?>>, List<IProperty<?>>> SORTED_PROPERTIES = Maps.newHashMap();
+	private static final Map<Collection<IProperty<?>>, List<IProperty<?>>> SORTED_PROPERTIES = new HashMap<>();
 	
-	private static final Map<Collection<? extends Comparable<?>>, Comparator<?>> VALUES_SORTERS = Maps.newHashMap();
-	private static final Map<Collection<? extends Comparable<?>>, List<? extends Comparable<?>>> VALUES_SORTED = Maps.newHashMap();
+	private static final Map<Collection<? extends Comparable<?>>, Comparator<?>> VALUES_SORTERS = new HashMap<>();
+	private static final Map<Collection<? extends Comparable<?>>, List<? extends Comparable<?>>> VALUES_SORTED = new HashMap<>();
 	
 	public static List<IProperty<?>> getSortedProperties(Collection<IProperty<?>> properties)
 	{
@@ -86,7 +86,7 @@ public class BlockStateToMetadata
 			}
 			else
 			{	// We have to sort the values.
-				sortedValues = new ArrayList<T>(unsortedValues);
+				sortedValues = new ArrayList<>(unsortedValues);
 				
 				if (hasSorter)
 				{

@@ -36,7 +36,7 @@ public class TileEntityStorageBox extends TileEntityLockableLoot implements ISid
 	protected final ItemStack[] inventory;
 	protected final int[] inventorySlots;
 	private Axis axis = null;
-	private EnumMap<AxisDirection, Boolean> connections = new EnumMap<AxisDirection, Boolean>(AxisDirection.class);
+	private EnumMap<AxisDirection, Boolean> connections = new EnumMap<>(AxisDirection.class);
 	
 	protected String customName;
 	

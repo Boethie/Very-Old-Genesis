@@ -19,7 +19,7 @@ public class WorldGenPlant<V extends IPlantMetadata<V>> extends WorldGenDecorati
 {
 	public static <V extends IPlantMetadata<V>> WorldGenPlant<V> create(VariantsOfTypesCombo<V> combo, ObjectType<V, ? extends BlockPlant<V>, ? extends Item> type, V variant)
 	{
-		return new WorldGenPlant<V>(combo, type, variant);
+		return new WorldGenPlant<>(combo, type, variant);
 	}
 	
 	public static WorldGenPlant<EnumPlant> create(ObjectType<EnumPlant, ? extends BlockPlant<EnumPlant>, ? extends Item> type, EnumPlant variant)

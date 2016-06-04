@@ -1,9 +1,7 @@
 package genesis.world.gen.feature;
 
 import java.util.Random;
-
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
+import java.util.function.Predicate;
 
 import genesis.block.BlockAnkyropteris;
 import genesis.block.BlockResin;
@@ -40,7 +38,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	
 	private boolean canGrowInWater = false;
 	private boolean generateVine = false;
-	private Predicate<IBlockState> soilPredicate = Predicates.alwaysTrue();
+	private Predicate<IBlockState> soilPredicate = (s) -> true;
 	
 	protected RandomIntProvider saplingCountProvider = null;
 	
@@ -48,7 +46,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	
 	public boolean plantedWithSapling = false;
 	
-	public static enum TreeTypes
+	public enum TreeTypes
 	{
 		TYPE_1, TYPE_2
 	}
@@ -175,7 +173,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		// Begin checking whether tree can grow here.
 		BlockPos saplingPos = soilPos.up();
 		
-		if (!soilPredicate.apply(checkState)
+		if (!soilPredicate.test(checkState)
 				|| !((BlockBush) sapling.getBlock()).canBlockStay(world, saplingPos, sapling))
 			return null;
 		
@@ -357,7 +355,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 			IBlockState stateEast = world.getBlockState(east);
 			IBlockState stateWest = world.getBlockState(west);
 			
-			int vineLength = 0;
+			int vineLength;
 			
 			if (
 					world.rand.nextInt(2) == 0 

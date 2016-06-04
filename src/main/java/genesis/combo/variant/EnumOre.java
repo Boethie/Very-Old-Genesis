@@ -28,7 +28,7 @@ public enum EnumOre implements IOreVariant<EnumOre>
 	FLINT("flint", 1, 1.5F, 13.05F, IntRange.create(0, 1), 0, Type.ORE),
 	MARCASITE("marcasite", 1, 1.5F, 13.05F, IntRange.create(0, 1), 0.1F, Type.ORE);
 	
-	public static enum Type
+	public enum Type
 	{
 		BOTH, ORE, DROP;
 	}

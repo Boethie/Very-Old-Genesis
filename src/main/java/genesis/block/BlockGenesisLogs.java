@@ -55,7 +55,7 @@ public class BlockGenesisLogs extends BlockLog
 		this.type = type;
 		
 		this.variants = variants;
-		variantProp = new PropertyIMetadata<EnumTree>("variant", variants, variantClass);
+		variantProp = new PropertyIMetadata<>("variant", variants, variantClass);
 		
 		blockState = new BlockStateContainer(this, variantProp, LOG_AXIS);
 		setDefaultState(getBlockState().getBaseState().withProperty(LOG_AXIS, EnumAxis.NONE));

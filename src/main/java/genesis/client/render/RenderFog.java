@@ -97,7 +97,7 @@ public class RenderFog
 				{
 					BlockPos samplePos = new BlockPos(playerPos.addVector(x, 0, z));
 					BiomeGenBase biome = world.getBiomeGenForCoords(samplePos);
-					Vec3d color = null;
+					Vec3d color;
 					
 					if (biome instanceof IBiomeGenFog)
 					{

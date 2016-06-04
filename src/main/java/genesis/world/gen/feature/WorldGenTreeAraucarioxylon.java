@@ -38,6 +38,7 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 		
 		BlockPos branchPos = pos.up(height - 1);
 		
+		//TODO decide which values are default
 		int leavesBase = 0;
 		boolean alternate = true;
 		boolean irregular = true;
@@ -96,7 +97,7 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 		int fallX = 1;
 		int fallZ = 1;
 		BlockPos upPos = pos.down();
-		EnumAxis woodAxis = EnumAxis.Y;
+		EnumAxis woodAxis;
 		
 		int fallDistance = lengthModifier;
 		

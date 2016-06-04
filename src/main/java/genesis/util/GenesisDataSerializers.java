@@ -6,12 +6,12 @@ import net.minecraft.network.datasync.DataSerializer;
 
 public class GenesisDataSerializers
 {
-	public static interface DataSerializerBase<T> extends DataSerializer<T>
+	public interface DataSerializerBase<T> extends DataSerializer<T>
 	{
 		@Override
-		public default DataParameter<T> createKey(int id)
+		default DataParameter<T> createKey(int id)
 		{
-			return new DataParameter<T>(id, this);
+			return new DataParameter<>(id, this);
 		}
 	}
 	

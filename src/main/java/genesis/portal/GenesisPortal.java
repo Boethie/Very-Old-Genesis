@@ -44,7 +44,7 @@ public class GenesisPortal
 	protected final IBlockAccess blockAccess;
 	protected BlockPos center;
 	protected BlockPos portal;
-	protected final Map<EnumFacing, MenhirData> menhirs = new EnumMap<EnumFacing, MenhirData>(EnumFacing.class);
+	protected final Map<EnumFacing, MenhirData> menhirs = new EnumMap<>(EnumFacing.class);
 	protected final Map<EnumFacing, MenhirData> menhirsView = Collections.unmodifiableMap(menhirs);
 	
 	public static GenesisPortal fromPortalBlock(IBlockAccess blockAccess, BlockPos pos)

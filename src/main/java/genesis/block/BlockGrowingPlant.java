@@ -92,12 +92,14 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 			if (toTop == -1)
 			{
 				getPlant();
-				int theToTop;
+				int top = 1;
+
+				while (world.getBlockState(startPos.up(top)).getBlock() == plant)
+				{
+					top++;
+				}
 				
-				for (theToTop = 1; world.getBlockState(startPos.up(theToTop)).getBlock() == plant; theToTop++)
-				{}
-				
-				toTop = theToTop;
+				toTop = top;
 			}
 			
 			return toTop;
@@ -185,7 +187,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 		}
 	}
 	
-	public static enum PlantState
+	public enum PlantState
 	{
 		PLACING, GENERATING, IN_WORLD;
 	}
@@ -1043,7 +1045,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 	 */
 	protected void destroyPlant(World world, BlockPos pos, EntityPlayer breaker, boolean drop, boolean noBreakTogether)
 	{
-		final HashMap<BlockPos, IBlockState> oldStates = new HashMap<BlockPos, IBlockState>();
+		final HashMap<BlockPos, IBlockState> oldStates = new HashMap<>();
 		
 		if (breakTogether && !noBreakTogether)
 		{
@@ -1162,7 +1164,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 				
 				if (dropStacks == null)
 				{
-					if (!breakTogether || (breakTogether && chance == -1))
+					if (!breakTogether || chance == -1)
 					{
 						if (state.getValue(ageProp) < maxAge)
 						{

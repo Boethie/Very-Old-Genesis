@@ -13,7 +13,7 @@ public class GenesisDye implements IMetadata<GenesisDye>
 	
 	static
 	{
-		List<GenesisDye> dyes = Lists.newArrayList();
+		List<GenesisDye> dyes = new ArrayList<>();
 		ImmutableMap.Builder<EnumDyeColor, GenesisDye> getterBuilder = ImmutableMap.builder();
 		
 		for (EnumDyeColor color : EnumDyeColor.values())

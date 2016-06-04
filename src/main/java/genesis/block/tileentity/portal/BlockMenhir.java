@@ -58,7 +58,7 @@ public class BlockMenhir extends BlockGenesis
 		this.type = type;
 		
 		this.variants = variants;
-		variantProp = new PropertyIMetadata<EnumMenhirPart>("variant", variants, variantClass);
+		variantProp = new PropertyIMetadata<>("variant", variants, variantClass);
 		
 		blockState = new BlockStateContainer(this, variantProp, FACING, GLYPH, ACTIVE);
 		setDefaultState(getBlockState().getBaseState().withProperty(GLYPH, EnumGlyph.NONE).withProperty(ACTIVE, false));
@@ -150,7 +150,7 @@ public class BlockMenhir extends BlockGenesis
 		TileEntity te = world.getTileEntity(pos);
 		
 		if (te instanceof TileEntityMenhirGlyph)
-			((TileEntityMenhirGlyph) te).markDirty();
+			te.markDirty();
 	}
 	
 	@Override

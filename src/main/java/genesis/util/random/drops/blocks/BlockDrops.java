@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Random;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -62,7 +61,7 @@ public class BlockDrops
 	
 	public List<ItemStack> getDrops(IBlockState state, Random rand)
 	{
-		ArrayList<ItemStack> out = Lists.newArrayList();
+		ArrayList<ItemStack> out = new ArrayList<>();
 		
 		for (BlockDrop drop : getDrops())
 		{

@@ -51,7 +51,7 @@ public class WorldGenTreeDryophyllum extends WorldGenTreeBase
 		int fallZ = 1 - rand.nextInt(3);
 		int fallCount = 0;
 		BlockPos upPos = pos.down();
-		EnumAxis woodAxis = EnumAxis.Y;
+		EnumAxis woodAxis;
 		
 		for (int i = 0; i < height; i++)
 		{

@@ -39,13 +39,13 @@ public class WorldGenTreeArchaeanthus extends WorldGenTreeBase
 			
 			if (i > base && (rand.nextInt(2) == 0 || upCount > 1))
 			{
-				int fallX = 0;
-				int fallZ = 0;
+				int fallX;
+				int fallZ;
 				float hProp = (1 - (i / (float) height));
 				int branchLength = (int) (5 * hProp);
 				BlockPos branchPos = pos.up(i);
 				
-				EnumAxis woodAxis = EnumAxis.Y;
+				EnumAxis woodAxis;
 				
 				switch (step)
 				{

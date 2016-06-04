@@ -68,7 +68,7 @@ public class BlockGenesisSlab extends BlockGenesis
 		this.type = type;
 		
 		this.variants = variants;
-		this.variantProp = new PropertyIMetadata<EnumSlab>("variant", variants, variantClass);
+		this.variantProp = new PropertyIMetadata<>("variant", variants, variantClass);
 
 		blockState = new BlockStateContainer(this, variantProp, HALF);
 		setDefaultState(blockState.getBaseState().withProperty(HALF, BOTTOM));

@@ -35,9 +35,18 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		int time = TileEntityFurnace.getItemBurnTime(stack);
 		
 		// Exclude lava.
-		FluidStack lava = FluidContainerRegistry.getFluidForFilledItem(new ItemStack(Items.lava_bucket));
-		
-		if (FluidContainerRegistry.containsFluid(stack, lava))
+		FluidStack lava = new FluidStack(FluidRegistry.LAVA, FluidContainerRegistry.BUCKET_VOLUME);
+
+		if (stack.getItem() instanceof IFluidContainerItem)
+		{
+			IFluidContainerItem container = (IFluidContainerItem) stack.getItem();
+
+			if (container.getFluid(stack).containsFluid(lava))
+			{
+				time = 0;
+			}
+		}
+		else if (FluidContainerRegistry.containsFluid(stack, lava))
 		{
 			time = 0;
 		}
@@ -55,7 +64,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		return CookingPotRecipeRegistry.isCookingPotItem(stack);
 	}
 	
-	private static final Set<ItemStackKey> allowedOutputs = new HashSet<ItemStackKey>();
+	private static final Set<ItemStackKey> allowedOutputs = new HashSet<>();
 	
 	/**
 	 * Used to allow outputs that aren't foods to be created using the campfire.
@@ -565,17 +574,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		switch (slot)
 		{
 		case SLOT_INPUT:
-			if (canSmeltItemType(stack))
-			{
-				return true;
-			}
-			
-			if (isCookingPot(stack))
-			{
-				return true;
-			}
-			
-			return false;
+			return canSmeltItemType(stack) || isCookingPot(stack);
 		case SLOT_FUEL:
 			return TileEntityFurnace.isItemFuel(stack);
 		default:

@@ -1,10 +1,9 @@
 package genesis.world;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
-
-import com.google.common.collect.Maps;
 
 import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
@@ -19,7 +18,7 @@ import net.minecraft.world.WorldServer;
 public class TeleporterGenesis extends Teleporter
 {
 	protected final WorldServer world;
-	protected final Map<BlockPos, PortalPosition> cache = Maps.newHashMap();
+	protected final Map<BlockPos, PortalPosition> cache = new HashMap<>();
 	protected final Random random;
 	
 	protected GenesisPortal portal;

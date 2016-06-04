@@ -79,9 +79,9 @@ public class MultiMetadataList implements List<MultiMetadata>
 	@SafeVarargs
 	private static List<IMetadata<?>> getSorted(final Iterable<? extends IMetadata<?>>... iters)
 	{
-		List<IMetadata<?>> list = Lists.newArrayList();
+		List<IMetadata<?>> list = new ArrayList<>();
 		
-		final Map<IMetadata<?>, Integer> indexes = Maps.newHashMap();
+		final Map<IMetadata<?>, Integer> indexes = new HashMap<>();
 		int i = 0;
 		
 		for (Iterable<? extends IMetadata<?>> iter : iters)

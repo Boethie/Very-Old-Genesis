@@ -5,17 +5,17 @@ import net.minecraft.item.ItemStack;
 
 public interface SlotModifier
 {
-	public static SlotModifier from(IInventory inventory, int slot)
+	static SlotModifier from(IInventory inventory, int slot)
 	{
 		return new SlotModifierInventory(inventory, slot);
 	}
 	
-	public ItemStack getStack();
+	ItemStack getStack();
 	
-	public boolean isValid(ItemStack stack);
-	public void set(ItemStack stack);
+	boolean isValid(ItemStack stack);
+	void set(ItemStack stack);
 	
-	public default boolean put(ItemStack stack)
+	default boolean put(ItemStack stack)
 	{
 		if (stack == null)
 			return true;
@@ -40,7 +40,7 @@ public interface SlotModifier
 	 * @param amount The amount to consume from the slot.
 	 * @return The stack split off from this slot's stack.
 	 */
-	public default ItemStack consume(int amount)
+	default ItemStack consume(int amount)
 	{
 		if (amount < 0)
 			throw new IllegalArgumentException("Cannot consume " + amount + " items, that would increase stack size.");

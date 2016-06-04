@@ -1,8 +1,7 @@
 package genesis.world.biome.decorate;
 
 import java.util.Random;
-
-import com.google.common.base.Predicate;
+import java.util.function.Predicate;
 
 import genesis.common.GenesisBlocks;
 import genesis.util.functional.WorldBlockMatcher;
@@ -54,7 +53,7 @@ public class WorldGenCircleReplacement extends WorldGenDecorationBase
 	@Override
 	public boolean place(World world, Random rand, BlockPos pos)
 	{
-		if (!centerPredicate.apply(world.getBlockState(pos)))
+		if (!centerPredicate.test(world.getBlockState(pos)))
 			return false;
 		
 		float radius = radiusProvider.get(rand);
@@ -77,7 +76,7 @@ public class WorldGenCircleReplacement extends WorldGenDecorationBase
 					{
 						BlockPos replacePos = new BlockPos(x, y, z);
 						
-						if (replacePredicate.apply(world.getBlockState(replacePos)))
+						if (replacePredicate.test(world.getBlockState(replacePos)))
 							world.setBlockState(replacePos, replacement, 3);
 					}
 				}

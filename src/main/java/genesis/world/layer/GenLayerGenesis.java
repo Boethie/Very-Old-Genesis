@@ -91,15 +91,9 @@ public abstract class GenLayerGenesis extends GenLayer
 	
 	protected static boolean isBiomeOceanic(int biomeId)
 	{
-		if (
-				biomeId == BiomeGenBase.getIdForBiome(GenesisBiomes.shallowOcean)
+		return biomeId == BiomeGenBase.getIdForBiome(GenesisBiomes.shallowOcean)
 				|| biomeId == BiomeGenBase.getIdForBiome(GenesisBiomes.ocean)
 				|| biomeId == BiomeGenBase.getIdForBiome(GenesisBiomes.deepOcean)
-				|| biomeId == BiomeGenBase.getIdForBiome(GenesisBiomes.swampRainForest))
-		{
-			return true;
-		}
-		
-		return false;
+				|| biomeId == BiomeGenBase.getIdForBiome(GenesisBiomes.swampRainForest);
 	}
 }

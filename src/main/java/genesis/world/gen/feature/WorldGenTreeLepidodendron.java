@@ -54,10 +54,8 @@ public class WorldGenTreeLepidodendron extends WorldGenTreeBase
 		return true;
 	}
 	
-	private boolean doBranch(World world, BlockPos pos, int dirX, int dirZ, Random random, int leaveLength, boolean leaveBranch)
+	private void doBranch(World world, BlockPos pos, int dirX, int dirZ, Random random, int leaveLength, boolean leaveBranch)
 	{
-		boolean generated = false;
-		
 		pos = pos.add((dirX), 0, (dirZ));
 		setBlockInWorld(world, pos, (leaveBranch)? leaves : wood);
 		doBranchLeaves(world, pos, random, false, leaveLength);
@@ -69,10 +67,6 @@ public class WorldGenTreeLepidodendron extends WorldGenTreeBase
 		pos = pos.add(0, 1, 0);
 		setBlockInWorld(world, pos, (leaveBranch)? leaves : wood);
 		doBranchLeaves(world, pos, random, true, leaveLength);
-		
-		generated = true;
-		
-		return generated;
 	}
 	
 	private void doBranchLeaves(World world, BlockPos pos, Random random, boolean cap)

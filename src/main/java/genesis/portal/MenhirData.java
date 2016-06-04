@@ -111,12 +111,12 @@ public class MenhirData implements Iterable<MenhirEntry>
 	
 	public ItemStack getReceptacleItem()
 	{
-		return getReceptacleTE() == null ? null : getReceptacleTE().getReceptacleItem();
+		return getReceptacleTE() != null ? getReceptacleTE().getReceptacleItem() : null;
 	}
 	
 	public boolean isReceptacleActive()
 	{
-		return getReceptacleTE() == null ? false : getReceptacleTE().isReceptacleActive();
+		return getReceptacleTE() != null && getReceptacleTE().isReceptacleActive();
 	}
 	
 	public BlockPos getTop()

@@ -4,12 +4,12 @@ import java.util.Random;
 
 public interface FloatRange
 {
-	public static FloatRange create(float value)
+	static FloatRange create(float value)
 	{
 		return new Value(value);
 	}
 	
-	public static FloatRange create(float min, float max)
+	static FloatRange create(float min, float max)
 	{
 		if (min == max)
 		{
@@ -19,11 +19,11 @@ public interface FloatRange
 		return new Range(min, max);
 	}
 	
-	public float get(Random rand);
-	public float getMin();
-	public float getMax();
+	float get(Random rand);
+	float getMin();
+	float getMax();
 	
-	static class Range implements FloatRange
+	class Range implements FloatRange
 	{
 		private final float min;
 		private final float max;
@@ -53,7 +53,7 @@ public interface FloatRange
 		}
 	}
 	
-	static class Value implements FloatRange
+	class Value implements FloatRange
 	{
 		private final float value;
 		

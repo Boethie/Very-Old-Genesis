@@ -225,19 +225,19 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 	 */
 	public static class ToolObjectType<B extends Block, I extends Item> extends ObjectType<ToolType, B, I>
 	{
-		public final HashSet<EnumToolQuality> validQualities;
+		public final ImmutableSet<EnumToolQuality> validQualities;
 		public final EnumToolQuality badQuality;
 		public final EnumToolQuality goodQuality;
-		public final HashSet<EnumToolMaterial> materialExclusions;
+		public final ImmutableSet<EnumToolMaterial> materialExclusions;
 		
 		public ToolObjectType(String name, String unlocalizedName, Class<B> blockClass, Class<I> itemClass, EnumToolQuality[] qualities, EnumToolQuality badQuality, EnumToolQuality goodQuality, EnumToolMaterial... materialExclusions)
 		{
 			super(ToolType.class, name, unlocalizedName, blockClass, itemClass);
 			
-			this.validQualities = Sets.newHashSet(qualities);
+			this.validQualities = ImmutableSet.copyOf(qualities);
 			this.badQuality = badQuality;
 			this.goodQuality = goodQuality;
-			this.materialExclusions = Sets.newHashSet(materialExclusions);
+			this.materialExclusions = ImmutableSet.copyOf(materialExclusions);
 		}
 
 		public ToolObjectType(String name, String unlocalizedName, Class<B> blockClass, Class<I> itemClass, EnumToolQuality[] qualities, EnumToolMaterial... materialExclusions)

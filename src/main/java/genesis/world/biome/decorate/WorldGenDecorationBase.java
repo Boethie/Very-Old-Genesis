@@ -147,6 +147,12 @@ public abstract class WorldGenDecorationBase extends WorldGenerator
 		patchMaxRadius = radius;
 		return this;
 	}
+
+	public WorldGenDecorationBase setPatchHeight(int height)
+	{
+		patchStartHeight = height;
+		return this;
+	}
 	
 	public WorldGenDecorationBase setRarity(int rarity)
 	{

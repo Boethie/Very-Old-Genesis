@@ -1,8 +1,8 @@
 package genesis.util.functional;
 
 import java.util.Collection;
+import java.util.function.Predicate;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.block.Block;
@@ -12,9 +12,7 @@ public class StateMatcher
 {
 	public static Predicate<IBlockState> forBlocks(Collection<? extends Block> blocks)
 	{
-		return (state) -> {
-			return blocks.contains(state.getBlock());
-		};
+		return (state) -> blocks.contains(state.getBlock());
 	}
 	
 	public static Predicate<IBlockState> forBlocks(Block... blocks)
@@ -24,9 +22,7 @@ public class StateMatcher
 	
 	public static Predicate<IBlockState> forStates(Collection<? extends IBlockState> states)
 	{
-		return (state) -> {
-			return states.contains(state);
-		};
+		return states::contains;
 	}
 	
 	public static Predicate<IBlockState> forStates(IBlockState... states)

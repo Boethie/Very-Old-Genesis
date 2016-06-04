@@ -3,8 +3,7 @@ package genesis.client.model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import com.google.common.base.Function;
+import java.util.function.Function;
 
 import genesis.util.StreamUtils;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -45,7 +44,7 @@ public abstract class MetadataModelDefinition implements ListedItemMeshDefinitio
 	{
 		List<ItemStack> stacks = new ArrayList<>();
 		item.getSubItems(item, item.getCreativeTab(), stacks);
-		return stacks.stream().map((s) -> getName(s)).collect(StreamUtils.toImmSet());
+		return stacks.stream().map(this::getName).collect(StreamUtils.toImmSet());
 	}
 	
 	@Override

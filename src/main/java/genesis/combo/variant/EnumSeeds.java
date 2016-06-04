@@ -1,8 +1,8 @@
 package genesis.combo.variant;
 
 import java.util.List;
+import java.util.function.Supplier;
 
-import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableList;
 
 import genesis.common.GenesisBlocks;

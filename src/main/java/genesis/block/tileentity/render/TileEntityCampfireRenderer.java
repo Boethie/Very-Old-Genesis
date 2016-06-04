@@ -83,7 +83,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 		
 		// Get defined variants of the fire model.
 		Set<String> old = ModelHelpers.getBlockstatesVariants(FIRE).keySet();
-		fireModels = new HashSet<String>();
+		fireModels = new HashSet<>();
 		String key = "fire";
 		
 		for (String str : old)
@@ -101,7 +101,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 		
 		// Force loading of fuel models.
 		old = ModelHelpers.getBlockstatesVariants(FUEL).keySet();
-		fuelModels = new HashSet<String>();
+		fuelModels = new HashSet<>();
 		key = "item";
 		
 		for (String str : old)
@@ -118,7 +118,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 		
 		// Force loading of cooking item models.
 		old = ModelHelpers.getBlockstatesVariants(COOKING_ITEM).keySet();
-		cookingItemModels = new HashSet<String>();
+		cookingItemModels = new HashSet<>();
 		
 		for (String str : old)
 		{

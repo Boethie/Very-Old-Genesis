@@ -37,9 +37,9 @@ public class BlockGenesisVariants<V extends IMetadata<V>> extends Block
 	public final List<V> variants;
 	public final PropertyIMetadata<V> variantProp;
 	
-	protected final HashSet<V> noItemVariants = new HashSet<V>();
+	protected final HashSet<V> noItemVariants = new HashSet<>();
 	
-	protected final List<BlockDrop> drops = new ArrayList<BlockDrop>();
+	protected final List<BlockDrop> drops = new ArrayList<>();
 	
 	public BlockGenesisVariants(VariantsOfTypesCombo<V> owner,
 			ObjectType<V, ? extends BlockGenesisVariants<V>, ? extends Item> type,
@@ -52,7 +52,7 @@ public class BlockGenesisVariants<V extends IMetadata<V>> extends Block
 		this.type = type;
 		
 		this.variants = variants;
-		variantProp = new PropertyIMetadata<V>("variant", variants, variantClass);
+		variantProp = new PropertyIMetadata<>("variant", variants, variantClass);
 		
 		blockState = new BlockStateContainer(this, variantProp);
 		setDefaultState(getBlockState().getBaseState());
@@ -112,7 +112,7 @@ public class BlockGenesisVariants<V extends IMetadata<V>> extends Block
 	
 	public BlockGenesisVariants<V> addDrop(ObjectType<V, ?, ?> type, int min, int max)
 	{
-		return addDrop(new VariantDrop<V>(owner, type, min, max));
+		return addDrop(new VariantDrop<>(owner, type, min, max));
 	}
 	
 	public BlockGenesisVariants<V> addDrop(ObjectType<V, ?, ?> type)
@@ -123,7 +123,7 @@ public class BlockGenesisVariants<V extends IMetadata<V>> extends Block
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
 	{
-		ArrayList<ItemStack> stackList = new ArrayList<ItemStack>();
+		ArrayList<ItemStack> stackList = new ArrayList<>();
 		V variant = state.getValue(variantProp);
 		
 		if (!noItemVariants.contains(variant))

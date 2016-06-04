@@ -99,7 +99,7 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 		}
 		catch (Exception e)
 		{
-			;
+			// Do nothing
 		}
 		
 		return false;

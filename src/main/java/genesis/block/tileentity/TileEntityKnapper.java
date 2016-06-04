@@ -426,18 +426,18 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 	{
 		if (!isKnappingEnabled() || !knappingLocked)
 		{
-			boolean set = true;
-			ItemStack output = null;
+			boolean set;
+			ItemStack output;
 			
 			if (isKnappingEnabled())
 			{
 				output = KnappingRecipeRegistry.getRecipeOutput(this, this);
 				set = getOutputMain() == null || output == null;
-				set = true;
 			}
 			else
 			{
 				output = CraftingManager.getInstance().findMatchingRecipe(getCraftingInventory(), worldObj);
+				set = true;
 			}
 			
 			if (set)
