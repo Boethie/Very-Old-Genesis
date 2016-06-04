@@ -28,12 +28,13 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 public class WorldGenHut implements IWorldGenerator {
 
 	@Override
-	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator,
-			IChunkProvider chunkProvider) {
-		if(world.isRemote)
+	public void generate(Random random, int chunkX, int chunkZ, World world,
+			IChunkGenerator chunkGenerator, IChunkProvider chunkProvider)
+	{
+		if (world.isRemote)
 			return;
 		
-		if(world.rand.nextInt(GenesisConfig.hutChance) != 0)
+		if (world.rand.nextInt(GenesisConfig.hutChance) != 0)
 			return;
 		
 		if (!GenesisDimensions.isGenesis(world))
@@ -76,9 +77,9 @@ public class WorldGenHut implements IWorldGenerator {
 		
 		BlockPos legsPos[] = { start.add(1, 0, 1), start.add(1, 0, 6), start.add(4, 0, 1), start.add(4, 0, 6) };
 		
-		for(BlockPos legPos : legsPos)
+		for (BlockPos legPos : legsPos)
 		{
-			while(!WorldGenHelper.isGround(world, legPos.down()))
+			while (!WorldGenHelper.isGround(world, legPos.down()))
 			{
 				legPos = legPos.down();
 				world.setBlockState(legPos, WGHDB.wattle);
@@ -87,7 +88,7 @@ public class WorldGenHut implements IWorldGenerator {
 		
 		BlockPos basePos = start.add(4, 0, 3);
 		
-		while(!WorldGenHelper.isGround(world, basePos.down()))
+		while (!WorldGenHelper.isGround(world, basePos.down()))
 		{
 			basePos = basePos.down();
 			world.setBlockState(basePos, WGHDB.baseY);
@@ -95,7 +96,7 @@ public class WorldGenHut implements IWorldGenerator {
 		
 		BlockPos ladderPos = start.add(5, 2, 3);
 		
-		while(!WorldGenHelper.isGround(world, ladderPos.down()))
+		while (!WorldGenHelper.isGround(world, ladderPos.down()))
 		{
 			ladderPos = ladderPos.down();
 			world.setBlockState(ladderPos, GenesisBlocks.rope_ladder.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.EAST));
@@ -104,7 +105,7 @@ public class WorldGenHut implements IWorldGenerator {
 		TileEntityRack rack1 = BlockRack.getTileEntity(world, start.add(2, 4, 5));
 		TileEntityRack rack2 = BlockRack.getTileEntity(world, start.add(3, 4, 5));
 		
-		if(rack1 != null && rack2 != null)
+		if (rack1 != null && rack2 != null)
 		{
 			rack1.setStackInSide(EnumFacing.SOUTH, GenesisItems.clothing.getHelmet(EnumClothing.CHITIN));
 			rack2.setStackInSide(EnumFacing.SOUTH, GenesisItems.tools.getBadStack(ToolItems.KNIFE, EnumToolMaterial.QUARTZ));
@@ -114,7 +115,7 @@ public class WorldGenHut implements IWorldGenerator {
 		
 		TileEntity te = world.getTileEntity(boxPos);
 		
-		if(te instanceof TileEntityStorageBox)
+		if (te instanceof TileEntityStorageBox)
 		{
 			((TileEntityStorageBox) te).setLoot(GenesisLoot.CHESTS_HUT, System.currentTimeMillis());
 		}

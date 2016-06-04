@@ -1,13 +1,14 @@
 package genesis.portal;
 
-import com.google.common.collect.Lists;
+import com.google.common.collect.ImmutableList;
+
 import genesis.common.GenesisBlocks;
 import genesis.world.iworldgenerators.WorldGenHelper;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import static genesis.world.iworldgenerators.WorldGenHelper.findSurface;
 
@@ -21,13 +22,13 @@ public class GenesisPortalCircle
 			new WorldGenHelper.RandomState(Blocks.cobblestone.getDefaultState(), 3),
 			new WorldGenHelper.RandomState(Blocks.mossy_cobblestone.getDefaultState(), 1));
 	
-	private static ArrayList<BlockPos> posts = Lists.newArrayList(
+	private static List<BlockPos> posts = ImmutableList.of(
 			new BlockPos(-1, 0, -8), new BlockPos( 1, 0, -8), new BlockPos(-4, 0, -7), new BlockPos( 4, 0, -7), new BlockPos(0, -6, -6),
 			new BlockPos(-1, 0,  8), new BlockPos( 1, 0,  8), new BlockPos(-4, 0,  7), new BlockPos( 4, 0,  7), new BlockPos(0, -6,  6),
 			new BlockPos(-8, 0, -1), new BlockPos(-8, 0,  1), new BlockPos(-7, 0, -4), new BlockPos(-7, 0,  4), new BlockPos(0,  6, -6),
 			new BlockPos( 8, 0, -1), new BlockPos( 8, 0,  1), new BlockPos( 7, 0, -4), new BlockPos( 7, 0,  4), new BlockPos(0,  6,  6));
 	
-	private static ArrayList<BlockPos> buds = Lists.newArrayList(
+	private static List<BlockPos> buds = ImmutableList.of(
 			new BlockPos(-4, 0, -4), new BlockPos(4, 0, -4), new BlockPos(-4, 0, 4), new BlockPos(4, 0, 4));
 	
 	public static void genStructure(World world, BlockPos center, boolean isNew)

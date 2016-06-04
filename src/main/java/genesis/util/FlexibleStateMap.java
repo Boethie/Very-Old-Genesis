@@ -22,7 +22,7 @@ public class FlexibleStateMap extends StateMapperBase
 	protected String postfixSeparator = "";
 	protected String postfix = "";
 	protected Function<String, String> nameFunction = null;
-	protected ArrayList<IProperty<?>> ignoreProperties;
+	protected List<IProperty<?>> ignoreProperties;
 	
 	public FlexibleStateMap(IProperty<?>... ignoreProperties)
 	{

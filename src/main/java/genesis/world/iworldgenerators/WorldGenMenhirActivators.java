@@ -1,7 +1,7 @@
 package genesis.world.iworldgenerators;
 
-import com.google.common.collect.Lists;
 import genesis.common.GenesisBlocks;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -12,32 +12,41 @@ import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+
+import com.google.common.collect.*;
 
 import static genesis.world.WorldGenerators.menhirActivatorsOverworld;
 
 public class WorldGenMenhirActivators implements IWorldGenerator
 {
-	private List<MenhirStructure> structures = Lists.newArrayList();
-	private List<Block> topBlocks = Lists.newArrayList(Blocks.dirt, Blocks.grass, Blocks.stone);
-	private List<Block> bottomBlocks = Lists.newArrayList(Blocks.stone);
+	private final List<MenhirStructure> structures;
+	private final Set<Block> topBlocks = ImmutableSet.of(Blocks.dirt, Blocks.grass, Blocks.stone);
+	private final Set<Block> bottomBlocks = ImmutableSet.of(Blocks.stone);
 	
+	public WorldGenMenhirActivators()
 	{
+		ImmutableList.Builder<MenhirStructure> builder = ImmutableList.builder();
+		
 		MenhirStructure hut = new MenhirStructure();
 		
 		List<BlockPos> rubble = Lists.newArrayList();
 		for (int x = -7; x <= 7; ++x)
+		{
 			for (int z = -7; z <= 7; ++ z)
+			{
 				if (x * x + z * z < 64)
 					rubble.add(new BlockPos(x, 0, z));
-		hut.add(rubble, StructureType.RUBBLE, 1d/4d);
+			}
+		}
+		hut.add(rubble, StructureType.RUBBLE, 0.25);
 		
 		List<BlockPos> air = Lists.newArrayList();
 		List<BlockPos> gestalt = Lists.newArrayList();
 		for (int y = -1; y <= 3; ++y)
+		{
 			for (int x = -3; x <= 3; ++x)
+			{
 				for (int z = -3; z <= 3; ++z)
 				{
 					int d2 = x * x + y * y + z * z;
@@ -46,29 +55,37 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 					else if (d2 < 12)
 						gestalt.add(new BlockPos(x, y + 2, z));
 				}
+			}
+		}
 		hut.add(air, StructureType.AIR, 1d);
-		hut.add(gestalt, StructureType.GESTALT, 11d/12d);
+		hut.add(gestalt, StructureType.GESTALT, 0.9);
 		
-		structures.add(hut);
-
+		builder.add(hut);
+		
 		MenhirStructure tumulus = new MenhirStructure();
 		
 		rubble = Lists.newArrayList();
 		for (int x = -5; x <= 5; ++x)
+		{
 			for (int z = -5; z <= 5; ++ z)
 			{
 				int d2 = x * x + z * z;
 				if (d2 < 27 && d2 > 18)
 					rubble.add(new BlockPos(x, 1, z));
 			}
-		tumulus.add(rubble, StructureType.RUBBLE, 1d/2d);
+		}
+		tumulus.add(rubble, StructureType.RUBBLE, 0.5);
 		
 		rubble = Lists.newArrayList();
 		for (int x = -5; x <= 5; ++x)
+		{
 			for (int z = -5; z <= 5; ++ z)
+			{
 				if (x * x + z * z < 27)
 					rubble.add(new BlockPos(x, 0, z));
-		tumulus.add(rubble, StructureType.RUBBLE, 1d/4d);
+			}
+		}
+		tumulus.add(rubble, StructureType.RUBBLE, 0.25);
 		
 		gestalt = Lists.newArrayList();
 		gestalt.add(new BlockPos( 0, 1,  0));
@@ -77,16 +94,18 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 		gestalt.add(new BlockPos( 0, 1, -1));
 		gestalt.add(new BlockPos( 0, 1,  1));
 		gestalt.add(new BlockPos( 0, 2,  0));
-		tumulus.add(gestalt, StructureType.GESTALT, 1d);
+		tumulus.add(gestalt, StructureType.GESTALT, 1);
 		
 		gestalt = Lists.newArrayList();
 		gestalt.add(new BlockPos(-1, 1, -1));
 		gestalt.add(new BlockPos(-1, 1,  1));
 		gestalt.add(new BlockPos( 1, 1, -1));
 		gestalt.add(new BlockPos( 1, 1,  1));
-		tumulus.add(gestalt, StructureType.GESTALT, 1d/4d);
+		tumulus.add(gestalt, StructureType.GESTALT, 0.25);
 		
-		structures.add(tumulus);
+		builder.add(tumulus);
+		
+		structures = builder.build();
 	}
 	
 	@Override
@@ -163,7 +182,7 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 		return null;
 	}
 	
-	protected BlockPos getRealHeight(World world, BlockPos blockPos, List<Block> blockList)
+	protected BlockPos getRealHeight(World world, BlockPos blockPos, Set<Block> blockList)
 	{
 		int top = world.getChunkFromBlockCoords(blockPos).getTopFilledSegment() + 15;
 		int x = blockPos.getX();
@@ -195,14 +214,20 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 		List<BlockPos> get(Random random, StructureType type)
 		{
 			List<BlockPos> posList = Lists.newArrayList();
+			
 			for (int i = 0; i < types.size(); ++i)
+			{
 				if (types.get(i) == type)
+				{
 					for (BlockPos pos : structures.get(i))
 					{
 						double chance = chances.get(i);
 						if (random.nextDouble() < chance)
 							posList.add(pos);
 					}
+				}
+			}
+			
 			return posList;
 		}
 		

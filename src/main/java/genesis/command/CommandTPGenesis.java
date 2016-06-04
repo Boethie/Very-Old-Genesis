@@ -12,10 +12,12 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DimensionType;
 
-import com.google.common.collect.Lists;
+import com.google.common.collect.ImmutableList;
 
 public class CommandTPGenesis implements ICommand
 {
+	private static final List<String> ALIASES = ImmutableList.of("tpg", "tpgenesis", "ForwardToThePast", "forwardtothepast");
+	
 	@Override
 	public String getCommandName()
 	{
@@ -31,7 +33,7 @@ public class CommandTPGenesis implements ICommand
 	@Override
 	public List<String> getCommandAliases()
 	{
-		return Lists.newArrayList("tpg", "tpgenesis", "ForwardToThePast", "forwardtothepast");
+		return ALIASES;
 	}
 	
 	@Override
