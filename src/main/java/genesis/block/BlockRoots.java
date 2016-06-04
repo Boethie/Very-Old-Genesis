@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import genesis.combo.TreeBlocksAndItems;
 import genesis.common.GenesisCreativeTabs;
 import genesis.common.sounds.GenesisSoundTypes;
+import genesis.util.AABBUtils;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -26,7 +27,7 @@ public class BlockRoots extends BlockGenesis
 	private List<IBlockState> blockStateSupportList = Lists.newArrayList();
 	
 	protected static final double RADIUS = 0.375;
-	protected static final AxisAlignedBB BB = new AxisAlignedBB(0.5 - RADIUS, 0, 0.5 - RADIUS, 0.5 + RADIUS, 1, 0.5 + RADIUS);
+	protected static final AxisAlignedBB BB = AABBUtils.createExpansion(0.5, 1, 0.5, EnumFacing.Plane.HORIZONTAL, RADIUS);
 	
 	public BlockRoots()
 	{

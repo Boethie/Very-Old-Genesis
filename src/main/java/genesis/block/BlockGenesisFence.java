@@ -74,8 +74,7 @@ public class BlockGenesisFence extends BlockFence
 							|| collidingEntity == null
 							|| collidingEntity instanceof EntityFallingBlock;
 		
-		AxisAlignedBB base = new AxisAlignedBB(0.5, 0, 0.5, 0.5, 0, 0.5)
-				.offset(pos.getX(), pos.getY(), pos.getZ());
+		AxisAlignedBB base = AABBUtils.createCenter().offset(pos);
 		
 		addCollisionBoxToList(pos, mask, list,
 				base.addCoord(0, realHeight ? poleHeight : fakeHeight, 0).expand(poleRadius, 0, poleRadius));

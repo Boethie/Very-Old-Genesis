@@ -112,16 +112,14 @@ public class BlockBranch extends BlockGenesisLogs
 		
 		if (!state.getValue(LEAVES))
 		{
-			bb = new AxisAlignedBB(0.5 - RADIUS, 0.5 - RADIUS, 0.5 - RADIUS, 0.5 + RADIUS, 0.5 + RADIUS, 0.5 + RADIUS);
+			bb = AABBUtils.createCenterExpansion(RADIUS);
 			double add = 0.5 - RADIUS;
 			
 			for (FacingProperties.Entry<Boolean> entry : CONNECTIONS)
 			{
 				if (state.getValue(entry.property))
 				{
-					bb = bb.addCoord(entry.facing.getFrontOffsetX() * add,
-								entry.facing.getFrontOffsetY() * add,
-								entry.facing.getFrontOffsetZ() * add);
+					bb = AABBUtils.extend(bb, entry.facing, add);
 				}
 			}
 		}
@@ -141,10 +139,9 @@ public class BlockBranch extends BlockGenesisLogs
 		}
 		else
 		{
-			addCollisionBoxToList(pos, mask, list,
-					new AxisAlignedBB(0.5 - RADIUS, 0.5 - RADIUS, 0.5 - RADIUS, 0.5 + RADIUS, 0.5 + RADIUS, 0.5 + RADIUS));
+			addCollisionBoxToList(pos, mask, list, AABBUtils.createCenterExpansion(RADIUS));
 			
-			AxisAlignedBB sideBase = new AxisAlignedBB(0.5, 0.5, 0.5, 0.5, 0.5, 0.5);
+			AxisAlignedBB sideBase = AABBUtils.createCenter();
 			
 			for (FacingProperties.Entry<Boolean> entry : CONNECTIONS)
 			{
@@ -152,7 +149,7 @@ public class BlockBranch extends BlockGenesisLogs
 				{
 					AxisAlignedBB sideBB = AABBUtils.offset(sideBase, entry.facing, RADIUS);
 					sideBB = AABBUtils.extend(sideBB, entry.facing, 0.5 - RADIUS);
-					sideBB = AABBUtils.expandSides(sideBB, entry.facing, RADIUS);
+					sideBB = AABBUtils.expandSides(sideBB, entry.facing.getAxis(), RADIUS);
 					addCollisionBoxToList(pos, mask, list, sideBB);
 				}
 			}

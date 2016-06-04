@@ -1,5 +1,6 @@
 package genesis.block.tileentity;
 
+import genesis.util.AABBUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -50,8 +51,8 @@ public class TileEntityRack extends TileEntityBase implements IInventory
 	@SideOnly(Side.CLIENT)
 	public AxisAlignedBB getRenderBoundingBox()
 	{
-		return new AxisAlignedBB(pos.getX() - 0.5, pos.getY(), pos.getZ() - 0.5,
-				pos.getX() + 1.5, pos.getY() + 1.5, pos.getZ() + 1.5);
+		double radius = 0.5;
+		return AABBUtils.createExpansion(pos, EnumFacing.Plane.HORIZONTAL, radius).addCoord(1, 1 + radius, 1);
 	}
 	
 	@Override
