@@ -33,7 +33,7 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenRoots(), 5);
 		addDecoration(new WorldGenPebbles().setWaterRequired(false), 5);
 		addDecoration(new WorldGenRockBoulders(GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT)).setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1F)), 0.4F);
-		addDecoration(new WorldGenPatch(t->t.getBlock() != Blocks.air, GenesisBlocks.silt.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.RED_SILT)), 8);
+		//addDecoration(new WorldGenPatch(t->t.getBlock() != Blocks.air, GenesisBlocks.silt.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.RED_SILT)), 3);
 
 		getDecorator().setTreeCount(0.4F);
 		addTree(new WorldGenTreeBjuvia(4, 6, true), 16);

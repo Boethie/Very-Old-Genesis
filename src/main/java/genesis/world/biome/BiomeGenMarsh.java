@@ -36,7 +36,7 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		
 		addDecoration(new WorldGenMossStages(), 30);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.prototaxites).setPatchCount(3), 0.142F);
-		addDecoration(new WorldGenPatch(t->t.getBlock() != Blocks.air, GenesisBlocks.silt.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.SILT)), 3);
+		//addDecoration(new WorldGenPatch(t->t.getBlock() != Blocks.air, GenesisBlocks.silt.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.SILT)), 1);
 
 	}
 	
