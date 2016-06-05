@@ -1,20 +1,21 @@
 package genesis.common.sounds;
 
 import genesis.util.Constants;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class GenesisSoundEvents
 {
-	private static final Set<SoundEvent> SOUND_EVENTS = new HashSet<>();
+	private static final Map<SoundEvent, ResourceLocation> SOUND_EVENTS = new HashMap<>();
 
 	private static SoundEvent createSoundEvent(String soundName)
 	{
-		SoundEvent soundEvent = new SoundEvent(new ResourceLocation(Constants.MOD_ID, soundName));
-		SOUND_EVENTS.add(soundEvent);
+		ResourceLocation name = new ResourceLocation(Constants.MOD_ID, soundName);
+		SoundEvent soundEvent = new SoundEvent(name);
+		SOUND_EVENTS.put(soundEvent, name);
 		return soundEvent;
 	}
 	
@@ -126,6 +127,6 @@ public class GenesisSoundEvents
 	
 	public static void registerAll()
 	{
-		SOUND_EVENTS.forEach(soundEvent -> GameRegistry.register(soundEvent));
+		SOUND_EVENTS.forEach((s, n) -> GameRegistry.register(s, n));
 	}
 }
