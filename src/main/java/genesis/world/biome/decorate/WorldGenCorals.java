@@ -2,163 +2,130 @@ package genesis.world.biome.decorate;
 
 import genesis.combo.variant.EnumCoral;
 import genesis.common.GenesisBlocks;
+import genesis.util.functional.WorldBlockMatcher;
+import genesis.util.random.i.IntRange;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class WorldGenCorals extends WorldGenDecorationBase
 {
-	private EnumCoral coralType;
-	private int minHeight;
-	private int maxHeight;
+	private static final IntRange DEFAULT = IntRange.create(1, 4);
+	private static final IntRange HORIZONTAL = IntRange.create(1);
+	
+	private final IBlockState coralState;
+	private final int minHeight;
+	private final int maxHeight;
+	
+	private boolean horizontal;
 	
 	public WorldGenCorals(int minHeight, int maxHeight, EnumCoral coralType)
 	{
+		super(WorldBlockMatcher.STANDARD_AIR_WATER, WorldBlockMatcher.TRUE);
+		
+		coralState = GenesisBlocks.coral.getBlockState(coralType);
 		this.minHeight = minHeight;
 		this.maxHeight = maxHeight;
-		this.coralType = coralType;
+		
+		setPatchRadius(3);
 	}
 	
 	@Override
-	public boolean place(World world, Random random, BlockPos pos)
+	public boolean generate(World world, Random rand, BlockPos pos)
 	{
-		do
-		{
-			IBlockState state = world.getBlockState(pos);
-			
-			if (!state.getBlock().isAir(state, world, pos) && state.getMaterial() == Material.water)
-				break;
-			
-			pos = pos.down();
-		}
-		while (pos.getY() > 0);
+		horizontal = rand.nextBoolean();
+		setPatchCount(horizontal ? HORIZONTAL : DEFAULT);
 		
-		if (coralType == null)
-			coralType = EnumCoral.FAVOSITES;
-		
-		int height = minHeight + random.nextInt(maxHeight);
-		
-		IBlockState coralBlock = GenesisBlocks.coral.getBlockState(coralType);
-		
-		if (random.nextInt(2) == 0)
-		{
-			if (!placeCoralFormation(world, pos, random, coralBlock, height))
-				return false;
-			
-			BlockPos additionalPos;
-			
-			for (int i = 0; i < random.nextInt(5); ++i)
-			{
-				additionalPos = pos.add(random.nextInt(7) - 3, random.nextInt(3) - 1, random.nextInt(7) - 3);
-				placeCoralFormation(world, additionalPos, random, coralBlock, height);
-			}
-		}
-		else
-		{
-			if (!placeCoralFormationHorizontal(world, pos, coralBlock, random, height))
-				return false;
-		}
-		
-		return true;
+		return super.generate(world, rand, pos);
 	}
 	
-	private boolean placeCoralFormation(World world, BlockPos pos, Random random, IBlockState coralBlock, int height)
+	@Override
+	public boolean place(World world, Random rand, BlockPos pos)
+	{
+		pos = pos.down();
+		int height = minHeight + rand.nextInt(maxHeight);
+		
+		if (horizontal)
+			return placeCoralFormationHorizontal(world, pos, rand, height);
+		
+		return placeCoralFormation(world, pos, rand, height);
+	}
+	
+	private boolean placeCoralFormation(World world, BlockPos pos, Random random, int height)
 	{
 		if (!isPositionSuitable(world, pos, height))
 			return false;
 		
-		placeCoralColumn(world, pos, coralBlock, height);
+		placeCoralColumn(world, pos, height);
 		
-		if (random.nextInt(2) == 0)
-			placeCoralColumn(world, pos.north(), coralBlock, 1 + random.nextInt(height - 1));
-		if (random.nextInt(2) == 0)
-			placeCoralColumn(world, pos.south(), coralBlock, 1 + random.nextInt(height - 1));
-		if (random.nextInt(2) == 0)
-			placeCoralColumn(world, pos.east(), coralBlock, 1 + random.nextInt(height - 1));
-		if (random.nextInt(2) == 0)
-			placeCoralColumn(world, pos.west(), coralBlock, 1 + random.nextInt(height - 1));
+		for (EnumFacing side : EnumFacing.HORIZONTALS)
+		{
+			if (random.nextInt(2) == 0)
+				placeCoralColumn(world, pos.offset(side), 1 + random.nextInt(height - 1));
+		}
 		
 		return true;
 	}
 	
-	private void placeCoralColumn(World world, BlockPos pos, IBlockState coralBlock, int height)
+	private void placeCoralColumn(World world, BlockPos pos, int height)
 	{
 		for (int i = 0; i < height; ++i)
-			setReplaceableBlock(world, pos.add(0, i, 0), coralBlock);
+			setBlock(world, pos.add(0, i, 0), coralState);
 	}
 	
-	private boolean placeCoralFormationHorizontal(World world, BlockPos pos, IBlockState coralBlock, Random random, int length)
+	private boolean placeCoralFormationHorizontal(World world, BlockPos pos, Random rand, int length)
 	{
 		if (!isPositionSuitable(world, pos, 5))
 			return false;
 		
-		boolean placedSome = false;
+		boolean placed = false;
 		
-		if (random.nextInt(10) < 7)
+		for (EnumFacing direction : EnumFacing.HORIZONTALS)
 		{
-			placeCoralBranch(world, pos, coralBlock, random, length, 1, 0);
-			placedSome = true;
+			if (rand.nextInt(10) < 7)
+			{
+				placeCoralBranch(world, pos, rand, length, direction);
+				placed = true;
+			}
 		}
 		
-		if (random.nextInt(10) < 7)
-		{
-			placeCoralBranch(world, pos, coralBlock, random, length, -1, 0);
-			placedSome = true;
-		}
-		
-		if (random.nextInt(10) < 7)
-		{
-			placeCoralBranch(world, pos, coralBlock, random, length, 0, 1);
-			placedSome = true;
-		}
-		
-		if (random.nextInt(10) < 7)
-		{
-			placeCoralBranch(world, pos, coralBlock, random, length, 0, -1);
-			placedSome = true;
-		}
-		
-		return placedSome;
+		return placed;
 	}
 	
-	private void placeCoralBranch(World world, BlockPos pos, IBlockState coralBlock, Random random, int length, int dirX, int dirZ)
+	private void placeCoralBranch(World world, BlockPos pos, Random random, int length, EnumFacing direction)
 	{
 		BlockPos placePos = pos;
-		Block block;
 		boolean placeTop = true;
 		
 		for (int i = 1; i <= length; ++i)
 		{
-			block = world.getBlockState(placePos).getBlock();
+			IBlockState state = world.getBlockState(placePos);
 			
-			if (
-					!(block == Blocks.dirt
-					|| block == Blocks.clay
-					|| block == GenesisBlocks.ooze
-					|| block == coralBlock.getBlock()))
-			{
+			if (state.getBlock() != Blocks.dirt
+					&& state.getBlock() != Blocks.clay
+					&& state.getBlock() != GenesisBlocks.ooze
+					&& state != coralState)
 				break;
-			}
 			
-			setReplaceableBlock(world, placePos, coralBlock);
-			setReplaceableBlock(world, placePos.north(), coralBlock);
-			setReplaceableBlock(world, placePos.south(), coralBlock);
-			setReplaceableBlock(world, placePos.east(), coralBlock);
-			setReplaceableBlock(world, placePos.west(), coralBlock);
+			setBlock(world, placePos, coralState);
+			setBlock(world, placePos.north(), coralState);
+			setBlock(world, placePos.south(), coralState);
+			setBlock(world, placePos.east(), coralState);
+			setBlock(world, placePos.west(), coralState);
 			
 			if (placeTop)
-				setReplaceableBlock(world, placePos.up(), coralBlock);
+				setBlock(world, placePos.up(), coralState);
 			
 			if (random.nextInt(3) == 0)
 				placeTop = false;
 			
-			placePos = placePos.add(dirX, 0, dirZ);
+			placePos = placePos.offset(direction);
 		}
 	}
 	
@@ -167,7 +134,8 @@ public class WorldGenCorals extends WorldGenDecorationBase
 		IBlockState state = world.getBlockState(pos);
 		
 		if (state.getMaterial() == Material.water
-				|| state.getBlock().isAir(state, world, pos))
+				|| state.getBlock().isAir(state, world, pos)
+				|| state == coralState)
 			return false;
 		
 		for (int i = 1; i <= height + 2; ++i)
