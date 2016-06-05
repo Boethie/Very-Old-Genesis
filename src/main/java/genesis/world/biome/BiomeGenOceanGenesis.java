@@ -31,22 +31,22 @@ public class BiomeGenOceanGenesis extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenCorals(2, 5, EnumCoral.HELIOLITES), 0.25F);
 		addDecoration(new WorldGenCorals(2, 5, EnumCoral.FAVOSITES), 0.25F);
 		
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.MARPOLIA).setPatchCount(9), 5);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.MARGERETIA).setPatchCount(9), 5);
 		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.BANGIOMORPHA).setPatchCount(9), 1);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.GRYPANIA).setPatchCount(9), 1);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.DIAGONIELLA), 5);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.CHANCELLORIA), 5);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.VETULOCYSTIS), 5);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.WAPKIA), 5);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.HAZELLA), 1);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.MARPOLIA).setPatchCount(9), 0.9F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.MARGERETIA).setPatchCount(9), 0.9F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.GRYPANIA).setPatchCount(9), 0.1F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.HAZELLA), 2);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.DIAGONIELLA), 1.6F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.CHANCELLORIA), 1.6F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.VETULOCYSTIS), 1.6F);
 		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.PIRANIA), 1);
 		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.VAUXIA), 1);
 		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.PTERIDINIUM), 1);
 		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.CHARNIA, EnumAquaticPlant.CHARNIA_TOP), 1);
 		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.ERNIETTA), 1);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.DINOMISCHUS), 1);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.ECHMATOCRINUS), 1);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.WAPKIA), 0.9F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.DINOMISCHUS), 0.07F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.ECHMATOCRINUS), 0.07F);
 		
 		return this;
 	}

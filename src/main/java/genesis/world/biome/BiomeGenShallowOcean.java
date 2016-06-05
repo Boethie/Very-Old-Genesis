@@ -24,30 +24,28 @@ public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
 		
 		addDecoration(new WorldGenMossStages(), 30);
 		
-		addDecoration(new WorldGenCorals(2, 5, EnumCoral.HALYSITES), 1);
-		addDecoration(new WorldGenCorals(2, 5, EnumCoral.HELIOLITES), 1);
-		addDecoration(new WorldGenCorals(2, 5, EnumCoral.FAVOSITES), 1);
+		addDecoration(new WorldGenCorals(2, 5, EnumCoral.HALYSITES), 0.35F);
+		addDecoration(new WorldGenCorals(2, 5, EnumCoral.HELIOLITES), 0.35F);
+		addDecoration(new WorldGenCorals(2, 5, EnumCoral.FAVOSITES), 0.35F);
 		
 		addDecoration(new WorldGenPebbles(), 40);
 		
-		int[] rarityScale = {17, 12, 7, 4, 2};
-		
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.HAZELLA), rarityScale[0]);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.DIAGONIELLA), rarityScale[1]);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.CHANCELLORIA), rarityScale[1]);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.VETULOCYSTIS), rarityScale[1]);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.PIRANIA), rarityScale[2]);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.VAUXIA), rarityScale[2]);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.PTERIDINIUM), rarityScale[2]);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.BANGIOMORPHA).setPatchCount(9), rarityScale[2]);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.CHARNIA, EnumAquaticPlant.CHARNIA_TOP), rarityScale[2]);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.ERNIETTA), rarityScale[2]);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.WAPKIA), rarityScale[3]);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.MARPOLIA).setPatchCount(9), rarityScale[3]);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.MARGERETIA).setPatchCount(9), rarityScale[3]);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.DINOMISCHUS), rarityScale[4]);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.ECHMATOCRINUS), rarityScale[4]);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.GRYPANIA).setPatchCount(9), rarityScale[4]);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.BANGIOMORPHA).setPatchCount(9), 2.2F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.MARPOLIA).setPatchCount(9), 1.2F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.MARGERETIA).setPatchCount(9), 1.2F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.GRYPANIA).setPatchCount(9), 0.2F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.HAZELLA), 4.2F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.DIAGONIELLA), 3.2F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.CHANCELLORIA), 3.2F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.VETULOCYSTIS), 3.2F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.PIRANIA), 2.2F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.VAUXIA), 2.2F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.PTERIDINIUM), 2.2F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.CHARNIA, EnumAquaticPlant.CHARNIA_TOP), 2.2F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.ERNIETTA), 2.2F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.WAPKIA), 1.2F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.DINOMISCHUS), 0.2F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.ECHMATOCRINUS), 0.2F);
 	}
 	
 	@Override

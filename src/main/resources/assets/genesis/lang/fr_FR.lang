@@ -90,11 +90,11 @@ tile.genesis.dung.carnivore.name=Crotte de carnivore
 tile.genesis.dungBrick.name=Briques de crotte
 tile.genesis.wattleAndDaub.name=Mur en torchis
 
-tile.genesis.slab.rock.smoothLimestone.name=Dalle en calcaire lisse
 tile.genesis.slab.rock.rubble.granite.name=Dalle en moellons de granite
 tile.genesis.slab.rock.rubble.mossyGranite.name=Dalle en moellons de granite moussu
 tile.genesis.slab.rock.rubble.rhyolite.name=Dalle en moellons de rhyolite
 tile.genesis.slab.rock.rubble.dolerite.name=Dalle en moellons de dolerite
+tile.genesis.slab.rock.smoothLimestone.name=Dalle en calcaire lisse
 
 #Decoration
 tile.genesis.log.dead.archaeopteris.name=Bois mort d'Archaeopteris
