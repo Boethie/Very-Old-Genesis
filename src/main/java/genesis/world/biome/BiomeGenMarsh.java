@@ -3,7 +3,9 @@ package genesis.world.biome;
 import java.util.Random;
 
 import genesis.combo.PlantBlocks;
+import genesis.combo.SiltBlocks;
 import genesis.combo.variant.EnumPlant;
+import genesis.combo.variant.EnumSilt;
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.*;
 
@@ -34,6 +36,8 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		
 		addDecoration(new WorldGenMossStages(), 30);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.prototaxites).setPatchCount(3), 0.142F);
+		addDecoration(new WorldGenPatch(t->t.getBlock() != Blocks.air, GenesisBlocks.silt.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.SILT)), 3);
+
 	}
 	
 	@Override

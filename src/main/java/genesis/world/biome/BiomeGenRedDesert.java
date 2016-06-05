@@ -6,12 +6,10 @@ import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.EnumSilt;
 import genesis.common.GenesisBlocks;
 import genesis.util.random.f.FloatRange;
-import genesis.world.biome.decorate.WorldGenPebbles;
-import genesis.world.biome.decorate.WorldGenPlant;
-import genesis.world.biome.decorate.WorldGenRockBoulders;
-import genesis.world.biome.decorate.WorldGenRoots;
+import genesis.world.biome.decorate.*;
 import genesis.world.gen.feature.WorldGenTreeBjuvia;
 import genesis.world.gen.feature.WorldGenTreeVoltzia;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class BiomeGenRedDesert extends BiomeGenBaseGenesis
@@ -35,6 +33,7 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenRoots(), 5);
 		addDecoration(new WorldGenPebbles().setWaterRequired(false), 5);
 		addDecoration(new WorldGenRockBoulders(GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT)).setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1F)), 0.4F);
+		addDecoration(new WorldGenPatch(t->t.getBlock() != Blocks.air, GenesisBlocks.silt.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.RED_SILT)), 8);
 
 		getDecorator().setTreeCount(0.4F);
 		addTree(new WorldGenTreeBjuvia(4, 6, true), 16);
