@@ -38,6 +38,7 @@ public final class Constants
 			public static final String FERN_DOUBLE = FERN + DOUBLE;
 			public static final String CROP = "crop.";
 			public static final String SLAB = "slab.";
+			public static final String WALL = "wall.";
 			
 			public static final String MATERIAL = "material.";
 			
@@ -70,6 +71,7 @@ public final class Constants
 		public static final String ORE = PREFIX + Section.ORE;
 		public static final String PLANT = PREFIX + Section.PLANT;
 		public static final String CROP = PREFIX + Section.CROP;
+		public static final String WALL = PREFIX + Section.WALL;
 		
 		public static final String CLOTHING = PREFIX + Section.CLOTHING;
 		

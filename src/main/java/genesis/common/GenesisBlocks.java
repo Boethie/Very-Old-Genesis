@@ -55,7 +55,13 @@ public final class GenesisBlocks
 	public static final Block radioactive_granite = new BlockRadioactiveGranite().setUnlocalizedName(Unlocalized.ROCK + "radioactiveGranite");
 	public static final Block rhyolite = new BlockGenesisRock(1.65F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "rhyolite");
 	public static final Block dolerite = new BlockGenesisRock(1.2F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "dolerite");
-	public static final RubbleBlocks rubble = new RubbleBlocks();
+	public static final VariantsCombo<EnumRubble, BlockRubble, ItemBlockMulti<EnumRubble>> rubble =
+			new VariantsCombo<>(
+					"rubble",
+					new ObjectType<EnumRubble, BlockRubble, ItemBlockMulti<EnumRubble>>(EnumRubble.class, "rubble", Unlocalized.Section.ROCK + "rubble", BlockRubble.class, null)
+							.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.POSTFIX),
+					EnumRubble.class, EnumRubble.values())
+			.setNames(Constants.MOD_ID, Unlocalized.PREFIX);
 	public static final Block komatiite = new BlockGenesisRock(1.95F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "komatiite");
 	public static final Block anorthosite = new BlockGenesisRock(1.2F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "anorthosite");
 	public static final Block trondhjemite = new BlockGenesisRock(1.5F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "trondhjemite");
@@ -64,11 +70,23 @@ public final class GenesisBlocks
 	public static final Block limestone = new BlockGenesisRock(0.75F, 8.7F).setUnlocalizedName(Unlocalized.ROCK + "limestone");
 	public static final Block smooth_limestone = new BlockGenesisRock(0.75F, 8.7F).setUnlocalizedName(Unlocalized.ROCK + "smoothLimestone");
 	public static final Block octaedrite = new BlockGenesisRock(1.0F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "octaedrite");
+
+	/* Slabs */
+	public static final SlabBlocks slabs = new SlabBlocks();
+
+	/* Rubble Walls */
+	public static final Block granite_rubble_wall = new BlockRubbleWall(EnumRubble.GRANITE).setUnlocalizedName(Unlocalized.WALL + "rubble.granite");
+	public static final Block mossy_granite_rubble_wall = new BlockRubbleWall(EnumRubble.MOSSY_GRANITE).setUnlocalizedName(Unlocalized.WALL + "rubble.mossyGranite");
+	public static final Block rhyolite_rubble_wall = new BlockRubbleWall(EnumRubble.RHYOLITE).setUnlocalizedName(Unlocalized.WALL + "rubble.rhyolite");
+	public static final Block dolerite_rubble_wall = new BlockRubbleWall(EnumRubble.DOLERITE).setUnlocalizedName(Unlocalized.WALL + "rubble.dolerite");
+
+	/* Soft */
 	public static final Block red_clay = new BlockRedClay().setUnlocalizedName(Unlocalized.PREFIX + "redClay");
 	public static final Block ooze = new BlockOoze().setUnlocalizedName(Unlocalized.PREFIX + "ooze");
 	public static final Block peat = new BlockPeat().setUnlocalizedName(Unlocalized.PREFIX + "peat");
 	public static final SiltBlocks silt = new SiltBlocks();
-	
+
+	/* Permafrost */
 	public static final Block permafrost = new BlockPermafrost().setUnlocalizedName(Unlocalized.PREFIX + "permafrost");
 	public static final Block ancient_permafrost = new BlockAncientPermafrost().setUnlocalizedName(Unlocalized.PREFIX + "ancientPermafrost");
 	
@@ -95,7 +113,7 @@ public final class GenesisBlocks
 	public static final BlockAnkyropteris ankyropteris = (BlockAnkyropteris) new BlockAnkyropteris().setUnlocalizedName(Unlocalized.PREFIX + "ankyropteris");
 	public static final BlockCobbania cobbania = (BlockCobbania) new BlockCobbania().setUnlocalizedName(Unlocalized.PREFIX + "cobbania");
 	public static final VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>> aquatic_plants =
-			new VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>>(
+			new VariantsCombo<>(
 					"aquatic_plants",
 					new ObjectType<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>>(EnumAquaticPlant.class, "aquatic_plant", "aquaticPlant", BlockAquaticPlant.class, null)
 							.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE),
@@ -167,7 +185,7 @@ public final class GenesisBlocks
 	public static final Block dung_brick = new BlockGenesis(Material.rock, SoundType.STONE)
 			.setHardness(0.7F)
 			.setUnlocalizedName(Unlocalized.PREFIX + "dungBrick");
-	public static final BlockGenesisWall wattle_and_daub = (BlockGenesisWall) new BlockGenesisWall(Material.wood, 0.375F, 1.0F, -1).setUnlocalizedName(Unlocalized.PREFIX + "wattleAndDaub");
+	public static final BlockGenesisWall wattle_and_daub = (BlockGenesisWall) new BlockGenesisWall(Material.wood, 0.375F, 1.0F, -1).setUnlocalizedName(Unlocalized.WALL + "wattleAndDaub");
 	
 	/* Mechanisms */
 	public static final BlockTrapFloor trap_floor = (BlockTrapFloor) new BlockTrapFloor().setUnlocalizedName(Unlocalized.PREFIX + "trapFloor");
@@ -193,9 +211,6 @@ public final class GenesisBlocks
 							.setCreativeTab(GenesisCreativeTabs.DECORATIONS)
 							.setBlockArguments(Material.coral, GenesisSoundTypes.CORAL),
 					EnumCoral.class, EnumCoral.values());
-
-	/* Slabs */
-	public static final SlabBlocks slabs = new SlabBlocks();
 	
 	private static ResourceLocation name(String path)
 	{
@@ -219,7 +234,7 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(radioactive_granite, name("radioactive_granite"));
 		Genesis.proxy.registerBlock(rhyolite, name("rhyolite"));
 		Genesis.proxy.registerBlock(dolerite, name("dolerite"));
-		rubble.registerVariants(RubbleBlocks.RUBBLE);
+		rubble.registerAll();
 		Genesis.proxy.registerBlock(komatiite, name("komatiite"));
 		Genesis.proxy.registerBlock(anorthosite, name("anorthosite"));
 		Genesis.proxy.registerBlock(trondhjemite, name("trondhjemite"));
@@ -228,6 +243,15 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(limestone, name("limestone"));
 		Genesis.proxy.registerBlock(smooth_limestone, name("smooth_limestone"));
 		Genesis.proxy.registerBlock(octaedrite, name("octaedrite"));
+
+		// - Slabs -
+		slabs.registerAll();
+
+		// - Rubble Walls -
+		Genesis.proxy.registerBlock(granite_rubble_wall, name("granite_rubble_wall"));
+		Genesis.proxy.registerBlock(mossy_granite_rubble_wall, name("mossy_granite_rubble_wall"));
+		Genesis.proxy.registerBlock(rhyolite_rubble_wall, name("rhyolite_rubble_wall"));
+		Genesis.proxy.registerBlock(dolerite_rubble_wall, name("dolerite_rubble_wall"));
 		
 		// - Soft -
 		Genesis.proxy.registerBlock(red_clay, name("red_clay"));
@@ -391,9 +415,6 @@ public final class GenesisBlocks
 		// Corals
 		coral.setNames(Constants.MOD_ID, Constants.Unlocalized.PREFIX);
 		coral.registerAll();
-
-		// Slabs
-		slabs.registerAll();
 		
 		// --- Liquids ---
 		Genesis.proxy.registerFluidBlock(komatiitic_lava, name("komatiitic_lava"));

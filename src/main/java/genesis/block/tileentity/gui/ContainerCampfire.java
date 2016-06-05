@@ -81,22 +81,21 @@ public class ContainerCampfire extends ContainerBase
 	{
 		super.detectAndSendChanges();
 		
-		// TODO: Remove cast
-		for (ICrafting iCrafting : crafters)
+		for (ICrafting crafting : crafters)
 		{
 			if (lastCookTime != campfire.cookTime)
 			{
-				iCrafting.sendProgressBarUpdate(this, 0, campfire.cookTime);
+				crafting.sendProgressBarUpdate(this, 0, campfire.cookTime);
 			}
 			
 			if (lastBurnTime != campfire.burnTime || campfire.isWet())
 			{
-				iCrafting.sendProgressBarUpdate(this, 1, campfire.burnTime);
+				crafting.sendProgressBarUpdate(this, 1, campfire.burnTime);
 			}
 			
 			if (lastItemBurnTime != campfire.totalBurnTime)
 			{
-				iCrafting.sendProgressBarUpdate(this, 2, campfire.totalBurnTime);
+				crafting.sendProgressBarUpdate(this, 2, campfire.totalBurnTime);
 			}
 		}
 		

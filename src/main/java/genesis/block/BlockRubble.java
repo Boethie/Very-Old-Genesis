@@ -1,7 +1,6 @@
 package genesis.block;
 
 import genesis.combo.ObjectType;
-import genesis.combo.RubbleBlocks;
 import genesis.combo.VariantsCombo;
 import genesis.combo.VariantsOfTypesCombo.BlockProperties;
 import genesis.combo.variant.EnumRubble;
@@ -23,13 +22,13 @@ public class BlockRubble extends BlockGenesisVariants<EnumRubble>
 	@BlockProperties
 	public static IProperty<?>[] properties = {};
 	
-	public final RubbleBlocks owner;
+	public final VariantsCombo<EnumRubble, BlockRubble, ItemBlockMulti<EnumRubble>> owner;
 	public final ObjectType<EnumRubble, BlockRubble, ItemBlockMulti<EnumRubble>> type;
 	
 	public final List<EnumRubble> variants;
 	public final PropertyIMetadata<EnumRubble> variantProp;
 	
-	public BlockRubble(RubbleBlocks owner,
+	public BlockRubble(VariantsCombo<EnumRubble, BlockRubble, ItemBlockMulti<EnumRubble>> owner,
 			ObjectType<EnumRubble, BlockRubble, ItemBlockMulti<EnumRubble>> type,
 			List<EnumRubble> variants, Class<EnumRubble> variantClass)
 	{
@@ -43,6 +42,8 @@ public class BlockRubble extends BlockGenesisVariants<EnumRubble>
 
 		blockState = new BlockStateContainer(this, variantProp);
 		setDefaultState(getBlockState().getBaseState());
+
+		setHarvestLevel("pickaxe", 0);
 	}
 
 	@Override

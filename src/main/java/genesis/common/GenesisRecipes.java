@@ -494,9 +494,38 @@ public final class GenesisRecipes
 		// All rubble recipes
 		for (EnumRubble variant : EnumRubble.values())
 		{
-			ItemStack rubbleStack = GenesisBlocks.rubble.getStack(RubbleBlocks.RUBBLE, variant);
+			ItemStack rubbleStack = GenesisBlocks.rubble.getStack(variant);
+
+			// Stone -> Rubble
 			ItemStack modelStack = variant.getModelStack();
 			GameRegistry.addShapelessRecipe(rubbleStack, modelStack);
+
+			// Wall
+			Block wallBlock = null;
+
+			switch (variant)
+			{
+			case GRANITE:
+				wallBlock = GenesisBlocks.granite_rubble_wall;
+				break;
+			case MOSSY_GRANITE:
+				wallBlock = GenesisBlocks.mossy_granite_rubble_wall;
+				break;
+			case RHYOLITE:
+				wallBlock = GenesisBlocks.rhyolite_rubble_wall;
+				break;
+			case DOLERITE:
+				wallBlock = GenesisBlocks.dolerite_rubble_wall;
+				break;
+			}
+
+			if (wallBlock != null)
+			{
+				GameRegistry.addRecipe(new ItemStack(wallBlock, 6),
+						"RRR",
+						"RRR",
+						'R', rubbleStack);
+			}
 		}
 
 		// All slab recipes
