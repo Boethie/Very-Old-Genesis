@@ -80,9 +80,4 @@ public final class Constants
 
 		public static final String EFFECT = "effect." + PREFIX;
 	}
-	
-	public static final class Sounds
-	{
-		public static final String IGNITE_FIRE = ASSETS_PREFIX + "fire.ignite";
-	}
 }
