@@ -55,9 +55,11 @@ public class MapGenCavesGenesis extends MapGenBase
 	@Override
 	public void generate(World world, int chunkX, int chunkZ, ChunkPrimer data)
 	{
-		SuperSimplexNoise.NoiseInstance3[] noiseInstaces_64_96_64 = new SuperSimplexNoise.NoiseInstance3[] {
-				new SuperSimplexNoise.NoiseInstance3(new SuperSimplexNoise(world.getSeed() + 0), 0, 1, 2, 3),
-				new SuperSimplexNoise.NoiseInstance3(new SuperSimplexNoise(world.getSeed() + 1), 4, 5, 6, 7),
+		SuperSimplexNoise.NoiseInstance3[] noiseInstaces_64_96_64_A = new SuperSimplexNoise.NoiseInstance3[] {
+				new SuperSimplexNoise.NoiseInstance3(new SuperSimplexNoise(world.getSeed() + 0), 0, 1, 2, 3)
+		};
+		SuperSimplexNoise.NoiseInstance3[] noiseInstaces_64_96_64_B = new SuperSimplexNoise.NoiseInstance3[] {
+				new SuperSimplexNoise.NoiseInstance3(new SuperSimplexNoise(world.getSeed() + 1), 4, 5, 6, 7)
 		};
 		double[] values = new double[8];
 		SuperSimplexNoise lavaBoulderNoise = new SuperSimplexNoise(world.getSeed() + 2);
@@ -91,7 +93,8 @@ public class MapGenCavesGenesis extends MapGenBase
 					
 					//Get noise values & derivatives
 					for (int i = 0; i < 8; i++) values[i] = 0;
-					SuperSimplexNoise.eval(blockX / 96.0, blockY / 64.0, blockZ / 96.0, noiseInstaces_64_96_64, values);
+					SuperSimplexNoise.eval(blockX / 96.0 + 0.00, blockY / 64.0 + 0.00, blockZ / 96.0 + 0.00, noiseInstaces_64_96_64_A, values);
+					SuperSimplexNoise.eval(blockX / 96.0 + 0.25, blockY / 64.0 + 0.25, blockZ / 96.0 + 0.25, noiseInstaces_64_96_64_B, values);
 					double F1 = values[0], F1x = values[1], F1y = values[2], F1z = values[3];
 					double F2 = values[4], F2x = values[5], F2y = values[6], F2z = values[7];
 
