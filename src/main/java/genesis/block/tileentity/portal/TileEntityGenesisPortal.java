@@ -52,12 +52,12 @@ public class TileEntityGenesisPortal extends TileEntityBase implements ITickable
 		else
 		{
 			prevRotation = rotation;
-			rotation += 1.25;
+			rotation -= 1.25;
 			
-			while (rotation > 360)
+			while (rotation < 0)
 			{
-				prevRotation -= 360;
-				rotation -= 360;
+				prevRotation += 360;
+				rotation += 360;
 			}
 		}
 		
