@@ -2,6 +2,7 @@ package genesis.util.functional;
 
 import java.util.function.Predicate;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
@@ -25,6 +26,16 @@ public interface WorldBlockMatcher
 	static WorldBlockMatcher state(Predicate<IBlockState> predicate)
 	{
 		return (s, w, p) -> predicate.test(s);
+	}
+	
+	static WorldBlockMatcher state(IBlockState state)
+	{
+		return state((s) -> s.equals(state));
+	}
+	
+	static WorldBlockMatcher block(Block block)
+	{
+		return state((s) -> s.getBlock() == block);
 	}
 	
 	static WorldBlockMatcher not(WorldBlockMatcher matcher)

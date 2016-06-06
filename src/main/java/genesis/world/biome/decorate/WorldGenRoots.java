@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Random;
 
 import genesis.combo.TreeBlocksAndItems;
-import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
 
 import net.minecraft.block.BlockDirt;
@@ -52,18 +51,8 @@ public class WorldGenRoots extends WorldGenDecorationBase
 		int depth = 2;
 		int length = 1 + random.nextInt(2);
 		
-		if (!(	// TODO: This should be less hardcoded, preferably using a for loop and if necessary a property of EnumTree.
-				findBlockInRange(world, pos, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.LOG, EnumTree.ARCHAEOPTERIS), radius, depth, radius)
-				|| findBlockInRange(world, pos, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.LOG, EnumTree.SIGILLARIA), radius, depth, radius)
-				|| findBlockInRange(world, pos, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.LOG, EnumTree.LEPIDODENDRON), radius, depth, radius)
-				|| findBlockInRange(world, pos, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.LOG, EnumTree.CORDAITES), radius, depth, radius)
-				|| findBlockInRange(world, pos, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.LOG, EnumTree.PSARONIUS), radius, depth, radius)
-				|| findBlockInRange(world, pos, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.LOG, EnumTree.VOLTZIA), radius, depth, radius)
-				|| findBlockInRange(world, pos, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.LOG, EnumTree.ARAUCARIOXYLON), radius, depth, radius)
-				|| findBlockInRange(world, pos, GenesisBlocks.trees.getBlock(TreeBlocksAndItems.LOG, EnumTree.METASEQUOIA), radius, depth, radius)))
-		{
+		if (!isMatchInCylinder(world, pos, (s, w, p) -> GenesisBlocks.trees.isStateOf(s, TreeBlocksAndItems.LOG), radius, 0, depth))
 			return false;
-		}
 		
 		for (int i = 0; i < length; ++i)
 		{

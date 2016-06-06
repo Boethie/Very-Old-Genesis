@@ -48,6 +48,10 @@ public class WorldUtils
 		return getArea(start, end);
 	}
 	
+	/**
+	 * Returns an integer for the distance squared between to block positions.
+	 * Use in place of {@link BlockPos#distanceSq(Vec3i)} to avoid casts to {@code double}.
+	 */
 	public static int distSqr(BlockPos a, BlockPos b)
 	{
 		int dX = a.getX() - b.getX();

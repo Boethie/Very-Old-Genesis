@@ -5,98 +5,98 @@
 package genesis.world.biome.decorate;
 
 import genesis.util.functional.WorldBlockMatcher;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.Random;
-import java.util.function.Predicate;
 
 public class WorldGenSplash extends WorldGenDecorationBase
 {
-
-    protected final IBlockState parentBlock;
-    protected final IBlockState subBlock;
-
-    protected int radius;
-    protected double probability;
-
-    /**
-     *
-     * @param replacePredicate
-     * @param parentBlock
-     * @param subBlock
-     */
-    public WorldGenSplash(Predicate<IBlockState> replacePredicate, IBlockState parentBlock, IBlockState subBlock)
-    {
-        super(WorldBlockMatcher.STANDARD_AIR_WATER, WorldBlockMatcher.state(replacePredicate));
-
-        this.parentBlock = parentBlock;
-        this.subBlock = subBlock;
-
-        setRadius(3);
-        setProbability(1);
-        setPatchRadius(3);
-        setPatchCount(64);
-    }
-
-    @Override
-    public boolean place(World world, Random rand, BlockPos pos)
-    {
-
-        Random rand2 = new Random();
-        double prob = rand2.nextDouble();
-
-        //WATER CHECK
-        if(findBlockInRange(world,pos.down(), Blocks.water,this.radius,this.radius,this.radius))
-            return false;
-
-        //PARENT BELOW CHECK
-        if(findBlockInRange(world,pos.down(), parentBlock,0,1,0) && prob <= probability)
-        {
-            prob = rand2.nextDouble();
-            //PLACE
-            setBlock(world, pos.down(), subBlock);
-            return true;
-        }else{
-            prob = rand2.nextDouble();
-            double prob2 = rand2.nextDouble();
-            //PLACE
-            if(prob <= prob2)
-            {
-                setBlock(world, pos.down(), subBlock);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     *
-     * @param radius set radius from water to stop spawning.
-     * @return
-     */
-    public WorldGenSplash setRadius(int radius)
-    {
-        this.radius = radius;
-        return this;
-    }
-
-    /**
-     *
-     * @param probability set probability of how probable the block will spawn on parent block. Remaining will be on random blocks in the biome.
-     * @return
-     */
-    public WorldGenSplash setProbability(double probability)
-    {
-        if(probability > 1D)
-        {
-            Random rand = new Random();
-            this.probability = rand.nextDouble();
-        }else {
-            this.probability = probability;
-        }
-        return this;
-    }
+	protected final IBlockState parentBlock;
+	protected final IBlockState subBlock;
+	
+	protected int dryRadius = 2;
+	protected float centerChance = 0.25F;
+	protected float edgeChance = 1;
+	
+	public WorldGenSplash(IBlockState parentBlock, IBlockState subBlock)
+	{
+		super(WorldBlockMatcher.STANDARD_AIR_WATER, WorldBlockMatcher.SOLID_TOP);
+		
+		this.parentBlock = parentBlock;
+		this.subBlock = subBlock;
+		
+		setPatchRadius(4);
+		setPatchCount(64);
+	}
+	
+	@Override
+	public boolean place(World world, Random rand, BlockPos pos)
+	{
+		pos = pos.down();
+		
+		//WATER CHECK
+		if (dryRadius != -1 && isMatchInSphere(world, pos, WorldBlockMatcher.WATER, dryRadius))
+			return false;
+		
+		//PARENT BELOW CHECK
+		if (world.getBlockState(pos) == parentBlock)
+		{
+			boolean surrounded = true;
+			
+			if (centerChance != edgeChance)
+			{
+				for (EnumFacing side : EnumFacing.HORIZONTALS)
+				{
+					IBlockState state = world.getBlockState(pos.offset(side));
+					
+					if (state != parentBlock && state != subBlock)
+					{
+						surrounded = false;
+						break;
+					}
+				}
+			}
+			
+			if (rand.nextFloat() <= (surrounded ? centerChance : edgeChance))
+			{
+				setBlock(world, pos, subBlock);
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	/**
+	 *
+	 * @param radius set radius from water to stop spawning.
+	 */
+	public WorldGenSplash setDryRadius(int radius)
+	{
+		this.dryRadius = radius;
+		return this;
+	}
+	
+	/**
+	 * @param chance Set chance of the block replacing the parent block.
+	 */
+	public WorldGenSplash setCenterChance(float chance)
+	{
+		this.centerChance = chance;
+		return this;
+	}
+	
+	/**
+	 * @param chance Set chance of the block being placed next to the parent block.
+	 */
+	public WorldGenSplash setEdgeChance(float chance)
+	{
+		this.edgeChance = chance;
+		return this;
+	}
 }
