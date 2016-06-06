@@ -1,5 +1,10 @@
 {
 	"variants": {
-		"normal": { "model": "genesis:ooze" }
+		"normal": [
+			{ "model": "genesis:ooze", "y": 0 },
+			{ "model": "genesis:ooze", "y": 90 },
+			{ "model": "genesis:ooze", "y": 180 },
+			{ "model": "genesis:ooze", "y": 270 }
+		]
 	}
 }

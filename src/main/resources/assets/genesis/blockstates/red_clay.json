@@ -1,5 +1,10 @@
 {
 	"variants": {
-		"normal": { "model": "genesis:red_clay" }
+		"normal": [
+			{ "model": "genesis:red_clay", "y": 0 },
+			{ "model": "genesis:red_clay", "y": 90 },
+			{ "model": "genesis:red_clay", "y": 180 },
+			{ "model": "genesis:red_clay", "y": 270 }
+		]
 	}
 }
