@@ -48,7 +48,7 @@ public final class GenesisBlocks
 	
 	/* Moss */
 	public static final BlockMoss moss = (BlockMoss) new BlockMoss().setUnlocalizedName(Unlocalized.PREFIX + "moss");
-
+	
 	/* Humus */
 	public static final Block humus = new BlockHumus().setUnlocalizedName(Unlocalized.PREFIX + "humus");
 	public static final Block humus_path = new BlockGenesisPath(humus.getDefaultState()).setUnlocalizedName(Unlocalized.PREFIX + "humusPath");
@@ -74,22 +74,22 @@ public final class GenesisBlocks
 	public static final Block limestone = new BlockGenesisRock(0.75F, 8.7F).setUnlocalizedName(Unlocalized.ROCK + "limestone");
 	public static final Block smooth_limestone = new BlockGenesisRock(0.75F, 8.7F).setUnlocalizedName(Unlocalized.ROCK + "smoothLimestone");
 	public static final Block octaedrite = new BlockGenesisRock(1.0F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "octaedrite");
-
+	
 	/* Slabs */
 	public static final SlabBlocks slabs = new SlabBlocks();
-
+	
 	/* Rubble Walls */
 	public static final Block granite_rubble_wall = new BlockRubbleWall(EnumRubble.GRANITE).setUnlocalizedName(Unlocalized.WALL + "rubble.granite");
 	public static final Block mossy_granite_rubble_wall = new BlockRubbleWall(EnumRubble.MOSSY_GRANITE).setUnlocalizedName(Unlocalized.WALL + "rubble.mossyGranite");
 	public static final Block rhyolite_rubble_wall = new BlockRubbleWall(EnumRubble.RHYOLITE).setUnlocalizedName(Unlocalized.WALL + "rubble.rhyolite");
 	public static final Block dolerite_rubble_wall = new BlockRubbleWall(EnumRubble.DOLERITE).setUnlocalizedName(Unlocalized.WALL + "rubble.dolerite");
-
+	
 	/* Soft */
 	public static final Block red_clay = new BlockRedClay().setUnlocalizedName(Unlocalized.PREFIX + "redClay");
 	public static final Block ooze = new BlockOoze().setUnlocalizedName(Unlocalized.PREFIX + "ooze");
 	public static final Block peat = new BlockPeat().setUnlocalizedName(Unlocalized.PREFIX + "peat");
 	public static final SiltBlocks silt = new SiltBlocks();
-
+	
 	/* Permafrost */
 	public static final Block permafrost = new BlockPermafrost().setUnlocalizedName(Unlocalized.PREFIX + "permafrost");
 	public static final Block ancient_permafrost = new BlockAncientPermafrost().setUnlocalizedName(Unlocalized.PREFIX + "ancientPermafrost");
@@ -107,7 +107,7 @@ public final class GenesisBlocks
 	public static final BlockCampfire campfire = (BlockCampfire) new BlockCampfire().setUnlocalizedName(Unlocalized.CONTAINER_BLOCK + "campfire");
 	public static final BlockStorageBox storage_box = (BlockStorageBox) new BlockStorageBox().setUnlocalizedName(Unlocalized.CONTAINER_BLOCK + "storageBox");
 	public static final BlockRottenStorageBox rotten_storage_box = (BlockRottenStorageBox) new BlockRottenStorageBox().setUnlocalizedName(Unlocalized.CONTAINER_BLOCK + "rottenStorageBox");
-
+	
 	/* Plants */
 	public static final PlantBlocks plants = new PlantBlocks();
 	public static final Block asplenium = new BlockAsplenium().setUnlocalizedName(Unlocalized.PREFIX + "fern.asplenium");
@@ -174,7 +174,7 @@ public final class GenesisBlocks
 	
 	/* Other Decorative */
 	public static final BlockGenesisFlowerPot flower_pot = (BlockGenesisFlowerPot) new BlockGenesisFlowerPot().setUnlocalizedName(Unlocalized.PREFIX + "flowerPot");
-
+	
 	public static final Block calamites_bundle = new BlockCalamitesBundle().setUnlocalizedName(Unlocalized.PREFIX + "calamitesBundle");
 	public static final Block calamites_roof = new BlockGenesisStairs(calamites_bundle.getDefaultState()).setUnlocalizedName(Unlocalized.PREFIX + "calamitesRoof");
 	public static final Block programinis_bundle = new BlockPrograminisBundle().setUnlocalizedName(Unlocalized.PREFIX + "programinisBundle");
@@ -231,7 +231,7 @@ public final class GenesisBlocks
 		{
 			Genesis.proxy.registerModel(moss, mossStage, name("moss_" + mossStage));
 		}
-
+		
 		Genesis.proxy.registerBlock(humus, name("humus"));
 		Genesis.proxy.registerBlock(humus_path, name("humus_path"));
 		
@@ -250,10 +250,10 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(limestone, name("limestone"));
 		Genesis.proxy.registerBlock(smooth_limestone, name("smooth_limestone"));
 		Genesis.proxy.registerBlock(octaedrite, name("octaedrite"));
-
+		
 		// - Slabs -
 		slabs.registerAll();
-
+		
 		// - Rubble Walls -
 		Genesis.proxy.registerBlock(granite_rubble_wall, name("granite_rubble_wall"));
 		Genesis.proxy.registerBlock(mossy_granite_rubble_wall, name("mossy_granite_rubble_wall"));
@@ -276,7 +276,7 @@ public final class GenesisBlocks
 		// - Full Block Woody -
 		trees.registerVariants(TreeBlocksAndItems.LOG);
 		trees.registerVariants(TreeBlocksAndItems.BRANCH);
-
+		
 		Genesis.proxy.registerBlock(calamites_bundle, name("calamites_bundle"));
 		Genesis.proxy.registerBlock(calamites_roof, name("calamites_roof"));
 		Genesis.proxy.registerBlock(programinis_bundle, name("programinis_bundle"));
@@ -445,15 +445,15 @@ public final class GenesisBlocks
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityStorageBox.class, new TileEntityStorageBoxRenderer(storage_box));
 		
 		ModelLoader.setCustomStateMapper(portal, new FlexibleStateMap().setPrefix("portal/portal", ""));
-
+		
 		for (EnumMenhirPart part : EnumMenhirPart.ORDERED)
 		{
 			ItemStack stack = menhirs.getStack(part);
-
+			
 			if (part == EnumMenhirPart.GLYPH)
 			{
 				BlockMenhir block = menhirs.getBlock(part);
-
+				
 				for (EnumGlyph glyph : EnumGlyph.values())
 				{
 					ItemStack glyphStack = block.getGlyphStack(glyph);
