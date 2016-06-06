@@ -91,8 +91,8 @@ public final class GenesisBiomes
 		prop = new BiomeGenBase.BiomeProperties("Araucarioxylon Forest");
 		prop.setTemperature(1.1F);
 		prop.setRainfall(0.9F);
-		prop.setBaseHeight(0.05F);
-		prop.setHeightVariation(0.15F);
+		prop.setBaseHeight(0.1F);
+		prop.setHeightVariation(0.175F);
 		prop.setWaterColor(0x725113);
 		
 		auxForest = new BiomeGenAuxForest(prop);
@@ -125,7 +125,7 @@ public final class GenesisBiomes
 		prop.setTemperature(1.1F);
 		prop.setRainfall(0.9F);
 		prop.setBaseHeight(0.035F);
-		prop.setHeightVariation(0.1F);
+		prop.setHeightVariation(0.15F);
 		prop.setWaterColor(0x725113);
 		
 		woodlands = new BiomeGenWoodlands(prop);
@@ -157,8 +157,8 @@ public final class GenesisBiomes
 		prop = new BiomeGenBase.BiomeProperties("Metasequoia Forest");
 		prop.setTemperature(1.1F);
 		prop.setRainfall(0.9F);
-		prop.setBaseHeight(0.04F);
-		prop.setHeightVariation(0.165F);
+		prop.setBaseHeight(0.075F);
+		prop.setHeightVariation(0.175F);
 		prop.setWaterColor(0x725113);
 		
 		metaForest = new BiomeGenMetaForest(prop);
