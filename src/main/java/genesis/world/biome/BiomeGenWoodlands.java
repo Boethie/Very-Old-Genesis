@@ -48,7 +48,7 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 						0.085F);*/
 		addDecoration(new WorldGenRoots(), 13);
 		addDecoration(new WorldGenDecorationOnBlock((s) -> s.getMaterial() == Material.water, GenesisBlocks.cobbania.getDefaultState()), 2.8F);
-		addDecoration(new WorldGenAsplenium().setPatchCount(24), 14);
+		addDecoration(new WorldGenAsplenium().setPatchCount(20), 10);
 	}
 	
 	protected void addTrees()
