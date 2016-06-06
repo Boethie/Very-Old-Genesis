@@ -1,0 +1,6 @@
+{
+	"parent": "genesis:block/humus_path",
+	"textures": {
+		"top": "genesis:blocks/humus_path_0"
+	}
+}

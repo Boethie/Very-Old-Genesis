@@ -21,6 +21,8 @@ tile.genesis.menhir.top.name=Menhir Top
 
 #Building blocks
 tile.genesis.moss.name=Moss
+tile.genesis.humus.name=Humus
+tile.genesis.humusPath.name=Humus Path
 tile.genesis.rock.granite.name=Granite
 tile.genesis.rock.radioactiveGranite.name=Radioactive Granite
 tile.genesis.rock.mossyGranite.name=Mossy Granite

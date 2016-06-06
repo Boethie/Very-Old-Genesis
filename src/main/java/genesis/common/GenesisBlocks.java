@@ -48,6 +48,10 @@ public final class GenesisBlocks
 	
 	/* Moss */
 	public static final BlockMoss moss = (BlockMoss) new BlockMoss().setUnlocalizedName(Unlocalized.PREFIX + "moss");
+
+	/* Humus */
+	public static final Block humus = new BlockHumus().setUnlocalizedName(Unlocalized.PREFIX + "humus");
+	public static final Block humus_path = new BlockGenesisPath(humus.getDefaultState()).setUnlocalizedName(Unlocalized.PREFIX + "humusPath");
 	
 	/* Rocks */
 	public static final Block granite = new BlockGenesisRock(2.1F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "granite");
@@ -227,6 +231,9 @@ public final class GenesisBlocks
 		{
 			Genesis.proxy.registerModel(moss, mossStage, name("moss_" + mossStage));
 		}
+
+		Genesis.proxy.registerBlock(humus, name("humus"));
+		Genesis.proxy.registerBlock(humus_path, name("humus_path"));
 		
 		// - Stone -
 		Genesis.proxy.registerBlock(granite, name("granite"));

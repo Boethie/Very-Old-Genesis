@@ -1,0 +1,26 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "genesis:humus_path"
+	},
+	"variants": {
+		"normal": [
+			{ "textures": { "top": "genesis:blocks/humus_path_0" } },
+			{ "textures": { "top": "genesis:blocks/humus_path_0" }, "y": 90 },
+			{ "textures": { "top": "genesis:blocks/humus_path_0" }, "y": 180 },
+			{ "textures": { "top": "genesis:blocks/humus_path_0" }, "y": 270 },
+			{ "textures": { "top": "genesis:blocks/humus_path_1" } },
+			{ "textures": { "top": "genesis:blocks/humus_path_1" }, "y": 90 },
+			{ "textures": { "top": "genesis:blocks/humus_path_1" }, "y": 180 },
+			{ "textures": { "top": "genesis:blocks/humus_path_1" }, "y": 270 },
+			{ "textures": { "top": "genesis:blocks/humus_path_2" } },
+			{ "textures": { "top": "genesis:blocks/humus_path_2" }, "y": 90 },
+			{ "textures": { "top": "genesis:blocks/humus_path_2" }, "y": 180 },
+			{ "textures": { "top": "genesis:blocks/humus_path_2" }, "y": 270 },
+			{ "textures": { "top": "genesis:blocks/humus_path_3" } },
+			{ "textures": { "top": "genesis:blocks/humus_path_3" }, "y": 90 },
+			{ "textures": { "top": "genesis:blocks/humus_path_3" }, "y": 180 },
+			{ "textures": { "top": "genesis:blocks/humus_path_3" }, "y": 270 }
+		]
+	}
+}

@@ -357,10 +357,18 @@ public final class GenesisRecipes
 		
 		for (EnumTree tree : EnumTree.values())
 		{
-			// Debris
+			// All recipes involving debris
 			if (tree.hasDebris())
+			{
+				// Leaves -> Debris
 				GameRegistry.addShapelessRecipe(GenesisBlocks.debris.getStack(tree, 4),
 						GenesisBlocks.trees.getStack(TreeBlocksAndItems.LEAVES, tree));
+				
+				// Humus
+				GameRegistry.addShapelessRecipe(new ItemStack(GenesisBlocks.humus),
+						new ItemStack(Blocks.dirt),
+						GenesisBlocks.debris.getStack(tree));
+			}
 			
 			// Porridge
 			ItemStack porridge = null;
