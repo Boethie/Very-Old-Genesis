@@ -22,6 +22,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
+import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.*;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.*;
@@ -45,6 +46,39 @@ public class WorldUtils
 		BlockPos start = pos.add(-radius, -radius, -radius);
 		BlockPos end = pos.add(radius, radius, radius);
 		return getArea(start, end);
+	}
+	
+	public static int distSqr(BlockPos a, BlockPos b)
+	{
+		int dX = a.getX() - b.getX();
+		int dY = a.getY() - b.getY();
+		int dZ = a.getZ() - b.getZ();
+		return dX * dX + dY * dY + dZ * dZ;
+	}
+	
+	public static MutableBlockPos setOffset(MutableBlockPos pos, int dX, int dY, int dZ)
+	{
+		return pos.set(pos.getX() + dX, pos.getY() + dY, pos.getZ() + dZ);
+	}
+	
+	public static MutableBlockPos setOffset(MutableBlockPos pos, Vec3i offset, int distance)
+	{
+		return setOffset(pos, offset.getX() * distance, offset.getY() * distance, offset.getZ() * distance);
+	}
+	
+	public static MutableBlockPos setOffset(MutableBlockPos pos, Vec3i offset)
+	{
+		return setOffset(pos, offset, 1);
+	}
+	
+	public static MutableBlockPos setOffset(MutableBlockPos pos, EnumFacing direction, int distance)
+	{
+		return setOffset(pos, direction.getDirectionVec(), distance);
+	}
+	
+	public static MutableBlockPos setOffset(MutableBlockPos pos, EnumFacing direction)
+	{
+		return setOffset(pos, direction.getDirectionVec());
 	}
 	
 	/**

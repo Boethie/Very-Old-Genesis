@@ -22,6 +22,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.*;
@@ -66,9 +67,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 		public BlockGrowingPlant getPlant()
 		{
 			if (plant == null)
-			{
 				plant = (BlockGrowingPlant) world.getBlockState(startPos).getBlock();
-			}
 			
 			return plant;
 		}
@@ -85,74 +84,14 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 		}
 		
 		/**
-		 * @return Distance to the top of the plant (inclusive of the starting BlockPos).
-		 */
-		public int getToTop()
-		{
-			if (toTop == -1)
-			{
-				getPlant();
-				int top = 1;
-
-				while (world.getBlockState(startPos.up(top)).getBlock() == plant)
-				{
-					top++;
-				}
-				
-				toTop = top;
-			}
-			
-			return toTop;
-		}
-		
-		/**
-		 * @return Distance to the bottom of the plant (inclusive of the starting BlockPos).
-		 */
-		public int getToBottom()
-		{
-			if (toBottom == -1)
-			{
-				getPlant();
-				int theToBottom = 1;
-				
-				while (world.getBlockState(startPos.down(theToBottom)).getBlock() == plant)
-				{
-					theToBottom++;
-				}
-				
-				/*for (theToBottom = 1; world.getBlockState(startPos.down(theToBottom)).getBlock() == plant; theToBottom++)
-				{}*/
-				
-				toBottom = theToBottom;
-			}
-			
-			return toBottom;
-		}
-		
-		/**
 		 * @return Height of the plant.
 		 */
 		public int getHeight()
 		{
 			if (height == -1)
-			{
-				height = getToTop() + getToBottom() - 1;
-			}
+				height = getTop().getY() - getBottom().getY() + 1;
 			
 			return height;
-		}
-		
-		/**
-		 * @return The BlockPos at the bottom of the plant.
-		 */
-		public BlockPos getBottom()
-		{
-			if (bottom == null)
-			{
-				bottom = startPos.down(getToBottom() - 1);
-			}
-			
-			return bottom;
 		}
 		
 		/**
@@ -162,10 +101,57 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 		{
 			if (top == null)
 			{
-				top = startPos.up(getToTop() - 1);
+				getPlant();
+				MutableBlockPos pos = new MutableBlockPos(startPos.getX(), startPos.getY() + 1, startPos.getZ());
+				
+				while (world.getBlockState(pos).getBlock() == plant)
+					pos.setY(pos.getY() + 1);
+				
+				top = pos.down();
 			}
 			
 			return top;
+		}
+		
+		/**
+		 * @return Distance to the top of the plant (inclusive of the starting BlockPos).
+		 */
+		public int getToTop()
+		{
+			if (toTop == -1)
+				toTop = getTop().getY() - startPos.getY() + 1;
+			
+			return toTop;
+		}
+		
+		/**
+		 * @return The BlockPos at the bottom of the plant.
+		 */
+		public BlockPos getBottom()
+		{
+			if (bottom == null)
+			{
+				getPlant();
+				MutableBlockPos pos = new MutableBlockPos(startPos.getX(), startPos.getY() - 1, startPos.getZ());
+				
+				while (world.getBlockState(pos).getBlock() == plant)
+					pos.setY(pos.getY() - 1);
+				
+				bottom = pos.up();
+			}
+			
+			return bottom;
+		}
+		
+		/**
+		 * @return Distance to the bottom of the plant (inclusive of the starting BlockPos).
+		 */
+		public int getToBottom()
+		{
+			if (toBottom == -1)
+				toBottom = startPos.getY() - getBottom().getY() + 1;
+			
+			return toBottom;
 		}
 		
 		/**

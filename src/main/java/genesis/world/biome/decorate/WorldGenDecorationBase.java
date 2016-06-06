@@ -3,11 +3,14 @@ package genesis.world.biome.decorate;
 import java.util.Random;
 
 import genesis.util.functional.WorldBlockMatcher;
+import genesis.util.math.PosVecIterable;
 import genesis.util.random.i.IntRange;
 import genesis.util.random.i.RandomIntProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -71,19 +74,19 @@ public abstract class WorldGenDecorationBase extends WorldGenerator
 	{
 		if (airMatcher != null)
 		{
-			if (!airMatcher.apply(world, pos.up()))
+			pos = pos.up();
+			
+			if (!airMatcher.apply(world, pos))
 				return null;
 			
-			int down = 0;
-			
-			do
+			for (MutableBlockPos mutPos : new PosVecIterable(pos, EnumFacing.DOWN, distance))
 			{
-				if (!airMatcher.apply(world, pos))
+				if (!airMatcher.apply(world, mutPos))
+				{
+					pos = mutPos.toImmutable();
 					break;
-				
-				if (distance != -1 && ++down >= distance)
-					return null;
-			} while ((pos = pos.down()).getY() >= 0);
+				}
+			}
 		}
 		
 		if (groundMatcher != null && !groundMatcher.apply(world, pos))

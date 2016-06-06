@@ -3,14 +3,18 @@ package genesis.portal;
 import genesis.block.tileentity.portal.*;
 import genesis.combo.variant.EnumMenhirPart;
 import genesis.common.*;
+import genesis.util.FacingHelpers;
 import genesis.util.WorldUtils;
-
+import genesis.util.math.PosVecIterable;
+import genesis.util.math.PosVecIterable.PosVecIterator;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.EnumFacing.AxisDirection;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -23,7 +27,7 @@ public class GenesisPortal
 {
 	public static final int MENHIR_MIN_DISTANCE = 1;
 	public static final int MENHIR_DEFAULT_DISTANCE = 3;
-	public static final int MENHIR_MAX_DISTANCE = 3;
+	public static final int MENHIR_MAX_DISTANCE = 5;
 	public static final int PORTAL_HEIGHT = 3;
 	
 	public static final int COOLDOWN = 10;
@@ -88,22 +92,39 @@ public class GenesisPortal
 		refresh();
 	}
 	
-	protected boolean isValidMenhir(BlockPos pos, IBlockState state, EnumFacing facing, int y)
-	{
-		if (GenesisBlocks.menhirs.containsState(state) && BlockMenhir.getFacing(state) == facing)
-		{
-			if (y == new MenhirData(blockAccess, pos).getBottomPos().getY())
-			{
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	
 	protected boolean isValidMenhir(BlockPos pos, IBlockState state, EnumFacing facing)
 	{
-		return isValidMenhir(pos, state, facing, getCenterPosition().getY());
+		return GenesisBlocks.menhirs.containsState(state)
+				&& BlockMenhir.getFacing(state) == facing
+				&& pos.getY() == new MenhirData(blockAccess, pos).getBottomPos().getY();
+	}
+	
+	protected int findMenhir(BlockPos start, EnumFacing direction, int min, int max)
+	{
+		MutableBlockPos pos = new MutableBlockPos(start);
+		PosVecIterator iter = new PosVecIterator(pos, direction, min);
+		
+		while (iter.hasNext())
+		{
+			iter.next();
+			if (isBlockingPortal(blockAccess, pos))
+				return -1;
+		}
+		
+		iter = new PosVecIterator(pos, direction, max - min);
+		
+		while (iter.hasNext())
+		{
+			iter.next();
+			IBlockState checkState = blockAccess.getBlockState(pos);
+			
+			if (isValidMenhir(pos, checkState, direction.getOpposite()))
+				return max - iter.getCountLeft();
+			else if (isBlockingPortal(blockAccess, pos, checkState))
+				return -1;
+		}
+		
+		return -1;
 	}
 	
 	protected BlockPos findCenterFromMenhir(BlockPos pos, IBlockState state)
@@ -112,61 +133,31 @@ public class GenesisPortal
 		pos = startMenhir.getBottomPos();
 		EnumFacing facing = startMenhir.getFacing();
 		
-		BlockPos centerPos = pos;
-		int y = centerPos.getY();
-		
 		forward:
-		for (int forward = 1; forward <= MENHIR_MAX_DISTANCE; forward++)
+		for (MutableBlockPos center : new PosVecIterable(pos, facing, MENHIR_MAX_DISTANCE))
 		{
-			BlockPos curCenter = pos.offset(facing, forward);
-			
-			if (isBlockingPortal(blockAccess, curCenter))
+			if (isBlockingPortal(blockAccess, center))
 			{
 				break forward;
 			}
-			else if (forward >= MENHIR_MIN_DISTANCE)
+			else if (WorldUtils.distSqr(pos, center) >= MENHIR_MIN_DISTANCE * MENHIR_MIN_DISTANCE)
 			{
+				Axis axis = facing.rotateY().getAxis();
+				
 				for (AxisDirection direction : AxisDirection.values())
 				{
-					for (int side = 0; side <= MENHIR_MAX_DISTANCE; side++)
-					{
-						BlockPos checkPos = curCenter.offset(facing.rotateY(), side * direction.getOffset());
-						IBlockState checkState = blockAccess.getBlockState(checkPos);
-
-						if (side >= MENHIR_MIN_DISTANCE && isValidMenhir(checkPos, checkState, facing.rotateYCCW(), y))
-						{
-							centerPos = curCenter;
-							break forward;
-						}
-						else if (isBlockingPortal(blockAccess, checkPos, checkState))
-						{
-							break;
-						}
-					}
+					if (findMenhir(center, FacingHelpers.getFacing(axis, direction), MENHIR_MIN_DISTANCE, MENHIR_MAX_DISTANCE) != -1)
+						return center;
 				}
 			}
 		}
 		
-		if (centerPos == pos)
-		{
-			for (int forward = 0; forward <= MENHIR_MAX_DISTANCE * 2; forward++)
-			{
-				BlockPos checkPos = pos.offset(facing, forward);
-				IBlockState checkState = blockAccess.getBlockState(checkPos);
-				
-				if (forward >= MENHIR_MIN_DISTANCE * 2 && isValidMenhir(checkPos, checkState, facing.getOpposite(), y))
-				{
-					centerPos = pos.offset(facing, forward / 2);
-					break;
-				}
-				else if (isBlockingPortal(blockAccess, checkPos, checkState))
-				{
-					break;
-				}
-			}
-		}
+		int menhirDistance = findMenhir(pos, facing, MENHIR_MIN_DISTANCE * 2, MENHIR_MAX_DISTANCE * 2);
 		
-		return centerPos;
+		if (menhirDistance != -1)
+			return pos.offset(facing, menhirDistance / 2);
+		
+		return pos;
 	}
 	
 	public void refresh()
