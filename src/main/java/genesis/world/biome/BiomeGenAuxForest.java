@@ -25,7 +25,7 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 	
 	protected void addDecorations()
 	{
-		addDecoration(new WorldGenStemonitis().setPatchCount(12), 5);
+		addDecoration(new WorldGenStemonitis().setPatchCount(14), 6);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.cladophlebis).setPatchCount(9), 0.75F);
 		
 		addDecoration(new WorldGenDebris(), 22);
@@ -50,7 +50,7 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 		addTree(new WorldGenTreeGinkgo(8, 13, false), 3);
 		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 1);
 		
-		addTree(new WorldGenDeadLog(7, 10, EnumTree.ARAUCARIOXYLON, true), 16);
+		addTree(new WorldGenDeadLog(7, 10, EnumTree.ARAUCARIOXYLON, true), 7);
 	}
 	
 	@Override

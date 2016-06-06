@@ -32,7 +32,7 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		getDecorator().setFlowerCount(0.15F);
 		addFlower(WorldGenPlant.create(EnumPlant.PALAEOASTER).setPatchCount(9), 1);
 		
-		addDecoration(new WorldGenStemonitis().setPatchCount(12), 5);
+		addDecoration(new WorldGenStemonitis().setPatchCount(14), 6);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setPatchCount(3), 0.15F);
 		addDecoration(WorldGenCircleReplacement.getPeatGen(), 1);
 		addDecoration(new WorldGenDebris(), 14);
@@ -63,8 +63,8 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		addTree(new WorldGenTreeDryophyllum(18, 22, false).setType(TreeTypes.TYPE_2), 50);
 		addTree(new WorldGenTreeMetasequoia(12, 24, true), 100);
 		
-		addTree(new WorldGenDeadLog(5, 8, EnumTree.DRYOPHYLLUM, true), 80);
-		addTree(new WorldGenDeadLog(5, 8, EnumTree.METASEQUOIA, true), 13);
+		addTree(new WorldGenDeadLog(5, 8, EnumTree.DRYOPHYLLUM, true), 28);
+		addTree(new WorldGenDeadLog(5, 8, EnumTree.METASEQUOIA, true), 5);
 	}
 	
 	@Override

@@ -40,13 +40,13 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 		addDecoration(WorldGenCircleReplacement.getPeatGen(), 10);
 		
 		getDecorator().setTreeCount(18.1F);
-		addTree(new WorldGenTreeSigillaria(9, 12, true).generateVine(11), 2);
-		addTree(new WorldGenTreePsaronius(5, 6, true).generateVine(11), 2);
-		addTree(new WorldGenTreeCordaites(12, 17, true).generateVine(11), 5);
-		addTree(new WorldGenTreeLepidodendron(11, 15, true).generateVine(11), 7);
+		addTree(new WorldGenTreeSigillaria(9, 12, true).generateVine(11), 12);
+		addTree(new WorldGenTreePsaronius(5, 6, true).generateVine(11), 12);
+		addTree(new WorldGenTreeCordaites(12, 17, true).generateVine(11), 15);
+		addTree(new WorldGenTreeLepidodendron(11, 15, true).generateVine(11), 17);
 		
-		addTree(new WorldGenDeadLog(4, 7, EnumTree.LEPIDODENDRON, true), 6);
-		addTree(new WorldGenDeadLog(4, 7, EnumTree.SIGILLARIA, true), 1);
+		addTree(new WorldGenDeadLog(4, 7, EnumTree.LEPIDODENDRON, true), 5);
+		addTree(new WorldGenDeadLog(4, 7, EnumTree.SIGILLARIA, true), 3);
 		addTree(new WorldGenDeadLog(4, 7, EnumTree.CORDAITES, true).setCanGrowInWater(true), 6);
 	}
 	

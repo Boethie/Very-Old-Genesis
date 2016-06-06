@@ -27,7 +27,7 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 	{
 		//TODO: WorldGenPaleogaracites should be instead called/moved inside the dead log generation.
 		addDecoration(new WorldGenPalaeoagaracites().setPatchCount(24), 14);
-		addDecoration(new WorldGenStemonitis().setPatchCount(12), 5);
+		addDecoration(new WorldGenStemonitis().setPatchCount(14), 6);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPatchCount(5), 1.75F);
 		
 		addDecoration(new WorldGenRockBoulders().setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 2);
@@ -56,8 +56,8 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 		addTree(new WorldGenTreeGinkgo(8, 13, false), 5);
 		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 1);
 		
-		addTree(new WorldGenDeadLog(5, 8, EnumTree.METASEQUOIA, true), 60);
-		addTree(new WorldGenDeadLog(7, 10, EnumTree.METASEQUOIA, true).setType(1), 15);
+		addTree(new WorldGenDeadLog(5, 8, EnumTree.METASEQUOIA, true), 12);
+		addTree(new WorldGenDeadLog(5, 8, EnumTree.METASEQUOIA, true).setType(1), 5);
 	}
 	
 	@Override
