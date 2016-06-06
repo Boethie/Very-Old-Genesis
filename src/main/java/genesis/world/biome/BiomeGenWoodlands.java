@@ -63,8 +63,8 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		addTree(new WorldGenTreeDryophyllum(18, 22, false).setType(TreeTypes.TYPE_2), 50);
 		addTree(new WorldGenTreeMetasequoia(12, 24, true), 100);
 		
-		addTree(new WorldGenDeadLog(3, 6, EnumTree.DRYOPHYLLUM, true), 80);
-		addTree(new WorldGenDeadLog(3, 6, EnumTree.METASEQUOIA, true), 13);
+		addTree(new WorldGenDeadLog(5, 8, EnumTree.DRYOPHYLLUM, true), 80);
+		addTree(new WorldGenDeadLog(5, 8, EnumTree.METASEQUOIA, true), 13);
 	}
 	
 	@Override

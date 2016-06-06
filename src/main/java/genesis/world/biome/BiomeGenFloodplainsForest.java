@@ -35,7 +35,7 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 		getDecorator().setTreeCount(6.6F);
 		addTree(new WorldGenTreeArchaeopteris(15, 19, true), 9);
 		
-		addTree(new WorldGenDeadLog(3, 6, EnumTree.ARCHAEOPTERIS, true), 2);
+		addTree(new WorldGenDeadLog(5, 8, EnumTree.ARCHAEOPTERIS, true), 2);
 	}
 	
 	@Override

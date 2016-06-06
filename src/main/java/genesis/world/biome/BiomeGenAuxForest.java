@@ -44,13 +44,13 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 	
 	protected void addTrees()
 	{
-		getDecorator().setTreeCount(4.55F);
+		getDecorator().setTreeCount(4.35F);
 		
 		addTree(new WorldGenTreeAraucarioxylon(25, 30, true), 80);
 		addTree(new WorldGenTreeGinkgo(8, 13, false), 3);
 		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 1);
 		
-		addTree(new WorldGenDeadLog(4, 8, EnumTree.ARAUCARIOXYLON, true), 16);
+		addTree(new WorldGenDeadLog(7, 10, EnumTree.ARAUCARIOXYLON, true), 16);
 	}
 	
 	@Override

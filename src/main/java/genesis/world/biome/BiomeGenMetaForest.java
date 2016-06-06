@@ -56,8 +56,8 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 		addTree(new WorldGenTreeGinkgo(8, 13, false), 5);
 		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 1);
 		
-		addTree(new WorldGenDeadLog(4, 8, EnumTree.METASEQUOIA, true), 60);
-		addTree(new WorldGenDeadLog(4, 8, EnumTree.METASEQUOIA, true).setType(1), 15);
+		addTree(new WorldGenDeadLog(5, 8, EnumTree.METASEQUOIA, true), 60);
+		addTree(new WorldGenDeadLog(7, 10, EnumTree.METASEQUOIA, true).setType(1), 15);
 	}
 	
 	@Override
