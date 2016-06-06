@@ -95,7 +95,6 @@ public class WorldGenDeadLog extends WorldGenTreeBase
 	
 	private void generateLogs(World world, Random rand, BlockPos pos, int length, int logWidth, int logHeight, int dirX, int dirZ)
 	{
-		//int length = minHeight + (rand.nextInt(maxHeight - minHeight) + 1);
 		int lengthTop = rand.nextInt(maxHeight) / 2 + 1;
 		int logOffset = rand.nextInt(3);
 		int currentLogLength = length;
@@ -135,71 +134,5 @@ public class WorldGenDeadLog extends WorldGenTreeBase
 			lengthTop = rand.nextInt(maxHeight) / 2 + 1;
 			logOffset = rand.nextInt(minHeight) + 2;
 		}
-		
-		/*
-		if (rand.nextInt(2) == 0)
-		{
-			logPos = pos.add((length / 2) * -1, 0, 0);
-			for (int k = 0; k < logWidth; ++k)
-			{
-				for (int j = 0; j < logHeight; ++j)
-				{
-					for (int i = 0; i < currentLogLength; ++i)
-					{
-						setBlockInWorld(world, logPos, wood.withProperty(BlockLog.LOG_AXIS, EnumAxis.X));
-						
-						if (rand.nextInt(100) > 96 && topDecorations.size() > 0)
-						{
-							setBlockInWorld(world, logPos.up(),
-									topDecorations.get(rand.nextInt(topDecorations.size())));
-						}
-						
-						logPos = logPos.add(1, 0, 0);
-						
-					}
-					logPos = logPos.add(-currentLogLength + rand.nextInt(minHeight), 1, 0);
-					currentLogLength = lengthTop;
-				}
-				logPos = logPos.add(-currentLogLength + logOffset, -logHeight, 1);
-				currentLogLength = length;
-				
-				// Random nth log
-				length = minHeight + (rand.nextInt(maxHeight - minHeight) + 1);
-				lengthTop = rand.nextInt(maxHeight) / 2 + 1;
-				logOffset = rand.nextInt(3);
-			}
-		}
-		else
-		{
-			logPos = pos.add(0, 0, (length / 2) * -1);
-			for (int k = 0; k < logWidth; ++k)
-			{
-				for (int j = 0; j < logHeight; ++j)
-				{
-					for (int i = 0; i < currentLogLength; ++i)
-					{
-						setBlockInWorld(world, logPos, wood.withProperty(BlockLog.LOG_AXIS, EnumAxis.Z));
-						
-						if (rand.nextInt(10) > 7 && topDecorations.size() > 0)
-						{
-							setBlockInWorld(world, logPos.up(), topDecorations.get(rand.nextInt(topDecorations.size())));
-						}
-						
-						logPos = logPos.add(0, 0, 1);
-						
-					}
-					logPos = logPos.add(0, 1, -currentLogLength + rand.nextInt(minHeight));
-					currentLogLength = lengthTop;
-				}
-				logPos = logPos.add(1, -logHeight, -currentLogLength + logOffset);
-				currentLogLength = length;
-				
-				// Random nth log
-				length = minHeight + rand.nextInt(maxHeight - minHeight) + 1;
-				lengthTop = rand.nextInt(maxHeight) / 2 + 1;
-				logOffset = rand.nextInt(minHeight) + 2;
-			}
-		}
-		*/
 	}
 }
