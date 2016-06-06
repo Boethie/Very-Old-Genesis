@@ -18,8 +18,8 @@ public class WorldGenSplash extends WorldGenDecorationBase
 	protected final IBlockState subBlock;
 	
 	protected int dryRadius = 2;
-	protected float centerChance = 0.25F;
-	protected float edgeChance = 1;
+	protected float centerChance = 0.5F;
+	protected float edgeChance = 2;
 	
 	public WorldGenSplash(IBlockState parentBlock, IBlockState subBlock)
 	{
