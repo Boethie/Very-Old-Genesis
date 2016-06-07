@@ -64,6 +64,7 @@ public final class GenesisConfig
 	
 	//Structures
 	public static int hutChance = 100;
+	public static int smallCampChance = 100;
 	
 	//Dimension music
 	public static boolean playDimensionMusic = true;
@@ -114,6 +115,7 @@ public final class GenesisConfig
 		
 		//Structures
 		hutChance = config.getInt("hutChance", "structures", hutChance, 1, Integer.MAX_VALUE, "Hut spawning chance");
+		smallCampChance = config.getInt("smallCampChance", "structures", smallCampChance, 1, Integer.MAX_VALUE, "Small camp spawning chance");
 		
 		playDimensionMusic = config.getBoolean("dimensionMusic", "music", true, "If true, new music will play in the dimension.");
 		
