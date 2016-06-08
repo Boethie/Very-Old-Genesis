@@ -1,16 +1,33 @@
 {
-    "pools": [
+	"pools": [
         {
+			"name": "material",
+            "rolls": 3,
+            "entries": [
+				{
+					"type": "item",
+					"name": "genesis:material_0",
+                    "weight": 10,
+					"functions": [
+                        {
+                            "function": "set_data",
+                            "data": 2
+                        }
+					]
+				}
+			]
+		},
+		{
 			"name": "food",
 			"rolls": {
                 "min": 1,
-                "max": 5
+                "max": 4
             },
 			"entries": [
                 { 
 					"type": "item",
 					"name": "genesis:seed_0",
-                    "weight": 20,
+					"weight": 10,
 					"functions": [
                         {
                             "function": "set_data",
@@ -18,10 +35,10 @@
                         }
 					]
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:dishe_0",
-                    "weight": 20,
+                    "weight": 15,
 					"functions": [
                         {
                             "function": "set_data",
@@ -29,41 +46,21 @@
                         }
 					]
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:food_0",
-                    "weight": 20,
+                    "weight": 15,
 					"functions": [
                         {
                             "function": "set_data",
                             "data": 4
                         }
 					]
-                }
-			]
-		},
-		{
-			"name": "material",
-			"rolls": {
-                "min": 1,
-                "max": 5
-            },
-			"entries": [
-                { 
-					"type": "item",
-					"name": "genesis:material_0",
-                    "weight": 25,
-					"functions": [
-                        {
-                            "function": "set_data",
-                            "data": 2
-                        }
-					]
                 },
 				{
 					"type": "item",
 					"name": "genesis:billet_0",
-                    "weight": 20,
+                    "weight": 5,
 					"functions": [
                         {
                             "function": "set_data",
@@ -72,36 +69,45 @@
                                 "max": 2
                             }
                         }
-					]
+                    ]
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:ceramic_bowl_0",
                     "weight": 10
 				},
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:ceramic_bucket",
                     "weight": 10
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:calamites_torch",
-                    "weight": 20
+                    "weight": 15,
+					"functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 16
+                            }
+                        }
+                    ]
                 }
 			]
 		},
 		{
 			"name": "heads",
-			"rolls": {
+            "rolls": {
                 "min": 1,
                 "max": 3
             },
 			"entries": [
-                { 
+                {
 					"type": "item",
 					"name": "genesis:head_spear_0",
-                    "weight": 8,
+                    "weight": 5,
 					"functions": [
                         {
                             "function": "set_data",
@@ -112,10 +118,10 @@
                         }
                     ]
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:head_shovel_0",
-                    "weight": 8,
+                    "weight": 5,
 					"functions": [
                         {
                             "function": "set_data",
@@ -129,7 +135,7 @@
 				{ 
 					"type": "item",
 					"name": "genesis:head_pickaxe_0",
-                    "weight": 8,
+                    "weight": 5,
 					"functions": [
                         {
                             "function": "set_data",
@@ -143,7 +149,7 @@
 				{ 
 					"type": "item",
 					"name": "genesis:head_knife_0",
-                    "weight": 8,
+                    "weight": 5,
 					"functions": [
                         {
                             "function": "set_data",
@@ -154,10 +160,10 @@
                         }
                     ]
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:head_hoe_0",
-                    "weight": 8,
+                    "weight": 5,
 					"functions": [
                         {
                             "function": "set_data",
@@ -168,10 +174,10 @@
                         }
                     ]
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:head_club_0",
-                    "weight": 8,
+                    "weight": 5,
 					"functions": [
                         {
                             "function": "set_data",
@@ -185,7 +191,7 @@
 				{ 
 					"type": "item",
 					"name": "genesis:head_axe_0",
-                    "weight": 8,
+                    "weight": 5,
 					"functions": [
                         {
                             "function": "set_data",
@@ -200,255 +206,252 @@
 		},
 		{
 			"name": "tools",
-			"rolls": {
-                "min": 1,
-                "max": 2
-            },
+			"rolls": 1,
 			"entries": [
                 { 
 					"type": "item",
 					"name": "genesis:spear_chipped_quartz",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:spear_chipped_rhyolite",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:spear_chipped_dolerite",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:spear_chipped_granite",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:spear_chipped_octaedrite",
-                    "weight": 2
+                    "weight": 1
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:spear_chipped_black_flint",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:spear_chipped_brown_flint",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:shovel_chipped_quartz",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:shovel_chipped_rhyolite",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:shovel_chipped_dolerite",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:shovel_chipped_granite",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:shovel_chipped_octaedrite",
-                    "weight": 2
+                    "weight": 1
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:shovel_chipped_black_flint",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:shovel_chipped_brown_flint",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:pickaxe_chipped_quartz",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:pickaxe_chipped_rhyolite",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:pickaxe_chipped_dolerite",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:pickaxe_chipped_granite",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:pickaxe_chipped_octaedrite",
-                    "weight": 2
+                    "weight": 1
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:pickaxe_chipped_black_flint",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:pickaxe_chipped_brown_flint",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:knife_chipped_quartz",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:knife_chipped_rhyolite",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:knife_chipped_dolerite",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:knife_chipped_granite",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:knife_chipped_octaedrite",
-                    "weight": 2
+                    "weight": 1
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:knife_chipped_black_flint",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:knife_chipped_brown_flint",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:hoe_chipped_quartz",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:hoe_chipped_rhyolite",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:hoe_chipped_dolerite",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:hoe_chipped_granite",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:hoe_chipped_octaedrite",
-                    "weight": 2
+                    "weight": 1
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:hoe_chipped_black_flint",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:hoe_chipped_brown_flint",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:club_chipped_quartz",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:club_chipped_rhyolite",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:club_chipped_dolerite",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:club_chipped_granite",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:club_chipped_octaedrite",
-                    "weight": 2
+                    "weight": 1
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:club_chipped_black_flint",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:club_chipped_brown_flint",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:axe_chipped_quartz",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:axe_chipped_rhyolite",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:axe_chipped_dolerite",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:axe_chipped_granite",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:axe_chipped_octaedrite",
-                    "weight": 2
+                    "weight": 1
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:axe_chipped_black_flint",
-                    "weight": 8
+                    "weight": 5
                 },
-				{ 
+				{
 					"type": "item",
 					"name": "genesis:axe_chipped_brown_flint",
-                    "weight": 8
+                    "weight": 5
                 }
 			]
 		}
