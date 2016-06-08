@@ -50,6 +50,8 @@ public class BlockCampfire extends Block
 		super(Material.wood);
 		
 		setTickRandomly(true);
+		setDefaultState(getBlockState().getBaseState().withProperty(FIRE, false));
+		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	}
 	
