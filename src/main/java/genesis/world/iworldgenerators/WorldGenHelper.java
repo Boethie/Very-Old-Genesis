@@ -16,6 +16,8 @@ public class WorldGenHelper
 {
 	public static BlockPos findSurface(World world, BlockPos pos)
 	{
+		pos = world.getHeight(pos);
+		
 		while (isGround(world, pos))
 			pos = pos.up();
 		
