@@ -114,10 +114,10 @@ public class WorldGenSmallCamp implements IWorldGenerator {
 				ResourceLocation loot = null;
 				
 				if(biome instanceof BiomeGenMetaForest)
-					loot = GenesisLoot.CHESTS_CAMP_METAFOREST;
+					loot = GenesisLoot.CHESTS_CAMP_META_FOREST;
 				
 				if(biome instanceof BiomeGenAuxForest)
-					loot = GenesisLoot.CHESTS_CAMP_AUXFOREST;
+					loot = GenesisLoot.CHESTS_CAMP_AUX_FOREST;
 				
 				if(biome instanceof BiomeGenWoodlands)
 					loot = GenesisLoot.CHESTS_CAMP_WOODLANDS;

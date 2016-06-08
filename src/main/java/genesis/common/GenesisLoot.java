@@ -8,9 +8,9 @@ public class GenesisLoot
 {
 	public static final ResourceLocation CHESTS_HUT = register("chests/hut");
 	
-	public static final ResourceLocation CHESTS_CAMP_AUXFOREST = register("chests/camp/auxforest");
+	public static final ResourceLocation CHESTS_CAMP_AUX_FOREST = register("chests/camp/aux_forest");
 	
-	public static final ResourceLocation CHESTS_CAMP_METAFOREST = register("chests/camp/metaforest");
+	public static final ResourceLocation CHESTS_CAMP_META_FOREST = register("chests/camp/meta_forest");
 	
 	public static final ResourceLocation CHESTS_CAMP_WOODLANDS = register("chests/camp/woodlands");
 
