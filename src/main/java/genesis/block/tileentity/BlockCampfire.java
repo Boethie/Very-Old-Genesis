@@ -302,80 +302,83 @@ public class BlockCampfire extends Block
 	{
 		TileEntityCampfire campfire = getTileEntity(world, pos);
 		
-		if (campfire != null && held != null)
+		if (campfire != null)
 		{
-			ItemStackKey key = new ItemStackKey(held);
-			
-			if (lighterItems.containsKey(key))
+			if (held != null)
 			{
-				if (campfire.burnFuelIfNotBurning())
-				{
-					world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
-							lighterItems.get(key), SoundCategory.BLOCKS, 1, world.rand.nextFloat() * 0.4F + 0.8F);
-					
-					held.damageItem(1, player);
-				}
+				ItemStackKey key = new ItemStackKey(held);
 				
-				return true;
-			}
-			else
-			{
-				FluidStack waterFluid = new FluidStack(FluidRegistry.WATER, 250);
-				boolean isWaterContainer;
-
-				if (held.getItem() instanceof IFluidContainerItem)
+				if (lighterItems.containsKey(key))
 				{
-					IFluidContainerItem heldContainer = (IFluidContainerItem) held.getItem();
-					FluidStack heldFluid = heldContainer.getFluid(held);
-					isWaterContainer = heldFluid.containsFluid(waterFluid);
+					if (campfire.burnFuelIfNotBurning())
+					{
+						world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+								lighterItems.get(key), SoundCategory.BLOCKS, 1, world.rand.nextFloat() * 0.4F + 0.8F);
+						
+						held.damageItem(1, player);
+					}
+					
+					return true;
 				}
 				else
 				{
-					isWaterContainer = FluidContainerRegistry.containsFluid(held, waterFluid);
-				}
-
-				if (isWaterContainer)
-				{
-					boolean burning = campfire.isBurning();
-					Random rand = world.rand;
-
-					DoubleRange rangeXZ = DoubleRange.create(0.25, 0.75);
-					DoubleRange rangeY = DoubleRange.create(0.0, 0.25);
-					DoubleRange speedXZ = DoubleRange.create(-0.08, 0.08);
-					DoubleRange speedY = DoubleRange.create(0.1, 0.3);
-
-					final int bigSmokeCount = 1;
-					final int smokeCount = 25;
-					final int waterCount = 50;
-					final int maxCount = Math.max(bigSmokeCount, Math.max(smokeCount, waterCount));
-
-					for (int i = 0; i < maxCount; i++)
+					FluidStack waterFluid = new FluidStack(FluidRegistry.WATER, 250);
+					boolean isWaterContainer;
+					
+					if (held.getItem() instanceof IFluidContainerItem)
 					{
-						double x = pos.getX() + rangeXZ.get(rand);
-						double y = pos.getY() + rangeY.get(rand);
-						double z = pos.getZ() + rangeXZ.get(rand);
-
-						if (burning)
-						{
-							if (i < bigSmokeCount)
-							{
-								world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, x, y, z, 0, 0, 0);
-							}
-							if (i < smokeCount)
-							{
-								world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y, z, 0, 0, 0);
-							}
-						}
-						if (i < waterCount)
-						{
-							world.spawnParticle(GenesisParticles.WATER_SPLASH, x, y, z,
-									speedXZ.get(rand), speedY.get(rand), speedXZ.get(rand));
-						}
+						IFluidContainerItem heldContainer = (IFluidContainerItem) held.getItem();
+						FluidStack heldFluid = heldContainer.getFluid(held);
+						isWaterContainer = heldFluid.containsFluid(waterFluid);
 					}
-
-					campfire.setWet();
-
-					return true;
+					else
+					{
+						isWaterContainer = FluidContainerRegistry.containsFluid(held, waterFluid);
+					}
+					
+					if (isWaterContainer)
+					{
+						boolean burning = campfire.isBurning();
+						Random rand = world.rand;
+						
+						DoubleRange rangeXZ = DoubleRange.create(0.25, 0.75);
+						DoubleRange rangeY = DoubleRange.create(0.0, 0.25);
+						DoubleRange speedXZ = DoubleRange.create(-0.08, 0.08);
+						DoubleRange speedY = DoubleRange.create(0.1, 0.3);
+						
+						final int bigSmokeCount = 1;
+						final int smokeCount = 25;
+						final int waterCount = 50;
+						final int maxCount = Math.max(bigSmokeCount, Math.max(smokeCount, waterCount));
+						
+						for (int i = 0; i < maxCount; i++)
+						{
+							double x = pos.getX() + rangeXZ.get(rand);
+							double y = pos.getY() + rangeY.get(rand);
+							double z = pos.getZ() + rangeXZ.get(rand);
+							
+							if (burning)
+							{
+								if (i < bigSmokeCount)
+								{
+									world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, x, y, z, 0, 0, 0);
+								}
+								if (i < smokeCount)
+								{
+									world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y, z, 0, 0, 0);
+								}
+							}
+							if (i < waterCount)
+							{
+								world.spawnParticle(GenesisParticles.WATER_SPLASH, x, y, z,
+										speedXZ.get(rand), speedY.get(rand), speedXZ.get(rand));
+							}
+						}
+						
+						campfire.setWet();
+						
+						return true;
+					}
 				}
 			}
 			
