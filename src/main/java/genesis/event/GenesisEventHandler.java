@@ -8,10 +8,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.achievement.GuiAchievements;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.PotionTypes;
-import net.minecraft.potion.Potion;
+import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
@@ -61,14 +59,16 @@ public class GenesisEventHandler
 	@SubscribeEvent
 	public void onLivingTick(LivingUpdateEvent event)
 	{
-		EntityLivingBase elb = event.getEntityLiving();
+		EntityLivingBase entity = event.getEntityLiving();
 		
-		if(elb != null && !elb.worldObj.isRemote)
+		if (entity != null && !entity.worldObj.isRemote)
 		{
-			if(elb.isPotionActive(GenesisPotions.radiation))
+			if (entity.isPotionActive(GenesisPotions.radiation))
 			{
-				elb.addPotionEffect(new PotionEffect(Potion.potionRegistry.getObject(new ResourceLocation("glowing")), 100, 0));
-				elb.addPotionEffect(new PotionEffect(Potion.potionRegistry.getObject(new ResourceLocation("nausea")), 100, 0));
+				int timeLeft = entity.getActivePotionEffect(GenesisPotions.radiation).getDuration();
+				
+				entity.addPotionEffect(new PotionEffect(MobEffects.glowing, timeLeft, 0, true, false));
+				entity.addPotionEffect(new PotionEffect(MobEffects.confusion, timeLeft, 0, true, false));
 			}
 		}
 	}
