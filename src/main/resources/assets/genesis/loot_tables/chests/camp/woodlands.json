@@ -12,7 +12,14 @@
                         {
                             "function": "set_data",
                             "data": 1
-                        }
+                        },
+						{
+							"function": "set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 8
+                            }
+						}
 					]
 				}
 			]
@@ -32,18 +39,39 @@
                         {
                             "function": "set_data",
                             "data": 3
+                        },
+						{
+							"function": "set_count",
+                            "count": {
+                                "min": 2,
+                                "max": 4
+                            }
+						}
+					]
+                },
+				{
+					"type": "item",
+					"entryName": "porridge_ginkgo"
+					"name": "genesis:dish_0",
+                    "weight": 15,
+					"functions": [
+                        {
+                            "function": "set_data",
+                            "data": 2
                         }
 					]
                 },
 				{
 					"type": "item",
-					"name": "genesis:dishe_0",
+					"entryName": "porridge_mashed"
+					"name": "genesis:dish_0",
                     "weight": 15,
 					"functions": [
                         {
-                            "function": "set_data",
-                            "data": 9
-                        }
+							"function": "set_data",
+							"min": 6,
+							"max": 9
+						}
 					]
                 },
 				{
@@ -54,11 +82,19 @@
                         {
                             "function": "set_data",
                             "data": 4
-                        }
+                        },
+						{
+							"function": "set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 3
+                            }
+						}
 					]
                 },
 				{ 
 					"type": "item",
+					"entryName": "fruits"
 					"name": "genesis:fruit_0",
 					"weight": 15,
 					"functions": [
@@ -68,11 +104,34 @@
                                 "min": 2,
                                 "max": 4
                             }
+						},
+						{
+							"function": "set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 3
+                            }
+						}
+					]
+                },
+				{ 
+					"type": "item",
+					"entryName": "ginkgo_nuts"
+					"name": "genesis:fruit_0",
+					"weight": 15,
+					"functions": [
+						{
+							"function": "set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 3
+                            }
 						}
 					]
                 },
 				{
 					"type": "item",
+					"entryName": "billets"
 					"name": "genesis:billet_0",
                     "weight": 5,
 					"functions": [
@@ -80,8 +139,34 @@
                             "function": "set_data",
                             "data": {
 								"min": 9,
-								"max": 13
+								"max": 12
 							}
+                        },
+						{
+							"function": "set_count",
+                            "count": {
+                                "min": 3,
+                                "max": 7
+                            }
+                        }
+                    ]
+				},
+				{
+					"type": "item",
+					"entryName": "billet_ginkgo"
+					"name": "genesis:billet_0",
+                    "weight": 5,
+					"functions": [
+                        {
+                            "function": "set_data",
+                            "data": 4
+                        },
+						{
+							"function": "set_count",
+                            "count": {
+                                "min": 3,
+                                "max": 7
+                            }
                         }
                     ]
 				},
