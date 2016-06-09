@@ -1,6 +1,6 @@
 {
 	"pools": [
-		{
+        {
 			"name": "material",
             "rolls": 3,
             "entries": [
@@ -24,14 +24,14 @@
                 "max": 4
             },
 			"entries": [
-                {
+                { 
 					"type": "item",
 					"name": "genesis:seed_0",
 					"weight": 10,
 					"functions": [
                         {
                             "function": "set_data",
-                            "data": 3
+                            "data": 1
                         }
 					]
                 },
@@ -42,7 +42,7 @@
 					"functions": [
                         {
                             "function": "set_data",
-                            "data": 9
+                            "data": 1
                         }
 					]
                 },
@@ -63,14 +63,12 @@
 					"weight": 15,
 					"functions": [
 						{
-                            "function": "set_data",
-                            "data": {
-                                "min": 2,
-                                "max": 4
-                            }
+							"function": "set_data",
+							"min": 0,
+							"max": 1
 						}
 					]
-                },
+				},
 				{
 					"type": "item",
 					"name": "genesis:billet_0",
@@ -78,10 +76,7 @@
 					"functions": [
                         {
                             "function": "set_data",
-                            "data": {
-								"min": 9,
-								"max": 13
-							}
+                            "data": 6
                         }
                     ]
 				},
@@ -201,6 +196,26 @@
                             }
                         }
                     ]
+                },
+				{
+					"type": "item",
+					"name": "genesis:camouflage_helmet",
+                    "weight": 5
+                },
+				{
+					"type": "item",
+					"name": "genesis:camouflage_chestplate",
+					"weight": 5
+                },
+				{
+					"type": "item",
+					"name": "genesis:camouflage_leggings",
+					"weight": 5
+                },
+				{
+					"type": "item",
+					"name": "genesis:camouflage_boots",
+					"weight": 5
                 },
 			]
 		},
