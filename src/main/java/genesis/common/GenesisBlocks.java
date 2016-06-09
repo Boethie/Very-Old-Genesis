@@ -492,7 +492,7 @@ public final class GenesisBlocks
 						TreeBlocksAndItems.BRANCH)
 				.toArray(new Block[0]);
 		registerColors(blockCol, itemCol, Colorizers.BLOCK_LEAVES, leaves);
-		registerColors(blockCol, itemCol, Colorizers.BLOCK_LEAVES, trap_floor);
+		registerColors(blockCol, itemCol, Colorizers.BLOCK_GRASS, trap_floor);
 		
 		// Plants
 		BlockPlant<?>[] plantsArray =
