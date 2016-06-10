@@ -63,10 +63,7 @@ public class BlockHumus extends BlockDirt
 			
 			if (newState != null)
 			{
-				if (sound != null)
-				{
-					world.playSound(player, pos, sound, SoundCategory.BLOCKS, 1.0F, 1.0F);
-				}
+				world.playSound(player, pos, sound, SoundCategory.BLOCKS, 1.0F, 1.0F);
 				
 				if (!world.isRemote)
 				{
