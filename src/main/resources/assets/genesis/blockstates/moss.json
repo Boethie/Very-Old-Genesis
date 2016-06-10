@@ -1,40 +1,49 @@
 {
-	"variants": {
-		"snowy=false,stage=0": [
-			{ "model": "genesis:moss_0" },
-			{ "model": "genesis:moss_0", "y": 90 },
-			{ "model": "genesis:moss_0", "y": 180 },
-			{ "model": "genesis:moss_0", "y": 270 }
-		],
-		"snowy=false,stage=1": [
-			{ "model": "genesis:moss_1" },
-			{ "model": "genesis:moss_1", "y": 90 },
-			{ "model": "genesis:moss_1", "y": 180 },
-			{ "model": "genesis:moss_1", "y": 270 }
-		],
-		"snowy=false,stage=2": [
-			{ "model": "genesis:moss_2" },
-			{ "model": "genesis:moss_2", "y": 90 },
-			{ "model": "genesis:moss_2", "y": 180 },
-			{ "model": "genesis:moss_2", "y": 270 }
-		],
-		"snowy=false,stage=3": [
-			{ "model": "genesis:moss_3" },
-			{ "model": "genesis:moss_3", "y": 90 },
-			{ "model": "genesis:moss_3", "y": 180 },
-			{ "model": "genesis:moss_3", "y": 270 }
-		],
-		"snowy=true,stage=0": [
-			{ "model": "genesis:moss_snowed_0" }
-		],
-		"snowy=true,stage=1": [
-			{ "model": "genesis:moss_snowed_1" }
-		],
-		"snowy=true,stage=2": [
-			{ "model": "genesis:moss_snowed_2" }
-		],
-		"snowy=true,stage=3": [
-			{ "model": "genesis:moss_snowed_3" }
-		]
-	}
+	"multipart": [
+		{	"apply": { "model": "dirt" }},
+		{	"when": { "snowy": "false", "stage": 0 },
+			"apply": [
+				{ "model": "genesis:moss_overlay_0" },
+				{ "model": "genesis:moss_overlay_0", "y": 90 },
+				{ "model": "genesis:moss_overlay_0", "y": 180 },
+				{ "model": "genesis:moss_overlay_0", "y": 270 }
+			]
+		},
+		{	"when": { "snowy": "false", "stage": 1 },
+			"apply": [
+				{ "model": "genesis:moss_overlay_1" },
+				{ "model": "genesis:moss_overlay_1", "y": 90 },
+				{ "model": "genesis:moss_overlay_1", "y": 180 },
+				{ "model": "genesis:moss_overlay_1", "y": 270 }
+			]
+		},
+		{	"when": { "snowy": "false", "stage": 2 },
+			"apply": [
+				{ "model": "genesis:moss_overlay_2" },
+				{ "model": "genesis:moss_overlay_2", "y": 90 },
+				{ "model": "genesis:moss_overlay_2", "y": 180 },
+				{ "model": "genesis:moss_overlay_2", "y": 270 }
+			]
+		},
+		{	"when": { "snowy": "false", "stage": 3 },
+			"apply": [
+				{ "model": "genesis:moss_overlay_3" },
+				{ "model": "genesis:moss_overlay_3", "y": 90 },
+				{ "model": "genesis:moss_overlay_3", "y": 180 },
+				{ "model": "genesis:moss_overlay_3", "y": 270 }
+			]
+		},
+		{	"when": { "snowy": "true", "stage": 0 },
+			"apply": { "model": "genesis:moss_overlay_snowed_0" }
+		},
+		{	"when": { "snowy": "true", "stage": 1 },
+			"apply": { "model": "genesis:moss_overlay_snowed_1" }
+		},
+		{	"when": { "snowy": "true", "stage": 2 },
+			"apply": { "model": "genesis:moss_overlay_snowed_2" }
+		},
+		{	"when": { "snowy": "true", "stage": 3 },
+			"apply": { "model": "genesis:moss_overlay_snowed_3" }
+		}
+	]
 }
