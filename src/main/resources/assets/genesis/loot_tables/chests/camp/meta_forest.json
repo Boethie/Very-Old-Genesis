@@ -51,13 +51,13 @@
                 },
 				{
 					"type": "item",
-					"entryName": "porridge"
+					"entryName": "porridge",
 					"name": "genesis:dish_0",
                     "weight": 15,
                 },
 				{
 					"type": "item",
-					"entryName": "porridge_ginkgo"
+					"entryName": "porridge_ginkgo",
 					"name": "genesis:dish_0",
                     "weight": 15,
 					"functions": [
@@ -101,7 +101,7 @@
                 },
 				{
 					"type": "item",
-					"entryName": "billets"
+					"entryName": "billets",
 					"name": "genesis:billet_0",
 					"weight": 5,
 					"functions": [
@@ -123,7 +123,7 @@
 				},
 				{
 					"type": "item",
-					"entryName": "billet_ginkgo"
+					"entryName": "billet_ginkgo",
 					"name": "genesis:billet_0",
 					"weight": 5,
 					"functions": [

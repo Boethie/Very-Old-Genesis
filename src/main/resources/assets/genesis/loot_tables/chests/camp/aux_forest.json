@@ -101,7 +101,7 @@
 				},
 				{
 					"type": "item",
-					"entryName": "billet_ginkgo"
+					"entryName": "billet_ginkgo",
 					"name": "genesis:billet_0",
                     "weight": 5,
 					"functions": [
@@ -120,7 +120,7 @@
 				},
 				{
 					"type": "item",
-					"entryName": "billet_araucarioxylon"
+					"entryName": "billet_araucarioxylon",
 					"name": "genesis:billet_0",
                     "weight": 5,
 					"functions": [
