@@ -225,11 +225,11 @@ public final class GenesisBlocks
 	{
 		// --- Building blocks ---
 		// - Surface -
-		Genesis.proxy.registerBlock(moss, name("moss"), false);
+		Genesis.proxy.registerBlock(moss, new ItemMoss(moss), name("moss"), false);
 		
-		for (int mossStage = 0; mossStage <= BlockMoss.STAGE_LAST; mossStage++)
+		for (BlockMoss.EnumSoil soil : BlockMoss.EnumSoil.values())
 		{
-			Genesis.proxy.registerModel(moss, mossStage, name("moss_" + mossStage));
+			Genesis.proxy.registerModel(moss, soil.getMetadata(), name("moss_" + soil.getName()));;
 		}
 		
 		Genesis.proxy.registerBlock(humus, name("humus"));
