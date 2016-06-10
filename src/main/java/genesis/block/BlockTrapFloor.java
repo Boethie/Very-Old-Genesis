@@ -1,6 +1,12 @@
 package genesis.block;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import genesis.combo.variant.EnumMaterial;
+import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
+import genesis.common.GenesisItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -10,6 +16,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.IBlockAccess;
@@ -19,15 +26,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockTrapFloor extends BlockGenesis
 {
-	protected static final AxisAlignedBB BB = new AxisAlignedBB(0, 0.5625, 0, 1, 0.8, 1);
+	protected static final AxisAlignedBB BB = new AxisAlignedBB(0, 0.5625, 0, 1, 1, 1);
+	protected static final AxisAlignedBB COLLISION_BB = new AxisAlignedBB(0, 0.5625, 0, 1, 0.8, 1);
 	
 	public BlockTrapFloor()
 	{
 		super(Material.grass, SoundType.PLANT);
-		
-		setHardness(1.5F);
-		
-		setResistance(0.3F);
 		
 		setCreativeTab(GenesisCreativeTabs.MECHANISMS);
 		
@@ -79,8 +83,10 @@ public class BlockTrapFloor extends BlockGenesis
 		
 		world.setBlockState(pos, Blocks.air.getDefaultState(), 1 | 2);
 		
-		world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, pos.getX()+0.5D, pos.getY()+0.5D, pos.getZ()+0.5D, 0, 0, 0, new int[]{Block.getStateId(iblockstate)});
-		world.spawnParticle(EnumParticleTypes.BLOCK_DUST, pos.getX()+0.5D, pos.getY()+0.5D, pos.getZ()+0.5D, 0, 0, 0, new int[]{Block.getStateId(iblockstate)});
+		world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, pos.getX()+0.5D, pos.getY()+0.5D, pos.getZ()+0.5D, 0, -4, 0, new int[]{Block.getStateId(iblockstate)});
+		world.spawnParticle(EnumParticleTypes.BLOCK_DUST, pos.getX()+0.5D, pos.getY()+0.5D, pos.getZ()+0.5D, 0, -3, 0, new int[]{Block.getStateId(iblockstate)});
+		
+		this.dropBlockAsItem(world, pos, iblockstate, 0);
 		
 		for (EnumFacing facing : EnumFacing.HORIZONTALS)
 		{
@@ -126,4 +132,25 @@ public class BlockTrapFloor extends BlockGenesis
 			drop(pos, worldIn);
         }
     }
+	
+	@Override
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World world, BlockPos pos)
+	{
+		return COLLISION_BB;
+	}
+	
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
+	{
+		List<ItemStack> ret = new ArrayList<ItemStack>();
+		
+		ItemStack frond = GenesisItems.materials.getStack(EnumMaterial.CLADOPHLEBIS_FROND);
+		
+		frond.stackSize = 3;
+		
+		ret.add(frond);
+		
+		ret.add(new ItemStack(GenesisBlocks.calamites,3));
+		
+		return ret;
+	}
 }
