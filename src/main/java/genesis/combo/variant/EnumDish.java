@@ -9,13 +9,13 @@ import net.minecraft.potion.PotionEffect;
 public enum EnumDish implements IFood, IMetadata<EnumDish>
 {
 	PORRIDGE("porridge_base", "porridge.base", 4, 4.2F),
+	PORRIDGE_ODONTOPTERIS("porridge_odontopteris", "porridge.odontopteris", 5, 4.8F),
 	PORRIDGE_GINKGO("porridge_ginkgo", "porridge.ginkgo", 5, 5.2F),
 	PORRIDGE_ARAUCARIOXYLON("porridge_araucarioxylon", "porridge.araucarioxylon", 5, 4.6F),
+	PORRIDGE_ARCHAEOMARASMIUS("porridge_archaeomarasmius", "porridge.archaeomarasmius", 5, 4.8F),
 	PORRIDGE_FIG("porridge_fig", "porridge.fig", 5, 5.4F),
 	PORRIDGE_ANNONA("porridge_annona", "porridge.annona", 5, 5.6F),
-	PORRIDGE_ODONTOPTERIS("porridge_odontopteris", "porridge.odontopteris", 5, 4.8F),
 	PORRIDGE_ZINGIBEROPSIS("porridge_zingiberopsis", "porridge.zingiberopsis", 6, 5.6F),
-	PORRIDGE_ARCHAEOMARASMIUS("porridge_archaeomarasmius", "porridge.archaeomarasmius", 5, 4.8F),
 	PORRIDGE_LAUROPHYLLUM("porridge_laurophyllum", "porridge.laurophyllum", 5, 4.8F),
 	
 	MASHED_ZINGIBEROPSIS("mashed_zingiberopsis", "mashed.zingiberopsis", 5, 5.8F),

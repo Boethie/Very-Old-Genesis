@@ -65,7 +65,7 @@ public class ItemsCeramicBowls extends VariantsOfTypesCombo<MultiMetadata>
 					.setVariantFilter(MultiMetadataList.filter(GenesisDye.class));
 	
 	public static final ObjectType<MultiMetadata, Block, ItemDish> DISH =
-			ObjectType.createItem(MultiMetadata.class, "dishe", Unlocalized.Section.FOOD + "dish", ItemDish.class)
+			ObjectType.createItem(MultiMetadata.class, "dish", Unlocalized.Section.FOOD + "dish", ItemDish.class)
 					.setVariantFilter(MultiMetadataList.filter(EnumDish.class))
 					.setResourceName("");
 	

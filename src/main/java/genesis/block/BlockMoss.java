@@ -311,7 +311,7 @@ public class BlockMoss extends BlockGrass
 	}
 	
 	/**
-	 * @see ItemHoe#useHoe(ItemStack, EntityPlayer, World, BlockPos, IBlockState)
+	 * @see ItemHoe#onItemUse
 	 */
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state,
