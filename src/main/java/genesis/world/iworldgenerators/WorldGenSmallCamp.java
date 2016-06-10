@@ -1,14 +1,20 @@
 package genesis.world.iworldgenerators;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
+import genesis.block.BlockGenesisDeadLogs;
+import genesis.block.tileentity.TileEntityCampfire;
 import genesis.block.tileentity.TileEntityStorageBox;
 import genesis.combo.TreeBlocksAndItems;
+import genesis.combo.variant.EnumDish;
 import genesis.combo.variant.EnumTree;
 import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisConfig;
 import genesis.common.GenesisDimensions;
+import genesis.common.GenesisItems;
 import genesis.common.GenesisLoot;
 import genesis.world.biome.BiomeGenAuxForest;
 import genesis.world.biome.BiomeGenMetaForest;
@@ -80,6 +86,10 @@ public class WorldGenSmallCamp implements IWorldGenerator
 		
 		BlockPos boxPos = null;
 		
+		BlockPos campPos = null;
+		
+		List<BlockPos> logsPos = new ArrayList();
+		
 		for (int x = 0; x < BLOCKS.length; x++)
 		{
 			for (int z = 0; z < BLOCKS[x].length; z++)
@@ -92,6 +102,12 @@ public class WorldGenSmallCamp implements IWorldGenerator
 				{
 					if (state.getBlock() == GenesisBlocks.storage_box)
 						boxPos = pos;
+					
+					if (state.getBlock() == GenesisBlocks.campfire)
+						campPos = pos;
+					
+					if (state.getBlock() instanceof BlockGenesisDeadLogs)
+						logsPos.add(pos);
 					
 					world.setBlockState(pos, state);
 				}
@@ -119,9 +135,46 @@ public class WorldGenSmallCamp implements IWorldGenerator
 			}
 			else
 			{
-				Genesis.logger.warn("TileEntityStorageBox has not been found at "  + boxPos.toString() + " during the hut generation!!! The loot won't be spawned!!!");
+				Genesis.logger.warn("TileEntityStorageBox has not been found at "  + boxPos.toString() + " during the camp generation!!! The loot won't be spawned!!!");
 			}
 		}
+		
+		if (campPos != null)
+		{
+			TileEntity te = world.getTileEntity(campPos);
+			
+			if (te instanceof TileEntityCampfire)
+			{
+				EnumDish dish = EnumDish.values()[world.rand.nextInt(9)];
+				
+				((TileEntityCampfire) te).getOutput().set(GenesisItems.bowls.getStack(dish));
+			}
+			else
+			{
+				Genesis.logger.warn("TileEntityCampfire has not been found at "  + campPos.toString() + " during the camp generation!!! The porrige won't be spawned!!!");
+			}
+		}
+		
+		EnumTree tree = null;
+		
+		if (biome instanceof BiomeGenAuxForest)
+		{
+			tree = EnumTree.ARAUCARIOXYLON;
+		}
+		else if (biome instanceof BiomeGenMetaForest)
+		{
+			tree = EnumTree.METASEQUOIA;
+		}
+		else if (biome instanceof BiomeGenWoodlands)
+		{
+			tree = EnumTree.DRYOPHYLLUM;
+		}
+		
+		if (tree != null)
+			for (BlockPos pos : logsPos)
+			{
+				world.setBlockState(pos, GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.DEAD_LOG, tree).withProperty(BlockLog.LOG_AXIS, world.getBlockState(pos).getValue(BlockLog.LOG_AXIS)));
+			}
 	}
 
 }
