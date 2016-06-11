@@ -50,6 +50,7 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis redBeach;
 	public static BiomeGenBaseGenesis limestoneBeach;
 	public static BiomeGenBaseGenesis redDesert;
+	public static BiomeGenBaseGenesis redDesertHills;
 	
 	public static void loadBiomes()
 	{
@@ -303,11 +304,23 @@ public final class GenesisBiomes
 		prop.setRainfall(0.0F);
 		prop.setRainDisabled();
 		prop.setBaseHeight(0.15F);
-		prop.setHeightVariation(0.35F);
+		prop.setHeightVariation(0.05F);
 		prop.setWaterColor(0x725113);
 		
 		redDesert = new BiomeGenRedDesert(prop);
 		BiomeManagerGenesis.registerBiome(redDesert, GenesisConfig.redDesertId, BiomeType.DESERT, GenesisConfig.redDesertWeight);
-		BiomeDictionary.registerBiomeType(redDesert, BiomeDictionary.Type.DRY, BiomeDictionary.Type.MESA, BiomeDictionary.Type.SANDY);
+		BiomeDictionary.registerBiomeType(redDesert, BiomeDictionary.Type.DRY, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.SANDY);
+		
+		prop = new BiomeGenBase.BiomeProperties("Red Desert Hills");
+		prop.setTemperature(2.0F);
+		prop.setRainfall(0.0F);
+		prop.setRainDisabled();
+		prop.setBaseHeight(0.825F);
+		prop.setHeightVariation(0.02F);
+		prop.setWaterColor(0x725113);
+		
+		redDesertHills = new BiomeGenRedDesert(prop);
+		BiomeGenBase.registerBiome(GenesisConfig.redDesertId + 128, redDesertHills.getBiomeName(), redDesertHills);
+		BiomeDictionary.registerBiomeType(redDesertHills, BiomeDictionary.Type.DRY, BiomeDictionary.Type.MESA, BiomeDictionary.Type.SANDY);
 	}
 }

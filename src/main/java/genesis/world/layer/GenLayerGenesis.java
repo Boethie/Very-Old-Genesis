@@ -96,4 +96,18 @@ public abstract class GenLayerGenesis extends GenLayer
 				|| biomeId == BiomeGenBase.getIdForBiome(GenesisBiomes.deepOcean)
 				|| biomeId == BiomeGenBase.getIdForBiome(GenesisBiomes.swampRainForest);
 	}
+	
+	public static boolean biomesEqualOrMesaPlateau(int biomeIDA, int biomeIDB)
+	{
+		if (biomeIDA == biomeIDB)
+		{
+			return true;
+		}
+		else
+		{
+			BiomeGenBase biomegenbase = BiomeGenBase.getBiome(biomeIDA);
+			BiomeGenBase biomegenbase1 = BiomeGenBase.getBiome(biomeIDB);
+			return biomegenbase != null && biomegenbase1 != null ? (biomegenbase != GenesisBiomes.redDesertHills ? biomegenbase == biomegenbase1 || biomegenbase.getBiomeClass() == biomegenbase1.getBiomeClass() : biomegenbase1 == GenesisBiomes.redDesertHills) : false;
+		}
+	}
 }
