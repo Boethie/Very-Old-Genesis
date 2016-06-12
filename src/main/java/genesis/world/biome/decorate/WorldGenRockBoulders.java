@@ -68,16 +68,17 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 		float radius = largeProvider.get(rand);
 		
 		double vx = pos.getY() + rand.nextDouble() + radius - 1;
-		
+		/*
 		int height = world.getHeight(pos).getY();
 		
-		if(vx>height-1)
-			vx = height-(rand.nextBoolean() ? 1 : 2);
-		
+		if(vx > height - 1)
+			vx = height - (rand.nextBoolean() ? 1 : 2);
+		*/
 		Vec3d center = new Vec3d(
 				pos.getX() + rand.nextDouble(),
 				vx,
 				pos.getZ() + rand.nextDouble());
+		
 		placeSphere(world, center, rand, radius);
 		
 		for (int i = smallCountProvider.get(rand); i > 0; i--)

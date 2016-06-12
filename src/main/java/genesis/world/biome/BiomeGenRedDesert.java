@@ -6,10 +6,13 @@ import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.EnumSilt;
 import genesis.common.GenesisBlocks;
 import genesis.util.random.f.FloatRange;
-import genesis.world.biome.decorate.*;
+import genesis.world.biome.decorate.WorldGenPebbles;
+import genesis.world.biome.decorate.WorldGenPlant;
+import genesis.world.biome.decorate.WorldGenRockBoulders;
+import genesis.world.biome.decorate.WorldGenRoots;
+import genesis.world.biome.decorate.WorldGenSplash;
 import genesis.world.gen.feature.WorldGenTreeBjuvia;
 import genesis.world.gen.feature.WorldGenTreeVoltzia;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class BiomeGenRedDesert extends BiomeGenBaseGenesis

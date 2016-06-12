@@ -20,7 +20,8 @@ tile.genesis.menhir.receptacle.name=Menhir Receptacle
 tile.genesis.menhir.top.name=Menhir Top
 
 #Building blocks
-tile.genesis.moss.name=Moss
+tile.genesis.moss.normal.name=Moss
+tile.genesis.moss.humus.name=Humus Moss
 tile.genesis.humus.name=Humus
 tile.genesis.humusPath.name=Humus Path
 tile.genesis.rock.granite.name=Granite

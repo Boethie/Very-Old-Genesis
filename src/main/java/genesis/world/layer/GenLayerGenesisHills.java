@@ -77,7 +77,11 @@ public class GenLayerGenesisHills extends GenLayerGenesis
 					{
 						i2 = BiomeGenBase.getIdForBiome(GenesisBiomes.metaForestHills);
 					}
-
+					else if (k1 == BiomeGenBase.getIdForBiome(GenesisBiomes.redDesert))
+					{
+						i2 = BiomeGenBase.getIdForBiome(GenesisBiomes.redDesertHills);
+					}
+					
 					if (flag && i2 != k1)
 					{
 						if (BiomeGenBase.getBiome(i2 + 128) != null)
