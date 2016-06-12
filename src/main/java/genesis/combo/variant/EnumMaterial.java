@@ -11,7 +11,6 @@ public enum EnumMaterial implements IMetadata<EnumMaterial>
 	VEGETAL_ASH("vegetal_ash", "vegetalAsh"),
 	SALT("salt"),
 	STRANGE_JELLY("strange_jelly", "strangeJelly"),
-	//ELDONIA_TENTACLE("eldonia_tentacle", "eldoniaTentacle"),
 	ARTHROPLEURA_CHITIN("arthropleura_chitin", "arthropleuraChitin"),
 	COELOPHYSIS_FEATHER("coelophysis_feather", "coelophysisFeather"),
 	EPIDEXIPTERYX_FEATHER("epidexipteryx_feather", "epidexipteryxFeather"),

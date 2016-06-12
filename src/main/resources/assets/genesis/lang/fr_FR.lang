@@ -21,6 +21,7 @@ tile.genesis.menhir.top.name=Sommet du menhir
 
 #Building blocks
 tile.genesis.moss.name=Mousse
+tile.genesis.moss.humus.name=Mousse d'humus
 tile.genesis.humus.name=Humus
 tile.genesis.humusPath.name=Chemin d'humus
 tile.genesis.rock.granite.name=Granite

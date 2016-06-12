@@ -6,6 +6,7 @@
             "entries": [
 				{
 					"type": "item",
+					"entryName": "resin",
 					"name": "genesis:material_0",
                     "weight": 10,
 					"functions": [
@@ -19,6 +20,25 @@
                                 "min": 1,
                                 "max": 8
                             }
+						}
+					]
+				},
+				{
+					"type": "item",
+					"entryName": "spheno_fiber",
+					"name": "genesis:material_0",
+                    "weight": 10,
+					"functions": [
+						{
+                            "function": "set_data",
+                            "data": 2
+						},
+						{
+							"function": "set_count",
+							"count": {
+								"min": 1,
+								"max": 4
+							}
 						}
 					]
 				}
@@ -48,6 +68,20 @@
                             }
 						}
 					]
+                },
+				{
+					"type": "item",
+					"name": "genesis:dye_0",
+                    "weight": 5,
+					"functions": [
+                        {
+                            "function": "set_data",
+                            "data": {
+                                "min": 1,
+                                "max": 15
+                            }
+                        }
+                    ]
                 },
 				{
 					"type": "item",

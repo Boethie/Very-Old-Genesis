@@ -51,6 +51,20 @@
                 },
 				{
 					"type": "item",
+					"name": "genesis:dye_0",
+                    "weight": 5,
+					"functions": [
+                        {
+                            "function": "set_data",
+                            "data": {
+                                "min": 1,
+                                "max": 15
+                            }
+                        }
+                    ]
+                },
+				{
+					"type": "item",
 					"name": "genesis:dish_0",
                     "weight": 15,
 					"functions": [
@@ -108,6 +122,20 @@
 					"type": "item",
 					"name": "genesis:ceramic_bucket",
                     "weight": 10
+                },
+				{
+					"type": "item",
+					"name": "genesis:rope_ladder",
+                    "weight": 5,
+					"functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 4
+                            }
+                        }
+                    ]
                 },
 				{
 					"type": "item",

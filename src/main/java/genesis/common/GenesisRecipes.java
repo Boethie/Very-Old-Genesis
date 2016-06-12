@@ -853,8 +853,6 @@ public final class GenesisRecipes
 			case PORRIDGE:
 			case PORRIDGE_ARAUCARIOXYLON:
 			case PORRIDGE_ODONTOPTERIS:
-			case PORRIDGE_ZINGIBEROPSIS:
-			case PORRIDGE_ARCHAEOMARASMIUS:
 				ingredients.add(GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS));
 				break;
 			case STEW_ARCHAEOMARASMIUS:
@@ -883,10 +881,6 @@ public final class GenesisRecipes
 			case PORRIDGE_ODONTOPTERIS:
 				ingredients.add(GenesisItems.seeds.getStack(EnumSeeds.ODONTOPTERIS_SEEDS));
 				break;
-			case PORRIDGE_ZINGIBEROPSIS:
-				ingredients.add(GenesisItems.seeds.getStack(EnumSeeds.ZINGIBEROPSIS_RHIZOME));
-				break;
-			case PORRIDGE_ARCHAEOMARASMIUS:
 			case STEW_ARCHAEOMARASMIUS:
 				ingredients.add(new ItemStack(GenesisBlocks.archaeomarasmius));
 				break;
