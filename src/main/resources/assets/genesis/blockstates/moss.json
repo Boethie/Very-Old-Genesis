@@ -1,6 +1,11 @@
 {
 	"multipart": [
-		{	"apply": { "model": "dirt" }},
+		{	"when": { "soil": "normal" },
+			"apply": { "model": "dirt" }
+		},
+		{	"when": { "soil": "humus" },
+			"apply": { "model": "genesis:humus" }
+		},
 		{	"when": { "snowy": "false", "stage": 0 },
 			"apply": [
 				{ "model": "genesis:moss_overlay_0" },
