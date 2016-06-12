@@ -82,6 +82,9 @@ public class WorldGenSmallCamp implements IWorldGenerator
 		
 		start = WorldGenHelper.findSurface(world, start);
 		
+		if (WorldGenHelper.isFluidAround(world, start.add(4, 0, 4), 5, 3, null))
+			return;
+		
 		Genesis.logger.debug("Starting generation of the small camp at " + start.toString());
 		
 		BlockPos boxPos = null;

@@ -1,14 +1,20 @@
 package genesis.world.iworldgenerators;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLeaves;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.WeightedRandom;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.IFluidBlock;
 
 import java.util.List;
 import java.util.Random;
+
+import javax.annotation.Nullable;
 
 import com.google.common.collect.ImmutableList;
 
@@ -75,5 +81,45 @@ public class WorldGenHelper
 			super(weight);
 			this.state = state;
 		}
+	}
+	
+	public static void deleteTree(World world, BlockPos pos)
+	{
+		IBlockState block = world.getBlockState(pos);
+		
+		if (block.getMaterial() == Material.wood)
+		{
+			world.setBlockToAir(pos);
+			
+			for (BlockPos bp : BlockPos.getAllInBox(pos.add(-1, -1, -1), pos.add(1, 1, 1)))
+				deleteTree(world, bp);
+		}
+		
+		if (block.getBlock() instanceof BlockLeaves)
+		{
+			world.setBlockToAir(pos);
+		}
+	}
+	
+	public static boolean isFluidAround(World world, BlockPos center, int radius, int Hradius, @Nullable Fluid fluid)
+	{
+		for (BlockPos pos : BlockPos.getAllInBox(center.add(-radius, -Hradius, -radius), center.add(radius, Hradius, radius)))
+		{
+			IBlockState block = world.getBlockState(pos);
+			
+			if (block.getBlock() instanceof IFluidBlock)
+			{
+				if (fluid == null)
+				{
+					return true;
+				}
+				else if (((IFluidBlock)block.getBlock()).getFluid() == fluid)
+				{
+					return true;
+				}
+			}
+		}
+		
+		return false;
 	}
 }
