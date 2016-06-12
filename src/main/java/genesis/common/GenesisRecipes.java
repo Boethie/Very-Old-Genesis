@@ -851,8 +851,12 @@ public final class GenesisRecipes
 			switch (dish)
 			{
 			case PORRIDGE:
-			case PORRIDGE_ARAUCARIOXYLON:
 			case PORRIDGE_ODONTOPTERIS:
+			case PORRIDGE_GINKGO:
+			case PORRIDGE_ARAUCARIOXYLON:
+			case PORRIDGE_FIG:
+			case PORRIDGE_ANNONA:
+			case PORRIDGE_LAUROPHYLLUM:
 				ingredients.add(GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS));
 				break;
 			case STEW_ARCHAEOMARASMIUS:
@@ -875,11 +879,23 @@ public final class GenesisRecipes
 			{
 			case PORRIDGE:
 				break;
+			case PORRIDGE_ODONTOPTERIS:
+				ingredients.add(GenesisItems.seeds.getStack(EnumSeeds.ODONTOPTERIS_SEEDS));
+				break;
+			case PORRIDGE_GINKGO:
+				ingredients.add(GenesisBlocks.trees.getStack(TreeBlocksAndItems.FRUIT, EnumTree.GINKGO));
+				break;
 			case PORRIDGE_ARAUCARIOXYLON:
 				ingredients.add(GenesisItems.seeds.getStack(EnumSeeds.ARAUCARIOXYLON_SEEDS));
 				break;
-			case PORRIDGE_ODONTOPTERIS:
-				ingredients.add(GenesisItems.seeds.getStack(EnumSeeds.ODONTOPTERIS_SEEDS));
+			case PORRIDGE_FIG:
+				ingredients.add(GenesisBlocks.trees.getStack(TreeBlocksAndItems.FRUIT, EnumTree.FICUS));
+				break;
+			case PORRIDGE_ANNONA:
+				ingredients.add(GenesisBlocks.trees.getStack(TreeBlocksAndItems.FRUIT, EnumTree.ANNONA));
+				break;
+			case PORRIDGE_LAUROPHYLLUM:
+				ingredients.add(GenesisBlocks.trees.getStack(TreeBlocksAndItems.FRUIT, EnumTree.LAUROPHYLLUM));
 				break;
 			case STEW_ARCHAEOMARASMIUS:
 				ingredients.add(new ItemStack(GenesisBlocks.archaeomarasmius));
