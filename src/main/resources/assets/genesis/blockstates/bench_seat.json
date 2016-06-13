@@ -1,0 +1,17 @@
+{
+	"forge_marker": 1,
+    "defaults": {
+        "uvlock": true
+    },
+    "variants": {
+        "facing=north,part=foot": { "model": "genesis:bench_seat_foot", "y": 180 },
+        "facing=east,part=foot":  { "model": "genesis:bench_seat_foot", "y": 270 },
+        "facing=south,part=foot": { "model": "genesis:bench_seat_foot" },
+        "facing=west,part=foot":  { "model": "genesis:bench_seat_foot", "y": 90 },
+        "facing=north,part=head": { "model": "genesis:bench_seat_head", "y": 180 },
+        "facing=east,part=head":  { "model": "genesis:bench_seat_head", "y": 270 },
+        "facing=south,part=head": { "model": "genesis:bench_seat_head" },
+        "facing=west,part=head":  { "model": "genesis:bench_seat_head", "y": 90 }
+        }
+    }
+}

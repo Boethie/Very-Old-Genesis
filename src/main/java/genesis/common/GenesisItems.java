@@ -90,6 +90,8 @@ public final class GenesisItems
 	
 	public static final BowItems bows = new BowItems();
 	
+	public static final Item bench_seat = new ItemBenchSeat().setUnlocalizedName(Unlocalized.PREFIX + "benchSeat");
+	
 	private static ResourceLocation name(String path)
 	{
 		return new ResourceLocation(Constants.MOD_ID, path);
@@ -153,6 +155,8 @@ public final class GenesisItems
 		
 		bucket_komatiitic_lava = new ItemGenesisBucket(GenesisBlocks.komatiitic_lava.getDefaultState()).setUnlocalizedName(Unlocalized.MISC + "bucketKomatiiticLava");
 		Genesis.proxy.registerItem(bucket_komatiitic_lava, name("bucket_komatiitic_lava"));
+		
+		Genesis.proxy.registerItem(bench_seat, name("item_bench_seat"));
 		
 		menhir_activators.registerAll();
 		
