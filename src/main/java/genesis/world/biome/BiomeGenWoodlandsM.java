@@ -20,7 +20,7 @@ public class BiomeGenWoodlandsM extends BiomeGenWoodlands
 	@Override
 	protected void addDecorations()
 	{
-		addDecoration(new WorldGenSplash((s, w, p) -> s.getBlock() == GenesisBlocks.moss, GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.DIRT, EnumSoil.HUMUS)).setPatchRadius(6), 1.9F);
+		addDecoration(new WorldGenSplash((s, w, p) -> s.getBlock() == GenesisBlocks.moss, GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.SOIL, EnumSoil.HUMUS)).setDryRadius(-1).setPatchRadius(11), 2.55F);
 		addDecoration(new WorldGenDebris(), 20);
 		addDecoration(new WorldGenDebris(EnumDebrisOther.TYRANNOSAURUS_FEATHER).setPatchCount(1, 2), 0.1F);
 		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.4F);

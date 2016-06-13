@@ -52,7 +52,7 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 	
 	public BiomeGenRedDesert addFern()
 	{
-		getDecorator().setGrassCount(this.isHills ? 0.25F : 0.15F);
+		getDecorator().setGrassCount(this.isHills ? 1.55F : 0.15F);
 		addGrass(WorldGenPlant.create(EnumPlant.WACHTLERIA).setPatchCount(4), 1);
 		
 		return this;

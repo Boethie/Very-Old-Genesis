@@ -20,7 +20,7 @@ public class BiomeGenAuxForestM extends BiomeGenAuxForest
 	@Override
 	protected void addDecorations()
 	{
-		addDecoration(new WorldGenSplash((s, w, p) -> s.getBlock() == GenesisBlocks.moss, GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.DIRT, EnumSoil.HUMUS)).setPatchRadius(6), 3.1F);
+		addDecoration(new WorldGenSplash((s, w, p) -> s.getBlock() == GenesisBlocks.moss, GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.SOIL, EnumSoil.HUMUS)).setDryRadius(-1).setPatchRadius(6), 3.1F);
 		addDecoration(new WorldGenDebris(), 20);
 		addDecoration(new WorldGenDebris(EnumDebrisOther.COELOPHYSIS_FEATHER).setPatchCount(1, 2), 0.1F);
 		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.4F);
