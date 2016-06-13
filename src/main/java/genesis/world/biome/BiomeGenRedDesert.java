@@ -63,10 +63,16 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 		getDecorator().setTreeCount(0.4F);
 		
 		if (!this.isHills)
-			addTree(new WorldGenTreeBjuvia(4, 6, true), 16);
-		
-		addTree(new WorldGenTreeVoltzia(4, 8, true), 52);
-		
+		{
+			addTree(new WorldGenTreeBjuvia(4, 6, true), 3);
+			addTree(new WorldGenTreeVoltzia(4, 8, true), 10);
+		}
+		else
+		{
+			getDecorator().setTreeCount(4.6F);
+			
+			addTree(new WorldGenTreeVoltzia(4, 8, true), 10);
+		}
 		return this;
 	}
 	
