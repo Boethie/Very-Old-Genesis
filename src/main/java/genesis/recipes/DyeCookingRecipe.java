@@ -1,6 +1,8 @@
 package genesis.recipes;
 
 import java.util.*;
+import java.util.stream.Collectors;
+
 import com.google.common.collect.*;
 
 import genesis.block.tileentity.crafting.CookingPotRecipeRegistry.*;
@@ -86,7 +88,7 @@ public class DyeCookingRecipe extends CookingPotRecipeBase
 						.filter((s) -> s != null)
 						.map((s) -> getColor(s))
 						.filter((c) -> c != null)
-						.collect(StreamUtils.toImmSet()));
+						.collect(Collectors.toCollection(() -> EnumSet.noneOf(EnumDyeColor.class))));
 	}
 	
 	@Override
