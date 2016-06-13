@@ -7,6 +7,6 @@ public class ItemMoss extends ItemMultiTexture
 {
 	public ItemMoss(BlockMoss moss)
 	{
-		super(moss, moss, (s) -> moss.getStateFromMeta(s.getMetadata()).getValue(BlockMoss.DIRT).getName());
+		super(moss, moss, (s) -> moss.getStateFromMeta(s.getMetadata()).getValue(BlockMoss.SOIL).getName());
 	}
 }

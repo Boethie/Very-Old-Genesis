@@ -229,7 +229,7 @@ public final class GenesisBlocks
 		
 		for (BlockMoss.EnumSoil soil : BlockMoss.EnumSoil.values())
 		{
-			Genesis.proxy.registerModel(moss, soil.getMetadata(), name("moss_" + soil.getName()));;
+			Genesis.proxy.registerModel(moss, soil.getMetadata(), name("moss_" + soil.getName()));
 		}
 		
 		Genesis.proxy.registerBlock(humus, name("humus"));
@@ -482,16 +482,19 @@ public final class GenesisBlocks
 		ItemColors itemCol = Minecraft.getMinecraft().getItemColors();
 		
 		// Moss
-		registerColors(blockCol, itemCol, Colorizers.BLOCK_MOSS, moss);
+		registerColors(blockCol, itemCol,
+				(s, w, p, t) -> s.getValue(BlockMoss.SNOWY)
+						? 0xFFFFFF
+						: Colorizers.BLOCK_MOSS.colorMultiplier(s, w, p, t),
+				moss);
 		
 		// Leaves
-		Block[] leaves =
-				trees.getBlocks(
-						TreeBlocksAndItems.LEAVES,
-						TreeBlocksAndItems.LEAVES_FRUIT,
-						TreeBlocksAndItems.BRANCH)
-				.toArray(new Block[0]);
-		registerColors(blockCol, itemCol, Colorizers.BLOCK_LEAVES, leaves);
+		registerColors(blockCol, itemCol, Colorizers.BLOCK_LEAVES,
+				trees.getBlocks(TreeBlocksAndItems.LEAVES, TreeBlocksAndItems.LEAVES_FRUIT)
+						.stream().toArray(Block[]::new));
+		registerColors(blockCol, itemCol, Colorizers.BLOCK_LEAVES_TINT_1,
+				trees.getBlocks(TreeBlocksAndItems.BRANCH)
+						.stream().toArray(Block[]::new));
 		registerColors(blockCol, itemCol, Colorizers.BLOCK_GRASS, trap_floor);
 		
 		// Plants
@@ -501,7 +504,7 @@ public final class GenesisBlocks
 						PlantBlocks.DOUBLE_PLANT,
 						PlantBlocks.FERN,
 						PlantBlocks.DOUBLE_FERN)
-				.toArray(new BlockPlant<?>[0]);
+				.stream().toArray(BlockPlant[]::new);
 		blockCol.registerBlockColorHandler(
 				(s, w, p, t) -> plants.getVariant(s).getColorMultiplier(w, p),
 				plantsArray);

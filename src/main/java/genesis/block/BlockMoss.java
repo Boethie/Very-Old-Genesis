@@ -22,14 +22,12 @@ import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.IPlantable;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockMoss extends BlockGrass
 {
 	public enum EnumSoil implements IStringSerializable
 	{
-		NORMAL("normal", 0),
+		DIRT("dirt", 0),
 		HUMUS("humus", 1);
 		
 		private final String name;
@@ -59,13 +57,13 @@ public class BlockMoss extends BlockGrass
 		}
 	}
 	
-	public static final PropertyEnum<EnumSoil> DIRT = PropertyEnum.create("soil", EnumSoil.class);
+	public static final PropertyEnum<EnumSoil> SOIL = PropertyEnum.create("soil", EnumSoil.class);
 	public static final int STAGE_LAST = 3;
 	public static final PropertyInteger STAGE = PropertyInteger.create("stage", 0, STAGE_LAST);
 	
 	public BlockMoss()
 	{
-		setDefaultState(blockState.getBaseState().withProperty(DIRT, EnumSoil.NORMAL).withProperty(STAGE, 0).withProperty(SNOWY, false));
+		setDefaultState(blockState.getBaseState().withProperty(SOIL, EnumSoil.DIRT).withProperty(STAGE, 0).withProperty(SNOWY, false));
 		setHardness(0.6F);
 		setSoundType(GenesisSoundTypes.MOSS);
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
@@ -75,19 +73,19 @@ public class BlockMoss extends BlockGrass
 	@Override
 	public BlockStateContainer createBlockState()
 	{
-		return new BlockStateContainer(this, DIRT, STAGE, SNOWY);
+		return new BlockStateContainer(this, SOIL, STAGE, SNOWY);
 	}
-
+	
 	@Override
 	public int getMetaFromState(IBlockState state)
 	{
-		return BlockStateToMetadata.getMetaForBlockState(state, DIRT, STAGE);
+		return BlockStateToMetadata.getMetaForBlockState(state, SOIL, STAGE);
 	}
 
 	@Override
 	public IBlockState getStateFromMeta(int meta)
 	{
-		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), meta, DIRT, STAGE);
+		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), meta, SOIL, STAGE);
 	}
 
 	@Override
@@ -385,10 +383,15 @@ public class BlockMoss extends BlockGrass
 	}
 	
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list)
 	{
 		for (EnumSoil soil : EnumSoil.values())
 			list.add(new ItemStack(item, 1, soil.getMetadata()));
+	}
+	
+	@Override
+	public int damageDropped(IBlockState state)
+	{
+		return state.getValue(SOIL).getMetadata();
 	}
 }
