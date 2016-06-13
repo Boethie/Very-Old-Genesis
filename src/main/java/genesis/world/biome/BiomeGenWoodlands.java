@@ -2,12 +2,30 @@ package genesis.world.biome;
 
 import java.util.Random;
 
-import genesis.combo.variant.*;
+import genesis.block.BlockMoss;
+import genesis.block.BlockMoss.EnumSoil;
+import genesis.combo.variant.EnumDebrisOther;
+import genesis.combo.variant.EnumPlant;
+import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
 import genesis.util.random.f.FloatRange;
-import genesis.world.biome.decorate.*;
-import genesis.world.gen.feature.*;
+import genesis.world.biome.decorate.WorldGenAsplenium;
+import genesis.world.biome.decorate.WorldGenCircleReplacement;
+import genesis.world.biome.decorate.WorldGenDebris;
+import genesis.world.biome.decorate.WorldGenDecorationOnBlock;
+import genesis.world.biome.decorate.WorldGenGrowingPlant;
+import genesis.world.biome.decorate.WorldGenPlant;
+import genesis.world.biome.decorate.WorldGenRockBoulders;
+import genesis.world.biome.decorate.WorldGenRoots;
+import genesis.world.biome.decorate.WorldGenSplash;
+import genesis.world.biome.decorate.WorldGenStemonitis;
+import genesis.world.gen.feature.WorldGenDeadLog;
 import genesis.world.gen.feature.WorldGenTreeBase.TreeTypes;
+import genesis.world.gen.feature.WorldGenTreeDryophyllum;
+import genesis.world.gen.feature.WorldGenTreeFicus;
+import genesis.world.gen.feature.WorldGenTreeGinkgo;
+import genesis.world.gen.feature.WorldGenTreeLaurophyllum;
+import genesis.world.gen.feature.WorldGenTreeMetasequoia;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -32,6 +50,7 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		getDecorator().setFlowerCount(0.15F);
 		addFlower(WorldGenPlant.create(EnumPlant.PALAEOASTER).setPatchCount(9), 1);
 		
+		addDecoration(new WorldGenSplash((s, w, p) -> s.getBlock() == GenesisBlocks.moss, GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.DIRT, EnumSoil.HUMUS)), 18);
 		addDecoration(new WorldGenStemonitis().setPatchCount(14), 6);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setPatchCount(3), 0.15F);
 		addDecoration(WorldGenCircleReplacement.getPeatGen(), 1);

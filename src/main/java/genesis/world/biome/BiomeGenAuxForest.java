@@ -2,13 +2,24 @@ package genesis.world.biome;
 
 import java.util.Random;
 
-import genesis.combo.variant.*;
+import genesis.block.BlockMoss;
+import genesis.block.BlockMoss.EnumSoil;
+import genesis.combo.variant.EnumDebrisOther;
+import genesis.combo.variant.EnumPlant;
+import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
 import genesis.util.random.f.FloatRange;
-import genesis.world.biome.decorate.*;
-import genesis.world.gen.feature.*;
+import genesis.world.biome.decorate.WorldGenDebris;
+import genesis.world.biome.decorate.WorldGenGrowingPlant;
+import genesis.world.biome.decorate.WorldGenPlant;
+import genesis.world.biome.decorate.WorldGenRockBoulders;
+import genesis.world.biome.decorate.WorldGenRoots;
+import genesis.world.biome.decorate.WorldGenSplash;
+import genesis.world.biome.decorate.WorldGenStemonitis;
+import genesis.world.gen.feature.WorldGenDeadLog;
+import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
 import genesis.world.gen.feature.WorldGenTreeBase.TreeTypes;
-
+import genesis.world.gen.feature.WorldGenTreeGinkgo;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -28,6 +39,7 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenStemonitis().setPatchCount(14), 6);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.cladophlebis).setPatchCount(9), 0.75F);
 		
+		addDecoration(new WorldGenSplash((s, w, p) -> s.getBlock() == GenesisBlocks.moss, GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.DIRT, EnumSoil.HUMUS)), 18);
 		addDecoration(new WorldGenDebris(), 22);
 		addDecoration(new WorldGenDebris(EnumDebrisOther.COELOPHYSIS_FEATHER).setPatchCount(1, 2), 0.1F);
 		addDecoration(new WorldGenRockBoulders().setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 2);

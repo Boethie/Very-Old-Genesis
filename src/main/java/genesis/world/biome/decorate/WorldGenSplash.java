@@ -4,17 +4,17 @@
 
 package genesis.world.biome.decorate;
 
+import java.util.Random;
+
 import genesis.util.functional.WorldBlockMatcher;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.Random;
-
 public class WorldGenSplash extends WorldGenDecorationBase
 {
-	protected final IBlockState parentBlock;
+	protected final WorldBlockMatcher parentBlock;
 	protected final IBlockState subBlock;
 	
 	protected int dryRadius = 2;
@@ -22,6 +22,17 @@ public class WorldGenSplash extends WorldGenDecorationBase
 	protected float edgeChance = 2;
 	
 	public WorldGenSplash(IBlockState parentBlock, IBlockState subBlock)
+	{
+		super(WorldBlockMatcher.STANDARD_AIR_WATER, WorldBlockMatcher.SOLID_TOP);
+		
+		this.parentBlock = WorldBlockMatcher.state(parentBlock);
+		this.subBlock = subBlock;
+		
+		setPatchRadius(4);
+		setPatchCount(64);
+	}
+	
+	public WorldGenSplash(WorldBlockMatcher parentBlock, IBlockState subBlock)
 	{
 		super(WorldBlockMatcher.STANDARD_AIR_WATER, WorldBlockMatcher.SOLID_TOP);
 		
@@ -42,7 +53,7 @@ public class WorldGenSplash extends WorldGenDecorationBase
 			return false;
 		
 		//PARENT BELOW CHECK
-		if (world.getBlockState(pos) == parentBlock)
+		if (parentBlock.apply(world, pos))
 		{
 			boolean surrounded = true;
 			

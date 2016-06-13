@@ -2,13 +2,25 @@ package genesis.world.biome;
 
 import java.util.Random;
 
-import genesis.combo.variant.*;
+import genesis.block.BlockMoss;
+import genesis.block.BlockMoss.EnumSoil;
+import genesis.combo.variant.EnumPlant;
+import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
 import genesis.entity.living.IEntityPreferredBiome;
 import genesis.entity.living.flying.EntityMeganeura;
-import genesis.world.biome.decorate.*;
-import genesis.world.gen.feature.*;
-
+import genesis.world.biome.decorate.WorldGenCircleReplacement;
+import genesis.world.biome.decorate.WorldGenDebris;
+import genesis.world.biome.decorate.WorldGenGrowingPlant;
+import genesis.world.biome.decorate.WorldGenMossStages;
+import genesis.world.biome.decorate.WorldGenPlant;
+import genesis.world.biome.decorate.WorldGenRoots;
+import genesis.world.biome.decorate.WorldGenSplash;
+import genesis.world.gen.feature.WorldGenDeadLog;
+import genesis.world.gen.feature.WorldGenTreeCordaites;
+import genesis.world.gen.feature.WorldGenTreeLepidodendron;
+import genesis.world.gen.feature.WorldGenTreePsaronius;
+import genesis.world.gen.feature.WorldGenTreeSigillaria;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -31,6 +43,7 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 		getDecorator().setGrassCount(6);
 		addGrass(WorldGenPlant.create(EnumPlant.ZYGOPTERIS).setPatchCount(9), 1);
 		
+		addDecoration(new WorldGenSplash((s, w, p) -> s.getBlock() == GenesisBlocks.moss, GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.DIRT, EnumSoil.HUMUS)), 18);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setPatchCount(3), 2);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchCount(4), 4);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setPatchCount(3), 4);

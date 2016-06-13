@@ -2,11 +2,20 @@ package genesis.world.biome;
 
 import java.util.Random;
 
-import genesis.combo.variant.*;
+import genesis.block.BlockMoss;
+import genesis.block.BlockMoss.EnumSoil;
+import genesis.combo.variant.EnumPlant;
+import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
-import genesis.world.biome.decorate.*;
-import genesis.world.gen.feature.*;
-
+import genesis.world.biome.decorate.WorldGenCircleReplacement;
+import genesis.world.biome.decorate.WorldGenDebris;
+import genesis.world.biome.decorate.WorldGenGrowingPlant;
+import genesis.world.biome.decorate.WorldGenMossStages;
+import genesis.world.biome.decorate.WorldGenPlant;
+import genesis.world.biome.decorate.WorldGenRoots;
+import genesis.world.biome.decorate.WorldGenSplash;
+import genesis.world.gen.feature.WorldGenDeadLog;
+import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -26,6 +35,7 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 		getDecorator().setFlowerCount(1);
 		addFlower(WorldGenPlant.create(EnumPlant.PSILOPHYTON).setPatchCount(6), 1);
 		
+		addDecoration(new WorldGenSplash((s, w, p) -> s.getBlock() == GenesisBlocks.moss, GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.DIRT, EnumSoil.HUMUS)), 18);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchCount(4), 2);
 		addDecoration(WorldGenCircleReplacement.getPeatGen(), 1);
 		addDecoration(new WorldGenMossStages(), 30);

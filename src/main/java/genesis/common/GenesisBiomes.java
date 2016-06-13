@@ -1,5 +1,7 @@
 package genesis.common;
 
+import genesis.combo.SiltBlocks;
+import genesis.combo.variant.EnumSilt;
 import genesis.world.biome.BiomeGenAuxForest;
 import genesis.world.biome.BiomeGenAuxForestM;
 import genesis.world.biome.BiomeGenBaseGenesis;
@@ -307,7 +309,7 @@ public final class GenesisBiomes
 		prop.setHeightVariation(0.05F);
 		prop.setWaterColor(0x725113);
 		
-		redDesert = new BiomeGenRedDesert(prop);
+		redDesert = new BiomeGenRedDesert(prop).addFern().addTrees();
 		BiomeManagerGenesis.registerBiome(redDesert, GenesisConfig.redDesertId, BiomeType.DESERT, GenesisConfig.redDesertWeight);
 		BiomeDictionary.registerBiomeType(redDesert, BiomeDictionary.Type.DRY, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.SANDY);
 		
@@ -319,7 +321,7 @@ public final class GenesisBiomes
 		prop.setHeightVariation(0.02F);
 		prop.setWaterColor(0x725113);
 		
-		redDesertHills = new BiomeGenRedDesert(prop);
+		redDesertHills = new BiomeGenRedDesert(prop).setTopBlock(GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT)).setIsHills(true).addFern().addTrees();
 		BiomeGenBase.registerBiome(GenesisConfig.redDesertId + 128, redDesertHills.getBiomeName(), redDesertHills);
 		BiomeDictionary.registerBiomeType(redDesertHills, BiomeDictionary.Type.DRY, BiomeDictionary.Type.MESA, BiomeDictionary.Type.SANDY);
 	}
