@@ -1,45 +1,37 @@
 {
 	"ambientocclusion": false,
-    "textures": {
-        "particle": "genesis:blocks/cobbania",
-        "0": "genesis:blocks/cobbania",
-        "1": "genesis:blocks/cobbania_bottom"
-    },
-    "elements": [
-        {
-            "name": "Element",
-            "from": [ 0.0, 0.25, 0.0 ], 
-            "to": [ 16.0, 0.25, 16.0 ], 
-            "faces": {
-                "up": { "texture": "#0", "uv": [ 16.0, 0.0, 0.0, 16.0 ] },
-                "down": { "texture": "#0", "uv": [ 16.0, 16.0, 0.0, 0.0 ] }
-            }
-        },
-        {
-            "name": "roots1",
-            "from": [ 8.0, -16.0, 0.0 ], 
-            "to": [ 8.0, 0.0, 16.0 ], 
-            "faces": {
-                "north": { "texture": "#-1", "uv": [ 0.0, 0.0, 0.0, 16.0 ] },
-                "east": { "texture": "#1", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
-                "south": { "texture": "#-1", "uv": [ 0.0, 0.0, 0.0, 16.0 ] },
-                "west": { "texture": "#1", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
-                "up": { "texture": "#-1", "uv": [ 0.0, 0.0, 0.0, 16.0 ] },
-                "down": { "texture": "#-1", "uv": [ 0.0, 0.0, -7.0, 13.0 ] }
-            }
-        },
-        {
-            "name": "roots2",
-            "from": [ 0.0, -16.0, 8.0 ], 
-            "to": [ 16.0, 0.0, 8.0 ], 
-            "faces": {
-                "north": { "texture": "#1", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
-                "east": { "texture": "#-1", "uv": [ 0.0, 0.0, 0.0, 16.0 ] },
-                "south": { "texture": "#1", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
-                "west": { "texture": "#-1", "uv": [ 0.0, 0.0, 0.0, 16.0 ] },
-                "up": { "texture": "#-1", "uv": [ 0.0, 0.0, 16.0, 0.0 ] },
-                "down": { "texture": "#-1", "uv": [ 0.0, 0.0, -7.0, 13.0 ] }
-            }
-        }
-    ]
+	"textures": {
+		"particle": "genesis:blocks/cobbania",
+		"top": "genesis:blocks/cobbania",
+		"bottom": "genesis:blocks/cobbania_bottom"
+	},
+	"elements": [
+		{
+			"name": "Top",
+			"from": [ 0.0, 0.0, 0.0 ],
+			"to": [ 16.0, 0.0, 16.0 ],
+			"faces": {
+				"up": { "texture": "#top", "uv": [ 16.0, 0.0, 0.0, 16.0 ], "tintindex": 0 },
+				"down": { "texture": "#top", "uv": [ 16.0, 16.0, 0.0, 0.0 ], "tintindex": 0 }
+			}
+		},
+		{
+			"name": "Roots EW",
+			"from": [ 8.0, -16.0, 0.0 ],
+			"to": [ 8.0, 0.0, 16.0 ],
+			"faces": {
+				"east": { "texture": "#bottom", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
+				"west": { "texture": "#bottom", "uv": [ 0.0, 0.0, 16.0, 16.0 ] }
+			}
+		},
+		{
+			"name": "Roots NS",
+			"from": [ 0.0, -16.0, 8.0 ],
+			"to": [ 16.0, 0.0, 8.0 ],
+			"faces": {
+				"north": { "texture": "#bottom", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
+				"south": { "texture": "#bottom", "uv": [ 0.0, 0.0, 16.0, 16.0 ] }
+			}
+		}
+	]
 }
