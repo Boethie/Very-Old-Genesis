@@ -22,18 +22,36 @@ public class Colorizers
 					? BiomeColorHelper.getGrassColorAtPos(w, p)
 					: ColorizerGrass.getGrassColor(0.5, 1);
 	
-	public static final IBlockColor BLOCK_LEAVES = (s, w, p, t) ->
-			w != null && p != null
-					? BiomeColorHelper.getFoliageColorAtPos(w, p)
-					: ColorizerFoliage.getFoliageColorBasic();
-	
-	public static final IBlockColor BLOCK_MOSS = (state, world, pos, renderPass) ->
+	public static IBlockColor getBlockLeaves(int tint)
 	{
-		if (world == null || pos == null || renderPass != 1)
-			if (renderPass == 1)
+		return (state, world, pos, tintIndex) ->
+		{
+			if (tint == -1 || tintIndex == tint)
+			{
+				if (world != null && pos != null)
+					return BiomeColorHelper.getFoliageColorAtPos(world, pos);
+				else
+					return ColorizerFoliage.getFoliageColorBasic();
+			}
+			else
+			{
+				return 0xFFFFFF;
+			}
+		};
+	}
+	
+	public static final IBlockColor BLOCK_LEAVES = getBlockLeaves(-1);
+	public static final IBlockColor BLOCK_LEAVES_TINT_1 = getBlockLeaves(1);
+	
+	public static final IBlockColor BLOCK_MOSS = (state, world, pos, tintIndex) ->
+	{
+		if (world == null || pos == null || tintIndex != 1)
+		{
+			if (tintIndex == 1)
 				return ColorizerGrass.getGrassColor(0.5, 1);
 			else
 				return 0xFFFFFF;
+		}
 		
 		int grassColor = BiomeColorHelper.getGrassColorAtPos(world, pos);
 		

@@ -5,7 +5,11 @@
 package genesis.world.biome.decorate;
 
 import java.util.Random;
+import java.util.function.Function;
 
+import genesis.block.BlockMoss;
+import genesis.block.BlockMoss.EnumSoil;
+import genesis.common.GenesisBlocks;
 import genesis.util.functional.WorldBlockMatcher;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
@@ -14,33 +18,41 @@ import net.minecraft.world.World;
 
 public class WorldGenSplash extends WorldGenDecorationBase
 {
-	protected final WorldBlockMatcher parentBlock;
-	protected final IBlockState subBlock;
+	public static WorldGenSplash createHumusSplash()
+	{
+		return (WorldGenSplash) new WorldGenSplash(
+				(s, w, p) -> s.getBlock() == GenesisBlocks.moss,
+				(s) -> s.withProperty(BlockMoss.SOIL, EnumSoil.HUMUS))
+				.setDryRadius(-1).setPatchRadius(6);
+	}
+	
+	protected final WorldBlockMatcher matcher;
+	protected final Function<IBlockState, IBlockState> replacement;
 	
 	protected int dryRadius = 2;
 	protected float centerChance = 0.5F;
 	protected float edgeChance = 2;
 	
-	public WorldGenSplash(IBlockState parentBlock, IBlockState subBlock)
+	public WorldGenSplash(WorldBlockMatcher matcher, Function<IBlockState, IBlockState> replacement)
 	{
 		super(WorldBlockMatcher.STANDARD_AIR_WATER, WorldBlockMatcher.SOLID_TOP);
 		
-		this.parentBlock = WorldBlockMatcher.state(parentBlock);
-		this.subBlock = subBlock;
+		this.matcher = matcher;
+		this.replacement = replacement;
 		
-		setPatchRadius(4);
+		setPatchRadius(11);
 		setPatchCount(64);
 	}
 	
-	public WorldGenSplash(WorldBlockMatcher parentBlock, IBlockState subBlock)
+	public WorldGenSplash(WorldBlockMatcher matcher, IBlockState replacement)
 	{
-		super(WorldBlockMatcher.STANDARD_AIR_WATER, WorldBlockMatcher.SOLID_TOP);
-		
-		this.parentBlock = parentBlock;
-		this.subBlock = subBlock;
-		
-		setPatchRadius(4);
-		setPatchCount(64);
+		this(WorldBlockMatcher.or(matcher, WorldBlockMatcher.state(replacement)),
+				(s) -> replacement);
+	}
+	
+	public WorldGenSplash(IBlockState matchState, IBlockState replacement)
+	{
+		this(WorldBlockMatcher.state(matchState), replacement);
 	}
 	
 	@Override
@@ -48,12 +60,14 @@ public class WorldGenSplash extends WorldGenDecorationBase
 	{
 		pos = pos.down();
 		
-		//WATER CHECK
+		// Check for water if necessary
 		if (dryRadius != -1 && isMatchInSphere(world, pos, WorldBlockMatcher.WATER, dryRadius))
 			return false;
 		
-		//PARENT BELOW CHECK
-		if (parentBlock.apply(world, pos))
+		IBlockState state = world.getBlockState(pos);
+		
+		// Check for the state to replace
+		if (matcher.apply(state, world, pos))
 		{
 			boolean surrounded = true;
 			
@@ -61,9 +75,9 @@ public class WorldGenSplash extends WorldGenDecorationBase
 			{
 				for (EnumFacing side : EnumFacing.HORIZONTALS)
 				{
-					IBlockState state = world.getBlockState(pos.offset(side));
+					IBlockState sideState = world.getBlockState(pos.offset(side));
 					
-					if (state != parentBlock && state != subBlock)
+					if (matcher.apply(sideState, world, pos))
 					{
 						surrounded = false;
 						break;
@@ -71,9 +85,11 @@ public class WorldGenSplash extends WorldGenDecorationBase
 				}
 			}
 			
+			state = replacement.apply(state);
+			
 			if (rand.nextFloat() <= (surrounded ? centerChance : edgeChance))
-			{
-				setBlock(world, pos, subBlock);
+			{	// Set the block to the replacement state
+				setBlock(world, pos, state);
 				return true;
 			}
 		}

@@ -8,6 +8,7 @@ import genesis.block.tileentity.crafting.CookingPotRecipeRegistry;
 import genesis.block.tileentity.crafting.CookingPotRecipeRegistry.InventoryCookingPot;
 import genesis.block.tileentity.gui.ContainerCampfire;
 import genesis.block.tileentity.render.TileEntityCampfireRenderer;
+import genesis.common.GenesisBlocks;
 import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
 import genesis.util.gui.RestrictedDisabledSlot.IInventoryDisabledSlots;
@@ -32,15 +33,18 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 {
 	public static int getItemBurnTime(ItemStack stack)
 	{
+		if (stack == null)
+			return 0;
+		
 		int time = TileEntityFurnace.getItemBurnTime(stack);
 		
 		// Exclude lava.
 		FluidStack lava = new FluidStack(FluidRegistry.LAVA, FluidContainerRegistry.BUCKET_VOLUME);
-
+		
 		if (stack.getItem() instanceof IFluidContainerItem)
 		{
 			IFluidContainerItem container = (IFluidContainerItem) stack.getItem();
-
+			
 			if (container.getFluid(stack).containsFluid(lava))
 			{
 				time = 0;
@@ -149,6 +153,9 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	@Override
 	public BlockCampfire getBlockType()
 	{
+		if (!(super.getBlockType() instanceof BlockCampfire))
+			return GenesisBlocks.campfire;
+		
 		return (BlockCampfire) super.getBlockType();
 	}
 	

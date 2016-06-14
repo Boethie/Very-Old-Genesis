@@ -1,10 +1,22 @@
 {
+	"forge_marker": 1,
 	"variants": {
 		"normal": [
-			{ "model": "genesis:ooze", "y": 0 },
-			{ "model": "genesis:ooze", "y": 90 },
-			{ "model": "genesis:ooze", "y": 180 },
-			{ "model": "genesis:ooze", "y": 270 }
-		]
+			{ "model": "cube_all", "textures": { "all": "genesis:blocks/ooze_0" }, "y": 0 },
+			{ "model": "cube_all", "textures": { "all": "genesis:blocks/ooze_0" }, "y": 90 },
+			{ "model": "cube_all", "textures": { "all": "genesis:blocks/ooze_0" }, "y": 180 },
+			{ "model": "cube_all", "textures": { "all": "genesis:blocks/ooze_0" }, "y": 270 },
+
+			{ "model": "cube_all", "textures": { "all": "genesis:blocks/ooze_1" }, "y": 0 },
+			{ "model": "cube_all", "textures": { "all": "genesis:blocks/ooze_1" }, "y": 90 },
+			{ "model": "cube_all", "textures": { "all": "genesis:blocks/ooze_1" }, "y": 180 },
+			{ "model": "cube_all", "textures": { "all": "genesis:blocks/ooze_1" }, "y": 270 },
+
+			{ "model": "cube_all", "textures": { "all": "genesis:blocks/ooze_2" }, "y": 0 },
+			{ "model": "cube_all", "textures": { "all": "genesis:blocks/ooze_2" }, "y": 90 },
+			{ "model": "cube_all", "textures": { "all": "genesis:blocks/ooze_2" }, "y": 180 },
+			{ "model": "cube_all", "textures": { "all": "genesis:blocks/ooze_2" }, "y": 270 }
+		],
+		"inventory": [ { "model": "cube_all", "textures": { "all": "genesis:blocks/ooze_0" } } ]
 	}
 }

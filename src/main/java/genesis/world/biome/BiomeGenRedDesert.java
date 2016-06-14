@@ -41,7 +41,7 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenRoots(), 5);
 		addDecoration(new WorldGenPebbles().setWaterRequired(false), 5);
 		addDecoration(new WorldGenRockBoulders(GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT)).setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1F)), 0.4F);
-		addDecoration(new WorldGenSplash(GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT), GenesisBlocks.silt.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.RED_SILT)), 8);
+		addDecoration(new WorldGenSplash(GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT), GenesisBlocks.silt.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.RED_SILT)).setPatchRadius(4), 8);
 	}
 	
 	public BiomeGenRedDesert setIsHills(boolean hills)
@@ -52,7 +52,7 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 	
 	public BiomeGenRedDesert addFern()
 	{
-		getDecorator().setGrassCount(this.isHills ? 0.25F : 0.15F);
+		getDecorator().setGrassCount(this.isHills ? 1.55F : 0.15F);
 		addGrass(WorldGenPlant.create(EnumPlant.WACHTLERIA).setPatchCount(4), 1);
 		
 		return this;

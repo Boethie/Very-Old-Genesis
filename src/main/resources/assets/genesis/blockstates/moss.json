@@ -1,54 +1,123 @@
 {
-	"multipart": [
-		{	"when": { "soil": "normal" },
-			"apply": { "model": "dirt" }
+	"forge_marker": 1,
+	"defaults": {
+		"textures": { "particle": "#soil" },
+		"model": "genesis:moss"
+	},
+	"variants": {
+		"soil": {
+			"dirt": { "textures": { "soil": "blocks/dirt" } },
+			"humus": { "textures": { "soil": "genesis:blocks/humus" } }
 		},
-		{	"when": { "soil": "humus" },
-			"apply": { "model": "genesis:humus" }
+		"snowy": {
+			"true": {},
+			"false": {}
 		},
-		{	"when": { "snowy": "false", "stage": 0 },
-			"apply": [
-				{ "model": "genesis:moss_overlay_0" },
-				{ "model": "genesis:moss_overlay_0", "y": 90 },
-				{ "model": "genesis:moss_overlay_0", "y": 180 },
-				{ "model": "genesis:moss_overlay_0", "y": 270 }
-			]
+		"stage": {
+			"0": {},
+			"1": {},
+			"2": {},
+			"3": {}
 		},
-		{	"when": { "snowy": "false", "stage": 1 },
-			"apply": [
-				{ "model": "genesis:moss_overlay_1" },
-				{ "model": "genesis:moss_overlay_1", "y": 90 },
-				{ "model": "genesis:moss_overlay_1", "y": 180 },
-				{ "model": "genesis:moss_overlay_1", "y": 270 }
-			]
-		},
-		{	"when": { "snowy": "false", "stage": 2 },
-			"apply": [
-				{ "model": "genesis:moss_overlay_2" },
-				{ "model": "genesis:moss_overlay_2", "y": 90 },
-				{ "model": "genesis:moss_overlay_2", "y": 180 },
-				{ "model": "genesis:moss_overlay_2", "y": 270 }
-			]
-		},
-		{	"when": { "snowy": "false", "stage": 3 },
-			"apply": [
-				{ "model": "genesis:moss_overlay_3" },
-				{ "model": "genesis:moss_overlay_3", "y": 90 },
-				{ "model": "genesis:moss_overlay_3", "y": 180 },
-				{ "model": "genesis:moss_overlay_3", "y": 270 }
-			]
-		},
-		{	"when": { "snowy": "true", "stage": 0 },
-			"apply": { "model": "genesis:moss_overlay_snowed_0" }
-		},
-		{	"when": { "snowy": "true", "stage": 1 },
-			"apply": { "model": "genesis:moss_overlay_snowed_1" }
-		},
-		{	"when": { "snowy": "true", "stage": 2 },
-			"apply": { "model": "genesis:moss_overlay_snowed_2" }
-		},
-		{	"when": { "snowy": "true", "stage": 3 },
-			"apply": { "model": "genesis:moss_overlay_snowed_3" }
-		}
-	]
+
+		// Dirt
+		"snowy=false,soil=dirt,stage=0": [
+			{ "textures": { "side": "genesis:blocks/moss_side_0", "top": "genesis:blocks/moss_top_0" }, "y": 0 },
+			{ "textures": { "side": "genesis:blocks/moss_side_0", "top": "genesis:blocks/moss_top_0" }, "y": 90 },
+			{ "textures": { "side": "genesis:blocks/moss_side_0", "top": "genesis:blocks/moss_top_0" }, "y": 180 },
+			{ "textures": { "side": "genesis:blocks/moss_side_0", "top": "genesis:blocks/moss_top_0" }, "y": 270 }
+		],
+		"snowy=false,soil=dirt,stage=1": [
+			{ "textures": { "side": "genesis:blocks/moss_side_1", "top": "genesis:blocks/moss_top_1" }, "y": 0 },
+			{ "textures": { "side": "genesis:blocks/moss_side_1", "top": "genesis:blocks/moss_top_1" }, "y": 90 },
+			{ "textures": { "side": "genesis:blocks/moss_side_1", "top": "genesis:blocks/moss_top_1" }, "y": 180 },
+			{ "textures": { "side": "genesis:blocks/moss_side_1", "top": "genesis:blocks/moss_top_1" }, "y": 270 }
+		],
+		"snowy=false,soil=dirt,stage=2": [
+			{ "textures": { "side": "genesis:blocks/moss_side_2", "top": "genesis:blocks/moss_top_2" }, "y": 0 },
+			{ "textures": { "side": "genesis:blocks/moss_side_2", "top": "genesis:blocks/moss_top_2" }, "y": 90 },
+			{ "textures": { "side": "genesis:blocks/moss_side_2", "top": "genesis:blocks/moss_top_2" }, "y": 180 },
+			{ "textures": { "side": "genesis:blocks/moss_side_2", "top": "genesis:blocks/moss_top_2" }, "y": 270 }
+		],
+		"snowy=false,soil=dirt,stage=3": [
+			{ "textures": { "side": "genesis:blocks/moss_side_3", "top": "genesis:blocks/moss_top_3" }, "y": 0 },
+			{ "textures": { "side": "genesis:blocks/moss_side_3", "top": "genesis:blocks/moss_top_3" }, "y": 90 },
+			{ "textures": { "side": "genesis:blocks/moss_side_3", "top": "genesis:blocks/moss_top_3" }, "y": 180 },
+			{ "textures": { "side": "genesis:blocks/moss_side_3", "top": "genesis:blocks/moss_top_3" }, "y": 270 }
+		],
+		"snowy=true,soil=dirt,stage=0": [
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_0", "top": "genesis:blocks/moss_top_0" }, "y": 0 },
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_0", "top": "genesis:blocks/moss_top_0" }, "y": 90 },
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_0", "top": "genesis:blocks/moss_top_0" }, "y": 180 },
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_0", "top": "genesis:blocks/moss_top_0" }, "y": 270 }
+		],
+		"snowy=true,soil=dirt,stage=1": [
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_1", "top": "genesis:blocks/moss_top_1" }, "y": 0 },
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_1", "top": "genesis:blocks/moss_top_1" }, "y": 90 },
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_1", "top": "genesis:blocks/moss_top_1" }, "y": 180 },
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_1", "top": "genesis:blocks/moss_top_1" }, "y": 270 }
+		],
+		"snowy=true,soil=dirt,stage=2": [
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_2", "top": "genesis:blocks/moss_top_2" }, "y": 0 },
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_2", "top": "genesis:blocks/moss_top_2" }, "y": 90 },
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_2", "top": "genesis:blocks/moss_top_2" }, "y": 180 },
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_2", "top": "genesis:blocks/moss_top_2" }, "y": 270 }
+		],
+		"snowy=true,soil=dirt,stage=3": [
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_3", "top": "genesis:blocks/moss_top_3" }, "y": 0 },
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_3", "top": "genesis:blocks/moss_top_3" }, "y": 90 },
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_3", "top": "genesis:blocks/moss_top_3" }, "y": 180 },
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_3", "top": "genesis:blocks/moss_top_3" }, "y": 270 }
+		],
+
+		// Humus
+		"snowy=false,soil=humus,stage=0": [
+			{ "textures": { "side": "genesis:blocks/moss_side_0", "top": "genesis:blocks/moss_top_0" }, "y": 0 },
+			{ "textures": { "side": "genesis:blocks/moss_side_0", "top": "genesis:blocks/moss_top_0" }, "y": 90 },
+			{ "textures": { "side": "genesis:blocks/moss_side_0", "top": "genesis:blocks/moss_top_0" }, "y": 180 },
+			{ "textures": { "side": "genesis:blocks/moss_side_0", "top": "genesis:blocks/moss_top_0" }, "y": 270 }
+		],
+		"snowy=false,soil=humus,stage=1": [
+			{ "textures": { "side": "genesis:blocks/moss_side_1", "top": "genesis:blocks/moss_top_1" }, "y": 0 },
+			{ "textures": { "side": "genesis:blocks/moss_side_1", "top": "genesis:blocks/moss_top_1" }, "y": 90 },
+			{ "textures": { "side": "genesis:blocks/moss_side_1", "top": "genesis:blocks/moss_top_1" }, "y": 180 },
+			{ "textures": { "side": "genesis:blocks/moss_side_1", "top": "genesis:blocks/moss_top_1" }, "y": 270 }
+		],
+		"snowy=false,soil=humus,stage=2": [
+			{ "textures": { "side": "genesis:blocks/moss_side_2", "top": "genesis:blocks/moss_top_2" }, "y": 0 },
+			{ "textures": { "side": "genesis:blocks/moss_side_2", "top": "genesis:blocks/moss_top_2" }, "y": 90 },
+			{ "textures": { "side": "genesis:blocks/moss_side_2", "top": "genesis:blocks/moss_top_2" }, "y": 180 },
+			{ "textures": { "side": "genesis:blocks/moss_side_2", "top": "genesis:blocks/moss_top_2" }, "y": 270 }
+		],
+		"snowy=false,soil=humus,stage=3": [
+			{ "textures": { "side": "genesis:blocks/moss_side_3", "top": "genesis:blocks/moss_top_3" }, "y": 0 },
+			{ "textures": { "side": "genesis:blocks/moss_side_3", "top": "genesis:blocks/moss_top_3" }, "y": 90 },
+			{ "textures": { "side": "genesis:blocks/moss_side_3", "top": "genesis:blocks/moss_top_3" }, "y": 180 },
+			{ "textures": { "side": "genesis:blocks/moss_side_3", "top": "genesis:blocks/moss_top_3" }, "y": 270 }
+		],
+		"snowy=true,soil=humus,stage=0": [
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_0", "top": "genesis:blocks/moss_top_0" }, "y": 0 },
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_0", "top": "genesis:blocks/moss_top_0" }, "y": 90 },
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_0", "top": "genesis:blocks/moss_top_0" }, "y": 180 },
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_0", "top": "genesis:blocks/moss_top_0" }, "y": 270 }
+		],
+		"snowy=true,soil=humus,stage=1": [
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_1", "top": "genesis:blocks/moss_top_1" }, "y": 0 },
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_1", "top": "genesis:blocks/moss_top_1" }, "y": 90 },
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_1", "top": "genesis:blocks/moss_top_1" }, "y": 180 },
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_1", "top": "genesis:blocks/moss_top_1" }, "y": 270 }
+		],
+		"snowy=true,soil=humus,stage=2": [
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_2", "top": "genesis:blocks/moss_top_2" }, "y": 0 },
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_2", "top": "genesis:blocks/moss_top_2" }, "y": 90 },
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_2", "top": "genesis:blocks/moss_top_2" }, "y": 180 },
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_2", "top": "genesis:blocks/moss_top_2" }, "y": 270 }
+		],
+		"snowy=true,soil=humus,stage=3": [
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_3", "top": "genesis:blocks/moss_top_3" }, "y": 0 },
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_3", "top": "genesis:blocks/moss_top_3" }, "y": 90 },
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_3", "top": "genesis:blocks/moss_top_3" }, "y": 180 },
+			{ "textures": { "side": "genesis:blocks/moss_side_snowed_3", "top": "genesis:blocks/moss_top_3" }, "y": 270 }
+		]
+	}
 }

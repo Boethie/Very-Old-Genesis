@@ -50,7 +50,7 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		getDecorator().setFlowerCount(0.15F);
 		addFlower(WorldGenPlant.create(EnumPlant.PALAEOASTER).setPatchCount(9), 1);
 		
-		addDecoration(new WorldGenSplash((s, w, p) -> s.getBlock() == GenesisBlocks.moss, GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.DIRT, EnumSoil.HUMUS)), 18);
+		addDecoration(WorldGenSplash.createHumusSplash(), 2.55F);
 		addDecoration(new WorldGenStemonitis().setPatchCount(14), 6);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setPatchCount(3), 0.15F);
 		addDecoration(WorldGenCircleReplacement.getPeatGen(), 1);
@@ -58,13 +58,6 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenDebris(EnumDebrisOther.TYRANNOSAURUS_FEATHER).setPatchCount(1, 2), 0.1F);
 		addDecoration(new WorldGenRockBoulders().setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 2);
 		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.333F);
-		/*addDecoration(
-				new WorldGenRockBoulders(
-						GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, EnumDung.CARNIVORE))
-								.setInGround(false)
-								.setWaterRequired(false)
-								.setRadius(2),
-						0.085F);*/
 		addDecoration(new WorldGenRoots(), 13);
 		addDecoration(new WorldGenDecorationOnBlock((s) -> s.getMaterial() == Material.water, GenesisBlocks.cobbania.getDefaultState()), 2.8F);
 		addDecoration(new WorldGenAsplenium().setPatchCount(20), 10);

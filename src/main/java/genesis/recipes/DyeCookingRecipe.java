@@ -1,6 +1,8 @@
 package genesis.recipes;
 
 import java.util.*;
+import java.util.stream.Collectors;
+
 import com.google.common.collect.*;
 
 import genesis.block.tileentity.crafting.CookingPotRecipeRegistry.*;
@@ -43,11 +45,10 @@ public class DyeCookingRecipe extends CookingPotRecipeBase
 	
 	protected static EnumDyeColor getColor(ItemStack stack)
 	{
-		if (stack == null || stack.stackSize <= 0 ||
-				GenesisItems.bowls.isStackOf(stack, ItemsCeramicBowls.DYE))
-		{
+		if (stack == null
+				|| stack.stackSize <= 0
+				|| GenesisItems.bowls.isStackOf(stack, ItemsCeramicBowls.DYE))
 			return null;
-		}
 		
 		EnumPowder powder = GenesisItems.powders.getVariant(stack);
 		
@@ -83,8 +84,11 @@ public class DyeCookingRecipe extends CookingPotRecipeBase
 	{
 		return getOutputColorFromColors(
 				slots.stream()
-						.map((s) -> getColor(s.getStack()))
-						.collect(StreamUtils.toImmSet()));
+						.map((s) -> s.getStack())
+						.filter((s) -> s != null)
+						.map((s) -> getColor(s))
+						.filter((c) -> c != null)
+						.collect(Collectors.toCollection(() -> EnumSet.noneOf(EnumDyeColor.class))));
 	}
 	
 	@Override
