@@ -7,6 +7,7 @@ import genesis.util.random.i.IntRange;
 import genesis.world.biome.BiomeGenBaseGenesis;
 
 import java.util.*;
+import java.util.function.Supplier;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -27,16 +28,23 @@ public class BlockMoss extends BlockGrass
 {
 	public enum EnumSoil implements IStringSerializable
 	{
-		DIRT("dirt", 0),
-		HUMUS("humus", 1);
+		DIRT("dirt", 0, () -> Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT)),
+		HUMUS("humus", 1, () -> GenesisBlocks.humus.getDefaultState());
 		
 		private final String name;
 		private final int metadata;
+		private final Supplier<IBlockState> state;
 		
-		EnumSoil(String name, int metadata)
+		EnumSoil(String name, int metadata, Supplier<IBlockState> state)
 		{
 			this.name = name;
 			this.metadata = metadata;
+			this.state = state;
+		}
+		
+		public IBlockState getState()
+		{
+			return state.get();
 		}
 		
 		public int getMetadata()
@@ -392,6 +400,14 @@ public class BlockMoss extends BlockGrass
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return state.getValue(SOIL).getMetadata();
+		IBlockState soilState = state.getValue(SOIL).getState();
+		return soilState.getBlock().damageDropped(soilState);
+	}
+	
+	@Override
+	public Item getItemDropped(IBlockState state, Random rand, int fortune)
+	{
+		IBlockState soilState = state.getValue(SOIL).getState();
+		return soilState.getBlock().getItemDropped(soilState, rand, fortune);
 	}
 }
