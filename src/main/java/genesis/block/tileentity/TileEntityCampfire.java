@@ -33,15 +33,18 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 {
 	public static int getItemBurnTime(ItemStack stack)
 	{
+		if (stack == null)
+			return 0;
+		
 		int time = TileEntityFurnace.getItemBurnTime(stack);
 		
 		// Exclude lava.
 		FluidStack lava = new FluidStack(FluidRegistry.LAVA, FluidContainerRegistry.BUCKET_VOLUME);
-
+		
 		if (stack.getItem() instanceof IFluidContainerItem)
 		{
 			IFluidContainerItem container = (IFluidContainerItem) stack.getItem();
-
+			
 			if (container.getFluid(stack).containsFluid(lava))
 			{
 				time = 0;
