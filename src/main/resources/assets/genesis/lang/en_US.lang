@@ -129,6 +129,8 @@ tile.genesis.debris.coelophysisFeather.name=Coelophysis Feather Debris
 tile.genesis.debris.epidexipteryxFeather.name=Epidexipteryx Feather Debris
 tile.genesis.debris.tyrannosaurusFeather.name=Tyrannosaurus Feather Debris
 
+tile.genesis.benchSeat.name=Bench Seat
+
 tile.genesis.roots.name=Roots
 
 tile.genesis.leaves.archaeopteris.name=Archaeopteris Leaves
@@ -285,6 +287,8 @@ item.genesis.misc.menhirActivator.fossilizedEgg.name=Fossilized Egg
 item.genesis.misc.menhirActivator.brokenSpiritMask.name=Broken Spirit Mask
 item.genesis.misc.menhirActivator.primitiveDust.name=Primitive Dust
 item.genesis.misc.menhirActivator.sacredTreeStar.name=Sacred Tree Star
+
+item.genesis.benchSeat.name=Bench Seat
 
 #Food
 item.genesis.seed.araucarioxylon.name=Araucarioxylon Seeds

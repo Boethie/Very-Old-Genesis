@@ -255,6 +255,12 @@ public final class GenesisRecipes
 				'x', GenesisItems.materials.getStack(EnumMaterial.CLADOPHLEBIS_FROND),
 				'/', GenesisBlocks.calamites);
 		
+		GameRegistry.addRecipe(new ItemStack(GenesisItems.bench_seat),
+				"FFF",
+				"GGG",
+				'F', GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS),
+				'G', GenesisBlocks.granite);
+		
 		//Food
 		GameRegistry.addShapelessRecipe(GenesisItems.seeds.getStack(EnumSeeds.ARAUCARIOXYLON_SEEDS), GenesisBlocks.trees.getStack(TreeBlocksAndItems.FRUIT, EnumTree.ARAUCARIOXYLON));
 		
