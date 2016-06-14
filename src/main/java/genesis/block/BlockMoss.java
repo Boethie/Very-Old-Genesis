@@ -410,4 +410,10 @@ public class BlockMoss extends BlockGrass
 		IBlockState soilState = state.getValue(SOIL).getState();
 		return soilState.getBlock().getItemDropped(soilState, rand, fortune);
 	}
+	
+	@Override
+	public ItemStack getItem(World world, BlockPos pos, IBlockState state)
+	{
+		return new ItemStack(this, 1, state.getValue(SOIL).getMetadata());
+	}
 }
