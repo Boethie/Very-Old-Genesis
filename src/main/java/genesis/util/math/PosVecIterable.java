@@ -71,7 +71,7 @@ public class PosVecIterable implements Iterable<MutableBlockPos>
 		@Override
 		public boolean hasNext()
 		{
-			return countLeft == -1 || countLeft > 0;
+			return (countLeft == -1 || countLeft > 0) && pos.getY() > 0;
 		}
 		
 		@Override

@@ -72,7 +72,7 @@ public abstract class WorldGenDecorationBase extends WorldGenerator
 		return notify;
 	}
 	
-	protected BlockPos findGround(IBlockAccess world, BlockPos pos, int distance)
+	protected BlockPos findGround(IBlockAccess world, BlockPos pos, Random rand, int distance)
 	{
 		if (airMatcher != null)
 		{
@@ -102,7 +102,7 @@ public abstract class WorldGenDecorationBase extends WorldGenerator
 	@Override
 	public boolean generate(World world, Random rand, BlockPos pos)
 	{
-		pos = findGround(world, pos, -1);
+		pos = findGround(world, pos, rand, -1);
 		
 		if (pos == null || rand.nextInt(rarity) != 0)
 			return false;
@@ -121,6 +121,7 @@ public abstract class WorldGenDecorationBase extends WorldGenerator
 						.scale(rand.nextDouble() * patchMaxRadius);
 				genPos = findGround(world,
 						pos.add(offset.xCoord, offset.yCoord + patchStartHeight, offset.zCoord),
+						rand,
 						patchStartHeight * 2 + 1);
 			}
 			
@@ -214,15 +215,15 @@ public abstract class WorldGenDecorationBase extends WorldGenerator
 		return false;
 	}
 	
-	public boolean isMatchInSphere(World world, BlockPos pos, WorldBlockMatcher matcher, int radius)
+	public boolean isMatchInSphere(World world, BlockPos pos, WorldBlockMatcher matcher, float radius)
 	{
 		Iterable<? extends BlockPos> iter =
 				BlockPos.getAllInBoxMutable(pos.add(-radius, -radius, -radius), pos.add(radius, radius, radius));
-		radius *= radius;
+		int radiusSqr = (int) (radius * radius);	// Can cast to int because we're comparing to an int in the loop.
 		
 		for (BlockPos checkPos : iter)
 		{
-			if (WorldUtils.distSqr(pos, checkPos) <= radius
+			if (WorldUtils.distSqr(pos, checkPos) <= radiusSqr
 					&& matcher.apply(world, checkPos))
 				return true;
 		}
@@ -230,17 +231,17 @@ public abstract class WorldGenDecorationBase extends WorldGenerator
 		return false;
 	}
 	
-	public boolean isMatchInSphere(World world, BlockPos pos, Predicate<IBlockState> matcher, int radius)
+	public boolean isMatchInSphere(World world, BlockPos pos, Predicate<IBlockState> matcher, float radius)
 	{
 		return isMatchInSphere(world, pos, WorldBlockMatcher.state(matcher), radius);
 	}
 	
-	public boolean isMatchInSphere(World world, BlockPos pos, IBlockState match, int radius)
+	public boolean isMatchInSphere(World world, BlockPos pos, IBlockState match, float radius)
 	{
 		return isMatchInSphere(world, pos, WorldBlockMatcher.state(match), radius);
 	}
 	
-	public boolean isMatchInSphere(World world, BlockPos pos, Block match, int radius)
+	public boolean isMatchInSphere(World world, BlockPos pos, Block match, float radius)
 	{
 		return isMatchInSphere(world, pos, WorldBlockMatcher.block(match), radius);
 	}

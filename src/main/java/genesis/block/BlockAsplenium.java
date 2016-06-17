@@ -26,7 +26,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class BlockAsplenium extends BlockBush implements IShearable
 {
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
-
+	
 	public BlockAsplenium()
 	{
 		blockState = new BlockStateContainer(this, FACING);
@@ -34,42 +34,43 @@ public class BlockAsplenium extends BlockBush implements IShearable
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		setSoundType(GenesisSoundTypes.FERN);
 	}
-
-	public static boolean canSustainAsplenum(IBlockState state)
-	{
-		return state.getMaterial() == Material.rock;
-	}
-
+	
 	@Override
 	protected boolean canSustainBush(IBlockState state)
 	{
-		return canSustainAsplenum(state);
+		return false;
 	}
-
+	
 	public boolean canBlockStay(IBlockAccess world, BlockPos pos, EnumFacing facing)
 	{
-		return facing.getAxis().isHorizontal() && canSustainBush(world.getBlockState(pos.offset(facing)));
+		if (!facing.getAxis().isHorizontal())
+			return false;
+		
+		BlockPos neighborPos = pos.offset(facing);
+		IBlockState neighbor = world.getBlockState(neighborPos);
+		return neighbor.getMaterial() == Material.rock
+				&& neighbor.isSideSolid(world, neighborPos, facing.getOpposite());
 	}
-
+	
 	@Override
 	public boolean canBlockStay(World world, BlockPos pos, IBlockState state)
 	{
 		return canBlockStay(world, pos, state.getValue(FACING));
 	}
-
+	
 	@Override
 	public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing side)
 	{
 		return world.getBlockState(pos).getBlock().isReplaceable(world, pos)
 				&& canBlockStay(world, pos, side.getOpposite());
 	}
-
+	
 	@Override
 	public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
 	{
 		return super.onBlockPlaced(world, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(FACING, facing.getOpposite());
 	}
-
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
@@ -80,49 +81,49 @@ public class BlockAsplenium extends BlockBush implements IShearable
 				facing.getFrontOffsetY() * offsetAmount,
 				facing.getFrontOffsetZ() * offsetAmount);
 	}
-
+	
 	@Override
 	public int getMetaFromState(IBlockState state)
 	{
 		return BlockStateToMetadata.getMetaForBlockState(state);
 	}
-
+	
 	@Override
 	public IBlockState getStateFromMeta(int meta)
 	{
 		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), meta);
 	}
-
+	
 	@Override
 	public IBlockState withRotation(IBlockState state, Rotation rotation)
 	{
 		return state.withProperty(FACING, rotation.rotate(state.getValue(FACING)));
 	}
-
+	
 	@Override
 	public IBlockState withMirror(IBlockState state, Mirror mirror)
 	{
 		return state.withRotation(mirror.toRotation(state.getValue(FACING)));
 	}
-
+	
 	@Override
 	public boolean isShearable(ItemStack stack, IBlockAccess world, BlockPos pos)
 	{
 		return true;
 	}
-
+	
 	@Override
 	public List<ItemStack> onSheared(ItemStack stack, IBlockAccess world, BlockPos pos, int fortune)
 	{
 		return Collections.singletonList(new ItemStack(this));
 	}
-
+	
 	@Override
 	public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face)
 	{
 		return 100;
 	}
-
+	
 	@Override
 	public int getFireSpreadSpeed(IBlockAccess world, BlockPos pos, EnumFacing face)
 	{
