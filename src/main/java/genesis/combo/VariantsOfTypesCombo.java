@@ -445,7 +445,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 			
 			if (block != null)
 			{
-				Genesis.proxy.registerBlock(block, item, registryName);
+				Genesis.proxy.registerBlock(block, item, registryName, false);
 				block.setUnlocalizedName(unlocName);
 				
 				// Register resource locations for the block.

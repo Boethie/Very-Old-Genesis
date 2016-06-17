@@ -48,7 +48,7 @@ public class GenesisProxy
 		GameRegistry.register(block, name);
 		
 		if (item != null)
-			registerItem(item, name);
+			registerItem(item, name, doModel);
 		
 		doRegistrationCallback(block);
 	}
