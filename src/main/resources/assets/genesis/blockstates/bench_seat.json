@@ -1,14 +1,19 @@
 {
 	"forge_marker": 1,
-    "variants":
-	{
-        "facing=north,part=foot": { "model": "genesis:bench_seat_foot", "y": 180 },
-        "facing=east,part=foot":  { "model": "genesis:bench_seat_foot", "y": 270 },
-        "facing=south,part=foot": { "model": "genesis:bench_seat_foot" },
-        "facing=west,part=foot":  { "model": "genesis:bench_seat_foot", "y": 90 },
-        "facing=north,part=head": { "model": "genesis:bench_seat_head", "y": 180 },
-        "facing=east,part=head":  { "model": "genesis:bench_seat_head", "y": 270 },
-        "facing=south,part=head": { "model": "genesis:bench_seat_head" },
-        "facing=west,part=head":  { "model": "genesis:bench_seat_head", "y": 90 }
-    }
+	"variants": {
+		"facing": {
+			"north": { "y": 180 },
+			"east": { "y": 270 },
+			"south": { "y": 0 },
+			"west": { "y": 90 }
+		},
+		"part": {
+			"foot": { "model": "genesis:bench_seat_foot" },
+			"head": { "model": "genesis:bench_seat_head" }
+		},
+		"occupied": {
+			"false": {},
+			"true": {}
+		}
+	}
 }
