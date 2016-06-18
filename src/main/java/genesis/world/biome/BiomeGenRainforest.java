@@ -45,7 +45,8 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setPatchCount(3), 3);
 		addDecoration(new WorldGenMossStages(), 30);
 		addDecoration(new WorldGenRoots(), 13);
-		addDecoration(new WorldGenDebris(), 28);
+		
+		addPostDecoration(new WorldGenDebris(), 28);
 	}
 	
 	protected void addTrees()

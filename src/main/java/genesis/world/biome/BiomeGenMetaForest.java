@@ -49,7 +49,8 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenStemonitis().setPatchCount(14), 6);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPatchCount(5), 1.75F);
 		addDecoration(new WorldGenRoots(), 13);
-		addDecoration(new WorldGenDebris(), 7);
+		
+		addPostDecoration(new WorldGenDebris(), 7);
 	}
 	
 	protected void addTrees()
