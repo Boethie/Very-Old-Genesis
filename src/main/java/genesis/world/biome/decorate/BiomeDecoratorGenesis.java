@@ -170,6 +170,17 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			}
 		}
 		
+		if (biomeGenesis != null)
+		{
+			for (DecorationEntry genEntry : biomeGenesis.getPostDecorations())
+			{
+				for (int i = genEntry.getCountPerChunk(rand); i > 0; i--)
+				{
+					genEntry.getGenerator().generate(world, rand, getPos(world, rand));
+				}
+			}
+		}
+		
 		if (generateLakes)
 		{
 			if (TerrainGen.decorate(world, rand, field_180294_c, LAKE_WATER))
