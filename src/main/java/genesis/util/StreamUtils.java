@@ -27,7 +27,7 @@ public final class StreamUtils
 				Characteristics... characteristics)
 		{
 			this.supplier = () -> supplier.get();
-			this.characteristics = MiscUtils.unmodifiableSet(characteristics);
+			this.characteristics = MiscUtils.unmodSet(characteristics);
 		}
 		
 		@Override
@@ -79,7 +79,7 @@ public final class StreamUtils
 		{
 			this.supplier = () -> supplier.get();
 			this.accumulator = (m, t) -> m.put(key.apply(t), value.apply(t));
-			this.characteristics = MiscUtils.unmodifiableSet(characteristics);
+			this.characteristics = MiscUtils.unmodSet(characteristics);
 		}
 		
 		@Override

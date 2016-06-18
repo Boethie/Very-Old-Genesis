@@ -28,17 +28,17 @@ public class DyeCookingRecipe extends CookingPotRecipeBase
 			builder.put(Collections.singleton(color), color);
 		}
 		
-		builder.put(MiscUtils.unmodifiableSet(EnumDyeColor.WHITE, EnumDyeColor.RED), EnumDyeColor.PINK);
-		builder.put(MiscUtils.unmodifiableSet(EnumDyeColor.PURPLE, EnumDyeColor.PINK), EnumDyeColor.MAGENTA);
-		builder.put(MiscUtils.unmodifiableSet(EnumDyeColor.BLUE, EnumDyeColor.RED), EnumDyeColor.PURPLE);
-		builder.put(MiscUtils.unmodifiableSet(EnumDyeColor.WHITE, EnumDyeColor.BLUE), EnumDyeColor.LIGHT_BLUE);
-		builder.put(MiscUtils.unmodifiableSet(EnumDyeColor.GREEN, EnumDyeColor.BLUE), EnumDyeColor.CYAN);
-		builder.put(MiscUtils.unmodifiableSet(EnumDyeColor.WHITE, EnumDyeColor.GREEN), EnumDyeColor.LIME);
-		builder.put(MiscUtils.unmodifiableSet(EnumDyeColor.RED, EnumDyeColor.YELLOW), EnumDyeColor.ORANGE);
-		builder.put(MiscUtils.unmodifiableSet(EnumDyeColor.BLUE, EnumDyeColor.ORANGE), EnumDyeColor.BROWN);
-		builder.put(MiscUtils.unmodifiableSet(EnumDyeColor.GREEN, EnumDyeColor.RED), EnumDyeColor.BROWN);
-		builder.put(MiscUtils.unmodifiableSet(EnumDyeColor.WHITE, EnumDyeColor.BLACK), EnumDyeColor.GRAY);
-		builder.put(MiscUtils.unmodifiableSet(EnumDyeColor.WHITE, EnumDyeColor.GRAY), EnumDyeColor.SILVER);
+		builder.put(MiscUtils.unmodSet(EnumDyeColor.WHITE, EnumDyeColor.RED), EnumDyeColor.PINK);
+		builder.put(MiscUtils.unmodSet(EnumDyeColor.PURPLE, EnumDyeColor.PINK), EnumDyeColor.MAGENTA);
+		builder.put(MiscUtils.unmodSet(EnumDyeColor.BLUE, EnumDyeColor.RED), EnumDyeColor.PURPLE);
+		builder.put(MiscUtils.unmodSet(EnumDyeColor.WHITE, EnumDyeColor.BLUE), EnumDyeColor.LIGHT_BLUE);
+		builder.put(MiscUtils.unmodSet(EnumDyeColor.GREEN, EnumDyeColor.BLUE), EnumDyeColor.CYAN);
+		builder.put(MiscUtils.unmodSet(EnumDyeColor.WHITE, EnumDyeColor.GREEN), EnumDyeColor.LIME);
+		builder.put(MiscUtils.unmodSet(EnumDyeColor.RED, EnumDyeColor.YELLOW), EnumDyeColor.ORANGE);
+		builder.put(MiscUtils.unmodSet(EnumDyeColor.BLUE, EnumDyeColor.ORANGE), EnumDyeColor.BROWN);
+		builder.put(MiscUtils.unmodSet(EnumDyeColor.GREEN, EnumDyeColor.RED), EnumDyeColor.BROWN);
+		builder.put(MiscUtils.unmodSet(EnumDyeColor.WHITE, EnumDyeColor.BLACK), EnumDyeColor.GRAY);
+		builder.put(MiscUtils.unmodSet(EnumDyeColor.WHITE, EnumDyeColor.GRAY), EnumDyeColor.SILVER);
 		
 		CRAFTING_MAP = builder.build();
 	}

@@ -15,7 +15,7 @@ public final class MiscUtils
 	}
 	
 	@SafeVarargs
-	public static <T extends Enum<T>> Set<T> unmodifiableSet(T... values)
+	public static <T extends Enum<T>> Set<T> unmodSet(T... values)
 	{
 		Set<T> out = EnumSet.noneOf(ReflectionUtils.getClass(values));
 		for (T value : values)
