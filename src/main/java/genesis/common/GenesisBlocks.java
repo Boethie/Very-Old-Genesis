@@ -318,7 +318,7 @@ public final class GenesisBlocks
 		
 		Genesis.proxy.registerBlock(bench_seat, name("bench_seat"));
 		
-		//Resin
+		// Resin
 		Genesis.proxy.registerBlock(resin, name("resin_block"));
 		
 		// - Containers -
@@ -344,7 +344,7 @@ public final class GenesisBlocks
 		// Rack
 		GameRegistry.registerTileEntity(TileEntityRack.class, Constants.ASSETS_PREFIX + "rack");
 		
-		// - Rope ladder -
+		// Rope ladder
 		Genesis.proxy.registerBlock(rope_ladder, name("rope_ladder"));
 		
 		// - Torches -
