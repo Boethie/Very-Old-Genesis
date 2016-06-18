@@ -48,9 +48,9 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchCount(4), 4);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setPatchCount(3), 4);
 		addDecoration(new WorldGenMossStages(), 30);
-		addDecoration(new WorldGenDebris(), 33);
-		addDecoration(new WorldGenRoots(), 13);
 		addDecoration(WorldGenCircleReplacement.getPeatGen(), 10);
+		addDecoration(new WorldGenRoots(), 13);
+		addDecoration(new WorldGenDebris(), 33);
 		
 		getDecorator().setTreeCount(18.1F);
 		addTree(new WorldGenTreeSigillaria(9, 12, true).generateVine(11), 12);

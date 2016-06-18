@@ -28,8 +28,6 @@ public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenCorals(2, 5, EnumCoral.HELIOLITES), 0.35F);
 		addDecoration(new WorldGenCorals(2, 5, EnumCoral.FAVOSITES), 0.35F);
 		
-		addDecoration(new WorldGenPebbles(), 40);
-		
 		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.BANGIOMORPHA).setPatchCount(9), 2.2F);
 		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.MARPOLIA).setPatchCount(9), 1.2F);
 		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.MARGERETIA).setPatchCount(9), 1.2F);
@@ -46,6 +44,8 @@ public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.WAPKIA), 1.2F);
 		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.DINOMISCHUS), 0.2F);
 		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.ECHMATOCRINUS), 0.2F);
+		
+		addDecoration(new WorldGenPebbles(), 40);
 	}
 	
 	@Override
