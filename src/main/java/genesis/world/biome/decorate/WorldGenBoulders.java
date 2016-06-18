@@ -19,11 +19,16 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class WorldGenRockBoulders extends WorldGenDecorationBase
+public class WorldGenBoulders extends WorldGenDecorationBase
 {
+	private static final float DEFAULT_SHORE_RADIUS = 3;
+	
 	protected final IBlockState dry;
 	protected final IBlockState wet;
-	private boolean waterRequired = true;
+	private final float landChance;
+	private final float shoreChance;
+	private final float waterChance;
+	private final float shoreRadius;
 	private boolean inGround = true;
 	
 	private FloatRange largeProvider;
@@ -34,7 +39,7 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 	private FloatRange horizStretch;
 	private FloatRange vertStretch;
 	
-	public WorldGenRockBoulders(IBlockState dry, IBlockState wet)
+	public WorldGenBoulders(IBlockState dry, IBlockState wet, float landChance, float shoreChance, float waterChance, float shoreRadius)
 	{
 		super(WorldBlockMatcher.STANDARD_AIR_WATER,
 				(s, w, p) -> s.getBlock() == Blocks.dirt
@@ -47,36 +52,72 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 		
 		this.dry = dry;
 		this.wet = wet;
+		this.landChance = landChance;
+		this.shoreChance = shoreChance;
+		this.waterChance = waterChance;
+		this.shoreRadius = shoreRadius;
 	}
 	
-	public WorldGenRockBoulders(IBlockState dry)
+	public WorldGenBoulders(IBlockState dry, IBlockState wet, float landChance, float shoreChance, float waterChance)
 	{
-		this(dry, null);
+		this(dry, wet, landChance, shoreChance, waterChance, DEFAULT_SHORE_RADIUS);
 	}
 	
-	public WorldGenRockBoulders()
+	public WorldGenBoulders(IBlockState dry, float landChance, float shoreChance, float waterChance, float waterRadius)
 	{
-		this(GenesisBlocks.granite.getDefaultState(), GenesisBlocks.mossy_granite.getDefaultState());
+		this(dry, null, landChance, shoreChance, waterChance, waterRadius);
+	}
+	
+	public WorldGenBoulders(IBlockState dry, float landChance, float shoreChance, float waterChance)
+	{
+		this(dry, landChance, shoreChance, waterChance, DEFAULT_SHORE_RADIUS);
+	}
+	
+	public WorldGenBoulders(float landChance, float shoreChance, float waterChance, float waterRadius)
+	{
+		this(GenesisBlocks.granite.getDefaultState(), GenesisBlocks.mossy_granite.getDefaultState(), landChance, shoreChance, waterChance, waterRadius);
+	}
+	
+	public WorldGenBoulders(float landChance, float shoreChance, float waterChance)
+	{
+		this(landChance, shoreChance, waterChance, DEFAULT_SHORE_RADIUS);
 	}
 	
 	@Override
 	public boolean place(World world, Random rand, BlockPos pos)
 	{
-		if (waterRequired && !WorldUtils.waterInRange(world, pos, 1, 1, 1))
-			return false;
-		
 		float radius = largeProvider.get(rand);
 		
-		double vx = pos.getY() + rand.nextDouble() + radius - 1;
-		/*
-		int height = world.getHeight(pos).getY();
+		int checkRadius = (int) (radius * radius);
+		float shore = radius + shoreRadius;
+		int shoreSqr = (int) (shore * shore);
 		
-		if(vx > height - 1)
-			vx = height - (rand.nextBoolean() ? 1 : 2);
-		*/
+		float chance = landChance;
+		
+		for (BlockPos checkPos : WorldUtils.getArea(pos, MathHelper.ceiling_float_int(shore)))
+		{
+			int distSqr = WorldUtils.distSqr(pos, checkPos);
+			
+			if (WorldBlockMatcher.WATER.apply(world, checkPos))
+			{
+				if (distSqr <= checkRadius)
+				{
+					chance = waterChance;
+					break;
+				}
+				else if (distSqr <= shoreSqr)
+				{
+					chance = shoreChance;
+				}
+			}
+		}
+		
+		if (chance <= 0 || rand.nextFloat() > chance)
+			return false;
+		
 		Vec3d center = new Vec3d(
 				pos.getX() + rand.nextDouble(),
-				vx,
+				pos.getY() + rand.nextDouble() + radius - 1,
 				pos.getZ() + rand.nextDouble());
 		
 		placeSphere(world, center, rand, radius);
@@ -131,9 +172,20 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 		}
 		
 		if (inGround)
-			setBlock(world, pos, state);
+		{
+			Material material = world.getBlockState(pos).getMaterial();
+			
+			if (material == Material.grass
+					|| material == Material.ground
+					|| material == Material.water)
+				setBlock(world, pos, state);
+			else
+				setAirBlock(world, pos, state);
+		}
 		else
+		{
 			setAirBlock(world, pos, state);
+		}
 		
 		//world.notifyBlockUpdate(pos, Blocks.air.getDefaultState(), dry, 3);	// For testing it with item right click.
 	}
@@ -178,49 +230,43 @@ public class WorldGenRockBoulders extends WorldGenDecorationBase
 		}
 	}
 	
-	public WorldGenRockBoulders setInGround(boolean in)
+	public WorldGenBoulders setInGround(boolean in)
 	{
 		inGround = in;
 		return this;
 	}
 	
-	public WorldGenRockBoulders setRadius(FloatRange large, FloatRange small)
+	public WorldGenBoulders setRadius(FloatRange large, FloatRange small)
 	{
 		largeProvider = large;
 		smallProvider = small;
 		return this;
 	}
 	
-	public WorldGenRockBoulders setRadius(float large, float small)
+	public WorldGenBoulders setRadius(float large, float small)
 	{
 		return setRadius(FloatRange.create(1, large), FloatRange.create(0.5F, small));
 	}
 	
-	public WorldGenRockBoulders setRadius(float radius)
+	public WorldGenBoulders setRadius(float radius)
 	{
 		return setRadius(radius, radius - 0.5F);
 	}
 	
-	public WorldGenRockBoulders setStretch(FloatRange horizontal, FloatRange vertical)
+	public WorldGenBoulders setStretch(FloatRange horizontal, FloatRange vertical)
 	{
 		horizStretch = horizontal;
 		vertStretch = vertical;
 		return this;
 	}
 	
-	public WorldGenRockBoulders setStretch(float horizontal, float vertical)
+	public WorldGenBoulders setStretch(float horizontal, float vertical)
 	{
 		return setStretch(FloatRange.create(horizontal - 0.5F, horizontal), FloatRange.create(vertical - 0.5F, vertical));
 	}
 	
-	public WorldGenRockBoulders setStretch(float stretch)
+	public WorldGenBoulders setStretch(float stretch)
 	{
 		return setStretch(stretch, stretch);
-	}
-	
-	public WorldGenRockBoulders setWaterRequired(boolean required)
-	{
-		waterRequired = required;
-		return this;
 	}
 }
