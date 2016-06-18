@@ -75,10 +75,6 @@
 					"name": "genesis:seed_0",
 					"weight": 10,
 					"functions": [
-                        {
-                            "function": "set_data",
-                            "data": 1
-                        },
 						{
 							"function": "set_count",
                             "count": {
@@ -179,12 +175,12 @@
 					"type": "item",
 					"entryName": "billet_araucarioxylon",
 					"name": "genesis:billet_0",
-                    "weight": 5,
+					"weight": 5,
 					"functions": [
-                        {
-                            "function": "set_data",
+						{
+							"function": "set_data",
                             "data": 6
-                        },
+						},
 						{
 							"function": "set_count",
                             "count": {
@@ -192,7 +188,7 @@
                                 "max": 7
                             }
                         }
-                    ]
+					]
 				},
 				{
 					"type": "item",
@@ -330,7 +326,7 @@
 					"type": "item",
 					"name": "genesis:camouflage_boots",
 					"weight": 5
-                },
+                }
 			]
 		},
 		{
