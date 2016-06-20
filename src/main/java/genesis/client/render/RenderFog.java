@@ -83,6 +83,8 @@ public class RenderFog
 		float density = 0;
 		int samples = 0;
 		
+		boolean forceDensity = false;
+		
 		Vec3d playerPos = ActiveRenderInfo.projectViewFromEntity(entity, partialTicks);
 		int areaSize = 10;
 		int supersamples = 1;
@@ -108,12 +110,21 @@ public class RenderFog
 						
 						color = GenesisMath.lerp(fogBiome.getFogColor(), fogBiome.getFogColorNight(), 1 - percent);
 						
-						density += fogBiome.getFogDensity() * (1 - fogBiome.getNightFogModifier() * (1 - percent));
+						if(!forceDensity)
+							density += fogBiome.getFogDensity() * (1 - fogBiome.getNightFogModifier() * (1 - percent));
 					}
 					else
 					{
 						color = lastVanillaColor;
 					}
+					
+					if(world.getRainStrength(partialTicks) > 0)
+						if(!biome.canRain() && !biome.getEnableSnow())
+						{
+							density+=0.0000001F;
+							red+=0.4F;
+							forceDensity=true;
+						}
 					
 					red += (float) color.xCoord;
 					green += (float) color.yCoord;
@@ -129,6 +140,7 @@ public class RenderFog
 		red /= samples;
 		green /= samples;
 		blue /= samples;
+		
 		density /= samples;
 		
 		/* Sunrise/set fog code, slightly different from vanilla, but it must be handled by vanilla when using WorldProviderGenesis.getFogColor.
@@ -158,7 +170,16 @@ public class RenderFog
 		prevColor = color;
 		color = new Vec3d(red, green, blue);
 		prevFogDensity = fogDensity;
-		fogDensity = Math.min(density * 0.75F, 0.75F);
+		
+		if(forceDensity)
+		{
+			fogDensity = density;
+		}
+		else
+		{
+			fogDensity = Math.min(density * 0.75F, 0.75F);
+		}
+		
 		
 		mc.mcProfiler.endSection();
 		mc.mcProfiler.endSection();

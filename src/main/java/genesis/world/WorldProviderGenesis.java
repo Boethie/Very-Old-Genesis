@@ -1,5 +1,6 @@
 package genesis.world;
 
+import genesis.client.render.GenesisWeatherRender;
 import genesis.client.render.RenderFog;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisDimensions;
@@ -11,6 +12,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.chunk.IChunkGenerator;
+import net.minecraftforge.client.IRenderHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -131,4 +133,13 @@ public class WorldProviderGenesis extends WorldProvider
 	{
 		return GenesisDimensions.GENESIS_DIMENSION;
 	}
+	
+	private IRenderHandler weatherRenderer = new GenesisWeatherRender();
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+    public IRenderHandler getWeatherRenderer()
+    {
+        return weatherRenderer;
+    }
 }
