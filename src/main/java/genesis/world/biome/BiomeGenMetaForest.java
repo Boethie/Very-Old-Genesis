@@ -12,7 +12,7 @@ import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenPalaeoagaracites;
 import genesis.world.biome.decorate.WorldGenPlant;
-import genesis.world.biome.decorate.WorldGenRockBoulders;
+import genesis.world.biome.decorate.WorldGenBoulders;
 import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.biome.decorate.WorldGenSplash;
 import genesis.world.biome.decorate.WorldGenStemonitis;
@@ -37,20 +37,20 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 	
 	protected void addDecorations()
 	{
+		getDecorator().setGrassCount(5);
+		addGrass(WorldGenPlant.create(EnumPlant.ASTRALOPTERIS).setPatchCount(9), 3);
+		addGrass(WorldGenPlant.create(EnumPlant.MATONIDIUM).setPatchCount(9), 1);
+		
+		addDecoration(WorldGenSplash.createHumusSplash(), 1.95F);
+		addDecoration(new WorldGenBoulders(0.071F, 0.142F, 1).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.4F);
+		
 		//TODO: WorldGenPaleogaracites should be instead called/moved inside the dead log generation.
 		addDecoration(new WorldGenPalaeoagaracites().setPatchCount(24), 14);
 		addDecoration(new WorldGenStemonitis().setPatchCount(14), 6);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.programinis).setPatchCount(5), 1.75F);
-		
-		addDecoration(WorldGenSplash.createHumusSplash(), 1.95F);
-		addDecoration(new WorldGenRockBoulders().setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 2);
-		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.142F);
-		addDecoration(new WorldGenDebris(), 7);
 		addDecoration(new WorldGenRoots(), 13);
 		
-		getDecorator().setGrassCount(5);
-		addGrass(WorldGenPlant.create(EnumPlant.ASTRALOPTERIS).setPatchCount(9), 3);
-		addGrass(WorldGenPlant.create(EnumPlant.MATONIDIUM).setPatchCount(9), 1);
+		addPostDecoration(new WorldGenDebris(), 7);
 	}
 	
 	protected void addTrees()

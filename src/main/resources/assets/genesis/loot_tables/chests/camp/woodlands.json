@@ -70,7 +70,7 @@
                 "max": 4
             },
 			"entries": [
-                {
+                { 
 					"type": "item",
 					"name": "genesis:seed_0",
 					"weight": 10,
@@ -101,7 +101,7 @@
                             }
                         }
                     ]
-                },
+				},
 				{
 					"type": "item",
 					"entryName": "porridge_ginkgo",
@@ -188,15 +188,15 @@
 					"type": "item",
 					"entryName": "billets",
 					"name": "genesis:billet_0",
-                    "weight": 5,
+					"weight": 5,
 					"functions": [
-                        {
-                            "function": "set_data",
-                            "data": {
-								"min": 9,
-								"max": 12
-							}
-                        },
+						{
+							"function": "set_data",
+							"data": {
+                                "min": 9,
+                                "max": 12
+                            }
+						},
 						{
 							"function": "set_count",
                             "count": {
@@ -204,18 +204,18 @@
                                 "max": 7
                             }
                         }
-                    ]
+					]
 				},
 				{
 					"type": "item",
 					"entryName": "billet_ginkgo",
 					"name": "genesis:billet_0",
-                    "weight": 5,
+					"weight": 5,
 					"functions": [
-                        {
-                            "function": "set_data",
+						{
+							"function": "set_data",
                             "data": 4
-                        },
+						},
 						{
 							"function": "set_count",
                             "count": {
@@ -223,7 +223,7 @@
                                 "max": 7
                             }
                         }
-                    ]
+					]
 				},
 				{
 					"type": "item",
@@ -341,7 +341,7 @@
                             }
                         }
                     ]
-                },
+                }
 			]
 		},
 		{

@@ -15,7 +15,7 @@ import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenDecorationOnBlock;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenPlant;
-import genesis.world.biome.decorate.WorldGenRockBoulders;
+import genesis.world.biome.decorate.WorldGenBoulders;
 import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.biome.decorate.WorldGenSplash;
 import genesis.world.biome.decorate.WorldGenStemonitis;
@@ -51,16 +51,16 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		addFlower(WorldGenPlant.create(EnumPlant.PALAEOASTER).setPatchCount(9), 1);
 		
 		addDecoration(WorldGenSplash.createHumusSplash(), 2.55F);
+		addDecoration(new WorldGenBoulders(0.166F, 0.333F, 1).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.4F);
 		addDecoration(new WorldGenStemonitis().setPatchCount(14), 6);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setPatchCount(3), 0.15F);
-		addDecoration(WorldGenCircleReplacement.getPeatGen(), 1);
-		addDecoration(new WorldGenDebris(), 14);
-		addDecoration(new WorldGenDebris(EnumDebrisOther.TYRANNOSAURUS_FEATHER).setPatchCount(1, 2), 0.1F);
-		addDecoration(new WorldGenRockBoulders().setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 2);
-		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.333F);
-		addDecoration(new WorldGenRoots(), 13);
+		addDecoration(new WorldGenAsplenium().setPatchCount(18), 10);
 		addDecoration(new WorldGenDecorationOnBlock((s) -> s.getMaterial() == Material.water, GenesisBlocks.cobbania.getDefaultState()), 2.8F);
-		addDecoration(new WorldGenAsplenium().setPatchCount(20), 10);
+		addDecoration(WorldGenCircleReplacement.getPeatGen(), 1);
+		addDecoration(new WorldGenRoots(), 13);
+		
+		addPostDecoration(new WorldGenDebris(), 14);
+		addPostDecoration(new WorldGenDebris(EnumDebrisOther.TYRANNOSAURUS_FEATHER).setPatchCount(1, 2), 0.1F);
 	}
 	
 	protected void addTrees()

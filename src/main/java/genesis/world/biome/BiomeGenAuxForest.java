@@ -12,7 +12,7 @@ import genesis.util.random.f.FloatRange;
 import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenPlant;
-import genesis.world.biome.decorate.WorldGenRockBoulders;
+import genesis.world.biome.decorate.WorldGenBoulders;
 import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.biome.decorate.WorldGenSplash;
 import genesis.world.biome.decorate.WorldGenStemonitis;
@@ -36,22 +36,21 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 	
 	protected void addDecorations()
 	{
-		addDecoration(new WorldGenStemonitis().setPatchCount(14), 6);
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.cladophlebis).setPatchCount(9), 0.75F);
-		
-		addDecoration(WorldGenSplash.createHumusSplash(), 5.1F);
-		addDecoration(new WorldGenDebris(), 22);
-		addDecoration(new WorldGenDebris(EnumDebrisOther.COELOPHYSIS_FEATHER).setPatchCount(1, 2), 0.1F);
-		addDecoration(new WorldGenRockBoulders().setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 2);
-		addDecoration(new WorldGenRockBoulders().setWaterRequired(false).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.333F);
-		addDecoration(new WorldGenRoots(), 13);
-		
 		getDecorator().setGrassCount(7);
 		addGrass(WorldGenPlant.create(EnumPlant.TODITES).setPatchCount(9), 3);
 		addGrass(WorldGenPlant.create(EnumPlant.PHLEBOPTERIS).setPatchCount(9), 1);
 		
 		getDecorator().setFlowerCount(5);
 		addFlower(WorldGenPlant.create(EnumPlant.SANMIGUELIA).setNextToWater(true).setPatchCount(4), 2);
+		
+		addDecoration(WorldGenSplash.createHumusSplash(), 5.1F);
+		addDecoration(new WorldGenBoulders(0.166F, 0.333F, 1).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.4F);
+		addDecoration(new WorldGenStemonitis().setPatchCount(14), 6);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.cladophlebis).setPatchCount(9), 0.75F);
+		addDecoration(new WorldGenRoots(), 13);
+		
+		addPostDecoration(new WorldGenDebris(), 22);
+		addPostDecoration(new WorldGenDebris(EnumDebrisOther.COELOPHYSIS_FEATHER).setPatchCount(1, 2), 0.1F);
 	}
 	
 	protected void addTrees()

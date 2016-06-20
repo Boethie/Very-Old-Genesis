@@ -23,10 +23,11 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 	public IBlockState oceanFloor = GenesisBlocks.ooze.getDefaultState();
 	public int[] mossStages = new int[0];
 	
-	private WeightedRandomList<WorldGenDecorationBase> grass = new WeightedRandomList<>();
-	private WeightedRandomList<WorldGenDecorationBase> plants = new WeightedRandomList<>();
-	private WeightedRandomList<WorldGenAbstractTree> trees = new WeightedRandomList<>();
-	private List<DecorationEntry> decor = new ArrayList<>();
+	private final WeightedRandomList<WorldGenAbstractTree> trees = new WeightedRandomList<>();
+	private final List<DecorationEntry> preDecor = new ArrayList<>();
+	private final WeightedRandomList<WorldGenDecorationBase> grass = new WeightedRandomList<>();
+	private final WeightedRandomList<WorldGenDecorationBase> plants = new WeightedRandomList<>();
+	private final List<DecorationEntry> postDecor = new ArrayList<>();
 	
 	public BiomeGenBaseGenesis(BiomeGenBase.BiomeProperties properties)
 	{
@@ -93,7 +94,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 	
 	protected void addDecoration(WorldGenDecorationBase decoration, RandomIntProvider chunkCount)
 	{
-		decor.add(new DecorationEntry(decoration, chunkCount));
+		preDecor.add(new DecorationEntry(decoration, chunkCount));
 	}
 	
 	protected void addDecoration(WorldGenDecorationBase decoration, int chunkCount)
@@ -106,9 +107,29 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 		addDecoration(decoration, new IntFromFloat(chunkCount));
 	}
 	
+	protected void addPostDecoration(WorldGenDecorationBase decoration, RandomIntProvider chunkCount)
+	{
+		postDecor.add(new DecorationEntry(decoration, chunkCount));
+	}
+	
+	protected void addPostDecoration(WorldGenDecorationBase decoration, int chunkCount)
+	{
+		addPostDecoration(decoration, IntRange.create(chunkCount));
+	}
+	
+	protected void addPostDecoration(WorldGenDecorationBase decoration, float chunkCount)
+	{
+		addPostDecoration(decoration, new IntFromFloat(chunkCount));
+	}
+	
 	public List<DecorationEntry> getDecorations()
 	{
-		return decor;
+		return preDecor;
+	}
+	
+	public List<DecorationEntry> getPostDecorations()
+	{
+		return postDecor;
 	}
 	
 	public BiomeDecoratorGenesis getDecorator()

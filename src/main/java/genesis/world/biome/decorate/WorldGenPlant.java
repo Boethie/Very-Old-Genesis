@@ -68,7 +68,7 @@ public class WorldGenPlant<V extends IPlantMetadata<V>> extends WorldGenDecorati
 		this.type = type;
 		this.variant = variant;
 		
-		setPatchRadius(9);
+		setPatchRadius(8);
 	}
 	
 	public WorldGenPlant<V> setNextToWater(boolean nextToWater)

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import genesis.block.BlockGenesisDeadLogs;
+import genesis.block.BlockGenesisLogs;
 import genesis.block.tileentity.TileEntityCampfire;
 import genesis.block.tileentity.TileEntityStorageBox;
 import genesis.combo.TreeBlocksAndItems;
@@ -42,9 +42,9 @@ public class WorldGenSmallCamp implements IWorldGenerator
 		
 		IBlockState work = GenesisBlocks.workbench.getDefaultState();
 		
-		IBlockState logX = GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.DEAD_LOG, EnumTree.ARAUCARIOXYLON).withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.X);
+		IBlockState logX = GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LOG, EnumTree.ARAUCARIOXYLON).withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.X);
 		
-		IBlockState logZ = GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.DEAD_LOG, EnumTree.ARAUCARIOXYLON).withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.Z);
+		IBlockState logZ = GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LOG, EnumTree.ARAUCARIOXYLON).withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.Z);
 		
 		IBlockState[] nullRow = {null, null, null, null, null, null, null, null};
 											//x,z
@@ -109,7 +109,7 @@ public class WorldGenSmallCamp implements IWorldGenerator
 					if (state.getBlock() == GenesisBlocks.campfire)
 						campPos = pos;
 					
-					if (state.getBlock() instanceof BlockGenesisDeadLogs)
+					if (state.getBlock() instanceof BlockGenesisLogs)
 						logsPos.add(pos);
 					
 					world.setBlockState(pos, state);
@@ -176,7 +176,7 @@ public class WorldGenSmallCamp implements IWorldGenerator
 		if (tree != null)
 			for (BlockPos pos : logsPos)
 			{
-				world.setBlockState(pos, GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.DEAD_LOG, tree).withProperty(BlockLog.LOG_AXIS, world.getBlockState(pos).getValue(BlockLog.LOG_AXIS)));
+				world.setBlockState(pos, GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LOG, tree).withProperty(BlockLog.LOG_AXIS, world.getBlockState(pos).getValue(BlockLog.LOG_AXIS)));
 			}
 	}
 

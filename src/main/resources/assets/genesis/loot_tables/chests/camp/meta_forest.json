@@ -1,6 +1,6 @@
 {
 	"pools": [
-		{
+        {
 			"name": "material",
             "rolls": 3,
             "entries": [
@@ -82,7 +82,7 @@
                             }
                         }
                     ]
-                },
+				},
 				{
 					"type": "item",
 					"entryName": "porridge",
@@ -163,7 +163,7 @@
 					"functions": [
 						{
 							"function": "set_data",
-                            "data": 5
+                            "data": 4
 						},
 						{
 							"function": "set_count",
@@ -290,7 +290,7 @@
                             }
                         }
                     ]
-                },
+                }
 			]
 		},
 		{

@@ -1,7 +1,6 @@
 package genesis.util.render;
 
 import genesis.common.Genesis;
-import genesis.common.GenesisBlocks;
 import genesis.util.Constants;
 import genesis.util.Constants.Unlocalized;
 import gnu.trove.map.hash.TIntObjectHashMap;
@@ -13,7 +12,6 @@ import java.util.*;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
-import net.minecraft.block.BlockBed;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -24,12 +22,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
-import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.renderer.texture.*;
 import net.minecraft.client.resources.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
@@ -873,7 +869,5 @@ public class ModelHelpers
 			}
 		};
 		ModelLoader.setCustomStateMapper(fakeBlock, stateMapper);
-		
-		ModelLoader.setCustomStateMapper(GenesisBlocks.bench_seat, (new StateMap.Builder()).ignore(new IProperty[] {BlockBed.OCCUPIED}).build());
 	}
 }

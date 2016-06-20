@@ -3,6 +3,7 @@ package genesis.world.biome.decorate;
 import java.util.Random;
 import java.util.function.Predicate;
 
+import genesis.common.Genesis;
 import genesis.util.WorldUtils;
 import genesis.util.functional.WorldBlockMatcher;
 import genesis.util.math.PosVecIterable;
@@ -155,6 +156,9 @@ public abstract class WorldGenDecorationBase extends WorldGenerator
 
 	public WorldGenDecorationBase setPatchRadius(double radius)
 	{
+		if (radius > 8)
+			Genesis.logger.error("Patch radius exceeded 8", new IllegalArgumentException());
+		
 		patchMaxRadius = radius;
 		return this;
 	}

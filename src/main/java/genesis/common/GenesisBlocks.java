@@ -20,6 +20,7 @@ import genesis.util.random.drops.blocks.*;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.ItemColors;
@@ -318,7 +319,7 @@ public final class GenesisBlocks
 		
 		Genesis.proxy.registerBlock(bench_seat, name("bench_seat"));
 		
-		//Resin
+		// Resin
 		Genesis.proxy.registerBlock(resin, name("resin_block"));
 		
 		// - Containers -
@@ -344,7 +345,7 @@ public final class GenesisBlocks
 		// Rack
 		GameRegistry.registerTileEntity(TileEntityRack.class, Constants.ASSETS_PREFIX + "rack");
 		
-		// - Rope ladder -
+		// Rope ladder
 		Genesis.proxy.registerBlock(rope_ladder, name("rope_ladder"));
 		
 		// - Torches -
