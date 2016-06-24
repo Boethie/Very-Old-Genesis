@@ -4,12 +4,14 @@ import genesis.client.Colorizers;
 import genesis.client.model.MetadataModelDefinition;
 import genesis.combo.*;
 import genesis.combo.variant.*;
+import genesis.combo.variant.ArrowTypes.ArrowType;
 import genesis.entity.fixed.EntityMeganeuraEgg;
 import genesis.item.*;
 import genesis.util.Constants;
 import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
@@ -20,6 +22,8 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public final class GenesisItems
 {
@@ -165,12 +169,26 @@ public final class GenesisItems
 		arrows.registerAll();
 	}
 	
+	@SideOnly(Side.CLIENT)
 	public static void preInitClient()
 	{
 		for (Item bow : bows.getItems())
 			Genesis.proxy.registerModel(bow, MetadataModelDefinition.from(bow, (s) -> name(bows.getVariant(s).getName())));
+		
+		for (Item arrow : arrows.getItems())
+		{
+			Genesis.proxy.registerModel(arrow,
+					MetadataModelDefinition.from(arrow,
+							(stack) -> {
+								ArrowType variant = arrows.getVariant(stack);
+								return new ModelResourceLocation(name(arrows.getName()),
+										"shaft=" + variant.getShaft().getName()
+										+ ",tip=" + variant.getTip().getName());
+							}));
+		}
 	}
 	
+	@SideOnly(Side.CLIENT)
 	public static void initClient()
 	{
 		ItemColors colors = Minecraft.getMinecraft().getItemColors();

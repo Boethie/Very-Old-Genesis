@@ -28,7 +28,17 @@ public class ArrowTypes
 		{
 			return shaft.getUnlocalizedName();
 		}
-
+		
+		public EnumArrowShaft getShaft()
+		{
+			return shaft;
+		}
+		
+		public EnumToolMaterial getTip()
+		{
+			return tip;
+		}
+		
 		@Override
 		public float getMass()
 		{

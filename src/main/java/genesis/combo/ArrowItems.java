@@ -18,7 +18,7 @@ public class ArrowItems extends VariantsCombo<ArrowType, Block, ItemGenesisArrow
 	public ArrowItems()
 	{
 		super("arrows",
-				ObjectType.createItem(ArrowType.class, "arrow", ItemGenesisArrow.class),
+				ObjectType.createItem(ArrowType.class, "arrow", ItemGenesisArrow.class).setShouldRegisterVariantModels(false),
 				ArrowType.class, ArrowTypes.getAll());
 		
 		setNames(Constants.MOD_ID, Unlocalized.PREFIX);
