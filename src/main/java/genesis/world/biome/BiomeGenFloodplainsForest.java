@@ -2,8 +2,6 @@ package genesis.world.biome;
 
 import java.util.Random;
 
-import genesis.block.BlockMoss;
-import genesis.block.BlockMoss.EnumSoil;
 import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
