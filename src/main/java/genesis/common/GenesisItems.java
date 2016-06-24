@@ -89,6 +89,7 @@ public final class GenesisItems
 			.setNames(Constants.MOD_ID, "");
 	
 	public static final BowItems bows = new BowItems();
+	public static final ArrowItems arrows = new ArrowItems();
 	
 	public static final Item bench_seat = new ItemBenchSeat().setUnlocalizedName(Unlocalized.PREFIX + "benchSeat");
 	
@@ -161,6 +162,7 @@ public final class GenesisItems
 		menhir_activators.registerAll();
 		
 		bows.registerAll();
+		arrows.registerAll();
 	}
 	
 	public static void preInitClient()

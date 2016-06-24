@@ -1,6 +1,7 @@
 package genesis.common;
 
 import genesis.combo.*;
+import genesis.combo.variant.EnumBowType;
 import genesis.combo.variant.EnumFood;
 import genesis.combo.variant.EnumOre;
 import genesis.combo.variant.EnumToolMaterial;
@@ -21,7 +22,7 @@ public final class GenesisCreativeTabs
 		}
 		
 		@Override
-		public abstract ItemStack getIconItemStack();
+		public abstract ItemStack getIconItemStack();	// TODO: Use lambdas for more concise code.
 		
 		@Override
 		public final Item getTabIconItem()
@@ -89,7 +90,7 @@ public final class GenesisCreativeTabs
 		@Override
 		public ItemStack getIconItemStack()
 		{
-			return GenesisItems.tools.getStack(ToolItems.ARROW_HEAD, EnumToolMaterial.BROWN_FLINT, EnumToolQuality.SHARPENED);
+			return GenesisItems.bows.getStack(EnumBowType.SELF, EnumTree.DRYOPHYLLUM);
 		}
 	};
 	
