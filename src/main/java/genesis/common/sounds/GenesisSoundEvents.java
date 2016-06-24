@@ -122,6 +122,9 @@ public class GenesisSoundEvents
 	/* Player */
 	public static final SoundEvent player_knapping_hit = createSoundEvent("player.knapping.hit");
 
+	/*Environment*/
+	public static final SoundEvent environment_dust_storm = createSoundEvent("environment.dust_storm");
+	
 	/* Music */
 	public static final SoundEvent music_genesis = createSoundEvent("music.genesis");
 	

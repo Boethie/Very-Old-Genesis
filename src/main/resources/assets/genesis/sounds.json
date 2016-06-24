@@ -675,5 +675,10 @@
 		"sounds": [
 			"genesis:portal/exit"
 		]
+	},
+	"environment.dust_storm": {
+		"sounds": [
+			"genesis:environment/dust_storm"
+		]
 	}
 }

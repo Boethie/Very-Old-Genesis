@@ -3,6 +3,7 @@ package genesis.event;
 import genesis.common.Genesis;
 import genesis.common.GenesisGuiHandler;
 import genesis.common.GenesisPotions;
+import genesis.common.sounds.GenesisSoundEvents;
 import genesis.world.GenesisWorldData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.achievement.GuiAchievements;
@@ -10,7 +11,11 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
@@ -60,8 +65,9 @@ public class GenesisEventHandler
 	public void onLivingTick(LivingUpdateEvent event)
 	{
 		EntityLivingBase entity = event.getEntityLiving();
+		World world = entity.getEntityWorld();
 		
-		if (entity != null && !entity.worldObj.isRemote)
+		if (!entity.worldObj.isRemote)
 		{
 			if (entity.isPotionActive(GenesisPotions.radiation))
 			{
@@ -70,6 +76,32 @@ public class GenesisEventHandler
 				entity.addPotionEffect(new PotionEffect(MobEffects.glowing, timeLeft, 0, true, false));
 				entity.addPotionEffect(new PotionEffect(MobEffects.confusion, timeLeft, 0, true, false));
 			}
+		}
+		
+		if (entity.getEntityWorld().getRainStrength(1) > 0)
+		{
+			BiomeGenBase biomegenbase = world.getBiomeGenForCoords(entity.getPosition());
+			
+			if (!(biomegenbase.canRain() || biomegenbase.getEnableSnow()))
+            {
+				if (entity.ticksExisted % 20 == 0)
+				{
+					if(world.canSeeSky(entity.getPosition()))
+					{
+						if (entity instanceof EntityPlayer)
+						{
+							world.playSound((EntityPlayer)entity, entity.getPosition(), GenesisSoundEvents.environment_dust_storm, SoundCategory.WEATHER, 2, 0.9F + world.rand.nextFloat() * 0.2F);
+						}
+					
+						if(!world.isRemote)
+						{
+							entity.motionX+=MathHelper.getRandomDoubleInRange(world.rand, -4, 4);
+							entity.motionZ+=MathHelper.getRandomDoubleInRange(world.rand, -4, 4);
+							entity.fallDistance+=world.rand.nextFloat()+0.5F;
+						}
+					}
+				}
+            }
 		}
 	}
 }
