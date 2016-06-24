@@ -20,7 +20,7 @@ public class BiomeGenWoodlandsM extends BiomeGenWoodlands
 	@Override
 	protected void addDecorations()
 	{
-		addDecoration(WorldGenSplash.createHumusSplash(), 2.55F);
+		addDecoration(WorldGenSplash.createHumusSplash(), 2.75F);
 		addDecoration(new WorldGenBoulders(1, 0, 0).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.4F);
 		addDecoration(new WorldGenBoulders(GenesisBlocks.rhyolite.getDefaultState(), 1, 0, 0).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.075F);
 		addDecoration(new WorldGenBoulders(GenesisBlocks.dolerite.getDefaultState(), 1, 0, 0).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.075F);
