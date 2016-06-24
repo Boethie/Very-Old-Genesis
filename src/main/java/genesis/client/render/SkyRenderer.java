@@ -9,6 +9,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.IRenderHandler;
+import org.lwjgl.opengl.GL11;
 
 public class SkyRenderer extends IRenderHandler
 {
@@ -44,11 +45,11 @@ public class SkyRenderer extends IRenderHandler
 		if (OpenGlHelper.useVbo())
 		{
 			mc.renderGlobal.skyVBO.bindBuffer();
-			GlStateManager.glEnableClientState(32884);
-			GlStateManager.glVertexPointer(3, 5126, 12, 0);
-			mc.renderGlobal.skyVBO.drawArrays(7);
+			GlStateManager.glEnableClientState(GL11.GL_VERTEX_ARRAY);
+			GlStateManager.glVertexPointer(3, GL11.GL_FLOAT, 12, 0);
+			mc.renderGlobal.skyVBO.drawArrays(GL11.GL_QUADS);
 			mc.renderGlobal.skyVBO.unbindBuffer();
-			GlStateManager.glDisableClientState(32884);
+			GlStateManager.glDisableClientState(GL11.GL_VERTEX_ARRAY);
 		}
 		else
 		{
@@ -65,7 +66,7 @@ public class SkyRenderer extends IRenderHandler
 		if (afloat != null)
 		{
 			GlStateManager.disableTexture2D();
-			GlStateManager.shadeModel(7425);
+			GlStateManager.shadeModel(GL11.GL_SMOOTH);
 			GlStateManager.pushMatrix();
 			GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
 			GlStateManager.rotate(MathHelper.sin(world.getCelestialAngleRadians(partialTicks)) < 0.0F ? 180.0F : 0.0F, 0.0F, 0.0F, 1.0F);
@@ -98,7 +99,7 @@ public class SkyRenderer extends IRenderHandler
 			
 			tessellator.draw();
 			GlStateManager.popMatrix();
-			GlStateManager.shadeModel(7424);
+			GlStateManager.shadeModel(GL11.GL_FLAT);
 		}
 		
 		GlStateManager.enableTexture2D();
@@ -141,11 +142,11 @@ public class SkyRenderer extends IRenderHandler
 			if (OpenGlHelper.useVbo())
 			{
 				mc.renderGlobal.starVBO.bindBuffer();
-				GlStateManager.glEnableClientState(32884);
-				GlStateManager.glVertexPointer(3, 5126, 12, 0);
-				mc.renderGlobal.starVBO.drawArrays(7);
+				GlStateManager.glEnableClientState(GL11.GL_VERTEX_ARRAY);
+				GlStateManager.glVertexPointer(3, GL11.GL_FLOAT, 12, 0);
+				mc.renderGlobal.starVBO.drawArrays(GL11.GL_QUADS);
 				mc.renderGlobal.starVBO.unbindBuffer();
-				GlStateManager.glDisableClientState(32884);
+				GlStateManager.glDisableClientState(GL11.GL_VERTEX_ARRAY);
 			}
 			else
 			{
@@ -170,11 +171,11 @@ public class SkyRenderer extends IRenderHandler
 			if (OpenGlHelper.useVbo())
 			{
 				mc.renderGlobal.sky2VBO.bindBuffer();
-				GlStateManager.glEnableClientState(32884);
-				GlStateManager.glVertexPointer(3, 5126, 12, 0);
-				mc.renderGlobal.sky2VBO.drawArrays(7);
+				GlStateManager.glEnableClientState(GL11.GL_VERTEX_ARRAY);
+				GlStateManager.glVertexPointer(3, GL11.GL_FLOAT, 12, 0);
+				mc.renderGlobal.sky2VBO.drawArrays(GL11.GL_QUADS);
 				mc.renderGlobal.sky2VBO.unbindBuffer();
-				GlStateManager.glDisableClientState(32884);
+				GlStateManager.glDisableClientState(GL11.GL_VERTEX_ARRAY);
 			}
 			else
 			{
