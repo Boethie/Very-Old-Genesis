@@ -10,7 +10,13 @@
 			"bone": { "textures": { "layer0": "genesis:items/arrow_shaft_bone" } }
 		},
 		"tip": {
-			"quartz": { "textures": { "layer1": "genesis:items/arrow_tip_quartz" } }
+			"octaedrite": { "textures": { "layer1": "genesis:items/arrow_tip_octaedrite" } },
+			"dolerite": { "textures": { "layer1": "genesis:items/arrow_tip_dolerite" } },
+			"rhyolite": { "textures": { "layer1": "genesis:items/arrow_tip_rhyolite" } },
+			"granite": { "textures": { "layer1": "genesis:items/arrow_tip_granite" } },
+			"quartz": { "textures": { "layer1": "genesis:items/arrow_tip_quartz" } },
+			"brown_flint": { "textures": { "layer1": "genesis:items/arrow_tip_brown_flint" } },
+			"black_flint": { "textures": { "layer1": "genesis:items/arrow_tip_black_flint" } }
 		}
 	}
 }
