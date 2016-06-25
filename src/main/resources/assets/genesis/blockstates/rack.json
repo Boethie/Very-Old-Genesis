@@ -1,34 +1,99 @@
 {
 	"forge_marker": 1,
+	"defaults": {
+		"textures": {
+			"particle": "#end"
+		}
+	},
 	"variants": {
 		"variant": {
-			"archaeopteris": { "textures": { "all": "genesis:blocks/log_archaeopteris" } },
-			"sigillaria": { "textures": { "all": "genesis:blocks/log_sigillaria" } },
-			"lepidodendron": { "textures": { "all": "genesis:blocks/log_lepidodendron" } },
-			"cordaites": { "textures": { "all": "genesis:blocks/log_cordaites" } },
-			"ginkgo": { "textures": { "all": "genesis:blocks/log_ginkgo" } },
-			"voltzia": { "textures": { "all": "genesis:blocks/log_voltzia" } },
-			"araucarioxylon": { "textures": { "all": "genesis:blocks/log_araucarioxylon" } },
-			"metasequoia": { "textures": { "all": "genesis:blocks/log_metasequoia" } },
-			"archaeanthus": { "textures": { "all": "genesis:blocks/log_archaeanthus" } },
-			"dryophyllum": { "textures": { "all": "genesis:blocks/log_dryophyllum" } },
-			"ficus": { "textures": { "all": "genesis:blocks/log_ficus" } },
-			"laurophyllum": { "textures": { "all": "genesis:blocks/log_laurophyllum" } }
+			"archaeopteris": {
+				"textures": {
+					"side": "genesis:blocks/log_archaeopteris",
+					"end": "genesis:blocks/log_archaeopteris_top"
+				}
+			},
+			"sigillaria": {
+				"textures": {
+					"side": "genesis:blocks/log_sigillaria",
+					"end": "genesis:blocks/log_sigillaria_top"
+				}
+			},
+			"lepidodendron": {
+				"textures": {
+					"side": "genesis:blocks/log_lepidodendron",
+					"end": "genesis:blocks/log_lepidodendron_top"
+				}
+			},
+			"cordaites": {
+				"textures": {
+					"side": "genesis:blocks/log_cordaites",
+					"end": "genesis:blocks/log_cordaites_top"
+				}
+			},
+			"ginkgo": {
+				"textures": {
+					"side": "genesis:blocks/log_ginkgo",
+					"end": "genesis:blocks/log_ginkgo_top"
+				}
+			},
+			"voltzia": {
+				"textures": {
+					"side": "genesis:blocks/log_voltzia",
+					"end": "genesis:blocks/log_voltzia_top"
+				}
+			},
+			"araucarioxylon": {
+				"textures": {
+					"side": "genesis:blocks/log_araucarioxylon",
+					"end": "genesis:blocks/log_araucarioxylon_top"
+				}
+			},
+			"metasequoia": {
+				"textures": {
+					"side": "genesis:blocks/log_metasequoia",
+					"end": "genesis:blocks/log_metasequoia_top"
+				}
+			},
+			"archaeanthus": {
+				"textures": {
+					"side": "genesis:blocks/log_archaeanthus",
+					"end": "genesis:blocks/log_archaeanthus_top"
+				}
+			},
+			"dryophyllum": {
+				"textures": {
+					"side": "genesis:blocks/log_dryophyllum",
+					"end": "genesis:blocks/log_dryophyllum_top"
+				}
+			},
+			"ficus": {
+				"textures": {
+					"side": "genesis:blocks/log_ficus",
+					"end": "genesis:blocks/log_ficus_top"
+				}
+			},
+			"laurophyllum": {
+				"textures": {
+					"side": "genesis:blocks/log_laurophyllum",
+					"end": "genesis:blocks/log_laurophyllum_top"
+				}
+			}
 		},
 		"north": {
-			"true": {"submodel": "genesis:rack", "y": 0},
+			"true": { "submodel": "genesis:rack", "y": 0 },
 			"false": {}
 		},
 		"east": {
-			"true": {"submodel": "genesis:rack", "y": 90},
+			"true": { "submodel": "genesis:rack", "y": 90 },
 			"false": {}
 		},
 		"south": {
-			"true": {"submodel": "genesis:rack", "y": 180},
+			"true": { "submodel": "genesis:rack", "y": 180 },
 			"false": {}
 		},
 		"west": {
-			"true": {"submodel": "genesis:rack", "y": 270},
+			"true": { "submodel": "genesis:rack", "y": 270 },
 			"false": {}
 		}
 	}

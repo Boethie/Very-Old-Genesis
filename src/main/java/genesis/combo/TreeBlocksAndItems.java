@@ -101,8 +101,6 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo<EnumTree>
 		{
 			type.setTypeNamePosition(TypeNamePosition.POSTFIX);
 		}
-		
-		RACK.setTypeNamePosition(TypeNamePosition.PREFIX);
 	}
 	
 	public TreeBlocksAndItems()
