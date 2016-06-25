@@ -98,9 +98,9 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 	@Override
 	public Vec3d getFogColor()
 	{
-		float red = 0.898039216F;
-		float green = 0.819607843F;
-		float blue = 0.725490196F;
+		float red = 0.788039216F;
+		float green = 0.709607843F;
+		float blue = 0.615490196F;
 		
 		return new Vec3d(red, green, blue);
 	}
@@ -118,7 +118,7 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 	@Override
 	public int getSkyColorByTemp(float temperature)
 	{
-		return 0xe3ad6d;
+		return 0xF3AD6D;
 	}
 	
 	public void genTerrainBlocks(World world, Random rand, ChunkPrimer chunkPrimer, int x, int z, double noiseVal)
