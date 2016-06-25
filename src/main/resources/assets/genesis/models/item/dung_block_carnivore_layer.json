@@ -1,0 +1,6 @@
+{
+	"parent": "genesis:block/layer_height_2",
+	"textures": {
+		"texture": "genesis:blocks/dung_block_carnivore"
+	}
+}

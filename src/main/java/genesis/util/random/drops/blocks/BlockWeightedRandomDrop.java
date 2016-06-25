@@ -7,32 +7,18 @@ import net.minecraft.util.WeightedRandom;
 
 import java.util.Random;
 
-public class BlockWeightedRandomDrop extends BlockDrop
+public class BlockWeightedRandomDrop implements BlockStackProvider
 {
 	protected final ImmutableList<WeightedRandomBlockDrop> drops;
 	
 	public BlockWeightedRandomDrop(WeightedRandomBlockDrop... drops)
 	{
-		super(1);
-		
 		this.drops = ImmutableList.copyOf(drops);
 	}
 	
 	public BlockDrop getDrop(Random rand)
 	{
 		return WeightedRandom.getRandomItem(rand, drops).drop;
-	}
-	
-	public ItemStack getStack(IBlockState state, Random rand, int size)
-	{
-		return getDrop(rand).getStack(state, size);
-	}
-	
-	@Override
-	@Deprecated
-	public ItemStack getStack(IBlockState state, int size)
-	{
-		return getStack(state, new Random(), size);
 	}
 	
 	@Override

@@ -13,13 +13,13 @@ import net.minecraft.item.ItemStack;
 
 public class BlockDrops
 {
-	protected ImmutableList<? extends BlockDrop> drops;
+	protected ImmutableList<? extends BlockStackProvider> drops;
 	
 	/**
 	 * Note: This does <i>not</i> choose a {@link BlockDrop} to use randomly from the array that is passed, it combines the stacks in a list.
 	 * @param drops The {@link BlockDrop}s to use to fill a {@link List}<{@link ItemStack}> with randomly generated stacks.
 	 */
-	public BlockDrops(BlockDrop... drops)
+	public BlockDrops(BlockStackProvider... drops)
 	{
 		this.drops = ImmutableList.copyOf(drops);
 	}
@@ -54,7 +54,7 @@ public class BlockDrops
 		this(item, size, size);
 	}
 	
-	public List<? extends BlockDrop> getDrops()
+	public List<? extends BlockStackProvider> getDrops()
 	{
 		return drops;
 	}
@@ -63,10 +63,10 @@ public class BlockDrops
 	{
 		ArrayList<ItemStack> out = new ArrayList<>();
 		
-		for (BlockDrop drop : getDrops())
+		for (BlockStackProvider drop : getDrops())
 		{
 			ItemStack stack = drop.getStack(state, rand);
-
+			
 			if (stack != null)
 			{
 				out.add(stack);

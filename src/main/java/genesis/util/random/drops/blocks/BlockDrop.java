@@ -21,28 +21,10 @@ public abstract class BlockDrop implements BlockStackProvider
 	}
 	
 	@Override
-	@Deprecated
-	public ItemStack getStack(int size)
+	public final ItemStack getStack(IBlockState state, Random rand)
 	{
-		return null;
+		return getStack(state, rand, range.get(rand));
 	}
 	
-	@Deprecated
-	@Override
-	public ItemStack getStack(Random rand)
-	{
-		return null;
-	}
-	
-	@Override
-	public int get(Random rand)
-	{
-		return range.get(rand);
-	}
-	
-	@Override
-	public ItemStack getStack(IBlockState state, Random rand)
-	{
-		return getStack(state, get(rand));
-	}
+	public abstract ItemStack getStack(IBlockState state, Random rand, int size);
 }

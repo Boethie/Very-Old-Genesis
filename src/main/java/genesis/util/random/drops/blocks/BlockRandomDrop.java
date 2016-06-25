@@ -4,38 +4,24 @@ import java.util.Random;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 
-public class BlockRandomDrop extends BlockDrop
+public class BlockRandomDrop implements BlockStackProvider
 {
 	public final BlockDrop drop;
-	public final double chance;
-
+	public final float chance;
+	
 	/**
 	 * @param drop The base drop
 	 * @param chance The decimal chance of dropping
 	 */
-	public BlockRandomDrop(BlockDrop drop, double chance)
+	public BlockRandomDrop(BlockDrop drop, float chance)
 	{
-		super(1);
-
 		this.drop = drop;
 		this.chance = chance;
 	}
-
-	public ItemStack getStack(IBlockState state, Random rand, int size)
-	{
-		return rand.nextDouble() < chance ? drop.getStack(state, size) : null;
-	}
-
-	@Override
-	@Deprecated
-	public ItemStack getStack(IBlockState state, int size)
-	{
-		return getStack(state, new Random(), size);
-	}
-
+	
 	@Override
 	public ItemStack getStack(IBlockState state, Random rand)
 	{
-		return rand.nextDouble() < chance ? drop.getStack(state, rand) : null;
+		return rand.nextFloat() < chance ? drop.getStack(state, rand) : null;
 	}
 }
