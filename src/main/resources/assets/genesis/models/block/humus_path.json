@@ -1,7 +1,7 @@
 {   "parent": "genesis:block/path",
-    "textures": {
-        "side": "genesis:blocks/humus",
-        "bottom": "genesis:blocks/humus",
-        "particle": "genesis:blocks/humus"
-    }
+	"textures": {
+		"side": "genesis:blocks/humus",
+		"bottom": "genesis:blocks/humus",
+		"particle": "genesis:blocks/humus"
+	}
 }

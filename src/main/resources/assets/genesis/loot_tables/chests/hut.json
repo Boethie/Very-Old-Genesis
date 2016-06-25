@@ -12,7 +12,7 @@
 						{
 							"function": "set_data",
 							"data": 2
-                        },
+						},
 						{
 							"function": "set_count",
 							"count": {

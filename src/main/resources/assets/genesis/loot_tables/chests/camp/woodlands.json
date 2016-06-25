@@ -96,7 +96,7 @@
 						{
 							"function": "set_data",
 							"data": {
-                                "min": 1,
+								"min": 1,
 								"max": 15
 							}
 						}
@@ -141,7 +141,7 @@
 						{
 							"function": "set_count",
 							"count": {
-                                "min": 1,
+								"min": 1,
 								"max": 3
 							}
 						}
@@ -233,52 +233,52 @@
 				{
 					"type": "item",
 					"name": "genesis:ceramic_bucket",
-                    "weight": 10
+					"weight": 10
 				},
 				{
 					"type": "item",
 					"entryName": "wood_arrow",
 					"name": "genesis:arrow_0",
-                    "weight": 5,
+					"weight": 5,
 					"functions": [
-                        {
+						{
 							"function": "set_data",
 							"data": {
 								"min": 1,
 								"max": 6
 							}
-                        },
+						},
 						{
 							"function": "set_count",
 							"count": {
 								"min": 1,
 								"max": 3
-                            }
-                        }
-                    ]
+							}
+						}
+					]
 				},
 				{
 					"type": "item",
 					"entryName": "bone_arrow",
 					"name": "genesis:arrow_0",
-                    "weight": 1,
+					"weight": 1,
 					"functions": [
-                        {
-                            "function": "set_data",
-                            "data": {
+						{
+							"function": "set_data",
+							"data": {
 								"min": 7,
 								"max": 13
 							}
-                        },
+						},
 						{
 							"function": "set_count",
-                            "count": {
+							"count": {
 								"min": 1,
 								"max": 3
-                            }
-                        }
-                    ]
-                }
+							}
+						}
+					]
+				}
 			]
 		},
 		{

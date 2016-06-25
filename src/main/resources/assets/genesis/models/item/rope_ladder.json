@@ -1,6 +1,6 @@
 {
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "genesis:blocks/rope_ladder"
-    }
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "genesis:blocks/rope_ladder"
+	}
 }

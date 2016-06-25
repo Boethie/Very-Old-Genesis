@@ -1,32 +1,32 @@
 {
-    "forge_marker": 1,
-    "variants": {
-        "position": {
-            "bottom": { "textures": { "ankyropteris": "genesis:blocks/ankyropteris_bottom" } },
-            "middle": { "textures": { "ankyropteris": "genesis:blocks/ankyropteris_middle" } },
-            "top": { "textures": { "ankyropteris": "genesis:blocks/ankyropteris_top" } }
-        },
-        "south": {
-            "true": { "submodel": "genesis:ankyropteris" },
-            "false": {}
-        },
-        "west": {
-            "true": { "submodel": "genesis:ankyropteris", "y": 90 },
-            "false": {}
-        },
-        "north": {
-            "true": { "submodel": "genesis:ankyropteris", "y": 180 },
-            "false": {}
-        },
-        "east": {
-            "true": { "submodel": "genesis:ankyropteris", "y": 270 },
-            "false": {}
-        },
-        "up": {
-            "true": {
-                "submodel": "genesis:ankyropteris_u"
-            },
-            "false": {}
-        }
-    }
+	"forge_marker": 1,
+	"variants": {
+		"position": {
+			"bottom": { "textures": { "ankyropteris": "genesis:blocks/ankyropteris_bottom" } },
+			"middle": { "textures": { "ankyropteris": "genesis:blocks/ankyropteris_middle" } },
+			"top": { "textures": { "ankyropteris": "genesis:blocks/ankyropteris_top" } }
+		},
+		"south": {
+			"true": { "submodel": "genesis:ankyropteris" },
+			"false": {}
+		},
+		"west": {
+			"true": { "submodel": "genesis:ankyropteris", "y": 90 },
+			"false": {}
+		},
+		"north": {
+			"true": { "submodel": "genesis:ankyropteris", "y": 180 },
+			"false": {}
+		},
+		"east": {
+			"true": { "submodel": "genesis:ankyropteris", "y": 270 },
+			"false": {}
+		},
+		"up": {
+			"true": {
+				"submodel": "genesis:ankyropteris_u"
+			},
+			"false": {}
+		}
+	}
 }
