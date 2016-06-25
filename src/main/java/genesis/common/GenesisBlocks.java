@@ -317,7 +317,7 @@ public final class GenesisBlocks
 		
 		Genesis.proxy.registerBlock(roots, name("roots"));
 		
-		Genesis.proxy.registerBlock(bench_seat, name("bench_seat"));
+		Genesis.proxy.registerBlock(bench_seat, null, name("bench_seat"));
 		
 		// Resin
 		Genesis.proxy.registerBlock(resin, name("resin_block"));

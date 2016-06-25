@@ -161,7 +161,7 @@ public final class GenesisItems
 		bucket_komatiitic_lava = new ItemGenesisBucket(GenesisBlocks.komatiitic_lava.getDefaultState()).setUnlocalizedName(Unlocalized.MISC + "bucketKomatiiticLava");
 		Genesis.proxy.registerItem(bucket_komatiitic_lava, name("bucket_komatiitic_lava"));
 		
-		Genesis.proxy.registerItem(bench_seat, name("item_bench_seat"));
+		Genesis.proxy.registerItem(bench_seat, name("bench_seat"));
 		
 		menhir_activators.registerAll();
 		
