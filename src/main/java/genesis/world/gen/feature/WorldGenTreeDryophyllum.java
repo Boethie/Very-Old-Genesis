@@ -2,18 +2,31 @@ package genesis.world.gen.feature;
 
 import java.util.Random;
 
+import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumTree;
-import genesis.util.random.i.WeightedIntItem;
+import genesis.common.GenesisBlocks;
 import genesis.util.random.i.IntRange;
+import genesis.util.random.i.WeightedIntItem;
 import genesis.util.random.i.WeightedIntProvider;
-
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class WorldGenTreeDryophyllum extends WorldGenTreeBase
 {
+	public WorldGenTreeDryophyllum(int minHeight, int maxHeight, boolean notify, IBlockState wood)
+	{
+		super(
+				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.SAPLING, EnumTree.DRYOPHYLLUM), 
+				wood, 
+				null, 
+				null, 
+				IntRange.create(minHeight, maxHeight), 
+				notify);
+	}
+	
 	public WorldGenTreeDryophyllum(int minHeight, int maxHeight, boolean notify)
 	{
 		super(EnumTree.DRYOPHYLLUM, IntRange.create(minHeight, maxHeight), notify);
@@ -34,7 +47,7 @@ public class WorldGenTreeDryophyllum extends WorldGenTreeBase
 			return false;
 		}
 		
-		int mainBranches = (treeType == TreeTypes.TYPE_1)? 2 + rand.nextInt(2) : 4 + rand.nextInt(8);
+		int mainBranches = (treeType == TreeTypes.TYPE_1 || treeType == TreeTypes.TYPE_3)? 2 + rand.nextInt(2) : 4 + rand.nextInt(8);
 		
 		for (int i = 0; i < mainBranches; ++i)
 		{
@@ -81,12 +94,15 @@ public class WorldGenTreeDryophyllum extends WorldGenTreeBase
 			
 			setBlockInWorld(world, upPos, wood.withProperty(BlockLog.LOG_AXIS, woodAxis));
 			
-			if (i == base - 1)
-				doBranchLeaves(world, upPos, rand, false, 2, true);
-			
-			if (i > base - 1)
+			if (this.treeType != TreeTypes.TYPE_3)
 			{
-				doBranchLeaves(world, upPos, rand, true, 4, true);
+				if (i == base - 1)
+					doBranchLeaves(world, upPos, rand, false, 2, true);
+				
+				if (i > base - 1)
+				{
+					doBranchLeaves(world, upPos, rand, true, 4, true);
+				}
 			}
 		}
 	}

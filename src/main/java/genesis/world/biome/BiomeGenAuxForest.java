@@ -2,17 +2,16 @@ package genesis.world.biome;
 
 import java.util.Random;
 
-import genesis.block.BlockMoss;
-import genesis.block.BlockMoss.EnumSoil;
+import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumDebrisOther;
 import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
 import genesis.util.random.f.FloatRange;
+import genesis.world.biome.decorate.WorldGenBoulders;
 import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenPlant;
-import genesis.world.biome.decorate.WorldGenBoulders;
 import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.biome.decorate.WorldGenSplash;
 import genesis.world.biome.decorate.WorldGenStemonitis;
@@ -58,6 +57,7 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 		getDecorator().setTreeCount(4.35F);
 		
 		addTree(new WorldGenTreeAraucarioxylon(25, 30, true), 80);
+		addTree(new WorldGenTreeAraucarioxylon(25, 30, false, GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.DEAD_LOG, EnumTree.ARAUCARIOXYLON)).setType(TreeTypes.TYPE_3), 3);
 		addTree(new WorldGenTreeGinkgo(8, 13, false), 3);
 		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 1);
 		

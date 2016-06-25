@@ -6,6 +6,7 @@ import genesis.combo.variant.EnumSilt;
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.WorldGenPlant;
 import genesis.world.gen.feature.WorldGenTreeBjuvia;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class BiomeGenRedBeach extends BiomeGenBeachGenesis
@@ -26,19 +27,41 @@ public class BiomeGenRedBeach extends BiomeGenBeachGenesis
 		addTree(new WorldGenTreeBjuvia(4, 6, true), 1);
 	}
 	
-	/*@Override
-	public Vec3d getFogColor()
+	@Override
+	public float getFogDensity()
 	{
-		float red = 0.917647059F;
-		float green = 0.650980392F;
-		float blue = 0.309803922F;
-		
-		return new Vec3d(red, green, blue);
-	}*/
+		return 0.35F;
+	}
 	
 	@Override
 	public float getNightFogModifier()
 	{
-		return 0.65F;
+		return 0.70F;
+	}
+	
+	@Override
+	public Vec3d getFogColor()
+	{
+		float red = 0.788039216F;
+		float green = 0.709607843F;
+		float blue = 0.615490196F;
+		
+		return new Vec3d(red, green, blue);
+	}
+	
+	@Override
+	public Vec3d getFogColorNight()
+	{
+		float red = 0.070941176F;
+		float green = 0.070941176F;
+		float blue = 0.070941176F;
+		
+		return new Vec3d(red, green, blue);
+	}
+	
+	@Override
+	public int getSkyColorByTemp(float temperature)
+	{
+		return 0xF3AD6D;
 	}
 }

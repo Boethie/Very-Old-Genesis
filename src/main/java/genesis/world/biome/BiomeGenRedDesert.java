@@ -8,15 +8,16 @@ import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.EnumSilt;
 import genesis.common.GenesisBlocks;
 import genesis.util.random.f.FloatRange;
+import genesis.world.biome.decorate.WorldGenBoulders;
 import genesis.world.biome.decorate.WorldGenPebbles;
 import genesis.world.biome.decorate.WorldGenPlant;
-import genesis.world.biome.decorate.WorldGenBoulders;
 import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.biome.decorate.WorldGenSplash;
 import genesis.world.gen.feature.WorldGenTreeBjuvia;
 import genesis.world.gen.feature.WorldGenTreeVoltzia;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -85,13 +86,39 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 	@Override
 	public float getFogDensity()
 	{
-		return 0.75F;
+		return 0.35F;
 	}
 	
 	@Override
 	public float getNightFogModifier()
 	{
-		return 0.25F;
+		return 0.70F;
+	}
+	
+	@Override
+	public Vec3d getFogColor()
+	{
+		float red = 0.788039216F;
+		float green = 0.709607843F;
+		float blue = 0.615490196F;
+		
+		return new Vec3d(red, green, blue);
+	}
+	
+	@Override
+	public Vec3d getFogColorNight()
+	{
+		float red = 0.070941176F;
+		float green = 0.070941176F;
+		float blue = 0.070941176F;
+		
+		return new Vec3d(red, green, blue);
+	}
+	
+	@Override
+	public int getSkyColorByTemp(float temperature)
+	{
+		return 0xF3AD6D;
 	}
 	
 	public void genTerrainBlocks(World world, Random rand, ChunkPrimer chunkPrimer, int x, int z, double noiseVal)
