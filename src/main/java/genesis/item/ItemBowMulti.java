@@ -141,6 +141,7 @@ public class ItemBowMulti<V extends IBowMetadata<V>> extends ItemBow implements 
 		{
 			EntityPlayer player = (EntityPlayer) entity;
 			V variant = owner.getVariant(stack);
+			
 			boolean infinite = player.capabilities.isCreativeMode
 					|| EnchantmentHelper.getEnchantmentLevel(Enchantments.infinity, stack) > 0;
 			ItemStack arrowStack = findAmmo(player);
@@ -166,6 +167,7 @@ public class ItemBowMulti<V extends IBowMetadata<V>> extends ItemBow implements 
 					{
 						ItemArrow arrowItem = (ItemArrow) (arrowStack.getItem() instanceof ItemArrow ? arrowStack.getItem() : Items.arrow);
 						EntityArrow arrowEntity = arrowItem.createArrow(world, arrowStack, player);
+						// MCP name: setAim
 						arrowEntity.func_184547_a(player,
 								player.rotationPitch, player.rotationYaw,
 								0, velocity * 3 * variant.getVelocity(), variant.getSpread());
