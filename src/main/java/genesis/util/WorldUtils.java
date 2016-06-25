@@ -60,6 +60,16 @@ public class WorldUtils
 		return dX * dX + dY * dY + dZ * dZ;
 	}
 	
+	/**
+	 * Returns an integer for the horizontal distance squared between to block positions.
+	 */
+	public static int distHorizSqr(BlockPos a, BlockPos b)
+	{
+		int dX = a.getX() - b.getX();
+		int dZ = a.getZ() - b.getZ();
+		return dX * dX + dZ * dZ;
+	}
+	
 	public static MutableBlockPos setOffset(MutableBlockPos pos, int dX, int dY, int dZ)
 	{
 		return pos.set(pos.getX() + dX, pos.getY() + dY, pos.getZ() + dZ);
