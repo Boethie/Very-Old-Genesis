@@ -255,7 +255,7 @@ public final class GenesisRecipes
 				'x', GenesisItems.materials.getStack(EnumMaterial.CLADOPHLEBIS_FROND),
 				'/', GenesisBlocks.calamites);
 		
-		GameRegistry.addRecipe(new ItemStack(GenesisItems.bench_seat),
+		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.bench_seat),
 				"FFF",
 				"GGG",
 				'F', GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS),

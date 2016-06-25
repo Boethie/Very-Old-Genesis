@@ -287,8 +287,6 @@ item.genesis.misc.menhirActivator.brokenSpiritMask.name=Masque d'esprit brisé
 item.genesis.misc.menhirActivator.primitiveDust.name=Poussière pritimive
 item.genesis.misc.menhirActivator.sacredTreeStar.name=Étoile d'arbre sacré
 
-item.genesis.benchSeat.name=Banquette
-
 #Food
 item.genesis.seed.araucarioxylon.name=Graines d'Araucarioxylon
 item.genesis.seed.odontopteris.name=Graines d'Odontopteris

@@ -186,7 +186,7 @@ public final class GenesisBlocks
 	public static final Block calamites_torch_tall = new BlockTallTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTorch.tall");
 	public static final Block prototaxites_mycelium = new BlockPrototaxitesMycelium().setUnlocalizedName(Unlocalized.PREFIX + "prototaxitesMycelium");
 	
-	public static final Block bench_seat = new BlockBenchSeat().setUnlocalizedName(Unlocalized.PREFIX + "benchSeat");
+	public static final BlockBenchSeat bench_seat = (BlockBenchSeat) new BlockBenchSeat().setUnlocalizedName(Unlocalized.PREFIX + "benchSeat");
 	
 	public static final DungBlocksAndItems dungs = new DungBlocksAndItems();
 	public static final Block dung_brick = new BlockGenesis(Material.rock, SoundType.STONE)
@@ -317,10 +317,10 @@ public final class GenesisBlocks
 		
 		Genesis.proxy.registerBlock(roots, name("roots"));
 		
-		Genesis.proxy.registerBlock(bench_seat, null, name("bench_seat"));
-		
 		// Resin
 		Genesis.proxy.registerBlock(resin, name("resin_block"));
+		
+		Genesis.proxy.registerBlock(bench_seat, new ItemBenchSeat(bench_seat), name("bench_seat"));
 		
 		// - Containers -
 		// Workbench

@@ -288,8 +288,6 @@ item.genesis.misc.menhirActivator.brokenSpiritMask.name=Broken Spirit Mask
 item.genesis.misc.menhirActivator.primitiveDust.name=Primitive Dust
 item.genesis.misc.menhirActivator.sacredTreeStar.name=Sacred Tree Star
 
-item.genesis.benchSeat.name=Bench Seat
-
 #Food
 item.genesis.seed.araucarioxylon.name=Araucarioxylon Seeds
 item.genesis.seed.odontopteris.name=Odontopteris Seeds

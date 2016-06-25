@@ -1,13 +1,11 @@
 package genesis.item;
 
 import genesis.block.BlockBenchSeat;
-import genesis.common.GenesisBlocks;
-import genesis.common.GenesisCreativeTabs;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -17,11 +15,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-public class ItemBenchSeat extends Item
+public class ItemBenchSeat extends ItemBlock
 {
-	public ItemBenchSeat()
+	public ItemBenchSeat(BlockBenchSeat benchSeat)
 	{
-		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
+		super(benchSeat);
 	}
 	
 	@Override
@@ -53,7 +51,7 @@ public class ItemBenchSeat extends Item
 						&& (world.getBlockState(belowFoot).isSideSolid(world, belowFoot, EnumFacing.UP))
 						&& (world.getBlockState(belowHead).isSideSolid(world, belowHead, EnumFacing.UP)))
 				{
-					IBlockState footState = GenesisBlocks.bench_seat.getDefaultState().withProperty(BlockBenchSeat.FACING, bedFacing).withProperty(BlockBenchSeat.PART, BlockBenchSeat.EnumPartType.FOOT);
+					IBlockState footState = getBlock().getDefaultState().withProperty(BlockBenchSeat.FACING, bedFacing).withProperty(BlockBenchSeat.PART, BlockBenchSeat.EnumPartType.FOOT);
 					
 					if (world.setBlockState(footPos, footState, 11))
 					{

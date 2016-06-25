@@ -2,7 +2,7 @@ package genesis.block;
 
 import java.util.Random;
 
-import genesis.common.GenesisItems;
+import genesis.common.GenesisCreativeTabs;
 import net.minecraft.block.BlockBed;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -20,18 +20,19 @@ public class BlockBenchSeat extends BlockBed
 		setHardness(3);
 		setResistance(4);
 		setDefaultState(blockState.getBaseState().withProperty(PART, EnumPartType.FOOT).withProperty(OCCUPIED, false));
+		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	}
 	
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune)
 	{
-		return state.getValue(PART) == EnumPartType.HEAD ? null : GenesisItems.bench_seat;
+		return state.getValue(PART) == EnumPartType.HEAD ? null : Item.getItemFromBlock(this);
 	}
 	
 	@Override
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
 	{
-		return new ItemStack(GenesisItems.bench_seat);
+		return new ItemStack(this);
 	}
 	
 	@Override
