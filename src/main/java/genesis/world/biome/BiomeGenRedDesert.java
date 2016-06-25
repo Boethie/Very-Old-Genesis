@@ -51,14 +51,6 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 		return this;
 	}
 	
-	public BiomeGenRedDesert addFern()
-	{
-		getDecorator().setGrassCount(this.isHills ? 1.55F : 0.15F);
-		addGrass(WorldGenPlant.create(EnumPlant.WACHTLERIA).setPatchCount(4), 1);
-		
-		return this;
-	}
-	
 	public BiomeGenRedDesert addTrees()
 	{
 		getDecorator().setTreeCount(0.4F);
@@ -86,7 +78,7 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 	@Override
 	public float getFogDensity()
 	{
-		return 0.35F;
+		return 0.3F;
 	}
 	
 	@Override
@@ -118,7 +110,7 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 	@Override
 	public int getSkyColorByTemp(float temperature)
 	{
-		return 0xF3AD6D;
+		return 0xC1A17D;
 	}
 	
 	public void genTerrainBlocks(World world, Random rand, ChunkPrimer chunkPrimer, int x, int z, double noiseVal)

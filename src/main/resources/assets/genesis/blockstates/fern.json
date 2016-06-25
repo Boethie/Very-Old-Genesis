@@ -7,7 +7,6 @@
 	},
 	"variants": {
 		"variant=zygopteris":  [ { "textures": { "cross": "genesis:blocks/fern_zygopteris" } } ],
-		"variant=wachtleria":  [ { "textures": { "cross": "genesis:blocks/fern_wachtleria" } } ],
 		"variant=phlebopteris":  [ { "textures": { "cross": "genesis:blocks/fern_phlebopteris" } } ],
 		"variant=todites":  [ { "textures": { "cross": "genesis:blocks/fern_todites" } } ],
 		"variant=ruffordia":  [ { "textures": { "cross": "genesis:blocks/fern_ruffordia" } } ],
