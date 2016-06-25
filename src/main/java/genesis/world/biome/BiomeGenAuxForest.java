@@ -56,12 +56,12 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 	{
 		getDecorator().setTreeCount(4.35F);
 		
-		addTree(new WorldGenTreeAraucarioxylon(25, 30, true), 80);
-		addTree(new WorldGenTreeAraucarioxylon(25, 30, false, GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.DEAD_LOG, EnumTree.ARAUCARIOXYLON)).setType(TreeTypes.TYPE_3), 3);
-		addTree(new WorldGenTreeGinkgo(8, 13, false), 3);
-		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 1);
+		addTree(new WorldGenTreeAraucarioxylon(25, 30, true), 205);
+		addTree(new WorldGenTreeGinkgo(8, 13, false), 7);
+		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 3);
+		addTree(new WorldGenTreeAraucarioxylon(25, 30, false, GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.DEAD_LOG, EnumTree.ARAUCARIOXYLON)).setType(TreeTypes.TYPE_3), 1);
 		
-		addTree(new WorldGenDeadLog(7, 10, EnumTree.ARAUCARIOXYLON, true), 7);
+		addTree(new WorldGenDeadLog(7, 10, EnumTree.ARAUCARIOXYLON, true), 18);
 	}
 	
 	@Override
