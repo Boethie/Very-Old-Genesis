@@ -35,12 +35,12 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 		theBiomeDecorator.sandPerChunk = 0;
 		theBiomeDecorator.sandPerChunk2 = 0;
 		
-		getDecorator().setFlowerCount(0.5F);
+		getDecorator().setFlowerCount(0.3F);
 		addFlower(WorldGenPlant.create(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.AETHOPHYLLUM), 1);
 		addFlower(WorldGenPlant.create(EnumPlant.APOLDIA), 4);
 		
-		addDecoration(new WorldGenBoulders(GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT), 1, 0, 0).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1F)), 0.4F);
-		addDecoration(new WorldGenSplash(GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT), GenesisBlocks.silt.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.RED_SILT)).setPatchRadius(4), 8);
+		addDecoration(new WorldGenBoulders(GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT), 1, 0, 0).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.25F);
+		addDecoration(new WorldGenSplash(GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT), GenesisBlocks.silt.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.RED_SILT)).setPatchRadius(6), 7);
 		addDecoration(new WorldGenPebbles().setWaterRequired(false), 5);
 		addDecoration(new WorldGenRoots(), 5);
 	}
@@ -53,7 +53,7 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 	
 	public BiomeGenRedDesert addTrees()
 	{
-		getDecorator().setTreeCount(0.4F);
+		getDecorator().setTreeCount(0.125F);
 		
 		if (!this.isHills)
 		{
@@ -84,7 +84,7 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 	@Override
 	public float getNightFogModifier()
 	{
-		return 0.70F;
+		return 0.7F;
 	}
 	
 	@Override

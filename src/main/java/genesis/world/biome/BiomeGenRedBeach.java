@@ -30,13 +30,13 @@ public class BiomeGenRedBeach extends BiomeGenBeachGenesis
 	@Override
 	public float getFogDensity()
 	{
-		return 0.35F;
+		return 0.3F;
 	}
 	
 	@Override
 	public float getNightFogModifier()
 	{
-		return 0.70F;
+		return 0.7F;
 	}
 	
 	@Override
