@@ -1,19 +1,32 @@
 package genesis.world.gen.feature;
 
-import genesis.combo.variant.EnumTree;
-import genesis.util.random.i.WeightedIntItem;
-import genesis.util.random.i.IntRange;
-import genesis.util.random.i.WeightedIntProvider;
-
 import java.util.Random;
 
+import genesis.combo.TreeBlocksAndItems;
+import genesis.combo.variant.EnumTree;
+import genesis.common.GenesisBlocks;
+import genesis.util.random.i.IntRange;
+import genesis.util.random.i.WeightedIntItem;
+import genesis.util.random.i.WeightedIntProvider;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 {
+	public WorldGenTreeAraucarioxylon(int minHeight, int maxHeight, boolean notify, IBlockState wood)
+	{
+		super(
+				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.SAPLING, EnumTree.ARAUCARIOXYLON), 
+				wood, 
+				null, 
+				null, 
+				IntRange.create(minHeight, maxHeight), 
+				notify);
+	}
+	
 	public WorldGenTreeAraucarioxylon(int minHeight, int maxHeight, boolean notify)
 	{
 		super(EnumTree.ARAUCARIOXYLON, IntRange.create(minHeight, maxHeight), notify);
@@ -33,7 +46,7 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 		
 		for (int i = 0; i < height; i++)
 		{
-			setBlockInWorld(world, pos.up(i), wood);
+			setBlockInWorld(world, pos.up(i), wood.withProperty(BlockLog.LOG_AXIS, EnumAxis.Y));
 		}
 		
 		BlockPos branchPos = pos.up(height - 1);
@@ -65,7 +78,7 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 		
 		int lFactor;
 		
-		for (int i = base; i < height && treeType == TreeTypes.TYPE_1; ++i)
+		for (int i = base; i < height && treeType != TreeTypes.TYPE_2; ++i)
 		{
 			++direction;
 			if (direction > 7)
@@ -85,9 +98,11 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			}
 		}
 		
-		doPineTopLeaves(world, pos, branchPos, height, leavesBase, rand, alternate, maxLeavesLength, irregular, inverted);
-
-		generateResin(world, pos, height);
+		if (this.treeType != TreeTypes.TYPE_3)
+			doPineTopLeaves(world, pos, branchPos, height, leavesBase, rand, alternate, maxLeavesLength, irregular, inverted);
+		
+		if (this.treeType != TreeTypes.TYPE_3)
+			generateResin(world, pos, height);
 		
 		return true;
 	}
@@ -174,7 +189,7 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			
 			setBlockInWorld(world, upPos, wood.withProperty(BlockLog.LOG_AXIS, woodAxis));
 			
-			if (leaves && rand.nextInt(6) == 0)
+			if (leaves && rand.nextInt(6) == 0 && this.treeType != TreeTypes.TYPE_3)
 			{
 				doBranchLeaves(world, upPos, rand, true, 3, true);
 				doBranchLeaves(world, upPos.down(), rand, true, 2, true);
@@ -182,7 +197,7 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			
 			leaves = !leaves;
 			
-			if (i == fallDistance - 1)
+			if (i == fallDistance - 1 && this.leaves != null)
 				doBranchLeaves(world, upPos, rand, false, 1 + rand.nextInt(2), true);
 		}
 	}

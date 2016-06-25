@@ -2,6 +2,7 @@ package genesis.world.biome;
 
 import java.util.Random;
 
+import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumDebrisOther;
 import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.EnumTree;
@@ -66,11 +67,13 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		getDecorator().setTreeCount(4.9F);
 		
 		addTree(new WorldGenTreeLaurophyllum(3, 4, false), 100);
+		addTree(new WorldGenTreeLaurophyllum(1, 2, false).setType(TreeTypes.TYPE_2), 80);
 		addTree(new WorldGenTreeFicus(4, 8, false), 30);
 		addTree(new WorldGenTreeGinkgo(8, 13, false), 11);
 		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 3);
 		addTree(new WorldGenTreeDryophyllum(8, 13, false), 600);
 		addTree(new WorldGenTreeDryophyllum(18, 22, false).setType(TreeTypes.TYPE_2), 50);
+		addTree(new WorldGenTreeDryophyllum(18, 22, false, GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.DEAD_LOG, EnumTree.DRYOPHYLLUM)).setType(TreeTypes.TYPE_3), 3);
 		addTree(new WorldGenTreeMetasequoia(12, 24, true), 100);
 		
 		addTree(new WorldGenDeadLog(5, 8, EnumTree.DRYOPHYLLUM, true), 28);
