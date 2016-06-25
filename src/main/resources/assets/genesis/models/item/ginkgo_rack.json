@@ -1,0 +1,7 @@
+{
+	"parent": "genesis:block/rack",
+	"textures": {
+		"side": "genesis:blocks/log_ginkgo",
+		"end": "genesis:blocks/log_ginkgo_top"
+	}
+}

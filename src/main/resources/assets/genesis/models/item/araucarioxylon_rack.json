@@ -1,0 +1,7 @@
+{
+	"parent": "genesis:block/rack",
+	"textures": {
+		"side": "genesis:blocks/log_araucarioxylon",
+		"end": "genesis:blocks/log_araucarioxylon_top"
+	}
+}
