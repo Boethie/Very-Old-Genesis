@@ -60,6 +60,16 @@ public class WorldUtils
 		return dX * dX + dY * dY + dZ * dZ;
 	}
 	
+	/**
+	 * Returns an integer for the horizontal distance squared between to block positions.
+	 */
+	public static int distHorizSqr(BlockPos a, BlockPos b)
+	{
+		int dX = a.getX() - b.getX();
+		int dZ = a.getZ() - b.getZ();
+		return dX * dX + dZ * dZ;
+	}
+	
 	public static MutableBlockPos setOffset(MutableBlockPos pos, int dX, int dY, int dZ)
 	{
 		return pos.set(pos.getX() + dX, pos.getY() + dY, pos.getZ() + dZ);
@@ -451,15 +461,28 @@ public class WorldUtils
 		return false;
 	}
 	
-	public static boolean canBlockBePlaced(World world, IBlockState state, BlockPos pos, EnumFacing side, Entity entity, ItemStack stack)
+	public static boolean isAnyEntityInside(World world, List<AxisAlignedBB> bbs)
+	{
+		for (AxisAlignedBB bb : bbs)
+			if (!world.checkNoEntityCollision(bb))
+				return true;
+		
+		return false;
+	}
+	
+	public static boolean isAnyEntityInBlock(World world, IBlockState state, BlockPos pos, Entity entity)
 	{
 		List<AxisAlignedBB> bbs = new ArrayList<>();
 		state.addCollisionBoxToList(world, pos,
 				Block.FULL_BLOCK_AABB.offset(pos), bbs, entity);
 		
-		for (AxisAlignedBB bb : bbs)
-			if (!world.checkNoEntityCollision(bb))
-				return false;
+		return isAnyEntityInside(world, bbs);
+	}
+	
+	public static boolean canBlockBePlaced(World world, IBlockState state, BlockPos pos, EnumFacing side, Entity entity, ItemStack stack)
+	{
+		if (isAnyEntityInBlock(world, state, pos, entity))
+			return false;
 		
 		return state.getBlock().canReplace(world, pos, side, stack);
 	}

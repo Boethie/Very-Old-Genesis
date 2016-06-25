@@ -254,15 +254,12 @@ public abstract class WorldGenDecorationBase extends WorldGenerator
 	{
 		Iterable<? extends BlockPos> iter =
 				BlockPos.getAllInBoxMutable(pos.add(-radius, startY, -radius), pos.add(radius, endY, radius));
-		radius *= radius;
+		int rSqr = radius * radius;
 		
 		for (BlockPos checkPos : iter)
 		{
-			int dX = checkPos.getX() - pos.getX();
-			int dZ = checkPos.getZ() - pos.getZ();
-			
-			if (dX * dX + dZ * dZ <= radius
-					&& matcher.apply(world, pos))
+			if (WorldUtils.distHorizSqr(pos, checkPos) <= rSqr
+					&& matcher.apply(world, checkPos))
 				return true;
 		}
 		

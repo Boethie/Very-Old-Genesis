@@ -1,5 +1,7 @@
 package genesis.util.random.drops.blocks;
 
+import java.util.Random;
+
 import genesis.combo.ObjectType;
 import genesis.combo.VariantsOfTypesCombo;
 import genesis.combo.variant.IMetadata;
@@ -35,7 +37,7 @@ public class StaticVariantDrop<V extends IMetadata<V>> extends VariantDrop<V>
 	}
 	
 	@Override
-	public ItemStack getStack(IBlockState state, int size)
+	public ItemStack getStack(IBlockState state, Random rand, int size)
 	{
 		return combo.getStack(type, variant, size);
 	}

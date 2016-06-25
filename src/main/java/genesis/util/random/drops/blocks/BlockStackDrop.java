@@ -44,21 +44,10 @@ public class BlockStackDrop extends BlockDrop
 	 * @return A stack using the base item and metadata with the size provided.
 	 */
 	@Override
-	public ItemStack getStack(IBlockState state, int size)
+	public ItemStack getStack(IBlockState state, Random rand, int size)
 	{
 		ItemStack newStack = stack.copy();
 		newStack.stackSize = size;
 		return newStack;
-	}
-	
-	/**
-	 * Gets an ItemStack with an item count between min and max.
-	 * @param rand The RNG to use.
-	 * @return A random ItemStack.
-	 */
-	@Override
-	public ItemStack getStack(IBlockState state, Random rand)
-	{
-		return getStack(state, get(rand));
 	}
 }

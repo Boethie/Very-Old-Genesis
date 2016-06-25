@@ -38,14 +38,8 @@ public class VariantDrop<V extends IMetadata<V>> extends BlockDrop
 	}
 	
 	@Override
-	public ItemStack getStack(IBlockState state, int size)
+	public ItemStack getStack(IBlockState state, Random rand, int size)
 	{
 		return combo.getStack(type, combo.getVariant(state), size);
-	}
-	
-	@Override
-	public ItemStack getStack(IBlockState state, Random rand)
-	{
-		return getStack(state, get(rand));
 	}
 }
