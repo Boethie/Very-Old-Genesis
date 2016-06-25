@@ -1,4 +1,4 @@
-package genesis.world.biome.gen.feature;
+package genesis.world.gen.feature;
 
 import java.util.Random;
 
