@@ -748,15 +748,15 @@ public class TileEntityStorageBox extends TileEntityLockableLoot implements ISid
 	}
 	
 	public void setLoot(ResourceLocation lootTable, long lootSeed)
-    {
-        this.lootTable = lootTable;
-        this.lootTableSeed = lootSeed;
-    }
+	{
+		this.lootTable = lootTable;
+		this.lootTableSeed = lootSeed;
+	}
 	
 	@Override
 	protected void fillWithLoot(EntityPlayer player)
-    {
+	{
 		if(worldObj != null && !worldObj.isRemote && worldObj.getLootTableManager() != null)
 			super.fillWithLoot(player);
-    }
+	}
 }
