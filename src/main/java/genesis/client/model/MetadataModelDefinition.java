@@ -25,7 +25,7 @@ public abstract class MetadataModelDefinition implements ListedItemMeshDefinitio
 				if (loc instanceof ModelResourceLocation)
 					return (ModelResourceLocation) loc;
 				
-				return new ModelResourceLocation(loc.toString(), "inventory");
+				return new ModelResourceLocation(loc, "inventory");
 			}
 		};
 	}

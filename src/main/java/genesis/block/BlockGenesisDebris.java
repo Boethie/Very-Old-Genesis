@@ -10,7 +10,6 @@ import genesis.common.GenesisCreativeTabs;
 import genesis.common.sounds.GenesisSoundTypes;
 import genesis.item.ItemBlockMulti;
 import genesis.util.BlockStateToMetadata;
-import genesis.util.random.drops.blocks.BlockDrop;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -57,19 +56,14 @@ public class BlockGenesisDebris extends BlockGenesisVariants<MultiMetadata>
 		setTickRandomly(true);
 		
 		clearDrops();
-		addDrop(new BlockDrop(1)
-		{
-			@Override
-			public ItemStack getStack(IBlockState state, int size)
-			{
-				MultiMetadata variant = debrisOwner.getVariant(state);
-				ItemStack original = debrisOwner.getStack(variant);
-				
-				if (variant.getOriginal() instanceof EnumDebrisOther)
-					return (((EnumDebrisOther) variant.getOriginal()).getDrop(original));
-				
-				return original;
-			}
+		addDrop((state, rand) -> {
+			MultiMetadata variant = debrisOwner.getVariant(state);
+			ItemStack original = debrisOwner.getStack(variant);
+			
+			if (variant.getOriginal() instanceof EnumDebrisOther)
+				return (((EnumDebrisOther) variant.getOriginal()).getDrop(original));
+			
+			return original;
 		});
 	}
 	

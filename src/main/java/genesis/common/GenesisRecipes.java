@@ -244,7 +244,7 @@ public final class GenesisRecipes
 	public static void addRecipes()
 	{
 		FuelHandler.initialize();
-
+		
 		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.smooth_limestone, 4),
 				"LL",
 				"LL",
@@ -255,7 +255,7 @@ public final class GenesisRecipes
 				'x', GenesisItems.materials.getStack(EnumMaterial.CLADOPHLEBIS_FROND),
 				'/', GenesisBlocks.calamites);
 		
-		GameRegistry.addRecipe(new ItemStack(GenesisItems.bench_seat),
+		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.bench_seat),
 				"FFF",
 				"GGG",
 				'F', GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS),
@@ -266,12 +266,12 @@ public final class GenesisRecipes
 		
 		//Torches
 		ItemStack resin = GenesisItems.materials.getStack(EnumMaterial.RESIN);
-
+		
 		GameRegistry.addShapedRecipe(new ItemStack(Blocks.torch, 4),
 				"o",
 				"|",
 				'o', resin, '|', Items.stick);
-
+		
 		// Calamites torch
 		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4),
 				"o",
@@ -316,7 +316,7 @@ public final class GenesisRecipes
 				"CCC",
 				'C', GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS));
 		GameRegistry.addShapelessRecipe(GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS, 9), GenesisBlocks.programinis_bundle);
-
+		
 		// Roofs
 		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.calamites_roof, 4),
 				"#  ",
@@ -350,7 +350,7 @@ public final class GenesisRecipes
 		
 		// Flint and marcasite recipe
 		EnumToolMaterial[] flintMaterials = {EnumToolMaterial.BLACK_FLINT, EnumToolMaterial.BROWN_FLINT};
-
+		
 		for (EnumToolMaterial mat : flintMaterials)
 		{
 			GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite),
@@ -423,20 +423,20 @@ public final class GenesisRecipes
 			
 			GameRegistry.addShapelessRecipe(billetStack, logStack);
 		}
-
+		
 		// Branch -> billet
-		for (EnumTree variant : GenesisBlocks.trees.getSharedValidVariants(TreeBlocksAndItems.BRANCH, TreeBlocksAndItems.BILLET)) {
-			ItemStack branchStack = GenesisBlocks.trees.getStack(TreeBlocksAndItems.BRANCH, variant, 1);
-			ItemStack billetStack = GenesisBlocks.trees.getStack(TreeBlocksAndItems.BILLET, variant, 1);
-
-			GameRegistry.addShapelessRecipe(billetStack, branchStack);
+		for (EnumTree variant : GenesisBlocks.trees.getSharedValidVariants(TreeBlocksAndItems.BRANCH, TreeBlocksAndItems.BILLET))
+		{
+			GameRegistry.addShapelessRecipe(
+					GenesisBlocks.trees.getStack(TreeBlocksAndItems.BRANCH, variant, 1),
+					GenesisBlocks.trees.getStack(TreeBlocksAndItems.BILLET, variant, 1));
 		}
 		
-		// All recipes involving billets.
+		// Recipes involving billets.
 		for (EnumTree variant : GenesisBlocks.trees.getValidVariants(TreeBlocksAndItems.BILLET))
 		{
 			ItemStack billetStack = GenesisBlocks.trees.getStack(TreeBlocksAndItems.BILLET, variant, 1);
-
+			
 			// Storage box
 			GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.storage_box),
 					"BBB",
@@ -486,7 +486,7 @@ public final class GenesisRecipes
 					"S S",
 					'S', GenesisItems.materials.getStack(EnumMaterial.SPHENOPHYLLUM_FIBER),
 					'B', billetStack);
-
+			
 			// Bow
 			if (variant.hasBow())
 			{
@@ -504,19 +504,19 @@ public final class GenesisRecipes
 						'B', billetStack);
 			}
 		}
-
+		
 		// All rubble recipes
 		for (EnumRubble variant : EnumRubble.values())
 		{
 			ItemStack rubbleStack = GenesisBlocks.rubble.getStack(variant);
-
+			
 			// Stone -> Rubble
 			ItemStack modelStack = variant.getModelStack();
 			GameRegistry.addShapelessRecipe(rubbleStack, modelStack);
-
+			
 			// Wall
 			Block wallBlock = null;
-
+			
 			switch (variant)
 			{
 			case GRANITE:
@@ -532,7 +532,7 @@ public final class GenesisRecipes
 				wallBlock = GenesisBlocks.dolerite_rubble_wall;
 				break;
 			}
-
+			
 			if (wallBlock != null)
 			{
 				GameRegistry.addRecipe(new ItemStack(wallBlock, 6),
@@ -541,7 +541,7 @@ public final class GenesisRecipes
 						'R', rubbleStack);
 			}
 		}
-
+		
 		// All slab recipes
 		for (ObjectType<EnumSlab, ?, ?> type : GenesisBlocks.slabs.getTypes())
 		{
@@ -579,6 +579,20 @@ public final class GenesisRecipes
 			
 			ItemStack stack;
 			ItemStack flake = GenesisItems.tools.getStack(ToolItems.FLAKE, material);
+			
+			for (EnumArrowShaft shaft : EnumArrowShaft.values())
+			{
+				for (Item billet : GenesisBlocks.trees.getItems(TreeBlocksAndItems.BILLET))
+				{
+					GameRegistry.addRecipe(GenesisItems.arrows.getStack(shaft, material),
+							"^",
+							"|",
+							"/",
+							'^', flake,
+							'|', billet,
+							'/', Items.feather);
+				}
+			}
 			
 			// Pebble
 			if (GenesisItems.tools.containsVariant(ToolItems.PEBBLE, material))

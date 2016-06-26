@@ -1,6 +1,6 @@
 {
-    "parent": "block/wall_inventory",
-    "textures": {
-        "wall": "genesis:blocks/rubble_rhyolite"
-    }
+	"parent": "block/wall_inventory",
+	"textures": {
+		"wall": "genesis:blocks/rubble_rhyolite"
+	}
 }

@@ -2,17 +2,15 @@ package genesis.world.biome;
 
 import java.util.Random;
 
-import genesis.block.BlockMoss;
-import genesis.block.BlockMoss.EnumSoil;
 import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
 import genesis.util.random.f.FloatRange;
+import genesis.world.biome.decorate.WorldGenBoulders;
 import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenPalaeoagaracites;
 import genesis.world.biome.decorate.WorldGenPlant;
-import genesis.world.biome.decorate.WorldGenBoulders;
 import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.biome.decorate.WorldGenSplash;
 import genesis.world.biome.decorate.WorldGenStemonitis;
@@ -41,7 +39,7 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 		addGrass(WorldGenPlant.create(EnumPlant.ASTRALOPTERIS).setPatchCount(9), 3);
 		addGrass(WorldGenPlant.create(EnumPlant.MATONIDIUM).setPatchCount(9), 1);
 		
-		addDecoration(WorldGenSplash.createHumusSplash(), 1.95F);
+		addDecoration(WorldGenSplash.createHumusSplash(), 2.1F);
 		addDecoration(new WorldGenBoulders(0.071F, 0.142F, 1).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.4F);
 		
 		//TODO: WorldGenPaleogaracites should be instead called/moved inside the dead log generation.

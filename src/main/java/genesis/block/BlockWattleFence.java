@@ -40,6 +40,7 @@ public class BlockWattleFence extends BlockGenesisFence
 		}
 	}
 	
+	// TODO: Use FacingProperties
 	public static final PropertyEnum<EnumConnectState> NORTH = PropertyEnum.create("north", EnumConnectState.class);
 	public static final PropertyEnum<EnumConnectState> EAST = PropertyEnum.create("east", EnumConnectState.class);
 	public static final PropertyEnum<EnumConnectState> SOUTH = PropertyEnum.create("south", EnumConnectState.class);
@@ -96,9 +97,9 @@ public class BlockWattleFence extends BlockGenesisFence
 		BlockPos sidePos = pos.offset(side);
 		
 		if (canConnectTo(world, pos, side))
-		{
-			boolean up = above && owner.containsBlockState(type, world.getBlockState(sidePos.up()));//canConnectTo(world, sidePos, EnumFacing.UP);
-			boolean down = below && owner.containsBlockState(type, world.getBlockState(sidePos.down()));//canConnectTo(world, sidePos, EnumFacing.DOWN);
+		{	// TODO: Improve for T shapes with connections on the sides
+			boolean up = above && canConnectTo(world, sidePos, EnumFacing.UP);
+			boolean down = below && canConnectTo(world, sidePos, EnumFacing.DOWN);
 			
 			if (up && down)
 			{
@@ -131,7 +132,6 @@ public class BlockWattleFence extends BlockGenesisFence
 		state = setSideState(world, state, pos, EnumFacing.EAST, EAST, fenceAbove, fenceBelow);
 		state = setSideState(world, state, pos, EnumFacing.SOUTH, SOUTH, fenceAbove, fenceBelow);
 		state = setSideState(world, state, pos, EnumFacing.WEST, WEST, fenceAbove, fenceBelow);
-		// TODO: Create class to contain properties for each EnumFacing.
 		return state;
 	}
 	

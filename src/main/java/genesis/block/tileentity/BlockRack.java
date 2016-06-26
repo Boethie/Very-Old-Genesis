@@ -177,16 +177,33 @@ public class BlockRack extends BlockContainer implements MultiPartBlock
 		return false;
 	}
 	
+	public boolean canBlockStay(World world, BlockPos pos, EnumFacing side)
+	{
+		return world.isSideSolid(pos.offset(side), side.getOpposite());
+	}
+	
 	@Override
 	public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing side)
 	{
 		if (!RACKS.has(side))
 			return false;
 		
-		if (!world.isSideSolid(pos.offset(side.getOpposite()), side))
+		if (!canBlockStay(world, pos, side.getOpposite()))
 			return false;
 		
 		return super.canPlaceBlockOnSide(world, pos, side);
+	}
+	
+	@Override
+	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block neighborBlock)
+	{
+		for (FacingProperties.Entry<Boolean> entry : RACKS)
+		{
+			if (state.getValue(entry.property) && !canBlockStay(world, pos, entry.facing))
+			{
+				removePart(state, world, pos, entry.facing, null, true);
+			}
+		}
 	}
 	
 	@Override
@@ -287,15 +304,13 @@ public class BlockRack extends BlockContainer implements MultiPartBlock
 	
 	private boolean dropAll;
 	
-	@Override
 	public boolean removePart(IBlockState state,
-			World world, BlockPos pos, int part,
+			World world, BlockPos pos, EnumFacing side,
 			EntityPlayer player, boolean harvest)
 	{
 		if (world.isRemote)
-			Genesis.network.sendToServer(new MultiPartBreakMessage(pos, part));
+			Genesis.network.sendToServer(new MultiPartBreakMessage(pos, side.getHorizontalIndex()));
 		
-		EnumFacing side = EnumFacing.getHorizontal(part);
 		state = state.withProperty(RACKS.get(side), false);
 		
 		boolean hasRack = false;
@@ -337,6 +352,14 @@ public class BlockRack extends BlockContainer implements MultiPartBlock
 			return true;
 		else
 			return super.removedByPlayer(state, world, pos, player, harvest);
+	}
+	
+	@Override
+	public boolean removePart(IBlockState state,
+			World world, BlockPos pos, int part,
+			EntityPlayer player, boolean harvest)
+	{
+		return removePart(state, world, pos, EnumFacing.getHorizontal(part), player, harvest);
 	}
 	
 	@Override

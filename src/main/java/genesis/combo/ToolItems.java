@@ -71,8 +71,6 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 	
 	public static final ToolObjectTypeSoleQuality<Block, ItemMulti<ToolType>> FLAKE =
 			new ToolObjectTypeSoleQuality<>("flake", Section.MATERIAL + "flake", null, null, EnumToolQuality.NONE);
-	public static final ToolObjectType<Block, ItemToolHead> ARROW_HEAD =
-			new ToolObjectType<>("head_arrow", Section.TOOL_HEAD + "arrow", null, ItemToolHead.class, WEAPON_QUALITIES);
 	
 	private static final ImmutableList<ObjectType<ToolType, ?, ?>> MATERIALS =
 			ImmutableList.of(
@@ -89,7 +87,7 @@ public class ToolItems extends VariantsOfTypesCombo<ToolType>
 			ImmutableList.of(
 					CLUB_HEAD, CLUB,
 					SPEAR_HEAD, SPEAR,
-					FLAKE, ARROW_HEAD);
+					FLAKE);
 	
 	static
 	{

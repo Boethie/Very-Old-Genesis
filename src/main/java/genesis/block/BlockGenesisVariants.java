@@ -8,8 +8,7 @@ import genesis.combo.variant.IMetadata;
 import genesis.combo.variant.PropertyIMetadata;
 import genesis.common.GenesisCreativeTabs;
 import genesis.util.*;
-import genesis.util.random.drops.blocks.BlockDrop;
-import genesis.util.random.drops.blocks.VariantDrop;
+import genesis.util.random.drops.blocks.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -39,7 +38,7 @@ public class BlockGenesisVariants<V extends IMetadata<V>> extends Block
 	
 	protected final HashSet<V> noItemVariants = new HashSet<>();
 	
-	protected final List<BlockDrop> drops = new ArrayList<>();
+	protected final List<BlockStackProvider> drops = new ArrayList<>();
 	
 	public BlockGenesisVariants(VariantsOfTypesCombo<V> owner,
 			ObjectType<V, ? extends BlockGenesisVariants<V>, ? extends Item> type,
@@ -103,7 +102,7 @@ public class BlockGenesisVariants<V extends IMetadata<V>> extends Block
 		return this;
 	}
 	
-	public BlockGenesisVariants<V> addDrop(BlockDrop drop)
+	public BlockGenesisVariants<V> addDrop(BlockStackProvider drop)
 	{
 		drops.add(drop);
 		
@@ -130,14 +129,12 @@ public class BlockGenesisVariants<V extends IMetadata<V>> extends Block
 		{
 			Random rand = world instanceof World ? ((World) world).rand : RANDOM;
 			
-			for (BlockDrop drop : drops)
+			for (BlockStackProvider drop : drops)
 			{
 				ItemStack stack = drop.getStack(state, rand);
 				
 				if (stack != null)
-				{
 					stackList.add(stack);
-				}
 			}
 		}
 		

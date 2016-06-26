@@ -34,7 +34,7 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		addFlower(WorldGenPlant.create(EnumPlant.BARAGWANATHIA).setPatchCount(4), 1);
 		addFlower(WorldGenPlant.create(EnumPlant.COOKSONIA).setPatchCount(4), 1);
 		
-		addDecoration(new WorldGenSplash(GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT), GenesisBlocks.silt.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.SILT)).setDryRadius(2), 14);
+		addDecoration(new WorldGenSplash(GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT), GenesisBlocks.silt.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.SILT)), 14);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.prototaxites).setPatchCount(3), 0.142F);
 		addDecoration(new WorldGenMossStages(), 30);
 	}

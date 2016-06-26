@@ -2,17 +2,16 @@ package genesis.world.biome;
 
 import java.util.Random;
 
-import genesis.block.BlockMoss;
-import genesis.block.BlockMoss.EnumSoil;
+import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumDebrisOther;
 import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
 import genesis.util.random.f.FloatRange;
+import genesis.world.biome.decorate.WorldGenBoulders;
 import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenPlant;
-import genesis.world.biome.decorate.WorldGenBoulders;
 import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.biome.decorate.WorldGenSplash;
 import genesis.world.biome.decorate.WorldGenStemonitis;
@@ -43,7 +42,7 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 		getDecorator().setFlowerCount(5);
 		addFlower(WorldGenPlant.create(EnumPlant.SANMIGUELIA).setNextToWater(true).setPatchCount(4), 2);
 		
-		addDecoration(WorldGenSplash.createHumusSplash(), 5.1F);
+		addDecoration(WorldGenSplash.createHumusSplash(), 5.5F);
 		addDecoration(new WorldGenBoulders(0.166F, 0.333F, 1).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.4F);
 		addDecoration(new WorldGenStemonitis().setPatchCount(14), 6);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.cladophlebis).setPatchCount(9), 0.75F);
@@ -57,11 +56,12 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 	{
 		getDecorator().setTreeCount(4.35F);
 		
-		addTree(new WorldGenTreeAraucarioxylon(25, 30, true), 80);
-		addTree(new WorldGenTreeGinkgo(8, 13, false), 3);
-		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 1);
+		addTree(new WorldGenTreeAraucarioxylon(25, 30, true), 205);
+		addTree(new WorldGenTreeGinkgo(8, 13, false), 7);
+		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 3);
+		addTree(new WorldGenTreeAraucarioxylon(25, 30, false, GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.DEAD_LOG, EnumTree.ARAUCARIOXYLON)).setType(TreeTypes.TYPE_3), 1);
 		
-		addTree(new WorldGenDeadLog(7, 10, EnumTree.ARAUCARIOXYLON, true), 7);
+		addTree(new WorldGenDeadLog(7, 10, EnumTree.ARAUCARIOXYLON, true), 18);
 	}
 	
 	@Override

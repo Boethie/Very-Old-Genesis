@@ -49,7 +49,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	
 	public enum TreeTypes
 	{
-		TYPE_1, TYPE_2
+		TYPE_1, TYPE_2, TYPE_3
 	}
 	
 	public WorldGenTreeBase(IBlockState sapling, IBlockState wood, IBlockState leaves, IBlockState hangingFruit,

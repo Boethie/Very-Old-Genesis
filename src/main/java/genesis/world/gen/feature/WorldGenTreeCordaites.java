@@ -1,10 +1,11 @@
 package genesis.world.gen.feature;
 
-import genesis.combo.variant.EnumTree;
-import genesis.util.random.i.IntRange;
-
 import java.util.Random;
 
+import genesis.combo.variant.EnumTree;
+import genesis.util.random.i.IntRange;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -27,6 +28,11 @@ public class WorldGenTreeCordaites extends WorldGenTreeBase
 		int height = heightProvider.get(rand);
 		
 		if (!isCubeClear(world, pos, 1, height))
+			return false;
+		
+		IBlockState state = world.getBlockState(pos.up(4));
+		
+		if (state.getBlock().getMaterial(state) != Material.air)
 			return false;
 		
 		int baseHeight = 2 + rand.nextInt(2);

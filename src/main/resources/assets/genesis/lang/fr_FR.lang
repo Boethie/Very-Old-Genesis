@@ -220,7 +220,6 @@ tile.genesis.plant.calamites.name=Calamites
 
 tile.genesis.fern.double.rhacophyton.name=Rhacophyton
 tile.genesis.fern.zygopteris.name=Zygopteris
-tile.genesis.fern.wachtleria.name=Wachtleria
 tile.genesis.fern.phlebopteris.name=Phlebopteris
 tile.genesis.fern.todites.name=Todites
 tile.genesis.fern.ruffordia.name=Ruffordia
@@ -286,8 +285,6 @@ item.genesis.misc.menhirActivator.fossilizedEgg.name=Œuf fossilisé
 item.genesis.misc.menhirActivator.brokenSpiritMask.name=Masque d'esprit brisé
 item.genesis.misc.menhirActivator.primitiveDust.name=Poussière pritimive
 item.genesis.misc.menhirActivator.sacredTreeStar.name=Étoile d'arbre sacré
-
-item.genesis.benchSeat.name=Banquette
 
 #Food
 item.genesis.seed.araucarioxylon.name=Graines d'Araucarioxylon
@@ -485,7 +482,16 @@ item.genesis.material.flake.quartz.name=Éclat de quartz
 item.genesis.material.flake.brownFlint.name=Éclat de silex brun
 item.genesis.material.flake.blackFlint.name=Éclat de silex noir
 
-item.genesis.tool.flintAndMarcasite.name=Silex et marcassite
+item.genesis.tool.material.octaedrite=§oFer météorique
+item.genesis.tool.material.dolerite=§oDolérite
+item.genesis.tool.material.rhyolite=§oRhyolite
+item.genesis.tool.material.granite=§oGranite
+item.genesis.tool.material.quartz=§oQuartz
+item.genesis.tool.material.brownFlint=§oSilex brun
+item.genesis.tool.material.blackFlint=§oSilex noir
+
+item.genesis.arrow.wood.name=Flèche en bois
+item.genesis.arrow.bone.name=Flèche en os
 
 item.genesis.bow.bow.self.metasequoia.name=Arc simple en Metasequoia
 item.genesis.bow.bow.self.archaeanthus.name=Arc simple en Archaeanthus
@@ -496,6 +502,8 @@ item.genesis.bow.bow.composite.metasequoia.name=Arc composite en Metasequoia
 item.genesis.bow.bow.composite.archaeanthus.name=Arc composite en Archaeanthus
 item.genesis.bow.bow.composite.dryophyllum.name=Arc composite en Dryophyllum
 item.genesis.bow.bow.composite.laurophyllum.name=Arc composite en Laurophyllum
+
+item.genesis.tool.flintAndMarcasite.name=Silex et marcassite
 
 #Clothing
 item.genesis.clothing.chitin.helmet.name=Casque en chitine

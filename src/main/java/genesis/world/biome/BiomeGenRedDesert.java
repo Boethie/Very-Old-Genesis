@@ -8,15 +8,16 @@ import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.EnumSilt;
 import genesis.common.GenesisBlocks;
 import genesis.util.random.f.FloatRange;
+import genesis.world.biome.decorate.WorldGenBoulders;
 import genesis.world.biome.decorate.WorldGenPebbles;
 import genesis.world.biome.decorate.WorldGenPlant;
-import genesis.world.biome.decorate.WorldGenBoulders;
 import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.biome.decorate.WorldGenSplash;
 import genesis.world.gen.feature.WorldGenTreeBjuvia;
 import genesis.world.gen.feature.WorldGenTreeVoltzia;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -34,12 +35,12 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 		theBiomeDecorator.sandPerChunk = 0;
 		theBiomeDecorator.sandPerChunk2 = 0;
 		
-		getDecorator().setFlowerCount(0.5F);
+		getDecorator().setFlowerCount(0.38F);
 		addFlower(WorldGenPlant.create(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.AETHOPHYLLUM), 1);
 		addFlower(WorldGenPlant.create(EnumPlant.APOLDIA), 4);
 		
-		addDecoration(new WorldGenBoulders(GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT), 1, 0, 0).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1F)), 0.4F);
-		addDecoration(new WorldGenSplash(GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT), GenesisBlocks.silt.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.RED_SILT)).setPatchRadius(4), 8);
+		addDecoration(new WorldGenBoulders(GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT), 1, 0, 0).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.25F);
+		addDecoration(new WorldGenSplash(GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT), GenesisBlocks.silt.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.RED_SILT)).setPatchRadius(6), 4);
 		addDecoration(new WorldGenPebbles().setWaterRequired(false), 5);
 		addDecoration(new WorldGenRoots(), 5);
 	}
@@ -50,17 +51,9 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 		return this;
 	}
 	
-	public BiomeGenRedDesert addFern()
-	{
-		getDecorator().setGrassCount(this.isHills ? 1.55F : 0.15F);
-		addGrass(WorldGenPlant.create(EnumPlant.WACHTLERIA).setPatchCount(4), 1);
-		
-		return this;
-	}
-	
 	public BiomeGenRedDesert addTrees()
 	{
-		getDecorator().setTreeCount(0.4F);
+		getDecorator().setTreeCount(0.2175F);
 		
 		if (!this.isHills)
 		{
@@ -85,13 +78,39 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 	@Override
 	public float getFogDensity()
 	{
-		return 0.75F;
+		return 0.3F;
 	}
 	
 	@Override
 	public float getNightFogModifier()
 	{
-		return 0.25F;
+		return 0.7F;
+	}
+	
+	@Override
+	public Vec3d getFogColor()
+	{
+		float red = 0.766039216F;
+		float green = 0.687607843F;
+		float blue = 0.593490196F;
+		
+		return new Vec3d(red, green, blue);
+	}
+	
+	@Override
+	public Vec3d getFogColorNight()
+	{
+		float red = 0.070941176F;
+		float green = 0.070941176F;
+		float blue = 0.070941176F;
+		
+		return new Vec3d(red, green, blue);
+	}
+	
+	@Override
+	public int getSkyColorByTemp(float temperature)
+	{
+		return 0xC69D78;
 	}
 	
 	public void genTerrainBlocks(World world, Random rand, ChunkPrimer chunkPrimer, int x, int z, double noiseVal)

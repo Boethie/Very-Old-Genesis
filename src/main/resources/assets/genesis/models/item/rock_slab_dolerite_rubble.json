@@ -1,6 +1,6 @@
 {
-    "parent": "genesis:item/slab",
-    "textures": {
-        "slab": "genesis:blocks/rubble_dolerite"
-    }
+	"parent": "genesis:item/slab",
+	"textures": {
+		"slab": "genesis:blocks/rubble_dolerite"
+	}
 }

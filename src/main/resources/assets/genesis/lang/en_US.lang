@@ -221,7 +221,6 @@ tile.genesis.plant.calamites.name=Calamites
 
 tile.genesis.fern.double.rhacophyton.name=Rhacophyton
 tile.genesis.fern.zygopteris.name=Zygopteris
-tile.genesis.fern.wachtleria.name=Wachtleria
 tile.genesis.fern.phlebopteris.name=Phlebopteris
 tile.genesis.fern.todites.name=Todites
 tile.genesis.fern.ruffordia.name=Ruffordia
@@ -287,8 +286,6 @@ item.genesis.misc.menhirActivator.fossilizedEgg.name=Fossilized Egg
 item.genesis.misc.menhirActivator.brokenSpiritMask.name=Broken Spirit Mask
 item.genesis.misc.menhirActivator.primitiveDust.name=Primitive Dust
 item.genesis.misc.menhirActivator.sacredTreeStar.name=Sacred Tree Star
-
-item.genesis.benchSeat.name=Bench Seat
 
 #Food
 item.genesis.seed.araucarioxylon.name=Araucarioxylon Seeds
@@ -486,7 +483,16 @@ item.genesis.material.flake.quartz.name=Quartz Flake
 item.genesis.material.flake.brownFlint.name=Brown Flint Flake
 item.genesis.material.flake.blackFlint.name=Black Flint Flake
 
-item.genesis.tool.flintAndMarcasite.name=Flint and Marcasite
+item.genesis.tool.material.octaedrite=§oMeteoric Iron
+item.genesis.tool.material.dolerite=§oDolerite
+item.genesis.tool.material.rhyolite=§oRhyolite
+item.genesis.tool.material.granite=§oGranite
+item.genesis.tool.material.quartz=§oQuartz
+item.genesis.tool.material.brownFlint=§oBrown Flint
+item.genesis.tool.material.blackFlint=§oBlack Flint
+
+item.genesis.arrow.wood.name=Wooden Arrow
+item.genesis.arrow.bone.name=Bone Arrow
 
 item.genesis.bow.bow.self.metasequoia.name=Metasequoia Self Bow
 item.genesis.bow.bow.self.archaeanthus.name=Archaeanthus Self Bow
@@ -497,6 +503,8 @@ item.genesis.bow.bow.composite.metasequoia.name=Metasequoia Composite Bow
 item.genesis.bow.bow.composite.archaeanthus.name=Archaeanthus Composite Bow
 item.genesis.bow.bow.composite.dryophyllum.name=Dryophyllum Composite Bow
 item.genesis.bow.bow.composite.laurophyllum.name=Laurophyllum Composite Bow
+
+item.genesis.tool.flintAndMarcasite.name=Flint and Marcasite
 
 #Clothing
 item.genesis.clothing.chitin.helmet.name=Chitin Helmet

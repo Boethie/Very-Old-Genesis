@@ -7,6 +7,7 @@ import genesis.block.tileentity.portal.*;
 import genesis.block.tileentity.portal.render.TileEntityGenesisPortalRenderer;
 import genesis.block.tileentity.render.*;
 import genesis.client.Colorizers;
+import genesis.client.model.MetadataModelDefinition;
 import genesis.combo.*;
 import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.*;
@@ -186,7 +187,7 @@ public final class GenesisBlocks
 	public static final Block calamites_torch_tall = new BlockTallTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTorch.tall");
 	public static final Block prototaxites_mycelium = new BlockPrototaxitesMycelium().setUnlocalizedName(Unlocalized.PREFIX + "prototaxitesMycelium");
 	
-	public static final Block bench_seat = new BlockBenchSeat().setUnlocalizedName(Unlocalized.PREFIX + "benchSeat");
+	public static final BlockBenchSeat bench_seat = (BlockBenchSeat) new BlockBenchSeat().setUnlocalizedName(Unlocalized.PREFIX + "benchSeat");
 	
 	public static final DungBlocksAndItems dungs = new DungBlocksAndItems();
 	public static final Block dung_brick = new BlockGenesis(Material.rock, SoundType.STONE)
@@ -317,9 +318,7 @@ public final class GenesisBlocks
 		
 		Genesis.proxy.registerBlock(roots, name("roots"));
 		
-		Genesis.proxy.registerBlock(bench_seat, name("bench_seat"));
-		
-		// Resin
+		// - Resin -
 		Genesis.proxy.registerBlock(resin, name("resin_block"));
 		
 		// - Containers -
@@ -345,7 +344,10 @@ public final class GenesisBlocks
 		// Rack
 		GameRegistry.registerTileEntity(TileEntityRack.class, Constants.ASSETS_PREFIX + "rack");
 		
-		// Rope ladder
+		// - Bench seat -
+		Genesis.proxy.registerBlock(bench_seat, new ItemBenchSeat(bench_seat), name("bench_seat"));
+		
+		// - Rope ladder -
 		Genesis.proxy.registerBlock(rope_ladder, name("rope_ladder"));
 		
 		// - Torches -
@@ -399,7 +401,7 @@ public final class GenesisBlocks
 		zingiberopsis.setDrops(new BlockDrops(drop, 1, 1));
 		zingiberopsis.setCropDrops(new BlockDrops(
 				new BlockStackDrop(drop, 1, 3),
-				new BlockRandomDrop(new BlockStackDrop(GenesisItems.rotten_zingiberopsis_rhizome, 1), 0.02D)
+				new BlockRandomDrop(new BlockStackDrop(GenesisItems.rotten_zingiberopsis_rhizome, 1), 0.02F)
 			));
 		zingiberopsis.setPickedStack(drop);
 		
@@ -469,6 +471,23 @@ public final class GenesisBlocks
 			{
 				Genesis.proxy.registerModel(stack.getItem(), stack.getMetadata(), name("portal/" + part.getName()));
 			}
+		}
+		
+		for (Item dung : dungs.getItems(DungBlocksAndItems.DUNG_BLOCK))
+		{
+			Genesis.proxy.registerModel(dung,
+					MetadataModelDefinition.from(dung,
+							(s) -> {
+								StringBuilder name = new StringBuilder(DungBlocksAndItems.DUNG_BLOCK.getVariantName(dungs.getVariant(s)));
+								int layers = BlockDung.HEIGHT_MASK.decode(s.getMetadata());
+								
+								if (layers == BlockDung.MAX_HEIGHT - BlockDung.MIN_HEIGHT)
+									name.append("_full");
+								else
+									name.append("_layer");
+								
+								return name(name.toString());
+							}));
 		}
 	}
 	

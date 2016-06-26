@@ -1,0 +1,22 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "builtin/generated",
+		"transform": "forge:default-item"
+	},
+	"variants": {
+		"shaft": {
+			"wood": { "textures": { "layer0": "genesis:items/arrow_shaft_wood" } },
+			"bone": { "textures": { "layer0": "genesis:items/arrow_shaft_bone" } }
+		},
+		"tip": {
+			"octaedrite": { "textures": { "layer1": "genesis:items/arrow_tip_octaedrite" } },
+			"dolerite": { "textures": { "layer1": "genesis:items/arrow_tip_dolerite" } },
+			"rhyolite": { "textures": { "layer1": "genesis:items/arrow_tip_rhyolite" } },
+			"granite": { "textures": { "layer1": "genesis:items/arrow_tip_granite" } },
+			"quartz": { "textures": { "layer1": "genesis:items/arrow_tip_quartz" } },
+			"brown_flint": { "textures": { "layer1": "genesis:items/arrow_tip_brown_flint" } },
+			"black_flint": { "textures": { "layer1": "genesis:items/arrow_tip_black_flint" } }
+		}
+	}
+}

@@ -81,11 +81,6 @@
 					"plant": "genesis:blocks/fern_zygopteris"
 				}
 			},
-			"wachtleria": {
-				"textures": {
-					"plant": "genesis:blocks/fern_wachtleria"
-				}
-			},
 			"phlebopteris": {
 				"textures": {
 					"plant": "genesis:blocks/fern_phlebopteris"

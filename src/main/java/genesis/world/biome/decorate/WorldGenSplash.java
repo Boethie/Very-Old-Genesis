@@ -40,7 +40,7 @@ public class WorldGenSplash extends WorldGenDecorationBase
 		this.matcher = matcher;
 		this.replacement = replacement;
 		
-		setPatchRadius(8);
+		setPatchRadius(6);
 		setPatchCount(64);
 	}
 	

@@ -100,38 +100,38 @@ public class BlockTrapFloor extends BlockGenesis
 	}
 	
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
-    {
-        super.onBlockAdded(worldIn, pos, state);
+	{
+		super.onBlockAdded(worldIn, pos, state);
 
-        if (worldIn.isBlockPowered(pos))
-        {
-            drop(pos, worldIn);
-        }
-    }
+		if (worldIn.isBlockPowered(pos))
+		{
+			drop(pos, worldIn);
+		}
+	}
 	
 	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
-    {
-        if (worldIn.isBlockPowered(pos))
-        {
-            drop(pos, worldIn);
-        }
-    }
+	{
+		if (worldIn.isBlockPowered(pos))
+		{
+			drop(pos, worldIn);
+		}
+	}
 	
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
-    {
+	{
 		if (entityIn instanceof EntityLivingBase || (entityIn instanceof EntityFallingBlock && ((EntityFallingBlock)entityIn).getBlock().getBlock() == Blocks.anvil))
-        {
+		{
 			drop(pos, worldIn);
-        }
-    }
+		}
+	}
 	
 	public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance)
-    {
+	{
 		if (entityIn instanceof EntityLivingBase || (entityIn instanceof EntityFallingBlock && ((EntityFallingBlock)entityIn).getBlock().getBlock() == Blocks.anvil))
-        {
+		{
 			drop(pos, worldIn);
-        }
-    }
+		}
+	}
 	
 	@Override
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World world, BlockPos pos)

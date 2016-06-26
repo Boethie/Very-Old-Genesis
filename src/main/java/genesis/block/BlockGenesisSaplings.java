@@ -185,7 +185,19 @@ public class BlockGenesisSaplings extends BlockSapling
 			gen = new WorldGenTreeArchaeanthus(15, 20, true);
 			break;
 		case LAUROPHYLLUM:
-			gen = new WorldGenTreeLaurophyllum(3, 4, true);
+			if (rand.nextInt(6) == 0)
+			{
+				treeType = TreeTypes.TYPE_2;
+				minHeight = 1;
+				maxHeight = 2;
+			}
+			else
+			{
+				treeType = TreeTypes.TYPE_1;
+				minHeight = 3;
+				maxHeight = 4;
+			}
+			gen = new WorldGenTreeLaurophyllum(minHeight, maxHeight, true).setType(treeType);
 			break;
 		default:
 			break;
