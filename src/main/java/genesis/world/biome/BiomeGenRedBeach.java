@@ -62,6 +62,6 @@ public class BiomeGenRedBeach extends BiomeGenBeachGenesis
 	@Override
 	public int getSkyColorByTemp(float temperature)
 	{
-		return 0xC69D78;
+		return 0xB29277;
 	}
 }
