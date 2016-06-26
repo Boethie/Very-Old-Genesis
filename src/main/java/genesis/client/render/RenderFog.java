@@ -34,6 +34,8 @@ public class RenderFog
 	
 	public Vec3d lastVanillaColor = new Vec3d(0, 0, 0);
 	
+	public boolean sandstorm;
+	
 	private static float getDayNightFactor(long time, float partialTicks)
 	{
 		float timeF = (time + partialTicks) % WorldProviderGenesis.DAY_LENGTH / WorldProviderGenesis.DAY_LENGTH;
@@ -61,6 +63,8 @@ public class RenderFog
 		if (event.side != Side.CLIENT || event.phase != Phase.START)
 			return;
 		
+		sandstorm = false;
+		
 		Minecraft mc = Minecraft.getMinecraft();
 		if (mc.isGamePaused())
 			return;
@@ -82,8 +86,6 @@ public class RenderFog
 		float blue = 0;
 		float density = 0;
 		int samples = 0;
-		
-		boolean forceDensity = false;
 		
 		Vec3d playerPos = ActiveRenderInfo.projectViewFromEntity(entity, partialTicks);
 		int areaSize = 10;
@@ -110,8 +112,7 @@ public class RenderFog
 						
 						color = GenesisMath.lerp(fogBiome.getFogColor(), fogBiome.getFogColorNight(), 1 - percent);
 						
-						if(!forceDensity)
-							density += fogBiome.getFogDensity() * (1 - fogBiome.getNightFogModifier() * (1 - percent));
+						density += fogBiome.getFogDensity() * (1 - fogBiome.getNightFogModifier() * (1 - percent));
 					}
 					else
 					{
@@ -121,9 +122,8 @@ public class RenderFog
 					if(world.getRainStrength(partialTicks) > 0)
 						if(!biome.canRain() && !biome.getEnableSnow())
 						{
-							density+=0.0000001F;
+							sandstorm = true;
 							red+=0.4F;
-							forceDensity=true;
 						}
 					
 					red += (float) color.xCoord;
@@ -171,14 +171,7 @@ public class RenderFog
 		color = new Vec3d(red, green, blue);
 		prevFogDensity = fogDensity;
 		
-		if(forceDensity)
-		{
-			fogDensity = density;
-		}
-		else
-		{
-			fogDensity = Math.min(density * 0.75F, 0.75F);
-		}
+		fogDensity = Math.min(density * 0.75F, 0.75F);
 		
 		
 		mc.mcProfiler.endSection();
@@ -242,7 +235,7 @@ public class RenderFog
 				event.getFarPlaneDistance(), density);
 	}
 	
-	private static void renderFog(int fogMode, float farPlaneDistance, float farPlaneDistanceScale)
+	private void renderFog(int fogMode, float farPlaneDistance, float farPlaneDistanceScale)
 	{
 		if (fogMode < 0)
 		{
@@ -251,8 +244,18 @@ public class RenderFog
 		}
 		else
 		{
-			GlStateManager.setFogStart(farPlaneDistance * farPlaneDistanceScale);
-			GlStateManager.setFogEnd(farPlaneDistance);
+			World world = Minecraft.getMinecraft().theWorld;
+			
+			if (sandstorm)
+			{
+				GlStateManager.setFogStart(6.4F + world.rand.nextFloat() / 100);
+				GlStateManager.setFogEnd(9.5F + world.rand.nextFloat() / 100);
+			}
+			else
+			{
+				GlStateManager.setFogStart(farPlaneDistance * farPlaneDistanceScale);
+				GlStateManager.setFogEnd(farPlaneDistance);
+			}
 		}
 	}
 }

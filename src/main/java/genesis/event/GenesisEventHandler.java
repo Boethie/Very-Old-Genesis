@@ -84,7 +84,7 @@ public class GenesisEventHandler
 			
 			if (!(biomegenbase.canRain() || biomegenbase.getEnableSnow()))
             {
-				if (entity.ticksExisted % 20 == 0)
+				if (entity.ticksExisted % 60 == 0)
 				{
 					if(world.canSeeSky(entity.getPosition()))
 					{

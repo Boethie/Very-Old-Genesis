@@ -17,7 +17,7 @@ import net.minecraftforge.client.IRenderHandler;
 
 public class GenesisWeatherRender extends IRenderHandler {
 
-	public static final ResourceLocation locationSandstormPng = new ResourceLocation(Constants.MOD_ID,"textures/environment/sandstorm.png");
+	public static final ResourceLocation locationSandstormPng = new ResourceLocation(Constants.MOD_ID,"textures/environment/dust_storm.png");
 	
 	@Override
 	public void render(float partialTicks, WorldClient world, Minecraft mc) 
