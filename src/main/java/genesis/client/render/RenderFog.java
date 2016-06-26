@@ -34,7 +34,7 @@ public class RenderFog
 	
 	public Vec3d lastVanillaColor = new Vec3d(0, 0, 0);
 	
-	public boolean sandstorm;
+	public boolean dust_storm;
 	
 	private static float getDayNightFactor(long time, float partialTicks)
 	{
@@ -63,7 +63,7 @@ public class RenderFog
 		if (event.side != Side.CLIENT || event.phase != Phase.START)
 			return;
 		
-		sandstorm = false;
+		dust_storm = false;
 		
 		Minecraft mc = Minecraft.getMinecraft();
 		if (mc.isGamePaused())
@@ -122,7 +122,7 @@ public class RenderFog
 					if(world.getRainStrength(partialTicks) > 0)
 						if(!biome.canRain() && !biome.getEnableSnow())
 						{
-							sandstorm = true;
+							dust_storm = true;
 							red+=0.4F;
 						}
 					
@@ -246,7 +246,7 @@ public class RenderFog
 		{
 			World world = Minecraft.getMinecraft().theWorld;
 			
-			if (sandstorm)
+			if (dust_storm)
 			{
 				GlStateManager.setFogStart(6.4F + world.rand.nextFloat() / 100);
 				GlStateManager.setFogEnd(9.5F + world.rand.nextFloat() / 100);
