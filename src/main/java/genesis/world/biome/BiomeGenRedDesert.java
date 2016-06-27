@@ -90,9 +90,9 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 	@Override
 	public Vec3d getFogColor()
 	{
-		float red = 0.766039216F;
-		float green = 0.687607843F;
-		float blue = 0.593490196F;
+		float red = 0.765039216F;
+		float green = 0.686607843F;
+		float blue = 0.592490196F;
 		
 		return new Vec3d(red, green, blue);
 	}

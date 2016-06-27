@@ -42,9 +42,8 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 	
 	protected void addDecorations()
 	{
-		//TODO: Todites will be replaced by another fern.
 		getDecorator().setGrassCount(7);
-		addGrass(WorldGenPlant.create(EnumPlant.TODITES).setPatchCount(9), 1);
+		addGrass(WorldGenPlant.create(EnumPlant.DRYOPTERIS).setPatchCount(9), 1);
 		
 		getDecorator().setFlowerCount(0.15F);
 		addFlower(WorldGenPlant.create(EnumPlant.PALAEOASTER).setPatchCount(9), 1);
