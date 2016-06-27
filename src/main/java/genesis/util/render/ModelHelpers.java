@@ -382,8 +382,8 @@ public class ModelHelpers
 	{
 		if (stack != null)
 		{
-			String stackModel = ModelHelpers.getLocationFromStack(stack).toString();
-			stackModel = stackModel.substring(0, stackModel.lastIndexOf("#"));
+			ModelResourceLocation model = ModelHelpers.getLocationFromStack(stack);
+			String stackModel = model.getResourceDomain() + "__" + model.getResourcePath();
 			
 			if (set.contains(stackModel))
 			{
@@ -447,13 +447,22 @@ public class ModelHelpers
 		return null;
 	}
 	
+	public static ResourceLocation getRawItemLocation(ModelResourceLocation location)
+	{
+        return new ResourceLocation(location.getResourceDomain(), "item/" + location.getResourcePath());
+	}
+	
 	public static IModel getModel(ResourceLocation loc)
 	{
 		IModel model;
 		
 		try
 		{
-			model = ModelLoaderRegistry.getModel(loc);
+			model = ModelLoaderRegistry.getModel(loc instanceof ModelResourceLocation ?
+					getRawItemLocation((ModelResourceLocation) loc) : loc);
+			
+			if (model == null)
+				model = ModelLoaderRegistry.getModel(loc);
 		}
 		catch (Exception e)
 		{
