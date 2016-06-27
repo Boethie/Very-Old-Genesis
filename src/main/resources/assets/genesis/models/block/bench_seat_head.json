@@ -3,7 +3,8 @@
 		"particle": "genesis:blocks/bench_seat_head_top",
 		"end": "genesis:blocks/bench_seat_feet_end",
 		"side": "genesis:blocks/bench_seat_feet_side",
-		"top": "genesis:blocks/bench_seat_feet_top"
+		"top": "genesis:blocks/bench_seat_feet_top",
+		"bottom": "genesis:blocks/bench_seat_feet_bottom"
 	},
 	"elements": [
 		{
@@ -11,7 +12,7 @@
 			"to": [ 16.0, 9.0, 16.0 ], 
 			"faces": {
 				"up": { "texture": "#top", "uv": [ 0.0, 16.0, 16.0, 0.0 ], "rotation": 270 },
-				"down": { "texture": "#top", "uv": [ 0.0, 0.0, 16.0, 16.0 ], "rotation": 90 },
+				"down": { "texture": "#bottom", "uv": [ 0.0, 0.0, 16.0, 16.0 ], "rotation": 90 },
 				"south": { "texture": "#end", "uv": [ 0.0, 7.0, 16.0, 16.0 ] },
 				"east": { "texture": "#side", "uv": [ 0.0, 16.0, 16.0, 7.0 ] },
 				"west": { "texture": "#side", "uv": [ 16.0, 7.0, 0.0, 16.0 ] }
