@@ -4,6 +4,7 @@ import java.util.Random;
 
 import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumDebrisOther;
+import genesis.combo.variant.EnumDung;
 import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
@@ -13,6 +14,7 @@ import genesis.world.biome.decorate.WorldGenBoulders;
 import genesis.world.biome.decorate.WorldGenCircleReplacement;
 import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenDecorationOnBlock;
+import genesis.world.biome.decorate.WorldGenDung;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenPlant;
 import genesis.world.biome.decorate.WorldGenRoots;
@@ -50,6 +52,7 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		
 		addDecoration(WorldGenSplash.createHumusSplash(), 2.75F);
 		addDecoration(new WorldGenBoulders(0.166F, 0.333F, 1).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.4F);
+		addDecoration(new WorldGenDung(EnumDung.CARNIVORE), 0.2F);
 		addDecoration(new WorldGenStemonitis().setPatchCount(14), 6);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setPatchCount(3), 0.15F);
 		addDecoration(new WorldGenAsplenium().setPatchCount(10), 10);
