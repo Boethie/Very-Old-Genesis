@@ -95,7 +95,7 @@ public class BlockMoss extends BlockGrass
 	{
 		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), meta, SOIL, STAGE);
 	}
-
+	
 	@Override
 	public void grow(World world, Random rand, BlockPos pos, IBlockState state)
 	{
@@ -109,7 +109,7 @@ public class BlockMoss extends BlockGrass
 		
 		BlockPos aboveCenter = pos.up();
 		int loops = 0;
-
+		
 		while (loops < 128)
 		{
 			BlockPos plantPos = aboveCenter;
@@ -153,7 +153,7 @@ public class BlockMoss extends BlockGrass
 			}
 		}
 	}
-
+	
 	@Override
 	public boolean canSustainPlant(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable)
 	{

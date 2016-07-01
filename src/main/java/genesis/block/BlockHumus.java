@@ -2,7 +2,7 @@ package genesis.block;
 
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
-
+import genesis.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -19,7 +19,9 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.IPlantable;
 
 public class BlockHumus extends Block
 {
@@ -82,5 +84,24 @@ public class BlockHumus extends Block
 		}
 		
 		return false;
+	}
+	
+	@Override
+	public boolean canSustainPlant(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable)
+	{
+		switch (plantable.getPlantType(world, pos.up()))
+		{
+		case Cave:
+		case Plains:
+		case Desert:
+			return true;
+		case Beach:
+			return WorldUtils.isWater(world, pos.east()) ||
+					WorldUtils.isWater(world, pos.west()) ||
+					WorldUtils.isWater(world, pos.north()) ||
+					WorldUtils.isWater(world, pos.south());
+		default:
+			return false;
+		}
 	}
 }
