@@ -579,18 +579,30 @@ public final class GenesisRecipes
 			
 			ItemStack stack;
 			ItemStack flake = GenesisItems.tools.getStack(ToolItems.FLAKE, material);
+			Collection<Item> billets = GenesisBlocks.trees.getItems(TreeBlocksAndItems.BILLET);
+			ItemStack[] feathers = {
+				new ItemStack(Items.feather),
+				GenesisItems.materials.getStack(EnumMaterial.COELOPHYSIS_FEATHER),
+				GenesisItems.materials.getStack(EnumMaterial.EPIDEXIPTERYX_FEATHER),
+				GenesisItems.materials.getStack(EnumMaterial.TYRANNOSAURUS_FEATHER),
+			};
 			
 			for (EnumArrowShaft shaft : EnumArrowShaft.values())
 			{
-				for (Item billet : GenesisBlocks.trees.getItems(TreeBlocksAndItems.BILLET))
+				ItemStack arrow = GenesisItems.arrows.getStack(shaft, material);
+				
+				for (Item billet : billets)
 				{
-					GameRegistry.addRecipe(GenesisItems.arrows.getStack(shaft, material),
-							"^",
-							"|",
-							"/",
-							'^', flake,
-							'|', billet,
-							'/', Items.feather);
+					for (ItemStack feather : feathers)
+					{
+						GameRegistry.addRecipe(arrow,
+								"^",
+								"|",
+								"/",
+								'^', flake,
+								'|', billet,
+								'/', feather);
+					}
 				}
 			}
 			
