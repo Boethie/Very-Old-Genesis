@@ -62,13 +62,13 @@ public class WorldGenDung extends WorldGenDecorationBase
 				
 				for (int i = 1; i <= spreadLength; ++i)
 				{
-					h -= (1 + rand.nextInt(7));
+					h -= (1 + rand.nextInt(8));
 					if (h > 0)
 					{
 						curPos = pos.add(i * x, 0, i * z);
 						if (
 								allowedBlocks.contains(world.getBlockState(curPos.down()).getBlock())
-								&& world.isAirBlock(curPos))
+								&& (world.isAirBlock(curPos) || GenesisBlocks.dungs.isStateOf(world.getBlockState(curPos), dungType)))
 						{
 							placeColumn(h, curPos, world, rand);
 						}
@@ -107,10 +107,9 @@ public class WorldGenDung extends WorldGenDecorationBase
 	{
 		if (
 				allowedBlocks.contains(world.getBlockState(curPos.down()).getBlock())
-				&& world.isAirBlock(curPos)
-				&& rand.nextInt(6) == 0)
+				&& world.isAirBlock(curPos))
 		{
-			int splatHeight = rand.nextInt(maxHeight > 6 ? 6 : maxHeight);
+			int splatHeight = rand.nextInt(maxHeight > 3 ? 3 : maxHeight);
 			
 			if (splatHeight > 0)
 				this.setBlock(world, curPos, GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, dungType).withProperty(BlockDung.HEIGHT, splatHeight));
