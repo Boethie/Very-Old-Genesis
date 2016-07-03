@@ -1,15 +1,12 @@
 package genesis.world.biome.decorate;
 
 import java.util.Random;
-import java.util.function.Predicate;
 
 import genesis.common.Genesis;
-import genesis.util.WorldUtils;
 import genesis.util.functional.WorldBlockMatcher;
 import genesis.util.math.PosVecIterable;
 import genesis.util.random.i.IntRange;
 import genesis.util.random.i.RandomIntProvider;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -217,67 +214,5 @@ public abstract class WorldGenDecorationBase extends WorldGenerator
 		}
 		
 		return false;
-	}
-	
-	public boolean isMatchInSphere(World world, BlockPos pos, WorldBlockMatcher matcher, float radius)
-	{
-		Iterable<? extends BlockPos> iter =
-				BlockPos.getAllInBoxMutable(pos.add(-radius, -radius, -radius), pos.add(radius, radius, radius));
-		int radiusSqr = (int) (radius * radius);	// Can cast to int because we're comparing to an int in the loop.
-		
-		for (BlockPos checkPos : iter)
-		{
-			if (WorldUtils.distSqr(pos, checkPos) <= radiusSqr
-					&& matcher.apply(world, checkPos))
-				return true;
-		}
-		
-		return false;
-	}
-	
-	public boolean isMatchInSphere(World world, BlockPos pos, Predicate<IBlockState> matcher, float radius)
-	{
-		return isMatchInSphere(world, pos, WorldBlockMatcher.state(matcher), radius);
-	}
-	
-	public boolean isMatchInSphere(World world, BlockPos pos, IBlockState match, float radius)
-	{
-		return isMatchInSphere(world, pos, WorldBlockMatcher.state(match), radius);
-	}
-	
-	public boolean isMatchInSphere(World world, BlockPos pos, Block match, float radius)
-	{
-		return isMatchInSphere(world, pos, WorldBlockMatcher.block(match), radius);
-	}
-	
-	public boolean isMatchInCylinder(World world, BlockPos pos, WorldBlockMatcher matcher, int radius, int startY, int endY)
-	{
-		Iterable<? extends BlockPos> iter =
-				BlockPos.getAllInBoxMutable(pos.add(-radius, startY, -radius), pos.add(radius, endY, radius));
-		int rSqr = radius * radius;
-		
-		for (BlockPos checkPos : iter)
-		{
-			if (WorldUtils.distHorizSqr(pos, checkPos) <= rSqr
-					&& matcher.apply(world, checkPos))
-				return true;
-		}
-		
-		return false;
-	}
-	
-	public boolean isMatchInCylinder(World world, BlockPos pos, Predicate<IBlockState> matcher, int radius, int startY, int endY)
-	{
-		return isMatchInCylinder(world, pos, WorldBlockMatcher.state(matcher), radius, startY, endY);
-	}
-	
-	public boolean isMatchInCylinder(World world, BlockPos pos, IBlockState match, int radius, int startY, int endY)
-	{
-		return isMatchInCylinder(world, pos, WorldBlockMatcher.state(match), radius, startY, endY);
-	}
-	
-	public boolean isMatchInCylinder(World world, BlockPos pos, Block match, int radius, int startY, int endY)
-	{
-		return isMatchInCylinder(world, pos, WorldBlockMatcher.block(match), radius, startY, endY);
 	}
 }

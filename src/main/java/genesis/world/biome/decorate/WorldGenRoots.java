@@ -4,6 +4,7 @@ import java.util.Random;
 
 import genesis.combo.TreeBlocksAndItems;
 import genesis.common.GenesisBlocks;
+import genesis.util.WorldUtils;
 import genesis.util.math.PosVecIterable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -43,7 +44,7 @@ public class WorldGenRoots extends WorldGenDecorationBase
 		
 		int length = 1 + random.nextInt(2);
 		
-		if (!isMatchInCylinder(world, pos, (s, w, p) -> GenesisBlocks.trees.isStateOf(s, TreeBlocksAndItems.LOG), 4, length, length + 2))
+		if (!WorldUtils.isMatchInCylinder(world, pos, (s, w, p) -> GenesisBlocks.trees.isStateOf(s, TreeBlocksAndItems.LOG), 4, length, length + 2))
 			return false;
 		
 		for (int i = 0; i < length; ++i)

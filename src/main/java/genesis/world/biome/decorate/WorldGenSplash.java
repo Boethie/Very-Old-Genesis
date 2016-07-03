@@ -10,6 +10,7 @@ import java.util.function.Function;
 import genesis.block.BlockMoss;
 import genesis.block.BlockMoss.EnumSoil;
 import genesis.common.GenesisBlocks;
+import genesis.util.WorldUtils;
 import genesis.util.functional.WorldBlockMatcher;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
@@ -61,7 +62,7 @@ public class WorldGenSplash extends WorldGenDecorationBase
 		pos = pos.down();
 		
 		// Check for water if necessary
-		if (dryRadius != -1 && isMatchInSphere(world, pos, WorldBlockMatcher.WATER, dryRadius))
+		if (dryRadius != -1 && WorldUtils.isMatchInSphere(world, pos, WorldBlockMatcher.WATER, dryRadius))
 			return false;
 		
 		IBlockState state = world.getBlockState(pos);
