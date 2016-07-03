@@ -1,6 +1,7 @@
 package genesis.common;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.tuple.Pair;
@@ -579,7 +580,8 @@ public final class GenesisRecipes
 			
 			ItemStack stack;
 			ItemStack flake = GenesisItems.tools.getStack(ToolItems.FLAKE, material);
-			Collection<Item> billets = GenesisBlocks.trees.getItems(TreeBlocksAndItems.BILLET);
+			Collection<ItemStack> billets = GenesisBlocks.trees.getItems(TreeBlocksAndItems.BILLET)
+					.stream().map((i) -> new ItemStack(i, 1, OreDictionary.WILDCARD_VALUE)).collect(Collectors.toList());
 			ItemStack[] feathers = {
 				new ItemStack(Items.feather),
 				GenesisItems.materials.getStack(EnumMaterial.COELOPHYSIS_FEATHER),
@@ -591,7 +593,7 @@ public final class GenesisRecipes
 			{
 				ItemStack arrow = GenesisItems.arrows.getStack(shaft, material);
 				
-				for (Item billet : billets)
+				for (ItemStack billet : billets)
 				{
 					for (ItemStack feather : feathers)
 					{
