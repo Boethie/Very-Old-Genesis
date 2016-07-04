@@ -44,11 +44,14 @@ public class WorldGenDung extends WorldGenDecorationBase
 		if (!allowedBlocks.contains(world.getBlockState(pos.down()).getBlock()))
 			return false;
 		
-		int maxHeight = 4 + rand.nextInt(16);
+		if (!world.isAirBlock(pos))
+			return false;
+		
+		int maxHeight = 7 + rand.nextInt(3);
 		
 		BlockPos curPos = pos;
 		
-		placeColumn(maxHeight, curPos, world, rand);
+		placeColumn(maxHeight, curPos, world, rand, false);
 		
 		for (int x = -1; x <= 1; ++x)
 		{
@@ -62,7 +65,7 @@ public class WorldGenDung extends WorldGenDecorationBase
 				
 				for (int i = 1; i <= spreadLength; ++i)
 				{
-					h -= (1 + rand.nextInt(8));
+					h -= (2 + rand.nextInt(3));
 					if (h > 0)
 					{
 						curPos = pos.add(i * x, 0, i * z);
@@ -81,17 +84,28 @@ public class WorldGenDung extends WorldGenDecorationBase
 			}
 		}
 		
+		int h = maxHeight - (2 + rand.nextInt(3));
+		placeColumn(h, pos.south(), world, rand);
+		
 		return true;
 	}
 	
 	private void placeColumn(int maxHeight, BlockPos curPos, World world, Random rand)
 	{
+		this.placeColumn(maxHeight, curPos, world, rand, true);
+	}
+	
+	private void placeColumn(int maxHeight, BlockPos curPos, World world, Random rand, boolean placeBase)
+	{
 		int wholeBlocks = (int)MathHelper.floor_float((float)maxHeight / 8.0F);
 		
-		checkAndPlaceBase(maxHeight, curPos.north(), world, rand);
-		checkAndPlaceBase(maxHeight, curPos.south(), world, rand);
-		checkAndPlaceBase(maxHeight, curPos.east(), world, rand);
-		checkAndPlaceBase(maxHeight, curPos.west(), world, rand);
+		if (placeBase)
+		{
+			checkAndPlaceBase(maxHeight, curPos.north(), world, rand);
+			checkAndPlaceBase(maxHeight, curPos.south(), world, rand);
+			checkAndPlaceBase(maxHeight, curPos.east(), world, rand);
+			checkAndPlaceBase(maxHeight, curPos.west(), world, rand);
+		}
 		
 		for (int i = 0; i < wholeBlocks; ++i)
 		{
@@ -107,9 +121,10 @@ public class WorldGenDung extends WorldGenDecorationBase
 	{
 		if (
 				allowedBlocks.contains(world.getBlockState(curPos.down()).getBlock())
-				&& world.isAirBlock(curPos))
+				&& world.isAirBlock(curPos)
+				&& rand.nextInt(3) == 0)
 		{
-			int splatHeight = rand.nextInt(maxHeight > 3 ? 3 : maxHeight);
+			int splatHeight = 1 + rand.nextInt(maxHeight > 2 ? 2 : maxHeight);
 			
 			if (splatHeight > 0)
 				this.setBlock(world, curPos, GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, dungType).withProperty(BlockDung.HEIGHT, splatHeight));

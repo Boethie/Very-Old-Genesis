@@ -3,6 +3,8 @@ package genesis.world.gen.feature;
 import java.util.Random;
 
 import genesis.combo.variant.EnumTree;
+import genesis.util.WorldUtils;
+import genesis.util.functional.WorldBlockMatcher;
 import genesis.util.random.i.IntRange;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -19,10 +21,8 @@ public class WorldGenTreeLepidodendron extends WorldGenTreeBase
 	{
 		int height = heightProvider.get(rand) - 5;
 		
-		if (!isCubeClear(world, pos.up(), 1, height))
-		{
+		if (!WorldUtils.isMatchInCylinder(world, pos.up(), WorldBlockMatcher.STANDARD_AIR, 6, pos.up().getY(), pos.up(height).getY()))
 			return false;
-		}
 		
 		for (int i = 0; i < height; i++)
 		{

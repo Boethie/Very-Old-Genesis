@@ -2,7 +2,6 @@ package genesis.world.biome;
 
 import java.util.Random;
 
-import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumDebrisOther;
 import genesis.combo.variant.EnumDung;
 import genesis.combo.variant.EnumPlant;

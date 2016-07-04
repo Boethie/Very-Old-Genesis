@@ -1,6 +1,8 @@
 package genesis.world.gen.feature;
 
 import genesis.combo.variant.EnumTree;
+import genesis.util.WorldUtils;
+import genesis.util.functional.WorldBlockMatcher;
 import genesis.util.random.i.IntRange;
 
 import java.util.Random;
@@ -20,9 +22,8 @@ public class WorldGenTreeSigillaria extends WorldGenTreeBase
 	{
 		int height = heightProvider.get(rand) - 5;
 		
-		if (!isCubeClear(world, pos, 1, height))
+		if (!WorldUtils.isMatchInCylinder(world, pos.up(), WorldBlockMatcher.STANDARD_AIR, 6, pos.up().getY(), pos.up(height).getY()))
 			return false;
-		
 		
 		for (int i = 0; i < height; i++)
 		{
