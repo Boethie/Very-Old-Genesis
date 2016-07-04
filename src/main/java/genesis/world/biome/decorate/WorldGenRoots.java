@@ -4,9 +4,11 @@ import java.util.Random;
 
 import genesis.combo.TreeBlocksAndItems;
 import genesis.common.GenesisBlocks;
-
+import genesis.util.WorldUtils;
+import genesis.util.math.PosVecIterable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -20,15 +22,13 @@ public class WorldGenRoots extends WorldGenDecorationBase
 	@Override
 	public boolean place(World world, Random random, BlockPos pos)
 	{
-		//pos = new BlockPos(pos.getX(), 80, pos.getZ());
-		
-		do
+		for (BlockPos checkPos : new PosVecIterable(pos, EnumFacing.DOWN))
 		{
-			IBlockState state = world.getBlockState(pos);
+			IBlockState state = world.getBlockState(checkPos);
 			
 			if (state.getMaterial() == Material.ground)
 			{
-				BlockPos below = pos.down();
+				BlockPos below = checkPos.down();
 				state = world.getBlockState(below);
 				
 				if (state.getBlock().isAir(state, world, below))
@@ -37,22 +37,21 @@ public class WorldGenRoots extends WorldGenDecorationBase
 					break;
 				}
 			}
+			
+			if (checkPos.getY() < 55)
+				return false;
 		}
-		while ((pos = pos.down()).getY() > 55);
 		
 		int length = 1 + random.nextInt(2);
 		
-		if (!isMatchInCylinder(world, pos, (s, w, p) -> GenesisBlocks.trees.isStateOf(s, TreeBlocksAndItems.LOG), 2, length, length + 8))
+		if (!WorldUtils.isMatchInCylinder(world, pos, (s, w, p) -> GenesisBlocks.trees.isStateOf(s, TreeBlocksAndItems.LOG), 4, length, length + 2))
 			return false;
 		
 		for (int i = 0; i < length; ++i)
 		{
 			BlockPos rootPos = pos.down(i);
-			IBlockState replacing = world.getBlockState(rootPos);
 			
-			if (replacing.getBlock().isAir(replacing, world, rootPos))
-				setAirBlock(world, rootPos, GenesisBlocks.roots.getDefaultState());
-			else
+			if (!setAirBlock(world, rootPos, GenesisBlocks.roots.getDefaultState()))
 				return false;
 		}
 		

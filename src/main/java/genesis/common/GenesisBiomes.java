@@ -188,7 +188,7 @@ public final class GenesisBiomes
 		
 		metaForestHills = new BiomeGenMetaForest(prop);
 		BiomeGenBase.registerBiome(GenesisConfig.metaForestHillsId, metaForestHills.getBiomeName(), metaForestHills);
-		BiomeDictionary.registerBiomeType(auxForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		BiomeDictionary.registerBiomeType(metaForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		prop = new BiomeGenBase.BiomeProperties("Swamp Rainforest");
 		prop.setTemperature(0.95F);

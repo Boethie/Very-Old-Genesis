@@ -40,7 +40,7 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 		addFlower(WorldGenPlant.create(EnumPlant.APOLDIA), 4);
 		
 		addDecoration(new WorldGenBoulders(GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT), 1, 0, 0).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.25F);
-		addDecoration(new WorldGenSplash(GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT), GenesisBlocks.silt.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.RED_SILT)).setPatchRadius(6), 4);
+		addDecoration(new WorldGenSplash(GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT), GenesisBlocks.silt.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.RED_SILT)).setPatchRadius(4), 7);
 		addDecoration(new WorldGenPebbles().setWaterRequired(false), 5);
 		addDecoration(new WorldGenRoots(), 5);
 	}
@@ -90,9 +90,9 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 	@Override
 	public Vec3d getFogColor()
 	{
-		float red = 0.766039216F;
-		float green = 0.687607843F;
-		float blue = 0.593490196F;
+		float red = 0.765039216F;
+		float green = 0.686607843F;
+		float blue = 0.592490196F;
 		
 		return new Vec3d(red, green, blue);
 	}
@@ -110,7 +110,7 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 	@Override
 	public int getSkyColorByTemp(float temperature)
 	{
-		return 0xC69D78;
+		return 0xB29277;
 	}
 	
 	public void genTerrainBlocks(World world, Random rand, ChunkPrimer chunkPrimer, int x, int z, double noiseVal)

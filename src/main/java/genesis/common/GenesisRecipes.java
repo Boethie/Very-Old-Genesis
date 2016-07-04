@@ -1,6 +1,7 @@
 package genesis.common;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.tuple.Pair;
@@ -579,18 +580,31 @@ public final class GenesisRecipes
 			
 			ItemStack stack;
 			ItemStack flake = GenesisItems.tools.getStack(ToolItems.FLAKE, material);
+			Collection<ItemStack> billets = GenesisBlocks.trees.getItems(TreeBlocksAndItems.BILLET)
+					.stream().map((i) -> new ItemStack(i, 1, OreDictionary.WILDCARD_VALUE)).collect(Collectors.toList());
+			ItemStack[] feathers = {
+				new ItemStack(Items.feather),
+				GenesisItems.materials.getStack(EnumMaterial.COELOPHYSIS_FEATHER),
+				GenesisItems.materials.getStack(EnumMaterial.EPIDEXIPTERYX_FEATHER),
+				GenesisItems.materials.getStack(EnumMaterial.TYRANNOSAURUS_FEATHER),
+			};
 			
 			for (EnumArrowShaft shaft : EnumArrowShaft.values())
 			{
-				for (Item billet : GenesisBlocks.trees.getItems(TreeBlocksAndItems.BILLET))
+				ItemStack arrow = GenesisItems.arrows.getStack(shaft, material);
+				
+				for (ItemStack billet : billets)
 				{
-					GameRegistry.addRecipe(GenesisItems.arrows.getStack(shaft, material),
-							"^",
-							"|",
-							"/",
-							'^', flake,
-							'|', billet,
-							'/', Items.feather);
+					for (ItemStack feather : feathers)
+					{
+						GameRegistry.addRecipe(arrow,
+								"^",
+								"|",
+								"/",
+								'^', flake,
+								'|', billet,
+								'/', feather);
+					}
 				}
 			}
 			

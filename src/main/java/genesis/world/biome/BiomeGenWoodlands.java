@@ -2,8 +2,8 @@ package genesis.world.biome;
 
 import java.util.Random;
 
-import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumDebrisOther;
+import genesis.combo.variant.EnumDung;
 import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
@@ -13,6 +13,7 @@ import genesis.world.biome.decorate.WorldGenBoulders;
 import genesis.world.biome.decorate.WorldGenCircleReplacement;
 import genesis.world.biome.decorate.WorldGenDebris;
 import genesis.world.biome.decorate.WorldGenDecorationOnBlock;
+import genesis.world.biome.decorate.WorldGenDung;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenPlant;
 import genesis.world.biome.decorate.WorldGenRoots;
@@ -42,15 +43,15 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 	
 	protected void addDecorations()
 	{
-		//TODO: Todites will be replaced by another fern.
 		getDecorator().setGrassCount(7);
-		addGrass(WorldGenPlant.create(EnumPlant.TODITES).setPatchCount(9), 1);
+		addGrass(WorldGenPlant.create(EnumPlant.DRYOPTERIS).setPatchCount(9), 1);
 		
 		getDecorator().setFlowerCount(0.15F);
 		addFlower(WorldGenPlant.create(EnumPlant.PALAEOASTER).setPatchCount(9), 1);
 		
 		addDecoration(WorldGenSplash.createHumusSplash(), 2.75F);
 		addDecoration(new WorldGenBoulders(0.166F, 0.333F, 1).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.4F);
+		addDecoration(new WorldGenDung(EnumDung.CARNIVORE), 0.08F);
 		addDecoration(new WorldGenStemonitis().setPatchCount(14), 6);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setPatchCount(3), 0.15F);
 		addDecoration(new WorldGenAsplenium().setPatchCount(10), 10);
@@ -74,7 +75,7 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		addTree(new WorldGenTreeDryophyllum(8, 13, false), 600);
 		addTree(new WorldGenTreeDryophyllum(18, 22, false).setType(TreeTypes.TYPE_2), 50);
 		addTree(new WorldGenTreeMetasequoia(12, 24, true), 100);
-		addTree(new WorldGenTreeDryophyllum(16, 18, false, GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.DEAD_LOG, EnumTree.DRYOPHYLLUM)).setType(TreeTypes.TYPE_3), 1);
+		//addTree(new WorldGenTreeDryophyllum(16, 18, false, GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.DEAD_LOG, EnumTree.DRYOPHYLLUM)).setType(TreeTypes.TYPE_3), 1);
 		
 		addTree(new WorldGenDeadLog(5, 8, EnumTree.DRYOPHYLLUM, true), 28);
 		addTree(new WorldGenDeadLog(5, 8, EnumTree.METASEQUOIA, true), 5);

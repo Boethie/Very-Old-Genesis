@@ -2,6 +2,7 @@ package genesis.block;
 
 import java.util.Random;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -24,6 +25,7 @@ public class BlockGenesisPath extends Block
 		super(modelState.getMaterial());
 		this.modelState = modelState;
 		setLightOpacity(255);
+		setSoundType(SoundType.GROUND);
 	}
 	
 	@Override

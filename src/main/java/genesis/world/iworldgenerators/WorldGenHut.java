@@ -60,6 +60,11 @@ public class WorldGenHut implements IWorldGenerator {
 			WorldGenHelper.deleteTree(world, pos);
 		}
 		
+		for (BlockPos pos : BlockPos.getAllInBox(start.add(2, 2, 2), start.add(4, 5, 6)))
+		{
+			world.setBlockToAir(pos);
+		}
+		
 		//Starting generation
 		
 		Genesis.logger.debug("Starting generation of the hut at " + start.toString());
@@ -78,7 +83,8 @@ public class WorldGenHut implements IWorldGenerator {
 					
 					if (state == null)
 					{
-						world.setBlockToAir(pos);
+						if(world.getBlockState(pos).getMaterial().isReplaceable())
+							world.setBlockToAir(pos);
 					}
 					else
 					{

@@ -156,7 +156,7 @@ public class BlockGenesisSaplings extends BlockSapling
 			gen = new WorldGenTreeBjuvia(4, 6, true);
 			break;
 		case VOLTZIA:
-			gen = new WorldGenTreeVoltzia(5, 10, true);
+			gen = new WorldGenTreeVoltzia(4, 8, true);
 			break;
 		case METASEQUOIA:
 			positions = Objects.firstNonNull(findSaplings(world, pos, variant, 2), positions);
