@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.IFluidBlock;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -99,27 +100,5 @@ public class WorldGenHelper
 		{
 			world.setBlockToAir(pos);
 		}
-	}
-	
-	public static boolean isFluidAround(World world, BlockPos center, int radius, int Hradius, @Nullable Fluid fluid)
-	{
-		for (BlockPos pos : BlockPos.getAllInBox(center.add(-radius, -Hradius, -radius), center.add(radius, Hradius, radius)))
-		{
-			IBlockState block = world.getBlockState(pos);
-			
-			if (block.getBlock() instanceof IFluidBlock)
-			{
-				if (fluid == null)
-				{
-					return true;
-				}
-				else if (((IFluidBlock)block.getBlock()).getFluid() == fluid)
-				{
-					return true;
-				}
-			}
-		}
-		
-		return false;
 	}
 }

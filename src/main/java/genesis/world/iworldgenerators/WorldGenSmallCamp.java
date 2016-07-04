@@ -16,6 +16,7 @@ import genesis.common.GenesisConfig;
 import genesis.common.GenesisDimensions;
 import genesis.common.GenesisItems;
 import genesis.common.GenesisLoot;
+import genesis.util.WorldUtils;
 import genesis.world.biome.BiomeGenAuxForest;
 import genesis.world.biome.BiomeGenMetaForest;
 import genesis.world.biome.BiomeGenWoodlands;
@@ -28,6 +29,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
 public class WorldGenSmallCamp implements IWorldGenerator
@@ -82,10 +85,21 @@ public class WorldGenSmallCamp implements IWorldGenerator
 		
 		start = WorldGenHelper.findSurface(world, start);
 		
-		if (WorldGenHelper.isFluidAround(world, start.add(4, 0, 4), 5, 3, null))
+		if (WorldUtils.waterInRange(world, start, 16, 16))
 			return;
 		
 		Genesis.logger.debug("Starting generation of the small camp at " + start.toString());
+		
+		for (BlockPos bp : BlockPos.getAllInBox(start, start.add(8, 0, 8)))
+		{
+			BiomeGenBase bBiome = world.getBiomeGenForCoords(bp);
+			
+			if (BiomeDictionary.isBiomeOfType(bBiome, Type.HILLS) || BiomeDictionary.isBiomeOfType(bBiome, Type.MOUNTAIN))
+				return;
+		}
+		
+		for (BlockPos bp : BlockPos.getAllInBox(start, start.add(8, 9, 8)))
+			WorldGenHelper.deleteTree(world, bp);
 		
 		BlockPos boxPos = null;
 		
@@ -173,10 +187,38 @@ public class WorldGenSmallCamp implements IWorldGenerator
 			tree = EnumTree.DRYOPHYLLUM;
 		}
 		
+		int highestYX = 0;
+		int highestYZ = 0;
+		
+		for (BlockPos pos : logsPos)
+		{
+			if (world.getBlockState(pos).getValue(BlockLog.LOG_AXIS) == BlockLog.EnumAxis.X)
+			{
+				if (pos.getY() > highestYX)
+				{
+					highestYX = pos.getY();
+				}
+			}
+			
+			if (world.getBlockState(pos).getValue(BlockLog.LOG_AXIS) == BlockLog.EnumAxis.Z)
+			{
+				if (pos.getY() > highestYZ)
+				{
+					highestYZ = pos.getY();
+				}
+			}
+		}
+		
 		if (tree != null)
 			for (BlockPos pos : logsPos)
 			{
-				world.setBlockState(pos, GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LOG, tree).withProperty(BlockLog.LOG_AXIS, world.getBlockState(pos).getValue(BlockLog.LOG_AXIS)));
+				IBlockState state = GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LOG, tree).withProperty(BlockLog.LOG_AXIS, world.getBlockState(pos).getValue(BlockLog.LOG_AXIS));
+				
+				world.setBlockToAir(pos);
+				
+				pos = new BlockPos(pos.getX(), state.getValue(BlockLog.LOG_AXIS) == BlockLog.EnumAxis.X ? highestYX : highestYZ, pos.getZ());
+				
+				world.setBlockState(pos, state);
 			}
 	}
 
