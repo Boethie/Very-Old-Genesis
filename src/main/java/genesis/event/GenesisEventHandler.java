@@ -20,7 +20,9 @@ import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
+import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
 
 public class GenesisEventHandler
@@ -84,7 +86,7 @@ public class GenesisEventHandler
 			
 			if (!(biomegenbase.canRain() || biomegenbase.getEnableSnow()))
             {
-				if (entity.ticksExisted % 60 == 0)
+				if (entity.ticksExisted % 30 == 0)
 				{
 					if(world.canSeeSky(entity.getPosition()))
 					{
@@ -102,6 +104,36 @@ public class GenesisEventHandler
 					}
 				}
             }
+		}
+	}
+	
+	@SubscribeEvent
+	public void onPlayerTick(PlayerTickEvent event)
+	{
+		EntityPlayer entity = event.player;
+		World world = entity.getEntityWorld();
+		if(event.phase == TickEvent.Phase.START)
+		{
+			if (entity.getEntityWorld().getRainStrength(1) > 0)
+			{
+				BiomeGenBase biomegenbase = world.getBiomeGenForCoords(entity.getPosition());
+			
+				if (!(biomegenbase.canRain() || biomegenbase.getEnableSnow()))
+				{
+						if(world.canSeeSky(entity.getPosition()))
+						{	
+							if(!world.isRemote)
+							{
+								double pushDist = entity.isSneaking() ? 0.5 : 1;
+								
+								entity.motionX+=MathHelper.getRandomDoubleInRange(world.rand, -pushDist, pushDist);
+								entity.motionZ+=MathHelper.getRandomDoubleInRange(world.rand, -pushDist, pushDist);
+								
+								entity.fallDistance+=0.05F;
+							}
+						}
+				}
+			}
 		}
 	}
 }
