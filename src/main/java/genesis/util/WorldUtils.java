@@ -520,11 +520,11 @@ public class WorldUtils
 		return isMatchInSphere(world, pos, WorldBlockMatcher.block(match), radius);
 	}
 	
-	public static boolean isMatchInCylinder(World world, BlockPos pos, WorldBlockMatcher matcher, int radius, int startY, int endY)
+	public static boolean isMatchInCylinder(World world, BlockPos pos, WorldBlockMatcher matcher, float radius, int startY, int endY)
 	{
 		Iterable<? extends BlockPos> iter =
 				BlockPos.getAllInBoxMutable(pos.add(-radius, startY, -radius), pos.add(radius, endY, radius));
-		int rSqr = radius * radius;
+		int rSqr = (int) (radius * radius);
 		
 		for (BlockPos checkPos : iter)
 		{
@@ -536,17 +536,17 @@ public class WorldUtils
 		return false;
 	}
 	
-	public static boolean isMatchInCylinder(World world, BlockPos pos, Predicate<IBlockState> matcher, int radius, int startY, int endY)
+	public static boolean isMatchInCylinder(World world, BlockPos pos, Predicate<IBlockState> matcher, float radius, int startY, int endY)
 	{
 		return isMatchInCylinder(world, pos, WorldBlockMatcher.state(matcher), radius, startY, endY);
 	}
 	
-	public static boolean isMatchInCylinder(World world, BlockPos pos, IBlockState match, int radius, int startY, int endY)
+	public static boolean isMatchInCylinder(World world, BlockPos pos, IBlockState match, float radius, int startY, int endY)
 	{
 		return isMatchInCylinder(world, pos, WorldBlockMatcher.state(match), radius, startY, endY);
 	}
 	
-	public static boolean isMatchInCylinder(World world, BlockPos pos, Block match, int radius, int startY, int endY)
+	public static boolean isMatchInCylinder(World world, BlockPos pos, Block match, float radius, int startY, int endY)
 	{
 		return isMatchInCylinder(world, pos, WorldBlockMatcher.block(match), radius, startY, endY);
 	}

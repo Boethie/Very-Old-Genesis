@@ -21,7 +21,7 @@ public class WorldGenTreeLepidodendron extends WorldGenTreeBase
 	{
 		int height = heightProvider.get(rand) - 5;
 		
-		if (!WorldUtils.isMatchInCylinder(world, pos.up(), WorldBlockMatcher.STANDARD_AIR, 6, pos.up().getY(), pos.up(height).getY()))
+		if (WorldUtils.isMatchInCylinder(world, pos, WorldBlockMatcher.not(WorldBlockMatcher.STANDARD_AIR), 1, 1, height))
 			return false;
 		
 		for (int i = 0; i < height; i++)
