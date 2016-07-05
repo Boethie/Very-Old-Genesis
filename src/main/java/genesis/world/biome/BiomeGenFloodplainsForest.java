@@ -35,6 +35,7 @@ public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
 		
 		addDecoration(WorldGenSplash.createHumusSplash(), 1.35F);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchCount(4), 2);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.prototaxites), 0.175F);
 		addDecoration(WorldGenCircleReplacement.getPeatGen(), 1);
 		addDecoration(new WorldGenMossStages(), 30);
 		addDecoration(new WorldGenRoots(), 13);
