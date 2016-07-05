@@ -20,7 +20,7 @@ public class BiomeGenRiver extends BiomeGenBaseGenesis implements IEntityPreferr
 	{
 		super(properties);
 		
-		addDecoration(new WorldGenBoulders(0, 0.25F, 1).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 3.5F);
+		addDecoration(new WorldGenBoulders(0, 0.25F, 1).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.25F, 0.75F)), 3.5F);
 		addDecoration(new WorldGenPebbles(), 25);
 		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.BANGIOMORPHA).setPatchCount(9), 1.5F);
 		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.MARPOLIA).setPatchCount(9), 0.75F);

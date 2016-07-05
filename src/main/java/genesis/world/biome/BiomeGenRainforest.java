@@ -37,7 +37,7 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 		addGrass(WorldGenPlant.create(EnumPlant.ZYGOPTERIS).setPatchCount(14), 1);
 		
 		addDecoration(WorldGenSplash.createHumusSplash(), 2.75F);
-		addDecoration(new WorldGenBoulders(0.055F, 5, 1).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 1.35F);
+		addDecoration(new WorldGenBoulders(0.055F, 5, 1).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.25F, 0.75F)), 1.35F);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchCount(3), 2);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchCount(4), 2);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setPatchCount(3), 3);
@@ -49,7 +49,7 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 	
 	protected void addTrees()
 	{
-		getDecorator().setTreeCount(20.7F);
+		getDecorator().setTreeCount(20.6F);
 		
 		addTree(new WorldGenTreeSigillaria(10, 15, true).generateVine(10), 17);
 		addTree(new WorldGenTreePsaronius(5, 8, true).generateVine(10), 14);

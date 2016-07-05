@@ -42,7 +42,7 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 		addGrass(WorldGenPlant.create(EnumPlant.MATONIDIUM).setPatchCount(9), 1);
 		
 		addDecoration(WorldGenSplash.createHumusSplash(), 2.1F);
-		addDecoration(new WorldGenBoulders(0.071F, 0.142F, 1).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 0.4F);
+		addDecoration(new WorldGenBoulders(0.071F, 0.142F, 1).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.25F, 0.75F)), 0.4F);
 		addDecoration(new WorldGenDung(EnumDung.HERBIVORE), 0.08F);
 		
 		//TODO: WorldGenPaleogaracites should be instead called/moved inside the dead log generation.
