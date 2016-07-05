@@ -591,7 +591,7 @@ public final class GenesisRecipes
 			
 			for (EnumArrowShaft shaft : EnumArrowShaft.values())
 			{
-				ItemStack arrow = GenesisItems.arrows.getStack(shaft, material);
+				ItemStack arrow = GenesisItems.arrows.getStack(shaft, material, 4);
 				
 				for (ItemStack billet : billets)
 				{
