@@ -27,6 +27,7 @@ public class BlockStorageBox extends Block
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	public static final PropertyBool LEFT = PropertyBool.create("left");
 	public static final PropertyBool RIGHT = PropertyBool.create("right");
+	public static final AxisAlignedBB BOUNDS = new AxisAlignedBB(0, 0, 0, 1, 0.9375, 1);
 	
 	public BlockStorageBox()
 	{
@@ -240,6 +241,12 @@ public class BlockStorageBox extends Block
 		}
 		
 		return null;
+	}
+	
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
+	{
+		return BOUNDS;
 	}
 	
 	@Override

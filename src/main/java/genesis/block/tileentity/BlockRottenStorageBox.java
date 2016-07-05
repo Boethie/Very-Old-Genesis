@@ -36,14 +36,6 @@ public class BlockRottenStorageBox extends Block
 		setHardness(0.5F);
 	}
 	
-	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
-	{
-		/*placeWithItems(world, pos, genesis.common.GenesisItems.menhir_activators.getStack(genesis.combo.variant.EnumMenhirActivator.FOSSILIZED_EGG));
-		if (getTileEntity(world, pos) != null)
-			System.out.println(genesis.util.Stringify.stringify(getTileEntity(world, pos).inventory));*/
-	}
-	
 	public void placeWithItems(World world, BlockPos pos, ItemStack... stacks)
 	{
 		world.setBlockState(pos, getDefaultState());
@@ -157,6 +149,12 @@ public class BlockRottenStorageBox extends Block
 			return (TileEntityRottenStorageBox) te;
 		
 		return null;
+	}
+	
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
+	{
+		return BOUNDS;
 	}
 	
 	@Override
