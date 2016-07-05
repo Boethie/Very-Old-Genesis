@@ -37,7 +37,7 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 		addGrass(WorldGenPlant.create(EnumPlant.ZYGOPTERIS).setPatchCount(14), 1);
 		
 		addDecoration(WorldGenSplash.createHumusSplash(), 2.75F);
-		addDecoration(new WorldGenBoulders(0.055F, 0.333F, 1).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 1);
+		addDecoration(new WorldGenBoulders(0.055F, 5, 1).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.5F, 1)), 1.35F);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchCount(3), 2);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchCount(4), 2);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setPatchCount(3), 3);
@@ -49,14 +49,14 @@ public class BiomeGenRainforest extends BiomeGenBaseGenesis
 	
 	protected void addTrees()
 	{
-		getDecorator().setTreeCount(25.4F);
+		getDecorator().setTreeCount(20.7F);
 		
-		addTree(new WorldGenTreeSigillaria(10, 15, true).generateVine(8), 17);
-		addTree(new WorldGenTreePsaronius(5, 8, true).generateVine(8), 14);
-		addTree(new WorldGenTreeLepidodendron(14, 20, true).generateVine(8), 20);
+		addTree(new WorldGenTreeSigillaria(10, 15, true).generateVine(10), 17);
+		addTree(new WorldGenTreePsaronius(5, 8, true).generateVine(10), 14);
+		addTree(new WorldGenTreeLepidodendron(14, 20, true).generateVine(10), 20);
 		
-		addTree(new WorldGenDeadLog(5, 8, EnumTree.LEPIDODENDRON, true), 2);
-		addTree(new WorldGenDeadLog(4, 7, EnumTree.SIGILLARIA, true), 1);
+		addTree(new WorldGenDeadLog(5, 8, EnumTree.LEPIDODENDRON, true).setCanGrowInWater(true), 2);
+		addTree(new WorldGenDeadLog(4, 7, EnumTree.SIGILLARIA, true).setCanGrowInWater(true), 1);
 	}
 	
 	@Override
