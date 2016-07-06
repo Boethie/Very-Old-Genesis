@@ -123,7 +123,7 @@ public class RenderFog
 						if(!biome.canRain() && !biome.getEnableSnow())
 						{
 							dust_storm = true;
-							red+=0.4F;
+							red+=0.15F;
 						}
 					
 					red += (float) color.xCoord;
@@ -248,8 +248,8 @@ public class RenderFog
 			
 			if (dust_storm)
 			{
-				GlStateManager.setFogStart(6.4F + world.rand.nextFloat() / 100);
-				GlStateManager.setFogEnd(9.5F + world.rand.nextFloat() / 100);
+				GlStateManager.setFogStart(3.4F + world.rand.nextFloat() / 100);
+				GlStateManager.setFogEnd(19.5F + world.rand.nextFloat() / 100);
 			}
 			else
 			{

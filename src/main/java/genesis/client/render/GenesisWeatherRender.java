@@ -197,7 +197,7 @@ public class GenesisWeatherRender extends IRenderHandler {
                                 vertexbuffer.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
                             }
 
-                            double d8 = -((er.rendererUpdateCount & 511) + partialTicks) / 2;//512
+                            double d8 = -((er.rendererUpdateCount & 511) + partialTicks) / (4+er.random.nextFloat());//512
                             double d9 = er.random.nextDouble() + f1 * 0.01D * ((float)er.random.nextGaussian());
                             double d10 = er.random.nextDouble() + f1 * (float)er.random.nextGaussian() * 0.001D;
                             double d11 = l1 + 0.5F - entity.posX;
