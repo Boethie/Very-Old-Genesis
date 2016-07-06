@@ -347,7 +347,7 @@ public class BlockMoss extends BlockGrass
 			}
 			else if (rand.nextInt(10) == 0)
 			{
-				world.setBlockState(pos, Blocks.dirt.getDefaultState());
+				world.setBlockState(pos, state.getValue(SOIL).getState());
 			}
 		}
 	}
