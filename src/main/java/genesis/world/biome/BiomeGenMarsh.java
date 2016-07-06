@@ -7,6 +7,7 @@ import genesis.combo.SiltBlocks;
 import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.EnumSilt;
 import genesis.common.GenesisBlocks;
+import genesis.util.random.f.FloatRange;
 import genesis.world.biome.decorate.*;
 
 import net.minecraft.block.material.Material;
@@ -22,10 +23,10 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 	{
 		super(properties);
 		
-		getDecorator().setGrassCount(5);
+		getDecorator().setGrassCount(7);
 		addGrass(WorldGenPlant.create(PlantBlocks.PLANT, EnumPlant.ASTEROXYLON).setPatchCount(5), 1);
 		
-		getDecorator().setFlowerCount(9);
+		getDecorator().setFlowerCount(7);
 		addFlower(WorldGenPlant.create(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.ASTEROXYLON), 5);
 		addFlower(WorldGenPlant.create(EnumPlant.RHYNIA).setPatchCount(4), 6);
 		addFlower(WorldGenPlant.create(EnumPlant.NOTHIA).setPatchCount(4), 5);
@@ -34,9 +35,22 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		addFlower(WorldGenPlant.create(EnumPlant.BARAGWANATHIA).setPatchCount(4), 1);
 		addFlower(WorldGenPlant.create(EnumPlant.COOKSONIA).setPatchCount(4), 1);
 		
+		addDecoration(WorldGenSplash.createHumusSplash(), 4.65F);
 		addDecoration(new WorldGenSplash(GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT), GenesisBlocks.silt.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.SILT)), 14);
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.prototaxites).setPatchCount(3), 0.142F);
-		addDecoration(new WorldGenMossStages(), 30);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.prototaxites).setPatchCount(3), 0.182F);
+		addDecoration(WorldGenCircleReplacement.getPeatGen(), 4);
+	}
+	
+	@Override
+	public float getFogDensity()
+	{
+		return 0.35F;
+	}
+	
+	@Override
+	public float getNightFogModifier()
+	{
+		return 0.65F;
 	}
 	
 	@Override
@@ -68,7 +82,6 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 		mossStages = new int[2];
 		mossStages[0] = 0;
 		mossStages[1] = 1;
-		
 		super.genTerrainBlocks(world, rand, chunkPrimer, chunkX, chunkZ, d);
 	}
 }
