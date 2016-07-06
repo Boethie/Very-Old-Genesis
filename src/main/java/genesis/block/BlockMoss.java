@@ -360,14 +360,14 @@ public class BlockMoss extends BlockGrass
 			EntityPlayer player, EnumHand hand, ItemStack held,
 			EnumFacing side, float hitX, float hitY, float hitZ)
 	{
-		if (held != null && (held.getItem() instanceof ItemHoe))
+		if (held != null && held.getItem() instanceof ItemHoe)
 		{
 			if (!player.canPlayerEdit(pos.offset(side), side, held))
 			{
 				return false;
 			}
 			
-			if ((side != EnumFacing.DOWN) && world.isAirBlock(pos.up()))
+			if (side != EnumFacing.DOWN && world.isAirBlock(pos.up()))
 			{
 				IBlockState newState = Blocks.farmland.getDefaultState();
 				
