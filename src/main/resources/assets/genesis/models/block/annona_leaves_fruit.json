@@ -1,0 +1,36 @@
+{
+	"__comment": "This model was created with freundTech's Blender2Minecraft converter (BETA)",
+	"parent": "block/block",
+	"ambientocclusion": true,
+	"elements": [
+		{	"__comment": "Leaves",
+			"from": [ 0, 0, 0 ],
+			"to": [ 16, 16, 16 ],
+			"faces": {
+				"west": { "uv": [ 0, 0, 16, 16 ], "texture": "#leaves", "tintindex": 0 },
+				"north": { "uv": [ 0, 0, 16, 16 ], "texture": "#leaves", "tintindex": 0 },
+				"east": { "uv": [ -0, 0, 16, 16 ], "texture": "#leaves", "tintindex": 0 },
+				"south": { "uv": [ 0, 0, 16, 16 ], "texture": "#leaves", "tintindex": 0 },
+				"down": { "uv": [ 0, 0, 16, 16 ], "texture": "#leaves", "tintindex": 0 },
+				"up": { "uv": [ 0, 0, 16, 16 ], "texture": "#leaves", "tintindex": 0 }
+			}
+		},
+		{	"__comment": "Annona Sides",
+			"from": [ 0, 0, 0 ],
+			"to": [ 16, 16, 16 ],
+			"faces": {
+				"west": { "uv": [ 0, 0, 16, 16 ], "texture": "#annona_2" },
+				"north": { "uv": [ 0, 0, 16, 16 ], "texture": "#annona_1" },
+				"east": { "uv": [ 0, 0, 16, 16 ], "texture": "#annona_2" },
+				"south": { "uv": [ 0, 0, 16, 16 ], "texture": "#annona_1" },
+				"down": { "uv": [ 0, 0, 16, 16 ], "texture": "#annona_1" }
+			}
+		}
+	],
+	"textures": {
+		"leaves": "genesis:blocks/leaves_annona",
+		"annona_2": "genesis:blocks/fruit_annona_side_2",
+		"annona_1": "genesis:blocks/fruit_annona_side_1",
+		"particle": "genesis:blocks/leaves_annona"
+	}
+}
