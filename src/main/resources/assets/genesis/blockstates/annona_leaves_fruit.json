@@ -1,6 +1,16 @@
 {
+	"forge_marker": 1,
+	"defaults": {
+		"textures": {
+			"leaves": "genesis:blocks/leaves_annona",
+			"fruit": "genesis:blocks/fruit_annona",
+			"particle": "#leaves"
+		},
+		"model": "genesis:leaves_fruit_simple",
+		"transform": "forge:default-block"
+	},
 	"variants": {
-		"normal": { "model": "genesis:annona_leaves_fruit" }
+		"normal": [{}],
+		"inventory": [{}]
 	}
 }
-
