@@ -1,7 +1,7 @@
 {
 	"parent": "genesis:block/rack",
 	"textures": {
-		"side": "genesis:blocks/log_metasequoia",
+		"side": "genesis:blocks/log_metasequoia_0",
 		"end": "genesis:blocks/log_metasequoia_top"
 	}
 }

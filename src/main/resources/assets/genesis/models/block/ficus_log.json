@@ -2,6 +2,6 @@
 	"parent": "block/cube_column",
 	"textures": {
 		"end": "genesis:blocks/log_ficus_top",
-		"side": "genesis:blocks/log_ficus"
+		"side": "genesis:blocks/log_ficus_0"
 	}
 }

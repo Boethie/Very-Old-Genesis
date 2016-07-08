@@ -1,8 +1,8 @@
 {
 	"parent": "genesis:block/wattle_fence_item",
 	"textures": {
-		"particle": "genesis:blocks/log_archaeanthus",
-		"log": "genesis:blocks/log_archaeanthus",
+		"particle": "genesis:blocks/log_archaeanthus_0",
+		"log": "genesis:blocks/log_archaeanthus_0",
 		"stick": "genesis:blocks/stick_archaeanthus"
 	}
 }
