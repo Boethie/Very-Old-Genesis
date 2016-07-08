@@ -2,8 +2,8 @@
 	"forge_marker": 1,
 	"defaults": {
 		"textures": {
-			"particle": "genesis:blocks/log_metasequoia",
-			"log": "genesis:blocks/log_metasequoia",
+			"particle": "genesis:blocks/log_metasequoia_0",
+			"log": "genesis:blocks/log_metasequoia_0",
 			"stick": "genesis:blocks/stick_metasequoia"
 		},
 		"model": "genesis:wattle_fence_post"

@@ -1,8 +1,25 @@
 {
+	"forge_marker": 1,
+	"defaults": {
+		"model": "cube_column",
+		"textures": { "end": "genesis:blocks/log_lepidodendron_top" }
+	},
 	"variants": {
-		"axis=y":  { "model": "genesis:lepidodendron_log" },
-		"axis=z":   { "model": "genesis:lepidodendron_log", "x": 90 },
-		"axis=x":   { "model": "genesis:lepidodendron_log", "x": 90, "y": 90 },
-		"axis=none": { "model": "genesis:lepidodendron_bark" }
+		"axis=y": [
+			{ "textures": { "side": "genesis:blocks/log_lepidodendron_0" } },
+			{ "textures": { "side": "genesis:blocks/log_lepidodendron_1" } }
+		],
+		"axis=z": [
+			{ "textures": { "side": "genesis:blocks/log_lepidodendron_0" }, "x": 90 },
+			{ "textures": { "side": "genesis:blocks/log_lepidodendron_1" }, "x": 90 }
+		],
+		"axis=x": [
+			{ "textures": { "side": "genesis:blocks/log_lepidodendron_0" }, "x": 90, "y": 90 },
+			{ "textures": { "side": "genesis:blocks/log_lepidodendron_1" }, "x": 90, "y": 90 }
+		],
+		"axis=none": [
+			{ "model": "cube_all", "textures": { "all": "genesis:blocks/log_lepidodendron_0" } },
+			{ "model": "cube_all", "textures": { "all": "genesis:blocks/log_lepidodendron_1" } }
+		]
 	}
 }

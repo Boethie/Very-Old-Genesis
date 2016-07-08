@@ -1,7 +1,7 @@
 {
 	"parent": "genesis:block/rack",
 	"textures": {
-		"side": "genesis:blocks/log_archaeopteris",
+		"side": "genesis:blocks/log_archaeopteris_0",
 		"end": "genesis:blocks/log_archaeopteris_top"
 	}
 }

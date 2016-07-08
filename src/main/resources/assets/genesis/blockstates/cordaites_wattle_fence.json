@@ -2,8 +2,8 @@
 	"forge_marker": 1,
 	"defaults": {
 		"textures": {
-			"particle": "genesis:blocks/log_cordaites",
-			"log": "genesis:blocks/log_cordaites",
+			"particle": "genesis:blocks/log_cordaites_0",
+			"log": "genesis:blocks/log_cordaites_0",
 			"stick": "genesis:blocks/stick_cordaites"
 		},
 		"model": "genesis:wattle_fence_post"

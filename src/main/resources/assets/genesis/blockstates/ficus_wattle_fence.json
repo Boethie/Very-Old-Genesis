@@ -2,8 +2,8 @@
 	"forge_marker": 1,
 	"defaults": {
 		"textures": {
-			"particle": "genesis:blocks/log_ficus",
-			"log": "genesis:blocks/log_ficus",
+			"particle": "genesis:blocks/log_ficus_0",
+			"log": "genesis:blocks/log_ficus_0",
 			"stick": "genesis:blocks/stick_ficus"
 		},
 		"model": "genesis:wattle_fence_post"

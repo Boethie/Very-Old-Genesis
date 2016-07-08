@@ -2,8 +2,8 @@
 	"forge_marker": 1,
 	"defaults": {
 		"textures": {
-			"particle": "genesis:blocks/log_sigillaria",
-			"log": "genesis:blocks/log_sigillaria",
+			"particle": "genesis:blocks/log_sigillaria_0",
+			"log": "genesis:blocks/log_sigillaria_0",
 			"stick": "genesis:blocks/stick_sigillaria"
 		},
 		"model": "genesis:wattle_fence_post"

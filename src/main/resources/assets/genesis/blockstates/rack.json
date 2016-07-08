@@ -9,31 +9,31 @@
 		"variant": {
 			"archaeopteris": {
 				"textures": {
-					"side": "genesis:blocks/log_archaeopteris",
+					"side": "genesis:blocks/log_archaeopteris_0",
 					"end": "genesis:blocks/log_archaeopteris_top"
 				}
 			},
 			"sigillaria": {
 				"textures": {
-					"side": "genesis:blocks/log_sigillaria",
+					"side": "genesis:blocks/log_sigillaria_0",
 					"end": "genesis:blocks/log_sigillaria_top"
 				}
 			},
 			"lepidodendron": {
 				"textures": {
-					"side": "genesis:blocks/log_lepidodendron",
+					"side": "genesis:blocks/log_lepidodendron_0",
 					"end": "genesis:blocks/log_lepidodendron_top"
 				}
 			},
 			"cordaites": {
 				"textures": {
-					"side": "genesis:blocks/log_cordaites",
+					"side": "genesis:blocks/log_cordaites_0",
 					"end": "genesis:blocks/log_cordaites_top"
 				}
 			},
 			"ginkgo": {
 				"textures": {
-					"side": "genesis:blocks/log_ginkgo",
+					"side": "genesis:blocks/log_ginkgo_0",
 					"end": "genesis:blocks/log_ginkgo_top"
 				}
 			},
@@ -45,32 +45,38 @@
 			},
 			"araucarioxylon": {
 				"textures": {
-					"side": "genesis:blocks/log_araucarioxylon",
+					"side": "genesis:blocks/log_araucarioxylon_0",
 					"end": "genesis:blocks/log_araucarioxylon_top"
 				}
 			},
 			"metasequoia": {
 				"textures": {
-					"side": "genesis:blocks/log_metasequoia",
+					"side": "genesis:blocks/log_metasequoia_0",
 					"end": "genesis:blocks/log_metasequoia_top"
 				}
 			},
 			"archaeanthus": {
 				"textures": {
-					"side": "genesis:blocks/log_archaeanthus",
+					"side": "genesis:blocks/log_archaeanthus_0",
 					"end": "genesis:blocks/log_archaeanthus_top"
 				}
 			},
 			"dryophyllum": {
 				"textures": {
-					"side": "genesis:blocks/log_dryophyllum",
+					"side": "genesis:blocks/log_dryophyllum_0",
 					"end": "genesis:blocks/log_dryophyllum_top"
 				}
 			},
 			"ficus": {
 				"textures": {
-					"side": "genesis:blocks/log_ficus",
+					"side": "genesis:blocks/log_ficus_0",
 					"end": "genesis:blocks/log_ficus_top"
+				}
+			},
+			"annona": {
+				"textures": {
+					"side": "genesis:blocks/log_annona_0",
+					"end": "genesis:blocks/log_annona_top"
 				}
 			},
 			"laurophyllum": {

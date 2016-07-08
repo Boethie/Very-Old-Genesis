@@ -2,8 +2,8 @@
 	"forge_marker": 1,
 	"defaults": {
 		"textures": {
-			"particle": "genesis:blocks/log_lepidodendron",
-			"log": "genesis:blocks/log_lepidodendron",
+			"particle": "genesis:blocks/log_lepidodendron_0",
+			"log": "genesis:blocks/log_lepidodendron_0",
 			"stick": "genesis:blocks/stick_lepidodendron"
 		},
 		"model": "genesis:wattle_fence_post"
