@@ -72,8 +72,8 @@ public final class GenesisBiomes
 		prop = new BiomeGenBase.BiomeProperties("Rainforest M");
 		prop.setTemperature(0.95F);
 		prop.setRainfall(1.4F);
-		prop.setBaseHeight(2.2F);
-		prop.setHeightVariation(0.4F);
+		prop.setBaseHeight(1.5F);
+		prop.setHeightVariation(1.5F);
 		prop.setWaterColor(0x725113);
 		
 		rainforestM = new BiomeGenRainforestM(prop);
@@ -100,18 +100,18 @@ public final class GenesisBiomes
 		
 		auxForest = new BiomeGenAuxForest(prop);
 		BiomeManagerGenesis.registerBiome(auxForest, GenesisConfig.auxForestId, BiomeType.WARM, GenesisConfig.auxForestWeight);
-		BiomeDictionary.registerBiomeType(auxForest, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		BiomeDictionary.registerBiomeType(auxForest, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT);
 		
 		prop = new BiomeGenBase.BiomeProperties("Araucarioxylon Forest M");
 		prop.setTemperature(1.1F);
 		prop.setRainfall(0.9F);
-		prop.setBaseHeight(2.2F);
-		prop.setHeightVariation(0.4F);
+		prop.setBaseHeight(1.5F);
+		prop.setHeightVariation(1.5F);
 		prop.setWaterColor(0x725113);
 		
 		auxForestM = new BiomeGenAuxForestM(prop);
 		BiomeGenBase.registerBiome(GenesisConfig.auxForestId + 128, auxForestM.getBiomeName(), auxForestM);
-		BiomeDictionary.registerBiomeType(auxForestM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		BiomeDictionary.registerBiomeType(auxForestM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.HOT);
 		
 		prop = new BiomeGenBase.BiomeProperties("Araucarioxylon Forest Hills");
 		prop.setTemperature(1.1F);
@@ -122,7 +122,7 @@ public final class GenesisBiomes
 		
 		auxForestHills = new BiomeGenAuxForest(prop);
 		BiomeGenBase.registerBiome(GenesisConfig.auxForestHillsId, auxForestHills.getBiomeName(), auxForestHills);
-		BiomeDictionary.registerBiomeType(auxForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		BiomeDictionary.registerBiomeType(auxForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT);
 		
 		prop = new BiomeGenBase.BiomeProperties("Woodlands");
 		prop.setTemperature(1.1F);
@@ -138,8 +138,8 @@ public final class GenesisBiomes
 		prop = new BiomeGenBase.BiomeProperties("Woodlands M");
 		prop.setTemperature(1.1F);
 		prop.setRainfall(0.9F);
-		prop.setBaseHeight(2.2F);
-		prop.setHeightVariation(0.4F);
+		prop.setBaseHeight(1.5F);
+		prop.setHeightVariation(1.5F);
 		prop.setWaterColor(0x725113);
 		
 		woodlandsM = new BiomeGenWoodlandsM(prop);
@@ -166,18 +166,18 @@ public final class GenesisBiomes
 		
 		metaForest = new BiomeGenMetaForest(prop);
 		BiomeManagerGenesis.registerBiome(metaForest, GenesisConfig.metaForestId, BiomeType.WARM, GenesisConfig.metaForestWeight);
-		BiomeDictionary.registerBiomeType(metaForest, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		BiomeDictionary.registerBiomeType(metaForest, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT);
 		
 		prop = new BiomeGenBase.BiomeProperties("Metasequoia Forest M");
 		prop.setTemperature(1.1F);
 		prop.setRainfall(0.9F);
-		prop.setBaseHeight(2.2F);
-		prop.setHeightVariation(0.4F);
+		prop.setBaseHeight(1.5F);
+		prop.setHeightVariation(1.5F);
 		prop.setWaterColor(0x725113);
 		
 		metaForestM = new BiomeGenMetaForestM(prop);
 		BiomeGenBase.registerBiome(GenesisConfig.metaForestId + 128, metaForestM.getBiomeName(), metaForestM);
-		BiomeDictionary.registerBiomeType(metaForestM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		BiomeDictionary.registerBiomeType(metaForestM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.HOT);
 		
 		prop = new BiomeGenBase.BiomeProperties("Metasequoia Forest Hills");
 		prop.setTemperature(1.1F);
@@ -188,7 +188,7 @@ public final class GenesisBiomes
 		
 		metaForestHills = new BiomeGenMetaForest(prop);
 		BiomeGenBase.registerBiome(GenesisConfig.metaForestHillsId, metaForestHills.getBiomeName(), metaForestHills);
-		BiomeDictionary.registerBiomeType(metaForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		BiomeDictionary.registerBiomeType(metaForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT);
 		
 		prop = new BiomeGenBase.BiomeProperties("Swamp Rainforest");
 		prop.setTemperature(0.95F);
@@ -210,7 +210,7 @@ public final class GenesisBiomes
 		
 		marsh = new BiomeGenMarsh(prop);
 		BiomeManagerGenesis.registerBiome(marsh, GenesisConfig.marshId, BiomeType.WARM, GenesisConfig.marshWeight);
-		BiomeDictionary.registerBiomeType(marsh, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
+		BiomeDictionary.registerBiomeType(marsh, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		prop = new BiomeGenBase.BiomeProperties("Floodplains Forest");
 		prop.setTemperature(1.15F);
@@ -221,7 +221,7 @@ public final class GenesisBiomes
 		
 		floodplainsForest = new BiomeGenFloodplainsForest(prop);
 		BiomeManagerGenesis.registerBiome(floodplainsForest, GenesisConfig.floodplainsForestId, BiomeType.WARM, GenesisConfig.floodplainsForestWeight);
-		BiomeDictionary.registerBiomeType(floodplainsForest, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
+		BiomeDictionary.registerBiomeType(floodplainsForest, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		prop = new BiomeGenBase.BiomeProperties("River");
 		prop.setTemperature(0.5F);
@@ -232,7 +232,7 @@ public final class GenesisBiomes
 		
 		river = new BiomeGenRiver(prop);
 		BiomeGenBase.registerBiome(GenesisConfig.riverId, river.getBiomeName(), river);
-		BiomeDictionary.registerBiomeType(river, BiomeDictionary.Type.RIVER, BiomeDictionary.Type.WET);
+		BiomeDictionary.registerBiomeType(river, BiomeDictionary.Type.RIVER);
 		
 		prop = new BiomeGenBase.BiomeProperties("Shallow Ocean");
 		prop.setTemperature(0.5F);
@@ -243,7 +243,7 @@ public final class GenesisBiomes
 		
 		shallowOcean = new BiomeGenShallowOcean(prop);
 		BiomeGenBase.registerBiome(GenesisConfig.shallowOceanId, shallowOcean.getBiomeName(), shallowOcean);
-		BiomeDictionary.registerBiomeType(shallowOcean, BiomeDictionary.Type.OCEAN, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
+		BiomeDictionary.registerBiomeType(shallowOcean, BiomeDictionary.Type.OCEAN);
 		
 		prop = new BiomeGenBase.BiomeProperties("Ocean");
 		prop.setTemperature(0.5F);
@@ -254,7 +254,7 @@ public final class GenesisBiomes
 		
 		ocean = new BiomeGenOceanGenesis(prop);
 		BiomeGenBase.registerBiome(GenesisConfig.oceanId, ocean.getBiomeName(), ocean);
-		BiomeDictionary.registerBiomeType(ocean, BiomeDictionary.Type.OCEAN, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
+		BiomeDictionary.registerBiomeType(ocean, BiomeDictionary.Type.OCEAN);
 		
 		prop = new BiomeGenBase.BiomeProperties("Deep Ocean");
 		prop.setTemperature(0.5F);
@@ -265,7 +265,7 @@ public final class GenesisBiomes
 		
 		deepOcean = new BiomeGenDeepOceanGenesis(prop);
 		BiomeGenBase.registerBiome(GenesisConfig.deepOceanId, deepOcean.getBiomeName(), deepOcean);
-		BiomeDictionary.registerBiomeType(deepOcean, BiomeDictionary.Type.OCEAN, BiomeDictionary.Type.WET, BiomeDictionary.Type.WATER);
+		BiomeDictionary.registerBiomeType(deepOcean, BiomeDictionary.Type.OCEAN);
 		
 		prop = new BiomeGenBase.BiomeProperties("Beach");
 		prop.setTemperature(1.15F);
@@ -276,7 +276,7 @@ public final class GenesisBiomes
 		
 		genesisBeach = new BiomeGenBeachGenesis(prop);
 		BiomeGenBase.registerBiome(GenesisConfig.genesisBeachId, genesisBeach.getBiomeName(), genesisBeach);
-		BiomeDictionary.registerBiomeType(genesisBeach, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.WET);
+		BiomeDictionary.registerBiomeType(genesisBeach, BiomeDictionary.Type.BEACH);
 		
 		prop = new BiomeGenBase.BiomeProperties("Red Beach");
 		prop.setTemperature(2.0F);
@@ -288,7 +288,7 @@ public final class GenesisBiomes
 		
 		redBeach = new BiomeGenRedBeach(prop);
 		BiomeGenBase.registerBiome(GenesisConfig.redBeachId, redBeach.getBiomeName(), redBeach);
-		BiomeDictionary.registerBiomeType(redBeach, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.WET);
+		BiomeDictionary.registerBiomeType(redBeach, BiomeDictionary.Type.BEACH);
 		
 		prop = new BiomeGenBase.BiomeProperties("Limestone Beach");
 		prop.setTemperature(0.8F);
@@ -299,7 +299,7 @@ public final class GenesisBiomes
 		
 		limestoneBeach = new BiomeGenLimestoneBeach(prop);
 		BiomeGenBase.registerBiome(GenesisConfig.limestoneBeachId, limestoneBeach.getBiomeName(), limestoneBeach);
-		BiomeDictionary.registerBiomeType(limestoneBeach, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.WET);
+		BiomeDictionary.registerBiomeType(limestoneBeach, BiomeDictionary.Type.BEACH);
 		
 		prop = new BiomeGenBase.BiomeProperties("Red Desert");
 		prop.setTemperature(2.0F);
@@ -311,7 +311,7 @@ public final class GenesisBiomes
 		
 		redDesert = new BiomeGenRedDesert(prop).addTrees();
 		BiomeManagerGenesis.registerBiome(redDesert, GenesisConfig.redDesertId, BiomeType.DESERT, GenesisConfig.redDesertWeight);
-		BiomeDictionary.registerBiomeType(redDesert, BiomeDictionary.Type.DRY, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.SANDY);
+		BiomeDictionary.registerBiomeType(redDesert, BiomeDictionary.Type.HOT, BiomeDictionary.Type.DRY, BiomeDictionary.Type.MESA, BiomeDictionary.Type.SANDY);
 		
 		prop = new BiomeGenBase.BiomeProperties("Red Desert Hills");
 		prop.setTemperature(2.0F);
