@@ -100,7 +100,7 @@ public final class GenesisBiomes
 		
 		auxForest = new BiomeGenAuxForest(prop);
 		BiomeManagerGenesis.registerBiome(auxForest, GenesisConfig.auxForestId, BiomeType.WARM, GenesisConfig.auxForestWeight);
-		BiomeDictionary.registerBiomeType(auxForest, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT);
+		BiomeDictionary.registerBiomeType(auxForest, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT);
 		
 		prop = new BiomeGenBase.BiomeProperties("Araucarioxylon Forest M");
 		prop.setTemperature(1.1F);
@@ -166,7 +166,7 @@ public final class GenesisBiomes
 		
 		metaForest = new BiomeGenMetaForest(prop);
 		BiomeManagerGenesis.registerBiome(metaForest, GenesisConfig.metaForestId, BiomeType.WARM, GenesisConfig.metaForestWeight);
-		BiomeDictionary.registerBiomeType(metaForest, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT);
+		BiomeDictionary.registerBiomeType(metaForest, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT);
 		
 		prop = new BiomeGenBase.BiomeProperties("Metasequoia Forest M");
 		prop.setTemperature(1.1F);
@@ -177,7 +177,7 @@ public final class GenesisBiomes
 		
 		metaForestM = new BiomeGenMetaForestM(prop);
 		BiomeGenBase.registerBiome(GenesisConfig.metaForestId + 128, metaForestM.getBiomeName(), metaForestM);
-		BiomeDictionary.registerBiomeType(metaForestM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.HOT);
+		BiomeDictionary.registerBiomeType(metaForestM, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.HOT);
 		
 		prop = new BiomeGenBase.BiomeProperties("Metasequoia Forest Hills");
 		prop.setTemperature(1.1F);
@@ -188,7 +188,7 @@ public final class GenesisBiomes
 		
 		metaForestHills = new BiomeGenMetaForest(prop);
 		BiomeGenBase.registerBiome(GenesisConfig.metaForestHillsId, metaForestHills.getBiomeName(), metaForestHills);
-		BiomeDictionary.registerBiomeType(metaForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT);
+		BiomeDictionary.registerBiomeType(metaForestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.HOT);
 		
 		prop = new BiomeGenBase.BiomeProperties("Swamp Rainforest");
 		prop.setTemperature(0.95F);

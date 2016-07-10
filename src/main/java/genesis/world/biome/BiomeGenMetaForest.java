@@ -56,7 +56,7 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 	
 	protected void addTrees()
 	{
-		getDecorator().setTreeCount(5.1F);
+		getDecorator().setTreeCount(4.7F);
 		
 		addTree(new WorldGenTreeArchaeanthus(7, 20, false), 15);
 		addTree(new WorldGenTreeMetasequoia(12, 24, true), 300);
