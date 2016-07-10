@@ -45,7 +45,8 @@ public class WorldGenBoulders extends WorldGenDecorationBase
 				(s, w, p) -> s.getBlock() == Blocks.dirt
 						|| s.getBlock() == Blocks.grass
 						|| s.getBlock() == GenesisBlocks.moss
-						|| GenesisBlocks.silt.isStateOf(s, SiltBlocks.SILT));
+						|| GenesisBlocks.silt.isStateOf(s, SiltBlocks.SILT)
+						|| GenesisBlocks.silt.isStateOf(s, SiltBlocks.CRACKED_SILT));
 		
 		setRadius(1.25F);
 		setStretch(1.25F);
