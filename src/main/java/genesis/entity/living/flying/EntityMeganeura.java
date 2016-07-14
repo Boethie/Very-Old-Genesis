@@ -1002,4 +1002,10 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 	{
 		// Do nothing, prevents fall damage from occurring.
 	}
+	
+	@Override
+	protected ResourceLocation getLootTable()
+    {
+        return GenesisLoot.ENTITY_MEGANEURA;
+    }
 }
