@@ -72,8 +72,8 @@ public final class GenesisBiomes
 		prop = new BiomeGenBase.BiomeProperties("Rainforest M");
 		prop.setTemperature(0.95F);
 		prop.setRainfall(1.4F);
-		prop.setBaseHeight(1.5F);
-		prop.setHeightVariation(1.5F);
+		prop.setBaseHeight(0.275F);
+		prop.setHeightVariation(0.35F);
 		prop.setWaterColor(0x725113);
 		
 		rainforestM = new BiomeGenRainforestM(prop);
@@ -105,8 +105,8 @@ public final class GenesisBiomes
 		prop = new BiomeGenBase.BiomeProperties("Araucarioxylon Forest M");
 		prop.setTemperature(1.1F);
 		prop.setRainfall(0.9F);
-		prop.setBaseHeight(1.5F);
-		prop.setHeightVariation(1.5F);
+		prop.setBaseHeight(0.275F);
+		prop.setHeightVariation(0.35F);
 		prop.setWaterColor(0x725113);
 		
 		auxForestM = new BiomeGenAuxForestM(prop);
@@ -138,8 +138,8 @@ public final class GenesisBiomes
 		prop = new BiomeGenBase.BiomeProperties("Woodlands M");
 		prop.setTemperature(1.1F);
 		prop.setRainfall(0.9F);
-		prop.setBaseHeight(1.5F);
-		prop.setHeightVariation(1.5F);
+		prop.setBaseHeight(0.525F);
+		prop.setHeightVariation(0.5F);
 		prop.setWaterColor(0x725113);
 		
 		woodlandsM = new BiomeGenWoodlandsM(prop);
@@ -171,8 +171,8 @@ public final class GenesisBiomes
 		prop = new BiomeGenBase.BiomeProperties("Metasequoia Forest M");
 		prop.setTemperature(1.1F);
 		prop.setRainfall(0.9F);
-		prop.setBaseHeight(1.5F);
-		prop.setHeightVariation(1.5F);
+		prop.setBaseHeight(0.275F);
+		prop.setHeightVariation(0.35F);
 		prop.setWaterColor(0x725113);
 		
 		metaForestM = new BiomeGenMetaForestM(prop);
