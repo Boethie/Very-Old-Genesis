@@ -23,21 +23,21 @@
 			"model": "genesis:crop_cross_overlay",
 			"textures": {
 				"cross": "genesis:blocks/odontopteris_stage_5_top",
-				"overlay": "genesis:blocks/odontopteris_stage_5_top_seed"
+				"overlay": "genesis:blocks/odontopteris_stage_5_top_seeds"
 			}
 		}],
 		"age=6,top=true": [{
 			"model": "genesis:crop_cross_overlay",
 			"textures": {
 				"cross": "genesis:blocks/odontopteris_stage_6_top",
-				"overlay": "genesis:blocks/odontopteris_stage_6_top_seed"
+				"overlay": "genesis:blocks/odontopteris_stage_6_top_seeds"
 			}
 		}],
 		"age=7,top=true": [{
 			"model": "genesis:crop_cross_overlay",
 			"textures": {
 				"cross": "genesis:blocks/odontopteris_stage_7_top",
-				"overlay": "genesis:blocks/odontopteris_stage_7_top_seed"
+				"overlay": "genesis:blocks/odontopteris_stage_7_top_seeds"
 			}
 		}]
 	}
