@@ -1,7 +1,0 @@
-{
-	"parent": "block/cube_column",
-	"textures": {
-		"end": "genesis:blocks/log_annona_top",
-		"side": "genesis:blocks/log_annona_0"
-	}
-}

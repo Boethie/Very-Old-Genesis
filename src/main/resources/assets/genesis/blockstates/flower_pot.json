@@ -176,9 +176,9 @@
 					"plant": "genesis:blocks/sapling_ficus"
 				}
 			},
-			"annona_sapling": {
+			"artocarpus_sapling": {
 				"textures": {
-					"plant": "genesis:blocks/sapling_annona"
+					"plant": "genesis:blocks/sapling_artocarpus"
 				}
 			},
 			"laurophyllum_sapling": {

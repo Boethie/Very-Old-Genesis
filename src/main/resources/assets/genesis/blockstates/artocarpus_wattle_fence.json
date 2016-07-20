@@ -2,9 +2,9 @@
 	"forge_marker": 1,
 	"defaults": {
 		"textures": {
-			"particle": "genesis:blocks/log_annona_0",
-			"log": "genesis:blocks/log_annona_0",
-			"stick": "genesis:blocks/stick_annona"
+			"particle": "genesis:blocks/log_artocarpus_0",
+			"log": "genesis:blocks/log_artocarpus_0",
+			"stick": "genesis:blocks/stick_artocarpus"
 		},
 		"model": "genesis:wattle_fence_post"
 	},

@@ -1,0 +1,7 @@
+{
+	"parent": "genesis:block/rack",
+	"textures": {
+		"side": "genesis:blocks/log_artocarpus_0",
+		"end": "genesis:blocks/log_artocarpus_top"
+	}
+}

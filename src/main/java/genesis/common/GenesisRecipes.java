@@ -889,7 +889,7 @@ public final class GenesisRecipes
 			case PORRIDGE_GINKGO:
 			case PORRIDGE_ARAUCARIOXYLON:
 			case PORRIDGE_FIG:
-			case PORRIDGE_ANNONA:
+			case PORRIDGE_ARTOCARPUS:
 			case PORRIDGE_LAUROPHYLLUM:
 				ingredients.add(GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS));
 				break;
@@ -925,8 +925,8 @@ public final class GenesisRecipes
 			case PORRIDGE_FIG:
 				ingredients.add(GenesisBlocks.trees.getStack(TreeBlocksAndItems.FRUIT, EnumTree.FICUS));
 				break;
-			case PORRIDGE_ANNONA:
-				ingredients.add(GenesisBlocks.trees.getStack(TreeBlocksAndItems.FRUIT, EnumTree.ANNONA));
+			case PORRIDGE_ARTOCARPUS:
+				ingredients.add(GenesisBlocks.trees.getStack(TreeBlocksAndItems.FRUIT, EnumTree.ARTOCARPUS));
 				break;
 			case PORRIDGE_LAUROPHYLLUM:
 				ingredients.add(GenesisBlocks.trees.getStack(TreeBlocksAndItems.FRUIT, EnumTree.LAUROPHYLLUM));

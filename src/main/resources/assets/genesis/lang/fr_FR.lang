@@ -78,7 +78,7 @@ tile.genesis.log.metasequoia.name=Bois de Metasequoia
 tile.genesis.log.archaeanthus.name=Bois d'Archaeanthus
 tile.genesis.log.dryophyllum.name=Bois de Dryophyllum
 tile.genesis.log.ficus.name=Bois de Ficus
-tile.genesis.log.annona.name=Bois d'Annona
+tile.genesis.log.artocarpus.name=Bois d'Artocarpus
 
 tile.genesis.branch.laurophyllum.name=Branche de Laurophyllum
 
@@ -147,8 +147,7 @@ tile.genesis.leaves.archaeanthus.name=Feuilles d'Archaeanthus
 tile.genesis.leaves.dryophyllum.name=Feuilles de Dryophyllum
 tile.genesis.leaves.ficus.name=Feuilles de Ficus
 tile.genesis.leaves.fruit.ficus.name=Feuilles à fruits de Ficus
-tile.genesis.leaves.annona.name=Feuilles d'Annona
-tile.genesis.leaves.fruit.annona.name=Feuilles à fruits d'Annona
+tile.genesis.leaves.artocarpus.name=Feuilles d'Artocarpus
 tile.genesis.leaves.laurophyllum.name=Feuilles de Laurophyllum
 tile.genesis.leaves.fruit.laurophyllum.name=Feuilles à fruits de Laurophyllum
 
@@ -165,7 +164,7 @@ tile.genesis.sapling.metasequoia.name=Pousse de Metasequoia
 tile.genesis.sapling.archaeanthus.name=Pousse d'Archaeanthus
 tile.genesis.sapling.dryophyllum.name=Pousse de Dryophyllum
 tile.genesis.sapling.ficus.name=Pousse de Ficus
-tile.genesis.sapling.annona.name=Pousse d'Annona
+tile.genesis.sapling.artocarpus.name=Pousse d'Artocarpus
 tile.genesis.sapling.laurophyllum.name=Pousse de Laurophyllum
 
 tile.genesis.wattleFence.archaeopteris.name=Clayonnage en bois d'Archaeopteris
@@ -179,7 +178,7 @@ tile.genesis.wattleFence.metasequoia.name=Clayonnage en bois de Metasequoia
 tile.genesis.wattleFence.archaeanthus.name=Clayonnage en bois d'Archaeanthus
 tile.genesis.wattleFence.dryophyllum.name=Clayonnage en bois de Dryophyllum
 tile.genesis.wattleFence.ficus.name=Clayonnage en bois de Ficus
-tile.genesis.wattleFence.annona.name=Clayonnage en bois d'Annona
+tile.genesis.wattleFence.artocarpus.name=Clayonnage en bois d'Artocarpus
 tile.genesis.wattleFence.laurophyllum.name=Clayonnage en bois de Laurophyllum
 
 tile.genesis.rack.archaeopteris.name=Rack en bois d'Archaeopteris
@@ -193,7 +192,7 @@ tile.genesis.rack.metasequoia.name=Rack en bois de Metasequoia
 tile.genesis.rack.archaeanthus.name=Rack en bois d'Archaeanthus
 tile.genesis.rack.dryophyllum.name=Rack en bois de Dryophyllum
 tile.genesis.rack.ficus.name=Rack en bois de Ficus
-tile.genesis.rack.annona.name=Rack en bois d'Annona
+tile.genesis.rack.artocarpus.name=Rack en bois d'Artocarpus
 tile.genesis.rack.laurophyllum.name=Rack en bois de Laurophyllum
 
 tile.genesis.calamitesTorch.name=Torche en Calamites
@@ -298,7 +297,7 @@ item.genesis.food.rottenZingiberopsisRhizome.name=Rhizome de Zingiberopsis pourr
 item.genesis.food.fruit.ginkgo.name=Noix de Ginkgo
 item.genesis.food.fruit.araucarioxylon.name=Cône d'Araucarioxylon
 item.genesis.food.fruit.ficus.name=Figue
-item.genesis.food.fruit.annona.name=Annona
+item.genesis.food.fruit.artocarpus.name=Artocarpus
 item.genesis.food.fruit.laurophyllum.name=Baies de Laurophyllum
 
 item.genesis.food.spirifer.raw.name=Spirifer cru
@@ -328,7 +327,7 @@ item.genesis.food.dish.porridge.ginkgo.name=Bouillie au Ginkgo
 item.genesis.food.dish.porridge.araucarioxylon.name=Bouillie à l'Araucarioxylon
 item.genesis.food.dish.porridge.archaeomarasmius.name=Bouillie à l'Archaeomarasmius
 item.genesis.food.dish.porridge.fig.name=Bouillie au figue
-item.genesis.food.dish.porridge.annona.name=Bouillie à l'Annona
+item.genesis.food.dish.porridge.artocarpus.name=Bouillie à l'Artocarpus
 item.genesis.food.dish.porridge.zingiberopsis.name=Bouillie au Zingiberopsis
 item.genesis.food.dish.porridge.laurophyllum.name=Bouillie au Laurophyllum
 item.genesis.food.dish.mashed.zingiberopsis.name=Purée de Zingiberopsis
@@ -576,7 +575,7 @@ item.genesis.material.billet.metasequoia.name=Billette en bois de Metasequoia
 item.genesis.material.billet.archaeanthus.name=Billette en bois d'Archaeanthus
 item.genesis.material.billet.dryophyllum.name=Billette en bois de Dryophyllum
 item.genesis.material.billet.ficus.name=Billette en bois de Ficus
-item.genesis.material.billet.annona.name=Billette en bois d'Annona
+item.genesis.material.billet.artocarpus.name=Billette en bois d'Artocarpus
 item.genesis.material.billet.laurophyllum.name=Billette en bois de Laurophyllum
 
 item.genesis.material.resin.name=Résine

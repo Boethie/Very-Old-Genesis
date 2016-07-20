@@ -1,7 +1,0 @@
-{
-	"parent": "genesis:block/rack",
-	"textures": {
-		"side": "genesis:blocks/log_annona_0",
-		"end": "genesis:blocks/log_annona_top"
-	}
-}
