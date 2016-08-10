@@ -156,22 +156,6 @@ public class WorldGenSmallCamp implements IWorldGenerator
 			}
 		}
 		
-		if (campPos != null)
-		{
-			TileEntity te = world.getTileEntity(campPos);
-			
-			if (te instanceof TileEntityCampfire)
-			{
-				EnumDish dish = EnumDish.values()[world.rand.nextInt(9)];
-				
-				((TileEntityCampfire) te).getOutput().set(GenesisItems.bowls.getStack(dish));
-			}
-			else
-			{
-				Genesis.logger.warn("TileEntityCampfire has not been found at "  + campPos.toString() + " during the camp generation!!! The porrige won't be spawned!!!");
-			}
-		}
-		
 		EnumTree tree = null;
 		
 		if (biome instanceof BiomeGenAuxForest)
@@ -221,5 +205,4 @@ public class WorldGenSmallCamp implements IWorldGenerator
 				world.setBlockState(pos, state);
 			}
 	}
-
 }
