@@ -22,6 +22,12 @@ public final class GenesisSoundTypes
 			GenesisSoundEvents.block_dung_place,
 			GenesisSoundEvents.block_dung_hit,
 			GenesisSoundEvents.block_dung_fall);
+	public static final SoundType PLANT = new SoundType(1, 1,
+			GenesisSoundEvents.block_plant_break,
+			GenesisSoundEvents.block_plant_step,
+			GenesisSoundEvents.block_plant_place,
+			GenesisSoundEvents.block_plant_hit,
+			GenesisSoundEvents.block_plant_fall);
 	public static final SoundType FERN = new SoundType(10, 1,
 			GenesisSoundEvents.block_fern_break,
 			GenesisSoundEvents.block_fern_step,

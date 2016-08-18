@@ -134,6 +134,7 @@ public final class GenesisBlocks
 			.setGrowth(0.05F, 1, 3, 1.5F)
 			.setPlantSize(0, 0.2F, 0.75F)
 			.setCustoms(new BlockWaterSpreadingPlantCustoms(GenesisItems.materials.getStack(EnumMaterial.SPHENOPHYLLUM_FIBER)))
+			.setSoundType(GenesisSoundTypes.PLANT)
 			.setUnlocalizedName(Unlocalized.PLANT + "sphenophyllum");
 	public static final BlockGrowingPlant odontopteris = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true).setBreakAllTogether(true)
@@ -160,6 +161,7 @@ public final class GenesisBlocks
 			.setUseBiomeColor(true)
 			.setPlantSize(0, 0.1F, 0.75F)
 			.setCustoms(surviveOnDirt)
+			.setSoundType(GenesisSoundTypes.PLANT)
 			.setUnlocalizedName(Unlocalized.CROP + "programinis");
 	public static final BlockGrowingPlant zingiberopsis = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true).setBreakAllTogether(true)
@@ -167,6 +169,7 @@ public final class GenesisBlocks
 			.setPlantSoilTypes(EnumPlantType.Crop)
 			.setGrowthOnFarmland(0.75F)
 			.setCustoms(surviveOnDirt)
+			.setSoundType(GenesisSoundTypes.PLANT)
 			.setUnlocalizedName(Unlocalized.CROP + "zingiberopsis");
 	
 	public static final Block resin = new BlockResin().setUnlocalizedName(Unlocalized.PREFIX + "resin");

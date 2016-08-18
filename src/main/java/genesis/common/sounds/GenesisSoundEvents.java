@@ -37,6 +37,12 @@ public class GenesisSoundEvents
 	public static final SoundEvent block_dung_place = createSoundEvent("block.dung.place");
 	public static final SoundEvent block_dung_hit = createSoundEvent("block.dung.hit");
 	public static final SoundEvent block_dung_fall = createSoundEvent("block.dung.fall");
+	
+	public static final SoundEvent block_plant_break = createSoundEvent("block.plant.break");
+	public static final SoundEvent block_plant_step = createSoundEvent("block.plant.step");
+	public static final SoundEvent block_plant_place = createSoundEvent("block.plant.place");
+	public static final SoundEvent block_plant_hit = createSoundEvent("block.plant.hit");
+	public static final SoundEvent block_plant_fall = createSoundEvent("block.plant.fall");
 
 	public static final SoundEvent block_fern_break = createSoundEvent("block.fern.break");
 	public static final SoundEvent block_fern_step = createSoundEvent("block.fern.step");

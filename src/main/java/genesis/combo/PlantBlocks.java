@@ -32,11 +32,11 @@ public class PlantBlocks extends VariantsOfTypesCombo<EnumPlant>
 		PLANT = ObjectType.createBlock(EnumPlant.class, "plant", Unlocalized.Section.PLANT, singleClass);
 		DOUBLE_PLANT = ObjectType.createBlock(EnumPlant.class, "double_plant", Unlocalized.Section.PLANT_DOUBLE, doubleClass);
 		
-		PLANT.setBlockArguments(DOUBLE_PLANT, SoundType.PLANT)
+		PLANT.setBlockArguments(DOUBLE_PLANT, GenesisSoundTypes.PLANT)
 				.setVariantFilter((v) -> v.getType() == PlantType.PLANT && v.hasSmall())
 				.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE);
 		
-		DOUBLE_PLANT.setBlockArguments(SoundType.PLANT)
+		DOUBLE_PLANT.setBlockArguments(GenesisSoundTypes.PLANT)
 				.setVariantFilter((v) -> v.getType() == PlantType.PLANT && v.hasLarge())
 				.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE)
 				.setVariantNameFunction((v) -> "double_" + v.getName());

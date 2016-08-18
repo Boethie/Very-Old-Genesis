@@ -204,6 +204,14 @@
 		],
 		"subtitle": "subtitles.block.generic.fall"
 	},
+	"block.plant.break": {
+		"sounds": [
+			"genesis:dig/plant1",
+			"genesis:dig/plant2",
+			"genesis:dig/plant3"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
 	"block.fern.break": {
 		"sounds": [
 			"genesis:dig/fern1",

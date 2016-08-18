@@ -12,6 +12,7 @@ import genesis.combo.variant.EnumTree;
 import genesis.combo.variant.PropertyIMetadata;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
+import genesis.common.sounds.GenesisSoundTypes;
 import genesis.item.ItemBlockMulti;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.WorldUtils;
@@ -80,7 +81,7 @@ public class BlockGenesisSaplings extends BlockSapling
 		setDefaultState(getBlockState().getBaseState());
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
-		setSoundType(SoundType.PLANT);
+		setSoundType(GenesisSoundTypes.PLANT);
 	}
 	
 	@Override
