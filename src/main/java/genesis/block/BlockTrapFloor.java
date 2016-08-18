@@ -7,6 +7,7 @@ import genesis.combo.variant.EnumMaterial;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.common.GenesisItems;
+import genesis.common.sounds.GenesisSoundTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -31,7 +32,7 @@ public class BlockTrapFloor extends BlockGenesis
 	
 	public BlockTrapFloor()
 	{
-		super(Material.grass, SoundType.PLANT);
+		super(Material.grass, GenesisSoundTypes.CALAMITES);
 		
 		setCreativeTab(GenesisCreativeTabs.MECHANISMS);
 		
