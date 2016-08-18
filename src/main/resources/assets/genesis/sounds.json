@@ -660,6 +660,7 @@
 		"sounds": [
 			{
 				"name": "genesis:music/dawn_of_a_new_day",
+				"name": "genesis:music/lost_land",
 				"stream": true
 			}
 		]
