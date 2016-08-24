@@ -32,6 +32,7 @@ public final class GenesisBiomes
 	public static BiomeGenBaseGenesis rainforest;
 	public static BiomeGenBaseGenesis rainforestM;
 	public static BiomeGenBaseGenesis rainforestHills;
+	public static BiomeGenBaseGenesis rainforestIslands;
 	public static BiomeGenBaseGenesis auxForest;
 	public static BiomeGenBaseGenesis auxForestM;
 	public static BiomeGenBaseGenesis auxForestHills;
@@ -90,6 +91,17 @@ public final class GenesisBiomes
 		rainforestHills = new BiomeGenRainforest(prop);
 		BiomeGenBase.registerBiome(GenesisConfig.rainforestHillsId, rainforestHills.getBiomeName(), rainforestHills);
 		BiomeDictionary.registerBiomeType(rainforestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.DENSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		
+		prop = new BiomeGenBase.BiomeProperties("Rainforest Islands");
+		prop.setTemperature(0.95F);
+		prop.setRainfall(1.4F);
+		prop.setBaseHeight(-0.5F);
+		prop.setHeightVariation(0.425F);
+		prop.setWaterColor(0x725113);
+		
+		rainforestIslands = new BiomeGenRainforest(prop);
+		BiomeGenBase.registerBiome(GenesisConfig.rainforestId + 129, rainforestIslands.getBiomeName(), rainforestIslands);
+		BiomeDictionary.registerBiomeType(rainforestIslands, BiomeDictionary.Type.OCEAN);
 		
 		prop = new BiomeGenBase.BiomeProperties("Araucarioxylon Forest");
 		prop.setTemperature(1.1F);

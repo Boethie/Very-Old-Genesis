@@ -62,6 +62,10 @@ public class GenLayerGenesisDeepOcean extends GenLayerGenesis
 				{
 					aint1[j2 + i2 * areaWidth] = BiomeGenBase.getIdForBiome(GenesisBiomes.ocean);
 				}
+				else if (k3 == 0 && l3 > 2 && l2 == 0)
+				{
+					aint1[j2 + i2 * areaWidth] = BiomeGenBase.getIdForBiome(GenesisBiomes.rainforestIslands);
+				}
 				else if (k3 == 0 && l3 > 1)
 				{
 					aint1[j2 + i2 * areaWidth] = BiomeGenBase.getIdForBiome(GenesisBiomes.shallowOcean);
