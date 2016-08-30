@@ -236,7 +236,7 @@ public final class GenesisBiomes
 		BiomeDictionary.registerBiomeType(floodplainsForest, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		prop = new BiomeGenBase.BiomeProperties("River");
-		prop.setTemperature(0.5F);
+		prop.setTemperature(0.6F);
 		prop.setRainfall(0.4F);
 		prop.setBaseHeight(-0.5F);
 		prop.setHeightVariation(0.0F);
