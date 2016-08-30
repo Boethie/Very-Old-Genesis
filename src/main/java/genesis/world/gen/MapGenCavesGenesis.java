@@ -139,6 +139,12 @@ public class MapGenCavesGenesis extends MapGenBase
 					//(but factoring in lava-room alterations)
 					double value = (F2 - F1*dotU) * (F2 - F1*dotU) / (1 - dotU * dotU) + F1 * F1;
 					
+					//Replace super-flat un-traversable regions with dead ends
+					double dotURegionHideThresholded = Math.abs(dotU) - 0.625;
+					if (dotURegionHideThresholded > 0) {
+						value += dotURegionHideThresholded * dotURegionHideThresholded * 8.0;
+					}
+					
 					//Threshold
 					if (value > threshold) continue;
 					

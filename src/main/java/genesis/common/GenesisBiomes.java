@@ -14,6 +14,7 @@ import genesis.world.biome.BiomeGenMetaForest;
 import genesis.world.biome.BiomeGenMetaForestM;
 import genesis.world.biome.BiomeGenOceanGenesis;
 import genesis.world.biome.BiomeGenRainforest;
+import genesis.world.biome.BiomeGenRainforestIslands;
 import genesis.world.biome.BiomeGenRainforestM;
 import genesis.world.biome.BiomeGenRedBeach;
 import genesis.world.biome.BiomeGenRedDesert;
@@ -97,9 +98,9 @@ public final class GenesisBiomes
 		prop.setRainfall(1.4F);
 		prop.setBaseHeight(-0.5F);
 		prop.setHeightVariation(0.425F);
-		prop.setWaterColor(0x725113);
+		prop.setWaterColor(0x9F791F);
 		
-		rainforestIslands = new BiomeGenRainforest(prop);
+		rainforestIslands = new BiomeGenRainforestIslands(prop);
 		BiomeGenBase.registerBiome(GenesisConfig.rainforestId + 129, rainforestIslands.getBiomeName(), rainforestIslands);
 		BiomeDictionary.registerBiomeType(rainforestIslands, BiomeDictionary.Type.OCEAN);
 		
@@ -236,7 +237,7 @@ public final class GenesisBiomes
 		BiomeDictionary.registerBiomeType(floodplainsForest, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		prop = new BiomeGenBase.BiomeProperties("River");
-		prop.setTemperature(0.5F);
+		prop.setTemperature(0.6F);
 		prop.setRainfall(0.4F);
 		prop.setBaseHeight(-0.5F);
 		prop.setHeightVariation(0.0F);
@@ -280,7 +281,7 @@ public final class GenesisBiomes
 		BiomeDictionary.registerBiomeType(deepOcean, BiomeDictionary.Type.OCEAN);
 		
 		prop = new BiomeGenBase.BiomeProperties("Beach");
-		prop.setTemperature(1.15F);
+		prop.setTemperature(0.8F);
 		prop.setRainfall(1.0F);
 		prop.setBaseHeight(0.0F);
 		prop.setHeightVariation(0.025F);
