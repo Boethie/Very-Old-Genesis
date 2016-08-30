@@ -1,6 +1,7 @@
 package genesis.world;
 
 import genesis.client.render.RenderFog;
+import genesis.client.render.SkyRenderer;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisDimensions;
 import genesis.util.GenesisMath;
@@ -11,6 +12,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.chunk.IChunkGenerator;
+import net.minecraftforge.client.IRenderHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -130,5 +132,20 @@ public class WorldProviderGenesis extends WorldProvider
 	public DimensionType getDimensionType()
 	{
 		return GenesisDimensions.GENESIS_DIMENSION;
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public IRenderHandler getSkyRenderer()
+	{
+		IRenderHandler skyRenderer = super.getSkyRenderer();
+		
+		if (skyRenderer == null)
+		{
+			skyRenderer = new SkyRenderer();
+			setSkyRenderer(skyRenderer);
+		}
+		
+		return skyRenderer;
 	}
 }
