@@ -34,6 +34,8 @@ public class RenderFog
 	
 	public Vec3d lastVanillaColor = new Vec3d(0, 0, 0);
 	
+	public boolean dust_storm;
+	
 	private static float getDayNightFactor(long time, float partialTicks)
 	{
 		float timeF = (time + partialTicks) % WorldProviderGenesis.DAY_LENGTH / WorldProviderGenesis.DAY_LENGTH;
@@ -60,6 +62,8 @@ public class RenderFog
 	{
 		if (event.side != Side.CLIENT || event.phase != Phase.START)
 			return;
+		
+		dust_storm = false;
 		
 		Minecraft mc = Minecraft.getMinecraft();
 		if (mc.isGamePaused())
@@ -115,6 +119,13 @@ public class RenderFog
 						color = lastVanillaColor;
 					}
 					
+					if(world.getRainStrength(partialTicks) > 0)
+						if(!biome.canRain() && !biome.getEnableSnow())
+						{
+							dust_storm = true;
+							red+=0.15F;
+						}
+					
 					red += (float) color.xCoord;
 					green += (float) color.yCoord;
 					blue += (float) color.zCoord;
@@ -129,6 +140,7 @@ public class RenderFog
 		red /= samples;
 		green /= samples;
 		blue /= samples;
+		
 		density /= samples;
 		
 		/* Sunrise/set fog code, slightly different from vanilla, but it must be handled by vanilla when using WorldProviderGenesis.getFogColor.
@@ -158,7 +170,9 @@ public class RenderFog
 		prevColor = color;
 		color = new Vec3d(red, green, blue);
 		prevFogDensity = fogDensity;
+		
 		fogDensity = Math.min(density * 0.75F, 0.75F);
+		
 		
 		mc.mcProfiler.endSection();
 		mc.mcProfiler.endSection();
@@ -221,7 +235,7 @@ public class RenderFog
 				event.getFarPlaneDistance(), density);
 	}
 	
-	private static void renderFog(int fogMode, float farPlaneDistance, float farPlaneDistanceScale)
+	private void renderFog(int fogMode, float farPlaneDistance, float farPlaneDistanceScale)
 	{
 		if (fogMode < 0)
 		{
@@ -230,8 +244,18 @@ public class RenderFog
 		}
 		else
 		{
-			GlStateManager.setFogStart(farPlaneDistance * farPlaneDistanceScale);
-			GlStateManager.setFogEnd(farPlaneDistance);
+			World world = Minecraft.getMinecraft().theWorld;
+			
+			if (dust_storm)
+			{
+				GlStateManager.setFogStart(3.4F + world.rand.nextFloat() / 100);
+				GlStateManager.setFogEnd(19.5F + world.rand.nextFloat() / 100);
+			}
+			else
+			{
+				GlStateManager.setFogStart(farPlaneDistance * farPlaneDistanceScale);
+				GlStateManager.setFogEnd(farPlaneDistance);
+			}
 		}
 	}
 }
