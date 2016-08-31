@@ -1,10 +1,10 @@
 {
-	"homepage": "https://github.com/GenProject/Genesis",
+	"homepage": "https://github.com/WinternestStudios/Genesis",
 	"promos": {
-		"1.9-latest": "0.0.0.4",
-		"1.9-recommended": "0.0.0.4"
+		"1.10.2-latest": "0.0.0.4",
+		"1.10.2-recommended": "0.0.0.4"
 	},
-	"1.9": {
+	"1.10.2": {
 		"0.0.0.3": ""
 	}
 }
