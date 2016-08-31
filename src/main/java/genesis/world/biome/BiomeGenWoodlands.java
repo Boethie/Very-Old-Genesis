@@ -54,7 +54,7 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenDung(EnumDung.CARNIVORE), 0.08F);
 		addDecoration(new WorldGenStemonitis().setPatchCount(14), 6);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setPatchCount(3), 0.15F);
-		addDecoration(new WorldGenAsplenium().setPatchCount(10), 10);
+		addDecoration(new WorldGenAsplenium().setPatchCount(7), 10);
 		addDecoration(new WorldGenDecorationOnBlock((s) -> s.getMaterial() == Material.water, GenesisBlocks.cobbania.getDefaultState()), 2.8F);
 		addDecoration(WorldGenCircleReplacement.getPeatGen(), 1);
 		addDecoration(new WorldGenRoots(), 13);
