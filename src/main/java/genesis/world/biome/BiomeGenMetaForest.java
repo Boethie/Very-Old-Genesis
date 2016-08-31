@@ -58,10 +58,10 @@ public class BiomeGenMetaForest extends BiomeGenBaseGenesis
 	{
 		getDecorator().setTreeCount(4.7F);
 		
-		addTree(new WorldGenTreeArchaeanthus(7, 20, false), 4);
-		addTree(new WorldGenTreeMetasequoia(12, 24, true), 300);
+		addTree(new WorldGenTreeArchaeanthus(9, 20, false), 4);
+		addTree(new WorldGenTreeMetasequoia(13, 24, true), 300);
 		addTree(new WorldGenTreeMetasequoia(23, 27, true).setType(TreeTypes.TYPE_2), 120);
-		addTree(new WorldGenTreeGinkgo(8, 13, false), 5);
+		addTree(new WorldGenTreeGinkgo(9, 13, false), 5);
 		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 1);
 		
 		addTree(new WorldGenDeadLog(5, 8, EnumTree.METASEQUOIA, true), 12);
