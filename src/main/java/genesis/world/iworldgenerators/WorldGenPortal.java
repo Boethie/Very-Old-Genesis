@@ -4,7 +4,7 @@ import genesis.common.GenesisDimensions;
 import genesis.portal.GenesisPortal;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenTaiga;
+import net.minecraft.world.biome.BiomeTaiga;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.fml.common.IWorldGenerator;
@@ -30,7 +30,7 @@ public class WorldGenPortal implements IWorldGenerator
 	{
 		BlockPos center = new BlockPos(chunkX * 16 + 8, 0, chunkZ * 16 + 8);
 		
-		if (tiagaOnly && !(world.getBiomeGenForCoords(center) instanceof BiomeGenTaiga))
+		if (tiagaOnly && !(world.getBiome(center) instanceof BiomeTaiga))
 		{
 			return;
 		}

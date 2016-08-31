@@ -40,7 +40,7 @@ public class ItemGenesisBucket extends ItemBucket
 		
 		setCreativeTab(GenesisCreativeTabs.MISC);
 		
-		if (!isEmpty() && containedState.getMaterial() == Material.water)
+		if (!isEmpty() && containedState.getMaterial() == Material.WATER)
 		{
 			MinecraftForge.EVENT_BUS.register(this);
 		}
@@ -48,7 +48,7 @@ public class ItemGenesisBucket extends ItemBucket
 	
 	public boolean isEmpty()
 	{
-		return containedState.getBlock() == Blocks.air;
+		return containedState.getBlock() == Blocks.AIR;
 	}
 
 	protected ItemStack fillBucket(ItemStack emptyBucket, EntityPlayer player, Item fullItem)
@@ -63,7 +63,7 @@ public class ItemGenesisBucket extends ItemBucket
 			}
 			else if (!player.inventory.addItemStackToInventory(full))
 			{
-				player.dropPlayerItemWithRandomChoice(full, false);
+				player.dropItem(full, false);
 			}
 		}
 		
@@ -74,7 +74,7 @@ public class ItemGenesisBucket extends ItemBucket
 	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
 	{
 		boolean empty = isEmpty();
-		RayTraceResult hit = getMovingObjectPositionFromPlayer(world, player, empty);
+		RayTraceResult hit = rayTrace(world, player, empty);
 		
 		if (hit == null)
 			return Actions.fail(stack);
@@ -98,7 +98,7 @@ public class ItemGenesisBucket extends ItemBucket
 				if (!player.canPlayerEdit(hitPos.offset(hit.sideHit), hit.sideHit, stack))
 					return Actions.fail(stack);
 				
-				if (hitState.getMaterial() == Material.water && hitState.getValue(BlockLiquid.LEVEL).intValue() == 0)
+				if (hitState.getMaterial() == Material.WATER && hitState.getValue(BlockLiquid.LEVEL).intValue() == 0)
 				{
 					world.setBlockToAir(hitPos);
 					player.addStat(StatList.getObjectUseStats(this));

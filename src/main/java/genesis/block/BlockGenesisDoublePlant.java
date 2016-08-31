@@ -97,12 +97,12 @@ public class BlockGenesisDoublePlant<V extends IPlantMetadata<V>> extends BlockP
 			
 			if (topBlock == this)
 			{
-				world.setBlockState(top, Blocks.air.getDefaultState(), 3);
+				world.setBlockState(top, Blocks.AIR.getDefaultState(), 3);
 			}
 			
 			if (bottomBlock == this)
 			{
-				world.setBlockState(bottom, Blocks.air.getDefaultState(), 3);
+				world.setBlockState(bottom, Blocks.AIR.getDefaultState(), 3);
 			}
 		}
 	}
@@ -152,7 +152,7 @@ public class BlockGenesisDoublePlant<V extends IPlantMetadata<V>> extends BlockP
 		
 		if (otherState.getBlock() == this)
 		{
-			world.playAuxSFXAtEntity(player, 2001, other, Block.getStateId(otherState));
+			world.playEvent(player, 2001, other, Block.getStateId(otherState));
 			
 			if (!player.capabilities.isCreativeMode)	// Drop the bottom of the plant as an item.
 			{

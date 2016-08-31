@@ -39,7 +39,7 @@ public class SurviveOnDirtCustoms implements IGrowingPlantCustoms
 		{
 			Block block = world.getBlockState(pos.down()).getBlock();
 			
-			if (block == Blocks.grass || block == Blocks.dirt || block == GenesisBlocks.moss)
+			if (block == Blocks.GRASS || block == Blocks.DIRT || block == GenesisBlocks.moss)
 			{
 				return CanStayOptions.YES;
 			}

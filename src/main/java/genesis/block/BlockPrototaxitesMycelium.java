@@ -39,7 +39,7 @@ public class BlockPrototaxitesMycelium extends BlockMycelium
 					&& (topState.getLightOpacity(world, pos.up()) > 2)
 					&& (topState.getBlock() != GenesisBlocks.prototaxites))
 			{
-				world.setBlockState(pos, Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
+				world.setBlockState(pos, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
 			}
 			else
 			{
@@ -65,7 +65,7 @@ public class BlockPrototaxitesMycelium extends BlockMycelium
 						
 						BlockPos above = randPos.up();
 						
-						if (randState.getBlock() == Blocks.dirt
+						if (randState.getBlock() == Blocks.DIRT
 								&& randState.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT
 								&& world.getLightFromNeighbors(above) >= 4
 								&& world.getBlockState(above).getLightOpacity(world, above) <= 2)

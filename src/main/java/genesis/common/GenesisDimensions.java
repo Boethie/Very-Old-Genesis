@@ -123,7 +123,7 @@ public class GenesisDimensions
 					
 					// Create a new player to reset all their stats and inventory.
 					EntityPlayerMP newPlayer = manager.recreatePlayerEntity(player, dimID, false);
-					newPlayer.playerNetServerHandler.playerEntity = newPlayer;	// recreate doesn't set this.
+					newPlayer.connection.playerEntity = newPlayer;	// recreate doesn't set this.
 					
 					if (dimPlayers != null)
 					{	// Restore the player's inventory from data saved when the player traveled from the dimension previously.

@@ -26,7 +26,7 @@ public class SiltBlocks extends VariantsOfTypesCombo<EnumSilt>
 		CRACKED_SILT.setVariantNameFunction((v) -> v == EnumSilt.SILT ? CRACKED_SILT.getName() : CRACKED_SILT.getName() + "_" + v.getName())
 				.setConstructedFunction((b, i) -> b.setHardness(0.6F))
 				.setUseSeparateVariantJsons(false)
-				.setBlockArguments(Material.sand, SoundType.SAND);
+				.setBlockArguments(Material.SAND, SoundType.SAND);
 		SILTSTONE.setVariantNameFunction((v) -> v == EnumSilt.SILT ? SILTSTONE.getName() : SILTSTONE.getName() + "_" + v.getName())
 				.setUseSeparateVariantJsons(false);
 	}

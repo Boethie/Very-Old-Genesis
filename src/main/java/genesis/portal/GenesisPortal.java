@@ -399,7 +399,7 @@ public class GenesisPortal
 		}
 		
 		setCenterPosition(center.up());
-		IBlockState place = GenesisDimensions.isGenesis(world) ? GenesisBlocks.moss.getDefaultState() : Blocks.grass.getDefaultState();
+		IBlockState place = GenesisDimensions.isGenesis(world) ? GenesisBlocks.moss.getDefaultState() : Blocks.GRASS.getDefaultState();
 		
 		for (BlockPos pos : platform)
 		{
@@ -473,7 +473,7 @@ public class GenesisPortal
 					{
 						NBTTagCompound compound = new NBTTagCompound();
 						te.writeToNBT(compound);
-						TileEntity newTE = TileEntity.createTileEntity(null, compound);
+						TileEntity newTE = TileEntity.create(world, compound);
 						world.removeTileEntity(newPos);
 						world.setTileEntity(newPos, newTE);
 					}

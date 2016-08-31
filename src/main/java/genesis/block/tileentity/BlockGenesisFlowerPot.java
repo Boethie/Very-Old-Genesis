@@ -205,10 +205,10 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		
 		IBlockState state = world.getBlockState(pos);
 		
-		if (state.getBlock() != Blocks.flower_pot)
+		if (state.getBlock() != Blocks.FLOWER_POT)
 			return;
 		
-		state = Blocks.flower_pot.getActualState(state, world, pos);
+		state = Blocks.FLOWER_POT.getActualState(state, world, pos);
 		
 		if (state.getValue(BlockFlowerPot.CONTENTS) != EnumFlowerType.EMPTY)
 			return;

@@ -29,25 +29,25 @@ public class BlockRoots extends BlockGenesis
 	
 	public BlockRoots()
 	{
-		super(Material.vine, GenesisSoundTypes.ROOTS);
+		super(Material.VINE, GenesisSoundTypes.ROOTS);
 		
 		setDefaultState(blockState.getBaseState().withProperty(END, true));
 		
 		setHardness(0.5F);
-		fire.setFireInfo(this, 30, 100);
+		FIRE.setFireInfo(this, 30, 100);
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	}
 	
 	public void init()
 	{
-		blockStateSupportList.addAll(grass.getBlockState().getValidStates());
-		blockStateSupportList.addAll(dirt.getBlockState().getValidStates());
+		blockStateSupportList.addAll(GRASS.getBlockState().getValidStates());
+		blockStateSupportList.addAll(DIRT.getBlockState().getValidStates());
 		blockStateSupportList.addAll(moss.getBlockState().getValidStates());
-		blockStateSupportList.addAll(mycelium.getBlockState().getValidStates());
+		blockStateSupportList.addAll(MYCELIUM.getBlockState().getValidStates());
 		
-		blockStateSupportList.addAll(log.getBlockState().getValidStates());
-		blockStateSupportList.addAll(log2.getBlockState().getValidStates());
+		blockStateSupportList.addAll(LOG.getBlockState().getValidStates());
+		blockStateSupportList.addAll(LOG2.getBlockState().getValidStates());
 		
 		for (Block log : trees.getBlocks(TreeBlocksAndItems.LOG))
 			blockStateSupportList.addAll(log.getBlockState().getValidStates());
@@ -141,13 +141,18 @@ public class BlockRoots extends BlockGenesis
 	{
 		return super.canPlaceBlockAt(world, pos) && canBlockStay(world, pos);
 	}
-	
+
 	@Override
-	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block otherBlock)
+	public void onNeighborChange(IBlockAccess blockAccess, BlockPos pos, BlockPos neighbor)
 	{
-		if (!canBlockStay(world, pos))
+		if (blockAccess instanceof World)
 		{
-			world.destroyBlock(pos, true);
+			World world = (World) blockAccess;
+
+			if (!canBlockStay(world, pos))
+			{
+				world.destroyBlock(pos, true);
+			}
 		}
 	}
 }

@@ -29,7 +29,7 @@ public abstract class TileEntityBase extends TileEntity
 	protected abstract void readVisualData(NBTTagCompound compound, boolean save);
 	
 	@Override
-	public Packet<?> getDescriptionPacket()
+	public SPacketUpdateTileEntity getUpdatePacket()
 	{
 		NBTTagCompound compound = new NBTTagCompound();
 		writeVisualData(compound, false);
@@ -43,11 +43,12 @@ public abstract class TileEntityBase extends TileEntity
 	}
 	
 	@Override
-	public void writeToNBT(NBTTagCompound compound)
+	public NBTTagCompound writeToNBT(NBTTagCompound compound)
 	{
-		super.writeToNBT(compound);
-		
+		compound = super.writeToNBT(compound);
 		writeVisualData(compound, true);
+
+		return compound;
 	}
 	
 	@Override

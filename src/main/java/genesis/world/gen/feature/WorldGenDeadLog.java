@@ -74,7 +74,7 @@ public class WorldGenDeadLog extends WorldGenTreeBase
 			if (
 					!checkState.getBlock().isReplaceable(world, checkPos)
 					&& !checkState.getBlock().isAir(checkState, world, checkPos)
-					&& !(checkState.getBlock().getMaterial(checkState) == Material.water && this.getCanGrowInWater()))
+					&& !(checkState.getBlock().getMaterial(checkState) == Material.WATER && this.getCanGrowInWater()))
 			{
 				return false;
 			}

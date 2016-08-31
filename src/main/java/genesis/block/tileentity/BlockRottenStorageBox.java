@@ -27,7 +27,7 @@ public class BlockRottenStorageBox extends Block
 {
 	public BlockRottenStorageBox()
 	{
-		super(Material.wood);
+		super(Material.WOOD);
 		
 		setSoundType(SoundType.WOOD);
 		
@@ -98,7 +98,7 @@ public class BlockRottenStorageBox extends Block
 		if (!player.capabilities.isCreativeMode)
 			dropBlockAsItem(world, pos, state, 0);
 		
-		world.playAuxSFXAtEntity(player, 2001, pos, getStateId(state));
+		world.playEvent(player, 2001, pos, getStateId(state));
 		world.setBlockToAir(pos);
 		
 		return true;

@@ -3,11 +3,11 @@ package genesis.world.biome;
 import genesis.common.GenesisBlocks;
 import genesis.util.random.f.FloatRange;
 import genesis.world.biome.decorate.WorldGenBoulders;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 
-public class BiomeGenRainforestM extends BiomeGenRainforest
+public class BiomeWoodlandsM extends BiomeWoodlands
 {
-	public BiomeGenRainforestM(BiomeGenBase.BiomeProperties properties)
+	public BiomeWoodlandsM(Biome.BiomeProperties properties)
 	{
 		super(properties);
 		
@@ -24,12 +24,12 @@ public class BiomeGenRainforestM extends BiomeGenRainforest
 	@Override
 	public float getFogDensity()
 	{
-		return 0.25F;
+		return 0.75F;
 	}
 	
 	@Override
 	public float getNightFogModifier()
 	{
-		return 0.15F;
+		return 0.65F;
 	}
 }

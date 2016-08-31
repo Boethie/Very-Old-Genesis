@@ -3,11 +3,11 @@ package genesis.world.biome;
 import genesis.common.GenesisBlocks;
 import genesis.util.random.f.FloatRange;
 import genesis.world.biome.decorate.WorldGenBoulders;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 
-public class BiomeGenWoodlandsM extends BiomeGenWoodlands
+public class BiomeMetaForestM extends BiomeMetaForest
 {
-	public BiomeGenWoodlandsM(BiomeGenBase.BiomeProperties properties)
+	public BiomeMetaForestM(Biome.BiomeProperties properties)
 	{
 		super(properties);
 		

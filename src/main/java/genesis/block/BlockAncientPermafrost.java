@@ -26,19 +26,19 @@ public class BlockAncientPermafrost extends BlockPermafrost
 		// if (chance < 3) stack = new ItemStack(GenesisItems.necklace);
 		if (chance < 5)
 		{
-			stack = new ItemStack(Items.arrow);
+			stack = new ItemStack(Items.ARROW);
 		}
 		else if (chance < 7)
 		{
-			stack = new ItemStack(Items.bow);
+			stack = new ItemStack(Items.BOW);
 		}
 		else if (chance < 10)
 		{
-			stack = new ItemStack(Items.wooden_pickaxe);// pick
+			stack = new ItemStack(Items.WOODEN_PICKAXE);// pick
 		}
 		else if (chance < 35)
 		{
-			stack = new ItemStack(Items.bone);
+			stack = new ItemStack(Items.BONE);
 		}
 		else if (chance < 40)
 		{

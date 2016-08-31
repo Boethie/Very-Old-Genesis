@@ -88,7 +88,7 @@ public class TileEntityMenhirReceptacle extends TileEntityBase implements ITicka
 		
 		if (worldObj != null)
 		{
-			for (BlockPos pos : new MenhirData(worldObj, pos))
+			for (BlockPos pos : new MenhirData(worldObj, getPos()))
 			{
 				worldObj.checkLight(pos);
 			}
@@ -96,11 +96,13 @@ public class TileEntityMenhirReceptacle extends TileEntityBase implements ITicka
 	}
 	
 	@Override
-	public void writeToNBT(NBTTagCompound compound)
+	public NBTTagCompound writeToNBT(NBTTagCompound compound)
 	{
-		super.writeToNBT(compound);
+		compound = super.writeToNBT(compound);
 		
 		compound.setByte("timer", timer);
+
+		return compound;
 	}
 	
 	@Override

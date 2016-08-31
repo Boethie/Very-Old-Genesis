@@ -8,7 +8,7 @@ public class BlockOoze extends BlockGenesis
 {
 	public BlockOoze()
 	{
-		super(Material.clay, GenesisSoundTypes.OOZE);
+		super(Material.CLAY, GenesisSoundTypes.OOZE);
 		
 		slipperiness = 0.88F;
 		setSoundType(GenesisSoundTypes.OOZE);

@@ -4,7 +4,7 @@ import genesis.common.GenesisBlocks;
 import genesis.common.GenesisDimensions;
 import genesis.util.GenesisMath;
 import genesis.world.WorldProviderGenesis;
-import genesis.world.biome.IBiomeGenFog;
+import genesis.world.biome.IBiomeFog;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -16,7 +16,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColorHelper;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.EntityViewRenderEvent.FogColors;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -96,12 +96,12 @@ public class RenderFog
 				if (x * x + z * z < areaSize * areaSize)
 				{
 					BlockPos samplePos = new BlockPos(playerPos.addVector(x, 0, z));
-					BiomeGenBase biome = world.getBiomeGenForCoords(samplePos);
+					Biome biome = world.getBiome(samplePos);
 					Vec3d color;
 					
-					if (biome instanceof IBiomeGenFog)
+					if (biome instanceof IBiomeFog)
 					{
-						IBiomeGenFog fogBiome = (IBiomeGenFog) biome;
+						IBiomeFog fogBiome = (IBiomeFog) biome;
 						long time = world.getWorldTime();
 						
 						float percent = getDayNightFactor(time, partialTicks);
@@ -185,7 +185,7 @@ public class RenderFog
 		if (!GenesisDimensions.isGenesis(world))
 			return;
 		
-		if (blockAtEyes.getMaterial() == Material.water)
+		if (blockAtEyes.getMaterial() == Material.WATER)
 		{
 			BlockPos eyePos = new BlockPos(ActiveRenderInfo.projectViewFromEntity(entity, partialTicks));
 			

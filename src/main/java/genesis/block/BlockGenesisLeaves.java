@@ -57,7 +57,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		setSoundType(SoundType.PLANT);
 		
-		Blocks.fire.setFireInfo(this, 30, 60);
+		Blocks.FIRE.setFireInfo(this, 30, 60);
 	}
 	
 	@Override

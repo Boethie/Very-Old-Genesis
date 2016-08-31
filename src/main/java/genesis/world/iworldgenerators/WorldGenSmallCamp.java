@@ -5,28 +5,25 @@ import java.util.List;
 import java.util.Random;
 
 import genesis.block.BlockGenesisLogs;
-import genesis.block.tileentity.TileEntityCampfire;
 import genesis.block.tileentity.TileEntityStorageBox;
 import genesis.combo.TreeBlocksAndItems;
-import genesis.combo.variant.EnumDish;
 import genesis.combo.variant.EnumTree;
 import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisConfig;
 import genesis.common.GenesisDimensions;
-import genesis.common.GenesisItems;
 import genesis.common.GenesisLoot;
 import genesis.util.WorldUtils;
-import genesis.world.biome.BiomeGenAuxForest;
-import genesis.world.biome.BiomeGenMetaForest;
-import genesis.world.biome.BiomeGenWoodlands;
+import genesis.world.biome.BiomeAuxForest;
+import genesis.world.biome.BiomeMetaForest;
+import genesis.world.biome.BiomeWoodlands;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.common.BiomeDictionary;
@@ -75,9 +72,9 @@ public class WorldGenSmallCamp implements IWorldGenerator
 		
 		BlockPos start = new BlockPos(chunkX * 16 + 4, 0, chunkZ * 16 + 4);
 		
-		BiomeGenBase biome = world.getBiomeGenForCoords(start);
+		Biome biome = world.getBiome(start);
 		
-		if (!(biome instanceof BiomeGenMetaForest || biome instanceof BiomeGenAuxForest || biome instanceof BiomeGenWoodlands))
+		if (!(biome instanceof BiomeMetaForest || biome instanceof BiomeAuxForest || biome instanceof BiomeWoodlands))
 			return;
 		
 		if (world.rand.nextInt(GenesisConfig.smallCampChance) != 0)
@@ -92,7 +89,7 @@ public class WorldGenSmallCamp implements IWorldGenerator
 		
 		for (BlockPos bp : BlockPos.getAllInBox(start, start.add(8, 0, 8)))
 		{
-			BiomeGenBase bBiome = world.getBiomeGenForCoords(bp);
+			Biome bBiome = world.getBiome(bp);
 			
 			if (BiomeDictionary.isBiomeOfType(bBiome, Type.HILLS) || BiomeDictionary.isBiomeOfType(bBiome, Type.MOUNTAIN))
 				return;
@@ -139,13 +136,13 @@ public class WorldGenSmallCamp implements IWorldGenerator
 			{
 				ResourceLocation loot = null;
 				
-				if (biome instanceof BiomeGenMetaForest)
+				if (biome instanceof BiomeMetaForest)
 					loot = GenesisLoot.CHESTS_CAMP_META_FOREST;
 				
-				if (biome instanceof BiomeGenAuxForest)
+				if (biome instanceof BiomeAuxForest)
 					loot = GenesisLoot.CHESTS_CAMP_AUX_FOREST;
 				
-				if (biome instanceof BiomeGenWoodlands)
+				if (biome instanceof BiomeWoodlands)
 					loot = GenesisLoot.CHESTS_CAMP_WOODLANDS;
 				
 				((TileEntityStorageBox) te).setLoot(loot, System.currentTimeMillis());
@@ -158,15 +155,15 @@ public class WorldGenSmallCamp implements IWorldGenerator
 		
 		EnumTree tree = null;
 		
-		if (biome instanceof BiomeGenAuxForest)
+		if (biome instanceof BiomeAuxForest)
 		{
 			tree = EnumTree.ARAUCARIOXYLON;
 		}
-		else if (biome instanceof BiomeGenMetaForest)
+		else if (biome instanceof BiomeMetaForest)
 		{
 			tree = EnumTree.METASEQUOIA;
 		}
-		else if (biome instanceof BiomeGenWoodlands)
+		else if (biome instanceof BiomeWoodlands)
 		{
 			tree = EnumTree.DRYOPHYLLUM;
 		}

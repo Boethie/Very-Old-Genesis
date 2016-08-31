@@ -3,7 +3,7 @@ package genesis.util;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.play.server.SPacketEntityVelocity;
 import net.minecraft.world.DimensionType;
-import net.minecraft.world.WorldSettings.GameType;
+import net.minecraft.world.GameType;
 
 public class PlayerWorldState
 {
@@ -73,12 +73,12 @@ public class PlayerWorldState
 	{
 		player.dimension = dim;
 		
-		player.playerNetServerHandler.setPlayerLocation(x, y, z, yaw, pitch);
+		player.connection.setPlayerLocation(x, y, z, yaw, pitch);
 		
 		player.motionX = motionX;
 		player.motionY = motionY;
 		player.motionZ = motionZ;
-		player.playerNetServerHandler.sendPacket(new SPacketEntityVelocity(player));
+		player.connection.sendPacket(new SPacketEntityVelocity(player));
 		
 		player.fallDistance = fallDistance;
 		

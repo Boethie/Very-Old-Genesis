@@ -167,7 +167,7 @@ public class GuiContainerKnapper extends GuiContainerBase
 					
 					if (knapState.getProgress() > 0)
 					{
-						bindTexture(TextureMap.locationBlocksTexture);
+						bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 						
 						GlStateManager.tryBlendFuncSeparate(GL11.GL_DST_COLOR, GL11.GL_SRC_COLOR, 1, 0);
 						GlStateManager.enableBlend();

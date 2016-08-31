@@ -165,7 +165,7 @@ public class ContainerKnapper extends ContainerBase
 	
 	protected void sendGUIData(boolean force)
 	{
-		for (ICrafting crafting : crafters)
+		for (IContainerListener listener : listeners)
 		{
 			int i = 0;
 			
@@ -176,7 +176,7 @@ public class ContainerKnapper extends ContainerBase
 				
 				if (force || prevProgresses[i] != progress)
 				{
-					crafting.sendProgressBarUpdate(this, i, progress);
+					listener.sendProgressBarUpdate(this, i, progress);
 					prevProgresses[i] = progress;
 				}
 			}
@@ -185,7 +185,7 @@ public class ContainerKnapper extends ContainerBase
 			
 			if (force || wasLocked != locked)
 			{
-				crafting.sendProgressBarUpdate(this, i, locked ? 1 : 0);
+				listener.sendProgressBarUpdate(this, i, locked ? 1 : 0);
 				wasLocked = locked;
 			}
 		}
@@ -219,9 +219,9 @@ public class ContainerKnapper extends ContainerBase
 	}
 	
 	@Override
-	public void onCraftGuiOpened(ICrafting iCrafting)
+	public void addListener(IContainerListener iCrafting)
 	{
-		super.onCraftGuiOpened(iCrafting);
+		super.addListener(iCrafting);
 		
 		sendGUIData(true);
 	}
@@ -237,11 +237,11 @@ public class ContainerKnapper extends ContainerBase
 		
 		if (!ItemStack.areItemStacksEqual(oldOutput, newOutput))
 		{
-			for (ICrafting crafting : crafters)
+			for (IContainerListener listener : listeners)
 			{
-				if (crafting instanceof EntityPlayerMP)
+				if (listener instanceof EntityPlayerMP)
 				{
-					((EntityPlayerMP) crafting).playerNetServerHandler.sendPacket(new SPacketSetSlot(windowId, outputSlot, newOutput));
+					((EntityPlayerMP) listener).connection.sendPacket(new SPacketSetSlot(windowId, outputSlot, newOutput));
 				}
 			}
 		}

@@ -59,7 +59,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 			ObjectType<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>> type,
 			List<EnumAquaticPlant> variants, Class<EnumAquaticPlant> variantClass)
 	{
-		super(Material.water);
+		super(Material.WATER);
 		
 		this.owner = owner;
 		this.type = type;
@@ -157,12 +157,17 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 	{
 		this.checkAndDropBlock(worldIn, pos, state);
 	}
-	
+
 	@Override
-	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+	public void onNeighborChange(IBlockAccess blockAccess, BlockPos pos, BlockPos neighbor)
 	{
-		super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
-		this.checkAndDropBlock(worldIn, pos, state);
+		super.onNeighborChange(blockAccess, pos, neighbor);
+
+		if (blockAccess instanceof World)
+		{
+			World world = (World) blockAccess;
+			this.checkAndDropBlock(world, pos, world.getBlockState(pos));
+		}
 	}
 	
 	protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state)
@@ -199,7 +204,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 	
 	private void breakPlant(World world, BlockPos pos, IBlockState state)
 	{
-		world.setBlockState(pos, Blocks.water.getStateFromMeta(0), 3);
+		world.setBlockState(pos, Blocks.WATER.getStateFromMeta(0), 3);
 		EnumAquaticPlant variant = state.getValue(variantProp);
 		
 		if (variant == EnumAquaticPlant.CHARNIA_TOP)
@@ -208,7 +213,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 			
 			if (below.getBlock() == this && below.getValue(variantProp) == EnumAquaticPlant.CHARNIA)
 			{
-				world.setBlockState(pos.down(), Blocks.water.getStateFromMeta(0), 3);
+				world.setBlockState(pos.down(), Blocks.WATER.getStateFromMeta(0), 3);
 			}
 		}
 		else if (variant == EnumAquaticPlant.CHARNIA)
@@ -217,7 +222,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 			
 			if (above.getBlock() == this && above.getValue(variantProp) == EnumAquaticPlant.CHARNIA_TOP)
 			{
-				world.setBlockState(pos.up(), Blocks.water.getStateFromMeta(0), 3);
+				world.setBlockState(pos.up(), Blocks.WATER.getStateFromMeta(0), 3);
 			}
 		}
 	}
@@ -227,16 +232,16 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 		if (validGround == null)
 		{
 			validGround = new HashSet<>();
-			validGround.add(Blocks.dirt);
-			validGround.add(Blocks.sand);
-			validGround.add(Blocks.gravel);
-			validGround.add(Blocks.clay);
-			validGround.add(Blocks.hardened_clay);
-			validGround.add(Blocks.stonebrick);
-			validGround.add(Blocks.stone);
-			validGround.add(Blocks.log);
-			validGround.add(Blocks.log2);
-			validGround.add(Blocks.planks);
+			validGround.add(Blocks.DIRT);
+			validGround.add(Blocks.SAND);
+			validGround.add(Blocks.GRAVEL);
+			validGround.add(Blocks.CLAY);
+			validGround.add(Blocks.HARDENED_CLAY);
+			validGround.add(Blocks.STONEBRICK);
+			validGround.add(Blocks.STONE);
+			validGround.add(Blocks.LOG);
+			validGround.add(Blocks.LOG2);
+			validGround.add(Blocks.PLANKS);
 			validGround.add(GenesisBlocks.red_clay);
 			validGround.add(GenesisBlocks.ooze);
 			validGround.add(GenesisBlocks.peat);
@@ -277,11 +282,11 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 		
 		IBlockState above = world.getBlockState(pos.up());
 		
-		if (above.getMaterial() != Material.water)
+		if (above.getMaterial() != Material.WATER)
 		{
 			return false;
 		}
-		if (variant == EnumAquaticPlant.CHARNIA && world.getBlockState(pos.up(2)).getMaterial() != Material.water)
+		if (variant == EnumAquaticPlant.CHARNIA && world.getBlockState(pos.up(2)).getMaterial() != Material.WATER)
 		{
 			return false;
 		}
@@ -314,7 +319,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 	
 	private boolean isWaterish(Block block)
 	{
-		return (block == Blocks.water) || block == Blocks.flowing_water || (block == this);
+		return (block == Blocks.WATER) || block == Blocks.FLOWING_WATER || (block == this);
 	}
 	
 	@Override

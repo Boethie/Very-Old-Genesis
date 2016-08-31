@@ -39,7 +39,7 @@ public class WorldGenGenesisLiquids extends WorldGenerator
 		
 		IBlockState state = world.getBlockState(pos);
 		
-		if (state.getMaterial() != Material.air && state.getBlock() != stone)
+		if (state.getMaterial() != Material.AIR && state.getBlock() != stone)
 			return false;
 		
 		int stoneCount = 0;
@@ -59,7 +59,7 @@ public class WorldGenGenesisLiquids extends WorldGenerator
 		if (stoneCount == 3 && airCount == 1)
 		{
 			world.setBlockState(pos, liquid.getDefaultState(), 2);
-			world.forceBlockUpdateTick(liquid, pos, rand);
+			world.scheduleUpdate(pos, liquid, 0);
 		}
 		
 		return true;

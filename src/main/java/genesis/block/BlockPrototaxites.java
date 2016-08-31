@@ -24,7 +24,7 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 {
 	public BlockPrototaxites()
 	{
-		super(Material.wood, false, 15, 5);
+		super(Material.WOOD, false, 15, 5);
 		
 		setSoundType(GenesisSoundTypes.MUSHROOM);
 		
@@ -99,7 +99,7 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 			BlockPos soilPos = pos.down(i);
 			IBlockState soilState = world.getBlockState(soilPos);
 			
-			if (soilState.getBlock() == Blocks.dirt
+			if (soilState.getBlock() == Blocks.DIRT
 					|| soilState.getBlock() == GenesisBlocks.moss)
 			{
 				world.setBlockState(soilPos, GenesisBlocks.prototaxites_mycelium.getDefaultState(), flags);

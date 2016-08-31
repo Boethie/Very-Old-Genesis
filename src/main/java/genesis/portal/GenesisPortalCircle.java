@@ -19,8 +19,8 @@ public class GenesisPortalCircle
 			new WorldGenHelper.RandomState(GenesisBlocks.mossy_granite.getDefaultState(), 1));
 	
 	private static WorldGenHelper.RandomStates vanillaRocks = new WorldGenHelper.RandomStates(
-			new WorldGenHelper.RandomState(Blocks.cobblestone.getDefaultState(), 3),
-			new WorldGenHelper.RandomState(Blocks.mossy_cobblestone.getDefaultState(), 1));
+			new WorldGenHelper.RandomState(Blocks.COBBLESTONE.getDefaultState(), 3),
+			new WorldGenHelper.RandomState(Blocks.MOSSY_COBBLESTONE.getDefaultState(), 1));
 	
 	private static List<BlockPos> posts = ImmutableList.of(
 			new BlockPos(-1, 0, -8), new BlockPos( 1, 0, -8), new BlockPos(-4, 0, -7), new BlockPos( 4, 0, -7), new BlockPos(0, -6, -6),

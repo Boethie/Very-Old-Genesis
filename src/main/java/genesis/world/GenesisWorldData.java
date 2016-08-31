@@ -26,7 +26,7 @@ public class GenesisWorldData extends WorldSavedData
 			return null;
 		
 		MapStorage storage = world.getPerWorldStorage();
-		GenesisWorldData data = (GenesisWorldData) storage.loadData(GenesisWorldData.class, Constants.MOD_ID);
+		GenesisWorldData data = (GenesisWorldData) storage.getOrLoadData(GenesisWorldData.class, Constants.MOD_ID);
 		
 		if (data == null)
 		{
@@ -62,8 +62,9 @@ public class GenesisWorldData extends WorldSavedData
 	}
 	
 	@Override
-	public void writeToNBT(NBTTagCompound nbt)
+	public NBTTagCompound writeToNBT(NBTTagCompound nbt)
 	{
 		nbt.setLong("time", time);
+		return nbt;
 	}
 }

@@ -31,9 +31,9 @@ public class WorldGenGenesisSand extends WorldGenerator
 		do {
 			position = position.down();
 			state = world.getBlockState(position);
-		} while (state == Blocks.air.getDefaultState() || state == Blocks.water.getDefaultState());
+		} while (state == Blocks.AIR.getDefaultState() || state == Blocks.WATER.getDefaultState());
 		
-		if (world.getBlockState(position.up()) != Blocks.water.getDefaultState())
+		if (world.getBlockState(position.up()) != Blocks.WATER.getDefaultState())
 		{
 			return false;
 		}
@@ -55,7 +55,7 @@ public class WorldGenGenesisSand extends WorldGenerator
 						BlockPos pos = new BlockPos(x, y, z);
 						Block block = world.getBlockState(pos).getBlock();
 
-						if (block == Blocks.dirt || block == GenesisBlocks.moss)
+						if (block == Blocks.DIRT || block == GenesisBlocks.moss)
 						{
 							world.setBlockState(pos, sand, 2);
 						}

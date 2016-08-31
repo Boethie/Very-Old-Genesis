@@ -26,7 +26,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.*;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.*;
 
 public class WorldUtils
@@ -74,7 +74,7 @@ public class WorldUtils
 	
 	public static MutableBlockPos setOffset(MutableBlockPos pos, int dX, int dY, int dZ)
 	{
-		return pos.set(pos.getX() + dX, pos.getY() + dY, pos.getZ() + dZ);
+		return pos.setPos(pos.getX() + dX, pos.getY() + dY, pos.getZ() + dZ);
 	}
 	
 	public static MutableBlockPos setOffset(MutableBlockPos pos, Vec3i offset, int distance)
@@ -102,7 +102,7 @@ public class WorldUtils
 	 */
 	public static boolean isWater(IBlockAccess world, BlockPos pos)
 	{
-		return world.getBlockState(pos).getMaterial() == Material.water;
+		return world.getBlockState(pos).getMaterial() == Material.WATER;
 	}
 	
 	/**
@@ -369,10 +369,8 @@ public class WorldUtils
 				return getBlockState(pos).isSideSolid(this, pos, side);
 			}
 			
-			@Override public BiomeGenBase getBiomeGenForCoords(BlockPos pos) { return base.getBiomeGenForCoords(pos); }
-			
-			@Override public boolean extendedLevelsInChunkCache() { return base.extendedLevelsInChunkCache(); }
-			
+			@Override public Biome getBiome(BlockPos pos) { return base.getBiome(pos); }
+
 			@Override public int getCombinedLight(BlockPos pos, int lightValue) { return base.getCombinedLight(pos, lightValue); }
 			
 			@Override public WorldType getWorldType() {

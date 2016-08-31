@@ -214,7 +214,7 @@ public class BlockGenesisSaplings extends BlockSapling
 			{
 				BlockPos sapPos = positions[i];
 				states[i] = world.getBlockState(sapPos);
-				world.setBlockState(sapPos, Blocks.air.getDefaultState(), 0);
+				world.setBlockState(sapPos, Blocks.AIR.getDefaultState(), 0);
 			}
 			
 			boolean success = gen.generate(world, rand, pos);

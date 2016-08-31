@@ -18,7 +18,7 @@ import net.minecraft.world.biome.*;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.*;
 
-public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiomeGenFog
+public abstract class BiomeGenesis extends Biome implements IBiomeFog
 {
 	public IBlockState oceanFloor = GenesisBlocks.ooze.getDefaultState();
 	public int[] mossStages = new int[0];
@@ -29,7 +29,7 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 	private final WeightedRandomList<WorldGenDecorationBase> plants = new WeightedRandomList<>();
 	private final List<DecorationEntry> postDecor = new ArrayList<>();
 	
-	public BiomeGenBaseGenesis(BiomeGenBase.BiomeProperties properties)
+	public BiomeGenesis(Biome.BiomeProperties properties)
 	{
 		super(properties);
 		
@@ -176,13 +176,13 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 		{
 			if (y <= rand.nextInt(5))
 			{
-				primer.setBlockState(chunkZ, y, chunkX, Blocks.bedrock.getDefaultState());
+				primer.setBlockState(chunkZ, y, chunkX, Blocks.BEDROCK.getDefaultState());
 			}
 			else
 			{
 				IBlockState state = primer.getBlockState(chunkZ, y, chunkX);
 				
-				if (state.getBlock().getMaterial(state) == Material.air)
+				if (state.getBlock().getMaterial(state) == Material.AIR)
 				{
 					k = -1;
 				}
@@ -201,15 +201,15 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase implements IBiome
 							filler = fillerBlock;
 						}
 						
-						if (y < 63 && (top == null || top.getBlock().getMaterial(top) == Material.air))
+						if (y < 63 && (top == null || top.getMaterial() == Material.AIR))
 						{
 							if (getFloatTemperature(new BlockPos(blockX, y, blockZ)) < 0.15F)
 							{
-								top = Blocks.ice.getDefaultState();
+								top = Blocks.ICE.getDefaultState();
 							}
 							else
 							{
-								top = Blocks.water.getDefaultState();
+								top = Blocks.WATER.getDefaultState();
 							}
 						}
 						

@@ -46,13 +46,13 @@ public class BlockGenesisDebris extends BlockGenesisVariants<MultiMetadata>
 			ObjectType<MultiMetadata, BlockGenesisDebris, ItemBlockMulti<MultiMetadata>> type,
 			List<MultiMetadata> variants, Class<MultiMetadata> variantClass)
 	{
-		super(owner, type, variants, variantClass, Material.vine, GenesisSoundTypes.DEBRIS);
+		super(owner, type, variants, variantClass, Material.VINE, GenesisSoundTypes.DEBRIS);
 		
 		debrisOwner = owner;
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		
-		Blocks.fire.setFireInfo(this, 60, 100);
+		Blocks.FIRE.setFireInfo(this, 60, 100);
 		setTickRandomly(true);
 		
 		clearDrops();
@@ -108,11 +108,15 @@ public class BlockGenesisDebris extends BlockGenesisVariants<MultiMetadata>
 			return world.destroyBlock(pos, true);
 		return false;
 	}
-	
+
 	@Override
-	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block neighbor)
+	public void onNeighborChange(IBlockAccess blockAccess, BlockPos pos, BlockPos neighbor)
 	{
-		checkAndDropBlock(world, pos, state);
+		if (blockAccess instanceof World)
+		{
+			World world = (World) blockAccess;
+			checkAndDropBlock(world, pos, world.getBlockState(pos));
+		}
 	}
 	
 	@Override

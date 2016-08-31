@@ -21,9 +21,9 @@ public class TileEntityRottenStorageBox extends TileEntity
 	}
 	
 	@Override
-	public void writeToNBT(NBTTagCompound compound)
+	public NBTTagCompound writeToNBT(NBTTagCompound compound)
 	{
-		super.writeToNBT(compound);
+		compound = super.writeToNBT(compound);
 		
 		NBTTagList itemList = new NBTTagList();
 		int i = 0;
@@ -43,6 +43,8 @@ public class TileEntityRottenStorageBox extends TileEntity
 		}
 		
 		compound.setTag("items", itemList);
+
+		return compound;
 	}
 	
 	@Override

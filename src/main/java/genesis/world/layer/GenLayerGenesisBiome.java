@@ -10,7 +10,7 @@ import java.util.List;
 
 import genesis.world.biome.BiomeManagerGenesis;
 import net.minecraft.util.WeightedRandom;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 import net.minecraftforge.common.BiomeManager;
@@ -47,7 +47,7 @@ public class GenLayerGenesisBiome extends GenLayerGenesis
 	 * for (int j1 = 0; j1 < par3; ++j1)
 	 * {
 	 * initChunkSeed(j1 + par1, i1 + par2);
-	 * BiomeGenBase biome = allowedBiomes[nextInt(allowedBiomes.length)];
+	 * Biome biome = allowedBiomes[nextInt(allowedBiomes.length)];
 	 * aint1[j1 + i1 * par3] = biome.biomeID;
 	 * }
 	 * return aint1;
@@ -72,7 +72,7 @@ public class GenLayerGenesisBiome extends GenLayerGenesis
 				if (isBiomeOceanic(type))
 					out[offX + offY * areaWidth] = type;
 				else
-					out[offX + offY * areaWidth] = BiomeGenBase.getIdForBiome(getWeightedBiomeEntry(WARM).biome);
+					out[offX + offY * areaWidth] = Biome.getIdForBiome(getWeightedBiomeEntry(WARM).biome);
 				
 				BiomeEntry biome = null;
 				
@@ -93,7 +93,7 @@ public class GenLayerGenesisBiome extends GenLayerGenesis
 				}
 				
 				if (biome != null)
-					out[offX + offY * areaWidth] = BiomeGenBase.getIdForBiome(biome.biome);
+					out[offX + offY * areaWidth] = Biome.getIdForBiome(biome.biome);
 			}
 		}
 		

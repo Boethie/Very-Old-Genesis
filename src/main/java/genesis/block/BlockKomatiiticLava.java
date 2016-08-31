@@ -23,7 +23,7 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 {
 	public BlockKomatiiticLava(Fluid fluid)
 	{
-		super(fluid, Material.lava);
+		super(fluid, Material.LAVA);
 		setQuantaPerBlock(4);
 		lightValue = maxScaledLight;
 		setTickRandomly(true);
@@ -35,12 +35,15 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 		super.onBlockAdded(world, pos, state);
 		checkForMixing(world, pos, state);
 	}
-	
+
 	@Override
-	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block neighborBlock)
+	public void onNeighborChange(IBlockAccess blockAccess, BlockPos pos, BlockPos neighbor)
 	{
-		super.onNeighborBlockChange(world, pos, state, neighborBlock);
-		checkForMixing(world, pos, state);
+		if (blockAccess instanceof World)
+		{
+			World world = (World) blockAccess;
+			checkForMixing(world, pos, world.getBlockState(pos));
+		}
 	}
 	
 	@Override
@@ -49,7 +52,7 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 		if (rand.nextInt(500) == 0)
 		{
 			world.playSound(pos.getX(), pos.getY(), pos.getZ(),
-					SoundEvents.block_lava_pop, SoundCategory.BLOCKS,
+					SoundEvents.BLOCK_LAVA_POP, SoundCategory.BLOCKS,
 					1, 1.2F / (rand.nextFloat() * 0.2F + 0.9F), false);
 			world.spawnParticle(EnumParticleTypes.LAVA, pos.getX(), pos.getY(), pos.getZ(), 0, 0, 0);
 		}
@@ -78,7 +81,7 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 		{
 			for (EnumFacing side : EnumFacing.VALUES)
 			{
-				if (side != EnumFacing.DOWN && world.getBlockState(pos.offset(side)).getMaterial() == Material.water)
+				if (side != EnumFacing.DOWN && world.getBlockState(pos.offset(side)).getMaterial() == Material.WATER)
 				{
 					mix = true;
 					break;
@@ -111,7 +114,7 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 		double y = pos.getY();
 		double z = pos.getZ();
 		world.playSound(null, x + 0.5D, y + 0.5D, z + 0.5D,
-				SoundEvents.block_lava_extinguish, SoundCategory.BLOCKS,
+				SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS,
 				0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);
 		
 		for (int i = 0; i < 8; i++)
@@ -141,7 +144,7 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 					{
 						if (isSurroundingBlockFlammable(world, randPos))
 						{
-							world.setBlockState(randPos, Blocks.fire.getDefaultState());
+							world.setBlockState(randPos, Blocks.FIRE.getDefaultState());
 							return;
 						}
 					}
@@ -159,7 +162,7 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 					
 					if (world.isAirBlock(randPos.up()) && getCanBlockBurn(world, randPos))
 					{
-						world.setBlockState(randPos.up(), Blocks.fire.getDefaultState());
+						world.setBlockState(randPos.up(), Blocks.FIRE.getDefaultState());
 					}
 				}
 			}

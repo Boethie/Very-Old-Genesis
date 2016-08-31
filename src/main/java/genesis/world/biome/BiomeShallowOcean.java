@@ -12,12 +12,12 @@ import genesis.world.biome.decorate.WorldGenCorals;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPebbles;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-public class BiomeGenShallowOcean extends BiomeGenBaseGenesis
+public class BiomeShallowOcean extends BiomeGenesis
 {
-	public BiomeGenShallowOcean(BiomeGenBase.BiomeProperties properties)
+	public BiomeShallowOcean(Biome.BiomeProperties properties)
 	{
 		super(properties);
 		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);

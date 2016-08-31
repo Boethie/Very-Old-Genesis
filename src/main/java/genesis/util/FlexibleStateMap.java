@@ -85,7 +85,7 @@ public class FlexibleStateMap extends StateMapperBase
 	@Override
 	protected ModelResourceLocation getModelResourceLocation(IBlockState state)
 	{
-		ResourceLocation registeredAs = Block.blockRegistry.getNameForObject(state.getBlock());
+		ResourceLocation registeredAs = Block.REGISTRY.getNameForObject(state.getBlock());
 		String domain = registeredAs.getResourceDomain();
 		
 		// Set prefix name section.

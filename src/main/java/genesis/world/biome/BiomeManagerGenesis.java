@@ -2,7 +2,7 @@ package genesis.world.biome;
 
 import java.util.*;
 
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeManager.BiomeEntry;
 import net.minecraftforge.common.BiomeManager.BiomeType;
 
@@ -10,9 +10,9 @@ public class BiomeManagerGenesis
 {
 	private static final Map<BiomeType, List<BiomeEntry>> biomes = new HashMap<>();
 	
-	public static boolean registerBiome(BiomeGenBaseGenesis biome, int id, BiomeType type, int weight)
+	public static boolean registerBiome(BiomeGenesis biome, int id, BiomeType type, int weight)
 	{
-		BiomeGenBase.registerBiome(id, biome.getBiomeName(), biome);
+		Biome.registerBiome(id, biome.getBiomeName(), biome);
 		
 		return getEntries(type).add(new BiomeEntry(biome, weight));
 	}

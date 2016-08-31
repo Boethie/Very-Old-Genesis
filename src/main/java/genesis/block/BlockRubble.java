@@ -32,7 +32,7 @@ public class BlockRubble extends BlockGenesisVariants<EnumRubble>
 			ObjectType<EnumRubble, BlockRubble, ItemBlockMulti<EnumRubble>> type,
 			List<EnumRubble> variants, Class<EnumRubble> variantClass)
 	{
-		super(owner, type, variants, variantClass, Material.rock, SoundType.STONE);
+		super(owner, type, variants, variantClass, Material.ROCK, SoundType.STONE);
 
 		this.owner = owner;
 		this.type = type;

@@ -50,30 +50,30 @@ public class ItemGenesisKnife extends ItemTool
 	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World world, IBlockState state, BlockPos pos, EntityLivingBase entity)
 	{
-		return Items.shears.onBlockDestroyed(stack, world, state, pos, entity);
+		return Items.SHEARS.onBlockDestroyed(stack, world, state, pos, entity);
 	}
 	
 	@Override
 	public boolean canHarvestBlock(IBlockState state)
 	{
-		return Items.shears.canHarvestBlock(state);
+		return Items.SHEARS.canHarvestBlock(state);
 	}
 
 	@Override
 	public float getStrVsBlock(ItemStack stack, IBlockState state)
 	{
-		return Items.shears.getStrVsBlock(stack, state);
+		return Items.SHEARS.getStrVsBlock(stack, state);
 	}
 	
 	@Override
 	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity, EnumHand hand)
 	{
-		return Items.shears.itemInteractionForEntity(stack, player, entity, hand);
+		return Items.SHEARS.itemInteractionForEntity(stack, player, entity, hand);
 	}
 	
 	@Override
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, EntityPlayer player)
 	{
-		return Items.shears.onBlockStartBreak(stack, pos, player);
+		return Items.SHEARS.onBlockStartBreak(stack, pos, player);
 	}
 }

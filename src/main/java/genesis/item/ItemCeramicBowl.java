@@ -92,7 +92,7 @@ public class ItemCeramicBowl extends ItemGenesis
 		switch (variant)
 		{
 		case BOWL:
-			RayTraceResult hit = getMovingObjectPositionFromPlayer(world, player, true);
+			RayTraceResult hit = rayTrace(world, player, true);
 	
 			if (hit != null && hit.typeOfHit == RayTraceResult.Type.BLOCK)
 			{
@@ -100,7 +100,7 @@ public class ItemCeramicBowl extends ItemGenesis
 				
 				if (world.isBlockModifiable(player, hitPos) && player.canPlayerEdit(hitPos.offset(hit.sideHit), hit.sideHit, stack))
 				{
-					if (world.getBlockState(hitPos).getMaterial() == Material.water)
+					if (world.getBlockState(hitPos).getMaterial() == Material.WATER)
 					{
 						player.addStat(StatList.getObjectUseStats(this));
 						
@@ -114,7 +114,7 @@ public class ItemCeramicBowl extends ItemGenesis
 						
 						if (!player.inventory.addItemStackToInventory(newStack))
 						{
-							player.dropPlayerItemWithRandomChoice(newStack, false);
+							player.dropItem(newStack, false);
 						}
 						
 						return Actions.success(stack);
@@ -153,7 +153,7 @@ public class ItemCeramicBowl extends ItemGenesis
 			
 			if (player != null && !player.inventory.addItemStackToInventory(empty))
 			{
-				player.dropPlayerItemWithRandomChoice(empty, false);
+				player.dropItem(empty, false);
 			}
 			
 			break;

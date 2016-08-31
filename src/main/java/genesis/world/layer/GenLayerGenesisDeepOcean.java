@@ -1,7 +1,7 @@
 package genesis.world.layer;
 
 import genesis.common.GenesisBiomes;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 
@@ -56,23 +56,23 @@ public class GenLayerGenesisDeepOcean extends GenLayerGenesis
 				
 				if (k3 == 0 && l3 > 3 && j3 == 0)
 				{
-					aint1[j2 + i2 * areaWidth] = BiomeGenBase.getIdForBiome(GenesisBiomes.deepOcean);
+					aint1[j2 + i2 * areaWidth] = Biome.getIdForBiome(GenesisBiomes.deepOcean);
 				}
 				else if (k3 == 0 && l3 > 2 && i3 == 0)
 				{
-					aint1[j2 + i2 * areaWidth] = BiomeGenBase.getIdForBiome(GenesisBiomes.ocean);
+					aint1[j2 + i2 * areaWidth] = Biome.getIdForBiome(GenesisBiomes.ocean);
 				}
 				else if (k3 == 0 && l3 > 2 && l2 == 0)
 				{
-					aint1[j2 + i2 * areaWidth] = BiomeGenBase.getIdForBiome(GenesisBiomes.rainforestIslands);
+					aint1[j2 + i2 * areaWidth] = Biome.getIdForBiome(GenesisBiomes.rainforestIslands);
 				}
 				else if (k3 == 0 && l3 > 1)
 				{
-					aint1[j2 + i2 * areaWidth] = BiomeGenBase.getIdForBiome(GenesisBiomes.shallowOcean);
+					aint1[j2 + i2 * areaWidth] = Biome.getIdForBiome(GenesisBiomes.shallowOcean);
 				}
 				else if (k3 == 0 && l3 > 0)
 				{
-					aint1[j2 + i2 * areaWidth] = BiomeGenBase.getIdForBiome(GenesisBiomes.swampRainForest);
+					aint1[j2 + i2 * areaWidth] = Biome.getIdForBiome(GenesisBiomes.swampRainForest);
 				}
 				else
 				{

@@ -86,7 +86,7 @@ public class ItemDyeBowl extends ItemMulti<MultiMetadata>
 			}
 			else if (!player.worldObj.isRemote && !player.inventory.addItemStackToInventory(empty))
 			{
-				player.dropPlayerItemWithRandomChoice(empty, false);
+				player.dropItem(empty, false);
 			}
 		}
 		

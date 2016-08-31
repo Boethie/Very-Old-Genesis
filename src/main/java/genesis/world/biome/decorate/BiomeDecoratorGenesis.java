@@ -19,7 +19,7 @@ import genesis.util.functional.StateMatcher;
 import genesis.util.random.i.IntFromFloat;
 import genesis.util.random.i.IntRange;
 import genesis.util.random.i.RandomIntProvider;
-import genesis.world.biome.BiomeGenBaseGenesis;
+import genesis.world.biome.BiomeGenesis;
 import genesis.world.biome.DecorationEntry;
 import genesis.world.gen.feature.WorldGenGenesisLiquids;
 import genesis.world.gen.feature.WorldGenGenesisSand;
@@ -29,7 +29,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeDecorator;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.MinecraftForge;
@@ -66,18 +66,18 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	
 	public BiomeDecoratorGenesis()
 	{
-		clayGen = new WorldGenCircleReplacement((s) -> s.getMaterial() == Material.water,
+		clayGen = new WorldGenCircleReplacement((s) -> s.getMaterial() == Material.WATER,
 				4, 1,
-				StateMatcher.forBlocks(Blocks.dirt, GenesisBlocks.ooze)
+				StateMatcher.forBlocks(Blocks.DIRT, GenesisBlocks.ooze)
 						.or(StateMatcher.forBlocks(GenesisBlocks.silt.getBlocks(SiltBlocks.SILT))),
 				GenesisBlocks.red_clay.getDefaultState());
 		sandGen = new WorldGenGenesisSand(GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT), 7);
 	}
 	
 	@Override
-	public void decorate(World world, Random rand, BiomeGenBase biome, BlockPos chunkStart)
+	public void decorate(World world, Random rand, Biome biome, BlockPos chunkStart)
 	{
-		field_180294_c = chunkStart;
+		chunkPos = chunkStart;
 		radioactiveGen = new WorldGenMinableGenesis(GenesisBlocks.radioactive_granite.getDefaultState(), 4, 8);
 		komatiiteGen = new WorldGenMinableGenesis(GenesisBlocks.komatiite.getDefaultState(), 18, 36);
 		gneissGen = new WorldGenMinableGenesis(GenesisBlocks.gneiss.getDefaultState(), 14, 28);
@@ -101,7 +101,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	
 	protected BlockPos getPos(World world, Random rand, int topStart)
 	{
-		return world.getHeight(field_180294_c.add(RANGE.get(rand), 0, RANGE.get(rand))).up(topStart);
+		return world.getHeight(chunkPos.add(RANGE.get(rand), 0, RANGE.get(rand))).up(topStart);
 	}
 	
 	protected BlockPos getPos(World world, Random rand)
@@ -110,15 +110,15 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	}
 	
 	@Override
-	protected void genDecorations(BiomeGenBase biome, World world, Random rand)
+	protected void genDecorations(Biome biome, World world, Random rand)
 	{
-		MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(world, rand, field_180294_c));
+		MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(world, rand, chunkPos));
 		
-		BiomeGenBaseGenesis biomeGenesis = biome instanceof BiomeGenBaseGenesis ? (BiomeGenBaseGenesis) biome : null;
+		BiomeGenesis biomeGenesis = biome instanceof BiomeGenesis ? (BiomeGenesis) biome : null;
 		
 		generateOres(world, rand);
 		
-		if (TerrainGen.decorate(world, rand, field_180294_c, SAND))
+		if (TerrainGen.decorate(world, rand, chunkPos, SAND))
 		{
 			for (int i = 0; i < sandPerChunk2; i++)
 			{
@@ -126,7 +126,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			}
 		}
 		
-		if (TerrainGen.decorate(world, rand, field_180294_c, CLAY))
+		if (TerrainGen.decorate(world, rand, chunkPos, CLAY))
 		{
 			for (int i = 0; i < clayPerChunk; i++)
 			{
@@ -134,17 +134,17 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			}
 		}
 		
-		if (TerrainGen.decorate(world, rand, field_180294_c, TREE) && treeCountProvider != null)
+		if (TerrainGen.decorate(world, rand, chunkPos, TREE) && treeCountProvider != null)
 		{
 			for (int i = treeCountProvider.get(rand); i > 0; i--)
 			{
 				BlockPos pos = getPos(world, rand);
 				WorldGenAbstractTree tree = biome.genBigTreeChance(rand);
-				tree.func_175904_e();
+				tree.setDecorationDefaults();
 				
 				if (tree.generate(world, rand, pos))
 				{
-					tree.func_180711_a(world, rand, pos);	// Allows tree gen to place saplings.
+					tree.generateSaplings(world, rand, pos);	// Allows tree gen to place saplings.
 				}
 			}
 		}
@@ -160,7 +160,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			}
 		}
 		
-		if (TerrainGen.decorate(world, rand, field_180294_c, GRASS) && grassCountProvider != null)
+		if (TerrainGen.decorate(world, rand, chunkPos, GRASS) && grassCountProvider != null)
 		{
 			for (int i = grassCountProvider.get(rand); i > 0; i--)
 			{
@@ -171,7 +171,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			}
 		}
 		
-		if (TerrainGen.decorate(world, rand, field_180294_c, FLOWERS)
+		if (TerrainGen.decorate(world, rand, chunkPos, FLOWERS)
 				&& biomeGenesis != null && flowerCountProvider != null)
 		{
 			for (int i = flowerCountProvider.get(rand); i > 0; i--)
@@ -196,23 +196,23 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 		
 		if (generateLakes)
 		{
-			if (TerrainGen.decorate(world, rand, field_180294_c, LAKE_WATER))
+			if (TerrainGen.decorate(world, rand, chunkPos, LAKE_WATER))
 			{
 				for (int i = 0; i < 50; ++i)
 				{
-					BlockPos pos = field_180294_c.add(
+					BlockPos pos = chunkPos.add(
 							rand.nextInt(16) + 8,
 							rand.nextInt(rand.nextInt(rand.nextInt(247) + 8) + 1),
 							rand.nextInt(16) + 8);
-					new WorldGenGenesisLiquids(Blocks.flowing_water).generate(world, rand, pos);
+					new WorldGenGenesisLiquids(Blocks.FLOWING_WATER).generate(world, rand, pos);
 				}
 			}
 			
-			if (TerrainGen.decorate(world, rand, field_180294_c, LAKE_LAVA))
+			if (TerrainGen.decorate(world, rand, chunkPos, LAKE_LAVA))
 			{
 				for (int i = 0; i < 20; ++i)
 				{
-					BlockPos pos = field_180294_c.add(
+					BlockPos pos = chunkPos.add(
 							rand.nextInt(16) + 8,
 							rand.nextInt(rand.nextInt(rand.nextInt(240) + 8) + 8),
 							rand.nextInt(16) + 8);
@@ -221,15 +221,15 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 			}
 		}
 		
-		MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(world, rand, field_180294_c));
+		MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(world, rand, chunkPos));
 	}
 	
 	@Override
 	protected void generateOres(World world, Random rand)
 	{
-		MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(world, rand, field_180294_c));
+		MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(world, rand, chunkPos));
 		
-		//if (TerrainGen.generateOre(currentWorld, randomGenerator, quartzGen, field_180294_c, QUARTZ))
+		//if (TerrainGen.generateOre(currentWorld, randomGenerator, quartzGen, chunkPos, QUARTZ))
 		
 		genStandardOre1(world, rand, 28, radioactiveGen, 0, 64);
 		genStandardOre1(world, rand, 62, komatiiteGen, 0, 16);
@@ -251,7 +251,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 		genStandardOreByLayers(world, rand, flintGen, GenesisConfig.flintCount, 25, 68, 128, 131);
 		genStandardOreByLayers(world, rand, marcasiteGen, GenesisConfig.marcasiteCount, 25, 68, 128, 131);
 		
-		MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(world, rand, field_180294_c));
+		MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(world, rand, chunkPos));
 	}
 	
 	protected void genStandardOreByLayers(World world, Random rand, WorldGenerator gen, int count, int lower, int midLower, int midUpper, int upper)

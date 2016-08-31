@@ -35,7 +35,7 @@ public class ItemFlintAndMarcasite extends ItemFlintAndSteel
 					GenesisSoundEvents.item_flint_and_marcasite_use, SoundCategory.BLOCKS,
 					1, world.rand.nextFloat() * 0.4F + 0.8F, false);
 			
-			world.setBlockState(pos, Blocks.fire.getDefaultState());
+			world.setBlockState(pos, Blocks.FIRE.getDefaultState());
 			stack.damageItem(1, player);
 			
 			return EnumActionResult.SUCCESS;

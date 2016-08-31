@@ -24,7 +24,7 @@ public class WorldGenMossStages extends WorldGenDecorationBase
 		pos = pos.down();
 		IBlockState state = world.getBlockState(pos);
 		
-		if (state.getBlock() == Blocks.dirt)
+		if (state.getBlock() == Blocks.DIRT)
 			state = GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.SOIL, EnumSoil.DIRT);
 		else if (state.getBlock() == GenesisBlocks.humus)
 			state = GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.SOIL, EnumSoil.HUMUS);

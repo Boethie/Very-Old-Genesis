@@ -88,7 +88,7 @@ public class WorldGenHelper
 	{
 		IBlockState block = world.getBlockState(pos);
 		
-		if (block.getMaterial() == Material.wood)
+		if (block.getMaterial() == Material.WOOD)
 		{
 			world.setBlockToAir(pos);
 			

@@ -46,7 +46,7 @@ public class BlockHangingFruit extends BlockGenesis
 			ObjectType<EnumTree, BlockHangingFruit, ItemBlockMulti<EnumTree>> type,
 			List<EnumTree> variants, Class<EnumTree> variantClass)
 	{
-		super(Material.wood, GenesisSoundTypes.CONE);
+		super(Material.WOOD, GenesisSoundTypes.CONE);
 		
 		this.owner = owner;
 		this.type = type;
@@ -86,13 +86,18 @@ public class BlockHangingFruit extends BlockGenesis
 			world.setBlockToAir(pos);
 		}
 	}
-	
+
 	@Override
-	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block neighborBlock)
+	public void onNeighborChange(IBlockAccess blockAccess, BlockPos pos, BlockPos neighbor)
 	{
-		super.onNeighborBlockChange(world, pos, state, neighborBlock);
-		
-		checkAndDropBlock(world, pos, state);
+		super.onNeighborChange(blockAccess, pos, neighbor);
+
+		if (blockAccess instanceof World)
+		{
+			World world = (World) blockAccess;
+
+			checkAndDropBlock(world, pos, world.getBlockState(pos));
+		}
 	}
 	
 	@Override

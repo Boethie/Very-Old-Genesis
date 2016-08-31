@@ -26,7 +26,7 @@ public class WorldGenRoots extends WorldGenDecorationBase
 		{
 			IBlockState state = world.getBlockState(checkPos);
 			
-			if (state.getMaterial() == Material.ground)
+			if (state.getMaterial() == Material.GROUND)
 			{
 				BlockPos below = checkPos.down();
 				state = world.getBlockState(below);

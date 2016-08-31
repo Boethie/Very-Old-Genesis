@@ -11,12 +11,12 @@ import genesis.world.biome.decorate.WorldGenPebbles;
 import genesis.world.biome.decorate.WorldGenBoulders;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-public class BiomeGenRiver extends BiomeGenBaseGenesis implements IEntityPreferredBiome
+public class BiomeRiver extends BiomeGenesis implements IEntityPreferredBiome
 {
-	public BiomeGenRiver(BiomeGenBase.BiomeProperties properties)
+	public BiomeRiver(Biome.BiomeProperties properties)
 	{
 		super(properties);
 		

@@ -65,7 +65,7 @@ public class ItemPebble extends ItemBlock
 	{
 		IBlockState state = world.getBlockState(pos);
 		
-		if (!player.isSneaking() && state.getMaterial() == Material.rock && state.getBlockHardness(world, pos) >= 1)
+		if (!player.isSneaking() && state.getMaterial() == Material.ROCK && state.getBlockHardness(world, pos) >= 1)
 		{
 			//player.swingItem();
 			
@@ -99,7 +99,7 @@ public class ItemPebble extends ItemBlock
 				
 				if (!player.inventory.addItemStackToInventory(choppingTool.copy()))
 				{	// Add to inventory or drop as EntityItem.
-					player.dropPlayerItemWithRandomChoice(choppingTool, false);
+					player.dropItem(choppingTool, false);
 				}
 			}
 			

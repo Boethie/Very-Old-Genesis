@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import genesis.common.GenesisBiomes;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 
@@ -43,7 +43,7 @@ public class GenLayerGenesisHills extends GenLayerGenesis
 				
 				if (k1 != 0 && l1 >= 2 && (l1 - 2) % 29 == 1 && k1 < 128)
 				{
-					if (BiomeGenBase.getBiome(k1 + 128) != null)
+					if (Biome.getBiome(k1 + 128) != null)
 					{
 						aint2[j1 + i1 * areaWidth] = k1 + 128;
 					}
@@ -61,30 +61,30 @@ public class GenLayerGenesisHills extends GenLayerGenesis
 					int i2 = k1;
 					int j2;
 					
-					if (k1 == BiomeGenBase.getIdForBiome(GenesisBiomes.rainforest))
+					if (k1 == Biome.getIdForBiome(GenesisBiomes.rainforest))
 					{
-						i2 = BiomeGenBase.getIdForBiome(GenesisBiomes.rainforestHills);
+						i2 = Biome.getIdForBiome(GenesisBiomes.rainforestHills);
 					}
-					if (k1 == BiomeGenBase.getIdForBiome(GenesisBiomes.auxForest))
+					if (k1 == Biome.getIdForBiome(GenesisBiomes.auxForest))
 					{
-						i2 = BiomeGenBase.getIdForBiome(GenesisBiomes.auxForestHills);
+						i2 = Biome.getIdForBiome(GenesisBiomes.auxForestHills);
 					}
-					if (k1 == BiomeGenBase.getIdForBiome(GenesisBiomes.woodlands))
+					if (k1 == Biome.getIdForBiome(GenesisBiomes.woodlands))
 					{
-						i2 = BiomeGenBase.getIdForBiome(GenesisBiomes.woodlandsHills);
+						i2 = Biome.getIdForBiome(GenesisBiomes.woodlandsHills);
 					}
-					else if (k1 == BiomeGenBase.getIdForBiome(GenesisBiomes.metaForest))
+					else if (k1 == Biome.getIdForBiome(GenesisBiomes.metaForest))
 					{
-						i2 = BiomeGenBase.getIdForBiome(GenesisBiomes.metaForestHills);
+						i2 = Biome.getIdForBiome(GenesisBiomes.metaForestHills);
 					}
-					else if (k1 == BiomeGenBase.getIdForBiome(GenesisBiomes.redDesert))
+					else if (k1 == Biome.getIdForBiome(GenesisBiomes.redDesert))
 					{
-						i2 = BiomeGenBase.getIdForBiome(GenesisBiomes.redDesertHills);
+						i2 = Biome.getIdForBiome(GenesisBiomes.redDesertHills);
 					}
 					
 					if (flag && i2 != k1)
 					{
-						if (BiomeGenBase.getBiome(i2 + 128) != null)
+						if (Biome.getBiome(i2 + 128) != null)
 						{
 							i2 += 128;
 						}

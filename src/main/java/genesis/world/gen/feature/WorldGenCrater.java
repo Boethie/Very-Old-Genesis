@@ -21,7 +21,7 @@ public class WorldGenCrater extends WorldGenerator
 	
 	public WorldGenCrater()
 	{
-		this.filler = Blocks.air.getDefaultState();
+		this.filler = Blocks.AIR.getDefaultState();
 	}
 	
 	protected static int index(int x, int y, int z)
@@ -59,7 +59,7 @@ public class WorldGenCrater extends WorldGenerator
 		{
 			IBlockState state = world.getBlockState(pos);
 			
-			if (state.getBlock() == Blocks.water)
+			if (state.getBlock() == Blocks.WATER)
 				return false;
 			
 			if (!state.getBlock().isAir(state, world, pos) 
@@ -132,7 +132,7 @@ public class WorldGenCrater extends WorldGenerator
 				{
 					if (is(isLake, x, y, z))
 					{
-						world.setBlockState(pos.add(x, y, z), y >= top ? Blocks.air.getDefaultState() : filler, 2);
+						world.setBlockState(pos.add(x, y, z), y >= top ? Blocks.AIR.getDefaultState() : filler, 2);
 					}
 				}
 			}

@@ -110,7 +110,7 @@ public class WorldGenDebris extends WorldGenDecorationBase
 	{
 		boolean willGenerate = false;
 		
-		if (!(world.getBlockState(pos).getBlock() == GenesisBlocks.moss || world.getBlockState(pos).getBlock() == Blocks.dirt))
+		if (!(world.getBlockState(pos).getBlock() == GenesisBlocks.moss || world.getBlockState(pos).getBlock() == Blocks.DIRT))
 			return false;
 		
 		IBlockState stateAbove = world.getBlockState(pos.up());

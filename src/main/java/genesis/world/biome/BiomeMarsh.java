@@ -14,12 +14,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-public class BiomeGenMarsh extends BiomeGenBaseGenesis
+public class BiomeMarsh extends BiomeGenesis
 {
-	public BiomeGenMarsh(BiomeGenBase.BiomeProperties properties)
+	public BiomeMarsh(Biome.BiomeProperties properties)
 	{
 		super(properties);
 		
@@ -57,7 +57,7 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 	@Override
 	public void genTerrainBlocks(World world, Random rand, ChunkPrimer chunkPrimer, int chunkX, int chunkZ, double d)
 	{
-		double d1 = GRASS_COLOR_NOISE.func_151601_a(chunkX * 0.25D, chunkZ * 0.25D);
+		double d1 = GRASS_COLOR_NOISE.getValue(chunkX * 0.25D, chunkZ * 0.25D);
 		
 		if (d1 > -0.2D)
 		{
@@ -68,11 +68,11 @@ public class BiomeGenMarsh extends BiomeGenBaseGenesis
 			{
 				IBlockState state = chunkPrimer.getBlockState(l, i1, k);
 				
-				if (state.getBlock().getMaterial(state) != Material.air)
+				if (state.getMaterial() != Material.AIR)
 				{
-					if (i1 == 62 && chunkPrimer.getBlockState(l, i1, k).getBlock() != Blocks.water)
+					if (i1 == 62 && chunkPrimer.getBlockState(l, i1, k).getBlock() != Blocks.WATER)
 					{
-						chunkPrimer.setBlockState(l, i1, k, Blocks.water.getDefaultState());
+						chunkPrimer.setBlockState(l, i1, k, Blocks.WATER.getDefaultState());
 					}
 					
 					break;

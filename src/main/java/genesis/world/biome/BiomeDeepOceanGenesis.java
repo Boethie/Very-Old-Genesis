@@ -8,9 +8,9 @@ import genesis.common.GenesisBlocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-public class BiomeGenDeepOceanGenesis extends BiomeGenBaseGenesis
+public class BiomeDeepOceanGenesis extends BiomeGenesis
 {
-	public BiomeGenDeepOceanGenesis(BiomeProperties properties)
+	public BiomeDeepOceanGenesis(BiomeProperties properties)
 	{
 		super(properties);
 		

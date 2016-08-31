@@ -1,7 +1,7 @@
 package genesis.world.layer;
 
 import genesis.common.GenesisBiomes;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 
@@ -26,7 +26,7 @@ public class GenLayerGenesisBiomeEdge extends GenLayerGenesis
 				this.initChunkSeed(j1 + areaX, i1 + areaY);
 				int k1 = aint[j1 + 1 + (i1 + 1) * (areaWidth + 2)];
 				
-				if (!this.replaceBiomeEdge(aint, aint1, j1, i1, areaWidth, k1, BiomeGenBase.getIdForBiome(GenesisBiomes.deepOcean), BiomeGenBase.getIdForBiome(GenesisBiomes.ocean)))
+				if (!this.replaceBiomeEdge(aint, aint1, j1, i1, areaWidth, k1, Biome.getIdForBiome(GenesisBiomes.deepOcean), Biome.getIdForBiome(GenesisBiomes.ocean)))
 				{
 					aint1[j1 + i1 * areaWidth] = k1;
 				}
@@ -93,15 +93,15 @@ public class GenLayerGenesisBiomeEdge extends GenLayerGenesis
 			return true;
 		}
 		
-		BiomeGenBase biomegenbase = BiomeGenBase.getBiome(p_151634_1_);
-		BiomeGenBase biomegenbase1 = BiomeGenBase.getBiome(p_151634_2_);
+		Biome biomegenbase = Biome.getBiome(p_151634_1_);
+		Biome biomegenbase1 = Biome.getBiome(p_151634_2_);
 		
 		if (biomegenbase != null && biomegenbase1 != null)
 		{
-			BiomeGenBase.TempCategory tempcategory = biomegenbase.getTempCategory();
-			BiomeGenBase.TempCategory tempcategory1 = biomegenbase1.getTempCategory();
-			return tempcategory == tempcategory1 || tempcategory == BiomeGenBase.TempCategory.MEDIUM
-					|| tempcategory1 == BiomeGenBase.TempCategory.MEDIUM;
+			Biome.TempCategory tempcategory = biomegenbase.getTempCategory();
+			Biome.TempCategory tempcategory1 = biomegenbase1.getTempCategory();
+			return tempcategory == tempcategory1 || tempcategory == Biome.TempCategory.MEDIUM
+					|| tempcategory1 == Biome.TempCategory.MEDIUM;
 		}
 		
 		return false;

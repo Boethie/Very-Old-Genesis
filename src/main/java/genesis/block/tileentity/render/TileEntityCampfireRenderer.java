@@ -146,7 +146,7 @@ public class TileEntityCampfireRenderer extends TileEntitySpecialRenderer<TileEn
 		if (output == null)
 			return null;
 		
-		String[] fallbacks = output.getItem() == Items.coal ?
+		String[] fallbacks = output.getItem() == Items.COAL ?
 				new String[]{"generic_wood"} : new String[]{};
 		
 		return ModelHelpers.getStringIDInSetForStack(input, cookingItemModels, fallbacks);

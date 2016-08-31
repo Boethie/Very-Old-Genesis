@@ -8,19 +8,19 @@ import net.minecraft.item.ItemStack;
 
 public enum EnumSlab implements IMetadata<EnumSlab>
 {
-	GRANITE_RUBBLE("granite_rubble", "rubble.granite", Material.rock,
+	GRANITE_RUBBLE("granite_rubble", "rubble.granite", Material.ROCK,
 			() -> GenesisBlocks.rubble.getBlockState(EnumRubble.GRANITE),
 			() -> GenesisBlocks.rubble.getStack(EnumRubble.GRANITE)),
-	MOSSY_GRANITE_RUBBLE("mossy_granite_rubble", "rubble.mossyGranite", Material.rock,
+	MOSSY_GRANITE_RUBBLE("mossy_granite_rubble", "rubble.mossyGranite", Material.ROCK,
 			() -> GenesisBlocks.rubble.getBlockState(EnumRubble.MOSSY_GRANITE),
 			() -> GenesisBlocks.rubble.getStack(EnumRubble.MOSSY_GRANITE)),
-	RHYOLITE_RUBBLE("rhyolite_rubble", "rubble.rhyolite", Material.rock,
+	RHYOLITE_RUBBLE("rhyolite_rubble", "rubble.rhyolite", Material.ROCK,
 			() -> GenesisBlocks.rubble.getBlockState(EnumRubble.RHYOLITE),
 			() -> GenesisBlocks.rubble.getStack(EnumRubble.RHYOLITE)),
-	DOLERITE_RUBBLE("dolerite_rubble", "rubble.dolerite", Material.rock,
+	DOLERITE_RUBBLE("dolerite_rubble", "rubble.dolerite", Material.ROCK,
 			() -> GenesisBlocks.rubble.getBlockState(EnumRubble.DOLERITE),
 			() -> GenesisBlocks.rubble.getStack(EnumRubble.DOLERITE)),
-	SMOOTH_LIMESTONE("smooth_limestone", "smoothLimestone", Material.rock,
+	SMOOTH_LIMESTONE("smooth_limestone", "smoothLimestone", Material.ROCK,
 			() -> GenesisBlocks.smooth_limestone.getDefaultState(),
 			() -> new ItemStack(GenesisBlocks.smooth_limestone));
 

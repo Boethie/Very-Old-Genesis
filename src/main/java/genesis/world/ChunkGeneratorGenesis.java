@@ -15,7 +15,7 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.*;
 import net.minecraft.world.gen.*;
 
@@ -31,11 +31,11 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 	
 	protected ChunkProviderSettings settings;
 	
-	protected IBlockState liquid = Blocks.water.getDefaultState();
+	protected IBlockState liquid = Blocks.WATER.getDefaultState();
 	
 	protected MapGenBase caveGen = new MapGenCavesGenesis();
 	
-	protected BiomeGenBase[] biomes;
+	protected Biome[] biomes;
 	
 	protected NoiseGeneratorOctaves lPerlin2NoiseGen;
 	protected NoiseGeneratorOctaves lPerlinNoiseGen;
@@ -69,8 +69,8 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 			factory.useMineShafts = false;
 			factory.useTemples = false;
 			factory.useMonuments = false;
-			settings = factory.func_177864_b();	// build
-			liquid = (settings.useLavaOceans ? Blocks.lava : Blocks.water).getDefaultState();
+			settings = factory.build();	// build
+			liquid = (settings.useLavaOceans ? Blocks.LAVA : Blocks.WATER).getDefaultState();
 		}
 		
 		lPerlin2NoiseGen = new NoiseGeneratorOctaves(rand, 16);
@@ -118,7 +118,7 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 		int blockX = chunkX * 16;
 		int blockZ = chunkZ * 16;
 		BlockPos pos = new BlockPos(blockX, 0, blockZ);
-		BiomeGenBase biome = world.getBiomeGenForCoords(pos.add(16, 0, 16));
+		Biome biome = world.getBiome(pos.add(16, 0, 16));
 		rand.setSeed(world.getSeed());
 		long xSeed = rand.nextLong() / 2L * 2L + 1L;
 		long ySeed = rand.nextLong() / 2L * 2L + 1L;
@@ -146,7 +146,7 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 			int x = rand.nextInt(16) + 8;
 			int y = rand.nextInt(256);
 			int z = rand.nextInt(16) + 8;
-			new WorldGenGenesisLakes(Blocks.water.getDefaultState()).generate(world, rand, pos.add(x, y, z));
+			new WorldGenGenesisLakes(Blocks.WATER.getDefaultState()).generate(world, rand, pos.add(x, y, z));
 		}
 		
 		if (TerrainGen.populate(this, world, rand, chunkX, chunkZ, village, LAVA) && !village && rand.nextInt(settings.lavaLakeChance / 10) == 0 && settings.useLavaLakes)
@@ -176,12 +176,12 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 				
 				if (world.canBlockFreezeNoWater(water))
 				{
-					world.setBlockState(water, Blocks.ice.getDefaultState(), 2);
+					world.setBlockState(water, Blocks.ICE.getDefaultState(), 2);
 				}
 				
 				if (world.canSnowAt(surface, true))
 				{
-					world.setBlockState(surface, Blocks.snow_layer.getDefaultState(), 2);
+					world.setBlockState(surface, Blocks.SNOW_LAYER.getDefaultState(), 2);
 				}
 			}
 		}
@@ -286,13 +286,13 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 				float f3 = 0.0F;
 				float f4 = 0.0F;
 				int i1 = 2;
-				BiomeGenBase biomegenbase = biomes[k + 2 + (l + 2) * 10];
+				Biome biomegenbase = biomes[k + 2 + (l + 2) * 10];
 				
 				for (int j1 = -i1; j1 <= i1; ++j1)
 				{
 					for (int k1 = -i1; k1 <= i1; ++k1)
 					{
-						BiomeGenBase biomegenbase1 = biomes[k + j1 + 2 + (l + k1 + 2) * 10];
+						Biome biomegenbase1 = biomes[k + j1 + 2 + (l + k1 + 2) * 10];
 						float f5 = settings.biomeDepthOffSet + biomegenbase1.getBaseHeight() * settings.biomeDepthWeight;
 						float f6 = settings.biomeScaleOffset + biomegenbase1.getHeightVariation() * settings.biomeScaleWeight;
 						
@@ -384,19 +384,19 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 		}
 	}
 	
-	public void replaceBiomeBlocks(int blockX, int blockZ, ChunkPrimer chunkPrimer, BiomeGenBase[] biomes)
+	public void replaceBiomeBlocks(int blockX, int blockZ, ChunkPrimer chunkPrimer, Biome[] biomes)
 	{
 		if (!ForgeEventFactory.onReplaceBiomeBlocks(this, blockX, blockZ, chunkPrimer, world))
 			return;
 		
 		double d0 = 0.03125D;
-		stoneNoise = heightNoiseGen.func_151599_a(stoneNoise, blockX * 16, blockZ * 16, 16, 16, d0 * 2, d0 * 2, 1);
+		stoneNoise = heightNoiseGen.getRegion(stoneNoise, blockX * 16, blockZ * 16, 16, 16, d0 * 2, d0 * 2, 1);
 		
 		for (int k = 0; k < 16; ++k)
 		{
 			for (int l = 0; l < 16; ++l)
 			{
-				BiomeGenBase biomegenbase = biomes[l + k * 16];
+				Biome biomegenbase = biomes[l + k * 16];
 				biomegenbase.genTerrainBlocks(world, rand, chunkPrimer, blockX * 16 + k, blockZ * 16 + l, stoneNoise[l + k * 16]);
 			}
 		}
@@ -408,7 +408,7 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 		rand.setSeed(x * 341873128712L + z * 132897987541L);
 		ChunkPrimer primer = new ChunkPrimer();
 		setBlocksInChunk(x, z, primer);
-		biomes = world.getBiomeProvider().loadBlockGeneratorData(biomes, x * 16, z * 16, 16, 16);
+		biomes = world.getBiomeProvider().getBiomes(biomes, x * 16, z * 16, 16, 16);
 		replaceBiomeBlocks(x, z, primer, biomes);
 		
 		if (settings.useCaves)
@@ -419,7 +419,7 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 		
 		for (int k = 0; k < abyte.length; ++k)
 		{
-			abyte[k] = (byte) BiomeGenBase.getIdForBiome(biomes[k]);
+			abyte[k] = (byte) Biome.getIdForBiome(biomes[k]);
 		}
 		
 		chunk.generateSkylightMap();
@@ -433,9 +433,9 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 	}
 	
 	@Override
-	public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos)
+	public List<Biome.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos)
 	{
-		return world.getBiomeGenForCoords(pos).getSpawnableList(creatureType);
+		return world.getBiome(pos).getSpawnableList(creatureType);
 	}
 
 	@Override

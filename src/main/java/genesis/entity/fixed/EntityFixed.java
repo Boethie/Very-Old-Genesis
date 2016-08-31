@@ -155,11 +155,8 @@ public abstract class EntityFixed extends Entity
 		super.setDead();
 	}
 	
-	/**
-	 * Prevents vanilla Entity code from pushing the entity up and out the top of what it is resting in/on.
-	 */
 	@Override
-	public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int ticks, boolean unknown)
+	public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int ticks, boolean unknown)
 	{
 		setPosition(x, y, z);
 		setRotation(yaw, pitch);
@@ -172,9 +169,9 @@ public abstract class EntityFixed extends Entity
 		compound.setDouble("y", posY);
 		compound.setDouble("z", posZ);
 		
-		compound.setDouble("blockX", posX);
-		compound.setDouble("blockY", posY);
-		compound.setDouble("blockZ", posZ);
+		compound.setInteger("blockX", (int) posX);
+		compound.setInteger("blockY", (int) posY);
+		compound.setInteger("blockZ", (int) posZ);
 	}
 	
 	@Override

@@ -63,7 +63,7 @@ public final class GenesisItems
 					ObjectType.createItem(EnumSeeds.class, "seed", ItemGenesisSeeds.class).setResourceName(""),
 					EnumSeeds.class, EnumSeeds.values());
 	public static final Item rotten_zingiberopsis_rhizome = new ItemFood(1, 0.7F, false)
-			.setPotionEffect(new PotionEffect(MobEffects.poison, 100, 0), 0.6F)
+			.setPotionEffect(new PotionEffect(MobEffects.POISON, 100, 0), 0.6F)
 			.setUnlocalizedName(Unlocalized.FOOD + "rottenZingiberopsisRhizome")
 			.setCreativeTab(GenesisCreativeTabs.FOOD);
 	
@@ -78,8 +78,8 @@ public final class GenesisItems
 	public static final ClothingItems clothing = new ClothingItems();
 	
 	/* Misc */
-	public static final Item ceramic_bucket = new ItemGenesisBucket(Blocks.air.getDefaultState()).setUnlocalizedName(Unlocalized.MISC + "ceramicBucket");
-	public static final Item ceramic_bucket_water = new ItemGenesisBucket(Blocks.flowing_water.getDefaultState()).setUnlocalizedName(Unlocalized.MISC + "ceramicBucketWater").setContainerItem(ceramic_bucket);
+	public static final Item ceramic_bucket = new ItemGenesisBucket(Blocks.AIR.getDefaultState()).setUnlocalizedName(Unlocalized.MISC + "ceramicBucket");
+	public static final Item ceramic_bucket_water = new ItemGenesisBucket(Blocks.FLOWING_WATER.getDefaultState()).setUnlocalizedName(Unlocalized.MISC + "ceramicBucketWater").setContainerItem(ceramic_bucket);
 	public static final Item ceramic_bucket_milk = new ItemGenesisBucketMilk().setUnlocalizedName(Unlocalized.MISC + "ceramicBucketMilk").setContainerItem(ceramic_bucket);
 	public static Item bucket_komatiitic_lava;
 	

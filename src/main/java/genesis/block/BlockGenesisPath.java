@@ -43,8 +43,8 @@ public class BlockGenesisPath extends Block
 			IBlockState sideState = world.getBlockState(pos.offset(side));
 			Block sideBlock = sideState.getBlock();
 			return !sideState.isOpaqueCube()
-					&& sideBlock != Blocks.farmland
-					&& sideBlock != Blocks.grass_path
+					&& sideBlock != Blocks.FARMLAND
+					&& sideBlock != Blocks.GRASS_PATH
 					&& sideBlock != this;
 		default:
 			return super.shouldSideBeRendered(state, world, pos, side);
@@ -80,13 +80,18 @@ public class BlockGenesisPath extends Block
 	{
 		return new ItemStack(this);
 	}
-	
+
 	@Override
-	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block neighborBlock)
+	public void onNeighborChange(IBlockAccess blockAccess, BlockPos pos, BlockPos neighbor)
 	{
-		if (world.getBlockState(pos.up()).getMaterial().isSolid())
+		if (blockAccess instanceof World)
 		{
-			world.setBlockState(pos, modelState);
+			World world = (World) blockAccess;
+
+			if (world.getBlockState(pos.up()).getMaterial().isSolid())
+			{
+				world.setBlockState(pos, modelState);
+			}
 		}
 	}
 }

@@ -48,7 +48,7 @@ public class BlockAsplenium extends BlockBush implements IShearable
 		
 		BlockPos neighborPos = pos.offset(facing);
 		IBlockState neighbor = world.getBlockState(neighborPos);
-		return neighbor.getMaterial() == Material.rock
+		return neighbor.getMaterial() == Material.ROCK
 				&& neighbor.isSideSolid(world, neighborPos, facing.getOpposite());
 	}
 	

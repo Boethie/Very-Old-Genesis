@@ -48,7 +48,7 @@ public class BlockSilt extends BlockFalling
 			ObjectType<EnumSilt, BlockSilt, ItemBlockMulti<EnumSilt>> type,
 			List<EnumSilt> variants, Class<EnumSilt> variantClass)
 	{
-		super(Material.sand);
+		super(Material.SAND);
 		
 		this.owner = owner;
 		this.type = type;
@@ -113,7 +113,7 @@ public class BlockSilt extends BlockFalling
 		if (state.getBlock().isAir(state, world, pos))
 			return true;
 		
-		if (state.getBlock() == Blocks.fire)
+		if (state.getBlock() == Blocks.FIRE)
 			return true;
 		
 		if (state.getMaterial().isLiquid())

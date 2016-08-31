@@ -107,14 +107,16 @@ public class TileEntityGenesisPortal extends TileEntityBase implements ITickable
 	}
 	
 	@Override
-	public void writeToNBT(NBTTagCompound compound)
+	public NBTTagCompound writeToNBT(NBTTagCompound compound)
 	{
-		super.writeToNBT(compound);
+		compound = super.writeToNBT(compound);
 		
 		compound.setDouble("radius", radius);
 		compound.setByte("timer", timer);
 		
 		compound.setFloat("rotation", rotation);
+
+		return compound;
 	}
 	
 	@Override

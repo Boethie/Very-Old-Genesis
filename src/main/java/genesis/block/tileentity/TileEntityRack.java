@@ -31,9 +31,9 @@ public class TileEntityRack extends TileEntityBase implements IInventory
 					|| (item instanceof ItemPotion)
 					|| (item instanceof ItemBucketMilk)
 					|| (item instanceof ItemSoup)
-					|| item == Items.lava_bucket
-					|| item == Items.water_bucket
-					|| item == Items.cake;
+					|| item == Items.LAVA_BUCKET
+					|| item == Items.WATER_BUCKET
+					|| item == Items.CAKE;
 		}
 		
 		return false;

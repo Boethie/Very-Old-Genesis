@@ -20,12 +20,12 @@ import genesis.world.gen.feature.WorldGenTreeAraucarioxylon;
 import genesis.world.gen.feature.WorldGenTreeBase.TreeTypes;
 import genesis.world.gen.feature.WorldGenTreeGinkgo;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-public class BiomeGenAuxForest extends BiomeGenBaseGenesis
+public class BiomeAuxForest extends BiomeGenesis
 {
-	public BiomeGenAuxForest(BiomeGenBase.BiomeProperties properties)
+	public BiomeAuxForest(Biome.BiomeProperties properties)
 	{
 		super(properties);
 		

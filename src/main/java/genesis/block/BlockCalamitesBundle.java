@@ -15,6 +15,6 @@ public class BlockCalamitesBundle extends BlockHay
 		setHardness(1);
 		setHarvestLevel("axe", 0);
 
-		Blocks.fire.setFireInfo(this, 30, 5);
+		Blocks.FIRE.setFireInfo(this, 30, 5);
 	}
 }

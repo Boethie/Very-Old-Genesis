@@ -22,12 +22,12 @@ import genesis.world.gen.feature.WorldGenTreeBase.TreeTypes;
 import genesis.world.gen.feature.WorldGenTreeGinkgo;
 import genesis.world.gen.feature.WorldGenTreeMetasequoia;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-public class BiomeGenMetaForest extends BiomeGenBaseGenesis
+public class BiomeMetaForest extends BiomeGenesis
 {
-	public BiomeGenMetaForest(BiomeGenBase.BiomeProperties properties)
+	public BiomeMetaForest(Biome.BiomeProperties properties)
 	{
 		super(properties);
 		

@@ -46,7 +46,7 @@ public class BlockBranch extends BlockGenesisLogs
 		blockState = new BlockStateContainer(this, CONNECTIONS.toArrayWith(LEAVES, variantProp));
 		setDefaultState(CONNECTIONS.stateWith(getBlockState().getBaseState(), false).withProperty(LEAVES, false));
 		
-		Blocks.fire.setFireInfo(this, 30, 60);
+		Blocks.FIRE.setFireInfo(this, 30, 60);
 	}
 	
 	@Override

@@ -32,7 +32,7 @@ public class BlockTrapFloor extends BlockGenesis
 	
 	public BlockTrapFloor()
 	{
-		super(Material.grass, GenesisSoundTypes.CALAMITES);
+		super(Material.GRASS, GenesisSoundTypes.CALAMITES);
 		
 		setCreativeTab(GenesisCreativeTabs.MECHANISMS);
 		
@@ -80,12 +80,12 @@ public class BlockTrapFloor extends BlockGenesis
 		if (iblockstate.getBlock() != this)
 			return;
 		
-		world.playAuxSFXAtEntity(null, 2001, pos, Block.getStateId(iblockstate));
+		world.playEvent(null, 2001, pos, Block.getStateId(iblockstate));
 		
-		world.setBlockState(pos, Blocks.air.getDefaultState(), 1 | 2);
+		world.setBlockState(pos, Blocks.AIR.getDefaultState(), 1 | 2);
 		
-		world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, pos.getX()+0.5D, pos.getY()+0.5D, pos.getZ()+0.5D, 0, -4, 0, new int[]{Block.getStateId(iblockstate)});
-		world.spawnParticle(EnumParticleTypes.BLOCK_DUST, pos.getX()+0.5D, pos.getY()+0.5D, pos.getZ()+0.5D, 0, -3, 0, new int[]{Block.getStateId(iblockstate)});
+		world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, pos.getX()+0.5D, pos.getY()+0.5D, pos.getZ()+0.5D, 0, -4, 0, Block.getStateId(iblockstate));
+		world.spawnParticle(EnumParticleTypes.BLOCK_DUST, pos.getX()+0.5D, pos.getY()+0.5D, pos.getZ()+0.5D, 0, -3, 0, Block.getStateId(iblockstate));
 		
 		this.dropBlockAsItem(world, pos, iblockstate, 0);
 		
@@ -100,6 +100,7 @@ public class BlockTrapFloor extends BlockGenesis
 		}
 	}
 	
+	@Override
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
 	{
 		super.onBlockAdded(worldIn, pos, state);
@@ -109,28 +110,36 @@ public class BlockTrapFloor extends BlockGenesis
 			drop(pos, worldIn);
 		}
 	}
-	
-	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+
+	@Override
+	public void onNeighborChange(IBlockAccess blockAccess, BlockPos pos, BlockPos neighbor)
 	{
-		if (worldIn.isBlockPowered(pos))
+		if (blockAccess instanceof World)
 		{
-			drop(pos, worldIn);
+			World world = (World) blockAccess;
+
+			if (world.isBlockPowered(pos))
+			{
+				drop(pos, world);
+			}
 		}
 	}
 	
-	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
+	@Override
+	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity)
 	{
-		if (entityIn instanceof EntityLivingBase || (entityIn instanceof EntityFallingBlock && ((EntityFallingBlock)entityIn).getBlock().getBlock() == Blocks.anvil))
+		if (entity instanceof EntityLivingBase || (entity instanceof EntityFallingBlock && ((EntityFallingBlock)entity).getBlock().getBlock() == Blocks.ANVIL))
 		{
-			drop(pos, worldIn);
+			drop(pos, world);
 		}
 	}
 	
-	public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance)
+	@Override
+	public void onFallenUpon(World world, BlockPos pos, Entity entity, float fallDistance)
 	{
-		if (entityIn instanceof EntityLivingBase || (entityIn instanceof EntityFallingBlock && ((EntityFallingBlock)entityIn).getBlock().getBlock() == Blocks.anvil))
+		if (entity instanceof EntityLivingBase || (entity instanceof EntityFallingBlock && ((EntityFallingBlock)entity).getBlock().getBlock() == Blocks.ANVIL))
 		{
-			drop(pos, worldIn);
+			drop(pos, world);
 		}
 	}
 	
@@ -140,6 +149,7 @@ public class BlockTrapFloor extends BlockGenesis
 		return COLLISION_BB;
 	}
 	
+	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
 	{
 		List<ItemStack> ret = new ArrayList<ItemStack>();
