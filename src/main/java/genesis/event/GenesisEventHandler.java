@@ -67,8 +67,8 @@ public class GenesisEventHandler
 			{
 				int timeLeft = entity.getActivePotionEffect(GenesisPotions.radiation).getDuration();
 				
-				entity.addPotionEffect(new PotionEffect(MobEffects.confusion, timeLeft, 0, true, false));
-				entity.addPotionEffect(new PotionEffect(MobEffects.poison, timeLeft, 0, true, false));
+				entity.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, timeLeft, 0, true, false));
+				entity.addPotionEffect(new PotionEffect(MobEffects.POISON, timeLeft, 0, true, false));
 			}
 		}
 	}

@@ -107,8 +107,8 @@ public class WorldGenCorals extends WorldGenDecorationBase
 		{
 			IBlockState state = world.getBlockState(placePos);
 			
-			if (state.getBlock() != Blocks.dirt
-					&& state.getBlock() != Blocks.clay
+			if (state.getBlock() != Blocks.DIRT
+					&& state.getBlock() != Blocks.CLAY
 					&& state.getBlock() != GenesisBlocks.ooze
 					&& state != coralState)
 				break;
@@ -133,14 +133,14 @@ public class WorldGenCorals extends WorldGenDecorationBase
 	{
 		IBlockState state = world.getBlockState(pos);
 		
-		if (state.getMaterial() == Material.water
+		if (state.getMaterial() == Material.WATER
 				|| state.getBlock().isAir(state, world, pos)
 				|| state == coralState)
 			return false;
 		
 		for (int i = 1; i <= height + 2; ++i)
 		{
-			if (world.getBlockState(pos.add(0, i, 0)).getBlock() != Blocks.water)
+			if (world.getBlockState(pos.add(0, i, 0)).getBlock() != Blocks.WATER)
 			{
 				return false;
 			}

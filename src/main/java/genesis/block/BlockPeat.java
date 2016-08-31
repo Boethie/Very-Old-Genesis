@@ -9,13 +9,13 @@ public class BlockPeat extends BlockGenesis
 {
 	public BlockPeat()
 	{
-		super(Material.ground, SoundType.GROUND);
+		super(Material.GROUND, SoundType.GROUND);
 		
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 		
 		setHarvestLevel("shovel", 0);
 		setHardness(1.0F);
 		
-		Blocks.fire.setFireInfo(this, 5, 5);
+		Blocks.FIRE.setFireInfo(this, 5, 5);
 	}
 }

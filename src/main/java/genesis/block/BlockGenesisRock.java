@@ -12,7 +12,7 @@ public class BlockGenesisRock extends BlockGenesis
 
 	public BlockGenesisRock(float hardness, float resistance, int harvestLevel)
 	{
-		super(Material.rock, SoundType.STONE);
+		super(Material.ROCK, SoundType.STONE);
 		
 		setHardness(hardness);
 		setResistance(resistance);

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Random;
 
 import net.minecraft.network.play.client.CPacketClientStatus;
+import net.minecraft.stats.StatisticsManager;
 import net.minecraft.util.text.TextComponentTranslation;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -30,7 +31,6 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.stats.Achievement;
 import net.minecraft.stats.AchievementList;
-import net.minecraft.stats.StatFileWriter;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -62,7 +62,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 
 	private boolean clicked;
 
-	private StatFileWriter statFileWriter;
+	private StatisticsManager statisticsManager;
 	private boolean loadingAchievements = true;
 
 	private int currentPage = -1;
@@ -70,13 +70,13 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 
 	private java.util.LinkedList<Achievement> minecraftAchievements = new java.util.LinkedList<>();
 
-	public GuiGenesisAchievements(GuiScreen parentScreenIn, StatFileWriter statFileWriterIn, World worldObj)
+	public GuiGenesisAchievements(GuiScreen parentScreenIn, StatisticsManager statisticsManager, World worldObj)
 	{
 		this.parentScreen = parentScreenIn;
-		this.statFileWriter = statFileWriterIn;
+		this.statisticsManager = statisticsManager;
 
-		this.achivementOffsetX = (AchievementList.openInventory.displayColumn * 24 - 141 / 2 - 12);
-		this.achivementOffsetY = (AchievementList.openInventory.displayRow * 24 - 141 / 2);
+		this.achivementOffsetX = (AchievementList.OPEN_INVENTORY.displayColumn * 24 - 141 / 2 - 12);
+		this.achivementOffsetY = (AchievementList.OPEN_INVENTORY.displayRow * 24 - 141 / 2);
 		minecraftAchievements.clear();
 		for (Achievement achievement : AchievementList.ACHIEVEMENTS)
 		{
@@ -101,8 +101,8 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 	@Override
 	public void initGui()
 	{
-		this.mc.getNetHandler()
-				.addToSendQueue(new CPacketClientStatus(CPacketClientStatus.State.REQUEST_STATS));
+		this.mc.getConnection()
+				.sendPacket(new CPacketClientStatus(CPacketClientStatus.State.REQUEST_STATS));
 		this.buttonList.clear();
 		this.buttonList.add(new GuiOptionButton(1, this.width / 2 + 24, this.height / 2 + 74, 80, 20,
 				I18n.format("gui.done")));
@@ -129,8 +129,8 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 				}
 				this.button.displayString = AchievementPage.getTitle(currentPage);
 				this.guiZoom = 1.0F;
-				this.achivementOffsetX = (AchievementList.openInventory.displayColumn * 24 - 141 / 2 - 12);
-				this.achivementOffsetY = (AchievementList.openInventory.displayRow * 24 - 141 / 2);
+				this.achivementOffsetX = (AchievementList.OPEN_INVENTORY.displayColumn * 24 - 141 / 2 - 12);
+				this.achivementOffsetY = (AchievementList.OPEN_INVENTORY.displayRow * 24 - 141 / 2);
 			}
 		}
 	}
@@ -158,7 +158,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 			this.drawCenteredString(this.fontRendererObj, I18n.format("multiplayer.downloadingStats"),
 					this.width / 2, this.height / 2, 16777215);
 			this.drawCenteredString(this.fontRendererObj,
-					lanSearchStates[(int) (Minecraft.getSystemTime() / 150L % lanSearchStates.length)], this.width / 2,
+					LOADING_STRINGS[(int) (Minecraft.getSystemTime() / 150L % LOADING_STRINGS.length)], this.width / 2,
 					this.height / 2 + this.fontRendererObj.FONT_HEIGHT * 2, 16777215);
 		}
 		else
@@ -358,9 +358,9 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 				int achYPos = achievement1.displayRow * 24 - j + 11;
 				int achXEndPos = achievement1.parentAchievement.displayColumn * 24 - i + 11;
 				int achYEndPos = achievement1.parentAchievement.displayRow * 24 - j + 11;
-				boolean achUnlocked = this.statFileWriter.hasAchievementUnlocked(achievement1);
-				boolean achCanUnlock = this.statFileWriter.canUnlockAchievement(achievement1);
-				int k4 = this.statFileWriter.func_150874_c(achievement1);
+				boolean achUnlocked = this.statisticsManager.hasAchievementUnlocked(achievement1);
+				boolean achCanUnlock = this.statisticsManager.canUnlockAchievement(achievement1);
+				int k4 = this.statisticsManager.countRequirementsUntilAvailable(achievement1);
 
 				if (k4 <= showMaxSubAchievements)
 				{
@@ -417,14 +417,14 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 
 			if (l6 >= -24 && j7 >= -24 && l6 <= 224.0F * this.guiZoom && j7 <= 155.0F * this.guiZoom)
 			{
-				int l7 = this.statFileWriter.func_150874_c(achievement2);
+				int l7 = this.statisticsManager.countRequirementsUntilAvailable(achievement2);
 
-				if (this.statFileWriter.hasAchievementUnlocked(achievement2))
+				if (this.statisticsManager.hasAchievementUnlocked(achievement2))
 				{
 					float f5 = 0.75F;
 					GlStateManager.color(f5, f5, f5, 1.0F);
 				}
-				else if (this.statFileWriter.canUnlockAchievement(achievement2))
+				else if (this.statisticsManager.canUnlockAchievement(achievement2))
 				{
 					float f6 = 1.0F;
 					GlStateManager.color(f6, f6, f6, 1.0F);
@@ -469,7 +469,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 				}
 				GlStateManager.disableBlend();
 
-				if (!this.statFileWriter.canUnlockAchievement(achievement2))
+				if (!this.statisticsManager.canUnlockAchievement(achievement2))
 				{
 					float f10 = 0.1F;
 					GlStateManager.color(f10, f10, f10, 1.0F);
@@ -482,7 +482,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 				GlStateManager.blendFunc(770, 771);
 				GlStateManager.disableLighting();
 
-				if (!this.statFileWriter.canUnlockAchievement(achievement2))
+				if (!this.statisticsManager.canUnlockAchievement(achievement2))
 				{
 					this.itemRender.isNotRenderingEffectsInGUI(true);
 				}
@@ -521,14 +521,14 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 			String s1 = achievement.getDescription();
 			int i7 = p_146552_1_ + 12;
 			int k7 = p_146552_2_ - 4;
-			int i8 = this.statFileWriter.func_150874_c(achievement);
+			int i8 = this.statisticsManager.countRequirementsUntilAvailable(achievement);
 
-			if (this.statFileWriter.canUnlockAchievement(achievement))
+			if (this.statisticsManager.canUnlockAchievement(achievement))
 			{
 				int j8 = Math.max(this.fontRendererObj.getStringWidth(s), 120);
 				int i9 = this.fontRendererObj.splitStringWidth(s1, j8);
 
-				if (this.statFileWriter.hasAchievementUnlocked(achievement))
+				if (this.statisticsManager.hasAchievementUnlocked(achievement))
 				{
 					i9 += 12;
 				}
@@ -536,7 +536,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 				this.drawGradientRect(i7 - 3, k7 - 3, i7 + j8 + 3, k7 + i9 + 3 + 12, -1073741824, -1073741824);
 				this.fontRendererObj.drawSplitString(s1, i7, k7 + 12, j8, -6250336);
 
-				if (this.statFileWriter.hasAchievementUnlocked(achievement))
+				if (this.statisticsManager.hasAchievementUnlocked(achievement))
 				{
 					this.fontRendererObj.drawStringWithShadow(I18n.format("achievement.taken"), i7,
 							(k7 + i9 + 4), -7302913);
@@ -567,7 +567,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 			if (s != null)
 			{
 				this.fontRendererObj.drawStringWithShadow(s, i7, k7,
-						this.statFileWriter.canUnlockAchievement(achievement) ? (achievement.getSpecial() ? -128 : -1)
+						this.statisticsManager.canUnlockAchievement(achievement) ? (achievement.getSpecial() ? -128 : -1)
 								: (achievement.getSpecial() ? -8355776 : -8355712));
 			}
 		}
@@ -601,7 +601,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 			{
 				random.setSeed((this.mc.getSession().getPlayerID().hashCode() + k1 + i4 + (l1 + l3) * 16));
 				int j4 = random.nextInt(1 + l1 + l3) + (l1 + l3) / 2;
-				TextureAtlasSprite textureatlassprite = BlockTexture.getTextureFromBlock(Blocks.sand);
+				TextureAtlasSprite textureatlassprite = BlockTexture.getTextureFromBlock(Blocks.SAND);
 
 				if (j4 <= 37 && l1 + l3 != 35)
 				{
@@ -609,37 +609,37 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 					{
 						if (random.nextInt(2) == 0)
 						{
-							textureatlassprite = BlockTexture.getTextureFromBlock(Blocks.diamond_ore);
+							textureatlassprite = BlockTexture.getTextureFromBlock(Blocks.DIAMOND_ORE);
 						}
 						else
 						{
-							textureatlassprite = BlockTexture.getTextureFromBlock(Blocks.redstone_ore);
+							textureatlassprite = BlockTexture.getTextureFromBlock(Blocks.REDSTONE_ORE);
 						}
 					}
 					else if (j4 == 10)
 					{
-						textureatlassprite = BlockTexture.getTextureFromBlock(Blocks.iron_ore);
+						textureatlassprite = BlockTexture.getTextureFromBlock(Blocks.IRON_ORE);
 					}
 					else if (j4 == 8)
 					{
-						textureatlassprite = BlockTexture.getTextureFromBlock(Blocks.coal_ore);
+						textureatlassprite = BlockTexture.getTextureFromBlock(Blocks.COAL_ORE);
 					}
 					else if (j4 > 4)
 					{
-						textureatlassprite = BlockTexture.getTextureFromBlock(Blocks.stone);
+						textureatlassprite = BlockTexture.getTextureFromBlock(Blocks.STONE);
 					}
 					else if (j4 > 0)
 					{
-						textureatlassprite = BlockTexture.getTextureFromBlock(Blocks.dirt);
+						textureatlassprite = BlockTexture.getTextureFromBlock(Blocks.DIRT);
 					}
 				}
 				else
 				{
-					Block block = Blocks.bedrock;
+					Block block = Blocks.BEDROCK;
 					textureatlassprite = BlockTexture.getTextureFromBlock(block);
 				}
 
-				this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
+				this.mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 				this.drawTexturedModalRect(i4 * 16 - i2, l3 * 16 - j2, textureatlassprite, 16, 16);
 			}
 		}
@@ -663,7 +663,7 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 			{
 				random.setSeed((this.mc.getSession().getPlayerID().hashCode() + k1 + i4 + (l1 + l3) * 16));
 				int j4 = random.nextInt(1 + l1 + l3) + (l1 + l3) / 2;
-				TextureAtlasSprite textureatlassprite = BlockTexture.getTextureFromBlock(Blocks.sand);
+				TextureAtlasSprite texture = BlockTexture.getTextureFromBlock(Blocks.SAND);
 
 				if (j4 <= 37 && l1 + l3 != 35)
 				{
@@ -671,42 +671,42 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 					{
 						if (random.nextInt(2) == 0)
 						{
-							textureatlassprite = BlockTexture.getTextureFromBlock(
+							texture = BlockTexture.getTextureFromBlock(
 									GenesisBlocks.ores.getBlockState(OreBlocks.ORE, EnumOre.OLIVINE));
 						}
 						else
 						{
-							textureatlassprite = BlockTexture.getTextureFromBlock(
+							texture = BlockTexture.getTextureFromBlock(
 									GenesisBlocks.ores.getBlockState(OreBlocks.ORE, EnumOre.GARNET));
 						}
 					}
 					else if (j4 == 10)
 					{
-						textureatlassprite = BlockTexture
+						texture = BlockTexture
 								.getTextureFromBlock(GenesisBlocks.ores.getBlockState(OreBlocks.ORE, EnumOre.ZIRCON));
 					}
 					else if (j4 == 8)
 					{
-						textureatlassprite = BlockTexture
+						texture = BlockTexture
 								.getTextureFromBlock(GenesisBlocks.ores.getBlockState(OreBlocks.ORE, EnumOre.QUARTZ));
 					}
 					else if (j4 > 4)
 					{
-						textureatlassprite = BlockTexture.getTextureFromBlock(GenesisBlocks.granite.getDefaultState());
+						texture = BlockTexture.getTextureFromBlock(GenesisBlocks.granite.getDefaultState());
 					}
 					else if (j4 > 0)
 					{
-						textureatlassprite = BlockTexture.getTextureFromBlock(Blocks.dirt);
+						texture = BlockTexture.getTextureFromBlock(Blocks.DIRT);
 					}
 				}
 				else
 				{
-					Block block = Blocks.bedrock;
-					textureatlassprite = BlockTexture.getTextureFromBlock(block.getDefaultState());
+					Block block = Blocks.BEDROCK;
+					texture = BlockTexture.getTextureFromBlock(block.getDefaultState());
 				}
 
-				this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
-				this.drawTexturedModalRect(i4 * 16 - i2, l3 * 16 - j2, textureatlassprite, 16, 16);
+				this.mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+				this.drawTexturedModalRect(i4 * 16 - i2, l3 * 16 - j2, texture, 16, 16);
 			}
 		}
 	}

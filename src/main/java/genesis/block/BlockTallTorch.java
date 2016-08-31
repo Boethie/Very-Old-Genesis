@@ -57,7 +57,7 @@ public class BlockTallTorch extends Block
 	
 	public BlockTallTorch()
 	{
-		super(Material.circuits);
+		super(Material.CIRCUITS);
 		
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		
@@ -224,19 +224,24 @@ public class BlockTallTorch extends Block
 		
 		return null;
 	}
-	
+
 	@Override
-	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block neighborBlock)
+	public void onNeighborChange(IBlockAccess blockAccess, BlockPos pos, BlockPos neighbor)
 	{
-		if (!canTorchStay(world, pos, state, false))
+		if (blockAccess instanceof World)
 		{
-			world.destroyBlock(pos, true);
-			
-			BlockPos other = getOther(world, pos);
-			
-			if (other != null)
+			World world = (World) blockAccess;
+
+			if (!canTorchStay(world, pos, world.getBlockState(pos), false))
 			{
-				world.destroyBlock(other, true);
+				world.destroyBlock(pos, true);
+
+				BlockPos other = getOther(world, pos);
+
+				if (other != null)
+				{
+					world.destroyBlock(other, true);
+				}
 			}
 		}
 	}
@@ -249,15 +254,15 @@ public class BlockTallTorch extends Block
 		
 		if (other != null)
 		{
-			world.playAuxSFX(2001, other, Block.getStateId(otherState));
+			world.playEvent(2001, other, Block.getStateId(otherState));
 			
 			if (willHarvest && !player.capabilities.isCreativeMode)
 			{
 				dropBlockAsItem(world, other, otherState,
-						EnchantmentHelper.getEnchantmentLevel(Enchantments.fortune, player.getHeldItemMainhand()));
+						EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, player.getHeldItemMainhand()));
 			}
 			
-			world.setBlockState(other, Blocks.air.getDefaultState(), 2);
+			world.setBlockState(other, Blocks.AIR.getDefaultState(), 2);
 		}
 		
 		boolean out = super.removedByPlayer(state, world, pos, player, willHarvest);

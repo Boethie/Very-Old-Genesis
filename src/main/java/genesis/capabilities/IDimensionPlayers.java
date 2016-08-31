@@ -84,7 +84,7 @@ public interface IDimensionPlayers
 			
 			// Send the player's current potion effects.
 			for (PotionEffect effect : newPlayer.getActivePotionEffects())
-				newPlayer.playerNetServerHandler.sendPacket(new SPacketEntityEffect(newPlayer.getEntityId(), effect));
+				newPlayer.connection.sendPacket(new SPacketEntityEffect(newPlayer.getEntityId(), effect));
 		}
 		
 		@Override

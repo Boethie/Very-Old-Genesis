@@ -38,7 +38,7 @@ public class ItemMaterial extends ItemMulti<EnumMaterial>
 			{
 				if (!world.isRemote)
 				{
-					world.playAuxSFX(2005, pos, 0);
+					world.playEvent(2005, pos, 0);
 				}
 				
 				return EnumActionResult.SUCCESS;

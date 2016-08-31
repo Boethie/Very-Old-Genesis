@@ -24,19 +24,19 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEntityPreferredBiome
+public class BiomeSwampRainforest extends BiomeGenesis implements IEntityPreferredBiome
 {
-	public BiomeGenSwampRainforest(BiomeGenBase.BiomeProperties properties)
+	public BiomeSwampRainforest(Biome.BiomeProperties properties)
 	{
 		super(properties);
 		
 		theBiomeDecorator.clayPerChunk = 2;
 		theBiomeDecorator.sandPerChunk2 = 3;
 		
-		spawnableCreatureList.add(new BiomeGenBase.SpawnListEntry(EntityMeganeura.class, 8, 4, 8));
+		spawnableCreatureList.add(new Biome.SpawnListEntry(EntityMeganeura.class, 8, 4, 8));
 		
 		getDecorator().setGrassCount(6);
 		addGrass(WorldGenPlant.create(EnumPlant.ZYGOPTERIS).setPatchCount(9), 1);
@@ -78,7 +78,7 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 	@Override
 	public void genTerrainBlocks(World world, Random rand, ChunkPrimer chunkPrimer, int chunkX, int chunkZ, double d)
 	{
-		double d1 = GRASS_COLOR_NOISE.func_151601_a(chunkX * 0.25D, chunkZ * 0.25D);
+		double d1 = GRASS_COLOR_NOISE.getValue(chunkX * 0.25D, chunkZ * 0.25D);
 		
 		if (d1 > -0.2D)
 		{
@@ -89,11 +89,11 @@ public class BiomeGenSwampRainforest extends BiomeGenBaseGenesis implements IEnt
 			{
 				IBlockState state = chunkPrimer.getBlockState(l, i1, k);
 				
-				if (state.getBlock().getMaterial(state) != Material.air)
+				if (state.getBlock().getMaterial(state) != Material.AIR)
 				{
-					if (i1 == 62 && chunkPrimer.getBlockState(l, i1, k).getBlock() != Blocks.water)
+					if (i1 == 62 && chunkPrimer.getBlockState(l, i1, k).getBlock() != Blocks.WATER)
 					{
-						chunkPrimer.setBlockState(l, i1, k, Blocks.water.getDefaultState());
+						chunkPrimer.setBlockState(l, i1, k, Blocks.WATER.getDefaultState());
 					}
 					
 					break;

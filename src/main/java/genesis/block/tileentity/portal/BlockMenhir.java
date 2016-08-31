@@ -52,7 +52,7 @@ public class BlockMenhir extends BlockGenesis
 			ObjectType<EnumMenhirPart, BlockMenhir, ItemBlockMulti<EnumMenhirPart>> type,
 			List<EnumMenhirPart> variants, Class<EnumMenhirPart> variantClass)
 	{
-		super(Material.rock, SoundType.STONE);
+		super(Material.ROCK, SoundType.STONE);
 		
 		this.owner = owner;
 		this.type = type;

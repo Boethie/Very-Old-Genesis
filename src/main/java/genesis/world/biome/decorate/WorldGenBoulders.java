@@ -42,8 +42,8 @@ public class WorldGenBoulders extends WorldGenDecorationBase
 	public WorldGenBoulders(IBlockState dry, IBlockState wet, float landChance, float shoreChance, float waterChance, float shoreRadius)
 	{
 		super(WorldBlockMatcher.STANDARD_AIR_WATER,
-				(s, w, p) -> s.getBlock() == Blocks.dirt
-						|| s.getBlock() == Blocks.grass
+				(s, w, p) -> s.getBlock() == Blocks.DIRT
+						|| s.getBlock() == Blocks.GRASS
 						|| s.getBlock() == GenesisBlocks.moss
 						|| GenesisBlocks.silt.isStateOf(s, SiltBlocks.SILT)
 						|| GenesisBlocks.silt.isStateOf(s, SiltBlocks.CRACKED_SILT));
@@ -149,7 +149,7 @@ public class WorldGenBoulders extends WorldGenDecorationBase
 				BlockPos sidePos = pos.offset(side);
 				IBlockState state = world.getBlockState(sidePos);
 				
-				if (state.getMaterial() == Material.water)
+				if (state.getMaterial() == Material.WATER)
 					water++;
 				else if (state.getBlock().isSideSolid(state, world, sidePos, side.getOpposite()))
 					solid++;
@@ -165,7 +165,7 @@ public class WorldGenBoulders extends WorldGenDecorationBase
 		{
 			if (water > 0
 					&& !WorldUtils.isWater(world, pos.up())
-					&& above.getMaterial() != Material.water
+					&& above.getMaterial() != Material.WATER
 					&& !above.getBlock().isSideSolid(above, world, abovePos, EnumFacing.DOWN))
 				state = wet;
 			else if (solid + water < 4 && rand.nextInt(4) <= 2)	// 75% chance for moss.
@@ -176,9 +176,9 @@ public class WorldGenBoulders extends WorldGenDecorationBase
 		{
 			Material material = world.getBlockState(pos).getMaterial();
 			
-			if (material == Material.grass
-					|| material == Material.ground
-					|| material == Material.water)
+			if (material == Material.GRASS
+					|| material == Material.GROUND
+					|| material == Material.WATER)
 				setBlock(world, pos, state);
 			else
 				setAirBlock(world, pos, state);
@@ -188,7 +188,7 @@ public class WorldGenBoulders extends WorldGenDecorationBase
 			setAirBlock(world, pos, state);
 		}
 		
-		//world.notifyBlockUpdate(pos, Blocks.air.getDefaultState(), dry, 3);	// For testing it with item right click.
+		//world.notifyBlockUpdate(pos, Blocks.AIR.getDefaultState(), dry, 3);	// For testing it with item right click.
 	}
 	
 	protected void placeRockAndDryAround(World world, BlockPos pos, Random rand)

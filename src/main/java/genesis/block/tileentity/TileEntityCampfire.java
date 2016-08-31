@@ -173,7 +173,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 				return true;
 			}
 			
-			if (Block.getBlockFromItem(stack.getItem()) == Blocks.cactus)
+			if (Block.getBlockFromItem(stack.getItem()) == Blocks.CACTUS)
 			{
 				return true;
 			}
@@ -192,7 +192,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 					return true;
 				}
 				
-				if (smeltResult.getItem() == Items.coal)
+				if (smeltResult.getItem() == Items.COAL)
 				{
 					return true;
 				}
@@ -316,7 +316,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		
 		if (isBurning())
 		{
-			worldObj.playAuxSFX(1004, pos, 0);
+			worldObj.playEvent(1004, pos, 0);
 		}
 		
 		burnTime = Math.min(burnTime, -WET_TIME);
@@ -452,7 +452,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 					FloatRange volumeRange = FloatRange.create(1, 2);
 					FloatRange pitchRange = FloatRange.create(0.3F, 0.7F);
 					worldObj.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
-							SoundEvents.block_fire_ambient, SoundCategory.BLOCKS,
+							SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.BLOCKS,
 							volumeRange.get(worldObj.rand), pitchRange.get(worldObj.rand), false);
 					
 					if (hasCookingPot() && canSmelt())
@@ -662,7 +662,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	}
 	
 	@Override
-	public Packet<?> getDescriptionPacket()
+	public SPacketUpdateTileEntity getUpdatePacket()
 	{
 		NBTTagCompound compound = new NBTTagCompound();
 		compound.setInteger("burnTime", burnTime);
@@ -728,9 +728,9 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	}
 	
 	@Override
-	public void writeToNBT(NBTTagCompound compound)
+	public NBTTagCompound writeToNBT(NBTTagCompound compound)
 	{
-		super.writeToNBT(compound);
+		compound = super.writeToNBT(compound);
 		
 		NBTTagList itemList = new NBTTagList();
 		int i = 0;
@@ -761,6 +761,8 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 		{
 			compound.setString("customName", customName);
 		}
+
+		return compound;
 	}
 	
 	@Override

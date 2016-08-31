@@ -26,7 +26,7 @@ public class ItemGenesisBucketMilk extends ItemBucketMilk
 			--stack.stackSize;
 		
 		if (!world.isRemote)
-			entity.curePotionEffects(new ItemStack(Items.milk_bucket));
+			entity.curePotionEffects(new ItemStack(Items.MILK_BUCKET));
 		
 		if (player != null)
 			player.addStat(StatList.getObjectUseStats(this));

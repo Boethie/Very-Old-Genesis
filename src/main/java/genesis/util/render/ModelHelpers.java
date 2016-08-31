@@ -232,7 +232,7 @@ public class ModelHelpers
 	
 	public static void bindAtlasTexture()
 	{
-		Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
+		Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 	}
 	
 	public static void renderBakedModel(IBakedModel model)
@@ -390,7 +390,7 @@ public class ModelHelpers
 				return stackModel;
 			}
 			
-			ResourceLocation regLoc = Item.itemRegistry.getNameForObject(stack.getItem());
+			ResourceLocation regLoc = Item.REGISTRY.getNameForObject(stack.getItem());
 			String regID = regLoc.getResourceDomain() + "__" + regLoc.getResourcePath();
 			String regStackID = regID + "__meta__" + stack.getMetadata();
 			
@@ -643,6 +643,16 @@ public class ModelHelpers
 				IBlockState fakeState = new IBlockState()
 				{
 					@Override
+					public boolean onBlockEventReceived(World world, BlockPos pos, int id, int param)
+					{
+						return actualState.onBlockEventReceived(world, pos, id, param);
+					}
+					@Override
+					public void neighborChanged(World world, BlockPos pos, Block block)
+					{
+						actualState.neighborChanged(world, pos, block);
+					}
+					@Override
 					public Collection<IProperty<?>> getPropertyNames()
 					{
 						return actualState.getPropertyNames();
@@ -682,6 +692,13 @@ public class ModelHelpers
 					{
 						return actualState.isFullBlock();
 					}
+
+					@Override
+					public boolean canEntitySpawn(Entity entityIn)
+					{
+						return false;
+					}
+
 					@Override
 					public int getLightOpacity()
 					{

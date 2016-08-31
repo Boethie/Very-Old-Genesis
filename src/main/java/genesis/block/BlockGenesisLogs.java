@@ -60,7 +60,7 @@ public class BlockGenesisLogs extends BlockLog
 		blockState = new BlockStateContainer(this, variantProp, LOG_AXIS);
 		setDefaultState(getBlockState().getBaseState().withProperty(LOG_AXIS, EnumAxis.NONE));
 		
-		Blocks.fire.setFireInfo(this, 5, 5);
+		Blocks.FIRE.setFireInfo(this, 5, 5);
 		
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 	}

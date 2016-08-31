@@ -57,12 +57,11 @@ public class ItemArrowMulti<V extends IArrowMetadata<V>> extends ItemArrow
 		ItemStack copy = stack.copy();
 		EntityTippedArrow arrow = new EntityTippedArrow(world, shooter)
 		{
-			// MCP name: setAim
 			@Override
-			public void func_184547_a(Entity shooter, float pitch, float yaw, float unused, float velocity, float spread)
+			public void setAim(Entity shooter, float pitch, float yaw, float unused, float velocity, float spread)
 			{
 				setDamage(getDamage() * mass);
-				super.func_184547_a(shooter, pitch, yaw, unused, velocity / mass, spread / mass);
+				super.setAim(shooter, pitch, yaw, unused, velocity / mass, spread / mass);
 			}
 			
 			@Override

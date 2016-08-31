@@ -18,9 +18,9 @@ public class WorldGenCircleReplacement extends WorldGenDecorationBase
 {
 	public static WorldGenCircleReplacement getPeatGen()
 	{
-		return new WorldGenCircleReplacement((s) -> s.getMaterial() == Material.water,
+		return new WorldGenCircleReplacement((s) -> s.getMaterial() == Material.WATER,
 				FloatRange.create(2, 3), IntRange.create(1),
-				(s) -> s.getBlock() == Blocks.dirt, GenesisBlocks.peat.getDefaultState());
+				(s) -> s.getBlock() == Blocks.DIRT, GenesisBlocks.peat.getDefaultState());
 	}
 	
 	protected final Predicate<IBlockState> centerPredicate;

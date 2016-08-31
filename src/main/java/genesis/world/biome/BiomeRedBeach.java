@@ -7,11 +7,11 @@ import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.WorldGenPlant;
 import genesis.world.gen.feature.WorldGenTreeBjuvia;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 
-public class BiomeGenRedBeach extends BiomeGenBeachGenesis
+public class BiomeRedBeach extends BiomeBeachGenesis
 {
-	public BiomeGenRedBeach(BiomeGenBase.BiomeProperties properties)
+	public BiomeRedBeach(Biome.BiomeProperties properties)
 	{
 		super(properties);
 		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);

@@ -67,13 +67,13 @@ public class ContainerCampfire extends ContainerBase
 	}
 	
 	@Override
-	public void onCraftGuiOpened(ICrafting iCrafting)
+	public void addListener(IContainerListener listener)
 	{
-		super.onCraftGuiOpened(iCrafting);
+		super.addListener(listener);
 		
-		iCrafting.sendProgressBarUpdate(this, 0, campfire.cookTime);
-		iCrafting.sendProgressBarUpdate(this, 1, campfire.burnTime);
-		iCrafting.sendProgressBarUpdate(this, 2, campfire.totalBurnTime);
+		listener.sendProgressBarUpdate(this, 0, campfire.cookTime);
+		listener.sendProgressBarUpdate(this, 1, campfire.burnTime);
+		listener.sendProgressBarUpdate(this, 2, campfire.totalBurnTime);
 	}
 	
 	@Override
@@ -81,21 +81,21 @@ public class ContainerCampfire extends ContainerBase
 	{
 		super.detectAndSendChanges();
 		
-		for (ICrafting crafting : crafters)
+		for (IContainerListener listener : listeners)
 		{
 			if (lastCookTime != campfire.cookTime)
 			{
-				crafting.sendProgressBarUpdate(this, 0, campfire.cookTime);
+				listener.sendProgressBarUpdate(this, 0, campfire.cookTime);
 			}
 			
 			if (lastBurnTime != campfire.burnTime || campfire.isWet())
 			{
-				crafting.sendProgressBarUpdate(this, 1, campfire.burnTime);
+				listener.sendProgressBarUpdate(this, 1, campfire.burnTime);
 			}
 			
 			if (lastItemBurnTime != campfire.totalBurnTime)
 			{
-				crafting.sendProgressBarUpdate(this, 2, campfire.totalBurnTime);
+				listener.sendProgressBarUpdate(this, 2, campfire.totalBurnTime);
 			}
 		}
 		

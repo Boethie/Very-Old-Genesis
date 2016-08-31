@@ -403,7 +403,7 @@ public class TileEntityStorageBox extends TileEntityLockableLoot implements ISid
 	}
 	
 	@Override
-	public Packet<?> getDescriptionPacket()
+	public SPacketUpdateTileEntity getUpdatePacket()
 	{
 		NBTTagCompound compound = new NBTTagCompound();
 		writeVisualData(compound);
@@ -418,9 +418,9 @@ public class TileEntityStorageBox extends TileEntityLockableLoot implements ISid
 	}
 	
 	@Override
-	public void writeToNBT(NBTTagCompound compound)
+	public NBTTagCompound writeToNBT(NBTTagCompound compound)
 	{
-		super.writeToNBT(compound);
+		compound = super.writeToNBT(compound);
 		
 		if(!checkLootAndWrite(compound))
 		{
@@ -450,6 +450,8 @@ public class TileEntityStorageBox extends TileEntityLockableLoot implements ISid
 		{
 			compound.setString("customName", customName);
 		}
+
+		return compound;
 	}
 	
 	@Override

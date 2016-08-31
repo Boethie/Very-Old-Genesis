@@ -29,9 +29,9 @@ public class ItemChoppingTool extends ItemGenesisAxe
 	{
 		Material material = state.getMaterial();
 		
-		if (material == Material.wood
-				|| material == Material.plants
-				|| material == Material.vine)
+		if (material == Material.WOOD
+				|| material == Material.PLANTS
+				|| material == Material.VINE)
 			return efficiencyOnProperMaterial;
 		
 		return super.getStrVsBlock(stack, state);

@@ -202,7 +202,6 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 		}
 		
 		/**
-		 * @param placed Whether the block has been placed yet. To allow customs to prevent placing stacked plant blocks.
 		 * @return Whether the BlockGrowingPlant can grow at the specified BlockPos.
 		 */
 		CanStayOptions canPlantStayAt(BlockGrowingPlant plant, World world, BlockPos pos, PlantState plantState);
@@ -282,12 +281,12 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 	
 	public BlockGrowingPlant(boolean topProperty, int maxAge, int growthAge, int height)
 	{
-		this(Material.plants, topProperty, maxAge, growthAge, height);
+		this(Material.PLANTS, topProperty, maxAge, growthAge, height);
 	}
 	
 	public BlockGrowingPlant(boolean topProperty, int maxAge, int height)
 	{
-		this(Material.plants, topProperty, maxAge, height);
+		this(Material.PLANTS, topProperty, maxAge, height);
 	}
 	
 	/**
@@ -604,12 +603,6 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 	}
 	
 	@Override
-	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block neighborBlock)
-	{
-		super.onNeighborBlockChange(world, pos, state, neighborBlock);
-	}
-	
-	@Override
 	public int getMetaFromState(IBlockState state)
 	{
 		return BlockStateToMetadata.getMetaForBlockState(state, metaProperties);
@@ -740,7 +733,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 							IBlockState landState = world.getBlockState(landPos);
 							
 							if ((canPlaceBlockOnSide(world, landPos, EnumFacing.UP) && landState.getBlock().isFertile(world, landPos)) ||
-								landState.getMaterial() == Material.water)
+								landState.getMaterial() == Material.WATER)
 							{
 								rate *= neighborFertileChanceMult;
 							}
@@ -749,7 +742,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 				}
 			}
 			
-			if (farmlandChanceMult != 0 && blockUnder.getBlock() == Blocks.farmland)
+			if (farmlandChanceMult != 0 && blockUnder.getBlock() == Blocks.FARMLAND)
 			{
 				rate *= farmlandChanceMult;
 			}
@@ -1073,7 +1066,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 			
 			if (!particlePos.equals(pos))
 			{
-				world.playAuxSFXAtEntity(breaker, 2001, particlePos, Block.getStateId(entry.getValue()));
+				world.playEvent(breaker, 2001, particlePos, Block.getStateId(entry.getValue()));
 			}
 		}
 		
@@ -1092,7 +1085,7 @@ public class BlockGrowingPlant extends BlockBush implements IGrowable
 				dropBlockAsItemWithChance(world, breakPos, oldState, (isBase ? -1 : -2), 0);
 			}
 			
-			world.setBlockState(breakPos, Blocks.air.getDefaultState(), 2);
+			world.setBlockState(breakPos, Blocks.AIR.getDefaultState(), 2);
 		}
 		
 		// Notify of block changes.

@@ -57,7 +57,7 @@ public class BlockWattleFence extends BlockGenesisFence
 			ObjectType<EnumTree, BlockWattleFence, ItemBlockMulti<EnumTree>> type,
 			List<EnumTree> variants, Class<EnumTree> variantClass)
 	{
-		super(Material.wood, 0.125F, 1.0F, 0.125F, 0.875F, 1.5F);
+		super(Material.WOOD, 0.125F, 1.0F, 0.125F, 0.875F, 1.5F);
 		
 		setHardness(2);
 		setResistance(5);

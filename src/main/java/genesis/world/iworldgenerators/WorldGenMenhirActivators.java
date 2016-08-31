@@ -7,7 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenTaiga;
+import net.minecraft.world.biome.BiomeTaiga;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.fml.common.IWorldGenerator;
@@ -21,8 +21,8 @@ import static genesis.world.WorldGenerators.menhirActivatorsOverworld;
 public class WorldGenMenhirActivators implements IWorldGenerator
 {
 	private final List<MenhirStructure> structures;
-	private final Set<Block> topBlocks = ImmutableSet.of(Blocks.dirt, Blocks.grass, Blocks.stone);
-	private final Set<Block> bottomBlocks = ImmutableSet.of(Blocks.stone);
+	private final Set<Block> topBlocks = ImmutableSet.of(Blocks.DIRT, Blocks.GRASS, Blocks.STONE);
+	private final Set<Block> bottomBlocks = ImmutableSet.of(Blocks.STONE);
 	
 	public WorldGenMenhirActivators()
 	{
@@ -114,7 +114,7 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 		BlockPos chunkPos = new BlockPos(chunkX << 4, 0, chunkZ << 4);
 		
 		int menhirHutChance = 300;
-		if (random.nextInt(menhirHutChance) == 0 && world.getBiomeGenForCoords(chunkPos.add(8, 0, 8)) instanceof BiomeGenTaiga)
+		if (random.nextInt(menhirHutChance) == 0 && world.getBiome(chunkPos.add(8, 0, 8)) instanceof BiomeTaiga)
 			generateHut(random, world, chunkPos);
 	}
 	
@@ -129,18 +129,18 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 		{
 			BlockPos pos = getRealHeight(world, center.add(offset), topBlocks).up(offset.getY());
 			if (random.nextInt(4) == 0)
-				world.setBlockState(pos, Blocks.mossy_cobblestone.getDefaultState());
+				world.setBlockState(pos, Blocks.MOSSY_COBBLESTONE.getDefaultState());
 			else
-				world.setBlockState(pos, Blocks.cobblestone.getDefaultState());
+				world.setBlockState(pos, Blocks.COBBLESTONE.getDefaultState());
 		}
 		
 		for (BlockPos offset : structure.get(random, StructureType.GESTALT))
 		{
 			BlockPos pos = center.add(offset);
 			if (random.nextInt(4) == 0)
-				world.setBlockState(pos, Blocks.mossy_cobblestone.getDefaultState());
+				world.setBlockState(pos, Blocks.MOSSY_COBBLESTONE.getDefaultState());
 			else
-				world.setBlockState(pos, Blocks.cobblestone.getDefaultState());
+				world.setBlockState(pos, Blocks.COBBLESTONE.getDefaultState());
 		}
 		
 		for (BlockPos offset : structure.get(random, StructureType.AIR))

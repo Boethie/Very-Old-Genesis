@@ -57,7 +57,7 @@ public class WorldGenGenesisSurfacePatch extends WorldGenerator
 		{
 			IBlockState state = world.getBlockState(pos);
 			
-			if (state.getMaterial() == Material.water)
+			if (state.getMaterial() == Material.WATER)
 				return false;
 			
 			if (!state.getBlock().isAir(state, world, pos)
@@ -115,7 +115,7 @@ public class WorldGenGenesisSurfacePatch extends WorldGenerator
 						if (world.isBlockLoaded(pos.add(x, y, z)))
 						{
 							IBlockState state = world.getBlockState(pos.add(x, y, z));
-							Block blockToReplace = world.getBiomeGenForCoords(pos.add(x, y, z)).topBlock.getBlock();
+							Block blockToReplace = world.getBiome(pos.add(x, y, z)).topBlock.getBlock();
 							/*
 							if (rand.nextInt(3) == 0)
 							{
@@ -126,7 +126,7 @@ public class WorldGenGenesisSurfacePatch extends WorldGenerator
 							}
 							*/
 							if (state.getBlock() == blockToReplace
-									&& world.getBlockState(pos.add(x, y, z).up()).getMaterial() != Material.water)
+									&& world.getBlockState(pos.add(x, y, z).up()).getMaterial() != Material.WATER)
 								world.setBlockState(pos.add(x, y, z), currentState, 2);
 						}
 					}

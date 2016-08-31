@@ -32,7 +32,7 @@ public class BlockSpriteUVs implements ISpriteUVs
 	public ResourceLocation getTexture()
 	{
 		getSprite();
-		return TextureMap.locationBlocksTexture;
+		return TextureMap.LOCATION_BLOCKS_TEXTURE;
 	}
 	
 	@Override

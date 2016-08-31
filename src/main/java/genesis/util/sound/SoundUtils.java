@@ -47,7 +47,7 @@ public class SoundUtils
 		@Override
 		public void toBytes(ByteBuf buf)
 		{
-			buf.writeInt(SoundEvent.soundEventRegistry.getIDForObject(sound));
+			buf.writeInt(SoundEvent.REGISTRY.getIDForObject(sound));
 			GenesisByteBufUtils.writeEnum(buf, category);
 			buf.writeInt(entityID);
 			buf.writeFloat(volume);
@@ -58,7 +58,7 @@ public class SoundUtils
 		@Override
 		public void fromBytes(ByteBuf buf)
 		{
-			sound = SoundEvent.soundEventRegistry.getObjectById(buf.readInt());
+			sound = SoundEvent.REGISTRY.getObjectById(buf.readInt());
 			category = GenesisByteBufUtils.readEnum(buf, SoundCategory.class);
 			entityID = buf.readInt();
 			volume = buf.readFloat();

@@ -12,7 +12,7 @@ import net.minecraft.block.material.Material;
 public class SlabBlocks extends VariantsOfTypesCombo<EnumSlab>
 {
 	public static final SlabObjectType ROCK =
-			new SlabObjectType("rock_slab", Section.SLAB + Section.ROCK, Material.rock, SoundType.STONE);
+			new SlabObjectType("rock_slab", Section.SLAB + Section.ROCK, Material.ROCK, SoundType.STONE);
 
 	static
 	{

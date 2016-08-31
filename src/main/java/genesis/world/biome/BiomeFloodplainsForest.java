@@ -15,12 +15,12 @@ import genesis.world.biome.decorate.WorldGenSplash;
 import genesis.world.gen.feature.WorldGenDeadLog;
 import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-public class BiomeGenFloodplainsForest extends BiomeGenBaseGenesis
+public class BiomeFloodplainsForest extends BiomeGenesis
 {
-	public BiomeGenFloodplainsForest(BiomeGenBase.BiomeProperties properties)
+	public BiomeFloodplainsForest(Biome.BiomeProperties properties)
 	{
 		super(properties);
 		

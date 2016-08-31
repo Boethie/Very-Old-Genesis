@@ -16,7 +16,7 @@ public interface WorldBlockMatcher
 	
 	WorldBlockMatcher REPLACEABLE = (s, w, p) -> s.getBlock().isReplaceable(w, p);
 	WorldBlockMatcher LEAVES = (s, w, p) -> s.getBlock().isLeaves(s, w, p);
-	WorldBlockMatcher WATER = (s, w, p) -> s.getMaterial() == Material.water;
+	WorldBlockMatcher WATER = (s, w, p) -> s.getMaterial() == Material.WATER;
 	
 	WorldBlockMatcher STANDARD_AIR_WATER = or(REPLACEABLE, LEAVES);
 	WorldBlockMatcher STANDARD_AIR = and(STANDARD_AIR_WATER, not(WATER));	// REPLACEABLE includes WATER.

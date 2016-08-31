@@ -41,7 +41,7 @@ public class BlockSiltstone extends BlockGenesis
 			ObjectType<EnumSilt, BlockSiltstone, ItemBlockMulti<EnumSilt>> type,
 			List<EnumSilt> variants, Class<EnumSilt> variantClass)
 	{
-		super(Material.rock, SoundType.STONE);
+		super(Material.ROCK, SoundType.STONE);
 		
 		this.owner = owner;
 		this.type = type;

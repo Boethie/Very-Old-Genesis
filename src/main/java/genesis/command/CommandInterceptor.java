@@ -85,7 +85,7 @@ public class CommandInterceptor extends CommandTime
 		if (time < 0)
 			time += dayLength;
 		
-		notifyOperators(sender, this, "commands.time.set", time);
+		notifyCommandListener(sender, this, "commands.time.set", time);
 		
 		for (WorldServer world : server.worldServers)
 			if (GenesisDimensions.isGenesis(world) ? genesis : !genesis)
@@ -109,6 +109,6 @@ public class CommandInterceptor extends CommandTime
 			}
 		}
 		
-		notifyOperators(sender, this, "commands.time.added", time);
+		notifyCommandListener(sender, this, "commands.time.added", time);
 	}
 }

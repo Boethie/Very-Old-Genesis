@@ -2,11 +2,11 @@ package genesis.world.biome;
 
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.WorldGenPebbles;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 
-public class BiomeGenLimestoneBeach extends BiomeGenBaseGenesis
+public class BiomeLimestoneBeach extends BiomeGenesis
 {
-	public BiomeGenLimestoneBeach (BiomeGenBase.BiomeProperties properties)
+	public BiomeLimestoneBeach(Biome.BiomeProperties properties)
 	{
 		super(properties);
 		topBlock = GenesisBlocks.limestone.getDefaultState();

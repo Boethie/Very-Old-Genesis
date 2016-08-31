@@ -23,7 +23,7 @@ public class BlockGenesisPortal extends Block
 	
 	public BlockGenesisPortal()
 	{
-		super(Material.air);
+		super(Material.AIR);
 		
 		setLightLevel(1);
 	}

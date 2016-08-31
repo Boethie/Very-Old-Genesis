@@ -1,7 +1,7 @@
 package genesis.world.layer;
 
 import genesis.common.GenesisBiomes;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 
@@ -31,17 +31,17 @@ public class GenLayerGenesisShore extends GenLayerGenesis
 				int k2;
 				
 				if (
-						biomeID != BiomeGenBase.getIdForBiome(GenesisBiomes.auxForestM)
-						&& biomeID != BiomeGenBase.getIdForBiome(GenesisBiomes.auxForestHills)
-						&& biomeID != BiomeGenBase.getIdForBiome(GenesisBiomes.woodlandsM)
-						&& biomeID != BiomeGenBase.getIdForBiome(GenesisBiomes.woodlandsHills)
-						&& biomeID != BiomeGenBase.getIdForBiome(GenesisBiomes.rainforestM)
-						&& biomeID != BiomeGenBase.getIdForBiome(GenesisBiomes.rainforestHills)
-						&& biomeID != BiomeGenBase.getIdForBiome(GenesisBiomes.metaForestM)
-						&& biomeID != BiomeGenBase.getIdForBiome(GenesisBiomes.metaForestHills)
-						&& biomeID != BiomeGenBase.getIdForBiome(GenesisBiomes.redDesertHills))
+						biomeID != Biome.getIdForBiome(GenesisBiomes.auxForestM)
+						&& biomeID != Biome.getIdForBiome(GenesisBiomes.auxForestHills)
+						&& biomeID != Biome.getIdForBiome(GenesisBiomes.woodlandsM)
+						&& biomeID != Biome.getIdForBiome(GenesisBiomes.woodlandsHills)
+						&& biomeID != Biome.getIdForBiome(GenesisBiomes.rainforestM)
+						&& biomeID != Biome.getIdForBiome(GenesisBiomes.rainforestHills)
+						&& biomeID != Biome.getIdForBiome(GenesisBiomes.metaForestM)
+						&& biomeID != Biome.getIdForBiome(GenesisBiomes.metaForestHills)
+						&& biomeID != Biome.getIdForBiome(GenesisBiomes.redDesertHills))
 				{
-					if (!isBiomeOceanic(biomeID) && biomeID != BiomeGenBase.getIdForBiome(GenesisBiomes.swampRainForest))
+					if (!isBiomeOceanic(biomeID) && biomeID != Biome.getIdForBiome(GenesisBiomes.swampRainForest))
 					{
 						l1 = aint[x + 1 + (y + 1 - 1) * (areaWidth + 2)];
 						i2 = aint[x + 1 + 1 + (y + 1) * (areaWidth + 2)];
@@ -49,20 +49,20 @@ public class GenLayerGenesisShore extends GenLayerGenesis
 						k2 = aint[x + 1 + (y + 1 + 1) * (areaWidth + 2)];
 						
 						if (
-								(!isBiomeOceanic(l1) || l1 == BiomeGenBase.getIdForBiome(GenesisBiomes.swampRainForest))
-								&& (!isBiomeOceanic(i2) || i2 == BiomeGenBase.getIdForBiome(GenesisBiomes.swampRainForest))
-								&& (!isBiomeOceanic(j2) || j2 == BiomeGenBase.getIdForBiome(GenesisBiomes.swampRainForest))
-								&& (!isBiomeOceanic(k2) || k2 == BiomeGenBase.getIdForBiome(GenesisBiomes.swampRainForest)))
+								(!isBiomeOceanic(l1) || l1 == Biome.getIdForBiome(GenesisBiomes.swampRainForest))
+								&& (!isBiomeOceanic(i2) || i2 == Biome.getIdForBiome(GenesisBiomes.swampRainForest))
+								&& (!isBiomeOceanic(j2) || j2 == Biome.getIdForBiome(GenesisBiomes.swampRainForest))
+								&& (!isBiomeOceanic(k2) || k2 == Biome.getIdForBiome(GenesisBiomes.swampRainForest)))
 						{
 							aint1[x + y * areaWidth] = biomeID;
 						}
 						else
 						{
 							if (
-									biomeID == BiomeGenBase.getIdForBiome(GenesisBiomes.redDesert))
-								aint1[x + y * areaWidth] = BiomeGenBase.getIdForBiome(GenesisBiomes.redBeach);
+									biomeID == Biome.getIdForBiome(GenesisBiomes.redDesert))
+								aint1[x + y * areaWidth] = Biome.getIdForBiome(GenesisBiomes.redBeach);
 							else
-								aint1[x + y * areaWidth] = BiomeGenBase.getIdForBiome(GenesisBiomes.genesisBeach);
+								aint1[x + y * areaWidth] = Biome.getIdForBiome(GenesisBiomes.genesisBeach);
 						}
 					}
 					else
@@ -72,7 +72,7 @@ public class GenLayerGenesisShore extends GenLayerGenesis
 				}
 				else
 				{
-					this.func_151632_a(aint, aint1, x, y, areaWidth, biomeID, BiomeGenBase.getIdForBiome(GenesisBiomes.limestoneBeach));
+					this.func_151632_a(aint, aint1, x, y, areaWidth, biomeID, Biome.getIdForBiome(GenesisBiomes.limestoneBeach));
 				}
 			}
 		}
@@ -93,10 +93,10 @@ public class GenLayerGenesisShore extends GenLayerGenesis
 			int i2 = aint[x + 1 + (y + 1 + 1) * (areaWidth + 2)];
 
 			if (
-					(!isBiomeOceanic(j1) || j1 == BiomeGenBase.getIdForBiome(GenesisBiomes.swampRainForest)) 
-					&& (!isBiomeOceanic(k1) || k1 == BiomeGenBase.getIdForBiome(GenesisBiomes.swampRainForest)) 
-					&& (!isBiomeOceanic(l1) || l1 == BiomeGenBase.getIdForBiome(GenesisBiomes.swampRainForest)) 
-					&& (!isBiomeOceanic(i2) || i2 == BiomeGenBase.getIdForBiome(GenesisBiomes.swampRainForest)))
+					(!isBiomeOceanic(j1) || j1 == Biome.getIdForBiome(GenesisBiomes.swampRainForest))
+					&& (!isBiomeOceanic(k1) || k1 == Biome.getIdForBiome(GenesisBiomes.swampRainForest))
+					&& (!isBiomeOceanic(l1) || l1 == Biome.getIdForBiome(GenesisBiomes.swampRainForest))
+					&& (!isBiomeOceanic(i2) || i2 == Biome.getIdForBiome(GenesisBiomes.swampRainForest)))
 			{
 				aint1[x + y * areaWidth] = biomeID;
 			}

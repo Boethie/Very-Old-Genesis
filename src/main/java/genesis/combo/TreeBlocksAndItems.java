@@ -56,7 +56,7 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo<EnumTree>
 		
 		SAPLING = ObjectType.createBlock(EnumTree.class, "sapling", BlockGenesisSaplings.class);
 		SAPLING.setConstructedFunction((b, i) ->
-						FuelHandler.setBurnTime(i, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.sapling)), true))
+						FuelHandler.setBurnTime(i, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.SAPLING)), true))
 				.setIgnoredProperties(BlockSapling.STAGE);
 		
 		LEAVES = ObjectType.createBlock(EnumTree.class, "leaves", BlockGenesisLeaves.class);
@@ -75,7 +75,7 @@ public class TreeBlocksAndItems extends VariantsOfTypesCombo<EnumTree>
 		BILLET = ObjectType.createItem(EnumTree.class, "billet", Unlocalized.Section.MATERIAL + "billet");
 		BILLET.setVariantFilter(billet)
 				.setConstructedFunction((b, i) ->
-						FuelHandler.setBurnTime(i, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.planks)), true));
+						FuelHandler.setBurnTime(i, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.PLANKS)), true));
 		
 		WATTLE_FENCE = ObjectType.createBlock(EnumTree.class, "wattle_fence", "wattleFence", BlockWattleFence.class);
 		WATTLE_FENCE.setVariantFilter(billet);

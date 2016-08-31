@@ -14,10 +14,8 @@ import genesis.common.GenesisConfig;
 import genesis.common.GenesisDimensions;
 import genesis.common.GenesisItems;
 import genesis.common.GenesisLoot;
-import genesis.world.biome.BiomeGenRainforest;
-import net.minecraft.block.Block;
+import genesis.world.biome.BiomeRainforest;
 import net.minecraft.block.BlockLadder;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -44,14 +42,14 @@ public class WorldGenHut implements IWorldGenerator {
 		
 		BlockPos start = new BlockPos(chunkX * 16 + 4, 0, chunkZ * 16 + 4);
 		
-		if (!(world.getBiomeGenForCoords(start) instanceof BiomeGenRainforest))
+		if (!(world.getBiome(start) instanceof BiomeRainforest))
 			return;
 		
 		start = WorldGenHelper.findSurface(world, start);
 		
 		for (BlockPos pos : BlockPos.getAllInBox(start.add(-3, 0, -3), start.add(9, 0, 11)))
 		{
-			if (!(world.getBiomeGenForCoords(start) instanceof BiomeGenRainforest))
+			if (!(world.getBiome(start) instanceof BiomeRainforest))
 				return;
 		}
 		

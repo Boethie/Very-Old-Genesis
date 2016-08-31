@@ -50,7 +50,7 @@ public class BlockResin extends BlockHorizontal implements IGrowable
 	
 	public BlockResin()
 	{
-		super(Material.wood);
+		super(Material.WOOD);
 		setSoundType(SoundType.WOOD);
 		setTickRandomly(true);
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
@@ -122,12 +122,18 @@ public class BlockResin extends BlockHorizontal implements IGrowable
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block neighborBlock)
+	public void onNeighborChange(IBlockAccess blockAccess, BlockPos pos, BlockPos neighbor)
 	{
-		if (!canPlaceBlockAt(world, pos) || !canPlaceResin(world, pos, state.getValue(FACING).getOpposite()))
+		if (blockAccess instanceof World)
 		{
-			dropBlockAsItem(world, pos, state, 0);
-			world.setBlockToAir(pos);
+			World world = (World) blockAccess;
+			IBlockState state = world.getBlockState(pos);
+
+			if (!canPlaceBlockAt(world, pos) || !canPlaceResin(world, pos, state.getValue(FACING).getOpposite()))
+			{
+				dropBlockAsItem(world, pos, state, 0);
+				world.setBlockToAir(pos);
+			}
 		}
 	}
 

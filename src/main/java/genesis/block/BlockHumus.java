@@ -27,7 +27,7 @@ public class BlockHumus extends Block
 {
 	public BlockHumus()
 	{
-		super(Material.ground);
+		super(Material.GROUND);
 		
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 		
@@ -61,12 +61,12 @@ public class BlockHumus extends Block
 			if (stack.getItem() instanceof ItemSpade)
 			{
 				newState = GenesisBlocks.humus_path.getDefaultState();
-				sound = SoundEvents.item_shovel_flatten;
+				sound = SoundEvents.ITEM_SHOVEL_FLATTEN;
 			}
 			else if (stack.getItem() instanceof ItemHoe)
 			{
-				newState = Blocks.farmland.getDefaultState();
-				sound = SoundEvents.item_hoe_till;
+				newState = Blocks.FARMLAND.getDefaultState();
+				sound = SoundEvents.ITEM_HOE_TILL;
 			}
 			
 			if (newState != null)

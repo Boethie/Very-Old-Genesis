@@ -6,11 +6,11 @@ import genesis.combo.variant.EnumSilt;
 import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.WorldGenPebbles;
 import genesis.world.biome.decorate.WorldGenPlant;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 
-public class BiomeGenBeachGenesis extends BiomeGenBaseGenesis
+public class BiomeBeachGenesis extends BiomeGenesis
 {
-	public BiomeGenBeachGenesis(BiomeGenBase.BiomeProperties properties)
+	public BiomeBeachGenesis(Biome.BiomeProperties properties)
 	{
 		super(properties);
 		

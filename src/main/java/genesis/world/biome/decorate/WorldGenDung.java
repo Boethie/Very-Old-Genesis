@@ -25,15 +25,15 @@ public class WorldGenDung extends WorldGenDecorationBase
 	public WorldGenDung(EnumDung type)
 	{
 		super(WorldBlockMatcher.STANDARD_AIR_WATER,
-				(s, w, p) -> s.getBlock() == Blocks.dirt
-				|| s.getBlock() == Blocks.grass
+				(s, w, p) -> s.getBlock() == Blocks.DIRT
+				|| s.getBlock() == Blocks.GRASS
 				|| s.getBlock() == GenesisBlocks.moss
 				|| GenesisBlocks.silt.isStateOf(s, SiltBlocks.SILT));
 		
 		dungType = type;
 		
-		allowedBlocks.add(Blocks.dirt);
-		allowedBlocks.add(Blocks.grass);
+		allowedBlocks.add(Blocks.DIRT);
+		allowedBlocks.add(Blocks.GRASS);
 		allowedBlocks.add(GenesisBlocks.moss);
 		allowedBlocks.add(GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT));
 	}

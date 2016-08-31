@@ -1,7 +1,7 @@
 package genesis.world.layer;
 
 import genesis.common.GenesisBiomes;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.layer.GenLayer;
 
 public class GenLayerReplaceOcean extends GenLayerGenesis
@@ -23,7 +23,7 @@ public class GenLayerReplaceOcean extends GenLayerGenesis
 		{
 			if (aint[i] == 0)
 			{
-				aint[i] = BiomeGenBase.getIdForBiome(GenesisBiomes.shallowOcean);
+				aint[i] = Biome.getIdForBiome(GenesisBiomes.shallowOcean);
 			}
 		}
 		return aint;

@@ -18,7 +18,7 @@ public class BlockKnapper extends Block
 {
 	public BlockKnapper()
 	{
-		super(Material.wood);
+		super(Material.WOOD);
 		
 		setDefaultState(getBlockState().getBaseState());
 		

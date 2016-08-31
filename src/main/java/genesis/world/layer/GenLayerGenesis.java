@@ -1,7 +1,7 @@
 package genesis.world.layer;
 
 import genesis.common.GenesisBiomes;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.GenLayerAddIsland;
 import net.minecraft.world.gen.layer.GenLayerAddSnow;
@@ -22,7 +22,7 @@ public abstract class GenLayerGenesis extends GenLayer
 		super(seed);
 	}
 	
-	public static GenLayer[] initializeAllBiomeGenerators(long seed)
+	public static GenLayer[] initializeAllBiomeerators(long seed)
 	{
 		GenLayerIsland genlayerisland = new GenLayerIsland(1L);
 		GenLayerFuzzyZoom genlayerfuzzyzoom = new GenLayerFuzzyZoom(2000L, genlayerisland);
@@ -91,11 +91,11 @@ public abstract class GenLayerGenesis extends GenLayer
 	
 	protected static boolean isBiomeOceanic(int biomeId)
 	{
-		return biomeId == BiomeGenBase.getIdForBiome(GenesisBiomes.shallowOcean)
-				|| biomeId == BiomeGenBase.getIdForBiome(GenesisBiomes.ocean)
-				|| biomeId == BiomeGenBase.getIdForBiome(GenesisBiomes.deepOcean)
-				|| biomeId == BiomeGenBase.getIdForBiome(GenesisBiomes.swampRainForest)
-				|| biomeId == BiomeGenBase.getIdForBiome(GenesisBiomes.rainforestIslands);
+		return biomeId == Biome.getIdForBiome(GenesisBiomes.shallowOcean)
+				|| biomeId == Biome.getIdForBiome(GenesisBiomes.ocean)
+				|| biomeId == Biome.getIdForBiome(GenesisBiomes.deepOcean)
+				|| biomeId == Biome.getIdForBiome(GenesisBiomes.swampRainForest)
+				|| biomeId == Biome.getIdForBiome(GenesisBiomes.rainforestIslands);
 	}
 	
 	public static boolean biomesEqualOrMesaPlateau(int biomeIDA, int biomeIDB)
@@ -106,8 +106,8 @@ public abstract class GenLayerGenesis extends GenLayer
 		}
 		else
 		{
-			BiomeGenBase biomegenbase = BiomeGenBase.getBiome(biomeIDA);
-			BiomeGenBase biomegenbase1 = BiomeGenBase.getBiome(biomeIDB);
+			Biome biomegenbase = Biome.getBiome(biomeIDA);
+			Biome biomegenbase1 = Biome.getBiome(biomeIDB);
 			return biomegenbase != null && biomegenbase1 != null ? (biomegenbase != GenesisBiomes.redDesertHills ? biomegenbase == biomegenbase1 || biomegenbase.getBiomeClass() == biomegenbase1.getBiomeClass() : biomegenbase1 == GenesisBiomes.redDesertHills) : false;
 		}
 	}

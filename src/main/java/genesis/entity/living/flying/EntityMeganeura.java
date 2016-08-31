@@ -28,7 +28,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 
 import net.minecraftforge.fml.common.network.simpleimpl.*;
 
@@ -383,18 +383,15 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 		}
 	}
 	
-	/**
-	 * Overrides EntityLivingBase code which receives position updates from the server, so that it doesn't set pitch.
-	 */
 	@Override
-	public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int increments, boolean unknown)
+	public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int increments, boolean teleport)
 	{
 		float oldRotationPitch = rotationPitch;
 		float oldPrevRotationPitch = prevRotationPitch;
-		super.setPositionAndRotation2(x, y, z, yaw, pitch, increments, unknown);
+		super.setPositionAndRotationDirect(x, y, z, yaw, pitch, increments, teleport);
 		/*newRotationPitch = */rotationPitch = oldRotationPitch;
 		prevRotationPitch = oldPrevRotationPitch;
-		super.setPositionAndRotation2(x, y, z, yaw, pitch, increments, unknown);
+		super.setPositionAndRotationDirect(x, y, z, yaw, pitch, increments, teleport);
 	}
 	
 	public static class MeganeuraUpdateMessage implements IMessage
@@ -518,7 +515,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 						
 						if (p != null)
 						{
-							meganeura.setPositionAndRotation2(p.xCoord, p.yCoord, p.zCoord, message.yaw, meganeura.rotationPitch, 2, false);
+							meganeura.setPositionAndRotationDirect(p.xCoord, p.yCoord, p.zCoord, message.yaw, meganeura.rotationPitch, 2, false);
 							meganeura.serverPosX = (int) (p.xCoord * 4096);
 							meganeura.serverPosY = (int) (p.yCoord * 4096);
 							meganeura.serverPosZ = (int) (p.zCoord * 4096);
@@ -556,7 +553,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 	
 	public boolean isCorrectBiome(BlockPos pos)
 	{
-		BiomeGenBase biome = worldObj.getBiomeGenForCoords(pos);
+		Biome biome = worldObj.getBiome(pos);
 		return biome instanceof IEntityPreferredBiome && ((IEntityPreferredBiome) biome).shouldEntityPreferBiome(this);
 	}
 	

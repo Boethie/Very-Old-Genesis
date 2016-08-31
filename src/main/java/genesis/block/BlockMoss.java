@@ -4,7 +4,7 @@ import genesis.common.*;
 import genesis.common.sounds.GenesisSoundTypes;
 import genesis.util.*;
 import genesis.util.random.i.IntRange;
-import genesis.world.biome.BiomeGenBaseGenesis;
+import genesis.world.biome.BiomeGenesis;
 
 import java.util.*;
 import java.util.function.Supplier;
@@ -21,14 +21,14 @@ import net.minecraft.item.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.IPlantable;
 
 public class BlockMoss extends BlockGrass
 {
 	public enum EnumSoil implements IStringSerializable
 	{
-		DIRT("dirt", 0, () -> Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT)),
+		DIRT("dirt", 0, () -> Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT)),
 		HUMUS("humus", 1, () -> GenesisBlocks.humus.getDefaultState());
 		
 		private final String name;
@@ -99,12 +99,12 @@ public class BlockMoss extends BlockGrass
 	@Override
 	public void grow(World world, Random rand, BlockPos pos, IBlockState state)
 	{
-		BiomeGenBase biome = world.getBiomeGenForCoords(pos);
-		BiomeGenBaseGenesis biomeGenesis = null;
+		Biome biome = world.getBiome(pos);
+		BiomeGenesis biomeGenesis = null;
 		
-		if (biome instanceof BiomeGenBaseGenesis)
+		if (biome instanceof BiomeGenesis)
 		{
-			biomeGenesis = (BiomeGenBaseGenesis) biome;
+			biomeGenesis = (BiomeGenesis) biome;
 		}
 		
 		BlockPos aboveCenter = pos.up();
@@ -131,7 +131,7 @@ public class BlockMoss extends BlockGrass
 				{
 					if (rand.nextInt(8) == 0)
 					{
-						world.getBiomeGenForCoords(plantPos).plantFlower(world, rand, plantPos);
+						world.getBiome(plantPos).plantFlower(world, rand, plantPos);
 					}
 					else
 					{
@@ -143,7 +143,7 @@ public class BlockMoss extends BlockGrass
 						else
 						{
 							// Vanilla
-							world.setBlockState(plantPos, Blocks.tallgrass.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS));
+							world.setBlockState(plantPos, Blocks.TALLGRASS.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS));
 						}
 					}
 				}
@@ -176,7 +176,7 @@ public class BlockMoss extends BlockGrass
 	@Override
 	public void onPlantGrow(IBlockState state, World world, BlockPos pos, BlockPos source)
 	{
-		world.setBlockState(pos, Blocks.dirt.getDefaultState(), 2);
+		world.setBlockState(pos, Blocks.DIRT.getDefaultState(), 2);
 	}
 	
 	protected final float[] lightFertility = {
@@ -209,7 +209,7 @@ public class BlockMoss extends BlockGrass
 		
 		IBlockState stateAbove = world.getBlockState(above);
 		
-		if (stateAbove.getMaterial() == Material.water)
+		if (stateAbove.getMaterial() == Material.WATER)
 		{
 			return 0;
 		}
@@ -252,7 +252,7 @@ public class BlockMoss extends BlockGrass
 		
 		for (BlockPos sample : WorldUtils.getArea(pos.add(-rad, -rad, -rad), pos.add(rad, rad, rad)))
 		{
-			if (sample.distanceSq(pos) <= rad * rad && world.getBlockState(sample).getMaterial() == Material.water)
+			if (sample.distanceSq(pos) <= rad * rad && world.getBlockState(sample).getMaterial() == Material.WATER)
 			{
 				water++;
 			}
@@ -262,7 +262,7 @@ public class BlockMoss extends BlockGrass
 		
 		light /= lightSamples;
 		
-		//float humidity = world.getBiomeGenForCoords(pos).rainfall;
+		//float humidity = world.getBiome(pos).rainfall;
 		//humidity *= 0.35F;
 		
 		float out = water + light;
@@ -298,7 +298,7 @@ public class BlockMoss extends BlockGrass
 	
 	public float getGrowthChance(World world, BlockPos pos, boolean dying)
 	{
-		float humidity = world.getBiomeGenForCoords(pos).getRainfall();
+		float humidity = world.getBiome(pos).getRainfall();
 		float chance = 1 - growthChanceHumidityEffect + (humidity * growthChanceHumidityEffect * (dying ? -2 : 1));
 		
 		return chance * growthChanceMult;
@@ -334,7 +334,7 @@ public class BlockMoss extends BlockGrass
 						BlockPos randPos = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
 						IBlockState randState = world.getBlockState(randPos);
 						
-						if (randState == Blocks.dirt.getDefaultState() || randState.getBlock() == Blocks.grass)
+						if (randState == Blocks.DIRT.getDefaultState() || randState.getBlock() == Blocks.GRASS)
 						{
 							if (getGrowthChance(world, randPos, false) < rand.nextFloat() ||
 									getTargetStage(getFertility(world, randPos), world.rand) < 0)
@@ -369,13 +369,13 @@ public class BlockMoss extends BlockGrass
 			
 			if (side != EnumFacing.DOWN && world.isAirBlock(pos.up()))
 			{
-				IBlockState newState = Blocks.farmland.getDefaultState();
+				IBlockState newState = Blocks.FARMLAND.getDefaultState();
 				
 				double x = pos.getX() + 0.5F;
 				double y = pos.getY() + 0.5F;
 				double z = pos.getZ() + 0.5F;
 				
-				world.playSound(player, x, y, z, SoundEvents.item_hoe_till, SoundCategory.BLOCKS, 1, 1);
+				world.playSound(player, x, y, z, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1, 1);
 				
 				if (!world.isRemote)
 				{

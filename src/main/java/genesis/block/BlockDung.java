@@ -54,7 +54,7 @@ public class BlockDung extends BlockGenesisVariants<EnumDung>
 			ObjectType<EnumDung, ? extends BlockGenesisVariants<EnumDung>, ? extends Item> type,
 			List<EnumDung> variants, Class<EnumDung> variantClass)
 	{
-		super(owner, type, variants, variantClass, Material.ground, GenesisSoundTypes.DUNG);
+		super(owner, type, variants, variantClass, Material.GROUND, GenesisSoundTypes.DUNG);
 		
 		blockState = new BlockStateContainer(this, variantProp, HEIGHT);
 		setDefaultState(blockState.getBaseState().withProperty(HEIGHT, MAX_HEIGHT));
@@ -104,12 +104,16 @@ public class BlockDung extends BlockGenesisVariants<EnumDung>
 	{
 		return world.isSideSolid(pos.down(), EnumFacing.UP);
 	}
-	
+
 	@Override
-	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block neighborBlock)
+	public void onNeighborChange(IBlockAccess blockAccess, BlockPos pos, BlockPos neighbor)
 	{
-		if (!canPlaceBlockAt(world, pos))
-			world.destroyBlock(pos, true);
+		if (blockAccess instanceof World)
+		{
+			World world = (World) blockAccess;
+			if (!canPlaceBlockAt(world, pos))
+				world.destroyBlock(pos, true);
+		}
 	}
 	
 	@Override

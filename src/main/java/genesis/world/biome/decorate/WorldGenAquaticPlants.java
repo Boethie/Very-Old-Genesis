@@ -37,15 +37,15 @@ public class WorldGenAquaticPlants extends WorldGenDecorationBase
 		BlockPos checkPos = pos;
 		
 		// Check plant bottom position.
-		if (world.getBlockState(checkPos).getBlock() != Blocks.water)
+		if (world.getBlockState(checkPos).getBlock() != Blocks.WATER)
 			return false;
 		
 		// Check plant top position if the plant has a top.
-		if (top != null && world.getBlockState(checkPos = checkPos.up()).getBlock() != Blocks.water)
+		if (top != null && world.getBlockState(checkPos = checkPos.up()).getBlock() != Blocks.WATER)
 			return false;
 		
 		// Check for water above the plant.
-		if (world.getBlockState(checkPos = checkPos.up()).getMaterial() != Material.water)
+		if (world.getBlockState(checkPos = checkPos.up()).getMaterial() != Material.WATER)
 			return false;
 		
 		IBlockState bottomState = GenesisBlocks.aquatic_plants.getBlockState(bottom);

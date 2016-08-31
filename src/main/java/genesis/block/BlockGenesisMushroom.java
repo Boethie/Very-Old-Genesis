@@ -207,7 +207,7 @@ public class BlockGenesisMushroom extends BlockBush
 		}
 		else
 		{
-			return sideState.getMaterial() == Material.wood;
+			return sideState.getMaterial() == Material.WOOD;
 		}
 	}
 	
@@ -220,7 +220,7 @@ public class BlockGenesisMushroom extends BlockBush
 			IMushroomBase base = (IMushroomBase) bottomBlock;
 			return base.canSustainMushroom(world, pos, EnumFacing.UP, state);
 		}
-		else if (bottomBlock == Blocks.dirt && bottomState.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL)
+		else if (bottomBlock == Blocks.DIRT && bottomState.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL)
 		{
 			return true;
 		}
@@ -230,7 +230,7 @@ public class BlockGenesisMushroom extends BlockBush
 		}
 		else
 		{
-			return bottomBlock == GenesisBlocks.moss || bottomBlock == Blocks.mycelium || bottomBlock instanceof BlockLog;
+			return bottomBlock == GenesisBlocks.moss || bottomBlock == Blocks.MYCELIUM || bottomBlock instanceof BlockLog;
 		}
 	}
 	

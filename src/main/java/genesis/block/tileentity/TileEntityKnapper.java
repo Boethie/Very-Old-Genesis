@@ -712,9 +712,9 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 	}
 	
 	@Override
-	public void writeToNBT(NBTTagCompound compound)
+	public NBTTagCompound writeToNBT(NBTTagCompound compound)
 	{
-		super.writeToNBT(compound);
+		compound = super.writeToNBT(compound);
 		
 		NBTTagList itemList = new NBTTagList();
 		int slot = 0;
@@ -752,6 +752,8 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 		{
 			compound.setString("customName", customName);
 		}
+
+		return compound;
 	}
 	
 	public InventoryCrafting getCraftingInventory()

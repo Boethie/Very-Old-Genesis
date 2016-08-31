@@ -38,7 +38,7 @@ public class RenderHelpers
 				double offX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTick;
 				double offY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTick;
 				double offZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTick;
-				RenderGlobal.drawSelectionBoundingBox(entity.getEntityBoundingBox().expand(expand, expand, expand).offset(-offX, -offY, -offZ));
+				RenderGlobal.drawSelectionBoundingBox(entity.getEntityBoundingBox().expand(expand, expand, expand).offset(-offX, -offY, -offZ), 1.0F, 1.0F, 1.0F, 1.0F);
 				
 				GlStateManager.depthMask(true);
 				GlStateManager.enableTexture2D();

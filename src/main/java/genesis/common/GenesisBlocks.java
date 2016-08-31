@@ -193,10 +193,10 @@ public final class GenesisBlocks
 	public static final BlockBenchSeat bench_seat = (BlockBenchSeat) new BlockBenchSeat().setUnlocalizedName(Unlocalized.PREFIX + "benchSeat");
 	
 	public static final DungBlocksAndItems dungs = new DungBlocksAndItems();
-	public static final Block dung_brick = new BlockGenesis(Material.rock, SoundType.STONE)
+	public static final Block dung_brick = new BlockGenesis(Material.ROCK, SoundType.STONE)
 			.setHardness(0.7F)
 			.setUnlocalizedName(Unlocalized.PREFIX + "dungBrick");
-	public static final BlockGenesisWall wattle_and_daub = (BlockGenesisWall) new BlockGenesisWall(Material.wood, 0.375F, 1.0F, -1).setUnlocalizedName(Unlocalized.WALL + "wattleAndDaub");
+	public static final BlockGenesisWall wattle_and_daub = (BlockGenesisWall) new BlockGenesisWall(Material.WOOD, 0.375F, 1.0F, -1).setUnlocalizedName(Unlocalized.WALL + "wattleAndDaub");
 	
 	/* Mechanisms */
 	public static final BlockTrapFloor trap_floor = (BlockTrapFloor) new BlockTrapFloor().setUnlocalizedName(Unlocalized.PREFIX + "trapFloor");
@@ -220,7 +220,7 @@ public final class GenesisBlocks
 							.setConstructedFunction((b, i) -> b.setHardness(0.75F).setResistance(8.5F))
 							.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE)
 							.setCreativeTab(GenesisCreativeTabs.DECORATIONS)
-							.setBlockArguments(Material.coral, GenesisSoundTypes.CORAL),
+							.setBlockArguments(Material.CORAL, GenesisSoundTypes.CORAL),
 					EnumCoral.class, EnumCoral.values());
 	
 	private static ResourceLocation name(String path)
@@ -296,7 +296,7 @@ public final class GenesisBlocks
 		
 		Genesis.proxy.registerBlock(dung_brick, name("dung_brick_block"));
 		dung_brick.setHarvestLevel("pickaxe", 0);
-		Blocks.fire.setFireInfo(dung_brick, 5, 5);
+		Blocks.FIRE.setFireInfo(dung_brick, 5, 5);
 		
 		Genesis.proxy.registerBlock(wattle_and_daub, name("wattle_and_daub"));
 		wattle_and_daub.setHarvestLevel("axe", 0);
@@ -334,7 +334,7 @@ public final class GenesisBlocks
 		Item.getItemFromBlock(campfire).setMaxStackSize(1);
 		GameRegistry.registerTileEntity(TileEntityCampfire.class, Constants.ASSETS_PREFIX + "campfire");
 		// Lighter items
-		campfire.registerLighterItem(Items.flint_and_steel, SoundEvents.item_flintandsteel_use);
+		campfire.registerLighterItem(Items.FLINT_AND_STEEL, SoundEvents.ITEM_FLINTANDSTEEL_USE);
 		campfire.registerLighterItem(GenesisItems.flint_and_marcasite, GenesisSoundEvents.item_flint_and_marcasite_use);
 		
 		// Storage boxes

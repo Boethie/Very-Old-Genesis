@@ -77,7 +77,7 @@ public class Colorizers
 		avgStage /= BlockMoss.STAGE_LAST;
 		avgStage = MathHelper.clamp_float(avgStage, 0, 1);
 		
-		BiomeGenBase biome = world.getBiomeGenForCoords(pos);
+		Biome biome = world.getBiome(pos);
 		float temperature = MathHelper.clamp_float(biome.getFloatTemperature(pos), 0, 1);
 		float humidity = MathHelper.clamp_float(biome.getRainfall(), 0, 1);
 		

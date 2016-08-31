@@ -50,7 +50,7 @@ public class BlockPebble extends Block implements MultiPartBlock
 	
 	public BlockPebble(ToolItems owner, ToolObjectType<BlockPebble, ItemPebble> type, ToolType variant, Class<ToolType> variantClass)
 	{
-		super(Material.rock);
+		super(Material.ROCK);
 		setSoundType(GenesisSoundTypes.PEBBLE);
 		
 		this.owner = owner;
@@ -353,12 +353,15 @@ public class BlockPebble extends Block implements MultiPartBlock
 			world.destroyBlock(pos, true);
 		}
 	}
-	
+
 	@Override
-	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block neighborBlock)
+	public void onNeighborChange(IBlockAccess blockAccess, BlockPos pos, BlockPos neighbor)
 	{
-		super.onNeighborBlockChange(world, pos, state, neighborBlock);
-		
-		checkAndDropBlock(world, pos, state);
+		if (blockAccess instanceof World)
+		{
+			World world = (World) blockAccess;
+
+			checkAndDropBlock(world, pos, world.getBlockState(pos));
+		}
 	}
 }

@@ -25,9 +25,9 @@ import genesis.world.gen.feature.WorldGenTreeSigillaria;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-public class BiomeGenRainforestIslands extends BiomeGenBaseGenesis
+public class BiomeRainforestIslands extends BiomeGenesis
 {
-	public BiomeGenRainforestIslands(BiomeProperties properties)
+	public BiomeRainforestIslands(BiomeProperties properties)
 	{
 		super(properties);
 		

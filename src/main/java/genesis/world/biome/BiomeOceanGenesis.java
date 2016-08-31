@@ -10,12 +10,12 @@ import genesis.common.GenesisBlocks;
 import genesis.world.biome.decorate.WorldGenAquaticPlants;
 import genesis.world.biome.decorate.WorldGenCorals;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-public class BiomeGenOceanGenesis extends BiomeGenBaseGenesis
+public class BiomeOceanGenesis extends BiomeGenesis
 {
-	public BiomeGenOceanGenesis(BiomeGenBase.BiomeProperties properties)
+	public BiomeOceanGenesis(Biome.BiomeProperties properties)
 	{
 		super(properties);
 		
@@ -25,7 +25,7 @@ public class BiomeGenOceanGenesis extends BiomeGenBaseGenesis
 		addDecorations();
 	}
 	
-	protected BiomeGenOceanGenesis addDecorations()
+	protected BiomeOceanGenesis addDecorations()
 	{
 		addDecoration(new WorldGenCorals(2, 5, EnumCoral.HALYSITES), 0.25F);
 		addDecoration(new WorldGenCorals(2, 5, EnumCoral.HELIOLITES), 0.25F);

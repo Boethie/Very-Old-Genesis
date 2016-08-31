@@ -31,7 +31,7 @@ public class BlockStorageBox extends Block
 	
 	public BlockStorageBox()
 	{
-		super(Material.wood);
+		super(Material.WOOD);
 		
 		setSoundType(SoundType.WOOD);
 		
@@ -106,7 +106,7 @@ public class BlockStorageBox extends Block
 			
 			if (notifyState.getBlock() == this)
 			{
-				onNeighborBlockChange(world, notifyPos, notifyState, this);
+				onNeighborChange(world, notifyPos, pos);
 			}
 		}
 	}
@@ -135,43 +135,48 @@ public class BlockStorageBox extends Block
 		connectBoxes(world, pos);
 		return out;
 	}
-	
+
 	@Override
-	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block otherBlock)
+	public void onNeighborChange(IBlockAccess blockAccess, BlockPos pos, BlockPos neighbor)
 	{
-		TileEntityStorageBox box = getTileEntity(world, pos);
-		Axis boxAxis = box.getAxis();
-		
-		int curWidth = box.getWidth();
-		
-		for (EnumFacing checkSide : EnumFacing.HORIZONTALS)
+		if (blockAccess instanceof World)
 		{
-			if (boxAxis == null ||
-				checkSide.getAxis() == boxAxis)
+			World world = (World) blockAccess;
+
+			TileEntityStorageBox box = getTileEntity(world, pos);
+			Axis boxAxis = box.getAxis();
+
+			int curWidth = box.getWidth();
+
+			for (EnumFacing checkSide : EnumFacing.HORIZONTALS)
 			{
-				BlockPos checkPos = pos.offset(checkSide);
-				TileEntityStorageBox checkBox = getTileEntity(world, checkPos);
-				
-				if (box.isConnected(checkSide))
+				if (boxAxis == null ||
+						checkSide.getAxis() == boxAxis)
 				{
-					box.setConnected(checkSide, checkBox != null);
-				}
-				else if (checkBox != null)
-				{
-					int checkWidth = checkBox.getWidth();
-					
-					if (curWidth + checkWidth <= MAX_WIDTH)
+					BlockPos checkPos = pos.offset(checkSide);
+					TileEntityStorageBox checkBox = getTileEntity(world, checkPos);
+
+					if (box.isConnected(checkSide))
 					{
-						curWidth += checkWidth;
-						box.setConnected(checkSide, true);
+						box.setConnected(checkSide, checkBox != null);
 					}
-					else
+					else if (checkBox != null)
 					{
-						checkBox.sendOpenDirectionUpdate();
-						checkBox.sendUsersUpdate();
+						int checkWidth = checkBox.getWidth();
+
+						if (curWidth + checkWidth <= MAX_WIDTH)
+						{
+							curWidth += checkWidth;
+							box.setConnected(checkSide, true);
+						}
+						else
+						{
+							checkBox.sendOpenDirectionUpdate();
+							checkBox.sendUsersUpdate();
+						}
+
+						checkBox.sendUpdate();
 					}
-					
-					checkBox.sendUpdate();
 				}
 			}
 		}
@@ -207,16 +212,11 @@ public class BlockStorageBox extends Block
 	}
 	
 	@Override
-	public boolean onBlockEventReceived(World world, BlockPos pos, IBlockState state, int id, int value)
+	public boolean eventReceived(IBlockState state, World world, BlockPos pos, int id, int param)
 	{
 		TileEntityStorageBox box = getTileEntity(world, pos);
-		
-		if (box != null)
-		{
-			return box.receiveClientEvent(id, value);
-		}
-		
-		return false;
+
+		return box != null && box.receiveClientEvent(id, param);
 	}
 	
 	@Override

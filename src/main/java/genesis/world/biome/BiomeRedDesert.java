@@ -19,14 +19,14 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-public class BiomeGenRedDesert extends BiomeGenBaseGenesis
+public class BiomeRedDesert extends BiomeGenesis
 {
 	private boolean isHills = false;
 	
-	public BiomeGenRedDesert(BiomeGenBase.BiomeProperties properties)
+	public BiomeRedDesert(Biome.BiomeProperties properties)
 	{
 		super(properties);
 		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
@@ -45,13 +45,13 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenRoots(), 5);
 	}
 	
-	public BiomeGenRedDesert setIsHills(boolean hills)
+	public BiomeRedDesert setIsHills(boolean hills)
 	{
 		this.isHills = hills;
 		return this;
 	}
 	
-	public BiomeGenRedDesert addTrees()
+	public BiomeRedDesert addTrees()
 	{
 		getDecorator().setTreeCount(0.2175F);
 		
@@ -69,7 +69,7 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 		return this;
 	}
 	
-	public BiomeGenRedDesert setTopBlock(IBlockState state)
+	public BiomeRedDesert setTopBlock(IBlockState state)
 	{
 		this.topBlock = state;
 		return this;
@@ -140,7 +140,7 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 				{
 					IBlockState iblockstate1 = chunkPrimer.getBlockState(chunkX, i1, chunkZ);
 					
-					if (iblockstate1.getMaterial() == Material.air)
+					if (iblockstate1.getMaterial() == Material.AIR)
 					{
 						l = -1;
 					}
@@ -159,7 +159,7 @@ public class BiomeGenRedDesert extends BiomeGenBaseGenesis
 								fillerState = this.fillerBlock;
                             }
 							
-							if (i1 < seaLevel && (topState == null || topState.getMaterial() == Material.air))
+							if (i1 < seaLevel && (topState == null || topState.getMaterial() == Material.AIR))
 							{
 								topState = WATER;
 							}

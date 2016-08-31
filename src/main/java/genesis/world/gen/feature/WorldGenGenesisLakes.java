@@ -125,7 +125,7 @@ public class WorldGenGenesisLakes extends WorldGenerator
 				{
 					if (is(isLake, x, y, z))
 					{
-						world.setBlockState(pos.add(x, y, z), y >= top ? Blocks.air.getDefaultState() : filler, 2);
+						world.setBlockState(pos.add(x, y, z), y >= top ? Blocks.AIR.getDefaultState() : filler, 2);
 					}
 				}
 			}
@@ -141,7 +141,7 @@ public class WorldGenGenesisLakes extends WorldGenerator
 					{
 						BlockPos soilPos = pos.add(x, y - 1, z);
 						
-						if (world.getBlockState(soilPos).getBlock() == Blocks.dirt)
+						if (world.getBlockState(soilPos).getBlock() == Blocks.DIRT)
 						{
 							int stage = GenesisBlocks.moss.getTargetStage(GenesisBlocks.moss.getFertility(world, soilPos, true), rand);
 							
@@ -173,7 +173,7 @@ public class WorldGenGenesisLakes extends WorldGenerator
 			}
 		}
 		
-		if (filler.getMaterial() == Material.water)
+		if (filler.getMaterial() == Material.WATER)
 		{
 			for (x = 0; x <= SIZE_X; x++)
 			{
@@ -181,7 +181,7 @@ public class WorldGenGenesisLakes extends WorldGenerator
 				{
 					if (world.canBlockFreezeNoWater(pos.add(x, top, z)))
 					{
-						world.setBlockState(pos.add(x, top, z), Blocks.ice.getDefaultState(), 2);
+						world.setBlockState(pos.add(x, top, z), Blocks.ICE.getDefaultState(), 2);
 					}
 				}
 			}

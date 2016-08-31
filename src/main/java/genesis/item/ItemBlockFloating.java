@@ -21,7 +21,7 @@ public class ItemBlockFloating extends ItemBlock
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
 	{
-		RayTraceResult hit = getMovingObjectPositionFromPlayer(world, player, true);
+		RayTraceResult hit = rayTrace(world, player, true);
 		
 		if (hit != null && hit.typeOfHit == RayTraceResult.Type.BLOCK)
 		{
@@ -56,7 +56,7 @@ public class ItemBlockFloating extends ItemBlock
 			
 			// Send an update for the block in case it was placed on the client and not the server.
 			if (player instanceof EntityPlayerMP)
-				((EntityPlayerMP) player).playerNetServerHandler.sendPacket(new SPacketBlockChange(world, hitPos));
+				((EntityPlayerMP) player).connection.sendPacket(new SPacketBlockChange(world, hitPos));
 		}
 		
 		return Actions.fail(stack);

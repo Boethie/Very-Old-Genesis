@@ -143,7 +143,7 @@ public class ItemBowMulti<V extends IBowMetadata<V>> extends ItemBow implements 
 			V variant = owner.getVariant(stack);
 			
 			boolean infinite = player.capabilities.isCreativeMode
-					|| EnchantmentHelper.getEnchantmentLevel(Enchantments.infinity, stack) > 0;
+					|| EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack) > 0;
 			ItemStack arrowStack = findAmmo(player);
 			
 			boolean canFire = arrowStack != null || infinite;
@@ -157,7 +157,7 @@ public class ItemBowMulti<V extends IBowMetadata<V>> extends ItemBow implements 
 			if (canFire)
 			{
 				if (arrowStack == null)
-					arrowStack = new ItemStack(Items.arrow);
+					arrowStack = new ItemStack(Items.ARROW);
 				
 				float velocity = getArrowVelocity(stack, useTime);
 				
@@ -165,40 +165,39 @@ public class ItemBowMulti<V extends IBowMetadata<V>> extends ItemBow implements 
 				{
 					if (!world.isRemote)
 					{
-						ItemArrow arrowItem = (ItemArrow) (arrowStack.getItem() instanceof ItemArrow ? arrowStack.getItem() : Items.arrow);
+						ItemArrow arrowItem = (ItemArrow) (arrowStack.getItem() instanceof ItemArrow ? arrowStack.getItem() : Items.ARROW);
 						EntityArrow arrowEntity = arrowItem.createArrow(world, arrowStack, player);
-						// MCP name: setAim
-						arrowEntity.func_184547_a(player,
+						arrowEntity.setAim(player,
 								player.rotationPitch, player.rotationYaw,
 								0, velocity * 3 * variant.getVelocity(), variant.getSpread());
 						
 						if (velocity >= 1)
 							arrowEntity.setIsCritical(true);
 						
-						int power = EnchantmentHelper.getEnchantmentLevel(Enchantments.power, stack);
+						int power = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, stack);
 						
 						if (power > 0)
 							arrowEntity.setDamage(arrowEntity.getDamage() * variant.getDamage() + power * 0.5 + 0.5);
 						
-						int punch = EnchantmentHelper.getEnchantmentLevel(Enchantments.punch, stack);
+						int punch = EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, stack);
 						
 						if (punch > 0)
 							arrowEntity.setKnockbackStrength(punch);
 						
-						if (EnchantmentHelper.getEnchantmentLevel(Enchantments.flame, stack) > 0)
+						if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, stack) > 0)
 							arrowEntity.setFire(100);
 						
 						stack.damageItem(1, player);
 						
 						if (infinite)
-							arrowEntity.canBePickedUp = EntityArrow.PickupStatus.CREATIVE_ONLY;
+							arrowEntity.pickupStatus = EntityArrow.PickupStatus.CREATIVE_ONLY;
 						
 						world.spawnEntityInWorld(arrowEntity);
 					}
 					
 					world.playSound(null,
 							player.posX, player.posY, player.posZ,
-							SoundEvents.entity_arrow_shoot, SoundCategory.NEUTRAL,
+							SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL,
 							1, 1 / (itemRand.nextFloat() * 0.4F + 1.2F) + velocity * 0.5F);
 					
 					if (!infinite)

@@ -1,14 +1,10 @@
 package genesis.block;
 
-import java.util.List;
-import java.util.Random;
-
 import genesis.common.GenesisPotions;
 import genesis.util.AABBUtils;
 import genesis.util.FacingHelpers;
-
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.particle.EffectRenderer;
+import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumFacing;
@@ -18,6 +14,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+
+import java.util.List;
+import java.util.Random;
 
 public class BlockRadioactiveGranite extends BlockGenesisRock
 {
@@ -86,7 +85,7 @@ public class BlockRadioactiveGranite extends BlockGenesisRock
 	}
 	
 	@Override
-	public boolean addDestroyEffects(World world, BlockPos pos, EffectRenderer effectRenderer)
+	public boolean addDestroyEffects(World world, BlockPos pos, ParticleManager particleManager)
 	{
 		spawnParticles(world, pos, world.rand, 2);
 		return false;

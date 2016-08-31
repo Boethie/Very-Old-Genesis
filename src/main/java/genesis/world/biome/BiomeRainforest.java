@@ -18,12 +18,12 @@ import genesis.world.gen.feature.WorldGenTreeLepidodendron;
 import genesis.world.gen.feature.WorldGenTreePsaronius;
 import genesis.world.gen.feature.WorldGenTreeSigillaria;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-public class BiomeGenRainforest extends BiomeGenBaseGenesis
+public class BiomeRainforest extends BiomeGenesis
 {
-	public BiomeGenRainforest(BiomeGenBase.BiomeProperties properties)
+	public BiomeRainforest(Biome.BiomeProperties properties)
 	{
 		super(properties);
 		

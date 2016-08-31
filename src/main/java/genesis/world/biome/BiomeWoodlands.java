@@ -28,12 +28,12 @@ import genesis.world.gen.feature.WorldGenTreeLaurophyllum;
 import genesis.world.gen.feature.WorldGenTreeMetasequoia;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-public class BiomeGenWoodlands extends BiomeGenBaseGenesis
+public class BiomeWoodlands extends BiomeGenesis
 {
-	public BiomeGenWoodlands(BiomeGenBase.BiomeProperties properties)
+	public BiomeWoodlands(Biome.BiomeProperties properties)
 	{
 		super(properties);
 		
@@ -55,7 +55,7 @@ public class BiomeGenWoodlands extends BiomeGenBaseGenesis
 		addDecoration(new WorldGenStemonitis().setPatchCount(14), 6);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setPatchCount(3), 0.15F);
 		addDecoration(new WorldGenAsplenium().setPatchCount(7), 10);
-		addDecoration(new WorldGenDecorationOnBlock((s) -> s.getMaterial() == Material.water, GenesisBlocks.cobbania.getDefaultState()), 2.8F);
+		addDecoration(new WorldGenDecorationOnBlock((s) -> s.getMaterial() == Material.WATER, GenesisBlocks.cobbania.getDefaultState()), 2.8F);
 		addDecoration(WorldGenCircleReplacement.getPeatGen(), 1);
 		addDecoration(new WorldGenRoots(), 13);
 		

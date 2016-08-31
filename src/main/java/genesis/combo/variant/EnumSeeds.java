@@ -21,9 +21,9 @@ public enum EnumSeeds implements IMetadata<EnumSeeds>, IFood
 			() -> GenesisBlocks.zingiberopsis.getDefaultState()),
 	PROTOTAXITES_FLESH("prototaxites_flesh", "prototaxitesFlesh", 1, 0.8F,
 			() -> GenesisBlocks.prototaxites.getDefaultState(),
-			new PotionEffect(MobEffects.hunger, 300),
-			new PotionEffect(MobEffects.confusion, 300),
-			new PotionEffect(MobEffects.poison, 300));
+			new PotionEffect(MobEffects.HUNGER, 300),
+			new PotionEffect(MobEffects.NAUSEA, 300),
+			new PotionEffect(MobEffects.POISON, 300));
 	
 	final String name;
 	final String unlocalizedName;

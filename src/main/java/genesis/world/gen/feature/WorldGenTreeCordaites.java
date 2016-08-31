@@ -32,7 +32,7 @@ public class WorldGenTreeCordaites extends WorldGenTreeBase
 		
 		IBlockState state = world.getBlockState(pos.up(4));
 		
-		if (state.getBlock().getMaterial(state) != Material.air)
+		if (state.getBlock().getMaterial(state) != Material.AIR)
 			return false;
 		
 		int baseHeight = 2 + rand.nextInt(2);

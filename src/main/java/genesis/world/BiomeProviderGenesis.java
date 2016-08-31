@@ -10,7 +10,7 @@ public class BiomeProviderGenesis extends BiomeProvider
 	public BiomeProviderGenesis(long seed)
 	{
 		super();
-		GenLayer[] agenlayer = GenLayerGenesis.initializeAllBiomeGenerators(seed);
+		GenLayer[] agenlayer = GenLayerGenesis.initializeAllBiomeerators(seed);
 		this.genBiomes = agenlayer[0];
 		this.biomeIndexLayer = agenlayer[1];
 	}

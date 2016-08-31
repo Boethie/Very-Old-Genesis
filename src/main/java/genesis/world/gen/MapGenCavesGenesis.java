@@ -12,7 +12,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.MapGenBase;
 
@@ -23,7 +23,7 @@ public class MapGenCavesGenesis extends MapGenBase
 	private static final IBlockState[] LEVEL_REPLACEMENT_BLOCKS = new IBlockState[256];
 	static {
 		DIGGABLE_BLOCKS.add(GenesisBlocks.granite);
-		DIGGABLE_BLOCKS.add(Blocks.dirt);
+		DIGGABLE_BLOCKS.add(Blocks.DIRT);
 		DIGGABLE_BLOCKS.add(GenesisBlocks.humus);
 		DIGGABLE_BLOCKS.add(GenesisBlocks.moss);
 		DIGGABLE_BLOCKS.add(GenesisBlocks.prototaxites_mycelium);
@@ -48,7 +48,7 @@ public class MapGenCavesGenesis extends MapGenBase
 		{
 			int y = 0;
 			for (; y < 7; y++) LEVEL_REPLACEMENT_BLOCKS[y] = GenesisBlocks.komatiitic_lava.getDefaultState();
-			for (; y < 256; y++) LEVEL_REPLACEMENT_BLOCKS[y] = Blocks.air.getDefaultState();
+			for (; y < 256; y++) LEVEL_REPLACEMENT_BLOCKS[y] = Blocks.AIR.getDefaultState();
 		}
 	}
 	
@@ -73,7 +73,7 @@ public class MapGenCavesGenesis extends MapGenBase
 				int blockX = x + chunkX * 16;
 				
 				//Get biome data for this column.
-				BiomeGenBase biome = world.getBiomeGenForCoords(new BlockPos(blockX, 0, blockZ));
+				Biome biome = world.getBiome(new BlockPos(blockX, 0, blockZ));
 
 				//Use 2D noise for the lava boulders.
 				double lavaBoulderValue = lavaBoulderNoise.eval(blockX / 16.0, blockZ / 16.0);
