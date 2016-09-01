@@ -9,6 +9,7 @@
 
 # Recursively add everything from these directories
 !/gradle/**
+!/assets/**
 !/src/**
 !/setup/eclipse/**
 # Except in these subdirectories
@@ -22,5 +23,6 @@
 !/gradlew
 !/gradlew.bat
 !/LICENSE.md
+!/README.md
 !/update.json
 !/versions.json
