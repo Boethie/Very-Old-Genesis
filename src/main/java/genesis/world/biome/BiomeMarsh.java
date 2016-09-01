@@ -3,11 +3,8 @@ package genesis.world.biome;
 import java.util.Random;
 
 import genesis.combo.PlantBlocks;
-import genesis.combo.SiltBlocks;
 import genesis.combo.variant.EnumPlant;
-import genesis.combo.variant.EnumSilt;
 import genesis.common.GenesisBlocks;
-import genesis.util.random.f.FloatRange;
 import genesis.world.biome.decorate.*;
 
 import net.minecraft.block.material.Material;
@@ -35,8 +32,6 @@ public class BiomeMarsh extends BiomeGenesis
 		addFlower(WorldGenPlant.create(EnumPlant.BARAGWANATHIA).setPatchCount(4), 1);
 		addFlower(WorldGenPlant.create(EnumPlant.COOKSONIA).setPatchCount(4), 1);
 		
-		addDecoration(WorldGenSplash.createHumusSplash(), 2.65F);
-		addDecoration(new WorldGenSplash(GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT), GenesisBlocks.silt.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.SILT)), 14);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.prototaxites).setPatchCount(3), 0.142F);
 		addDecoration(WorldGenCircleReplacement.getPeatGen(), 3);
 		addDecoration(new WorldGenMossStages(), 30);
