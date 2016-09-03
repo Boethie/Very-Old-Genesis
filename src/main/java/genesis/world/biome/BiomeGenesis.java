@@ -182,7 +182,7 @@ public abstract class BiomeGenesis extends Biome implements IBiomeFog
 			{
 				IBlockState state = primer.getBlockState(chunkZ, y, chunkX);
 				
-				if (state.getBlock().getMaterial(state) == Material.AIR)
+				if (state.getMaterial() == Material.AIR)
 				{
 					k = -1;
 				}

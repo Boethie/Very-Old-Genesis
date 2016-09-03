@@ -5,8 +5,10 @@ import java.util.Random;
 import genesis.combo.PlantBlocks;
 import genesis.combo.variant.EnumPlant;
 import genesis.common.GenesisBlocks;
-import genesis.world.biome.decorate.*;
-
+import genesis.world.biome.decorate.WorldGenCircleReplacement;
+import genesis.world.biome.decorate.WorldGenGrowingPlant;
+import genesis.world.biome.decorate.WorldGenMossStages;
+import genesis.world.biome.decorate.WorldGenPlant;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -19,6 +21,8 @@ public class BiomeMarsh extends BiomeGenesis
 	public BiomeMarsh(Biome.BiomeProperties properties)
 	{
 		super(properties);
+		
+		this.topBlock = GenesisBlocks.peat.getDefaultState();
 		
 		getDecorator().setGrassCount(7);
 		addGrass(WorldGenPlant.create(PlantBlocks.PLANT, EnumPlant.ASTEROXYLON).setPatchCount(5), 1);
