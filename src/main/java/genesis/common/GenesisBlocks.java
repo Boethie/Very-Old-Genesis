@@ -90,6 +90,7 @@ public final class GenesisBlocks
 	public static final Block red_clay = new BlockRedClay().setUnlocalizedName(Unlocalized.PREFIX + "redClay");
 	public static final Block ooze = new BlockOoze().setUnlocalizedName(Unlocalized.PREFIX + "ooze");
 	public static final Block peat = new BlockPeat().setUnlocalizedName(Unlocalized.PREFIX + "peat");
+	public static final Block mycorrhiza = new BlockMycorrhiza().setUnlocalizedName(Unlocalized.PREFIX + "mycorrhiza");
 	public static final SiltBlocks silt = new SiltBlocks();
 	
 	/* Permafrost */
@@ -271,6 +272,7 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(red_clay, name("red_clay"));
 		Genesis.proxy.registerBlock(ooze, name("ooze"));
 		Genesis.proxy.registerBlock(peat, name("peat"));
+		Genesis.proxy.registerBlock(mycorrhiza, name("mycorrhiza"));
 		silt.registerAll();
 		
 		// - Permafrost -

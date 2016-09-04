@@ -49,6 +49,7 @@ tile.genesis.crackedSilt.name=Limon fissuré
 tile.genesis.crackedSilt.red.name=Limon rouge fissuré
 tile.genesis.ooze.name=Boue
 tile.genesis.peat.name=Tourbe
+tile.genesis.mycorrhiza.name=Mycorhize
 
 tile.genesis.permafrost.name=Pergélisol
 tile.genesis.ancientPermafrost.name=Pergélisol ancien 

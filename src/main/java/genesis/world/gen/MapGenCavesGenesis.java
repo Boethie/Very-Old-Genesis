@@ -26,7 +26,8 @@ public class MapGenCavesGenesis extends MapGenBase
 		DIGGABLE_BLOCKS.add(Blocks.DIRT);
 		DIGGABLE_BLOCKS.add(GenesisBlocks.humus);
 		DIGGABLE_BLOCKS.add(GenesisBlocks.moss);
-		DIGGABLE_BLOCKS.add(GenesisBlocks.prototaxites_mycelium);
+		DIGGABLE_BLOCKS.add(GenesisBlocks.peat);
+		DIGGABLE_BLOCKS.add(GenesisBlocks.mycorrhiza);
 		DIGGABLE_BLOCKS.addAll(GenesisBlocks.silt.getBlocks(SiltBlocks.SILT));
 		DIGGABLE_BLOCKS.addAll(GenesisBlocks.silt.getBlocks(SiltBlocks.CRACKED_SILT));
 		DIGGABLE_BLOCKS.addAll(GenesisBlocks.silt.getBlocks(SiltBlocks.SILTSTONE));

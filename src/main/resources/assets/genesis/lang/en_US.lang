@@ -50,6 +50,7 @@ tile.genesis.crackedSilt.name=Cracked Silt
 tile.genesis.crackedSilt.red.name=Cracked Red Silt
 tile.genesis.ooze.name=Ooze
 tile.genesis.peat.name=Peat
+tile.genesis.mycorrhiza.name=Mycorrhiza
 
 tile.genesis.permafrost.name=Permafrost
 tile.genesis.ancientPermafrost.name=Ancient Permafrost

@@ -50,8 +50,8 @@ public class BiomeWoodlands extends BiomeGenesis
 		addFlower(WorldGenPlant.create(EnumPlant.PALAEOASTER).setPatchCount(9), 1);
 		
 		addDecoration(WorldGenSplash.createHumusSplash(), 2.75F);
-		addDecoration(new WorldGenBoulders(0.166F, 0.333F, 1).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.25F, 0.75F)), 0.4F);
-		addDecoration(new WorldGenDung(EnumDung.CARNIVORE), 0.08F);
+		addDecoration(new WorldGenBoulders(0.166F, 0.333F, 1).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.25F, 0.75F)), 0.24F);
+		addDecoration(new WorldGenDung(EnumDung.CARNIVORE), 0.06F);
 		addDecoration(new WorldGenStemonitis().setPatchCount(14), 6);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setPatchCount(3), 0.15F);
 		addDecoration(new WorldGenAsplenium().setPatchCount(7), 10);
@@ -70,7 +70,7 @@ public class BiomeWoodlands extends BiomeGenesis
 		addTree(new WorldGenTreeLaurophyllum(1, 2, false).setType(TreeTypes.TYPE_2), 60);
 		addTree(new WorldGenTreeLaurophyllum(3, 4, false), 40);
 		addTree(new WorldGenTreeFicus(4, 8, false), 30);
-		addTree(new WorldGenTreeGinkgo(9, 13, false), 11);
+		addTree(new WorldGenTreeGinkgo(10, 13, false), 11);
 		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 3);
 		addTree(new WorldGenTreeDryophyllum(8, 13, false), 600);
 		addTree(new WorldGenTreeDryophyllum(18, 22, false).setType(TreeTypes.TYPE_2), 50);

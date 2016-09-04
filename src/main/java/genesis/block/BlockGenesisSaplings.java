@@ -169,8 +169,8 @@ public class BlockGenesisSaplings extends BlockSapling
 			break;
 		case GINKGO:
 			treeType = (rand.nextInt(6) == 0)? TreeTypes.TYPE_2 : TreeTypes.TYPE_1;
-			minHeight = (treeType == TreeTypes.TYPE_2)? 12 : 9;
-			maxHeight = (treeType == TreeTypes.TYPE_2)? 17 : 13;
+			minHeight = (treeType == TreeTypes.TYPE_2)? 13 : 10;
+			maxHeight = (treeType == TreeTypes.TYPE_2)? 17 : 12;
 			gen = new WorldGenTreeGinkgo(minHeight, maxHeight, true).setType(treeType);
 			break;
 		case FICUS:

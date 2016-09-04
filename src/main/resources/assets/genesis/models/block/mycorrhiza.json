@@ -1,0 +1,8 @@
+{
+	"parent": "block/cube_bottom_top",
+	"textures": {
+		"bottom": "genesis:blocks/peat",
+		"top": "genesis:blocks/mycorrhiza_top",
+		"side": "genesis:blocks/mycorrhiza_side"
+	}
+}

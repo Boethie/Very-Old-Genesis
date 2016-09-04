@@ -42,8 +42,8 @@ public class BiomeMetaForest extends BiomeGenesis
 		addGrass(WorldGenPlant.create(EnumPlant.MATONIDIUM).setPatchCount(9), 1);
 		
 		addDecoration(WorldGenSplash.createHumusSplash(), 2.1F);
-		addDecoration(new WorldGenBoulders(0.071F, 0.142F, 1).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.25F, 0.75F)), 0.4F);
-		addDecoration(new WorldGenDung(EnumDung.HERBIVORE), 0.08F);
+		addDecoration(new WorldGenBoulders(0.199F, 0.333F, 1).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.25F, 0.75F)), 0.21F);
+		addDecoration(new WorldGenDung(EnumDung.HERBIVORE), 0.06F);
 		
 		//TODO: WorldGenPaleogaracites should be instead called/moved inside the dead log generation.
 		addDecoration(new WorldGenPalaeoagaracites().setPatchCount(24), 14);
@@ -61,10 +61,10 @@ public class BiomeMetaForest extends BiomeGenesis
 		addTree(new WorldGenTreeArchaeanthus(9, 20, false), 4);
 		addTree(new WorldGenTreeMetasequoia(13, 24, true), 300);
 		addTree(new WorldGenTreeMetasequoia(23, 27, true).setType(TreeTypes.TYPE_2), 120);
-		addTree(new WorldGenTreeGinkgo(9, 13, false), 5);
+		addTree(new WorldGenTreeGinkgo(10, 13, false), 5);
 		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 1);
 		
-		addTree(new WorldGenDeadLog(5, 8, EnumTree.METASEQUOIA, true), 12);
+		addTree(new WorldGenDeadLog(5, 8, EnumTree.METASEQUOIA, true), 11);
 		addTree(new WorldGenDeadLog(5, 8, EnumTree.METASEQUOIA, true).setType(1), 5);
 	}
 	

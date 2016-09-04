@@ -20,7 +20,7 @@ public class BiomeRiver extends BiomeGenesis implements IEntityPreferredBiome
 	{
 		super(properties);
 		
-		addDecoration(new WorldGenBoulders(0, 0.25F, 0.75F).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.25F, 0.75F)), 2);
+		addDecoration(new WorldGenBoulders(0, 0.2F, 0.65F).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.25F, 0.75F)), 1.35F);
 		addDecoration(new WorldGenPebbles(), 25);
 		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.BANGIOMORPHA).setPatchCount(9), 1.5F);
 		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.MARPOLIA).setPatchCount(9), 0.75F);

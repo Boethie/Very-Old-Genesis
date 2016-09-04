@@ -239,7 +239,7 @@ public final class GenesisBiomes
 		prop = new Biome.BiomeProperties("River");
 		prop.setTemperature(0.6F);
 		prop.setRainfall(0.4F);
-		prop.setBaseHeight(-0.55F);
+		prop.setBaseHeight(-0.5F);
 		prop.setHeightVariation(0.0F);
 		prop.setWaterColor(0x725113);
 		

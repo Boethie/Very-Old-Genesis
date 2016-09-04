@@ -5,9 +5,7 @@ import java.util.Random;
 import genesis.combo.PlantBlocks;
 import genesis.combo.variant.EnumPlant;
 import genesis.common.GenesisBlocks;
-import genesis.world.biome.decorate.WorldGenCircleReplacement;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
-import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPlant;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -21,8 +19,8 @@ public class BiomeMarsh extends BiomeGenesis
 	public BiomeMarsh(Biome.BiomeProperties properties)
 	{
 		super(properties);
-		
-		this.topBlock = GenesisBlocks.peat.getDefaultState();
+		this.topBlock = GenesisBlocks.mycorrhiza.getDefaultState();
+		this.fillerBlock = GenesisBlocks.peat.getDefaultState();
 		
 		getDecorator().setGrassCount(7);
 		addGrass(WorldGenPlant.create(PlantBlocks.PLANT, EnumPlant.ASTEROXYLON).setPatchCount(5), 1);
@@ -37,8 +35,6 @@ public class BiomeMarsh extends BiomeGenesis
 		addFlower(WorldGenPlant.create(EnumPlant.COOKSONIA).setPatchCount(4), 1);
 		
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.prototaxites).setPatchCount(3), 0.142F);
-		addDecoration(WorldGenCircleReplacement.getPeatGen(), 3);
-		addDecoration(new WorldGenMossStages(), 30);
 	}
 	
 	@Override
@@ -78,10 +74,6 @@ public class BiomeMarsh extends BiomeGenesis
 				}
 			}
 		}
-		
-		mossStages = new int[2];
-		mossStages[0] = 0;
-		mossStages[1] = 1;
 		super.genTerrainBlocks(world, rand, chunkPrimer, chunkX, chunkZ, d);
 	}
 }
