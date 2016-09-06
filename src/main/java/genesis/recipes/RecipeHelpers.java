@@ -20,13 +20,13 @@ public class RecipeHelpers
 						return recipe;
 					}
 				}
-				catch (NullPointerException e) { }
+				catch (NullPointerException ignored) { }
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	public static IRecipe tryGetMatchingRecipe(InventoryCrafting inventory, Class<? extends IRecipe> recipeClass)
 	{
 		return tryGetMatchingRecipe(inventory, null, recipeClass);

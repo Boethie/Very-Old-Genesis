@@ -5,7 +5,6 @@ import genesis.block.BlockGenesisSlab.EnumHalf;
 import genesis.combo.SlabBlocks;
 import genesis.combo.SlabBlocks.SlabObjectType;
 import genesis.combo.variant.EnumSlab;
-import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
@@ -21,7 +20,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import static genesis.block.BlockGenesisSlab.EnumHalf.*;
+import java.util.List;
+
+import static genesis.block.BlockGenesisSlab.EnumHalf.BOTH;
 
 public class ItemGenesisSlab extends ItemBlockMulti<EnumSlab>
 {
@@ -51,11 +52,11 @@ public class ItemGenesisSlab extends ItemBlockMulti<EnumSlab>
 		{
 			return EnumActionResult.FAIL;
 		}
-		
+
 		EnumSlab variant = owner.getVariant(stack);
 		IBlockState state = world.getBlockState(pos);
 		EnumSlab stateVariant = owner.getVariant(state);
-		
+
 		if (variant == stateVariant && canFillEmptyHalf(state.getValue(BlockGenesisSlab.HALF), facing))
 		{
 			IBlockState doubleSlabState = owner.getBlockState(type, stateVariant).withProperty(BlockGenesisSlab.HALF, BOTH);
@@ -70,12 +71,12 @@ public class ItemGenesisSlab extends ItemBlockMulti<EnumSlab>
 
 			return EnumActionResult.SUCCESS;
 		}
-		
+
 		if (tryPlace(player, stack, world, pos.offset(facing), variant))
 		{
 			return EnumActionResult.SUCCESS;
 		}
-		
+
 		return onItemBlockUse(stack, variant, player, state, world, pos, facing, hitX, hitY, hitZ);
 	}
 
@@ -130,14 +131,12 @@ public class ItemGenesisSlab extends ItemBlockMulti<EnumSlab>
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing facing, EntityPlayer player, ItemStack stack)
-	{
+	public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing facing, EntityPlayer player, ItemStack stack) {
 		EnumSlab variant = owner.getVariant(stack);
 		IBlockState state = world.getBlockState(pos);
 		EnumSlab stateVariant = owner.getVariant(state);
 
-		if (variant == stateVariant && canFillEmptyHalf(state.getValue(BlockGenesisSlab.HALF), facing))
-		{
+		if (variant == stateVariant && canFillEmptyHalf(state.getValue(BlockGenesisSlab.HALF), facing)) {
 			return true;
 		}
 
@@ -145,12 +144,8 @@ public class ItemGenesisSlab extends ItemBlockMulti<EnumSlab>
 		IBlockState sideState = world.getBlockState(sidePos);
 		EnumSlab sideVariant = owner.getVariant(sideState);
 
-		if (variant == sideVariant && sideState.getValue(BlockGenesisSlab.HALF) != BOTH)
-		{
-			return true;
-		}
-
-		return canPlaceItemBlockOnSide(world, pos, facing, player, stack);
+		return variant == sideVariant && sideState.getValue(BlockGenesisSlab.HALF) != BOTH ||
+						canPlaceItemBlockOnSide(world, pos, facing, player, stack);
 	}
 
 	@SideOnly(Side.CLIENT)

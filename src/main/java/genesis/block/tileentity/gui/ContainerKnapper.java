@@ -19,27 +19,27 @@ public class ContainerKnapper extends ContainerBase
 		{
 			super(inv, index, x, y);
 		}
-		
+
 		public KnappingState getKnappingState()
 		{
 			return workbench.getKnappingSlotState(getSlotIndex());
 		}
-		
+
 		@Override
 		public boolean isItemValid(ItemStack stack)
 		{
 			return !workbench.isKnappingEnabled() && super.isItemValid(stack);
 		}
-		
+
 		@Override
 		public boolean canBeHovered()
 		{
 			return !workbench.areKnappingSlotsLocked();
 		}
 	}
-	
+
 	public TileEntityKnapper workbench;
-	
+
 	public final ImmutableList<SlotKnapping> craftingSlots;
 	public final ImmutableList<SlotKnapping> leftCraftingSlots;
 	public final ImmutableList<SlotKnapping> rightCraftingSlots;
@@ -49,16 +49,16 @@ public class ContainerKnapper extends ContainerBase
 	public final Slot knappingToolSlotDamaged;
 	public final SlotCrafting outputSlotMain;
 	public final Slot outputSlotWaste;
-	
+
 	public ContainerKnapper(EntityPlayer player, TileEntityKnapper workbench)
 	{
 		super(player.inventory, workbench);
-		
+
 		this.workbench = workbench;
-		
+
 		int topAreaHeight = slotH * 3;
 		int sep = 36;
-		
+
 		int knappingX = -sep - (slotW * 2);
 		int knappingH = slotH * 2 + 8;
 		int knappingY = (topAreaHeight - knappingH) / 2;
@@ -71,13 +71,13 @@ public class ContainerKnapper extends ContainerBase
 			{
 				return 1;
 			}
-			
+
 			@Override
 			public boolean isItemValid(ItemStack stack)
 			{
 				return false;
 			}
-			
+
 			@Override
 			public boolean canTakeStack(EntityPlayer player)
 			{
@@ -100,53 +100,53 @@ public class ContainerKnapper extends ContainerBase
 				return 1;
 			}
 		});
-		
+
 		int craftingSlotCount = TileEntityKnapper.SLOTS_CRAFTING_END - TileEntityKnapper.SLOTS_CRAFTING_START + 1;
-		
+
 		int rowWidth = 3;
 		int rows = (int) Math.ceil(craftingSlotCount / (float) rowWidth);
-		
+
 		int craftX = 0;
 		int craftY = (topAreaHeight - slotH * rows) / 2;
 
 		ImmutableList.Builder<SlotKnapping> mainBuilder = ImmutableList.builder();
 		ImmutableList.Builder<SlotKnapping> leftBuilder = ImmutableList.builder();
 		ImmutableList.Builder<SlotKnapping> rightBuilder = ImmutableList.builder();
-		
+
 		for (int y = 0; y < rows; y++)
 		{
 			int startX = y * rowWidth;
-			
+
 			SlotKnapping left = null;
 			SlotKnapping right = null;
-			
+
 			for (int x = 0; x < rowWidth && startX + x < craftingSlotCount; x++)
 			{
 				int index = startX + x;
 				int posX = craftX + x * slotW;
 				int posY = craftY + y * slotH;
-				
+
 				SlotKnapping cur = addTopAlignedSlot(new SlotKnapping(workbench, index, posX, posY));
 				mainBuilder.add(cur);
-				
+
 				if (left == null)
 					left = cur;
 				right = cur;
 			}
-			
+
 			if (left != null)
 				leftBuilder.add(left);
 			if (right != null)
 				rightBuilder.add(right);
 		}
-		
+
 		craftingSlots = mainBuilder.build();
 		leftCraftingSlots = leftBuilder.build();
 		rightCraftingSlots = rightBuilder.build();
-		
+
 		int outputX = getSlotsArea(topSlots).right + sep + 1;
 		int outputY = (topAreaHeight - slotH * 2) / 2;
-		
+
 		outputSlotMain = addTopAlignedSlot(new SlotCrafting(player, workbench.getCraftingInventory(), workbench.getCraftingOutput(), TileEntityKnapper.SLOT_OUTPUT_MAIN, outputX, outputY));
 		outputSlotWaste = addTopAlignedSlot(new Slot(workbench, TileEntityKnapper.SLOT_OUTPUT_WASTE, outputX, outputY + slotH)
 		{
@@ -156,33 +156,33 @@ public class ContainerKnapper extends ContainerBase
 				return false;
 			}
 		});
-		
+
 		setUpGUILayout();
 	}
-	
+
 	protected int[] prevProgresses = new int[TileEntityKnapper.SLOTS_CRAFTING_COUNT];
 	protected boolean wasLocked = false;
-	
+
 	protected void sendGUIData(boolean force)
 	{
 		for (IContainerListener listener : listeners)
 		{
 			int i = 0;
-			
+
 			for (; i < prevProgresses.length; i++)
 			{
 				KnappingState curState = workbench.getKnappingSlotState(i);
 				int progress = curState.getProgress();
-				
+
 				if (force || prevProgresses[i] != progress)
 				{
 					listener.sendProgressBarUpdate(this, i, progress);
 					prevProgresses[i] = progress;
 				}
 			}
-			
+
 			boolean locked = workbench.areKnappingSlotsLocked();
-			
+
 			if (force || wasLocked != locked)
 			{
 				listener.sendProgressBarUpdate(this, i, locked ? 1 : 0);
@@ -190,16 +190,16 @@ public class ContainerKnapper extends ContainerBase
 			}
 		}
 	}
-	
+
 	@Override
 	public void updateProgressBar(int id, int value)
 	{
 		super.updateProgressBar(id, value);
-		
+
 		if (id < prevProgresses.length)
 		{
 			KnappingState state = workbench.getKnappingSlotState(id);
-			
+
 			if (state != null)
 			{
 				state.setProgress(value);
@@ -208,7 +208,7 @@ public class ContainerKnapper extends ContainerBase
 		else
 		{
 			id -= prevProgresses.length;
-			
+
 			switch (id)
 			{
 			case 0:
@@ -217,64 +217,58 @@ public class ContainerKnapper extends ContainerBase
 			}
 		}
 	}
-	
+
 	@Override
 	public void addListener(IContainerListener iCrafting)
 	{
 		super.addListener(iCrafting);
-		
+
 		sendGUIData(true);
 	}
-	
+
 	public int changeTicks = 0;
-	 
+
 	@Override
 	public void detectAndSendChanges()
 	{
 		int outputSlot = outputSlotMain.slotNumber;
 		ItemStack oldOutput = inventoryItemStacks.get(outputSlot);
 		ItemStack newOutput = inventorySlots.get(outputSlot).getStack();
-		
+
 		if (!ItemStack.areItemStacksEqual(oldOutput, newOutput))
 		{
-			for (IContainerListener listener : listeners)
-			{
-				if (listener instanceof EntityPlayerMP)
-				{
-					((EntityPlayerMP) listener).connection.sendPacket(new SPacketSetSlot(windowId, outputSlot, newOutput));
-				}
-			}
+			listeners.stream().filter(listener -> listener instanceof EntityPlayerMP).forEach(listener -> ((EntityPlayerMP) listener).connection.sendPacket(new SPacketSetSlot(windowId, outputSlot, newOutput)));
 		}
-		
+
 		super.detectAndSendChanges();
-		
+
 		sendGUIData(changeTicks % 5 == 0);
 		changeTicks++;
 	}
-	
+
 	@Override
 	public ItemStack slotClick(int slotID, int button, ClickType type, EntityPlayer player)
 	{
 		if (slotID >= 0)
 		{
 			Slot slot = inventorySlots.get(slotID);
-			
+
 			if (slot == knappingInputSlotLocked)
 			{
 				workbench.resetKnappingState();
 				return null;
 			}
-			
+
 			if (slot.getHasStack() && (slot == outputSlotMain || slot == outputSlotWaste))
 			{
 				if (slot == outputSlotMain)
 				{
 					workbench.setKnappingSlotsLocked(true);
 				}
-				
+
 				ItemStack old = slot.getStack().copy();
 				ItemStack out = super.slotClick(slotID, button, type, player);
-				
+
 				if (slot == outputSlotMain)
 				{
 					if (!slot.getHasStack())
@@ -283,44 +277,44 @@ public class ContainerKnapper extends ContainerBase
 						{
 							KnappingRecipeRegistry.onOutputTaken(workbench, workbench, player);
 						}
-						
+
 						workbench.resetKnappingState();
 					}
 					else
 					{
 						ItemStack newStack = slot.getStack();
-						
+
 						if (old.isItemEqual(newStack) && old.stackSize == newStack.stackSize)
 						{
 							workbench.setKnappingSlotsLocked(false);
 						}
 					}
 				}
-				
+
 				return out;
 			}
 		}
-		
+
 		return super.slotClick(slotID, button, type, player);
 	}
-	
+
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int slotID)
 	{
 		if (slotID >= 0)
 		{
 			Slot slot = inventorySlots.get(slotID);
-			
+
 			if (slot == outputSlotMain)// && slot.getHasStack())
 			{
 				/*ItemStack stack = slot.getStack();
 				ItemStack oldStack = stack.copy();
-				
+
 				if (!mergeStackToPlayerInv(stack, true))
 				{
 					return null;
 				}
-				
+
 				if (stack.stackSize <= 0)
 				{
 					slot.putStack(null);
@@ -329,18 +323,18 @@ public class ContainerKnapper extends ContainerBase
 				{
 					slot.onSlotChange(stack, oldStack);
 				}
-				
+
 				return oldStack;*/
-				
+
 				while (slot.getHasStack())
 				{
 					if (super.transferStackInSlot(player, slotID) == null)
 					{
 						return null;
 					}
-					
+
 					workbench.updateRecipeOutput();
-					
+
 					if (!slot.getHasStack())
 					{
 						return null;
@@ -348,7 +342,7 @@ public class ContainerKnapper extends ContainerBase
 				}
 			}
 		}
-		
+
 		return super.transferStackInSlot(player, slotID);
 	}
 }

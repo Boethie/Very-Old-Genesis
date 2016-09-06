@@ -21,7 +21,7 @@ public abstract class GenLayerGenesis extends GenLayer
 	{
 		super(seed);
 	}
-	
+
 	public static GenLayer[] initializeAllBiomeerators(long seed)
 	{
 		GenLayerIsland genlayerisland = new GenLayerIsland(1L);
@@ -31,11 +31,11 @@ public abstract class GenLayerGenesis extends GenLayer
 		genlayeraddisland = new GenLayerAddIsland(2L, genlayerzoom);
 		genlayeraddisland = new GenLayerAddIsland(50L, genlayeraddisland);
 		genlayeraddisland = new GenLayerAddIsland(70L, genlayeraddisland);
-		
+
 		GenLayerRemoveTooMuchOcean genlayerremovetoomuchocean = new GenLayerRemoveTooMuchOcean(1L, genlayeraddisland);
 		GenLayerAddSnow genlayeraddsnow = new GenLayerAddSnow(1L, genlayerremovetoomuchocean);
 		genlayeraddisland = new GenLayerAddIsland(3L, genlayeraddsnow);
-		
+
 		GenLayerEdge genlayeredge = new GenLayerEdge(2L, genlayeraddisland, GenLayerEdge.Mode.COOL_WARM);
 		genlayeredge = new GenLayerEdge(2L, genlayeredge, GenLayerEdge.Mode.HEAT_ICE);
 		genlayeredge = new GenLayerEdge(3L, genlayeredge, GenLayerEdge.Mode.SPECIAL);
@@ -44,15 +44,15 @@ public abstract class GenLayerGenesis extends GenLayer
 		genlayeraddisland = new GenLayerAddIsland(4L, genlayerzoom);
 		GenLayerGenesisDeepOcean genlayerdeepocean = new GenLayerGenesisDeepOcean(4L, genlayeraddisland);
 		GenLayer genlayer2 = GenLayerZoom.magnify(1700L, genlayerdeepocean, 0);
-		
+
 		//ChunkProviderSettings chunkprovidersettings = null;
 		int biomesize = 4;
-		
+
 		// j = getModdedBiomeSize(p_180781_2_, j);
-		
+
 		GenLayer genlayer = GenLayerZoom.magnify(1000L, genlayer2, 0);
 		GenLayerRiverInit genlayerriverinit = new GenLayerRiverInit(100L, genlayer);
-		
+
 		GenLayer ret = new GenLayerGenesisBiome(200L, genlayer2);
 		ret = GenLayerZoom.magnify(1000L, ret, 2);
 		ret = new GenLayerGenesisBiomeEdge(1000L, ret);
@@ -63,22 +63,22 @@ public abstract class GenLayerGenesis extends GenLayer
 		GenLayerGenesisRiver genlayerriver = new GenLayerGenesisRiver(1L, genlayer);
 		GenLayerSmooth genlayersmooth = new GenLayerSmooth(1000L, genlayerriver);
 		GenLayer object = new GenLayerRareBiome(1001L, genlayergenesishills);
-		
+
 		for (int l = 0; l < biomesize; ++l)
 		{
 			object = new GenLayerZoom(1000 + l, object);
-			
+
 			if (l == 0)
 			{
 				object = new GenLayerAddIsland(3L, object);
 			}
-			
+
 			if (l == 1 || biomesize == 1)
 			{
 				object = new GenLayerGenesisShore(1000L, object);
 			}
 		}
-		
+
 		GenLayerSmooth genlayersmooth1 = new GenLayerSmooth(1000L, object);
 		GenLayerGenesisRiverMix genlayerrivermix = new GenLayerGenesisRiverMix(100L, genlayersmooth1, genlayersmooth);
 		GenLayerVoronoiZoom genlayervoronoizoom = new GenLayerVoronoiZoom(10L, genlayerrivermix);
@@ -88,7 +88,7 @@ public abstract class GenLayerGenesis extends GenLayer
 		genlayervoronoizoom.initWorldGenSeed(seed);
 		return new GenLayer[]{ genlayerrivermixreplaced, genlayervoronoizoomreplaced, genlayerrivermixreplaced };
 	}
-	
+
 	protected static boolean isBiomeOceanic(int biomeId)
 	{
 		return biomeId == Biome.getIdForBiome(GenesisBiomes.shallowOcean)
@@ -97,7 +97,7 @@ public abstract class GenLayerGenesis extends GenLayer
 				|| biomeId == Biome.getIdForBiome(GenesisBiomes.swampRainForest)
 				|| biomeId == Biome.getIdForBiome(GenesisBiomes.rainforestIslands);
 	}
-	
+
 	public static boolean biomesEqualOrMesaPlateau(int biomeIDA, int biomeIDB)
 	{
 		if (biomeIDA == biomeIDB)
@@ -108,7 +108,7 @@ public abstract class GenLayerGenesis extends GenLayer
 		{
 			Biome biomegenbase = Biome.getBiome(biomeIDA);
 			Biome biomegenbase1 = Biome.getBiome(biomeIDB);
-			return biomegenbase != null && biomegenbase1 != null ? (biomegenbase != GenesisBiomes.redDesertHills ? biomegenbase == biomegenbase1 || biomegenbase.getBiomeClass() == biomegenbase1.getBiomeClass() : biomegenbase1 == GenesisBiomes.redDesertHills) : false;
+			return (biomegenbase != null && biomegenbase1 != null) && (biomegenbase != GenesisBiomes.redDesertHills ? biomegenbase == biomegenbase1 || biomegenbase.getBiomeClass() == biomegenbase1.getBiomeClass() : biomegenbase1 == GenesisBiomes.redDesertHills);
 		}
 	}
 }

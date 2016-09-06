@@ -11,7 +11,6 @@ import genesis.common.GenesisItems;
 import genesis.util.AABBUtils;
 import genesis.util.BlockStateToMetadata;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
@@ -37,17 +36,17 @@ public class BlockResin extends BlockHorizontal implements IGrowable
 {
 	public static final PropertyInteger LAYERS = PropertyInteger.create("layers", 0, 3);
 	private static final AxisAlignedBB[] BBS;
-	
+
 	static
 	{
 		AxisAlignedBB base = new AxisAlignedBB(0.3125D, 0.375D, 0.875D,
 												0.6875D, 0.625D, 1.0D);
-		
+
 		BBS = Arrays.stream(EnumFacing.HORIZONTALS)
 				.map((f) -> AABBUtils.rotateTo(base, f))
 				.toArray(AxisAlignedBB[]::new);
 	}
-	
+
 	public BlockResin()
 	{
 		super(Material.WOOD);
@@ -56,7 +55,7 @@ public class BlockResin extends BlockHorizontal implements IGrowable
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(LAYERS, 3));
 	}
-	
+
 	@Override
 	public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean isClient)
 	{
@@ -141,9 +140,9 @@ public class BlockResin extends BlockHorizontal implements IGrowable
 	public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack)
 	{
 		super.harvestBlock(world, player, pos, state, te, stack);
-		
+
 		int layers = state.getValue(LAYERS);
-		
+
 		if (layers > 0)
 		{
 			world.setBlockState(pos, state.withProperty(LAYERS, layers - 1), 2);

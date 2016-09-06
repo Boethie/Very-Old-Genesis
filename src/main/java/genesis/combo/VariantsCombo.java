@@ -11,7 +11,7 @@ import net.minecraft.item.*;
 
 /**
  * Used to create a combo of Blocks or Items with variants. Can only contain <i>one</i> ObjectType.
- * 
+ *
  * @author Zaggy1024
  */
 public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends Item> extends VariantsOfTypesCombo<V>
@@ -21,42 +21,42 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	{
 		return new VariantsCombo<>(name, type, variantClass, variants);
 	}
-	
+
 	public static <V extends IMetadata<V>, B extends Block, I extends Item>
 	VariantsCombo<V, B, I> create(String name, ObjectType<V, B, I> objectType, Class<V> variantClass, V[] variants)
 	{
 		return new VariantsCombo<>(name, objectType, variantClass, variants);
 	}
-	
+
 	private final ObjectType<V, B, I> type;
-	
+
 	/**
 	 * Constructs a BlocksAndItemsWithVariantsOfTypes with one ObjectType for simple one-type combos.
-	 *  
+	 *
 	 * @param objectType The sole ObjectType that this VariantsCombo will use.
 	 */
 	public VariantsCombo(String name, ObjectType<V, B, I> objectType, Class<V> variantClass, List<V> variants)
 	{
 		super(name, ImmutableList.of(objectType), variantClass, variants);
-		
+
 		type = objectType;
 	}
-	
+
 	/**
 	 * Constructs a BlocksAndItemsWithVariantsOfTypes with one ObjectType for simple one-type combos.
-	 *  
+	 *
 	 * @param objectType The sole ObjectType that this VariantsCombo will use.
 	 */
 	public VariantsCombo(String name, ObjectType<V, B, I> objectType, Class<V> variantClass, V[] variants)
 	{
 		this(name, objectType, variantClass, ImmutableList.copyOf(variants));
 	}
-	
+
 	/**
 	 * Constructs a BlocksAndItemsWithVariantsOfTypes with one ObjectType for simple one-type combos.
-	 *  
+	 *
 	 * @param name The name to attach to each variant (i.e. "ore", to result in "variant_ore").
-	 * @param unlocalizedName The unlocalized name for each variant.
+	 * @param typeName The unlocalized name for each variant.
 	 * @param blockClass The Block class to initialize for each variant.
 	 * @param itemClass the Item class to initialize for each variant.
 	 */
@@ -66,10 +66,10 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 		this(name, new ObjectType<>(variantClass, typeName, typeUnlocalizedName, blockClass, itemClass),
 				variantClass, variants);
 	}
-	
+
 	/**
 	 * Constructs a BlocksAndItemsWithVariantsOfTypes with one ObjectType for simple one-type combos.
-	 *  
+	 *
 	 * @param name The name to attach to each variant (i.e. "ore", to result in "variant_ore").
 	 * @param blockClass The Block class to initialize for each variant.
 	 * @param itemClass the Item class to initialize for each variant.
@@ -79,43 +79,43 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	{
 		this(name, typeName, typeName, blockClass, itemClass, variantClass, variants);
 	}
-	
+
 	/**
 	 * Constructs a BlocksAndItemsWithVariantsOfTypes with one ObjectType for simple one-type combos.<br><br>
-	 * 
+	 *
 	 * This overload of the other simple constructor is for simple <i>Item</i> combos.
-	 *  
+	 *
 	 * @param name The name to attach to each variant (i.e. "ore", to result in "variant_ore").
 	 */
 	public VariantsCombo(String name, String typeName, String typeUnlocalizedName, Class<V> variantClass, V[] variants)
 	{
 		this(name, typeName, typeUnlocalizedName, null, null, variantClass, variants);
 	}
-	
+
 	/**
 	 * Constructs a BlocksAndItemsWithVariantsOfTypes with one ObjectType for simple one-type combos.<br><br>
-	 * 
+	 *
 	 * This overload of the other simple constructor is for simple <i>Item</i> combos.
-	 *  
+	 *
 	 * @param name The name to attach to each variant (i.e. "ore", to result in "variant_ore").
 	 */
 	public VariantsCombo(String name, String typeName, Class<V> variantClass, V[] variants)
 	{
 		this(name, typeName, typeName, variantClass, variants);
 	}
-	
+
 	public ObjectType<V, B, I> getObjectType()
 	{
 		return type;
 	}
-	
+
 	@Override
 	public VariantsCombo<V, B, I> setNames(String domain, String unloc)
 	{
 		super.setNames(domain, unloc);
 		return this;
 	}
-	
+
 	/**
 	 * Gets a stack of the specified Item in this combo.
 	 */
@@ -123,7 +123,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	{
 		return getStack(type, variant, stackSize);
 	}
-	
+
 	/**
 	 * Gets a stack of the specified Item in this combo.
 	 */
@@ -131,7 +131,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	{
 		return getStack(variant, 1);
 	}
-	
+
 	/**
 	 * Gets the metadata used to get the Item of this variant.
 	 */
@@ -139,7 +139,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	{
 		return getItemMetadata(type, variant);
 	}
-	
+
 	/**
 	 * Gets a random IBlockState.
 	 */
@@ -147,7 +147,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	{
 		return super.getBlockState(type, variant);
 	}
-	
+
 	/**
 	 * Gets a random IBlockState.
 	 */
@@ -155,7 +155,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	{
 		return getRandomBlockState(type, rand);
 	}
-	
+
 	/**
 	 * Gets the valid variants for this combo's sole {@link ObjectType}.
 	 */
@@ -163,7 +163,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	{
 		return getValidVariants(type);
 	}
-	
+
 	/**
 	 * Gets the Block for this combo's sole {@link ObjectType} and the provided variant.
 	 */
@@ -171,7 +171,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	{
 		return super.getBlock(type, variant);
 	}
-	
+
 	/**
 	 * Gets the list of Blocks for this combo's sole {@link ObjectType}.
 	 */
@@ -179,7 +179,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	{
 		return super.getBlocks(type);
 	}
-	
+
 	/**
 	 * Gets the Item for this combo's sole {@link ObjectType} and the provided variant.
 	 */
@@ -187,7 +187,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	{
 		return super.getItem(type, variant);
 	}
-	
+
 	/**
 	 * Gets the list of Items for this combo's sole {@link ObjectType}.
 	 */
@@ -195,7 +195,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	{
 		return super.getItems(type);
 	}
-	
+
 	/**
 	 * @return Whether the state is contained by this combo.
 	 */
@@ -203,7 +203,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	{
 		return super.isStackOf(stack, type);
 	}
-	
+
 	/**
 	 * @return Whether the stack is contained in this combo.
 	 */
@@ -211,7 +211,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	{
 		return super.isStackOf(stack, type);
 	}
-	
+
 	/**
 	 * @return Whether the stack is of the specified variant in this combo.
 	 */
@@ -219,7 +219,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	{
 		return super.isStackOf(stack, variant, type);
 	}
-	
+
 	/**
 	 * @return Whether the state is contained by this combo.
 	 */
@@ -227,7 +227,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	{
 		return super.isStateOf(state, type);
 	}
-	
+
 	/**
 	 * @return Whether the state is contained by this combo.
 	 */
@@ -235,7 +235,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	{
 		return super.isStateOf(state, variant, type);
 	}
-	
+
 	/**
 	 * @return listToFill, after having added all sub-items for this list of variants.
 	 */
@@ -243,7 +243,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	{
 		return super.fillSubItems(type, variants, listToFill, noDrops);
 	}
-	
+
 	/**
 	 * @return listToFill, after having added all sub-items for this list of variants.
 	 */
@@ -252,7 +252,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	{
 		return super.fillSubItems(type, variants, listToFill, noDrops);
 	}
-	
+
 	/**
 	 * @return All sub-items with the variants contained in the list.
 	 */
@@ -260,7 +260,7 @@ public class VariantsCombo<V extends IMetadata<V>, B extends Block, I extends It
 	{
 		return super.getSubItems(type, variants, noDrops);
 	}
-	
+
 	/**
 	 * @return All sub-items with the variants contained in the list.
 	 */

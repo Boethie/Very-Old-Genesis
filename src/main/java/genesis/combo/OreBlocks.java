@@ -19,34 +19,34 @@ public class OreBlocks extends VariantsOfTypesCombo<EnumOre>
 			ObjectType.createBlock(EnumOre.class, "ore", ReflectionUtils.convertClass(BlockMultiOre.class));
 	public static final ObjectType<EnumOre, Block, ItemMulti<EnumOre>> DROP =
 			ObjectType.createItem(EnumOre.class, "ore_drop", Unlocalized.Section.MATERIAL);
-	
+
 	static
 	{
-		ORE.setVariantFilter((v) -> v.hasOre())
+		ORE.setVariantFilter(EnumOre::hasOre)
 				.setTypeNamePosition(TypeNamePosition.POSTFIX);
-		DROP.setVariantFilter((v) -> v.hasDrop())
+		DROP.setVariantFilter(EnumOre::hasDrop)
 				.setResourceName("").setTypeNamePosition(TypeNamePosition.POSTFIX);
 	}
-	
+
 	public OreBlocks()
 	{
 		super("ores", ImmutableList.of(ORE, DROP),
 				EnumOre.class, ImmutableList.copyOf(EnumOre.values()));
-		
+
 		EnumOre.setDrops(this);
 		setNames(Constants.MOD_ID, Constants.Unlocalized.PREFIX);
 	}
-	
+
 	public IBlockState getOreState(EnumOre ore)
 	{
 		return getBlockState(ORE, ore);
 	}
-	
+
 	public ItemStack getOreStack(EnumOre ore)
 	{
 		return getStack(ORE, ore);
 	}
-	
+
 	public ItemStack getDrop(EnumOre ore)
 	{
 		return getStack(DROP, ore);

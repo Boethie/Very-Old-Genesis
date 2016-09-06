@@ -23,7 +23,7 @@ public class CommandInterceptor extends CommandTime
 		ICommandSender sender = event.getSender();
 		Class<? extends ICommand> commandClass = event.getCommand().getClass();
 		String[] args = event.getParameters();
-		
+
 		try
 		{
 			if (GenesisDimensions.isGenesis(sender.getEntityWorld()))
@@ -32,24 +32,23 @@ public class CommandInterceptor extends CommandTime
 				{
 					String mode = args[0];
 					String value = args[1];
-					
+
 					if (mode.equals("set"))
 					{
 						int time;
-						
-						if (value.equals("day"))
-						{
-							time = (int) (0.04167F * WorldProviderGenesis.DAY_LENGTH);
+
+						switch (value) {
+							case "day":
+								time = (int) (0.04167F * WorldProviderGenesis.DAY_LENGTH);
+								break;
+							case "night":
+								time = (int) (0.54167F * WorldProviderGenesis.DAY_LENGTH);
+								break;
+							default:
+								time = parseInt(value);
+								break;
 						}
-						else if (value.equals("night"))
-						{
-							time = (int) (0.54167F * WorldProviderGenesis.DAY_LENGTH);
-						}
-						else
-						{
-							time = parseInt(value);
-						}
-						
+
 						setAllWorldTimes(server, sender, time);
 						event.setCanceled(true);
 					}
@@ -70,45 +69,45 @@ public class CommandInterceptor extends CommandTime
 			event.setCanceled(true);
 		}
 	}
-	
+
 	protected int getDayLength(boolean genesis)
 	{
 		return genesis ? WorldProviderGenesis.DAY_LENGTH : 24000;
 	}
-	
+
 	protected void setAllWorldTimes(MinecraftServer server, ICommandSender sender, int time)
 	{
 		boolean genesis = GenesisDimensions.isGenesis(sender.getEntityWorld());
-		
+
 		int dayLength = getDayLength(genesis);
 		time %= dayLength;
 		if (time < 0)
 			time += dayLength;
-		
+
 		notifyCommandListener(sender, this, "commands.time.set", time);
-		
+
 		for (WorldServer world : server.worldServers)
-			if (GenesisDimensions.isGenesis(world) ? genesis : !genesis)
+			if (GenesisDimensions.isGenesis(world) == genesis)
 				world.setWorldTime(time);
 	}
-	
+
 	protected void addTime(MinecraftServer server, ICommandSender sender, int time)
 	{
 		boolean genesis = GenesisDimensions.isGenesis(sender.getEntityWorld());
-		
+
 		for (WorldServer world : server.worldServers)
 		{
-			if (GenesisDimensions.isGenesis(world) ? genesis : !genesis)
+			if (GenesisDimensions.isGenesis(world) == genesis)
 			{
 				long worldTime = world.getWorldTime() + time;
 				int dayLength = getDayLength(genesis);
 				if (worldTime < 0)
 					worldTime = (worldTime > -dayLength ? dayLength : 0) + (worldTime % dayLength);
-				
+
 				world.setWorldTime(worldTime);
 			}
 		}
-		
+
 		notifyCommandListener(sender, this, "commands.time.added", time);
 	}
 }

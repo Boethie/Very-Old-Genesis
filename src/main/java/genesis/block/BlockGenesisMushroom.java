@@ -24,30 +24,30 @@ public class BlockGenesisMushroom extends BlockBush
 	{
 		GROW_TOP,
 		GROW_SIDE;
-		
+
 		public boolean isTop()
 		{
 			return this == GROW_TOP;
 		}
-		
+
 		public boolean isSide()
 		{
 			return this == GROW_SIDE;
 		}
 	}
-	
+
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	private final MushroomGrowType growType;
 	private float boundsRadius;
 	private float boundsHeight;
 	private float boundsBottom;
-	
+
 	public BlockGenesisMushroom(MushroomGrowType type)
 	{
 		super();
-		
+
 		growType = type;
-		
+
 		switch (growType)
 		{
 		case GROW_TOP:
@@ -57,17 +57,17 @@ public class BlockGenesisMushroom extends BlockBush
 			blockState = new BlockStateContainer(this, FACING);
 			break;
 		}
-		
+
 		setDefaultState(blockState.getBaseState());
-		
+
 		setSoundType(GenesisSoundTypes.MUSHROOM);
 	}
-	
+
 	public MushroomGrowType getGrowType()
 	{
 		return growType;
 	}
-	
+
 	public BlockGenesisMushroom setBoundsSize(float radius, float height, float bottom)
 	{
 		boundsRadius = radius;
@@ -75,22 +75,22 @@ public class BlockGenesisMushroom extends BlockBush
 		boundsBottom = bottom;
 		return this;
 	}
-	
+
 	public float getBoundsRadius()
 	{
 		return boundsRadius;
 	}
-	
+
 	public float getBoundsHeight()
 	{
 		return boundsHeight;
 	}
-	
+
 	public float getBoundsBottom()
 	{
 		return boundsBottom;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
@@ -99,54 +99,54 @@ public class BlockGenesisMushroom extends BlockBush
 		float height = getBoundsHeight();
 		float bottom = getBoundsBottom();
 		AxisAlignedBB aabb = new AxisAlignedBB(0.5 - radius, bottom, 0.5 - radius, 0.5 + radius, bottom + height, 0.5 + radius);
-		
+
 		if (getGrowType().isSide())
 		{
 			EnumFacing facing = state.getValue(FACING);
-			
+
 			double offsetAmount = 0.5 - radius;
 			aabb = aabb.offset(facing.getFrontOffsetX() * offsetAmount,
 						facing.getFrontOffsetY() * offsetAmount,
 						facing.getFrontOffsetZ() * offsetAmount);
 		}
-		
+
 		return aabb;
 	}
-	
+
 	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
 	{
 		if (rand.nextInt(25) == 0)
 		{
 			int shroomsLeft = 5; // Max number of shrooms
-			
+
 			Iterable<BlockPos> box = WorldUtils.getArea(pos.add(-4, -1, -4), pos.add(4, 1, 4)); // 8x2x8 area
-			
+
 			for (BlockPos checkPos : box)
 			{
 				if (world.getBlockState(checkPos).getBlock() == this)
 				{
 					--shroomsLeft;
-					
+
 					if (shroomsLeft <= 0)
 						break;
 				}
 			}
-			
+
 			if (shroomsLeft > 0)
 			{
 				BlockPos placePos = null;
-				
+
 				for (int i = 0; i < 4; i++)
 				{
 					BlockPos randPos = pos.add(rand.nextInt(3) - 1, rand.nextInt(2) - rand.nextInt(2), rand.nextInt(3) - 1);
-					
+
 					if (world.isAirBlock(randPos) && canBlockStay(world, randPos, getDefaultState()))
 					{
 						placePos = randPos;
 					}
 				}
-				
+
 				if (placePos != null)
 				{
 					world.setBlockState(placePos, getDefaultState(), 2);
@@ -154,7 +154,7 @@ public class BlockGenesisMushroom extends BlockBush
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing side)
 	{
@@ -166,16 +166,16 @@ public class BlockGenesisMushroom extends BlockBush
 			EnumFacing facingSide = side.getOpposite();
 			return facingSide.getAxis().isHorizontal() && canBlockStay(world, pos, getDefaultState().withProperty(FACING, facingSide));
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	protected boolean canSustainBush(IBlockState ground)
 	{
 		return !growType.isTop() || ground.isFullBlock();
 	}
-	
+
 	@Override
 	public boolean canBlockStay(World world, BlockPos pos, IBlockState state)
 	{
@@ -192,14 +192,14 @@ public class BlockGenesisMushroom extends BlockBush
 				return canGrowOnTop(world, pos, state, downPos, world.getBlockState(downPos));
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	protected boolean canGrowOnSide(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing side, BlockPos sidePos, IBlockState sideState)
 	{
 		Block sideBlock = sideState.getBlock();
-		
+
 		if (sideBlock instanceof IMushroomBase)
 		{
 			IMushroomBase base = (IMushroomBase) sideBlock;
@@ -210,35 +210,25 @@ public class BlockGenesisMushroom extends BlockBush
 			return sideState.getMaterial() == Material.WOOD;
 		}
 	}
-	
+
 	protected boolean canGrowOnTop(World world, BlockPos pos, IBlockState state, BlockPos bottomPos, IBlockState bottomState)
 	{
 		Block bottomBlock = bottomState.getBlock();
-		
-		if (bottomBlock instanceof IMushroomBase)
-		{
+
+		if (bottomBlock instanceof IMushroomBase) {
 			IMushroomBase base = (IMushroomBase) bottomBlock;
 			return base.canSustainMushroom(world, pos, EnumFacing.UP, state);
-		}
-		else if (bottomBlock == Blocks.DIRT && bottomState.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL)
-		{
-			return true;
-		}
-		else if (world.getLightFromNeighbors(pos) < 13 && bottomBlock.canSustainPlant(bottomState, world, bottomPos, EnumFacing.UP, this))
-		{
-			return true;
-		}
-		else
-		{
-			return bottomBlock == GenesisBlocks.moss || bottomBlock == Blocks.MYCELIUM || bottomBlock instanceof BlockLog;
-		}
+		} else
+			return bottomBlock == Blocks.DIRT && bottomState.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL ||
+							world.getLightFromNeighbors(pos) < 13 && bottomBlock.canSustainPlant(bottomState, world, bottomPos, EnumFacing.UP, this) ||
+							bottomBlock == GenesisBlocks.moss || bottomBlock == Blocks.MYCELIUM || bottomBlock instanceof BlockLog;
 	}
-	
+
 	@Override
 	public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
 	{
 		IBlockState state = super.onBlockPlaced(world, pos, facing, hitX, hitY, hitZ, meta, placer);
-		
+
 		if (growType.isSide())
 		{
 			return state.withProperty(FACING, facing.getOpposite());
@@ -248,13 +238,13 @@ public class BlockGenesisMushroom extends BlockBush
 			return state;
 		}
 	}
-	
+
 	@Override
 	public int getMetaFromState(IBlockState state)
 	{
 		return BlockStateToMetadata.getMetaForBlockState(state);
 	}
-	
+
 	@Override
 	public IBlockState getStateFromMeta(int meta)
 	{

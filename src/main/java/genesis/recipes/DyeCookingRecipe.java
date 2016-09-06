@@ -1,33 +1,34 @@
 package genesis.recipes;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
-import com.google.common.collect.*;
-
-import genesis.block.tileentity.crafting.CookingPotRecipeRegistry.*;
+import com.google.common.collect.ImmutableMap;
+import genesis.block.tileentity.crafting.CookingPotRecipeRegistry.CookingPotRecipeBase;
+import genesis.block.tileentity.crafting.CookingPotRecipeRegistry.InventoryCookingPot;
 import genesis.combo.ItemsCeramicBowls;
-import genesis.combo.variant.*;
+import genesis.combo.variant.EnumPowder;
+import genesis.combo.variant.GenesisDye;
 import genesis.common.GenesisItems;
-import genesis.util.*;
-
+import genesis.util.MiscUtils;
+import genesis.util.SlotModifier;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
+import java.util.*;
+import java.util.stream.Collectors;
+
 public class DyeCookingRecipe extends CookingPotRecipeBase
 {
 	public static final Map<Set<EnumDyeColor>, EnumDyeColor> CRAFTING_MAP;
-	
+
 	static
 	{
 		ImmutableMap.Builder<Set<EnumDyeColor>, EnumDyeColor> builder = ImmutableMap.builder();
-		
+
 		for (EnumDyeColor color : EnumDyeColor.values())
 		{
 			builder.put(Collections.singleton(color), color);
 		}
-		
+
 		builder.put(MiscUtils.unmodSet(EnumDyeColor.WHITE, EnumDyeColor.RED), EnumDyeColor.PINK);
 		builder.put(MiscUtils.unmodSet(EnumDyeColor.PURPLE, EnumDyeColor.PINK), EnumDyeColor.MAGENTA);
 		builder.put(MiscUtils.unmodSet(EnumDyeColor.BLUE, EnumDyeColor.RED), EnumDyeColor.PURPLE);
@@ -39,30 +40,30 @@ public class DyeCookingRecipe extends CookingPotRecipeBase
 		builder.put(MiscUtils.unmodSet(EnumDyeColor.GREEN, EnumDyeColor.RED), EnumDyeColor.BROWN);
 		builder.put(MiscUtils.unmodSet(EnumDyeColor.WHITE, EnumDyeColor.BLACK), EnumDyeColor.GRAY);
 		builder.put(MiscUtils.unmodSet(EnumDyeColor.WHITE, EnumDyeColor.GRAY), EnumDyeColor.SILVER);
-		
+
 		CRAFTING_MAP = builder.build();
 	}
-	
+
 	protected static EnumDyeColor getColor(ItemStack stack)
 	{
 		if (stack == null
 				|| stack.stackSize <= 0
 				|| GenesisItems.bowls.isStackOf(stack, ItemsCeramicBowls.DYE))
 			return null;
-		
+
 		EnumPowder powder = GenesisItems.powders.getVariant(stack);
-		
+
 		if (powder != null && powder.getColor() != null)
 		{
 			return powder.getColor();
 		}
-		
+
 		int[] ids = OreDictionary.getOreIDs(stack);
-		
+
 		for (int id : ids)
 		{
 			String name = OreDictionary.getOreName(id);
-			
+
 			for (EnumDyeColor color : EnumDyeColor.values())
 			{
 				if (name.equals(GenesisDye.getOreDictName(color)))
@@ -71,61 +72,61 @@ public class DyeCookingRecipe extends CookingPotRecipeBase
 				}
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	protected static EnumDyeColor getOutputColorFromColors(Set<EnumDyeColor> colors)
 	{
 		return CRAFTING_MAP.get(colors);
 	}
-	
+
 	protected static EnumDyeColor getOutputColorFromSlots(Collection<? extends SlotModifier> slots)
 	{
 		return getOutputColorFromColors(
 				slots.stream()
-						.map((s) -> s.getStack())
+						.map(SlotModifier::getStack)
 						.filter((s) -> s != null)
-						.map((s) -> getColor(s))
+						.map(DyeCookingRecipe::getColor)
 						.filter((c) -> c != null)
 						.collect(Collectors.toCollection(() -> EnumSet.noneOf(EnumDyeColor.class))));
 	}
-	
+
 	@Override
 	public boolean isRecipeIngredient(ItemStack stack, InventoryCookingPot cookingPot)
 	{
 		return getColor(stack) != null;
 	}
-	
+
 	@Override
 	public boolean canCraft(InventoryCookingPot cookingPot)
 	{
 		return getOutputColorFromSlots(cookingPot.getIngredients()) != null && super.canCraft(cookingPot);
 	}
-	
+
 	@Override
 	public ItemStack getOutput(InventoryCookingPot cookingPot)
 	{
 		ItemStack stack = GenesisItems.bowls.getStack(getOutputColorFromSlots(cookingPot.getIngredients()), 0);
-		
+
 		for (SlotModifier slot : cookingPot.getIngredients())
 		{
 			ItemStack ingredient = slot.getStack();
-			
+
 			if (ingredient != null && ingredient.stackSize > 0)
 			{
 				stack.stackSize++;
 			}
 		}
-		
+
 		return stack;
 	}
-	
+
 	@Override
 	public void removeConsumed(InventoryCookingPot cookingPot, int countCrafted)
 	{
 		cookingPot.getInput().consume(countCrafted);
-		
+
 		for (SlotModifier slot : cookingPot.getIngredients())
 		{
 			slot.consume(1);

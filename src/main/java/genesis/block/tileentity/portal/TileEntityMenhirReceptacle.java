@@ -13,35 +13,35 @@ public class TileEntityMenhirReceptacle extends TileEntityBase implements ITicka
 {
 	protected ItemStack containedItem = null;
 	protected byte timer = 0;
-	
+
 	public TileEntityMenhirReceptacle()
 	{
 	}
-	
+
 	public void setContainedItem(ItemStack stack)
 	{
 		containedItem = stack;
 		markDirty();
 		GenesisPortal.fromMenhirBlock(worldObj, pos).updatePortalStatus(worldObj);
 	}
-	
+
 	public ItemStack getReceptacleItem()
 	{
 		return containedItem;
 	}
-	
+
 	public boolean isReceptacleActive()
 	{
 		return getReceptacleItem() != null;
 	}
-	
+
 	@Override
 	public void update()
 	{
 		if (!worldObj.isRemote)
 		{
 			timer--;
-			
+
 			if (timer <= 0)
 			{
 				GenesisPortal.fromMenhirBlock(worldObj, pos).updatePortalStatus(worldObj);
@@ -49,7 +49,7 @@ public class TileEntityMenhirReceptacle extends TileEntityBase implements ITicka
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState)
 	{
@@ -57,10 +57,10 @@ public class TileEntityMenhirReceptacle extends TileEntityBase implements ITicka
 		{
 			world.checkLight(partPos);
 		}
-		
+
 		return super.shouldRefresh(world, pos, oldState, newState);
 	}
-	
+
 	@Override
 	protected void writeVisualData(NBTTagCompound compound, boolean save)
 	{
@@ -73,7 +73,7 @@ public class TileEntityMenhirReceptacle extends TileEntityBase implements ITicka
 			compound.removeTag("containedItem");
 		}
 	}
-	
+
 	@Override
 	protected void readVisualData(NBTTagCompound compound, boolean save)
 	{
@@ -85,7 +85,7 @@ public class TileEntityMenhirReceptacle extends TileEntityBase implements ITicka
 		{
 			containedItem = null;
 		}
-		
+
 		if (worldObj != null)
 		{
 			for (BlockPos pos : new MenhirData(worldObj, getPos()))
@@ -94,28 +94,22 @@ public class TileEntityMenhirReceptacle extends TileEntityBase implements ITicka
 			}
 		}
 	}
-	
+
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound)
 	{
 		compound = super.writeToNBT(compound);
-		
+
 		compound.setByte("timer", timer);
 
 		return compound;
 	}
-	
+
 	@Override
 	public void readFromNBT(NBTTagCompound compound)
 	{
 		super.readFromNBT(compound);
-		
+
 		timer = compound.getByte("timer");
-	}
-	
-	@Override
-	public void invalidate()
-	{
-		super.invalidate();
 	}
 }

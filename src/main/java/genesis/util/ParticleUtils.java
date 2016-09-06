@@ -16,12 +16,12 @@ public class ParticleUtils
 				throw new RuntimeException("Something attempted to register a particle with the same integer ID as " + existingParticle.getParticleName() + " (" + existingParticle + ").");
 			}
 		}
-		
+
 		EnumParticleTypes particle = EnumHelper.addEnum(EnumParticleTypes.class, enumName,
 				new Class[]{String.class, int.class, boolean.class, int.class},
-				new Object[]{name, id, ignoreRange, argumentCount});
+						name, id, ignoreRange, argumentCount);
 		Minecraft.getMinecraft().effectRenderer.registerParticle(id, factory);
-		
+
 		return particle;
 	}
 }

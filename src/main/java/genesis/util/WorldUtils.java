@@ -1,8 +1,28 @@
 package genesis.util;
 
+import com.google.common.collect.ImmutableList;
 import genesis.util.functional.WorldBlockMatcher;
 import genesis.util.random.d.DoubleRange;
 import genesis.util.random.i.IntRange;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.EntityXPOrb;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.*;
+import net.minecraft.util.math.BlockPos.MutableBlockPos;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldType;
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.EnumPlantType;
+import net.minecraftforge.common.IPlantable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,45 +31,27 @@ import java.util.Random;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import com.google.common.collect.ImmutableList;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.*;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.util.math.BlockPos.MutableBlockPos;
-import net.minecraft.world.*;
-import net.minecraft.world.biome.Biome;
-import net.minecraftforge.common.*;
-
 public class WorldUtils
 {
 	public static Iterable<BlockPos> getArea(BlockPos start, BlockPos end)
 	{
 		return BlockPos.getAllInBox(start, end);
 	}
-	
+
 	public static Iterable<BlockPos> getAreaWithHeight(BlockPos pos, int radius, int startY, int endY)
 	{
 		BlockPos start = new BlockPos(pos.getX() - radius, startY, pos.getZ() - radius);
 		BlockPos end = new BlockPos(pos.getX() + radius, endY, pos.getZ() + radius);
 		return getArea(start, end);
 	}
-	
+
 	public static Iterable<BlockPos> getArea(BlockPos pos, int radius)
 	{
 		BlockPos start = pos.add(-radius, -radius, -radius);
 		BlockPos end = pos.add(radius, radius, radius);
 		return getArea(start, end);
 	}
-	
+
 	/**
 	 * Returns an integer for the distance squared between to block positions.
 	 * Use in place of {@link BlockPos#distanceSq(Vec3i)} to avoid casts to {@code double}.
@@ -61,7 +63,7 @@ public class WorldUtils
 		int dZ = a.getZ() - b.getZ();
 		return dX * dX + dY * dY + dZ * dZ;
 	}
-	
+
 	/**
 	 * Returns an integer for the horizontal distance squared between to block positions.
 	 */
@@ -71,32 +73,32 @@ public class WorldUtils
 		int dZ = a.getZ() - b.getZ();
 		return dX * dX + dZ * dZ;
 	}
-	
+
 	public static MutableBlockPos setOffset(MutableBlockPos pos, int dX, int dY, int dZ)
 	{
 		return pos.setPos(pos.getX() + dX, pos.getY() + dY, pos.getZ() + dZ);
 	}
-	
+
 	public static MutableBlockPos setOffset(MutableBlockPos pos, Vec3i offset, int distance)
 	{
 		return setOffset(pos, offset.getX() * distance, offset.getY() * distance, offset.getZ() * distance);
 	}
-	
+
 	public static MutableBlockPos setOffset(MutableBlockPos pos, Vec3i offset)
 	{
 		return setOffset(pos, offset, 1);
 	}
-	
+
 	public static MutableBlockPos setOffset(MutableBlockPos pos, EnumFacing direction, int distance)
 	{
 		return setOffset(pos, direction.getDirectionVec(), distance);
 	}
-	
+
 	public static MutableBlockPos setOffset(MutableBlockPos pos, EnumFacing direction)
 	{
 		return setOffset(pos, direction.getDirectionVec());
 	}
-	
+
 	/**
 	 * @return Whether the block at that position has the water material.
 	 */
@@ -104,7 +106,7 @@ public class WorldUtils
 	{
 		return world.getBlockState(pos).getMaterial() == Material.WATER;
 	}
-	
+
 	/**
 	 * @param world The world.
 	 * @param pos The position to start from.
@@ -119,7 +121,7 @@ public class WorldUtils
 	public static boolean waterInRange(IBlockAccess world, BlockPos pos, int dNegX, int dPosX, int dNegZ, int dPosZ, int dNegY, int dPosY)
 	{
 		Iterable<? extends BlockPos> checkArea = BlockPos.getAllInBoxMutable(pos.add(-dNegX, -dNegY, -dNegZ), pos.add(dPosX, dPosY, dPosZ));
-		
+
 		for (BlockPos checkPos : checkArea)
 		{
 			if (isWater(world, checkPos))
@@ -127,10 +129,10 @@ public class WorldUtils
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	/**
 	 * @param world The world.
 	 * @param pos The position to start from.
@@ -143,7 +145,7 @@ public class WorldUtils
 	{
 		return waterInRange(world, pos, dX, dX, dZ, dZ, dY, dY);
 	}
-	
+
 	/**
 	 * @param worldIn The world.
 	 * @param pos The position to start from.
@@ -155,7 +157,7 @@ public class WorldUtils
 	{
 		return waterInRange(worldIn, pos, dXZ, dXZ, dY);
 	}
-	
+
 	public static List<IBlockState> getBlocksAround(final IBlockAccess world, final BlockPos pos)
 	{
 		final List<IBlockState> blocks = new ArrayList<>();
@@ -177,6 +179,7 @@ public class WorldUtils
 		shift = pos.south();
 		blocks.add(world.getBlockState(shift));
 
+		//TODO: check if this should be relative (it's fully reassigned below)
 		shift = pos.south();
 		shift = pos.west();
 		blocks.add(world.getBlockState(shift));
@@ -190,17 +193,17 @@ public class WorldUtils
 
 		return blocks;
 	}
-	
+
 	public enum DropType
 	{
 		BLOCK(DoubleRange.create(-0.25, 0.25), 0, 0, true),
 		CONTAINER(DoubleRange.create(-0.4, 0.4), 0.05, 0.2, false);
-		
+
 		public final DoubleRange offsetRange;
 		public final double randomSpeed;
 		public final double upwardSpeed;
 		public final boolean delayPickup;
-		
+
 		DropType(DoubleRange offsetRange, double randomSpeed, double upwardSpeed, boolean delayPickup)
 		{
 			this.offsetRange = offsetRange;
@@ -209,9 +212,9 @@ public class WorldUtils
 			this.delayPickup = delayPickup;
 		}
 	}
-	
+
 	public static final IntRange ITEM_DROP_SIZE = IntRange.create(10, 30);
-	
+
 	/**
 	 * Spawns the specified ItemStack in the world using the DropType to determine spawn offset and velocity.
 	 */
@@ -221,73 +224,73 @@ public class WorldUtils
 		{
 			Random rand = world.rand;
 			ImmutableList.Builder<EntityItem> builder = ImmutableList.builder();
-			
+
 			if (dropType != null && dropType.offsetRange != null)
 			{
 				x += dropType.offsetRange.get(world.rand);
 				y += dropType.offsetRange.get(world.rand);
 				z += dropType.offsetRange.get(world.rand);
 			}
-			
+
 			while (stack.stackSize > 0)
 			{
 				int subSize = Math.min(stack.stackSize, ITEM_DROP_SIZE.get(rand));
-				
+
 				stack.stackSize -= subSize;
-				
+
 				EntityItem dropItem = new EntityItem(world, x, y, z,
 						new ItemStack(stack.getItem(), subSize, stack.getItemDamage()));
-				
+
 				if (stack.hasTagCompound())
 				{
-					dropItem.getEntityItem().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());
+					dropItem.getEntityItem().setTagCompound(stack.getTagCompound().copy());
 				}
-				
+
 				if (dropType != null && (dropType.randomSpeed != 0 || dropType.upwardSpeed != 0))
 				{
 					dropItem.motionX = rand.nextGaussian() * dropType.randomSpeed;
 					dropItem.motionY = rand.nextGaussian() * dropType.randomSpeed + dropType.upwardSpeed;
 					dropItem.motionZ = rand.nextGaussian() * dropType.randomSpeed;
 				}
-				
+
 				if (dropType == null || dropType.delayPickup)
 				{
 					dropItem.setDefaultPickupDelay();
 				}
-				
+
 				world.spawnEntityInWorld(dropItem);
 				builder.add(dropItem);
 			}
-			
+
 			return builder.build();
 		}
-		
+
 		return Collections.emptyList();
 	}
-	
+
 	public static List<EntityItem> spawnItemsAt(World world, Vec3d pos, DropType dropType, ItemStack stack)
 	{
 		return spawnItemsAt(world, pos.xCoord, pos.yCoord, pos.zCoord, dropType, stack);
 	}
-	
+
 	public static final DoubleRange ITEM_OFFSET = DoubleRange.create(-0.4, 0.4);
-	
+
 	public static List<EntityItem> spawnItemsAt(World world, BlockPos pos, DropType dropType, ItemStack stack)
 	{
 		return spawnItemsAt(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, dropType, stack);
 	}
-	
+
 	public static void spawnXPOrbs(World world, double x, double y, double z, float fAmount)
 	{
 		if (!world.isRemote)
 		{
 			int amount = MathHelper.floor_float(fAmount);
-			
+
 			if (amount < fAmount && world.rand.nextFloat() <= fAmount - amount)
 			{
 				amount++;
 			}
-			
+
 			while (amount > 0)
 			{
 				int split = EntityXPOrb.getXPSplit(amount);
@@ -296,17 +299,17 @@ public class WorldUtils
 			}
 		}
 	}
-	
+
 	public static <V extends Comparable<V>> void setProperty(World world, BlockPos pos, IProperty<V> property, V value)
 	{
 		world.setBlockState(pos, world.getBlockState(pos).withProperty(property, value));
 	}
-	
+
 	public static Random getWorldRandom(IBlockAccess world, Random or)
 	{
 		return world instanceof World ? ((World) world).rand : or;
 	}
-	
+
 	public static NBTTagCompound writeBlockPosToNBT(BlockPos pos)
 	{
 		NBTTagCompound compound = new NBTTagCompound();
@@ -315,12 +318,12 @@ public class WorldUtils
 		compound.setInteger("z", pos.getZ());
 		return compound;
 	}
-	
+
 	public static BlockPos readBlockPosFromNBT(NBTTagCompound compound)
 	{
 		return new BlockPos(compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
 	}
-	
+
 	public static void removeBoilerplateTileEntityNBT(NBTTagCompound compound)
 	{
 		compound.removeTag("id");
@@ -328,7 +331,7 @@ public class WorldUtils
 		compound.removeTag("y");
 		compound.removeTag("z");
 	}
-	
+
 	/**
 	 * Creates a fake {@link IBlockAccess} to pretend that there are blocks in the world where they don't exist.
 	 * Useful for when one needs to do some action on a set of block after one is removed.<br>
@@ -346,43 +349,43 @@ public class WorldUtils
 				TileEntity te = teGetter.apply(pos);
 				return te == null ? base.getTileEntity(pos) : te;
 			}
-			
+
 			@Override public IBlockState getBlockState(BlockPos pos)
 			{
 				IBlockState state = stateGetter.apply(pos);
 				return state == null ? base.getBlockState(pos) : state;
 			}
-			
+
 			@Override public boolean isAirBlock(BlockPos pos)
 			{
 				return getBlockState(pos).getBlock().isAir(getBlockState(pos), this, pos);
 			}
-			
+
 			@Override public int getStrongPower(BlockPos pos, EnumFacing direction)
 			{
 				IBlockState state = getBlockState(pos);
 				return state.getStrongPower(this, pos, direction);
 			}
-			
+
 			@Override public boolean isSideSolid(BlockPos pos, EnumFacing side, boolean _default)
 			{
 				return getBlockState(pos).isSideSolid(this, pos, side);
 			}
-			
+
 			@Override public Biome getBiome(BlockPos pos) { return base.getBiome(pos); }
 
 			@Override public int getCombinedLight(BlockPos pos, int lightValue) { return base.getCombinedLight(pos, lightValue); }
-			
+
 			@Override public WorldType getWorldType() {
 				return base.getWorldType();
 			}
-			
+
 			@Override public String toString() {
 				return base.toString();
 			}
 		};
 	}
-	
+
 	/**
 	 * Creates a fake {@link IBlockAccess} to pretend that there are blocks in the world where they don't exist.
 	 * Useful for when one needs to do some action on a set of block after one is removed.<br>
@@ -395,7 +398,7 @@ public class WorldUtils
 	{
 		return getFakeWorld(base, stateGetter, (p) -> null);
 	}
-	
+
 	/**
 	 * Creates a fake {@link IBlockAccess} to pretend that there are blocks in the world where they don't exist.
 	 * Useful for when one needs to do some action on a set of block after one is removed.<br>
@@ -412,7 +415,7 @@ public class WorldUtils
 				(p) -> p.equals(pos) ? state : null,
 				(p) -> p.equals(pos) ? te : null);
 	}
-	
+
 	/**
 	 * Creates a fake {@link IBlockAccess} to pretend that there are blocks in the world where they don't exist.
 	 * Useful for when one needs to do some action on a set of block after one is removed.<br>
@@ -426,7 +429,7 @@ public class WorldUtils
 	{
 		return getFakeWorld(base, pos, state, null);
 	}
-	
+
 	/**
 	 * Returns whether a soil can sustain a block with multiple {@link EnumPlantType}s.
 	 */
@@ -434,7 +437,7 @@ public class WorldUtils
 	{
 		final BlockPos soilPos = pos.down();
 		final IBlockState soil = world.getBlockState(soilPos);
-		
+
 		for (final EnumPlantType type : types)
 		{
 			IPlantable plantable = new IPlantable()
@@ -444,106 +447,102 @@ public class WorldUtils
 				{
 					return type;
 				}
-				
+
 				@Override
 				public IBlockState getPlant(IBlockAccess world, BlockPos pos)
 				{
 					return world.getBlockState(pos);
 				}
 			};
-			
+
 			if (soil.getBlock().canSustainPlant(soil, world, soilPos, EnumFacing.UP, plantable))
 			{
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	public static boolean isAnyEntityInside(World world, List<AxisAlignedBB> bbs)
 	{
 		for (AxisAlignedBB bb : bbs)
 			if (!world.checkNoEntityCollision(bb))
 				return true;
-		
+
 		return false;
 	}
-	
+
 	public static boolean isAnyEntityInBlock(World world, IBlockState state, BlockPos pos, Entity entity)
 	{
 		List<AxisAlignedBB> bbs = new ArrayList<>();
 		state.addCollisionBoxToList(world, pos,
 				Block.FULL_BLOCK_AABB.offset(pos), bbs, entity);
-		
+
 		return isAnyEntityInside(world, bbs);
 	}
-	
-	public static boolean canBlockBePlaced(World world, IBlockState state, BlockPos pos, EnumFacing side, Entity entity, ItemStack stack)
-	{
-		if (isAnyEntityInBlock(world, state, pos, entity))
-			return false;
-		
-		return state.getBlock().canReplace(world, pos, side, stack);
+
+	public static boolean canBlockBePlaced(World world, IBlockState state, BlockPos pos, EnumFacing side, Entity entity, ItemStack stack) {
+		return !isAnyEntityInBlock(world, state, pos, entity) && state.getBlock().canReplace(world, pos, side, stack);
 	}
-	
+
 	public static boolean isMatchInSphere(World world, BlockPos pos, WorldBlockMatcher matcher, float radius)
 	{
 		Iterable<? extends BlockPos> iter =
 				BlockPos.getAllInBoxMutable(pos.add(-radius, -radius, -radius), pos.add(radius, radius, radius));
 		int radiusSqr = (int) (radius * radius);	// Can cast to int because we're comparing to an int in the loop.
-		
+
 		for (BlockPos checkPos : iter)
 		{
 			if (distSqr(pos, checkPos) <= radiusSqr
 					&& matcher.apply(world, checkPos))
 				return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	public static boolean isMatchInSphere(World world, BlockPos pos, Predicate<IBlockState> matcher, float radius)
 	{
 		return isMatchInSphere(world, pos, WorldBlockMatcher.state(matcher), radius);
 	}
-	
+
 	public static boolean isMatchInSphere(World world, BlockPos pos, IBlockState match, float radius)
 	{
 		return isMatchInSphere(world, pos, WorldBlockMatcher.state(match), radius);
 	}
-	
+
 	public static boolean isMatchInSphere(World world, BlockPos pos, Block match, float radius)
 	{
 		return isMatchInSphere(world, pos, WorldBlockMatcher.block(match), radius);
 	}
-	
+
 	public static boolean isMatchInCylinder(World world, BlockPos pos, WorldBlockMatcher matcher, float radius, int startY, int endY)
 	{
 		Iterable<? extends BlockPos> iter =
 				BlockPos.getAllInBoxMutable(pos.add(-radius, startY, -radius), pos.add(radius, endY, radius));
 		int rSqr = (int) (radius * radius);
-		
+
 		for (BlockPos checkPos : iter)
 		{
 			if (distHorizSqr(pos, checkPos) <= rSqr
 					&& matcher.apply(world, checkPos))
 				return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	public static boolean isMatchInCylinder(World world, BlockPos pos, Predicate<IBlockState> matcher, float radius, int startY, int endY)
 	{
 		return isMatchInCylinder(world, pos, WorldBlockMatcher.state(matcher), radius, startY, endY);
 	}
-	
+
 	public static boolean isMatchInCylinder(World world, BlockPos pos, IBlockState match, float radius, int startY, int endY)
 	{
 		return isMatchInCylinder(world, pos, WorldBlockMatcher.state(match), radius, startY, endY);
 	}
-	
+
 	public static boolean isMatchInCylinder(World world, BlockPos pos, Block match, float radius, int startY, int endY)
 	{
 		return isMatchInCylinder(world, pos, WorldBlockMatcher.block(match), radius, startY, endY);

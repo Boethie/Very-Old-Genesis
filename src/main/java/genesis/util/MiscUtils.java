@@ -1,10 +1,10 @@
 package genesis.util;
 
+import com.google.common.collect.Iterators;
+
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
-
-import com.google.common.collect.*;
 
 public final class MiscUtils
 {
@@ -13,13 +13,12 @@ public final class MiscUtils
 	{
 		return () -> Iterators.forArray(array);
 	}
-	
+
 	@SafeVarargs
 	public static <T extends Enum<T>> Set<T> unmodSet(T... values)
 	{
 		Set<T> out = EnumSet.noneOf(ReflectionUtils.getClass(values));
-		for (T value : values)
-			out.add(value);
+		Collections.addAll(out, values);
 		return Collections.unmodifiableSet(out);
 	}
 }

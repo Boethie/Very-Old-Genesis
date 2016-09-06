@@ -117,17 +117,10 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	protected abstract boolean doGenerate(World world, Random rand, BlockPos pos);
 
 	@Override
-	public final boolean generate(World world, Random rand, BlockPos pos)
-	{
+	public final boolean generate(World world, Random rand, BlockPos pos) {
 		pos = getTreePos(world, pos, -1);
 
-		if (pos == null)
-			return false;
-
-		if (rand.nextInt(rarity) != 0)
-			return false;
-
-		return doGenerate(world, rand, pos);
+		return pos != null && rand.nextInt(rarity) == 0 && doGenerate(world, rand, pos);
 	}
 
 	@Override
@@ -318,7 +311,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 			if (!(currentState.getBlock().isAir(currentState, world, pos)
 							|| currentState.getBlock().isReplaceable(world, pos)
 							|| currentState.getBlock().isLeaves(currentState, world, pos)
-							|| (currentState.getBlock().getMaterial(currentState) == Material.WATER && canGrowInWater))
+							|| (currentState.getMaterial() == Material.WATER && canGrowInWater))
 					&& !force
 					&& !(currentState.getBlock() == GenesisBlocks.ankyropteris))
 			return;
@@ -424,7 +417,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 
 			if (!checkState.getBlock().isReplaceable(world, checkPos)
 					&& !checkState.getBlock().isLeaves(checkState, world, pos)
-					&& (!(checkState.getBlock().getMaterial(checkState) == Material.WATER) && canGrowInWater))
+					&& (!(checkState.getMaterial() == Material.WATER) && canGrowInWater))
 			{
 				return false;
 			}

@@ -27,15 +27,15 @@ public enum EnumOre implements IOreVariant<EnumOre>
 	BLACK_DIAMOND("black_diamond", "blackDiamond", 1, 2, 15, IntRange.create(3, 7), 1),
 	FLINT("flint", 1, 1.5F, 13.05F, IntRange.create(0, 1), 0, Type.ORE),
 	MARCASITE("marcasite", 1, 1.5F, 13.05F, IntRange.create(0, 1), 0.1F, Type.ORE);
-	
+
 	public enum Type
 	{
-		BOTH, ORE, DROP;
+		BOTH, ORE, DROP
 	}
-	
+
 	public static final ImmutableSet<EnumOre> NO_ORES = ImmutableSet.of(AMETHYST);
 	public static final ImmutableSet<EnumOre> NO_DROPS = ImmutableSet.of(FLINT, MARCASITE);
-	
+
 	/**
 	 * Called from the combo that owns these variants, because otherwise the reference loop (Combo -> Enum -> Combo...) will cause a runtime error.
 	 */
@@ -54,21 +54,21 @@ public enum EnumOre implements IOreVariant<EnumOre>
 				)
 			));
 		MARCASITE.setDrops(new BlockDrops(GenesisItems.nodules.getStack(EnumNodule.MARCASITE), 1));
-		
+
 		BlockDrops drops = new BlockDrops(VariantDrop.create(combo, OreBlocks.DROP, 1));
-		
+
 		for (EnumOre ore : values())
 		{
 			if (NO_ORES.contains(ore))
 				continue;
-			
+
 			if (ore.drops == null)
 			{
 				ore.setDrops(drops);
 			}
 		}
 	}
-	
+
 	final String name;
 	final String unlocalizedName;
 	final int harvestLevel;
@@ -77,9 +77,9 @@ public enum EnumOre implements IOreVariant<EnumOre>
 	final IntRange dropExperience;
 	final float smeltExperience;
 	final Type type;
-	
+
 	BlockDrops drops;
-	
+
 	EnumOre(String name, String unlocalizedName,
 			int harvestLevel, float hardness, float resistance,
 			IntRange dropExperience, float smeltExperience,
@@ -94,7 +94,7 @@ public enum EnumOre implements IOreVariant<EnumOre>
 		this.smeltExperience = smeltExperience;
 		this.type = type;
 	}
-	
+
 	EnumOre(String name,
 			int harvestLevel, float hardness, float resistance,
 			IntRange dropExperience, float smeltExperience,
@@ -102,88 +102,88 @@ public enum EnumOre implements IOreVariant<EnumOre>
 	{
 		this(name, name, harvestLevel, hardness, resistance, dropExperience, smeltExperience, type);
 	}
-	
+
 	EnumOre(String name, String unlocalizedName)
 	{
 		this(name, name, 0, 0, 0, IntRange.create(0), 0, Type.DROP);
 	}
-	
+
 	EnumOre(String name)
 	{
 		this(name, name);
 	}
-	
+
 	EnumOre(String name, String unlocalizedName,
 			int harvestLevel, float hardness, float resistance,
 			IntRange dropExperience, float smeltExperience)
 	{
 		this(name, unlocalizedName, harvestLevel, hardness, resistance, dropExperience, smeltExperience, Type.BOTH);
 	}
-	
+
 	EnumOre(String name,
 			int harvestLevel, float hardness, float resistance,
 			IntRange dropExperience, float smeltExperience)
 	{
 		this(name, name, harvestLevel, hardness, resistance, dropExperience, smeltExperience);
 	}
-	
+
 	protected void setDrops(BlockDrops drops)
 	{
 		this.drops = drops;
 	}
-	
+
 	@Override
 	public String getName()
 	{
 		return name;
 	}
-	
+
 	@Override
 	public String getUnlocalizedName()
 	{
 		return unlocalizedName;
 	}
-	
+
 	@Override
 	public int getHarvestLevel()
 	{
 		return harvestLevel;
 	}
-	
+
 	@Override
 	public float getHardness()
 	{
 		return hardness;
 	}
-	
+
 	@Override
 	public float getExplosionResistance()
 	{
 		return resistance;
 	}
-	
+
 	@Override
 	public IntRange getDropExperience()
 	{
 		return dropExperience;
 	}
-	
+
 	@Override
 	public float getSmeltingExperience()
 	{
 		return smeltExperience;
 	}
-	
+
 	public boolean hasOre()
 	{
 		return type != Type.DROP;
 	}
-	
+
 	public boolean hasDrop()
 	{
 		return type != Type.ORE;
 	}
-	
+
 	@Override
 	public List<ItemStack> getDrops(IBlockState state, Random rand)
 	{

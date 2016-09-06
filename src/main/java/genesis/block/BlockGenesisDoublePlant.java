@@ -32,53 +32,46 @@ public class BlockGenesisDoublePlant<V extends IPlantMetadata<V>> extends BlockP
 	{
 		return new IProperty[]{TOP};
 	}
-	
+
 	public static final PropertyBool TOP = PropertyBool.create("top");
-	
+
 	private static final AxisAlignedBB BB_TOP =
 			BB.setMaxY(0.75);
-	
+
 	public BlockGenesisDoublePlant(VariantsOfTypesCombo<V> owner,
 			ObjectType<V, ? extends BlockGenesisDoublePlant<V>, ? extends ItemBlockMulti<V>> type,
 			List<V> variants, Class<V> variantClass,
 			SoundType sound)
 	{
 		super(owner, type, variants, variantClass, null, sound);
-		
+
 		blockState = new BlockStateContainer(this, variantProp, TOP);
 		setDefaultState(getBlockState().getBaseState().withProperty(TOP, false));
 	}
-	
+
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
 		return world.getBlockState(pos).getValue(TOP) ? BB_TOP : BB;
 	}
-	
+
 	@Override
 	public boolean canPlaceBlockAt(World world, BlockPos pos)
 	{
 		return super.canPlaceBlockAt(world, pos) && world.getBlockState(pos.up()).getBlock().isReplaceable(world, pos);
 	}
-	
+
 	@Override
-	public boolean canBlockStay(IBlockAccess world, BlockPos pos, IBlockState state)
-	{
+	public boolean canBlockStay(IBlockAccess world, BlockPos pos, IBlockState state) {
 		boolean top = state.getValue(TOP);
 		IBlockState checkState = top ?
-				world.getBlockState(pos.down())
-				: world.getBlockState(pos.up());
-		
-		if (!owner.isStateOf(checkState, state.getValue(variantProp), type)
-				|| checkState.getValue(TOP) == top)
-			return false;
-		
-		if (!top)
-			return super.canBlockStay(world, pos, state);
-		
-		return true;
+						world.getBlockState(pos.down())
+						: world.getBlockState(pos.up());
+
+		return !(!owner.isStateOf(checkState, state.getValue(variantProp), type)
+						|| checkState.getValue(TOP) == top) && (top || super.canBlockStay(world, pos, state));
 	}
-	
+
 	@Override
 	protected void checkAndDropBlock(World world, BlockPos pos, IBlockState state)
 	{
@@ -89,24 +82,24 @@ public class BlockGenesisDoublePlant<V extends IPlantMetadata<V>> extends BlockP
 			BlockPos bottom = isTop ? pos.down() : pos;
 			Block topBlock = isTop ? this : world.getBlockState(top).getBlock();
 			Block bottomBlock = isTop ? world.getBlockState(bottom).getBlock() : this;
-			
+
 			if (!isTop)
 			{
 				dropBlockAsItem(world, pos, state, 0); //Forge move above the setting to air.
 			}
-			
+
 			if (topBlock == this)
 			{
 				world.setBlockState(top, Blocks.AIR.getDefaultState(), 3);
 			}
-			
+
 			if (bottomBlock == this)
 			{
 				world.setBlockState(bottom, Blocks.AIR.getDefaultState(), 3);
 			}
 		}
 	}
-	
+
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
 	{
@@ -114,34 +107,34 @@ public class BlockGenesisDoublePlant<V extends IPlantMetadata<V>> extends BlockP
 		{
 			return Collections.emptyList();
 		}
-		
+
 		return super.getDrops(world, pos, state, fortune);
 	}
-	
+
 	@Override
 	public boolean placeAt(World world, BlockPos bottom, V variant, int flags)
 	{
 		if (!canReplace(world, bottom, EnumFacing.UP, owner.getStack(type, variant)))
 			return false;
-		
+
 		IBlockState state = owner.getBlockState(type, variant);
-		
+
 		if (world.isAirBlock(bottom) && world.isAirBlock(bottom.up()))
 		{
 			world.setBlockState(bottom, state.withProperty(TOP, false), flags);
 			world.setBlockState(bottom.up(), state.withProperty(TOP, true), flags);
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
 	{
 		world.setBlockState(pos.up(), state.withProperty(TOP, true), 2);
 	}
-	
+
 	@Override
 	public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest)
 	{
@@ -149,34 +142,34 @@ public class BlockGenesisDoublePlant<V extends IPlantMetadata<V>> extends BlockP
 		BlockPos other = top ? pos.down() : pos.up();
 
 		IBlockState otherState = world.getBlockState(other);
-		
+
 		if (otherState.getBlock() == this)
 		{
 			world.playEvent(player, 2001, other, Block.getStateId(otherState));
-			
+
 			if (!player.capabilities.isCreativeMode)	// Drop the bottom of the plant as an item.
 			{
 				dropBlockAsItem(world, other, otherState, 0);
 			}
-			
+
 			world.setBlockToAir(other);
 		}
-		
+
 		return super.removedByPlayer(state, world, pos, player, willHarvest);
 	}
-	
+
 	@Override
 	public IBlockState getStateFromMeta(int meta)
 	{
 		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), meta, TOP, variantProp);
 	}
-	
+
 	@Override
 	public int getMetaFromState(IBlockState state)
 	{
 		return BlockStateToMetadata.getMetaForBlockState(state, TOP, variantProp);
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Block.EnumOffsetType getOffsetType()

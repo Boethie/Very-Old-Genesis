@@ -3,6 +3,7 @@ package genesis.client.gui;
 import java.awt.Color;
 import java.io.IOException;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import net.minecraft.network.play.client.CPacketClientStatus;
 import net.minecraft.stats.StatisticsManager;
@@ -78,14 +79,8 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 		this.achivementOffsetX = (AchievementList.OPEN_INVENTORY.displayColumn * 24 - 141 / 2 - 12);
 		this.achivementOffsetY = (AchievementList.OPEN_INVENTORY.displayRow * 24 - 141 / 2);
 		minecraftAchievements.clear();
-		for (Achievement achievement : AchievementList.ACHIEVEMENTS)
-		{
-			if (!AchievementPage.isAchievementInPages(achievement))
-			{
-				minecraftAchievements.add(achievement);
-			}
-		}
-		
+		minecraftAchievements.addAll(AchievementList.ACHIEVEMENTS.stream().filter(achievement -> !AchievementPage.isAchievementInPages(achievement)).collect(Collectors.toList()));
+
 		if (worldObj.provider.getDimensionType() == GenesisDimensions.GENESIS_DIMENSION)
 		{
 			for (int i = 0; i < AchievementPage.getAchievementPages().size(); i++)
@@ -170,8 +165,8 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 				int minCickAreaX = guiCenterX + 8;
 				int minCickAreaY = guiCenterY + 17;
 
-				if ((this.clicked || !this.clicked) && mouseX >= minCickAreaX && mouseX < minCickAreaX + 224
-						&& mouseY >= minCickAreaY && mouseY < minCickAreaY + 155)
+				if (mouseX >= minCickAreaX && mouseX < minCickAreaX + 224
+								&& mouseY >= minCickAreaY && mouseY < minCickAreaY + 155)
 				{
 					if (!this.clicked)
 					{
@@ -409,38 +404,26 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.enableColorMaterial();
 
-		for (int i6 = 0; i6 < achievementList.size(); ++i6)
-		{
-			Achievement achievement2 = achievementList.get(i6);
+		for (Achievement achievement2 : achievementList) {
 			int l6 = achievement2.displayColumn * 24 - i;
 			int j7 = achievement2.displayRow * 24 - j;
 
-			if (l6 >= -24 && j7 >= -24 && l6 <= 224.0F * this.guiZoom && j7 <= 155.0F * this.guiZoom)
-			{
+			if (l6 >= -24 && j7 >= -24 && l6 <= 224.0F * this.guiZoom && j7 <= 155.0F * this.guiZoom) {
 				int l7 = this.statisticsManager.countRequirementsUntilAvailable(achievement2);
 
-				if (this.statisticsManager.hasAchievementUnlocked(achievement2))
-				{
+				if (this.statisticsManager.hasAchievementUnlocked(achievement2)) {
 					float f5 = 0.75F;
 					GlStateManager.color(f5, f5, f5, 1.0F);
-				}
-				else if (this.statisticsManager.canUnlockAchievement(achievement2))
-				{
+				} else if (this.statisticsManager.canUnlockAchievement(achievement2)) {
 					float f6 = 1.0F;
 					GlStateManager.color(f6, f6, f6, 1.0F);
-				}
-				else if (l7 < 3)
-				{
+				} else if (l7 < 3) {
 					float f7 = 0.3F;
 					GlStateManager.color(f7, f7, f7, 1.0F);
-				}
-				else if (l7 == 3)
-				{
+				} else if (l7 == 3) {
 					float f8 = 0.2F;
 					GlStateManager.color(f8, f8, f8, 1.0F);
-				}
-				else
-				{
+				} else {
 					if (l7 != showMaxSubAchievements && !AchievementPage.getTitle(currentPage).equals("Genesis"))
 						continue;
 
@@ -448,29 +431,22 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 					GlStateManager.color(f9, f9, f9, 1.0F);
 				}
 
-				if (AchievementPage.getTitle(currentPage).equals("Genesis"))
-				{
+				if (AchievementPage.getTitle(currentPage).equals("Genesis")) {
 					this.mc.getTextureManager().bindTexture(GENESIS_ACHIEVEMENT_BACKGROUND);
-				}
-				else
-				{
+				} else {
 					this.mc.getTextureManager().bindTexture(DEFAULT_ACHIEVEMENT_BACKGROUND);
 				}
 
 				GlStateManager.enableBlend();
 
-				if (achievement2.getSpecial())
-				{
+				if (achievement2.getSpecial()) {
 					this.drawTexturedModalRect(l6 - 2, j7 - 2, 26, 202, 26, 26);
-				}
-				else
-				{
+				} else {
 					this.drawTexturedModalRect(l6 - 2, j7 - 2, 0, 202, 26, 26);
 				}
 				GlStateManager.disableBlend();
 
-				if (!this.statisticsManager.canUnlockAchievement(achievement2))
-				{
+				if (!this.statisticsManager.canUnlockAchievement(achievement2)) {
 					float f10 = 0.1F;
 					GlStateManager.color(f10, f10, f10, 1.0F);
 					this.itemRender.isNotRenderingEffectsInGUI(false);
@@ -482,15 +458,13 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 				GlStateManager.blendFunc(770, 771);
 				GlStateManager.disableLighting();
 
-				if (!this.statisticsManager.canUnlockAchievement(achievement2))
-				{
+				if (!this.statisticsManager.canUnlockAchievement(achievement2)) {
 					this.itemRender.isNotRenderingEffectsInGUI(true);
 				}
 
 				GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
-				if (f3 >= l6 && f3 <= (l6 + 22) && f4 >= j7 && f4 <= (j7 + 22))
-				{
+				if (f3 >= l6 && f3 <= (l6 + 22) && f4 >= j7 && f4 <= (j7 + 22)) {
 					achievement = achievement2;
 				}
 			}

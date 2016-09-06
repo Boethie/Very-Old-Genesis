@@ -10,6 +10,7 @@ import genesis.util.functional.ClientFunction;
 import java.lang.annotation.*;
 import java.lang.reflect.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -26,7 +27,7 @@ import net.minecraftforge.fml.relauncher.*;
 /**
  * Used to create Blocks/Items with variants of ObjectTypes.
  * I.E. tree blocks have Blocks/Items {LOG, LEAVES, BILLET, FENCE} and variants {ARCHAEOPTERIS, SIGILLARIA, LEPIDODENDRON, etc.}.
- * 
+ *
  * @author Zaggy1024
  */
 public class VariantsOfTypesCombo<V extends IMetadata<V>>
@@ -35,19 +36,19 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	@Target({ElementType.METHOD, ElementType.FIELD})
 	public @interface BlockProperties {
 	}
-	
+
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.TYPE)
 	public @interface ItemVariantCount
 	{
 		int value();
 	}
-	
+
 	public enum TypeNamePosition
 	{
-		PREFIX, POSTFIX, NONE;
+		PREFIX, POSTFIX, NONE
 	}
-	
+
 	/**
 	 * Data about a variant of a {@link ObjectType}.
 	 */
@@ -59,7 +60,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 		public final int itemMetadata;
 		public final Block block;
 		public final V variant;
-		
+
 		private VariantData(ObjectType<V, ?, ?> type, int subsetID, Block block, Item item, V variant, int metadata)
 		{
 			this.type = type;
@@ -69,23 +70,23 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 			this.block = block;
 			this.variant = variant;
 		}
-		
+
 		public ItemStack getStack(int size)
 		{
 			if (item == null)
 			{
 				throw new IllegalArgumentException("Variant " + variant.getName() + " of ObjectType " + type.getName() + " does not include an Item instance.");
 			}
-			
+
 			return new ItemStack(item, size, itemMetadata);
 		}
-		
+
 		public ItemStack getStack()
 		{
 			return getStack(1);
 		}
 	}
-	
+
 	/**
 	 * Data about a subset of an {@link ObjectType}.
 	 */
@@ -100,7 +101,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 		public final BitMask itemVariantMask;
 		public final ImmutableMap<Integer, V> variants;
 		public final IProperty<V> variantProperty;
-		
+
 		public SubsetData(ObjectType<V, ?, ?> type, int id, Block block, Item item,
 				int maxSize, int size,
 				BitMask itemVariantMask, ImmutableMap<Integer, V> variants,
@@ -117,7 +118,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 			this.variantProperty = variantProperty;
 		}
 	}
-	
+
 	/**
 	 * Map of Block/Item types to a map of variants to the block/item itself.
 	 */
@@ -125,31 +126,31 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	private final ImmutableList<ObjectType<V, ?, ?>> types;
 	private final ImmutableList<V> variants;
 	private final Class<V> variantClass;
-	
+
 	private final ImmutableTable<ObjectType<V, ?, ?>, V, VariantData> variantDataTable;	// TODO: Revisit access modifiers.
 	private final ImmutableTable<ObjectType<V, ?, ?>, Integer, SubsetData> subsetDataTable;
 	private final ImmutableMap<Block, SubsetData> blockMap;
 	private final ImmutableMap<Item, SubsetData> itemMap;
-	
+
 	private final HashSet<ObjectType<V, ?, ?>> registeredTypes = new HashSet<>();
-	
+
 	private String resourceDomain = "";
 	private String unlocalizedPrefix = "";
-	
+
 	/**
 	 * Creates a {@link #VariantsOfTypesCombo} with each {@link Block}/{@link Item} represented by the list of {@link ObjectType},
 	 * with each {@code ObjectType} having the provided variants.<br><br>
-	 * 
+	 *
 	 * All {@code Block} classes that are constructed in this method MUST have a "public static IProperty<?>[] getProperties()" to allow us
 	 * to determine how many variants can be stored in the block.<br><br>
-	 * 
+	 *
 	 * The {@code Block}'s variant property must contain all the variants from the list provided to it by the combo.<br><br>
-	 * 
+	 *
 	 * The {@code Block} and {@code Item} classes must also have a constructor with arguments
 	 * {@code (List<IMetadata>, VariantsOfTypesCombo, ObjectType)}, as well as the arguments provided by the {@code ObjectType}.
 	 * The {@code List} tells the object what variants it stores, the {@code VariantsOfTypesCombo}
 	 * is the owner group of objects, and the {@code ObjectType} is the {@code ObjectType} the object stores.
-	 * 
+	 *
 	 * @param types The list of {@link ObjectType} definitions of the {@code Block} and {@code Item} classes to store.
 	 * @param variants The {@link IMetadata} representations of the variants to store for each Block/Item.
 	 */
@@ -162,34 +163,34 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 		this.types = ImmutableList.copyOf(types);
 		this.variants = ImmutableList.copyOf(variants);
 		this.variantClass = variantClass;
-		
+
 		try
 		{
 			ImmutableTable.Builder<ObjectType<V, ?, ?>, V, VariantData> variantTable = ImmutableTable.builder();
 			ImmutableTable.Builder<ObjectType<V, ?, ?>, Integer, SubsetData> subsetTable = ImmutableTable.builder();
 			ImmutableMap.Builder<Block, SubsetData> blockMap = ImmutableMap.builder();
 			ImmutableMap.Builder<Item, SubsetData> itemMap = ImmutableMap.builder();
-			
+
 			for (final ObjectType<V, ?, ?> type : this.types)
 			{
 				Class<? extends Block> blockClass = type.getBlockClass();
 				Class<? extends Item> itemClass = type.getItemClass();
-				
+
 				List<V> typeVariants = type.getValidVariants(this.variants);
-				
+
 				int maxSubsetSize = Short.MAX_VALUE - 1;	// ItemStack max damage value.
-				
+
 				if (itemClass.isAnnotationPresent(ItemVariantCount.class))
 				{
 					ItemVariantCount annot = itemClass.getAnnotation(ItemVariantCount.class);
 					maxSubsetSize = Math.min(annot.value(), maxSubsetSize);
 				}
-				
+
 				// If the block class isn't null, we must get the maximum number of variants it can store in its metadata.
 				if (blockClass != null)
 				{
 					Object propsListObj = null;
-					
+
 					for (Field field : blockClass.getDeclaredFields())
 					{
 						if (field.isAnnotationPresent(BlockProperties.class) && (field.getModifiers() & Modifier.STATIC) == Modifier.STATIC && field.getType().isArray())
@@ -198,7 +199,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 							propsListObj = field.get(null);
 						}
 					}
-					
+
 					if (propsListObj == null)
 					{
 						for (Method method : blockClass.getDeclaredMethods())
@@ -210,18 +211,18 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 							}
 						}
 					}
-					
+
 					if (!(propsListObj instanceof IProperty[]))
 					{
 						throw new IllegalArgumentException("Failed to find properties necessary to store in metadata for block class " + blockClass.getSimpleName());
 					}
-					
+
 					maxSubsetSize = Math.min(BlockStateToMetadata.getMetadataLeftAfter((IProperty[]) propsListObj), maxSubsetSize);
 				}
-				
+
 				int typeVariantsCount = typeVariants.size();
 				int subsets = GenesisMath.ceilDiv(typeVariantsCount, maxSubsetSize);
-				
+
 				for (int subset = 0; subset < subsets; subset++)
 				{
 					int from = subset * maxSubsetSize;
@@ -229,7 +230,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 					int subsetSize = to - from;
 					ImmutableList<V> subVariants = ImmutableList.copyOf(typeVariants.subList(from, to));
 					Object variantsArg;
-					
+
 					if (maxSubsetSize == 1)
 					{
 						variantsArg = subVariants.get(0);
@@ -238,34 +239,34 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 					{
 						variantsArg = subVariants;
 					}
-					
+
 					Block block = null;
 					Item item;
 					Object[] itemArgs;
-					
+
 					if (blockClass != null)
 					{
 						// Get Block constructor and call it.
 						final Object[] blockArgs = {this, type, variantsArg, variantClass};
 						final Object[] args = ArrayUtils.addAll(blockArgs, type.getBlockArguments());
-						
+
 						block = ReflectionUtils.construct(blockClass, args);
-						
+
 						itemArgs = new Object[]{block, this, type, variantsArg, variantClass};
 					}
 					else
 					{
 						itemArgs = new Object[]{this, type, variantsArg, variantClass};
 					}
-					
+
 					// Get Item constructor and call it.
 					final Object[] args = ArrayUtils.addAll(itemArgs, type.getItemArguments());
 					item = ReflectionUtils.construct(itemClass, args);
-					
+
 					type.afterConstructed(block, item, subVariants);
-					
+
 					BitMask mask;
-					
+
 					if (item instanceof IItemMetadataBitMask)
 					{
 						mask = ((IItemMetadataBitMask) item).getMetadataBitMask();
@@ -274,26 +275,26 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 					{
 						mask = BitMask.forValueCount(maxSubsetSize);
 					}
-					
+
 					// Add the Block or Item to our object map with its metadata ID.
 					int variantMetadata = 0;
 					ImmutableMap.Builder<Integer, V> variantMap = ImmutableMap.builder();
-					
+
 					for (V variant : subVariants)
 					{
 						if (mask.decode(mask.encode(0, variantMetadata)) != variantMetadata)
 						{
 							throw new RuntimeException("Item metadata bitwise mask did not encode and decode metadata " + variantMetadata + " properly for type " + type + " subset number " + subset + ".");
 						}
-						
+
 						variantTable.put(type, variant, new VariantData(type, subset, block, item, variant, mask.encode(0, variantMetadata)));
 						variantMap.put(variantMetadata, variant);
-						
+
 						variantMetadata++;
 					}
-					
+
 					IProperty<V> variantProperty = null;
-					
+
 					if (block != null)
 					{
 						for (IProperty<?> property : block.getBlockState().getProperties())
@@ -302,10 +303,10 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 							{
 								continue;
 							}
-							
+
 							Collection<?> values = property.getAllowedValues();
 							boolean equal = subVariants.size() == values.size();
-							
+
 							if (equal)
 							{
 								for (Object value : values)
@@ -317,42 +318,42 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 									}
 								}
 							}
-							
+
 							if (equal)
 							{
 								if (variantProperty != null)
 								{
 									throw new RuntimeException("Multiple properties have subvariants for type " + type + " subset number " + subset + ".");
 								}
-								
+
 								variantProperty = (IProperty<V>) property;
 							}
 						}
-						
+
 						if (variantProperty == null)
 						{
 							throw new RuntimeException("No variant property found for type " + type + " subset number " + subset + ".");
 						}
 					}
-					
+
 					SubsetData subsetData = new SubsetData(type, subset, block, item,
 							maxSubsetSize, subsetSize,
 							mask, variantMap.build(),
 							variantProperty);
 					subsetTable.put(type, subset, subsetData);
-					
+
 					if (block != null)
 					{
 						blockMap.put(block, subsetData);
 					}
-					
+
 					if (item != null)
 					{
 						itemMap.put(item, subsetData);
 					}
 				}
 			}
-			
+
 			this.variantDataTable = variantTable.build();
 			this.subsetDataTable = subsetTable.build();
 			this.blockMap = blockMap.build();
@@ -365,50 +366,50 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 					e);
 		}
 	}
-	
+
 	public String getName()
 	{
 		return name;
 	}
-	
+
 	public List<ObjectType<V, ?, ?>> getTypes()
 	{
 		return types;
 	}
-	
+
 	public List<V> getVariants()
 	{
 		return variants;
 	}
-	
+
 	public Class<V> getVariantClass()
 	{
 		return variantClass;
 	}
-	
+
 	public VariantsOfTypesCombo<V> setNames(String domain, String unloc)
 	{
 		resourceDomain = domain;
 		unlocalizedPrefix = unloc;
 		return this;
 	}
-	
+
 	public String getUnlocalizedPrefix()
 	{
 		return unlocalizedPrefix;
 	}
-	
+
 	public VariantsOfTypesCombo<V> setResourceDomain(String domain)
 	{
 		resourceDomain = domain;
 		return this;
 	}
-	
+
 	public String getResourceDomain()
 	{
 		return resourceDomain;
 	}
-	
+
 	/**
 	 * Registers all the variants of this {@link ObjectType}.
 	 */
@@ -418,18 +419,18 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 		{
 			return;
 		}
-		
+
 		List<Integer> subsets = new ArrayList<>(subsetDataTable.row(type).keySet());
 		Collections.sort(subsets);
-		
+
 		for (int subsetID : subsets)
 		{
 			SubsetData subset = subsetDataTable.get(type, subsetID);
 			final Block block = subset.block;
 			final Item item = subset.item;
-			
+
 			String registryPath;
-			
+
 			if (subset.maxSize == 1 && type.usesVariantAsRegistryName())
 			{
 				registryPath = type.getVariantName(getVariant(item, 0));
@@ -439,15 +440,15 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 				String name = type.getName();
 				registryPath = name + (name.equals("") ? "" : "_") + subsetID;
 			}
-			
+
 			ResourceLocation registryName = new ResourceLocation(getResourceDomain(), registryPath);
 			String unlocName = getUnlocalizedPrefix() + type.getUnlocalizedName();
-			
+
 			if (block != null)
 			{
 				Genesis.proxy.registerBlock(block, item, registryName, false);
 				block.setUnlocalizedName(unlocName);
-				
+
 				// Register resource locations for the block.
 				Genesis.proxy.callClient(new ClientFunction()
 				{
@@ -456,7 +457,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 					public void apply(GenesisClient client)
 					{
 						FlexibleStateMap mapper = new FlexibleStateMap();
-						
+
 						if (type.getUseSeparateVariantJsons())
 						{
 							switch (type.getTypeNamePosition())
@@ -470,9 +471,9 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 							default:
 								break;
 							}
-							
+
 							IProperty<V> variantProp = getVariantProperty(block);
-							
+
 							if (variantProp != null)
 							{
 								mapper.setNameProperty(variantProp);
@@ -482,14 +483,14 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 						{
 							mapper.setPrefix(type.getResourceName(), "_");
 						}
-						
+
 						type.customizeStateMap(mapper);
-						
+
 						if (block instanceof IModifyStateMap)
 						{
 							((IModifyStateMap) block).customizeStateMap(mapper);
 						}
-						
+
 						ModelLoader.setCustomStateMapper(block, mapper);
 					}
 				});
@@ -499,7 +500,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 			{
 				Genesis.proxy.registerItem(item, registryName, false);
 			}
-			
+
 			// Set item model locations.
 			if (type.shouldRegisterVariantModels())
 			{
@@ -512,25 +513,22 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 							new ResourceLocation(getResourceDomain(), type.getVariantName(variant)));
 				}
 			}
-			
+
 			// Set unlocalized name.
 			item.setUnlocalizedName(unlocName);
-			
+
 			type.afterRegistered(block, item);
 		}
 	}
-	
+
 	/**
 	 * Registers all variants of all {@link ObjectType}s associated with this combo.
 	 */
 	public void registerAll()
 	{
-		for (ObjectType<V, ?, ?> type : types)
-		{
-			registerVariants(type);
-		}
+		types.forEach(this::registerVariants);
 	}
-	
+
 	/**
 	 * Gets the property named "variant" from a Block for use in registering a StateMap for the Block.
 	 */
@@ -539,7 +537,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 		SubsetData subset = getSubsetData(block);
 		return subset != null ? subset.variantProperty : null;
 	}
-	
+
 	/**
 	 * Gets the VariantEntry.Value containing the all the information about this variant and its Block and Item.
 	 */
@@ -550,10 +548,10 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 			throw new RuntimeException("Attempted to get a variant entry for type " + type + " and variant " + variant + " from a " + VariantsOfTypesCombo.class.getSimpleName() + " that does not contain that cell.\n" +
 					getIdentification());
 		}
-		
+
 		return variantDataTable.get(type, variant);
 	}
-	
+
 	/**
 	 * Returns the Block for this {@link ObjectType} and variant, casted to the ObjectType's block's generic type.
 	 */
@@ -561,20 +559,20 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		return ReflectionUtils.nullSafeCast(type.getBlockClass(), getVariantData(type, variant).block);
 	}
-	
+
 	/**
 	 * Returns a list of all the constructed Blocks for the specified {@link ObjectType}.
 	 */
 	public <B extends Block> Collection<B> getBlocks(ObjectType<V, B, ?> type)
 	{
 		HashSet<B> out = new HashSet<>();
-		
+
 		for (V variant : getValidVariants(type))
 			out.add(getBlock(type, variant));
-		
+
 		return out;
 	}
-	
+
 	/**
 	 * Returns a list of all the constructed Blocks for the listed {@link ObjectType}s.
 	 */
@@ -582,13 +580,13 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	public final <B extends Block> Collection<B> getBlocks(ObjectType<V, ? extends B, ?>... types)
 	{
 		HashSet<B> out = new HashSet<>();
-		
+
 		for (ObjectType<V, ? extends B, ?> type : types)
 			out.addAll(getBlocks(type));
-		
+
 		return out;
 	}
-	
+
 	/**
 	 * Returns the Item for this {@link ObjectType} and variant, casted to the ObjectType's item generic type.
 	 */
@@ -596,17 +594,17 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		return ReflectionUtils.nullSafeCast(type.getItemClass(), getVariantData(type, variant).item);
 	}
-	
+
 	/**
 	 * Returns a list of all the constructed Items for the specified {@link ObjectType}.
 	 */
 	public <I extends Item> Collection<I> getItems(ObjectType<V, ?, ? extends I> type)
 	{
 		HashSet<I> out = new HashSet<>();
-		
+
 		for (V variant : getValidVariants(type))
 			out.add(getItem(type, variant));
-		
+
 		return out;
 	}
 
@@ -617,13 +615,13 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	public final <I extends Item> Collection<I> getItems(ObjectType<V, ?, ? extends I>... types)
 	{
 		HashSet<I> out = new HashSet<>();
-		
+
 		for (ObjectType<V, ?, ? extends I> type : types)
 			out.addAll(getItems(type));
-		
+
 		return out;
 	}
-	
+
 	/**
 	 * Gets the subset key for this item, containing its ObjectType and ID.
 	 */
@@ -631,7 +629,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		return itemMap.get(item);
 	}
-	
+
 	/**
 	 * Gets the subset key for this block, containing its ObjectType and ID.
 	 */
@@ -639,24 +637,24 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		return blockMap.get(block);
 	}
-	
+
 	/**
 	 * Gets the {@link VariantData} for this item and metadata.
 	 */
 	public VariantData getVariantData(Item item, int meta)
 	{
 		SubsetData data = getSubsetData(item);
-		
+
 		if (data != null)
 		{
 			int index = data.itemVariantMask.decode(meta);
-			
+
 			if (data.variants.containsKey(index))
 			{
 				return getVariantData(data.type, data.variants.get(index));
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -669,25 +667,25 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 		{
 			return getVariantData(stack.getItem(), stack.getMetadata());
 		}
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * Gets the variant for the specified Item and item metadata, in the specified {@link ObjectType}.
 	 */
 	public V getVariant(Item item, int meta)
 	{
 		VariantData tableKey = getVariantData(item, meta);
-		
+
 		if (tableKey != null)
 		{
 			return tableKey.variant;
 		}
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * Gets the variant for the specified Item and item metadata, in the specified {@link ObjectType}.
 	 */
@@ -695,7 +693,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		return stack != null ? getVariant(stack.getItem(), stack.getMetadata()) : null;
 	}
-	
+
 	/**
 	 * Gets the variant for the specified Block and item metadata, in the specified {@link ObjectType}.
 	 * This method assumes that this Block has a corresponding Item.
@@ -704,7 +702,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		return getVariant(Item.getItemFromBlock(block), meta);
 	}
-	
+
 	/**
 	 * @return The variant contained in this block state. Returns null if the block is not owned by this combo.
 	 */
@@ -713,22 +711,22 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 		IProperty<V> prop = getVariantProperty(state.getBlock());
 		return prop != null ? state.getValue(prop) : null;
 	}
-	
+
 	/**
 	 * Gets the variant data for the provided block state.
 	 */
 	public VariantData getVariantData(IBlockState state)
 	{
 		SubsetData subsetData = getSubsetData(state.getBlock());
-		
+
 		if (subsetData != null)
 		{
 			return getVariantData(subsetData.type, getVariant(state));
 		}
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * @return Whether the provided {@link ObjectType} contains the provided variant.
 	 */
@@ -736,7 +734,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		return variantDataTable.contains(type, variant);
 	}
-	
+
 	/**
 	 * @return Whether the provided {@link ObjectType} contains the block state.
 	 */
@@ -745,7 +743,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 		SubsetData subset = getSubsetData(state.getBlock());
 		return subset != null && subset.type == type;
 	}
-	
+
 	/**
 	 * @return Whether the states have the same variant.
 	 */
@@ -755,7 +753,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 		V variant2 = getVariant(state2);
 		return variant1 != null && variant1 == variant2;
 	}
-	
+
 	/**
 	 * @return Whether the stack is of the specified {@link ObjectType}.
 	 */
@@ -763,12 +761,12 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		if (stack == null)
 			return false;
-		
+
 		SubsetData data = getSubsetData(stack.getItem());
-		
+
 		return data != null && data.type == type;
 	}
-	
+
 	/**
 	 * @return Whether the stack is of the specified {@link ObjectType} and variant.
 	 */
@@ -776,7 +774,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		return isStackOf(stack, type) && getVariant(stack) == variant;
 	}
-	
+
 	/**
 	 * @return Whether the stack is of one of the specified {@link ObjectType}s.
 	 */
@@ -785,17 +783,17 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		if (stack == null)
 			return false;
-		
+
 		SubsetData data = getSubsetData(stack.getItem());
-		
+
 		if (data != null)
 			for (ObjectType<V, ?, ?> type : types)
 				if (type == data.type)
 					return true;
-		
+
 		return false;
 	}
-	
+
 	/**
 	 * @return Whether the stack is of one of the specified {@link ObjectType}s and variant.
 	 */
@@ -804,7 +802,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		return isStackOf(stack, types) && getVariant(stack) == variant;
 	}
-	
+
 	/**
 	 * @return Whether the state is of the specified {@link ObjectType}.
 	 */
@@ -813,7 +811,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 		SubsetData data = getSubsetData(state.getBlock());
 		return data != null && data.type == type;
 	}
-	
+
 	/**
 	 * @return Whether the state is of  the specified {@link ObjectType} and variant.
 	 */
@@ -821,10 +819,10 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		if (variant == null)
 			throw new NullPointerException("Parameter 'variant' was null.");
-		
+
 		return isStateOf(state, type) && getVariant(state) == variant;
 	}
-	
+
 	/**
 	 * @return Whether the state is of one of the specified {@link ObjectType}s.
 	 */
@@ -832,15 +830,15 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	public final boolean isStateOf(IBlockState state, ObjectType<V, ?, ?>... types)
 	{
 		SubsetData data = getSubsetData(state.getBlock());
-		
+
 		if (data != null)
 			for (ObjectType<V, ?, ?> type : types)
 				if (type == data.type)
 					return true;
-		
+
 		return false;
 	}
-	
+
 	/**
 	 * @return Whether the state is of one of the specified {@link ObjectType}s and variant.
 	 */
@@ -849,7 +847,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		return isStateOf(state, types) && getVariant(state) == variant;
 	}
-	
+
 	/**
 	 * Gets a stack of the specified Item in this combo with the specified stack size.
 	 */
@@ -857,7 +855,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		return getVariantData(type, variant).getStack(stackSize);
 	}
-	
+
 	/**
 	 * Gets a stack of the specified ObjectType and variant in this combo.
 	 */
@@ -865,7 +863,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		return getStack(type, variant, 1);
 	}
-	
+
 	/**
 	 * Gets a stack of the specified ObjectType and variant from a block state in this combo.
 	 */
@@ -873,7 +871,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		return getStack(type, getVariant(state), 1);
 	}
-	
+
 	/**
 	 * Gets a stack of the specified Item in this combo.
 	 */
@@ -881,7 +879,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		return getStack(type, getValidVariants(type).get(0), 1);
 	}
-	
+
 	/**
 	 * Gets the metadata used to get the Item of this {@link ObjectType} and variant.
 	 */
@@ -890,7 +888,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 		VariantData entry = getVariantData(type, variant);
 		return entry.itemMetadata;
 	}
-	
+
 	/**
 	 * Gets an IBlockState for the specified Block variant in this combo.
 	 */
@@ -898,36 +896,36 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		VariantData entry = getVariantData(type, variant);
 		Block block = entry.block;
-		
+
 		if (block != null)
 		{
 			return block.getDefaultState().withProperty(getVariantProperty(block), variant);
 		}
-		
+
 		throw new IllegalArgumentException("Variant " + variant.getName() + " of " + ObjectType.class.getSimpleName() + " " + type.getName() + " does not include a Block instance." +
 				getIdentification());
 	}
-	
+
 	/**
 	 * Gets a random IBlockState for the specified {@link ObjectType}.
 	 */
 	public IBlockState getRandomBlockState(ObjectType<V, ?, ?> type, Random rand)
 	{
 		List<V> variants = getValidVariants(type);
-		
+
 		return getBlockState(type, variants.get(rand.nextInt(variants.size())));
 	}
-	
+
 	/**
 	 * Returns a new List containing the valid variants for this type of object.
-	 * 
+	 *
 	 * @return {@literal List<IMetadata>} containing all the variants this object can be.
 	 */
 	public List<V> getValidVariants(ObjectType<V, ?, ?> type)
 	{
 		return type.getValidVariants(variants);
 	}
-	
+
 	/**
 	 * Returns a new list containing the valid variants shared between <code>type</code> and <code>otherTypes</code>.
 	 */
@@ -935,31 +933,24 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	public final List<V> getSharedValidVariants(ObjectType<V, ?, ?> type, ObjectType<V, ?, ?>... otherTypes)
 	{
 		List<V> output = new ArrayList<>(getValidVariants(type));
-		
+
 		for (ObjectType<V, ?, ?> otherType : otherTypes)
 		{
 			output.retainAll(getValidVariants(otherType));
 		}
-		
+
 		return output;
 	}
-	
+
 	/**
 	 * @return listToFill, after having added all sub-items for this {@link ObjectType} and list of variants.
 	 */
 	public List<ItemStack> fillSubItems(ObjectType<V, ?, ?> objectType, List<V> variants, List<ItemStack> listToFill, Collection<V> exclude)
 	{
-		for (V variant : variants)
-		{
-			if (!exclude.contains(variant))
-			{
-				listToFill.add(getStack(objectType, variant));
-			}
-		}
-		
+		listToFill.addAll(variants.stream().filter(variant -> !exclude.contains(variant)).map(variant -> getStack(objectType, variant)).collect(Collectors.toList()));
 		return listToFill;
 	}
-	
+
 	/**
 	 * @return listToFill, after having added all sub-items for this {@link ObjectType} and list of variants.
 	 */
@@ -968,7 +959,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		return fillSubItems(objectType, variants, listToFill, ImmutableSet.copyOf(exclude));
 	}
-	
+
 	/**
 	 * @return listToFill, after having added all sub-items for this {@link ObjectType} and list of variants.
 	 */
@@ -976,7 +967,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		return fillSubItems(objectType, variants, listToFill, Collections.emptySet());
 	}
-	
+
 	/**
 	 * @return All sub-items for the {@link ObjectType} with the variants contained in the list.
 	 */
@@ -984,7 +975,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		return fillSubItems(objectType, variants, new ArrayList<>(), exclude);
 	}
-	
+
 	/**
 	 * @return All sub-items for the {@link ObjectType} with the variants contained in the list.
 	 */
@@ -993,7 +984,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		return getSubItems(objectType, variants, ImmutableSet.copyOf(exclude));
 	}
-	
+
 	/**
 	 * @return All sub-items for the {@link ObjectType} with the variants contained in the list.
 	 */
@@ -1001,7 +992,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		return getSubItems(objectType, variants, Collections.emptySet());
 	}
-	
+
 	/**
 	 * Gets all sub-items for the {@link ObjectType}.
 	 */
@@ -1009,7 +1000,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		return getSubItems(objectType, getValidVariants(objectType), exclude);
 	}
-	
+
 	/**
 	 * Gets all sub-items for the {@link ObjectType}.
 	 */
@@ -1018,7 +1009,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		return getSubItems(objectType, ImmutableSet.copyOf(exclude));
 	}
-	
+
 	/**
 	 * Gets all sub-items for the {@link ObjectType}.
 	 */
@@ -1026,7 +1017,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		return getSubItems(objectType, Collections.emptySet());
 	}
-	
+
 	/**
 	 * @param variant The variant to get the name for.
 	 * @param base The base string to add the variant's unlocalized name onto (i.e. "tile.genesis.material.pebble").
@@ -1036,13 +1027,13 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	public String getUnlocalizedName(V variant, String base)
 	{
 		String variantName = variant.getUnlocalizedName();
-		
+
 		if (!variantName.isEmpty() && base.charAt(base.length() - 1) != '.')
 			return base + "." + variantName;
-		
+
 		return base + variantName;
 	}
-	
+
 	/**
 	 * @param stack The stack to get the name for.
 	 * @param base The base string to add the variant's unlocalized name onto (i.e. "tile.genesis.material.pebble").
@@ -1053,13 +1044,13 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	public String getUnlocalizedName(ItemStack stack, String base)
 	{
 		V variant = getVariant(stack);
-		
+
 		if (variant == null)
 			return Unlocalized.INVALID_METADATA;
-		
+
 		return getUnlocalizedName(variant, base);
 	}
-	
+
 	/**
 	 * @return The internal Table containing the mappings of {@link ObjectType} and variant to {@link VariantData}
 	 */
@@ -1067,7 +1058,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		return variantDataTable;
 	}
-	
+
 	/**
 	 * @return The internal Table containing the mappings of {@link ObjectType} and subset ID to {@link SubsetData}
 	 */
@@ -1075,7 +1066,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		return subsetDataTable;
 	}
-	
+
 	/**
 	 * @return A String to help identifying which combo is causing an error.
 	 */
@@ -1083,7 +1074,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 	{
 		return "This " + getClass().getSimpleName() + " named " + getName() + " contains " + ObjectType.class.getSimpleName() + "s " + Stringify.stringifyIterable(types) + " and variants " + Stringify.stringifyIterable(variants) + ".";
 	}
-	
+
 	@Override
 	public String toString()
 	{

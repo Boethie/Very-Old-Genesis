@@ -1,11 +1,12 @@
 package genesis.common.sounds;
 
 import genesis.util.Constants;
-import java.util.HashMap;
-import java.util.Map;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class GenesisSoundEvents
 {
@@ -18,7 +19,7 @@ public class GenesisSoundEvents
 		SOUND_EVENTS.put(soundEvent, name);
 		return soundEvent;
 	}
-	
+
 	/* Blocks */
 	public static final SoundEvent block_moss_break = createSoundEvent("block.moss.break");
 	public static final SoundEvent block_moss_step = createSoundEvent("block.moss.step");
@@ -37,7 +38,7 @@ public class GenesisSoundEvents
 	public static final SoundEvent block_dung_place = createSoundEvent("block.dung.place");
 	public static final SoundEvent block_dung_hit = createSoundEvent("block.dung.hit");
 	public static final SoundEvent block_dung_fall = createSoundEvent("block.dung.fall");
-	
+
 	public static final SoundEvent block_plant_break = createSoundEvent("block.plant.break");
 	public static final SoundEvent block_plant_step = createSoundEvent("block.plant.step");
 	public static final SoundEvent block_plant_place = createSoundEvent("block.plant.place");
@@ -130,9 +131,9 @@ public class GenesisSoundEvents
 
 	/* Music */
 	public static final SoundEvent music_genesis = createSoundEvent("music.genesis");
-	
+
 	public static void registerAll()
 	{
-		SOUND_EVENTS.forEach((s, n) -> GameRegistry.register(s, n));
+		SOUND_EVENTS.forEach(GameRegistry::register);
 	}
 }

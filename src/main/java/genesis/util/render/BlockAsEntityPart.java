@@ -22,31 +22,31 @@ public class BlockAsEntityPart extends CustomEntityPart
 	private IBlockState state;
 	private IBlockAccess world;
 	private BlockPos pos;
-	
+
 	private boolean ambientOcclusion = true;
 	private boolean noColor;
-	
+
 	private TextureAtlasSprite texture = null;
-	
+
 	// Defaults
 	private IBlockState stateDef;
 	private IBlockAccess worldDef;
 	private BlockPos posDef;
-	
+
 	private boolean ambientOcclusionDef = true;
 	private boolean noColorDef;
-	
+
 	private TextureAtlasSprite textureDef = null;
-	
+
 	public BlockAsEntityPart(ModelBase model)
 	{
 		super(model);
-		
+
 		rotationPointX += 0.5F;
 		rotationPointZ += 0.5F;
 		setDefaultState();
 	}
-	
+
 	@Override
 	public BlockAsEntityPart setDefaultState()
 	{
@@ -55,37 +55,37 @@ public class BlockAsEntityPart extends CustomEntityPart
 		stateDef = state;
 		worldDef = world;
 		posDef = pos;
-		
+
 		ambientOcclusionDef = ambientOcclusion;
 		noColorDef = noColor;
-		
+
 		textureDef = texture;
-		
+
 		return this;
 	}
-	
+
 	@Override
 	public void resetState()
 	{
 		super.resetState();
-		
+
 		state = stateDef;
 		world = worldDef;
 		pos = posDef;
-		
+
 		ambientOcclusion = ambientOcclusionDef;
 		noColor = noColorDef;
-		
+
 		texture = textureDef;
 	}
-	
+
 	public void setModel(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
 		this.state = state;
 		this.world = world;
 		this.pos = pos;
 	}
-	
+
 	public void setModel(ModelResourceLocation location, IBlockAccess world, BlockPos pos)
 	{
 		this.state = ModelHelpers.getFakeState(location);
@@ -97,42 +97,36 @@ public class BlockAsEntityPart extends CustomEntityPart
 	{
 		this.ambientOcclusion = ambientOcclusion;
 	}
-	
+
 	public void setTexture(TextureAtlasSprite texture)
 	{
 		this.texture = texture;
 	}
-	
+
 	public void noColor(boolean noColor)
 	{
 		this.noColor = noColor;
 		if (noColor)
 			setAmbientOcclusion(false);
 	}
-	
+
 	public void setTextureNoColor(TextureAtlasSprite texture)
 	{
 		setTexture(texture);
 		noColor(true);
 	}
-	
-	@Override
-	public void doChildModelRender(float pxSize)
-	{
-		super.doChildModelRender(pxSize);
-	}
-	
+
 	@Override
 	public void render(float pxSize)
 	{
 		super.render(pxSize);
-		
+
 		if (!isHidden && showModel)
 		{
 			RenderHelper.enableStandardItemLighting();
 		}
 	}
-	
+
 	@Override
 	public void doRender(float pxSize)
 	{
@@ -140,38 +134,38 @@ public class BlockAsEntityPart extends CustomEntityPart
 		{
 			float scale = pxSize * 16;
 			GlStateManager.scale(scale, scale, scale);
-			
+
 			IBakedModel model = ModelHelpers.getBakedBlockModel(state, world, pos);
-			
+
 			if (texture != null)
 			{
 				model = ModelHelpers.getCubeProjectedBakedModel(state, model, texture, pos);
 			}
-			
+
 			Tessellator tess = Tessellator.getInstance();
 			VertexBuffer buff = tess.getBuffer();
-			
+
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(-pos.getX(), -pos.getY(), -pos.getZ());
-			
+
 			RenderHelper.disableStandardItemLighting();
-			
+
 			buff.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
-			
+
 			if (noColor)
 				buff.noColor();
-			
+
 			if (ambientOcclusion)
 				ModelHelpers.getBlockRenderer().renderModelSmooth(world, model, state, pos, buff, false, MathHelper.getPositionRandom(pos));
 			else
 				ModelHelpers.getBlockRenderer().renderModelFlat(world, model, state, pos, buff, false, MathHelper.getPositionRandom(pos));
-			
+
 			tess.draw();
-			
+
 			GlStateManager.popMatrix();
 		}
 	}
-	
+
 	@Override
 	public void renderWithRotation(float pxSize)
 	{

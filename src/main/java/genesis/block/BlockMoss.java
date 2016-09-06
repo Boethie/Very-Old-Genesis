@@ -30,45 +30,45 @@ public class BlockMoss extends BlockGrass
 	{
 		DIRT("dirt", 0, () -> Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT)),
 		HUMUS("humus", 1, () -> GenesisBlocks.humus.getDefaultState());
-		
+
 		private final String name;
 		private final int metadata;
 		private final Supplier<IBlockState> state;
-		
+
 		EnumSoil(String name, int metadata, Supplier<IBlockState> state)
 		{
 			this.name = name;
 			this.metadata = metadata;
 			this.state = state;
 		}
-		
+
 		public IBlockState getState()
 		{
 			return state.get();
 		}
-		
+
 		public int getMetadata()
 		{
 			return metadata;
 		}
-		
+
 		@Override
 		public String getName()
 		{
 			return name;
 		}
-		
+
 		@Override
 		public String toString()
 		{
 			return name;
 		}
 	}
-	
+
 	public static final PropertyEnum<EnumSoil> SOIL = PropertyEnum.create("soil", EnumSoil.class);
 	public static final int STAGE_LAST = 3;
 	public static final PropertyInteger STAGE = PropertyInteger.create("stage", 0, STAGE_LAST);
-	
+
 	public BlockMoss()
 	{
 		setDefaultState(blockState.getBaseState().withProperty(SOIL, EnumSoil.DIRT).withProperty(STAGE, 0).withProperty(SNOWY, false));
@@ -77,13 +77,13 @@ public class BlockMoss extends BlockGrass
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 		setHarvestLevel("shovel", 0);
 	}
-	
+
 	@Override
 	public BlockStateContainer createBlockState()
 	{
 		return new BlockStateContainer(this, SOIL, STAGE, SNOWY);
 	}
-	
+
 	@Override
 	public int getMetaFromState(IBlockState state)
 	{
@@ -95,32 +95,32 @@ public class BlockMoss extends BlockGrass
 	{
 		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), meta, SOIL, STAGE);
 	}
-	
+
 	@Override
 	public void grow(World world, Random rand, BlockPos pos, IBlockState state)
 	{
 		Biome biome = world.getBiome(pos);
 		BiomeGenesis biomeGenesis = null;
-		
+
 		if (biome instanceof BiomeGenesis)
 		{
 			biomeGenesis = (BiomeGenesis) biome;
 		}
-		
+
 		BlockPos aboveCenter = pos.up();
 		int loops = 0;
-		
+
 		while (loops < 128)
 		{
 			BlockPos plantPos = aboveCenter;
 			int i = 0;
-			
+
 			while (true)
 			{
 				if (i < loops / 16)
 				{
 					plantPos = plantPos.add(rand.nextInt(3) - 1, ((rand.nextInt(3) - 1) * rand.nextInt(3)) / 2, rand.nextInt(3) - 1);
-					
+
 					if ((world.getBlockState(plantPos.down()).getBlock() == this) && !world.getBlockState(plantPos).isNormalCube())
 					{
 						i++;
@@ -147,13 +147,13 @@ public class BlockMoss extends BlockGrass
 						}
 					}
 				}
-				
+
 				loops++;
 				break;
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean canSustainPlant(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable)
 	{
@@ -172,13 +172,13 @@ public class BlockMoss extends BlockGrass
 			return super.canSustainPlant(state, world, pos, direction, plantable);
 		}
 	}
-	
+
 	@Override
 	public void onPlantGrow(IBlockState state, World world, BlockPos pos, BlockPos source)
 	{
 		world.setBlockState(pos, Blocks.DIRT.getDefaultState(), 2);
 	}
-	
+
 	protected final float[] lightFertility = {
 		-0.2F,	// 0
 		-0.15F,	// 1
@@ -197,39 +197,39 @@ public class BlockMoss extends BlockGrass
 		0.5F,	// 14
 		0.0F	// 15
 	};
-	
+
 	public float getFertility(World world, BlockPos pos, boolean generation)
 	{
 		BlockPos above = pos.up();
-		
+
 		if (world.getBlockLightOpacity(above) >= 255)
 		{
 			return 0;
 		}
-		
+
 		IBlockState stateAbove = world.getBlockState(above);
-		
+
 		if (stateAbove.getMaterial() == Material.WATER)
 		{
 			return 0;
 		}
-		
+
 		float light = 0;
 		int lightSamples = 0;
 		float water = 0;
-		
+
 		for (BlockPos sample : WorldUtils.getArea(pos.add(-1, 0, -1), pos.add(1, 0, 1)))
 		{
 			BlockPos aboveSample = sample;
-			
+
 			for (int i = 0; i < 2; i++)
 			{
 				aboveSample = aboveSample.up();
-				
+
 				if (world.getBlockLightOpacity(aboveSample) < 255)
 				{
 					int lightLevel;
-					
+
 					if (generation)
 					{
 						int block = world.getLightFor(EnumSkyBlock.BLOCK, pos);
@@ -240,16 +240,16 @@ public class BlockMoss extends BlockGrass
 					{
 						lightLevel = world.getLightFromNeighbors(aboveSample);
 					}
-					
+
 					light += lightFertility[lightLevel];
 					lightSamples++;
 					break;
 				}
 			}
 		}
-		
+
 		final int rad = 3;
-		
+
 		for (BlockPos sample : WorldUtils.getArea(pos.add(-rad, -rad, -rad), pos.add(rad, rad, rad)))
 		{
 			if (sample.distanceSq(pos) <= rad * rad && world.getBlockState(sample).getMaterial() == Material.WATER)
@@ -257,25 +257,25 @@ public class BlockMoss extends BlockGrass
 				water++;
 			}
 		}
-		
+
 		water /= 10;
-		
+
 		light /= lightSamples;
-		
+
 		//float humidity = world.getBiome(pos).rainfall;
 		//humidity *= 0.35F;
-		
+
 		float out = water + light;
 		out = MathHelper.clamp_float(out, 0, 1);
-		
+
 		return out;
 	}
-	
+
 	public float getFertility(World world, BlockPos pos)
 	{
 		return getFertility(world, pos, false);
 	}
-	
+
 	protected final IntRange[] targetStages = {
 		IntRange.create(-1),
 		IntRange.create(-1, 0),
@@ -287,59 +287,59 @@ public class BlockMoss extends BlockGrass
 		IntRange.create(2, 3),
 		IntRange.create(3),
 	};
-	
+
 	public int getTargetStage(float fertility, Random rand)
 	{
 		return targetStages[Math.min(Math.round(fertility * targetStages.length), targetStages.length - 1)].get(rand);
 	}
-	
+
 	protected final float growthChanceHumidityEffect = 0.25F;
 	protected final float growthChanceMult = 0.25F;
-	
+
 	public float getGrowthChance(World world, BlockPos pos, boolean dying)
 	{
 		float humidity = world.getBiome(pos).getRainfall();
 		float chance = 1 - growthChanceHumidityEffect + (humidity * growthChanceHumidityEffect * (dying ? -2 : 1));
-		
+
 		return chance * growthChanceMult;
 	}
-	
+
 	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
 	{
 		if (!world.isRemote)
 		{
 			int stage = state.getValue(STAGE);
-			
+
 			float fertility = getFertility(world, pos);
 			int targetStage = getTargetStage(fertility, world.rand);
-			
+
 			int diff = MathHelper.clamp_int(targetStage - stage, -1, 1);
-			
+
 			if (world.rand.nextFloat() <= getGrowthChance(world, pos, diff < 0))
 			{
 				stage += diff;
 			}
-			
+
 			if (stage >= 0)
 			{
 				world.setBlockState(pos, state.withProperty(STAGE, stage));
-				
+
 				if (stage >= 1)
 				{
 					int spreadTries = 4;
-					
+
 					for (int i = 0; i < spreadTries; i++)
 					{
 						BlockPos randPos = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
 						IBlockState randState = world.getBlockState(randPos);
-						
+
 						if (randState == Blocks.DIRT.getDefaultState() || randState.getBlock() == Blocks.GRASS)
 						{
 							if (getGrowthChance(world, randPos, false) < rand.nextFloat() ||
 									getTargetStage(getFertility(world, randPos), world.rand) < 0)
 								continue;
-							
+
 							world.setBlockState(randPos, getDefaultState());
 						}
 					}
@@ -351,7 +351,7 @@ public class BlockMoss extends BlockGrass
 			}
 		}
 	}
-	
+
 	/**
 	 * @see ItemHoe#onItemUse
 	 */
@@ -366,51 +366,51 @@ public class BlockMoss extends BlockGrass
 			{
 				return false;
 			}
-			
+
 			if (side != EnumFacing.DOWN && world.isAirBlock(pos.up()))
 			{
 				IBlockState newState = Blocks.FARMLAND.getDefaultState();
-				
+
 				double x = pos.getX() + 0.5F;
 				double y = pos.getY() + 0.5F;
 				double z = pos.getZ() + 0.5F;
-				
+
 				world.playSound(player, x, y, z, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1, 1);
-				
+
 				if (!world.isRemote)
 				{
 					world.setBlockState(pos, newState);
 					held.damageItem(1, player);
 				}
-				
+
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list)
 	{
 		for (EnumSoil soil : EnumSoil.values())
 			list.add(new ItemStack(item, 1, soil.getMetadata()));
 	}
-	
+
 	@Override
 	public int damageDropped(IBlockState state)
 	{
 		IBlockState soilState = state.getValue(SOIL).getState();
 		return soilState.getBlock().damageDropped(soilState);
 	}
-	
+
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune)
 	{
 		IBlockState soilState = state.getValue(SOIL).getState();
 		return soilState.getBlock().getItemDropped(soilState, rand, fortune);
 	}
-	
+
 	@Override
 	public ItemStack getItem(World world, BlockPos pos, IBlockState state)
 	{

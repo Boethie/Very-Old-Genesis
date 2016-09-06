@@ -45,63 +45,63 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 	{
 		return new IProperty[]{};
 	}
-	
+
 	public final VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>> owner;
 	public final ObjectType<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>> type;
-	
+
 	public final List<EnumAquaticPlant> variants;
 	public final PropertyIMetadata<EnumAquaticPlant> variantProp;
-	
+
 	protected Set<Block> validGround;
 	protected final Set<EnumAquaticPlant> noDrops = ImmutableSet.of(EnumAquaticPlant.CHARNIA);
-	
+
 	public BlockAquaticPlant(VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>> owner,
 			ObjectType<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>> type,
 			List<EnumAquaticPlant> variants, Class<EnumAquaticPlant> variantClass)
 	{
 		super(Material.WATER);
-		
+
 		this.owner = owner;
 		this.type = type;
-		
+
 		this.variants = variants;
 		variantProp = new PropertyIMetadata<>("variant", variants, variantClass);
-		
+
 		blockState = new BlockStateContainer(this, variantProp, BlockLiquid.LEVEL);
 		setDefaultState(getBlockState().getBaseState());
-		
+
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
-		
+
 		setHardness(0.0F);
 		setSoundType(GenesisSoundTypes.AQUATIC_PLANT);
 		setTickRandomly(true);
 	}
-	
+
 	@Override
 	public int getMetaFromState(IBlockState state)
 	{
 		return BlockStateToMetadata.getMetaForBlockState(state, variantProp);
 	}
-	
+
 	@Override
 	public IBlockState getStateFromMeta(int metadata)
 	{
 		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), metadata, variantProp);
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void customizeStateMap(FlexibleStateMap stateMap)
 	{
 		stateMap.addIgnoredProperties(BlockLiquid.LEVEL);
 	}
-	
+
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list)
 	{
 		owner.fillSubItems(variants, list, noDrops);
 	}
-	
+
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
 	{
@@ -109,40 +109,40 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 		{
 			return super.getDrops(world, pos, state, fortune);
 		}
-		
+
 		return Collections.emptyList();
 	}
-	
+
 	@Override
 	public int damageDropped(IBlockState state)
 	{
 		return owner.getItemMetadata(state.getValue(variantProp));
 	}
-	
+
 	@Override
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, World world, BlockPos pos)
 	{
 		return null;
 	}
-	
+
 	@Override
 	public boolean isOpaqueCube(IBlockState state)
 	{
 		return false;
 	}
-	
+
 	@Override
 	public boolean isFullCube(IBlockState state)
 	{
 		return false;
 	}
-	
+
 	@Override
 	public boolean isReplaceable(IBlockAccess world, BlockPos pos)
 	{
 		return false;
 	}
-	
+
 	@Override
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
 	{
@@ -151,7 +151,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 			entityIn.attackEntityFrom(Constants.CHANCELLORIA_DMG, 0.5F);
 		}
 	}
-	
+
 	@Override
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
 	{
@@ -169,7 +169,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 			this.checkAndDropBlock(world, pos, world.getBlockState(pos));
 		}
 	}
-	
+
 	protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state)
 	{
 		if (!this.canBlockStay(worldIn, pos, state))
@@ -178,14 +178,14 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 			worldIn.destroyBlock(pos, true);
 		}
 	}
-	
+
 	@Override
 	public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
 	{
 		super.onBlockDestroyedByPlayer(worldIn, pos, state);
 		this.breakPlant(worldIn, pos, state);
 	}
-	
+
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
 	{
@@ -195,22 +195,22 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 			worldIn.setBlockState(pos.up(), getDefaultState().withProperty(variantProp, EnumAquaticPlant.CHARNIA_TOP), 3);
 		}
 	}
-	
+
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
 	{
 		return this.canBlockStay(worldIn, pos, this.getDefaultState());
 	}
-	
+
 	private void breakPlant(World world, BlockPos pos, IBlockState state)
 	{
 		world.setBlockState(pos, Blocks.WATER.getStateFromMeta(0), 3);
 		EnumAquaticPlant variant = state.getValue(variantProp);
-		
+
 		if (variant == EnumAquaticPlant.CHARNIA_TOP)
 		{
 			IBlockState below = world.getBlockState(pos.down());
-			
+
 			if (below.getBlock() == this && below.getValue(variantProp) == EnumAquaticPlant.CHARNIA)
 			{
 				world.setBlockState(pos.down(), Blocks.WATER.getStateFromMeta(0), 3);
@@ -219,14 +219,14 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 		else if (variant == EnumAquaticPlant.CHARNIA)
 		{
 			IBlockState above = world.getBlockState(pos.up());
-			
+
 			if (above.getBlock() == this && above.getValue(variantProp) == EnumAquaticPlant.CHARNIA_TOP)
 			{
 				world.setBlockState(pos.up(), Blocks.WATER.getStateFromMeta(0), 3);
 			}
 		}
 	}
-	
+
 	public boolean canBlockStay(IBlockAccess world, BlockPos pos, IBlockState state)
 	{
 		if (validGround == null)
@@ -245,43 +245,27 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 			validGround.add(GenesisBlocks.red_clay);
 			validGround.add(GenesisBlocks.ooze);
 			validGround.add(GenesisBlocks.peat);
-			
-			for (BlockGenesisLogs block : GenesisBlocks.trees.getBlocks(TreeBlocksAndItems.LOG))
-			{
-				validGround.add(block);
-			}
-			
-			for (BlockGenesisLogs block : GenesisBlocks.trees.getBlocks(TreeBlocksAndItems.DEAD_LOG))
-			{
-				validGround.add(block);
-			}
-			
-			for (Block block : GenesisBlocks.silt.getBlocks(SiltBlocks.SILT))
-			{
-				validGround.add(block);
-			}
-			
-			for (Block block : GenesisBlocks.silt.getBlocks(SiltBlocks.SILTSTONE))
-			{
-				validGround.add(block);
-			}
-			
+
+			validGround.addAll(GenesisBlocks.trees.getBlocks(TreeBlocksAndItems.LOG));
+			validGround.addAll(GenesisBlocks.trees.getBlocks(TreeBlocksAndItems.DEAD_LOG));
+			validGround.addAll(GenesisBlocks.silt.getBlocks(SiltBlocks.SILT));
+			validGround.addAll(GenesisBlocks.silt.getBlocks(SiltBlocks.SILTSTONE));
 			validGround.addAll(GenesisBlocks.coral.getBlocks());
 		}
-		
+
 		IBlockState below = world.getBlockState(pos.down());
 		Block blockBelow = below.getBlock();
 		EnumAquaticPlant variant = state.getValue(variantProp);
-		
+
 		if (!validGround.contains(blockBelow)
 				&& !(blockBelow instanceof BlockGenesisRock)
 				&& (variant != EnumAquaticPlant.CHARNIA_TOP || blockBelow != this || below.getValue(variantProp) != EnumAquaticPlant.CHARNIA))
 		{
 			return false;
 		}
-		
+
 		IBlockState above = world.getBlockState(pos.up());
-		
+
 		if (above.getMaterial() != Material.WATER)
 		{
 			return false;
@@ -290,15 +274,15 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 		{
 			return false;
 		}
-		
+
 		final List<IBlockState> blocks = WorldUtils.getBlocksAround(world, pos);
-		
+
 		for (int i = 0; i < blocks.size();)
 		{
 			final boolean corner0 = this.isWaterish(blocks.get(i++).getBlock());
 			final boolean corner1 = this.isWaterish(blocks.get(i++).getBlock());
 			boolean corner2;
-			
+
 			if (i == blocks.size())
 			{
 				corner2 = this.isWaterish(blocks.get(0).getBlock());
@@ -307,28 +291,28 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 			{
 				corner2 = this.isWaterish(blocks.get(i).getBlock());
 			}
-			
+
 			if (corner0 && corner1 && corner2)
 			{
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	private boolean isWaterish(Block block)
 	{
 		return (block == Blocks.WATER) || block == Blocks.FLOWING_WATER || (block == this);
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public BlockRenderLayer getBlockLayer()
 	{
 		return BlockRenderLayer.CUTOUT;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Block.EnumOffsetType getOffsetType()

@@ -32,15 +32,15 @@ public class BiomeSwampRainforest extends BiomeGenesis implements IEntityPreferr
 	public BiomeSwampRainforest(Biome.BiomeProperties properties)
 	{
 		super(properties);
-		
+
 		theBiomeDecorator.clayPerChunk = 2;
 		theBiomeDecorator.sandPerChunk2 = 3;
-		
+
 		spawnableCreatureList.add(new Biome.SpawnListEntry(EntityMeganeura.class, 8, 4, 8));
-		
+
 		getDecorator().setGrassCount(6);
 		addGrass(WorldGenPlant.create(EnumPlant.ZYGOPTERIS).setPatchCount(9), 1);
-		
+
 		addDecoration(WorldGenSplash.createHumusSplash(), 1.35F);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setPatchCount(3), 2);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchCount(4), 4);
@@ -48,59 +48,59 @@ public class BiomeSwampRainforest extends BiomeGenesis implements IEntityPreferr
 		addDecoration(new WorldGenMossStages(), 30);
 		addDecoration(WorldGenCircleReplacement.getPeatGen(), 10);
 		addDecoration(new WorldGenRoots(), 13);
-		
+
 		addPostDecoration(new WorldGenDebris(), 33);
-		
+
 		getDecorator().setTreeCount(17.5F);
 		addTree(new WorldGenTreeSigillaria(9, 12, true).generateVine(11), 12);
 		addTree(new WorldGenTreePsaronius(5, 6, true).generateVine(11), 12);
 		addTree(new WorldGenTreeCordaites(12, 17, true).generateVine(11), 15);
 		addTree(new WorldGenTreeLepidodendron(11, 15, true).generateVine(11), 17);
-		
+
 		addTree(new WorldGenDeadLog(4, 7, EnumTree.LEPIDODENDRON, true), 4);
 		addTree(new WorldGenDeadLog(4, 7, EnumTree.SIGILLARIA, true), 2);
 		addTree(new WorldGenDeadLog(4, 7, EnumTree.CORDAITES, true).setCanGrowInWater(true), 5);
 	}
-	
+
 	@Override
 	public float getFogDensity()
 	{
 		return 0.75F;
 	}
-	
+
 	@Override
 	public float getNightFogModifier()
 	{
 		//the higher the number, more dense fog will be at night
 		return 0.65F;
 	}
-	
+
 	@Override
 	public void genTerrainBlocks(World world, Random rand, ChunkPrimer chunkPrimer, int chunkX, int chunkZ, double d)
 	{
 		double d1 = GRASS_COLOR_NOISE.getValue(chunkX * 0.25D, chunkZ * 0.25D);
-		
+
 		if (d1 > -0.2D)
 		{
 			int k = chunkX & 15;
 			int l = chunkZ & 15;
-			
+
 			for (int i1 = 255; i1 >= 0; --i1)
 			{
 				IBlockState state = chunkPrimer.getBlockState(l, i1, k);
-				
-				if (state.getBlock().getMaterial(state) != Material.AIR)
+
+				if (state.getMaterial() != Material.AIR)
 				{
 					if (i1 == 62 && chunkPrimer.getBlockState(l, i1, k).getBlock() != Blocks.WATER)
 					{
 						chunkPrimer.setBlockState(l, i1, k, Blocks.WATER.getDefaultState());
 					}
-					
+
 					break;
 				}
 			}
 		}
-		
+
 		mossStages = new int[2];
 		mossStages[0] = 0;
 		mossStages[1] = 1;

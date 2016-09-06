@@ -33,19 +33,19 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 public class WorldGenSmallCamp implements IWorldGenerator
 {
 	public static final IBlockState[][] BLOCKS;
-	
+
 	static
 	{
 		IBlockState campfire = GenesisBlocks.campfire.getDefaultState();
-		
+
 		IBlockState box = GenesisBlocks.storage_box.getDefaultState();
-		
+
 		IBlockState work = GenesisBlocks.workbench.getDefaultState();
-		
+
 		IBlockState logX = GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LOG, EnumTree.ARAUCARIOXYLON).withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.X);
-		
+
 		IBlockState logZ = GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LOG, EnumTree.ARAUCARIOXYLON).withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.Z);
-		
+
 		IBlockState[] nullRow = {null, null, null, null, null, null, null, null};
 											//x,z
 		BLOCKS = new IBlockState[][]
@@ -60,91 +60,90 @@ public class WorldGenSmallCamp implements IWorldGenerator
 					{work, null, null, null, null, null, null, null}
 				};
 	}
-	
+
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider)
 	{
 		if (world.isRemote)
 			return;
-		
+
 		if (!GenesisDimensions.isGenesis(world))
 			return;
-		
+
 		BlockPos start = new BlockPos(chunkX * 16 + 4, 0, chunkZ * 16 + 4);
-		
+
 		Biome biome = world.getBiome(start);
-		
+
 		if (!(biome instanceof BiomeMetaForest || biome instanceof BiomeAuxForest || biome instanceof BiomeWoodlands))
 			return;
-		
+
 		if (world.rand.nextInt(GenesisConfig.smallCampChance) != 0)
 			return;
-		
+
 		start = WorldGenHelper.findSurface(world, start);
-		
+
 		if (WorldUtils.waterInRange(world, start, 16, 16))
 			return;
-		
+
 		Genesis.logger.debug("Starting generation of the small camp at " + start.toString());
-		
+
 		for (BlockPos bp : BlockPos.getAllInBox(start, start.add(8, 0, 8)))
 		{
 			Biome bBiome = world.getBiome(bp);
-			
+
 			if (BiomeDictionary.isBiomeOfType(bBiome, Type.HILLS) || BiomeDictionary.isBiomeOfType(bBiome, Type.MOUNTAIN))
 				return;
 		}
-		
+
 		for (BlockPos bp : BlockPos.getAllInBox(start, start.add(8, 9, 8)))
 			WorldGenHelper.deleteTree(world, bp);
-		
+
 		BlockPos boxPos = null;
-		
 		BlockPos campPos = null;
-		
-		List<BlockPos> logsPos = new ArrayList();
-		
+
+		List<BlockPos> logsPos = new ArrayList<>();
+
 		for (int x = 0; x < BLOCKS.length; x++)
 		{
 			for (int z = 0; z < BLOCKS[x].length; z++)
 			{
 				IBlockState state = BLOCKS[x][z];
-				
+
 				BlockPos pos = WorldGenHelper.findSurface(world, start.add(x, 0, z));
-				
+
 				if (state != null)
 				{
 					if (state.getBlock() == GenesisBlocks.storage_box)
 						boxPos = pos;
-					
+
 					if (state.getBlock() == GenesisBlocks.campfire)
 						campPos = pos;
-					
+
 					if (state.getBlock() instanceof BlockGenesisLogs)
 						logsPos.add(pos);
-					
+
 					world.setBlockState(pos, state);
 				}
 			}
 		}
-		
+
 		if (boxPos != null)
 		{
 			TileEntity te = world.getTileEntity(boxPos);
-		
+
 			if (te instanceof TileEntityStorageBox)
 			{
 				ResourceLocation loot = null;
-				
+
 				if (biome instanceof BiomeMetaForest)
 					loot = GenesisLoot.CHESTS_CAMP_META_FOREST;
-				
+
 				if (biome instanceof BiomeAuxForest)
 					loot = GenesisLoot.CHESTS_CAMP_AUX_FOREST;
-				
+
 				if (biome instanceof BiomeWoodlands)
 					loot = GenesisLoot.CHESTS_CAMP_WOODLANDS;
-				
+
 				((TileEntityStorageBox) te).setLoot(loot, System.currentTimeMillis());
 			}
 			else
@@ -152,9 +151,9 @@ public class WorldGenSmallCamp implements IWorldGenerator
 				Genesis.logger.warn("TileEntityStorageBox has not been found at "  + boxPos.toString() + " during the camp generation!!! The loot won't be spawned!!!");
 			}
 		}
-		
+
 		EnumTree tree = null;
-		
+
 		if (biome instanceof BiomeAuxForest)
 		{
 			tree = EnumTree.ARAUCARIOXYLON;
@@ -167,10 +166,10 @@ public class WorldGenSmallCamp implements IWorldGenerator
 		{
 			tree = EnumTree.DRYOPHYLLUM;
 		}
-		
+
 		int highestYX = 0;
 		int highestYZ = 0;
-		
+
 		for (BlockPos pos : logsPos)
 		{
 			if (world.getBlockState(pos).getValue(BlockLog.LOG_AXIS) == BlockLog.EnumAxis.X)
@@ -180,7 +179,7 @@ public class WorldGenSmallCamp implements IWorldGenerator
 					highestYX = pos.getY();
 				}
 			}
-			
+
 			if (world.getBlockState(pos).getValue(BlockLog.LOG_AXIS) == BlockLog.EnumAxis.Z)
 			{
 				if (pos.getY() > highestYZ)
@@ -189,16 +188,16 @@ public class WorldGenSmallCamp implements IWorldGenerator
 				}
 			}
 		}
-		
+
 		if (tree != null)
 			for (BlockPos pos : logsPos)
 			{
 				IBlockState state = GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LOG, tree).withProperty(BlockLog.LOG_AXIS, world.getBlockState(pos).getValue(BlockLog.LOG_AXIS));
-				
+
 				world.setBlockToAir(pos);
-				
+
 				pos = new BlockPos(pos.getX(), state.getValue(BlockLog.LOG_AXIS) == BlockLog.EnumAxis.X ? highestYX : highestYZ, pos.getZ());
-				
+
 				world.setBlockState(pos, state);
 			}
 	}

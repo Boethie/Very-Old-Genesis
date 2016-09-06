@@ -37,57 +37,57 @@ public class BlockSilt extends BlockFalling
 	{
 		return new IProperty[]{};
 	}
-	
+
 	public final SiltBlocks owner;
 	public final ObjectType<EnumSilt, BlockSilt, ItemBlockMulti<EnumSilt>> type;
-	
+
 	public final PropertyIMetadata<EnumSilt> variantProp;
 	public final List<EnumSilt> variants;
-	
+
 	public BlockSilt(SiltBlocks owner,
 			ObjectType<EnumSilt, BlockSilt, ItemBlockMulti<EnumSilt>> type,
 			List<EnumSilt> variants, Class<EnumSilt> variantClass)
 	{
 		super(Material.SAND);
-		
+
 		this.owner = owner;
 		this.type = type;
-		
+
 		this.variants = variants;
 		this.variantProp = new PropertyIMetadata<>("variant", variants, variantClass);
-		
+
 		blockState = new BlockStateContainer(this, variantProp);
 		setDefaultState(blockState.getBaseState());
-		
+
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 		setSoundType(SoundType.SAND);
 		setHardness(0.5F);
 	}
-	
+
 	@Override
 	public int getMetaFromState(IBlockState state)
 	{
 		return BlockStateToMetadata.getMetaForBlockState(state);
 	}
-	
+
 	@Override
 	public IBlockState getStateFromMeta(int metadata)
 	{
 		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), metadata);
 	}
-	
+
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list)
 	{
 		owner.fillSubItems(type, variants, list);
 	}
-	
+
 	@Override
 	public int damageDropped(IBlockState state)
 	{
 		return owner.getItemMetadata(type, state.getValue(variantProp));
 	}
-	
+
 	@Override
 	public boolean canSustainPlant(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plant)
 	{
@@ -97,7 +97,7 @@ public class BlockSilt extends BlockFalling
 			for (EnumFacing side : EnumFacing.HORIZONTALS)
 				if (WorldUtils.isWater(world, pos.offset(side)))
 					return true;
-			
+
 			return false;
 		case Desert:
 			return true;
@@ -105,30 +105,19 @@ public class BlockSilt extends BlockFalling
 			return super.canSustainPlant(state, world, pos, direction, plant);
 		}
 	}
-	
-	protected boolean canSiltFallInto(IBlockAccess world, BlockPos pos)
-	{
+
+	protected boolean canSiltFallInto(IBlockAccess world, BlockPos pos) {
 		IBlockState state = world.getBlockState(pos);
-		
-		if (state.getBlock().isAir(state, world, pos))
-			return true;
-		
-		if (state.getBlock() == Blocks.FIRE)
-			return true;
-		
-		if (state.getMaterial().isLiquid())
-			return true;
-		
-		return false;
+		return state.getBlock().isAir(state, world, pos) || state.getBlock() == Blocks.FIRE || state.getMaterial().isLiquid();
 	}
-	
+
 	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
 	{
 		if (!world.isRemote && canSiltFallInto(world, pos.down()) && pos.getY() >= 0)
 		{
 			int area = 32;
-			
+
 			if (!fallInstantly && world.isAreaLoaded(pos.add(-area, -area, -area), pos.add(area, area, area)))
 			{
 				EntityFallingBlock falling = new EntityFallingBlock(world, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, state);
@@ -138,14 +127,14 @@ public class BlockSilt extends BlockFalling
 			else
 			{
 				BlockPos landPos = pos;
-				
+
 				do
 				{
 					landPos = landPos.down();
 				} while (canSiltFallInto(world, landPos) && landPos.getY() >= 0);
-				
+
 				world.setBlockToAir(pos);
-				
+
 				if (landPos.getY() >= 0)
 					world.setBlockState(landPos.up(), state);
 			}

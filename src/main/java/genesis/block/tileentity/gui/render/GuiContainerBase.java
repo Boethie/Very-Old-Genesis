@@ -21,51 +21,45 @@ import net.minecraft.world.*;
 public class GuiContainerBase extends GuiContainer
 {
 	public static final ResourceLocation TEX = new ResourceLocation(Constants.ASSETS_PREFIX + "textures/gui/base.png");
-	
+
 	protected ContainerBase container;
 	protected IWorldNameable namer;
 
 	public GuiContainerBase(ContainerBase container, IWorldNameable namer)
 	{
 		super(container);
-		
+
 		this.container = container;
-		
+
 		this.namer = namer;
 		this.xSize = container.width;
 		this.ySize = container.height;
 	}
-	
-	@Override
-	public void initGui()
-	{
-		super.initGui();
-	}
-	
+
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
 	{
 		drawDisplayName(Constants.TITLE_COLOUR);
 		fontRendererObj.drawString(I18n.format("container.inventory"), container.getPlayerInventoryArea().left, container.getPlayerInventoryTextY(), Constants.TITLE_COLOUR);
 	}
-	
+
 	protected void drawDisplayName(int color)
 	{
 		String displayName = namer.getDisplayName().getUnformattedText();
 		fontRendererObj.drawString(displayName, xSize / 2 - fontRendererObj.getStringWidth(displayName) / 2, 6, color);
 	}
-	
+
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTick, int mouseX, int mouseY)
 	{
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-		
+
 		GlStateManager.color(1, 1, 1, 1);
 		mc.getTextureManager().bindTexture(TEX);
 
 		final int borderW = container.borderW;
 		final int borderH = container.borderH;
-		
+
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(guiLeft, guiTop, 0);
 
@@ -96,14 +90,14 @@ public class GuiContainerBase extends GuiContainer
 		// Center
 		drawTextureUVPx(borderW, borderH, xSize - borderW * 2, ySize - borderH * 2,
 						borderW, borderH, 1, 1);
-		
+
 		for (Slot slot : inventorySlots.inventorySlots)
 		{
 			int slotU;
 			int slotV;
 			int slotW = container.slotW;
 			int slotH = container.slotH;
-			
+
 			if (container.isBigSlot(slot))
 			{
 				slotW += 8;
@@ -136,20 +130,20 @@ public class GuiContainerBase extends GuiContainer
 			drawTextureUVPx(slot.xDisplayPosition - offsetX, slot.yDisplayPosition - offsetY, slotW, slotW,
 							slotU, slotV, slotW, slotW);
 		}
-		
+
 		GlStateManager.popMatrix();
 	}
-	
+
 	protected void bindTexture(ResourceLocation texture)
 	{
 		mc.getTextureManager().bindTexture(texture);
 	}
-	
+
 	protected boolean isPointInSlot(Slot slot, int x, int y)
 	{
 		return isPointInRegion(slot.xDisplayPosition, slot.yDisplayPosition, 16, 16, x, y);
 	}
-	
+
 	protected Slot getSlot(int x, int y)
 	{
 		for (Slot slot : container.inventorySlots)
@@ -159,10 +153,10 @@ public class GuiContainerBase extends GuiContainer
 				return slot;
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	protected void drawTextureUVs(int x, int y, int w, int h, float minU, float minV, float maxU, float maxV)
 	{
 		Tessellator tess = Tessellator.getInstance();
@@ -174,7 +168,7 @@ public class GuiContainerBase extends GuiContainer
 		buff.pos(x,		y,		zLevel).tex(minU, minV).endVertex();
 		tess.draw();
 	}
-	
+
 	protected void drawTextureUVSize(int x, int y, int w, int h, float u, float v, float uvW, float uvH)
 	{
 		Tessellator tess = Tessellator.getInstance();
@@ -186,14 +180,14 @@ public class GuiContainerBase extends GuiContainer
 		buff.pos(x,		y,		zLevel).tex(u,			v).endVertex();
 		tess.draw();
 	}
-	
+
 	protected void drawTextureUVPx(int x, int y, int w, int h, int u, int v, int uvW, int uvH)
 	{
 		final float px = 1 / 256F;
 		//                Pos         UVs
 		drawTextureUVSize(x, y, w, h, u * px, v * px, uvW * px, uvH * px);
 	}
-	
+
 	protected void drawTextureUVPx(int x, int y, int w, int h, int u, int v, int uvW, int uvH,
 			boolean centerX, boolean centerY)
 	{
@@ -203,32 +197,32 @@ public class GuiContainerBase extends GuiContainer
 			y -= h / 2;
 		drawTextureUVPx(x, y, w, h, u, v, uvW, uvH);
 	}
-	
+
 	protected void drawSprite(int x, int y, int w, int h, ISpriteUVs uvs)
 	{
 		bindTexture(uvs.getTexture());
 		drawTextureUVs(x, y, w, h, uvs.getMinU(), uvs.getMinV(), uvs.getMaxU(), uvs.getMaxV());
 	}
-	
+
 	protected void drawTexBetweenSlots(int x, int y, int w, int h, int u, int v, int uvW, int uvH, boolean centerX, boolean centerY, Collection<Slot> slots)
 	{
 		UIArea area = container.getSlotsArea(slots);
 		x += (area.left + area.right) / 2;
 		y += (area.top + area.bottom) / 2;
-		
+
 		drawTextureUVPx(x, y, w, h, u, v, uvW, uvH, centerX, centerY);
 	}
-	
+
 	protected void drawTexBetweenSlots(int x, int y, int w, int h, int u, int v, int uvW, int uvH, boolean centerX, boolean centerY, Slot... slots)
 	{
 		drawTexBetweenSlots(x, y, w, h, u, v, uvW, uvH, centerX, centerY, ImmutableList.copyOf(slots));
 	}
-	
+
 	protected void drawTexBetweenSlots(int x, int y, int w, int h, int u, int v, int uvW, int uvH, Collection<Slot> slots)
 	{
 		drawTexBetweenSlots(x, y, w, h, u, v, uvW, uvH, true, true, slots);
 	}
-	
+
 	protected void drawTexBetweenSlots(int x, int y, int w, int h, int u, int v, int uvW, int uvH, Slot... slots)
 	{
 		drawTexBetweenSlots(x, y, w, h, u, v, uvW, uvH, true, true, slots);

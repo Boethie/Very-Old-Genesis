@@ -1,31 +1,48 @@
 package genesis.block.tileentity;
 
-import java.util.*;
-
-import org.apache.commons.lang3.tuple.Pair;
-
-import genesis.combo.*;
+import genesis.combo.ObjectType;
+import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.VariantsOfTypesCombo.BlockProperties;
-import genesis.combo.variant.*;
+import genesis.combo.variant.EnumTree;
+import genesis.combo.variant.PropertyIMetadata;
 import genesis.common.Genesis;
 import genesis.item.ItemRack;
-import genesis.network.client.*;
-import genesis.util.*;
+import genesis.network.client.MultiPartActivateMessage;
+import genesis.network.client.MultiPartBlock;
+import genesis.network.client.MultiPartBreakMessage;
+import genesis.util.AABBUtils;
+import genesis.util.BlockStateToMetadata;
+import genesis.util.StreamUtils;
+import genesis.util.WorldUtils;
 import genesis.util.WorldUtils.DropType;
 import genesis.util.blocks.FacingProperties;
-
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.*;
-import net.minecraft.block.state.*;
-import net.minecraft.entity.*;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.world.*;
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.*;
 
 public class BlockRack extends BlockContainer implements MultiPartBlock
 {
@@ -161,8 +178,7 @@ public class BlockRack extends BlockContainer implements MultiPartBlock
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state,
 			EntityPlayer player, EnumHand hand, ItemStack stack,
-			EnumFacing side, float hitX, float hitY, float hitZ)
-	{
+			EnumFacing side, float hitX, float hitY, float hitZ) {
 		if (owner.isStackOf(stack, type))
 			return false;
 
@@ -171,10 +187,7 @@ public class BlockRack extends BlockContainer implements MultiPartBlock
 
 		RayTraceResult hit = player.rayTrace(15, 1);
 
-		if (hit.getBlockPos().equals(pos))
-			return activate(state, world, pos, hit.subHit, player, stack, hand);
-
-		return false;
+		return hit.getBlockPos().equals(pos) && activate(state, world, pos, hit.subHit, player, stack, hand);
 	}
 
 	public boolean canBlockStay(World world, BlockPos pos, EnumFacing side)
@@ -183,15 +196,8 @@ public class BlockRack extends BlockContainer implements MultiPartBlock
 	}
 
 	@Override
-	public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing side)
-	{
-		if (!RACKS.has(side))
-			return false;
-
-		if (!canBlockStay(world, pos, side.getOpposite()))
-			return false;
-
-		return super.canPlaceBlockOnSide(world, pos, side);
+	public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing side) {
+		return RACKS.has(side) && canBlockStay(world, pos, side.getOpposite()) && super.canPlaceBlockOnSide(world, pos, side);
 	}
 
 	@Override
@@ -313,8 +319,7 @@ public class BlockRack extends BlockContainer implements MultiPartBlock
 
 	public boolean removePart(IBlockState state,
 			World world, BlockPos pos, EnumFacing side,
-			EntityPlayer player, boolean harvest)
-	{
+			EntityPlayer player, boolean harvest) {
 		if (world.isRemote)
 			Genesis.network.sendToServer(new MultiPartBreakMessage(pos, side.getHorizontalIndex()));
 
@@ -322,10 +327,8 @@ public class BlockRack extends BlockContainer implements MultiPartBlock
 
 		boolean hasRack = false;
 
-		for (FacingProperties.Entry<Boolean> check : RACKS)
-		{
-			if (state.getValue(check.property))
-			{
+		for (FacingProperties.Entry<Boolean> check : RACKS) {
+			if (state.getValue(check.property)) {
 				hasRack = true;
 				break;
 			}
@@ -333,18 +336,15 @@ public class BlockRack extends BlockContainer implements MultiPartBlock
 
 		TileEntityRack te = getTileEntity(world, pos);
 
-		if (player == null || !player.capabilities.isCreativeMode)
-		{
+		if (player == null || !player.capabilities.isCreativeMode) {
 			dropAll = false;
 			dropBlockAsItem(world, pos, state, 0);
 			dropAll = true;
 
-			if (te != null)
-			{
+			if (te != null) {
 				ItemStack displayStack = te.getStackInSide(side);
 
-				if (displayStack != null)
-				{
+				if (displayStack != null) {
 					WorldUtils.spawnItemsAt(world, pos, DropType.CONTAINER, displayStack);
 				}
 			}
@@ -355,10 +355,7 @@ public class BlockRack extends BlockContainer implements MultiPartBlock
 
 		world.setBlockState(pos, state);
 
-		if (hasRack)
-			return true;
-		else
-			return super.removedByPlayer(state, world, pos, player, harvest);
+		return hasRack || super.removedByPlayer(state, world, pos, player, harvest);
 	}
 
 	@Override
@@ -398,7 +395,7 @@ public class BlockRack extends BlockContainer implements MultiPartBlock
 		{
 			RayTraceResult hit = player.rayTrace(15, 1);
 
-			if (pos.equals(hit.getBlockPos()))
+			if (hit != null && pos.equals(hit.getBlockPos()))
 				return removePart(state, world, pos, hit.subHit, player, harvest);
 		}
 
@@ -445,7 +442,7 @@ public class BlockRack extends BlockContainer implements MultiPartBlock
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
 		/*float pixel = 1.0F / 16;
-		
+
 		switch (state.getValue(FACING))
 		{
 			case NORTH:

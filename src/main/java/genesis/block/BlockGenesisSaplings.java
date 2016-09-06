@@ -33,7 +33,6 @@ import genesis.world.gen.feature.WorldGenTreePsaronius;
 import genesis.world.gen.feature.WorldGenTreeSigillaria;
 import genesis.world.gen.feature.WorldGenTreeVoltzia;
 import net.minecraft.block.BlockSapling;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -58,50 +57,50 @@ public class BlockGenesisSaplings extends BlockSapling
 	{
 		return new IProperty[]{ STAGE };
 	}
-	
+
 	public final TreeBlocksAndItems owner;
 	public final ObjectType<EnumTree, BlockGenesisSaplings, ItemBlockMulti<EnumTree>> type;
-	
+
 	public final List<EnumTree> variants;
 	public final PropertyIMetadata<EnumTree> variantProp;
-	
+
 	public BlockGenesisSaplings(TreeBlocksAndItems owner,
 			ObjectType<EnumTree, BlockGenesisSaplings, ItemBlockMulti<EnumTree>> type,
 			List<EnumTree> variants, Class<EnumTree> variantClass)
 	{
 		super();
-		
+
 		this.owner = owner;
 		this.type = type;
-		
+
 		this.variants = variants;
 		variantProp = new PropertyIMetadata<>("variant", variants, variantClass);
-		
+
 		blockState = new BlockStateContainer(this, variantProp, STAGE);
 		setDefaultState(getBlockState().getBaseState());
-		
+
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		setSoundType(GenesisSoundTypes.PLANT);
 	}
-	
+
 	@Override
 	public IBlockState getStateFromMeta(int meta)
 	{
 		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), meta);
 	}
-	
+
 	@Override
 	public int getMetaFromState(IBlockState state)
 	{
 		return BlockStateToMetadata.getMetaForBlockState(state);
 	}
-	
+
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list)
 	{
 		owner.fillSubItems(type, variants, list);
 	}
-	
+
 	@Override
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
 	{
@@ -109,30 +108,30 @@ public class BlockGenesisSaplings extends BlockSapling
 		state = state.withProperty(variantProp, owner.getVariant(this, meta));
 		return state;
 	}
-	
+
 	@Override
 	public int damageDropped(IBlockState state)
 	{
 		return owner.getItemMetadata(type, state.getValue(variantProp));
 	}
-	
+
 	@Override
 	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player)
 	{
 		return owner.getStack(type, world.getBlockState(pos).getValue(variantProp));
 	}
-	
+
 	@Override
 	public void generateTree(World world, BlockPos pos, IBlockState state, Random rand)
 	{
 		WorldGenTreeBase gen = null;
 		BlockPos[] positions = {pos};
 		EnumTree variant = state.getValue(variantProp);
-		
+
 		TreeTypes treeType;
 		int minHeight;
 		int maxHeight;
-		
+
 		switch (variant)
 		{
 		case ARCHAEOPTERIS:
@@ -203,26 +202,26 @@ public class BlockGenesisSaplings extends BlockSapling
 		default:
 			break;
 		}
-		
+
 		if (gen != null)
 		{
 			gen.plantedWithSapling = true;
-			
+
 			IBlockState[] states = new IBlockState[positions.length];
-			
+
 			for (int i = 0; i < positions.length; i++)
 			{
 				BlockPos sapPos = positions[i];
 				states[i] = world.getBlockState(sapPos);
 				world.setBlockState(sapPos, Blocks.AIR.getDefaultState(), 0);
 			}
-			
+
 			boolean success = gen.generate(world, rand, pos);
 
 			for (int i = 0; i < positions.length; i++)
 			{
 				BlockPos sapPos = positions[i];
-				
+
 				if (success)
 					world.markAndNotifyBlock(sapPos, world.getChunkFromBlockCoords(sapPos), states[i], world.getBlockState(sapPos), 3);
 				else
@@ -230,41 +229,41 @@ public class BlockGenesisSaplings extends BlockSapling
 			}
 		}
 	}
-	
+
 	protected BlockPos[] findSaplings(World world, BlockPos pos, EnumTree variant, int area)
 	{
 		for (BlockPos checkStart : BlockPos.getAllInBox(pos.add(-area + 1, 0, -area + 1), pos))
 		{
 			BlockPos[] positions = new BlockPos[area * area];
-			
+
 			areaCheck:
 			for (int x = 0; x < area; x++)
 			{
 				for (int z = 0; z < area; z++)
 				{
 					BlockPos check = checkStart.add(x, 0, z);
-					
+
 					if (GenesisBlocks.trees.isStateOf(world.getBlockState(check), variant, type))
 						positions[z * area + x] = check;
 					else
 						break areaCheck;
 				}
 			}
-			
+
 			if (positions[positions.length - 1] != null)
 				return positions;
 		}
-		
+
 		return null;
 	}
-	
+
 	@Override
 	public boolean canReplace(World world, BlockPos pos, EnumFacing side, ItemStack stack)
 	{
 		return world.getBlockState(pos).getBlock().isReplaceable(world, pos)
 				&& WorldUtils.canSoilSustainTypes(world, pos, owner.getVariant(stack).getSoils());
 	}
-	
+
 	@Override
 	public boolean canBlockStay(World world, BlockPos pos, IBlockState state)
 	{

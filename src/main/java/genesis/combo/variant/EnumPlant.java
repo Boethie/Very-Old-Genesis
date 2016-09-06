@@ -29,7 +29,7 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	PALAEOASTER("palaeoaster", plant()),
 	ASTEROXYLON("asteroxylon", plant().soil(Plains, Desert).biomeColor(true).bothSizes()),
 	AETHOPHYLLUM("aethophyllum", plant().soil(Plains, Desert).shearable(true).largeOnly()),
-	
+
 	// Ferns
 	RHACOPHYTON("rhacophyton", fern().soil(Plains, Desert).largeOnly()),
 	ZYGOPTERIS("zygopteris", fern()),
@@ -39,7 +39,7 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	ASTRALOPTERIS("astralopteris", fern()),
 	MATONIDIUM("matonidium", fern()),
 	DRYOPTERIS("dryopteris", fern());
-	
+
 	final String name;
 	final String unlocalizedName;
 	final PlantType type;
@@ -50,7 +50,7 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	final boolean shearable;
 	final boolean replaceable;
 	final int waterDistance;
-	
+
 	EnumPlant(String name, String unlocalizedName, Props props)
 	{
 		this.name = name;
@@ -64,108 +64,108 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 		this.soils = props.soils;
 		this.waterDistance = props.waterDistance;
 	}
-	
+
 	EnumPlant(String name, Props props)
 	{
 		this(name, name, props);
 	}
-	
+
 	@Override
 	public String getName()
 	{
 		return name;
 	}
-	
+
 	@Override
 	public String getUnlocalizedName()
 	{
 		return unlocalizedName;
 	}
-	
+
 	public PlantType getType()
 	{
 		return type;
 	}
-	
+
 	public boolean hasSmall()
 	{
 		return small;
 	}
-	
+
 	public boolean hasLarge()
 	{
 		return large;
 	}
-	
+
 	public boolean shouldUseBiomeColor()
 	{
 		return biomeColor;
 	}
-	
+
 	@Override
 	public int getColorMultiplier(IBlockAccess world, BlockPos pos)
 	{
 		if (!shouldUseBiomeColor())
 			return 0xFFFFFF;
-		
+
 		if (world == null || pos == null)
 			return ColorizerGrass.getGrassColor(0.5, 1);
-		
+
 		return BiomeColorHelper.getGrassColorAtPos(world, pos);
 	}
-	
+
 	@Override
 	public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos)
 	{
 		return shearable;
 	}
-	
+
 	@Override
 	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, List<ItemStack> normalDrop)
 	{
 		return shearable ? normalDrop : Collections.emptyList();
 	}
-	
+
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, Random rand, List<ItemStack> normalDrop)
 	{
 		return shearable ? Collections.emptyList() : normalDrop;
 	}
-	
+
 	@Override
 	public boolean isReplaceable(IBlockAccess world, BlockPos pos)
 	{
 		return replaceable;
 	}
-	
+
 	@Override
 	public EnumPlantType[] getSoilTypes()
 	{
 		return soils;
 	}
-	
+
 	@Override
 	public int getWaterDistance()
 	{
 		return waterDistance;
 	}
-	
+
 	public enum PlantType
 	{
-		PLANT, FERN;
+		PLANT, FERN
 	}
-	
+
 	// Initialization helpers.
 	private static Props plant()
 	{
 		return new Props(PLANT);
 	}
-	
+
 	private static Props fern()
 	{
 		return new Props(FERN).biomeColor(true).shearable(true).replaceable(true);
 	}
-	
+
 	private static final class Props
 	{
 		PlantType type;
@@ -176,53 +176,53 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 		boolean replaceable = false;
 		EnumPlantType[] soils = {EnumPlantType.Plains};
 		int waterDistance = -1;
-		
+
 		private Props(PlantType type)
 		{
 			this.type = type;
 		}
-		
+
 		private Props soil(EnumPlantType... soils)
 		{
 			this.soils = soils;
 			return this;
 		}
-		
+
 		private Props sizes(boolean small, boolean large)
 		{
 			this.small = small;
 			this.large = large;
 			return this;
 		}
-		
+
 		private Props largeOnly()
 		{
 			return sizes(false, true);
 		}
-		
+
 		private Props bothSizes()
 		{
 			return sizes(true, true);
 		}
-		
+
 		private Props water(int distance)
 		{
 			this.waterDistance = distance;
 			return this;
 		}
-		
+
 		private Props biomeColor(boolean biomeColor)
 		{
 			this.biomeColor = biomeColor;
 			return this;
 		}
-		
+
 		private Props shearable(boolean shearable)
 		{
 			this.shearable = shearable;
 			return this;
 		}
-		
+
 		private Props replaceable(boolean replaceable)
 		{
 			this.replaceable = replaceable;
