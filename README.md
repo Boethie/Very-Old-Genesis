@@ -22,6 +22,8 @@ To feed, you can start with small dinosaurs hunt or gather wild fruits and rhizo
 
 You can make weapons like the spear, knife, self bow, composite bow, wooden arrow (light) or bone arrow (heavy). The choice of wood of your bow will also give different properties.
 
+A house becomes necessary to store resources, have your garden and be safe. To build the walls, you can use the wattle and daub create from dung and Programinis. Use log to the corners. You can also use the rubble to create more robust walls. For the roof, you can choose between the Programinis or Calamites roof. Convert indoor with item racks to place your best items, storage boxes to store your resources or jar to create fermented dishes.
+
 To catch a animal, you need to use a bola. Throwing the bola on the animal, you have some chance to immobilize the animal. It is then possible to prepare him to become a pet. Pets can lead to improve their capabilities (eg: a Coelophysis likes to play at the throwing bone). You also can make animal farms through eggs that appear on plants or in nests. Certain animals give hides to make clothing. The hide need to be tanned before on a tanning rack.
 
 You can also make ceramic pottery like bowls, vessels or cooking pots. With plants, fruits, mushrooms and other resources, you can make porridge, stews and dyes in a cooking pot placed on the campfire.
@@ -32,7 +34,7 @@ Genesis still full of many secrets that you will discover during your adventure.
 
 [**See the screenshot gallery on Imgur**](https://imgur.com/gallery/So2E6)
 
-### Credits (WIP)
+### Credits
 ###### Project Manager
 [Benjamin "Anaghold" Beaulieu](https://github.com/Anaghold) ~ Master of the College of Winternest, I am passionate about the world of plants, fungal and animal of the geological era. Child, I dreamed of a portal to the world of dinosaurs to meet my favorite animal- the Brachiosaurus. With Minecraft, I can now make this dream less utopian and it is as if I had returned to childhood. Now I'm looking forward to present you this wonderful little world, which is Genesis. My inspiration comes from the forests, hills and rivers of my village, books of my childhood, exchange ideas and work of my comrades. Perfectionist, I try to make things elegant, simple, neat and original.
 
@@ -44,4 +46,8 @@ Genesis still full of many secrets that you will discover during your adventure.
 ###### Artists
 [Orthonga](http://www.minecraftforum.net/members/Orthonga) ~ I am the creator of the resourcepack FantenCraft, formerly known as DaffCraft. I enjoy editing photos and painting stuff at my computer since I was 14, so one day I decided to paint some textures for Minecraft. DaffCraft was the first outcome. Later I decided to rework my pack and release it under a different name, FantenCraft.
 
-Sebastian "PixelTrixel" Luther ~ Minecraft is for him a &quot;horror-game&quot;, in caves he scares aaalways. What about real horror games? ;) - Seriously now, he creates textures, works on several projects (eg Project Palandria) and he studies applied computer science.
+[Sebastian "PixelTrixel" Luther](http://www.minecraftforum.net/members/xLotto22) ~ Biologically considered the most highly developed mammal sociologically a role player, philosophically a spirited nature. All this and more: child, teen and adult, students, academics and employee, friend and foe, sportsmen and lazy, scribe and draftsman, pedestrians, cyclists and motorists, user and developer.
+
+###### Special thanks
+
+Zaggy1024, MrIbby, Vorquel, KdotJPG, Sn0w, ZeeCount and Oursvince.
