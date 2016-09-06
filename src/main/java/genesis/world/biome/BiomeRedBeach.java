@@ -42,9 +42,9 @@ public class BiomeRedBeach extends BiomeBeachGenesis
 	@Override
 	public Vec3d getFogColor()
 	{
-		float red = 0.765039216F;
-		float green = 0.686607843F;
-		float blue = 0.592490196F;
+		float red = 0.755039216F;
+		float green = 0.676607843F;
+		float blue = 0.582490196F;
 		
 		return new Vec3d(red, green, blue);
 	}
@@ -62,6 +62,6 @@ public class BiomeRedBeach extends BiomeBeachGenesis
 	@Override
 	public int getSkyColorByTemp(float temperature)
 	{
-		return 0xB29277;
+		return 0xB28F77;
 	}
 }

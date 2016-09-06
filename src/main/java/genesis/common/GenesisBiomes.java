@@ -318,7 +318,7 @@ public final class GenesisBiomes
 		prop.setTemperature(2.0F);
 		prop.setRainfall(0.0F);
 		prop.setRainDisabled();
-		prop.setBaseHeight(0.15F);
+		prop.setBaseHeight(0.1F);
 		prop.setHeightVariation(0.05F);
 		prop.setWaterColor(0x725113);
 		
