@@ -318,6 +318,8 @@ item.genesis.food.gryphaea.raw.name=Raw Gryphaea
 item.genesis.food.gryphaea.cooked.name=Cooked Gryphaea
 item.genesis.food.ceratites.raw.name=Raw Ceratites
 item.genesis.food.ceratites.cooked.name=Cooked Ceratites
+item.genesis.food.coelophysis.raw.name=Raw Coelophysis
+item.genesis.food.coelophysis.cooked.name=Cooked Coelophysis
 item.genesis.food.liopleurodon.raw.name=Raw Liopleurodon
 item.genesis.food.liopleurodon.cooked.name=Cooked Liopleurodon
 item.genesis.food.tyrannosaurus.raw.name=Raw Tyrannosaurus
@@ -340,6 +342,7 @@ item.genesis.food.dish.stew.meganeura.name=Stew with Meganeura
 item.genesis.food.dish.stew.aphthoroblattina.name=Stew with Aphthoroblattina
 item.genesis.food.dish.stew.eryops.name=Stew with Eryops
 item.genesis.food.dish.stew.ceratites.name=Stew with Ceratites
+item.genesis.food.dish.stew.coelophysis.name=Stew with Coelophysis
 item.genesis.food.dish.stew.liopleurodon.name=Stew with Liopleurodon
 item.genesis.food.dish.stew.tyrannosaurus.name=Stew with Tyrannosaurus
 

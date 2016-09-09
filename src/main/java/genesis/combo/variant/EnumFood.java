@@ -16,6 +16,7 @@ public enum EnumFood implements IMetadata<EnumFood>
 	ERYOPS_LEG("eryops_leg", "eryopsLeg", raw(2, 0.8F).cooked(5, 6)),
 	GRYPHAEA("gryphaea", raw(2, 0.4F).cooked(3, 1)),
 	CERATITES("ceratites", raw(2, 0.4F).cooked(4, 1.8F)),
+	COELOPHYSIS("coelophysis", raw(2, 0.8F).cooked(5, 6)),
 	LIOPLEURODON("liopleurodon", raw(3, 2.8F).cooked(10, 13.8F)),
 	TYRANNOSAURUS("tyrannosaurus", raw(3, 2.8F).cooked(10, 13.8F));
 	

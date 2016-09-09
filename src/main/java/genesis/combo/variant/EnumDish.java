@@ -25,6 +25,7 @@ public enum EnumDish implements IFood, IMetadata<EnumDish>
 	STEW_APHTHOROBLATINNA("stew_aphthoroblattina", "stew.aphthoroblattina", 7, 6.4F),
 	STEW_ERYOPS("stew_eryops", "stew.eryops", 10, 12.6F),
 	STEW_CERATITES("stew_ceratites", "stew.ceratites", 9, 7.2F),
+	STEW_COELOPHYSIS("stew_coelophysis", "stew.coelophysis", 10, 12.6F),
 	STEW_LIOPLEURODON("stew_liopleurodon", "stew.liopleurodon", 15, 16),
 	STEW_TYRANNOSAURUS("stew_tyrannosaurus", "stew.tyrannosaurus", 15, 16);
 	

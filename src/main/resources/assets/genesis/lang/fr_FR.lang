@@ -317,6 +317,8 @@ item.genesis.food.gryphaea.raw.name=Gryphaea cru
 item.genesis.food.gryphaea.cooked.name=Gryphaea cuit
 item.genesis.food.ceratites.raw.name=Ceratites cru
 item.genesis.food.ceratites.cooked.name=Ceratites cuit
+item.genesis.food.coelophysis.raw.name=Coelophysis cru
+item.genesis.food.coelophysis.cooked.name=Coelophysis cuit
 item.genesis.food.liopleurodon.raw.name=Liopleurodon cru
 item.genesis.food.liopleurodon.cooked.name=Liopleurodon cuit
 item.genesis.food.tyrannosaurus.raw.name=Tyrannosaurus cru
@@ -339,6 +341,7 @@ item.genesis.food.dish.stew.meganeura.name=Ragoût au Meganeura
 item.genesis.food.dish.stew.aphthoroblattina.name=Ragoût à l'Aphthoroblattina
 item.genesis.food.dish.stew.eryops.name=Ragoût à l'Eryops
 item.genesis.food.dish.stew.ceratites.name=Ragoût au Ceratites
+item.genesis.food.dish.stew.coelophysis.name=Ragoût au Coelophysis
 item.genesis.food.dish.stew.liopleurodon.name=Ragoût au Liopleurodon
 item.genesis.food.dish.stew.tyrannosaurus.name=Ragoût au Tyrannosaurus
 

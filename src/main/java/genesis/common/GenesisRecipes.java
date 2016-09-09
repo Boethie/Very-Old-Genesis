@@ -900,6 +900,7 @@ public final class GenesisRecipes
 			case STEW_APHTHOROBLATINNA:
 			case STEW_ERYOPS:
 			case STEW_CERATITES:
+			case STEW_COELOPHYSIS:
 			case STEW_LIOPLEURODON:
 			case STEW_TYRANNOSAURUS:
 				ingredients.add(GenesisItems.materials.getStack(EnumMaterial.SALT));
@@ -951,6 +952,9 @@ public final class GenesisRecipes
 				break;
 			case STEW_CERATITES:
 				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.CERATITES));
+				break;
+			case STEW_COELOPHYSIS:
+				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.COELOPHYSIS));
 				break;
 			case STEW_LIOPLEURODON:
 				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.LIOPLEURODON));
