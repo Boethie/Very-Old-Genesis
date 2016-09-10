@@ -4,6 +4,7 @@ import genesis.common.GenesisBlocks;
 
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -36,13 +37,9 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 	}
 
 	@Override
-	public void onNeighborChange(IBlockAccess blockAccess, BlockPos pos, BlockPos neighbor)
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block)
 	{
-		if (blockAccess instanceof World)
-		{
-			World world = (World) blockAccess;
-			checkForMixing(world, pos, world.getBlockState(pos));
-		}
+		checkForMixing(world, pos, state);
 	}
 
 	@Override
