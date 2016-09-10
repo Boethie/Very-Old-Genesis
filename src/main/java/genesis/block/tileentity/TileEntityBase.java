@@ -30,9 +30,7 @@ public abstract class TileEntityBase extends TileEntity
 	@Override
 	public SPacketUpdateTileEntity getUpdatePacket()
 	{
-		NBTTagCompound compound = new NBTTagCompound();
-		writeVisualData(compound, false);
-		return new SPacketUpdateTileEntity(pos, 0, compound);
+		return new SPacketUpdateTileEntity(pos, 0, getUpdateTag());
 	}
 
 	@Override
@@ -44,7 +42,7 @@ public abstract class TileEntityBase extends TileEntity
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound)
 	{
-		compound = super.writeToNBT(compound);
+		super.writeToNBT(compound);
 		writeVisualData(compound, true);
 
 		return compound;
@@ -54,8 +52,18 @@ public abstract class TileEntityBase extends TileEntity
 	public void readFromNBT(NBTTagCompound compound)
 	{
 		super.readFromNBT(compound);
+		this.markDirty();
 
 		readVisualData(compound, true);
+	}
+
+	@Override
+	public NBTTagCompound getUpdateTag()
+	{
+		NBTTagCompound compound = new NBTTagCompound();
+		super.writeToNBT(compound);
+		writeVisualData(compound, false);
+		return compound;
 	}
 
 	@Override

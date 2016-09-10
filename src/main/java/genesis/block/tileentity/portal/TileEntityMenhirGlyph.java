@@ -37,11 +37,11 @@ public class TileEntityMenhirGlyph extends TileEntityBase
 	public static EnumGlyph getGlyph(NBTTagCompound compound)
 	{
 		String glyphName = compound.getString("glyph");
-		
+
 		for (EnumGlyph checkGlyph : EnumGlyph.values())
-			if (glyphName.equals(checkGlyph.getName()))
+			if (glyphName.equalsIgnoreCase(checkGlyph.getName()))
 				return checkGlyph;
-		
+
 		return null;
 	}
 }

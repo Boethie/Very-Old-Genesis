@@ -270,7 +270,7 @@ public class BlockMenhir extends BlockGenesis
 		default:
 			break;
 		}
-		
+
 		GenesisPortal.fromMenhirBlock(world, pos, state).updatePortalStatus(world);
 	}
 	
@@ -306,7 +306,7 @@ public class BlockMenhir extends BlockGenesis
 			return null;
 		}
 	}
-	
+
 	@Override
 	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
@@ -364,5 +364,13 @@ public class BlockMenhir extends BlockGenesis
 		}
 		
 		return null;
+	}
+
+	@Override
+	public boolean eventReceived(IBlockState state, World world, BlockPos pos, int id, int param)
+	{
+		super.eventReceived(state, world, pos, id, param);
+		TileEntity tile = world.getTileEntity(pos);
+		return tile != null && tile.receiveClientEvent(id, param);
 	}
 }
