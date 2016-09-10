@@ -29,6 +29,7 @@ import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -134,6 +135,12 @@ public class BlockResin extends BlockHorizontal implements IGrowable
 				world.setBlockToAir(pos);
 			}
 		}
+	}
+
+	@Override
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player)
+	{
+		return GenesisItems.materials.getStack(EnumMaterial.RESIN);
 	}
 
 	@Override

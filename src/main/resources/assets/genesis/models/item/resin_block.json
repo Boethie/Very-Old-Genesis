@@ -1,0 +1,35 @@
+{
+	"parent": "genesis:block/resin_3",
+	"display": {
+		"gui": {
+			"rotation": [ 270, 0, 0 ],
+			"translation": [ 0, 0, 0],
+			"scale":[ 1.375, 1.375, 1.375 ]
+		},
+		"ground": {
+			"rotation": [ 270, 0, 0 ],
+			"translation": [ 0, 3, -3],
+			"scale":[ 0.5, 0.5, 0.5 ]
+		},
+		"fixed": {
+			"rotation": [ 270, 0, 0 ],
+			"translation": [ 0, 0, 0],
+			"scale":[ 0.75, 0.75, 0.75 ]
+		},
+		"thirdperson_righthand": {
+			"rotation": [ 345, 45, 0 ],
+			"translation": [ 0, 4.25, 0],
+			"scale": [ 0.625, 0.625, 0.625 ]
+		},
+		"firstperson_righthand": {
+			"rotation": [ 270, 0, 0 ],
+			"translation": [ -2.5, 3.5, 0 ],
+			"scale": [ 0.65, 0.65, 0.65 ]
+		},
+		"firstperson_lefthand": {
+			"rotation": [ 270, 0, 0 ],
+			"translation": [ -2.5, 3.5, 0 ],
+			"scale": [ 0.65, 0.65, 0.65 ]
+		}
+	}
+}
