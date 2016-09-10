@@ -11,6 +11,7 @@ import genesis.common.GenesisItems;
 import genesis.util.AABBUtils;
 import genesis.util.BlockStateToMetadata;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
@@ -121,19 +122,23 @@ public class BlockResin extends BlockHorizontal implements IGrowable
 		return getDefaultState().withProperty(FACING, facing);
 	}
 
-	@Override
-	public void onNeighborChange(IBlockAccess blockAccess, BlockPos pos, BlockPos neighbor)
-	{
-		if (blockAccess instanceof World)
-		{
-			World world = (World) blockAccess;
-			IBlockState state = world.getBlockState(pos);
 
-			if (!canPlaceBlockAt(world, pos) || !canPlaceResin(world, pos, state.getValue(FACING).getOpposite()))
-			{
-				dropBlockAsItem(world, pos, state, 0);
-				world.setBlockToAir(pos);
-			}
+	@Override
+	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
+	{
+		if (!canPlaceBlockAt(world, pos) || !canPlaceResin(world, pos, state.getValue(FACING).getOpposite()))
+		{
+			world.destroyBlock(pos, true);
+		}
+		super.updateTick(world, pos, state, rand);
+	}
+
+	@Override
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block)
+	{
+		if (!canPlaceBlockAt(world, pos) || !canPlaceResin(world, pos, state.getValue(FACING).getOpposite()))
+		{
+			world.destroyBlock(pos, true);
 		}
 	}
 

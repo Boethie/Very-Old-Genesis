@@ -201,20 +201,13 @@ public class BlockRack extends BlockContainer implements MultiPartBlock
 	}
 
 	@Override
-	public void onNeighborChange(IBlockAccess blockAccess, BlockPos pos, BlockPos neighbor)
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block)
 	{
-		if (blockAccess instanceof World)
-		{
-			World world = (World) blockAccess;
+		IBlockState blockState = world.getBlockState(pos);
 
-			IBlockState blockState = blockAccess.getBlockState(pos);
-
-			for (FacingProperties.Entry<Boolean> entry : RACKS)
-			{
-				if (blockState.getValue(entry.property) && !canBlockStay(world, pos, entry.facing))
-				{
-					removePart(blockState, world, pos, entry.facing, null, true);
-				}
+		for (FacingProperties.Entry<Boolean> entry : RACKS) {
+			if (blockState.getValue(entry.property) && !canBlockStay(world, pos, entry.facing)) {
+				removePart(blockState, world, pos, entry.facing, null, true);
 			}
 		}
 	}

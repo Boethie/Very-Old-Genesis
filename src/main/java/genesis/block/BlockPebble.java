@@ -347,22 +347,22 @@ public class BlockPebble extends Block implements MultiPartBlock
 		return canBlockStay(world, pos, world.getBlockState(pos));
 	}
 
-	protected void checkAndDropBlock(World world, BlockPos pos, IBlockState state)
+	@Override
+	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
 	{
 		if (!canBlockStay(world, pos, state))
 		{
 			world.destroyBlock(pos, true);
 		}
+		super.updateTick(world, pos, state, rand);
 	}
 
 	@Override
-	public void onNeighborChange(IBlockAccess blockAccess, BlockPos pos, BlockPos neighbor)
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block)
 	{
-		if (blockAccess instanceof World)
+		if (!canBlockStay(world, pos, state))
 		{
-			World world = (World) blockAccess;
-
-			checkAndDropBlock(world, pos, world.getBlockState(pos));
+			world.destroyBlock(pos, true);
 		}
 	}
 }

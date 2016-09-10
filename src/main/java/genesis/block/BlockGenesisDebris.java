@@ -11,6 +11,7 @@ import genesis.common.sounds.GenesisSoundTypes;
 import genesis.item.ItemBlockMulti;
 import genesis.util.BlockStateToMetadata;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
@@ -102,13 +103,9 @@ public class BlockGenesisDebris extends BlockGenesisVariants<MultiMetadata>
 	}
 
 	@Override
-	public void onNeighborChange(IBlockAccess blockAccess, BlockPos pos, BlockPos neighbor)
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block)
 	{
-		if (blockAccess instanceof World)
-		{
-			World world = (World) blockAccess;
-			checkAndDropBlock(world, pos, world.getBlockState(pos));
-		}
+		checkAndDropBlock(world, pos, world.getBlockState(pos));
 	}
 
 	@Override
