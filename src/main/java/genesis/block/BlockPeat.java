@@ -99,7 +99,6 @@ public class BlockPeat extends BlockGenesis implements IGrowable
 		{
 		case Cave:
 		case Plains:
-		case Desert:
 			return true;
 		case Beach:
 			return WorldUtils.isWater(world, pos.east()) ||
