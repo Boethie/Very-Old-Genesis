@@ -50,7 +50,6 @@ tile.genesis.crackedSilt.name=Cracked Silt
 tile.genesis.crackedSilt.red.name=Cracked Red Silt
 tile.genesis.ooze.name=Ooze
 tile.genesis.peat.name=Peat
-tile.genesis.mycorrhiza.name=Mycorrhiza
 
 tile.genesis.permafrost.name=Permafrost
 tile.genesis.ancientPermafrost.name=Ancient Permafrost
@@ -89,6 +88,7 @@ tile.genesis.calamitesRoof.name=Calamites Roof
 tile.genesis.programinisBundle.name=Bundle of Programinis
 tile.genesis.programinisRoof.name=Programinis Roof
 
+tile.genesis.mycorrhiza.name=Mycorrhiza
 tile.genesis.dung.herbivore.name=Herbivore Dung
 tile.genesis.dung.carnivore.name=Carnivore Dung
 tile.genesis.dungBrick.name=Dung Brick

@@ -14,6 +14,6 @@ public class BlockOoze extends BlockGenesis
 		setSoundType(GenesisSoundTypes.OOZE);
 		setHarvestLevel("shovel", 0);
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
-		setHardness(1.0F);
+		setHardness(0.6F);
 	}
 }

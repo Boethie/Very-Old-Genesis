@@ -89,7 +89,6 @@ public final class GenesisBlocks
 	public static final Block red_clay = new BlockRedClay().setUnlocalizedName(Unlocalized.PREFIX + "redClay");
 	public static final Block ooze = new BlockOoze().setUnlocalizedName(Unlocalized.PREFIX + "ooze");
 	public static final Block peat = new BlockPeat().setUnlocalizedName(Unlocalized.PREFIX + "peat");
-	public static final Block mycorrhiza = new BlockMycorrhiza().setUnlocalizedName(Unlocalized.PREFIX + "mycorrhiza");
 	public static final SiltBlocks silt = new SiltBlocks();
 
 	/* Permafrost */
@@ -188,6 +187,7 @@ public final class GenesisBlocks
 	public static final Block rope_ladder = new BlockRopeLadder().setUnlocalizedName(Unlocalized.PREFIX + "ropeLadder");
 	public static final Block calamites_torch = new BlockCalamitesTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTorch");
 	public static final Block calamites_torch_tall = new BlockTallTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTorch.tall");
+	public static final Block mycorrhiza = new BlockMycorrhiza().setUnlocalizedName(Unlocalized.PREFIX + "mycorrhiza");
 
 	public static final BlockBenchSeat bench_seat = (BlockBenchSeat) new BlockBenchSeat().setUnlocalizedName(Unlocalized.PREFIX + "benchSeat");
 
@@ -270,7 +270,6 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(red_clay, name("red_clay"));
 		Genesis.proxy.registerBlock(ooze, name("ooze"));
 		Genesis.proxy.registerBlock(peat, name("peat"));
-		Genesis.proxy.registerBlock(mycorrhiza, name("mycorrhiza"));
 		silt.registerAll();
 
 		// - Permafrost -
@@ -288,6 +287,8 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(calamites_roof, name("calamites_roof"));
 		Genesis.proxy.registerBlock(programinis_bundle, name("programinis_bundle"));
 		Genesis.proxy.registerBlock(programinis_roof, name("programinis_roof"));
+
+		Genesis.proxy.registerBlock(mycorrhiza, name("mycorrhiza"));
 
 		// - Dungs -
 		dungs.registerVariants(DungBlocksAndItems.DUNG_BLOCK);

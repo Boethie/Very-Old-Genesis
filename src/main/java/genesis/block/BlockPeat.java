@@ -29,7 +29,7 @@ public class BlockPeat extends BlockGenesis implements IGrowable
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 		
 		setHarvestLevel("shovel", 0);
-		setHardness(1.0F);
+		setHardness(0.6F);
 		
 		Blocks.FIRE.setFireInfo(this, 5, 5);
 	}

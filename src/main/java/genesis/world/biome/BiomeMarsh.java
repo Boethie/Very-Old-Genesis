@@ -5,6 +5,7 @@ import java.util.Random;
 import genesis.combo.PlantBlocks;
 import genesis.combo.variant.EnumPlant;
 import genesis.common.GenesisBlocks;
+import genesis.world.biome.decorate.WorldGenCircleReplacement;
 import genesis.world.biome.decorate.WorldGenGrowingPlant;
 import genesis.world.biome.decorate.WorldGenPlant;
 import net.minecraft.block.material.Material;
@@ -20,7 +21,6 @@ public class BiomeMarsh extends BiomeGenesis
 	{
 		super(properties);
 		this.topBlock = GenesisBlocks.mycorrhiza.getDefaultState();
-		this.fillerBlock = GenesisBlocks.peat.getDefaultState();
 		
 		getDecorator().setGrassCount(7);
 		addGrass(WorldGenPlant.create(PlantBlocks.PLANT, EnumPlant.ASTEROXYLON).setPatchCount(5), 1);
@@ -35,6 +35,7 @@ public class BiomeMarsh extends BiomeGenesis
 		addFlower(WorldGenPlant.create(EnumPlant.COOKSONIA).setPatchCount(4), 1);
 		
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.prototaxites).setPatchCount(3), 0.142F);
+		addDecoration(WorldGenCircleReplacement.getPeatGen(), 6.75F);
 	}
 	
 	@Override
