@@ -319,26 +319,16 @@ public final class GenesisRecipes
 		GameRegistry.addShapelessRecipe(GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS, 9), GenesisBlocks.programinis_bundle);
 		
 		// Roofs
-		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.calamites_roof, 4),
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(GenesisBlocks.calamites_roof, 4),
 				"#  ",
 				"## ",
 				"###",
-				'#', GenesisBlocks.calamites);
-		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.calamites_roof, 4),
-				"  #",
-				" ##",
-				"###",
-				'#', GenesisBlocks.calamites);
-		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.programinis_roof, 4),
+				'#', GenesisBlocks.calamites));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(GenesisBlocks.programinis_roof, 4),
 				"#  ",
 				"## ",
 				"###",
-				'#', GenesisBlocks.programinis);
-		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.programinis_roof, 4),
-				"  #",
-				" ##",
-				"###",
-				'#', GenesisBlocks.programinis);
+				'#', GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS)));
 		
 		// Silt to siltstone recipes
 		for (EnumSilt mat: EnumSilt.values())
