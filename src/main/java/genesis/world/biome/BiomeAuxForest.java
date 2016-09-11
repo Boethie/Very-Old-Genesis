@@ -61,7 +61,7 @@ public class BiomeAuxForest extends BiomeGenesis
 		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 3);
 		addTree(new WorldGenTreeAraucarioxylon(25, 30, false, GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.DEAD_LOG, EnumTree.ARAUCARIOXYLON)).setType(TreeTypes.TYPE_3), 1);
 		
-		addTree(new WorldGenDeadLog(7, 10, EnumTree.ARAUCARIOXYLON, true), 16);
+		addTree(new WorldGenDeadLog(7, 10, EnumTree.ARAUCARIOXYLON, true), 14);
 	}
 	
 	@Override
