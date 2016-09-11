@@ -1,24 +1,24 @@
 package genesis.block;
 
-import java.util.*;
-
-import genesis.block.BlockGrowingPlant.*;
+import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
 import genesis.combo.variant.EnumSeeds;
-import genesis.common.*;
+import genesis.common.GenesisItems;
 import genesis.common.sounds.GenesisSoundTypes;
 import genesis.util.WorldUtils;
-import genesis.util.random.i.RandomIntProvider;
-
-import net.minecraft.block.material.*;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlantCustoms
 {
@@ -34,22 +34,10 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 		setPlantSize(1, 0, 1);
 		setCollisionBox(new AxisAlignedBB(0, 0, 0, 1, 1, 1));
 
-		setPlantSoilTypes(EnumPlantType.Plains, BlockPrototaxitesMycelium.SOIL_TYPE);
+		setPlantSoilTypes(EnumPlantType.Plains);
 		setGrowth(0.75F, 1, 1, 1);
 		setResetAgeOnGrowth(true);
-		setAllowPlacingStacked(false);
-	}
-
-	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
-	{
-		BlockPos below = pos.down();
-
-		if (WorldUtils.canSoilSustainTypes(world, pos, EnumPlantType.Plains)
-				&& !WorldUtils.canSoilSustainTypes(world, pos, BlockPrototaxitesMycelium.SOIL_TYPE))
-			world.setBlockState(below, GenesisBlocks.prototaxites_mycelium.getDefaultState());
-
-		super.onBlockPlacedBy(world, pos, state, placer, stack);
+		setAllowPlacingStacked(true);
 	}
 
 	@Override
@@ -75,58 +63,21 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 			BlockPos sidePos = pos.offset(side);
 			IBlockState sideState = world.getBlockState(sidePos);
 
-			if (sideState.getBlock() == this
-					|| sideState.isSideSolid(world, sidePos, side.getOpposite()))
-				return CanStayOptions.NO;
-		}
-
-		if (plantState == PlantState.IN_WORLD
-				&& WorldUtils.canSoilSustainTypes(world, pos, EnumPlantType.Plains)
-				&& !WorldUtils.canSoilSustainTypes(world, pos, BlockPrototaxitesMycelium.SOIL_TYPE))
-			return CanStayOptions.NO;
-
-		return CanStayOptions.YIELD;
-	}
-
-	protected void placeMycelium(World world, BlockPos pos, Random rand, int down, int flags)
-	{
-		for (int i = 0; i <= down; i++)
-		{
-			BlockPos soilPos = pos.down(i);
-			IBlockState soilState = world.getBlockState(soilPos);
-
-			if (soilState.getBlock() == Blocks.DIRT
-					|| soilState.getBlock() == GenesisBlocks.moss)
+			if (sideState.getBlock() == this || sideState.isSideSolid(world, sidePos, side.getOpposite()))
 			{
-				world.setBlockState(soilPos, GenesisBlocks.prototaxites_mycelium.getDefaultState(), flags);
-				return;
+				return CanStayOptions.NO;
 			}
 		}
-	}
 
-	protected void placeAreaMycelium(World world, BlockPos pos, Random rand, int flags)
-	{
-		if (rand.nextInt(5) <= 3)
+		IBlockState stateDown = world.getBlockState(pos.down());
+		if (stateDown.getBlock().canSustainPlant(stateDown, world, pos.down(), EnumFacing.UP, this)
+				&& !world.getBlockState(pos.up()).getMaterial().isLiquid()
+				&& WorldUtils.canSoilSustainTypes(world, pos, EnumPlantType.Plains))
 		{
-			placeMycelium(world, pos, rand, 1, flags);
-
-			for (EnumFacing side : EnumFacing.HORIZONTALS)
-				if (rand.nextInt(3) == 0)
-					placeMycelium(world, pos.offset(side), rand, 1, flags);
+			return CanStayOptions.YES;
 		}
-	}
 
-	@Override
-	public void placePlant(World world, BlockPos pos, Random rand, int height, RandomIntProvider age, int flags)
-	{
-		BlockPos soil = pos.down();
-
-		placeMycelium(world, soil, rand, 0, flags);
-
-		for (EnumFacing side : EnumFacing.HORIZONTALS)
-			placeAreaMycelium(world, soil.offset(side), rand, flags);
-
-		super.placePlant(world, pos, rand, height, age, flags);
+		return CanStayOptions.YIELD;
 	}
 
 	@Override

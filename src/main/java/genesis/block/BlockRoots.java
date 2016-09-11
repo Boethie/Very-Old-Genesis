@@ -54,9 +54,7 @@ public class BlockRoots extends BlockGenesis
 		
 		for (Block log : trees.getBlocks(TreeBlocksAndItems.DEAD_LOG))
 			blockStateSupportList.addAll(log.getBlockState().getValidStates());
-		
-		blockStateSupportList.addAll(prototaxites_mycelium.getBlockState().getValidStates());
-		
+
 		unInit = false;
 	}
 	

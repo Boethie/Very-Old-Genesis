@@ -1,6 +1,0 @@
-{
-	"variants": {
-		"snowy=false": { "model": "genesis:prototaxites_mycelium" },
-		"snowy=true": { "model": "grass_snowed" }
-	}
-}
