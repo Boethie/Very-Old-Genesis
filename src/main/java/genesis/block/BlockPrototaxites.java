@@ -63,7 +63,7 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 			BlockPos sidePos = pos.offset(side);
 			IBlockState sideState = world.getBlockState(sidePos);
 
-			if (sideState.getBlock() == this || sideState.isSideSolid(world, sidePos, side.getOpposite()))
+			if (sideState.getBlock() == this || sideState.isSideSolid(world, sidePos, side.getOpposite()) || sideState.getMaterial().isLiquid())
 			{
 				return CanStayOptions.NO;
 			}
