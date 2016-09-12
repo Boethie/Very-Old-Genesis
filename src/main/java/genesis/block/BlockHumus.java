@@ -60,7 +60,7 @@ public class BlockHumus extends Block
 			
 			if (stack.getItem() instanceof ItemSpade)
 			{
-				newState = GenesisBlocks.humus_path.getDefaultState();
+				newState = GenesisBlocks.HUMUS_PATH.getDefaultState();
 				sound = SoundEvents.ITEM_SHOVEL_FLATTEN;
 			}
 			else if (stack.getItem() instanceof ItemHoe)

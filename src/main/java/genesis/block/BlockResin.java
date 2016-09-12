@@ -80,8 +80,8 @@ public class BlockResin extends BlockHorizontal implements IGrowable
 	{
 		IBlockState state = world.getBlockState(pos.offset(facing));
 		return facing.getAxis().isHorizontal()
-				&& GenesisBlocks.trees.isStateOf(state, TreeBlocksAndItems.LOG)
-				&& GenesisBlocks.trees.getVariant(state).hasResin();
+				&& GenesisBlocks.TREES.isStateOf(state, TreeBlocksAndItems.LOG)
+				&& GenesisBlocks.TREES.getVariant(state).hasResin();
 	}
 
 	@Override
@@ -145,7 +145,7 @@ public class BlockResin extends BlockHorizontal implements IGrowable
 	@Override
 	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player)
 	{
-		return GenesisItems.materials.getStack(EnumMaterial.RESIN);
+		return GenesisItems.MATERIALS.getStack(EnumMaterial.RESIN);
 	}
 
 	@Override
@@ -194,13 +194,13 @@ public class BlockResin extends BlockHorizontal implements IGrowable
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune)
 	{
-		return GenesisItems.materials.getItem(EnumMaterial.RESIN);
+		return GenesisItems.MATERIALS.getItem(EnumMaterial.RESIN);
 	}
 
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return GenesisItems.materials.getItemMetadata(EnumMaterial.RESIN);
+		return GenesisItems.MATERIALS.getItemMetadata(EnumMaterial.RESIN);
 	}
 
 	@Override

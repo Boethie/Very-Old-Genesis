@@ -151,9 +151,9 @@ public class WorldGenCrater extends WorldGenerator
 							IBlockState craterBottom;
 
 							if (rand.nextInt(3) > 0)
-								craterBottom = GenesisBlocks.octaedrite.getDefaultState();
+								craterBottom = GenesisBlocks.OCTAEDRITE.getDefaultState();
 							else
-								craterBottom = GenesisBlocks.granite.getDefaultState();
+								craterBottom = GenesisBlocks.GRANITE.getDefaultState();
 
 							world.setBlockState(replacePos, craterBottom, 2);
 						}

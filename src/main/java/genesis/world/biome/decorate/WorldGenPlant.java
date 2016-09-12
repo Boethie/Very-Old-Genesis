@@ -24,7 +24,7 @@ public class WorldGenPlant<V extends IPlantMetadata<V>> extends WorldGenDecorati
 
 	public static WorldGenPlant<EnumPlant> create(ObjectType<EnumPlant, ? extends BlockPlant<EnumPlant>, ? extends Item> type, EnumPlant variant)
 	{
-		return create(GenesisBlocks.plants, type, variant);
+		return create(GenesisBlocks.PLANTS, type, variant);
 	}
 
 	public static WorldGenPlant<EnumPlant> create(EnumPlant variant)

@@ -19,27 +19,27 @@ public class WGHDB {
 	static IBlockState nullRow[] = {null , null , null, null, null, null, null, null};
 	
 	//Materials
-	static IBlockState base = GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LOG, EnumTree.LEPIDODENDRON);
+	static IBlockState base = GenesisBlocks.TREES.getBlockState(TreeBlocksAndItems.LOG, EnumTree.LEPIDODENDRON);
 			
 	static IBlockState baseZ = base.withProperty(BlockLog.LOG_AXIS, EnumAxis.Z);
 			
 	static IBlockState baseY = base.withProperty(BlockLog.LOG_AXIS, EnumAxis.Y);
 			
-	static IBlockState wattle = GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.WATTLE_FENCE, EnumTree.LEPIDODENDRON);
+	static IBlockState wattle = GenesisBlocks.TREES.getBlockState(TreeBlocksAndItems.WATTLE_FENCE, EnumTree.LEPIDODENDRON);
 			
-	static IBlockState roof = GenesisBlocks.calamites_roof.getDefaultState();
+	static IBlockState roof = GenesisBlocks.CALAMITES_ROOF.getDefaultState();
 			
 	//0-West Bottom, 1 - East Top, 2 - EastBottom, 3 - WestTop
 	static IBlockState[] rf = new IBlockState[]{roof.withProperty(BlockStairs.FACING, EnumFacing.WEST).withProperty(BlockStairs.HALF, EnumHalf.BOTTOM).withProperty(BlockStairs.SHAPE, EnumShape.STRAIGHT), roof.withProperty(BlockStairs.FACING, EnumFacing.EAST).withProperty(BlockStairs.HALF, EnumHalf.TOP).withProperty(BlockStairs.SHAPE, EnumShape.STRAIGHT), roof.withProperty(BlockStairs.FACING, EnumFacing.EAST).withProperty(BlockStairs.HALF, EnumHalf.BOTTOM).withProperty(BlockStairs.SHAPE, EnumShape.STRAIGHT), roof.withProperty(BlockStairs.FACING, EnumFacing.WEST).withProperty(BlockStairs.HALF, EnumHalf.TOP).withProperty(BlockStairs.SHAPE, EnumShape.STRAIGHT)};
 			
-	static IBlockState bundle = GenesisBlocks.calamites_bundle.getDefaultState();
+	static IBlockState bundle = GenesisBlocks.CALAMITES_BUNDLE.getDefaultState();
 	
-	static IBlockState rack = GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.RACK, EnumTree.SIGILLARIA).withProperty(BlockRack.RACKS.south, true);
+	static IBlockState rack = GenesisBlocks.TREES.getBlockState(TreeBlocksAndItems.RACK, EnumTree.SIGILLARIA).withProperty(BlockRack.RACKS.south, true);
 	
 	//The main building matrix
 	
 					 					//y x z
-	public static final IBlockState matrix[][][] = new IBlockState[][][]{
+	public static final IBlockState MATRIX[][][] = new IBlockState[][][]{
 	{
 		nullRow,
 		{null, wattle, null, null, null, null, wattle, null},
@@ -59,8 +59,8 @@ public class WGHDB {
 	{
 		nullRow,
 		{null, baseY, bundle.withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), bundle.withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), bundle.withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), bundle.withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), baseY, null},
-		{null, bundle.withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), GenesisBlocks.storage_box.getDefaultState().withProperty(BlockStorageBox.FACING, EnumFacing.EAST),null, null, null, bundle.withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), null},
-		{null, bundle.withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), null,null,null, GenesisBlocks.workbench.getDefaultState(), bundle.withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), null},
+		{null, bundle.withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), GenesisBlocks.STORAGE_BOX.getDefaultState().withProperty(BlockStorageBox.FACING, EnumFacing.EAST),null, null, null, bundle.withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), null},
+		{null, bundle.withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), null,null,null, GenesisBlocks.WORKBENCH.getDefaultState(), bundle.withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), null},
 		{null, baseY, baseY, null, baseY, bundle.withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), baseY, null},
 		nullRow
 	},

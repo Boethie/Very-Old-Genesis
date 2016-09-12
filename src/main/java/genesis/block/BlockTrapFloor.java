@@ -152,13 +152,13 @@ public class BlockTrapFloor extends BlockGenesis
 	{
 		List<ItemStack> ret = new ArrayList<>();
 
-		ItemStack frond = GenesisItems.materials.getStack(EnumMaterial.CLADOPHLEBIS_FROND);
+		ItemStack frond = GenesisItems.MATERIALS.getStack(EnumMaterial.CLADOPHLEBIS_FROND);
 
 		frond.stackSize = 3;
 
 		ret.add(frond);
 
-		ret.add(new ItemStack(GenesisBlocks.calamites,3));
+		ret.add(new ItemStack(GenesisBlocks.CALAMITES,3));
 
 		return ret;
 	}

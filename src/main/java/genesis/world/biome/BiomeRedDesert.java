@@ -29,18 +29,18 @@ public class BiomeRedDesert extends BiomeGenesis
 	public BiomeRedDesert(Biome.BiomeProperties properties)
 	{
 		super(properties);
-		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
-		fillerBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
+		topBlock = GenesisBlocks.SILT.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
+		fillerBlock = GenesisBlocks.SILT.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
 		
 		theBiomeDecorator.sandPerChunk = 0;
 		theBiomeDecorator.sandPerChunk2 = 0;
 		
 		getDecorator().setFlowerCount(0.38F);
-		addFlower(WorldGenPlant.create(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.AETHOPHYLLUM), 1);
+		addFlower(WorldGenPlant.create(GenesisBlocks.PLANTS, PlantBlocks.DOUBLE_PLANT, EnumPlant.AETHOPHYLLUM), 1);
 		addFlower(WorldGenPlant.create(EnumPlant.APOLDIA), 4);
 		
-		addDecoration(new WorldGenSplash(GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT), GenesisBlocks.silt.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.RED_SILT)).setPatchRadius(4), 7);
-		addDecoration(new WorldGenBoulders(GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT), 1, 0, 0).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.25F, 0.75F)), 0.2F);
+		addDecoration(new WorldGenSplash(GenesisBlocks.SILT.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT), GenesisBlocks.SILT.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.RED_SILT)).setPatchRadius(4), 7);
+		addDecoration(new WorldGenBoulders(GenesisBlocks.SILT.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT), 1, 0, 0).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.25F, 0.75F)), 0.2F);
 		addDecoration(new WorldGenPebbles().setWaterRequired(false), 3.5F);
 		addDecoration(new WorldGenRoots(), 5);
 	}
@@ -144,14 +144,14 @@ public class BiomeRedDesert extends BiomeGenesis
 					{
 						l = -1;
 					}
-					else if (iblockstate1.getBlock() == GenesisBlocks.granite)
+					else if (iblockstate1.getBlock() == GenesisBlocks.GRANITE)
 					{
 						if (l == -1)
 						{
 							if (k <= 0)
 							{
 								topState = AIR;
-								fillerState = GenesisBlocks.granite.getDefaultState();
+								fillerState = GenesisBlocks.GRANITE.getDefaultState();
 							}
 							else if (i1 >= seaLevel - 4 && i1 <= seaLevel + 1)
 							{
@@ -170,7 +170,7 @@ public class BiomeRedDesert extends BiomeGenesis
 							{
 								chunkPrimer.setBlockState(chunkX, i1, chunkZ, fillerState);
 								
-								if (fillerState == GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT))
+								if (fillerState == GenesisBlocks.SILT.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT))
 								{
 									chunkPrimer.setBlockState(chunkX, i1, chunkZ, this.topBlock);
 								}
@@ -179,7 +179,7 @@ public class BiomeRedDesert extends BiomeGenesis
 							{
 								if (flag)
 								{
-									chunkPrimer.setBlockState(chunkX, i1, chunkZ, GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT));
+									chunkPrimer.setBlockState(chunkX, i1, chunkZ, GenesisBlocks.SILT.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT));
 								}
 								else
 								{

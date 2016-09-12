@@ -36,7 +36,7 @@ public final class GenesisCreativeTabs
 		@Override
 		public Item getTabIconItem()
 		{
-			return Item.getItemFromBlock(GenesisBlocks.moss);
+			return Item.getItemFromBlock(GenesisBlocks.MOSS);
 		}
 	};
 	
@@ -45,7 +45,7 @@ public final class GenesisCreativeTabs
 		@Override
 		public ItemStack getIconItemStack()
 		{
-			return GenesisBlocks.trees.getStack(TreeBlocksAndItems.SAPLING, EnumTree.SIGILLARIA);
+			return GenesisBlocks.TREES.getStack(TreeBlocksAndItems.SAPLING, EnumTree.SIGILLARIA);
 		}
 	};
 	
@@ -54,7 +54,7 @@ public final class GenesisCreativeTabs
 		@Override
 		public Item getTabIconItem()
 		{
-			return Item.getItemFromBlock(GenesisBlocks.trap_floor);
+			return Item.getItemFromBlock(GenesisBlocks.TRAP_FLOOR);
 		}
 	};
 	
@@ -63,7 +63,7 @@ public final class GenesisCreativeTabs
 		@Override
 		public Item getTabIconItem()
 		{
-			return GenesisItems.ceramic_bucket_water;
+			return GenesisItems.CERAMIC_BUCKET_WATER;
 		}
 	};
 
@@ -72,7 +72,7 @@ public final class GenesisCreativeTabs
 		@Override
 		public ItemStack getIconItemStack()
 		{
-			return GenesisItems.foods.getCookedStack(EnumFood.ERYOPS_LEG);
+			return GenesisItems.FOODS.getCookedStack(EnumFood.ERYOPS_LEG);
 		}
 	};
 	
@@ -81,7 +81,7 @@ public final class GenesisCreativeTabs
 		@Override
 		public ItemStack getIconItemStack()
 		{
-			return GenesisItems.tools.getStack(ToolItems.AXE, EnumToolMaterial.GRANITE, EnumToolQuality.CHIPPED);
+			return GenesisItems.TOOLS.getStack(ToolItems.AXE, EnumToolMaterial.GRANITE, EnumToolQuality.CHIPPED);
 		}
 	};
 	
@@ -90,7 +90,7 @@ public final class GenesisCreativeTabs
 		@Override
 		public ItemStack getIconItemStack()
 		{
-			return GenesisItems.bows.getStack(EnumBowType.SELF, EnumTree.DRYOPHYLLUM);
+			return GenesisItems.BOWS.getStack(EnumBowType.SELF, EnumTree.DRYOPHYLLUM);
 		}
 	};
 	
@@ -99,7 +99,7 @@ public final class GenesisCreativeTabs
 		@Override
 		public ItemStack getIconItemStack()
 		{
-			return GenesisBlocks.ores.getDrop(EnumOre.MANGANESE);
+			return GenesisBlocks.ORES.getDrop(EnumOre.MANGANESE);
 		}
 	};
 }

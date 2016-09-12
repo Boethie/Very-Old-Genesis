@@ -31,6 +31,6 @@ public class ItemGenesisBucketMilk extends ItemBucketMilk
 		if (player != null)
 			player.addStat(StatList.getObjectUseStats(this));
 		
-		return stack.stackSize <= 0 ? new ItemStack(GenesisItems.ceramic_bucket) : stack;
+		return stack.stackSize <= 0 ? new ItemStack(GenesisItems.CERAMIC_BUCKET) : stack;
 	}
 }

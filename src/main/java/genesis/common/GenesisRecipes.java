@@ -174,15 +174,15 @@ public final class GenesisRecipes
 		switch (material)
 		{
 		case OCTAEDRITE:
-			return new ItemStack(GenesisBlocks.octaedrite);
+			return new ItemStack(GenesisBlocks.OCTAEDRITE);
 		case DOLERITE:
-			return new ItemStack(GenesisBlocks.dolerite);
+			return new ItemStack(GenesisBlocks.DOLERITE);
 		case RHYOLITE:
-			return new ItemStack(GenesisBlocks.rhyolite);
+			return new ItemStack(GenesisBlocks.RHYOLITE);
 		case GRANITE:
-			return new ItemStack(GenesisBlocks.granite);
+			return new ItemStack(GenesisBlocks.GRANITE);
 		case QUARTZ:
-			return GenesisBlocks.ores.getDrop(EnumOre.QUARTZ);
+			return GenesisBlocks.ORES.getDrop(EnumOre.QUARTZ);
 		case BROWN_FLINT:
 		case BLACK_FLINT:
 		}
@@ -195,13 +195,13 @@ public final class GenesisRecipes
 		switch (material)
 		{
 		case OCTAEDRITE:
-			return new BlockSpriteUVs(GenesisBlocks.octaedrite);
+			return new BlockSpriteUVs(GenesisBlocks.OCTAEDRITE);
 		case DOLERITE:
-			return new BlockSpriteUVs(GenesisBlocks.dolerite);
+			return new BlockSpriteUVs(GenesisBlocks.DOLERITE);
 		case RHYOLITE:
-			return new BlockSpriteUVs(GenesisBlocks.rhyolite);
+			return new BlockSpriteUVs(GenesisBlocks.RHYOLITE);
 		case GRANITE:
-			return new BlockSpriteUVs(GenesisBlocks.granite);
+			return new BlockSpriteUVs(GenesisBlocks.GRANITE);
 		case QUARTZ:
 			return new SpriteUVs(new ResourceLocation(Constants.ASSETS_PREFIX + "textures/blocks/quartz_block.png"), 0, 0, 1, 1);
 		case BROWN_FLINT:
@@ -216,16 +216,16 @@ public final class GenesisRecipes
 	protected static void addToolRecipe(ItemStack toolHead, ToolObjectType<?, ?> type, EnumToolMaterial material, Object... shape)
 	{
 		toolHead = toolHead.copy();
-		ItemStack toolChipped = GenesisItems.tools.getBadStack(type, material);
+		ItemStack toolChipped = GenesisItems.TOOLS.getBadStack(type, material);
 		//ItemStack toolGood = GenesisItems.tools.getGoodStack(type, material);
 		
-		for (ItemStack billet : GenesisBlocks.trees.getSubItems(TreeBlocksAndItems.BILLET))
+		for (ItemStack billet : GenesisBlocks.TREES.getSubItems(TreeBlocksAndItems.BILLET))
 		{
 			Object[] paramsBase = ArrayUtils.addAll(shape,
 					'B', billet,
 					'T', toolHead);
 			Object[] paramsFiber = ArrayUtils.addAll(paramsBase,
-					'S', GenesisItems.materials.getStack(EnumMaterial.SPHENOPHYLLUM_FIBER));
+					'S', GenesisItems.MATERIALS.getStack(EnumMaterial.SPHENOPHYLLUM_FIBER));
 			Object[] paramsString = ArrayUtils.addAll(paramsBase,
 					'S', Items.STRING);
 			
@@ -246,27 +246,27 @@ public final class GenesisRecipes
 	{
 		FuelHandler.initialize();
 		
-		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.smooth_limestone, 4),
+		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.SMOOTH_LIMESTONE, 4),
 				"LL",
 				"LL",
-				'L', GenesisBlocks.limestone);
-		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.trap_floor),
+				'L', GenesisBlocks.LIMESTONE);
+		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.TRAP_FLOOR),
 				"xxx",
 				"///",
-				'x', GenesisItems.materials.getStack(EnumMaterial.CLADOPHLEBIS_FROND),
-				'/', GenesisBlocks.calamites);
+				'x', GenesisItems.MATERIALS.getStack(EnumMaterial.CLADOPHLEBIS_FROND),
+				'/', GenesisBlocks.CALAMITES);
 		
-		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.bench_seat),
+		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.BENCH_SEAT),
 				"FFF",
 				"GGG",
-				'F', GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS),
-				'G', GenesisBlocks.granite);
+				'F', GenesisItems.MATERIALS.getStack(EnumMaterial.PROGRAMINIS),
+				'G', GenesisBlocks.GRANITE);
 		
 		//Food
-		GameRegistry.addShapelessRecipe(GenesisItems.seeds.getStack(EnumSeeds.ARAUCARIOXYLON_SEEDS), GenesisBlocks.trees.getStack(TreeBlocksAndItems.FRUIT, EnumTree.ARAUCARIOXYLON));
+		GameRegistry.addShapelessRecipe(GenesisItems.SEEDS.getStack(EnumSeeds.ARAUCARIOXYLON_SEEDS), GenesisBlocks.TREES.getStack(TreeBlocksAndItems.FRUIT, EnumTree.ARAUCARIOXYLON));
 		
 		//Torches
-		ItemStack resin = GenesisItems.materials.getStack(EnumMaterial.RESIN);
+		ItemStack resin = GenesisItems.MATERIALS.getStack(EnumMaterial.RESIN);
 		
 		GameRegistry.addShapedRecipe(new ItemStack(Blocks.TORCH, 4),
 				"o",
@@ -274,69 +274,69 @@ public final class GenesisRecipes
 				'o', resin, '|', Items.STICK);
 		
 		// Calamites TORCH
-		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4),
+		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.CALAMITES_TORCH, 4),
 				"o",
 				"|",
-				'o', Items.COAL, '|', GenesisBlocks.calamites);
-		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4),
+				'o', Items.COAL, '|', GenesisBlocks.CALAMITES);
+		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.CALAMITES_TORCH, 4),
 				"o",
 				"|",
-				'o', new ItemStack(Items.COAL, 1, 1), '|', GenesisBlocks.calamites);
-		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch, 4),
+				'o', new ItemStack(Items.COAL, 1, 1), '|', GenesisBlocks.CALAMITES);
+		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.CALAMITES_TORCH, 4),
 				"o",
 				"|",
-				'o', resin, '|', GenesisBlocks.calamites);
+				'o', resin, '|', GenesisBlocks.CALAMITES);
 		
 		// Tall calamites TORCH
-		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch_tall, 2),
+		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.CALAMITES_TORCH_TALL, 2),
 				"o",
 				"|",
 				"|",
-				'o', Items.COAL, '|', GenesisBlocks.calamites);
-		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch_tall, 2),
+				'o', Items.COAL, '|', GenesisBlocks.CALAMITES);
+		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.CALAMITES_TORCH_TALL, 2),
 				"o",
 				"|",
 				"|",
-				'o', new ItemStack(Items.COAL, 1, 1), '|', GenesisBlocks.calamites);
-		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.calamites_torch_tall, 2),
+				'o', new ItemStack(Items.COAL, 1, 1), '|', GenesisBlocks.CALAMITES);
+		GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.CALAMITES_TORCH_TALL, 2),
 				"o",
 				"|",
 				"|",
-				'o', resin, '|', GenesisBlocks.calamites);
+				'o', resin, '|', GenesisBlocks.CALAMITES);
 		
 		// Bundles
-		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.calamites_bundle),
+		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.CALAMITES_BUNDLE),
 				"CCC",
 				"CCC",
 				"CCC",
-				'C', GenesisBlocks.calamites);
-		GameRegistry.addShapelessRecipe(new ItemStack(GenesisBlocks.calamites, 9), GenesisBlocks.calamites_bundle);
-		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.programinis_bundle),
+				'C', GenesisBlocks.CALAMITES);
+		GameRegistry.addShapelessRecipe(new ItemStack(GenesisBlocks.CALAMITES, 9), GenesisBlocks.CALAMITES_BUNDLE);
+		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.PROGRAMINIS_BUNDLE),
 				"CCC",
 				"CCC",
 				"CCC",
-				'C', GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS));
-		GameRegistry.addShapelessRecipe(GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS, 9), GenesisBlocks.programinis_bundle);
+				'C', GenesisItems.MATERIALS.getStack(EnumMaterial.PROGRAMINIS));
+		GameRegistry.addShapelessRecipe(GenesisItems.MATERIALS.getStack(EnumMaterial.PROGRAMINIS, 9), GenesisBlocks.PROGRAMINIS_BUNDLE);
 		
 		// Roofs
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(GenesisBlocks.calamites_roof, 4),
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(GenesisBlocks.CALAMITES_ROOF, 4),
 				"#  ",
 				"## ",
 				"###",
-				'#', GenesisBlocks.calamites));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(GenesisBlocks.programinis_roof, 4),
+				'#', GenesisBlocks.CALAMITES));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(GenesisBlocks.PROGRAMINIS_ROOF, 4),
 				"#  ",
 				"## ",
 				"###",
-				'#', GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS)));
+				'#', GenesisItems.MATERIALS.getStack(EnumMaterial.PROGRAMINIS)));
 		
 		// Silt to siltstone recipes
 		for (EnumSilt mat: EnumSilt.values())
 		{
-			GameRegistry.addShapedRecipe(GenesisBlocks.silt.getStack(SiltBlocks.SILTSTONE, mat),
+			GameRegistry.addShapedRecipe(GenesisBlocks.SILT.getStack(SiltBlocks.SILTSTONE, mat),
 					"ss",
 					"ss",
-					's', GenesisBlocks.silt.getStack(SiltBlocks.SILT, mat));
+					's', GenesisBlocks.SILT.getStack(SiltBlocks.SILT, mat));
 		}
 		
 		// Flint and marcasite recipe
@@ -344,12 +344,12 @@ public final class GenesisRecipes
 		
 		for (EnumToolMaterial mat : flintMaterials)
 		{
-			GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite),
-					GenesisItems.nodules.getStack(EnumNodule.MARCASITE),
-					GenesisItems.tools.getStack(ToolItems.PEBBLE, mat));	// Pebble
-			GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.flint_and_marcasite),
-					GenesisItems.nodules.getStack(EnumNodule.MARCASITE),
-					GenesisItems.nodules.getStack(EnumNodule.fromToolMaterial(mat)));	// Nodule
+			GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.FLINT_AND_MARCASITE),
+					GenesisItems.NODULES.getStack(EnumNodule.MARCASITE),
+					GenesisItems.TOOLS.getStack(ToolItems.PEBBLE, mat));	// Pebble
+			GameRegistry.addShapelessRecipe(new ItemStack(GenesisItems.FLINT_AND_MARCASITE),
+					GenesisItems.NODULES.getStack(EnumNodule.MARCASITE),
+					GenesisItems.NODULES.getStack(EnumNodule.fromToolMaterial(mat)));	// Nodule
 		}
 		
 		for (EnumTree tree : EnumTree.values())
@@ -358,13 +358,13 @@ public final class GenesisRecipes
 			if (tree.hasDebris())
 			{
 				// Leaves -> Debris
-				GameRegistry.addShapelessRecipe(GenesisBlocks.debris.getStack(tree, 4),
-						GenesisBlocks.trees.getStack(TreeBlocksAndItems.LEAVES, tree));
+				GameRegistry.addShapelessRecipe(GenesisBlocks.DEBRIS.getStack(tree, 4),
+						GenesisBlocks.TREES.getStack(TreeBlocksAndItems.LEAVES, tree));
 				
 				// Humus
-				GameRegistry.addShapelessRecipe(new ItemStack(GenesisBlocks.humus),
+				GameRegistry.addShapelessRecipe(new ItemStack(GenesisBlocks.HUMUS),
 						new ItemStack(Blocks.DIRT),
-						GenesisBlocks.debris.getStack(tree));
+						GenesisBlocks.DEBRIS.getStack(tree));
 			}
 			
 			// Porridge
@@ -373,13 +373,13 @@ public final class GenesisRecipes
 			switch (tree)
 			{
 			case GINKGO:
-				porridge = GenesisItems.bowls.getStack(EnumDish.PORRIDGE_GINKGO);
+				porridge = GenesisItems.BOWLS.getStack(EnumDish.PORRIDGE_GINKGO);
 				break;
 			case FICUS:
-				porridge = GenesisItems.bowls.getStack(EnumDish.PORRIDGE_FIG);
+				porridge = GenesisItems.BOWLS.getStack(EnumDish.PORRIDGE_FIG);
 				break;
 			case LAUROPHYLLUM:
-				porridge = GenesisItems.bowls.getStack(EnumDish.PORRIDGE_LAUROPHYLLUM);
+				porridge = GenesisItems.BOWLS.getStack(EnumDish.PORRIDGE_LAUROPHYLLUM);
 				break;
 			default:
 				break;
@@ -388,24 +388,24 @@ public final class GenesisRecipes
 			if (porridge != null)
 			{
 				CookingPotRecipeRegistry.registerShapeless(porridge,
-						GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS),
-						GenesisBlocks.trees.getStack(TreeBlocksAndItems.FRUIT, tree));
+						GenesisItems.MATERIALS.getStack(EnumMaterial.PROGRAMINIS),
+						GenesisBlocks.TREES.getStack(TreeBlocksAndItems.FRUIT, tree));
 			}
 		}
 		
-		GameRegistry.addShapelessRecipe(GenesisBlocks.debris.getStack(EnumDebrisOther.CALAMITES), GenesisBlocks.calamites);
+		GameRegistry.addShapelessRecipe(GenesisBlocks.DEBRIS.getStack(EnumDebrisOther.CALAMITES), GenesisBlocks.CALAMITES);
 		
 		// All recipes with only logs, and one constant output.
-		for (Item log : GenesisBlocks.trees.getItems(TreeBlocksAndItems.LOG))
+		for (Item log : GenesisBlocks.TREES.getItems(TreeBlocksAndItems.LOG))
 		{
 			GameRegistry.addSmelting(new ItemStack(log, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.COAL, 1, 1), 0.15F);
 		}
 		
 		// Logs -> billets
-		for (EnumTree variant : GenesisBlocks.trees.getSharedValidVariants(TreeBlocksAndItems.LOG, TreeBlocksAndItems.BILLET))
+		for (EnumTree variant : GenesisBlocks.TREES.getSharedValidVariants(TreeBlocksAndItems.LOG, TreeBlocksAndItems.BILLET))
 		{
-			ItemStack logStack = GenesisBlocks.trees.getStack(TreeBlocksAndItems.LOG, variant, 1);
-			ItemStack billetStack = GenesisBlocks.trees.getStack(TreeBlocksAndItems.BILLET, variant, 4);
+			ItemStack logStack = GenesisBlocks.TREES.getStack(TreeBlocksAndItems.LOG, variant, 1);
+			ItemStack billetStack = GenesisBlocks.TREES.getStack(TreeBlocksAndItems.BILLET, variant, 4);
 			
 			if (variant == EnumTree.SIGILLARIA || variant == EnumTree.LEPIDODENDRON)
 			{
@@ -416,27 +416,27 @@ public final class GenesisRecipes
 		}
 		
 		// Branch -> billet
-		for (EnumTree variant : GenesisBlocks.trees.getSharedValidVariants(TreeBlocksAndItems.BRANCH, TreeBlocksAndItems.BILLET))
+		for (EnumTree variant : GenesisBlocks.TREES.getSharedValidVariants(TreeBlocksAndItems.BRANCH, TreeBlocksAndItems.BILLET))
 		{
 			GameRegistry.addShapelessRecipe(
-					GenesisBlocks.trees.getStack(TreeBlocksAndItems.BRANCH, variant, 1),
-					GenesisBlocks.trees.getStack(TreeBlocksAndItems.BILLET, variant, 1));
+					GenesisBlocks.TREES.getStack(TreeBlocksAndItems.BRANCH, variant, 1),
+					GenesisBlocks.TREES.getStack(TreeBlocksAndItems.BILLET, variant, 1));
 		}
 		
 		// Recipes involving billets.
-		for (EnumTree variant : GenesisBlocks.trees.getValidVariants(TreeBlocksAndItems.BILLET))
+		for (EnumTree variant : GenesisBlocks.TREES.getValidVariants(TreeBlocksAndItems.BILLET))
 		{
-			ItemStack billetStack = GenesisBlocks.trees.getStack(TreeBlocksAndItems.BILLET, variant, 1);
+			ItemStack billetStack = GenesisBlocks.TREES.getStack(TreeBlocksAndItems.BILLET, variant, 1);
 			
 			// Storage box
-			GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.storage_box),
+			GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.STORAGE_BOX),
 					"BBB",
 					"B B",
 					"BBB",
 					'B', billetStack);
 			
 			// Wattle fence
-			GameRegistry.addShapedRecipe(GenesisBlocks.trees.getStack(TreeBlocksAndItems.WATTLE_FENCE, variant, 3),
+			GameRegistry.addShapedRecipe(GenesisBlocks.TREES.getStack(TreeBlocksAndItems.WATTLE_FENCE, variant, 3),
 					"BBB",
 					"BBB",
 					'B', billetStack);
@@ -451,13 +451,13 @@ public final class GenesisRecipes
 			GameRegistry.addShapedRecipe(new ItemStack(Blocks.TORCH, 4),
 					"r",
 					"B",
-					'r', GenesisItems.materials.getStack(EnumMaterial.RESIN),
+					'r', GenesisItems.MATERIALS.getStack(EnumMaterial.RESIN),
 					'B', billetStack);
 			
 			// Campfire
-			for (ItemStack pebble : GenesisItems.tools.getSubItems(ToolItems.PEBBLE))
+			for (ItemStack pebble : GenesisItems.TOOLS.getSubItems(ToolItems.PEBBLE))
 			{	// TODO: Add variants for pebbles and billets.
-				GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.campfire),
+				GameRegistry.addShapedRecipe(new ItemStack(GenesisBlocks.CAMPFIRE),
 						"III",
 						"I I",
 						"ooo",
@@ -466,32 +466,32 @@ public final class GenesisRecipes
 			}
 			
 			//Rack
-			GameRegistry.addShapedRecipe(GenesisBlocks.trees.getStack(TreeBlocksAndItems.RACK, variant),
+			GameRegistry.addShapedRecipe(GenesisBlocks.TREES.getStack(TreeBlocksAndItems.RACK, variant),
 					"XX",
 					'X', billetStack);
 
 			// Rope ladder
-			GameRegistry.addRecipe(new ItemStack(GenesisBlocks.rope_ladder, 3),
+			GameRegistry.addRecipe(new ItemStack(GenesisBlocks.ROPE_LADDER, 3),
 					"S S",
 					"BBB",
 					"S S",
-					'S', GenesisItems.materials.getStack(EnumMaterial.SPHENOPHYLLUM_FIBER),
+					'S', GenesisItems.MATERIALS.getStack(EnumMaterial.SPHENOPHYLLUM_FIBER),
 					'B', billetStack);
 			
 			// Bow
 			if (variant.hasBow())
 			{
-				GameRegistry.addRecipe(GenesisItems.bows.getStack(EnumBowType.SELF, variant),
+				GameRegistry.addRecipe(GenesisItems.BOWS.getStack(EnumBowType.SELF, variant),
 						" S",
 						"BS",
 						" S",
-						'S', GenesisItems.materials.getStack(EnumMaterial.SPHENOPHYLLUM_FIBER),
+						'S', GenesisItems.MATERIALS.getStack(EnumMaterial.SPHENOPHYLLUM_FIBER),
 						'B', billetStack);
-				GameRegistry.addRecipe(GenesisItems.bows.getStack(EnumBowType.SELF, variant),
+				GameRegistry.addRecipe(GenesisItems.BOWS.getStack(EnumBowType.SELF, variant),
 						"S ",
 						"SB",
 						"S ",
-						'S', GenesisItems.materials.getStack(EnumMaterial.SPHENOPHYLLUM_FIBER),
+						'S', GenesisItems.MATERIALS.getStack(EnumMaterial.SPHENOPHYLLUM_FIBER),
 						'B', billetStack);
 			}
 		}
@@ -499,7 +499,7 @@ public final class GenesisRecipes
 		// All rubble recipes
 		for (EnumRubble variant : EnumRubble.values())
 		{
-			ItemStack rubbleStack = GenesisBlocks.rubble.getStack(variant);
+			ItemStack rubbleStack = GenesisBlocks.RUBBLE.getStack(variant);
 			
 			// Stone -> Rubble
 			ItemStack modelStack = variant.getModelStack();
@@ -511,16 +511,16 @@ public final class GenesisRecipes
 			switch (variant)
 			{
 			case GRANITE:
-				wallBlock = GenesisBlocks.granite_rubble_wall;
+				wallBlock = GenesisBlocks.GRANITE_RUBBLE_WALL;
 				break;
 			case MOSSY_GRANITE:
-				wallBlock = GenesisBlocks.mossy_granite_rubble_wall;
+				wallBlock = GenesisBlocks.MOSSY_GRANITE_RUBBLE_WALL;
 				break;
 			case RHYOLITE:
-				wallBlock = GenesisBlocks.rhyolite_rubble_wall;
+				wallBlock = GenesisBlocks.RHYOLITE_RUBBLE_WALL;
 				break;
 			case DOLERITE:
-				wallBlock = GenesisBlocks.dolerite_rubble_wall;
+				wallBlock = GenesisBlocks.DOLERITE_RUBBLE_WALL;
 				break;
 			}
 			
@@ -534,11 +534,11 @@ public final class GenesisRecipes
 		}
 		
 		// All slab recipes
-		for (ObjectType<EnumSlab, ?, ?> type : GenesisBlocks.slabs.getTypes())
+		for (ObjectType<EnumSlab, ?, ?> type : GenesisBlocks.SLABS.getTypes())
 		{
-			for (EnumSlab variant : GenesisBlocks.slabs.getValidVariants(type))
+			for (EnumSlab variant : GenesisBlocks.SLABS.getValidVariants(type))
 			{
-				ItemStack slabStack = GenesisBlocks.slabs.getStack(type, variant, 6);
+				ItemStack slabStack = GenesisBlocks.SLABS.getStack(type, variant, 6);
 				ItemStack modelStack = variant.getModelStack();
 				GameRegistry.addRecipe(slabStack, "SSS", 'S', modelStack);
 			}
@@ -546,14 +546,14 @@ public final class GenesisRecipes
 		
 		// Register knapping tools and
 		// Register workbench recipes.
-		for (ItemStack pebble : GenesisItems.tools.getSubItems(ToolItems.PEBBLE))
+		for (ItemStack pebble : GenesisItems.TOOLS.getSubItems(ToolItems.PEBBLE))
 		{
 			pebble.setItemDamage(OreDictionary.WILDCARD_VALUE);
 			KnappingRecipeRegistry.registerKnappingTool(pebble);
 			
-			for (ItemStack log : GenesisBlocks.trees.getSubItems(TreeBlocksAndItems.LOG))
+			for (ItemStack log : GenesisBlocks.TREES.getSubItems(TreeBlocksAndItems.LOG))
 			{
-				GameRegistry.addRecipe(new ItemStack(GenesisBlocks.workbench),
+				GameRegistry.addRecipe(new ItemStack(GenesisBlocks.WORKBENCH),
 						"o",
 						"L",
 						'o', pebble,
@@ -569,19 +569,19 @@ public final class GenesisRecipes
 			ISpriteUVs sprite = getToolCraftingMaterialSprite(material);
 			
 			ItemStack stack;
-			ItemStack flake = GenesisItems.tools.getStack(ToolItems.FLAKE, material);
-			Collection<ItemStack> billets = GenesisBlocks.trees.getItems(TreeBlocksAndItems.BILLET)
+			ItemStack flake = GenesisItems.TOOLS.getStack(ToolItems.FLAKE, material);
+			Collection<ItemStack> billets = GenesisBlocks.TREES.getItems(TreeBlocksAndItems.BILLET)
 					.stream().map((i) -> new ItemStack(i, 1, OreDictionary.WILDCARD_VALUE)).collect(Collectors.toList());
 			ItemStack[] feathers = {
 				new ItemStack(Items.FEATHER),
-				GenesisItems.materials.getStack(EnumMaterial.COELOPHYSIS_FEATHER),
-				GenesisItems.materials.getStack(EnumMaterial.EPIDEXIPTERYX_FEATHER),
-				GenesisItems.materials.getStack(EnumMaterial.TYRANNOSAURUS_FEATHER),
+				GenesisItems.MATERIALS.getStack(EnumMaterial.COELOPHYSIS_FEATHER),
+				GenesisItems.MATERIALS.getStack(EnumMaterial.EPIDEXIPTERYX_FEATHER),
+				GenesisItems.MATERIALS.getStack(EnumMaterial.TYRANNOSAURUS_FEATHER),
 			};
 			
 			for (EnumArrowShaft shaft : EnumArrowShaft.values())
 			{
-				ItemStack arrow = GenesisItems.arrows.getStack(shaft, material, 4);
+				ItemStack arrow = GenesisItems.ARROWS.getStack(shaft, material, 4);
 				
 				for (ItemStack billet : billets)
 				{
@@ -599,9 +599,9 @@ public final class GenesisRecipes
 			}
 			
 			// Pebble
-			if (GenesisItems.tools.containsVariant(ToolItems.PEBBLE, material))
+			if (GenesisItems.TOOLS.containsVariant(ToolItems.PEBBLE, material))
 			{
-				stack = GenesisItems.tools.getStack(ToolItems.PEBBLE, material);
+				stack = GenesisItems.TOOLS.getStack(ToolItems.PEBBLE, material);
 				
 				if (stack != null)
 				{
@@ -618,7 +618,7 @@ public final class GenesisRecipes
 			
 			if (nodule != null)
 			{
-				stack = GenesisItems.nodules.getStack(nodule);
+				stack = GenesisItems.NODULES.getStack(nodule);
 				
 				if (stack != null)
 				{
@@ -646,27 +646,27 @@ public final class GenesisRecipes
 		// Add knapping recipes from map created earlier.
 		for (EnumToolMaterial material : EnumToolMaterial.values())
 		{
-			ItemStack axeHead = GenesisItems.tools.getBadStack(ToolItems.AXE_HEAD, material, 1);
+			ItemStack axeHead = GenesisItems.TOOLS.getBadStack(ToolItems.AXE_HEAD, material, 1);
 			addToolRecipe(axeHead, ToolItems.AXE, material);
 			
-			ItemStack shovelHead = GenesisItems.tools.getBadStack(ToolItems.SHOVEL_HEAD, material, 1);
+			ItemStack shovelHead = GenesisItems.TOOLS.getBadStack(ToolItems.SHOVEL_HEAD, material, 1);
 			addToolRecipe(shovelHead, ToolItems.SHOVEL, material);
 			
-			ItemStack pickHead = GenesisItems.tools.getBadStack(ToolItems.PICKAXE_HEAD, material, 1);
+			ItemStack pickHead = GenesisItems.TOOLS.getBadStack(ToolItems.PICKAXE_HEAD, material, 1);
 			addToolRecipe(pickHead, ToolItems.PICKAXE, material);
 			
-			ItemStack hoeHead = GenesisItems.tools.getBadStack(ToolItems.HOE_HEAD, material, 1);
+			ItemStack hoeHead = GenesisItems.TOOLS.getBadStack(ToolItems.HOE_HEAD, material, 1);
 			addToolRecipe(hoeHead, ToolItems.HOE, material);
 			
-			ItemStack knifeHead = GenesisItems.tools.getBadStack(ToolItems.KNIFE_HEAD, material, 1);
+			ItemStack knifeHead = GenesisItems.TOOLS.getBadStack(ToolItems.KNIFE_HEAD, material, 1);
 			addToolRecipe(knifeHead, ToolItems.KNIFE, material,
 					" T",
 					"SB");
 			
-			ItemStack clubHead = GenesisItems.tools.getBadStack(ToolItems.CLUB_HEAD, material, 1);
+			ItemStack clubHead = GenesisItems.TOOLS.getBadStack(ToolItems.CLUB_HEAD, material, 1);
 			addToolRecipe(clubHead, ToolItems.CLUB, material);
 			
-			ItemStack spearHead = GenesisItems.tools.getBadStack(ToolItems.SPEAR_HEAD, material, 1);
+			ItemStack spearHead = GenesisItems.TOOLS.getBadStack(ToolItems.SPEAR_HEAD, material, 1);
 			addToolRecipe(spearHead, ToolItems.SPEAR, material);
 			
 			for (Pair<ItemStack, Integer> pair : materials.get(material))
@@ -743,21 +743,21 @@ public final class GenesisRecipes
 		}
 		
 		// Crafting dyes
-		GameRegistry.addShapelessRecipe(GenesisItems.powders.getStack(EnumPowder.LIMESTONE, 4), GenesisBlocks.limestone);
+		GameRegistry.addShapelessRecipe(GenesisItems.POWDERS.getStack(EnumPowder.LIMESTONE, 4), GenesisBlocks.LIMESTONE);
 		
 		for (EnumPowder powder : EnumPowder.values())
 		{
 			if (powder.getCraftingOreDrop() != null)
 			{
-				GameRegistry.addShapelessRecipe(GenesisItems.powders.getStack(powder, 2), GenesisBlocks.ores.getDrop(powder.getCraftingOreDrop()));
+				GameRegistry.addShapelessRecipe(GenesisItems.POWDERS.getStack(powder, 2), GenesisBlocks.ORES.getDrop(powder.getCraftingOreDrop()));
 			}
 		}
 		
 		// Dung storage
 		for (EnumDung variant : EnumDung.values())
 		{
-			ItemStack dungBlock = GenesisBlocks.dungs.getStack(DungBlocksAndItems.DUNG_BLOCK, variant);
-			ItemStack dungItems = GenesisBlocks.dungs.getStack(DungBlocksAndItems.DUNG, variant, 9);
+			ItemStack dungBlock = GenesisBlocks.DUNGS.getStack(DungBlocksAndItems.DUNG_BLOCK, variant);
+			ItemStack dungItems = GenesisBlocks.DUNGS.getStack(DungBlocksAndItems.DUNG, variant, 9);
 			// Storing
 			GameRegistry.addRecipe(dungBlock,
 					"DDD",
@@ -769,8 +769,8 @@ public final class GenesisRecipes
 		}
 		
 		// Dung brick
-		ItemStack dungBrick = GenesisItems.materials.getStack(EnumMaterial.DUNG_BRICK);
-		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.dung_brick),
+		ItemStack dungBrick = GenesisItems.MATERIALS.getStack(EnumMaterial.DUNG_BRICK);
+		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.DUNG_BRICK),
 				"CCC",
 				"CCC",
 				"CCC",
@@ -779,15 +779,15 @@ public final class GenesisRecipes
 		// Dung recipes
 		TileEntityCampfire.registerAllowedOutput(dungBrick);
 		
-		for (ItemDung dungItem : GenesisBlocks.dungs.getItems(DungBlocksAndItems.DUNG))
+		for (ItemDung dungItem : GenesisBlocks.DUNGS.getItems(DungBlocksAndItems.DUNG))
 		{
-			for (ItemBlockMulti<EnumTree> fenceItem : GenesisBlocks.trees.getItems(TreeBlocksAndItems.WATTLE_FENCE))
+			for (ItemBlockMulti<EnumTree> fenceItem : GenesisBlocks.TREES.getItems(TreeBlocksAndItems.WATTLE_FENCE))
 			{
-				GameRegistry.addRecipe(new ItemStack(GenesisBlocks.wattle_and_daub),
+				GameRegistry.addRecipe(new ItemStack(GenesisBlocks.WATTLE_AND_DAUB),
 						"PDP",
 						"DWD",
 						"PDP",
-						'P', GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS),
+						'P', GenesisItems.MATERIALS.getStack(EnumMaterial.PROGRAMINIS),
 						'D', new ItemStack(dungItem, 1, OreDictionary.WILDCARD_VALUE),
 						'W', new ItemStack(fenceItem, 1, OreDictionary.WILDCARD_VALUE));
 			}
@@ -796,78 +796,78 @@ public final class GenesisRecipes
 		}
 		
 		// Smelting
-		for (EnumOre ore : GenesisBlocks.ores.getSharedValidVariants(OreBlocks.ORE, OreBlocks.DROP))
+		for (EnumOre ore : GenesisBlocks.ORES.getSharedValidVariants(OreBlocks.ORE, OreBlocks.DROP))
 		{
-			ItemStack oreStack = GenesisBlocks.ores.getOreStack(ore);
-			ItemStack dropStack = GenesisBlocks.ores.getDrop(ore);
+			ItemStack oreStack = GenesisBlocks.ORES.getOreStack(ore);
+			ItemStack dropStack = GenesisBlocks.ORES.getDrop(ore);
 			GameRegistry.addSmelting(oreStack, dropStack, ore.getSmeltingExperience());
 		}
 		
-		GameRegistry.addSmelting(GenesisBlocks.ores.getOreStack(EnumOre.MARCASITE), GenesisItems.nodules.getStack(EnumNodule.MARCASITE), EnumOre.MARCASITE.getSmeltingExperience());
+		GameRegistry.addSmelting(GenesisBlocks.ORES.getOreStack(EnumOre.MARCASITE), GenesisItems.NODULES.getStack(EnumNodule.MARCASITE), EnumOre.MARCASITE.getSmeltingExperience());
 		
 		// Food
 		for (EnumFood food : EnumFood.values())
 		{
 			if (food.hasCookedVariant())
 			{
-				GameRegistry.addSmelting(GenesisItems.foods.getRawStack(food), GenesisItems.foods.getCookedStack(food), 0.35F);
+				GameRegistry.addSmelting(GenesisItems.FOODS.getRawStack(food), GenesisItems.FOODS.getCookedStack(food), 0.35F);
 			}
 		}
 		
-		ItemStack ash = GenesisItems.materials.getStack(EnumMaterial.VEGETAL_ASH);
+		ItemStack ash = GenesisItems.MATERIALS.getStack(EnumMaterial.VEGETAL_ASH);
 		TileEntityCampfire.registerAllowedOutput(ash);
-		GameRegistry.addSmelting(GenesisBlocks.plants.getPlantStack(EnumPlant.LEPACYCLOTES), ash, 0.15F);
-		GameRegistry.addSmelting(GenesisBlocks.trees.getStack(TreeBlocksAndItems.SAPLING, EnumTree.CORDAITES), ash, 0.15F);
-		CookingPotRecipeRegistry.registerShapeless(GenesisItems.materials.getStack(EnumMaterial.SALT), true, ash);
+		GameRegistry.addSmelting(GenesisBlocks.PLANTS.getPlantStack(EnumPlant.LEPACYCLOTES), ash, 0.15F);
+		GameRegistry.addSmelting(GenesisBlocks.TREES.getStack(TreeBlocksAndItems.SAPLING, EnumTree.CORDAITES), ash, 0.15F);
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.MATERIALS.getStack(EnumMaterial.SALT), true, ash);
 		
 		// Pottery
-		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.red_clay), "CC", "CC", 'C', GenesisItems.red_clay_ball);
-		GameRegistry.addSmelting(GenesisBlocks.red_clay, new ItemStack(Blocks.STAINED_HARDENED_CLAY, 1, EnumDyeColor.WHITE.getMetadata()), 0.3F);
+		GameRegistry.addRecipe(new ItemStack(GenesisBlocks.RED_CLAY), "CC", "CC", 'C', GenesisItems.RED_CLAY_BALL);
+		GameRegistry.addSmelting(GenesisBlocks.RED_CLAY, new ItemStack(Blocks.STAINED_HARDENED_CLAY, 1, EnumDyeColor.WHITE.getMetadata()), 0.3F);
 		
-		GameRegistry.addRecipe(new ItemStack(GenesisItems.red_clay_bowl), "C C", " C ", 'C', GenesisItems.red_clay_ball);
-		GameRegistry.addSmelting(GenesisItems.red_clay_bowl, TileEntityCampfire.registerAllowedOutput(GenesisItems.bowls.getStack(EnumCeramicBowls.BOWL)), 0.3F);
+		GameRegistry.addRecipe(new ItemStack(GenesisItems.RED_CLAY_BOWL), "C C", " C ", 'C', GenesisItems.RED_CLAY_BALL);
+		GameRegistry.addSmelting(GenesisItems.RED_CLAY_BOWL, TileEntityCampfire.registerAllowedOutput(GenesisItems.BOWLS.getStack(EnumCeramicBowls.BOWL)), 0.3F);
 		
-		GameRegistry.addRecipe(new ItemStack(GenesisItems.red_clay_bucket), "X X", "X X", " X ", 'X', GenesisItems.red_clay_ball);
-		GameRegistry.addSmelting(GenesisItems.red_clay_bucket, TileEntityCampfire.registerAllowedOutput(new ItemStack(GenesisItems.ceramic_bucket)), 0.3F);
+		GameRegistry.addRecipe(new ItemStack(GenesisItems.RED_CLAY_BUCKET), "X X", "X X", " X ", 'X', GenesisItems.RED_CLAY_BALL);
+		GameRegistry.addSmelting(GenesisItems.RED_CLAY_BUCKET, TileEntityCampfire.registerAllowedOutput(new ItemStack(GenesisItems.CERAMIC_BUCKET)), 0.3F);
 		
 		// Cooking pot recipes
-		ItemStack calamites = new ItemStack(GenesisBlocks.calamites);
-		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.YELLOW), calamites, calamites);
+		ItemStack calamites = new ItemStack(GenesisBlocks.CALAMITES);
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.BOWLS.getStack(EnumDyeColor.YELLOW), calamites, calamites);
 		
-		ItemStack mabelia = GenesisBlocks.plants.getPlantStack(EnumPlant.MABELIA);
-		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.RED), mabelia, mabelia);
+		ItemStack mabelia = GenesisBlocks.PLANTS.getPlantStack(EnumPlant.MABELIA);
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.BOWLS.getStack(EnumDyeColor.RED), mabelia, mabelia);
 		
-		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.ORANGE), calamites, mabelia);
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.BOWLS.getStack(EnumDyeColor.ORANGE), calamites, mabelia);
 		
-		ItemStack palaeoaster = GenesisBlocks.plants.getPlantStack(EnumPlant.PALAEOASTER);
-		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.RED), palaeoaster, palaeoaster);
+		ItemStack palaeoaster = GenesisBlocks.PLANTS.getPlantStack(EnumPlant.PALAEOASTER);
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.BOWLS.getStack(EnumDyeColor.RED), palaeoaster, palaeoaster);
 		
-		ItemStack odontHead = GenesisItems.materials.getStack(EnumMaterial.ODONTOPTERIS_FIDDLEHEAD);
-		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(GenesisDye.get(EnumDyeColor.LIME)), odontHead, odontHead);
+		ItemStack odontHead = GenesisItems.MATERIALS.getStack(EnumMaterial.ODONTOPTERIS_FIDDLEHEAD);
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.BOWLS.getStack(GenesisDye.get(EnumDyeColor.LIME)), odontHead, odontHead);
 		
-		ItemStack protoFlesh = GenesisItems.seeds.getStack(EnumSeeds.PROTOTAXITES_FLESH);
-		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(GenesisDye.get(EnumDyeColor.BROWN)), protoFlesh, protoFlesh);
+		ItemStack protoFlesh = GenesisItems.SEEDS.getStack(EnumSeeds.PROTOTAXITES_FLESH);
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.BOWLS.getStack(GenesisDye.get(EnumDyeColor.BROWN)), protoFlesh, protoFlesh);
 		
-		ItemStack lauroBerry = GenesisBlocks.trees.getStack(TreeBlocksAndItems.FRUIT, EnumTree.LAUROPHYLLUM);
-		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(GenesisDye.get(EnumDyeColor.MAGENTA)), lauroBerry, lauroBerry);
+		ItemStack lauroBerry = GenesisBlocks.TREES.getStack(TreeBlocksAndItems.FRUIT, EnumTree.LAUROPHYLLUM);
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.BOWLS.getStack(GenesisDye.get(EnumDyeColor.MAGENTA)), lauroBerry, lauroBerry);
 		
-		ItemStack spirifer = GenesisItems.foods.getRawStack(EnumFood.SPIRIFER);
-		CookingPotRecipeRegistry.registerShapeless(GenesisItems.foods.getCookedStack(EnumFood.SPIRIFER), spirifer, spirifer);
+		ItemStack spirifer = GenesisItems.FOODS.getRawStack(EnumFood.SPIRIFER);
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.FOODS.getCookedStack(EnumFood.SPIRIFER), spirifer, spirifer);
 		
-		ItemStack gryphaea = GenesisItems.foods.getRawStack(EnumFood.GRYPHAEA);
-		CookingPotRecipeRegistry.registerShapeless(GenesisItems.foods.getCookedStack(EnumFood.GRYPHAEA), gryphaea, gryphaea);
+		ItemStack gryphaea = GenesisItems.FOODS.getRawStack(EnumFood.GRYPHAEA);
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.FOODS.getCookedStack(EnumFood.GRYPHAEA), gryphaea, gryphaea);
 		
-		ItemStack ceratites = GenesisItems.foods.getRawStack(EnumFood.CERATITES);
-		CookingPotRecipeRegistry.registerShapeless(GenesisItems.foods.getCookedStack(EnumFood.CERATITES), ceratites, ceratites);
+		ItemStack ceratites = GenesisItems.FOODS.getRawStack(EnumFood.CERATITES);
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.FOODS.getCookedStack(EnumFood.CERATITES), ceratites, ceratites);
 		
 		// Cooking pot recipes with vanilla items
-		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.ORANGE), calamites, new ItemStack(Items.DYE, 1, EnumDyeColor.RED.getDyeDamage()));
-		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.ORANGE), mabelia, new ItemStack(Items.DYE, 1, EnumDyeColor.YELLOW.getDyeDamage()));
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.BOWLS.getStack(EnumDyeColor.ORANGE), calamites, new ItemStack(Items.DYE, 1, EnumDyeColor.RED.getDyeDamage()));
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.BOWLS.getStack(EnumDyeColor.ORANGE), mabelia, new ItemStack(Items.DYE, 1, EnumDyeColor.YELLOW.getDyeDamage()));
 		
-		CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(EnumDyeColor.PINK), mabelia, new ItemStack(Items.DYE, 1, EnumDyeColor.WHITE.getDyeDamage()));
+		CookingPotRecipeRegistry.registerShapeless(GenesisItems.BOWLS.getStack(EnumDyeColor.PINK), mabelia, new ItemStack(Items.DYE, 1, EnumDyeColor.WHITE.getDyeDamage()));
 		
 		// Dish cooking pot recipes
-		for (MultiMetadata variant : GenesisItems.bowls.getValidVariants(ItemsCeramicBowls.DISH))
+		for (MultiMetadata variant : GenesisItems.BOWLS.getValidVariants(ItemsCeramicBowls.DISH))
 		{
 			EnumDish dish = (EnumDish) variant.getOriginal();
 			ArrayBuilder<ItemStack> ingredients = new ArrayBuilder<>(new ItemStack[2]);
@@ -881,7 +881,7 @@ public final class GenesisRecipes
 			case PORRIDGE_FIG:
 			case PORRIDGE_ARTOCARPUS:
 			case PORRIDGE_LAUROPHYLLUM:
-				ingredients.add(GenesisItems.materials.getStack(EnumMaterial.PROGRAMINIS));
+				ingredients.add(GenesisItems.MATERIALS.getStack(EnumMaterial.PROGRAMINIS));
 				break;
 			case STEW_ARCHAEOMARASMIUS:
 			case STEW_CLIMATIUS:
@@ -893,8 +893,8 @@ public final class GenesisRecipes
 			case STEW_COELOPHYSIS:
 			case STEW_LIOPLEURODON:
 			case STEW_TYRANNOSAURUS:
-				ingredients.add(GenesisItems.materials.getStack(EnumMaterial.SALT));
-				ingredients.add(GenesisItems.seeds.getStack(EnumSeeds.ZINGIBEROPSIS_RHIZOME));
+				ingredients.add(GenesisItems.MATERIALS.getStack(EnumMaterial.SALT));
+				ingredients.add(GenesisItems.SEEDS.getStack(EnumSeeds.ZINGIBEROPSIS_RHIZOME));
 				break;
 			default:
 				break;
@@ -905,63 +905,63 @@ public final class GenesisRecipes
 			case PORRIDGE:
 				break;
 			case PORRIDGE_ODONTOPTERIS:
-				ingredients.add(GenesisItems.seeds.getStack(EnumSeeds.ODONTOPTERIS_SEEDS));
+				ingredients.add(GenesisItems.SEEDS.getStack(EnumSeeds.ODONTOPTERIS_SEEDS));
 				break;
 			case PORRIDGE_GINKGO:
-				ingredients.add(GenesisBlocks.trees.getStack(TreeBlocksAndItems.FRUIT, EnumTree.GINKGO));
+				ingredients.add(GenesisBlocks.TREES.getStack(TreeBlocksAndItems.FRUIT, EnumTree.GINKGO));
 				break;
 			case PORRIDGE_ARAUCARIOXYLON:
-				ingredients.add(GenesisItems.seeds.getStack(EnumSeeds.ARAUCARIOXYLON_SEEDS));
+				ingredients.add(GenesisItems.SEEDS.getStack(EnumSeeds.ARAUCARIOXYLON_SEEDS));
 				break;
 			case PORRIDGE_FIG:
-				ingredients.add(GenesisBlocks.trees.getStack(TreeBlocksAndItems.FRUIT, EnumTree.FICUS));
+				ingredients.add(GenesisBlocks.TREES.getStack(TreeBlocksAndItems.FRUIT, EnumTree.FICUS));
 				break;
 			case PORRIDGE_ARTOCARPUS:
-				ingredients.add(GenesisBlocks.trees.getStack(TreeBlocksAndItems.FRUIT, EnumTree.ARTOCARPUS));
+				ingredients.add(GenesisBlocks.TREES.getStack(TreeBlocksAndItems.FRUIT, EnumTree.ARTOCARPUS));
 				break;
 			case PORRIDGE_LAUROPHYLLUM:
-				ingredients.add(GenesisBlocks.trees.getStack(TreeBlocksAndItems.FRUIT, EnumTree.LAUROPHYLLUM));
+				ingredients.add(GenesisBlocks.TREES.getStack(TreeBlocksAndItems.FRUIT, EnumTree.LAUROPHYLLUM));
 				break;
 			case STEW_ARCHAEOMARASMIUS:
-				ingredients.add(new ItemStack(GenesisBlocks.archaeomarasmius));
+				ingredients.add(new ItemStack(GenesisBlocks.ARCHAEOMARASMIUS));
 				break;
 			case STEW_CLIMATIUS:
-				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.CLIMATIUS));
+				ingredients.add(GenesisItems.FOODS.getRawStack(EnumFood.CLIMATIUS));
 				break;
 			case STEW_CHEIROLEPIS:
-				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.CHEIROLEPIS));
+				ingredients.add(GenesisItems.FOODS.getRawStack(EnumFood.CHEIROLEPIS));
 				break;
 			case STEW_MEGANEURA:
-				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.MEGANEURA));
+				ingredients.add(GenesisItems.FOODS.getRawStack(EnumFood.MEGANEURA));
 				break;
 			case STEW_APHTHOROBLATINNA:
-				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.APHTHOROBLATINNA));
+				ingredients.add(GenesisItems.FOODS.getRawStack(EnumFood.APHTHOROBLATINNA));
 				break;
 			case STEW_ERYOPS:
-				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.ERYOPS_LEG));
+				ingredients.add(GenesisItems.FOODS.getRawStack(EnumFood.ERYOPS_LEG));
 				break;
 			case STEW_CERATITES:
-				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.CERATITES));
+				ingredients.add(GenesisItems.FOODS.getRawStack(EnumFood.CERATITES));
 				break;
 			case STEW_COELOPHYSIS:
-				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.COELOPHYSIS));
+				ingredients.add(GenesisItems.FOODS.getRawStack(EnumFood.COELOPHYSIS));
 				break;
 			case STEW_LIOPLEURODON:
-				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.LIOPLEURODON));
+				ingredients.add(GenesisItems.FOODS.getRawStack(EnumFood.LIOPLEURODON));
 				break;
 			case STEW_TYRANNOSAURUS:
-				ingredients.add(GenesisItems.foods.getRawStack(EnumFood.TYRANNOSAURUS));
+				ingredients.add(GenesisItems.FOODS.getRawStack(EnumFood.TYRANNOSAURUS));
 				break;
 			case MASHED_ZINGIBEROPSIS:
-				ingredients.addAll(GenesisItems.seeds.getStack(EnumSeeds.ZINGIBEROPSIS_RHIZOME, 2),
-									GenesisItems.materials.getStack(EnumMaterial.SALT));
+				ingredients.addAll(GenesisItems.SEEDS.getStack(EnumSeeds.ZINGIBEROPSIS_RHIZOME, 2),
+									GenesisItems.MATERIALS.getStack(EnumMaterial.SALT));
 				break;
 			default:
 				break;
 			}
 			
 			if (ingredients.size() > 0)
-				CookingPotRecipeRegistry.registerShapeless(GenesisItems.bowls.getStack(dish), ingredients.build());
+				CookingPotRecipeRegistry.registerShapeless(GenesisItems.BOWLS.getStack(dish), ingredients.build());
 		}
 		
 		// Dye cooking pot recipes
@@ -975,30 +975,30 @@ public final class GenesisRecipes
 			switch (clothing)
 			{
 			case CHITIN:
-				ingredient = GenesisItems.materials.getStack(EnumMaterial.ARTHROPLEURA_CHITIN);
+				ingredient = GenesisItems.MATERIALS.getStack(EnumMaterial.ARTHROPLEURA_CHITIN);
 				break;
 			case CAMOUFLAGE:
-				ingredient = GenesisItems.materials.getStack(EnumMaterial.CLADOPHLEBIS_FROND);
+				ingredient = GenesisItems.MATERIALS.getStack(EnumMaterial.CLADOPHLEBIS_FROND);
 				break;
 			}
 			
 			if (ingredient != null)
 			{
-				GameRegistry.addRecipe(GenesisItems.clothing.getHelmet(clothing),
+				GameRegistry.addRecipe(GenesisItems.CLOTHING.getHelmet(clothing),
 						"XXX",
 						"X X",
 						'X', ingredient);
-				GameRegistry.addRecipe(GenesisItems.clothing.getChestplate(clothing),
+				GameRegistry.addRecipe(GenesisItems.CLOTHING.getChestplate(clothing),
 						"X X",
 						"XXX",
 						"XXX",
 						'X', ingredient);
-				GameRegistry.addRecipe(GenesisItems.clothing.getLeggings(clothing),
+				GameRegistry.addRecipe(GenesisItems.CLOTHING.getLeggings(clothing),
 						"XXX",
 						"X X",
 						"X X",
 						'X', ingredient);
-				GameRegistry.addRecipe(GenesisItems.clothing.getBoots(clothing),
+				GameRegistry.addRecipe(GenesisItems.CLOTHING.getBoots(clothing),
 						"X X",
 						"X X",
 						'X', ingredient);
@@ -1012,26 +1012,26 @@ public final class GenesisRecipes
 	public static void doSubstitutes()
 	{
 		// Fiber for string
-		makeSubstituteCraftingItem(new ItemStack(Items.STRING), GenesisItems.materials.getStack(EnumMaterial.SPHENOPHYLLUM_FIBER), Blocks.WOOL);
+		makeSubstituteCraftingItem(new ItemStack(Items.STRING), GenesisItems.MATERIALS.getStack(EnumMaterial.SPHENOPHYLLUM_FIBER), Blocks.WOOL);
 		
 		// Ceramic buckets for vanilla buckets
-		makeSubstituteCraftingItem(new ItemStack(Items.BUCKET), new ItemStack(GenesisItems.ceramic_bucket));
-		makeSubstituteCraftingItem(new ItemStack(Items.WATER_BUCKET), new ItemStack(GenesisItems.ceramic_bucket_water));
-		makeSubstituteCraftingItem(new ItemStack(Items.MILK_BUCKET), new ItemStack(GenesisItems.ceramic_bucket_milk));
+		makeSubstituteCraftingItem(new ItemStack(Items.BUCKET), new ItemStack(GenesisItems.CERAMIC_BUCKET));
+		makeSubstituteCraftingItem(new ItemStack(Items.WATER_BUCKET), new ItemStack(GenesisItems.CERAMIC_BUCKET_WATER));
+		makeSubstituteCraftingItem(new ItemStack(Items.MILK_BUCKET), new ItemStack(GenesisItems.CERAMIC_BUCKET_MILK));
 		
 		// Dyes
 		GameRegistry.addRecipe(new SubstituteRecipe(RecipesArmorDyes.class,
 				(s) -> {
-					IMetadata<?> variant = GenesisItems.bowls.getVariant(s).getOriginal();
+					IMetadata<?> variant = GenesisItems.BOWLS.getVariant(s).getOriginal();
 					return variant instanceof GenesisDye ? new ItemStack(Items.DYE, s.stackSize, ((GenesisDye) variant).getColor().getDyeDamage()) : null;
 				}));
 		
-		for (ItemDyeBowl item : GenesisItems.bowls.getItems(ItemsCeramicBowls.DYE))
+		for (ItemDyeBowl item : GenesisItems.BOWLS.getItems(ItemsCeramicBowls.DYE))
 		{
 			OreDictionary.registerOre("dye", new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE));
 		}
 		
-		for (MultiMetadata variant : GenesisItems.bowls.getValidVariants(ItemsCeramicBowls.DYE))
+		for (MultiMetadata variant : GenesisItems.BOWLS.getValidVariants(ItemsCeramicBowls.DYE))
 		{
 			GenesisDye dye = (GenesisDye) variant.getOriginal();
 			String name = dye.getOreDictName();
@@ -1041,7 +1041,7 @@ public final class GenesisRecipes
 				Genesis.logger.warn("Dye " + dye + " has not been previously added to the OreDictionary under the name " + name + ".");
 			}
 			
-			OreDictionary.registerOre(name, GenesisItems.bowls.getStack(dye));
+			OreDictionary.registerOre(name, GenesisItems.BOWLS.getStack(dye));
 		}
 	}
 }

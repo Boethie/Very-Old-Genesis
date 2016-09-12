@@ -34,8 +34,8 @@ public class BiomeFloodplainsForest extends BiomeGenesis
 		addFlower(WorldGenPlant.create(EnumPlant.PSILOPHYTON).setPatchCount(6), 1);
 		
 		addDecoration(WorldGenSplash.createHumusSplash(), 1.35F);
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchCount(4), 2);
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.prototaxites), 0.175F);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.SPHENOPHYLLUM).setPatchCount(4), 2);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.PROTOTAXITES), 0.175F);
 		addDecoration(WorldGenCircleReplacement.getPeatGen(), 2.75F);
 		addDecoration(new WorldGenMossStages(), 30);
 		addDecoration(new WorldGenRoots(), 13);

@@ -9,8 +9,8 @@ public class BiomeLimestoneBeach extends BiomeGenesis
 	public BiomeLimestoneBeach(Biome.BiomeProperties properties)
 	{
 		super(properties);
-		topBlock = GenesisBlocks.limestone.getDefaultState();
-		fillerBlock = GenesisBlocks.limestone.getDefaultState();
+		topBlock = GenesisBlocks.LIMESTONE.getDefaultState();
+		fillerBlock = GenesisBlocks.LIMESTONE.getDefaultState();
 		
 		getDecorator().setGrassCount(0);
 		

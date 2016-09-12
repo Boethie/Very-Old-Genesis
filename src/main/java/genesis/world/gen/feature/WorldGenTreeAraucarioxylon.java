@@ -19,7 +19,7 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 	public WorldGenTreeAraucarioxylon(int minHeight, int maxHeight, boolean notify, IBlockState wood)
 	{
 		super(
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.SAPLING, EnumTree.ARAUCARIOXYLON),
+				GenesisBlocks.TREES.getBlockState(TreeBlocksAndItems.SAPLING, EnumTree.ARAUCARIOXYLON),
 				wood,
 				null,
 				null,

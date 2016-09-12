@@ -53,7 +53,7 @@ public class ItemGenesisEgg<T extends EntityFixed> extends ItemGenesis
 		{
 			IBlockState state = world.getBlockState(pos);
 			
-			if (state.getBlock() == GenesisBlocks.calamites)
+			if (state.getBlock() == GenesisBlocks.CALAMITES)
 			{
 				if (!world.isRemote)
 				{

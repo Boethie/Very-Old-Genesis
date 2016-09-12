@@ -175,7 +175,7 @@ public class RenderFog
 		float partialTicks = (float) event.getRenderPartialTicks();
 		IBlockState blockAtEyes = ActiveRenderInfo.getBlockStateAtEntityViewpoint(world, event.getEntity(), partialTicks);
 		
-		if (blockAtEyes == GenesisBlocks.komatiitic_lava)
+		if (blockAtEyes == GenesisBlocks.KOMATIITIC_LAVA)
 		{
 			event.setRed(0.575F);
 			event.setGreen(0.3F);

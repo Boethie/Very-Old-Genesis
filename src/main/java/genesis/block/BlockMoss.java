@@ -29,7 +29,7 @@ public class BlockMoss extends BlockGrass
 	public enum EnumSoil implements IStringSerializable
 	{
 		DIRT("dirt", 0, () -> Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT)),
-		HUMUS("humus", 1, () -> GenesisBlocks.humus.getDefaultState());
+		HUMUS("humus", 1, () -> GenesisBlocks.HUMUS.getDefaultState());
 
 		private final String name;
 		private final int metadata;

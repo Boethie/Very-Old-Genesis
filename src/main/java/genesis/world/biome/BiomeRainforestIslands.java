@@ -46,9 +46,9 @@ public class BiomeRainforestIslands extends BiomeGenesis
 		addDecoration(WorldGenSplash.createHumusSplash(), 2.75F);
 		addDecoration(new WorldGenBoulders(0.055F, 3, 0).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.25F, 0.75F)), 1.35F);
 		addDecoration(new WorldGenPebbles(), 20);
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setNextToWater(false).setPatchCount(3), 2);
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchCount(4), 2);
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setPatchCount(3), 4);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.ODONTOPTERIS).setNextToWater(false).setPatchCount(3), 2);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.SPHENOPHYLLUM).setPatchCount(4), 2);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.CALAMITES).setPatchCount(3), 4);
 		
 		addDecoration(new WorldGenCorals(2, 5, EnumCoral.HALYSITES), 0.35F);
 		addDecoration(new WorldGenCorals(2, 5, EnumCoral.HELIOLITES), 0.35F);

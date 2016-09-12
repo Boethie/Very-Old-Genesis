@@ -163,7 +163,7 @@ public class CookingPotRecipeRegistry
 		boolean canOutputAccept(ItemStack stack);
 	}
 
-	protected static ItemStack cookingPotItem = GenesisItems.bowls.getStack(EnumCeramicBowls.WATER_BOWL);
+	protected static ItemStack cookingPotItem = GenesisItems.BOWLS.getStack(EnumCeramicBowls.WATER_BOWL);
 
 	public static boolean isCookingPotItem(ItemStack stack) {
 		return stack != null && new ItemStackKey(cookingPotItem).equals(new ItemStackKey(stack));

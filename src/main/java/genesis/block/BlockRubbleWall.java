@@ -26,7 +26,7 @@ public class BlockRubbleWall extends BlockGenesisWall
 
 	public BlockRubbleWall(EnumRubble variant)
 	{
-		this(GenesisBlocks.rubble.getBlockState(variant));
+		this(GenesisBlocks.RUBBLE.getBlockState(variant));
 	}
 
 	@Override

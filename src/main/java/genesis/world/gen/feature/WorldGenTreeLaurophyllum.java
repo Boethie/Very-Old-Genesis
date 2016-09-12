@@ -14,9 +14,9 @@ public class WorldGenTreeLaurophyllum extends WorldGenTreeBase
 {
 	public WorldGenTreeLaurophyllum(int minHeight, int maxHeight, boolean notify)
 	{
-		super(GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.SAPLING, EnumTree.LAUROPHYLLUM),
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.BRANCH, EnumTree.LAUROPHYLLUM),
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES, EnumTree.LAUROPHYLLUM),
+		super(GenesisBlocks.TREES.getBlockState(TreeBlocksAndItems.SAPLING, EnumTree.LAUROPHYLLUM),
+				GenesisBlocks.TREES.getBlockState(TreeBlocksAndItems.BRANCH, EnumTree.LAUROPHYLLUM),
+				GenesisBlocks.TREES.getBlockState(TreeBlocksAndItems.LEAVES, EnumTree.LAUROPHYLLUM),
 				null,
 				IntRange.create(minHeight, maxHeight), notify);
 	}

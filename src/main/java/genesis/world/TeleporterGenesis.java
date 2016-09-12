@@ -64,7 +64,7 @@ public class TeleporterGenesis extends Teleporter
 		{
 			portalPos = cache.get(center);
 			
-			if (world.getBlockState(portalPos).getBlock() != GenesisBlocks.portal)
+			if (world.getBlockState(portalPos).getBlock() != GenesisBlocks.PORTAL)
 			{
 				portalPos = null;
 			}
@@ -78,7 +78,7 @@ public class TeleporterGenesis extends Teleporter
 			{
 				double checkDistance = pos.distanceSq(center);
 				
-				if ((portalDistance < 0 || checkDistance < portalDistance) && world.getBlockState(pos).getBlock() == GenesisBlocks.portal)
+				if ((portalDistance < 0 || checkDistance < portalDistance) && world.getBlockState(pos).getBlock() == GenesisBlocks.PORTAL)
 				{
 					portalDistance = checkDistance;
 					portalPos = pos;

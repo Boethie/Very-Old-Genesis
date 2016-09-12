@@ -76,7 +76,7 @@ public class BlockPlant<V extends IPlantMetadata<V>> extends BlockBush implement
 	@Override
 	protected boolean canSustainBush(IBlockState ground)
 	{
-		return (ground == GenesisBlocks.moss) || super.canSustainBush(ground);
+		return (ground == GenesisBlocks.MOSS) || super.canSustainBush(ground);
 	}
 	
 	@Override

@@ -44,9 +44,9 @@ public class WorldGenBoulders extends WorldGenDecorationBase
 		super(WorldBlockMatcher.STANDARD_AIR_WATER,
 				(s, w, p) -> s.getBlock() == Blocks.DIRT
 						|| s.getBlock() == Blocks.GRASS
-						|| s.getBlock() == GenesisBlocks.moss
-						|| GenesisBlocks.silt.isStateOf(s, SiltBlocks.SILT)
-						|| GenesisBlocks.silt.isStateOf(s, SiltBlocks.CRACKED_SILT));
+						|| s.getBlock() == GenesisBlocks.MOSS
+						|| GenesisBlocks.SILT.isStateOf(s, SiltBlocks.SILT)
+						|| GenesisBlocks.SILT.isStateOf(s, SiltBlocks.CRACKED_SILT));
 		
 		setRadius(1.25F);
 		setStretch(1.25F);
@@ -76,7 +76,7 @@ public class WorldGenBoulders extends WorldGenDecorationBase
 	
 	public WorldGenBoulders(float landChance, float shoreChance, float waterChance, float waterRadius)
 	{
-		this(GenesisBlocks.granite.getDefaultState(), GenesisBlocks.mossy_granite.getDefaultState(), landChance, shoreChance, waterChance, waterRadius);
+		this(GenesisBlocks.GRANITE.getDefaultState(), GenesisBlocks.MOSSY_GRANITE.getDefaultState(), landChance, shoreChance, waterChance, waterRadius);
 	}
 	
 	public WorldGenBoulders(float landChance, float shoreChance, float waterChance)

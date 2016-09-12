@@ -32,7 +32,7 @@ public class MenhirIterator extends SimpleIterator<MenhirEntry> implements Itera
 	public MenhirIterator(IBlockAccess world, BlockPos start, IBlockState startState, boolean up)
 	{
 		this(world,
-				GenesisBlocks.menhirs.containsState(startState) ? new MenhirEntry(start, GenesisBlocks.menhirs.getVariant(startState)) : null,
+				GenesisBlocks.MENHIRS.containsState(startState) ? new MenhirEntry(start, GenesisBlocks.MENHIRS.getVariant(startState)) : null,
 				BlockMenhir.getFacing(startState), up ? 1 : -1);
 	}
 	
@@ -53,7 +53,7 @@ public class MenhirIterator extends SimpleIterator<MenhirEntry> implements Itera
 		
 		BlockPos checkPos = getCurrent().up(up);
 		IBlockState checkState = world.getBlockState(checkPos);
-		EnumMenhirPart checkPart = GenesisBlocks.menhirs.getVariant(checkState);
+		EnumMenhirPart checkPart = GenesisBlocks.MENHIRS.getVariant(checkState);
 		
 		if (checkPart != null &&
 			BlockMenhir.getFacing(checkState) == facing &&

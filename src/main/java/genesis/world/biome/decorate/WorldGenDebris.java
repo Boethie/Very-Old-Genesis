@@ -30,7 +30,7 @@ public class WorldGenDebris extends WorldGenDecorationBase
 	public WorldGenDebris(EnumDebrisOther... randomDebris)
 	{
 		this(Arrays.stream(randomDebris)
-				.map(GenesisBlocks.debris::getBlockState)
+				.map(GenesisBlocks.DEBRIS::getBlockState)
 				.toArray(IBlockState[]::new));
 	}
 	
@@ -63,20 +63,20 @@ public class WorldGenDebris extends WorldGenDecorationBase
 			{
 				IBlockState checkState = world.getBlockState(checkPos);
 				
-				if (checkState.getBlock() == GenesisBlocks.calamites)
+				if (checkState.getBlock() == GenesisBlocks.CALAMITES)
 				{
-					add(stateList, GenesisBlocks.debris.getBlockState(EnumDebrisOther.CALAMITES));
+					add(stateList, GenesisBlocks.DEBRIS.getBlockState(EnumDebrisOther.CALAMITES));
 				}
 				else
 				{
-					TreeBlocksAndItems.SubsetData data = GenesisBlocks.trees.getSubsetData(checkState.getBlock());
+					TreeBlocksAndItems.SubsetData data = GenesisBlocks.TREES.getSubsetData(checkState.getBlock());
 					
 					if (data != null)
 					{
 						EnumTree variant = checkState.getValue(data.variantProperty);
 						
 						if (variant.hasDebris())
-							add(stateList, GenesisBlocks.debris.getBlockState(variant));
+							add(stateList, GenesisBlocks.DEBRIS.getBlockState(variant));
 					}
 				}
 			}

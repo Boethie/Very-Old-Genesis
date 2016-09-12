@@ -19,7 +19,7 @@ public class WorldGenGenesisLiquids extends WorldGenerator
 	
 	public WorldGenGenesisLiquids(Block liquid)
 	{
-		this(liquid, GenesisBlocks.granite);
+		this(liquid, GenesisBlocks.GRANITE);
 	}
 	
 	public WorldGenGenesisLiquids(Block liquid, Block stone)

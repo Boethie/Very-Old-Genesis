@@ -83,7 +83,7 @@ public class ItemPebble extends ItemBlock
 				player.dropItem(undamaged, false, true);
 			}
 			
-			player.playSound(GenesisSoundEvents.item_pebble_hit, 2, 0.9F + world.rand.nextFloat() * 0.2F);
+			player.playSound(GenesisSoundEvents.ITEM_PEBBLE_HIT, 2, 0.9F + world.rand.nextFloat() * 0.2F);
 			
 			// If the pebble was destroyed
 			if (stack.getItemDamage() > stack.getMaxDamage() || player.capabilities.isCreativeMode)

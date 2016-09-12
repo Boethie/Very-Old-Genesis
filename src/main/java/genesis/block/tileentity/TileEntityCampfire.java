@@ -160,7 +160,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	public BlockCampfire getBlockType()
 	{
 		if (!(super.getBlockType() instanceof BlockCampfire))
-			return GenesisBlocks.campfire;
+			return GenesisBlocks.CAMPFIRE;
 
 		return (BlockCampfire) super.getBlockType();
 	}

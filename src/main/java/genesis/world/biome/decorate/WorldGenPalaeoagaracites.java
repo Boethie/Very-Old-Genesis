@@ -31,7 +31,7 @@ public class WorldGenPalaeoagaracites extends WorldGenDecorationBase
 		if (block instanceof IMushroomBase) {
 			IMushroomBase base = (IMushroomBase) block;
 			EnumFacing side = EnumFacing.HORIZONTALS[rand.nextInt(EnumFacing.HORIZONTALS.length)];
-			IBlockState placedState = GenesisBlocks.palaeoagaracites.getDefaultState()
+			IBlockState placedState = GenesisBlocks.PALAEOAGARACITES.getDefaultState()
 							.withProperty(BlockGenesisMushroom.FACING, side.getOpposite());
 
 			return base.canSustainMushroom(world, logPos, side, placedState) && setAirBlock(world, logPos.offset(side), placedState);

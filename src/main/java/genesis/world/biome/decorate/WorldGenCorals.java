@@ -29,7 +29,7 @@ public class WorldGenCorals extends WorldGenDecorationBase
 	{
 		super(WorldBlockMatcher.STANDARD_AIR_WATER, WorldBlockMatcher.TRUE);
 		
-		coralState = GenesisBlocks.coral.getBlockState(coralType);
+		coralState = GenesisBlocks.CORAL.getBlockState(coralType);
 		this.minHeight = minHeight;
 		this.maxHeight = maxHeight;
 		
@@ -109,7 +109,7 @@ public class WorldGenCorals extends WorldGenDecorationBase
 			
 			if (state.getBlock() != Blocks.DIRT
 					&& state.getBlock() != Blocks.CLAY
-					&& state.getBlock() != GenesisBlocks.ooze
+					&& state.getBlock() != GenesisBlocks.OOZE
 					&& state != coralState)
 				break;
 			

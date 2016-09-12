@@ -55,7 +55,7 @@ public class WorldGenGenesisSand extends WorldGenerator
 						BlockPos pos = new BlockPos(x, y, z);
 						Block block = world.getBlockState(pos).getBlock();
 
-						if (block == Blocks.DIRT || block == GenesisBlocks.moss)
+						if (block == Blocks.DIRT || block == GenesisBlocks.MOSS)
 						{
 							world.setBlockState(pos, sand, 2);
 						}
