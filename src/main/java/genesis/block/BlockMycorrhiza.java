@@ -6,8 +6,12 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+
+import javax.annotation.Nullable;
+import java.util.Random;
 
 public class BlockMycorrhiza extends BlockPeat
 {
@@ -17,6 +21,13 @@ public class BlockMycorrhiza extends BlockPeat
 		super();
 		setSoundType(SoundType.PLANT);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(SNOWY, false));
+	}
+
+	@Nullable
+	@Override
+	public Item getItemDropped(IBlockState state, Random rand, int fortune)
+	{
+		return Item.getItemFromBlock(Blocks.DIRT);
 	}
 
 	@Override
