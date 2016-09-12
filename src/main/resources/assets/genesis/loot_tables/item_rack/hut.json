@@ -1,0 +1,317 @@
+{
+	"pools": [
+		{
+			"name":	"food",
+			"rolls": {
+				"min": 1,
+				"max": 4
+			},
+			"entries": [
+				{
+					"type": "item",
+					"entryName": "cheirolepis",
+					"name": "genesis:food_0",
+					"weight": 5,
+					"functions": [
+						{
+							"function": "set_data",
+							"data": 4
+						}
+					]
+				},
+				{
+					"type": "item",
+					"entryName": "aphthoroblattina",
+					"name": "genesis:food_0",
+					"weight": 5,
+					"functions": [
+						{
+							"function": "set_data",
+							"data": 8
+						}
+					]
+				}
+			]
+		},
+		{
+			"name":	"armor",
+			"rolls": {
+				"min": 1,
+				"max": 3
+			},
+			"entries": [
+				{
+					"type":	"item",
+					"name":	"genesis:chitin_helmet",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:chitin_chestplate",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:chitin_leggings",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:chitin_boots",
+					"weight": 5
+				}
+			]
+		},
+		{
+			"name":	"tools",
+			"rolls": 1,
+			"entries": [
+				{
+					"type":	"item",
+					"name":	"genesis:spear_polished_quartz",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:spear_polished_rhyolite",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:spear_polished_dolerite",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:spear_polished_granite",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:spear_polished_octaedrite",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:spear_polished_black_flint",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:spear_polished_brown_flint",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:shovel_polished_quartz",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:shovel_polished_rhyolite",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:shovel_polished_dolerite",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:shovel_polished_granite",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:shovel_polished_octaedrite",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:shovel_polished_black_flint",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:shovel_polished_brown_flint",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:pickaxe_polished_quartz",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:pickaxe_polished_rhyolite",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:pickaxe_polished_dolerite",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:pickaxe_polished_granite",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:pickaxe_polished_octaedrite",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:pickaxe_polished_black_flint",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:pickaxe_polished_brown_flint",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:knife_polished_quartz",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:knife_polished_rhyolite",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:knife_polished_dolerite",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:knife_polished_granite",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:knife_polished_octaedrite",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:knife_polished_black_flint",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:knife_polished_brown_flint",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:hoe_polished_quartz",
+					"weight": 1
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:hoe_polished_rhyolite",
+					"weight": 1
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:hoe_polished_dolerite",
+					"weight": 1
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:hoe_polished_granite",
+					"weight": 1
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:hoe_polished_octaedrite",
+					"weight": 1
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:hoe_polished_black_flint",
+					"weight": 1
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:hoe_polished_brown_flint",
+					"weight": 1
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:club_polished_quartz",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:club_polished_rhyolite",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:club_polished_dolerite",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:club_polished_granite",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:club_polished_octaedrite",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:club_polished_black_flint",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:club_polished_brown_flint",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:axe_polished_quartz",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:axe_polished_rhyolite",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:axe_polished_dolerite",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:axe_polished_granite",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:axe_polished_octaedrite",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:axe_polished_black_flint",
+					"weight": 5
+				},
+				{
+					"type":	"item",
+					"name":	"genesis:axe_polished_brown_flint",
+					"weight": 5
+				}
+			]
+		}
+	]
+}
