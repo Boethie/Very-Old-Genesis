@@ -12,14 +12,14 @@ public enum EnumGlyph implements IMetadata<EnumGlyph>
 {
 	NONE("none"),
 	VEGETAL("vegetal",
-			GenesisItems.menhir_activators.getStack(EnumMenhirActivator.ANCIENT_AMBER),
-			GenesisItems.menhir_activators.getStack(EnumMenhirActivator.SACRED_TREE_STAR)),
+			GenesisItems.MENHIR_ACTIVATORS.getStack(EnumMenhirActivator.ANCIENT_AMBER),
+			GenesisItems.MENHIR_ACTIVATORS.getStack(EnumMenhirActivator.SACRED_TREE_STAR)),
 	ANIMAL("animal",
-			GenesisItems.menhir_activators.getStack(EnumMenhirActivator.FOSSILIZED_EGG)),
+			GenesisItems.MENHIR_ACTIVATORS.getStack(EnumMenhirActivator.FOSSILIZED_EGG)),
 	ETHER("ether",
-			GenesisItems.menhir_activators.getStack(EnumMenhirActivator.BROKEN_SPIRIT_MASK)),
+			GenesisItems.MENHIR_ACTIVATORS.getStack(EnumMenhirActivator.BROKEN_SPIRIT_MASK)),
 	COSMOS("cosmos",
-			GenesisItems.menhir_activators.getStack(EnumMenhirActivator.PRIMITIVE_DUST));
+			GenesisItems.MENHIR_ACTIVATORS.getStack(EnumMenhirActivator.PRIMITIVE_DUST));
 	
 	public static final EnumGlyph[] VALID = {VEGETAL, ANIMAL, ETHER, COSMOS};
 	

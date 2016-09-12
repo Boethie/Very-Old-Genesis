@@ -36,15 +36,15 @@ public class WorldGenSmallCamp implements IWorldGenerator
 
 	static
 	{
-		IBlockState campfire = GenesisBlocks.campfire.getDefaultState();
+		IBlockState campfire = GenesisBlocks.CAMPFIRE.getDefaultState();
 
-		IBlockState box = GenesisBlocks.storage_box.getDefaultState();
+		IBlockState box = GenesisBlocks.STORAGE_BOX.getDefaultState();
 
-		IBlockState work = GenesisBlocks.workbench.getDefaultState();
+		IBlockState work = GenesisBlocks.WORKBENCH.getDefaultState();
 
-		IBlockState logX = GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LOG, EnumTree.ARAUCARIOXYLON).withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.X);
+		IBlockState logX = GenesisBlocks.TREES.getBlockState(TreeBlocksAndItems.LOG, EnumTree.ARAUCARIOXYLON).withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.X);
 
-		IBlockState logZ = GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LOG, EnumTree.ARAUCARIOXYLON).withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.Z);
+		IBlockState logZ = GenesisBlocks.TREES.getBlockState(TreeBlocksAndItems.LOG, EnumTree.ARAUCARIOXYLON).withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.Z);
 
 		IBlockState[] nullRow = {null, null, null, null, null, null, null, null};
 											//x,z
@@ -113,10 +113,10 @@ public class WorldGenSmallCamp implements IWorldGenerator
 
 				if (state != null)
 				{
-					if (state.getBlock() == GenesisBlocks.storage_box)
+					if (state.getBlock() == GenesisBlocks.STORAGE_BOX)
 						boxPos = pos;
 
-					if (state.getBlock() == GenesisBlocks.campfire)
+					if (state.getBlock() == GenesisBlocks.CAMPFIRE)
 						campPos = pos;
 
 					if (state.getBlock() instanceof BlockGenesisLogs)
@@ -192,7 +192,7 @@ public class WorldGenSmallCamp implements IWorldGenerator
 		if (tree != null)
 			for (BlockPos pos : logsPos)
 			{
-				IBlockState state = GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LOG, tree).withProperty(BlockLog.LOG_AXIS, world.getBlockState(pos).getValue(BlockLog.LOG_AXIS));
+				IBlockState state = GenesisBlocks.TREES.getBlockState(TreeBlocksAndItems.LOG, tree).withProperty(BlockLog.LOG_AXIS, world.getBlockState(pos).getValue(BlockLog.LOG_AXIS));
 
 				world.setBlockToAir(pos);
 

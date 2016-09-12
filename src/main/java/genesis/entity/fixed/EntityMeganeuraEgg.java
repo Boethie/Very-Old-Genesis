@@ -61,25 +61,25 @@ public class EntityMeganeuraEgg extends EntityEgg
 	@Override
 	protected boolean isValid()
 	{
-		return worldObj.getBlockState(fixedTo).getBlock() == GenesisBlocks.calamites;
+		return worldObj.getBlockState(fixedTo).getBlock() == GenesisBlocks.CALAMITES;
 	}
 	
 	@Override
 	public ItemStack getDroppedItem()
 	{
-		return new ItemStack(GenesisItems.meganeura_egg);
+		return new ItemStack(GenesisItems.MEGANEURA_EGG);
 	}
 	
 	@Override
 	public SoundEvent getPlaceSound()
 	{
-		return GenesisSoundEvents.block_egg_meganeura_place;
+		return GenesisSoundEvents.BLOCK_EGG_MEGANEURA_PLACE;
 	}
 	
 	@Override
 	public SoundEvent getBreakSound()
 	{
-		return GenesisSoundEvents.block_egg_meganeura_break;
+		return GenesisSoundEvents.BLOCK_EGG_MEGANEURA_BREAK;
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -119,7 +119,7 @@ public class EntityMeganeuraEgg extends EntityEgg
 			}
 		}
 		
-		public static final ResourceLocation texture = new ResourceLocation(Constants.ASSETS_PREFIX + "textures/entity/meganeura/egg.png");
+		public static final ResourceLocation TEXTURE = new ResourceLocation(Constants.ASSETS_PREFIX + "textures/entity/meganeura/egg.png");
 		protected Model model = new Model();
 		
 		public EggRender(RenderManager manager)
@@ -151,7 +151,7 @@ public class EntityMeganeuraEgg extends EntityEgg
 		@Override
 		protected ResourceLocation getEntityTexture(EntityMeganeuraEgg entity)
 		{
-			return texture;
+			return TEXTURE;
 		}
 	}
 }

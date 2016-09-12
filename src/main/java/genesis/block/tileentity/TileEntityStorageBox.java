@@ -206,13 +206,13 @@ public class TileEntityStorageBox extends TileEntityLockableLoot implements ISid
 
 			if (openAnimation <= epsilon && users > 0)
 			{
-				sound = GenesisSoundEvents.block_storage_box_open;
+				sound = GenesisSoundEvents.BLOCK_STORAGE_BOX_OPEN;
 
 				setUserCount(1, 1);
 			}
 			else if (openAnimation >= 1 - epsilon && users <= 0)
 			{
-				sound = GenesisSoundEvents.block_storage_box_close;
+				sound = GenesisSoundEvents.BLOCK_STORAGE_BOX_CLOSE;
 
 				setUserCount(0, 0);
 			}

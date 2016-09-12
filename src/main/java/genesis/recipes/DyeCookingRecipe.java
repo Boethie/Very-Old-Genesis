@@ -48,10 +48,10 @@ public class DyeCookingRecipe extends CookingPotRecipeBase
 	{
 		if (stack == null
 				|| stack.stackSize <= 0
-				|| GenesisItems.bowls.isStackOf(stack, ItemsCeramicBowls.DYE))
+				|| GenesisItems.BOWLS.isStackOf(stack, ItemsCeramicBowls.DYE))
 			return null;
 
-		EnumPowder powder = GenesisItems.powders.getVariant(stack);
+		EnumPowder powder = GenesisItems.POWDERS.getVariant(stack);
 
 		if (powder != null && powder.getColor() != null)
 		{
@@ -107,7 +107,7 @@ public class DyeCookingRecipe extends CookingPotRecipeBase
 	@Override
 	public ItemStack getOutput(InventoryCookingPot cookingPot)
 	{
-		ItemStack stack = GenesisItems.bowls.getStack(getOutputColorFromSlots(cookingPot.getIngredients()), 0);
+		ItemStack stack = GenesisItems.BOWLS.getStack(getOutputColorFromSlots(cookingPot.getIngredients()), 0);
 
 		for (SlotModifier slot : cookingPot.getIngredients())
 		{

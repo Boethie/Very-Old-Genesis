@@ -105,7 +105,7 @@ public class ItemCeramicBowl extends ItemGenesis
 					{
 						player.addStat(StatList.getObjectUseStats(this));
 
-						ItemStack newStack = GenesisItems.bowls.getStack(EnumCeramicBowls.WATER_BOWL);
+						ItemStack newStack = GenesisItems.BOWLS.getStack(EnumCeramicBowls.WATER_BOWL);
 						stack.stackSize--;
 
 						if (stack.stackSize <= 0)

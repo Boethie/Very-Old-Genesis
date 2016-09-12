@@ -242,15 +242,15 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 			validGround.add(Blocks.LOG);
 			validGround.add(Blocks.LOG2);
 			validGround.add(Blocks.PLANKS);
-			validGround.add(GenesisBlocks.red_clay);
-			validGround.add(GenesisBlocks.ooze);
-			validGround.add(GenesisBlocks.peat);
+			validGround.add(GenesisBlocks.RED_CLAY);
+			validGround.add(GenesisBlocks.OOZE);
+			validGround.add(GenesisBlocks.PEAT);
 
-			validGround.addAll(GenesisBlocks.trees.getBlocks(TreeBlocksAndItems.LOG));
-			validGround.addAll(GenesisBlocks.trees.getBlocks(TreeBlocksAndItems.DEAD_LOG));
-			validGround.addAll(GenesisBlocks.silt.getBlocks(SiltBlocks.SILT));
-			validGround.addAll(GenesisBlocks.silt.getBlocks(SiltBlocks.SILTSTONE));
-			validGround.addAll(GenesisBlocks.coral.getBlocks());
+			validGround.addAll(GenesisBlocks.TREES.getBlocks(TreeBlocksAndItems.LOG));
+			validGround.addAll(GenesisBlocks.TREES.getBlocks(TreeBlocksAndItems.DEAD_LOG));
+			validGround.addAll(GenesisBlocks.SILT.getBlocks(SiltBlocks.SILT));
+			validGround.addAll(GenesisBlocks.SILT.getBlocks(SiltBlocks.SILTSTONE));
+			validGround.addAll(GenesisBlocks.CORAL.getBlocks());
 		}
 
 		IBlockState below = world.getBlockState(pos.down());

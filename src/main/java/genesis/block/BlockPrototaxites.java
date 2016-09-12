@@ -45,14 +45,14 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 		BlockPos below = pos.down();
 		IBlockState stateBelow = world.getBlockState(below);
 
-		return stateBelow.getBlock() == this && !GenesisItems.seeds.isStackOf(stack, EnumSeeds.PROTOTAXITES_FLESH) && new GrowingPlantProperties(world, below).getHeight() < maxHeight ||
+		return stateBelow.getBlock() == this && !GenesisItems.SEEDS.isStackOf(stack, EnumSeeds.PROTOTAXITES_FLESH) && new GrowingPlantProperties(world, below).getHeight() < maxHeight ||
 						super.canReplace(world, pos, side, stack);
 	}
 
 	@Override
 	public List<ItemStack> getPlantDrops(BlockGrowingPlant plant, World world, BlockPos pos, IBlockState state, int fortune)
 	{
-		return Collections.singletonList(GenesisItems.seeds.getStack(EnumSeeds.PROTOTAXITES_FLESH, 1));
+		return Collections.singletonList(GenesisItems.SEEDS.getStack(EnumSeeds.PROTOTAXITES_FLESH, 1));
 	}
 
 	@Override

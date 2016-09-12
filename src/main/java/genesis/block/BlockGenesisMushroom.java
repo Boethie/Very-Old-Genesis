@@ -221,7 +221,7 @@ public class BlockGenesisMushroom extends BlockBush
 		} else
 			return bottomBlock == Blocks.DIRT && bottomState.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL ||
 							world.getLightFromNeighbors(pos) < 13 && bottomBlock.canSustainPlant(bottomState, world, bottomPos, EnumFacing.UP, this) ||
-							bottomBlock == GenesisBlocks.moss || bottomBlock == Blocks.MYCELIUM || bottomBlock instanceof BlockLog;
+							bottomBlock == GenesisBlocks.MOSS || bottomBlock == Blocks.MYCELIUM || bottomBlock instanceof BlockLog;
 	}
 
 	@Override

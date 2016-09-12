@@ -22,6 +22,6 @@ public class BlockRedClay extends BlockClay
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune)
 	{
-		return GenesisItems.red_clay_ball;
+		return GenesisItems.RED_CLAY_BALL;
 	}
 }

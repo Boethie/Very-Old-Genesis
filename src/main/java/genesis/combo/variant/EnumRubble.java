@@ -7,13 +7,13 @@ import net.minecraft.item.ItemStack;
 public enum EnumRubble implements IMetadata<EnumRubble>
 {
 	GRANITE("granite", 2.6F, 10.0F,
-			() -> new ItemStack(GenesisBlocks.granite)),
+			() -> new ItemStack(GenesisBlocks.GRANITE)),
 	MOSSY_GRANITE("mossy_granite", "mossyGranite", 2.6F, 10.0F,
-			() -> new ItemStack(GenesisBlocks.mossy_granite)),
+			() -> new ItemStack(GenesisBlocks.MOSSY_GRANITE)),
 	RHYOLITE("rhyolite", 2.15F, 10.0F,
-			() -> new ItemStack(GenesisBlocks.rhyolite)),
+			() -> new ItemStack(GenesisBlocks.RHYOLITE)),
 	DOLERITE("dolerite", 1.7F, 10.0F,
-			() -> new ItemStack(GenesisBlocks.dolerite));
+			() -> new ItemStack(GenesisBlocks.DOLERITE));
 
 	final String name;
 	final String unlocalizedName;

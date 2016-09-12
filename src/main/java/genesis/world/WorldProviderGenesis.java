@@ -62,7 +62,7 @@ public class WorldProviderGenesis extends WorldProvider
 	@Override
 	public boolean canCoordinateBeSpawn(int x, int z)
 	{
-		return worldObj.getGroundAboveSeaLevel(new BlockPos(x, 0, z)) == GenesisBlocks.moss;
+		return worldObj.getGroundAboveSeaLevel(new BlockPos(x, 0, z)) == GenesisBlocks.MOSS;
 	}
 	
 	@Override

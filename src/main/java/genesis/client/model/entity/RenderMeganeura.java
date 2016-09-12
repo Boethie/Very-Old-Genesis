@@ -409,7 +409,7 @@ public class RenderMeganeura extends RenderLiving<EntityMeganeura>
 		}
 	}
 	
-	public static final ResourceLocation texture = new ResourceLocation(Constants.ASSETS_PREFIX + "textures/entity/meganeura/texture.png");
+	public static final ResourceLocation TEXTURE = new ResourceLocation(Constants.ASSETS_PREFIX + "textures/entity/meganeura/texture.png");
 	
 	public RenderMeganeura(RenderManager manager)
 	{
@@ -442,6 +442,6 @@ public class RenderMeganeura extends RenderLiving<EntityMeganeura>
 	@Override
 	protected ResourceLocation getEntityTexture(EntityMeganeura entity)
 	{
-		return texture;
+		return TEXTURE;
 	}
 }

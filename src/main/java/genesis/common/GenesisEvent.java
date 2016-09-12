@@ -15,7 +15,7 @@ public class GenesisEvent
 			registerClientEvents();
 		}
 		
-		MinecraftForge.EVENT_BUS.register(GenesisBlocks.roots);
+		MinecraftForge.EVENT_BUS.register(GenesisBlocks.ROOTS);
 		MinecraftForge.EVENT_BUS.register(new CommandInterceptor());
 		MinecraftForge.EVENT_BUS.register(new GenesisEventHandler());
 	}

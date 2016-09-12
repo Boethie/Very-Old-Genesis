@@ -38,7 +38,7 @@ public class GenesisPortal
 
 	public static boolean isBlockingPortal(IBlockAccess world, BlockPos pos, IBlockState state)
 	{
-		return GenesisBlocks.menhirs.containsState(state) || state.getLightOpacity(world, pos) >= 15;
+		return GenesisBlocks.MENHIRS.containsState(state) || state.getLightOpacity(world, pos) >= 15;
 	}
 
 	public static boolean isBlockingPortal(IBlockAccess world, BlockPos pos)
@@ -95,7 +95,7 @@ public class GenesisPortal
 
 	protected boolean isValidMenhir(BlockPos pos, IBlockState state, EnumFacing facing)
 	{
-		return GenesisBlocks.menhirs.containsState(state)
+		return GenesisBlocks.MENHIRS.containsState(state)
 				&& BlockMenhir.getFacing(state) == facing
 				&& pos.getY() == new MenhirData(blockAccess, pos).getBottomPos().getY();
 	}
@@ -191,13 +191,13 @@ public class GenesisPortal
 	{
 		if (world.getBlockState(getPortalPosition()).getBlock().isReplaceable(world, getPortalPosition()))
 		{
-			world.setBlockState(getPortalPosition(), GenesisBlocks.portal.getDefaultState());
+			world.setBlockState(getPortalPosition(), GenesisBlocks.PORTAL.getDefaultState());
 		}
 	}
 
 	protected void deactivatePortal(World world)
 	{
-		if (world.getBlockState(getPortalPosition()).getBlock() == GenesisBlocks.portal)
+		if (world.getBlockState(getPortalPosition()).getBlock() == GenesisBlocks.PORTAL)
 		{
 			world.setBlockToAir(getPortalPosition());
 		}
@@ -273,17 +273,17 @@ public class GenesisPortal
 
 	public void placeMenhir(World world, BlockPos pos, EnumFacing facing, EnumGlyph glyph, boolean active)
 	{
-		world.setBlockState(pos, GenesisBlocks.menhirs.getBlockState(EnumMenhirPart.GLYPH).withProperty(BlockMenhir.FACING, facing));
+		world.setBlockState(pos, GenesisBlocks.MENHIRS.getBlockState(EnumMenhirPart.GLYPH).withProperty(BlockMenhir.FACING, facing));
 		BlockMenhir.getGlyphTileEntity(world, pos).setGlyph(glyph);
 
-		world.setBlockState(pos = pos.up(), GenesisBlocks.menhirs.getBlockState(EnumMenhirPart.RECEPTACLE).withProperty(BlockMenhir.FACING, facing));
+		world.setBlockState(pos = pos.up(), GenesisBlocks.MENHIRS.getBlockState(EnumMenhirPart.RECEPTACLE).withProperty(BlockMenhir.FACING, facing));
 
 		if (active)
 		{
 			BlockMenhir.getReceptacleTileEntity(world, pos).setContainedItem(glyph.getActivator(world.rand));
 		}
 
-		world.setBlockState(pos = pos.up(), GenesisBlocks.menhirs.getBlockState(EnumMenhirPart.TOP).withProperty(BlockMenhir.FACING, facing));
+		world.setBlockState(pos = pos.up(), GenesisBlocks.MENHIRS.getBlockState(EnumMenhirPart.TOP).withProperty(BlockMenhir.FACING, facing));
 	}
 
 	public int getDistanceWithDefault(EnumFacing direction, int def)
@@ -393,7 +393,7 @@ public class GenesisPortal
 		}
 
 		setCenterPosition(center.up());
-		IBlockState place = GenesisDimensions.isGenesis(world) ? GenesisBlocks.moss.getDefaultState() : Blocks.GRASS.getDefaultState();
+		IBlockState place = GenesisDimensions.isGenesis(world) ? GenesisBlocks.MOSS.getDefaultState() : Blocks.GRASS.getDefaultState();
 
 		for (BlockPos pos : platform)
 		{

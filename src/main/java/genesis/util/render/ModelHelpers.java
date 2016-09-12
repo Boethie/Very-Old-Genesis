@@ -42,8 +42,8 @@ import com.google.common.collect.*;
 
 public class ModelHelpers
 {
-	public static final Block fakeBlock = new BlockAir(){}.setUnlocalizedName(Unlocalized.PREFIX + "dummyBlock");
-	public static final HashBiMap<ModelResourceLocation, IBlockState> locationToFakeState = HashBiMap.create();
+	public static final Block FAKE_BLOCK = new BlockAir(){}.setUnlocalizedName(Unlocalized.PREFIX + "dummyBlock");
+	public static final HashBiMap<ModelResourceLocation, IBlockState> LOCATION_TO_FAKE_STATE = HashBiMap.create();
 
 	public static ModelLoader forgeModelLoader;
 	public static ModelResourceLocation missingModelLocation;
@@ -62,7 +62,7 @@ public class ModelHelpers
 	public static Field modelBlockDefinitionMap;
 	public static Field destroyBlockIcons;
 
-	protected static List<Pair<BlockStateContainer, ResourceLocation>> forcedModels = new ArrayList<>();
+	protected static List<Pair<BlockStateContainer, ResourceLocation>> FORCED_MODELS = new ArrayList<>();
 	protected static boolean doInit = true;
 
 	public static void preInit()
@@ -265,7 +265,7 @@ public class ModelHelpers
 	 */
 	public static IBlockState getFakeState(ModelResourceLocation location)
 	{
-		return locationToFakeState.get(location);
+		return LOCATION_TO_FAKE_STATE.get(location);
 	}
 
 	/**
@@ -541,7 +541,7 @@ public class ModelHelpers
 
 	public static void forceModelLoading(BlockStateContainer state, ResourceLocation loc)
 	{
-		forcedModels.add(Pair.of(state, loc));
+		FORCED_MODELS.add(Pair.of(state, loc));
 	}
 
 	public static void forceModelLoading(final String name, final Collection<String> states, ResourceLocation loc)
@@ -630,11 +630,11 @@ public class ModelHelpers
 
 	protected static void addForcedModels()
 	{
-		Genesis.proxy.registerBlock(fakeBlock, null, new ResourceLocation(Constants.MOD_ID, "dummy_block"));
+		Genesis.proxy.registerBlock(FAKE_BLOCK, null, new ResourceLocation(Constants.MOD_ID, "dummy_block"));
 
 		final Map<IBlockState, IBlockState> actualToFakeState = new HashMap<>();
 
-		for (Pair<BlockStateContainer, ResourceLocation> entry : forcedModels)
+		for (Pair<BlockStateContainer, ResourceLocation> entry : FORCED_MODELS)
 		{
 			for (final IBlockState actualState : entry.getKey().getValidStates())
 			{
@@ -679,7 +679,7 @@ public class ModelHelpers
 					@Override
 					public Block getBlock()
 					{
-						return fakeBlock;
+						return FAKE_BLOCK;
 					}
 					@Override
 					public Material getMaterial()
@@ -881,11 +881,11 @@ public class ModelHelpers
 						getPropertyString(fakeState));
 
 				actualToFakeState.put(actualState, fakeState);
-				locationToFakeState.put(location, fakeState);
+				LOCATION_TO_FAKE_STATE.put(location, fakeState);
 			}
 		}
 
-		IStateMapper stateMapper = block -> locationToFakeState.inverse();
-		ModelLoader.setCustomStateMapper(fakeBlock, stateMapper);
+		IStateMapper stateMapper = block -> LOCATION_TO_FAKE_STATE.inverse();
+		ModelLoader.setCustomStateMapper(FAKE_BLOCK, stateMapper);
 	}
 }

@@ -14,8 +14,8 @@ public class BiomeBeachGenesis extends BiomeGenesis
 	{
 		super(properties);
 		
-		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);
-		fillerBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);
+		topBlock = GenesisBlocks.SILT.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);
+		fillerBlock = GenesisBlocks.SILT.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);
 		
 		addDecorations();
 	}

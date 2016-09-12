@@ -21,7 +21,7 @@ public class WorldGenMinableGenesis extends WorldGenMinable
 	
 	public WorldGenMinableGenesis(IBlockState ore, int minCount, int maxCount)
 	{
-		this(ore, minCount, maxCount, GenesisBlocks.granite);
+		this(ore, minCount, maxCount, GenesisBlocks.GRANITE);
 	}
 	
 	public WorldGenMinableGenesis(IBlockState ore, int minCount, int maxCount, Block targetBlock)

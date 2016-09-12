@@ -90,7 +90,7 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 
 				if (level <= 4)
 				{
-					world.setBlockState(pos, GenesisBlocks.komatiite.getDefaultState());
+					world.setBlockState(pos, GenesisBlocks.KOMATIITE.getDefaultState());
 					triggerMixEffects(world, pos);
 					return true;
 				}

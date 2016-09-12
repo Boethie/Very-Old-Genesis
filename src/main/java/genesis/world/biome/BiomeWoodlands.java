@@ -53,9 +53,9 @@ public class BiomeWoodlands extends BiomeGenesis
 		addDecoration(new WorldGenBoulders(0.166F, 0.333F, 1).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.25F, 0.75F)), 0.24F);
 		addDecoration(new WorldGenDung(EnumDung.CARNIVORE), 0.05F);
 		addDecoration(new WorldGenStemonitis().setPatchCount(14), 6);
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.zingiberopsis).setPatchCount(3), 0.15F);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.ZINGIBEROPSIS).setPatchCount(3), 0.15F);
 		addDecoration(new WorldGenAsplenium().setPatchCount(7), 10);
-		addDecoration(new WorldGenDecorationOnBlock((s) -> s.getMaterial() == Material.WATER, GenesisBlocks.cobbania.getDefaultState()), 2.8F);
+		addDecoration(new WorldGenDecorationOnBlock((s) -> s.getMaterial() == Material.WATER, GenesisBlocks.COBBANIA.getDefaultState()), 2.8F);
 		addDecoration(WorldGenCircleReplacement.getPeatGen(), 1);
 		addDecoration(new WorldGenRoots(), 13);
 		

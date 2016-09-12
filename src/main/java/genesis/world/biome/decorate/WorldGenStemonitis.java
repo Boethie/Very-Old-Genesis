@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class WorldGenStemonitis extends WorldGenDecorationBase
 {
-	private static final IBlockState STATE = GenesisBlocks.stemonitis.getDefaultState();
+	private static final IBlockState STATE = GenesisBlocks.STEMONITIS.getDefaultState();
 
 	public WorldGenStemonitis()
 	{

@@ -101,7 +101,7 @@ public class ItemGenesisBucket extends ItemBucket
 				{
 					world.setBlockToAir(hitPos);
 					player.addStat(StatList.getObjectUseStats(this));
-					return Actions.success(fillBucket(stack, player, GenesisItems.ceramic_bucket_water));
+					return Actions.success(fillBucket(stack, player, GenesisItems.CERAMIC_BUCKET_WATER));
 				}
 			}
 			else
@@ -116,7 +116,7 @@ public class ItemGenesisBucket extends ItemBucket
 				if (tryPlaceContainedLiquid(player, world, placePos) && !player.capabilities.isCreativeMode)
 				{
 					player.addStat(StatList.getObjectUseStats(this));
-					return Actions.success(new ItemStack(GenesisItems.ceramic_bucket));
+					return Actions.success(new ItemStack(GenesisItems.CERAMIC_BUCKET));
 				}
 			}
 		}
@@ -131,12 +131,12 @@ public class ItemGenesisBucket extends ItemBucket
 		{
 			if (stack.stackSize == 1)
 			{
-				stack.setItem(GenesisItems.ceramic_bucket_milk);
+				stack.setItem(GenesisItems.CERAMIC_BUCKET_MILK);
 			}
 			else
 			{
 				stack.stackSize--;
-				player.inventory.addItemStackToInventory(new ItemStack(GenesisItems.ceramic_bucket_milk));
+				player.inventory.addItemStackToInventory(new ItemStack(GenesisItems.CERAMIC_BUCKET_MILK));
 			}
 		}
 

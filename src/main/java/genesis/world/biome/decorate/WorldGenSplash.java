@@ -19,7 +19,7 @@ public class WorldGenSplash extends WorldGenDecorationBase
 	public static WorldGenSplash createHumusSplash()
 	{
 		return (WorldGenSplash) new WorldGenSplash(
-				(s, w, p) -> s.getBlock() == GenesisBlocks.moss,
+				(s, w, p) -> s.getBlock() == GenesisBlocks.MOSS,
 				(s) -> s.withProperty(BlockMoss.SOIL, EnumSoil.HUMUS))
 				.setDryRadius(-1).setPatchRadius(6);
 	}

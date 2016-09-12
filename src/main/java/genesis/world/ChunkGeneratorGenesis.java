@@ -153,7 +153,7 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 
 			if (y < 63 || rand.nextInt(settings.lavaLakeChance / 8) == 0)
 			{
-				new WorldGenGenesisLakes(GenesisBlocks.komatiitic_lava.getDefaultState()).generate(world, rand, pos.add(x, y, z));
+				new WorldGenGenesisLakes(GenesisBlocks.KOMATIITIC_LAVA.getDefaultState()).generate(world, rand, pos.add(x, y, z));
 			}
 		}
 
@@ -234,7 +234,7 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 							{
 								if ((d15 += d16) > 0.0D)
 								{
-									primer.setBlockState(k * 4 + i3, k2 * 8 + l2, j1 * 4 + j3, GenesisBlocks.granite.getDefaultState());
+									primer.setBlockState(k * 4 + i3, k2 * 8 + l2, j1 * 4 + j3, GenesisBlocks.GRANITE.getDefaultState());
 								}
 								else if (k2 * 8 + l2 < settings.seaLevel)
 								{

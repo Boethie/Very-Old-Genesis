@@ -28,11 +28,11 @@ public class WorldGenerators
 		{
 			if (activator.isForOverworld())
 			{
-				menhirActivatorsOverworld.add(GenesisItems.menhir_activators.getStack(activator));
+				menhirActivatorsOverworld.add(GenesisItems.MENHIR_ACTIVATORS.getStack(activator));
 			}
 			else
 			{
-				menhirActivatorsGenesis.add(GenesisItems.menhir_activators.getStack(activator));
+				menhirActivatorsGenesis.add(GenesisItems.MENHIR_ACTIVATORS.getStack(activator));
 			}
 		}
 	}

@@ -39,7 +39,7 @@ public class BlockRadioactiveGranite extends BlockGenesisRock
 			{
 				int duration = rand.nextInt(10) == 0 ? MathHelper.getRandomIntegerInRange(rand, 200, 400) : 200;
 				int amplifier = rand.nextInt(20) == 0 ? 1 : 0;
-				entity.addPotionEffect(new PotionEffect(GenesisPotions.radiation, duration, amplifier));
+				entity.addPotionEffect(new PotionEffect(GenesisPotions.RADIATION, duration, amplifier));
 			}
 		}
 	}
@@ -103,7 +103,7 @@ public class BlockRadioactiveGranite extends BlockGenesisRock
 			{
 				int duration = MathHelper.getRandomIntegerInRange(world.rand, 250, 400);
 				int amplifier = 1;
-				entity.addPotionEffect(new PotionEffect(GenesisPotions.radiation, duration, amplifier));
+				entity.addPotionEffect(new PotionEffect(GenesisPotions.RADIATION, duration, amplifier));
 			}
 		}
 	}

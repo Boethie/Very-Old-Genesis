@@ -22,11 +22,11 @@ public class WorldGenArchaeomarasmius extends WorldGenDecorationBase
 	{
 		IBlockState stateAt = world.getBlockState(pos);
 		
-		if ((stateAt.getBlock() != GenesisBlocks.moss && stateAt.getBlock() != Blocks.DIRT)
+		if ((stateAt.getBlock() != GenesisBlocks.MOSS && stateAt.getBlock() != Blocks.DIRT)
 				|| world.getLight(pos.up()) > 14)
 			return false;
 		
-		setAirBlock(world, pos.up(), GenesisBlocks.archaeomarasmius.getDefaultState());
+		setAirBlock(world, pos.up(), GenesisBlocks.ARCHAEOMARASMIUS.getDefaultState());
 		
 		return true;
 	}

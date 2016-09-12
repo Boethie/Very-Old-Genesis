@@ -8,11 +8,11 @@ public enum EnumDebrisOther implements IMetadata<EnumDebrisOther>
 {
 	CALAMITES("calamites", null),
 	COELOPHYSIS_FEATHER("coelophysis_feather", "coelophysisFeather",
-			() -> GenesisItems.materials.getStack(EnumMaterial.COELOPHYSIS_FEATHER)),
+			() -> GenesisItems.MATERIALS.getStack(EnumMaterial.COELOPHYSIS_FEATHER)),
 	EPIDEXIPTERYX_FEATHER("epidexipteryx_feather", "epidexipteryxFeather",
-			() -> GenesisItems.materials.getStack(EnumMaterial.EPIDEXIPTERYX_FEATHER)),
+			() -> GenesisItems.MATERIALS.getStack(EnumMaterial.EPIDEXIPTERYX_FEATHER)),
 	TYRANNOSAURUS_FEATHER("tyrannosaurus_feather", "tyrannosaurusFeather",
-			() -> GenesisItems.materials.getStack(EnumMaterial.TYRANNOSAURUS_FEATHER));
+			() -> GenesisItems.MATERIALS.getStack(EnumMaterial.TYRANNOSAURUS_FEATHER));
 	
 	final String name;
 	final String unlocalizedName;

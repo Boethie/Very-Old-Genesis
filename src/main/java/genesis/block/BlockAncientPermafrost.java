@@ -42,7 +42,7 @@ public class BlockAncientPermafrost extends BlockPermafrost
 		}
 		else if (chance < 40)
 		{
-			stack = GenesisItems.foods.getRawStack(EnumFood.ERYOPS_LEG);// meat
+			stack = GenesisItems.FOODS.getRawStack(EnumFood.ERYOPS_LEG);// meat
 		}
 		
 		if (stack == null)

@@ -36,29 +36,29 @@ public class GenesisAchievements
 	
 	public static void initAchievements()
 	{
-		menhirActivator = createAchievement("menhirActivator", 0, 0, GenesisItems.menhir_activators.getStack(EnumMenhirActivator.ANCIENT_AMBER), null, false);
+		menhirActivator = createAchievement("menhirActivator", 0, 0, GenesisItems.MENHIR_ACTIVATORS.getStack(EnumMenhirActivator.ANCIENT_AMBER), null, false);
 		
-		enterGenesis = createAchievement("enter", 2, 0, new ItemStack(GenesisBlocks.portal), menhirActivator, true);
+		enterGenesis = createAchievement("enter", 2, 0, new ItemStack(GenesisBlocks.PORTAL), menhirActivator, true);
 		
-		gettingChoppingTool = createAchievement("choppingTool", 4, 1, GenesisItems.tools.getStack(ToolItems.CHOPPING_TOOL, EnumToolMaterial.GRANITE), enterGenesis, false);
+		gettingChoppingTool = createAchievement("choppingTool", 4, 1, GenesisItems.TOOLS.getStack(ToolItems.CHOPPING_TOOL, EnumToolMaterial.GRANITE), enterGenesis, false);
 		
-		gettingLog = createAchievement("log", 6, 1, GenesisBlocks.trees.getStack(TreeBlocksAndItems.LOG, EnumTree.SIGILLARIA), gettingChoppingTool, false);
+		gettingLog = createAchievement("log", 6, 1, GenesisBlocks.TREES.getStack(TreeBlocksAndItems.LOG, EnumTree.SIGILLARIA), gettingChoppingTool, false);
 		
-		workbench = createAchievement("workbench", 8, -1, new ItemStack(GenesisBlocks.workbench), gettingLog, false);
+		workbench = createAchievement("workbench", 8, -1, new ItemStack(GenesisBlocks.WORKBENCH), gettingLog, false);
 		
-		knappingHoe = createAchievement("chippedHoe", 6, -3, GenesisItems.tools.getStack(ToolItems.HOE, EnumToolMaterial.GRANITE, EnumToolQuality.CHIPPED), workbench, false);
+		knappingHoe = createAchievement("chippedHoe", 6, -3, GenesisItems.TOOLS.getStack(ToolItems.HOE, EnumToolMaterial.GRANITE, EnumToolQuality.CHIPPED), workbench, false);
 		
-		knappingSpear = createAchievement("chippedSpear", 10, -1, GenesisItems.tools.getStack(ToolItems.SPEAR, EnumToolMaterial.GRANITE, EnumToolQuality.CHIPPED), workbench, false);
+		knappingSpear = createAchievement("chippedSpear", 10, -1, GenesisItems.TOOLS.getStack(ToolItems.SPEAR, EnumToolMaterial.GRANITE, EnumToolQuality.CHIPPED), workbench, false);
 		
-		shootingBow = createAchievement("bow", 12, -1, GenesisItems.bows.getStack(EnumBowType.SELF, EnumTree.DRYOPHYLLUM), knappingSpear, true);
+		shootingBow = createAchievement("bow", 12, -1, GenesisItems.BOWS.getStack(EnumBowType.SELF, EnumTree.DRYOPHYLLUM), knappingSpear, true);
 		
-		knappingPickaxe = createAchievement("chippedPickaxe", 8, 2, GenesisItems.tools.getStack(ToolItems.PICKAXE, EnumToolMaterial.GRANITE, EnumToolQuality.CHIPPED), workbench, false);
+		knappingPickaxe = createAchievement("chippedPickaxe", 8, 2, GenesisItems.TOOLS.getStack(ToolItems.PICKAXE, EnumToolMaterial.GRANITE, EnumToolQuality.CHIPPED), workbench, false);
 		
-		polishingPickaxe = createAchievement("polishedPickaxe", 10, 2, GenesisItems.tools.getStack(ToolItems.PICKAXE, EnumToolMaterial.GRANITE, EnumToolQuality.POLISHED), knappingPickaxe, false);
+		polishingPickaxe = createAchievement("polishedPickaxe", 10, 2, GenesisItems.TOOLS.getStack(ToolItems.PICKAXE, EnumToolMaterial.GRANITE, EnumToolQuality.POLISHED), knappingPickaxe, false);
 		
-		firelighting = createAchievement("fire", 6, 2, new ItemStack (GenesisItems.flint_and_marcasite), knappingPickaxe, false);
+		firelighting = createAchievement("fire", 6, 2, new ItemStack (GenesisItems.FLINT_AND_MARCASITE), knappingPickaxe, false);
 		
-		gettingBlackDiamond = createAchievement("blackDiamond", 8, 4, GenesisBlocks.ores.getOreStack(EnumOre.BLACK_DIAMOND), knappingPickaxe, false);
+		gettingBlackDiamond = createAchievement("blackDiamond", 8, 4, GenesisBlocks.ORES.getOreStack(EnumOre.BLACK_DIAMOND), knappingPickaxe, false);
 		
 		registerAchievements();
 		
@@ -93,18 +93,18 @@ public class GenesisAchievements
 		
 		private static void doItemAchievement(ItemStack stack, EntityPlayer player)
 		{
-			if (GenesisItems.menhir_activators.isStackOf(stack))
+			if (GenesisItems.MENHIR_ACTIVATORS.isStackOf(stack))
 				player.addStat(menhirActivator, 1);
 			
-			if (GenesisBlocks.trees.isStackOf(stack, TreeBlocksAndItems.LOG))
+			if (GenesisBlocks.TREES.isStackOf(stack, TreeBlocksAndItems.LOG))
 				player.addStat(gettingLog, 1);
 			
-			if (isBlock(stack, GenesisBlocks.workbench))
+			if (isBlock(stack, GenesisBlocks.WORKBENCH))
 				player.addStat(workbench, 1);
 			
-			if (GenesisItems.tools.isStackOf(stack, ToolItems.HOE))
+			if (GenesisItems.TOOLS.isStackOf(stack, ToolItems.HOE))
 			{
-				switch (GenesisItems.tools.getVariant(stack).quality)
+				switch (GenesisItems.TOOLS.getVariant(stack).quality)
 				{
 				case CHIPPED:
 					player.addStat(knappingHoe, 1);
@@ -114,9 +114,9 @@ public class GenesisAchievements
 				}
 			}
 			
-			if (GenesisItems.tools.isStackOf(stack, ToolItems.SPEAR))
+			if (GenesisItems.TOOLS.isStackOf(stack, ToolItems.SPEAR))
 			{
-				switch (GenesisItems.tools.getVariant(stack).quality)
+				switch (GenesisItems.TOOLS.getVariant(stack).quality)
 				{
 				case CHIPPED:
 					player.addStat(knappingSpear, 1);
@@ -126,12 +126,12 @@ public class GenesisAchievements
 				}
 			}
 			
-			if (GenesisItems.bows.isStackOf(stack))
+			if (GenesisItems.BOWS.isStackOf(stack))
 				player.addStat(shootingBow, 1);
 			
-			if (GenesisItems.tools.isStackOf(stack, ToolItems.PICKAXE))
+			if (GenesisItems.TOOLS.isStackOf(stack, ToolItems.PICKAXE))
 			{
-				switch (GenesisItems.tools.getVariant(stack).quality)
+				switch (GenesisItems.TOOLS.getVariant(stack).quality)
 				{
 				case CHIPPED:
 					player.addStat(knappingPickaxe, 1);

@@ -42,9 +42,9 @@ public class BiomeSwampRainforest extends BiomeGenesis implements IEntityPreferr
 		addGrass(WorldGenPlant.create(EnumPlant.ZYGOPTERIS).setPatchCount(9), 1);
 
 		addDecoration(WorldGenSplash.createHumusSplash(), 1.35F);
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.odontopteris).setPatchCount(3), 2);
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.sphenophyllum).setPatchCount(4), 4);
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.calamites).setPatchCount(3), 4);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.ODONTOPTERIS).setPatchCount(3), 2);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.SPHENOPHYLLUM).setPatchCount(4), 4);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.CALAMITES).setPatchCount(3), 4);
 		addDecoration(new WorldGenMossStages(), 30);
 		addDecoration(WorldGenCircleReplacement.getPeatGen(), 10);
 		addDecoration(new WorldGenRoots(), 13);

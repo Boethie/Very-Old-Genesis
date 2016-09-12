@@ -69,7 +69,7 @@ public class MenhirData implements Iterable<MenhirEntry>
 	
 	public BlockPos getGlyphPos()
 	{
-		if (glyph == null && GenesisBlocks.menhirs.getVariant(world.getBlockState(bottom)) == EnumMenhirPart.GLYPH)
+		if (glyph == null && GenesisBlocks.MENHIRS.getVariant(world.getBlockState(bottom)) == EnumMenhirPart.GLYPH)
 		{
 			glyph = bottom;
 		}

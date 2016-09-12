@@ -15,8 +15,8 @@ import static genesis.world.iworldgenerators.WorldGenHelper.findSurface;
 public class GenesisPortalCircle
 {
 	private static WorldGenHelper.RandomStates genesisRocks = new WorldGenHelper.RandomStates(
-			new WorldGenHelper.RandomState(GenesisBlocks.granite.getDefaultState(), 3),
-			new WorldGenHelper.RandomState(GenesisBlocks.mossy_granite.getDefaultState(), 1));
+			new WorldGenHelper.RandomState(GenesisBlocks.GRANITE.getDefaultState(), 3),
+			new WorldGenHelper.RandomState(GenesisBlocks.MOSSY_GRANITE.getDefaultState(), 1));
 	
 	private static WorldGenHelper.RandomStates vanillaRocks = new WorldGenHelper.RandomStates(
 			new WorldGenHelper.RandomState(Blocks.COBBLESTONE.getDefaultState(), 3),

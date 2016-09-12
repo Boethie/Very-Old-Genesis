@@ -49,11 +49,11 @@ public enum EnumOre implements IOreVariant<EnumOre>
 		));
 		FLINT.setDrops(new BlockDrops(
 				new BlockMultiDrop(
-					new BlockStackDrop(GenesisItems.nodules.getStack(EnumNodule.BROWN_FLINT), 1),
-					new BlockStackDrop(GenesisItems.nodules.getStack(EnumNodule.BLACK_FLINT), 1)
+					new BlockStackDrop(GenesisItems.NODULES.getStack(EnumNodule.BROWN_FLINT), 1),
+					new BlockStackDrop(GenesisItems.NODULES.getStack(EnumNodule.BLACK_FLINT), 1)
 				)
 			));
-		MARCASITE.setDrops(new BlockDrops(GenesisItems.nodules.getStack(EnumNodule.MARCASITE), 1));
+		MARCASITE.setDrops(new BlockDrops(GenesisItems.NODULES.getStack(EnumNodule.MARCASITE), 1));
 
 		BlockDrops drops = new BlockDrops(VariantDrop.create(combo, OreBlocks.DROP, 1));
 

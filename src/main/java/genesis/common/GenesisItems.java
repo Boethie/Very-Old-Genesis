@@ -3,8 +3,8 @@ package genesis.common;
 import genesis.client.Colorizers;
 import genesis.client.model.MetadataModelDefinition;
 import genesis.combo.*;
-import genesis.combo.variant.*;
 import genesis.combo.variant.ArrowTypes.ArrowType;
+import genesis.combo.variant.*;
 import genesis.entity.fixed.EntityMeganeuraEgg;
 import genesis.item.*;
 import genesis.util.Constants;
@@ -28,62 +28,62 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public final class GenesisItems
 {
 	/* Materials */
-	public static final Item red_clay_ball = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "redClay");
-	public static final Item red_clay_bowl = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "redClayBowl");
+	public static final Item RED_CLAY_BALL = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "redClay");
+	public static final Item RED_CLAY_BOWL = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "redClayBowl");
 
-	public static final ItemsCeramicBowls bowls = new ItemsCeramicBowls();
+	public static final ItemsCeramicBowls BOWLS = new ItemsCeramicBowls();
 
-	public static final Item red_clay_bucket = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "redClayBucket");
+	public static final Item RED_CLAY_BUCKET = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "redClayBucket");
 
-	public static final VariantsCombo<EnumNodule, Block, ItemMulti<EnumNodule>> nodules =
+	public static final VariantsCombo<EnumNodule, Block, ItemMulti<EnumNodule>> NODULES =
 			VariantsCombo.create(
 					"nodules",
 					ObjectType.createItem(EnumNodule.class, "nodule"),
 					EnumNodule.class, EnumNodule.values());
-	public static final VariantsCombo<EnumPowder, Block, ItemMulti<EnumPowder>> powders =
+	public static final VariantsCombo<EnumPowder, Block, ItemMulti<EnumPowder>> POWDERS =
 			VariantsCombo.create(
 					"powders",
 					ObjectType.createItem(EnumPowder.class, "powder"),
 					EnumPowder.class, EnumPowder.values());
 
-	public static final VariantsCombo<EnumMaterial, Block, ItemMaterial> materials =
+	public static final VariantsCombo<EnumMaterial, Block, ItemMaterial> MATERIALS =
 			VariantsCombo.create(
 					"materials",
 					ObjectType.createItem(EnumMaterial.class, "material", ItemMaterial.class).setResourceName(""),
 					EnumMaterial.class, EnumMaterial.values());
 
 	/* Eggs */
-	public static final ItemGenesisEgg<EntityMeganeuraEgg> meganeura_egg = new ItemGenesisEgg<>(EntityMeganeuraEgg.class)
+	public static final ItemGenesisEgg<EntityMeganeuraEgg> MEGANEURA_EGG = new ItemGenesisEgg<>(EntityMeganeuraEgg.class)
 			.setUnlocalizedName(Unlocalized.EGG + "meganeura");
 
 	/* Seeds */
-	public static final VariantsCombo<EnumSeeds, Block, ItemGenesisSeeds> seeds =
+	public static final VariantsCombo<EnumSeeds, Block, ItemGenesisSeeds> SEEDS =
 			VariantsCombo.create(
 					"seeds",
 					ObjectType.createItem(EnumSeeds.class, "seed", ItemGenesisSeeds.class).setResourceName(""),
 					EnumSeeds.class, EnumSeeds.values());
-	public static final Item rotten_zingiberopsis_rhizome = new ItemFood(1, 0.7F, false)
+	public static final Item ROTTEN_ZINGIBEROPSIS_RHIZOME = new ItemFood(1, 0.7F, false)
 			.setPotionEffect(new PotionEffect(MobEffects.POISON, 100, 0), 0.6F)
 			.setUnlocalizedName(Unlocalized.FOOD + "rottenZingiberopsisRhizome")
 			.setCreativeTab(GenesisCreativeTabs.FOOD);
 
 	/* Foods */
-	public static final FoodItems foods = new FoodItems();
+	public static final FoodItems FOODS = new FoodItems();
 
 	/* Tools */
-	public static final ItemFlintAndMarcasite flint_and_marcasite = (ItemFlintAndMarcasite) new ItemFlintAndMarcasite().setUnlocalizedName(Unlocalized.PREFIX + Unlocalized.Section.TOOL + "flintAndMarcasite");
-	public static final ToolItems tools = new ToolItems();
+	public static final ItemFlintAndMarcasite FLINT_AND_MARCASITE = (ItemFlintAndMarcasite) new ItemFlintAndMarcasite().setUnlocalizedName(Unlocalized.PREFIX + Unlocalized.Section.TOOL + "flintAndMarcasite");
+	public static final ToolItems TOOLS = new ToolItems();
 
 	/* Armor */
-	public static final ClothingItems clothing = new ClothingItems();
+	public static final ClothingItems CLOTHING = new ClothingItems();
 
 	/* Misc */
-	public static final Item ceramic_bucket = new ItemGenesisBucket(Blocks.AIR.getDefaultState()).setUnlocalizedName(Unlocalized.MISC + "ceramicBucket");
-	public static final Item ceramic_bucket_water = new ItemGenesisBucket(Blocks.FLOWING_WATER.getDefaultState()).setUnlocalizedName(Unlocalized.MISC + "ceramicBucketWater").setContainerItem(ceramic_bucket);
-	public static final Item ceramic_bucket_milk = new ItemGenesisBucketMilk().setUnlocalizedName(Unlocalized.MISC + "ceramicBucketMilk").setContainerItem(ceramic_bucket);
+	public static final Item CERAMIC_BUCKET = new ItemGenesisBucket(Blocks.AIR.getDefaultState()).setUnlocalizedName(Unlocalized.MISC + "ceramicBucket");
+	public static final Item CERAMIC_BUCKET_WATER = new ItemGenesisBucket(Blocks.FLOWING_WATER.getDefaultState()).setUnlocalizedName(Unlocalized.MISC + "ceramicBucketWater").setContainerItem(CERAMIC_BUCKET);
+	public static final Item CERAMIC_BUCKET_MILK = new ItemGenesisBucketMilk().setUnlocalizedName(Unlocalized.MISC + "ceramicBucketMilk").setContainerItem(CERAMIC_BUCKET);
 	public static Item bucket_komatiitic_lava;
 
-	public static final VariantsCombo<EnumMenhirActivator, Block, ItemMulti<EnumMenhirActivator>> menhir_activators =
+	public static final VariantsCombo<EnumMenhirActivator, Block, ItemMulti<EnumMenhirActivator>> MENHIR_ACTIVATORS =
 					new VariantsCombo<>(
 									"menhir_activators",
 									new ObjectType<EnumMenhirActivator, Block, ItemMulti<EnumMenhirActivator>>(EnumMenhirActivator.class, "menhir_activator", Unlocalized.MISC + "menhirActivator", null, null)
@@ -92,8 +92,8 @@ public final class GenesisItems
 									EnumMenhirActivator.class, EnumMenhirActivator.values())
 			.setNames(Constants.MOD_ID, "");
 
-	public static final BowItems bows = new BowItems();
-	public static final ArrowItems arrows = new ArrowItems();
+	public static final BowItems BOWS = new BowItems();
+	public static final ArrowItems ARROWS = new ArrowItems();
 
 	private static ResourceLocation name(String path)
 	{
@@ -104,80 +104,80 @@ public final class GenesisItems
 	{
 		// --- Materials ---
 		// Tool materials
-		tools.registerVariants(ToolItems.PEBBLE);
-		tools.registerVariants(ToolItems.FLAKE);
+		TOOLS.registerVariants(ToolItems.PEBBLE);
+		TOOLS.registerVariants(ToolItems.FLAKE);
 
 		// Clay
-		Genesis.proxy.registerItem(red_clay_ball, name("red_clay_ball"));
-		Genesis.proxy.registerItem(red_clay_bowl, name("red_clay_bowl"));
-		bowls.registerAll();
-		Genesis.proxy.registerItem(red_clay_bucket, name("red_clay_bucket"));
+		Genesis.proxy.registerItem(RED_CLAY_BALL, name("red_clay_ball"));
+		Genesis.proxy.registerItem(RED_CLAY_BOWL, name("red_clay_bowl"));
+		BOWLS.registerAll();
+		Genesis.proxy.registerItem(RED_CLAY_BUCKET, name("red_clay_bucket"));
 
 		// Ores
-		GenesisBlocks.ores.registerVariants(OreBlocks.DROP);
+		GenesisBlocks.ORES.registerVariants(OreBlocks.DROP);
 
-		powders.setNames(Constants.MOD_ID, Unlocalized.MATERIAL);
-		powders.registerAll();
+		POWDERS.setNames(Constants.MOD_ID, Unlocalized.MATERIAL);
+		POWDERS.registerAll();
 
-		nodules.setNames(Constants.MOD_ID, Unlocalized.MATERIAL);
-		nodules.registerAll();
+		NODULES.setNames(Constants.MOD_ID, Unlocalized.MATERIAL);
+		NODULES.registerAll();
 
 		// Billets
-		GenesisBlocks.trees.registerVariants(TreeBlocksAndItems.BILLET);
+		GenesisBlocks.TREES.registerVariants(TreeBlocksAndItems.BILLET);
 
 		// Random materials
-		GenesisBlocks.dungs.registerVariants(DungBlocksAndItems.DUNG);
+		GenesisBlocks.DUNGS.registerVariants(DungBlocksAndItems.DUNG);
 
-		materials.setNames(Constants.MOD_ID, Unlocalized.PREFIX);
-		materials.registerAll();
+		MATERIALS.setNames(Constants.MOD_ID, Unlocalized.PREFIX);
+		MATERIALS.registerAll();
 
-		Genesis.proxy.registerItem(meganeura_egg, name("meganeura_egg"));
+		Genesis.proxy.registerItem(MEGANEURA_EGG, name("meganeura_egg"));
 
-		seeds.setNames(Constants.MOD_ID, Unlocalized.PREFIX);
-		seeds.registerAll();
-		Genesis.proxy.registerItem(rotten_zingiberopsis_rhizome, name("rotten_zingiberopsis_rhizome"));
+		SEEDS.setNames(Constants.MOD_ID, Unlocalized.PREFIX);
+		SEEDS.registerAll();
+		Genesis.proxy.registerItem(ROTTEN_ZINGIBEROPSIS_RHIZOME, name("rotten_zingiberopsis_rhizome"));
 
 		// Foods
-		foods.registerAll();
+		FOODS.registerAll();
 
 		// --- Begin tools ---
-		Genesis.proxy.registerItem(flint_and_marcasite, name("flint_and_marcasite"));
+		Genesis.proxy.registerItem(FLINT_AND_MARCASITE, name("flint_and_marcasite"));
 
 		// All tools
-		tools.registerAll();
+		TOOLS.registerAll();
 
 		// Armor
-		clothing.registerAll();
+		CLOTHING.registerAll();
 
 		// --- Misc ---
-		Genesis.proxy.registerItem(ceramic_bucket, name("ceramic_bucket"));
-		Genesis.proxy.registerItem(ceramic_bucket_water, name("ceramic_bucket_water"));
+		Genesis.proxy.registerItem(CERAMIC_BUCKET, name("ceramic_bucket"));
+		Genesis.proxy.registerItem(CERAMIC_BUCKET_WATER, name("ceramic_bucket_water"));
 		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluid("water"),
-				new ItemStack(ceramic_bucket_water), new ItemStack(ceramic_bucket));
-		Genesis.proxy.registerItem(ceramic_bucket_milk, name("ceramic_bucket_milk"));
+				new ItemStack(CERAMIC_BUCKET_WATER), new ItemStack(CERAMIC_BUCKET));
+		Genesis.proxy.registerItem(CERAMIC_BUCKET_MILK, name("ceramic_bucket_milk"));
 
-		bucket_komatiitic_lava = new ItemGenesisBucket(GenesisBlocks.komatiitic_lava.getDefaultState()).setUnlocalizedName(Unlocalized.MISC + "bucketKomatiiticLava");
+		bucket_komatiitic_lava = new ItemGenesisBucket(GenesisBlocks.KOMATIITIC_LAVA.getDefaultState()).setUnlocalizedName(Unlocalized.MISC + "bucketKomatiiticLava");
 		Genesis.proxy.registerItem(bucket_komatiitic_lava, name("bucket_komatiitic_lava"));
 
-		menhir_activators.registerAll();
+		MENHIR_ACTIVATORS.registerAll();
 
-		bows.registerAll();
-		arrows.registerAll();
+		BOWS.registerAll();
+		ARROWS.registerAll();
 	}
 
 	@SideOnly(Side.CLIENT)
 	public static void preInitClient()
 	{
-		for (Item bow : bows.getItems())
-			Genesis.proxy.registerModel(bow, MetadataModelDefinition.from(bow, (s) -> name(bows.getVariant(s).getName())));
+		for (Item bow : BOWS.getItems())
+			Genesis.proxy.registerModel(bow, MetadataModelDefinition.from(bow, (s) -> name(BOWS.getVariant(s).getName())));
 
-		for (Item arrow : arrows.getItems())
+		for (Item arrow : ARROWS.getItems())
 		{
 			Genesis.proxy.registerModel(arrow,
 					MetadataModelDefinition.from(arrow,
 							(stack) -> {
-								ArrowType variant = arrows.getVariant(stack);
-								return new ModelResourceLocation(name(arrows.getName()),
+								ArrowType variant = ARROWS.getVariant(stack);
+								return new ModelResourceLocation(name(ARROWS.getName()),
 										"shaft=" + variant.getShaft().getName()
 										+ ",tip=" + variant.getTip().getName());
 							}));
@@ -190,7 +190,7 @@ public final class GenesisItems
 		ItemColors colors = Minecraft.getMinecraft().getItemColors();
 
 		colors.registerItemColorHandler(Colorizers.ITEM_ARMOR,
-				clothing.getItems(
+				CLOTHING.getItems(
 						ClothingItems.HELMET,
 						ClothingItems.CHESTPLATE,
 						ClothingItems.LEGGINGS,

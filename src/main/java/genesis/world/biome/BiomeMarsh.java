@@ -20,13 +20,13 @@ public class BiomeMarsh extends BiomeGenesis
 	public BiomeMarsh(Biome.BiomeProperties properties)
 	{
 		super(properties);
-		this.topBlock = GenesisBlocks.mycorrhiza.getDefaultState();
+		this.topBlock = GenesisBlocks.MYCORRHIZA.getDefaultState();
 		
 		getDecorator().setGrassCount(7);
 		addGrass(WorldGenPlant.create(PlantBlocks.PLANT, EnumPlant.ASTEROXYLON).setPatchCount(5), 1);
 		
 		getDecorator().setFlowerCount(7);
-		addFlower(WorldGenPlant.create(GenesisBlocks.plants, PlantBlocks.DOUBLE_PLANT, EnumPlant.ASTEROXYLON), 5);
+		addFlower(WorldGenPlant.create(GenesisBlocks.PLANTS, PlantBlocks.DOUBLE_PLANT, EnumPlant.ASTEROXYLON), 5);
 		addFlower(WorldGenPlant.create(EnumPlant.RHYNIA).setPatchCount(4), 6);
 		addFlower(WorldGenPlant.create(EnumPlant.NOTHIA).setPatchCount(4), 5);
 		addFlower(WorldGenPlant.create(EnumPlant.SCIADOPHYTON).setPatchCount(4), 3);
@@ -34,7 +34,7 @@ public class BiomeMarsh extends BiomeGenesis
 		addFlower(WorldGenPlant.create(EnumPlant.BARAGWANATHIA).setPatchCount(4), 1);
 		addFlower(WorldGenPlant.create(EnumPlant.COOKSONIA).setPatchCount(4), 1);
 		
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.prototaxites).setPatchCount(3), 0.142F);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.PROTOTAXITES).setPatchCount(3), 0.142F);
 		addDecoration(WorldGenCircleReplacement.getPeatGen(), 6.75F);
 	}
 	

@@ -67,7 +67,7 @@ public class WorldGenHut implements IWorldGenerator {
 		
 		Genesis.logger.debug("Starting generation of the hut at " + start.toString());
 		
-		IBlockState[][][] matrix = WGHDB.matrix;
+		IBlockState[][][] matrix = WGHDB.MATRIX;
 		
 		for (int y = 0; y < matrix.length; y++)
 		{
@@ -116,7 +116,7 @@ public class WorldGenHut implements IWorldGenerator {
 		while (!WorldGenHelper.isGround(world, ladderPos.down()))
 		{
 			ladderPos = ladderPos.down();
-			world.setBlockState(ladderPos, GenesisBlocks.rope_ladder.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.EAST));
+			world.setBlockState(ladderPos, GenesisBlocks.ROPE_LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.EAST));
 		}
 		
 		TileEntityRack rack1 = BlockRack.getTileEntity(world, start.add(2, 4, 5));
@@ -124,8 +124,8 @@ public class WorldGenHut implements IWorldGenerator {
 		
 		if (rack1 != null && rack2 != null)
 		{
-			rack1.setStackInSide(EnumFacing.SOUTH, GenesisItems.clothing.getHelmet(EnumClothing.CHITIN));
-			rack2.setStackInSide(EnumFacing.SOUTH, GenesisItems.tools.getBadStack(ToolItems.KNIFE, EnumToolMaterial.QUARTZ));
+			rack1.setStackInSide(EnumFacing.SOUTH, GenesisItems.CLOTHING.getHelmet(EnumClothing.CHITIN));
+			rack2.setStackInSide(EnumFacing.SOUTH, GenesisItems.TOOLS.getBadStack(ToolItems.KNIFE, EnumToolMaterial.QUARTZ));
 		}
 		
 		BlockPos boxPos = start.add(2, 2, 2);

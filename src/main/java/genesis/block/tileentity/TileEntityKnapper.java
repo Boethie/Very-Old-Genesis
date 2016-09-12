@@ -202,7 +202,7 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 			if (state.isKnapping())
 			{
 				state.getKnappingPlayers().stream().filter(this::incrementTimer).forEach(player ->
-								player.playSound(GenesisSoundEvents.player_knapping_hit, 2, 0.9F + worldObj.rand.nextFloat() * 0.2F));
+								player.playSound(GenesisSoundEvents.PLAYER_KNAPPING_HIT, 2, 0.9F + worldObj.rand.nextFloat() * 0.2F));
 
 				if (state.iterateProgress())
 				{	// Has been knapped.

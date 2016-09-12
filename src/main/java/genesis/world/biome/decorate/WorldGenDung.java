@@ -27,15 +27,15 @@ public class WorldGenDung extends WorldGenDecorationBase
 		super(WorldBlockMatcher.STANDARD_AIR_WATER,
 				(s, w, p) -> s.getBlock() == Blocks.DIRT
 				|| s.getBlock() == Blocks.GRASS
-				|| s.getBlock() == GenesisBlocks.moss
-				|| GenesisBlocks.silt.isStateOf(s, SiltBlocks.SILT));
+				|| s.getBlock() == GenesisBlocks.MOSS
+				|| GenesisBlocks.SILT.isStateOf(s, SiltBlocks.SILT));
 
 		dungType = type;
 
 		allowedBlocks.add(Blocks.DIRT);
 		allowedBlocks.add(Blocks.GRASS);
-		allowedBlocks.add(GenesisBlocks.moss);
-		allowedBlocks.add(GenesisBlocks.silt.getBlock(SiltBlocks.SILT, EnumSilt.SILT));
+		allowedBlocks.add(GenesisBlocks.MOSS);
+		allowedBlocks.add(GenesisBlocks.SILT.getBlock(SiltBlocks.SILT, EnumSilt.SILT));
 	}
 
 	@Override
@@ -71,7 +71,7 @@ public class WorldGenDung extends WorldGenDecorationBase
 						curPos = pos.add(i * x, 0, i * z);
 						if (
 								allowedBlocks.contains(world.getBlockState(curPos.down()).getBlock())
-								&& (world.isAirBlock(curPos) || GenesisBlocks.dungs.isStateOf(world.getBlockState(curPos), dungType)))
+								&& (world.isAirBlock(curPos) || GenesisBlocks.DUNGS.isStateOf(world.getBlockState(curPos), dungType)))
 						{
 							placeColumn(h, curPos, world, rand);
 						}
@@ -109,12 +109,12 @@ public class WorldGenDung extends WorldGenDecorationBase
 
 		for (int i = 0; i < wholeBlocks; ++i)
 		{
-			this.setBlock(world, curPos, GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, dungType).withProperty(BlockDung.HEIGHT, BlockDung.MAX_HEIGHT));
+			this.setBlock(world, curPos, GenesisBlocks.DUNGS.getBlockState(DungBlocksAndItems.DUNG_BLOCK, dungType).withProperty(BlockDung.HEIGHT, BlockDung.MAX_HEIGHT));
 			curPos = curPos.up();
 		}
 
 		if (maxHeight - (wholeBlocks * 8) > 0)
-			this.setBlock(world, curPos, GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, dungType).withProperty(BlockDung.HEIGHT, maxHeight - (wholeBlocks * 8)));
+			this.setBlock(world, curPos, GenesisBlocks.DUNGS.getBlockState(DungBlocksAndItems.DUNG_BLOCK, dungType).withProperty(BlockDung.HEIGHT, maxHeight - (wholeBlocks * 8)));
 	}
 
 	private void checkAndPlaceBase(int maxHeight, BlockPos curPos, World world, Random rand)
@@ -127,7 +127,7 @@ public class WorldGenDung extends WorldGenDecorationBase
 			int splatHeight = 1 + rand.nextInt(maxHeight > 2 ? 2 : maxHeight);
 
 			if (splatHeight > 0)
-				this.setBlock(world, curPos, GenesisBlocks.dungs.getBlockState(DungBlocksAndItems.DUNG_BLOCK, dungType).withProperty(BlockDung.HEIGHT, splatHeight));
+				this.setBlock(world, curPos, GenesisBlocks.DUNGS.getBlockState(DungBlocksAndItems.DUNG_BLOCK, dungType).withProperty(BlockDung.HEIGHT, splatHeight));
 		}
 	}
 }

@@ -14,13 +14,13 @@ public enum EnumSeeds implements IMetadata<EnumSeeds>, IFood
 {
 	ARAUCARIOXYLON_SEEDS("araucarioxylon_seeds", "araucarioxylon", 1, 0.2F, () -> null),
 	ODONTOPTERIS_SEEDS("odontopteris_seeds", "odontopteris", 1, 0.4F,
-			() -> GenesisBlocks.odontopteris.getDefaultState()),
+			() -> GenesisBlocks.ODONTOPTERIS.getDefaultState()),
 	PROGRAMINIS_SEEDS("programinis_seeds", "programinis",
-			() -> GenesisBlocks.programinis.getDefaultState()),
+			() -> GenesisBlocks.PROGRAMINIS.getDefaultState()),
 	ZINGIBEROPSIS_RHIZOME("zingiberopsis_rhizome", "zingiberopsisRhizome", 2, 1.4F,
-			() -> GenesisBlocks.zingiberopsis.getDefaultState()),
+			() -> GenesisBlocks.ZINGIBEROPSIS.getDefaultState()),
 	PROTOTAXITES_FLESH("prototaxites_flesh", "prototaxitesFlesh", 1, 0.8F,
-			() -> GenesisBlocks.prototaxites.getDefaultState(),
+			() -> GenesisBlocks.PROTOTAXITES.getDefaultState(),
 			new PotionEffect(MobEffects.HUNGER, 300),
 			new PotionEffect(MobEffects.NAUSEA, 300),
 			new PotionEffect(MobEffects.POISON, 300));

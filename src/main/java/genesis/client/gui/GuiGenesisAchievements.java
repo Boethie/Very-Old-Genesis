@@ -646,27 +646,27 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 						if (random.nextInt(2) == 0)
 						{
 							texture = BlockTexture.getTextureFromBlock(
-									GenesisBlocks.ores.getBlockState(OreBlocks.ORE, EnumOre.OLIVINE));
+									GenesisBlocks.ORES.getBlockState(OreBlocks.ORE, EnumOre.OLIVINE));
 						}
 						else
 						{
 							texture = BlockTexture.getTextureFromBlock(
-									GenesisBlocks.ores.getBlockState(OreBlocks.ORE, EnumOre.GARNET));
+									GenesisBlocks.ORES.getBlockState(OreBlocks.ORE, EnumOre.GARNET));
 						}
 					}
 					else if (j4 == 10)
 					{
 						texture = BlockTexture
-								.getTextureFromBlock(GenesisBlocks.ores.getBlockState(OreBlocks.ORE, EnumOre.ZIRCON));
+								.getTextureFromBlock(GenesisBlocks.ORES.getBlockState(OreBlocks.ORE, EnumOre.ZIRCON));
 					}
 					else if (j4 == 8)
 					{
 						texture = BlockTexture
-								.getTextureFromBlock(GenesisBlocks.ores.getBlockState(OreBlocks.ORE, EnumOre.QUARTZ));
+								.getTextureFromBlock(GenesisBlocks.ORES.getBlockState(OreBlocks.ORE, EnumOre.QUARTZ));
 					}
 					else if (j4 > 4)
 					{
-						texture = BlockTexture.getTextureFromBlock(GenesisBlocks.granite.getDefaultState());
+						texture = BlockTexture.getTextureFromBlock(GenesisBlocks.GRANITE.getDefaultState());
 					}
 					else if (j4 > 0)
 					{

@@ -48,7 +48,7 @@ public class WorldGenAquaticPlants extends WorldGenDecorationBase
 		if (world.getBlockState(checkPos = checkPos.up()).getMaterial() != Material.WATER)
 			return false;
 		
-		IBlockState bottomState = GenesisBlocks.aquatic_plants.getBlockState(bottom);
+		IBlockState bottomState = GenesisBlocks.AQUATIC_PLANTS.getBlockState(bottom);
 		
 		if (!((BlockAquaticPlant) bottomState.getBlock()).canBlockStay(world, pos, bottomState))
 			return false;
@@ -56,7 +56,7 @@ public class WorldGenAquaticPlants extends WorldGenDecorationBase
 		setBlock(world, pos, bottomState);
 		
 		if (top != null)
-			setReplaceableBlock(world, pos.up(), GenesisBlocks.aquatic_plants.getBlockState(top));
+			setReplaceableBlock(world, pos.up(), GenesisBlocks.AQUATIC_PLANTS.getBlockState(top));
 		
 		return true;
 	}

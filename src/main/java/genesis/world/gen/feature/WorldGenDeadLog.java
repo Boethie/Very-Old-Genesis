@@ -25,9 +25,9 @@ public class WorldGenDeadLog extends WorldGenTreeBase
 
 	public WorldGenDeadLog(int minLength, int maxLength, EnumTree treeType, boolean notify)
 	{
-		super(GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.SAPLING, treeType),
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.DEAD_LOG, treeType),
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.LEAVES, treeType),
+		super(GenesisBlocks.TREES.getBlockState(TreeBlocksAndItems.SAPLING, treeType),
+				GenesisBlocks.TREES.getBlockState(TreeBlocksAndItems.DEAD_LOG, treeType),
+				GenesisBlocks.TREES.getBlockState(TreeBlocksAndItems.LEAVES, treeType),
 				null,
 				IntRange.create(minLength, maxLength), notify);
 

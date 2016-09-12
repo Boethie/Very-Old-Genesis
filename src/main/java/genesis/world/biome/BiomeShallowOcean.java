@@ -20,7 +20,7 @@ public class BiomeShallowOcean extends BiomeGenesis
 	public BiomeShallowOcean(Biome.BiomeProperties properties)
 	{
 		super(properties);
-		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);
+		topBlock = GenesisBlocks.SILT.getBlockState(SiltBlocks.SILT, EnumSilt.SILT);
 		
 		addDecoration(new WorldGenMossStages(), 30);
 		

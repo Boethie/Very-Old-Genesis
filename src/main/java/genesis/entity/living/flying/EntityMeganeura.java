@@ -160,7 +160,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 	{
 		super.dropFewItems(hitRecently, looting);
 
-		entityDropItem(GenesisItems.foods.getRawStack(EnumFood.MEGANEURA), 0);
+		entityDropItem(GenesisItems.FOODS.getRawStack(EnumFood.MEGANEURA), 0);
 	}
 
 	public void setState(State state)
@@ -177,12 +177,12 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 
 			if ((oldState == NONE || oldState.category == LANDED || oldState.category == SLOW) && state.category == AIR)
 			{
-				playMovingSound(GenesisSoundEvents.mob_meganeura_takeoff, false);
+				playMovingSound(GenesisSoundEvents.MOB_MEGANEURA_TAKEOFF, false);
 				takeoffSoundTimer = 15;	// Start timer to play looping flight sound when takeoff is done.
 			}
 			else if ((oldState == NONE || oldState.category == AIR) && state.category == SLOW)
 			{
-				playMovingSound(GenesisSoundEvents.mob_meganeura_land, true);
+				playMovingSound(GenesisSoundEvents.MOB_MEGANEURA_LAND, true);
 			}
 
 			dataManager.set(STATE, state);
@@ -213,12 +213,12 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 		State state = dataManager.get(STATE);
 
 		if (state.category != AIR
-				&& (loc.equals(GenesisSoundEvents.mob_meganeura_fly.getSoundName())
-				|| loc.equals(GenesisSoundEvents.mob_meganeura_takeoff.getSoundName())))
+				&& (loc.equals(GenesisSoundEvents.MOB_MEGANEURA_FLY.getSoundName())
+				|| loc.equals(GenesisSoundEvents.MOB_MEGANEURA_TAKEOFF.getSoundName())))
 		{
 			return true;
 		} else if (state.category != SLOW
-				&& loc.equals(GenesisSoundEvents.mob_meganeura_land.getSoundName()))
+				&& loc.equals(GenesisSoundEvents.MOB_MEGANEURA_LAND.getSoundName()))
 		{
 			return true;
 		}
@@ -285,7 +285,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 
 			if (takeoffSoundTimer == 0)
 			{
-				playMovingSound(GenesisSoundEvents.mob_meganeura_fly, true);
+				playMovingSound(GenesisSoundEvents.MOB_MEGANEURA_FLY, true);
 				takeoffSoundTimer = -1;
 			}
 		}
@@ -701,7 +701,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 			}
 			break;
 		case LANDING_SIDE:
-			boolean calamites = atTarget.getBlock() == GenesisBlocks.calamites;
+			boolean calamites = atTarget.getBlock() == GenesisBlocks.CALAMITES;
 
 			if (reachedClose)
 			{
@@ -742,7 +742,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 			}
 			break;
 		case PLACING_EGG:
-			boolean flyAway = worldObj.getBlockState(targetPos).getBlock() != GenesisBlocks.calamites;
+			boolean flyAway = worldObj.getBlockState(targetPos).getBlock() != GenesisBlocks.CALAMITES;
 
 			if (!flyAway)
 			{
@@ -802,7 +802,7 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 					{
 						ourNewTarget = null;
 					}
-					else if (worldObj.getBlockState(hit.getBlockPos()).getBlock() != GenesisBlocks.calamites)
+					else if (worldObj.getBlockState(hit.getBlockPos()).getBlock() != GenesisBlocks.CALAMITES)
 					{
 						ourNewTarget = null;
 					}

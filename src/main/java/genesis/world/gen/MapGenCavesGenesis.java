@@ -22,33 +22,33 @@ public class MapGenCavesGenesis extends MapGenBase
 	private static final HashMap<IBlockState, IBlockState> ABOVE_BLOCK_REPLACEMENTS = new HashMap<>();
 	private static final IBlockState[] LEVEL_REPLACEMENT_BLOCKS = new IBlockState[256];
 	static {
-		DIGGABLE_BLOCKS.add(GenesisBlocks.granite);
+		DIGGABLE_BLOCKS.add(GenesisBlocks.GRANITE);
 		DIGGABLE_BLOCKS.add(Blocks.DIRT);
-		DIGGABLE_BLOCKS.add(GenesisBlocks.humus);
-		DIGGABLE_BLOCKS.add(GenesisBlocks.moss);
-		DIGGABLE_BLOCKS.add(GenesisBlocks.peat);
-		DIGGABLE_BLOCKS.add(GenesisBlocks.mycorrhiza);
-		DIGGABLE_BLOCKS.addAll(GenesisBlocks.silt.getBlocks(SiltBlocks.SILT));
-		DIGGABLE_BLOCKS.addAll(GenesisBlocks.silt.getBlocks(SiltBlocks.CRACKED_SILT));
-		DIGGABLE_BLOCKS.addAll(GenesisBlocks.silt.getBlocks(SiltBlocks.SILTSTONE));
-		DIGGABLE_BLOCKS.add(GenesisBlocks.limestone);
+		DIGGABLE_BLOCKS.add(GenesisBlocks.HUMUS);
+		DIGGABLE_BLOCKS.add(GenesisBlocks.MOSS);
+		DIGGABLE_BLOCKS.add(GenesisBlocks.PEAT);
+		DIGGABLE_BLOCKS.add(GenesisBlocks.MYCORRHIZA);
+		DIGGABLE_BLOCKS.addAll(GenesisBlocks.SILT.getBlocks(SiltBlocks.SILT));
+		DIGGABLE_BLOCKS.addAll(GenesisBlocks.SILT.getBlocks(SiltBlocks.CRACKED_SILT));
+		DIGGABLE_BLOCKS.addAll(GenesisBlocks.SILT.getBlocks(SiltBlocks.SILTSTONE));
+		DIGGABLE_BLOCKS.add(GenesisBlocks.LIMESTONE);
 
 		ABOVE_BLOCK_REPLACEMENTS.put(
-				GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.SILT),
-				GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.SILT));
+				GenesisBlocks.SILT.getBlockState(SiltBlocks.SILT, EnumSilt.SILT),
+				GenesisBlocks.SILT.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.SILT));
 		ABOVE_BLOCK_REPLACEMENTS.put(
-				GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT),
-				GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT));
+				GenesisBlocks.SILT.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT),
+				GenesisBlocks.SILT.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT));
 		ABOVE_BLOCK_REPLACEMENTS.put(
-				GenesisBlocks.silt.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.SILT),
-				GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.SILT));
+				GenesisBlocks.SILT.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.SILT),
+				GenesisBlocks.SILT.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.SILT));
 		ABOVE_BLOCK_REPLACEMENTS.put(
-				GenesisBlocks.silt.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.RED_SILT),
-				GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT));
+				GenesisBlocks.SILT.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.RED_SILT),
+				GenesisBlocks.SILT.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT));
 
 		{
 			int y = 0;
-			for (; y < 7; y++) LEVEL_REPLACEMENT_BLOCKS[y] = GenesisBlocks.komatiitic_lava.getDefaultState();
+			for (; y < 7; y++) LEVEL_REPLACEMENT_BLOCKS[y] = GenesisBlocks.KOMATIITIC_LAVA.getDefaultState();
 			for (; y < 256; y++) LEVEL_REPLACEMENT_BLOCKS[y] = Blocks.AIR.getDefaultState();
 		}
 	}

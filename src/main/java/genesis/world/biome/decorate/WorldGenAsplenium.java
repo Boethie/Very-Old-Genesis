@@ -37,7 +37,7 @@ public class WorldGenAsplenium extends WorldGenDecorationBase
 			{
 				for (EnumFacing side : EnumFacing.HORIZONTALS)
 				{
-					if (GenesisBlocks.asplenium.canPlaceBlockOnSide(world, mutPos, side))
+					if (GenesisBlocks.ASPLENIUM.canPlaceBlockOnSide(world, mutPos, side))
 					{
 						positions.add(Pair.of(mutPos.toImmutable(), side));
 					}
@@ -51,7 +51,7 @@ public class WorldGenAsplenium extends WorldGenDecorationBase
 		Pair<BlockPos, EnumFacing> position = positions.get(rand.nextInt(positions.size()));
 		pos = position.getLeft();
 		
-		IBlockState placedState = GenesisBlocks.asplenium.getDefaultState()
+		IBlockState placedState = GenesisBlocks.ASPLENIUM.getDefaultState()
 				.withProperty(BlockAsplenium.FACING, position.getRight().getOpposite());
 		
 		return setAirBlock(world, pos, placedState);

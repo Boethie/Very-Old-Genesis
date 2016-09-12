@@ -14,8 +14,8 @@ public class BiomeRedBeach extends BiomeBeachGenesis
 	public BiomeRedBeach(Biome.BiomeProperties properties)
 	{
 		super(properties);
-		topBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
-		fillerBlock = GenesisBlocks.silt.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
+		topBlock = GenesisBlocks.SILT.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
+		fillerBlock = GenesisBlocks.SILT.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
 	}
 	
 	protected void addDecorations()

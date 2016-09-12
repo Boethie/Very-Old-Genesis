@@ -49,7 +49,7 @@ public class WorldGenPebbles extends WorldGenDecorationBase
 			return false;
 		
 		int maxPebbles = 1 + rand.nextInt(3);
-		IBlockState pebble = GenesisItems.tools.getBlockState(ToolItems.PEBBLE, pebbleTypes.get(rand.nextInt(pebbleTypes.size())));
+		IBlockState pebble = GenesisItems.TOOLS.getBlockState(ToolItems.PEBBLE, pebbleTypes.get(rand.nextInt(pebbleTypes.size())));
 		List<PropertyBool> pebbles = new ArrayList<>(pebbleProperties);
 		
 		for (int i = 1; i <= maxPebbles; ++i)

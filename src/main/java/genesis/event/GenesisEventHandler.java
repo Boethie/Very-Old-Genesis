@@ -57,9 +57,9 @@ public class GenesisEventHandler
 
 		if (entity != null && !entity.worldObj.isRemote)
 		{
-			if (entity.isPotionActive(GenesisPotions.radiation))
+			if (entity.isPotionActive(GenesisPotions.RADIATION))
 			{
-				PotionEffect effect = entity.getActivePotionEffect(GenesisPotions.radiation);
+				PotionEffect effect = entity.getActivePotionEffect(GenesisPotions.RADIATION);
 				if (effect != null) {
 					int timeLeft = effect.getDuration();
 

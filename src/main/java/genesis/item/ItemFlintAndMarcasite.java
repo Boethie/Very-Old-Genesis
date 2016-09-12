@@ -32,7 +32,7 @@ public class ItemFlintAndMarcasite extends ItemFlintAndSteel
 		if (player.canPlayerEdit(pos, side, stack) && world.isAirBlock(pos))
 		{
 			world.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
-					GenesisSoundEvents.item_flint_and_marcasite_use, SoundCategory.BLOCKS,
+					GenesisSoundEvents.ITEM_FLINT_AND_MARCASITE_USE, SoundCategory.BLOCKS,
 					1, world.rand.nextFloat() * 0.4F + 0.8F, false);
 			
 			world.setBlockState(pos, Blocks.FIRE.getDefaultState());

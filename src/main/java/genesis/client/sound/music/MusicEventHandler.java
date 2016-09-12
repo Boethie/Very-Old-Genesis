@@ -26,7 +26,7 @@ public class MusicEventHandler
 				&& mc.gameSettings.getSoundLevel(SoundCategory.MUSIC) > 0
 				&& mc.gameSettings.getSoundLevel(SoundCategory.MASTER) > 0)
 		{
-			ISound sound = PositionedSoundRecord.getMusicRecord(GenesisSoundEvents.music_genesis);
+			ISound sound = PositionedSoundRecord.getMusicRecord(GenesisSoundEvents.MUSIC_GENESIS);
 			sound.createAccessor(event.getManager().sndHandler);
 			event.setResultSound(sound);
 		}

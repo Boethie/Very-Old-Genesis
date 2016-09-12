@@ -143,17 +143,17 @@ public class WorldGenGenesisLakes extends WorldGenerator
 
 						if (world.getBlockState(soilPos).getBlock() == Blocks.DIRT)
 						{
-							int stage = GenesisBlocks.moss.getTargetStage(GenesisBlocks.moss.getFertility(world, soilPos, true), rand);
+							int stage = GenesisBlocks.MOSS.getTargetStage(GenesisBlocks.MOSS.getFertility(world, soilPos, true), rand);
 
 							if (stage >= 0)
-								world.setBlockState(soilPos, GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.STAGE, stage), 2);
+								world.setBlockState(soilPos, GenesisBlocks.MOSS.getDefaultState().withProperty(BlockMoss.STAGE, stage), 2);
 						}
 					}
 				}
 			}
 		}
 
-		if (filler.getBlock() == GenesisBlocks.komatiitic_lava)
+		if (filler.getBlock() == GenesisBlocks.KOMATIITIC_LAVA)
 		{
 			for (x = 0; x <= SIZE_X; x++)
 			{
@@ -166,7 +166,7 @@ public class WorldGenGenesisLakes extends WorldGenerator
 							BlockPos replacePos = pos.add(x, y, z);
 
 							if ((y < top || rand.nextInt(2) != 0) && world.getBlockState(replacePos).getMaterial().isSolid())
-								world.setBlockState(replacePos, GenesisBlocks.komatiite.getDefaultState(), 2);
+								world.setBlockState(replacePos, GenesisBlocks.KOMATIITE.getDefaultState(), 2);
 						}
 					}
 				}

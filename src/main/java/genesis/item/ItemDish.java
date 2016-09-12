@@ -37,7 +37,7 @@ public class ItemDish extends ItemGenesisEdible<MultiMetadata>
 		ItemStack out = super.onItemUseFinish(stack, world, entity);
 		
 		EntityPlayer player = entity instanceof EntityPlayer ? (EntityPlayer) entity : null;
-		ItemStack bowl = GenesisItems.bowls.getStack(EnumCeramicBowls.BOWL);
+		ItemStack bowl = GenesisItems.BOWLS.getStack(EnumCeramicBowls.BOWL);
 		
 		if (player != null)
 		{

@@ -19,7 +19,7 @@ public class WorldGenTreeDryophyllum extends WorldGenTreeBase
 	public WorldGenTreeDryophyllum(int minHeight, int maxHeight, boolean notify, IBlockState wood)
 	{
 		super(
-				GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.SAPLING, EnumTree.DRYOPHYLLUM), 
+				GenesisBlocks.TREES.getBlockState(TreeBlocksAndItems.SAPLING, EnumTree.DRYOPHYLLUM),
 				wood, 
 				null, 
 				null, 

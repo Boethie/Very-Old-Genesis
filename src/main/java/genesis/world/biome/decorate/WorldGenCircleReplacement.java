@@ -20,7 +20,7 @@ public class WorldGenCircleReplacement extends WorldGenDecorationBase
 	{
 		return new WorldGenCircleReplacement((s) -> s.getMaterial() == Material.WATER,
 				FloatRange.create(2, 3), IntRange.create(1),
-				(s) -> s.getBlock() == Blocks.DIRT, GenesisBlocks.peat.getDefaultState());
+				(s) -> s.getBlock() == Blocks.DIRT, GenesisBlocks.PEAT.getDefaultState());
 	}
 	
 	protected final Predicate<IBlockState> centerPredicate;

@@ -28,16 +28,16 @@ public class FuelHandler implements IFuelHandler
 	{
 		GameRegistry.registerFuelHandler(INSTANCE);
 		
-		setBurnTime(GenesisBlocks.peat, TileEntityFurnace.getItemBurnTime(new ItemStack(Items.COAL)) / 4, false);
+		setBurnTime(GenesisBlocks.PEAT, TileEntityFurnace.getItemBurnTime(new ItemStack(Items.COAL)) / 4, false);
 		
-		setBurnTime(GenesisBlocks.calamites, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.SAPLING)), false);
-		setBurnTime(GenesisBlocks.calamites_bundle, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.LOG)), false);
+		setBurnTime(GenesisBlocks.CALAMITES, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.SAPLING)), false);
+		setBurnTime(GenesisBlocks.CALAMITES_BUNDLE, TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.LOG)), false);
 		
-		setBurnTime(GenesisBlocks.roots, TileEntityFurnace.getItemBurnTime(new ItemStack(Items.STICK)), true);
+		setBurnTime(GenesisBlocks.ROOTS, TileEntityFurnace.getItemBurnTime(new ItemStack(Items.STICK)), true);
 		
-		setBurnTime(GenesisItems.materials.getStack(EnumMaterial.DUNG_BRICK), TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.LOG)), true);
+		setBurnTime(GenesisItems.MATERIALS.getStack(EnumMaterial.DUNG_BRICK), TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.LOG)), true);
 		
-		setBurnTime(GenesisBlocks.trees.getStack(TreeBlocksAndItems.FRUIT, EnumTree.ARAUCARIOXYLON), TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.SAPLING)), false);
+		setBurnTime(GenesisBlocks.TREES.getStack(TreeBlocksAndItems.FRUIT, EnumTree.ARAUCARIOXYLON), TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.SAPLING)), false);
 		
 		setBurnTime(GenesisItems.bucket_komatiitic_lava, TileEntityFurnace.getItemBurnTime(new ItemStack(Items.LAVA_BUCKET)), false);
 	}

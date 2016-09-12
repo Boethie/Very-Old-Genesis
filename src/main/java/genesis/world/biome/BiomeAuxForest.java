@@ -45,7 +45,7 @@ public class BiomeAuxForest extends BiomeGenesis
 		addDecoration(WorldGenSplash.createHumusSplash(), 5.5F);
 		addDecoration(new WorldGenBoulders(0.199F, 0.333F, 1).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.25F, 0.75F)), 0.24F);
 		addDecoration(new WorldGenStemonitis().setPatchCount(14), 6);
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.cladophlebis).setPatchCount(9), 0.75F);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.CLADOPHLEBIS).setPatchCount(9), 0.75F);
 		addDecoration(new WorldGenRoots(), 13);
 		
 		addPostDecoration(new WorldGenDebris(), 22);
@@ -59,7 +59,7 @@ public class BiomeAuxForest extends BiomeGenesis
 		addTree(new WorldGenTreeAraucarioxylon(25, 30, true), 205);
 		addTree(new WorldGenTreeGinkgo(10, 13, false), 7);
 		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 3);
-		addTree(new WorldGenTreeAraucarioxylon(25, 30, false, GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.DEAD_LOG, EnumTree.ARAUCARIOXYLON)).setType(TreeTypes.TYPE_3), 1);
+		addTree(new WorldGenTreeAraucarioxylon(25, 30, false, GenesisBlocks.TREES.getBlockState(TreeBlocksAndItems.DEAD_LOG, EnumTree.ARAUCARIOXYLON)).setType(TreeTypes.TYPE_3), 1);
 		
 		addTree(new WorldGenDeadLog(7, 10, EnumTree.ARAUCARIOXYLON, true), 14);
 	}

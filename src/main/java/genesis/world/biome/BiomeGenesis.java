@@ -20,7 +20,7 @@ import net.minecraft.world.gen.feature.*;
 
 public abstract class BiomeGenesis extends Biome implements IBiomeFog
 {
-	public IBlockState oceanFloor = GenesisBlocks.ooze.getDefaultState();
+	public IBlockState oceanFloor = GenesisBlocks.OOZE.getDefaultState();
 	public int[] mossStages = new int[0];
 	
 	private final WeightedRandomList<WorldGenAbstractTree> trees = new WeightedRandomList<>();
@@ -34,7 +34,7 @@ public abstract class BiomeGenesis extends Biome implements IBiomeFog
 		super(properties);
 		
 		theBiomeDecorator.clayPerChunk = 1;
-		topBlock = GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.STAGE, BlockMoss.STAGE_LAST);
+		topBlock = GenesisBlocks.MOSS.getDefaultState().withProperty(BlockMoss.STAGE, BlockMoss.STAGE_LAST);
 		spawnableCaveCreatureList.clear();
 		spawnableCreatureList.clear();
 		spawnableMonsterList.clear();
@@ -186,14 +186,14 @@ public abstract class BiomeGenesis extends Biome implements IBiomeFog
 				{
 					k = -1;
 				}
-				else if (state.getBlock() == GenesisBlocks.granite)
+				else if (state.getBlock() == GenesisBlocks.GRANITE)
 				{
 					if (k == -1)
 					{
 						if (l <= 0)
 						{
 							top = null;
-							filler = GenesisBlocks.granite.getDefaultState();
+							filler = GenesisBlocks.GRANITE.getDefaultState();
 						}
 						else if (y >= 59 && y <= 64)
 						{
@@ -229,7 +229,7 @@ public abstract class BiomeGenesis extends Biome implements IBiomeFog
 						{
 							top = null;
 							primer.setBlockState(chunkZ, y, chunkX, filler);
-							filler = GenesisBlocks.limestone.getDefaultState();
+							filler = GenesisBlocks.LIMESTONE.getDefaultState();
 						}
 						else
 						{
@@ -244,13 +244,13 @@ public abstract class BiomeGenesis extends Biome implements IBiomeFog
 						if (k == 0 && filler == oceanFloor)
 						{
 							k = rand.nextInt(6) + Math.max(1, y - 58);
-							filler = GenesisBlocks.limestone.getDefaultState();
+							filler = GenesisBlocks.LIMESTONE.getDefaultState();
 						}
 						
-						if (k == 0 && GenesisBlocks.silt.isStateOf(filler, SiltBlocks.SILT))
+						if (k == 0 && GenesisBlocks.SILT.isStateOf(filler, SiltBlocks.SILT))
 						{
 							k = rand.nextInt(5) + Math.max(1, y - 58);
-							filler = GenesisBlocks.silt.getBlockState(SiltBlocks.SILTSTONE, GenesisBlocks.silt.getVariant(filler));
+							filler = GenesisBlocks.SILT.getBlockState(SiltBlocks.SILTSTONE, GenesisBlocks.SILT.getVariant(filler));
 						}
 					}
 				}
