@@ -1,8 +1,5 @@
 package genesis.block;
 
-import java.util.Arrays;
-import java.util.Random;
-
 import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumMaterial;
 import genesis.common.GenesisBlocks;
@@ -10,7 +7,6 @@ import genesis.common.GenesisCreativeTabs;
 import genesis.common.GenesisItems;
 import genesis.util.AABBUtils;
 import genesis.util.BlockStateToMetadata;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.IGrowable;
@@ -34,19 +30,27 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import java.util.Random;
+
 public class BlockResin extends BlockHorizontal implements IGrowable
 {
 	public static final PropertyInteger LAYERS = PropertyInteger.create("layers", 0, 3);
-	private static final AxisAlignedBB[] BBS;
+	private static final AxisAlignedBB[][] BBS;
 
 	static
 	{
-		AxisAlignedBB base = new AxisAlignedBB(0.3125D, 0.375D, 0.875D,
-												0.6875D, 0.625D, 1.0D);
+		AxisAlignedBB baseL0 = new AxisAlignedBB(0.44D, 0.44D, 0.94D, 0.56D, 0.56D, 1.0D);
+		AxisAlignedBB baseL1 = new AxisAlignedBB(0.38D, 0.44D, 0.94D, 0.62D, 0.62D, 1.0D);
+		AxisAlignedBB baseL2 = new AxisAlignedBB(0.38D, 0.38D, 0.8D, 0.62D, 0.62D, 1.0D);
+		AxisAlignedBB baseL3 = new AxisAlignedBB(0.31000000000000005D, 0.38D, 0.81D, 0.69D, 0.75D, 1.0D);
 
-		BBS = Arrays.stream(EnumFacing.HORIZONTALS)
-				.map((f) -> AABBUtils.rotateTo(base, f))
-				.toArray(AxisAlignedBB[]::new);
+		BBS = new AxisAlignedBB[4][4];
+		for (EnumFacing face : EnumFacing.HORIZONTALS) {
+			BBS[face.getHorizontalIndex()][0] = AABBUtils.rotateTo(baseL0, face);
+			BBS[face.getHorizontalIndex()][1] = AABBUtils.rotateTo(baseL1, face);
+			BBS[face.getHorizontalIndex()][2] = AABBUtils.rotateTo(baseL2, face);
+			BBS[face.getHorizontalIndex()][3] = AABBUtils.rotateTo(baseL3, face);
+		}
 	}
 
 	public BlockResin()
@@ -206,7 +210,7 @@ public class BlockResin extends BlockHorizontal implements IGrowable
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
 	{
-		return BBS[state.getValue(FACING).getHorizontalIndex()];
+		return BBS[state.getValue(FACING).getHorizontalIndex()][state.getValue(LAYERS)];
 	}
 
 	@Override
