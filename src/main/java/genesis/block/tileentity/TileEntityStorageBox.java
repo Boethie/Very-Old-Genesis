@@ -742,12 +742,6 @@ public class TileEntityStorageBox extends TileEntityLockableLoot implements ISid
 		return this::iteratorFromMainToEnd;
 	}
 
-	public void setLoot(ResourceLocation lootTable, long lootSeed)
-	{
-		this.lootTable = lootTable;
-		this.lootTableSeed = lootSeed;
-	}
-
 	@Override
 	protected void fillWithLoot(EntityPlayer player)
 	{

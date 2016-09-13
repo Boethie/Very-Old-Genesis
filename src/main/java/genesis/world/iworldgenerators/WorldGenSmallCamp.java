@@ -144,7 +144,7 @@ public class WorldGenSmallCamp implements IWorldGenerator
 				if (biome instanceof BiomeWoodlands)
 					loot = GenesisLoot.CHESTS_CAMP_WOODLANDS;
 
-				((TileEntityStorageBox) te).setLoot(loot, System.currentTimeMillis());
+				((TileEntityStorageBox) te).setLootTable(loot, random.nextLong());
 			}
 			else
 			{

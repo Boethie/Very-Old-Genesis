@@ -13,6 +13,8 @@ public class GenesisLoot
 	public static final ResourceLocation CHESTS_CAMP_META_FOREST = register("chests/camp/meta_forest");
 	
 	public static final ResourceLocation CHESTS_CAMP_WOODLANDS = register("chests/camp/woodlands");
+
+	public static final ResourceLocation ITEM_RACK_HUT = register("item_rack/hut");
 	
 	public static final ResourceLocation ENTITY_MEGANEURA = register("entities/meganeura");
 

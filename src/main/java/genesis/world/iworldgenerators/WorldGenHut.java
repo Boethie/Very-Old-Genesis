@@ -5,14 +5,10 @@ import java.util.Random;
 import genesis.block.tileentity.BlockRack;
 import genesis.block.tileentity.TileEntityRack;
 import genesis.block.tileentity.TileEntityStorageBox;
-import genesis.combo.ToolItems;
-import genesis.combo.variant.EnumClothing;
-import genesis.combo.variant.EnumToolMaterial;
 import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisConfig;
 import genesis.common.GenesisDimensions;
-import genesis.common.GenesisItems;
 import genesis.common.GenesisLoot;
 import genesis.world.biome.BiomeRainforest;
 import net.minecraft.block.BlockLadder;
@@ -124,17 +120,17 @@ public class WorldGenHut implements IWorldGenerator {
 		
 		if (rack1 != null && rack2 != null)
 		{
-			rack1.setStackInSide(EnumFacing.SOUTH, GenesisItems.CLOTHING.getHelmet(EnumClothing.CHITIN));
-			rack2.setStackInSide(EnumFacing.SOUTH, GenesisItems.TOOLS.getBadStack(ToolItems.KNIFE, EnumToolMaterial.QUARTZ));
+			rack1.setLootTable(GenesisLoot.ITEM_RACK_HUT, random.nextLong());
+			rack2.setLootTable(GenesisLoot.ITEM_RACK_HUT, random.nextLong());
 		}
 		
 		BlockPos boxPos = start.add(2, 2, 2);
 		
 		TileEntity te = world.getTileEntity(boxPos);
-		
+
 		if (te instanceof TileEntityStorageBox)
 		{
-			((TileEntityStorageBox) te).setLoot(GenesisLoot.CHESTS_HUT, System.currentTimeMillis());
+			((TileEntityStorageBox) te).setLootTable(GenesisLoot.CHESTS_HUT, random.nextLong());
 		}
 		else
 		{
