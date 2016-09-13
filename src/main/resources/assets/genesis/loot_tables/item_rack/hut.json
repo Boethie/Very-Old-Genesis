@@ -68,37 +68,32 @@
 			"entries": [
 				{
 					"type":	"item",
-					"name":	"genesis:spear_polished_quartz",
+					"name":	"genesis:spear_sharpened_rhyolite",
 					"weight": 5
 				},
 				{
 					"type":	"item",
-					"name":	"genesis:spear_polished_rhyolite",
+					"name":	"genesis:spear_sharpened_dolerite",
 					"weight": 5
 				},
 				{
 					"type":	"item",
-					"name":	"genesis:spear_polished_dolerite",
+					"name":	"genesis:spear_sharpened_granite",
 					"weight": 5
 				},
 				{
 					"type":	"item",
-					"name":	"genesis:spear_polished_granite",
+					"name":	"genesis:spear_sharpened_octaedrite",
 					"weight": 5
 				},
 				{
 					"type":	"item",
-					"name":	"genesis:spear_polished_octaedrite",
+					"name":	"genesis:spear_sharpened_black_flint",
 					"weight": 5
 				},
 				{
 					"type":	"item",
-					"name":	"genesis:spear_polished_black_flint",
-					"weight": 5
-				},
-				{
-					"type":	"item",
-					"name":	"genesis:spear_polished_brown_flint",
+					"name":	"genesis:spear_sharpened_brown_flint",
 					"weight": 5
 				},
 				{
@@ -173,37 +168,37 @@
 				},
 				{
 					"type":	"item",
-					"name":	"genesis:knife_polished_quartz",
+					"name":	"genesis:knife_sharpened_quartz",
 					"weight": 5
 				},
 				{
 					"type":	"item",
-					"name":	"genesis:knife_polished_rhyolite",
+					"name":	"genesis:knife_sharpened_rhyolite",
 					"weight": 5
 				},
 				{
 					"type":	"item",
-					"name":	"genesis:knife_polished_dolerite",
+					"name":	"genesis:knife_sharpened_dolerite",
 					"weight": 5
 				},
 				{
 					"type":	"item",
-					"name":	"genesis:knife_polished_granite",
+					"name":	"genesis:knife_sharpened_granite",
 					"weight": 5
 				},
 				{
 					"type":	"item",
-					"name":	"genesis:knife_polished_octaedrite",
+					"name":	"genesis:knife_sharpened_octaedrite",
 					"weight": 5
 				},
 				{
 					"type":	"item",
-					"name":	"genesis:knife_polished_black_flint",
+					"name":	"genesis:knife_sharpened_black_flint",
 					"weight": 5
 				},
 				{
 					"type":	"item",
-					"name":	"genesis:knife_polished_brown_flint",
+					"name":	"genesis:knife_sharpened_brown_flint",
 					"weight": 5
 				},
 				{
