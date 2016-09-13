@@ -13,6 +13,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class MusicEventHandler 
 {
+	private ISound currentMusic;
+
 	@SubscribeEvent
 	public void onMusicPlay(PlaySoundEvent event)
 	{
@@ -20,15 +22,16 @@ public class MusicEventHandler
 		
 		//Replace the background music with genesis music if we are in the genesis dimension
 		if (GenesisConfig.playDimensionMusic
+				&& (currentMusic == null || !event.getManager().isSoundPlaying(currentMusic))
 				&& event.getSound().getCategory() == SoundCategory.MUSIC
 				&& mc.theWorld != null
 				&& GenesisDimensions.isGenesis(mc.theWorld)
 				&& mc.gameSettings.getSoundLevel(SoundCategory.MUSIC) > 0
 				&& mc.gameSettings.getSoundLevel(SoundCategory.MASTER) > 0)
 		{
-			ISound sound = PositionedSoundRecord.getMusicRecord(GenesisSoundEvents.MUSIC_GENESIS);
-			sound.createAccessor(event.getManager().sndHandler);
-			event.setResultSound(sound);
+			this.currentMusic = PositionedSoundRecord.getMusicRecord(GenesisSoundEvents.MUSIC_GENESIS);
+			this.currentMusic.createAccessor(event.getManager().sndHandler);
+			event.setResultSound(currentMusic);
 		}
 	}
 }
