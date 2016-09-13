@@ -41,7 +41,7 @@ public class BlockResin extends BlockHorizontal implements IGrowable
 	{
 		AxisAlignedBB baseL0 = new AxisAlignedBB(0.44D, 0.44D, 0.94D, 0.56D, 0.56D, 1.0D);
 		AxisAlignedBB baseL1 = new AxisAlignedBB(0.38D, 0.44D, 0.94D, 0.62D, 0.62D, 1.0D);
-		AxisAlignedBB baseL2 = new AxisAlignedBB(0.38D, 0.38D, 0.8D, 0.62D, 0.62D, 1.0D);
+		AxisAlignedBB baseL2 = new AxisAlignedBB(0.38, 0.38, 0.88, 0.62, 0.62, 1.0);
 		AxisAlignedBB baseL3 = new AxisAlignedBB(0.31000000000000005D, 0.38D, 0.81D, 0.69D, 0.75D, 1.0D);
 
 		BBS = new AxisAlignedBB[4][4];
