@@ -1,5 +1,5 @@
 {
-	"parent": "genesis:block/root_base",
+	"parent": "genesis:block/roots_base",
 	"textures": {
 		"all": "genesis:blocks/roots_end"
 	}
