@@ -20,7 +20,7 @@ public class BiomeMarsh extends BiomeGenesis
 	public BiomeMarsh(Biome.BiomeProperties properties)
 	{
 		super(properties);
-		this.topBlock = GenesisBlocks.MYCORRHIZA.getDefaultState();
+		this.topBlock = GenesisBlocks.PROTOTAXITES_RHIZOMORPHS.getDefaultState();
 		
 		getDecorator().setGrassCount(7);
 		addGrass(WorldGenPlant.create(PlantBlocks.PLANT, EnumPlant.ASTEROXYLON).setPatchCount(5), 1);

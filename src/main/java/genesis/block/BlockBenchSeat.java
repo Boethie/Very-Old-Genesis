@@ -17,8 +17,9 @@ public class BlockBenchSeat extends BlockBed
 {
 	public BlockBenchSeat()
 	{
-		setHardness(3);
-		setResistance(4);
+		setHardness(2.8F);
+		setResistance(10);
+		setHarvestLevel("pickaxe", 0);
 		setDefaultState(blockState.getBaseState().withProperty(PART, EnumPartType.FOOT).withProperty(OCCUPIED, false));
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	}

@@ -28,7 +28,7 @@ public class BlockPrototaxites extends BlockGrowingPlant implements IGrowingPlan
 
 		setSoundType(GenesisSoundTypes.MUSHROOM);
 
-		setHardness(0.75F);
+		setHardness(0.2F);
 		setHarvestLevel("axe", 0);
 		enableStats = true;
 		setPlantSize(1, 0, 1);

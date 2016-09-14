@@ -55,8 +55,10 @@ public class BlockHangingFruit extends BlockGenesis
 
 		blockState = new BlockStateContainer(this, variantProp);
 		setDefaultState(getBlockState().getBaseState());
+		
+		setHarvestLevel("axe", 0);
 
-		setHardness(0.25F);
+		setHardness(0.2F);
 	}
 
 	public boolean canBlockStay(IBlockAccess world, BlockPos pos, IBlockState state)

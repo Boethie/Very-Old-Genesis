@@ -13,11 +13,11 @@ import net.minecraft.world.IBlockAccess;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class BlockMycorrhiza extends BlockPeat
+public class BlockPrototaxitesRhizomorphs extends BlockPeat
 {
 	public static final PropertyBool SNOWY = PropertyBool.create("snowy");
 
-	public BlockMycorrhiza() {
+	public BlockPrototaxitesRhizomorphs() {
 		super();
 		setSoundType(SoundType.PLANT);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(SNOWY, false));

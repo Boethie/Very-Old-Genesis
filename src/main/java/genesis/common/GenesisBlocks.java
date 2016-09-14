@@ -196,7 +196,7 @@ public final class GenesisBlocks
 	public static final Block ROPE_LADDER = new BlockRopeLadder().setUnlocalizedName(Unlocalized.PREFIX + "ropeLadder");
 	public static final Block CALAMITES_TORCH = new BlockCalamitesTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTorch");
 	public static final Block CALAMITES_TORCH_TALL = new BlockTallTorch().setUnlocalizedName(Unlocalized.PREFIX + "calamitesTorch.tall");
-	public static final Block MYCORRHIZA = new BlockMycorrhiza().setUnlocalizedName(Unlocalized.PREFIX + "mycorrhiza");
+	public static final Block PROTOTAXITES_RHIZOMORPHS = new BlockPrototaxitesRhizomorphs().setUnlocalizedName(Unlocalized.PREFIX + "prototaxitesRhizomorphs");
 
 	public static final BlockBenchSeat BENCH_SEAT = (BlockBenchSeat) new BlockBenchSeat().setUnlocalizedName(Unlocalized.PREFIX + "benchSeat");
 
@@ -297,7 +297,7 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(PROGRAMINIS_BUNDLE, name("programinis_bundle"));
 		Genesis.proxy.registerBlock(PROGRAMINIS_ROOF, name("programinis_roof"));
 
-		Genesis.proxy.registerBlock(MYCORRHIZA, name("mycorrhiza"));
+		Genesis.proxy.registerBlock(PROTOTAXITES_RHIZOMORPHS, name("prototaxites_rhizomorphs"));
 
 		// - Dungs -
 		DUNGS.registerVariants(DungBlocksAndItems.DUNG_BLOCK);
