@@ -10,7 +10,6 @@ import genesis.common.Genesis;
 import genesis.common.sounds.GenesisSoundEvents;
 import genesis.block.tileentity.crafting.*;
 import genesis.block.tileentity.crafting.KnappingRecipeRegistry.*;
-import genesis.block.tileentity.gui.ContainerKnapper;
 import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
 
@@ -21,7 +20,6 @@ import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.nbt.*;
-import net.minecraft.tileentity.*;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
@@ -992,6 +990,17 @@ public class TileEntityKnapper extends TileEntityInventoryBase implements ISlots
 	public String getName()
 	{
 		return Unlocalized.CONTAINER_UI + "workbench";
+	}
+
+	@Override
+	public void setInventorySlotContents(int slot, ItemStack stack)
+	{
+		inventory[slot] = stack;
+
+		if (stack != null && stack.stackSize > this.getInventoryStackLimit())
+		{
+			stack.stackSize = this.getInventoryStackLimit();
+		}
 	}
 
 	@Override
