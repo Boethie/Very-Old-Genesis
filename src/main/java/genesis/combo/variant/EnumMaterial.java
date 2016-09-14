@@ -3,6 +3,8 @@ package genesis.combo.variant;
 public enum EnumMaterial implements IMetadata<EnumMaterial>
 {
 	DUNG_BRICK("dung_brick", "dungBrick"),
+	PEAT_CLUMP("peat_clump", "peatClump"),
+	PEAT_BRICK("peat_brick", "peatBrick"),
 	RESIN("resin"),
 	SPHENOPHYLLUM_FIBER("sphenophyllum_fiber", "sphenophyllumFiber"),
 	ODONTOPTERIS_FIDDLEHEAD("odontopteris_fiddlehead", "odontopterisFiddlehead"),

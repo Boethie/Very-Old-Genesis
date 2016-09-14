@@ -93,6 +93,7 @@ tile.genesis.dung.herbivore.name=Herbivore Dung
 tile.genesis.dung.carnivore.name=Carnivore Dung
 tile.genesis.dungBrick.name=Dung Brick
 tile.genesis.wall.wattleAndDaub.name=Wattle and Daub Wall
+tile.genesis.peatBrick.name=Peat Brick
 
 tile.genesis.slab.rock.rubble.granite.name=Granite Rubble Slab
 tile.genesis.slab.rock.rubble.mossyGranite.name=Mossy Granite Rubble Slab
@@ -594,6 +595,8 @@ item.genesis.material.strangeJelly.name=Strange Jelly
 item.genesis.material.dung.herbivore.name=Herbivore Dung
 item.genesis.material.dung.carnivore.name=Carnivore Dung
 item.genesis.material.dungBrick.name=Dung Brick
+item.genesis.material.peat.name=Peat
+item.genesis.material.peatBrick.name=Peat Brick
 item.genesis.material.eldoniaTentacle.name=Eldonia Tentacle
 item.genesis.material.arthropleuraChitin.name=Arthropleura Chitin
 item.genesis.material.coelophysisFeather.name=Coelophysis Feather

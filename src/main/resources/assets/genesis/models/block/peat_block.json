@@ -1,6 +1,6 @@
 {
 	"parent": "block/cube_all",
 	"textures": {
-		"all": "genesis:blocks/peat"
+		"all": "genesis:blocks/peat_block"
 	}
 }

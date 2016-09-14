@@ -205,6 +205,9 @@ public final class GenesisBlocks
 			.setHardness(0.7F)
 			.setUnlocalizedName(Unlocalized.PREFIX + "dungBrick");
 	public static final BlockGenesisWall WATTLE_AND_DAUB = (BlockGenesisWall) new BlockGenesisWall(Material.WOOD, 0.375F, 1.0F, -1).setUnlocalizedName(Unlocalized.WALL + "wattleAndDaub");
+	public static final Block PEAT_BRICK = new BlockGenesis(Material.ROCK, SoundType.STONE)
+			.setHardness(0.7F)
+			.setUnlocalizedName(Unlocalized.PREFIX + "peatBrick");
 
 	/* Mechanisms */
 	public static final BlockTrapFloor TRAP_FLOOR = (BlockTrapFloor) new BlockTrapFloor().setUnlocalizedName(Unlocalized.PREFIX + "trapFloor");
@@ -278,7 +281,7 @@ public final class GenesisBlocks
 		// - Soft -
 		Genesis.proxy.registerBlock(RED_CLAY, name("red_clay"));
 		Genesis.proxy.registerBlock(OOZE, name("ooze"));
-		Genesis.proxy.registerBlock(PEAT, name("peat"));
+		Genesis.proxy.registerBlock(PEAT, name("peat_block"));
 		SILT.registerAll();
 
 		// - Permafrost -
@@ -309,6 +312,10 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(WATTLE_AND_DAUB, name("wattle_and_daub"));
 		WATTLE_AND_DAUB.setHarvestLevel("axe", 0);
 		WATTLE_AND_DAUB.setHardness(3);
+
+		Genesis.proxy.registerBlock(PEAT_BRICK, name("peat_brick_block"));
+		PEAT_BRICK.setHarvestLevel("pickaxe", 0);
+		Blocks.FIRE.setFireInfo(PEAT_BRICK, 5, 5);
 
 		// --- Mechanisms ---
 		Genesis.proxy.registerBlock(TRAP_FLOOR, new ItemColored(TRAP_FLOOR, false), name("trap_floor"));

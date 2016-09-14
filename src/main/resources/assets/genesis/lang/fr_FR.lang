@@ -92,6 +92,7 @@ tile.genesis.dung.herbivore.name=Crotte d'herbivore
 tile.genesis.dung.carnivore.name=Crotte de carnivore
 tile.genesis.dungBrick.name=Briques de crotte
 tile.genesis.wall.wattleAndDaub.name=Mur en torchis
+tile.genesis.peatBrick.name=Briques de tourbe
 
 tile.genesis.slab.rock.rubble.granite.name=Dalle en moellons de granite
 tile.genesis.slab.rock.rubble.mossyGranite.name=Dalle en moellons de granite moussu
@@ -593,6 +594,8 @@ item.genesis.material.strangeJelly.name=Gelée étrange
 item.genesis.material.dung.herbivore.name=Crotte d'herbivore
 item.genesis.material.dung.carnivore.name=Crotte de carnivore
 item.genesis.material.dungBrick.name=Brique de crotte
+item.genesis.material.peat.name=Tourbe
+item.genesis.material.peatBrick.name=Brique de tourbe
 item.genesis.material.eldoniaTentacle.name=Tentacule d'Eldonia
 item.genesis.material.arthropleuraChitin.name=Chitine d'Arthropleura
 item.genesis.material.coelophysisFeather.name=Plume de Coelophysis

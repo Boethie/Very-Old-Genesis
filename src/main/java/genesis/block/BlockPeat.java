@@ -30,8 +30,6 @@ public class BlockPeat extends BlockGenesis implements IGrowable
 		
 		setHarvestLevel("shovel", 0);
 		setHardness(0.6F);
-		
-		Blocks.FIRE.setFireInfo(this, 5, 5);
 	}
 	
 	@Override

@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"normal": [
+			{ "model": "genesis:peat_block", "y": 0 },
+			{ "model": "genesis:peat_block", "y": 90 },
+			{ "model": "genesis:peat_block", "y": 180 },
+			{ "model": "genesis:peat_block", "y": 270 }
+		]
+	}
+}
