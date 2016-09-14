@@ -6,13 +6,15 @@ import net.minecraft.world.storage.loot.LootTableList;
 
 public class GenesisLoot
 {
-	public static final ResourceLocation CHESTS_HUT = register("chests/hut");
+	public static final ResourceLocation STORAGE_BOX_HUT = register("storage_box/hut");
 	
-	public static final ResourceLocation CHESTS_CAMP_AUX_FOREST = register("chests/camp/aux_forest");
+	public static final ResourceLocation STORAGE_BOX_CAMP_AUX_FOREST = register("storage_box/camp/aux_forest");
 	
-	public static final ResourceLocation CHESTS_CAMP_META_FOREST = register("chests/camp/meta_forest");
+	public static final ResourceLocation STORAGE_BOX_CAMP_META_FOREST = register("storage_box/camp/meta_forest");
 	
-	public static final ResourceLocation CHESTS_CAMP_WOODLANDS = register("chests/camp/woodlands");
+	public static final ResourceLocation STORAGE_BOX_CAMP_WOODLANDS = register("storage_box/camp/woodlands");
+
+	public static final ResourceLocation STORAGE_BOX_ROTTEN_ANCIENT_HUT = register("storage_box/rotten/ancient_hut");
 
 	public static final ResourceLocation ITEM_RACK_HUT = register("item_rack/hut");
 	

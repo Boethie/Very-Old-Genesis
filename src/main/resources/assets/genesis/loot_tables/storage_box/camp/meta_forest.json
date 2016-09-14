@@ -6,18 +6,38 @@
 			"entries": [
 				{
 					"type": "item",
+					"entryName": "resin",
 					"name": "genesis:material_0",
 					"weight": 10,
 					"functions": [
 						{
 							"function": "set_data",
-							"data": 4
+							"data": 1
 						},
 						{
 							"function": "set_count",
 							"count": {
 								"min": 1,
 								"max": 8
+							}
+						}
+					]
+				},
+				{
+					"type": "item",
+					"entryName": "spheno_fiber",
+					"name": "genesis:material_0",
+					"weight": 10,
+					"functions": [
+						{
+							"function": "set_data",
+							"data": 2
+						},
+						{
+							"function": "set_count",
+							"count": {
+								"min": 1,
+								"max": 4
 							}
 						}
 					]
@@ -38,7 +58,7 @@
 					"functions": [
 						{
 							"function": "set_data",
-							"data": 1
+							"data": 2
 						},
 						{
 							"function": "set_count",
@@ -65,18 +85,24 @@
 				},
 				{
 					"type": "item",
+					"entryName": "porridge",
+					"name": "genesis:dish_0",
+					"weight": 15
+				},
+				{
+					"type": "item",
+					"entryName": "porridge_ginkgo",
 					"name": "genesis:dish_0",
 					"weight": 15,
 					"functions": [
 						{
 							"function": "set_data",
-							"data": 1
+							"data": 2
 						}
 					]
 				},
 				{
 					"type": "item",
-					"entryName": "cheirolepis",
 					"name": "genesis:food_0",
 					"weight": 15,
 					"functions": [
@@ -93,16 +119,11 @@
 						}
 					]
 				},
-				{
+				{ 
 					"type": "item",
-					"entryName": "aphthoroblattina",
-					"name": "genesis:food_0",
+					"name": "genesis:fruit_0",
 					"weight": 15,
 					"functions": [
-						{
-							"function": "set_data",
-							"data": 8
-						},
 						{
 							"function": "set_count",
 							"count": {
@@ -114,15 +135,35 @@
 				},
 				{
 					"type": "item",
+					"entryName": "billets",
 					"name": "genesis:billet_0",
 					"weight": 5,
 					"functions": [
 						{
 							"function": "set_data",
 							"data": {
-								"min": 1,
-								"max": 2
+								"min": 7,
+								"max": 8
 							}
+						},
+						{
+							"function": "set_count",
+							"count": {
+								"min": 3,
+								"max": 7
+							}
+						}
+					]
+				},
+				{
+					"type": "item",
+					"entryName": "billet_ginkgo",
+					"name": "genesis:billet_0",
+					"weight": 5,
+					"functions": [
+						{
+							"function": "set_data",
+							"data": 4
 						},
 						{
 							"function": "set_count",
@@ -145,28 +186,44 @@
 				},
 				{
 					"type": "item",
-					"name": "genesis:rope_ladder",
+					"entryName": "wood_arrow",
+					"name": "genesis:arrow_0",
 					"weight": 5,
 					"functions": [
+						{
+							"function": "set_data",
+							"data": {
+								"min": 1,
+								"max": 6
+							}
+						},
 						{
 							"function": "set_count",
 							"count": {
 								"min": 1,
-								"max": 4
+								"max": 3
 							}
 						}
 					]
 				},
 				{
 					"type": "item",
-					"name": "genesis:calamites_torch",
-					"weight": 15,
+					"entryName": "bone_arrow",
+					"name": "genesis:arrow_0",
+					"weight": 1,
 					"functions": [
+						{
+							"function": "set_data",
+							"data": {
+								"min": 7,
+								"max": 13
+							}
+						},
 						{
 							"function": "set_count",
 							"count": {
 								"min": 1,
-								"max": 16
+								"max": 3
 							}
 						}
 					]

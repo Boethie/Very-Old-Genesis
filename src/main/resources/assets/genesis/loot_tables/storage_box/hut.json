@@ -1,62 +1,23 @@
 {
 	"pools": [
 		{
-			"name":	"material",
+			"name": "material",
 			"rolls": 3,
 			"entries": [
 				{
-					"type":	"item",
-					"entryName": "resin",
-					"name":	"genesis:material_0",
+					"type": "item",
+					"name": "genesis:material_0",
 					"weight": 10,
 					"functions": [
 						{
-							"function":	"set_data",
-							"data": 3
+							"function": "set_data",
+							"data": 2
 						},
 						{
-							"function":	"set_count",
+							"function": "set_count",
 							"count": {
 								"min": 1,
 								"max": 8
-							}
-						}
-					]
-				},
-				{
-					"type":	"item",
-					"entryName": "spheno_fiber",
-					"name":	"genesis:material_0",
-					"weight": 10,
-					"functions": [
-						{
-							"function":	"set_data",
-							"data": 4
-						},
-						{
-							"function":	"set_count",
-							"count": {
-								"min": 1,
-								"max": 4
-							}
-						}
-					]
-				},
-				{
-					"type":	"item",
-					"entryName": "coelophysis_feather",
-					"name":	"genesis:material_0",
-					"weight": 10,
-					"functions": [
-						{
-							"function":	"set_data",
-							"data": 12
-						},
-						{
-							"function":	"set_count",
-							"count": {
-								"min": 1,
-								"max": 4
 							}
 						}
 					]
@@ -64,19 +25,23 @@
 			]
 		},
 		{
-			"name":	"misc",
+			"name": "misc",
 			"rolls": {
 				"min": 1,
 				"max": 4
 			},
 			"entries": [
-				{
-					"type":	"item",
-					"name":	"genesis:seed_0",
+				{ 
+					"type": "item",
+					"name": "genesis:seed_0",
 					"weight": 10,
 					"functions": [
 						{
-							"function":	"set_count",
+							"function": "set_data",
+							"data": 1
+						},
+						{
+							"function": "set_count",
 							"count": {
 								"min": 2,
 								"max": 4
@@ -85,13 +50,13 @@
 					]
 				},
 				{
-					"type":	"item",
-					"name":	"genesis:dye_0",
+					"type": "item",
+					"name": "genesis:dye_0",
 					"weight": 5,
 					"functions": [
 						{
-							"function":	"set_data",
-							"data":	{
+							"function": "set_data",
+							"data": {
 								"min": 1,
 								"max": 15
 							}
@@ -99,31 +64,28 @@
 					]
 				},
 				{
-					"type":	"item",
-					"name":	"genesis:dish_0",
+					"type": "item",
+					"name": "genesis:dish_0",
 					"weight": 15,
 					"functions": [
 						{
-							"function":	"set_data",
-							"data": {
-								"min": 2,
-								"max": 3
-							}
+							"function": "set_data",
+							"data": 1
 						}
 					]
 				},
 				{
-					"type":	"item",
+					"type": "item",
 					"entryName": "cheirolepis",
-					"name":	"genesis:food_0",
+					"name": "genesis:food_0",
 					"weight": 15,
 					"functions": [
 						{
-							"function":	"set_data",
+							"function": "set_data",
 							"data": 4
 						},
 						{
-							"function":	"set_count",
+							"function": "set_count",
 							"count": {
 								"min": 1,
 								"max": 3
@@ -132,17 +94,17 @@
 					]
 				},
 				{
-					"type":	"item",
-					"entryName": "coelophysis",
-					"name":	"genesis:food_0",
+					"type": "item",
+					"entryName": "aphthoroblattina",
+					"name": "genesis:food_0",
 					"weight": 15,
 					"functions": [
 						{
-							"function":	"set_data",
-							"data": 16
+							"function": "set_data",
+							"data": 8
 						},
 						{
-							"function":	"set_count",
+							"function": "set_count",
 							"count": {
 								"min": 1,
 								"max": 3
@@ -151,39 +113,19 @@
 					]
 				},
 				{
-					"type":	"item",
-					"entryName": "fruits",
-					"name":	"genesis:fruit_0",
-					"weight": 15,
-					"functions": [
-						{
-							"function":	"set_data",
-							"data": {
-								"min": 0,
-								"max": 1
-							}
-						},
-						{
-							"function":	"set_count",
-							"count": {
-								"min": 1,
-								"max": 3
-							}
-						}
-					]
-				},
-				{
-					"type":	"item",
-					"entryName": "billet_ginkgo",
-					"name":	"genesis:billet_0",
+					"type": "item",
+					"name": "genesis:billet_0",
 					"weight": 5,
 					"functions": [
 						{
-							"function":	"set_data",
-							"data": 4
+							"function": "set_data",
+							"data": {
+								"min": 1,
+								"max": 2
+							}
 						},
 						{
-							"function":	"set_count",
+							"function": "set_count",
 							"count": {
 								"min": 3,
 								"max": 7
@@ -192,74 +134,39 @@
 					]
 				},
 				{
-					"type":	"item",
-					"entryName": "billet_aux",
-					"name":	"genesis:billet_0",
+					"type": "item",
+					"name": "genesis:ceramic_bowl_0",
+					"weight": 10
+				},
+				{
+					"type": "item",
+					"name": "genesis:ceramic_bucket",
+					"weight": 10
+				},
+				{
+					"type": "item",
+					"name": "genesis:rope_ladder",
 					"weight": 5,
 					"functions": [
 						{
-							"function":	"set_data",
-							"data": 6
-						},
-						{
-							"function":	"set_count",
+							"function": "set_count",
 							"count": {
-								"min": 3,
-								"max": 7
+								"min": 1,
+								"max": 4
 							}
 						}
 					]
 				},
 				{
-					"type":	"item",
-					"name":	"genesis:ceramic_bowl_0",
-					"weight": 10
-				},
-				{
-					"type":	"item",
-					"name":	"genesis:ceramic_bucket",
-					"weight": 10
-				},
-				{
-					"type":	"item",
-					"entryName": "wood_arrow",
-					"name":	"genesis:arrow_0",
-					"weight": 5,
+					"type": "item",
+					"name": "genesis:calamites_torch",
+					"weight": 15,
 					"functions": [
 						{
-							"function":	"set_data",
-							"data": {
-								"min": 1,
-								"max": 6
-							}
-						},
-						{
-							"function":	"set_count",
+							"function": "set_count",
 							"count": {
 								"min": 1,
-								"max": 3
-							}
-						}
-					]
-				},
-				{
-					"type":	"item",
-					"entryName": "bone_arrow",
-					"name":	"genesis:arrow_0",
-					"weight": 1,
-					"functions": [
-						{
-							"function":	"set_data",
-							"data": {
-								"min": 7,
-								"max": 13
-							}
-						},
-						{
-							"function":	"set_count",
-							"count": {
-								"min": 1,
-								"max": 3
+								"max": 16
 							}
 						}
 					]
@@ -370,26 +277,6 @@
 							}
 						}
 					]
-				},
-				{
-					"type":	"item",
-					"name":	"genesis:camouflage_helmet",
-					"weight": 5
-				},
-				{
-					"type":	"item",
-					"name":	"genesis:camouflage_chestplate",
-					"weight": 5
-				},
-				{
-					"type":	"item",
-					"name":	"genesis:camouflage_leggings",
-					"weight": 5
-				},
-				{
-					"type":	"item",
-					"name":	"genesis:camouflage_boots",
-					"weight": 5
 				}
 			]
 		},

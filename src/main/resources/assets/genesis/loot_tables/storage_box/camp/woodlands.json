@@ -12,7 +12,7 @@
 					"functions": [
 						{
 							"function": "set_data",
-							"data": 3
+							"data": 1
 						},
 						{
 							"function": "set_count",
@@ -31,7 +31,26 @@
 					"functions": [
 						{
 							"function": "set_data",
-							"data": 4
+							"data": 2
+						},
+						{
+							"function": "set_count",
+							"count": {
+								"min": 1,
+								"max": 4
+							}
+						}
+					]
+				},
+				{
+					"type": "item",
+					"entryName": "tyrannosaurus_feather",
+					"name": "genesis:material_0",
+					"weight": 10,
+					"functions": [
+						{
+							"function": "set_data",
+							"data": 15
 						},
 						{
 							"function": "set_count",
@@ -58,7 +77,7 @@
 					"functions": [
 						{
 							"function": "set_data",
-							"data": 2
+							"data": 3
 						},
 						{
 							"function": "set_count",
@@ -85,12 +104,6 @@
 				},
 				{
 					"type": "item",
-					"entryName": "porridge",
-					"name": "genesis:dish_0",
-					"weight": 15
-				},
-				{
-					"type": "item",
 					"entryName": "porridge_ginkgo",
 					"name": "genesis:dish_0",
 					"weight": 15,
@@ -98,6 +111,21 @@
 						{
 							"function": "set_data",
 							"data": 2
+						}
+					]
+				},
+				{
+					"type": "item",
+					"entryName": "porridges",
+					"name": "genesis:dish_0",
+					"weight": 15,
+					"functions": [
+						{
+							"function": "set_data",
+							"data": {
+								"min": 4,
+								"max": 7
+							}
 						}
 					]
 				},
@@ -119,8 +147,31 @@
 						}
 					]
 				},
-				{ 
+				{
 					"type": "item",
+					"entryName": "fruits",
+					"name": "genesis:fruit_0",
+					"weight": 15,
+					"functions": [
+						{
+							"function": "set_data",
+							"data": {
+								"min": 2,
+								"max": 4
+							}
+						},
+						{
+							"function": "set_count",
+							"count": {
+								"min": 1,
+								"max": 3
+							}
+						}
+					]
+				},
+				{
+					"type": "item",
+					"entryName": "ginkgo_nuts",
 					"name": "genesis:fruit_0",
 					"weight": 15,
 					"functions": [
@@ -142,8 +193,8 @@
 						{
 							"function": "set_data",
 							"data": {
-								"min": 7,
-								"max": 8
+								"min": 9,
+								"max": 12
 							}
 						},
 						{
