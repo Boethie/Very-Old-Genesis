@@ -14,6 +14,10 @@ public class TileEntityInventoryLootBase extends TileEntityInventoryBase {
     protected ResourceLocation lootTable;
     protected long lootTableSeed;
 
+    public TileEntityInventoryLootBase(int slots, boolean hasCustomName) {
+        super(slots, hasCustomName);
+    }
+
     public TileEntityInventoryLootBase(int slots) {
         super(slots);
     }

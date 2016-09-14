@@ -1,7 +1,5 @@
 package genesis.block.tileentity;
 
-import java.util.Random;
-
 import genesis.common.Genesis;
 import genesis.common.GenesisCreativeTabs;
 import genesis.common.GenesisGuiHandler;
@@ -9,17 +7,25 @@ import genesis.util.FacingHelpers;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.*;
-import net.minecraft.block.state.*;
+import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.util.EnumFacing.*;
-import net.minecraft.world.*;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumFacing.Axis;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class BlockStorageBox extends Block
 {
@@ -123,7 +129,7 @@ public class BlockStorageBox extends Block
 			
 			if (box != null)
 			{
-				box.setCustomInventoryName(stack.getDisplayName());
+				box.setCustomName(stack.getDisplayName());
 			}
 		}
 	}

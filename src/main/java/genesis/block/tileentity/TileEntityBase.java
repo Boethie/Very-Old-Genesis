@@ -13,7 +13,7 @@ public abstract class TileEntityBase extends TileEntity
 	@Override
 	public void markDirty()
 	{
-		if (worldObj != null)
+		if (worldObj != null && !worldObj.isAirBlock(pos))
 		{
 			IBlockState oldState = getBlockType().getStateFromMeta(getBlockMetadata());
 

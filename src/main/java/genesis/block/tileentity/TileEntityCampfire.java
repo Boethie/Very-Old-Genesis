@@ -3,17 +3,18 @@ package genesis.block.tileentity;
 import com.google.common.collect.ImmutableList;
 import genesis.block.tileentity.crafting.CookingPotRecipeRegistry;
 import genesis.block.tileentity.crafting.CookingPotRecipeRegistry.InventoryCookingPot;
-import genesis.block.tileentity.gui.ContainerCampfire;
 import genesis.block.tileentity.render.TileEntityCampfireRenderer;
 import genesis.common.GenesisBlocks;
-import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
+import genesis.util.EnumAxis;
+import genesis.util.ItemStackKey;
+import genesis.util.SlotModifier;
+import genesis.util.WorldUtils;
 import genesis.util.gui.RestrictedDisabledSlot.IInventoryDisabledSlots;
 import genesis.util.random.f.FloatRange;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
@@ -22,11 +23,9 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.tileentity.TileEntityLockable;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
@@ -41,7 +40,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-public class TileEntityCampfire extends TileEntityLockable implements ISidedInventory, IInventoryDisabledSlots, InventoryCookingPot, ITickable
+public class TileEntityCampfire extends TileEntityInventoryBase implements ISidedInventory, IInventoryDisabledSlots, InventoryCookingPot, ITickable
 {
 	public static int getItemBurnTime(ItemStack stack)
 	{
@@ -107,16 +106,12 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	protected static final int WET_TIME = 200;
 	protected static final int COOK_TIME = 200;
 
-	protected final ItemStack[] inventory = new ItemStack[SLOT_COUNT];
-
 	protected boolean wasBurning = false;
 	protected boolean waterAround = false;
 
 	public float prevRot = 0;
 	public float rot = 0;
 	public float rotVel = 0;
-
-	public String customName;
 
 	public int burnTime;
 	public int totalBurnTime;
@@ -138,7 +133,7 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 
 	public TileEntityCampfire()
 	{
-		super();
+		super(SLOT_COUNT, true);
 
 		SLOTS_TOP = new int[]{SLOT_INPUT};
 		SLOTS_FRONT = new int[]{SLOT_FUEL};
@@ -526,12 +521,6 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	}*/
 
 	@Override
-	public int getSizeInventory()
-	{
-		return inventory.length;
-	}
-
-	@Override
 	public ItemStack getStackInSlot(int slot)
 	{
 		return inventory[slot];
@@ -548,18 +537,9 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	}
 
 	@Override
-	public void clear()
-	{
-		for (int i = 0; i < inventory.length; ++i)
-		{
-			inventory[i] = null;
-		}
-	}
-
-	@Override
 	public void setInventorySlotContents(int slot, ItemStack stack)
 	{
-		inventory[slot] = stack;
+		super.setInventorySlotContents(slot, stack);
 		sendDescriptionPacket();
 	}
 
@@ -581,64 +561,9 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	}
 
 	@Override
-	public ItemStack removeStackFromSlot(int slot)
-	{
-		ItemStack stack = getStackInSlot(slot);
-
-		if (stack != null)
-		{
-			setInventorySlotContents(slot, null);
-		}
-
-		return stack;
-	}
-
-	@Override
-	public ItemStack decrStackSize(int slot, int amount)
-	{
-		ItemStack stack = getStackInSlot(slot);
-
-		if (stack != null)
-		{
-			if (stack.stackSize <= amount)
-			{
-				setInventorySlotContents(slot, null);
-			}
-			else
-			{
-				stack = stack.splitStack(amount);
-
-				if (stack.stackSize <= 0)
-				{
-					setInventorySlotContents(slot, null);
-				}
-			}
-		}
-
-		return stack;
-	}
-
-	@Override
-	public int getInventoryStackLimit()
-	{
-		return 64;
-	}
-
-	public void setCustomInventoryName(String name)
-	{
-		customName = name;
-	}
-
-	@Override
-	public boolean hasCustomName()
-	{
-		return customName != null && customName.length() > 0;
-	}
-
-	@Override
 	public String getName()
 	{
-		return hasCustomName() ? customName : Unlocalized.CONTAINER_UI + "campfire";
+		return Unlocalized.CONTAINER_UI + "campfire";
 	}
 
 	protected void sendDescriptionPacket()
@@ -684,71 +609,27 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound compound)
+	protected void readVisualData(NBTTagCompound compound, boolean save)
 	{
-		super.readFromNBT(compound);
-
-		NBTTagList tagList = compound.getTagList("items", 10);
-
-		for (int i = 0; i < tagList.tagCount(); ++i)
-		{
-			NBTTagCompound itemCompound = (NBTTagCompound) tagList.get(i);
-			byte slot = itemCompound.getByte("slot");
-
-			if (slot >= 0 && slot < inventory.length)
-			{
-				inventory[slot] = ItemStack.loadItemStackFromNBT(itemCompound);
-			}
-		}
+		super.readVisualData(compound, save);
 
 		burnTime = compound.getInteger("burnTime");
 		cookTime = compound.getInteger("cookTime");
 		totalBurnTime = compound.getInteger("totalBurnTime");
 
 		waterAround = compound.getBoolean("waterAround");
-
-		if (compound.hasKey("customName"))
-		{
-			customName = compound.getString("customName");
-		}
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound)
+	protected void writeVisualData(NBTTagCompound compound, boolean save)
 	{
-		compound = super.writeToNBT(compound);
-
-		NBTTagList itemList = new NBTTagList();
-		int i = 0;
-
-		for (ItemStack stack : inventory)
-		{
-			if (stack != null)
-			{
-				NBTTagCompound itemComp = new NBTTagCompound();
-				itemComp.setByte("slot", (byte)i);
-				stack.writeToNBT(itemComp);
-
-				itemList.appendTag(itemComp);
-			}
-
-			i++;
-		}
-
-		compound.setTag("items", itemList);
+		super.writeVisualData(compound, save);
 
 		compound.setInteger("burnTime", burnTime);
 		compound.setInteger("totalBurnTime", totalBurnTime);
 		compound.setInteger("cookTime", cookTime);
 
 		compound.setBoolean("waterAround", waterAround);
-
-		if (hasCustomName())
-		{
-			compound.setString("customName", customName);
-		}
-
-		return compound;
 	}
 
 	@Override
@@ -795,23 +676,6 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	}
 
 	@Override
-	public int getField(int id)
-	{
-		return 0;
-	}
-
-	@Override
-	public void setField(int id, int value)
-	{
-	}
-
-	@Override
-	public int getFieldCount()
-	{
-		return 0;
-	}
-
-	@Override
 	public int[] getSlotsForFace(EnumFacing side)
 	{
 		if (side.getAxis() != EnumFacing.Axis.Y && worldObj.getBlockState(pos).getValue(BlockCampfire.FACING) == EnumAxis.X)
@@ -844,28 +708,6 @@ public class TileEntityCampfire extends TileEntityLockable implements ISidedInve
 	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction)
 	{
 		return true;
-	}
-
-	@Override
-	public ContainerCampfire createContainer(InventoryPlayer playerInventory, EntityPlayer player)
-	{
-		return new ContainerCampfire(player, this);
-	}
-
-	@Override
-	public String getGuiID()
-	{
-		return Constants.ASSETS_PREFIX + "campfire";
-	}
-
-	@Override
-	public void openInventory(EntityPlayer player)
-	{
-	}
-
-	@Override
-	public void closeInventory(EntityPlayer player)
-	{
 	}
 
 	@Override

@@ -155,7 +155,6 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 
 		BlockPos chestPos = center.add(0, -1, 0);
 		//noinspection ToArrayCallWithZeroLengthArrayArgument
-		GenesisBlocks.ROTTEN_STORAGE_BOX.placeWithItems(world, chestPos, loot.toArray(new ItemStack[0]));
 	}
 
 	protected BlockPos getValidPos(MenhirStructure structure, Random random, World world, BlockPos chunkPos)

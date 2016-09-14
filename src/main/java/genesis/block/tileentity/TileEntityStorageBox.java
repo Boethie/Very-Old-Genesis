@@ -1,28 +1,32 @@
 package genesis.block.tileentity;
 
-import genesis.block.tileentity.gui.ContainerStorageBox;
-import genesis.common.sounds.GenesisSoundEvents;
-import genesis.util.*;
-
-import java.util.*;
-
 import com.google.common.collect.PeekingIterator;
-
+import genesis.common.sounds.GenesisSoundEvents;
 import genesis.util.Constants.Unlocalized;
+import genesis.util.FacingHelpers;
+import genesis.util.GenesisMath;
+import genesis.util.SimpleIterator;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.*;
-import net.minecraft.inventory.*;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.*;
-import net.minecraft.network.*;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.tileentity.*;
-import net.minecraft.util.*;
-import net.minecraft.util.EnumFacing.*;
-import net.minecraft.util.math.*;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumFacing.Axis;
+import net.minecraft.util.EnumFacing.AxisDirection;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.util.Constants.NBT;
 
-public class TileEntityStorageBox extends TileEntityLockableLoot implements ISidedInventory, ITickable, IInventory
+import java.util.EnumMap;
+import java.util.Iterator;
+import java.util.Map;
+
+public class TileEntityStorageBox extends TileEntityInventoryLootBase implements ISidedInventory, ITickable, IInventory
 {
 	public static final AxisDirection MAIN_DIR = AxisDirection.NEGATIVE;
 
@@ -32,12 +36,9 @@ public class TileEntityStorageBox extends TileEntityLockableLoot implements ISid
 	public static final int USERS_UPDATE_ID = 1;
 	public static final int OPEN_DIRECTION_UPDATE_ID = 2;
 
-	protected final ItemStack[] inventory;
 	protected final int[] inventorySlots;
 	private Axis axis = null;
 	private EnumMap<AxisDirection, Boolean> connections = new EnumMap<>(AxisDirection.class);
-
-	protected String customName;
 
 	//private int lastUsersCheck = 0;	// TODO: May need to implement regular checks for using players, like in the vanilla chest
 	private int users = 0;
@@ -48,9 +49,8 @@ public class TileEntityStorageBox extends TileEntityLockableLoot implements ISid
 
 	public TileEntityStorageBox()
 	{
-		super();
+		super(SLOTS_W * SLOTS_H, true);
 
-		inventory = new ItemStack[getSlotsWidth() * getSlotsHeight()];
 		inventorySlots = new int[inventory.length];
 		for (int i = 0; i < inventorySlots.length; i++)
 			inventorySlots[i] = i;
@@ -353,8 +353,11 @@ public class TileEntityStorageBox extends TileEntityLockableLoot implements ISid
 		}
 	}
 
-	protected void writeVisualData(NBTTagCompound compound)
+	@Override
+	protected void writeVisualData(NBTTagCompound compound, boolean save)
 	{
+		super.writeVisualData(compound, save);
+
 		Axis axis = getAxis();
 		compound.setString("axis", axis == null ? "none" : axis.getName());
 
@@ -371,8 +374,11 @@ public class TileEntityStorageBox extends TileEntityLockableLoot implements ISid
 		compound.setTag("connections", connectionList);
 	}
 
-	protected void readVisualData(NBTTagCompound compound)
+	@Override
+	protected void readVisualData(NBTTagCompound compound, boolean save)
 	{
+		super.readVisualData(compound, save);
+
 		IBlockState oldState = null;
 
 		if (worldObj != null)
@@ -396,183 +402,15 @@ public class TileEntityStorageBox extends TileEntityLockableLoot implements ISid
 	}
 
 	@Override
-	public SPacketUpdateTileEntity getUpdatePacket()
-	{
-		NBTTagCompound compound = new NBTTagCompound();
-		writeVisualData(compound);
-		return new SPacketUpdateTileEntity(pos, 0, compound);
-	}
-
-	@Override
-	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet)
-	{
-		NBTTagCompound compound = packet.getNbtCompound();
-		readVisualData(compound);
-	}
-
-	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound)
-	{
-		compound = super.writeToNBT(compound);
-
-		if(!checkLootAndWrite(compound))
-		{
-			NBTTagList itemList = new NBTTagList();
-			int slot = 0;
-
-			for (ItemStack stack : inventory)
-			{
-				if (stack != null)
-				{
-					NBTTagCompound itemComp = new NBTTagCompound();
-					itemComp.setByte("slot", (byte) slot);
-					stack.writeToNBT(itemComp);
-
-					itemList.appendTag(itemComp);
-				}
-
-				slot++;
-			}
-
-			compound.setTag("items", itemList);
-		}
-
-		writeVisualData(compound);
-
-		if (hasCustomName())
-		{
-			compound.setString("customName", customName);
-		}
-
-		return compound;
-	}
-
-	@Override
-	public void readFromNBT(NBTTagCompound compound)
-	{
-		super.readFromNBT(compound);
-
-		if(!checkLootAndRead(compound))
-		{
-			NBTTagList tagList = compound.getTagList("items", NBT.TAG_COMPOUND);
-
-			for (int i = 0; i < tagList.tagCount(); i++)
-			{
-				NBTTagCompound itemCompound = (NBTTagCompound) tagList.get(i);
-				byte slot = itemCompound.getByte("slot");
-
-				if (slot >= 0 && slot < inventory.length)
-				{
-					inventory[slot] = ItemStack.loadItemStackFromNBT(itemCompound);
-				}
-			}
-		}
-		readVisualData(compound);
-
-		if (compound.hasKey("customName"))
-		{
-			customName = compound.getString("customName");
-		}
-	}
-
-	@Override
-	public int getSizeInventory()
-	{
-		return inventory.length;
-	}
-
-	@Override
-	public ItemStack getStackInSlot(int slot)
-	{
-		fillWithLoot(null);
-		return inventory[slot];
-	}
-
-	@Override
-	public ItemStack decrStackSize(int slot, int amount)
-	{
-		fillWithLoot(null);
-		ItemStack stack = getStackInSlot(slot);
-
-		if (stack != null)
-		{
-			if (stack.stackSize <= amount)
-			{
-				setInventorySlotContents(slot, null);
-			}
-			else
-			{
-				stack = stack.splitStack(amount);
-
-				if (stack.stackSize <= 0)
-				{
-					setInventorySlotContents(slot, null);
-				}
-			}
-		}
-
-		return stack;
-	}
-
-	@Override
-	public ItemStack removeStackFromSlot(int slot)
-	{
-		fillWithLoot(null);
-		ItemStack stack = getStackInSlot(slot);
-
-		if (stack != null)
-		{
-			setInventorySlotContents(slot, null);
-		}
-
-		return stack;
-	}
-
-	@Override
-	public void setInventorySlotContents(int slot, ItemStack stack)
-	{
-		fillWithLoot(null);
-		inventory[slot] = stack;
-	}
-
-	@Override
-	public int getInventoryStackLimit()
-	{
-		return 64;
-	}
-
-	@Override
 	public boolean isUseableByPlayer(EntityPlayer player)
 	{
 		return true;
 	}
 
 	@Override
-	public void clear()
-	{
-		fillWithLoot(null);
-
-		for (int i = 0; i < inventory.length; ++i)
-		{
-			inventory[i] = null;
-		}
-	}
-
-	public void setCustomInventoryName(String name)
-	{
-		customName = name;
-	}
-
-	@Override
-	public boolean hasCustomName()
-	{
-		return customName != null && customName.length() > 0;
-	}
-
-	@Override
 	public String getName()
 	{
-		return hasCustomName() ? customName : Unlocalized.CONTAINER_UI + "storageBox." + (getWidth() <= 1 ? "normal" : "large");
+		return Unlocalized.CONTAINER_UI + "storageBox." + (getWidth() <= 1 ? "normal" : "large");
 	}
 
 	@Override
@@ -591,34 +429,6 @@ public class TileEntityStorageBox extends TileEntityLockableLoot implements ISid
 	public boolean canExtractItem(int slot, ItemStack stack, EnumFacing direction)
 	{
 		return true;
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int slot, ItemStack stack)
-	{
-		return true;
-	}
-
-	@Override
-	public int getField(int id) { return 0; }
-
-	@Override
-	public void setField(int id, int value) {}
-
-	@Override
-	public int getFieldCount() { return 0; }
-
-	@Override
-	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer player)
-	{
-		fillWithLoot(player);
-		return new ContainerStorageBox(player, this);
-	}
-
-	@Override
-	public String getGuiID()
-	{
-		return Constants.ASSETS_PREFIX + "storage_box";
 	}
 
 	public static class BoxIterator extends SimpleIterator<TileEntityStorageBox>
@@ -740,12 +550,5 @@ public class TileEntityStorageBox extends TileEntityLockableLoot implements ISid
 	public Iterable<TileEntityStorageBox> iterableFromMainToEnd()
 	{
 		return this::iteratorFromMainToEnd;
-	}
-
-	@Override
-	protected void fillWithLoot(EntityPlayer player)
-	{
-		if(worldObj != null && !worldObj.isRemote)
-			super.fillWithLoot(player);
 	}
 }

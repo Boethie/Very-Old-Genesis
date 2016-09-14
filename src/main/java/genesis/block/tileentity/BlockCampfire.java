@@ -430,7 +430,7 @@ public class BlockCampfire extends Block
 
 			if (te != null)
 			{
-				te.setCustomInventoryName(stack.getDisplayName());
+				te.setCustomName(stack.getDisplayName());
 			}
 		}
 	}

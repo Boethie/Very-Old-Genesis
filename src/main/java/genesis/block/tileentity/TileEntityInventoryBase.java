@@ -9,6 +9,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -18,9 +19,17 @@ import javax.annotation.Nullable;
 
 public class TileEntityInventoryBase extends TileEntityBase implements IInventory {
     protected final ItemStack[] inventory;
+    private String customName;
+    private boolean hasCustomName;
 
-    public TileEntityInventoryBase(int slots) {
+    public TileEntityInventoryBase(int slots, boolean hasCustomName) {
         this.inventory = new ItemStack[slots];
+        this.hasCustomName = hasCustomName;
+    }
+
+    public TileEntityInventoryBase(int slots)
+    {
+        this(slots, false);
     }
 
     @Override
@@ -124,8 +133,31 @@ public class TileEntityInventoryBase extends TileEntityBase implements IInventor
     }
 
     @Override
-    protected void readVisualData(NBTTagCompound compound, boolean save) {
+    public boolean hasCustomName()
+    {
+        return this.hasCustomName;
+    }
+
+    public void setCustomName(String name)
+    {
+        this.customName = name;
+    }
+
+    @Override
+    public ITextComponent getDisplayName()
+    {
+        return new TextComponentString(I18n.translateToLocalFormatted(getName()));
+    }
+
+    @Override
+    protected void readVisualData(NBTTagCompound compound, boolean save)
+    {
         NBTTagList tagList = compound.getTagList("Items", 10);
+
+        if (compound.hasKey("CustomName", 8))
+        {
+            this.customName = compound.getString("CustomName");
+        }
 
         for (int i = 0; i < tagList.tagCount(); ++i)
         {
@@ -153,19 +185,12 @@ public class TileEntityInventoryBase extends TileEntityBase implements IInventor
             }
         }
 
+        if (this.hasCustomName() && this.customName != null)
+        {
+            compound.setString("CustomName", this.customName);
+        }
+
         compound.setTag("Items", tagList);
-    }
-
-    @Override
-    public boolean hasCustomName()
-    {
-        return false;
-    }
-
-    @Override
-    public ITextComponent getDisplayName()
-    {
-        return new TextComponentString(getName());
     }
 
     private IItemHandler itemHandler;

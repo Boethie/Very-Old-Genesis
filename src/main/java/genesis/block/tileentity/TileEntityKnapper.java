@@ -29,7 +29,7 @@ import net.minecraft.world.WorldServer;
 
 import net.minecraftforge.fml.common.network.simpleimpl.*;
 
-public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapping, ITickable
+public class TileEntityKnapper extends TileEntityInventoryBase implements ISlotsKnapping, ITickable
 {
 	public class KnappingState
 	{
@@ -152,18 +152,14 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 
 	public static final int SOUND_TIME = 5;
 
-	protected ItemStack[] inventory = new ItemStack[SLOT_COUNT];
-
 	protected KnappingState[] knappingStates = new KnappingState[SLOTS_CRAFTING_COUNT];
 	protected boolean knappingLocked = false;
 
 	protected TObjectIntHashMap<EntityPlayer> soundTimers = new TObjectIntHashMap<>();
 
-	public String customName;
-
 	public TileEntityKnapper()
 	{
-		super();
+		super(SLOT_COUNT, true);
 
 		for (int i = 0; i < knappingStates.length; i++)
 		{
@@ -674,17 +670,16 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound compound)
+	protected void readVisualData(NBTTagCompound compound, boolean save)
 	{
-		super.readFromNBT(compound);
+		super.readVisualData(compound, save);
 
-		NBTTagList tagList = compound.getTagList("items", 10);
-		inventory = new ItemStack[getSizeInventory()];
+		NBTTagList tagList = compound.getTagList("Items", 10);
 
 		for (int i = 0; i < tagList.tagCount(); ++i)
 		{
 			NBTTagCompound itemCompound = (NBTTagCompound) tagList.get(i);
-			byte slot = itemCompound.getByte("slot");
+			byte slot = itemCompound.getByte("Slot");
 
 			if (slot >= 0 && slot < inventory.length)
 			{
@@ -701,18 +696,13 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 
 		knappingLocked = compound.getBoolean("knappingLocked");
 
-		if (compound.hasKey("customName"))
-		{
-			customName = compound.getString("customName");
-		}
-
 		updateRecipeOutput();
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound)
+	protected void writeVisualData(NBTTagCompound compound, boolean save)
 	{
-		compound = super.writeToNBT(compound);
+		super.writeVisualData(compound, save);
 
 		NBTTagList itemList = new NBTTagList();
 		int slot = 0;
@@ -722,7 +712,7 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 			if (slot != SLOT_OUTPUT_MAIN)
 			{
 				NBTTagCompound itemComp = new NBTTagCompound();
-				itemComp.setByte("slot", (byte) slot);
+				itemComp.setByte("Slot", (byte) slot);
 
 				if (slot >= SLOTS_CRAFTING_START && slot <= SLOTS_CRAFTING_END)
 				{
@@ -742,16 +732,9 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 			slot++;
 		}
 
-		compound.setTag("items", itemList);
+		compound.setTag("Items", itemList);
 
 		compound.setBoolean("knappingLocked", knappingLocked);
-
-		if (hasCustomName())
-		{
-			compound.setString("customName", customName);
-		}
-
-		return compound;
 	}
 
 	public InventoryCrafting getCraftingInventory()
@@ -1008,75 +991,7 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 	@Override
 	public String getName()
 	{
-		return hasCustomName() ? customName : Unlocalized.CONTAINER_UI + "workbench";
-	}
-
-	@Override
-	public boolean hasCustomName()
-	{
-		return customName != null && customName.length() > 0;
-	}
-
-	@Override
-	public int getSizeInventory()
-	{
-		return inventory.length;
-	}
-
-	@Override
-	public ItemStack getStackInSlot(int index)
-	{
-		return inventory[index];
-	}
-
-	@Override
-	public ItemStack decrStackSize(int slot, int amount)
-	{
-		ItemStack stack = getStackInSlot(slot);
-
-		if (stack != null)
-		{
-			if (stack.stackSize <= amount)
-			{
-				setInventorySlotContents(slot, null);
-			}
-			else
-			{
-				stack = stack.splitStack(amount);
-
-				if (stack.stackSize <= 0)
-				{
-					setInventorySlotContents(slot, null);
-				}
-			}
-		}
-
-		return stack;
-	}
-
-	@Override
-	public ItemStack removeStackFromSlot(int slot)
-	{
-		ItemStack stack = getStackInSlot(slot);
-
-		if (stack != null)
-		{
-			setInventorySlotContents(slot, null);
-		}
-
-		return stack;
-	}
-
-	@Override
-	public void setInventorySlotContents(int slot, ItemStack stack)
-	{
-		inventory[slot] = stack;
-	}
-
-	@Override
-	public int getInventoryStackLimit()
-	{
-		return 64;
+		return Unlocalized.CONTAINER_UI + "workbench";
 	}
 
 	@Override
@@ -1090,53 +1005,5 @@ public class TileEntityKnapper extends TileEntityLockable implements ISlotsKnapp
 	{
 		// TODO: Actual requirements
 		return true;
-	}
-
-	@Override
-	public void clear()
-	{
-		for (int i = 0; i < this.inventory.length; ++i)
-		{
-			this.inventory[i] = null;
-		}
-	}
-
-	@Override
-	public int getField(int id)
-	{
-		return 0;
-	}
-
-	@Override
-	public void setField(int id, int value)
-	{
-	}
-
-	@Override
-	public int getFieldCount()
-	{
-		return 0;
-	}
-
-	@Override
-	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer player)
-	{
-		return new ContainerKnapper(player, this);
-	}
-
-	@Override
-	public String getGuiID()
-	{
-		return Constants.ASSETS_PREFIX + "workbench";
-	}
-
-	@Override
-	public void openInventory(EntityPlayer player)
-	{
-	}
-
-	@Override
-	public void closeInventory(EntityPlayer player)
-	{
 	}
 }

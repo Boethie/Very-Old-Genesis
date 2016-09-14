@@ -136,13 +136,13 @@ public class WorldGenSmallCamp implements IWorldGenerator
 				ResourceLocation loot = null;
 
 				if (biome instanceof BiomeMetaForest)
-					loot = GenesisLoot.CHESTS_CAMP_META_FOREST;
+					loot = GenesisLoot.STORAGE_BOX_CAMP_META_FOREST;
 
 				if (biome instanceof BiomeAuxForest)
-					loot = GenesisLoot.CHESTS_CAMP_AUX_FOREST;
+					loot = GenesisLoot.STORAGE_BOX_CAMP_AUX_FOREST;
 
 				if (biome instanceof BiomeWoodlands)
-					loot = GenesisLoot.CHESTS_CAMP_WOODLANDS;
+					loot = GenesisLoot.STORAGE_BOX_CAMP_WOODLANDS;
 
 				((TileEntityStorageBox) te).setLootTable(loot, random.nextLong());
 			}

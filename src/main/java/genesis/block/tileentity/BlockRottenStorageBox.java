@@ -2,11 +2,8 @@ package genesis.block.tileentity;
 
 import java.util.Random;
 
-import genesis.common.Genesis;
 import genesis.common.GenesisCreativeTabs;
 import genesis.util.WorldUtils;
-import gnu.trove.list.TIntList;
-import gnu.trove.list.array.TIntArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -33,38 +30,6 @@ public class BlockRottenStorageBox extends Block
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 
 		setHardness(0.5F);
-	}
-
-	public void placeWithItems(World world, BlockPos pos, ItemStack... stacks)
-	{
-		world.setBlockState(pos, getDefaultState());
-
-		if (world.isRemote)
-			return;
-
-		TileEntityRottenStorageBox box = getTileEntity(world, pos);
-
-		if (box == null)
-		{
-			Genesis.logger.warn("Failed to create a rotten storage box tile entity.");
-			return;
-		}
-
-		if (stacks.length > box.inventory.length)
-			Genesis.logger.warn(new IllegalArgumentException("Too many stacks to fit in a rotten storage box."));
-
-		TIntList slots = new TIntArrayList(box.inventory.length);
-
-		for (int i = 0; i < box.inventory.length; i++)
-			if (box.inventory[i] == null)
-				slots.add(i);
-
-		for (ItemStack stack : stacks)
-		{
-			int slot = slots.get(world.rand.nextInt(slots.size()));
-			box.inventory[slot] = stack;
-			slots.remove(slot);
-		}
 	}
 
 	@Override

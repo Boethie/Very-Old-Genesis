@@ -130,7 +130,7 @@ public class WorldGenHut implements IWorldGenerator {
 
 		if (te instanceof TileEntityStorageBox)
 		{
-			((TileEntityStorageBox) te).setLootTable(GenesisLoot.CHESTS_HUT, random.nextLong());
+			((TileEntityStorageBox) te).setLootTable(GenesisLoot.STORAGE_BOX_HUT, random.nextLong());
 		}
 		else
 		{
