@@ -69,7 +69,7 @@ public class BiomeWoodlands extends BiomeGenesis
 		
 		addTree(new WorldGenTreeLaurophyllum(1, 2, false).setType(TreeTypes.TYPE_2), 60);
 		addTree(new WorldGenTreeLaurophyllum(3, 4, false), 40);
-		addTree(new WorldGenTreeFicus(4, 8, false), 30);
+		addTree(new WorldGenTreeFicus(5, 8, false), 30);
 		addTree(new WorldGenTreeGinkgo(10, 13, false), 11);
 		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 3);
 		addTree(new WorldGenTreeDryophyllum(8, 13, false), 600);

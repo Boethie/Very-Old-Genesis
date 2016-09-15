@@ -1,51 +1,87 @@
 package genesis.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import genesis.common.GenesisBlocks;
+import genesis.common.GenesisCreativeTabs;
+import genesis.util.WorldUtils;
 
-import javax.annotation.Nullable;
 import java.util.Random;
 
-public class BlockPrototaxitesRhizomorphs extends BlockPeat
+import net.minecraft.block.*;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraftforge.common.EnumPlantType;
+import net.minecraftforge.common.IPlantable;
+
+public class BlockPrototaxitesRhizomorphs extends BlockMycelium
 {
-	public static final PropertyBool SNOWY = PropertyBool.create("snowy");
+	public static final EnumPlantType SOIL_TYPE = EnumPlantType.getPlantType("prototaxitesRhizomorphs");
 
 	public BlockPrototaxitesRhizomorphs() {
-		super();
+		setHardness(0.6F);
 		setSoundType(SoundType.PLANT);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(SNOWY, false));
-	}
-
-	@Nullable
-	@Override
-	public Item getItemDropped(IBlockState state, Random rand, int fortune)
-	{
-		return Item.getItemFromBlock(Blocks.DIRT);
+		setCreativeTab(GenesisCreativeTabs.BLOCK);
 	}
 
 	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos)
+	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
 	{
-		Block block = world.getBlockState(pos.up()).getBlock();
-		return state.withProperty(SNOWY, block == Blocks.SNOW || block == Blocks.SNOW_LAYER);
+		if (!world.isRemote)
+		{
+			int light = world.getLightFromNeighbors(pos.up());
+			IBlockState topState = world.getBlockState(pos.up());
+			
+			if ((light < 4)
+					&& (topState.getLightOpacity(world, pos.up()) > 2)
+					&& (topState.getBlock() != GenesisBlocks.PROTOTAXITES))
+			{
+				world.setBlockState(pos, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
+			}
+			else
+			{
+				int areaMycelium = 10;
+				
+				for (BlockPos areaPos : WorldUtils.getArea(pos, 10))
+				{
+					if (world.getBlockState(areaPos).getBlock() == this)
+					{
+						areaMycelium--;
+						
+						if (areaMycelium <= 0)
+							return;
+					}
+				}
+				
+				if (light >= 9)
+				{
+					for (int i = 0; i < 4; ++i)
+					{
+						BlockPos randPos = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
+						IBlockState randState = world.getBlockState(randPos);
+						
+						BlockPos above = randPos.up();
+						
+						if (randState.getBlock() == Blocks.DIRT
+								&& randState.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT
+								&& world.getLightFromNeighbors(above) >= 4
+								&& world.getBlockState(above).getLightOpacity(world, above) <= 2)
+						{
+							world.setBlockState(randPos, getDefaultState());
+						}
+					}
+				}
+			}
+		}
 	}
-
+	
 	@Override
-	public int getMetaFromState(IBlockState state)
+	public boolean canSustainPlant(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable)
 	{
-		return 0;
-	}
-
-	@Override
-	protected BlockStateContainer createBlockState()
-	{
-		return new BlockStateContainer(this, SNOWY);
+		EnumPlantType type = plantable.getPlantType(world, pos.offset(direction));
+		return type == SOIL_TYPE
+			|| type == EnumPlantType.Plains;
 	}
 }

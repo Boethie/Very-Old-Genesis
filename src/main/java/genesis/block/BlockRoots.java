@@ -33,6 +33,7 @@ public class BlockRoots extends BlockGenesis
 		
 		setDefaultState(blockState.getBaseState().withProperty(END, true));
 		
+		setHarvestLevel("axe", 0);
 		setHardness(0.5F);
 		FIRE.setFireInfo(this, 30, 100);
 		
@@ -54,6 +55,8 @@ public class BlockRoots extends BlockGenesis
 		
 		for (Block log : TREES.getBlocks(TreeBlocksAndItems.DEAD_LOG))
 			blockStateSupportList.addAll(log.getBlockState().getValidStates());
+	
+		blockStateSupportList.addAll(PROTOTAXITES_RHIZOMORPHS.getBlockState().getValidStates());
 
 		unInit = false;
 	}
