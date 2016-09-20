@@ -17,8 +17,8 @@ public class BiomeWoodlandsM extends BiomeWoodlands
 	@Override
 	protected void addDecorations()
 	{
-		addDecoration(new WorldGenBoulders(GenesisBlocks.RHYOLITE.getDefaultState(), 1, 0, 0).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.25F, 0.75F)), 0.035F);
-		addDecoration(new WorldGenBoulders(GenesisBlocks.DOLERITE.getDefaultState(), 1, 0, 0).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.25F, 0.75F)), 0.035F);
+		addDecoration(new WorldGenBoulders(GenesisBlocks.RHYOLITE.getDefaultState(), 1, 0, 0).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.25F, 0.75F)), 0.025F);
+		addDecoration(new WorldGenBoulders(GenesisBlocks.DOLERITE.getDefaultState(), 1, 0, 0).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.25F, 0.75F)), 0.025F);
 	}
 	
 	@Override
