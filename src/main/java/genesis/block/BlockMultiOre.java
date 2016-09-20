@@ -2,16 +2,18 @@ package genesis.block;
 
 import java.util.List;
 
-import genesis.combo.*;
-import genesis.combo.VariantsOfTypesCombo.*;
+import genesis.combo.ObjectType;
+import genesis.combo.VariantsOfTypesCombo;
+import genesis.combo.VariantsOfTypesCombo.BlockProperties;
 import genesis.combo.variant.IOreVariant;
 import genesis.combo.variant.PropertyIMetadata;
 import genesis.common.GenesisCreativeTabs;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.WorldUtils;
-import net.minecraft.block.*;
-import net.minecraft.block.properties.*;
-import net.minecraft.block.state.*;
+import net.minecraft.block.BlockOre;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
@@ -92,7 +94,7 @@ public class BlockMultiOre<V extends IOreVariant<V>> extends BlockOre
 	public float getBlockHardness(IBlockState state, World world, BlockPos pos)
 	{
 		IOreVariant<V> variant = getVariant(world, pos);
-		return variant != null ? variant.getHardness() : super.getBlockHardness(state, world, pos);
+		return variant != null ? variant.getHardness() : super.blockHardness;
 	}
 	
 	@Override
