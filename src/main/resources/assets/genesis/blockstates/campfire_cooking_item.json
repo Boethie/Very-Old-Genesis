@@ -142,7 +142,7 @@
 			{ "model": "genesis:campfire_red_clay_bucket", "y": 180 },
 			{ "model": "genesis:campfire_red_clay_bucket", "y": 270 }
 		],
-		// Dung bricks
+		// Bricks
 		"item=genesis__dung_herbivore": [
 			{ "model": "genesis:campfire_dung_brick", "y": 0, "textures": {"dung": "genesis:blocks/dung_block_herbivore"} },
 			{ "model": "genesis:campfire_dung_brick", "y": 180, "textures": {"dung": "genesis:blocks/dung_block_herbivore"} }
@@ -150,6 +150,10 @@
 		"item=genesis__dung_carnivore": [
 			{ "model": "genesis:campfire_dung_brick", "y": 0, "textures": {"dung": "genesis:blocks/dung_block_carnivore"} },
 			{ "model": "genesis:campfire_dung_brick", "y": 180, "textures": {"dung": "genesis:blocks/dung_block_carnivore"} }
+		],
+		"item=genesis__peat": [
+			{ "model": "genesis:campfire_peat_brick", "y": 0, "textures": {"peat": "genesis:blocks/peat_block"} },
+			{ "model": "genesis:campfire_peat_brick", "y": 180, "textures": {"peat": "genesis:blocks/peat_block"} }
 		],
 		// Piles
 		"item=genesis__lepacyclotes": [

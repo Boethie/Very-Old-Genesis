@@ -809,6 +809,9 @@ public final class GenesisRecipes
 						"CC",
 						'C', peatBrick);
 
+		TileEntityCampfire.registerAllowedOutput(peatBrick);
+		GameRegistry.addSmelting(peat, peatBrick, 0.3F);
+
 		// Smelting
 		for (EnumOre ore : GenesisBlocks.ORES.getSharedValidVariants(OreBlocks.ORE, OreBlocks.DROP))
 		{
@@ -818,7 +821,7 @@ public final class GenesisRecipes
 		}
 
 		GameRegistry.addSmelting(GenesisBlocks.ORES.getOreStack(EnumOre.MARCASITE), GenesisItems.NODULES.getStack(EnumNodule.MARCASITE), EnumOre.MARCASITE.getSmeltingExperience());
-
+		
 		// Food
 		for (EnumFood food : EnumFood.values())
 		{
