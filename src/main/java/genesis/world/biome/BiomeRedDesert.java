@@ -41,7 +41,7 @@ public class BiomeRedDesert extends BiomeGenesis
 		
 		addDecoration(new WorldGenSplash(GenesisBlocks.SILT.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT), GenesisBlocks.SILT.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.RED_SILT)).setPatchRadius(4), 7);
 		addDecoration(new WorldGenBoulders(GenesisBlocks.SILT.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT), 1, 0, 0).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.25F, 0.75F)), 0.2F);
-		addDecoration(new WorldGenPebbles().setWaterRequired(false), 3.5F);
+		addDecoration(new WorldGenPebbles().setWaterRequired(false), 3);
 		addDecoration(new WorldGenRoots(), 5);
 	}
 	
