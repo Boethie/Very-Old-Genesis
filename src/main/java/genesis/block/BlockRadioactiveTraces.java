@@ -18,12 +18,11 @@ import net.minecraft.world.World;
 import java.util.List;
 import java.util.Random;
 
-public class BlockRadioactiveGranite extends BlockGenesisRock
+public class BlockRadioactiveTraces extends BlockGenesisRock
 {
-	public BlockRadioactiveGranite()
+	public BlockRadioactiveTraces()
 	{
 		super(4.2F, 15);
-		setLightLevel(0.1F);
 		setTickRandomly(true);
 	}
 	

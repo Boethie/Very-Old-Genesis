@@ -66,7 +66,7 @@ public final class GenesisBlocks
 	/* Rocks */
 	public static final Block GRANITE = new BlockGenesisRock(2.1F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "granite");
 	public static final Block MOSSY_GRANITE = new BlockGenesisRock(2.1F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "mossyGranite");
-	public static final Block RADIOACTIVE_GRANITE = new BlockRadioactiveGranite().setUnlocalizedName(Unlocalized.ROCK + "radioactiveGranite");
+	public static final Block RADIOACTIVE_TRACES = new BlockRadioactiveTraces().setUnlocalizedName(Unlocalized.ROCK + "radioactiveTraces");
 	public static final Block RHYOLITE = new BlockGenesisRock(1.65F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "rhyolite");
 	public static final Block DOLERITE = new BlockGenesisRock(1.2F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "dolerite");
 	public static final VariantsCombo<EnumRubble, BlockRubble, ItemBlockMulti<EnumRubble>> RUBBLE =
@@ -256,7 +256,7 @@ public final class GenesisBlocks
 		// - Stone -
 		Genesis.proxy.registerBlock(GRANITE, name("granite"));
 		Genesis.proxy.registerBlock(MOSSY_GRANITE, name("mossy_granite"));
-		Genesis.proxy.registerBlock(RADIOACTIVE_GRANITE, name("radioactive_granite"));
+		Genesis.proxy.registerBlock(RADIOACTIVE_TRACES, name("radioactive_traces"));
 		Genesis.proxy.registerBlock(RHYOLITE, name("rhyolite"));
 		Genesis.proxy.registerBlock(DOLERITE, name("dolerite"));
 		RUBBLE.registerAll();

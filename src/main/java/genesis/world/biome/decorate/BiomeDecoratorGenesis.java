@@ -78,7 +78,7 @@ public class BiomeDecoratorGenesis extends BiomeDecorator
 	public void decorate(World world, Random rand, Biome biome, BlockPos chunkStart)
 	{
 		chunkPos = chunkStart;
-		radioactiveGen = new WorldGenMinableGenesis(GenesisBlocks.RADIOACTIVE_GRANITE.getDefaultState(), 4, 8);
+		radioactiveGen = new WorldGenMinableGenesis(GenesisBlocks.RADIOACTIVE_TRACES.getDefaultState(), 4, 8);
 		komatiiteGen = new WorldGenMinableGenesis(GenesisBlocks.KOMATIITE.getDefaultState(), 18, 36);
 		gneissGen = new WorldGenMinableGenesis(GenesisBlocks.GNEISS.getDefaultState(), 14, 28);
 		rhyoliteGen = new WorldGenMinableGenesis(GenesisBlocks.RHYOLITE.getDefaultState(), 10, 20);
