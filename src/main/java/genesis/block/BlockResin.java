@@ -5,6 +5,7 @@ import genesis.combo.variant.EnumMaterial;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.common.GenesisItems;
+import genesis.common.sounds.GenesisSoundTypes;
 import genesis.util.AABBUtils;
 import genesis.util.BlockStateToMetadata;
 import net.minecraft.block.Block;
@@ -56,7 +57,7 @@ public class BlockResin extends BlockHorizontal implements IGrowable
 	public BlockResin()
 	{
 		super(Material.WOOD);
-		setSoundType(SoundType.WOOD);
+		setSoundType(GenesisSoundTypes.RESIN);
 		setTickRandomly(true);
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(LAYERS, 3));

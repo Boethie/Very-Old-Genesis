@@ -62,6 +62,12 @@ public class GenesisSoundEvents
 	public static final SoundEvent BLOCK_ROOTS_PLACE = createSoundEvent("block.roots.place");
 	public static final SoundEvent BLOCK_ROOTS_HIT = createSoundEvent("block.roots.hit");
 	public static final SoundEvent BLOCK_ROOTS_FALL = createSoundEvent("block.roots.fall");
+	
+	public static final SoundEvent BLOCK_RESIN_BREAK = createSoundEvent("block.resin.break");
+	public static final SoundEvent BLOCK_RESIN_STEP = createSoundEvent("block.resin.step");
+	public static final SoundEvent BLOCK_RESIN_PLACE = createSoundEvent("block.resin.place");
+	public static final SoundEvent BLOCK_RESIN_HIT = createSoundEvent("block.resin.hit");
+	public static final SoundEvent BLOCK_RESIN_FALL = createSoundEvent("block.resin.fall");
 
 	public static final SoundEvent BLOCK_CORAL_BREAK = createSoundEvent("block.coral.break");
 	public static final SoundEvent BLOCK_CORAL_STEP = createSoundEvent("block.coral.step");

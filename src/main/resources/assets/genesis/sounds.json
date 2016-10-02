@@ -162,6 +162,43 @@
 		],
 		"subtitle": "subtitles.block.generic.fall"
 	},
+	"block.resin.break": {
+		"sounds": [
+			"genesis:dig/resin1",
+			"genesis:dig/resin2"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.resin.step": {
+		"sounds": [
+			"genesis:step/resin1",
+			"genesis:step/resin2",
+			"genesis:step/resin3",
+			"genesis:step/resin4"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
+	"block.resin.place": {
+		"sounds": [
+			"genesis:place/resin1",
+			"genesis:place/resin2"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.resin.hit": {
+		"sounds": [
+			"genesis:dig/resin1",
+			"genesis:dig/resin2"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.resin.fall": {
+		"sounds": [
+			"genesis:dig/resin1",
+			"genesis:dig/resin2"
+		],
+		"subtitle": "subtitles.block.generic.fall"
+	},
 	"block.dung.break": {
 		"sounds": [
 			"genesis:dig/dung1",

@@ -46,6 +46,12 @@ public final class GenesisSoundTypes
 			GenesisSoundEvents.BLOCK_ROOTS_PLACE,
 			GenesisSoundEvents.BLOCK_ROOTS_HIT,
 			GenesisSoundEvents.BLOCK_ROOTS_FALL);
+	public static final SoundType RESIN = new SoundType(1, 1,
+			GenesisSoundEvents.BLOCK_RESIN_BREAK,
+			GenesisSoundEvents.BLOCK_RESIN_STEP,
+			GenesisSoundEvents.BLOCK_RESIN_PLACE,
+			GenesisSoundEvents.BLOCK_RESIN_HIT,
+			GenesisSoundEvents.BLOCK_RESIN_FALL);
 	public static final SoundType CORAL = new SoundType(1, 1,
 			GenesisSoundEvents.BLOCK_CORAL_BREAK,
 			GenesisSoundEvents.BLOCK_CORAL_STEP,
