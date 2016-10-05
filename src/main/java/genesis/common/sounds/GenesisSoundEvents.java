@@ -135,6 +135,9 @@ public class GenesisSoundEvents
 	/* Player */
 	public static final SoundEvent PLAYER_KNAPPING_HIT = createSoundEvent("player.knapping.hit");
 
+	/* Portal */
+	public static final SoundEvent PORTAL_MENHIR_ACTIVATE = createSoundEvent("portal.glyph.activate");
+
 	/* Music */
 	public static final SoundEvent MUSIC_GENESIS = createSoundEvent("music.genesis");
 

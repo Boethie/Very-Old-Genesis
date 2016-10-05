@@ -9,6 +9,7 @@ import genesis.combo.*;
 import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.*;
 import genesis.common.*;
+import genesis.common.sounds.GenesisSoundEvents;
 import genesis.item.ItemBlockMulti;
 import genesis.portal.*;
 import genesis.util.*;
@@ -171,7 +172,9 @@ public class BlockMenhir extends BlockGenesis
 				&& held != null && menhir.getGlyph().isActivator(held))
 			{
 				ItemStack addStack;
-				
+
+				world.playSound(null, pos, GenesisSoundEvents.PORTAL_MENHIR_ACTIVATE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+
 				if (player.capabilities.isCreativeMode)
 				{
 					addStack = held.copy();

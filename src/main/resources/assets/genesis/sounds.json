@@ -724,5 +724,10 @@
 		"sounds": [
 			"genesis:portal/exit"
 		]
+	},
+	"portal.glyph.activate": {
+		"sounds": [
+			"genesis:portal/glyph_activate"
+		]
 	}
 }
