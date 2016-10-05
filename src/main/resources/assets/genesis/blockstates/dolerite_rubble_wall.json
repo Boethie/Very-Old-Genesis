@@ -4,7 +4,6 @@
 		"textures": {
 			"wall": "genesis:blocks/rubble_dolerite"
 		},
-		"model": "wall_post",
 		"uvlock": true
 	},
 	"variants": {
@@ -23,6 +22,10 @@
 		"west": {
 			"true": { "submodel": "wall_side", "y": 270 },
 			"false": {}
-		}
+		},
+        "up": {
+            "true": { "submodel": "wall_post" },
+            "false": {}
+        }
 	}
 }

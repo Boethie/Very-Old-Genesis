@@ -1,20 +1,23 @@
 package genesis.block;
 
-import java.util.List;
-
 import genesis.common.GenesisCreativeTabs;
 import genesis.util.AABBUtils;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.*;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.*;
-import net.minecraft.world.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+
+import java.util.List;
 
 public class BlockGenesisWall extends BlockWall
 {
@@ -33,14 +36,15 @@ public class BlockGenesisWall extends BlockWall
 		this.sideRadius = sideRadius;
 		this.sideHeight = sideHeight;
 		this.fakeHeight = fakeHeight;
-		
-		this.blockState = new BlockStateContainer(this, NORTH, EAST, SOUTH, WEST);
+
+		this.blockState = new BlockStateContainer(this, NORTH, EAST, SOUTH, WEST, UP);
 		setDefaultState(getBlockState().getBaseState()
 				.withProperty(NORTH, false)
 				.withProperty(EAST, false)
 				.withProperty(SOUTH, false)
-				.withProperty(WEST, false));
-		
+				.withProperty(WEST, false)
+				.withProperty(UP, false));
+
 		setCreativeTab(GenesisCreativeTabs.BLOCK);
 	}
 	
@@ -181,15 +185,6 @@ public class BlockGenesisWall extends BlockWall
 	}
 	
 	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos)
-	{
-		return state.withProperty(NORTH, canConnectTo(world, pos, EnumFacing.NORTH))
-					.withProperty(EAST, canConnectTo(world, pos, EnumFacing.EAST))
-					.withProperty(SOUTH, canConnectTo(world, pos, EnumFacing.SOUTH))
-					.withProperty(WEST, canConnectTo(world, pos, EnumFacing.WEST));
-	}
-	
-	@Override
 	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side)
 	{
 		BlockPos sidePos = pos.offset(side);
@@ -211,6 +206,12 @@ public class BlockGenesisWall extends BlockWall
 			return false;
 		}
 		
+		return true;
+	}
+
+	@Override
+	public boolean canPlaceTorchOnTop(IBlockState state, IBlockAccess world, BlockPos pos)
+	{
 		return true;
 	}
 }

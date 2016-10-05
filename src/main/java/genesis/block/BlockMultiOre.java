@@ -1,7 +1,5 @@
 package genesis.block;
 
-import java.util.List;
-
 import genesis.combo.ObjectType;
 import genesis.combo.VariantsOfTypesCombo;
 import genesis.combo.VariantsOfTypesCombo.BlockProperties;
@@ -19,9 +17,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.Explosion;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.world.*;
+
+import java.util.List;
 
 public class BlockMultiOre<V extends IOreVariant<V>> extends BlockOre
 {
@@ -39,7 +37,7 @@ public class BlockMultiOre<V extends IOreVariant<V>> extends BlockOre
 		this.variants = variants;
 		this.owner = owner;
 		this.type = type;
-		
+
 		variantProp = new PropertyIMetadata<>("variant", variants, variantClass);
 		blockState = new BlockStateContainer(this, variantProp);
 		setDefaultState(blockState.getBaseState());
@@ -126,5 +124,11 @@ public class BlockMultiOre<V extends IOreVariant<V>> extends BlockOre
 	public int damageDropped(IBlockState state)
 	{
 		return owner.getItemMetadata(type, state.getValue(variantProp));
+	}
+
+	@Override
+	public ItemStack getItem(World world, BlockPos pos, IBlockState state)
+	{
+		return new ItemStack(this, 1, this.damageDropped(state));
 	}
 }

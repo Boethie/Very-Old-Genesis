@@ -25,6 +25,10 @@
 		"west": {
 			"true": {"submodel": "genesis:wattle_and_daub/side_connect", "y": 270},
 			"false": {"submodel": "genesis:wattle_and_daub/side", "y": 270}
+		},
+		"up": {
+			"true": {},
+			"false": {}
 		}
 	}
 }

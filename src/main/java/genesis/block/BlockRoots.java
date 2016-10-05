@@ -3,15 +3,18 @@ package genesis.block;
 import genesis.combo.TreeBlocksAndItems;
 import genesis.common.GenesisCreativeTabs;
 import genesis.common.sounds.GenesisSoundTypes;
-import java.util.ArrayList;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.state.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.world.*;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static genesis.common.GenesisBlocks.*;
@@ -144,16 +147,13 @@ public class BlockRoots extends BlockGenesis
 	}
 
 	@Override
-	public void onNeighborChange(IBlockAccess blockAccess, BlockPos pos, BlockPos neighbor)
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block)
 	{
-		if (blockAccess instanceof World)
-		{
-			World world = (World) blockAccess;
+		super.neighborChanged(state, world, pos, block);
 
-			if (!canBlockStay(world, pos))
-			{
-				world.destroyBlock(pos, true);
-			}
+		if (!canBlockStay(world, pos))
+		{
+			world.destroyBlock(pos, true);
 		}
 	}
 }

@@ -1,28 +1,27 @@
 package genesis.combo;
 
+import com.google.common.collect.*;
 import genesis.client.GenesisClient;
 import genesis.combo.variant.IMetadata;
-import genesis.common.*;
+import genesis.common.Genesis;
 import genesis.util.*;
 import genesis.util.Constants.Unlocalized;
 import genesis.util.functional.ClientFunction;
+import net.minecraft.block.Block;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.lang.annotation.*;
 import java.lang.reflect.*;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import org.apache.commons.lang3.ArrayUtils;
-
-import com.google.common.collect.*;
-
-import net.minecraft.block.*;
-import net.minecraft.block.properties.*;
-import net.minecraft.block.state.*;
-import net.minecraft.item.*;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.*;
 
 /**
  * Used to create Blocks/Items with variants of ObjectTypes.
@@ -447,6 +446,7 @@ public class VariantsOfTypesCombo<V extends IMetadata<V>>
 			if (block != null)
 			{
 				Genesis.proxy.registerBlock(block, item, registryName, false);
+				item.setHasSubtypes(true);
 				block.setUnlocalizedName(unlocName);
 
 				// Register resource locations for the block.

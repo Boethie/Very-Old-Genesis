@@ -1,9 +1,5 @@
 package genesis.block;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-
 import genesis.combo.ObjectType;
 import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.VariantsOfTypesCombo.BlockProperties;
@@ -12,7 +8,7 @@ import genesis.combo.variant.PropertyIMetadata;
 import genesis.common.sounds.GenesisSoundTypes;
 import genesis.item.ItemBlockMulti;
 import genesis.util.BlockStateToMetadata;
-
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
@@ -22,13 +18,16 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.pipeline.BlockInfo;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.*;
 
 public class BlockHangingFruit extends BlockGenesis
 {
@@ -89,16 +88,10 @@ public class BlockHangingFruit extends BlockGenesis
 	}
 
 	@Override
-	public void onNeighborChange(IBlockAccess blockAccess, BlockPos pos, BlockPos neighbor)
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block)
 	{
-		super.onNeighborChange(blockAccess, pos, neighbor);
-
-		if (blockAccess instanceof World)
-		{
-			World world = (World) blockAccess;
-
-			checkAndDropBlock(world, pos, world.getBlockState(pos));
-		}
+		super.neighborChanged(state, world, pos, block);
+		this.checkAndDropBlock(world, pos, state);
 	}
 
 	@Override

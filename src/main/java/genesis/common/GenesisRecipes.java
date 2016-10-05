@@ -1,33 +1,35 @@
 package genesis.common;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.tuple.Pair;
-
-import com.google.common.collect.*;
-
-import genesis.block.tileentity.*;
-import genesis.block.tileentity.crafting.*;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+import genesis.block.tileentity.TileEntityCampfire;
+import genesis.block.tileentity.crafting.CookingPotRecipeRegistry;
+import genesis.block.tileentity.crafting.KnappingRecipeRegistry;
 import genesis.combo.*;
 import genesis.combo.ItemsCeramicBowls.EnumCeramicBowls;
 import genesis.combo.ToolItems.ToolObjectType;
 import genesis.combo.variant.*;
 import genesis.combo.variant.MultiMetadataList.MultiMetadata;
 import genesis.item.*;
-import genesis.recipes.*;
+import genesis.recipes.DyeCookingRecipe;
+import genesis.recipes.SubstituteRecipe;
 import genesis.util.*;
 import genesis.util.render.*;
-
 import net.minecraft.block.Block;
-import net.minecraft.init.*;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import net.minecraftforge.oredict.*;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 public final class GenesisRecipes
 {
@@ -419,8 +421,8 @@ public final class GenesisRecipes
 		for (EnumTree variant : GenesisBlocks.TREES.getSharedValidVariants(TreeBlocksAndItems.BRANCH, TreeBlocksAndItems.BILLET))
 		{
 			GameRegistry.addShapelessRecipe(
-					GenesisBlocks.TREES.getStack(TreeBlocksAndItems.BRANCH, variant, 1),
-					GenesisBlocks.TREES.getStack(TreeBlocksAndItems.BILLET, variant, 1));
+					GenesisBlocks.TREES.getStack(TreeBlocksAndItems.BILLET, variant, 1),
+					GenesisBlocks.TREES.getStack(TreeBlocksAndItems.BRANCH, variant, 1));
 		}
 
 		// Recipes involving billets.
