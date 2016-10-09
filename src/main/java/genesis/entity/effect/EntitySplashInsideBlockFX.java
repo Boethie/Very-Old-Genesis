@@ -8,26 +8,26 @@ public class EntitySplashInsideBlockFX extends Particle
 {
 	protected static final DoubleRange RANGE_XZ = DoubleRange.create(-0.06, 0.06);
 	protected static final DoubleRange RANGE_Y = DoubleRange.create(0.1, 0.3);
-	
+
 	public static class Factory implements IParticleFactory
 	{
 		@Override
-		public EntitySplashInsideBlockFX getEntityFX(int particleID, World world, double x, double y, double z,
+		public EntitySplashInsideBlockFX createParticle(int particleID, World world, double x, double y, double z,
 				double xVel, double yVel, double zVel, int... params)
 		{
 			return new EntitySplashInsideBlockFX(world, x, y, z, xVel, yVel, zVel);
 		}
 	}
-	
+
 	public EntitySplashInsideBlockFX(World world, double x, double y, double z,
 			double xVel, double yVel, double zVel)
 	{
 		super(world, x, y, z, xVel, yVel, zVel);
-		
+
 		setParticleTextureIndex(19 + rand.nextInt(4));
-		
+
 		particleGravity = 1.5F;
-		
+
 		// Keep EntityFX's random velocity if no velocity is specified.
 		if (xVel != 0 || yVel != 0 || zVel != 0)
 		{
@@ -42,12 +42,12 @@ public class EntitySplashInsideBlockFX extends Particle
 			motionZ = RANGE_XZ.get(rand);
 		}
 	}
-	
+
 	@Override
 	public void onUpdate()
 	{
 		super.onUpdate();
-		
+
 		if (isCollided)
 		{
 			setExpired();
