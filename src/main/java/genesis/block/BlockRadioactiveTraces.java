@@ -1,5 +1,6 @@
 package genesis.block;
 
+import genesis.client.GenesisParticles;
 import genesis.common.GenesisPotions;
 import genesis.util.AABBUtils;
 import genesis.util.FacingHelpers;
@@ -25,7 +26,7 @@ public class BlockRadioactiveTraces extends BlockGenesisRock
 		super(4.2F, 15);
 		setTickRandomly(true);
 	}
-	
+
 	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
 	{
@@ -33,7 +34,7 @@ public class BlockRadioactiveTraces extends BlockGenesisRock
 		{
 			AxisAlignedBB bb = AABBUtils.create(pos).expandXyz(3);
 			List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, bb);
-			
+
 			for(EntityLivingBase entity : entities)
 			{
 				int duration = rand.nextInt(10) == 0 ? MathHelper.getRandomIntegerInRange(rand, 200, 400) : 200;
@@ -42,13 +43,13 @@ public class BlockRadioactiveTraces extends BlockGenesisRock
 			}
 		}
 	}
-	
+
 	@Override
 	public int quantityDropped(Random random)
 	{
 		return 0;
 	}
-	
+
 	@Override
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand)
 	{
@@ -57,12 +58,12 @@ public class BlockRadioactiveTraces extends BlockGenesisRock
 			spawnParticles(world, pos, rand, 1);
 		}
 	}
-	
+
 	private static void spawnParticles(World world, BlockPos pos, Random rand, int count)
 	{
 		Vec3d center = new Vec3d(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 		double outset = 0.5625;
-		
+
 		for (EnumFacing face : EnumFacing.VALUES)
 		{
 			if (!world.getBlockState(pos.offset(face)).isOpaqueCube())
@@ -71,25 +72,25 @@ public class BlockRadioactiveTraces extends BlockGenesisRock
 						.add(new Vec3d(face.getDirectionVec()).scale(outset));
 				Vec3d u = new Vec3d(FacingHelpers.getU(face));
 				Vec3d v = new Vec3d(FacingHelpers.getV(face));
-				
+
 				for (int i = 0; i < count; i++)
 				{
 					Vec3d particle = sideCoord
 							.add(u.scale(rand.nextDouble() - 0.5))
 							.add(v.scale(rand.nextDouble() - 0.5));
-					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, particle.xCoord, particle.yCoord, particle.zCoord, 0, 0, 0);
+					world.spawnParticle(GenesisParticles.RADIOACTIVITY, particle.xCoord, particle.yCoord, particle.zCoord, 0, 0, 0);
 				}
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean addDestroyEffects(World world, BlockPos pos, ParticleManager particleManager)
 	{
 		spawnParticles(world, pos, world.rand, 2);
 		return false;
 	}
-	
+
 	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state)
 	{
@@ -97,7 +98,7 @@ public class BlockRadioactiveTraces extends BlockGenesisRock
 		{
 			AxisAlignedBB bb = AABBUtils.create(pos).expandXyz(5);
 			List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, bb);
-			
+
 			for (EntityLivingBase entity : entities)
 			{
 				int duration = MathHelper.getRandomIntegerInRange(world.rand, 250, 400);
@@ -106,13 +107,13 @@ public class BlockRadioactiveTraces extends BlockGenesisRock
 			}
 		}
 	}
-	
+
 	@Override
 	public int tickRate(World world)
 	{
 		return 5;
 	}
-	
+
 	@Override
 	public boolean requiresUpdates()
 	{
