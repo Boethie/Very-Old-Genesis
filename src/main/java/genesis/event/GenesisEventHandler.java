@@ -57,14 +57,14 @@ public class GenesisEventHandler
 
 		if (entity != null && !entity.worldObj.isRemote)
 		{
-			if (entity.isPotionActive(GenesisPotions.RADIATION))
+			PotionEffect effect = entity.getActivePotionEffect(GenesisPotions.RADIATION);
+			if (effect != null)
 			{
-				PotionEffect effect = entity.getActivePotionEffect(GenesisPotions.RADIATION);
-				if (effect != null) {
-					int timeLeft = effect.getDuration();
+				int timeLeft = effect.getDuration();
 
+				entity.addPotionEffect(new PotionEffect(MobEffects.POISON, timeLeft, 0, true, false));
+				if (effect.getAmplifier() >= 5) {
 					entity.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, timeLeft, 0, true, false));
-					entity.addPotionEffect(new PotionEffect(MobEffects.POISON, timeLeft, 0, true, false));
 				}
 			}
 		}

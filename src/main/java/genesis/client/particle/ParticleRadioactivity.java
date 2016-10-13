@@ -9,7 +9,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 /** A particle emitted by Radioactive Traces.
  *
- * Opacity is random 0.1-0.2.
+ * Opacity is random 0.325-0.425.
  *
  * Mostly identical to ParticleSmokeNormal barring the radioactive-green colour and transparency.
  */

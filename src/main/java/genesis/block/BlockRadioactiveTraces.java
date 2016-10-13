@@ -9,7 +9,6 @@ import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -32,14 +31,21 @@ public class BlockRadioactiveTraces extends BlockGenesisRock
 	{
 		if (!world.isRemote)
 		{
-			AxisAlignedBB bb = AABBUtils.create(pos).expandXyz(3);
+			AxisAlignedBB bb = AABBUtils.create(pos).expandXyz(2);
 			List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, bb);
 
 			for(EntityLivingBase entity : entities)
 			{
-				int duration = rand.nextInt(10) == 0 ? MathHelper.getRandomIntegerInRange(rand, 200, 400) : 200;
-				int amplifier = rand.nextInt(20) == 0 ? 1 : 0;
-				entity.addPotionEffect(new PotionEffect(GenesisPotions.RADIATION, duration, amplifier));
+				PotionEffect activeEffect = entity.getActivePotionEffect(GenesisPotions.RADIATION);
+				if (activeEffect != null) {
+					int amplifier = activeEffect.getAmplifier();
+					if(amplifier < 5) {
+						entity.addPotionEffect(new PotionEffect(GenesisPotions.RADIATION, activeEffect.getDuration(), amplifier + 1));
+					}
+				} else {
+					int duration = rand.nextInt(10) == 0 ? MathHelper.getRandomIntegerInRange(rand, 200, 400) : 200;
+					entity.addPotionEffect(new PotionEffect(GenesisPotions.RADIATION, duration, 0));
+				}
 			}
 		}
 	}
@@ -102,8 +108,7 @@ public class BlockRadioactiveTraces extends BlockGenesisRock
 			for (EntityLivingBase entity : entities)
 			{
 				int duration = MathHelper.getRandomIntegerInRange(world.rand, 250, 400);
-				int amplifier = 1;
-				entity.addPotionEffect(new PotionEffect(GenesisPotions.RADIATION, duration, amplifier));
+				entity.addPotionEffect(new PotionEffect(GenesisPotions.RADIATION, duration, 5));
 			}
 		}
 	}
