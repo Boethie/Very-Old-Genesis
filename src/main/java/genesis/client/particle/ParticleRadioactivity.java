@@ -22,11 +22,11 @@ public class ParticleRadioactivity extends ParticleSmokeNormal {
 	protected ParticleRadioactivity(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i46348_8_, double p_i46348_10_, double p_i46348_12_, float p_i46348_14_)
 	{
 		super(worldIn, xCoordIn, yCoordIn, zCoordIn, p_i46348_8_, p_i46348_10_, p_i46348_12_, p_i46348_14_);
-		// Colour provided by Anaghold
+
 		this.particleRed = 108f / 255f;
 		this.particleGreen = 114f / 255f;
 		this.particleBlue = 102f / 255f;
-		this.particleAlpha = 0.1f + (float)(Math.random() * 0.1);
+		this.particleAlpha = 0.325f + (float)(Math.random() * 0.1);
 	}
 
 	@SideOnly(Side.CLIENT)
