@@ -16,7 +16,7 @@ public class GenesisPotions
 	 *         This is incremented each time the potion effect applies, eventually intensifying up to 5.
 	 *   5   - the player destroyed a radioactive trace, also causing nausea
 	 */
-	public static final Potion RADIATION = new PotionGenesis(true, 0x00FF00)
+	public static final Potion RADIATION = new PotionGenesis(true, 0x6C7364)
 			.setIcon(new ResourceLocation(Constants.MOD_ID, "textures/gui/radiation.png"))
 			.setEffectiveness(0.25D)
 			.setPotionName(Unlocalized.EFFECT + "radiation");
