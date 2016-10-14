@@ -1,7 +1,6 @@
 {
-	"parent": "genesis:block/leaves_flowers",
+	"parent": "block/leaves",
 	"textures": {
-		"all": "genesis:blocks/leaves_archaeanthus",
-		"flowers": "genesis:blocks/flowers_archaeanthus_0"
+		"all": "genesis:blocks/leaves_archaeanthus"
 	}
 }

@@ -1,15 +1,8 @@
 {
-	"defaults": {
-		"model": "genesis:archaeanthus_leaves",
-		"textures": {
-			"all": "genesis:blocks/leaves_archaeanthus",
-			"flowers": "genesis:blocks/flowers_archaeanthus_0"
-		}
-	},
 	"variants": {
 		"normal": [
-			{ "model": "genesis:archaeanthus_leaves", "textures": { "flowers": "genesis:blocks/flowers_archaeanthus_0" } },
-			{ "model": "genesis:archaeanthus_leaves", "textures": { "flowers": "genesis:blocks/flowers_archaeanthus_1" } }
+			{ "model": "genesis:archaeanthus_leaves", "weight": 1 },
+			{ "model": "genesis:archaeanthus_leaves_flowers", "weight": 1 }
 		]
 	}
 }
