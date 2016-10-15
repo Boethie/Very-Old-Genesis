@@ -2,6 +2,7 @@ package genesis.world.gen.feature;
 
 import genesis.combo.variant.EnumTree;
 import genesis.util.random.i.IntRange;
+import net.minecraft.block.BlockLog;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
@@ -94,7 +95,7 @@ public class WorldGenTreeCordaites extends WorldGenTreeBase
 			if (i > 0 && rand.nextInt(2) == 0)
 				++spread;
 
-			setBlockInWorld(world, pos.add(spread * dirX, -i, spread * dirZ), wood, true);
+			setBlockInWorld(world, pos.add(spread * dirX, -i, spread * dirZ), wood.withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.NONE), true);
 		}
 	}
 
