@@ -29,7 +29,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 minecraft {
-    version = "1.10.2-12.18.2.2098"
+    version = "1.10.2-12.18.2.2107"
     runDir = "run"
     mappings = "snapshot_20161009"
     replaceIn "Constants.java"
