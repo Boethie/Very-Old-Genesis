@@ -183,7 +183,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 
 		if (pot != null)
 		{
-			ItemStackKey key = getStackKey(pot.getContents());
+			ItemStackKey key = getStackKey(pot.getFlowerItemStack());
 
 			if (stacksToNames.containsKey(key))
 			{
@@ -236,7 +236,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 		{
 			TileEntityGenesisFlowerPot pot = getOrCreateTileEntity(world, pos);
 
-			if (pot.getContents() != null)
+			if (pot.getFlowerItemStack() != null)
 				return false;
 
 			ItemStack potStack;
@@ -251,7 +251,7 @@ public class BlockGenesisFlowerPot extends BlockFlowerPot
 				potStack = heldStack.splitStack(1);
 			}
 
-			pot.setContents(potStack);
+			pot.setFlowerPotData(potStack.getItem(), potStack.getItemDamage());
 			return true;
 		}
 
