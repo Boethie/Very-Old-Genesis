@@ -700,6 +700,10 @@
 				"stream": true
 			},
 			{
+				"name": "genesis:music/prelude_of_discovery",
+				"stream": true
+			},
+			{
 				"name": "genesis:music/lost_land",
 				"stream": true
 			}
