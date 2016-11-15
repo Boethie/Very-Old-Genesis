@@ -1,4 +1,4 @@
-package genesis.world.gen.structure;
+package genesis.world.iworldgenerators;
 
 import java.util.List;
 import java.util.Random;
@@ -7,8 +7,11 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.chunk.IChunkGenerator;
+import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraftforge.fml.common.IWorldGenerator;
 
-public abstract class WorldGenStructureHelper
+public abstract class WorldGenStructureBase implements IWorldGenerator
 {
 	protected int rarity = 3;
 	
@@ -16,8 +19,19 @@ public abstract class WorldGenStructureHelper
 	public abstract GenerationType getGenerationType();
 	protected abstract boolean doGenerate(World world, Random rand, BlockPos pos);
 	
+	@Override
+	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider)
+	{
+		BlockPos pos = new BlockPos(chunkX * 16, random.nextInt(254), chunkZ * 16);
+		
+		generate(world, random, pos);
+	}
+	
 	protected boolean generate(World world, Random rand, BlockPos pos)
 	{
+		if (!getAllowedBiomes().contains(world.getBiome(pos)))
+			return false;
+		
 		switch (getGenerationType())
 		{
 		case FINDGROUND:
