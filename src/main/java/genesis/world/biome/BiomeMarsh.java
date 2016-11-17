@@ -22,11 +22,11 @@ public class BiomeMarsh extends BiomeGenesis
 		super(properties);
 		this.topBlock = GenesisBlocks.PROTOTAXITES_RHIZOMORPHS.getDefaultState();
 		
-		getDecorator().setGrassCount(7);
+		getDecorator().setGrassCount(14);
 		addGrass(WorldGenPlant.create(PlantBlocks.PLANT, EnumPlant.ASTEROXYLON).setPatchCount(5), 1);
 		
-		getDecorator().setFlowerCount(7);
-		addFlower(WorldGenPlant.create(GenesisBlocks.PLANTS, PlantBlocks.DOUBLE_PLANT, EnumPlant.ASTEROXYLON), 5);
+		getDecorator().setFlowerCount(13);
+		addFlower(WorldGenPlant.create(GenesisBlocks.PLANTS, PlantBlocks.DOUBLE_PLANT, EnumPlant.ASTEROXYLON).setPatchCount(5), 7);
 		addFlower(WorldGenPlant.create(EnumPlant.RHYNIA).setPatchCount(4), 6);
 		addFlower(WorldGenPlant.create(EnumPlant.NOTHIA).setPatchCount(4), 5);
 		addFlower(WorldGenPlant.create(EnumPlant.SCIADOPHYTON).setPatchCount(4), 3);
@@ -34,14 +34,14 @@ public class BiomeMarsh extends BiomeGenesis
 		addFlower(WorldGenPlant.create(EnumPlant.BARAGWANATHIA).setPatchCount(4), 1);
 		addFlower(WorldGenPlant.create(EnumPlant.COOKSONIA).setPatchCount(4), 1);
 		
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.PROTOTAXITES).setPatchCount(3), 0.142F);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.PROTOTAXITES).setPatchCount(3), 0.242F);
 		addDecoration(WorldGenCircleReplacement.getPeatGen(), 6.75F);
 	}
 	
 	@Override
 	public float getFogDensity()
 	{
-		return 0.35F;
+		return 0.45F;
 	}
 	
 	@Override
