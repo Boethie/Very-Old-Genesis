@@ -51,8 +51,8 @@ public class WorldGenStructureHelper
 	
 	public enum StructureType
 	{
-		HUT1("Hut1", null, 6, 7, 8, new Mirror[] {Mirror.NONE}, new Rotation[] {Rotation.NONE}, null),
-		METASEQUOIA_HOUSE("Metasequoia_House", EnumFacing.DOWN, 7, 6, 9, new Mirror[] {Mirror.NONE}, new Rotation[] {Rotation.NONE}, new Vec3d(-3, 0, 3))
+		HUT1("hut1", null, 6, 7, 8, new Mirror[] {Mirror.NONE}, new Rotation[] {Rotation.NONE}, null),
+		METASEQUOIA_HOUSE("metasequoia_house", EnumFacing.DOWN, 7, 6, 9, new Mirror[] {Mirror.NONE}, new Rotation[] {Rotation.NONE}, new Vec3d(-3, 0, 3))
 		
 		;
 		

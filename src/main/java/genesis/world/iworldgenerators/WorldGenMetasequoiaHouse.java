@@ -14,13 +14,18 @@ import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
 public class WorldGenMetasequoiaHouse extends WorldGenStructureBase
 {
-	protected int rarity = 10;
+	@Override
+	public int getRarity()
+	{
+		return 30;
+	}
 	
 	@Override
 	public List<Biome> getAllowedBiomes()
@@ -66,6 +71,12 @@ public class WorldGenMetasequoiaHouse extends WorldGenStructureBase
 		if (secOffset != null)
 			curPos = curPos.add(secOffset.xCoord, secOffset.yCoord, secOffset.zCoord);
 		
+		generated = this.checkSurface(
+				world, 
+				curPos, 
+				(int)(MathHelper.abs_max(house.getBounds().xCoord, house.getBounds().zCoord) * 0.45D), 
+				(int)(house.getBounds().yCoord * 0.7D));
+		
 		generated = WorldGenStructureHelper.spawnStructure(
 				world, 
 				((offset == null)? curPos : curPos.offset(offset)), 
@@ -87,7 +98,7 @@ public class WorldGenMetasequoiaHouse extends WorldGenStructureBase
 				if (te instanceof TileEntityStorageBox)
 				{
 					TileEntityStorageBox storageBox = (TileEntityStorageBox)te;
-					storageBox.setLootTable(GenesisLoot.STORAGE_BOX_HUT, rand.nextLong());
+					storageBox.setLootTable(GenesisLoot.STORAGE_BOX_METASEQUOIA_HOUSE, rand.nextLong());
 				}
 			}
 		}

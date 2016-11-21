@@ -14,12 +14,18 @@ import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
 public class WorldGenHutNBT extends WorldGenStructureBase
 {
-	protected int rarity = 10;
+	@Override
+	public int getRarity()
+	{
+		return 30;
+	}
 	
 	@Override
 	public List<Biome> getAllowedBiomes()
@@ -62,15 +68,18 @@ public class WorldGenHutNBT extends WorldGenStructureBase
 		if (!world.isAirBlock(curPos))
 			curPos = curPos.up();
 		
-		/*
+		EnumFacing offset = hut.getOffse();
+		
+		Vec3d secOffset = hut.getSecondOffset();
+		
+		if (secOffset != null)
+			curPos = curPos.add(secOffset.xCoord, secOffset.yCoord, secOffset.zCoord);
+		
 		generated = this.checkSurface(
 				world, 
-				curPos.add(MathHelper.abs_max(hut.getBounds().xCoord, hut.getBounds().zCoord), 0, MathHelper.abs_max(hut.getBounds().xCoord, hut.getBounds().zCoord)), 
+				curPos, 
 				(int)(MathHelper.abs_max(hut.getBounds().xCoord, hut.getBounds().zCoord) * 0.45D), 
 				(int)(hut.getBounds().yCoord * 0.7D));
-		*/
-		
-		EnumFacing offset = hut.getOffse();
 		
 		generated = WorldGenStructureHelper.spawnStructure(
 				world, 
@@ -83,7 +92,7 @@ public class WorldGenHutNBT extends WorldGenStructureBase
 		{
 			BlockPos storagePos = this.findBlockInArea(world, curPos, 8, 5, GenesisBlocks.STORAGE_BOX.getDefaultState(), true);
 			
-			if (storagePos!= null)
+			if (storagePos != null)
 			{
 				TileEntity te = world.getTileEntity(storagePos);
 				

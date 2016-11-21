@@ -14,10 +14,9 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 
 public abstract class WorldGenStructureBase implements IWorldGenerator
 {
-	protected int rarity = 3;
-	
 	public abstract List<Biome> getAllowedBiomes();
 	public abstract List<Block> getSurfaceBlocks();
+	public abstract int getRarity();
 	public abstract GenerationType getGenerationType();
 	protected abstract boolean doGenerate(World world, Random rand, BlockPos pos);
 	
@@ -44,7 +43,7 @@ public abstract class WorldGenStructureBase implements IWorldGenerator
 			break;
 		}
 		
-		if (!(rand.nextInt(rarity) == 0))
+		if (!(rand.nextInt(getRarity()) == 0))
 			return false;
 		
 		if (!getSurfaceBlocks().contains(world.getBlockState(pos).getBlock()))
