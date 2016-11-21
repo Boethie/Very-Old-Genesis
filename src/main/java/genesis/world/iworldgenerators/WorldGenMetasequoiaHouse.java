@@ -62,7 +62,7 @@ public class WorldGenMetasequoiaHouse extends WorldGenStructureBase
 		boolean generated = false;
 		BlockPos curPos = pos;
 		
-		StructureType house = StructureType.METASEQUOIA_HOUSE;
+		StructureType house = StructureType.META_HOUSE;
 		
 		EnumFacing offset = house.getOffse();
 		
