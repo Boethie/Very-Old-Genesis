@@ -5,9 +5,9 @@ import java.util.List;
 
 import genesis.combo.variant.EnumMenhirActivator;
 import genesis.common.GenesisItems;
-import genesis.world.iworldgenerators.WorldGenHutNBT;
+import genesis.world.iworldgenerators.WorldGenHut;
 import genesis.world.iworldgenerators.WorldGenMenhirActivators;
-import genesis.world.iworldgenerators.WorldGenMetasequoiaHouse;
+import genesis.world.iworldgenerators.WorldGenMetaHouse;
 import genesis.world.iworldgenerators.WorldGenPortal;
 import genesis.world.iworldgenerators.WorldGenSmallCamp;
 import net.minecraft.item.ItemStack;
@@ -25,9 +25,9 @@ public class WorldGenerators
 	{
 		GameRegistry.registerWorldGenerator(new WorldGenPortal(), 0);
 		GameRegistry.registerWorldGenerator(new WorldGenMenhirActivators(), 0);
-		GameRegistry.registerWorldGenerator(new WorldGenHutNBT(), 0);
+		GameRegistry.registerWorldGenerator(new WorldGenHut(), 0);
 		GameRegistry.registerWorldGenerator(new WorldGenSmallCamp(), 0);
-		GameRegistry.registerWorldGenerator(new WorldGenMetasequoiaHouse(), 0);
+		GameRegistry.registerWorldGenerator(new WorldGenMetaHouse(), 0);
 		
 		for (EnumMenhirActivator activator : EnumMenhirActivator.values())
 		{

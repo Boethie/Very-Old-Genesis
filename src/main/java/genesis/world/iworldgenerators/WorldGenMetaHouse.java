@@ -19,12 +19,12 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
-public class WorldGenHutNBT extends WorldGenStructureBase
+public class WorldGenMetaHouse extends WorldGenStructureBase
 {
 	@Override
 	public int getRarity()
 	{
-		return 30;
+		return 81;
 	}
 	
 	@Override
@@ -32,10 +32,8 @@ public class WorldGenHutNBT extends WorldGenStructureBase
 	{
 		List<Biome> biomes = new ArrayList<Biome>();
 		
-		biomes.add(GenesisBiomes.rainforest);
-		biomes.add(GenesisBiomes.rainforestHills);
-		biomes.add(GenesisBiomes.rainforestIslands);
-		biomes.add(GenesisBiomes.rainforestM);
+		biomes.add(GenesisBiomes.metaForest);
+		biomes.add(GenesisBiomes.metaForestM);
 		
 		return biomes;
 	}
@@ -63,14 +61,11 @@ public class WorldGenHutNBT extends WorldGenStructureBase
 		boolean generated = false;
 		BlockPos curPos = pos;
 		
-		StructureType hut = StructureType.HUT1;
+		StructureType house = StructureType.META_HOUSE;
 		
-		if (!world.isAirBlock(curPos))
-			curPos = curPos.up();
+		EnumFacing offset = house.getOffse();
 		
-		EnumFacing offset = hut.getOffse();
-		
-		Vec3d secOffset = hut.getSecondOffset();
+		Vec3d secOffset = house.getSecondOffset();
 		
 		if (secOffset != null)
 			curPos = curPos.add(secOffset.xCoord, secOffset.yCoord, secOffset.zCoord);
@@ -78,28 +73,31 @@ public class WorldGenHutNBT extends WorldGenStructureBase
 		generated = this.checkSurface(
 				world, 
 				curPos, 
-				(int)(MathHelper.abs_max(hut.getBounds().xCoord, hut.getBounds().zCoord) * 0.45D), 
-				(int)(hut.getBounds().yCoord * 0.7D));
+				(int)(MathHelper.abs_max(house.getBounds().xCoord, house.getBounds().zCoord) * 0.45D), 
+				(int)(house.getBounds().yCoord * 0.7D));
 		
 		generated = WorldGenStructureHelper.spawnStructure(
 				world, 
 				((offset == null)? curPos : curPos.offset(offset)), 
-				hut,
-				hut.getMirror()[rand.nextInt(hut.getMirror().length)], 
-				hut.getRotation()[rand.nextInt(hut.getRotation().length)]);
+				house,
+				house.getMirror()[rand.nextInt(house.getMirror().length)], 
+				house.getRotation()[rand.nextInt(house.getRotation().length)]);
+		
+		if (world.isAirBlock(curPos.up()))
+			curPos = curPos.down();
 		
 		if (generated)
 		{
 			BlockPos storagePos = this.findBlockInArea(world, curPos, 8, 5, GenesisBlocks.STORAGE_BOX.getDefaultState(), true);
 			
-			if (storagePos != null)
+			if (storagePos!= null)
 			{
 				TileEntity te = world.getTileEntity(storagePos);
 				
 				if (te instanceof TileEntityStorageBox)
 				{
 					TileEntityStorageBox storageBox = (TileEntityStorageBox)te;
-					storageBox.setLootTable(GenesisLoot.STORAGE_BOX_HUT, rand.nextLong());
+					storageBox.setLootTable(GenesisLoot.STORAGE_BOX_META_HOUSE, rand.nextLong());
 				}
 			}
 		}

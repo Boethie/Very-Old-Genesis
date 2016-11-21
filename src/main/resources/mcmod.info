@@ -8,7 +8,7 @@
 	"url": "https://github.com/WinternestStudios/Genesis",
 	"updateUrl": "",
 	"authorList": ["Anaghold"],
-	"credits": "Anaghold, MrIbby, Zaggy1024, WinterGrave, Vorquel, KdotJPG, nabijaczleweli, Fararise, tdriling, PixelTrixel, Orthonga, Tjardo, Sn0w",
+	"credits": "Anaghold, MrIbby, Zaggy1024, WinterGrave, Vorquel, KdotJPG, Fararise, tdriling, PixelTrixel, Orthonga, Tjardo, Sn0w",
 	"logoFile": "assets/genesis/textures/gui/logo.png",
 	"screenshots": [],
 	"requiredMods": ["Forge"],

@@ -1,142 +1,108 @@
 package genesis.world.iworldgenerators;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
-import genesis.block.tileentity.BlockRack;
-import genesis.block.tileentity.TileEntityRack;
 import genesis.block.tileentity.TileEntityStorageBox;
-import genesis.common.Genesis;
+import genesis.common.GenesisBiomes;
 import genesis.common.GenesisBlocks;
-import genesis.common.GenesisConfig;
-import genesis.common.GenesisDimensions;
 import genesis.common.GenesisLoot;
-import genesis.world.biome.BiomeRainforest;
-import net.minecraft.block.BlockLadder;
-import net.minecraft.block.state.IBlockState;
+import genesis.world.iworldgenerators.WorldGenStructureHelper.StructureType;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.IChunkGenerator;
-import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraftforge.fml.common.IWorldGenerator;
+import net.minecraft.world.biome.Biome;
 
-public class WorldGenHut implements IWorldGenerator {
-
+public class WorldGenHut extends WorldGenStructureBase
+{
 	@Override
-	public void generate(Random random, int chunkX, int chunkZ, World world,
-			IChunkGenerator chunkGenerator, IChunkProvider chunkProvider)
+	public int getRarity()
 	{
-		if (world.isRemote)
-			return;
+		return 46;
+	}
+	
+	@Override
+	public List<Biome> getAllowedBiomes()
+	{
+		List<Biome> biomes = new ArrayList<Biome>();
 		
-		if (world.rand.nextInt(GenesisConfig.hutChance) != 0)
-			return;
+		biomes.add(GenesisBiomes.rainforest);
+		biomes.add(GenesisBiomes.rainforestIslands);
+		biomes.add(GenesisBiomes.rainforestM);
 		
-		if (!GenesisDimensions.isGenesis(world))
-			return;
+		return biomes;
+	}
+	
+	@Override
+	public List<Block> getSurfaceBlocks()
+	{
+		List<Block> blocks = new ArrayList<Block>();
 		
-		BlockPos start = new BlockPos(chunkX * 16 + 4, 0, chunkZ * 16 + 4);
+		blocks.add(Blocks.DIRT);
+		blocks.add(GenesisBlocks.MOSS);
 		
-		if (!(world.getBiome(start) instanceof BiomeRainforest))
-			return;
+		return blocks;
+	}
+	
+	@Override
+	public GenerationType getGenerationType()
+	{
+		return GenerationType.FINDGROUND;
+	}
+	
+	@Override
+	protected boolean doGenerate(World world, Random rand, BlockPos pos)
+	{
+		boolean generated = false;
+		BlockPos curPos = pos;
 		
-		start = WorldGenHelper.findSurface(world, start);
+		StructureType hut = StructureType.HUT1;
 		
-		for (BlockPos pos : BlockPos.getAllInBox(start.add(-3, 0, -3), start.add(9, 0, 11)))
+		if (!world.isAirBlock(curPos))
+			curPos = curPos.up();
+		
+		EnumFacing offset = hut.getOffse();
+		
+		Vec3d secOffset = hut.getSecondOffset();
+		
+		if (secOffset != null)
+			curPos = curPos.add(secOffset.xCoord, secOffset.yCoord, secOffset.zCoord);
+		
+		generated = this.checkSurface(
+				world, 
+				curPos, 
+				(int)(MathHelper.abs_max(hut.getBounds().xCoord, hut.getBounds().zCoord) * 0.45D), 
+				(int)(hut.getBounds().yCoord * 0.7D));
+		
+		generated = WorldGenStructureHelper.spawnStructure(
+				world, 
+				((offset == null)? curPos : curPos.offset(offset)), 
+				hut,
+				hut.getMirror()[rand.nextInt(hut.getMirror().length)], 
+				hut.getRotation()[rand.nextInt(hut.getRotation().length)]);
+		
+		if (generated)
 		{
-			if (!(world.getBiome(start) instanceof BiomeRainforest))
-				return;
-		}
-		
-		for (BlockPos pos : BlockPos.getAllInBox(start.add(-3, -3, -3), start.add(9, 30, 11)))
-		{
-			WorldGenHelper.deleteTree(world, pos);
-		}
-		
-		for (BlockPos pos : BlockPos.getAllInBox(start.add(2, 2, 2), start.add(4, 5, 6)))
-		{
-			world.setBlockToAir(pos);
-		}
-		
-		//Starting generation
-		
-		Genesis.logger.debug("Starting generation of the hut at " + start.toString());
-		
-		IBlockState[][][] matrix = WGHDB.MATRIX;
-		
-		for (int y = 0; y < matrix.length; y++)
-		{
-			for (int x = 0; x < matrix[y].length; x++)
+			BlockPos storagePos = this.findBlockInArea(world, curPos, 8, 5, GenesisBlocks.STORAGE_BOX.getDefaultState(), true);
+			
+			if (storagePos != null)
 			{
-				for (int z = 0; z < matrix[y][x].length; z++)
+				TileEntity te = world.getTileEntity(storagePos);
+				
+				if (te instanceof TileEntityStorageBox)
 				{
-					IBlockState state = matrix[y][x][z];
-					
-					BlockPos pos = start.add(x, y, z);
-					
-					if (state == null)
-					{
-						if(world.getBlockState(pos).getMaterial().isReplaceable())
-							world.setBlockToAir(pos);
-					}
-					else
-					{
-						world.setBlockState(pos, state);
-					}
+					TileEntityStorageBox storageBox = (TileEntityStorageBox)te;
+					storageBox.setLootTable(GenesisLoot.STORAGE_BOX_HUT, rand.nextLong());
 				}
 			}
 		}
 		
-		BlockPos legsPos[] = { start.add(1, 0, 1), start.add(1, 0, 6), start.add(4, 0, 1), start.add(4, 0, 6) };
-		
-		for (BlockPos legPos : legsPos)
-		{
-			while (!WorldGenHelper.isGround(world, legPos.down()))
-			{
-				legPos = legPos.down();
-				world.setBlockState(legPos, WGHDB.wattle);
-			}
-		}
-		
-		BlockPos basePos = start.add(4, 0, 3);
-		
-		while (!WorldGenHelper.isGround(world, basePos.down()))
-		{
-			basePos = basePos.down();
-			world.setBlockState(basePos, WGHDB.baseY);
-		}
-		
-		BlockPos ladderPos = start.add(5, 2, 3);
-		
-		while (!WorldGenHelper.isGround(world, ladderPos.down()))
-		{
-			ladderPos = ladderPos.down();
-			world.setBlockState(ladderPos, GenesisBlocks.ROPE_LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.EAST));
-		}
-		
-		TileEntityRack rack1 = BlockRack.getTileEntity(world, start.add(2, 4, 5));
-		TileEntityRack rack2 = BlockRack.getTileEntity(world, start.add(3, 4, 5));
-		
-		if (rack1 != null && rack2 != null)
-		{
-			rack1.setLootTable(GenesisLoot.ITEM_RACK_HUT, random.nextLong());
-			rack2.setLootTable(GenesisLoot.ITEM_RACK_HUT, random.nextLong());
-		}
-		
-		BlockPos boxPos = start.add(2, 2, 2);
-		
-		TileEntity te = world.getTileEntity(boxPos);
-
-		if (te instanceof TileEntityStorageBox)
-		{
-			((TileEntityStorageBox) te).setLootTable(GenesisLoot.STORAGE_BOX_HUT, random.nextLong());
-		}
-		else
-		{
-			Genesis.logger.warn("TileEntityStorageBox has not been found at "  + boxPos.toString() + " during the hut generation!!! The loot won't be spawned!!!");
-		}
-		
-		Genesis.logger.debug("Hut has been generated at " + start.toString());
+		return generated;
 	}
 }
