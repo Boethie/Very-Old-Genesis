@@ -14,10 +14,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
-public class WorldGenHutNBT extends WorldGenStructureBase
+public class WorldGenMetasequoiaHouse extends WorldGenStructureBase
 {
 	protected int rarity = 10;
 	
@@ -26,10 +27,9 @@ public class WorldGenHutNBT extends WorldGenStructureBase
 	{
 		List<Biome> biomes = new ArrayList<Biome>();
 		
-		biomes.add(GenesisBiomes.rainforest);
-		biomes.add(GenesisBiomes.rainforestHills);
-		biomes.add(GenesisBiomes.rainforestIslands);
-		biomes.add(GenesisBiomes.rainforestM);
+		biomes.add(GenesisBiomes.metaForest);
+		biomes.add(GenesisBiomes.metaForestHills);
+		biomes.add(GenesisBiomes.metaForestM);
 		
 		return biomes;
 	}
@@ -57,27 +57,24 @@ public class WorldGenHutNBT extends WorldGenStructureBase
 		boolean generated = false;
 		BlockPos curPos = pos;
 		
-		StructureType hut = StructureType.HUT1;
+		StructureType house = StructureType.METASEQUOIA_HOUSE;
 		
-		if (!world.isAirBlock(curPos))
-			curPos = curPos.up();
+		EnumFacing offset = house.getOffse();
 		
-		/*
-		generated = this.checkSurface(
-				world, 
-				curPos.add(MathHelper.abs_max(hut.getBounds().xCoord, hut.getBounds().zCoord), 0, MathHelper.abs_max(hut.getBounds().xCoord, hut.getBounds().zCoord)), 
-				(int)(MathHelper.abs_max(hut.getBounds().xCoord, hut.getBounds().zCoord) * 0.45D), 
-				(int)(hut.getBounds().yCoord * 0.7D));
-		*/
+		Vec3d secOffset = house.getSecondOffset();
 		
-		EnumFacing offset = hut.getOffse();
+		if (secOffset != null)
+			curPos = curPos.add(secOffset.xCoord, secOffset.yCoord, secOffset.zCoord);
 		
 		generated = WorldGenStructureHelper.spawnStructure(
 				world, 
 				((offset == null)? curPos : curPos.offset(offset)), 
-				hut,
-				hut.getMirror()[rand.nextInt(hut.getMirror().length)], 
-				hut.getRotation()[rand.nextInt(hut.getRotation().length)]);
+				house,
+				house.getMirror()[rand.nextInt(house.getMirror().length)], 
+				house.getRotation()[rand.nextInt(house.getRotation().length)]);
+		
+		if (world.isAirBlock(curPos.up()))
+			curPos = curPos.down();
 		
 		if (generated)
 		{

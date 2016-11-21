@@ -3,7 +3,7 @@ package genesis.world.iworldgenerators;
 import javax.annotation.Nullable;
 
 import genesis.util.Constants;
-import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.ResourceLocation;
@@ -37,10 +37,12 @@ public class WorldGenStructureHelper
 				.setRotation(rotation)
 				.setIgnoreEntities(false)
 				.setChunk((ChunkPos)null)
-				.setReplacedBlock((Block)null)
+				.setReplacedBlock(Blocks.AIR)
 				.setIgnoreStructureBlock(true);
 		
-		template.addBlocksToWorldChunk(world, pos.up(), placementsettings);
+		pos = pos.up();
+		
+		template.addBlocksToWorldChunk(world, pos, placementsettings);
 		
 		world.markChunkDirty(pos, null);
 		
@@ -49,7 +51,9 @@ public class WorldGenStructureHelper
 	
 	public enum StructureType
 	{
-		HUT1("Hut1", null, 6, 7, 8)
+		HUT1("Hut1", null, 6, 7, 8, new Mirror[] {Mirror.NONE}, new Rotation[] {Rotation.NONE}, null),
+		METASEQUOIA_HOUSE("Metasequoia_House", EnumFacing.DOWN, 7, 6, 9, new Mirror[] {Mirror.NONE}, new Rotation[] {Rotation.NONE}, new Vec3d(-3, 0, 3))
+		
 		;
 		
 		private String name;
@@ -58,13 +62,23 @@ public class WorldGenStructureHelper
 		private int ySize;
 		private int zSize;
 		
-		private StructureType(String name, @Nullable EnumFacing offset, int xSize, int ySize, int zSize)
+		private Mirror[] mirror;
+		private Rotation[] rotation;
+		
+		private Vec3d secondOffset;
+		
+		private StructureType(String name, @Nullable EnumFacing offset, int xSize, int ySize, int zSize, Mirror[] mirror, Rotation[] rotation, @Nullable Vec3d secondOffset)
 		{
 			this.name = name;
 			this.offset = offset;
 			this.xSize = xSize;
 			this.ySize = ySize;
 			this.zSize = zSize;
+			
+			this.mirror = mirror;
+			this.rotation = rotation;
+			
+			this.secondOffset = secondOffset;
 		}
 		
 		@Override
@@ -81,6 +95,21 @@ public class WorldGenStructureHelper
 		public Vec3d getBounds()
 		{
 			return new Vec3d(this.xSize, this.ySize, this.zSize);
+		}
+		
+		public Mirror[] getMirror()
+		{
+			return this.mirror;
+		}
+		
+		public Rotation[] getRotation()
+		{
+			return this.rotation;
+		}
+		
+		public Vec3d getSecondOffset()
+		{
+			return this.secondOffset;
 		}
 	}
 }
