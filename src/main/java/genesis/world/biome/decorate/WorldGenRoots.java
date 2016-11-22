@@ -16,7 +16,7 @@ public class WorldGenRoots extends WorldGenDecorationBase
 {
 	public WorldGenRoots()
 	{
-		setPatchCount(8);
+		setPatchCount(5);
 	}
 	
 	@Override
