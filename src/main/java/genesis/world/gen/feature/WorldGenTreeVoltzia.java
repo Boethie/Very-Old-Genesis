@@ -15,6 +15,12 @@ public class WorldGenTreeVoltzia extends WorldGenTreeBase
 	}
 	
 	@Override
+	public int getRadius()
+	{
+		return 3;
+	}
+	
+	@Override
 	public boolean doGenerate(World world, Random rand, BlockPos pos)
 	{
 		int height = heightProvider.get(rand);

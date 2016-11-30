@@ -15,6 +15,12 @@ public class WorldGenTreeBjuvia extends WorldGenTreeBase
 	}
 	
 	@Override
+	public int getRadius()
+	{
+		return 2;
+	}
+	
+	@Override
 	protected boolean doGenerate(World world, Random rand, BlockPos pos)
 	{
 		int height = heightProvider.get(rand) - 1;
@@ -28,8 +34,6 @@ public class WorldGenTreeBjuvia extends WorldGenTreeBase
 		}
 		
 		BlockPos branchPos = pos.up(height);
-		
-		//setBlockInWorld(world, branchPos, leaves);
 		
 		doLeavesBranch(world, branchPos, 1, 0, rand, 1 + rand.nextInt(2));
 		doLeavesBranch(world, branchPos, -1, 0, rand, 1 + rand.nextInt(2));

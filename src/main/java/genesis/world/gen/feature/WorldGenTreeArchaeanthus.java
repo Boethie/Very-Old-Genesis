@@ -18,6 +18,12 @@ public class WorldGenTreeArchaeanthus extends WorldGenTreeBase
 	}
 	
 	@Override
+	public int getRadius()
+	{
+		return 3;
+	}
+	
+	@Override
 	protected boolean doGenerate(World world, Random rand, BlockPos pos)
 	{
 		int height = heightProvider.get(rand);
