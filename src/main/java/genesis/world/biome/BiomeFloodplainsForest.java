@@ -33,7 +33,7 @@ public class BiomeFloodplainsForest extends BiomeGenesis
 		getDecorator().setFlowerCount(1);
 		addFlower(WorldGenPlant.create(EnumPlant.PSILOPHYTON).setPatchCount(6), 1);
 		
-		addDecoration(WorldGenSplash.createHumusSplash(), 1.35F);
+		addDecoration(WorldGenSplash.createHumusSplash(), 2.35F);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.SPHENOPHYLLUM).setPatchCount(4), 2);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.PROTOTAXITES), 0.175F);
 		addDecoration(WorldGenCircleReplacement.getPeatGen(), 2.75F);

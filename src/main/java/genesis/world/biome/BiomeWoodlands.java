@@ -49,7 +49,7 @@ public class BiomeWoodlands extends BiomeGenesis
 		getDecorator().setFlowerCount(0.15F);
 		addFlower(WorldGenPlant.create(EnumPlant.PALAEOASTER).setPatchCount(9), 1);
 		
-		addDecoration(WorldGenSplash.createHumusSplash(), 2.75F);
+		addDecoration(WorldGenSplash.createHumusSplash(), 4.75F);
 		addDecoration(new WorldGenBoulders(0.166F, 0.333F, 1).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.25F, 0.75F)), 0.24F);
 		addDecoration(new WorldGenDung(EnumDung.CARNIVORE), 0.05F);
 		addDecoration(new WorldGenStemonitis().setPatchCount(14), 6);

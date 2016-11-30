@@ -36,7 +36,7 @@ public class BiomeRainforest extends BiomeGenesis
 		getDecorator().setGrassCount(9);
 		addGrass(WorldGenPlant.create(EnumPlant.ZYGOPTERIS).setPatchCount(14), 1);
 		
-		addDecoration(WorldGenSplash.createHumusSplash(), 2.75F);
+		addDecoration(WorldGenSplash.createHumusSplash(), 3.75F);
 		addDecoration(new WorldGenBoulders(0.166F, 0.333F, 1).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.25F, 0.75F)), 0.75F);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.ODONTOPTERIS).setNextToWater(false).setPatchCount(3), 2);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.SPHENOPHYLLUM).setPatchCount(4), 2);
@@ -44,7 +44,7 @@ public class BiomeRainforest extends BiomeGenesis
 		addDecoration(new WorldGenMossStages(), 30);
 		addDecoration(new WorldGenRoots(), 13);
 		
-		addPostDecoration(new WorldGenDebris(), 28);
+		addPostDecoration(new WorldGenDebris(), 30);
 	}
 	
 	protected void addTrees()
