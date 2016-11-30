@@ -2,6 +2,8 @@ package genesis.item;
 
 import genesis.block.BlockBenchSeat;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockBed;
+import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -35,7 +37,7 @@ public class ItemBenchSeat extends ItemBlock
 			Block block = state.getBlock();
 			boolean replaceable = block.isReplaceable(world, pos);
 			
-			int bedHorizontal = MathHelper.floor_double((double) (player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+			int bedHorizontal = MathHelper.floor_double(player.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
 			EnumFacing bedFacing = EnumFacing.getHorizontal(bedHorizontal);
 			
 			BlockPos footPos = replaceable ? pos : pos.up();
@@ -51,11 +53,11 @@ public class ItemBenchSeat extends ItemBlock
 						&& (world.getBlockState(belowFoot).isSideSolid(world, belowFoot, EnumFacing.UP))
 						&& (world.getBlockState(belowHead).isSideSolid(world, belowHead, EnumFacing.UP)))
 				{
-					IBlockState footState = getBlock().getDefaultState().withProperty(BlockBenchSeat.FACING, bedFacing).withProperty(BlockBenchSeat.PART, BlockBenchSeat.EnumPartType.FOOT);
+					IBlockState footState = getBlock().getDefaultState().withProperty(BlockHorizontal.FACING, bedFacing).withProperty(BlockBed.PART, BlockBenchSeat.EnumPartType.FOOT);
 					
 					if (world.setBlockState(footPos, footState, 11))
 					{
-						IBlockState headState = footState.withProperty(BlockBenchSeat.PART, BlockBenchSeat.EnumPartType.HEAD);
+						IBlockState headState = footState.withProperty(BlockBed.PART, BlockBenchSeat.EnumPartType.HEAD);
 						world.setBlockState(headPos, headState, 11);
 					}
 					

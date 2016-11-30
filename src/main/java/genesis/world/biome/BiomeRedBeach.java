@@ -18,6 +18,7 @@ public class BiomeRedBeach extends BiomeBeachGenesis
 		fillerBlock = GenesisBlocks.SILT.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT);
 	}
 	
+	@Override
 	protected void addDecorations()
 	{
 		getDecorator().setFlowerCount(5);

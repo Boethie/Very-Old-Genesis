@@ -50,6 +50,10 @@ public class GenesisClient extends GenesisProxy
 		GenesisItems.initClient();
 		
 		GenesisDebugOverlay.register();
+
+		/* portals rendering stuff */
+		MinecraftForge.EVENT_BUS.register(new GenesisClientEventHandler());
+		((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(new GenesisReloadListener());
 	}
 	
 	@Override

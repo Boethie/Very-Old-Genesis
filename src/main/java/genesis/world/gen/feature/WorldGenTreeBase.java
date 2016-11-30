@@ -3,7 +3,6 @@ package genesis.world.gen.feature;
 import java.util.Random;
 import java.util.function.Predicate;
 
-import genesis.block.BlockAnkyropteris;
 import genesis.block.BlockResin;
 import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumTree;
@@ -11,8 +10,10 @@ import genesis.common.GenesisBlocks;
 import genesis.util.random.i.RandomIntProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
+import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
+import net.minecraft.block.BlockVine;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -287,7 +288,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 					setBlockInWorld(world,
 							pos.up(i).offset(facing),
 							GenesisBlocks.RESIN.getDefaultState()
-									.withProperty(BlockResin.FACING, facing)
+									.withProperty(BlockHorizontal.FACING, facing)
 									.withProperty(BlockResin.LAYERS, world.rand.nextInt(4)));
 				}
 			}
@@ -369,7 +370,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 				vineLength = world.rand.nextInt(8) + 1;
 				for (int vi = 0; vi < vineLength; ++vi)
 					if (world.isAirBlock(north.add(0, -vi, 0)))
-						world.setBlockState(north.add(0, -vi, 0), GenesisBlocks.ANKYROPTERIS.getDefaultState().withProperty(BlockAnkyropteris.SOUTH, true));
+						world.setBlockState(north.add(0, -vi, 0), GenesisBlocks.ANKYROPTERIS.getDefaultState().withProperty(BlockVine.SOUTH, true));
 			}
 
 			if (
@@ -379,7 +380,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 				vineLength = world.rand.nextInt(8) + 1;
 				for (int vi = 0; vi < vineLength; ++vi)
 					if (world.isAirBlock(south.add(0, -vi, 0)))
-						world.setBlockState(south.add(0, -vi, 0), GenesisBlocks.ANKYROPTERIS.getDefaultState().withProperty(BlockAnkyropteris.NORTH, true));
+						world.setBlockState(south.add(0, -vi, 0), GenesisBlocks.ANKYROPTERIS.getDefaultState().withProperty(BlockVine.NORTH, true));
 			}
 
 			if (
@@ -389,7 +390,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 				vineLength = world.rand.nextInt(8) + 1;
 				for (int vi = 0; vi < vineLength; ++vi)
 					if (world.isAirBlock(east.add(0, -vi, 0)))
-						world.setBlockState(east.add(0, -vi, 0), GenesisBlocks.ANKYROPTERIS.getDefaultState().withProperty(BlockAnkyropteris.WEST, true));
+						world.setBlockState(east.add(0, -vi, 0), GenesisBlocks.ANKYROPTERIS.getDefaultState().withProperty(BlockVine.WEST, true));
 			}
 
 			if (
@@ -399,7 +400,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 				vineLength = world.rand.nextInt(8) + 1;
 				for (int vi = 0; vi < vineLength; ++vi)
 					if (world.isAirBlock(west.add(0, -vi, 0)))
-						world.setBlockState(west.add(0, -vi, 0), GenesisBlocks.ANKYROPTERIS.getDefaultState().withProperty(BlockAnkyropteris.EAST, true));
+						world.setBlockState(west.add(0, -vi, 0), GenesisBlocks.ANKYROPTERIS.getDefaultState().withProperty(BlockVine.EAST, true));
 			}
 		}
 

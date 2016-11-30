@@ -1,7 +1,5 @@
 package genesis.world.iworldgenerators;
 
-import genesis.common.GenesisBlocks;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;

@@ -9,6 +9,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.*;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class TileEntityGenesisPortal extends TileEntityBase implements ITickable
 {
@@ -139,4 +141,11 @@ public class TileEntityGenesisPortal extends TileEntityBase implements ITickable
 	protected void readVisualData(NBTTagCompound compound, boolean save)
 	{
 	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+    public AxisAlignedBB getRenderBoundingBox()
+    {
+		return INFINITE_EXTENT_AABB;
+    }
 }

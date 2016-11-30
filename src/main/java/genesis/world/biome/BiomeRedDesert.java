@@ -113,6 +113,7 @@ public class BiomeRedDesert extends BiomeGenesis
 		return 0xB28F77;
 	}
 	
+	@Override
 	public void genTerrainBlocks(World world, Random rand, ChunkPrimer chunkPrimer, int x, int z, double noiseVal)
     {
 		if (!this.isHills)
