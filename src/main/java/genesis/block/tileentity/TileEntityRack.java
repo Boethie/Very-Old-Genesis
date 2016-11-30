@@ -1,5 +1,6 @@
 package genesis.block.tileentity;
 
+import genesis.api.registry.ItemRackItems;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
@@ -28,7 +29,8 @@ public class TileEntityRack extends TileEntityInventoryLootBase
 					|| (item instanceof ItemSoup)
 					|| item == Items.LAVA_BUCKET
 					|| item == Items.WATER_BUCKET
-					|| item == Items.CAKE;
+					|| item == Items.CAKE
+					|| ItemRackItems.isItemAllowed(item);
 		}
 		
 		return false;

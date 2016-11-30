@@ -24,6 +24,7 @@ import genesis.util.random.drops.blocks.BlockDrops;
 import genesis.util.random.drops.blocks.BlockRandomDrop;
 import genesis.util.random.drops.blocks.BlockStackDrop;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockGrass;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -522,7 +523,7 @@ public final class GenesisBlocks
 
 		// Moss
 		registerColors(blockCol, itemCol,
-				(s, w, p, t) -> s.getValue(BlockMoss.SNOWY)
+				(s, w, p, t) -> s.getValue(BlockGrass.SNOWY)
 						? 0xFFFFFF
 						: Colorizers.BLOCK_MOSS.colorMultiplier(s, w, p, t),
 				MOSS);

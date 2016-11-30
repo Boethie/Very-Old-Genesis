@@ -97,7 +97,7 @@ public class WorldGenDung extends WorldGenDecorationBase
 	
 	private void placeColumn(int maxHeight, BlockPos curPos, World world, Random rand, boolean placeBase)
 	{
-		int wholeBlocks = MathHelper.floor_float((float)maxHeight / 8.0F);
+		int wholeBlocks = MathHelper.floor_float(maxHeight / 8.0F);
 		
 		if (placeBase)
 		{
