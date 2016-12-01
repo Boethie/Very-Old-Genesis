@@ -467,7 +467,7 @@ public final class GenesisBlocks
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCampfire.class, new TileEntityCampfireRenderer(CAMPFIRE));
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityStorageBox.class, new TileEntityStorageBoxRenderer(STORAGE_BOX));
 
-		ModelLoader.setCustomStateMapper(PORTAL, new FlexibleStateMap().setPrefix("portal/portal", ""));
+		//ModelLoader.setCustomStateMapper(PORTAL, new FlexibleStateMap().setPrefix("portal/portal", ""));
 
 		for (EnumMenhirPart part : EnumMenhirPart.ORDERED)
 		{
@@ -554,6 +554,6 @@ public final class GenesisBlocks
 				COBBANIA, CLADOPHLEBIS, ANKYROPTERIS, ASPLENIUM);
 
 		blockCol.registerBlockColorHandler(Colorizers.BLOCK_GRASS,
-				ODONTOPTERIS, PROGRAMINIS);
+				ODONTOPTERIS, PROGRAMINIS, SPHENOPHYLLUM);
 	}
 }

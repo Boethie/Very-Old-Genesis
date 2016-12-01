@@ -73,22 +73,25 @@ public class RenderPortals
 		cx = GL20.glGetUniformLocation(prog, "cx");
 		cy = GL20.glGetUniformLocation(prog, "cy");
 		rad = GL20.glGetUniformLocation(prog, "rad");
+		int prevProg = GL11.glGetInteger(GL20.GL_CURRENT_PROGRAM);
+		GL20.glUseProgram(prog);
 		GL20.glUniform1i(GL20.glGetUniformLocation(prog, "tex"), 0);
 		GL20.glUniform1i(GL20.glGetUniformLocation(prog, "overlay"), 1);
+		GL20.glUniform1f(GL20.glGetUniformLocation(prog, "pi"), (float) Math.PI);
+		GL20.glUseProgram(prevProg);
 	}
 	
 	public static void drawPortals()
 	{
 		if (portals.size() <= 0) return;
 		int prevProg = GL11.glGetInteger(GL20.GL_CURRENT_PROGRAM);
-		GL11.glPointSize(1);
 		GL20.glUseProgram(prog);
 		GL20.glUniform1f(dx, 1f / mc.displayWidth);
 		GL20.glUniform1f(dy, 1f / mc.displayHeight);
-		GlStateManager.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_CLAMP);
-		GlStateManager.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_CLAMP);
-		GlStateManager.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
-		GlStateManager.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
+		//GlStateManager.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_CLAMP);
+		//GlStateManager.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_CLAMP);
+		//GlStateManager.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
+		//GlStateManager.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
 		RenderManager manager = mc.getRenderManager();
 		GL11.glDisable(GL11.GL_CULL_FACE);
 		for (Float[] portal : portals)
@@ -125,10 +128,10 @@ public class RenderPortals
 			mc.getFramebuffer().unbindFramebufferTexture();
 		}
 		GL11.glEnable(GL11.GL_CULL_FACE);
-		GlStateManager.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);
-		GlStateManager.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_REPEAT);
-		GlStateManager.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST);
-		GlStateManager.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
+		//GlStateManager.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);
+		//GlStateManager.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_REPEAT);
+		//GlStateManager.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST_MIPMAP_LINEAR);
+		//GlStateManager.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
 		portals.clear();
 		GL20.glUseProgram(prevProg);
 	}
