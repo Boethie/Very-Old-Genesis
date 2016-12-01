@@ -4,38 +4,28 @@ import java.util.List;
 
 import genesis.block.tileentity.TileEntityBase;
 import genesis.portal.GenesisPortal;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.*;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class TileEntityGenesisPortal extends TileEntityBase implements ITickable
 {
-	protected double radius = 5 / 2.0;
-	protected byte timer = 0;
+	public float radius = 2.5f;
+	public byte timer = 0;
+	public int ticksAlive = 0;
 	
-	public float prevRotation = 0;
-	public float rotation = 0;
-	
-	//Cached
-	protected Vec3d center = null;
-	protected AxisAlignedBB bounds = null;
-	
-	public TileEntityGenesisPortal()
-	{
-	}
+	public TileEntityGenesisPortal() {}
 	
 	@Override
 	public void setPos(BlockPos pos)
 	{
 		super.setPos(pos);
-		
-		center = new Vec3d(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-		bounds = new AxisAlignedBB(center.xCoord - radius, center.yCoord - radius, center.zCoord - radius,
-									center.xCoord + radius, center.yCoord + radius, center.zCoord + radius);
 	}
 	
 	@Override
@@ -43,55 +33,31 @@ public class TileEntityGenesisPortal extends TileEntityBase implements ITickable
 	{
 		if (!worldObj.isRemote)
 		{
-			timer--;
-			
-			if (timer <= 0)
+			if (--timer <= 0)
 			{
 				GenesisPortal.fromPortalBlock(worldObj, pos).updatePortalStatus(worldObj);
 				timer = GenesisPortal.PORTAL_CHECK_TIME;
 			}
 		}
-		else
+		ticksAlive++;
+		double x = this.pos.getX() + 0.5;
+		double y = this.pos.getY() + 0.5;
+		double z = this.pos.getZ() + 0.5;
+		for (Entity entity : worldObj.loadedEntityList)
 		{
-			prevRotation = rotation;
-			rotation -= 1.25;
-			
-			while (rotation < 0)
+			//if (entity.getPortalCooldown() > 0) continue;
+			if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isFlying) continue;
+			AxisAlignedBB bb = entity.getEntityBoundingBox();
+			double dX = x - (bb.minX + bb.maxX) / 2;
+			double dY = y - (bb.minY + bb.maxY) / 2;
+			double dZ = z - (bb.minZ + bb.maxZ) / 2;
+			double dsqr = (dX * dX + dY * dY + dZ * dZ);
+			if (dsqr > 0)
 			{
-				prevRotation += 360;
-				rotation += 360;
-			}
-		}
-		
-		List<EntityLivingBase> entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, bounds);
-		
-		for (EntityLivingBase entity : entities)
-		{
-			EntityPlayer player = entity instanceof EntityPlayer ? (EntityPlayer) entity : null;
-			
-			if (player != null && player.capabilities.isFlying)
-			{
-				continue;
-			}
-			
-			double diffX = entity.posX - center.xCoord;
-			double diffY = entity.posY + (entity.getEyeHeight() / 2) - center.yCoord;
-			double diffZ = entity.posZ - center.zCoord;
-			double distance = diffX * diffX + diffY * diffY + diffZ * diffZ;
-			
-			if (distance < radius * radius)
-			{
-				distance = MathHelper.sqrt_double(distance);
-				double speed = -(distance / radius) * 0.05;
-				
-				if (player != null && player.isSneaking())
-				{
-					speed *= 0.5;
-				}
-				
-				entity.motionX += diffX * speed;
-				entity.motionY += diffY * speed;
-				entity.motionZ += diffZ * speed;
+				double f = radius * radius * radius * .015625 / (dsqr * MathHelper.sqrt_double(dsqr));
+				entity.motionX += dX * f;
+				entity.motionY += dY * f;
+				entity.motionZ += dZ * f;
 			}
 		}
 	}
@@ -113,10 +79,8 @@ public class TileEntityGenesisPortal extends TileEntityBase implements ITickable
 	{
 		compound = super.writeToNBT(compound);
 		
-		compound.setDouble("radius", radius);
+		compound.setFloat("radius", radius);
 		compound.setByte("timer", timer);
-		
-		compound.setFloat("rotation", rotation);
 
 		return compound;
 	}
@@ -126,20 +90,21 @@ public class TileEntityGenesisPortal extends TileEntityBase implements ITickable
 	{
 		super.readFromNBT(compound);
 
-		radius = compound.getDouble("radius");
 		timer = compound.getByte("timer");
-		
-		prevRotation = rotation = compound.getFloat("rotation");
 	}
 	
 	@Override
 	protected void writeVisualData(NBTTagCompound compound, boolean save)
 	{
+		compound.setInteger("alive", ticksAlive);
+		compound.setFloat("radius", radius);
 	}
 	
 	@Override
 	protected void readVisualData(NBTTagCompound compound, boolean save)
 	{
+		ticksAlive = compound.getInteger("alive");
+		radius = compound.getFloat("radius");
 	}
 	
 	@Override
