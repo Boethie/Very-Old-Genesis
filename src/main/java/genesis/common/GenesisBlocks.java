@@ -388,7 +388,7 @@ public final class GenesisBlocks
 		// - Growing Plants -
 
 		// Sphenophyllum
-		Genesis.proxy.registerBlock(SPHENOPHYLLUM, name("sphenophyllum"));
+		Genesis.proxy.registerBlock(SPHENOPHYLLUM, new ItemColored(SPHENOPHYLLUM, false), name("sphenophyllum"));
 
 		// Odontopteris
 		Genesis.proxy.registerBlock(ODONTOPTERIS, null, name("odontopteris"));
@@ -551,9 +551,9 @@ public final class GenesisBlocks
 		itemCol.registerItemColorHandler((s, t) -> PLANTS.getVariant(s).getColorMultiplier(null, null), plantsArray);
 
 		registerColors(blockCol, itemCol, Colorizers.BLOCK_GRASS,
-				COBBANIA, CLADOPHLEBIS, ANKYROPTERIS, ASPLENIUM);
+				COBBANIA, CLADOPHLEBIS, ANKYROPTERIS, ASPLENIUM, SPHENOPHYLLUM);
 
 		blockCol.registerBlockColorHandler(Colorizers.BLOCK_GRASS,
-				ODONTOPTERIS, PROGRAMINIS, SPHENOPHYLLUM);
+				ODONTOPTERIS, PROGRAMINIS);
 	}
 }
