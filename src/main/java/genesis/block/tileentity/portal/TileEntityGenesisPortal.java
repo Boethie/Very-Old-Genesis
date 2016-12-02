@@ -111,6 +111,8 @@ public class TileEntityGenesisPortal extends TileEntityBase implements ITickable
 	@SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox()
     {
-		return INFINITE_EXTENT_AABB;
+		double off1 = 0.5 - radius;
+		double off2 = 0.5 + radius;
+		return new AxisAlignedBB(pos.add(off1, off1, off1), pos.add(off2, off2, off2));
     }
 }
