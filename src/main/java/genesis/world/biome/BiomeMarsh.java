@@ -22,13 +22,13 @@ public class BiomeMarsh extends BiomeGenesis
 		super(properties);
 		
 		theBiomeDecorator.clayPerChunk = 2;
-		theBiomeDecorator.sandPerChunk2 = 4;
+		theBiomeDecorator.sandPerChunk2 = 3;
 		
-		getDecorator().setGrassCount(16);
+		getDecorator().setGrassCount(17.5F);
 		addGrass(WorldGenPlant.create(PlantBlocks.PLANT, EnumPlant.ASTEROXYLON).setPatchCount(5), 1);
 		
 		getDecorator().setFlowerCount(8);
-		addFlower(WorldGenPlant.create(GenesisBlocks.PLANTS, PlantBlocks.DOUBLE_PLANT, EnumPlant.ASTEROXYLON).setPatchCount(4), 12);
+		addFlower(WorldGenPlant.create(GenesisBlocks.PLANTS, PlantBlocks.DOUBLE_PLANT, EnumPlant.ASTEROXYLON), 12);
 		addFlower(WorldGenPlant.create(EnumPlant.RHYNIA).setPatchCount(4), 2);
 		addFlower(WorldGenPlant.create(EnumPlant.NOTHIA).setPatchCount(4), 2);
 		addFlower(WorldGenPlant.create(EnumPlant.SCIADOPHYTON).setPatchCount(4), 1);
@@ -36,8 +36,8 @@ public class BiomeMarsh extends BiomeGenesis
 		addFlower(WorldGenPlant.create(EnumPlant.BARAGWANATHIA).setPatchCount(4), 1);
 		addFlower(WorldGenPlant.create(EnumPlant.COOKSONIA).setPatchCount(4), 1);
 		
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.PROTOTAXITES).setPatchCount(3), 0.36F);
-		addDecoration(WorldGenCircleReplacement.getPeatGen(), 7.75F);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.PROTOTAXITES), 0.36F);
+		addDecoration(WorldGenCircleReplacement.getPeatGen(), 6.75F);
 	}
 	
 	@Override
@@ -55,9 +55,9 @@ public class BiomeMarsh extends BiomeGenesis
 	@Override
 	public void genTerrainBlocks(World world, Random rand, ChunkPrimer chunkPrimer, int chunkX, int chunkZ, double d)
 	{
-		double d1 = GRASS_COLOR_NOISE.getValue(chunkX * 0.0725D, chunkZ * 0.0725D);
+		double d1 = GRASS_COLOR_NOISE.getValue(chunkX * 0.135D, chunkZ * 0.095D);
 
-		if (d1 > -0.04D)
+		if (d1 > -0.02D)
 		{
 			int k = chunkX & 15;
 			int l = chunkZ & 15;
