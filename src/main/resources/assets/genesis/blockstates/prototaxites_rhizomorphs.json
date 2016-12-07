@@ -1,47 +1,6 @@
 {
-	"forge_marker": 1,
 	"variants": {
-		"snowy=false": [
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 0 },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 0, "textures": { "side": "genesis:blocks/prototaxites_rhizomorphs_side_1" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 0, "textures": { "side": "genesis:blocks/prototaxites_rhizomorphs_side_2" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 90 },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 90, "textures": { "side": "genesis:blocks/prototaxites_rhizomorphs_side_1" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 90, "textures": { "side": "genesis:blocks/prototaxites_rhizomorphs_side_2" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 180 },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 180, "textures": { "side": "genesis:blocks/prototaxites_rhizomorphs_side_1" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 180, "textures": { "side": "genesis:blocks/prototaxites_rhizomorphs_side_2" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 270 },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 270, "textures": { "side": "genesis:blocks/prototaxites_rhizomorphs_side_1" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 270, "textures": { "side": "genesis:blocks/prototaxites_rhizomorphs_side_2" } },
-
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 0, "textures": { "top": "genesis:blocks/prototaxites_rhizomorphs_top_1" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 0, "textures": { "top": "genesis:blocks/prototaxites_rhizomorphs_top_1", "side": "genesis:blocks/prototaxites_rhizomorphs_side_1" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 0, "textures": { "top": "genesis:blocks/prototaxites_rhizomorphs_top_1", "side": "genesis:blocks/prototaxites_rhizomorphs_side_2" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 90, "textures": { "top": "genesis:blocks/prototaxites_rhizomorphs_top_1" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 90, "textures": { "top": "genesis:blocks/prototaxites_rhizomorphs_top_1", "side": "genesis:blocks/prototaxites_rhizomorphs_side_1" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 90, "textures": { "top": "genesis:blocks/prototaxites_rhizomorphs_top_1", "side": "genesis:blocks/prototaxites_rhizomorphs_side_2" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 180, "textures": { "top": "genesis:blocks/prototaxites_rhizomorphs_top_1" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 180, "textures": { "top": "genesis:blocks/prototaxites_rhizomorphs_top_1", "side": "genesis:blocks/prototaxites_rhizomorphs_side_1" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 180, "textures": { "top": "genesis:blocks/prototaxites_rhizomorphs_top_1", "side": "genesis:blocks/prototaxites_rhizomorphs_side_2" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 270, "textures": { "top": "genesis:blocks/prototaxites_rhizomorphs_top_1" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 270, "textures": { "top": "genesis:blocks/prototaxites_rhizomorphs_top_1", "side": "genesis:blocks/prototaxites_rhizomorphs_side_1" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 270, "textures": { "top": "genesis:blocks/prototaxites_rhizomorphs_top_1", "side": "genesis:blocks/prototaxites_rhizomorphs_side_2" } },
-
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 0, "textures": { "top": "genesis:blocks/prototaxites_rhizomorphs_top_2" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 0, "textures": { "top": "genesis:blocks/prototaxites_rhizomorphs_top_2", "side": "genesis:blocks/prototaxites_rhizomorphs_side_1" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 0, "textures": { "top": "genesis:blocks/prototaxites_rhizomorphs_top_2", "side": "genesis:blocks/prototaxites_rhizomorphs_side_2" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 90, "textures": { "top": "genesis:blocks/prototaxites_rhizomorphs_top_2" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 90, "textures": { "top": "genesis:blocks/prototaxites_rhizomorphs_top_2", "side": "genesis:blocks/prototaxites_rhizomorphs_side_1" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 90, "textures": { "top": "genesis:blocks/prototaxites_rhizomorphs_top_2", "side": "genesis:blocks/prototaxites_rhizomorphs_side_2" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 180, "textures": { "top": "genesis:blocks/prototaxites_rhizomorphs_top_2" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 180, "textures": { "top": "genesis:blocks/prototaxites_rhizomorphs_top_2", "side": "genesis:blocks/prototaxites_rhizomorphs_side_1" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 180, "textures": { "top": "genesis:blocks/prototaxites_rhizomorphs_top_2", "side": "genesis:blocks/prototaxites_rhizomorphs_side_2" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 270, "textures": { "top": "genesis:blocks/prototaxites_rhizomorphs_top_2" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 270, "textures": { "top": "genesis:blocks/prototaxites_rhizomorphs_top_2", "side": "genesis:blocks/prototaxites_rhizomorphs_side_1" } },
-			{ "model": "genesis:prototaxites_rhizomorphs", "y": 270, "textures": { "top": "genesis:blocks/prototaxites_rhizomorphs_top_2", "side": "genesis:blocks/prototaxites_rhizomorphs_side_2" } }
-		],
-		"snowy=true":  { "model": "grass_snowed" },
-		"inventory": [ { "model": "genesis:prototaxites_rhizomorphs" } ]
+		"snowy=false": { "model": "genesis:prototaxites_rhizomorphs" },
+		"snowy=true": { "model": "grass_snowed" }
 	}
 }

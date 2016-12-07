@@ -24,7 +24,7 @@ public class WorldGenMetaHouse extends WorldGenStructureBase
 	@Override
 	public int getRarity()
 	{
-		return 82;
+		return 83;
 	}
 	
 	@Override
