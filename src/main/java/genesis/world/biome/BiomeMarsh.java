@@ -36,7 +36,7 @@ public class BiomeMarsh extends BiomeGenesis
 		addFlower(WorldGenPlant.create(EnumPlant.BARAGWANATHIA).setPatchCount(4), 1);
 		addFlower(WorldGenPlant.create(EnumPlant.COOKSONIA).setPatchCount(4), 1);
 		
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.PROTOTAXITES), 0.36F);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.PROTOTAXITES), 0.275F);
 		addDecoration(WorldGenCircleReplacement.getPeatGen(), 6.75F);
 	}
 	

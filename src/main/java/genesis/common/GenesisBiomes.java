@@ -217,8 +217,8 @@ public final class GenesisBiomes
 		prop = new Biome.BiomeProperties("Marsh");
 		prop.setTemperature(1.15F);
 		prop.setRainfall(0.6F);
-		prop.setBaseHeight(-0.1F);
-		prop.setHeightVariation(-0.1F);
+		prop.setBaseHeight(-0.115F);
+		prop.setHeightVariation(-0.115F);
 		prop.setWaterColor(0x725113);
 		
 		marsh = new BiomeMarsh(prop);
