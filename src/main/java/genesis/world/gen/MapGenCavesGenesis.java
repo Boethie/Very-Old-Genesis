@@ -55,10 +55,8 @@ public class MapGenCavesGenesis extends MapGenBase
 	@Override
 	public void generate(World world, int chunkX, int chunkZ, ChunkPrimer data)
 	{
-		SuperSimplexNoise.NoiseInstance3[] noiseInstances_64_96_64_A = new SuperSimplexNoise.NoiseInstance3[] {
-				new SuperSimplexNoise.NoiseInstance3(new SuperSimplexNoise(world.getSeed() + 0), 0, 1, 2, 3)
-		};
-		SuperSimplexNoise.NoiseInstance3[] noiseInstances_64_96_64_B = new SuperSimplexNoise.NoiseInstance3[] {
+		SuperSimplexNoise.NoiseInstance3[] noiseInstances_64_96_64 = new SuperSimplexNoise.NoiseInstance3[] {
+				new SuperSimplexNoise.NoiseInstance3(new SuperSimplexNoise(world.getSeed() + 0), 0, 1, 2, 3),
 				new SuperSimplexNoise.NoiseInstance3(new SuperSimplexNoise(world.getSeed() + 1), 4, 5, 6, 7)
 		};
 		double[] values = new double[8];
@@ -91,8 +89,7 @@ public class MapGenCavesGenesis extends MapGenBase
 
 					//Get noise values & derivatives
 					for (int i = 0; i < 8; i++) values[i] = 0;
-					SuperSimplexNoise.eval(blockX / 96.0 + 0.00, y / 64.0 + 0.00, blockZ / 96.0 + 0.00, noiseInstances_64_96_64_A, values);
-					SuperSimplexNoise.eval(blockX / 96.0 + 0.25, y / 64.0 + 0.25, blockZ / 96.0 + 0.25, noiseInstances_64_96_64_B, values);
+					SuperSimplexNoise.eval(blockX / 96.0, y / 64.0, blockZ / 96.0, noiseInstances_64_96_64, values);
 					double F1 = values[0], F1x = values[1], F1y = values[2], F1z = values[3];
 					double F2 = values[4], F2x = values[5], F2y = values[6], F2z = values[7];
 
@@ -136,6 +133,10 @@ public class MapGenCavesGenesis extends MapGenBase
 					//Approximate distance to nearest cave path (noise zero-surface intersection) using crazy math
 					//(but factoring in lava-room alterations)
 					double value = (F2 - F1*dotU) * (F2 - F1*dotU) / (1 - dotU * dotU) + F1 * F1;
+					
+					//Make caves slightly taller
+					double heightAdjuster = (F1y * F1 + F2y * F2);
+					value /= (1 + heightAdjuster * heightAdjuster * 6.0);
 
 					//Replace super-flat un-traversable regions with dead ends
 					double dotURegionHideThresholded = Math.abs(dotU) - 0.625;
