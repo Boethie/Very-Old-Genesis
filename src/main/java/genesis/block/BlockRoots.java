@@ -48,6 +48,7 @@ public class BlockRoots extends BlockGenesis
 		blockStateSupportList.addAll(GRASS.getBlockState().getValidStates());
 		blockStateSupportList.addAll(DIRT.getBlockState().getValidStates());
 		blockStateSupportList.addAll(MOSS.getBlockState().getValidStates());
+		blockStateSupportList.addAll(HUMUS.getBlockState().getValidStates());
 		blockStateSupportList.addAll(MYCELIUM.getBlockState().getValidStates());
 		
 		blockStateSupportList.addAll(LOG.getBlockState().getValidStates());
@@ -58,8 +59,6 @@ public class BlockRoots extends BlockGenesis
 		
 		for (Block log : TREES.getBlocks(TreeBlocksAndItems.DEAD_LOG))
 			blockStateSupportList.addAll(log.getBlockState().getValidStates());
-	
-		blockStateSupportList.addAll(PROTOTAXITES_RHIZOMORPHS.getBlockState().getValidStates());
 
 		unInit = false;
 	}
