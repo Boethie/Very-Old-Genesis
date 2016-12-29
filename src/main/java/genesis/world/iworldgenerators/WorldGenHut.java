@@ -77,7 +77,7 @@ public class WorldGenHut extends WorldGenStructureBase
 		generated = this.checkSurface(
 				world, 
 				curPos, 
-				(int)(MathHelper.abs_max(hut.getBounds().xCoord, hut.getBounds().zCoord) * 0.45D), 
+				(int)(MathHelper.abs_max(hut.getBounds().xCoord, hut.getBounds().zCoord) * 0.85D), 
 				(int)(hut.getBounds().yCoord * 0.7D));
 		
 		generated = WorldGenStructureHelper.spawnStructure(

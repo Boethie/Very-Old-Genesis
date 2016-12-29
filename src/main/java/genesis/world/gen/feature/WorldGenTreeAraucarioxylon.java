@@ -1,5 +1,7 @@
 package genesis.world.gen.feature;
 
+import java.util.Random;
+
 import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
@@ -11,8 +13,6 @@ import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import java.util.Random;
 
 public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 {
@@ -34,12 +34,6 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 		this.saplingCountProvider = new WeightedIntProvider(
 				WeightedIntItem.of(88, 0),
 				WeightedIntItem.of(6, IntRange.create(1, 3)));
-	}
-	
-	@Override
-	public int getRadius()
-	{
-		return 2;
 	}
 	
 	@Override

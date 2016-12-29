@@ -115,21 +115,38 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		return canGrowInWater;
 	}
 	
-	protected abstract int getRadius();
 	protected abstract boolean doGenerate(World world, Random rand, BlockPos pos);
 	
 	@Override
 	public final boolean generate(World world, Random rand, BlockPos pos) {
 		pos = getTreePos(world, pos, -1);
 		
-		boolean isClear = false;
-		
 		if (pos == null)
 			return false;
 		
-		isClear = isCubeClear(world, pos, getRadius(), heightProvider.get(rand));
+		IBlockState state1 = world.getBlockState(pos.north());
+		IBlockState state2 = world.getBlockState(pos.south());
+		IBlockState state3 = world.getBlockState(pos.east());
+		IBlockState state4 = world.getBlockState(pos.west());
+		IBlockState state5 = world.getBlockState(pos.east().north());
+		IBlockState state6 = world.getBlockState(pos.east().south());
+		IBlockState state7 = world.getBlockState(pos.west().north());
+		IBlockState state8 = world.getBlockState(pos.west().south());
 		
-		return rand.nextInt(rarity) == 0 && doGenerate(world, rand, pos) && isClear;
+		boolean flag = 
+				state1.getMaterial() != Material.WOOD
+				&& state2.getMaterial() != Material.WOOD
+				&& state3.getMaterial() != Material.WOOD
+				&& state4.getMaterial() != Material.WOOD
+				&& state5.getMaterial() != Material.WOOD
+				&& state6.getMaterial() != Material.WOOD
+				&& state7.getMaterial() != Material.WOOD
+				&& state8.getMaterial() != Material.WOOD;
+		
+		if (!flag)
+			return false;
+		
+		return rand.nextInt(rarity) == 0 && doGenerate(world, rand, pos);
 	}
 	
 	@Override
