@@ -93,16 +93,16 @@ public final class GenesisBiomes
 		Biome.registerBiome(GenesisConfig.rainforestHillsId, rainforestHills.getBiomeName(), rainforestHills);
 		BiomeDictionary.registerBiomeType(rainforestHills, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.DENSE, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
-		prop = new Biome.BiomeProperties("Rainforest Islands");
+		/*prop = new Biome.BiomeProperties("Rainforest Islands");
 		prop.setTemperature(0.95F);
 		prop.setRainfall(1.4F);
 		prop.setBaseHeight(-0.5F);
 		prop.setHeightVariation(0.425F);
 		prop.setWaterColor(0x9F791F);
 		
-		rainforestIslands = new BiomeRainforestIslands(prop);
+		/*rainforestIslands = new BiomeRainforestIslands(prop);
 		Biome.registerBiome(GenesisConfig.rainforestId + 129, rainforestIslands.getBiomeName(), rainforestIslands);
-		BiomeDictionary.registerBiomeType(rainforestIslands, BiomeDictionary.Type.OCEAN);
+		BiomeDictionary.registerBiomeType(rainforestIslands, BiomeDictionary.Type.OCEAN);*/
 		
 		prop = new Biome.BiomeProperties("Araucarioxylon Forest");
 		prop.setTemperature(1.1F);
@@ -214,7 +214,7 @@ public final class GenesisBiomes
 		Biome.registerBiome(GenesisConfig.swampRainForestId, swampRainForest.getBiomeName(), swampRainForest);
 		BiomeDictionary.registerBiomeType(swampRainForest, BiomeDictionary.Type.SWAMP, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
-		prop = new Biome.BiomeProperties("Marsh");
+		/*prop = new Biome.BiomeProperties("Marsh");
 		prop.setTemperature(1.15F);
 		prop.setRainfall(0.6F);
 		prop.setBaseHeight(0.0F);
@@ -223,7 +223,7 @@ public final class GenesisBiomes
 		
 		marsh = new BiomeMarsh(prop);
 		BiomeManagerGenesis.registerBiome(marsh, GenesisConfig.marshId, BiomeType.WARM, GenesisConfig.marshWeight);
-		BiomeDictionary.registerBiomeType(marsh, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		BiomeDictionary.registerBiomeType(marsh, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);*/
 		
 		prop = new Biome.BiomeProperties("Floodplains Forest");
 		prop.setTemperature(1.15F);

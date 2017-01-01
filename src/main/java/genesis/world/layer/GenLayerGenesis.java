@@ -94,8 +94,8 @@ public abstract class GenLayerGenesis extends GenLayer
 		return biomeId == Biome.getIdForBiome(GenesisBiomes.shallowOcean)
 				|| biomeId == Biome.getIdForBiome(GenesisBiomes.ocean)
 				|| biomeId == Biome.getIdForBiome(GenesisBiomes.deepOcean)
-				|| biomeId == Biome.getIdForBiome(GenesisBiomes.swampRainForest)
-				|| biomeId == Biome.getIdForBiome(GenesisBiomes.rainforestIslands);
+				|| biomeId == Biome.getIdForBiome(GenesisBiomes.swampRainForest);
+				//|| biomeId == Biome.getIdForBiome(GenesisBiomes.rainforestIslands);//
 	}
 
 	public static boolean biomesEqualOrMesaPlateau(int biomeIDA, int biomeIDB)

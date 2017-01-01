@@ -27,6 +27,7 @@ import genesis.world.gen.feature.WorldGenTreeGinkgo;
 import genesis.world.gen.feature.WorldGenTreeLaurophyllum;
 import genesis.world.gen.feature.WorldGenTreeMetasequoia;
 import net.minecraft.block.material.Material;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -65,7 +66,7 @@ public class BiomeWoodlands extends BiomeGenesis
 	
 	protected void addTrees()
 	{
-		getDecorator().setTreeCount(4.9F);
+		getDecorator().setTreeCount(4.6F);
 		
 		addTree(new WorldGenTreeLaurophyllum(1, 2, false).setType(TreeTypes.TYPE_2), 60);
 		addTree(new WorldGenTreeLaurophyllum(3, 4, false), 40);
@@ -95,4 +96,10 @@ public class BiomeWoodlands extends BiomeGenesis
 		mossStages[1] = 2;
 		super.genTerrainBlocks(world, rand, primer, blockX, blockZ, d);
 	}
+	
+	@Override
+    public int getGrassColorAtPos(BlockPos pos)
+    {
+        return 0x8DC047;
+    }
 }

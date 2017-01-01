@@ -24,7 +24,7 @@ public class WorldGenHut extends WorldGenStructureBase
 	@Override
 	public int getRarity()
 	{
-		return 46;
+		return 56;
 	}
 	
 	@Override
