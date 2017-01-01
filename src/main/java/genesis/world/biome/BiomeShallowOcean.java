@@ -24,28 +24,36 @@ public class BiomeShallowOcean extends BiomeGenesis
 		
 		addDecoration(new WorldGenMossStages(), 30);
 		
-		addDecoration(new WorldGenCorals(2, 5, EnumCoral.HALYSITES), 0.35F);
-		addDecoration(new WorldGenCorals(2, 5, EnumCoral.HELIOLITES), 0.35F);
-		addDecoration(new WorldGenCorals(2, 5, EnumCoral.FAVOSITES), 0.35F);
+		addDecoration(new WorldGenCorals(2, 5, EnumCoral.HALYSITES), 0.275F);
+		addDecoration(new WorldGenCorals(2, 5, EnumCoral.HELIOLITES), 0.275F);
+		addDecoration(new WorldGenCorals(2, 5, EnumCoral.FAVOSITES), 0.275F);
 		
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.BANGIOMORPHA).setPatchCount(9), 2.2F);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.MARPOLIA).setPatchCount(9), 1.2F);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.MARGERETIA).setPatchCount(9), 1.2F);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.GRYPANIA).setPatchCount(9), 0.2F);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.HAZELLA), 4.2F);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.DIAGONIELLA), 3.2F);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.CHANCELLORIA), 3.2F);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.VETULOCYSTIS), 3.2F);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.PIRANIA), 2.2F);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.VAUXIA), 2.2F);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.PTERIDINIUM), 2.2F);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.CHARNIA, EnumAquaticPlant.CHARNIA_TOP), 2.2F);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.ERNIETTA), 2.2F);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.WAPKIA), 1.2F);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.DINOMISCHUS), 0.2F);
-		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.ECHMATOCRINUS), 0.2F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.BANGIOMORPHA).setPatchCount(12), 1.8F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.MARPOLIA).setPatchCount(12), 1);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.MARGERETIA).setPatchCount(12), 1);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.GRYPANIA).setPatchCount(12), 0.15F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.HAZELLA), 3.4F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.DIAGONIELLA), 2.6F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.CHANCELLORIA), 2.6F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.VETULOCYSTIS), 2.6F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.PIRANIA), 1.8F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.VAUXIA), 1.8F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.PTERIDINIUM), 1.8F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.PRIMOCANDELABRUM), 1.8F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.CHARNIA, EnumAquaticPlant.CHARNIA_TOP), 1.8F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.ERNIETTA), 1.8F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.WAPKIA), 1);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.DINOMISCHUS), 0.15F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.ECHMATOCRINUS), 0.15F);
+		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.THAUMAPTILON), 0.15F);
 		
 		addDecoration(new WorldGenPebbles(), 40);
+	}
+	
+	@Override
+	public float getNightFogModifier()
+	{
+		return 0.65F;
 	}
 	
 	@Override
