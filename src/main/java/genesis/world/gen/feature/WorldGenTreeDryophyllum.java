@@ -40,7 +40,7 @@ public class WorldGenTreeDryophyllum extends WorldGenTreeBase
 	protected boolean doGenerate(World world, Random rand, BlockPos pos)
 	{
 		int height = heightProvider.get(rand);
-		int base = 5 + rand.nextInt(4);
+		int base = 4 + rand.nextInt(4);
 		
 		if (!isCubeClear(world, pos.up(base), 3, height))
 		{
@@ -51,7 +51,7 @@ public class WorldGenTreeDryophyllum extends WorldGenTreeBase
 		
 		for (int i = 0; i < mainBranches; ++i)
 		{
-			base = 5 + rand.nextInt(6);
+			base = 4 + rand.nextInt(10);
 			branchUp(world, pos, rand, height, (base >= height - 2)? height - 5: base);
 		}
 		

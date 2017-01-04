@@ -25,7 +25,7 @@ public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 	{
 		int height = heightProvider.get(rand);
 		
-		int trunkHeight = 6;
+		int trunkHeight = 3 + rand.nextInt(6);
 		int leavesBase = pos.getY() + trunkHeight;
 		
 		if (!isCubeClear(world, pos, treeType == TreeTypes.TYPE_1 ? 0 : 1, trunkHeight))

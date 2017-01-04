@@ -1,25 +1,8 @@
 {
-	"forge_marker": 1,
-	"defaults": {
-		"model": "cube_column",
-		"textures": { "end": "genesis:blocks/log_ficus_top" }
-	},
 	"variants": {
-		"axis=y": [
-			{ "textures": { "side": "genesis:blocks/log_ficus_0" } },
-			{ "textures": { "side": "genesis:blocks/log_ficus_1" } }
-		],
-		"axis=z": [
-			{ "textures": { "side": "genesis:blocks/log_ficus_0" }, "x": 90 },
-			{ "textures": { "side": "genesis:blocks/log_ficus_1" }, "x": 90 }
-		],
-		"axis=x": [
-			{ "textures": { "side": "genesis:blocks/log_ficus_0" }, "x": 90, "y": 90 },
-			{ "textures": { "side": "genesis:blocks/log_ficus_1" }, "x": 90, "y": 90 }
-		],
-		"axis=none": [
-			{ "model": "cube_all", "textures": { "all": "genesis:blocks/log_ficus_0" } },
-			{ "model": "cube_all", "textures": { "all": "genesis:blocks/log_ficus_1" } }
-		]
+		"axis=y":  { "model": "genesis:ficus_log" },
+		"axis=z":   { "model": "genesis:ficus_log", "x": 90 },
+		"axis=x":   { "model": "genesis:ficus_log", "x": 90, "y": 90 },
+		"axis=none": { "model": "genesis:ficus_bark" }
 	}
 }
