@@ -65,7 +65,7 @@ public class BiomeWoodlands extends BiomeGenesis
 	
 	protected void addTrees()
 	{
-		getDecorator().setTreeCount(4.6F);
+		getDecorator().setTreeCount(4.55F);
 		
 		addTree(new WorldGenTreeLaurophyllum(1, 2, false).setType(TreeTypes.TYPE_2), 60);
 		addTree(new WorldGenTreeLaurophyllum(3, 4, false), 40);
@@ -73,8 +73,8 @@ public class BiomeWoodlands extends BiomeGenesis
 		addTree(new WorldGenTreeGinkgo(10, 13, false), 11);
 		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 3);
 		addTree(new WorldGenTreeDryophyllum(8, 13, false), 600);
-		addTree(new WorldGenTreeDryophyllum(18, 22, false).setType(TreeTypes.TYPE_2), 50);
-		addTree(new WorldGenTreeMetasequoia(13, 24, true), 100);
+		addTree(new WorldGenTreeDryophyllum(16, 20, false).setType(TreeTypes.TYPE_2), 50);
+		addTree(new WorldGenTreeMetasequoia(17, 20, true), 100);
 		//addTree(new WorldGenTreeDryophyllum(16, 18, false, GenesisBlocks.trees.getBlockState(TreeBlocksAndItems.DEAD_LOG, EnumTree.DRYOPHYLLUM)).setType(TreeTypes.TYPE_3), 1);
 		
 		addTree(new WorldGenDeadLog(5, 8, EnumTree.DRYOPHYLLUM, true), 25);

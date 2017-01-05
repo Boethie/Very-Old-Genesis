@@ -48,7 +48,7 @@ public class BiomeAuxForest extends BiomeGenesis
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.CLADOPHLEBIS).setPatchCount(9), 0.75F);
 		addDecoration(new WorldGenRoots(), 13);
 		
-		addPostDecoration(new WorldGenDebris(), 22);
+		addPostDecoration(new WorldGenDebris(), 24);
 		addPostDecoration(new WorldGenDebris(EnumDebrisOther.COELOPHYSIS_FEATHER).setPatchCount(1, 2), 0.1F);
 	}
 	
