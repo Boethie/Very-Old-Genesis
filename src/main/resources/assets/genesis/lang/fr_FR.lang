@@ -80,6 +80,7 @@ tile.genesis.log.dryophyllum.name=Bois de Dryophyllum
 tile.genesis.log.ficus.name=Bois de Ficus
 tile.genesis.log.artocarpus.name=Bois d'Artocarpus
 
+tile.genesis.branch.protophyllum.name=Branche de Protophyllum
 tile.genesis.branch.laurophyllum.name=Branche de Laurophyllum
 
 tile.genesis.calamitesBundle.name=Fagot de Calamites
@@ -148,6 +149,7 @@ tile.genesis.leaves.dryophyllum.name=Feuilles de Dryophyllum
 tile.genesis.leaves.ficus.name=Feuilles de Ficus
 tile.genesis.leaves.fruit.ficus.name=Feuilles à fruits de Ficus
 tile.genesis.leaves.artocarpus.name=Feuilles d'Artocarpus
+tile.genesis.leaves.protophyllum.name=Feuilles de Protophyllum
 tile.genesis.leaves.laurophyllum.name=Feuilles de Laurophyllum
 tile.genesis.leaves.fruit.laurophyllum.name=Feuilles à fruits de Laurophyllum
 
@@ -165,6 +167,7 @@ tile.genesis.sapling.archaeanthus.name=Pousse d'Archaeanthus
 tile.genesis.sapling.dryophyllum.name=Pousse de Dryophyllum
 tile.genesis.sapling.ficus.name=Pousse de Ficus
 tile.genesis.sapling.artocarpus.name=Pousse d'Artocarpus
+tile.genesis.sapling.protophyllum.name=Pousse de Protophyllum
 tile.genesis.sapling.laurophyllum.name=Pousse de Laurophyllum
 
 tile.genesis.wattleFence.archaeopteris.name=Clayonnage en bois d'Archaeopteris
@@ -179,6 +182,7 @@ tile.genesis.wattleFence.archaeanthus.name=Clayonnage en bois d'Archaeanthus
 tile.genesis.wattleFence.dryophyllum.name=Clayonnage en bois de Dryophyllum
 tile.genesis.wattleFence.ficus.name=Clayonnage en bois de Ficus
 tile.genesis.wattleFence.artocarpus.name=Clayonnage en bois d'Artocarpus
+tile.genesis.wattleFence.protophyllum.name=Clayonnage en bois de Protophyllum
 tile.genesis.wattleFence.laurophyllum.name=Clayonnage en bois de Laurophyllum
 
 tile.genesis.rack.archaeopteris.name=Rack en bois d'Archaeopteris
@@ -193,6 +197,7 @@ tile.genesis.rack.archaeanthus.name=Rack en bois d'Archaeanthus
 tile.genesis.rack.dryophyllum.name=Rack en bois de Dryophyllum
 tile.genesis.rack.ficus.name=Rack en bois de Ficus
 tile.genesis.rack.artocarpus.name=Rack en bois d'Artocarpus
+tile.genesis.rack.protophyllum.name=Rack en bois de Protophyllum
 tile.genesis.rack.laurophyllum.name=Rack en bois de Laurophyllum
 
 tile.genesis.calamitesTorch.name=Torche en Calamites
@@ -579,6 +584,7 @@ item.genesis.material.billet.archaeanthus.name=Billette en bois d'Archaeanthus
 item.genesis.material.billet.dryophyllum.name=Billette en bois de Dryophyllum
 item.genesis.material.billet.ficus.name=Billette en bois de Ficus
 item.genesis.material.billet.artocarpus.name=Billette en bois d'Artocarpus
+item.genesis.material.billet.protophyllum.name=Billette en bois de Protophyllum
 item.genesis.material.billet.laurophyllum.name=Billette en bois de Laurophyllum
 
 item.genesis.material.resin.name=Résine
