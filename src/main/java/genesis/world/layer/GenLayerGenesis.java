@@ -55,7 +55,7 @@ public abstract class GenLayerGenesis extends GenLayer
 
 		GenLayer ret = new GenLayerGenesisBiome(200L, genlayer2);
 		ret = GenLayerZoom.magnify(1000L, ret, 2);
-		ret = new GenLayerGenesisBiomeEdge(1000L, ret);
+		//ret = new GenLayerGenesisBiomeEdge(1000L, ret);
 		GenLayer genlayer1 = GenLayerZoom.magnify(1000L, genlayerriverinit, 2);
 		GenLayerGenesisHills genlayergenesishills = new GenLayerGenesisHills(1000L, ret, genlayer1);
 		genlayer = GenLayerZoom.magnify(1000L, genlayerriverinit, 2);
@@ -94,8 +94,8 @@ public abstract class GenLayerGenesis extends GenLayer
 		return biomeId == Biome.getIdForBiome(GenesisBiomes.shallowOcean)
 				|| biomeId == Biome.getIdForBiome(GenesisBiomes.ocean)
 				|| biomeId == Biome.getIdForBiome(GenesisBiomes.deepOcean)
-				|| biomeId == Biome.getIdForBiome(GenesisBiomes.swampRainForest)
-				|| biomeId == Biome.getIdForBiome(GenesisBiomes.rainforestIslands);
+				|| biomeId == Biome.getIdForBiome(GenesisBiomes.swampRainForest);
+				//|| biomeId == Biome.getIdForBiome(GenesisBiomes.rainforestIslands);//
 	}
 
 	public static boolean biomesEqualOrMesaPlateau(int biomeIDA, int biomeIDB)

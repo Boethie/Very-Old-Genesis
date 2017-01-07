@@ -33,7 +33,7 @@
 			},
 			"ginkgo": {
 				"textures": {
-					"side": "genesis:blocks/log_ginkgo_0",
+					"side": "genesis:blocks/log_ginkgo",
 					"end": "genesis:blocks/log_ginkgo_top"
 				}
 			},
@@ -57,7 +57,7 @@
 			},
 			"archaeanthus": {
 				"textures": {
-					"side": "genesis:blocks/log_archaeanthus_0",
+					"side": "genesis:blocks/log_archaeanthus",
 					"end": "genesis:blocks/log_archaeanthus_top"
 				}
 			},
@@ -69,14 +69,20 @@
 			},
 			"ficus": {
 				"textures": {
-					"side": "genesis:blocks/log_ficus_0",
+					"side": "genesis:blocks/log_ficus",
 					"end": "genesis:blocks/log_ficus_top"
 				}
 			},
 			"artocarpus": {
 				"textures": {
-					"side": "genesis:blocks/log_artocarpus_0",
+					"side": "genesis:blocks/log_artocarpus",
 					"end": "genesis:blocks/log_artocarpus_top"
+				}
+			},
+			"protophyllum": {
+				"textures": {
+					"side": "genesis:blocks/log_protophyllum",
+					"end": "genesis:blocks/log_protophyllum_top"
 				}
 			},
 			"laurophyllum": {

@@ -51,9 +51,9 @@ public class BiomeSwampRainforest extends BiomeGenesis implements IEntityPreferr
 
 		addPostDecoration(new WorldGenDebris(), 33);
 
-		getDecorator().setTreeCount(17.5F);
-		addTree(new WorldGenTreeSigillaria(9, 12, true).generateVine(11), 12);
-		addTree(new WorldGenTreePsaronius(5, 6, true).generateVine(11), 12);
+		getDecorator().setTreeCount(13.5F);
+		addTree(new WorldGenTreeSigillaria(9, 12, true).generateVine(11), 11);
+		addTree(new WorldGenTreePsaronius(5, 6, true).generateVine(11), 11);
 		addTree(new WorldGenTreeCordaites(12, 17, true).generateVine(11), 15);
 		addTree(new WorldGenTreeLepidodendron(11, 15, true).generateVine(11), 17);
 

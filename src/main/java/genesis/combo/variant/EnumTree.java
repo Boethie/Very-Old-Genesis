@@ -23,6 +23,7 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	DRYOPHYLLUM("dryophyllum", tree().bow(1.2F, 1.8F)),
 	FICUS("ficus", tree().noDead().noDebris().fruit(1, 1.2F)),
 	ARTOCARPUS("artocarpus", tree().noDead().noDebris().hangingFruit()),
+	PROTOPHYLLUM("protophyllum", bush().noDead().noDebris()),
 	LAUROPHYLLUM("laurophyllum", bush().noDead().noDebris().fruit(1, 0.4F).bow(0.7F, 1.1F));
 	
 	public enum FruitType

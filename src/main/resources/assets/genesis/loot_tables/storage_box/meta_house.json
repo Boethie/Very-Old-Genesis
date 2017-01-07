@@ -176,6 +176,25 @@
 				},
 				{
 					"type": "item",
+					"entryName": "billet_protophyllum",
+					"name": "genesis:billet_0",
+					"weight": 5,
+					"functions": [
+						{
+							"function": "set_data",
+							"data": 12
+						},
+						{
+							"function": "set_count",
+							"count": {
+								"min": 3,
+								"max": 7
+							}
+						}
+					]
+				},
+				{
+					"type": "item",
 					"name": "genesis:ceramic_bowl_0",
 					"weight": 10
 				},

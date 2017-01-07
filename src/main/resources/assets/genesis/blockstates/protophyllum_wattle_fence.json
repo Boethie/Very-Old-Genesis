@@ -2,9 +2,9 @@
 	"forge_marker": 1,
 	"defaults": {
 		"textures": {
-			"particle": "genesis:blocks/log_ginkgo",
-			"log": "genesis:blocks/log_ginkgo",
-			"stick": "genesis:blocks/stick_ginkgo"
+			"particle": "genesis:blocks/log_protophyllum",
+			"log": "genesis:blocks/log_protophyllum",
+			"stick": "genesis:blocks/stick_protophyllum"
 		},
 		"model": "genesis:wattle_fence_post"
 	},

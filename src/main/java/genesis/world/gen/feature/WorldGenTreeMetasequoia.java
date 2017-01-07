@@ -21,17 +21,11 @@ public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 	}
 	
 	@Override
-	public int getRadius()
-	{
-		return 4;
-	}
-	
-	@Override
 	public boolean doGenerate(World world, Random rand, BlockPos pos)
 	{
 		int height = heightProvider.get(rand);
 		
-		int trunkHeight = 6;
+		int trunkHeight = 3 + rand.nextInt(4);
 		int leavesBase = pos.getY() + trunkHeight;
 		
 		if (!isCubeClear(world, pos, treeType == TreeTypes.TYPE_1 ? 0 : 1, trunkHeight))

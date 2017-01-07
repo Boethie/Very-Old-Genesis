@@ -16,12 +16,6 @@ public class WorldGenTreeArchaeopteris extends WorldGenTreeBase
 	}
 	
 	@Override
-	public int getRadius()
-	{
-		return 2;
-	}
-	
-	@Override
 	protected boolean doGenerate(World world, Random rand, BlockPos pos)
 	{
 		int height = heightProvider.get(rand) - 5;

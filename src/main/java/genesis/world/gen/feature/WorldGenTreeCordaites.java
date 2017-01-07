@@ -24,12 +24,6 @@ public class WorldGenTreeCordaites extends WorldGenTreeBase
 	}
 	
 	@Override
-	public int getRadius()
-	{
-		return 4;
-	}
-	
-	@Override
 	protected boolean doGenerate(World world, Random rand, BlockPos pos)
 	{
 		int height = heightProvider.get(rand);

@@ -81,6 +81,7 @@ tile.genesis.log.dryophyllum.name=Dryophyllum Wood
 tile.genesis.log.ficus.name=Ficus Wood
 tile.genesis.log.artocarpus.name=Artocarpus Wood
 
+tile.genesis.branch.protophyllum.name=Protophyllum Branch
 tile.genesis.branch.laurophyllum.name=Laurophyllum Branch
 
 tile.genesis.calamitesBundle.name=Bundle of Calamites
@@ -149,6 +150,7 @@ tile.genesis.leaves.dryophyllum.name=Dryophyllum Leaves
 tile.genesis.leaves.ficus.name=Ficus Leaves
 tile.genesis.leaves.fruit.ficus.name=Ficus Fruit Leaves
 tile.genesis.leaves.artocarpus.name=Artocarpus Leaves
+tile.genesis.leaves.protophyllum.name=Protophyllum Leaves
 tile.genesis.leaves.laurophyllum.name=Laurophyllum Leaves
 tile.genesis.leaves.fruit.laurophyllum.name=Laurophyllum Fruit Leaves
 
@@ -166,6 +168,7 @@ tile.genesis.sapling.archaeanthus.name=Archaeanthus Sapling
 tile.genesis.sapling.dryophyllum.name=Dryophyllum Sapling
 tile.genesis.sapling.ficus.name=Ficus Sapling
 tile.genesis.sapling.artocarpus.name=Artocarpus Sapling
+tile.genesis.sapling.protophyllum.name=Protophyllum Sapling
 tile.genesis.sapling.laurophyllum.name=Laurophyllum Sapling
 
 tile.genesis.wattleFence.archaeopteris.name=Archaeopteris Wattle Fence
@@ -180,6 +183,7 @@ tile.genesis.wattleFence.archaeanthus.name=Archaeanthus Wattle Fence
 tile.genesis.wattleFence.dryophyllum.name=Dryophyllum Wattle Fence
 tile.genesis.wattleFence.ficus.name=Ficus Wattle Fence
 tile.genesis.wattleFence.artocarpus.name=Artocarpus Wattle Fence
+tile.genesis.wattleFence.protophyllum.name=Protophyllum Wattle Fence
 tile.genesis.wattleFence.laurophyllum.name=Laurophyllum Wattle Fence
 
 tile.genesis.rack.archaeopteris.name=Archaeopteris Wood Rack
@@ -194,6 +198,7 @@ tile.genesis.rack.archaeanthus.name=Archaeanthus Wood Rack
 tile.genesis.rack.dryophyllum.name=Dryophyllum Wood Rack
 tile.genesis.rack.ficus.name=Ficus Wood Rack
 tile.genesis.rack.artocarpus.name=Artocarpus Wood Rack
+tile.genesis.rack.protophyllum.name=Protophyllum Wood Rack
 tile.genesis.rack.laurophyllum.name=Laurophyllum Wood Rack
 
 tile.genesis.calamitesTorch.name=Calamites Torch
@@ -580,6 +585,7 @@ item.genesis.material.billet.archaeanthus.name=Archaeanthus Wood Billet
 item.genesis.material.billet.dryophyllum.name=Dryophyllum Wood Billet
 item.genesis.material.billet.ficus.name=Ficus Wood Billet
 item.genesis.material.billet.artocarpus.name=Artocarpus Wood Billet
+item.genesis.material.billet.protophyllum.name=Protophyllum Wood Billet
 item.genesis.material.billet.laurophyllum.name=Laurophyllum Wood Billet
 
 item.genesis.material.resin.name=Resin

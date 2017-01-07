@@ -48,13 +48,13 @@ public class BiomeAuxForest extends BiomeGenesis
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.CLADOPHLEBIS).setPatchCount(9), 0.75F);
 		addDecoration(new WorldGenRoots(), 13);
 		
-		addPostDecoration(new WorldGenDebris(), 22);
+		addPostDecoration(new WorldGenDebris(), 24);
 		addPostDecoration(new WorldGenDebris(EnumDebrisOther.COELOPHYSIS_FEATHER).setPatchCount(1, 2), 0.1F);
 	}
 	
 	protected void addTrees()
 	{
-		getDecorator().setTreeCount(4.35F);
+		getDecorator().setTreeCount(4.15F);
 		
 		addTree(new WorldGenTreeAraucarioxylon(25, 30, true), 205);
 		addTree(new WorldGenTreeGinkgo(10, 13, false), 5);

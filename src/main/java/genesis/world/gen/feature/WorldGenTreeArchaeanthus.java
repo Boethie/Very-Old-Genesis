@@ -4,7 +4,6 @@ import java.util.Random;
 
 import genesis.combo.variant.EnumTree;
 import genesis.util.random.i.IntRange;
-
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.util.math.BlockPos;
@@ -15,12 +14,6 @@ public class WorldGenTreeArchaeanthus extends WorldGenTreeBase
 	public WorldGenTreeArchaeanthus(int minHeight, int maxHeight, boolean notify)
 	{
 		super(EnumTree.ARCHAEANTHUS, IntRange.create(minHeight, maxHeight), notify);
-	}
-	
-	@Override
-	public int getRadius()
-	{
-		return 3;
 	}
 	
 	@Override

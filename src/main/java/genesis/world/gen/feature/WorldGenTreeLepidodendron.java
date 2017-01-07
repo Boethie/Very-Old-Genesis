@@ -17,12 +17,6 @@ public class WorldGenTreeLepidodendron extends WorldGenTreeBase
 	}
 	
 	@Override
-	public int getRadius()
-	{
-		return 4;
-	}
-	
-	@Override
 	public boolean doGenerate(World world, Random rand, BlockPos pos)
 	{
 		int height = heightProvider.get(rand) - 5;

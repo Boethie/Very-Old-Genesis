@@ -24,7 +24,7 @@ public class WorldGenMetaHouse extends WorldGenStructureBase
 	@Override
 	public int getRarity()
 	{
-		return 83;
+		return 98;
 	}
 	
 	@Override
@@ -73,7 +73,7 @@ public class WorldGenMetaHouse extends WorldGenStructureBase
 		generated = this.checkSurface(
 				world, 
 				curPos, 
-				(int)(MathHelper.abs_max(house.getBounds().xCoord, house.getBounds().zCoord) * 0.45D), 
+				(int)(MathHelper.abs_max(house.getBounds().xCoord, house.getBounds().zCoord) * 0.85D), 
 				(int)(house.getBounds().yCoord * 0.7D));
 		
 		generated = WorldGenStructureHelper.spawnStructure(
