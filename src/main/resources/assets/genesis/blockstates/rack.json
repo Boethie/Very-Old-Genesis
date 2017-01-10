@@ -79,10 +79,10 @@
 					"end": "genesis:blocks/log_artocarpus_top"
 				}
 			},
-			"protophyllum": {
+			"tropidogyne": {
 				"textures": {
-					"side": "genesis:blocks/log_protophyllum",
-					"end": "genesis:blocks/log_protophyllum_top"
+					"side": "genesis:blocks/log_tropidogyne",
+					"end": "genesis:blocks/log_tropidogyne_top"
 				}
 			},
 			"laurophyllum": {

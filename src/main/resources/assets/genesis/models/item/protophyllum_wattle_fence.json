@@ -1,8 +1,0 @@
-{
-	"parent": "genesis:block/wattle_fence_item",
-	"textures": {
-		"particle": "genesis:blocks/log_protophyllum",
-		"log": "genesis:blocks/log_protophyllum",
-		"stick": "genesis:blocks/stick_protophyllum"
-	}
-}

@@ -2,9 +2,9 @@
 	"forge_marker": 1,
 	"defaults": {
 		"textures": {
-			"end": "genesis:blocks/log_protophyllum_top",
-			"side": "genesis:blocks/log_protophyllum",
-			"leaves": "genesis:blocks/leaves_protophyllum",
+			"end": "genesis:blocks/log_tropidogyne_top",
+			"side": "genesis:blocks/log_tropidogyne",
+			"leaves": "genesis:blocks/leaves_tropidogyne",
 			"particle": "#side"
 		},
 		"uvlock": true,

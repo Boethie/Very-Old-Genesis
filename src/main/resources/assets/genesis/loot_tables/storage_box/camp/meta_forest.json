@@ -135,16 +135,13 @@
 				},
 				{
 					"type": "item",
-					"entryName": "billets",
+					"entryName": "billet_meta",
 					"name": "genesis:billet_0",
 					"weight": 5,
 					"functions": [
 						{
 							"function": "set_data",
-							"data": {
-								"min": 7,
-								"max": 8
-							}
+							"data": 7
 						},
 						{
 							"function": "set_count",
@@ -176,7 +173,7 @@
 				},
 				{
 					"type": "item",
-					"entryName": "billet_protophyllum",
+					"entryName": "billet_tropidogyne",
 					"name": "genesis:billet_0",
 					"weight": 5,
 					"functions": [

@@ -1,7 +1,0 @@
-{
-	"parent": "genesis:block/rack",
-	"textures": {
-		"side": "genesis:blocks/log_protophyllum",
-		"end": "genesis:blocks/log_protophyllum_top"
-	}
-}

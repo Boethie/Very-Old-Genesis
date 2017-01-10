@@ -2,7 +2,7 @@
 	"forge_marker": 1,
 	"defaults": {
 		"textures": {
-			"all": "genesis:blocks/leaves_protophyllum"
+			"all": "genesis:blocks/leaves_tropidogyne"
 		},
 		"model": "leaves",
 		"transform": "forge:default-block"
