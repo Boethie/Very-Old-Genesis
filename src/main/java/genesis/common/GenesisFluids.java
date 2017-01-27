@@ -10,8 +10,8 @@ public class GenesisFluids
 {
 	public static final Fluid KOMATIITIC_LAVA =
 			new Fluid("komatiitic_lava",
-			new ResourceLocation(Constants.ASSETS_PREFIX + "blocks/komatiitic_lava_still"),
-			new ResourceLocation(Constants.ASSETS_PREFIX + "blocks/komatiitic_lava_flow"))
+			new ResourceLocation(Constants.MOD_ID, "blocks/komatiitic_lava_still"),
+			new ResourceLocation(Constants.MOD_ID, "blocks/komatiitic_lava_flow"))
 			.setLuminosity(15).setDensity(2000).setViscosity(2000).setTemperature(1800)
 			.setUnlocalizedName(Unlocalized.PREFIX + "komatiiticLava");
 	

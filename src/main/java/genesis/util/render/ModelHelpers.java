@@ -205,7 +205,7 @@ public class ModelHelpers
 			return false;
 		}
 
-		final ResourceLocation generated = new ResourceLocation("minecraft:builtin/generated");
+		final ResourceLocation generated = new ResourceLocation("minecraft", "builtin/generated");
 
 		ModelBlock curModel = ModelHelpers.getModelBlock(loc);
 
@@ -756,7 +756,8 @@ public class ModelHelpers
 					@Override
 					public int getPackedLightmapCoords(IBlockAccess world, BlockPos pos)
 					{
-						return actualState.getPackedLightmapCoords(world, pos);
+						if (actualState.getBlock() != null)	return actualState.getPackedLightmapCoords(world, pos);
+						else return 0;
 					}
 					@Override
 					public float getAmbientOcclusionLightValue()

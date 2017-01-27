@@ -19,6 +19,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.fluids.BlockFluidBase;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class GenesisClient extends GenesisProxy
 {
@@ -42,6 +43,8 @@ public class GenesisClient extends GenesisProxy
 		
 		MinecraftForge.EVENT_BUS.register(new CamouflageColorEventHandler());
 		
+		MinecraftForge.EVENT_BUS.register(new GenesisTextureMapListener());
+		
 		GenesisParticles.createParticles();
 		
 		((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(new ColorizerDryMoss());
@@ -50,10 +53,6 @@ public class GenesisClient extends GenesisProxy
 		GenesisItems.initClient();
 		
 		GenesisDebugOverlay.register();
-
-		/* portals rendering stuff */
-		MinecraftForge.EVENT_BUS.register(new GenesisClientEventHandler());
-		((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(new GenesisReloadListener());
 	}
 	
 	@Override

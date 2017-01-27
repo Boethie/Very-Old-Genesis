@@ -41,7 +41,7 @@ public class TileEntityStorageBoxRenderer extends TileEntitySpecialRenderer<Tile
 		}
 	}
 	
-	public static final ResourceLocation LID = new ResourceLocation(Constants.ASSETS_PREFIX + "storage_box_lid");
+	public static final ResourceLocation LID = new ResourceLocation(Constants.MOD_ID, "storage_box_lid");
 	
 	ModelStorageBox model = new ModelStorageBox();
 	

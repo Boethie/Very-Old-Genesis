@@ -45,9 +45,9 @@ public class GuiGenesisAchievements extends GuiScreen implements IProgressMeter
 	private static final int maxDisplayRow = AchievementList.maxDisplayRow * 24 - 77;
 
 	private static final ResourceLocation GENESIS_ACHIEVEMENT_BACKGROUND = new ResourceLocation(
-			"Genesis" + ":textures/gui/achievement.png");
+			Constants.MOD_ID, ":textures/gui/achievement.png");
 	private static final ResourceLocation DEFAULT_ACHIEVEMENT_BACKGROUND = new ResourceLocation(
-			"textures/gui/achievement/achievement_background.png");
+			"minecraft", "textures/gui/achievement/achievement_background.png");
 
 	protected GuiScreen parentScreen;
 	protected int guiWidth = 256;

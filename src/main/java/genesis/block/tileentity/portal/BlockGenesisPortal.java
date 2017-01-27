@@ -49,13 +49,10 @@ public class BlockGenesisPortal extends Block
 
 				if (entityCenter.squareDistanceTo(blockCenter) <= RANGE * RANGE)
 				{
-					if (entity.timeUntilPortal > 0)
-					{
-						entity.timeUntilPortal = GenesisPortal.COOLDOWN;
-					}
-					else
+					if (entity.timeUntilPortal <= 0)
 					{
 						GenesisDimensions.teleportToDimension(entity, portal, dimension, false);
+						entity.timeUntilPortal = GenesisPortal.COOLDOWN;
 					}
 				}
 			}

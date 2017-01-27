@@ -409,7 +409,7 @@ public class RenderMeganeura extends RenderLiving<EntityMeganeura>
 		}
 	}
 	
-	public static final ResourceLocation TEXTURE = new ResourceLocation(Constants.ASSETS_PREFIX + "textures/entity/meganeura/texture.png");
+	public static final ResourceLocation TEXTURE = new ResourceLocation(Constants.MOD_ID, "textures/entity/meganeura/texture.png");
 	
 	public RenderMeganeura(RenderManager manager)
 	{

@@ -28,7 +28,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 
 public class ItemBowMulti<V extends IBowMetadata<V>> extends ItemBow implements IItemMetadataBitMask
 {
-	public static final ResourceLocation PULL = new ResourceLocation("pull");
+	public static final ResourceLocation PULL = new ResourceLocation("minecraft", "pull");
 	
 	protected final VariantsOfTypesCombo<V> owner;
 	protected final ObjectType<V, ?, ? extends ItemBowMulti<V>> type;

@@ -26,7 +26,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GuiContainerKnapper extends GuiContainerBase
 {
-	public static final ResourceLocation KNAPPER_TEX = new ResourceLocation(Constants.ASSETS_PREFIX + "textures/gui/workbench.png");
+	public static final ResourceLocation KNAPPER_TEX = new ResourceLocation(Constants.MOD_ID, "textures/gui/workbench.png");
 	
 	protected final TileEntityKnapper knapper;
 	protected final ContainerKnapper containerKnapper = (ContainerKnapper) container;

@@ -924,13 +924,13 @@ public class EntityMeganeura extends EntityLiving implements IMovingEntitySoundO
 	@Override
 	protected SoundEvent getHurtSound()
 	{
-		return new SoundEvent(new ResourceLocation(Constants.ASSETS_PREFIX + "mob.meganeura.hurt"));
+		return new SoundEvent(new ResourceLocation(Constants.MOD_ID, "mob.meganeura.hurt"));
 	}
 
 	@Override
 	protected SoundEvent getDeathSound()
 	{
-		return new SoundEvent(new ResourceLocation(Constants.ASSETS_PREFIX + "mob.meganeura.die"));
+		return new SoundEvent(new ResourceLocation(Constants.MOD_ID, "mob.meganeura.die"));
 	}
 
 	@Override

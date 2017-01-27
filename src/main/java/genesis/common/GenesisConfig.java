@@ -3,6 +3,9 @@ package genesis.common;
 import java.io.File;
 
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public final class GenesisConfig
 {
@@ -69,6 +72,10 @@ public final class GenesisConfig
 	//Dimension music
 	public static boolean playDimensionMusic = true;
 	
+	//portal options
+	@SideOnly(Side.CLIENT)
+	public static boolean affectParticles;
+	
 	public static void readConfigValues(File configFile)
 	{
 		config = new Configuration(configFile);
@@ -118,6 +125,11 @@ public final class GenesisConfig
 		smallCampChance = config.getInt("smallCampChance", "structures", smallCampChance, 1, Integer.MAX_VALUE, "Small camp spawning chance");
 		
 		playDimensionMusic = config.getBoolean("dimensionMusic", "music", true, "If true, new music will play in the dimension.");
+		
+		if (FMLCommonHandler.instance().getSide() == Side.CLIENT)
+		{
+			affectParticles = config.getBoolean("affectParticles", "portal", false, "Should portals suck in nearby particles?");
+		}
 		
 		config.save();
 	}

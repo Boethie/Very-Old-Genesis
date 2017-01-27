@@ -205,11 +205,11 @@ public final class GenesisRecipes
 		case GRANITE:
 			return new BlockSpriteUVs(GenesisBlocks.GRANITE);
 		case QUARTZ:
-			return new SpriteUVs(new ResourceLocation(Constants.ASSETS_PREFIX + "textures/blocks/quartz_block.png"), 0, 0, 1, 1);
+			return new SpriteUVs(new ResourceLocation(Constants.MOD_ID, "textures/blocks/quartz_block.png"), 0, 0, 1, 1);
 		case BROWN_FLINT:
-			return new SpriteUVs(new ResourceLocation(Constants.ASSETS_PREFIX + "textures/blocks/brown_flint.png"), 0, 0, 1, 1);
+			return new SpriteUVs(new ResourceLocation(Constants.MOD_ID, "textures/blocks/brown_flint.png"), 0, 0, 1, 1);
 		case BLACK_FLINT:
-			return new SpriteUVs(new ResourceLocation(Constants.ASSETS_PREFIX + "textures/blocks/black_flint.png"), 0, 0, 1, 1);
+			return new SpriteUVs(new ResourceLocation(Constants.MOD_ID, "textures/blocks/black_flint.png"), 0, 0, 1, 1);
 		}
 
 		return null;

@@ -3,6 +3,7 @@ package genesis.client;
 import java.io.IOException;
 
 import genesis.common.Genesis;
+import genesis.util.Constants;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
@@ -27,7 +28,7 @@ public class ColorizerDryMoss implements IResourceManagerReloadListener
 		return bufferIndex > grassBuffer.length ? -65281 : grassBuffer[bufferIndex];
 	}
 	
-	private static final ResourceLocation DRY_MOSS_RES = new ResourceLocation("genesis:textures/colormap/dry_moss.png");
+	private static final ResourceLocation DRY_MOSS_RES = new ResourceLocation(Constants.MOD_ID, "textures/colormap/dry_moss.png");
 
 	@Override
 	public void onResourceManagerReload(IResourceManager resManager)

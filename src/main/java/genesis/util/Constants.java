@@ -13,7 +13,10 @@ public final class Constants
 	public static final String MOD_VERSION = "@VERSION@";
 	public static final String UPDATE_JSON = "https://raw.githubusercontent.com/GenProject/Genesis/master/update.json";
 	
-	public static final String ASSETS_PREFIX = MOD_ID + ":";
+	/** USE ONLY FOR NON-ResourceLocation USAGE!!!<br>
+	 * for ResourceLocations, use "new ResourceLocation(Constants.MOD_ID, location)"<br>
+	 * This is for OPTIMIZATION purposes**/
+	public static final String ASSETS_PREFIX = MOD_ID + ":"; 
 	
 	public static final String PROXY_LOCATION = "genesis.common.GenesisProxy";
 	public static final String CLIENT_LOCATION = "genesis.client.GenesisClient";
