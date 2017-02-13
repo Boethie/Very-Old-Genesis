@@ -9,6 +9,7 @@ import genesis.world.biome.decorate.WorldGenAquaticPlants;
 import genesis.world.biome.decorate.WorldGenMossStages;
 import genesis.world.biome.decorate.WorldGenPebbles;
 import genesis.world.biome.decorate.WorldGenBoulders;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -25,6 +26,16 @@ public class BiomeRiver extends BiomeGenesis implements IEntityPreferredBiome
 		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.BANGIOMORPHA).setPatchCount(9), 1.5F);
 		addDecoration(new WorldGenAquaticPlants(EnumAquaticPlant.MARPOLIA).setPatchCount(9), 0.75F);
 		addDecoration(new WorldGenMossStages(), 30);
+	}
+	
+	@Override
+	public IBlockState getReplacedTopBlock(Random rand, int y)
+	{
+		if (y < 63)
+		{
+			return fillerBlock;
+		}
+		return super.getReplacedTopBlock(rand, y);
 	}
 	
 	@Override

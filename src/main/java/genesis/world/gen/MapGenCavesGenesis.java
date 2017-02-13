@@ -7,6 +7,7 @@ import genesis.combo.SiltBlocks;
 import genesis.combo.variant.EnumSilt;
 import genesis.common.GenesisBlocks;
 import genesis.util.SuperSimplexNoise;
+import genesis.world.biome.BiomeGenesis;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -14,6 +15,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+import net.minecraft.world.gen.ChunkProviderSettings;
 import net.minecraft.world.gen.MapGenBase;
 
 public class MapGenCavesGenesis extends MapGenBase
@@ -71,7 +73,7 @@ public class MapGenCavesGenesis extends MapGenBase
 				int blockX = x + chunkX * 16;
 
 				//Get biome data for this column.
-				Biome biome = world.getBiome(new BlockPos(blockX, 0, blockZ));
+				BiomeGenesis biome = (BiomeGenesis) world.getBiome(new BlockPos(blockX, 0, blockZ));
 
 				//Use 2D noise for the lava boulders.
 				double lavaBoulderValue = lavaBoulderNoise.eval(blockX / 16.0, blockZ / 16.0);
@@ -161,7 +163,7 @@ public class MapGenCavesGenesis extends MapGenBase
 
 						//Block below (biome top block shift-down)
 						if (biome.fillerBlock.equals(data.getBlockState(x, y - 1, z))) {
-							data.setBlockState(x, y - 1, z, biome.topBlock);
+							data.setBlockState(x, y - 1, z, biome.getReplacedTopBlock(rand, y - 1));
 						}
 					}
 
