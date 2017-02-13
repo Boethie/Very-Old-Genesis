@@ -77,7 +77,10 @@ public class MapGenCavesGenesis extends MapGenBase
 
 				//Use 2D noise for the lava boulders.
 				double lavaBoulderValue = lavaBoulderNoise.eval(blockX / 16.0, blockZ / 16.0);
-
+				
+				// this is used to avoid generating biome top block when not on syrface
+				boolean hitSurface = false;
+				
 				for (int y = 255; y >= 1; y--)
 				{
 					//Get the block currently at this point.
@@ -87,7 +90,12 @@ public class MapGenCavesGenesis extends MapGenBase
 					//The block needs to be either in the list or be a biome block to be diggable.
 					if (!DIGGABLE_BLOCKS.contains(thisBlock)
 							&& thisBlock != biome.topBlock.getBlock()
-							&& thisBlock != biome.fillerBlock.getBlock()) continue;
+							&& thisBlock != biome.fillerBlock.getBlock())
+					{
+						if (thisBlock != Blocks.AIR)
+							hitSurface = true;
+						continue;
+					}
 
 					//Get noise values & derivatives
 					for (int i = 0; i < 8; i++) values[i] = 0;
@@ -99,13 +107,21 @@ public class MapGenCavesGenesis extends MapGenBase
 					double F1dNormSq = F1x*F1x + F1y*F1y + F1z*F1z, F1dNorm = Math.sqrt(F1dNormSq);
 					double F2dNormSq = F2x*F2x + F2y*F2y + F2z*F2z, F2dNorm = Math.sqrt(F2dNormSq);
 
-					if (F1dNormSq == 0 || F2dNormSq == 0) continue;
+					if (F1dNormSq == 0 || F2dNormSq == 0)
+					{
+						hitSurface = true;
+						continue;
+					}
 
 					//Get unit dot product of derivatives
 					double dot = F1x*F2x + F1y*F2y + F1z*F2z;
 					double dotU = dot / F1dNorm / F2dNorm;
 
-					if (dotU == 1 || dotU == -1) continue;
+					if (dotU == 1 || dotU == -1)
+					{
+						hitSurface = true;
+						continue;
+					}
 
 					//Lava rooms
 					double threshold = 0.0075;
@@ -129,7 +145,10 @@ public class MapGenCavesGenesis extends MapGenBase
 						double lavaBoulderMaxHeight = lavaRoomDisp * 16;
 						double lavaBoulderHeight = lavaBoulderMaxHeight * lavaBoulderValue;
 						if (lavaBoulderHeight >= y)
+						{
+							hitSurface = true;
 							continue;
+						}
 					}
 
 					//Approximate distance to nearest cave path (noise zero-surface intersection) using crazy math
@@ -147,7 +166,11 @@ public class MapGenCavesGenesis extends MapGenBase
 					}
 
 					//Threshold
-					if (value > threshold) continue;
+					if (value > threshold)
+					{
+						hitSurface = true;
+						continue;
+					}
 
 					//Replace blocks above and below if we should.
 					//Vary the blocks' distribution by re-using one of the cave nosies.
@@ -163,11 +186,12 @@ public class MapGenCavesGenesis extends MapGenBase
 
 						//Block below (biome top block shift-down)
 						if (biome.fillerBlock.equals(data.getBlockState(x, y - 1, z))) {
-							data.setBlockState(x, y - 1, z, biome.getReplacedTopBlock(rand, y - 1));
+							IBlockState state = hitSurface ? biome.fillerBlock : biome.getTopBlock(rand);
+							data.setBlockState(x, y - 1, z, state);
 						}
 					}
 
-					//Dig this block, it's part of a cave.
+					//Dig this block, it's part of a cave. Don't set hitSurface - this block is no longer there
 					data.setBlockState(x, y, z, LEVEL_REPLACEMENT_BLOCKS[y]);
 				}
 

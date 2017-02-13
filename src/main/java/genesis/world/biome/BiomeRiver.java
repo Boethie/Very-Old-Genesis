@@ -29,16 +29,6 @@ public class BiomeRiver extends BiomeGenesis implements IEntityPreferredBiome
 	}
 	
 	@Override
-	public IBlockState getReplacedTopBlock(Random rand, int y)
-	{
-		if (y < 63)
-		{
-			return fillerBlock;
-		}
-		return super.getReplacedTopBlock(rand, y);
-	}
-	
-	@Override
 	public void genTerrainBlocks(World world, Random rand, ChunkPrimer primer, int blockX, int blockZ, double d)
 	{
 		mossStages = new int[2];

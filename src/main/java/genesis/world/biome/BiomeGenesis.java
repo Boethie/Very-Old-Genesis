@@ -150,7 +150,7 @@ public abstract class BiomeGenesis extends Biome implements IBiomeFog
 		return 0x4B7932;
 	}
 	
-	private IBlockState getTopBlock(Random rand)
+	public IBlockState getTopBlock(Random rand)
 	{
 		IBlockState top = topBlock;
 		
@@ -160,18 +160,6 @@ public abstract class BiomeGenesis extends Biome implements IBiomeFog
 		}
 		
 		return top;
-	}
-	
-	/**
-	 * Returns block cave generator (or potentially other structure generator) should replace
-	 * newly exposed filler block with.
-	 *
-	 * This allows cave generator to use randomized top block, and allows
-	 * biomes like river to not generate moss when cave generates below river water level.
-	 */
-	public IBlockState getReplacedTopBlock(Random rand, int y)
-	{
-		return getTopBlock(rand);
 	}
 	
 	@Override
