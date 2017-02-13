@@ -1,6 +1,7 @@
 package genesis.world.gen.feature;
 
 import genesis.combo.variant.EnumTree;
+import genesis.util.BlockVolumeShape;
 import genesis.util.random.i.IntRange;
 
 import java.util.Random;
@@ -19,8 +20,11 @@ public class WorldGenTreeArchaeopteris extends WorldGenTreeBase
 	protected boolean doGenerate(World world, Random rand, BlockPos pos)
 	{
 		int height = heightProvider.get(rand) - 5;
+		int branchY = 3 + rand.nextInt(4);
 		
-		if (!isCubeClear(world, pos, 1, height))
+		if (!BlockVolumeShape.region(-1, 1, -1, 1, branchY - 1, 1)
+					 .and(-2, branchY, -2, 2, height + 2, 2)
+					 .hasSpace(pos, isEmptySpace(world)))
 			return false;
 		
 		for (int i = 0; i < height; i++)
@@ -29,8 +33,6 @@ public class WorldGenTreeArchaeopteris extends WorldGenTreeBase
 		}
 		
 		BlockPos branchPos = pos.up(height - 1);
-		
-		int branchY = 3 + rand.nextInt(4);
 		
 		doPineTopLeaves(world, pos, branchPos, height, branchPos.down(branchY).getY(), rand, false);
 		

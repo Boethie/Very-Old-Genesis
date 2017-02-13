@@ -3,14 +3,20 @@ package genesis.world.gen.feature;
 import java.util.Random;
 
 import genesis.combo.variant.EnumTree;
+import genesis.util.BlockVolumeShape;
 import genesis.util.random.i.IntRange;
 import genesis.util.random.i.WeightedIntItem;
 import genesis.util.random.i.WeightedIntProvider;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.structure.StructureBoundingBox;
 
 public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 {
+	private int height;
+	private int trunkHeight;
+	private int leavesBase;
+	
 	public WorldGenTreeMetasequoia(int minHeight, int maxHeight, boolean notify)
 	{
 		super(EnumTree.METASEQUOIA, IntRange.create(minHeight, maxHeight), notify);
@@ -28,10 +34,12 @@ public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 		int trunkHeight = 3 + rand.nextInt(4);
 		int leavesBase = pos.getY() + trunkHeight;
 		
-		if (!isCubeClear(world, pos, treeType == TreeTypes.TYPE_1 ? 0 : 1, trunkHeight))
-			return false;
-		
-		if (!isCubeClear(world, pos.up(trunkHeight + 1), treeType == TreeTypes.TYPE_1 ? 2 : 3, height - trunkHeight))
+		int rMin = treeType == TreeTypes.TYPE_1 ? 0 : 1;
+		int rMax = treeType == TreeTypes.TYPE_1 ? 2 : 3;
+		int add = treeType == TreeTypes.TYPE_2 ? 1 : 0;
+		if (!BlockVolumeShape.region(-rMin, 1, -rMin, rMin + add, trunkHeight, rMin + add)
+					 .and(-rMax, trunkHeight + 1, -rMax, rMax + add, height, rMax + add)
+					 .hasSpace(pos, isEmptySpace(world)))
 			return false;
 		
 		BlockPos checkPos = pos;

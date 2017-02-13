@@ -5,6 +5,7 @@ import java.util.Random;
 import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
+import genesis.util.BlockVolumeShape;
 import genesis.util.random.i.IntRange;
 import genesis.util.random.i.WeightedIntItem;
 import genesis.util.random.i.WeightedIntProvider;
@@ -42,10 +43,10 @@ public class WorldGenTreeDryophyllum extends WorldGenTreeBase
 		int height = heightProvider.get(rand);
 		int base = 4 + rand.nextInt(4);
 		
-		if (!isCubeClear(world, pos.up(base), 3, height))
-		{
+		if (!BlockVolumeShape.region(-1, 1, -1, 1, base - 1, 1)
+					 .and(-3, base, -3, 3, base + height, 3)
+					 .hasSpace(pos, isEmptySpace(world)))
 			return false;
-		}
 		
 		int mainBranches = (treeType == TreeTypes.TYPE_1 || treeType == TreeTypes.TYPE_3)? 2 + rand.nextInt(2) : 4 + rand.nextInt(8);
 		

@@ -5,6 +5,7 @@ import java.util.Random;
 import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
+import genesis.util.BlockVolumeShape;
 import genesis.util.random.i.IntRange;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -26,7 +27,8 @@ public class WorldGenTreeLaurophyllum extends WorldGenTreeBase
 	{
 		int height = heightProvider.get(rand);
 		
-		if (!isCubeClear(world, pos.up(), 1, height))
+		if (!BlockVolumeShape.region(-2, 1, -2, 2, height, 2)
+					 .hasSpace(pos, isEmptySpace(world)))
 			return false;
 		
 		for (int y = 0; y < height; y++)

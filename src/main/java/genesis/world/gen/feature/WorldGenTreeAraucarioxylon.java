@@ -2,9 +2,11 @@ package genesis.world.gen.feature;
 
 import java.util.Random;
 
+import com.google.common.base.Predicate;
 import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;
+import genesis.util.BlockVolumeShape;
 import genesis.util.random.i.IntRange;
 import genesis.util.random.i.WeightedIntItem;
 import genesis.util.random.i.WeightedIntProvider;
@@ -41,14 +43,6 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 	{
 		int height = heightProvider.get(rand);
 		
-		if (!isCubeClear(world, pos, 1, height))
-			return false;
-		
-		for (int i = 0; i < height; i++)
-		{
-			setBlockInWorld(world, pos.up(i), wood.withProperty(BlockLog.LOG_AXIS, EnumAxis.Y));
-		}
-		
 		BlockPos branchPos = pos.up(height - 1);
 		
 		//TODO decide which values are default
@@ -71,6 +65,16 @@ public class WorldGenTreeAraucarioxylon extends WorldGenTreeBase
 			maxLeavesLength = 2;
 			leavesBase = branchPos.getY() - 2 - rand.nextInt(2);
 			break;
+		}
+		
+		if (!BlockVolumeShape.region(0, 1, 0, 0, leavesBase, 0)
+					 .and(-2, leavesBase + 1, -2, 2, height, 2)
+					 .hasSpace(pos, isEmptySpace(world)))
+			return false;
+		
+		for (int i = 0; i < height; i++)
+		{
+			setBlockInWorld(world, pos.up(i), wood.withProperty(BlockLog.LOG_AXIS, EnumAxis.Y));
 		}
 		
 		int base = 4 + rand.nextInt(4);

@@ -1,7 +1,8 @@
 package genesis.world.gen.feature;
 
 import java.util.Random;
-import java.util.function.Predicate;
+
+import com.google.common.base.Predicate;
 
 import genesis.block.BlockResin;
 import genesis.combo.TreeBlocksAndItems;
@@ -20,7 +21,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraftforge.common.IPlantable;
@@ -118,32 +118,11 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	protected abstract boolean doGenerate(World world, Random rand, BlockPos pos);
 	
 	@Override
-	public final boolean generate(World world, Random rand, BlockPos pos) {
+	public final boolean generate(World world, Random rand, BlockPos pos)
+	{
 		pos = getTreePos(world, pos, -1);
 		
 		if (pos == null)
-			return false;
-		
-		IBlockState state1 = world.getBlockState(pos.north());
-		IBlockState state2 = world.getBlockState(pos.south());
-		IBlockState state3 = world.getBlockState(pos.east());
-		IBlockState state4 = world.getBlockState(pos.west());
-		IBlockState state5 = world.getBlockState(pos.east().north());
-		IBlockState state6 = world.getBlockState(pos.east().south());
-		IBlockState state7 = world.getBlockState(pos.west().north());
-		IBlockState state8 = world.getBlockState(pos.west().south());
-		
-		boolean flag = 
-				state1.getMaterial() != Material.WOOD
-				&& state2.getMaterial() != Material.WOOD
-				&& state3.getMaterial() != Material.WOOD
-				&& state4.getMaterial() != Material.WOOD
-				&& state5.getMaterial() != Material.WOOD
-				&& state6.getMaterial() != Material.WOOD
-				&& state7.getMaterial() != Material.WOOD
-				&& state8.getMaterial() != Material.WOOD;
-		
-		if (!flag)
 			return false;
 		
 		return rand.nextInt(rarity) == 0 && doGenerate(world, rand, pos);
@@ -199,7 +178,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		// Begin checking whether tree can grow here.
 		BlockPos saplingPos = soilPos.up();
 		
-		if (!soilPredicate.test(checkState)
+		if (!soilPredicate.apply(checkState)
 				|| !((BlockBush) sapling.getBlock()).canBlockStay(world, saplingPos, sapling))
 			return null;
 		
@@ -435,23 +414,6 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 			world.setBlockState(below, hangingFruit);
 	}
 	
-	protected boolean isCubeClear(IBlockAccess world, BlockPos pos, int radius, int height)
-	{
-		for (BlockPos checkPos : BlockPos.getAllInBox(pos.add(-radius, 0, -radius), pos.add(radius, height, radius)))
-		{
-			IBlockState checkState = world.getBlockState(checkPos);
-			
-			if (
-					!checkState.getBlock().isReplaceable(world, checkPos)
-					&& !checkState.getBlock().isLeaves(checkState, world, pos)
-					&& (!(checkState.getMaterial() == Material.WATER) && canGrowInWater))
-			{
-				return false;
-			}
-		}
-		return true;
-	}
-	
 	public void doBranchLeaves(World world, BlockPos pos, Random random, boolean cap, int length)
 	{
 		doBranchLeaves(world, pos, random, cap, length, false);
@@ -557,5 +519,16 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	protected boolean canGrowInto(Block block)
 	{
 		return block == GenesisBlocks.MOSS || super.canGrowInto(block);
+	}
+	
+	protected Predicate<BlockPos> isEmptySpace(World world)
+	{
+		return pos ->
+		{
+			IBlockState state = world.getBlockState(pos);
+			return (state.getBlock().isReplaceable(world, pos)
+						   || state.getBlock().isLeaves(state, world, pos))
+						   && (!canGrowInWater || state.getMaterial() != Material.WATER);
+		};
 	}
 }

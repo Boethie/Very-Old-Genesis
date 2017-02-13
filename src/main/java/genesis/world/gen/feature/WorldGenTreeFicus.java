@@ -3,6 +3,7 @@ package genesis.world.gen.feature;
 import java.util.Random;
 
 import genesis.combo.variant.EnumTree;
+import genesis.util.BlockVolumeShape;
 import genesis.util.random.i.IntRange;
 
 import net.minecraft.block.BlockLog;
@@ -23,7 +24,9 @@ public class WorldGenTreeFicus extends WorldGenTreeBase
 		int height = heightProvider.get(rand);
 		int base = 3 + rand.nextInt(3);
 		
-		if (!isCubeClear(world, pos.up(base), 5, height))
+		if (!BlockVolumeShape.region(-1, 1, -1, 1, base - 1, 1)
+					 .and(-5, base, -5, 5, base + height, 5)
+					 .hasSpace(pos, isEmptySpace(world)))
 			return false;
 		
 		int mainBranches = 1 + rand.nextInt(8);

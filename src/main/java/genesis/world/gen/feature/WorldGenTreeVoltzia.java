@@ -3,6 +3,7 @@ package genesis.world.gen.feature;
 import java.util.Random;
 
 import genesis.combo.variant.EnumTree;
+import genesis.util.BlockVolumeShape;
 import genesis.util.random.i.IntRange;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -19,9 +20,9 @@ public class WorldGenTreeVoltzia extends WorldGenTreeBase
 	{
 		int height = heightProvider.get(rand);
 		
-		if (!isCubeClear(world, pos, 1, height))
+		if (!BlockVolumeShape.region(-1, 1, -1, 1, height - 1, 1)
+					 .hasSpace(pos, isEmptySpace(world)))
 			return false;
-		
 		
 		for (int i = 0; i < height; i++)
 		{

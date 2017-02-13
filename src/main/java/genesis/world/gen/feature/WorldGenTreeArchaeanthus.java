@@ -3,11 +3,13 @@ package genesis.world.gen.feature;
 import java.util.Random;
 
 import genesis.combo.variant.EnumTree;
+import genesis.util.BlockVolumeShape;
 import genesis.util.random.i.IntRange;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.structure.StructureBoundingBox;
 
 public class WorldGenTreeArchaeanthus extends WorldGenTreeBase
 {
@@ -22,10 +24,10 @@ public class WorldGenTreeArchaeanthus extends WorldGenTreeBase
 		int height = heightProvider.get(rand);
 		int base = 2 + rand.nextInt(3);
 		
-		if (!isCubeClear(world, pos.up(base), 3, height))
-		{
+		if (!BlockVolumeShape.region(-1, 1, -1, 1, base - 1, 1)
+					 .and(-3, base, -3, 3, base + height, 3)
+					 .hasSpace(pos, isEmptySpace(world)))
 			return false;
-		}
 		
 		int upCount = 0;
 		int step = rand.nextInt(8);

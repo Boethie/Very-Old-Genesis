@@ -3,12 +3,14 @@ package genesis.world.gen.feature;
 import java.util.Random;
 
 import genesis.combo.variant.EnumTree;
+import genesis.util.BlockVolumeShape;
 import genesis.util.random.i.IntRange;
 
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.structure.StructureBoundingBox;
 
 public class WorldGenTreeGinkgo extends WorldGenTreeBase
 {
@@ -23,7 +25,9 @@ public class WorldGenTreeGinkgo extends WorldGenTreeBase
 		int height = heightProvider.get(rand);
 		int base = 2 + rand.nextInt(4);
 		
-		if (!isCubeClear(world, pos.up(base), 4, height))
+		if (!BlockVolumeShape.region(-1, 1, -1, 1, base - 1, 1)
+					 .and(-4, base, -4, 4, base + height, 4)
+					 .hasSpace(pos, isEmptySpace(world)))
 			return false;
 		
 		int mainBranches = (treeType == TreeTypes.TYPE_1)? 2 + rand.nextInt(2) : 3 + rand.nextInt(6);

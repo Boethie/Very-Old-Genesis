@@ -1,12 +1,14 @@
 package genesis.world.gen.feature;
 
 import genesis.combo.variant.EnumTree;
+import genesis.util.BlockVolumeShape;
 import genesis.util.random.i.IntRange;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.structure.StructureBoundingBox;
 
 import java.util.Random;
 
@@ -28,7 +30,9 @@ public class WorldGenTreeCordaites extends WorldGenTreeBase
 	{
 		int height = heightProvider.get(rand);
 		
-		if (!isCubeClear(world, pos, 1, height))
+		if (!BlockVolumeShape.region(-1, 1, -1, 1, leavesStart - 1, 1)
+					 .and(-2, leavesStart, -2, 2, height, 2)
+					 .hasSpace(pos, isEmptySpace(world)))
 			return false;
 		
 		IBlockState state = world.getBlockState(pos.up(4));
