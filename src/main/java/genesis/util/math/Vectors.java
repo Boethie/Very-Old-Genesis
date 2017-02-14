@@ -2,7 +2,6 @@ package genesis.util.math;
 
 import java.util.Random;
 
-import net.minecraft.block.BlockLog;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -10,6 +9,8 @@ import net.minecraft.util.math.Vec3d;
 public final class Vectors
 {
 	private Vectors() {}
+	
+	public static final Vec3d UP = new Vec3d(0, 1, 0);
 	
 	public static Vec3d randomDirection(Random rnd, Vec3d baseVec, Vec3d spread)
 	{
@@ -60,5 +61,20 @@ public final class Vectors
 			return EnumFacing.Axis.Y;
 		}
 		return getMainHorizAxis(direction);
+	}
+	
+	public static Vec3d rotateAroundAxis(EnumFacing.Axis axis, Vec3d v, double angle)
+	{
+		float sin = MathHelper.sin((float) angle);
+		float cos = MathHelper.cos((float) angle);
+		switch (axis)
+		{
+		case X:
+			return new Vec3d(v.xCoord, v.yCoord*cos - v.zCoord*sin, v.yCoord*sin + v.zCoord*cos);
+		case Y:
+			return new Vec3d(v.xCoord*cos + v.zCoord*sin, v.yCoord, -v.xCoord*sin + v.zCoord*cos);
+		default://Z
+			return new Vec3d(v.xCoord*cos - v.yCoord*sin, v.xCoord*sin + v.yCoord*cos, v.zCoord);
+		}
 	}
 }
