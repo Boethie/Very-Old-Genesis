@@ -35,8 +35,7 @@ public class BiomeMetaForest extends BiomeGenesis
 	protected void addDecorations()
 	{
 		getDecorator().setGrassCount(5);
-		addGrass(WorldGenPlant.create(EnumPlant.ASTRALOPTERIS).setPatchCount(9), 3);
-		addGrass(WorldGenPlant.create(EnumPlant.MATONIDIUM).setPatchCount(9), 1);
+		addGrass(WorldGenPlant.create(EnumPlant.CRETACIFILIX).setPatchCount(9), 1);
 		
 		addDecoration(WorldGenSplash.createHumusSplash(), 4.1F);
 		addDecoration(new WorldGenBoulders(0.199F, 0.333F, 1).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.25F, 0.75F)), 0.21F);
