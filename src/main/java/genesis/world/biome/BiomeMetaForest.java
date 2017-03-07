@@ -18,6 +18,7 @@ import genesis.world.gen.feature.WorldGenDeadLog;
 import genesis.world.gen.feature.WorldGenTreeBase.TreeTypes;
 import genesis.world.gen.feature.WorldGenTreeGinkgo;
 import genesis.world.gen.feature.WorldGenTreeMetasequoia;
+import genesis.world.gen.feature.WorldGenTreeTropidogyne;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -60,6 +61,8 @@ public class BiomeMetaForest extends BiomeGenesis
 		
 		addTree(new WorldGenDeadLog(5, 8, EnumTree.METASEQUOIA, true), 9);
 		addTree(new WorldGenDeadLog(5, 8, EnumTree.METASEQUOIA, true).setType(1), 4);
+		
+		addTree(WorldGenTreeTropidogyne.makeDefaultWithNotify(false), 50);
 	}
 	
 	@Override
