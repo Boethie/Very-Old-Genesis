@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"normal": [
+			{ "model": "genesis:tropidogyne_debris" },
+			{ "model": "genesis:tropidogyne_debris", "y": 90 },
+			{ "model": "genesis:tropidogyne_debris", "y": 180 },
+			{ "model": "genesis:tropidogyne_debris", "y": 270 }
+		]
+	}
+}
