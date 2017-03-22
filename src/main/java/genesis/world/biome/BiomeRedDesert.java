@@ -107,11 +107,11 @@ public class BiomeRedDesert extends BiomeGenesis
 		return new Vec3d(red, green, blue);
 	}
 	
-	@Override
+	/*@Override
 	public int getSkyColorByTemp(float temperature)
 	{
 		return 0x85895C;
-	}
+	}*/
 	
 	@Override
 	public void genTerrainBlocks(World world, Random rand, ChunkPrimer chunkPrimer, int x, int z, double noiseVal)

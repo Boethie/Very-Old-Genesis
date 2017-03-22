@@ -208,7 +208,7 @@ public final class GenesisBiomes
 		prop.setRainfall(1.4F);
 		prop.setBaseHeight(-0.2F);
 		prop.setHeightVariation(0.03F);
-		prop.setWaterColor(0x725113);
+		prop.setWaterColor(0x727213);
 		
 		swampRainForest = new BiomeSwampRainforest(prop);
 		Biome.registerBiome(GenesisConfig.swampRainForestId, swampRainForest.getBiomeName(), swampRainForest);
