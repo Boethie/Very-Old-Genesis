@@ -19,7 +19,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.fluids.BlockFluidBase;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class GenesisClient extends GenesisProxy
 {
@@ -42,8 +41,6 @@ public class GenesisClient extends GenesisProxy
 		MinecraftForge.EVENT_BUS.register(new MusicEventHandler());
 		
 		MinecraftForge.EVENT_BUS.register(new CamouflageColorEventHandler());
-		
-		MinecraftForge.EVENT_BUS.register(new GenesisTextureMapListener());
 		
 		GenesisParticles.createParticles();
 		

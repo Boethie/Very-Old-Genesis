@@ -464,7 +464,7 @@ public final class GenesisBlocks
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCampfire.class, new TileEntityCampfireRenderer(CAMPFIRE));
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityStorageBox.class, new TileEntityStorageBoxRenderer(STORAGE_BOX));
 
-		//ModelLoader.setCustomStateMapper(PORTAL, new FlexibleStateMap().setPrefix("portal/portal", ""));
+		ModelLoader.setCustomStateMapper(PORTAL, new FlexibleStateMap().setPrefix("portal/portal", ""));
 
 		for (EnumMenhirPart part : EnumMenhirPart.ORDERED)
 		{

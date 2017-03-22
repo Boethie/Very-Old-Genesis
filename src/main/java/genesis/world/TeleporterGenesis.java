@@ -49,7 +49,7 @@ public class TeleporterGenesis extends Teleporter
 			makePortal(entity);	// TODO: Handle when this process does not create a portal block, in case something weird happens.
 			placeInExistingPortal(entity, rotationYaw);
 		}
-		entity.posY -= 2;
+		
 		setOriginatingPortal(null);
 	}
 	
