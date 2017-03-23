@@ -147,7 +147,7 @@ public abstract class BiomeGenesis extends Biome implements IBiomeFog
 	@Override
 	public int getSkyColorByTemp(float temperature)
 	{
-		return 0xA5BA9C;
+		return 0x90A387;
 	}
 	
 	public IBlockState getTopBlock(Random rand)
@@ -267,9 +267,9 @@ public abstract class BiomeGenesis extends Biome implements IBiomeFog
 	@Override
 	public Vec3d getFogColor()
 	{
-		float red = 0.826203394F;
-		float green = 0.908644695F;
-		float blue = 0.775205075F;
+		float red = 0.603333333F;
+		float green = 0.717058824F;
+		float blue = 0.544509804F;
 		
 		return new Vec3d(red, green, blue);
 	}
