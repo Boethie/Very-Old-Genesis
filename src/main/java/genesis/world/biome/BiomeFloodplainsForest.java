@@ -33,7 +33,7 @@ public class BiomeFloodplainsForest extends BiomeGenesis
 		getDecorator().setFlowerCount(1);
 		addFlower(WorldGenPlant.create(EnumPlant.PSILOPHYTON).setPatchCount(6), 1);
 		
-		addDecoration(WorldGenSplash.createHumusSplash(), 2.15F);
+		addDecoration(WorldGenSplash.createHumusSplash(), 2.35F);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.SPHENOPHYLLUM).setPatchCount(4), 2);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.PROTOTAXITES), 0.175F);
 		addDecoration(WorldGenCircleReplacement.getPeatGen(), 2.75F);
@@ -42,7 +42,7 @@ public class BiomeFloodplainsForest extends BiomeGenesis
 		
 		addPostDecoration(new WorldGenDebris(), 16);
 		
-		getDecorator().setTreeCount(3.65F);
+		getDecorator().setTreeCount(3.55F);
 		addTree(new WorldGenTreeArchaeopteris(17, 20, true), 29);
 		
 		addTree(new WorldGenDeadLog(5, 8, EnumTree.ARCHAEOPTERIS, true), 1);
