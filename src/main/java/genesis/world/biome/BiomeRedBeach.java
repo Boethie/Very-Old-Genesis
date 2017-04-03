@@ -60,9 +60,9 @@ public class BiomeRedBeach extends BiomeBeachGenesis
 		return new Vec3d(red, green, blue);
 	}
 	
-	/*@Override
+	@Override
 	public int getSkyColorByTemp(float temperature)
 	{
-		return 0x85895C;
-	}*/
+		return 0xB3A995;
+	}
 }
