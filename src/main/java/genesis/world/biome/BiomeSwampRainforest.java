@@ -41,7 +41,7 @@ public class BiomeSwampRainforest extends BiomeGenesis implements IEntityPreferr
 		getDecorator().setGrassCount(6);
 		addGrass(WorldGenPlant.create(EnumPlant.ZYGOPTERIS).setPatchCount(9), 1);
 
-		addDecoration(WorldGenSplash.createHumusSplash(), 2.55F);
+		addDecoration(WorldGenSplash.createHumusSplash(), 2.45F);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.ODONTOPTERIS).setPatchCount(3), 2);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.SPHENOPHYLLUM).setPatchCount(4), 4);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.CALAMITES).setPatchCount(3), 4);
@@ -51,7 +51,7 @@ public class BiomeSwampRainforest extends BiomeGenesis implements IEntityPreferr
 
 		addPostDecoration(new WorldGenDebris(), 33);
 
-		getDecorator().setTreeCount(14.1F);
+		getDecorator().setTreeCount(14);
 		addTree(new WorldGenTreeSigillaria(9, 12, true).generateVine(11), 11);
 		addTree(new WorldGenTreePsaronius(5, 6, true).generateVine(11), 11);
 		addTree(new WorldGenTreeCordaites(12, 17, true).generateVine(11), 15);
