@@ -7,6 +7,8 @@ import genesis.combo.variant.IMetadata;
 import genesis.common.GenesisItems;
 import genesis.util.ItemStackKey;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.Constants.NBT;
 
 public enum EnumGlyph implements IMetadata<EnumGlyph>
 {
@@ -94,6 +96,53 @@ public enum EnumGlyph implements IMetadata<EnumGlyph>
 		{
 			return activators.get(rand.nextInt(size)).createNewStack();
 		}
+		
+		return null;
+	}
+	
+	public static void setGlyphToStack(ItemStack stack, EnumGlyph glyph)
+	{
+		NBTTagCompound stackTag = stack.getTagCompound();
+		
+		if (stackTag == null)
+		{
+			stackTag = new NBTTagCompound();
+			stack.setTagCompound(stackTag);
+		}
+		
+		NBTTagCompound blockTag;
+		
+		if (stackTag.hasKey("BlockEntityTag", NBT.TAG_COMPOUND))
+		{
+			blockTag = stackTag.getCompoundTag("BlockEntityTag");
+		}
+		else
+		{
+			blockTag = new NBTTagCompound();
+			stackTag.setTag("BlockEntityTag", blockTag);
+		}
+		
+		blockTag.setString("glyph", glyph.getName());
+	}
+	
+	public static void setGlyphToNBT(NBTTagCompound tag, EnumGlyph glyph)
+	{
+		tag.setString("glyph", glyph.getName());
+	}
+	
+	public static EnumGlyph getGlyphFromStack(ItemStack stack)
+	{
+		NBTTagCompound tag = stack.getTagCompound();
+		return tag != null && tag.hasKey("BlockEntityTag", NBT.TAG_COMPOUND) ? getGlyphFromNBT(tag) : null;
+	}
+	
+	public static EnumGlyph getGlyphFromNBT(NBTTagCompound tag)
+	{
+		String glyphName = tag.getString("glyph");
+		
+		for (EnumGlyph checkGlyph : EnumGlyph.values())
+			if (glyphName.equalsIgnoreCase(checkGlyph.getName()))
+				return checkGlyph;
 		
 		return null;
 	}

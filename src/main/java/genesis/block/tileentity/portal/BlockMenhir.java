@@ -1,5 +1,6 @@
 package genesis.block.tileentity.portal;
 
+import genesis.item.ItemMenhir;
 import java.util.*;
 
 import com.google.common.collect.ImmutableList;
@@ -10,7 +11,6 @@ import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.*;
 import genesis.common.*;
 import genesis.common.sounds.GenesisSoundEvents;
-import genesis.item.ItemBlockMulti;
 import genesis.portal.*;
 import genesis.util.*;
 import net.minecraft.block.SoundType;
@@ -22,7 +22,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
@@ -43,14 +42,14 @@ public class BlockMenhir extends BlockGenesis
 	public static final PropertyEnum<EnumGlyph> GLYPH = PropertyEnum.create("glyph", EnumGlyph.class);
 	public static final PropertyBool ACTIVE = PropertyBool.create("active");
 	
-	public VariantsCombo<EnumMenhirPart, BlockMenhir, ItemBlockMulti<EnumMenhirPart>> owner;
-	public ObjectType<EnumMenhirPart, BlockMenhir, ItemBlockMulti<EnumMenhirPart>> type;
+	public MenhirBlocks owner;
+	public ObjectType<EnumMenhirPart, BlockMenhir, ItemMenhir> type;
 	
 	public List<EnumMenhirPart> variants;
 	public PropertyIMetadata<EnumMenhirPart> variantProp;
 	
-	public BlockMenhir(VariantsCombo<EnumMenhirPart, BlockMenhir, ItemBlockMulti<EnumMenhirPart>> owner,
-			ObjectType<EnumMenhirPart, BlockMenhir, ItemBlockMulti<EnumMenhirPart>> type,
+	public BlockMenhir(MenhirBlocks owner,
+			ObjectType<EnumMenhirPart, BlockMenhir, ItemMenhir> type,
 			List<EnumMenhirPart> variants, Class<EnumMenhirPart> variantClass)
 	{
 		super(Material.ROCK, SoundType.STONE);
@@ -94,25 +93,6 @@ public class BlockMenhir extends BlockGenesis
 		return state;
 	}
 	
-	public ItemStack getGlyphStack(EnumGlyph glyph)
-	{
-		ItemStack glyphStack = owner.getStack(EnumMenhirPart.GLYPH);
-		
-		NBTTagCompound compound = new NBTTagCompound();
-		NBTTagCompound blockCompound = new NBTTagCompound();
-		
-		// Create a TE to store in the block tag.
-		TileEntityMenhirGlyph glyphTE = new TileEntityMenhirGlyph();
-		glyphTE.setGlyph(glyph);
-		glyphTE.writeToNBT(blockCompound);
-		WorldUtils.removeBoilerplateTileEntityNBT(blockCompound);
-		
-		compound.setTag("BlockEntityTag", blockCompound);
-		glyphStack.setTagCompound(compound);
-		
-		return glyphStack;
-	}
-	
 	@Override
 	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list)
 	{
@@ -124,7 +104,7 @@ public class BlockMenhir extends BlockGenesis
 			{
 				for (EnumGlyph glyph : EnumGlyph.values())
 				{	// Create a stack containing tile entity data to set the glyph.
-					list.add(getGlyphStack(glyph));
+					list.add(owner.getGlyphStack(glyph));
 				}
 			}
 			else
@@ -201,7 +181,7 @@ public class BlockMenhir extends BlockGenesis
 	{
 		if (owner.getVariant(state) == EnumMenhirPart.GLYPH && te instanceof TileEntityMenhirGlyph)
 		{
-			return getGlyphStack(((TileEntityMenhirGlyph) te).getGlyph());
+			return owner.getGlyphStack(((TileEntityMenhirGlyph) te).getGlyph());
 		}
 		
 		return owner.getStack(state.getValue(variantProp));

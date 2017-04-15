@@ -25,23 +25,12 @@ public class TileEntityMenhirGlyph extends TileEntityBase
 	@Override
 	protected void writeVisualData(NBTTagCompound compound, boolean save)
 	{
-		compound.setString("glyph", glyph.getName());
+		EnumGlyph.setGlyphToNBT(compound, glyph);
 	}
 	
 	@Override
 	protected void readVisualData(NBTTagCompound compound, boolean save)
 	{
-		setGlyph(getGlyph(compound));
-	}
-	
-	public static EnumGlyph getGlyph(NBTTagCompound compound)
-	{
-		String glyphName = compound.getString("glyph");
-
-		for (EnumGlyph checkGlyph : EnumGlyph.values())
-			if (glyphName.equalsIgnoreCase(checkGlyph.getName()))
-				return checkGlyph;
-
-		return null;
+		setGlyph(EnumGlyph.getGlyphFromNBT(compound));
 	}
 }

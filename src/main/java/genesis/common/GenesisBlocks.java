@@ -28,6 +28,7 @@ import net.minecraft.block.BlockGrass;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.ItemColors;
@@ -48,13 +49,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public final class GenesisBlocks
 {
 	/* Portal */
-	public static final VariantsCombo<EnumMenhirPart, BlockMenhir, ItemMenhir> MENHIRS =
-			new VariantsCombo<>(
-					"menhirs",
-					new ObjectType<>(EnumMenhirPart.class, "menhir", "menhir", BlockMenhir.class, ItemMenhir.class)
-							.setUseSeparateVariantJsons(false).setShouldRegisterVariantModels(false),
-					EnumMenhirPart.class, EnumMenhirPart.values())
-			.setNames(Constants.MOD_ID, Unlocalized.PREFIX);
+	public static final MenhirBlocks MENHIRS = new MenhirBlocks();
 	public static final BlockGenesisPortal PORTAL = (BlockGenesisPortal) new BlockGenesisPortal().setUnlocalizedName(Unlocalized.MISC + "portal");
 
 	/* Moss */
@@ -470,19 +465,23 @@ public final class GenesisBlocks
 		{
 			ItemStack stack = MENHIRS.getStack(part);
 
-			if (part == EnumMenhirPart.GLYPH)
+			switch (part)
 			{
-				BlockMenhir block = MENHIRS.getBlock(part);
+			case GLYPH:
+				Genesis.proxy.registerModel(stack.getItem(),
+						MetadataModelDefinition.from(stack.getItem(),
+								(s) -> {
+									EnumGlyph glyph = EnumGlyph.getGlyphFromStack(s);
 
-				for (EnumGlyph glyph : EnumGlyph.values())
-				{
-					ItemStack glyphStack = block.getGlyphStack(glyph);
-					Genesis.proxy.registerModel(glyphStack.getItem(), glyphStack.getMetadata(), name("portal/glyph_" + glyph.getName()));
-				}
-			}
-			else
-			{
+									if (glyph == null)
+										glyph = EnumGlyph.NONE;
+
+									return name("portal/glyph_" + glyph.getName());
+								}));
+				break;
+			default:
 				Genesis.proxy.registerModel(stack.getItem(), stack.getMetadata(), name("portal/" + part.getName()));
+				break;
 			}
 		}
 
