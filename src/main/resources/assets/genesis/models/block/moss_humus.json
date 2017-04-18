@@ -3,6 +3,7 @@
 	"textures": {
 		"soil": "genesis:blocks/humus",
 		"side": "genesis:blocks/moss_side_0",
-		"top": "genesis:blocks/moss_top_0"
+		"top": "genesis:blocks/moss_top_0",
+		"shadow": "genesis:blocks/moss_side_shadow_humus_0"
 	}
 }
