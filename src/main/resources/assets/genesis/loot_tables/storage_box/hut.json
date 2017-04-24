@@ -6,6 +6,7 @@
 			"entries": [
 				{
 					"type": "item",
+					"entryName": "resin",
 					"name": "genesis:material_0",
 					"weight": 10,
 					"functions": [

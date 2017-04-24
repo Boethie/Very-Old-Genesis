@@ -4,7 +4,6 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import genesis.common.Genesis;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
@@ -124,7 +123,7 @@ public class TileEntityInventoryLootBase extends TileEntityInventoryBase {
         {
         	if (this.worldObj.getLootTableManager() == null)
         	{
-        		Genesis.logger.info("Could not get loot manager.");
+        		//Genesis.logger.info("Could not get loot manager.");
         		return;
         	}
         	

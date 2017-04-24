@@ -107,6 +107,7 @@ public abstract class WorldGenStructureBase implements IWorldGenerator
 		{
 			for (int z = -squareArea; z <= squareArea; ++z)
 			{
+				//check for water blocks
 				if (world.isAirBlock(center.add(x, 0, z)))
 					return false;
 				
