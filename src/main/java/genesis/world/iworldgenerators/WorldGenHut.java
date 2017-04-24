@@ -63,10 +63,10 @@ public class WorldGenHut extends WorldGenStructureBase
 		BlockPos curPos = pos;
 		
 		StructureType hut = StructureType.HUT1;
-		/*
-		if (!world.isAirBlock(curPos))
+		
+		if (!world.isAirBlock(curPos.up()))
 			curPos = curPos.up();
-		*/
+		
 		EnumFacing offset = hut.getOffse();
 		
 		Vec3d secOffset = hut.getSecondOffset();
