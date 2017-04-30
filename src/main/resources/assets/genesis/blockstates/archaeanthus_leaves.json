@@ -4,12 +4,12 @@
 		"model": "genesis:leaves_flowers",
 		"textures": {
 			"leaves": "genesis:blocks/leaves_archaeanthus",
-			"down": "genesis:blocks/leaves_archaeanthus",
-			"up": "genesis:blocks/leaves_archaeanthus",
-			"north": "genesis:blocks/leaves_archaeanthus",
-			"south": "genesis:blocks/leaves_archaeanthus",
-			"west": "genesis:blocks/leaves_archaeanthus",
-			"east": "genesis:blocks/leaves_archaeanthus"
+			"down": "genesis:misc/transparent",
+			"up": "genesis:misc/transparent",
+			"north": "genesis:misc/transparent",
+			"south": "genesis:misc/transparent",
+			"west": "genesis:misc/transparent",
+			"east": "genesis:misc/transparent"
 		}
 	},
 	"variants": {
