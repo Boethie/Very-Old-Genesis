@@ -33,7 +33,7 @@ public class BiomeRainforest extends BiomeGenesis
 	
 	protected void addDecorations()
 	{
-		getDecorator().setGrassCount(9);
+		getDecorator().setGrassCount(9.05F);
 		addGrass(WorldGenPlant.create(EnumPlant.ZYGOPTERIS).setPatchCount(14), 1);
 		
 		addDecoration(WorldGenSplash.createHumusSplash(), 3.75F);
