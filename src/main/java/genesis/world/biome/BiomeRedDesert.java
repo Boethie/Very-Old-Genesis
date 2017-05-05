@@ -110,7 +110,7 @@ public class BiomeRedDesert extends BiomeGenesis
 	@Override
 	public int getSkyColorByTemp(float temperature)
 	{
-		return 0x85895C;
+		return 0xB3A995;
 	}
 	
 	@Override

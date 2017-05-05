@@ -31,6 +31,7 @@ import genesis.world.gen.feature.WorldGenTreeLepidodendron;
 import genesis.world.gen.feature.WorldGenTreeMetasequoia;
 import genesis.world.gen.feature.WorldGenTreePsaronius;
 import genesis.world.gen.feature.WorldGenTreeSigillaria;
+import genesis.world.gen.feature.WorldGenTreeTropidogyne;
 import genesis.world.gen.feature.WorldGenTreeVoltzia;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.properties.IProperty;
@@ -199,6 +200,8 @@ public class BlockGenesisSaplings extends BlockSapling
 			}
 			gen = new WorldGenTreeLaurophyllum(minHeight, maxHeight, true).setType(treeType);
 			break;
+		case TROPIDOGYNE:
+			gen = WorldGenTreeTropidogyne.makeDefaultWithNotify(true);
 		default:
 			break;
 		}

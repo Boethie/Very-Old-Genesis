@@ -24,7 +24,7 @@ public class WorldGenMetaHouse extends WorldGenStructureBase
 	@Override
 	public int getRarity()
 	{
-		return 98;
+		return 99;
 	}
 	
 	@Override
@@ -90,7 +90,7 @@ public class WorldGenMetaHouse extends WorldGenStructureBase
 		{
 			BlockPos storagePos = this.findBlockInArea(world, curPos, 8, 5, GenesisBlocks.STORAGE_BOX.getDefaultState(), true);
 			
-			if (storagePos!= null)
+			if (storagePos != null)
 			{
 				TileEntity te = world.getTileEntity(storagePos);
 				

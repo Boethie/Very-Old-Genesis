@@ -76,10 +76,10 @@
 			{ "model": "genesis:campfire_cooking_billet", "y": 270, "textures": {"end": "genesis:blocks/log_psaronius_top",  "side": "genesis:blocks/log_psaronius_0"} }
 		],
 		"item=genesis__ginkgo_log": [
-			{ "model": "genesis:campfire_cooking_billet", "y": 0, "textures": {"end": "genesis:blocks/log_ginkgo_top",  "side": "genesis:blocks/log_ginkgo_0"} },
-			{ "model": "genesis:campfire_cooking_billet", "y": 90, "textures": {"end": "genesis:blocks/log_ginkgo_top",  "side": "genesis:blocks/log_ginkgo_0"} },
-			{ "model": "genesis:campfire_cooking_billet", "y": 180, "textures": {"end": "genesis:blocks/log_ginkgo_top",  "side": "genesis:blocks/log_ginkgo_0"} },
-			{ "model": "genesis:campfire_cooking_billet", "y": 270, "textures": {"end": "genesis:blocks/log_ginkgo_top",  "side": "genesis:blocks/log_ginkgo_0"} }
+			{ "model": "genesis:campfire_cooking_billet", "y": 0, "textures": {"end": "genesis:blocks/log_ginkgo_top",  "side": "genesis:blocks/log_ginkgo"} },
+			{ "model": "genesis:campfire_cooking_billet", "y": 90, "textures": {"end": "genesis:blocks/log_ginkgo_top",  "side": "genesis:blocks/log_ginkgo"} },
+			{ "model": "genesis:campfire_cooking_billet", "y": 180, "textures": {"end": "genesis:blocks/log_ginkgo_top",  "side": "genesis:blocks/log_ginkgo"} },
+			{ "model": "genesis:campfire_cooking_billet", "y": 270, "textures": {"end": "genesis:blocks/log_ginkgo_top",  "side": "genesis:blocks/log_ginkgo"} }
 		],
 		"item=genesis__bjuvia_log": [
 			{ "model": "genesis:campfire_cooking_billet", "y": 0, "textures": {"end": "genesis:blocks/log_bjuvia_top",  "side": "genesis:blocks/log_bjuvia"} },
@@ -106,10 +106,10 @@
 			{ "model": "genesis:campfire_cooking_billet", "y": 270, "textures": {"end": "genesis:blocks/log_metasequoia_top",  "side": "genesis:blocks/log_metasequoia_0"} }
 		],
 		"item=genesis__archaeanthus_log": [
-			{ "model": "genesis:campfire_cooking_billet", "y": 0, "textures": {"end": "genesis:blocks/log_archaeanthus_top",  "side": "genesis:blocks/log_archaeanthus_0"} },
-			{ "model": "genesis:campfire_cooking_billet", "y": 90, "textures": {"end": "genesis:blocks/log_archaeanthus_top",  "side": "genesis:blocks/log_archaeanthus_0"} },
-			{ "model": "genesis:campfire_cooking_billet", "y": 180, "textures": {"end": "genesis:blocks/log_archaeanthus_top",  "side": "genesis:blocks/log_archaeanthus_0"} },
-			{ "model": "genesis:campfire_cooking_billet", "y": 270, "textures": {"end": "genesis:blocks/log_archaeanthus_top",  "side": "genesis:blocks/log_archaeanthus_0"} }
+			{ "model": "genesis:campfire_cooking_billet", "y": 0, "textures": {"end": "genesis:blocks/log_archaeanthus_top",  "side": "genesis:blocks/log_archaeanthus"} },
+			{ "model": "genesis:campfire_cooking_billet", "y": 90, "textures": {"end": "genesis:blocks/log_archaeanthus_top",  "side": "genesis:blocks/log_archaeanthus"} },
+			{ "model": "genesis:campfire_cooking_billet", "y": 180, "textures": {"end": "genesis:blocks/log_archaeanthus_top",  "side": "genesis:blocks/log_archaeanthus"} },
+			{ "model": "genesis:campfire_cooking_billet", "y": 270, "textures": {"end": "genesis:blocks/log_archaeanthus_top",  "side": "genesis:blocks/log_archaeanthus"} }
 		],
 		"item=genesis__dryophyllum_log": [
 			{ "model": "genesis:campfire_cooking_billet", "y": 0, "textures": {"end": "genesis:blocks/log_dryophyllum_top",  "side": "genesis:blocks/log_dryophyllum_0"} },
@@ -118,16 +118,16 @@
 			{ "model": "genesis:campfire_cooking_billet", "y": 270, "textures": {"end": "genesis:blocks/log_dryophyllum_top",  "side": "genesis:blocks/log_dryophyllum_0"} }
 		],
 		"item=genesis__ficus_log": [
-			{ "model": "genesis:campfire_cooking_billet", "y": 0, "textures": {"end": "genesis:blocks/log_ficus_top",  "side": "genesis:blocks/log_ficus_0"} },
-			{ "model": "genesis:campfire_cooking_billet", "y": 90, "textures": {"end": "genesis:blocks/log_ficus_top",  "side": "genesis:blocks/log_ficus_0"} },
-			{ "model": "genesis:campfire_cooking_billet", "y": 180, "textures": {"end": "genesis:blocks/log_ficus_top",  "side": "genesis:blocks/log_ficus_0"} },
-			{ "model": "genesis:campfire_cooking_billet", "y": 270, "textures": {"end": "genesis:blocks/log_ficus_top",  "side": "genesis:blocks/log_ficus_0"} }
+			{ "model": "genesis:campfire_cooking_billet", "y": 0, "textures": {"end": "genesis:blocks/log_ficus_top",  "side": "genesis:blocks/log_ficus"} },
+			{ "model": "genesis:campfire_cooking_billet", "y": 90, "textures": {"end": "genesis:blocks/log_ficus_top",  "side": "genesis:blocks/log_ficus"} },
+			{ "model": "genesis:campfire_cooking_billet", "y": 180, "textures": {"end": "genesis:blocks/log_ficus_top",  "side": "genesis:blocks/log_ficus"} },
+			{ "model": "genesis:campfire_cooking_billet", "y": 270, "textures": {"end": "genesis:blocks/log_ficus_top",  "side": "genesis:blocks/log_ficus"} }
 		],
 		"item=genesis__artocarpus_log": [
-			{ "model": "genesis:campfire_cooking_billet", "y": 0, "textures": {"end": "genesis:blocks/log_artocarpus_top",  "side": "genesis:blocks/log_artocarpus_0"} },
-			{ "model": "genesis:campfire_cooking_billet", "y": 90, "textures": {"end": "genesis:blocks/log_artocarpus_top",  "side": "genesis:blocks/log_artocarpus_0"} },
-			{ "model": "genesis:campfire_cooking_billet", "y": 180, "textures": {"end": "genesis:blocks/log_artocarpus_top",  "side": "genesis:blocks/log_artocarpus_0"} },
-			{ "model": "genesis:campfire_cooking_billet", "y": 270, "textures": {"end": "genesis:blocks/log_artocarpus_top",  "side": "genesis:blocks/log_artocarpus_0"} }
+			{ "model": "genesis:campfire_cooking_billet", "y": 0, "textures": {"end": "genesis:blocks/log_artocarpus_top",  "side": "genesis:blocks/log_artocarpus"} },
+			{ "model": "genesis:campfire_cooking_billet", "y": 90, "textures": {"end": "genesis:blocks/log_artocarpus_top",  "side": "genesis:blocks/log_artocarpus"} },
+			{ "model": "genesis:campfire_cooking_billet", "y": 180, "textures": {"end": "genesis:blocks/log_artocarpus_top",  "side": "genesis:blocks/log_artocarpus"} },
+			{ "model": "genesis:campfire_cooking_billet", "y": 270, "textures": {"end": "genesis:blocks/log_artocarpus_top",  "side": "genesis:blocks/log_artocarpus"} }
 		],
 		// Containers
 		"item=genesis__red_clay_bowl": [

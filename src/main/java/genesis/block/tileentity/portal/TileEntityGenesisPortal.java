@@ -1,46 +1,39 @@
 package genesis.block.tileentity.portal;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import genesis.block.tileentity.TileEntityBase;
-import genesis.common.GenesisConfig;
 import genesis.portal.GenesisPortal;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.*;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class TileEntityGenesisPortal extends TileEntityBase implements ITickable
 {
-	private float radius = 2.5f;
-	private byte timer = 0;
-	private int ticksAlive = 0;
-	private static final float ROTSPEED = 1;
+	protected double radius = 5 / 2.0;
+	protected byte timer = 0;
 	
-	@SideOnly(Side.CLIENT)
-	public ArrayList<PortalParticle> particles;
-	@SideOnly(Side.CLIENT)
-	private int spawnCool;
+	public float prevRotation = 0;
+	public float rotation = 0;
 	
-	private static final Random rand = new Random();
+	//Cached
+	protected Vec3d center = null;
+	protected AxisAlignedBB bounds = null;
 	
 	public TileEntityGenesisPortal()
 	{
-		if (FMLCommonHandler.instance().getSide() == Side.CLIENT)
-		{
-			particles = new ArrayList<PortalParticle>();
-			spawnCool = 0;
-		}
+	}
+	
+	@Override
+	public void setPos(BlockPos pos)
+	{
+		super.setPos(pos);
+		
+		center = new Vec3d(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+		bounds = new AxisAlignedBB(center.xCoord - radius, center.yCoord - radius, center.zCoord - radius,
+									center.xCoord + radius, center.yCoord + radius, center.zCoord + radius);
 	}
 	
 	@Override
@@ -48,85 +41,57 @@ public class TileEntityGenesisPortal extends TileEntityBase implements ITickable
 	{
 		if (!worldObj.isRemote)
 		{
-			if (--timer <= 0)
+			timer--;
+			
+			if (timer <= 0)
 			{
 				GenesisPortal.fromPortalBlock(worldObj, pos).updatePortalStatus(worldObj);
 				timer = GenesisPortal.PORTAL_CHECK_TIME;
 			}
 		}
-		ticksAlive++;
-		float rad = getRadius();
-		if (rad > 0)
+		else
 		{
-			float rMax = 625 * rad * rad;
-			double x = this.pos.getX() + 0.5;
-			double y = this.pos.getY() + 0.5;
-			double z = this.pos.getZ() + 0.5;
-			for (Entity entity : worldObj.loadedEntityList)
+			prevRotation = rotation;
+			rotation -= 1.25;
+			
+			while (rotation < 0)
 			{
-				if (entity.timeUntilPortal > 0) continue;
-				if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isFlying) continue;
-				AxisAlignedBB bb = entity.getEntityBoundingBox();
-				double dX = x - (bb.minX + bb.maxX) / 2;
-				double dY = y - (bb.minY + bb.maxY) / 2;
-				double dZ = z - (bb.minZ + bb.maxZ) / 2;
-				double dsqr = (dX * dX + dY * dY + dZ * dZ);
-				if (dsqr > 0 && dsqr <= rMax)
-				{
-					double f = rad * rad * rad * .015625 / (dsqr * MathHelper.sqrt_double(dsqr));
-					entity.motionX += dX * f;
-					entity.motionY += dY * f;
-					entity.motionZ += dZ * f;
-				}
-			}
-			if (worldObj.isRemote)
-			{
-				if (GenesisConfig.affectParticles)
-				{
-					ArrayDeque<Particle>[][] particles = Minecraft.getMinecraft().effectRenderer.fxLayers;
-					for (int i = 0; i < particles.length; i++) for (int j = 0; j < particles[i].length; j++) for (Particle p : particles[i][j])
-					{
-						double dX = x - p.posX;
-						double dY = y - p.posY;
-						double dZ = z - p.posZ;
-						double dsqr = (dX * dX + dY * dY + dZ * dZ);
-						if (dsqr > 0 && dsqr <= rMax)
-						{
-							double f = rad * rad * rad * .015625 / (dsqr * MathHelper.sqrt_double(dsqr));
-							p.motionX += dX * f;
-							p.motionY += dY * f;
-							p.motionZ += dZ * f;
-						}
-					}
-				}
-				int size = particles.size();
-				for (int i = 0; i < size; i++)
-				{
-					PortalParticle p = particles.get(i);
-					p.life--;
-					if (p.life <= 0)
-					{
-						particles.remove(i);
-						i--;
-						size--;
-					}
-				}
-				if (--spawnCool <= 0)
-				{
-					particles.add(new PortalParticle(randomUnitVec()));
-					spawnCool = 5;
-				}
+				prevRotation += 360;
+				rotation += 360;
 			}
 		}
-	}
-	
-	private static Vec3d randomUnitVec()
-	{
-		double theta = rand.nextDouble() * 2 * Math.PI;
-		double r = MathHelper.sqrt_double(rand.nextDouble());
-		double z = MathHelper.sqrt_double(1 - r * r);
-		if (rand.nextBoolean()) z = -z;
-		return new Vec3d(r * Math.cos(theta), r * Math.sin(theta), z);
+		
+		List<EntityLivingBase> entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, bounds);
+		
+		for (EntityLivingBase entity : entities)
+		{
+			EntityPlayer player = entity instanceof EntityPlayer ? (EntityPlayer) entity : null;
+			
+			if (player != null && player.capabilities.isFlying)
+			{
+				continue;
+			}
+			
+			double diffX = entity.posX - center.xCoord;
+			double diffY = entity.posY + (entity.getEyeHeight() / 2) - center.yCoord;
+			double diffZ = entity.posZ - center.zCoord;
+			double distance = diffX * diffX + diffY * diffY + diffZ * diffZ;
+			
+			if (distance < radius * radius)
+			{
+				distance = MathHelper.sqrt_double(distance);
+				double speed = -(distance / radius) * 0.05;
+				
+				if (player != null && player.isSneaking())
+				{
+					speed *= 0.5;
+				}
+				
+				entity.motionX += diffX * speed;
+				entity.motionY += diffY * speed;
+				entity.motionZ += diffZ * speed;
+			}
+		}
 	}
 	
 	@Override
@@ -145,8 +110,12 @@ public class TileEntityGenesisPortal extends TileEntityBase implements ITickable
 	public NBTTagCompound writeToNBT(NBTTagCompound compound)
 	{
 		compound = super.writeToNBT(compound);
-		compound.setFloat("radius", radius);
+		
+		compound.setDouble("radius", radius);
 		compound.setByte("timer", timer);
+		
+		compound.setFloat("rotation", rotation);
+
 		return compound;
 	}
 	
@@ -154,69 +123,20 @@ public class TileEntityGenesisPortal extends TileEntityBase implements ITickable
 	public void readFromNBT(NBTTagCompound compound)
 	{
 		super.readFromNBT(compound);
-		radius = compound.getFloat("radius");
+
+		radius = compound.getDouble("radius");
 		timer = compound.getByte("timer");
+		
+		prevRotation = rotation = compound.getFloat("rotation");
 	}
 	
 	@Override
 	protected void writeVisualData(NBTTagCompound compound, boolean save)
 	{
-		compound.setInteger("alive", ticksAlive);
-		compound.setFloat("radius", radius);
 	}
 	
 	@Override
 	protected void readVisualData(NBTTagCompound compound, boolean save)
 	{
-		ticksAlive = compound.getInteger("alive");
-		radius = compound.getFloat("radius");
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-    public AxisAlignedBB getRenderBoundingBox()
-    {
-		double off1 = 0.5 - radius;
-		double off2 = 0.5 + radius;
-		return new AxisAlignedBB(pos.add(off1, off1, off1), pos.add(off2, off2, off2));
-    }
-	
-	public float getAngle(float partial)
-	{
-		return (ticksAlive + partial) * ROTSPEED;
-	}
-	
-	public float getRadius(float partial)
-	{
-		if (ticksAlive < 20) return radius * (ticksAlive + partial) * 0.05f;
-		else return radius;
-	}
-	
-	public float getRadius()
-	{
-		if (ticksAlive < 20) return radius * (ticksAlive) * 0.05f;
-		else return radius;
-	}
-	
-
-	@SideOnly(Side.CLIENT)
-	public static class PortalParticle
-	{
-		private final Vec3d vec;
-		public int life;
-		
-		public PortalParticle(Vec3d vec)
-		{
-			this.vec = vec;
-			life = 40;
-		}
-		
-		public Vec3d getVec(float partial)
-		{
-			double r = (life - partial) * .025;
-			if (r <= 0) return Vec3d.ZERO;
-			r = Math.pow(r, .25);
-			return vec.scale(r);
-		}
 	}
 }

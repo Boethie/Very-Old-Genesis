@@ -24,8 +24,8 @@ public class BiomeBeachGenesis extends BiomeGenesis
 	{
 		addDecoration(new WorldGenPebbles(), 20);
 		
-		getDecorator().setFlowerCount(4);
-		addFlower(WorldGenPlant.create(EnumPlant.LEPACYCLOTES).setNextToWater(true).setPatchCount(4), 10);
+		getDecorator().setFlowerCount(3.5F);
+		addFlower(WorldGenPlant.create(EnumPlant.LEPACYCLOTES).setNextToWater(true).setPatchCount(4), 1);
 	}
 	
 	@Override

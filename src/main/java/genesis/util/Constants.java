@@ -11,7 +11,7 @@ public final class Constants
 	public static final String MOD_ID = "genesis";		// Cannot change.
 	public static final String MOD_NAME = "Genesis";	// Cannot change.
 	public static final String MOD_VERSION = "@VERSION@";
-	public static final String UPDATE_JSON = "https://raw.githubusercontent.com/GenProject/Genesis/master/update.json";
+	public static final String UPDATE_JSON = "https://raw.githubusercontent.com/EversongMill/Genesis/master/update.json";
 	
 	/** USE ONLY FOR NON-ResourceLocation USAGE!!!<br>
 	 * for ResourceLocations, use "new ResourceLocation(Constants.MOD_ID, location)"<br>

@@ -29,7 +29,7 @@ public class GenesisPortal
 	public static final int MENHIR_MIN_DISTANCE = 1;
 	public static final int MENHIR_DEFAULT_DISTANCE = 3;
 	public static final int MENHIR_MAX_DISTANCE = 5;
-	public static final int PORTAL_HEIGHT = 4;
+	public static final int PORTAL_HEIGHT = 3;
 
 	public static final int COOLDOWN = 10;
 

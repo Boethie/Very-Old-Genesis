@@ -125,6 +125,7 @@ tile.genesis.debris.araucarioxylon.name=Araucarioxylon Leaf Debris
 tile.genesis.debris.metasequoia.name=Metasequoia Leaf Debris
 tile.genesis.debris.archaeanthus.name=Archaeanthus Leaf Debris
 tile.genesis.debris.dryophyllum.name=Dryophyllum Leaf Debris
+tile.genesis.debris.tropidogyne.name=Tropidogyne Leaf Debris
 tile.genesis.debris.calamites.name=Calamites Debris
 tile.genesis.debris.coelophysisFeather.name=Coelophysis Feather Debris
 tile.genesis.debris.epidexipteryxFeather.name=Epidexipteryx Feather Debris
@@ -290,7 +291,6 @@ item.genesis.misc.menhirActivator.ancientAmber.name=Ancient Amber
 item.genesis.misc.menhirActivator.fossilizedEgg.name=Fossilized Egg
 item.genesis.misc.menhirActivator.brokenSpiritMask.name=Broken Spirit Mask
 item.genesis.misc.menhirActivator.primitiveDust.name=Primitive Dust
-item.genesis.misc.menhirActivator.sacredTreeStar.name=Sacred Tree Star
 
 #Food
 item.genesis.seed.araucarioxylon.name=Araucarioxylon Seeds
