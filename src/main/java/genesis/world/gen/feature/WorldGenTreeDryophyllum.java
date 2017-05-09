@@ -1,5 +1,6 @@
 package genesis.world.gen.feature;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -23,16 +24,23 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import static java.lang.Math.abs;
+import static java.lang.Math.pow;
+
 public class WorldGenTreeDryophyllum extends WorldGenTreeBase
 {
+	private static final TreeTypes TYPE_SMALL_1 = TreeTypes.TYPE_1;
+	private static final TreeTypes TYPE_SMALL_2 = TreeTypes.TYPE_3;
+	private static final TreeTypes TYPE_BIG = TreeTypes.TYPE_2;
+	
 	public WorldGenTreeDryophyllum(int minHeight, int maxHeight, boolean notify, IBlockState wood)
 	{
 		super(
 				GenesisBlocks.TREES.getBlockState(TreeBlocksAndItems.SAPLING, EnumTree.DRYOPHYLLUM),
-				wood, 
-				null, 
-				null, 
-				IntRange.create(minHeight, maxHeight), 
+				wood,
+				null,
+				null,
+				IntRange.create(minHeight, maxHeight),
 				notify);
 	}
 	
@@ -49,171 +57,228 @@ public class WorldGenTreeDryophyllum extends WorldGenTreeBase
 	protected boolean doGenerate(World world, Random rand, BlockPos pos)
 	{
 		int height = heightProvider.get(rand);
-		int base = 4 + rand.nextInt(4);
+		int base = height - ((treeType == TYPE_SMALL_1 || treeType == TYPE_SMALL_2) ? 4 : 9);
 		
 		if (!BlockVolumeShape.region(-1, 1, -1, 1, base - 1, 1)
-					 .and(-3, base, -3, 3, base + height, 3)
-					 .hasSpace(pos, isEmptySpace(world)))
-			return false;
-		
-		int branches = randomBranchCount(rand);
-		
-		int minBaseY, maxBaseY;
-		if (treeType == TreeTypes.TYPE_1 || treeType == TreeTypes.TYPE_3)
+				.and(-3, base, -3, 3, height, 3)
+				.hasSpace(pos, isEmptySpace(world)))
 		{
-			minBaseY = 1;
-			maxBaseY = 3;
+			return false;
+		}
+		
+		// target: ~8-10 and 10-15
+		int trunkHeight = base;
+		generateTrunk(world, pos, trunkHeight);
+		if (treeType == TYPE_SMALL_1 || treeType == TYPE_SMALL_2)
+		{
+			generateSmallTreeLeaves(world, rand, pos.add(0, trunkHeight, 0));
 		}
 		else
 		{
-			minBaseY = 2;
-			maxBaseY = 6;
+			generateBigTreeLeavesAndBranches(world, pos.add(0, trunkHeight, 0), rand);
 		}
-		generateBranches(world, pos, rand, minBaseY, maxBaseY, height, branches);
 		return true;
 	}
 	
-	private int randomBranchCount(Random rand)
+	private void generateBigTreeLeavesAndBranches(World world, BlockPos pos, Random rand)
 	{
-		return treeType == TreeTypes.TYPE_1 || treeType == TreeTypes.TYPE_3? 2 + rand.nextInt(2): 4 + rand.nextInt(8);
-	}
-	
-	private void generateBranches(World world, BlockPos pos, Random rand, int minBase, int maxBase, int height, int count)
-	{
-		for (int y = 0; y < maxBase; y++)
-			world.setBlockState(pos.up(y), wood);
-		
-		int minLeavesStartY = treeType == TreeTypes.TYPE_2 ? 2 : 1;
-		int maxLeavesStartY = treeType == TreeTypes.TYPE_2 ? 5 : 3;
-		
-		Iterable<Vec3d> branches = branchDirections(rand, count);
-		for (Vec3d direction : branches)
+		for (int i = 0; i < 20; i++)
 		{
-			int base = MathHelper.getRandomIntegerInRange(rand, minBase, maxBase);
-			int length = lengthForDirection(direction, height - base);
-			
-			int splitPoint = getSplitPoint(rand, length);
-			
-			int leavesStart = MathHelper.getRandomIntegerInRange(rand, minLeavesStartY, maxLeavesStartY);
-			Predicate<BlockPos> genLeaves = p ->
-					(treeType != TreeTypes.TYPE_3) && (p.getY() >= pos.getY() + leavesStart);
-			branchInDirection(world, rand, new Vec3d(pos.up(base)), direction, length, splitPoint, genLeaves);
+			double r = 5.3;
+			double yr = 9;
+			double rPart = 2.7;
+			Vec3d currentPos = new Vec3d(pos).add(
+					new Vec3d(
+							(rand.nextDouble() * 2 - 1) * r,
+							(rand.nextDouble()) * yr,
+							(rand.nextDouble() * 2 - 1) * r
+					));
+			generateLeaves(world, rand, currentPos, rPart);
+			generateBranch(world, pos.down(rand.nextInt(5) + 2), currentPos);
 		}
 	}
 	
-	private Iterable<Vec3d> branchDirections(Random rand, int count)
+	private void generateSmallTreeLeaves(World world, Random rand, BlockPos pos)
 	{
-		if (count == 1)
+		for (int i = 0; i < 8; i++)
 		{
-			return Sets.newHashSet(Vectors.UP);
+			double r = 2.3;
+			double yr = 4;
+			double rPart = 2.7;
+			Vec3d currentPos = new Vec3d(pos).add(
+					new Vec3d(
+							(rand.nextDouble() * 2 - 1) * r,
+							(rand.nextDouble()) * yr,
+							(rand.nextDouble() * 2 - 1) * r
+					));
+			generateLeaves(world, rand, currentPos, rPart);
+			generateBranch(world, pos.down(rand.nextInt(5) + 1), currentPos);
 		}
-		final double randomFactor = 0.3;
+	}
+	
+	private void generateBranch(World world, BlockPos trunkPos, Vec3d endPos)
+	{
+		Vec3d curr = new Vec3d(offsetHorizontallyTowards(trunkPos, endPos));
+		Vec3d diff = endPos.subtract(curr);
+		Vec3d dir = diff.normalize();
 		
-		Set<Vec3d> directions = new HashSet<>();
-		while (directions.size() < count)
+		while (curr.subtract(endPos).dotProduct(new Vec3d(1, 1, 1)) < 0)
 		{
-			int toGenerate = count - directions.size();
-			if (toGenerate % 2 == 0 && toGenerate > 2 && directions.isEmpty())
+			BlockPos p = new BlockPos(curr);
+			
+			Vec3d next = next(curr, dir);
+			if (!hasSpace(world, p, trunkPos) && hasNeighbor(world, new BlockPos(next)))
 			{
-				// if there are more than 2 even number to generate - generate one that goes almost up first
-				Vec3d vec = Vectors.randomGaussianDirection(rand, Vectors.UP, new Vec3d(0.1, 0, 0.1));
-				directions.add(vec);
+				curr = next;
 				continue;
 			}
-			double randomRotation = rand.nextDouble() * Math.PI * 2;
-			Vec3d[] vecs;
-			if (toGenerate % 2 == 0)
-			{
-				vecs = new Vec3d[]{new Vec3d(2, 2, 0), new Vec3d(0, 2, 2)};
-			}
-			else
-			{
-				vecs = new Vec3d[]{new Vec3d(0, 2, Math.sqrt(2)), new Vec3d(1, 2, -1), new Vec3d(-1, 2, -1)};
-			}
-			for (int i = 0; i < vecs.length; i++)
-			{
-				// randomize direction
-				vecs[i] = Vectors.randomGaussianDirection(rand, vecs[i], new Vec3d(randomFactor, randomFactor, randomFactor));
-				// and rotate by random angle around Y axis
-				vecs[i] = Vectors.rotateAroundAxis(EnumFacing.Axis.Y, vecs[i], randomRotation);
-				directions.add(vecs[i]);
-			}
+			IBlockState state = wood.withProperty(BlockLog.LOG_AXIS, getLogAxis(world, p));
+			setBlockInWorld(world, p, state, true);
+			curr = next;
 		}
-		return directions;
 	}
 	
-	private void branchInDirection(World world, Random rand, Vec3d start, Vec3d direction, int length, int splitPoint, Predicate<BlockPos> generateLeaves)
+	private BlockPos offsetHorizontallyTowards(BlockPos pos, Vec3d endPos)
 	{
-		Vec3d currentPos = start;
-		for (int i = 0; i < length; i++)
+		double dx = endPos.xCoord - pos.getX();
+		double dz = endPos.zCoord - pos.getZ();
+		dx = Math.signum(dx);
+		dz = Math.signum(dz);
+		return pos.add(Math.round((float) dx), 0, Math.round((float) dz));
+	}
+	
+	private BlockLog.EnumAxis getLogAxis(World world, BlockPos pos)
+	{
+		// this finds the right direction based on neighbors
+		int weightX = 0, weightY = 0, weightZ = 0;
+		for (int dx = -1; dx <= 1; dx++)
 		{
-			if (i == splitPoint)
+			for (int dy = -1; dy <= 1; dy++)
 			{
-				final double r = 0.7;
-				Vec3d v1;
-				do
+				for (int dz = -1; dz <= 1; dz++)
 				{
-					v1 = Vectors.randomDirection(rand, direction, new Vec3d(r, r, r));
-				} while (v1.dotProduct(direction) > 0.97);
-				
-				Vec3d v2;
-				do
-				{
-					v2 = Vectors.randomDirection(rand, direction, new Vec3d(r, r, r));
-				} while (v1.dotProduct(direction) > 0.97 || v1.dotProduct(v2) > 0.95);
-				int lenLeft = length - i - 1;
-				branchInDirection(world, rand, currentPos, v1, lenLeft, getSplitPoint(rand, length), generateLeaves);
-				branchInDirection(world, rand, currentPos, v2, lenLeft, getSplitPoint(rand, length), generateLeaves);
-				break;
+					if (dx == 0 && dy == 0 && dz == 0)
+					{
+						continue;
+					}
+					
+					if (world.getBlockState(pos.add(dx, dy, dz)).getBlock() == wood.getBlock())
+					{
+						if (dx != 0)
+						{
+							weightX++;
+						}
+						if (dy != 0)
+						{
+							weightY++;
+						}
+						if (dz != 0)
+						{
+							weightZ++;
+						}
+					}
+				}
 			}
-			if (rand.nextBoolean())
-			{
-				direction = modifyDirection(rand, direction);
-			}
-			
-			EnumFacing.Axis axis = Vectors.getMainAxis(direction);
-			EnumAxis blockAxis = EnumAxis.fromFacingAxis(axis);
-			BlockPos currentBlockPos = new BlockPos(currentPos);
-			setBlockInWorld(world, currentBlockPos, wood.withProperty(BlockLog.LOG_AXIS, blockAxis));
-			
-			if (generateLeaves.apply(currentBlockPos))
-			{
-				int leavesSize = rand.nextBoolean() ? 2 : 3;
-				doBranchLeaves(world, currentBlockPos, rand, true, leavesSize, rand.nextBoolean());
-			}
-			
-			currentPos = currentPos.add(Vectors.randomGaussianDirection(rand, direction, new Vec3d(0.2, 0.2, 0.2)));
 		}
-	}
-	
-	private int lengthForDirection(Vec3d direction, int length)
-	{
-		return Math.max(4, MathHelper.ceiling_double_int(length * direction.dotProduct(Vectors.UP)));
-	}
-	
-	private Vec3d modifyDirection(Random rand, Vec3d direction)
-	{
-		switch (treeType)
+		// when X wins over Z and Y doesn't win with X - use X
+		if (weightX >= weightY && weightX > weightZ)
 		{
-		case TYPE_1:
-		case TYPE_3:
-			// small
-			direction = direction.addVector(0, 0.4, 0);
-			return Vectors.randomGaussianDirection(rand, direction, new Vec3d(0.15, 0, 0.15));
-		default:
-			// big
-			direction = direction.addVector(0, 0.3, 0);
-			return Vectors.randomGaussianDirection(rand, direction, new Vec3d(0.1, 0, 0.1));
+			return BlockLog.EnumAxis.X;
+		}
+		// when horizontal is ambiguous and Y doesn't win
+		if (weightX == weightZ && weightX >= weightY)
+		{
+			return BlockLog.EnumAxis.NONE;
+		}
+		// some of this is probably redundant, but check if Y wins
+		if (weightY > weightZ && weightY > weightX)
+		{
+			return BlockLog.EnumAxis.Y;
+		}
+		if (weightZ >= weightY && weightZ > weightX)
+		{
+			return BlockLog.EnumAxis.Z;
+		}
+		return BlockLog.EnumAxis.NONE;
+	}
+	
+	private boolean hasNeighbor(World world, BlockPos pos)
+	{
+		for (int dx = -1; dx <= 1; dx++)
+		{
+			for (int dy = -1; dy <= 1; dy++)
+			{
+				for (int dz = -1; dz <= 1; dz++)
+				{
+					if (dx == 0 && dy == 0 && dz == 0)
+					{
+						continue;
+					}
+					if (world.getBlockState(pos.add(dx, dy, dz)).getBlock() == wood.getBlock())
+					{
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	private boolean hasSpace(World world, BlockPos pos, BlockPos trunkPos)
+	{
+		int total = hasSpaceCount(world, pos.up(), trunkPos) +
+				hasSpaceCount(world, pos.down(), trunkPos) +
+				hasSpaceCount(world, pos.east(), trunkPos) +
+				hasSpaceCount(world, pos.west(), trunkPos) +
+				hasSpaceCount(world, pos.north(), trunkPos) +
+				hasSpaceCount(world, pos.south(), trunkPos);
+		return total < 2;
+	}
+	
+	private int hasSpaceCount(World world, BlockPos pos, BlockPos trunk)
+	{
+		if (pos.getX() == trunk.getX() && pos.getZ() == trunk.getZ())
+		{
+			return 0;
+		}
+		return (world.getBlockState(pos.down()).getBlock() != wood.getBlock() ? 1 : 0);
+	}
+	
+	private Vec3d next(Vec3d pos, Vec3d direction)
+	{
+		BlockPos origPos = new BlockPos(pos);
+		do
+		{
+			pos = pos.add(direction);
+		} while (origPos.equals(new BlockPos(pos)));
+		return pos;
+	}
+	
+	private void generateLeaves(World world, Random rand, Vec3d pos, double r)
+	{
+		double p = 1.6;
+		for (int dx = -MathHelper.ceiling_double_int(r); dx <= MathHelper.ceiling_double_int(r); dx++)
+		{
+			for (int dy = -MathHelper.ceiling_double_int(r); dy <= MathHelper.ceiling_double_int(r); dy++)
+			{
+				for (int dz = -MathHelper.ceiling_double_int(r); dz <= MathHelper.ceiling_double_int(r); dz++)
+				{
+					// lower value of p makes it closer to diamond shape, higher value makes it closer to cube, value p=2 is perfect sphere.
+					if (pow(abs(dx), p) + pow(abs(dy), p) + pow(abs(dz), p) - rand.nextFloat() * pow(r, p) <= pow(r, p))
+					{
+						setBlockInWorld(world, new BlockPos(pos.addVector(dx, dy, dz)), leaves);
+					}
+				}
+			}
 		}
 	}
 	
-	private int getSplitPoint(Random rand, int length)
+	
+	private void generateTrunk(World world, BlockPos pos, int height)
 	{
-		final int minBeforeSplit = 1;
-		final int minAfterSplit = 2;
-		final int minForSplit = minAfterSplit + minBeforeSplit;
-		return length > minForSplit
-				? MathHelper.getRandomIntegerInRange(rand, 2, length - 3)
-				: -1;
+		for (int y = 0; y < height; y++)
+		{
+			world.setBlockState(pos.up(y), wood);
+		}
 	}
 }
