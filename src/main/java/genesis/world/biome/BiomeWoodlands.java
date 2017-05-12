@@ -70,13 +70,13 @@ public class BiomeWoodlands extends BiomeGenesis
 		
 		addTree(new WorldGenTreeLaurophyllum(1, 2, false).setType(TreeTypes.TYPE_2), 60);
 		addTree(new WorldGenTreeLaurophyllum(3, 4, false), 40);
-		addTree(new WorldGenTreeFicus(5, 8, false), 30);
+		addTree(new WorldGenTreeFicus(6, 8, false), 30);
 		addTree(new WorldGenTreeGinkgo(10, 13, false), 11);
 		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 3);
 		addTree(new WorldGenTreeDryophyllum(11, 13, false), 600);
 		addTree(new WorldGenTreeDryophyllum(15, 19, false).setType(TreeTypes.TYPE_2), 50);
 		addTree(new WorldGenTreeMetasequoia(17, 20, true), 100);
-		addTree(new WorldGenTreeDryophyllum(16, 18, false, GenesisBlocks.TREES.getBlockState(TreeBlocksAndItems.DEAD_LOG, EnumTree.DRYOPHYLLUM), null).setType(TreeTypes.TYPE_3), 1);
+		addTree(new WorldGenTreeDryophyllum(11, 13, false, GenesisBlocks.TREES.getBlockState(TreeBlocksAndItems.DEAD_LOG, EnumTree.DRYOPHYLLUM), null).setType(TreeTypes.TYPE_3), 2);
 		
 		addTree(new WorldGenDeadLog(5, 8, EnumTree.DRYOPHYLLUM, true), 25);
 		addTree(new WorldGenDeadLog(5, 8, EnumTree.METASEQUOIA, true), 4);
