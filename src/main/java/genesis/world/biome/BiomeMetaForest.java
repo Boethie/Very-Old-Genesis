@@ -52,7 +52,7 @@ public class BiomeMetaForest extends BiomeGenesis
 	
 	protected void addTrees()
 	{
-		getDecorator().setTreeCount(4.05F);
+		getDecorator().setTreeCount(4.2F);
 		
 		addTree(new WorldGenTreeMetasequoia(17, 22, true), 300);
 		addTree(new WorldGenTreeMetasequoia(23, 27, true).setType(TreeTypes.TYPE_2), 120);
@@ -62,7 +62,7 @@ public class BiomeMetaForest extends BiomeGenesis
 		addTree(new WorldGenDeadLog(5, 8, EnumTree.METASEQUOIA, true), 9);
 		addTree(new WorldGenDeadLog(5, 8, EnumTree.METASEQUOIA, true).setType(1), 4);
 		
-		addTree(WorldGenTreeTropidogyne.makeDefaultWithNotify(false), 50);
+		addTree(WorldGenTreeTropidogyne.makeDefaultWithNotify(false), 40);
 	}
 	
 	@Override

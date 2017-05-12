@@ -32,8 +32,8 @@ public class WorldGenMetaHouse extends WorldGenStructureBase
 	{
 		List<Biome> biomes = new ArrayList<Biome>();
 		
-		biomes.add(GenesisBiomes.metaForest);
-		biomes.add(GenesisBiomes.metaForestM);
+		//biomes.add(GenesisBiomes.metaForest);
+		//biomes.add(GenesisBiomes.metaForestM);
 		
 		return biomes;
 	}
