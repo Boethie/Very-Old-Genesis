@@ -56,12 +56,12 @@ public class WorldGenTreeDryophyllum extends WorldGenTreeBase
 	private static final TreeTypes TYPE_SMALL_1 = TreeTypes.TYPE_1;
 	private static final TreeTypes TYPE_SMALL_2 = TreeTypes.TYPE_3;
 	
-	public WorldGenTreeDryophyllum(int minHeight, int maxHeight, boolean notify, IBlockState wood)
+	public WorldGenTreeDryophyllum(int minHeight, int maxHeight, boolean notify, IBlockState wood, IBlockState leaves)
 	{
 		super(
 				GenesisBlocks.TREES.getBlockState(TreeBlocksAndItems.SAPLING, EnumTree.DRYOPHYLLUM),
 				wood,
-				null,
+				leaves,
 				null,
 				IntRange.create(minHeight, maxHeight),
 				notify);
@@ -280,6 +280,9 @@ public class WorldGenTreeDryophyllum extends WorldGenTreeBase
 	
 	private void generateLeaves(World world, Random rand, Vec3d pos, double r, double expConst, double randomization)
 	{
+		if (leaves == null)
+			return;
+		
 		for (int dx = -MathHelper.ceiling_double_int(r); dx <= MathHelper.ceiling_double_int(r); dx++)
 			for (int dy = -MathHelper.ceiling_double_int(r); dy <= MathHelper.ceiling_double_int(r); dy++)
 				for (int dz = -MathHelper.ceiling_double_int(r); dz <= MathHelper.ceiling_double_int(r); dz++)
