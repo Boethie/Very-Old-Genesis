@@ -17,9 +17,7 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-import static genesis.util.WorldUtils.toBlockPos;
-import static genesis.util.WorldUtils.toVec3d;
-import static genesis.util.WorldUtils.xzEqual;
+import static genesis.util.WorldUtils.*;
 import static java.lang.Math.*;
 import static net.minecraft.util.math.MathHelper.getRandomIntegerInRange;
 
@@ -91,76 +89,83 @@ public class WorldGenTreeDryophyllum extends WorldGenTreeBase
 		
 		generateTrunk(world, pos, trunkHeight);
 		if (treeType == TYPE_SMALL_1 || treeType == TYPE_SMALL_2)
-			generateSmallTreeLeaves(world, rand, pos.add(0, trunkHeight, 0));
+			generateTreeLeavesAndBranches(world, pos.add(0, trunkHeight, 0), pos, rand,
+					branchTargetsAmountSmall, xzBranchTargetSpreadSmall, yBranchTargetSpreadSmall,
+					branchSourceRelativeMinYSmall, branchSourceRelativeMaxYSmall, leavesRadiusSmall,
+					distanceExpConstantSmall, leavesShapeRandomizationSmall);
 		else
-			generateBigTreeLeavesAndBranches(world, pos.add(0, trunkHeight, 0), rand);
+			generateTreeLeavesAndBranches(world, pos.add(0, trunkHeight, 0), pos, rand,
+					branchTargetsAmountBig, xzBranchTargetSpreadBig, yBranchTargetSpreadBig,
+					branchSourceRelativeMinYBig, branchSourceRelativeMaxYBig, leavesRadiusBig,
+					distanceExpConstantBig, leavesShapeRandomizationBig);
 		return true;
 	}
 	
-	private void generateBigTreeLeavesAndBranches(World world, BlockPos pos, Random rand)
+	private void generateTreeLeavesAndBranches(World world, BlockPos trunkTop, BlockPos treeBottom, Random rand,
+											   int branchTargetsAmount,
+											   double xzBranchTargetSpread, double yBranchTargetSpread,
+											   int branchSourceRelativeMinY, int branchSourceRelativeMaxY,
+											   double leavesRadius, double distanceExpConstant,
+											   double leavesShapeRandomization)
 	{
-		for (int i = 0; i < branchTargetsAmountBig; i++)
+		for (int i = 0; i < branchTargetsAmount; i++)
 		{
-			double r = xzBranchTargetSpreadBig;
-			double yr = yBranchTargetSpreadBig * 2;
-			Vec3d currentPos = toVec3d(pos).add(new Vec3d(
+			double r = xzBranchTargetSpread;
+			double yr = yBranchTargetSpread * 2;
+			Vec3d currentPos = toVec3d(trunkTop).add(new Vec3d(
 					(rand.nextDouble() * 2 - 1) * r, (rand.nextDouble()) * yr, (rand.nextDouble() * 2 - 1) * r
 			));
-			BlockPos tryPos = pos.up(getRandomIntegerInRange(rand, branchSourceRelativeMinYBig, branchSourceRelativeMaxYBig));
-			double dy = currentPos.yCoord - pos.getY();
-			if (abs(dy) > yr)
-				tryPos = tryPos.up((int) round(abs(dy) - yr));
+			BlockPos branchSrc = trunkTop.up(getRandomIntegerInRange(rand, branchSourceRelativeMinY, branchSourceRelativeMaxY));
+			double dy = currentPos.yCoord - trunkTop.getY();
+			double maxLen = max(yr, trunkTop.getY() - treeBottom.getY());
+			if (abs(dy) > maxLen)
+			{
+				branchSrc = branchSrc.up((int) round(abs(dy) - maxLen));
+				if (branchSrc.getY() > trunkTop.getY())
+				{
+					int diff = branchSrc.getY() - trunkTop.getY();
+					branchSrc = branchSrc.down(diff);
+					currentPos = currentPos.addVector(0, diff, 0);
+				}
+			}
+			if (toBlockPos(currentPos).getY() < treeBottom.getY() + MathHelper.ceiling_double_int(leavesRadius) + 2)
+				currentPos = new Vec3d(currentPos.xCoord, treeBottom.getY() + MathHelper.ceiling_double_int(leavesRadius) + 2, currentPos.zCoord);
 			
-			generateLeaves(world, rand, currentPos, leavesRadiusBig, distanceExpConstantBig, leavesShapeRandomizationBig);
-			generateBranch(world, rand, tryPos, currentPos, true);
+			generateBranch(world, rand, branchSrc, currentPos,
+					(w, _r, p) -> generateLeaves(w, _r, toVec3d(p), leavesRadius, distanceExpConstant, leavesShapeRandomization));
 		}
 	}
 	
-	private void generateSmallTreeLeaves(World world, Random rand, BlockPos pos)
-	{
-		for (int i = 0; i < branchTargetsAmountSmall; i++)
-		{
-			double r = xzBranchTargetSpreadSmall;
-			double yr = yBranchTargetSpreadSmall * 2;
-			Vec3d currentPos = toVec3d(pos).add(new Vec3d(
-					(rand.nextDouble() * 2 - 1) * r, (rand.nextDouble()) * yr, (rand.nextDouble() * 2 - 1) * r
-			));
-			BlockPos branchSrc = pos.up(getRandomIntegerInRange(rand, branchSourceRelativeMinYSmall, branchSourceRelativeMaxYSmall));
-			generateLeaves(world, rand, currentPos, leavesRadiusSmall, distanceExpConstantSmall, leavesShapeRandomizationSmall);
-			generateBranch(world, rand, branchSrc, currentPos, false);
-		}
-	}
-	
-	private void generateBranch(World world, Random rand, BlockPos trunkPos, Vec3d endPos, boolean avoidLongBranches)
+	private void generateBranch(World world, Random rand, BlockPos trunkPos, Vec3d endPos, LeavesGenerator leaveGen)
 	{
 		Vec3d curr = toVec3d(trunkPos);
-		
-		BlockPos prev = null;
-		while (endPos.squareDistanceTo(curr) > sqrt(3))
+		Vec3d next = next(world, curr, endPos.subtract(curr).normalize(), endPos, trunkPos);
+		BlockPos prev;
+		do
 		{
 			BlockPos currBlock = toBlockPos(curr);
 			Vec3d dir = endPos.subtract(curr).normalize();
-			Vec3d next = next(world, curr, dir, endPos, trunkPos);
+			prev = currBlock;
+			curr = next;
+			next = next(world, curr, dir, endPos, trunkPos);
 			
-			IBlockState state = wood.withProperty(BlockLog.LOG_AXIS, getLogAxis(world, currBlock));
+			IBlockState state = xzEqual(currBlock, trunkPos) ?
+					wood :
+					wood.withProperty(BlockLog.LOG_AXIS, getLogAxis(world, currBlock, dir));
 			setBlockInWorld(world, currBlock, state, true);
 			
 			// check to avoid long straight up branches
 			BlockPos nextBlock = toBlockPos(next);
-			if (avoidLongBranches && prev != null && xzEqual(prev, currBlock) && xzEqual(currBlock, nextBlock))
+			if (endPos.squareDistanceTo(next) > sqrt(3) && xzEqual(prev, currBlock) && xzEqual(currBlock, nextBlock))
 			{
-				prev = currBlock;
-				curr = next.addVector(rand.nextBoolean() ? -1 : 1, 0, rand.nextBoolean() ? -1 : 1);
+				next = next.addVector(rand.nextBoolean() ? -1 : 1, 0, rand.nextBoolean() ? -1 : 1);
 			}
-			else
-			{
-				prev = currBlock;
-				curr = next;
-			}
-		}
+		} while (endPos.squareDistanceTo(curr) > sqrt(3));
+		leaveGen.generateLeaves(world, rand, toBlockPos(curr));
+		leaveGen.generateLeaves(world, rand, prev);
 	}
 	
-	private BlockLog.EnumAxis getLogAxis(World world, BlockPos pos)
+	private BlockLog.EnumAxis getLogAxis(World world, BlockPos pos, Vec3d dir)
 	{
 		// this finds the right direction based on neighbors
 		int weightX = 0, weightY = 0, weightZ = 0;
@@ -182,18 +187,32 @@ public class WorldGenTreeDryophyllum extends WorldGenTreeBase
 				}
 			}
 		}
-		// when X wins over Z and Y doesn't win with X - use X
-		if (weightX >= weightY && weightX > weightZ)
-			return BlockLog.EnumAxis.X;
-		// when horizontal is ambiguous and Y doesn't win
-		if (weightX == weightZ && weightX >= weightY)
-			return BlockLog.EnumAxis.NONE;
-		// some of this is probably redundant, but check if Y wins
-		if (weightY > weightZ && weightY > weightX)
-			return BlockLog.EnumAxis.Y;
-		if (weightZ >= weightY && weightZ > weightX)
-			return BlockLog.EnumAxis.Z;
-		return BlockLog.EnumAxis.NONE;
+		BlockLog.EnumAxis axis = BlockLog.EnumAxis.NONE;
+		// when X wins
+		if (weightX > weightY && weightX > weightZ)
+			axis = BlockLog.EnumAxis.X;
+			// when horizontal is ambiguous and Y is smaller
+		else if (weightX == weightZ && weightX > weightY)
+			axis = BlockLog.EnumAxis.NONE;
+			// some of this is probably redundant, but check if Y wins
+		else if (weightY > weightZ && weightY > weightX)
+			axis = BlockLog.EnumAxis.Y;
+		else if (weightZ > weightY && weightZ > weightX)
+			axis = BlockLog.EnumAxis.Z;
+		
+		if (axis == BlockLog.EnumAxis.NONE)
+		{
+			double dx = dir.xCoord * dir.xCoord;
+			double dy = dir.yCoord * dir.yCoord;
+			double dz = dir.zCoord * dir.zCoord;
+			if (dx > dy + dz)
+				axis = BlockLog.EnumAxis.X;
+			else if (dy > dx + dz)
+				axis = BlockLog.EnumAxis.Y;
+			else if (dz > dx + dy)
+				axis = BlockLog.EnumAxis.Z;
+		}
+		return axis;
 	}
 	
 	private Vec3d next(World world, Vec3d previousPos, Vec3d direction, Vec3d target, Vec3i trunkSrcPos)
@@ -262,23 +281,22 @@ public class WorldGenTreeDryophyllum extends WorldGenTreeBase
 	private void generateLeaves(World world, Random rand, Vec3d pos, double r, double expConst, double randomization)
 	{
 		for (int dx = -MathHelper.ceiling_double_int(r); dx <= MathHelper.ceiling_double_int(r); dx++)
-		{
 			for (int dy = -MathHelper.ceiling_double_int(r); dy <= MathHelper.ceiling_double_int(r); dy++)
-			{
 				for (int dz = -MathHelper.ceiling_double_int(r); dz <= MathHelper.ceiling_double_int(r); dz++)
-				{
 					// lower value of p makes it closer to diamond shape, higher value makes it closer to cube, value p=2 is perfect sphere.
 					if (pow(abs(dx), expConst) + pow(abs(dy), expConst) + pow(abs(dz), expConst)
 							- rand.nextFloat() * randomization * pow(r, expConst) <= pow(r, expConst))
 						setBlockInWorld(world, toBlockPos(pos.addVector(dx, dy, dz)), leaves);
-				}
-			}
-		}
 	}
 	
 	private void generateTrunk(World world, BlockPos pos, int height)
 	{
 		for (int y = 0; y < height; y++)
 			world.setBlockState(pos.up(y), wood);
+	}
+	
+	private interface LeavesGenerator
+	{
+		void generateLeaves(World world, Random rand, BlockPos pos);
 	}
 }
