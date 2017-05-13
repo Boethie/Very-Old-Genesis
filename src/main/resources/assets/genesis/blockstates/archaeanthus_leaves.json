@@ -1,8 +1,26 @@
 {
+	"forge_marker": 1,
 	"variants": {
 		"normal": [
 			{ "model": "genesis:archaeanthus_leaves", "weight": 1 },
-			{ "model": "genesis:archaeanthus_leaves_flowers", "weight": 1 }
+			{
+				"model": "genesis:graphics-aware-multi-layer",
+				"weight": 1,
+				"custom": {
+					"Fancy Mipped Cutout": "genesis:archaeanthus_leaves#both",
+					"Fast Mipped Cutout": "genesis:archaeanthus_leaves#flowers",
+					"Fast Solid": "genesis:archaeanthus_leaves#leaves"
+				}
+			}
+		],
+		"leaves": [
+			{ "model": "genesis:archaeanthus_leaves" }
+		],
+		"flowers": [
+			{ "model": "genesis:archaeanthus_leaves_flowers_only" }
+		],
+		"both": [
+			{ "model": "genesis:archaeanthus_leaves_flowers" }
 		]
 	}
 }

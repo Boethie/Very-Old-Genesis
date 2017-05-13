@@ -5,6 +5,7 @@ import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.EnumTree;
 import genesis.combo.variant.EnumTree.FruitType;
 import genesis.combo.variant.PropertyIMetadata;
+import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemBlockMulti;
 import genesis.util.*;
@@ -246,9 +247,25 @@ public class BlockGenesisLeaves extends BlockLeaves
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public BlockRenderLayer getBlockLayer()
+	public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer)
 	{
-		return Minecraft.isFancyGraphicsEnabled() ? BlockRenderLayer.CUTOUT_MIPPED : BlockRenderLayer.SOLID;
+		if (state == GenesisBlocks.TREES.getBlockState(TreeBlocksAndItems.LEAVES, EnumTree.ARCHAEANTHUS))
+		{
+			// on fancy graphics both the leaves and flower/fruit layer can be drawn in cutout
+			// (this means that MC can't cull leave faces)
+			// on fast there is special multilayer model that renders the leaves part in solid
+			// and the fruit/flower layer renders in cutout.
+			// To make this block render in both layers, this check needs to be performed.
+			if (Minecraft.isFancyGraphicsEnabled())
+			{
+				return layer == BlockRenderLayer.CUTOUT_MIPPED;
+			}
+			else
+			{
+				return layer == BlockRenderLayer.CUTOUT_MIPPED || layer == BlockRenderLayer.SOLID;
+			}
+		}
+		return Minecraft.isFancyGraphicsEnabled() ? layer == BlockRenderLayer.CUTOUT_MIPPED : layer == BlockRenderLayer.SOLID;
 	}
 
 	@Override

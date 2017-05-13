@@ -32,6 +32,7 @@ public class GenesisClient extends GenesisProxy
 		
 		// This should be called as late as possible in preInit.
 		ModelHelpers.preInit();
+		GraphicsSettingAwareMultiLayerModel.register();
 	}
 	
 	@Override
