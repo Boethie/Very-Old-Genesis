@@ -1,6 +1,8 @@
 package genesis.world;
 
-import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.*;
+import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.ICE;
+import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.LAKE;
+import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.LAVA;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -9,27 +11,30 @@ import java.util.Random;
 
 import genesis.combo.SiltBlocks;
 import genesis.combo.variant.EnumSilt;
-import genesis.common.*;
+import genesis.common.GenesisBiomes;
+import genesis.common.GenesisBlocks;
 import genesis.util.noise.NoiseValueSchemes.D2C1;
 import genesis.util.noise.NoiseValueSchemes.D3C1;
 import genesis.util.noise.SuperSimplexNoise;
 import genesis.world.biome.BiomeGenesis;
-import genesis.world.gen.*;
-import genesis.world.gen.feature.*;
-
-import net.minecraft.block.*;
+import genesis.world.gen.feature.WorldGenGenesisLakes;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockFalling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.math.*;
-import net.minecraft.world.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.chunk.*;
-import net.minecraft.world.gen.*;
-
+import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.chunk.ChunkPrimer;
+import net.minecraft.world.chunk.IChunkGenerator;
+import net.minecraft.world.gen.ChunkProviderSettings;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.event.terraingen.*;
+import net.minecraftforge.event.terraingen.PopulateChunkEvent;
+import net.minecraftforge.event.terraingen.TerrainGen;
 
 public class ChunkGeneratorGenesis implements IChunkGenerator
 {
@@ -571,8 +576,8 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 		double b = 2 * 65536.0 / settings.upperLimitScale;
 		
 		int i = 0;
-		int j = 0;
-
+		//int j = 0;
+		
 		for (int k = 0; k < 3; ++k)
 		{
 			for (int l = 0; l < 3; ++l)
@@ -765,7 +770,7 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 					
 					i++;
 				}
-				j++;
+				//j++;
 				
 			}
 		}

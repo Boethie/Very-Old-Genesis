@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Random;
 
 import genesis.block.tileentity.TileEntityStorageBox;
-import genesis.common.GenesisBiomes;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisLoot;
 import genesis.world.iworldgenerators.WorldGenStructureHelper.StructureType;

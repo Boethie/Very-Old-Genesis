@@ -136,7 +136,12 @@ public class BlockGenesisSaplings extends BlockSapling
 		switch (variant)
 		{
 		case ARCHAEOPTERIS:
-			gen = new WorldGenTreeArchaeopteris(17, 20, true);
+			positions = Objects.firstNonNull(findSaplings(world, pos, variant, 2), positions);
+			pos = positions[0];
+			treeType = (positions.length > 1)? TreeTypes.TYPE_2 : TreeTypes.TYPE_1;
+			minHeight = (treeType == TreeTypes.TYPE_2)? 20 : 17;
+			maxHeight = (treeType == TreeTypes.TYPE_2)? 27 : 20;
+			gen = new WorldGenTreeArchaeopteris(minHeight, maxHeight, true).setType(treeType);
 			break;
 		case SIGILLARIA:
 			gen = new WorldGenTreeSigillaria(10, 15, true);

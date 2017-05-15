@@ -2,7 +2,6 @@ package genesis.world.gen.feature;
 
 import java.util.Random;
 
-import com.google.common.base.Predicate;
 import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumTree;
 import genesis.common.GenesisBlocks;

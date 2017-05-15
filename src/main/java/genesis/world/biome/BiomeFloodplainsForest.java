@@ -14,6 +14,7 @@ import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.biome.decorate.WorldGenSplash;
 import genesis.world.gen.feature.WorldGenDeadLog;
 import genesis.world.gen.feature.WorldGenTreeArchaeopteris;
+import genesis.world.gen.feature.WorldGenTreeBase.TreeTypes;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -44,6 +45,7 @@ public class BiomeFloodplainsForest extends BiomeGenesis
 		
 		getDecorator().setTreeCount(3.55F);
 		addTree(new WorldGenTreeArchaeopteris(17, 20, true), 29);
+		addTree(new WorldGenTreeArchaeopteris(20, 27, true).setType(TreeTypes.TYPE_2), 12);
 		
 		addTree(new WorldGenDeadLog(5, 8, EnumTree.ARCHAEOPTERIS, true), 1);
 	}

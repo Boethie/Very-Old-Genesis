@@ -99,7 +99,7 @@ public class WorldGenSmallCamp implements IWorldGenerator
 			WorldGenHelper.deleteTree(world, bp);
 
 		BlockPos boxPos = null;
-		BlockPos campPos = null;
+		//BlockPos campPos = null;
 
 		List<BlockPos> logsPos = new ArrayList<>();
 
@@ -116,8 +116,8 @@ public class WorldGenSmallCamp implements IWorldGenerator
 					if (state.getBlock() == GenesisBlocks.STORAGE_BOX)
 						boxPos = pos;
 
-					if (state.getBlock() == GenesisBlocks.CAMPFIRE)
-						campPos = pos;
+					//if (state.getBlock() == GenesisBlocks.CAMPFIRE)
+						//campPos = pos;
 
 					if (state.getBlock() instanceof BlockGenesisLogs)
 						logsPos.add(pos);

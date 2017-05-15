@@ -5,12 +5,10 @@ import java.util.Random;
 import genesis.combo.variant.EnumTree;
 import genesis.util.BlockVolumeShape;
 import genesis.util.random.i.IntRange;
-
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.structure.StructureBoundingBox;
 
 public class WorldGenTreeGinkgo extends WorldGenTreeBase
 {

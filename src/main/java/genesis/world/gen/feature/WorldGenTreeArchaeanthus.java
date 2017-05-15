@@ -9,7 +9,6 @@ import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.structure.StructureBoundingBox;
 
 public class WorldGenTreeArchaeanthus extends WorldGenTreeBase
 {
