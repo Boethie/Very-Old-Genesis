@@ -5,6 +5,7 @@ import java.util.Random;
 import genesis.combo.variant.EnumTree;
 import genesis.util.BlockVolumeShape;
 import genesis.util.random.i.IntRange;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -47,6 +48,21 @@ public class WorldGenTreeArchaeopteris extends WorldGenTreeBase
 			pos = new BlockPos(pos.getX(), Math.min(pos.getY(), groundPos.getY()), pos.getZ());
 		}
 		
+		int[] roots = {rand.nextInt(4), rand.nextInt(4), rand.nextInt(4), rand.nextInt(4)};
+		
+		if ((roots[0] + roots[1] + roots[2] + roots[3]) / 4 == roots[0] * 4)
+		{
+			int rand_root = rand.nextInt(4);
+			int rand_height = rand.nextInt(30) % 3;
+			roots[rand_root] = rand_height;
+			
+			if (rand_height - 1 > 0)
+			{
+				rand_root = (rand_root + 1) % 3;
+				roots[rand_root] = rand_height - 1;
+			}
+		}
+		
 		for (int i = 0; i < height; i++)
 		{
 			switch (treeType)
@@ -58,6 +74,12 @@ public class WorldGenTreeArchaeopteris extends WorldGenTreeBase
 				setBlockInWorld(world, pos.add(0, i, 0), wood);
 				break;
 			default:
+				for (EnumFacing f : EnumFacing.HORIZONTALS)
+				{
+					if (i < roots[f.getHorizontalIndex()])
+						setBlockInWorld(world, pos.offset(f).up(i), wood);
+				}
+				
 				setBlockInWorld(world, pos.up(i), wood);
 				break;
 			}
