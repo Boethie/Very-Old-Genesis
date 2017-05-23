@@ -6,6 +6,7 @@ import genesis.combo.variant.EnumTree;
 import genesis.util.WorldUtils;
 import genesis.util.functional.WorldBlockMatcher;
 import genesis.util.random.i.IntRange;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -30,30 +31,29 @@ public class WorldGenTreeLepidodendron extends WorldGenTreeBase
 		}
 		
 		BlockPos branchPos = pos.up(height);
-		int leaves = 1 + rand.nextInt(2);
+		int leaves = 3 + rand.nextInt(2);
+		int lStep = 0;
 		
-		doBranch(world, branchPos, 0, 0, rand, leaves, false);
-		
-		if (rand.nextInt(2) == 0)
+		for (int li = 2; li <= leaves; ++ li)
 		{
-			doBranch(world, branchPos, 1, 0, rand, leaves, true);
-			doBranch(world, branchPos, -1, 0, rand, leaves, true);
-			doBranch(world, branchPos, 0, 1, rand, leaves, true);
-			doBranch(world, branchPos, 0, -1, rand, leaves, true);
-		}
-		else
-		{
-			doBranch(world, branchPos, 1, 1, rand, leaves, true);
-			doBranch(world, branchPos, -1, -1, rand, leaves, true);
-			doBranch(world, branchPos, -1, 1, rand, leaves, true);
-			doBranch(world, branchPos, 1, -1, rand, leaves, true);
+			this.generateLeafLayerCircle(world, rand, li, branchPos.add(0, lStep, 0));
+			for (EnumFacing f : EnumFacing.HORIZONTALS)
+				if (rand.nextInt(3 + (4 - li)) == 0)
+				{
+					if (li == 2)
+						this.generateLeafLayerCircle(world, rand, 1, branchPos.add(0, 1, 0));
+					
+					this.generateLeafLayerCircle(world, rand, li, branchPos.offset(f).add(0, lStep, 0));
+				}
+			--lStep;
 		}
 		
-		doBranchLeaves(world, branchPos.down(), rand, false);
+		this.generateLeafLayerCircle(world, rand, 2, branchPos.add(0, lStep, 0));
 		
 		return true;
 	}
 	
+	@SuppressWarnings("unused")
 	private void doBranch(World world, BlockPos pos, int dirX, int dirZ, Random random, int leaveLength, boolean leaveBranch)
 	{
 		pos = pos.add((dirX), 0, (dirZ));
@@ -69,6 +69,7 @@ public class WorldGenTreeLepidodendron extends WorldGenTreeBase
 		doBranchLeaves(world, pos, random, true, leaveLength);
 	}
 	
+	@SuppressWarnings("unused")
 	private void doBranchLeaves(World world, BlockPos pos, Random random, boolean cap)
 	{
 		doBranchLeaves(world, pos, random, cap, 1 + random.nextInt(2));
