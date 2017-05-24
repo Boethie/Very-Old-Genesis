@@ -186,9 +186,14 @@
 					"plant": "genesis:blocks/sapling_artocarpus"
 				}
 			},
-			"protophyllum_sapling": {
+			"alethopteris_sapling": {
 				"textures": {
-					"plant": "genesis:blocks/sapling_protophyllum"
+					"plant": "genesis:blocks/sapling_alethopteris"
+				}
+			},
+			"tropidogyne_sapling": {
+				"textures": {
+					"plant": "genesis:blocks/sapling_tropidogyne"
 				}
 			},
 			"laurophyllum_sapling": {
