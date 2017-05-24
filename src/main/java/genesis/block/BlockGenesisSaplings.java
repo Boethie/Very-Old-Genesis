@@ -144,16 +144,16 @@ public class BlockGenesisSaplings extends BlockSapling
 			gen = new WorldGenTreeArchaeopteris(minHeight, maxHeight, true).setType(treeType);
 			break;
 		case SIGILLARIA:
-			gen = new WorldGenTreeSigillaria(10, 15, true);
+			gen = new WorldGenTreeSigillaria(10, 14, true);
 			break;
 		case LEPIDODENDRON:
-			gen = new WorldGenTreeLepidodendron(14, 18, true);
+			gen = new WorldGenTreeLepidodendron(15, 20, true);
 			break;
 		case CORDAITES:
 			gen = new WorldGenTreeCordaites(12, 17, true);
 			break;
 		case PSARONIUS:
-			gen = new WorldGenTreePsaronius(5, 8, true);
+			gen = new WorldGenTreePsaronius(5, 7, true);
 			break;
 		case ARAUCARIOXYLON:
 			gen = new WorldGenTreeAraucarioxylon(25, 30, true);
