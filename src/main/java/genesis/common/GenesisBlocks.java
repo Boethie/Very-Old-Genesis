@@ -206,6 +206,8 @@ public final class GenesisBlocks
 			.setHardness(0.7F)
 			.setUnlocalizedName(Unlocalized.PREFIX + "peatBrick");
 
+	public static final Block SMOKER = new BlockSmoker();
+
 	/* Mechanisms */
 	public static final BlockTrapFloor TRAP_FLOOR = (BlockTrapFloor) new BlockTrapFloor().setUnlocalizedName(Unlocalized.PREFIX + "trapFloor");
 
@@ -324,6 +326,8 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(PORTAL, name("portal"), false);
 		Genesis.proxy.registerModel(PORTAL, 0, name("portal/portal"));
 		GameRegistry.registerTileEntity(TileEntityGenesisPortal.class, Constants.ASSETS_PREFIX + "portal");
+
+		Genesis.proxy.registerBlock(SMOKER, name("smoker"));
 
 		TREES.registerAll();
 

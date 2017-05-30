@@ -1,0 +1,5 @@
+{
+	"variants": {
+		"level=0": { "model": "genesis:smoker" }
+	}
+}
