@@ -75,6 +75,12 @@ public class BlockSmoker extends BlockGenesis
     }
 
     @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn, BlockPos pos)
+    {
+        return FULL_BLOCK_AABB;//Prevent the player from entering the block, because Material Water causes them to be able to swim through it. More of a bandaid than a real fix.
+    }
+
+    @Override
     public int getMetaFromState(IBlockState state)
     {
         return ((Integer)state.getValue(LEVEL)).intValue();
