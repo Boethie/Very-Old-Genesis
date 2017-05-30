@@ -10,6 +10,7 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.Item;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -39,6 +40,7 @@ public class BlockSmoker extends BlockGenesis
         setResistance(10.0F);
         this.setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, Integer.valueOf(0)));
         setTickRandomly(true);
+        setHarvestLevel("pickaxe", 0);
     }
 
     @Override
@@ -91,6 +93,7 @@ public class BlockSmoker extends BlockGenesis
     }
 
     @SideOnly(Side.CLIENT)
+    @Override
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand)
     {
         if (worldIn.getBlockState(pos.up()).getMaterial().isLiquid() && worldIn.getBlockState(pos.up()).getBlock() != GenesisBlocks.SMOKER)
@@ -106,5 +109,17 @@ public class BlockSmoker extends BlockGenesis
                 worldIn.spawnParticle(random.nextInt(10) == 0 ? EnumParticleTypes.WATER_BUBBLE : EnumParticleTypes.SMOKE_LARGE, x, y, z, 0.0D, 0.1D, 0.0D);
             }
         }
+    }
+
+    @Override
+    protected boolean canSilkHarvest()
+    {
+        return true;
+    }
+
+    @Override
+    public Item getItemDropped(IBlockState state, Random rand, int fortune)
+    {
+        return null;
     }
 }
