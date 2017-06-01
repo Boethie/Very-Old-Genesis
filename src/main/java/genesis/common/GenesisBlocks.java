@@ -206,7 +206,7 @@ public final class GenesisBlocks
 			.setHardness(0.7F)
 			.setUnlocalizedName(Unlocalized.PREFIX + "peatBrick");
 
-	public static final Block SMOKER = new BlockSmoker(Material.WATER, SoundType.STONE).setUnlocalizedName(Constants.Unlocalized.PREFIX + "smoker").setHardness(1.5F).setResistance(10.0F);
+	public static final Block SMOKER = new BlockSmoker(Material.WATER, SoundType.STONE).setUnlocalizedName(Constants.Unlocalized.PREFIX + "smoker");
 
 	/* Mechanisms */
 	public static final BlockTrapFloor TRAP_FLOOR = (BlockTrapFloor) new BlockTrapFloor().setUnlocalizedName(Unlocalized.PREFIX + "trapFloor");

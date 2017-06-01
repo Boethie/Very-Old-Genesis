@@ -38,6 +38,8 @@ public class BlockSmoker extends BlockGenesis
 		this.setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, Integer.valueOf(0)));
 		setTickRandomly(true);
 		setHarvestLevel("pickaxe", 0);
+		setHardness(1.5F);
+		setResistance(10.0F);
 	}
 
 	@Override
