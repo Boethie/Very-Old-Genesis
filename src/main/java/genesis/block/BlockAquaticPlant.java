@@ -239,9 +239,16 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 			validGround.add(Blocks.HARDENED_CLAY);
 			validGround.add(Blocks.STONEBRICK);
 			validGround.add(Blocks.STONE);
+			validGround.add(Blocks.COBBLESTONE);
+			validGround.add(Blocks.MOSSY_COBBLESTONE);
+			validGround.add(Blocks.SANDSTONE);
+			validGround.add(Blocks.RED_SANDSTONE);
+			validGround.add(Blocks.OBSIDIAN);
+			validGround.add(Blocks.PRISMARINE);
 			validGround.add(Blocks.LOG);
 			validGround.add(Blocks.LOG2);
 			validGround.add(Blocks.PLANKS);
+			validGround.add(GenesisBlocks.HUMUS);
 			validGround.add(GenesisBlocks.RED_CLAY);
 			validGround.add(GenesisBlocks.OOZE);
 			validGround.add(GenesisBlocks.PEAT);
