@@ -556,5 +556,9 @@ public final class GenesisBlocks
 
 		blockCol.registerBlockColorHandler(Colorizers.BLOCK_GRASS,
 				ODONTOPTERIS, PROGRAMINIS);
+		
+		// Flower Pots
+		blockCol.registerBlockColorHandler(Colorizers.BLOCK_FLOWER_POT, FLOWER_POT);
+		
 	}
 }
