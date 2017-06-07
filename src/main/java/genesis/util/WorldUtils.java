@@ -262,7 +262,7 @@ public class WorldUtils
 				stack.stackSize -= subSize;
 
 				EntityItem dropItem = new EntityItem(world, x, y, z,
-						new ItemStack(stack.getItem(), subSize, stack.getItemDamage()));
+						new ItemStack(stack.getItem(), subSize, stack.getMetadata()));
 
 				if (stack.hasTagCompound())
 				{
