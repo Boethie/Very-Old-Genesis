@@ -1,5 +1,6 @@
 package genesis.event;
 
+import genesis.block.BlockSmoker;
 import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisGuiHandler;
@@ -73,7 +74,7 @@ public class GenesisEventHandler
 				}
 			}
 
-			if (entity.getAge() % 10 == 0 && entity.worldObj.getBlockState(entity.getPosition()).getMaterial().isLiquid() && entity.worldObj.getBlockState(entity.getPosition().down()).getBlock() == GenesisBlocks.SMOKER)
+			if (entity.getAge() % 10 == 0 && entity.worldObj.getBlockState(entity.getPosition()).getMaterial().isLiquid() && (entity.worldObj.getBlockState(entity.getPosition().down()).getBlock() instanceof BlockSmoker || entity.worldObj.getBlockState(entity.getPosition().down(2)).getBlock() instanceof BlockSmoker))
 				entity.attackEntityFrom(DamageSource.inFire, 1.0F);
 		}
 	}
@@ -81,9 +82,9 @@ public class GenesisEventHandler
 	@SubscribeEvent
 	public void bucketUse(FillBucketEvent event)
 	{
-		boolean flag1 = event.getWorld().getBlockState(event.getTarget().getBlockPos()).getBlock().isReplaceable(event.getWorld(), event.getTarget().getBlockPos());
-		BlockPos blockpos1 = flag1 && event.getTarget().sideHit == EnumFacing.UP ? event.getTarget().getBlockPos() : event.getTarget().getBlockPos().offset(event.getTarget().sideHit);
-		if (event.getWorld().getBlockState(blockpos1).getBlock() == GenesisBlocks.SMOKER)
+		boolean flag = event.getWorld().getBlockState(event.getTarget().getBlockPos()).getBlock().isReplaceable(event.getWorld(), event.getTarget().getBlockPos());
+		BlockPos pos = flag && event.getTarget().sideHit == EnumFacing.UP ? event.getTarget().getBlockPos() : event.getTarget().getBlockPos().offset(event.getTarget().sideHit);
+		if (event.getWorld().getBlockState(pos).getBlock() == GenesisBlocks.SMOKER)
 			event.setCanceled(true);
 	}
 }

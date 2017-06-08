@@ -4,17 +4,25 @@ import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.util.Constants;
 import mcp.MethodsReturnNonnullByDefault;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockSand;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -74,12 +82,6 @@ public class BlockSmoker extends BlockGenesis
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn, BlockPos pos)
-	{
-		return FULL_BLOCK_AABB;//Prevent the player from entering the block, because Material Water causes them to be able to swim through it. More of a bandaid than a real fix.
-	}
-
-	@Override
 	public int getMetaFromState(IBlockState state)
 	{
 		return ((Integer)state.getValue(LEVEL)).intValue();
@@ -101,7 +103,7 @@ public class BlockSmoker extends BlockGenesis
 	@Override
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand)
 	{
-		if (worldIn.getBlockState(pos.up()).getMaterial().isLiquid() && worldIn.getBlockState(pos.up()).getBlock() != GenesisBlocks.SMOKER)
+		if (worldIn.getBlockState(pos.up()).getMaterial().isLiquid() && !(worldIn.getBlockState(pos.up()).getBlock() instanceof BlockSmoker))
 		{
 			Random random = worldIn.rand;
 
@@ -126,5 +128,50 @@ public class BlockSmoker extends BlockGenesis
 	public Item getItemDropped(IBlockState state, Random rand, int fortune)
 	{
 		return null;
+	}
+
+	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+	{
+		super.updateTick(worldIn, pos, state, rand);
+		if(!canPlaceBlockAt(worldIn, pos))
+			worldIn.setBlockState(pos, Blocks.WATER.getDefaultState());
+		if(getMetaFromState(state) == 0 && worldIn.getBlockState(pos.down()).getBlock() instanceof BlockSmoker)
+			worldIn.setBlockState(pos, state.withProperty(LEVEL, 1));
+	}
+
+	@Override
+	public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor)
+	{
+		if(world instanceof World){
+			if(!canPlaceBlockAt((World)world, pos))
+				((World)world).setBlockState(pos, Blocks.WATER.getDefaultState());
+			if(getMetaFromState(world.getBlockState(pos)) == 0 && world.getBlockState(pos.down()).getBlock() instanceof BlockSmoker)
+				((World)world).setBlockState(pos, getDefaultState().withProperty(LEVEL, 1));
+		}
+	}
+
+	@Override
+	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
+	{
+		if(worldIn.getBlockState(pos.up()).getMaterial() != Material.WATER || (worldIn.getBlockState(pos.down()).getMaterial() != Material.ROCK && !(worldIn.getBlockState(pos.down()).getBlock() instanceof BlockSmoker)))
+			return false;
+		for(int i=2;i<6;i++)
+			if(worldIn.getBlockState(pos.offset(EnumFacing.getFront(i))).getMaterial() != Material.WATER)
+				return false;
+		return true;
+	}
+
+	@Override
+	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, ItemStack stack)
+	{
+		if(world.getBlockState(pos.down()).getBlock() instanceof BlockSmoker)
+			return this.getDefaultState().withProperty(LEVEL, Integer.valueOf(1));
+		return getDefaultState();
+	}
+
+	@Override
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player)
+	{
+		return new ItemStack(GenesisBlocks.SMOKER);
 	}
 }

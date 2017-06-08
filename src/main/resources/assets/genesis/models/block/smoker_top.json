@@ -1,0 +1,24 @@
+{
+	"parent": "block/block",
+	"credit": "Made with Blockbench, a free, modern block model editor by JannisX11",
+	"textures": {
+		"0": "genesis:blocks/black_flint",
+		"particle": "genesis:blocks/black_flint"
+	},
+	"elements": [
+		{
+			"name": "cube",
+			"from": [5, 0, 5],
+			"to": [11, 16, 11],
+			"shade": true,
+			"faces": {
+				"north": {"uv": [0, 0, 6, 16], "texture": "#0"},
+				"east": {"uv": [0, 0, 6, 16], "texture": "#0"},
+				"south": {"uv": [0, 0, 6, 16], "texture": "#0"},
+				"west": {"uv": [0, 0, 6, 16], "texture": "#0"},
+				"up": {"uv": [0, 0, 6, 6], "texture": "#0"},
+				"down": {"uv": [0, 0, 6, 6], "texture": "#0"}
+			}
+		}
+	]
+}
