@@ -1,5 +1,6 @@
 package genesis.block;
 
+import com.google.common.collect.Lists;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.event.GenesisEventHandler;
@@ -28,6 +29,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.ArrayList;
 import java.util.Random;
 
 @MethodsReturnNonnullByDefault
@@ -37,6 +39,7 @@ public class BlockSmoker extends BlockGenesis implements ISitOnBlock
 {
 
 	public static final PropertyInteger LEVEL = PropertyInteger.create("level", 0, 15);//So the game doesn't crash
+	public static final ArrayList<Material> materialsThisCanBePlacedOn = Lists.newArrayList(Material.SAND, Material.ROCK, Material.GROUND, Material.CLAY);
 
 	public BlockSmoker(Material material, SoundType sound)
 	{
@@ -158,7 +161,7 @@ public class BlockSmoker extends BlockGenesis implements ISitOnBlock
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
 	{
-		return worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER && (worldIn.getBlockState(pos.down()).getMaterial() == Material.ROCK || worldIn.getBlockState(pos.down()).getMaterial() == Material.GROUND || worldIn.getBlockState(pos.down()).getBlock() instanceof BlockSmoker);
+		return worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER && (materialsThisCanBePlacedOn.contains(worldIn.getBlockState(pos.down()).getMaterial()) || worldIn.getBlockState(pos.down()).getBlock() instanceof BlockSmoker);
 	}
 
 	@Override
