@@ -2,10 +2,9 @@ package genesis.block;
 
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
-import genesis.util.Constants;
+import genesis.event.GenesisEventHandler;
+import genesis.util.blocks.ISitOnBlock;
 import mcp.MethodsReturnNonnullByDefault;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockSand;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -34,7 +33,7 @@ import java.util.Random;
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 @SuppressWarnings("UnnecessaryUnboxing")
-public class BlockSmoker extends BlockGenesis
+public class BlockSmoker extends BlockGenesis implements ISitOnBlock
 {
 
 	public static final PropertyInteger LEVEL = PropertyInteger.create("level", 0, 15);//So the game doesn't crash
@@ -50,11 +49,11 @@ public class BlockSmoker extends BlockGenesis
 		setResistance(10.0F);
 	}
 
-	@Override
+	/*@Override
 	public int tickRate(World worldIn)
 	{
 		return 300;
-	}
+	}*/
 
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
@@ -110,7 +109,7 @@ public class BlockSmoker extends BlockGenesis
 			for (int i = 0; i < 8; ++i)
 			{
 				double x = pos.getX() + 0.5;
-				double y = pos.getY() + i * 0.1;
+				double y = pos.up().getY() + i * 0.1;
 				double z = pos.getZ() + 0.5;
 
 				worldIn.spawnParticle(random.nextInt(10) == 0 ? EnumParticleTypes.WATER_BUBBLE : EnumParticleTypes.SMOKE_LARGE, x, y, z, 0.0D, 0.01D, 0.0D);
@@ -130,6 +129,7 @@ public class BlockSmoker extends BlockGenesis
 		return null;
 	}
 
+	@Override
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
 	{
 		super.updateTick(worldIn, pos, state, rand);
@@ -142,9 +142,14 @@ public class BlockSmoker extends BlockGenesis
 	@Override
 	public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor)
 	{
+		super.onNeighborChange(world, pos, neighbor);
+
 		if(world instanceof World){
-			if(!canPlaceBlockAt((World)world, pos))
-				((World)world).setBlockState(pos, Blocks.WATER.getDefaultState());
+			if(!canPlaceBlockAt((World)world, pos)) {
+				((World) world).setBlockState(pos, Blocks.WATER.getDefaultState());
+				if(world.getBlockState(pos.up()).getBlock() instanceof BlockSmoker)
+					GenesisEventHandler.updateBlocksT1.add(pos);
+			}
 			if(getMetaFromState(world.getBlockState(pos)) == 0 && world.getBlockState(pos.down()).getBlock() instanceof BlockSmoker)
 				((World)world).setBlockState(pos, getDefaultState().withProperty(LEVEL, 1));
 		}
@@ -153,12 +158,7 @@ public class BlockSmoker extends BlockGenesis
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
 	{
-		if(worldIn.getBlockState(pos.up()).getMaterial() != Material.WATER || (worldIn.getBlockState(pos.down()).getMaterial() != Material.ROCK && !(worldIn.getBlockState(pos.down()).getBlock() instanceof BlockSmoker)))
-			return false;
-		for(int i=2;i<6;i++)
-			if(worldIn.getBlockState(pos.offset(EnumFacing.getFront(i))).getMaterial() != Material.WATER)
-				return false;
-		return true;
+		return worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER && (worldIn.getBlockState(pos.down()).getMaterial() == Material.ROCK || worldIn.getBlockState(pos.down()).getMaterial() == Material.GROUND || worldIn.getBlockState(pos.down()).getBlock() instanceof BlockSmoker);
 	}
 
 	@Override

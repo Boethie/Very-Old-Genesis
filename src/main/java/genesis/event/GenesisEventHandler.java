@@ -1,15 +1,19 @@
 package genesis.event;
 
+import com.google.common.collect.Lists;
+import genesis.block.BlockAquaticPlant;
 import genesis.block.BlockSmoker;
 import genesis.common.Genesis;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisGuiHandler;
 import genesis.common.GenesisPotions;
+import genesis.util.blocks.ISitOnBlock;
 import genesis.world.GenesisWorldData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.achievement.GuiAchievements;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
@@ -19,12 +23,19 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
 
+import java.util.ArrayList;
+
 public class GenesisEventHandler
 {
+	public static ArrayList<BlockPos> updateBlocksT1 = Lists.newArrayList();
+	private static ArrayList<BlockPos> updateBlocks = Lists.newArrayList();
+
 	@SubscribeEvent
 	public void onWorldTick(WorldTickEvent event)
 	{
@@ -40,6 +51,20 @@ public class GenesisEventHandler
 				{
 					data.setTime(data.getTime() + 1);
 				}
+			}
+		}
+		else
+		{
+			if(!updateBlocks.isEmpty())
+			{
+				for (BlockPos pos : updateBlocks)
+					event.world.getBlockState(pos.up()).getBlock().onNeighborChange(event.world, pos.up(), pos);
+				updateBlocks.clear();
+			}
+			if(!updateBlocksT1.isEmpty())
+			{
+				updateBlocks.addAll(updateBlocksT1);//Make it wait an extra world tick to do the check. Should allow the the block adequate time to break.
+				updateBlocksT1.clear();
 			}
 		}
 	}
@@ -86,5 +111,12 @@ public class GenesisEventHandler
 		BlockPos pos = flag && event.getTarget().sideHit == EnumFacing.UP ? event.getTarget().getBlockPos() : event.getTarget().getBlockPos().offset(event.getTarget().sideHit);
 		if (event.getWorld().getBlockState(pos).getBlock() == GenesisBlocks.SMOKER)
 			event.setCanceled(true);
+	}
+
+	@SubscribeEvent
+	public void breakBlock(BlockEvent.BreakEvent event)
+	{
+		if(!event.getWorld().isRemote && event.getWorld().getBlockState(event.getPos().up()).getBlock() instanceof ISitOnBlock)
+			updateBlocksT1.add(event.getPos());
 	}
 }

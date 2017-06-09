@@ -16,6 +16,7 @@ import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants;
 import genesis.util.FlexibleStateMap;
 import genesis.util.WorldUtils;
+import genesis.util.blocks.ISitOnBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
@@ -35,7 +36,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockAquaticPlant extends Block implements IModifyStateMap
+public class BlockAquaticPlant extends Block implements IModifyStateMap, ISitOnBlock
 {
 	/**
 	 * Used in VariantsOfTypesCombo.

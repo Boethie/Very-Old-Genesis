@@ -7,6 +7,7 @@ import genesis.util.WorldUtils;
 import java.util.ArrayList;
 import java.util.Random;
 
+import genesis.util.blocks.ISitOnBlock;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
@@ -16,7 +17,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 
-public class BlockCalamites extends BlockGrowingPlant implements IGrowingPlantCustoms
+public class BlockCalamites extends BlockGrowingPlant implements IGrowingPlantCustoms, ISitOnBlock
 {
 	protected static final float RADIUS = 0.2F;
 	
