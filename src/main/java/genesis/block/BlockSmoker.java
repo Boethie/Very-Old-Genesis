@@ -41,14 +41,14 @@ public class BlockSmoker extends BlockGenesis implements ISitOnBlock
 	public static final PropertyInteger LEVEL = PropertyInteger.create("level", 0, 15);//So the game doesn't crash
 	public static final ArrayList<Material> materialsThisCanBePlacedOn = Lists.newArrayList(Material.SAND, Material.ROCK, Material.GROUND, Material.CLAY);
 
-	public BlockSmoker(Material material, SoundType sound)
+	public BlockSmoker()
 	{
-		super(material, sound);
+		super(Material.WATER, SoundType.STONE);
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, Integer.valueOf(0)));
 		setTickRandomly(true);
 		setHarvestLevel("pickaxe", 0);
-		setHardness(1.5F);
+		setHardness(0.65F);
 		setResistance(10.0F);
 	}
 

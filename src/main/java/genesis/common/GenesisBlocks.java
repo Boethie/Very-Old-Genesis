@@ -86,6 +86,8 @@ public final class GenesisBlocks
 	public static final Block SMOOTH_LIMESTONE = new BlockGenesisRock(0.75F, 8.7F).setUnlocalizedName(Unlocalized.ROCK + "smoothLimestone");
 	public static final Block OCTAEDRITE = new BlockGenesisRock(1.0F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "octaedrite");
 
+	public static final Block ANCIENT_SMOKER = new BlockGenesisRock(0.65F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "ancientSmoker");
+	
 	/* Slabs */
 	public static final SlabBlocks SLABS = new SlabBlocks();
 
@@ -206,7 +208,7 @@ public final class GenesisBlocks
 			.setHardness(0.7F)
 			.setUnlocalizedName(Unlocalized.PREFIX + "peatBrick");
 
-	public static final Block SMOKER = new BlockSmoker(Material.WATER, SoundType.STONE).setUnlocalizedName(Constants.Unlocalized.PREFIX + "smoker");
+	public static final Block SMOKER = new BlockSmoker().setUnlocalizedName(Constants.Unlocalized.PREFIX + "smoker");
 
 	/* Mechanisms */
 	public static final BlockTrapFloor TRAP_FLOOR = (BlockTrapFloor) new BlockTrapFloor().setUnlocalizedName(Unlocalized.PREFIX + "trapFloor");
@@ -267,6 +269,8 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(LIMESTONE, name("limestone"));
 		Genesis.proxy.registerBlock(SMOOTH_LIMESTONE, name("smooth_limestone"));
 		Genesis.proxy.registerBlock(OCTAEDRITE, name("octaedrite"));
+		
+		Genesis.proxy.registerBlock(ANCIENT_SMOKER, name("ancient_smoker"));
 
 		// - Slabs -
 		SLABS.registerAll();
