@@ -28,6 +28,8 @@ public abstract class BiomeGenesis extends Biome implements IBiomeFog
 	private final WeightedRandomList<WorldGenDecorationBase> grass = new WeightedRandomList<>();
 	private final WeightedRandomList<WorldGenDecorationBase> plants = new WeightedRandomList<>();
 	private final List<DecorationEntry> postDecor = new ArrayList<>();
+	private float smoothingExponent = 2.0f;
+	private float smoothingWeight = 1.0f;
 	
 	public BiomeGenesis(Biome.BiomeProperties properties)
 	{
@@ -42,7 +44,25 @@ public abstract class BiomeGenesis extends Biome implements IBiomeFog
 		
 		getDecorator().sandPerChunk2 = 2;
 	}
-	
+
+	public float getSmoothingExponent() {
+		return smoothingExponent;
+	}
+
+	public BiomeGenesis setSmoothingExponent(float smoothingExponent) {
+		this.smoothingExponent = smoothingExponent;
+		return this;
+	}
+
+	public float getSmoothingWeight() {
+		return smoothingWeight;
+	}
+
+	public BiomeGenesis setSmoothingWeight(float smoothingWeight) {
+		this.smoothingWeight = smoothingWeight;
+		return this;
+	}
+
 	public void addGrass(WorldGenDecorationBase gen, int weight)
 	{
 		grass.add(gen, weight);

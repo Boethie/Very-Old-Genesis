@@ -243,7 +243,7 @@ public final class GenesisBiomes
 		prop.setHeightVariation(0.0F);
 		prop.setWaterColor(0x725113);
 		
-		river = new BiomeRiver(prop);
+		river = new BiomeRiver(prop).setSmoothingWeight(12.0f);
 		Biome.registerBiome(GenesisConfig.riverId, river.getBiomeName(), river);
 		BiomeDictionary.registerBiomeType(river, BiomeDictionary.Type.RIVER);
 		
@@ -334,7 +334,7 @@ public final class GenesisBiomes
 		prop.setHeightVariation(0.02F);
 		prop.setWaterColor(0x725113);
 		
-		redDesertHills = new BiomeRedDesert(prop).setTopBlock(GenesisBlocks.SILT.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT)).setIsHills(true).addTrees();
+		redDesertHills = new BiomeRedDesert(prop).setTopBlock(GenesisBlocks.SILT.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT)).setIsHills(true).addTrees().setSmoothingExponent(20.0f).setSmoothingWeight(2.0f);
 		Biome.registerBiome(GenesisConfig.redDesertId + 128, redDesertHills.getBiomeName(), redDesertHills);
 		BiomeDictionary.registerBiomeType(redDesertHills, BiomeDictionary.Type.DRY, BiomeDictionary.Type.MESA, BiomeDictionary.Type.SANDY);
 	}
