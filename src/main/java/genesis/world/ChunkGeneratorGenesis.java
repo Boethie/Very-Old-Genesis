@@ -11,6 +11,14 @@ import java.util.Random;
 
 import genesis.combo.SiltBlocks;
 import genesis.combo.variant.EnumSilt;
+import genesis.common.*;
+import genesis.util.noise.NoiseValueSchemes.D3C1;
+import genesis.util.noise.SuperSimplexNoise;
+import genesis.world.biome.BiomeGenesis;
+import genesis.world.gen.feature.*;
+
+import net.minecraft.block.*;
+
 import genesis.common.GenesisBiomes;
 import genesis.common.GenesisBlocks;
 import genesis.util.noise.NoiseValueSchemes.D2C1;
@@ -66,6 +74,18 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 	private static final int Fxz = D3C1.Fxz;
 	private static final int Fyz = D3C1.Fyz;
 	private static final int Fxyz = D3C1.Fxyz;
+
+	//Biome smoothing value type offsets
+	private static final int B_F = 0;
+	private static final int B_Fx = 1;
+	private static final int B_Fz = 2;
+	private static final int B_Fxz = 3;
+	private static final int B_attn = 4;
+	private static final int B_attnLog = 5;
+	private static final int B_FxPart = 6;
+	private static final int B_FzPart = 7;
+	private static final int B_FxzPart = 8;
+	private static final int B_STEP = 9;
 	
 	//Interpolation coefficient pre-computations.
 	//Basically a quintic spline, with the second-derivatives at the endpoints zero
@@ -99,18 +119,28 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 	//0.25 is because the biome points for the heightmap generator are spaced by 4 blocks in a grid
 	//Original vanilla used a discontinuous function; this is continuous and smooth
 	//~KdotJPG
-	private static float[] BIOME_DISTANCE_WEIGHTS = new float[BIOME_BLEND_DIAMETER * BIOME_BLEND_DIAMETER * D2C1.STEP];
+	private static float[] BIOME_DISTANCE_WEIGHTS = new float[BIOME_BLEND_DIAMETER * BIOME_BLEND_DIAMETER * B_STEP];
 	static {
 		for (int i = -BIOME_BLEND_RADIUS; i <= BIOME_BLEND_RADIUS; ++i) {
 			for (int j = -BIOME_BLEND_RADIUS; j <= BIOME_BLEND_RADIUS; ++j) {
-				int index = (i + BIOME_BLEND_RADIUS + (j + BIOME_BLEND_RADIUS) * BIOME_BLEND_DIAMETER) * D2C1.STEP;
+				int index = (i + BIOME_BLEND_RADIUS + (j + BIOME_BLEND_RADIUS) * BIOME_BLEND_DIAMETER) * B_STEP;
 				
 				float attn = (BIOME_BLEND_RADIUS * BIOME_BLEND_RADIUS - i * i - j * j);
 				if (attn > 0) {
-					BIOME_DISTANCE_WEIGHTS[index + D2C1.F] = attn * attn;
-					BIOME_DISTANCE_WEIGHTS[index + D2C1.Fx] = i * attn;
-					BIOME_DISTANCE_WEIGHTS[index + D2C1.Fy] = j * attn;
-					BIOME_DISTANCE_WEIGHTS[index + D2C1.Fxy] = attn == 0 ? 0 : 0.5f * i * j;
+					float attnNormalized = attn / (BIOME_BLEND_RADIUS * BIOME_BLEND_RADIUS);
+
+					//For smoothing the smoothing exponent itself, initially
+					BIOME_DISTANCE_WEIGHTS[index + B_F] = attn * attn;
+					BIOME_DISTANCE_WEIGHTS[index + B_Fx] = i * attn;
+					BIOME_DISTANCE_WEIGHTS[index + B_Fz] = j * attn;
+					BIOME_DISTANCE_WEIGHTS[index + B_Fxz] = 0.5f * i * j;
+
+					//For smoothing using the exponent
+					BIOME_DISTANCE_WEIGHTS[index + B_attn] = attnNormalized;
+					BIOME_DISTANCE_WEIGHTS[index + B_attnLog] = (float) Math.log(attnNormalized);
+					BIOME_DISTANCE_WEIGHTS[index + B_FxPart] = 0.5f * i / attn;
+					BIOME_DISTANCE_WEIGHTS[index + B_FzPart] = 0.5f * j / attn;
+					BIOME_DISTANCE_WEIGHTS[index + B_FxzPart] = 0.25f * i * j / (attn * attn);
 				}
 			}
 		}
@@ -582,6 +612,57 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 		{
 			for (int l = 0; l < 3; ++l)
 			{
+
+				/*
+				 * TODO whenever: Opportunity for efficiency.
+				 *
+				 * Usually, the exponent = 2, for all biomes relevant. When this is the case, we can use faster,
+				 * more specialized code. We can also omit the smoothing altogether when entirely inside one biome.
+				 */
+
+				//Smoothing exponent determines the steepness of biome transitions
+				float exponentPre = 0.0F;
+				float exponentPreFx = 0.0F;
+				float exponentPreFz = 0.0F;
+				float exponentPreFxz = 0.0F;
+				float totalExponentWeight = 0.0F;
+				float totalExponentWeightFx = 0.0F;
+				float totalExponentWeightFz = 0.0F;
+				float totalExponentWeightFxz = 0.0F;
+
+				//First get the smoothing exponent and all relevant derivatives
+				for (int j1 = -BIOME_BLEND_RADIUS; j1 <= BIOME_BLEND_RADIUS; ++j1)
+				{
+					for (int k1 = -BIOME_BLEND_RADIUS; k1 <= BIOME_BLEND_RADIUS; ++k1)
+					{
+						BiomeGenesis thisBiome = (BiomeGenesis) biomes[2 * k + j1 + BIOME_BLEND_RADIUS + (2 * l + k1 + BIOME_BLEND_RADIUS) * BIOME_BLEND_FULL_RANGE];
+						float thisExponent = thisBiome.getSmoothingExponent();
+
+						int weightIndex = (j1 + BIOME_BLEND_RADIUS + (k1 + BIOME_BLEND_RADIUS) * BIOME_BLEND_DIAMETER) * B_STEP;
+
+						float thisWeight = BIOME_DISTANCE_WEIGHTS[weightIndex + B_F];
+						float thisWeightFx = BIOME_DISTANCE_WEIGHTS[weightIndex + B_Fx];
+						float thisWeightFz = BIOME_DISTANCE_WEIGHTS[weightIndex + B_Fz];
+						float thisWeightFxz = BIOME_DISTANCE_WEIGHTS[weightIndex + B_Fxz];
+
+						exponentPre += thisExponent * thisWeight;
+						exponentPreFx += thisExponent * thisWeightFx;
+						exponentPreFz += thisExponent * thisWeightFz;
+						exponentPreFxz += thisExponent * thisWeightFxz;
+						totalExponentWeight += thisWeight;
+						totalExponentWeightFx += thisWeightFx;
+						totalExponentWeightFz += thisWeightFz;
+						totalExponentWeightFxz += thisWeightFxz;
+					}
+				}
+
+				//Normalize smoothing exponent weighted sum
+				float exponent = exponentPre / totalExponentWeight;
+				float exponentFx = (totalExponentWeight * exponentPreFx - exponentPre * totalExponentWeightFx) / (totalExponentWeight * totalExponentWeight);
+				float exponentFz = (totalExponentWeight * exponentPreFz - exponentPre * totalExponentWeightFz) / (totalExponentWeight * totalExponentWeight);
+				float exponentFxz = (exponentPreFxz * totalExponentWeight * totalExponentWeight + 2 * exponentPre * totalExponentWeightFx * totalExponentWeightFz - totalExponentWeight * (exponentPreFx * totalExponentWeightFz + exponentPreFz * totalExponentWeightFx + exponentPre * totalExponentWeightFxz)) / (totalExponentWeight * totalExponentWeight * totalExponentWeight);
+
+				//Actual biome characterizations to smooth
 				float heightVariationPre = 0.0F;
 				float heightVariationPreFx = 0.0F;
 				float heightVariationPreFz = 0.0F;
@@ -595,11 +676,12 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 				float totalWeightFz = 0.0F;
 				float totalWeightFxz = 0.0F;
 
+				//Smooth biome characterizations using exponent, keeping track of all necessary derivatives
 				for (int j1 = -BIOME_BLEND_RADIUS; j1 <= BIOME_BLEND_RADIUS; ++j1)
 				{
 					for (int k1 = -BIOME_BLEND_RADIUS; k1 <= BIOME_BLEND_RADIUS; ++k1)
 					{
-						Biome thisBiome = biomes[2 * k + j1 + BIOME_BLEND_RADIUS + (2 * l + k1 + BIOME_BLEND_RADIUS) * BIOME_BLEND_FULL_RANGE];
+						BiomeGenesis thisBiome = (BiomeGenesis) biomes[2 * k + j1 + BIOME_BLEND_RADIUS + (2 * l + k1 + BIOME_BLEND_RADIUS) * BIOME_BLEND_FULL_RANGE];
 						float thisBaseHeight = settings.biomeDepthOffSet + thisBiome.getBaseHeight() * settings.biomeDepthWeight;
 						float thisHeightVariation = settings.biomeScaleOffset + thisBiome.getHeightVariation() * settings.biomeScaleWeight;
 
@@ -609,20 +691,29 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 							thisHeightVariation = 1.0F + thisHeightVariation * 4.0F;
 						}
 
-						int weightIndex = (j1 + BIOME_BLEND_RADIUS + (k1 + BIOME_BLEND_RADIUS) * BIOME_BLEND_DIAMETER) * D2C1.STEP;
-						
-						float thisWeight = BIOME_DISTANCE_WEIGHTS[weightIndex + D2C1.F];
-						float thisWeightFx = BIOME_DISTANCE_WEIGHTS[weightIndex + D2C1.Fx];
-						float thisWeightFz = BIOME_DISTANCE_WEIGHTS[weightIndex + D2C1.Fy];
-						float thisWeightFxz = BIOME_DISTANCE_WEIGHTS[weightIndex + D2C1.Fxy];
+						int weightIndex = (j1 + BIOME_BLEND_RADIUS + (k1 + BIOME_BLEND_RADIUS) * BIOME_BLEND_DIAMETER) * B_STEP;
 
-						//Rivers need influence.
-						if (genesis.world.biome.BiomeRiver.class.equals(thisBiome.getClass())) {
-							thisWeight *= RIVER_RELATIVE_WEIGHT;
-							thisWeightFx *= RIVER_RELATIVE_WEIGHT;
-							thisWeightFz *= RIVER_RELATIVE_WEIGHT;
-							thisWeightFxz *= RIVER_RELATIVE_WEIGHT;
-						}
+						float attn = BIOME_DISTANCE_WEIGHTS[weightIndex + B_attn];
+						float attnLog = BIOME_DISTANCE_WEIGHTS[weightIndex + B_attnLog];
+						float fxPart = BIOME_DISTANCE_WEIGHTS[weightIndex + B_FxPart];
+						float fzPart = BIOME_DISTANCE_WEIGHTS[weightIndex + B_FzPart];
+						float fxzPart = BIOME_DISTANCE_WEIGHTS[weightIndex + B_FxzPart];
+						float fxMultiplier = (exponentFx * attnLog + exponent * fxPart);
+						float fzMultiplier = (exponentFz * attnLog + exponent * fzPart);
+						float thisWeight = (float) Math.pow(attn, exponent);
+						float thisWeightFx = thisWeight * fxMultiplier;
+						float thisWeightFz = thisWeight * fzMultiplier;
+						float thisWeightFxz = thisWeight * (
+							fxMultiplier * fzMultiplier
+							+ exponentFx * fzPart + exponentFz * fxPart
+							+ exponentFxz * attnLog - exponent * fxzPart
+						);
+
+						float thisSmoothingWeightModifier = thisBiome.getSmoothingWeight();
+						thisWeight *= thisSmoothingWeightModifier;
+						thisWeightFx *= thisSmoothingWeightModifier;
+						thisWeightFz *= thisSmoothingWeightModifier;
+						thisWeightFxz *= thisSmoothingWeightModifier;
 
 						heightVariationPre += thisHeightVariation * thisWeight;
 						heightVariationPreFx += thisHeightVariation * thisWeightFx;
@@ -638,7 +729,8 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 						totalWeightFxz += thisWeightFxz;
 					}
 				}
-				
+
+				//Normalize those
 				double heightVariation = heightVariationPre / totalWeight;
 				double heightVariationFx = (totalWeight * heightVariationPreFx - heightVariationPre * totalWeightFx) / (totalWeight * totalWeight);
 				double heightVariationFz = (totalWeight * heightVariationPreFz - heightVariationPre * totalWeightFz) / (totalWeight * totalWeight);
@@ -646,7 +738,7 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 				double baseHeight = baseHeightPre / totalWeight;
 				double baseHeightFx = (totalWeight * baseHeightPreFx - baseHeightPre * totalWeightFx) / (totalWeight * totalWeight);
 				double baseHeightFz = (totalWeight * baseHeightPreFz - baseHeightPre * totalWeightFz) / (totalWeight * totalWeight);
-				double baseHeightFxz = (baseHeightPreFxz * totalWeight * totalWeight + 2 * baseHeightPre * totalWeightFx * totalWeightFz - totalWeight * (baseHeightPreFx * totalWeightFz + baseHeightPreFz * totalWeightFx + baseHeightPre * totalWeightFxz)) / (totalWeight * totalWeight * totalWeight);				
+				double baseHeightFxz = (baseHeightPreFxz * totalWeight * totalWeight + 2 * baseHeightPre * totalWeightFx * totalWeightFz - totalWeight * (baseHeightPreFx * totalWeightFz + baseHeightPreFz * totalWeightFx + baseHeightPre * totalWeightFxz)) / (totalWeight * totalWeight * totalWeight);
 				
 				//Why weren't... the biomes... just originally like this? I guess to simplify manual value assignment
 				heightVariation = heightVariation * 0.9F + 0.1F;
