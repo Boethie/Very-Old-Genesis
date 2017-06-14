@@ -16,6 +16,7 @@ import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants;
 import genesis.util.FlexibleStateMap;
 import genesis.util.WorldUtils;
+import genesis.util.blocks.ISitOnBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
@@ -35,7 +36,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockAquaticPlant extends Block implements IModifyStateMap
+public class BlockAquaticPlant extends Block implements IModifyStateMap, ISitOnBlock
 {
 	/**
 	 * Used in VariantsOfTypesCombo.
@@ -239,9 +240,16 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 			validGround.add(Blocks.HARDENED_CLAY);
 			validGround.add(Blocks.STONEBRICK);
 			validGround.add(Blocks.STONE);
+			validGround.add(Blocks.COBBLESTONE);
+			validGround.add(Blocks.MOSSY_COBBLESTONE);
+			validGround.add(Blocks.SANDSTONE);
+			validGround.add(Blocks.RED_SANDSTONE);
+			validGround.add(Blocks.OBSIDIAN);
+			validGround.add(Blocks.PRISMARINE);
 			validGround.add(Blocks.LOG);
 			validGround.add(Blocks.LOG2);
 			validGround.add(Blocks.PLANKS);
+			validGround.add(GenesisBlocks.HUMUS);
 			validGround.add(GenesisBlocks.RED_CLAY);
 			validGround.add(GenesisBlocks.OOZE);
 			validGround.add(GenesisBlocks.PEAT);

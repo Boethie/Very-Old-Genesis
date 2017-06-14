@@ -136,19 +136,24 @@ public class BlockGenesisSaplings extends BlockSapling
 		switch (variant)
 		{
 		case ARCHAEOPTERIS:
-			gen = new WorldGenTreeArchaeopteris(17, 20, true);
+			positions = Objects.firstNonNull(findSaplings(world, pos, variant, 2), positions);
+			pos = positions[0];
+			treeType = (positions.length > 1)? TreeTypes.TYPE_2 : TreeTypes.TYPE_1;
+			minHeight = (treeType == TreeTypes.TYPE_2)? 20 : 17;
+			maxHeight = (treeType == TreeTypes.TYPE_2)? 27 : 20;
+			gen = new WorldGenTreeArchaeopteris(minHeight, maxHeight, true).setType(treeType);
 			break;
 		case SIGILLARIA:
-			gen = new WorldGenTreeSigillaria(10, 15, true);
+			gen = new WorldGenTreeSigillaria(10, 14, true);
 			break;
 		case LEPIDODENDRON:
-			gen = new WorldGenTreeLepidodendron(14, 18, true);
+			gen = new WorldGenTreeLepidodendron(15, 20, true);
 			break;
 		case CORDAITES:
 			gen = new WorldGenTreeCordaites(12, 17, true);
 			break;
 		case PSARONIUS:
-			gen = new WorldGenTreePsaronius(5, 8, true);
+			gen = new WorldGenTreePsaronius(5, 7, true);
 			break;
 		case ARAUCARIOXYLON:
 			gen = new WorldGenTreeAraucarioxylon(25, 30, true);
@@ -174,12 +179,12 @@ public class BlockGenesisSaplings extends BlockSapling
 			gen = new WorldGenTreeGinkgo(minHeight, maxHeight, true).setType(treeType);
 			break;
 		case FICUS:
-			gen = new WorldGenTreeFicus(5, 8, true);
+			gen = new WorldGenTreeFicus(6, 8, true);
 			break;
 		case DRYOPHYLLUM:
 			treeType = (rand.nextInt(6) == 0)? TreeTypes.TYPE_2 : TreeTypes.TYPE_1;
-			minHeight = (treeType == TreeTypes.TYPE_2)? 15 : 11;
-			maxHeight = (treeType == TreeTypes.TYPE_2)? 20 : 16;
+			minHeight = (treeType == TreeTypes.TYPE_2)? 13 : 11;
+			maxHeight = (treeType == TreeTypes.TYPE_2)? 19 : 15;
 			gen = new WorldGenTreeDryophyllum(minHeight, maxHeight, true).setType(treeType);
 			break;
 		case ARCHAEANTHUS:

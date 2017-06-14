@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Random;
 
 import genesis.block.tileentity.TileEntityStorageBox;
-import genesis.common.GenesisBiomes;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisLoot;
 import genesis.world.iworldgenerators.WorldGenStructureHelper.StructureType;
@@ -32,8 +31,8 @@ public class WorldGenMetaHouse extends WorldGenStructureBase
 	{
 		List<Biome> biomes = new ArrayList<Biome>();
 		
-		biomes.add(GenesisBiomes.metaForest);
-		biomes.add(GenesisBiomes.metaForestM);
+		//biomes.add(GenesisBiomes.metaForest);
+		//biomes.add(GenesisBiomes.metaForestM);
 		
 		return biomes;
 	}
@@ -90,7 +89,7 @@ public class WorldGenMetaHouse extends WorldGenStructureBase
 		{
 			BlockPos storagePos = this.findBlockInArea(world, curPos, 8, 5, GenesisBlocks.STORAGE_BOX.getDefaultState(), true);
 			
-			if (storagePos!= null)
+			if (storagePos != null)
 			{
 				TileEntity te = world.getTileEntity(storagePos);
 				

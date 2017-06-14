@@ -53,6 +53,29 @@ public class WorldUtils
 	}
 
 	/**
+	 * Converts Vec3i instance (including block pos) to Vec3d. Should be used together with toBlockPos
+	 * to ensure consistent rounding
+	 */
+	public static Vec3d toVec3d(Vec3i v)
+	{
+		return new Vec3d(v.getX(), v.getY(), v.getZ());
+	}
+	
+	/**
+	 * Converts Vec3d instance to BlockPos (Vec3i). Should be used together with toVec3d
+	 * to ensure consistent rounding
+	 */
+	public static BlockPos toBlockPos(Vec3d v)
+	{
+		return new BlockPos((int) Math.round(v.xCoord), (int) Math.round(v.yCoord), (int) Math.round(v.zCoord));
+	}
+	
+	public static boolean xzEqual(Vec3i trunkXZ, Vec3i blockPos)
+	{
+		return blockPos.getX() == trunkXZ.getX() && blockPos.getZ() == trunkXZ.getZ();
+	}
+	
+	/**
 	 * Returns an integer for the distance squared between to block positions.
 	 * Use in place of {@link BlockPos#distanceSq(Vec3i)} to avoid casts to {@code double}.
 	 */
@@ -239,7 +262,7 @@ public class WorldUtils
 				stack.stackSize -= subSize;
 
 				EntityItem dropItem = new EntityItem(world, x, y, z,
-						new ItemStack(stack.getItem(), subSize, stack.getItemDamage()));
+						new ItemStack(stack.getItem(), subSize, stack.getMetadata()));
 
 				if (stack.hasTagCompound())
 				{

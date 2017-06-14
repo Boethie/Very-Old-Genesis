@@ -108,7 +108,7 @@ public class WorldGenCorals extends WorldGenDecorationBase
 			IBlockState state = world.getBlockState(placePos);
 			
 			if (state.getBlock() != Blocks.DIRT
-					&& state.getBlock() != Blocks.CLAY
+					&& state.getBlock() != GenesisBlocks.RED_CLAY
 					&& state.getBlock() != GenesisBlocks.OOZE
 					&& state != coralState)
 				break;

@@ -151,7 +151,7 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 		while (loot.size() > count)
 			loot.remove(random.nextInt(loot.size()));
 
-		BlockPos chestPos = center.add(0, -1, 0);
+		//BlockPos chestPos = center.add(0, -1, 0);
 		//noinspection ToArrayCallWithZeroLengthArrayArgument
 	}
 

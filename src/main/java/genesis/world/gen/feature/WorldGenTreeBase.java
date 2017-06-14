@@ -268,7 +268,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 				double xfr = z - pos.getZ();
 				double zfr = x - pos.getX();
 				
-				if (xfr * xfr + zfr * zfr <= radius * radius)
+				if (xfr * xfr + zfr * zfr <= radius * radius || x * x + z * z <= radius * radius)
 				{
 					setBlockInWorld(world, new BlockPos(x, pos.getY(), z), leaves);
 				}
@@ -465,6 +465,26 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 			setBlockInWorld(world, pos.up(1).east(), leaves);
 			setBlockInWorld(world, pos.up(1).west(), leaves);
 			setBlockInWorld(world, pos.up(2), leaves);
+		}
+	}
+	
+	protected void doLeavesCircleLayer(World world, BlockPos pos, int width)
+	{
+		int i = (width * width);
+		
+		for (int j = -width; j <= width + 1; ++j)
+		{
+			for (int k = -width; k <= width + 1; ++k)
+			{
+				int l = j - 1;
+				int i1 = k - 1;
+				
+				if (j * j + k * k <= i || l * l + i1 * i1 <= i || j * j + i1 * i1 <= i || l * l + k * k <= i)
+				{
+					BlockPos blockpos = pos.add(j, 0, k);
+					setBlockInWorld(world, blockpos, leaves);
+				}
+			}
 		}
 	}
 	

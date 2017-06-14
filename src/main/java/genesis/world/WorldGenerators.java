@@ -9,7 +9,6 @@ import genesis.world.iworldgenerators.WorldGenHut;
 import genesis.world.iworldgenerators.WorldGenMenhirActivators;
 import genesis.world.iworldgenerators.WorldGenMetaHouse;
 import genesis.world.iworldgenerators.WorldGenPortal;
-import genesis.world.iworldgenerators.WorldGenSmallCamp;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 

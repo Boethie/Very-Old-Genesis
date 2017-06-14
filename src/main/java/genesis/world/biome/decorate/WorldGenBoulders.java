@@ -1,5 +1,7 @@
 package genesis.world.biome.decorate;
 
+import java.util.Random;
+
 import genesis.combo.SiltBlocks;
 import genesis.common.GenesisBlocks;
 import genesis.util.WorldUtils;
@@ -7,9 +9,6 @@ import genesis.util.functional.WorldBlockMatcher;
 import genesis.util.random.f.FloatRange;
 import genesis.util.random.i.IntRange;
 import genesis.util.random.i.RandomIntProvider;
-
-import java.util.Random;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -33,7 +32,9 @@ public class WorldGenBoulders extends WorldGenDecorationBase
 	
 	private FloatRange largeProvider;
 	
+	@SuppressWarnings("unused")
 	private RandomIntProvider smallCountProvider = IntRange.create(1, 3);
+	@SuppressWarnings("unused")
 	private FloatRange smallProvider;
 	
 	private FloatRange horizStretch;
@@ -116,25 +117,47 @@ public class WorldGenBoulders extends WorldGenDecorationBase
 		if (chance <= 0 || rand.nextFloat() > chance)
 			return false;
 		
-		Vec3d center = new Vec3d(
-				pos.getX() + rand.nextDouble(),
-				pos.getY() + rand.nextDouble() + radius - 1,
-				pos.getZ() + rand.nextDouble());
-		
-		placeSphere(world, center, rand, radius);
-		
-		for (int i = smallCountProvider.get(rand); i > 0; i--)
+		while (true)
 		{
-			Vec3d offset = new Vec3d(rand.nextDouble() - 0.5, (rand.nextDouble() - 0.5) * 0.5, rand.nextDouble() - 0.5).normalize();
-			
-			float smallRadius = smallProvider.get(rand);
-			
-			offset = offset.scale((radius + smallRadius) * MathHelper.getRandomDoubleInRange(rand, 0.5, 1) - 0.5);
-			
-			placeSphere(world, center.add(offset).addVector(0, smallRadius - 0.5, 0), rand, smallRadius);
+			boulder_loop:
+			{
+				if (pos.getY() > 3)
+				{
+					if (world.isAirBlock(pos.down()))
+					{
+						break boulder_loop;
+					}
+				}
+				
+				if (pos.getY() <= 3)
+				{
+					return false;
+				}
+				
+				int spread = (int)radius;
+				
+				for (int i = 0; spread >= 0 && i < 3; ++i)
+				{
+					int px = spread + rand.nextInt(2);
+					int py = spread + rand.nextInt(2);
+					int pz = spread + rand.nextInt(2);
+					float factor = (float)(px + py + pz) * 0.233F + 0.3F;
+					
+					for (BlockPos blockpos : BlockPos.getAllInBox(pos.add(-px, -py, -pz), pos.add(px, py, pz)))
+					{
+						if (blockpos.distanceSq(pos) <= (double)(factor * factor))
+						{
+							this.placeRockAndDryAround(world, blockpos, rand);
+						}
+					}
+					
+					pos = pos.add(-(spread + 1) + rand.nextInt(2 + spread * 2), 0 - rand.nextInt(2), -(spread + 1) + rand.nextInt(2 + spread * 2));
+				}
+				
+				return true;
+			}
+		pos = pos.down();
 		}
-		
-		return true;
 	}
 	
 	protected void placeRock(World world, BlockPos pos, Random rand)

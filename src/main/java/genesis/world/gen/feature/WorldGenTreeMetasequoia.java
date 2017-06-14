@@ -9,14 +9,9 @@ import genesis.util.random.i.WeightedIntItem;
 import genesis.util.random.i.WeightedIntProvider;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.structure.StructureBoundingBox;
 
 public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 {
-	private int height;
-	private int trunkHeight;
-	private int leavesBase;
-	
 	public WorldGenTreeMetasequoia(int minHeight, int maxHeight, boolean notify)
 	{
 		super(EnumTree.METASEQUOIA, IntRange.create(minHeight, maxHeight), notify);

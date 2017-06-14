@@ -1,0 +1,6 @@
+{
+	"variants": {
+		"level=0": { "model": "genesis:smoker" },
+		"level=1": { "model": "genesis:smoker_top" }
+	}
+}

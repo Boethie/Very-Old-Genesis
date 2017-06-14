@@ -64,7 +64,7 @@ public class WorldGenHut extends WorldGenStructureBase
 		
 		StructureType hut = StructureType.HUT1;
 		
-		if (!world.isAirBlock(curPos))
+		if (!world.isAirBlock(curPos.up()))
 			curPos = curPos.up();
 		
 		EnumFacing offset = hut.getOffse();
@@ -86,6 +86,9 @@ public class WorldGenHut extends WorldGenStructureBase
 				hut,
 				hut.getMirror()[rand.nextInt(hut.getMirror().length)], 
 				hut.getRotation()[rand.nextInt(hut.getRotation().length)]);
+		
+		if (world.isAirBlock(curPos.up()))
+			curPos = curPos.down();
 		
 		if (generated)
 		{
