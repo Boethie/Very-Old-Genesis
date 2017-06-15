@@ -33,9 +33,6 @@ import java.util.ArrayList;
 
 public class GenesisEventHandler
 {
-	public static ArrayList<BlockPos> updateBlocksT1 = Lists.newArrayList();
-	private static ArrayList<BlockPos> updateBlocks = Lists.newArrayList();
-
 	@SubscribeEvent
 	public void onWorldTick(WorldTickEvent event)
 	{
@@ -51,20 +48,6 @@ public class GenesisEventHandler
 				{
 					data.setTime(data.getTime() + 1);
 				}
-			}
-		}
-		else
-		{
-			if(!updateBlocks.isEmpty())
-			{
-				for (BlockPos pos : updateBlocks)
-					event.world.getBlockState(pos.up()).getBlock().onNeighborChange(event.world, pos.up(), pos);
-				updateBlocks.clear();
-			}
-			if(!updateBlocksT1.isEmpty())
-			{
-				updateBlocks.addAll(updateBlocksT1);//Make it wait an extra world tick to do the check. Should allow the the block adequate time to break.
-				updateBlocksT1.clear();
 			}
 		}
 	}
@@ -117,6 +100,10 @@ public class GenesisEventHandler
 	public void breakBlock(BlockEvent.BreakEvent event)
 	{
 		if(!event.getWorld().isRemote && event.getWorld().getBlockState(event.getPos().up()).getBlock() instanceof ISitOnBlock)
-			updateBlocksT1.add(event.getPos());
+		{
+			event.getWorld().getBlockState(event.getPos().up()).getBlock().dropBlockAsItem(event.getWorld(), event.getPos().up(), event.getWorld().getBlockState(event.getPos().up()), 0);
+			event.getWorld().setBlockToAir(event.getPos().up());
+			breakBlock(new BlockEvent.BreakEvent(event.getWorld(), event.getPos().up(), event.getWorld().getBlockState(event.getPos().up()), event.getPlayer()));
+		}
 	}
 }

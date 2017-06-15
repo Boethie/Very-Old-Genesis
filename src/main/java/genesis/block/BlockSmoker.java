@@ -150,8 +150,6 @@ public class BlockSmoker extends BlockGenesis implements ISitOnBlock
 		if(world instanceof World){
 			if(!canPlaceBlockAt((World)world, pos)) {
 				((World) world).setBlockState(pos, Blocks.WATER.getDefaultState());
-				if(world.getBlockState(pos.up()).getBlock() instanceof BlockSmoker)
-					GenesisEventHandler.updateBlocksT1.add(pos);
 			}
 			if(getMetaFromState(world.getBlockState(pos)) == 0 && world.getBlockState(pos.down()).getBlock() instanceof BlockSmoker)
 				((World)world).setBlockState(pos, getDefaultState().withProperty(LEVEL, 1));
