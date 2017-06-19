@@ -48,7 +48,7 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 {
 	//Independent constants
 	private static final int BIOME_BLEND_RADIUS = 4;
-	private static final float RIVER_RELATIVE_WEIGHT = 12.0f;
+	private static final float RIVER_RELATIVE_WEIGHT = 12.0F;
 	private static final double CAVE_WATER_ATTENUATION_BUFFER_SQ = 24.0;
 	
 	//Dependent constants
