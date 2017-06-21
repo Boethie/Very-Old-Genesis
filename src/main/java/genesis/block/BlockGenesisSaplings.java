@@ -159,7 +159,7 @@ public class BlockGenesisSaplings extends BlockSapling
 			gen = new WorldGenTreeAraucarioxylon(25, 30, true);
 			break;
 		case BJUVIA:
-			gen = new WorldGenTreeBjuvia(4, 6, true);
+			gen = new WorldGenTreeBjuvia(4, 7, true);
 			break;
 		case VOLTZIA:
 			gen = new WorldGenTreeVoltzia(4, 8, true);
