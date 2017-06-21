@@ -1,5 +1,7 @@
 package genesis.capabilities;
 
+import javax.annotation.Nullable;
+import genesis.capabilities.playerinventory.CapabilityPlayerInventory;
 import genesis.util.Constants;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;
@@ -15,55 +17,49 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class GenesisCapabilities
 {
-	public static final ResourceLocation DIMENSION_PLAYERS_ID = new ResourceLocation(Constants.MOD_ID, "dimension_players");
-	@CapabilityInject(IDimensionPlayers.class)
-	public static final Capability<IDimensionPlayers> DIMENSION_PLAYERS = null;
-	
+
 	public static void register()
 	{
-		CapabilityManager.INSTANCE.register(IDimensionPlayers.class, new IDimensionPlayers.Storage(), IDimensionPlayers.Impl.class);
-		MinecraftForge.EVENT_BUS.register(new GenesisCapabilities());
+		CapabilityPlayerInventory.register();
 	}
 	
-	@SubscribeEvent
-	public void onEntityConstruct(AttachCapabilitiesEvent event)
-	{
-		event.addCapability(DIMENSION_PLAYERS_ID, new SerializingCapabilityProvider<>(DIMENSION_PLAYERS));
-	}
-	
+
 	public static class SerializingCapabilityProvider<V> implements ICapabilitySerializable<NBTBase>
 	{
-		private final Capability<V> wrapping;
+		private final Capability<V> capability;
+		private final EnumFacing facing;
+		
 		private V instance;
 		
-		public SerializingCapabilityProvider(Capability<V> capability)
+		public SerializingCapabilityProvider(Capability<V> capability, @Nullable EnumFacing facing)
 		{
-			this.wrapping = capability;
+			this.capability = capability;
+			this.facing = facing;
 			this.instance = capability.getDefaultInstance();
 		}
 		
 		@Override
 		public boolean hasCapability(Capability<?> capability, EnumFacing facing)
 		{
-			return capability == wrapping;
+			return this.capability == capability;
 		}
 		
 		@Override
 		public <T> T getCapability(Capability<T> capability, EnumFacing facing)
 		{
-			return capability == wrapping ? wrapping.cast(instance) : null;
+			return this.capability == capability ? this.capability.cast(instance) : null;
 		}
 		
 		@Override
 		public NBTBase serializeNBT()
 		{
-			return wrapping.getStorage().writeNBT(wrapping, instance, null);
+			return this.capability.getStorage().writeNBT(this.capability, this.instance, null);
 		}
 		
 		@Override
 		public void deserializeNBT(NBTBase nbt)
 		{
-			wrapping.getStorage().readNBT(wrapping, instance, null, nbt);
+			this.capability.getStorage().readNBT(this.capability, this.instance, null, nbt);
 		}
 	}
 }

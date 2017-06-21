@@ -2,14 +2,16 @@ package genesis.common;
 
 import genesis.capabilities.GenesisCapabilities;
 import genesis.capabilities.IDimensionPlayers;
+import genesis.capabilities.playerinventory.CapabilityPlayerInventory;
+import genesis.capabilities.playerinventory.IPlayerInventory;
 import genesis.portal.GenesisPortal;
 import genesis.stats.GenesisAchievements;
 import genesis.util.Constants;
 import genesis.util.PlayerWorldState;
-import genesis.world.*;
-
-import net.minecraft.entity.*;
-import net.minecraft.entity.player.*;
+import genesis.world.TeleporterGenesis;
+import genesis.world.WorldProviderGenesis;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.PlayerList;
 import net.minecraft.world.DimensionType;
@@ -76,42 +78,15 @@ public class GenesisDimensions
 
 			if (player != null)
 			{
-				//NBTTagCompound dimensionPlayers = null;
-				//NBTTagCompound restoreData = null;
-				IDimensionPlayers dimPlayers = null;
+				IPlayerInventory handler = player.getCapability(CapabilityPlayerInventory.PLAYER_INVENTORY_CAPABILITY, null);
 				boolean respawn = !force && !player.capabilities.isCreativeMode;
 
 				if (respawn)
 				{
-					/*String storingName = null;
-					String restoreName = null;
-
-					// Set the names that will be loaded from and saved to in the extended entity property.
-					if (dim == GENESIS_DIMENSION)
+					if (dimID == GenesisConfig.genesisDimId && handler != null)
 					{
-						storingName = OTHER_PLAYER_DATA;
-						restoreName = GENESIS_PLAYER_DATA;
+						handler.storeInventory(player);
 					}
-					else
-					{
-						storingName = GENESIS_PLAYER_DATA;
-						restoreName = OTHER_PLAYER_DATA;
-					}*/
-
-					// Get the stored players from both sides.
-					//dimensionPlayers = GenesisEntityData.getValue(player, STORED_PLAYERS);
-
-					// Get the player to restore.
-					//restoreData = dimensionPlayers.getCompoundTag(restoreName);
-					//dimensionPlayers.removeTag(restoreName);	// Remove the stored player so that no duplication occurs.
-
-					dimPlayers = player.getCapability(GenesisCapabilities.DIMENSION_PLAYERS, null);
-
-					if (dimPlayers != null)
-						dimPlayers.storePlayer(DimensionType.getById(player.dimension));
-
-					// Save the current player to the data.
-					//dimensionPlayers.setTag(storingName, storingData);
 				}
 
 				// Transfer the original player.
@@ -119,23 +94,23 @@ public class GenesisDimensions
 
 				if (respawn)
 				{
-					PlayerWorldState playerState = new PlayerWorldState(player);
+//					PlayerWorldState playerState = new PlayerWorldState(player);
 
 					// Create a new player to reset all their stats and inventory.
-					EntityPlayerMP newPlayer = manager.recreatePlayerEntity(player, dimID, false);
-					newPlayer.connection.playerEntity = newPlayer;	// recreate doesn't set this.
+//					EntityPlayerMP newPlayer = manager.recreatePlayerEntity(player, dimID, false);
+//					newPlayer.connection.playerEntity = newPlayer;	// recreate doesn't set this.
 
-					if (dimPlayers != null)
-					{	// Restore the player's inventory from data saved when the player traveled from the dimension previously.
-						dimPlayers.restorePlayer(dim, newPlayer);
-					}
 
 					// Restore the player's state in the world.
-					playerState.restore(newPlayer);
-
-					// TODO: Save the old player's data for restoration later.
-
-					entity = player = newPlayer;
+//					playerState.restore(newPlayer);
+//
+//					entity = player = newPlayer;
+					
+					if (dimID != GenesisConfig.genesisDimId && handler != null)
+					{
+						handler.restoreInventory(player);
+					}
+					
 				}
 
 				teleported = true;
