@@ -46,6 +46,7 @@ public class PlayerWorldState
 		this.pitch = pitch;
 		
 		this.fallDistance = fallDistance;
+		this.gamemode = gamemode;
 		this.isFlying = isFlying;
 	}
 	

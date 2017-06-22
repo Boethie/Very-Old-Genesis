@@ -94,17 +94,17 @@ public class GenesisDimensions
 
 				if (respawn)
 				{
-//					PlayerWorldState playerState = new PlayerWorldState(player);
+					PlayerWorldState playerState = new PlayerWorldState(player);
 
 					// Create a new player to reset all their stats and inventory.
-//					EntityPlayerMP newPlayer = manager.recreatePlayerEntity(player, dimID, false);
-//					newPlayer.connection.playerEntity = newPlayer;	// recreate doesn't set this.
-
+					EntityPlayerMP newPlayer = manager.recreatePlayerEntity(player, dimID, false);
+					newPlayer.connection.playerEntity = newPlayer;	// recreate doesn't set this.
+					entity = player = newPlayer;
 
 					// Restore the player's state in the world.
-//					playerState.restore(newPlayer);
-//
-//					entity = player = newPlayer;
+					playerState.restore(player);
+
+					handler = player.getCapability(CapabilityPlayerInventory.PLAYER_INVENTORY_CAPABILITY, null);
 					
 					if (dimID != GenesisConfig.genesisDimId && handler != null)
 					{
