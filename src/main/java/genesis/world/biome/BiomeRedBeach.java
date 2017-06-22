@@ -25,7 +25,7 @@ public class BiomeRedBeach extends BiomeBeachGenesis
 		addFlower(WorldGenPlant.create(EnumPlant.LEPACYCLOTES).setNextToWater(true).setPatchCount(4), 1);
 		
 		getDecorator().setTreeCount(0.4F);
-		addTree(new WorldGenTreeBjuvia(4, 6, true), 1);
+		addTree(new WorldGenTreeBjuvia(5, 7, true), 1);
 	}
 	
 	@Override

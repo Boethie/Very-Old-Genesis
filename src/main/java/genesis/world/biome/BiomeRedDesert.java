@@ -8,10 +8,8 @@ import genesis.combo.variant.EnumPlant;
 import genesis.combo.variant.EnumSilt;
 import genesis.common.GenesisBlocks;
 import genesis.util.random.f.FloatRange;
-import genesis.world.biome.decorate.WorldGenBoulders;
 import genesis.world.biome.decorate.WorldGenPebbles;
 import genesis.world.biome.decorate.WorldGenPlant;
-import genesis.world.biome.decorate.WorldGenRoots;
 import genesis.world.biome.decorate.WorldGenSplash;
 import genesis.world.gen.feature.WorldGenTreeBjuvia;
 import genesis.world.gen.feature.WorldGenTreeVoltzia;
@@ -40,9 +38,7 @@ public class BiomeRedDesert extends BiomeGenesis
 		addFlower(WorldGenPlant.create(EnumPlant.APOLDIA), 4);
 		
 		addDecoration(new WorldGenSplash(GenesisBlocks.SILT.getBlockState(SiltBlocks.SILT, EnumSilt.RED_SILT), GenesisBlocks.SILT.getBlockState(SiltBlocks.CRACKED_SILT, EnumSilt.RED_SILT)).setPatchRadius(4), 7);
-		addDecoration(new WorldGenBoulders(GenesisBlocks.SILT.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT), 1, 0, 0).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.25F, 0.75F)), 0.2F);
 		addDecoration(new WorldGenPebbles().setWaterRequired(false), 3);
-		addDecoration(new WorldGenRoots(), 5);
 	}
 	
 	public BiomeRedDesert setIsHills(boolean hills)
@@ -53,11 +49,11 @@ public class BiomeRedDesert extends BiomeGenesis
 	
 	public BiomeRedDesert addTrees()
 	{
-		getDecorator().setTreeCount(0.2175F);
+		getDecorator().setTreeCount(0.2075F);
 		
 		if (!this.isHills)
 		{
-			addTree(new WorldGenTreeBjuvia(4, 6, true), 3);
+			addTree(new WorldGenTreeBjuvia(5, 7, true), 3);
 			addTree(new WorldGenTreeVoltzia(4, 8, true), 10);
 		}
 		else
