@@ -1,12 +1,9 @@
 package genesis.capabilities.playerinventory;
 
-import genesis.capabilities.GenesisCapabilities.SerializingCapabilityProvider;
+import genesis.capabilities.GenesisCapabilities;
 import genesis.util.Constants;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
@@ -29,22 +26,7 @@ public class CapabilityPlayerInventory
 
 	public static void register()
 	{
-		CapabilityManager.INSTANCE.register(IPlayerInventory.class, new Capability.IStorage<IPlayerInventory>()
-		{
-
-			@Override
-			public NBTBase writeNBT(Capability<IPlayerInventory> capability, IPlayerInventory instance, EnumFacing side)
-			{
-				return instance.serializeNBT();
-			}
-
-			@Override
-			public void readNBT(Capability<IPlayerInventory> capability, IPlayerInventory instance, EnumFacing side, NBTBase nbt)
-			{
-				instance.deserializeNBT((NBTTagCompound)nbt);
-			}
-
-		}, () -> new PlayerInventory());
+		CapabilityManager.INSTANCE.register(IPlayerInventory.class, new GenesisCapabilities.Storage<>(), () -> new PlayerInventory());
 	}
 
 	@EventBusSubscriber
@@ -55,7 +37,7 @@ public class CapabilityPlayerInventory
 		{
 			if (event.getObject() instanceof EntityLivingBase)
 			{
-				event.addCapability(ID, new SerializingCapabilityProvider<>(PLAYER_INVENTORY_CAPABILITY, DEFAULT_FACING));
+				event.addCapability(ID, new GenesisCapabilities.Provider<>(PLAYER_INVENTORY_CAPABILITY, DEFAULT_FACING));
 			}
 		}
 
@@ -64,12 +46,8 @@ public class CapabilityPlayerInventory
 		{
 			final IPlayerInventory oldHandler = event.getOriginal().getCapability(PLAYER_INVENTORY_CAPABILITY, null);
 			final IPlayerInventory newHandler = event.getEntityPlayer().getCapability(PLAYER_INVENTORY_CAPABILITY, null);
-
-			for ( int i = 0 ; i < oldHandler.getSlots() ; i++ )
-			{
-				ItemStack stack = oldHandler.extractItem(i, 64, false);
-				newHandler.insertItem(0, stack, false);
-			}
+			
+			newHandler.deserializeNBT(oldHandler.serializeNBT());
 		}
 	}
 

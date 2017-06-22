@@ -2,8 +2,10 @@ package genesis.capabilities;
 
 import javax.annotation.Nullable;
 import genesis.capabilities.playerinventory.CapabilityPlayerInventory;
+import genesis.capabilities.playerinventory.IPlayerInventory;
 import genesis.util.Constants;
 import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 
@@ -12,6 +14,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -24,14 +27,14 @@ public class GenesisCapabilities
 	}
 	
 
-	public static class SerializingCapabilityProvider<V> implements ICapabilitySerializable<NBTBase>
+	public static class Provider<V> implements ICapabilitySerializable<NBTBase>
 	{
 		private final Capability<V> capability;
 		private final EnumFacing facing;
 		
 		private V instance;
 		
-		public SerializingCapabilityProvider(Capability<V> capability, @Nullable EnumFacing facing)
+		public Provider(Capability<V> capability, @Nullable EnumFacing facing)
 		{
 			this.capability = capability;
 			this.facing = facing;
@@ -62,4 +65,21 @@ public class GenesisCapabilities
 			this.capability.getStorage().readNBT(this.capability, this.instance, null, nbt);
 		}
 	}
+	
+	
+	public static class Storage<V extends INBTSerializable> implements Capability.IStorage<V>
+	{
+		@Override
+		public NBTBase writeNBT(Capability<V> capability, V instance, EnumFacing side)
+		{
+			return ((INBTSerializable)instance).serializeNBT();
+		}
+		
+		@Override
+		public void readNBT(Capability<V> capability, V instance, EnumFacing side, NBTBase nbt)
+		{
+			instance.deserializeNBT((NBTTagCompound)nbt);
+		}
+	}
+	
 }
