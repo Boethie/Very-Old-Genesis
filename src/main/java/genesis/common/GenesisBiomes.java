@@ -57,8 +57,8 @@ public final class GenesisBiomes
 		prop = new Biome.BiomeProperties("Rainforest");
 		prop.setTemperature(0.95F);
 		prop.setRainfall(1.4F);
-		prop.setBaseHeight(0.45F);
-		prop.setHeightVariation(0.215F);
+		prop.setBaseHeight(0.115F);
+		prop.setHeightVariation(0.155F);
 		prop.setWaterColor(0x725113);
 		
 		rainforest = new BiomeRainforest(prop);

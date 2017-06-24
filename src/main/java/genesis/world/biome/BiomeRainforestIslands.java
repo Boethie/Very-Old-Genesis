@@ -37,7 +37,7 @@ public class BiomeRainforestIslands extends BiomeGenesis
 	
 	protected void addDecorations()
 	{
-		getDecorator().setGrassCount(9);
+		getDecorator().setGrassCount(8.55F);
 		addGrass(WorldGenPlant.create(EnumPlant.ZYGOPTERIS).setPatchCount(14), 1);
 		
 		getDecorator().setFlowerCount(4);
@@ -47,8 +47,8 @@ public class BiomeRainforestIslands extends BiomeGenesis
 		addDecoration(new WorldGenBoulders(0.166F, 0.333F, 1).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.25F, 0.75F)), 0.565F);
 		addDecoration(new WorldGenPebbles(), 20);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.ODONTOPTERIS).setNextToWater(false).setPatchCount(3), 2);
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.SPHENOPHYLLUM).setPatchCount(4), 2);
-		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.CALAMITES).setPatchCount(3), 4);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.SPHENOPHYLLUM).setPatchCount(4), 3);
+		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.CALAMITES).setPatchCount(3), 3);
 		
 		addDecoration(new WorldGenCorals(2, 5, EnumCoral.HALYSITES), 0.35F);
 		addDecoration(new WorldGenCorals(2, 5, EnumCoral.HELIOLITES), 0.35F);
@@ -79,13 +79,13 @@ public class BiomeRainforestIslands extends BiomeGenesis
 	
 	protected void addTrees()
 	{
-		getDecorator().setTreeCount(20.6F);
+		getDecorator().setTreeCount(17.7F);
 		
-		addTree(new WorldGenTreeSigillaria(10, 15, true).generateVine(12), 17);
-		addTree(new WorldGenTreePsaronius(5, 8, true).generateVine(12), 14);
-		addTree(new WorldGenTreeLepidodendron(14, 20, true).generateVine(12), 20);
+		addTree(new WorldGenTreeLepidodendron(17, 20, true).generateVine(5), 33);
+		addTree(new WorldGenTreePsaronius(5, 6, true).generateVine(5), 11);
+		addTree(new WorldGenTreeSigillaria(10, 14, true).generateVine(5), 11);
 		
-		addTree(new WorldGenDeadLog(5, 8, EnumTree.LEPIDODENDRON, true), 2);
+		addTree(new WorldGenDeadLog(5, 8, EnumTree.LEPIDODENDRON, true), 3);
 		addTree(new WorldGenDeadLog(4, 7, EnumTree.SIGILLARIA, true), 1);
 	}
 	

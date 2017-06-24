@@ -22,7 +22,7 @@ public class WorldGenTreePsaronius extends WorldGenTreeBase
 	{
 		int height = heightProvider.get(rand) - 1;
 		
-		if (WorldUtils.isMatchInCylinder(world, pos.up(), WorldBlockMatcher.not(WorldBlockMatcher.STANDARD_AIR), 2, 2, height))
+		if (WorldUtils.isMatchInCylinder(world, pos.up(), WorldBlockMatcher.not(WorldBlockMatcher.STANDARD_AIR), 2, 1, height))
 			return false;
 		
 		for (int i = 0; i < height; i++)
