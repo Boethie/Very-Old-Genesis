@@ -34,7 +34,6 @@ import java.util.Random;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-@SuppressWarnings("UnnecessaryUnboxing")
 public class BlockSmoker extends BlockGenesis implements ISitOnBlock
 {
 

@@ -275,8 +275,6 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 
 		int waterLakeChance = settings.waterLakeChance;
 
-		if (biome == GenesisBiomes.marsh || biome == GenesisBiomes.rainforest || biome == GenesisBiomes.rainforestHills || biome == GenesisBiomes.rainforestM)
-			waterLakeChance = 2;
 		if (biome == GenesisBiomes.redDesert || biome == GenesisBiomes.redDesertHills)
 			waterLakeChance = 15;
 

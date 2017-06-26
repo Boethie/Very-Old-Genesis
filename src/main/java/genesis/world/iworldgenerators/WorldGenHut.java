@@ -24,7 +24,7 @@ public class WorldGenHut extends WorldGenStructureBase
 	@Override
 	public int getRarity()
 	{
-		return 57;
+		return 58;
 	}
 	
 	@Override
@@ -32,9 +32,7 @@ public class WorldGenHut extends WorldGenStructureBase
 	{
 		List<Biome> biomes = new ArrayList<Biome>();
 		
-		biomes.add(GenesisBiomes.rainforest);
-		biomes.add(GenesisBiomes.rainforestIslands);
-		biomes.add(GenesisBiomes.rainforestM);
+		//biomes.add(GenesisBiomes.swampRainForest);
 		
 		return biomes;
 	}

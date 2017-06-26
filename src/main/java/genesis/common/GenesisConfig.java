@@ -10,9 +10,6 @@ public final class GenesisConfig
 	public static int flintAndMarcasiteMaxDamage = 33;
 	
 	//Biomes
-	public static int rainforestId = 50;
-	public static int rainforestWeight = 10;
-	public static int rainforestHillsId = 51;
 	public static int riverId = 52;
 	public static int shallowOceanId = 53;
 	public static int auxForestId = 54;
@@ -75,8 +72,8 @@ public final class GenesisConfig
 		config.load();
 		
 		//Biome Ids
-		rainforestId = config.getInt("rainforestId", "biome", rainforestId, 0, 255, "Rainforest Biome ID");
-		rainforestWeight = config.getInt("rainforestWeight", "biome", rainforestWeight, 0, Integer.MAX_VALUE, "Rainforest Biome Weight");
+		swampRainForestId = config.getInt("swampRainForestId", "biome", swampRainForestId, 0, 255, "Swamp Rainforest Biome ID");
+		swampRainForestWeight = config.getInt("swampRainForestWeight", "biome", swampRainForestWeight, 0, Integer.MAX_VALUE, "Swamp Rainforest Biome Weight");
 		riverId = config.getInt("riverId", "biome", riverId, 0, 255, "River Biome ID");
 		shallowOceanId = config.getInt("shallowOceanId", "biome", shallowOceanId, 0, 255, "Shallow Ocean Biome ID");
 		auxForestId = config.getInt("auxForestId", "biome", auxForestId, 0, 255, "Araucarioxylon Forest Biome ID");
