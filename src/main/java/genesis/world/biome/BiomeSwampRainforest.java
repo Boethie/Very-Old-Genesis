@@ -32,12 +32,18 @@ public class BiomeSwampRainforest extends BiomeGenesis implements IEntityPreferr
 	public BiomeSwampRainforest(Biome.BiomeProperties properties)
 	{
 		super(properties);
+		
+		addDecorations();
+		addTrees();
 
 		theBiomeDecorator.clayPerChunk = 2;
 		theBiomeDecorator.sandPerChunk2 = 3;
 
 		spawnableCreatureList.add(new Biome.SpawnListEntry(EntityMeganeura.class, 8, 4, 8));
-
+	}
+	
+	protected void addDecorations()
+	{
 		getDecorator().setGrassCount(6);
 		addGrass(WorldGenPlant.create(EnumPlant.ZYGOPTERIS).setPatchCount(9), 1);
 
@@ -50,7 +56,10 @@ public class BiomeSwampRainforest extends BiomeGenesis implements IEntityPreferr
 		addDecoration(new WorldGenRoots(), 13);
 
 		addPostDecoration(new WorldGenDebris(), 33);
-
+	}
+	
+	protected void addTrees()
+	{
 		getDecorator().setTreeCount(13);
 		addTree(new WorldGenTreeCordaites(12, 17, true).generateVine(6), 16);
 		addTree(new WorldGenTreePsaronius(5, 6, true).generateVine(6), 11);

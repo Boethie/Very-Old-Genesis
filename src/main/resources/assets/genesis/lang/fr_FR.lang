@@ -81,7 +81,6 @@ tile.genesis.log.dryophyllum.name=Bois de Dryophyllum
 tile.genesis.log.ficus.name=Bois de Ficus
 tile.genesis.log.artocarpus.name=Bois d'Artocarpus
 
-tile.genesis.branch.alethopteris.name=Branche d'Alethopteris
 tile.genesis.branch.tropidogyne.name=Branche de Tropidogyne
 tile.genesis.branch.laurophyllum.name=Branche de Laurophyllum
 
@@ -126,7 +125,6 @@ tile.genesis.debris.araucarioxylon.name=Débris de feuilles d'Araucarioxylon
 tile.genesis.debris.metasequoia.name=Débris de feuilles de Metasequoia
 tile.genesis.debris.archaeanthus.name=Débris de feuilles d'Archaeanthus
 tile.genesis.debris.dryophyllum.name=Débris de feuilles de Dryophyllum
-tile.genesis.debris.alethopteris.name=Débris de feuilles d'Alethopteris
 tile.genesis.debris.tropidogyne.name=Débris de feuilles de Tropidogyne
 tile.genesis.debris.calamites.name=Débris de Calamites
 tile.genesis.debris.coelophysisFeather.name=Débris de plume de Coelophysis
@@ -143,7 +141,7 @@ tile.genesis.leaves.lepidodendron.name=Feuilles de Lepidodendron
 tile.genesis.leaves.cordaites.name=Feuilles de Cordaites
 tile.genesis.leaves.psaronius.name=Feuilles de Psaronius
 tile.genesis.leaves.ginkgo.name=Feuilles de Ginkgo
-tile.genesis.leaves.fruit.ginkgo.name=Feuilles à fruits de Ginkgo
+tile.genesis.leaves.fruit.ginkgo.name=Feuilles aux fruits de Ginkgo
 tile.genesis.leaves.bjuvia.name=Feuilles de Bjuvia
 tile.genesis.leaves.voltzia.name=Feuilles de Voltzia
 tile.genesis.leaves.araucarioxylon.name=Feuilles d'Araucarioxylon
@@ -151,12 +149,11 @@ tile.genesis.leaves.metasequoia.name=Feuilles de Metasequoia
 tile.genesis.leaves.archaeanthus.name=Feuilles d'Archaeanthus
 tile.genesis.leaves.dryophyllum.name=Feuilles de Dryophyllum
 tile.genesis.leaves.ficus.name=Feuilles de Ficus
-tile.genesis.leaves.fruit.ficus.name=Feuilles à fruits de Ficus
+tile.genesis.leaves.fruit.ficus.name=Feuilles aux fruits de Ficus
 tile.genesis.leaves.artocarpus.name=Feuilles d'Artocarpus
-tile.genesis.leaves.alethopteris.name=Feuilles d'Alethopteris
 tile.genesis.leaves.tropidogyne.name=Feuilles de Tropidogyne
 tile.genesis.leaves.laurophyllum.name=Feuilles de Laurophyllum
-tile.genesis.leaves.fruit.laurophyllum.name=Feuilles à fruits de Laurophyllum
+tile.genesis.leaves.fruit.laurophyllum.name=Feuilles aux fruits de Laurophyllum
 
 tile.genesis.sapling.archaeopteris.name=Pousse d'Archaeopteris
 tile.genesis.sapling.sigillaria.name=Pousse de Sigillaria
@@ -172,7 +169,6 @@ tile.genesis.sapling.archaeanthus.name=Pousse d'Archaeanthus
 tile.genesis.sapling.dryophyllum.name=Pousse de Dryophyllum
 tile.genesis.sapling.ficus.name=Pousse de Ficus
 tile.genesis.sapling.artocarpus.name=Pousse d'Artocarpus
-tile.genesis.sapling.alethopteris.name=Pousse d'Alethopteris
 tile.genesis.sapling.tropidogyne.name=Pousse de Tropidogyne
 tile.genesis.sapling.laurophyllum.name=Pousse de Laurophyllum
 
