@@ -249,6 +249,11 @@ public class BlockGenesisLeaves extends BlockLeaves
 	@SideOnly(Side.CLIENT)
 	public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer)
 	{
+		if (Minecraft.isFancyGraphicsEnabled())
+		{
+			return layer == BlockRenderLayer.CUTOUT_MIPPED;
+		}
+
 		if (state == GenesisBlocks.TREES.getBlockState(TreeBlocksAndItems.LEAVES, EnumTree.ARCHAEANTHUS))
 		{
 			// on fancy graphics both the leaves and flower/fruit layer can be drawn in cutout
@@ -256,16 +261,10 @@ public class BlockGenesisLeaves extends BlockLeaves
 			// on fast there is special multilayer model that renders the leaves part in solid
 			// and the fruit/flower layer renders in cutout.
 			// To make this block render in both layers, this check needs to be performed.
-			if (Minecraft.isFancyGraphicsEnabled())
-			{
-				return layer == BlockRenderLayer.CUTOUT_MIPPED;
-			}
-			else
-			{
-				return layer == BlockRenderLayer.CUTOUT_MIPPED || layer == BlockRenderLayer.SOLID;
-			}
+			return layer == BlockRenderLayer.CUTOUT_MIPPED || layer == BlockRenderLayer.SOLID;
 		}
-		return Minecraft.isFancyGraphicsEnabled() ? layer == BlockRenderLayer.CUTOUT_MIPPED : layer == BlockRenderLayer.SOLID;
+
+		return layer == BlockRenderLayer.SOLID;
 	}
 
 	@Override
@@ -277,7 +276,19 @@ public class BlockGenesisLeaves extends BlockLeaves
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
-		return Minecraft.isFancyGraphicsEnabled() || !world.getBlockState(pos.offset(side)).doesSideBlockRendering(world, pos.offset(side), side.getOpposite());
+	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side)
+	{
+		if (Minecraft.isFancyGraphicsEnabled())
+		{
+			return true;
+		}
+
+		BlockPos sidePos = pos.offset(side);
+		if (!world.getBlockState(sidePos).doesSideBlockRendering(world, sidePos, side.getOpposite()))
+		{
+			return true;
+		}
+
+		return super.shouldSideBeRendered(state, world, pos, side);
 	}
 }

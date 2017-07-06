@@ -1,6 +1,12 @@
 {
 	"textures": {
-		"particle": "#leaves"
+		"particle": "#leaves",
+		"down": "#flowers",
+		"up": "#flowers",
+		"north": "#flowers",
+		"south": "#flowers",
+		"west": "#flowers",
+		"east": "#flowers"
 	},
 	"parent": "block/block",
 	"elements": [
