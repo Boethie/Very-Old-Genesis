@@ -277,14 +277,9 @@ public class BlockGenesisLeaves extends BlockLeaves
 	@SideOnly(Side.CLIENT)
 	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side)
 	{
-		if (!Minecraft.isFancyGraphicsEnabled())
-		{
-			return false;
-		}
-		
 		BlockPos sidePos = pos.offset(side);
 		IBlockState sideState = world.getBlockState(sidePos);
-		if (sideState.getBlock() instanceof BlockLeaves)
+		if (!Minecraft.isFancyGraphicsEnabled() && sideState.getBlock() instanceof BlockLeaves)
 		{
 			return false;
 		}
