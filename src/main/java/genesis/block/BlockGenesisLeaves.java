@@ -5,7 +5,6 @@ import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.EnumTree;
 import genesis.combo.variant.EnumTree.FruitType;
 import genesis.combo.variant.PropertyIMetadata;
-import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemBlockMulti;
 import genesis.util.*;
@@ -254,7 +253,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 			return layer == BlockRenderLayer.CUTOUT_MIPPED;
 		}
 
-		if (state == GenesisBlocks.TREES.getBlockState(TreeBlocksAndItems.LEAVES, EnumTree.ARCHAEANTHUS))
+		if (state.getValue(variantProp).hasLayeredLeaves())
 		{
 			// on fancy graphics both the leaves and flower/fruit layer can be drawn in cutout
 			// (this means that MC can't cull leave faces)

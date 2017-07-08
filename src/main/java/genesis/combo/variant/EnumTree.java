@@ -19,10 +19,10 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	VOLTZIA("voltzia", tree().soils(EnumPlantType.Plains, EnumPlantType.Desert).noDead().noDebris().resin()),
 	ARAUCARIOXYLON("araucarioxylon", tree().hangingFruit().fruitSize(6, 7).resin()),
 	METASEQUOIA("metasequoia", tree().bow(0.6F, 1).resin()),
-	ARCHAEANTHUS("archaeanthus", tree().noDead().bow(0.8F, 1.3F)),
+	ARCHAEANTHUS("archaeanthus", tree().noDead().bow(0.8F, 1.3F).layeredLeaves()),
 	DRYOPHYLLUM("dryophyllum", tree().bow(1.2F, 1.8F)),
 	FICUS("ficus", tree().noDead().noDebris().fruit(1, 1.2F)),
-	ARTOCARPUS("artocarpus", tree().noDead().noDebris().hangingFruit()),
+	ARTOCARPUS("artocarpus", tree().noDead().noDebris().hangingFruit().layeredLeaves()),
 	TROPIDOGYNE("tropidogyne", bush().noDead()),
 	LAUROPHYLLUM("laurophyllum", bush().noDead().noDebris().fruit(1, 0.4F).bow(0.7F, 1.1F));
 	
@@ -57,6 +57,8 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 	final float bowDamage;
 	final float bowSpread;
 	
+	final boolean layeredLeaves;
+	
 	EnumTree(String name, String unlocalizedName, Props props)
 	{
 		this.name = name;
@@ -83,6 +85,8 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 		bowVelocity = props.bowVelocity;
 		bowDamage = props.bowDamage;
 		bowSpread = props.bowSpread;
+		
+		layeredLeaves = props.layeredLeaves;
 	}
 	
 	EnumTree(String name, Props props)
@@ -201,6 +205,11 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 		return bowSpread;
 	}
 	
+	public boolean hasLayeredLeaves()
+	{
+		return layeredLeaves;
+	}
+	
 	private static Props tree()
 	{
 		return new Props();
@@ -235,6 +244,8 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 		float bowVelocity;
 		float bowDamage;
 		float bowSpread;
+		
+		boolean layeredLeaves = false;
 		
 		private Props()
 		{
@@ -326,6 +337,12 @@ public enum EnumTree implements IMetadata<EnumTree>, IFood
 		private Props bow(float durability, float draw)
 		{
 			return bow(durability, draw, 1, 1, 1);
+		}
+		
+		private Props layeredLeaves()
+		{
+			this.layeredLeaves = true;
+			return this;
 		}
 	}
 }
