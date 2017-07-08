@@ -277,17 +277,29 @@ public class BlockGenesisLeaves extends BlockLeaves
 	@SideOnly(Side.CLIENT)
 	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side)
 	{
-		if (Minecraft.isFancyGraphicsEnabled())
+		if (!Minecraft.isFancyGraphicsEnabled())
 		{
-			return true;
+			return false;
 		}
-
+		
 		BlockPos sidePos = pos.offset(side);
-		if (!world.getBlockState(sidePos).doesSideBlockRendering(world, sidePos, side.getOpposite()))
+		IBlockState sideState = world.getBlockState(sidePos);
+		if (sideState.getBlock() instanceof BlockLeaves)
 		{
+			return false;
+		}
+		
+		AxisAlignedBB aabb = getBoundingBox(state, world, pos);
+		
+		if ((side == EnumFacing.DOWN && aabb.minY > 0.0D) ||
+				(side == EnumFacing.UP && aabb.maxY < 1.0D) ||
+				(side == EnumFacing.NORTH && aabb.minZ > 0.0D) ||
+				(side == EnumFacing.SOUTH && aabb.maxZ < 1.0D) ||
+				(side == EnumFacing.WEST && aabb.minX > 0.0D) ||
+				(side == EnumFacing.EAST && aabb.maxX < 1.0D)) {
 			return true;
 		}
-
-		return super.shouldSideBeRendered(state, world, pos, side);
+		
+		return !sideState.doesSideBlockRendering(world, sidePos, side.getOpposite());
 	}
 }
