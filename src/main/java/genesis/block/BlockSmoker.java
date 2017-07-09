@@ -12,6 +12,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -129,7 +130,8 @@ public class BlockSmoker extends BlockGenesis implements IAquaticBlock, ISitOnBl
 	{
 		if (!canPlaceBlockAt(world, pos))
 		{
-			world.setBlockState(pos, Blocks.WATER.getDefaultState());
+			dropBlockAsItem(world, pos, state, 0);
+			world.setBlockState(pos, getReplacement(world, pos, state));
 		}
 		else if (state.getValue(BlockLiquid.LEVEL) == 0 && world.getBlockState(pos.down()).getBlock() instanceof BlockSmoker)
 		{
@@ -175,7 +177,14 @@ public class BlockSmoker extends BlockGenesis implements IAquaticBlock, ISitOnBl
 	}
 
 	@Override
-	public IBlockState getReplacementBlockState()
+	public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest)
+	{
+		onBlockHarvested(world, pos, state, player);
+		return world.setBlockState(pos, getReplacement(world, pos, state), world.isRemote ? 11 : 3);
+	}
+
+	@Override
+	public IBlockState getReplacement(World world, BlockPos pos, IBlockState state)
 	{
 		return Blocks.WATER.getDefaultState();
 	}

@@ -86,7 +86,7 @@ public class BlockCalamites extends BlockGrowingPlant implements IGrowingPlantCu
 	}
 	
 	@Override
-	public IBlockState getReplacementBlockState()
+	public IBlockState getReplacement(World world, BlockPos pos, IBlockState state)
 	{
 		return Blocks.AIR.getDefaultState();
 	}

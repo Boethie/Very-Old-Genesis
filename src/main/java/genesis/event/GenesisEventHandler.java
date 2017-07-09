@@ -125,13 +125,13 @@ public class GenesisEventHandler
 		if (!world.isRemote)
 		{
 			BlockPos abovePos = event.getPos().up();
-			IBlockState aboveState = world.getBlockState(abovePos);
-			Block aboveBlock = aboveState.getBlock();
+			IBlockState above = world.getBlockState(abovePos);
+			Block aboveBlock = above.getBlock();
 
 			if (aboveBlock instanceof ISitOnBlock)
 			{
-				aboveBlock.dropBlockAsItemWithChance(world, abovePos, aboveState, event.getDropChance(), event.getFortuneLevel());
-				world.setBlockState(abovePos, ((ISitOnBlock) aboveBlock).getReplacementBlockState());
+				aboveBlock.dropBlockAsItem(world, abovePos, above, 0);
+				world.setBlockState(event.getPos(), ((ISitOnBlock) aboveBlock).getReplacement(world, abovePos, above));
 			}
 		}
 	}
