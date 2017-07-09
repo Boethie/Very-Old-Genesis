@@ -8,6 +8,7 @@ import genesis.combo.variant.PropertyIMetadata;
 import genesis.common.sounds.GenesisSoundTypes;
 import genesis.item.ItemBlockMulti;
 import genesis.util.BlockStateToMetadata;
+import genesis.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -78,26 +79,16 @@ public class BlockHangingFruit extends BlockGenesis
 		return side == EnumFacing.DOWN && canBlockStay(world, pos, owner.getBlockState(type, owner.getVariant(stack)));
 	}
 
-	protected void checkAndDropBlock(World world, BlockPos pos, IBlockState state)
-	{
-		if (!canBlockStay(world, pos, state))
-		{
-			dropBlockAsItem(world, pos, state, 0);
-			world.setBlockToAir(pos);
-		}
-	}
-
 	@Override
 	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block)
 	{
-		super.neighborChanged(state, world, pos, block);
-		this.checkAndDropBlock(world, pos, state);
+		WorldUtils.checkAndDropBlock(world, pos, state);
 	}
 
 	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
 	{
-		checkAndDropBlock(world, pos, state);
+		WorldUtils.checkAndDropBlock(world, pos, state);
 	}
 
 	@SideOnly(Side.CLIENT)

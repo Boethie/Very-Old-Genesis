@@ -11,6 +11,7 @@ import genesis.item.ItemPebble;
 import genesis.network.client.MultiPartBlock;
 import genesis.network.client.MultiPartBreakMessage;
 import genesis.util.BlockStateToMetadata;
+import genesis.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -272,7 +273,7 @@ public class BlockPebble extends Block implements MultiPartBlock
 
 		if (player == null || !player.capabilities.isCreativeMode) {
 			dropAll = false;
-			dropBlockAsItem(world, pos, state, 0);
+			WorldUtils.spawnBlockDrops(world, pos, state);
 			dropAll = true;
 		}
 

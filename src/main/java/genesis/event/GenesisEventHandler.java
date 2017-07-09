@@ -4,6 +4,7 @@ import genesis.block.BlockSmoker;
 import genesis.common.Genesis;
 import genesis.common.GenesisGuiHandler;
 import genesis.common.GenesisPotions;
+import genesis.util.WorldUtils;
 import genesis.util.blocks.IAquaticBlock;
 import genesis.util.blocks.ISitOnBlock;
 import genesis.world.GenesisWorldData;
@@ -130,7 +131,7 @@ public class GenesisEventHandler
 
 			if (aboveBlock instanceof ISitOnBlock)
 			{
-				aboveBlock.dropBlockAsItem(world, abovePos, above, 0);
+				WorldUtils.spawnBlockDrops(world, abovePos, above);
 				world.setBlockState(event.getPos(), ((ISitOnBlock) aboveBlock).getReplacement(world, abovePos, above));
 			}
 		}

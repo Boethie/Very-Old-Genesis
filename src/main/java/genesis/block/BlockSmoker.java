@@ -3,6 +3,7 @@ package genesis.block;
 import com.google.common.collect.Sets;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
+import genesis.util.WorldUtils;
 import genesis.util.blocks.IAquaticBlock;
 import genesis.util.blocks.ISitOnBlock;
 import net.minecraft.block.Block;
@@ -130,7 +131,7 @@ public class BlockSmoker extends BlockGenesis implements IAquaticBlock, ISitOnBl
 	{
 		if (!canPlaceBlockAt(world, pos))
 		{
-			dropBlockAsItem(world, pos, state, 0);
+			WorldUtils.spawnBlockDrops(world, pos, state);
 			world.setBlockState(pos, getReplacement(world, pos, state));
 		}
 		else if (state.getValue(BlockLiquid.LEVEL) == 0 && world.getBlockState(pos.down()).getBlock() instanceof BlockSmoker)

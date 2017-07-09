@@ -8,6 +8,7 @@ import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.IPlantMetadata;
 import genesis.item.ItemBlockMulti;
 import genesis.util.BlockStateToMetadata;
+import genesis.util.WorldUtils;
 import net.minecraft.block.*;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
@@ -85,7 +86,7 @@ public class BlockGenesisDoublePlant<V extends IPlantMetadata<V>> extends BlockP
 
 			if (!isTop)
 			{
-				dropBlockAsItem(world, pos, state, 0); //Forge move above the setting to air.
+				WorldUtils.spawnBlockDrops(world, pos, state); //Forge move above the setting to air.
 			}
 
 			if (topBlock == this)
@@ -149,7 +150,7 @@ public class BlockGenesisDoublePlant<V extends IPlantMetadata<V>> extends BlockP
 
 			if (!player.capabilities.isCreativeMode)	// Drop the bottom of the plant as an item.
 			{
-				dropBlockAsItem(world, other, otherState, 0);
+				WorldUtils.spawnBlockDrops(world, other, otherState);
 			}
 
 			world.setBlockToAir(other);

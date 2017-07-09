@@ -132,12 +132,6 @@ public class BlockGenesisLeaves extends BlockLeaves
 		return state;
 	}
 
-	protected void breakAndDrop(World world, BlockPos pos)
-	{
-		dropBlockAsItem(world, pos, world.getBlockState(pos), 0);
-		world.setBlockToAir(pos);
-	}
-
 	protected int leafDistance = 5;
 	protected float[] distanceCosts = {leafDistance, 1, 1.4142F, 1.7321F};	// 0 uses leafDistance to make sure there are no stack overflows.
 
@@ -196,7 +190,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 			}
 			else
 			{
-				breakAndDrop(world, pos);
+				WorldUtils.dropBlock(world, pos, state);
 			}
 		}
 	}

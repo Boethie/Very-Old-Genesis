@@ -103,8 +103,7 @@ public class BlockCampfire extends Block
 	{
 		if (!canBlockStay(world, pos))
 		{
-			dropBlockAsItem(world, pos, world.getBlockState(pos), 0);
-			world.setBlockToAir(pos);
+			WorldUtils.dropBlock(world, pos, state);
 		}
 		else
 		{

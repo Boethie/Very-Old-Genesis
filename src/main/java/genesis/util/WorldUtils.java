@@ -570,4 +570,23 @@ public class WorldUtils
 	{
 		return isMatchInCylinder(world, pos, WorldBlockMatcher.block(match), radius, startY, endY);
 	}
+
+	public static void checkAndDropBlock(World world, BlockPos pos, IBlockState state)
+	{
+		if (!state.getBlock().canPlaceBlockAt(world, pos))
+		{
+			WorldUtils.dropBlock(world, pos, state);
+		}
+	}
+
+	public static void dropBlock(World world, BlockPos pos, IBlockState state)
+	{
+		spawnBlockDrops(world, pos, state);
+		world.setBlockToAir(pos);
+	}
+
+	public static void spawnBlockDrops(World world, BlockPos pos, IBlockState state)
+	{
+		state.getBlock().dropBlockAsItem(world, pos, state, 0);
+	}
 }

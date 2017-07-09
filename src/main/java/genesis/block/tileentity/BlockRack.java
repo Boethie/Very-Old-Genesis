@@ -331,7 +331,7 @@ public class BlockRack extends BlockContainer implements MultiPartBlock
 
 		if (player == null || !player.capabilities.isCreativeMode) {
 			dropAll = false;
-			dropBlockAsItem(world, pos, state, 0);
+			WorldUtils.spawnBlockDrops(world, pos, state);
 			dropAll = true;
 
 			if (te != null) {

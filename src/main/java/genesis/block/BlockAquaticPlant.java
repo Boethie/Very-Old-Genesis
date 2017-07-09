@@ -169,8 +169,8 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap, IAquati
 	{
 		if (!this.canBlockStay(world, pos, state))
 		{
-			//this.breakPlant(worldIn, pos, state);
-			world.destroyBlock(pos, true);
+			WorldUtils.spawnBlockDrops(world, pos, state);
+			this.breakPlant(world, pos, state);
 		}
 	}
 
