@@ -160,12 +160,9 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap, IAquati
 	}
 
 	@Override
-	public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor)
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block)
 	{
-		if (world instanceof World)
-		{
-			this.checkAndDropBlock((World) world, pos, world.getBlockState(pos));
-		}
+		this.checkAndDropBlock(world, pos, state);
 	}
 
 	protected void checkAndDropBlock(World world, BlockPos pos, IBlockState state)

@@ -99,37 +99,32 @@ public class BlockCampfire extends Block
 	}
 
 	@Override
-	public void onNeighborChange(IBlockAccess blockAccess, BlockPos pos, BlockPos neighbor)
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block)
 	{
-		if (blockAccess instanceof World)
+		if (!canBlockStay(world, pos))
 		{
-			World world = (World) blockAccess;
+			dropBlockAsItem(world, pos, world.getBlockState(pos), 0);
+			world.setBlockToAir(pos);
+		}
+		else
+		{
+			TileEntityCampfire campfire = getTileEntity(world, pos);
 
-			if (!canBlockStay(world, pos))
+			if (campfire != null)
 			{
-				dropBlockAsItem(world, pos, world.getBlockState(pos), 0);
-				world.setBlockToAir(pos);
-			}
-			else
-			{
-				TileEntityCampfire campfire = getTileEntity(world, pos);
+				boolean water = false;
+				BlockPos[] aWaterPos = { pos.up(), pos.north(), pos.east(), pos.south(), pos.west() };
 
-				if (campfire != null)
+				for (BlockPos waterPos : aWaterPos)
 				{
-					boolean water = false;
-					BlockPos[] aWaterPos = { pos.up(), pos.north(), pos.east(), pos.south(), pos.west() };
-
-					for (BlockPos waterPos : aWaterPos)
+					if (world.getBlockState(waterPos).getMaterial() == Material.WATER)
 					{
-						if (world.getBlockState(waterPos).getMaterial() == Material.WATER)
-						{
-							water = true;
-							break;
-						}
+						water = true;
+						break;
 					}
-
-					campfire.setWaterAround(water);
 				}
+
+				campfire.setWaterAround(water);
 			}
 		}
 	}

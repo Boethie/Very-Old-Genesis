@@ -226,22 +226,17 @@ public class BlockTallTorch extends Block
 	}
 
 	@Override
-	public void onNeighborChange(IBlockAccess blockAccess, BlockPos pos, BlockPos neighbor)
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block)
 	{
-		if (blockAccess instanceof World)
+		if (!canTorchStay(world, pos, world.getBlockState(pos), false))
 		{
-			World world = (World) blockAccess;
+			world.destroyBlock(pos, true);
 
-			if (!canTorchStay(world, pos, world.getBlockState(pos), false))
+			BlockPos other = getOther(world, pos);
+
+			if (other != null)
 			{
-				world.destroyBlock(pos, true);
-
-				BlockPos other = getOther(world, pos);
-
-				if (other != null)
-				{
-					world.destroyBlock(other, true);
-				}
+				world.destroyBlock(other, true);
 			}
 		}
 	}
