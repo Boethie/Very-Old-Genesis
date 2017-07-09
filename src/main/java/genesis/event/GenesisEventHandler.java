@@ -1,35 +1,32 @@
 package genesis.event;
 
-import com.google.common.collect.Lists;
-import genesis.block.BlockAquaticPlant;
 import genesis.block.BlockSmoker;
 import genesis.common.Genesis;
-import genesis.common.GenesisBlocks;
 import genesis.common.GenesisGuiHandler;
 import genesis.common.GenesisPotions;
 import genesis.util.blocks.ISitOnBlock;
 import genesis.world.GenesisWorldData;
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.achievement.GuiAchievements;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
-
-import java.util.ArrayList;
 
 public class GenesisEventHandler
 {
@@ -55,12 +52,13 @@ public class GenesisEventHandler
 	@SubscribeEvent
 	public void onGuiOpen(GuiOpenEvent event)
 	{
-		if (event.getGui() != null && event.getGui().getClass() == GuiAchievements.class)
+		GuiScreen gui = event.getGui();
+		if (gui != null && gui.getClass() == GuiAchievements.class)
 		{
 			event.setCanceled(true);
 			EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-			player.openGui(Genesis.instance, GenesisGuiHandler.GENESIS_ACHIEVEMENT_ID, player.worldObj, player.getPosition().getX(),
-					player.getPosition().getY(), player.getPosition().getZ());
+			BlockPos pos = player.getPosition();
+			player.openGui(Genesis.instance, GenesisGuiHandler.GENESIS_ACHIEVEMENT_ID, player.worldObj, pos.getX(), pos.getY(), pos.getZ());
 		}
 	}
 
@@ -69,41 +67,66 @@ public class GenesisEventHandler
 	{
 		EntityLivingBase entity = event.getEntityLiving();
 
-		if (entity != null && !entity.worldObj.isRemote)
+		if (entity != null)
 		{
+			World world = entity.worldObj;
+
+			if (world.isRemote)
+			{
+				return;
+			}
+
 			PotionEffect effect = entity.getActivePotionEffect(GenesisPotions.RADIATION);
 			if (effect != null)
 			{
 				int timeLeft = effect.getDuration();
 
 				entity.addPotionEffect(new PotionEffect(MobEffects.POISON, timeLeft, 0, true, false));
-				if (effect.getAmplifier() >= 5) {
+				if (effect.getAmplifier() >= 5)
+				{
 					entity.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, timeLeft, 0, true, false));
 				}
 			}
 
-			if (entity.getAge() % 10 == 0 && entity.worldObj.getBlockState(entity.getPosition()).getMaterial().isLiquid() && (entity.worldObj.getBlockState(entity.getPosition().down()).getBlock() instanceof BlockSmoker || entity.worldObj.getBlockState(entity.getPosition().down(2)).getBlock() instanceof BlockSmoker))
-				entity.attackEntityFrom(DamageSource.inFire, 1.0F);
+			BlockPos pos = entity.getPosition();
+			if (entity.getAge() % 10 == 0 && world.getBlockState(pos).getMaterial().isLiquid())
+			{
+				for (int i = 1; i <= 2; i++)
+				{
+					if (world.getBlockState(pos.down(i)).getBlock() instanceof BlockSmoker)
+					{
+						entity.attackEntityFrom(DamageSource.inFire, 1.0F);
+					}
+				}
+			}
 		}
 	}
 
 	@SubscribeEvent
-	public void bucketUse(FillBucketEvent event)
+	public void onFillBucket(FillBucketEvent event)
 	{
-		boolean flag = event.getWorld().getBlockState(event.getTarget().getBlockPos()).getBlock().isReplaceable(event.getWorld(), event.getTarget().getBlockPos());
-		BlockPos pos = flag && event.getTarget().sideHit == EnumFacing.UP ? event.getTarget().getBlockPos() : event.getTarget().getBlockPos().offset(event.getTarget().sideHit);
-		if (event.getWorld().getBlockState(pos).getBlock() == GenesisBlocks.SMOKER)
+		World world = event.getWorld();
+		RayTraceResult target = event.getTarget();
+		BlockPos targetPos = target.getBlockPos();
+		boolean replaceable = world.getBlockState(targetPos).getBlock().isReplaceable(world, targetPos);
+		BlockPos pos = replaceable && target.sideHit == EnumFacing.UP ? targetPos : targetPos.offset(target.sideHit);
+		if (world.getBlockState(pos).getBlock() instanceof BlockSmoker)
+		{
 			event.setCanceled(true);
+		}
 	}
 
 	@SubscribeEvent
-	public void breakBlock(BlockEvent.BreakEvent event)
+	public void onHarvestBlockDrops(BlockEvent.HarvestDropsEvent event)
 	{
-		if(!event.getWorld().isRemote && event.getWorld().getBlockState(event.getPos().up()).getBlock() instanceof ISitOnBlock)
+		World world = event.getWorld();
+		BlockPos abovePos = event.getPos().up();
+		IBlockState aboveState = world.getBlockState(abovePos);
+		Block aboveBlock = aboveState.getBlock();
+		if (!world.isRemote && aboveBlock instanceof ISitOnBlock)
 		{
-			event.getWorld().getBlockState(event.getPos().up()).getBlock().dropBlockAsItem(event.getWorld(), event.getPos().up(), event.getWorld().getBlockState(event.getPos().up()), 0);
-			event.getWorld().setBlockToAir(event.getPos().up());
-			breakBlock(new BlockEvent.BreakEvent(event.getWorld(), event.getPos().up(), event.getWorld().getBlockState(event.getPos().up()), event.getPlayer()));
+			aboveBlock.dropBlockAsItemWithChance(world, abovePos, aboveState, event.getDropChance(), event.getFortuneLevel());
+			world.setBlockToAir(abovePos);
 		}
 	}
 }

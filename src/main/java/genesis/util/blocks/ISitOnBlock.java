@@ -1,4 +1,3 @@
 package genesis.util.blocks;
 
-public interface ISitOnBlock {
-}
+public interface ISitOnBlock {}

@@ -53,7 +53,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap, ISitOnB
 	public final List<EnumAquaticPlant> variants;
 	public final PropertyIMetadata<EnumAquaticPlant> variantProp;
 
-	protected Set<Block> validGround;
+	protected final Set<Material> validGround = ImmutableSet.of(Material.GROUND, Material.SAND, Material.CLAY, Material.ROCK, Material.WOOD, Material.CORAL);
 	protected final Set<EnumAquaticPlant> noDrops = ImmutableSet.of(EnumAquaticPlant.CHARNIA);
 
 	public BlockAquaticPlant(VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>> owner,
@@ -230,42 +230,11 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap, ISitOnB
 
 	public boolean canBlockStay(IBlockAccess world, BlockPos pos, IBlockState state)
 	{
-		if (validGround == null)
-		{
-			validGround = new HashSet<>();
-			validGround.add(Blocks.DIRT);
-			validGround.add(Blocks.SAND);
-			validGround.add(Blocks.GRAVEL);
-			validGround.add(Blocks.CLAY);
-			validGround.add(Blocks.HARDENED_CLAY);
-			validGround.add(Blocks.STONEBRICK);
-			validGround.add(Blocks.STONE);
-			validGround.add(Blocks.COBBLESTONE);
-			validGround.add(Blocks.MOSSY_COBBLESTONE);
-			validGround.add(Blocks.SANDSTONE);
-			validGround.add(Blocks.RED_SANDSTONE);
-			validGround.add(Blocks.OBSIDIAN);
-			validGround.add(Blocks.PRISMARINE);
-			validGround.add(Blocks.LOG);
-			validGround.add(Blocks.LOG2);
-			validGround.add(Blocks.PLANKS);
-			validGround.add(GenesisBlocks.HUMUS);
-			validGround.add(GenesisBlocks.RED_CLAY);
-			validGround.add(GenesisBlocks.OOZE);
-			validGround.add(GenesisBlocks.PEAT);
-
-			validGround.addAll(GenesisBlocks.TREES.getBlocks(TreeBlocksAndItems.LOG));
-			validGround.addAll(GenesisBlocks.TREES.getBlocks(TreeBlocksAndItems.DEAD_LOG));
-			validGround.addAll(GenesisBlocks.SILT.getBlocks(SiltBlocks.SILT));
-			validGround.addAll(GenesisBlocks.SILT.getBlocks(SiltBlocks.SILTSTONE));
-			validGround.addAll(GenesisBlocks.CORAL.getBlocks());
-		}
-
 		IBlockState below = world.getBlockState(pos.down());
 		Block blockBelow = below.getBlock();
 		EnumAquaticPlant variant = state.getValue(variantProp);
 
-		if (!validGround.contains(blockBelow)
+		if (!validGround.contains(below.getMaterial())
 				&& !(blockBelow instanceof BlockGenesisRock)
 				&& (variant != EnumAquaticPlant.CHARNIA_TOP || blockBelow != this || below.getValue(variantProp) != EnumAquaticPlant.CHARNIA))
 		{
