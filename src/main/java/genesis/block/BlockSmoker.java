@@ -3,6 +3,7 @@ package genesis.block;
 import com.google.common.collect.Sets;
 import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
+import genesis.util.blocks.IAquaticBlock;
 import genesis.util.blocks.ISitOnBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
@@ -27,7 +28,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.Random;
 import java.util.Set;
 
-public class BlockSmoker extends BlockGenesis implements ISitOnBlock
+public class BlockSmoker extends BlockGenesis implements IAquaticBlock, ISitOnBlock
 {
 	public static final Set<Material> VALID_GROUND = Sets.newHashSet(Material.SAND, Material.ROCK, Material.GROUND, Material.CLAY);
 	public static final AxisAlignedBB BOUNDING_BOX = new AxisAlignedBB(0.25F, 0F, 0.25F, 0.75F, 1.0F, 0.75F);
@@ -171,5 +172,11 @@ public class BlockSmoker extends BlockGenesis implements ISitOnBlock
 	public ItemStack getItem(World world, BlockPos pos, IBlockState state)
 	{
 		return new ItemStack(GenesisBlocks.SMOKER);
+	}
+
+	@Override
+	public IBlockState getReplacementBlockState()
+	{
+		return Blocks.WATER.getDefaultState();
 	}
 }

@@ -8,7 +8,6 @@ import genesis.combo.*;
 import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.EnumAquaticPlant;
 import genesis.combo.variant.PropertyIMetadata;
-import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.common.sounds.GenesisSoundTypes;
 import genesis.item.ItemBlockMulti;
@@ -16,6 +15,7 @@ import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants;
 import genesis.util.FlexibleStateMap;
 import genesis.util.WorldUtils;
+import genesis.util.blocks.IAquaticBlock;
 import genesis.util.blocks.ISitOnBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
@@ -36,7 +36,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockAquaticPlant extends Block implements IModifyStateMap, ISitOnBlock
+public class BlockAquaticPlant extends Block implements IModifyStateMap, IAquaticBlock, ISitOnBlock
 {
 	/**
 	 * Used in VariantsOfTypesCombo.
@@ -295,5 +295,11 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap, ISitOnB
 	public Block.EnumOffsetType getOffsetType()
 	{
 		return Block.EnumOffsetType.XZ;
+	}
+
+	@Override
+	public IBlockState getReplacementBlockState()
+	{
+		return Blocks.WATER.getStateFromMeta(0);
 	}
 }

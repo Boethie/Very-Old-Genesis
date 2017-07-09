@@ -1,3 +1,8 @@
 package genesis.util.blocks;
 
-public interface ISitOnBlock {}
+import net.minecraft.block.state.IBlockState;
+
+public interface ISitOnBlock
+{
+	IBlockState getReplacementBlockState();
+}

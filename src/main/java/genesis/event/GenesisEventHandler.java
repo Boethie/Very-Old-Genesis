@@ -4,6 +4,7 @@ import genesis.block.BlockSmoker;
 import genesis.common.Genesis;
 import genesis.common.GenesisGuiHandler;
 import genesis.common.GenesisPotions;
+import genesis.util.blocks.IAquaticBlock;
 import genesis.util.blocks.ISitOnBlock;
 import genesis.world.GenesisWorldData;
 import net.minecraft.block.Block;
@@ -110,7 +111,7 @@ public class GenesisEventHandler
 		BlockPos targetPos = target.getBlockPos();
 		boolean replaceable = world.getBlockState(targetPos).getBlock().isReplaceable(world, targetPos);
 		BlockPos pos = replaceable && target.sideHit == EnumFacing.UP ? targetPos : targetPos.offset(target.sideHit);
-		if (world.getBlockState(pos).getBlock() instanceof BlockSmoker)
+		if (world.getBlockState(pos).getBlock() instanceof IAquaticBlock)
 		{
 			event.setCanceled(true);
 		}
@@ -120,13 +121,18 @@ public class GenesisEventHandler
 	public void onHarvestBlockDrops(BlockEvent.HarvestDropsEvent event)
 	{
 		World world = event.getWorld();
-		BlockPos abovePos = event.getPos().up();
-		IBlockState aboveState = world.getBlockState(abovePos);
-		Block aboveBlock = aboveState.getBlock();
-		if (!world.isRemote && aboveBlock instanceof ISitOnBlock)
+
+		if (!world.isRemote)
 		{
-			aboveBlock.dropBlockAsItemWithChance(world, abovePos, aboveState, event.getDropChance(), event.getFortuneLevel());
-			world.setBlockToAir(abovePos);
+			BlockPos abovePos = event.getPos().up();
+			IBlockState aboveState = world.getBlockState(abovePos);
+			Block aboveBlock = aboveState.getBlock();
+
+			if (aboveBlock instanceof ISitOnBlock)
+			{
+				aboveBlock.dropBlockAsItemWithChance(world, abovePos, aboveState, event.getDropChance(), event.getFortuneLevel());
+				world.setBlockState(abovePos, ((ISitOnBlock) aboveBlock).getReplacementBlockState());
+			}
 		}
 	}
 }
