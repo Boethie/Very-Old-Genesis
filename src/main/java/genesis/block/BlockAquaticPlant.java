@@ -16,6 +16,7 @@ import genesis.util.Constants;
 import genesis.util.FlexibleStateMap;
 import genesis.util.WorldUtils;
 import genesis.util.blocks.IAquaticBlock;
+import genesis.util.blocks.IDroppableBlock;
 import genesis.util.blocks.ISitOnBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
@@ -36,7 +37,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockAquaticPlant extends Block implements IModifyStateMap, IAquaticBlock, ISitOnBlock
+public class BlockAquaticPlant extends Block implements IModifyStateMap, IAquaticBlock, ISitOnBlock, IDroppableBlock
 {
 	/**
 	 * Used in VariantsOfTypesCombo.
@@ -156,28 +157,19 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap, IAquati
 	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
 	{
-		this.checkAndDropBlock(world, pos, state);
+		WorldUtils.checkAndDropBlock(world, pos, state);
 	}
 
 	@Override
 	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block)
 	{
-		this.checkAndDropBlock(world, pos, state);
-	}
-
-	protected void checkAndDropBlock(World world, BlockPos pos, IBlockState state)
-	{
-		if (!this.canBlockStay(world, pos, state))
-		{
-			WorldUtils.spawnBlockDrops(world, pos, state);
-			this.breakPlant(world, pos, state);
-		}
+		WorldUtils.checkAndDropBlock(world, pos, state);
 	}
 
 	@Override
 	public void onBlockDestroyedByPlayer(World world, BlockPos pos, IBlockState state)
 	{
-		this.breakPlant(world, pos, state);
+		this.setToAir(world, pos, state);
 	}
 
 	@Override
@@ -193,12 +185,13 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap, IAquati
 	@Override
 	public boolean canPlaceBlockAt(World world, BlockPos pos)
 	{
-		return this.canBlockStay(world, pos, this.getDefaultState());
+		return this.canStay(world, pos, world.getBlockState(pos));
 	}
 
-	private void breakPlant(World world, BlockPos pos, IBlockState state)
+	@Override
+	public void setToAir(World world, BlockPos pos, IBlockState state)
 	{
-		world.setBlockState(pos, getReplacement(world, pos, state), 3);
+		world.setBlockState(pos, Blocks.WATER.getStateFromMeta(0), 3);
 
 		EnumAquaticPlant variant = state.getValue(variantProp);
 
@@ -209,7 +202,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap, IAquati
 
 			if (below.getBlock() == this && below.getValue(variantProp) == EnumAquaticPlant.CHARNIA)
 			{
-				world.setBlockState(belowPos, getReplacement(world, belowPos, below), 3);
+				world.setBlockState(belowPos, Blocks.WATER.getStateFromMeta(0), 3);
 			}
 		}
 		else if (variant == EnumAquaticPlant.CHARNIA)
@@ -219,12 +212,13 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap, IAquati
 
 			if (above.getBlock() == this && above.getValue(variantProp) == EnumAquaticPlant.CHARNIA_TOP)
 			{
-				world.setBlockState(abovePos, getReplacement(world, abovePos, above), 3);
+				world.setBlockState(abovePos, Blocks.WATER.getStateFromMeta(0), 3);
 			}
 		}
 	}
 
-	public boolean canBlockStay(IBlockAccess world, BlockPos pos, IBlockState state)
+	@Override
+	public boolean canStay(World world, BlockPos pos, IBlockState state)
 	{
 		IBlockState below = world.getBlockState(pos.down());
 		Block blockBelow = below.getBlock();
@@ -291,11 +285,5 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap, IAquati
 	public Block.EnumOffsetType getOffsetType()
 	{
 		return Block.EnumOffsetType.XZ;
-	}
-
-	@Override
-	public IBlockState getReplacement(World world, BlockPos pos, IBlockState state)
-	{
-		return Blocks.WATER.getStateFromMeta(0);
 	}
 }

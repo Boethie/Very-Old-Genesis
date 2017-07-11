@@ -10,6 +10,7 @@ import genesis.common.GenesisCreativeTabs;
 import genesis.common.sounds.GenesisSoundTypes;
 import genesis.item.ItemBlockMulti;
 import genesis.util.BlockStateToMetadata;
+import genesis.util.WorldUtils;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -93,31 +94,22 @@ public class BlockGenesisDebris extends BlockGenesisVariants<MultiMetadata>
 		return !(variant instanceof EnumDebrisOther) || ((EnumDebrisOther) variant).getDrop(null) == null;
 	}
 
-	public boolean canBlockStay(IBlockAccess world, BlockPos pos, IBlockState state)
-	{
-		return world.isSideSolid(pos.down(), EnumFacing.UP, false);
-	}
-
-	public boolean checkAndDropBlock(World world, BlockPos pos, IBlockState state) {
-		return !canBlockStay(world, pos, state) && world.destroyBlock(pos, true);
-	}
-
 	@Override
 	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block)
 	{
-		checkAndDropBlock(world, pos, world.getBlockState(pos));
+		WorldUtils.checkAndDropBlock(world, pos, state);
 	}
 
 	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
 	{
-		checkAndDropBlock(world, pos, state);
+		WorldUtils.checkAndDropBlock(world, pos, state);
 	}
 
 	@Override
 	public boolean canPlaceBlockAt(World world, BlockPos pos)
 	{
-		return super.canPlaceBlockAt(world, pos) && world.isSideSolid(pos.down(), EnumFacing.UP);
+		return world.isSideSolid(pos.down(), EnumFacing.UP);
 	}
 
 	@Override

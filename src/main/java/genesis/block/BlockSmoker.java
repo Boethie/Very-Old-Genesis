@@ -5,6 +5,7 @@ import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.util.WorldUtils;
 import genesis.util.blocks.IAquaticBlock;
+import genesis.util.blocks.IDroppableBlock;
 import genesis.util.blocks.ISitOnBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
@@ -30,7 +31,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.Random;
 import java.util.Set;
 
-public class BlockSmoker extends BlockGenesis implements IAquaticBlock, ISitOnBlock
+public class BlockSmoker extends BlockGenesis implements IAquaticBlock, ISitOnBlock, IDroppableBlock
 {
 	public static final Set<Material> VALID_GROUND = Sets.newHashSet(Material.SAND, Material.ROCK, Material.GROUND, Material.CLAY);
 	public static final AxisAlignedBB BOUNDING_BOX = new AxisAlignedBB(0.25F, 0F, 0.25F, 0.75F, 1.0F, 0.75F);
@@ -129,12 +130,9 @@ public class BlockSmoker extends BlockGenesis implements IAquaticBlock, ISitOnBl
 	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
 	{
-		if (!canPlaceBlockAt(world, pos))
-		{
-			WorldUtils.spawnBlockDrops(world, pos, state);
-			world.setBlockState(pos, getReplacement(world, pos, state));
-		}
-		else if (state.getValue(BlockLiquid.LEVEL) == 0 && world.getBlockState(pos.down()).getBlock() instanceof BlockSmoker)
+		if (!WorldUtils.checkAndDropBlock(world, pos, state) &&
+				state.getValue(BlockLiquid.LEVEL) == 0 &&
+				world.getBlockState(pos.down()).getBlock() instanceof BlockSmoker)
 		{
 			world.setBlockState(pos, state.withProperty(BlockLiquid.LEVEL, 1));
 		}
@@ -149,13 +147,13 @@ public class BlockSmoker extends BlockGenesis implements IAquaticBlock, ISitOnBl
 	@Override
 	public boolean canPlaceBlockAt(World world, BlockPos pos)
 	{
-		if (world.getBlockState(pos.up()).getMaterial() != Material.WATER)
+		if (world.getBlockState(pos.up()).getMaterial() == Material.WATER)
 		{
-			return false;
+			IBlockState belowState = world.getBlockState(pos.down());
+			return VALID_GROUND.contains(belowState.getMaterial()) || belowState.getBlock() instanceof BlockSmoker;
 		}
 
-		IBlockState belowState = world.getBlockState(pos.down());
-		return VALID_GROUND.contains(belowState.getMaterial()) || belowState.getBlock() instanceof BlockSmoker;
+		return false;
 	}
 
 	@Override
@@ -181,12 +179,18 @@ public class BlockSmoker extends BlockGenesis implements IAquaticBlock, ISitOnBl
 	public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest)
 	{
 		onBlockHarvested(world, pos, state, player);
-		return world.setBlockState(pos, getReplacement(world, pos, state), world.isRemote ? 11 : 3);
+		return world.setBlockState(pos, Blocks.WATER.getDefaultState(), world.isRemote ? 11 : 3);
 	}
 
 	@Override
-	public IBlockState getReplacement(World world, BlockPos pos, IBlockState state)
+	public boolean canStay(World world, BlockPos pos, IBlockState state)
 	{
-		return Blocks.WATER.getDefaultState();
+		return canPlaceBlockAt(world, pos);
+	}
+
+	@Override
+	public void setToAir(World world, BlockPos pos, IBlockState state)
+	{
+		world.setBlockState(pos, Blocks.WATER.getDefaultState());
 	}
 }

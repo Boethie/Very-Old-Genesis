@@ -87,25 +87,16 @@ public class BlockCampfire extends Block
 		return state;
 	}
 
-	public boolean canBlockStay(World world, BlockPos pos)
+	@Override
+	public boolean canPlaceBlockAt(World world, BlockPos pos)
 	{
 		return world.isSideSolid(pos.down(), EnumFacing.UP);
 	}
 
 	@Override
-	public boolean canPlaceBlockAt(World world, BlockPos pos)
-	{
-		return canBlockStay(world, pos);
-	}
-
-	@Override
 	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block)
 	{
-		if (!canBlockStay(world, pos))
-		{
-			WorldUtils.dropBlock(world, pos, state);
-		}
-		else
+		if (!WorldUtils.checkAndDropBlock(world, pos, state))
 		{
 			TileEntityCampfire campfire = getTileEntity(world, pos);
 

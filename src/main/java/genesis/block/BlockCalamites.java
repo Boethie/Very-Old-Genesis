@@ -10,7 +10,6 @@ import java.util.Random;
 import genesis.util.blocks.ISitOnBlock;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -83,11 +82,5 @@ public class BlockCalamites extends BlockGrowingPlant implements IGrowingPlantCu
 	public boolean shouldUseBonemeal(World world, BlockPos pos, IBlockState state)
 	{
 		return isTop(world, pos);
-	}
-	
-	@Override
-	public IBlockState getReplacement(World world, BlockPos pos, IBlockState state)
-	{
-		return Blocks.AIR.getDefaultState();
 	}
 }

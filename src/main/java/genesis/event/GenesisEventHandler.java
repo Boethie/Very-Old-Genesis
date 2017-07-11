@@ -131,8 +131,7 @@ public class GenesisEventHandler
 
 			if (aboveBlock instanceof ISitOnBlock)
 			{
-				WorldUtils.spawnBlockDrops(world, abovePos, above);
-				world.setBlockState(event.getPos(), ((ISitOnBlock) aboveBlock).getReplacement(world, abovePos, above));
+				WorldUtils.dropBlock(world, abovePos, above);
 			}
 		}
 	}

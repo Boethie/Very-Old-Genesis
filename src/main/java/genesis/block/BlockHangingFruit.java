@@ -9,6 +9,7 @@ import genesis.common.sounds.GenesisSoundTypes;
 import genesis.item.ItemBlockMulti;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.WorldUtils;
+import genesis.util.blocks.IDroppableBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -30,7 +31,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.*;
 
-public class BlockHangingFruit extends BlockGenesis
+public class BlockHangingFruit extends BlockGenesis implements IDroppableBlock
 {
 	@BlockProperties
 	public static final IProperty<?>[] STORE_PROPERTIES = {};
@@ -61,22 +62,30 @@ public class BlockHangingFruit extends BlockGenesis
 		setHardness(0.2F);
 	}
 
-	public boolean canBlockStay(IBlockAccess world, BlockPos pos, IBlockState state)
+	@Override
+	public boolean canStay(World world, BlockPos pos, IBlockState state)
 	{
 		return owner.isStateOf(world.getBlockState(pos.up()),
 				state.getValue(variantProp),
 				TreeBlocksAndItems.LEAVES, TreeBlocksAndItems.LEAVES_FRUIT);
 	}
 
-	protected boolean canBlockStay(IBlockAccess world, BlockPos pos)
+	@Override
+	public void setToAir(World world, BlockPos pos, IBlockState state)
 	{
-		return canBlockStay(world, pos, world.getBlockState(pos));
+		world.setBlockToAir(pos);
+	}
+
+	@Override
+	public boolean canPlaceBlockAt(World world, BlockPos pos)
+	{
+		return canStay(world, pos, world.getBlockState(pos));
 	}
 
 	@Override
 	public boolean canReplace(World world, BlockPos pos, EnumFacing side, ItemStack stack)
 	{
-		return side == EnumFacing.DOWN && canBlockStay(world, pos, owner.getBlockState(type, owner.getVariant(stack)));
+		return side == EnumFacing.DOWN && canStay(world, pos, owner.getBlockState(type, owner.getVariant(stack)));
 	}
 
 	@Override
