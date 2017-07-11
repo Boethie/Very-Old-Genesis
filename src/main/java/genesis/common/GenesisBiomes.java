@@ -181,7 +181,7 @@ public final class GenesisBiomes
 		
 		marsh = new BiomeMarsh(prop);
 		BiomeManagerGenesis.registerBiome(marsh, GenesisConfig.marshId, BiomeType.WARM, GenesisConfig.marshWeight);
-		BiomeDictionary.registerBiomeType(marsh, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);*/
+		BiomeDictionary.registerBiomeType(marsh, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
 		
 		prop = new Biome.BiomeProperties("Floodplains Forest");
 		prop.setTemperature(1.15F);
@@ -192,7 +192,7 @@ public final class GenesisBiomes
 		
 		floodplainsForest = new BiomeFloodplainsForest(prop);
 		BiomeManagerGenesis.registerBiome(floodplainsForest, GenesisConfig.floodplainsForestId, BiomeType.WARM, GenesisConfig.floodplainsForestWeight);
-		BiomeDictionary.registerBiomeType(floodplainsForest, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);
+		BiomeDictionary.registerBiomeType(floodplainsForest, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET);*/
 		
 		prop = new Biome.BiomeProperties("River");
 		prop.setTemperature(0.6F);
@@ -272,7 +272,7 @@ public final class GenesisBiomes
 		Biome.registerBiome(GenesisConfig.limestoneBeachId, limestoneBeach.getBiomeName(), limestoneBeach);
 		BiomeDictionary.registerBiomeType(limestoneBeach, BiomeDictionary.Type.BEACH);
 		
-		prop = new Biome.BiomeProperties("Red Desert");
+		/*prop = new Biome.BiomeProperties("Red Desert");
 		prop.setTemperature(2.0F);
 		prop.setRainfall(0.0F);
 		prop.setRainDisabled();
@@ -294,6 +294,6 @@ public final class GenesisBiomes
 		
 		redDesertHills = new BiomeRedDesert(prop).setTopBlock(GenesisBlocks.SILT.getBlockState(SiltBlocks.SILTSTONE, EnumSilt.RED_SILT)).setIsHills(true).addTrees().setSmoothingExponent(20.0F).setSmoothingWeight(2.0F);
 		Biome.registerBiome(GenesisConfig.redDesertId + 128, redDesertHills.getBiomeName(), redDesertHills);
-		BiomeDictionary.registerBiomeType(redDesertHills, BiomeDictionary.Type.DRY, BiomeDictionary.Type.MESA, BiomeDictionary.Type.SANDY);
+		BiomeDictionary.registerBiomeType(redDesertHills, BiomeDictionary.Type.DRY, BiomeDictionary.Type.MESA, BiomeDictionary.Type.SANDY);*/
 	}
 }
