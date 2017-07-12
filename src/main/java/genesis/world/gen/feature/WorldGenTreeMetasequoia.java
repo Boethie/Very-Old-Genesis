@@ -1,19 +1,12 @@
 package genesis.world.gen.feature;
 
 import java.util.Random;
-import genesis.block.BlockAnkyropteris;
-import genesis.block.BlockFrullania;
-import genesis.block.BlockGenesisLogs;
+
 import genesis.combo.variant.EnumTree;
-import genesis.common.GenesisBlocks;
 import genesis.util.BlockVolumeShape;
 import genesis.util.random.i.IntRange;
 import genesis.util.random.i.WeightedIntItem;
 import genesis.util.random.i.WeightedIntProvider;
-import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -70,13 +63,13 @@ public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 			switch (treeType)
 			{
 			case TYPE_2:
-				placeTrunkAndVine(world, pos.add(1, i, 0));
-				placeTrunkAndVine(world, pos.add(0, i, 1));
-				placeTrunkAndVine(world, pos.add(1, i, 1));
-				placeTrunkAndVine(world, pos.add(0, i, 0));
+				setBlockInWorld(world, pos.add(1, i, 0), wood);
+				setBlockInWorld(world, pos.add(0, i, 1), wood);
+				setBlockInWorld(world, pos.add(1, i, 1), wood);
+				setBlockInWorld(world, pos.add(0, i, 0), wood);
 				break;
 			default:
-				placeTrunkAndVine(world, pos.up(i));
+				setBlockInWorld(world, pos.up(i), wood);
 				break;
 			}
 		}
@@ -111,31 +104,4 @@ public class WorldGenTreeMetasequoia extends WorldGenTreeBase
 		
 		return true;
 	}
-	
-	
-	
-	private void placeTrunkAndVine(World world, BlockPos pos)
-	{
-		setBlockInWorld(world, pos, wood, false);
-		for ( EnumFacing facing : EnumFacing.HORIZONTALS )
-		{
-			switch (facing)
-			{
-				case NORTH: this.placeVine(world, world.rand, pos.north(), BlockFrullania.SOUTH); break;
-				case SOUTH: this.placeVine(world, world.rand, pos.south(), BlockFrullania.NORTH); break;
-				case EAST: this.placeVine(world, world.rand, pos.east(), BlockFrullania.WEST); break;
-				case WEST: this.placeVine(world, world.rand, pos.west(), BlockFrullania.EAST); break;
-				default: break;
-			}
-		}
-	}
-	
-    private void placeVine(World world, Random rand, BlockPos pos, PropertyBool side)
-    {
-        if (rand.nextInt(3) > 0 && world.isAirBlock(pos))
-        {
-            this.setBlockAndNotifyAdequately(world, pos, GenesisBlocks.FRULLANIA.getDefaultState().withProperty(side, Boolean.valueOf(true)));
-        }
-    }
-	
 }
