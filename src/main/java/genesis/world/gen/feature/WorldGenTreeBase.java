@@ -318,7 +318,8 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 							|| currentState.getBlock().isLeaves(currentState, world, pos)
 							|| (currentState.getMaterial() == Material.WATER && canGrowInWater))
 					&& !force
-					&& !(currentState.getBlock() == GenesisBlocks.ANKYROPTERIS))
+					&& !(currentState.getBlock() == GenesisBlocks.ANKYROPTERIS)
+					&& !(currentState.getBlock() == GenesisBlocks.FRULLANIA))
 			return;
 		}
 		else if (state == leaves)
@@ -326,7 +327,8 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 			if (!currentState.getBlock().isAir(currentState, world, pos)
 					&& !force
 					&& !(currentState == hangingFruit)
-					&& !(currentState.getBlock() == GenesisBlocks.ANKYROPTERIS))
+					&& !(currentState.getBlock() == GenesisBlocks.ANKYROPTERIS)
+					&& !(currentState.getBlock() == GenesisBlocks.FRULLANIA))
 				return;
 			
 			if (GenesisBlocks.TREES.getVariant(leaves).getFruitType() == EnumTree.FruitType.LEAVES
