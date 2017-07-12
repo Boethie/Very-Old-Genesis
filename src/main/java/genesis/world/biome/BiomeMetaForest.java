@@ -54,10 +54,10 @@ public class BiomeMetaForest extends BiomeGenesis
 	{
 		getDecorator().setTreeCount(4.2F);
 		
-		addTree(new WorldGenTreeMetasequoia(17, 22, true).generateVine(6, GenesisBlocks.FRULLANIA), 300);
-		addTree(new WorldGenTreeMetasequoia(23, 27, true).generateVine(6, GenesisBlocks.FRULLANIA).setType(TreeTypes.TYPE_2), 120);
-		addTree(new WorldGenTreeGinkgo(10, 13, false), 5);
-		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2), 1);
+		addTree(new WorldGenTreeMetasequoia(17, 22, true).generateVine(21, GenesisBlocks.FRULLANIA), 300);
+		addTree(new WorldGenTreeMetasequoia(23, 27, true).generateVine(21, GenesisBlocks.FRULLANIA).setType(TreeTypes.TYPE_2), 120);
+		addTree(new WorldGenTreeGinkgo(10, 13, false).generateVine(21, GenesisBlocks.FRULLANIA), 5);
+		addTree(new WorldGenTreeGinkgo(12, 17, false).setType(TreeTypes.TYPE_2).generateVine(21, GenesisBlocks.FRULLANIA), 1);
 		
 		addTree(new WorldGenDeadLog(5, 8, EnumTree.METASEQUOIA, true), 9);
 		addTree(new WorldGenDeadLog(5, 8, EnumTree.METASEQUOIA, true).setType(1), 4);
