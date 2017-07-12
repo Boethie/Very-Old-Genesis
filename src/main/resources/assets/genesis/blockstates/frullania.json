@@ -1,0 +1,32 @@
+{
+	"forge_marker": 1,
+	"variants": {
+		"position": {
+			"bottom": { "textures": { "frullania": "genesis:blocks/frullania_mid" } },
+			"middle": { "textures": { "frullania": "genesis:blocks/frullania_mid" } },
+			"top": { "textures": { "frullania": "genesis:blocks/frullania_mid" } }
+		},
+		"south": {
+			"true": { "submodel": "genesis:frullania" },
+			"false": {}
+		},
+		"west": {
+			"true": { "submodel": "genesis:frullania", "y": 90 },
+			"false": {}
+		},
+		"north": {
+			"true": { "submodel": "genesis:frullania", "y": 180 },
+			"false": {}
+		},
+		"east": {
+			"true": { "submodel": "genesis:frullania", "y": 270 },
+			"false": {}
+		},
+		"up": {
+			"true": {
+				"submodel": "genesis:frullania_u"
+			},
+			"false": {}
+		}
+	}
+}

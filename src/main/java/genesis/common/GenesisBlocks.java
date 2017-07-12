@@ -135,6 +135,7 @@ public final class GenesisBlocks
 					new ObjectType<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>>(EnumAquaticPlant.class, "aquatic_plant", "aquaticPlant", BlockAquaticPlant.class, null)
 							.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE),
 					EnumAquaticPlant.class, EnumAquaticPlant.values());
+	public static final BlockFrullania FRULLANIA = (BlockFrullania) new BlockFrullania().setUnlocalizedName(Unlocalized.PREFIX + "ankyropteris");
 
 	/* Crops */
 	protected static final SurviveOnDirtCustoms SURVIVE_ON_DIRT = new SurviveOnDirtCustoms();
@@ -428,6 +429,7 @@ public final class GenesisBlocks
 
 		// Ankyropteris
 		Genesis.proxy.registerBlock(ANKYROPTERIS, new ItemColored(ANKYROPTERIS, false), name("ankyropteris"));
+		Genesis.proxy.registerBlock(FRULLANIA, name("frullania"));
 
 		// Flower pot
 		Genesis.proxy.registerBlock(FLOWER_POT, null, name("flower_pot"));
