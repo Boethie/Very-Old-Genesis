@@ -77,12 +77,6 @@ public class BlockHangingFruit extends BlockGenesis implements IDroppableBlock
 	}
 
 	@Override
-	public boolean canPlaceBlockAt(World world, BlockPos pos)
-	{
-		return canStay(world, pos, world.getBlockState(pos));
-	}
-
-	@Override
 	public boolean canReplace(World world, BlockPos pos, EnumFacing side, ItemStack stack)
 	{
 		return side == EnumFacing.DOWN && canStay(world, pos, owner.getBlockState(type, owner.getVariant(stack)));

@@ -185,7 +185,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap, IAquati
 	@Override
 	public boolean canPlaceBlockAt(World world, BlockPos pos)
 	{
-		return this.canStay(world, pos, world.getBlockState(pos));
+		return this.canStay(world, pos, this.getDefaultState());
 	}
 
 	@Override
