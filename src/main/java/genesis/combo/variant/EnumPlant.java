@@ -37,8 +37,6 @@ public enum EnumPlant implements IPlantMetadata<EnumPlant>
 	TODITES("todites", fern()),
 	RUFFORDIA("ruffordia", fern()),
 	CRETACIFILIX("cretacifilix", fern()),
-	MATONIDIUM("matonidium", fern()),
-	ASTRALOPTERIS("astralopteris", fern()),
 	DRYOPTERIS("dryopteris", fern());
 
 	final String name;

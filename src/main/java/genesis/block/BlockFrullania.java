@@ -2,9 +2,9 @@ package genesis.block;
 
 import java.util.Random;
 import genesis.common.GenesisCreativeTabs;
-import genesis.common.sounds.GenesisSoundTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockVine;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
@@ -48,7 +48,7 @@ public class BlockFrullania extends BlockVine
 		setDefaultState(blockState.getBaseState().withProperty(UP, false).withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false).withProperty(POSITION, EnumPosition.BOTTOM));
 		setHardness(0.2F);
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
-		setSoundType(GenesisSoundTypes.FERN);
+		setSoundType(SoundType.PLANT);
 	}
 	
 	@Override
@@ -67,7 +67,6 @@ public class BlockFrullania extends BlockVine
 		
 		return state.withProperty(POSITION, EnumPosition.MIDDLE);
 	}
-	
 	
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
@@ -92,11 +91,10 @@ public class BlockFrullania extends BlockVine
 		else return NULL_AABB;
 	}
 	
-	
 	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
 	{
-		if (!world.isRemote && world.rand.nextInt(4) == 0)
+		if (!world.isRemote && world.rand.nextInt(7) == 0)
 		{
 			// search in the vicinity for other blocks of the same type 
 			int tries = 4;
@@ -224,12 +222,10 @@ public class BlockFrullania extends BlockVine
 	{
 		return state.isFullCube() && state.getMaterial().blocksMovement();
 	}
-
 	
 	@Override
 	public boolean isLadder(IBlockState state, IBlockAccess world, BlockPos pos, EntityLivingBase entity)
 	{ 
 		return false; 
 	}
-
 }

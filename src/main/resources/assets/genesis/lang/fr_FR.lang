@@ -32,7 +32,7 @@ tile.genesis.rock.dolerite.name=Dolérite
 tile.genesis.rock.rubble.granite.name=Moellons de granite
 tile.genesis.rock.rubble.mossyGranite.name=Moellons de granite moussu
 tile.genesis.rock.rubble.rhyolite.name=Moellons de rhyolite
-tile.genesis.rock.rubble.dolerite.name=Moellons de dolerite
+tile.genesis.rock.rubble.dolerite.name=Moellons de dolérite
 tile.genesis.rock.komatiite.name=Komatiite
 tile.genesis.rock.trondhjemite.name=Trondhjémite
 tile.genesis.rock.fauxAmphibolite.name=Faux-amphibolite
@@ -98,13 +98,13 @@ tile.genesis.peatBrick.name=Briques de tourbe
 tile.genesis.slab.rock.rubble.granite.name=Dalle en moellons de granite
 tile.genesis.slab.rock.rubble.mossyGranite.name=Dalle en moellons de granite moussu
 tile.genesis.slab.rock.rubble.rhyolite.name=Dalle en moellons de rhyolite
-tile.genesis.slab.rock.rubble.dolerite.name=Dalle en moellons de dolerite
+tile.genesis.slab.rock.rubble.dolerite.name=Dalle en moellons de dolérite
 tile.genesis.slab.rock.smoothLimestone.name=Dalle en calcaire lisse
 
 tile.genesis.wall.rubble.granite.name=Muret en moellons de granite
 tile.genesis.wall.rubble.mossyGranite.name=Muret en moellons de granite moussu
 tile.genesis.wall.rubble.rhyolite.name=Muret en moellons de rhyolite
-tile.genesis.wall.rubble.dolerite.name=Muret en moellons de dolerite
+tile.genesis.wall.rubble.dolerite.name=Muret en moellons de dolérite
 
 #Decoration
 tile.genesis.log.dead.archaeopteris.name=Bois mort d'Archaeopteris
@@ -230,8 +230,6 @@ tile.genesis.fern.phlebopteris.name=Phlebopteris
 tile.genesis.fern.todites.name=Todites
 tile.genesis.fern.ruffordia.name=Ruffordia
 tile.genesis.fern.cretacifilix.name=Cretacifilix
-tile.genesis.fern.matonidium.name=Matonidium
-tile.genesis.fern.astralopteris.name=Astralopteris
 tile.genesis.fern.dryopteris.name=Dryopteris
 tile.genesis.fern.asplenium.name=Asplenium
 

@@ -101,16 +101,6 @@
 					"plant": "genesis:blocks/fern_cretacifilix"
 				}
 			},
-			"matonidium": {
-				"textures": {
-					"plant": "genesis:blocks/fern_matonidium"
-				}
-			},
-			"astralopteris": {
-				"textures": {
-					"plant": "genesis:blocks/fern_astralopteris"
-				}
-			},
 			"dryopteris": {
 				"textures": {
 					"plant": "genesis:blocks/fern_dryopteris"
