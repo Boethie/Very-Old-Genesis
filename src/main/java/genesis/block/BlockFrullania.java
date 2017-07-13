@@ -13,6 +13,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -65,6 +66,30 @@ public class BlockFrullania extends BlockVine
 		}
 		
 		return state.withProperty(POSITION, EnumPosition.MIDDLE);
+	}
+	
+	
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
+	{
+		state = state.getActualState(source, pos);
+		if (state.getValue(NORTH).booleanValue())
+		{
+			return NORTH_AABB;
+		}
+		else if (state.getValue(EAST).booleanValue())
+		{
+			return EAST_AABB;
+		}
+		else if (state.getValue(SOUTH).booleanValue())
+		{
+			return SOUTH_AABB;
+		}
+		else if (state.getValue(WEST).booleanValue())
+		{
+			return WEST_AABB;
+		}
+		else return NULL_AABB;
 	}
 	
 	
