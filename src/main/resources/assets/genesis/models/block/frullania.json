@@ -3,12 +3,17 @@
 		"particle": "#frullania"
 	},
 	"elements": [
-		{   "from": [ 0, 0, 15.2 ],
-			"to": [ 16, 16, 15.2 ],
-			"shade": false,
+		{
+			"name": "cube",
+			"from": [0, 0, 15],
+			"to": [16, 16, 16],
+			"shade": true,
 			"faces": {
-				"north": { "uv": [ 0, 0, 16, 16 ], "texture": "#frullania", "tintindex": 0 },
-				"south": { "uv": [ 0, 0, 16, 16 ], "texture": "#frullania", "tintindex": 0 }
+				"north": { "uv": [0, 0, 16, 16], "texture": "#frullania" },
+				"east": {"uv": [0, 0, 1, 16], "texture": "#frullania" },
+				"west": {"uv": [0, 0, 1, 16], "texture": "#frullania" },
+				"up": {"uv": [0, 0, 16, 1], "texture": "#frullania" },
+				"down": {"uv": [0, 0, 16, 1], "texture": "#frullania" }
 			}
 		}
 	]
