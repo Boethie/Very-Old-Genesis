@@ -3,7 +3,7 @@ package genesis.world.gen.feature;
 import java.util.Random;
 
 import com.google.common.base.Predicate;
-
+import genesis.block.BlockGenesisLeaves;
 import genesis.block.BlockResin;
 import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumTree;
@@ -363,7 +363,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		else
 			world.setBlockState(pos, state, 2);
 		
-		if (generateVine && world.rand.nextInt(vineRarity) == 0 && !(vine == GenesisBlocks.FRULLANIA && state == leaves))
+		if (generateVine && world.rand.nextInt(vineRarity) == 0 && !(vine == GenesisBlocks.FRULLANIA && state.getBlock() instanceof BlockGenesisLeaves))
 		{
 			BlockPos north = pos.north();
 			BlockPos south = pos.south();
