@@ -66,6 +66,21 @@ public class BlockGenesisWall extends BlockWall
 	}
 	
 	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+	{
+		boolean north = this.canConnectTo(worldIn, pos, EnumFacing.NORTH);
+		boolean east = this.canConnectTo(worldIn, pos, EnumFacing.EAST);
+		boolean south = this.canConnectTo(worldIn, pos, EnumFacing.SOUTH);
+		boolean west = this.canConnectTo(worldIn, pos, EnumFacing.WEST);
+		
+		boolean straight = ((north && !east && south && !west) || (!north && east && !south && west));
+		
+		return state
+			.withProperty(UP, !straight || !worldIn.isAirBlock(pos.up()))
+			.withProperty(NORTH, north).withProperty(EAST, east).withProperty(SOUTH, south).withProperty(WEST, west);
+	}
+
+	@Override
 	public int damageDropped(IBlockState state)
 	{
 		return 0;
@@ -135,6 +150,8 @@ public class BlockGenesisWall extends BlockWall
 		
 		for (EnumFacing facing : EnumFacing.HORIZONTALS)
 		{
+			
+			
 			if (canConnectTo(world, pos, facing))
 			{
 				AxisAlignedBB sideBB = AABBUtils.offset(base.addCoord(0, height, 0), facing, poleRadius);
