@@ -18,6 +18,7 @@ import genesis.util.WorldUtils;
 import genesis.util.blocks.IAquaticBlock;
 import genesis.util.blocks.IDroppableBlock;
 import genesis.util.blocks.ISitOnBlock;
+import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
@@ -285,5 +286,13 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap, IAquati
 	public Block.EnumOffsetType getOffsetType()
 	{
 		return Block.EnumOffsetType.XZ;
+	}
+
+	@Override
+	@Nullable
+	public ItemStack getItem(World world, BlockPos pos, IBlockState state)
+	{
+		EnumAquaticPlant variant = state.getValue(variantProp);
+		return variant == EnumAquaticPlant.CHARNIA ? owner.getStack(EnumAquaticPlant.CHARNIA_TOP) : owner.getStack(variant);
 	}
 }

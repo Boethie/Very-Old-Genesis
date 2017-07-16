@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.entity.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.*;
 import net.minecraftforge.fml.relauncher.Side;
@@ -80,6 +81,12 @@ public class EntityMeganeuraEgg extends EntityEgg
 	public SoundEvent getBreakSound()
 	{
 		return GenesisSoundEvents.BLOCK_EGG_MEGANEURA_BREAK;
+	}
+	
+	@Override
+	public ItemStack getPickedResult(RayTraceResult target)
+	{
+		return new ItemStack(GenesisItems.MEGANEURA_EGG);
 	}
 	
 	@SideOnly(Side.CLIENT)
