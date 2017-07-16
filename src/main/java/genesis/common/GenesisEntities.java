@@ -38,7 +38,7 @@ public class GenesisEntities
 		registerEntity(EntityMeganeura.class, "meganeura", 160, 1, true, 0xB5C457, 0x7E8B3A);
 		DataSerializers.registerSerializer(EntityMeganeura.STATE.getSerializer());
 		registerEntity(EntityMeganeuraEgg.class, "meganeuraEgg", 160, Integer.MAX_VALUE, false);
-		registerEntity(EntityGenesisArrow.class, "arrow", 160, Integer.MAX_VALUE, false);
+		registerEntity(EntityGenesisArrow.class, "arrow", 160, Integer.MAX_VALUE, true);
 	}
 
 	@SideOnly(Side.CLIENT)
