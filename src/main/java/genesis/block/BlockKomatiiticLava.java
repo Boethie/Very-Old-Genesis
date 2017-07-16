@@ -1,23 +1,23 @@
 package genesis.block;
 
-import genesis.common.GenesisBlocks;
-
 import java.util.Random;
-
+import genesis.common.GenesisBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.IFluidBlock;
 
 public class BlockKomatiiticLava extends BlockFluidClassic
 {
@@ -188,4 +188,88 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 	{
 		return null;
 	}
+	
+	/**
+	 * Fixes Genesis Bug #90.
+	 * 
+	 * Fluid models rendering with gaps was a known issue that was fixed in Forge 1.11.2-13.20.0.2279.
+	 * This code is taken from Forge pull request #3747, which resolves Forge bug #2993.
+	 * 
+	 * See:
+	 *  * http://www.minecraftforge.net/forum/topic/57885-1102-issues-with-custom-fluids/
+	 *  * https://github.com/MinecraftForge/MinecraftForge/issues/2993
+	 *  * https://github.com/MinecraftForge/MinecraftForge/pull/3747
+	 *  
+	 *  This will not be needed once Genesis moves to Minecraft 1.11.2.
+	 *  
+	 */
+	@Override
+	public IBlockState getExtendedState(IBlockState oldState, IBlockAccess worldIn, BlockPos pos)
+	{
+		IExtendedBlockState state = (IExtendedBlockState)oldState;
+		state = state.withProperty(FLOW_DIRECTION, (float)getFlowDirection(worldIn, pos));
+		float[][] height = new float[3][3];
+		float[][] corner = new float[2][2];
+		height[1][1] = getFluidHeightForRender(worldIn, pos);
+		if(height[1][1] == 1)
+		{
+			for(int i = 0; i < 2; i++)
+			{
+				for(int j = 0; j < 2; j++)
+				{
+					corner[i][j] = 1;
+				}
+			}
+		}
+		else
+		{
+			for(int i = 0; i < 3; i++)
+			{
+				for(int j = 0; j < 3; j++)
+				{
+					if(i != 1 || j != 1)
+					{
+						height[i][j] = getFluidHeightForRender(worldIn, pos.add(i - 1, 0, j - 1));
+					}
+				}
+			}
+			for(int i = 0; i < 2; i++)
+			{
+				for(int j = 0; j < 2; j++)
+				{
+					corner[i][j] = getFluidHeightAverage(height[i][j], height[i][j + 1], height[i + 1][j], height[i + 1][j + 1]);
+				}
+			}
+		}
+		
+		if(isCoveredWithFluid(worldIn, pos.add(-1, 0, -1)) || isCoveredWithFluid(worldIn, pos.add(-1, 0,  0)) || isCoveredWithFluid(worldIn, pos.add(0, 0, -1)))
+			corner[0][0] = 1;
+		if(isCoveredWithFluid(worldIn, pos.add(-1, 0,  0)) || isCoveredWithFluid(worldIn, pos.add(-1, 0,  1)) || isCoveredWithFluid(worldIn, pos.add(0, 0,  1)))
+			corner[0][1] = 1;
+		if(isCoveredWithFluid(worldIn, pos.add( 0, 0, -1)) || isCoveredWithFluid(worldIn, pos.add( 1, 0, -1)) || isCoveredWithFluid(worldIn, pos.add(1, 0,  0)))
+			corner[1][0] = 1;
+		if(isCoveredWithFluid(worldIn, pos.add( 1, 0,  0)) || isCoveredWithFluid(worldIn, pos.add( 0, 0,  1)) || isCoveredWithFluid(worldIn, pos.add(1, 0,  1)))
+			corner[1][1] = 1;
+
+		state = state.withProperty(LEVEL_CORNERS[0], corner[0][0]);
+		state = state.withProperty(LEVEL_CORNERS[1], corner[0][1]);
+		state = state.withProperty(LEVEL_CORNERS[2], corner[1][1]);
+		state = state.withProperty(LEVEL_CORNERS[3], corner[1][0]);
+		return state;
+	}
+	
+	/**
+	 * Helper method for {@link getExtendedState}, part of bug fix for Genesis bug #90.
+	 */
+	private boolean isCoveredWithFluid(IBlockAccess world, BlockPos pos)
+	{
+		IBlockState here = world.getBlockState(pos);
+		IBlockState up = world.getBlockState(pos.down(densityDir));
+		if (here.getBlock() == this && (up.getMaterial().isLiquid() || up.getBlock() instanceof IFluidBlock))
+		{
+				return true;
+		}
+		return false;
+	}
+	
 }
