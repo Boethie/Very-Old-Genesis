@@ -8,7 +8,6 @@ import genesis.combo.*;
 import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.EnumAquaticPlant;
 import genesis.combo.variant.PropertyIMetadata;
-import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.common.sounds.GenesisSoundTypes;
 import genesis.item.ItemBlockMulti;
@@ -16,6 +15,9 @@ import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants;
 import genesis.util.FlexibleStateMap;
 import genesis.util.WorldUtils;
+import genesis.util.blocks.IAquaticBlock;
+import genesis.util.blocks.IDroppableBlock;
+import genesis.util.blocks.ISitOnBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
@@ -35,7 +37,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockAquaticPlant extends Block implements IModifyStateMap
+public class BlockAquaticPlant extends Block implements IModifyStateMap, IAquaticBlock, ISitOnBlock, IDroppableBlock
 {
 	/**
 	 * Used in VariantsOfTypesCombo.
@@ -52,7 +54,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 	public final List<EnumAquaticPlant> variants;
 	public final PropertyIMetadata<EnumAquaticPlant> variantProp;
 
-	protected Set<Block> validGround;
+	protected final Set<Material> validGround = ImmutableSet.of(Material.GROUND, Material.SAND, Material.CLAY, Material.ROCK, Material.WOOD, Material.CORAL);
 	protected final Set<EnumAquaticPlant> noDrops = ImmutableSet.of(EnumAquaticPlant.CHARNIA);
 
 	public BlockAquaticPlant(VariantsCombo<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>> owner,
@@ -97,7 +99,7 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 	}
 
 	@Override
-	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list)
+	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list)
 	{
 		owner.fillSubItems(variants, list, noDrops);
 	}
@@ -144,120 +146,85 @@ public class BlockAquaticPlant extends Block implements IModifyStateMap
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
+	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity)
 	{
 		if (state.getValue(variantProp) == EnumAquaticPlant.CHANCELLORIA)
 		{
-			entityIn.attackEntityFrom(Constants.CHANCELLORIA_DMG, 0.5F);
+			entity.attackEntityFrom(Constants.CHANCELLORIA_DMG, 0.5F);
 		}
 	}
 
 	@Override
-	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
 	{
-		this.checkAndDropBlock(worldIn, pos, state);
+		WorldUtils.checkAndDropBlock(world, pos, state);
 	}
 
 	@Override
-	public void onNeighborChange(IBlockAccess blockAccess, BlockPos pos, BlockPos neighbor)
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block)
 	{
-		super.onNeighborChange(blockAccess, pos, neighbor);
-
-		if (blockAccess instanceof World)
-		{
-			World world = (World) blockAccess;
-			this.checkAndDropBlock(world, pos, world.getBlockState(pos));
-		}
-	}
-
-	protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state)
-	{
-		if (!this.canBlockStay(worldIn, pos, state))
-		{
-			//this.breakPlant(worldIn, pos, state);
-			worldIn.destroyBlock(pos, true);
-		}
+		WorldUtils.checkAndDropBlock(world, pos, state);
 	}
 
 	@Override
-	public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
+	public void onBlockDestroyedByPlayer(World world, BlockPos pos, IBlockState state)
 	{
-		super.onBlockDestroyedByPlayer(worldIn, pos, state);
-		this.breakPlant(worldIn, pos, state);
+		this.setToAir(world, pos, state);
 	}
 
 	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
 	{
 		if (state.getValue(variantProp) == EnumAquaticPlant.CHARNIA_TOP)
 		{
-			worldIn.setBlockState(pos, getDefaultState().withProperty(variantProp, EnumAquaticPlant.CHARNIA), 3);
-			worldIn.setBlockState(pos.up(), getDefaultState().withProperty(variantProp, EnumAquaticPlant.CHARNIA_TOP), 3);
+			world.setBlockState(pos, getDefaultState().withProperty(variantProp, EnumAquaticPlant.CHARNIA), 3);
+			world.setBlockState(pos.up(), getDefaultState().withProperty(variantProp, EnumAquaticPlant.CHARNIA_TOP), 3);
 		}
 	}
 
 	@Override
-	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
+	public boolean canPlaceBlockAt(World world, BlockPos pos)
 	{
-		return this.canBlockStay(worldIn, pos, this.getDefaultState());
+		return this.canStay(world, pos, this.getDefaultState());
 	}
 
-	private void breakPlant(World world, BlockPos pos, IBlockState state)
+	@Override
+	public void setToAir(World world, BlockPos pos, IBlockState state)
 	{
 		world.setBlockState(pos, Blocks.WATER.getStateFromMeta(0), 3);
+
 		EnumAquaticPlant variant = state.getValue(variantProp);
 
 		if (variant == EnumAquaticPlant.CHARNIA_TOP)
 		{
-			IBlockState below = world.getBlockState(pos.down());
+			BlockPos belowPos = pos.down();
+			IBlockState below = world.getBlockState(belowPos);
 
 			if (below.getBlock() == this && below.getValue(variantProp) == EnumAquaticPlant.CHARNIA)
 			{
-				world.setBlockState(pos.down(), Blocks.WATER.getStateFromMeta(0), 3);
+				world.setBlockState(belowPos, Blocks.WATER.getStateFromMeta(0), 3);
 			}
 		}
 		else if (variant == EnumAquaticPlant.CHARNIA)
 		{
-			IBlockState above = world.getBlockState(pos.up());
+			BlockPos abovePos = pos.up();
+			IBlockState above = world.getBlockState(abovePos);
 
 			if (above.getBlock() == this && above.getValue(variantProp) == EnumAquaticPlant.CHARNIA_TOP)
 			{
-				world.setBlockState(pos.up(), Blocks.WATER.getStateFromMeta(0), 3);
+				world.setBlockState(abovePos, Blocks.WATER.getStateFromMeta(0), 3);
 			}
 		}
 	}
 
-	public boolean canBlockStay(IBlockAccess world, BlockPos pos, IBlockState state)
+	@Override
+	public boolean canStay(World world, BlockPos pos, IBlockState state)
 	{
-		if (validGround == null)
-		{
-			validGround = new HashSet<>();
-			validGround.add(Blocks.DIRT);
-			validGround.add(Blocks.SAND);
-			validGround.add(Blocks.GRAVEL);
-			validGround.add(Blocks.CLAY);
-			validGround.add(Blocks.HARDENED_CLAY);
-			validGround.add(Blocks.STONEBRICK);
-			validGround.add(Blocks.STONE);
-			validGround.add(Blocks.LOG);
-			validGround.add(Blocks.LOG2);
-			validGround.add(Blocks.PLANKS);
-			validGround.add(GenesisBlocks.RED_CLAY);
-			validGround.add(GenesisBlocks.OOZE);
-			validGround.add(GenesisBlocks.PEAT);
-
-			validGround.addAll(GenesisBlocks.TREES.getBlocks(TreeBlocksAndItems.LOG));
-			validGround.addAll(GenesisBlocks.TREES.getBlocks(TreeBlocksAndItems.DEAD_LOG));
-			validGround.addAll(GenesisBlocks.SILT.getBlocks(SiltBlocks.SILT));
-			validGround.addAll(GenesisBlocks.SILT.getBlocks(SiltBlocks.SILTSTONE));
-			validGround.addAll(GenesisBlocks.CORAL.getBlocks());
-		}
-
 		IBlockState below = world.getBlockState(pos.down());
 		Block blockBelow = below.getBlock();
 		EnumAquaticPlant variant = state.getValue(variantProp);
 
-		if (!validGround.contains(blockBelow)
+		if (!validGround.contains(below.getMaterial())
 				&& !(blockBelow instanceof BlockGenesisRock)
 				&& (variant != EnumAquaticPlant.CHARNIA_TOP || blockBelow != this || below.getValue(variantProp) != EnumAquaticPlant.CHARNIA))
 		{

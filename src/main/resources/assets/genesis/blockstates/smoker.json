@@ -1,0 +1,20 @@
+{
+	"variants": {
+		"level=0": { "model": "genesis:smoker" },
+		"level=1": { "model": "genesis:smoker_top" },
+		"level=2": { "model": "genesis:smoker_top" },
+		"level=3": { "model": "genesis:smoker_top" },
+		"level=4": { "model": "genesis:smoker_top" },
+		"level=5": { "model": "genesis:smoker_top" },
+		"level=6": { "model": "genesis:smoker_top" },
+		"level=7": { "model": "genesis:smoker_top" },
+		"level=8": { "model": "genesis:smoker_top" },
+		"level=9": { "model": "genesis:smoker_top" },
+		"level=10": { "model": "genesis:smoker_top" },
+		"level=11": { "model": "genesis:smoker_top" },
+		"level=12": { "model": "genesis:smoker_top" },
+		"level=13": { "model": "genesis:smoker_top" },
+		"level=14": { "model": "genesis:smoker_top" },
+		"level=15": { "model": "genesis:smoker_top" }
+	}
+}

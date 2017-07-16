@@ -101,16 +101,6 @@
 					"plant": "genesis:blocks/fern_cretacifilix"
 				}
 			},
-			"matonidium": {
-				"textures": {
-					"plant": "genesis:blocks/fern_matonidium"
-				}
-			},
-			"astralopteris": {
-				"textures": {
-					"plant": "genesis:blocks/fern_astralopteris"
-				}
-			},
 			"dryopteris": {
 				"textures": {
 					"plant": "genesis:blocks/fern_dryopteris"
@@ -186,9 +176,9 @@
 					"plant": "genesis:blocks/sapling_artocarpus"
 				}
 			},
-			"protophyllum_sapling": {
+			"tropidogyne_sapling": {
 				"textures": {
-					"plant": "genesis:blocks/sapling_protophyllum"
+					"plant": "genesis:blocks/sapling_tropidogyne"
 				}
 			},
 			"laurophyllum_sapling": {

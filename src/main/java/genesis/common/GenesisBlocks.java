@@ -1,21 +1,94 @@
 package genesis.common;
 
-import genesis.block.*;
-import genesis.block.tileentity.*;
+import genesis.block.BlockAncientPermafrost;
+import genesis.block.BlockAnkyropteris;
+import genesis.block.BlockAquaticPlant;
+import genesis.block.BlockAsplenium;
+import genesis.block.BlockBenchSeat;
+import genesis.block.BlockCalamites;
+import genesis.block.BlockCalamitesBundle;
+import genesis.block.BlockCalamitesTorch;
+import genesis.block.BlockCobbania;
+import genesis.block.BlockDung;
+import genesis.block.BlockFrullania;
+import genesis.block.BlockGenesis;
+import genesis.block.BlockGenesisMushroom;
+import genesis.block.BlockGenesisPath;
+import genesis.block.BlockGenesisRock;
+import genesis.block.BlockGenesisStairs;
+import genesis.block.BlockGenesisVariants;
+import genesis.block.BlockGenesisWall;
+import genesis.block.BlockGrowingPlant;
+import genesis.block.BlockHumus;
+import genesis.block.BlockKomatiiticLava;
+import genesis.block.BlockMoss;
+import genesis.block.BlockOdontopterisCustoms;
+import genesis.block.BlockOoze;
+import genesis.block.BlockPeat;
+import genesis.block.BlockPermafrost;
+import genesis.block.BlockPlant;
+import genesis.block.BlockPrograminisBundle;
+import genesis.block.BlockPrototaxites;
+import genesis.block.BlockRadioactiveTraces;
+import genesis.block.BlockRedClay;
+import genesis.block.BlockResin;
+import genesis.block.BlockRoots;
+import genesis.block.BlockRopeLadder;
+import genesis.block.BlockRubble;
+import genesis.block.BlockRubbleWall;
+import genesis.block.BlockSmoker;
+import genesis.block.BlockStemonitis;
+import genesis.block.BlockTallTorch;
+import genesis.block.BlockTrapFloor;
+import genesis.block.BlockWaterSpreadingPlantCustoms;
+import genesis.block.SurviveOnDirtCustoms;
+import genesis.block.tileentity.BlockCampfire;
+import genesis.block.tileentity.BlockGenesisFlowerPot;
 import genesis.block.tileentity.BlockGenesisFlowerPot.IFlowerPotPlant;
-import genesis.block.tileentity.portal.*;
+import genesis.block.tileentity.BlockKnapper;
+import genesis.block.tileentity.BlockRottenStorageBox;
+import genesis.block.tileentity.BlockStorageBox;
+import genesis.block.tileentity.TileEntityCampfire;
+import genesis.block.tileentity.TileEntityGenesisFlowerPot;
+import genesis.block.tileentity.TileEntityKnapper;
+import genesis.block.tileentity.TileEntityRack;
+import genesis.block.tileentity.TileEntityRottenStorageBox;
+import genesis.block.tileentity.TileEntityStorageBox;
+import genesis.block.tileentity.portal.BlockGenesisPortal;
+import genesis.block.tileentity.portal.BlockMenhir;
+import genesis.block.tileentity.portal.EnumGlyph;
+import genesis.block.tileentity.portal.TileEntityGenesisPortal;
+import genesis.block.tileentity.portal.TileEntityMenhirGlyph;
+import genesis.block.tileentity.portal.TileEntityMenhirReceptacle;
 import genesis.block.tileentity.portal.render.TileEntityGenesisPortalRenderer;
 import genesis.block.tileentity.render.TileEntityCampfireRenderer;
 import genesis.block.tileentity.render.TileEntityRackRenderer;
 import genesis.block.tileentity.render.TileEntityStorageBoxRenderer;
 import genesis.client.Colorizers;
 import genesis.client.model.MetadataModelDefinition;
-import genesis.combo.*;
+import genesis.combo.DebrisBlocks;
+import genesis.combo.DungBlocksAndItems;
+import genesis.combo.ObjectType;
+import genesis.combo.OreBlocks;
+import genesis.combo.PlantBlocks;
+import genesis.combo.SiltBlocks;
+import genesis.combo.SlabBlocks;
+import genesis.combo.TreeBlocksAndItems;
+import genesis.combo.VariantsCombo;
 import genesis.combo.VariantsOfTypesCombo.TypeNamePosition;
-import genesis.combo.variant.*;
+import genesis.combo.variant.EnumAquaticPlant;
+import genesis.combo.variant.EnumCoral;
+import genesis.combo.variant.EnumMaterial;
+import genesis.combo.variant.EnumMenhirPart;
+import genesis.combo.variant.EnumRubble;
+import genesis.combo.variant.EnumSeeds;
 import genesis.common.sounds.GenesisSoundEvents;
 import genesis.common.sounds.GenesisSoundTypes;
-import genesis.item.*;
+import genesis.item.ItemBenchSeat;
+import genesis.item.ItemBlockFloating;
+import genesis.item.ItemBlockMulti;
+import genesis.item.ItemMenhir;
+import genesis.item.ItemMoss;
 import genesis.util.Constants;
 import genesis.util.Constants.Unlocalized;
 import genesis.util.FlexibleStateMap;
@@ -86,6 +159,8 @@ public final class GenesisBlocks
 	public static final Block SMOOTH_LIMESTONE = new BlockGenesisRock(0.75F, 8.7F).setUnlocalizedName(Unlocalized.ROCK + "smoothLimestone");
 	public static final Block OCTAEDRITE = new BlockGenesisRock(1.0F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "octaedrite");
 
+	public static final Block ANCIENT_SMOKER = new BlockGenesisRock(0.65F, 10.0F).setUnlocalizedName(Unlocalized.ROCK + "ancientSmoker");
+	
 	/* Slabs */
 	public static final SlabBlocks SLABS = new SlabBlocks();
 
@@ -133,6 +208,7 @@ public final class GenesisBlocks
 					new ObjectType<EnumAquaticPlant, BlockAquaticPlant, ItemBlockMulti<EnumAquaticPlant>>(EnumAquaticPlant.class, "aquatic_plant", "aquaticPlant", BlockAquaticPlant.class, null)
 							.setUseSeparateVariantJsons(false).setTypeNamePosition(TypeNamePosition.NONE),
 					EnumAquaticPlant.class, EnumAquaticPlant.values());
+	public static final BlockFrullania FRULLANIA = (BlockFrullania) new BlockFrullania().setUnlocalizedName(Unlocalized.PREFIX + "frullania");
 
 	/* Crops */
 	protected static final SurviveOnDirtCustoms SURVIVE_ON_DIRT = new SurviveOnDirtCustoms();
@@ -206,6 +282,8 @@ public final class GenesisBlocks
 			.setHardness(0.7F)
 			.setUnlocalizedName(Unlocalized.PREFIX + "peatBrick");
 
+	public static final Block SMOKER = new BlockSmoker().setUnlocalizedName(Constants.Unlocalized.PREFIX + "smoker");
+
 	/* Mechanisms */
 	public static final BlockTrapFloor TRAP_FLOOR = (BlockTrapFloor) new BlockTrapFloor().setUnlocalizedName(Unlocalized.PREFIX + "trapFloor");
 
@@ -265,6 +343,8 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(LIMESTONE, name("limestone"));
 		Genesis.proxy.registerBlock(SMOOTH_LIMESTONE, name("smooth_limestone"));
 		Genesis.proxy.registerBlock(OCTAEDRITE, name("octaedrite"));
+		
+		Genesis.proxy.registerBlock(ANCIENT_SMOKER, name("ancient_smoker"));
 
 		// - Slabs -
 		SLABS.registerAll();
@@ -324,6 +404,8 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(PORTAL, name("portal"), false);
 		Genesis.proxy.registerModel(PORTAL, 0, name("portal/portal"));
 		GameRegistry.registerTileEntity(TileEntityGenesisPortal.class, Constants.ASSETS_PREFIX + "portal");
+
+		Genesis.proxy.registerBlock(SMOKER, name("smoker"));
 
 		TREES.registerAll();
 
@@ -420,6 +502,7 @@ public final class GenesisBlocks
 
 		// Ankyropteris
 		Genesis.proxy.registerBlock(ANKYROPTERIS, new ItemColored(ANKYROPTERIS, false), name("ankyropteris"));
+		Genesis.proxy.registerBlock(FRULLANIA, name("frullania"));
 
 		// Flower pot
 		Genesis.proxy.registerBlock(FLOWER_POT, null, name("flower_pot"));
@@ -552,5 +635,9 @@ public final class GenesisBlocks
 
 		blockCol.registerBlockColorHandler(Colorizers.BLOCK_GRASS,
 				ODONTOPTERIS, PROGRAMINIS);
+		
+		// Flower Pots
+		blockCol.registerBlockColorHandler(Colorizers.BLOCK_FLOWER_POT, FLOWER_POT);
+		
 	}
 }

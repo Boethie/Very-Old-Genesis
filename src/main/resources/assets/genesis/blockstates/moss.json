@@ -17,7 +17,7 @@
 			"0": { "textures": { "top": "genesis:blocks/moss_top_0" } },
 			"1": { "textures": { "top": "genesis:blocks/moss_top_1" } },
 			"2": { "textures": { "top": "genesis:blocks/moss_top_2" } },
-			"3": { "textures": { "top": "genesis:blocks/moss_top_3", "topshadow": "genesis:blocks/moss_top_3" } }
+			"3": { "textures": { "top": "genesis:blocks/moss_top_3", "topshadow": "genesis:misc/transparent" } }
 		},
 
 		// Dirt

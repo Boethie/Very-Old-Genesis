@@ -10,6 +10,7 @@ import genesis.combo.variant.EnumDung;
 import genesis.common.sounds.GenesisSoundTypes;
 import genesis.util.BitMask;
 import genesis.util.BlockStateToMetadata;
+import genesis.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -110,19 +111,13 @@ public class BlockDung extends BlockGenesisVariants<EnumDung>
 	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
 	{
-		if (!canPlaceBlockAt(world, pos))
-		{
-			world.destroyBlock(pos, true);
-		}
+		WorldUtils.checkAndDropBlock(world, pos, state);
 	}
 	
 	@Override
 	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block)
 	{
-		if (!canPlaceBlockAt(world, pos))
-		{
-			world.destroyBlock(pos, true);
-		}
+		WorldUtils.checkAndDropBlock(world, pos, state);
 	}
 	
 	@Override

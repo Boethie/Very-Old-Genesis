@@ -1,6 +1,6 @@
 {
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "genesis:blocks/fern_matonidium"
+		"layer0": "genesis:blocks/frullania"
 	}
 }

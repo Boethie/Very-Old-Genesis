@@ -94,20 +94,7 @@ public class WorldGenTreeArchaeopteris extends WorldGenTreeBase
 		
 		BlockPos branchPos = pos.up(height - 1);
 		
-		switch (treeType)
-		{
-		case TYPE_2:
-			doPineTopLeaves(world, pos, branchPos.add(0, 0, 0), height, branchPos.down(branchY).getY(), rand, false);
-			doPineTopLeaves(world, pos, branchPos.add(1, 0, 1), height, branchPos.down(branchY).getY(), rand, false);
-			doPineTopLeaves(world, pos, branchPos.add(1, 0, 0), height, branchPos.down(branchY).getY(), rand, false);
-			doPineTopLeaves(world, pos, branchPos.add(0, 0, 1), height, branchPos.down(branchY).getY(), rand, false);
-			break;
-		default:
-			doPineTopLeaves(world, pos, branchPos, height, branchPos.down(branchY).getY(), rand, false);
-			break;
-		}
-		
-		//doPineTopLeaves(world, pos, branchPos, height, branchPos.down(branchY).getY(), rand, false);
+		doPineTopLeaves(world, pos, branchPos, height, branchPos.down(branchY).getY(), rand, false);
 		
 		return true;
 	}

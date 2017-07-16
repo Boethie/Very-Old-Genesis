@@ -1,8 +1,8 @@
 package genesis.world.biome.decorate;
 
-import genesis.block.BlockAquaticPlant;
 import genesis.combo.variant.EnumAquaticPlant;
 import genesis.common.GenesisBlocks;
+import genesis.util.WorldUtils;
 import genesis.util.functional.WorldBlockMatcher;
 
 import java.util.Random;
@@ -50,7 +50,7 @@ public class WorldGenAquaticPlants extends WorldGenDecorationBase
 		
 		IBlockState bottomState = GenesisBlocks.AQUATIC_PLANTS.getBlockState(bottom);
 		
-		if (!((BlockAquaticPlant) bottomState.getBlock()).canBlockStay(world, pos, bottomState))
+		if (!WorldUtils.canBlockStay(world, pos, bottomState))
 			return false;
 		
 		setBlock(world, pos, bottomState);

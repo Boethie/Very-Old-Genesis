@@ -11,6 +11,7 @@ import genesis.item.ItemPebble;
 import genesis.network.client.MultiPartBlock;
 import genesis.network.client.MultiPartBreakMessage;
 import genesis.util.BlockStateToMetadata;
+import genesis.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -272,7 +273,7 @@ public class BlockPebble extends Block implements MultiPartBlock
 
 		if (player == null || !player.capabilities.isCreativeMode) {
 			dropAll = false;
-			dropBlockAsItem(world, pos, state, 0);
+			WorldUtils.spawnBlockDrops(world, pos, state);
 			dropAll = true;
 		}
 
@@ -336,33 +337,21 @@ public class BlockPebble extends Block implements MultiPartBlock
 		return owner.getStack(type, state.getValue(variantProp)).getItemDamage();
 	}
 
-	protected boolean canBlockStay(World world, BlockPos pos, IBlockState state)
+	@Override
+	public boolean canPlaceBlockAt(World world, BlockPos pos)
 	{
 		return world.isSideSolid(pos.down(), EnumFacing.UP);
 	}
 
 	@Override
-	public boolean canPlaceBlockAt(World world, BlockPos pos)
-	{
-		return canBlockStay(world, pos, world.getBlockState(pos));
-	}
-
-	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
 	{
-		if (!canBlockStay(world, pos, state))
-		{
-			world.destroyBlock(pos, true);
-		}
-		super.updateTick(world, pos, state, rand);
+		WorldUtils.checkAndDropBlock(world, pos, state);
 	}
 
 	@Override
 	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block)
 	{
-		if (!canBlockStay(world, pos, state))
-		{
-			world.destroyBlock(pos, true);
-		}
+		WorldUtils.checkAndDropBlock(world, pos, state);
 	}
 }

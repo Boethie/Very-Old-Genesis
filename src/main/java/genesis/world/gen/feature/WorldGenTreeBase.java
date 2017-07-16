@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.google.common.base.Predicate;
 
+import genesis.block.BlockGenesisLeaves;
 import genesis.block.BlockResin;
 import genesis.combo.TreeBlocksAndItems;
 import genesis.combo.variant.EnumTree;
@@ -48,6 +49,8 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	
 	public boolean plantedWithSapling = false;
 	
+	private BlockVine vine = GenesisBlocks.ANKYROPTERIS;
+	
 	public enum TreeTypes
 	{
 		TYPE_1, TYPE_2, TYPE_3
@@ -84,6 +87,14 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	{
 		this.generateVine = true;
 		this.vineRarity = vineRarity;
+		return this;
+	}
+	
+	public WorldGenTreeBase generateVine(int vineRarity, BlockVine vine)
+	{
+		this.generateVine = true;
+		this.vineRarity = vineRarity;
+		this.vine = vine;
 		return this;
 	}
 	
@@ -318,7 +329,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 							|| currentState.getBlock().isLeaves(currentState, world, pos)
 							|| (currentState.getMaterial() == Material.WATER && canGrowInWater))
 					&& !force
-					&& !(currentState.getBlock() == GenesisBlocks.ANKYROPTERIS))
+					&& !(currentState.getBlock() == vine))
 			return;
 		}
 		else if (state == leaves)
@@ -326,7 +337,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 			if (!currentState.getBlock().isAir(currentState, world, pos)
 					&& !force
 					&& !(currentState == hangingFruit)
-					&& !(currentState.getBlock() == GenesisBlocks.ANKYROPTERIS))
+					&& !(currentState.getBlock() == vine))
 				return;
 			
 			if (GenesisBlocks.TREES.getVariant(leaves).getFruitType() == EnumTree.FruitType.LEAVES
@@ -353,7 +364,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 		else
 			world.setBlockState(pos, state, 2);
 		
-		if (generateVine && world.rand.nextInt(vineRarity) == 0)
+		if (generateVine && world.rand.nextInt(vineRarity) == 0 && !(vine == GenesisBlocks.FRULLANIA && state.getBlock() instanceof BlockGenesisLeaves))
 		{
 			BlockPos north = pos.north();
 			BlockPos south = pos.south();
@@ -374,7 +385,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 				vineLength = world.rand.nextInt(8) + 1;
 				for (int vi = 0; vi < vineLength; ++vi)
 					if (world.isAirBlock(north.add(0, -vi, 0)))
-						world.setBlockState(north.add(0, -vi, 0), GenesisBlocks.ANKYROPTERIS.getDefaultState().withProperty(BlockVine.SOUTH, true));
+						world.setBlockState(north.add(0, -vi, 0), vine.getDefaultState().withProperty(BlockVine.SOUTH, true));
 			}
 			
 			if (
@@ -384,7 +395,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 				vineLength = world.rand.nextInt(8) + 1;
 				for (int vi = 0; vi < vineLength; ++vi)
 					if (world.isAirBlock(south.add(0, -vi, 0)))
-						world.setBlockState(south.add(0, -vi, 0), GenesisBlocks.ANKYROPTERIS.getDefaultState().withProperty(BlockVine.NORTH, true));
+						world.setBlockState(south.add(0, -vi, 0), vine.getDefaultState().withProperty(BlockVine.NORTH, true));
 			}
 			
 			if (
@@ -394,7 +405,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 				vineLength = world.rand.nextInt(8) + 1;
 				for (int vi = 0; vi < vineLength; ++vi)
 					if (world.isAirBlock(east.add(0, -vi, 0)))
-						world.setBlockState(east.add(0, -vi, 0), GenesisBlocks.ANKYROPTERIS.getDefaultState().withProperty(BlockVine.WEST, true));
+						world.setBlockState(east.add(0, -vi, 0), vine.getDefaultState().withProperty(BlockVine.WEST, true));
 			}
 			
 			if (
@@ -404,7 +415,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 				vineLength = world.rand.nextInt(8) + 1;
 				for (int vi = 0; vi < vineLength; ++vi)
 					if (world.isAirBlock(west.add(0, -vi, 0)))
-						world.setBlockState(west.add(0, -vi, 0), GenesisBlocks.ANKYROPTERIS.getDefaultState().withProperty(BlockVine.EAST, true));
+						world.setBlockState(west.add(0, -vi, 0), vine.getDefaultState().withProperty(BlockVine.EAST, true));
 			}
 		}
 		

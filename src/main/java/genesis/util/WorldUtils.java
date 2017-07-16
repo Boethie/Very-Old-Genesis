@@ -1,10 +1,12 @@
 package genesis.util;
 
 import com.google.common.collect.ImmutableList;
+import genesis.util.blocks.IDroppableBlock;
 import genesis.util.functional.WorldBlockMatcher;
 import genesis.util.random.d.DoubleRange;
 import genesis.util.random.i.IntRange;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockBush;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
@@ -262,7 +264,7 @@ public class WorldUtils
 				stack.stackSize -= subSize;
 
 				EntityItem dropItem = new EntityItem(world, x, y, z,
-						new ItemStack(stack.getItem(), subSize, stack.getItemDamage()));
+						new ItemStack(stack.getItem(), subSize, stack.getMetadata()));
 
 				if (stack.hasTagCompound())
 				{
@@ -569,5 +571,61 @@ public class WorldUtils
 	public static boolean isMatchInCylinder(World world, BlockPos pos, Block match, float radius, int startY, int endY)
 	{
 		return isMatchInCylinder(world, pos, WorldBlockMatcher.block(match), radius, startY, endY);
+	}
+
+	/**
+	 * @return whether the block was dropped
+	 */
+	public static boolean checkAndDropBlock(World world, BlockPos pos, IBlockState state)
+	{
+		if (!canBlockStay(world, pos, state))
+		{
+			WorldUtils.dropBlock(world, pos, state);
+			return true;
+		}
+
+		return false;
+	}
+
+	public static boolean canBlockStay(World world, BlockPos pos, IBlockState state)
+	{
+		Block block = state.getBlock();
+
+		if (block instanceof IDroppableBlock)
+		{
+			return ((IDroppableBlock) block).canStay(world, pos, state);
+		}
+
+		if (block instanceof BlockBush)
+		{
+			return ((BlockBush) block).canBlockStay(world, pos, state);
+		}
+
+		return block.canPlaceBlockAt(world, pos);
+	}
+
+	public static void dropBlock(World world, BlockPos pos, IBlockState state)
+	{
+		spawnBlockDrops(world, pos, state);
+		setBlockToAir(world, pos, state);
+	}
+
+	public static void spawnBlockDrops(World world, BlockPos pos, IBlockState state)
+	{
+		state.getBlock().dropBlockAsItem(world, pos, state, 0);
+	}
+
+	public static void setBlockToAir(World world, BlockPos pos, IBlockState state)
+	{
+		Block block = state.getBlock();
+
+		if (block instanceof IDroppableBlock)
+		{
+			((IDroppableBlock) block).setToAir(world, pos, state);
+		}
+		else
+		{
+			world.setBlockToAir(pos);
+		}
 	}
 }

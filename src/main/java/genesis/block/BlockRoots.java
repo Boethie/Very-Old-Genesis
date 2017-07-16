@@ -3,6 +3,7 @@ package genesis.block;
 import genesis.combo.TreeBlocksAndItems;
 import genesis.common.GenesisCreativeTabs;
 import genesis.common.sounds.GenesisSoundTypes;
+import genesis.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -16,6 +17,7 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static genesis.common.GenesisBlocks.*;
 import static net.minecraft.init.Blocks.*;
@@ -134,25 +136,21 @@ public class BlockRoots extends BlockGenesis
 		return blockStateSupportList.contains(state);
 	}
 	
-	public boolean canBlockStay(IBlockAccess world, BlockPos pos)
-	{
-		return canSupport(world.getBlockState(pos.up()));
-	}
-	
 	@Override
 	public boolean canPlaceBlockAt(World world, BlockPos pos)
 	{
-		return super.canPlaceBlockAt(world, pos) && canBlockStay(world, pos);
+		return canSupport(world.getBlockState(pos.up()));
 	}
 
 	@Override
 	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block)
 	{
-		super.neighborChanged(state, world, pos, block);
+		WorldUtils.checkAndDropBlock(world, pos, state);
+	}
 
-		if (!canBlockStay(world, pos))
-		{
-			world.destroyBlock(pos, true);
-		}
+	@Override
+	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
+	{
+		WorldUtils.checkAndDropBlock(world, pos, state);
 	}
 }

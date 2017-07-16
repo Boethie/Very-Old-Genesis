@@ -8,6 +8,7 @@ import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.common.GenesisItems;
 import genesis.common.sounds.GenesisSoundTypes;
+import genesis.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -85,7 +86,7 @@ public class BlockTrapFloor extends BlockGenesis
 		world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, pos.getX()+0.5D, pos.getY()+0.5D, pos.getZ()+0.5D, 0, -4, 0, Block.getStateId(iblockstate));
 		world.spawnParticle(EnumParticleTypes.BLOCK_DUST, pos.getX()+0.5D, pos.getY()+0.5D, pos.getZ()+0.5D, 0, -3, 0, Block.getStateId(iblockstate));
 
-		this.dropBlockAsItem(world, pos, iblockstate, 0);
+		WorldUtils.spawnBlockDrops(world, pos, iblockstate);
 
 		for (EnumFacing facing : EnumFacing.HORIZONTALS)
 		{

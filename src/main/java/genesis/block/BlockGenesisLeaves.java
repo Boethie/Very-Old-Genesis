@@ -5,7 +5,6 @@ import genesis.combo.VariantsOfTypesCombo.*;
 import genesis.combo.variant.EnumTree;
 import genesis.combo.variant.EnumTree.FruitType;
 import genesis.combo.variant.PropertyIMetadata;
-import genesis.common.GenesisBlocks;
 import genesis.common.GenesisCreativeTabs;
 import genesis.item.ItemBlockMulti;
 import genesis.util.*;
@@ -133,12 +132,6 @@ public class BlockGenesisLeaves extends BlockLeaves
 		return state;
 	}
 
-	protected void breakAndDrop(World world, BlockPos pos)
-	{
-		dropBlockAsItem(world, pos, world.getBlockState(pos), 0);
-		world.setBlockToAir(pos);
-	}
-
 	protected int leafDistance = 5;
 	protected float[] distanceCosts = {leafDistance, 1, 1.4142F, 1.7321F};	// 0 uses leafDistance to make sure there are no stack overflows.
 
@@ -197,7 +190,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 			}
 			else
 			{
-				breakAndDrop(world, pos);
+				WorldUtils.dropBlock(world, pos, state);
 			}
 		}
 	}
@@ -249,23 +242,22 @@ public class BlockGenesisLeaves extends BlockLeaves
 	@SideOnly(Side.CLIENT)
 	public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer)
 	{
-		if (state == GenesisBlocks.TREES.getBlockState(TreeBlocksAndItems.LEAVES, EnumTree.ARCHAEANTHUS))
+		if (Minecraft.isFancyGraphicsEnabled())
+		{
+			return layer == BlockRenderLayer.CUTOUT_MIPPED;
+		}
+
+		if (state.getValue(variantProp).hasLayeredLeaves())
 		{
 			// on fancy graphics both the leaves and flower/fruit layer can be drawn in cutout
 			// (this means that MC can't cull leave faces)
 			// on fast there is special multilayer model that renders the leaves part in solid
 			// and the fruit/flower layer renders in cutout.
 			// To make this block render in both layers, this check needs to be performed.
-			if (Minecraft.isFancyGraphicsEnabled())
-			{
-				return layer == BlockRenderLayer.CUTOUT_MIPPED;
-			}
-			else
-			{
-				return layer == BlockRenderLayer.CUTOUT_MIPPED || layer == BlockRenderLayer.SOLID;
-			}
+			return layer == BlockRenderLayer.CUTOUT_MIPPED || layer == BlockRenderLayer.SOLID;
 		}
-		return Minecraft.isFancyGraphicsEnabled() ? layer == BlockRenderLayer.CUTOUT_MIPPED : layer == BlockRenderLayer.SOLID;
+
+		return layer == BlockRenderLayer.SOLID;
 	}
 
 	@Override
@@ -277,7 +269,26 @@ public class BlockGenesisLeaves extends BlockLeaves
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
-		return Minecraft.isFancyGraphicsEnabled() || !world.getBlockState(pos.offset(side)).doesSideBlockRendering(world, pos.offset(side), side.getOpposite());
+	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side)
+	{
+		BlockPos sidePos = pos.offset(side);
+		IBlockState sideState = world.getBlockState(sidePos);
+		if (!Minecraft.isFancyGraphicsEnabled() && sideState.getBlock() instanceof BlockLeaves)
+		{
+			return false;
+		}
+		
+		AxisAlignedBB aabb = getBoundingBox(state, world, pos);
+		
+		if ((side == EnumFacing.DOWN && aabb.minY > 0.0D) ||
+				(side == EnumFacing.UP && aabb.maxY < 1.0D) ||
+				(side == EnumFacing.NORTH && aabb.minZ > 0.0D) ||
+				(side == EnumFacing.SOUTH && aabb.maxZ < 1.0D) ||
+				(side == EnumFacing.WEST && aabb.minX > 0.0D) ||
+				(side == EnumFacing.EAST && aabb.maxX < 1.0D)) {
+			return true;
+		}
+		
+		return !sideState.doesSideBlockRendering(world, sidePos, side.getOpposite());
 	}
 }

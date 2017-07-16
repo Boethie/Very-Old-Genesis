@@ -1,0 +1,20 @@
+{
+	"textures": {
+		"particle": "#frullania"
+	},
+	"elements": [
+		{
+			"name": "cube",
+			"from": [0, 0, 15],
+			"to": [16, 16, 16],
+			"shade": true,
+			"faces": {
+				"north": { "uv": [0, 0, 16, 16], "texture": "#frullania" },
+				"east": {"uv": [0, 0, 1, 16], "texture": "#frullania" },
+				"west": {"uv": [0, 0, 1, 16], "texture": "#frullania" },
+				"up": {"uv": [0, 0, 16, 1], "texture": "#frullania" },
+				"down": {"uv": [0, 0, 16, 1], "texture": "#frullania" }
+			}
+		}
+	]
+}

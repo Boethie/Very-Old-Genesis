@@ -11,8 +11,6 @@
 		"variant=todites":  [ { "textures": { "cross": "genesis:blocks/fern_todites" } } ],
 		"variant=ruffordia":  [ { "textures": { "cross": "genesis:blocks/fern_ruffordia" } } ],
 		"variant=cretacifilix":  [ { "textures": { "cross": "genesis:blocks/fern_cretacifilix" } } ],
-		"variant=matonidium":  [ { "textures": { "cross": "genesis:blocks/fern_matonidium" } } ],
-		"variant=astralopteris":  [ { "textures": { "cross": "genesis:blocks/fern_astralopteris" } } ],
 		"variant=dryopteris":  [ { "textures": { "cross": "genesis:blocks/fern_dryopteris" } } ]
 	}
 }

@@ -32,7 +32,7 @@ tile.genesis.rock.dolerite.name=Dolérite
 tile.genesis.rock.rubble.granite.name=Moellons de granite
 tile.genesis.rock.rubble.mossyGranite.name=Moellons de granite moussu
 tile.genesis.rock.rubble.rhyolite.name=Moellons de rhyolite
-tile.genesis.rock.rubble.dolerite.name=Moellons de dolerite
+tile.genesis.rock.rubble.dolerite.name=Moellons de dolérite
 tile.genesis.rock.komatiite.name=Komatiite
 tile.genesis.rock.trondhjemite.name=Trondhjémite
 tile.genesis.rock.fauxAmphibolite.name=Faux-amphibolite
@@ -42,6 +42,7 @@ tile.genesis.rock.smoothLimestone.name=Calcaire lisse
 tile.genesis.rock.siltstone.name=Siltstone
 tile.genesis.rock.siltstone.red.name=Siltstone rouge
 tile.genesis.rock.octaedrite.name=Octaédrite
+tile.genesis.rock.ancientSmoker.name=Fumeur ancien
 tile.genesis.redClay.name=Argile rouge
 tile.genesis.silt.name=Limon
 tile.genesis.silt.red.name=Limon rouge
@@ -97,13 +98,13 @@ tile.genesis.peatBrick.name=Briques de tourbe
 tile.genesis.slab.rock.rubble.granite.name=Dalle en moellons de granite
 tile.genesis.slab.rock.rubble.mossyGranite.name=Dalle en moellons de granite moussu
 tile.genesis.slab.rock.rubble.rhyolite.name=Dalle en moellons de rhyolite
-tile.genesis.slab.rock.rubble.dolerite.name=Dalle en moellons de dolerite
+tile.genesis.slab.rock.rubble.dolerite.name=Dalle en moellons de dolérite
 tile.genesis.slab.rock.smoothLimestone.name=Dalle en calcaire lisse
 
 tile.genesis.wall.rubble.granite.name=Muret en moellons de granite
 tile.genesis.wall.rubble.mossyGranite.name=Muret en moellons de granite moussu
 tile.genesis.wall.rubble.rhyolite.name=Muret en moellons de rhyolite
-tile.genesis.wall.rubble.dolerite.name=Muret en moellons de dolerite
+tile.genesis.wall.rubble.dolerite.name=Muret en moellons de dolérite
 
 #Decoration
 tile.genesis.log.dead.archaeopteris.name=Bois mort d'Archaeopteris
@@ -140,7 +141,7 @@ tile.genesis.leaves.lepidodendron.name=Feuilles de Lepidodendron
 tile.genesis.leaves.cordaites.name=Feuilles de Cordaites
 tile.genesis.leaves.psaronius.name=Feuilles de Psaronius
 tile.genesis.leaves.ginkgo.name=Feuilles de Ginkgo
-tile.genesis.leaves.fruit.ginkgo.name=Feuilles à fruits de Ginkgo
+tile.genesis.leaves.fruit.ginkgo.name=Feuilles aux fruits de Ginkgo
 tile.genesis.leaves.bjuvia.name=Feuilles de Bjuvia
 tile.genesis.leaves.voltzia.name=Feuilles de Voltzia
 tile.genesis.leaves.araucarioxylon.name=Feuilles d'Araucarioxylon
@@ -148,11 +149,11 @@ tile.genesis.leaves.metasequoia.name=Feuilles de Metasequoia
 tile.genesis.leaves.archaeanthus.name=Feuilles d'Archaeanthus
 tile.genesis.leaves.dryophyllum.name=Feuilles de Dryophyllum
 tile.genesis.leaves.ficus.name=Feuilles de Ficus
-tile.genesis.leaves.fruit.ficus.name=Feuilles à fruits de Ficus
+tile.genesis.leaves.fruit.ficus.name=Feuilles aux fruits de Ficus
 tile.genesis.leaves.artocarpus.name=Feuilles d'Artocarpus
 tile.genesis.leaves.tropidogyne.name=Feuilles de Tropidogyne
 tile.genesis.leaves.laurophyllum.name=Feuilles de Laurophyllum
-tile.genesis.leaves.fruit.laurophyllum.name=Feuilles à fruits de Laurophyllum
+tile.genesis.leaves.fruit.laurophyllum.name=Feuilles aux fruits de Laurophyllum
 
 tile.genesis.sapling.archaeopteris.name=Pousse d'Archaeopteris
 tile.genesis.sapling.sigillaria.name=Pousse de Sigillaria
@@ -229,8 +230,6 @@ tile.genesis.fern.phlebopteris.name=Phlebopteris
 tile.genesis.fern.todites.name=Todites
 tile.genesis.fern.ruffordia.name=Ruffordia
 tile.genesis.fern.cretacifilix.name=Cretacifilix
-tile.genesis.fern.matonidium.name=Matonidium
-tile.genesis.fern.astralopteris.name=Astralopteris
 tile.genesis.fern.dryopteris.name=Dryopteris
 tile.genesis.fern.asplenium.name=Asplenium
 
@@ -239,6 +238,7 @@ tile.genesis.crop.odontopteris.name=Odontopteris
 tile.genesis.crop.programinis.name=Programinis
 
 tile.genesis.ankyropteris.name=Ankyropteris
+tile.genesis.frullania.name=Frullania
 
 tile.genesis.palaeoagaracites.name=Palaeoagaracites
 tile.genesis.archaeomarasmius.name=Archaeomarasmius
@@ -273,6 +273,8 @@ tile.genesis.coral.heliolites.name=Heliolites
 tile.genesis.coral.halysites.name=Halysites
 
 tile.genesis.ropeLadder.name=Échelle de corde
+
+tile.genesis.smoker.name=Fumeur
 
 #Mechanisms
 tile.genesis.trapFloor.name=Sol piégé

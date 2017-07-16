@@ -61,10 +61,6 @@ public class GenLayerGenesisHills extends GenLayerGenesis
 					int i2 = k1;
 					int j2;
 					
-					if (k1 == Biome.getIdForBiome(GenesisBiomes.rainforest))
-					{
-						i2 = Biome.getIdForBiome(GenesisBiomes.rainforestHills);
-					}
 					if (k1 == Biome.getIdForBiome(GenesisBiomes.auxForest))
 					{
 						i2 = Biome.getIdForBiome(GenesisBiomes.auxForestHills);

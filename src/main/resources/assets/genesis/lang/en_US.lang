@@ -43,6 +43,7 @@ tile.genesis.rock.smoothLimestone.name=Smooth Limestone
 tile.genesis.rock.siltstone.name=Siltstone
 tile.genesis.rock.siltstone.red.name=Red Siltstone
 tile.genesis.rock.octaedrite.name=Octaedrite
+tile.genesis.rock.ancientSmoker.name=Ancient Smoker
 tile.genesis.redClay.name=Red Clay
 tile.genesis.silt.name=Silt
 tile.genesis.silt.red.name=Red Silt
@@ -230,8 +231,6 @@ tile.genesis.fern.phlebopteris.name=Phlebopteris
 tile.genesis.fern.todites.name=Todites
 tile.genesis.fern.ruffordia.name=Ruffordia
 tile.genesis.fern.cretacifilix.name=Cretacifilix
-tile.genesis.fern.matonidium.name=Matonidium
-tile.genesis.fern.astralopteris.name=Astralopteris
 tile.genesis.fern.dryopteris.name=Dryopteris
 tile.genesis.fern.asplenium.name=Asplenium
 
@@ -240,6 +239,7 @@ tile.genesis.crop.odontopteris.name=Odontopteris
 tile.genesis.crop.programinis.name=Programinis
 
 tile.genesis.ankyropteris.name=Ankyropteris
+tile.genesis.frullania.name=Frullania
 
 tile.genesis.palaeoagaracites.name=Palaeoagaracites
 tile.genesis.archaeomarasmius.name=Archaeomarasmius
@@ -274,6 +274,8 @@ tile.genesis.coral.heliolites.name=Heliolites
 tile.genesis.coral.halysites.name=Halysites
 
 tile.genesis.ropeLadder.name=Rope Ladder
+
+tile.genesis.smoker.name=Smoker
 
 #Mechanisms
 tile.genesis.trapFloor.name=Trap Floor
