@@ -17,6 +17,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockGenesisLeavesFruit extends BlockGenesisLeaves
 {
@@ -71,5 +73,11 @@ public class BlockGenesisLeavesFruit extends BlockGenesisLeaves
 		}
 		
 		return false;
+	}
+	
+	@SideOnly(Side.CLIENT)
+	protected boolean hasLayeredLeaves(IBlockState state)
+	{
+		return true;
 	}
 }

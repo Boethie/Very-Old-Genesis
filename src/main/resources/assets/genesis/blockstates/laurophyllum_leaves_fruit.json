@@ -3,14 +3,23 @@
 	"defaults": {
 		"textures": {
 			"leaves": "genesis:blocks/leaves_laurophyllum",
-			"fruit": "genesis:blocks/fruit_laurophyllum",
-			"particle": "#leaves"
-		},
-		"model": "genesis:leaves_fruit_simple",
-		"transform": "forge:default-block"
+			"fruit_side_1": "genesis:blocks/fruit_laurophyllum",
+			"fruit_side_2": "genesis:blocks/fruit_laurophyllum",
+			"fruit_bottom": "genesis:blocks/fruit_laurophyllum"
+		}
 	},
 	"variants": {
-		"normal": [{}],
-		"inventory": [{}]
+		"normal": {
+			"model": "genesis:graphics-aware-multi-layer",
+			"custom": {
+				"Fancy Mipped Cutout": "genesis:laurophyllum_leaves_fruit#both",
+				"Fast Mipped Cutout": "genesis:laurophyllum_leaves_fruit#fruit",
+				"Fast Solid": "genesis:laurophyllum_leaves_fruit#leaves"
+			}
+		},
+		"inventory": { "model": "genesis:leaves_fruit" },
+		"leaves": { "model": "genesis:leaves" },
+		"fruit": { "model": "genesis:fruit" },
+		"both": { "model": "genesis:leaves_fruit" }
 	}
 }

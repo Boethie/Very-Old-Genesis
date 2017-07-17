@@ -1,5 +1,25 @@
 {
+	"forge_marker": 1,
+	"defaults": {
+		"textures": {
+			"leaves": "genesis:blocks/leaves_ginkgo",
+			"fruit_side_1": "genesis:blocks/fruit_ginkgo_side_1",
+			"fruit_side_2": "genesis:blocks/fruit_ginkgo_side_2",
+			"fruit_bottom": "genesis:blocks/fruit_ginkgo_bottom"
+		}
+	},
 	"variants": {
-		"normal": { "model": "genesis:ginkgo_leaves_fruit" }
+		"normal": {
+			"model": "genesis:graphics-aware-multi-layer",
+			"custom": {
+				"Fancy Mipped Cutout": "genesis:ginkgo_leaves_fruit#both",
+				"Fast Mipped Cutout": "genesis:ginkgo_leaves_fruit#fruit",
+				"Fast Solid": "genesis:ginkgo_leaves_fruit#leaves"
+			}
+		},
+		"inventory": { "model": "genesis:leaves_fruit" },
+		"leaves": { "model": "genesis:leaves" },
+		"fruit": { "model": "genesis:fruit" },
+		"both": { "model": "genesis:leaves_fruit" }
 	}
 }

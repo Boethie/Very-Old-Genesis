@@ -247,7 +247,7 @@ public class BlockGenesisLeaves extends BlockLeaves
 			return layer == BlockRenderLayer.CUTOUT_MIPPED;
 		}
 
-		if (state.getValue(variantProp).hasLayeredLeaves())
+		if (hasLayeredLeaves(state))
 		{
 			// on fancy graphics both the leaves and flower/fruit layer can be drawn in cutout
 			// (this means that MC can't cull leave faces)
@@ -258,6 +258,12 @@ public class BlockGenesisLeaves extends BlockLeaves
 		}
 
 		return layer == BlockRenderLayer.SOLID;
+	}
+
+	@SideOnly(Side.CLIENT)
+	protected boolean hasLayeredLeaves(IBlockState state)
+	{
+		return state.getValue(variantProp).hasLayeredLeaves();
 	}
 
 	@Override
