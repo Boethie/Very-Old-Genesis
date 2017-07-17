@@ -12,11 +12,13 @@
 		"normal": {
 			"model": "genesis:graphics-aware-multi-layer",
 			"custom": {
+				"base": "genesis:ficus_leaves_fruit#base",
 				"Fancy Mipped Cutout": "genesis:ficus_leaves_fruit#both",
 				"Fast Mipped Cutout": "genesis:ficus_leaves_fruit#fruit",
 				"Fast Solid": "genesis:ficus_leaves_fruit#leaves"
 			}
 		},
+		"base": { "model": "block", "textures": { "particle": "#leaves" } },
 		"inventory": { "model": "genesis:leaves_fruit" },
 		"leaves": { "model": "genesis:leaves" },
 		"fruit": { "model": "genesis:fruit" },

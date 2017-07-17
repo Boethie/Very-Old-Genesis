@@ -11,11 +11,13 @@
 		"normal": {
 			"model": "genesis:graphics-aware-multi-layer",
 			"custom": {
+				"base": "genesis:tropidogyne_leaves#base",
 				"Fancy Mipped Cutout": "genesis:tropidogyne_leaves#both",
 				"Fast Mipped Cutout": "genesis:tropidogyne_leaves#flowers",
 				"Fast Solid": "genesis:tropidogyne_leaves#leaves"
 			}
 		},
+		"base": { "model": "block", "textures": { "particle": "#leaves" } },
 		"inventory": { "model": "genesis:leaves" },
 		"leaves": { "model": "genesis:leaves" },
 		"flowers": [

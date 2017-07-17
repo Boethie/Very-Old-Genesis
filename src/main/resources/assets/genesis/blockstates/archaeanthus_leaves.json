@@ -11,11 +11,13 @@
 		"normal": {
 			"model": "genesis:graphics-aware-multi-layer",
 			"custom": {
+				"base": "genesis:archaeanthus_leaves#base",
 				"Fancy Mipped Cutout": "genesis:archaeanthus_leaves#both",
 				"Fast Mipped Cutout": "genesis:archaeanthus_leaves#flowers",
 				"Fast Solid": "genesis:archaeanthus_leaves#leaves"
 			}
 		},
+		"base": { "model": "block", "textures": { "particle": "#leaves" } },
 		"inventory": { "model": "genesis:leaves" },
 		"leaves": { "model": "genesis:leaves" },
 		"flowers": [
