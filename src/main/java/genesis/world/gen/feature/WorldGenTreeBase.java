@@ -17,6 +17,7 @@ import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.BlockVine;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
@@ -36,6 +37,7 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	protected final boolean notify;
 	protected int rarity = 1;
 	protected int vineRarity = 6;
+	protected int vineMaxLength = 8;
 	
 	protected RandomIntProvider heightProvider;
 	
@@ -94,6 +96,17 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 	{
 		this.generateVine = true;
 		this.vineRarity = vineRarity;
+		this.vine = vine;
+		return this;
+	}
+	
+	public WorldGenTreeBase generateVine(int vineRarity, int vineMaxLength, BlockVine vine)
+	{
+		this.generateVine = true;
+		this.vineRarity = vineRarity;
+		this.vineMaxLength = vineMaxLength;
+		if (this.vineMaxLength == 0)
+			this.vineMaxLength = 1;
 		this.vine = vine;
 		return this;
 	}
@@ -376,53 +389,29 @@ public abstract class WorldGenTreeBase extends WorldGenAbstractTree
 			IBlockState stateEast = world.getBlockState(east);
 			IBlockState stateWest = world.getBlockState(west);
 			
-			int vineLength;
-			
-			if (
-					world.rand.nextInt(2) == 0
-					&& stateNorth.getBlock().isAir(stateNorth, world, north))
-			{
-				vineLength = world.rand.nextInt(8) + 1;
-				for (int vi = 0; vi < vineLength; ++vi)
-					if (world.isAirBlock(north.add(0, -vi, 0)))
-						world.setBlockState(north.add(0, -vi, 0), vine.getDefaultState().withProperty(BlockVine.SOUTH, true));
-			}
-			
-			if (
-					world.rand.nextInt(2) == 0
-					&& stateSouth.getBlock().isAir(stateSouth, world, south))
-			{
-				vineLength = world.rand.nextInt(8) + 1;
-				for (int vi = 0; vi < vineLength; ++vi)
-					if (world.isAirBlock(south.add(0, -vi, 0)))
-						world.setBlockState(south.add(0, -vi, 0), vine.getDefaultState().withProperty(BlockVine.NORTH, true));
-			}
-			
-			if (
-					world.rand.nextInt(2) == 0
-					&& stateEast.getBlock().isAir(stateEast, world, east))
-			{
-				vineLength = world.rand.nextInt(8) + 1;
-				for (int vi = 0; vi < vineLength; ++vi)
-					if (world.isAirBlock(east.add(0, -vi, 0)))
-						world.setBlockState(east.add(0, -vi, 0), vine.getDefaultState().withProperty(BlockVine.WEST, true));
-			}
-			
-			if (
-					world.rand.nextInt(2) == 0
-					&& stateWest.getBlock().isAir(stateWest, world, west))
-			{
-				vineLength = world.rand.nextInt(8) + 1;
-				for (int vi = 0; vi < vineLength; ++vi)
-					if (world.isAirBlock(west.add(0, -vi, 0)))
-						world.setBlockState(west.add(0, -vi, 0), vine.getDefaultState().withProperty(BlockVine.EAST, true));
-			}
+			vineGenerate(world, stateNorth, north, BlockVine.SOUTH);
+			vineGenerate(world, stateSouth, south, BlockVine.NORTH);
+			vineGenerate(world, stateEast, east, BlockVine.WEST);
+			vineGenerate(world, stateWest, west, BlockVine.EAST);
 		}
 		
 		if (hangingFruit != null && state == leaves
 				&& world.rand.nextInt(10) == 0
 				&& stateBelow.getBlock().isAir(stateBelow, world, below))
 			world.setBlockState(below, hangingFruit);
+	}
+	
+	private void vineGenerate(World world, IBlockState state, BlockPos pos, PropertyBool oppositeVineFacing)
+	{
+		if (
+				world.rand.nextInt(this.vineRarity) == 0
+				&& state.getBlock().isAir(state, world, pos))
+		{
+			int vineLength = world.rand.nextInt(this.vineMaxLength) + 1;
+			for (int vi = 0; vi < vineLength; ++vi)
+				if (world.isAirBlock(pos.add(0, -vi, 0)))
+					world.setBlockState(pos.add(0, -vi, 0), vine.getDefaultState().withProperty(oppositeVineFacing, true));
+		}
 	}
 	
 	public void doBranchLeaves(World world, BlockPos pos, Random random, boolean cap, int length)

@@ -1,10 +1,11 @@
 package genesis.block;
 
 import java.util.Random;
+
 import genesis.common.GenesisCreativeTabs;
+import genesis.common.sounds.GenesisSoundTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockVine;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
@@ -48,7 +49,7 @@ public class BlockFrullania extends BlockVine
 		setDefaultState(blockState.getBaseState().withProperty(UP, false).withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false).withProperty(POSITION, EnumPosition.BOTTOM));
 		setHardness(0.2F);
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
-		setSoundType(SoundType.PLANT);
+		setSoundType(GenesisSoundTypes.PLANT);
 	}
 	
 	@Override
