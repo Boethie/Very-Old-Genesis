@@ -50,6 +50,18 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 	private static final int BIOME_BLEND_RADIUS = 4;
 	private static final float RIVER_RELATIVE_WEIGHT = 12.0F;
 	private static final double CAVE_WATER_ATTENUATION_BUFFER_SQ = 24.0;
+
+	//Constants to adjust custom gen to match the scales of the vanilla gen
+	private static final double HEIGHT_VARIATION_SCALE = 2.75;
+	private static final double BASE_HEIGHT_SCALE = 0.4375;
+	private static final double BASE_HEIGHT_OFFSET = 0.0375;
+	private static final double HEIGHT_NOISE_WAVELENGTH_SCALE = 6.0;
+	private static final double BLEND_NOISE_WAVELENGTH_SCALE = 8.0;
+
+	//Too high will affect performance and the interpolator derivatives.
+	//Too low will not produce enough detail.
+	private static final int HEIGHT_NOISE_OCTAVES = 3;
+	private static final int BLEND_NOISE_OCTAVES = 4;
 	
 	//Dependent constants
 	private static final int BIOME_BLEND_DIAMETER = 2 * BIOME_BLEND_RADIUS + 1;
@@ -232,8 +244,8 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 		}
 		
 		//Correspond to original vanilla noise gens
-		noiseMainGen = new SuperSimplexNoise.Octaves(rand, 3);
-		noiseLGen = new SuperSimplexNoise.Octaves_Multi(rand, 4, 2);
+		noiseMainGen = new SuperSimplexNoise.Octaves(rand, HEIGHT_NOISE_OCTAVES);
+		noiseLGen = new SuperSimplexNoise.Octaves_Multi(rand, BLEND_NOISE_OCTAVES, 2);
 		stoneNoiseGen = new SuperSimplexNoise(rand);
 
 		//Correspond to original vanilla value fields
@@ -596,12 +608,24 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 		for (int i = 0; i < noiseL1Values.length; i++) noiseL1Values[i] = 0;
 		for (int i = 0; i < noiseL2Values.length; i++) noiseL2Values[i] = 0;
 
-		noiseMainGen.populate_D3C1(noiseMainValues, x, y, z, 8, 8, 8, 3, 33, 3, horizScale / settings.mainNoiseScaleX / 128.0d / 4.0d, vertScale / settings.mainNoiseScaleY / 128.0d / 4.0d, horizScale / settings.mainNoiseScaleZ / 128.0d / 4.0d, 1.0 / noiseMainGen.max);
-		noiseLGen.populate_D3C1(noiseLValuesArray, x, y, z, 8, 8, 8, 3, 33, 3, horizScale / 32768.0d / 4.0d, vertScale / 32768.0d / 4.0d, horizScale / 32768.0d / 4.0d, 1.0 / noiseLGen.max);
+		noiseMainGen.populate_D3C1(noiseMainValues, x, y, z,
+				8, 8, 8,
+				3, 33, 3,
+				horizScale / settings.mainNoiseScaleX / 128.0d / BLEND_NOISE_WAVELENGTH_SCALE,
+				vertScale / settings.mainNoiseScaleY / 128.0d / BLEND_NOISE_WAVELENGTH_SCALE,
+				horizScale / settings.mainNoiseScaleZ / 128.0d / BLEND_NOISE_WAVELENGTH_SCALE,
+				1.0 / noiseMainGen.max);
+		noiseLGen.populate_D3C1(noiseLValuesArray, x, y, z,
+				8, 8, 8,
+				3, 33, 3,
+				horizScale / 32768.0d / HEIGHT_NOISE_WAVELENGTH_SCALE,
+				vertScale / 32768.0d / HEIGHT_NOISE_WAVELENGTH_SCALE,
+				horizScale / 32768.0d / HEIGHT_NOISE_WAVELENGTH_SCALE,
+				1.0 / noiseLGen.max);
 		
 		//Turn scale settings into amplitudes 
-		double a = 2 * 65536.0 / settings.lowerLimitScale;
-		double b = 2 * 65536.0 / settings.upperLimitScale;
+		double a = HEIGHT_VARIATION_SCALE * 65536.0 / settings.lowerLimitScale;
+		double b = HEIGHT_VARIATION_SCALE * 65536.0 / settings.upperLimitScale;
 		
 		int i = 0;
 		//int j = 0;
@@ -743,16 +767,16 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 				heightVariationFx *= 0.9f;
 				heightVariationFz *= 0.9f;
 				heightVariationFxz *= 0.9f;
-				baseHeight = (baseHeight * 4.0F - 1.0F) / 8.0F;
+
+				baseHeight = (baseHeight * 4.0 - 1.0) / 8.0;
 				baseHeightFx /= 2.0;
 				baseHeightFz /= 2.0;
 				baseHeightFxz /= 2.0;
 
-				double depth = 0.2;
-				double base = (1 + baseHeight * 0.5 + depth * 0.1) * settings.baseSize;
-				double baseFx = baseHeightFx * 0.5 * settings.baseSize;
-				double baseFz = baseHeightFz * 0.5 * settings.baseSize;
-				double baseFxz = baseHeightFxz * 0.5 * settings.baseSize;
+				double base = (1 + baseHeight * BASE_HEIGHT_SCALE + BASE_HEIGHT_OFFSET) * settings.baseSize;
+				double baseFx = baseHeightFx * BASE_HEIGHT_SCALE * settings.baseSize;
+				double baseFz = baseHeightFz * BASE_HEIGHT_SCALE * settings.baseSize;
+				double baseFxz = baseHeightFxz * BASE_HEIGHT_SCALE * settings.baseSize;
 				
 				for (int iy = 0; iy < 33; iy++) {
 					
@@ -774,23 +798,23 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 					double nbFyz = noiseL2Values[i * D3C1.STEP + D3C1.Fyz];
 					double nbFxyz = noiseL2Values[i * D3C1.STEP + D3C1.Fxyz];
 
-					//Curve them to make the heightmaps smoothly not go as far down as they go up
-					double na2 = a * ((na + 1) * (na + 1) - 1) / 3;
-					double na2Fx = a * 2 * naFx * (na + 1) / 3;
-					double na2Fy = a * 2 * naFy * (na + 1) / 3;
-					double na2Fz = a * 2 * naFz * (na + 1) / 3;
-					double na2Fxy = a * 2 * (naFx * naFy + (na + 1) * naFxy) / 3;
-					double na2Fxz = a * 2 * (naFx * naFz + (na + 1) * naFxz) / 3;
-					double na2Fyz = a * 2 * (naFy * naFz + (na + 1) * naFyz) / 3;
-					double na2Fxyz = a * 2 * (naFx * naFyz + naFy * naFxz + naFz * naFxy + (na + 1) * naFxyz) / 3;
-					double nb2 = b * ((nb + 1) * (nb + 1) - 1) / 3;
-					double nb2Fx = b * 2 * nbFx * (nb + 1) / 3;
-					double nb2Fy = b * 2 * nbFy * (nb + 1) / 3;
-					double nb2Fz = b * 2 * nbFz * (nb + 1) / 3;
-					double nb2Fxy = b * 2 * (nbFx * nbFy + (nb + 1) * nbFxy) / 3;
-					double nb2Fxz = b * 2 * (nbFx * nbFz + (nb + 1) * nbFxz) / 3;
-					double nb2Fyz = b * 2 * (nbFy * nbFz + (nb + 1) * nbFyz) / 3;
-					double nb2Fxyz = b * 2 * (nbFx * nbFyz + nbFy * nbFxz + nbFz * nbFxy + (nb + 1) * nbFxyz) / 3;
+					//Curve them to make the heightmaps smoothly not go as far down as they go up (fixed)
+					double na2 = a * ((na + 1) * (na + 1) * (na + 5) - 5) / 24.0;
+					double na2Fx = a * naFx * (na + 1) * (3 * na + 11) / 24.0;
+					double na2Fy = a * naFy * (na + 1) * (3 * na + 11) / 24.0;
+					double na2Fz = a * naFz * (na + 1) * (3 * na + 11) / 24.0;
+					double na2Fxy = a * (naFx * naFy * (6 * na + 14) + naFxy * (3 * na * na + 14 * na + 11)) / 24.0;
+					double na2Fxz = a * (naFx * naFz * (6 * na + 14) + naFxz * (3 * na * na + 14 * na + 11)) / 24.0;
+					double na2Fyz = a * (naFy * naFz * (6 * na + 14) + naFyz * (3 * na * na + 14 * na + 11)) / 24.0;
+					double na2Fxyz = a * (naFx * naFy * naFz * 6 + (naFx * naFyz + naFy * naFxz + naFz * naFxy) * (6 * na + 14) + naFxyz * (3 * na * na + 14 * na + 11)) / 24.0;
+					double nb2 = b * ((nb + 1) * (nb + 1) * (nb + 5) - 5) / 24.0;
+					double nb2Fx = b * nbFx * (nb + 1) * (3 * nb + 11) / 24.0;
+					double nb2Fy = b * nbFy * (nb + 1) * (3 * nb + 11) / 24.0;
+					double nb2Fz = b * nbFz * (nb + 1) * (3 * nb + 11) / 24.0;
+					double nb2Fxy = b * (nbFx * nbFy * (6 * nb + 14) + nbFxy * (3 * nb * nb + 14 * nb + 11)) / 24.0;
+					double nb2Fxz = b * (nbFx * nbFz * (6 * nb + 14) + nbFxz * (3 * nb * nb + 14 * nb + 11)) / 24.0;
+					double nb2Fyz = b * (nbFy * nbFz * (6 * nb + 14) + nbFyz * (3 * nb * nb + 14 * nb + 11)) / 24.0;
+					double nb2Fxyz = b * (nbFx * nbFy * nbFz * 6 + (nbFx * nbFyz + nbFy * nbFxz + nbFz * nbFxy) * (6 * nb + 14) + nbFxyz * (3 * nb * nb + 14 * nb + 11)) / 24.0;
 					
 					//Interpolate between them using another noise.
 					double noise = noiseMainValues[i * D3C1.STEP + D3C1.F] * .5 + .5;
