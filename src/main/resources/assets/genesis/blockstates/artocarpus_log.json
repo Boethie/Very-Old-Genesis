@@ -1,8 +1,0 @@
-{
-	"variants": {
-		"axis=y":  { "model": "genesis:artocarpus_log" },
-		"axis=z":   { "model": "genesis:artocarpus_log", "x": 90 },
-		"axis=x":   { "model": "genesis:artocarpus_log", "x": 90, "y": 90 },
-		"axis=none": { "model": "genesis:artocarpus_bark" }
-	}
-}

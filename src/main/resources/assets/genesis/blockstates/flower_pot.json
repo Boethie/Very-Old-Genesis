@@ -171,11 +171,6 @@
 					"plant": "genesis:blocks/sapling_ficus"
 				}
 			},
-			"artocarpus_sapling": {
-				"textures": {
-					"plant": "genesis:blocks/sapling_artocarpus"
-				}
-			},
 			"tropidogyne_sapling": {
 				"textures": {
 					"plant": "genesis:blocks/sapling_tropidogyne"

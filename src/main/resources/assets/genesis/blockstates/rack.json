@@ -73,12 +73,6 @@
 					"end": "genesis:blocks/log_ficus_top"
 				}
 			},
-			"artocarpus": {
-				"textures": {
-					"side": "genesis:blocks/log_artocarpus",
-					"end": "genesis:blocks/log_artocarpus_top"
-				}
-			},
 			"tropidogyne": {
 				"textures": {
 					"side": "genesis:blocks/log_tropidogyne",
