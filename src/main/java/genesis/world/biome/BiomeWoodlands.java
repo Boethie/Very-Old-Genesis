@@ -52,7 +52,8 @@ public class BiomeWoodlands extends BiomeGenesis
 		
 		addDecoration(WorldGenSplash.createHumusSplash(), 4.75F);
 		addDecoration(new WorldGenBoulders(0.166F, 0.333F, 1).setRadius(FloatRange.create(0.75F, 1.5F), FloatRange.create(0.25F, 0.75F)), 0.24F);
-		addDecoration(new WorldGenDung(EnumDung.CARNIVORE), 0.05F);
+		addDecoration(new WorldGenDung(EnumDung.CARNIVORE), 0.025F);
+		addDecoration(new WorldGenDung(EnumDung.HERBIVORE), 0.025F);
 		addDecoration(new WorldGenStemonitis().setPatchCount(14), 6);
 		addDecoration(new WorldGenGrowingPlant(GenesisBlocks.ZINGIBEROPSIS).setPatchCount(3), 0.15F);
 		addDecoration(new WorldGenAsplenium().setPatchCount(7), 10);
