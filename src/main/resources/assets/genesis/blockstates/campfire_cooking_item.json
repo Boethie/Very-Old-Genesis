@@ -123,12 +123,6 @@
 			{ "model": "genesis:campfire_cooking_billet", "y": 180, "textures": {"end": "genesis:blocks/log_ficus_top",  "side": "genesis:blocks/log_ficus"} },
 			{ "model": "genesis:campfire_cooking_billet", "y": 270, "textures": {"end": "genesis:blocks/log_ficus_top",  "side": "genesis:blocks/log_ficus"} }
 		],
-		"item=genesis__artocarpus_log": [
-			{ "model": "genesis:campfire_cooking_billet", "y": 0, "textures": {"end": "genesis:blocks/log_artocarpus_top",  "side": "genesis:blocks/log_artocarpus"} },
-			{ "model": "genesis:campfire_cooking_billet", "y": 90, "textures": {"end": "genesis:blocks/log_artocarpus_top",  "side": "genesis:blocks/log_artocarpus"} },
-			{ "model": "genesis:campfire_cooking_billet", "y": 180, "textures": {"end": "genesis:blocks/log_artocarpus_top",  "side": "genesis:blocks/log_artocarpus"} },
-			{ "model": "genesis:campfire_cooking_billet", "y": 270, "textures": {"end": "genesis:blocks/log_artocarpus_top",  "side": "genesis:blocks/log_artocarpus"} }
-		],
 		// Containers
 		"item=genesis__red_clay_bowl": [
 			{ "model": "genesis:campfire_red_clay_bowl", "y": 0 },
