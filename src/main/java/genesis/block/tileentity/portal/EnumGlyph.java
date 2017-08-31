@@ -11,16 +11,16 @@ import net.minecraft.item.ItemStack;
 public enum EnumGlyph implements IMetadata<EnumGlyph>
 {
 	NONE("none"),
-	VEGETAL("vegetal",
-			GenesisItems.MENHIR_ACTIVATORS.getStack(EnumMenhirActivator.ANCIENT_AMBER)),
-	ANIMAL("animal",
-			GenesisItems.MENHIR_ACTIVATORS.getStack(EnumMenhirActivator.FOSSILIZED_EGG)),
-	ETHER("ether",
-			GenesisItems.MENHIR_ACTIVATORS.getStack(EnumMenhirActivator.BROKEN_SPIRIT_MASK)),
-	COSMOS("cosmos",
-			GenesisItems.MENHIR_ACTIVATORS.getStack(EnumMenhirActivator.PRIMITIVE_DUST));
+	DINOSAUR("dinosaur",
+			GenesisItems.MENHIR_ACTIVATORS.getStack(EnumMenhirActivator.LEYLINE_FEED_CRYSTAL)),
+	SHELL("shell",
+			GenesisItems.MENHIR_ACTIVATORS.getStack(EnumMenhirActivator.LEYLINE_FEED_CRYSTAL)),
+	DRAGONFLY("dragonfly",
+			GenesisItems.MENHIR_ACTIVATORS.getStack(EnumMenhirActivator.LEYLINE_FEED_CRYSTAL)),
+	FERN("fern",
+			GenesisItems.MENHIR_ACTIVATORS.getStack(EnumMenhirActivator.LEYLINE_FEED_CRYSTAL));
 	
-	public static final EnumGlyph[] VALID = {VEGETAL, ANIMAL, ETHER, COSMOS};
+	public static final EnumGlyph[] VALID = {DINOSAUR, SHELL, DRAGONFLY, FERN};
 	
 	final String name;
 	final String unlocalizedName;

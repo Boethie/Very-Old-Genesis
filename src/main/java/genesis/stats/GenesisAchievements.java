@@ -36,7 +36,7 @@ public class GenesisAchievements
 	
 	public static void initAchievements()
 	{
-		menhirActivator = createAchievement("menhirActivator", 0, 0, GenesisItems.MENHIR_ACTIVATORS.getStack(EnumMenhirActivator.ANCIENT_AMBER), null, false);
+		menhirActivator = createAchievement("menhirActivator", 0, 0, GenesisItems.MENHIR_ACTIVATORS.getStack(EnumMenhirActivator.LEYLINE_FEED_CRYSTAL), null, false);
 		
 		enterGenesis = createAchievement("enter", 2, 0, new ItemStack(GenesisBlocks.PORTAL), menhirActivator, true);
 		

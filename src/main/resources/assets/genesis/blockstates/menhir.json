@@ -26,24 +26,24 @@
 					"glyph": "genesis:blocks/portal/glyph_none"
 				}
 			},
-			"vegetal": {
+			"dinosaur": {
 				"textures": {
-					"glyph": "genesis:blocks/portal/glyph_vegetal"
+					"glyph": "genesis:blocks/portal/glyph_dinosaur"
 				}
 			},
-			"animal": {
+			"shell": {
 				"textures": {
-					"glyph": "genesis:blocks/portal/glyph_animal"
+					"glyph": "genesis:blocks/portal/glyph_shell"
 				}
 			},
-			"ether": {
+			"dragonfly": {
 				"textures": {
-					"glyph": "genesis:blocks/portal/glyph_ether"
+					"glyph": "genesis:blocks/portal/glyph_dragonfly"
 				}
 			},
-			"cosmos": {
+			"fern": {
 				"textures": {
-					"glyph": "genesis:blocks/portal/glyph_cosmos"
+					"glyph": "genesis:blocks/portal/glyph_fern"
 				}
 			}
 		},
@@ -52,24 +52,24 @@
 			"false": {}
 		},
 		
-		"active=true,facing=east,glyph=vegetal,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_vegetal_active" } }],
-		"active=true,facing=south,glyph=vegetal,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_vegetal_active" } }],
-		"active=true,facing=west,glyph=vegetal,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_vegetal_active" } }],
-		"active=true,facing=north,glyph=vegetal,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_vegetal_active" } }],
+		"active=true,facing=east,glyph=dinosaur,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_dinosaur_active" } }],
+		"active=true,facing=south,glyph=dinosaur,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_dinosaur_active" } }],
+		"active=true,facing=west,glyph=dinosaur,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_dinosaur_active" } }],
+		"active=true,facing=north,glyph=dinosaur,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_dinosaur_active" } }]
 		
-		"active=true,facing=east,glyph=animal,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_animal_active" } }],
-		"active=true,facing=south,glyph=animal,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_animal_active" } }],
-		"active=true,facing=west,glyph=animal,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_animal_active" } }],
-		"active=true,facing=north,glyph=animal,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_animal_active" } }],
+		"active=true,facing=east,glyph=shell,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_shell_active" } }],
+		"active=true,facing=south,glyph=shell,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_shell_active" } }],
+		"active=true,facing=west,glyph=shell,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_shell_active" } }],
+		"active=true,facing=north,glyph=shell,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_shell_active" } }]
 		
-		"active=true,facing=east,glyph=ether,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_ether_active" } }],
-		"active=true,facing=south,glyph=ether,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_ether_active" } }],
-		"active=true,facing=west,glyph=ether,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_ether_active" } }],
-		"active=true,facing=north,glyph=ether,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_ether_active" } }],
+		"active=true,facing=east,glyph=dragonfly,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_dragonfly_active" } }],
+		"active=true,facing=south,glyph=dragonfly,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_dragonfly_active" } }],
+		"active=true,facing=west,glyph=dragonfly,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_dragonfly_active" } }],
+		"active=true,facing=north,glyph=dragonfly,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_dragonfly_active" } }]
 		
-		"active=true,facing=east,glyph=cosmos,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_cosmos_active" } }],
-		"active=true,facing=south,glyph=cosmos,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_cosmos_active" } }],
-		"active=true,facing=west,glyph=cosmos,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_cosmos_active" } }],
-		"active=true,facing=north,glyph=cosmos,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_cosmos_active" } }]
+		"active=true,facing=east,glyph=fern,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_fern_active" } }],
+		"active=true,facing=south,glyph=fern,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_fern_active" } }],
+		"active=true,facing=west,glyph=fern,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_fern_active" } }],
+		"active=true,facing=north,glyph=fern,variant=glyph": [{ "textures": { "glyph": "genesis:blocks/portal/glyph_fern_active" } }]
 	}
 }

@@ -112,7 +112,7 @@ public class WorldGenMenhirActivators implements IWorldGenerator
 	{
 		BlockPos chunkPos = new BlockPos(chunkX << 4, 0, chunkZ << 4);
 
-		int menhirHutChance = 300;
+		int menhirHutChance = 320;
 		if (random.nextInt(menhirHutChance) == 0 && world.getBiome(chunkPos.add(8, 0, 8)) instanceof BiomeTaiga)
 			generateHut(random, world, chunkPos);
 	}

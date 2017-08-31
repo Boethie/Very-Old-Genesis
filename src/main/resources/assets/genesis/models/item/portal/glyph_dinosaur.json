@@ -1,6 +1,6 @@
 {
 	"parent": "genesis:block/portal/menhir_glyph",
 	"textures": {
-		"glyph": "genesis:blocks/portal/glyph_vegetal"
+		"glyph": "genesis:blocks/portal/glyph_dinosaur"
 	}
 }

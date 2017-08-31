@@ -12,10 +12,10 @@ tile.genesis.container.storageBox.name=Caisse de stockage
 tile.genesis.container.rottenStorageBox.name=Caisse de stockage pourrie
 
 tile.genesis.menhir.glyph.none.name=Base du menhir
-tile.genesis.menhir.glyph.vegetal.name=Base du menhir avec pétroglyphe végétal
-tile.genesis.menhir.glyph.animal.name=Base du menhir avec pétroglyphe animal
-tile.genesis.menhir.glyph.ether.name=Base du menhir avec pétroglyphe d'éther
-tile.genesis.menhir.glyph.cosmos.name=Base du menhir avec pétroglyphe cosmos
+tile.genesis.menhir.glyph.dinosaur.name=Base du menhir avec pétroglyphe
+tile.genesis.menhir.glyph.shell.name=Base du menhir avec pétroglyphe
+tile.genesis.menhir.glyph.dragonfly.name=Base du menhir avec pétroglyphe
+tile.genesis.menhir.glyph.fern.name=Base du menhir avec pétroglyphe
 tile.genesis.menhir.receptacle.name=Réceptacle du menhir
 tile.genesis.menhir.top.name=Sommet du menhir
 
@@ -283,10 +283,7 @@ item.genesis.misc.ceramicBucketWater.name=Seau d'eau en céramique
 item.genesis.misc.ceramicBucketMilk.name=Seau de lait en céramique
 item.genesis.misc.bucketKomatiiticLava.name=Seau de lave komatiitique
 
-item.genesis.misc.menhirActivator.ancientAmber.name=Ambre ancien
-item.genesis.misc.menhirActivator.fossilizedEgg.name=Œuf fossilisé
-item.genesis.misc.menhirActivator.brokenSpiritMask.name=Masque d'esprit brisé
-item.genesis.misc.menhirActivator.primitiveDust.name=Poussière pritimive
+item.genesis.misc.menhirActivator.leylineFeedCrystal.name=Cristal d'alimentation tellurique
 
 #Food
 item.genesis.seed.araucarioxylon.name=Graines d'Araucarioxylon

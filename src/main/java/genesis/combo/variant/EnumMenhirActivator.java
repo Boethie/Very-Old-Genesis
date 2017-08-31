@@ -2,10 +2,7 @@ package genesis.combo.variant;
 
 public enum EnumMenhirActivator implements IMetadata<EnumMenhirActivator>
 {
-	ANCIENT_AMBER("ancient_amber", "ancientAmber", true),
-	FOSSILIZED_EGG("fossilized_egg", "fossilizedEgg", true),
-	BROKEN_SPIRIT_MASK("broken_spirit_mask", "brokenSpiritMask", true),
-	PRIMITIVE_DUST("primitive_dust", "primitiveDust", true);
+	LEYLINE_FEED_CRYSTAL("leyline_feed_crystal", "leylineFeedCrystal", true);
 	
 	final String name;
 	final String unlocalizedName;

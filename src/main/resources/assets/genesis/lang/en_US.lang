@@ -12,10 +12,10 @@ tile.genesis.container.storageBox.name=Storage Box
 tile.genesis.container.rottenStorageBox.name=Rotten Storage Box
 
 tile.genesis.menhir.glyph.none.name=Menhir Base
-tile.genesis.menhir.glyph.vegetal.name=Menhir Base with Vegetal Petroglyph
-tile.genesis.menhir.glyph.animal.name=Menhir Base with Animal Petroglyph
-tile.genesis.menhir.glyph.ether.name=Menhir Base with Ether Petroglyph
-tile.genesis.menhir.glyph.cosmos.name=Menhir Base with Cosmos Petroglyph
+tile.genesis.menhir.glyph.dinosaur.name=Menhir Base with Petroglyph
+tile.genesis.menhir.glyph.shell.name=Menhir Base with Petroglyph
+tile.genesis.menhir.glyph.dragonfly.name=Menhir Base with Petroglyph
+tile.genesis.menhir.glyph.fern.name=Menhir Base with Petroglyph
 tile.genesis.menhir.receptacle.name=Menhir Receptacle
 tile.genesis.menhir.top.name=Menhir Top
 
@@ -284,10 +284,7 @@ item.genesis.misc.ceramicBucketWater.name=Ceramic Water Bucket
 item.genesis.misc.ceramicBucketMilk.name=Ceramic Milk Bucket
 item.genesis.misc.bucketKomatiiticLava.name=Komatiitic Lava Bucket
 
-item.genesis.misc.menhirActivator.ancientAmber.name=Ancient Amber
-item.genesis.misc.menhirActivator.fossilizedEgg.name=Fossilized Egg
-item.genesis.misc.menhirActivator.brokenSpiritMask.name=Broken Spirit Mask
-item.genesis.misc.menhirActivator.primitiveDust.name=Primitive Dust
+item.genesis.misc.menhirActivator.leylineFeedCrystal.name=Leyline Feed Crystal
 
 #Food
 item.genesis.seed.araucarioxylon.name=Araucarioxylon Seeds
