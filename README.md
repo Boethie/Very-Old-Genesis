@@ -36,16 +36,13 @@ Genesis still full of many secrets that you will discover during your adventure.
 
 ### Credits
 ###### Project Manager
-[Benjamin "Anaghold" Beaulieu](https://github.com/Anaghold) ~ Master of the College of Winternest, I am passionate about the world of plants, fungal and animal of the geological era. Child, I dreamed of a portal to the world of dinosaurs to meet my favorite animal- the Brachiosaurus. With Minecraft, I can now make this dream less utopian and it is as if I had returned to childhood. Now I'm looking forward to present you this wonderful little world, which is Genesis. My inspiration comes from the forests, hills and rivers of my village, books of my childhood, exchange ideas and work of my comrades. Perfectionist, I try to make things elegant, simple, neat and original.
+[Benjamin "Anaghold" Beaulieu](https://github.com/Anaghold)
 
 ###### Programmers
-[Paul "Winter_Grave" Monge](https://github.com/WinterGrave) ~ Player, Youtuber and Modder. I like to experiment and learn in the process. I work as a software developer.
+[Paul "Winter_Grave" Monge](https://github.com/WinterGrave)
 
-###### Artists
-[Tjardo](http://www.planetminecraft.com/member/tjardo/) ~ Basically a teamplayer with a creative output. I draw my inspiritation from nature, books and even videogames. Creating content is what I love to do most. Currently I have made multiple resourcepacks for minecraft with the goal to give the player a different experience. I hope that the players who download the Genesis mod will have the same feeling: Realizing that it's not the basic vanilla minecraft world, but that's it’s a whole new explorable prehistoric world instead.
-
-[Sebastian "PixelTrixel" Luther](http://www.minecraftforum.net/members/xLotto22) ~ Biologically considered the most highly developed mammal sociologically a role player, philosophically a spirited nature. All this and more: child, teen and adult, students, academics and employee, friend and foe, sportsmen and lazy, scribe and draftsman, pedestrians, cyclists and motorists, user and developer.
+[KdotJPG] (https://github.com/KdotJPG)
 
 ###### Special thanks
 
-Zaggy1024, MrIbby, Vorquel, KdotJPG, Sn0w, Orthonga, ZeeCount and Oursvince.
+Zaggy1024, MrIbby, Vorquel, Sn0w, tdriling, PixelTrixel and Peasant.
