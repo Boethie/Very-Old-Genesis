@@ -41,7 +41,7 @@ Genesis still full of many secrets that you will discover during your adventure.
 ###### Programmers
 [Paul "Winter_Grave" Monge](https://github.com/WinterGrave)
 
-[KdotJPG] (https://github.com/KdotJPG)
+[KdotJPG](https://github.com/KdotJPG)
 
 ###### Special thanks
 
