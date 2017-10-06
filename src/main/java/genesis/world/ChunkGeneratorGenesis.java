@@ -53,7 +53,7 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 
 	//Constants to adjust custom gen to match the scales of the vanilla gen
 	private static double HEIGHT_VARIATION_SCALE = 2.75;
-	private static double BASE_HEIGHT_SCALE = 0.54;//375;
+	private static double BASE_HEIGHT_SCALE = 0.5385;//375;
 	private static double BASE_HEIGHT_OFFSET = 0.0075;
 	private static final double VARIATION_PADDING = 27.0 / 140.0;
 	private static double HEIGHT_NOISE_WAVELENGTH_SCALE = 6.0;
