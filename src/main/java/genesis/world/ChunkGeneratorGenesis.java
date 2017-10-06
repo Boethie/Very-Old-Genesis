@@ -53,13 +53,13 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 
 	//Constants to adjust custom gen to match the scales of the vanilla gen
 	private static double HEIGHT_VARIATION_SCALE = 2.75;
-	private static double BASE_HEIGHT_SCALE = 0.4;//375;
+	private static double BASE_HEIGHT_SCALE = 0.54;//375;
 	private static double BASE_HEIGHT_OFFSET = 0.0075;
 	private static final double VARIATION_PADDING = 27.0 / 140.0;
 	private static double HEIGHT_NOISE_WAVELENGTH_SCALE = 6.0;
 	private static double BLEND_NOISE_WAVELENGTH_SCALE = 8.0;
 
-	//TODO remove this and put back static above
+	/*//TODO remove this and put back static above
 	static {
 		//Set this to the path to your file. It should have all the numbers in order like 2.75 0.4 0.0075 6.0 8.0 (separate lines for each # is OK too)
 		java.io.File f = new java.io.File("C:\\Users\\user\\Desktop\\Programming\\MCMods\\Genesis\\run\\saves\\conf_with_var.txt");
@@ -75,7 +75,7 @@ public class ChunkGeneratorGenesis implements IChunkGenerator
 		HEIGHT_NOISE_WAVELENGTH_SCALE = s.nextDouble();
 		BLEND_NOISE_WAVELENGTH_SCALE = s.nextDouble();
 		s.close();
-	}
+	}*/
 
 	//Too high will affect performance and the interpolator derivatives.
 	//Too low will not produce enough detail.
